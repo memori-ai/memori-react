@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Blob unchanged 1`] = `
+<div>
+  <div
+    class="memori-blob"
+  >
+    <div
+      class="mainDiv"
+    />
+    <div
+      class="mainDiv"
+    />
+    <div
+      class="mainDiv"
+    />
+    <div
+      class="mainDiv"
+    />
+    <div
+      class="mainDiv"
+    />
+  </div>
+</div>
+`;
+
+exports[`renders Blob with avatar unchanged 1`] = `
+<div>
+  <div
+    class="memori-blob"
+  >
+    <figure>
+      <img
+        alt=""
+        role="presentation"
+        src="/images/logo.png"
+      />
+    </figure>
+    <div
+      class="mainDiv"
+    />
+    <div
+      class="mainDiv"
+    />
+    <div
+      class="mainDiv"
+    />
+    <div
+      class="mainDiv"
+    />
+    <div
+      class="mainDiv"
+    />
+  </div>
+</div>
+`;

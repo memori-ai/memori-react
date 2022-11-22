@@ -1,0 +1,249 @@
+:root {
+    --memori-blob-x: -50%;
+    --memori-blob-y: -50%;
+}
+
+.mainDiv {
+    position: absolute;
+    display: flex;
+    width: 25vw;
+    height: 25vw;
+    align-items: center;
+    justify-content: center;
+    border-radius: 90% 95% 85% 105%;
+    animation: wobble calc(150ms * var(--memori-blob-t)) linear infinite;
+    background: #f0f;
+    box-shadow: 0 0 0.5em 0.2em #000 inset, 0 0 0.15em 0 #fff;
+    filter: hue-rotate(0deg);
+    font-size: 20vmin;
+    mix-blend-mode: screen;
+    transform: translate(var(--memori-blob-x, -50%), var(--memori-blob-y, -50%)) rotate(0deg);
+    /* stylelint-disable-next-line function-no-unknown */
+    transform-origin: var(-(--memori-blob-y)) var(-(--memori-blob-x));
+}
+
+@media screen and (max-height: 1280px) {
+    .mainDiv {
+        width: 25vw;
+        height: 25vw;
+    }
+}
+
+@media screen and (max-height: 850px) {
+    .mainDiv {
+        width: 25vw;
+        height: 25vw;
+    }
+}
+
+@media screen and (max-height: 750px) {
+    .mainDiv {
+        width: 20vw;
+        height: 20vw;
+    }
+}
+
+.mainDiv::after {
+    font-size: 1em;
+    white-space: nowrap;
+}
+
+.mainDiv:nth-of-type(1) {
+    --memori-blob-x: -53%;
+    --memori-blob-y: -53%;
+    --memori-blob-t: 37;
+}
+
+.mainDiv:nth-of-type(2) {
+    --memori-blob-x: -47%;
+    --memori-blob-y: -52%;
+    --memori-blob-t: 58;
+}
+
+.mainDiv:nth-of-type(3) {
+    --memori-blob-x: -45%;
+    --memori-blob-y: -50%;
+    --memori-blob-t: 46;
+}
+
+.mainDiv:nth-of-type(4) {
+    --memori-blob-x: -53%;
+    --memori-blob-y: -45%;
+    --memori-blob-t: 72;
+}
+
+.mainDiv:nth-of-type(5) {
+    --memori-blob-x: -55%;
+    --memori-blob-y: -45%;
+    --memori-blob-t: 62;
+}
+
+@keyframes wobble {
+    to {
+        filter: hue-rotate(360deg);
+        transform: translate(var(--memori-blob-x), var(--memori-blob-y)) rotate(360deg);
+    }
+}
+
+
+.memori-blob {
+    position: relative;
+    z-index: 100;
+    top: 25%;
+}
+
+.memori-blob figure {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    overflow: hidden;
+    width: 25vw;
+    height: 25vw;
+    align-items: center;
+    justify-content: center;
+    border-radius: 100%;
+    margin: 0;
+    transform: translate(-50%, -50%);
+}
+
+.memori-blob figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.memori-blob figure~.mainDiv {
+    opacity: 0.2;
+}
+
+@media (max-width: 768px) {
+    .memori-blob {
+        position: static;
+        display: flex;
+        width: 100%;
+        min-height: 120px;
+        align-items: center;
+        justify-content: center;
+        margin: 1.5rem 0 0.5rem;
+        text-align: center;
+    }
+
+    .memori-blob .mainDiv,
+    .memori-blob figure {
+        width: 120px;
+        height: 120px;
+    }
+
+    .memori-blob figure {
+        position: static;
+        transform: none;
+    }
+
+    .memori-blob .mainDiv:nth-of-type(1) {
+        --memori-blob-x: -5px;
+        --memori-blob-y: -5px;
+        --memori-blob-t: 37;
+    }
+
+    .memori-blob .mainDiv:nth-of-type(2) {
+        --memori-blob-x: -4px;
+        --memori-blob-y: -5px;
+        --memori-blob-t: 58;
+    }
+
+    .memori-blob .mainDiv:nth-of-type(3) {
+        --memori-blob-x: -3px;
+        --memori-blob-y: -2px;
+        --memori-blob-t: 46;
+    }
+
+    .memori-blob .mainDiv:nth-of-type(4) {
+        --memori-blob-x: -6px;
+        --memori-blob-y: -3px;
+        --memori-blob-t: 72;
+    }
+
+    .memori-blob .mainDiv:nth-of-type(5) {
+        --memori-blob-x: -6px;
+        --memori-blob-y: -3px;
+        --memori-blob-t: 62;
+    }
+}
+
+@media only screen and (max-height: 1080px) {
+    .memori-blob {
+        top: 30%;
+    }
+}
+
+@media only screen and (min-width: 1366px) and (min-height: 1024px) {
+    .memori-blob {
+        top: 30%;
+        left: 25%;
+    }
+}
+
+@media only screen and (min-width: 1740px) {
+    .memori-blob {
+        top: 30%;
+    }
+}
+
+@media only screen and (min-width: 2160px) {
+    .memori-blob {
+        top: 35%;
+    }
+}
+
+.memori-blob-container {
+    width: 100%;
+}
+
+@media (min-width: 870px) {
+    .memori-blob-container {
+        position: relative;
+        top: 50%;
+        width: 100%;
+        margin-bottom: auto;
+    }
+
+    .memori-blob {
+        top: 50%;
+        left: 50%;
+        width: 70%;
+        max-width: 300px;
+        height: 70%;
+        max-height: 300px;
+    }
+
+    .memori-blob figure {
+        width: 100%;
+        height: auto;
+    }
+
+    .memori-blob .mainDiv {
+        overflow: hidden;
+        width: 100%;
+        height: auto;
+        padding-top: 100%;
+    }
+}
+
+@media (max-width: 870px) {
+    .memori-blob-container {
+        position: static;
+        display: none;
+        width: 100%;
+    }
+
+    .memori-blob {
+        position: relative;
+    }
+}
+
+@media (max-width: 480px) {
+    .memori-blob-container {
+        display: none;
+    }
+}
