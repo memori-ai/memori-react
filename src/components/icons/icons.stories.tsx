@@ -11,15 +11,16 @@ interface IconProps {
 }
 
 const IconShowcaseItem = ({ iconName, ...iconProps }: Props & IconProps) => {
-  const Icon = require(`../src/components/icons/${iconName}`).default;
+  const Icon = require(`./${iconName}`).default;
   return <Icon {...iconProps} />;
 };
 
 const IconsShowcase = (iconProps: IconProps) => {
-  const icons = require.context('../src/components/icons', false, /\.tsx$/);
+  const icons = require.context('./', false, /\.tsx$/);
   const iconNames = icons
     .keys()
-    .map(key => key.replace('./', '').replace('.tsx', ''));
+    .map(key => key.replace('./', '').replace('.tsx', ''))
+    .filter(name => !name.includes('stories'));
   return (
     <div
       style={{
