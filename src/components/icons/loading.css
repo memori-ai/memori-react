@@ -1,14 +1,14 @@
 .memori-loading-icon {
-	display: inline-block;
-	animation: memori-loading 1s infinite linear;
+    display: inline-block;
+    animation: memori-loading 1s infinite linear;
 }
 
 @keyframes memori-loading {
-	0% {
-		transform: rotate(0deg);
-	}
+    0% {
+        transform: rotate(0deg);
+    }
 
-	100% {
-		transform: rotate(360deg);
-	}
+    100% {
+        transform: rotate(360deg);
+    }
 }

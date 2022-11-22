@@ -16,7 +16,13 @@ import type {
   SpeechConfig,
   SpeechSynthesizer,
 } from 'microsoft-cognitiveservices-speech-sdk';
-import React, { useState, useEffect, useCallback, CSSProperties, useRef } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  CSSProperties,
+  useRef,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
 

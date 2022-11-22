@@ -19,7 +19,7 @@ const IconsShowcase = (iconProps: IconProps) => {
   const icons = require.context('../src/components/icons', false, /\.tsx$/);
   const iconNames = icons
     .keys()
-    .map(key => key.replace('./', '').replace('.tsx', ''));
+    .map((key) => key.replace('./', '').replace('.tsx', ''));
   return (
     <div
       style={{
@@ -28,7 +28,7 @@ const IconsShowcase = (iconProps: IconProps) => {
         gridGap: '1rem',
       }}
     >
-      {iconNames.map(iconName => (
+      {iconNames.map((iconName) => (
         <div key={iconName}>
           <IconShowcaseItem iconName={iconName} {...iconProps} />
           <p>{iconName}</p>
@@ -55,7 +55,7 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<IconProps> = args => <IconsShowcase {...args} />;
+const Template: Story<IconProps> = (args) => <IconsShowcase {...args} />;
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
