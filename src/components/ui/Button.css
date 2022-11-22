@@ -1,0 +1,113 @@
+:root,
+#root {
+	--memori-primary: rgb(102, 103, 171);
+	--memori-primary-text: #fff;
+	--memori-button-radius: 5px;
+	--memori-button-padding: 0.5rem 1.5rem;
+	--memori-button-border-color: #d9d9d9;
+	--memori-button-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+}
+
+.memori-button {
+	display: inline-flex;
+	align-items: center;
+	background: none;
+	border: 1px solid var(--memori-button-border-color);
+	padding: 4px 15px;
+	border-radius: var(--memori-button-radius);
+	box-shadow: var(--memori-button-box-shadow);
+	transition: all .2s cubic-bezier(.645, .045, .355, 1);
+}
+
+.memori-button:hover {
+	box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02), 0 4px 8px rgba(0, 0, 0, 0.04);
+}
+
+.memori-button:hover {
+	cursor: pointer;
+}
+
+.memori-button:hover,
+.memori-button:focus {
+	border-color: var(--memori-primary);
+	color: var(--memori-primary);
+}
+
+.memori-button:focus {
+	outline-color: var(--memori-primary);
+}
+
+.memori-button:active {
+	box-shadow: inset var(--memori-button-box-shadow);
+}
+
+.memori-button--padded {
+	padding: var(--memori-button-padding);
+}
+
+.memori-button--primary {
+	background: var(--memori-primary);
+	color: var(--memori-primary-text);
+}
+
+.memori-button--primary:hover,
+.memori-button--primary:focus {
+	color: var(--memori-primary-text);
+}
+
+.memori-button--primary:active {
+	transform: scale(0.95);
+}
+
+.memori-button--outlined {
+	background: none;
+	color: var(--memori-primary);
+	border-color: var(--memori-primary);
+}
+
+.memori-button--outlined:hover,
+.memori-button--outlined:focus {
+	background-color: var(--memori-primary);
+	border-color: var(--memori-primary);
+	color: var(--memori-primary-text);
+}
+
+.memori-button--outlined:active {
+	transform: scale(0.95);
+}
+
+.memori-button--square {
+	border-radius: 0;
+}
+
+.memori-button--rounded {
+	border-radius: var(--memori-button-radius);
+}
+
+.memori-button--circle {
+	border-radius: 50%;
+	padding: .75em;
+	aspect-ratio: 1/1;
+}
+
+.memori-button--icon {
+	color: currentColor;
+	display: inline-flex;
+}
+
+.memori-button--icon svg {
+	fill: currentColor;
+	font-size: 1em;
+	line-height: 1;
+	width: 1.25em;
+	height: 1.25em;
+}
+
+.memori-button--with-icon .memori-button--icon {
+	margin-right: 0.5em;
+}
+
+.memori-button[disabled] {
+	opacity: 0.6;
+	cursor: not-allowed;
+}

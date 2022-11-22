@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Checkbox checked and disabled unchanged 1`] = `
+<div>
+  <label
+    class="memori-checkbox memori-checkbox--disabled"
+  >
+    <span
+      class="memori-checkbox--input-wrapper"
+    >
+      <input
+        checked=""
+        class="memori-checkbox--input"
+        disabled=""
+        type="checkbox"
+      />
+      <span
+        class="memori-checkbox--inner"
+      />
+    </span>
+    <span
+      class="memori-checkbox--text"
+    >
+      Check me
+    </span>
+  </label>
+</div>
+`;
+
+exports[`renders Checkbox checked unchanged 1`] = `
+<div>
+  <label
+    class="memori-checkbox"
+  >
+    <span
+      class="memori-checkbox--input-wrapper"
+    >
+      <input
+        checked=""
+        class="memori-checkbox--input"
+        type="checkbox"
+      />
+      <span
+        class="memori-checkbox--inner"
+      />
+    </span>
+    <span
+      class="memori-checkbox--text"
+    >
+      Check me
+    </span>
+  </label>
+</div>
+`;
+
+exports[`renders Checkbox disabled unchanged 1`] = `
+<div>
+  <label
+    class="memori-checkbox memori-checkbox--disabled"
+  >
+    <span
+      class="memori-checkbox--input-wrapper"
+    >
+      <input
+        class="memori-checkbox--input"
+        disabled=""
+        type="checkbox"
+      />
+      <span
+        class="memori-checkbox--inner"
+      />
+    </span>
+    <span
+      class="memori-checkbox--text"
+    >
+      Check me
+    </span>
+  </label>
+</div>
+`;
+
+exports[`renders Checkbox unchanged 1`] = `
+<div>
+  <label
+    class="memori-checkbox"
+  >
+    <span
+      class="memori-checkbox--input-wrapper"
+    >
+      <input
+        class="memori-checkbox--input"
+        type="checkbox"
+      />
+      <span
+        class="memori-checkbox--inner"
+      />
+    </span>
+    <span
+      class="memori-checkbox--text"
+    >
+      Check me
+    </span>
+  </label>
+</div>
+`;
