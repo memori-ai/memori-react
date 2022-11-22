@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders ModelViewer unchanged 1`] = `
+<div>
+  <div
+    class="model-viewer"
+  >
+    <script
+      src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"
+      type="module"
+    />
+    <model-viewer
+      alt=""
+      autoplay="true"
+      camera-controls="true"
+      disable-zoom="true"
+      ios-src=""
+      poster="https://assets.memori.ai/api/v2/asset/d8035229-08cf-42a7-a532-ab051df2603d.png"
+      shadow-intensity="1"
+      src="https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb"
+    />
+  </div>
+</div>
+`;
