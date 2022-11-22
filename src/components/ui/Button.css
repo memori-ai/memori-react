@@ -11,19 +11,16 @@
 .memori-button {
     display: inline-flex;
     align-items: center;
-    background: none;
-    border: 1px solid var(--memori-button-border-color);
     padding: 4px 15px;
+    border: 1px solid var(--memori-button-border-color);
     border-radius: var(--memori-button-radius);
+    background: none;
     box-shadow: var(--memori-button-box-shadow);
     transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
 .memori-button:hover {
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02), 0 4px 8px rgba(0, 0, 0, 0.04);
-}
-
-.memori-button:hover {
     cursor: pointer;
 }
 
@@ -60,15 +57,15 @@
 }
 
 .memori-button--outlined {
+    border-color: var(--memori-primary);
     background: none;
     color: var(--memori-primary);
-    border-color: var(--memori-primary);
 }
 
 .memori-button--outlined:hover,
 .memori-button--outlined:focus {
-    background-color: var(--memori-primary);
     border-color: var(--memori-primary);
+    background-color: var(--memori-primary);
     color: var(--memori-primary-text);
 }
 
@@ -85,22 +82,22 @@
 }
 
 .memori-button--circle {
-    border-radius: 50%;
     padding: 0.75em;
+    border-radius: 50%;
     aspect-ratio: 1/1;
 }
 
 .memori-button--icon {
-    color: currentColor;
     display: inline-flex;
+    color: currentColor;
 }
 
 .memori-button--icon svg {
+    width: 1.25em;
+    height: 1.25em;
     fill: currentColor;
     font-size: 1em;
     line-height: 1;
-    width: 1.25em;
-    height: 1.25em;
 }
 
 .memori-button--with-icon .memori-button--icon {
@@ -108,6 +105,6 @@
 }
 
 .memori-button[disabled] {
-    opacity: 0.6;
     cursor: not-allowed;
+    opacity: 0.6;
 }
