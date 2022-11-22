@@ -1,4 +1,5 @@
-import type {
+// Typings
+import {
   DialogState,
   Memori,
   Integration,
@@ -11,11 +12,13 @@ import type {
   Invitation,
   GamificationLevel,
 } from '@memori.ai/memori-api-client/dist/types';
-import type {
+import {
   SpeakerAudioDestination,
   SpeechConfig,
   SpeechSynthesizer,
 } from 'microsoft-cognitiveservices-speech-sdk';
+
+// Libraries
 import React, {
   useState,
   useEffect,
@@ -25,6 +28,9 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
+import invariant from 'tiny-invariant';
+import { AudioContext } from 'standardized-audio-context';
+import * as speechSdk from 'microsoft-cognitiveservices-speech-sdk';
 
 // UI
 import Notification from '../ui/Notification';
@@ -55,11 +61,7 @@ import { hasTouchscreen } from '../../helpers/utils';
 import { getResourceUrl } from '../../helpers/media';
 import { anonTag, chatLanguages } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
-import invariant from 'tiny-invariant';
-import { AudioContext } from 'standardized-audio-context';
 import { getGamificationLevel } from '../../helpers/statistics';
-
-import * as speechSdk from 'microsoft-cognitiveservices-speech-sdk';
 
 // Icons
 import Sound from '../icons/Sound';
