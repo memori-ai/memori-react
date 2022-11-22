@@ -15,7 +15,8 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests",
+    "test:ci": "tsdx test --passWithNoTests",
+    "test": "tsdx test --watch",
     "lint": "tsdx lint",
     "stylelint": "stylelint \"src/**/*.css\"",
     "prepare": "is-ci || husky install; tsdx build",
