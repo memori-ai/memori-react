@@ -1,6 +1,6 @@
 /** @type {import('jest').Config} */
 const config = {
-  verbose: true,
+  silent: true,
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
   },

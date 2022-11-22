@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Tooltip disabled unchanged 1`] = `
+<div>
+  <div
+    class="memori-tooltip memori-tooltip--disabled"
+  >
+    <div
+      class="memori-tooltip--content"
+    >
+      Here is some tooltip content but I am disabled
+    </div>
+    <div
+      class="memori-tooltip--trigger"
+    >
+      Hover me
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders Tooltip unchanged 1`] = `
+<div>
+  <div
+    class="memori-tooltip"
+  >
+    <div
+      class="memori-tooltip--content"
+    >
+      Here is some tooltip content
+    </div>
+    <div
+      class="memori-tooltip--trigger"
+    >
+      Hover me
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders Tooltip with jsx content unchanged 1`] = `
+<div>
+  <div
+    class="memori-tooltip"
+  >
+    <div
+      class="memori-tooltip--content"
+    >
+      <p>
+        Here we have some JSX, useful for 
+        <a
+          href="#"
+        >
+          links
+        </a>
+        , for example.
+      </p>
+    </div>
+    <div
+      class="memori-tooltip--trigger"
+    >
+      Hover me
+    </div>
+  </div>
+</div>
+`;

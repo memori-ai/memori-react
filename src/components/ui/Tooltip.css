@@ -1,0 +1,65 @@
+.memori-tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.memori-tooltip--content {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    display: none;
+    width: auto;
+    min-width: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 15px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    opacity: 0;
+    text-align: center;
+    transform: none;
+    transition: 0.3s 0.1s all ease;
+}
+
+.memori-tooltip.memori-tooltip--align-left .memori-tooltip--content {
+    right: 100%;
+    left: initial;
+    margin: initial;
+    margin-right: 15px;
+}
+
+.memori-tooltip:not(.memori-tooltip--disabled):hover .memori-tooltip--content {
+    display: block;
+    opacity: 1;
+    transform: translateY(-50%);
+}
+
+.memori-tooltip:not(.memori-tooltip--disabled):hover .memori-tooltip--content a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+
+.memori-tooltip .memori-tooltip--content::before {
+    position: absolute;
+    top: 50%;
+    left: -15px;
+    display: none;
+    border: 10px solid rgba(0, 0, 0, 0.8);
+    border-color: transparent rgba(0, 0, 0, 0.8) transparent transparent;
+    margin-left: -5px;
+    content: "";
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: .3s;
+}
+
+.memori-tooltip:not(.memori-tooltip--disabled):hover .memori-tooltip--content,
+.memori-tooltip:not(.memori-tooltip--disabled):hover .memori-tooltip--content::before {
+    display: block;
+    opacity: 1;
+}
+
+.memori-tooltip.memori-tooltip--disabled {
+    cursor: not-allowed;
+}
