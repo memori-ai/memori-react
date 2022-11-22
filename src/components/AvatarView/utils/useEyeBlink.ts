@@ -1,4 +1,4 @@
-import type { SkinnedMesh } from 'three';
+import { SkinnedMesh } from 'three';
 import { Nodes } from './utils';
 import { useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
@@ -16,7 +16,7 @@ const setNextBlink = () => {
 
 export default function useEyeBlink(
   enabled: boolean | undefined,
-  nodes: Nodes,
+  nodes: Nodes
 ) {
   useEffect(() => {
     if (!enabled) return;

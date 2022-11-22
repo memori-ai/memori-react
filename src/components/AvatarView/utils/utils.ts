@@ -1,4 +1,4 @@
-import type { Material, Object3D } from 'three';
+import { Material, Object3D } from 'three';
 import { LinearFilter } from 'three';
 
 export interface Nodes {
@@ -22,7 +22,7 @@ export const mapRange = (
   inMin: number,
   inMax: number,
   outMin: number,
-  outMax: number,
+  outMax: number
 ) => {
   value = clamp(value, inMin, inMax);
   return ((value - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;

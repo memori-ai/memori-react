@@ -1,5 +1,5 @@
-import type { Nodes } from './utils';
-import type { SkinnedMesh } from 'three';
+import { Nodes } from './utils';
+import { SkinnedMesh } from 'three';
 import { useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 
@@ -21,7 +21,7 @@ const setNextMouthOpen = () => {
 
 export default function useMouthSpeaking(
   speaking: boolean | undefined,
-  nodes: Nodes,
+  nodes: Nodes
 ) {
   useEffect(() => {
     if (!speaking) return;

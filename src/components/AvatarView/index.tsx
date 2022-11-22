@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react';
+import { CSSProperties } from 'react';
 import React, { Suspense } from 'react';
 import Avatar from './components/avatar';
 import Loader from './components/loader';

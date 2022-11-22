@@ -14,7 +14,11 @@ it('renders Tooltip with jsx content unchanged', () => {
     <Tooltip
       content={
         <p>
-          Here we have some JSX, useful for <a href="#">links</a>, for example.
+          Here we have some JSX, useful for
+          <a href="https://memori.ai" rel="noopener noreferrer" target="_blank">
+            links
+          </a>
+          , for example.
         </p>
       }
     >

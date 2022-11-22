@@ -1,4 +1,4 @@
-import type { Nodes } from './utils';
+import { Nodes } from './utils';
 import { Vector2 } from 'three';
 import { useEffect } from 'react';
 import { lerp, mapRange } from './utils';
@@ -26,7 +26,7 @@ const setResetFalse = () => {
 
 export default function useHeadMovement(
   enabled: boolean | undefined,
-  nodes: Nodes,
+  nodes: Nodes
 ) {
   const { gl } = useThree();
 
@@ -42,7 +42,7 @@ export default function useHeadMovement(
     };
   }, [gl.domElement, enabled]);
 
-  useFrame((state) => {
+  useFrame(state => {
     if (!enabled || !nodes?.Neck || !nodes?.Head) return;
 
     const cameraRotation = Math.abs(state.camera.rotation.z);

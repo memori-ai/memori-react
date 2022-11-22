@@ -33,7 +33,11 @@ export const WithJSXContent = Template.bind({});
 WithJSXContent.args = {
   content: (
     <p>
-      Here we have some JSX, useful for <a href="#">links</a>, for example.
+      Here we have some JSX, useful for{' '}
+      <a href="https://memori.ai" rel="noopener noreferrer" target="_blank">
+        links
+      </a>
+      , for example.
     </p>
   ),
   children: <span>Hover me</span>,
