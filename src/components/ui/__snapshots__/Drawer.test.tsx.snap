@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders Modal loading unchanged 1`] = `
+exports[`renders Drawer loading unchanged 1`] = `
 <div>
   <div
     style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
@@ -8,7 +8,7 @@ exports[`renders Modal loading unchanged 1`] = `
 </div>
 `;
 
-exports[`renders Modal non closable unchanged 1`] = `
+exports[`renders Drawer non closable unchanged 1`] = `
 <div>
   <div
     style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
@@ -16,7 +16,7 @@ exports[`renders Modal non closable unchanged 1`] = `
 </div>
 `;
 
-exports[`renders Modal open unchanged 1`] = `
+exports[`renders Drawer open unchanged 1`] = `
 <div>
   <div
     style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
@@ -24,9 +24,7 @@ exports[`renders Modal open unchanged 1`] = `
 </div>
 `;
 
-exports[`renders Modal unchanged 1`] = `<div />`;
-
-exports[`renders Modal with custom widths unchanged 1`] = `
+exports[`renders Drawer side left unchanged 1`] = `
 <div>
   <div
     style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
@@ -34,7 +32,9 @@ exports[`renders Modal with custom widths unchanged 1`] = `
 </div>
 `;
 
-exports[`renders Modal with description unchanged 1`] = `
+exports[`renders Drawer unchanged 1`] = `<div />`;
+
+exports[`renders Drawer with custom widths unchanged 1`] = `
 <div>
   <div
     style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
@@ -42,7 +42,7 @@ exports[`renders Modal with description unchanged 1`] = `
 </div>
 `;
 
-exports[`renders Modal with footer unchanged 1`] = `
+exports[`renders Drawer with description unchanged 1`] = `
 <div>
   <div
     style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
@@ -50,7 +50,15 @@ exports[`renders Modal with footer unchanged 1`] = `
 </div>
 `;
 
-exports[`renders Modal with title unchanged 1`] = `
+exports[`renders Drawer with footer unchanged 1`] = `
+<div>
+  <div
+    style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+  />
+</div>
+`;
+
+exports[`renders Drawer with title unchanged 1`] = `
 <div>
   <div
     style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"

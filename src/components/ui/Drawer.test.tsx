@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Modal from './Modal';
+import Drawer from './Drawer';
 import Button from './Button';
 
 const content = (
@@ -34,78 +34,93 @@ beforeEach(() => {
   }));
 });
 
-it('renders Modal unchanged', () => {
+it('renders Drawer unchanged', () => {
   const { container } = render(
-    <Modal open={false} onClose={jest.fn()}>
+    <Drawer open={false} onClose={jest.fn()}>
       {content}
-    </Modal>
+    </Drawer>
   );
   expect(container).toMatchSnapshot();
 });
 
-it('renders Modal open unchanged', () => {
+it('renders Drawer open unchanged', () => {
   const { container } = render(
-    <Modal open={true} onClose={jest.fn()}>
+    <Drawer open={true} onClose={jest.fn()}>
       {content}
-    </Modal>
+    </Drawer>
   );
   expect(container).toMatchSnapshot();
 });
 
-it('renders Modal with title unchanged', () => {
+it('renders Drawer with title unchanged', () => {
   const { container } = render(
-    <Modal open={true} onClose={jest.fn()} title="Lorem ipsum">
+    <Drawer open={true} onClose={jest.fn()} title="Lorem ipsum">
       {content}
-    </Modal>
+    </Drawer>
   );
   expect(container).toMatchSnapshot();
 });
 
-it('renders Modal with description unchanged', () => {
+it('renders Drawer with description unchanged', () => {
   const { container } = render(
-    <Modal
+    <Drawer
       open={true}
       onClose={jest.fn()}
       description="Lorem ipsum dolor sit amet"
     >
       {content}
-    </Modal>
+    </Drawer>
   );
   expect(container).toMatchSnapshot();
 });
 
-it('renders Modal loading unchanged', () => {
+it('renders Drawer loading unchanged', () => {
   const { container } = render(
-    <Modal open={true} onClose={jest.fn()} loading>
+    <Drawer open={true} onClose={jest.fn()} loading>
       {content}
-    </Modal>
+    </Drawer>
   );
   expect(container).toMatchSnapshot();
 });
 
-it('renders Modal with footer unchanged', () => {
+it('renders Drawer with footer unchanged', () => {
   const { container } = render(
-    <Modal open={true} onClose={jest.fn()} footer={footer}>
+    <Drawer open={true} onClose={jest.fn()} footer={footer}>
       {content}
-    </Modal>
+    </Drawer>
   );
   expect(container).toMatchSnapshot();
 });
 
-it('renders Modal non closable unchanged', () => {
+it('renders Drawer non closable unchanged', () => {
   const { container } = render(
-    <Modal open={true} onClose={jest.fn()} closable={false}>
+    <Drawer open={true} onClose={jest.fn()} closable={false}>
       {content}
-    </Modal>
+    </Drawer>
   );
   expect(container).toMatchSnapshot();
 });
 
-it('renders Modal with custom widths unchanged', () => {
+it('renders Drawer side left unchanged', () => {
   const { container } = render(
-    <Modal open={true} onClose={jest.fn()} width="100%" widthMd="90%">
+    <Drawer open={true} onClose={jest.fn()} side="left">
       {content}
-    </Modal>
+    </Drawer>
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders Drawer with custom widths unchanged', () => {
+  const { container } = render(
+    <Drawer
+      open={true}
+      onClose={jest.fn()}
+      width="100%"
+      widthMd="90%"
+      widthLg="80%"
+    >
+      {content}
+    </Drawer>
   );
   expect(container).toMatchSnapshot();
 });

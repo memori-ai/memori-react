@@ -1,11 +1,11 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import Modal, { Props } from './Modal';
+import Drawer, { Props } from './Drawer';
 import Button from './Button';
 
 const meta: Meta = {
-  title: 'UI/Modal',
-  component: Modal,
+  title: 'UI/Drawer',
+  component: Drawer,
   argTypes: {
     title: {
       control: {
@@ -32,6 +32,12 @@ const meta: Meta = {
         type: 'text',
       },
     },
+    side: {
+      control: {
+        type: 'select',
+        options: ['left', 'right'],
+      },
+    },
   },
   parameters: {
     controls: { expanded: true },
@@ -51,6 +57,23 @@ const content = (
       <li>Quisque in ultrices lectus.</li>
     </ul>
     <p>Nulla at urna diam.</p>
+    <h3>Suspendisse a sodales nulla, sed semper nisi.</h3>
+    <p>Proin tincidunt enim in felis aliquet, a ultricies purus bibendum.</p>
+    <ul>
+      <li>Quisque in ultrices lectus.</li>
+      <li>Quisque in ultrices lectus.</li>
+      <li>Quisque in ultrices lectus.</li>
+    </ul>
+    <p>Nulla at urna diam.</p>
+    <p>Nulla at urna diam.</p>
+    <h3>Suspendisse a sodales nulla, sed semper nisi.</h3>
+    <p>Proin tincidunt enim in felis aliquet, a ultricies purus bibendum.</p>
+    <ul>
+      <li>Quisque in ultrices lectus.</li>
+      <li>Quisque in ultrices lectus.</li>
+      <li>Quisque in ultrices lectus.</li>
+    </ul>
+    <p>Nulla at urna diam.</p>
   </>
 );
 
@@ -61,22 +84,20 @@ const footer = (
   </>
 );
 
-const footerNonClosableModal = <Button primary>OK</Button>;
-
 const Template: Story<Props> = args => {
   const [isOpen, setIsOpen] = React.useState(!!args.open || false);
 
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Click me</Button>
-      <Modal
+      <Drawer
         {...args}
         open={isOpen}
-        onClose={args.closable ? () => setIsOpen(false) : () => {}}
+        onClose={() => setIsOpen(false)}
         footer={args.footer}
       >
         {content}
-      </Modal>
+      </Drawer>
     </>
   );
 };
@@ -87,10 +108,10 @@ const TemplateWithALotOfContent: Story<Props> = args => {
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Click me</Button>
-      <Modal
+      <Drawer
         {...args}
         open={isOpen}
-        onClose={args.closable ? () => setIsOpen(false) : () => {}}
+        onClose={() => setIsOpen(false)}
         footer={args.footer}
       >
         {content}
@@ -98,7 +119,7 @@ const TemplateWithALotOfContent: Story<Props> = args => {
         {content}
         {content}
         {content}
-      </Modal>
+      </Drawer>
     </>
   );
 };
@@ -108,62 +129,52 @@ const TemplateWithALotOfContent: Story<Props> = args => {
 export const Default = Template.bind({});
 Default.args = {
   open: false,
-  closable: true,
 };
 
 export const Open = Template.bind({});
 Open.args = {
   open: true,
-  closable: true,
 };
 
 export const WithTitle = Template.bind({});
 WithTitle.args = {
   open: true,
-  closable: true,
-  title: 'Modal Title',
+  title: 'Drawer Title',
 };
 
 export const WithTitleAndDescription = Template.bind({});
 WithTitleAndDescription.args = {
   open: true,
-  closable: true,
-  title: 'Modal Title',
-  description: 'Modal Description',
+  title: 'Drawer Title',
+  description: 'Drawer Description',
 };
 
 export const Loading = Template.bind({});
 Loading.args = {
   open: true,
-  closable: true,
-  title: 'Modal Title',
-  description: 'Modal Description',
+  title: 'Drawer Title',
+  description: 'Drawer Description',
   loading: true,
 };
 
 export const WithFooter = Template.bind({});
 WithFooter.args = {
   open: true,
-  closable: true,
-  title: 'Modal Title',
-  description: 'Modal Description',
+  title: 'Drawer Title',
+  description: 'Drawer Description',
   footer,
 };
 
-export const NonClosable = Template.bind({});
-NonClosable.args = {
+export const SideLeft = Template.bind({});
+SideLeft.args = {
   open: true,
-  title: 'Modal Title',
-  description: 'Modal Description',
-  footer: footerNonClosableModal,
-  closable: false,
+  side: 'left',
 };
 
 export const WithALotOfContent = TemplateWithALotOfContent.bind({});
 WithALotOfContent.args = {
   open: true,
-  closable: true,
-  title: 'Modal Title',
-  description: 'Modal Description',
+  title: 'Drawer Title',
+  description: 'Drawer Description',
   footer,
 };
