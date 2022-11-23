@@ -33,6 +33,11 @@ const meta: Meta = {
         type: 'boolean',
       },
     },
+    ghost: {
+      control: {
+        type: 'boolean',
+      },
+    },
     padded: {
       control: {
         type: 'boolean',
@@ -80,6 +85,12 @@ export const Outlined = Template.bind({});
 Outlined.args = {
   children: 'Click me',
   outlined: true,
+};
+
+export const Ghost = Template.bind({});
+Ghost.args = {
+  children: 'Click me',
+  ghost: true,
 };
 
 export const PrimaryOutlined = Template.bind({});

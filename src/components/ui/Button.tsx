@@ -7,6 +7,7 @@ export interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   children?: React.ReactChild;
   primary?: boolean;
   outlined?: boolean;
+  ghost?: boolean;
   padded?: boolean;
   icon?: React.ReactNode;
   shape?: 'square' | 'rounded' | 'circle';
@@ -18,6 +19,7 @@ export interface Props extends React.HTMLAttributes<HTMLButtonElement> {
 const Button: FC<Props> = ({
   primary = false,
   outlined = false,
+  ghost = false,
   padded = true,
   shape = 'rounded',
   danger = false,
@@ -33,6 +35,7 @@ const Button: FC<Props> = ({
     className={cx(props.className, 'memori-button', {
       'memori-button--primary': primary,
       'memori-button--outlined': outlined,
+      'memori-button--ghost': ghost,
       'memori-button--square': shape === 'square',
       'memori-button--rounded': shape === 'rounded',
       'memori-button--circle': shape === 'circle',

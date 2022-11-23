@@ -16,6 +16,8 @@
     border-radius: var(--memori-button-radius);
     background: none;
     box-shadow: var(--memori-button-box-shadow);
+    font-family: 'Exo 2', sans-serif;
+    font-size: 14px;
     transition: all 0.2s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
 
@@ -71,6 +73,24 @@
 
 .memori-button--outlined:active {
     transform: scale(0.95);
+}
+
+.memori-button--ghost {
+    border: 1px solid transparent;
+    background: none;
+    box-shadow: none;
+}
+
+.memori-button--ghost:hover,
+.memori-button--ghost:focus {
+    border-color: transparent;
+    background: rgba(0, 0, 0, 0.04);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02), 0 4px 8px rgba(0, 0, 0, 0.04);
+    color: inherit;
+}
+
+.memori-button--ghost:focus {
+    border: 1px solid var(--memori-primary);
 }
 
 .memori-button--square {
