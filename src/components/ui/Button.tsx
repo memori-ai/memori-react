@@ -3,7 +3,7 @@ import cx from 'classnames';
 import Loading from '../icons/Loading';
 import './Button.css';
 
-export interface Props extends React.HTMLAttributes<HTMLButtonElement> {
+export interface Props {
   children?: React.ReactChild;
   primary?: boolean;
   outlined?: boolean;
@@ -14,6 +14,9 @@ export interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   danger?: boolean;
   loading?: boolean;
   disabled?: boolean;
+  className?: string;
+  htmlType?: 'button' | 'submit' | 'reset';
+  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const Button: FC<Props> = ({
@@ -26,13 +29,16 @@ const Button: FC<Props> = ({
   loading = false,
   disabled = false,
   icon,
+  className,
+  htmlType,
+  onClick,
   children,
-  ...props
 }) => (
   <button
-    {...props}
+    type={htmlType}
+    onClick={onClick}
     disabled={loading || disabled}
-    className={cx(props.className, 'memori-button', {
+    className={cx(className, 'memori-button', {
       'memori-button--primary': primary,
       'memori-button--outlined': outlined,
       'memori-button--ghost': ghost,

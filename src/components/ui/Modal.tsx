@@ -32,7 +32,7 @@ const Modal: FC<Props> = ({
   loading = false,
   closable = true,
   width = '100%',
-  widthMd = '80%',
+  widthMd = '100%',
 }: Props) => (
   <Transition appear show={open} as={React.Fragment}>
     <Dialog
