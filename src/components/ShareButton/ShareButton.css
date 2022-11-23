@@ -1,0 +1,51 @@
+.memori-share-button {
+    position: relative;
+    display: inline-block;
+}
+
+.memori-share-button--button {
+    cursor: pointer;
+}
+
+.memori-share-button--overlay {
+    position: absolute;
+    right: auto;
+    left: 0;
+    display: flex;
+    min-width: 10rem;
+    flex-direction: column;
+    padding: 0.5rem 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.375rem;
+    margin: 0;
+    margin-top: 0.5rem;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+    list-style: none;
+    outline: none;
+    transform-origin: top right;
+}
+
+.memori-share-button.memori-share-button--align-left .memori-share-button--overlay {
+    right: 0;
+    left: auto;
+    transform-origin: top left;
+}
+
+.memori-share-button--li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.memori-share-button--link {
+    width: 100%;
+    color: inherit;
+    text-align: center;
+    text-decoration: none;
+}
+
+.memori-share-button--li-qr-code {
+    margin-top: 0.5rem;
+    text-align: center;
+}
