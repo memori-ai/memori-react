@@ -25,8 +25,8 @@ const IconsShowcase = (iconProps: IconProps) => {
     <div
       style={{
         display: 'grid',
-        gridTemplateColumns: 'repeat(5, 1fr)',
-        gridGap: '1rem',
+        gridTemplateColumns: 'repeat(7, 1fr)',
+        gridGap: '3rem',
       }}
     >
       {iconNames.map(iconName => (
