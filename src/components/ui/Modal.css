@@ -1,0 +1,61 @@
+.memori-modal {
+    position: relative;
+    z-index: 60;
+}
+
+.memori-modal--backdrop {
+    position: fixed;
+    z-index: 40;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.memori-modal--container {
+    position: fixed;
+    z-index: 50;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.memori-modal--panel {
+    position: relative;
+    max-width: 100%;
+    padding: 1.5rem;
+    border-radius: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color: #fff;
+    font-family: 'Exo 2', sans-serif;
+}
+
+@media (min-width: 768px) {
+    .memori-modal--panel {
+        max-width: 80%;
+        padding: 2rem 3rem;
+    }
+}
+
+.memori-modal--footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1.5rem;
+}
+
+.memori-modal--footer button+button {
+    margin-left: 0.5em;
+}
+
+.memori-modal--close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0.5rem;
+}

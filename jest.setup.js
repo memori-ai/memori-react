@@ -25,3 +25,12 @@ jest.mock('react-i18next', () => ({
   i18n,
   withTranslation: () => Component => props => <Component {...props} />,
 }));
+
+Object.defineProperty(window, 'IntersectionObserver', {
+  writable: true,
+  value: jest.fn().mockImplementation(() => ({
+    observe: jest.fn(),
+    unobserve: jest.fn(),
+    disconnect: jest.fn(),
+  })),
+});
