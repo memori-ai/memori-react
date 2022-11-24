@@ -79,7 +79,8 @@ export const RenderLinkItem = ({
         if (onLinkPreviewInfo && siteInfo) onLinkPreviewInfo(siteInfo);
       });
     }
-  }, [item?.url, link, baseUrl, onLinkPreviewInfo]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [item?.url, baseUrl, onLinkPreviewInfo]);
 
   const title = item.title && item.title.length > 0 ? item.title : link?.title;
   const description = link?.description;
@@ -92,7 +93,7 @@ export const RenderLinkItem = ({
         responsive: true,
       });
     }, 300);
-  }, [link?.description, item.mediumID]);
+  }, [description, item.mediumID]);
 
   return (
     <a

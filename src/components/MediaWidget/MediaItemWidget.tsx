@@ -256,6 +256,7 @@ const MediaItemWidget: React.FC<Props> = ({
     );
     executableScripts.forEach(s => {
       try {
+        // eslint-disable-next-line no-new-func
         new Function(s.content ?? '')();
       } catch (e) {
         console.error(e);
