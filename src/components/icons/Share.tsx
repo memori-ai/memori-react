@@ -1,6 +1,12 @@
 import React from 'react';
 
-const Link = ({ className, title }: { className?: string; title?: string }) => (
+const Share = ({
+  className,
+  title,
+}: {
+  className?: string;
+  title?: string;
+}) => (
   <svg
     {...(!title ? { 'aria-hidden': 'true' } : {})}
     focusable="false"
@@ -14,4 +20,4 @@ const Link = ({ className, title }: { className?: string; title?: string }) => (
   </svg>
 );
 
-export default Link;
+export default Share;
