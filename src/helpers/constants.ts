@@ -102,4 +102,10 @@ export const prismSyntaxLangs = [
     mimeType: 'text/x-ruby',
     monacoLang: 'ruby',
   },
+  {
+    name: 'sql',
+    lang: 'sql',
+    mimeType: 'text/x-sql',
+    monacoLang: 'sql',
+  },
 ];

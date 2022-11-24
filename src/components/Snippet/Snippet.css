@@ -1,0 +1,35 @@
+.memori-snippet--content {
+    position: relative;
+}
+
+button.memori-snippet--copy-button {
+    position: absolute;
+    top: 5px;
+    right: 2px;
+    bottom: 5px;
+    width: 30px !important;
+    height: calc(100% - 10px) !important;
+    padding: 0;
+    border-radius: 5px !important;
+    background: #333;
+}
+
+button.memori-snippet--copy-button:hover,
+button.memori-snippet--copy-button:focus {
+    background: #444;
+}
+
+button.memori-snippet--copy-button:active {
+    background: #666;
+}
+
+button.memori-snippet--copy-button svg {
+    color: #fff;
+}
+
+.memori-snippet--caption {
+    width: 100%;
+    margin-bottom: 1rem;
+    font-style: italic;
+    text-align: center;
+}
