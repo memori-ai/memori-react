@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`renders Button block unchanged 1`] = `
+<div>
+  <button
+    class="memori-button memori-button--rounded memori-button--padded memori-button--block"
+  >
+    Click me
+  </button>
+</div>
+`;
+
 exports[`renders Button circle unchanged 1`] = `
 <div>
   <button

@@ -43,6 +43,11 @@ const meta: Meta = {
         type: 'boolean',
       },
     },
+    block: {
+      control: {
+        type: 'boolean',
+      },
+    },
     danger: {
       control: {
         type: 'boolean',
@@ -104,6 +109,18 @@ export const Square = Template.bind({});
 Square.args = {
   children: 'Click me',
   shape: 'square',
+};
+
+export const Padded = Template.bind({});
+Padded.args = {
+  children: 'Click me',
+  padded: true,
+};
+
+export const Block = Template.bind({});
+Block.args = {
+  children: 'Click me',
+  block: true,
 };
 
 export const Circle = Template.bind({});

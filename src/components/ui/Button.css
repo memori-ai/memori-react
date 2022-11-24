@@ -45,6 +45,11 @@
     padding: var(--memori-button-padding);
 }
 
+.memori-button--block {
+    display: block;
+    width: 100%;
+}
+
 .memori-button--primary {
     background: var(--memori-primary);
     color: var(--memori-primary-text);

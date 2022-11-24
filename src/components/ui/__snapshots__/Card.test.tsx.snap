@@ -57,6 +57,9 @@ exports[`renders Card loading unchanged 1`] = `
         >
           Card title
         </h3>
+        <div
+          class="memori-card--children"
+        />
       </div>
       <div
         class="memori-spin--spinner"
@@ -89,7 +92,11 @@ exports[`renders Card unchanged 1`] = `
     >
       <div
         class="memori-card--content"
-      />
+      >
+        <div
+          class="memori-card--children"
+        />
+      </div>
       <div
         class="memori-spin--spinner"
       >
@@ -122,9 +129,13 @@ exports[`renders Card with children unchanged 1`] = `
       <div
         class="memori-card--content"
       >
-        <p>
-          Ciao
-        </p>
+        <div
+          class="memori-card--children"
+        >
+          <p>
+            Ciao
+          </p>
+        </div>
       </div>
       <div
         class="memori-spin--spinner"
@@ -150,7 +161,7 @@ exports[`renders Card with children unchanged 1`] = `
 exports[`renders Card with cover unchanged 1`] = `
 <div>
   <div
-    class="memori-card"
+    class="memori-card memori-card--with-cover"
   >
     <div
       class="memori-spin"
@@ -165,7 +176,11 @@ exports[`renders Card with cover unchanged 1`] = `
       </div>
       <div
         class="memori-card--content"
-      />
+      >
+        <div
+          class="memori-card--children"
+        />
+      </div>
       <div
         class="memori-spin--spinner"
       >
@@ -197,7 +212,11 @@ exports[`renders Card with custom CSS class unchanged 1`] = `
     >
       <div
         class="memori-card--content"
-      />
+      >
+        <div
+          class="memori-card--children"
+        />
+      </div>
       <div
         class="memori-spin--spinner"
       >
@@ -235,6 +254,9 @@ exports[`renders Card with description unchanged 1`] = `
         >
           Card description
         </p>
+        <div
+          class="memori-card--children"
+        />
       </div>
       <div
         class="memori-spin--spinner"
@@ -273,6 +295,9 @@ exports[`renders Card with title unchanged 1`] = `
         >
           Card title
         </h3>
+        <div
+          class="memori-card--children"
+        />
       </div>
       <div
         class="memori-spin--spinner"

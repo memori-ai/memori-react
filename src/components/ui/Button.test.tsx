@@ -28,6 +28,11 @@ it('renders Button padded unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders Button block unchanged', () => {
+  const { container } = render(<Button block>Click me</Button>);
+  expect(container).toMatchSnapshot();
+});
+
 it('renders Button with icon unchanged', () => {
   const { container } = render(<Button icon={<Loading />}>Click me</Button>);
   expect(container).toMatchSnapshot();

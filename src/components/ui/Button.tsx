@@ -9,6 +9,7 @@ export interface Props {
   outlined?: boolean;
   ghost?: boolean;
   padded?: boolean;
+  block?: boolean;
   icon?: React.ReactNode;
   shape?: 'square' | 'rounded' | 'circle';
   danger?: boolean;
@@ -17,6 +18,7 @@ export interface Props {
   className?: string;
   htmlType?: 'button' | 'submit' | 'reset';
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onTouchEnd?: (event: React.TouchEvent<HTMLButtonElement>) => void;
 }
 
 const Button: FC<Props> = ({
@@ -28,15 +30,18 @@ const Button: FC<Props> = ({
   danger = false,
   loading = false,
   disabled = false,
+  block = false,
   icon,
   className,
   htmlType,
   onClick,
+  onTouchEnd,
   children,
 }) => (
   <button
     type={htmlType}
     onClick={onClick}
+    onTouchEnd={onTouchEnd}
     disabled={loading || disabled}
     className={cx(className, 'memori-button', {
       'memori-button--primary': primary,
@@ -46,6 +51,7 @@ const Button: FC<Props> = ({
       'memori-button--rounded': shape === 'rounded',
       'memori-button--circle': shape === 'circle',
       'memori-button--padded': padded,
+      'memori-button--block': block,
       'memori-button--with-icon': (icon || loading) && children,
       'memori-button--icon-only': (icon || loading) && !children,
       'memori-button--danger': danger,
