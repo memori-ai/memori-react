@@ -1,0 +1,62 @@
+.memori-media-items--grid {
+    display: grid;
+    grid-auto-flow: dense;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.memori-media-item--card {
+    margin-bottom: 1rem;
+}
+
+.memori-media-item--image .memori-card--content {
+    padding: 0;
+}
+
+.memori-media-item .memori-card--cover {
+    height: auto;
+}
+
+.memori-media-item .memori-card--cover audio,
+.memori-media-item .memori-card--cover video {
+    border-radius: 5px;
+}
+
+.memori-media-item--image .memori-card--cover {
+    height: auto;
+    background: transparent;
+}
+
+.memori-media-item--figure {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.memori-media-item--figure img {
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: contain;
+}
+
+.memori-media-item--figure-caption {
+    padding: 0.5rem 1rem;
+    margin: 0.5rem 0;
+    color: #666;
+    font-size: 0.875rem;
+    font-style: italic;
+    font-weight: 400;
+    text-align: center;
+}
+
+a.memori-media-item--link {
+    text-decoration: none;
+}
+
+.memori-media-item--icon {
+    width: 50%;
+    height: 50%;
+}

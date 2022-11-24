@@ -2022,10 +2022,10 @@
   resolved "https://registry.yarnpkg.com/@mdx-js/util/-/util-1.6.22.tgz#219dfd89ae5b97a8801f015323ffa4b62f45718b"
   integrity sha512-H1rQc1ZOHANWBvPcW+JpGwr+juXSxM8Q8YCkm3GhZd8REu1fHR3z99CErO1p9pkcfcxZnMdIZdIsXkOHY0NilA==
 
-"@memori.ai/memori-api-client@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@memori.ai/memori-api-client/-/memori-api-client-0.3.1.tgz#2400df3c4d25577a0289a17d98483de069b2fee3"
-  integrity sha512-VJhFsZIKS5tmErd0l8FUH7mndAYBCb44rrWBzHIw5FbpD/yvdPBCfAaiblU5UuDNRdrP8QXCuI+4erq+mJO0iA==
+"@memori.ai/memori-api-client@0.3.2":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@memori.ai/memori-api-client/-/memori-api-client-0.3.2.tgz#25820425d493537a572b9e00281e49c056ee177a"
+  integrity sha512-aZwSb/3nFnR1xHsuh6kzF3iwGLXgjR1fcmfxSHsHpvGD+eSQZghn8WR6uvRFe8LpAZmPg2D9Iz67a6c/XyLT0Q==
   dependencies:
     cross-fetch "^3.1.5"
     microsoft-cognitiveservices-speech-sdk "1.22.0"
@@ -7207,6 +7207,11 @@ electron-to-chromium@^1.4.251:
   version "1.4.284"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.284.tgz#61046d1e4cab3a25238f6bf7413795270f125592"
   integrity sha512-M8WEXFuKXMYMVr45fo8mq0wUrrJHheiKZf6BArTKk9ZBYCKJEOU5H8cdWgDT+qCVZf7Na4lVUaZsA+h6uA9+PA==
+
+ellipsed@1.6.0:
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/ellipsed/-/ellipsed-1.6.0.tgz#ff1b6150b06d287aa420030a01fdc432fc2b2d6f"
+  integrity sha512-CDtV7XeU5hLbg0lx16yOsyTu/MMp7ZNFlUDzvkv8YRBpwb1AWymS5xm1E4fImjDV8X+f2Ccit94cqzzInPdgVQ==
 
 elliptic@^6.5.3:
   version "6.5.4"

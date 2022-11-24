@@ -1,4 +1,10 @@
-import { Memori, Message } from '@memori.ai/memori-api-client/dist/types';
+import {
+  Medium,
+  Memori,
+  Message,
+} from '@memori.ai/memori-api-client/dist/types';
+
+export const sessionID = '131165be-9d1a-42fb-a3ce-e8f86d40c88f';
 
 export const memori: Memori = {
   memoriID: '49d74e3a-faca-41ff-a87c-dd649aefe1b2',
@@ -74,3 +80,14 @@ export const history: Message[] = [
     text: 'Arrivederci.',
   },
 ];
+
+export const medium: Medium = {
+  mediumID: 'a196b513-d745-4121-8913-8f457b999add',
+  url: 'https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2',
+  mimeType: 'image/jpeg',
+  title: 'Game Cover',
+  creationTimestamp: '2022-05-03T08:57:30.584439Z',
+  creationName: 'fcfda4a7-bb19-41eb-8384-db0d22f825ec',
+  lastChangeTimestamp: '2022-05-03T14:19:09.932865Z',
+  lastChangeName: 'fcfda4a7-bb19-41eb-8384-db0d22f825ec',
+};

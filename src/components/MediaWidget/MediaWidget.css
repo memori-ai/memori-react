@@ -1,0 +1,121 @@
+.actionButton {
+    display: flex;
+    align-items: center;
+    padding: 10px 30px;
+    border-radius: 5px;
+    background-color: var(--ant-primary-color);
+    color: var(--ant-primary-text);
+    transition: all 0.5s ease;
+}
+
+.actionButton:hover {
+    border-color: var(--ant-primary-color) !important;
+    background-color: var(--ant-primary-color);
+    color: var(--light-gray) !important;
+    filter: brightness(1.08);
+}
+
+.actionButton:disabled {
+    background-color: lightgray !important;
+}
+
+.memori-media--hints {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-left: 0;
+    margin-top: 2rem;
+    list-style: none;
+}
+
+.memori-media--hints li {
+    margin-bottom: 0.5rem;
+}
+
+.memori-media--hints li+li {
+    margin-left: 0.5rem;
+}
+
+.ease-out {
+    transition-timing-function: ease-out;
+}
+
+.ease-in {
+    transition-timing-function: ease-in;
+}
+
+.duration-500 {
+    transition-duration: 500ms;
+}
+
+.duration-300 {
+    transition-duration: 300ms;
+}
+
+.duration-200 {
+    transition-duration: 200ms;
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+
+.opacity-100 {
+    opacity: 1;
+}
+
+.scale-95 {
+    transform: scale(0.95);
+}
+
+.scale-100 {
+    transform: scale(1);
+}
+
+.translate-y-1 {
+    transform: translateY(1em);
+}
+
+.translate-y-0 {
+    transform: translateY(0);
+}
+
+.delay-100 {
+    transition-delay: 100ms;
+}
+
+.delay-200 {
+    transition-delay: 200ms;
+}
+
+.delay-300 {
+    transition-delay: 300ms;
+}
+
+.delay-400 {
+    transition-delay: 400ms;
+}
+
+.delay-500 {
+    transition-delay: 500ms;
+}
+
+.delay-600 {
+    transition-delay: 600ms;
+}
+
+.delay-700 {
+    transition-delay: 700ms;
+}
+
+.delay-800 {
+    transition-delay: 800ms;
+}
+
+.delay-900 {
+    transition-delay: 900ms;
+}
+
+.delay-1000 {
+    transition-delay: 1000ms;
+}
