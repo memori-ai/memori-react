@@ -49,3 +49,11 @@ Disabled.args = {
   children: <span>Hover me</span>,
   disabled: true,
 };
+
+export const VisibleControlled = Template.bind({});
+VisibleControlled.args = {
+  content:
+    'Here is some tooltip content displayed by default as I am controlled',
+  children: <span>Hover me</span>,
+  visible: true,
+};

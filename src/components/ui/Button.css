@@ -11,6 +11,7 @@
 .memori-button {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     padding: 4px 15px;
     border: 1px solid var(--memori-button-border-color);
     border-radius: var(--memori-button-radius);

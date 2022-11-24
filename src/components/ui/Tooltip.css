@@ -28,18 +28,6 @@
     margin-right: 15px;
 }
 
-.memori-tooltip:not(.memori-tooltip--disabled):hover .memori-tooltip--content {
-    display: block;
-    opacity: 1;
-    transform: translateY(-50%);
-}
-
-.memori-tooltip:not(.memori-tooltip--disabled):hover .memori-tooltip--content a {
-    color: #fff;
-    text-decoration: underline;
-}
-
-
 .memori-tooltip .memori-tooltip--content::before {
     position: absolute;
     top: 50%;
@@ -54,10 +42,27 @@
     transition: .3s;
 }
 
-.memori-tooltip:not(.memori-tooltip--disabled):hover .memori-tooltip--content,
-.memori-tooltip:not(.memori-tooltip--disabled):hover .memori-tooltip--content::before {
+.memori-tooltip:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content,
+.memori-tooltip:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content::before {
     display: block;
     opacity: 1;
+}
+
+.memori-tooltip:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content,
+.memori-tooltip:not(.memori-tooltip--disabled):not(.memori-tooltip--visible):hover .memori-tooltip--content {
+    transform: translateY(-50%);
+}
+
+.memori-tooltip:not(.memori-tooltip--visible):not(.memori-tooltip--disabled):hover .memori-tooltip--content,
+.memori-tooltip:not(.memori-tooltip--visible):not(.memori-tooltip--disabled):hover .memori-tooltip--content::before {
+    display: block;
+    opacity: 1;
+}
+
+.memori-tooltip:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content a,
+.memori-tooltip:not(.memori-tooltip--disabled):not(.memori-tooltip--visible):hover .memori-tooltip--content a {
+    color: #fff;
+    text-decoration: underline;
 }
 
 .memori-tooltip.memori-tooltip--disabled {

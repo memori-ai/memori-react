@@ -36,3 +36,15 @@ it('renders Tooltip disabled unchanged', () => {
   );
   expect(container).toMatchSnapshot();
 });
+
+it('renders Tooltip visible unchanged', () => {
+  const { container } = render(
+    <Tooltip
+      content="Here is some tooltip content by default as I am controlled"
+      visible
+    >
+      Hover me
+    </Tooltip>
+  );
+  expect(container).toMatchSnapshot();
+});

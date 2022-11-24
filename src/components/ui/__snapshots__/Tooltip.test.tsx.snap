@@ -38,6 +38,25 @@ exports[`renders Tooltip unchanged 1`] = `
 </div>
 `;
 
+exports[`renders Tooltip visible unchanged 1`] = `
+<div>
+  <div
+    class="memori-tooltip memori-tooltip--visible"
+  >
+    <div
+      class="memori-tooltip--content"
+    >
+      Here is some tooltip content by default as I am controlled
+    </div>
+    <div
+      class="memori-tooltip--trigger"
+    >
+      Hover me
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renders Tooltip with jsx content unchanged 1`] = `
 <div>
   <div

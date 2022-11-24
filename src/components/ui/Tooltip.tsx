@@ -8,6 +8,7 @@ export interface Props {
   alignLeft?: boolean;
   disabled?: boolean;
   children: React.ReactNode;
+  visible?: boolean;
 }
 
 const Tooltip: FC<Props> = ({
@@ -15,12 +16,14 @@ const Tooltip: FC<Props> = ({
   className,
   alignLeft = false,
   disabled = false,
+  visible = false,
   children,
 }) => (
   <div
     className={cx('memori-tooltip', className, {
       'memori-tooltip--align-left': alignLeft,
       'memori-tooltip--disabled': disabled,
+      'memori-tooltip--visible': visible,
     })}
   >
     <div className="memori-tooltip--content">{content}</div>
