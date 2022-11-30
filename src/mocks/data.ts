@@ -2,13 +2,27 @@ import {
   Medium,
   Memori,
   Message,
+  Integration,
+  Tenant,
+  DialogState,
 } from '@memori.ai/memori-api-client/dist/types';
 
 export const sessionID = '131165be-9d1a-42fb-a3ce-e8f86d40c88f';
 
+export const tenant: Tenant = {
+  id: 'locahost:3000',
+  theme: 'twincreator',
+  config: {
+    name: 'Memori',
+    showNewUser: true,
+    requirePosition: false,
+    feedbackURL: 'https://form.asana.com/',
+  },
+};
+
 export const memori: Memori = {
-  memoriID: '49d74e3a-faca-41ff-a87c-dd649aefe1b2',
-  engineMemoriID: '12712c98-cbab-4537-95f5-4cd4bf924161',
+  memoriID: '25ced51c-3520-41af-8bbe-222d861b8e32',
+  engineMemoriID: '66b4e161-2431-4b21-9b70-d8c27de730ca',
   name: 'Memori',
   memoriConfigurationID: 'MemoriCloud-it_IT',
   description: 'Lorem ipsum.',
@@ -17,6 +31,7 @@ export const memori: Memori = {
   isReceiver: false,
   privacyType: 'PUBLIC',
   needsPosition: false,
+  culture: 'it-IT',
   categories: [],
   publishedInTheMetaverse: true,
   exposed: true,
@@ -36,50 +51,142 @@ export const memori: Memori = {
 export const history: Message[] = [
   {
     text: "Ciao, io sono test, c'è qualcosa che vorresti chiedermi?",
+    timestamp: '2021-03-01T12:00:00.000Z',
   },
   {
     text: 'Prova',
     fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
   },
   {
     text:
       "Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?",
+    timestamp: '2021-03-01T12:00:00.000Z',
   },
   {
     text: 'Come faccio a fare delle cose con questa cosa?',
     fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: 'Ecco qui come.',
+    media: [
+      {
+        mediumID: 'c6851968-5d4d-409a-ae75-f22ec077efcd',
+        url: 'https://memori.ai',
+        mimeType: 'text/html',
+        title: 'Link',
+      },
+    ],
+    timestamp: '2021-03-01T12:00:00.000Z',
+    contextVars: {
+      TEST: 'test',
+    },
+  },
+  {
+    text: 'Ah, grazie! Ciao!',
+    fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: 'Arrivederci.',
+    timestamp: '2021-03-01T12:00:00.000Z',
+    contextVars: {
+      TEST: 'test',
+    },
+  },
+];
+
+export const historyWithMedia: Message[] = [
+  {
+    text: "Ciao, io sono test, c'è qualcosa che vorresti chiedermi?",
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: 'Prova',
+    fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text:
+      "Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?",
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: 'Come faccio a fare delle cose con questa cosa?',
+    fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
   },
   {
     text: 'Ecco qui delle cose per te.',
     media: [
       {
         mediumID: 'c6851968-5d4d-409a-ae75-f22ec077efcd',
-        content: '',
-        mimeType: 'text/plain',
-        title: 'Properties',
-      },
-      {
-        mediumID: 'aa139b0c-3d78-411a-a4b5-88851208ab9c',
-        url: 'https://youtu.be/nFsljT1362s',
+        url: 'https://memori.ai/en',
         mimeType: 'text/html',
-        title: 'Arena di Verona - Nabucco - Va pensiero',
+        title: 'Link Memori Srl',
       },
       {
-        mediumID: 'aa139b0c-3d78-411a-a4b5-88851208ab9d',
-        url: 'https://api.lorem.space/image/game',
-        mimeType: 'image/jpeg',
-        title: 'Random game poster',
+        mediumID: 'c6851968-5d4d-409a-ae75-f22ec077efce',
+        url: 'https://rawmaterial.it/en',
+        mimeType: 'text/html',
+        title: 'Link RawMaterial',
       },
+      {
+        mediumID: '95226d7e-7bae-465e-8b80-995587bb5971',
+        mimeType: 'text/html',
+        title: 'Introducing Plone Remix | Vimeo',
+        url: 'https://vimeo.com/766468314',
+      },
+      {
+        mediumID: '95226d7e-7bae-465e-8b80-995587bb5969',
+        mimeType: 'text/html',
+        title: 'A sustainable web: is it possible? - Nicola Zambello | YouTube',
+        url: 'https://www.youtube.com/watch?v=feH26j3rBz8',
+      },
+      ...Array.from({ length: 3 }, (_, i) => ({
+        mediumID: `95226d7e-7bae-465e-8b80-995587bb597${i}`,
+        mimeType: 'image/png',
+        title: `Image ${i}`,
+        url: `https://picsum.photos/${i % 2 ? '200' : '300'}/${
+          i % 3 ? '300' : '200'
+        }?random=${i}`,
+      })),
     ],
+    timestamp: '2021-03-01T12:00:00.000Z',
   },
   {
     text: 'Ah, grazie! Ciao!',
     fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
   },
   {
     text: 'Arrivederci.',
+    timestamp: '2021-03-01T12:00:00.000Z',
   },
 ];
+
+export const dialogState: DialogState = {
+  state: 'R1',
+  previousState: 'I0',
+  stateName: 'WaitingForReceiverQuestion',
+  confidence: 1,
+  knownTags: {
+    '☠️': 'test',
+    '😎': 'Ciccio',
+  },
+  emission: "Ciao, io sono test, c'è qualcosa che vorresti chiedermi?",
+  hints: ['Va bene', 'No grazie'],
+  media: [],
+  acceptsTimeout: true,
+  acceptsAbort: false,
+  acceptsMedia: false,
+  acceptsDate: false,
+  acceptsPlace: false,
+  acceptsTag: false,
+  giverID: 'c832e2dc-403c-4baf-a3b7-2374e100dbcf',
+  contextVars: {},
+};
 
 export const medium: Medium = {
   mediumID: 'a196b513-d745-4121-8913-8f457b999add',
@@ -90,4 +197,18 @@ export const medium: Medium = {
   creationName: 'fcfda4a7-bb19-41eb-8384-db0d22f825ec',
   lastChangeTimestamp: '2022-05-03T14:19:09.932865Z',
   lastChangeName: 'fcfda4a7-bb19-41eb-8384-db0d22f825ec',
+};
+
+export const integration: Integration = {
+  integrationID: 'cb3c4776-7f0b-4f97-a773-c32a5d7a3bf1',
+  memoriID: '25ced51c-3520-41af-8bbe-222d861b8e32',
+  type: 'LANDING_EXPERIENCE',
+  state: 'NEW',
+  deviceEmails: [],
+  customData:
+    '{"textColor":"#2a2a2a","buttonBgColor":"#823ce1","buttonTextColor":"#ffffff","name":"Web","globalBackground":"https://assets.memori.ai/api/v2/asset/364e498c-11da-42d5-9e32-19e5d137d4b8.jpeg","blurBackground":true,"innerBgColor":"light","innerBgAlpha":0.8,"multilanguage":true,"avatar":"readyplayerme","avatarURL":"https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb#1669663599444"}',
+  resources: [],
+  publish: true,
+  creationTimestamp: '2022-06-11T14:13:45.685038Z',
+  lastChangeTimestamp: '2022-06-11T14:13:45.685038Z',
 };
