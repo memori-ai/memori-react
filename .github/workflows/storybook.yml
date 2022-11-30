@@ -8,16 +8,16 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: ⬇️ Checkout
         uses: actions/checkout@v2.3.1
 
-      - name: Install deps and build (with cache)
-        uses: bahmutov/npm-install@v1
+      - name: ⚒ Install deps
+        uses: yarn install --frozen-lockfile
 
-      - name: Build storybook
-        run: npm run build-storybook
+      - name: ⚙️ Build storybook
+        run: yarn build-storybook
 
-      - name: Deploy
+      - name: 🚀 Deploy
         uses: JamesIves/github-pages-deploy-action@3.6.2
         with:
           branch: gh-pages

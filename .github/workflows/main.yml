@@ -11,7 +11,7 @@ jobs:
         os: [ubuntu-latest, windows-latest, macOS-latest]
 
     steps:
-      - name: Checkout repo
+      - name: ⬇️ Checkout repo
         uses: actions/checkout@v2
 
       - name: Use Node ${{ matrix.node }}
@@ -19,14 +19,14 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Install deps and build (with cache)
-        uses: bahmutov/npm-install@v1
+      - name: ⚒ Install deps
+        uses: yarn install --frozen-lockfile
 
-      - name: Lint
+      - name: 🔎 Lint
         run: yarn lint
 
-      - name: Test
+      - name: 🧪 Test
         run: yarn test --ci --coverage --maxWorkers=2
 
-      - name: Build
+      - name: ⚙️ Build
         run: yarn build
