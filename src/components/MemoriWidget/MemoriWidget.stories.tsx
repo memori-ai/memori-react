@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { memori, integration, tenant, sessionID } from '../../mocks/data';
+import { memori, integration, tenant } from '../../mocks/data';
 import MemoriWidget, { Props } from './MemoriWidget';
 
 const meta: Meta = {
