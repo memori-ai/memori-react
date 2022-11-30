@@ -43,6 +43,7 @@
     "singleQuote": true,
     "trailingComma": "es5",
     "arrowParens": "avoid",
+    "endOfLine": "auto",
     "overrides": [
       {
         "files": "*.css",
@@ -67,7 +68,10 @@
     "plugins": [
       "jest",
       "jsx-a11y"
-    ]
+    ],
+    "rules": {
+      "endOfLine": "off"
+    }
   },
   "stylelint": {
     "extends": [
