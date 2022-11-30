@@ -73,6 +73,7 @@ const ExportHistoryButton = ({
               buttonClassName,
               {
                 'memori-button--disabled': disabled,
+                'memori-button--primary': !disabled,
               }
             )}
           >
