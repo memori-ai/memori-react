@@ -1579,7 +1579,7 @@ const MemoriWidget = ({
       meta.setAttribute('content', image);
       document.head.append(meta);
     }
-  }, [integrationConfig]);
+  }, [integrationConfig, memori.avatarURL, ogImage]);
 
   // X3 state - tag change
   const selectReceiverTag = async (tag: string) => {
