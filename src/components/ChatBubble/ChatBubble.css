@@ -1,0 +1,158 @@
+.memori-chat--bubble-container {
+    display: flex;
+    align-items: flex-end;
+    padding-right: 10px;
+    padding-left: 10px;
+    margin-bottom: 5px;
+}
+
+.memori-chat--bubble-initial {
+    width: 80%;
+    height: 1px;
+    flex-shrink: 0;
+    margin: 1rem auto;
+    background: #c5c6d1;
+}
+
+.memori-chat--bubble {
+    display: inline-flex;
+    max-width: 90%;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 16px;
+    border-radius: 16px 16px 16px 0;
+    margin: 10px auto 5px 10px;
+    margin-bottom: 5px;
+    background: var(--memori-chat-bubble-bg, #ffffff60);
+    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+    color: #141515;
+    line-height: 1.4em;
+}
+
+.memori-chat--bubble #wave {
+    position: relative;
+    width: 100px;
+    margin-right: auto;
+    margin-left: auto;
+    text-align: center;
+}
+
+.memori-chat--bubble #wave .dot {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 3px;
+    animation: 'wave' 1.5s linear infinite;
+    background: var(--memori-primary);
+}
+
+.memori-chat--bubble #wave .dot:nth-child(2) {
+    animation-delay: -1.3s;
+}
+
+.memori-chat--bubble #wave .dot:nth-child(3) {
+    animation-delay: -1.1s;
+}
+
+.memori-chat--bubble p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.memori-chat--bubble p+p {
+    margin-top: 0.5em;
+}
+
+.memori-chat--bubble.memori-chat--user-bubble {
+    border-radius: 16px 16px 0 16px;
+    margin: 10px 10px 5px auto;
+    background: var(--memori-primary);
+    box-shadow: 0 1px 6px 0 #d1d3de, 0 1px 3px 0 #c5c6d1;
+    color: var(--memori-primary-text);
+}
+
+.memori-chat--bubble-avatar {
+    display: flex;
+    overflow: hidden;
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #fff;
+    box-shadow: inset 0 0 0.25rem rgba(100, 100, 100, 0.2);
+}
+
+.memori-chat--bubble-avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.memori-chat--bubble-avatar svg {
+    color: #969696;
+    font-size: 1.5rem;
+}
+
+.transition {
+    transition-property: all;
+}
+
+.ease-in-out {
+    transition-timing-function: ease-in-out;
+}
+
+.duration-300 {
+    transition-duration: 300ms;
+}
+
+.scale-075 {
+    transform: scale(0.75);
+}
+
+.scale-1 {
+    transform: scale(1);
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+
+.opacity-1 {
+    opacity: 1;
+}
+
+.translate-x-15 {
+    transform: translateX(15px);
+}
+
+.translate-x--15 {
+    transform: translateX(-15px);
+}
+
+.translate-x-30 {
+    transform: translateX(30px);
+}
+
+.translate-x--30 {
+    transform: translateX(-30px);
+}
+
+.translate-x-0 {
+    transform: translateX(0);
+}
+
+@keyframes wave {
+
+    0%,
+    60%,
+    100% {
+        transform: initial;
+    }
+
+    30% {
+        transform: translateY(-10px);
+    }
+}
