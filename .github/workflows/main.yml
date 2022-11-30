@@ -20,7 +20,7 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: ⚒ Install deps
-        uses: yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile
 
       - name: 🔎 Lint
         run: yarn lint
