@@ -23,7 +23,8 @@ export const getTranslation = async (
   const isReservedKeyword = dialogKeywords.indexOf(text.toLowerCase()) > -1;
   const fromLanguage = isReservedKeyword ? 'IT' : from?.toUpperCase();
   const deeplResult = await fetch(
-    `${baseUrl || ''}/api/translate?text=${encodeURIComponent(
+    `${baseUrl ||
+      'https://app.twincreator.com'}/api/translate?text=${encodeURIComponent(
       text
     )}&target_lang=${to.toUpperCase()}${
       fromLanguage ? `&source_lang=${fromLanguage}` : ''

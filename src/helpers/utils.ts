@@ -15,7 +15,7 @@ export const hasTouchscreen = (): boolean => {
       hasTouchScreen = true; // deprecated, but good fallback
     } else {
       // Only as a last resort, fall back to user agent sniffing
-      var UA = navigator.userAgent;
+      var UA = (navigator as any)?.userAgent;
       hasTouchScreen =
         /\b(BlackBerry|webOS|iPhone|IEMobile)\b/i.test(UA) ||
         /\b(Android|Windows Phone|iPad|iPod)\b/i.test(UA);
@@ -31,6 +31,7 @@ export const iOS = (): boolean => {
     (navigator as any)?.userAgentData?.platform ||
     navigator?.platform ||
     'unknown';
+  let userAgent = (navigator as any)?.userAgent || 'unknown';
 
   let isIOS =
     [
@@ -42,7 +43,7 @@ export const iOS = (): boolean => {
       'iPod',
     ].includes(platform) ||
     // iPad on iOS 13 detection
-    (navigator.userAgent.includes('Mac') && 'ontouchend' in document);
+    (userAgent.includes('Mac') && 'ontouchend' in document);
 
   return isIOS;
 };
