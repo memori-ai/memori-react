@@ -40,8 +40,9 @@
 
 .memori-share-button--link {
     width: 100%;
+    justify-content: flex-start;
     color: inherit;
-    text-align: center;
+    text-align: left;
     text-decoration: none;
 }
 
