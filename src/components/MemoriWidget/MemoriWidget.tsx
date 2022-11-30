@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 // Typings
 import {
   DialogState,
@@ -1300,14 +1302,14 @@ const MemoriWidget = ({
 
           setListening(true);
           recognizer.recognized = (_s, e) => {
-            if (e.result.reason == speechSdk.ResultReason.RecognizedSpeech) {
+            if (e.result.reason === speechSdk.ResultReason.RecognizedSpeech) {
               setTranscript(e.result.text ?? '');
-            } else if (e.result.reason == speechSdk.ResultReason.NoMatch) {
+            } else if (e.result.reason === speechSdk.ResultReason.NoMatch) {
               console.debug('NOMATCH: Speech could not be recognized.');
             }
           };
           recognizer.canceled = (_s, e) => {
-            if (e.reason == speechSdk.CancellationReason.Error) {
+            if (e.reason === speechSdk.CancellationReason.Error) {
               console.debug(`"CANCELED: ErrorCode=${e.errorCode}`);
               console.debug(`"CANCELED: ErrorDetails=${e.errorDetails}`);
               console.debug(
