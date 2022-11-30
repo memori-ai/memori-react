@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+// FIXME: Remove these lines and work through linting issues
+/* eslint-disable react-hooks/exhaustive-deps */
 
 // Typings
 import {
@@ -716,6 +718,7 @@ const MemoriWidget = ({
         initialQuestion,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const changeTag = async (
     memoriId: string,
@@ -1222,6 +1225,7 @@ const MemoriWidget = ({
       '#chat-fieldset textarea'
     ) as HTMLTextAreaElement | null;
     if (textarea) textarea.focus();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDialogState?.emission]);
 
   /**
