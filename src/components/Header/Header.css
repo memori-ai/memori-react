@@ -1,0 +1,58 @@
+.memori-header {
+    position: relative;
+    z-index: 1;
+    width: calc(50% - 1rem);
+    padding: calc(var(--memori-inner-content-pad) / 4) calc(var(--memori-inner-content-pad) / 2);
+    border-radius: 10px;
+    margin-left: auto;
+    background-color: var(--memori-inner-bg, #fff);
+    text-align: right;
+}
+
+@media (max-width: 870px) {
+    .memori-header {
+        width: 100%;
+        margin-left: 0;
+    }
+}
+
+.memori-header--button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.memori-header--button+.memori-header--button {
+    margin-left: 0.25rem;
+}
+
+.memori-header--button[disabled] {
+    border: 0;
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.memori-header--button svg {
+    width: 1em;
+    height: 1em;
+    font-size: 1em;
+    line-height: 1;
+}
+
+.memori-header--position {
+    display: inline-block;
+}
+
+.memori-header--position .memori-header--position-placeName {
+    font-style: italic;
+}
+
+.memori-header--position .memori-header--button {
+    margin-right: 0.5rem;
+    margin-left: 0.5rem;
+}
+
+.memori-header .memori-share-button {
+    margin-left: 0.25rem;
+}
