@@ -184,6 +184,17 @@ exports[`renders Button with icon unchanged 1`] = `
 </div>
 `;
 
+exports[`renders Button with title unchanged 1`] = `
+<div>
+  <button
+    class="memori-button memori-button--rounded memori-button--padded"
+    title="Button title"
+  >
+    Click me
+  </button>
+</div>
+`;
+
 exports[`renders empty Button unchanged 1`] = `
 <div>
   <button

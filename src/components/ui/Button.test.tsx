@@ -58,6 +58,11 @@ it('renders Button disabled unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders Button with title unchanged', () => {
+  const { container } = render(<Button title="Button title">Click me</Button>);
+  expect(container).toMatchSnapshot();
+});
+
 it('renders Button square unchanged', () => {
   const { container } = render(<Button shape="square">Click me</Button>);
   expect(container).toMatchSnapshot();

@@ -4,7 +4,11 @@ import Loading from '../icons/Loading';
 import './Button.css';
 
 export interface Props {
-  children?: React.ReactChild;
+  children?:
+    | React.ReactChild
+    | React.ReactChild[]
+    | React.ReactNode
+    | JSX.Element;
   primary?: boolean;
   outlined?: boolean;
   ghost?: boolean;
@@ -16,6 +20,7 @@ export interface Props {
   loading?: boolean;
   disabled?: boolean;
   className?: string;
+  title?: string;
   htmlType?: 'button' | 'submit' | 'reset';
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onTouchEnd?: (event: React.TouchEvent<HTMLButtonElement>) => void;
@@ -33,6 +38,7 @@ const Button: FC<Props> = ({
   block = false,
   icon,
   className,
+  title,
   htmlType,
   onClick,
   onTouchEnd,
@@ -42,6 +48,7 @@ const Button: FC<Props> = ({
     type={htmlType}
     onClick={onClick}
     onTouchEnd={onTouchEnd}
+    title={title}
     disabled={loading || disabled}
     className={cx(className, 'memori-button', {
       'memori-button--primary': primary,
