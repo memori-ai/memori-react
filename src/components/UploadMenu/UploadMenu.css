@@ -1,0 +1,46 @@
+.memori-upload-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.memori--conversation-button {
+    cursor: pointer;
+}
+
+.memori-menu--overlay {
+    position: absolute;
+    right: auto;
+    bottom: 100%;
+    left: 0;
+    display: flex;
+    min-width: 10rem;
+    flex-direction: column;
+    padding: 0.5rem 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 0.375rem;
+    margin: 0;
+    margin-top: 0.5rem;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
+    list-style: none;
+    outline: none;
+    transform-origin: top right;
+}
+
+.memori-menu--li {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.memori-menu--button {
+    width: 100%;
+    justify-content: flex-start;
+    color: inherit;
+    text-align: left;
+    text-decoration: none;
+}
+
+.memori-menu--icon {
+    width: 1em;
+}
