@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders SendOnEnterMenu on click unchanged 1`] = `
+<div>
+  <div
+    class="memori-send-on-enter-menu"
+    data-headlessui-state=""
+  >
+    <button
+      aria-expanded="false"
+      aria-haspopup="true"
+      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
+      data-headlessui-state=""
+      id="headlessui-menu-button-:r0:"
+      type="button"
+    >
+      <div
+        class="memori-button--icon"
+      >
+        …
+      </div>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`renders SendOnEnterMenu on keypress unchanged 1`] = `
+<div>
+  <div
+    class="memori-send-on-enter-menu"
+    data-headlessui-state=""
+  >
+    <button
+      aria-expanded="false"
+      aria-haspopup="true"
+      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
+      data-headlessui-state=""
+      id="headlessui-menu-button-:r2:"
+      type="button"
+    >
+      <div
+        class="memori-button--icon"
+      >
+        …
+      </div>
+    </button>
+  </div>
+</div>
+`;
