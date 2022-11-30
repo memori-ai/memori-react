@@ -1,0 +1,117 @@
+.memori-chat--wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    height: 100svh;
+    flex-direction: column;
+}
+
+.memori-chat--history {
+    width: 100%;
+    height: calc(100% - 50px);
+    flex: 1;
+    padding: calc(var(--memori-inner-content-pad) / 4) calc(var(--memori-inner-content-pad) / 2);
+    border-radius: 10px;
+    margin: 1rem 0;
+    background-color: var(--memori-inner-bg);
+}
+
+.memori-chat--history.memori-chat--history-touch {
+    height: 80% !important;
+    padding: 0;
+}
+
+.memori-chat--content {
+    position: relative;
+    display: flex;
+    height: 100%;
+    flex: 1;
+    flex-direction: column;
+    padding: 2rem 10px;
+    mask-image: linear-gradient(transparent, black 5%, black 95%, transparent 100%);
+    overflow-y: auto;
+}
+
+.memori-chat--content.memori-chat--content-touch {
+    padding: 0;
+}
+
+.memori-chat--cover {
+    position: relative;
+    width: 100%;
+    padding-top: 31.25%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-position: center;
+    background-size: cover;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+.memori-chat--cover+.memori-chat--bubble-initial {
+    display: none;
+}
+
+.memori-chat--timestamp {
+    display: inline-block;
+    padding: 0 3.5rem;
+    margin-bottom: 0.5em;
+    color: #969696;
+    font-size: 0.8em;
+}
+
+.memori-chat--timestamp.text-left {
+    text-align: left;
+}
+
+.memori-chat--timestamp.text-right {
+    text-align: right;
+}
+
+.memori-chat--context-vars {
+    padding: 0 3.5rem;
+    margin-bottom: 0.5em;
+}
+
+.memori-chat--context-tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 5px;
+    margin-right: 0.5rem;
+    box-shadow: 0 0 0.25rem var(--memori-primary);
+    color: var(--text-color, #333);
+    font-size: 0.75rem;
+}
+
+.memori-chat--context-tag:focus-within {
+    border: 1px solid var(--memori-primary);
+    box-shadow: none;
+}
+
+.memori-chat--context-tag.memori-chat--context-tag-canceled {
+    opacity: 0.7;
+    text-decoration: line-through 1.5px;
+}
+
+.memori-chat--context-tag-text {
+    display: inline-block;
+    overflow: hidden;
+    max-width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.memori-chat--context-tag+.memori-chat--context-tag {
+    margin-top: 0.5rem;
+}
+
+.memori-chat--known-tags {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.memori-chat--known-tag {
+    margin-right: 0.5rem;
+}
