@@ -1,0 +1,16 @@
+.memori-chat-inputs {
+    position: relative;
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    margin: 0;
+}
+
+.memori-chat-inputs .memori-upload-menu+.memori-send-on-enter-menu {
+    margin-left: 0.33rem;
+}

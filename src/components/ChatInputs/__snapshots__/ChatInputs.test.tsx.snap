@@ -1,0 +1,375 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders ChatInputs disabled unchanged 1`] = `
+<div>
+  <fieldset
+    class="memori-chat-inputs"
+    disabled=""
+    id="chat-fieldset"
+  >
+    <div
+      class="memori-send-on-enter-menu"
+      data-headlessui-state=""
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
+        data-headlessui-state=""
+        id="headlessui-menu-button-:r8:"
+        type="button"
+      >
+        <div
+          class="memori-button--icon"
+        >
+          …
+        </div>
+      </button>
+    </div>
+    <div
+      class="memori-chat-textarea memori-chat-textarea--disabled"
+      data-testid="chat-textarea"
+    >
+      <div
+        class="memori-chat-textarea--inner"
+      >
+        <textarea
+          class="memori-chat-textarea--input"
+          disabled=""
+        >
+          Lorem ipsum
+        </textarea>
+        <div
+          class="memori-chat-textarea--expand"
+        >
+          <button
+            class="memori-chat-textarea--expand-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+          >
+            <span
+              class="memori-button--icon"
+            >
+              <svg
+                aria-hidden="true"
+                focusable="false"
+                role="img"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M855 160.1l-189.2 23.5c-6.6.8-9.3 8.8-4.7 13.5l54.7 54.7-153.5 153.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l153.6-153.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L863.9 169a7.9 7.9 0 0 0-8.9-8.9zM416.6 562.3a8.03 8.03 0 0 0-11.3 0L251.8 715.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L160.1 855c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 153.6-153.6c3.1-3.1 3.1-8.2 0-11.3l-45.2-45z"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <button
+      class="memori--conversation-button memori-chat-inputs--send memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only"
+      title="send"
+    >
+      <span
+        class="memori-button--icon"
+      >
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          role="img"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+          />
+        </svg>
+      </span>
+    </button>
+  </fieldset>
+</div>
+`;
+
+exports[`renders ChatInputs on instruct unchanged 1`] = `
+<div>
+  <fieldset
+    class="memori-chat-inputs"
+    id="chat-fieldset"
+  >
+    <div
+      class="memori-upload-menu"
+      data-headlessui-state=""
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
+        data-headlessui-state=""
+        id="headlessui-menu-button-:r4:"
+        type="button"
+      >
+        <div
+          class="memori-button--icon"
+        >
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            role="img"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M779.3 196.6c-94.2-94.2-247.6-94.2-341.7 0l-261 260.8c-1.7 1.7-2.6 4-2.6 6.4s.9 4.7 2.6 6.4l36.9 36.9a9 9 0 0 0 12.7 0l261-260.8c32.4-32.4 75.5-50.2 121.3-50.2s88.9 17.8 121.2 50.2c32.4 32.4 50.2 75.5 50.2 121.2 0 45.8-17.8 88.8-50.2 121.2l-266 265.9-43.1 43.1c-40.3 40.3-105.8 40.3-146.1 0-19.5-19.5-30.2-45.4-30.2-73s10.7-53.5 30.2-73l263.9-263.8c6.7-6.6 15.5-10.3 24.9-10.3h.1c9.4 0 18.1 3.7 24.7 10.3 6.7 6.7 10.3 15.5 10.3 24.9 0 9.3-3.7 18.1-10.3 24.7L372.4 653c-1.7 1.7-2.6 4-2.6 6.4s.9 4.7 2.6 6.4l36.9 36.9a9 9 0 0 0 12.7 0l215.6-215.6c19.9-19.9 30.8-46.3 30.8-74.4s-11-54.6-30.8-74.4c-41.1-41.1-107.9-41-149 0L463 364 224.8 602.1A172.22 172.22 0 0 0 174 724.8c0 46.3 18.1 89.8 50.8 122.5 33.9 33.8 78.3 50.7 122.7 50.7 44.4 0 88.8-16.9 122.6-50.7l309.2-309C824.8 492.7 850 432 850 367.5c.1-64.6-25.1-125.3-70.7-170.9z"
+            />
+          </svg>
+        </div>
+      </button>
+    </div>
+    <div
+      class="memori-send-on-enter-menu"
+      data-headlessui-state=""
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
+        data-headlessui-state=""
+        id="headlessui-menu-button-:r6:"
+        type="button"
+      >
+        <div
+          class="memori-button--icon"
+        >
+          …
+        </div>
+      </button>
+    </div>
+    <div
+      class="memori-chat-textarea"
+      data-testid="chat-textarea"
+    >
+      <div
+        class="memori-chat-textarea--inner"
+      >
+        <textarea
+          class="memori-chat-textarea--input"
+        >
+          Lorem ipsum
+        </textarea>
+        <div
+          class="memori-chat-textarea--expand"
+        >
+          <button
+            class="memori-chat-textarea--expand-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+          >
+            <span
+              class="memori-button--icon"
+            >
+              <svg
+                aria-hidden="true"
+                focusable="false"
+                role="img"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M855 160.1l-189.2 23.5c-6.6.8-9.3 8.8-4.7 13.5l54.7 54.7-153.5 153.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l153.6-153.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L863.9 169a7.9 7.9 0 0 0-8.9-8.9zM416.6 562.3a8.03 8.03 0 0 0-11.3 0L251.8 715.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L160.1 855c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 153.6-153.6c3.1-3.1 3.1-8.2 0-11.3l-45.2-45z"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <button
+      class="memori--conversation-button memori-chat-inputs--send memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only"
+      title="send"
+    >
+      <span
+        class="memori-button--icon"
+      >
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          role="img"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+          />
+        </svg>
+      </span>
+    </button>
+  </fieldset>
+</div>
+`;
+
+exports[`renders ChatInputs unchanged 1`] = `
+<div>
+  <fieldset
+    class="memori-chat-inputs"
+    id="chat-fieldset"
+  >
+    <div
+      class="memori-send-on-enter-menu"
+      data-headlessui-state=""
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
+        data-headlessui-state=""
+        id="headlessui-menu-button-:r0:"
+        type="button"
+      >
+        <div
+          class="memori-button--icon"
+        >
+          …
+        </div>
+      </button>
+    </div>
+    <div
+      class="memori-chat-textarea"
+      data-testid="chat-textarea"
+    >
+      <div
+        class="memori-chat-textarea--inner"
+      >
+        <textarea
+          class="memori-chat-textarea--input"
+        />
+        <div
+          class="memori-chat-textarea--expand"
+        >
+          <button
+            class="memori-chat-textarea--expand-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+          >
+            <span
+              class="memori-button--icon"
+            >
+              <svg
+                aria-hidden="true"
+                focusable="false"
+                role="img"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M855 160.1l-189.2 23.5c-6.6.8-9.3 8.8-4.7 13.5l54.7 54.7-153.5 153.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l153.6-153.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L863.9 169a7.9 7.9 0 0 0-8.9-8.9zM416.6 562.3a8.03 8.03 0 0 0-11.3 0L251.8 715.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L160.1 855c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 153.6-153.6c3.1-3.1 3.1-8.2 0-11.3l-45.2-45z"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <button
+      class="memori--conversation-button memori-chat-inputs--send memori-button memori-button--circle memori-button--padded memori-button--icon-only"
+      disabled=""
+      title="send"
+    >
+      <span
+        class="memori-button--icon"
+      >
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          role="img"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+          />
+        </svg>
+      </span>
+    </button>
+  </fieldset>
+</div>
+`;
+
+exports[`renders ChatInputs with user message unchanged 1`] = `
+<div>
+  <fieldset
+    class="memori-chat-inputs"
+    id="chat-fieldset"
+  >
+    <div
+      class="memori-send-on-enter-menu"
+      data-headlessui-state=""
+    >
+      <button
+        aria-expanded="false"
+        aria-haspopup="true"
+        class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
+        data-headlessui-state=""
+        id="headlessui-menu-button-:r2:"
+        type="button"
+      >
+        <div
+          class="memori-button--icon"
+        >
+          …
+        </div>
+      </button>
+    </div>
+    <div
+      class="memori-chat-textarea"
+      data-testid="chat-textarea"
+    >
+      <div
+        class="memori-chat-textarea--inner"
+      >
+        <textarea
+          class="memori-chat-textarea--input"
+        >
+          Lorem ipsum
+        </textarea>
+        <div
+          class="memori-chat-textarea--expand"
+        >
+          <button
+            class="memori-chat-textarea--expand-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+          >
+            <span
+              class="memori-button--icon"
+            >
+              <svg
+                aria-hidden="true"
+                focusable="false"
+                role="img"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M855 160.1l-189.2 23.5c-6.6.8-9.3 8.8-4.7 13.5l54.7 54.7-153.5 153.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l153.6-153.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L863.9 169a7.9 7.9 0 0 0-8.9-8.9zM416.6 562.3a8.03 8.03 0 0 0-11.3 0L251.8 715.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L160.1 855c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 153.6-153.6c3.1-3.1 3.1-8.2 0-11.3l-45.2-45z"
+                />
+              </svg>
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+    <button
+      class="memori--conversation-button memori-chat-inputs--send memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only"
+      title="send"
+    >
+      <span
+        class="memori-button--icon"
+      >
+        <svg
+          aria-hidden="true"
+          focusable="false"
+          role="img"
+          viewBox="0 0 1024 1024"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+          />
+        </svg>
+      </span>
+    </button>
+  </fieldset>
+</div>
+`;
