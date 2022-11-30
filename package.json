@@ -10,7 +10,10 @@
     "src"
   ],
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
+  },
+  "storybook": {
+    "url": "https://memori-ai.github.io/memori-react/"
   },
   "scripts": {
     "start": "tsdx watch",
