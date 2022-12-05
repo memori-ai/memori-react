@@ -49,6 +49,22 @@ textarea.memori-chat-textarea--input:focus {
     cursor: not-allowed;
 }
 
+.memori-chat-textarea--expand {
+    flex-grow: 0;
+    margin: 0.25rem;
+}
+
+.memori-chat-textarea--expand-button {
+    padding: 0.25rem 0.5rem;
+    opacity: 0.6;
+    transition: all 0.2s ease-in-out;
+}
+
+.memori-chat-textarea--expand-button:hover,
+.memori-chat-textarea--expand-button:focus {
+    opacity: 1;
+}
+
 .memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:hover,
 .memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:focus,
 .memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:focus-within {
@@ -57,15 +73,11 @@ textarea.memori-chat-textarea--input:focus {
     outline: none;
 }
 
+.memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:focus .memori-chat-textarea--expand-button,
+.memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:focus-within .memori-chat-textarea--expand-button {
+    opacity: 1;
+}
+
 .memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea-inner:focus-within {
     box-shadow: 0 0.2rem 0.33rem #b5b6c4;
-}
-
-.memori-chat-textarea--expand {
-    flex-grow: 0;
-    margin: 0.25rem;
-}
-
-.memori-chat-textarea--expand-button {
-    padding: 0.25rem 0.5rem;
 }
