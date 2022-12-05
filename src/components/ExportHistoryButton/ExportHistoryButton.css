@@ -8,6 +8,7 @@
     margin-top: 0.5rem;
     background: #fff;
     box-shadow: var(--memori-button-box-shadow);
+    text-align: left;
 }
 
 .memori-export-history-button--panel button+button {
