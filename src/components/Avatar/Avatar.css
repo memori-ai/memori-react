@@ -1,0 +1,151 @@
+@media (min-width: 870px) {
+    .memori--blob-container {
+        position: relative;
+        top: 50%;
+        width: 100%;
+        margin-bottom: auto;
+    }
+
+    .memori--blob-container .memori-blob {
+        top: 50%;
+        left: 50%;
+        width: 70%;
+        max-width: 300px;
+        height: 70%;
+        max-height: 300px;
+    }
+
+    .memori--blob-container .memori-blob figure {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+
+    .memori--blob-container .memori-blob .mainDiv {
+        overflow: hidden;
+        width: 100%;
+        height: auto;
+        padding-top: 100%;
+    }
+}
+
+@media (max-width: 870px) {
+    .memori--blob-container {
+        position: static;
+        display: none;
+        width: 100%;
+    }
+
+    .memori--blob-container .memori-blob {
+        position: relative;
+    }
+}
+
+@media (max-width: 480px) {
+    .memori--blob-container {
+        display: none;
+    }
+}
+
+.memori--avatar-wrapper {
+    z-index: 100;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.memori--avatar-wrapper.hidden {
+    display: none;
+}
+
+@media (max-width: 870px) {
+
+    .memori--avatar-wrapper div,
+    .memori--avatar-wrapper canvas,
+    .memori--avatar-wrapper model-viewer {
+        width: 150px !important;
+        height: 150px !important;
+    }
+
+    .memori--avatar-wrapper model-viewer {
+        margin-top: 2rem;
+    }
+
+    .memori--avatar-wrapper div {
+        top: 1rem;
+    }
+}
+
+@media (orientation: landscape) and (max-width: 870px) {
+    .memori--avatar-wrapper {
+        display: none;
+    }
+}
+
+.memori--avatar-wrapper .avatar-loader figure {
+    width: 100%;
+    height: 300px;
+}
+
+.memori--avatar-wrapper .avatar-loader figure img {
+    width: 250px;
+    height: 250px;
+}
+
+@media (max-width: 870px) {
+    .memori--avatar-wrapper .avatar-loader figure img {
+        width: 150px;
+        height: 150px;
+    }
+}
+
+.memori--avatar-wrapper .avatar-loader figcaption {
+    max-height: 50px;
+    font-size: 0.8em;
+    text-align: center;
+}
+
+.memori--avatar-toggle {
+    position: absolute;
+    z-index: 1001;
+    top: 0;
+    right: 0;
+    display: inline-flex;
+    align-items: center;
+    text-align: right;
+}
+
+@media (min-width: 871px) {
+    .memori--avatar-toggle {
+        display: none;
+    }
+}
+
+.memori--avatar-toggle button.memori-button {
+    color: var(--memori-primary, #1890ff);
+}
+
+.memori--avatar-toggle .memori--avatar-toggle-text {
+    font-size: 0.85em;
+}
+
+.memori--avatar-link-to-integrations {
+    position: absolute;
+    z-index: 101;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 2rem;
+}
+
+@media (max-width: 768px) {
+    .memori--avatar-link-to-integrations {
+        display: none;
+    }
+}
