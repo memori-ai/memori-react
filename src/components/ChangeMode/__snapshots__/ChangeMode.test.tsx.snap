@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders ChangeMode in instruct mode unchanged 1`] = `
+<div>
+  <div
+    class="memori--changeMode-instruct"
+  >
+    <input
+      checked=""
+      hidden=""
+      name="instruct"
+      readonly=""
+      style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+      type="radio"
+      value="instruct"
+    />
+    <div
+      class="memori--changeMode-instruct-radio"
+      id="headlessui-radiogroup-:r3:"
+      role="radiogroup"
+    >
+      <div
+        aria-checked="true"
+        class="memori--changeMode-instruct-radio-button"
+        data-headlessui-state="checked"
+        id="headlessui-radiogroup-option-:r4:"
+        role="radio"
+        tabindex="0"
+      >
+        <button
+          class="memori-button memori-button--primary memori-button--rounded memori-button--padded"
+        >
+          widget.instruct
+        </button>
+      </div>
+      <div
+        aria-checked="false"
+        class="memori--changeMode-instruct-radio-button"
+        data-headlessui-state=""
+        id="headlessui-radiogroup-option-:r5:"
+        role="radio"
+        tabindex="-1"
+      >
+        <button
+          class="memori-button memori-button--rounded memori-button--padded"
+        >
+          widget.test
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders ChangeMode in test mode unchanged 1`] = `
+<div>
+  <div
+    class="memori--changeMode-instruct"
+  >
+    <input
+      checked=""
+      hidden=""
+      name="instruct"
+      readonly=""
+      style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+      type="radio"
+      value="test"
+    />
+    <div
+      class="memori--changeMode-instruct-radio"
+      id="headlessui-radiogroup-:r0:"
+      role="radiogroup"
+    >
+      <div
+        aria-checked="false"
+        class="memori--changeMode-instruct-radio-button"
+        data-headlessui-state=""
+        id="headlessui-radiogroup-option-:r1:"
+        role="radio"
+        tabindex="-1"
+      >
+        <button
+          class="memori-button memori-button--rounded memori-button--padded"
+        >
+          widget.instruct
+        </button>
+      </div>
+      <div
+        aria-checked="true"
+        class="memori--changeMode-instruct-radio-button"
+        data-headlessui-state="checked"
+        id="headlessui-radiogroup-option-:r2:"
+        role="radio"
+        tabindex="0"
+      >
+        <button
+          class="memori-button memori-button--primary memori-button--rounded memori-button--padded"
+        >
+          widget.test
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
