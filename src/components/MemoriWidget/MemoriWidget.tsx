@@ -54,14 +54,15 @@ import MemoriAuth from '../Auth/Auth';
 import Blob from '../Blob/Blob';
 import AvatarView from '../AvatarView';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
-import BlockedMemoriBadge from '../BlockedMemoriBadge/BlockedMemoriBadge';
+import Chat from '../Chat/Chat';
+import StartPanel from '../StartPanel/StartPanel';
 
 // Helpers / Utils
 import { getTranslation } from '../../helpers/translations';
 import { setLocalConfig, getLocalConfig } from '../../helpers/configuration';
 import { hasTouchscreen, stripDuplicates } from '../../helpers/utils';
 import { getResourceUrl } from '../../helpers/media';
-import { anonTag, chatLanguages } from '../../helpers/constants';
+import { anonTag } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
 import { getGamificationLevel } from '../../helpers/statistics';
 
@@ -69,12 +70,11 @@ import { getGamificationLevel } from '../../helpers/statistics';
 import Edit from '../icons/Edit';
 import Eye from '../icons/Eye';
 import EyeInvisible from '../icons/EyeInvisible';
-import Translation from '../icons/Translation';
 import Header from '../Header/Header';
 
 // Styles
 import './MemoriWidget.css';
-import Chat from '../Chat/Chat';
+import Avatar from '../Avatar/Avatar';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -158,10 +158,12 @@ export interface Props {
   showInputs?: boolean;
   showDates?: boolean;
   showContextPerLine?: boolean;
+  showSettings?: boolean;
   preview?: boolean;
   embed?: boolean;
   secret?: string;
   baseUrl?: string;
+  apiUrl?: string;
   initialContextVars?: { [key: string]: string };
   initialQuestion?: string;
   ogImage?: string;
@@ -181,14 +183,16 @@ const MemoriWidget = ({
   memoriLang,
   integration,
   showInstruct = false,
-  showShare = false,
+  showShare = true,
   preview = false,
   embed = false,
   showInputs = true,
   showDates = false,
   showContextPerLine = false,
+  showSettings = false,
   secret,
-  baseUrl = '',
+  baseUrl = 'https://app.twincreator.com',
+  apiUrl = 'https://backend.memori.ai',
   initialContextVars,
   initialQuestion,
   ogImage,
@@ -197,10 +201,10 @@ const MemoriWidget = ({
   personification,
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
 }: Props) => {
-  const { t, i18n } = useTranslation(['common', 'memori_management']);
+  const { t, i18n } = useTranslation();
 
   // API calls methods
-  const client = memoriApiClient(baseUrl || 'https://backend.memori.ai');
+  const client = memoriApiClient(apiUrl);
   const {
     initSession,
     postTextEnteredEvent,
@@ -233,33 +237,6 @@ const MemoriWidget = ({
     ? JSON.parse(integration.customData)
     : null;
   const isMultilanguageEnabled = !!integrationConfig?.multilanguage;
-
-  const [translatedDescription, setTranslatedDescription] = useState(
-    memori.description
-  );
-  const [showTranslation, setShowTranslation] = useState(true);
-  const toggleTranslations = () => {
-    setShowTranslation(show => !show);
-  };
-
-  useEffect(() => {
-    if (
-      (i18n.language?.toUpperCase() ?? 'IT') !==
-        (language?.toUpperCase() ?? 'IT') &&
-      !!memori.description?.length
-    ) {
-      getTranslation(
-        memori.description,
-        i18n.language?.toUpperCase() ?? 'IT',
-        language,
-        baseUrl
-      )
-        .then(value => {
-          setTranslatedDescription(value.text);
-        })
-        .catch(console.error);
-    }
-  }, [i18n.language, language, memori.description, baseUrl]);
 
   const [loading, setLoading] = useState(false);
   const [memoriTyping, setMemoriTyping] = useState(false);
@@ -1651,6 +1628,264 @@ const MemoriWidget = ({
     sendMessage(text, undefined, undefined, false, translatedText);
   };
 
+  const onClickStart = async () => {
+    setClickedStart(true);
+    initializeTTS();
+    if (
+      (!sessionId &&
+        ((memori.privacyType === 'SECRET' && !memori.secretToken) ||
+          (memori.privacyType === 'PRIVATE' && !memori.secretToken))) ||
+      (!sessionId && gotErrorInOpening)
+    ) {
+      setAuthModalState('password');
+      setClickedStart(false);
+    } else if (!sessionId) {
+      console.info('No session ID');
+      setClickedStart(false);
+      setGotErrorInOpening(true);
+      return;
+    } else {
+      // set tag as anonymous for tryme, giver for instruct
+      try {
+        if (!instruct && personification) {
+          try {
+            if (!embed) {
+              setHistory([]);
+              console.debug('change tag #1');
+              await changeTag(memori.engineMemoriID!, sessionId, '-');
+              const session = await changeTag(
+                memori.engineMemoriID!,
+                sessionId,
+                personification.tag,
+                personification.pin
+              );
+
+              if (session && session.resultCode === 0) {
+                translateDialogState(session.currentState, userLang).finally(
+                  () => {
+                    setHasUserActivatedSpeak(true);
+                  }
+                );
+              } else {
+                console.error('session #1', session);
+                throw new Error('No session');
+              }
+            } else {
+              if (currentDialogState) {
+                setHistory([]);
+                translateDialogState(currentDialogState, userLang).finally(
+                  () => {
+                    setHasUserActivatedSpeak(true);
+                  }
+                );
+              } else {
+                setHasUserActivatedSpeak(true);
+              }
+            }
+          } catch (e) {
+            console.error('session #2', e);
+            reopenSession(
+              true,
+              memori?.secretToken,
+              undefined,
+              personification.tag,
+              personification.pin
+            ).then(() => {
+              setHasUserActivatedSpeak(true);
+            });
+          }
+        } else if (!instruct && currentDialogState?.currentTag !== anonTag) {
+          try {
+            if (!embed) {
+              setHistory([]);
+              console.debug('change tag #2');
+              await changeTag(memori.engineMemoriID!, sessionId, '-');
+              const session = await changeTag(
+                memori.engineMemoriID!,
+                sessionId,
+                anonTag
+              );
+
+              if (session && session.resultCode === 0) {
+                translateDialogState(session.currentState, userLang).finally(
+                  () => {
+                    setHasUserActivatedSpeak(true);
+                  }
+                );
+              } else {
+                console.error('session #3', session);
+                throw new Error('No session');
+              }
+            } else {
+              if (currentDialogState) {
+                setHistory([]);
+                translateDialogState(currentDialogState, userLang).finally(
+                  () => {
+                    setHasUserActivatedSpeak(true);
+                  }
+                );
+              } else {
+                setHasUserActivatedSpeak(true);
+              }
+            }
+          } catch (e) {
+            console.error('session #4', e);
+            reopenSession(
+              true,
+              memori?.secretToken,
+              undefined,
+              undefined,
+              undefined,
+              initialContextVars,
+              initialQuestion
+            ).then(() => {
+              setHasUserActivatedSpeak(true);
+            });
+          }
+        } else if (
+          instruct &&
+          memori.giverTag &&
+          currentDialogState?.currentTag !== memori.giverTag
+        ) {
+          try {
+            if (!embed) {
+              setHistory([]);
+              console.debug('change tag #3');
+              await changeTag(memori.engineMemoriID!, sessionId, '-');
+              const session = await changeTag(
+                memori.engineMemoriID!,
+                sessionId,
+                memori.giverTag,
+                memori.giverPIN
+              );
+
+              if (session && session.resultCode === 0) {
+                translateDialogState(session.currentState, userLang).finally(
+                  () => {
+                    setHasUserActivatedSpeak(true);
+                  }
+                );
+              } else {
+                console.error('session #5', session);
+                throw new Error('No session');
+              }
+            } else {
+              if (currentDialogState) {
+                setHistory([]);
+                translateDialogState(currentDialogState, userLang).finally(
+                  () => {
+                    setHasUserActivatedSpeak(true);
+                  }
+                );
+              } else {
+                setHasUserActivatedSpeak(true);
+              }
+            }
+          } catch (e) {
+            console.error('session #6', e);
+            reopenSession(
+              true,
+              memori?.secretToken,
+              undefined,
+              memori?.giverTag,
+              memori?.giverPIN,
+              initialContextVars,
+              initialQuestion
+            ).then(() => {
+              setHasUserActivatedSpeak(true);
+            });
+          }
+        } else {
+          try {
+            // if (!embed) {
+            //   setHistory([]);
+            // }
+
+            // const session = await getSession(sessionId);
+
+            // if (session && session.resultCode === 0) {
+            //   translateDialogState(
+            //     session.currentState,
+            //     userLang,
+            //   ).finally(() => {
+            //     setHasUserActivatedSpeak(true);
+            //   });
+            // } else {
+            //   console.error('session #7', session);
+            //   throw new Error('No session');
+            // }
+            if (!embed) {
+              setHistory([]);
+              console.debug('change tag #4');
+              await changeTag(memori.engineMemoriID!, sessionId, '-');
+              const session = await changeTag(
+                memori.engineMemoriID!,
+                sessionId,
+                instruct
+                  ? memori.giverTag
+                  : personification
+                  ? personification.tag
+                  : anonTag,
+                instruct
+                  ? memori.giverPIN
+                  : personification
+                  ? personification.pin
+                  : undefined
+              );
+
+              if (session && session.resultCode === 0) {
+                translateDialogState(session.currentState, userLang).finally(
+                  () => {
+                    setHasUserActivatedSpeak(true);
+                  }
+                );
+              } else {
+                console.error('session #7', session);
+                throw new Error('No session');
+              }
+            } else {
+              if (currentDialogState) {
+                setHistory([]);
+                translateDialogState(currentDialogState, userLang).finally(
+                  () => {
+                    setHasUserActivatedSpeak(true);
+                  }
+                );
+              } else {
+                setHasUserActivatedSpeak(true);
+              }
+            }
+          } catch (e) {
+            console.error('session #8', e);
+            reopenSession(
+              true,
+              memori?.secretToken,
+              undefined,
+              memori?.giverTag,
+              memori?.giverPIN,
+              initialContextVars,
+              initialQuestion
+            ).then(() => {
+              setHasUserActivatedSpeak(true);
+            });
+          }
+        }
+      } catch (e) {
+        let err = e as Error;
+        console.error('session #0', err);
+        reopenSession(
+          true,
+          memori.secretToken,
+          undefined,
+          memori.giverTag,
+          memori.giverPIN,
+          initialContextVars,
+          initialQuestion
+        );
+      }
+    }
+  };
+
   return (
     <div
       className={cx('memori', 'memori-widget', {
@@ -1695,7 +1930,7 @@ const MemoriWidget = ({
               >
                 {({ checked }) => (
                   <Button primary={checked}>
-                    {t('memoriWidget.instruct') || 'Instruct'}
+                    {t('widget.instruct') || 'Instruct'}
                   </Button>
                 )}
               </RadioGroup.Option>
@@ -1705,7 +1940,7 @@ const MemoriWidget = ({
               >
                 {({ checked }) => (
                   <Button primary={checked}>
-                    {t('memoriWidget.test') || 'Test'}
+                    {t('widget.test') || 'Test'}
                   </Button>
                 )}
               </RadioGroup.Option>
@@ -1722,140 +1957,24 @@ const MemoriWidget = ({
           setShowSettingsDrawer={setShowSettingsDrawer}
           speakerMuted={muteSpeaker}
           setSpeakerMuted={setMuteSpeaker}
+          showSettings={showSettings}
           hasUserActivatedSpeak={hasUserActivatedSpeak}
         />
 
         <div className="memori--grid">
           <div className="memori--grid-column memori--grid-column-left">
-            {(integrationConfig?.avatar === 'readyplayerme' ||
-              integrationConfig?.avatar === 'customglb') &&
-            integrationConfig?.avatarURL ? (
-              <>
-                <div
-                  className={cx('memori--avatar-wrapper', {
-                    hidden: !avatar3dVisible,
-                  })}
-                >
-                  {isClient && integrationConfig.avatar === 'readyplayerme' && (
-                    <ErrorBoundary
-                      fallback={
-                        <div className="memori--blob-container">
-                          {isClient && (
-                            <Blob
-                              avatar={
-                                (integration?.dataResult?.avatarInBlob ||
-                                  integrationConfig?.avatar === 'userAvatar') &&
-                                memori.avatarURL &&
-                                memori.avatarURL.length > 0
-                                  ? getResourceUrl({
-                                      type: 'avatar',
-                                      tenantID: tenant?.id,
-                                      resourceURI: memori.avatarURL,
-                                      baseURL: baseUrl,
-                                    })
-                                  : undefined
-                              }
-                            />
-                          )}
-                        </div>
-                      }
-                    >
-                      <AvatarView
-                        url={integrationConfig.avatarURL}
-                        fallbackImg={getResourceUrl({
-                          type: 'avatar',
-                          tenantID: tenant?.id,
-                          resourceURI: memori.avatarURL,
-                          baseURL: baseUrl,
-                        })}
-                        headMovement
-                        eyeBlink
-                        speaking={isPlayingAudio}
-                        style={{
-                          width: '300px',
-                          height: '300px',
-                          backgroundColor: 'none',
-                          borderRadius: '100%',
-                          boxShadow: 'none',
-                        }}
-                      />
-                    </ErrorBoundary>
-                  )}
-                  {isClient && integrationConfig.avatar === 'customglb' && (
-                    <ModelViewer
-                      poster={getResourceUrl({
-                        type: 'avatar',
-                        tenantID: tenant?.id,
-                        resourceURI: memori.avatarURL,
-                        baseURL: baseUrl,
-                      })}
-                      src={integrationConfig.avatarURL}
-                      alt=""
-                    />
-                  )}
-                </div>
-                <div className="memori--avatar-toggle">
-                  <Button
-                    ghost
-                    onClick={() => setAvatar3dVisible(!avatar3dVisible)}
-                    icon={avatar3dVisible ? <EyeInvisible /> : <Eye />}
-                  >
-                    <span className="memori--avatar-toggle-text">
-                      {avatar3dVisible
-                        ? t('hide', { ns: 'common' })
-                        : t('show', { ns: 'common' })}
-                    </span>
-                  </Button>
-                </div>
-              </>
-            ) : (
-              <div className="memori--blob-container">
-                {isClient && (
-                  <Blob
-                    avatar={
-                      (integration?.dataResult?.avatarInBlob ||
-                        integrationConfig?.avatar === 'userAvatar') &&
-                      memori.avatarURL &&
-                      memori.avatarURL.length > 0
-                        ? getResourceUrl({
-                            type: 'avatar',
-                            tenantID: tenant?.id,
-                            resourceURI: memori.avatarURL,
-                            baseURL: baseUrl,
-                          })
-                        : undefined
-                    }
-                  />
-                )}
-              </div>
-            )}
-            {instruct &&
-              !hasUserActivatedSpeak &&
-              memori.isGiver &&
-              tenant?.id && (
-                <div className="memori--avatar-link-to-integrations">
-                  <a
-                    className="memori-button memori-button--circle memori-button--outlined"
-                    href={`https://${tenant.id}/${
-                      memori.culture === 'it-IT' ? 'it' : 'en'
-                    }/${memori.ownerUserName}/${memori.name}/integrations${
-                      integration?.integrationID
-                        ? `?integration=${integration.integrationID}&openAvatarModal=true`
-                        : ''
-                    }`}
-                  >
-                    <Tooltip
-                      content={t(
-                        'memoriWidget.goToIntegrationsToCustomizeAvatar'
-                      )}
-                    >
-                      <span className="memori-button--icon">
-                        <Edit />
-                      </span>
-                    </Tooltip>
-                  </a>
-                </div>
-              )}
+            <Avatar
+              memori={memori}
+              integration={integration}
+              integrationConfig={integrationConfig}
+              tenant={tenant}
+              instruct={instruct}
+              avatar3dVisible={avatar3dVisible}
+              setAvatar3dVisible={setAvatar3dVisible}
+              hasUserActivatedSpeak={hasUserActivatedSpeak}
+              isPlayingAudio={isPlayingAudio}
+              baseUrl={baseUrl}
+            />
           </div>
           <div className="memori--grid-column memori--grid-column-right">
             {sessionId && hasUserActivatedSpeak ? (
@@ -1904,462 +2023,22 @@ const MemoriWidget = ({
                 resetTranscript={resetTranscript}
               />
             ) : (
-              <div className="memori--start-panel">
-                <div
-                  className="memori--cover"
-                  style={{
-                    backgroundImage: `url("${getResourceUrl({
-                      type: 'cover',
-                      tenantID: tenant?.id,
-                      resourceURI: memori.coverURL,
-                      baseURL: baseUrl,
-                    })}"), url("${getResourceUrl({
-                      type: 'cover',
-                      tenantID: tenant?.id,
-                      baseURL: baseUrl,
-                    })}")`,
-                  }}
-                >
-                  {!!gamificationLevel?.badge?.length && (
-                    <div className="memori--gamification-badge">
-                      <Tooltip
-                        content={`${t('gamification.level')} ${
-                          gamificationLevel.badge
-                        }, ${gamificationLevel.points} ${t(
-                          'gamification.points'
-                        )}`}
-                      >
-                        <span
-                          aria-label={`${t('gamification.level')} ${
-                            gamificationLevel.badge
-                          }, ${gamificationLevel.points} ${t(
-                            'gamification.points'
-                          )}`}
-                        >
-                          {gamificationLevel.badge}
-                        </span>
-                      </Tooltip>
-                    </div>
-                  )}
-                </div>
-                <picture className="memori--avatar">
-                  <source
-                    src={
-                      memori.avatarURL ??
-                      getResourceUrl({
-                        type: 'avatar',
-                        tenantID: tenant?.id,
-                        resourceURI: memori.avatarURL,
-                        baseURL: baseUrl,
-                      })
-                    }
-                  />
-                  <img
-                    alt={memori.name}
-                    src={
-                      memori.avatarURL && memori.avatarURL.length > 0
-                        ? getResourceUrl({
-                            type: 'avatar',
-                            tenantID: tenant?.id,
-                            resourceURI: memori.avatarURL,
-                            baseURL: baseUrl,
-                          })
-                        : getResourceUrl({
-                            type: 'avatar',
-                            tenantID: tenant?.id,
-                            baseURL: baseUrl,
-                          })
-                    }
-                  />
-                </picture>
-                <h2 className="memori--title">{memori.name}</h2>
-                {memori.needsPosition && !position && (
-                  <div className="memori--needsPosition">
-                    <p>{t('write_and_speak.requirePosition')}</p>
-                    <Button
-                      primary
-                      onClick={() => setShowPositionDrawer(true)}
-                      className="memori--start-button"
-                    >
-                      {t('position')}
-                    </Button>
-                  </div>
-                )}
-                {((memori.needsPosition && position) ||
-                  !memori.needsPosition) && (
-                  <div className="memori--description">
-                    <p>
-                      <span className="memori--description-text">
-                        {translatedDescription && showTranslation
-                          ? translatedDescription
-                          : memori.description}
-                      </span>
-
-                      {translatedDescription !== memori.description && (
-                        <Button
-                          ghost
-                          className="memori--translation-toggle"
-                          icon={<Translation />}
-                          onClick={() => toggleTranslations()}
-                        >
-                          {showTranslation
-                            ? t('showOriginalText')
-                            : t('showTranslatedText')}
-                        </Button>
-                      )}
-                    </p>
-
-                    {integrationConfig?.multilanguage && !instruct && (
-                      <div className="memori--language-chooser">
-                        <label
-                          id="user-lang-pref-label"
-                          htmlFor="user-lang-pref"
-                        >
-                          {t('write_and_speak.iWantToTalkToIn', {
-                            name: memori.name,
-                          })}
-                        </label>
-                        <select
-                          id="user-lang-pref"
-                          value={(userLang ?? i18n.language).toUpperCase()}
-                          aria-labelledby="user-lang-pref-label"
-                          onChange={e => {
-                            setUserLang(e.target.value);
-                          }}
-                        >
-                          {chatLanguages.map(lang => (
-                            <option
-                              key={lang.value}
-                              value={lang.value}
-                              aria-label={lang.label}
-                            >
-                              {lang.label}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    )}
-
-                    <Button
-                      primary
-                      disabled={
-                        (!sessionId && memori.privacyType === 'PUBLIC') ||
-                        (!!memori.blockedUntil && !memori.isGiver)
-                      }
-                      loading={clickedStart}
-                      onClick={async () => {
-                        setClickedStart(true);
-                        initializeTTS();
-                        if (
-                          (!sessionId &&
-                            ((memori.privacyType === 'SECRET' &&
-                              !memori.secretToken) ||
-                              (memori.privacyType === 'PRIVATE' &&
-                                !memori.secretToken))) ||
-                          (!sessionId && gotErrorInOpening)
-                        ) {
-                          setAuthModalState('password');
-                          setClickedStart(false);
-                        } else if (!sessionId) {
-                          console.info('No session ID');
-                          setClickedStart(false);
-                          setGotErrorInOpening(true);
-                          return;
-                        } else {
-                          // set tag as anonymous for tryme, giver for instruct
-                          try {
-                            if (!instruct && personification) {
-                              try {
-                                if (!embed) {
-                                  setHistory([]);
-                                  console.debug('change tag #1');
-                                  await changeTag(
-                                    memori.engineMemoriID!,
-                                    sessionId,
-                                    '-'
-                                  );
-                                  const session = await changeTag(
-                                    memori.engineMemoriID!,
-                                    sessionId,
-                                    personification.tag,
-                                    personification.pin
-                                  );
-
-                                  if (session && session.resultCode === 0) {
-                                    translateDialogState(
-                                      session.currentState,
-                                      userLang
-                                    ).finally(() => {
-                                      setHasUserActivatedSpeak(true);
-                                    });
-                                  } else {
-                                    console.error('session #1', session);
-                                    throw new Error('No session');
-                                  }
-                                } else {
-                                  if (currentDialogState) {
-                                    setHistory([]);
-                                    translateDialogState(
-                                      currentDialogState,
-                                      userLang
-                                    ).finally(() => {
-                                      setHasUserActivatedSpeak(true);
-                                    });
-                                  } else {
-                                    setHasUserActivatedSpeak(true);
-                                  }
-                                }
-                              } catch (e) {
-                                console.error('session #2', e);
-                                reopenSession(
-                                  true,
-                                  memori?.secretToken,
-                                  undefined,
-                                  personification.tag,
-                                  personification.pin
-                                ).then(() => {
-                                  setHasUserActivatedSpeak(true);
-                                });
-                              }
-                            } else if (
-                              !instruct &&
-                              currentDialogState?.currentTag !== anonTag
-                            ) {
-                              try {
-                                if (!embed) {
-                                  setHistory([]);
-                                  console.debug('change tag #2');
-                                  await changeTag(
-                                    memori.engineMemoriID!,
-                                    sessionId,
-                                    '-'
-                                  );
-                                  const session = await changeTag(
-                                    memori.engineMemoriID!,
-                                    sessionId,
-                                    anonTag
-                                  );
-
-                                  if (session && session.resultCode === 0) {
-                                    translateDialogState(
-                                      session.currentState,
-                                      userLang
-                                    ).finally(() => {
-                                      setHasUserActivatedSpeak(true);
-                                    });
-                                  } else {
-                                    console.error('session #3', session);
-                                    throw new Error('No session');
-                                  }
-                                } else {
-                                  if (currentDialogState) {
-                                    setHistory([]);
-                                    translateDialogState(
-                                      currentDialogState,
-                                      userLang
-                                    ).finally(() => {
-                                      setHasUserActivatedSpeak(true);
-                                    });
-                                  } else {
-                                    setHasUserActivatedSpeak(true);
-                                  }
-                                }
-                              } catch (e) {
-                                console.error('session #4', e);
-                                reopenSession(
-                                  true,
-                                  memori?.secretToken,
-                                  undefined,
-                                  undefined,
-                                  undefined,
-                                  initialContextVars,
-                                  initialQuestion
-                                ).then(() => {
-                                  setHasUserActivatedSpeak(true);
-                                });
-                              }
-                            } else if (
-                              instruct &&
-                              memori.giverTag &&
-                              currentDialogState?.currentTag !== memori.giverTag
-                            ) {
-                              try {
-                                if (!embed) {
-                                  setHistory([]);
-                                  console.debug('change tag #3');
-                                  await changeTag(
-                                    memori.engineMemoriID!,
-                                    sessionId,
-                                    '-'
-                                  );
-                                  const session = await changeTag(
-                                    memori.engineMemoriID!,
-                                    sessionId,
-                                    memori.giverTag,
-                                    memori.giverPIN
-                                  );
-
-                                  if (session && session.resultCode === 0) {
-                                    translateDialogState(
-                                      session.currentState,
-                                      userLang
-                                    ).finally(() => {
-                                      setHasUserActivatedSpeak(true);
-                                    });
-                                  } else {
-                                    console.error('session #5', session);
-                                    throw new Error('No session');
-                                  }
-                                } else {
-                                  if (currentDialogState) {
-                                    setHistory([]);
-                                    translateDialogState(
-                                      currentDialogState,
-                                      userLang
-                                    ).finally(() => {
-                                      setHasUserActivatedSpeak(true);
-                                    });
-                                  } else {
-                                    setHasUserActivatedSpeak(true);
-                                  }
-                                }
-                              } catch (e) {
-                                console.error('session #6', e);
-                                reopenSession(
-                                  true,
-                                  memori?.secretToken,
-                                  undefined,
-                                  memori?.giverTag,
-                                  memori?.giverPIN,
-                                  initialContextVars,
-                                  initialQuestion
-                                ).then(() => {
-                                  setHasUserActivatedSpeak(true);
-                                });
-                              }
-                            } else {
-                              try {
-                                // if (!embed) {
-                                //   setHistory([]);
-                                // }
-
-                                // const session = await getSession(sessionId);
-
-                                // if (session && session.resultCode === 0) {
-                                //   translateDialogState(
-                                //     session.currentState,
-                                //     userLang,
-                                //   ).finally(() => {
-                                //     setHasUserActivatedSpeak(true);
-                                //   });
-                                // } else {
-                                //   console.error('session #7', session);
-                                //   throw new Error('No session');
-                                // }
-                                if (!embed) {
-                                  setHistory([]);
-                                  console.debug('change tag #4');
-                                  await changeTag(
-                                    memori.engineMemoriID!,
-                                    sessionId,
-                                    '-'
-                                  );
-                                  const session = await changeTag(
-                                    memori.engineMemoriID!,
-                                    sessionId,
-                                    instruct
-                                      ? memori.giverTag
-                                      : personification
-                                      ? personification.tag
-                                      : anonTag,
-                                    instruct
-                                      ? memori.giverPIN
-                                      : personification
-                                      ? personification.pin
-                                      : undefined
-                                  );
-
-                                  if (session && session.resultCode === 0) {
-                                    translateDialogState(
-                                      session.currentState,
-                                      userLang
-                                    ).finally(() => {
-                                      setHasUserActivatedSpeak(true);
-                                    });
-                                  } else {
-                                    console.error('session #7', session);
-                                    throw new Error('No session');
-                                  }
-                                } else {
-                                  if (currentDialogState) {
-                                    setHistory([]);
-                                    translateDialogState(
-                                      currentDialogState,
-                                      userLang
-                                    ).finally(() => {
-                                      setHasUserActivatedSpeak(true);
-                                    });
-                                  } else {
-                                    setHasUserActivatedSpeak(true);
-                                  }
-                                }
-                              } catch (e) {
-                                console.error('session #8', e);
-                                reopenSession(
-                                  true,
-                                  memori?.secretToken,
-                                  undefined,
-                                  memori?.giverTag,
-                                  memori?.giverPIN,
-                                  initialContextVars,
-                                  initialQuestion
-                                ).then(() => {
-                                  setHasUserActivatedSpeak(true);
-                                });
-                              }
-                            }
-                          } catch (e) {
-                            let err = e as Error;
-                            console.error('session #0', err);
-                            reopenSession(
-                              true,
-                              memori.secretToken,
-                              undefined,
-                              memori.giverTag,
-                              memori.giverPIN,
-                              initialContextVars,
-                              initialQuestion
-                            );
-                          }
-                        }
-                      }}
-                      className="memori--start-button"
-                    >
-                      {t(
-                        `write_and_speak.${
-                          !instruct ? 'tryMeButton' : 'instructButton'
-                        }`
-                      )}
-                    </Button>
-
-                    <p className="memori--start-description">
-                      {instruct
-                        ? t('write_and_speak.pageInstructExplanation')
-                        : t('write_and_speak.pageTryMeExplanation')}
-                    </p>
-
-                    {!!memori.blockedUntil && (
-                      <BlockedMemoriBadge
-                        memoriName={memori.name}
-                        blockedUntil={memori.blockedUntil}
-                        showGiverInfo={memori.isGiver}
-                        showTitle
-                        marginLeft
-                      />
-                    )}
-                  </div>
-                )}
-              </div>
+              <StartPanel
+                memori={memori}
+                tenant={tenant}
+                gamificationLevel={gamificationLevel}
+                language={language}
+                userLang={userLang}
+                setUserLang={setUserLang}
+                baseUrl={baseUrl}
+                position={position}
+                openPositionDrawer={() => setShowPositionDrawer(true)}
+                integrationConfig={integrationConfig}
+                instruct={instruct}
+                sessionId={sessionId}
+                clickedStart={clickedStart}
+                onClickStart={onClickStart}
+              />
             )}
           </div>
         </div>

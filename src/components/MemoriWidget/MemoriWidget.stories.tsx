@@ -4,7 +4,7 @@ import { memori, integration, tenant } from '../../mocks/data';
 import MemoriWidget, { Props } from './MemoriWidget';
 
 const meta: Meta = {
-  title: 'Memori Widget',
+  title: 'Widget',
   component: MemoriWidget,
   argTypes: {
     showShare: {
@@ -47,9 +47,9 @@ WithPublicPageIntegration.args = {
     ...integration,
     customData: JSON.stringify({
       ...JSON.parse(integration.customData ?? '{}'),
+      avatar: 'readyplayerme',
       avatarURL:
-        JSON.parse(integration.customData ?? '{}').avatarURL?.split('#')?.[0] +
-        '#' +
+        'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb' +
         new Date(Date.now()).getTime(),
     }),
   },
