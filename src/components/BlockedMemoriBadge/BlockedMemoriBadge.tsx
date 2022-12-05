@@ -30,7 +30,6 @@ const BlockedMemoriBadge = ({
         <>
           {!showGiverInfo &&
             t('memoriBlockedAnon', {
-              ns: 'common',
               name: memoriName,
               date: new Intl.DateTimeFormat('it', {
                 day: 'numeric',
@@ -40,18 +39,15 @@ const BlockedMemoriBadge = ({
             })}
           {showGiverInfo &&
             t('memoriBlockedUntil', {
-              ns: 'common',
               date: new Intl.DateTimeFormat('it', {
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric',
               }).format(blockedUntilDate),
             })}
-          {showGiverInfo &&
-            ` ${t('memoriBlockedReasonExceedChats', { ns: 'common' })}`}
+          {showGiverInfo && ` ${t('memoriBlockedReasonExceedChats')}`}
           {showGiverInfo && <br />}
-          {showGiverInfo &&
-            `\n${t('memoriBlockedGiverHelper', { ns: 'common' })}`}
+          {showGiverInfo && `\n${t('memoriBlockedGiverHelper')}`}
         </>
       }
     >
@@ -63,7 +59,7 @@ const BlockedMemoriBadge = ({
         </div>
         {showTitle && (
           <span className="blocked-memori-badge--title">
-            {t('memoriBlockedTitle', { ns: 'common' })}
+            {t('memoriBlockedTitle')}
           </span>
         )}
       </div>
