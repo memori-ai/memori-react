@@ -21,6 +21,7 @@
     "test:ci": "tsdx test --passWithNoTests",
     "test": "tsdx test --watch",
     "lint": "tsdx lint",
+    "typecheck": "tsc -b",
     "stylelint": "stylelint \"src/**/*.css\"",
     "prepare:husky": "is-ci || husky install",
     "prepare": "npm run prepare:husky && tsdx build",
