@@ -42,6 +42,7 @@ Default.args = {
   speakerMuted: false,
   hasUserActivatedSpeak: false,
   showShare: false,
+  showSettings: false,
 };
 
 export const WithPosition = Template.bind({});
@@ -61,6 +62,7 @@ WithPosition.args = {
   speakerMuted: false,
   hasUserActivatedSpeak: false,
   showShare: false,
+  showSettings: false,
 };
 
 export const SpeakerMuted = Template.bind({});
@@ -72,6 +74,7 @@ SpeakerMuted.args = {
   speakerMuted: true,
   hasUserActivatedSpeak: false,
   showShare: false,
+  showSettings: false,
 };
 
 export const WithShare = Template.bind({});
@@ -83,6 +86,19 @@ WithShare.args = {
   speakerMuted: false,
   hasUserActivatedSpeak: false,
   showShare: true,
+  showSettings: false,
+};
+
+export const WithSettings = Template.bind({});
+WithSettings.args = {
+  memori,
+  history,
+  setShowPositionDrawer: () => {},
+  setShowSettingsDrawer: () => {},
+  speakerMuted: false,
+  hasUserActivatedSpeak: false,
+  showShare: false,
+  showSettings: true,
 };
 
 export const WithOngoingChat = Template.bind({});
@@ -94,4 +110,5 @@ WithOngoingChat.args = {
   speakerMuted: false,
   hasUserActivatedSpeak: true,
   showShare: false,
+  showSettings: false,
 };

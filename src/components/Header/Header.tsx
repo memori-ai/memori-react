@@ -27,6 +27,7 @@ export interface Props {
   setSpeakerMuted: (mute: boolean) => void;
   hasUserActivatedSpeak?: boolean;
   showShare?: boolean;
+  showSettings?: boolean;
 }
 
 const Header: React.FC<Props> = ({
@@ -40,8 +41,10 @@ const Header: React.FC<Props> = ({
   setSpeakerMuted,
   hasUserActivatedSpeak = false,
   showShare = true,
+  showSettings = true,
 }) => {
   const { t } = useTranslation();
+
   return (
     <div className={cx('memori-header', className)}>
       {memori.needsPosition && position && (
@@ -63,7 +66,7 @@ const Header: React.FC<Props> = ({
         className="memori-header--button"
         icon={speakerMuted ? <SoundDeactivated /> : <Sound />}
         onClick={() => setSpeakerMuted(!speakerMuted)}
-        title={t('memoriWidget.sound') || 'Sound'}
+        title={t('widget.sound') || 'Sound'}
       />
       <ExportHistoryButton
         history={history}
@@ -71,14 +74,16 @@ const Header: React.FC<Props> = ({
         className="memori-header--button"
         disabled={!hasUserActivatedSpeak || history.length === 0}
       />
-      <Button
-        primary
-        shape="circle"
-        className="memori-header--button"
-        icon={<Setting />}
-        onClick={() => setShowSettingsDrawer(true)}
-        title={t('memoriWidget.settings') || 'Settings'}
-      />
+      {showSettings && (
+        <Button
+          primary
+          shape="circle"
+          className="memori-header--button"
+          icon={<Setting />}
+          onClick={() => setShowSettingsDrawer(true)}
+          title={t('widget.settings') || 'Settings'}
+        />
+      )}
       {showShare && (
         <ShareButton
           className="memori-header--button"
