@@ -10,29 +10,6 @@
     height: 100%;
 }
 
-.memori--changeMode-instruct {
-    padding: 1rem;
-    border-radius: 5px;
-}
-
-.memori--changeMode-instruct-radio {
-    display: flex;
-}
-
-.memori--changeMode-instruct-radio-button:first-of-type button {
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
-}
-
-.memori--changeMode-instruct-radio-button:last-of-type button {
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-}
-
-.memori--changeMode-instruct-radio-button[data-headlessui-state="checked"] button {
-    font-weight: 600;
-}
-
 .memori--grid {
     display: flex;
     height: calc(100% - 104px);
