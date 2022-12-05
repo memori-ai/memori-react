@@ -39,13 +39,8 @@ import * as speechSdk from 'microsoft-cognitiveservices-speech-sdk';
 import cx from 'classnames';
 
 // UI
-// import Notification from '../ui/Notification';
-import Spin from '../ui/Spin';
-import Button from '../ui/Button';
-import Tooltip from '../ui/Tooltip';
 // TODO: Implement this
 import message from '../ui/Message';
-import { RadioGroup } from '@headlessui/react';
 
 // Components
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
@@ -56,6 +51,11 @@ import AvatarView from '../AvatarView';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
 import Chat from '../Chat/Chat';
 import StartPanel from '../StartPanel/StartPanel';
+import Avatar from '../Avatar/Avatar';
+import ChangeMode from '../ChangeMode/ChangeMode';
+
+// Layout
+import DefaultLayout from '../layouts/Default';
 
 // Helpers / Utils
 import { getTranslation } from '../../helpers/translations';
@@ -74,7 +74,6 @@ import Header from '../Header/Header';
 
 // Styles
 import './MemoriWidget.css';
-import Avatar from '../Avatar/Avatar';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -1886,6 +1885,125 @@ const MemoriWidget = ({
     }
   };
 
+  const header = (
+    <Header
+      memori={memori}
+      history={history}
+      showShare={showShare}
+      position={position}
+      setShowPositionDrawer={setShowPositionDrawer}
+      setShowSettingsDrawer={setShowSettingsDrawer}
+      speakerMuted={muteSpeaker}
+      setSpeakerMuted={setMuteSpeaker}
+      showSettings={showSettings}
+      hasUserActivatedSpeak={hasUserActivatedSpeak}
+    />
+  );
+
+  const avatar = (
+    <Avatar
+      memori={memori}
+      integration={integration}
+      integrationConfig={integrationConfig}
+      tenant={tenant}
+      instruct={instruct}
+      avatar3dVisible={avatar3dVisible}
+      setAvatar3dVisible={setAvatar3dVisible}
+      hasUserActivatedSpeak={hasUserActivatedSpeak}
+      isPlayingAudio={isPlayingAudio}
+      baseUrl={baseUrl}
+    />
+  );
+
+  const startPanel = (
+    <StartPanel
+      memori={memori}
+      tenant={tenant}
+      gamificationLevel={gamificationLevel}
+      language={language}
+      userLang={userLang}
+      setUserLang={setUserLang}
+      baseUrl={baseUrl}
+      position={position}
+      openPositionDrawer={() => setShowPositionDrawer(true)}
+      integrationConfig={integrationConfig}
+      instruct={instruct}
+      sessionId={sessionId}
+      clickedStart={clickedStart}
+      onClickStart={onClickStart}
+    />
+  );
+
+  const chat = sessionId ? (
+    <Chat
+      memori={memori}
+      sessionID={sessionId}
+      tenant={tenant}
+      translateTo={
+        isMultilanguageEnabled &&
+        userLang.toUpperCase() !==
+          (
+            memori.culture?.split('-')?.[0] ??
+            i18n.language ??
+            'IT'
+          )?.toUpperCase()
+          ? userLang
+          : undefined
+      }
+      baseUrl={baseUrl}
+      memoriTyping={memoriTyping}
+      history={history}
+      dialogState={currentDialogState}
+      setDialogState={setCurrentDialogState}
+      pushMessage={pushMessage}
+      simulateUserPrompt={simulateUserPrompt}
+      showDates={showDates}
+      showContextPerLine={showContextPerLine}
+      client={client}
+      selectReceiverTag={selectReceiverTag}
+      preview={preview}
+      sendOnEnter={sendOnEnter}
+      setSendOnEnter={setSendOnEnter}
+      attachmentsMenuOpen={attachmentsMenuOpen}
+      setAttachmentsMenuOpen={setAttachmentsMenuOpen}
+      instruct={instruct}
+      showInputs={showInputs}
+      userMessage={userMessage}
+      onChangeUserMessage={onChangeUserMessage}
+      sendMessage={(msg: string) => {
+        stopListening();
+        sendMessage(msg);
+        setUserMessage('');
+        resetTranscript();
+      }}
+      stopListening={stopListening}
+      resetTranscript={resetTranscript}
+    />
+  ) : null;
+
+  const integrationBackground =
+    integration && globalBackgroundUrl ? (
+      <div className="memori--global-background">
+        <div
+          className="memori--global-background-image"
+          style={{ backgroundImage: globalBackgroundUrl }}
+        />
+      </div>
+    ) : null;
+
+  const integrationStyle = integration ? (
+    <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
+  ) : null;
+
+  const onChangeMode = (mode: 'instruct' | 'test') => {
+    setInstruct(mode === 'instruct');
+    setHasUserActivatedSpeak(false);
+    setClickedStart(false);
+  };
+  const changeMode = (
+    <ChangeMode instruct={instruct} onChangeMode={onChangeMode} />
+  );
+
   return (
     <div
       className={cx('memori', 'memori-widget', {
@@ -1899,150 +2017,19 @@ const MemoriWidget = ({
         sessionID: sessionId,
       })}
     >
-      {integration && (
-        <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
-      )}
-      {integration && globalBackgroundUrl && (
-        <div className="memori--global-background">
-          <div
-            className="memori--global-background-image"
-            style={{ backgroundImage: globalBackgroundUrl }}
-          />
-        </div>
-      )}
-      <Spin spinning={loading}>
-        {showInstruct && (
-          <div className="memori--changeMode-instruct">
-            <RadioGroup
-              name="instruct"
-              value={instruct ? 'instruct' : 'test'}
-              defaultValue={instruct ? 'instruct' : 'test'}
-              className="memori--changeMode-instruct-radio"
-              onChange={value => {
-                setInstruct(value === 'instruct');
-                setHasUserActivatedSpeak(false);
-                setClickedStart(false);
-              }}
-            >
-              <RadioGroup.Option
-                value="instruct"
-                className="memori--changeMode-instruct-radio-button"
-              >
-                {({ checked }) => (
-                  <Button primary={checked}>
-                    {t('widget.instruct') || 'Instruct'}
-                  </Button>
-                )}
-              </RadioGroup.Option>
-              <RadioGroup.Option
-                value="test"
-                className="memori--changeMode-instruct-radio-button"
-              >
-                {({ checked }) => (
-                  <Button primary={checked}>
-                    {t('widget.test') || 'Test'}
-                  </Button>
-                )}
-              </RadioGroup.Option>
-            </RadioGroup>
-          </div>
-        )}
-
-        <Header
-          memori={memori}
-          history={history}
-          showShare={showShare}
-          position={position}
-          setShowPositionDrawer={setShowPositionDrawer}
-          setShowSettingsDrawer={setShowSettingsDrawer}
-          speakerMuted={muteSpeaker}
-          setSpeakerMuted={setMuteSpeaker}
-          showSettings={showSettings}
-          hasUserActivatedSpeak={hasUserActivatedSpeak}
-        />
-
-        <div className="memori--grid">
-          <div className="memori--grid-column memori--grid-column-left">
-            <Avatar
-              memori={memori}
-              integration={integration}
-              integrationConfig={integrationConfig}
-              tenant={tenant}
-              instruct={instruct}
-              avatar3dVisible={avatar3dVisible}
-              setAvatar3dVisible={setAvatar3dVisible}
-              hasUserActivatedSpeak={hasUserActivatedSpeak}
-              isPlayingAudio={isPlayingAudio}
-              baseUrl={baseUrl}
-            />
-          </div>
-          <div className="memori--grid-column memori--grid-column-right">
-            {sessionId && hasUserActivatedSpeak ? (
-              <Chat
-                memori={memori}
-                sessionID={sessionId}
-                tenant={tenant}
-                translateTo={
-                  isMultilanguageEnabled &&
-                  userLang.toUpperCase() !==
-                    (
-                      memori.culture?.split('-')?.[0] ??
-                      i18n.language ??
-                      'IT'
-                    )?.toUpperCase()
-                    ? userLang
-                    : undefined
-                }
-                baseUrl={baseUrl}
-                memoriTyping={memoriTyping}
-                history={history}
-                dialogState={currentDialogState}
-                setDialogState={setCurrentDialogState}
-                pushMessage={pushMessage}
-                simulateUserPrompt={simulateUserPrompt}
-                showDates={showDates}
-                showContextPerLine={showContextPerLine}
-                client={client}
-                selectReceiverTag={selectReceiverTag}
-                preview={preview}
-                sendOnEnter={sendOnEnter}
-                setSendOnEnter={setSendOnEnter}
-                attachmentsMenuOpen={attachmentsMenuOpen}
-                setAttachmentsMenuOpen={setAttachmentsMenuOpen}
-                instruct={instruct}
-                showInputs={showInputs}
-                userMessage={userMessage}
-                onChangeUserMessage={onChangeUserMessage}
-                sendMessage={(msg: string) => {
-                  stopListening();
-                  sendMessage(msg);
-                  setUserMessage('');
-                  resetTranscript();
-                }}
-                stopListening={stopListening}
-                resetTranscript={resetTranscript}
-              />
-            ) : (
-              <StartPanel
-                memori={memori}
-                tenant={tenant}
-                gamificationLevel={gamificationLevel}
-                language={language}
-                userLang={userLang}
-                setUserLang={setUserLang}
-                baseUrl={baseUrl}
-                position={position}
-                openPositionDrawer={() => setShowPositionDrawer(true)}
-                integrationConfig={integrationConfig}
-                instruct={instruct}
-                sessionId={sessionId}
-                clickedStart={clickedStart}
-                onClickStart={onClickStart}
-              />
-            )}
-          </div>
-        </div>
-      </Spin>
+      <DefaultLayout
+        header={header}
+        avatar={avatar}
+        chat={chat}
+        startPanel={startPanel}
+        integrationStyle={integrationStyle}
+        integrationBackground={integrationBackground}
+        changeMode={changeMode}
+        sessionId={sessionId}
+        hasUserActivatedSpeak={hasUserActivatedSpeak}
+        showInstruct={showInstruct}
+        loading={loading}
+      />
     </div>
   );
 };

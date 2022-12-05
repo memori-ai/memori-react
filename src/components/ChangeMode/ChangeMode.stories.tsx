@@ -1,6 +1,5 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { memori, tenant, integration } from '../../mocks/data';
 import ChangeMode, { Props } from './ChangeMode';
 
 const meta: Meta = {
