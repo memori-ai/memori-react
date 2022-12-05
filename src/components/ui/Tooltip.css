@@ -42,6 +42,14 @@
     transition: .3s;
 }
 
+.memori-tooltip.memori-tooltip--align-left .memori-tooltip--content::before {
+    right: -15px;
+    left: auto;
+    border-color: transparent transparent transparent rgba(0, 0, 0, 0.8);
+    margin-right: -5px;
+    margin-left: 0;
+}
+
 .memori-tooltip:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content,
 .memori-tooltip:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content::before {
     display: block;
