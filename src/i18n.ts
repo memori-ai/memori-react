@@ -15,16 +15,11 @@ const resources = {
 i18n.use(initReactI18next).init({
   resources,
   lng: 'en',
+  fallbackLng: 'it',
+  supportedLngs: ['en', 'it'],
+  nonExplicitSupportedLngs: true,
   interpolation: {
     escapeValue: false,
-  },
-});
-
-export const useTranslation = () => ({
-  i18n,
-  t: (key: string) => {
-    // console.debug(key);
-    return i18n.t(key);
   },
 });
 
