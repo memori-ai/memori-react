@@ -12,7 +12,7 @@
     right: auto;
     left: 0;
     display: flex;
-    min-width: 10rem;
+    min-width: 14rem;
     flex-direction: column;
     padding: 0.5rem 0;
     border: 1px solid rgba(0, 0, 0, 0.1);

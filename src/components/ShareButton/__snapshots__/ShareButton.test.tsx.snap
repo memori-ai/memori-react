@@ -12,7 +12,7 @@ exports[`renders ShareButton aligned left unchanged 1`] = `
       class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
       data-headlessui-state=""
       id="headlessui-menu-button-:ra:"
-      title="memoriWidget.share"
+      title="widget.share"
       type="button"
     >
       <div
@@ -47,7 +47,7 @@ exports[`renders ShareButton unchanged 1`] = `
       class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
       data-headlessui-state=""
       id="headlessui-menu-button-:r0:"
-      title="memoriWidget.share"
+      title="widget.share"
       type="button"
     >
       <div
@@ -82,7 +82,7 @@ exports[`renders ShareButton with button not primary unchanged 1`] = `
       class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button"
       data-headlessui-state=""
       id="headlessui-menu-button-:r6:"
-      title="memoriWidget.share"
+      title="widget.share"
       type="button"
     >
       <div
@@ -117,7 +117,7 @@ exports[`renders ShareButton with title unchanged 1`] = `
       class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
       data-headlessui-state=""
       id="headlessui-menu-button-:r4:"
-      title="memoriWidget.share"
+      title="widget.share"
       type="button"
     >
       <div
@@ -152,7 +152,7 @@ exports[`renders ShareButton with url unchanged 1`] = `
       class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
       data-headlessui-state=""
       id="headlessui-menu-button-:r2:"
-      title="memoriWidget.share"
+      title="widget.share"
       type="button"
     >
       <div
@@ -187,7 +187,7 @@ exports[`renders ShareButton without qr code unchanged 1`] = `
       class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
       data-headlessui-state=""
       id="headlessui-menu-button-:r8:"
-      title="memoriWidget.share"
+      title="widget.share"
       type="button"
     >
       <div

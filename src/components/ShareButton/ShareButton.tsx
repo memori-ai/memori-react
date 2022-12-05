@@ -115,7 +115,7 @@ const ShareButton: React.FC<Props> = ({
             'memori-button--primary': primary,
           }
         )}
-        title={t('memoriWidget.share') || undefined}
+        title={t('widget.share') || undefined}
       >
         <div className="memori-button--icon">
           <Share />
