@@ -91,10 +91,10 @@ const Memori: React.FC<Props> = ({
     } else {
       throw new Error('Tenant not found');
     }
-  }, [client.backend, tenantID]);
+  }, [tenantID]);
   useEffect(() => {
     fetchTenant();
-  }, [client.backend, fetchTenant]);
+  }, [fetchTenant]);
 
   /**
    * Fetches the Memori data from the backend
@@ -126,17 +126,10 @@ const Memori: React.FC<Props> = ({
         console.error('[MEMORI]', resp, memori);
       }
     }
-  }, [
-    client.backend,
-    memoriID,
-    ownerUserID,
-    memoriName,
-    ownerUserName,
-    tenant,
-  ]);
+  }, [memoriID, ownerUserID, memoriName, ownerUserName, tenant]);
   useEffect(() => {
     fetchMemori();
-  }, [client.backend, fetchMemori, tenant]);
+  }, [fetchMemori, tenant?.id]);
 
   /**
    * Sets the language in the i18n instance

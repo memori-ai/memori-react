@@ -1,11 +1,13 @@
 {
-  "version": "0.0.0",
+  "version": "0.0.1",
   "name": "@memori.ai/memori-react",
   "author": "Memori Srl",
   "main": "dist/index.js",
+  "module": "esm/index.js",
   "types": "./dist/index.d.ts",
   "files": [
     "dist",
+    "esm",
     "src"
   ],
   "engines": {
@@ -14,35 +16,26 @@
   "storybook": {
     "url": "https://memori-ai.github.io/memori-react/"
   },
-  "tsup": {
-    "entry": [
-      "src/index.tsx"
-    ],
-    "splitting": true,
-    "treeshake": true,
-    "dts": true,
-    "sourcemap": true,
-    "clean": true,
-    "format": [
-      "cjs",
-      "esm"
-    ],
-    "external": [
-      "react"
-    ]
-  },
   "scripts": {
-    "dev": "tsup --watch",
-    "build": "tsup",
-    "test:ci": "jest --passWithNoTests --ci",
-    "test:coverage": "jest --coverage",
-    "test:watch": "jest --watch",
-    "test": "jest",
-    "lint": "eslint",
-    "typecheck": "tsc -b",
-    "stylelint": "stylelint \"src/**/*.css\"",
+    "clean": "rimraf dist esm",
+    "copy-files:cjs": "copyfiles -u 1 src/**/*.css dist/",
+    "copy-files:esm": "copyfiles -u 1 src/**/*.css esm/",
+    "copy-files": "yarn copy-files:cjs && yarn copy-files:esm",
+    "build:cjs": "tsc --module commonjs --outDir dist",
+    "build:esm": "tsc --module esnext --outDir esm",
+    "prebuild": "yarn clean",
+    "build": "yarn build:cjs && yarn build:esm",
+    "postbuild": "yarn copy-files",
+    "test:ci": "jest --passWithNoTests --ci src",
+    "test:coverage": "jest --coverage src",
+    "test:watch": "jest --watch src",
+    "test": "jest src",
+    "lint:ts": "eslint --ignore-path .gitignore \"src/**/*.+(ts|js|tsx)\"",
+    "lint:css": "stylelint \"src/**/*.css\"",
+    "lint": "yarn lint:ts && yarn lint:css",
+    "typecheck": "tsc --noEmit",
     "prepare:husky": "is-ci || husky install",
-    "prepare": "tsup && npm run prepare:husky",
+    "prepare": "yarn build && yarn prepare:husky",
     "size": "size-limit",
     "analyze": "size-limit --why",
     "format": "prettier --write src",
@@ -85,12 +78,38 @@
     "/build"
   ],
   "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es2021": true,
+      "jest": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "extends": [
+      "plugin:react/recommended",
+      "plugin:storybook/recommended",
+      "prettier"
+    ],
     "plugins": [
       "jest",
+      "react",
+      "@typescript-eslint",
+      "prettier",
+      "react-hooks",
       "jsx-a11y"
     ],
     "rules": {
-      "endOfLine": "off"
+      "endOfLine": "off",
+      "react/no-unknown-property": "off",
+      "react/require-default-props": "off",
+      "no-console": "off",
+      "no-shadow": "off"
     }
   },
   "stylelint": {
@@ -183,12 +202,22 @@
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "@types/three": "0.144.0",
+    "@typescript-eslint/eslint-plugin": "5.45.1",
+    "@typescript-eslint/parser": "5.45.1",
     "autoprefixer": "10.4.13",
     "babel-jest": "29.3.1",
     "babel-loader": "9.1.0",
+    "copyfiles": "2.4.1",
     "cssnano": "5.1.14",
+    "eslint": "8.29.0",
+    "eslint-config-prettier": "8.5.0",
+    "eslint-plugin-import": "2.26.0",
     "eslint-plugin-jest": "27.1.5",
     "eslint-plugin-jsx-a11y": "6.6.1",
+    "eslint-plugin-prettier": "4.2.1",
+    "eslint-plugin-react": "7.31.11",
+    "eslint-plugin-react-hooks": "4.6.0",
+    "eslint-plugin-storybook": "0.6.7",
     "husky": "8.0.2",
     "identity-obj-proxy": "3.0.0",
     "is-ci": "3.0.1",
@@ -199,6 +228,7 @@
     "react-dom": "18.2.0",
     "react-is": "18.2.0",
     "release-it": "15.5.0",
+    "rimraf": "3.0.2",
     "size-limit": "8.1.0",
     "stylelint": "14.15.0",
     "stylelint-config-idiomatic-order": "9.0.0",
@@ -206,7 +236,6 @@
     "stylelint-config-recommended": "9.0.0",
     "ts-jest": "29.0.3",
     "tslib": "2.4.1",
-    "tsup": "6.5.0",
     "typescript": "4.9.3"
   },
   "dependencies": {

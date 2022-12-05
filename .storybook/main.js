@@ -19,4 +19,7 @@ module.exports = {
   reactOptions: {
     legacyRootApi: true,
   },
+  core: {
+    disableTelemetry: true,
+  },
 };

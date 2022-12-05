@@ -4,6 +4,7 @@
 node_modules
 .cache
 dist
+esm
 storybook-static
 tsconfig.tsbuildinfo
 coverage
