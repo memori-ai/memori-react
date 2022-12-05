@@ -42,7 +42,7 @@ const SendOnEnterMenu: React.FC<Props> = ({ sendOnEnter, setSendOnEnter }) => {
                     </span>
                   }
                 >
-                  {t('chatBot.sendOnKeypress')}
+                  {t('widget.sendOnKeypress')}
                 </Button>
               </Menu.Item>
             )}
@@ -60,7 +60,7 @@ const SendOnEnterMenu: React.FC<Props> = ({ sendOnEnter, setSendOnEnter }) => {
                     </span>
                   }
                 >
-                  {t('chatBot.sendOnClick')}
+                  {t('widget.sendOnClick')}
                 </Button>
               </Menu.Item>
             )}
