@@ -1,8 +1,15 @@
 {
-  "include": ["src", "types"],
+  "include": [
+    "src",
+    "types"
+  ],
   "compilerOptions": {
     "module": "esnext",
-    "lib": ["esnext", "dom", "dom.iterable"],
+    "lib": [
+      "esnext",
+      "dom",
+      "dom.iterable"
+    ],
     "importHelpers": true,
     "declaration": true,
     "sourceMap": true,
@@ -17,13 +24,11 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "target": "es5",
     "downlevelIteration": true,
     "allowJs": true,
     "skipLibCheck": true,
     "removeComments": true,
     "resolveJsonModule": true,
-    "isolatedModules": true,
-    "incremental": true
+    "isolatedModules": true
   }
 }

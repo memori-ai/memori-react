@@ -3,8 +3,7 @@
   "name": "@memori.ai/memori-react",
   "author": "Memori Srl",
   "main": "dist/index.js",
-  "module": "dist/memori-react.esm.js",
-  "typings": "dist/index.d.ts",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
     "src"
@@ -15,16 +14,35 @@
   "storybook": {
     "url": "https://memori-ai.github.io/memori-react/"
   },
+  "tsup": {
+    "entry": [
+      "src/index.tsx"
+    ],
+    "splitting": true,
+    "treeshake": true,
+    "dts": true,
+    "sourcemap": true,
+    "clean": true,
+    "format": [
+      "cjs",
+      "esm"
+    ],
+    "external": [
+      "react"
+    ]
+  },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test:ci": "tsdx test --passWithNoTests",
-    "test": "tsdx test --watch",
-    "lint": "tsdx lint",
+    "dev": "tsup --watch",
+    "build": "tsup",
+    "test:ci": "jest --passWithNoTests --ci",
+    "test:coverage": "jest --coverage",
+    "test:watch": "jest --watch",
+    "test": "jest",
+    "lint": "eslint",
     "typecheck": "tsc -b",
     "stylelint": "stylelint \"src/**/*.css\"",
     "prepare:husky": "is-ci || husky install",
-    "prepare": "tsdx build && npm run prepare:husky",
+    "prepare": "tsup && npm run prepare:husky",
     "size": "size-limit",
     "analyze": "size-limit --why",
     "format": "prettier --write src",
@@ -147,6 +165,8 @@
   ],
   "devDependencies": {
     "@babel/core": "7.20.2",
+    "@babel/preset-env": "7.20.2",
+    "@babel/preset-react": "7.18.6",
     "@commitlint/cli": "17.3.0",
     "@commitlint/config-conventional": "17.3.0",
     "@release-it/conventional-changelog": "5.1.1",
@@ -159,18 +179,21 @@
     "@storybook/react": "6.5.13",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.4.0",
-    "@types/jest": "29.2.3",
+    "@types/jest": "29.2.4",
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "@types/three": "0.144.0",
     "autoprefixer": "10.4.13",
+    "babel-jest": "29.3.1",
     "babel-loader": "9.1.0",
+    "cssnano": "5.1.14",
     "eslint-plugin-jest": "27.1.5",
     "eslint-plugin-jsx-a11y": "6.6.1",
     "husky": "8.0.2",
     "identity-obj-proxy": "3.0.0",
     "is-ci": "3.0.1",
     "jest": "29.3.1",
+    "jest-environment-jsdom": "29.3.1",
     "postcss": "8.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -181,8 +204,9 @@
     "stylelint-config-idiomatic-order": "9.0.0",
     "stylelint-config-prettier": "9.0.4",
     "stylelint-config-recommended": "9.0.0",
-    "tsdx": "0.14.1",
+    "ts-jest": "29.0.3",
     "tslib": "2.4.1",
+    "tsup": "6.5.0",
     "typescript": "4.9.3"
   },
   "dependencies": {
