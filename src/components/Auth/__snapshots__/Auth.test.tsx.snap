@@ -1,0 +1,143 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders Auth on tokens unchanged 1`] = `
+<div>
+  <form
+    class="memori-auth-widget--form"
+    name="memoriAuth"
+  >
+    <fieldset
+      class="memori-auth-widget--tokens-fieldset"
+      name="tokens"
+    >
+      <legend>
+        auth.tokens
+        : 
+      </legend>
+      <label
+        class="memori-auth-widget--token"
+      >
+        <input
+          autocomplete="off"
+          class="memori-auth-widget--input"
+          name="tokens.0"
+          placeholder="Recovery token"
+          required=""
+          type="password"
+        />
+      </label>
+      <button
+        class="memori-auth-widget--token-add memori-button memori-button--rounded memori-button--padded memori-button--with-icon"
+      >
+        <span
+          class="memori-button--icon"
+        >
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            role="img"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
+            />
+            <path
+              d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"
+            />
+          </svg>
+        </span>
+        auth.addToken
+      </button>
+      <hr />
+      <button
+        class="memori-button memori-button--outlined memori-button--rounded memori-button--padded"
+      >
+        auth.usePassword
+      </button>
+    </fieldset>
+    <button
+      class="memori-auth-widget--submit memori-button memori-button--primary memori-button--rounded memori-button--padded"
+      type="submit"
+    >
+      confirm
+    </button>
+  </form>
+</div>
+`;
+
+exports[`renders Auth unchanged 1`] = `
+<div>
+  <form
+    class="memori-auth-widget--form"
+    name="memoriAuth"
+  >
+    <fieldset
+      class="memori-auth-widget--password-fieldset"
+    >
+      <label>
+        Password:
+         
+        <input
+          class="memori-auth-widget--input"
+          name="password"
+          placeholder="Password"
+          required=""
+          type="password"
+        />
+      </label>
+    </fieldset>
+    <button
+      class="memori-auth-widget--submit memori-button memori-button--primary memori-button--rounded memori-button--padded"
+      type="submit"
+    >
+      confirm
+    </button>
+  </form>
+</div>
+`;
+
+exports[`renders Auth with modal unchanged 1`] = `
+<div>
+  <div
+    style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+  />
+</div>
+`;
+
+exports[`renders Auth with tokens unchanged 1`] = `
+<div>
+  <form
+    class="memori-auth-widget--form"
+    name="memoriAuth"
+  >
+    <fieldset
+      class="memori-auth-widget--password-fieldset"
+    >
+      <label>
+        Password:
+         
+        <input
+          class="memori-auth-widget--input"
+          name="password"
+          placeholder="Password"
+          required=""
+          type="password"
+        />
+      </label>
+      <hr />
+      <button
+        class="memori-button memori-button--outlined memori-button--rounded memori-button--padded"
+      >
+        auth.useRecoveryTokens
+      </button>
+    </fieldset>
+    <button
+      class="memori-auth-widget--submit memori-button memori-button--primary memori-button--rounded memori-button--padded"
+      type="submit"
+    >
+      confirm
+    </button>
+  </form>
+</div>
+`;

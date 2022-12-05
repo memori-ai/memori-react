@@ -33,7 +33,7 @@ export const AuthWidget = ({
   showTokens = true,
   withModal = false,
 }: Props) => {
-  const { t } = useTranslation(['common']);
+  const { t } = useTranslation();
   const {
     register,
     handleSubmit,
@@ -140,7 +140,7 @@ export const AuthWidget = ({
           primary
           className="memori-auth-widget--submit"
         >
-          {t('auth.submit') || 'Submit'}
+          {t('confirm') || 'Submit'}
         </Button>
       )}
     </form>
