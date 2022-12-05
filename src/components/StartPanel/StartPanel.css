@@ -1,0 +1,121 @@
+.memori--gamification-badge {
+    position: absolute;
+    right: 0.25rem;
+    bottom: -1.25rem;
+    display: flex;
+    width: 2rem;
+    height: 2rem;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--ant-primary-color);
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 5px 6px rgba(255, 255, 255, 0.5);
+}
+
+.memori--gamification-badge span {
+    font-size: 1.2rem;
+}
+
+.memori--start-panel {
+    width: 100%;
+    align-self: flex-start;
+    padding: var(--memori-inner-content-pad, 0);
+    border-radius: 10px;
+    margin-top: 2rem;
+    background-color: var(--memori-inner-bg, transparent);
+    color: var(--memori-text-color, rgba(0, 0, 0, 0.85)) !important;
+}
+
+.memori--start-panel .memori--start-panel-title {
+    color: var(--memori-text-color, var(--ant-primary-color)) !important;
+}
+
+.memori--start-panel .memori--start-panel-description {
+    color: var(--memori-text-color, rgba(0, 0, 0, 0.85)) !important;
+}
+
+@media (max-width: 870px) {
+    .memori--start-panel {
+        margin-top: 1rem;
+    }
+}
+
+.memori--cover {
+    position: relative;
+    width: 100%;
+    padding-top: 31.25%;
+    border-radius: 3px;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.memori--avatar {
+    position: relative;
+    z-index: 0;
+    top: -20px;
+    display: inline-flex;
+    overflow: hidden;
+    width: 60px;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 10px;
+    background: #fff;
+    box-shadow: 0 0 5px rgba(50, 50, 50, 0.3);
+}
+
+
+.memori--avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.memori--title {
+    display: inline-block;
+    color: var(--ant-primary-color);
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.8;
+}
+
+.memori--description,
+.memori--needsPosition {
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.memori--description-text {
+    display: block;
+}
+
+.memori--translation-toggle {
+    height: auto;
+    padding-right: 0;
+    padding-left: 0;
+    font-size: 0.85em;
+}
+
+.memori--start-description {
+    margin-top: 0.5rem;
+    font-size: 0.85em;
+    opacity: 0.85;
+}
+
+.memori--language-chooser {
+    margin-bottom: 1rem;
+}
+
+.memori--language-chooser svg {
+    margin-right: 0.5rem;
+}
+
+.memori--language-chooser select,
+.memori--language-chooser .memori--select {
+    min-width: 7rem;
+    margin-left: 0.5rem;
+}

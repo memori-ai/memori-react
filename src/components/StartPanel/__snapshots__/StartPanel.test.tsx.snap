@@ -1,0 +1,369 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders StartPanel on instruct unchanged 1`] = `
+<div>
+  <div
+    class="memori--start-panel"
+  >
+    <div
+      class="memori--cover"
+    >
+      <div
+        class="memori--gamification-badge"
+      >
+        <div
+          class="memori-tooltip memori-tooltip--align-left"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            gamification.level 🌍, 61 gamification.points
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <span
+              aria-label="gamification.level 🌍, 61 gamification.points"
+            >
+              🌍
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <picture
+      class="memori--avatar"
+    >
+      <source
+        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+      />
+      <img
+        alt="Memori"
+        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+      />
+    </picture>
+    <h2
+      class="memori--title"
+    >
+      Memori
+    </h2>
+    <div
+      class="memori--description"
+    >
+      <p>
+        <span
+          class="memori--description-text"
+        >
+          Lorem ipsum.
+        </span>
+      </p>
+      <button
+        class="memori--start-button memori-button memori-button--primary memori-button--rounded memori-button--padded"
+      >
+        write_and_speak.instructButton
+      </button>
+      <p
+        class="memori--start-description"
+      >
+        write_and_speak.pageInstructExplanation
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders StartPanel unchanged 1`] = `
+<div>
+  <div
+    class="memori--start-panel"
+  >
+    <div
+      class="memori--cover"
+    />
+    <picture
+      class="memori--avatar"
+    >
+      <source
+        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+      />
+      <img
+        alt="Memori"
+        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+      />
+    </picture>
+    <h2
+      class="memori--title"
+    >
+      Memori
+    </h2>
+    <div
+      class="memori--description"
+    >
+      <p>
+        <span
+          class="memori--description-text"
+        >
+          Lorem ipsum.
+        </span>
+      </p>
+      <button
+        class="memori--start-button memori-button memori-button--primary memori-button--rounded memori-button--padded"
+      >
+        write_and_speak.tryMeButton
+      </button>
+      <p
+        class="memori--start-description"
+      >
+        write_and_speak.pageTryMeExplanation
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders StartPanel with gamification level unchanged 1`] = `
+<div>
+  <div
+    class="memori--start-panel"
+  >
+    <div
+      class="memori--cover"
+    >
+      <div
+        class="memori--gamification-badge"
+      >
+        <div
+          class="memori-tooltip memori-tooltip--align-left"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            gamification.level 🌍, 61 gamification.points
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <span
+              aria-label="gamification.level 🌍, 61 gamification.points"
+            >
+              🌍
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <picture
+      class="memori--avatar"
+    >
+      <source
+        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+      />
+      <img
+        alt="Memori"
+        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+      />
+    </picture>
+    <h2
+      class="memori--title"
+    >
+      Memori
+    </h2>
+    <div
+      class="memori--description"
+    >
+      <p>
+        <span
+          class="memori--description-text"
+        >
+          Lorem ipsum.
+        </span>
+      </p>
+      <button
+        class="memori--start-button memori-button memori-button--primary memori-button--rounded memori-button--padded"
+      >
+        write_and_speak.tryMeButton
+      </button>
+      <p
+        class="memori--start-description"
+      >
+        write_and_speak.pageTryMeExplanation
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders StartPanel with integrationConfig unchanged 1`] = `
+<div>
+  <div
+    class="memori--start-panel"
+  >
+    <div
+      class="memori--cover"
+    />
+    <picture
+      class="memori--avatar"
+    >
+      <source
+        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+      />
+      <img
+        alt="Memori"
+        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+      />
+    </picture>
+    <h2
+      class="memori--title"
+    >
+      Memori
+    </h2>
+    <div
+      class="memori--description"
+    >
+      <p>
+        <span
+          class="memori--description-text"
+        >
+          Lorem ipsum.
+        </span>
+      </p>
+      <div
+        class="memori--language-chooser"
+      >
+        <label
+          for="user-lang-pref"
+          id="user-lang-pref-label"
+        >
+          write_and_speak.iWantToTalkToIn
+        </label>
+        <select
+          aria-labelledby="user-lang-pref-label"
+          id="user-lang-pref"
+        >
+          <option
+            aria-label="Italiano"
+            value="IT"
+          >
+            Italiano
+          </option>
+          <option
+            aria-label="English"
+            value="EN"
+          >
+            English
+          </option>
+          <option
+            aria-label="Deutsch"
+            value="DE"
+          >
+            Deutsch
+          </option>
+          <option
+            aria-label="Español"
+            value="ES"
+          >
+            Español
+          </option>
+          <option
+            aria-label="Français"
+            value="FR"
+          >
+            Français
+          </option>
+          <option
+            aria-label="Português"
+            value="PT"
+          >
+            Português
+          </option>
+          <option
+            aria-label="Українська"
+            value="UK"
+          >
+            Українська
+          </option>
+          <option
+            aria-label="Русский"
+            value="RU"
+          >
+            Русский
+          </option>
+        </select>
+      </div>
+      <button
+        class="memori--start-button memori-button memori-button--primary memori-button--rounded memori-button--padded"
+      >
+        write_and_speak.tryMeButton
+      </button>
+      <p
+        class="memori--start-description"
+      >
+        write_and_speak.pageTryMeExplanation
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders StartPanel with position required unchanged 1`] = `
+<div>
+  <div
+    class="memori--start-panel"
+  >
+    <div
+      class="memori--cover"
+    >
+      <div
+        class="memori--gamification-badge"
+      >
+        <div
+          class="memori-tooltip memori-tooltip--align-left"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            gamification.level 🌍, 61 gamification.points
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <span
+              aria-label="gamification.level 🌍, 61 gamification.points"
+            >
+              🌍
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <picture
+      class="memori--avatar"
+    >
+      <source
+        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+      />
+      <img
+        alt="Memori"
+        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+      />
+    </picture>
+    <h2
+      class="memori--title"
+    >
+      Memori
+    </h2>
+    <div
+      class="memori--needsPosition"
+    >
+      <p>
+        write_and_speak.requirePosition
+      </p>
+      <button
+        class="memori--start-button memori-button memori-button--primary memori-button--rounded memori-button--padded"
+      >
+        widget.position
+      </button>
+    </div>
+  </div>
+</div>
+`;
