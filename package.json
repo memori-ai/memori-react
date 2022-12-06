@@ -10,6 +10,21 @@
     "esm",
     "src"
   ],
+  "license": "Apache-2.0",
+  "homepage": "https://github.com/memori-ai/memori-react#readme",
+  "bugs": "https://github.com/memori-ai/memori-react/issues",
+  "repository": "https://github.com/memori-ai/memori-react.git",
+  "keywords": [
+    "memori",
+    "memori-ai",
+    "react",
+    "nlp",
+    "typescript",
+    "ai",
+    "storybook",
+    "conversational-agents",
+    "conversational-ai"
+  ],
   "engines": {
     "node": ">=16"
   },
@@ -248,7 +263,7 @@
   "dependencies": {
     "@fontsource/exo-2": "^4.5.10",
     "@headlessui/react": "1.7.4",
-    "@memori.ai/memori-api-client": "^0.4.4",
+    "@memori.ai/memori-api-client": "^0.4.5",
     "@react-three/drei": "8.20.2",
     "@react-three/fiber": "7.0.25",
     "classnames": "2.3.2",
