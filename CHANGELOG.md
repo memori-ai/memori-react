@@ -1,5 +1,19 @@
 
 
+## [1.0.0-alpha.2](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2022-12-06)
+
+
+### Features
+
+* add onStateChange callback ([e4f55bd](https://github.com/memori-ai/memori-react/commit/e4f55bdc12a51ee311a8fe63a9fcc0e7125bdc32))
+
+
+### Maintenance
+
+* add details in package.json + upgrade api client ([f0ce68a](https://github.com/memori-ai/memori-react/commit/f0ce68ade744fd02c4af3a08d4b2849fbbef9113))
+* cleanup ([94fb8b0](https://github.com/memori-ai/memori-react/commit/94fb8b06a118e42da695da5dd4bbf307ff723914))
+* cleanup deps and lockfile ([3044342](https://github.com/memori-ai/memori-react/commit/3044342b9dde3e758c92968a4547a829d2984dd5))
+
 ## [1.0.0-alpha.1](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.0...v1.0.0-alpha.1) (2022-12-06)
 
 
