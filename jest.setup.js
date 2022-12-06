@@ -38,3 +38,11 @@ Object.defineProperty(window, 'IntersectionObserver', {
 jest
   .spyOn(global.Date, 'now')
   .mockImplementation(() => new Date(2022, 11, 17, 0, 0, 0, 0).valueOf());
+
+const DateTimeFormat = Intl.DateTimeFormat;
+jest
+  .spyOn(global.Intl, 'DateTimeFormat')
+  .mockImplementation(
+    (locale, options) =>
+      new DateTimeFormat(locale, { ...options, timeZone: 'Europe/Rome' })
+  );

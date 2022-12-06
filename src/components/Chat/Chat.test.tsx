@@ -18,6 +18,17 @@ const dialogState = {
   hints: [],
 };
 
+const DateTimeFormat = Intl.DateTimeFormat;
+beforeEach(() => {
+  jest.spyOn(global.Intl, 'DateTimeFormat').mockImplementation(
+    (locale, options) =>
+      new DateTimeFormat(locale, {
+        ...options,
+        timeZone: 'Europe/Rome',
+      })
+  );
+});
+
 it('renders Chat unchanged', () => {
   const { container } = render(
     <Chat
