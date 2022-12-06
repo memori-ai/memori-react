@@ -94,6 +94,7 @@ exports[`renders SnippetUpload with css code 1`] = `
       </pre>
       <button
         class="memori-snippet--copy-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+        title="copy"
       >
         <span
           class="memori-button--icon"
@@ -189,6 +190,7 @@ exports[`renders SnippetUpload with html code 1`] = `
       </pre>
       <button
         class="memori-snippet--copy-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+        title="copy"
       >
         <span
           class="memori-button--icon"
@@ -248,6 +250,7 @@ exports[`renders SnippetUpload with js code 1`] = `
       </pre>
       <button
         class="memori-snippet--copy-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+        title="copy"
       >
         <span
           class="memori-button--icon"
@@ -585,6 +588,7 @@ exports[`renders SnippetUpload with preview mode (clamping) 1`] = `
       </pre>
       <button
         class="memori-snippet--copy-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+        title="copy"
       >
         <span
           class="memori-button--icon"
@@ -2633,6 +2637,7 @@ exports[`renders SnippetUpload with react/tsx code 1`] = `
       </pre>
       <button
         class="memori-snippet--copy-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+        title="copy"
       >
         <span
           class="memori-button--icon"
@@ -2690,6 +2695,7 @@ exports[`renders SnippetUpload with text 1`] = `
       </pre>
       <button
         class="memori-snippet--copy-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+        title="copy"
       >
         <span
           class="memori-button--icon"
@@ -2747,6 +2753,7 @@ exports[`renders SnippetUpload with text as fallback 1`] = `
       </pre>
       <button
         class="memori-snippet--copy-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+        title="copy"
       >
         <span
           class="memori-button--icon"

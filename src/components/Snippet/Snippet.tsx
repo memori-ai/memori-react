@@ -14,6 +14,7 @@ import cpp from 'react-syntax-highlighter/dist/cjs/languages/prism/cpp';
 import php from 'react-syntax-highlighter/dist/cjs/languages/prism/php';
 import ruby from 'react-syntax-highlighter/dist/cjs/languages/prism/ruby';
 import sql from 'react-syntax-highlighter/dist/cjs/languages/prism/sql';
+import { useTranslation } from 'react-i18next';
 
 import './Snippet.css';
 
@@ -34,37 +35,45 @@ SyntaxHighlighter.registerLanguage('php', php);
 SyntaxHighlighter.registerLanguage('ruby', ruby);
 SyntaxHighlighter.registerLanguage('sql', sql);
 
-const Snippet = ({ medium, className, preview = false }: Props) => (
-  <div className="memori-snippet">
-    <div className="memori-snippet--content">
-      <SyntaxHighlighter
-        aria-labelledby={`#snippet-${medium.mediumID}`}
-        className={className}
-        style={atomDark}
-        showLineNumbers
-        language={
-          prismSyntaxLangs.find(l => medium.mimeType === l.mimeType)?.lang ??
-          'text'
-        }
-      >
-        {medium.content?.length && medium.content.length > 200 && preview
-          ? `${medium.content.slice(0, 200)}\n...`
-          : `${medium.content}`}
-      </SyntaxHighlighter>
-      <Button
-        padded={false}
-        ghost
-        className="memori-snippet--copy-button"
-        icon={<Copy />}
-        onClick={() => navigator.clipboard.writeText(medium.content ?? '')}
-      />
+const Snippet = ({ medium, className, preview = false }: Props) => {
+  const { t } = useTranslation();
+
+  return (
+    <div className="memori-snippet">
+      <div className="memori-snippet--content">
+        <SyntaxHighlighter
+          aria-labelledby={`#snippet-${medium.mediumID}`}
+          className={className}
+          style={atomDark}
+          showLineNumbers
+          language={
+            prismSyntaxLangs.find(l => medium.mimeType === l.mimeType)?.lang ??
+            'text'
+          }
+        >
+          {medium.content?.length && medium.content.length > 200 && preview
+            ? `${medium.content.slice(0, 200)}\n...`
+            : `${medium.content}`}
+        </SyntaxHighlighter>
+        <Button
+          padded={false}
+          ghost
+          className="memori-snippet--copy-button"
+          title={t('copy') || 'Copy'}
+          icon={<Copy />}
+          onClick={() => navigator.clipboard.writeText(medium.content ?? '')}
+        />
+      </div>
+      {!!medium.title?.length && (
+        <p
+          id={`snippet-${medium.mediumID}`}
+          className="memori-snippet--caption"
+        >
+          {medium.title}
+        </p>
+      )}
     </div>
-    {!!medium.title?.length && (
-      <p id={`snippet-${medium.mediumID}`} className="memori-snippet--caption">
-        {medium.title}
-      </p>
-    )}
-  </div>
-);
+  );
+};
 
 export default Snippet;

@@ -120,6 +120,7 @@ exports[`renders MediaItemWidget unchanged with css snippet to show 1`] = `
           </pre>
           <button
             class="memori-snippet--copy-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+            title="copy"
           >
             <span
               class="memori-button--icon"
@@ -356,6 +357,7 @@ exports[`renders MediaItemWidget unchanged with js snippet to show 1`] = `
           </pre>
           <button
             class="memori-snippet--copy-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+            title="copy"
           >
             <span
               class="memori-button--icon"
