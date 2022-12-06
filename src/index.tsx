@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import {
   DialogState,
   Memori as IMemori,
@@ -180,6 +181,29 @@ const Memori: React.FC<Props> = ({
       </p>
     </div>
   );
+};
+
+Memori.propTypes = {
+  memoriName: PropTypes.string,
+  memoriID: PropTypes.string,
+  ownerUserName: PropTypes.string,
+  ownerUserID: PropTypes.string,
+  integrationID: PropTypes.string,
+  tenantID: PropTypes.string.isRequired,
+  secretToken: PropTypes.string,
+  showShare: PropTypes.bool,
+  showSettings: PropTypes.bool,
+  baseURL: PropTypes.string,
+  apiURL: PropTypes.string,
+  tag: PropTypes.string,
+  pin: PropTypes.string,
+  showInstruct: PropTypes.bool,
+  context: PropTypes.objectOf(PropTypes.any),
+  initialQuestion: PropTypes.string,
+  uiLang: PropTypes.oneOf(['en', 'it']),
+  spokenLang: PropTypes.string,
+  AZURE_COGNITIVE_SERVICES_TTS_KEY: PropTypes.string,
+  onStateChange: PropTypes.func,
 };
 
 export default Memori;
