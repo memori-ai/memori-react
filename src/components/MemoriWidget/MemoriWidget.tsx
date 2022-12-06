@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-// FIXME: Remove these lines and work through linting issues
-/* eslint-disable react-hooks/exhaustive-deps */
-
 // Typings
 import {
   DialogState,
@@ -43,16 +39,13 @@ import cx from 'classnames';
 import message from '../ui/Message';
 
 // Components
-import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import PositionDrawer from '../PositionDrawer/PositionDrawer';
 import MemoriAuth from '../Auth/Auth';
-import Blob from '../Blob/Blob';
-import AvatarView from '../AvatarView';
-import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
 import Chat from '../Chat/Chat';
 import StartPanel from '../StartPanel/StartPanel';
 import Avatar from '../Avatar/Avatar';
 import ChangeMode from '../ChangeMode/ChangeMode';
+import Header from '../Header/Header';
 
 // Layout
 import DefaultLayout from '../layouts/Default';
@@ -61,16 +54,9 @@ import DefaultLayout from '../layouts/Default';
 import { getTranslation } from '../../helpers/translations';
 import { setLocalConfig, getLocalConfig } from '../../helpers/configuration';
 import { hasTouchscreen, stripDuplicates } from '../../helpers/utils';
-import { getResourceUrl } from '../../helpers/media';
 import { anonTag } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
 import { getGamificationLevel } from '../../helpers/statistics';
-
-// Icons
-import Edit from '../icons/Edit';
-import Eye from '../icons/Eye';
-import EyeInvisible from '../icons/EyeInvisible';
-import Header from '../Header/Header';
 
 // Styles
 import './MemoriWidget.css';
@@ -241,9 +227,8 @@ const MemoriWidget = ({
   const [memoriTyping, setMemoriTyping] = useState(false);
 
   const [hasUserActivatedSpeak, setHasUserActivatedSpeak] = useState(false);
-  const [hasUserActivatedListening, setHasUserActivatedListening] = useState(
-    false
-  );
+  const [hasUserActivatedListening, setHasUserActivatedListening] =
+    useState(false);
   const [showPositionDrawer, setShowPositionDrawer] = useState(false);
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
   const [showChatHistory, setShowChatHistory] = useState(false);
@@ -272,9 +257,8 @@ const MemoriWidget = ({
    */
   const [memoriPwd, setMemoriPwd] = useState<string | undefined>(secret);
   const [memoriTokens, setMemoriTokens] = useState<string[] | undefined>();
-  const [authModalState, setAuthModalState] = useState<
-    null | 'password' | 'tokens'
-  >(null);
+  const [authModalState, setAuthModalState] =
+    useState<null | 'password' | 'tokens'>(null);
 
   /**
    * Position drawer
@@ -386,9 +370,7 @@ const MemoriWidget = ({
       } else if (currentState.state === 'X2d' && memori.giverTag) {
         const { currentState, ...resp } = await postTextEnteredEvent({
           sessionId: newSessionId ?? sessionId,
-          text: Math.random()
-            .toString()
-            .substring(2, 8),
+          text: Math.random().toString().substring(2, 8),
         });
 
         if (resp.resultCode === 0) {
@@ -534,9 +516,8 @@ const MemoriWidget = ({
   /**
    * Sessione
    */
-  const [sessionId, setSessionId] = useState<string | undefined>(
-    initialSessionID
-  );
+  const [sessionId, setSessionId] =
+    useState<string | undefined>(initialSessionID);
   const [currentDialogState, setCurrentDialogState] = useState<DialogState>();
   const fetchSession = async (params: OpenSession): Promise<void> => {
     if (memori.privacyType !== 'PUBLIC' && !memori.secretToken) {
@@ -787,9 +768,8 @@ const MemoriWidget = ({
   /**
    * Timeout conversazione
    */
-  const [userInteractionTimeout, setUserInteractionTimeout] = useState<
-    NodeJS.Timeout
-  >();
+  const [userInteractionTimeout, setUserInteractionTimeout] =
+    useState<NodeJS.Timeout>();
   const timeoutRef = useRef<NodeJS.Timeout>();
   const clearInteractionTimeout = () => {
     if (userInteractionTimeout) {
@@ -1057,11 +1037,12 @@ const MemoriWidget = ({
     return voice;
   };
 
-  const [phonemesMap, setPhonemesMap] = useState<{
-    [ns: 'common' | string]: {
-      [word: string]: { [lang: 'default' | string]: string };
-    };
-  }>();
+  const [phonemesMap, setPhonemesMap] =
+    useState<{
+      [ns: 'common' | string]: {
+        [word: string]: { [lang: 'default' | string]: string };
+      };
+    }>();
   const fetchLexiconJSON = async () => {
     try {
       const lexiconReq = await fetch(
@@ -1213,10 +1194,8 @@ const MemoriWidget = ({
   /**
    * Listening transcript timeout
    */
-  const [
-    transcriptTimeout,
-    setTranscriptTimeout,
-  ] = useState<NodeJS.Timeout | null>(null);
+  const [transcriptTimeout, setTranscriptTimeout] =
+    useState<NodeJS.Timeout | null>(null);
   const setListeningTimeout = () => {
     let timeout = setTimeout(async () => {
       clearListening();
@@ -1263,18 +1242,18 @@ const MemoriWidget = ({
     try {
       navigator.mediaDevices
         .getUserMedia({ audio: true })
-        .then(function(_stream) {
+        .then(function (_stream) {
           if (!speechConfig) {
             speechConfig = speechSdk.SpeechConfig.fromSubscription(
               AZURE_COGNITIVE_SERVICES_TTS_KEY,
               'eastus'
             );
-            speechConfig.speechRecognitionLanguage = getCultureCodeByLanguage(
-              userLang
-            );
+            speechConfig.speechRecognitionLanguage =
+              getCultureCodeByLanguage(userLang);
           }
 
-          const audioConfig = speechSdk.AudioConfig.fromDefaultMicrophoneInput();
+          const audioConfig =
+            speechSdk.AudioConfig.fromDefaultMicrophoneInput();
           recognizer = new speechSdk.SpeechRecognizer(
             speechConfig,
             audioConfig
@@ -1399,9 +1378,8 @@ const MemoriWidget = ({
   /**
    * Textarea send mode handlers
    */
-  const [sendOnEnter, setSendOnEnter] = useState<'keypress' | 'click'>(
-    'keypress'
-  );
+  const [sendOnEnter, setSendOnEnter] =
+    useState<'keypress' | 'click'>('keypress');
   useEffect(() => {
     const stored = getLocalConfig<'keypress' | 'click'>(
       'sendOnEnter',
@@ -1416,67 +1394,68 @@ const MemoriWidget = ({
   /**
    * Attachments
    */
-  const [attachmentsMenuOpen, setAttachmentsMenuOpen] = useState<
-    'link' | 'media'
-  >();
+  const [attachmentsMenuOpen, setAttachmentsMenuOpen] =
+    useState<'link' | 'media'>();
 
   const globalBackground = integrationConfig?.globalBackground;
   const globalBackgroundUrl = globalBackground
     ? `url(${globalBackground})`
     : null;
 
-  const integrationProperties = (integration
-    ? {
-        '--memori-chat-bubble-bg': '#fff',
-        ...(integrationConfig && !showInstruct
-          ? { '--memori-text-color': integrationConfig.textColor ?? '#000' }
-          : {}),
-        ...(integrationConfig?.buttonBgColor
-          ? {
-              '--memori-button-bg': integrationConfig.buttonBgColor,
-              '--memori-button-hover-brightness': '1.2',
-              '--ant-primary-color': integrationConfig.buttonBgColor,
-              '--ant-primary-color-hover': integrationConfig.buttonBgColor,
-              '--ant-primary-4': integrationConfig.buttonBgColor,
-              '--ant-primary-5': integrationConfig.buttonBgColor,
-              '--ant-primary-7': integrationConfig.buttonBgColor,
-            }
-          : {
-              '--memori-button-hover-brightness': '1',
-            }),
-        ...(integrationConfig?.buttonTextColor
-          ? {
-              '--memori-button-text': integrationConfig.buttonTextColor,
-              '--ant-primary-text': integrationConfig.buttonTextColor,
-            }
-          : {}),
-        ...(integrationConfig?.blurBackground
-          ? {
-              '--memori-blur-background': '5px',
-            }
-          : {
-              '--memori-blur-background': '0px',
-            }),
-        ...(integrationConfig?.innerBgColor
-          ? {
-              '--memori-inner-bg': `rgba(${
-                integrationConfig.innerBgColor === 'dark'
-                  ? '0, 0, 0'
-                  : '255, 255, 255'
-              }, ${integrationConfig.innerBgAlpha ?? 0.4})`,
-              '--memori-inner-content-pad': '1.5rem',
-              '--memori-nav-bg-image': 'none',
-              '--memori-nav-bg': `rgba(${
-                integrationConfig.innerBgColor === 'dark'
-                  ? '0, 0, 0'
-                  : '255, 255, 255'
-              }, ${integrationConfig?.innerBgAlpha ?? 0.4})`,
-            }
-          : {
-              '--memori-inner-content-pad': '0px',
-            }),
-      }
-    : {}) as CSSProperties;
+  const integrationProperties = (
+    integration
+      ? {
+          '--memori-chat-bubble-bg': '#fff',
+          ...(integrationConfig && !showInstruct
+            ? { '--memori-text-color': integrationConfig.textColor ?? '#000' }
+            : {}),
+          ...(integrationConfig?.buttonBgColor
+            ? {
+                '--memori-button-bg': integrationConfig.buttonBgColor,
+                '--memori-button-hover-brightness': '1.2',
+                '--ant-primary-color': integrationConfig.buttonBgColor,
+                '--ant-primary-color-hover': integrationConfig.buttonBgColor,
+                '--ant-primary-4': integrationConfig.buttonBgColor,
+                '--ant-primary-5': integrationConfig.buttonBgColor,
+                '--ant-primary-7': integrationConfig.buttonBgColor,
+              }
+            : {
+                '--memori-button-hover-brightness': '1',
+              }),
+          ...(integrationConfig?.buttonTextColor
+            ? {
+                '--memori-button-text': integrationConfig.buttonTextColor,
+                '--ant-primary-text': integrationConfig.buttonTextColor,
+              }
+            : {}),
+          ...(integrationConfig?.blurBackground
+            ? {
+                '--memori-blur-background': '5px',
+              }
+            : {
+                '--memori-blur-background': '0px',
+              }),
+          ...(integrationConfig?.innerBgColor
+            ? {
+                '--memori-inner-bg': `rgba(${
+                  integrationConfig.innerBgColor === 'dark'
+                    ? '0, 0, 0'
+                    : '255, 255, 255'
+                }, ${integrationConfig.innerBgAlpha ?? 0.4})`,
+                '--memori-inner-content-pad': '1.5rem',
+                '--memori-nav-bg-image': 'none',
+                '--memori-nav-bg': `rgba(${
+                  integrationConfig.innerBgColor === 'dark'
+                    ? '0, 0, 0'
+                    : '255, 255, 255'
+                }, ${integrationConfig?.innerBgAlpha ?? 0.4})`,
+              }
+            : {
+                '--memori-inner-content-pad': '0px',
+              }),
+        }
+      : {}
+  ) as CSSProperties;
 
   const integrationStylesheet = `
     ${preview ? '#preview' : ':root'} {
@@ -1489,9 +1468,8 @@ const MemoriWidget = ({
   // eslint-disable-next-line
   const [avatar3dVisible, setAvatar3dVisible] = useState(true);
 
-  const [gamificationLevel, setGamificationLevel] = useState<
-    GamificationLevel
-  >();
+  const [gamificationLevel, setGamificationLevel] =
+    useState<GamificationLevel>();
   const getGamificationPoints = async (
     memoriID: string
   ): Promise<{
