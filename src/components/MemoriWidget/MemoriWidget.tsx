@@ -160,6 +160,7 @@ export interface Props {
     pin: string;
   };
   AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
+  onStateChange?: (state?: DialogState) => void;
 }
 
 const MemoriWidget = ({
@@ -185,6 +186,7 @@ const MemoriWidget = ({
   tenant,
   personification,
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
+  onStateChange,
 }: Props) => {
   const { t, i18n } = useTranslation();
 
@@ -518,7 +520,13 @@ const MemoriWidget = ({
    */
   const [sessionId, setSessionId] =
     useState<string | undefined>(initialSessionID);
-  const [currentDialogState, setCurrentDialogState] = useState<DialogState>();
+  const [currentDialogState, _setCurrentDialogState] = useState<DialogState>();
+  const setCurrentDialogState = (state?: DialogState) => {
+    _setCurrentDialogState(state);
+    if (onStateChange) {
+      onStateChange(state);
+    }
+  };
   const fetchSession = async (params: OpenSession): Promise<void> => {
     if (memori.privacyType !== 'PUBLIC' && !memori.secretToken) {
       setAuthModalState('password');

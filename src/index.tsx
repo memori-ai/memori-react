@@ -1,5 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Memori as IMemori } from '@memori.ai/memori-api-client/dist/types';
+import {
+  DialogState,
+  Memori as IMemori,
+} from '@memori.ai/memori-api-client/dist/types';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import MemoriWidget from './components/MemoriWidget/MemoriWidget';
 
@@ -30,6 +33,7 @@ export interface Props {
   uiLang?: 'en' | 'it';
   spokenLang?: string;
   AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
+  onStateChange?: (state?: DialogState) => void;
 }
 
 const getPreferredLanguages = () => {
@@ -69,6 +73,7 @@ const Memori: React.FC<Props> = ({
   uiLang,
   spokenLang,
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
+  onStateChange,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
   const { t } = useTranslation();
@@ -165,6 +170,7 @@ const Memori: React.FC<Props> = ({
       initialContextVars={context}
       initialQuestion={initialQuestion}
       AZURE_COGNITIVE_SERVICES_TTS_KEY={AZURE_COGNITIVE_SERVICES_TTS_KEY}
+      onStateChange={onStateChange}
       {...(tag && pin ? { personification: { tag, pin } } : {})}
     />
   ) : (
