@@ -14,3 +14,8 @@
 .memori-chat-inputs .memori-upload-menu+.memori-send-on-enter-menu {
     margin-left: 0.33rem;
 }
+
+.memori-chat-inputs .memori--conversation-button {
+    background: #fff;
+    color: var(--memori-text-color, #000);
+}

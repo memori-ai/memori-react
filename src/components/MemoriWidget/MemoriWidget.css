@@ -1,7 +1,9 @@
 .memori-widget {
     width: 100%;
+    font-family: 'Exo 2', sans-serif;
 }
 
+.memori-widget,
 .memori-widget * {
     box-sizing: border-box;
 }

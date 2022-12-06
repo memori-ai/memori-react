@@ -8,6 +8,7 @@
     margin-top: 0.5rem;
     background: #fff;
     box-shadow: var(--memori-button-box-shadow);
+    color: #000;
     text-align: left;
 }
 

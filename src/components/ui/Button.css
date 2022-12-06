@@ -17,6 +17,7 @@
     border-radius: var(--memori-button-radius);
     background: #fff;
     box-shadow: var(--memori-button-box-shadow);
+    color: #333;
     font-family: 'Exo 2', sans-serif;
     font-size: 14px;
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -24,6 +25,7 @@
 
 .memori-button:hover {
     box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02), 0 4px 8px rgba(0, 0, 0, 0.04);
+    color: #333;
     cursor: pointer;
 }
 

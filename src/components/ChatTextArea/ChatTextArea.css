@@ -38,6 +38,9 @@ textarea.memori-chat-textarea--input {
     box-sizing: border-box;
     padding: 6.5px 11px;
     border: none;
+    background: #fff;
+    color: #000;
+    font-family: "Exo 2", sans-serif;
     resize: none;
 }
 
@@ -56,12 +59,14 @@ textarea.memori-chat-textarea--input:focus {
 
 .memori-chat-textarea--expand-button {
     padding: 0.25rem 0.5rem;
+    color: #000;
     opacity: 0.6;
     transition: all 0.2s ease-in-out;
 }
 
 .memori-chat-textarea--expand-button:hover,
 .memori-chat-textarea--expand-button:focus {
+    color: #000;
     opacity: 1;
 }
 

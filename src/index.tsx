@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {
-  Memori as IMemori,
-  Tenant,
-} from '@memori.ai/memori-api-client/dist/types';
+import { Memori as IMemori } from '@memori.ai/memori-api-client/dist/types';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import MemoriWidget from './components/MemoriWidget/MemoriWidget';
 
 import i18n from './i18n';
 import { useTranslation } from 'react-i18next';
+
+import '@fontsource/exo-2/200.css';
+import '@fontsource/exo-2/400.css';
+import '@fontsource/exo-2/700.css';
 
 export interface Props {
   memoriName?: string | null;
@@ -70,7 +71,6 @@ const Memori: React.FC<Props> = ({
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
-  const [tenant, setTenant] = useState<Tenant>();
   const { t } = useTranslation();
 
   if (!((memoriID && ownerUserID) || (memoriName && ownerUserName))) {
@@ -82,28 +82,12 @@ const Memori: React.FC<Props> = ({
   const client = memoriApiClient(apiURL);
 
   /**
-   * Fetches the tenant data from the backend
-   */
-  const fetchTenant = useCallback(async () => {
-    const { tenant, ...resp } = await client.backend.getTenantConfig(tenantID);
-    if (resp.resultCode === 0 && tenant) {
-      setTenant(tenant);
-    } else {
-      throw new Error('Tenant not found');
-    }
-  }, [tenantID]);
-  useEffect(() => {
-    fetchTenant();
-  }, [fetchTenant]);
-
-  /**
    * Fetches the Memori data from the backend
    */
   const fetchMemori = useCallback(async () => {
-    if (!tenant?.id) return;
     if (memoriID && ownerUserID) {
       const { memori, ...resp } = await client.backend.getMemoriByUserAndId(
-        tenant.id,
+        tenantID,
         ownerUserID,
         memoriID
       );
@@ -115,7 +99,7 @@ const Memori: React.FC<Props> = ({
       }
     } else if (memoriName && ownerUserName) {
       const { memori, ...resp } = await client.backend.getMemori(
-        tenant.id,
+        tenantID,
         ownerUserName,
         memoriName
       );
@@ -126,10 +110,10 @@ const Memori: React.FC<Props> = ({
         console.error('[MEMORI]', resp, memori);
       }
     }
-  }, [memoriID, ownerUserID, memoriName, ownerUserName, tenant]);
+  }, [memoriID, ownerUserID, memoriName, ownerUserName, tenantID]);
   useEffect(() => {
     fetchMemori();
-  }, [fetchMemori, tenant?.id]);
+  }, [fetchMemori, tenantID]);
 
   /**
    * Sets the language in the i18n instance
@@ -158,7 +142,15 @@ const Memori: React.FC<Props> = ({
         secretToken,
       }}
       memoriLang={spokenLang ?? memori.culture?.split('-')?.[0]}
-      tenant={tenant}
+      tenant={{
+        id: tenantID,
+        theme: 'twincreator',
+        config: {
+          name: tenantID,
+          showNewUser: false,
+          requirePosition: !!memori.needsPosition,
+        },
+      }}
       showShare={showShare}
       showSettings={showSettings}
       showInstruct={showInstruct}
@@ -174,7 +166,9 @@ const Memori: React.FC<Props> = ({
     />
   ) : (
     <div>
-      <p style={{ textAlign: 'center', margin: '2rem 0' }}>{t('loading')}...</p>
+      <p style={{ textAlign: 'center', margin: '2rem auto' }}>
+        {t('loading')}...
+      </p>
     </div>
   );
 };
