@@ -134,6 +134,9 @@
     }
   },
   "release-it": {
+    "hooks": {
+      "after:bump": "yarn build"
+    },
     "git": {
       "tagName": "v${version}",
       "commitMessage": "chore: release v${version}"
