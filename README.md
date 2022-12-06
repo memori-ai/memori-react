@@ -53,3 +53,4 @@ WIP
 ## See also
 
 - [memori-api-client](https://github.com/memori-ai/memori-api-client) - API client for Memori
+- [memori-webcomponent](https://github.com/memori-ai/memori-webcomponent) - Web component for Memori, uses this library
