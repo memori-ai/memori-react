@@ -1,0 +1,62 @@
+// Vitest Snapshot v1
+
+exports[`Snapshot test > renders App unchanged 1`] = `
+<div>
+  <div
+    class="App"
+  >
+    <header
+      class="App-header"
+    >
+      <a
+        href="https://vitejs.dev"
+        target="_blank"
+      >
+        <img
+          alt="Vite logo"
+          class="logo"
+          src="/vite.svg"
+        />
+      </a>
+      <a
+        href="https://reactjs.org"
+        target="_blank"
+      >
+        <img
+          alt="React logo"
+          class="logo react"
+          src="/react.svg"
+        />
+      </a>
+    </header>
+    <main>
+      <h1>
+        Hello Vite + React!
+      </h1>
+      <div
+        class="card"
+      >
+        <button>
+          Increment
+        </button>
+        <p>
+          Count is: 
+          0
+        </p>
+        <p>
+          Edit 
+          <code>
+            src/App.tsx
+          </code>
+           and save to test HMR
+        </p>
+      </div>
+    </main>
+    <p
+      class="read-the-docs"
+    >
+      Click on the Vite and React logos to learn more
+    </p>
+  </div>
+</div>
+`;
