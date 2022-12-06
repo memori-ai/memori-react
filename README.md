@@ -11,6 +11,10 @@ Platforms:
 - [MemoryTwin](https://app.memorytwin.com/en): consumer / creator platform
 - [TwinCreator](https://app.twincreator.com/en): developer-oriented platform
 
+## Work in progress
+
+This library is still in development and is not ready for production.
+
 ## Installation
 
 ```bash
