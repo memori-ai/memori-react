@@ -1,5 +1,13 @@
 
 
+## [1.0.0-alpha.1](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.0...v1.0.0-alpha.1) (2022-12-06)
+
+
+### Maintenance
+
+* fix version ([95725fe](https://github.com/memori-ai/memori-react/commit/95725fe484c3bcf025bbddbdb1c5e834b98a31fe))
+* prepare for release ([a6a6db6](https://github.com/memori-ai/memori-react/commit/a6a6db678068717093ea7b14e3eac262b9507c73))
+
 ## 1.0.0-alpha.0 (2022-12-06)
 
 
