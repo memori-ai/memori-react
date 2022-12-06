@@ -59,7 +59,7 @@ const Memori: React.FC<Props> = ({
   secretToken,
   showShare = true,
   showSettings = false,
-  baseURL = 'https://app.twincreator.com',
+  baseURL,
   apiURL = 'https://backend.memori.ai',
   tag,
   pin,
@@ -135,7 +135,10 @@ const Memori: React.FC<Props> = ({
   return memori ? (
     <MemoriWidget
       embed
-      baseUrl={baseURL}
+      baseUrl={
+        baseURL ||
+        (tenantID.startsWith('https://') ? tenantID : `https://${tenantID}`)
+      }
       apiUrl={apiURL}
       memori={{
         ...memori,
