@@ -1,5 +1,13 @@
 
 
+## [1.0.0-alpha.4](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2022-12-06)
+
+
+### Maintenance
+
+* cleanup package.json ([e482423](https://github.com/memori-ai/memori-react/commit/e482423b7e4911bf2ea8d503242f665ac723b399))
+* **i18n:** add title to snippet copy button ([aa56073](https://github.com/memori-ai/memori-react/commit/aa560731faf0911d9bfb67350086534889cdcfd7))
+
 ## [1.0.0-alpha.3](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2022-12-06)
 
 
