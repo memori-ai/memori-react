@@ -34,3 +34,7 @@ Object.defineProperty(window, 'IntersectionObserver', {
     disconnect: jest.fn(),
   })),
 });
+
+jest
+  .spyOn(global.Date, 'now')
+  .mockImplementation(() => new Date(2022, 11, 17, 0, 0, 0, 0).valueOf());
