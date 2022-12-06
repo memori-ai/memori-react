@@ -1,15 +1,11 @@
 {
-  "version": "0.1.0",
+  "version": "1.0.0-alpha.0",
   "name": "@memori.ai/memori-react",
   "author": "Memori Srl",
   "main": "dist/index.js",
   "module": "esm/index.js",
   "types": "./dist/index.d.ts",
-  "files": [
-    "dist",
-    "esm",
-    "src"
-  ],
+  "files": ["dist", "esm", "src"],
   "engines": {
     "node": ">=16"
   },
@@ -73,10 +69,7 @@
       }
     ]
   },
-  "eslintIgnore": [
-    "/node_modules",
-    "/build"
-  ],
+  "eslintIgnore": ["/node_modules", "/build"],
   "eslintConfig": {
     "env": {
       "browser": true,
@@ -91,19 +84,8 @@
       "ecmaVersion": "latest",
       "sourceType": "module"
     },
-    "extends": [
-      "plugin:react/recommended",
-      "plugin:storybook/recommended",
-      "prettier"
-    ],
-    "plugins": [
-      "jest",
-      "react",
-      "@typescript-eslint",
-      "prettier",
-      "react-hooks",
-      "jsx-a11y"
-    ],
+    "extends": ["plugin:react/recommended", "plugin:storybook/recommended", "prettier"],
+    "plugins": ["jest", "react", "@typescript-eslint", "prettier", "react-hooks", "jsx-a11y"],
     "rules": {
       "endOfLine": "off",
       "react/no-unknown-property": "off",
@@ -113,22 +95,12 @@
     }
   },
   "stylelint": {
-    "extends": [
-      "stylelint-config-recommended",
-      "stylelint-config-prettier",
-      "stylelint-config-idiomatic-order"
-    ],
+    "extends": ["stylelint-config-recommended", "stylelint-config-prettier", "stylelint-config-idiomatic-order"],
     "rules": {
       "at-rule-no-unknown": [
         true,
         {
-          "ignoreAtRules": [
-            "extend",
-            "function",
-            "include",
-            "mixin",
-            "return"
-          ]
+          "ignoreAtRules": ["extend", "function", "include", "mixin", "return"]
         }
       ]
     }
