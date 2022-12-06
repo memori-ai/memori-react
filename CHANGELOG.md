@@ -1,5 +1,12 @@
 
 
+## [1.0.0-alpha.3](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2022-12-06)
+
+
+### Features
+
+* add prop-types ([2dc4e23](https://github.com/memori-ai/memori-react/commit/2dc4e237bb4e59f395a66032e54849579e5f7561))
+
 ## [1.0.0-alpha.2](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2022-12-06)
 
 
