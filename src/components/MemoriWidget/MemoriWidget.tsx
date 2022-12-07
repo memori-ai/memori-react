@@ -259,8 +259,9 @@ const MemoriWidget = ({
    */
   const [memoriPwd, setMemoriPwd] = useState<string | undefined>(secret);
   const [memoriTokens, setMemoriTokens] = useState<string[] | undefined>();
-  const [authModalState, setAuthModalState] =
-    useState<null | 'password' | 'tokens'>(null);
+  const [authModalState, setAuthModalState] = useState<
+    null | 'password' | 'tokens'
+  >(null);
 
   /**
    * Position drawer
@@ -518,8 +519,9 @@ const MemoriWidget = ({
   /**
    * Sessione
    */
-  const [sessionId, setSessionId] =
-    useState<string | undefined>(initialSessionID);
+  const [sessionId, setSessionId] = useState<string | undefined>(
+    initialSessionID
+  );
   const [currentDialogState, _setCurrentDialogState] = useState<DialogState>();
   const setCurrentDialogState = (state?: DialogState) => {
     _setCurrentDialogState(state);
@@ -1045,12 +1047,11 @@ const MemoriWidget = ({
     return voice;
   };
 
-  const [phonemesMap, setPhonemesMap] =
-    useState<{
-      [ns: 'common' | string]: {
-        [word: string]: { [lang: 'default' | string]: string };
-      };
-    }>();
+  const [phonemesMap, setPhonemesMap] = useState<{
+    [ns: 'common' | string]: {
+      [word: string]: { [lang: 'default' | string]: string };
+    };
+  }>();
   const fetchLexiconJSON = async () => {
     try {
       const lexiconReq = await fetch(
@@ -1386,8 +1387,9 @@ const MemoriWidget = ({
   /**
    * Textarea send mode handlers
    */
-  const [sendOnEnter, setSendOnEnter] =
-    useState<'keypress' | 'click'>('keypress');
+  const [sendOnEnter, setSendOnEnter] = useState<'keypress' | 'click'>(
+    'keypress'
+  );
   useEffect(() => {
     const stored = getLocalConfig<'keypress' | 'click'>(
       'sendOnEnter',
@@ -1402,8 +1404,9 @@ const MemoriWidget = ({
   /**
    * Attachments
    */
-  const [attachmentsMenuOpen, setAttachmentsMenuOpen] =
-    useState<'link' | 'media'>();
+  const [attachmentsMenuOpen, setAttachmentsMenuOpen] = useState<
+    'link' | 'media'
+  >();
 
   const globalBackground = integrationConfig?.globalBackground;
   const globalBackgroundUrl = globalBackground
@@ -1420,20 +1423,12 @@ const MemoriWidget = ({
           ...(integrationConfig?.buttonBgColor
             ? {
                 '--memori-button-bg': integrationConfig.buttonBgColor,
-                '--memori-button-hover-brightness': '1.2',
-                '--ant-primary-color': integrationConfig.buttonBgColor,
-                '--ant-primary-color-hover': integrationConfig.buttonBgColor,
-                '--ant-primary-4': integrationConfig.buttonBgColor,
-                '--ant-primary-5': integrationConfig.buttonBgColor,
-                '--ant-primary-7': integrationConfig.buttonBgColor,
+                '--memori-primary': integrationConfig.buttonBgColor,
               }
-            : {
-                '--memori-button-hover-brightness': '1',
-              }),
+            : {}),
           ...(integrationConfig?.buttonTextColor
             ? {
                 '--memori-button-text': integrationConfig.buttonTextColor,
-                '--ant-primary-text': integrationConfig.buttonTextColor,
               }
             : {}),
           ...(integrationConfig?.blurBackground
@@ -1466,7 +1461,7 @@ const MemoriWidget = ({
   ) as CSSProperties;
 
   const integrationStylesheet = `
-    ${preview ? '#preview' : ':root'} {
+    ${preview ? '#preview' : ':root'}, .memori-widget {
       ${Object.entries(integrationProperties)
         .map(([key, value]) => `${key}: ${value};`)
         .join('\n')}

@@ -71,7 +71,7 @@ const ChatInputs: React.FC<Props> = ({
         shape="circle"
         primary={!!userMessage?.length}
         disabled={!userMessage || userMessage.length === 0}
-        className="memori--conversation-button memori-chat-inputs--send"
+        className="memori-chat-inputs--send"
         onClick={() => sendMessage(userMessage)}
         title={t('send') || 'Send'}
         icon={<Send />}

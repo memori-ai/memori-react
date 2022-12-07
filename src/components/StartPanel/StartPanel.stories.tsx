@@ -34,20 +34,13 @@ const integrationProperties = {
   ...(integrationConfig?.buttonBgColor
     ? {
         '--memori-button-bg': integrationConfig.buttonBgColor,
-        '--memori-button-hover-brightness': '1.2',
-        '--ant-primary-color': integrationConfig.buttonBgColor,
-        '--ant-primary-color-hover': integrationConfig.buttonBgColor,
-        '--ant-primary-4': integrationConfig.buttonBgColor,
-        '--ant-primary-5': integrationConfig.buttonBgColor,
-        '--ant-primary-7': integrationConfig.buttonBgColor,
+        '--memori-primary': integrationConfig.buttonBgColor,
       }
-    : {
-        '--memori-button-hover-brightness': '1',
-      }),
+    : {}),
   ...(integrationConfig?.buttonTextColor
     ? {
         '--memori-button-text': integrationConfig.buttonTextColor,
-        '--ant-primary-text': integrationConfig.buttonTextColor,
+        '--memori-text-color': integrationConfig.buttonTextColor,
       }
     : {}),
   ...(integrationConfig?.blurBackground
@@ -78,7 +71,7 @@ const integrationProperties = {
 };
 
 const integrationStylesheet = `
-    #root {
+    #root, .memori-widget {
       ${Object.entries(integrationProperties)
         .map(([key, value]) => `${key}: ${value};`)
         .join('\n')}

@@ -13,11 +13,11 @@
     align-items: center;
     justify-content: center;
     padding: 4px 15px;
-    border: 1px solid var(--memori-button-border-color);
-    border-radius: var(--memori-button-radius);
-    background: #fff;
+    border: 1px solid var(--memori-button-border-color, #d9d9d9);
+    border-radius: var(--memori-button-radius, 5px);
+    background: var(--memori-button-bg, #fff);
     box-shadow: var(--memori-button-box-shadow);
-    color: #333;
+    color: var(--memori-button-text, #333);
     font-family: 'Exo 2', sans-serif;
     font-size: 14px;
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
