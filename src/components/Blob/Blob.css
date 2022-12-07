@@ -18,8 +18,7 @@
     font-size: 20vmin;
     mix-blend-mode: screen;
     transform: translate(var(--memori-blob-x, -50%), var(--memori-blob-y, -50%)) rotate(0deg);
-    /* stylelint-disable-next-line function-no-unknown */
-    transform-origin: var(-(--memori-blob-y)) var(-(--memori-blob-x));
+    transform-origin: 50% 50%;
 }
 
 @media screen and (max-height: 1280px) {
