@@ -1,5 +1,12 @@
 
 
+## [1.0.0-alpha.7](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2022-12-07)
+
+
+### Bug Fixes
+
+* root for css properties compatible with webcomponent ([f06ff64](https://github.com/memori-ai/memori-react/commit/f06ff642d4a32a2eaa3586857f3ba40b8811dda2))
+
 ## [1.0.0-alpha.6](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2022-12-07)
 
 
