@@ -65,17 +65,19 @@ import './MemoriWidget.css';
 const getMemoriState = (integrationId?: string): object | null => {
   let widget = integrationId
     ? document.querySelector(
-        `.memori-landing-experience[data-memori-integration="${integrationId}"]`
-      )
-    : document.querySelector('.memori-landing-experience');
+        `.memori-widget[data-memori-integration="${integrationId}"]`
+      ) ||
+      document
+        .querySelector('memori-client')
+        ?.shadowRoot?.querySelector(`.memori-widget[data-memori-integration]`)
+    : document.querySelector('.memori-widget') ||
+      document
+        .querySelector('memori-client')
+        ?.shadowRoot?.querySelector('.memori-widget');
 
-  let widgetInner = (widget ?? document).querySelector(
-    'div[data-memori-engine-state]'
-  ) as HTMLElement;
+  if (!widget) return null;
 
-  if (!widgetInner) return null;
-
-  let engineState = (widgetInner as HTMLElement).dataset?.memoriEngineState;
+  let engineState = (widget as HTMLElement).dataset?.memoriEngineState;
   if (!engineState) return null;
 
   let dialogState = JSON.parse(engineState);
@@ -102,16 +104,22 @@ function setNativeValue(element: Element, value: string) {
 }
 
 const typeMessage = (message: string) => {
-  let textarea = document.querySelector('fieldset#chat-fieldset textarea');
+  let textarea =
+    document.querySelector('fieldset#chat-fieldset textarea') ||
+    document
+      .querySelector('memori-client')
+      ?.shadowRoot?.querySelector('fieldset#chat-fieldset textarea');
   if (!textarea) return;
 
   setNativeValue(textarea, message);
   textarea.dispatchEvent(new Event('input', { bubbles: true }));
 
   setTimeout(() => {
-    let sendButton = document.querySelector(
-      'fieldset#chat-fieldset textarea + button'
-    );
+    let sendButton =
+      document.querySelector('fieldset#chat-fieldset textarea + button') ||
+      document
+        .querySelector('memori-client')
+        ?.shadowRoot?.querySelector('fieldset#chat-fieldset textarea + button');
     if (!sendButton) return;
     (sendButton as HTMLButtonElement).click();
   }, 100);
@@ -1993,6 +2001,11 @@ const MemoriWidget = ({
         'memori--with-integration': integration,
         'memori--active': hasUserActivatedSpeak,
       })}
+      data-memori-name={memori?.name}
+      data-memori-id={memori?.engineMemoriID}
+      data-memori-secondary-id={memori?.memoriID}
+      data-memori-session-id={sessionId}
+      data-memori-integration={integration?.integrationID}
       data-memori-engine-state={JSON.stringify({
         ...currentDialogState,
         sessionID: sessionId,
