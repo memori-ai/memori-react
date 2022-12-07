@@ -1,5 +1,12 @@
 
 
+## [1.0.0-alpha.6](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2022-12-07)
+
+
+### Bug Fixes
+
+* blob styles ([56d1e5f](https://github.com/memori-ai/memori-react/commit/56d1e5fc941ebc7c487381cc804561c1569853d1))
+
 ## [1.0.0-alpha.5](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2022-12-07)
 
 
