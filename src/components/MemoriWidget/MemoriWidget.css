@@ -1,5 +1,6 @@
 :root,
-#root {
+#root,
+.memori-widget {
     --memori-primary: rgb(102, 103, 171);
     --memori-primary-text: #000;
     --memori-inner-content-pad: 1rem;
@@ -10,7 +11,7 @@
     --memori-button-text: #000;
     --memori-button-padding: 0.5rem 1.5rem;
     --memori-button-border-color: #d9d9d9;
-    --memori-button-border-radius: 5px;
+    --memori-button-radius: 5px;
     --memori-button-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
     --memori-blur-background: 0;
     --memori-drawer--width: 100%;
