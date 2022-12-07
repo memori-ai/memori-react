@@ -1,5 +1,12 @@
 
 
+## [1.0.0-alpha.8](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2022-12-07)
+
+
+### Bug Fixes
+
+* allow global methods within webcomponent ([afa5133](https://github.com/memori-ai/memori-react/commit/afa513316329e31e02ed531d6808c1f1bce9dbd8))
+
 ## [1.0.0-alpha.7](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2022-12-07)
 
 
