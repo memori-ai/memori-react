@@ -1,5 +1,17 @@
 
 
+## [1.0.0-alpha.5](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2022-12-07)
+
+
+### Features
+
+* apply integration config css properties, fix styles ([91d495d](https://github.com/memori-ai/memori-react/commit/91d495d352ce9ee6b17dc221ff534d0756ed0f74))
+
+
+### Maintenance
+
+* upgrade api client ([f7f218b](https://github.com/memori-ai/memori-react/commit/f7f218bbda39ca27f3e670cbc5ffc7f9d297656f))
+
 ## [1.0.0-alpha.4](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2022-12-06)
 
 
