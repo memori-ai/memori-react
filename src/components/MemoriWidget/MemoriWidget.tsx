@@ -172,7 +172,7 @@ export interface Props {
 }
 
 const MemoriWidget = ({
-  memori: initialMemori,
+  memori,
   memoriConfigs,
   memoriLang,
   integration,
@@ -210,7 +210,6 @@ const MemoriWidget = ({
     getContentQualityIndexes,
   } = client;
 
-  const [memori, setMemori] = useState(initialMemori);
   const [instruct, setInstruct] = useState(false);
 
   const [clickedStart, setClickedStart] = useState(false);
@@ -255,11 +254,6 @@ const MemoriWidget = ({
     setMuteSpeaker(getLocalConfig('muteSpeaker', false));
     setContinuousSpeech(getLocalConfig('continuousSpeech', false));
     setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 3));
-  }, []);
-
-  const [isClient, setIsClient] = useState(false);
-  useEffect(() => {
-    setIsClient(true);
   }, []);
 
   /**
