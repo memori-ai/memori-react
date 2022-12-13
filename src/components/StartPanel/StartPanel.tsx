@@ -45,7 +45,6 @@ const StartPanel: React.FC<Props> = ({
   openPositionDrawer,
   integrationConfig,
   instruct = false,
-  sessionId,
   clickedStart,
   onClickStart,
 }) => {
@@ -209,12 +208,9 @@ const StartPanel: React.FC<Props> = ({
 
           <Button
             primary
-            disabled={
-              (!sessionId && memori.privacyType === 'PUBLIC') ||
-              (!!memori.blockedUntil && !memori.isGiver)
-            }
+            disabled={!!memori.blockedUntil && !memori.isGiver}
             loading={clickedStart}
-            onClick={onClickStart}
+            onClick={() => onClickStart && onClickStart()}
             className="memori--start-button"
           >
             {t(

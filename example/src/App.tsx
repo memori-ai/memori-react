@@ -14,6 +14,7 @@ const App = () => {
         apiURL="https://backend.memori.ai"
         baseURL="https://app.memorytwin.com"
         uiLang="it"
+        height="100vh"
       />
     </div>
   );

@@ -26,6 +26,7 @@ export interface Props {
   showShare?: boolean;
   showSettings?: boolean;
   showInstruct?: boolean;
+  height?: number | string;
   baseURL?: string;
   apiURL?: string;
   tag?: string;
@@ -67,6 +68,7 @@ const Memori: React.FC<Props> = ({
   showShare = true,
   showSettings = false,
   showInstruct = false,
+  height = '100%',
   baseURL,
   apiURL = 'https://backend.memori.ai',
   tag,
@@ -142,7 +144,7 @@ const Memori: React.FC<Props> = ({
 
   return memori ? (
     <MemoriWidget
-      embed
+      height={height}
       baseUrl={
         baseURL ||
         (tenantID.startsWith('https://') ? tenantID : `https://${tenantID}`)

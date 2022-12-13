@@ -103,3 +103,5 @@ exports[`renders ChangeMode in test mode unchanged 1`] = `
   </div>
 </div>
 `;
+
+exports[`renders ChangeMode null if cannot set instruct unchanged 1`] = `<div />`;

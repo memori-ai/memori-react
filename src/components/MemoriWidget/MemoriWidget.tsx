@@ -154,6 +154,7 @@ export interface Props {
   showSettings?: boolean;
   preview?: boolean;
   embed?: boolean;
+  height?: number | string;
   secret?: string;
   baseUrl?: string;
   apiUrl?: string;
@@ -184,6 +185,7 @@ const MemoriWidget = ({
   showDates = false,
   showContextPerLine = false,
   showSettings = false,
+  height = '100vh',
   secret,
   baseUrl = 'https://app.twincreator.com',
   apiUrl = 'https://backend.memori.ai',
@@ -240,7 +242,6 @@ const MemoriWidget = ({
     useState(false);
   const [showPositionDrawer, setShowPositionDrawer] = useState(false);
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
-  const [showChatHistory, setShowChatHistory] = useState(false);
   const [muteSpeaker, setMuteSpeaker] = useState(false);
   const [continuousSpeech, setContinuousSpeech] = useState(false);
   const [continuousSpeechTimeout, setContinuousSpeechTimeout] = useState(3);
@@ -531,7 +532,12 @@ const MemoriWidget = ({
       onStateChange(state);
     }
   };
-  const fetchSession = async (params: OpenSession): Promise<void> => {
+  const fetchSession = async (
+    params: OpenSession
+  ): Promise<{
+    dialogState: DialogState;
+    sessionID: string;
+  } | void> => {
     if (memori.privacyType !== 'PUBLIC' && !memori.secretToken) {
       setAuthModalState('password');
     }
@@ -605,6 +611,12 @@ const MemoriWidget = ({
         }
 
         if (position) applyPosition(position, session.sessionID);
+
+        setLoading(false);
+        return {
+          dialogState: session.currentState,
+          sessionID: session.sessionID,
+        } as { dialogState: DialogState; sessionID: string };
       } else {
         console.error(session);
         message.error(
@@ -616,7 +628,6 @@ const MemoriWidget = ({
       console.error(err);
       new Error('Error fetching session');
     }
-    setLoading(false);
   };
   const reopenSession = async (
     updateDialogState: boolean = false,
@@ -679,16 +690,7 @@ const MemoriWidget = ({
 
     return null;
   };
-  useEffect(() => {
-    if (!initialSessionID) {
-      fetchSession({
-        memoriID: memori.engineMemoriID!,
-        initialContextVars: initialContextVars || {},
-        initialQuestion,
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+
   const changeTag = async (
     memoriId: string,
     sessionId: string,
@@ -738,6 +740,8 @@ const MemoriWidget = ({
             password: memori.secretToken,
             tag: memori.giverTag,
             pin: memori.giverPIN,
+            initialContextVars,
+            initialQuestion,
           });
         } else if (!!currentState) {
           return {
@@ -1254,6 +1258,8 @@ const MemoriWidget = ({
       navigator.mediaDevices
         .getUserMedia({ audio: true })
         .then(function (_stream) {
+          setHasUserActivatedListening(true);
+
           if (!speechConfig) {
             speechConfig = speechSdk.SpeechConfig.fromSubscription(
               AZURE_COGNITIVE_SERVICES_TTS_KEY,
@@ -1610,261 +1616,188 @@ const MemoriWidget = ({
     sendMessage(text, undefined, undefined, false, translatedText);
   };
 
-  const onClickStart = async () => {
+  const onClickStart = async (session?: {
+    dialogState: DialogState;
+    sessionID: string;
+  }) => {
+    const sessionID = session?.sessionID || sessionId;
+    const dialogState = session?.dialogState || currentDialogState;
     setClickedStart(true);
     initializeTTS();
     if (
-      (!sessionId &&
+      (!sessionID &&
         ((memori.privacyType === 'SECRET' && !memori.secretToken) ||
           (memori.privacyType === 'PRIVATE' && !memori.secretToken))) ||
-      (!sessionId && gotErrorInOpening)
+      (!sessionID && gotErrorInOpening)
     ) {
       setAuthModalState('password');
       setClickedStart(false);
-    } else if (!sessionId) {
-      console.info('No session ID');
+    } else if (!sessionID) {
       setClickedStart(false);
-      setGotErrorInOpening(true);
+      setGotErrorInOpening(false);
+      const session = await fetchSession({
+        memoriID: memori.engineMemoriID!,
+        password: memori.secretToken,
+        tag: personification?.tag,
+        pin: personification?.pin,
+        initialContextVars,
+        initialQuestion,
+      });
+      onClickStart(session || undefined);
       return;
-    } else {
-      // set tag as anonymous for tryme, giver for instruct
-      try {
-        if (!instruct && personification) {
-          try {
-            if (!embed) {
-              setHistory([]);
-              console.debug('change tag #1');
-              await changeTag(memori.engineMemoriID!, sessionId, '-');
-              const session = await changeTag(
-                memori.engineMemoriID!,
-                sessionId,
-                personification.tag,
-                personification.pin
-              );
-
-              if (session && session.resultCode === 0) {
-                translateDialogState(session.currentState, userLang).finally(
-                  () => {
-                    setHasUserActivatedSpeak(true);
-                  }
-                );
-              } else {
-                console.error('session #1', session);
-                throw new Error('No session');
-              }
-            } else {
-              if (currentDialogState) {
-                setHistory([]);
-                translateDialogState(currentDialogState, userLang).finally(
-                  () => {
-                    setHasUserActivatedSpeak(true);
-                  }
-                );
-              } else {
-                setHasUserActivatedSpeak(true);
-              }
-            }
-          } catch (e) {
-            console.error('session #2', e);
-            reopenSession(
-              true,
-              memori?.secretToken,
-              undefined,
-              personification.tag,
-              personification.pin
-            ).then(() => {
-              setHasUserActivatedSpeak(true);
-            });
-          }
-        } else if (!instruct && currentDialogState?.currentTag !== anonTag) {
-          try {
-            if (!embed) {
-              setHistory([]);
-              console.debug('change tag #2');
-              await changeTag(memori.engineMemoriID!, sessionId, '-');
-              const session = await changeTag(
-                memori.engineMemoriID!,
-                sessionId,
-                anonTag
-              );
-
-              if (session && session.resultCode === 0) {
-                translateDialogState(session.currentState, userLang).finally(
-                  () => {
-                    setHasUserActivatedSpeak(true);
-                  }
-                );
-              } else {
-                console.error('session #3', session);
-                throw new Error('No session');
-              }
-            } else {
-              if (currentDialogState) {
-                setHistory([]);
-                translateDialogState(currentDialogState, userLang).finally(
-                  () => {
-                    setHasUserActivatedSpeak(true);
-                  }
-                );
-              } else {
-                setHasUserActivatedSpeak(true);
-              }
-            }
-          } catch (e) {
-            console.error('session #4', e);
-            reopenSession(
-              true,
-              memori?.secretToken,
-              undefined,
-              undefined,
-              undefined,
-              initialContextVars,
-              initialQuestion
-            ).then(() => {
-              setHasUserActivatedSpeak(true);
-            });
-          }
-        } else if (
-          instruct &&
-          memori.giverTag &&
-          currentDialogState?.currentTag !== memori.giverTag
-        ) {
-          try {
-            if (!embed) {
-              setHistory([]);
-              console.debug('change tag #3');
-              await changeTag(memori.engineMemoriID!, sessionId, '-');
-              const session = await changeTag(
-                memori.engineMemoriID!,
-                sessionId,
-                memori.giverTag,
-                memori.giverPIN
-              );
-
-              if (session && session.resultCode === 0) {
-                translateDialogState(session.currentState, userLang).finally(
-                  () => {
-                    setHasUserActivatedSpeak(true);
-                  }
-                );
-              } else {
-                console.error('session #5', session);
-                throw new Error('No session');
-              }
-            } else {
-              if (currentDialogState) {
-                setHistory([]);
-                translateDialogState(currentDialogState, userLang).finally(
-                  () => {
-                    setHasUserActivatedSpeak(true);
-                  }
-                );
-              } else {
-                setHasUserActivatedSpeak(true);
-              }
-            }
-          } catch (e) {
-            console.error('session #6', e);
-            reopenSession(
-              true,
-              memori?.secretToken,
-              undefined,
-              memori?.giverTag,
-              memori?.giverPIN,
-              initialContextVars,
-              initialQuestion
-            ).then(() => {
-              setHasUserActivatedSpeak(true);
-            });
-          }
-        } else {
-          try {
-            // if (!embed) {
-            //   setHistory([]);
-            // }
-
-            // const session = await getSession(sessionId);
-
-            // if (session && session.resultCode === 0) {
-            //   translateDialogState(
-            //     session.currentState,
-            //     userLang,
-            //   ).finally(() => {
-            //     setHasUserActivatedSpeak(true);
-            //   });
-            // } else {
-            //   console.error('session #7', session);
-            //   throw new Error('No session');
-            // }
-            if (!embed) {
-              setHistory([]);
-              console.debug('change tag #4');
-              await changeTag(memori.engineMemoriID!, sessionId, '-');
-              const session = await changeTag(
-                memori.engineMemoriID!,
-                sessionId,
-                instruct
-                  ? memori.giverTag
-                  : personification
-                  ? personification.tag
-                  : anonTag,
-                instruct
-                  ? memori.giverPIN
-                  : personification
-                  ? personification.pin
-                  : undefined
-              );
-
-              if (session && session.resultCode === 0) {
-                translateDialogState(session.currentState, userLang).finally(
-                  () => {
-                    setHasUserActivatedSpeak(true);
-                  }
-                );
-              } else {
-                console.error('session #7', session);
-                throw new Error('No session');
-              }
-            } else {
-              if (currentDialogState) {
-                setHistory([]);
-                translateDialogState(currentDialogState, userLang).finally(
-                  () => {
-                    setHasUserActivatedSpeak(true);
-                  }
-                );
-              } else {
-                setHasUserActivatedSpeak(true);
-              }
-            }
-          } catch (e) {
-            console.error('session #8', e);
-            reopenSession(
-              true,
-              memori?.secretToken,
-              undefined,
-              memori?.giverTag,
-              memori?.giverPIN,
-              initialContextVars,
-              initialQuestion
-            ).then(() => {
-              setHasUserActivatedSpeak(true);
-            });
-          }
-        }
-      } catch (e) {
-        let err = e as Error;
-        console.error('session #0', err);
-        reopenSession(
-          true,
-          memori.secretToken,
-          undefined,
-          memori.giverTag,
-          memori.giverPIN,
-          initialContextVars,
-          initialQuestion
-        );
+    } else if (initialSessionID) {
+      // check if session is valid and not expired
+      const { currentState, ...response } = await getSession(sessionID);
+      if (response.resultCode !== 0 || !currentState) {
+        console.debug('session expired, opening new session');
+        setGotErrorInOpening(true);
+        setSessionId(undefined);
+        setClickedStart(false);
+        onClickStart();
+        return;
       }
+
+      // reset history
+      setHistory([]);
+
+      // checks engine state for current tag
+      // opening session would have already correct tag
+      // otherwise change tag to anonymous for test, giver for instruct, receiver if set
+
+      // test if current tag is giver on instruct
+      if (
+        instruct &&
+        memori.giverTag &&
+        currentDialogState?.currentTag !== memori.giverTag
+      ) {
+        try {
+          console.debug('change tag #0');
+          // reset tag
+          await changeTag(memori.engineMemoriID!, sessionID, '-');
+          // change tag to giver
+          const session = await changeTag(
+            memori.engineMemoriID!,
+            sessionID,
+            memori.giverTag,
+            memori.giverPIN
+          );
+
+          if (session && session.resultCode === 0) {
+            translateDialogState(session.currentState, userLang).finally(() => {
+              setHasUserActivatedSpeak(true);
+            });
+          } else {
+            console.error('session #1', session);
+            throw new Error('No session');
+          }
+        } catch (e) {
+          console.error('session #2', e);
+          reopenSession(
+            true,
+            memori?.secretToken,
+            undefined,
+            memori?.giverTag,
+            memori?.giverPIN,
+            initialContextVars,
+            initialQuestion
+          ).then(() => {
+            setHasUserActivatedSpeak(true);
+          });
+        }
+      } else if (
+        // test if current tag is receiver on test as it is requested
+        !instruct &&
+        personification &&
+        currentDialogState?.currentTag !== personification.tag
+      ) {
+        try {
+          console.debug('change tag #3');
+          // reset tag
+          await changeTag(memori.engineMemoriID!, sessionID, '-');
+          // change tag to receiver
+          const session = await changeTag(
+            memori.engineMemoriID!,
+            sessionID,
+            personification.tag,
+            personification.pin
+          );
+
+          if (session && session.resultCode === 0) {
+            translateDialogState(session.currentState, userLang).finally(() => {
+              setHasUserActivatedSpeak(true);
+            });
+          } else {
+            console.error('session #4', session);
+            throw new Error('No session');
+          }
+        } catch (e) {
+          console.error('session #5', e);
+          reopenSession(
+            true,
+            memori?.secretToken,
+            undefined,
+            personification.tag,
+            personification.pin,
+            initialContextVars,
+            initialQuestion
+          ).then(() => {
+            setHasUserActivatedSpeak(true);
+          });
+        }
+      } else if (
+        // test if current tag is anonymous on test without personification
+        // this is the default case with anonymous tag
+        !instruct &&
+        !personification &&
+        currentDialogState?.currentTag !== anonTag
+      ) {
+        try {
+          console.debug('change tag #6');
+          // reset tag
+          await changeTag(memori.engineMemoriID!, sessionID, '-');
+          // change tag to anonymous
+          const session = await changeTag(
+            memori.engineMemoriID!,
+            sessionID,
+            anonTag
+          );
+
+          if (session && session.resultCode === 0) {
+            translateDialogState(session.currentState, userLang).finally(() => {
+              setHasUserActivatedSpeak(true);
+            });
+          } else {
+            console.error('session #7', session);
+            throw new Error('No session');
+          }
+        } catch (e) {
+          console.error('session #8', e);
+          reopenSession(
+            true,
+            memori?.secretToken,
+            undefined,
+            undefined,
+            undefined,
+            initialContextVars,
+            initialQuestion
+          ).then(() => {
+            setHasUserActivatedSpeak(true);
+          });
+        }
+      } else {
+        // no need to change tag
+        translateDialogState(currentState, userLang).finally(() => {
+          setHasUserActivatedSpeak(true);
+        });
+      }
+    } else {
+      // reset history
+      setHistory([]);
+
+      // everything is fine, just translate dialog state and activate chat
+      translateDialogState(dialogState!, userLang).finally(() => {
+        setHasUserActivatedSpeak(true);
+      });
     }
   };
 
@@ -1984,7 +1917,11 @@ const MemoriWidget = ({
     setClickedStart(false);
   };
   const changeMode = (
-    <ChangeMode instruct={instruct} onChangeMode={onChangeMode} />
+    <ChangeMode
+      canInstruct={!!memori.giverTag}
+      instruct={instruct}
+      onChangeMode={onChangeMode}
+    />
   );
 
   return (
@@ -2004,6 +1941,7 @@ const MemoriWidget = ({
         ...currentDialogState,
         sessionID: sessionId,
       })}
+      style={{ height }}
     >
       <DefaultLayout
         header={header}
