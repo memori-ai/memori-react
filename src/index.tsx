@@ -22,13 +22,14 @@ export interface Props {
   integrationID?: string;
   tenantID: string;
   secretToken?: string;
+  sessionID?: string;
   showShare?: boolean;
   showSettings?: boolean;
+  showInstruct?: boolean;
   baseURL?: string;
   apiURL?: string;
   tag?: string;
   pin?: string;
-  showInstruct?: boolean;
   context?: { [key: string]: string };
   initialQuestion?: string;
   uiLang?: 'en' | 'it';
@@ -62,13 +63,14 @@ const Memori: React.FC<Props> = ({
   integrationID,
   tenantID,
   secretToken,
+  sessionID,
   showShare = true,
   showSettings = false,
+  showInstruct = false,
   baseURL,
   apiURL = 'https://backend.memori.ai',
   tag,
   pin,
-  showInstruct = false,
   context,
   initialQuestion,
   uiLang,
@@ -160,6 +162,7 @@ const Memori: React.FC<Props> = ({
           requirePosition: !!memori.needsPosition,
         },
       }}
+      sessionID={sessionID}
       showShare={showShare}
       showSettings={showSettings}
       showInstruct={showInstruct}

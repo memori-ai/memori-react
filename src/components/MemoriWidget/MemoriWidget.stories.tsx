@@ -4,7 +4,7 @@ import { memori, integration, tenant } from '../../mocks/data';
 import MemoriWidget, { Props } from './MemoriWidget';
 
 const meta: Meta = {
-  title: 'Widget',
+  title: 'Widget/Default',
   component: MemoriWidget,
   argTypes: {
     showShare: {
@@ -15,6 +15,7 @@ const meta: Meta = {
   },
   parameters: {
     controls: { expanded: true },
+    layout: 'fullscreen',
   },
 };
 
