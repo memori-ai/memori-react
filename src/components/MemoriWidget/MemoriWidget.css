@@ -2,7 +2,7 @@
 #root,
 .memori-widget {
     --memori-primary: rgb(102, 103, 171);
-    --memori-primary-text: #000;
+    --memori-primary-text: #fff;
     --memori-inner-content-pad: 1rem;
     --memori-inner-bg: transparent;
     --memori-chat-bubble-bg: #ffffff60;
