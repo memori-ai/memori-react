@@ -8,12 +8,17 @@ import './ChangeMode.css';
 export interface Props {
   instruct?: boolean;
   onChangeMode: (mode: 'test' | 'instruct') => void;
+  canInstruct?: boolean;
 }
 
-const ChangeMode: React.FC<Props> = ({ instruct, onChangeMode }) => {
+const ChangeMode: React.FC<Props> = ({
+  instruct,
+  canInstruct,
+  onChangeMode,
+}) => {
   const { t } = useTranslation();
 
-  return (
+  return canInstruct ? (
     <div className="memori--changeMode-instruct">
       <RadioGroup
         name="instruct"
@@ -42,7 +47,7 @@ const ChangeMode: React.FC<Props> = ({ instruct, onChangeMode }) => {
         </RadioGroup.Option>
       </RadioGroup>
     </div>
-  );
+  ) : null;
 };
 
 export default ChangeMode;

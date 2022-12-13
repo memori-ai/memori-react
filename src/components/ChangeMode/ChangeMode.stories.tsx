@@ -25,6 +25,7 @@ const Template: Story<Props> = args => {
   return (
     <ChangeMode
       {...args}
+      canInstruct
       instruct={instruct}
       onChangeMode={mode => setInstruct(mode === 'instruct')}
     />
