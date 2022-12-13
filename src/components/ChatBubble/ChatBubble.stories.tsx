@@ -40,8 +40,7 @@ Default.args = {
   tenant,
   message: {
     fromUser: false,
-    text:
-      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
     initial: false,
     translatedText:
       'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
@@ -54,9 +53,21 @@ FromUser.args = {
   tenant,
   message: {
     fromUser: true,
-    text:
-      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
     initial: false,
+    translatedText:
+      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+  },
+};
+
+export const Initial = Template.bind({});
+Initial.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    initial: true,
     translatedText:
       'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
   },

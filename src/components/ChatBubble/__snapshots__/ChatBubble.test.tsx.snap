@@ -28,6 +28,37 @@ exports[`renders ChatBubble unchanged 1`] = `
 </div>
 `;
 
+exports[`renders ChatBubble with initial msg unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-initial"
+  />
+  <div
+    class="memori-chat--bubble-container"
+  >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+    >
+      <source
+        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+      />
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+      />
+    </picture>
+    <div
+      class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+    >
+      <p>
+        Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renders ChatBubble with user msg unchanged 1`] = `
 <div>
   <div

@@ -10,9 +10,25 @@ it('renders ChatBubble unchanged', () => {
       tenant={tenant}
       message={{
         fromUser: false,
-        text:
-          'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+        text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
         initial: false,
+        translatedText:
+          'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+      }}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders ChatBubble with initial msg unchanged', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      message={{
+        fromUser: false,
+        text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+        initial: true,
         translatedText:
           'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
       }}
@@ -28,8 +44,7 @@ it('renders ChatBubble with user msg unchanged', () => {
       tenant={tenant}
       message={{
         fromUser: true,
-        text:
-          'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+        text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
         initial: false,
         translatedText:
           'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
