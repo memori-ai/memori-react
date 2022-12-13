@@ -22,7 +22,9 @@
 }
 
 .memori-widget {
+    position: relative;
     width: 100%;
+    padding: 1em;
     font-family: 'Exo 2', sans-serif;
 }
 
@@ -37,7 +39,7 @@
 
 .memori--grid {
     display: flex;
-    height: calc(100% - 104px);
+    height: calc(100% - 50px);
     align-items: center;
     justify-content: space-between;
 }
@@ -50,14 +52,6 @@
         overflow-x: visible;
         overflow-y: scroll;
     }
-}
-
-.memori--preview .memori--grid {
-    height: calc(100% - 104px + 64px);
-}
-
-.memori--embed .memori--grid {
-    height: calc(100% - 56px);
 }
 
 .memori--embed .memori--grid .memori--chat-history {
