@@ -1,5 +1,39 @@
 
 
+## [1.0.0-alpha.9](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2022-12-19)
+
+
+### ⚠ BREAKING CHANGES
+
+* open session on clicking start button
+
+### Features
+
+* add auth for private memori ([c1bef59](https://github.com/memori-ai/memori-react/commit/c1bef59088fb2fce2f098c161975e3053b778708))
+
+
+### Bug Fixes
+
+* chat bubble with initial msg ([cea6fe7](https://github.com/memori-ai/memori-react/commit/cea6fe7912e97d00ba986e8d7d64856f663223af))
+* set height from props ([a65e0b4](https://github.com/memori-ai/memori-react/commit/a65e0b4d0c52fb3e501b517d57cc76dc469bcfa5))
+* use secret while opening session if present ([726e131](https://github.com/memori-ai/memori-react/commit/726e131df885ad73b1c4399a679a72cb41139b92))
+* vertical scrolling consintency ([c01c952](https://github.com/memori-ai/memori-react/commit/c01c952329208ac4ec41f9e4f3669a8f198e46e0))
+
+
+### Changes
+
+* add canInstruct in ChangeMode ([6300e18](https://github.com/memori-ai/memori-react/commit/6300e184bdb64ee57f9b3e8f7fd92df8b733f077))
+* apply sessionID prop ([0eb6880](https://github.com/memori-ai/memori-react/commit/0eb68808f05f1751d60e86f391e766bb1979e602))
+* cleanup ([2df3fbb](https://github.com/memori-ai/memori-react/commit/2df3fbbf80360e9662a51f264b74f14a633c7f8e))
+* open session on clicking start button ([6372e89](https://github.com/memori-ai/memori-react/commit/6372e89aba6a74743b7bec9fa4d6dab597dd9ddb))
+
+
+### Maintenance
+
+* pass secret to widget ([a13e29e](https://github.com/memori-ai/memori-react/commit/a13e29e19a5bf548dfdb7b615e390b3ffe1858d9))
+* **storybook:** set stories order ([568d3d4](https://github.com/memori-ai/memori-react/commit/568d3d40e7d3a7dd9bdb697b594bc62b2a291479))
+* widget storybook layout options + rename ([d48863f](https://github.com/memori-ai/memori-react/commit/d48863f28483ae2d84de7b689deadf0fac7d727f))
+
 ## [1.0.0-alpha.8](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2022-12-07)
 
 
