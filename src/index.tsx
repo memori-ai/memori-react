@@ -164,6 +164,7 @@ const Memori: React.FC<Props> = ({
           requirePosition: !!memori.needsPosition,
         },
       }}
+      secret={secretToken}
       sessionID={sessionID}
       showShare={showShare}
       showSettings={showSettings}
