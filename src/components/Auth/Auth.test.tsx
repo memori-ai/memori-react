@@ -11,6 +11,7 @@ it('renders Auth unchanged', () => {
       showTokens={false}
       onFinish={() => Promise.resolve()}
       withModal={false}
+      openModal
     />
   );
   expect(container).toMatchSnapshot();
@@ -25,6 +26,7 @@ it('renders Auth with tokens unchanged', () => {
       showTokens={true}
       onFinish={() => Promise.resolve()}
       withModal={false}
+      openModal
     />
   );
   expect(container).toMatchSnapshot();
@@ -39,6 +41,7 @@ it('renders Auth on tokens unchanged', () => {
       showTokens={true}
       onFinish={() => Promise.resolve()}
       withModal={false}
+      openModal
     />
   );
   expect(container).toMatchSnapshot();
@@ -53,6 +56,7 @@ it('renders Auth with modal unchanged', () => {
       showTokens={true}
       onFinish={() => Promise.resolve()}
       withModal={true}
+      openModal
     />
   );
   expect(container).toMatchSnapshot();

@@ -26,8 +26,8 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = args => {
-  const [pwdOrTokens, setPwdOrTokens] = useState<'password' | 'tokens'>(
-    args.pwdOrTokens as 'password' | 'tokens'
+  const [pwdOrTokens, setPwdOrTokens] = useState<null | 'password' | 'tokens'>(
+    args.pwdOrTokens as 'password' | 'tokens' | null
   );
 
   return (
@@ -40,8 +40,8 @@ const Template: Story<Props> = args => {
 };
 
 const TemplateWithModal: Story<Props> = args => {
-  const [pwdOrTokens, setPwdOrTokens] = useState<'password' | 'tokens'>(
-    args.pwdOrTokens as 'password' | 'tokens'
+  const [pwdOrTokens, setPwdOrTokens] = useState<null | 'password' | 'tokens'>(
+    args.pwdOrTokens as 'password' | 'tokens' | null
   );
 
   return (

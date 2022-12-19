@@ -200,6 +200,11 @@ const MemoriWidget = ({
 }: Props) => {
   const { t, i18n } = useTranslation();
 
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
   // API calls methods
   const client = memoriApiClient(apiUrl);
   const {
@@ -538,8 +543,14 @@ const MemoriWidget = ({
     dialogState: DialogState;
     sessionID: string;
   } | void> => {
-    if (memori.privacyType !== 'PUBLIC' && !memori.secretToken) {
+    if (
+      memori.privacyType !== 'PUBLIC' &&
+      !memori.secretToken &&
+      !memoriPwd &&
+      !memoriTokens
+    ) {
       setAuthModalState('password');
+      return;
     }
 
     setLoading(true);
@@ -1626,12 +1637,15 @@ const MemoriWidget = ({
     initializeTTS();
     if (
       (!sessionID &&
-        ((memori.privacyType === 'SECRET' && !memori.secretToken) ||
-          (memori.privacyType === 'PRIVATE' && !memori.secretToken))) ||
+        memori.privacyType !== 'PUBLIC' &&
+        !memori.secretToken &&
+        !memoriPwd &&
+        !memoriTokens) ||
       (!sessionID && gotErrorInOpening)
     ) {
       setAuthModalState('password');
       setClickedStart(false);
+      return;
     } else if (!sessionID) {
       setClickedStart(false);
       setGotErrorInOpening(false);
@@ -1956,6 +1970,41 @@ const MemoriWidget = ({
         showInstruct={showInstruct}
         loading={loading}
       />
+
+      {isClient && (
+        <MemoriAuth
+          withModal
+          pwdOrTokens={authModalState}
+          openModal={!!authModalState}
+          setPwdOrTokens={setAuthModalState}
+          showTokens={memori.privacyType === 'SECRET'}
+          onFinish={async (values: any) => {
+            if (values['password']) setMemoriPwd(values['password']);
+            if (values['tokens']) setMemoriTokens(values['tokens']);
+
+            reopenSession(
+              !sessionId,
+              values['password'],
+              values['tokens'],
+              instruct ? memori.giverTag : undefined,
+              instruct ? memori.giverPIN : undefined,
+              initialContextVars,
+              initialQuestion
+            )
+              .then(() => {
+                setAuthModalState(null);
+                setHasUserActivatedSpeak(true);
+              })
+              .catch(() => {
+                setAuthModalState(null);
+                setGotErrorInOpening(true);
+              });
+          }}
+          minimumNumberOfRecoveryTokens={
+            memori?.minimumNumberOfRecoveryTokens ?? 1
+          }
+        />
+      )}
     </div>
   );
 };

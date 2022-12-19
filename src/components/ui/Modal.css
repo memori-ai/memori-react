@@ -1,6 +1,6 @@
 .memori-modal {
     position: relative;
-    z-index: 60;
+    z-index: 1000;
 }
 
 .memori-modal--backdrop {

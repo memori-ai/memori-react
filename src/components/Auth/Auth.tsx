@@ -9,11 +9,12 @@ import './Auth.css';
 
 export interface Props {
   pwdOrTokens: null | 'password' | 'tokens';
-  setPwdOrTokens: (state: 'password' | 'tokens') => void;
+  setPwdOrTokens: (state: null | 'password' | 'tokens') => void;
   onFinish?: (values: AuthInputs) => Promise<void>;
   minimumNumberOfRecoveryTokens?: number;
   showTokens?: boolean;
   withModal?: boolean;
+  openModal?: boolean;
 }
 
 type AuthInputs = {
@@ -31,6 +32,7 @@ export const AuthWidget = ({
   onFinish,
   minimumNumberOfRecoveryTokens = 1,
   showTokens = true,
+  openModal = false,
   withModal = false,
 }: Props) => {
   const { t } = useTranslation();
@@ -42,7 +44,7 @@ export const AuthWidget = ({
   } = useForm<AuthInputs>();
   const [numTokens, setNumTokens] = useState(1);
 
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(!!pwdOrTokens);
 
   const onSubmit: SubmitHandler<AuthInputs> = data => {
     if (
@@ -134,33 +136,18 @@ export const AuthWidget = ({
         </div>
       )}
 
-      {!withModal && (
-        <Button
-          htmlType="submit"
-          primary
-          className="memori-auth-widget--submit"
-        >
-          {t('confirm') || 'Submit'}
-        </Button>
-      )}
+      <Button htmlType="submit" primary className="memori-auth-widget--submit">
+        {t('confirm') || 'Submit'}
+      </Button>
     </form>
   );
 
   return withModal ? (
     <Modal
-      open={showModal}
+      open={openModal || showModal}
       title="Authentication"
-      onClose={() => {}}
+      onClose={() => setPwdOrTokens(null)}
       closable={false}
-      footer={
-        <Button
-          htmlType="submit"
-          primary
-          className="memori-auth-widget--submit"
-        >
-          {t('auth.submit') || 'Submit'}
-        </Button>
-      }
     >
       {form}
     </Modal>
