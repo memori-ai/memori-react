@@ -737,7 +737,7 @@ const MemoriWidget = ({
           console.warn('[APPCONTEXT/CHANGETAG]', resultCode);
           fetchSession({
             memoriID: memori.engineMemoriID ?? '',
-            password: memori.secretToken,
+            password: secret || memori.secretToken,
             tag: memori.giverTag,
             pin: memori.giverPIN,
             initialContextVars,
@@ -1637,7 +1637,7 @@ const MemoriWidget = ({
       setGotErrorInOpening(false);
       const session = await fetchSession({
         memoriID: memori.engineMemoriID!,
-        password: memori.secretToken,
+        password: secret || memori.secretToken,
         tag: personification?.tag,
         pin: personification?.pin,
         initialContextVars,
