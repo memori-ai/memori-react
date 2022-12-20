@@ -866,8 +866,9 @@ const MemoriWidget = ({
     let timeoutLimit = 40000;
     let timeoutMinLimit = 25000;
     let timeout =
+      currentDialogState?.timeout ||
       Math.floor(Math.random() * (timeoutLimit - timeoutMinLimit)) +
-      timeoutMinLimit;
+        timeoutMinLimit;
 
     if (currentDialogState?.emission) {
       let readTime = currentDialogState.emission.length / 26.5;
@@ -884,6 +885,7 @@ const MemoriWidget = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     currentDialogState?.acceptsTimeout,
+    currentDialogState?.timeout,
     currentDialogState?.state,
     isPlayingAudio,
     sessionId,
