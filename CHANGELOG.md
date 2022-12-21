@@ -1,5 +1,23 @@
 
 
+## [1.0.0-alpha.10](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2022-12-21)
+
+
+### Features
+
+* set user interaction timeout from engine state if set, calc random otherwise ([6d4bace](https://github.com/memori-ai/memori-react/commit/6d4baced6df8d9e743a4286cc29493fde709b9cb))
+
+
+### Bug Fixes
+
+* timeout from engine already has read time ([59eddf9](https://github.com/memori-ai/memori-react/commit/59eddf97a33ec5188a72efaac9c25e51253e9476))
+
+
+### Maintenance
+
+* update memori-api-client ([1b8771c](https://github.com/memori-ai/memori-react/commit/1b8771c2e94ef12c55d033287d1b7812c1b3b4ae))
+* update memori-api-client ([ccc404f](https://github.com/memori-ai/memori-react/commit/ccc404f47c0411974a6dba3612f6520ad5695c80))
+
 ## [1.0.0-alpha.9](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2022-12-19)
 
 
