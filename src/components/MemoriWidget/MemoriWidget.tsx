@@ -870,7 +870,7 @@ const MemoriWidget = ({
       Math.floor(Math.random() * (timeoutLimit - timeoutMinLimit)) +
         timeoutMinLimit;
 
-    if (currentDialogState?.emission) {
+    if (currentDialogState?.emission && !currentDialogState?.timeout) {
       let readTime = currentDialogState.emission.length / 26.5;
       timeout = timeout + readTime * 1000;
     }
