@@ -863,19 +863,21 @@ const MemoriWidget = ({
     }
   };
   const setInteractionTimeout = () => {
-    let timeoutLimit = 40000;
-    let timeoutMinLimit = 25000;
-    let timeout =
-      currentDialogState?.timeout ||
-      Math.floor(Math.random() * (timeoutLimit - timeoutMinLimit)) +
+    let timeout = currentDialogState?.timeout;
+    if (!timeout) {
+      let timeoutLimit = 40;
+      let timeoutMinLimit = 25;
+      timeout =
+        Math.floor(Math.random() * (timeoutLimit - timeoutMinLimit)) +
         timeoutMinLimit;
 
-    if (currentDialogState?.emission && !currentDialogState?.timeout) {
-      let readTime = currentDialogState.emission.length / 26.5;
-      timeout = timeout + readTime * 1000;
+      if (currentDialogState?.emission) {
+        let readTime = currentDialogState.emission.length / 26.5;
+        timeout = timeout + readTime;
+      }
     }
 
-    let uiTimeout = setTimeout(handleTimeout, timeout);
+    let uiTimeout = setTimeout(handleTimeout, timeout * 1000);
     setUserInteractionTimeout(uiTimeout);
     timeoutRef.current = uiTimeout;
   };
