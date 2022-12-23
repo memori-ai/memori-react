@@ -1,5 +1,12 @@
 
 
+## [1.0.0-alpha.11](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.10...v1.0.0-alpha.11) (2022-12-23)
+
+
+### Bug Fixes
+
+* timeout units ([4bbee10](https://github.com/memori-ai/memori-react/commit/4bbee10ce6215877eb7662d1265686c0c5e4de14))
+
 ## [1.0.0-alpha.10](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2022-12-21)
 
 
