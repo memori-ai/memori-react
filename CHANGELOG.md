@@ -1,5 +1,12 @@
 
 
+## [1.0.0-alpha.12](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.11...v1.0.0-alpha.12) (2022-12-28)
+
+
+### Features
+
+* add microphone button + listening ([b2b3a3b](https://github.com/memori-ai/memori-react/commit/b2b3a3b7dc683174cd270173d77a9de6c53dc80f))
+
 ## [1.0.0-alpha.11](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.10...v1.0.0-alpha.11) (2022-12-23)
 
 
