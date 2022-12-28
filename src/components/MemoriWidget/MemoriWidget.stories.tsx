@@ -7,6 +7,11 @@ const meta: Meta = {
   title: 'Widget/Default',
   component: MemoriWidget,
   argTypes: {
+    AZURE_COGNITIVE_SERVICES_TTS_KEY: {
+      control: {
+        type: 'text',
+      },
+    },
     showShare: {
       control: {
         type: 'boolean',
@@ -71,4 +76,11 @@ ShowShare.args = {
   memori,
   tenant,
   showShare: true,
+};
+
+export const WithAzureSpeechKey = Template.bind({});
+WithAzureSpeechKey.args = {
+  memori,
+  tenant,
+  AZURE_COGNITIVE_SERVICES_TTS_KEY: 'provide your key here',
 };

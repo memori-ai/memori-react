@@ -46,6 +46,12 @@ Default.args = {
   onTextareaPressEnter: () => {},
   setAttachmentsMenuOpen: () => {},
   setSendOnEnter: () => {},
+  listening: false,
+  isPlayingAudio: false,
+  stopAudio: () => {},
+  startListening: () => {},
+  stopListening: () => {},
+  showMicrophone: true,
 };
 
 export const WithValue = Template.bind({});
@@ -58,6 +64,12 @@ WithValue.args = {
   onTextareaPressEnter: () => {},
   setAttachmentsMenuOpen: () => {},
   setSendOnEnter: () => {},
+  listening: false,
+  isPlayingAudio: false,
+  stopAudio: () => {},
+  startListening: () => {},
+  stopListening: () => {},
+  showMicrophone: true,
 };
 
 export const WithLongText = Template.bind({});
@@ -71,6 +83,12 @@ WithLongText.args = {
   onTextareaPressEnter: () => {},
   setAttachmentsMenuOpen: () => {},
   setSendOnEnter: () => {},
+  listening: false,
+  isPlayingAudio: false,
+  stopAudio: () => {},
+  startListening: () => {},
+  stopListening: () => {},
+  showMicrophone: true,
 };
 
 export const Instruct = Template.bind({});
@@ -87,6 +105,12 @@ Instruct.args = {
   onTextareaPressEnter: () => {},
   setAttachmentsMenuOpen: () => {},
   setSendOnEnter: () => {},
+  listening: false,
+  isPlayingAudio: false,
+  stopAudio: () => {},
+  startListening: () => {},
+  stopListening: () => {},
+  showMicrophone: true,
 };
 
 export const Disabled = Template.bind({});
@@ -102,4 +126,46 @@ Disabled.args = {
   onTextareaPressEnter: () => {},
   setAttachmentsMenuOpen: () => {},
   setSendOnEnter: () => {},
+  listening: false,
+  isPlayingAudio: false,
+  stopAudio: () => {},
+  startListening: () => {},
+  stopListening: () => {},
+  showMicrophone: true,
+};
+
+export const Listening = Template.bind({});
+Listening.args = {
+  dialogState,
+  userMessage: 'Suspendisse sit amet volutpat velit.',
+  sendMessage: (msg: string) => console.log(msg),
+  onTextareaBlur: () => {},
+  onTextareaFocus: () => {},
+  onTextareaPressEnter: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+  listening: true,
+  isPlayingAudio: false,
+  stopAudio: () => {},
+  startListening: () => {},
+  stopListening: () => {},
+  showMicrophone: true,
+};
+
+export const WithoutMicrophone = Template.bind({});
+WithoutMicrophone.args = {
+  dialogState,
+  userMessage: 'Suspendisse sit amet volutpat velit.',
+  sendMessage: (msg: string) => console.log(msg),
+  onTextareaBlur: () => {},
+  onTextareaFocus: () => {},
+  onTextareaPressEnter: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+  listening: true,
+  isPlayingAudio: false,
+  stopAudio: () => {},
+  startListening: () => {},
+  stopListening: () => {},
+  showMicrophone: false,
 };

@@ -20,6 +20,11 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = args => <Tooltip {...args} />;
+const TemplateRight: Story<Props> = args => (
+  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+    <Tooltip {...args} />
+  </div>
+);
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
@@ -56,4 +61,11 @@ VisibleControlled.args = {
     'Here is some tooltip content displayed by default as I am controlled',
   children: <span>Hover me</span>,
   visible: true,
+};
+
+export const AlignLeft = TemplateRight.bind({});
+AlignLeft.args = {
+  content: 'Here is some tooltip content',
+  children: <span>Hover me</span>,
+  alignLeft: true,
 };

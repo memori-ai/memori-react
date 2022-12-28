@@ -47,6 +47,11 @@ it('renders Chat unchanged', () => {
       userMessage=""
       onChangeUserMessage={jest.fn()}
       sendMessage={jest.fn()}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      showMicrophone={false}
+      listening={false}
+      startListening={jest.fn()}
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
     />
@@ -74,6 +79,11 @@ it('renders Chat with memori typing unchanged', () => {
       sendMessage={jest.fn()}
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      showMicrophone={false}
+      listening={false}
+      startListening={jest.fn()}
       memoriTyping
     />
   );
@@ -100,6 +110,11 @@ it('renders Chat with hints unchanged', () => {
       sendMessage={jest.fn()}
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      showMicrophone={false}
+      listening={false}
+      startListening={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -125,6 +140,11 @@ it('renders Chat with media unchanged', () => {
       sendMessage={jest.fn()}
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      showMicrophone={false}
+      listening={false}
+      startListening={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -150,6 +170,11 @@ it('renders Chat with dates unchanged', () => {
       sendMessage={jest.fn()}
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      showMicrophone={false}
+      listening={false}
+      startListening={jest.fn()}
       showDates
     />
   );
@@ -176,6 +201,11 @@ it('renders Chat with context vars unchanged', () => {
       sendMessage={jest.fn()}
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      showMicrophone={false}
+      listening={false}
+      startListening={jest.fn()}
       showContextPerLine
     />
   );
@@ -205,6 +235,11 @@ it('renders Chat on X3 state unchanged', () => {
       sendMessage={jest.fn()}
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      showMicrophone={false}
+      listening={false}
+      startListening={jest.fn()}
       showContextPerLine
     />
   );
@@ -234,6 +269,11 @@ it('renders Chat on X2a state unchanged', () => {
       sendMessage={jest.fn()}
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      showMicrophone={false}
+      listening={false}
+      startListening={jest.fn()}
       showContextPerLine
     />
   );

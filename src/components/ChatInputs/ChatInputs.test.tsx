@@ -15,6 +15,12 @@ it('renders ChatInputs unchanged', () => {
       onTextareaBlur={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
       setSendOnEnter={jest.fn()}
+      listening={false}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      startListening={jest.fn()}
+      stopListening={jest.fn()}
+      showMicrophone={true}
     />
   );
   expect(container).toMatchSnapshot();
@@ -32,6 +38,12 @@ it('renders ChatInputs with user message unchanged', () => {
       onTextareaBlur={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
       setSendOnEnter={jest.fn()}
+      listening={false}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      startListening={jest.fn()}
+      stopListening={jest.fn()}
+      showMicrophone={true}
     />
   );
   expect(container).toMatchSnapshot();
@@ -53,6 +65,58 @@ it('renders ChatInputs on instruct unchanged', () => {
       setAttachmentsMenuOpen={jest.fn()}
       setSendOnEnter={jest.fn()}
       instruct
+      listening={false}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      startListening={jest.fn()}
+      stopListening={jest.fn()}
+      showMicrophone={true}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders ChatInputs listening unchanged', () => {
+  const { container } = render(
+    <ChatInputs
+      userMessage="Lorem ipsum"
+      onChangeUserMessage={jest.fn()}
+      dialogState={dialogState}
+      sendMessage={jest.fn()}
+      onTextareaPressEnter={jest.fn()}
+      onTextareaFocus={jest.fn()}
+      onTextareaBlur={jest.fn()}
+      setAttachmentsMenuOpen={jest.fn()}
+      setSendOnEnter={jest.fn()}
+      listening={true}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      startListening={jest.fn()}
+      stopListening={jest.fn()}
+      showMicrophone={true}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders ChatInputs without microphone button unchanged', () => {
+  const { container } = render(
+    <ChatInputs
+      userMessage="Lorem ipsum"
+      onChangeUserMessage={jest.fn()}
+      dialogState={dialogState}
+      sendMessage={jest.fn()}
+      onTextareaPressEnter={jest.fn()}
+      onTextareaFocus={jest.fn()}
+      onTextareaBlur={jest.fn()}
+      setAttachmentsMenuOpen={jest.fn()}
+      setSendOnEnter={jest.fn()}
+      listening={true}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      startListening={jest.fn()}
+      stopListening={jest.fn()}
+      showMicrophone={false}
     />
   );
   expect(container).toMatchSnapshot();
@@ -73,6 +137,12 @@ it('renders ChatInputs disabled unchanged', () => {
       onTextareaBlur={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
       setSendOnEnter={jest.fn()}
+      listening={false}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      startListening={jest.fn()}
+      stopListening={jest.fn()}
+      showMicrophone={true}
     />
   );
   expect(container).toMatchSnapshot();

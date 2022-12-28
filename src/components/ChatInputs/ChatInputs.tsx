@@ -5,9 +5,12 @@ import SendOnEnterMenu from '../SendOnEnterMenu/SendOnEnterMenu';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
 import Button from '../ui/Button';
 import { useTranslation } from 'react-i18next';
+import cx from 'classnames';
 import Send from '../icons/Send';
+import Microphone from '../icons/Microphone';
 
 import './ChatInputs.css';
+import Tooltip from '../ui/Tooltip';
 
 export interface Props {
   dialogState?: DialogState;
@@ -22,6 +25,12 @@ export interface Props {
   onTextareaFocus: () => void;
   onTextareaBlur: () => void;
   onTextareaPressEnter: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+  listening?: boolean;
+  isPlayingAudio?: boolean;
+  stopAudio: () => void;
+  startListening: () => void;
+  stopListening: () => void;
+  showMicrophone?: boolean;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -37,6 +46,12 @@ const ChatInputs: React.FC<Props> = ({
   onTextareaFocus,
   onTextareaBlur,
   onTextareaPressEnter,
+  showMicrophone = false,
+  listening = false,
+  isPlayingAudio = false,
+  stopAudio,
+  startListening,
+  stopListening,
 }) => {
   const { t } = useTranslation();
 
@@ -76,6 +91,33 @@ const ChatInputs: React.FC<Props> = ({
         title={t('send') || 'Send'}
         icon={<Send />}
       />
+      {showMicrophone && (
+        <Tooltip
+          alignLeft
+          content={
+            listening
+              ? t('write_and_speak.micButtonPopoverListening')
+              : t('write_and_speak.micButtonPopover')
+          }
+        >
+          <Button
+            className={cx('memori-chat-inputs--mic', {
+              'memori-chat-inputs--mic--listening': listening,
+            })}
+            disabled={isPlayingAudio}
+            onClick={() => {
+              if (listening) {
+                stopListening();
+              } else {
+                stopAudio();
+                startListening();
+              }
+            }}
+            shape="circle"
+            icon={<Microphone />}
+          />
+        </Tooltip>
+      )}
     </fieldset>
   );
 };

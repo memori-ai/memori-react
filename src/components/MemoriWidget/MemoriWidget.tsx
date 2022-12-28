@@ -1203,6 +1203,12 @@ const MemoriWidget = ({
       }
     );
   };
+  const stopAudio = () => {
+    if (speechSynthesizer) {
+      speechSynthesizer.close();
+      speechSynthesizer = null;
+    }
+  };
 
   /**
    * Focus on the chat input on mount
@@ -1330,6 +1336,7 @@ const MemoriWidget = ({
     }
   };
   const clearListening = () => {
+    setHasUserActivatedListening(false);
     stopListening();
     clearListeningTimeout();
   };
@@ -1902,6 +1909,7 @@ const MemoriWidget = ({
       setAttachmentsMenuOpen={setAttachmentsMenuOpen}
       instruct={instruct}
       showInputs={showInputs}
+      showMicrophone={!!AZURE_COGNITIVE_SERVICES_TTS_KEY}
       userMessage={userMessage}
       onChangeUserMessage={onChangeUserMessage}
       sendMessage={(msg: string) => {
@@ -1910,8 +1918,12 @@ const MemoriWidget = ({
         setUserMessage('');
         resetTranscript();
       }}
-      stopListening={stopListening}
+      stopListening={clearListening}
+      startListening={startListening}
+      stopAudio={stopAudio}
       resetTranscript={resetTranscript}
+      listening={listening}
+      isPlayingAudio={isPlayingAudio}
     />
   ) : null;
 

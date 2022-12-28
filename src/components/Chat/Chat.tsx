@@ -39,9 +39,14 @@ export interface Props {
   setAttachmentsMenuOpen: (attachmentsMenuOpen: 'link' | 'media') => void;
   instruct?: boolean;
   showInputs?: boolean;
+  showMicrophone?: boolean;
   userMessage?: string;
   onChangeUserMessage: (userMessage: string) => void;
   sendMessage: (msg: string) => void;
+  listening?: boolean;
+  isPlayingAudio?: boolean;
+  stopAudio: () => void;
+  startListening: () => void;
   stopListening: () => void;
   resetTranscript: () => void;
 }
@@ -62,6 +67,7 @@ const Chat: React.FC<Props> = ({
   preview = false,
   instruct = false,
   showInputs = true,
+  showMicrophone = false,
   sendOnEnter,
   setSendOnEnter,
   attachmentsMenuOpen,
@@ -69,6 +75,10 @@ const Chat: React.FC<Props> = ({
   userMessage = '',
   onChangeUserMessage,
   sendMessage,
+  listening,
+  isPlayingAudio,
+  stopAudio,
+  startListening,
   stopListening,
   resetTranscript,
 }) => {
@@ -290,6 +300,12 @@ const Chat: React.FC<Props> = ({
           onTextareaPressEnter={onTextareaPressEnter}
           onTextareaFocus={onTextareaFocus}
           onTextareaBlur={onTextareaBlur}
+          startListening={startListening}
+          stopListening={stopListening}
+          stopAudio={stopAudio}
+          listening={listening}
+          isPlayingAudio={isPlayingAudio}
+          showMicrophone={showMicrophone}
         />
       )}
     </div>

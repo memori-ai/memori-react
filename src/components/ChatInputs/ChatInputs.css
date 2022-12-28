@@ -19,3 +19,32 @@
     background: #fff;
     color: var(--memori-text-color, #000);
 }
+
+.memori-chat-inputs--mic {
+    z-index: 1;
+    margin-left: 0.33rem;
+}
+
+.memori-chat-inputs--mic svg {
+    font-size: 1em;
+}
+
+.memori-chat-inputs--mic:hover,
+.memori-chat-inputs--mic:active,
+.memori-chat-inputs--mic:focus {
+    border-color: var(--ant-primary-color) !important;
+}
+
+.memori-chat-inputs--mic:active,
+.memori-chat-inputs--mic:focus {
+    box-shadow: 0 0.2rem 0.33rem var(--ant-primary-4) !important;
+    color: var(--ant-primary-color) !important;
+}
+
+.memori-chat-inputs--mic.memori-chat-inputs--mic--listening {
+    color: red;
+}
+
+.memori-chat-inputs--mic.memori-chat-inputs--mic--listening svg {
+    color: red;
+}
