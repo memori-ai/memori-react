@@ -13,6 +13,7 @@ import MediaWidget from '../MediaWidget/MediaWidget';
 import Button from '../ui/Button';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
+import Tooltip from '../ui/Tooltip';
 
 import './Chat.css';
 
@@ -220,6 +221,37 @@ const Chat: React.FC<Props> = ({
                         </div>
                       )
                     )}
+                  </div>
+                )}
+              {index === history.length - 1 &&
+                dialogState?.state === 'R1' &&
+                !!dialogState?.lastMatchedMemoryID &&
+                dialogState?.confidenceLevel === 'HIGH' && (
+                  <div className="memori-chat--feedback">
+                    <Tooltip
+                      content={
+                        memori.culture === 'it-IT'
+                          ? 'Non è quello che ti ho chiesto'
+                          : memori.culture === 'fr-FR'
+                          ? "Ce n'est pas ce que je t'ai demandé"
+                          : "It's not what I asked"
+                      }
+                    >
+                      <Button
+                        ghost
+                        shape="circle"
+                        onClick={() =>
+                          simulateUserPrompt(
+                            memori.culture === 'it-IT'
+                              ? 'Non è quello che ti ho chiesto'
+                              : memori.culture === 'fr-FR'
+                              ? "Ce n'est pas ce que je t'ai demandé"
+                              : "It's not what I asked"
+                          )
+                        }
+                        icon={'🤔'}
+                      />
+                    </Tooltip>
                   </div>
                 )}
 
