@@ -1,5 +1,18 @@
 
 
+## [1.0.0-alpha.13](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.12...v1.0.0-alpha.13) (2023-01-05)
+
+
+### Features
+
+* add chat message feedback button ([e74b391](https://github.com/memori-ai/memori-react/commit/e74b3916db64f95d68178faa5effc62a4d5823c4))
+
+
+### Maintenance
+
+* update api client ([80299cd](https://github.com/memori-ai/memori-react/commit/80299cd7b5a857dcd2d40d9135101771e0b21781))
+* update api client ([da76587](https://github.com/memori-ai/memori-react/commit/da76587f4feee0a3e3939cb656dc7b3854e206a1))
+
 ## [1.0.0-alpha.12](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.11...v1.0.0-alpha.12) (2022-12-28)
 
 
