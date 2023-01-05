@@ -914,6 +914,7 @@ const MemoriWidget = ({
 
     speechConfig.speechSynthesisLanguage = getCultureCodeByLanguage(userLang);
     speechConfig.speechSynthesisVoiceName = getTTSVoice(userLang); // https://docs.microsoft.com/it-it/azure/cognitive-services/speech-service/language-support#text-to-speech
+    speechConfig.speechRecognitionLanguage = getCultureCodeByLanguage(userLang);
 
     if (hasTouchscreen())
       speechConfig.speechSynthesisOutputFormat =
@@ -1288,6 +1289,9 @@ const MemoriWidget = ({
             );
             speechConfig.speechRecognitionLanguage =
               getCultureCodeByLanguage(userLang);
+            speechConfig.speechSynthesisLanguage =
+              getCultureCodeByLanguage(userLang);
+            speechConfig.speechSynthesisVoiceName = getTTSVoice(userLang); // https://docs.microsoft.com/it-it/azure/cognitive-services/speech-service/language-support#text-to-speech
           }
 
           const audioConfig =
