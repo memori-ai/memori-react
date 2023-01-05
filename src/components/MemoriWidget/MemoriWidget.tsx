@@ -430,7 +430,7 @@ const MemoriWidget = ({
             fromUser: false,
           });
       }
-    } else {
+    } else if (response.resultCode === 404) {
       // remove last sent message, will set it as initial
       setHistory(h => [...h.slice(0, h.length - 1)]);
 
