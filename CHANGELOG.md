@@ -1,5 +1,12 @@
 
 
+## [1.0.0-alpha.15](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.14...v1.0.0-alpha.15) (2023-01-05)
+
+
+### Bug Fixes
+
+* stt init lang ([b2d5a4b](https://github.com/memori-ai/memori-react/commit/b2d5a4b8cc3a783840f0200d4c4f532c83aa97bb))
+
 ## [1.0.0-alpha.14](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.13...v1.0.0-alpha.14) (2023-01-05)
 
 
