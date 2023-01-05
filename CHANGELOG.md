@@ -1,5 +1,12 @@
 
 
+## [1.0.0-alpha.14](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.13...v1.0.0-alpha.14) (2023-01-05)
+
+
+### Bug Fixes
+
+* reopen session on z0 only if textentered gave 404 response ([d6f48a8](https://github.com/memori-ai/memori-react/commit/d6f48a84ebd18ab8f603c9dc4a11019e01f014a4))
+
 ## [1.0.0-alpha.13](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.12...v1.0.0-alpha.13) (2023-01-05)
 
 
