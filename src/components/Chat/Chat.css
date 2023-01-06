@@ -115,18 +115,3 @@
 .memori-chat--known-tag {
     margin-right: 0.5rem;
 }
-
-.memori-chat--feedback {
-    padding: 0 3.5rem;
-    margin-bottom: 0.5em;
-}
-
-.memori-chat--feedback button {
-    opacity: 0.4;
-    transition: opacity 0.3s ease-in-out;
-}
-
-.memori-chat--feedback button:hover,
-.memori-chat--feedback button:focus {
-    opacity: 1;
-}
