@@ -1,5 +1,12 @@
 
 
+## [1.0.0-alpha.16](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.15...v1.0.0-alpha.16) (2023-01-06)
+
+
+### Changes
+
+* remove feedback button ([a50c5d4](https://github.com/memori-ai/memori-react/commit/a50c5d442a69078ae87db355663d14186a40f762))
+
 ## [1.0.0-alpha.15](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.14...v1.0.0-alpha.15) (2023-01-05)
 
 
