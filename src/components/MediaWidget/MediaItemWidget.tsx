@@ -19,6 +19,7 @@ export interface Props {
   sessionID?: string;
   tenantID?: string;
   translateTo?: string;
+  baseURL?: string;
 }
 
 export const RenderMediaItem = ({
@@ -26,11 +27,13 @@ export const RenderMediaItem = ({
   sessionID,
   tenantID,
   preview = false,
+  baseURL,
 }: {
   item: Medium;
   sessionID?: string;
   tenantID?: string;
   preview?: boolean;
+  baseURL?: string;
 }) => {
   switch (item.mimeType) {
     case 'image/jpeg':
@@ -57,11 +60,13 @@ export const RenderMediaItem = ({
                         resourceURI: item.url,
                         sessionID,
                         tenantID,
+                        baseURL,
                       }),
                       getResourceUrl({
                         resourceURI: item.content,
                         sessionID,
                         tenantID,
+                        baseURL,
                       }),
                       item.url,
                       item.content,
@@ -221,6 +226,7 @@ const MediaItemWidget: React.FC<Props> = ({
   sessionID,
   tenantID,
   translateTo,
+  baseURL,
 }: Props) => {
   const [media, setMedia] = useState(items);
 
@@ -296,6 +302,7 @@ const MediaItemWidget: React.FC<Props> = ({
               <RenderMediaItem
                 sessionID={sessionID}
                 tenantID={tenantID}
+                baseURL={baseURL}
                 item={{
                   ...item,
                   title: item.title,

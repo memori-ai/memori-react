@@ -42,6 +42,7 @@ const MediaWidget: React.FC<Props> = ({
           items={media}
           sessionID={sessionID}
           translateTo={translateTo}
+          baseURL={baseUrl}
         />
       )}
       {links?.length > 0 && <LinkItemWidget items={links} baseUrl={baseUrl} />}
