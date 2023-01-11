@@ -27,7 +27,7 @@ exports[`renders Auth on tokens unchanged 1`] = `
         />
       </label>
       <button
-        class="memori-auth-widget--token-add memori-button memori-button--rounded memori-button--padded memori-button--with-icon"
+        class="memori-button memori-button--rounded memori-button--padded memori-button--with-icon memori-auth-widget--token-add"
       >
         <span
           class="memori-button--icon"
@@ -57,7 +57,7 @@ exports[`renders Auth on tokens unchanged 1`] = `
       </button>
     </fieldset>
     <button
-      class="memori-auth-widget--submit memori-button memori-button--primary memori-button--rounded memori-button--padded"
+      class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori-auth-widget--submit"
       type="submit"
     >
       confirm
@@ -88,7 +88,7 @@ exports[`renders Auth unchanged 1`] = `
       </label>
     </fieldset>
     <button
-      class="memori-auth-widget--submit memori-button memori-button--primary memori-button--rounded memori-button--padded"
+      class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori-auth-widget--submit"
       type="submit"
     >
       confirm
@@ -133,7 +133,7 @@ exports[`renders Auth with tokens unchanged 1`] = `
       </button>
     </fieldset>
     <button
-      class="memori-auth-widget--submit memori-button memori-button--primary memori-button--rounded memori-button--padded"
+      class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori-auth-widget--submit"
       type="submit"
     >
       confirm

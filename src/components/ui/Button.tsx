@@ -50,20 +50,24 @@ const Button: FC<Props> = ({
     onTouchEnd={onTouchEnd}
     title={title}
     disabled={loading || disabled}
-    className={cx(className, 'memori-button', {
-      'memori-button--primary': primary,
-      'memori-button--outlined': outlined,
-      'memori-button--ghost': ghost,
-      'memori-button--square': shape === 'square',
-      'memori-button--rounded': shape === 'rounded',
-      'memori-button--circle': shape === 'circle',
-      'memori-button--padded': padded,
-      'memori-button--block': block,
-      'memori-button--with-icon': (icon || loading) && children,
-      'memori-button--icon-only': (icon || loading) && !children,
-      'memori-button--danger': danger,
-      'memori-button--loading': loading,
-    })}
+    className={cx(
+      'memori-button',
+      {
+        'memori-button--primary': primary,
+        'memori-button--outlined': outlined,
+        'memori-button--ghost': ghost,
+        'memori-button--square': shape === 'square',
+        'memori-button--rounded': shape === 'rounded',
+        'memori-button--circle': shape === 'circle',
+        'memori-button--padded': padded,
+        'memori-button--block': block,
+        'memori-button--with-icon': (icon || loading) && children,
+        'memori-button--icon-only': (icon || loading) && !children,
+        'memori-button--danger': danger,
+        'memori-button--loading': loading,
+      },
+      className
+    )}
   >
     {icon && !loading && <span className="memori-button--icon">{icon}</span>}
     {loading && (

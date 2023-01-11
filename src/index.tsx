@@ -35,6 +35,7 @@ export interface Props {
   initialQuestion?: string;
   uiLang?: 'en' | 'it';
   spokenLang?: string;
+  authToken?: string;
   AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
   onStateChange?: (state?: DialogState) => void;
 }
@@ -77,6 +78,7 @@ const Memori: React.FC<Props> = ({
   initialQuestion,
   uiLang,
   spokenLang,
+  authToken,
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
   onStateChange,
 }) => {
@@ -176,6 +178,7 @@ const Memori: React.FC<Props> = ({
       )}
       initialContextVars={context}
       initialQuestion={initialQuestion}
+      authToken={authToken}
       AZURE_COGNITIVE_SERVICES_TTS_KEY={AZURE_COGNITIVE_SERVICES_TTS_KEY}
       onStateChange={onStateChange}
       {...(tag && pin ? { personification: { tag, pin } } : {})}

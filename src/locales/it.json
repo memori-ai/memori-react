@@ -6,6 +6,9 @@
   "show": "Mostra",
   "hide": "Nascondi",
   "send": "Invia",
+  "close": "Chiudi",
+  "edit": "Modifica",
+  "delete": "Elimina",
   "loading": "Caricamento",
   "copy": "Copia",
   "copyToClipboard": "Copia negli appunti",
@@ -60,6 +63,22 @@
     "requirePosition": "Inserisci la posizione prima di iniziare",
     "attachmentsLabel": "Arricchisci il tuo messaggio",
     "iWantToTalkToIn": "Voglio parlare con {{name}} in"
+  },
+  "media": {
+    "title": "Titolo",
+    "editAttributes": "Modifica attributi media",
+    "uploadMimeTypeNotAllowed": "Il tipo di file non è permesso",
+    "uploadSizeLimitMessage": "Il file caricato è troppo grande (max {{size}}MB)",
+    "uploadWrongResolutionMessage": "La risoluzione deve essere {{width}}x{{height}} pixel",
+    "memoriNameAlreadyUsed": "Hai già un Twin con questo nome",
+    "uploadHelperImages": "Caricare un file con estensione png, jpg, jpeg o gif e con dimensione massima di {{size}}MB",
+    "uploadHelper": "Caricare un file di dimensione massima di {{size}}MB",
+    "uploadError": "Errore nel caricamento",
+    "square": "quadrato",
+    "scaleRatio": "Proporzioni",
+    "addMediaLabel": "Aggiungi media",
+    "insertThisMediaMsg": "Inserisci questi media",
+    "mediaUploadMessage": "Clicca per caricare un nuovo media"
   },
   "gamification": {
     "level": "Livello",

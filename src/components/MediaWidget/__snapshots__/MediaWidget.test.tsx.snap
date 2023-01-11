@@ -20,7 +20,7 @@ exports[`renders MediaWidget with hints unchanged 1`] = `
         class="ease-out duration-500 opacity-0 translate-y-1"
       >
         <button
-          class="memori-media--hint memori-button memori-button--primary memori-button--rounded memori-button--padded"
+          class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori-media--hint"
         >
           All right
         </button>

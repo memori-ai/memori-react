@@ -58,7 +58,7 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
         </span>
       </p>
       <button
-        class="memori--start-button memori-button memori-button--primary memori-button--rounded memori-button--padded"
+        class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
       >
         write_and_speak.instructButton
       </button>
@@ -107,7 +107,7 @@ exports[`renders StartPanel unchanged 1`] = `
         </span>
       </p>
       <button
-        class="memori--start-button memori-button memori-button--primary memori-button--rounded memori-button--padded"
+        class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
       >
         write_and_speak.tryMeButton
       </button>
@@ -179,7 +179,7 @@ exports[`renders StartPanel with gamification level unchanged 1`] = `
         </span>
       </p>
       <button
-        class="memori--start-button memori-button memori-button--primary memori-button--rounded memori-button--padded"
+        class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
       >
         write_and_speak.tryMeButton
       </button>
@@ -291,7 +291,7 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
         </select>
       </div>
       <button
-        class="memori--start-button memori-button memori-button--primary memori-button--rounded memori-button--padded"
+        class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
       >
         write_and_speak.tryMeButton
       </button>
@@ -359,7 +359,7 @@ exports[`renders StartPanel with position required unchanged 1`] = `
         write_and_speak.requirePosition
       </p>
       <button
-        class="memori--start-button memori-button memori-button--primary memori-button--rounded memori-button--padded"
+        class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
       >
         widget.position
       </button>

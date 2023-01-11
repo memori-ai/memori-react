@@ -1,0 +1,169 @@
+legend.helper {
+    display: inline-block;
+    width: auto;
+    border: 0;
+    margin: 0;
+    margin-bottom: 1rem;
+    font-size: 0.9em;
+}
+
+legend.helper p {
+    margin-bottom: 0;
+}
+
+.memori--upload  .ant-upload-list-picture-card-container,
+.memori--upload .ant-upload.ant-upload-select-picture-card {
+    width: auto;
+    min-width: 100px;
+    max-width: 200px;
+    height: auto;
+    min-height: 100px;
+}
+
+.memori--upload .ant-upload.ant-upload-select-picture-card {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    border: 2px var(--medium-gray) dashed;
+    border-radius: 7px;
+    background: none;
+    opacity: 0.7;
+}
+
+.memori--upload .ant-upload.ant-upload-select-picture-card .ant-upload {
+    transition: color 0.3s ease;
+}
+
+.memori--upload .ant-upload.ant-upload-select-picture-card:hover,
+.memori--upload .ant-upload.ant-upload-select-picture-card:focus {
+    border-color: var(--ant-primary-color);
+    opacity: 1;
+}
+
+.memori--upload .ant-upload.ant-upload-select-picture-card:hover .ant-upload,
+.memori--upload .ant-upload.ant-upload-select-picture-card:focus .ant-upload {
+    color: var(--ant-primary-color);
+}
+
+.memori--upload .ant-upload-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.memori--upload .ant-upload-list-item {
+    overflow: hidden;
+    padding: 0;
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.1);
+}
+
+.memori--upload .ant-upload-list-picture-card-container {
+    margin-bottom: 1rem;
+}
+
+.memori--list-item-wrapper {
+    position: relative;
+}
+
+.memori--list-item-wrapper .ant-spin-nested-loading,
+.memori--list-item-wrapper .ant-spin-container {
+    height: 100%;
+}
+
+.memori--list-item-wrapper figure {
+    margin-bottom: 0;
+}
+
+.memori--list-item-wrapper figure img {
+    max-height: 200px;
+    border-radius: 5px;
+    object-fit: contain;
+}
+
+.memori--list-item-wrapper figure figcaption {
+    padding: 1rem;
+    font-size: 0.8rem;
+    text-align: center;
+}
+
+.memori--list-item-wrapper .ant-upload-list-item-error
+.ant-upload-list-item-name {
+    position: static;
+    margin: 0 0 1rem;
+}
+
+.memori--list-item-wrapper .list-item-actions {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: flex;
+    overflow: hidden;
+    width: 0;
+    height: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background: rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+.attachment-media-modal .memori-modal--panel {
+    min-width: 50%;
+}
+
+.ant-upload-list-item-container {
+    width: 200px !important;
+    height: auto !important;
+}
+
+.ant-upload.ant-upload-select {
+    width: 200px !important;
+    height: 200px !important;
+}
+
+.memori--list-item-wrapper .list-item-actions a.action-button,
+.memori--list-item-wrapper .list-item-actions button.action-button {
+    color: #fff;
+}
+
+.memori--list-item-wrapper .list-item-actions a.action-button + .action-button,
+.memori--list-item-wrapper .list-item-actions button.action-button + .action-button {
+    margin-left: 0.5rem;
+}
+
+.memori--list-item-wrapper .list-item-actions a.action-button:hover,
+.memori--list-item-wrapper .list-item-actions button.action-button:hover,
+.memori--list-item-wrapper .list-item-actions a.action-button:focus,
+.memori--list-item-wrapper .list-item-actions button.action-button:focus {
+    color: #fff;
+}
+
+.memori--list-item-wrapper:hover .list-item-actions,
+.memori--list-item-wrapper:focus .list-item-actions {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 1;
+}
+
+.media-title-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.media-title-input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #d9d9d9;
+    border-radius: 5px;
+    background: #fff;
+    font-size: 0.9rem;
+    font-weight: 400;
+}

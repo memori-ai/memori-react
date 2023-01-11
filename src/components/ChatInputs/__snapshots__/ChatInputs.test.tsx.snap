@@ -43,7 +43,7 @@ exports[`renders ChatInputs disabled unchanged 1`] = `
           class="memori-chat-textarea--expand"
         >
           <button
-            class="memori-chat-textarea--expand-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+            class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
           >
             <span
               class="memori-button--icon"
@@ -65,7 +65,7 @@ exports[`renders ChatInputs disabled unchanged 1`] = `
       </div>
     </div>
     <button
-      class="memori-chat-inputs--send memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
       title="send"
     >
       <span
@@ -96,7 +96,7 @@ exports[`renders ChatInputs disabled unchanged 1`] = `
         class="memori-tooltip--trigger"
       >
         <button
-          class="memori-chat-inputs--mic memori-button memori-button--circle memori-button--padded memori-button--icon-only"
+          class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
         >
           <span
             class="memori-button--icon"
@@ -161,7 +161,7 @@ exports[`renders ChatInputs listening unchanged 1`] = `
           class="memori-chat-textarea--expand"
         >
           <button
-            class="memori-chat-textarea--expand-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+            class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
           >
             <span
               class="memori-button--icon"
@@ -183,7 +183,7 @@ exports[`renders ChatInputs listening unchanged 1`] = `
       </div>
     </div>
     <button
-      class="memori-chat-inputs--send memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
       title="send"
     >
       <span
@@ -214,7 +214,7 @@ exports[`renders ChatInputs listening unchanged 1`] = `
         class="memori-tooltip--trigger"
       >
         <button
-          class="memori-chat-inputs--mic memori-chat-inputs--mic--listening memori-button memori-button--circle memori-button--padded memori-button--icon-only"
+          class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic memori-chat-inputs--mic--listening"
         >
           <span
             class="memori-button--icon"
@@ -308,7 +308,7 @@ exports[`renders ChatInputs on instruct unchanged 1`] = `
           class="memori-chat-textarea--expand"
         >
           <button
-            class="memori-chat-textarea--expand-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+            class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
           >
             <span
               class="memori-button--icon"
@@ -330,7 +330,7 @@ exports[`renders ChatInputs on instruct unchanged 1`] = `
       </div>
     </div>
     <button
-      class="memori-chat-inputs--send memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
       title="send"
     >
       <span
@@ -361,7 +361,7 @@ exports[`renders ChatInputs on instruct unchanged 1`] = `
         class="memori-tooltip--trigger"
       >
         <button
-          class="memori-chat-inputs--mic memori-button memori-button--circle memori-button--padded memori-button--icon-only"
+          class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
         >
           <span
             class="memori-button--icon"
@@ -424,7 +424,7 @@ exports[`renders ChatInputs unchanged 1`] = `
           class="memori-chat-textarea--expand"
         >
           <button
-            class="memori-chat-textarea--expand-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+            class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
           >
             <span
               class="memori-button--icon"
@@ -446,7 +446,7 @@ exports[`renders ChatInputs unchanged 1`] = `
       </div>
     </div>
     <button
-      class="memori-chat-inputs--send memori-button memori-button--circle memori-button--padded memori-button--icon-only"
+      class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
       disabled=""
       title="send"
     >
@@ -478,7 +478,7 @@ exports[`renders ChatInputs unchanged 1`] = `
         class="memori-tooltip--trigger"
       >
         <button
-          class="memori-chat-inputs--mic memori-button memori-button--circle memori-button--padded memori-button--icon-only"
+          class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
         >
           <span
             class="memori-button--icon"
@@ -543,7 +543,7 @@ exports[`renders ChatInputs with user message unchanged 1`] = `
           class="memori-chat-textarea--expand"
         >
           <button
-            class="memori-chat-textarea--expand-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+            class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
           >
             <span
               class="memori-button--icon"
@@ -565,7 +565,7 @@ exports[`renders ChatInputs with user message unchanged 1`] = `
       </div>
     </div>
     <button
-      class="memori-chat-inputs--send memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
       title="send"
     >
       <span
@@ -596,7 +596,7 @@ exports[`renders ChatInputs with user message unchanged 1`] = `
         class="memori-tooltip--trigger"
       >
         <button
-          class="memori-chat-inputs--mic memori-button memori-button--circle memori-button--padded memori-button--icon-only"
+          class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
         >
           <span
             class="memori-button--icon"
@@ -661,7 +661,7 @@ exports[`renders ChatInputs without microphone button unchanged 1`] = `
           class="memori-chat-textarea--expand"
         >
           <button
-            class="memori-chat-textarea--expand-button memori-button memori-button--ghost memori-button--rounded memori-button--icon-only"
+            class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
           >
             <span
               class="memori-button--icon"
@@ -683,7 +683,7 @@ exports[`renders ChatInputs without microphone button unchanged 1`] = `
       </div>
     </div>
     <button
-      class="memori-chat-inputs--send memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
       title="send"
     >
       <span

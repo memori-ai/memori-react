@@ -6,6 +6,9 @@
   "show": "Show",
   "hide": "Hide",
   "send": "Send",
+  "close": "Close",
+  "edit": "Edit",
+  "delete": "Delete",
   "loading": "Loading",
   "copy": "Copy",
   "copyToClipboard": "Copy to clipboard",
@@ -60,6 +63,22 @@
     "requirePosition": "Insert your position before start",
     "attachmentsLabel": "Enrich your message",
     "iWantToTalkToIn": "I want to talk to {{name}} in"
+  },
+  "media": {
+    "title": "Title",
+    "editAttributes": "Edit media attributes",
+    "uploadMimeTypeNotAllowed": "The file type is not allowed",
+    "uploadSizeLimitMessage": "The uploaded size is too big (max {{size}}MB)",
+    "uploadWrongResolutionMessage": "The resolution must be {{width}}x{{height}} pixel",
+    "memoriNameAlreadyUsed": "You already have a Twin with this name",
+    "uploadHelperImages": "Upload a file with extension png, jpg, jpeg or gif, and having at maximum a size of {{size}}MB",
+    "uploadHelper": "Upload a file having at maximum a size of {{size}}MB",
+    "uploadError": "Upload failed",
+    "square": "square",
+    "scaleRatio": "Scale ratio",
+    "addMediaLabel": "Add a media",
+    "insertThisMediaMsg": "Insert these media",
+    "mediaUploadMessage": "Click to load a new media"
   },
   "gamification": {
     "level": "Level",

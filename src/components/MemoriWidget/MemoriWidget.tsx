@@ -12,6 +12,7 @@ import {
   Invitation,
   GamificationLevel,
   Tenant,
+  Asset,
 } from '@memori.ai/memori-api-client/dist/types';
 import {
   SpeakerAudioDestination,
@@ -60,6 +61,7 @@ import { getGamificationLevel } from '../../helpers/statistics';
 
 // Styles
 import './MemoriWidget.css';
+import AttachmentMediaModal from '../AttachmentMediaModal/AttachmentMediaModal';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -168,6 +170,7 @@ export interface Props {
     tag: string;
     pin: string;
   };
+  authToken?: string;
   AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
   onStateChange?: (state?: DialogState) => void;
 }
@@ -195,6 +198,7 @@ const MemoriWidget = ({
   sessionID: initialSessionID,
   tenant,
   personification,
+  authToken,
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
   onStateChange,
 }: Props) => {
@@ -216,6 +220,7 @@ const MemoriWidget = ({
     getSession,
     getContentQualityIndexes,
   } = client;
+  const { uploadAsset, getUploadAssetURL, deleteAsset } = client.backend;
 
   const [instruct, setInstruct] = useState(false);
 
@@ -376,7 +381,7 @@ const MemoriWidget = ({
           }
         } else {
           console.error(response, resp);
-          message.error(t(getErrori18nKey(resp.resultCode), { ns: 'common' }));
+          message.error(t(getErrori18nKey(resp.resultCode)));
         }
       } else if (currentState.state === 'X2d' && memori.giverTag) {
         const { currentState, ...resp } = await postTextEnteredEvent({
@@ -402,13 +407,11 @@ const MemoriWidget = ({
             }
           } else {
             console.error(response, resp);
-            message.error(
-              t(getErrori18nKey(resp.resultCode), { ns: 'common' })
-            );
+            message.error(t(getErrori18nKey(resp.resultCode)));
           }
         } else {
           console.error(response, resp);
-          message.error(t(getErrori18nKey(resp.resultCode), { ns: 'common' }));
+          message.error(t(getErrori18nKey(resp.resultCode)));
         }
       } else if (
         userLang.toLowerCase() !== language.toLowerCase() &&
@@ -630,9 +633,7 @@ const MemoriWidget = ({
         } as { dialogState: DialogState; sessionID: string };
       } else {
         console.error(session);
-        message.error(
-          t(getErrori18nKey(session?.resultCode), { ns: 'common' })
-        );
+        message.error(t(getErrori18nKey(session?.resultCode)));
         setGotErrorInOpening(true);
       }
     } catch (err) {
@@ -689,9 +690,7 @@ const MemoriWidget = ({
         return sessionID;
       } else {
         console.error(response);
-        message.error(
-          t(getErrori18nKey(response.resultCode), { ns: 'common' })
-        );
+        message.error(t(getErrori18nKey(response.resultCode)));
         setGotErrorInOpening(true);
       }
     } catch (err) {
@@ -1606,11 +1605,7 @@ const MemoriWidget = ({
             }
           } else {
             console.error(resp);
-            message.error(
-              t(getErrori18nKey(resp.resultCode), {
-                ns: 'common',
-              })
-            );
+            message.error(t(getErrori18nKey(resp.resultCode)));
           }
         } else {
           setCurrentDialogState(currentState);
@@ -1624,7 +1619,7 @@ const MemoriWidget = ({
         }
       } else {
         console.error(resp, tag, currentDialogState?.knownTags?.[tag]);
-        message.error(t(getErrori18nKey(resp.resultCode), { ns: 'common' }));
+        message.error(t(getErrori18nKey(resp.resultCode)));
       }
     } catch (e) {
       let err = e as Error;
@@ -2019,6 +2014,63 @@ const MemoriWidget = ({
           minimumNumberOfRecoveryTokens={
             memori?.minimumNumberOfRecoveryTokens ?? 1
           }
+        />
+      )}
+
+      {attachmentsMenuOpen === 'link' && <p>Link</p>}
+      {authToken && sessionId && tenant?.id && (
+        <AttachmentMediaModal
+          visible={attachmentsMenuOpen === 'media'}
+          authToken={authToken}
+          tenantID={tenant?.id}
+          sessionID={sessionId}
+          uploadAssetURL={client.backend.getUploadAssetURL(
+            authToken,
+            memori.memoriID
+          )}
+          deleteAsset={client.backend.deleteAsset}
+          onCancel={() => setAttachmentsMenuOpen(undefined)}
+          onOk={async (asset: Asset) => {
+            if (!sessionId) return;
+
+            let medium: Medium = {
+              mediumID: '',
+              mimeType: asset.mimeType,
+              url: asset.assetURL,
+              title: asset.title || asset.assetID,
+            };
+            pushMessage({
+              text: t('media.insertThisMediaMsg'),
+              fromUser: true,
+              media: [medium],
+            });
+            try {
+              const { currentState, ...resp } =
+                await client.postMediumSelectedEvent(sessionId, medium);
+
+              if (currentState && resp.resultCode === 0) {
+                setCurrentDialogState(currentState);
+
+                if (currentState.emission) {
+                  pushMessage({
+                    text: currentState.emission,
+                    media: currentState.media,
+                    fromUser: false,
+                  });
+                }
+              } else {
+                console.error(resp, currentState, medium);
+                message.error(
+                  t(getErrori18nKey(resp.resultCode), { ns: 'common' })
+                );
+              }
+            } catch (e) {
+              let err = e as Error;
+              console.error(err);
+              message.error(err.message);
+            }
+            setAttachmentsMenuOpen(undefined);
+          }}
         />
       )}
     </div>

@@ -6,7 +6,7 @@ exports[`renders Header unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-header--button memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
       title="widget.sound"
     >
       <span
@@ -72,7 +72,7 @@ exports[`renders Header with position unchanged 1`] = `
         Berlin
       </span>
       <button
-        class="memori-header--button memori-button memori-button--circle memori-button--padded memori-button--icon-only"
+        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
       >
         <span
           class="memori-button--icon"
@@ -93,7 +93,7 @@ exports[`renders Header with position unchanged 1`] = `
       </button>
     </div>
     <button
-      class="memori-header--button memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
       title="widget.sound"
     >
       <span
@@ -151,7 +151,7 @@ exports[`renders Header with settings button unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-header--button memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
       title="widget.sound"
     >
       <span
@@ -200,7 +200,7 @@ exports[`renders Header with settings button unchanged 1`] = `
       </button>
     </div>
     <button
-      class="memori-header--button memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
       title="widget.settings"
     >
       <span
@@ -229,7 +229,7 @@ exports[`renders Header with share button unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-header--button memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
       title="widget.sound"
     >
       <span
@@ -317,7 +317,7 @@ exports[`renders Header with speaker muted unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-header--button memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
       title="widget.sound"
     >
       <span
@@ -377,7 +377,7 @@ exports[`renders Header with user activated speak unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-header--button memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
       title="widget.sound"
     >
       <span
