@@ -1,5 +1,12 @@
 
 
+## [1.0.0-alpha.19](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.18...v1.0.0-alpha.19) (2023-01-11)
+
+
+### Bug Fixes
+
+* update prop types ([782008e](https://github.com/memori-ai/memori-react/commit/782008ea18a368b02b7a957b8b9c3d3536b1e45d))
+
 ## [1.0.0-alpha.18](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.17...v1.0.0-alpha.18) (2023-01-11)
 
 
