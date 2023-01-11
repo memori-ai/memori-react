@@ -61,7 +61,7 @@ const ChatInputs: React.FC<Props> = ({
       className="memori-chat-inputs"
       disabled={dialogState?.state === 'X2a' || dialogState?.state === 'X3'}
     >
-      {instruct && (
+      {(instruct || dialogState?.acceptsMedia) && (
         <UploadMenu
           attachmentsMenuOpen={attachmentsMenuOpen}
           setAttachmentsMenuOpen={setAttachmentsMenuOpen}

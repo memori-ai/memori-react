@@ -97,6 +97,28 @@ Instruct.args = {
   userMessage: 'Suspendisse sit amet volutpat velit.',
   dialogState: {
     ...dialogState,
+    acceptsMedia: false,
+  },
+  sendMessage: (msg: string) => console.log(msg),
+  onTextareaBlur: () => {},
+  onTextareaFocus: () => {},
+  onTextareaPressEnter: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+  listening: false,
+  isPlayingAudio: false,
+  stopAudio: () => {},
+  startListening: () => {},
+  stopListening: () => {},
+  showMicrophone: true,
+};
+
+export const InstructAcceptingMedia = Template.bind({});
+InstructAcceptingMedia.args = {
+  instruct: true,
+  userMessage: 'Suspendisse sit amet volutpat velit.',
+  dialogState: {
+    ...dialogState,
     acceptsMedia: true,
   },
   sendMessage: (msg: string) => console.log(msg),
