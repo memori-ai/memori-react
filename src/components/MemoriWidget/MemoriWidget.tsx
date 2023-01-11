@@ -854,10 +854,6 @@ const MemoriWidget = ({
             fromUser: false,
           });
           setCurrentDialogState(currentState);
-        } else {
-          setCurrentDialogState({
-            ...currentState,
-          });
         }
       }
     }
