@@ -1,5 +1,18 @@
 
 
+## [1.0.0-alpha.18](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.17...v1.0.0-alpha.18) (2023-01-11)
+
+
+### Features
+
+* add link attachment modal with preview ([e20c8ca](https://github.com/memori-ai/memori-react/commit/e20c8ca42ab2a763492109991a1bfc663271fed2))
+* add media upload + media attachment modal ([6066f06](https://github.com/memori-ai/memori-react/commit/6066f065d63e6c12c56d9489da6f9eceacf103fa))
+
+
+### Maintenance
+
+* add general usage story ([309de4b](https://github.com/memori-ai/memori-react/commit/309de4b22a675f2597aa9ebbc97c3929b3983a5a))
+
 ## [1.0.0-alpha.17](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.16...v1.0.0-alpha.17) (2023-01-11)
 
 
