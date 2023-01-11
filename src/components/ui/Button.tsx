@@ -21,6 +21,7 @@ export interface Props {
   disabled?: boolean;
   className?: string;
   title?: string;
+  id?: string;
   htmlType?: 'button' | 'submit' | 'reset';
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onTouchEnd?: (event: React.TouchEvent<HTMLButtonElement>) => void;
@@ -39,12 +40,14 @@ const Button: FC<Props> = ({
   icon,
   className,
   title,
+  id,
   htmlType,
   onClick,
   onTouchEnd,
   children,
 }) => (
   <button
+    id={id}
     type={htmlType}
     onClick={onClick}
     onTouchEnd={onTouchEnd}

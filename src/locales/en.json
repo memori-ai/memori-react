@@ -78,7 +78,11 @@
     "scaleRatio": "Scale ratio",
     "addMediaLabel": "Add a media",
     "insertThisMediaMsg": "Insert these media",
-    "mediaUploadMessage": "Click to load a new media"
+    "mediaUploadMessage": "Click to load a new media",
+    "addLinkLabel": "Add a link",
+    "linkKey": "URL",
+    "linkValue": "Link title",
+    "insertThisLink": "Insert a link to {{url}} with title {{title}}"
   },
   "gamification": {
     "level": "Level",

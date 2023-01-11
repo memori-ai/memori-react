@@ -78,7 +78,11 @@
     "scaleRatio": "Proporzioni",
     "addMediaLabel": "Aggiungi media",
     "insertThisMediaMsg": "Inserisci questi media",
-    "mediaUploadMessage": "Clicca per caricare un nuovo media"
+    "mediaUploadMessage": "Clicca per caricare un nuovo media",
+    "addLinkLabel": "Aggiungi un link",
+    "linkKey": "URL",
+    "linkValue": "Titolo link",
+    "insertThisLink": "Inserisci un link a {{url}} con titolo {{title}}"
   },
   "gamification": {
     "level": "Livello",

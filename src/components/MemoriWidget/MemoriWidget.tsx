@@ -62,6 +62,7 @@ import { getGamificationLevel } from '../../helpers/statistics';
 // Styles
 import './MemoriWidget.css';
 import AttachmentMediaModal from '../AttachmentMediaModal/AttachmentMediaModal';
+import AttachmentLinkModal from '../AttachmentLinkModal/AttachmentLinkModal';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -2017,7 +2018,56 @@ const MemoriWidget = ({
         />
       )}
 
-      {attachmentsMenuOpen === 'link' && <p>Link</p>}
+      {sessionId && (
+        <AttachmentLinkModal
+          visible={attachmentsMenuOpen === 'link'}
+          onCancel={() => setAttachmentsMenuOpen(undefined)}
+          onOk={async link => {
+            if (!sessionId) return;
+
+            let medium: Medium = {
+              mediumID: '',
+              mimeType: 'text/html',
+              url: link.url,
+              title: link.title,
+            };
+            pushMessage({
+              text: t('media.insertThisLink', {
+                url: medium.url,
+                title: medium.title,
+              }),
+              fromUser: true,
+              media: [medium],
+            });
+            try {
+              const { currentState, ...resp } =
+                await client.postMediumSelectedEvent(sessionId, medium);
+
+              if (currentState && resp.resultCode === 0) {
+                setCurrentDialogState(currentState);
+
+                if (currentState.emission) {
+                  pushMessage({
+                    text: currentState.emission,
+                    media: currentState.media,
+                    fromUser: false,
+                  });
+                }
+              } else {
+                console.error(resp, currentState, medium);
+                message.error(
+                  t(getErrori18nKey(resp.resultCode), { ns: 'common' })
+                );
+              }
+            } catch (e) {
+              let err = e as Error;
+              console.error(err);
+              message.error(err.message);
+            }
+            setAttachmentsMenuOpen(undefined);
+          }}
+        />
+      )}
       {authToken && sessionId && tenant?.id && (
         <AttachmentMediaModal
           visible={attachmentsMenuOpen === 'media'}
