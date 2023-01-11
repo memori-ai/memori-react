@@ -116,10 +116,10 @@ const typeMessage = (message: string) => {
 
   setTimeout(() => {
     let sendButton =
-      document.querySelector('fieldset#chat-fieldset textarea + button') ||
+      document.querySelector('button.memori-chat-inputs--send') ||
       document
         .querySelector('memori-client')
-        ?.shadowRoot?.querySelector('fieldset#chat-fieldset textarea + button');
+        ?.shadowRoot?.querySelector('button.memori-chat-inputs--send');
     if (!sendButton) return;
     (sendButton as HTMLButtonElement).click();
   }, 100);
