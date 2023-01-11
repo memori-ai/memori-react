@@ -1,5 +1,24 @@
 
 
+## [1.0.0-alpha.17](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.16...v1.0.0-alpha.17) (2023-01-11)
+
+
+### Bug Fixes
+
+* button selector to click in typeMessage ([493c7a0](https://github.com/memori-ai/memori-react/commit/493c7a094d965f889ae037013c1484cb036cda24))
+* pass baseURL to all img handlers ([8083c12](https://github.com/memori-ai/memori-react/commit/8083c12af181aa41bb0ff714491c73916a57bd61))
+* update dialog state on timeout only with emission, prevent hints to hide ([6132140](https://github.com/memori-ai/memori-react/commit/61321402750cbd591c43dc0a18af959c577bfb4b))
+
+
+### Changes
+
+* show media upload if dialogState givers acceptMedia ([01701d1](https://github.com/memori-ai/memori-react/commit/01701d1298ff99b5305c8c66e04359df1918b18b))
+
+
+### Maintenance
+
+* pick stories in whole src dir for sb ([9675109](https://github.com/memori-ai/memori-react/commit/9675109a3c34dca0cfeac9d731a16ccda8f9e1c4))
+
 ## [1.0.0-alpha.16](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.15...v1.0.0-alpha.16) (2023-01-06)
 
 
