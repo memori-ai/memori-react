@@ -1,5 +1,18 @@
 
 
+## [1.0.0-alpha.20](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.19...v1.0.0-alpha.20) (2023-01-13)
+
+
+### Features
+
+* add mutationObserver to detect if authToken attr from wc is changed, show upload media button only if authToken present ([33fef98](https://github.com/memori-ai/memori-react/commit/33fef986709e7dc06c832765e9e08427a41cf4cd))
+
+
+### Bug Fixes
+
+* link item preview img fallback ([1d739d6](https://github.com/memori-ai/memori-react/commit/1d739d65ff66374ad2dc4723cee779d0347b71ce))
+* send on enter menu btn sizes ([6ca6887](https://github.com/memori-ai/memori-react/commit/6ca6887464f9b9320b74cf9e64625ac587512710))
+
 ## [1.0.0-alpha.19](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.18...v1.0.0-alpha.19) (2023-01-11)
 
 
