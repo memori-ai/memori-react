@@ -25,7 +25,17 @@ const SendOnEnterMenu: React.FC<Props> = ({ sendOnEnter, setSendOnEnter }) => {
           'memori--conversation-button'
         )}
       >
-        <div className="memori-button--icon">…</div>
+        <div className="memori-button--icon">
+          <span
+            style={{
+              display: 'block',
+              width: '1rem',
+              height: '1rem',
+            }}
+          >
+            …
+          </span>
+        </div>
       </Menu.Button>
       <Menu.Items className="memori-menu--overlay">
         <RadioGroup value={sendOnEnter} onChange={setSendOnEnter}>

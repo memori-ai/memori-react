@@ -338,7 +338,11 @@ exports[`renders Chat on X2a state unchanged 1`] = `
           <div
             class="memori-button--icon"
           >
-            …
+            <span
+              style="display: block; width: 1rem; height: 1rem;"
+            >
+              …
+            </span>
           </div>
         </button>
       </div>
@@ -773,7 +777,11 @@ exports[`renders Chat on X3 state unchanged 1`] = `
           <div
             class="memori-button--icon"
           >
-            …
+            <span
+              style="display: block; width: 1rem; height: 1rem;"
+            >
+              …
+            </span>
           </div>
         </button>
       </div>
@@ -1146,7 +1154,11 @@ exports[`renders Chat unchanged 1`] = `
           <div
             class="memori-button--icon"
           >
-            …
+            <span
+              style="display: block; width: 1rem; height: 1rem;"
+            >
+              …
+            </span>
           </div>
         </button>
       </div>
@@ -1548,7 +1560,11 @@ exports[`renders Chat with context vars unchanged 1`] = `
           <div
             class="memori-button--icon"
           >
-            …
+            <span
+              style="display: block; width: 1rem; height: 1rem;"
+            >
+              …
+            </span>
           </div>
         </button>
       </div>
@@ -1955,7 +1971,11 @@ exports[`renders Chat with dates unchanged 1`] = `
           <div
             class="memori-button--icon"
           >
-            …
+            <span
+              style="display: block; width: 1rem; height: 1rem;"
+            >
+              …
+            </span>
           </div>
         </button>
       </div>
@@ -2353,7 +2373,11 @@ exports[`renders Chat with hints unchanged 1`] = `
           <div
             class="memori-button--icon"
           >
-            …
+            <span
+              style="display: block; width: 1rem; height: 1rem;"
+            >
+              …
+            </span>
           </div>
         </button>
       </div>
@@ -3126,7 +3150,11 @@ exports[`renders Chat with media unchanged 1`] = `
           <div
             class="memori-button--icon"
           >
-            …
+            <span
+              style="display: block; width: 1rem; height: 1rem;"
+            >
+              …
+            </span>
           </div>
         </button>
       </div>
@@ -3515,7 +3543,11 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           <div
             class="memori-button--icon"
           >
-            …
+            <span
+              style="display: block; width: 1rem; height: 1rem;"
+            >
+              …
+            </span>
           </div>
         </button>
       </div>

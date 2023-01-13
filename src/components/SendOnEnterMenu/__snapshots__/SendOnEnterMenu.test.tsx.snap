@@ -17,7 +17,11 @@ exports[`renders SendOnEnterMenu on click unchanged 1`] = `
       <div
         class="memori-button--icon"
       >
-        …
+        <span
+          style="display: block; width: 1rem; height: 1rem;"
+        >
+          …
+        </span>
       </div>
     </button>
   </div>
@@ -41,7 +45,11 @@ exports[`renders SendOnEnterMenu on keypress unchanged 1`] = `
       <div
         class="memori-button--icon"
       >
-        …
+        <span
+          style="display: block; width: 1rem; height: 1rem;"
+        >
+          …
+        </span>
       </div>
     </button>
   </div>

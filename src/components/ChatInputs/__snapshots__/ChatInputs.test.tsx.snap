@@ -22,7 +22,11 @@ exports[`renders ChatInputs disabled unchanged 1`] = `
         <div
           class="memori-button--icon"
         >
-          …
+          <span
+            style="display: block; width: 1rem; height: 1rem;"
+          >
+            …
+          </span>
         </div>
       </button>
     </div>
@@ -141,7 +145,11 @@ exports[`renders ChatInputs listening unchanged 1`] = `
         <div
           class="memori-button--icon"
         >
-          …
+          <span
+            style="display: block; width: 1rem; height: 1rem;"
+          >
+            …
+          </span>
         </div>
       </button>
     </div>
@@ -288,7 +296,11 @@ exports[`renders ChatInputs on instruct unchanged 1`] = `
         <div
           class="memori-button--icon"
         >
-          …
+          <span
+            style="display: block; width: 1rem; height: 1rem;"
+          >
+            …
+          </span>
         </div>
       </button>
     </div>
@@ -406,7 +418,11 @@ exports[`renders ChatInputs unchanged 1`] = `
         <div
           class="memori-button--icon"
         >
-          …
+          <span
+            style="display: block; width: 1rem; height: 1rem;"
+          >
+            …
+          </span>
         </div>
       </button>
     </div>
@@ -523,7 +539,11 @@ exports[`renders ChatInputs with user message unchanged 1`] = `
         <div
           class="memori-button--icon"
         >
-          …
+          <span
+            style="display: block; width: 1rem; height: 1rem;"
+          >
+            …
+          </span>
         </div>
       </button>
     </div>
@@ -641,7 +661,11 @@ exports[`renders ChatInputs without microphone button unchanged 1`] = `
         <div
           class="memori-button--icon"
         >
-          …
+          <span
+            style="display: block; width: 1rem; height: 1rem;"
+          >
+            …
+          </span>
         </div>
       </button>
     </div>
