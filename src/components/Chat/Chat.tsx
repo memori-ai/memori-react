@@ -24,6 +24,7 @@ export interface Props {
   baseUrl?: string;
   memoriTyping?: boolean;
   history: Message[];
+  authToken?: string;
   dialogState?: DialogState;
   setDialogState: (dialogState: DialogState) => void;
   pushMessage: (message: Message) => void;
@@ -59,6 +60,7 @@ const Chat: React.FC<Props> = ({
   translateTo,
   memoriTyping,
   history = [],
+  authToken,
   dialogState,
   simulateUserPrompt,
   showDates = false,
@@ -292,6 +294,7 @@ const Chat: React.FC<Props> = ({
           onChangeUserMessage={onChangeUserMessage}
           dialogState={dialogState}
           instruct={instruct}
+          authToken={authToken}
           sendMessage={sendMessage}
           sendOnEnter={sendOnEnter}
           setSendOnEnter={setSendOnEnter}

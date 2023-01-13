@@ -1822,6 +1822,47 @@ const MemoriWidget = ({
     }
   };
 
+  const [loginToken, setLoginToken] = useState<string | undefined>(authToken);
+  useEffect(() => {
+    const targetNode =
+      document.querySelector(`memori-client[memoriname="${memori.name}"]`) ||
+      document.querySelector(`memori-client[memoriid="${memori.memoriID}"]`) ||
+      document.querySelector('memori-client');
+    if (!targetNode) {
+      return;
+    }
+
+    const config = { attributes: true, childList: false, subtree: false };
+    const callback: MutationCallback = (mutationList, _observer) => {
+      for (const mutation of mutationList) {
+        if (
+          mutation.type === 'attributes' &&
+          mutation.attributeName?.toLowerCase() === 'authtoken'
+        ) {
+          console.log('FUCK', mutation);
+          if (mutation.target.nodeName === 'MEMORI-CLIENT') {
+            setLoginToken(
+              // @ts-ignore
+              mutation.target.getAttribute('authtoken') || undefined
+            );
+          } else {
+            // @ts-ignore
+            setLoginToken(
+              mutation.target?.parentElement?.getAttribute('authtoken') ||
+                undefined
+            );
+          }
+        }
+      }
+    };
+    const observer = new MutationObserver(callback);
+    observer.observe(targetNode, config);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   const header = (
     <Header
       memori={memori}
@@ -1890,6 +1931,7 @@ const MemoriWidget = ({
       baseUrl={baseUrl}
       memoriTyping={memoriTyping}
       history={history}
+      authToken={loginToken}
       dialogState={currentDialogState}
       setDialogState={setCurrentDialogState}
       pushMessage={pushMessage}
@@ -2068,14 +2110,14 @@ const MemoriWidget = ({
           }}
         />
       )}
-      {authToken && sessionId && tenant?.id && (
+      {loginToken && sessionId && tenant?.id && (
         <AttachmentMediaModal
           visible={attachmentsMenuOpen === 'media'}
-          authToken={authToken}
+          authToken={loginToken}
           tenantID={tenant?.id}
           sessionID={sessionId}
           uploadAssetURL={client.backend.getUploadAssetURL(
-            authToken,
+            loginToken,
             memori.memoriID
           )}
           deleteAsset={client.backend.deleteAsset}

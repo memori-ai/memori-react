@@ -33,10 +33,11 @@
     justify-content: center;
 }
 
-.memori-menu--button {
+a.memori-menu--button,
+button.memori-menu--button {
     width: 100%;
     justify-content: flex-start;
-    color: inherit;
+    color: #000;
     text-align: left;
     text-decoration: none;
 }

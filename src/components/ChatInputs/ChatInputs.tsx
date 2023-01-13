@@ -31,6 +31,7 @@ export interface Props {
   startListening: () => void;
   stopListening: () => void;
   showMicrophone?: boolean;
+  authToken?: string;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -52,6 +53,7 @@ const ChatInputs: React.FC<Props> = ({
   stopAudio,
   startListening,
   stopListening,
+  authToken,
 }) => {
   const { t } = useTranslation();
 
@@ -65,6 +67,7 @@ const ChatInputs: React.FC<Props> = ({
         <UploadMenu
           attachmentsMenuOpen={attachmentsMenuOpen}
           setAttachmentsMenuOpen={setAttachmentsMenuOpen}
+          authToken={authToken}
           disabled={!dialogState?.acceptsMedia}
         />
       )}

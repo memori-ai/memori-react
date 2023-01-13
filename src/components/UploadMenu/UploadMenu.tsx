@@ -12,12 +12,14 @@ export interface Props {
   attachmentsMenuOpen?: 'link' | 'media';
   setAttachmentsMenuOpen: (value: 'link' | 'media') => void;
   disabled?: boolean;
+  authToken?: string;
 }
 
 const UploadMenu: React.FC<Props> = ({
   attachmentsMenuOpen,
   setAttachmentsMenuOpen,
   disabled = false,
+  authToken,
 }) => {
   return (
     <Menu as="div" className="memori-upload-menu">
@@ -47,17 +49,19 @@ const UploadMenu: React.FC<Props> = ({
             Link
           </Button>
         </Menu.Item>
-        <Menu.Item>
-          <Button
-            className="memori-menu--button"
-            ghost
-            icon={<Picture />}
-            outlined={attachmentsMenuOpen === 'media'}
-            onClick={() => setAttachmentsMenuOpen('media')}
-          >
-            Media
-          </Button>
-        </Menu.Item>
+        {!!authToken?.length && (
+          <Menu.Item>
+            <Button
+              className="memori-menu--button"
+              ghost
+              icon={<Picture />}
+              outlined={attachmentsMenuOpen === 'media'}
+              onClick={() => setAttachmentsMenuOpen('media')}
+            >
+              Media
+            </Button>
+          </Menu.Item>
+        )}
       </Menu.Items>
     </Menu>
   );
