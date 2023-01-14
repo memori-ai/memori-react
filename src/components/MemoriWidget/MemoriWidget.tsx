@@ -923,7 +923,8 @@ const MemoriWidget = ({
       memoriAudioElement.muted = false;
       memoriAudioElement
         .play()
-        .then(async () => {
+        .then(() => {
+          console.log('played intro audio');
           try {
             const context = new AudioContext();
             let buffer = context.createBuffer(1, 1, 22050);
@@ -1121,6 +1122,11 @@ const MemoriWidget = ({
   };
 
   const speak = (text: string, fireListeningEvent = true): void => {
+    console.log(
+      AZURE_COGNITIVE_SERVICES_TTS_KEY,
+      hasUserActivatedSpeak,
+      preview
+    );
     if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) return;
 
     if (preview || !hasUserActivatedSpeak) return;
@@ -1170,6 +1176,12 @@ const MemoriWidget = ({
     // };
 
     setIsPlayingAudio(true);
+    console.log('speaking', text);
+    console.log('speechSynthesizer', speechSynthesizer);
+    console.log('audioDestination', audioDestination);
+    console.log('speechConfig', speechConfig);
+    console.log('audioConfig', audioConfig);
+    // window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
     speechSynthesizer.speakSsmlAsync(
       `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
         userLang
@@ -1190,6 +1202,7 @@ const MemoriWidget = ({
             setIsPlayingAudio(false);
           }
         } else {
+          window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
           setIsPlayingAudio(false);
         }
       },
@@ -1199,6 +1212,8 @@ const MemoriWidget = ({
         setIsPlayingAudio(false);
       }
     );
+
+    setIsPlayingAudio(false);
   };
   const stopAudio = () => {
     if (speechSynthesizer) {
@@ -1267,6 +1282,7 @@ const MemoriWidget = ({
    * Listening methods
    */
   const startListening = () => {
+    console.log('start listening');
     if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) return;
 
     clearListening();
@@ -1276,6 +1292,7 @@ const MemoriWidget = ({
       navigator.mediaDevices
         .getUserMedia({ audio: true })
         .then(function (_stream) {
+          console.log('is listening');
           setHasUserActivatedListening(true);
 
           if (!speechConfig) {
@@ -1641,7 +1658,8 @@ const MemoriWidget = ({
     const sessionID = session?.sessionID || sessionId;
     const dialogState = session?.dialogState || currentDialogState;
     setClickedStart(true);
-    initializeTTS();
+    console.log('onClickStart');
+
     if (
       (!sessionID &&
         memori.privacyType !== 'PUBLIC' &&
@@ -1909,6 +1927,7 @@ const MemoriWidget = ({
       sessionId={sessionId}
       clickedStart={clickedStart}
       onClickStart={onClickStart}
+      initializeTTS={initializeTTS}
     />
   );
 
@@ -2023,6 +2042,12 @@ const MemoriWidget = ({
         hasUserActivatedSpeak={hasUserActivatedSpeak}
         showInstruct={showInstruct}
         loading={loading}
+      />
+
+      <audio
+        id="memori-audio"
+        style={{ display: 'none' }}
+        src="https://app.twincreator.com/intro.mp3"
       />
 
       {isClient && (

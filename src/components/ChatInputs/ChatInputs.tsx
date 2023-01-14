@@ -95,31 +95,28 @@ const ChatInputs: React.FC<Props> = ({
         icon={<Send />}
       />
       {showMicrophone && (
-        <Tooltip
-          alignLeft
-          content={
+        <Button
+          className={cx('memori-chat-inputs--mic', {
+            'memori-chat-inputs--mic--listening': listening,
+          })}
+          title={
             listening
-              ? t('write_and_speak.micButtonPopoverListening')
-              : t('write_and_speak.micButtonPopover')
+              ? t('write_and_speak.micButtonPopoverListening') || 'Listening'
+              : t('write_and_speak.micButtonPopover') || 'Start listening'
           }
-        >
-          <Button
-            className={cx('memori-chat-inputs--mic', {
-              'memori-chat-inputs--mic--listening': listening,
-            })}
-            disabled={isPlayingAudio}
-            onClick={() => {
-              if (listening) {
-                stopListening();
-              } else {
-                stopAudio();
-                startListening();
-              }
-            }}
-            shape="circle"
-            icon={<Microphone />}
-          />
-        </Tooltip>
+          disabled={isPlayingAudio}
+          onClick={e => {
+            console.log('mic button', listening, e);
+            if (listening) {
+              stopListening();
+            } else {
+              stopAudio();
+              startListening();
+            }
+          }}
+          shape="circle"
+          icon={<Microphone />}
+        />
       )}
     </fieldset>
   );

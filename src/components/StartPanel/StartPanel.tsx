@@ -31,6 +31,7 @@ export interface Props {
   sessionId?: string;
   clickedStart?: boolean;
   onClickStart?: () => void;
+  initializeTTS?: () => void;
 }
 
 const StartPanel: React.FC<Props> = ({
@@ -47,6 +48,7 @@ const StartPanel: React.FC<Props> = ({
   instruct = false,
   clickedStart,
   onClickStart,
+  initializeTTS,
 }) => {
   const { t, i18n } = useTranslation();
   const [translatedDescription, setTranslatedDescription] = useState(
@@ -210,7 +212,10 @@ const StartPanel: React.FC<Props> = ({
             primary
             disabled={!!memori.blockedUntil && !memori.isGiver}
             loading={clickedStart}
-            onClick={() => onClickStart && onClickStart()}
+            onClick={_e => {
+              if (initializeTTS) initializeTTS();
+              if (onClickStart) onClickStart();
+            }}
             className="memori--start-button"
           >
             {t(
