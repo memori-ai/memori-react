@@ -1,5 +1,18 @@
 
 
+## [1.0.0-alpha.21](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.20...v1.0.0-alpha.21) (2023-01-14)
+
+
+### Bug Fixes
+
+* chat user bubble size ([27bf2c6](https://github.com/memori-ai/memori-react/commit/27bf2c67bc7344b1033b6613bf5eeb82e1ab178d))
+* make stt work on safari ([a1a1ff9](https://github.com/memori-ai/memori-react/commit/a1a1ff9ee3bdc1fd4c4ebebaa5c39f01c7241a21))
+
+
+### Maintenance
+
+* pin azure sdk to 1.20.0 ([a615436](https://github.com/memori-ai/memori-react/commit/a615436b989a8c55008d5561fecea54fbd70ff41))
+
 ## [1.0.0-alpha.20](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.19...v1.0.0-alpha.20) (2023-01-13)
 
 
