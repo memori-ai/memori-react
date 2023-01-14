@@ -263,7 +263,7 @@
   "dependencies": {
     "@fontsource/exo-2": "^4.5.10",
     "@headlessui/react": "1.7.4",
-    "@memori.ai/memori-api-client": "^0.8.1",
+    "@memori.ai/memori-api-client": "^0.8.3",
     "@react-three/drei": "8.20.2",
     "@react-three/fiber": "7.0.25",
     "antd": "5.1.4",
@@ -271,7 +271,7 @@
     "classnames": "2.3.2",
     "ellipsed": "1.6.0",
     "i18next": "22.0.6",
-    "microsoft-cognitiveservices-speech-sdk": "1.22.0",
+    "microsoft-cognitiveservices-speech-sdk": "1.20.0",
     "qrcode.react": "3.1.0",
     "react-hook-form": "7.39.5",
     "react-i18next": "12.0.0",

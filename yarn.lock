@@ -1954,13 +1954,13 @@
   resolved "https://registry.yarnpkg.com/@mdx-js/util/-/util-1.6.22.tgz#219dfd89ae5b97a8801f015323ffa4b62f45718b"
   integrity sha512-H1rQc1ZOHANWBvPcW+JpGwr+juXSxM8Q8YCkm3GhZd8REu1fHR3z99CErO1p9pkcfcxZnMdIZdIsXkOHY0NilA==
 
-"@memori.ai/memori-api-client@^0.8.1":
-  version "0.8.1"
-  resolved "https://registry.yarnpkg.com/@memori.ai/memori-api-client/-/memori-api-client-0.8.1.tgz#d7ac0809636aefa650f610749d08e6d0d7e08c22"
-  integrity sha512-U6Rd1OWGR/X90tQVc6nVclCGps8zqhl6n/iN5Ta4FCYlOgOq0UZavnyetCcdhQ/QjhhKiOS5aWTxEazrs6DZCg==
+"@memori.ai/memori-api-client@^0.8.3":
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/@memori.ai/memori-api-client/-/memori-api-client-0.8.3.tgz#862e8096542a9f08f689126638de84d219ec3252"
+  integrity sha512-iwr7uYJVMBkjkv501gnx4PlOfrbEsBdbiFO8XPJHU8qGngq5158hUvxt8kEwOvjUpM4JaXgC7saT0Q4F86jcoQ==
   dependencies:
     cross-fetch "^3.1.5"
-    microsoft-cognitiveservices-speech-sdk "1.22.0"
+    microsoft-cognitiveservices-speech-sdk "1.20.0"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -11179,10 +11179,10 @@ micromatch@^4.0.2, micromatch@^4.0.4, micromatch@^4.0.5:
     braces "^3.0.2"
     picomatch "^2.3.1"
 
-microsoft-cognitiveservices-speech-sdk@1.22.0:
-  version "1.22.0"
-  resolved "https://registry.yarnpkg.com/microsoft-cognitiveservices-speech-sdk/-/microsoft-cognitiveservices-speech-sdk-1.22.0.tgz#4c6f82147cbb364c5fa7478c7de691af781d6594"
-  integrity sha512-C1YV5jui3SD02DlmAlN+i7BKdBevETIbGxmkpFy/19yefja14Y7zOR/Hh0qb+ixuU49tPXWmTf2cL+FZE4YD6Q==
+microsoft-cognitiveservices-speech-sdk@1.20.0:
+  version "1.20.0"
+  resolved "https://registry.yarnpkg.com/microsoft-cognitiveservices-speech-sdk/-/microsoft-cognitiveservices-speech-sdk-1.20.0.tgz#c592f1a5ef4fe2b03bcab74d4e13631151c42252"
+  integrity sha512-/KWNHQb36nhIkBr6HClh+T+gHicgmC5JKJhCnQmL6XGAAndLtew0aRbh7cMK10IFNTgozGKiejhrfnwiYH3IBA==
   dependencies:
     agent-base "^6.0.1"
     asn1.js-rfc2560 "^5.0.1"
@@ -11191,6 +11191,7 @@ microsoft-cognitiveservices-speech-sdk@1.22.0:
     bent "^7.3.12"
     https-proxy-agent "^4.0.0"
     simple-lru-cache "0.0.2"
+    url-parse "^1.4.7"
     uuid "^8.3.0"
     ws "^7.5.6"
 
@@ -16013,7 +16014,7 @@ url-loader@^4.1.1:
     mime-types "^2.1.27"
     schema-utils "^3.0.0"
 
-url-parse@^1.5.3:
+url-parse@^1.4.7, url-parse@^1.5.3:
   version "1.5.10"
   resolved "https://registry.yarnpkg.com/url-parse/-/url-parse-1.5.10.tgz#9d3c2f736c1d75dd3bd2be507dcc111f1e2ea9c1"
   integrity sha512-WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==
