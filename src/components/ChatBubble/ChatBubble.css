@@ -92,6 +92,8 @@
 }
 
 .memori-chat--bubble-avatar svg {
+    width: 40px;
+    height: 40px;
     padding: 0.33rem;
     fill: #666;
     font-size: 1.5rem;
