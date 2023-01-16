@@ -31,7 +31,7 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { AudioContext } from 'standardized-audio-context';
+import { AudioContext, IAudioContext } from 'standardized-audio-context';
 import * as speechSdk from 'microsoft-cognitiveservices-speech-sdk';
 import cx from 'classnames';
 
@@ -143,6 +143,7 @@ let recognizer: SpeechRecognizer | null;
 let speechConfig: SpeechConfig;
 let speechSynthesizer: SpeechSynthesizer | null;
 let audioDestination: SpeakerAudioDestination;
+let audioContext: IAudioContext;
 
 export interface Props {
   memori: Memori;
@@ -254,7 +255,7 @@ const MemoriWidget = ({
   const [showPositionDrawer, setShowPositionDrawer] = useState(false);
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
   const [muteSpeaker, setMuteSpeaker] = useState(false);
-  const [continuousSpeech, setContinuousSpeech] = useState(false);
+  const [continuousSpeech, setContinuousSpeech] = useState(true);
   const [continuousSpeechTimeout, setContinuousSpeechTimeout] = useState(3);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   useEffect(() => {
@@ -264,7 +265,7 @@ const MemoriWidget = ({
 
   useEffect(() => {
     setMuteSpeaker(getLocalConfig('muteSpeaker', false));
-    setContinuousSpeech(getLocalConfig('continuousSpeech', false));
+    setContinuousSpeech(getLocalConfig('continuousSpeech', true));
     setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 3));
   }, []);
 
@@ -379,6 +380,7 @@ const MemoriWidget = ({
               media: currentState.media,
               fromUser: false,
             });
+            speak(currentState.emission);
           }
         } else {
           console.error(response, resp);
@@ -405,6 +407,7 @@ const MemoriWidget = ({
                 media: currentState.media,
                 fromUser: false,
               });
+              speak(currentState.emission);
             }
           } else {
             console.error(response, resp);
@@ -420,19 +423,25 @@ const MemoriWidget = ({
         !instruct &&
         isMultilanguageEnabled
       ) {
-        translateDialogState(currentState, userLang);
+        translateDialogState(currentState, userLang).then(ts => {
+          if (ts.emission) {
+            speak(ts.emission);
+          }
+        });
       } else {
         setCurrentDialogState({
           ...currentState,
           emission,
         });
 
-        if (emission)
+        if (emission) {
           pushMessage({
             text: emission,
             media: currentState.media,
             fromUser: false,
           });
+          speak(emission);
+        }
       }
     } else if (response.resultCode === 404) {
       // remove last sent message, will set it as initial
@@ -447,15 +456,16 @@ const MemoriWidget = ({
         instruct && memori.giverPIN ? memori.giverPIN : undefined,
         initialContextVars,
         initialQuestion
-      ).then(sessionID => {
+      ).then(state => {
         console.info('session timeout');
-        if (sessionID) {
+        if (state?.sessionID) {
           setTimeout(() => {
-            sendMessage(text, media, sessionID);
+            sendMessage(text, media, state?.sessionID);
           }, 500);
         }
       });
     }
+
     setMemoriTyping(false);
   };
 
@@ -580,50 +590,50 @@ const MemoriWidget = ({
         const language =
           memori.culture?.split('-')?.[0] ?? i18n.language ?? 'IT';
 
-        if (
-          !instruct &&
-          isMultilanguageEnabled &&
-          userLang.toLowerCase() !== language.toLowerCase()
-        ) {
-          translateDialogState(session.currentState, userLang).then(state => {
-            if (state?.emission) {
-              history.length <= 1
-                ? setHistory([
-                    {
-                      text: state.emission,
-                      media: state.media,
-                      fromUser: false,
-                      initial: true,
-                    },
-                  ])
-                : pushMessage({
-                    text: state.emission,
-                    media: state.media,
-                    fromUser: false,
-                    initial: true,
-                  });
-            }
-          });
-        } else {
-          setCurrentDialogState(session.currentState);
-          if (session.currentState.emission) {
-            history.length <= 1
-              ? setHistory([
-                  {
-                    text: session.currentState.emission,
-                    media: session.currentState.media,
-                    fromUser: false,
-                    initial: true,
-                  },
-                ])
-              : pushMessage({
-                  text: session.currentState.emission,
-                  media: session.currentState.media,
-                  fromUser: false,
-                  initial: true,
-                });
-          }
-        }
+        // if (
+        //   !instruct &&
+        //   isMultilanguageEnabled &&
+        //   userLang.toLowerCase() !== language.toLowerCase()
+        // ) {
+        //   translateDialogState(session.currentState, userLang).then(state => {
+        //     if (state?.emission) {
+        //       history.length <= 1
+        //         ? setHistory([
+        //             {
+        //               text: state.emission,
+        //               media: state.media,
+        //               fromUser: false,
+        //               initial: true,
+        //             },
+        //           ])
+        //         : pushMessage({
+        //             text: state.emission,
+        //             media: state.media,
+        //             fromUser: false,
+        //             initial: true,
+        //           });
+        //     }
+        //   });
+        // } else {
+        //   setCurrentDialogState(session.currentState);
+        //   if (session.currentState.emission) {
+        //     history.length <= 1
+        //       ? setHistory([
+        //           {
+        //             text: session.currentState.emission,
+        //             media: session.currentState.media,
+        //             fromUser: false,
+        //             initial: true,
+        //           },
+        //         ])
+        //       : pushMessage({
+        //           text: session.currentState.emission,
+        //           media: session.currentState.media,
+        //           fromUser: false,
+        //           initial: true,
+        //         });
+        //   }
+        // }
 
         if (position) applyPosition(position, session.sessionID);
 
@@ -688,7 +698,10 @@ const MemoriWidget = ({
         if (position) applyPosition(position, sessionID);
 
         setLoading(false);
-        return sessionID;
+        return {
+          dialogState: currentState,
+          sessionID,
+        };
       } else {
         console.error(response);
         message.error(t(getErrori18nKey(response.resultCode)));
@@ -846,13 +859,18 @@ const MemoriWidget = ({
           translateDialogState(
             { ...currentState, emission: emission },
             userLang
-          );
+          ).then(ts => {
+            if (ts.emission) {
+              speak(ts.emission);
+            }
+          });
         } else if (emission && emission.length > 0) {
           pushMessage({
             text: emission,
             media: currentState.media,
             fromUser: false,
           });
+          speak(emission);
           setCurrentDialogState(currentState);
         }
       }
@@ -916,40 +934,19 @@ const MemoriWidget = ({
       speechConfig.speechSynthesisOutputFormat =
         speechSdk.SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3;
 
-    let memoriAudioElement = document.getElementById(
-      'memori-audio'
-    ) as HTMLAudioElement;
-    if (memoriAudioElement && window.navigator.userAgent.includes('Safari')) {
-      memoriAudioElement.muted = false;
-      memoriAudioElement
-        .play()
-        .then(() => {
-          console.log('played intro audio');
-          try {
-            const context = new AudioContext();
-            let buffer = context.createBuffer(1, 1, 22050);
-            let source = context.createBufferSource();
-            source.buffer = buffer;
-            source.connect(context.destination);
-          } catch (e) {
-            console.error(e);
-          }
-        })
-        .catch((e: any) => {
-          console.error('error playing intro audio', e);
-        });
-    }
+    audioContext = new AudioContext();
+    let buffer = audioContext.createBuffer(1, 10000, 22050);
+    let source = audioContext.createBufferSource();
+    source.buffer = buffer;
+    source.connect(audioContext.destination);
+
+    audioDestination = new speechSdk.SpeakerAudioDestination();
+    let audioConfig = speechSdk.AudioConfig.fromSpeakerOutput(audioDestination);
+    speechSynthesizer = new speechSdk.SpeechSynthesizer(
+      speechConfig,
+      audioConfig
+    );
   };
-  useEffect(() => {
-    return () => {
-      if (audioDestination) audioDestination.pause();
-      if (speechSynthesizer) {
-        speechSynthesizer.close();
-        speechSynthesizer = null;
-      }
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const getTTSVoice = useCallback(
     (lang?: string): string => {
@@ -1032,8 +1029,12 @@ const MemoriWidget = ({
 
   const getCultureCodeByLanguage = (lang?: string): string => {
     let voice = '';
-    let voiceLang = (lang ?? memori.culture?.split('-')?.[0] ?? i18n.language,
-    'IT').toUpperCase();
+    let voiceLang = (
+      lang ||
+      memori.culture?.split('-')?.[0] ||
+      i18n.language ||
+      'IT'
+    ).toUpperCase();
     switch (voiceLang) {
       case 'IT':
         voice = 'it-IT';
@@ -1121,7 +1122,7 @@ const MemoriWidget = ({
     // .replace(/qfe/gi, `<sub alias="Quota Filo Erba">QFE</sub>`)
   };
 
-  const speak = (text: string, fireListeningEvent = true): void => {
+  const speak = (text: string): void => {
     console.log(
       AZURE_COGNITIVE_SERVICES_TTS_KEY,
       hasUserActivatedSpeak,
@@ -1129,35 +1130,71 @@ const MemoriWidget = ({
     );
     if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) return;
 
-    if (preview || !hasUserActivatedSpeak) return;
+    if (preview) return;
+
     if (audioDestination) audioDestination.pause();
-    if (speechSynthesizer) {
-      speechSynthesizer.close();
-      speechSynthesizer = null;
+    // if (speechSynthesizer) {
+    //   speechSynthesizer.close();
+    //   speechSynthesizer = null;
+    // }
+
+    let isSafari =
+      window.navigator.userAgent.includes('Safari') &&
+      !window.navigator.userAgent.includes('Chrome');
+    let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if (isIOS && isSafari) {
+      audioContext.suspend();
+    } else if (audioContext.state === 'suspended') {
+      stopAudio();
+      audioContext = new AudioContext();
+      let buffer = audioContext.createBuffer(1, 10000, 22050);
+      let source = audioContext.createBufferSource();
+      source.buffer = buffer;
+      source.connect(audioContext.destination);
     }
 
-    if (muteSpeaker && fireListeningEvent) {
-      setTimeout(() => {
-        // trigger start continuous listening if set, see MemoriChat
-        document.dispatchEvent(new Event('endSpeakStartListen'));
-      }, 3000);
-      return;
-    } else if (muteSpeaker) {
+    // audioContext.suspend();
+    // stopAudio();
+    // audioContext = new AudioContext();
+    // let buffer = audioContext.createBuffer(1, 10000, 22050);
+    // let source = audioContext.createBufferSource();
+    // source.buffer = buffer;
+    // source.connect(audioContext.destination);
+
+    // if (!speechSynthesizer) initializeTTS();
+    if (!speechSynthesizer) {
+      audioDestination = new speechSdk.SpeakerAudioDestination();
+      let audioConfig =
+        speechSdk.AudioConfig.fromSpeakerOutput(audioDestination);
+      speechSynthesizer = new speechSdk.SpeechSynthesizer(
+        speechConfig,
+        audioConfig
+      );
+    }
+
+    if (muteSpeaker) {
+      // trigger start continuous listening if set, see MemoriChat
+      if (continuousSpeech) {
+        setListeningTimeout();
+      }
+      // setTimeout(() => {
+      //   document.dispatchEvent(new Event('endSpeakStartListen'));
+      // }, 3000);
       return;
     }
 
-    audioDestination = new speechSdk.SpeakerAudioDestination();
-    let audioConfig = speechSdk.AudioConfig.fromSpeakerOutput(audioDestination);
-    speechSynthesizer = new speechSdk.SpeechSynthesizer(
-      speechConfig,
-      audioConfig
-    );
+    // audioDestination = new speechSdk.SpeakerAudioDestination();
+    // let audioConfig = speechSdk.AudioConfig.fromSpeakerOutput(audioDestination);
+    // speechSynthesizer = new speechSdk.SpeechSynthesizer(
+    //   speechConfig,
+    //   audioConfig
+    // );
 
     audioDestination.onAudioEnd = () => {
       setIsPlayingAudio(false);
 
-      if (fireListeningEvent) {
-        // trigger start continuous listening if set, see MemoriChat
+      if (continuousSpeech) {
+        // trigger start continuous listening if set
         document.dispatchEvent(new Event('endSpeakStartListen'));
       }
     };
@@ -1180,8 +1217,27 @@ const MemoriWidget = ({
     console.log('speechSynthesizer', speechSynthesizer);
     console.log('audioDestination', audioDestination);
     console.log('speechConfig', speechConfig);
-    console.log('audioConfig', audioConfig);
-    // window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+    console.log('audioContext', audioContext);
+    // console.log('audioConfig', audioCnfig);
+
+    // if (hasTouchscreen() && window.navigator.userAgent.includes('Safari')) {
+    //   const utterance = new SpeechSynthesisUtterance(text);
+    //   utterance.lang = getCultureCodeByLanguage(userLang);
+    //   utterance.voice =
+    //     window.speechSynthesis
+    //       .getVoices()
+    //       .find(voice => voice.lang === utterance.lang) || null;
+    //   window.speechSynthesis.speak(utterance);
+    // } else {
+
+    speechSynthesizer.synthesisCompleted = (s, e) => {
+      console.log('synthesisCompleted', s, e);
+
+      // if (speechSynthesizer) {
+      //   speechSynthesizer.close();
+      //   speechSynthesizer = null;
+      // }
+    };
     speechSynthesizer.speakSsmlAsync(
       `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
         userLang
@@ -1191,7 +1247,22 @@ const MemoriWidget = ({
       )}</s></voice></speak>`,
       result => {
         if (result) {
+          console.log('result', result);
           try {
+            audioContext.decodeAudioData(result.audioData, function (buffer) {
+              const source = audioContext.createBufferSource();
+              source.buffer = buffer;
+              source.connect(audioContext.destination);
+
+              if (history.length < 1 || (isSafari && isIOS)) {
+                source.start(0);
+              }
+              // if (isSafari && hasTouchscreen()) {
+              //   source.start(0);
+              // }
+            });
+            audioContext.resume();
+
             if (speechSynthesizer) {
               speechSynthesizer.close();
               speechSynthesizer = null;
@@ -1200,9 +1271,17 @@ const MemoriWidget = ({
             console.error('speak error: ', e);
             window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
             setIsPlayingAudio(false);
+
+            if (speechSynthesizer) {
+              speechSynthesizer.close();
+              speechSynthesizer = null;
+            }
           }
+
+          // return result.audioData;
         } else {
-          window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+          // window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+          audioContext.resume();
           setIsPlayingAudio(false);
         }
       },
@@ -1212,13 +1291,22 @@ const MemoriWidget = ({
         setIsPlayingAudio(false);
       }
     );
+    //}
 
     setIsPlayingAudio(false);
+    setMemoriTyping(false);
   };
   const stopAudio = () => {
     if (speechSynthesizer) {
       speechSynthesizer.close();
       speechSynthesizer = null;
+    }
+    if (audioContext) {
+      audioContext.close();
+    }
+    if (audioDestination) {
+      audioDestination.pause();
+      audioDestination.close();
     }
   };
 
@@ -1271,10 +1359,7 @@ const MemoriWidget = ({
   useEffect(() => {
     resetListeningTimeout();
     resetInteractionTimeout();
-    if (transcript?.length > 0) {
-      const transcriptMessage = stripDuplicates(transcript);
-      if (transcriptMessage.length > 0) setUserMessage(transcriptMessage);
-    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [transcript]);
 
@@ -1317,7 +1402,13 @@ const MemoriWidget = ({
           setListening(true);
           recognizer.recognized = (_s, e) => {
             if (e.result.reason === speechSdk.ResultReason.RecognizedSpeech) {
-              setTranscript(e.result.text ?? '');
+              let transcript = e.result.text;
+              setTranscript(transcript || '');
+              if (transcript?.length > 0) {
+                const transcriptMessage = stripDuplicates(transcript);
+                if (transcriptMessage.length > 0)
+                  setUserMessage(transcriptMessage);
+              }
             } else if (e.result.reason === speechSdk.ResultReason.NoMatch) {
               console.debug('NOMATCH: Speech could not be recognized.');
             }
@@ -1374,18 +1465,18 @@ const MemoriWidget = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDialogState?.state]);
 
-  useEffect(() => {
-    if (
-      hasUserActivatedSpeak &&
-      !preview &&
-      !muteSpeaker &&
-      history.length > 0 &&
-      currentDialogState?.emission
-    ) {
-      speak(currentDialogState.emission, currentDialogState.state !== 'Z0');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentDialogState, hasUserActivatedSpeak]);
+  // useEffect(() => {
+  //   if (
+  //     hasUserActivatedSpeak &&
+  //     !preview &&
+  //     !muteSpeaker &&
+  //     history.length > 0 &&
+  //     currentDialogState?.emission
+  //   ) {
+  //     speak(currentDialogState.emission, currentDialogState.state !== 'Z0');
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [currentDialogState, hasUserActivatedSpeak]);
 
   /**
    * Speech recognition event handlers
@@ -1658,7 +1749,36 @@ const MemoriWidget = ({
     const sessionID = session?.sessionID || sessionId;
     const dialogState = session?.dialogState || currentDialogState;
     setClickedStart(true);
-    console.log('onClickStart');
+    console.log('onClickStart', sessionID);
+
+    // if (speechSynthesizer) speechSynthesizer.speakTextAsync(''); // workaround for Safari
+
+    let memoriAudioElement = document.getElementById(
+      'memori-audio'
+    ) as HTMLAudioElement;
+    let isSafari =
+      window.navigator.userAgent.includes('Safari') &&
+      !window.navigator.userAgent.includes('Chrome');
+    if (memoriAudioElement && isSafari) {
+      memoriAudioElement.muted = false;
+      memoriAudioElement
+        .play()
+        .then(() => {
+          console.log('played intro audio');
+          // try {
+          //   audioContext = new AudioContext();
+          //   let buffer = audioContext.createBuffer(1, 10000, 22050);
+          //   let source = audioContext.createBufferSource();
+          //   source.buffer = buffer;
+          //   source.connect(audioContext.destination);
+          // } catch (e) {
+          //   console.error(e);
+          // }
+        })
+        .catch((e: any) => {
+          console.error('error playing intro audio', e);
+        });
+    }
 
     if (
       (!sessionID &&
@@ -1682,7 +1802,8 @@ const MemoriWidget = ({
         initialContextVars,
         initialQuestion,
       });
-      onClickStart(session || undefined);
+      console.info('opened session, recall onClickStart', session?.sessionID);
+      await onClickStart(session || undefined);
       return;
     } else if (initialSessionID) {
       // check if session is valid and not expired
@@ -1692,7 +1813,7 @@ const MemoriWidget = ({
         setGotErrorInOpening(true);
         setSessionId(undefined);
         setClickedStart(false);
-        onClickStart();
+        await onClickStart();
         return;
       }
 
@@ -1722,9 +1843,15 @@ const MemoriWidget = ({
           );
 
           if (session && session.resultCode === 0) {
-            translateDialogState(session.currentState, userLang).finally(() => {
-              setHasUserActivatedSpeak(true);
-            });
+            translateDialogState(session.currentState, userLang)
+              .then(ts => {
+                if (ts.emission) {
+                  speak(ts.emission);
+                }
+              })
+              .finally(() => {
+                setHasUserActivatedSpeak(true);
+              });
           } else {
             console.error('session #1', session);
             throw new Error('No session');
@@ -1762,9 +1889,15 @@ const MemoriWidget = ({
           );
 
           if (session && session.resultCode === 0) {
-            translateDialogState(session.currentState, userLang).finally(() => {
-              setHasUserActivatedSpeak(true);
-            });
+            translateDialogState(session.currentState, userLang)
+              .then(ts => {
+                if (ts.emission) {
+                  speak(ts.emission);
+                }
+              })
+              .finally(() => {
+                setHasUserActivatedSpeak(true);
+              });
           } else {
             console.error('session #4', session);
             throw new Error('No session');
@@ -1802,9 +1935,15 @@ const MemoriWidget = ({
           );
 
           if (session && session.resultCode === 0) {
-            translateDialogState(session.currentState, userLang).finally(() => {
-              setHasUserActivatedSpeak(true);
-            });
+            translateDialogState(session.currentState, userLang)
+              .then(ts => {
+                if (ts.emission) {
+                  speak(ts.emission);
+                }
+              })
+              .finally(() => {
+                setHasUserActivatedSpeak(true);
+              });
           } else {
             console.error('session #7', session);
             throw new Error('No session');
@@ -1825,18 +1964,30 @@ const MemoriWidget = ({
         }
       } else {
         // no need to change tag
-        translateDialogState(currentState, userLang).finally(() => {
-          setHasUserActivatedSpeak(true);
-        });
+        translateDialogState(currentState, userLang)
+          .then(ts => {
+            if (ts.emission) {
+              speak(ts.emission);
+            }
+          })
+          .finally(() => {
+            setHasUserActivatedSpeak(true);
+          });
       }
     } else {
       // reset history
       setHistory([]);
 
       // everything is fine, just translate dialog state and activate chat
-      translateDialogState(dialogState!, userLang).finally(() => {
-        setHasUserActivatedSpeak(true);
-      });
+      translateDialogState(dialogState!, userLang)
+        .then(ts => {
+          if (ts.emission) {
+            speak(ts.emission);
+          }
+        })
+        .finally(() => {
+          setHasUserActivatedSpeak(true);
+        });
     }
   };
 
@@ -1890,7 +2041,18 @@ const MemoriWidget = ({
       setShowPositionDrawer={setShowPositionDrawer}
       setShowSettingsDrawer={setShowSettingsDrawer}
       speakerMuted={muteSpeaker}
-      setSpeakerMuted={setMuteSpeaker}
+      setSpeakerMuted={mute => {
+        setMuteSpeaker(mute);
+        if (mute) {
+          stopAudio();
+        } else {
+          audioContext = new AudioContext();
+          let buffer = audioContext.createBuffer(1, 10000, 22050);
+          let source = audioContext.createBufferSource();
+          source.buffer = buffer;
+          source.connect(audioContext.destination);
+        }
+      }}
       showSettings={showSettings}
       hasUserActivatedSpeak={hasUserActivatedSpeak}
     />
@@ -2048,6 +2210,7 @@ const MemoriWidget = ({
         id="memori-audio"
         style={{ display: 'none' }}
         src="https://app.twincreator.com/intro.mp3"
+        // src="https://filesamples.com/samples/audio/mp3/sample1.mp3"
       />
 
       {isClient && (
@@ -2070,9 +2233,9 @@ const MemoriWidget = ({
               initialContextVars,
               initialQuestion
             )
-              .then(() => {
+              .then(state => {
                 setAuthModalState(null);
-                setHasUserActivatedSpeak(true);
+                onClickStart(state || undefined);
               })
               .catch(() => {
                 setAuthModalState(null);
@@ -2119,6 +2282,7 @@ const MemoriWidget = ({
                     media: currentState.media,
                     fromUser: false,
                   });
+                  speak(currentState.emission);
                 }
               } else {
                 console.error(resp, currentState, medium);
@@ -2174,6 +2338,7 @@ const MemoriWidget = ({
                     media: currentState.media,
                     fromUser: false,
                   });
+                  speak(currentState.emission);
                 }
               } else {
                 console.error(resp, currentState, medium);

@@ -90,7 +90,10 @@ const ChatInputs: React.FC<Props> = ({
         primary={!!userMessage?.length}
         disabled={!userMessage || userMessage.length === 0}
         className="memori-chat-inputs--send"
-        onClick={() => sendMessage(userMessage)}
+        onClick={() => {
+          sendMessage(userMessage);
+          speechSynthesis.speak(new SpeechSynthesisUtterance(''));
+        }}
         title={t('send') || 'Send'}
         icon={<Send />}
       />
