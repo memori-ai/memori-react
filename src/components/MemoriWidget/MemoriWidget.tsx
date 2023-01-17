@@ -587,53 +587,6 @@ const MemoriWidget = ({
         session.resultCode === 0
       ) {
         setSessionId(session.sessionID);
-        const language =
-          memori.culture?.split('-')?.[0] ?? i18n.language ?? 'IT';
-
-        // if (
-        //   !instruct &&
-        //   isMultilanguageEnabled &&
-        //   userLang.toLowerCase() !== language.toLowerCase()
-        // ) {
-        //   translateDialogState(session.currentState, userLang).then(state => {
-        //     if (state?.emission) {
-        //       history.length <= 1
-        //         ? setHistory([
-        //             {
-        //               text: state.emission,
-        //               media: state.media,
-        //               fromUser: false,
-        //               initial: true,
-        //             },
-        //           ])
-        //         : pushMessage({
-        //             text: state.emission,
-        //             media: state.media,
-        //             fromUser: false,
-        //             initial: true,
-        //           });
-        //     }
-        //   });
-        // } else {
-        //   setCurrentDialogState(session.currentState);
-        //   if (session.currentState.emission) {
-        //     history.length <= 1
-        //       ? setHistory([
-        //           {
-        //             text: session.currentState.emission,
-        //             media: session.currentState.media,
-        //             fromUser: false,
-        //             initial: true,
-        //           },
-        //         ])
-        //       : pushMessage({
-        //           text: session.currentState.emission,
-        //           media: session.currentState.media,
-        //           fromUser: false,
-        //           initial: true,
-        //         });
-        //   }
-        // }
 
         if (position) applyPosition(position, session.sessionID);
 
@@ -734,7 +687,6 @@ const MemoriWidget = ({
 
       if (resultCode === 0) {
         let textResult = 0;
-        // console.debug('[APPCONTEXT/CHANGETAG]', currentState);
         if (
           tag !== anonTag &&
           pin &&
@@ -1133,10 +1085,6 @@ const MemoriWidget = ({
     if (preview) return;
 
     if (audioDestination) audioDestination.pause();
-    // if (speechSynthesizer) {
-    //   speechSynthesizer.close();
-    //   speechSynthesizer = null;
-    // }
 
     let isSafari =
       window.navigator.userAgent.includes('Safari') &&
@@ -1153,15 +1101,6 @@ const MemoriWidget = ({
       source.connect(audioContext.destination);
     }
 
-    // audioContext.suspend();
-    // stopAudio();
-    // audioContext = new AudioContext();
-    // let buffer = audioContext.createBuffer(1, 10000, 22050);
-    // let source = audioContext.createBufferSource();
-    // source.buffer = buffer;
-    // source.connect(audioContext.destination);
-
-    // if (!speechSynthesizer) initializeTTS();
     if (!speechSynthesizer) {
       audioDestination = new speechSdk.SpeakerAudioDestination();
       let audioConfig =
@@ -1177,18 +1116,8 @@ const MemoriWidget = ({
       if (continuousSpeech) {
         setListeningTimeout();
       }
-      // setTimeout(() => {
-      //   document.dispatchEvent(new Event('endSpeakStartListen'));
-      // }, 3000);
       return;
     }
-
-    // audioDestination = new speechSdk.SpeakerAudioDestination();
-    // let audioConfig = speechSdk.AudioConfig.fromSpeakerOutput(audioDestination);
-    // speechSynthesizer = new speechSdk.SpeechSynthesizer(
-    //   speechConfig,
-    //   audioConfig
-    // );
 
     audioDestination.onAudioEnd = () => {
       setIsPlayingAudio(false);
@@ -1199,45 +1128,8 @@ const MemoriWidget = ({
       }
     };
 
-    // speechSynthesizer.visemeReceived = function (s, e) {
-    //   window.console.log(
-    //     '(Viseme), Audio offset: ' +
-    //       e.audioOffset / 10000 +
-    //       'ms. Viseme ID: ' +
-    //       e.visemeId,
-    //     e,
-    //   );
-
-    //   // `Animation` is an xml string for SVG or a json string for blend shapes
-    //   // var animation = e.Animation;
-    // };
-
     setIsPlayingAudio(true);
-    console.log('speaking', text);
-    console.log('speechSynthesizer', speechSynthesizer);
-    console.log('audioDestination', audioDestination);
-    console.log('speechConfig', speechConfig);
-    console.log('audioContext', audioContext);
-    // console.log('audioConfig', audioCnfig);
 
-    // if (hasTouchscreen() && window.navigator.userAgent.includes('Safari')) {
-    //   const utterance = new SpeechSynthesisUtterance(text);
-    //   utterance.lang = getCultureCodeByLanguage(userLang);
-    //   utterance.voice =
-    //     window.speechSynthesis
-    //       .getVoices()
-    //       .find(voice => voice.lang === utterance.lang) || null;
-    //   window.speechSynthesis.speak(utterance);
-    // } else {
-
-    speechSynthesizer.synthesisCompleted = (s, e) => {
-      console.log('synthesisCompleted', s, e);
-
-      // if (speechSynthesizer) {
-      //   speechSynthesizer.close();
-      //   speechSynthesizer = null;
-      // }
-    };
     speechSynthesizer.speakSsmlAsync(
       `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
         userLang
@@ -1257,9 +1149,6 @@ const MemoriWidget = ({
               if (history.length < 1 || (isSafari && isIOS)) {
                 source.start(0);
               }
-              // if (isSafari && hasTouchscreen()) {
-              //   source.start(0);
-              // }
             });
             audioContext.resume();
 
@@ -1277,10 +1166,7 @@ const MemoriWidget = ({
               speechSynthesizer = null;
             }
           }
-
-          // return result.audioData;
         } else {
-          // window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
           audioContext.resume();
           setIsPlayingAudio(false);
         }
@@ -1291,7 +1177,6 @@ const MemoriWidget = ({
         setIsPlayingAudio(false);
       }
     );
-    //}
 
     setIsPlayingAudio(false);
     setMemoriTyping(false);
@@ -1464,19 +1349,6 @@ const MemoriWidget = ({
     if (currentDialogState?.state === 'Z0') clearListening();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDialogState?.state]);
-
-  // useEffect(() => {
-  //   if (
-  //     hasUserActivatedSpeak &&
-  //     !preview &&
-  //     !muteSpeaker &&
-  //     history.length > 0 &&
-  //     currentDialogState?.emission
-  //   ) {
-  //     speak(currentDialogState.emission, currentDialogState.state !== 'Z0');
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [currentDialogState, hasUserActivatedSpeak]);
 
   /**
    * Speech recognition event handlers
@@ -1749,9 +1621,6 @@ const MemoriWidget = ({
     const sessionID = session?.sessionID || sessionId;
     const dialogState = session?.dialogState || currentDialogState;
     setClickedStart(true);
-    console.log('onClickStart', sessionID);
-
-    // if (speechSynthesizer) speechSynthesizer.speakTextAsync(''); // workaround for Safari
 
     let memoriAudioElement = document.getElementById(
       'memori-audio'
@@ -1761,23 +1630,9 @@ const MemoriWidget = ({
       !window.navigator.userAgent.includes('Chrome');
     if (memoriAudioElement && isSafari) {
       memoriAudioElement.muted = false;
-      memoriAudioElement
-        .play()
-        .then(() => {
-          console.log('played intro audio');
-          // try {
-          //   audioContext = new AudioContext();
-          //   let buffer = audioContext.createBuffer(1, 10000, 22050);
-          //   let source = audioContext.createBufferSource();
-          //   source.buffer = buffer;
-          //   source.connect(audioContext.destination);
-          // } catch (e) {
-          //   console.error(e);
-          // }
-        })
-        .catch((e: any) => {
-          console.error('error playing intro audio', e);
-        });
+      memoriAudioElement.play().catch((e: any) => {
+        console.error('error playing intro audio', e);
+      });
     }
 
     if (
@@ -1802,7 +1657,6 @@ const MemoriWidget = ({
         initialContextVars,
         initialQuestion,
       });
-      console.info('opened session, recall onClickStart', session?.sessionID);
       await onClickStart(session || undefined);
       return;
     } else if (initialSessionID) {
@@ -2210,7 +2064,6 @@ const MemoriWidget = ({
         id="memori-audio"
         style={{ display: 'none' }}
         src="https://app.twincreator.com/intro.mp3"
-        // src="https://filesamples.com/samples/audio/mp3/sample1.mp3"
       />
 
       {isClient && (
