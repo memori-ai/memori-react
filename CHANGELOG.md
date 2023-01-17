@@ -1,5 +1,17 @@
 
 
+## [1.0.0-alpha.22](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.21...v1.0.0-alpha.22) (2023-01-17)
+
+
+### Bug Fixes
+
+* audio issues, refactor tts ([e66c83a](https://github.com/memori-ai/memori-react/commit/e66c83a35e1a98ae7e24ee532923653d9032c3f3))
+
+
+### Maintenance
+
+* cleanup ([bd755c7](https://github.com/memori-ai/memori-react/commit/bd755c7de3736f4685e66076f058ff7ca6d513d2))
+
 ## [1.0.0-alpha.21](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.20...v1.0.0-alpha.21) (2023-01-14)
 
 
