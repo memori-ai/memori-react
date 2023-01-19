@@ -1,0 +1,23 @@
+.memori-chat--feedback {
+    padding: 0 3.5rem;
+    margin-top: -0.5em;
+    margin-bottom: 1.5em;
+}
+
+.memori-chat--feedback button {
+    padding: 0.5em;
+    opacity: 0.4;
+    transition: all 0.3s ease-in-out;
+}
+
+.memori-chat--feedback button:hover,
+.memori-chat--feedback button:focus {
+    opacity: 1;
+}
+
+.memori-chat--feedback button .memori-button--icon svg {
+    fill: none;
+}
+.memori-chat--feedback button .memori-button--icon svg.memori-chat--feedback-clicked {
+    fill: var(--memori-primary);
+}

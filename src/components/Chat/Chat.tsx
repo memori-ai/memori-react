@@ -15,6 +15,8 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
 
 import './Chat.css';
+import Tooltip from '../ui/Tooltip';
+import FeedbackButtons from '../FeedbackButtons/FeedbackButtons';
 
 export interface Props {
   memori: Memori;
@@ -223,6 +225,15 @@ const Chat: React.FC<Props> = ({
                       )
                     )}
                   </div>
+                )}
+
+              {index === history.length - 1 &&
+                !message.fromUser &&
+                dialogState?.acceptsFeedback && (
+                  <FeedbackButtons
+                    memori={memori}
+                    simulateUserPrompt={simulateUserPrompt}
+                  />
                 )}
 
               <MediaWidget

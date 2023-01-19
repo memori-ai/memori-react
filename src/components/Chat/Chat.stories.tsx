@@ -185,3 +185,21 @@ OnX2aState.args = {
   setAttachmentsMenuOpen: () => {},
   setSendOnEnter: () => {},
 };
+
+export const AcceptsFeedback = Template.bind({});
+AcceptsFeedback.args = {
+  memori,
+  tenant,
+  sessionID,
+  history,
+  dialogState: {
+    ...dialogState,
+    acceptsFeedback: true,
+  },
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
