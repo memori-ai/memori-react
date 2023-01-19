@@ -1,5 +1,12 @@
 
 
+## [1.0.0-alpha.23](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.22...v1.0.0-alpha.23) (2023-01-19)
+
+
+### Changes
+
+* fixes for listening events ([76bc5f6](https://github.com/memori-ai/memori-react/commit/76bc5f616538d6621ff51b7ad41a9b07b8ad59ba))
+
 ## [1.0.0-alpha.22](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.21...v1.0.0-alpha.22) (2023-01-17)
 
 
