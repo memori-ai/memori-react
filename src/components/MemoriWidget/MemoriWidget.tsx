@@ -1082,6 +1082,10 @@ const MemoriWidget = ({
     );
     if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) return;
 
+    if (listening) {
+      stopListening();
+    }
+
     if (preview) return;
 
     if (audioDestination) audioDestination.pause();
@@ -1130,6 +1134,10 @@ const MemoriWidget = ({
 
     setIsPlayingAudio(true);
 
+    speechSynthesizer.synthesisCompleted = (s, e) => {
+      console.log('synthesisCompleted', s, e);
+      setIsPlayingAudio(false);
+    };
     speechSynthesizer.speakSsmlAsync(
       `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
         userLang
@@ -1311,7 +1319,7 @@ const MemoriWidget = ({
           };
 
           recognizer.sessionStopped = (_s, _e) => {
-            if (recognizer) recognizer.stopContinuousRecognitionAsync();
+            stopListening();
           };
           recognizer.startContinuousRecognitionAsync();
         })
@@ -1325,8 +1333,8 @@ const MemoriWidget = ({
       recognizer.stopContinuousRecognitionAsync();
       recognizer.close();
       recognizer = null;
-      setListening(false);
     }
+    setListening(false);
   };
   const clearListening = () => {
     setHasUserActivatedListening(false);
