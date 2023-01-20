@@ -19,6 +19,7 @@
   "memoriBlockedAnon": "Attualmente \"{{name}}\" non può rispondere, torna qui il {{date}}",
   "memoriBlockedReasonExceedChats": "perchè ha superato la soglia mensile di chat ammesse.",
   "memoriBlockedGiverHelper": "Puoi sempre gestirlo in qualità di amministratore, ma altri utenti non potranno interrogarlo.",
+  "generatedByAI": "Generato da IA",
   "auth": {
     "useRecoveryTokens": "Utilizza i token di recupero",
     "tokens": "Token",

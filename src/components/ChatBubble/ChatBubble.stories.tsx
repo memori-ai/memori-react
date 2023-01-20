@@ -72,3 +72,17 @@ Initial.args = {
       'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
   },
 };
+
+export const GeneratedByAI = Template.bind({});
+GeneratedByAI.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    initial: false,
+    translatedText:
+      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    generatedByAI: true,
+  },
+};

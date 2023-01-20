@@ -59,8 +59,7 @@ export const history: Message[] = [
     timestamp: '2021-03-01T12:00:00.000Z',
   },
   {
-    text:
-      "Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?",
+    text: "Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?",
     timestamp: '2021-03-01T12:00:00.000Z',
   },
   {
@@ -108,8 +107,7 @@ export const historyWithMedia: Message[] = [
     timestamp: '2021-03-01T12:00:00.000Z',
   },
   {
-    text:
-      "Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?",
+    text: "Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?",
     timestamp: '2021-03-01T12:00:00.000Z',
   },
   {
@@ -163,6 +161,55 @@ export const historyWithMedia: Message[] = [
   {
     text: 'Arrivederci.',
     timestamp: '2021-03-01T12:00:00.000Z',
+  },
+];
+
+export const historyWithAIGeneratedMessages: Message[] = [
+  {
+    text: "Ciao, io sono test, c'è qualcosa che vorresti chiedermi?",
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: 'Prova',
+    fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: 'Sa. Sa. Prova',
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: 'Come faccio a fare delle cose con questa cosa?',
+    fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: 'Ecco qui come.',
+    media: [
+      {
+        mediumID: 'c6851968-5d4d-409a-ae75-f22ec077efcd',
+        url: 'https://memori.ai',
+        mimeType: 'text/html',
+        title: 'Link',
+      },
+    ],
+    timestamp: '2021-03-01T12:00:00.000Z',
+    generatedByAI: true,
+    contextVars: {
+      TEST: 'test',
+    },
+  },
+  {
+    text: 'Ah, grazie! Ciao!',
+    fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: 'Arrivederci.',
+    timestamp: '2021-03-01T12:00:00.000Z',
+    contextVars: {
+      TEST: 'test',
+    },
   },
 ];
 

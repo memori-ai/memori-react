@@ -5,6 +5,7 @@ import {
   tenant,
   history,
   historyWithMedia,
+  historyWithAIGeneratedMessages,
   sessionID,
   dialogState as dialogStateWithHints,
 } from '../../mocks/data';
@@ -196,6 +197,21 @@ AcceptsFeedback.args = {
     ...dialogState,
     acceptsFeedback: true,
   },
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
+
+export const WithAIGeneratedMessages = Template.bind({});
+WithAIGeneratedMessages.args = {
+  memori,
+  tenant,
+  sessionID,
+  history: historyWithAIGeneratedMessages,
+  dialogState,
   simulateUserPrompt: () => {},
   sendMessage: (msg: string) => console.log(msg),
   stopListening: () => {},

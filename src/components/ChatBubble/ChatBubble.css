@@ -72,6 +72,18 @@
     color: var(--memori-primary-text);
 }
 
+.memori-chat--bubble.memori-chat--ai-generated {
+    position: relative;
+    padding-right: 2em;
+    padding-bottom: 1em;
+}
+
+.memori-chat--bubble.memori-chat--ai-generated .memori-chat--bubble-ai-icon {
+    position: absolute;
+    right: 0.5em;
+    bottom: 0;
+}
+
 .memori-chat--bubble-avatar {
     display: flex;
     overflow: hidden;
