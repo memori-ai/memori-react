@@ -1954,10 +1954,10 @@
   resolved "https://registry.yarnpkg.com/@mdx-js/util/-/util-1.6.22.tgz#219dfd89ae5b97a8801f015323ffa4b62f45718b"
   integrity sha512-H1rQc1ZOHANWBvPcW+JpGwr+juXSxM8Q8YCkm3GhZd8REu1fHR3z99CErO1p9pkcfcxZnMdIZdIsXkOHY0NilA==
 
-"@memori.ai/memori-api-client@^0.9.0":
-  version "0.9.0"
-  resolved "https://registry.yarnpkg.com/@memori.ai/memori-api-client/-/memori-api-client-0.9.0.tgz#d549c7846ee37338a83e8e686c7e97d2fd4fcd1b"
-  integrity sha512-5bZXFKrMPJ+JxHfTfaHabMykUcyFXpE3Vl0FSCQ/m/ueCwl9DN8f5XdcPEKBw3GmKHhz/0KSR06eFn6bq1hukw==
+"@memori.ai/memori-api-client@^0.10.2":
+  version "0.10.2"
+  resolved "https://registry.yarnpkg.com/@memori.ai/memori-api-client/-/memori-api-client-0.10.2.tgz#749af193c959452ba76500f535b8b5c81d94c31e"
+  integrity sha512-taTdtXNl+D1tDm30GcSGGLMUYArdfOMf+mRUuRXoRer/0YHA9W4NeX4uMAFDVrLffvNWpMmLF2fZAcTLWUQhkQ==
   dependencies:
     cross-fetch "^3.1.5"
     microsoft-cognitiveservices-speech-sdk "1.20.0"
