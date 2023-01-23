@@ -1486,6 +1486,11 @@ const MemoriWidget = ({
     }
   `;
 
+  const showAIicon =
+    integrationConfig?.showAIicon === undefined
+      ? true
+      : integrationConfig?.showAIicon;
+
   // eslint-disable-next-line
   const [avatar3dVisible, setAvatar3dVisible] = useState(true);
 
@@ -1981,6 +1986,7 @@ const MemoriWidget = ({
       simulateUserPrompt={simulateUserPrompt}
       showDates={showDates}
       showContextPerLine={showContextPerLine}
+      showAIicon={showAIicon}
       client={client}
       selectReceiverTag={selectReceiverTag}
       preview={preview}
