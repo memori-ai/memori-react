@@ -6,6 +6,10 @@
     margin-bottom: 5px;
 }
 
+.memori-chat--bubble-container.memori-chat--with-addon {
+    margin-bottom: 2em;
+}
+
 .memori-chat--bubble-initial {
     width: 80%;
     height: 1px;
@@ -72,18 +76,6 @@
     color: var(--memori-primary-text);
 }
 
-.memori-chat--bubble.memori-chat--ai-generated {
-    position: relative;
-    padding-right: 2em;
-    padding-bottom: 1em;
-}
-
-.memori-chat--bubble.memori-chat--ai-generated .memori-chat--bubble-ai-icon {
-    position: absolute;
-    right: 0.5em;
-    bottom: 0;
-}
-
 .memori-chat--bubble-avatar {
     display: flex;
     overflow: hidden;
@@ -110,6 +102,74 @@
     fill: #666;
     font-size: 1.5rem;
 }
+
+.memori-chat--bubble-addon {
+    position: absolute;
+    right: -0.5em;
+    bottom: -1.5em;
+    display: flex;
+    align-items: center;
+    padding: .25em 0.5em;
+    border-radius: 1em;
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 0 .25em rgba(0,0,0,.1);
+    transition: all .2s ease-in-out;
+}
+
+.memori-chat--bubble-addon:hover {
+    background: #fff;
+    box-shadow: 0 0 .25em rgba(0,0,0,.2);
+}
+
+.memori-chat--bubble.memori-chat--with-addon .memori-chat--bubble-ai-icon {
+    display: flex;
+    align-items: center;
+}
+
+.memori-chat--bubble.memori-chat--with-addon .memori-chat--bubble-ai-icon svg {
+    width: 1rem;
+    height: 1rem;
+    padding: 0.25em;
+}
+
+.memori-chat--bubble-addon .memori-chat--feedback {
+    padding: 0;
+    margin: 0;
+}
+
+.memori-chat--bubble-addon .memori-chat--feedback button {
+    padding: 0 0.25em;
+    color: #333;
+}
+
+.memori-chat--bubble-addon .memori-chat--feedback button .memori-button--icon svg {
+    width: 1em;
+    height: 1em;
+}
+
+.memori-chat--bubble-addon-separator {
+    width: 1px;
+    height: 1.5em;
+    margin: 0 0.5em;
+    background: #ccc;
+}
+
+.memori-chat--bubble-addon .memori-tooltip {
+    display: inline-flex;
+    align-items: center;
+}
+
+.memori-chat--bubble-addon .memori-tooltip .memori-tooltip--trigger {
+    display: flex;
+    align-items: center;
+}
+
+.memori-chat--bubble.memori-chat--with-addon {
+    position: relative;
+    padding-right: 2em;
+    padding-bottom: 1em;
+}
+
 
 .transition {
     transition-property: all;

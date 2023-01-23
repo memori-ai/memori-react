@@ -7,8 +7,6 @@ const AI = ({ className, title }: { className?: string; title?: string }) => (
     role="img"
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
-    width="1rem"
-    height="1rem"
     fill="none"
     className={className}
     aria-label={title}

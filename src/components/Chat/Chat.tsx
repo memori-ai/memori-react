@@ -177,6 +177,12 @@ const Chat: React.FC<Props> = ({
                 memori={memori}
                 tenant={tenant}
                 baseUrl={baseUrl}
+                simulateUserPrompt={simulateUserPrompt}
+                showFeedback={
+                  index === history.length - 1 &&
+                  !message.fromUser &&
+                  dialogState?.acceptsFeedback
+                }
               />
               {showDates && !!message.timestamp && (
                 <small
@@ -225,15 +231,6 @@ const Chat: React.FC<Props> = ({
                       )
                     )}
                   </div>
-                )}
-
-              {index === history.length - 1 &&
-                !message.fromUser &&
-                dialogState?.acceptsFeedback && (
-                  <FeedbackButtons
-                    memori={memori}
-                    simulateUserPrompt={simulateUserPrompt}
-                  />
                 )}
 
               <MediaWidget

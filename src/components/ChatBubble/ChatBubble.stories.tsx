@@ -86,3 +86,35 @@ GeneratedByAI.args = {
     generatedByAI: true,
   },
 };
+
+export const WithFeedbackButtons = Template.bind({});
+WithFeedbackButtons.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    initial: false,
+    translatedText:
+      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    generatedByAI: false,
+  },
+  showFeedback: true,
+  simulateUserPrompt: () => {},
+};
+
+export const WithAllAddonsContents = Template.bind({});
+WithAllAddonsContents.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    initial: false,
+    translatedText:
+      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    generatedByAI: true,
+  },
+  showFeedback: true,
+  simulateUserPrompt: () => {},
+};
