@@ -439,6 +439,7 @@ const MemoriWidget = ({
             text: emission,
             media: currentState.media,
             fromUser: false,
+            generatedByAI: !!currentState.completion,
           });
           speak(emission);
         }
@@ -527,6 +528,7 @@ const MemoriWidget = ({
           text: t.text,
           media: state.media,
           fromUser: false,
+          generatedByAI: !!state.completion,
         };
     }
 
@@ -821,6 +823,7 @@ const MemoriWidget = ({
             text: emission,
             media: currentState.media,
             fromUser: false,
+            generatedByAI: !!currentState.completion,
           });
           speak(emission);
           setCurrentDialogState(currentState);
