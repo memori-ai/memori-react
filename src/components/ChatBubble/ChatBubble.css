@@ -6,10 +6,6 @@
     margin-bottom: 5px;
 }
 
-.memori-chat--bubble-container.memori-chat--with-addon {
-    margin-bottom: 2em;
-}
-
 .memori-chat--bubble-initial {
     width: 80%;
     height: 1px;
@@ -31,6 +27,10 @@
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
     color: #141515;
     line-height: 1.4em;
+}
+
+.memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble {
+    min-width: 9rem;
 }
 
 .memori-chat--bubble #wave {
@@ -165,7 +165,6 @@
     line-height: 0;
     text-align: right;
 }
-
 
 .transition {
     transition-property: all;
