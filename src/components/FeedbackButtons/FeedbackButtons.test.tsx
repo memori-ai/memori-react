@@ -5,7 +5,7 @@ import FeedbackButtons from './FeedbackButtons';
 
 it('renders FeedbackButtons unchanged', () => {
   const { container } = render(
-    <FeedbackButtons memori={memori} simulateUserPrompt={jest.fn()} />
+    <FeedbackButtons memori={memori} onNegativeClick={jest.fn()} />
   );
   expect(container).toMatchSnapshot();
 });

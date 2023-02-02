@@ -21,5 +21,5 @@ const Template: Story<Props> = args => <FeedbackButtons {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   memori,
-  simulateUserPrompt: () => {},
+  onNegativeClick: () => {},
 };

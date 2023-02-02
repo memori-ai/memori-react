@@ -20,6 +20,7 @@
   "memoriBlockedReasonExceedChats": "perchè ha superato la soglia mensile di chat ammesse.",
   "memoriBlockedGiverHelper": "Puoi sempre gestirlo in qualità di amministratore, ma altri utenti non potranno interrogarlo.",
   "generatedByAI": "Risposta generata da IA, può talvolta generare informazioni non corrette",
+  "completionsEnabled": "IA evoluta, può rispondere con risposte generate automaticamente che talvolta potrebbero contenere informazioni non corrette",
   "auth": {
     "useRecoveryTokens": "Utilizza i token di recupero",
     "tokens": "Token",

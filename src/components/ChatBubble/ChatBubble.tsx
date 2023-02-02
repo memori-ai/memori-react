@@ -119,28 +119,30 @@ const ChatBubble: React.FC<Props> = ({
             .map((row, index) => (
               <p key={index}>{row}</p>
             ))}
-
           {((message.generatedByAI && showAIicon) ||
             (showFeedback && simulateUserPrompt)) && (
             <div className="memori-chat--bubble-addon">
               {showFeedback && !!simulateUserPrompt && (
                 <FeedbackButtons
                   memori={memori}
-                  simulateUserPrompt={simulateUserPrompt}
+                  className="memori-chat--bubble-feedback"
+                  dropdown
+                  onNegativeClick={msg => {
+                    if (msg) simulateUserPrompt(msg);
+                  }}
                 />
               )}
-              {message.generatedByAI &&
-                showAIicon &&
-                showFeedback &&
-                !!simulateUserPrompt && (
-                  <span className="memori-chat--bubble-addon-separator" />
-                )}
+
               {message.generatedByAI && showAIicon && (
-                <span className="memori-chat--bubble-ai-icon">
-                  <Tooltip content={t('generatedByAI')}>
-                    <AI />
-                  </Tooltip>
-                </span>
+                <Tooltip
+                  alignLeft
+                  content={t('generatedByAI')}
+                  className="memori-chat--bubble-ai-icon"
+                >
+                  <span>
+                    <AI title={t('generatedByAI') || undefined} />
+                  </span>
+                </Tooltip>
               )}
             </div>
           )}

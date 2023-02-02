@@ -13,6 +13,7 @@ import Button from '../ui/Button';
 import Translation from '../icons/Translation';
 import { chatLanguages } from '../../helpers/constants';
 import BlockedMemoriBadge from '../BlockedMemoriBadge/BlockedMemoriBadge';
+import AI from '../icons/AI';
 
 import './StartPanel.css';
 
@@ -109,6 +110,15 @@ const StartPanel: React.FC<Props> = ({
                 }, ${gamificationLevel.points} ${t('gamification.points')}`}
               >
                 {gamificationLevel.badge}
+              </span>
+            </Tooltip>
+          </div>
+        )}
+        {!!memori.enableCompletions && (
+          <div className="memori--completions-enabled">
+            <Tooltip alignLeft content={t('completionsEnabled')}>
+              <span aria-label={t('completionsEnabled') || 'Completions'}>
+                <AI />
               </span>
             </Tooltip>
           </div>

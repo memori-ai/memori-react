@@ -5,63 +5,37 @@ exports[`renders FeedbackButtons unchanged 1`] = `
   <div
     class="memori-chat--feedback"
   >
-    <button
-      class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only"
-    >
-      <span
-        class="memori-button--icon"
-      >
-        <svg
-          aria-hidden="true"
-          fill="none"
-          focusable="false"
-          role="img"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          tabindex="-1"
-          viewBox="0 0 24 24"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M14 9V5a3 3 0 00-3-3l-4 9v11h11.28a2 2 0 002-1.7l1.38-9a2 2 0 00-2-2.3zM7 22H4a2 2 0 01-2-2v-7a2 2 0 012-2h3"
-          />
-        </svg>
-      </span>
-    </button>
     <div
-      class="memori-tooltip"
+      class="memori-tooltip memori-tooltip--align-left"
     >
       <div
         class="memori-tooltip--content"
       >
-        Non è quello che ti ho chiesto
+        Feedback
       </div>
       <div
         class="memori-tooltip--trigger"
       >
         <button
           class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only"
+          title="Feedback"
         >
           <span
             class="memori-button--icon"
           >
             <svg
               aria-hidden="true"
-              fill="none"
               focusable="false"
               role="img"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              tabindex="-1"
               viewBox="0 0 24 24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M10 15v4a3 3 0 003 3l4-9V2H5.72a2 2 0 00-2 1.7l-1.38 9a2 2 0 002 2.3zm7-13h2.67A2.31 2.31 0 0122 4v7a2.31 2.31 0 01-2.33 2H17"
+                d="M0 0h24v24H0V0z"
+                fill="none"
+              />
+              <path
+                d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17l-.59.59-.58.58V4h16v12zm-9-4h2v2h-2zm0-6h2v4h-2z"
               />
             </svg>
           </span>

@@ -5,6 +5,7 @@
 
 .memori-tooltip--content {
     position: absolute;
+    z-index: 100;
     top: 50%;
     left: 100%;
     display: none;
@@ -15,6 +16,7 @@
     margin-left: 15px;
     background: rgba(0, 0, 0, 0.8);
     color: #fff;
+    font-size: 0.85em;
     opacity: 0;
     text-align: center;
     transform: none;

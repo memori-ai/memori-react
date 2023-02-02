@@ -1,12 +1,6 @@
-.memori-chat--feedback {
-    padding: 0 3.5rem;
-    margin-top: -0.5em;
-    margin-bottom: 1.5em;
-}
-
 .memori-chat--feedback button {
     padding: 0.5em;
-    opacity: 0.4;
+    color: #333;
     transition: all 0.3s ease-in-out;
 }
 
@@ -15,9 +9,99 @@
     opacity: 1;
 }
 
-.memori-chat--feedback button .memori-button--icon svg {
-    fill: none;
-}
 .memori-chat--feedback button .memori-button--icon svg.memori-chat--feedback-clicked {
+    color: var(--memori-primary);
     fill: var(--memori-primary);
+}
+
+.memori-chat--feedback-menu {
+    position: relative;
+    display: inline-flex;
+    text-align: left;
+}
+
+.transition {
+    transition-duration: .15s;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+}
+
+.ease-out {
+    transition-timing-function: ease-out;
+}
+
+.ease-in {
+    transition-timing-function: ease-in;
+}
+
+.duration-100 {
+    transition-duration: 100ms;
+}
+
+.duration-200 {
+    transition-duration: 200ms;
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+
+.opacity-100 {
+    opacity: 1;
+}
+
+.scale-95 {
+    transform: scale(0.95);
+}
+
+.scale-100 {
+    transform: scale(1);
+}
+
+.memori-chat--feedback-menu-items {
+    position: absolute;
+    top: calc(100% - 0.25rem);
+    right: 0;
+    width: 14rem;
+    border: 1px solid rgba(0,0,0,0.05);
+    border-radius: 0.375rem;
+    margin-top: 0.5rem;
+    background-color: #fff;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
+    outline: none;
+    transform-origin: top right;
+}
+
+.memori-chat--feedback-menu-items:focus {
+    outline: none;
+}
+
+.memori-chat--feedback-menu-items-container {
+    padding: 0.25rem;
+}
+
+.memori-chat--bubble-addon .memori-chat--feedback button.memori-chat--feedback-menu-item {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 0.375rem;
+    margin: 0;
+    background: none;
+    box-shadow: none;
+    color: #333;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: inherit;
+    line-height: inherit;
+}
+
+.memori-chat--bubble-addon .memori-chat--feedback button.memori-chat--feedback-menu-item:hover,
+.memori-chat--bubble-addon .memori-chat--feedback button.memori-chat--feedback-menu-item:focus,
+.memori-chat--bubble-addon .memori-chat--feedback button.memori-chat--feedback-menu-item:active,
+.memori-chat--bubble-addon .memori-chat--feedback button.memori-chat--feedback-menu-item.memori-chat--feedback-menu-item-active {
+    background-color: var(--memori-primary, rgb(102, 103, 171));
+    color: var(--memori-primary-text, #fff);
 }
