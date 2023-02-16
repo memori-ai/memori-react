@@ -1,5 +1,12 @@
 
 
+## [1.0.0-rc.2](https://github.com/memori-ai/memori-react/compare/v1.0.0-rc.1...v1.0.0-rc.2) (2023-02-16)
+
+
+### Maintenance
+
+* use antd 4x ([8b5e4d7](https://github.com/memori-ai/memori-react/commit/8b5e4d761ffe137d508330c0c35241b786fb08bc))
+
 ## [1.0.0-rc.1](https://github.com/memori-ai/memori-react/compare/v1.0.0-rc.0...v1.0.0-rc.1) (2023-02-16)
 
 
