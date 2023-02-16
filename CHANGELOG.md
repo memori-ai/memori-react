@@ -1,5 +1,18 @@
 
 
+## [1.0.0-rc.1](https://github.com/memori-ai/memori-react/compare/v1.0.0-rc.0...v1.0.0-rc.1) (2023-02-16)
+
+
+### Bug Fixes
+
+* font css url import ([97c2c71](https://github.com/memori-ai/memori-react/commit/97c2c713ff4c300da1df6873c796bd57b96acfc6))
+
+
+### Maintenance
+
+* fix relative imports ([ef269da](https://github.com/memori-ai/memori-react/commit/ef269dadaac0c1e1e39187556c66ab0fe83c2524))
+* upgrade api-client to v1.1.0 ([b2254e1](https://github.com/memori-ai/memori-react/commit/b2254e1723dc1dda3d5ebfdbb7c10d1828e0934b))
+
 ## [1.0.0-rc.0](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.24...v1.0.0-rc.0) (2023-02-16)
 
 
