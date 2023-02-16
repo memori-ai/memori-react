@@ -3,6 +3,7 @@ export interface ResourceURLParams {
   resourceURI?: string;
   sessionID?: string;
   baseURL?: string;
+  apiURL?: string;
   tenantID?: string;
 }
 export const getResourceUrl = ({
@@ -10,6 +11,7 @@ export const getResourceUrl = ({
   resourceURI,
   sessionID,
   baseURL = '',
+  apiURL = '',
 }: ResourceURLParams): string => {
   let defaultUri =
     type === 'cover'
@@ -29,11 +31,13 @@ export const getResourceUrl = ({
   ) {
     return `${resourceURI}${sessionID ? `/${sessionID}` : ''}`;
   } else if (resourceURI.startsWith('cloud://')) {
-    return `${process.env.NEXT_PUBLIC_API_URL?.replace(/v2/, 'v1') ||
-      ''}/CloudAsset/${resourceURI.replace('cloud://', '')}`;
+    return `${
+      apiURL?.replace(/v2/, 'v1') || ''
+    }/CloudAsset/${resourceURI.replace('cloud://', '')}`;
   } else if (resourceURI.startsWith('guid://')) {
-    return `${process.env.NEXT_PUBLIC_API_URL?.replace(/v2/, 'v1') ||
-      ''}/GuidAsset/${resourceURI.replace('guid://', '')}`;
+    return `${
+      apiURL?.replace(/v2/, 'v1') || ''
+    }/GuidAsset/${resourceURI.replace('guid://', '')}`;
   } else {
     return defaultUri;
   }

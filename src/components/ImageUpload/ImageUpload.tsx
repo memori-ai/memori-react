@@ -21,6 +21,7 @@ export interface Props {
   maxNumberOfVisualizedUploads?: number;
   fileList?: any[];
   uploadUrl: string;
+  apiUrl?: string;
   tenantID: string;
   maxFileSizeInMB?: number;
   fileResolution?: number[];
@@ -53,12 +54,14 @@ interface UploadListItemProps {
   };
   resourceType: 'avatar' | 'cover' | undefined;
   tenantID: string;
+  apiUrl?: string;
 }
 
 const UploadListItem = ({
   originNode,
   file,
   tenantID,
+  apiUrl,
   actions,
   resourceType,
 }: UploadListItemProps) => {
@@ -96,10 +99,12 @@ const UploadListItem = ({
                         type: resourceType,
                         resourceURI: file.thumbUrl,
                         tenantID,
+                        apiURL: apiUrl,
                       }),
                 content: `${getResourceUrl({
                   resourceURI: file.thumbUrl,
                   type: resourceType,
+                  apiURL: apiUrl,
                 })}`,
               } as Medium
             }
@@ -135,6 +140,7 @@ const ImageUpload: React.FC<Props> = ({
   uploadMultipleImages,
   maxNumberOfVisualizedUploads,
   uploadUrl,
+  apiUrl,
   tenantID,
   fileList,
   maxFileSizeInMB = 2,
@@ -274,6 +280,7 @@ const ImageUpload: React.FC<Props> = ({
           fileList={internalFileList || currFileList}
           actions={actions}
           tenantID={tenantID}
+          apiUrl={apiUrl}
         />
       )}
     >

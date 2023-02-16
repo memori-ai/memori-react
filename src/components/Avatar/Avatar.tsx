@@ -28,6 +28,7 @@ export interface Props {
   setAvatar3dVisible: (visible: boolean) => void;
   isPlayingAudio?: boolean;
   baseUrl?: string;
+  apiUrl?: string;
 }
 
 const Avatar: React.FC<Props> = ({
@@ -41,6 +42,7 @@ const Avatar: React.FC<Props> = ({
   hasUserActivatedSpeak = false,
   isPlayingAudio = false,
   baseUrl,
+  apiUrl,
 }) => {
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
@@ -75,6 +77,7 @@ const Avatar: React.FC<Props> = ({
                                 tenantID: tenant?.id,
                                 resourceURI: memori.avatarURL,
                                 baseURL: baseUrl,
+                                apiURL: apiUrl,
                               })
                             : undefined
                         }
@@ -90,6 +93,7 @@ const Avatar: React.FC<Props> = ({
                     tenantID: tenant?.id,
                     resourceURI: memori.avatarURL,
                     baseURL: baseUrl,
+                    apiURL: apiUrl,
                   })}
                   headMovement
                   eyeBlink
@@ -111,6 +115,7 @@ const Avatar: React.FC<Props> = ({
                   tenantID: tenant?.id,
                   resourceURI: memori.avatarURL,
                   baseURL: baseUrl,
+                  apiURL: apiUrl,
                 })}
                 src={integrationConfig.avatarURL}
                 alt=""
@@ -142,6 +147,7 @@ const Avatar: React.FC<Props> = ({
                       tenantID: tenant?.id,
                       resourceURI: memori.avatarURL,
                       baseURL: baseUrl,
+                      apiURL: apiUrl,
                     })
                   : undefined
               }

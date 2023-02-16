@@ -8,6 +8,7 @@ export interface Props {
   visible: boolean;
   onCancel?: () => void;
   onOk: ({ url, title }: { url: string; title: string }) => void;
+  apiURL?: string;
 }
 
 const AttachmentLinkModal = ({ visible, onCancel, onOk }: Props) => {

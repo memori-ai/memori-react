@@ -1937,6 +1937,7 @@ const MemoriWidget = ({
       hasUserActivatedSpeak={hasUserActivatedSpeak}
       isPlayingAudio={isPlayingAudio}
       baseUrl={baseUrl}
+      apiUrl={apiUrl}
     />
   );
 
@@ -1949,6 +1950,7 @@ const MemoriWidget = ({
       userLang={userLang}
       setUserLang={setUserLang}
       baseUrl={baseUrl}
+      apiUrl={apiUrl}
       position={position}
       openPositionDrawer={() => setShowPositionDrawer(true)}
       integrationConfig={integrationConfig}
@@ -1977,6 +1979,7 @@ const MemoriWidget = ({
           : undefined
       }
       baseUrl={baseUrl}
+      apiUrl={apiUrl}
       memoriTyping={memoriTyping}
       history={history}
       authToken={loginToken}
@@ -2117,6 +2120,7 @@ const MemoriWidget = ({
 
       {sessionId && (
         <AttachmentLinkModal
+          apiURL={apiUrl}
           visible={attachmentsMenuOpen === 'link'}
           onCancel={() => setAttachmentsMenuOpen(undefined)}
           onOk={async link => {
@@ -2168,6 +2172,7 @@ const MemoriWidget = ({
       )}
       {loginToken && sessionId && tenant?.id && (
         <AttachmentMediaModal
+          apiURL={apiUrl}
           visible={attachmentsMenuOpen === 'media'}
           authToken={loginToken}
           tenantID={tenant?.id}

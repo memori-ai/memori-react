@@ -16,6 +16,7 @@ export interface Props {
   simulateUserPrompt?: (item: string, translatedItem?: string) => void;
   sessionID?: string;
   baseUrl?: string;
+  apiUrl?: string;
   translateTo?: string;
 }
 
@@ -26,6 +27,7 @@ const MediaWidget: React.FC<Props> = ({
   simulateUserPrompt = () => {},
   sessionID,
   baseUrl,
+  apiUrl,
   translateTo,
 }: Props) => {
   const [showHints, setShowHints] = useState(true);
@@ -41,6 +43,7 @@ const MediaWidget: React.FC<Props> = ({
           sessionID={sessionID}
           translateTo={translateTo}
           baseURL={baseUrl}
+          apiURL={apiUrl}
         />
       )}
       {links?.length > 0 && <LinkItemWidget items={links} baseUrl={baseUrl} />}

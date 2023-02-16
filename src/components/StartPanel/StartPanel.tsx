@@ -23,6 +23,7 @@ export interface Props {
   userLang?: string;
   setUserLang: (lang: string) => void;
   baseUrl?: string;
+  apiUrl?: string;
   position?: Venue;
   openPositionDrawer: () => void;
   integrationConfig?: { [key: string]: any };
@@ -41,6 +42,7 @@ const StartPanel: React.FC<Props> = ({
   userLang,
   setUserLang,
   baseUrl,
+  apiUrl,
   position,
   openPositionDrawer,
   integrationConfig,
@@ -87,10 +89,12 @@ const StartPanel: React.FC<Props> = ({
             tenantID: tenant?.id,
             resourceURI: memori.coverURL,
             baseURL: baseUrl,
+            apiURL: apiUrl,
           })}"), url("${getResourceUrl({
             type: 'cover',
             tenantID: tenant?.id,
             baseURL: baseUrl,
+            apiURL: apiUrl,
           })}")`,
         }}
       >
@@ -131,6 +135,7 @@ const StartPanel: React.FC<Props> = ({
               tenantID: tenant?.id,
               resourceURI: memori.avatarURL,
               baseURL: baseUrl,
+              apiURL: apiUrl,
             })
           }
         />
@@ -143,11 +148,13 @@ const StartPanel: React.FC<Props> = ({
                   tenantID: tenant?.id,
                   resourceURI: memori.avatarURL,
                   baseURL: baseUrl,
+                  apiURL: apiUrl,
                 })
               : getResourceUrl({
                   type: 'avatar',
                   tenantID: tenant?.id,
                   baseURL: baseUrl,
+                  apiURL: apiUrl,
                 })
           }
         />

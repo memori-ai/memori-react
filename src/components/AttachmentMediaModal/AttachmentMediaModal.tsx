@@ -18,6 +18,7 @@ export interface Props {
   deleteAsset: (token: string, assetURL: string) => Promise<ResponseSpec>;
   onCancel?: () => void;
   onOk: (asset: Asset) => Promise<void>;
+  apiURL?: string;
 }
 
 const AttachmentMediaModal = ({
@@ -29,6 +30,7 @@ const AttachmentMediaModal = ({
   deleteAsset,
   onCancel,
   onOk,
+  apiURL,
 }: Props) => {
   const { t } = useTranslation();
   const [asset, setAsset] = useState<Asset>();
@@ -62,6 +64,7 @@ const AttachmentMediaModal = ({
     >
       <ImageUpload
         tenantID={tenantID}
+        apiUrl={apiURL}
         uploadMultipleImages={false}
         maxNumberOfVisualizedUploads={1}
         maxFileSizeInMB={100}
@@ -78,6 +81,7 @@ const AttachmentMediaModal = ({
                   thumbUrl: getResourceUrl({
                     resourceURI: asset.assetURL,
                     tenantID,
+                    apiURL,
                     sessionID,
                   }),
                 },

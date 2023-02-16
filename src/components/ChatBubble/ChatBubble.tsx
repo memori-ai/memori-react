@@ -18,6 +18,7 @@ export interface Props {
   memori: Memori;
   tenant?: Tenant;
   baseUrl?: string;
+  apiUrl?: string;
   showFeedback?: boolean;
   simulateUserPrompt?: (msg: string) => void;
   showAIicon?: boolean;
@@ -28,6 +29,7 @@ const ChatBubble: React.FC<Props> = ({
   memori,
   tenant,
   baseUrl,
+  apiUrl,
   showFeedback,
   simulateUserPrompt,
   showAIicon = true,
@@ -69,6 +71,7 @@ const ChatBubble: React.FC<Props> = ({
                 tenantID: tenant?.id,
                 resourceURI: memori.avatarURL,
                 baseURL: baseUrl,
+                apiURL: apiUrl,
               })}
             />
             <img
@@ -81,11 +84,13 @@ const ChatBubble: React.FC<Props> = ({
                       tenantID: tenant?.id,
                       resourceURI: memori.avatarURL,
                       baseURL: baseUrl,
+                      apiURL: apiUrl,
                     })
                   : getResourceUrl({
                       tenantID: tenant?.id,
                       type: 'avatar',
                       baseURL: baseUrl || 'https://app.twincreator.com',
+                      apiURL: apiUrl,
                     })
               }
             />

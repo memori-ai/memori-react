@@ -20,6 +20,7 @@ export interface Props {
   sessionID: string;
   translateTo?: string;
   baseUrl?: string;
+  apiUrl?: string;
   memoriTyping?: boolean;
   history: Message[];
   authToken?: string;
@@ -56,6 +57,7 @@ const Chat: React.FC<Props> = ({
   tenant,
   sessionID,
   baseUrl,
+  apiUrl,
   translateTo,
   memoriTyping,
   history = [],
@@ -160,10 +162,12 @@ const Chat: React.FC<Props> = ({
                 tenantID: tenant?.id,
                 resourceURI: memori.coverURL,
                 baseURL: baseUrl,
+                apiURL: apiUrl,
               })}"), url("${getResourceUrl({
                 type: 'cover',
                 tenantID: tenant?.id,
                 baseURL: baseUrl || 'https://app.twincreator.com',
+                apiURL: apiUrl,
               })}")`,
             }}
           />
@@ -175,6 +179,7 @@ const Chat: React.FC<Props> = ({
                 memori={memori}
                 tenant={tenant}
                 baseUrl={baseUrl}
+                apiUrl={apiUrl}
                 simulateUserPrompt={simulateUserPrompt}
                 showAIicon={showAIicon}
                 showFeedback={
@@ -240,6 +245,7 @@ const Chat: React.FC<Props> = ({
                 links={message?.media?.filter(m => m.mimeType === 'text/html')}
                 sessionID={sessionID}
                 baseUrl={baseUrl}
+                apiUrl={apiUrl}
                 translateTo={translateTo}
               />
             </React.Fragment>
