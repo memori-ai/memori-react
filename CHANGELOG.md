@@ -1,5 +1,17 @@
 
 
+## [1.0.0-rc.0](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.24...v1.0.0-rc.0) (2023-02-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove css imports, add single style.css file with imports
+
+### Changes
+
+* pass apiURL through for asset helper ([0dd9a69](https://github.com/memori-ai/memori-react/commit/0dd9a69c6ff29229e19f9d9723773fb61f5c8b62))
+* remove css imports, add single style.css file with imports ([1887357](https://github.com/memori-ai/memori-react/commit/188735746081ca58cc0c0790f1d44df9804ca7a8))
+
 ## [1.0.0-alpha.24](https://github.com/memori-ai/memori-react/compare/v1.0.0-alpha.23...v1.0.0-alpha.24) (2023-02-02)
 
 
