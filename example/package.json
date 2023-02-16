@@ -1,177 +1,39 @@
 {
+  "name": "example",
+  "version": "0.1.0",
   "private": true,
-  "version": "0.0.0",
-  "author": {
-    "name": "Nicola Zambello",
-    "url": "https://github.com/nzambello"
+  "dependencies": {
+    "@memori.ai/memori-react": "1.0.0-rc.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^13.0.0",
+    "@testing-library/user-event": "^13.2.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "test": "NODE_ENV=test vitest",
-    "test:ci": "CI=true NODE_ENV=test vitest --color",
-    "coverage": "NODE_ENV=test vitest run --coverage",
-    "prepreview": "vite build",
-    "preview": "vite preview",
-    "typecheck": "tsc -b"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "prettier": {
-    "singleQuote": true,
-    "trailingComma": "none",
-    "overrides": [
-      {
-        "files": "*.scss",
-        "options": {
-          "tabWidth": 4,
-          "printWidth": 120
-        }
-      },
-      {
-        "files": "*.json",
-        "options": {
-          "printWidth": 200
-        }
-      }
-    ]
-  },
-  "eslintIgnore": [
-    "/node_modules",
-    "/build",
-    "/public/build"
-  ],
   "eslintConfig": {
     "extends": [
-      "prettier",
-      "plugin:prettier/recommended"
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
     ],
-    "plugins": [
-      "jsx-a11y",
-      "jest"
-    ],
-    "settings": {
-      "jest": {
-        "version": 27
-      }
-    },
-    "parserOptions": {
-      "ecmaVersion": "latest",
-      "sourceType": "module",
-      "ecmaFeatures": {
-        "jsx": true
-      }
-    },
-    "rules": {
-      "prettier/prettier": [
-        "warn",
-        {
-          "singleQuote": true,
-          "trailingComma": "none"
-        }
-      ],
-      "react/jsx-uses-react": "off",
-      "react/react-in-jsx-scope": "off"
-    }
-  },
-  "stylelint": {
-    "extends": [
-      "stylelint-config-recommended",
-      "stylelint-config-prettier",
-      "stylelint-config-idiomatic-order"
-    ],
-    "rules": {
-      "at-rule-no-unknown": [
-        true,
-        {
-          "ignoreAtRules": [
-            "extend",
-            "function",
-            "include",
-            "mixin",
-            "return"
-          ]
-        }
-      ]
-    }
-  },
-  "release-it": {
-    "git": {
-      "tagName": "v${version}",
-      "commitMessage": "chore: release v${version}"
-    },
-    "npm": {
-      "publish": false
-    },
-    "github": {
-      "release": true,
-      "releaseName": "${version}"
-    },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "infile": "CHANGELOG.md",
-        "preset": {
-          "name": "conventionalcommits",
-          "types": [
-            {
-              "type": "feat",
-              "section": "Features"
-            },
-            {
-              "type": "fix",
-              "section": "Bug Fixes"
-            },
-            {
-              "type": "refactor",
-              "section": "Changes"
-            },
-            {
-              "type": "chore",
-              "section": "Maintenance"
-            }
-          ]
-        }
-      }
-    }
-  },
-  "dependencies": {
-    "@memori.ai/memori-react": "../",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.19.3",
-    "@commitlint/cli": "17.1.2",
-    "@commitlint/config-conventional": "17.1.0",
-    "@release-it/conventional-changelog": "5.1.0",
-    "@testing-library/jest-dom": "5.16.5",
-    "@testing-library/react": "13.4.0",
-    "@testing-library/react-hooks": "8.0.1",
-    "@testing-library/user-event": "14.4.3",
-    "@types/react": "^18.0.17",
-    "@types/react-dom": "^18.0.6",
-    "@types/sync-fetch": "0.4.0",
-    "@vitejs/plugin-react": "^2.1.0",
-    "@vitest/coverage-c8": "0.23.4",
-    "babel-loader": "^8.2.5",
-    "eslint": "8.24.0",
-    "eslint-config-prettier": "8.5.0",
-    "eslint-plugin-jest": "27.1.0",
-    "eslint-plugin-jsx-a11y": "6.6.1",
-    "eslint-plugin-prettier": "4.2.1",
-    "eslint-plugin-react": "7.31.8",
-    "husky": "8.0.1",
-    "is-ci": "3.0.1",
-    "jsdom": "20.0.1",
-    "prettier": "2.7.1",
-    "release-it": "15.5.0",
-    "start-server-and-test": "1.14.0",
-    "stylelint": "14.13.0",
-    "stylelint-config-idiomatic-order": "9.0.0",
-    "stylelint-config-prettier": "9.0.3",
-    "stylelint-config-recommended": "9.0.0",
-    "stylelint-config-standard-scss": "5.0.0",
-    "sync-fetch": "0.4.2",
-    "typescript": "^4.6.4",
-    "vite": "^3.1.0",
-    "vitest": "0.23.4"
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }

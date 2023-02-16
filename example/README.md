@@ -1,141 +1,70 @@
-# vite-react-template
+# Getting Started with Create React App
 
-![TypeScript](https://img.shields.io/badge/TypeScript-✔️-blue)
-![a11y axe](https://img.shields.io/badge/a11y-tested-brightgreen)
-![Unit Tests](https://github.com/nzambello/vite-react-template/workflows/Unit%20Tests/badge.svg?branch=main)
-![E2E Tests](https://github.com/nzambello/vite-react-template/workflows/E2E%20Tests/badge.svg?branch=main)
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-This is a [React](https://reactjs.org) + [TypeScript](https://www.typescriptlang.org/) boilerplate built with [Vite](https://vitejs.dev).
+## Available Scripts
 
-## What's inside?
+In the project directory, you can run:
 
-- [ReactJS](https://reactjs.org)
-- [Vite](https://vitejs.dev)
-- [TypeScript](https://www.typescriptlang.org)
+### `yarn start`
 
-### Linting and formatting
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-- [Prettier](https://prettier.io)
-- [ESLint](https://eslint.org)
-- [StyleLint](https://stylelint.io/)
-- [Husky](https://typicode.github.io/husky/#/)
-- [Commitlint](https://commitlint.js.org/#/)
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-### Testing
+### `yarn test`
 
-- [Vitest](https://vitest.dev/)
-- [Testing Library](https://testing-library.com)
-- [Playwright](https://playwright.dev/)
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### Misc
+### `yarn build`
 
-- [Storybook](https://storybook.js.org)
-- [Release-it](https://github.com/release-it/release-it)
-- [GitHub Actions](https://github.com/nzambello/vite-react-template/actions)
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-### Make it yours
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-In the `package.json` file, check `release-it`, `eslint`, `stylelint` and `prettier` configurations and change the values to match your project and your preferences.
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-## Getting started
+### `yarn eject`
 
-1. Create the project.
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-   ```bash
-   npx degit nzambello/vite-react-template my-app
-   ```
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-2. Access the project directory.
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-   ```bash
-   cd my-app
-   ```
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-3. Initialize a git repository.
+## Learn More
 
-   ```bash
-   git init
-   ```
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-4. Install dependencies.
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-   ```bash
-   yarn
-   ```
+### Code Splitting
 
-5. Start dev server with hot reload at http://localhost:3000.
-   ```bash
-   yarn dev
-   ```
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-## Other commands
+### Analyzing the Bundle Size
 
-### Lint commands
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-```bash
-yarn lint
-# or separately
-yarn lint:js
-yarn lint:css
-```
+### Making a Progressive Web App
 
-### Type check
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-```bash
-yarn typecheck
-```
+### Advanced Configuration
 
-### Format with prettier
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-```bash
-yarn format
-```
+### Deployment
 
-### Build commands
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-```bash
-yarn build
-```
+### `yarn build` fails to minify
 
-### Run the app in production mode at http://localhost:3000.
-
-```bash
-yarn preview
-```
-
-### Component stories
-
-```bash
-yarn storybook
-```
-
-### Test commands
-
-- Run unit tests and watch
-  ```bash
-  yarn test
-  ```
-- Run unit tests with coverage
-  ```bash
-  yarn coverage
-  ```
-- Run e2e tests
-  ```bash
-  yarn test:e2e
-  ```
-- Run e2e tests in debug mode
-  ```bash
-  yarn test:e2e:debug
-  ```
-- Show e2e tests results
-  ```bash
-  yarn playwright show-report
-  ```
-
-## License
-
-This project is licensed under the MIT License.
-
-## Credits
-
-This project was heavily inspired by [react-ts-vite-template](https://github.com/fabien-ml/react-ts-vite-template/).
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
