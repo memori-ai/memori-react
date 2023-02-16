@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import cx from 'classnames';
 import Loading from '../icons/Loading';
-import './Spin.css';
 
 export interface Props {
   spinning?: boolean;

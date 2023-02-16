@@ -5,8 +5,6 @@ import Tooltip from '../ui/Tooltip';
 import Button from '../ui/Button';
 import Feedback from '../icons/Feedback';
 
-import './FeedbackButtons.css';
-
 const feedbackMsgs = {
   'it-IT': 'Non è quello che ti ho chiesto',
   'fr-FR': "Ce n'est pas ce que je t'ai demandé",

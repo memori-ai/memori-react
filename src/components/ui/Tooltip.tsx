@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import cx from 'classnames';
-import './Tooltip.css';
 
 export interface Props {
   content: string | JSX.Element | React.ReactNode;

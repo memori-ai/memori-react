@@ -6,8 +6,6 @@ import { ellipsis } from 'ellipsed';
 import Card from '../ui/Card';
 import { Transition } from '@headlessui/react';
 
-import './LinkItemWidget.css';
-
 export declare type ILinkPreviewInfo = {
   title?: string | undefined;
   siteName?: string | undefined;

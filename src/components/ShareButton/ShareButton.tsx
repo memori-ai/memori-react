@@ -14,8 +14,6 @@ import { Menu } from '@headlessui/react';
 import Button from '../ui/Button';
 import cx from 'classnames';
 
-import './ShareButton.css';
-
 export interface Props {
   url?: string;
   title?: string;
@@ -170,8 +168,9 @@ const ShareButton: React.FC<Props> = ({
               level={'H'}
               includeMargin={false}
               imageSettings={{
-                src: `${baseUrl ||
-                  'https://app.twincreator.com'}/images/memori_logo.png`,
+                src: `${
+                  baseUrl || 'https://app.twincreator.com'
+                }/images/memori_logo.png`,
                 x: undefined,
                 y: undefined,
                 height: 32,

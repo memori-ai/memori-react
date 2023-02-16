@@ -10,10 +10,6 @@ import MemoriWidget from './components/MemoriWidget/MemoriWidget';
 import i18n from './i18n';
 import { useTranslation } from 'react-i18next';
 
-import '@fontsource/exo-2/200.css';
-import '@fontsource/exo-2/400.css';
-import '@fontsource/exo-2/700.css';
-
 export interface Props {
   memoriName?: string | null;
   memoriID?: string | null;

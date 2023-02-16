@@ -6,8 +6,6 @@ import Link from '../icons/Link';
 import Picture from '../icons/Picture';
 import PaperClip from '../icons/PaperClip';
 
-import './UploadMenu.css';
-
 export interface Props {
   attachmentsMenuOpen?: 'link' | 'media';
   setAttachmentsMenuOpen: (value: 'link' | 'media') => void;

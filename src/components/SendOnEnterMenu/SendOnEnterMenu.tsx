@@ -4,8 +4,6 @@ import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import Button from '../ui/Button';
 
-import './SendOnEnterMenu.css';
-
 export interface Props {
   sendOnEnter: 'keypress' | 'click';
   setSendOnEnter: (value: 'keypress' | 'click') => void;

@@ -47,6 +47,8 @@ import StartPanel from '../StartPanel/StartPanel';
 import Avatar from '../Avatar/Avatar';
 import ChangeMode from '../ChangeMode/ChangeMode';
 import Header from '../Header/Header';
+import AttachmentMediaModal from '../AttachmentMediaModal/AttachmentMediaModal';
+import AttachmentLinkModal from '../AttachmentLinkModal/AttachmentLinkModal';
 
 // Layout
 import DefaultLayout from '../layouts/Default';
@@ -58,11 +60,6 @@ import { hasTouchscreen, stripDuplicates } from '../../helpers/utils';
 import { anonTag } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
 import { getGamificationLevel } from '../../helpers/statistics';
-
-// Styles
-import './MemoriWidget.css';
-import AttachmentMediaModal from '../AttachmentMediaModal/AttachmentMediaModal';
-import AttachmentLinkModal from '../AttachmentLinkModal/AttachmentLinkModal';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {

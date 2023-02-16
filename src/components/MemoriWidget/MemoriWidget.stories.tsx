@@ -3,6 +3,8 @@ import { Meta, Story } from '@storybook/react';
 import { memori, integration, tenant } from '../../mocks/data';
 import MemoriWidget, { Props } from './MemoriWidget';
 
+import './MemoriWidget.css';
+
 const meta: Meta = {
   title: 'Widget/Default',
   component: MemoriWidget,

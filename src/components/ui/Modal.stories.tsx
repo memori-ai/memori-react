@@ -3,6 +3,8 @@ import { Meta, Story } from '@storybook/react';
 import Modal, { Props } from './Modal';
 import Button from './Button';
 
+import './Modal.css';
+
 const meta: Meta = {
   title: 'UI/Modal',
   component: Modal,

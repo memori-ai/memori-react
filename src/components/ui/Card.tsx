@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import cx from 'classnames';
 import Spin from './Spin';
-import './Card.css';
 
 export interface Props {
   children?: React.ReactChild;

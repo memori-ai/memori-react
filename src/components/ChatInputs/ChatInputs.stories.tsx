@@ -3,6 +3,8 @@ import { Meta, Story } from '@storybook/react';
 import ChatInputs, { Props } from './ChatInputs';
 import { dialogState } from '../../mocks/data';
 
+import './ChatInputs.css';
+
 const meta: Meta = {
   title: 'Widget/Chat inputs (footer)',
   component: ChatInputs,
@@ -133,6 +135,7 @@ InstructAcceptingMedia.args = {
   startListening: () => {},
   stopListening: () => {},
   showMicrophone: true,
+  authToken: '123',
 };
 
 export const Disabled = Template.bind({});

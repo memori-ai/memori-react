@@ -9,9 +9,6 @@ import cx from 'classnames';
 import Send from '../icons/Send';
 import Microphone from '../icons/Microphone';
 
-import './ChatInputs.css';
-import Tooltip from '../ui/Tooltip';
-
 export interface Props {
   dialogState?: DialogState;
   instruct?: boolean;

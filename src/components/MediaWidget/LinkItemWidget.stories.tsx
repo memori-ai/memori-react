@@ -2,6 +2,8 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import LinkItemWidget, { Props } from './LinkItemWidget';
 
+import './LinkItemWidget.css';
+
 const meta: Meta = {
   title: 'Media Widget/Link',
   component: LinkItemWidget,

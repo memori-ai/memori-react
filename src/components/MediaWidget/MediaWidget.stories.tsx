@@ -6,6 +6,8 @@ import {
   TranslatedHint,
 } from '@memori.ai/memori-api-client/dist/types';
 
+import './MediaWidget.css';
+
 const meta: Meta = {
   title: 'Media Widget/Wrapper',
   component: MediaWidget,

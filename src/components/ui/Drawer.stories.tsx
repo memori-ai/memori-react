@@ -3,6 +3,8 @@ import { Meta, Story } from '@storybook/react';
 import Drawer, { Props } from './Drawer';
 import Button from './Button';
 
+import './Drawer.css';
+
 const meta: Meta = {
   title: 'UI/Drawer',
   component: Drawer,

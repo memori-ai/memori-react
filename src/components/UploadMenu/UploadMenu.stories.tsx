@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import UploadMenu, { Props } from './UploadMenu';
 
+import './UploadMenu.css';
+
 const meta: Meta = {
   title: 'Widget/Upload Menu',
   component: UploadMenu,
@@ -52,4 +54,10 @@ export const Disabled = Template.bind({});
 Disabled.args = {
   attachmentsMenuOpen: undefined,
   disabled: true,
+};
+
+export const Authenticated = Template.bind({});
+Authenticated.args = {
+  attachmentsMenuOpen: undefined,
+  authToken: 'test',
 };

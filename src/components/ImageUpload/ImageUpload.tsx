@@ -14,8 +14,6 @@ import Delete from '../icons/Delete';
 import { RenderMediaItem } from '../MediaWidget/MediaItemWidget';
 import { getResourceUrl } from '../../helpers/media';
 
-import './ImageUpload.css';
-
 const imgMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
 
 export interface Props {

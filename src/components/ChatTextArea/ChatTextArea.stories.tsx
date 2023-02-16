@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import ChatTextArea, { Props } from './ChatTextArea';
+import './ChatTextArea.css';
 
 const meta: Meta = {
   title: 'Widget/Chat textarea',

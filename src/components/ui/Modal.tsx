@@ -6,8 +6,6 @@ import Close from '../icons/Close';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 
-import './Modal.css';
-
 export interface Props {
   open?: boolean;
   onClose: (value: boolean) => void;

@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import cx from 'classnames';
-import './Checkbox.css';
 
 export interface Props extends React.HTMLAttributes<HTMLInputElement> {
   label: string;

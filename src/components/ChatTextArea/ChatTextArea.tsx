@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
-import './ChatTextArea.css';
 import Button from '../ui/Button';
 import Expand from '../icons/Expand';
 import FullscreenExit from '../icons/FullscreenExit';

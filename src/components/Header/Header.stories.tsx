@@ -3,6 +3,8 @@ import { Meta, Story } from '@storybook/react';
 import { memori, history } from '../../mocks/data';
 import Header, { Props } from './Header';
 
+import './Header.css';
+
 const meta: Meta = {
   title: 'Widget/Header',
   component: Header,

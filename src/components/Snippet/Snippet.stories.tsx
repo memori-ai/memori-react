@@ -3,6 +3,8 @@ import { Meta, Story } from '@storybook/react';
 import Snippet from './Snippet';
 import { prismSyntaxLangs } from '../../helpers/constants';
 
+import './Snippet.css';
+
 const SnippetCode = `import type { Medium } from 'types';
 import { prismSyntaxLangs } from 'helpers/constants';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';

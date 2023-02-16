@@ -33,13 +33,14 @@
     transform-origin: top left;
 }
 
-.memori-share-button--li {
+li.memori-share-button--li {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.memori-share-button--link {
+button.memori-share-button--link,
+a.memori-share-button--link {
     width: 100%;
     justify-content: flex-start;
     color: inherit;

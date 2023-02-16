@@ -2,6 +2,8 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import SendOnEnterMenu, { Props } from './SendOnEnterMenu';
 
+import './SendOnEnterMenu.css';
+
 const meta: Meta = {
   title: 'Widget/Send On Enter Menu',
   component: SendOnEnterMenu,

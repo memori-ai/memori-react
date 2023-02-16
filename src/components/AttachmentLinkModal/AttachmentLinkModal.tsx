@@ -4,8 +4,6 @@ import { RenderLinkItem } from '../MediaWidget/LinkItemWidget';
 import Button from '../ui/Button';
 import Modal from '../ui/Modal';
 
-import './AttachmentLinkModal.css';
-
 export interface Props {
   visible: boolean;
   onCancel?: () => void;

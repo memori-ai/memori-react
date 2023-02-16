@@ -2,6 +2,8 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import AttachmentLinkModal, { Props } from './AttachmentLinkModal';
 
+import './AttachmentLinkModal.css';
+
 const meta: Meta = {
   title: 'AttachmentLinkModal',
   component: AttachmentLinkModal,

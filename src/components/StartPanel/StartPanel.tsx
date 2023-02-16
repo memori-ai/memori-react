@@ -15,8 +15,6 @@ import { chatLanguages } from '../../helpers/constants';
 import BlockedMemoriBadge from '../BlockedMemoriBadge/BlockedMemoriBadge';
 import AI from '../icons/AI';
 
-import './StartPanel.css';
-
 export interface Props {
   memori: Memori;
   tenant?: Tenant;

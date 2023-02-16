@@ -3,6 +3,8 @@ import { Meta, Story } from '@storybook/react';
 import ImageUpload, { Props } from './ImageUpload';
 import memoriAPIClient from '@memori.ai/memori-api-client';
 
+import './ImageUpload.css';
+
 const client = memoriAPIClient();
 
 const meta: Meta = {

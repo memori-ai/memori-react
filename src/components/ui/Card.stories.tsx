@@ -2,6 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import Card, { Props } from './Card';
 import Button from './Button';
+import './Card.css';
 
 const meta: Meta = {
   title: 'UI/Card',

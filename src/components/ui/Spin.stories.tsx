@@ -2,6 +2,8 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import Spin, { Props } from './Spin';
 
+import './Spin.css';
+
 const meta: Meta = {
   title: 'UI/Spin',
   component: Spin,

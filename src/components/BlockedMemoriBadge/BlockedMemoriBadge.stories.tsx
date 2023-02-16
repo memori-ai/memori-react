@@ -2,6 +2,8 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import BlockedMemoriBadge, { Props } from './BlockedMemoriBadge';
 
+import './BlockedMemoriBadge.css';
+
 const meta: Meta = {
   title: 'Blocked Memori Badge',
   component: BlockedMemoriBadge,

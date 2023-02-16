@@ -12,8 +12,6 @@ import FileExcel from '../icons/FileExcel';
 import FileWord from '../icons/FileWord';
 import { Transition } from '@headlessui/react';
 
-import './MediaItemWidget.css';
-
 export interface Props {
   items: Medium[];
   sessionID?: string;

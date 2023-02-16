@@ -14,10 +14,6 @@ import Button from '../ui/Button';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
 
-import './Chat.css';
-import Tooltip from '../ui/Tooltip';
-import FeedbackButtons from '../FeedbackButtons/FeedbackButtons';
-
 export interface Props {
   memori: Memori;
   tenant?: Tenant;

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import ModelViewer, { Props } from './ModelViewer';
+import './ModelViewer.css';
 
 const meta: Meta = {
   title: 'Custom GLB Avatar',
@@ -51,8 +52,7 @@ const Template: Story<Props> = args => {
 export const Default = Template.bind({});
 Default.args = {
   alt: '',
-  src:
-    'https://assets.memori.ai/api/v2/asset/7383f05a-0788-49b0-b9b9-3bfc402c7ddf.glb#1669136149862',
+  src: 'https://assets.memori.ai/api/v2/asset/7383f05a-0788-49b0-b9b9-3bfc402c7ddf.glb#1669136149862',
   poster:
     'https://assets.memori.ai/api/v2/asset/596382ce-381a-4a66-9740-c7adc3bfa4a8.png',
 };

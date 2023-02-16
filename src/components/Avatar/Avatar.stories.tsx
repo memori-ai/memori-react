@@ -3,6 +3,8 @@ import { Meta, Story } from '@storybook/react';
 import { memori, tenant, integration } from '../../mocks/data';
 import Avatar, { Props } from './Avatar';
 
+import './Avatar.css';
+
 const meta: Meta = {
   title: 'Widget/Avatar',
   component: Avatar,

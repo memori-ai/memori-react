@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import './ModelViewer.css';
 
 export interface Props {
   src: string;

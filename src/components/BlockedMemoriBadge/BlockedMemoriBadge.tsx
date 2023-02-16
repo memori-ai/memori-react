@@ -3,8 +3,6 @@ import Tooltip from '../ui/Tooltip';
 import Warning from '../icons/Warning';
 import { useTranslation } from 'react-i18next';
 
-import './BlockedMemoriBadge.css';
-
 export interface Props {
   memoriName: string;
   blockedUntil: string;

@@ -4,6 +4,8 @@ import ExportHistoryButton from './ExportHistoryButton';
 import { memori, history } from '../../mocks/data';
 import Download from '../icons/Download';
 
+import './ExportHistoryButton.css';
+
 it('renders ExportHistoryButton unchanged', () => {
   const { container } = render(
     <ExportHistoryButton memori={memori} history={[]} />

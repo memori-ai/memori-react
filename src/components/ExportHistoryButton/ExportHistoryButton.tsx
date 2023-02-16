@@ -6,8 +6,6 @@ import Button from '../ui/Button';
 import MessageIcon from '../icons/Message';
 import cx from 'classnames';
 
-import './ExportHistoryButton.css';
-
 export interface Props {
   history: Message[];
   memori: Memori;

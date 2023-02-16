@@ -3,6 +3,8 @@ import { Meta, Story } from '@storybook/react';
 import FeedbackButtons, { Props } from './FeedbackButtons';
 import { memori } from '../../mocks/data';
 
+import './FeedbackButtons.css';
+
 const meta: Meta = {
   title: 'Feedback Buttons',
   component: FeedbackButtons,
@@ -10,6 +12,13 @@ const meta: Meta = {
   parameters: {
     controls: { expanded: true },
   },
+  decorators: [
+    Story => (
+      <div style={{ textAlign: 'right', padding: '0 3rem' }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default meta;
@@ -21,5 +30,19 @@ const Template: Story<Props> = args => <FeedbackButtons {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   memori,
+  onNegativeClick: () => {},
+};
+
+export const Toggle = Template.bind({});
+Toggle.args = {
+  memori,
+  toggle: true,
+  onNegativeClick: () => {},
+};
+
+export const Dropdown = Template.bind({});
+Dropdown.args = {
+  memori,
+  dropdown: true,
   onNegativeClick: () => {},
 };

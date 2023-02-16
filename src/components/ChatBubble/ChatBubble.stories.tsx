@@ -3,6 +3,8 @@ import { Meta, Story } from '@storybook/react';
 import { memori, tenant } from '../../mocks/data';
 import ChatBubble, { Props } from './ChatBubble';
 
+import './ChatBubble.css';
+
 const meta: Meta = {
   title: 'Widget/Chat bubble',
   component: ChatBubble,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import Checkbox, { Props } from './Checkbox';
+import './Checkbox.css';
 
 const meta: Meta = {
   title: 'UI/Checkbox',

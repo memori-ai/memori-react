@@ -11,8 +11,6 @@ import User from '../icons/User';
 import AI from '../icons/AI';
 import Tooltip from '../ui/Tooltip';
 import FeedbackButtons from '../FeedbackButtons/FeedbackButtons';
-
-import './ChatBubble.css';
 import { useTranslation } from 'react-i18next';
 
 export interface Props {

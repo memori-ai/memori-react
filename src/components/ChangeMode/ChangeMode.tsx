@@ -3,8 +3,6 @@ import { RadioGroup } from '@headlessui/react';
 import { useTranslation } from 'react-i18next';
 import Button from '../ui/Button';
 
-import './ChangeMode.css';
-
 export interface Props {
   instruct?: boolean;
   onChangeMode: (mode: 'test' | 'instruct') => void;

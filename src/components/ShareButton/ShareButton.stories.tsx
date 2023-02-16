@@ -2,6 +2,8 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import ShareButton, { Props } from './ShareButton';
 
+import './ShareButton.css';
+
 const meta: Meta = {
   title: 'Share Button',
   component: ShareButton,

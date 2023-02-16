@@ -1,6 +1,9 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 
+import './loading.css';
+import './icons.stories.css';
+
 interface Props {
   iconName: string;
 }
@@ -12,7 +15,7 @@ interface IconProps {
 
 const IconShowcaseItem = ({ iconName, ...iconProps }: Props & IconProps) => {
   const Icon = require(`./${iconName}`).default;
-  return <Icon {...iconProps} />;
+  return <Icon {...iconProps} className="showcase-icon" />;
 };
 
 const IconsShowcase = (iconProps: IconProps) => {
@@ -26,11 +29,16 @@ const IconsShowcase = (iconProps: IconProps) => {
       style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(7, 1fr)',
-        gridGap: '3rem',
+        gridGap: '2rem',
       }}
     >
       {iconNames.map(iconName => (
-        <div key={iconName}>
+        <div
+          key={iconName}
+          style={{
+            textAlign: 'center',
+          }}
+        >
           <IconShowcaseItem iconName={iconName} {...iconProps} />
           <p>{iconName}</p>
         </div>

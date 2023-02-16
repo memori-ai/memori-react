@@ -2,6 +2,8 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import MediaItemWidget, { Props } from './MediaItemWidget';
 
+import './MediaItemWidget.css';
+
 const meta: Meta = {
   title: 'Media Widget/Media',
   component: MediaItemWidget,
@@ -44,8 +46,7 @@ Default.args = {
       mediumID: '95226d7e-7bae-465e-8b80-995587bb5973',
       mimeType: 'application/pdf',
       title: 'PDF',
-      url:
-        'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
       content:
         'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
     },
@@ -67,8 +68,7 @@ Default.args = {
       mediumID: '95226d7e-7bae-465e-8b80-995587bb5976',
       mimeType: 'application/msword',
       title: 'Word',
-      url:
-        'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
       content:
         'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
     },
@@ -76,8 +76,7 @@ Default.args = {
       mediumID: '95226d7e-7bae-465e-8b80-995587bb5977',
       mimeType: 'application/vnd.ms-excel',
       title: 'Excel',
-      url:
-        'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
       content:
         'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
     },

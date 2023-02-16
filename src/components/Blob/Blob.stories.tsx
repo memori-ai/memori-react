@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import Blob, { Props } from './Blob';
+import './Blob.css';
 
 const meta: Meta = {
   title: 'Blob',

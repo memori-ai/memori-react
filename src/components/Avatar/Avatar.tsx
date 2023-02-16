@@ -17,8 +17,6 @@ import EyeInvisible from '../icons/EyeInvisible';
 import Edit from '../icons/Edit';
 import cx from 'classnames';
 
-import './Avatar.css';
-
 export interface Props {
   memori: Memori;
   integration?: Integration;

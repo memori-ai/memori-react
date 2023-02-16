@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import Tooltip, { Props } from './Tooltip';
+import './Tooltip.css';
 
 const meta: Meta = {
   title: 'UI/Tooltip',

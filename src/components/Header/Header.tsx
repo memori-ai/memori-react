@@ -14,8 +14,6 @@ import ExportHistoryButton from '../ExportHistoryButton/ExportHistoryButton';
 import Setting from '../icons/Setting';
 import ShareButton from '../ShareButton/ShareButton';
 
-import './Header.css';
-
 export interface Props {
   className?: string;
   memori: Memori;

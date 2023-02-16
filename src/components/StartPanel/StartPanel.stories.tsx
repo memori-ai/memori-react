@@ -4,6 +4,7 @@ import { memori, sessionID, integration, tenant } from '../../mocks/data';
 import StartPanel, { Props } from './StartPanel';
 
 import '../../i18n';
+import './StartPanel.css';
 
 const meta: Meta = {
   title: 'Widget/Start panel',

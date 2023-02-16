@@ -1,6 +1,5 @@
 import React from 'react';
 import cx from 'classnames';
-import './loading.css';
 
 const Loading = ({
   className,

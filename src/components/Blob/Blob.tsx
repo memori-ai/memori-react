@@ -1,5 +1,4 @@
 import React from 'react';
-import './Blob.css';
 
 export interface Props {
   avatar?: string;

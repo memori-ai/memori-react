@@ -16,8 +16,6 @@ import ruby from 'react-syntax-highlighter/dist/cjs/languages/prism/ruby';
 import sql from 'react-syntax-highlighter/dist/cjs/languages/prism/sql';
 import { useTranslation } from 'react-i18next';
 
-import './Snippet.css';
-
 export interface Props {
   medium: Medium;
   className?: string;

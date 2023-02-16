@@ -5,8 +5,6 @@ import Modal from '../ui/Modal';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Plus from '../icons/Plus';
 
-import './Auth.css';
-
 export interface Props {
   pwdOrTokens: null | 'password' | 'tokens';
   setPwdOrTokens: (state: null | 'password' | 'tokens') => void;

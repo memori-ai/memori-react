@@ -5,8 +5,6 @@ import Button from './Button';
 import Close from '../icons/Close';
 import cx from 'classnames';
 
-import './Drawer.css';
-
 export interface Props {
   open?: boolean;
   onClose: (value: boolean) => void;

@@ -9,8 +9,6 @@ import MediaItemWidget from './MediaItemWidget';
 import { Transition } from '@headlessui/react';
 import cx from 'classnames';
 
-import './MediaWidget.css';
-
 export interface Props {
   hints?: TranslatedHint[];
   links?: Medium[];

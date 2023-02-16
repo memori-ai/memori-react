@@ -11,6 +11,8 @@ import {
 } from '../../mocks/data';
 import Chat, { Props } from './Chat';
 
+import './Chat.css';
+
 const meta: Meta = {
   title: 'Widget/Chat',
   component: Chat,

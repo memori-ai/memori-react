@@ -2,6 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import Button, { Props } from './Button';
 import Eye from '../icons/Eye';
+import './Button.css';
 
 const meta: Meta = {
   title: 'UI/Button',

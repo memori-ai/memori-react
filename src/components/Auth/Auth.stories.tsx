@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import AuthWidget, { Props } from './Auth';
 
+import './Auth.css';
+
 const meta: Meta = {
   title: 'Auth Widget',
   component: AuthWidget,
