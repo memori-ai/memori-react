@@ -27,9 +27,21 @@ npm install @memori.ai/memori-react
 
 ## Usage
 
+Import the component:
+
 ```tsx
 import Memori from '@memori.ai/memori-react';
+```
 
+Import the CSS:
+
+```tsx
+import '@memori.ai/memori-react/dist/styles.css';
+```
+
+Then use it in your app:
+
+```tsx
 const App = () => (
   <Memori
     memoriName="Memori"
