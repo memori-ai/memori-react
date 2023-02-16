@@ -1,5 +1,12 @@
 
 
+## [1.0.0-rc.3](https://github.com/memori-ai/memori-react/compare/v1.0.0-rc.2...v1.0.0-rc.3) (2023-02-16)
+
+
+### Bug Fixes
+
+* encapsulate css properties in memori-widget ([03221bd](https://github.com/memori-ai/memori-react/commit/03221bd5967c6278a6d5540f4c4192f0efe5110c))
+
 ## [1.0.0-rc.2](https://github.com/memori-ai/memori-react/compare/v1.0.0-rc.1...v1.0.0-rc.2) (2023-02-16)
 
 
