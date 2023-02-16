@@ -1,5 +1,4 @@
-:root,
-#root,
+memori-client #root,
 .memori-widget {
     --memori-primary: rgb(102, 103, 171);
     --memori-primary-text: #fff;
