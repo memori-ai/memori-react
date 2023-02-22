@@ -32,8 +32,13 @@ memori-client #root,
     box-sizing: border-box;
 }
 
-.memori-widget .memori-spin {
-    height: 100%;
+.memori-widget > .memori-spin {
+    height: calc(100vh - 50px);
+}
+
+memori-client .memori-widget > .memori-spin {
+    height: calc(100vh - 64px);
+    padding-top: 64px;
 }
 
 .memori--grid {
@@ -118,12 +123,12 @@ memori-client #root,
 }
 
 .memori--global-background {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
-    height: 100svh;
+    height: auto;
+    min-height: 100vh;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

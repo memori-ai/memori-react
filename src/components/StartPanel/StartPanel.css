@@ -98,6 +98,7 @@
     height: auto;
     padding-right: 0;
     padding-left: 0;
+    color: var(--memori-primary);
     font-size: 0.85em;
 }
 
