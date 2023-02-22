@@ -1492,7 +1492,10 @@ const MemoriWidget = ({
       : integrationConfig?.showAIicon;
 
   // eslint-disable-next-line
-  const [avatar3dVisible, setAvatar3dVisible] = useState(true);
+  const [avatar3dVisible, setAvatar3dVisible] = useState(false);
+  useEffect(() => {
+    if (window.innerWidth >= 768) setAvatar3dVisible(true);
+  }, []);
 
   const [gamificationLevel, setGamificationLevel] =
     useState<GamificationLevel>();
