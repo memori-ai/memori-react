@@ -57,15 +57,15 @@ textarea.memori-chat-textarea--input:focus {
     margin: 0.25rem;
 }
 
-.memori-chat-textarea--expand-button {
+button.memori-chat-textarea--expand-button {
     padding: 0.25rem 0.5rem;
     color: #000;
     opacity: 0.6;
     transition: all 0.2s ease-in-out;
 }
 
-.memori-chat-textarea--expand-button:hover,
-.memori-chat-textarea--expand-button:focus {
+button.memori-chat-textarea--expand-button:hover,
+button.memori-chat-textarea--expand-button:focus {
     color: #000;
     opacity: 1;
 }

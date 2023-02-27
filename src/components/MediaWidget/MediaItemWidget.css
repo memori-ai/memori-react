@@ -1,5 +1,6 @@
 .memori-media-items--grid {
     display: grid;
+    padding: 1rem;
     grid-auto-flow: dense;
     grid-gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

@@ -6,6 +6,7 @@
     padding: calc(var(--memori-inner-content-pad) / 4) calc(var(--memori-inner-content-pad) / 2);
     border-radius: 10px;
     margin-left: auto;
+    backdrop-filter: blur(10px);
     background-color: var(--memori-inner-bg, #fff);
     text-align: right;
 }

@@ -23,6 +23,7 @@
     padding: var(--memori-inner-content-pad, 0);
     border-radius: 10px;
     margin-top: 2rem;
+    backdrop-filter: blur(10px);
     background-color: var(--memori-inner-bg, transparent);
     color: var(--memori-text-color, rgba(0, 0, 0, 0.85)) !important;
 }
