@@ -1,5 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`renders Blob speaking unchanged 1`] = `
+<div>
+  <div
+    class="memori-blob memori-blob--speaking"
+  >
+    <div
+      class="mainDiv"
+    />
+    <div
+      class="mainDiv"
+    />
+    <div
+      class="mainDiv"
+    />
+    <div
+      class="mainDiv"
+    />
+    <div
+      class="mainDiv"
+    />
+  </div>
+</div>
+`;
+
 exports[`renders Blob unchanged 1`] = `
 <div>
   <div
