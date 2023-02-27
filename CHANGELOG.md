@@ -1,5 +1,29 @@
 
 
+## [1.0.0-rc.4](https://github.com/memori-ai/memori-react/compare/v1.0.0-rc.3...v1.0.0-rc.4) (2023-02-27)
+
+
+### Features
+
+* blob pulse on speaking ([bd0ef1c](https://github.com/memori-ai/memori-react/commit/bd0ef1cb69e8277c07556b96b6e3167c23938ae1))
+
+
+### Bug Fixes
+
+* default styles ([66ae787](https://github.com/memori-ai/memori-react/commit/66ae787a8255d691821434a9aec239d2e8e3b7d0))
+* widget audio on ios ([eab3e16](https://github.com/memori-ai/memori-react/commit/eab3e16be90a5b2a6b783ba983c8bc1a48081e66))
+
+
+### Maintenance
+
+* add sb script + viewport for sb preview ([38a963b](https://github.com/memori-ai/memori-react/commit/38a963b207a3f1fb4f8d6db8bb741b4e4260f0ef))
+
+
+### Changes
+
+* dont show 3d avatar on mobile by default ([636dae4](https://github.com/memori-ai/memori-react/commit/636dae4356d5ccc4f1e28cd7abe78c0e221966ac))
+* minor css fixes, backdrop blur + padding ([a0138dc](https://github.com/memori-ai/memori-react/commit/a0138dc0a2a34e46fe81974c06334e3f9b52f69e))
+
 ## [1.0.0-rc.3](https://github.com/memori-ai/memori-react/compare/v1.0.0-rc.2...v1.0.0-rc.3) (2023-02-16)
 
 
