@@ -1082,22 +1082,78 @@ const MemoriWidget = ({
     );
     if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) return;
 
+    if (preview) return;
+    if (muteSpeaker) {
+      // trigger start continuous listening if set, see MemoriChat
+      if (continuousSpeech) {
+        setListeningTimeout();
+      }
+      return;
+    }
+
     if (listening) {
       stopListening();
     }
 
-    if (preview) return;
-
     if (audioDestination) audioDestination.pause();
+
+    // if (audioContext?.state === 'running') {
+    //   //   audioContext.suspend();
+    //   // }
+    //   // if (audioContext) {
+    //   audioContext.close().then(() => {
+    //     audioContext = new AudioContext();
+    //     let buffer = audioContext.createBuffer(1, 10000, 22050);
+    //     let source = audioContext.createBufferSource();
+    //     source.buffer = buffer;
+    //     source.connect(audioContext.destination);
+    //   });
+    // }
+
+    console.log('audioDestination', audioDestination);
+    console.log('audioContext', audioContext);
+    console.log('audioContext.state', audioContext.state);
+    console.log('speechSynthesizer', speechSynthesizer);
+    console.log('isPlayingAudio', isPlayingAudio);
 
     let isSafari =
       window.navigator.userAgent.includes('Safari') &&
       !window.navigator.userAgent.includes('Chrome');
     let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if ((audioContext.state as string) === 'interrupted') {
+      audioContext.resume().then(() => speak(text));
+      return;
+    }
     if (isIOS && isSafari) {
       audioContext.suspend();
+
+      if (isPlayingAudio) {
+        try {
+          if (speechSynthesizer) {
+            speechSynthesizer.close();
+            speechSynthesizer = null;
+          }
+          if (audioDestination) {
+            audioDestination.pause();
+            audioDestination.close();
+          }
+          if (audioContext) {
+            // audioContext.close().then(() => {
+            //   audioContext = new AudioContext();
+            //   let buffer = audioContext.createBuffer(1, 10000, 22050);
+            //   let source = audioContext.createBufferSource();
+            //   source.buffer = buffer;
+            //   source.connect(audioContext.destination);
+            // });
+            audioContext.destination.disconnect();
+          }
+        } catch (e) {
+          console.error('stopAudio error: ', e);
+        }
+      }
     } else if (audioContext.state === 'suspended') {
       stopAudio();
+
       audioContext = new AudioContext();
       let buffer = audioContext.createBuffer(1, 10000, 22050);
       let source = audioContext.createBufferSource();
@@ -1115,16 +1171,11 @@ const MemoriWidget = ({
       );
     }
 
-    if (muteSpeaker) {
-      // trigger start continuous listening if set, see MemoriChat
-      if (continuousSpeech) {
-        setListeningTimeout();
-      }
-      return;
-    }
-
+    const source = audioContext.createBufferSource();
     audioDestination.onAudioEnd = () => {
       setIsPlayingAudio(false);
+      source.disconnect();
+      // stopAudio();
 
       if (continuousSpeech) {
         // trigger start continuous listening if set
@@ -1136,7 +1187,6 @@ const MemoriWidget = ({
 
     speechSynthesizer.synthesisCompleted = (s, e) => {
       console.log('synthesisCompleted', s, e);
-      setIsPlayingAudio(false);
     };
     speechSynthesizer.speakSsmlAsync(
       `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
@@ -1149,8 +1199,10 @@ const MemoriWidget = ({
         if (result) {
           console.log('result', result);
           try {
+            // if (audioContext.destination.context.state === 'running') {
+            //   audioContext.destination.disconnect();
+            // }
             audioContext.decodeAudioData(result.audioData, function (buffer) {
-              const source = audioContext.createBufferSource();
               source.buffer = buffer;
               source.connect(audioContext.destination);
 
@@ -1158,6 +1210,19 @@ const MemoriWidget = ({
                 source.start(0);
               }
             });
+
+            audioContext.onstatechange = () => {
+              console.log('audioContext.onstatechange', audioContext.state);
+              if (
+                audioContext.state === 'suspended' ||
+                audioContext.state === 'closed'
+              ) {
+                source.disconnect();
+              } else if ((audioContext.state as string) === 'interrupted') {
+                audioContext.resume();
+              }
+            };
+
             audioContext.resume();
 
             if (speechSynthesizer) {
@@ -1190,16 +1255,20 @@ const MemoriWidget = ({
     setMemoriTyping(false);
   };
   const stopAudio = () => {
-    if (speechSynthesizer) {
-      speechSynthesizer.close();
-      speechSynthesizer = null;
-    }
-    if (audioContext) {
-      audioContext.close();
-    }
-    if (audioDestination) {
-      audioDestination.pause();
-      audioDestination.close();
+    try {
+      if (speechSynthesizer) {
+        speechSynthesizer.close();
+        speechSynthesizer = null;
+      }
+      if (audioContext) {
+        audioContext.close();
+      }
+      if (audioDestination) {
+        audioDestination.pause();
+        audioDestination.close();
+      }
+    } catch (e) {
+      console.error('stopAudio error: ', e);
     }
   };
 
@@ -1673,7 +1742,24 @@ const MemoriWidget = ({
         initialContextVars,
         initialQuestion,
       });
-      await onClickStart(session || undefined);
+
+      if (session?.dialogState) {
+        // reset history
+        setHistory([]);
+
+        translateDialogState(session.dialogState, userLang)
+          .then(ts => {
+            if (ts.emission) {
+              speak(ts.emission);
+            }
+          })
+          .finally(() => {
+            setHasUserActivatedSpeak(true);
+          });
+      } else {
+        await onClickStart(session || undefined);
+      }
+
       return;
     } else if (initialSessionID) {
       // check if session is valid and not expired
