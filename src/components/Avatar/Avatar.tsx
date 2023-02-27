@@ -68,6 +68,7 @@ const Avatar: React.FC<Props> = ({
                   <div className="memori--blob-container">
                     {isClient && (
                       <Blob
+                        speaking={isPlayingAudio}
                         avatar={
                           integrationConfig?.avatar === 'userAvatar' &&
                           memori.avatarURL &&

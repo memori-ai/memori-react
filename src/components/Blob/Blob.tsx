@@ -1,12 +1,14 @@
 import React from 'react';
+import cx from 'classnames';
 
 export interface Props {
   avatar?: string;
+  speaking?: boolean;
 }
 
-const ExperienceBlob = ({ avatar }: Props) => {
+const ExperienceBlob = ({ avatar, speaking = false }: Props) => {
   return (
-    <div className="memori-blob">
+    <div className={cx('memori-blob', { 'memori-blob--speaking': speaking })}>
       {avatar && (
         <figure>
           <img src={avatar} alt="" role="presentation" />

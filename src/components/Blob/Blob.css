@@ -21,6 +21,10 @@
     transform-origin: 50% 50%;
 }
 
+.memori-blob.memori-blob--speaking {
+    animation: blobspeaking 2s ease-in-out infinite;
+}
+
 @media screen and (max-height: 1280px) {
     .mainDiv {
         width: 25vw;
@@ -84,6 +88,30 @@
     }
 }
 
+@keyframes blobspeaking {
+    0% {
+        filter: brightness(1);
+        transform: scale(1);
+    }
+    15% {
+        filter: brightness(1.1);
+    }
+    30% {
+        filter: brightness(1);
+        transform: scale(0.99);
+    }
+    50% {
+        filter: brightness(1.05);
+        transform: scale(1.01);
+    }
+    75% {
+        filter: brightness(1.15);
+    }
+    100% {
+        filter: brightness(1.1);
+        transform: scale(0.99);
+    }
+}
 
 .memori-blob {
     position: relative;

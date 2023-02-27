@@ -12,6 +12,11 @@ const meta: Meta = {
         type: 'text',
       },
     },
+    speaking: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
   parameters: {
     controls: { expanded: true },
@@ -29,9 +34,17 @@ const Template: Story<Props> = args => (
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  speaking: false,
+};
 
 export const WithAvatar = Template.bind({});
 WithAvatar.args = {
   avatar: 'https://avatars.githubusercontent.com/u/21101435?v=4',
+  speaking: false,
+};
+
+export const Speaking = Template.bind({});
+Speaking.args = {
+  speaking: true,
 };
