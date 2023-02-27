@@ -57,7 +57,23 @@ WithPublicPageIntegration.args = {
       ...JSON.parse(integration.customData ?? '{}'),
       avatar: 'readyplayerme',
       avatarURL:
-        'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb' +
+        'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb#' +
+        new Date(Date.now()).getTime(),
+    }),
+  },
+};
+
+export const WithPublicPageIntegrationAndFullbodyAvatar = Template.bind({});
+WithPublicPageIntegrationAndFullbodyAvatar.args = {
+  memori,
+  tenant,
+  integration: {
+    ...integration,
+    customData: JSON.stringify({
+      ...JSON.parse(integration.customData ?? '{}'),
+      avatar: 'readyplayerme-full',
+      avatarURL:
+        'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb#' +
         new Date(Date.now()).getTime(),
     }),
   },

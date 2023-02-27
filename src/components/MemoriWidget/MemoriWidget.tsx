@@ -1242,7 +1242,6 @@ const MemoriWidget = ({
       }
     );
 
-    setIsPlayingAudio(false);
     setMemoriTyping(false);
   };
   const stopAudio = () => {
@@ -1985,6 +1984,7 @@ const MemoriWidget = ({
       position={position}
       setShowPositionDrawer={setShowPositionDrawer}
       setShowSettingsDrawer={setShowSettingsDrawer}
+      showSpeaker={!!AZURE_COGNITIVE_SERVICES_TTS_KEY}
       speakerMuted={muteSpeaker}
       setSpeakerMuted={mute => {
         setMuteSpeaker(mute);
@@ -2014,6 +2014,7 @@ const MemoriWidget = ({
       setAvatar3dVisible={setAvatar3dVisible}
       hasUserActivatedSpeak={hasUserActivatedSpeak}
       isPlayingAudio={isPlayingAudio}
+      loading={memoriTyping}
       baseUrl={baseUrl}
       apiUrl={apiUrl}
     />

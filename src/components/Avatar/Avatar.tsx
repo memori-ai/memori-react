@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useMemo, useState } from 'react';
 import {
   Integration,
   Memori,
@@ -6,7 +6,7 @@ import {
 } from '@memori.ai/memori-api-client/dist/types';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import Tooltip from '../ui/Tooltip';
-import AvatarView from '../AvatarView';
+import AvatarView, { Props as AvatarViewProps } from '../AvatarView';
 import { getResourceUrl } from '../../helpers/media';
 import Blob from '../Blob/Blob';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
@@ -27,6 +27,7 @@ export interface Props {
   avatar3dVisible?: boolean;
   setAvatar3dVisible: (visible: boolean) => void;
   isPlayingAudio?: boolean;
+  loading?: boolean;
   baseUrl?: string;
   apiUrl?: string;
 }
@@ -41,6 +42,7 @@ const Avatar: React.FC<Props> = ({
   setAvatar3dVisible,
   hasUserActivatedSpeak = false,
   isPlayingAudio = false,
+  loading = false,
   baseUrl,
   apiUrl,
 }) => {
@@ -51,9 +53,24 @@ const Avatar: React.FC<Props> = ({
     setIsClient(true);
   }, []);
 
+  const animation = useMemo(
+    () =>
+      isPlayingAudio
+        ? (['Talk 1', 'Talk 2', 'Talk 3'][
+            Math.round(Math.random() * 2)
+          ] as AvatarViewProps['animation'])
+        : loading
+        ? 'Loading'
+        : (['Idle', 'Idle 1', 'Idle 2', 'Idle 3'][
+            Math.round(Math.random() * 3)
+          ] as AvatarViewProps['animation']),
+    [isPlayingAudio, loading]
+  );
+
   return (
     <>
       {(integrationConfig?.avatar === 'readyplayerme' ||
+        integrationConfig?.avatar === 'readyplayerme-full' ||
         integrationConfig?.avatar === 'customglb') &&
       integrationConfig?.avatarURL ? (
         <>
@@ -62,53 +79,65 @@ const Avatar: React.FC<Props> = ({
               hidden: !avatar3dVisible,
             })}
           >
-            {isClient && integrationConfig.avatar === 'readyplayerme' && (
-              <ErrorBoundary
-                fallback={
-                  <div className="memori--blob-container">
-                    {isClient && (
-                      <Blob
-                        speaking={isPlayingAudio}
-                        avatar={
-                          integrationConfig?.avatar === 'userAvatar' &&
-                          memori.avatarURL &&
-                          memori.avatarURL.length > 0
-                            ? getResourceUrl({
-                                type: 'avatar',
-                                tenantID: tenant?.id,
-                                resourceURI: memori.avatarURL,
-                                baseURL: baseUrl,
-                                apiURL: apiUrl,
-                              })
-                            : undefined
-                        }
-                      />
-                    )}
-                  </div>
-                }
-              >
-                <AvatarView
-                  url={integrationConfig.avatarURL}
-                  fallbackImg={getResourceUrl({
-                    type: 'avatar',
-                    tenantID: tenant?.id,
-                    resourceURI: memori.avatarURL,
-                    baseURL: baseUrl,
-                    apiURL: apiUrl,
-                  })}
-                  headMovement
-                  eyeBlink
-                  speaking={isPlayingAudio}
-                  style={{
-                    width: '300px',
-                    height: '300px',
-                    backgroundColor: 'none',
-                    borderRadius: '100%',
-                    boxShadow: 'none',
-                  }}
-                />
-              </ErrorBoundary>
-            )}
+            {isClient &&
+              (integrationConfig.avatar === 'readyplayerme' ||
+                integrationConfig.avatar === 'readyplayerme-full') && (
+                <ErrorBoundary
+                  fallback={
+                    <div className="memori--blob-container">
+                      {isClient && (
+                        <Blob
+                          speaking={isPlayingAudio}
+                          avatar={
+                            integrationConfig?.avatar === 'userAvatar' &&
+                            memori.avatarURL &&
+                            memori.avatarURL.length > 0
+                              ? getResourceUrl({
+                                  type: 'avatar',
+                                  tenantID: tenant?.id,
+                                  resourceURI: memori.avatarURL,
+                                  baseURL: baseUrl,
+                                  apiURL: apiUrl,
+                                })
+                              : undefined
+                          }
+                        />
+                      )}
+                    </div>
+                  }
+                >
+                  <AvatarView
+                    url={integrationConfig.avatarURL}
+                    fallbackImg={getResourceUrl({
+                      type: 'avatar',
+                      tenantID: tenant?.id,
+                      resourceURI: memori.avatarURL,
+                      baseURL: baseUrl,
+                      apiURL: apiUrl,
+                    })}
+                    headMovement
+                    eyeBlink
+                    halfBody={integrationConfig.avatar === 'readyplayerme'}
+                    animation={animation}
+                    speaking={isPlayingAudio}
+                    style={
+                      integrationConfig.avatar === 'readyplayerme'
+                        ? {
+                            width: '300px',
+                            height: '300px',
+                            backgroundColor: 'none',
+                            borderRadius: '100%',
+                            boxShadow: 'none',
+                          }
+                        : {
+                            width: '600px',
+                            height: '600px',
+                            backgroundColor: 'none',
+                          }
+                    }
+                  />
+                </ErrorBoundary>
+              )}
             {isClient && integrationConfig.avatar === 'customglb' && (
               <ModelViewer
                 poster={getResourceUrl({
@@ -180,4 +209,6 @@ const Avatar: React.FC<Props> = ({
   );
 };
 
-export default Avatar;
+export default memo(Avatar, (prevProps, nextProps) => {
+  return JSON.stringify(prevProps) === JSON.stringify(nextProps);
+});

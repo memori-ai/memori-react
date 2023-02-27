@@ -40,9 +40,7 @@ export default function Avatar({
     return () => {
       Object.values(materials).forEach(dispose);
 
-      Object.values(nodes)
-        .filter(isSkinnedMesh)
-        .forEach(dispose);
+      Object.values(nodes).filter(isSkinnedMesh).forEach(dispose);
     };
   }, [materials, nodes, url, onLoaded]);
 

@@ -1,6 +1,7 @@
 import { CSSProperties } from 'react';
 import React, { Suspense } from 'react';
 import Avatar from './components/avatar';
+import FullbodyAvatar, { AvatarProps } from './components/fullbodyAvatar';
 import Loader from './components/loader';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, SpotLight, Environment } from '@react-three/drei';
@@ -15,13 +16,21 @@ export interface Props {
   speaking?: boolean;
   style?: CSSProperties;
   fallback?: React.ReactNode;
+  halfBody?: boolean;
+  animation?: AvatarProps['animation'];
 }
 
-const defaultStyle = {
+const defaultStylesHalfBody = {
   width: '250px',
   height: '250px',
   backgroundColor: 'white',
   borderRadius: '100%',
+};
+
+const defaultStylesFullBody = {
+  width: '500px',
+  height: '500px',
+  backgroundColor: 'white',
 };
 
 export default function AvatarView({
@@ -33,11 +42,23 @@ export default function AvatarView({
   headMovement,
   speaking,
   fallback,
+  halfBody = true,
+  animation,
 }: Props) {
+  const defaultStyles = halfBody
+    ? defaultStylesHalfBody
+    : defaultStylesFullBody;
   return (
     <Canvas
-      style={style || defaultStyle}
-      camera={{ fov: 40, position: [0, 0, 0.6] }}
+      style={style || defaultStyles}
+      camera={
+        halfBody
+          ? {
+              fov: 40,
+              position: [0, 0, 0.6],
+            }
+          : { fov: 40, position: [0, 0, 3] }
+      }
     >
       <Suspense fallback={fallback || <Loader fallbackImg={fallbackImg} />}>
         {isAndroid() ? (
@@ -51,13 +72,25 @@ export default function AvatarView({
         ) : (
           <Environment preset="sunset" />
         )}
-        {rotateAvatar && <OrbitControls enablePan={false} enableZoom={false} />}
-        <Avatar
-          url={url}
-          eyeBlink={eyeBlink}
-          headMovement={headMovement}
-          speaking={speaking}
-        />
+        {rotateAvatar && halfBody && (
+          <OrbitControls enablePan={false} enableZoom={false} />
+        )}
+        {halfBody ? (
+          <Avatar
+            url={url}
+            eyeBlink={eyeBlink}
+            headMovement={headMovement}
+            speaking={speaking}
+          />
+        ) : (
+          <FullbodyAvatar
+            url={url}
+            eyeBlink={eyeBlink}
+            headMovement={headMovement}
+            speaking={speaking}
+            animation={animation}
+          />
+        )}
       </Suspense>
     </Canvas>
   );

@@ -31,6 +31,27 @@ const meta: Meta = {
         type: 'boolean',
       },
     },
+    halfBody: {
+      control: {
+        type: 'boolean',
+      },
+    },
+    animation: {
+      control: {
+        type: 'select',
+        options: [
+          'Idle',
+          'Idle 1',
+          'Idle 2',
+          'Idle 3',
+          'Loading',
+          'Sad',
+          'Talk 1',
+          'Talk 2',
+          'Talk 3',
+        ],
+      },
+    },
   },
   parameters: {
     controls: { expanded: true },
@@ -64,8 +85,7 @@ Default.args = {
   headMovement: false,
   rotateAvatar: false,
   speaking: false,
-  url:
-    'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
+  url: 'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/d8035229-08cf-42a7-a532-ab051df2603d.png',
 };
@@ -76,8 +96,7 @@ EyeBlink.args = {
   headMovement: false,
   rotateAvatar: false,
   speaking: false,
-  url:
-    'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
+  url: 'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/d8035229-08cf-42a7-a532-ab051df2603d.png',
 };
@@ -88,8 +107,7 @@ HeadMovement.args = {
   headMovement: true,
   rotateAvatar: false,
   speaking: false,
-  url:
-    'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
+  url: 'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/d8035229-08cf-42a7-a532-ab051df2603d.png',
 };
@@ -100,8 +118,7 @@ RotateAvatar.args = {
   headMovement: false,
   rotateAvatar: true,
   speaking: false,
-  url:
-    'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
+  url: 'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/d8035229-08cf-42a7-a532-ab051df2603d.png',
 };
@@ -112,8 +129,58 @@ Speaking.args = {
   headMovement: false,
   rotateAvatar: false,
   speaking: true,
-  url:
-    'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
+  url: 'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/d8035229-08cf-42a7-a532-ab051df2603d.png',
+};
+
+export const Fullbody = Template.bind({});
+Fullbody.args = {
+  eyeBlink: true,
+  headMovement: true,
+  rotateAvatar: true,
+  speaking: false,
+  url: 'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb',
+  fallbackImg:
+    'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
+  halfBody: false,
+};
+
+export const FullbodyAnimatedIdle = Template.bind({});
+FullbodyAnimatedIdle.args = {
+  eyeBlink: true,
+  headMovement: true,
+  rotateAvatar: true,
+  speaking: false,
+  url: 'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb',
+  fallbackImg:
+    'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
+  animation: 'Idle',
+  halfBody: false,
+};
+
+export const FullbodyAnimatedLoading = Template.bind({});
+FullbodyAnimatedLoading.args = {
+  eyeBlink: true,
+  headMovement: true,
+  rotateAvatar: true,
+  speaking: false,
+  url: 'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb',
+  fallbackImg:
+    'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
+  animation: 'Loading',
+  halfBody: false,
+};
+
+export const FullbodyAnimatedSpeaking = Template.bind({});
+FullbodyAnimatedSpeaking.args = {
+  eyeBlink: true,
+  headMovement: true,
+  rotateAvatar: true,
+  speaking: true,
+  url: 'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb',
+  fallbackImg:
+    'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
+  animation: 'Talk 1',
+  halfBody: false,
 };

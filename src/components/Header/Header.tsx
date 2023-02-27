@@ -26,6 +26,7 @@ export interface Props {
   hasUserActivatedSpeak?: boolean;
   showShare?: boolean;
   showSettings?: boolean;
+  showSpeaker?: boolean;
 }
 
 const Header: React.FC<Props> = ({
@@ -40,6 +41,7 @@ const Header: React.FC<Props> = ({
   hasUserActivatedSpeak = false,
   showShare = true,
   showSettings = true,
+  showSpeaker = true,
 }) => {
   const { t } = useTranslation();
 
@@ -58,14 +60,16 @@ const Header: React.FC<Props> = ({
           />
         </div>
       )}
-      <Button
-        primary
-        shape="circle"
-        className="memori-header--button"
-        icon={speakerMuted ? <SoundDeactivated /> : <Sound />}
-        onClick={() => setSpeakerMuted(!speakerMuted)}
-        title={t('widget.sound') || 'Sound'}
-      />
+      {showSpeaker && (
+        <Button
+          primary
+          shape="circle"
+          className="memori-header--button"
+          icon={speakerMuted ? <SoundDeactivated /> : <Sound />}
+          onClick={() => setSpeakerMuted(!speakerMuted)}
+          title={t('widget.sound') || 'Sound'}
+        />
+      )}
       <ExportHistoryButton
         history={history}
         memori={memori}
