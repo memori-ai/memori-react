@@ -5,6 +5,13 @@ import Memori, { Props } from './index';
 const meta: Meta = {
   title: 'Default',
   component: Memori,
+  argTypes: {
+    AZURE_COGNITIVE_SERVICES_TTS_KEY: {
+      control: {
+        type: 'text',
+      },
+    },
+  },
   parameters: {
     controls: { expanded: true },
     layout: 'fullscreen',
