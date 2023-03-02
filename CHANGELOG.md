@@ -1,5 +1,12 @@
 
 
+## [1.0.0-rc.5](https://github.com/memori-ai/memori-react/compare/v1.0.0-rc.4...v1.0.0-rc.5) (2023-03-02)
+
+
+### Bug Fixes
+
+* import fonts from cdn for webcomponent compatibility ([16b15df](https://github.com/memori-ai/memori-react/commit/16b15df781dc77b62a546407a19b58ea05ebeffe))
+
 ## [1.0.0-rc.4](https://github.com/memori-ai/memori-react/compare/v1.0.0-rc.3...v1.0.0-rc.4) (2023-02-27)
 
 
