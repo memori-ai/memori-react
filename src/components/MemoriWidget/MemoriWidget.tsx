@@ -1075,11 +1075,6 @@ const MemoriWidget = ({
   };
 
   const speak = (text: string): void => {
-    console.log(
-      AZURE_COGNITIVE_SERVICES_TTS_KEY,
-      hasUserActivatedSpeak,
-      preview
-    );
     if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) return;
 
     if (preview) return;
@@ -1109,12 +1104,6 @@ const MemoriWidget = ({
     //     source.connect(audioContext.destination);
     //   });
     // }
-
-    console.log('audioDestination', audioDestination);
-    console.log('audioContext', audioContext);
-    console.log('audioContext.state', audioContext.state);
-    console.log('speechSynthesizer', speechSynthesizer);
-    console.log('isPlayingAudio', isPlayingAudio);
 
     let isSafari =
       window.navigator.userAgent.includes('Safari') &&
@@ -1185,9 +1174,6 @@ const MemoriWidget = ({
 
     setIsPlayingAudio(true);
 
-    speechSynthesizer.synthesisCompleted = (s, e) => {
-      console.log('synthesisCompleted', s, e);
-    };
     speechSynthesizer.speakSsmlAsync(
       `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
         userLang
@@ -1197,7 +1183,6 @@ const MemoriWidget = ({
       )}</s></voice></speak>`,
       result => {
         if (result) {
-          console.log('result', result);
           try {
             // if (audioContext.destination.context.state === 'running') {
             //   audioContext.destination.disconnect();
@@ -1212,7 +1197,6 @@ const MemoriWidget = ({
             });
 
             audioContext.onstatechange = () => {
-              console.log('audioContext.onstatechange', audioContext.state);
               if (
                 audioContext.state === 'suspended' ||
                 audioContext.state === 'closed'
@@ -1329,7 +1313,6 @@ const MemoriWidget = ({
    * Listening methods
    */
   const startListening = () => {
-    console.log('start listening');
     if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) return;
 
     clearListening();
@@ -1339,7 +1322,6 @@ const MemoriWidget = ({
       navigator.mediaDevices
         .getUserMedia({ audio: true })
         .then(function (_stream) {
-          console.log('is listening');
           setHasUserActivatedListening(true);
 
           if (!speechConfig) {
@@ -1964,7 +1946,6 @@ const MemoriWidget = ({
           mutation.type === 'attributes' &&
           mutation.attributeName?.toLowerCase() === 'authtoken'
         ) {
-          console.log('FUCK', mutation);
           if (mutation.target.nodeName === 'MEMORI-CLIENT') {
             setLoginToken(
               // @ts-ignore

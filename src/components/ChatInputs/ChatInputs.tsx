@@ -105,8 +105,7 @@ const ChatInputs: React.FC<Props> = ({
               : t('write_and_speak.micButtonPopover') || 'Start listening'
           }
           disabled={isPlayingAudio}
-          onClick={e => {
-            console.log('mic button', listening, e);
+          onClick={() => {
             if (listening) {
               stopListening();
             } else {

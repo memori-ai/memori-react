@@ -85,7 +85,6 @@ const ShareButton: React.FC<Props> = ({
     const canvas: HTMLCanvasElement | null = document.getElementById(
       'qr-canvas'
     ) as HTMLCanvasElement | null;
-    console.log();
     if (!canvas) return;
     const link = document.createElement('a');
     link.href = canvas.toDataURL();
