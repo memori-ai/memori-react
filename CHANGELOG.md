@@ -1,5 +1,7 @@
 
 
+## [1.0.0](https://github.com/memori-ai/memori-react/compare/v1.0.0-rc.6...v1.0.0) (2023-03-02)
+
 ## [1.0.0-rc.6](https://github.com/memori-ai/memori-react/compare/v1.0.0-rc.5...v1.0.0-rc.6) (2023-03-02)
 
 
