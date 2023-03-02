@@ -1,5 +1,12 @@
 
 
+## [1.0.0-rc.6](https://github.com/memori-ai/memori-react/compare/v1.0.0-rc.5...v1.0.0-rc.6) (2023-03-02)
+
+
+### Bug Fixes
+
+* webcomponent styles ([3a708f7](https://github.com/memori-ai/memori-react/commit/3a708f734063a3fe210b8de179fdd1a815cbdc85))
+
 ## [1.0.0-rc.5](https://github.com/memori-ai/memori-react/compare/v1.0.0-rc.4...v1.0.0-rc.5) (2023-03-02)
 
 
