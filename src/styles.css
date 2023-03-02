@@ -32,6 +32,4 @@
 @import url('./components/StartPanel/StartPanel.css');
 @import url('./components/UploadMenu/UploadMenu.css');
 
-@import url('~@fontsource/exo-2/200.css');
-@import url('~@fontsource/exo-2/400.css');
-@import url('~@fontsource/exo-2/700.css');
+@import url('https://fonts.bunny.net/css?family=exo-2:200,400,700');
