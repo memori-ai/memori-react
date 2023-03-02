@@ -36,11 +36,6 @@ memori-client #root,
     height: calc(100vh - 50px);
 }
 
-memori-client .memori-widget > .memori-spin {
-    height: calc(100vh - 64px);
-    padding-top: 64px;
-}
-
 .memori--grid {
     display: flex;
     height: calc(100% - 50px);
