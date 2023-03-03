@@ -46,7 +46,6 @@ const ChatInputs: React.FC<Props> = ({
   onTextareaPressEnter,
   showMicrophone = false,
   listening = false,
-  isPlayingAudio = false,
   stopAudio,
   startListening,
   stopListening,
@@ -104,7 +103,6 @@ const ChatInputs: React.FC<Props> = ({
               ? t('write_and_speak.micButtonPopoverListening') || 'Listening'
               : t('write_and_speak.micButtonPopover') || 'Start listening'
           }
-          disabled={isPlayingAudio}
           onClick={() => {
             if (listening) {
               stopListening();
