@@ -1,5 +1,13 @@
 
 
+## [1.0.2](https://github.com/memori-ai/memori-react/compare/v1.0.1...v1.0.2) (2023-03-03)
+
+
+### Bug Fixes
+
+* dont disable mic btn while speaking ([4baba70](https://github.com/memori-ai/memori-react/commit/4baba70131a2c5ea4e672660a79242714fa31d84))
+* reopen audio context if closed before audio termination ([dec1f12](https://github.com/memori-ai/memori-react/commit/dec1f12f9439dcdf3e4859b4870b2e7adcf1e8d5))
+
 ## [1.0.1](https://github.com/memori-ai/memori-react/compare/v1.0.0...v1.0.1) (2023-03-02)
 
 
