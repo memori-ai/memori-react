@@ -1140,6 +1140,13 @@ const MemoriWidget = ({
           console.error('stopAudio error: ', e);
         }
       }
+    }
+    if (audioContext.state === 'closed') {
+      audioContext = new AudioContext();
+      let buffer = audioContext.createBuffer(1, 10000, 22050);
+      let source = audioContext.createBufferSource();
+      source.buffer = buffer;
+      source.connect(audioContext.destination);
     } else if (audioContext.state === 'suspended') {
       stopAudio();
 
@@ -1239,6 +1246,7 @@ const MemoriWidget = ({
     setMemoriTyping(false);
   };
   const stopAudio = () => {
+    setIsPlayingAudio(false);
     try {
       if (speechSynthesizer) {
         speechSynthesizer.close();
