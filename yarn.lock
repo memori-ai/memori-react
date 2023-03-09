@@ -1941,10 +1941,10 @@
   resolved "https://registry.yarnpkg.com/@mdx-js/util/-/util-1.6.22.tgz#219dfd89ae5b97a8801f015323ffa4b62f45718b"
   integrity sha512-H1rQc1ZOHANWBvPcW+JpGwr+juXSxM8Q8YCkm3GhZd8REu1fHR3z99CErO1p9pkcfcxZnMdIZdIsXkOHY0NilA==
 
-"@memori.ai/memori-api-client@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@memori.ai/memori-api-client/-/memori-api-client-1.1.0.tgz#a0b97240edddbc969adb4eac4e5494d988c5bbff"
-  integrity sha512-KbkGZjJgHqGDmNnEtUWSTw6ddiMJVr1ltOwqb45niivH6BfOSXXywbvN1xhwZjUArSepM5bMQYF3ISTokj9V+w==
+"@memori.ai/memori-api-client@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@memori.ai/memori-api-client/-/memori-api-client-1.2.0.tgz#80566aff5712914e1ccb7a379f978e451b79ba78"
+  integrity sha512-rF5AXkbq00rFJia4v276+C2uFMb6G8MuoJefYrpRSSCeee/I7AyaVsMiF2n9EFAGYWj3bmJ5w9YzxMUgPCS47w==
   dependencies:
     cross-fetch "^3.1.5"
 
