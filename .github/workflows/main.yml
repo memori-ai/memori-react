@@ -19,8 +19,15 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
+      - name: Use Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'yarn'
+          cache-dependency-path: 'frontend/yarn.lock'
+
       - name: ⚒ Install deps
-        run: yarn install --frozen-lockfile
+        run: corepack enable && yarn install --immutable
 
       - name: 🔎 Lint
         run: yarn lint
