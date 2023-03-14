@@ -31,6 +31,7 @@
   "engines": {
     "node": ">=16"
   },
+  "packageManager": "yarn@3.2.3",
   "storybook": {
     "url": "https://memori-ai.github.io/memori-react/"
   },
