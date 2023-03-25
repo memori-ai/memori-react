@@ -1,5 +1,25 @@
 
 
+## [1.1.0](https://github.com/memori-ai/memori-react/compare/v1.0.2...v1.1.0) (2023-03-25)
+
+
+### Features
+
+* add animations + fullbody avatar ([6e2d83a](https://github.com/memori-ai/memori-react/commit/6e2d83a777dc5ac4c5c2fb278d409e9ddc4266cb))
+
+
+### Bug Fixes
+
+* keep hints on G1 on timeout ([4c62ecd](https://github.com/memori-ai/memori-react/commit/4c62ecd6a241055124d8e8fcb392c324430fb41d))
+* transform media url with session id ([2a30ef2](https://github.com/memori-ai/memori-react/commit/2a30ef2fea7ae54c9437ca770fcbf6d2f79354b0))
+
+
+### Maintenance
+
+* migrate to yarn@3 ([d9e92a3](https://github.com/memori-ai/memori-react/commit/d9e92a3668daf041f16a61777f6ecff24fd76233))
+* update api client ([828e184](https://github.com/memori-ai/memori-react/commit/828e1849dfc0ab37aae1f126eb4948ed00aaf755))
+* upgrade api client, refactor linter ([88d233b](https://github.com/memori-ai/memori-react/commit/88d233b1645e660163f8c8811427287cf0ba988e))
+
 ## [1.0.2](https://github.com/memori-ai/memori-react/compare/v1.0.1...v1.0.2) (2023-03-03)
 
 
