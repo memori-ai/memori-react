@@ -109,8 +109,20 @@
       "ecmaVersion": "latest",
       "sourceType": "module"
     },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    },
+    "globals": {
+      "JSX": "readonly",
+      "NodeJS": "readonly",
+      "MutationCallback": "readonly"
+    },
     "extends": [
+      "eslint:recommended",
       "plugin:react/recommended",
+      "plugin:react/jsx-runtime",
       "plugin:storybook/recommended",
       "prettier"
     ],
@@ -126,6 +138,8 @@
       "endOfLine": "off",
       "react/no-unknown-property": "off",
       "react/require-default-props": "off",
+      "no-unused-vars": "off",
+      "no-extra-boolean-cast": "off",
       "no-console": "off",
       "no-shadow": "off"
     }
@@ -265,7 +279,7 @@
   "dependencies": {
     "@fontsource/exo-2": "^4.5.10",
     "@headlessui/react": "1.7.4",
-    "@memori.ai/memori-api-client": "^1.2.0",
+    "@memori.ai/memori-api-client": "^2.0.0",
     "@react-three/drei": "8.20.2",
     "@react-three/fiber": "7.0.25",
     "antd": "4.18.9",

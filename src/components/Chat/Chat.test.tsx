@@ -20,7 +20,7 @@ const dialogState = {
 
 const DateTimeFormat = Intl.DateTimeFormat;
 beforeEach(() => {
-  jest.spyOn(global.Intl, 'DateTimeFormat').mockImplementation(
+  jest.spyOn(Intl, 'DateTimeFormat').mockImplementation(
     (locale, options) =>
       new DateTimeFormat(locale, {
         ...options,
