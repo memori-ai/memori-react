@@ -517,6 +517,9 @@ const MemoriWidget = ({
         translatedState = {
           ...state,
           emission: t.text,
+          hints:
+            state.hints ??
+            (state.state === 'G1' ? currentDialogState?.hints : []),
         };
       }
 
@@ -823,7 +826,12 @@ const MemoriWidget = ({
             generatedByAI: !!currentState.completion,
           });
           speak(emission);
-          setCurrentDialogState(currentState);
+          setCurrentDialogState({
+            ...currentState,
+            hints:
+              currentState.hints ??
+              (currentState.state === 'G1' ? currentDialogState?.hints : []),
+          });
         }
       }
     }
