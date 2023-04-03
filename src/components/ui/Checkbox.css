@@ -1,8 +1,4 @@
-:root,
-#root {
-    --memori-primary: rgb(102, 103, 171);
-    --memori-primary-text: #fff;
-}
+
 
 .memori-checkbox {
     display: inline-flex;

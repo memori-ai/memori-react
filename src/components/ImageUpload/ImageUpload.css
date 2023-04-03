@@ -37,13 +37,13 @@ legend.helper p {
 
 .memori--upload .ant-upload.ant-upload-select-picture-card:hover,
 .memori--upload .ant-upload.ant-upload-select-picture-card:focus {
-    border-color: var(--ant-primary-color);
+    border-color: var(--memori-primary);
     opacity: 1;
 }
 
 .memori--upload .ant-upload.ant-upload-select-picture-card:hover .ant-upload,
 .memori--upload .ant-upload.ant-upload-select-picture-card:focus .ant-upload {
-    color: var(--ant-primary-color);
+    color: var(--memori-primary);
 }
 
 .memori--upload .ant-upload-list {

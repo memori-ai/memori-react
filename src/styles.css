@@ -31,5 +31,33 @@
 @import url('./components/Snippet/Snippet.css');
 @import url('./components/StartPanel/StartPanel.css');
 @import url('./components/UploadMenu/UploadMenu.css');
+@import url('./components/PoweredBy/PoweredBy.css');
 
 @import url('https://fonts.bunny.net/css?family=exo-2:200,400,700');
+
+memori-client,
+memori-client #root,
+body.sb-show-main #root,
+.memori-widget {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 16px;
+
+    --memori-primary: rgb(102, 103, 171);
+    --memori-primary-text: #fff;
+    --memori-inner-content-pad: 1rem;
+    --memori-inner-bg: transparent;
+    --memori-chat-bubble-bg: #ffffff60;
+    --memori-text-color: #000;
+    --memori-button-bg: #fff;
+    --memori-button-text: #000;
+    --memori-button-padding: 0.5rem 1.5rem;
+    --memori-button-border-color: #d9d9d9;
+    --memori-button-radius: 5px;
+    --memori-button-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+    --memori-blur-background: 0;
+    --memori-drawer--width: 100%;
+    --memori-drawer--width--md: 80%;
+    --memori-drawer--width--lg: 60%;
+    --memori-modal--width: 100%;
+    --memori-modal--width--md: 80%;
+}

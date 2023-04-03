@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders PoweredBy unchanged 1`] = `
+<div>
+  <div
+    class="memori--powered-by"
+  >
+    <img
+      alt=""
+      src="https://app.twincreator.com/images/twincreator/logo.png"
+    />
+    <p>
+      Powered by
+       
+      <a
+        href="https://app.twincreator.com/en"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        TwinCreator
+      </a>
+    </p>
+  </div>
+</div>
+`;

@@ -49,6 +49,7 @@ import ChangeMode from '../ChangeMode/ChangeMode';
 import Header from '../Header/Header';
 import AttachmentMediaModal from '../AttachmentMediaModal/AttachmentMediaModal';
 import AttachmentLinkModal from '../AttachmentLinkModal/AttachmentLinkModal';
+import PoweredBy from '../PoweredBy/PoweredBy';
 
 // Layout
 import DefaultLayout from '../layouts/Default';
@@ -2131,6 +2132,8 @@ const MemoriWidget = ({
     />
   );
 
+  const poweredBy = <PoweredBy tenant={tenant} userLang={userLang} />;
+
   return (
     <div
       className={cx('memori', 'memori-widget', {
@@ -2158,6 +2161,7 @@ const MemoriWidget = ({
         integrationStyle={integrationStyle}
         integrationBackground={integrationBackground}
         changeMode={changeMode}
+        poweredBy={poweredBy}
         sessionId={sessionId}
         hasUserActivatedSpeak={hasUserActivatedSpeak}
         showInstruct={showInstruct}

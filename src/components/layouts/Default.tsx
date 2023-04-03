@@ -9,6 +9,7 @@ export interface Props {
   integrationStyle?: JSX.Element | null;
   integrationBackground?: JSX.Element | null;
   changeMode?: JSX.Element | null;
+  poweredBy?: JSX.Element | null;
   sessionId?: string;
   hasUserActivatedSpeak?: boolean;
   showInstruct?: boolean;
@@ -27,6 +28,7 @@ const Default: React.FC<Props> = ({
   hasUserActivatedSpeak,
   showInstruct = false,
   loading = false,
+  poweredBy,
 }) => (
   <>
     {integrationStyle}
@@ -44,6 +46,8 @@ const Default: React.FC<Props> = ({
         <div className="memori--grid-column memori--grid-column-right">
           {sessionId && hasUserActivatedSpeak ? chat : startPanel}
         </div>
+
+        {poweredBy}
       </div>
     </Spin>
   </>

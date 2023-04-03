@@ -3,14 +3,14 @@
     align-items: center;
     padding: 10px 30px;
     border-radius: 5px;
-    background-color: var(--ant-primary-color);
-    color: var(--ant-primary-text);
+    background-color: var(--memori-primary);
+    color: var(--memori-primary-text);
     transition: all 0.5s ease;
 }
 
 .actionButton:hover {
-    border-color: var(--ant-primary-color) !important;
-    background-color: var(--ant-primary-color);
+    border-color: var(--memori-primary) !important;
+    background-color: var(--memori-primary);
     color: var(--light-gray) !important;
     filter: brightness(1.08);
 }
