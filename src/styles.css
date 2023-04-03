@@ -54,7 +54,7 @@ body.sb-show-main #root,
     --memori-button-border-color: #d9d9d9;
     --memori-button-radius: 5px;
     --memori-button-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
-    --memori-blur-background: 0;
+    --memori-blur-background: 0px;
     --memori-drawer--width: 100%;
     --memori-drawer--width--md: 80%;
     --memori-drawer--width--lg: 60%;

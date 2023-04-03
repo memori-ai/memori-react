@@ -48,7 +48,7 @@ const IconsShowcase = (iconProps: IconProps) => {
 };
 
 const meta: Meta = {
-  title: 'Icons',
+  title: 'Definitions/Icons',
   component: IconsShowcase,
   argTypes: {
     children: {
