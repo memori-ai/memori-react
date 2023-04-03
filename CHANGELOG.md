@@ -1,5 +1,12 @@
 
 
+## [1.2.0](https://github.com/memori-ai/memori-react/compare/v1.1.0...v1.2.0) (2023-04-03)
+
+
+### Features
+
+* refactor styles, add powered by ([3605c04](https://github.com/memori-ai/memori-react/commit/3605c04ca9c7cd7a6421095411204e5561f73dc2))
+
 ## [1.1.0](https://github.com/memori-ai/memori-react/compare/v1.0.2...v1.1.0) (2023-03-25)
 
 
