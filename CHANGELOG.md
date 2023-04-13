@@ -1,5 +1,12 @@
 
 
+## [1.2.1](https://github.com/memori-ai/memori-react/compare/v1.2.0...v1.2.1) (2023-04-13)
+
+
+### Maintenance
+
+* setup ts as peer dep ([b2f285e](https://github.com/memori-ai/memori-react/commit/b2f285eba9ee78a130cd12b553949aa84c8863c3))
+
 ## [1.2.0](https://github.com/memori-ai/memori-react/compare/v1.1.0...v1.2.0) (2023-04-03)
 
 
