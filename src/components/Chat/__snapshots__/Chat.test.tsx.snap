@@ -2605,7 +2605,7 @@ exports[`renders Chat with media unchanged 1`] = `
               >
                 <a
                   class="memori-media-item--link"
-                  href="https://picsum.photos/300/200?random=0"
+                  href="https://picsum.photos/300/200?random=0/131165be-9d1a-42fb-a3ce-e8f86d40c88f"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Image 0"
@@ -2669,7 +2669,7 @@ exports[`renders Chat with media unchanged 1`] = `
               >
                 <a
                   class="memori-media-item--link"
-                  href="https://picsum.photos/200/300?random=1"
+                  href="https://picsum.photos/200/300?random=1/131165be-9d1a-42fb-a3ce-e8f86d40c88f"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Image 1"
@@ -2733,7 +2733,7 @@ exports[`renders Chat with media unchanged 1`] = `
               >
                 <a
                   class="memori-media-item--link"
-                  href="https://picsum.photos/300/300?random=2"
+                  href="https://picsum.photos/300/300?random=2/131165be-9d1a-42fb-a3ce-e8f86d40c88f"
                   rel="noopener noreferrer"
                   target="_blank"
                   title="Image 2"
