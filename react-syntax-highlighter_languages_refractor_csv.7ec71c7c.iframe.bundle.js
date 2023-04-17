@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_memori_ai_memori_react=self.webpackChunk_memori_ai_memori_react||[]).push([[2526],{"./node_modules/react-syntax-highlighter/node_modules/refractor/lang/csv.js":module=>{function csv(Prism){Prism.languages.csv={value:/[^\r\n,"]+|"(?:[^"]|"")*"(?!")/,punctuation:/,/}}module.exports=csv,csv.displayName="csv",csv.aliases=[]}}]);
