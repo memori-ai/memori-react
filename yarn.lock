@@ -2887,14 +2887,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@memori.ai/memori-api-client@npm:^2.1.4":
-  version: 2.1.4
-  resolution: "@memori.ai/memori-api-client@npm:2.1.4"
+"@memori.ai/memori-api-client@npm:^2.1.5":
+  version: 2.1.5
+  resolution: "@memori.ai/memori-api-client@npm:2.1.5"
   dependencies:
     cross-fetch: ^3.1.5
   peerDependencies:
     typescript: ">=4.8"
-  checksum: a25fc5ea5779f719e480f8dd6816edc14cf747071193c91d84568c5a46baaaa5f9928c62c9891a966649c0ecb3c1138a998eb64f124cc3e0ef90fa6d5d7a71e5
+  checksum: 22fbc9935c2705a09d9c6ffa6677657c94f6064c2f72cee0ecd6b452a0a159a59f5133ec34892c42ff8e626c78927a1f584d38956d84ceb030370f2ae19b27b7
   languageName: node
   linkType: hard
 
@@ -2910,7 +2910,7 @@ __metadata:
     "@commitlint/config-conventional": 17.3.0
     "@fontsource/exo-2": ^4.5.10
     "@headlessui/react": 1.7.4
-    "@memori.ai/memori-api-client": ^2.1.4
+    "@memori.ai/memori-api-client": ^2.1.5
     "@react-three/drei": 8.20.2
     "@react-three/fiber": 7.0.25
     "@release-it/conventional-changelog": 5.1.1
