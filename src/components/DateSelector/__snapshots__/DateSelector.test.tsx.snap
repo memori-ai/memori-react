@@ -4873,7 +4873,7 @@ exports[`renders DateSelector unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="2022-09-23T22:00:00.000Z"
+        value="2022-09-24T00:00:00.000Z"
       />
       <input
         hidden=""
@@ -6417,7 +6417,7 @@ exports[`renders DateSelector unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="2022-09-23T22:00:00.000Z"
+        value="2022-09-24T00:00:00.000Z"
       />
       <input
         hidden=""
@@ -6487,7 +6487,7 @@ exports[`renders DateSelector unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="2022-09-23T22:00:00.000Z"
+        value="2022-09-24T00:00:00.000Z"
       />
       <input
         hidden=""
@@ -8031,7 +8031,7 @@ exports[`renders DateSelector unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="2022-09-23T22:00:00.000Z"
+        value="2022-09-24T00:00:00.000Z"
       />
       <input
         hidden=""
@@ -8101,7 +8101,7 @@ exports[`renders DateSelector unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="2022-09-23T22:00:00.000Z"
+        value="2022-09-24T00:00:00.000Z"
       />
       <input
         hidden=""
@@ -9645,7 +9645,7 @@ exports[`renders DateSelector unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="2022-09-23T22:00:00.000Z"
+        value="2022-09-24T00:00:00.000Z"
       />
       <input
         hidden=""

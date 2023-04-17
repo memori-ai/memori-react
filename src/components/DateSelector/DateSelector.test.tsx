@@ -1,12 +1,12 @@
 import { render } from '@testing-library/react';
 import DateSelector from './DateSelector';
 
-jest.setSystemTime(new Date('2022-09-24'));
-Date.now = jest.fn(() => new Date(Date.UTC(2022, 8, 24)).valueOf());
+const dateMock = new Date(Date.UTC(2022, 8, 24, 0, 0, 0, 0));
 
-jest
-  .spyOn(Date, 'now')
-  .mockImplementation(() => new Date(2022, 8, 24, 0, 0, 0, 0).valueOf());
+jest.setSystemTime(dateMock);
+Date.now = jest.fn(() => dateMock.valueOf());
+
+jest.spyOn(Date, 'now').mockImplementation(() => dateMock.valueOf());
 
 it('renders DateSelector unchanged', () => {
   const { container } = render(
