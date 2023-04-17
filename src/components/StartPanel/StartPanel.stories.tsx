@@ -92,7 +92,10 @@ const Template: Story<Props> = args => (
 // https://storybook.js.org/docs/react/workflows/unit-testing
 export const Default = Template.bind({});
 Default.args = {
-  memori,
+  memori: {
+    ...memori,
+    enableCompletions: false,
+  },
   tenant,
   language: 'it',
   userLang: 'en',
@@ -106,7 +109,10 @@ Default.args = {
 
 export const WithGamificationLevel = Template.bind({});
 WithGamificationLevel.args = {
-  memori,
+  memori: {
+    ...memori,
+    enableCompletions: false,
+  },
   tenant,
   gamificationLevel: {
     points: 61,
@@ -145,6 +151,7 @@ WithNSFWFlag.args = {
   memori: {
     ...memori,
     nsfw: true,
+    enableCompletions: false,
   },
   tenant,
   language: 'it',
