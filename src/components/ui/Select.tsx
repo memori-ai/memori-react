@@ -6,6 +6,7 @@ import SelectIcon from '../icons/SelectIcon';
 export interface Props<T = any> {
   className?: string;
   value?: T;
+  displayValue?: string;
   onChange: (value: T) => void;
   options: { value: T; label: any }[];
   disabled?: boolean;
@@ -16,6 +17,7 @@ export interface Props<T = any> {
 const Select = ({
   className,
   value,
+  displayValue,
   options,
   onChange,
   disabled = false,
@@ -39,7 +41,7 @@ const Select = ({
               'memori-select--value-placeholder': !value,
             })}
           >
-            {value || placeholder}
+            {value ? displayValue || value : placeholder}
           </span>
           <span className="memori-select--icon">
             <SelectIcon />

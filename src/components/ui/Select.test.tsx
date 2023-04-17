@@ -49,6 +49,23 @@ it('renders Select with value unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders Select with custom value display unchanged', () => {
+  const { container } = render(
+    <Select
+      label="Select me"
+      value="2"
+      displayValue="Two"
+      options={[
+        { value: '1', label: 'One' },
+        { value: '2', label: 'Two' },
+        { value: '3', label: 'Three' },
+      ]}
+      onChange={jest.fn()}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
 it('renders Select disabled unchanged', () => {
   const { container } = render(
     <Select

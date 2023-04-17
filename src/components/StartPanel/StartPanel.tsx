@@ -13,6 +13,7 @@ import Button from '../ui/Button';
 import Translation from '../icons/Translation';
 import { chatLanguages } from '../../helpers/constants';
 import BlockedMemoriBadge from '../BlockedMemoriBadge/BlockedMemoriBadge';
+import Select from '../ui/Select';
 import AI from '../icons/AI';
 
 export interface Props {
@@ -204,29 +205,26 @@ const StartPanel: React.FC<Props> = ({
 
           {integrationConfig?.multilanguage && !instruct && (
             <div className="memori--language-chooser">
-              <label id="user-lang-pref-label" htmlFor="user-lang-pref">
-                {t('write_and_speak.iWantToTalkToIn', {
-                  name: memori.name,
-                })}
-              </label>
-              <select
-                id="user-lang-pref"
+              <Select
+                label={
+                  t('write_and_speak.iWantToTalkToIn', {
+                    name: memori.name,
+                  }) || undefined
+                }
                 value={(userLang ?? i18n.language).toUpperCase()}
-                aria-labelledby="user-lang-pref-label"
-                onChange={e => {
-                  setUserLang(e.target.value);
-                }}
-              >
-                {chatLanguages.map(lang => (
-                  <option
-                    key={lang.value}
-                    value={lang.value}
-                    aria-label={lang.label}
-                  >
-                    {lang.label}
-                  </option>
-                ))}
-              </select>
+                displayValue={
+                  chatLanguages.find(
+                    lang =>
+                      lang.value.toUpperCase() ===
+                      (userLang ?? i18n.language).toUpperCase()
+                  )?.label
+                }
+                onChange={setUserLang}
+                options={chatLanguages.map(lang => ({
+                  label: lang.label,
+                  value: lang.value.toUpperCase(),
+                }))}
+              />
             </div>
           )}
 

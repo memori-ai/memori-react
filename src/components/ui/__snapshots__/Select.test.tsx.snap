@@ -16,7 +16,7 @@ exports[`renders Select disabled unchanged 1`] = `
     <label
       class="memori-select--label"
       data-headlessui-state="disabled"
-      id="headlessui-listbox-label-:r6:"
+      id="headlessui-listbox-label-:r8:"
     >
       Select me
       :
@@ -24,11 +24,11 @@ exports[`renders Select disabled unchanged 1`] = `
     <button
       aria-haspopup="true"
       aria-label="Select me"
-      aria-labelledby="headlessui-listbox-label-:r6: headlessui-listbox-button-:r7:"
+      aria-labelledby="headlessui-listbox-label-:r8: headlessui-listbox-button-:r9:"
       class="memori-select--button"
       data-headlessui-state="disabled"
       disabled=""
-      id="headlessui-listbox-button-:r7:"
+      id="headlessui-listbox-button-:r9:"
       type="button"
     >
       <span
@@ -85,6 +85,65 @@ exports[`renders Select unchanged 1`] = `
       <span
         class="memori-select--value memori-select--value-placeholder"
       />
+      <span
+        class="memori-select--icon"
+      >
+        <svg
+          aria-hidden="true"
+          fill="currentColor"
+          focusable="false"
+          role="img"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`renders Select with custom value display unchanged 1`] = `
+<div>
+  <div
+    class="memori-select"
+  >
+    <input
+      hidden=""
+      name="day"
+      readonly=""
+      style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+      type="hidden"
+      value="2"
+    />
+    <label
+      class="memori-select--label"
+      data-headlessui-state=""
+      id="headlessui-listbox-label-:r6:"
+    >
+      Select me
+      :
+    </label>
+    <button
+      aria-expanded="false"
+      aria-haspopup="true"
+      aria-label="Select me"
+      aria-labelledby="headlessui-listbox-label-:r6: headlessui-listbox-button-:r7:"
+      class="memori-select--button"
+      data-headlessui-state=""
+      id="headlessui-listbox-button-:r7:"
+      type="button"
+    >
+      <span
+        class="memori-select--value"
+      >
+        Two
+      </span>
       <span
         class="memori-select--icon"
       >
