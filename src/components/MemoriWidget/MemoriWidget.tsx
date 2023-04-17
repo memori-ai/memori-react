@@ -548,8 +548,8 @@ const MemoriWidget = ({
   /**
    * Age verification
    */
-  const minAge = memori.ageRescrition
-    ? memori.ageRescrition
+  const minAge = memori.ageRestriction
+    ? memori.ageRestriction
     : memori.nsfw
     ? 18
     : memori.enableCompletions

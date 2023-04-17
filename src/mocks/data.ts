@@ -37,7 +37,7 @@ export const memori: Memori = {
   exposed: true,
   enableCompletions: true,
   nsfw: false,
-  ageRescrition: 14,
+  ageRestriction: 14,
   contentQualityIndex: 66.6,
   contentQualityIndexTimestamp: '2021-03-01T12:00:00.000Z',
   ownerUserName: 'username',
