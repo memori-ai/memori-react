@@ -8,6 +8,7 @@ import LinkItemWidget from './LinkItemWidget';
 import MediaItemWidget from './MediaItemWidget';
 import { Transition } from '@headlessui/react';
 import cx from 'classnames';
+import { useTranslation } from 'react-i18next';
 
 export interface Props {
   hints?: TranslatedHint[];
@@ -30,7 +31,10 @@ const MediaWidget: React.FC<Props> = ({
   apiUrl,
   translateTo,
 }: Props) => {
+  const { t } = useTranslation();
   const [showHints, setShowHints] = useState(true);
+  const [hintsPagination, setHintsPagination] = useState(6);
+
   useEffect(() => {
     setShowHints(true);
   }, [hints]);
@@ -48,36 +52,49 @@ const MediaWidget: React.FC<Props> = ({
       )}
       {links?.length > 0 && <LinkItemWidget items={links} baseUrl={baseUrl} />}
       {hints?.length > 0 && showHints && (
-        <Transition appear show as="ul" className="memori-media--hints">
-          {hints.map((item, index) => (
-            <Transition.Child
-              as="li"
-              key={item.text + index}
-              enter="ease-out duration-500"
-              enterFrom="opacity-0 translate-y-1"
-              enterTo="opacity-1 translate-y-0"
-              leave="ease-in duration-300"
-              leaveFrom="opacity-1"
-              leaveTo="opacity-0"
-            >
-              <Button
+        <>
+          <Transition appear show as="ul" className="memori-media--hints">
+            {hints.slice(0, hintsPagination).map((item, index) => (
+              <Transition.Child
+                as="li"
                 key={item.text + index}
-                className={cx('memori-media--hint')}
-                primary
-                onClick={() => {
-                  simulateUserPrompt(item.originalText, item.text);
-                  setShowHints(false);
-                }}
-                onTouchEnd={() => {
-                  simulateUserPrompt(item.originalText, item.text);
-                  setShowHints(false);
-                }}
+                enter="ease-out duration-500"
+                enterFrom="opacity-0 translate-y-1"
+                enterTo="opacity-1 translate-y-0"
+                leave="ease-in duration-300"
+                leaveFrom="opacity-1"
+                leaveTo="opacity-0"
               >
-                {item.text}
+                <Button
+                  key={item.text + index}
+                  className={cx('memori-media--hint')}
+                  primary
+                  onClick={() => {
+                    simulateUserPrompt(item.originalText, item.text);
+                    setShowHints(false);
+                  }}
+                  onTouchEnd={() => {
+                    simulateUserPrompt(item.originalText, item.text);
+                    setShowHints(false);
+                  }}
+                >
+                  {item.text}
+                </Button>
+              </Transition.Child>
+            ))}
+          </Transition>
+          {hints.length > hintsPagination && (
+            <div className="memori-hints--show-more">
+              <Button
+                className="memori-hints--show-more-button"
+                id="showMoreHints"
+                onClick={() => setHintsPagination(hintsPagination + 6)}
+              >
+                {t('expand') || 'Expand'}
               </Button>
-            </Transition.Child>
-          ))}
-        </Transition>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

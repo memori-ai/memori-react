@@ -111,6 +111,14 @@ Hints.args = {
   hints,
 };
 
+export const LongListHints = Template.bind({});
+LongListHints.args = {
+  hints: Array.from({ length: 12 }, (_, i) => ({
+    text: `Hint ${i + 1}`,
+    originalText: `Hint ${i + 1}`,
+  })),
+};
+
 export const Combined = Template.bind({});
 Combined.args = {
   media,

@@ -9,12 +9,12 @@ exports[`renders ChatBubble unchanged 1`] = `
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
     >
       <source
-        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+        src="https://app.twincreator.com/images/twincreator/square_logo.png"
       />
       <img
         alt="Memori"
         class="memori-chat--bubble-avatar-img"
-        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+        src="https://app.twincreator.com/images/twincreator/square_logo.png"
       />
     </picture>
     <div
@@ -40,12 +40,12 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
     >
       <source
-        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+        src="https://app.twincreator.com/images/twincreator/square_logo.png"
       />
       <img
         alt="Memori"
         class="memori-chat--bubble-avatar-img"
-        src="https://api.lorem.space/image/face?hash=0p9vyl1e"
+        src="https://app.twincreator.com/images/twincreator/square_logo.png"
       />
     </picture>
     <div

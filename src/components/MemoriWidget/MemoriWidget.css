@@ -125,7 +125,7 @@
 .memori--powered-by {
     position: absolute;
     z-index: 1000;
-    bottom: 1rem;
+    bottom: 0;
     left: 0;
     display: inline-flex;
     flex-wrap: wrap;

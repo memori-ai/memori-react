@@ -5,6 +5,7 @@ export interface Props extends React.HTMLAttributes<HTMLInputElement> {
   label: string;
   checked?: boolean;
   disabled?: boolean;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Checkbox: FC<Props> = ({
@@ -13,6 +14,7 @@ const Checkbox: FC<Props> = ({
   disabled = false,
   checked,
   children,
+  onChange,
   ...props
 }) => (
   <label
@@ -27,6 +29,7 @@ const Checkbox: FC<Props> = ({
         disabled={disabled}
         defaultChecked={checked}
         className="memori-checkbox--input"
+        onChange={onChange}
       />
       <span className="memori-checkbox--inner" />
     </span>

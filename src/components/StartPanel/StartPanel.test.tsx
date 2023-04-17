@@ -44,6 +44,27 @@ it('renders StartPanel with gamification level unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders StartPanel with completions enabled unchanged', () => {
+  const { container } = render(
+    <StartPanel
+      memori={{
+        ...memori,
+        enableCompletions: true,
+      }}
+      tenant={tenant}
+      language="it"
+      userLang="en"
+      setUserLang={() => {}}
+      openPositionDrawer={() => {}}
+      instruct={false}
+      sessionId={sessionID}
+      clickedStart={false}
+      onClickStart={() => {}}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
 it('renders StartPanel on instruct unchanged', () => {
   const { container } = render(
     <StartPanel

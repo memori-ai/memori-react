@@ -13,7 +13,7 @@ import {
   GamificationLevel,
   Tenant,
   Asset,
-} from '@memori.ai/memori-api-client/dist/types';
+} from '@memori.ai/memori-api-client/src/types';
 import {
   SpeakerAudioDestination,
   SpeechConfig,
@@ -61,6 +61,8 @@ import { hasTouchscreen, stripDuplicates } from '../../helpers/utils';
 import { anonTag } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
 import { getGamificationLevel } from '../../helpers/statistics';
+import AgeVerificationModal from '../AgeVerificationModal/AgeVerificationModal';
+import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -542,6 +544,19 @@ const MemoriWidget = ({
   };
 
   /**
+   * Age verification
+   */
+  const minAge = memori.ageRescrition
+    ? memori.ageRescrition
+    : memori.nsfw
+    ? 18
+    : memori.enableCompletions
+    ? 14
+    : 0;
+  const [birthDate, setBirthDate] = useState<string | undefined>();
+  const [showAgeVerification, setShowAgeVerification] = useState(false);
+
+  /**
    * Sessione
    */
   const [sessionId, setSessionId] = useState<string | undefined>(
@@ -567,6 +582,15 @@ const MemoriWidget = ({
       !memoriTokens
     ) {
       setAuthModalState('password');
+      return;
+    }
+
+    let storageBirthDate = getLocalConfig<string | undefined>(
+      'birthDate',
+      undefined
+    );
+    if (!(birthDate || storageBirthDate) && !!minAge) {
+      setShowAgeVerification(true);
       return;
     }
 
@@ -598,6 +622,12 @@ const MemoriWidget = ({
           dialogState: session.currentState,
           sessionID: session.sessionID,
         } as { dialogState: DialogState; sessionID: string };
+      } else if (
+        session?.resultMessage.startsWith('This Memori is aged restricted')
+      ) {
+        console.error(session);
+        message.error(t('underageTwinSession', { age: minAge }));
+        setGotErrorInOpening(true);
       } else {
         console.error(session);
         message.error(t(getErrori18nKey(session?.resultCode)));
@@ -615,10 +645,16 @@ const MemoriWidget = ({
     tag?: string,
     pin?: string,
     initialContextVars?: { [key: string]: string },
-    initialQuestion?: string
+    initialQuestion?: string,
+    birthDate?: string
   ) => {
     setLoading(true);
     try {
+      let storageBirthDate = getLocalConfig<string | undefined>(
+        'birthDate',
+        undefined
+      );
+
       const { sessionID, currentState, ...response } = await initSession({
         memoriID: memori.engineMemoriID ?? '',
         password,
@@ -627,6 +663,7 @@ const MemoriWidget = ({
         pin,
         initialContextVars,
         initialQuestion,
+        birthDate: birthDate || storageBirthDate || undefined,
       });
 
       if (sessionID && currentState && response.resultCode === 0) {
@@ -658,6 +695,12 @@ const MemoriWidget = ({
           dialogState: currentState,
           sessionID,
         };
+      } else if (
+        response?.resultMessage.startsWith('This Memori is aged restricted')
+      ) {
+        console.error(response);
+        message.error(t('underageTwinSession', { age: minAge }));
+        setGotErrorInOpening(true);
       } else {
         console.error(response);
         message.error(t(getErrori18nKey(response.resultCode)));
@@ -714,6 +757,11 @@ const MemoriWidget = ({
           }
         } else if ([400, 401, 403, 404, 500].includes(resultCode)) {
           console.warn('[APPCONTEXT/CHANGETAG]', resultCode);
+          let storageBirthDate = getLocalConfig<string | undefined>(
+            'birthDate',
+            undefined
+          );
+
           fetchSession({
             memoriID: memori.engineMemoriID ?? '',
             password: secret || memori.secretToken,
@@ -721,6 +769,7 @@ const MemoriWidget = ({
             pin: memori.giverPIN,
             initialContextVars,
             initialQuestion,
+            birthDate: birthDate || storageBirthDate || undefined,
           });
         } else if (!!currentState) {
           return {
@@ -1718,6 +1767,12 @@ const MemoriWidget = ({
       });
     }
 
+    let storageBirthDate = getLocalConfig<string | undefined>(
+      'birthDate',
+      undefined
+    );
+    let birth = birthDate || storageBirthDate || undefined;
+
     if (
       (!sessionID &&
         memori.privacyType !== 'PUBLIC' &&
@@ -1729,6 +1784,9 @@ const MemoriWidget = ({
       setAuthModalState('password');
       setClickedStart(false);
       return;
+    } else if (!sessionID && !!minAge && !birth) {
+      setShowAgeVerification(true);
+      setClickedStart(false);
     } else if (!sessionID) {
       setClickedStart(false);
       setGotErrorInOpening(false);
@@ -1739,6 +1797,7 @@ const MemoriWidget = ({
         pin: personification?.pin,
         initialContextVars,
         initialQuestion,
+        birthDate: birth,
       });
 
       if (session?.dialogState) {
@@ -1819,7 +1878,8 @@ const MemoriWidget = ({
             memori?.giverTag,
             memori?.giverPIN,
             initialContextVars,
-            initialQuestion
+            initialQuestion,
+            birth
           ).then(() => {
             setHasUserActivatedSpeak(true);
           });
@@ -1865,7 +1925,8 @@ const MemoriWidget = ({
             personification.tag,
             personification.pin,
             initialContextVars,
-            initialQuestion
+            initialQuestion,
+            birth
           ).then(() => {
             setHasUserActivatedSpeak(true);
           });
@@ -1911,7 +1972,8 @@ const MemoriWidget = ({
             undefined,
             undefined,
             initialContextVars,
-            initialQuestion
+            initialQuestion,
+            birth
           ).then(() => {
             setHasUserActivatedSpeak(true);
           });
@@ -2192,7 +2254,8 @@ const MemoriWidget = ({
               instruct ? memori.giverTag : undefined,
               instruct ? memori.giverPIN : undefined,
               initialContextVars,
-              initialQuestion
+              initialQuestion,
+              birthDate
             )
               .then(state => {
                 setAuthModalState(null);
@@ -2206,6 +2269,53 @@ const MemoriWidget = ({
           minimumNumberOfRecoveryTokens={
             memori?.minimumNumberOfRecoveryTokens ?? 1
           }
+        />
+      )}
+
+      {isClient && (
+        <AgeVerificationModal
+          visible={showAgeVerification}
+          minAge={minAge}
+          onClose={birthDate => {
+            if (birthDate) {
+              setBirthDate(birthDate);
+
+              setLocalConfig('birthDate', birthDate);
+
+              reopenSession(
+                !sessionId,
+                memori?.secretToken,
+                undefined,
+                instruct ? memori.giverTag : undefined,
+                instruct ? memori.giverPIN : undefined,
+                initialContextVars,
+                initialQuestion,
+                birthDate
+              )
+                .then(state => {
+                  setShowAgeVerification(false);
+                  onClickStart(state || undefined);
+                })
+                .catch(() => {
+                  setShowAgeVerification(false);
+                  setGotErrorInOpening(true);
+                });
+            } else {
+              setShowAgeVerification(false);
+              setClickedStart(false);
+            }
+          }}
+        />
+      )}
+
+      {showSettingsDrawer && (
+        <SettingsDrawer
+          open={!!showSettingsDrawer}
+          onClose={() => setShowSettingsDrawer(false)}
+          continuousSpeech={continuousSpeech}
+          continuousSpeechTimeout={continuousSpeechTimeout}
+          setContinuousSpeech={setContinuousSpeech}
+          setContinuousSpeechTimeout={setContinuousSpeechTimeout}
         />
       )}
 

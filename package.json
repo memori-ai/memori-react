@@ -231,7 +231,6 @@
     "@storybook/addon-info": "5.3.21",
     "@storybook/addon-links": "7.0.4",
     "@storybook/addon-mdx-gfm": "7.0.4",
-    "@storybook/addon-postcss": "2.0.0",
     "@storybook/addons": "7.0.4",
     "@storybook/react": "7.0.4",
     "@storybook/react-webpack5": "7.0.4",
@@ -284,7 +283,7 @@
   "dependencies": {
     "@fontsource/exo-2": "^4.5.10",
     "@headlessui/react": "1.7.4",
-    "@memori.ai/memori-api-client": "^2.0.0",
+    "@memori.ai/memori-api-client": "^2.1.2",
     "@react-three/drei": "8.20.2",
     "@react-three/fiber": "7.0.25",
     "antd": "4.18.9",

@@ -3,6 +3,7 @@ export const keys: { [key: string]: string } = {
   continuousSpeech: '@memori:continuousSpeech',
   continuousSpeechTimeout: '@memori:continuousSpeechTimeout',
   sendOnEnter: '@memori:sendOnEnter',
+  birthDate: '@memori:birthDate',
 };
 
 export const getLocalConfig = <Type>(key: string, defaultValue: Type): Type => {
@@ -10,9 +11,9 @@ export const getLocalConfig = <Type>(key: string, defaultValue: Type): Type => {
   if (!value) return defaultValue;
 
   try {
-    return (JSON.parse(value) as unknown) as Type;
+    return JSON.parse(value) as unknown as Type;
   } catch {
-    return (value as unknown) as Type;
+    return value as unknown as Type;
   }
 };
 

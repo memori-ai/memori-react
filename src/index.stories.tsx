@@ -33,6 +33,7 @@ Anonymous.args = {
   baseURL: 'https://app.memorytwin.com',
   uiLang: 'it',
   showShare: true,
+  showSettings: true,
 };
 
 // export const Instruction = Template.bind({});

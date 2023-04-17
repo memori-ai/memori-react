@@ -19,6 +19,11 @@ const meta: Meta = {
         type: 'boolean',
       },
     },
+    showSettings: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
   parameters: {
     controls: { expanded: true },
@@ -94,6 +99,13 @@ ShowShare.args = {
   memori,
   tenant,
   showShare: true,
+};
+
+export const ShowSettings = Template.bind({});
+ShowSettings.args = {
+  memori,
+  tenant,
+  showSettings: true,
 };
 
 export const WithAzureSpeechKey = Template.bind({});

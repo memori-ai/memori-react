@@ -35,6 +35,9 @@ export const memori: Memori = {
   categories: [],
   publishedInTheMetaverse: true,
   exposed: true,
+  enableCompletions: true,
+  nsfw: false,
+  ageRescrition: 14,
   contentQualityIndex: 66.6,
   contentQualityIndexTimestamp: '2021-03-01T12:00:00.000Z',
   ownerUserName: 'username',
@@ -44,8 +47,8 @@ export const memori: Memori = {
   secretToken: 'awanagana',
   giverPIN: '1234',
   giverTag: '🧑‍💻',
-  avatarURL: 'https://api.lorem.space/image/face?hash=0p9vyl1e',
-  coverURL: 'https://api.lorem.space/image/pizza?hash=ecz70guu',
+  avatarURL: 'https://app.twincreator.com/images/twincreator/square_logo.png',
+  coverURL: 'https://app.twincreator.com/images/twincreator/og-image.png',
 };
 
 export const history: Message[] = [

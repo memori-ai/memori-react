@@ -33,7 +33,8 @@ const Template: Story<Props> = args => {
     <div
       style={
         args.integrationConfig?.avatar === 'customglb' ||
-        args.integrationConfig?.avatar === 'readyplayerme'
+        args.integrationConfig?.avatar === 'readyplayerme' ||
+        args.integrationConfig?.avatar === 'readyplayerme-full'
           ? {}
           : { marginTop: '20vw' }
       }
@@ -115,4 +116,22 @@ ReadyPlayerMeAvatar.args = {
   isPlayingAudio: false,
   integration,
   integrationConfig,
+};
+
+export const FullbodyReadyPlayerMeAvatar = Template.bind({});
+FullbodyReadyPlayerMeAvatar.args = {
+  memori,
+  tenant,
+  instruct: false,
+  avatar3dVisible: true,
+  setAvatar3dVisible: () => {},
+  hasUserActivatedSpeak: false,
+  isPlayingAudio: false,
+  integration,
+  integrationConfig: {
+    ...integrationConfig,
+    avatar: 'readyplayerme-full',
+    avatarURL:
+      'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb#1669136149862',
+  },
 };

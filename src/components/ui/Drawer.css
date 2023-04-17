@@ -1,6 +1,6 @@
 .memori-drawer {
     position: relative;
-    z-index: 60;
+    z-index: 1000;
 }
 
 .memori-drawer--backdrop {
@@ -34,7 +34,9 @@
     position: relative;
     width: var(--memori-drawer--width, 100%);
     height: 100%;
-    padding: 1.5rem 2rem;
+    height: 100vh;
+    box-sizing: border-box;
+    padding: 3rem 2rem 1.5rem;
     margin-right: 0;
     margin-left: auto;
     background-color: #fff;
@@ -44,6 +46,7 @@
 @media (min-width: 768px) {
     .memori-drawer--panel {
         width: var(--memori-drawer--width--md, 80%);
+        padding-top: 1.5rem;
     }
 }
 
@@ -77,14 +80,33 @@
     padding: 0.5rem;
 }
 
+@media (max-width: 767px) {
+    .memori-drawer--close {
+        left: 0.5rem;
+    }
+}
+
 .memori-drawer--close button {
     border-color: #fff;
     color: #fff;
 }
 
+@media (max-width: 767px) {
+    .memori-drawer--close button {
+        color: #000;
+    }
+}
+
 .memori-drawer--panel-left .memori-drawer--close {
     right: -3.5rem;
     left: auto;
+}
+
+@media (max-width: 767px) {
+    .memori-drawer--panel-left .memori-drawer--close {
+        right: 0.5rem;
+        left: auto;
+    }
 }
 
 .memori-drawer--footer {

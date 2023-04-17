@@ -5,6 +5,7 @@
 @import url('./components/ui/Modal.css');
 @import url('./components/ui/Spin.css');
 @import url('./components/ui/Tooltip.css');
+@import url('./components/ui/Select.css');
 
 @import url('./components/AttachmentLinkModal/AttachmentLinkModal.css');
 @import url('./components/Auth/Auth.css');
@@ -32,12 +33,29 @@
 @import url('./components/StartPanel/StartPanel.css');
 @import url('./components/UploadMenu/UploadMenu.css');
 @import url('./components/PoweredBy/PoweredBy.css');
+@import url('./components/DateSelector/DateSelector.css');
+@import url('./components/AgeVerificationModal/AgeVerificationModal.css');
 
 @import url('https://fonts.bunny.net/css?family=exo-2:200,400,700');
+
+.sr-only {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border-width: 0;
+    margin: -1px;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
 
 memori-client,
 memori-client #root,
 body.sb-show-main #root,
+body.sb-show-main #headlessui-portal-root,
+#storybook-root,
+#storybook-docs,
 .memori-widget {
     font-family: 'Exo 2', sans-serif;
     font-size: 16px;
@@ -60,4 +78,5 @@ body.sb-show-main #root,
     --memori-drawer--width--lg: 60%;
     --memori-modal--width: 100%;
     --memori-modal--width--md: 80%;
+    --memori-error-color: #ff4d4f;
 }

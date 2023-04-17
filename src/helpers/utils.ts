@@ -61,8 +61,9 @@ export const isAndroid = (): boolean => {
   return isAndroid;
 };
 
-export const pwdRegEx = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$_:;|,~+={}[]%^&*-]).{8,}$/;
-export const mailRegEx = /^\w+([.-]?[+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+export const pwdRegEx =
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$_:;|,~+={}[]%^&*-]).{8,}$/;
+export const mailRegEx = /^\w+([.-]?[+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/;
 export const usernameRegEx = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.+-]{3,32}$/;
 export const validURLRegEx = /^(ftp|http|https):\/\/[^ "]+$/;
 

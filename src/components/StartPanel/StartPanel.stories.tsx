@@ -123,6 +123,63 @@ WithGamificationLevel.args = {
   onClickStart: () => {},
 };
 
+export const WithCompletionsEnabled = Template.bind({});
+WithCompletionsEnabled.args = {
+  memori: {
+    ...memori,
+    enableCompletions: true,
+  },
+  tenant,
+  language: 'it',
+  userLang: 'en',
+  setUserLang: () => {},
+  openPositionDrawer: () => {},
+  instruct: false,
+  sessionId: sessionID,
+  clickedStart: false,
+  onClickStart: () => {},
+};
+
+export const WithNSFWFlag = Template.bind({});
+WithNSFWFlag.args = {
+  memori: {
+    ...memori,
+    nsfw: true,
+  },
+  tenant,
+  language: 'it',
+  userLang: 'en',
+  setUserLang: () => {},
+  openPositionDrawer: () => {},
+  instruct: false,
+  sessionId: sessionID,
+  clickedStart: false,
+  onClickStart: () => {},
+};
+
+export const WithAllTheBadges = Template.bind({});
+WithAllTheBadges.args = {
+  memori: {
+    ...memori,
+    enableCompletions: true,
+    nsfw: true,
+  },
+  gamificationLevel: {
+    points: 61,
+    pointsForCurrentBadge: 60,
+    badge: '🌍',
+  },
+  tenant,
+  language: 'it',
+  userLang: 'en',
+  setUserLang: () => {},
+  openPositionDrawer: () => {},
+  instruct: false,
+  sessionId: sessionID,
+  clickedStart: false,
+  onClickStart: () => {},
+};
+
 export const Instruct = Template.bind({});
 Instruct.args = {
   memori,

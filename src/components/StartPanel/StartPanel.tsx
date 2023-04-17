@@ -3,7 +3,7 @@ import {
   Memori,
   Tenant,
   Venue,
-} from '@memori.ai/memori-api-client/dist/types';
+} from '@memori.ai/memori-api-client/src/types';
 import React, { useState, useEffect } from 'react';
 import { getResourceUrl } from '../../helpers/media';
 import { useTranslation } from 'react-i18next';
@@ -122,6 +122,13 @@ const StartPanel: React.FC<Props> = ({
               <span aria-label={t('completionsEnabled') || 'Completions'}>
                 <AI />
               </span>
+            </Tooltip>
+          </div>
+        )}
+        {!!memori.nsfw && (
+          <div className="memori--nsfw">
+            <Tooltip alignLeft content={t('nsfw')}>
+              <span title={t('nsfw') || 'NSFW'}>🔞</span>
             </Tooltip>
           </div>
         )}

@@ -4,6 +4,7 @@ import { memori, history } from '../../mocks/data';
 import Header, { Props } from './Header';
 
 import './Header.css';
+import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 
 const meta: Meta = {
   title: 'Widget/Header',
@@ -24,12 +25,29 @@ export default meta;
 
 const Template: Story<Props> = args => {
   const [speakerMuted, setSpeakerMuted] = React.useState(args.speakerMuted);
+  const [showSettingsDrawer, setShowSettingsDrawer] = React.useState(false);
+  const [continuousSpeech, setContinuousSpeech] = React.useState(true);
+  const [continuousSpeechTimeout, setContinuousSpeechTimeout] =
+    React.useState(2);
+
   return (
-    <Header
-      {...args}
-      speakerMuted={speakerMuted}
-      setSpeakerMuted={setSpeakerMuted}
-    />
+    <>
+      <Header
+        {...args}
+        speakerMuted={speakerMuted}
+        setSpeakerMuted={setSpeakerMuted}
+        showSettings
+        setShowSettingsDrawer={() => setShowSettingsDrawer(true)}
+      />
+      <SettingsDrawer
+        open={!!showSettingsDrawer}
+        onClose={() => setShowSettingsDrawer(false)}
+        continuousSpeech={continuousSpeech}
+        continuousSpeechTimeout={continuousSpeechTimeout}
+        setContinuousSpeech={setContinuousSpeech}
+        setContinuousSpeechTimeout={setContinuousSpeechTimeout}
+      />
+    </>
   );
 };
 

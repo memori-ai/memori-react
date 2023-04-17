@@ -119,3 +119,12 @@
 .delay-1000 {
     transition-delay: 1000ms;
 }
+
+.memori-hints--show-more {
+    text-align: center;
+}
+
+.memori-hints--show-more-button {
+    border-radius: 5px;
+    background: none;
+}
