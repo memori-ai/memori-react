@@ -38,6 +38,8 @@
 
 @import url('https://fonts.bunny.net/css?family=exo-2:200,400,700');
 
+@import url('./components/layouts/totem.css');
+
 .sr-only {
     position: absolute;
     overflow: hidden;

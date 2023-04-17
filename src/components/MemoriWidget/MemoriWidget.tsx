@@ -52,7 +52,8 @@ import AttachmentLinkModal from '../AttachmentLinkModal/AttachmentLinkModal';
 import PoweredBy from '../PoweredBy/PoweredBy';
 
 // Layout
-import DefaultLayout from '../layouts/Default';
+import FullPageLayout from '../layouts/FullPage';
+import TotemLayout from '../layouts/Totem';
 
 // Helpers / Utils
 import { getTranslation } from '../../helpers/translations';
@@ -138,7 +139,6 @@ window.getMemoriState = getMemoriState;
 window.typeMessage = typeMessage;
 
 // Global variables
-const silenceSeconds = [2, 3, 5, 10, 15, 20, 30, 60];
 let recognizer: SpeechRecognizer | null;
 let speechConfig: SpeechConfig;
 let speechSynthesizer: SpeechSynthesizer | null;
@@ -150,6 +150,7 @@ export interface Props {
   memoriConfigs?: MemoriConfig[];
   memoriLang?: string;
   integration?: Integration;
+  layout?: 'DEFAULT' | 'FULLPAGE' | 'TOTEM';
   showShare?: boolean;
   showInstruct?: boolean;
   showInputs?: boolean;
@@ -182,6 +183,7 @@ const MemoriWidget = ({
   memoriConfigs,
   memoriLang,
   integration,
+  layout = 'DEFAULT',
   showInstruct = false,
   showShare = true,
   preview = false,
@@ -2131,7 +2133,7 @@ const MemoriWidget = ({
       baseUrl={baseUrl}
       apiUrl={apiUrl}
       memoriTyping={memoriTyping}
-      history={history}
+      history={layout === 'TOTEM' ? history.slice(-2) : history}
       authToken={loginToken}
       dialogState={currentDialogState}
       setDialogState={setCurrentDialogState}
@@ -2196,14 +2198,27 @@ const MemoriWidget = ({
 
   const poweredBy = <PoweredBy tenant={tenant} userLang={userLang} />;
 
+  const selectedLayout = layout || integrationConfig?.layout || 'DEFAULT';
+  const Layout =
+    selectedLayout === 'TOTEM'
+      ? TotemLayout
+      : selectedLayout === 'FULLPAGE'
+      ? FullPageLayout
+      : FullPageLayout;
+
   return (
     <div
-      className={cx('memori', 'memori-widget', {
-        'memori--preview': preview,
-        'memori--embed': embed,
-        'memori--with-integration': integration,
-        'memori--active': hasUserActivatedSpeak,
-      })}
+      className={cx(
+        'memori',
+        'memori-widget',
+        `memori-layout-${layout.toLowerCase()}`,
+        {
+          'memori--preview': preview,
+          'memori--embed': embed,
+          'memori--with-integration': integration,
+          'memori--active': hasUserActivatedSpeak,
+        }
+      )}
       data-memori-name={memori?.name}
       data-memori-id={memori?.engineMemoriID}
       data-memori-secondary-id={memori?.memoriID}
@@ -2215,7 +2230,7 @@ const MemoriWidget = ({
       })}
       style={{ height }}
     >
-      <DefaultLayout
+      <Layout
         header={header}
         avatar={avatar}
         chat={chat}

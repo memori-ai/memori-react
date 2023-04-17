@@ -1,0 +1,64 @@
+.memori-widget > .memori-spin.memori-totem-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+.memori-totem-layout--header {
+    text-align: right;
+}
+
+.memori-totem-layout--avatar {
+    flex: 1;
+}
+
+.memori-totem-layout--avatar .memori--avatar-wrapper {
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+}
+
+.memori-totem-layout .memori-header {
+    display: inline-block;
+    width: auto;
+}
+
+.memori-totem-layout .memori-chat--cover {
+    display: none;
+}
+
+.memori-totem-layout .memori--cover {
+    padding: 0;
+    background: none;
+}
+
+.memori-totem-layout .memori--powered-by {
+    top: 0;
+    bottom: auto;
+}
+
+.memori-totem-layout--avatar .memori--avatar-wrapper > div {
+    overflow: visible !important;
+    height: 90vh !important;
+    max-height: 90vh;
+    /* width: 100% !important;
+    height: 100% !important; */
+    border-radius: 0;
+    transform: scale(1.7) translate(0px, 10vh);
+}
+
+.memori-totem-layout--avatar .memori--avatar-wrapper canvas {
+    width: auto !important;
+    max-width: 100%;
+    height: 100% !important;
+    max-height: 100%;
+}
+
+.memori-totem-layout--controls .memori--start-panel,
+.memori-totem-layout--controls .memori-chat--history,
+.memori-totem-layout--controls .memori-chat--content {
+    background: transparent;
+}
+

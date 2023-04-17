@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import Memori, { Props } from './index';
 
 const meta: Meta = {
-  title: 'Default',
+  title: 'General/Default',
   component: Memori,
   argTypes: {
     AZURE_COGNITIVE_SERVICES_TTS_KEY: {

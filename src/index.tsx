@@ -5,7 +5,9 @@ import {
   Memori as IMemori,
 } from '@memori.ai/memori-api-client/dist/types';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import MemoriWidget from './components/MemoriWidget/MemoriWidget';
+import MemoriWidget, {
+  Props as WidgetProps,
+} from './components/MemoriWidget/MemoriWidget';
 
 import i18n from './i18n';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +21,7 @@ export interface Props {
   tenantID: string;
   secretToken?: string;
   sessionID?: string;
+  layout?: WidgetProps['layout'];
   showShare?: boolean;
   showSettings?: boolean;
   showInstruct?: boolean;
@@ -62,6 +65,7 @@ const Memori: React.FC<Props> = ({
   tenantID,
   secretToken,
   sessionID,
+  layout = 'DEFAULT',
   showShare = true,
   showSettings = false,
   showInstruct = false,
@@ -142,6 +146,7 @@ const Memori: React.FC<Props> = ({
 
   return memori ? (
     <MemoriWidget
+      layout={layout}
       height={height}
       baseUrl={
         baseURL ||

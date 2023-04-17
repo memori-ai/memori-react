@@ -16,7 +16,7 @@ export interface Props {
   loading?: boolean;
 }
 
-const Default: React.FC<Props> = ({
+const FullPageLayout: React.FC<Props> = ({
   header,
   avatar,
   chat,
@@ -53,4 +53,4 @@ const Default: React.FC<Props> = ({
   </>
 );
 
-export default Default;
+export default FullPageLayout;

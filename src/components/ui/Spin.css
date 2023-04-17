@@ -21,7 +21,9 @@
 
 .memori-spin--spinner svg {
     width: 30%;
+    max-width: 5rem;
     height: 30%;
+    max-height: 5rem;
 }
 
 .memori-spin--primary svg {
