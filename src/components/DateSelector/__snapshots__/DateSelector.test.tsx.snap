@@ -22,7 +22,23 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="1999-12-31T23:00:00.000Z"
+        value="2022-08-24 00:00:00Z"
+      />
+      <input
+        hidden=""
+        name="day[_f]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="YYYY-MM-DD HH:mm:ssZ"
+      />
+      <input
+        hidden=""
+        name="day[_tzm]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
       />
       <input
         hidden=""
@@ -46,7 +62,7 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="-2"
+        value="-1"
       />
       <input
         hidden=""
@@ -99,6 +115,54 @@ exports[`renders DateSelector disabled unchanged 1`] = `
       <input
         hidden=""
         name="day[_pf][iso]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="1"
+      />
+      <input
+        hidden=""
+        name="day[_pf][parsedDateParts][0]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="2022"
+      />
+      <input
+        hidden=""
+        name="day[_pf][parsedDateParts][1]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="7"
+      />
+      <input
+        hidden=""
+        name="day[_pf][parsedDateParts][2]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="24"
+      />
+      <input
+        hidden=""
+        name="day[_pf][parsedDateParts][3]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
+      />
+      <input
+        hidden=""
+        name="day[_pf][parsedDateParts][4]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
+      />
+      <input
+        hidden=""
+        name="day[_pf][parsedDateParts][5]"
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
@@ -1566,7 +1630,7 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="1999-12-31T23:00:00.000Z"
+        value="2022-08-24T00:00:00.000Z"
       />
       <input
         hidden=""
@@ -1597,7 +1661,7 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         <span
           class="memori--date-selector__select--value"
         >
-          1
+          24
         </span>
         <span
           class="memori--date-selector__select--icon"
@@ -1636,7 +1700,23 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="1999-12-31T23:00:00.000Z"
+        value="2022-08-24 00:00:00Z"
+      />
+      <input
+        hidden=""
+        name="month[_f]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="YYYY-MM-DD HH:mm:ssZ"
+      />
+      <input
+        hidden=""
+        name="month[_tzm]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
       />
       <input
         hidden=""
@@ -1660,7 +1740,7 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="-2"
+        value="-1"
       />
       <input
         hidden=""
@@ -1713,6 +1793,54 @@ exports[`renders DateSelector disabled unchanged 1`] = `
       <input
         hidden=""
         name="month[_pf][iso]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="1"
+      />
+      <input
+        hidden=""
+        name="month[_pf][parsedDateParts][0]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="2022"
+      />
+      <input
+        hidden=""
+        name="month[_pf][parsedDateParts][1]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="7"
+      />
+      <input
+        hidden=""
+        name="month[_pf][parsedDateParts][2]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="24"
+      />
+      <input
+        hidden=""
+        name="month[_pf][parsedDateParts][3]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
+      />
+      <input
+        hidden=""
+        name="month[_pf][parsedDateParts][4]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
+      />
+      <input
+        hidden=""
+        name="month[_pf][parsedDateParts][5]"
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
@@ -3180,7 +3308,7 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="1999-12-31T23:00:00.000Z"
+        value="2022-08-24T00:00:00.000Z"
       />
       <input
         hidden=""
@@ -3211,7 +3339,7 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         <span
           class="memori--date-selector__select--value"
         >
-          January
+          August
         </span>
         <span
           class="memori--date-selector__select--icon"
@@ -3250,7 +3378,23 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="1999-12-31T23:00:00.000Z"
+        value="2022-08-24 00:00:00Z"
+      />
+      <input
+        hidden=""
+        name="year[_f]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="YYYY-MM-DD HH:mm:ssZ"
+      />
+      <input
+        hidden=""
+        name="year[_tzm]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
       />
       <input
         hidden=""
@@ -3274,7 +3418,7 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="-2"
+        value="-1"
       />
       <input
         hidden=""
@@ -3327,6 +3471,54 @@ exports[`renders DateSelector disabled unchanged 1`] = `
       <input
         hidden=""
         name="year[_pf][iso]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="1"
+      />
+      <input
+        hidden=""
+        name="year[_pf][parsedDateParts][0]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="2022"
+      />
+      <input
+        hidden=""
+        name="year[_pf][parsedDateParts][1]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="7"
+      />
+      <input
+        hidden=""
+        name="year[_pf][parsedDateParts][2]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="24"
+      />
+      <input
+        hidden=""
+        name="year[_pf][parsedDateParts][3]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
+      />
+      <input
+        hidden=""
+        name="year[_pf][parsedDateParts][4]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
+      />
+      <input
+        hidden=""
+        name="year[_pf][parsedDateParts][5]"
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
@@ -4794,7 +4986,7 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="1999-12-31T23:00:00.000Z"
+        value="2022-08-24T00:00:00.000Z"
       />
       <input
         hidden=""
@@ -4825,7 +5017,7 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         <span
           class="memori--date-selector__select--value"
         >
-          2000
+          2022
         </span>
         <span
           class="memori--date-selector__select--icon"
@@ -9724,7 +9916,23 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="1999-12-31T23:00:00.000Z"
+        value="2022-08-24 00:00:00Z"
+      />
+      <input
+        hidden=""
+        name="day[_f]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="YYYY-MM-DD HH:mm:ssZ"
+      />
+      <input
+        hidden=""
+        name="day[_tzm]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
       />
       <input
         hidden=""
@@ -9748,7 +9956,7 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="-2"
+        value="-1"
       />
       <input
         hidden=""
@@ -9801,6 +10009,54 @@ exports[`renders DateSelector with default value unchanged 1`] = `
       <input
         hidden=""
         name="day[_pf][iso]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="1"
+      />
+      <input
+        hidden=""
+        name="day[_pf][parsedDateParts][0]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="2022"
+      />
+      <input
+        hidden=""
+        name="day[_pf][parsedDateParts][1]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="7"
+      />
+      <input
+        hidden=""
+        name="day[_pf][parsedDateParts][2]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="24"
+      />
+      <input
+        hidden=""
+        name="day[_pf][parsedDateParts][3]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
+      />
+      <input
+        hidden=""
+        name="day[_pf][parsedDateParts][4]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
+      />
+      <input
+        hidden=""
+        name="day[_pf][parsedDateParts][5]"
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
@@ -11268,7 +11524,7 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="1999-12-31T23:00:00.000Z"
+        value="2022-08-24T00:00:00.000Z"
       />
       <input
         hidden=""
@@ -11299,7 +11555,7 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         <span
           class="memori--date-selector__select--value"
         >
-          1
+          24
         </span>
         <span
           class="memori--date-selector__select--icon"
@@ -11338,7 +11594,23 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="1999-12-31T23:00:00.000Z"
+        value="2022-08-24 00:00:00Z"
+      />
+      <input
+        hidden=""
+        name="month[_f]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="YYYY-MM-DD HH:mm:ssZ"
+      />
+      <input
+        hidden=""
+        name="month[_tzm]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
       />
       <input
         hidden=""
@@ -11362,7 +11634,7 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="-2"
+        value="-1"
       />
       <input
         hidden=""
@@ -11415,6 +11687,54 @@ exports[`renders DateSelector with default value unchanged 1`] = `
       <input
         hidden=""
         name="month[_pf][iso]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="1"
+      />
+      <input
+        hidden=""
+        name="month[_pf][parsedDateParts][0]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="2022"
+      />
+      <input
+        hidden=""
+        name="month[_pf][parsedDateParts][1]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="7"
+      />
+      <input
+        hidden=""
+        name="month[_pf][parsedDateParts][2]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="24"
+      />
+      <input
+        hidden=""
+        name="month[_pf][parsedDateParts][3]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
+      />
+      <input
+        hidden=""
+        name="month[_pf][parsedDateParts][4]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
+      />
+      <input
+        hidden=""
+        name="month[_pf][parsedDateParts][5]"
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
@@ -12882,7 +13202,7 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="1999-12-31T23:00:00.000Z"
+        value="2022-08-24T00:00:00.000Z"
       />
       <input
         hidden=""
@@ -12913,7 +13233,7 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         <span
           class="memori--date-selector__select--value"
         >
-          January
+          August
         </span>
         <span
           class="memori--date-selector__select--icon"
@@ -12952,7 +13272,23 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="1999-12-31T23:00:00.000Z"
+        value="2022-08-24 00:00:00Z"
+      />
+      <input
+        hidden=""
+        name="year[_f]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="YYYY-MM-DD HH:mm:ssZ"
+      />
+      <input
+        hidden=""
+        name="year[_tzm]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
       />
       <input
         hidden=""
@@ -12976,7 +13312,7 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="-2"
+        value="-1"
       />
       <input
         hidden=""
@@ -13029,6 +13365,54 @@ exports[`renders DateSelector with default value unchanged 1`] = `
       <input
         hidden=""
         name="year[_pf][iso]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="1"
+      />
+      <input
+        hidden=""
+        name="year[_pf][parsedDateParts][0]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="2022"
+      />
+      <input
+        hidden=""
+        name="year[_pf][parsedDateParts][1]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="7"
+      />
+      <input
+        hidden=""
+        name="year[_pf][parsedDateParts][2]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="24"
+      />
+      <input
+        hidden=""
+        name="year[_pf][parsedDateParts][3]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
+      />
+      <input
+        hidden=""
+        name="year[_pf][parsedDateParts][4]"
+        readonly=""
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+        type="hidden"
+        value="0"
+      />
+      <input
+        hidden=""
+        name="year[_pf][parsedDateParts][5]"
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
@@ -14496,7 +14880,7 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="1999-12-31T23:00:00.000Z"
+        value="2022-08-24T00:00:00.000Z"
       />
       <input
         hidden=""
@@ -14527,7 +14911,7 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         <span
           class="memori--date-selector__select--value"
         >
-          2000
+          2022
         </span>
         <span
           class="memori--date-selector__select--icon"
