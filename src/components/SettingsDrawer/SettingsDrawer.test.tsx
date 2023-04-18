@@ -20,6 +20,8 @@ it('renders SettingsDrawer unchanged', () => {
       continuousSpeechTimeout={2}
       setContinuousSpeech={jest.fn()}
       setContinuousSpeechTimeout={jest.fn()}
+      controlsPosition="bottom"
+      setControlsPosition={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -34,6 +36,25 @@ it('renders SettingsDrawer open unchanged', () => {
       continuousSpeechTimeout={2}
       setContinuousSpeech={jest.fn()}
       setContinuousSpeechTimeout={jest.fn()}
+      controlsPosition="bottom"
+      setControlsPosition={jest.fn()}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders SettingsDrawer for totem layout open unchanged', () => {
+  const { container } = render(
+    <SettingsDrawer
+      layout="TOTEM"
+      open={true}
+      onClose={jest.fn()}
+      continuousSpeech={false}
+      continuousSpeechTimeout={2}
+      setContinuousSpeech={jest.fn()}
+      setContinuousSpeechTimeout={jest.fn()}
+      controlsPosition="bottom"
+      setControlsPosition={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
