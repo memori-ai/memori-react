@@ -91,7 +91,7 @@ a.memori-media-item--link {
 .memori-media-item--modal .memori-modal--panel {
     width: 75vw;
     height: 85vh;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(var(--memori-blur-background, 10px));
     background: rgba(0, 0, 0, 0.25);
 }
 
@@ -119,7 +119,7 @@ a.memori-media-item--link {
     position: absolute;
     bottom: 0;
     width: 100%;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(var(--memori-blur-background, 5px));
     background: rgba(255, 255, 255, 0.5);
     color: #000;
 }
