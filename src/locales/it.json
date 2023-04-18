@@ -12,6 +12,8 @@
   "delete": "Elimina",
   "loading": "Caricamento",
   "expand": "Espandi",
+  "fullscreenEnter": "Passa a schermo intero",
+  "fullscreenExit": "Esci da schermo intero",
   "day": "Giorno",
   "month": "Mese",
   "year": "Anno",

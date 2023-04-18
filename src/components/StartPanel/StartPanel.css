@@ -86,7 +86,7 @@
 
 .memori--description,
 .memori--needsPosition {
-    color: rgba(0, 0, 0, 0.85);
+    color: var(--memori-text-color, rgba(0, 0, 0, 0.85));
     font-size: 14px;
     line-height: 1.6;
 }
@@ -137,6 +137,7 @@
     border-radius: 50%;
     background: #fff;
     box-shadow: 0 0 5px 6px rgba(255, 255, 255, 0.5);
+    color: #000;
 }
 
 .memori--completions-enabled span {

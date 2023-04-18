@@ -251,6 +251,8 @@ const MemoriWidget = ({
   const [loading, setLoading] = useState(false);
   const [memoriTyping, setMemoriTyping] = useState(false);
 
+  const selectedLayout = layout || integrationConfig?.layout || 'DEFAULT';
+
   const [hasUserActivatedSpeak, setHasUserActivatedSpeak] = useState(false);
   const [hasUserActivatedListening, setHasUserActivatedListening] =
     useState(false);
@@ -1612,7 +1614,12 @@ const MemoriWidget = ({
   // eslint-disable-next-line
   const [avatar3dVisible, setAvatar3dVisible] = useState(false);
   useEffect(() => {
-    if (window.innerWidth >= 768) setAvatar3dVisible(true);
+    if (
+      (window.innerWidth >= 768 && selectedLayout === 'FULLPAGE') ||
+      selectedLayout === 'TOTEM'
+    ) {
+      setAvatar3dVisible(true);
+    }
   }, []);
 
   const [gamificationLevel, setGamificationLevel] =
@@ -2198,7 +2205,6 @@ const MemoriWidget = ({
 
   const poweredBy = <PoweredBy tenant={tenant} userLang={userLang} />;
 
-  const selectedLayout = layout || integrationConfig?.layout || 'DEFAULT';
   const Layout =
     selectedLayout === 'TOTEM'
       ? TotemLayout

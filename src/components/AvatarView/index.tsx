@@ -57,7 +57,7 @@ export default function AvatarView({
               fov: 40,
               position: [0, 0, 0.6],
             }
-          : { fov: 40, position: [0, 0, 3] }
+          : { fov: 40, position: [0, 0.0000175, 3] }
       }
     >
       <Suspense fallback={fallback || <Loader fallbackImg={fallbackImg} />}>

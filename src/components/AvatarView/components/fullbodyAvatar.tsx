@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useMemo } from 'react';
-import { AnimationMixer, Object3D, Vector3 } from 'three';
+import { AnimationMixer, Object3D, Vector3, Euler } from 'three';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import useEyeBlink from '../utils/useEyeBlink';
 import useHeadMovement from '../utils/useHeadMovement';
@@ -26,6 +26,7 @@ export interface AvatarProps {
 }
 
 const position = new Vector3(0, -1, 0);
+const rotation = new Euler(0.175, 0, 0);
 
 export default function Avatar({
   url,
@@ -81,7 +82,7 @@ export default function Avatar({
   // }, [animation]);
 
   return (
-    <group position={position}>
+    <group position={position} rotation={rotation}>
       <primitive object={scene} />
     </group>
   );

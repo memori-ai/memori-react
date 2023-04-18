@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import {
   Memori,
@@ -13,6 +13,8 @@ import { useTranslation } from 'react-i18next';
 import ExportHistoryButton from '../ExportHistoryButton/ExportHistoryButton';
 import Setting from '../icons/Setting';
 import ShareButton from '../ShareButton/ShareButton';
+import FullscreenExit from '../icons/FullscreenExit';
+import Fullscreen from '../icons/Fullscreen';
 
 export interface Props {
   className?: string;
@@ -44,6 +46,13 @@ const Header: React.FC<Props> = ({
   showSpeaker = true,
 }) => {
   const { t } = useTranslation();
+  const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
+  const [fullScreen, setFullScreen] = useState(false);
+  useEffect(() => {
+    if (document.fullscreenEnabled) {
+      setFullScreenAvailable(true);
+    }
+  }, []);
 
   return (
     <div className={cx('memori-header', className)}>
@@ -59,6 +68,28 @@ const Header: React.FC<Props> = ({
             onClick={() => setShowPositionDrawer(true)}
           />
         </div>
+      )}
+      {fullScreenAvailable && (
+        <Button
+          primary
+          shape="circle"
+          className="memori-header--button"
+          title={
+            fullScreen
+              ? t('fullscreenExit') || 'Exit fullscreen'
+              : t('fullscreenEnter') || 'Enter fullscreen'
+          }
+          icon={fullScreen ? <FullscreenExit /> : <Fullscreen />}
+          onClick={() => {
+            if (!document.fullscreenElement) {
+              document.documentElement.requestFullscreen();
+              setFullScreen(true);
+            } else if (document.exitFullscreen) {
+              document.exitFullscreen();
+              setFullScreen(false);
+            }
+          }}
+        />
       )}
       {showSpeaker && (
         <Button

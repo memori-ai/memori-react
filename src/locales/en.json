@@ -12,6 +12,8 @@
   "delete": "Delete",
   "loading": "Loading",
   "expand": "Expand",
+  "fullscreenEnter": "Enter fullscreen",
+  "fullscreenExit": "Exit fullscreen",
   "day": "Day",
   "month": "Month",
   "year": "Year",
