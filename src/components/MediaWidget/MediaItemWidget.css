@@ -79,6 +79,7 @@ a.memori-media-item--link {
     margin-bottom: 0;
     box-shadow: none;
 }
+
 .memori-media-item--modal .memori-card--content {
     display: none;
 }
@@ -94,7 +95,6 @@ a.memori-media-item--link {
     backdrop-filter: blur(var(--memori-blur-background, 10px));
     background: rgba(0, 0, 0, 0.25);
 }
-
 
 .memori-media-item--modal .memori-modal--panel .memori-card {
     background: none;
@@ -122,4 +122,9 @@ a.memori-media-item--link {
     backdrop-filter: blur(var(--memori-blur-background, 5px));
     background: rgba(255, 255, 255, 0.5);
     color: #000;
+}
+
+.memori-media-item--modal .memori-modal--close button {
+    border-color: #fff;
+    color: #fff;
 }

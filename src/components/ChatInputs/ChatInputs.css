@@ -17,7 +17,7 @@
 
 .memori-chat-inputs .memori--conversation-button {
     background: #fff;
-    color: var(--memori-text-color, #000);
+    color: #000;
 }
 
 .memori-chat-inputs--mic {
@@ -26,6 +26,7 @@
 }
 
 .memori-chat-inputs--mic svg {
+    color: var(--memori-primary-text, #fff);
     font-size: 1em;
 }
 
@@ -33,18 +34,28 @@
 .memori-chat-inputs--mic:active,
 .memori-chat-inputs--mic:focus {
     border-color: var(--memori-primary) !important;
+    color: var(--memori-primary-text, #fff);
 }
 
 .memori-chat-inputs--mic:active,
 .memori-chat-inputs--mic:focus {
     box-shadow: 0 0.2rem 0.33rem var(--memori-primary) !important;
+}
+
+.memori-chat-inputs--mic:not(.memori-chat-inputs--mic--listening):active,
+.memori-chat-inputs--mic:not(.memori-chat-inputs--mic--listening):focus {
     color: var(--memori-primary) !important;
 }
 
 .memori-chat-inputs--mic.memori-chat-inputs--mic--listening {
-    color: red;
+    color: red !important;
+}
+
+.memori-chat-inputs--mic.memori-chat-inputs--mic--listening:active,
+.memori-chat-inputs--mic.memori-chat-inputs--mic--listening:focus {
+    border-color: red !important;
 }
 
 .memori-chat-inputs--mic.memori-chat-inputs--mic--listening svg {
-    color: red;
+    color: red !important;
 }

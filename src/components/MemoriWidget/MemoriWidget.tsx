@@ -262,6 +262,9 @@ const MemoriWidget = ({
   const [continuousSpeech, setContinuousSpeech] = useState(true);
   const [continuousSpeechTimeout, setContinuousSpeechTimeout] = useState(3);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [controlsPosition, setControlsPosition] = useState<'center' | 'bottom'>(
+    'bottom'
+  );
   useEffect(() => {
     setIsPlayingAudio(!!speechSynthesizer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -271,6 +274,7 @@ const MemoriWidget = ({
     setMuteSpeaker(getLocalConfig('muteSpeaker', false));
     setContinuousSpeech(getLocalConfig('continuousSpeech', true));
     setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 3));
+    setControlsPosition(getLocalConfig('controlsPosition', 'bottom'));
   }, []);
 
   /**
@@ -2218,6 +2222,7 @@ const MemoriWidget = ({
         'memori',
         'memori-widget',
         `memori-layout-${layout.toLowerCase()}`,
+        `memori-controls-${controlsPosition.toLowerCase()}`,
         {
           'memori--preview': preview,
           'memori--embed': embed,
@@ -2331,12 +2336,15 @@ const MemoriWidget = ({
 
       {showSettingsDrawer && (
         <SettingsDrawer
+          layout={selectedLayout}
           open={!!showSettingsDrawer}
           onClose={() => setShowSettingsDrawer(false)}
           continuousSpeech={continuousSpeech}
           continuousSpeechTimeout={continuousSpeechTimeout}
           setContinuousSpeech={setContinuousSpeech}
           setContinuousSpeechTimeout={setContinuousSpeechTimeout}
+          controlsPosition={controlsPosition}
+          setControlsPosition={setControlsPosition}
         />
       )}
 

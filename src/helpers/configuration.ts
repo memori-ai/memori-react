@@ -4,6 +4,7 @@ export const keys: { [key: string]: string } = {
   continuousSpeechTimeout: '@memori:continuousSpeechTimeout',
   sendOnEnter: '@memori:sendOnEnter',
   birthDate: '@memori:birthDate',
+  controlsPosition: '@memori:controlsPosition',
 };
 
 export const getLocalConfig = <Type>(key: string, defaultValue: Type): Type => {

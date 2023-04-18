@@ -151,4 +151,5 @@ Totem.args = {
   },
   tenant,
   layout: 'TOTEM',
+  AZURE_COGNITIVE_SERVICES_TTS_KEY: '911287b08e9d46a8bbdacefc4aad8ed0',
 };
