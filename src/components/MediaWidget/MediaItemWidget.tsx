@@ -6,6 +6,7 @@ import { prismSyntaxLangs } from '../../helpers/constants';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
 import Snippet from '../Snippet/Snippet';
 import Card from '../ui/Card';
+import Modal from '../ui/Modal';
 import File from '../icons/File';
 import FilePdf from '../icons/FilePdf';
 import FileExcel from '../icons/FileExcel';
@@ -22,19 +23,23 @@ export interface Props {
 }
 
 export const RenderMediaItem = ({
+  isChild = false,
   item,
   sessionID,
   tenantID,
   preview = false,
   baseURL,
   apiURL,
+  onClick,
 }: {
+  isChild?: boolean;
   item: Medium;
   sessionID?: string;
   tenantID?: string;
   preview?: boolean;
   baseURL?: string;
   apiURL?: string;
+  onClick?: (mediumID: string) => void;
 }) => {
   const url = getResourceUrl({
     resourceURI: item.url,
@@ -53,6 +58,15 @@ export const RenderMediaItem = ({
         <a
           className="memori-media-item--link"
           href={url}
+          onClick={e => {
+            if (isChild) {
+              e.preventDefault();
+            }
+            if (onClick) {
+              e.preventDefault();
+              onClick(item.mediumID);
+            }
+          }}
           target="_blank"
           rel="noopener noreferrer"
           title={item.title}
@@ -154,6 +168,15 @@ export const RenderMediaItem = ({
         <a
           className="memori-media-item--link"
           href={url}
+          onClick={e => {
+            if (isChild) {
+              e.preventDefault();
+            }
+            if (onClick) {
+              e.preventDefault();
+              onClick(item.mediumID);
+            }
+          }}
           target="_blank"
           rel="noopener noreferrer"
           title={item.title}
@@ -235,6 +258,7 @@ const MediaItemWidget: React.FC<Props> = ({
   apiURL,
 }: Props) => {
   const [media, setMedia] = useState(items);
+  const [openModalMedium, setOpenModalMedium] = useState<Medium>();
 
   const translateMediaCaptions = useCallback(async () => {
     if (!translateTo) return;
@@ -306,10 +330,14 @@ const MediaItemWidget: React.FC<Props> = ({
               leaveTo="opacity-0 scale-95"
             >
               <RenderMediaItem
+                isChild
                 sessionID={sessionID}
                 tenantID={tenantID}
                 baseURL={baseURL}
                 apiURL={apiURL}
+                onClick={mediumID => {
+                  setOpenModalMedium(media.find(m => m.mediumID === mediumID));
+                }}
                 item={{
                   ...item,
                   title: item.title,
@@ -349,6 +377,31 @@ const MediaItemWidget: React.FC<Props> = ({
             dangerouslySetInnerHTML={{ __html: medium.content || '' }}
           ></style>
         ))}
+
+      {openModalMedium?.mediumID && (
+        <Modal
+          width="100%"
+          widthMd="100%"
+          className="memori-media-item--modal"
+          open={!!openModalMedium}
+          onClose={() => setOpenModalMedium(undefined)}
+          footer={null}
+        >
+          <RenderMediaItem
+            isChild
+            sessionID={sessionID}
+            tenantID={tenantID}
+            baseURL={baseURL}
+            apiURL={apiURL}
+            item={{
+              ...openModalMedium,
+              title: openModalMedium.title,
+              url: openModalMedium.url,
+              content: openModalMedium.content,
+            }}
+          />
+        </Modal>
+      )}
     </Transition>
   );
 };

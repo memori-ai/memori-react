@@ -63,3 +63,63 @@ a.memori-media-item--link {
     width: 50%;
     height: 50%;
 }
+
+.memori-media-item--modal .memori-media-item--figure {
+    width: 100%;
+    max-height: 100%;
+    flex-direction: row;
+}
+
+.memori-media-item--modal .memori-card {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    margin-bottom: 0;
+    box-shadow: none;
+}
+.memori-media-item--modal .memori-card--content {
+    display: none;
+}
+
+.memori-media-item--modal .memori-card--cover {
+    height: 100%;
+    border-radius: 0;
+}
+
+.memori-media-item--modal .memori-modal--panel {
+    width: 75vw;
+    height: 85vh;
+    backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.25);
+}
+
+
+.memori-media-item--modal .memori-modal--panel .memori-card {
+    background: none;
+}
+
+.memori-media-item--modal .memori-modal--panel .memori-spin {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.memori-media-item--modal a.memori-media-item--link {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.memori-media-item--modal .memori-media-item--figure-caption {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.5);
+    color: #000;
+}
