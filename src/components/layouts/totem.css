@@ -77,9 +77,6 @@
 .memori-totem-layout--controls {
     position: relative;
     z-index: 5;
-    width: 80vw;
-    max-width: 800px;
-    margin: 0 auto;
 }
 
 .memori-totem-layout--controls .memori--start-panel,
@@ -88,8 +85,12 @@
     background: transparent;
 }
 
-.memori-totem-layout--controls .memori--start-panel {
+.memori-totem-layout--controls .memori--start-panel,
+.memori-totem-layout--controls .memori-chat--wrapper {
+    width: 80vw;
+    max-width: 800px;
     padding: 1rem;
+    margin: 0 auto;
 }
 
 .memori-totem-layout .memori--avatar-toggle {
@@ -108,7 +109,7 @@
     background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(200, 200, 200, 0.8));
 }
 
-.memori-widget.memori-controls-center .memori-totem-layout--controls {
+.memori-widget.memori-controls-center .memori-totem-layout--controls  {
     position: absolute;
     top: 40%;
     width: 100%;
