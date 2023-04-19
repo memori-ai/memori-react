@@ -1,5 +1,5 @@
 .memori-widget.memori-layout-totem {
-    height: 100vh;
+    height: 100vh !important;
 }
 
 .memori-widget > .memori-spin.memori-totem-layout {
