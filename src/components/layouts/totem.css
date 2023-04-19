@@ -1,5 +1,8 @@
 .memori-widget.memori-layout-totem {
     height: 100vh !important;
+}
+
+.memori-widget.memori-layout-totem .memori--global-background.no-background-image {
     background: linear-gradient(#333, #eee);
 }
 

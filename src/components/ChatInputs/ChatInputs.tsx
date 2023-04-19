@@ -95,6 +95,7 @@ const ChatInputs: React.FC<Props> = ({
       />
       {showMicrophone && (
         <Button
+          primary
           className={cx('memori-chat-inputs--mic', {
             'memori-chat-inputs--mic--listening': listening,
           })}

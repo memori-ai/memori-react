@@ -2188,7 +2188,9 @@ const MemoriWidget = ({
           style={{ backgroundImage: globalBackgroundUrl }}
         />
       </div>
-    ) : null;
+    ) : (
+      <div className="memori--global-background no-background-image" />
+    );
 
   const integrationStyle = integration ? (
     <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
