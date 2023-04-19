@@ -15,6 +15,7 @@ import Setting from '../icons/Setting';
 import ShareButton from '../ShareButton/ShareButton';
 import FullscreenExit from '../icons/FullscreenExit';
 import Fullscreen from '../icons/Fullscreen';
+import Refresh from '../icons/Refresh';
 
 export interface Props {
   className?: string;
@@ -29,6 +30,7 @@ export interface Props {
   showShare?: boolean;
   showSettings?: boolean;
   showSpeaker?: boolean;
+  showReload?: boolean;
 }
 
 const Header: React.FC<Props> = ({
@@ -44,6 +46,7 @@ const Header: React.FC<Props> = ({
   showShare = true,
   showSettings = true,
   showSpeaker = true,
+  showReload = false,
 }) => {
   const { t } = useTranslation();
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
@@ -56,6 +59,18 @@ const Header: React.FC<Props> = ({
 
   return (
     <div className={cx('memori-header', className)}>
+      {showReload && (
+        <Button
+          primary
+          shape="circle"
+          className="memori-header--button"
+          title={t('reload') || 'Reload'}
+          icon={<Refresh />}
+          onClick={() => {
+            window.location.reload();
+          }}
+        />
+      )}
       {memori.needsPosition && position && (
         <div className="memori-header--position">
           <span className="memori-header--position-placeName">
