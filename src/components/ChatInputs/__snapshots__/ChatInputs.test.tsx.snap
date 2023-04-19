@@ -89,7 +89,7 @@ exports[`renders ChatInputs disabled unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
       title="write_and_speak.micButtonPopover"
     >
       <span
@@ -199,7 +199,7 @@ exports[`renders ChatInputs listening unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic memori-chat-inputs--mic--listening"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic memori-chat-inputs--mic--listening"
       title="write_and_speak.micButtonPopoverListening"
     >
       <span
@@ -338,7 +338,7 @@ exports[`renders ChatInputs on instruct unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
       title="write_and_speak.micButtonPopover"
     >
       <span
@@ -447,7 +447,7 @@ exports[`renders ChatInputs unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
       title="write_and_speak.micButtonPopover"
     >
       <span
@@ -557,7 +557,7 @@ exports[`renders ChatInputs with user message unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
       title="write_and_speak.micButtonPopover"
     >
       <span
