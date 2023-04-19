@@ -77,6 +77,9 @@
 .memori-totem-layout--controls {
     position: relative;
     z-index: 5;
+    width: 80vw;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
 .memori-totem-layout--controls .memori--start-panel,
