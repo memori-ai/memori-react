@@ -148,6 +148,7 @@ Fullbody.args = {
 
 export const FullbodyAnimatedIdle = Template.bind({});
 FullbodyAnimatedIdle.args = {
+  sex: 'MALE',
   eyeBlink: true,
   headMovement: true,
   rotateAvatar: true,
@@ -161,6 +162,7 @@ FullbodyAnimatedIdle.args = {
 
 export const FullbodyAnimatedLoading = Template.bind({});
 FullbodyAnimatedLoading.args = {
+  sex: 'MALE',
   eyeBlink: true,
   headMovement: true,
   rotateAvatar: true,
@@ -174,6 +176,7 @@ FullbodyAnimatedLoading.args = {
 
 export const FullbodyAnimatedSpeaking = Template.bind({});
 FullbodyAnimatedSpeaking.args = {
+  sex: 'MALE',
   eyeBlink: true,
   headMovement: true,
   rotateAvatar: true,
@@ -182,5 +185,19 @@ FullbodyAnimatedSpeaking.args = {
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
   animation: 'Talk 1',
+  halfBody: false,
+};
+
+export const FullbodyAnimatedFemale = Template.bind({});
+FullbodyAnimatedFemale.args = {
+  sex: 'FEMALE',
+  eyeBlink: true,
+  headMovement: true,
+  rotateAvatar: true,
+  speaking: true,
+  url: 'https://assets.memori.ai/api/v2/asset/6af08bf1-f011-40ea-92a2-699b7b53a53c.glb',
+  fallbackImg:
+    'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
+  animation: 'Idle',
   halfBody: false,
 };

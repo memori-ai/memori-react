@@ -9,6 +9,7 @@ import { correctMaterials, hideHands, isSkinnedMesh } from '../utils/utils';
 
 export interface AvatarProps {
   url: string;
+  sex: 'MALE' | 'FEMALE';
   eyeBlink?: boolean;
   headMovement?: boolean;
   speaking?: boolean;
@@ -30,6 +31,7 @@ const rotation = new Euler(0.175, 0, 0);
 
 export default function Avatar({
   url,
+  sex,
   eyeBlink,
   headMovement,
   speaking,
@@ -38,7 +40,9 @@ export default function Avatar({
 }: AvatarProps) {
   const { scene } = useGLTF(url);
   const { animations } = useGLTF(
-    'https://assets.memori.ai/api/v2/asset/b11eef07-c45b-4959-9d43-be8105365c1f.glb'
+    sex === 'MALE'
+      ? 'https://assets.memori.ai/api/v2/asset/b11eef07-c45b-4959-9d43-be8105365c1f.glb'
+      : 'https://assets.memori.ai/api/v2/asset/24dc2bd7-d6b5-4492-ab29-791928b0a669.glb'
   );
   const { nodes, materials } = useGraph(scene);
 
@@ -60,8 +64,6 @@ export default function Avatar({
     };
   }, [materials, nodes, url, onLoaded]);
 
-  // useEffect(() => {
-  // console.log('animation', animation, animation && animation in anim.actions);
   try {
     if (animation && animation in anim.actions) {
       Object.keys(anim.actions).forEach(name => {
@@ -79,7 +81,6 @@ export default function Avatar({
   } catch (e) {
     console.log(e);
   }
-  // }, [animation]);
 
   return (
     <group position={position} rotation={rotation}>

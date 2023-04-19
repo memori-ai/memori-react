@@ -108,6 +108,7 @@ const Avatar: React.FC<Props> = ({
                 >
                   <AvatarView
                     url={integrationConfig.avatarURL}
+                    sex={memori.voiceType === 'FEMALE' ? 'FEMALE' : 'MALE'}
                     fallbackImg={getResourceUrl({
                       type: 'avatar',
                       tenantID: tenant?.id,

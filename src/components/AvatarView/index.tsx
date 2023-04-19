@@ -9,6 +9,7 @@ import { isAndroid } from '../../helpers/utils';
 
 export interface Props {
   url: string;
+  sex: 'MALE' | 'FEMALE';
   fallbackImg?: string;
   eyeBlink?: boolean;
   headMovement?: boolean;
@@ -35,6 +36,7 @@ const defaultStylesFullBody = {
 
 export default function AvatarView({
   url,
+  sex,
   fallbackImg,
   style,
   rotateAvatar,
@@ -85,6 +87,7 @@ export default function AvatarView({
         ) : (
           <FullbodyAvatar
             url={url}
+            sex={sex}
             eyeBlink={eyeBlink}
             headMovement={headMovement}
             speaking={speaking}
