@@ -1,8 +1,9 @@
 .memori-widget > .memori-spin.memori-totem-layout {
     display: flex;
+    height: 100%;
     flex-direction: column;
 
-    --memori-text-color: #fff;
+    /* --memori-text-color: #fff; */
 }
 
 .memori-totem-layout--header {
@@ -14,7 +15,7 @@
 }
 
 .memori-totem-layout--avatar .memori--avatar-wrapper {
-    position: absolute;
+    position: fixed;
     z-index: 0;
     top: 0;
     left: 0;
@@ -78,6 +79,10 @@
 .memori-totem-layout--controls .memori-chat--history,
 .memori-totem-layout--controls .memori-chat--content {
     background: transparent;
+}
+
+.memori-totem-layout--controls .memori--start-panel {
+    padding: 1rem;
 }
 
 .memori-totem-layout .memori--avatar-toggle {
