@@ -146,6 +146,7 @@ Totem.args = {
       avatar: 'readyplayerme-full',
       avatarURL:
         'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb#' +
+        // 'https://models.readyplayer.me/63b558263858282637c54115.glb#' +
         new Date(Date.now()).getTime(),
     }),
   },

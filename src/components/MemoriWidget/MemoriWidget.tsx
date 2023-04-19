@@ -191,7 +191,7 @@ const MemoriWidget = ({
   showInputs = true,
   showDates = false,
   showContextPerLine = false,
-  showSettings = false,
+  showSettings = true,
   height = '100vh',
   secret,
   baseUrl = 'https://app.twincreator.com',
@@ -224,7 +224,6 @@ const MemoriWidget = ({
     getSession,
     getContentQualityIndexes,
   } = client;
-  const { uploadAsset, getUploadAssetURL, deleteAsset } = client.backend;
 
   const [instruct, setInstruct] = useState(false);
 
@@ -260,10 +259,10 @@ const MemoriWidget = ({
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
   const [muteSpeaker, setMuteSpeaker] = useState(false);
   const [continuousSpeech, setContinuousSpeech] = useState(true);
-  const [continuousSpeechTimeout, setContinuousSpeechTimeout] = useState(3);
+  const [continuousSpeechTimeout, setContinuousSpeechTimeout] = useState(2);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [controlsPosition, setControlsPosition] = useState<'center' | 'bottom'>(
-    'bottom'
+    'center'
   );
   useEffect(() => {
     setIsPlayingAudio(!!speechSynthesizer);
@@ -273,8 +272,8 @@ const MemoriWidget = ({
   useEffect(() => {
     setMuteSpeaker(getLocalConfig('muteSpeaker', false));
     setContinuousSpeech(getLocalConfig('continuousSpeech', true));
-    setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 3));
-    setControlsPosition(getLocalConfig('controlsPosition', 'bottom'));
+    setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 2));
+    setControlsPosition(getLocalConfig('controlsPosition', 'center'));
   }, []);
 
   /**
@@ -2084,6 +2083,7 @@ const MemoriWidget = ({
       }}
       showSettings={showSettings}
       hasUserActivatedSpeak={hasUserActivatedSpeak}
+      showReload={selectedLayout === 'TOTEM'}
     />
   );
 

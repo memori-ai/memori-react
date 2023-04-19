@@ -3,7 +3,7 @@
 exports[`renders Totem layout unchanged 1`] = `
 <div>
   <div
-    class="memori memori-widget memori-layout-totem memori-controls-bottom memori--with-integration"
+    class="memori memori-widget memori-layout-totem memori-controls-center memori--with-integration"
     data-memori-engine-state="{}"
     data-memori-id="66b4e161-2431-4b21-9b70-d8c27de730ca"
     data-memori-integration="cb3c4776-7f0b-4f97-a773-c32a5d7a3bf1"
@@ -63,6 +63,37 @@ exports[`renders Totem layout unchanged 1`] = `
         <div
           class="memori-header"
         >
+          <button
+            class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
+            title="reload"
+          >
+            <span
+              class="memori-button--icon"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                focusable="false"
+                role="img"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M23 4L23 10 17 10"
+                />
+                <path
+                  d="M1 20L1 14 7 14"
+                />
+                <path
+                  d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"
+                />
+              </svg>
+            </span>
+          </button>
           <div
             class="memori-export-history-button memori-header--button"
             data-headlessui-state=""
