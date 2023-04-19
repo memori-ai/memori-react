@@ -26,7 +26,9 @@ export default function useMouthSpeaking(
   useEffect(() => {
     if (!speaking) return;
 
-    mouthMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar) as SkinnedMesh;
+    mouthMesh = (nodes.Wolf3D_Head ||
+      nodes.Wolf3D_Avatar ||
+      nodes.Wolf3D_Avatar001) as SkinnedMesh;
 
     if (mouthMesh?.morphTargetDictionary && mouthMesh?.morphTargetInfluences) {
       mouthOpenMorphIndex = mouthMesh.morphTargetDictionary.mouthOpen;

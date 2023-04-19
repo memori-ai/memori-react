@@ -136,6 +136,7 @@ Speaking.args = {
 
 export const Fullbody = Template.bind({});
 Fullbody.args = {
+  sex: 'MALE',
   eyeBlink: true,
   headMovement: true,
   rotateAvatar: true,
@@ -185,6 +186,19 @@ FullbodyAnimatedSpeaking.args = {
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
   animation: 'Talk 1',
+  halfBody: false,
+};
+
+export const FullbodyFemale = Template.bind({});
+FullbodyFemale.args = {
+  sex: 'FEMALE',
+  eyeBlink: true,
+  headMovement: true,
+  rotateAvatar: true,
+  speaking: false,
+  url: 'https://assets.memori.ai/api/v2/asset/6af08bf1-f011-40ea-92a2-699b7b53a53c.glb',
+  fallbackImg:
+    'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
   halfBody: false,
 };
 
