@@ -67,7 +67,7 @@ const Memori: React.FC<Props> = ({
   sessionID,
   layout = 'DEFAULT',
   showShare = true,
-  showSettings = false,
+  showSettings = true,
   showInstruct = false,
   height = '100%',
   baseURL,

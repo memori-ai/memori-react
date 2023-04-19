@@ -19,6 +19,7 @@
 @import url('./components/ChatInputs/ChatInputs.css');
 @import url('./components/ChatTextArea/ChatTextArea.css');
 @import url('./components/CustomGLBModelViewer/ModelViewer.css');
+@import url('./components/SettingsDrawer/SettingsDrawer.css');
 @import url('./components/ExportHistoryButton/ExportHistoryButton.css');
 @import url('./components/FeedbackButtons/FeedbackButtons.css');
 @import url('./components/Header/Header.css');

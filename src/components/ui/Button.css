@@ -118,6 +118,10 @@
     line-height: 1;
 }
 
+.memori-button--icon svg[fill="none"] {
+    fill: none;
+}
+
 .memori-button--with-icon .memori-button--icon {
     margin-right: 0.5em;
 }
