@@ -1,3 +1,7 @@
+.memori-widget.memori-layout-totem {
+    height: 100vh;
+}
+
 .memori-widget > .memori-spin.memori-totem-layout {
     display: flex;
     height: 100%;
