@@ -1,5 +1,6 @@
 .memori-widget.memori-layout-totem {
     height: 100vh !important;
+    background: linear-gradient(#333, #eee);
 }
 
 .memori-widget > .memori-spin.memori-totem-layout {

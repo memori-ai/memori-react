@@ -1619,7 +1619,7 @@ const MemoriWidget = ({
   useEffect(() => {
     if (
       (window.innerWidth >= 768 && selectedLayout === 'FULLPAGE') ||
-      selectedLayout === 'TOTEM'
+      selectedLayout !== 'FULLPAGE'
     ) {
       setAvatar3dVisible(true);
     }
