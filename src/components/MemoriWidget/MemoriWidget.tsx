@@ -1755,6 +1755,7 @@ const MemoriWidget = ({
 
   const simulateUserPrompt = (text: string, translatedText?: string) => {
     stopListening();
+    stopAudio();
     sendMessage(text, undefined, undefined, false, translatedText);
   };
 
@@ -2166,6 +2167,7 @@ const MemoriWidget = ({
       userMessage={userMessage}
       onChangeUserMessage={onChangeUserMessage}
       sendMessage={(msg: string) => {
+        stopAudio();
         stopListening();
         sendMessage(msg);
         setUserMessage('');

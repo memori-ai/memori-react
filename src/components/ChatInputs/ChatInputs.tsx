@@ -88,6 +88,7 @@ const ChatInputs: React.FC<Props> = ({
         className="memori-chat-inputs--send"
         onClick={() => {
           sendMessage(userMessage);
+          stopAudio();
           speechSynthesis.speak(new SpeechSynthesisUtterance(''));
         }}
         title={t('send') || 'Send'}
