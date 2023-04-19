@@ -21,6 +21,7 @@ export declare type ILinkPreviewInfo = {
 };
 
 export interface Props {
+  isChild?: boolean;
   items: Medium[];
   baseUrl?: string;
   descriptionOneLine?: boolean;
@@ -43,6 +44,7 @@ const getSiteInfo = async (url: string, baseUrl?: string) => {
 };
 
 export const RenderLinkItem = ({
+  isChild = false,
   item,
   baseUrl,
   onLinkPreviewInfo,
@@ -97,7 +99,24 @@ export const RenderLinkItem = ({
       href={normURL}
       target="_blank"
       rel="noopener noreferrer"
-      className="memori-link-item--link"
+      className={cx('memori-link-item--link', {
+        'memori-link-item--link--child': isChild,
+      })}
+      onClick={e => {
+        if (!isChild) {
+          e.preventDefault();
+          e.stopPropagation();
+          window.open(
+            normURL,
+            '_blank',
+            `toolbar=yes,top=${window.innerHeight * 0.1},left=${
+              window.innerWidth * 0.1
+            },width=${window.innerWidth * 0.8},height=${
+              window.innerHeight * 0.8
+            }`
+          );
+        }
+      }}
     >
       <Card
         hoverable
