@@ -95,7 +95,7 @@ const SettingsDrawer = ({
               className="memori-settings-drawer--controlsposition-radio-button"
             >
               {({ checked }) => (
-                <Button primary={checked}>{t('botton') || 'Bottom'}</Button>
+                <Button primary={checked}>{t('bottom') || 'Bottom'}</Button>
               )}
             </RadioGroup.Option>
           </RadioGroup>
