@@ -1141,6 +1141,8 @@ const MemoriWidget = ({
 
   const speak = (text: string): void => {
     if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) return;
+    stopListening();
+    stopAudio();
 
     if (preview) return;
     if (muteSpeaker) {
@@ -1149,10 +1151,6 @@ const MemoriWidget = ({
         setListeningTimeout();
       }
       return;
-    }
-
-    if (listening) {
-      stopListening();
     }
 
     if (audioDestination) audioDestination.pause();
@@ -1236,12 +1234,10 @@ const MemoriWidget = ({
     audioDestination.onAudioEnd = () => {
       setIsPlayingAudio(false);
       source.disconnect();
-      // stopAudio();
 
-      if (continuousSpeech) {
-        // trigger start continuous listening if set
-        document.dispatchEvent(new Event('endSpeakStartListen'));
-      }
+      // trigger start continuous listening if set
+      // document.dispatchEvent(new Event('endSpeakStartListen'));
+      onEndSpeakStartListen();
     };
 
     setIsPlayingAudio(true);
@@ -1417,6 +1413,7 @@ const MemoriWidget = ({
 
           setListening(true);
           recognizer.recognized = (_s, e) => {
+            if (!e.result.text) return;
             if (e.result.reason === speechSdk.ResultReason.RecognizedSpeech) {
               let transcript = e.result.text;
               setTranscript(transcript || '');
@@ -1486,7 +1483,7 @@ const MemoriWidget = ({
    */
   const [requestedListening, setRequestedListening] = useState(false);
   const onEndSpeakStartListen = useCallback(
-    (_e: Event) => {
+    (_e?: Event) => {
       if (isPlayingAudio && speechSynthesizer) {
         speechSynthesizer.close();
         speechSynthesizer = null;
@@ -1503,7 +1500,12 @@ const MemoriWidget = ({
     [continuousSpeech, hasUserActivatedListening]
   );
   useEffect(() => {
-    if (!isPlayingAudio && continuousSpeech && hasUserActivatedListening)
+    if (
+      history.length > 1 &&
+      !isPlayingAudio &&
+      continuousSpeech &&
+      (hasUserActivatedListening || !requestedListening)
+    )
       startListening();
     else if (isPlayingAudio && listening) {
       stopListening();
