@@ -1142,7 +1142,7 @@ const MemoriWidget = ({
   const speak = (text: string): void => {
     if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) return;
     stopListening();
-    stopAudio();
+    // stopAudio();
 
     if (preview) return;
     if (muteSpeaker) {
