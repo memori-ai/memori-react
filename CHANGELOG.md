@@ -1,5 +1,12 @@
 
 
+## [2.0.1](https://github.com/memori-ai/memori-react/compare/v2.0.0...v2.0.1) (2023-04-24)
+
+
+### Bug Fixes
+
+* copy css files ([866a97f](https://github.com/memori-ai/memori-react/commit/866a97fe078c9758e2a420ea4c4aca2008ee7644))
+
 ## [2.0.0](https://github.com/memori-ai/memori-react/compare/v1.2.1...v2.0.0) (2023-04-24)
 
 
