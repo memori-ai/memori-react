@@ -1,5 +1,12 @@
 
 
+## [2.0.5](https://github.com/memori-ai/memori-react/compare/v2.0.4...v2.0.5) (2023-04-24)
+
+
+### Bug Fixes
+
+* totem layout blob z-index ([5808bdf](https://github.com/memori-ai/memori-react/commit/5808bdfa6875a3083e787b40f49c3cc836edfdd5))
+
 ## [2.0.4](https://github.com/memori-ai/memori-react/compare/v2.0.3...v2.0.4) (2023-04-24)
 
 
