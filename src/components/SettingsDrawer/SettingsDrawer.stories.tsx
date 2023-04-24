@@ -21,12 +21,15 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = args => {
+  const [continuousSpeech, setContinuousSpeech] = React.useState(false);
   const [controlsPosition, setControlsPosition] = React.useState<
-    'bottom' | 'center'
+    'bottom' | 'center' | 'hidden'
   >('bottom');
   return (
     <SettingsDrawer
       {...args}
+      continuousSpeech={continuousSpeech}
+      setContinuousSpeech={setContinuousSpeech}
       controlsPosition={controlsPosition}
       setControlsPosition={setControlsPosition}
     />

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Memori } from '@memori.ai/memori-api-client/dist/types';
 import Drawer from '../ui/Drawer';
 import { useTranslation } from 'react-i18next';
 import Checkbox from '../ui/Checkbox';
@@ -15,8 +15,8 @@ export interface Props {
   continuousSpeechTimeout?: number;
   setContinuousSpeech: (value: boolean) => void;
   setContinuousSpeechTimeout: (value: number) => void;
-  controlsPosition?: 'center' | 'bottom';
-  setControlsPosition: (value: 'center' | 'bottom') => void;
+  controlsPosition?: 'center' | 'bottom' | 'hidden';
+  setControlsPosition: (value: 'center' | 'bottom' | 'hidden') => void;
 }
 
 const silenceSeconds = [2, 3, 5, 10, 15, 20, 30, 60];
@@ -49,6 +49,11 @@ const SettingsDrawer = ({
           onChange={e => {
             setContinuousSpeech(e.target.checked);
             setLocalConfig('continuousSpeech', e.target.checked);
+
+            if (!e.target.checked && controlsPosition === 'hidden') {
+              setControlsPosition('bottom');
+              setLocalConfig('controlsPosition', 'bottom');
+            }
           }}
         />
       </div>
@@ -98,6 +103,16 @@ const SettingsDrawer = ({
                 <Button primary={checked}>{t('bottom') || 'Bottom'}</Button>
               )}
             </RadioGroup.Option>
+            {!!continuousSpeech && (
+              <RadioGroup.Option
+                value="hidden"
+                className="memori-settings-drawer--controlsposition-radio-button"
+              >
+                {({ checked }) => (
+                  <Button primary={checked}>{t('hidden') || 'Hidden'}</Button>
+                )}
+              </RadioGroup.Option>
+            )}
           </RadioGroup>
         </div>
       )}
