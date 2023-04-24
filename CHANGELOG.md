@@ -1,5 +1,12 @@
 
 
+## [2.0.3](https://github.com/memori-ai/memori-react/compare/v2.0.2...v2.0.3) (2023-04-24)
+
+
+### Maintenance
+
+* add layout to propTypes ([2693869](https://github.com/memori-ai/memori-react/commit/269386988292ec9937730e4639e4179b3f5f68be))
+
 ## [2.0.2](https://github.com/memori-ai/memori-react/compare/v2.0.1...v2.0.2) (2023-04-24)
 
 
