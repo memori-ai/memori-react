@@ -1,11 +1,19 @@
 import React, { memo, useEffect, useMemo } from 'react';
-import { AnimationMixer, Object3D, Vector3, Euler } from 'three';
+import {
+  AnimationMixer,
+  Object3D,
+  Vector3,
+  Euler,
+  AnimationActionLoopStyles,
+  SkinnedMesh,
+} from 'three';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import useEyeBlink from '../utils/useEyeBlink';
-import useHeadMovement from '../utils/useHeadMovement';
+import useLoadingMorphAnim from '../utils/useLoadingMorphAnim';
 import useMouthSpeaking from '../utils/useMouthSpeaking';
 import { dispose, useGraph } from '@react-three/fiber';
 import { correctMaterials, hideHands, isSkinnedMesh } from '../utils/utils';
+import useSmile from '../utils/useSmile';
 
 export interface AvatarProps {
   url: string;
@@ -33,7 +41,6 @@ export default function Avatar({
   url,
   sex,
   eyeBlink,
-  headMovement,
   speaking,
   onLoaded,
   animation,
@@ -44,13 +51,24 @@ export default function Avatar({
       ? 'https://assets.memori.ai/api/v2/asset/b11eef07-c45b-4959-9d43-be8105365c1f.glb'
       : 'https://assets.memori.ai/api/v2/asset/24dc2bd7-d6b5-4492-ab29-791928b0a669.glb'
   );
+  const { animations: loadingAnimations } = useGLTF(
+    sex === 'MALE'
+      ? 'https://assets.memori.ai/api/v2/asset/2150d3d3-b77d-4489-8455-e6239334e8a7.glb'
+      : 'https://assets.memori.ai/api/v2/asset/0a04e5b2-1a02-4964-9534-75c2a7574660.glb'
+  );
   const { nodes, materials } = useGraph(scene);
 
   const anim = useAnimations(animations, scene);
+  const loadingAnim = useAnimations(
+    loadingAnimations.filter(a => a.name === 'Loading'),
+    scene
+  );
 
   useEyeBlink(eyeBlink, nodes);
-  useHeadMovement(headMovement, nodes);
+  // useHeadMovement(headMovement, nodes);
   useMouthSpeaking(!!speaking, nodes);
+  useLoadingMorphAnim(animation === 'Loading', nodes);
+  useSmile(animation !== 'Sad' && animation !== 'Loading', nodes);
 
   useEffect(() => {
     correctMaterials(materials);
@@ -69,13 +87,19 @@ export default function Avatar({
       Object.keys(anim.actions).forEach(name => {
         let action = anim.actions[name];
         if (!action) return;
-        else if (name === animation) action.play();
-        else action.stop();
+        else if (name === animation && animation !== 'Loading')
+          action.fadeIn(0.3).play();
+        else action.fadeOut(0.3).stop();
       });
+      if (animation === 'Loading') {
+        loadingAnim.actions['Loading']?.fadeIn(0.3).play();
+      } else {
+        loadingAnim.actions['Loading']?.fadeOut(0.3).stop();
+      }
     } else {
       Object.values(anim.actions).forEach(action => {
         if (!action) return;
-        action?.reset().stop();
+        action?.fadeOut(0.2).reset().stop();
       });
     }
   } catch (e) {

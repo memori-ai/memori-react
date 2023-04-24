@@ -116,7 +116,7 @@ const Avatar: React.FC<Props> = ({
                       baseURL: baseUrl,
                       apiURL: apiUrl,
                     })}
-                    headMovement={integrationConfig.avatar === 'readyplayerme'}
+                    headMovement
                     eyeBlink
                     halfBody={integrationConfig.avatar === 'readyplayerme'}
                     animation={animation}
