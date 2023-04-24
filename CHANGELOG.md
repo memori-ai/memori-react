@@ -1,5 +1,64 @@
 
 
+## [2.0.0](https://github.com/memori-ai/memori-react/compare/v1.2.1...v2.0.0) (2023-04-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* add totem layout, add prop to select layout, refactor defualt to fullpage
+* add age verification, settings panel, ui components
+
+### Features
+
+* add age verification, settings panel, ui components ([92f390c](https://github.com/memori-ai/memori-react/commit/92f390c086413349fc655bca9fc0eb9b4ea02797))
+* add controls position in settings, place controls on that config on totem layout ([fcfb23e](https://github.com/memori-ai/memori-react/commit/fcfb23ee61642494eae803de0d0222ec3e24f8c6))
+* add fullscreen button, fix styles for totem layout, fix fullbody camera/obj rotation ([ad694a4](https://github.com/memori-ai/memori-react/commit/ad694a42eb90e67c9a932d4959d3b830a07fbe57))
+* add modal in media item for images and videos ([348018a](https://github.com/memori-ai/memori-react/commit/348018a5237696d048cea4d8b30b7a30bb735322))
+* add modal in media item for images and videos ([99cc6e2](https://github.com/memori-ai/memori-react/commit/99cc6e2c7ec5d0d73359f495fff5f57e7ca568b9))
+* add refresh button in header ([5029462](https://github.com/memori-ai/memori-react/commit/5029462d406e3b08bf5408201ad4648e89e9ec06))
+* add totem layout, add prop to select layout, refactor defualt to fullpage ([4717cb2](https://github.com/memori-ai/memori-react/commit/4717cb2bf19e76beb9a5e2e3ab68a845a718d7d3))
+* open links in another window ([a7825f7](https://github.com/memori-ai/memori-react/commit/a7825f790d856135279fa5103ae0b1fb746317bd))
+
+
+### Bug Fixes
+
+* audio first message ([773307f](https://github.com/memori-ai/memori-react/commit/773307ffd80c3dea7022e2b849e41dc7e0b24409))
+* avatar fullbody animations male vs female ([c5366a5](https://github.com/memori-ai/memori-react/commit/c5366a503e1c88473e769232c77cb3f50583bfe0))
+* chat typing wave animation ([77597c4](https://github.com/memori-ai/memori-react/commit/77597c482608a63c2a39908b10e6254fffb2dce3))
+* continuous speech issues ([4e99871](https://github.com/memori-ai/memori-react/commit/4e998713834838e7003bde536bd5f10f49b6e1a6))
+* female avatars mouth moving speaking ([246d054](https://github.com/memori-ai/memori-react/commit/246d05486cae1759f223c372e7cfeb359bb344a0))
+* import css order ([8d23656](https://github.com/memori-ai/memori-react/commit/8d236566819510b8c4e02b9c5acc5deb2c6ef4da))
+* max width totem controls ([8e0378e](https://github.com/memori-ai/memori-react/commit/8e0378e58cd4da40cc3aa98f117a4fb28a910ce9))
+* media modal styles ([e08c946](https://github.com/memori-ai/memori-react/commit/e08c9460d02c710bf631faf5d888330a8c5ad71e))
+* minor fixes, add base background ([5dbb196](https://github.com/memori-ai/memori-react/commit/5dbb19611c6b57d77c4366e6a106c843ca4d15f9))
+* minor style fixes ([cd7a5b4](https://github.com/memori-ai/memori-react/commit/cd7a5b42262926ad4b140dd813a698961adfbdfb))
+* minor style fixes, fix avatar loader, stop audio on hints click or type textarea ([235ad81](https://github.com/memori-ai/memori-react/commit/235ad8187bc0fa8163553597c7c520aea3b7122e))
+* minor styles fixes ([940b066](https://github.com/memori-ai/memori-react/commit/940b066574c8648f3074d4bad4bc59fd559886af))
+* missing session id on img link ([3a3b48e](https://github.com/memori-ai/memori-react/commit/3a3b48e74a2185cd508961d1634cc0911435feb8))
+* share menu overlay zindex in totem layout ([55f9b8a](https://github.com/memori-ai/memori-react/commit/55f9b8a8e51b2cc97803840b23790401c232c36c))
+* totem controls width ([e6df8db](https://github.com/memori-ai/memori-react/commit/e6df8dbb38ed1e3cb9e7404ce6a81797cbf62b75))
+* totem height ([46e3e90](https://github.com/memori-ai/memori-react/commit/46e3e90762c76d3f38c22652ed50501dbd8339cd))
+* totem height ([46cfb4f](https://github.com/memori-ai/memori-react/commit/46cfb4f6f02a69e63f05fea40e07a4dfbeca8f0b))
+* typo translation bottom ([239e7c4](https://github.com/memori-ai/memori-react/commit/239e7c43f0151afca7510f45b68ffc889cf39dfb))
+
+
+### Maintenance
+
+* add demos ([3d64061](https://github.com/memori-ai/memori-react/commit/3d6406102283359cf12651fe72cbfc6d40cdc8e3))
+* add refresh icon ([055402e](https://github.com/memori-ai/memori-react/commit/055402e42d2ef0c37ed1910eff06f8f1f6a713a4))
+* upgrade api client ([d0a4c51](https://github.com/memori-ai/memori-react/commit/d0a4c51374b322faf5351ca5035efe784bd40f73))
+* upgrade api client ([08533d6](https://github.com/memori-ai/memori-react/commit/08533d64d2aabd593467d114f1f34022fd247e9c))
+* upgrade to storybook@7 ([62342f2](https://github.com/memori-ai/memori-react/commit/62342f2eab4386cc0ca72eba5bebd2ab093a26eb))
+
+
+### Changes
+
+* change defaults, use reload in header if totem ([74d1bd7](https://github.com/memori-ai/memori-react/commit/74d1bd72f934a601c388daa5420b851a16ef9785))
+* cleanup ([a972fde](https://github.com/memori-ai/memori-react/commit/a972fdecca5d6a4b26563d4e1415b8ada796a857))
+* defaults + fix styles ([f3852dd](https://github.com/memori-ai/memori-react/commit/f3852ddc8074c6368fbd20043d5b308b67d213f8))
+* start panel stories args ([b0cd83c](https://github.com/memori-ai/memori-react/commit/b0cd83ce0e275bc52016bdeb552a001ba27e0bc3))
+* use new ui select for lang selector in start panel ([5f3feef](https://github.com/memori-ai/memori-react/commit/5f3feefb1fa49ff2c3f3bbc924969f0f3ddc5eec))
+
 ## [1.2.1](https://github.com/memori-ai/memori-react/compare/v1.2.0...v1.2.1) (2023-04-13)
 
 
