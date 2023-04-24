@@ -1,5 +1,12 @@
 
 
+## [2.0.2](https://github.com/memori-ai/memori-react/compare/v2.0.1...v2.0.2) (2023-04-24)
+
+
+### Bug Fixes
+
+* vars in portal root ([2f6856a](https://github.com/memori-ai/memori-react/commit/2f6856a49296c757ce2cfee7c5fea86b75db1888))
+
 ## [2.0.1](https://github.com/memori-ai/memori-react/compare/v2.0.0...v2.0.1) (2023-04-24)
 
 
