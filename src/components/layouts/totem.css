@@ -129,6 +129,10 @@
     font-size: 125%;
 }
 
+.memori-totem-layout--avatar .memori-blob {
+    z-index: 2;
+}
+
 .memori-totem-layout--avatar .memori--avatar-wrapper > div canvas + div {
     position: absolute !important;
     width: 100%;
