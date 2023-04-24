@@ -55,6 +55,7 @@
 
 memori-client,
 memori-client #root,
+memori-client + #headlessui-portal-root,
 body.sb-show-main #root,
 body.sb-show-main #headlessui-portal-root,
 #storybook-root,
