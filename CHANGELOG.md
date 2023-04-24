@@ -1,5 +1,12 @@
 
 
+## [2.0.4](https://github.com/memori-ai/memori-react/compare/v2.0.3...v2.0.4) (2023-04-24)
+
+
+### Features
+
+* add layout config hidden ([aa0855b](https://github.com/memori-ai/memori-react/commit/aa0855b019b366b002779b2167d8900bdf23ffd7))
+
 ## [2.0.3](https://github.com/memori-ai/memori-react/compare/v2.0.2...v2.0.3) (2023-04-24)
 
 
