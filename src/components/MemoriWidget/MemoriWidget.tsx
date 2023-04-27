@@ -1125,7 +1125,7 @@ const MemoriWidget = ({
       );
     }, text);
 
-    return ssmlText;
+    return ssmlText.replaceAll('&', '&amp;');
 
     // E.g.:
     // return text.replace(
