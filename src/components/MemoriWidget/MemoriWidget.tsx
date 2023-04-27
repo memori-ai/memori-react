@@ -1107,6 +1107,12 @@ const MemoriWidget = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const escapeHTML = (text: string) => {
+    const el = document.createElement('textarea');
+    el.textContent = text;
+    return el.innerHTML;
+  };
+
   const replaceTextWithPhonemes = (text: string, lang: string) => {
     if (!phonemesMap) return text;
 
@@ -1125,7 +1131,7 @@ const MemoriWidget = ({
       );
     }, text);
 
-    return ssmlText.replaceAll('&', '&amp;');
+    return ssmlText;
 
     // E.g.:
     // return text.replace(
@@ -1246,7 +1252,7 @@ const MemoriWidget = ({
       `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
         userLang
       )}"><voice name="${getTTSVoice(userLang)}"><s>${replaceTextWithPhonemes(
-        text,
+        escapeHTML(text),
         userLang.toLowerCase()
       )}</s></voice></speak>`,
       result => {
