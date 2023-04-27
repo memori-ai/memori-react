@@ -1,5 +1,12 @@
 
 
+## [2.0.6](https://github.com/memori-ai/memori-react/compare/v2.0.5...v2.0.6) (2023-04-27)
+
+
+### Bug Fixes
+
+* loading animation from separate glb, add smiling + loading anim morph targets influences ([754a711](https://github.com/memori-ai/memori-react/commit/754a711c5f185a76ed8b201207ea29888053b944))
+
 ## [2.0.5](https://github.com/memori-ai/memori-react/compare/v2.0.4...v2.0.5) (2023-04-24)
 
 
