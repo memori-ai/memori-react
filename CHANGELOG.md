@@ -1,5 +1,12 @@
 
 
+## [2.0.7](https://github.com/memori-ai/memori-react/compare/v2.0.6...v2.0.7) (2023-04-27)
+
+
+### Bug Fixes
+
+* dont make avatar smiling while talking ([910d866](https://github.com/memori-ai/memori-react/commit/910d866565115e6f01e29dcef4fa71e47de1c950))
+
 ## [2.0.6](https://github.com/memori-ai/memori-react/compare/v2.0.5...v2.0.6) (2023-04-27)
 
 
