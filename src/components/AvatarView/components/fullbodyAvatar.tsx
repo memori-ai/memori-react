@@ -68,7 +68,7 @@ export default function Avatar({
   // useHeadMovement(headMovement, nodes);
   useMouthSpeaking(!!speaking, nodes);
   useLoadingMorphAnim(animation === 'Loading', nodes);
-  useSmile(animation !== 'Sad' && animation !== 'Loading', nodes);
+  useSmile(animation?.startsWith('Idle'), nodes);
 
   useEffect(() => {
     correctMaterials(materials);
