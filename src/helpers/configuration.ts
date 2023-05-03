@@ -5,6 +5,7 @@ export const keys: { [key: string]: string } = {
   sendOnEnter: '@memori:sendOnEnter',
   birthDate: '@memori:birthDate',
   controlsPosition: '@memori:controlsPosition',
+  hideEmissions: '@memori:hideEmissions',
 };
 
 export const getLocalConfig = <Type>(key: string, defaultValue: Type): Type => {

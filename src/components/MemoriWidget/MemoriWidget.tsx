@@ -261,9 +261,10 @@ const MemoriWidget = ({
   const [continuousSpeech, setContinuousSpeech] = useState(true);
   const [continuousSpeechTimeout, setContinuousSpeechTimeout] = useState(2);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
-  const [controlsPosition, setControlsPosition] = useState<
-    'center' | 'bottom' | 'hidden'
-  >('center');
+  const [controlsPosition, setControlsPosition] = useState<'center' | 'bottom'>(
+    'center'
+  );
+  const [hideEmissions, setHideEmissions] = useState(false);
   useEffect(() => {
     setIsPlayingAudio(!!speechSynthesizer);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -274,6 +275,7 @@ const MemoriWidget = ({
     setContinuousSpeech(getLocalConfig('continuousSpeech', true));
     setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 2));
     setControlsPosition(getLocalConfig('controlsPosition', 'center'));
+    setHideEmissions(getLocalConfig('hideEmissions', false));
   }, []);
 
   /**
@@ -2241,6 +2243,7 @@ const MemoriWidget = ({
           'memori--with-integration': integration,
           'memori--with-speechkey': !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
           'memori--active': hasUserActivatedSpeak,
+          'memori--hide-emissions': hideEmissions,
         }
       )}
       data-memori-name={memori?.name}
@@ -2358,6 +2361,8 @@ const MemoriWidget = ({
           setContinuousSpeechTimeout={setContinuousSpeechTimeout}
           controlsPosition={controlsPosition}
           setControlsPosition={setControlsPosition}
+          hideEmissions={hideEmissions}
+          setHideEmissions={setHideEmissions}
         />
       )}
 

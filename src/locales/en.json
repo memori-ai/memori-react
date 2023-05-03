@@ -70,6 +70,7 @@
     "conversationStartedLabel": "Conversation started on",
     "settingsHeaderLabel": "Setup here if you want to set the memori as continuous speech, and change the silence seconds if you want to customize them.",
     "continuousSpeechLabel": "Continuous speech",
+    "hideEmissionsLabel": "Hide text emitted by the Twin",
     "secondsLabel": "Set seconds",
     "controlsPosition": "Controls position",
     "tryMeHeaderLabel": "TRY",

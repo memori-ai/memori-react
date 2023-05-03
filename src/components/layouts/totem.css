@@ -113,15 +113,14 @@
     background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(200, 200, 200, 0.8));
 }
 
-.memori-widget.memori-controls-hidden .memori-totem-layout--controls,
 .memori-widget.memori-controls-center .memori-totem-layout--controls {
     position: absolute;
     top: 40%;
     width: 100%;
 }
 
-.memori-widget.memori-layout-totem.memori-controls-hidden .memori-totem-layout--controls .memori-chat--bubble-container:not(.memori-chat--bubble-from-user),
-.memori-widget.memori-layout-totem.memori-controls-hidden.memori--with-speechkey .memori-totem-layout--controls .memori-chat--bubble-container:not(.memori-chat--bubble-from-user) {
+.memori-widget.memori-layout-totem.memori--hide-emissions .memori-totem-layout--controls .memori-chat--bubble-container:not(.memori-chat--bubble-from-user),
+.memori-widget.memori-layout-totem.memori--hide-emissions.memori--with-speechkey .memori-totem-layout--controls .memori-chat--bubble-container:not(.memori-chat--bubble-from-user) {
     display: none;
 }
 

@@ -70,6 +70,7 @@
     "conversationStartedLabel": "Conversazione avvenuta il",
     "settingsHeaderLabel": "Configura qui il memori se vuoi impostare una conversazione continua. Setta i secondi di silenzio prima dell'invio.",
     "continuousSpeechLabel": "Conversazione continua",
+    "hideEmissionsLabel": "Nascondi testo emesso dal Twin",
     "secondsLabel": "Secondi",
     "controlsPosition": "Posizione dei controlli",
     "tryMeHeaderLabel": "PROVA",
