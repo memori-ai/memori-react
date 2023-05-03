@@ -1,5 +1,12 @@
 
 
+## [2.0.9](https://github.com/memori-ai/memori-react/compare/v2.0.8...v2.0.9) (2023-05-03)
+
+
+### Changes
+
+* hide emissions as separate checkbox not control positions value ([943f06a](https://github.com/memori-ai/memori-react/commit/943f06adddf2495b69b9713a1f898552a076f5c4))
+
 ## [2.0.8](https://github.com/memori-ai/memori-react/compare/v2.0.7...v2.0.8) (2023-04-27)
 
 
