@@ -271,10 +271,27 @@ const MemoriWidget = ({
   }, [speechSynthesizer]);
 
   useEffect(() => {
+    let defaultControlsPosition: 'center' | 'bottom' = 'bottom';
+    if (window.innerWidth < 768) {
+      // on mobile, default position is bottom
+      defaultControlsPosition = 'bottom';
+    } else if (
+      window.matchMedia('(orientation: portrait)').matches ||
+      window.innerHeight > window.innerWidth
+    ) {
+      // on portrait, default position is center
+      defaultControlsPosition = 'center';
+    } else {
+      // on landscape, default position is bottom
+      defaultControlsPosition = 'bottom';
+    }
+
     setMuteSpeaker(getLocalConfig('muteSpeaker', false));
     setContinuousSpeech(getLocalConfig('continuousSpeech', true));
     setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 2));
-    setControlsPosition(getLocalConfig('controlsPosition', 'center'));
+    setControlsPosition(
+      getLocalConfig('controlsPosition', defaultControlsPosition)
+    );
     setHideEmissions(getLocalConfig('hideEmissions', false));
   }, []);
 
