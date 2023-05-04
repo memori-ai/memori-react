@@ -87,6 +87,7 @@
 .memori--avatar-wrapper .avatar-loader figure {
     width: 100%;
     height: 300px;
+    margin: 0;
 }
 
 .memori--avatar-wrapper .avatar-loader figure img {
