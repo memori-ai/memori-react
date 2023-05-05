@@ -1,5 +1,22 @@
 
 
+## [2.0.10](https://github.com/memori-ai/memori-react/compare/v2.0.9...v2.0.10) (2023-05-05)
+
+
+### Bug Fixes
+
+* remove loading avatar margins ([f0898b6](https://github.com/memori-ai/memori-react/commit/f0898b694bf5f5052beb21121dcff3930b759de8))
+
+
+### Maintenance
+
+* check device width and orientation for controls position default value ([79dda42](https://github.com/memori-ai/memori-react/commit/79dda4205fcd30a788f5a99ffddcc448f8d11e83))
+
+
+### Changes
+
+* add parameter to lexicon to check case (in)sensitive, fix separate word match ([0233cc6](https://github.com/memori-ai/memori-react/commit/0233cc61aab6b45ceb53b290f327bf4feabcb173))
+
 ## [2.0.9](https://github.com/memori-ai/memori-react/compare/v2.0.8...v2.0.9) (2023-05-03)
 
 
