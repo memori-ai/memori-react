@@ -1105,7 +1105,13 @@ const MemoriWidget = ({
 
   const [phonemesMap, setPhonemesMap] = useState<{
     [ns: 'common' | string]: {
-      [word: string]: { [lang: 'default' | string]: string };
+      [word: string]: {
+        caseSensitive: boolean;
+        default: string;
+        it?: string;
+        en?: string;
+        fr?: string;
+      };
     };
   }>();
   const fetchLexiconJSON = async () => {
@@ -1140,15 +1146,20 @@ const MemoriWidget = ({
       ...(tenant?.id && phonemesMap[tenant.id] ? phonemesMap[tenant.id] : {}),
     };
     const phonemesPairs = Object.keys(phonemes).map(word => {
-      const phoneme = phonemes[word][lang] ?? phonemes[word].default;
-      return { word, phoneme };
+      const phoneme =
+        phonemes[word][lang.toLowerCase() as 'it' | 'en' | 'fr'] ??
+        phonemes[word].default;
+      return { word, phoneme, caseSensitive: phonemes[word].caseSensitive };
     });
-    const ssmlText = phonemesPairs.reduce((acc, { word, phoneme }) => {
-      return acc.replace(
-        new RegExp(word, 'gi'),
-        `<phoneme alphabet="ipa" ph="${phoneme}">${word}</phoneme>`
-      );
-    }, text);
+    const ssmlText = phonemesPairs.reduce(
+      (acc, { word, phoneme, caseSensitive }) => {
+        return acc.replace(
+          new RegExp(`\\b${word}\\b`, caseSensitive ? 'g' : 'gi'),
+          `<phoneme alphabet="ipa" ph="${phoneme}">${word}</phoneme>`
+        );
+      },
+      text
+    );
 
     return ssmlText;
 
