@@ -1303,7 +1303,7 @@ const MemoriWidget = ({
               }
             });
 
-            audioContext.onstatechange = e => {
+            audioContext.onstatechange = () => {
               if (
                 audioContext.state === 'suspended' ||
                 audioContext.state === 'closed'
