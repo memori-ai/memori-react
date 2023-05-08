@@ -1267,6 +1267,9 @@ const MemoriWidget = ({
     }
 
     const source = audioContext.createBufferSource();
+    source.addEventListener('ended', () => {
+      setIsPlayingAudio(false);
+    });
     audioDestination.onAudioEnd = () => {
       setIsPlayingAudio(false);
       source.disconnect();
@@ -1275,8 +1278,6 @@ const MemoriWidget = ({
       // document.dispatchEvent(new Event('endSpeakStartListen'));
       onEndSpeakStartListen();
     };
-
-    setIsPlayingAudio(true);
 
     speechSynthesizer.speakSsmlAsync(
       `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
@@ -1287,6 +1288,8 @@ const MemoriWidget = ({
       )}</s></voice></speak>`,
       result => {
         if (result) {
+          setIsPlayingAudio(true);
+
           try {
             // if (audioContext.destination.context.state === 'running') {
             //   audioContext.destination.disconnect();
@@ -1300,12 +1303,13 @@ const MemoriWidget = ({
               }
             });
 
-            audioContext.onstatechange = () => {
+            audioContext.onstatechange = e => {
               if (
                 audioContext.state === 'suspended' ||
                 audioContext.state === 'closed'
               ) {
                 source.disconnect();
+                setIsPlayingAudio(false);
               } else if ((audioContext.state as string) === 'interrupted') {
                 audioContext.resume();
               }
