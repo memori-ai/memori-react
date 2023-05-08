@@ -1,5 +1,22 @@
 
 
+## [2.0.11](https://github.com/memori-ai/memori-react/compare/v2.0.10...v2.0.11) (2023-05-08)
+
+
+### Bug Fixes
+
+* start + end avatar speaking events ([8b8bdf5](https://github.com/memori-ai/memori-react/commit/8b8bdf5246be1ebc29f132af9dc3f816c741704c))
+
+
+### Changes
+
+* show settings hide emissions without conditions ([40d87bf](https://github.com/memori-ai/memori-react/commit/40d87bfe5783e54cc8140723bbdb265f19beb788))
+
+
+### Maintenance
+
+* fix ts warning ([9b97363](https://github.com/memori-ai/memori-react/commit/9b9736362758c1dfd82ab659695801003458a7b9))
+
 ## [2.0.10](https://github.com/memori-ai/memori-react/compare/v2.0.9...v2.0.10) (2023-05-05)
 
 
