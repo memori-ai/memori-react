@@ -106,19 +106,17 @@ const SettingsDrawer = ({
               </RadioGroup.Option>
             </RadioGroup>
           </div>
-          {!!continuousSpeech && (
-            <div className="memori-settings-drawer--field">
-              <Checkbox
-                label={t('write_and_speak.hideEmissionsLabel')}
-                name="hideControls"
-                checked={hideEmissions}
-                onChange={e => {
-                  setHideEmissions(e.target.checked);
-                  setLocalConfig('hideEmissions', e.target.checked);
-                }}
-              />
-            </div>
-          )}
+          <div className="memori-settings-drawer--field">
+            <Checkbox
+              label={t('write_and_speak.hideEmissionsLabel')}
+              name="hideControls"
+              checked={hideEmissions}
+              onChange={e => {
+                setHideEmissions(e.target.checked);
+                setLocalConfig('hideEmissions', e.target.checked);
+              }}
+            />
+          </div>
         </>
       )}
     </Drawer>
