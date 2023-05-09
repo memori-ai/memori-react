@@ -11,9 +11,11 @@ import { useAnimations, useGLTF } from '@react-three/drei';
 import useEyeBlink from '../utils/useEyeBlink';
 import useLoadingMorphAnim from '../utils/useLoadingMorphAnim';
 import useMouthSpeaking from '../utils/useMouthSpeaking';
-import { dispose, useGraph } from '@react-three/fiber';
+import { dispose, useFrame, useGraph } from '@react-three/fiber';
 import { correctMaterials, hideHands, isSkinnedMesh } from '../utils/utils';
 import useSmile from '../utils/useSmile';
+
+let runningAction: AvatarProps['animation'] = 'Idle';
 
 export interface AvatarProps {
   url: string;
@@ -58,16 +60,20 @@ export default function Avatar({
   );
   const { nodes, materials } = useGraph(scene);
 
-  const anim = useAnimations(animations, scene);
-  const loadingAnim = useAnimations(
-    loadingAnimations.filter(a => a.name === 'Loading'),
-    scene
-  );
+  // const anim = useAnimations(animations, scene);
+  // const loadingAnim = useAnimations(
+  //   loadingAnimations.filter(a => a.name === 'Loading'),
+  //   scene
+  // );
+
+  const mixer = useMemo(() => new AnimationMixer(scene), [scene]);
+  animations.forEach(anim => mixer.clipAction(anim));
+  loadingAnimations.forEach(anim => mixer.clipAction(anim));
 
   useEyeBlink(eyeBlink, nodes);
   // useHeadMovement(headMovement, nodes);
   useMouthSpeaking(!!speaking, nodes);
-  useLoadingMorphAnim(animation === 'Loading', nodes);
+  // useLoadingMorphAnim(animation === 'Loading', nodes);
   useSmile(animation?.startsWith('Idle'), nodes);
 
   useEffect(() => {
@@ -82,29 +88,72 @@ export default function Avatar({
     };
   }, [materials, nodes, url, onLoaded]);
 
-  try {
-    if (animation && animation in anim.actions) {
-      Object.keys(anim.actions).forEach(name => {
-        let action = anim.actions[name];
-        if (!action) return;
-        else if (name === animation && animation !== 'Loading')
-          action.fadeIn(0.3).play();
-        else action.fadeOut(0.3).stop();
-      });
-      if (animation === 'Loading') {
-        loadingAnim.actions['Loading']?.fadeIn(0.3).play();
-      } else {
-        loadingAnim.actions['Loading']?.fadeOut(0.3).stop();
+  useEffect(() => {
+    try {
+      console.log('animation', animation);
+      let action =
+        animation === 'Loading'
+          ? loadingAnimations[0]
+          : animations.find(a => a.name === animation);
+
+      if (!action) {
+        mixer.stopAllAction();
+        return;
       }
-    } else {
-      Object.values(anim.actions).forEach(action => {
-        if (!action) return;
-        action?.fadeOut(0.2).reset().stop();
-      });
+
+      // action.play();
+      console.log('action', action);
+      mixer.clipAction(action).play();
+
+      if (runningAction && runningAction !== animation) {
+        // let running =
+        //   runningAction === 'Loading'
+        //     ? loadingAnim.actions[runningAction]
+        //     : anim.actions[runningAction];
+        let running =
+          runningAction === 'Loading'
+            ? loadingAnimations[0]
+            : animations.find(a => a.name === runningAction);
+        console.log('running', running);
+
+        if (running) {
+          // mixer.stopAllAction();
+          // mixer.clipAction(running).play();
+          mixer
+            .clipAction(running)
+            .crossFadeTo(mixer.clipAction(action), 0.5, true);
+          // action.crossFadeFrom(running, 0.5, true);
+          // running.stop();
+        }
+      }
+
+      runningAction = animation || 'Idle';
+
+      // if (animation && animation in anim.actions) {
+      //   Object.keys(anim.actions).forEach(name => {
+      //     let action = anim.actions[name];
+      //     if (!action) return;
+      //     else if (name === animation && animation !== 'Loading')
+      //       action.fadeIn(0.3).play();
+      //     else action.fadeOut(0.3).stop();
+      //   });
+      //   if (animation === 'Loading') {
+      //     loadingAnim.actions['Loading']?.fadeIn(0.3).play();
+      //   } else {
+      //     loadingAnim.actions['Loading']?.fadeOut(0.3).stop();
+      //   }
+      // } else {
+      //   Object.values(anim.actions).forEach(action => {
+      //     if (!action) return;
+      //     action?.fadeOut(0.2).reset().stop();
+      //   });
+      // }
+    } catch (e) {
+      console.log(e);
     }
-  } catch (e) {
-    console.log(e);
-  }
+  }, [animation]);
+
+  useFrame((_, delta) => mixer.update(delta));
 
   return (
     <group position={position} rotation={rotation}>
