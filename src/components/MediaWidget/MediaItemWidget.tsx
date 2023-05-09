@@ -78,18 +78,7 @@ export const RenderMediaItem = ({
               <picture className="memori-media-item--figure">
                 {!preview && (
                   <source
-                    srcSet={[
-                      url,
-                      getResourceUrl({
-                        resourceURI: item.content,
-                        sessionID,
-                        tenantID,
-                        baseURL,
-                        apiURL,
-                      }),
-                      item.url,
-                      item.content,
-                    ].join(', ')}
+                    srcSet={[url, item.url, item.content].join(', ')}
                     type={item.mimeType}
                   />
                 )}

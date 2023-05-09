@@ -148,7 +148,7 @@ exports[`renders MediaWidget with media unchanged 1`] = `
                     class="memori-media-item--figure"
                   >
                     <source
-                      srcset="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2, /images/memoriAvatar.png, https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2, "
+                      srcset="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2, https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2, "
                       type="image/jpeg"
                     />
                     <img

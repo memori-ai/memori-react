@@ -182,7 +182,7 @@ exports[`renders MediaItemWidget unchanged with img 1`] = `
                   class="memori-media-item--figure"
                 >
                   <source
-                    srcset="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2, /images/memoriAvatar.png, https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2, "
+                    srcset="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2, https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2, "
                     type="image/jpeg"
                   />
                   <img
@@ -241,7 +241,7 @@ exports[`renders MediaItemWidget unchanged with img and sessionID 1`] = `
       >
         <a
           class="memori-media-item--link"
-          href="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2/131165be-9d1a-42fb-a3ce-e8f86d40c88f"
+          href="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
           rel="noopener noreferrer"
           target="_blank"
           title="Game Cover"
@@ -259,7 +259,7 @@ exports[`renders MediaItemWidget unchanged with img and sessionID 1`] = `
                   class="memori-media-item--figure"
                 >
                   <source
-                    srcset="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2/131165be-9d1a-42fb-a3ce-e8f86d40c88f, /images/memoriAvatar.png, https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2, "
+                    srcset="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2, https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2, "
                     type="image/jpeg"
                   />
                   <img
@@ -431,7 +431,7 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
                   class="memori-media-item--figure"
                 >
                   <source
-                    srcset="https://memori.ai/past, /images/memoriAvatar.png, https://memori.ai/past, "
+                    srcset="https://memori.ai/past, https://memori.ai/past, "
                     type="image/jpeg"
                   />
                   <img
@@ -495,7 +495,7 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
                   class="memori-media-item--figure"
                 >
                   <source
-                    srcset="https://memori.ai/medium, /images/memoriAvatar.png, https://memori.ai/medium, "
+                    srcset="https://memori.ai/medium, https://memori.ai/medium, "
                     type="image/jpeg"
                   />
                   <img
@@ -559,7 +559,7 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
                   class="memori-media-item--figure"
                 >
                   <source
-                    srcset="https://memori.ai/now, /images/memoriAvatar.png, https://memori.ai/now, "
+                    srcset="https://memori.ai/now, https://memori.ai/now, "
                     type="image/jpeg"
                   />
                   <img
