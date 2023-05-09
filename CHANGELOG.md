@@ -1,5 +1,17 @@
 
 
+## [2.1.0](https://github.com/memori-ai/memori-react/compare/v2.0.11...v2.1.0) (2023-05-09)
+
+
+### Features
+
+* add custom layout override as prop ([a6e0de7](https://github.com/memori-ai/memori-react/commit/a6e0de73f3610f763bcd8e28deb7626fea91f0d1))
+
+
+### Bug Fixes
+
+* do not add sessino id to external media urls ([78e368a](https://github.com/memori-ai/memori-react/commit/78e368a266ab0b7cb38b5f93bab97696e36e585a))
+
 ## [2.0.11](https://github.com/memori-ai/memori-react/compare/v2.0.10...v2.0.11) (2023-05-08)
 
 
