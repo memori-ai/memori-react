@@ -1,7 +1,8 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { memori, tenant, integration } from '../../mocks/data';
-import Memori, { Props } from '../MemoriWidget/MemoriWidget';
+import Memori, { LayoutProps, Props } from '../MemoriWidget/MemoriWidget';
+import Spin from '../ui/Spin';
 
 const meta: Meta = {
   title: 'General/Layouts',
@@ -20,6 +21,34 @@ const meta: Meta = {
 };
 
 export default meta;
+
+const CustomLayout: React.FC<LayoutProps> = ({
+  header,
+  avatar,
+  chat,
+  startPanel,
+  integrationStyle,
+  integrationBackground,
+  changeMode,
+  sessionId,
+  hasUserActivatedSpeak,
+  showInstruct = false,
+  loading = false,
+  poweredBy,
+}) => (
+  <>
+    {integrationStyle}
+    {integrationBackground}
+
+    <Spin spinning={loading} className="memori-mycustom-layout">
+      {poweredBy}
+
+      <div className="memori-mycustom-layout--controls">
+        {sessionId && hasUserActivatedSpeak ? chat : startPanel}
+      </div>
+    </Spin>
+  </>
+);
 
 const Template: Story<Props> = args => <Memori {...args} />;
 
@@ -152,4 +181,15 @@ Totem.args = {
   },
   tenant,
   layout: 'TOTEM',
+};
+
+export const Custom = Template.bind({});
+Custom.args = {
+  uiLang: 'it',
+  showShare: true,
+  showSettings: true,
+  memori,
+  tenant,
+  layout: 'FULLPAGE',
+  customLayout: CustomLayout,
 };

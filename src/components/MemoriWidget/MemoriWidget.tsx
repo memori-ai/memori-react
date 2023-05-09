@@ -145,12 +145,28 @@ let speechSynthesizer: SpeechSynthesizer | null;
 let audioDestination: SpeakerAudioDestination;
 let audioContext: IAudioContext;
 
+export interface LayoutProps {
+  header?: JSX.Element | null;
+  avatar: JSX.Element;
+  chat?: JSX.Element | null;
+  startPanel: JSX.Element;
+  integrationStyle?: JSX.Element | null;
+  integrationBackground?: JSX.Element | null;
+  changeMode?: JSX.Element | null;
+  poweredBy?: JSX.Element | null;
+  sessionId?: string;
+  hasUserActivatedSpeak?: boolean;
+  showInstruct?: boolean;
+  loading?: boolean;
+}
+
 export interface Props {
   memori: Memori;
   memoriConfigs?: MemoriConfig[];
   memoriLang?: string;
   integration?: Integration;
   layout?: 'DEFAULT' | 'FULLPAGE' | 'TOTEM';
+  customLayout?: React.FC<LayoutProps>;
   showShare?: boolean;
   showInstruct?: boolean;
   showInputs?: boolean;
@@ -184,6 +200,7 @@ const MemoriWidget = ({
   memoriLang,
   integration,
   layout = 'DEFAULT',
+  customLayout,
   showInstruct = false,
   showShare = true,
   preview = false,
@@ -2255,12 +2272,13 @@ const MemoriWidget = ({
 
   const poweredBy = <PoweredBy tenant={tenant} userLang={userLang} />;
 
-  const Layout =
-    selectedLayout === 'TOTEM'
-      ? TotemLayout
-      : selectedLayout === 'FULLPAGE'
-      ? FullPageLayout
-      : FullPageLayout;
+  const Layout = customLayout
+    ? customLayout
+    : selectedLayout === 'TOTEM'
+    ? TotemLayout
+    : selectedLayout === 'FULLPAGE'
+    ? FullPageLayout
+    : FullPageLayout;
 
   return (
     <div

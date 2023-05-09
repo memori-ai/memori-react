@@ -1,22 +1,8 @@
 import React from 'react';
 import Spin from '../ui/Spin';
+import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 
-export interface Props {
-  header?: JSX.Element | null;
-  avatar: JSX.Element;
-  chat?: JSX.Element | null;
-  startPanel: JSX.Element;
-  integrationStyle?: JSX.Element | null;
-  integrationBackground?: JSX.Element | null;
-  changeMode?: JSX.Element | null;
-  poweredBy?: JSX.Element | null;
-  sessionId?: string;
-  hasUserActivatedSpeak?: boolean;
-  showInstruct?: boolean;
-  loading?: boolean;
-}
-
-const FullPageLayout: React.FC<Props> = ({
+const FullPageLayout: React.FC<LayoutProps> = ({
   header,
   avatar,
   chat,

@@ -22,6 +22,7 @@ export interface Props {
   secretToken?: string;
   sessionID?: string;
   layout?: WidgetProps['layout'];
+  customLayout?: WidgetProps['customLayout'];
   showShare?: boolean;
   showSettings?: boolean;
   showInstruct?: boolean;
@@ -66,6 +67,7 @@ const Memori: React.FC<Props> = ({
   secretToken,
   sessionID,
   layout = 'DEFAULT',
+  customLayout,
   showShare = true,
   showSettings = true,
   showInstruct = false,
@@ -147,6 +149,7 @@ const Memori: React.FC<Props> = ({
   return memori ? (
     <MemoriWidget
       layout={layout}
+      customLayout={customLayout}
       height={height}
       baseUrl={
         baseURL ||
