@@ -122,7 +122,7 @@ const FeedbackButtons = ({
           </Transition>
         </Menu>
       ) : (
-        <Tooltip alignLeft content="Feedback">
+        <Tooltip align="left" content="Feedback">
           <Button
             title="Feedback"
             onClick={() => {

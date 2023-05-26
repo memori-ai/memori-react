@@ -11,9 +11,9 @@ export interface Props {
   open: boolean;
   layout?: 'FULLPAGE' | 'TOTEM' | 'DEFAULT';
   onClose: () => void;
-  continuousSpeech?: boolean;
+  microphoneMode?: 'HOLD_TO_TALK' | 'CONTINUOUS';
   continuousSpeechTimeout?: number;
-  setContinuousSpeech: (value: boolean) => void;
+  setMicrophoneMode: (value: 'HOLD_TO_TALK' | 'CONTINUOUS') => void;
   setContinuousSpeechTimeout: (value: number) => void;
   controlsPosition?: 'center' | 'bottom';
   setControlsPosition: (value: 'center' | 'bottom') => void;
@@ -27,9 +27,9 @@ const SettingsDrawer = ({
   open,
   layout = 'DEFAULT',
   onClose,
-  continuousSpeech,
+  microphoneMode = 'HOLD_TO_TALK',
   continuousSpeechTimeout,
-  setContinuousSpeech,
+  setMicrophoneMode,
   setContinuousSpeechTimeout,
   controlsPosition,
   setControlsPosition,
@@ -46,30 +46,62 @@ const SettingsDrawer = ({
       title={t('widget.settings') || 'Settings'}
       description={t('write_and_speak.settingsHeaderLabel')}
     >
-      <div className="memori-settings-drawer--field">
-        <Checkbox
-          label={t('write_and_speak.continuousSpeechLabel')}
-          name="continuousSpeech"
-          checked={continuousSpeech}
-          onChange={e => {
-            setContinuousSpeech(e.target.checked);
-            setLocalConfig('continuousSpeech', e.target.checked);
+      <div className="memori-settings-drawer--field controls">
+        <label htmlFor="#microphoneMode">
+          {t('write_and_speak.microphoneMode') || 'Microphone mode'}:
+        </label>
+        <RadioGroup
+          id="microphoneMode"
+          name="microphoneMode"
+          value={microphoneMode}
+          defaultValue={microphoneMode}
+          className="memori-settings-drawer--microphoneMode-radio"
+          onChange={value => {
+            let micMode =
+              value === 'CONTINUOUS' ? 'CONTINUOUS' : 'HOLD_TO_TALK';
+
+            setMicrophoneMode(micMode as 'CONTINUOUS' | 'HOLD_TO_TALK');
+            setLocalConfig('microphoneMode', micMode);
           }}
-        />
+        >
+          <RadioGroup.Option
+            value="HOLD_TO_TALK"
+            className="memori-settings-drawer--microphoneMode-radio-button"
+          >
+            {({ checked }) => (
+              <Button primary={checked}>
+                {t('write_and_speak.holdToSpeak') || 'Hold to speak'}
+              </Button>
+            )}
+          </RadioGroup.Option>
+          <RadioGroup.Option
+            value="CONTINUOUS"
+            className="memori-settings-drawer--microphoneMode-radio-button"
+          >
+            {({ checked }) => (
+              <Button primary={checked}>
+                {t('write_and_speak.continuousSpeechLabel') ||
+                  'Continuous speech'}
+              </Button>
+            )}
+          </RadioGroup.Option>
+        </RadioGroup>
       </div>
 
-      <div className="memori-settings-drawer--field">
-        <Select
-          label={t('write_and_speak.secondsLabel') || 'Seconds'}
-          placeholder={t('write_and_speak.secondsLabel') || 'Seconds'}
-          options={silenceSeconds.map(s => ({ value: s, label: s }))}
-          value={continuousSpeechTimeout}
-          onChange={value => {
-            setContinuousSpeechTimeout(value);
-            setLocalConfig('continuousSpeechTimeout', value);
-          }}
-        />
-      </div>
+      {microphoneMode === 'CONTINUOUS' && (
+        <div className="memori-settings-drawer--field">
+          <Select
+            label={t('write_and_speak.secondsLabel') || 'Seconds'}
+            placeholder={t('write_and_speak.secondsLabel') || 'Seconds'}
+            options={silenceSeconds.map(s => ({ value: s, label: s }))}
+            value={continuousSpeechTimeout}
+            onChange={value => {
+              setContinuousSpeechTimeout(value);
+              setLocalConfig('continuousSpeechTimeout', value);
+            }}
+          />
+        </div>
+      )}
 
       {layout === 'TOTEM' && (
         <>

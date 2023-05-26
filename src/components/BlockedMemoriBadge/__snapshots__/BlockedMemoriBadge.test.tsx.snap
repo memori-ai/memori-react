@@ -3,7 +3,7 @@
 exports[`renders BlockedMemoriBadge unchanged 1`] = `
 <div>
   <div
-    class="memori-tooltip blocked-memori-badge--tooltip"
+    class="memori-tooltip memori-tooltip--align-right blocked-memori-badge--tooltip"
   >
     <div
       class="memori-tooltip--content"
@@ -41,7 +41,7 @@ exports[`renders BlockedMemoriBadge unchanged 1`] = `
 exports[`renders BlockedMemoriBadge with giver info unchanged 1`] = `
 <div>
   <div
-    class="memori-tooltip blocked-memori-badge--tooltip"
+    class="memori-tooltip memori-tooltip--align-right blocked-memori-badge--tooltip"
   >
     <div
       class="memori-tooltip--content"
@@ -83,7 +83,7 @@ memoriBlockedGiverHelper
 exports[`renders BlockedMemoriBadge with margin left unchanged 1`] = `
 <div>
   <div
-    class="memori-tooltip blocked-memori-badge--tooltip"
+    class="memori-tooltip memori-tooltip--align-right blocked-memori-badge--tooltip"
   >
     <div
       class="memori-tooltip--content"
@@ -121,7 +121,7 @@ exports[`renders BlockedMemoriBadge with margin left unchanged 1`] = `
 exports[`renders BlockedMemoriBadge with title unchanged 1`] = `
 <div>
   <div
-    class="memori-tooltip blocked-memori-badge--tooltip"
+    class="memori-tooltip memori-tooltip--align-right blocked-memori-badge--tooltip"
   >
     <div
       class="memori-tooltip--content"

@@ -34,6 +34,7 @@ export interface Props {
   client: ReturnType<typeof memoriApiClient>;
   selectReceiverTag: (tag: string) => Promise<void>;
   preview?: boolean;
+  microphoneMode?: 'CONTINUOUS' | 'HOLD_TO_TALK';
   sendOnEnter?: 'keypress' | 'click';
   setSendOnEnter: (sendOnEnter: 'keypress' | 'click') => void;
   attachmentsMenuOpen?: 'link' | 'media';
@@ -72,6 +73,7 @@ const Chat: React.FC<Props> = ({
   instruct = false,
   showInputs = true,
   showMicrophone = false,
+  microphoneMode = 'HOLD_TO_TALK',
   sendOnEnter,
   setSendOnEnter,
   attachmentsMenuOpen,
@@ -309,6 +311,7 @@ const Chat: React.FC<Props> = ({
           instruct={instruct}
           authToken={authToken}
           sendMessage={sendMessage}
+          microphoneMode={microphoneMode}
           sendOnEnter={sendOnEnter}
           setSendOnEnter={setSendOnEnter}
           attachmentsMenuOpen={attachmentsMenuOpen}

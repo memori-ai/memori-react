@@ -1,3 +1,5 @@
+/* stylelint-disable no-descending-specificity */
+
 .memori-tooltip {
     position: relative;
     display: inline-block;
@@ -23,7 +25,8 @@
     transition: 0.3s 0.1s all ease;
 }
 
-.memori-tooltip.memori-tooltip--align-left .memori-tooltip--content {
+.memori-tooltip.memori-tooltip--align-left .memori-tooltip--content,
+.memori-tooltip.memori-tooltip--align-topLeft .memori-tooltip--content {
     right: 100%;
     left: initial;
     margin: initial;
@@ -52,6 +55,15 @@
     margin-left: 0;
 }
 
+.memori-tooltip.memori-tooltip--align-topRight .memori-tooltip--content::before {
+    top: 100%;
+    right: auto;
+    left: 10px;
+    border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
 .memori-tooltip:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content,
 .memori-tooltip:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content::before {
     display: block;
@@ -67,6 +79,25 @@
 .memori-tooltip:not(.memori-tooltip--visible):not(.memori-tooltip--disabled):hover .memori-tooltip--content::before {
     display: block;
     opacity: 1;
+}
+
+.memori-tooltip.memori-tooltip--align-topRight:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content,
+.memori-tooltip.memori-tooltip--align-topRight:not(.memori-tooltip--disabled):not(.memori-tooltip--visible):hover .memori-tooltip--content {
+    transform: translateY(-150%) translateX(-33%);
+}
+
+.memori-tooltip.memori-tooltip--align-topLeft .memori-tooltip--content::before {
+    top: 100%;
+    right: 10px;
+    left: auto;
+    border-color: rgba(0, 0, 0, 0.8) transparent transparent transparent;
+    margin-top: 10px;
+    margin-left: 5px;
+}
+
+.memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content,
+.memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled):not(.memori-tooltip--visible):hover .memori-tooltip--content {
+    transform: translateY(-150%) translateX(33%);
 }
 
 .memori-tooltip:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content a,

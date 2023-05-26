@@ -1,9 +1,85 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`renders Tooltip aligned left unchanged 1`] = `
+<div>
+  <div
+    class="memori-tooltip memori-tooltip--align-left memori-tooltip--visible"
+  >
+    <div
+      class="memori-tooltip--content"
+    >
+      Here is some tooltip content by default as I am controlled
+    </div>
+    <div
+      class="memori-tooltip--trigger"
+    >
+      Hover me
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders Tooltip aligned right unchanged 1`] = `
+<div>
+  <div
+    class="memori-tooltip memori-tooltip--align-right memori-tooltip--visible"
+  >
+    <div
+      class="memori-tooltip--content"
+    >
+      Here is some tooltip content by default as I am controlled
+    </div>
+    <div
+      class="memori-tooltip--trigger"
+    >
+      Hover me
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders Tooltip aligned top left unchanged 1`] = `
+<div>
+  <div
+    class="memori-tooltip memori-tooltip--align-topLeft memori-tooltip--visible"
+  >
+    <div
+      class="memori-tooltip--content"
+    >
+      Here is some tooltip content by default as I am controlled
+    </div>
+    <div
+      class="memori-tooltip--trigger"
+    >
+      Hover me
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders Tooltip aligned top right unchanged 1`] = `
+<div>
+  <div
+    class="memori-tooltip memori-tooltip--align-topRight memori-tooltip--visible"
+  >
+    <div
+      class="memori-tooltip--content"
+    >
+      Here is some tooltip content by default as I am controlled
+    </div>
+    <div
+      class="memori-tooltip--trigger"
+    >
+      Hover me
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renders Tooltip disabled unchanged 1`] = `
 <div>
   <div
-    class="memori-tooltip memori-tooltip--disabled"
+    class="memori-tooltip memori-tooltip--align-right memori-tooltip--disabled"
   >
     <div
       class="memori-tooltip--content"
@@ -22,7 +98,7 @@ exports[`renders Tooltip disabled unchanged 1`] = `
 exports[`renders Tooltip unchanged 1`] = `
 <div>
   <div
-    class="memori-tooltip"
+    class="memori-tooltip memori-tooltip--align-right"
   >
     <div
       class="memori-tooltip--content"
@@ -41,7 +117,7 @@ exports[`renders Tooltip unchanged 1`] = `
 exports[`renders Tooltip visible unchanged 1`] = `
 <div>
   <div
-    class="memori-tooltip memori-tooltip--visible"
+    class="memori-tooltip memori-tooltip--align-right memori-tooltip--visible"
   >
     <div
       class="memori-tooltip--content"
@@ -60,7 +136,7 @@ exports[`renders Tooltip visible unchanged 1`] = `
 exports[`renders Tooltip with jsx content unchanged 1`] = `
 <div>
   <div
-    class="memori-tooltip"
+    class="memori-tooltip memori-tooltip--align-right"
   >
     <div
       class="memori-tooltip--content"

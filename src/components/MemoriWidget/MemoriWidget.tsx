@@ -276,7 +276,7 @@ const MemoriWidget = ({
   const [showPositionDrawer, setShowPositionDrawer] = useState(false);
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
   const [muteSpeaker, setMuteSpeaker] = useState(false);
-  const [continuousSpeech, setContinuousSpeech] = useState(true);
+  const [continuousSpeech, setContinuousSpeech] = useState(false);
   const [continuousSpeechTimeout, setContinuousSpeechTimeout] = useState(2);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [controlsPosition, setControlsPosition] = useState<'center' | 'bottom'>(
@@ -290,9 +290,16 @@ const MemoriWidget = ({
 
   useEffect(() => {
     let defaultControlsPosition: 'center' | 'bottom' = 'bottom';
-    if (window.innerWidth < 768) {
+    let microphoneMode = getLocalConfig<string>(
+      'microphoneMode',
+      'HOLD_TO_TALK'
+    );
+
+    if (window.innerWidth <= 768) {
       // on mobile, default position is bottom
       defaultControlsPosition = 'bottom';
+      // on mobile, keep only HOLD_TO_TALK mode
+      microphoneMode = 'HOLD_TO_TALK';
     } else if (
       window.matchMedia('(orientation: portrait)').matches ||
       window.innerHeight > window.innerWidth
@@ -305,7 +312,7 @@ const MemoriWidget = ({
     }
 
     setMuteSpeaker(getLocalConfig('muteSpeaker', false));
-    setContinuousSpeech(getLocalConfig('continuousSpeech', true));
+    setContinuousSpeech(microphoneMode === 'CONTINUOUS');
     setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 2));
     setControlsPosition(
       getLocalConfig('controlsPosition', defaultControlsPosition)
@@ -1447,6 +1454,7 @@ const MemoriWidget = ({
 
     clearListening();
     setTranscript('');
+    resetTranscript();
 
     try {
       navigator.mediaDevices
@@ -1503,6 +1511,8 @@ const MemoriWidget = ({
           recognizer.sessionStopped = (_s, _e) => {
             stopListening();
           };
+
+          resetTranscript();
           recognizer.startContinuousRecognitionAsync();
         })
         .catch(console.error);
@@ -1600,7 +1610,8 @@ const MemoriWidget = ({
       'sendOnEnter',
       'keypress'
     );
-    setSendOnEnter(stored);
+    if (window.innerWidth <= 768) setSendOnEnter('click');
+    else setSendOnEnter(stored);
   }, []);
   useEffect(() => {
     setLocalConfig('sendOnEnter', sendOnEnter);
@@ -2222,6 +2233,7 @@ const MemoriWidget = ({
       selectReceiverTag={selectReceiverTag}
       preview={preview}
       sendOnEnter={sendOnEnter}
+      microphoneMode={continuousSpeech ? 'CONTINUOUS' : 'HOLD_TO_TALK'}
       setSendOnEnter={setSendOnEnter}
       attachmentsMenuOpen={attachmentsMenuOpen}
       setAttachmentsMenuOpen={setAttachmentsMenuOpen}
@@ -2410,9 +2422,9 @@ const MemoriWidget = ({
           layout={selectedLayout}
           open={!!showSettingsDrawer}
           onClose={() => setShowSettingsDrawer(false)}
-          continuousSpeech={continuousSpeech}
+          microphoneMode={continuousSpeech ? 'CONTINUOUS' : 'HOLD_TO_TALK'}
           continuousSpeechTimeout={continuousSpeechTimeout}
-          setContinuousSpeech={setContinuousSpeech}
+          setMicrophoneMode={mode => setContinuousSpeech(mode === 'CONTINUOUS')}
           setContinuousSpeechTimeout={setContinuousSpeechTimeout}
           controlsPosition={controlsPosition}
           setControlsPosition={setControlsPosition}

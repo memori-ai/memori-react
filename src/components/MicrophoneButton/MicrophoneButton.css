@@ -1,0 +1,101 @@
+.memori-mic-btn-tooltip.memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content,
+.memori-mic-btn-tooltip.memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled):not(.memori-tooltip--visible):hover .memori-tooltip--content {
+    touch-action: none;
+    transform: translateY(-180%) translateX(27%);
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.memori-chat-inputs--mic {
+    z-index: 1;
+    margin-left: 0.33rem;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.memori-chat-inputs--mic svg {
+    color: var(--memori-primary-text, #fff);
+    font-size: 1em;
+    touch-action: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+.memori-chat-inputs--mic:hover,
+.memori-chat-inputs--mic:active,
+.memori-chat-inputs--mic:focus {
+    border-color: var(--memori-primary) !important;
+    color: var(--memori-primary-text, #fff);
+}
+
+.memori-chat-inputs--mic:active,
+.memori-chat-inputs--mic:focus {
+    box-shadow: 0 0.2rem 0.33rem var(--memori-primary) !important;
+}
+
+.memori-chat-inputs--mic:not(.memori-chat-inputs--mic--listening):active,
+.memori-chat-inputs--mic:not(.memori-chat-inputs--mic--listening):focus {
+    color: var(--memori-primary) !important;
+}
+
+@keyframes micBtnActivePulse {
+    0% {
+        transform: scale(1.25);
+    }
+
+    25% {
+        transform: scale(1.4);
+    }
+
+    50% {
+        transform: scale(1.3);
+    }
+
+    75% {
+        transform: scale(1.4);
+    }
+
+    100% {
+        transform: scale(1.2);
+    }
+}
+
+.memori-chat-inputs--mic.memori-chat-inputs--mic--listening {
+    position: relative;
+    color: red !important;
+    transform: scale(1.5);
+}
+
+.memori-chat-inputs--mic.memori-chat-inputs--mic--listening::before,
+.memori-chat-inputs--mic.memori-chat-inputs--mic--listening::after {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    animation: micBtnActivePulse 2s infinite;
+    background: var(--memori-primary);
+    content: "";
+    opacity: 0.2;
+}
+
+.memori-chat-inputs--mic.memori-chat-inputs--mic--listening::after {
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    animation-delay: 0.3s;
+    opacity: 0.3;
+}
+
+.memori-chat-inputs--mic.memori-chat-inputs--mic--listening:active,
+.memori-chat-inputs--mic.memori-chat-inputs--mic--listening:focus {
+    border-color: red !important;
+}
+
+.memori-chat-inputs--mic.memori-chat-inputs--mic--listening svg {
+    color: red !important;
+}

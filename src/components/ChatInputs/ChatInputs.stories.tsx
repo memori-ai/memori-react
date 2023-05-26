@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Meta, Story } from '@storybook/react';
 import ChatInputs, { Props } from './ChatInputs';
 import { dialogState } from '../../mocks/data';
@@ -22,13 +22,40 @@ const meta: Meta = {
 
 export default meta;
 
+const text =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+    .split(' ')
+    .reverse();
+
 const Template: Story<Props> = args => {
   const [userMessage, setUserMessage] = React.useState(args.userMessage);
+  const [listening, setListening] = React.useState(args.listening);
+  const startListening = () => setListening(true);
+  const stopListening = () => setListening(false);
+
+  useEffect(() => {
+    if (listening) {
+      const interval = setInterval(() => {
+        let nextWord = text.pop();
+
+        if (!nextWord) {
+          clearInterval(interval);
+          return;
+        }
+
+        setUserMessage(prev => `${prev || ''}${prev ? ' ' : ''}${nextWord}`);
+      }, Math.random() * 500 + 100);
+      return () => clearInterval(interval);
+    }
+  }, [listening]);
 
   return (
     <div style={{ paddingTop: '10rem' }}>
       <ChatInputs
         {...args}
+        listening={listening}
+        startListening={startListening}
+        stopListening={stopListening}
         userMessage={userMessage}
         onChangeUserMessage={setUserMessage}
       />
@@ -159,8 +186,27 @@ Disabled.args = {
   showMicrophone: true,
 };
 
-export const Listening = Template.bind({});
-Listening.args = {
+export const ContinuousSpeech = Template.bind({});
+ContinuousSpeech.args = {
+  dialogState,
+  userMessage: 'Suspendisse sit amet volutpat velit.',
+  sendMessage: (msg: string) => console.log(msg),
+  onTextareaBlur: () => {},
+  onTextareaFocus: () => {},
+  onTextareaPressEnter: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+  listening: false,
+  isPlayingAudio: false,
+  stopAudio: () => {},
+  startListening: () => {},
+  stopListening: () => {},
+  showMicrophone: true,
+  microphoneMode: 'CONTINUOUS',
+};
+
+export const ContinuousSpeechListening = Template.bind({});
+ContinuousSpeechListening.args = {
   dialogState,
   userMessage: 'Suspendisse sit amet volutpat velit.',
   sendMessage: (msg: string) => console.log(msg),
@@ -175,6 +221,7 @@ Listening.args = {
   startListening: () => {},
   stopListening: () => {},
   showMicrophone: true,
+  microphoneMode: 'CONTINUOUS',
 };
 
 export const WithoutMicrophone = Template.bind({});

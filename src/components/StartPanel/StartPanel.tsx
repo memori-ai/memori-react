@@ -102,7 +102,7 @@ const StartPanel: React.FC<Props> = ({
         {!!gamificationLevel?.badge?.length && (
           <div className="memori--gamification-badge">
             <Tooltip
-              alignLeft
+              align="left"
               content={`${t('gamification.level')} ${
                 gamificationLevel.badge
               }, ${gamificationLevel.points} ${t('gamification.points')}`}
@@ -119,7 +119,7 @@ const StartPanel: React.FC<Props> = ({
         )}
         {!!memori.enableCompletions && (
           <div className="memori--completions-enabled">
-            <Tooltip alignLeft content={t('completionsEnabled')}>
+            <Tooltip align="left" content={t('completionsEnabled')}>
               <span aria-label={t('completionsEnabled') || 'Completions'}>
                 <AI />
               </span>
@@ -128,7 +128,7 @@ const StartPanel: React.FC<Props> = ({
         )}
         {!!memori.nsfw && (
           <div className="memori--nsfw">
-            <Tooltip alignLeft content={t('nsfw')}>
+            <Tooltip align="left" content={t('nsfw')}>
               <span title={t('nsfw') || 'NSFW'}>🔞</span>
             </Tooltip>
           </div>

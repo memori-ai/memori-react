@@ -23,7 +23,19 @@ export interface Props {
   id?: string;
   htmlType?: 'button' | 'submit' | 'reset';
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  onTouchEnd?: (event: React.TouchEvent<HTMLButtonElement>) => void;
+  onMouseDown?: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+  onMouseUp?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onMouseLeave?: (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => void;
+  onTouchStart?: (
+    event: React.TouchEvent<HTMLButtonElement> | React.MouseEvent
+  ) => void;
+  onTouchEnd?: (
+    event: React.TouchEvent<HTMLButtonElement> | React.MouseEvent
+  ) => void;
 }
 
 const Button: FC<Props> = ({
@@ -42,6 +54,10 @@ const Button: FC<Props> = ({
   id,
   htmlType,
   onClick,
+  onMouseDown,
+  onMouseUp,
+  onMouseLeave,
+  onTouchStart,
   onTouchEnd,
   children,
 }) => (
@@ -49,6 +65,10 @@ const Button: FC<Props> = ({
     id={id}
     type={htmlType}
     onClick={onClick}
+    onMouseDown={onMouseDown}
+    onMouseUp={onMouseUp}
+    onMouseLeave={onMouseLeave}
+    onTouchStart={onTouchStart}
     onTouchEnd={onTouchEnd}
     title={title}
     disabled={loading || disabled}

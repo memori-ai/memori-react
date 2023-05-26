@@ -20,9 +20,21 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <Tooltip {...args} />;
+const Template: Story<Props> = args => (
+  <div
+    style={{
+      display: 'flex',
+      justifyContent: 'flex-start',
+      paddingTop: '10rem',
+    }}
+  >
+    <Tooltip {...args} />
+  </div>
+);
 const TemplateRight: Story<Props> = args => (
-  <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+  <div
+    style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '10rem' }}
+  >
     <Tooltip {...args} />
   </div>
 );
@@ -68,5 +80,30 @@ export const AlignLeft = TemplateRight.bind({});
 AlignLeft.args = {
   content: 'Here is some tooltip content',
   children: <span>Hover me</span>,
-  alignLeft: true,
+  align: 'left',
+  visible: true,
+};
+
+export const AlignRight = Template.bind({});
+AlignRight.args = {
+  content: 'Here is some tooltip content',
+  children: <span>Hover me</span>,
+  align: 'right',
+  visible: true,
+};
+
+export const AlignTopLeft = TemplateRight.bind({});
+AlignTopLeft.args = {
+  content: 'Here is some tooltip content',
+  children: <span>Hover me</span>,
+  align: 'topLeft',
+  visible: true,
+};
+
+export const AlignTopRight = Template.bind({});
+AlignTopRight.args = {
+  content: 'Here is some tooltip content',
+  children: <span>Hover me</span>,
+  align: 'topRight',
+  visible: true,
 };

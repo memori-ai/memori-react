@@ -1,6 +1,6 @@
 export const keys: { [key: string]: string } = {
   muteSpeaker: '@memori:muteSpeaker',
-  continuousSpeech: '@memori:continuousSpeech',
+  microphoneMode: '@memori:microphoneMode',
   continuousSpeechTimeout: '@memori:continuousSpeechTimeout',
   sendOnEnter: '@memori:sendOnEnter',
   birthDate: '@memori:birthDate',

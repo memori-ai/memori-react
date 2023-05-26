@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { DialogState } from '@memori.ai/memori-api-client/dist/types';
 import UploadMenu from '../UploadMenu/UploadMenu';
 import SendOnEnterMenu from '../SendOnEnterMenu/SendOnEnterMenu';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
 import Button from '../ui/Button';
 import { useTranslation } from 'react-i18next';
-import cx from 'classnames';
 import Send from '../icons/Send';
+import MicrophoneButton from '../MicrophoneButton/MicrophoneButton';
+import cx from 'classnames';
 import Microphone from '../icons/Microphone';
 
 export interface Props {
@@ -28,6 +29,7 @@ export interface Props {
   startListening: () => void;
   stopListening: () => void;
   showMicrophone?: boolean;
+  microphoneMode?: 'CONTINUOUS' | 'HOLD_TO_TALK';
   authToken?: string;
 }
 
@@ -45,6 +47,7 @@ const ChatInputs: React.FC<Props> = ({
   onTextareaBlur,
   onTextareaPressEnter,
   showMicrophone = false,
+  microphoneMode = 'HOLD_TO_TALK',
   listening = false,
   stopAudio,
   startListening,
@@ -94,7 +97,21 @@ const ChatInputs: React.FC<Props> = ({
         title={t('send') || 'Send'}
         icon={<Send />}
       />
-      {showMicrophone && (
+      {showMicrophone && microphoneMode === 'HOLD_TO_TALK' && (
+        <MicrophoneButton
+          listening={listening}
+          startListening={startListening}
+          stopListening={() => {
+            stopListening();
+
+            if (!!userMessage?.length) {
+              sendMessage(userMessage);
+            }
+          }}
+          stopAudio={stopAudio}
+        />
+      )}
+      {showMicrophone && microphoneMode === 'CONTINUOUS' && (
         <Button
           primary
           className={cx('memori-chat-inputs--mic', {

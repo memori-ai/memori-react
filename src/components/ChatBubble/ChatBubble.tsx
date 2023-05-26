@@ -138,7 +138,7 @@ const ChatBubble: React.FC<Props> = ({
 
               {message.generatedByAI && showAIicon && (
                 <Tooltip
-                  alignLeft
+                  align="left"
                   content={t('generatedByAI')}
                   className="memori-chat--bubble-ai-icon"
                 >

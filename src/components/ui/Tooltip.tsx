@@ -4,7 +4,8 @@ import cx from 'classnames';
 export interface Props {
   content: string | JSX.Element | React.ReactNode;
   className?: string;
-  alignLeft?: boolean;
+  align?: 'left' | 'right' | 'topLeft' | 'topRight';
+  alignTop?: boolean;
   disabled?: boolean;
   children: React.ReactNode;
   visible?: boolean;
@@ -13,17 +14,21 @@ export interface Props {
 const Tooltip: FC<Props> = ({
   content,
   className,
-  alignLeft = false,
+  align = 'right',
   disabled = false,
   visible = false,
   children,
 }) => (
   <div
-    className={cx('memori-tooltip', className, {
-      'memori-tooltip--align-left': alignLeft,
-      'memori-tooltip--disabled': disabled,
-      'memori-tooltip--visible': visible,
-    })}
+    className={cx(
+      'memori-tooltip',
+      `memori-tooltip--align-${align}`,
+      className,
+      {
+        'memori-tooltip--disabled': disabled,
+        'memori-tooltip--visible': visible,
+      }
+    )}
   >
     <div className="memori-tooltip--content">{content}</div>
     <div className="memori-tooltip--trigger">{children}</div>

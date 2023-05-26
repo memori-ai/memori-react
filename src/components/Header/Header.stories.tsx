@@ -46,6 +46,9 @@ const Template: Story<Props> = args => {
         continuousSpeechTimeout={continuousSpeechTimeout}
         setContinuousSpeech={setContinuousSpeech}
         setContinuousSpeechTimeout={setContinuousSpeechTimeout}
+        setControlsPosition={() => {}}
+        controlsPosition="bottom"
+        setHideEmissions={() => {}}
       />
     </>
   );
