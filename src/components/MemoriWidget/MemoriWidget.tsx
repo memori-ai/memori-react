@@ -42,11 +42,11 @@ import message from '../ui/Message';
 // Components
 import PositionDrawer from '../PositionDrawer/PositionDrawer';
 import MemoriAuth from '../Auth/Auth';
-import Chat from '../Chat/Chat';
-import StartPanel from '../StartPanel/StartPanel';
-import Avatar from '../Avatar/Avatar';
-import ChangeMode from '../ChangeMode/ChangeMode';
-import Header from '../Header/Header';
+import Chat, { Props as ChatProps } from '../Chat/Chat';
+import StartPanel, { Props as StartPanelProps } from '../StartPanel/StartPanel';
+import Avatar, { Props as AvatarProps } from '../Avatar/Avatar';
+import ChangeMode, { Props as ChangeModeProps } from '../ChangeMode/ChangeMode';
+import Header, { Props as HeaderProps } from '../Header/Header';
 import AttachmentMediaModal from '../AttachmentMediaModal/AttachmentMediaModal';
 import AttachmentLinkModal from '../AttachmentLinkModal/AttachmentLinkModal';
 import PoweredBy from '../PoweredBy/PoweredBy';
@@ -147,13 +147,18 @@ let audioDestination: SpeakerAudioDestination;
 let audioContext: IAudioContext;
 
 export interface LayoutProps {
-  header?: JSX.Element | null;
-  avatar: JSX.Element;
-  chat?: JSX.Element | null;
-  startPanel: JSX.Element;
+  Header?: typeof Header;
+  headerProps?: HeaderProps;
+  Avatar: typeof Avatar;
+  avatarProps?: AvatarProps;
+  Chat?: typeof Chat;
+  chatProps?: ChatProps;
+  StartPanel: typeof StartPanel;
+  startPanelProps?: StartPanelProps;
   integrationStyle?: JSX.Element | null;
   integrationBackground?: JSX.Element | null;
-  changeMode?: JSX.Element | null;
+  ChangeMode?: typeof ChangeMode;
+  changeModeProps?: ChangeModeProps;
   poweredBy?: JSX.Element | null;
   sessionId?: string;
   hasUserActivatedSpeak?: boolean;
@@ -2136,128 +2141,119 @@ const MemoriWidget = ({
     };
   }, []);
 
-  const header = (
-    <Header
-      memori={memori}
-      history={history}
-      showShare={showShare}
-      position={position}
-      setShowPositionDrawer={setShowPositionDrawer}
-      setShowSettingsDrawer={setShowSettingsDrawer}
-      showSpeaker={!!AZURE_COGNITIVE_SERVICES_TTS_KEY}
-      speakerMuted={muteSpeaker}
-      setSpeakerMuted={mute => {
-        setMuteSpeaker(mute);
-        if (mute) {
-          stopAudio();
-        } else {
-          audioContext = new AudioContext();
-          let buffer = audioContext.createBuffer(1, 10000, 22050);
-          let source = audioContext.createBufferSource();
-          source.buffer = buffer;
-          source.connect(audioContext.destination);
-        }
-      }}
-      showSettings={showSettings}
-      hasUserActivatedSpeak={hasUserActivatedSpeak}
-      showReload={selectedLayout === 'TOTEM'}
-    />
-  );
-
-  const avatar = (
-    <Avatar
-      memori={memori}
-      integration={integration}
-      integrationConfig={integrationConfig}
-      tenant={tenant}
-      instruct={instruct}
-      avatar3dVisible={avatar3dVisible}
-      setAvatar3dVisible={setAvatar3dVisible}
-      hasUserActivatedSpeak={hasUserActivatedSpeak}
-      isPlayingAudio={isPlayingAudio}
-      loading={memoriTyping}
-      baseUrl={baseUrl}
-      apiUrl={apiUrl}
-    />
-  );
-
-  const startPanel = (
-    <StartPanel
-      memori={memori}
-      tenant={tenant}
-      gamificationLevel={gamificationLevel}
-      language={language}
-      userLang={userLang}
-      setUserLang={setUserLang}
-      baseUrl={baseUrl}
-      apiUrl={apiUrl}
-      position={position}
-      openPositionDrawer={() => setShowPositionDrawer(true)}
-      integrationConfig={integrationConfig}
-      instruct={instruct}
-      sessionId={sessionId}
-      clickedStart={clickedStart}
-      onClickStart={onClickStart}
-      initializeTTS={initializeTTS}
-    />
-  );
-
-  const chat = sessionId ? (
-    <Chat
-      memori={memori}
-      sessionID={sessionId}
-      tenant={tenant}
-      translateTo={
-        isMultilanguageEnabled &&
-        userLang.toUpperCase() !==
-          (
-            memori.culture?.split('-')?.[0] ??
-            i18n.language ??
-            'IT'
-          )?.toUpperCase()
-          ? userLang
-          : undefined
-      }
-      baseUrl={baseUrl}
-      apiUrl={apiUrl}
-      memoriTyping={memoriTyping}
-      history={layout === 'TOTEM' ? history.slice(-2) : history}
-      authToken={loginToken}
-      dialogState={currentDialogState}
-      setDialogState={setCurrentDialogState}
-      pushMessage={pushMessage}
-      simulateUserPrompt={simulateUserPrompt}
-      showDates={showDates}
-      showContextPerLine={showContextPerLine}
-      showAIicon={showAIicon}
-      client={client}
-      selectReceiverTag={selectReceiverTag}
-      preview={preview}
-      sendOnEnter={sendOnEnter}
-      microphoneMode={continuousSpeech ? 'CONTINUOUS' : 'HOLD_TO_TALK'}
-      setSendOnEnter={setSendOnEnter}
-      attachmentsMenuOpen={attachmentsMenuOpen}
-      setAttachmentsMenuOpen={setAttachmentsMenuOpen}
-      instruct={instruct}
-      showInputs={showInputs}
-      showMicrophone={!!AZURE_COGNITIVE_SERVICES_TTS_KEY}
-      userMessage={userMessage}
-      onChangeUserMessage={onChangeUserMessage}
-      sendMessage={(msg: string) => {
+  const headerProps: HeaderProps = {
+    memori,
+    history,
+    showShare,
+    position,
+    setShowPositionDrawer,
+    setShowSettingsDrawer,
+    showSpeaker: !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
+    speakerMuted: muteSpeaker,
+    setSpeakerMuted: mute => {
+      setMuteSpeaker(mute);
+      if (mute) {
         stopAudio();
-        stopListening();
-        sendMessage(msg);
-        setUserMessage('');
-        resetTranscript();
-      }}
-      stopListening={clearListening}
-      startListening={startListening}
-      stopAudio={stopAudio}
-      resetTranscript={resetTranscript}
-      listening={listening}
-      isPlayingAudio={isPlayingAudio}
-    />
-  ) : null;
+      } else {
+        audioContext = new AudioContext();
+        let buffer = audioContext.createBuffer(1, 10000, 22050);
+        let source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        source.connect(audioContext.destination);
+      }
+    },
+    showSettings,
+    hasUserActivatedSpeak,
+    showReload: selectedLayout === 'TOTEM',
+  };
+
+  const avatarProps: AvatarProps = {
+    memori,
+    integration,
+    integrationConfig,
+    tenant,
+    instruct,
+    avatar3dVisible,
+    setAvatar3dVisible,
+    hasUserActivatedSpeak,
+    isPlayingAudio,
+    loading: memoriTyping,
+    baseUrl,
+    apiUrl,
+  };
+
+  const startPanelProps: StartPanelProps = {
+    memori: memori,
+    tenant: tenant,
+    gamificationLevel: gamificationLevel,
+    language: language,
+    userLang: userLang,
+    setUserLang: setUserLang,
+    baseUrl: baseUrl,
+    apiUrl: apiUrl,
+    position: position,
+    openPositionDrawer: () => setShowPositionDrawer(true),
+    integrationConfig: integrationConfig,
+    instruct: instruct,
+    sessionId: sessionId,
+    clickedStart: clickedStart,
+    onClickStart: onClickStart,
+    initializeTTS: initializeTTS,
+  };
+
+  const chatProps: ChatProps = {
+    memori,
+    sessionID: sessionId || '',
+    tenant,
+    translateTo:
+      isMultilanguageEnabled &&
+      userLang.toUpperCase() !==
+        (
+          memori.culture?.split('-')?.[0] ??
+          i18n.language ??
+          'IT'
+        )?.toUpperCase()
+        ? userLang
+        : undefined,
+    baseUrl,
+    apiUrl,
+    memoriTyping,
+    history: layout === 'TOTEM' ? history.slice(-2) : history,
+    authToken: loginToken,
+    dialogState: currentDialogState,
+    setDialogState: setCurrentDialogState,
+    pushMessage,
+    simulateUserPrompt,
+    showDates,
+    showContextPerLine,
+    showAIicon,
+    client,
+    selectReceiverTag,
+    preview,
+    sendOnEnter,
+    setSendOnEnter,
+    microphoneMode: continuousSpeech ? 'CONTINUOUS' : 'HOLD_TO_TALK',
+    attachmentsMenuOpen,
+    setAttachmentsMenuOpen,
+    instruct,
+    showInputs,
+    showMicrophone: !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
+    userMessage,
+    onChangeUserMessage,
+    sendMessage: (msg: string) => {
+      stopAudio();
+      stopListening();
+      sendMessage(msg);
+      setUserMessage('');
+      resetTranscript();
+    },
+    stopListening: clearListening,
+    startListening,
+    stopAudio,
+    resetTranscript,
+    listening,
+    isPlayingAudio,
+  };
 
   const integrationBackground =
     integration && globalBackgroundUrl ? (
@@ -2280,13 +2276,11 @@ const MemoriWidget = ({
     setHasUserActivatedSpeak(false);
     setClickedStart(false);
   };
-  const changeMode = (
-    <ChangeMode
-      canInstruct={!!memori.giverTag}
-      instruct={instruct}
-      onChangeMode={onChangeMode}
-    />
-  );
+  const changeModeProps: ChangeModeProps = {
+    canInstruct: !!memori.giverTag,
+    instruct: !!instruct,
+    onChangeMode,
+  };
 
   const poweredBy = <PoweredBy tenant={tenant} userLang={userLang} />;
 
@@ -2328,13 +2322,18 @@ const MemoriWidget = ({
       style={{ height }}
     >
       <Layout
-        header={header}
-        avatar={avatar}
-        chat={chat}
-        startPanel={startPanel}
+        Header={Header}
+        headerProps={headerProps}
+        Avatar={Avatar}
+        avatarProps={avatarProps}
+        Chat={Chat}
+        chatProps={chatProps}
+        StartPanel={StartPanel}
+        startPanelProps={startPanelProps}
         integrationStyle={integrationStyle}
         integrationBackground={integrationBackground}
-        changeMode={changeMode}
+        ChangeMode={ChangeMode}
+        changeModeProps={changeModeProps}
         poweredBy={poweredBy}
         sessionId={sessionId}
         hasUserActivatedSpeak={hasUserActivatedSpeak}

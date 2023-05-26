@@ -23,13 +23,18 @@ const meta: Meta = {
 export default meta;
 
 const CustomLayout: React.FC<LayoutProps> = ({
-  header,
-  avatar,
-  chat,
-  startPanel,
+  Header,
+  headerProps,
+  Avatar,
+  avatarProps,
+  Chat,
+  chatProps,
+  StartPanel,
+  startPanelProps,
   integrationStyle,
   integrationBackground,
-  changeMode,
+  ChangeMode,
+  changeModeProps,
   sessionId,
   hasUserActivatedSpeak,
   showInstruct = false,
@@ -44,7 +49,11 @@ const CustomLayout: React.FC<LayoutProps> = ({
       {poweredBy}
 
       <div className="memori-mycustom-layout--controls">
-        {sessionId && hasUserActivatedSpeak ? chat : startPanel}
+        {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+          <Chat {...chatProps} />
+        ) : startPanelProps ? (
+          <StartPanel {...startPanelProps} />
+        ) : null}
       </div>
     </Spin>
   </>
