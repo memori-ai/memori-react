@@ -945,6 +945,10 @@ const MemoriWidget = ({
       }
     }
 
+    if (memori.enableCompletions) {
+      timeout = timeout + 60;
+    }
+
     let uiTimeout = setTimeout(handleTimeout, timeout * 1000);
     setUserInteractionTimeout(uiTimeout);
     timeoutRef.current = uiTimeout;
