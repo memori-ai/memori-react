@@ -1,5 +1,22 @@
 
 
+## [2.2.0](https://github.com/memori-ai/memori-react/compare/v2.1.0...v2.2.0) (2023-05-26)
+
+
+### Features
+
+* add hold to talk mic mode, set as default; improvements to tooltip ([2ed0949](https://github.com/memori-ai/memori-react/commit/2ed0949fb9d44fa2b5e8548c13c934e7a25fef33))
+
+
+### Bug Fixes
+
+* default spoken lang from integration config ([8078736](https://github.com/memori-ai/memori-react/commit/80787366843bb9d3ba438ab5c60fd6ba4c9484c9))
+
+
+### Changes
+
+* add 60s timeout if completions enabled ([97c770f](https://github.com/memori-ai/memori-react/commit/97c770f3b79b5b2af472c857c25929500847cfdc))
+
 ## [2.1.0](https://github.com/memori-ai/memori-react/compare/v2.0.11...v2.1.0) (2023-05-09)
 
 
