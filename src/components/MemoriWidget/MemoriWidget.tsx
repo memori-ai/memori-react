@@ -251,18 +251,19 @@ const MemoriWidget = ({
     ?.find(c => c.memoriConfigID === memori.memoriConfigurationID)
     ?.culture?.split('-')?.[0]
     ?.toUpperCase();
-  // eslint-disable-next-line
-  const [userLang, setUserLang] = useState(
-    memoriLang ??
-      memori?.culture?.split('-')?.[0] ??
-      language ??
-      i18n.language ??
-      'IT'
-  );
   const integrationConfig = integration?.customData
     ? JSON.parse(integration.customData)
     : null;
   const isMultilanguageEnabled = !!integrationConfig?.multilanguage;
+  const [userLang, setUserLang] = useState(
+    integrationConfig?.lang ??
+      memoriLang ??
+      memori?.culture?.split('-')?.[0] ??
+      language ??
+      integrationConfig?.uiLang ??
+      i18n.language ??
+      'IT'
+  );
 
   const [loading, setLoading] = useState(false);
   const [memoriTyping, setMemoriTyping] = useState(false);
