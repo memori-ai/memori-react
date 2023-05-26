@@ -3,13 +3,18 @@ import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 
 const FullPageLayout: React.FC<LayoutProps> = ({
-  header,
-  avatar,
-  chat,
-  startPanel,
+  Header,
+  headerProps,
+  Avatar,
+  avatarProps,
+  Chat,
+  chatProps,
+  StartPanel,
+  startPanelProps,
   integrationStyle,
   integrationBackground,
-  changeMode,
+  ChangeMode,
+  changeModeProps,
   sessionId,
   hasUserActivatedSpeak,
   showInstruct = false,
@@ -21,16 +26,22 @@ const FullPageLayout: React.FC<LayoutProps> = ({
     {integrationBackground}
 
     <Spin spinning={loading}>
-      {showInstruct && changeMode}
+      {showInstruct && ChangeMode && changeModeProps && (
+        <ChangeMode {...changeModeProps} />
+      )}
 
-      {header}
+      {Header && headerProps && <Header {...headerProps} />}
 
       <div className="memori--grid">
         <div className="memori--grid-column memori--grid-column-left">
-          {avatar}
+          {Avatar && avatarProps && <Avatar {...avatarProps} />}
         </div>
         <div className="memori--grid-column memori--grid-column-right">
-          {sessionId && hasUserActivatedSpeak ? chat : startPanel}
+          {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+            <Chat {...chatProps} />
+          ) : startPanelProps ? (
+            <StartPanel {...startPanelProps} />
+          ) : null}
         </div>
 
         {poweredBy}

@@ -3,13 +3,18 @@ import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 
 const TotemLayout: React.FC<LayoutProps> = ({
-  header,
-  avatar,
-  chat,
-  startPanel,
+  Header,
+  headerProps,
+  Avatar,
+  avatarProps,
+  Chat,
+  chatProps,
+  StartPanel,
+  startPanelProps,
   integrationStyle,
   integrationBackground,
-  changeMode,
+  ChangeMode,
+  changeModeProps,
   sessionId,
   hasUserActivatedSpeak,
   showInstruct = false,
@@ -22,14 +27,24 @@ const TotemLayout: React.FC<LayoutProps> = ({
 
     <Spin spinning={loading} className="memori-totem-layout">
       {poweredBy}
-      {showInstruct && changeMode}
+      {showInstruct && ChangeMode && changeModeProps && (
+        <ChangeMode {...changeModeProps} />
+      )}
 
-      <div className="memori-totem-layout--header">{header}</div>
+      <div className="memori-totem-layout--header">
+        {Header && headerProps && <Header {...headerProps} />}
+      </div>
 
-      <div className="memori-totem-layout--avatar">{avatar}</div>
+      <div className="memori-totem-layout--avatar">
+        {Avatar && avatarProps && <Avatar {...avatarProps} />}
+      </div>
 
       <div className="memori-totem-layout--controls">
-        {sessionId && hasUserActivatedSpeak ? chat : startPanel}
+        {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+          <Chat {...chatProps} />
+        ) : startPanelProps ? (
+          <StartPanel {...startPanelProps} />
+        ) : null}
       </div>
     </Spin>
   </>
