@@ -25,7 +25,7 @@
     justify-content: center;
 }
 
-.memori-header--button+.memori-header--button {
+.memori-header--button + .memori-header--button {
     margin-left: 0.25rem;
 }
 

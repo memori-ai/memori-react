@@ -11,7 +11,7 @@
     margin: 0;
 }
 
-.memori-chat-inputs .memori-upload-menu+.memori-send-on-enter-menu {
+.memori-chat-inputs .memori-upload-menu + .memori-send-on-enter-menu {
     margin-left: 0.33rem;
 }
 

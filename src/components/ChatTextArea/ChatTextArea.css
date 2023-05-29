@@ -40,7 +40,7 @@ textarea.memori-chat-textarea--input {
     border: none;
     background: #fff;
     color: #000;
-    font-family: "Exo 2", sans-serif;
+    font-family: 'Exo 2', sans-serif;
     resize: none;
 }
 
@@ -78,8 +78,12 @@ button.memori-chat-textarea--expand-button:focus {
     outline: none;
 }
 
-.memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:focus .memori-chat-textarea--expand-button,
-.memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:focus-within .memori-chat-textarea--expand-button {
+.memori-chat-textarea:not(.memori-chat-textarea--disabled)
+    .memori-chat-textarea--inner:focus
+    .memori-chat-textarea--expand-button,
+.memori-chat-textarea:not(.memori-chat-textarea--disabled)
+    .memori-chat-textarea--inner:focus-within
+    .memori-chat-textarea--expand-button {
     opacity: 1;
 }
 

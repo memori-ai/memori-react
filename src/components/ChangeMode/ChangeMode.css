@@ -17,6 +17,6 @@
     border-top-left-radius: 0;
 }
 
-.memori--changeMode-instruct-radio-button[data-headlessui-state="checked"] button {
+.memori--changeMode-instruct-radio-button[data-headlessui-state='checked'] button {
     font-weight: 600;
 }

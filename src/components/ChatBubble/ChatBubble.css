@@ -64,7 +64,7 @@
     margin-bottom: 0;
 }
 
-.memori-chat--bubble p+p {
+.memori-chat--bubble p + p {
     margin-top: 0.5em;
 }
 

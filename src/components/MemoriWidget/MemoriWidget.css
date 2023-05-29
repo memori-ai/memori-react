@@ -121,7 +121,6 @@
     filter: blur(var(--memori-blur-background, 0));
 }
 
-
 .memori--powered-by {
     position: absolute;
     z-index: 1000;
@@ -176,7 +175,7 @@
     font-size: 1rem;
 }
 
-.memori--conversation-button+.memori--conversation-button {
+.memori--conversation-button + .memori--conversation-button {
     margin-left: 0.33rem;
 }
 

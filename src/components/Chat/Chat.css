@@ -49,7 +49,7 @@
     border-top-right-radius: 3px;
 }
 
-.memori-chat--cover+.memori-chat--bubble-initial {
+.memori-chat--cover + .memori-chat--bubble-initial {
     display: none;
 }
 
@@ -103,7 +103,7 @@
     white-space: nowrap;
 }
 
-.memori-chat--context-tag+.memori-chat--context-tag {
+.memori-chat--context-tag + .memori-chat--context-tag {
     margin-top: 0.5rem;
 }
 

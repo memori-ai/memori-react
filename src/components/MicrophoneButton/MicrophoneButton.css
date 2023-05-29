@@ -1,5 +1,11 @@
-.memori-mic-btn-tooltip.memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content,
-.memori-mic-btn-tooltip.memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled):not(.memori-tooltip--visible):hover .memori-tooltip--content {
+.memori-mic-btn-tooltip.memori-tooltip.memori-tooltip--align-topLeft:not(
+        .memori-tooltip--disabled
+    ).memori-tooltip--visible
+    .memori-tooltip--content,
+.memori-mic-btn-tooltip.memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled):not(
+        .memori-tooltip--visible
+    ):hover
+    .memori-tooltip--content {
     touch-action: none;
     transform: translateY(-180%) translateX(27%);
     -webkit-user-select: none;
@@ -78,7 +84,7 @@
     border-radius: 50%;
     animation: micBtnActivePulse 2s infinite;
     background: var(--memori-primary);
-    content: "";
+    content: '';
     opacity: 0.2;
 }
 

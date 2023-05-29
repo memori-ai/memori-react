@@ -93,20 +93,25 @@
         filter: brightness(1);
         transform: scale(1);
     }
+
     15% {
         filter: brightness(1.1);
     }
+
     30% {
         filter: brightness(1);
         transform: scale(0.99);
     }
+
     50% {
         filter: brightness(1.05);
         transform: scale(1.01);
     }
+
     75% {
         filter: brightness(1.15);
     }
+
     100% {
         filter: brightness(1.1);
         transform: scale(0.99);
@@ -140,7 +145,7 @@
     object-fit: contain;
 }
 
-.memori-blob figure~.mainDiv {
+.memori-blob figure ~ .mainDiv {
     opacity: 0.2;
 }
 

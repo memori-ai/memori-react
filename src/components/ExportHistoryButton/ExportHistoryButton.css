@@ -12,7 +12,7 @@
     text-align: left;
 }
 
-.memori-export-history-button--panel button+button {
+.memori-export-history-button--panel button + button {
     margin-left: 0.5rem;
 }
 

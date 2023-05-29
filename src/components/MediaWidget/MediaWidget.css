@@ -32,7 +32,7 @@
     margin-bottom: 0.5rem;
 }
 
-.memori-media--hints li+li {
+.memori-media--hints li + li {
     margin-left: 0.5rem;
 }
 

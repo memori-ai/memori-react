@@ -118,7 +118,7 @@
     line-height: 1;
 }
 
-.memori-button--icon svg[fill="none"] {
+.memori-button--icon svg[fill='none'] {
     fill: none;
 }
 

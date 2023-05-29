@@ -41,10 +41,10 @@
     border: 10px solid rgba(0, 0, 0, 0.8);
     border-color: transparent rgba(0, 0, 0, 0.8) transparent transparent;
     margin-left: -5px;
-    content: "";
+    content: '';
     opacity: 0;
     transform: translateY(-50%);
-    transition: .3s;
+    transition: 0.3s;
 }
 
 .memori-tooltip.memori-tooltip--align-left .memori-tooltip--content::before {
@@ -81,8 +81,10 @@
     opacity: 1;
 }
 
-.memori-tooltip.memori-tooltip--align-topRight:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content,
-.memori-tooltip.memori-tooltip--align-topRight:not(.memori-tooltip--disabled):not(.memori-tooltip--visible):hover .memori-tooltip--content {
+.memori-tooltip.memori-tooltip--align-topRight:not(.memori-tooltip--disabled).memori-tooltip--visible
+    .memori-tooltip--content,
+.memori-tooltip.memori-tooltip--align-topRight:not(.memori-tooltip--disabled):not(.memori-tooltip--visible):hover
+    .memori-tooltip--content {
     transform: translateY(-150%) translateX(-33%);
 }
 
@@ -95,8 +97,10 @@
     margin-left: 5px;
 }
 
-.memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content,
-.memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled):not(.memori-tooltip--visible):hover .memori-tooltip--content {
+.memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled).memori-tooltip--visible
+    .memori-tooltip--content,
+.memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled):not(.memori-tooltip--visible):hover
+    .memori-tooltip--content {
     transform: translateY(-150%) translateX(33%);
 }
 
