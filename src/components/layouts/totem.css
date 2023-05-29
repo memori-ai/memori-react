@@ -111,6 +111,20 @@
     margin: 0 auto;
 }
 
+@media (max-width: 870px) {
+    .memori-totem-layout--controls .memori--start-panel,
+    .memori-totem-layout--controls .memori-chat--wrapper {
+        width: 100%;
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .memori-send-on-enter-menu {
+        display: none;
+    }
+}
+
 .memori-totem-layout .memori--avatar-toggle {
     display: none;
     width: 100%;
@@ -127,10 +141,12 @@
     background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(200, 200, 200, 0.8));
 }
 
-.memori-widget.memori-controls-center .memori-totem-layout--controls {
-    position: absolute;
-    top: 40%;
-    width: 100%;
+@media (min-width: 481px) {
+    .memori-widget.memori-controls-center .memori-totem-layout--controls {
+        position: absolute;
+        top: 40%;
+        width: 100%;
+    }
 }
 
 .memori-widget.memori-layout-totem.memori--hide-emissions
