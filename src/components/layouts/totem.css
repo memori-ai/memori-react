@@ -115,12 +115,19 @@
     .memori-totem-layout--controls .memori--start-panel,
     .memori-totem-layout--controls .memori-chat--wrapper {
         width: 100%;
+    }
+
+    .memori-totem-layout--controls .memori-chat--wrapper {
         padding: 0;
     }
 }
 
 @media (max-width: 480px) {
     .memori-send-on-enter-menu {
+        display: none;
+    }
+
+    .memori-header--button-settings {
         display: none;
     }
 }

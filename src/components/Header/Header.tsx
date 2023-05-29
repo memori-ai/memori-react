@@ -126,7 +126,7 @@ const Header: React.FC<Props> = ({
         <Button
           primary
           shape="circle"
-          className="memori-header--button"
+          className="memori-header--button memori-header--button-settings"
           icon={<Setting />}
           onClick={() => setShowSettingsDrawer(true)}
           title={t('widget.settings') || 'Settings'}

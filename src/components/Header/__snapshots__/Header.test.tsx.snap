@@ -200,7 +200,7 @@ exports[`renders Header with settings button unchanged 1`] = `
       </button>
     </div>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-settings"
       title="widget.settings"
     >
       <span
