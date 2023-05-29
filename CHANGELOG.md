@@ -1,5 +1,25 @@
 
 
+## [2.2.1](https://github.com/memori-ai/memori-react/compare/v2.2.0...v2.2.1) (2023-05-29)
+
+
+### Bug Fixes
+
+* add webkit prefix for backdrop filter ([5c57636](https://github.com/memori-ai/memori-react/commit/5c57636166a21e29fc05e3b8d0f349ea5625c1bb))
+* prevent vars not being loaded for portal roots with lt ([d11f9bc](https://github.com/memori-ai/memori-react/commit/d11f9bc08dc01b7a894bcef4e58cf7401ed2a425))
+* show blob on mobile totem ([558aba3](https://github.com/memori-ai/memori-react/commit/558aba3cc3e7105e0b40a7be8664b999a9a55982))
+
+
+### Maintenance
+
+* run prettier formatting ([416ad37](https://github.com/memori-ai/memori-react/commit/416ad379a9db6f971a7ccdaa99e199b4ad56ffc1))
+
+
+### Changes
+
+* defaults for mobile totem dont show settings button ([619e773](https://github.com/memori-ai/memori-react/commit/619e773408608827f4649c68a23387dbe405eba2))
+* defaults for mobile totem with controls on bottom + dont show send on enter menu ([a5a887c](https://github.com/memori-ai/memori-react/commit/a5a887cc1c092dbbcc1a87912df7f48435ca2351))
+
 ## [2.2.0](https://github.com/memori-ai/memori-react/compare/v2.1.0...v2.2.0) (2023-05-26)
 
 
