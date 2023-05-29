@@ -6,12 +6,10 @@
     background: linear-gradient(#333, #eee);
 }
 
-.memori-widget > .memori-spin.memori-totem-layout {
+.memori-widget>.memori-spin.memori-totem-layout {
     display: flex;
     height: 100%;
     flex-direction: column;
-
-    /* --memori-text-color: #fff; */
 }
 
 .memori-totem-layout--header {
@@ -31,6 +29,22 @@
     width: 100%;
 }
 
+.memori-totem-layout--avatar .memori--blob-container {
+    display: block;
+}
+
+@media (max-width: 480px) {
+    .memori-totem-layout--avatar .memori--blob-container {
+        display: block;
+    }
+}
+
+@media (max-width: 870px) {
+    .memori-totem-layout--avatar .memori--blob-container {
+        display: block;
+    }
+}
+
 .memori-totem-layout .memori-header {
     position: relative;
     z-index: 100;
@@ -41,7 +55,7 @@
 }
 
 .memori-totem-layout .memori-header .memori-share-button,
-.memori-totem-layout .memori-header .memori-header--button + .memori-header--button {
+.memori-totem-layout .memori-header .memori-header--button+.memori-header--button {
     margin-top: 0.25rem;
     margin-left: 0;
 }
@@ -60,7 +74,7 @@
     bottom: auto;
 }
 
-.memori-totem-layout--avatar .memori--avatar-wrapper > div {
+.memori-totem-layout--avatar .memori--avatar-wrapper>div {
     overflow: visible !important;
     /* width: 100% !important;
     height: 100% !important; */
@@ -132,7 +146,7 @@
     z-index: 2;
 }
 
-.memori-totem-layout--avatar .memori--avatar-wrapper > div canvas + div {
+.memori-totem-layout--avatar .memori--avatar-wrapper>div canvas+div {
     position: absolute !important;
     width: 100%;
     height: 100%;
