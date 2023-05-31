@@ -1,5 +1,15 @@
 
 
+## [2.2.2](https://github.com/memori-ai/memori-react/compare/v2.2.1...v2.2.2) (2023-05-31)
+
+
+### Bug Fixes
+
+* aggregate whole trascript in usermessage after pause ([ddc800f](https://github.com/memori-ai/memori-react/commit/ddc800f65c46af42a1445f07e5d76cd149ed0090))
+* close audio context only if not closed ([c1cd222](https://github.com/memori-ai/memori-react/commit/c1cd2226e6a9360e54c4d92aefcb7f8e27efcdb3))
+* css vars declaration entrypoints ([1215ccb](https://github.com/memori-ai/memori-react/commit/1215ccbb45842da821a43b1a169954b04bf2660c))
+* share qr button colors ([ae44e26](https://github.com/memori-ai/memori-react/commit/ae44e262addf3e531b43bd8d8fe382a16e5ae049))
+
 ## [2.2.1](https://github.com/memori-ai/memori-react/compare/v2.2.0...v2.2.1) (2023-05-29)
 
 
