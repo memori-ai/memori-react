@@ -1381,7 +1381,7 @@ const MemoriWidget = ({
         speechSynthesizer.close();
         speechSynthesizer = null;
       }
-      if (audioContext) {
+      if (audioContext.state !== 'closed') {
         audioContext.close();
       }
       if (audioDestination) {
