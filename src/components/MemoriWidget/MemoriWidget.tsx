@@ -1490,7 +1490,7 @@ const MemoriWidget = ({
               if (transcript?.length > 0) {
                 const transcriptMessage = stripDuplicates(transcript);
                 if (transcriptMessage.length > 0)
-                  setUserMessage(transcriptMessage);
+                  setUserMessage(msg => `${msg} ${transcriptMessage}`);
               }
             } else if (e.result.reason === speechSdk.ResultReason.NoMatch) {
               console.debug('NOMATCH: Speech could not be recognized.');
