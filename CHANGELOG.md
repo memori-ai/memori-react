@@ -1,5 +1,17 @@
 
 
+## [2.3.0](https://github.com/memori-ai/memori-react/compare/v2.2.2...v2.3.0) (2023-06-06)
+
+
+### Features
+
+* add chat layout ([70f00e7](https://github.com/memori-ai/memori-react/commit/70f00e77e3a5683ebc85fafc5b68d22b9c7bda27))
+
+
+### Changes
+
+* share button enforce normal font weight ([37c645c](https://github.com/memori-ai/memori-react/commit/37c645cae864c9f585339333de581969a5c570ad))
+
 ## [2.2.2](https://github.com/memori-ai/memori-react/compare/v2.2.1...v2.2.2) (2023-05-31)
 
 
