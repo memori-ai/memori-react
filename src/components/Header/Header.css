@@ -1,6 +1,6 @@
 .memori-header {
     position: relative;
-    z-index: 1;
+    z-index: 6;
     width: calc(50% - 1rem);
     height: 50px;
     padding: calc(var(--memori-inner-content-pad) / 4) calc(var(--memori-inner-content-pad) / 2);
@@ -25,7 +25,7 @@
     justify-content: center;
 }
 
-.memori-header--button + .memori-header--button {
+.memori-header--button+.memori-header--button {
     margin-left: 0.25rem;
 }
 

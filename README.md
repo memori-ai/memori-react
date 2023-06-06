@@ -79,14 +79,14 @@ const App = () => (
 | `spokenLang`                       |                | `string`                |                             | Language of the spoken text, as defaults to user selection. Example: "en" or "it"                                                                                                                                                                                                                                                                                                                                                       |
 | `onStateChange`                    |                | `function`              |                             | Callback function called when the state of the Memori changes                                                                                                                                                                                                                                                                                                                                                                           |
 | `AZURE_COGNITIVE_SERVICES_TTS_KEY` |                | `string`                |                             | Azure Cognitive Services TTS key, used to generate the audio of the Memori and for STT recognition                                                                                                                                                                                                                                                                                                                                      |
-| `layout`                           |                | `string`                |                             | Layout of the Memori, can be "FULLPAGE" (default) or "TOTEM", see [below](#layouts)                                                                                                                                                                                                                                                                                                                                                     |
+| `layout`                           |                | `string`                |                             | Layout of the Memori, can be "FULLPAGE" (default), "CHAT" or "TOTEM", see [below](#layouts)                                                                                                                                                                                                                                                                                                                                                     |
 | `customLayout`                     |                | `React.FC<LayoutProps>` |                             | Custom layout component, see [below](#custom-layout)                                                                                                                                                                                                                                                                                                                                                                                    |
 
 \*: one of these pairs is required: `memoriName` + `ownerUserName`, `memoriID` + `ownerUserID`
 
 ### Layouts
 
-The Memori can be displayed in two different layouts: `FULLPAGE` and `TOTEM`.
+The Memori can be displayed in three different layouts: `FULLPAGE`, `CHAT` and `TOTEM`.
 If you don't specify a layout, the default one is `FULLPAGE`.
 
 #### FULLPAGE
@@ -96,6 +96,10 @@ If you don't specify a layout, the default one is `FULLPAGE`.
 #### TOTEM
 
 <img alt="Totem layout" src="./docs/totem.png" width="300" />
+
+#### CHAT
+
+<img alt="Chat only layout" src="./docs/chat.png" width="300" />
 
 #### Custom layout
 

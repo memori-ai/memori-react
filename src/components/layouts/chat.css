@@ -1,0 +1,114 @@
+.memori-widget.memori-layout-chat {
+    height: 100vh !important;
+}
+
+.memori-widget.memori-layout-chat .memori--global-background.no-background-image {
+    background: none;
+}
+
+.memori-widget>.memori-spin.memori-chat-layout {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+}
+
+.memori-chat-layout--header {
+    text-align: right;
+}
+
+.memori-chat-layout .memori-header {
+    display: inline-block;
+    width: auto;
+}
+
+.memori-chat-layout .memori--avatar {
+    top: 0;
+}
+
+.memori-chat-layout .memori--title {
+    position: relative;
+    top: 10px;
+}
+
+.memori-chat-layout .memori-chat--cover {
+    display: none;
+}
+
+.memori-chat-layout .memori--cover {
+    top: 10px;
+    padding: 0;
+    background-image: none !important;
+}
+
+.memori-chat-layout .memori--powered-by {
+    top: 0;
+    bottom: auto;
+}
+
+.memori-chat-layout--controls {
+    position: relative;
+    z-index: 5;
+    max-height: calc(100% - 50px);
+    flex: 1;
+}
+
+.memori-chat-layout--controls .memori--start-panel,
+.memori-chat-layout--controls .memori-chat--wrapper {
+    width: 80vw;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.memori-chat-layout--controls .memori--start-panel {
+    margin-top: 3rem;
+}
+
+.memori-chat-layout--controls .memori-chat--wrapper {
+    height: calc(100% - 1rem);
+}
+
+.memori-chat-layout .memori-chat--content {
+    padding: 0;
+}
+
+@media (max-width: 870px) {
+
+    .memori-chat-layout--controls .memori--start-panel,
+    .memori-chat-layout--controls .memori-chat--wrapper {
+        width: 100%;
+    }
+
+    .memori-chat-layout--controls .memori-chat--wrapper {
+        padding: 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .memori-send-on-enter-menu {
+        display: none;
+    }
+
+    .memori-header--button-settings {
+        display: none;
+    }
+}
+
+.memori-chat-layout .memori--avatar-toggle {
+    display: none;
+    width: 100%;
+    justify-content: center;
+}
+
+.memori-chat-layout .memori--title,
+.memori-chat-layout .memori--description,
+.memori-chat-layout .memori--needsPosition {
+    color: var(--memori-text-color);
+}
+
+.memori-chat-layout .memori--global-background-image {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.8), rgba(200, 200, 200, 0.8));
+}
+
+.memori-chat-layout .memori-chat-inputs--mic {
+    font-size: 125%;
+}

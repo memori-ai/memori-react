@@ -1,4 +1,3 @@
-import { Memori } from '@memori.ai/memori-api-client/dist/types';
 import Drawer from '../ui/Drawer';
 import { useTranslation } from 'react-i18next';
 import Checkbox from '../ui/Checkbox';
@@ -6,10 +5,11 @@ import Select from '../ui/Select';
 import { setLocalConfig } from '../../helpers/configuration';
 import { RadioGroup } from '@headlessui/react';
 import Button from '../ui/Button';
+import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 
 export interface Props {
   open: boolean;
-  layout?: 'FULLPAGE' | 'TOTEM' | 'DEFAULT';
+  layout?: WidgetProps['layout'];
   onClose: () => void;
   microphoneMode?: 'HOLD_TO_TALK' | 'CONTINUOUS';
   continuousSpeechTimeout?: number;

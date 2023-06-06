@@ -54,6 +54,7 @@ import PoweredBy from '../PoweredBy/PoweredBy';
 // Layout
 import FullPageLayout from '../layouts/FullPage';
 import TotemLayout from '../layouts/Totem';
+import ChatLayout from '../layouts/Chat';
 
 // Helpers / Utils
 import { getTranslation } from '../../helpers/translations';
@@ -165,7 +166,7 @@ export interface Props {
   memoriConfigs?: MemoriConfig[];
   memoriLang?: string;
   integration?: Integration;
-  layout?: 'DEFAULT' | 'FULLPAGE' | 'TOTEM';
+  layout?: 'DEFAULT' | 'FULLPAGE' | 'TOTEM' | 'CHAT';
   customLayout?: React.FC<LayoutProps>;
   showShare?: boolean;
   showInstruct?: boolean;
@@ -2293,6 +2294,8 @@ const MemoriWidget = ({
     ? customLayout
     : selectedLayout === 'TOTEM'
     ? TotemLayout
+    : selectedLayout === 'CHAT'
+    ? ChatLayout
     : selectedLayout === 'FULLPAGE'
     ? FullPageLayout
     : FullPageLayout;
