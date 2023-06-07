@@ -50,6 +50,7 @@ export default function AvatarView({
   const defaultStyles = halfBody
     ? defaultStylesHalfBody
     : defaultStylesFullBody;
+
   return (
     <Canvas
       style={style || defaultStyles}
@@ -72,7 +73,7 @@ export default function AvatarView({
             anglePower={5}
           />
         ) : (
-          <Environment preset="sunset" />
+          <Environment files="https://raw.githack.com/pmndrs/drei-assets/456060a26bbeb8fdf79326f224b6d99b8bcce736/hdri/venice_sunset_1k.hdr" />
         )}
         {rotateAvatar && halfBody && (
           <OrbitControls enablePan={false} enableZoom={false} />
