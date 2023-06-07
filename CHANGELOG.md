@@ -1,5 +1,12 @@
 
 
+## [2.3.1](https://github.com/memori-ai/memori-react/compare/v2.3.0...v2.3.1) (2023-06-07)
+
+
+### Bug Fixes
+
+* environment url from drei cdn ([773e0fe](https://github.com/memori-ai/memori-react/commit/773e0fedf2d300fd00cca4310a35dc24418bdfb1))
+
 ## [2.3.0](https://github.com/memori-ai/memori-react/compare/v2.2.2...v2.3.0) (2023-06-06)
 
 
