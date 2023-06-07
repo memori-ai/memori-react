@@ -1,5 +1,13 @@
 
 
+## [2.4.0](https://github.com/memori-ai/memori-react/compare/v2.3.1...v2.4.0) (2023-06-07)
+
+
+### Changes
+
+* chat layout with layout props ([eee4cf5](https://github.com/memori-ai/memori-react/commit/eee4cf5e893dd65e7b341516a0f2dcfb65519841))
+* move everything as layout prop ([1c42027](https://github.com/memori-ai/memori-react/commit/1c42027083ba772b533c9d8035e599327fa19e6f))
+
 ## [2.3.1](https://github.com/memori-ai/memori-react/compare/v2.3.0...v2.3.1) (2023-06-07)
 
 
