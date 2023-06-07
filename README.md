@@ -79,7 +79,7 @@ const App = () => (
 | `spokenLang`                       |                | `string`                |                             | Language of the spoken text, as defaults to user selection. Example: "en" or "it"                                                                                                                                                                                                                                                                                                                                                       |
 | `onStateChange`                    |                | `function`              |                             | Callback function called when the state of the Memori changes                                                                                                                                                                                                                                                                                                                                                                           |
 | `AZURE_COGNITIVE_SERVICES_TTS_KEY` |                | `string`                |                             | Azure Cognitive Services TTS key, used to generate the audio of the Memori and for STT recognition                                                                                                                                                                                                                                                                                                                                      |
-| `layout`                           |                | `string`                |                             | Layout of the Memori, can be "FULLPAGE" (default), "CHAT" or "TOTEM", see [below](#layouts)                                                                                                                                                                                                                                                                                                                                                     |
+| `layout`                           |                | `string`                |                             | Layout of the Memori, can be "FULLPAGE" (default), "CHAT" or "TOTEM", see [below](#layouts)                                                                                                                                                                                                                                                                                                                                             |
 | `customLayout`                     |                | `React.FC<LayoutProps>` |                             | Custom layout component, see [below](#custom-layout)                                                                                                                                                                                                                                                                                                                                                                                    |
 
 \*: one of these pairs is required: `memoriName` + `ownerUserName`, `memoriID` + `ownerUserID`
@@ -110,14 +110,19 @@ The custom layout component must be a React functional component that accepts a 
 ```tsx
 import type { LayoutProps } from '@memori.ai/memori-react/components/MemoriWidget';
 
-const MyCustomLayout: React.FC<LayoutProps> = = ({
-  header,
-  avatar,
-  chat,
-  startPanel,
+const MyCustomLayout: React.FC<LayoutProps> = ({
+  Header,
+  headerProps,
+  Avatar,
+  avatarProps,
+  Chat,
+  chatProps,
+  StartPanel,
+  startPanelProps,
   integrationStyle,
   integrationBackground,
-  changeMode,
+  ChangeMode,
+  changeModeProps,
   sessionId,
   hasUserActivatedSpeak,
   showInstruct = false,
@@ -132,7 +137,11 @@ const MyCustomLayout: React.FC<LayoutProps> = = ({
       {poweredBy}
 
       <div className="memori-mycustom-layout--controls">
-        {sessionId && hasUserActivatedSpeak ? chat : startPanel}
+        {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+          <Chat {...chatProps} />
+        ) : startPanelProps ? (
+          <StartPanel {...startPanelProps} />
+        ) : null}
       </div>
     </Spin>
   </>
@@ -146,6 +155,51 @@ And then pass it to the `customLayout` prop:
     ...
     customLayout={MyCustomLayout}
   />
+```
+
+## Component overrides
+
+When using the `customLayout` prop, you can also override the default components used by the client.
+
+```tsx
+const MyCustomChat: LayoutProps['Chat'] = ({ history, sendMessage }) => {
+  const [message, setMessage] = React.useState('');
+
+  ...
+}
+
+const MyCustomAvatar: LayoutProps['Avatar'] = (props) => {
+  ...
+}
+
+const CustomLayout: React.FC<LayoutProps> = ({
+  avatarProps,
+  chatProps,
+  StartPanel,
+  startPanelProps,
+  sessionId,
+  hasUserActivatedSpeak,
+  loading = false,
+  poweredBy,
+}) => (
+  <>
+    <Spin spinning={loading} className="memori-mycustom-layout">
+      {poweredBy}
+
+      <div className="memori-mycustom-layout--avatar">
+        <MyCustomAvatar {...avatarProps} />
+      </div>
+
+      <div className="memori-mycustom-layout--controls">
+        {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+          <MyCustomChat {...chatProps} />
+        ) : startPanelProps ? (
+          <StartPanel {...startPanelProps} />
+        ) : null}
+      </div>
+    </Spin>
+  </>
+);
 ```
 
 ## See also
