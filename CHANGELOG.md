@@ -1,5 +1,12 @@
 
 
+## [2.4.1](https://github.com/memori-ai/memori-react/compare/v2.4.0...v2.4.1) (2023-06-19)
+
+
+### Bug Fixes
+
+* default spoken lang order, first is prop ([eadac28](https://github.com/memori-ai/memori-react/commit/eadac284d96f2f5d974967a178638b4314dac3be))
+
 ## [2.4.0](https://github.com/memori-ai/memori-react/compare/v2.3.1...v2.4.0) (2023-06-07)
 
 
