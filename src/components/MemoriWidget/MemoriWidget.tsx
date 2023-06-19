@@ -262,8 +262,8 @@ const MemoriWidget = ({
     : null;
   const isMultilanguageEnabled = !!integrationConfig?.multilanguage;
   const [userLang, setUserLang] = useState(
-    integrationConfig?.lang ??
-      memoriLang ??
+    memoriLang ??
+      integrationConfig?.lang ??
       memori?.culture?.split('-')?.[0] ??
       language ??
       integrationConfig?.uiLang ??
