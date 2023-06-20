@@ -158,6 +158,38 @@ And then pass it to the `customLayout` prop:
   />
 ```
 
+## Styling
+
+You can override the default styles of the Memori by customizing the following CSS custom properties:
+
+```css
+memori-client,
+#headlessui-portal-root,
+.memori-widget {
+  --memori-primary: rgb(102, 103, 171);
+  --memori-primary-text: #fff;
+  --memori-inner-content-pad: 1rem;
+  --memori-inner-bg: transparent;
+  --memori-chat-bubble-bg: #ffffff60;
+  --memori-text-color: #000;
+  --memori-button-bg: #fff;
+  --memori-button-text: #000;
+  --memori-button-padding: 0.5rem 1.5rem;
+  --memori-button-border-color: #d9d9d9;
+  --memori-button-radius: 5px;
+  --memori-button-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+  --memori-blur-background: 0px;
+  --memori-drawer--width: 100%;
+  --memori-drawer--width--md: 80%;
+  --memori-drawer--width--lg: 60%;
+  --memori-modal--width: 100%;
+  --memori-modal--width--md: 80%;
+  --memori-error-color: #ff4d4f;
+}
+```
+
+You can review the default styles in the [styles.css](https://github.com/memori-ai/memori-react/blob/main/src/styles.css) file.
+
 ## Component overrides
 
 When using the `customLayout` prop, you can also override the default components used by the client.
