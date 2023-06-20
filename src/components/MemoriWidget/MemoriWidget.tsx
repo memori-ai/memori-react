@@ -2152,6 +2152,7 @@ const MemoriWidget = ({
     speakerMuted: muteSpeaker,
     setSpeakerMuted: mute => {
       setMuteSpeaker(mute);
+      setLocalConfig('muteSpeaker', !!mute);
       if (mute) {
         stopAudio();
       } else {
