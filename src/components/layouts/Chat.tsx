@@ -33,6 +33,8 @@ const ChatLayout: React.FC<LayoutProps> = ({
         {Header && headerProps && <Header {...headerProps} />}
       </div>
 
+      <div id="extension" />
+
       <div className="memori-chat-layout--controls">
         {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
           <Chat {...chatProps} />

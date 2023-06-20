@@ -185,6 +185,9 @@ exports[`renders FullPage layout unchanged 1`] = `
               </span>
             </button>
           </div>
+          <div
+            id="extension"
+          />
         </div>
         <div
           class="memori--grid-column memori--grid-column-right"

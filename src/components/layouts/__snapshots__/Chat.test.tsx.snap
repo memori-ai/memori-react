@@ -145,6 +145,9 @@ exports[`renders Chat layout unchanged 1`] = `
         </div>
       </div>
       <div
+        id="extension"
+      />
+      <div
         class="memori-chat-layout--controls"
       >
         <div

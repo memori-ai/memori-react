@@ -238,6 +238,9 @@ exports[`renders Totem layout unchanged 1`] = `
         </div>
       </div>
       <div
+        id="extension"
+      />
+      <div
         class="memori-totem-layout--controls"
       >
         <div

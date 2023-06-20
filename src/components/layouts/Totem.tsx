@@ -39,6 +39,8 @@ const TotemLayout: React.FC<LayoutProps> = ({
         {Avatar && avatarProps && <Avatar {...avatarProps} />}
       </div>
 
+      <div id="extension" />
+
       <div className="memori-totem-layout--controls">
         {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
           <Chat {...chatProps} />
