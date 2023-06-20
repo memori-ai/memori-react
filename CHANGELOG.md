@@ -1,5 +1,12 @@
 
 
+## [2.5.1](https://github.com/memori-ai/memori-react/compare/v2.5.0...v2.5.1) (2023-06-20)
+
+
+### Bug Fixes
+
+* select colors and font ([cf4e98a](https://github.com/memori-ai/memori-react/commit/cf4e98ad96770fbe5fa5404a6d751275a68e0a5d))
+
 ## [2.5.0](https://github.com/memori-ai/memori-react/compare/v2.4.2...v2.5.0) (2023-06-20)
 
 
