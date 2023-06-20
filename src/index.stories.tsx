@@ -36,6 +36,22 @@ Anonymous.args = {
   showSettings: true,
 };
 
+export const Localhost = Template.bind({});
+Localhost.args = {
+  memoriName: 'test memori',
+  ownerUserName: 'nicola',
+  memoriID: '1a9c75e8-57aa-4ce3-8ea5-256185fa79a7',
+  ownerUserID: '04a8cff9-13d6-4367-9cb2-72b9af9ee494',
+  tenantID: 'app.memorytwin.com',
+  apiURL: 'http://localhost:7778',
+  baseURL: 'http://localhost:3000',
+  uiLang: 'EN',
+  lang: 'IT',
+  layout: 'FULLPAGE',
+  showShare: 'true',
+  integrationID: '82f017cc-450b-4c47-acf5-47910d336ce9',
+};
+
 // export const Instruction = Template.bind({});
 // Instruction.args = {
 //   ownerUserName: 'nzambello',

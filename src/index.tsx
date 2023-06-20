@@ -87,6 +87,9 @@ const Memori: React.FC<Props> = ({
   onStateChange,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
+  const [speechKey, setSpeechKey] = useState<string | undefined>(
+    AZURE_COGNITIVE_SERVICES_TTS_KEY
+  );
   const { t } = useTranslation();
 
   if (!((memoriID && ownerUserID) || (memoriName && ownerUserName))) {
@@ -96,6 +99,23 @@ const Memori: React.FC<Props> = ({
   }
 
   const client = memoriApiClient(apiURL);
+
+  const fetchSpeechKey = useCallback(async () => {
+    const url =
+      baseURL ||
+      (tenantID.startsWith('https://') ? tenantID : `https://${tenantID}`);
+    const result = await fetch(`${url}/api/speechkey`);
+    const data = await result.json();
+
+    if (data.AZURE_COGNITIVE_SERVICES_TTS_KEY) {
+      setSpeechKey(data.AZURE_COGNITIVE_SERVICES_TTS_KEY);
+    }
+  }, []);
+  useEffect(() => {
+    if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) {
+      fetchSpeechKey();
+    }
+  }, [AZURE_COGNITIVE_SERVICES_TTS_KEY]);
 
   /**
    * Fetches the Memori data from the backend
@@ -186,7 +206,9 @@ const Memori: React.FC<Props> = ({
       initialContextVars={context}
       initialQuestion={initialQuestion}
       authToken={authToken}
-      AZURE_COGNITIVE_SERVICES_TTS_KEY={AZURE_COGNITIVE_SERVICES_TTS_KEY}
+      AZURE_COGNITIVE_SERVICES_TTS_KEY={
+        speechKey || AZURE_COGNITIVE_SERVICES_TTS_KEY
+      }
       onStateChange={onStateChange}
       {...(tag && pin ? { personification: { tag, pin } } : {})}
     />
