@@ -124,7 +124,8 @@
     text-align: center;
 }
 
-.memori-hints--show-more-button {
+button.memori-hints--show-more-button {
     border-radius: 5px;
-    background: none;
+    background: #fff;
+    color: #333;
 }
