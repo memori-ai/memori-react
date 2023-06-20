@@ -170,6 +170,7 @@ export interface Props {
   memori: Memori;
   memoriConfigs?: MemoriConfig[];
   memoriLang?: string;
+  multilingual?: boolean;
   integration?: Integration;
   layout?: 'DEFAULT' | 'FULLPAGE' | 'TOTEM' | 'CHAT';
   customLayout?: React.FC<LayoutProps>;
@@ -204,11 +205,12 @@ const MemoriWidget = ({
   memori,
   memoriConfigs,
   memoriLang,
+  multilingual = false,
   integration,
   layout = 'DEFAULT',
   customLayout,
   showInstruct = false,
-  showShare = true,
+  showShare,
   preview = false,
   embed = false,
   showInputs = true,
@@ -260,7 +262,7 @@ const MemoriWidget = ({
   const integrationConfig = integration?.customData
     ? JSON.parse(integration.customData)
     : null;
-  const isMultilanguageEnabled = !!integrationConfig?.multilanguage;
+  const isMultilanguageEnabled = multilingual ?? !!integrationConfig?.multilanguage;
   const [userLang, setUserLang] = useState(
     memoriLang ??
       integrationConfig?.lang ??
@@ -2144,7 +2146,7 @@ const MemoriWidget = ({
   const headerProps: HeaderProps = {
     memori,
     history,
-    showShare,
+    showShare: showShare ?? integrationConfig?.showShare ?? true,
     position,
     setShowPositionDrawer,
     setShowSettingsDrawer,

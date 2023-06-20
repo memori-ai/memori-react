@@ -35,6 +35,7 @@ export interface Props {
   initialQuestion?: string;
   uiLang?: 'en' | 'it';
   spokenLang?: string;
+  multilingual?: boolean;
   authToken?: string;
   AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
   onStateChange?: (state?: DialogState) => void;
@@ -80,6 +81,7 @@ const Memori: React.FC<Props> = ({
   initialQuestion,
   uiLang,
   spokenLang,
+  multilingual = false,
   authToken,
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
   onStateChange,
@@ -161,6 +163,7 @@ const Memori: React.FC<Props> = ({
         secretToken,
       }}
       memoriLang={spokenLang ?? memori.culture?.split('-')?.[0]}
+      multilingual={multilingual}
       tenant={{
         id: tenantID,
         theme: 'twincreator',
