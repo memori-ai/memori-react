@@ -1,5 +1,18 @@
 
 
+## [2.4.2](https://github.com/memori-ai/memori-react/compare/v2.4.1...v2.4.2) (2023-06-20)
+
+
+### Features
+
+* add extension div in layouts ([cd9486a](https://github.com/memori-ai/memori-react/commit/cd9486aa8196d5dd76219a34d410529153c08c54))
+
+
+### Bug Fixes
+
+* select bg color ([929b151](https://github.com/memori-ai/memori-react/commit/929b1510eaac4ff060709cef938c391d56870486))
+* set localconfig for mutespeaker ([f0c3c3d](https://github.com/memori-ai/memori-react/commit/f0c3c3dd004a3c948d1fc7a100659060a170ee1c))
+
 ## [2.4.1](https://github.com/memori-ai/memori-react/compare/v2.4.0...v2.4.1) (2023-06-19)
 
 
