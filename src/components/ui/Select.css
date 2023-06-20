@@ -13,7 +13,7 @@
     padding-left: 0.75rem;
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
-    background: #fff;
+    background: transparent;
     box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
         rgba(0, 0, 0, 0.1) 0px 2px 4px -2px;
     cursor: pointer;
