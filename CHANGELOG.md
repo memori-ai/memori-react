@@ -1,5 +1,17 @@
 
 
+## [2.5.0](https://github.com/memori-ai/memori-react/compare/v2.4.2...v2.5.0) (2023-06-20)
+
+
+### Features
+
+* add multilingual as prop, showShare from config as fallback ([61c07ac](https://github.com/memori-ai/memori-react/commit/61c07ac81b7ed27726a380730e58377d3df036c1))
+
+
+### Bug Fixes
+
+* show more hints button bg and color ([74a451c](https://github.com/memori-ai/memori-react/commit/74a451ca3b4c929d8421d4a13dbbff6ec6b8b3a4))
+
 ## [2.4.2](https://github.com/memori-ai/memori-react/compare/v2.4.1...v2.4.2) (2023-06-20)
 
 
