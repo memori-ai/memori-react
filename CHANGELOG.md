@@ -1,5 +1,12 @@
 
 
+## [2.6.0](https://github.com/memori-ai/memori-react/compare/v2.5.1...v2.6.0) (2023-06-20)
+
+
+### Features
+
+* load azure token from api ([9dc0116](https://github.com/memori-ai/memori-react/commit/9dc0116fe82bb133919b30fea00437ae672f91b6))
+
 ## [2.5.1](https://github.com/memori-ai/memori-react/compare/v2.5.0...v2.5.1) (2023-06-20)
 
 
