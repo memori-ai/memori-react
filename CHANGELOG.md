@@ -1,5 +1,12 @@
 
 
+## [2.6.1](https://github.com/memori-ai/memori-react/compare/v2.6.0...v2.6.1) (2023-06-23)
+
+
+### Bug Fixes
+
+* defaults for multilanguage prop ([33c956a](https://github.com/memori-ai/memori-react/commit/33c956a7b2871bfafdc3f46e3cec58d937c016f2))
+
 ## [2.6.0](https://github.com/memori-ai/memori-react/compare/v2.5.1...v2.6.0) (2023-06-20)
 
 
