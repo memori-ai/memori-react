@@ -81,7 +81,7 @@ const Memori: React.FC<Props> = ({
   initialQuestion,
   uiLang,
   spokenLang,
-  multilingual = false,
+  multilingual,
   authToken,
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
   onStateChange,

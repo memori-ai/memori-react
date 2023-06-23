@@ -205,7 +205,7 @@ const MemoriWidget = ({
   memori,
   memoriConfigs,
   memoriLang,
-  multilingual = false,
+  multilingual,
   integration,
   layout = 'DEFAULT',
   customLayout,
@@ -262,7 +262,10 @@ const MemoriWidget = ({
   const integrationConfig = integration?.customData
     ? JSON.parse(integration.customData)
     : null;
-  const isMultilanguageEnabled = multilingual ?? !!integrationConfig?.multilanguage;
+  const isMultilanguageEnabled =
+    multilingual !== undefined
+      ? multilingual
+      : !!integrationConfig?.multilanguage;
   const [userLang, setUserLang] = useState(
     memoriLang ??
       integrationConfig?.lang ??
