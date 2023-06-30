@@ -1,5 +1,12 @@
 
 
+## [2.6.2](https://github.com/memori-ai/memori-react/compare/v2.6.1...v2.6.2) (2023-06-30)
+
+
+### Features
+
+* add polish lang ([d50a62b](https://github.com/memori-ai/memori-react/commit/d50a62bbd829faca4e133be5ae11f7781c294cce))
+
 ## [2.6.1](https://github.com/memori-ai/memori-react/compare/v2.6.0...v2.6.1) (2023-06-23)
 
 
