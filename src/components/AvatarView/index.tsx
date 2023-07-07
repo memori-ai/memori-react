@@ -5,7 +5,7 @@ import FullbodyAvatar, { AvatarProps } from './components/fullbodyAvatar';
 import Loader from './components/loader';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, SpotLight, Environment } from '@react-three/drei';
-import { isAndroid } from '../../helpers/utils';
+import { isAndroid, isiOS } from '../../helpers/utils';
 
 export interface Props {
   url: string;
@@ -64,7 +64,7 @@ export default function AvatarView({
       }
     >
       <Suspense fallback={fallback || <Loader fallbackImg={fallbackImg} />}>
-        {isAndroid() ? (
+        {isAndroid() || isiOS() ? (
           <SpotLight
             distance={100}
             position={[-0.3, 0.2, 1.25]}

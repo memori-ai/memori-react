@@ -26,7 +26,7 @@ export const hasTouchscreen = (): boolean => {
   return hasTouchScreen;
 };
 
-export const iOS = (): boolean => {
+export const isiOS = (): boolean => {
   let platform =
     (navigator as any)?.userAgentData?.platform ||
     navigator?.platform ||
