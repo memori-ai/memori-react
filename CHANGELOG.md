@@ -1,5 +1,12 @@
 
 
+## [2.6.3](https://github.com/memori-ai/memori-react/compare/v2.6.2...v2.6.3) (2023-07-07)
+
+
+### Bug Fixes
+
+* use spotlight for ios environment light ([4191975](https://github.com/memori-ai/memori-react/commit/4191975f2917773b7316a45789e03af32d86b98a))
+
 ## [2.6.2](https://github.com/memori-ai/memori-react/compare/v2.6.1...v2.6.2) (2023-06-30)
 
 
