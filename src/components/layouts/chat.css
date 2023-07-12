@@ -6,7 +6,7 @@
     background: none;
 }
 
-.memori-widget>.memori-spin.memori-chat-layout {
+.memori-widget > .memori-spin.memori-chat-layout {
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -72,7 +72,6 @@
 }
 
 @media (max-width: 870px) {
-
     .memori-chat-layout--controls .memori--start-panel,
     .memori-chat-layout--controls .memori-chat--wrapper {
         width: 100%;
