@@ -30,9 +30,12 @@ export const getResourceUrl = ({
     } else if (
       (resourceURI.startsWith('https://') ||
         resourceURI.startsWith('http://')) &&
-      new URL(resourceURI).hostname.includes('memori.ai')
+      (new URL(resourceURI).hostname.includes('memori.ai') ||
+        new URL(resourceURI).hostname.includes('aclambda.online'))
     ) {
-      return `${resourceURI}${sessionID ? `/${sessionID}` : ''}`;
+      return `${resourceURI}${
+        resourceURI.endsWith('/') || !sessionID ? '' : '/'
+      }${sessionID || ''}`;
     } else if (resourceURI.startsWith('cloud://')) {
       return `${
         apiURL?.replace(/v2/, 'v1') || ''

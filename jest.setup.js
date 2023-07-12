@@ -35,9 +35,12 @@ Object.defineProperty(window, 'IntersectionObserver', {
   })),
 });
 
+jest.setSystemTime(new Date('2022-09-24'));
+Date.now = jest.fn(() => new Date(Date.UTC(2022, 8, 24)).valueOf());
+
 jest
   .spyOn(global.Date, 'now')
-  .mockImplementation(() => new Date(2022, 11, 17, 0, 0, 0, 0).valueOf());
+  .mockImplementation(() => new Date(2022, 8, 24, 0, 0, 0, 0).valueOf());
 
 const DateTimeFormat = Intl.DateTimeFormat;
 jest
