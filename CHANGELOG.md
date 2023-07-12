@@ -1,5 +1,17 @@
 
 
+## [2.6.4](https://github.com/memori-ai/memori-react/compare/v2.6.3...v2.6.4) (2023-07-12)
+
+
+### Bug Fixes
+
+* media url with external links, add tests for helpers ([1e4244b](https://github.com/memori-ai/memori-react/commit/1e4244b2da8f44e10168c14f2caaea919990624c))
+
+
+### Maintenance
+
+* run prettier ([575bf83](https://github.com/memori-ai/memori-react/commit/575bf838ec5beba0a738441b96225c453dae8b6f))
+
 ## [2.6.3](https://github.com/memori-ai/memori-react/compare/v2.6.2...v2.6.3) (2023-07-07)
 
 
