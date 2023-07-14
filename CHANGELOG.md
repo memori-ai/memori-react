@@ -1,5 +1,13 @@
 
 
+## [2.6.6](https://github.com/memori-ai/memori-react/compare/v2.6.5...v2.6.6) (2023-07-14)
+
+
+### Bug Fixes
+
+* age verification modal zindex ([3ce6ec7](https://github.com/memori-ai/memori-react/commit/3ce6ec76aa347d2b015addee51fb8396b22c1a40))
+* muted speaker on welcome message coherently ([43129c6](https://github.com/memori-ai/memori-react/commit/43129c6badd7486c3e25a8c99cc83ddfa357730a))
+
 ## [2.6.5](https://github.com/memori-ai/memori-react/compare/v2.6.4...v2.6.5) (2023-07-14)
 
 
