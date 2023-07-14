@@ -1,5 +1,12 @@
 
 
+## [2.6.5](https://github.com/memori-ai/memori-react/compare/v2.6.4...v2.6.5) (2023-07-14)
+
+
+### Bug Fixes
+
+* init session state between auth and age verification flows ([2acab69](https://github.com/memori-ai/memori-react/commit/2acab69640c0fb3509663feaddc7c3e96113a01f))
+
 ## [2.6.4](https://github.com/memori-ai/memori-react/compare/v2.6.3...v2.6.4) (2023-07-12)
 
 
