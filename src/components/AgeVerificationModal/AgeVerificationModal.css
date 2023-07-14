@@ -1,3 +1,7 @@
+.age-verification-modal {
+    z-index: 1001;
+}
+
 .age-verification-modal,
 .age-verification-modal * {
     box-sizing: border-box;
