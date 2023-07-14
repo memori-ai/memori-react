@@ -39,6 +39,7 @@
   "ageVerificationText": "Per interagire con questo Twin, devi aver almeno {{minAge}} anni.",
   "nsfw": "NSFW: Questo Twin contiene contenuti per adulti",
   "auth": {
+    "title": "Autenticazione",
     "useRecoveryTokens": "Utilizza i token di recupero",
     "tokens": "Token",
     "addToken": "Aggiungi token",

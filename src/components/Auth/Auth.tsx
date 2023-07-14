@@ -143,7 +143,7 @@ export const AuthWidget = ({
   return withModal ? (
     <Modal
       open={openModal || showModal}
-      title="Authentication"
+      title={t('auth.title') || 'Authentication'}
       onClose={() => setPwdOrTokens(null)}
       closable={false}
     >
