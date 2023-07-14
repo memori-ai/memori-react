@@ -147,6 +147,7 @@ let audioDestination: SpeakerAudioDestination;
 let audioContext: IAudioContext;
 
 let memoriPassword: string | undefined;
+let speakerMuted: boolean = false;
 
 export interface LayoutProps {
   Header?: typeof Header;
@@ -325,6 +326,7 @@ const MemoriWidget = ({
     }
 
     setMuteSpeaker(getLocalConfig('muteSpeaker', false));
+    speakerMuted = getLocalConfig('muteSpeaker', false);
     setContinuousSpeech(microphoneMode === 'CONTINUOUS');
     setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 2));
     setControlsPosition(
@@ -1238,7 +1240,8 @@ const MemoriWidget = ({
     // stopAudio();
 
     if (preview) return;
-    if (muteSpeaker) {
+
+    if (muteSpeaker || speakerMuted) {
       // trigger start continuous listening if set, see MemoriChat
       if (continuousSpeech) {
         setListeningTimeout();
@@ -2171,8 +2174,9 @@ const MemoriWidget = ({
     setShowPositionDrawer,
     setShowSettingsDrawer,
     showSpeaker: !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
-    speakerMuted: muteSpeaker,
+    speakerMuted: muteSpeaker || speakerMuted,
     setSpeakerMuted: mute => {
+      speakerMuted = !!mute;
       setMuteSpeaker(mute);
       setLocalConfig('muteSpeaker', !!mute);
       if (mute) {
