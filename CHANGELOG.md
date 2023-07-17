@@ -1,5 +1,22 @@
 
 
+## [2.7.0](https://github.com/memori-ai/memori-react/compare/v2.6.6...v2.7.0) (2023-07-17)
+
+
+### Features
+
+* new additionalInfo on OpenSession params ([93f7e0e](https://github.com/memori-ai/memori-react/commit/93f7e0e7389a5a73950f1ccc9c85584092efd301))
+
+
+### Bug Fixes
+
+* **i18n:** auth modal title ([2b02247](https://github.com/memori-ai/memori-react/commit/2b0224773b0fc77c51ab2c40ad20260f9d08e805))
+
+
+### Maintenance
+
+* update api client ([fe6b549](https://github.com/memori-ai/memori-react/commit/fe6b549eadcba4f245e93550802d4114db1da4cf))
+
 ## [2.6.6](https://github.com/memori-ai/memori-react/compare/v2.6.5...v2.6.6) (2023-07-14)
 
 
