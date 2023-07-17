@@ -39,6 +39,7 @@ export interface Props {
   authToken?: string;
   AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
   onStateChange?: (state?: DialogState) => void;
+  additionalInfo?: WidgetProps['additionalInfo'];
 }
 
 const getPreferredLanguages = () => {
@@ -85,6 +86,7 @@ const Memori: React.FC<Props> = ({
   authToken,
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
   onStateChange,
+  additionalInfo,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
   const [speechKey, setSpeechKey] = useState<string | undefined>(
@@ -210,6 +212,7 @@ const Memori: React.FC<Props> = ({
         speechKey || AZURE_COGNITIVE_SERVICES_TTS_KEY
       }
       onStateChange={onStateChange}
+      additionalInfo={additionalInfo}
       {...(tag && pin ? { personification: { tag, pin } } : {})}
     />
   ) : (

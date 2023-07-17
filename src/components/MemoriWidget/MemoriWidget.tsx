@@ -202,6 +202,7 @@ export interface Props {
   authToken?: string;
   AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
   onStateChange?: (state?: DialogState) => void;
+  additionalInfo?: OpenSession['additionalInfo'] & { [key: string]: string };
 }
 
 const MemoriWidget = ({
@@ -233,6 +234,7 @@ const MemoriWidget = ({
   authToken,
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
   onStateChange,
+  additionalInfo,
 }: Props) => {
   const { t, i18n } = useTranslation();
 
@@ -672,7 +674,23 @@ const MemoriWidget = ({
         }
       }
 
-      const session = await initSession(params);
+      let referral;
+      try {
+        referral = (() => {
+          return window.location.href;
+        })();
+      } catch (err) {
+        console.error(err);
+      }
+
+      const session = await initSession({
+        ...params,
+        additionalInfo: {
+          ...(additionalInfo || {}),
+          language: userLang,
+          referral: referral,
+        },
+      });
       if (
         session?.sessionID &&
         session?.currentState &&
@@ -736,6 +754,15 @@ const MemoriWidget = ({
         return;
       }
 
+      let referral;
+      try {
+        referral = (() => {
+          return window.location.href;
+        })();
+      } catch (err) {
+        console.error(err);
+      }
+
       const { sessionID, currentState, ...response } = await initSession({
         memoriID: memori.engineMemoriID ?? '',
         password: password || memoriPwd || memori.secretToken,
@@ -745,6 +772,11 @@ const MemoriWidget = ({
         initialContextVars,
         initialQuestion,
         birthDate: birthDate || storageBirthDate || undefined,
+        additionalInfo: {
+          ...(additionalInfo || {}),
+          language: userLang,
+          referral: referral,
+        },
       });
 
       if (sessionID && currentState && response.resultCode === 0) {
