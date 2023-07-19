@@ -1,5 +1,12 @@
 
 
+## [2.7.1](https://github.com/memori-ai/memori-react/compare/v2.7.0...v2.7.1) (2023-07-19)
+
+
+### Bug Fixes
+
+* userlang initial message translation ([7f79906](https://github.com/memori-ai/memori-react/commit/7f79906a99cee9949a4033f906d8675ab5ef3035))
+
 ## [2.7.0](https://github.com/memori-ai/memori-react/compare/v2.6.6...v2.7.0) (2023-07-17)
 
 
