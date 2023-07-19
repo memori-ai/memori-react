@@ -2155,7 +2155,7 @@ const MemoriWidget = ({
           });
       }
     },
-    [memoriPwd, memori, memoriTokens, birthDate, sessionId]
+    [memoriPwd, memori, memoriTokens, birthDate, sessionId, userLang]
   );
 
   const [loginToken, setLoginToken] = useState<string | undefined>(authToken);
