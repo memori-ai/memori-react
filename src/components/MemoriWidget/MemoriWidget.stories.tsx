@@ -84,6 +84,19 @@ WithPublicPageIntegrationAndFullbodyAvatar.args = {
   },
 };
 
+export const WithPublicPageIntegrationAndNonDefaultLang = Template.bind({});
+WithPublicPageIntegrationAndNonDefaultLang.args = {
+  memori,
+  tenant,
+  integration: {
+    ...integration,
+    customData: JSON.stringify({
+      ...JSON.parse(integration.customData ?? '{}'),
+      lang: 'es',
+    }),
+  },
+};
+
 export const ShowInstruct = Template.bind({});
 ShowInstruct.args = {
   memori: {
