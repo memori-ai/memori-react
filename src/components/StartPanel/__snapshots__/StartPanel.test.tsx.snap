@@ -537,60 +537,72 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
       <div
         class="memori--language-chooser"
       >
-        <div
-          class="memori-select"
+        <label
+          for="user-lang-pref"
+          id="user-lang-pref-label"
         >
-          <input
-            hidden=""
-            name="day"
-            readonly=""
-            style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
-            type="hidden"
+          write_and_speak.iWantToTalkToIn
+        </label>
+        <select
+          aria-labelledby="user-lang-pref-label"
+          class="memori-select--button"
+          id="user-lang-pref"
+        >
+          <option
+            aria-label="Italiano"
+            value="IT"
+          >
+            Italiano
+          </option>
+          <option
+            aria-label="English"
             value="EN"
-          />
-          <label
-            class="memori-select--label"
-            data-headlessui-state=""
-            id="headlessui-listbox-label-:r0:"
           >
-            write_and_speak.iWantToTalkToIn
-            :
-          </label>
-          <button
-            aria-expanded="false"
-            aria-haspopup="true"
-            aria-label="write_and_speak.iWantToTalkToIn"
-            aria-labelledby="headlessui-listbox-label-:r0: headlessui-listbox-button-:r1:"
-            class="memori-select--button"
-            data-headlessui-state=""
-            id="headlessui-listbox-button-:r1:"
-            type="button"
+            English
+          </option>
+          <option
+            aria-label="Deutsch"
+            value="DE"
           >
-            <span
-              class="memori-select--value"
-            >
-              English
-            </span>
-            <span
-              class="memori-select--icon"
-            >
-              <svg
-                aria-hidden="true"
-                fill="currentColor"
-                focusable="false"
-                role="img"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  clip-rule="evenodd"
-                  d="M10 3a.75.75 0 01.55.24l3.25 3.5a.75.75 0 11-1.1 1.02L10 4.852 7.3 7.76a.75.75 0 01-1.1-1.02l3.25-3.5A.75.75 0 0110 3zm-3.76 9.2a.75.75 0 011.06.04l2.7 2.908 2.7-2.908a.75.75 0 111.1 1.02l-3.25 3.5a.75.75 0 01-1.1 0l-3.25-3.5a.75.75 0 01.04-1.06z"
-                  fill-rule="evenodd"
-                />
-              </svg>
-            </span>
-          </button>
-        </div>
+            Deutsch
+          </option>
+          <option
+            aria-label="Español"
+            value="ES"
+          >
+            Español
+          </option>
+          <option
+            aria-label="Français"
+            value="FR"
+          >
+            Français
+          </option>
+          <option
+            aria-label="Português"
+            value="PT"
+          >
+            Português
+          </option>
+          <option
+            aria-label="Українська"
+            value="UK"
+          >
+            Українська
+          </option>
+          <option
+            aria-label="Русский"
+            value="RU"
+          >
+            Русский
+          </option>
+          <option
+            aria-label="Polski"
+            value="PL"
+          >
+            Polski
+          </option>
+        </select>
       </div>
       <button
         class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"

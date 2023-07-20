@@ -6,6 +6,7 @@
 .memori-select--button {
     position: relative;
     width: 100%;
+    max-width: 240px;
     min-height: 38px;
     padding-top: 0.5rem;
     padding-right: 2.5rem;

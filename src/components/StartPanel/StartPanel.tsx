@@ -205,26 +205,30 @@ const StartPanel: React.FC<Props> = ({
 
           {integrationConfig?.multilanguage && !instruct && (
             <div className="memori--language-chooser">
-              <Select
-                label={
-                  t('write_and_speak.iWantToTalkToIn', {
-                    name: memori.name,
-                  }) || undefined
-                }
+              <label id="user-lang-pref-label" htmlFor="user-lang-pref">
+                {t('write_and_speak.iWantToTalkToIn', {
+                  name: memori.name,
+                })}
+              </label>
+              <select
+                id="user-lang-pref"
+                className="memori-select--button"
                 value={(userLang ?? i18n.language).toUpperCase()}
-                displayValue={
-                  chatLanguages.find(
-                    lang =>
-                      lang.value.toUpperCase() ===
-                      (userLang ?? i18n.language).toUpperCase()
-                  )?.label
-                }
-                onChange={setUserLang}
-                options={chatLanguages.map(lang => ({
-                  label: lang.label,
-                  value: lang.value.toUpperCase(),
-                }))}
-              />
+                aria-labelledby="user-lang-pref-label"
+                onChange={e => {
+                  setUserLang(e.target.value);
+                }}
+              >
+                {chatLanguages.map(lang => (
+                  <option
+                    key={lang.value}
+                    value={lang.value}
+                    aria-label={lang.label}
+                  >
+                    {lang.label}
+                  </option>
+                ))}
+              </select>
             </div>
           )}
 
