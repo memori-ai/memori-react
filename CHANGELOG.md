@@ -1,5 +1,12 @@
 
 
+## [2.7.2](https://github.com/memori-ai/memori-react/compare/v2.7.1...v2.7.2) (2023-07-20)
+
+
+### Bug Fixes
+
+* use native select for lang selector in start panel ([24f567d](https://github.com/memori-ai/memori-react/commit/24f567dd111c0068c9717a3cfe7552162db3ba4d))
+
 ## [2.7.1](https://github.com/memori-ai/memori-react/compare/v2.7.0...v2.7.1) (2023-07-19)
 
 
