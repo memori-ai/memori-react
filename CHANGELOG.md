@@ -1,5 +1,12 @@
 
 
+## [2.8.0](https://github.com/memori-ai/memori-react/compare/v2.7.2...v2.8.0) (2023-07-21)
+
+
+### Features
+
+* add customMediaRenderer prop ([ae66ae9](https://github.com/memori-ai/memori-react/commit/ae66ae9f0076e3e9954d27256a2a0f36c80177dc))
+
 ## [2.7.2](https://github.com/memori-ai/memori-react/compare/v2.7.1...v2.7.2) (2023-07-20)
 
 
