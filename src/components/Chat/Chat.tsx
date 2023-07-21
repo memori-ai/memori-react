@@ -9,7 +9,9 @@ import {
 import { hasTouchscreen } from '../../helpers/utils';
 import { getResourceUrl } from '../../helpers/media';
 import ChatBubble from '../ChatBubble/ChatBubble';
-import MediaWidget from '../MediaWidget/MediaWidget';
+import MediaWidget, {
+  Props as MediaWidgetProps,
+} from '../MediaWidget/MediaWidget';
 import Button from '../ui/Button';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
@@ -51,6 +53,7 @@ export interface Props {
   startListening: () => void;
   stopListening: () => void;
   resetTranscript: () => void;
+  customMediaRenderer?: MediaWidgetProps['customMediaRenderer'];
 }
 
 const Chat: React.FC<Props> = ({
@@ -87,6 +90,7 @@ const Chat: React.FC<Props> = ({
   startListening,
   stopListening,
   resetTranscript,
+  customMediaRenderer,
 }) => {
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -249,6 +253,7 @@ const Chat: React.FC<Props> = ({
                 baseUrl={baseUrl}
                 apiUrl={apiUrl}
                 translateTo={translateTo}
+                customMediaRenderer={customMediaRenderer}
               />
             </React.Fragment>
           ))}

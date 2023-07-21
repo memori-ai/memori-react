@@ -127,3 +127,24 @@ WithAzureSpeechKey.args = {
   tenant,
   AZURE_COGNITIVE_SERVICES_TTS_KEY: 'provide your key here',
 };
+
+export const WithCustomMediaRenderer = Template.bind({});
+WithCustomMediaRenderer.args = {
+  memori,
+  tenant,
+  customMediaRenderer: (mimeType: string) => (
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'black',
+        color: 'white',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      {mimeType}
+    </div>
+  ),
+};

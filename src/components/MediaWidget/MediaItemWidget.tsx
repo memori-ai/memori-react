@@ -20,6 +20,7 @@ export interface Props {
   translateTo?: string;
   baseURL?: string;
   apiURL?: string;
+  customMediaRenderer?: (mimeType: string) => JSX.Element | null;
 }
 
 export const RenderMediaItem = ({
@@ -31,6 +32,7 @@ export const RenderMediaItem = ({
   baseURL,
   apiURL,
   onClick,
+  customMediaRenderer,
 }: {
   isChild?: boolean;
   item: Medium;
@@ -40,6 +42,7 @@ export const RenderMediaItem = ({
   baseURL?: string;
   apiURL?: string;
   onClick?: (mediumID: string) => void;
+  customMediaRenderer?: (mimeType: string) => JSX.Element | null;
 }) => {
   const url = getResourceUrl({
     resourceURI: item.url,
@@ -48,6 +51,12 @@ export const RenderMediaItem = ({
     baseURL,
     apiURL,
   });
+
+  const customRenderer = customMediaRenderer?.(item.mimeType);
+
+  if (customRenderer) {
+    return customRenderer;
+  }
 
   switch (item.mimeType) {
     case 'image/jpeg':
@@ -245,6 +254,7 @@ const MediaItemWidget: React.FC<Props> = ({
   translateTo,
   baseURL,
   apiURL,
+  customMediaRenderer,
 }: Props) => {
   const [media, setMedia] = useState(items);
   const [openModalMedium, setOpenModalMedium] = useState<Medium>();
@@ -333,6 +343,7 @@ const MediaItemWidget: React.FC<Props> = ({
                   url: item.url,
                   content: item.content,
                 }}
+                customMediaRenderer={customMediaRenderer}
               />
             </Transition.Child>
           ))}
@@ -388,6 +399,7 @@ const MediaItemWidget: React.FC<Props> = ({
               url: openModalMedium.url,
               content: openModalMedium.content,
             }}
+            customMediaRenderer={customMediaRenderer}
           />
         </Modal>
       )}

@@ -40,6 +40,7 @@ export interface Props {
   AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
   onStateChange?: (state?: DialogState) => void;
   additionalInfo?: WidgetProps['additionalInfo'];
+  customMediaRenderer?: WidgetProps['customMediaRenderer'];
 }
 
 const getPreferredLanguages = () => {
@@ -87,6 +88,7 @@ const Memori: React.FC<Props> = ({
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
   onStateChange,
   additionalInfo,
+  customMediaRenderer,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
   const [speechKey, setSpeechKey] = useState<string | undefined>(
@@ -213,6 +215,7 @@ const Memori: React.FC<Props> = ({
       }
       onStateChange={onStateChange}
       additionalInfo={additionalInfo}
+      customMediaRenderer={customMediaRenderer}
       {...(tag && pin ? { personification: { tag, pin } } : {})}
     />
   ) : (

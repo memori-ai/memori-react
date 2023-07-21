@@ -94,3 +94,28 @@ ImagesGrid.args = {
     }?random=${i}`,
   })),
 };
+
+export const WithCustomMediaRenderer = Template.bind({});
+WithCustomMediaRenderer.args = {
+  items: [
+    {
+      mediumID: '95226d7e-7bae-465e-8b80-995587bb5971',
+      mimeType: 'image/png',
+      title: 'Image',
+      url: 'https://picsum.photos/200/300',
+    },
+    {
+      mediumID: '95226d7e-7bae-465e-8b80-995587bb5973',
+      mimeType: 'application/pdf',
+      title: 'PDF',
+      url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      content:
+        'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+    },
+  ],
+  customMediaRenderer: (mimeType: string) => {
+    if (mimeType === 'image/png') {
+      return <div>Custom Image Renderer</div>;
+    }
+  },
+};

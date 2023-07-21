@@ -203,6 +203,7 @@ export interface Props {
   AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
   onStateChange?: (state?: DialogState) => void;
   additionalInfo?: OpenSession['additionalInfo'] & { [key: string]: string };
+  customMediaRenderer?: ChatProps['customMediaRenderer'];
 }
 
 const MemoriWidget = ({
@@ -235,6 +236,7 @@ const MemoriWidget = ({
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
   onStateChange,
   additionalInfo,
+  customMediaRenderer,
 }: Props) => {
   const { t, i18n } = useTranslation();
 
@@ -2312,6 +2314,7 @@ const MemoriWidget = ({
     resetTranscript,
     listening,
     isPlayingAudio,
+    customMediaRenderer,
   };
 
   const integrationBackground =

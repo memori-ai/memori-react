@@ -5,7 +5,7 @@ import {
 import React, { useEffect, useState } from 'react';
 import Button from '../ui/Button';
 import LinkItemWidget from './LinkItemWidget';
-import MediaItemWidget from './MediaItemWidget';
+import MediaItemWidget, { Props as MediaItemProps } from './MediaItemWidget';
 import { Transition } from '@headlessui/react';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +19,7 @@ export interface Props {
   baseUrl?: string;
   apiUrl?: string;
   translateTo?: string;
+  customMediaRenderer?: MediaItemProps['customMediaRenderer'];
 }
 
 const MediaWidget: React.FC<Props> = ({
@@ -30,6 +31,7 @@ const MediaWidget: React.FC<Props> = ({
   baseUrl,
   apiUrl,
   translateTo,
+  customMediaRenderer,
 }: Props) => {
   const { t } = useTranslation();
   const [showHints, setShowHints] = useState(true);
@@ -48,6 +50,7 @@ const MediaWidget: React.FC<Props> = ({
           translateTo={translateTo}
           baseURL={baseUrl}
           apiURL={apiUrl}
+          customMediaRenderer={customMediaRenderer}
         />
       )}
       {links?.length > 0 && <LinkItemWidget items={links} baseUrl={baseUrl} />}

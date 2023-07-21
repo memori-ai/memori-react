@@ -151,6 +151,18 @@ exports[`renders MediaItemWidget unchanged with css snippet to show 1`] = `
 </div>
 `;
 
+exports[`renders MediaItemWidget unchanged with custom media renderer 1`] = `
+<div>
+  <div
+    class="memori-media-items"
+  >
+    <div
+      class="memori-media-items--grid"
+    />
+  </div>
+</div>
+`;
+
 exports[`renders MediaItemWidget unchanged with img 1`] = `
 <div>
   <div

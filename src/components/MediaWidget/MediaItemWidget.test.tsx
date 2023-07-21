@@ -118,3 +118,14 @@ it('renders MediaItemWidget unchanged with css snippet to exec', () => {
   );
   expect(container).toMatchSnapshot();
 });
+
+it('renders MediaItemWidget unchanged with custom media renderer', () => {
+  const { container } = render(
+    <MediaItemWidget
+      items={[]}
+      sessionID={sessionID}
+      customMediaRenderer={mimeType => <pre>{mimeType}</pre>}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
