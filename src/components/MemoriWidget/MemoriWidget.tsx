@@ -148,7 +148,6 @@ let audioContext: IAudioContext;
 
 let memoriPassword: string | undefined;
 let speakerMuted: boolean = false;
-let speakLanguage: string | undefined;
 
 export interface LayoutProps {
   Header?: typeof Header;
@@ -274,7 +273,7 @@ const MemoriWidget = ({
     multilingual !== undefined
       ? multilingual
       : !!integrationConfig?.multilanguage;
-  const [userLang, _setUserLang] = useState(
+  const [userLang, setUserLang] = useState(
     memoriLang ??
       integrationConfig?.lang ??
       memori?.culture?.split('-')?.[0] ??
@@ -283,10 +282,6 @@ const MemoriWidget = ({
       i18n.language ??
       'IT'
   );
-  const setUserLang: typeof _setUserLang = lang => {
-    _setUserLang(lang);
-    speakLanguage = lang;
-  };
 
   const [loading, setLoading] = useState(false);
   const [memoriTyping, setMemoriTyping] = useState(false);
@@ -1148,13 +1143,6 @@ const MemoriWidget = ({
               : 'ru-RU-SvetlanaNeural'
           }`;
           break;
-        case 'PL':
-          voice = `${
-            memori.voiceType === 'MALE'
-              ? 'pl-PL-MarekNeural'
-              : 'pl-PL-AgnieszkaNeural'
-          }`;
-          break;
         default:
           voice = `${
             memori.voiceType === 'MALE'
@@ -1200,9 +1188,6 @@ const MemoriWidget = ({
         break;
       case 'RU':
         voice = 'ru-RU';
-        break;
-      case 'PL':
-        voice = 'pl-PL';
         break;
       default:
         voice = 'it-IT';
@@ -1283,182 +1268,177 @@ const MemoriWidget = ({
     // .replace(/qfe/gi, `<sub alias="Quota Filo Erba">QFE</sub>`)
   };
 
-  const speak = useCallback(
-    (text: string): void => {
-      if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) return;
-      stopListening();
-      // stopAudio();
+  const speak = (text: string): void => {
+    if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) return;
+    stopListening();
+    // stopAudio();
 
-      if (preview) return;
+    if (preview) return;
 
-      if (muteSpeaker || speakerMuted) {
-        // trigger start continuous listening if set, see MemoriChat
-        if (continuousSpeech) {
-          setListeningTimeout();
+    if (muteSpeaker || speakerMuted) {
+      // trigger start continuous listening if set, see MemoriChat
+      if (continuousSpeech) {
+        setListeningTimeout();
+      }
+      return;
+    }
+
+    if (audioDestination) audioDestination.pause();
+
+    // if (audioContext?.state === 'running') {
+    //   //   audioContext.suspend();
+    //   // }
+    //   // if (audioContext) {
+    //   audioContext.close().then(() => {
+    //     audioContext = new AudioContext();
+    //     let buffer = audioContext.createBuffer(1, 10000, 22050);
+    //     let source = audioContext.createBufferSource();
+    //     source.buffer = buffer;
+    //     source.connect(audioContext.destination);
+    //   });
+    // }
+
+    let isSafari =
+      window.navigator.userAgent.includes('Safari') &&
+      !window.navigator.userAgent.includes('Chrome');
+    let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    if ((audioContext.state as string) === 'interrupted') {
+      audioContext.resume().then(() => speak(text));
+      return;
+    }
+    if (isIOS && isSafari) {
+      audioContext.suspend();
+
+      if (isPlayingAudio) {
+        try {
+          if (speechSynthesizer) {
+            speechSynthesizer.close();
+            speechSynthesizer = null;
+          }
+          if (audioDestination) {
+            audioDestination.pause();
+            audioDestination.close();
+          }
+          if (audioContext) {
+            // audioContext.close().then(() => {
+            //   audioContext = new AudioContext();
+            //   let buffer = audioContext.createBuffer(1, 10000, 22050);
+            //   let source = audioContext.createBufferSource();
+            //   source.buffer = buffer;
+            //   source.connect(audioContext.destination);
+            // });
+            audioContext.destination.disconnect();
+          }
+        } catch (e) {
+          console.error('stopAudio error: ', e);
         }
-        return;
       }
+    }
+    if (audioContext.state === 'closed') {
+      audioContext = new AudioContext();
+      let buffer = audioContext.createBuffer(1, 10000, 22050);
+      let source = audioContext.createBufferSource();
+      source.buffer = buffer;
+      source.connect(audioContext.destination);
+    } else if (audioContext.state === 'suspended') {
+      stopAudio();
 
-      if (audioDestination) audioDestination.pause();
+      audioContext = new AudioContext();
+      let buffer = audioContext.createBuffer(1, 10000, 22050);
+      let source = audioContext.createBufferSource();
+      source.buffer = buffer;
+      source.connect(audioContext.destination);
+    }
 
-      // if (audioContext?.state === 'running') {
-      //   //   audioContext.suspend();
-      //   // }
-      //   // if (audioContext) {
-      //   audioContext.close().then(() => {
-      //     audioContext = new AudioContext();
-      //     let buffer = audioContext.createBuffer(1, 10000, 22050);
-      //     let source = audioContext.createBufferSource();
-      //     source.buffer = buffer;
-      //     source.connect(audioContext.destination);
-      //   });
-      // }
+    if (!speechSynthesizer) {
+      audioDestination = new speechSdk.SpeakerAudioDestination();
+      let audioConfig =
+        speechSdk.AudioConfig.fromSpeakerOutput(audioDestination);
+      speechSynthesizer = new speechSdk.SpeechSynthesizer(
+        speechConfig,
+        audioConfig
+      );
+    }
 
-      let isSafari =
-        window.navigator.userAgent.includes('Safari') &&
-        !window.navigator.userAgent.includes('Chrome');
-      let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-      if ((audioContext.state as string) === 'interrupted') {
-        audioContext.resume().then(() => speak(text));
-        return;
-      }
-      if (isIOS && isSafari) {
-        audioContext.suspend();
+    const source = audioContext.createBufferSource();
+    source.addEventListener('ended', () => {
+      setIsPlayingAudio(false);
+    });
+    audioDestination.onAudioEnd = () => {
+      setIsPlayingAudio(false);
+      source.disconnect();
 
-        if (isPlayingAudio) {
+      // trigger start continuous listening if set
+      // document.dispatchEvent(new Event('endSpeakStartListen'));
+      onEndSpeakStartListen();
+    };
+
+    speechSynthesizer.speakSsmlAsync(
+      `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
+        userLang
+      )}"><voice name="${getTTSVoice(userLang)}"><s>${replaceTextWithPhonemes(
+        escapeHTML(text),
+        userLang.toLowerCase()
+      )}</s></voice></speak>`,
+      result => {
+        if (result) {
+          setIsPlayingAudio(true);
+
           try {
+            // if (audioContext.destination.context.state === 'running') {
+            //   audioContext.destination.disconnect();
+            // }
+            audioContext.decodeAudioData(result.audioData, function (buffer) {
+              source.buffer = buffer;
+              source.connect(audioContext.destination);
+
+              if (history.length < 1 || (isSafari && isIOS)) {
+                source.start(0);
+              }
+            });
+
+            audioContext.onstatechange = () => {
+              if (
+                audioContext.state === 'suspended' ||
+                audioContext.state === 'closed'
+              ) {
+                source.disconnect();
+                setIsPlayingAudio(false);
+              } else if ((audioContext.state as string) === 'interrupted') {
+                audioContext.resume();
+              }
+            };
+
+            audioContext.resume();
+
             if (speechSynthesizer) {
               speechSynthesizer.close();
               speechSynthesizer = null;
             }
-            if (audioDestination) {
-              audioDestination.pause();
-              audioDestination.close();
-            }
-            if (audioContext) {
-              // audioContext.close().then(() => {
-              //   audioContext = new AudioContext();
-              //   let buffer = audioContext.createBuffer(1, 10000, 22050);
-              //   let source = audioContext.createBufferSource();
-              //   source.buffer = buffer;
-              //   source.connect(audioContext.destination);
-              // });
-              audioContext.destination.disconnect();
-            }
           } catch (e) {
-            console.error('stopAudio error: ', e);
-          }
-        }
-      }
-      if (audioContext.state === 'closed') {
-        audioContext = new AudioContext();
-        let buffer = audioContext.createBuffer(1, 10000, 22050);
-        let source = audioContext.createBufferSource();
-        source.buffer = buffer;
-        source.connect(audioContext.destination);
-      } else if (audioContext.state === 'suspended') {
-        stopAudio();
-
-        audioContext = new AudioContext();
-        let buffer = audioContext.createBuffer(1, 10000, 22050);
-        let source = audioContext.createBufferSource();
-        source.buffer = buffer;
-        source.connect(audioContext.destination);
-      }
-
-      if (!speechSynthesizer) {
-        audioDestination = new speechSdk.SpeakerAudioDestination();
-        let audioConfig =
-          speechSdk.AudioConfig.fromSpeakerOutput(audioDestination);
-        speechSynthesizer = new speechSdk.SpeechSynthesizer(
-          speechConfig,
-          audioConfig
-        );
-      }
-
-      const source = audioContext.createBufferSource();
-      source.addEventListener('ended', () => {
-        setIsPlayingAudio(false);
-      });
-      audioDestination.onAudioEnd = () => {
-        setIsPlayingAudio(false);
-        source.disconnect();
-
-        // trigger start continuous listening if set
-        // document.dispatchEvent(new Event('endSpeakStartListen'));
-        onEndSpeakStartListen();
-      };
-
-      const lang = speakLanguage || userLang;
-
-      speechSynthesizer.speakSsmlAsync(
-        `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
-          lang
-        )}"><voice name="${getTTSVoice(lang)}"><s>${replaceTextWithPhonemes(
-          escapeHTML(text),
-          lang.toLowerCase()
-        )}</s></voice></speak>`,
-        result => {
-          if (result) {
-            setIsPlayingAudio(true);
-
-            try {
-              // if (audioContext.destination.context.state === 'running') {
-              //   audioContext.destination.disconnect();
-              // }
-              audioContext.decodeAudioData(result.audioData, function (buffer) {
-                source.buffer = buffer;
-                source.connect(audioContext.destination);
-
-                if (history.length < 1 || (isSafari && isIOS)) {
-                  source.start(0);
-                }
-              });
-
-              audioContext.onstatechange = () => {
-                if (
-                  audioContext.state === 'suspended' ||
-                  audioContext.state === 'closed'
-                ) {
-                  source.disconnect();
-                  setIsPlayingAudio(false);
-                } else if ((audioContext.state as string) === 'interrupted') {
-                  audioContext.resume();
-                }
-              };
-
-              audioContext.resume();
-
-              if (speechSynthesizer) {
-                speechSynthesizer.close();
-                speechSynthesizer = null;
-              }
-            } catch (e) {
-              console.error('speak error: ', e);
-              window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
-              setIsPlayingAudio(false);
-
-              if (speechSynthesizer) {
-                speechSynthesizer.close();
-                speechSynthesizer = null;
-              }
-            }
-          } else {
-            audioContext.resume();
+            console.error('speak error: ', e);
+            window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
             setIsPlayingAudio(false);
+
+            if (speechSynthesizer) {
+              speechSynthesizer.close();
+              speechSynthesizer = null;
+            }
           }
-        },
-        error => {
-          console.error('speak:', error);
-          window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+        } else {
+          audioContext.resume();
           setIsPlayingAudio(false);
         }
-      );
+      },
+      error => {
+        console.error('speak:', error);
+        window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+        setIsPlayingAudio(false);
+      }
+    );
 
-      setMemoriTyping(false);
-    },
-    [userLang, speakerMuted]
-  );
+    setMemoriTyping(false);
+  };
   const stopAudio = () => {
     setIsPlayingAudio(false);
     try {
