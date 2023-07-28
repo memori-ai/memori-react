@@ -689,7 +689,7 @@ const MemoriWidget = ({
         ...params,
         additionalInfo: {
           ...(additionalInfo || {}),
-          language: userLang,
+          language: getCultureCodeByLanguage(userLang),
           referral: referral,
         },
       });
@@ -776,7 +776,7 @@ const MemoriWidget = ({
         birthDate: birthDate || storageBirthDate || undefined,
         additionalInfo: {
           ...(additionalInfo || {}),
-          language: userLang,
+          language: getCultureCodeByLanguage(userLang),
           referral: referral,
         },
       });
@@ -1143,6 +1143,13 @@ const MemoriWidget = ({
               : 'ru-RU-SvetlanaNeural'
           }`;
           break;
+        case 'PL':
+          voice = `${
+            memori.voiceType === 'MALE'
+              ? 'pl-PL-MarekNeural'
+              : 'pl-PL-AgnieszkaNeural'
+          }`;
+          break;
         default:
           voice = `${
             memori.voiceType === 'MALE'
@@ -1188,6 +1195,9 @@ const MemoriWidget = ({
         break;
       case 'RU':
         voice = 'ru-RU';
+        break;
+      case 'PL':
+        voice = 'pl-PL';
         break;
       default:
         voice = 'it-IT';
