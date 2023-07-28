@@ -1,5 +1,12 @@
 
 
+## [2.8.1](https://github.com/memori-ai/memori-react/compare/v2.8.0...v2.8.1) (2023-07-28)
+
+
+### Bug Fixes
+
+* enhancements to speak func, add polish voices ([8356152](https://github.com/memori-ai/memori-react/commit/8356152d4269a4625e87f37ee423352b3bae3ac1))
+
 ## [2.8.0](https://github.com/memori-ai/memori-react/compare/v2.7.2...v2.8.0) (2023-07-21)
 
 
