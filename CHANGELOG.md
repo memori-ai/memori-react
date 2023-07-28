@@ -1,5 +1,12 @@
 
 
+## [2.8.2](https://github.com/memori-ai/memori-react/compare/v2.8.1...v2.8.2) (2023-07-28)
+
+
+### Changes
+
+* re-add polish voices, fix additionalInfo lang codes ([3151f3d](https://github.com/memori-ai/memori-react/commit/3151f3de5879fa30142c475c6220ac0192c1225e))
+
 ## [2.8.1](https://github.com/memori-ai/memori-react/compare/v2.8.0...v2.8.1) (2023-07-28)
 
 
