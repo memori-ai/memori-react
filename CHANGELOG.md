@@ -1,5 +1,12 @@
 
 
+## [2.8.3](https://github.com/memori-ai/memori-react/compare/v2.8.2...v2.8.3) (2023-07-31)
+
+
+### Bug Fixes
+
+* do not send timeout event if waiting for memori response ([c6ad751](https://github.com/memori-ai/memori-react/commit/c6ad751448a4e8e853a48731144e3550c1203bd7))
+
 ## [2.8.2](https://github.com/memori-ai/memori-react/compare/v2.8.1...v2.8.2) (2023-07-28)
 
 
