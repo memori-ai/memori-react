@@ -877,6 +877,15 @@ const MemoriWidget = ({
             undefined
           );
 
+          let referral;
+          try {
+            referral = (() => {
+              return window.location.href;
+            })();
+          } catch (err) {
+            console.error(err);
+          }
+
           fetchSession({
             memoriID: memori.engineMemoriID ?? '',
             password: secret || memoriPwd || memori.secretToken,
@@ -885,6 +894,11 @@ const MemoriWidget = ({
             initialContextVars,
             initialQuestion,
             birthDate: birthDate || storageBirthDate || undefined,
+            additionalInfo: {
+              ...(additionalInfo || {}),
+              language: getCultureCodeByLanguage(userLang),
+              referral: referral,
+            },
           });
         } else if (!!currentState) {
           return {
@@ -947,6 +961,7 @@ const MemoriWidget = ({
       !speechSynthesizer &&
       !isPlayingAudio &&
       !userMessage.length &&
+      !memoriTyping &&
       !listening
     )
       setInteractionTimeout();
@@ -956,6 +971,7 @@ const MemoriWidget = ({
       !!speechSynthesizer ||
       isPlayingAudio ||
       !!userMessage.length ||
+      memoriTyping ||
       listening
     ) {
       resetInteractionTimeout();
@@ -1016,16 +1032,13 @@ const MemoriWidget = ({
       }
     }
 
-    if (memori.enableCompletions) {
-      timeout = timeout + 60;
-    }
-
     let uiTimeout = setTimeout(handleTimeout, timeout * 1000);
     setUserInteractionTimeout(uiTimeout);
     timeoutRef.current = uiTimeout;
   };
   useEffect(() => {
-    if (!!userMessage.length || isPlayingAudio) clearInteractionTimeout();
+    if (!!userMessage.length || isPlayingAudio || memoriTyping)
+      clearInteractionTimeout();
     if (sessionId && !!!userMessage.length) resetInteractionTimeout();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -1036,6 +1049,7 @@ const MemoriWidget = ({
     sessionId,
     history,
     userMessage,
+    memoriTyping,
   ]);
   useEffect(() => {
     return () => {
