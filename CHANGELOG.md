@@ -1,5 +1,17 @@
 
 
+## [2.9.0](https://github.com/memori-ai/memori-react/compare/v2.8.3...v2.9.0) (2023-08-02)
+
+
+### Features
+
+* add additionalSettings ([8eac525](https://github.com/memori-ai/memori-react/commit/8eac52513eb260b91611941c7c615e44349fa495))
+
+
+### Bug Fixes
+
+* enforce loading text alignment ([2b513fd](https://github.com/memori-ai/memori-react/commit/2b513fd47fcedb2e8b9fdb2131056ddedff51ca0))
+
 ## [2.8.3](https://github.com/memori-ai/memori-react/compare/v2.8.2...v2.8.3) (2023-07-31)
 
 
