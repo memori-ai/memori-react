@@ -41,6 +41,7 @@ export interface Props {
   onStateChange?: (state?: DialogState) => void;
   additionalInfo?: WidgetProps['additionalInfo'];
   customMediaRenderer?: WidgetProps['customMediaRenderer'];
+  additionalSettings?: WidgetProps['additionalSettings'];
 }
 
 const getPreferredLanguages = () => {
@@ -89,6 +90,7 @@ const Memori: React.FC<Props> = ({
   onStateChange,
   additionalInfo,
   customMediaRenderer,
+  additionalSettings,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
   const [speechKey, setSpeechKey] = useState<string | undefined>(
@@ -216,6 +218,7 @@ const Memori: React.FC<Props> = ({
       onStateChange={onStateChange}
       additionalInfo={additionalInfo}
       customMediaRenderer={customMediaRenderer}
+      additionalSettings={additionalSettings}
       {...(tag && pin ? { personification: { tag, pin } } : {})}
     />
   ) : (

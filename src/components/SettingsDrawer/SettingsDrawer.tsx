@@ -19,6 +19,7 @@ export interface Props {
   setControlsPosition: (value: 'center' | 'bottom') => void;
   hideEmissions?: boolean;
   setHideEmissions: (value: boolean) => void;
+  additionalSettings?: WidgetProps['additionalSettings'];
 }
 
 const silenceSeconds = [2, 3, 5, 10, 15, 20, 30, 60];
@@ -35,6 +36,7 @@ const SettingsDrawer = ({
   setControlsPosition,
   hideEmissions,
   setHideEmissions,
+  additionalSettings,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -150,6 +152,12 @@ const SettingsDrawer = ({
             />
           </div>
         </>
+      )}
+
+      {additionalSettings && (
+        <div className="memori-settings-drawer--field controls">
+          {additionalSettings}
+        </div>
       )}
     </Drawer>
   );

@@ -60,3 +60,31 @@ WithinTotemLayout.args = {
   setContinuousSpeech: () => {},
   setContinuousSpeechTimeout: () => {},
 };
+
+const AdditionalSettings = () => {
+  const [hideEmissions, setHideEmissions] = React.useState(false);
+
+  return (
+    <div>
+      <label htmlFor="#hideEmissions">Hide emissions:</label>
+      <input
+        id="hideEmissions"
+        name="hideEmissions"
+        type="checkbox"
+        checked={hideEmissions}
+        onChange={e => setHideEmissions(e.target.checked)}
+      />
+    </div>
+  );
+};
+
+export const WithAdditionalSettings = Template.bind({});
+WithAdditionalSettings.args = {
+  open: true,
+  onClose: () => {},
+  continuousSpeech: false,
+  continuousSpeechTimeout: 2,
+  setContinuousSpeech: () => {},
+  setContinuousSpeechTimeout: () => {},
+  additionalSettings: <AdditionalSettings />,
+};

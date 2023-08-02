@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react';
 import SettingsDrawer from './SettingsDrawer';
+import React from 'react';
 
 beforeEach(() => {
   // @ts-ignore
@@ -135,6 +136,42 @@ it('renders SettingsDrawer for totem layout with continuous speech and hide emis
       setControlsPosition={jest.fn()}
       hideEmissions={true}
       setHideEmissions={jest.fn()}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+const AdditionalSettings = () => {
+  const [hideEmissions, setHideEmissions] = React.useState(false);
+
+  return (
+    <div>
+      <label htmlFor="#hideEmissions">Hide emissions:</label>
+      <input
+        id="hideEmissions"
+        name="hideEmissions"
+        type="checkbox"
+        checked={hideEmissions}
+        onChange={e => setHideEmissions(e.target.checked)}
+      />
+    </div>
+  );
+};
+
+it('renders SettingsDrawer with additional custom settings unchanged', () => {
+  const { container } = render(
+    <SettingsDrawer
+      open={true}
+      onClose={jest.fn()}
+      microphoneMode="HOLD_TO_TALK"
+      setMicrophoneMode={jest.fn()}
+      continuousSpeechTimeout={2}
+      setContinuousSpeechTimeout={jest.fn()}
+      controlsPosition="bottom"
+      setControlsPosition={jest.fn()}
+      hideEmissions={false}
+      setHideEmissions={jest.fn()}
+      additionalSettings={<AdditionalSettings />}
     />
   );
   expect(container).toMatchSnapshot();

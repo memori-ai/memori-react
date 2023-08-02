@@ -204,6 +204,7 @@ export interface Props {
   onStateChange?: (state?: DialogState) => void;
   additionalInfo?: OpenSession['additionalInfo'] & { [key: string]: string };
   customMediaRenderer?: ChatProps['customMediaRenderer'];
+  additionalSettings?: JSX.Element | null;
 }
 
 const MemoriWidget = ({
