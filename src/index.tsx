@@ -219,7 +219,13 @@ const Memori: React.FC<Props> = ({
       {...(tag && pin ? { personification: { tag, pin } } : {})}
     />
   ) : (
-    <div>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
       <p style={{ textAlign: 'center', margin: '2rem auto' }}>
         {t('loading')}...
       </p>
