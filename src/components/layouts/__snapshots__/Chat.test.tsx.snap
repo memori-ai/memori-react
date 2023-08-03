@@ -64,7 +64,7 @@ exports[`renders Chat layout unchanged 1`] = `
           class="memori-header"
         >
           <div
-            class="memori-export-history-button memori-header--button"
+            class="memori-export-history-button memori-header--button memori-header--button--export"
             data-headlessui-state=""
             title="write_and_speak.exportChatHistoryMessage"
           >
@@ -119,7 +119,7 @@ exports[`renders Chat layout unchanged 1`] = `
             <button
               aria-expanded="false"
               aria-haspopup="true"
-              class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-header--button memori-button--primary"
+              class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-header--button memori-header--button-share memori-button--primary"
               data-headlessui-state=""
               id="headlessui-menu-button-:r5:"
               title="widget.share"

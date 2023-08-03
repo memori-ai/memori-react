@@ -6,7 +6,7 @@ exports[`renders Header unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
       title="widget.sound"
     >
       <span
@@ -26,7 +26,7 @@ exports[`renders Header unchanged 1`] = `
       </span>
     </button>
     <div
-      class="memori-export-history-button memori-header--button"
+      class="memori-export-history-button memori-header--button memori-header--button--export"
       data-headlessui-state=""
       title="write_and_speak.exportChatHistoryMessage"
     >
@@ -72,7 +72,7 @@ exports[`renders Header with position unchanged 1`] = `
         Berlin
       </span>
       <button
-        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
+        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--position"
       >
         <span
           class="memori-button--icon"
@@ -93,7 +93,7 @@ exports[`renders Header with position unchanged 1`] = `
       </button>
     </div>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
       title="widget.sound"
     >
       <span
@@ -113,7 +113,7 @@ exports[`renders Header with position unchanged 1`] = `
       </span>
     </button>
     <div
-      class="memori-export-history-button memori-header--button"
+      class="memori-export-history-button memori-header--button memori-header--button--export"
       data-headlessui-state=""
       title="write_and_speak.exportChatHistoryMessage"
     >
@@ -151,7 +151,7 @@ exports[`renders Header with settings button unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
       title="widget.sound"
     >
       <span
@@ -171,7 +171,7 @@ exports[`renders Header with settings button unchanged 1`] = `
       </span>
     </button>
     <div
-      class="memori-export-history-button memori-header--button"
+      class="memori-export-history-button memori-header--button memori-header--button--export"
       data-headlessui-state=""
       title="write_and_speak.exportChatHistoryMessage"
     >
@@ -229,7 +229,7 @@ exports[`renders Header with share button unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
       title="widget.sound"
     >
       <span
@@ -249,7 +249,7 @@ exports[`renders Header with share button unchanged 1`] = `
       </span>
     </button>
     <div
-      class="memori-export-history-button memori-header--button"
+      class="memori-export-history-button memori-header--button memori-header--button--export"
       data-headlessui-state=""
       title="write_and_speak.exportChatHistoryMessage"
     >
@@ -284,7 +284,7 @@ exports[`renders Header with share button unchanged 1`] = `
       <button
         aria-expanded="false"
         aria-haspopup="true"
-        class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-header--button memori-button--primary"
+        class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-header--button memori-header--button-share memori-button--primary"
         data-headlessui-state=""
         id="headlessui-menu-button-:rk:"
         title="widget.share"
@@ -317,7 +317,7 @@ exports[`renders Header with speaker muted unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
       title="widget.sound"
     >
       <span
@@ -339,7 +339,7 @@ exports[`renders Header with speaker muted unchanged 1`] = `
       </span>
     </button>
     <div
-      class="memori-export-history-button memori-header--button"
+      class="memori-export-history-button memori-header--button memori-header--button--export"
       data-headlessui-state=""
       title="write_and_speak.exportChatHistoryMessage"
     >
@@ -377,7 +377,7 @@ exports[`renders Header with user activated speak unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
       title="widget.sound"
     >
       <span
@@ -397,7 +397,7 @@ exports[`renders Header with user activated speak unchanged 1`] = `
       </span>
     </button>
     <div
-      class="memori-export-history-button memori-header--button"
+      class="memori-export-history-button memori-header--button memori-header--button--export"
       data-headlessui-state=""
       title="write_and_speak.exportChatHistoryMessage"
     >

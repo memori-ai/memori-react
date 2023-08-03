@@ -63,7 +63,7 @@ const Header: React.FC<Props> = ({
         <Button
           primary
           shape="circle"
-          className="memori-header--button"
+          className="memori-header--button memori-header--button--reload"
           title={t('reload') || 'Reload'}
           icon={<Refresh />}
           onClick={() => {
@@ -79,7 +79,7 @@ const Header: React.FC<Props> = ({
           <Button
             icon={<MapMarker />}
             shape="circle"
-            className="memori-header--button"
+            className="memori-header--button memori-header--button--position"
             onClick={() => setShowPositionDrawer(true)}
           />
         </div>
@@ -88,7 +88,7 @@ const Header: React.FC<Props> = ({
         <Button
           primary
           shape="circle"
-          className="memori-header--button"
+          className="memori-header--button memori-header--button--fullscreen"
           title={
             fullScreen
               ? t('fullscreenExit') || 'Exit fullscreen'
@@ -110,7 +110,7 @@ const Header: React.FC<Props> = ({
         <Button
           primary
           shape="circle"
-          className="memori-header--button"
+          className="memori-header--button memori-header--button--speaker"
           icon={speakerMuted ? <SoundDeactivated /> : <Sound />}
           onClick={() => setSpeakerMuted(!speakerMuted)}
           title={t('widget.sound') || 'Sound'}
@@ -119,7 +119,7 @@ const Header: React.FC<Props> = ({
       <ExportHistoryButton
         history={history}
         memori={memori}
-        className="memori-header--button"
+        className="memori-header--button memori-header--button--export"
         disabled={!hasUserActivatedSpeak || history.length === 0}
       />
       {showSettings && (
@@ -134,7 +134,7 @@ const Header: React.FC<Props> = ({
       )}
       {showShare && (
         <ShareButton
-          className="memori-header--button"
+          className="memori-header--button memori-header--button-share"
           title={memori.name}
           showQrCode
           align="left"
