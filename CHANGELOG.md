@@ -1,5 +1,12 @@
 
 
+## [2.9.2](https://github.com/memori-ai/memori-react/compare/v2.9.1...v2.9.2) (2023-08-03)
+
+
+### Changes
+
+* add specific css classes to header buttons ([c57f123](https://github.com/memori-ai/memori-react/commit/c57f123948c3b6de9cf1f40e4558aeae224682c2))
+
 ## [2.9.1](https://github.com/memori-ai/memori-react/compare/v2.9.0...v2.9.1) (2023-08-03)
 
 
