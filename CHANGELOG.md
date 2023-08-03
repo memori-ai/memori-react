@@ -1,5 +1,12 @@
 
 
+## [2.9.1](https://github.com/memori-ai/memori-react/compare/v2.9.0...v2.9.1) (2023-08-03)
+
+
+### Bug Fixes
+
+* pass settings drawer additionalSettings in widget ([67ec2de](https://github.com/memori-ai/memori-react/commit/67ec2de0f587d9ccce3282dd4a51155dfdc394ff))
+
 ## [2.9.0](https://github.com/memori-ai/memori-react/compare/v2.8.3...v2.9.0) (2023-08-02)
 
 
