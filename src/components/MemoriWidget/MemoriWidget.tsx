@@ -237,6 +237,7 @@ const MemoriWidget = ({
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
   onStateChange,
   additionalInfo,
+  additionalSettings,
   customMediaRenderer,
 }: Props) => {
   const { t, i18n } = useTranslation();
@@ -2521,6 +2522,7 @@ const MemoriWidget = ({
           setControlsPosition={setControlsPosition}
           hideEmissions={hideEmissions}
           setHideEmissions={setHideEmissions}
+          additionalSettings={additionalSettings}
         />
       )}
 
