@@ -95,26 +95,17 @@ type MemoriTextEnteredEvent = CustomEvent<{
   hidden?: boolean;
 }>;
 
-const typeMessage = (message: string) => {
+const typeMessage = (message: string, hidden = false) => {
   const e: MemoriTextEnteredEvent = new CustomEvent('MemoriTextEntered', {
     detail: {
       text: message,
-      hidden: false,
+      hidden,
     },
   });
 
   document.dispatchEvent(e);
 };
-const typeMessageHidden = (message: string) => {
-  const e: MemoriTextEnteredEvent = new CustomEvent('MemoriTextEntered', {
-    detail: {
-      text: message,
-      hidden: true,
-    },
-  });
-
-  document.dispatchEvent(e);
-};
+const typeMessageHidden = (message: string) => typeMessage(message, true);
 
 interface CustomEventMap {
   MemoriTextEntered: MemoriTextEnteredEvent;
