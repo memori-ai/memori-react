@@ -237,9 +237,14 @@ const StartPanel: React.FC<Props> = ({
             disabled={!!memori.blockedUntil && !memori.isGiver}
             loading={clickedStart}
             onClick={_e => {
-              speechSynthesis.speak(
-                new SpeechSynthesisUtterance('') // This is needed to enable the speech synthesis on iOS
-              );
+              try {
+                window.speechSynthesis.speak(
+                  new SpeechSynthesisUtterance('') // This is needed to enable the speech synthesis on iOS
+                );
+              } catch (e) {
+                console.error(e);
+              }
+
               if (initializeTTS) initializeTTS();
               if (onClickStart) onClickStart();
             }}
