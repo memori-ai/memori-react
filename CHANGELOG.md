@@ -1,5 +1,17 @@
 
 
+## [2.10.1](https://github.com/memori-ai/memori-react/compare/v2.10.0...v2.10.1) (2023-08-10)
+
+
+### Bug Fixes
+
+* remove emojis from spoken text ([92e2cb6](https://github.com/memori-ai/memori-react/commit/92e2cb6e5a90b228c091a41afb7b202938c03ad8))
+
+
+### Changes
+
+* add waitForPrevious param to typeMessage ([6aae935](https://github.com/memori-ai/memori-react/commit/6aae935188abc388aee29dc1ef631819d73fbd0e))
+
 ## [2.10.0](https://github.com/memori-ai/memori-react/compare/v2.9.2...v2.10.0) (2023-08-10)
 
 
