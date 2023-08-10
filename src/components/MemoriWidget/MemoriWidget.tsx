@@ -13,6 +13,7 @@ import {
   GamificationLevel,
   Tenant,
   Asset,
+  MemoriSession,
 } from '@memori.ai/memori-api-client/src/types';
 import {
   SpeakerAudioDestination,
@@ -69,7 +70,6 @@ import { getErrori18nKey } from '../../helpers/error';
 import { getGamificationLevel } from '../../helpers/statistics';
 import AgeVerificationModal from '../AgeVerificationModal/AgeVerificationModal';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
-import { MemoriSession } from '@memori.ai/memori-api-client/dist/types';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -96,20 +96,27 @@ const getMemoriState = (integrationId?: string): object | null => {
 
 type MemoriTextEnteredEvent = CustomEvent<{
   text: string;
+  waitForPrevious?: boolean;
   hidden?: boolean;
 }>;
 
-const typeMessage = (message: string, hidden = false) => {
+const typeMessage = (
+  message: string,
+  waitForPrevious = true,
+  hidden = false
+) => {
   const e: MemoriTextEnteredEvent = new CustomEvent('MemoriTextEntered', {
     detail: {
       text: message,
+      waitForPrevious,
       hidden,
     },
   });
 
   document.dispatchEvent(e);
 };
-const typeMessageHidden = (message: string) => typeMessage(message, true);
+const typeMessageHidden = (message: string, waitForPrevious = true) =>
+  typeMessage(message, waitForPrevious, true);
 
 interface CustomEventMap {
   MemoriTextEntered: MemoriTextEnteredEvent;
@@ -1946,14 +1953,18 @@ const MemoriWidget = ({
   // to use in integrations or snippets
   const memoriTextEnteredHandler = useCallback(
     (e: MemoriTextEnteredEvent) => {
-      const { text, hidden } = e.detail;
+      const { text, waitForPrevious, hidden } = e.detail;
 
       const sessionID =
         sessionId || (window.getMemoriState() as MemoriSession)?.sessionID;
 
       if (text) {
         // wait to finish reading previous emission
-        if (!speakerMuted && (memoriSpeaking || memoriTyping)) {
+        if (
+          waitForPrevious &&
+          !speakerMuted &&
+          (memoriSpeaking || memoriTyping)
+        ) {
           setTimeout(() => {
             memoriTextEnteredHandler(e);
           }, 1000);
