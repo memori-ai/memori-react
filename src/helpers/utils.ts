@@ -106,6 +106,10 @@ export const stripDuplicates = (text: string) => {
   return text;
 };
 
+export const stripEmojis = (text: string) => {
+  return text.replaceAll(/[^\p{L}\p{N}\p{P}\p{Z}^$\n]/gu, '').trim();
+};
+
 export const getFieldFromCustomData = (
   fieldName: string,
   data: string | undefined

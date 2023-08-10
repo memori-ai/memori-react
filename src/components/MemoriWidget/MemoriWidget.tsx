@@ -59,7 +59,11 @@ import ChatLayout from '../layouts/Chat';
 // Helpers / Utils
 import { getTranslation } from '../../helpers/translations';
 import { setLocalConfig, getLocalConfig } from '../../helpers/configuration';
-import { hasTouchscreen, stripDuplicates } from '../../helpers/utils';
+import {
+  hasTouchscreen,
+  stripDuplicates,
+  stripEmojis,
+} from '../../helpers/utils';
 import { anonTag } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
 import { getGamificationLevel } from '../../helpers/statistics';
@@ -1410,7 +1414,7 @@ const MemoriWidget = ({
       `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
         userLang
       )}"><voice name="${getTTSVoice(userLang)}"><s>${replaceTextWithPhonemes(
-        escapeHTML(text),
+        escapeHTML(stripEmojis(text)),
         userLang.toLowerCase()
       )}</s></voice></speak>`,
       result => {

@@ -1,4 +1,4 @@
-import { difference } from './utils';
+import { difference, stripEmojis } from './utils';
 
 describe('Utils/difference', () => {
   it('should return the difference between two objects with numeric values', () => {
@@ -27,5 +27,19 @@ describe('Utils/difference', () => {
     const obj2 = { a: ['alpha', 'beta', 'gamma'], b: 'thesame' };
     const result = difference(obj1, obj2);
     expect(result).toEqual({ a: ['alpha', 'beta', 'gamma'] });
+  });
+});
+
+describe('utils/stripEmojis', () => {
+  it('should strip emojis from a string', () => {
+    const text = 'Hello 👋🏻';
+    const result = stripEmojis(text);
+    expect(result).toEqual('Hello');
+  });
+
+  it('should strip emojis from a string with multiple emojis', () => {
+    const text = '😊 Hello 😉🤪♥️';
+    const result = stripEmojis(text);
+    expect(result).toEqual('Hello');
   });
 });
