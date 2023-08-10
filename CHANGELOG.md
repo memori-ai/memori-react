@@ -1,5 +1,19 @@
 
 
+## [2.10.0](https://github.com/memori-ai/memori-react/compare/v2.9.2...v2.10.0) (2023-08-10)
+
+
+### Features
+
+* add typeMessage and typeMessageHidden as event-based functions ([f717fb7](https://github.com/memori-ai/memori-react/commit/f717fb7f44105cbb61a921695b01036925671bf9))
+* typeMessage(hidden) awaits previous emission to be read before submitting ([85ac7ae](https://github.com/memori-ai/memori-react/commit/85ac7ae72dcc3cf8e759a25b5df017d361e47355))
+
+
+### Changes
+
+* cleanup typeMessage and typeMessageHidden ([0eff5fc](https://github.com/memori-ai/memori-react/commit/0eff5fc0b1033ff9c67e864bdcf8fed735a0a931))
+* start button test speakers on try catch ([9337764](https://github.com/memori-ai/memori-react/commit/93377648937e0e21b19b8ac50d87062955d7c899))
+
 ## [2.9.2](https://github.com/memori-ai/memori-react/compare/v2.9.1...v2.9.2) (2023-08-03)
 
 
