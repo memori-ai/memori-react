@@ -142,6 +142,7 @@ let audioContext: IAudioContext;
 
 let memoriPassword: string | undefined;
 let speakerMuted: boolean = false;
+let memoriSpeaking: boolean = false;
 
 export interface LayoutProps {
   Header?: typeof Header;
@@ -299,6 +300,7 @@ const MemoriWidget = ({
   const [hideEmissions, setHideEmissions] = useState(false);
   useEffect(() => {
     setIsPlayingAudio(!!speechSynthesizer);
+    memoriSpeaking = !!speechSynthesizer;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [speechSynthesizer]);
 
@@ -1302,6 +1304,8 @@ const MemoriWidget = ({
     if (preview) return;
 
     if (muteSpeaker || speakerMuted) {
+      memoriSpeaking = false;
+
       // trigger start continuous listening if set, see MemoriChat
       if (continuousSpeech) {
         setListeningTimeout();
@@ -1337,6 +1341,7 @@ const MemoriWidget = ({
 
       if (isPlayingAudio) {
         try {
+          memoriSpeaking = false;
           if (speechSynthesizer) {
             speechSynthesizer.close();
             speechSynthesizer = null;
@@ -1389,9 +1394,11 @@ const MemoriWidget = ({
     const source = audioContext.createBufferSource();
     source.addEventListener('ended', () => {
       setIsPlayingAudio(false);
+      memoriSpeaking = false;
     });
     audioDestination.onAudioEnd = () => {
       setIsPlayingAudio(false);
+      memoriSpeaking = false;
       source.disconnect();
 
       // trigger start continuous listening if set
@@ -1409,6 +1416,7 @@ const MemoriWidget = ({
       result => {
         if (result) {
           setIsPlayingAudio(true);
+          memoriSpeaking = true;
 
           try {
             // if (audioContext.destination.context.state === 'running') {
@@ -1430,6 +1438,7 @@ const MemoriWidget = ({
               ) {
                 source.disconnect();
                 setIsPlayingAudio(false);
+                memoriSpeaking = false;
               } else if ((audioContext.state as string) === 'interrupted') {
                 audioContext.resume();
               }
@@ -1445,6 +1454,7 @@ const MemoriWidget = ({
             console.error('speak error: ', e);
             window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
             setIsPlayingAudio(false);
+            memoriSpeaking = false;
 
             if (speechSynthesizer) {
               speechSynthesizer.close();
@@ -1454,12 +1464,14 @@ const MemoriWidget = ({
         } else {
           audioContext.resume();
           setIsPlayingAudio(false);
+          memoriSpeaking = false;
         }
       },
       error => {
         console.error('speak:', error);
         window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
         setIsPlayingAudio(false);
+        memoriSpeaking = false;
       }
     );
 
@@ -1467,6 +1479,7 @@ const MemoriWidget = ({
   };
   const stopAudio = () => {
     setIsPlayingAudio(false);
+    memoriSpeaking = false;
     try {
       if (speechSynthesizer) {
         speechSynthesizer.close();
@@ -1935,10 +1948,17 @@ const MemoriWidget = ({
         sessionId || (window.getMemoriState() as MemoriSession)?.sessionID;
 
       if (text) {
-        sendMessage(text, undefined, sessionID, undefined, undefined, hidden);
+        // wait to finish reading previous emission
+        if (!speakerMuted && (memoriSpeaking || memoriTyping)) {
+          setTimeout(() => {
+            memoriTextEnteredHandler(e);
+          }, 1000);
+        } else {
+          sendMessage(text, undefined, sessionID, undefined, undefined, hidden);
+        }
       }
     },
-    [sessionId]
+    [sessionId, isPlayingAudio, memoriTyping]
   );
   useEffect(() => {
     document.addEventListener('MemoriTextEntered', memoriTextEnteredHandler);
