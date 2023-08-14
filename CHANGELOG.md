@@ -1,5 +1,17 @@
 
 
+## [2.11.0](https://github.com/memori-ai/memori-react/compare/v2.10.2...v2.11.0) (2023-08-14)
+
+
+### Features
+
+* add active session css class ([f161d23](https://github.com/memori-ai/memori-react/commit/f161d23155f509e1243adf1528b1376e1822836f))
+
+
+### Changes
+
+* mic button larger on any layout ([baff50e](https://github.com/memori-ai/memori-react/commit/baff50edfb3cca372907052d3520a478af6378a1))
+
 ## [2.10.2](https://github.com/memori-ai/memori-react/compare/v2.10.1...v2.10.2) (2023-08-14)
 
 
