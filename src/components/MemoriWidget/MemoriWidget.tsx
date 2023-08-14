@@ -2460,6 +2460,7 @@ const MemoriWidget = ({
           'memori--with-speechkey': !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
           'memori--active': hasUserActivatedSpeak,
           'memori--hide-emissions': hideEmissions,
+          'memori--has-active-session': !!sessionId,
         }
       )}
       data-memori-name={memori?.name}
