@@ -38,7 +38,7 @@ const ChatBubble: React.FC<Props> = ({
 
   return (
     <>
-      {/*message.initial && <div className="memori-chat--bubble-initial" />*/}
+      {message.initial && <div className="memori-chat--bubble-initial" />}
       <Transition
         show
         appear

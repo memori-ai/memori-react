@@ -31,6 +31,9 @@ exports[`renders ChatBubble unchanged 1`] = `
 exports[`renders ChatBubble with initial msg unchanged 1`] = `
 <div>
   <div
+    class="memori-chat--bubble-initial"
+  />
+  <div
     class="memori-chat--bubble-container"
   >
     <picture
