@@ -270,10 +270,12 @@ const MemoriWidget = ({
   const [clickedStart, setClickedStart] = useState(false);
   const [gotErrorInOpening, setGotErrorInOpening] = useState(false);
 
-  const language = memoriConfigs
-    ?.find(c => c.memoriConfigID === memori.memoriConfigurationID)
-    ?.culture?.split('-')?.[0]
-    ?.toUpperCase();
+  const language =
+    memori.culture?.split('-')?.[0]?.toUpperCase()! ||
+    memoriConfigs
+      ?.find(c => c.memoriConfigID === memori.memoriConfigurationID)
+      ?.culture?.split('-')?.[0]
+      ?.toUpperCase()!;
   const integrationConfig = integration?.customData
     ? JSON.parse(integration.customData)
     : null;
@@ -284,7 +286,6 @@ const MemoriWidget = ({
   const [userLang, setUserLang] = useState(
     memoriLang ??
       integrationConfig?.lang ??
-      memori?.culture?.split('-')?.[0] ??
       language ??
       integrationConfig?.uiLang ??
       i18n.language ??
@@ -382,6 +383,264 @@ const MemoriWidget = ({
     _setPosition(venue);
     applyPosition(venue);
   };
+
+  /**
+   * History e gestione invio messaggi
+   */
+  const [userMessage, setUserMessage] = useState<string>('');
+  const onChangeUserMessage = (value: string) => {
+    if (!value || value === '\n' || value.trim() === '') {
+      setUserMessage('');
+      resetInteractionTimeout();
+      return;
+    }
+    setUserMessage(value);
+    clearInteractionTimeout();
+  };
+  const [listening, setListening] = useState(false);
+  const [history, setHistory] = useState<Message[]>([]);
+  const pushMessage = (message: Message) => {
+    setHistory(history => [...history, { ...message }]);
+  };
+  const sendMessage = async (
+    text: string,
+    media?: Medium[],
+    newSessionId?: string,
+    translate: boolean = true,
+    translatedText?: string,
+    hidden: boolean = false
+  ) => {
+    const sessionID =
+      newSessionId ||
+      sessionId ||
+      (window.getMemoriState() as MemoriSession)?.sessionID;
+    if (!sessionID || !text?.length) return;
+
+    if (!hidden)
+      pushMessage({
+        text: text,
+        translatedText,
+        fromUser: true,
+        media: media ?? [],
+        initial: sessionId
+          ? !!newSessionId && newSessionId !== sessionId
+          : !!newSessionId,
+      });
+
+    setMemoriTyping(true);
+
+    let msg = text;
+
+    if (
+      translate &&
+      !instruct &&
+      isMultilanguageEnabled &&
+      userLang.toUpperCase() !== language.toUpperCase()
+    ) {
+      const translation = await getTranslation(
+        text,
+        language,
+        userLang,
+        baseUrl
+      );
+      msg = translation.text;
+    }
+
+    const { currentState, ...response } = await postTextEnteredEvent({
+      sessionId: sessionID,
+      text: msg,
+    });
+    if (response.resultCode === 0 && currentState) {
+      const emission = currentState.emission ?? currentDialogState?.emission;
+      if (currentState.state === 'X4' && memori.giverTag) {
+        const { currentState, ...resp } = await postTagChangedEvent(
+          sessionID,
+          memori.giverTag
+        );
+
+        if (resp.resultCode === 0) {
+          setCurrentDialogState(currentState);
+
+          if (currentState.emission) {
+            pushMessage({
+              text: currentState.emission,
+              media: currentState.media,
+              fromUser: false,
+            });
+            speak(currentState.emission);
+          }
+        } else {
+          console.error(response, resp);
+          message.error(t(getErrori18nKey(resp.resultCode)));
+        }
+      } else if (currentState.state === 'X2d' && memori.giverTag) {
+        const { currentState, ...resp } = await postTextEnteredEvent({
+          sessionId: sessionID,
+          text: Math.random().toString().substring(2, 8),
+        });
+
+        if (resp.resultCode === 0) {
+          const { currentState, ...resp } = await postTagChangedEvent(
+            sessionID,
+            memori.giverTag
+          );
+
+          if (resp.resultCode === 0) {
+            setCurrentDialogState(currentState);
+
+            if (currentState.emission) {
+              pushMessage({
+                text: currentState.emission,
+                media: currentState.media,
+                fromUser: false,
+              });
+              speak(currentState.emission);
+            }
+          } else {
+            console.error(response, resp);
+            message.error(t(getErrori18nKey(resp.resultCode)));
+          }
+        } else {
+          console.error(response, resp);
+          message.error(t(getErrori18nKey(resp.resultCode)));
+        }
+      } else if (
+        userLang.toLowerCase() !== language.toLowerCase() &&
+        emission &&
+        !instruct &&
+        isMultilanguageEnabled
+      ) {
+        translateDialogState(currentState, userLang).then(ts => {
+          if (ts.emission) {
+            speak(ts.emission);
+          }
+        });
+      } else {
+        setCurrentDialogState({
+          ...currentState,
+          emission,
+        });
+
+        if (emission) {
+          pushMessage({
+            text: emission,
+            media: currentState.media,
+            fromUser: false,
+            generatedByAI: !!currentState.completion,
+          });
+          speak(emission);
+        }
+      }
+    } else if (response.resultCode === 404) {
+      // remove last sent message, will set it as initial
+      setHistory(h => [...h.slice(0, h.length - 1)]);
+
+      // post session timeout -> Z0/A0 -> restart session and re-send msg
+      reopenSession(
+        false,
+        memoriPwd || memori.secretToken,
+        memoriTokens,
+        instruct && memori.giverTag ? memori.giverTag : undefined,
+        instruct && memori.giverPIN ? memori.giverPIN : undefined,
+        initialContextVars,
+        initialQuestion
+      ).then(state => {
+        console.info('session timeout');
+        if (state?.sessionID) {
+          setTimeout(() => {
+            sendMessage(text, media, state?.sessionID);
+          }, 500);
+        }
+      });
+    }
+
+    setMemoriTyping(false);
+  };
+
+  /**
+   * Traduzioni istantanee
+   */
+  const translateDialogState = async (state: DialogState, userLang: string) => {
+    const emission = state.emission ?? currentDialogState?.emission;
+
+    let translatedState = { ...state };
+    let translatedMsg = null;
+
+    if (
+      !emission ||
+      instruct ||
+      language.toUpperCase() === userLang.toUpperCase() ||
+      !isMultilanguageEnabled
+    ) {
+      translatedState = { ...state, emission };
+      if (emission) {
+        translatedMsg = {
+          text: emission,
+          media: state.media,
+          fromUser: false,
+        };
+      }
+    } else {
+      const t = await getTranslation(emission, userLang, language, baseUrl);
+      if (state.hints && state.hints.length > 0) {
+        const translatedHints = await Promise.all(
+          (state.hints ?? []).map(async hint => {
+            const tHint = await getTranslation(
+              hint,
+              userLang,
+              language,
+              baseUrl
+            );
+            return {
+              text: tHint?.text ?? hint,
+              originalText: hint,
+            } as TranslatedHint;
+          })
+        );
+        translatedState = {
+          ...state,
+          emission: t.text,
+          translatedHints,
+        };
+      } else {
+        translatedState = {
+          ...state,
+          emission: t.text,
+          hints:
+            state.hints ??
+            (state.state === 'G1' ? currentDialogState?.hints : []),
+        };
+      }
+
+      if (t.text.length > 0)
+        translatedMsg = {
+          text: t.text,
+          media: state.media,
+          fromUser: false,
+          generatedByAI: !!state.completion,
+        };
+    }
+
+    setCurrentDialogState(translatedState);
+    if (translatedMsg) {
+      pushMessage(translatedMsg);
+    }
+
+    return translatedState;
+  };
+
+  /**
+   * Age verification
+   */
+  const minAge = memori.ageRestriction
+    ? memori.ageRestriction
+    : memori.nsfw
+    ? 18
+    : memori.enableCompletions
+    ? 14
+    : 0;
+  const [birthDate, setBirthDate] = useState<string | undefined>();
+  const [showAgeVerification, setShowAgeVerification] = useState(false);
 
   /**
    * Sessione
@@ -694,264 +953,6 @@ const MemoriWidget = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  /**
-   * History e gestione invio messaggi
-   */
-  const [userMessage, setUserMessage] = useState<string>('');
-  const onChangeUserMessage = (value: string) => {
-    if (!value || value === '\n' || value.trim() === '') {
-      setUserMessage('');
-      resetInteractionTimeout();
-      return;
-    }
-    setUserMessage(value);
-    clearInteractionTimeout();
-  };
-  const [listening, setListening] = useState(false);
-  const [history, setHistory] = useState<Message[]>([]);
-  const pushMessage = (message: Message) => {
-    setHistory(history => [...history, { ...message }]);
-  };
-  const sendMessage = useCallback(
-    async (
-      text: string,
-      media?: Medium[],
-      newSessionId?: string,
-      translate: boolean = true,
-      translatedText?: string,
-      hidden: boolean = false
-    ) => {
-      const sessionID = newSessionId || sessionId;
-      if (!sessionID || !text?.length) return;
-
-      if (!hidden)
-        pushMessage({
-          text: text,
-          translatedText,
-          fromUser: true,
-          media: media ?? [],
-          initial: !!newSessionId,
-        });
-
-      setMemoriTyping(true);
-
-      const language = memori.culture?.split('-')?.[0] ?? i18n.language ?? 'IT';
-      let msg = text;
-
-      if (
-        translate &&
-        !instruct &&
-        isMultilanguageEnabled &&
-        userLang.toUpperCase() !== language.toUpperCase()
-      ) {
-        const translation = await getTranslation(
-          text,
-          language,
-          userLang,
-          baseUrl
-        );
-        msg = translation.text;
-      }
-
-      const { currentState, ...response } = await postTextEnteredEvent({
-        sessionId: sessionID,
-        text: msg,
-      });
-      if (response.resultCode === 0 && currentState) {
-        const emission = currentState.emission ?? currentDialogState?.emission;
-        if (currentState.state === 'X4' && memori.giverTag) {
-          const { currentState, ...resp } = await postTagChangedEvent(
-            sessionID,
-            memori.giverTag
-          );
-
-          if (resp.resultCode === 0) {
-            setCurrentDialogState(currentState);
-
-            if (currentState.emission) {
-              pushMessage({
-                text: currentState.emission,
-                media: currentState.media,
-                fromUser: false,
-              });
-              speak(currentState.emission);
-            }
-          } else {
-            console.error(response, resp);
-            message.error(t(getErrori18nKey(resp.resultCode)));
-          }
-        } else if (currentState.state === 'X2d' && memori.giverTag) {
-          const { currentState, ...resp } = await postTextEnteredEvent({
-            sessionId: sessionID,
-            text: Math.random().toString().substring(2, 8),
-          });
-
-          if (resp.resultCode === 0) {
-            const { currentState, ...resp } = await postTagChangedEvent(
-              sessionID,
-              memori.giverTag
-            );
-
-            if (resp.resultCode === 0) {
-              setCurrentDialogState(currentState);
-
-              if (currentState.emission) {
-                pushMessage({
-                  text: currentState.emission,
-                  media: currentState.media,
-                  fromUser: false,
-                });
-                speak(currentState.emission);
-              }
-            } else {
-              console.error(response, resp);
-              message.error(t(getErrori18nKey(resp.resultCode)));
-            }
-          } else {
-            console.error(response, resp);
-            message.error(t(getErrori18nKey(resp.resultCode)));
-          }
-        } else if (
-          userLang.toLowerCase() !== language.toLowerCase() &&
-          emission &&
-          !instruct &&
-          isMultilanguageEnabled
-        ) {
-          translateDialogState(currentState, userLang).then(ts => {
-            if (ts.emission) {
-              speak(ts.emission);
-            }
-          });
-        } else {
-          setCurrentDialogState({
-            ...currentState,
-            emission,
-          });
-
-          if (emission) {
-            pushMessage({
-              text: emission,
-              media: currentState.media,
-              fromUser: false,
-              generatedByAI: !!currentState.completion,
-            });
-            speak(emission);
-          }
-        }
-      } else if (response.resultCode === 404) {
-        // remove last sent message, will set it as initial
-        setHistory(h => [...h.slice(0, h.length - 1)]);
-
-        // post session timeout -> Z0/A0 -> restart session and re-send msg
-        reopenSession(
-          false,
-          memoriPwd || memori.secretToken,
-          memoriTokens,
-          instruct && memori.giverTag ? memori.giverTag : undefined,
-          instruct && memori.giverPIN ? memori.giverPIN : undefined,
-          initialContextVars,
-          initialQuestion
-        ).then(state => {
-          console.info('session timeout');
-          if (state?.sessionID) {
-            setTimeout(() => {
-              sendMessage(text, media, state?.sessionID);
-            }, 500);
-          }
-        });
-      }
-
-      setMemoriTyping(false);
-    },
-    [sessionId]
-  );
-
-  /**
-   * Traduzioni istantanee
-   */
-  const translateDialogState = async (state: DialogState, userLang: string) => {
-    const language = memori.culture?.split('-')?.[0] ?? i18n.language ?? 'IT';
-    const emission = state.emission ?? currentDialogState?.emission;
-
-    let translatedState = { ...state };
-    let translatedMsg = null;
-
-    if (
-      !emission ||
-      instruct ||
-      language.toUpperCase() === userLang.toUpperCase() ||
-      !isMultilanguageEnabled
-    ) {
-      translatedState = { ...state, emission };
-      if (emission) {
-        translatedMsg = {
-          text: emission,
-          media: state.media,
-          fromUser: false,
-        };
-      }
-    } else {
-      const t = await getTranslation(emission, userLang, language, baseUrl);
-      if (state.hints && state.hints.length > 0) {
-        const translatedHints = await Promise.all(
-          (state.hints ?? []).map(async hint => {
-            const tHint = await getTranslation(
-              hint,
-              userLang,
-              language,
-              baseUrl
-            );
-            return {
-              text: tHint?.text ?? hint,
-              originalText: hint,
-            } as TranslatedHint;
-          })
-        );
-        translatedState = {
-          ...state,
-          emission: t.text,
-          translatedHints,
-        };
-      } else {
-        translatedState = {
-          ...state,
-          emission: t.text,
-          hints:
-            state.hints ??
-            (state.state === 'G1' ? currentDialogState?.hints : []),
-        };
-      }
-
-      if (t.text.length > 0)
-        translatedMsg = {
-          text: t.text,
-          media: state.media,
-          fromUser: false,
-          generatedByAI: !!state.completion,
-        };
-    }
-
-    setCurrentDialogState(translatedState);
-    if (translatedMsg) {
-      pushMessage(translatedMsg);
-    }
-
-    return translatedState;
-  };
-
-  /**
-   * Age verification
-   */
-  const minAge = memori.ageRestriction
-    ? memori.ageRestriction
-    : memori.nsfw
-    ? 18
-    : memori.enableCompletions
-    ? 14
-    : 0;
-  const [birthDate, setBirthDate] = useState<string | undefined>();
-  const [showAgeVerification, setShowAgeVerification] = useState(false);
 
   /**
    * Timeout conversazione
@@ -1969,11 +1970,13 @@ const MemoriWidget = ({
             memoriTextEnteredHandler(e);
           }, 1000);
         } else {
-          sendMessage(text, undefined, sessionID, undefined, undefined, hidden);
+          stopListening();
+          stopAudio();
+          sendMessage(text, undefined, undefined, undefined, undefined, hidden);
         }
       }
     },
-    [sessionId, isPlayingAudio, memoriTyping]
+    [sessionId, isPlayingAudio, memoriTyping, userLang]
   );
   useEffect(() => {
     document.addEventListener('MemoriTextEntered', memoriTextEnteredHandler);
@@ -1984,7 +1987,7 @@ const MemoriWidget = ({
         memoriTextEnteredHandler
       );
     };
-  }, []);
+  }, [sessionId, userLang]);
 
   const onClickStart = useCallback(
     async (session?: { dialogState: DialogState; sessionID: string }) => {
