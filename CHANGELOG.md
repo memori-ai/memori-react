@@ -1,5 +1,17 @@
 
 
+## [2.10.2](https://github.com/memori-ai/memori-react/compare/v2.10.1...v2.10.2) (2023-08-14)
+
+
+### Bug Fixes
+
+* speech async handling, avoids double voice ([ee6e45a](https://github.com/memori-ai/memori-react/commit/ee6e45a98a948a4cc5055b84243353e0b865d2b4))
+
+
+### Maintenance
+
+* restore new session mark ([883567d](https://github.com/memori-ai/memori-react/commit/883567d4ce1f2bbcea0b435c6f0788f3a742c37d))
+
 ## [2.10.1](https://github.com/memori-ai/memori-react/compare/v2.10.0...v2.10.1) (2023-08-10)
 
 
