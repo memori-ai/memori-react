@@ -6,7 +6,7 @@
     background: linear-gradient(#333, #eee);
 }
 
-.memori-widget > .memori-spin.memori-totem-layout {
+.memori-widget>.memori-spin.memori-totem-layout {
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -55,7 +55,7 @@
 }
 
 .memori-totem-layout .memori-header .memori-share-button,
-.memori-totem-layout .memori-header .memori-header--button + .memori-header--button {
+.memori-totem-layout .memori-header .memori-header--button+.memori-header--button {
     margin-top: 0.25rem;
     margin-left: 0;
 }
@@ -74,7 +74,7 @@
     bottom: auto;
 }
 
-.memori-totem-layout--avatar .memori--avatar-wrapper > div {
+.memori-totem-layout--avatar .memori--avatar-wrapper>div {
     overflow: visible !important;
     /* width: 100% !important;
     height: 100% !important; */
@@ -112,6 +112,7 @@
 }
 
 @media (max-width: 870px) {
+
     .memori-totem-layout--controls .memori--start-panel,
     .memori-totem-layout--controls .memori-chat--wrapper {
         width: 100%;
@@ -156,24 +157,16 @@
     }
 }
 
-.memori-widget.memori-layout-totem.memori--hide-emissions
-    .memori-totem-layout--controls
-    .memori-chat--bubble-container:not(.memori-chat--bubble-from-user),
-.memori-widget.memori-layout-totem.memori--hide-emissions.memori--with-speechkey
-    .memori-totem-layout--controls
-    .memori-chat--bubble-container:not(.memori-chat--bubble-from-user) {
+.memori-widget.memori-layout-totem.memori--hide-emissions .memori-totem-layout--controls .memori-chat--bubble-container:not(.memori-chat--bubble-from-user),
+.memori-widget.memori-layout-totem.memori--hide-emissions.memori--with-speechkey .memori-totem-layout--controls .memori-chat--bubble-container:not(.memori-chat--bubble-from-user) {
     display: none;
-}
-
-.memori-totem-layout .memori-chat-inputs--mic {
-    font-size: 125%;
 }
 
 .memori-totem-layout--avatar .memori-blob {
     z-index: 2;
 }
 
-.memori-totem-layout--avatar .memori--avatar-wrapper > div canvas + div {
+.memori-totem-layout--avatar .memori--avatar-wrapper>div canvas+div {
     position: absolute !important;
     width: 100%;
     height: 100%;
