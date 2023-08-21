@@ -1,5 +1,16 @@
 
 
+## [2.12.0](https://github.com/memori-ai/memori-react/compare/v2.11.0...v2.12.0) (2023-08-21)
+
+
+### ⚠ BREAKING CHANGES
+
+* memoize container components, move snippet exec to main running once on state change
+
+### Changes
+
+* memoize container components, move snippet exec to main running once on state change ([869f058](https://github.com/memori-ai/memori-react/commit/869f0588d266b5be92e06a25829b63c2314290b8))
+
 ## [2.11.0](https://github.com/memori-ai/memori-react/compare/v2.10.2...v2.11.0) (2023-08-14)
 
 
