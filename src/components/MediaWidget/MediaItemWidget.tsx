@@ -1,5 +1,5 @@
 import { Medium } from '@memori.ai/memori-api-client/dist/types';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, memo } from 'react';
 import { getResourceUrl } from '../../helpers/media';
 import { getTranslation } from '../../helpers/translations';
 import { prismSyntaxLangs } from '../../helpers/constants';
@@ -285,21 +285,6 @@ const MediaItemWidget: React.FC<Props> = ({
     if (translateTo) translateMediaCaptions();
   }, [translateTo, translateMediaCaptions]);
 
-  useEffect(() => {
-    let executableScripts = items.filter(
-      m => m.mimeType === 'text/javascript' && !!m.properties?.executable
-    );
-    executableScripts.forEach(s => {
-      try {
-        // eslint-disable-next-line no-new-func
-        new Function(s.content ?? '')();
-      } catch (e) {
-        console.error(e);
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <Transition appear show as="div" className="memori-media-items">
       <div className="memori-media-items--grid">
@@ -407,4 +392,4 @@ const MediaItemWidget: React.FC<Props> = ({
   );
 };
 
-export default MediaItemWidget;
+export default memo(MediaItemWidget);

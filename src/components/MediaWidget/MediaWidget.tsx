@@ -2,7 +2,7 @@ import {
   Medium,
   TranslatedHint,
 } from '@memori.ai/memori-api-client/dist/types';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import Button from '../ui/Button';
 import LinkItemWidget from './LinkItemWidget';
 import MediaItemWidget, { Props as MediaItemProps } from './MediaItemWidget';
@@ -103,4 +103,4 @@ const MediaWidget: React.FC<Props> = ({
   );
 };
 
-export default MediaWidget;
+export default memo(MediaWidget);

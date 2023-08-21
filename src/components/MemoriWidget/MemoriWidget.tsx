@@ -29,6 +29,7 @@ import React, {
   useCallback,
   CSSProperties,
   useRef,
+  memo,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
@@ -400,7 +401,17 @@ const MemoriWidget = ({
   const [listening, setListening] = useState(false);
   const [history, setHistory] = useState<Message[]>([]);
   const pushMessage = (message: Message) => {
-    setHistory(history => [...history, { ...message }]);
+    setHistory(history => [
+      ...history,
+      {
+        ...message,
+        media:
+          message.media?.filter(
+            m =>
+              !(m.mimeType === 'text/javascript' && !!m.properties?.executable)
+          ) ?? [],
+      },
+    ]);
   };
   const sendMessage = async (
     text: string,
@@ -654,6 +665,38 @@ const MemoriWidget = ({
     if (onStateChange) {
       onStateChange(state);
     }
+
+    const executableSnippets = state?.media?.filter(
+      m => m.mimeType === 'text/javascript' && !!m.properties?.executable
+    );
+    executableSnippets?.forEach(s => {
+      try {
+        setTimeout(() => {
+          console.log('snippet', s);
+          // eslint-disable-next-line no-new-func
+          new Function(s.content ?? '')();
+
+          setTimeout(() => {
+            if (document.body.classList.contains('chat-focused')) {
+              document.querySelector('.ant-tabs-nav')?.scrollIntoView();
+              document
+                .querySelector('.memori-chat--content')
+                ?.scrollTo(
+                  0,
+                  document.querySelector('.memori-chat--content')
+                    ?.scrollHeight ?? 0
+                );
+            } else {
+              document.querySelector('#end-messages-ref')?.scrollIntoView({
+                behavior: 'smooth',
+              });
+            }
+          }, 400);
+        }, 3000);
+      } catch (e) {
+        console.error(e);
+      }
+    });
   };
   const fetchSession = async (
     params: OpenSession
@@ -2704,4 +2747,4 @@ const MemoriWidget = ({
   );
 };
 
-export default MemoriWidget;
+export default memo(MemoriWidget);

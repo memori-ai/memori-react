@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import cx from 'classnames';
 import {
   DialogState,
@@ -336,4 +336,4 @@ const Chat: React.FC<Props> = ({
   );
 };
 
-export default Chat;
+export default memo(Chat);

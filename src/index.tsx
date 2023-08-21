@@ -248,7 +248,7 @@ Memori.propTypes = {
   showShare: PropTypes.bool,
   showSettings: PropTypes.bool,
   showInstruct: PropTypes.bool,
-  layout: PropTypes.oneOf(['DEFAULT', 'FULLPAGE', 'TOTEM']),
+  layout: PropTypes.oneOf(['DEFAULT', 'FULLPAGE', 'TOTEM', 'CHAT']),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   baseURL: PropTypes.string,
   apiURL: PropTypes.string,

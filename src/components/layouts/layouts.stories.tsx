@@ -22,7 +22,7 @@ const meta: Meta = {
 
 export default meta;
 
-const CustomLayout: React.FC<LayoutProps> = ({
+export const CustomLayout: React.FC<LayoutProps> = ({
   Header,
   headerProps,
   Avatar,
