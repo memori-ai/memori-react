@@ -748,6 +748,7 @@ const MemoriWidget = ({
         ...params,
         additionalInfo: {
           ...(additionalInfo || {}),
+          loginToken: additionalInfo?.loginToken ?? authToken,
           language: getCultureCodeByLanguage(userLang),
           referral: referral,
         },
@@ -835,6 +836,7 @@ const MemoriWidget = ({
         birthDate: birthDate || storageBirthDate || undefined,
         additionalInfo: {
           ...(additionalInfo || {}),
+          loginToken: additionalInfo?.loginToken ?? authToken,
           language: getCultureCodeByLanguage(userLang),
           referral: referral,
         },
@@ -955,6 +957,7 @@ const MemoriWidget = ({
             birthDate: birthDate || storageBirthDate || undefined,
             additionalInfo: {
               ...(additionalInfo || {}),
+              loginToken: additionalInfo?.loginToken ?? authToken,
               language: getCultureCodeByLanguage(userLang),
               referral: referral,
             },
