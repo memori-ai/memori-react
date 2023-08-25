@@ -3506,17 +3506,22 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-chat--bubble"
         >
           <div
-            id="wave"
+            class="memori-chat--bubble-typing"
           >
-            <span
-              class="dot"
-            />
-            <span
-              class="dot"
-            />
-            <span
-              class="dot"
-            />
+            <div
+              id="wave"
+            >
+              <span
+                class="dot"
+              />
+              <span
+                class="dot"
+              />
+              <span
+                class="dot"
+              />
+            </div>
+            <p />
           </div>
         </div>
         <div

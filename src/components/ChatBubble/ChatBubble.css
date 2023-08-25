@@ -35,7 +35,7 @@
 
 .memori-chat--bubble #wave {
     position: relative;
-    width: 100px;
+    width: 50px;
     margin-right: auto;
     margin-left: auto;
     text-align: center;
@@ -43,8 +43,8 @@
 
 .memori-chat--bubble #wave .dot {
     display: inline-block;
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     border-radius: 50%;
     margin-right: 3px;
     animation: wave 1.5s linear infinite;
@@ -59,12 +59,16 @@
     animation-delay: -1.1s;
 }
 
+.memori-chat--bubble-typing {
+    display: flex;
+}
+
 .memori-chat--bubble p {
     margin-top: 0;
     margin-bottom: 0;
 }
 
-.memori-chat--bubble p + p {
+.memori-chat--bubble p+p {
     margin-top: 0.5em;
 }
 
@@ -215,6 +219,7 @@
 }
 
 @keyframes wave {
+
     0%,
     60%,
     100% {

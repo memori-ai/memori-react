@@ -15,6 +15,7 @@ import MediaWidget, {
 import Button from '../ui/Button';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
+import Typing from '../Typing/Typing';
 
 export interface Props {
   memori: Memori;
@@ -258,16 +259,6 @@ const Chat: React.FC<Props> = ({
             </React.Fragment>
           ))}
 
-          {memoriTyping && (
-            <div className="memori-chat--bubble">
-              <div id="wave">
-                <span className="dot"></span>
-                <span className="dot"></span>
-                <span className="dot"></span>
-              </div>
-            </div>
-          )}
-
           {dialogState?.hints && dialogState.hints.length > 0 && (
             <MediaWidget
               simulateUserPrompt={simulateUserPrompt}
@@ -281,6 +272,8 @@ const Chat: React.FC<Props> = ({
               }
             />
           )}
+
+          {memoriTyping && <Typing />}
           <div id="end-messages-ref" />
         </div>
       </div>
