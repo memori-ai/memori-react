@@ -26,6 +26,7 @@ export interface Props {
   showShare?: boolean;
   showSettings?: boolean;
   showInstruct?: boolean;
+  showTypingText?: boolean;
   height?: number | string;
   baseURL?: string;
   apiURL?: string;
@@ -75,6 +76,7 @@ const Memori: React.FC<Props> = ({
   showShare = true,
   showSettings = true,
   showInstruct = false,
+  showTypingText = false,
   height = '100%',
   baseURL,
   apiURL = 'https://backend.memori.ai',
@@ -204,6 +206,7 @@ const Memori: React.FC<Props> = ({
       showShare={showShare}
       showSettings={showSettings}
       showInstruct={showInstruct}
+      showTypingText={showTypingText}
       integration={memori?.integrations?.find(i =>
         integrationID
           ? i.integrationID === integrationID

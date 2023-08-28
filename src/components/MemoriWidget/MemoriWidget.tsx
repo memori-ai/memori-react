@@ -29,7 +29,6 @@ import React, {
   useCallback,
   CSSProperties,
   useRef,
-  memo,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
@@ -99,25 +98,31 @@ type MemoriTextEnteredEvent = CustomEvent<{
   text: string;
   waitForPrevious?: boolean;
   hidden?: boolean;
+  typingText?: string;
 }>;
 
 const typeMessage = (
   message: string,
   waitForPrevious = true,
-  hidden = false
+  hidden = false,
+  typingText?: string
 ) => {
   const e: MemoriTextEnteredEvent = new CustomEvent('MemoriTextEntered', {
     detail: {
       text: message,
       waitForPrevious,
       hidden,
+      typingText,
     },
   });
 
   document.dispatchEvent(e);
 };
-const typeMessageHidden = (message: string, waitForPrevious = true) =>
-  typeMessage(message, waitForPrevious, true);
+const typeMessageHidden = (
+  message: string,
+  waitForPrevious = true,
+  typingText?: string
+) => typeMessage(message, waitForPrevious, true, typingText);
 
 interface CustomEventMap {
   MemoriTextEntered: MemoriTextEnteredEvent;
@@ -190,6 +195,7 @@ export interface Props {
   showDates?: boolean;
   showContextPerLine?: boolean;
   showSettings?: boolean;
+  showTypingText?: boolean;
   preview?: boolean;
   embed?: boolean;
   height?: number | string;
@@ -230,6 +236,7 @@ const MemoriWidget = ({
   showDates = false,
   showContextPerLine = false,
   showSettings = true,
+  showTypingText = false,
   height = '100vh',
   secret,
   baseUrl = 'https://app.twincreator.com',
@@ -294,7 +301,7 @@ const MemoriWidget = ({
   );
 
   const [loading, setLoading] = useState(false);
-  const [memoriTyping, setMemoriTyping] = useState(false);
+  const [memoriTyping, setMemoriTyping] = useState<boolean | string>(false);
 
   const selectedLayout = layout || integrationConfig?.layout || 'DEFAULT';
 
@@ -419,7 +426,8 @@ const MemoriWidget = ({
     newSessionId?: string,
     translate: boolean = true,
     translatedText?: string,
-    hidden: boolean = false
+    hidden: boolean = false,
+    typingText?: string
   ) => {
     const sessionID =
       newSessionId ||
@@ -438,7 +446,7 @@ const MemoriWidget = ({
           : !!newSessionId,
       });
 
-    setMemoriTyping(true);
+    setMemoriTyping(typingText ?? true);
 
     let msg = text;
 
@@ -1033,7 +1041,7 @@ const MemoriWidget = ({
       !!speechSynthesizer ||
       isPlayingAudio ||
       !!userMessage.length ||
-      memoriTyping ||
+      !!memoriTyping ||
       listening
     ) {
       resetInteractionTimeout();
@@ -1099,7 +1107,7 @@ const MemoriWidget = ({
     timeoutRef.current = uiTimeout;
   };
   useEffect(() => {
-    if (!!userMessage.length || isPlayingAudio || memoriTyping)
+    if (!!userMessage.length || isPlayingAudio || !!memoriTyping)
       clearInteractionTimeout();
     if (sessionId && !!!userMessage.length) resetInteractionTimeout();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -2000,17 +2008,14 @@ const MemoriWidget = ({
   // to use in integrations or snippets
   const memoriTextEnteredHandler = useCallback(
     (e: MemoriTextEnteredEvent) => {
-      const { text, waitForPrevious, hidden } = e.detail;
-
-      const sessionID =
-        sessionId || (window.getMemoriState() as MemoriSession)?.sessionID;
+      const { text, waitForPrevious, hidden, typingText } = e.detail;
 
       if (text) {
         // wait to finish reading previous emission
         if (
           waitForPrevious &&
           !speakerMuted &&
-          (memoriSpeaking || memoriTyping)
+          (memoriSpeaking || !!memoriTyping)
         ) {
           setTimeout(() => {
             memoriTextEnteredHandler(e);
@@ -2018,7 +2023,15 @@ const MemoriWidget = ({
         } else {
           stopListening();
           stopAudio();
-          sendMessage(text, undefined, undefined, undefined, undefined, hidden);
+          sendMessage(
+            text,
+            undefined,
+            undefined,
+            undefined,
+            undefined,
+            hidden,
+            typingText
+          );
         }
       }
     },
@@ -2374,7 +2387,7 @@ const MemoriWidget = ({
     setAvatar3dVisible,
     hasUserActivatedSpeak,
     isPlayingAudio,
-    loading: memoriTyping,
+    loading: !!memoriTyping,
     baseUrl,
     apiUrl,
   };
@@ -2415,6 +2428,7 @@ const MemoriWidget = ({
     baseUrl,
     apiUrl,
     memoriTyping,
+    showTypingText,
     history: layout === 'TOTEM' ? history.slice(-2) : history,
     authToken: loginToken,
     dialogState: currentDialogState,
@@ -2750,4 +2764,4 @@ const MemoriWidget = ({
   );
 };
 
-export default memo(MemoriWidget);
+export default MemoriWidget;

@@ -68,6 +68,7 @@ const App = () => (
 | `height`                           |                | `string`                                    | "100%"                      | Height of the Memori                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `showShare`                        |                | `bool`                                      | `true`                      | Show the share button                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `showSettings`                     |                | `bool`                                      | `false`                     | Show the settings panel button                                                                                                                                                                                                                                                                                                                                                                                                          |
+| `showTypingText`                     |                | `bool`                                      | `false`                     | Show default sentences while loading text (see: Typing stories)                                                                                                                                                                                                                                                                                                                                |
 | `showInstruct`                     |                | `bool`                                      | `false`                     | Show the switch selecting between test mode or instruct mode, needs an administrative session as a giver                                                                                                                                                                                                                                                                                                                                |
 | `baseURL`                          |                | `string`                                    |                             | Base URL of the Memori, example: "https://app.twincreator.com" or "https://app.memorytwin.com"                                                                                                                                                                                                                                                                                                                                          |
 | `apiURL`                           |                | `string`                                    | "https://backend.memori.ai" | URL of the Memori API                                                                                                                                                                                                                                                                                                                                                                                                                   |
@@ -255,6 +256,56 @@ You can also use this to extend the default media renderer with additional media
     return null;
   }}
 />
+```
+
+## Global utilities
+
+When rendered, the Memori widget exposes some global functions that can be used to interact with the Memori.
+
+
+### Get the state of the Twin
+
+```js
+let dialogState = getMemoriState();
+let sessionID = getMemoriState().sessionID;
+let dialogState = getMemoriState(myWidgetIntegrationId); // in case you have multiple widgets on the same page
+```
+
+Otherwise, you can achieve the same result manually by reading from the HTML code of the widget the attribute data-memori-engine-state.
+
+```js
+let dialogState = JSON.parse(
+  document.querySelector(
+    'div[data-memori-engine-state]'
+  )?.dataset?.memoriEngineState ?? '{}'
+)
+```
+
+### Write and send a message to the Twin
+
+Write and send a message to the Twin. You can use this method to send a message to the Twin, such as to continue a conversation with a specific message or following an action.
+
+```js
+typeMessage('Hello World!')
+```
+
+Additional parameters:
+
+```js
+const waitForPrevious = true // waits for previous message to be read, default: true
+const hidden = true // message is not visible to the user, only the response is, default: false
+const typingText = "Asking the unicorns' opinion..." // text to show in the loader while the Twin is answering, defaults to none
+typeMessage('Hello World!', waitForPrevious, hidden, typingText)
+```
+
+There is also an alias function that does not show the message sent to the user, but only the Twin's response:
+
+```js
+const waitForPrevious = true // waits for previous message to be read, default: true
+typeMessageHidden('Hello World!', waitForPrevious)
+
+// alias to
+typeMessage('Hello World!', waitForPrevious, true)
 ```
 
 ## See also

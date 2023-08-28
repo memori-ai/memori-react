@@ -24,7 +24,8 @@ export interface Props {
   translateTo?: string;
   baseUrl?: string;
   apiUrl?: string;
-  memoriTyping?: boolean;
+  memoriTyping?: boolean | string;
+  showTypingText?: boolean;
   history: Message[];
   authToken?: string;
   dialogState?: DialogState;
@@ -65,6 +66,7 @@ const Chat: React.FC<Props> = ({
   apiUrl,
   translateTo,
   memoriTyping,
+  showTypingText = false,
   history = [],
   authToken,
   dialogState,
@@ -273,7 +275,21 @@ const Chat: React.FC<Props> = ({
             />
           )}
 
-          {memoriTyping && <Typing />}
+          {!!memoriTyping && (
+            <Typing
+              useDefaultSentences={showTypingText}
+              lang={
+                translateTo
+                  ? translateTo.toLowerCase() === 'it'
+                    ? 'it'
+                    : 'en'
+                  : 'en'
+              }
+              sentence={
+                typeof memoriTyping === 'string' ? memoriTyping : undefined
+              }
+            />
+          )}
           <div id="end-messages-ref" />
         </div>
       </div>
