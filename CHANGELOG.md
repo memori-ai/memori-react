@@ -1,5 +1,23 @@
 
 
+## [2.13.0](https://github.com/memori-ai/memori-react/compare/v2.12.0...v2.13.0) (2023-08-28)
+
+
+### Features
+
+* change typing with custom sentence, defaults with none, adds params to typeMessage ([4e18989](https://github.com/memori-ai/memori-react/commit/4e18989253421ea0c32fb617f7b9f1b90db6da18))
+
+
+### Maintenance
+
+* update storybook ([3e248a0](https://github.com/memori-ai/memori-react/commit/3e248a0e1aee20d8815cf1078a201f2302428921))
+
+
+### Changes
+
+* replace additionalInfo email + userID with loginToken ([b323f04](https://github.com/memori-ai/memori-react/commit/b323f04503b7fc583103b89243fb37389aed4062))
+* typing as separate component, add text anim ([02e027e](https://github.com/memori-ai/memori-react/commit/02e027ec7f19c3d08afe3ba2c119e25fc3742e70))
+
 ## [2.12.0](https://github.com/memori-ai/memori-react/compare/v2.11.0...v2.12.0) (2023-08-21)
 
 
