@@ -1589,7 +1589,7 @@ const MemoriWidget = ({
     let timeout = setTimeout(async () => {
       clearListening();
       const message = stripDuplicates(transcript);
-      if (message.length > 0) {
+      if (message.length > 0 && listening) {
         sendMessage(message);
         resetTranscript();
         setUserMessage('');
