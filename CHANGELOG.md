@@ -1,5 +1,17 @@
 
 
+## [2.13.1](https://github.com/memori-ai/memori-react/compare/v2.13.0...v2.13.1) (2023-08-29)
+
+
+### Bug Fixes
+
+* automatically send msg only if listening ([c7fb638](https://github.com/memori-ai/memori-react/commit/c7fb638131774db0e0f00f7b6c61287a9881f0d2))
+
+
+### Maintenance
+
+* lower snippet timeout ([e265657](https://github.com/memori-ai/memori-react/commit/e26565709e225e0476a1ced3a1dd8e6f199c3301))
+
 ## [2.13.0](https://github.com/memori-ai/memori-react/compare/v2.12.0...v2.13.0) (2023-08-28)
 
 
