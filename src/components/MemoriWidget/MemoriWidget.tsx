@@ -700,7 +700,7 @@ const MemoriWidget = ({
               });
             }
           }, 400);
-        }, 3000);
+        }, 1000);
       } catch (e) {
         console.error(e);
       }
