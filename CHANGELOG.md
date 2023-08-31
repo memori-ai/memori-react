@@ -1,5 +1,18 @@
 
 
+## [2.14.0](https://github.com/memori-ai/memori-react/compare/v2.13.1...v2.14.0) (2023-08-31)
+
+
+### Features
+
+* add MemoriEndSpeak event emission ([f659e13](https://github.com/memori-ai/memori-react/commit/f659e13ee087aecf84fb5098ff30f57c75b3775e))
+
+
+### Changes
+
+* change textarea disabled states ([0a64fd7](https://github.com/memori-ai/memori-react/commit/0a64fd7fd2723c7b4263fd42b88e676d2390074e))
+* mobile msg text smaller ([7618026](https://github.com/memori-ai/memori-react/commit/7618026f18e6da2286dd1d06df0f20142356b400))
+
 ## [2.13.1](https://github.com/memori-ai/memori-react/compare/v2.13.0...v2.13.1) (2023-08-29)
 
 
