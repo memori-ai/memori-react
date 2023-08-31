@@ -126,6 +126,7 @@ const typeMessageHidden = (
 
 interface CustomEventMap {
   MemoriTextEntered: MemoriTextEnteredEvent;
+  MemoriEndSpeak: CustomEvent;
 }
 declare global {
   interface Document {
@@ -1362,6 +1363,11 @@ const MemoriWidget = ({
     // .replace(/qfe/gi, `<sub alias="Quota Filo Erba">QFE</sub>`)
   };
 
+  const emitEndSpeakEvent = () => {
+    const e = new CustomEvent('MemoriEndSpeak');
+    document.dispatchEvent(e);
+  };
+
   const speak = (text: string): void => {
     if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) return;
     stopListening();
@@ -1372,6 +1378,8 @@ const MemoriWidget = ({
     if (muteSpeaker || speakerMuted) {
       memoriSpeaking = false;
 
+      emitEndSpeakEvent();
+
       // trigger start continuous listening if set, see MemoriChat
       if (continuousSpeech) {
         setListeningTimeout();
@@ -1380,19 +1388,6 @@ const MemoriWidget = ({
     }
 
     if (audioDestination) audioDestination.pause();
-
-    // if (audioContext?.state === 'running') {
-    //   //   audioContext.suspend();
-    //   // }
-    //   // if (audioContext) {
-    //   audioContext.close().then(() => {
-    //     audioContext = new AudioContext();
-    //     let buffer = audioContext.createBuffer(1, 10000, 22050);
-    //     let source = audioContext.createBufferSource();
-    //     source.buffer = buffer;
-    //     source.connect(audioContext.destination);
-    //   });
-    // }
 
     let isSafari =
       window.navigator.userAgent.includes('Safari') &&
@@ -1467,8 +1462,9 @@ const MemoriWidget = ({
       memoriSpeaking = false;
       source.disconnect();
 
+      emitEndSpeakEvent();
+
       // trigger start continuous listening if set
-      // document.dispatchEvent(new Event('endSpeakStartListen'));
       onEndSpeakStartListen();
     };
 
@@ -1754,16 +1750,6 @@ const MemoriWidget = ({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlayingAudio]);
-  useEffect(() => {
-    document.addEventListener('endSpeakStartListen', onEndSpeakStartListen);
-
-    return () => {
-      document.removeEventListener(
-        'endSpeakStartListen',
-        onEndSpeakStartListen
-      );
-    };
-  }, [onEndSpeakStartListen]);
   useEffect(() => {
     resetListening();
     // eslint-disable-next-line react-hooks/exhaustive-deps
