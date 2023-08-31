@@ -80,7 +80,7 @@ const ChatInputs: React.FC<Props> = ({
         onPressEnter={onTextareaPressEnter}
         onFocus={onTextareaFocus}
         onBlur={onTextareaBlur}
-        disabled={['R2', 'R3', 'R4', 'G3', 'X3'].includes(
+        disabled={['R2', 'R3', 'R4', 'R5', 'G3', 'X3'].includes(
           dialogState?.state || ''
         )}
       />
