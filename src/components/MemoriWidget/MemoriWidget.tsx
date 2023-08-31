@@ -99,13 +99,15 @@ type MemoriTextEnteredEvent = CustomEvent<{
   waitForPrevious?: boolean;
   hidden?: boolean;
   typingText?: string;
+  useLoaderTextAsMsg?: boolean;
 }>;
 
 const typeMessage = (
   message: string,
   waitForPrevious = true,
   hidden = false,
-  typingText?: string
+  typingText?: string,
+  useLoaderTextAsMsg = false
 ) => {
   const e: MemoriTextEnteredEvent = new CustomEvent('MemoriTextEntered', {
     detail: {
@@ -113,6 +115,7 @@ const typeMessage = (
       waitForPrevious,
       hidden,
       typingText,
+      useLoaderTextAsMsg,
     },
   });
 
@@ -121,8 +124,91 @@ const typeMessage = (
 const typeMessageHidden = (
   message: string,
   waitForPrevious = true,
-  typingText?: string
-) => typeMessage(message, waitForPrevious, true, typingText);
+  typingText?: string,
+  useLoaderTextAsMsg = false
+) =>
+  typeMessage(message, waitForPrevious, true, typingText, useLoaderTextAsMsg);
+
+const typeBatchMessages = (
+  messages: {
+    message: string;
+    waitForPrevious?: boolean;
+    hidden?: boolean;
+    typingText?: string;
+    useLoaderTextAsMsg?: boolean;
+  }[]
+) => {
+  function disableInputs() {
+    document
+      .querySelector('fieldset#chat-fieldset')
+      ?.setAttribute('disabled', '');
+
+    const styles = `opacity: 0.5; touch-action: none; pointer-events: none;`;
+    document
+      .querySelector('textarea.memori-chat-textarea--input')
+      ?.setAttribute('style', styles);
+    document
+      .querySelector('button.memori-chat-inputs--send')
+      ?.setAttribute('style', styles);
+    document
+      .querySelector('button.memori-chat-inputs--mic')
+      ?.setAttribute('style', styles);
+  }
+
+  function reEnableInputs() {
+    document
+      .querySelector('fieldset#chat-fieldset')
+      ?.removeAttribute('disabled');
+
+    document
+      .querySelector('textarea.memori-chat-textarea--input')
+      ?.removeAttribute('style');
+    document
+      .querySelector('button.memori-chat-inputs--send')
+      ?.removeAttribute('style');
+    document
+      .querySelector('button.memori-chat-inputs--mic')
+      ?.removeAttribute('style');
+  }
+
+  function areInputsDisabled() {
+    return !!document
+      .querySelector('fieldset#chat-fieldset')
+      ?.hasAttribute('disabled');
+  }
+
+  const stepsGenerator = (function* () {
+    yield* messages;
+  })();
+
+  disableInputs();
+
+  const submitNewMessage = () => {
+    const next = stepsGenerator.next();
+    const step = next.value;
+
+    if (step) {
+      typeMessage(
+        step.message,
+        step.waitForPrevious,
+        step.hidden,
+        step.typingText,
+        step.useLoaderTextAsMsg
+      );
+    } else if (areInputsDisabled()) {
+      reEnableInputs();
+    }
+
+    if (next.done) {
+      document.removeEventListener('MemoriEndSpeak', submitNewMessage);
+      return;
+    }
+  };
+
+  document.addEventListener('MemoriEndSpeak', submitNewMessage);
+
+  submitNewMessage();
+};
 
 interface CustomEventMap {
   MemoriTextEntered: MemoriTextEnteredEvent;
@@ -145,11 +231,13 @@ declare global {
     getMemoriState: typeof getMemoriState;
     typeMessage: typeof typeMessage;
     typeMessageHidden: typeof typeMessageHidden;
+    typeBatchMessages: typeof typeBatchMessages;
   }
 }
 window.getMemoriState = getMemoriState;
 window.typeMessage = typeMessage;
 window.typeMessageHidden = typeMessageHidden;
+window.typeBatchMessages = typeBatchMessages;
 
 // Global variables
 let recognizer: SpeechRecognizer | null;
@@ -428,7 +516,8 @@ const MemoriWidget = ({
     translate: boolean = true,
     translatedText?: string,
     hidden: boolean = false,
-    typingText?: string
+    typingText?: string,
+    useLoaderTextAsMsg = false
   ) => {
     const sessionID =
       newSessionId ||
@@ -471,7 +560,10 @@ const MemoriWidget = ({
       text: msg,
     });
     if (response.resultCode === 0 && currentState) {
-      const emission = currentState.emission ?? currentDialogState?.emission;
+      const emission =
+        useLoaderTextAsMsg && typingText
+          ? typingText
+          : currentState.emission ?? currentDialogState?.emission;
       if (currentState.state === 'X4' && memori.giverTag) {
         const { currentState, ...resp } = await postTagChangedEvent(
           sessionID,
@@ -481,13 +573,13 @@ const MemoriWidget = ({
         if (resp.resultCode === 0) {
           setCurrentDialogState(currentState);
 
-          if (currentState.emission) {
+          if (emission) {
             pushMessage({
-              text: currentState.emission,
+              text: emission,
               media: currentState.media,
               fromUser: false,
             });
-            speak(currentState.emission);
+            speak(emission);
           }
         } else {
           console.error(response, resp);
@@ -508,13 +600,13 @@ const MemoriWidget = ({
           if (resp.resultCode === 0) {
             setCurrentDialogState(currentState);
 
-            if (currentState.emission) {
+            if (emission) {
               pushMessage({
-                text: currentState.emission,
+                text: emission,
                 media: currentState.media,
                 fromUser: false,
               });
-              speak(currentState.emission);
+              speak(emission);
             }
           } else {
             console.error(response, resp);
@@ -1994,7 +2086,8 @@ const MemoriWidget = ({
   // to use in integrations or snippets
   const memoriTextEnteredHandler = useCallback(
     (e: MemoriTextEnteredEvent) => {
-      const { text, waitForPrevious, hidden, typingText } = e.detail;
+      const { text, waitForPrevious, hidden, typingText, useLoaderTextAsMsg } =
+        e.detail;
 
       if (text) {
         // wait to finish reading previous emission
@@ -2016,7 +2109,8 @@ const MemoriWidget = ({
             undefined,
             undefined,
             hidden,
-            typingText
+            typingText,
+            useLoaderTextAsMsg
           );
         }
       }
