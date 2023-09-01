@@ -1,5 +1,22 @@
 
 
+## [2.15.0](https://github.com/memori-ai/memori-react/compare/v2.14.0...v2.15.0) (2023-09-01)
+
+
+### Features
+
+* add new param to typeMessage, add typeBatchMessages ([1e7960b](https://github.com/memori-ai/memori-react/commit/1e7960b040e25b54c4c2c1c08a96cf9c7f9e6c05))
+
+
+### Bug Fixes
+
+* typing updates and fixes ([79f9d1f](https://github.com/memori-ai/memori-react/commit/79f9d1f208a154d85b45789644ac5de360cdd782))
+
+
+### Maintenance
+
+* upgrade storybook ([4cc9db3](https://github.com/memori-ai/memori-react/commit/4cc9db306ad48a42f0fa081fb487ae716c9c8ff9))
+
 ## [2.14.0](https://github.com/memori-ai/memori-react/compare/v2.13.1...v2.14.0) (2023-08-31)
 
 
