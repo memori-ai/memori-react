@@ -24,7 +24,8 @@ export interface Props {
   translateTo?: string;
   baseUrl?: string;
   apiUrl?: string;
-  memoriTyping?: boolean | string;
+  memoriTyping?: boolean;
+  typingText?: string;
   showTypingText?: boolean;
   history: Message[];
   authToken?: string;
@@ -66,6 +67,7 @@ const Chat: React.FC<Props> = ({
   apiUrl,
   translateTo,
   memoriTyping,
+  typingText,
   showTypingText = false,
   history = [],
   authToken,
@@ -285,9 +287,8 @@ const Chat: React.FC<Props> = ({
                     : 'en'
                   : 'en'
               }
-              sentence={
-                typeof memoriTyping === 'string' ? memoriTyping : undefined
-              }
+              sentence={typingText}
+              key={typingText}
             />
           )}
           <div id="end-messages-ref" />

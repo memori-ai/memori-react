@@ -390,7 +390,8 @@ const MemoriWidget = ({
   );
 
   const [loading, setLoading] = useState(false);
-  const [memoriTyping, setMemoriTyping] = useState<boolean | string>(false);
+  const [memoriTyping, setMemoriTyping] = useState<boolean>(false);
+  const [typingText, setTypingText] = useState<string>();
 
   const selectedLayout = layout || integrationConfig?.layout || 'DEFAULT';
 
@@ -536,9 +537,11 @@ const MemoriWidget = ({
           : !!newSessionId,
       });
 
-    setMemoriTyping(typingText ?? true);
+    setMemoriTyping(true);
+    setTypingText(typingText);
 
     let msg = text;
+    let gotError = false;
 
     if (
       translate &&
@@ -584,6 +587,7 @@ const MemoriWidget = ({
         } else {
           console.error(response, resp);
           message.error(t(getErrori18nKey(resp.resultCode)));
+          gotError = true;
         }
       } else if (currentState.state === 'X2d' && memori.giverTag) {
         const { currentState, ...resp } = await postTextEnteredEvent({
@@ -611,10 +615,12 @@ const MemoriWidget = ({
           } else {
             console.error(response, resp);
             message.error(t(getErrori18nKey(resp.resultCode)));
+            gotError = true;
           }
         } else {
           console.error(response, resp);
           message.error(t(getErrori18nKey(resp.resultCode)));
+          gotError = true;
         }
       } else if (
         userLang.toLowerCase() !== language.toLowerCase() &&
@@ -666,7 +672,10 @@ const MemoriWidget = ({
       });
     }
 
-    setMemoriTyping(false);
+    if (gotError) {
+      setMemoriTyping(false);
+      setTypingText(undefined);
+    }
   };
 
   /**
@@ -1469,6 +1478,7 @@ const MemoriWidget = ({
 
     if (muteSpeaker || speakerMuted) {
       memoriSpeaking = false;
+      setMemoriTyping(false);
 
       emitEndSpeakEvent();
 
@@ -2508,6 +2518,7 @@ const MemoriWidget = ({
     baseUrl,
     apiUrl,
     memoriTyping,
+    typingText,
     showTypingText,
     history: layout === 'TOTEM' ? history.slice(-2) : history,
     authToken: loginToken,

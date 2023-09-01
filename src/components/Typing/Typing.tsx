@@ -33,7 +33,11 @@ const Typing = ({
   lang = 'en',
   sentence,
 }: Props) => {
-  const [text, setText] = useState(sentence ? `${sentence}${separator}` : '');
+  const [text, setText] = useState(
+    sentence
+      ? `${sentence.endsWith('...') ? sentence : `${sentence}...`}${separator}`
+      : ''
+  );
   const [shownText, setShownText] = useState('');
 
   useEffect(() => {
