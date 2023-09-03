@@ -1810,7 +1810,11 @@ const MemoriWidget = ({
     }
   };
   useEffect(() => {
-    return () => clearListening();
+    return () => {
+      clearListening();
+      clearInteractionTimeout();
+      stopAudio();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
