@@ -1,5 +1,12 @@
 
 
+## [2.15.1](https://github.com/memori-ai/memori-react/compare/v2.15.0...v2.15.1) (2023-09-03)
+
+
+### Bug Fixes
+
+* stop audio and ui timeout when unmounting ([e53df8e](https://github.com/memori-ai/memori-react/commit/e53df8ead2207428b81b600552a41a4154156e24))
+
 ## [2.15.0](https://github.com/memori-ai/memori-react/compare/v2.14.0...v2.15.0) (2023-09-01)
 
 
