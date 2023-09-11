@@ -213,6 +213,7 @@ const typeBatchMessages = (
 interface CustomEventMap {
   MemoriTextEntered: MemoriTextEnteredEvent;
   MemoriEndSpeak: CustomEvent;
+  MemoriResetUIEffects: CustomEvent;
 }
 declare global {
   interface Document {
@@ -1809,13 +1810,30 @@ const MemoriWidget = ({
       startListening();
     }
   };
-  useEffect(() => {
-    return () => {
+  const resetUIEffects = () => {
+    try {
       clearListening();
       clearInteractionTimeout();
+      setHasUserActivatedSpeak(false);
+      setClickedStart(false);
+      timeoutRef.current = undefined;
       stopAudio();
+    } catch (e) {
+      console.log('Error: resetUIEffects', e);
+    }
+  };
+  useEffect(() => {
+    return () => {
+      resetUIEffects();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    document.addEventListener('MemoriResetUIEffects', resetUIEffects);
+
+    return () => {
+      document.removeEventListener('MemoriResetUIEffects', resetUIEffects);
+    };
   }, []);
   useEffect(() => {
     if (currentDialogState?.state === 'Z0') clearListening();
