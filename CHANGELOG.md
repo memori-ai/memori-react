@@ -1,5 +1,12 @@
 
 
+## [2.16.0](https://github.com/memori-ai/memori-react/compare/v2.15.1...v2.16.0) (2023-09-11)
+
+
+### Features
+
+* add MemoriResetUIEffects event listener, reset ui timeout + speech ([ce55826](https://github.com/memori-ai/memori-react/commit/ce558260428c9b1e17f2625c64dceb6be38286bf))
+
 ## [2.15.1](https://github.com/memori-ai/memori-react/compare/v2.15.0...v2.15.1) (2023-09-03)
 
 
