@@ -815,15 +815,6 @@ const MemoriWidget = ({
     dialogState: DialogState;
     sessionID: string;
   } | void> => {
-    if (
-      memori.privacyType !== 'PUBLIC' &&
-      !memori.secretToken &&
-      !memoriPwd &&
-      !memoriTokens
-    ) {
-      setAuthModalState('password');
-      return;
-    }
     let storageBirthDate = getLocalConfig<string | undefined>(
       'birthDate',
       undefined
@@ -833,6 +824,15 @@ const MemoriWidget = ({
       return;
     }
 
+    if (
+      memori.privacyType !== 'PUBLIC' &&
+      !memori.secretToken &&
+      !memoriPwd &&
+      !memoriTokens
+    ) {
+      setAuthModalState('password');
+      return;
+    }
     setLoading(true);
     try {
       if (!memori.giverTag && !!memori.receivedInvitations?.length) {
@@ -884,6 +884,9 @@ const MemoriWidget = ({
         console.error(session);
         message.error(t('underageTwinSession', { age: minAge }));
         setGotErrorInOpening(true);
+      } else if (session?.resultCode === 403) {
+        setMemoriPwd(undefined);
+        setAuthModalState('password');
       } else {
         console.error(session);
         message.error(t(getErrori18nKey(session?.resultCode)));
@@ -906,6 +909,15 @@ const MemoriWidget = ({
   ) => {
     setLoading(true);
     try {
+      let storageBirthDate = getLocalConfig<string | undefined>(
+        'birthDate',
+        undefined
+      );
+      if (!(birthDate || storageBirthDate) && !!minAge) {
+        setShowAgeVerification(true);
+        return;
+      }
+
       if (
         memori.privacyType !== 'PUBLIC' &&
         !password &&
@@ -915,15 +927,6 @@ const MemoriWidget = ({
         !memoriTokens
       ) {
         setAuthModalState('password');
-        return;
-      }
-
-      let storageBirthDate = getLocalConfig<string | undefined>(
-        'birthDate',
-        undefined
-      );
-      if (!(birthDate || storageBirthDate) && !!minAge) {
-        setShowAgeVerification(true);
         return;
       }
 
@@ -988,6 +991,9 @@ const MemoriWidget = ({
         console.error(response);
         message.error(t('underageTwinSession', { age: minAge }));
         setGotErrorInOpening(true);
+      } else if (response?.resultCode === 403) {
+        setMemoriPwd(undefined);
+        setAuthModalState('password');
       } else {
         console.error(response);
         message.error(t(getErrori18nKey(response.resultCode)));
@@ -2185,7 +2191,10 @@ const MemoriWidget = ({
       );
       let birth = birthDate || storageBirthDate || undefined;
 
-      if (
+      if (!sessionID && !!minAge && !birth) {
+        setShowAgeVerification(true);
+        setClickedStart(false);
+      } else if (
         (!sessionID &&
           memori.privacyType !== 'PUBLIC' &&
           !memori.secretToken &&
@@ -2196,9 +2205,6 @@ const MemoriWidget = ({
         setAuthModalState('password');
         setClickedStart(false);
         return;
-      } else if (!sessionID && !!minAge && !birth) {
-        setShowAgeVerification(true);
-        setClickedStart(false);
       } else if (!sessionID) {
         setClickedStart(false);
         setGotErrorInOpening(false);
