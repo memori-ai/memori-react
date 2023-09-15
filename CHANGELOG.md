@@ -1,5 +1,12 @@
 
 
+## [2.16.1](https://github.com/memori-ai/memori-react/compare/v2.16.0...v2.16.1) (2023-09-15)
+
+
+### Bug Fixes
+
+* bug was causing session errors loops for 403 ([ec8ff79](https://github.com/memori-ai/memori-react/commit/ec8ff790e670ca2b5cfe65053ad43ad7328bbc4c))
+
 ## [2.16.0](https://github.com/memori-ai/memori-react/compare/v2.15.1...v2.16.0) (2023-09-11)
 
 
