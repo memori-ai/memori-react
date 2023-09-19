@@ -56,6 +56,7 @@ import PoweredBy from '../PoweredBy/PoweredBy';
 import FullPageLayout from '../layouts/FullPage';
 import TotemLayout from '../layouts/Totem';
 import ChatLayout from '../layouts/Chat';
+import WebsiteAssistantLayout from '../layouts/WebsiteAssistant';
 
 // Helpers / Utils
 import { getTranslation } from '../../helpers/translations';
@@ -100,6 +101,7 @@ type MemoriTextEnteredEvent = CustomEvent<{
   hidden?: boolean;
   typingText?: string;
   useLoaderTextAsMsg?: boolean;
+  hasBatchQueued?: boolean;
 }>;
 
 const typeMessage = (
@@ -107,7 +109,8 @@ const typeMessage = (
   waitForPrevious = true,
   hidden = false,
   typingText?: string,
-  useLoaderTextAsMsg = false
+  useLoaderTextAsMsg = false,
+  hasBatchQueued = false
 ) => {
   const e: MemoriTextEnteredEvent = new CustomEvent('MemoriTextEntered', {
     detail: {
@@ -116,6 +119,7 @@ const typeMessage = (
       hidden,
       typingText,
       useLoaderTextAsMsg,
+      hasBatchQueued,
     },
   });
 
@@ -125,9 +129,17 @@ const typeMessageHidden = (
   message: string,
   waitForPrevious = true,
   typingText?: string,
-  useLoaderTextAsMsg = false
+  useLoaderTextAsMsg = false,
+  hasBatchQueued = false
 ) =>
-  typeMessage(message, waitForPrevious, true, typingText, useLoaderTextAsMsg);
+  typeMessage(
+    message,
+    waitForPrevious,
+    true,
+    typingText,
+    useLoaderTextAsMsg,
+    hasBatchQueued
+  );
 
 const typeBatchMessages = (
   messages: {
@@ -193,7 +205,8 @@ const typeBatchMessages = (
         step.waitForPrevious,
         step.hidden,
         step.typingText,
-        step.useLoaderTextAsMsg
+        step.useLoaderTextAsMsg,
+        !next.done
       );
     } else if (areInputsDisabled()) {
       reEnableInputs();
@@ -277,7 +290,7 @@ export interface Props {
   memoriLang?: string;
   multilingual?: boolean;
   integration?: Integration;
-  layout?: 'DEFAULT' | 'FULLPAGE' | 'TOTEM' | 'CHAT';
+  layout?: 'DEFAULT' | 'FULLPAGE' | 'TOTEM' | 'CHAT' | 'WEBSITE_ASSISTANT';
   customLayout?: React.FC<LayoutProps>;
   showShare?: boolean;
   showInstruct?: boolean;
@@ -519,7 +532,8 @@ const MemoriWidget = ({
     translatedText?: string,
     hidden: boolean = false,
     typingText?: string,
-    useLoaderTextAsMsg = false
+    useLoaderTextAsMsg = false,
+    hasBatchQueued = false
   ) => {
     const sessionID =
       newSessionId ||
@@ -673,9 +687,9 @@ const MemoriWidget = ({
       });
     }
 
-    if (gotError) {
-      setMemoriTyping(false);
+    if (!hasBatchQueued) {
       setTypingText(undefined);
+      setMemoriTyping(false);
     }
   };
 
@@ -968,12 +982,14 @@ const MemoriWidget = ({
                     text: currentState.emission,
                     media: currentState.media,
                     fromUser: false,
+                    initial: true,
                   },
                 ])
               : pushMessage({
                   text: currentState.emission,
                   media: currentState.media,
                   fromUser: false,
+                  initial: true,
                 });
           }
         }
@@ -1477,7 +1493,10 @@ const MemoriWidget = ({
   };
 
   const speak = (text: string): void => {
-    if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) return;
+    if (!AZURE_COGNITIVE_SERVICES_TTS_KEY || preview) {
+      emitEndSpeakEvent();
+      return;
+    }
     stopListening();
     // stopAudio();
 
@@ -2124,8 +2143,14 @@ const MemoriWidget = ({
   // to use in integrations or snippets
   const memoriTextEnteredHandler = useCallback(
     (e: MemoriTextEnteredEvent) => {
-      const { text, waitForPrevious, hidden, typingText, useLoaderTextAsMsg } =
-        e.detail;
+      const {
+        text,
+        waitForPrevious,
+        hidden,
+        typingText,
+        useLoaderTextAsMsg,
+        hasBatchQueued,
+      } = e.detail;
 
       if (text) {
         // wait to finish reading previous emission
@@ -2148,7 +2173,8 @@ const MemoriWidget = ({
             undefined,
             hidden,
             typingText,
-            useLoaderTextAsMsg
+            useLoaderTextAsMsg,
+            hasBatchQueued
           );
         }
       }
@@ -2623,6 +2649,8 @@ const MemoriWidget = ({
     ? ChatLayout
     : selectedLayout === 'FULLPAGE'
     ? FullPageLayout
+    : selectedLayout === 'WEBSITE_ASSISTANT'
+    ? WebsiteAssistantLayout
     : FullPageLayout;
 
   return (

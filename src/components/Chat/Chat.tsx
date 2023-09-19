@@ -186,6 +186,7 @@ const Chat: React.FC<Props> = ({
           {history.map((message, index) => (
             <React.Fragment key={index}>
               <ChatBubble
+                isFirst={index === 0}
                 message={message}
                 memori={memori}
                 tenant={tenant}

@@ -41,6 +41,7 @@
 @import url('https://fonts.bunny.net/css?family=exo-2:200,400,700');
 
 @import url('./components/layouts/totem.css');
+@import url('./components/layouts/website-assistant.css');
 @import url('./components/layouts/chat.css');
 
 .sr-only {

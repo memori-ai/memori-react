@@ -17,6 +17,9 @@ exports[`renders Chat on X2a state unchanged 1`] = `
           class="memori-chat--cover"
         />
         <div
+          class="memori-chat--bubble-initial"
+        />
+        <div
           class="memori-chat--bubble-container"
         >
           <picture
@@ -422,6 +425,9 @@ exports[`renders Chat on X3 state unchanged 1`] = `
       >
         <div
           class="memori-chat--cover"
+        />
+        <div
+          class="memori-chat--bubble-initial"
         />
         <div
           class="memori-chat--bubble-container"
@@ -864,6 +870,9 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-chat--cover"
         />
         <div
+          class="memori-chat--bubble-initial"
+        />
+        <div
           class="memori-chat--bubble-container"
         >
           <picture
@@ -1238,6 +1247,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
       >
         <div
           class="memori-chat--cover"
+        />
+        <div
+          class="memori-chat--bubble-initial"
         />
         <div
           class="memori-chat--bubble-container"
@@ -1644,6 +1656,9 @@ exports[`renders Chat with dates unchanged 1`] = `
       >
         <div
           class="memori-chat--cover"
+        />
+        <div
+          class="memori-chat--bubble-initial"
         />
         <div
           class="memori-chat--bubble-container"
@@ -2057,6 +2072,9 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-chat--cover"
         />
         <div
+          class="memori-chat--bubble-initial"
+        />
+        <div
           class="memori-chat--bubble-container"
         >
           <picture
@@ -2457,6 +2475,9 @@ exports[`renders Chat with media unchanged 1`] = `
       >
         <div
           class="memori-chat--cover"
+        />
+        <div
+          class="memori-chat--bubble-initial"
         />
         <div
           class="memori-chat--bubble-container"
@@ -3234,6 +3255,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
       >
         <div
           class="memori-chat--cover"
+        />
+        <div
+          class="memori-chat--bubble-initial"
         />
         <div
           class="memori-chat--bubble-container"

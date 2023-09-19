@@ -124,11 +124,11 @@
 }
 
 @media (max-width: 480px) {
-    .memori-send-on-enter-menu {
+    .memori-totem-layou .memori-send-on-enter-menu {
         display: none;
     }
 
-    .memori-header--button-settings {
+    .memori-totem-layou .memori-header--button-settings {
         display: none;
     }
 }

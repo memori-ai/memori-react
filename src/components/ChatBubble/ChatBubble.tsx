@@ -22,6 +22,7 @@ export interface Props {
   showFeedback?: boolean;
   simulateUserPrompt?: (msg: string) => void;
   showAIicon?: boolean;
+  isFirst?: boolean;
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -33,12 +34,15 @@ const ChatBubble: React.FC<Props> = ({
   showFeedback,
   simulateUserPrompt,
   showAIicon = true,
+  isFirst = false,
 }) => {
   const { t } = useTranslation();
 
   return (
     <>
-      {message.initial && <div className="memori-chat--bubble-initial" />}
+      {(message.initial || isFirst) && (
+        <div className="memori-chat--bubble-initial" />
+      )}
       <Transition
         show
         appear

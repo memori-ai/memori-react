@@ -84,11 +84,11 @@
 }
 
 @media (max-width: 480px) {
-    .memori-send-on-enter-menu {
+    .memori-chat-layout .memori-send-on-enter-menu {
         display: none;
     }
 
-    .memori-header--button-settings {
+    .memori-chat-layout .memori-header--button-settings {
         display: none;
     }
 }

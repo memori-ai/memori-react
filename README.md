@@ -68,7 +68,7 @@ const App = () => (
 | `height`                           |                | `string`                                    | "100%"                      | Height of the Memori                                                                                                                                                                                                                                                                                                                                                                                                                    |
 | `showShare`                        |                | `bool`                                      | `true`                      | Show the share button                                                                                                                                                                                                                                                                                                                                                                                                                   |
 | `showSettings`                     |                | `bool`                                      | `false`                     | Show the settings panel button                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `showTypingText`                     |                | `bool`                                      | `false`                     | Show default sentences while loading text (see: Typing stories)                                                                                                                                                                                                                                                                                                                                |
+| `showTypingText`                   |                | `bool`                                      | `false`                     | Show default sentences while loading text (see: Typing stories)                                                                                                                                                                                                                                                                                                                                                                         |
 | `showInstruct`                     |                | `bool`                                      | `false`                     | Show the switch selecting between test mode or instruct mode, needs an administrative session as a giver                                                                                                                                                                                                                                                                                                                                |
 | `baseURL`                          |                | `string`                                    |                             | Base URL of the Memori, example: "https://app.twincreator.com" or "https://app.memorytwin.com"                                                                                                                                                                                                                                                                                                                                          |
 | `apiURL`                           |                | `string`                                    | "https://backend.memori.ai" | URL of the Memori API                                                                                                                                                                                                                                                                                                                                                                                                                   |
@@ -81,7 +81,7 @@ const App = () => (
 | `spokenLang`                       |                | `string`                                    |                             | Language of the spoken text, as defaults to user selection. Example: "en" or "it"                                                                                                                                                                                                                                                                                                                                                       |
 | `onStateChange`                    |                | `function`                                  |                             | Callback function called when the state of the Memori changes                                                                                                                                                                                                                                                                                                                                                                           |
 | `AZURE_COGNITIVE_SERVICES_TTS_KEY` |                | `string`                                    |                             | Azure Cognitive Services TTS key, used to generate the audio of the Memori and for STT recognition                                                                                                                                                                                                                                                                                                                                      |
-| `layout`                           |                | `string`                                    |                             | Layout of the Memori, can be "FULLPAGE" (default), "CHAT" or "TOTEM", see [below](#layouts)                                                                                                                                                                                                                                                                                                                                             |
+| `layout`                           |                | `string`                                    |                             | Layout of the Memori, can be "FULLPAGE" (default), "CHAT", "WEBSITE_ASSISTANT" or "TOTEM", see [below](#layouts)                                                                                                                                                                                                                                                                                                                        |
 | `customLayout`                     |                | `React.FC<LayoutProps>`                     |                             | Custom layout component, see [below](#custom-layout)                                                                                                                                                                                                                                                                                                                                                                                    |
 | `customMediaRenderer`              |                | `(mimeType: string) => JSX.Element \| null` |                             | Custom media renderer, see [below](#custom-media-renderer)                                                                                                                                                                                                                                                                                                                                                                              |
 | `additionalSettings`               |                | `JSX.Element`                               |                             | Custom JSX or component to render within the settings drawer                                                                                                                                                                                                                                                                                                                                                                            |
@@ -90,7 +90,7 @@ const App = () => (
 
 ### Layouts
 
-The Memori can be displayed in three different layouts: `FULLPAGE`, `CHAT` and `TOTEM`.
+The Memori can be displayed in three different layouts: `FULLPAGE`, `CHAT`, `WEBSITE_ASSISTANT` and `TOTEM`.
 If you don't specify a layout, the default one is `FULLPAGE`.
 
 #### FULLPAGE
@@ -104,6 +104,10 @@ If you don't specify a layout, the default one is `FULLPAGE`.
 #### CHAT
 
 <img alt="Chat only layout" src="./docs/chat.png" width="300" />
+
+#### WEBSITE_ASSISTANT
+
+<img alt="Website assistant layout" src="./docs/website-assistant.png" width="300" />
 
 #### Custom layout
 
@@ -262,7 +266,6 @@ You can also use this to extend the default media renderer with additional media
 
 When rendered, the Memori widget exposes some global functions that can be used to interact with the Memori.
 
-
 ### Get the state of the Twin
 
 ```js
@@ -275,10 +278,9 @@ Otherwise, you can achieve the same result manually by reading from the HTML cod
 
 ```js
 let dialogState = JSON.parse(
-  document.querySelector(
-    'div[data-memori-engine-state]'
-  )?.dataset?.memoriEngineState ?? '{}'
-)
+  document.querySelector('div[data-memori-engine-state]')?.dataset
+    ?.memoriEngineState ?? '{}'
+);
 ```
 
 ### Write and send a message to the Twin
@@ -286,26 +288,26 @@ let dialogState = JSON.parse(
 Write and send a message to the Twin. You can use this method to send a message to the Twin, such as to continue a conversation with a specific message or following an action.
 
 ```js
-typeMessage('Hello World!')
+typeMessage('Hello World!');
 ```
 
 Additional parameters:
 
 ```js
-const waitForPrevious = true // waits for previous message to be read, default: true
-const hidden = true // message is not visible to the user, only the response is, default: false
-const typingText = "Asking the unicorns' opinion..." // text to show in the loader while the Twin is answering, defaults to none
-typeMessage('Hello World!', waitForPrevious, hidden, typingText)
+const waitForPrevious = true; // waits for previous message to be read, default: true
+const hidden = true; // message is not visible to the user, only the response is, default: false
+const typingText = "Asking the unicorns' opinion..."; // text to show in the loader while the Twin is answering, defaults to none
+typeMessage('Hello World!', waitForPrevious, hidden, typingText);
 ```
 
 There is also an alias function that does not show the message sent to the user, but only the Twin's response:
 
 ```js
-const waitForPrevious = true // waits for previous message to be read, default: true
-typeMessageHidden('Hello World!', waitForPrevious)
+const waitForPrevious = true; // waits for previous message to be read, default: true
+typeMessageHidden('Hello World!', waitForPrevious);
 
 // alias to
-typeMessage('Hello World!', waitForPrevious, true)
+typeMessage('Hello World!', waitForPrevious, true);
 ```
 
 ## See also

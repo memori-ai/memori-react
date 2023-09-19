@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders WEBSITE_ASSISTANT layout unchanged 1`] = `
+<div>
+  <div
+    class="memori memori-widget memori-layout-website_assistant memori-controls-bottom memori--with-integration"
+    data-memori-engine-state="{}"
+    data-memori-id="66b4e161-2431-4b21-9b70-d8c27de730ca"
+    data-memori-integration="cb3c4776-7f0b-4f97-a773-c32a5d7a3bf1"
+    data-memori-name="Memori"
+    data-memori-secondary-id="25ced51c-3520-41af-8bbe-222d861b8e32"
+    style="height: 100vh;"
+  >
+    <div
+      class="memori-website_assistant--collapsed"
+    >
+      <div
+        class="memori-website_assistant--trigger"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-website_assistant--trigger-button"
+          title="expand"
+        >
+          <div
+            class="memori-blob"
+          >
+            <div
+              class="mainDiv"
+            />
+            <div
+              class="mainDiv"
+            />
+            <div
+              class="mainDiv"
+            />
+            <div
+              class="mainDiv"
+            />
+            <div
+              class="mainDiv"
+            />
+          </div>
+        </button>
+      </div>
+    </div>
+    <audio
+      id="memori-audio"
+      src="https://app.twincreator.com/intro.mp3"
+      style="display: none;"
+    />
+  </div>
+</div>
+`;
