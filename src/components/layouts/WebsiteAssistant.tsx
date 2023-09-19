@@ -47,7 +47,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
             onClick={() => setCollapsed(false)}
             title={t('expand') || 'Expand'}
           >
-            <Blob />
+            <Blob avatar={avatarProps?.memori.avatarURL} />
           </Button>
         </div>
       ) : (

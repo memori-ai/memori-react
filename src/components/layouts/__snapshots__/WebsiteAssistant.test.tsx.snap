@@ -24,6 +24,13 @@ exports[`renders WEBSITE_ASSISTANT layout unchanged 1`] = `
           <div
             class="memori-blob"
           >
+            <figure>
+              <img
+                alt=""
+                role="presentation"
+                src="https://app.twincreator.com/images/twincreator/square_logo.png"
+              />
+            </figure>
             <div
               class="mainDiv"
             />
