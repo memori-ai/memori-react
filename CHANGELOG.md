@@ -1,5 +1,23 @@
 
 
+## [2.17.0](https://github.com/memori-ai/memori-react/compare/v2.16.1...v2.17.0) (2023-09-20)
+
+
+### Features
+
+* add new layout WEBSITE_ASSISTANT ([298a52a](https://github.com/memori-ai/memori-react/commit/298a52a1c32e0df6781ea0288dffa40805e9193f))
+
+
+### Bug Fixes
+
+* mobile styles for webassistant layout ([587d222](https://github.com/memori-ai/memori-react/commit/587d2221dd5b6d56407b3534a8527af268b84dd5))
+* mobile styles for webassistant layout ([cfd2086](https://github.com/memori-ai/memori-react/commit/cfd2086677aec12840d1307b01dbbae6c3ac5ab0))
+
+
+### Changes
+
+* add avatar pic in website-assistant blob ([19fea88](https://github.com/memori-ai/memori-react/commit/19fea88271382728fe28eeee041863e0d66a94f0))
+
 ## [2.16.1](https://github.com/memori-ai/memori-react/compare/v2.16.0...v2.16.1) (2023-09-15)
 
 
