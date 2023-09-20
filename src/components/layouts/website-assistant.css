@@ -106,6 +106,10 @@
     left: 45px;
 }
 
+.memori-widget.memori-layout-website_assistant {
+    font-size: 14px;
+}
+
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--collapsed,
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {
     position: fixed;
