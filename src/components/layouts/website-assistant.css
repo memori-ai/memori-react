@@ -107,6 +107,8 @@
 }
 
 .memori-widget.memori-layout-website_assistant {
+    position: relative;
+    z-index: 10;
     font-size: 14px;
 }
 
@@ -146,9 +148,15 @@
 
 .memori-website_assistant-layout--header {
     position: absolute;
+    z-index: 1000;
     top: 0;
     right: 0;
     text-align: right;
+}
+
+.memori-share-button .memori-share-button--overlay {
+    z-index: 1000;
+    top: -6rem;
 }
 
 .memori-header--button--fullscreen {
@@ -187,7 +195,7 @@
 
 .memori-website_assistant-layout .memori-header {
     position: relative;
-    z-index: 100;
+    z-index: 1000;
     display: inline-flex;
     width: auto;
     height: auto;
