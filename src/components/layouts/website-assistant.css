@@ -359,3 +359,19 @@
 .memori-website_assistant-layout .memori--translation-toggle {
     display: none;
 }
+
+.memori-website_assistant-layout .memori-chat--bubble,
+.memori-website_assistant-layout .memori-chat--bubble.memori-chat--user-bubble {
+    opacity: 0.6;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.memori-website_assistant-layout .memori-chat--bubble p,
+.memori-website_assistant-layout .memori-chat--bubble.memori-chat--user-bubble p {
+    opacity: 1;
+}
+
+.memori-website_assistant-layout .memori-chat--bubble:hover,
+.memori-website_assistant-layout .memori-chat--bubble.memori-chat--user-bubble:hover {
+    opacity: 1;
+}
