@@ -42,12 +42,13 @@ const Template: Story<Props> = args => {
       <SettingsDrawer
         open={!!showSettingsDrawer}
         onClose={() => setShowSettingsDrawer(false)}
-        continuousSpeech={continuousSpeech}
-        continuousSpeechTimeout={continuousSpeechTimeout}
-        setContinuousSpeech={setContinuousSpeech}
-        setContinuousSpeechTimeout={setContinuousSpeechTimeout}
-        setControlsPosition={() => {}}
+        microphoneMode="HOLD_TO_TALK"
+        setMicrophoneMode={() => {}}
+        continuousSpeechTimeout={2}
+        setContinuousSpeechTimeout={() => {}}
         controlsPosition="bottom"
+        setControlsPosition={() => {}}
+        hideEmissions={false}
         setHideEmissions={() => {}}
       />
     </>
@@ -62,6 +63,7 @@ Default.args = {
   history,
   setShowPositionDrawer: () => {},
   setShowSettingsDrawer: () => {},
+  clearHistory: () => {},
   speakerMuted: false,
   hasUserActivatedSpeak: false,
   showShare: false,
@@ -82,6 +84,7 @@ WithPosition.args = {
   },
   setShowPositionDrawer: () => {},
   setShowSettingsDrawer: () => {},
+  clearHistory: () => {},
   speakerMuted: false,
   hasUserActivatedSpeak: false,
   showShare: false,
@@ -94,6 +97,7 @@ SpeakerMuted.args = {
   history,
   setShowPositionDrawer: () => {},
   setShowSettingsDrawer: () => {},
+  clearHistory: () => {},
   speakerMuted: true,
   hasUserActivatedSpeak: false,
   showShare: false,
@@ -106,6 +110,7 @@ WithShare.args = {
   history,
   setShowPositionDrawer: () => {},
   setShowSettingsDrawer: () => {},
+  clearHistory: () => {},
   speakerMuted: false,
   hasUserActivatedSpeak: false,
   showShare: true,
@@ -118,10 +123,25 @@ WithSettings.args = {
   history,
   setShowPositionDrawer: () => {},
   setShowSettingsDrawer: () => {},
+  clearHistory: () => {},
   speakerMuted: false,
   hasUserActivatedSpeak: false,
   showShare: false,
   showSettings: true,
+};
+
+export const WithClear = Template.bind({});
+WithClear.args = {
+  memori,
+  history,
+  setShowPositionDrawer: () => {},
+  setShowSettingsDrawer: () => {},
+  clearHistory: () => {},
+  speakerMuted: false,
+  hasUserActivatedSpeak: false,
+  showShare: false,
+  showSettings: false,
+  showClear: true,
 };
 
 export const WithOngoingChat = Template.bind({});
@@ -130,6 +150,7 @@ WithOngoingChat.args = {
   history,
   setShowPositionDrawer: () => {},
   setShowSettingsDrawer: () => {},
+  clearHistory: () => {},
   speakerMuted: false,
   hasUserActivatedSpeak: true,
   showShare: false,

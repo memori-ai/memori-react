@@ -298,6 +298,8 @@ export interface Props {
   showDates?: boolean;
   showContextPerLine?: boolean;
   showSettings?: boolean;
+  showClear?: boolean;
+  showOnlyLastMessages?: boolean;
   showTypingText?: boolean;
   preview?: boolean;
   embed?: boolean;
@@ -340,6 +342,8 @@ const MemoriWidget = ({
   showContextPerLine = false,
   showSettings = true,
   showTypingText = false,
+  showClear = false,
+  showOnlyLastMessages,
   height = '100vh',
   secret,
   baseUrl = 'https://app.twincreator.com',
@@ -2495,6 +2499,11 @@ const MemoriWidget = ({
     };
   }, []);
 
+  const showFullHistory =
+    showOnlyLastMessages === undefined
+      ? layout !== 'TOTEM' && layout !== 'WEBSITE_ASSISTANT'
+      : !showOnlyLastMessages;
+
   const headerProps: HeaderProps = {
     memori,
     history,
@@ -2521,6 +2530,8 @@ const MemoriWidget = ({
     showSettings,
     hasUserActivatedSpeak,
     showReload: selectedLayout === 'TOTEM',
+    showClear,
+    clearHistory: () => setHistory(h => h.slice(-1)),
   };
 
   const avatarProps: AvatarProps = {
@@ -2577,10 +2588,7 @@ const MemoriWidget = ({
     memoriTyping,
     typingText,
     showTypingText,
-    history:
-      layout === 'TOTEM' || layout === 'WEBSITE_ASSISTANT'
-        ? history.slice(-2)
-        : history,
+    history: showFullHistory ? history : history.slice(-2),
     authToken: loginToken,
     dialogState: currentDialogState,
     setDialogState: setCurrentDialogState,

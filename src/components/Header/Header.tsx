@@ -16,6 +16,7 @@ import ShareButton from '../ShareButton/ShareButton';
 import FullscreenExit from '../icons/FullscreenExit';
 import Fullscreen from '../icons/Fullscreen';
 import Refresh from '../icons/Refresh';
+import Clear from '../icons/Clear';
 
 export interface Props {
   className?: string;
@@ -31,6 +32,8 @@ export interface Props {
   showSettings?: boolean;
   showSpeaker?: boolean;
   showReload?: boolean;
+  showClear?: boolean;
+  clearHistory: () => void;
 }
 
 const Header: React.FC<Props> = ({
@@ -47,6 +50,8 @@ const Header: React.FC<Props> = ({
   showSettings = true,
   showSpeaker = true,
   showReload = false,
+  showClear = false,
+  clearHistory,
 }) => {
   const { t } = useTranslation();
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
@@ -69,6 +74,16 @@ const Header: React.FC<Props> = ({
           onClick={() => {
             window.location.reload();
           }}
+        />
+      )}
+      {showClear && (
+        <Button
+          primary
+          shape="circle"
+          className="memori-header--button memori-header--button--clear"
+          title={t('clearHistory') || 'Clear chat'}
+          icon={<Clear />}
+          onClick={clearHistory}
         />
       )}
       {memori.needsPosition && position && (

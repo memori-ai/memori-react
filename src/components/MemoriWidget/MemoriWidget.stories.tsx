@@ -121,6 +121,28 @@ ShowSettings.args = {
   showSettings: true,
 };
 
+export const ShowClear = Template.bind({});
+ShowClear.args = {
+  memori,
+  tenant,
+  showClear: true,
+};
+
+export const ShowOnlyLastMessages = Template.bind({});
+ShowOnlyLastMessages.args = {
+  memori,
+  tenant,
+  showOnlyLastMessages: true,
+};
+
+export const ShowOnlyLastMessagesWithAnotherDefault = Template.bind({});
+ShowOnlyLastMessagesWithAnotherDefault.args = {
+  memori,
+  tenant,
+  showOnlyLastMessages: false,
+  layout: 'WEBSITE_ASSISTANT',
+};
+
 export const WithAzureSpeechKey = Template.bind({});
 WithAzureSpeechKey.args = {
   memori,

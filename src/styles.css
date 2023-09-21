@@ -70,7 +70,7 @@ body.sb-show-main #root,
     --memori-primary-text: #fff;
     --memori-inner-content-pad: 1rem;
     --memori-inner-bg: transparent;
-    --memori-chat-bubble-bg: #ffffff60;
+    --memori-chat-bubble-bg: #fff;
     --memori-chat-user-bubble-bg: var(--memori-primary);
     --memori-text-color: #000;
     --memori-button-bg: #fff;

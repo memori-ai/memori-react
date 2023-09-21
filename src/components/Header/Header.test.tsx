@@ -15,6 +15,7 @@ it('renders Header unchanged', () => {
       hasUserActivatedSpeak={false}
       showShare={false}
       showSettings={false}
+      clearHistory={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -40,6 +41,7 @@ it('renders Header with position unchanged', () => {
       hasUserActivatedSpeak={false}
       showShare={false}
       showSettings={false}
+      clearHistory={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -57,6 +59,7 @@ it('renders Header with speaker muted unchanged', () => {
       hasUserActivatedSpeak={false}
       showShare={false}
       showSettings={false}
+      clearHistory={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -74,6 +77,7 @@ it('renders Header with share button unchanged', () => {
       hasUserActivatedSpeak={false}
       showShare={true}
       showSettings={false}
+      clearHistory={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -91,6 +95,26 @@ it('renders Header with settings button unchanged', () => {
       hasUserActivatedSpeak={false}
       showShare={false}
       showSettings={true}
+      clearHistory={jest.fn()}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders Header with clear button unchanged', () => {
+  const { container } = render(
+    <Header
+      memori={memori}
+      history={history}
+      setShowPositionDrawer={jest.fn()}
+      setShowSettingsDrawer={jest.fn()}
+      speakerMuted={false}
+      setSpeakerMuted={jest.fn()}
+      hasUserActivatedSpeak={false}
+      showShare={false}
+      showSettings={false}
+      showClear
+      clearHistory={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -108,6 +132,7 @@ it('renders Header with user activated speak unchanged', () => {
       hasUserActivatedSpeak={true}
       showShare={false}
       showSettings={false}
+      clearHistory={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
