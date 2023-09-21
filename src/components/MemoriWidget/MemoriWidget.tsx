@@ -2577,7 +2577,10 @@ const MemoriWidget = ({
     memoriTyping,
     typingText,
     showTypingText,
-    history: layout === 'TOTEM' ? history.slice(-2) : history,
+    history:
+      layout === 'TOTEM' || layout === 'WEBSITE_ASSISTANT'
+        ? history.slice(-2)
+        : history,
     authToken: loginToken,
     dialogState: currentDialogState,
     setDialogState: setCurrentDialogState,
