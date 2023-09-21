@@ -802,8 +802,10 @@ const MemoriWidget = ({
           new Function(s.content ?? '')();
 
           setTimeout(() => {
-            if (document.body.classList.contains('chat-focused')) {
-              document.querySelector('.ant-tabs-nav')?.scrollIntoView();
+            if (
+              document.body.classList.contains('chat-focused') ||
+              layout === 'WEBSITE_ASSISTANT'
+            ) {
               document
                 .querySelector('.memori-chat--content')
                 ?.scrollTo(
@@ -2571,6 +2573,7 @@ const MemoriWidget = ({
         : undefined,
     baseUrl,
     apiUrl,
+    layout,
     memoriTyping,
     typingText,
     showTypingText,

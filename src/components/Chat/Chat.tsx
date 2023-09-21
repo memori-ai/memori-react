@@ -13,6 +13,7 @@ import MediaWidget, {
   Props as MediaWidgetProps,
 } from '../MediaWidget/MediaWidget';
 import Button from '../ui/Button';
+import { Props as MemoriProps } from '../MemoriWidget/MemoriWidget';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import Typing from '../Typing/Typing';
@@ -57,6 +58,7 @@ export interface Props {
   stopListening: () => void;
   resetTranscript: () => void;
   customMediaRenderer?: MediaWidgetProps['customMediaRenderer'];
+  layout: MemoriProps['layout'];
 }
 
 const Chat: React.FC<Props> = ({
@@ -96,11 +98,14 @@ const Chat: React.FC<Props> = ({
   stopListening,
   resetTranscript,
   customMediaRenderer,
+  layout,
 }) => {
   const scrollToBottom = () => {
     setTimeout(() => {
-      if (document.body.classList.contains('chat-focused')) {
-        document.querySelector('.ant-tabs-nav')?.scrollIntoView();
+      if (
+        document.body.classList.contains('chat-focused') ||
+        layout === 'WEBSITE_ASSISTANT'
+      ) {
         document
           .querySelector('.memori-chat--content')
           ?.scrollTo(
