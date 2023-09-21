@@ -75,9 +75,13 @@ const Avatar: React.FC<Props> = ({
       integrationConfig?.avatarURL ? (
         <>
           <div
-            className={cx('memori--avatar-wrapper', {
-              hidden: !avatar3dVisible,
-            })}
+            className={cx(
+              'memori--avatar-wrapper',
+              `memori--avatar-${integrationConfig?.avatar || 'default'}`,
+              {
+                hidden: !avatar3dVisible,
+              }
+            )}
           >
             {isClient &&
               (integrationConfig.avatar === 'readyplayerme' ||

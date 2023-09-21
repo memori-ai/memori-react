@@ -3,7 +3,7 @@
 exports[`renders Totem layout unchanged 1`] = `
 <div>
   <div
-    class="memori memori-widget memori-layout-totem memori-controls-bottom memori--with-integration"
+    class="memori memori-widget memori-layout-totem memori-controls-bottom memori--avatar-readyplayerme memori--with-integration"
     data-memori-engine-state="{}"
     data-memori-id="66b4e161-2431-4b21-9b70-d8c27de730ca"
     data-memori-integration="cb3c4776-7f0b-4f97-a773-c32a5d7a3bf1"
@@ -179,7 +179,7 @@ exports[`renders Totem layout unchanged 1`] = `
         class="memori-totem-layout--avatar"
       >
         <div
-          class="memori--avatar-wrapper"
+          class="memori--avatar-wrapper memori--avatar-readyplayerme"
         >
           <div
             class="memori--blob-container"

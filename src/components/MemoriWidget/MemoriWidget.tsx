@@ -2674,6 +2674,7 @@ const MemoriWidget = ({
         'memori-widget',
         `memori-layout-${layout.toLowerCase()}`,
         `memori-controls-${controlsPosition.toLowerCase()}`,
+        `memori--avatar-${integrationConfig?.avatar || 'default'}`,
         {
           'memori--preview': preview,
           'memori--embed': embed,

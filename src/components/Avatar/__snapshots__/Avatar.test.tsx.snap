@@ -38,7 +38,7 @@ exports[`renders Avatar with blob and avatar in blob unchanged 1`] = `
 exports[`renders Avatar with custom glb model unchanged 1`] = `
 <div>
   <div
-    class="memori--avatar-wrapper"
+    class="memori--avatar-wrapper memori--avatar-customglb"
   >
     <div
       class="model-viewer"
@@ -92,7 +92,7 @@ exports[`renders Avatar with custom glb model unchanged 1`] = `
 exports[`renders Avatar with rpm 3d avatar unchanged 1`] = `
 <div>
   <div
-    class="memori--avatar-wrapper"
+    class="memori--avatar-wrapper memori--avatar-readyplayerme"
   >
     <div
       class="memori--blob-container"
