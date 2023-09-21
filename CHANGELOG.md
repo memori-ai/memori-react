@@ -1,5 +1,27 @@
 
 
+## [2.18.0](https://github.com/memori-ai/memori-react/compare/v2.17.1...v2.18.0) (2023-09-21)
+
+
+### Features
+
+* add showClear button + showOnlyLastMessages props ([6bd2b18](https://github.com/memori-ai/memori-react/commit/6bd2b181c98893e35831a77b3ce19d04c9681fd9))
+
+
+### Bug Fixes
+
+* lint css order issue ([e98faf2](https://github.com/memori-ai/memori-react/commit/e98faf23a504e736ac814c4b81b26c9c027a2234))
+* website assistant trigger button touch action ([5101bbb](https://github.com/memori-ai/memori-react/commit/5101bbbd2829d0aafd411384210eb0268d8edfd1))
+
+
+### Changes
+
+* adapt website assistant layout avatar css ([5236a55](https://github.com/memori-ai/memori-react/commit/5236a551b59dfa1803316b24d9de72d90009e567))
+* adapt website assistant layout avatar css ([f8b824d](https://github.com/memori-ai/memori-react/commit/f8b824da89754d92c0576101b33f53dd90430f40))
+* add avatar type classes + adapt website assistant layout avatar css ([730dd16](https://github.com/memori-ai/memori-react/commit/730dd16d73429ded46f09e683eae63c8b7c97682))
+* webassistant layout chat bubbles opacity on hover ([03c7bb4](https://github.com/memori-ai/memori-react/commit/03c7bb4126a444853d949c40bd32ccd65dbb0ff5))
+* website assistant layout show only 2 messages as totem ([efdb8a8](https://github.com/memori-ai/memori-react/commit/efdb8a831023a21cf39896aead7b8d59faa2bc71))
+
 ## [2.17.1](https://github.com/memori-ai/memori-react/compare/v2.17.0...v2.17.1) (2023-09-21)
 
 
