@@ -1,5 +1,17 @@
 
 
+## [2.17.1](https://github.com/memori-ai/memori-react/compare/v2.17.0...v2.17.1) (2023-09-21)
+
+
+### Bug Fixes
+
+* website assistant layout css ([4088a8a](https://github.com/memori-ai/memori-react/commit/4088a8a9280efe708703b3cb6bf5e27717821daf))
+
+
+### Changes
+
+* disable outer scroll on website assistant layout ([939d46b](https://github.com/memori-ai/memori-react/commit/939d46be63565342e4826ec937ef0a5fdb2f560f))
+
 ## [2.17.0](https://github.com/memori-ai/memori-react/compare/v2.16.1...v2.17.0) (2023-09-20)
 
 
