@@ -351,10 +351,6 @@
     transform: scale(1.7) translate(0px, 10vh);
 }
 
-.memori-layout-website_assistant.memori--avatar-readyplayerme .memori-website_assistant--trigger-button .memori-blob figure {
-    width: 100%;
-}
-
 .memori-website_assistant-layout--avatar .memori--avatar-wrapper canvas {
     width: auto !important;
     max-width: 100%;
@@ -364,6 +360,10 @@
 
 .memori-website_assistant-layout--avatar .memori--avatar-wrapper .avatar-loader figure {
     text-align: center;
+}
+
+.memori-layout-website_assistant.memori--avatar-readyplayerme .memori-website_assistant--trigger-button .memori-blob figure {
+    width: 100%;
 }
 
 .memori-website_assistant-layout--avatar .memori--avatar-wrapper .avatar-loader .memori-spin--spinner {
