@@ -1,5 +1,12 @@
 
 
+## [2.18.1](https://github.com/memori-ai/memori-react/compare/v2.18.0...v2.18.1) (2023-09-22)
+
+
+### Changes
+
+* do not apply global styles for website assistant layout ([a7274db](https://github.com/memori-ai/memori-react/commit/a7274dbd20aee83a2731933be1c4d64c26d44848))
+
 ## [2.18.0](https://github.com/memori-ai/memori-react/compare/v2.17.1...v2.18.0) (2023-09-21)
 
 
