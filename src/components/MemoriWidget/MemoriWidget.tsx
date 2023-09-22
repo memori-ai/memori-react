@@ -1988,7 +1988,13 @@ const MemoriWidget = ({
   ) as CSSProperties;
 
   const integrationStylesheet = `
-    ${preview ? '#preview' : ':root'}, .memori-widget {
+    ${
+      preview
+        ? '#preview,'
+        : selectedLayout === 'WEBSITE_ASSISTANT'
+        ? ''
+        : ':root,'
+    } .memori-widget {
       ${Object.entries(integrationProperties)
         .map(([key, value]) => `${key}: ${value};`)
         .join('\n')}
