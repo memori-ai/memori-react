@@ -2549,7 +2549,7 @@ const MemoriWidget = ({
     avatar3dVisible,
     setAvatar3dVisible,
     hasUserActivatedSpeak,
-    isPlayingAudio,
+    isPlayingAudio: isPlayingAudio && !muteSpeaker,
     loading: !!memoriTyping,
     baseUrl,
     apiUrl,
