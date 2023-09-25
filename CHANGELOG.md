@@ -1,5 +1,12 @@
 
 
+## [2.18.2](https://github.com/memori-ai/memori-react/compare/v2.18.1...v2.18.2) (2023-09-25)
+
+
+### Bug Fixes
+
+* animate mouth speaking if speaking and not speaker not muted ([565a543](https://github.com/memori-ai/memori-react/commit/565a543ec51094c4e206caf50c0cff32ab11fdb3))
+
 ## [2.18.1](https://github.com/memori-ai/memori-react/compare/v2.18.0...v2.18.1) (2023-09-22)
 
 
