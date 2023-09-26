@@ -1,5 +1,17 @@
 
 
+## [2.18.3](https://github.com/memori-ai/memori-react/compare/v2.18.2...v2.18.3) (2023-09-26)
+
+
+### Changes
+
+* remove old scroll method ([aadc51d](https://github.com/memori-ai/memori-react/commit/aadc51de83cc86cd4073d1a3da6435aae4c7dffc))
+
+
+### Maintenance
+
+* fix linter warning ([2f51269](https://github.com/memori-ai/memori-react/commit/2f512698257d9858e82c31d324bf926338875c62))
+
 ## [2.18.2](https://github.com/memori-ai/memori-react/compare/v2.18.1...v2.18.2) (2023-09-25)
 
 
