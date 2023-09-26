@@ -102,21 +102,12 @@ const Chat: React.FC<Props> = ({
 }) => {
   const scrollToBottom = () => {
     setTimeout(() => {
-      if (
-        document.body.classList.contains('chat-focused') ||
-        layout === 'WEBSITE_ASSISTANT'
-      ) {
-        document
-          .querySelector('.memori-chat--content')
-          ?.scrollTo(
-            0,
-            document.querySelector('.memori-chat--content')?.scrollHeight ?? 0
-          );
-      } else {
-        document.querySelector('#end-messages-ref')?.scrollIntoView({
-          behavior: 'smooth',
-        });
-      }
+      document
+        .querySelector('.memori-chat--content')
+        ?.scrollTo(
+          0,
+          document.querySelector('.memori-chat--content')?.scrollHeight ?? 0
+        );
     }, 200);
   };
   useEffect(() => {
