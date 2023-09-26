@@ -395,6 +395,12 @@ exports[`renders Totem layout unchanged 1`] = `
                 >
                   Polski
                 </option>
+                <option
+                  aria-label="Suomi"
+                  value="FI"
+                >
+                  Suomi
+                </option>
               </select>
             </div>
             <button

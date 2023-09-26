@@ -1356,6 +1356,13 @@ const MemoriWidget = ({
               : 'pl-PL-AgnieszkaNeural'
           }`;
           break;
+        case 'FI':
+          voice = `${
+            memori.voiceType === 'MALE'
+              ? 'fi-FI-HarriNeural'
+              : 'fi-FI-SelmaNeural'
+          }`;
+          break;
         default:
           voice = `${
             memori.voiceType === 'MALE'
@@ -1404,6 +1411,9 @@ const MemoriWidget = ({
         break;
       case 'PL':
         voice = 'pl-PL';
+        break;
+      case 'FI':
+        voice = 'fi-FI';
         break;
       default:
         voice = 'it-IT';
