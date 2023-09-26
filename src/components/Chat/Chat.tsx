@@ -98,7 +98,6 @@ const Chat: React.FC<Props> = ({
   stopListening,
   resetTranscript,
   customMediaRenderer,
-  layout,
 }) => {
   const scrollToBottom = () => {
     setTimeout(() => {
