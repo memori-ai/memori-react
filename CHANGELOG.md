@@ -1,5 +1,17 @@
 
 
+## [2.18.4](https://github.com/memori-ai/memori-react/compare/v2.18.3...v2.18.4) (2023-09-26)
+
+
+### Features
+
+* add default context vars with pathname and route ([4c6ae03](https://github.com/memori-ai/memori-react/commit/4c6ae03459b4114b89eb4937978853771e7238ff))
+
+
+### Maintenance
+
+* add finnish lang ([36f7c14](https://github.com/memori-ai/memori-react/commit/36f7c14e82c51881e43956d99ab427d8f2220921))
+
 ## [2.18.3](https://github.com/memori-ai/memori-react/compare/v2.18.2...v2.18.3) (2023-09-26)
 
 
