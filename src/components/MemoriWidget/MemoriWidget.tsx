@@ -679,7 +679,11 @@ const MemoriWidget = ({
         memoriTokens,
         instruct && memori.giverTag ? memori.giverTag : undefined,
         instruct && memori.giverPIN ? memori.giverPIN : undefined,
-        initialContextVars,
+        {
+          PATHNAME: window.location.pathname,
+          ROUTE: window.location.pathname?.split('/')?.pop() || '',
+          ...(initialContextVars || {}),
+        },
         initialQuestion
       ).then(state => {
         console.info('session timeout');
@@ -956,7 +960,11 @@ const MemoriWidget = ({
         recoveryTokens: recoveryTokens || memoriTokens,
         tag,
         pin,
-        initialContextVars,
+        initialContextVars: {
+          PATHNAME: window.location.pathname,
+          ROUTE: window.location.pathname?.split('/')?.pop() || '',
+          ...(initialContextVars || {}),
+        },
         initialQuestion,
         birthDate: birthDate || storageBirthDate || undefined,
         additionalInfo: {
@@ -1082,7 +1090,11 @@ const MemoriWidget = ({
             password: secret || memoriPwd || memori.secretToken,
             tag: memori.giverTag,
             pin: memori.giverPIN,
-            initialContextVars,
+            initialContextVars: {
+              PATHNAME: window.location.pathname,
+              ROUTE: window.location.pathname?.split('/')?.pop() || '',
+              ...(initialContextVars || {}),
+            },
             initialQuestion,
             birthDate: birthDate || storageBirthDate || undefined,
             additionalInfo: {
@@ -2252,7 +2264,11 @@ const MemoriWidget = ({
           password: secret || memoriPwd || memori.secretToken,
           tag: personification?.tag,
           pin: personification?.pin,
-          initialContextVars,
+          initialContextVars: {
+            PATHNAME: window.location.pathname,
+            ROUTE: window.location.pathname?.split('/')?.pop() || '',
+            ...(initialContextVars || {}),
+          },
           initialQuestion,
           birthDate: birth,
         });
@@ -2334,7 +2350,11 @@ const MemoriWidget = ({
               undefined,
               memori?.giverTag,
               memori?.giverPIN,
-              initialContextVars,
+              {
+                PATHNAME: window.location.pathname,
+                ROUTE: window.location.pathname?.split('/')?.pop() || '',
+                ...(initialContextVars || {}),
+              },
               initialQuestion,
               birth
             ).then(() => {
@@ -2381,7 +2401,11 @@ const MemoriWidget = ({
               undefined,
               personification.tag,
               personification.pin,
-              initialContextVars,
+              {
+                PATHNAME: window.location.pathname,
+                ROUTE: window.location.pathname?.split('/')?.pop() || '',
+                ...(initialContextVars || {}),
+              },
               initialQuestion,
               birth
             ).then(() => {
@@ -2428,7 +2452,11 @@ const MemoriWidget = ({
               undefined,
               undefined,
               undefined,
-              initialContextVars,
+              {
+                PATHNAME: window.location.pathname,
+                ROUTE: window.location.pathname?.split('/')?.pop() || '',
+                ...(initialContextVars || {}),
+              },
               initialQuestion,
               birth
             ).then(() => {
@@ -2747,7 +2775,11 @@ const MemoriWidget = ({
               values['tokens'],
               instruct ? memori.giverTag : undefined,
               instruct ? memori.giverPIN : undefined,
-              initialContextVars,
+              {
+                PATHNAME: window.location.pathname,
+                ROUTE: window.location.pathname?.split('/')?.pop() || '',
+                ...(initialContextVars || {}),
+              },
               initialQuestion,
               birthDate
             )
@@ -2782,7 +2814,11 @@ const MemoriWidget = ({
                 memoriTokens,
                 instruct ? memori.giverTag : undefined,
                 instruct ? memori.giverPIN : undefined,
-                initialContextVars,
+                {
+                  PATHNAME: window.location.pathname,
+                  ROUTE: window.location.pathname?.split('/')?.pop() || '',
+                  ...(initialContextVars || {}),
+                },
                 initialQuestion,
                 birthDate
               )
