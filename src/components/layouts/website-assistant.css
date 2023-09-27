@@ -138,7 +138,7 @@
 
 @media (max-width: 600px) {
     .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {
-        max-height: 80vh;
+        min-width: 100% !important;
     }
 }
 

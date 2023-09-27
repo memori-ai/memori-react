@@ -1858,7 +1858,6 @@ const MemoriWidget = ({
     try {
       clearListening();
       clearInteractionTimeout();
-      setHasUserActivatedSpeak(false);
       setClickedStart(false);
       timeoutRef.current = undefined;
       stopAudio();
