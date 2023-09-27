@@ -24,8 +24,13 @@
 .memori-website_assistant--close-button-wrapper {
     position: absolute;
     z-index: 1;
-    top: 0;
-    left: 0;
+    top: 100%;
+    right: 0;
+}
+
+.memori-website_assistant--close-button-wrapper button.memori-website_assistant--close-button {
+    padding: 1rem;
+    font-size: 16px;
 }
 
 .memori-website_assistant--trigger-button .memori-blob {
@@ -106,10 +111,9 @@
 }
 
 .memori-website_assistant-layout .memori--powered-by {
-    top: 7.5px;
+    top: calc(100% + 10px);
     right: auto;
-    bottom: auto;
-    left: 45px;
+    left: 0;
 }
 
 .memori-widget.memori-layout-website_assistant {
@@ -133,6 +137,23 @@
 
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {
     max-height: 60vh !important;
+    margin-bottom: 60px;
+}
+
+@keyframes showup {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded .memori-website_assistant-layout {
+    animation: showup 0.3s ease-in-out;
 }
 
 
@@ -227,13 +248,11 @@
     margin-top: auto;
 }
 
-
-
 .memori-website_assistant-layout--controls {
     position: relative;
     z-index: 5;
     display: flex;
-    height: calc(100% - 45px);
+    height: calc(100% - 60px);
     flex-direction: column;
     justify-content: flex-end;
 }
