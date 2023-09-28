@@ -181,12 +181,12 @@
     text-align: right;
 }
 
-.memori-share-button .memori-share-button--overlay {
+.memori-widget.memori-layout-website_assistant .memori-share-button .memori-share-button--overlay {
     z-index: 1000;
     top: -6rem;
 }
 
-.memori-header--button--fullscreen {
+.memori-widget.memori-layout-website_assistant .memori-header--button--fullscreen {
     display: none;
 }
 
@@ -244,7 +244,7 @@
     background: none;
 }
 
-.memori-chat--bubble-initial+.memori-chat--bubble-container {
+.memori-website_assistant-layout .memori-chat--bubble-initial+.memori-chat--bubble-container {
     margin-top: auto;
 }
 

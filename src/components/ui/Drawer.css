@@ -1,6 +1,6 @@
 .memori-drawer {
     position: relative;
-    z-index: 1000;
+    z-index: 10000;
 }
 
 .memori-drawer--backdrop {
@@ -123,7 +123,7 @@
     background-color: #fff;
 }
 
-.memori-drawer--footer button + button {
+.memori-drawer--footer button+button {
     margin-left: 0.5em;
 }
 
