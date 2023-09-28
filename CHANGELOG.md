@@ -1,5 +1,18 @@
 
 
+## [2.18.5](https://github.com/memori-ai/memori-react/compare/v2.18.4...v2.18.5) (2023-09-28)
+
+
+### Bug Fixes
+
+* style fixes ([8e4ccd1](https://github.com/memori-ai/memori-react/commit/8e4ccd1652ecd950cb8ec4f395c00e4fa63efbc5))
+
+
+### Changes
+
+* enhancements for website assistant layout ([b8de59b](https://github.com/memori-ai/memori-react/commit/b8de59b641040fca7cfbf78bdfc18863e00edebb))
+* ui enhancements for website assistant layout ([585920e](https://github.com/memori-ai/memori-react/commit/585920e7dea4baac51e28d9020e274137c3229a8))
+
 ## [2.18.4](https://github.com/memori-ai/memori-react/compare/v2.18.3...v2.18.4) (2023-09-26)
 
 
