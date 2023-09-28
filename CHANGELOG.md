@@ -1,5 +1,12 @@
 
 
+## [2.18.6](https://github.com/memori-ai/memori-react/compare/v2.18.5...v2.18.6) (2023-09-28)
+
+
+### Changes
+
+* stop audio closing webassistant panel ([5943302](https://github.com/memori-ai/memori-react/commit/594330238a583b7b37dfd3f16e1311b7bef0fd8a))
+
 ## [2.18.5](https://github.com/memori-ai/memori-react/compare/v2.18.4...v2.18.5) (2023-09-28)
 
 
