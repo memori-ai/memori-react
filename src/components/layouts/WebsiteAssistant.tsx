@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import Button from '../ui/Button';
@@ -27,9 +27,17 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   const { t } = useTranslation();
   const [collapsed, _setCollapsed] = useState(true);
   const [expandedKey, setExpandedKey] = useState<string>();
+
+  const stopAudio = useMemo(() => chatProps?.stopAudio, [chatProps?.stopAudio]);
+
   const setCollapsed = (collapsed: boolean) => {
     _setCollapsed(collapsed);
     setExpandedKey(collapsed ? undefined : new Date().toISOString());
+    try {
+      stopAudio?.();
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
