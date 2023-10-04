@@ -248,9 +248,6 @@ Memori.propTypes = {
   tenantID: PropTypes.string.isRequired,
   secretToken: PropTypes.string,
   sessionID: PropTypes.string,
-  showShare: PropTypes.bool,
-  showSettings: PropTypes.bool,
-  showInstruct: PropTypes.bool,
   layout: PropTypes.oneOf([
     'DEFAULT',
     'FULLPAGE',
@@ -258,6 +255,11 @@ Memori.propTypes = {
     'WEBSITE_ASSISTANT',
     'CHAT',
   ]),
+  customLayout: PropTypes.any,
+  showShare: PropTypes.bool,
+  showSettings: PropTypes.bool,
+  showInstruct: PropTypes.bool,
+  showTypingText: PropTypes.bool,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   baseURL: PropTypes.string,
   apiURL: PropTypes.string,
@@ -267,9 +269,13 @@ Memori.propTypes = {
   initialQuestion: PropTypes.string,
   uiLang: PropTypes.oneOf(['en', 'it']),
   spokenLang: PropTypes.string,
+  multilingual: PropTypes.bool,
   authToken: PropTypes.string,
   AZURE_COGNITIVE_SERVICES_TTS_KEY: PropTypes.string,
   onStateChange: PropTypes.func,
+  additionalInfo: PropTypes.objectOf(PropTypes.any),
+  customMediaRenderer: PropTypes.func,
+  additionalSettings: PropTypes.any,
 };
 
 export default Memori;
