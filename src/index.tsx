@@ -24,8 +24,13 @@ export interface Props {
   layout?: WidgetProps['layout'];
   customLayout?: WidgetProps['customLayout'];
   showShare?: boolean;
-  showSettings?: boolean;
   showInstruct?: boolean;
+  showInputs?: boolean;
+  showDates?: boolean;
+  showContextPerLine?: boolean;
+  showSettings?: boolean;
+  showClear?: boolean;
+  showOnlyLastMessages?: boolean;
   showTypingText?: boolean;
   height?: number | string;
   baseURL?: string;
@@ -77,6 +82,11 @@ const Memori: React.FC<Props> = ({
   showSettings = true,
   showInstruct = false,
   showTypingText = false,
+  showClear = false,
+  showOnlyLastMessages = false,
+  showInputs = true,
+  showDates = false,
+  showContextPerLine = false,
   height = '100%',
   baseURL,
   apiURL = 'https://backend.memori.ai',
@@ -207,6 +217,11 @@ const Memori: React.FC<Props> = ({
       showSettings={showSettings}
       showInstruct={showInstruct}
       showTypingText={showTypingText}
+      showClear={showClear}
+      showOnlyLastMessages={showOnlyLastMessages}
+      showInputs={showInputs}
+      showDates={showDates}
+      showContextPerLine={showContextPerLine}
       integration={memori?.integrations?.find(i =>
         integrationID
           ? i.integrationID === integrationID
@@ -257,8 +272,13 @@ Memori.propTypes = {
   ]),
   customLayout: PropTypes.any,
   showShare: PropTypes.bool,
-  showSettings: PropTypes.bool,
   showInstruct: PropTypes.bool,
+  showInputs: PropTypes.bool,
+  showDates: PropTypes.bool,
+  showContextPerLine: PropTypes.bool,
+  showSettings: PropTypes.bool,
+  showClear: PropTypes.bool,
+  showOnlyLastMessages: PropTypes.bool,
   showTypingText: PropTypes.bool,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   baseURL: PropTypes.string,
