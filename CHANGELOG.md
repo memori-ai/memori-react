@@ -1,5 +1,12 @@
 
 
+## [2.18.8](https://github.com/memori-ai/memori-react/compare/v2.18.7...v2.18.8) (2023-10-04)
+
+
+### Bug Fixes
+
+* update proptypes and widget props to pass down ([b47323b](https://github.com/memori-ai/memori-react/commit/b47323b64add4dbea632d053daa2be234d299630))
+
 ## [2.18.7](https://github.com/memori-ai/memori-react/compare/v2.18.6...v2.18.7) (2023-10-04)
 
 
