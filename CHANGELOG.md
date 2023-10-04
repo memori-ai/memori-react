@@ -1,5 +1,12 @@
 
 
+## [2.18.7](https://github.com/memori-ai/memori-react/compare/v2.18.6...v2.18.7) (2023-10-04)
+
+
+### Maintenance
+
+* update proptypes ([cb8e358](https://github.com/memori-ai/memori-react/commit/cb8e3586d4db87914b12bae11c838c4233c4d4b1))
+
 ## [2.18.6](https://github.com/memori-ai/memori-react/compare/v2.18.5...v2.18.6) (2023-09-28)
 
 
