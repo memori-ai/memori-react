@@ -776,13 +776,14 @@ const MemoriWidget = ({
   /**
    * Age verification
    */
-  const minAge = memori.ageRestriction
-    ? memori.ageRestriction
-    : memori.nsfw
-    ? 18
-    : memori.enableCompletions
-    ? 14
-    : 0;
+  const minAge =
+    memori.ageRestriction !== undefined
+      ? memori.ageRestriction
+      : memori.nsfw
+      ? 18
+      : memori.enableCompletions
+      ? 14
+      : 0;
   const [birthDate, setBirthDate] = useState<string | undefined>();
   const [showAgeVerification, setShowAgeVerification] = useState(false);
 
