@@ -189,6 +189,11 @@ const typeBatchMessages = (
       ?.hasAttribute('disabled');
   }
 
+  const isSafari =
+    window.navigator.userAgent.includes('Safari') &&
+    !window.navigator.userAgent.includes('Chrome');
+  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
   const stepsGenerator = (function* () {
     yield* messages;
   })();
@@ -200,6 +205,10 @@ const typeBatchMessages = (
     const step = next.value;
 
     if (step) {
+      if (!areInputsDisabled()) {
+        disableInputs();
+      }
+
       typeMessage(
         step.message,
         step.waitForPrevious,
@@ -208,12 +217,19 @@ const typeBatchMessages = (
         step.useLoaderTextAsMsg,
         !next.done
       );
+
+      if (isIOS && isSafari) {
+        setTimeout(() => {
+          reEnableInputs();
+        }, 3000);
+      }
     } else if (areInputsDisabled()) {
       reEnableInputs();
     }
 
     if (next.done) {
       document.removeEventListener('MemoriEndSpeak', submitNewMessage);
+      if (areInputsDisabled()) reEnableInputs();
       return;
     }
   };
@@ -1546,32 +1562,32 @@ const MemoriWidget = ({
       return;
     }
     if (isIOS && isSafari) {
-      audioContext.suspend();
-
-      if (isPlayingAudio) {
-        try {
-          memoriSpeaking = false;
-          if (speechSynthesizer) {
-            speechSynthesizer.close();
-            speechSynthesizer = null;
-          }
-          if (audioDestination) {
-            audioDestination.pause();
-            audioDestination.close();
-          }
-          if (audioContext) {
-            // audioContext.close().then(() => {
-            //   audioContext = new AudioContext();
-            //   let buffer = audioContext.createBuffer(1, 10000, 22050);
-            //   let source = audioContext.createBufferSource();
-            //   source.buffer = buffer;
-            //   source.connect(audioContext.destination);
-            // });
-            audioContext.destination.disconnect();
-          }
-        } catch (e) {
-          console.error('stopAudio error: ', e);
-        }
+      if (isPlayingAudio || memoriSpeaking) {
+        // try {
+        //   memoriSpeaking = false;
+        //   if (speechSynthesizer) {
+        //     speechSynthesizer.close();
+        //     speechSynthesizer = null;
+        //   }
+        //   if (audioDestination) {
+        //     audioDestination.pause();
+        //     audioDestination.close();
+        //   }
+        //   if (audioContext) {
+        //     // audioContext.close().then(() => {
+        //     //   audioContext = new AudioContext();
+        //     //   let buffer = audioContext.createBuffer(1, 10000, 22050);
+        //     //   let source = audioContext.createBufferSource();
+        //     //   source.buffer = buffer;
+        //     //   source.connect(audioContext.destination);
+        //     // });
+        //     audioContext.destination.disconnect();
+        //   }
+        // } catch (e) {
+        //   console.error('stopAudio error: ', e);
+        //   emitEndSpeakEvent();
+        // }
+        // stopAudio();
       }
     }
     if (audioContext.state === 'closed') {
@@ -1591,7 +1607,9 @@ const MemoriWidget = ({
     }
 
     if (!speechSynthesizer) {
-      audioDestination = new speechSdk.SpeakerAudioDestination();
+      if (!isIOS) {
+        audioDestination = new speechSdk.SpeakerAudioDestination();
+      }
       let audioConfig =
         speechSdk.AudioConfig.fromSpeakerOutput(audioDestination);
       speechSynthesizer = new speechSdk.SpeechSynthesizer(
@@ -1670,11 +1688,13 @@ const MemoriWidget = ({
               speechSynthesizer.close();
               speechSynthesizer = null;
             }
+            // emitEndSpeakEvent();
           }
         } else {
           audioContext.resume();
           setIsPlayingAudio(false);
           memoriSpeaking = false;
+          // emitEndSpeakEvent();
         }
       },
       error => {
@@ -1682,6 +1702,7 @@ const MemoriWidget = ({
         window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
         setIsPlayingAudio(false);
         memoriSpeaking = false;
+        // emitEndSpeakEvent();
       }
     );
 
