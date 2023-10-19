@@ -52,6 +52,52 @@ Localhost.args = {
   integrationID: '82f017cc-450b-4c47-acf5-47910d336ce9',
 };
 
+const TemplateWithBatchButton: Story<Props> = args => (
+  <div>
+    <button
+      style={{
+        position: 'fixed',
+        top: '0.5rem',
+        left: '0.5rem',
+        zIndex: 99999,
+      }}
+      onClick={() => {
+        window.typeBatchMessages([
+          {
+            message: 'uno di tre',
+            hidden: false,
+            waitForPrevious: true,
+          },
+          {
+            message: 'due di tre',
+            hidden: false,
+            waitForPrevious: true,
+          },
+          {
+            message: 'tre di tre',
+            hidden: false,
+            waitForPrevious: true,
+          },
+        ]);
+      }}
+    >
+      Start Batch
+    </button>
+    <Memori {...args} />
+  </div>
+);
+export const WithBatch = TemplateWithBatchButton.bind({});
+WithBatch.args = {
+  ownerUserName: 'nzambello',
+  memoriName: 'Nicola',
+  tenantID: 'app.memorytwin.com',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://app.memorytwin.com',
+  uiLang: 'it',
+  showShare: true,
+  showSettings: true,
+};
+
 // export const Instruction = Template.bind({});
 // Instruction.args = {
 //   ownerUserName: 'nzambello',
@@ -65,42 +111,3 @@ Localhost.args = {
 //   pin: 'giver pin',
 //   authToken: 'your login token',
 // };
-
-export const DemoSophia = Template.bind({});
-DemoSophia.args = {
-  layout: 'TOTEM',
-  memoriName: 'Sophia',
-  ownerUserName: 'francescoimpellizzeri',
-  memoriID: '57405959-a2c5-4499-adb8-bb8dcc848ad5',
-  ownerUserID: '44ccefdb-d7a2-447e-9851-2a76be055a40',
-  tenantID: 'nextpresent.aclambda.online',
-  apiURL: 'https://backend.memori.ai',
-  baseURL: 'https://nextpresent.aclambda.online',
-  uiLang: 'it',
-  lang: 'it',
-  showShare: true,
-  showSettings: true,
-  integrationID: 'd10bbffd-26f3-4614-a092-15b215d04ffa',
-  initialQuestion: 'Welcome Totem',
-  contextVars: 'CONTEXT:TOTEM',
-  // https://assets.memori.ai/api/v2/asset/6af08bf1-f011-40ea-92a2-699b7b53a53c.glb
-};
-
-export const DemoStefano = Template.bind({});
-DemoStefano.args = {
-  layout: 'TOTEM',
-  memoriName: 'Stefano Zingoni',
-  ownerUserName: 'roberta.bianchi',
-  memoriID: 'd6df4c75-8dfb-4e6d-b19f-193fa8a9bcce',
-  ownerUserID: 'b242160e-c19c-468f-b7f8-b2dc1ce51045',
-  tenantID: 'gruppoe.aclambda.online',
-  apiURL: 'https://backend.memori.ai',
-  baseURL: 'https://gruppoe.aclambda.online',
-  uiLang: 'it',
-  lang: 'it',
-  showShare: true,
-  showSettings: true,
-  contextVars: 'CONTEXT:TOTEM',
-  integrationID: '5712601d-6174-45e7-bfb1-b4ac71c4ff80',
-  // https://assets.memori.ai/api/v2/asset/ed50c6a4-37cd-458b-9209-8cabfa256b30.glb
-};

@@ -122,8 +122,18 @@ const typeMessage = (
       hasBatchQueued,
     },
   });
-
   document.dispatchEvent(e);
+
+  const isSafariIOS =
+    window.navigator.userAgent.includes('Safari') &&
+    !window.navigator.userAgent.includes('Chrome') &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+  if (isSafariIOS) {
+    setTimeout(() => {
+      document.dispatchEvent(new CustomEvent('MemoriEndSpeak'));
+    }, 300);
+  }
 };
 const typeMessageHidden = (
   message: string,
@@ -189,10 +199,10 @@ const typeBatchMessages = (
       ?.hasAttribute('disabled');
   }
 
-  const isSafari =
+  const isSafariIOS =
     window.navigator.userAgent.includes('Safari') &&
-    !window.navigator.userAgent.includes('Chrome');
-  const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    !window.navigator.userAgent.includes('Chrome') &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const stepsGenerator = (function* () {
     yield* messages;
@@ -209,17 +219,21 @@ const typeBatchMessages = (
         disableInputs();
       }
 
+      let waitForPrevious = step.waitForPrevious;
+      if (isSafariIOS) waitForPrevious = false;
+
       typeMessage(
         step.message,
-        step.waitForPrevious,
+        waitForPrevious,
         step.hidden,
         step.typingText,
         step.useLoaderTextAsMsg,
         !next.done
       );
 
-      if (isIOS && isSafari) {
+      if (isSafariIOS) {
         setTimeout(() => {
+          document.dispatchEvent(new CustomEvent('MemoriEndSpeak'));
           reEnableInputs();
         }, 3000);
       }
@@ -1561,35 +1575,6 @@ const MemoriWidget = ({
       audioContext.resume().then(() => speak(text));
       return;
     }
-    if (isIOS && isSafari) {
-      if (isPlayingAudio || memoriSpeaking) {
-        // try {
-        //   memoriSpeaking = false;
-        //   if (speechSynthesizer) {
-        //     speechSynthesizer.close();
-        //     speechSynthesizer = null;
-        //   }
-        //   if (audioDestination) {
-        //     audioDestination.pause();
-        //     audioDestination.close();
-        //   }
-        //   if (audioContext) {
-        //     // audioContext.close().then(() => {
-        //     //   audioContext = new AudioContext();
-        //     //   let buffer = audioContext.createBuffer(1, 10000, 22050);
-        //     //   let source = audioContext.createBufferSource();
-        //     //   source.buffer = buffer;
-        //     //   source.connect(audioContext.destination);
-        //     // });
-        //     audioContext.destination.disconnect();
-        //   }
-        // } catch (e) {
-        //   console.error('stopAudio error: ', e);
-        //   emitEndSpeakEvent();
-        // }
-        // stopAudio();
-      }
-    }
     if (audioContext.state === 'closed') {
       audioContext = new AudioContext();
       let buffer = audioContext.createBuffer(1, 10000, 22050);
@@ -1647,9 +1632,6 @@ const MemoriWidget = ({
           memoriSpeaking = true;
 
           try {
-            // if (audioContext.destination.context.state === 'running') {
-            //   audioContext.destination.disconnect();
-            // }
             audioContext.decodeAudioData(result.audioData, function (buffer) {
               source.buffer = buffer;
               source.connect(audioContext.destination);
@@ -1688,13 +1670,13 @@ const MemoriWidget = ({
               speechSynthesizer.close();
               speechSynthesizer = null;
             }
-            // emitEndSpeakEvent();
+            emitEndSpeakEvent();
           }
         } else {
           audioContext.resume();
           setIsPlayingAudio(false);
           memoriSpeaking = false;
-          // emitEndSpeakEvent();
+          emitEndSpeakEvent();
         }
       },
       error => {
@@ -1702,7 +1684,7 @@ const MemoriWidget = ({
         window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
         setIsPlayingAudio(false);
         memoriSpeaking = false;
-        // emitEndSpeakEvent();
+        emitEndSpeakEvent();
       }
     );
 
