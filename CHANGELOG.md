@@ -1,5 +1,18 @@
 
 
+## [2.18.9](https://github.com/memori-ai/memori-react/compare/v2.18.8...v2.18.9) (2023-10-19)
+
+
+### Bug Fixes
+
+* ios safari speech bug ([c9bf892](https://github.com/memori-ai/memori-react/commit/c9bf89232218121759bec24b370a553e9bd4ffa5))
+* ios safari typeMessage events, cleanup ([f7d4d4d](https://github.com/memori-ai/memori-react/commit/f7d4d4de0beee37dfde4287e27591783aaec7b65))
+
+
+### Maintenance
+
+* enhance minAge check with fallback ([c03cef3](https://github.com/memori-ai/memori-react/commit/c03cef3956c0ccf0f57a77807659496f8f417dd5))
+
 ## [2.18.8](https://github.com/memori-ai/memori-react/compare/v2.18.7...v2.18.8) (2023-10-04)
 
 
