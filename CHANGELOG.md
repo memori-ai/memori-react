@@ -1,5 +1,12 @@
 
 
+## [2.19.0](https://github.com/memori-ai/memori-react/compare/v2.18.9...v2.19.0) (2023-11-13)
+
+
+### Features
+
+* add user avatar ([36abed9](https://github.com/memori-ai/memori-react/commit/36abed9ce77badb7bda715eee973fbb1e3d4ce25))
+
 ## [2.18.9](https://github.com/memori-ai/memori-react/compare/v2.18.8...v2.18.9) (2023-10-19)
 
 
