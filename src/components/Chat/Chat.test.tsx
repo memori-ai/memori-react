@@ -287,3 +287,99 @@ it('renders Chat on X2a state unchanged', () => {
   );
   expect(container).toMatchSnapshot();
 });
+
+it('renders Chat with user unchanged', () => {
+  const { container } = render(
+    <Chat
+      user={{ avatarURL: 'https://picsum.photos/200' }}
+      memori={memori}
+      tenant={tenant}
+      dialogState={dialogState}
+      layout="DEFAULT"
+      setDialogState={jest.fn()}
+      client={client}
+      history={history}
+      pushMessage={jest.fn()}
+      sessionID={sessionID}
+      simulateUserPrompt={jest.fn()}
+      selectReceiverTag={jest.fn()}
+      setAttachmentsMenuOpen={jest.fn()}
+      setSendOnEnter={jest.fn()}
+      userMessage=""
+      onChangeUserMessage={jest.fn()}
+      sendMessage={jest.fn()}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      showMicrophone={false}
+      listening={false}
+      startListening={jest.fn()}
+      stopListening={jest.fn()}
+      resetTranscript={jest.fn()}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders Chat with custom user avatar unchanged', () => {
+  const { container } = render(
+    <Chat
+      userAvatar="https://picsum.photos/200"
+      memori={memori}
+      tenant={tenant}
+      dialogState={dialogState}
+      layout="DEFAULT"
+      setDialogState={jest.fn()}
+      client={client}
+      history={history}
+      pushMessage={jest.fn()}
+      sessionID={sessionID}
+      simulateUserPrompt={jest.fn()}
+      selectReceiverTag={jest.fn()}
+      setAttachmentsMenuOpen={jest.fn()}
+      setSendOnEnter={jest.fn()}
+      userMessage=""
+      onChangeUserMessage={jest.fn()}
+      sendMessage={jest.fn()}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      showMicrophone={false}
+      listening={false}
+      startListening={jest.fn()}
+      stopListening={jest.fn()}
+      resetTranscript={jest.fn()}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders Chat with custom user avatar as react element unchanged', () => {
+  const { container } = render(
+    <Chat
+      userAvatar={<span>USER</span>}
+      memori={memori}
+      tenant={tenant}
+      dialogState={dialogState}
+      layout="DEFAULT"
+      setDialogState={jest.fn()}
+      client={client}
+      history={history}
+      pushMessage={jest.fn()}
+      sessionID={sessionID}
+      simulateUserPrompt={jest.fn()}
+      selectReceiverTag={jest.fn()}
+      setAttachmentsMenuOpen={jest.fn()}
+      setSendOnEnter={jest.fn()}
+      userMessage=""
+      onChangeUserMessage={jest.fn()}
+      sendMessage={jest.fn()}
+      isPlayingAudio={false}
+      stopAudio={jest.fn()}
+      showMicrophone={false}
+      listening={false}
+      startListening={jest.fn()}
+      stopListening={jest.fn()}
+      resetTranscript={jest.fn()}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});

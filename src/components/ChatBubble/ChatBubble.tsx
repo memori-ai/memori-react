@@ -4,10 +4,12 @@ import {
   Memori,
   Message,
   Tenant,
+  User,
 } from '@memori.ai/memori-api-client/dist/types';
+import { Props as MemoriProps } from '../MemoriWidget/MemoriWidget';
 import { Transition } from '@headlessui/react';
 import { getResourceUrl } from '../../helpers/media';
-import User from '../icons/User';
+import UserIcon from '../icons/User';
 import AI from '../icons/AI';
 import Tooltip from '../ui/Tooltip';
 import FeedbackButtons from '../FeedbackButtons/FeedbackButtons';
@@ -23,6 +25,8 @@ export interface Props {
   simulateUserPrompt?: (msg: string) => void;
   showAIicon?: boolean;
   isFirst?: boolean;
+  userAvatar?: MemoriProps['userAvatar'];
+  user?: User;
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -35,6 +39,8 @@ const ChatBubble: React.FC<Props> = ({
   simulateUserPrompt,
   showAIicon = true,
   isFirst = false,
+  user,
+  userAvatar,
 }) => {
   const { t } = useTranslation();
 
@@ -156,22 +162,65 @@ const ChatBubble: React.FC<Props> = ({
         </Transition.Child>
 
         {message.fromUser && (
-          <Transition.Child
-            as="div"
-            className="memori-chat--bubble-avatar"
-            enter="transition ease-in-out duration-300"
-            enterFrom={`opacity-0 scale-075 ${
-              message.fromUser ? 'translate-x-15' : 'translate-x--15'
-            }`}
-            enterTo="opacity-1 scale-1 translate-x-0"
-            leave="transition ease-in-out duration-300"
-            leaveFrom="opacity-1 scale-1 translate-x-0"
-            leaveTo={`opacity-0 scale-075 ${
-              message.fromUser ? 'translate-x-15' : 'translate-x--15'
-            }`}
-          >
-            <User />
-          </Transition.Child>
+          <>
+            {(!!userAvatar && typeof userAvatar === 'string') ||
+            (!userAvatar && !!user?.avatarURL?.length) ? (
+              <Transition.Child
+                as="picture"
+                className="memori-chat--bubble-avatar"
+                enter="transition ease-in-out duration-300"
+                enterFrom={`opacity-0 scale-075 ${
+                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
+                }`}
+                enterTo="opacity-1 scale-1 translate-x-0"
+                leave="transition ease-in-out duration-300"
+                leaveFrom="opacity-1 scale-1 translate-x-0"
+                leaveTo={`opacity-0 scale-075 ${
+                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
+                }`}
+              >
+                <img
+                  className="memori-chat--bubble-avatar-img"
+                  alt={user?.userName ?? 'User'}
+                  src={userAvatar ?? user?.avatarURL}
+                />
+              </Transition.Child>
+            ) : !!userAvatar ? (
+              <Transition.Child
+                as="div"
+                className="memori-chat--bubble-avatar"
+                enter="transition ease-in-out duration-300"
+                enterFrom={`opacity-0 scale-075 ${
+                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
+                }`}
+                enterTo="opacity-1 scale-1 translate-x-0"
+                leave="transition ease-in-out duration-300"
+                leaveFrom="opacity-1 scale-1 translate-x-0"
+                leaveTo={`opacity-0 scale-075 ${
+                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
+                }`}
+              >
+                {userAvatar}
+              </Transition.Child>
+            ) : (
+              <Transition.Child
+                as="div"
+                className="memori-chat--bubble-avatar"
+                enter="transition ease-in-out duration-300"
+                enterFrom={`opacity-0 scale-075 ${
+                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
+                }`}
+                enterTo="opacity-1 scale-1 translate-x-0"
+                leave="transition ease-in-out duration-300"
+                leaveFrom="opacity-1 scale-1 translate-x-0"
+                leaveTo={`opacity-0 scale-075 ${
+                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
+                }`}
+              >
+                <UserIcon />
+              </Transition.Child>
+            )}
+          </>
         )}
       </Transition>
     </>

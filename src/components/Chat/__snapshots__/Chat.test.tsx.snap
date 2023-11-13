@@ -1641,6 +1641,722 @@ exports[`renders Chat with context vars unchanged 1`] = `
 </div>
 `;
 
+exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--wrapper"
+    data-memori-lang="IT"
+    id="chat-wrapper"
+  >
+    <div
+      class="memori-chat--history"
+    >
+      <div
+        class="memori-chat--content"
+      >
+        <div
+          class="memori-chat--cover"
+        />
+        <div
+          class="memori-chat--bubble-initial"
+        />
+        <div
+          class="memori-chat--bubble-container"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+          >
+            <source
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <p>
+              Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
+            </p>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+        >
+          <div
+            class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+          >
+            <p>
+              Prova
+            </p>
+          </div>
+          <div
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+          >
+            <span>
+              USER
+            </span>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+          >
+            <source
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <p>
+              Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
+            </p>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+        >
+          <div
+            class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+          >
+            <p>
+              Come faccio a fare delle cose con questa cosa?
+            </p>
+          </div>
+          <div
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+          >
+            <span>
+              USER
+            </span>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+          >
+            <source
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <p>
+              Ecco qui come.
+            </p>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        >
+          <div
+            class="memori-link-items"
+          >
+            <div
+              class="memori-link-items--grid"
+            >
+              <div
+                class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
+              >
+                <a
+                  class="memori-link-item--link"
+                  href="https://memori.ai"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <div
+                    class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
+                  >
+                    <div
+                      class="memori-spin"
+                    >
+                      <div
+                        class="memori-card--cover"
+                      >
+                        <div
+                          class="memori-link-item--card-cover-icon"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="memori-link-item--icon"
+                            focusable="false"
+                            role="img"
+                            viewBox="0 0 1024 1024"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        class="memori-card--content"
+                      >
+                        <h3
+                          class="memori-card--title"
+                        >
+                          Link
+                        </h3>
+                        <div
+                          class="memori-card--children"
+                        />
+                      </div>
+                      <div
+                        class="memori-spin--spinner"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="memori-loading-icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+        >
+          <div
+            class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+          >
+            <p>
+              Ah, grazie! Ciao!
+            </p>
+          </div>
+          <div
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+          >
+            <span>
+              USER
+            </span>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+          >
+            <source
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <p>
+              Arrivederci.
+            </p>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          id="end-messages-ref"
+        />
+      </div>
+    </div>
+    <fieldset
+      class="memori-chat-inputs"
+      id="chat-fieldset"
+    >
+      <div
+        class="memori-send-on-enter-menu"
+        data-headlessui-state=""
+      >
+        <button
+          aria-expanded="false"
+          aria-haspopup="true"
+          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
+          data-headlessui-state=""
+          id="headlessui-menu-button-:rk:"
+          type="button"
+        >
+          <div
+            class="memori-button--icon"
+          >
+            <span
+              style="display: block; width: 1rem; height: 1rem;"
+            >
+              …
+            </span>
+          </div>
+        </button>
+      </div>
+      <div
+        class="memori-chat-textarea"
+        data-testid="chat-textarea"
+      >
+        <div
+          class="memori-chat-textarea--inner"
+        >
+          <textarea
+            class="memori-chat-textarea--input"
+          />
+          <div
+            class="memori-chat-textarea--expand"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M855 160.1l-189.2 23.5c-6.6.8-9.3 8.8-4.7 13.5l54.7 54.7-153.5 153.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l153.6-153.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L863.9 169a7.9 7.9 0 0 0-8.9-8.9zM416.6 562.3a8.03 8.03 0 0 0-11.3 0L251.8 715.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L160.1 855c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 153.6-153.6c3.1-3.1 3.1-8.2 0-11.3l-45.2-45z"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button
+        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
+        disabled=""
+        title="send"
+      >
+        <span
+          class="memori-button--icon"
+        >
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            role="img"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+            />
+          </svg>
+        </span>
+      </button>
+    </fieldset>
+  </div>
+</div>
+`;
+
+exports[`renders Chat with custom user avatar unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--wrapper"
+    data-memori-lang="IT"
+    id="chat-wrapper"
+  >
+    <div
+      class="memori-chat--history"
+    >
+      <div
+        class="memori-chat--content"
+      >
+        <div
+          class="memori-chat--cover"
+        />
+        <div
+          class="memori-chat--bubble-initial"
+        />
+        <div
+          class="memori-chat--bubble-container"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+          >
+            <source
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <p>
+              Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
+            </p>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+        >
+          <div
+            class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+          >
+            <p>
+              Prova
+            </p>
+          </div>
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+          >
+            <img
+              alt="User"
+              class="memori-chat--bubble-avatar-img"
+              src="https://picsum.photos/200"
+            />
+          </picture>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+          >
+            <source
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <p>
+              Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
+            </p>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+        >
+          <div
+            class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+          >
+            <p>
+              Come faccio a fare delle cose con questa cosa?
+            </p>
+          </div>
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+          >
+            <img
+              alt="User"
+              class="memori-chat--bubble-avatar-img"
+              src="https://picsum.photos/200"
+            />
+          </picture>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+          >
+            <source
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <p>
+              Ecco qui come.
+            </p>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        >
+          <div
+            class="memori-link-items"
+          >
+            <div
+              class="memori-link-items--grid"
+            >
+              <div
+                class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
+              >
+                <a
+                  class="memori-link-item--link"
+                  href="https://memori.ai"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <div
+                    class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
+                  >
+                    <div
+                      class="memori-spin"
+                    >
+                      <div
+                        class="memori-card--cover"
+                      >
+                        <div
+                          class="memori-link-item--card-cover-icon"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="memori-link-item--icon"
+                            focusable="false"
+                            role="img"
+                            viewBox="0 0 1024 1024"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        class="memori-card--content"
+                      >
+                        <h3
+                          class="memori-card--title"
+                        >
+                          Link
+                        </h3>
+                        <div
+                          class="memori-card--children"
+                        />
+                      </div>
+                      <div
+                        class="memori-spin--spinner"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="memori-loading-icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+        >
+          <div
+            class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+          >
+            <p>
+              Ah, grazie! Ciao!
+            </p>
+          </div>
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+          >
+            <img
+              alt="User"
+              class="memori-chat--bubble-avatar-img"
+              src="https://picsum.photos/200"
+            />
+          </picture>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+          >
+            <source
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <p>
+              Arrivederci.
+            </p>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          id="end-messages-ref"
+        />
+      </div>
+    </div>
+    <fieldset
+      class="memori-chat-inputs"
+      id="chat-fieldset"
+    >
+      <div
+        class="memori-send-on-enter-menu"
+        data-headlessui-state=""
+      >
+        <button
+          aria-expanded="false"
+          aria-haspopup="true"
+          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
+          data-headlessui-state=""
+          id="headlessui-menu-button-:ri:"
+          type="button"
+        >
+          <div
+            class="memori-button--icon"
+          >
+            <span
+              style="display: block; width: 1rem; height: 1rem;"
+            >
+              …
+            </span>
+          </div>
+        </button>
+      </div>
+      <div
+        class="memori-chat-textarea"
+        data-testid="chat-textarea"
+      >
+        <div
+          class="memori-chat-textarea--inner"
+        >
+          <textarea
+            class="memori-chat-textarea--input"
+          />
+          <div
+            class="memori-chat-textarea--expand"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M855 160.1l-189.2 23.5c-6.6.8-9.3 8.8-4.7 13.5l54.7 54.7-153.5 153.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l153.6-153.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L863.9 169a7.9 7.9 0 0 0-8.9-8.9zM416.6 562.3a8.03 8.03 0 0 0-11.3 0L251.8 715.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L160.1 855c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 153.6-153.6c3.1-3.1 3.1-8.2 0-11.3l-45.2-45z"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button
+        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
+        disabled=""
+        title="send"
+      >
+        <span
+          class="memori-button--icon"
+        >
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            role="img"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+            />
+          </svg>
+        </span>
+      </button>
+    </fieldset>
+  </div>
+</div>
+`;
+
 exports[`renders Chat with dates unchanged 1`] = `
 <div>
   <div
@@ -3566,6 +4282,367 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
           data-headlessui-state=""
           id="headlessui-menu-button-:r2:"
+          type="button"
+        >
+          <div
+            class="memori-button--icon"
+          >
+            <span
+              style="display: block; width: 1rem; height: 1rem;"
+            >
+              …
+            </span>
+          </div>
+        </button>
+      </div>
+      <div
+        class="memori-chat-textarea"
+        data-testid="chat-textarea"
+      >
+        <div
+          class="memori-chat-textarea--inner"
+        >
+          <textarea
+            class="memori-chat-textarea--input"
+          />
+          <div
+            class="memori-chat-textarea--expand"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  aria-hidden="true"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M855 160.1l-189.2 23.5c-6.6.8-9.3 8.8-4.7 13.5l54.7 54.7-153.5 153.5a8.03 8.03 0 0 0 0 11.3l45.1 45.1c3.1 3.1 8.2 3.1 11.3 0l153.6-153.6 54.7 54.7a7.94 7.94 0 0 0 13.5-4.7L863.9 169a7.9 7.9 0 0 0-8.9-8.9zM416.6 562.3a8.03 8.03 0 0 0-11.3 0L251.8 715.9l-54.7-54.7a7.94 7.94 0 0 0-13.5 4.7L160.1 855c-.6 5.2 3.7 9.5 8.9 8.9l189.2-23.5c6.6-.8 9.3-8.8 4.7-13.5l-54.7-54.7 153.6-153.6c3.1-3.1 3.1-8.2 0-11.3l-45.2-45z"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
+      </div>
+      <button
+        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
+        disabled=""
+        title="send"
+      >
+        <span
+          class="memori-button--icon"
+        >
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            role="img"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+            />
+          </svg>
+        </span>
+      </button>
+    </fieldset>
+  </div>
+</div>
+`;
+
+exports[`renders Chat with user unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--wrapper"
+    data-memori-lang="IT"
+    id="chat-wrapper"
+  >
+    <div
+      class="memori-chat--history"
+    >
+      <div
+        class="memori-chat--content"
+      >
+        <div
+          class="memori-chat--cover"
+        />
+        <div
+          class="memori-chat--bubble-initial"
+        />
+        <div
+          class="memori-chat--bubble-container"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+          >
+            <source
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <p>
+              Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
+            </p>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+        >
+          <div
+            class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+          >
+            <p>
+              Prova
+            </p>
+          </div>
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+          >
+            <img
+              alt="User"
+              class="memori-chat--bubble-avatar-img"
+              src="https://picsum.photos/200"
+            />
+          </picture>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+          >
+            <source
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <p>
+              Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
+            </p>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+        >
+          <div
+            class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+          >
+            <p>
+              Come faccio a fare delle cose con questa cosa?
+            </p>
+          </div>
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+          >
+            <img
+              alt="User"
+              class="memori-chat--bubble-avatar-img"
+              src="https://picsum.photos/200"
+            />
+          </picture>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+          >
+            <source
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <p>
+              Ecco qui come.
+            </p>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        >
+          <div
+            class="memori-link-items"
+          >
+            <div
+              class="memori-link-items--grid"
+            >
+              <div
+                class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
+              >
+                <a
+                  class="memori-link-item--link"
+                  href="https://memori.ai"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >
+                  <div
+                    class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
+                  >
+                    <div
+                      class="memori-spin"
+                    >
+                      <div
+                        class="memori-card--cover"
+                      >
+                        <div
+                          class="memori-link-item--card-cover-icon"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="memori-link-item--icon"
+                            focusable="false"
+                            role="img"
+                            viewBox="0 0 1024 1024"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
+                            />
+                          </svg>
+                        </div>
+                      </div>
+                      <div
+                        class="memori-card--content"
+                      >
+                        <h3
+                          class="memori-card--title"
+                        >
+                          Link
+                        </h3>
+                        <div
+                          class="memori-card--children"
+                        />
+                      </div>
+                      <div
+                        class="memori-spin--spinner"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="memori-loading-icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+        >
+          <div
+            class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+          >
+            <p>
+              Ah, grazie! Ciao!
+            </p>
+          </div>
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+          >
+            <img
+              alt="User"
+              class="memori-chat--bubble-avatar-img"
+              src="https://picsum.photos/200"
+            />
+          </picture>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+          >
+            <source
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <p>
+              Arrivederci.
+            </p>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          id="end-messages-ref"
+        />
+      </div>
+    </div>
+    <fieldset
+      class="memori-chat-inputs"
+      id="chat-fieldset"
+    >
+      <div
+        class="memori-send-on-enter-menu"
+        data-headlessui-state=""
+      >
+        <button
+          aria-expanded="false"
+          aria-haspopup="true"
+          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
+          data-headlessui-state=""
+          id="headlessui-menu-button-:rg:"
           type="button"
         >
           <div

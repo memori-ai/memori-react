@@ -5,6 +5,7 @@ import {
   Memori,
   Message,
   Tenant,
+  User,
 } from '@memori.ai/memori-api-client/dist/types';
 import { hasTouchscreen } from '../../helpers/utils';
 import { getResourceUrl } from '../../helpers/media';
@@ -59,6 +60,8 @@ export interface Props {
   resetTranscript: () => void;
   customMediaRenderer?: MediaWidgetProps['customMediaRenderer'];
   layout: MemoriProps['layout'];
+  userAvatar?: MemoriProps['userAvatar'];
+  user?: User;
 }
 
 const Chat: React.FC<Props> = ({
@@ -98,6 +101,8 @@ const Chat: React.FC<Props> = ({
   stopListening,
   resetTranscript,
   customMediaRenderer,
+  user,
+  userAvatar,
 }) => {
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -194,6 +199,8 @@ const Chat: React.FC<Props> = ({
                   !message.fromUser &&
                   dialogState?.acceptsFeedback
                 }
+                user={user}
+                userAvatar={userAvatar}
               />
               {showDates && !!message.timestamp && (
                 <small

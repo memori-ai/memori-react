@@ -170,3 +170,17 @@ WithCustomMediaRenderer.args = {
     </div>
   ),
 };
+
+export const WithUserAvatar = Template.bind({});
+WithUserAvatar.args = {
+  memori,
+  tenant,
+  userAvatar: 'https://picsum.photos/200',
+};
+
+export const WithUserAvatarAsElement = Template.bind({});
+WithUserAvatarAsElement.args = {
+  memori,
+  tenant,
+  userAvatar: <span>USER</span>,
+};

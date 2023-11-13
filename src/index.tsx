@@ -48,6 +48,7 @@ export interface Props {
   additionalInfo?: WidgetProps['additionalInfo'];
   customMediaRenderer?: WidgetProps['customMediaRenderer'];
   additionalSettings?: WidgetProps['additionalSettings'];
+  userAvatar?: WidgetProps['userAvatar'];
 }
 
 const getPreferredLanguages = () => {
@@ -103,6 +104,7 @@ const Memori: React.FC<Props> = ({
   additionalInfo,
   customMediaRenderer,
   additionalSettings,
+  userAvatar,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
   const [speechKey, setSpeechKey] = useState<string | undefined>(
@@ -237,6 +239,7 @@ const Memori: React.FC<Props> = ({
       additionalInfo={additionalInfo}
       customMediaRenderer={customMediaRenderer}
       additionalSettings={additionalSettings}
+      userAvatar={userAvatar}
       {...(tag && pin ? { personification: { tag, pin } } : {})}
     />
   ) : (
@@ -296,6 +299,7 @@ Memori.propTypes = {
   additionalInfo: PropTypes.objectOf(PropTypes.any),
   customMediaRenderer: PropTypes.func,
   additionalSettings: PropTypes.any,
+  userAvatar: PropTypes.oneOfType([PropTypes.string, PropTypes.any]),
 };
 
 export default Memori;

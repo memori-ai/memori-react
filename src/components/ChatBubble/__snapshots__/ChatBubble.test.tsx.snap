@@ -1,5 +1,78 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`renders ChatBubble from user with avatar as react element unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-container memori-chat--bubble-from-user"
+  >
+    <div
+      class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+    >
+      <p>
+        Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+      </p>
+    </div>
+    <div
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+    >
+      <span>
+        USER
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders ChatBubble from user with avatar unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-container memori-chat--bubble-from-user"
+  >
+    <div
+      class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+    >
+      <p>
+        Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+      </p>
+    </div>
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+    >
+      <img
+        alt="User"
+        class="memori-chat--bubble-avatar-img"
+        src="https://picsum.photos/200"
+      />
+    </picture>
+  </div>
+</div>
+`;
+
+exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-container memori-chat--bubble-from-user"
+  >
+    <div
+      class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+    >
+      <p>
+        Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+      </p>
+    </div>
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+    >
+      <img
+        alt="User"
+        class="memori-chat--bubble-avatar-img"
+        src="https://picsum.photos/200"
+      />
+    </picture>
+  </div>
+</div>
+`;
+
 exports[`renders ChatBubble unchanged 1`] = `
 <div>
   <div

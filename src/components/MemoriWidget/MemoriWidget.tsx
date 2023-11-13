@@ -14,6 +14,7 @@ import {
   Tenant,
   Asset,
   MemoriSession,
+  User,
 } from '@memori.ai/memori-api-client/src/types';
 import {
   SpeakerAudioDestination,
@@ -353,6 +354,7 @@ export interface Props {
   additionalInfo?: OpenSession['additionalInfo'] & { [key: string]: string };
   customMediaRenderer?: ChatProps['customMediaRenderer'];
   additionalSettings?: JSX.Element | null;
+  userAvatar?: string | JSX.Element;
 }
 
 const MemoriWidget = ({
@@ -390,6 +392,7 @@ const MemoriWidget = ({
   additionalInfo,
   additionalSettings,
   customMediaRenderer,
+  userAvatar,
 }: Props) => {
   const { t, i18n } = useTranslation();
 
@@ -411,6 +414,10 @@ const MemoriWidget = ({
   } = client;
 
   const [instruct, setInstruct] = useState(false);
+
+  const [user, setUser] = useState<User>({
+    avatarURL: typeof userAvatar === 'string' ? userAvatar : undefined,
+  } as User);
 
   const [clickedStart, setClickedStart] = useState(false);
   const [gotErrorInOpening, setGotErrorInOpening] = useState(false);
@@ -2662,6 +2669,8 @@ const MemoriWidget = ({
     listening,
     isPlayingAudio,
     customMediaRenderer,
+    user,
+    userAvatar,
   };
 
   const integrationBackground =

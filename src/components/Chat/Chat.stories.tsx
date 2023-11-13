@@ -232,3 +232,54 @@ WithAIGeneratedMessages.args = {
   setAttachmentsMenuOpen: () => {},
   setSendOnEnter: () => {},
 };
+
+export const WithUser = Template.bind({});
+WithUser.args = {
+  user: { avatarURL: 'https://picsum.photos/200' },
+  memori,
+  tenant,
+  sessionID,
+  history,
+  dialogState,
+  layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
+
+export const WithCustomUserAvatar = Template.bind({});
+WithCustomUserAvatar.args = {
+  userAvatar: 'https://picsum.photos/200',
+  memori,
+  tenant,
+  sessionID,
+  history,
+  dialogState,
+  layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
+
+export const WithCustomUserAvatarAsElement = Template.bind({});
+WithCustomUserAvatarAsElement.args = {
+  userAvatar: <span>USER</span>,
+  memori,
+  tenant,
+  sessionID,
+  history,
+  dialogState,
+  layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};

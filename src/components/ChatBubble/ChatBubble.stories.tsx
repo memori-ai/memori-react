@@ -120,3 +120,60 @@ WithAllAddonsContents.args = {
   showFeedback: true,
   simulateUserPrompt: () => {},
 };
+
+export const FromUserWithAvatar = Template.bind({});
+FromUserWithAvatar.args = {
+  memori,
+  tenant,
+  user: { avatarURL: 'https://picsum.photos/200' },
+  message: {
+    fromUser: true,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    initial: false,
+    translatedText:
+      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+  },
+};
+
+export const FromUserWithCustomAvatar = Template.bind({});
+FromUserWithCustomAvatar.args = {
+  memori,
+  tenant,
+  userAvatar: 'https://picsum.photos/200',
+  message: {
+    fromUser: true,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    initial: false,
+    translatedText:
+      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+  },
+};
+
+export const FromUserWithCustomAvatarElement = Template.bind({});
+FromUserWithCustomAvatarElement.args = {
+  memori,
+  tenant,
+  userAvatar: <span>USER</span>,
+  message: {
+    fromUser: true,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    initial: false,
+    translatedText:
+      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+  },
+};
+
+export const FromUserWithAvatarAndCustomAvatar = Template.bind({});
+FromUserWithAvatarAndCustomAvatar.args = {
+  memori,
+  tenant,
+  userAvatar: () => <span>USER</span>,
+  user: { avatarURL: 'https://picsum.photos/200' },
+  message: {
+    fromUser: true,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    initial: false,
+    translatedText:
+      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+  },
+};

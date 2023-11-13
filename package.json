@@ -283,7 +283,7 @@
   "dependencies": {
     "@fontsource/exo-2": "^4.5.10",
     "@headlessui/react": "1.7.4",
-    "@memori.ai/memori-api-client": "^2.2.2",
+    "@memori.ai/memori-api-client": "^2.4.0",
     "@react-three/drei": "8.20.2",
     "@react-three/fiber": "7.0.25",
     "antd": "4.18.9",

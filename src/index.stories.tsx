@@ -98,6 +98,19 @@ WithBatch.args = {
   showSettings: true,
 };
 
+export const WithCustomUserAvatar = Template.bind({});
+WithCustomUserAvatar.args = {
+  ownerUserName: 'nzambello',
+  memoriName: 'Nicola',
+  tenantID: 'app.memorytwin.com',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://app.memorytwin.com',
+  uiLang: 'it',
+  showShare: true,
+  showSettings: true,
+  userAvatar: 'https://picsum.photos/200',
+};
+
 // export const Instruction = Template.bind({});
 // Instruction.args = {
 //   ownerUserName: 'nzambello',
