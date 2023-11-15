@@ -13,7 +13,6 @@ import Button from '../ui/Button';
 import Translation from '../icons/Translation';
 import { chatLanguages } from '../../helpers/constants';
 import BlockedMemoriBadge from '../BlockedMemoriBadge/BlockedMemoriBadge';
-import Select from '../ui/Select';
 import AI from '../icons/AI';
 
 export interface Props {

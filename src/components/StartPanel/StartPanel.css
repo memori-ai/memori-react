@@ -123,6 +123,11 @@
     margin-left: 0.5rem;
 }
 
+.memori--language-chooser select option {
+    background: #fff;
+    color: #000;
+}
+
 .memori--completions-enabled,
 .memori--nsfw {
     position: absolute;
@@ -150,6 +155,6 @@
     height: 1rem;
 }
 
-.memori--completions-enabled + .memori--nsfw {
+.memori--completions-enabled+.memori--nsfw {
     right: 4.75rem;
 }
