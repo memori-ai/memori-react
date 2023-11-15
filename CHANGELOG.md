@@ -1,5 +1,12 @@
 
 
+## [2.19.1](https://github.com/memori-ai/memori-react/compare/v2.19.0...v2.19.1) (2023-11-15)
+
+
+### Bug Fixes
+
+* personification in open session from pwd required state ([dc47a6a](https://github.com/memori-ai/memori-react/commit/dc47a6a3c835bb02e80022fc1dda8cfdb0754da9))
+
 ## [2.19.0](https://github.com/memori-ai/memori-react/compare/v2.18.9...v2.19.0) (2023-11-13)
 
 
