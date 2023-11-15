@@ -1,5 +1,12 @@
 
 
+## [2.19.2](https://github.com/memori-ai/memori-react/compare/v2.19.1...v2.19.2) (2023-11-15)
+
+
+### Bug Fixes
+
+* language selector bg and color on windows ([94598f7](https://github.com/memori-ai/memori-react/commit/94598f7ed0e949926fcaba21d463f909b29eb5c7))
+
 ## [2.19.1](https://github.com/memori-ai/memori-react/compare/v2.19.0...v2.19.1) (2023-11-15)
 
 
