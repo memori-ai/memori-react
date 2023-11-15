@@ -910,6 +910,8 @@ const MemoriWidget = ({
 
       const session = await initSession({
         ...params,
+        tag: params.tag ?? personification?.tag,
+        pin: params.pin ?? personification?.pin,
         additionalInfo: {
           ...(additionalInfo || {}),
           loginToken: additionalInfo?.loginToken ?? authToken,
@@ -2785,8 +2787,8 @@ const MemoriWidget = ({
               !sessionId,
               values['password'],
               values['tokens'],
-              instruct ? memori.giverTag : undefined,
-              instruct ? memori.giverPIN : undefined,
+              instruct ? memori.giverTag : personification?.tag,
+              instruct ? memori.giverPIN : personification?.pin,
               {
                 PATHNAME: window.location.pathname,
                 ROUTE: window.location.pathname?.split('/')?.pop() || '',
@@ -2824,8 +2826,8 @@ const MemoriWidget = ({
                 !sessionId,
                 memoriPassword || memoriPwd || memori?.secretToken,
                 memoriTokens,
-                instruct ? memori.giverTag : undefined,
-                instruct ? memori.giverPIN : undefined,
+                instruct ? memori.giverTag : personification?.tag,
+                instruct ? memori.giverPIN : personification?.pin,
                 {
                   PATHNAME: window.location.pathname,
                   ROUTE: window.location.pathname?.split('/')?.pop() || '',
