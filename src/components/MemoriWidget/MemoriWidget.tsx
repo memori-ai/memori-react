@@ -914,7 +914,7 @@ const MemoriWidget = ({
         pin: params.pin ?? personification?.pin,
         additionalInfo: {
           ...(additionalInfo || {}),
-          loginToken: additionalInfo?.loginToken ?? authToken,
+          loginToken: additionalInfo?.loginToken ?? loginToken ?? authToken,
           language: getCultureCodeByLanguage(userLang),
           referral: referral,
         },
@@ -1009,7 +1009,7 @@ const MemoriWidget = ({
         birthDate: birthDate || storageBirthDate || undefined,
         additionalInfo: {
           ...(additionalInfo || {}),
-          loginToken: additionalInfo?.loginToken ?? authToken,
+          loginToken: additionalInfo?.loginToken ?? loginToken ?? authToken,
           language: getCultureCodeByLanguage(userLang),
           referral: referral,
         },
@@ -1139,7 +1139,7 @@ const MemoriWidget = ({
             birthDate: birthDate || storageBirthDate || undefined,
             additionalInfo: {
               ...(additionalInfo || {}),
-              loginToken: additionalInfo?.loginToken ?? authToken,
+              loginToken: additionalInfo?.loginToken ?? loginToken ?? authToken,
               language: getCultureCodeByLanguage(userLang),
               referral: referral,
             },
@@ -2506,7 +2506,9 @@ const MemoriWidget = ({
     [memoriPwd, memori, memoriTokens, birthDate, sessionId, userLang]
   );
 
-  const [loginToken, setLoginToken] = useState<string | undefined>(authToken);
+  const [loginToken, setLoginToken] = useState<string | undefined>(
+    additionalInfo?.loginToken ?? authToken
+  );
   useEffect(() => {
     const targetNode =
       document.querySelector(`memori-client[memoriname="${memori.name}"]`) ||
