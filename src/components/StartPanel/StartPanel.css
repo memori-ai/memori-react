@@ -109,6 +109,10 @@
     opacity: 0.85;
 }
 
+.memori--start-button {
+    margin-right: 1em;
+}
+
 .memori--language-chooser {
     margin-bottom: 1rem;
 }

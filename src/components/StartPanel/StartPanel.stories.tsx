@@ -237,3 +237,22 @@ WithIntegration.args = {
   clickedStart: false,
   onClickStart: () => {},
 };
+
+export const WithCompletionProviderDown = Template.bind({});
+WithCompletionProviderDown.args = {
+  memori: {
+    ...memori,
+    enableCompletions: false,
+    completionProvider: 'OpenAI',
+  },
+  tenant,
+  language: 'it',
+  userLang: 'en',
+  setUserLang: () => {},
+  openPositionDrawer: () => {},
+  instruct: false,
+  sessionId: sessionID,
+  clickedStart: false,
+  onClickStart: () => {},
+  _TEST_forceProviderStatus: 'major',
+};

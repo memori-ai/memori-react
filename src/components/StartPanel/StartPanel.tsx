@@ -14,6 +14,7 @@ import Translation from '../icons/Translation';
 import { chatLanguages } from '../../helpers/constants';
 import BlockedMemoriBadge from '../BlockedMemoriBadge/BlockedMemoriBadge';
 import AI from '../icons/AI';
+import CompletionProviderStatus from '../CompletionProviderStatus/CompletionProviderStatus';
 
 export interface Props {
   memori: Memori;
@@ -32,6 +33,7 @@ export interface Props {
   clickedStart?: boolean;
   onClickStart?: () => void;
   initializeTTS?: () => void;
+  _TEST_forceProviderStatus?: string;
 }
 
 const StartPanel: React.FC<Props> = ({
@@ -50,6 +52,7 @@ const StartPanel: React.FC<Props> = ({
   clickedStart,
   onClickStart,
   initializeTTS,
+  _TEST_forceProviderStatus,
 }) => {
   const { t, i18n } = useTranslation();
   const [translatedDescription, setTranslatedDescription] = useState(
@@ -253,6 +256,11 @@ const StartPanel: React.FC<Props> = ({
               `write_and_speak.${!instruct ? 'tryMeButton' : 'instructButton'}`
             )}
           </Button>
+
+          <CompletionProviderStatus
+            provider={memori.completionProvider}
+            forceStatus={_TEST_forceProviderStatus}
+          />
 
           <p className="memori--start-description">
             {instruct

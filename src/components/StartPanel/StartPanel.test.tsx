@@ -132,3 +132,25 @@ it('renders StartPanel with integrationConfig unchanged', () => {
   );
   expect(container).toMatchSnapshot();
 });
+
+it('renders StartPanel with completion provider down unchanged', () => {
+  const { container } = render(
+    <StartPanel
+      memori={{
+        ...memori,
+        completionProvider: 'OpenAI',
+      }}
+      tenant={tenant}
+      language="it"
+      userLang="en"
+      setUserLang={() => {}}
+      openPositionDrawer={() => {}}
+      instruct={false}
+      sessionId={sessionID}
+      clickedStart={false}
+      onClickStart={() => {}}
+      _TEST_forceProviderStatus="major"
+    />
+  );
+  expect(container).toMatchSnapshot();
+});

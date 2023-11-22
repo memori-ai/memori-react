@@ -1,0 +1,18 @@
+.memori--completion-provider-status--icon {
+    width: 1em;
+    height: 1em;
+    fill: var(--memori-error-color, red);
+}
+
+.memori--completion-provider-status--tooltip.memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content,
+.memori--completion-provider-status--tooltip.memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled):not(.memori-tooltip--visible):hover .memori-tooltip--content {
+    transform: translateY(calc(-100% - 2em)) translateX(3em);
+}
+
+.memori--completion-provider-status--tooltip.memori-tooltip .memori-tooltip--content p {
+    margin: 0.5em auto;
+}
+
+.memori--completion-provider-status--tooltip.memori-tooltip .memori-tooltip--content p+p {
+    margin-top: 1em;
+}

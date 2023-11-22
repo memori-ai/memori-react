@@ -5,7 +5,6 @@ export interface Props {
   content: string | JSX.Element | React.ReactNode;
   className?: string;
   align?: 'left' | 'right' | 'topLeft' | 'topRight';
-  alignTop?: boolean;
   disabled?: boolean;
   children: React.ReactNode;
   visible?: boolean;
