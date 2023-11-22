@@ -1,5 +1,17 @@
 
 
+## [2.20.0](https://github.com/memori-ai/memori-react/compare/v2.19.2...v2.20.0) (2023-11-22)
+
+
+### Features
+
+* show completion provider status if down ([d5f31fb](https://github.com/memori-ai/memori-react/commit/d5f31fbc9b5d8408f8a61f99ed96eca599618a1e))
+
+
+### Changes
+
+* provide any way to pass login token to session ([c7adf7c](https://github.com/memori-ai/memori-react/commit/c7adf7c6e832ac95ae7808a2f6b532204bc5c80d))
+
 ## [2.19.2](https://github.com/memori-ai/memori-react/compare/v2.19.1...v2.19.2) (2023-11-15)
 
 
