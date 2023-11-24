@@ -122,6 +122,9 @@ const Chat: React.FC<Props> = ({
     stopListening();
     if (hasTouchscreen() && window.innerWidth <= 768) {
       document.getElementById('chat-wrapper')?.classList?.add('chat-focused');
+      document
+        .querySelector('.memori.memori-widget')
+        ?.classList?.add('chat-focused');
       setTimeout(() => {
         scrollToBottom();
       }, 300);
@@ -134,6 +137,9 @@ const Chat: React.FC<Props> = ({
         ?.classList?.contains('chat-focused')
     ) {
       document.getElementById('chat-wrapper')?.classList.remove('chat-focused');
+      document
+        .querySelector('.memori.memori-widget')
+        ?.classList?.remove('chat-focused');
       scrollToBottom();
     }
   };

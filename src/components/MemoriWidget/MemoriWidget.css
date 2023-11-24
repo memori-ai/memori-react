@@ -10,7 +10,7 @@
     box-sizing: border-box;
 }
 
-.memori-widget > .memori-spin {
+.memori-widget>.memori-spin {
     height: calc(100vh - 50px);
 }
 
@@ -175,7 +175,7 @@
     font-size: 1rem;
 }
 
-.memori--conversation-button + .memori--conversation-button {
+.memori--conversation-button+.memori--conversation-button {
     margin-left: 0.33rem;
 }
 
@@ -189,4 +189,9 @@
 .memori--conversation-button:focus {
     box-shadow: 0 0.2rem 0.33rem #b5b6c4 !important;
     color: var(--memori-primary) !important;
+}
+
+.memori.memori-widget.chat-focused .memori--powered-by,
+.memori.memori-widget.chat-focused .memori-website_assistant--close-button-wrapper button.memori-website_assistant--close-button {
+    display: none;
 }
