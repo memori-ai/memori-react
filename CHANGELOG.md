@@ -1,5 +1,12 @@
 
 
+## [2.20.1](https://github.com/memori-ai/memori-react/compare/v2.20.0...v2.20.1) (2023-11-24)
+
+
+### Bug Fixes
+
+* cleanup ui on mobile textarea focus ([778934d](https://github.com/memori-ai/memori-react/commit/778934df1fb27c7c78de2e35e81c72e57f7e8a5f))
+
 ## [2.20.0](https://github.com/memori-ai/memori-react/compare/v2.19.2...v2.20.0) (2023-11-22)
 
 
