@@ -196,7 +196,7 @@ FullbodyFemale.args = {
   headMovement: true,
   rotateAvatar: true,
   speaking: false,
-  url: 'https://assets.memori.ai/api/v2/asset/6af08bf1-f011-40ea-92a2-699b7b53a53c.glb',
+  url: 'https://models.readyplayer.me/650d50c2663b19e0d2831b2b.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
   halfBody: false,
@@ -209,7 +209,7 @@ FullbodyAnimatedFemale.args = {
   headMovement: true,
   rotateAvatar: true,
   speaking: true,
-  url: 'https://assets.memori.ai/api/v2/asset/6af08bf1-f011-40ea-92a2-699b7b53a53c.glb',
+  url: 'https://models.readyplayer.me/650d50c2663b19e0d2831b2b.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
   animation: 'Idle',
