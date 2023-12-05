@@ -98,7 +98,7 @@ ChatOnly.args = {
     newPassword: null,
     ownerUserID: null,
     ownerUserName: 'nzambello',
-    ownerTenantName: 'app.memorytwin.com',
+    ownerTenantName: 'app.twincreator.com',
     memoriConfigurationID: 'fd10bb42-98d9-4c08-8e02-2b08bd4e4975',
     description:
       'Sono Nicola Zambello, sviluppatore e attivista per un web etico e sostenibile',
@@ -206,7 +206,7 @@ Totem.args = {
     newPassword: null,
     ownerUserID: null,
     ownerUserName: 'nzambello',
-    ownerTenantName: 'app.memorytwin.com',
+    ownerTenantName: 'app.twincreator.com',
     memoriConfigurationID: 'fd10bb42-98d9-4c08-8e02-2b08bd4e4975',
     description:
       'Sono Nicola Zambello, sviluppatore e attivista per un web etico e sostenibile',
@@ -326,7 +326,7 @@ WebsiteAssistant.args = {
     newPassword: null,
     ownerUserID: null,
     ownerUserName: 'nzambello',
-    ownerTenantName: 'app.memorytwin.com',
+    ownerTenantName: 'app.twincreator.com',
     memoriConfigurationID: 'fd10bb42-98d9-4c08-8e02-2b08bd4e4975',
     description:
       'Sono Nicola Zambello, sviluppatore e attivista per un web etico e sostenibile',

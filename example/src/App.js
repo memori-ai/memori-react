@@ -7,9 +7,9 @@ function App() {
     <Memori
       memoriName="Memori"
       ownerUserName="nunziofiore"
-      tenantID="app.memorytwin.com"
+      tenantID="app.twincreator.com"
       apiURL="https://backend.memori.ai"
-      baseURL="https://app.memorytwin.com"
+      baseURL="https://app.twincreator.com"
       uiLang="it"
       showShare
       height="100vh"
