@@ -1,5 +1,12 @@
 
 
+## [2.21.0](https://github.com/memori-ai/memori-react/compare/v2.20.2...v2.21.0) (2023-12-05)
+
+
+### Features
+
+* share qr code with tenant logo, retrieve tenant data and config from api ([42cf28f](https://github.com/memori-ai/memori-react/commit/42cf28f4befa30c3d0079ce8e4725f94965a55de))
+
 ## [2.20.2](https://github.com/memori-ai/memori-react/compare/v2.20.1...v2.20.2) (2023-12-05)
 
 
