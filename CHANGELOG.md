@@ -1,5 +1,17 @@
 
 
+## [2.20.2](https://github.com/memori-ai/memori-react/compare/v2.20.1...v2.20.2) (2023-12-05)
+
+
+### Bug Fixes
+
+* temporarily disable fullbody avatar loading anim, update anim assets url ([56e5dbb](https://github.com/memori-ai/memori-react/commit/56e5dbb08416193607cdd916eba39d251165a86c))
+
+
+### Maintenance
+
+* update stories and example tenants ([bae67a0](https://github.com/memori-ai/memori-react/commit/bae67a0c15ebf03113f9ea2806123ea6965c65a7))
+
 ## [2.20.1](https://github.com/memori-ai/memori-react/compare/v2.20.0...v2.20.1) (2023-11-24)
 
 
