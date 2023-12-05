@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import Facebook from '../icons/Facebook';
 import Twitter from '../icons/Twitter';
@@ -13,8 +13,10 @@ import { QRCodeCanvas } from 'qrcode.react';
 import { Menu } from '@headlessui/react';
 import Button from '../ui/Button';
 import cx from 'classnames';
+import { Tenant } from '@memori.ai/memori-api-client/dist/types';
 
 export interface Props {
+  tenant?: Tenant;
   url?: string;
   title?: string;
   className?: string;
@@ -25,6 +27,7 @@ export interface Props {
 }
 
 const ShareButton: React.FC<Props> = ({
+  tenant,
   url,
   title = '',
   className,
@@ -35,6 +38,16 @@ const ShareButton: React.FC<Props> = ({
 }: Props) => {
   const { t } = useTranslation();
   const [targetUrl, setTargetUrl] = useState(url);
+
+  const qrImageURL = useMemo(
+    () =>
+      tenant?.theme
+        ? `${baseUrl ?? 'https://app.twincreator.com'}/images/${
+            tenant.theme
+          }/square_logo.png`
+        : `${baseUrl ?? 'https://app.twincreator.com'}/images/memori_logo.png`,
+    [tenant, baseUrl]
+  );
 
   useEffect(() => {
     if (!url) setTargetUrl(window.location.href);
@@ -167,9 +180,7 @@ const ShareButton: React.FC<Props> = ({
               level={'H'}
               includeMargin={false}
               imageSettings={{
-                src: `${
-                  baseUrl || 'https://app.twincreator.com'
-                }/images/memori_logo.png`,
+                src: qrImageURL,
                 x: undefined,
                 y: undefined,
                 height: 32,

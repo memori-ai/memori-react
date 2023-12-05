@@ -2555,6 +2555,7 @@ const MemoriWidget = ({
 
   const headerProps: HeaderProps = {
     memori,
+    tenant,
     history,
     showShare: showShare ?? integrationConfig?.showShare ?? true,
     position,

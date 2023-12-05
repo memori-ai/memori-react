@@ -3,11 +3,13 @@ import PropTypes from 'prop-types';
 import {
   DialogState,
   Memori as IMemori,
+  Tenant,
 } from '@memori.ai/memori-api-client/dist/types';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import MemoriWidget, {
   Props as WidgetProps,
 } from './components/MemoriWidget/MemoriWidget';
+import { getTenant } from './helpers/tenant';
 
 import i18n from './i18n';
 import { useTranslation } from 'react-i18next';
@@ -107,6 +109,7 @@ const Memori: React.FC<Props> = ({
   userAvatar,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
+  const [tenant, setTenant] = useState<Tenant>();
   const [speechKey, setSpeechKey] = useState<string | undefined>(
     AZURE_COGNITIVE_SERVICES_TTS_KEY
   );
@@ -172,6 +175,17 @@ const Memori: React.FC<Props> = ({
   }, [fetchMemori, tenantID]);
 
   /**
+   * Fetches the Tenant data from the backend
+   */
+  const fetchTenant = useCallback(async () => {
+    const tenant = await getTenant(tenantID, baseURL);
+    if (tenant) setTenant(tenant);
+  }, [tenantID, apiURL]);
+  useEffect(() => {
+    fetchTenant();
+  }, [fetchTenant]);
+
+  /**
    * Sets the language in the i18n instance
    */
   useEffect(() => {
@@ -204,15 +218,7 @@ const Memori: React.FC<Props> = ({
       }}
       memoriLang={spokenLang ?? memori.culture?.split('-')?.[0]}
       multilingual={multilingual}
-      tenant={{
-        id: tenantID,
-        theme: 'twincreator',
-        config: {
-          name: tenantID,
-          showNewUser: false,
-          requirePosition: !!memori.needsPosition,
-        },
-      }}
+      tenant={tenant}
       secret={secretToken}
       sessionID={sessionID}
       showShare={showShare}

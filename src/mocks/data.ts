@@ -10,14 +10,42 @@ import {
 export const sessionID = '131165be-9d1a-42fb-a3ce-e8f86d40c88f';
 
 export const tenant: Tenant = {
-  id: 'locahost:3000',
-  theme: 'twincreator',
+  adminCount: 3,
   config: {
-    name: 'Memori',
-    showNewUser: true,
+    feedbackURL:
+      'https://form.asana.com/?k=XC7S3JWQeIhnjipBuA3gbw&d=1199599736247413',
+    name: 'TwinCreator',
     requirePosition: false,
-    feedbackURL: 'https://form.asana.com/',
+    showNewUser: true,
   },
+  creationTimestamp: '2023-05-31T14:32:48.885287Z',
+  description: 'TwinCreator',
+  disableRegistration: false,
+  id: 'app.twincreator.com',
+  lastChangeTimestamp: '2023-05-31T14:32:48.885287Z',
+  logoURL: 'https://app.twincreator.com/images/twincreator/logo.png',
+  maxAdmins: 0,
+  maxCompletions: 0,
+  maxCompletionsPerUser: 0,
+  maxFreeSessions: 400,
+  maxFreeSessionsPerUser: 100,
+  maxMemoriPerAdmin: 0,
+  maxMemoriPerUser: 3,
+  maxTotalMemori: 0,
+  maxUsers: 0,
+  memoriCount: 0,
+  name: 'app.twincreator.com',
+  nonFreeSessionCost: 0.02,
+  paying: true,
+  tenantID: '96caa4b4-31a4-48e5-8163-dec61869a2a7',
+  theme: 'twincreator',
+  userCount: 0,
+  usersCanAccessAPI: false,
+  usersCanCreateMemori: false,
+  usersCanEditDynamicIntents: false,
+  usersCanEditIntegrations: false,
+  usersCanEditMemoriChaining: false,
+  usersCanRunSnippets: false,
 };
 
 export const memori: Memori = {

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import ShareButton, { Props } from './ShareButton';
+import { tenant } from '../../mocks/data';
 
 import './ShareButton.css';
 
@@ -40,6 +41,12 @@ Default.args = {
   align: 'right',
 };
 
+export const Alignment = TemplateRight.bind({});
+Alignment.args = {
+  url: 'https://memori.ai',
+  align: 'left',
+};
+
 export const WithQrCode = Template.bind({});
 WithQrCode.args = {
   url: 'https://memori.ai',
@@ -47,8 +54,21 @@ WithQrCode.args = {
   align: 'right',
 };
 
-export const Alignment = TemplateRight.bind({});
-Alignment.args = {
+export const WithQrCodeAndTenant = Template.bind({});
+WithQrCodeAndTenant.args = {
   url: 'https://memori.ai',
-  align: 'left',
+  showQrCode: true,
+  align: 'right',
+  tenant: tenant,
+};
+
+export const WithQrCodeAndOtherTenant = Template.bind({});
+WithQrCodeAndOtherTenant.args = {
+  url: 'https://memori.ai',
+  showQrCode: true,
+  align: 'right',
+  tenant: {
+    ...tenant,
+    theme: 'tailoor',
+  },
 };

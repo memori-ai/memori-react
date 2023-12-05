@@ -3,6 +3,7 @@ import cx from 'classnames';
 import {
   Memori,
   Message,
+  Tenant,
   Venue,
 } from '@memori.ai/memori-api-client/dist/types';
 import Button from '../ui/Button';
@@ -21,6 +22,7 @@ import Clear from '../icons/Clear';
 export interface Props {
   className?: string;
   memori: Memori;
+  tenant?: Tenant;
   history: Message[];
   position?: Venue;
   setShowPositionDrawer: (show: boolean) => void;
@@ -39,6 +41,7 @@ export interface Props {
 const Header: React.FC<Props> = ({
   className,
   memori,
+  tenant,
   history,
   position,
   setShowPositionDrawer,
@@ -151,6 +154,7 @@ const Header: React.FC<Props> = ({
         <ShareButton
           className="memori-header--button memori-header--button-share"
           title={memori.name}
+          tenant={tenant}
           showQrCode
           align="left"
         />
