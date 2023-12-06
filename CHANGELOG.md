@@ -1,5 +1,12 @@
 
 
+## [2.22.0](https://github.com/memori-ai/memori-react/compare/v2.21.0...v2.22.0) (2023-12-06)
+
+
+### Features
+
+* fix loading animations, united in one glb ([e56fbd3](https://github.com/memori-ai/memori-react/commit/e56fbd33e8614f9f74d2d8f2462af454213e40f4))
+
 ## [2.21.0](https://github.com/memori-ai/memori-react/compare/v2.20.2...v2.21.0) (2023-12-05)
 
 
