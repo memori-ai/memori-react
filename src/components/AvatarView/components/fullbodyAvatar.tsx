@@ -51,21 +51,9 @@ export default function Avatar({
       ? 'https://assets.memori.ai/api/v2/asset/5de7456f-0cd8-4e29-95a7-0cd0045a5325.glb'
       : 'https://assets.memori.ai/api/v2/asset/84487a2b-377c-4565-800a-51459d580ec8.glb'
   );
-  // const { animations: loadingAnimations } = useGLTF(
-  //   sex === 'MALE'
-  //     ? 'https://assets.memori.ai/api/v2/asset/2150d3d3-b77d-4489-8455-e6239334e8a7.glb'
-  //     : 'https://assets.memori.ai/api/v2/asset/0a04e5b2-1a02-4964-9534-75c2a7574660.glb'
-  // );
-  const { animations: loadingAnimations } = useGLTF(
-    'https://assets.memori.ai/api/v2/asset/ebb61fe1-6b0d-4b11-a032-292b7ef307a4.glb'
-  );
   const { nodes, materials } = useGraph(scene);
 
   const anim = useAnimations(animations, scene);
-  const loadingAnim = useAnimations(
-    loadingAnimations.filter(a => a.name === 'Loading'),
-    scene
-  );
 
   useEyeBlink(eyeBlink, nodes);
   // useHeadMovement(headMovement, nodes);
@@ -90,15 +78,9 @@ export default function Avatar({
       Object.keys(anim.actions).forEach(name => {
         let action = anim.actions[name];
         if (!action) return;
-        else if (name === animation && animation !== 'Loading')
-          action.fadeIn(0.3).play();
+        else if (name === animation) action.fadeIn(0.3).play();
         else action.fadeOut(0.3).stop();
       });
-      // if (animation === 'Loading') {
-      //   loadingAnim.actions['Loading']?.fadeIn(0.3).play();
-      // } else {
-      //   loadingAnim.actions['Loading']?.fadeOut(0.3).stop();
-      // }
     } else {
       Object.values(anim.actions).forEach(action => {
         if (!action) return;
