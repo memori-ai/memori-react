@@ -16,7 +16,7 @@ export const getResourceUrl = ({
   let defaultUri =
     type === 'cover'
       ? `${baseURL}/images/memoriCover.png`
-      : `${baseURL}/images/memoriAvatar.png`;
+      : `${baseURL}/images/memoriAvatar.png?v=20231208`;
 
   try {
     if (!resourceURI || resourceURI.length === 0) {

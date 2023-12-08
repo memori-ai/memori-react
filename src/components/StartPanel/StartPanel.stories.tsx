@@ -187,6 +187,29 @@ WithAllTheBadges.args = {
   onClickStart: () => {},
 };
 
+export const BoardOfExpert = Template.bind({});
+BoardOfExpert.args = {
+  memori: {
+    ...memori,
+    enableBoardOfExperts: true,
+    enableCompletions: true,
+  },
+  gamificationLevel: {
+    points: 61,
+    pointsForCurrentBadge: 60,
+    badge: '🌍',
+  },
+  tenant,
+  language: 'it',
+  userLang: 'en',
+  setUserLang: () => {},
+  openPositionDrawer: () => {},
+  instruct: false,
+  sessionId: sessionID,
+  clickedStart: false,
+  onClickStart: () => {},
+};
+
 export const Instruct = Template.bind({});
 Instruct.args = {
   memori,

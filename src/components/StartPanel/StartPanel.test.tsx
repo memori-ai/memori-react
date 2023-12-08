@@ -65,6 +65,27 @@ it('renders StartPanel with completions enabled unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders StartPanel for board of experts unchanged', () => {
+  const { container } = render(
+    <StartPanel
+      memori={{
+        ...memori,
+        enableBoardOfExperts: true,
+      }}
+      tenant={tenant}
+      language="it"
+      userLang="en"
+      setUserLang={() => {}}
+      openPositionDrawer={() => {}}
+      instruct={false}
+      sessionId={sessionID}
+      clickedStart={false}
+      onClickStart={() => {}}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
 it('renders StartPanel on instruct unchanged', () => {
   const { container } = render(
     <StartPanel

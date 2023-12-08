@@ -1,5 +1,94 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`renders StartPanel for board of experts unchanged 1`] = `
+<div>
+  <div
+    class="memori--start-panel"
+  >
+    <div
+      class="memori--cover"
+    >
+      <div
+        class="memori--board-of-experts"
+      >
+        <div
+          class="memori-tooltip memori-tooltip--align-left"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            boardOfExperts
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <span
+              aria-label="boardOfExperts"
+            >
+              <svg
+                aria-hidden="true"
+                fill="none"
+                focusable="false"
+                height="16"
+                role="img"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 640 512"
+                width="20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M211.2 96a64 64 0 10-128 0 64 64 0 10128 0zM32 256c0 17.7 14.3 32 32 32h85.6c10.1-39.4 38.6-71.5 75.8-86.6-9.7-6-21.2-9.4-33.4-9.4H96c-35.3 0-64 28.7-64 64zm461.6 32H576c17.7 0 32-14.3 32-32 0-35.3-28.7-64-64-64h-96c-11.7 0-22.7 3.1-32.1 8.6 38.1 14.8 67.4 47.3 77.7 87.4zm-102.4-61.6c-6.9-1.6-14.2-2.4-21.6-2.4h-96c-8.5 0-16.7 1.1-24.5 3.1-30.8 8.1-55.6 31.1-66.1 60.9-3.5 10-5.5 20.8-5.5 32 0 17.7 14.3 32 32 32h224c17.7 0 32-14.3 32-32 0-11.2-1.9-22-5.5-32-10.8-30.7-36.8-54.2-68.9-61.6zM563.2 96a64 64 0 10-128 0 64 64 0 10128 0zm-241.6 96a80 80 0 100-160 80 80 0 100 160zM32 416c-17.7 0-32 14.3-32 32s14.3 32 32 32h576c17.7 0 32-14.3 32-32s-14.3-32-32-32H32z"
+                />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <picture
+      class="memori--avatar"
+    >
+      <source
+        src="https://app.twincreator.com/images/twincreator/square_logo.png"
+      />
+      <img
+        alt="Memori"
+        src="https://app.twincreator.com/images/twincreator/square_logo.png"
+      />
+    </picture>
+    <h2
+      class="memori--title"
+    >
+      Memori
+    </h2>
+    <div
+      class="memori--description"
+    >
+      <p>
+        <span
+          class="memori--description-text"
+        >
+          Lorem ipsum.
+        </span>
+      </p>
+      <button
+        class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
+      >
+        write_and_speak.tryMeButton
+      </button>
+      <p
+        class="memori--start-description"
+      >
+        write_and_speak.pageTryMeExplanation
+      </p>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renders StartPanel on instruct unchanged 1`] = `
 <div>
   <div

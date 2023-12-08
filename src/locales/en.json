@@ -34,6 +34,7 @@
   "completionProviderDown": "This Twin is integrated with a generative AI from {{provider}}, but it is currently unavailable. Try again later.",
   "completionProviderFallbackName": "an external provider",
   "completionProviderCheckStatusPage": "Check status page",
+  "boardOfExperts": "Board of experts",
   "birthDate": "Birth date",
   "birthDateHelper": "We ask for your birth date only to enable or disable functionalities that have age restrictions",
   "underage": "You must be at least {{age}} years old to sign up.",

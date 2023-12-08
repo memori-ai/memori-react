@@ -177,3 +177,31 @@ FromUserWithAvatarAndCustomAvatar.args = {
       'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
   },
 };
+
+export const FromExpertOfABoard = Template.bind({});
+FromExpertOfABoard.args = {
+  memori: {
+    ...memori,
+    enableBoardOfExperts: true,
+  },
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  experts: [
+    {
+      expertID: '9b0a2913-d3d8-4e98-a49d-6e1c99479e1b',
+      name: 'Expert name',
+      description: 'Expert description',
+      expertMemoriID: '9b0a2913-d3d8-4e98-a49d-6e1c99479e1b',
+      expertBaseURL: 'https://engine.memori.ai',
+    },
+  ],
+  message: {
+    fromUser: false,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    initial: false,
+    generatedByAI: true,
+    emitter: 'Expert name',
+    translatedText:
+      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+  },
+};

@@ -14,6 +14,7 @@ import Translation from '../icons/Translation';
 import { chatLanguages } from '../../helpers/constants';
 import BlockedMemoriBadge from '../BlockedMemoriBadge/BlockedMemoriBadge';
 import AI from '../icons/AI';
+import Group from '../icons/Group';
 import CompletionProviderStatus from '../CompletionProviderStatus/CompletionProviderStatus';
 
 export interface Props {
@@ -101,7 +102,7 @@ const StartPanel: React.FC<Props> = ({
           })}")`,
         }}
       >
-        {!!gamificationLevel?.badge?.length && (
+        {!!gamificationLevel?.badge?.length && !memori.enableBoardOfExperts && (
           <div className="memori--gamification-badge">
             <Tooltip
               align="left"
@@ -119,11 +120,20 @@ const StartPanel: React.FC<Props> = ({
             </Tooltip>
           </div>
         )}
-        {!!memori.enableCompletions && (
+        {!!memori.enableCompletions && !memori.enableBoardOfExperts && (
           <div className="memori--completions-enabled">
             <Tooltip align="left" content={t('completionsEnabled')}>
               <span aria-label={t('completionsEnabled') || 'Completions'}>
                 <AI />
+              </span>
+            </Tooltip>
+          </div>
+        )}
+        {!!memori.enableBoardOfExperts && (
+          <div className="memori--board-of-experts">
+            <Tooltip align="left" content={t('boardOfExperts')}>
+              <span aria-label={t('boardOfExperts') || 'Board of Experts'}>
+                <Group />
               </span>
             </Tooltip>
           </div>

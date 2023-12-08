@@ -15,6 +15,7 @@ import {
   Asset,
   MemoriSession,
   User,
+  ExpertReference,
 } from '@memori.ai/memori-api-client/src/types';
 import {
   SpeakerAudioDestination,
@@ -411,6 +412,7 @@ const MemoriWidget = ({
     postTagChangedEvent,
     getSession,
     getContentQualityIndexes,
+    getExpertReferences,
   } = client;
 
   const [instruct, setInstruct] = useState(false);
@@ -635,6 +637,7 @@ const MemoriWidget = ({
           if (emission) {
             pushMessage({
               text: emission,
+              emitter: currentState.emitter,
               media: currentState.media,
               fromUser: false,
             });
@@ -663,6 +666,7 @@ const MemoriWidget = ({
             if (emission) {
               pushMessage({
                 text: emission,
+                emitter: currentState.emitter,
                 media: currentState.media,
                 fromUser: false,
               });
@@ -698,6 +702,7 @@ const MemoriWidget = ({
         if (emission) {
           pushMessage({
             text: emission,
+            emitter: currentState.emitter,
             media: currentState.media,
             fromUser: false,
             generatedByAI: !!currentState.completion,
@@ -757,6 +762,7 @@ const MemoriWidget = ({
       if (emission) {
         translatedMsg = {
           text: emission,
+          emitter: state.emitter,
           media: state.media,
           fromUser: false,
         };
@@ -796,6 +802,7 @@ const MemoriWidget = ({
       if (t.text.length > 0)
         translatedMsg = {
           text: t.text,
+          emitter: state.emitter,
           media: state.media,
           fromUser: false,
           generatedByAI: !!state.completion,
@@ -1025,6 +1032,7 @@ const MemoriWidget = ({
               ? setHistory([
                   {
                     text: currentState.emission,
+                    emitter: currentState.emitter,
                     media: currentState.media,
                     fromUser: false,
                     initial: true,
@@ -1032,6 +1040,7 @@ const MemoriWidget = ({
                 ])
               : pushMessage({
                   text: currentState.emission,
+                  emitter: currentState.emitter,
                   media: currentState.media,
                   fromUser: false,
                   initial: true,
@@ -1246,6 +1255,7 @@ const MemoriWidget = ({
         } else if (emission && emission.length > 0) {
           pushMessage({
             text: emission,
+            emitter: currentState.emitter,
             media: currentState.media,
             fromUser: false,
             generatedByAI: !!currentState.completion,
@@ -2141,6 +2151,7 @@ const MemoriWidget = ({
             if (currentState.emission) {
               pushMessage({
                 text: currentState.emission,
+                emitter: currentState.emitter,
                 media: currentState.media,
                 fromUser: false,
               });
@@ -2154,6 +2165,7 @@ const MemoriWidget = ({
           if (currentState.emission) {
             pushMessage({
               text: currentState.emission,
+              emitter: currentState.emitter,
               media: currentState.media,
               fromUser: false,
             });
@@ -2548,6 +2560,29 @@ const MemoriWidget = ({
     };
   }, []);
 
+  /**
+   * Experts references
+   */
+  const [experts, setExperts] = useState<ExpertReference[]>();
+  const fetchExperts = useCallback(async () => {
+    if (!sessionId || !memori?.enableBoardOfExperts) return;
+
+    try {
+      const { experts, count, ...resp } = await getExpertReferences(sessionId);
+
+      if (resp.resultCode === 0) {
+        setExperts(experts);
+      } else {
+        console.warn('Error fetching experts', resp);
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }, [sessionId, memori?.enableBoardOfExperts]);
+  useEffect(() => {
+    fetchExperts();
+  }, [sessionId, fetchExperts]);
+
   const showFullHistory =
     showOnlyLastMessages === undefined
       ? layout !== 'TOTEM' && layout !== 'WEBSITE_ASSISTANT'
@@ -2676,6 +2711,7 @@ const MemoriWidget = ({
     customMediaRenderer,
     user,
     userAvatar,
+    experts,
   };
 
   const integrationBackground =
@@ -2905,6 +2941,7 @@ const MemoriWidget = ({
                 if (currentState.emission) {
                   pushMessage({
                     text: currentState.emission,
+                    emitter: currentState.emitter,
                     media: currentState.media,
                     fromUser: false,
                   });
@@ -2962,6 +2999,7 @@ const MemoriWidget = ({
                 if (currentState.emission) {
                   pushMessage({
                     text: currentState.emission,
+                    emitter: currentState.emitter,
                     media: currentState.media,
                     fromUser: false,
                   });

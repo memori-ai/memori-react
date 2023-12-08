@@ -2,6 +2,7 @@ import React, { useEffect, memo } from 'react';
 import cx from 'classnames';
 import {
   DialogState,
+  ExpertReference,
   Memori,
   Message,
   Tenant,
@@ -62,6 +63,7 @@ export interface Props {
   layout: MemoriProps['layout'];
   userAvatar?: MemoriProps['userAvatar'];
   user?: User;
+  experts?: ExpertReference[];
 }
 
 const Chat: React.FC<Props> = ({
@@ -103,6 +105,7 @@ const Chat: React.FC<Props> = ({
   customMediaRenderer,
   user,
   userAvatar,
+  experts,
 }) => {
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -207,6 +210,7 @@ const Chat: React.FC<Props> = ({
                 }
                 user={user}
                 userAvatar={userAvatar}
+                experts={experts}
               />
               {showDates && !!message.timestamp && (
                 <small

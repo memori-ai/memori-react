@@ -12,7 +12,7 @@ describe('Media URL helper', () => {
         baseURL: 'https://twin.memori.ai',
         apiURL: 'https://backend.memori.ai/api/v2',
       })
-    ).toBe('https://twin.memori.ai/images/memoriAvatar.png');
+    ).toBe('https://twin.memori.ai/images/memoriAvatar.png?v=20231208');
   });
   it('Get default cover URL with no url', async () => {
     expect(

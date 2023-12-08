@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import {
+  ExpertReference,
   Memori,
   Message,
   Tenant,
@@ -27,6 +28,7 @@ export interface Props {
   isFirst?: boolean;
   userAvatar?: MemoriProps['userAvatar'];
   user?: User;
+  experts?: ExpertReference[];
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -41,6 +43,7 @@ const ChatBubble: React.FC<Props> = ({
   isFirst = false,
   user,
   userAvatar,
+  experts,
 }) => {
   const { t } = useTranslation();
 
@@ -74,21 +77,46 @@ const ChatBubble: React.FC<Props> = ({
             leaveTo={`opacity-0 scale-075 ${
               message.fromUser ? 'translate-x-15' : 'translate-x--15'
             }`}
+            title={
+              !!message.emitter?.length && !!memori.enableBoardOfExperts
+                ? message.emitter
+                : memori.name
+            }
           >
             <source
-              src={getResourceUrl({
-                type: 'avatar',
-                tenantID: tenant?.id,
-                resourceURI: memori.avatarURL,
-                baseURL: baseUrl,
-                apiURL: apiUrl,
-              })}
+              src={
+                !!message.emitter?.length &&
+                !!memori.enableBoardOfExperts &&
+                experts?.find(e => e.name === message.emitter)
+                  ? `${apiUrl}/api/v1/memoriai/memori/avatar/${
+                      experts.find(e => e.name === message.emitter)
+                        ?.expertMemoriID
+                    }`
+                  : getResourceUrl({
+                      type: 'avatar',
+                      tenantID: tenant?.id,
+                      resourceURI: memori.avatarURL,
+                      baseURL: baseUrl,
+                      apiURL: apiUrl,
+                    })
+              }
             />
             <img
               className="memori-chat--bubble-avatar-img"
-              alt={memori.name}
+              alt={
+                !!message.emitter?.length && !!memori.enableBoardOfExperts
+                  ? message.emitter
+                  : memori.name
+              }
               src={
-                memori.avatarURL && memori.avatarURL.length > 0
+                !!message.emitter?.length &&
+                !!memori.enableBoardOfExperts &&
+                experts?.find(e => e.name === message.emitter)
+                  ? `${apiUrl}/api/v1/memoriai/memori/avatar/${
+                      experts.find(e => e.name === message.emitter)
+                        ?.expertMemoriID
+                    }`
+                  : memori.avatarURL && memori.avatarURL.length > 0
                   ? getResourceUrl({
                       type: 'avatar',
                       tenantID: tenant?.id,

@@ -34,6 +34,7 @@
   "completionProviderDown": "Questo Twin è integrato con una IA generativa di {{provider}}, ma al momento non è disponibile. Riprova più tardi.",
   "completionProviderFallbackName": "un provider esterno",
   "completionProviderCheckStatusPage": "Vedi pagina di stato",
+  "boardOfExperts": "Gruppo di esperti",
   "birthDate": "Data di nascita",
   "birthDateHelper": "Ti chiediamo la data di nascita esclusivamente per abilitare o disabilitare le funzionalità che hanno restrizioni in base all'età",
   "underage": "Devi avere almeno {{age}} anni per registrarti.",
