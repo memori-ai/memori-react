@@ -1,5 +1,12 @@
 
 
+## [2.23.0](https://github.com/memori-ai/memori-react/compare/v2.22.0...v2.23.0) (2023-12-08)
+
+
+### Features
+
+* add boe indicators, chat avatar with emitters ([9c1f162](https://github.com/memori-ai/memori-react/commit/9c1f16207b8accfe6f109387912a3428ca577bf3))
+
 ## [2.22.0](https://github.com/memori-ai/memori-react/compare/v2.21.0...v2.22.0) (2023-12-06)
 
 
