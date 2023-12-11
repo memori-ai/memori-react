@@ -82,9 +82,6 @@ exports[`renders ChatBubble unchanged 1`] = `
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
       title="Memori"
     >
-      <source
-        src="https://app.twincreator.com/images/twincreator/square_logo.png"
-      />
       <img
         alt="Memori"
         class="memori-chat--bubble-avatar-img"
@@ -114,9 +111,6 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
       title="Memori"
     >
-      <source
-        src="https://app.twincreator.com/images/twincreator/square_logo.png"
-      />
       <img
         alt="Memori"
         class="memori-chat--bubble-avatar-img"

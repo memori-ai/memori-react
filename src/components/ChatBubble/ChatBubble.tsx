@@ -83,24 +83,6 @@ const ChatBubble: React.FC<Props> = ({
                 : memori.name
             }
           >
-            <source
-              src={
-                !!message.emitter?.length &&
-                !!memori.enableBoardOfExperts &&
-                experts?.find(e => e.name === message.emitter)
-                  ? `${apiUrl}/api/v1/memoriai/memori/avatar/${
-                      experts.find(e => e.name === message.emitter)
-                        ?.expertMemoriID
-                    }`
-                  : getResourceUrl({
-                      type: 'avatar',
-                      tenantID: tenant?.id,
-                      resourceURI: memori.avatarURL,
-                      baseURL: baseUrl,
-                      apiURL: apiUrl,
-                    })
-              }
-            />
             <img
               className="memori-chat--bubble-avatar-img"
               alt={
@@ -131,6 +113,23 @@ const ChatBubble: React.FC<Props> = ({
                       apiURL: apiUrl,
                     })
               }
+              onError={e => {
+                e.currentTarget.src =
+                  memori.avatarURL && memori.avatarURL.length > 0
+                    ? getResourceUrl({
+                        type: 'avatar',
+                        tenantID: tenant?.id,
+                        resourceURI: memori.avatarURL,
+                        baseURL: baseUrl,
+                      })
+                    : getResourceUrl({
+                        tenantID: tenant?.id,
+                        type: 'avatar',
+                        baseURL: baseUrl,
+                      });
+
+                e.currentTarget.onerror = null;
+              }}
             />
           </Transition.Child>
         )}

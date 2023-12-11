@@ -26,9 +26,6 @@ exports[`renders Chat on X2a state unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -82,9 +79,6 @@ exports[`renders Chat on X2a state unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -138,9 +132,6 @@ exports[`renders Chat on X2a state unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -285,9 +276,6 @@ exports[`renders Chat on X2a state unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -441,9 +429,6 @@ exports[`renders Chat on X3 state unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -497,9 +482,6 @@ exports[`renders Chat on X3 state unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -553,9 +535,6 @@ exports[`renders Chat on X3 state unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -700,9 +679,6 @@ exports[`renders Chat on X3 state unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -889,9 +865,6 @@ exports[`renders Chat unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -945,9 +918,6 @@ exports[`renders Chat unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -1001,9 +971,6 @@ exports[`renders Chat unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -1133,9 +1100,6 @@ exports[`renders Chat unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -1273,9 +1237,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -1329,9 +1290,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -1385,9 +1343,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -1532,9 +1487,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -1687,9 +1639,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -1735,9 +1684,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -1783,9 +1729,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -1907,9 +1850,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -2047,9 +1987,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -2097,9 +2034,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -2147,9 +2081,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -2273,9 +2204,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -2413,9 +2341,6 @@ exports[`renders Chat with dates unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -2479,9 +2404,6 @@ exports[`renders Chat with dates unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -2545,9 +2467,6 @@ exports[`renders Chat with dates unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -2687,9 +2606,6 @@ exports[`renders Chat with dates unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -2832,9 +2748,6 @@ exports[`renders Chat with hints unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -2888,9 +2801,6 @@ exports[`renders Chat with hints unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -2944,9 +2854,6 @@ exports[`renders Chat with hints unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -3076,9 +2983,6 @@ exports[`renders Chat with hints unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -3242,9 +3146,6 @@ exports[`renders Chat with media unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -3298,9 +3199,6 @@ exports[`renders Chat with media unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -3354,9 +3252,6 @@ exports[`renders Chat with media unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -3887,9 +3782,6 @@ exports[`renders Chat with media unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -4027,9 +3919,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -4083,9 +3972,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -4139,9 +4025,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -4271,9 +4154,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -4432,9 +4312,6 @@ exports[`renders Chat with user unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -4482,9 +4359,6 @@ exports[`renders Chat with user unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -4532,9 +4406,6 @@ exports[`renders Chat with user unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
@@ -4658,9 +4529,6 @@ exports[`renders Chat with user unchanged 1`] = `
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
             title="Memori"
           >
-            <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
-            />
             <img
               alt="Memori"
               class="memori-chat--bubble-avatar-img"
