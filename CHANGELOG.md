@@ -1,5 +1,16 @@
 
 
+## [3.0.0-rc.0](https://github.com/memori-ai/memori-react/compare/v2.23.0...v3.0.0-rc.0) (2023-12-11)
+
+
+### ⚠ BREAKING CHANGES
+
+* use i18next with local provider as lib
+
+### Changes
+
+* use i18next with local provider as lib ([d7a192c](https://github.com/memori-ai/memori-react/commit/d7a192cb6ed04d0a901748b812e8099821fc0712))
+
 ## [2.23.0](https://github.com/memori-ai/memori-react/compare/v2.22.0...v2.23.0) (2023-12-08)
 
 
