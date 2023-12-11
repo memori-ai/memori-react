@@ -1,5 +1,17 @@
 
 
+## [3.0.1](https://github.com/memori-ai/memori-react/compare/v3.0.0...v3.0.1) (2023-12-11)
+
+
+### Bug Fixes
+
+* board of expert twin avatar fallback ([32ca5f3](https://github.com/memori-ai/memori-react/commit/32ca5f3750f4d12ac9af616961436453a6f8cbe8))
+
+
+### Maintenance
+
+* update memori-api-client ([8472d3f](https://github.com/memori-ai/memori-react/commit/8472d3f862e6ba4a2a86f78cbaf8b9c35f5c7d37))
+
 ## [3.0.0](https://github.com/memori-ai/memori-react/compare/v3.0.0-rc.0...v3.0.0) (2023-12-11)
 
 ## [3.0.0-rc.0](https://github.com/memori-ai/memori-react/compare/v2.23.0...v3.0.0-rc.0) (2023-12-11)
