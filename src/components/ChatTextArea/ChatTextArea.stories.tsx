@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import ChatTextArea, { Props } from './ChatTextArea';
+import I18nWrapper from '../../I18nWrapper';
 import './ChatTextArea.css';
 
 const meta: Meta = {
@@ -24,9 +25,11 @@ const Template: Story<Props> = args => {
   const [userMessage, setUserMessage] = React.useState(args.value);
 
   return (
-    <div style={{ paddingTop: '10rem' }}>
-      <ChatTextArea {...args} value={userMessage} onChange={setUserMessage} />
-    </div>
+    <I18nWrapper>
+      <div style={{ paddingTop: '10rem' }}>
+        <ChatTextArea {...args} value={userMessage} onChange={setUserMessage} />
+      </div>
+    </I18nWrapper>
   );
 };
 

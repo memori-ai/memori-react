@@ -3,6 +3,7 @@ import cx from 'classnames';
 import Button from '../ui/Button';
 import Expand from '../icons/Expand';
 import FullscreenExit from '../icons/FullscreenExit';
+import { useTranslation } from 'react-i18next';
 
 export interface Props {
   disabled?: boolean;
@@ -21,6 +22,7 @@ const ChatTextArea: React.FC<Props> = ({
   onFocus,
   onBlur,
 }) => {
+  const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
 
   return (
@@ -53,6 +55,9 @@ const ChatTextArea: React.FC<Props> = ({
             onClick={() => setExpanded(!expanded)}
             padded={false}
             ghost
+            title={
+              expanded ? t('collapse') || 'Collapse' : t('expand') || 'Expand'
+            }
             icon={expanded ? <FullscreenExit /> : <Expand />}
           />
         </div>

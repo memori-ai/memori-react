@@ -1,10 +1,11 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { memori, history } from '../../mocks/data';
+import I18nWrapper from '../../I18nWrapper';
 import Header, { Props } from './Header';
+import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 
 import './Header.css';
-import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 
 const meta: Meta = {
   title: 'Widget/Header',
@@ -31,7 +32,7 @@ const Template: Story<Props> = args => {
     React.useState(2);
 
   return (
-    <>
+    <I18nWrapper>
       <Header
         {...args}
         speakerMuted={speakerMuted}
@@ -51,7 +52,7 @@ const Template: Story<Props> = args => {
         hideEmissions={false}
         setHideEmissions={() => {}}
       />
-    </>
+    </I18nWrapper>
   );
 };
 

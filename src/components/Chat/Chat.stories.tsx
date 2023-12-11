@@ -9,6 +9,7 @@ import {
   sessionID,
   dialogState as dialogStateWithHints,
 } from '../../mocks/data';
+import I18nWrapper from '../../I18nWrapper';
 import Chat, { Props } from './Chat';
 
 import './Chat.css';
@@ -33,11 +34,13 @@ const Template: Story<Props> = args => {
   const [userMessage, setUserMessage] = useState(args.userMessage);
 
   return (
-    <Chat
-      {...args}
-      userMessage={userMessage}
-      onChangeUserMessage={setUserMessage}
-    />
+    <I18nWrapper>
+      <Chat
+        {...args}
+        userMessage={userMessage}
+        onChangeUserMessage={setUserMessage}
+      />
+    </I18nWrapper>
   );
 };
 

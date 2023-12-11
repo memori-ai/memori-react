@@ -17,6 +17,7 @@ exports[`renders ChatTextArea unchanged 1`] = `
       >
         <button
           class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+          title="expand"
         >
           <span
             class="memori-button--icon"
@@ -59,6 +60,7 @@ exports[`renders ChatTextArea with long text unchanged 1`] = `
       >
         <button
           class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+          title="expand"
         >
           <span
             class="memori-button--icon"
@@ -101,6 +103,7 @@ exports[`renders ChatTextArea with value unchanged 1`] = `
       >
         <button
           class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+          title="expand"
         >
           <span
             class="memori-button--icon"

@@ -12,7 +12,7 @@ import MemoriWidget, {
 import { getTenant } from './helpers/tenant';
 
 import i18n from './i18n';
-import { useTranslation } from 'react-i18next';
+import { I18nextProvider, useTranslation } from 'react-i18next';
 
 export interface Props {
   memoriName?: string | null;
@@ -202,7 +202,7 @@ const Memori: React.FC<Props> = ({
     }
   }, [uiLang]);
 
-  return memori ? (
+  const renderer = memori ? (
     <MemoriWidget
       layout={layout}
       customLayout={customLayout}
@@ -256,11 +256,19 @@ const Memori: React.FC<Props> = ({
         justifyContent: 'center',
       }}
     >
-      <p style={{ textAlign: 'center', margin: '2rem auto' }}>
-        {t('loading')}...
+      <p
+        style={{
+          textAlign: 'center',
+          margin: '2rem auto',
+          textTransform: 'capitalize',
+        }}
+      >
+        {t('loading') || 'Loading'}...
       </p>
     </div>
   );
+
+  return <I18nextProvider i18n={i18n}>{renderer}</I18nextProvider>;
 };
 
 Memori.propTypes = {

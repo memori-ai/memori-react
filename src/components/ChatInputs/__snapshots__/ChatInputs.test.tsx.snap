@@ -48,6 +48,7 @@ exports[`renders ChatInputs disabled unchanged 1`] = `
         >
           <button
             class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+            title="expand"
           >
             <span
               class="memori-button--icon"
@@ -173,6 +174,7 @@ exports[`renders ChatInputs listening unchanged 1`] = `
         >
           <button
             class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+            title="expand"
           >
             <span
               class="memori-button--icon"
@@ -327,6 +329,7 @@ exports[`renders ChatInputs on instruct unchanged 1`] = `
         >
           <button
             class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+            title="expand"
           >
             <span
               class="memori-button--icon"
@@ -450,6 +453,7 @@ exports[`renders ChatInputs unchanged 1`] = `
         >
           <button
             class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+            title="expand"
           >
             <span
               class="memori-button--icon"
@@ -576,6 +580,7 @@ exports[`renders ChatInputs with user message unchanged 1`] = `
         >
           <button
             class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+            title="expand"
           >
             <span
               class="memori-button--icon"
@@ -701,6 +706,7 @@ exports[`renders ChatInputs without microphone button unchanged 1`] = `
         >
           <button
             class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+            title="expand"
           >
             <span
               class="memori-button--icon"

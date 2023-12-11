@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import I18nWrapper from '../../I18nWrapper';
 import Snippet from './Snippet';
 import { prismSyntaxLangs } from '../../helpers/constants';
 
@@ -82,15 +83,17 @@ const Template: Story<{
   content: string;
   preview?: boolean;
 }> = args => (
-  <Snippet
-    {...args}
-    medium={{
-      mediumID: '95226d7e-7bae-465e-8b80-995587bb5971',
-      mimeType: args.mimeType,
-      title: 'Snippet',
-      content: args.content,
-    }}
-  />
+  <I18nWrapper>
+    <Snippet
+      {...args}
+      medium={{
+        mediumID: '95226d7e-7bae-465e-8b80-995587bb5971',
+        mimeType: args.mimeType,
+        title: 'Snippet',
+        content: args.content,
+      }}
+    />
+  </I18nWrapper>
 );
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test

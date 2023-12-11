@@ -368,6 +368,7 @@ exports[`renders Chat on X2a state unchanged 1`] = `
           >
             <button
               class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+              title="expand"
             >
               <span
                 class="memori-button--icon"
@@ -815,6 +816,7 @@ exports[`renders Chat on X3 state unchanged 1`] = `
           >
             <button
               class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+              title="expand"
             >
               <span
                 class="memori-button--icon"
@@ -1198,6 +1200,7 @@ exports[`renders Chat unchanged 1`] = `
           >
             <button
               class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+              title="expand"
             >
               <span
                 class="memori-button--icon"
@@ -1611,6 +1614,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
           >
             <button
               class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+              title="expand"
             >
               <span
                 class="memori-button--icon"
@@ -1970,6 +1974,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           >
             <button
               class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+              title="expand"
             >
               <span
                 class="memori-button--icon"
@@ -2335,6 +2340,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           >
             <button
               class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+              title="expand"
             >
               <span
                 class="memori-button--icon"
@@ -2753,6 +2759,7 @@ exports[`renders Chat with dates unchanged 1`] = `
           >
             <button
               class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+              title="expand"
             >
               <span
                 class="memori-button--icon"
@@ -3162,6 +3169,7 @@ exports[`renders Chat with hints unchanged 1`] = `
           >
             <button
               class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+              title="expand"
             >
               <span
                 class="memori-button--icon"
@@ -3946,6 +3954,7 @@ exports[`renders Chat with media unchanged 1`] = `
           >
             <button
               class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+              title="expand"
             >
               <span
                 class="memori-button--icon"
@@ -4350,6 +4359,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           >
             <button
               class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+              title="expand"
             >
               <span
                 class="memori-button--icon"
@@ -4715,6 +4725,7 @@ exports[`renders Chat with user unchanged 1`] = `
           >
             <button
               class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-chat-textarea--expand-button"
+              title="expand"
             >
               <span
                 class="memori-button--icon"

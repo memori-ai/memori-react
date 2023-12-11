@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
+import I18nWrapper from '../../I18nWrapper';
 import UploadMenu, { Props } from './UploadMenu';
 
 import './UploadMenu.css';
@@ -27,19 +28,21 @@ const Template: Story<Props> = args => {
     'link' | 'media' | undefined
   >(args.attachmentsMenuOpen);
   return (
-    <div
-      style={{
-        minHeight: '200px',
-        display: 'flex',
-        alignItems: 'flex-end',
-      }}
-    >
-      <UploadMenu
-        {...args}
-        attachmentsMenuOpen={attachmentsMenuOpen}
-        setAttachmentsMenuOpen={setAttachmentsMenuOpen}
-      />
-    </div>
+    <I18nWrapper>
+      <div
+        style={{
+          minHeight: '200px',
+          display: 'flex',
+          alignItems: 'flex-end',
+        }}
+      >
+        <UploadMenu
+          {...args}
+          attachmentsMenuOpen={attachmentsMenuOpen}
+          setAttachmentsMenuOpen={setAttachmentsMenuOpen}
+        />
+      </div>
+    </I18nWrapper>
   );
 };
 

@@ -1,5 +1,4 @@
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import { createInstance } from 'i18next';
 import it from './locales/it.json';
 import en from './locales/en.json';
 
@@ -12,7 +11,7 @@ const resources = {
   },
 };
 
-i18n.use(initReactI18next).init({
+const i18n = createInstance({
   resources,
   lng: 'en',
   fallbackLng: 'it',
@@ -22,5 +21,7 @@ i18n.use(initReactI18next).init({
     escapeValue: false,
   },
 });
+
+i18n.init();
 
 export default i18n;

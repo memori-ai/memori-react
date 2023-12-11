@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import I18nWrapper from '../../I18nWrapper';
 import AvatarView, { Props } from './index';
 
 const meta: Meta = {
@@ -67,11 +68,13 @@ const Template: Story<Props> = args => {
   }, []);
 
   return hydrated ? (
-    <AvatarView
-      {...args}
-      url={args.url + `#${new Date(Date.now()).toISOString()}`}
-      key={Date.now()}
-    />
+    <I18nWrapper>
+      <AvatarView
+        {...args}
+        url={args.url + `#${new Date(Date.now()).toISOString()}`}
+        key={Date.now()}
+      />
+    </I18nWrapper>
   ) : (
     <></>
   );

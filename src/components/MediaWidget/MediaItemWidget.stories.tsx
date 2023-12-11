@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import I18nWrapper from '../../I18nWrapper';
 import MediaItemWidget, { Props } from './MediaItemWidget';
 
 import './MediaItemWidget.css';
@@ -22,7 +23,11 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <MediaItemWidget {...args} />;
+const Template: Story<Props> = args => (
+  <I18nWrapper>
+    <MediaItemWidget {...args} />
+  </I18nWrapper>
+);
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing

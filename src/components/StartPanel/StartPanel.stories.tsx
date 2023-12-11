@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import I18nWrapper from '../../I18nWrapper';
 import { memori, sessionID, integration, tenant } from '../../mocks/data';
 import StartPanel, { Props } from './StartPanel';
 
@@ -80,12 +81,14 @@ const integrationStylesheet = `
   `;
 
 const Template: Story<Props> = args => (
-  <div style={{ maxWidth: '600px', margin: 'auto' }}>
-    {args.integrationConfig && (
-      <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
-    )}
-    <StartPanel {...args} />
-  </div>
+  <I18nWrapper>
+    <div style={{ maxWidth: '600px', margin: 'auto' }}>
+      {args.integrationConfig && (
+        <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
+      )}
+      <StartPanel {...args} />
+    </div>
+  </I18nWrapper>
 );
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test

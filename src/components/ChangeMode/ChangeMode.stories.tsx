@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import I18nWrapper from '../../I18nWrapper';
 import ChangeMode, { Props } from './ChangeMode';
 
 import './ChangeMode.css';
@@ -25,12 +26,14 @@ const Template: Story<Props> = args => {
   const [instruct, setInstruct] = React.useState(args.instruct);
 
   return (
-    <ChangeMode
-      {...args}
-      canInstruct
-      instruct={instruct}
-      onChangeMode={mode => setInstruct(mode === 'instruct')}
-    />
+    <I18nWrapper>
+      <ChangeMode
+        {...args}
+        canInstruct
+        instruct={instruct}
+        onChangeMode={mode => setInstruct(mode === 'instruct')}
+      />
+    </I18nWrapper>
   );
 };
 

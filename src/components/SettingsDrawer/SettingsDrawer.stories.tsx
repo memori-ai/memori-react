@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import I18nWrapper from '../../I18nWrapper';
 import SettingsDrawer, { Props } from './SettingsDrawer';
 import './SettingsDrawer.css';
 
@@ -27,14 +28,17 @@ const Template: Story<Props> = args => {
   const [controlsPosition, setControlsPosition] = React.useState<
     'bottom' | 'center'
   >('bottom');
+
   return (
-    <SettingsDrawer
-      {...args}
-      microphoneMode={microphoneMode}
-      setMicrophoneMode={setMicrophoneMode}
-      controlsPosition={controlsPosition}
-      setControlsPosition={setControlsPosition}
-    />
+    <I18nWrapper>
+      <SettingsDrawer
+        {...args}
+        microphoneMode={microphoneMode}
+        setMicrophoneMode={setMicrophoneMode}
+        controlsPosition={controlsPosition}
+        setControlsPosition={setControlsPosition}
+      />
+    </I18nWrapper>
   );
 };
 

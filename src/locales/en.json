@@ -12,6 +12,7 @@
   "delete": "Delete",
   "loading": "Loading",
   "expand": "Expand",
+  "collapse": "Collapse",
   "fullscreenEnter": "Enter fullscreen",
   "fullscreenExit": "Exit fullscreen",
   "center": "Center",

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { memori, tenant, integration } from '../../mocks/data';
+import I18nWrapper from '../../I18nWrapper';
 import Avatar, { Props } from './Avatar';
 
 import './Avatar.css';
@@ -30,32 +31,34 @@ const Template: Story<Props> = args => {
   );
 
   return (
-    <div
-      style={
-        args.integrationConfig?.avatar === 'customglb' ||
-        args.integrationConfig?.avatar === 'readyplayerme' ||
-        args.integrationConfig?.avatar === 'readyplayerme-full'
-          ? {}
-          : { marginTop: '20vw' }
-      }
-    >
-      <Avatar
-        {...args}
-        integrationConfig={
-          args.integrationConfig
-            ? {
-                ...args.integrationConfig,
-                avatarURL:
-                  args.integrationConfig.avatarURL?.split('#')?.[0] +
-                  `#${new Date(Date.now()).toISOString()}`,
-              }
-            : undefined
+    <I18nWrapper>
+      <div
+        style={
+          args.integrationConfig?.avatar === 'customglb' ||
+          args.integrationConfig?.avatar === 'readyplayerme' ||
+          args.integrationConfig?.avatar === 'readyplayerme-full'
+            ? {}
+            : { marginTop: '20vw' }
         }
-        avatar3dVisible={avatar3dVisible}
-        setAvatar3dVisible={setAvatar3dVisible}
-        key={Date.now()}
-      />
-    </div>
+      >
+        <Avatar
+          {...args}
+          integrationConfig={
+            args.integrationConfig
+              ? {
+                  ...args.integrationConfig,
+                  avatarURL:
+                    args.integrationConfig.avatarURL?.split('#')?.[0] +
+                    `#${new Date(Date.now()).toISOString()}`,
+                }
+              : undefined
+          }
+          avatar3dVisible={avatar3dVisible}
+          setAvatar3dVisible={setAvatar3dVisible}
+          key={Date.now()}
+        />
+      </div>
+    </I18nWrapper>
   );
 };
 

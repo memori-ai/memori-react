@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import I18nWrapper from '../../I18nWrapper';
 import MicrophoneButton, { Props } from './MicrophoneButton';
 
 import './MicrophoneButton.css';
@@ -27,14 +28,16 @@ const Template: Story<Props> = args => {
   const stopListening = () => setListening(false);
 
   return (
-    <div style={{ paddingTop: '10rem', textAlign: 'right' }}>
-      <MicrophoneButton
-        {...args}
-        listening={listening}
-        startListening={startListening}
-        stopListening={stopListening}
-      />
-    </div>
+    <I18nWrapper>
+      <div style={{ paddingTop: '10rem', textAlign: 'right' }}>
+        <MicrophoneButton
+          {...args}
+          listening={listening}
+          startListening={startListening}
+          stopListening={stopListening}
+        />
+      </div>
+    </I18nWrapper>
   );
 };
 

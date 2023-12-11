@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import I18nWrapper from '../../I18nWrapper';
 import CompletionProviderStatus, { Props } from './CompletionProviderStatus';
 
 import './CompletionProviderStatus.css';
@@ -16,7 +17,11 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <CompletionProviderStatus {...args} />;
+const Template: Story<Props> = args => (
+  <I18nWrapper>
+    <CompletionProviderStatus {...args} />
+  </I18nWrapper>
+);
 
 export const Default = Template.bind({});
 Default.args = {};

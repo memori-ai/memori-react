@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import ExportHistoryButton, { Props } from './ExportHistoryButton';
+import I18nWrapper from '../../I18nWrapper';
 import { memori, history } from '../../mocks/data';
 import Download from '../icons/Download';
 
@@ -27,15 +28,19 @@ const meta: Meta = {
 export default meta;
 
 const Template: Story<Props> = args => (
-  <div style={{ textAlign: 'right' }}>
-    <ExportHistoryButton {...args} />
-  </div>
+  <I18nWrapper>
+    <div style={{ textAlign: 'right' }}>
+      <ExportHistoryButton {...args} />
+    </div>
+  </I18nWrapper>
 );
 
 const TemplateRight: Story<Props> = args => (
-  <div style={{ textAlign: 'left' }}>
-    <ExportHistoryButton {...args} />
-  </div>
+  <I18nWrapper>
+    <div style={{ textAlign: 'left' }}>
+      <ExportHistoryButton {...args} />
+    </div>
+  </I18nWrapper>
 );
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test

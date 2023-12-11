@@ -371,8 +371,11 @@ const ImageUpload: React.FC<Props> = ({
             {t(
               allowedMimeTypes
                 ? 'media.uploadHelper'
-                : 'media.uploadHelperImages'
-            ).replace('@size@', (maxFileSizeInMB ?? 2).toString())}
+                : 'media.uploadHelperImages',
+              {
+                size: maxFileSizeInMB ?? 2,
+              }
+            )}
           </p>
           {imageProportionsHelper && useImageCrop && (
             <p>

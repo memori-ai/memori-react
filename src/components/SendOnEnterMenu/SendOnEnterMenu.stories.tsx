@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import I18nWrapper from '../../I18nWrapper';
 import SendOnEnterMenu, { Props } from './SendOnEnterMenu';
 
 import './SendOnEnterMenu.css';
@@ -24,20 +25,23 @@ export default meta;
 
 const Template: Story<Props> = args => {
   const [sendOnEnter, setSendOnEnter] = React.useState(args.sendOnEnter);
+
   return (
-    <div
-      style={{
-        minHeight: '200px',
-        display: 'flex',
-        alignItems: 'flex-end',
-      }}
-    >
-      <SendOnEnterMenu
-        {...args}
-        sendOnEnter={sendOnEnter}
-        setSendOnEnter={setSendOnEnter}
-      />
-    </div>
+    <I18nWrapper>
+      <div
+        style={{
+          minHeight: '200px',
+          display: 'flex',
+          alignItems: 'flex-end',
+        }}
+      >
+        <SendOnEnterMenu
+          {...args}
+          sendOnEnter={sendOnEnter}
+          setSendOnEnter={setSendOnEnter}
+        />
+      </div>
+    </I18nWrapper>
   );
 };
 

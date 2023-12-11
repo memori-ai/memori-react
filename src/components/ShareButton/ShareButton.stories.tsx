@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import I18nWrapper from '../../I18nWrapper';
 import ShareButton, { Props } from './ShareButton';
 import { tenant } from '../../mocks/data';
 
@@ -27,11 +28,17 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <ShareButton {...args} />;
-const TemplateRight: Story<Props> = args => (
-  <div style={{ textAlign: 'right' }}>
+const Template: Story<Props> = args => (
+  <I18nWrapper>
     <ShareButton {...args} />
-  </div>
+  </I18nWrapper>
+);
+const TemplateRight: Story<Props> = args => (
+  <I18nWrapper>
+    <div style={{ textAlign: 'right' }}>
+      <ShareButton {...args} />
+    </div>
+  </I18nWrapper>
 );
 
 export const Default = Template.bind({});

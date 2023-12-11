@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Meta, Story } from '@storybook/react';
 import ChatInputs, { Props } from './ChatInputs';
+import I18nWrapper from '../../I18nWrapper';
 import { dialogState } from '../../mocks/data';
 
 import './ChatInputs.css';
@@ -50,16 +51,18 @@ const Template: Story<Props> = args => {
   }, [listening]);
 
   return (
-    <div style={{ paddingTop: '10rem' }}>
-      <ChatInputs
-        {...args}
-        listening={listening}
-        startListening={startListening}
-        stopListening={stopListening}
-        userMessage={userMessage}
-        onChangeUserMessage={setUserMessage}
-      />
-    </div>
+    <I18nWrapper>
+      <div style={{ paddingTop: '10rem' }}>
+        <ChatInputs
+          {...args}
+          listening={listening}
+          startListening={startListening}
+          stopListening={stopListening}
+          userMessage={userMessage}
+          onChangeUserMessage={setUserMessage}
+        />
+      </div>
+    </I18nWrapper>
   );
 };
 

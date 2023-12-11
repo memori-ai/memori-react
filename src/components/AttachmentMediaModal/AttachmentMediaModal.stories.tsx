@@ -2,6 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import AttachmentMediaModal, { Props } from './AttachmentMediaModal';
 import memoriAPIClient from '@memori.ai/memori-api-client';
+import I18nWrapper from '../../I18nWrapper';
 import { Asset } from '@memori.ai/memori-api-client/dist/types';
 
 const client = memoriAPIClient();
@@ -17,7 +18,11 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => <AttachmentMediaModal {...args} />;
+const Template: Story<Props> = args => (
+  <I18nWrapper>
+    <AttachmentMediaModal {...args} />
+  </I18nWrapper>
+);
 
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
