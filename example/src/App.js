@@ -6,7 +6,7 @@ function App() {
   return (
     <Memori
       memoriName="Memori"
-      ownerUserName="nunziofiore"
+      ownerUserName="memoridev"
       tenantID="app.twincreator.com"
       apiURL="https://backend.memori.ai"
       baseURL="https://app.twincreator.com"
