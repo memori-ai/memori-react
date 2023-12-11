@@ -1,5 +1,12 @@
 
 
+## [3.0.2](https://github.com/memori-ai/memori-react/compare/v3.0.1...v3.0.2) (2023-12-11)
+
+
+### Bug Fixes
+
+* header z-index ([7d0cbb1](https://github.com/memori-ai/memori-react/commit/7d0cbb1ef6ca84770ce40082f64a68a34e4f32f0))
+
 ## [3.0.1](https://github.com/memori-ai/memori-react/compare/v3.0.0...v3.0.1) (2023-12-11)
 
 
