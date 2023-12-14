@@ -35,11 +35,8 @@ export interface Props {
 
 const ChatInputs: React.FC<Props> = ({
   dialogState,
-  instruct = false,
   sendOnEnter = 'click',
   setSendOnEnter,
-  attachmentsMenuOpen,
-  setAttachmentsMenuOpen,
   userMessage = '',
   onChangeUserMessage,
   sendMessage,
@@ -52,7 +49,6 @@ const ChatInputs: React.FC<Props> = ({
   stopAudio,
   startListening,
   stopListening,
-  authToken,
 }) => {
   const { t } = useTranslation();
 
@@ -62,14 +58,14 @@ const ChatInputs: React.FC<Props> = ({
       className="memori-chat-inputs"
       disabled={dialogState?.state === 'X2a' || dialogState?.state === 'X3'}
     >
-      {(instruct || dialogState?.acceptsMedia) && (
+      {/*(instruct || dialogState?.acceptsMedia) && (
         <UploadMenu
           attachmentsMenuOpen={attachmentsMenuOpen}
           setAttachmentsMenuOpen={setAttachmentsMenuOpen}
           authToken={authToken}
           disabled={!dialogState?.acceptsMedia}
         />
-      )}
+      )*/}
       <SendOnEnterMenu
         sendOnEnter={sendOnEnter}
         setSendOnEnter={setSendOnEnter}

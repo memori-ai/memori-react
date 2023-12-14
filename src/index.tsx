@@ -9,6 +9,7 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import MemoriWidget, {
   Props as WidgetProps,
 } from './components/MemoriWidget/MemoriWidget';
+import { Toaster } from 'react-hot-toast';
 import { getTenant } from './helpers/tenant';
 
 import i18n from './i18n';
@@ -268,7 +269,12 @@ const Memori: React.FC<Props> = ({
     </div>
   );
 
-  return <I18nextProvider i18n={i18n}>{renderer}</I18nextProvider>;
+  return (
+    <I18nextProvider i18n={i18n}>
+      <Toaster position="top-center" reverseOrder={true} />
+      {renderer}
+    </I18nextProvider>
+  );
 };
 
 Memori.propTypes = {

@@ -355,7 +355,7 @@ exports[`renders Chat on X2a state unchanged 1`] = `
           aria-haspopup="true"
           class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
           data-headlessui-state=""
-          id="headlessui-menu-button-:r0:"
+          id="headlessui-menu-button-:re:"
           type="button"
         >
           <div
@@ -818,7 +818,7 @@ exports[`renders Chat on X3 state unchanged 1`] = `
           aria-haspopup="true"
           class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
           data-headlessui-state=""
-          id="headlessui-menu-button-:r0:"
+          id="headlessui-menu-button-:rc:"
           type="button"
         >
           <div
@@ -1649,7 +1649,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
           aria-haspopup="true"
           class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
           data-headlessui-state=""
-          id="headlessui-menu-button-:r0:"
+          id="headlessui-menu-button-:ra:"
           type="button"
         >
           <div
@@ -2025,7 +2025,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           aria-haspopup="true"
           class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
           data-headlessui-state=""
-          id="headlessui-menu-button-:r0:"
+          id="headlessui-menu-button-:rk:"
           type="button"
         >
           <div
@@ -2407,7 +2407,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           aria-haspopup="true"
           class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
           data-headlessui-state=""
-          id="headlessui-menu-button-:r0:"
+          id="headlessui-menu-button-:ri:"
           type="button"
         >
           <div
@@ -2842,7 +2842,7 @@ exports[`renders Chat with dates unchanged 1`] = `
           aria-haspopup="true"
           class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
           data-headlessui-state=""
-          id="headlessui-menu-button-:r0:"
+          id="headlessui-menu-button-:r8:"
           type="button"
         >
           <div
@@ -3268,7 +3268,7 @@ exports[`renders Chat with hints unchanged 1`] = `
           aria-haspopup="true"
           class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
           data-headlessui-state=""
-          id="headlessui-menu-button-:r0:"
+          id="headlessui-menu-button-:r4:"
           type="button"
         >
           <div
@@ -4069,7 +4069,7 @@ exports[`renders Chat with media unchanged 1`] = `
           aria-haspopup="true"
           class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
           data-headlessui-state=""
-          id="headlessui-menu-button-:r0:"
+          id="headlessui-menu-button-:r6:"
           type="button"
         >
           <div
@@ -4490,7 +4490,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           aria-haspopup="true"
           class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
           data-headlessui-state=""
-          id="headlessui-menu-button-:r0:"
+          id="headlessui-menu-button-:r2:"
           type="button"
         >
           <div
@@ -4872,7 +4872,7 @@ exports[`renders Chat with user unchanged 1`] = `
           aria-haspopup="true"
           class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
           data-headlessui-state=""
-          id="headlessui-menu-button-:r0:"
+          id="headlessui-menu-button-:rg:"
           type="button"
         >
           <div

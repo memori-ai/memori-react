@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import message from '../ui/Message';
+import toast from 'react-hot-toast';
 import Button from '../ui/Button';
 import Modal from '../ui/Modal';
 import { DateTime } from 'luxon';
@@ -20,14 +20,14 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
 
   const onSubmit = useCallback(() => {
     if (!birthDate) {
-      message.error(t('requiredField'));
+      toast.error(t('requiredField'));
       setError(t('requiredField') || 'Required field');
       return;
     }
 
     let age = DateTime.now().diff(birthDate, 'years').years;
     if (age < minAge) {
-      message.error(t('underageTwinSession', { age: minAge }));
+      toast.error(t('underageTwinSession', { age: minAge }));
       setError(
         t('underageTwinSession', { age: minAge }) ||
           `You must be at least ${minAge} years old to interact with this Twin`

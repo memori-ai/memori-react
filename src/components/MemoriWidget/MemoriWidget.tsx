@@ -38,9 +38,7 @@ import { AudioContext, IAudioContext } from 'standardized-audio-context';
 import * as speechSdk from 'microsoft-cognitiveservices-speech-sdk';
 import cx from 'classnames';
 
-// UI
-// TODO: Implement this
-import message from '../ui/Message';
+import toast from 'react-hot-toast';
 
 // Components
 import PositionDrawer from '../PositionDrawer/PositionDrawer';
@@ -50,8 +48,6 @@ import StartPanel, { Props as StartPanelProps } from '../StartPanel/StartPanel';
 import Avatar, { Props as AvatarProps } from '../Avatar/Avatar';
 import ChangeMode, { Props as ChangeModeProps } from '../ChangeMode/ChangeMode';
 import Header, { Props as HeaderProps } from '../Header/Header';
-import AttachmentMediaModal from '../AttachmentMediaModal/AttachmentMediaModal';
-import AttachmentLinkModal from '../AttachmentLinkModal/AttachmentLinkModal';
 import PoweredBy from '../PoweredBy/PoweredBy';
 
 // Layout
@@ -645,7 +641,7 @@ const MemoriWidget = ({
           }
         } else {
           console.error(response, resp);
-          message.error(t(getErrori18nKey(resp.resultCode)));
+          toast.error(t(getErrori18nKey(resp.resultCode)));
           gotError = true;
         }
       } else if (currentState.state === 'X2d' && memori.giverTag) {
@@ -674,12 +670,12 @@ const MemoriWidget = ({
             }
           } else {
             console.error(response, resp);
-            message.error(t(getErrori18nKey(resp.resultCode)));
+            toast.error(t(getErrori18nKey(resp.resultCode)));
             gotError = true;
           }
         } else {
           console.error(response, resp);
-          message.error(t(getErrori18nKey(resp.resultCode)));
+          toast.error(t(getErrori18nKey(resp.resultCode)));
           gotError = true;
         }
       } else if (
@@ -944,14 +940,14 @@ const MemoriWidget = ({
         session?.resultMessage.startsWith('This Memori is aged restricted')
       ) {
         console.error(session);
-        message.error(t('underageTwinSession', { age: minAge }));
+        toast.error(t('underageTwinSession', { age: minAge }));
         setGotErrorInOpening(true);
       } else if (session?.resultCode === 403) {
         setMemoriPwd(undefined);
         setAuthModalState('password');
       } else {
         console.error(session);
-        message.error(t(getErrori18nKey(session?.resultCode)));
+        toast.error(t(getErrori18nKey(session?.resultCode)));
         setGotErrorInOpening(true);
       }
     } catch (err) {
@@ -1059,14 +1055,14 @@ const MemoriWidget = ({
         response?.resultMessage.startsWith('This Memori is aged restricted')
       ) {
         console.error(response);
-        message.error(t('underageTwinSession', { age: minAge }));
+        toast.error(t('underageTwinSession', { age: minAge }));
         setGotErrorInOpening(true);
       } else if (response?.resultCode === 403) {
         setMemoriPwd(undefined);
         setAuthModalState('password');
       } else {
         console.error(response);
-        message.error(t(getErrori18nKey(response.resultCode)));
+        toast.error(t(getErrori18nKey(response.resultCode)));
         setGotErrorInOpening(true);
       }
     } catch (err) {
@@ -2158,7 +2154,7 @@ const MemoriWidget = ({
             }
           } else {
             console.error(resp);
-            message.error(t(getErrori18nKey(resp.resultCode)));
+            toast.error(t(getErrori18nKey(resp.resultCode)));
           }
         } else {
           setCurrentDialogState(currentState);
@@ -2173,12 +2169,12 @@ const MemoriWidget = ({
         }
       } else {
         console.error(resp, tag, currentDialogState?.knownTags?.[tag]);
-        message.error(t(getErrori18nKey(resp.resultCode)));
+        toast.error(t(getErrori18nKey(resp.resultCode)));
       }
     } catch (e) {
       let err = e as Error;
       console.error(err);
-      message.error(err.message);
+      toast.error(err.message);
     }
   };
 
@@ -2906,118 +2902,6 @@ const MemoriWidget = ({
           hideEmissions={hideEmissions}
           setHideEmissions={setHideEmissions}
           additionalSettings={additionalSettings}
-        />
-      )}
-
-      {sessionId && (
-        <AttachmentLinkModal
-          apiURL={apiUrl}
-          visible={attachmentsMenuOpen === 'link'}
-          onCancel={() => setAttachmentsMenuOpen(undefined)}
-          onOk={async link => {
-            if (!sessionId) return;
-
-            let medium: Medium = {
-              mediumID: '',
-              mimeType: 'text/html',
-              url: link.url,
-              title: link.title,
-            };
-            pushMessage({
-              text: t('media.insertThisLink', {
-                url: medium.url,
-                title: medium.title,
-              }),
-              fromUser: true,
-              media: [medium],
-            });
-            try {
-              const { currentState, ...resp } =
-                await client.postMediumSelectedEvent(sessionId, medium);
-
-              if (currentState && resp.resultCode === 0) {
-                setCurrentDialogState(currentState);
-
-                if (currentState.emission) {
-                  pushMessage({
-                    text: currentState.emission,
-                    emitter: currentState.emitter,
-                    media: currentState.media,
-                    fromUser: false,
-                  });
-                  speak(currentState.emission);
-                }
-              } else {
-                console.error(resp, currentState, medium);
-                message.error(
-                  t(getErrori18nKey(resp.resultCode), { ns: 'common' })
-                );
-              }
-            } catch (e) {
-              let err = e as Error;
-              console.error(err);
-              message.error(err.message);
-            }
-            setAttachmentsMenuOpen(undefined);
-          }}
-        />
-      )}
-      {loginToken && sessionId && tenant?.id && (
-        <AttachmentMediaModal
-          apiURL={apiUrl}
-          visible={attachmentsMenuOpen === 'media'}
-          authToken={loginToken}
-          tenantID={tenant?.id}
-          sessionID={sessionId}
-          uploadAssetURL={client.backend.getUploadAssetURL(
-            loginToken,
-            memori.memoriID
-          )}
-          deleteAsset={client.backend.deleteAsset}
-          onCancel={() => setAttachmentsMenuOpen(undefined)}
-          onOk={async (asset: Asset) => {
-            if (!sessionId) return;
-
-            let medium: Medium = {
-              mediumID: '',
-              mimeType: asset.mimeType,
-              url: asset.assetURL,
-              title: asset.title || asset.assetID,
-            };
-            pushMessage({
-              text: t('media.insertThisMediaMsg'),
-              fromUser: true,
-              media: [medium],
-            });
-            try {
-              const { currentState, ...resp } =
-                await client.postMediumSelectedEvent(sessionId, medium);
-
-              if (currentState && resp.resultCode === 0) {
-                setCurrentDialogState(currentState);
-
-                if (currentState.emission) {
-                  pushMessage({
-                    text: currentState.emission,
-                    emitter: currentState.emitter,
-                    media: currentState.media,
-                    fromUser: false,
-                  });
-                  speak(currentState.emission);
-                }
-              } else {
-                console.error(resp, currentState, medium);
-                message.error(
-                  t(getErrori18nKey(resp.resultCode), { ns: 'common' })
-                );
-              }
-            } catch (e) {
-              let err = e as Error;
-              console.error(err);
-              message.error(err.message);
-            }
-            setAttachmentsMenuOpen(undefined);
-          }}
         />
       )}
     </div>

@@ -16,7 +16,5 @@ module.exports = {
     '/node_modules/(?!@memori.ai/memori-api-client)',
     '/node_modules/(?!microsoft-cognitiveservices-speech-sdk)',
     '/node_modules/(?!uuid)',
-    '/node_modules/(?!antd-img-crop)',
-    '/node_modules/(?!antd)',
   ],
 };

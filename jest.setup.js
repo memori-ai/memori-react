@@ -49,5 +49,3 @@ jest
     (locale, options) =>
       new DateTimeFormat(locale, { ...options, timeZone: 'Europe/Rome' })
   );
-
-jest.createMockFromModule('antd-img-crop');
