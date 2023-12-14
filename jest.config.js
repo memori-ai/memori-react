@@ -10,11 +10,9 @@ module.exports = {
   },
   moduleNameMapper: {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
-    uuid: require.resolve('uuid'),
   },
   transformIgnorePatterns: [
     '/node_modules/(?!@memori.ai/memori-api-client)',
     '/node_modules/(?!microsoft-cognitiveservices-speech-sdk)',
-    '/node_modules/(?!uuid)',
   ],
 };
