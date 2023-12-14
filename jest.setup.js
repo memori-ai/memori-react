@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom/extend-expect';
-import { Settings } from 'luxon';
+import { Settings, DateTime } from 'luxon';
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -43,7 +43,9 @@ Date.now = jest.fn(() => new Date(now).valueOf());
 
 jest.spyOn(global.Date, 'now').mockImplementation(() => now.valueOf());
 
-Settings.now = DateTime.fromJSDate(now).toMillis();
+Settings.defaultLocale = 'en';
+Settings.defaultZone = 'UTC';
+Settings.now = () => DateTime.fromJSDate(now).toMillis();
 
 const DateTimeFormat = Intl.DateTimeFormat;
 jest
