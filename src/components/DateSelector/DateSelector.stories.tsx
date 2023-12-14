@@ -26,7 +26,7 @@ const Template: Story<Props> = args => (
 export const Default = Template.bind({});
 Default.args = {
   defaultDate: new Date(Date.now()),
-  onChange: () => {},
+  onChange: console.log,
   disabled: false,
 };
 

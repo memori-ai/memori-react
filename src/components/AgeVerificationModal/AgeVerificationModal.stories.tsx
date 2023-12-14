@@ -27,20 +27,20 @@ const Template: Story<Props> = args => (
 export const Default = Template.bind({});
 Default.args = {
   visible: true,
-  onClose: () => {},
+  onClose: console.log,
   minAge: 0,
 };
 
 export const Min14yo = Template.bind({});
 Min14yo.args = {
   visible: true,
-  onClose: () => {},
+  onClose: console.log,
   minAge: 14,
 };
 
 export const Min18yo = Template.bind({});
 Min18yo.args = {
   visible: true,
-  onClose: () => {},
+  onClose: console.log,
   minAge: 18,
 };

@@ -1,13 +1,13 @@
 import { useEffect, useState, memo, Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 import SelectIcon from '../icons/SelectIcon';
 
 export interface Props {
-  defaultDate?: moment.Moment | string | Date;
+  defaultDate?: string | Date;
   disabled?: boolean;
-  onChange: (date: moment.Moment) => void;
+  onChange: (date: DateTime) => void;
 }
 
 const months = {
@@ -45,12 +45,16 @@ const DateSelector = memo(
   ({ defaultDate, onChange, disabled = false }: Props) => {
     const { t, i18n } = useTranslation();
 
-    const [date, setDate] = useState(moment(defaultDate || Date.now()));
+    const [date, setDate] = useState(
+      !defaultDate
+        ? DateTime.now()
+        : typeof defaultDate === 'string'
+        ? DateTime.fromISO(defaultDate)
+        : DateTime.fromJSDate(defaultDate)
+    );
     useEffect(() => {
       onChange(date);
     }, [date, onChange]);
-
-    moment.locale(i18n.language);
 
     return (
       <div className="memori--date-selector">
@@ -71,7 +75,7 @@ const DateSelector = memo(
               className="memori--date-selector__select-button"
             >
               <span className="memori--date-selector__select--value">
-                {date.date()}
+                {date.day}
               </span>
               <span className="memori--date-selector__select--icon">
                 <SelectIcon />
@@ -87,7 +91,7 @@ const DateSelector = memo(
                 {[...Array(31).keys()].map(day => (
                   <Listbox.Option
                     key={day}
-                    value={date.clone().date(day + 1)}
+                    value={date.set({ day: day + 1 })}
                     className="memori--date-selector__select-option"
                   >
                     {day + 1}
@@ -115,7 +119,7 @@ const DateSelector = memo(
               className="memori--date-selector__select-button"
             >
               <span className="memori--date-selector__select--value">
-                {months[i18n.language === 'it' ? 'it' : 'en'][date.month()]}
+                {months[i18n.language === 'it' ? 'it' : 'en'][date.month - 1]}
               </span>
               <span className="memori--date-selector__select--icon">
                 <SelectIcon />
@@ -132,13 +136,12 @@ const DateSelector = memo(
                   <Listbox.Option
                     key={month}
                     className="memori--date-selector__select-option"
-                    value={date
-                      .clone()
-                      .month(
+                    value={date.set({
+                      month:
                         months[i18n.language === 'it' ? 'it' : 'en'].findIndex(
                           m => m === month
-                        )
-                      )}
+                        ) + 1,
+                    })}
                   >
                     {month}
                   </Listbox.Option>
@@ -165,7 +168,7 @@ const DateSelector = memo(
               className="memori--date-selector__select-button"
             >
               <span className="memori--date-selector__select--value">
-                {date.year()}
+                {date.year}
               </span>
               <span className="memori--date-selector__select--icon">
                 <SelectIcon />
@@ -178,12 +181,12 @@ const DateSelector = memo(
               leaveTo="opacity-0"
             >
               <Listbox.Options className="memori--date-selector__select-options">
-                {[...Array(moment().year() - 1899).keys()]
+                {[...Array(DateTime.now().year - 1899).keys()]
                   .sort((a, b) => b - a)
                   .map(year => (
                     <Listbox.Option
                       key={year}
-                      value={date.clone().year(year + 1900)}
+                      value={date.set({ year: year + 1900 })}
                       className="memori--date-selector__select-option"
                     >
                       {year + 1900}

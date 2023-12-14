@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import message from '../ui/Message';
 import Button from '../ui/Button';
 import Modal from '../ui/Modal';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 import DateSelector from '../DateSelector/DateSelector';
 import { useCallback, useState } from 'react';
 
@@ -15,7 +15,7 @@ export interface Props {
 const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
   const { t } = useTranslation();
 
-  const [birthDate, setBirthDate] = useState<moment.Moment>();
+  const [birthDate, setBirthDate] = useState<DateTime>();
   const [error, setError] = useState<string>();
 
   const onSubmit = useCallback(() => {
@@ -25,7 +25,7 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
       return;
     }
 
-    let age = moment().diff(birthDate, 'years');
+    let age = DateTime.now().diff(birthDate, 'years').years;
     if (age < minAge) {
       message.error(t('underageTwinSession', { age: minAge }));
       setError(
@@ -35,7 +35,7 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
       return;
     }
 
-    onClose(birthDate.toISOString());
+    onClose(birthDate.toJSDate().toISOString());
   }, [birthDate, minAge, onClose, t]);
 
   return (

@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import DateSelector from './DateSelector';
-import moment from 'moment';
+import { DateTime } from 'luxon';
 
 const dateMock = new Date(Date.UTC(2022, 8, 24, 0, 0, 0, 0));
 
@@ -18,10 +18,7 @@ it('renders DateSelector unchanged', () => {
 
 it('renders DateSelector with default value unchanged', () => {
   const { container } = render(
-    <DateSelector
-      defaultDate={moment(`2022-08-24 00:00:00Z`)}
-      onChange={jest.fn()}
-    />
+    <DateSelector defaultDate="2023-12-14T08:48:06.977Z" onChange={jest.fn()} />
   );
   expect(container).toMatchSnapshot();
 });
@@ -30,7 +27,7 @@ it('renders DateSelector disabled unchanged', () => {
   const { container } = render(
     <DateSelector
       disabled
-      defaultDate={moment(`2022-08-24 00:00:00Z`)}
+      defaultDate={new Date(Date.now())}
       onChange={jest.fn()}
     />
   );
