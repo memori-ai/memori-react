@@ -134,7 +134,7 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="3"
+        value="0"
       />
       <input
         hidden=""
@@ -166,7 +166,7 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="180"
+        value="0"
       />
       <input
         hidden=""
@@ -348,7 +348,7 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="3"
+        value="0"
       />
       <input
         hidden=""
@@ -380,7 +380,7 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="180"
+        value="0"
       />
       <input
         hidden=""
@@ -562,7 +562,7 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="3"
+        value="0"
       />
       <input
         hidden=""
@@ -594,7 +594,7 @@ exports[`renders DateSelector disabled unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="180"
+        value="0"
       />
       <input
         hidden=""
@@ -785,7 +785,7 @@ exports[`renders DateSelector unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="3"
+        value="0"
       />
       <input
         hidden=""
@@ -817,7 +817,7 @@ exports[`renders DateSelector unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="180"
+        value="0"
       />
       <input
         hidden=""
@@ -999,7 +999,7 @@ exports[`renders DateSelector unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="3"
+        value="0"
       />
       <input
         hidden=""
@@ -1031,7 +1031,7 @@ exports[`renders DateSelector unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="180"
+        value="0"
       />
       <input
         hidden=""
@@ -1213,7 +1213,7 @@ exports[`renders DateSelector unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="3"
+        value="0"
       />
       <input
         hidden=""
@@ -1245,7 +1245,7 @@ exports[`renders DateSelector unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="180"
+        value="0"
       />
       <input
         hidden=""
@@ -1436,7 +1436,7 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="10"
+        value="8"
       />
       <input
         hidden=""
@@ -1468,7 +1468,7 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="120"
+        value="0"
       />
       <input
         hidden=""
@@ -1650,7 +1650,7 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="10"
+        value="8"
       />
       <input
         hidden=""
@@ -1682,7 +1682,7 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="120"
+        value="0"
       />
       <input
         hidden=""
@@ -1864,7 +1864,7 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="10"
+        value="8"
       />
       <input
         hidden=""
@@ -1896,7 +1896,7 @@ exports[`renders DateSelector with default value unchanged 1`] = `
         readonly=""
         style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
         type="hidden"
-        value="120"
+        value="0"
       />
       <input
         hidden=""
