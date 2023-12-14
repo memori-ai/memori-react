@@ -1,5 +1,12 @@
 
 
+## [4.0.1](https://github.com/memori-ai/memori-react/compare/v4.0.0...v4.0.1) (2023-12-14)
+
+
+### Bug Fixes
+
+* markdown parsing with translated text if present ([c1006da](https://github.com/memori-ai/memori-react/commit/c1006da73daf2b00bc8ebb4f9e9dde37920eca9a))
+
 ## [4.0.0](https://github.com/memori-ai/memori-react/compare/v3.0.2...v4.0.0) (2023-12-14)
 
 
