@@ -4192,6 +4192,7 @@ __metadata:
     "@storybook/react-webpack5": 7.4.0
     "@testing-library/jest-dom": 5.16.5
     "@testing-library/react": 13.4.0
+    "@types/dompurify": ^3.0.5
     "@types/jest": 29.2.4
     "@types/luxon": ^3.3.7
     "@types/prop-types": 15.7.5
@@ -4208,6 +4209,7 @@ __metadata:
     classnames: 2.3.2
     copyfiles: 2.4.1
     cssnano: 5.1.14
+    dompurify: ^3.0.6
     ellipsed: 1.6.0
     eslint: 8.29.0
     eslint-config-prettier: 8.5.0
@@ -4225,6 +4227,7 @@ __metadata:
     jest: 29.3.1
     jest-environment-jsdom: 29.3.1
     luxon: ^3.4.4
+    marked: ^11.1.0
     microsoft-cognitiveservices-speech-sdk: 1.20.0
     postcss: 8.4.19
     prettier: 2.8.0
@@ -6791,6 +6794,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/dompurify@npm:^3.0.5":
+  version: 3.0.5
+  resolution: "@types/dompurify@npm:3.0.5"
+  dependencies:
+    "@types/trusted-types": "*"
+  checksum: ffc34eca6a4536e1c8c16a47cce2623c5a118a9785492e71230052d92933ff096d14326ff449031e8dfaac509413222372d8f2b28786a13159de6241df716185
+  languageName: node
+  linkType: hard
+
 "@types/ejs@npm:^3.1.1":
   version: 3.1.2
   resolution: "@types/ejs@npm:3.1.2"
@@ -7253,6 +7265,13 @@ __metadata:
   version: 4.0.2
   resolution: "@types/tough-cookie@npm:4.0.2"
   checksum: e055556ffdaa39ad85ede0af192c93f93f986f4bd9e9426efdc2948e3e2632db3a4a584d4937dbf6d7620527419bc99e6182d3daf2b08685e710f2eda5291905
+  languageName: node
+  linkType: hard
+
+"@types/trusted-types@npm:*":
+  version: 2.0.7
+  resolution: "@types/trusted-types@npm:2.0.7"
+  checksum: 8e4202766a65877efcf5d5a41b7dd458480b36195e580a3b1085ad21e948bc417d55d6f8af1fd2a7ad008015d4117d5fdfe432731157da3c68678487174e4ba3
   languageName: node
   linkType: hard
 
@@ -10885,6 +10904,13 @@ __metadata:
   dependencies:
     domelementtype: ^2.2.0
   checksum: 4c665ceed016e1911bf7d1dadc09dc888090b64dee7851cccd2fcf5442747ec39c647bb1cb8c8919f8bbdd0f0c625a6bafeeed4b2d656bbecdbae893f43ffaaa
+  languageName: node
+  linkType: hard
+
+"dompurify@npm:^3.0.6":
+  version: 3.0.6
+  resolution: "dompurify@npm:3.0.6"
+  checksum: e5c6cdc5fe972a9d0859d939f1d86320de275be00bbef7bd5591c80b1e538935f6ce236624459a1b0c84ecd7c6a1e248684aa4637512659fccc0ce7c353828a6
   languageName: node
   linkType: hard
 
@@ -15696,6 +15722,15 @@ __metadata:
   bin:
     marked: ./bin/marked
   checksum: 8567a1b82538e714959bbdb66408cfc805c258b94d87f0a0e76e8ca1d2c8fbc22f11f15dcc14b20b4be6e21e9b206c9085563d71c3941ea8dc61cec529d941bc
+  languageName: node
+  linkType: hard
+
+"marked@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "marked@npm:11.1.0"
+  bin:
+    marked: bin/marked.js
+  checksum: fdc553ebfdc5fc5fe5c5d0d1831f4f8c3ed5fd89af7a428df5e0abce8fceac23da826b762c53027b7a900579b73e6d33908a0cf0c7618d03e0f378e710439d18
   languageName: node
   linkType: hard
 

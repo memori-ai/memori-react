@@ -154,3 +154,12 @@ export const difference = (
 
     return diff;
   }, {});
+
+export function cleanUrl(href: string) {
+  try {
+    href = encodeURI(href).replace(/%25/g, '%');
+  } catch (e) {
+    return null;
+  }
+  return href;
+}

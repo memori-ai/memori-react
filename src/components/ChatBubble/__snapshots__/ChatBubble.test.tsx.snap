@@ -8,9 +8,13 @@ exports[`renders ChatBubble from user with avatar as react element unchanged 1`]
     <div
       class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
     >
-      <p>
-        Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
-      </p>
+      <div>
+        <p>
+          Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+        </p>
+        
+
+      </div>
     </div>
     <div
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
@@ -31,9 +35,13 @@ exports[`renders ChatBubble from user with avatar unchanged 1`] = `
     <div
       class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
     >
-      <p>
-        Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
-      </p>
+      <div>
+        <p>
+          Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+        </p>
+        
+
+      </div>
     </div>
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
@@ -56,9 +64,13 @@ exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
     <div
       class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
     >
-      <p>
-        Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
-      </p>
+      <div>
+        <p>
+          Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+        </p>
+        
+
+      </div>
     </div>
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
@@ -91,9 +103,13 @@ exports[`renders ChatBubble unchanged 1`] = `
     <div
       class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
-      <p>
-        Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
-      </p>
+      <div>
+        <p>
+          Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+        </p>
+        
+
+      </div>
     </div>
   </div>
 </div>
@@ -120,9 +136,240 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
     <div
       class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
-      <p>
-        Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
-      </p>
+      <div>
+        <p>
+          Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+        </p>
+        
+
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders ChatBubble with markdown unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-container"
+  >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://app.twincreator.com/images/twincreator/square_logo.png"
+      />
+    </picture>
+    <div
+      class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+    >
+      <div>
+        <h2>
+          Test
+        </h2>
+        
+
+        <p>
+          Ecco tutte le possibili personalizzazioni che puoi applicare:
+        </p>
+        
+
+        <ul>
+          
+
+          <li>
+            <p>
+              <strong>
+                Colletto
+              </strong>
+              :
+            </p>
+            
+
+            <ul>
+              
+
+              <li>
+                Girocollo
+              </li>
+              
+
+              <li>
+                Scollo a V
+              </li>
+              
+
+            </ul>
+            
+
+          </li>
+          
+
+          <li>
+            <p>
+              <strong>
+                Manica
+              </strong>
+              :
+            </p>
+            
+
+            <ul>
+              
+
+              <li>
+                Manica Lunga
+              </li>
+              
+
+              <li>
+                Manica Corta
+              </li>
+              
+
+            </ul>
+            
+
+          </li>
+          
+
+          <li>
+            <p>
+              <strong>
+                Taglia
+              </strong>
+              :
+            </p>
+            
+
+            <ul>
+              
+
+              <li>
+                XS
+              </li>
+              
+
+              <li>
+                S
+              </li>
+              
+
+              <li>
+                M
+              </li>
+              
+
+              <li>
+                L
+              </li>
+              
+
+              <li>
+                XL
+              </li>
+              
+
+              <li>
+                XXL
+              </li>
+              
+
+              <li>
+                3XL
+              </li>
+              
+
+            </ul>
+            
+
+          </li>
+          
+
+          <li>
+            <p>
+              <strong>
+                Posizione Stampa
+              </strong>
+              :
+            </p>
+            
+
+            <ul>
+              
+
+              <li>
+                Fronte Petto
+              </li>
+              
+
+              <li>
+                Retro Schiena
+              </li>
+              
+
+              <li>
+                Fronte DX
+              </li>
+              
+
+              <li>
+                Fronte SX
+              </li>
+              
+
+            </ul>
+            
+
+          </li>
+          
+
+          <li>
+            <p>
+              <strong>
+                Generazione Immagine
+              </strong>
+              :
+            </p>
+            
+
+            <ul>
+              
+
+              <li>
+                Prompt generazione immagine
+              </li>
+              
+
+            </ul>
+            
+
+          </li>
+          
+
+        </ul>
+        
+
+        <p>
+          Seleziona le personalizzazioni che desideri applicare.
+        </p>
+        
+
+        <p>
+          <a
+            href="https://memori.ai"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Vedi altro
+          </a>
+        </p>
+        
+
+      </div>
     </div>
   </div>
 </div>
@@ -136,9 +383,13 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
     <div
       class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon memori-chat--ai-generated transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
     >
-      <p>
-        Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
-      </p>
+      <div>
+        <p>
+          Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+        </p>
+        
+
+      </div>
       <div
         class="memori-chat--bubble-addon"
       >
@@ -216,9 +467,13 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
     <div
       class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon memori-chat--ai-generated transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
     >
-      <p>
-        Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
-      </p>
+      <div>
+        <p>
+          Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+        </p>
+        
+
+      </div>
       <div
         class="memori-chat--bubble-addon"
       >
@@ -296,9 +551,13 @@ exports[`renders ChatBubble with user msg unchanged 1`] = `
     <div
       class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
     >
-      <p>
-        Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
-      </p>
+      <div>
+        <p>
+          Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+        </p>
+        
+
+      </div>
     </div>
     <div
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"

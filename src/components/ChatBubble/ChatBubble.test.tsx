@@ -158,3 +158,20 @@ it('renders ChatBubble from user with avatar as react element unchanged', () => 
   );
   expect(container).toMatchSnapshot();
 });
+
+it('renders ChatBubble with markdown unchanged', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      message={{
+        fromUser: false,
+        text: '## Test\n\nEcco tutte le possibili personalizzazioni che puoi applicare:\n\n- **Colletto**:\n - Girocollo\n - Scollo a V\n\n- **Manica**:\n - Manica Lunga\n - Manica Corta\n\n- **Taglia**:\n - XS\n - S\n - M\n - L\n - XL\n - XXL\n - 3XL\n\n- **Posizione Stampa**:\n - Fronte Petto\n - Retro Schiena\n - Fronte DX\n - Fronte SX\n\n- **Generazione Immagine**:\n - Prompt generazione immagine\n\nSeleziona le personalizzazioni che desideri applicare.\n\n[Vedi altro](https://memori.ai)',
+        initial: false,
+        translatedText:
+          '## Test\n\nEcco tutte le possibili personalizzazioni che puoi applicare:\n\n- **Colletto**:\n - Girocollo\n - Scollo a V\n\n- **Manica**:\n - Manica Lunga\n - Manica Corta\n\n- **Taglia**:\n - XS\n - S\n - M\n - L\n - XL\n - XXL\n - 3XL\n\n- **Posizione Stampa**:\n - Fronte Petto\n - Retro Schiena\n - Fronte DX\n - Fronte SX\n\n- **Generazione Immagine**:\n - Prompt generazione immagine\n\nSeleziona le personalizzazioni che desideri applicare.\n\n[Vedi altro](https://memori.ai)',
+      }}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});

@@ -15,6 +15,9 @@ import AI from '../icons/AI';
 import Tooltip from '../ui/Tooltip';
 import FeedbackButtons from '../FeedbackButtons/FeedbackButtons';
 import { useTranslation } from 'react-i18next';
+import { marked } from 'marked';
+import { sanitize } from 'dompurify';
+import { cleanUrl } from '../../helpers/utils';
 
 export interface Props {
   message: Message;
@@ -31,6 +34,27 @@ export interface Props {
   experts?: ExpertReference[];
 }
 
+marked.use({
+  async: false,
+  gfm: true,
+  pedantic: true,
+  renderer: {
+    link(href: string, title: string | null | undefined, text: string) {
+      const cleanHref = cleanUrl(href);
+      if (cleanHref === null) {
+        return text;
+      }
+      href = cleanHref;
+      let out = '<a href="' + href + '"';
+      if (title) {
+        out += ' title="' + title + '"';
+      }
+      out += ' target="_blank" rel="noopener noreferrer">' + text + '</a>';
+      return out;
+    },
+  },
+});
+
 const ChatBubble: React.FC<Props> = ({
   message,
   memori,
@@ -46,6 +70,10 @@ const ChatBubble: React.FC<Props> = ({
   experts,
 }) => {
   const { t } = useTranslation();
+
+  const renderedText = sanitize(marked.parse(message.text) as string, {
+    ADD_ATTR: ['target'],
+  });
 
   return (
     <>
@@ -154,11 +182,12 @@ const ChatBubble: React.FC<Props> = ({
             message.fromUser ? '30' : '-30'
           }`}
         >
-          {(message.translatedText || message.text)
+          {/*(message.translatedText || message.text)
             .split(/\r\n|\r|\n/)
             .map((row, index) => (
               <p key={index}>{row}</p>
-            ))}
+            ))*/}
+          <div dangerouslySetInnerHTML={{ __html: renderedText }} />
           {((message.generatedByAI && showAIicon) ||
             (showFeedback && simulateUserPrompt)) && (
             <div className="memori-chat--bubble-addon">

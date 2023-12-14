@@ -68,6 +68,23 @@
     margin-bottom: 0;
 }
 
+.memori-chat--bubble ul,
+.memori-chat--bubble ol {
+    padding-left: 1rem;
+    margin: 1em 0;
+}
+
+.memori-chat--bubble a {
+    color: var(--memori-primary, #000);
+    text-decoration: underline;
+}
+
+.memori-chat--bubble a:hover,
+.memori-chat--bubble a:focus {
+    opacity: 0.8;
+    text-decoration: underline !important;
+}
+
 @media (max-width: 600px) {
     .memori-chat--bubble p {
         font-size: 14px;
