@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom/extend-expect';
+import { Settings } from 'luxon';
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -35,12 +36,14 @@ Object.defineProperty(window, 'IntersectionObserver', {
   })),
 });
 
-jest.setSystemTime(new Date('2022-09-24'));
-Date.now = jest.fn(() => new Date(Date.UTC(2022, 8, 24)).valueOf());
+const now = new Date('2022-09-24');
 
-jest
-  .spyOn(global.Date, 'now')
-  .mockImplementation(() => new Date(2022, 8, 24, 0, 0, 0, 0).valueOf());
+jest.setSystemTime(now);
+Date.now = jest.fn(() => new Date(now).valueOf());
+
+jest.spyOn(global.Date, 'now').mockImplementation(() => now.valueOf());
+
+Settings.now = DateTime.fromJSDate(now).toMillis();
 
 const DateTimeFormat = Intl.DateTimeFormat;
 jest
