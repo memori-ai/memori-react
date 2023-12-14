@@ -1,5 +1,31 @@
 
 
+## [4.0.0](https://github.com/memori-ai/memori-react/compare/v3.0.2...v4.0.0) (2023-12-14)
+
+
+### ⚠ BREAKING CHANGES
+
+* remove antd and related, momentjs + cleanup to make pkg lighter
+
+### Features
+
+* add markdown parsing in messages ([f1064aa](https://github.com/memori-ai/memori-react/commit/f1064aa9589413b0c169b4e6bc079f0c534f10c1))
+
+
+### Changes
+
+* remove antd and related packages ([d8d85c6](https://github.com/memori-ai/memori-react/commit/d8d85c69269469abcd2d825ea5361cb897be1d05))
+* remove antd and related, momentjs + cleanup to make pkg lighter ([4ab5093](https://github.com/memori-ai/memori-react/commit/4ab5093855543f2eca2799f1c355071be68050fe))
+* switch to luxon instead of moment ([3f7da0c](https://github.com/memori-ai/memori-react/commit/3f7da0c5f1e37db435f89fde88517236a1946edd))
+
+
+### Maintenance
+
+* add i18n wrapper to layout stories ([87694f1](https://github.com/memori-ai/memori-react/commit/87694f10f83f1077fda9b9616daa426d7762177f))
+* cleanup jest config ([b1a593d](https://github.com/memori-ai/memori-react/commit/b1a593d7aa38e5f7576eebfebf8151f8d3fbf8cb))
+* restore needed jest config ([9e9c3f4](https://github.com/memori-ai/memori-react/commit/9e9c3f4a058b6061a276b5cc6d67f19ef8f5d97c))
+* update example ([3f20f67](https://github.com/memori-ai/memori-react/commit/3f20f678c6362e32db1b928a6e87edf7b808cfed))
+
 ## [3.0.2](https://github.com/memori-ai/memori-react/compare/v3.0.1...v3.0.2) (2023-12-11)
 
 
