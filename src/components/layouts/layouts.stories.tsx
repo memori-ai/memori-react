@@ -2,6 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { memori, tenant, integration } from '../../mocks/data';
 import Memori, { LayoutProps, Props } from '../MemoriWidget/MemoriWidget';
+import I18nWrapper from '../../I18nWrapper';
 import Spin from '../ui/Spin';
 
 const meta: Meta = {
@@ -59,8 +60,11 @@ export const CustomLayout: React.FC<LayoutProps> = ({
   </>
 );
 
-const Template: Story<Props> = args => <Memori {...args} />;
-
+const Template: Story<Props> = args => (
+  <I18nWrapper>
+    <Memori {...args} />
+  </I18nWrapper>
+);
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
 export const Default = Template.bind({});
