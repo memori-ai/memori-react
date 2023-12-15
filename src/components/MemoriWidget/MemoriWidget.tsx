@@ -2647,6 +2647,7 @@ const MemoriWidget = ({
     clickedStart: clickedStart,
     onClickStart: onClickStart,
     initializeTTS: initializeTTS,
+    isUserLoggedIn: !!loginToken,
   };
 
   const chatProps: ChatProps = {

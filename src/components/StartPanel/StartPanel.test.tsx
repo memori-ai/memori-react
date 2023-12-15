@@ -86,6 +86,28 @@ it('renders StartPanel for board of experts unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders StartPanel with deep thought enabled unchanged', () => {
+  const { container } = render(
+    <StartPanel
+      memori={{
+        ...memori,
+        enableDeepThought: true,
+      }}
+      tenant={tenant}
+      language="it"
+      userLang="en"
+      setUserLang={() => {}}
+      openPositionDrawer={() => {}}
+      instruct={false}
+      sessionId={sessionID}
+      clickedStart={false}
+      onClickStart={() => {}}
+      isUserLoggedIn
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
 it('renders StartPanel on instruct unchanged', () => {
   const { container } = render(
     <StartPanel

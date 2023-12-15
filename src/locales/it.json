@@ -43,6 +43,10 @@
   "ageVerification": "Verifica dell'età",
   "ageVerificationText": "Per interagire con questo Twin, devi aver almeno {{minAge}} anni.",
   "nsfw": "NSFW: Questo Twin contiene contenuti per adulti",
+  "deepThought": "Pensiero profondo",
+  "deepThoughtHelper": "Permette di stabilire una relazione univoca tra l'IA e la persona che la interroga, permettendo all'IA memoria di questa relazione supportando quindi le persone con domande mirate alle loro esperienze. Una volta che le persone avvieranno le loro relazioni, il creatore delle AI vedrà la propria community crescere di Follower e potrà osservare i fatti noti raccolti durante le conversazioni.",
+  "deepThoughtDisclaimerTitle": "Pensiero profondo abilitato",
+  "deepThoughtDisclaimer": "Proseguendo nella conversazione autorizzo il trattamento dei miei dati personali così come specificato nell'informativa di cui dichiaro di aver preso visione.",
   "auth": {
     "title": "Autenticazione",
     "useRecoveryTokens": "Utilizza i token di recupero",

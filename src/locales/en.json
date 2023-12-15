@@ -43,6 +43,10 @@
   "ageVerification": "Age verification",
   "ageVerificationText": "To interact with this Twin, you must be at least {{minAge}} years old.",
   "nsfw": "NSFW: This Twin contains adult contents",
+  "deepThought": "Deep Thought",
+  "deepThoughtHelper": "Allows to establish a unique relationship between the AI and the person who interrogates it, allowing the AI to remember this relationship and therefore supporting people with questions targeted to their experiences. Once people start their relationships, the creator of the AI will see their community grow with Followers and will be able to observe the known facts collected during the conversations.",
+  "deepThoughtDisclaimerTitle": "Deep Thought enabled",
+  "deepThoughtDisclaimer": "By continuing the conversation I authorize the processing of my personal data as specified in the information notice which I declare to have read.",
   "auth": {
     "title": "Authentication",
     "useRecoveryTokens": "Use recovery tokens",

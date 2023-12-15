@@ -190,6 +190,24 @@ WithAllTheBadges.args = {
   onClickStart: () => {},
 };
 
+export const WithDeepThoughtEnabled = Template.bind({});
+WithDeepThoughtEnabled.args = {
+  memori: {
+    ...memori,
+    enableDeepThought: true,
+  },
+  tenant,
+  language: 'it',
+  userLang: 'en',
+  setUserLang: () => {},
+  openPositionDrawer: () => {},
+  instruct: false,
+  sessionId: sessionID,
+  clickedStart: false,
+  onClickStart: () => {},
+  isUserLoggedIn: true,
+};
+
 export const BoardOfExpert = Template.bind({});
 BoardOfExpert.args = {
   memori: {

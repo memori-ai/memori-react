@@ -15,6 +15,7 @@ import { chatLanguages } from '../../helpers/constants';
 import BlockedMemoriBadge from '../BlockedMemoriBadge/BlockedMemoriBadge';
 import AI from '../icons/AI';
 import Group from '../icons/Group';
+import DeepThought from '../icons/DeepThought';
 import CompletionProviderStatus from '../CompletionProviderStatus/CompletionProviderStatus';
 
 export interface Props {
@@ -35,6 +36,7 @@ export interface Props {
   onClickStart?: () => void;
   initializeTTS?: () => void;
   _TEST_forceProviderStatus?: string;
+  isUserLoggedIn?: boolean;
 }
 
 const StartPanel: React.FC<Props> = ({
@@ -54,6 +56,7 @@ const StartPanel: React.FC<Props> = ({
   onClickStart,
   initializeTTS,
   _TEST_forceProviderStatus,
+  isUserLoggedIn = false,
 }) => {
   const { t, i18n } = useTranslation();
   const [translatedDescription, setTranslatedDescription] = useState(
@@ -286,6 +289,25 @@ const StartPanel: React.FC<Props> = ({
               showTitle
               marginLeft
             />
+          )}
+
+          {!!memori.enableDeepThought && !instruct && !!isUserLoggedIn && (
+            <div className="memori--deep-thought-disclaimer">
+              <Tooltip align="left" content={t('deepThoughtHelper')}>
+                <DeepThought />
+              </Tooltip>
+              <h2>{t('deepThoughtDisclaimerTitle')}</h2>
+              <p>{t('deepThoughtDisclaimer')}</p>
+              <p>
+                <a
+                  href="https://app.twincreator.com/en/privacy_and_cookie"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Privacy policy
+                </a>
+              </p>
+            </div>
           )}
         </div>
       )}
