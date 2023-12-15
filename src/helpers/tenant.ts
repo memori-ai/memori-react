@@ -23,7 +23,7 @@ export const getTenant = async (
             ? 'http://'
             : 'https://'
         }${baseURL}`
-      ).host
+      ).origin
     : 'https://app.twincreator.com';
 
   try {
