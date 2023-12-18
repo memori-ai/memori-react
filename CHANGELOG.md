@@ -1,5 +1,24 @@
 
 
+## [4.1.0](https://github.com/memori-ai/memori-react/compare/v4.0.1...v4.1.0) (2023-12-18)
+
+
+### Features
+
+* add deep thought disclaimer and indicators ([551ad43](https://github.com/memori-ai/memori-react/commit/551ad43086ded19653ebf0cc1b103e6b3df0e6f4))
+
+
+### Bug Fixes
+
+* fix get tenant origin url ([a44a470](https://github.com/memori-ai/memori-react/commit/a44a4705f746d8efd5a3132279bbc0957446487b))
+
+
+### Maintenance
+
+* add deepthought icon ([59292cf](https://github.com/memori-ai/memori-react/commit/59292cfe8ea624b2ed2262eb043d2c15789d9529))
+* cleanup ([91be6f7](https://github.com/memori-ai/memori-react/commit/91be6f7998738a3e57560a521a5bf93737339196))
+* upgrade microsoft speech sdk ([02214d6](https://github.com/memori-ai/memori-react/commit/02214d652eeb270b8aa7817406bebf728b693c5c))
+
 ## [4.0.1](https://github.com/memori-ai/memori-react/compare/v4.0.0...v4.0.1) (2023-12-14)
 
 
