@@ -17,11 +17,15 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
 
   const [birthDate, setBirthDate] = useState<DateTime>();
   const [error, setError] = useState<string>();
+  const [submitting, setSubmitting] = useState<boolean>(false);
 
   const onSubmit = useCallback(() => {
+    setSubmitting(true);
+
     if (!birthDate) {
       toast.error(t('requiredField'));
       setError(t('requiredField') || 'Required field');
+      setSubmitting(false);
       return;
     }
 
@@ -32,6 +36,7 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
         t('underageTwinSession', { age: minAge }) ||
           `You must be at least ${minAge} years old to interact with this Twin`
       );
+      setSubmitting(false);
       return;
     }
 
@@ -76,6 +81,7 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
             primary
             htmlType="submit"
             className="age-verification-submit"
+            loading={submitting}
             disabled={!birthDate}
           >
             {t('confirm')}
