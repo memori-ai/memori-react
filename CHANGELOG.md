@@ -1,5 +1,12 @@
 
 
+## [4.1.1](https://github.com/memori-ai/memori-react/compare/v4.1.0...v4.1.1) (2023-12-22)
+
+
+### Changes
+
+* add loading state while submitting birth date ([8c082ee](https://github.com/memori-ai/memori-react/commit/8c082eee1bdda0163eaadb4c9056fdb84d81c74a))
+
 ## [4.1.0](https://github.com/memori-ai/memori-react/compare/v4.0.1...v4.1.0) (2023-12-18)
 
 
