@@ -1,5 +1,26 @@
 
 
+## [4.2.0](https://github.com/memori-ai/memori-react/compare/v4.1.1...v4.2.0) (2024-01-05)
+
+
+### Features
+
+* add known facts drawer ui ([02180ea](https://github.com/memori-ai/memori-react/commit/02180ea2e0dd047f0db8555abe2c217125ffff20))
+* checkbox indeterminate state ([e60a9c1](https://github.com/memori-ai/memori-react/commit/e60a9c1636ce044b3418ff3b8fdc668d61870654))
+* use known facts ui, add action in header, add deep thought disclaimer ([b516184](https://github.com/memori-ai/memori-react/commit/b5161848f3f2f6308139ed7a5a7b9bd4104b4df5))
+
+
+### Changes
+
+* fix button danger, minor ui improvements ([e924b47](https://github.com/memori-ai/memori-react/commit/e924b47cb97f5bb9c8e22b6b79377c08a9e322bc))
+
+
+### Maintenance
+
+* add new chevron icons ([2cbcf7d](https://github.com/memori-ai/memori-react/commit/2cbcf7d72eccc646e7c6b90b15bc708798ce72ce))
+* fix lint warning ([cdaf407](https://github.com/memori-ai/memori-react/commit/cdaf407825f7dc1f17ff5314f1f7920211ba83ec))
+* update api client ([e4c9526](https://github.com/memori-ai/memori-react/commit/e4c952653b379076109bd7db89292d5f55d34125))
+
 ## [4.1.1](https://github.com/memori-ai/memori-react/compare/v4.1.0...v4.1.1) (2023-12-22)
 
 
