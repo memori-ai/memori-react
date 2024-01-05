@@ -27,6 +27,7 @@ export default meta;
 const Template: Story<Props> = args => {
   const [speakerMuted, setSpeakerMuted] = React.useState(args.speakerMuted);
   const [showSettingsDrawer, setShowSettingsDrawer] = React.useState(false);
+  const [showKnownFactsDrawer, setShowKnownFactsDrawer] = React.useState(false);
   const [continuousSpeech, setContinuousSpeech] = React.useState(true);
   const [continuousSpeechTimeout, setContinuousSpeechTimeout] =
     React.useState(2);
@@ -39,6 +40,7 @@ const Template: Story<Props> = args => {
         setSpeakerMuted={setSpeakerMuted}
         showSettings
         setShowSettingsDrawer={() => setShowSettingsDrawer(true)}
+        setShowKnownFactsDrawer={() => setShowKnownFactsDrawer(true)}
       />
       <SettingsDrawer
         open={!!showSettingsDrawer}
@@ -156,4 +158,39 @@ WithOngoingChat.args = {
   hasUserActivatedSpeak: true,
   showShare: false,
   showSettings: false,
+};
+
+export const WithDeepThoughtEnabled = Template.bind({});
+WithDeepThoughtEnabled.args = {
+  memori: {
+    ...memori,
+    enableDeepThought: true,
+  },
+  history,
+  setShowPositionDrawer: () => {},
+  setShowSettingsDrawer: () => {},
+  clearHistory: () => {},
+  speakerMuted: false,
+  hasUserActivatedSpeak: false,
+  showShare: false,
+  showSettings: false,
+  loginToken: 'abcd',
+};
+
+export const WithDeepThoughtEnabledAndOngoingChat = Template.bind({});
+WithDeepThoughtEnabledAndOngoingChat.args = {
+  memori: {
+    ...memori,
+    enableDeepThought: true,
+  },
+  history,
+  setShowPositionDrawer: () => {},
+  setShowSettingsDrawer: () => {},
+  clearHistory: () => {},
+  speakerMuted: false,
+  hasUserActivatedSpeak: true,
+  showShare: false,
+  showSettings: false,
+  sessionID: '1234',
+  loginToken: 'abcd',
 };

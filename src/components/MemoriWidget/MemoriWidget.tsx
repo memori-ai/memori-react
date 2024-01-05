@@ -49,6 +49,9 @@ import Avatar, { Props as AvatarProps } from '../Avatar/Avatar';
 import ChangeMode, { Props as ChangeModeProps } from '../ChangeMode/ChangeMode';
 import Header, { Props as HeaderProps } from '../Header/Header';
 import PoweredBy from '../PoweredBy/PoweredBy';
+import AgeVerificationModal from '../AgeVerificationModal/AgeVerificationModal';
+import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
+import KnownFacts from '../KnownFacts/KnownFacts';
 
 // Layout
 import FullPageLayout from '../layouts/FullPage';
@@ -67,8 +70,6 @@ import {
 import { anonTag } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
 import { getGamificationLevel } from '../../helpers/statistics';
-import AgeVerificationModal from '../AgeVerificationModal/AgeVerificationModal';
-import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -453,6 +454,7 @@ const MemoriWidget = ({
     useState(false);
   const [showPositionDrawer, setShowPositionDrawer] = useState(false);
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
+  const [showKnownFactsDrawer, setShowKnownFactsDrawer] = useState(false);
   const [muteSpeaker, setMuteSpeaker] = useState(false);
   const [continuousSpeech, setContinuousSpeech] = useState(false);
   const [continuousSpeechTimeout, setContinuousSpeechTimeout] = useState(2);
@@ -2592,6 +2594,7 @@ const MemoriWidget = ({
     position,
     setShowPositionDrawer,
     setShowSettingsDrawer,
+    setShowKnownFactsDrawer,
     showSpeaker: !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
     speakerMuted: muteSpeaker || speakerMuted,
     setSpeakerMuted: mute => {
@@ -2613,6 +2616,8 @@ const MemoriWidget = ({
     showReload: selectedLayout === 'TOTEM',
     showClear,
     clearHistory: () => setHistory(h => h.slice(-1)),
+    loginToken,
+    sessionID: sessionId,
   };
 
   const avatarProps: AvatarProps = {
@@ -2903,6 +2908,16 @@ const MemoriWidget = ({
           hideEmissions={hideEmissions}
           setHideEmissions={setHideEmissions}
           additionalSettings={additionalSettings}
+        />
+      )}
+
+      {showKnownFactsDrawer && sessionId && (
+        <KnownFacts
+          apiURL={apiUrl}
+          memori={memori}
+          sessionID={sessionId}
+          visible={showKnownFactsDrawer}
+          closeDrawer={() => setShowKnownFactsDrawer(false)}
         />
       )}
     </div>

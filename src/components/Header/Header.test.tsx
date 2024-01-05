@@ -10,6 +10,7 @@ it('renders Header unchanged', () => {
       history={history}
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
+      setShowKnownFactsDrawer={jest.fn()}
       speakerMuted={false}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={false}
@@ -36,6 +37,7 @@ it('renders Header with position unchanged', () => {
       history={history}
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
+      setShowKnownFactsDrawer={jest.fn()}
       speakerMuted={false}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={false}
@@ -54,6 +56,7 @@ it('renders Header with speaker muted unchanged', () => {
       history={history}
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
+      setShowKnownFactsDrawer={jest.fn()}
       speakerMuted={true}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={false}
@@ -72,6 +75,7 @@ it('renders Header with share button unchanged', () => {
       history={history}
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
+      setShowKnownFactsDrawer={jest.fn()}
       speakerMuted={false}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={false}
@@ -90,6 +94,7 @@ it('renders Header with settings button unchanged', () => {
       history={history}
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
+      setShowKnownFactsDrawer={jest.fn()}
       speakerMuted={false}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={false}
@@ -108,6 +113,7 @@ it('renders Header with clear button unchanged', () => {
       history={history}
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
+      setShowKnownFactsDrawer={jest.fn()}
       speakerMuted={false}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={false}
@@ -127,12 +133,60 @@ it('renders Header with user activated speak unchanged', () => {
       history={history}
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
+      setShowKnownFactsDrawer={jest.fn()}
       speakerMuted={false}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={true}
       showShare={false}
       showSettings={false}
       clearHistory={jest.fn()}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders Header with deep thought unchanged', () => {
+  const { container } = render(
+    <Header
+      memori={{
+        ...memori,
+        enableDeepThought: true,
+      }}
+      history={history}
+      setShowPositionDrawer={jest.fn()}
+      setShowSettingsDrawer={jest.fn()}
+      setShowKnownFactsDrawer={jest.fn()}
+      speakerMuted={false}
+      setSpeakerMuted={jest.fn()}
+      hasUserActivatedSpeak={false}
+      showShare={false}
+      showSettings={false}
+      clearHistory={jest.fn()}
+      loginToken="abcd"
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders Header with deep thought and session open unchanged', () => {
+  const { container } = render(
+    <Header
+      memori={{
+        ...memori,
+        enableDeepThought: true,
+      }}
+      history={history}
+      setShowPositionDrawer={jest.fn()}
+      setShowSettingsDrawer={jest.fn()}
+      setShowKnownFactsDrawer={jest.fn()}
+      speakerMuted={false}
+      setSpeakerMuted={jest.fn()}
+      hasUserActivatedSpeak={true}
+      showShare={false}
+      showSettings={false}
+      clearHistory={jest.fn()}
+      sessionID="1234"
+      loginToken="abcd"
     />
   );
   expect(container).toMatchSnapshot();

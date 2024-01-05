@@ -29,7 +29,7 @@
     margin-left: 0.25rem;
 }
 
-.memori-header--button[disabled] {
+.memori-header--button[disabled]:not(.memori-header--button--knownfacts) {
     border: 0;
     cursor: not-allowed;
     opacity: 0.5;

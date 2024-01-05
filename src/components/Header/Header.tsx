@@ -18,6 +18,7 @@ import FullscreenExit from '../icons/FullscreenExit';
 import Fullscreen from '../icons/Fullscreen';
 import Refresh from '../icons/Refresh';
 import Clear from '../icons/Clear';
+import DeepThought from '../icons/DeepThought';
 
 export interface Props {
   className?: string;
@@ -27,6 +28,7 @@ export interface Props {
   position?: Venue;
   setShowPositionDrawer: (show: boolean) => void;
   setShowSettingsDrawer: (show: boolean) => void;
+  setShowKnownFactsDrawer: (show: boolean) => void;
   speakerMuted: boolean;
   setSpeakerMuted: (mute: boolean) => void;
   hasUserActivatedSpeak?: boolean;
@@ -36,6 +38,8 @@ export interface Props {
   showReload?: boolean;
   showClear?: boolean;
   clearHistory: () => void;
+  loginToken?: string;
+  sessionID?: string;
 }
 
 const Header: React.FC<Props> = ({
@@ -46,6 +50,7 @@ const Header: React.FC<Props> = ({
   position,
   setShowPositionDrawer,
   setShowSettingsDrawer,
+  setShowKnownFactsDrawer,
   speakerMuted,
   setSpeakerMuted,
   hasUserActivatedSpeak = false,
@@ -55,6 +60,8 @@ const Header: React.FC<Props> = ({
   showReload = false,
   showClear = false,
   clearHistory,
+  loginToken,
+  sessionID,
 }) => {
   const { t } = useTranslation();
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
@@ -122,6 +129,17 @@ const Header: React.FC<Props> = ({
               setFullScreen(false);
             }
           }}
+        />
+      )}
+      {memori.enableDeepThought && !!loginToken && (
+        <Button
+          primary={!!sessionID && !!hasUserActivatedSpeak}
+          shape="circle"
+          icon={<DeepThought />}
+          className="memori-header--button memori-header--button--knownfacts"
+          disabled={!hasUserActivatedSpeak || !sessionID}
+          onClick={() => setShowKnownFactsDrawer(true)}
+          title={t('knownFacts.title') || 'Known facts'}
         />
       )}
       {showSpeaker && (
