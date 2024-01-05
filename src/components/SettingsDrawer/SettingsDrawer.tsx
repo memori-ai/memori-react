@@ -142,7 +142,9 @@ const SettingsDrawer = ({
           </div>
           <div className="memori-settings-drawer--field">
             <Checkbox
-              label={t('write_and_speak.hideEmissionsLabel')}
+              label={
+                t('write_and_speak.hideEmissionsLabel') || 'Hide emissions'
+              }
               name="hideControls"
               checked={hideEmissions}
               onChange={e => {
