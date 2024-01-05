@@ -12,7 +12,7 @@ export interface Props {
   className?: string;
   title?: string | JSX.Element | React.ReactNode;
   description?: string | JSX.Element | React.ReactNode;
-  children: JSX.Element | React.ReactNode;
+  children?: JSX.Element | React.ReactNode;
   footer?: JSX.Element | React.ReactNode;
   loading?: boolean;
   closable?: boolean;

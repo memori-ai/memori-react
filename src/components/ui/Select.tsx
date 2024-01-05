@@ -34,7 +34,11 @@ const Select = ({
         disabled={disabled}
         name="day"
       >
-        <Listbox.Label className="memori-select--label">{label}:</Listbox.Label>
+        {label && (
+          <Listbox.Label className="memori-select--label">
+            {label}:
+          </Listbox.Label>
+        )}
         <Listbox.Button aria-label={label} className="memori-select--button">
           <span
             className={cx('memori-select--value', {

@@ -99,6 +99,34 @@
     border-radius: var(--memori-button-radius);
 }
 
+.memori-button--danger {
+    border-color: var(--memori-error-color);
+    background: rgba(0, 0, 0, 0.02);
+    color: var(--memori-error-color);
+}
+
+.memori-button--danger:hover,
+.memori-button--danger:focus {
+    border-color: var(--memori-error-color);
+    background-color: var(--memori-error-color);
+    color: #fff;
+}
+
+.memori-button--danger.memori-button--ghost {
+    border-color: transparent;
+    background: none;
+    box-shadow: none;
+    color: var(--memori-error-color);
+}
+
+.memori-button--danger.memori-button--ghost:hover,
+.memori-button--danger.memori-button--ghost:focus {
+    border-color: var(--memori-error-color);
+    background: rgba(0, 0, 0, 0.02);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02), 0 4px 8px rgba(0, 0, 0, 0.04);
+    color: var(--memori-error-color);
+}
+
 .memori-button--circle {
     padding: 0.75em;
     border-radius: 50%;
