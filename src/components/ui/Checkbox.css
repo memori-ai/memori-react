@@ -39,7 +39,7 @@
     transition: all 0.3s;
 }
 
-.memori-checkbox--inner::after {
+.memori-checkbox:not(.memori-checkbox--indeterminate) .memori-checkbox--inner::after {
     position: absolute;
     top: 50%;
     display: table;
@@ -84,7 +84,7 @@
     background: rgba(0, 0, 0, 0.04);
 }
 
-.memori-checkbox--disabled .memori-checkbox--inner::after {
+.memori-checkbox.memori-checkbox--disabled .memori-checkbox--inner::after {
     border-color: rgba(0, 0, 0, 0.25);
 }
 
@@ -92,14 +92,27 @@
     color: rgba(0, 0, 0, 0.25);
 }
 
-.memori-checkbox--input:checked:not(:disabled) + .memori-checkbox--inner {
+.memori-checkbox--input.memori-checkbox--indeterminate+.memori-checkbox--inner,
+.memori-checkbox--input:checked:not(:disabled)+.memori-checkbox--inner {
     z-index: 2;
     border-color: var(--memori-primary);
     background-color: var(--memori-primary);
 }
 
-.memori-checkbox--input:checked + .memori-checkbox--inner::after {
+.memori-checkbox--input:checked+.memori-checkbox--inner::after {
     opacity: 1;
     transform: rotate(45deg) scale(1) translate(-50%, -50%);
+    transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+}
+
+.memori-checkbox.memori-checkbox--indeterminate .memori-checkbox--inner::after,
+.memori-checkbox.memori-checkbox--indeterminate .memori-checkbox--input:checked+.memori-checkbox--inner::after {
+    position: absolute;
+    top: calc(50% - 1px);
+    left: 2px;
+    width: 10px;
+    border-bottom: 2px solid #fff;
+    content: "";
+    transform: none;
     transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
 }

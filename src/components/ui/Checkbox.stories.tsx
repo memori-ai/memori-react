@@ -57,3 +57,18 @@ DisabledChecked.args = {
   checked: true,
   disabled: true,
 };
+
+export const Indeterminate = Template.bind({});
+Indeterminate.args = {
+  label: 'Indeterminate',
+  checked: true,
+  indeterminate: true,
+};
+
+export const DisabledIndeterminate = Template.bind({});
+DisabledIndeterminate.args = {
+  label: 'Indeterminate',
+  checked: false,
+  indeterminate: true,
+  disabled: true,
+};

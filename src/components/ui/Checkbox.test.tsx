@@ -21,3 +21,8 @@ it('renders Checkbox checked and disabled unchanged', () => {
   const { container } = render(<Checkbox label="Check me" checked disabled />);
   expect(container).toMatchSnapshot();
 });
+
+it('renders Checkbox indeterminate unchanged', () => {
+  const { container } = render(<Checkbox label="Check me" indeterminate />);
+  expect(container).toMatchSnapshot();
+});

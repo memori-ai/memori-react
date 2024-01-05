@@ -79,6 +79,32 @@ exports[`renders Checkbox disabled unchanged 1`] = `
 </div>
 `;
 
+exports[`renders Checkbox indeterminate unchanged 1`] = `
+<div>
+  <label
+    class="memori-checkbox memori-checkbox--indeterminate"
+  >
+    <span
+      class="memori-checkbox--input-wrapper"
+    >
+      <input
+        checked=""
+        class="memori-checkbox--input"
+        type="checkbox"
+      />
+      <span
+        class="memori-checkbox--inner"
+      />
+    </span>
+    <span
+      class="memori-checkbox--text"
+    >
+      Check me
+    </span>
+  </label>
+</div>
+`;
+
 exports[`renders Checkbox unchanged 1`] = `
 <div>
   <label
