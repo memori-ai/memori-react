@@ -6,6 +6,7 @@
 @import url('./components/ui/Spin.css');
 @import url('./components/ui/Tooltip.css');
 @import url('./components/ui/Select.css');
+@import url('./components/ui/Table.css');
 
 @import url('./components/CompletionProviderStatus/CompletionProviderStatus.css');
 @import url('./components/PoweredBy/PoweredBy.css');
@@ -36,6 +37,7 @@
 @import url('./components/UploadMenu/UploadMenu.css');
 @import url('./components/DateSelector/DateSelector.css');
 @import url('./components/AgeVerificationModal/AgeVerificationModal.css');
+@import url('./components/KnownFacts/KnownFacts.css');
 @import url('./components/MemoriWidget/MemoriWidget.css');
 
 @import url('https://fonts.bunny.net/css?family=exo-2:200,400,700');
@@ -87,4 +89,10 @@ body.sb-show-main #root,
     --memori-modal--width--md: 80%;
     --memori-error-color: #ff4d4f;
     --memori-warning-color: #faad14;
+}
+
+@media (max-width: 768px) {
+    .mobile-hidden {
+        display: none;
+    }
 }

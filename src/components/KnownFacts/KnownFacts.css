@@ -1,0 +1,19 @@
+.memori-known-facts-modal {
+    z-index: 10000;
+}
+
+.memori-known-facts-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    margin: 1rem 0;
+}
+
+.memori-known-facts-actions .memori-button[disabled] {
+    opacity: 0.4;
+}
+
+.memori-known-facts-delete-selected {
+    margin-left: auto;
+}
