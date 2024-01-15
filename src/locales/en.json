@@ -84,6 +84,9 @@
     "share": "Share",
     "sendOnKeypress": "Hit Enter to send",
     "sendOnClick": "Click on Submit",
+    "boardOfExperts": "Board of experts",
+    "showExpertsInTheBoard": "Show experts in this board",
+    "expertsInTheBoard": "Experts in this board",
     "goToIntegrationsToCustomizeAvatar": "To customize the avatar, go to Share and customize the public page"
   },
   "write_and_speak": {

@@ -43,6 +43,10 @@
     line-height: 1;
 }
 
+.memori-header--button.memori-header--button--experts svg {
+    fill: #fff;
+}
+
 .memori-header--position {
     display: inline-block;
 }

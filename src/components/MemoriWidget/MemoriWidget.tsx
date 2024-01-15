@@ -52,6 +52,7 @@ import PoweredBy from '../PoweredBy/PoweredBy';
 import AgeVerificationModal from '../AgeVerificationModal/AgeVerificationModal';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import KnownFacts from '../KnownFacts/KnownFacts';
+import ExpertsDrawer from '../ExpertsDrawer/ExpertsDrawer';
 
 // Layout
 import FullPageLayout from '../layouts/FullPage';
@@ -455,6 +456,7 @@ const MemoriWidget = ({
   const [showPositionDrawer, setShowPositionDrawer] = useState(false);
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
   const [showKnownFactsDrawer, setShowKnownFactsDrawer] = useState(false);
+  const [showExpertsDrawer, setShowExpertsDrawer] = useState(false);
   const [muteSpeaker, setMuteSpeaker] = useState(false);
   const [continuousSpeech, setContinuousSpeech] = useState(false);
   const [continuousSpeechTimeout, setContinuousSpeechTimeout] = useState(2);
@@ -2595,6 +2597,7 @@ const MemoriWidget = ({
     setShowPositionDrawer,
     setShowSettingsDrawer,
     setShowKnownFactsDrawer,
+    setShowExpertsDrawer,
     showSpeaker: !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
     speakerMuted: muteSpeaker || speakerMuted,
     setSpeakerMuted: mute => {
@@ -2918,6 +2921,17 @@ const MemoriWidget = ({
           sessionID={sessionId}
           visible={showKnownFactsDrawer}
           closeDrawer={() => setShowKnownFactsDrawer(false)}
+        />
+      )}
+
+      {showExpertsDrawer && !!experts && (
+        <ExpertsDrawer
+          apiUrl={apiUrl}
+          baseUrl={baseUrl}
+          tenant={tenant}
+          experts={experts}
+          open={showExpertsDrawer}
+          onClose={() => setShowExpertsDrawer(false)}
         />
       )}
     </div>

@@ -11,6 +11,7 @@ it('renders Header unchanged', () => {
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
+      setShowExpertsDrawer={jest.fn()}
       speakerMuted={false}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={false}
@@ -38,6 +39,7 @@ it('renders Header with position unchanged', () => {
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
+      setShowExpertsDrawer={jest.fn()}
       speakerMuted={false}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={false}
@@ -57,6 +59,7 @@ it('renders Header with speaker muted unchanged', () => {
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
+      setShowExpertsDrawer={jest.fn()}
       speakerMuted={true}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={false}
@@ -76,6 +79,7 @@ it('renders Header with share button unchanged', () => {
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
+      setShowExpertsDrawer={jest.fn()}
       speakerMuted={false}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={false}
@@ -95,6 +99,7 @@ it('renders Header with settings button unchanged', () => {
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
+      setShowExpertsDrawer={jest.fn()}
       speakerMuted={false}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={false}
@@ -114,6 +119,7 @@ it('renders Header with clear button unchanged', () => {
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
+      setShowExpertsDrawer={jest.fn()}
       speakerMuted={false}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={false}
@@ -134,6 +140,7 @@ it('renders Header with user activated speak unchanged', () => {
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
+      setShowExpertsDrawer={jest.fn()}
       speakerMuted={false}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={true}
@@ -156,6 +163,7 @@ it('renders Header with deep thought unchanged', () => {
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
+      setShowExpertsDrawer={jest.fn()}
       speakerMuted={false}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={false}
@@ -179,6 +187,56 @@ it('renders Header with deep thought and session open unchanged', () => {
       setShowPositionDrawer={jest.fn()}
       setShowSettingsDrawer={jest.fn()}
       setShowKnownFactsDrawer={jest.fn()}
+      setShowExpertsDrawer={jest.fn()}
+      speakerMuted={false}
+      setSpeakerMuted={jest.fn()}
+      hasUserActivatedSpeak={true}
+      showShare={false}
+      showSettings={false}
+      clearHistory={jest.fn()}
+      sessionID="1234"
+      loginToken="abcd"
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders Header for board of experts unchanged', () => {
+  const { container } = render(
+    <Header
+      memori={{
+        ...memori,
+        enableBoardOfExperts: true,
+      }}
+      history={history}
+      setShowPositionDrawer={jest.fn()}
+      setShowSettingsDrawer={jest.fn()}
+      setShowKnownFactsDrawer={jest.fn()}
+      setShowExpertsDrawer={jest.fn()}
+      speakerMuted={false}
+      setSpeakerMuted={jest.fn()}
+      hasUserActivatedSpeak={false}
+      showShare={false}
+      showSettings={false}
+      clearHistory={jest.fn()}
+      loginToken="abcd"
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders Header for board of experts with session open unchanged', () => {
+  const { container } = render(
+    <Header
+      memori={{
+        ...memori,
+        enableBoardOfExperts: true,
+      }}
+      history={history}
+      setShowPositionDrawer={jest.fn()}
+      setShowSettingsDrawer={jest.fn()}
+      setShowKnownFactsDrawer={jest.fn()}
+      setShowExpertsDrawer={jest.fn()}
       speakerMuted={false}
       setSpeakerMuted={jest.fn()}
       hasUserActivatedSpeak={true}

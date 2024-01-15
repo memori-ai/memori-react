@@ -19,6 +19,7 @@ import Fullscreen from '../icons/Fullscreen';
 import Refresh from '../icons/Refresh';
 import Clear from '../icons/Clear';
 import DeepThought from '../icons/DeepThought';
+import Group from '../icons/Group';
 
 export interface Props {
   className?: string;
@@ -29,6 +30,7 @@ export interface Props {
   setShowPositionDrawer: (show: boolean) => void;
   setShowSettingsDrawer: (show: boolean) => void;
   setShowKnownFactsDrawer: (show: boolean) => void;
+  setShowExpertsDrawer: (show: boolean) => void;
   speakerMuted: boolean;
   setSpeakerMuted: (mute: boolean) => void;
   hasUserActivatedSpeak?: boolean;
@@ -51,6 +53,7 @@ const Header: React.FC<Props> = ({
   setShowPositionDrawer,
   setShowSettingsDrawer,
   setShowKnownFactsDrawer,
+  setShowExpertsDrawer,
   speakerMuted,
   setSpeakerMuted,
   hasUserActivatedSpeak = false,
@@ -140,6 +143,17 @@ const Header: React.FC<Props> = ({
           disabled={!hasUserActivatedSpeak || !sessionID}
           onClick={() => setShowKnownFactsDrawer(true)}
           title={t('knownFacts.title') || 'Known facts'}
+        />
+      )}
+      {memori.enableBoardOfExperts && (
+        <Button
+          primary
+          shape="circle"
+          icon={<Group />}
+          className="memori-header--button memori-header--button--experts"
+          disabled={!hasUserActivatedSpeak || !sessionID}
+          onClick={() => setShowExpertsDrawer(true)}
+          title={t('widget.showExpertsInTheBoard') || 'Experts in this board'}
         />
       )}
       {showSpeaker && (

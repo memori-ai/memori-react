@@ -6,6 +6,7 @@ import {
   Tenant,
   DialogState,
   KnownFact,
+  ExpertReference,
 } from '@memori.ai/memori-api-client/dist/types';
 
 export const sessionID = '131165be-9d1a-42fb-a3ce-e8f86d40c88f';
@@ -296,6 +297,19 @@ export const knownFact: KnownFact = {
   knownFactID: 'b0b0b0b0-b0b0-b0b0-b0b0-b0b0b0b0b0b3',
   knownFactType: 'ShortTerm',
   text: 'I am a known fact. Quisque in ultrices lectus. Nulla at urna diam. Proin sodales lobortis libero eu facilisis.',
+  creationTimestamp: '2023-12-01T13:40:25.235896Z',
+  creationSessionID: '0ce713c0-c8f1-4aed-a2a6-40f81c06854f',
+  lastChangeTimestamp: '2023-12-01T13:44:04.832072Z',
+  lastChangeSessionID: '0ce713c0-c8f1-4aed-a2a6-40f81c06854f',
+};
+
+export const expertReference: ExpertReference = {
+  expertID: 'f016f204-c307-483b-8891-680a3c974c53',
+  name: 'TEST MEMORI',
+  description: 'lui è competente',
+  default: true,
+  expertMemoriID: 'dfc44f1c-1ba7-4e1e-a234-28aa8b6b3d32',
+  expertBaseURL: 'http://localhost:7778',
   creationTimestamp: '2023-12-01T13:40:25.235896Z',
   creationSessionID: '0ce713c0-c8f1-4aed-a2a6-40f81c06854f',
   lastChangeTimestamp: '2023-12-01T13:44:04.832072Z',

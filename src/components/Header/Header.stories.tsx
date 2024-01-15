@@ -28,6 +28,7 @@ const Template: Story<Props> = args => {
   const [speakerMuted, setSpeakerMuted] = React.useState(args.speakerMuted);
   const [showSettingsDrawer, setShowSettingsDrawer] = React.useState(false);
   const [showKnownFactsDrawer, setShowKnownFactsDrawer] = React.useState(false);
+  const [showExpertsDrawer, setShowExpertsDrawer] = React.useState(false);
   const [continuousSpeech, setContinuousSpeech] = React.useState(true);
   const [continuousSpeechTimeout, setContinuousSpeechTimeout] =
     React.useState(2);
@@ -41,6 +42,7 @@ const Template: Story<Props> = args => {
         showSettings
         setShowSettingsDrawer={() => setShowSettingsDrawer(true)}
         setShowKnownFactsDrawer={() => setShowKnownFactsDrawer(true)}
+        setShowExpertsDrawer={() => setShowExpertsDrawer(true)}
       />
       <SettingsDrawer
         open={!!showSettingsDrawer}
@@ -186,6 +188,43 @@ WithDeepThoughtEnabledAndOngoingChat.args = {
   history,
   setShowPositionDrawer: () => {},
   setShowSettingsDrawer: () => {},
+  clearHistory: () => {},
+  speakerMuted: false,
+  hasUserActivatedSpeak: true,
+  showShare: false,
+  showSettings: false,
+  sessionID: '1234',
+  loginToken: 'abcd',
+};
+
+export const ForBoardOfExperts = Template.bind({});
+ForBoardOfExperts.args = {
+  memori: {
+    ...memori,
+    enableBoardOfExperts: true,
+  },
+  history,
+  setShowPositionDrawer: () => {},
+  setShowSettingsDrawer: () => {},
+  showExperts: true,
+  clearHistory: () => {},
+  speakerMuted: false,
+  hasUserActivatedSpeak: false,
+  showShare: false,
+  showSettings: false,
+  loginToken: 'abcd',
+};
+
+export const ForBoardOfExpertsAndOngoingChat = Template.bind({});
+ForBoardOfExpertsAndOngoingChat.args = {
+  memori: {
+    ...memori,
+    enableBoardOfExperts: true,
+  },
+  history,
+  setShowPositionDrawer: () => {},
+  setShowSettingsDrawer: () => {},
+  showExperts: true,
   clearHistory: () => {},
   speakerMuted: false,
   hasUserActivatedSpeak: true,

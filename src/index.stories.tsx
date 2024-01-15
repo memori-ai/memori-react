@@ -48,7 +48,23 @@ Localhost.args = {
   uiLang: 'EN',
   lang: 'IT',
   layout: 'FULLPAGE',
-  showShare: 'true',
+  showShare: true,
+  integrationID: '82f017cc-450b-4c47-acf5-47910d336ce9',
+};
+
+export const LocalhostBoE = Template.bind({});
+LocalhostBoE.args = {
+  memoriName: 'experts chairman',
+  ownerUserName: 'nicola',
+  memoriID: '2b094cd6-77b8-4e09-a807-0039b84c988e',
+  ownerUserID: '04a8cff9-13d6-4367-9cb2-72b9af9ee494',
+  tenantID: 'app.memorytwin.com',
+  apiURL: 'http://localhost:7778',
+  baseURL: 'http://localhost:3000',
+  uiLang: 'EN',
+  lang: 'IT',
+  layout: 'FULLPAGE',
+  showShare: true,
   integrationID: '82f017cc-450b-4c47-acf5-47910d336ce9',
 };
 
