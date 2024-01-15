@@ -1,5 +1,12 @@
 
 
+## [4.3.0](https://github.com/memori-ai/memori-react/compare/v4.2.0...v4.3.0) (2024-01-15)
+
+
+### Features
+
+* add experts drawer in widget for board of experts ([2725e13](https://github.com/memori-ai/memori-react/commit/2725e1340010b816b01b9ac5ed7722d43b10af19))
+
 ## [4.2.0](https://github.com/memori-ai/memori-react/compare/v4.1.1...v4.2.0) (2024-01-05)
 
 
