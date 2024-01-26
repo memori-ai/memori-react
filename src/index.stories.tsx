@@ -68,6 +68,21 @@ LocalhostBoE.args = {
   integrationID: '82f017cc-450b-4c47-acf5-47910d336ce9',
 };
 
+export const Staging = Template.bind({});
+Staging.args = {
+  memoriName: 'Giuseppe Verdi',
+  ownerUserName: 'nunziofiore',
+  memoriID: 'b996dbb9-3728-44d6-96f7-9b728224698c',
+  ownerUserID: 'fbee9aaa-0c46-460e-9800-15e31d7c99c0',
+  tenantID: 'twincreator-staging.aclambda.online',
+  apiURL: 'https://backend-staging.memori.ai',
+  baseURL: 'https://twincreator-staging.aclambda.online',
+  uiLang: 'EN',
+  lang: 'IT',
+  layout: 'FULLPAGE',
+  authToken: '00000000-0000-0000-0000-000000000000',
+};
+
 const TemplateWithBatchButton: Story<Props> = args => (
   <div>
     <button

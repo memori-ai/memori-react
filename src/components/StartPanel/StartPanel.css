@@ -215,3 +215,8 @@
     border: 1px solid #666;
     border-radius: 50%;
 }
+
+.memori--deep-thought-disclaimer a {
+    color: inherit;
+    text-decoration: underline;
+}

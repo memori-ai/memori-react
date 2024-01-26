@@ -267,17 +267,19 @@ const KnownFacts = ({
               <div className="memori--table--pagination--pages">
                 <Button
                   shape="circle"
-                  disabled={pageIndex === 0}
+                  disabled={pageIndex === 0 || pageIndex < numberOfResults}
                   padded={false}
                   title={t('previous') || 'Previous'}
                   icon={<ChevronLeft />}
                   onClick={() => {
-                    setPageIndex(pageIndex - 1);
-                    fetchKnownFacts(undefined, pageIndex - 1, numberOfResults);
+                    let from =
+                      (pageIndex / numberOfResults - 1) * numberOfResults;
+                    setPageIndex(from);
+                    fetchKnownFacts(undefined, from, numberOfResults);
                   }}
                 />
                 <span className="memori--table--pagination--pages--current">
-                  {pageIndex + 1} /{' '}
+                  {Math.ceil(pageIndex / numberOfResults) + 1} /{' '}
                   {Math.ceil(knownFactsCount / numberOfResults)}
                 </span>
                 <Button
@@ -286,11 +288,14 @@ const KnownFacts = ({
                   title={t('next') || 'Next'}
                   icon={<ChevronRight />}
                   disabled={
-                    (pageIndex + 1) * numberOfResults >= knownFactsCount
+                    (pageIndex / numberOfResults + 1) * numberOfResults >=
+                    knownFactsCount
                   }
                   onClick={() => {
-                    setPageIndex(pageIndex + 1);
-                    fetchKnownFacts(undefined, 1, numberOfResults);
+                    let from =
+                      (pageIndex / numberOfResults + 1) * numberOfResults;
+                    setPageIndex(from);
+                    fetchKnownFacts(undefined, from, numberOfResults);
                   }}
                 />
               </div>
@@ -306,7 +311,8 @@ const KnownFacts = ({
               displayValue={`${numberOfResults} / ${t('page') || 'page'}`}
               onChange={value => {
                 setNumberOfResults(value);
-                fetchKnownFacts(undefined, undefined, value);
+                setPageIndex(0);
+                fetchKnownFacts(undefined, 0, value);
               }}
             />
           </nav>
