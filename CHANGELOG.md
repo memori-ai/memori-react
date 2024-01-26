@@ -1,5 +1,12 @@
 
 
+## [4.3.1](https://github.com/memori-ai/memori-react/compare/v4.3.0...v4.3.1) (2024-01-26)
+
+
+### Bug Fixes
+
+* known facts pagination ([4a17dc3](https://github.com/memori-ai/memori-react/commit/4a17dc3e0bb2db63dd3c794c02a381cde413c544))
+
 ## [4.3.0](https://github.com/memori-ai/memori-react/compare/v4.2.0...v4.3.0) (2024-01-15)
 
 
