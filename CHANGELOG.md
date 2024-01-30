@@ -1,5 +1,12 @@
 
 
+## [4.4.0](https://github.com/memori-ai/memori-react/compare/v4.3.1...v4.4.0) (2024-01-30)
+
+
+### Features
+
+* add typing sentences list, add BoE loading sentences ([aa7e743](https://github.com/memori-ai/memori-react/commit/aa7e743408c1d50b4ba94c774935cad150095057))
+
 ## [4.3.1](https://github.com/memori-ai/memori-react/compare/v4.3.0...v4.3.1) (2024-01-26)
 
 
