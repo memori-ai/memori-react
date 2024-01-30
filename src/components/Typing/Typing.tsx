@@ -1,24 +1,55 @@
 import { useEffect, useState } from 'react';
 
-const separator = '                                        ';
-const sentences = {
+const separator = ' ';
+const defaultDelay = 3;
+const defaultSentences = {
   en: [
-    'Generating an accurate and fancy response...',
-    'Generating a response that will blow your mind...',
-    'Generating a response that will make you smile...',
-    'Thinking of a response...',
-    'Thinking of a response that will make you smile...',
-    'Gathering my thoughts...',
-    'Gathering my thoughts to give you a response...',
+    {
+      delayAfter: defaultDelay,
+      text: 'Generating an accurate and fancy response...',
+    },
+    {
+      delayAfter: defaultDelay,
+      text: 'Generating a response that will blow your mind...',
+    },
+    {
+      delayAfter: defaultDelay,
+      text: 'Generating a response that will make you smile...',
+    },
+    { delayAfter: defaultDelay, text: 'Thinking of a response...' },
+    {
+      delayAfter: defaultDelay,
+      text: 'Thinking of a response that will make you smile...',
+    },
+    { delayAfter: defaultDelay, text: 'Gathering my thoughts...' },
+    {
+      delayAfter: defaultDelay,
+      text: 'Gathering my thoughts to give you a response...',
+    },
   ],
   it: [
-    'Sto generando una risposta accurata e fantasiosa...',
-    'Sto generando una risposta che ti farà impazzire...',
-    'Sto generando una risposta che ti farà sorridere...',
-    'Sto pensando ad una risposta...',
-    'Sto pensando ad una risposta che ti farà sorridere...',
-    'Sto raccogliendo i miei pensieri...',
-    'Sto raccogliendo i miei pensieri per darti una risposta...',
+    {
+      delayAfter: defaultDelay,
+      text: 'Sto generando una risposta accurata e fantasiosa...',
+    },
+    {
+      delayAfter: defaultDelay,
+      text: 'Sto generando una risposta che ti farà impazzire...',
+    },
+    {
+      delayAfter: defaultDelay,
+      text: 'Sto generando una risposta che ti farà sorridere...',
+    },
+    { delayAfter: defaultDelay, text: 'Sto pensando ad una risposta...' },
+    {
+      delayAfter: defaultDelay,
+      text: 'Sto pensando ad una risposta che ti farà sorridere...',
+    },
+    { delayAfter: defaultDelay, text: 'Sto raccogliendo i miei pensieri...' },
+    {
+      delayAfter: defaultDelay,
+      text: 'Sto raccogliendo i miei pensieri per darti una risposta...',
+    },
   ],
 };
 
@@ -26,16 +57,41 @@ export interface Props {
   useDefaultSentences?: boolean;
   lang?: 'en' | 'it';
   sentence?: string;
+  sentences?: {
+    [lang: string]: {
+      /**
+       * Sentence to show
+       */
+      text: string;
+      /**
+       * Seconds to wait after the sentence is completed
+       */
+      delayAfter: number;
+    }[];
+  };
 }
+
+const getSeparatorString = (seconds = defaultDelay) =>
+  new Array(seconds * 20).fill(separator).join('');
 
 const Typing = ({
   useDefaultSentences = false,
   lang = 'en',
   sentence,
+  sentences,
 }: Props) => {
+  const [index, setIndex] = useState(0);
   const [text, setText] = useState(
-    sentence
-      ? `${sentence.endsWith('...') ? sentence : `${sentence}...`}${separator}`
+    sentences?.[lang]?.length
+      ? `${
+          sentences[lang][0].text.endsWith('...')
+            ? sentences[lang][0].text
+            : `${sentences[lang][0].text}...`
+        }${getSeparatorString(sentences[lang][0].delayAfter)}`
+      : sentence
+      ? `${
+          sentence.endsWith('...') ? sentence : `${sentence}...`
+        }${getSeparatorString()}`
       : ''
   );
   const [shownText, setShownText] = useState('');
@@ -45,12 +101,28 @@ const Typing = ({
       const letter = text[shownText.length];
       if (letter !== undefined && text.length > 0) {
         setShownText(prev => prev + letter);
-      } else if (!sentence && useDefaultSentences) {
-        setShownText('');
+      } else if (
+        sentences?.[lang]?.length &&
+        index < sentences[lang].length - 1
+      ) {
+        const nextIndex = index + 1;
+        const sentence = sentences[lang][nextIndex];
         setText(
-          sentences[lang][Math.floor(Math.random() * sentences[lang].length)] +
-            separator
+          `${
+            sentence.text.endsWith('...')
+              ? sentence.text
+              : `${sentence.text}...`
+          }${getSeparatorString(sentence.delayAfter)}`
         );
+        setShownText('');
+        setIndex(nextIndex);
+      } else if (!sentences && !sentence && useDefaultSentences) {
+        const sentence =
+          defaultSentences[lang][
+            Math.floor(Math.random() * defaultSentences[lang].length)
+          ];
+        setText(`${sentence.text}${getSeparatorString(sentence.delayAfter)}`);
+        setShownText('');
       }
     }, 50);
 

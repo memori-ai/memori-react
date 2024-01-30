@@ -111,3 +111,61 @@ export const prismSyntaxLangs = [
     monacoLang: 'sql',
   },
 ];
+
+export const boardOfExpertsLoadingSentences: {
+  [lang: string]: {
+    /**
+     * Sentence to show
+     */
+    text: string;
+    /**
+     * Seconds to wait after the sentence is completed
+     */
+    delayAfter: number;
+  }[];
+} = {
+  it: [
+    {
+      text: "Cerco l'esperto più adatto",
+      delayAfter: 5,
+    },
+    {
+      text: "Contatto l'esperto",
+      delayAfter: 3,
+    },
+    {
+      text: "Spiego all'esperto la domanda",
+      delayAfter: 2,
+    },
+    {
+      text: "L'esperto sta preparando una risposta",
+      delayAfter: 6,
+    },
+    {
+      text: 'Genero una risposta adatta',
+      delayAfter: 3,
+    },
+  ],
+  en: [
+    {
+      text: "I'm looking for the most suitable expert",
+      delayAfter: 5,
+    },
+    {
+      text: "I'm contacting the expert",
+      delayAfter: 3,
+    },
+    {
+      text: "I'm explaining the question to the expert",
+      delayAfter: 2,
+    },
+    {
+      text: 'The expert is preparing an answer',
+      delayAfter: 6,
+    },
+    {
+      text: 'I am generating a suitable answer',
+      delayAfter: 3,
+    },
+  ],
+};

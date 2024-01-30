@@ -26,6 +26,33 @@ exports[`renders Typing unchanged 1`] = `
 </div>
 `;
 
+exports[`renders Typing with custom loading text list unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble"
+  >
+    <div
+      class="memori-chat--bubble-typing"
+    >
+      <div
+        id="wave"
+      >
+        <span
+          class="dot"
+        />
+        <span
+          class="dot"
+        />
+        <span
+          class="dot"
+        />
+      </div>
+      <p />
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renders Typing with custom loading text unchanged 1`] = `
 <div>
   <div

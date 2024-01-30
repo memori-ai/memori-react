@@ -19,6 +19,7 @@ import { Props as MemoriProps } from '../MemoriWidget/MemoriWidget';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import Typing from '../Typing/Typing';
+import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
 
 export interface Props {
   memori: Memori;
@@ -298,9 +299,16 @@ const Chat: React.FC<Props> = ({
                   ? translateTo.toLowerCase() === 'it'
                     ? 'it'
                     : 'en'
+                  : memori.culture?.split('-')?.[0]?.toLowerCase() === 'it'
+                  ? 'it'
                   : 'en'
               }
               sentence={typingText}
+              sentences={
+                memori.enableBoardOfExperts
+                  ? boardOfExpertsLoadingSentences
+                  : undefined
+              }
               key={typingText}
             />
           )}
