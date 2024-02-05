@@ -86,3 +86,45 @@ WithCustomLoadingTextList.args = {
     ],
   },
 };
+
+export const WithCustomLoadingTextListAndInitialDelay = Template.bind({});
+WithCustomLoadingTextListAndInitialDelay.args = {
+  sentences: {
+    en: [
+      {
+        text: '',
+        delayAfter: 10,
+      },
+      {
+        text: 'I am asking the unicorns what they think about it',
+        delayAfter: 5,
+      },
+      {
+        text: 'I am trying to understand what my cat is saying about it',
+        delayAfter: 10,
+      },
+      {
+        text: 'I am collecting the opinions of the people I know',
+        delayAfter: 2,
+      },
+    ],
+    it: [
+      {
+        text: '',
+        delayAfter: 10,
+      },
+      {
+        text: 'Chiedo agli unicorni cosa ne pensano',
+        delayAfter: 5,
+      },
+      {
+        text: 'Sto cercando di capire cosa ne pensa il mio gatto',
+        delayAfter: 10,
+      },
+      {
+        text: 'Sto raccogliendo le opinioni delle persone che conosco',
+        delayAfter: 2,
+      },
+    ],
+  },
+};

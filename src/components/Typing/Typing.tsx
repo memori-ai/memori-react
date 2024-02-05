@@ -84,13 +84,16 @@ const Typing = ({
   const [text, setText] = useState(
     sentences?.[lang]?.length
       ? `${
-          sentences[lang][0].text.endsWith('...')
+          sentences[lang][0].text.endsWith('...') ||
+          !sentences[lang][0].text.length
             ? sentences[lang][0].text
             : `${sentences[lang][0].text}...`
         }${getSeparatorString(sentences[lang][0].delayAfter)}`
       : sentence
       ? `${
-          sentence.endsWith('...') ? sentence : `${sentence}...`
+          sentence.endsWith('...') || !sentence.length
+            ? sentence
+            : `${sentence}...`
         }${getSeparatorString()}`
       : ''
   );
@@ -109,7 +112,7 @@ const Typing = ({
         const sentence = sentences[lang][nextIndex];
         setText(
           `${
-            sentence.text.endsWith('...')
+            sentence.text.endsWith('...') || !sentence.text.length
               ? sentence.text
               : `${sentence.text}...`
           }${getSeparatorString(sentence.delayAfter)}`

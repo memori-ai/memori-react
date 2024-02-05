@@ -126,6 +126,10 @@ export const boardOfExpertsLoadingSentences: {
 } = {
   it: [
     {
+      text: '',
+      delayAfter: 10,
+    },
+    {
       text: "Cerco l'esperto più adatto",
       delayAfter: 5,
     },
@@ -147,6 +151,10 @@ export const boardOfExpertsLoadingSentences: {
     },
   ],
   en: [
+    {
+      text: '',
+      delayAfter: 10,
+    },
     {
       text: "I'm looking for the most suitable expert",
       delayAfter: 5,

@@ -61,11 +61,13 @@
 
 .memori-chat--bubble-typing {
     display: flex;
+    align-items: center;
 }
 
 .memori-chat--bubble p {
     margin-top: 0;
     margin-bottom: 0;
+    font-size: 0.75em;
 }
 
 .memori-chat--bubble ul,
@@ -87,8 +89,8 @@
 
 @media (max-width: 600px) {
     .memori-chat--bubble p {
-        font-size: 14px;
-        line-height: 1.4;
+        font-size: 11px;
+        line-height: 1.2;
     }
 }
 
