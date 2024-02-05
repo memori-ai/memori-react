@@ -42,7 +42,7 @@ export interface Props {
   pin?: string;
   context?: { [key: string]: string };
   initialQuestion?: string;
-  uiLang?: 'en' | 'it';
+  uiLang?: 'en' | 'it' | 'IT' | 'EN';
   spokenLang?: string;
   multilingual?: boolean;
   authToken?: string;
@@ -310,7 +310,7 @@ Memori.propTypes = {
   pin: PropTypes.string,
   context: PropTypes.objectOf(PropTypes.any),
   initialQuestion: PropTypes.string,
-  uiLang: PropTypes.oneOf(['en', 'it']),
+  uiLang: PropTypes.oneOf(['en', 'it', 'EN', 'IT']),
   spokenLang: PropTypes.string,
   multilingual: PropTypes.bool,
   authToken: PropTypes.string,
