@@ -1354,88 +1354,83 @@ const MemoriWidget = ({
         i18n.language ??
         'IT'
       ).toUpperCase();
+
+      let voiceType = memori.voiceType;
+      if (memori.enableBoardOfExperts && currentDialogState?.emitter) {
+        let expert = experts?.find(e => e.name === currentDialogState?.emitter);
+
+        // TODO: once got info from backend, select voice from expert
+        // if (expert?.voiceType) {
+        //   voiceType = expert.voiceType;
+        // }
+      }
+
       switch (voiceLang) {
         case 'IT':
           voice = `${
-            memori.voiceType === 'MALE'
-              ? 'it-IT-DiegoNeural'
-              : 'it-IT-ElsaNeural'
+            voiceType === 'MALE' ? 'it-IT-DiegoNeural' : 'it-IT-ElsaNeural'
           }`;
           break;
         case 'DE':
           voice = `${
-            memori.voiceType === 'MALE'
-              ? 'de-DE-ConradNeural'
-              : 'de-DE-KatjaNeural'
+            voiceType === 'MALE' ? 'de-DE-ConradNeural' : 'de-DE-KatjaNeural'
           }`;
           break;
         case 'EN':
           voice = `${
-            memori.voiceType === 'MALE'
-              ? 'en-GB-RyanNeural'
-              : 'en-GB-SoniaNeural'
+            voiceType === 'MALE' ? 'en-GB-RyanNeural' : 'en-GB-SoniaNeural'
           }`;
           break;
         case 'ES':
           voice = `${
-            memori.voiceType === 'MALE'
-              ? 'es-ES-AlvaroNeural'
-              : 'es-ES-ElviraNeural'
+            voiceType === 'MALE' ? 'es-ES-AlvaroNeural' : 'es-ES-ElviraNeural'
           }`;
           break;
         case 'FR':
           voice = `${
-            memori.voiceType === 'MALE'
-              ? 'fr-FR-HenriNeural'
-              : 'fr-FR-DeniseNeural'
+            voiceType === 'MALE' ? 'fr-FR-HenriNeural' : 'fr-FR-DeniseNeural'
           }`;
           break;
         case 'PT':
           voice = `${
-            memori.voiceType === 'MALE'
-              ? 'pt-PT-DuarteNeural'
-              : 'pt-PT-RaquelNeural'
+            voiceType === 'MALE' ? 'pt-PT-DuarteNeural' : 'pt-PT-RaquelNeural'
           }`;
           break;
         case 'UK':
           voice = `${
-            memori.voiceType === 'MALE'
-              ? 'uk-UA-OstapNeural'
-              : 'uk-UA-PolinaNeural'
+            voiceType === 'MALE' ? 'uk-UA-OstapNeural' : 'uk-UA-PolinaNeural'
           }`;
           break;
         case 'RU':
           voice = `${
-            memori.voiceType === 'MALE'
-              ? 'ru-RU-DmitryNeural'
-              : 'ru-RU-SvetlanaNeural'
+            voiceType === 'MALE' ? 'ru-RU-DmitryNeural' : 'ru-RU-SvetlanaNeural'
           }`;
           break;
         case 'PL':
           voice = `${
-            memori.voiceType === 'MALE'
-              ? 'pl-PL-MarekNeural'
-              : 'pl-PL-AgnieszkaNeural'
+            voiceType === 'MALE' ? 'pl-PL-MarekNeural' : 'pl-PL-AgnieszkaNeural'
           }`;
           break;
         case 'FI':
           voice = `${
-            memori.voiceType === 'MALE'
-              ? 'fi-FI-HarriNeural'
-              : 'fi-FI-SelmaNeural'
+            voiceType === 'MALE' ? 'fi-FI-HarriNeural' : 'fi-FI-SelmaNeural'
           }`;
           break;
         default:
           voice = `${
-            memori.voiceType === 'MALE'
-              ? 'it-IT-DiegoNeural'
-              : 'it-IT-IsabellaNeural'
+            voiceType === 'MALE' ? 'it-IT-DiegoNeural' : 'it-IT-IsabellaNeural'
           }`;
           break;
       }
       return voice;
     },
-    [memori.voiceType, i18n.language, memori.culture]
+    [
+      memori.voiceType,
+      memori.enableBoardOfExperts,
+      currentDialogState?.emitter,
+      i18n.language,
+      memori.culture,
+    ]
   );
 
   const getCultureCodeByLanguage = (lang?: string): string => {
