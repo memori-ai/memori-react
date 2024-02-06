@@ -199,6 +199,7 @@
 .memori--deep-thought-disclaimer h2 {
     margin-top: 0;
     margin-bottom: 0.5em;
+    color: var(--memori-text-color, rgba(0, 0, 0, 0.85));
 }
 
 .memori--deep-thought-disclaimer .memori-tooltip {
