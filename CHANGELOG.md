@@ -1,5 +1,23 @@
 
 
+## [4.4.1](https://github.com/memori-ai/memori-react/compare/v4.4.0...v4.4.1) (2024-02-06)
+
+
+### Bug Fixes
+
+* deep tought disclaimer title color ([d3fb917](https://github.com/memori-ai/memori-react/commit/d3fb917f461e96cc59cec821c23a6295bea088e7))
+
+
+### Changes
+
+* boe loading indicator with initial delay, smaller font ([94929a4](https://github.com/memori-ai/memori-react/commit/94929a489138f1257b170e523a22465db966c7fa))
+
+
+### Maintenance
+
+* enhance uilang typings ([7b94bcf](https://github.com/memori-ai/memori-react/commit/7b94bcf8d0e34c034ee386386ed51fc74f68ba0f))
+* prepare for dynamic voice for boe ([bf04616](https://github.com/memori-ai/memori-react/commit/bf0461603b340d9bbe12137e58f7532be12ee47d))
+
 ## [4.4.0](https://github.com/memori-ai/memori-react/compare/v4.3.1...v4.4.0) (2024-01-30)
 
 
