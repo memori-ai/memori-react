@@ -331,11 +331,6 @@
     background: none;
 }
 
-.memori-widget.memori-layout-website_assistant.memori--hide-emissions .memori-website_assistant-layout--controls .memori-chat--bubble-container:not(.memori-chat--bubble-from-user),
-.memori-widget.memori-layout-website_assistant.memori--hide-emissions.memori--with-speechkey .memori-website_assistant-layout--controls .memori-chat--bubble-container:not(.memori-chat--bubble-from-user) {
-    display: none;
-}
-
 .memori-website_assistant-layout--avatar .memori-blob {
     z-index: 2;
 }
