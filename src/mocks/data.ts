@@ -14,8 +14,6 @@ export const sessionID = '131165be-9d1a-42fb-a3ce-e8f86d40c88f';
 export const tenant: Tenant = {
   adminCount: 3,
   config: {
-    feedbackURL:
-      'https://form.asana.com/?k=XC7S3JWQeIhnjipBuA3gbw&d=1199599736247413',
     name: 'TwinCreator',
     requirePosition: false,
     showNewUser: true,
