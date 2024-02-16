@@ -27,7 +27,7 @@ const Template: Story<Props> = args => {
     <I18nWrapper>
       <ExpertsDrawer
         {...args}
-        baseUrl="https://app.twincreator.com"
+        baseUrl="https://aisuru.com"
         apiUrl="https://backend.memori.ai"
         tenant={tenant}
         experts={[

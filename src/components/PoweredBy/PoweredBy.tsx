@@ -11,10 +11,7 @@ const PoweredBy = ({ tenant, userLang = 'en' }: Props) => {
 
   return (
     <div className="memori--powered-by">
-      <img
-        src={`https://app.twincreator.com/images/${tenantId}/logo.png`}
-        alt=""
-      />
+      <img src={`https://aisuru.com/images/${tenantId}/logo.png`} alt="" />
       <p>
         Powered by{' '}
         <a

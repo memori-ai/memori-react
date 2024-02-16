@@ -1,7 +1,7 @@
 import { Tenant } from '@memori.ai/memori-api-client/dist/types';
 
 const defaultTenant: Tenant = {
-  id: 'app.twincreator.com',
+  id: 'aisuru.com',
   theme: 'twincreator',
   config: {
     name: 'Memori',
@@ -24,7 +24,7 @@ export const getTenant = async (
             : 'https://'
         }${baseURL}`
       ).origin
-    : 'https://app.twincreator.com';
+    : 'https://aisuru.com';
 
   try {
     const response = await fetch(`${apiBaseUrl}/api/tenant/${tenantID}`);

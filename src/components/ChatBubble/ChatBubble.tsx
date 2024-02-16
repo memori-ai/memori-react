@@ -140,7 +140,7 @@ const ChatBubble: React.FC<Props> = ({
                   : getResourceUrl({
                       tenantID: tenant?.id,
                       type: 'avatar',
-                      baseURL: baseUrl || 'https://app.twincreator.com',
+                      baseURL: baseUrl || 'https://aisuru.com',
                       apiURL: apiUrl,
                     })
               }

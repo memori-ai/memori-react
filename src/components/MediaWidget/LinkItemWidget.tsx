@@ -31,9 +31,9 @@ export interface Props {
 const getSiteInfo = async (url: string, baseUrl?: string) => {
   try {
     const data = await fetch(
-      `${
-        baseUrl || 'https://app.twincreator.com'
-      }/api/linkpreview/${encodeURIComponent(url)}`
+      `${baseUrl || 'https://aisuru.com'}/api/linkpreview/${encodeURIComponent(
+        url
+      )}`
     );
     const siteInfo: ILinkPreviewInfo = await data.json();
     return siteInfo;

@@ -187,7 +187,7 @@ const Chat: React.FC<Props> = ({
               })}"), url("${getResourceUrl({
                 type: 'cover',
                 tenantID: tenant?.id,
-                baseURL: baseUrl || 'https://app.twincreator.com',
+                baseURL: baseUrl || 'https://aisuru.com',
                 apiURL: apiUrl,
               })}")`,
             }}

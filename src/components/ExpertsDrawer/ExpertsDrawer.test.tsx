@@ -17,7 +17,7 @@ it('renders ExpertsDrawer unchanged', () => {
   const { container } = render(
     <ExpertsDrawer
       onClose={jest.fn()}
-      baseUrl="https://app.twincreator.com"
+      baseUrl="https://aisuru.com"
       apiUrl="https://backend.memori.ai"
       tenant={tenant}
       experts={[
@@ -37,7 +37,7 @@ it('renders ExpertsDrawer open unchanged', () => {
     <ExpertsDrawer
       open
       onClose={jest.fn()}
-      baseUrl="https://app.twincreator.com"
+      baseUrl="https://aisuru.com"
       apiUrl="https://backend.memori.ai"
       tenant={tenant}
       experts={[

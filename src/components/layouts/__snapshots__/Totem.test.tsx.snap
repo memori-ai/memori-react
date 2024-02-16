@@ -43,7 +43,7 @@ exports[`renders Totem layout unchanged 1`] = `
       >
         <img
           alt=""
-          src="https://app.twincreator.com/images/twincreator/logo.png"
+          src="https://aisuru.com/images/twincreator/logo.png"
         />
         <p>
           Powered by
@@ -305,11 +305,11 @@ exports[`renders Totem layout unchanged 1`] = `
             class="memori--avatar"
           >
             <source
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+              src="https://aisuru.com/images/twincreator/square_logo.png"
             />
             <img
               alt="Memori"
-              src="https://app.twincreator.com/images/twincreator/square_logo.png"
+              src="https://aisuru.com/images/twincreator/square_logo.png"
             />
           </picture>
           <h2
@@ -435,7 +435,7 @@ exports[`renders Totem layout unchanged 1`] = `
     </div>
     <audio
       id="memori-audio"
-      src="https://app.twincreator.com/intro.mp3"
+      src="https://aisuru.com/intro.mp3"
       style="display: none;"
     />
   </div>

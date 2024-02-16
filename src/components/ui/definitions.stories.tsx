@@ -95,7 +95,7 @@ const Definitions = () => (
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
               backgroundImage:
-                'url(https://app.twincreator.com/images/twincreator/og-image.png)',
+                'url(https://aisuru.com/images/twincreator/og-image.png)',
               filter: 'blur(var(--memori-blur-background, 0))',
               width: '200px',
               height: '100px',

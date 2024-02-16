@@ -42,10 +42,10 @@ const ShareButton: React.FC<Props> = ({
   const qrImageURL = useMemo(
     () =>
       tenant?.theme
-        ? `${baseUrl ?? 'https://app.twincreator.com'}/images/${
+        ? `${baseUrl ?? 'https://aisuru.com'}/images/${
             tenant.theme
           }/square_logo.png`
-        : `${baseUrl ?? 'https://app.twincreator.com'}/images/memori_logo.png`,
+        : `${baseUrl ?? 'https://aisuru.com'}/images/memori_logo.png`,
     [tenant, baseUrl]
   );
 
