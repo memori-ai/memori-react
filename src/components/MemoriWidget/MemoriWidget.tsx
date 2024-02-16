@@ -377,7 +377,7 @@ const MemoriWidget = ({
   showOnlyLastMessages,
   height = '100vh',
   secret,
-  baseUrl = 'https://app.twincreator.com',
+  baseUrl = 'https://aisuru.com',
   apiUrl = 'https://backend.memori.ai',
   initialContextVars,
   initialQuestion,
@@ -415,9 +415,19 @@ const MemoriWidget = ({
 
   const [instruct, setInstruct] = useState(false);
 
+  const [loginToken, setLoginToken] = useState<string | undefined>(
+    additionalInfo?.loginToken ?? authToken
+  );
   const [user, setUser] = useState<User>({
     avatarURL: typeof userAvatar === 'string' ? userAvatar : undefined,
   } as User);
+  useEffect(() => {
+    if (loginToken) {
+      client.backend.getCurrentUser(loginToken).then(({ user, resultCode }) => {
+        if (user && resultCode === 0) setUser(user);
+      });
+    }
+  }, [loginToken]);
 
   const [clickedStart, setClickedStart] = useState(false);
   const [gotErrorInOpening, setGotErrorInOpening] = useState(false);
@@ -1493,7 +1503,7 @@ const MemoriWidget = ({
   const fetchLexiconJSON = async () => {
     try {
       const lexiconReq = await fetch(
-        `${baseUrl || 'https://app.twincreator.com'}/api/lexiconmap`
+        `${baseUrl || 'https://aisuru.com'}/api/lexiconmap`
       );
       const lexicon = await lexiconReq.json();
       return lexicon;
@@ -2512,10 +2522,6 @@ const MemoriWidget = ({
     },
     [memoriPwd, memori, memoriTokens, birthDate, sessionId, userLang]
   );
-
-  const [loginToken, setLoginToken] = useState<string | undefined>(
-    additionalInfo?.loginToken ?? authToken
-  );
   useEffect(() => {
     const targetNode =
       document.querySelector(`memori-client[memoriname="${memori.name}"]`) ||
@@ -2615,6 +2621,7 @@ const MemoriWidget = ({
     showClear,
     clearHistory: () => setHistory(h => h.slice(-1)),
     loginToken,
+    user,
     sessionID: sessionId,
   };
 
@@ -2634,7 +2641,7 @@ const MemoriWidget = ({
   };
 
   const startPanelProps: StartPanelProps = {
-    memori: memori,
+    memori,
     tenant: tenant,
     gamificationLevel: gamificationLevel,
     language: language,
@@ -2651,6 +2658,7 @@ const MemoriWidget = ({
     onClickStart: onClickStart,
     initializeTTS: initializeTTS,
     isUserLoggedIn: !!loginToken,
+    user,
   };
 
   const chatProps: ChatProps = {
@@ -2807,7 +2815,7 @@ const MemoriWidget = ({
       <audio
         id="memori-audio"
         style={{ display: 'none' }}
-        src="https://app.twincreator.com/intro.mp3"
+        src="https://aisuru.com/intro.mp3"
       />
 
       {isClient && (

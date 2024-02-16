@@ -5,6 +5,7 @@ import {
   Message,
   Tenant,
   Venue,
+  User,
 } from '@memori.ai/memori-api-client/dist/types';
 import Button from '../ui/Button';
 import MapMarker from '../icons/MapMarker';
@@ -41,6 +42,7 @@ export interface Props {
   showClear?: boolean;
   clearHistory: () => void;
   loginToken?: string;
+  user?: User;
   sessionID?: string;
 }
 
@@ -64,6 +66,7 @@ const Header: React.FC<Props> = ({
   showClear = false,
   clearHistory,
   loginToken,
+  user,
   sessionID,
 }) => {
   const { t } = useTranslation();
@@ -134,7 +137,7 @@ const Header: React.FC<Props> = ({
           }}
         />
       )}
-      {memori.enableDeepThought && !!loginToken && (
+      {memori.enableDeepThought && !!loginToken && user?.pAndCUAccepted && (
         <Button
           primary={!!sessionID && !!hasUserActivatedSpeak}
           shape="circle"

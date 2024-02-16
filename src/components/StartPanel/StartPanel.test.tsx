@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { memori, tenant, sessionID, integration } from '../../mocks/data';
+import { memori, tenant, sessionID, integration, user } from '../../mocks/data';
 import StartPanel from './StartPanel';
 
 it('renders StartPanel unchanged', () => {
@@ -103,6 +103,57 @@ it('renders StartPanel with deep thought enabled unchanged', () => {
       clickedStart={false}
       onClickStart={() => {}}
       isUserLoggedIn
+      user={{
+        ...user,
+        pAndCUAccepted: true,
+      }}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders StartPanel with deep thought but unlogged unchanged', () => {
+  const { container } = render(
+    <StartPanel
+      memori={{
+        ...memori,
+        enableDeepThought: true,
+      }}
+      tenant={tenant}
+      language="it"
+      userLang="en"
+      setUserLang={() => {}}
+      openPositionDrawer={() => {}}
+      instruct={false}
+      sessionId={sessionID}
+      clickedStart={false}
+      onClickStart={() => {}}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders StartPanel with deep thought enabled but without permission flag unchanged', () => {
+  const { container } = render(
+    <StartPanel
+      memori={{
+        ...memori,
+        enableDeepThought: true,
+      }}
+      tenant={tenant}
+      language="it"
+      userLang="en"
+      setUserLang={() => {}}
+      openPositionDrawer={() => {}}
+      instruct={false}
+      sessionId={sessionID}
+      clickedStart={false}
+      onClickStart={() => {}}
+      isUserLoggedIn
+      user={{
+        ...user,
+        pAndCUAccepted: false,
+      }}
     />
   );
   expect(container).toMatchSnapshot();

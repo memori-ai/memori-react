@@ -3,6 +3,7 @@ import {
   Memori,
   Tenant,
   Venue,
+  User,
 } from '@memori.ai/memori-api-client/src/types';
 import React, { useState, useEffect } from 'react';
 import { getResourceUrl } from '../../helpers/media';
@@ -37,6 +38,7 @@ export interface Props {
   initializeTTS?: () => void;
   _TEST_forceProviderStatus?: string;
   isUserLoggedIn?: boolean;
+  user?: User;
 }
 
 const StartPanel: React.FC<Props> = ({
@@ -57,6 +59,7 @@ const StartPanel: React.FC<Props> = ({
   initializeTTS,
   _TEST_forceProviderStatus,
   isUserLoggedIn = false,
+  user,
 }) => {
   const { t, i18n } = useTranslation();
   const [translatedDescription, setTranslatedDescription] = useState(
@@ -291,22 +294,23 @@ const StartPanel: React.FC<Props> = ({
             />
           )}
 
-          {!!memori.enableDeepThought && !instruct && !!isUserLoggedIn && (
+          {!!memori.enableDeepThought && !instruct && (
             <div className="memori--deep-thought-disclaimer">
               <Tooltip align="left" content={t('deepThoughtHelper')}>
                 <DeepThought />
               </Tooltip>
-              <h2>{t('deepThoughtDisclaimerTitle')}</h2>
+              <h2>
+                {isUserLoggedIn && !!user?.pAndCUAccepted
+                  ? t('deepThoughtDisclaimerTitle')
+                  : t('deepThought')}
+              </h2>
+              {isUserLoggedIn && !user?.pAndCUAccepted && (
+                <p>{t('deepThoughtPreDisclaimerNotAllowed')}</p>
+              )}
+              {!isUserLoggedIn && (
+                <p>{t('deepThoughtPreDisclaimerUnlogged')}</p>
+              )}
               <p>{t('deepThoughtDisclaimer')}</p>
-              <p>
-                <a
-                  href="https://app.twincreator.com/en/privacy_and_cookie"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Privacy policy
-                </a>
-              </p>
             </div>
           )}
         </div>

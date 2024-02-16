@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { memori, history } from '../../mocks/data';
+import { memori, history, user } from '../../mocks/data';
 import Header from './Header';
 
 it('renders Header unchanged', () => {
@@ -152,7 +152,7 @@ it('renders Header with user activated speak unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
-it('renders Header with deep thought unchanged', () => {
+it('renders Header with deep thought unlogged unchanged', () => {
   const { container } = render(
     <Header
       memori={{
@@ -171,6 +171,62 @@ it('renders Header with deep thought unchanged', () => {
       showSettings={false}
       clearHistory={jest.fn()}
       loginToken="abcd"
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders Header with deep thought logged but without permission flag unchanged', () => {
+  const { container } = render(
+    <Header
+      memori={{
+        ...memori,
+        enableDeepThought: true,
+      }}
+      history={history}
+      setShowPositionDrawer={jest.fn()}
+      setShowSettingsDrawer={jest.fn()}
+      setShowKnownFactsDrawer={jest.fn()}
+      setShowExpertsDrawer={jest.fn()}
+      speakerMuted={false}
+      setSpeakerMuted={jest.fn()}
+      hasUserActivatedSpeak={false}
+      showShare={false}
+      showSettings={false}
+      clearHistory={jest.fn()}
+      loginToken="abcd"
+      user={{
+        ...user,
+        pAndCUAccepted: false,
+      }}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders Header with deep thought logged with permission flag unchanged', () => {
+  const { container } = render(
+    <Header
+      memori={{
+        ...memori,
+        enableDeepThought: true,
+      }}
+      history={history}
+      setShowPositionDrawer={jest.fn()}
+      setShowSettingsDrawer={jest.fn()}
+      setShowKnownFactsDrawer={jest.fn()}
+      setShowExpertsDrawer={jest.fn()}
+      speakerMuted={false}
+      setSpeakerMuted={jest.fn()}
+      hasUserActivatedSpeak={false}
+      showShare={false}
+      showSettings={false}
+      clearHistory={jest.fn()}
+      loginToken="abcd"
+      user={{
+        ...user,
+        pAndCUAccepted: true,
+      }}
     />
   );
   expect(container).toMatchSnapshot();

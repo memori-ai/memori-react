@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import I18nWrapper from '../../I18nWrapper';
-import { memori, sessionID, integration, tenant } from '../../mocks/data';
+import { memori, sessionID, integration, tenant, user } from '../../mocks/data';
 import StartPanel, { Props } from './StartPanel';
 
 import '../../i18n';
@@ -206,6 +206,50 @@ WithDeepThoughtEnabled.args = {
   clickedStart: false,
   onClickStart: () => {},
   isUserLoggedIn: true,
+  user: {
+    ...user,
+    pAndCUAccepted: true,
+  },
+};
+
+export const WithDeepThoughtEnabledUnlogged = Template.bind({});
+WithDeepThoughtEnabledUnlogged.args = {
+  memori: {
+    ...memori,
+    enableDeepThought: true,
+  },
+  tenant,
+  language: 'it',
+  userLang: 'en',
+  setUserLang: () => {},
+  openPositionDrawer: () => {},
+  instruct: false,
+  sessionId: sessionID,
+  clickedStart: false,
+  onClickStart: () => {},
+  isUserLoggedIn: false,
+};
+
+export const WithDeepThoughtEnabledWithoutPermissionFlag = Template.bind({});
+WithDeepThoughtEnabledWithoutPermissionFlag.args = {
+  memori: {
+    ...memori,
+    enableDeepThought: true,
+  },
+  tenant,
+  language: 'it',
+  userLang: 'en',
+  setUserLang: () => {},
+  openPositionDrawer: () => {},
+  instruct: false,
+  sessionId: sessionID,
+  clickedStart: false,
+  onClickStart: () => {},
+  isUserLoggedIn: true,
+  user: {
+    ...user,
+    pAndCUAccepted: false,
+  },
 };
 
 export const BoardOfExpert = Template.bind({});
