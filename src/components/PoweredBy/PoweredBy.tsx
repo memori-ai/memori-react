@@ -7,7 +7,11 @@ export interface Props {
 
 const PoweredBy = ({ tenant, userLang = 'en' }: Props) => {
   const tenantId =
-    tenant?.theme === 'memorytwin' ? 'memorytwin' : 'twincreator';
+    tenant?.theme === 'memorytwin'
+      ? 'memorytwin'
+      : tenant?.theme === 'twincreator'
+      ? 'twincreator'
+      : 'aisuru';
 
   return (
     <div className="memori--powered-by">
@@ -15,13 +19,21 @@ const PoweredBy = ({ tenant, userLang = 'en' }: Props) => {
       <p>
         Powered by{' '}
         <a
-          href={`https://app.${tenantId}.com/${
-            userLang ? userLang.toLowerCase() : ''
-          }`}
+          href={`https://${
+            tenant?.theme === 'twincreator'
+              ? 'app.twincreator.com'
+              : tenant?.theme === 'memorytwin'
+              ? 'app.memorytwin.com'
+              : 'aisuru.com'
+          }/${userLang ? userLang.toLowerCase() : ''}`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          {tenantId === 'memorytwin' ? 'MemoryTwin' : 'TwinCreator'}
+          {tenantId === 'memorytwin'
+            ? 'MemoryTwin'
+            : tenantId === 'twincreator'
+            ? 'TwinCreator'
+            : 'AIsuru'}
         </a>
       </p>
     </div>

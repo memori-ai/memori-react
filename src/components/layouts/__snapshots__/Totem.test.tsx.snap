@@ -43,17 +43,17 @@ exports[`renders Totem layout unchanged 1`] = `
       >
         <img
           alt=""
-          src="https://aisuru.com/images/twincreator/logo.png"
+          src="https://aisuru.com/images/aisuru/logo.png"
         />
         <p>
           Powered by
            
           <a
-            href="https://app.twincreator.com/it"
+            href="https://aisuru.com/it"
             rel="noopener noreferrer"
             target="_blank"
           >
-            TwinCreator
+            AIsuru
           </a>
         </p>
       </div>

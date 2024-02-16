@@ -5,6 +5,7 @@
     left: 0;
     display: inline-flex;
     flex-wrap: wrap;
+    align-items: center;
     padding: 0.25rem 0.5rem;
     border-radius: 10px;
     background-color: var(--memori-inner-bg, transparent);

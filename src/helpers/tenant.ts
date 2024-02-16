@@ -2,7 +2,7 @@ import { Tenant } from '@memori.ai/memori-api-client/dist/types';
 
 const defaultTenant: Tenant = {
   id: 'aisuru.com',
-  theme: 'twincreator',
+  theme: 'aisuru',
   config: {
     name: 'Memori',
     showNewUser: false,

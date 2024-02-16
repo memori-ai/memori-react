@@ -39,7 +39,7 @@ export const tenant: Tenant = {
   nonFreeSessionCost: 0.02,
   paying: true,
   tenantID: '96caa4b4-31a4-48e5-8163-dec61869a2a7',
-  theme: 'twincreator',
+  theme: 'aisuru',
   userCount: 0,
 };
 

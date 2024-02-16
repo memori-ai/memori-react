@@ -21,6 +21,11 @@ Default.args = {
   userLang: 'en',
 };
 
+export const Italian = Template.bind({});
+Italian.args = {
+  userLang: 'it',
+};
+
 export const MemoryTwin = Template.bind({});
 MemoryTwin.args = {
   tenant: {
@@ -35,7 +40,16 @@ MemoryTwin.args = {
   },
 };
 
-export const Italian = Template.bind({});
-Italian.args = {
-  userLang: 'it',
+export const TwinCreator = Template.bind({});
+TwinCreator.args = {
+  tenant: {
+    id: 'twincreator',
+    theme: 'twincreator',
+    config: {
+      name: 'twincreator',
+      showNewUser: true,
+      requirePosition: false,
+      feedbackURL: '',
+    },
+  },
 };
