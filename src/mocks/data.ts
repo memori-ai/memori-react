@@ -40,12 +40,6 @@ export const tenant: Tenant = {
   tenantID: '96caa4b4-31a4-48e5-8163-dec61869a2a7',
   theme: 'twincreator',
   userCount: 0,
-  usersCanAccessAPI: false,
-  usersCanCreateMemori: false,
-  usersCanEditDynamicIntents: false,
-  usersCanEditIntegrations: false,
-  usersCanEditMemoriChaining: false,
-  usersCanRunSnippets: false,
 };
 
 export const memori: Memori = {
