@@ -7,6 +7,7 @@ import {
   DialogState,
   KnownFact,
   ExpertReference,
+  User,
 } from '@memori.ai/memori-api-client/dist/types';
 
 export const sessionID = '131165be-9d1a-42fb-a3ce-e8f86d40c88f';
@@ -40,6 +41,24 @@ export const tenant: Tenant = {
   tenantID: '96caa4b4-31a4-48e5-8163-dec61869a2a7',
   theme: 'twincreator',
   userCount: 0,
+};
+
+export const user: User = {
+  tenant: 'localhost:3000',
+  userID: '97c42d18-ffe4-47e1-a3c7-e42729f1e6a3',
+  userName: 'nzambello',
+  eMail: 'nicola@nzambello.dev',
+  admin: false,
+  maxMemori: 0,
+  enableMemoriCreation: true,
+  enableBoardOfExperts: true,
+  maxFreeSessions: 0,
+  tnCAndPPAccepted: true,
+  tnCAndPPAcceptanceDate: '2021-03-01T00:00:00.000Z',
+  pAndCUAccepted: true,
+  pAndCUAcceptanceDate: '2021-03-01T00:00:00.000Z',
+  birthDate: '1900-03-01T00:00:00.000Z',
+  age: 28,
 };
 
 export const memori: Memori = {
