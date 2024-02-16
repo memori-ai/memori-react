@@ -1,5 +1,30 @@
 
 
+## [5.0.0](https://github.com/memori-ai/memori-react/compare/v4.4.1...v5.0.0) (2024-02-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* rename usage of twincreator in aisuru
+
+### Features
+
+* add deep thought disclaimers with new flags ([42d6f12](https://github.com/memori-ai/memori-react/commit/42d6f12a81e1e263c6d62dcace3c1e88f3371343))
+
+
+### Bug Fixes
+
+* remove hide emissions handling from website assistant ([95b1c36](https://github.com/memori-ai/memori-react/commit/95b1c36c04865aa4c1a84a3d2e98a56e5e327c18))
+
+
+### Maintenance
+
+* rename usage of twincreator in aisuru ([6a7778d](https://github.com/memori-ai/memori-react/commit/6a7778ddca1c9075478b96bb8b79ac8e0514d30f))
+* rename usage of twincreator in aisuru, update powered by ([20094db](https://github.com/memori-ai/memori-react/commit/20094dbeecd08ed1161c06c166ab3bb9f3fcaa39))
+* update api client ([b606f45](https://github.com/memori-ai/memori-react/commit/b606f45f465f358c5d1fea97366db477e7dd6ac3))
+* update api client ([ab6eb01](https://github.com/memori-ai/memori-react/commit/ab6eb016e50143f7002542730cf7de2f34aebe81))
+* update mocks ([13dd147](https://github.com/memori-ai/memori-react/commit/13dd147799a4462a7f97debdd3a5d507553243d1))
+
 ## [4.4.1](https://github.com/memori-ai/memori-react/compare/v4.4.0...v4.4.1) (2024-02-06)
 
 
