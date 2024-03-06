@@ -1,5 +1,12 @@
 
 
+## [5.0.1](https://github.com/memori-ai/memori-react/compare/v5.0.0...v5.0.1) (2024-03-06)
+
+
+### Maintenance
+
+* powered by memori.ai ([562d96b](https://github.com/memori-ai/memori-react/commit/562d96b75d0c6bab4515d3b8138292450b02c2a1))
+
 ## [5.0.0](https://github.com/memori-ai/memori-react/compare/v4.4.1...v5.0.0) (2024-02-16)
 
 
