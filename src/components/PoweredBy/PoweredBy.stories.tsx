@@ -53,3 +53,9 @@ TwinCreator.args = {
     },
   },
 };
+
+export const WithData = Template.bind({});
+WithData.args = {
+  integrationID: 'abc',
+  memoriHash: 'tenant-owner-memori',
+};

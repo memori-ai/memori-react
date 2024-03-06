@@ -3,9 +3,16 @@ import { Tenant } from '@memori.ai/memori-api-client/dist/types';
 export interface Props {
   tenant?: Tenant;
   userLang?: string;
+  integrationID?: string;
+  memoriHash?: string;
 }
 
-const PoweredBy = ({ tenant, userLang = 'en' }: Props) => {
+const PoweredBy = ({
+  tenant,
+  userLang = 'en',
+  integrationID,
+  memoriHash,
+}: Props) => {
   const tenantId =
     tenant?.theme === 'memorytwin'
       ? 'memorytwin'
@@ -21,6 +28,8 @@ const PoweredBy = ({ tenant, userLang = 'en' }: Props) => {
         <a
           href={`https://memori.ai/${
             userLang?.toLowerCase() === 'it' ? 'it' : 'en'
+          }${integrationID ? `?integrationID=${integrationID}` : ''}${
+            memoriHash ? `${integrationID ? '&' : '?'}memori=${memoriHash}` : ''
           }`}
           target="_blank"
           rel="noopener noreferrer"

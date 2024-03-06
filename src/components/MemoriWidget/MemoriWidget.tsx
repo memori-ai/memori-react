@@ -2749,7 +2749,14 @@ const MemoriWidget = ({
     onChangeMode,
   };
 
-  const poweredBy = <PoweredBy tenant={tenant} userLang={userLang} />;
+  const poweredBy = (
+    <PoweredBy
+      tenant={tenant}
+      userLang={userLang}
+      integrationID={integration?.integrationID}
+      memoriHash={`${memori.ownerTenantName}-${memori.ownerUserName}-${memori.name}`}
+    />
+  );
 
   const Layout = customLayout
     ? customLayout

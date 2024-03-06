@@ -23,3 +23,27 @@ exports[`renders PoweredBy unchanged 1`] = `
   </div>
 </div>
 `;
+
+exports[`renders PoweredBy with data unchanged 1`] = `
+<div>
+  <div
+    class="memori--powered-by"
+  >
+    <img
+      alt=""
+      src="https://aisuru.com/images/aisuru/logo.png"
+    />
+    <p>
+      Powered by
+       
+      <a
+        href="https://memori.ai/en?integrationID=abc&memori=tenant-owner-memori"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        Memori.AI
+      </a>
+    </p>
+  </div>
+</div>
+`;
