@@ -19,21 +19,13 @@ const PoweredBy = ({ tenant, userLang = 'en' }: Props) => {
       <p>
         Powered by{' '}
         <a
-          href={`https://${
-            tenant?.theme === 'twincreator'
-              ? 'app.twincreator.com'
-              : tenant?.theme === 'memorytwin'
-              ? 'app.memorytwin.com'
-              : 'aisuru.com'
-          }/${userLang ? userLang.toLowerCase() : ''}`}
+          href={`https://memori.ai/${
+            userLang?.toLowerCase() === 'it' ? 'it' : 'en'
+          }`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          {tenantId === 'memorytwin'
-            ? 'MemoryTwin'
-            : tenantId === 'twincreator'
-            ? 'TwinCreator'
-            : 'AIsuru'}
+          Memori.AI
         </a>
       </p>
     </div>

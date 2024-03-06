@@ -13,11 +13,11 @@ exports[`renders PoweredBy unchanged 1`] = `
       Powered by
        
       <a
-        href="https://aisuru.com/en"
+        href="https://memori.ai/en"
         rel="noopener noreferrer"
         target="_blank"
       >
-        AIsuru
+        Memori.AI
       </a>
     </p>
   </div>

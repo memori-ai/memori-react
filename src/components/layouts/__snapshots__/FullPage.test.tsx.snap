@@ -376,11 +376,11 @@ exports[`renders FullPage layout unchanged 1`] = `
             Powered by
              
             <a
-              href="https://aisuru.com/it"
+              href="https://memori.ai/it"
               rel="noopener noreferrer"
               target="_blank"
             >
-              AIsuru
+              Memori.AI
             </a>
           </p>
         </div>
