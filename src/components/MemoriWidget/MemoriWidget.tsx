@@ -349,6 +349,7 @@ export interface Props {
   };
   authToken?: string;
   AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
+  defaultSpeakerActive?: boolean;
   onStateChange?: (state?: DialogState) => void;
   additionalInfo?: OpenSession['additionalInfo'] & { [key: string]: string };
   customMediaRenderer?: ChatProps['customMediaRenderer'];
@@ -387,6 +388,7 @@ const MemoriWidget = ({
   personification,
   authToken,
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
+  defaultSpeakerActive = true,
   onStateChange,
   additionalInfo,
   additionalSettings,
@@ -467,7 +469,7 @@ const MemoriWidget = ({
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
   const [showKnownFactsDrawer, setShowKnownFactsDrawer] = useState(false);
   const [showExpertsDrawer, setShowExpertsDrawer] = useState(false);
-  const [muteSpeaker, setMuteSpeaker] = useState(false);
+  const [muteSpeaker, setMuteSpeaker] = useState(!defaultSpeakerActive);
   const [continuousSpeech, setContinuousSpeech] = useState(false);
   const [continuousSpeechTimeout, setContinuousSpeechTimeout] = useState(2);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
@@ -504,8 +506,8 @@ const MemoriWidget = ({
       defaultControlsPosition = 'bottom';
     }
 
-    setMuteSpeaker(getLocalConfig('muteSpeaker', false));
-    speakerMuted = getLocalConfig('muteSpeaker', false);
+    setMuteSpeaker(getLocalConfig('muteSpeaker', !defaultSpeakerActive));
+    speakerMuted = getLocalConfig('muteSpeaker', !defaultSpeakerActive);
     setContinuousSpeech(microphoneMode === 'CONTINUOUS');
     setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 2));
     setControlsPosition(
