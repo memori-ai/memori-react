@@ -427,12 +427,17 @@ const MemoriWidget = ({
     avatarURL: typeof userAvatar === 'string' ? userAvatar : undefined,
   } as User);
   useEffect(() => {
-    if (loginToken) {
+    if (loginToken && !user?.userID) {
       client.backend.getCurrentUser(loginToken).then(({ user, resultCode }) => {
-        if (user && resultCode === 0) setUser(user);
+        if (user && resultCode === 0) {
+          setUser(user);
+          setLocalConfig('loginToken', loginToken);
+        } else {
+          setLocalConfig('loginToken', undefined);
+        }
       });
     }
-  }, [loginToken]);
+  }, [loginToken, user?.userID]);
   const [showLoginDrawer, setShowLoginDrawer] = useState(false);
 
   const [clickedStart, setClickedStart] = useState(false);
@@ -518,6 +523,10 @@ const MemoriWidget = ({
       getLocalConfig('controlsPosition', defaultControlsPosition)
     );
     setHideEmissions(getLocalConfig('hideEmissions', false));
+
+    if (!additionalInfo?.loginToken && !authToken) {
+      setLoginToken(getLocalConfig<typeof loginToken>('loginToken', undefined));
+    }
   }, []);
 
   /**
@@ -2967,6 +2976,7 @@ const MemoriWidget = ({
             setUser(user);
             setLoginToken(token);
             setShowLoginDrawer(false);
+            setLocalConfig('loginToken', token);
           }}
           onLogout={() => {
             if (!loginToken) return;
@@ -2975,6 +2985,7 @@ const MemoriWidget = ({
               setShowLoginDrawer(false);
               setUser(undefined);
               setLoginToken(undefined);
+              setLocalConfig('loginToken', undefined);
             });
           }}
         />
