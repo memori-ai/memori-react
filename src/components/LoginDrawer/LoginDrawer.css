@@ -1,0 +1,84 @@
+.memori--login-drawer {
+    z-index: 1000;
+}
+
+.memori--login-drawer .memori-drawer--panel {
+    --memori-drawer--width: 100%;
+    --memori-drawer--width--md: 60%;
+    --memori-drawer--width--lg: 40%;
+}
+
+.memori--login-drawer.memori--login-drawer--logged .memori-drawer--panel {
+    --memori-drawer--width: 100%;
+    --memori-drawer--width--md: 40%;
+    --memori-drawer--width--lg: 30%;
+}
+
+h2.memori--login-drawer--title {
+    margin: 0;
+    font-size: inherit;
+    font-weight: 400;
+    line-height: inherit;
+}
+
+form.memori--login-drawer--form {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0.5rem;
+}
+
+p.memori--login-drawer--error {
+    margin: 0.5rem 0;
+    color: var(--memori-error-color);
+    text-align: center;
+}
+
+.memori--login-drawer--form label:not(.memori-checkbox) {
+    display: block;
+    width: 100%;
+    margin: 0.5rem 0;
+}
+
+.memori--login-drawer--form label.memori-checkbox {
+    width: 100%;
+    margin: 0.5rem 0;
+}
+
+.memori--login-drawer--form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--memori-button-border-color, #ccc);
+    border-radius: 5px;
+    margin: 0.5rem 0;
+    font-size: 16px;
+    line-height: 1.5;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.memori--login-drawer--form button:focus,
+.memori--login-drawer--form input:focus,
+.memori--login-drawer--form input[type="checkbox"]:focus+.memori-checkbox--inner {
+    border-color: var(--memori-primary);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+    outline: none;
+}
+
+.memori--login-drawer--form a {
+    color: var(--memori-primary);
+    text-decoration: underline;
+}
+
+.memori--login-drawer--form a:hover,
+.memori--login-drawer--form a:focus,
+.memori--login-drawer--form a:active {
+    opacity: 0.8;
+    outline-color: var(--memori-primary);
+}
+
+.memori--login-drawer--form button[type="submit"] {
+    margin-top: 1rem;
+}
+
+p.memori--login-drawer--signup {
+    margin-top: 1.25rem;
+}

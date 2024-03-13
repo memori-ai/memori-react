@@ -1,9 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { memori, history } from '../../mocks/data';
+import { memori, tenant, history } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Header, { Props } from './Header';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
+import LoginDrawer from '../LoginDrawer/LoginDrawer';
 
 import './Header.css';
 
@@ -32,6 +33,7 @@ const Template: Story<Props> = args => {
   const [continuousSpeech, setContinuousSpeech] = React.useState(true);
   const [continuousSpeechTimeout, setContinuousSpeechTimeout] =
     React.useState(2);
+  const [showLoginDrawer, setShowLoginDrawer] = React.useState(false);
 
   return (
     <I18nWrapper>
@@ -43,6 +45,7 @@ const Template: Story<Props> = args => {
         setShowSettingsDrawer={() => setShowSettingsDrawer(true)}
         setShowKnownFactsDrawer={() => setShowKnownFactsDrawer(true)}
         setShowExpertsDrawer={() => setShowExpertsDrawer(true)}
+        setShowLoginDrawer={() => setShowLoginDrawer(true)}
       />
       <SettingsDrawer
         open={!!showSettingsDrawer}
@@ -55,6 +58,17 @@ const Template: Story<Props> = args => {
         setControlsPosition={() => {}}
         hideEmissions={false}
         setHideEmissions={() => {}}
+      />
+      <LoginDrawer
+        tenant={tenant}
+        open={!!showLoginDrawer}
+        onClose={() => setShowLoginDrawer(false)}
+        onLogin={(user, token) => {
+          console.log(user, token);
+          setShowLoginDrawer(false);
+        }}
+        onLogout={() => setShowLoginDrawer(false)}
+        apiUrl="https://backend.memori.ai"
       />
     </I18nWrapper>
   );
@@ -232,4 +246,16 @@ ForBoardOfExpertsAndOngoingChat.args = {
   showSettings: false,
   sessionID: '1234',
   loginToken: 'abcd',
+};
+
+export const WithLogin = Template.bind({});
+WithLogin.args = {
+  memori,
+  history,
+  setShowPositionDrawer: () => {},
+  setShowSettingsDrawer: () => {},
+  clearHistory: () => {},
+  speakerMuted: false,
+  hasUserActivatedSpeak: false,
+  showLogin: true,
 };

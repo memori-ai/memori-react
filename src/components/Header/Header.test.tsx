@@ -18,6 +18,7 @@ it('renders Header unchanged', () => {
       showShare={false}
       showSettings={false}
       clearHistory={jest.fn()}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -46,6 +47,7 @@ it('renders Header with position unchanged', () => {
       showShare={false}
       showSettings={false}
       clearHistory={jest.fn()}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -66,6 +68,7 @@ it('renders Header with speaker muted unchanged', () => {
       showShare={false}
       showSettings={false}
       clearHistory={jest.fn()}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -86,6 +89,7 @@ it('renders Header with share button unchanged', () => {
       showShare={true}
       showSettings={false}
       clearHistory={jest.fn()}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -106,6 +110,7 @@ it('renders Header with settings button unchanged', () => {
       showShare={false}
       showSettings={true}
       clearHistory={jest.fn()}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -127,6 +132,7 @@ it('renders Header with clear button unchanged', () => {
       showSettings={false}
       showClear
       clearHistory={jest.fn()}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -147,6 +153,7 @@ it('renders Header with user activated speak unchanged', () => {
       showShare={false}
       showSettings={false}
       clearHistory={jest.fn()}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -170,7 +177,8 @@ it('renders Header with deep thought unlogged unchanged', () => {
       showShare={false}
       showSettings={false}
       clearHistory={jest.fn()}
-      loginToken="abcd"
+      showLogin
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -199,6 +207,7 @@ it('renders Header with deep thought logged but without permission flag unchange
         ...user,
         pAndCUAccepted: false,
       }}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -227,6 +236,7 @@ it('renders Header with deep thought logged with permission flag unchanged', () 
         ...user,
         pAndCUAccepted: true,
       }}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -252,6 +262,7 @@ it('renders Header with deep thought and session open unchanged', () => {
       clearHistory={jest.fn()}
       sessionID="1234"
       loginToken="abcd"
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -276,6 +287,7 @@ it('renders Header for board of experts unchanged', () => {
       showSettings={false}
       clearHistory={jest.fn()}
       loginToken="abcd"
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -301,6 +313,7 @@ it('renders Header for board of experts with session open unchanged', () => {
       clearHistory={jest.fn()}
       sessionID="1234"
       loginToken="abcd"
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();

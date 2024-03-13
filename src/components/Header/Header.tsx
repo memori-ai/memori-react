@@ -21,6 +21,7 @@ import Refresh from '../icons/Refresh';
 import Clear from '../icons/Clear';
 import DeepThought from '../icons/DeepThought';
 import Group from '../icons/Group';
+import UserIcon from '../icons/User';
 
 export interface Props {
   className?: string;
@@ -40,6 +41,8 @@ export interface Props {
   showSpeaker?: boolean;
   showReload?: boolean;
   showClear?: boolean;
+  showLogin?: boolean;
+  setShowLoginDrawer: (show: boolean) => void;
   clearHistory: () => void;
   loginToken?: string;
   user?: User;
@@ -64,6 +67,8 @@ const Header: React.FC<Props> = ({
   showSpeaker = true,
   showReload = false,
   showClear = false,
+  showLogin = true,
+  setShowLoginDrawer,
   clearHistory,
   loginToken,
   user,
@@ -192,6 +197,18 @@ const Header: React.FC<Props> = ({
           tenant={tenant}
           showQrCode
           align="left"
+        />
+      )}
+      {showLogin && (
+        <Button
+          primary
+          shape="circle"
+          className="memori-header--button memori-header--button-login"
+          icon={<UserIcon />}
+          onClick={() => setShowLoginDrawer(true)}
+          title={
+            loginToken ? t('login.user') || 'User' : t('login.login') || 'Login'
+          }
         />
       )}
     </div>

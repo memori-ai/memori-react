@@ -706,6 +706,13 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
           deepThoughtPreDisclaimerUnlogged
         </p>
         <p>
+          <button
+            class="memori-button memori-button--outlined memori-button--rounded memori-button--padded"
+          >
+            Login
+          </button>
+        </p>
+        <p>
           deepThoughtDisclaimer
         </p>
       </div>

@@ -60,6 +60,7 @@
     margin-left: 0.5rem;
 }
 
-.memori-header .memori-share-button {
+.memori-header .memori-share-button,
+.memori-header .memori-header--button-login {
     margin-left: 0.25rem;
 }

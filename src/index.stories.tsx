@@ -80,7 +80,6 @@ Staging.args = {
   uiLang: 'EN',
   lang: 'IT',
   layout: 'FULLPAGE',
-  authToken: '00000000-0000-0000-0000-000000000000',
 };
 
 const TemplateWithBatchButton: Story<Props> = args => (

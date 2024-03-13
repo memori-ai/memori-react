@@ -53,6 +53,7 @@ import AgeVerificationModal from '../AgeVerificationModal/AgeVerificationModal';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import KnownFacts from '../KnownFacts/KnownFacts';
 import ExpertsDrawer from '../ExpertsDrawer/ExpertsDrawer';
+import LoginDrawer from '../LoginDrawer/LoginDrawer';
 
 // Layout
 import FullPageLayout from '../layouts/FullPage';
@@ -331,6 +332,7 @@ export interface Props {
   showClear?: boolean;
   showOnlyLastMessages?: boolean;
   showTypingText?: boolean;
+  showLogin?: boolean;
   preview?: boolean;
   embed?: boolean;
   height?: number | string;
@@ -374,6 +376,7 @@ const MemoriWidget = ({
   showSettings = true,
   showTypingText = false,
   showClear = false,
+  showLogin = true,
   showOnlyLastMessages,
   height = '100vh',
   secret,
@@ -418,7 +421,7 @@ const MemoriWidget = ({
   const [loginToken, setLoginToken] = useState<string | undefined>(
     additionalInfo?.loginToken ?? authToken
   );
-  const [user, setUser] = useState<User>({
+  const [user, setUser] = useState<User | undefined>({
     avatarURL: typeof userAvatar === 'string' ? userAvatar : undefined,
   } as User);
   useEffect(() => {
@@ -428,6 +431,7 @@ const MemoriWidget = ({
       });
     }
   }, [loginToken]);
+  const [showLoginDrawer, setShowLoginDrawer] = useState(false);
 
   const [clickedStart, setClickedStart] = useState(false);
   const [gotErrorInOpening, setGotErrorInOpening] = useState(false);
@@ -2620,6 +2624,8 @@ const MemoriWidget = ({
     showReload: selectedLayout === 'TOTEM',
     showClear,
     clearHistory: () => setHistory(h => h.slice(-1)),
+    showLogin,
+    setShowLoginDrawer,
     loginToken,
     user,
     sessionID: sessionId,
@@ -2658,6 +2664,8 @@ const MemoriWidget = ({
     onClickStart: onClickStart,
     initializeTTS: initializeTTS,
     isUserLoggedIn: !!loginToken,
+    showLogin,
+    setShowLoginDrawer,
     user,
   };
 
@@ -2942,6 +2950,31 @@ const MemoriWidget = ({
           experts={experts}
           open={showExpertsDrawer}
           onClose={() => setShowExpertsDrawer(false)}
+        />
+      )}
+
+      {showLoginDrawer && tenant?.id && (
+        <LoginDrawer
+          tenant={tenant}
+          apiUrl={apiUrl}
+          open={!!showLoginDrawer}
+          user={user}
+          loginToken={loginToken}
+          onClose={() => setShowLoginDrawer(false)}
+          onLogin={(user, token) => {
+            setUser(user);
+            setLoginToken(token);
+            setShowLoginDrawer(false);
+          }}
+          onLogout={() => {
+            if (!loginToken) return;
+
+            client.backend.userLogout(loginToken).then(() => {
+              setShowLoginDrawer(false);
+              setUser(undefined);
+              setLoginToken(undefined);
+            });
+          }}
         />
       )}
     </div>

@@ -35,6 +35,7 @@ export interface Props {
   showClear?: boolean;
   showOnlyLastMessages?: boolean;
   showTypingText?: boolean;
+  showLogin?: boolean;
   height?: number | string;
   baseURL?: string;
   apiURL?: string;
@@ -91,6 +92,7 @@ const Memori: React.FC<Props> = ({
   showInputs = true,
   showDates = false,
   showContextPerLine = false,
+  showLogin = true,
   height = '100%',
   baseURL,
   apiURL = 'https://backend.memori.ai',
@@ -231,6 +233,7 @@ const Memori: React.FC<Props> = ({
       showInputs={showInputs}
       showDates={showDates}
       showContextPerLine={showContextPerLine}
+      showLogin={showLogin}
       integration={memori?.integrations?.find(i =>
         integrationID
           ? i.integrationID === integrationID
@@ -303,6 +306,7 @@ Memori.propTypes = {
   showClear: PropTypes.bool,
   showOnlyLastMessages: PropTypes.bool,
   showTypingText: PropTypes.bool,
+  showLogin: PropTypes.bool,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   baseURL: PropTypes.string,
   apiURL: PropTypes.string,

@@ -16,6 +16,7 @@ it('renders StartPanel unchanged', () => {
       sessionId={sessionID}
       clickedStart={false}
       onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -39,6 +40,7 @@ it('renders StartPanel with gamification level unchanged', () => {
       sessionId={sessionID}
       clickedStart={false}
       onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -60,6 +62,7 @@ it('renders StartPanel with completions enabled unchanged', () => {
       sessionId={sessionID}
       clickedStart={false}
       onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -81,6 +84,7 @@ it('renders StartPanel for board of experts unchanged', () => {
       sessionId={sessionID}
       clickedStart={false}
       onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -107,6 +111,7 @@ it('renders StartPanel with deep thought enabled unchanged', () => {
         ...user,
         pAndCUAccepted: true,
       }}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -128,6 +133,8 @@ it('renders StartPanel with deep thought but unlogged unchanged', () => {
       sessionId={sessionID}
       clickedStart={false}
       onClickStart={() => {}}
+      showLogin
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -154,6 +161,7 @@ it('renders StartPanel with deep thought enabled but without permission flag unc
         ...user,
         pAndCUAccepted: false,
       }}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -177,6 +185,7 @@ it('renders StartPanel on instruct unchanged', () => {
       sessionId={sessionID}
       clickedStart={false}
       onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -203,6 +212,7 @@ it('renders StartPanel with position required unchanged', () => {
       sessionId={sessionID}
       clickedStart={false}
       onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -222,6 +232,7 @@ it('renders StartPanel with integrationConfig unchanged', () => {
       sessionId={sessionID}
       clickedStart={false}
       onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -243,6 +254,7 @@ it('renders StartPanel with completion provider down unchanged', () => {
       sessionId={sessionID}
       clickedStart={false}
       onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
       _TEST_forceProviderStatus="major"
     />
   );

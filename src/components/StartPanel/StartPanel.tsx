@@ -39,6 +39,8 @@ export interface Props {
   _TEST_forceProviderStatus?: string;
   isUserLoggedIn?: boolean;
   user?: User;
+  showLogin?: boolean;
+  setShowLoginDrawer: (show: boolean) => void;
 }
 
 const StartPanel: React.FC<Props> = ({
@@ -60,6 +62,8 @@ const StartPanel: React.FC<Props> = ({
   _TEST_forceProviderStatus,
   isUserLoggedIn = false,
   user,
+  showLogin = false,
+  setShowLoginDrawer,
 }) => {
   const { t, i18n } = useTranslation();
   const [translatedDescription, setTranslatedDescription] = useState(
@@ -309,6 +313,13 @@ const StartPanel: React.FC<Props> = ({
               )}
               {!isUserLoggedIn && (
                 <p>{t('deepThoughtPreDisclaimerUnlogged')}</p>
+              )}
+              {!isUserLoggedIn && showLogin && (
+                <p>
+                  <Button outlined onClick={() => setShowLoginDrawer(true)}>
+                    Login
+                  </Button>
+                </p>
               )}
               <p>{t('deepThoughtDisclaimer')}</p>
             </div>

@@ -86,7 +86,7 @@ const Template: Story<Props> = args => (
       {args.integrationConfig && (
         <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
       )}
-      <StartPanel {...args} />
+      <StartPanel {...args} setShowLoginDrawer={() => {}} />
     </div>
   </I18nWrapper>
 );
@@ -228,6 +228,8 @@ WithDeepThoughtEnabledUnlogged.args = {
   clickedStart: false,
   onClickStart: () => {},
   isUserLoggedIn: false,
+  showLogin: true,
+  setShowLoginDrawer: () => {},
 };
 
 export const WithDeepThoughtEnabledWithoutPermissionFlag = Template.bind({});
