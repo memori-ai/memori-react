@@ -1,5 +1,12 @@
 
 
+## [5.1.0](https://github.com/memori-ai/memori-react/compare/v5.0.2...v5.1.0) (2024-03-11)
+
+
+### Features
+
+* new prop default speaker active ([f854573](https://github.com/memori-ai/memori-react/commit/f8545737a47c4fdcaf1febf52a5d32f88e49b9bb))
+
 ## [5.0.2](https://github.com/memori-ai/memori-react/compare/v5.0.1...v5.0.2) (2024-03-06)
 
 
