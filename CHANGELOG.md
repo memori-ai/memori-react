@@ -1,5 +1,13 @@
 
 
+## [6.0.0-rc.0](https://github.com/memori-ai/memori-react/compare/v5.1.0...v6.0.0-rc.0) (2024-03-14)
+
+
+### Features
+
+* add login ([cc8b88d](https://github.com/memori-ai/memori-react/commit/cc8b88d3f7a84c12c48eb45590f46f51314e15c8))
+* preserve login token ([2765ec5](https://github.com/memori-ai/memori-react/commit/2765ec5f0d3b18ec9935847f3bb6147fd2cfcfa9))
+
 ## [5.1.0](https://github.com/memori-ai/memori-react/compare/v5.0.2...v5.1.0) (2024-03-11)
 
 
