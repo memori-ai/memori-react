@@ -1,5 +1,12 @@
 
 
+## [6.0.0-rc.1](https://github.com/memori-ai/memori-react/compare/v6.0.0-rc.0...v6.0.0-rc.1) (2024-03-14)
+
+
+### Bug Fixes
+
+* logged in state checks ([6e20c90](https://github.com/memori-ai/memori-react/commit/6e20c904a16ed60fcacc5d5ba07f6156a40b3d85))
+
 ## [6.0.0-rc.0](https://github.com/memori-ai/memori-react/compare/v5.1.0...v6.0.0-rc.0) (2024-03-14)
 
 
