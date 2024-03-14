@@ -427,7 +427,7 @@ const MemoriWidget = ({
     avatarURL: typeof userAvatar === 'string' ? userAvatar : undefined,
   } as User);
   useEffect(() => {
-    if (loginToken && !user?.userID) {
+    if (loginToken && !user?.userID && showLogin) {
       client.backend.getCurrentUser(loginToken).then(({ user, resultCode }) => {
         if (user && resultCode === 0) {
           setUser(user);
@@ -2674,7 +2674,7 @@ const MemoriWidget = ({
     clickedStart: clickedStart,
     onClickStart: onClickStart,
     initializeTTS: initializeTTS,
-    isUserLoggedIn: !!loginToken,
+    isUserLoggedIn: !!loginToken && !!user?.userID,
     showLogin,
     setShowLoginDrawer,
     user,

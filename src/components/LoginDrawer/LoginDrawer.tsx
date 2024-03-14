@@ -60,7 +60,7 @@ const LoginDrawer = ({
     setRedirectTo(window.location.href);
   }, []);
 
-  const isUserLoggedIn = user && loginToken;
+  const isUserLoggedIn = user?.userID && loginToken;
 
   const login = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
