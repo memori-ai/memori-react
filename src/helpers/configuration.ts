@@ -10,20 +10,33 @@ export const keys: { [key: string]: string } = {
 };
 
 export const getLocalConfig = <Type>(key: string, defaultValue: Type): Type => {
-  const value = window.localStorage.getItem(keys[key] ?? key);
-  if (!value) return defaultValue;
-
   try {
-    return JSON.parse(value) as unknown as Type;
-  } catch {
-    return value as unknown as Type;
+    const value = window.localStorage.getItem(keys[key] ?? key);
+    if (!value) return defaultValue;
+
+    try {
+      return JSON.parse(value) as unknown as Type;
+    } catch {
+      return value as unknown as Type;
+    }
+  } catch (error) {
+    console.error('error', error);
+    return defaultValue;
   }
 };
 
 export const setLocalConfig = (key: string, value: any): void => {
-  window.localStorage.setItem(keys[key] ?? key, value.toString());
+  try {
+    window.localStorage.setItem(keys[key] ?? key, value.toString());
+  } catch (error) {
+    console.error('error', error);
+  }
 };
 
 export const removeLocalConfig = (key: string): void => {
-  window.localStorage.removeItem(keys[key] ?? key);
+  try {
+    window.localStorage.removeItem(keys[key] ?? key);
+  } catch (error) {
+    console.error('error', error);
+  }
 };
