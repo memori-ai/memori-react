@@ -6,6 +6,7 @@ export const keys: { [key: string]: string } = {
   birthDate: '@memori:birthDate',
   controlsPosition: '@memori:controlsPosition',
   hideEmissions: '@memori:hideEmissions',
+  loginToken: '@memori:loginToken',
 };
 
 export const getLocalConfig = <Type>(key: string, defaultValue: Type): Type => {
