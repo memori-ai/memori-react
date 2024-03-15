@@ -316,12 +316,18 @@ const StartPanel: React.FC<Props> = ({
               )}
               {!isUserLoggedIn && showLogin && (
                 <p>
-                  <Button outlined onClick={() => setShowLoginDrawer(true)}>
+                  <Button
+                    outlined
+                    padded={false}
+                    onClick={() => setShowLoginDrawer(true)}
+                  >
                     Login
                   </Button>
                 </p>
               )}
-              <p>{t('deepThoughtDisclaimer')}</p>
+              <p className="memori--deep-thought-disclaimer-text">
+                {t('deepThoughtDisclaimer')}
+              </p>
             </div>
           )}
         </div>

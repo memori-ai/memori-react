@@ -707,12 +707,14 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
         </p>
         <p>
           <button
-            class="memori-button memori-button--outlined memori-button--rounded memori-button--padded"
+            class="memori-button memori-button--outlined memori-button--rounded"
           >
             Login
           </button>
         </p>
-        <p>
+        <p
+          class="memori--deep-thought-disclaimer-text"
+        >
           deepThoughtDisclaimer
         </p>
       </div>
@@ -873,7 +875,9 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
         <p>
           deepThoughtPreDisclaimerNotAllowed
         </p>
-        <p>
+        <p
+          class="memori--deep-thought-disclaimer-text"
+        >
           deepThoughtDisclaimer
         </p>
       </div>
@@ -1031,7 +1035,9 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
         <h2>
           deepThoughtDisclaimerTitle
         </h2>
-        <p>
+        <p
+          class="memori--deep-thought-disclaimer-text"
+        >
           deepThoughtDisclaimer
         </p>
       </div>
