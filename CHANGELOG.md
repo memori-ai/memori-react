@@ -1,5 +1,12 @@
 
 
+## [6.0.0-rc.3](https://github.com/memori-ai/memori-react/compare/v6.0.0-rc.2...v6.0.0-rc.3) (2024-03-15)
+
+
+### Maintenance
+
+* add removeLocalConfig helper, fix undefined error ([5ed27f9](https://github.com/memori-ai/memori-react/commit/5ed27f92c977f1f66970a2d213c1cc8db5391f15))
+
 ## [6.0.0-rc.2](https://github.com/memori-ai/memori-react/compare/v6.0.0-rc.1...v6.0.0-rc.2) (2024-03-15)
 
 
