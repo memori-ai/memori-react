@@ -1,5 +1,18 @@
 
 
+## [6.1.0](https://github.com/memori-ai/memori-react/compare/v6.0.0...v6.1.0) (2024-03-15)
+
+
+### Changes
+
+* change theme font following new brand book ([31677bc](https://github.com/memori-ai/memori-react/commit/31677bc6eb9d026f1b563b47b418e771d86fb8e9))
+
+
+### Maintenance
+
+* add configuration entry for login token ([2891c5e](https://github.com/memori-ai/memori-react/commit/2891c5e181b133cbdd96443456b0617b9b551cf8))
+* wrap localstorage access in try/catch to prevent errors in storybook ([b676cac](https://github.com/memori-ai/memori-react/commit/b676cac1fc4dc4e84c577cef8bbf286bdd9c64ef))
+
 ## [6.0.0](https://github.com/memori-ai/memori-react/compare/v6.0.0-rc.3...v6.0.0) (2024-03-15)
 
 ## [6.0.0-rc.3](https://github.com/memori-ai/memori-react/compare/v6.0.0-rc.2...v6.0.0-rc.3) (2024-03-15)
