@@ -1,5 +1,12 @@
 
 
+## [6.0.0-rc.2](https://github.com/memori-ai/memori-react/compare/v6.0.0-rc.1...v6.0.0-rc.2) (2024-03-15)
+
+
+### Changes
+
+* start panel deep thought disclaimer selector + login button padding ([c6e7e5c](https://github.com/memori-ai/memori-react/commit/c6e7e5cefa66f3fb2172d4c1e7cde3c488726ec2))
+
 ## [6.0.0-rc.1](https://github.com/memori-ai/memori-react/compare/v6.0.0-rc.0...v6.0.0-rc.1) (2024-03-14)
 
 
