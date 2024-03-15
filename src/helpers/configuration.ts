@@ -22,3 +22,7 @@ export const getLocalConfig = <Type>(key: string, defaultValue: Type): Type => {
 export const setLocalConfig = (key: string, value: any): void => {
   window.localStorage.setItem(keys[key] ?? key, value.toString());
 };
+
+export const removeLocalConfig = (key: string): void => {
+  window.localStorage.removeItem(keys[key] ?? key);
+};

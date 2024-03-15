@@ -63,7 +63,11 @@ import WebsiteAssistantLayout from '../layouts/WebsiteAssistant';
 
 // Helpers / Utils
 import { getTranslation } from '../../helpers/translations';
-import { setLocalConfig, getLocalConfig } from '../../helpers/configuration';
+import {
+  setLocalConfig,
+  getLocalConfig,
+  removeLocalConfig,
+} from '../../helpers/configuration';
 import {
   hasTouchscreen,
   stripDuplicates,
@@ -433,7 +437,7 @@ const MemoriWidget = ({
           setUser(user);
           setLocalConfig('loginToken', loginToken);
         } else {
-          setLocalConfig('loginToken', undefined);
+          removeLocalConfig('loginToken');
         }
       });
     }
@@ -2985,7 +2989,7 @@ const MemoriWidget = ({
               setShowLoginDrawer(false);
               setUser(undefined);
               setLoginToken(undefined);
-              setLocalConfig('loginToken', undefined);
+              removeLocalConfig('loginToken');
             });
           }}
         />
