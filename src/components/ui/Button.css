@@ -8,7 +8,7 @@
     background: var(--memori-button-bg, #fff);
     box-shadow: var(--memori-button-box-shadow);
     color: var(--memori-button-text, #333);
-    font-family: 'Exo 2', sans-serif;
+    font-family: var(--memori-font-family);
     font-size: 14px;
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }

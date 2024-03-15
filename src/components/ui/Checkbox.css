@@ -6,7 +6,7 @@
     margin: 0;
     color: rgba(0, 0, 0, 0.88);
     cursor: pointer;
-    font-family: 'Exo 2', sans-serif;
+    font-family: var(--memori-font-family);
     font-size: 14px;
     line-height: unset;
     list-style: none;

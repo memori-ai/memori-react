@@ -140,7 +140,7 @@ const ChatBubble: React.FC<Props> = ({
                   : getResourceUrl({
                       tenantID: tenant?.id,
                       type: 'avatar',
-                      baseURL: baseUrl || 'https://aisuru.com',
+                      baseURL: baseUrl || 'https://www.aisuru.com',
                       apiURL: apiUrl,
                     })
               }

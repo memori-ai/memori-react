@@ -38,7 +38,7 @@
     margin-right: auto;
     margin-left: auto;
     background-color: #fff;
-    font-family: 'Exo 2', sans-serif;
+    font-family: var(--memori-font-family);
 }
 
 @media (min-width: 768px) {
@@ -54,7 +54,7 @@
     margin-top: 1.5rem;
 }
 
-.memori-modal--footer button + button {
+.memori-modal--footer button+button {
     margin-left: 0.5em;
 }
 

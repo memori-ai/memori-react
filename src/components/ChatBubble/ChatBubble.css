@@ -26,7 +26,7 @@
     background: var(--memori-chat-bubble-bg, #ffffff60);
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
     color: #141515;
-    line-height: 1.4em;
+    line-height: 1.25;
 }
 
 .memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble {

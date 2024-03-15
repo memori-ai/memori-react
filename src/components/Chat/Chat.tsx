@@ -187,7 +187,7 @@ const Chat: React.FC<Props> = ({
               })}"), url("${getResourceUrl({
                 type: 'cover',
                 tenantID: tenant?.id,
-                baseURL: baseUrl || 'https://aisuru.com',
+                baseURL: baseUrl || 'https://www.aisuru.com',
                 apiURL: apiUrl,
               })}")`,
             }}

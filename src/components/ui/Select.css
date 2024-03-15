@@ -19,7 +19,7 @@
         rgba(0, 0, 0, 0.1) 0px 2px 4px -2px;
     color: var(--memori-text-color, #333);
     cursor: pointer;
-    font-family: 'Exo 2', sans-serif;
+    font-family: var(--memori-font-family);
     font-size: 16px;
     text-align: left;
 }

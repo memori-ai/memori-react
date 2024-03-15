@@ -289,7 +289,6 @@
     "typescript": ">=4.8"
   },
   "dependencies": {
-    "@fontsource/exo-2": "^4.5.10",
     "@headlessui/react": "1.7.4",
     "@memori.ai/memori-api-client": "^3.0.1",
     "@react-three/drei": "8.20.2",

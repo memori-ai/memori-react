@@ -42,7 +42,7 @@
 @import url('./components/LoginDrawer/LoginDrawer.css');
 @import url('./components/MemoriWidget/MemoriWidget.css');
 
-@import url('https://fonts.bunny.net/css?family=exo-2:200,400,700');
+@import url('https://fonts.bunny.net/css?family=lexend-deca:200,400,700');
 
 @import url('./components/layouts/totem.css');
 @import url('./components/layouts/website-assistant.css');
@@ -67,9 +67,7 @@ body.sb-show-main #root,
 #storybook-root,
 #storybook-docs,
 .memori-widget {
-    font-family: 'Exo 2', sans-serif;
-    font-size: 16px;
-
+    --memori-font-family: 'Lexend Deca Variable', 'Lexend Deca', sans-serif;
     --memori-primary: rgb(102, 103, 171);
     --memori-primary-text: #fff;
     --memori-inner-content-pad: 1rem;
@@ -91,6 +89,9 @@ body.sb-show-main #root,
     --memori-modal--width--md: 80%;
     --memori-error-color: #ff4d4f;
     --memori-warning-color: #faad14;
+
+    font-family: var(--memori-font-family, 'Lexend Deca Variable', 'Lexend Deca', sans-serif);
+    font-size: 16px;
 }
 
 @media (max-width: 768px) {
