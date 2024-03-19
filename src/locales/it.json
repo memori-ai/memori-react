@@ -197,6 +197,9 @@
     "TENANT_MISSING_NAME": "Tenant: nome mancante",
     "TENANT_MAX_USERS_REACHED": "Numero massimo di utenti raggiunto",
     "TENANT_MAX_ADMINS_REACHED": "Numero massimo di utenti amministratori raggiunto",
+    "TENANT_ALREADY_EXISTS": "Tenant già esistente",
+    "TENANT_MISSING_DESCRIPTION": "Tenant: descrizione mancante",
+    "TENANT_CANT_SET_COMPLETION_PROVIDER": "Tenant: non abilitato a gestire il provider di completamento",
 
     "USER_NOT_CONFIRMED": "Utente ancora non confermato",
     "USER_NOT_FOUND": "Utente non trovato",
@@ -221,7 +224,14 @@
     "USER_NOTHING_TO_DO": "Niente da fare",
     "USER_CANT_CREATE_MEMORI": "Utente non abilitato a creare Memori",
     "USER_MAX_MEMORI_REACHED": "Massimo numero di Memori raggiunto",
-    "USER_CANT_EDIT_INTEGRATIONS": "Utente non abilitato a gestire integrazioni",
+    "USER_TOO_MANY_ATTEMPTS": "Troppi tentativi",
+    "USER_MUST_ACCEPT_TNC_AND_PP": "Devi accettare i termini e le condizioni",
+    "USER_BIRTH_DATE_CANT_BE_CHANGED": "Data di nascita non può essere cambiata",
+    "USER_CANT_SET_COMPLETION_PROVIDER": "Utente: non abilitato a gestire il provider di completamento",
+    "USER_CANT_ENABLE_DEEP_THOUGHT": "Utente: non abilitato a gestire Pensiero Profondo",
+    "USER_CANT_ENABLE_DCM_INTEGRATION": "Utente: non abilitato a gestire l'integrazione con DCM",
+    "USER_CANT_ENABLE_CHAINING_OR_BOARD_OF_EXPERTS": "Utente: non abilitato a gestire la concatenazione o il gruppo di esperti",
+    "MEMORI_BOARD_OF_EXPERTS_REQUIRES_COMPLETIONS": "Il gruppo di esperti richiede l'abilitazione delle completions",
 
     "MEMORI_NOT_FOUND": "Memori non trovato",
     "MEMORI_NOT_ACCESSIBLE": "Memori non accessibile",
@@ -229,6 +239,7 @@
 
     "SESSION_NOT_FOUND": "Sessione non trovata",
     "SESSION_IS_NOT_ADMINISTRATIVE": "Sessione non amministrativa",
+    "SESSION_EXPIRED": "Sessione scaduta",
 
     "MEMORI_MISSING_CONFIGURATION": "Memori: configurazione mancante",
     "MEMORI_CONFIGURATION_NOT_FOUND": "Memori: configurazione non trovata",
@@ -244,6 +255,7 @@
     "MEMORI_INVALID_PIN": "Memori: PIN non valido",
     "MEMORI_GIVER_TAG_PIN_CHANGE_REQUIRES_SEPARATE_OPERATION": "Memori: cambio TAG e PIN richiedono operazioni separate",
     "MEMORI_NO_PASSWORD_WHEN_PUBLIC": "Memori: password non richiesta su Memori pubblico",
+    "MEMORI_DEEP_THOUGHT_REQUIRES_COMPLETIONS": "Pensiero Profondo richiede l'abilitazione delle completions",
 
     "MEMORI_TRANSFER_MISSING_DESTINATION_USER": "Trasferimento: utente di destinazione mancante",
     "MEMORI_TRANSFER_INVALID_DESTINATION_USER_ID": "Trasferimento: ID utente di destinazione non valido",
@@ -252,6 +264,8 @@
 
     "MEMORI_CONFIGURATION_CANT_BE_CHANGED": "Memori: la configurazione non può essere modificata",
     "MEMORI_MISSING_NEW_PASSWORD": "Memori: nuova password mancante",
+
+    "MEMORI_FEATURE_REQUIRES_SUBSCRIPTION": "Memori: funzionalità richiede un abbonamento",
 
     "INTEGRATION_NOT_FOUND": "Integrazione non trovata",
 
@@ -307,6 +321,67 @@
     "CONSUMPTIONLOG_INVALID_DATE_FROM_FORMAT": "Data a partire da: formato non valido",
     "CONSUMPTIONLOG_INVALID_DATE_TO_FORMAT": "Data fino a: formato non valido",
     "CONSUMPTIONLOG_INVALID_USER_ID": "ID utente non valido",
-    "CONSUMPTIONLOG_INVALID_MEMORI_ID": "Memori ID non valido"
+    "CONSUMPTIONLOG_INVALID_MEMORI_ID": "Memori ID non valido",
+
+    "NOTIFICATIONPREFS_INVALID_CHATLOG_EXTRACTION_PERIOD": "Notifiche: Periodo di estrazione chatlog non valido",
+
+    "PROCESS_INVALID_TYPE": "Tipo di processo non valido",
+    "PROCESS_ALREADY_RUNNING": "Processo già in esecuzione",
+    "PROCESS_NOT_FOUND": "Processo non trovato",
+
+    "IMPORTCSV_MISSING_ROWS": "Importazione CSV: righe mancanti",
+    "IMPORTCSV_MISSING_CSV": "Importazione CSV: CSV mancante",
+    "IMPORTCSV_MISSING_SEPARATOR": "Importazione CSV: separatore mancante",
+    "IMPORTCSV_INVALID_SEPARATOR": "Importazione CSV: separatore non valido",
+    "IMPORTCSV_MISSING_HEADERS": "Importazione CSV: intestazioni mancanti",
+    "IMPORTCSV_MISSING_TITLE_VARIANT_SEPARATOR": "Importazione CSV: separatore varianti titolo mancante",
+    "IMPORTCSV_UNDETECTABLE_CHAR_ENCODING": "Importazione CSV: encoding caratteri non rilevabile",
+    "IMPORTCSV_CANT_IMPORT_TO_SECRET_MEMORI": "Importazione CSV: impossibile importare in Memori segreti",
+
+    "IMPORTTXT_MISSING_ROWS": "Importazione TXT: righe mancanti",
+    "IMPORTTXT_INVALID_GRANULARITY": "Importazione TXT: granularità non valida",
+    "IMPORTTXT_UNDETECTABLE_CHAR_ENCODING": "Importazione TXT: encoding caratteri non rilevabile",
+    "IMPORTTXT_CANT_IMPORT_TO_SECRET_MEMORI": "Importazione TXT: impossibile importare in Memori segreti",
+    "IMPORTTXT_IMPORT_LIMIT_EXCEEDED": "Importazione TXT: limite importazione superato",
+    "IMPORTTXT_IMPORT_ON_GPT4_REQUIRES_API_KEY": "Importazione TXT: importazione su GPT-4 richiede API key",
+    "IMPORTTXT_IMPORT_REQUIRES_PAYING": "Importazione TXT: importazione richiede un piano a pagamento",
+
+    "EXPORTCSV_MISSING_CSV_SPECS": "Esportazione CSV: specifiche CSV mancanti",
+    "EXPORTCSV_MISSING_SEPARATOR": "Esportazione CSV: separatore mancante",
+    "EXPORTCSV_INVALID_SEPARATOR": "Esportazione CSV: separatore non valido",
+    "EXPORTCSV_MISSING_TITLE_VARIANT_SEPARATOR": "Esportazione CSV: separatore varianti titolo mancante",
+    "EXPORTCSV_MISSING_NEW_LINE_CHAR": "Esportazione CSV: carattere di nuova riga mancante",
+    "EXPORTCSV_INVALID_NEW_LINE_CHAR": "Esportazione CSV: carattere di nuova riga non valido",
+    "EXPORTCSV_MISSING_PASSWORD": "Esportazione CSV: password mancante",
+
+    "EXPORTJSONL_MISSING_JSONL_SPECS": "Esportazione JSONL: specifiche JSONL mancanti",
+    "EXPORTJSONL_MISSING_PLATFORM": "Esportazione JSONL: piattaforma mancante",
+    "EXPORTJSONL_INVALID_PLATFORM": "Esportazione JSONL: piattaforma non valida",
+    "EXPORTJSONL_MISSING_PASSWORD": "Esportazione JSONL: password mancante",
+    "EXPORTJSONL_EXPORT_REQUIRES_PAYING": "Esportazione JSONL: esportazione richiede un piano a pagamento",
+
+    "ANALYSIS_MISSING_QUERY": "Analisi: query mancante",
+    "ANALYSIS_CANT_ANALYZE_SECRET_MEMORI": "Analisi: impossibile analizzare Memori segreti",
+    "ANALYSIS_USER_QUERY_MATCH_REQUIRES_DEEP_THOUGHT": "Analisi: corrispondenza query utente richiede Pensiero Profondo",
+
+    "BADGE_ASSIGNMENT_WRONG_OR_MISSING_CREDENTIALS": "Assegnazione badge: credenziali errate o mancanti",
+    "BADGE_ASSIGNMENT_MISSING_REF_ID": "Assegnazione badge: ID ref mancante",
+    "BADGE_ASSIGNMENT_OUTCOME_NOT_FOUND": "Assegnazione badge: esito non trovato",
+    "BADGE_ASSIGNMENT_MISSING_ASSERTION_URL": "Assegnazione badge: URL di asserzione mancante",
+    "BADGE_ASSIGNMENT_MISSING_BADGE_URL": "Assegnazione badge: URL badge mancante",
+    "BADGE_ASSIGNMENT_MISSING_ISSUER_URL": "Assegnazione badge: URL issuer mancante",
+    "BADGE_ASSIGNMENT_INVALID_URL": "Assegnazione badge: URL non valido",
+
+    "BADGE_ASSIGNMENT_MISSING_RECIPIENT": "Assegnazione badge: destinatario mancante",
+    "BADGE_ASSIGNMENT_UNKNOWN_RECIPIENT_TYPE": "Assegnazione badge: tipo destinatario sconosciuto",
+    "BADGE_ASSIGNMENT_MISSING_RECIPIENT_IDENTITY": "Assegnazione badge: identità destinatario mancante",
+    "BADGE_ASSIGNMENT_MISSING_RECIPIENT_HASH_TYPE": "Assegnazione badge: tipo hash destinatario mancante",
+    "BADGE_ASSIGNMENT_UNKNOWN_RECIPIENT_HASH_TYPE": "Assegnazione badge: tipo hash destinatario sconosciuto",
+    "BADGE_ASSIGNMENT_WRONG_RECIPIENT_IDENTITY": "Assegnazione badge: identità destinatario errata",
+
+    "BADGE_NOT_FOUND": "Badge non trovato",
+
+    "OUTCOME_NO_DCM_CONFIGURED": "Esito: nessun DCM configurato",
+    "OUTCOME_USER_BADGES_DISABLED": "Esito: badge utente disabilitati"
   }
 }
