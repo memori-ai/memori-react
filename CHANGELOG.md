@@ -1,5 +1,22 @@
 
 
+## [6.1.1](https://github.com/memori-ai/memori-react/compare/v6.1.0...v6.1.1) (2024-03-19)
+
+
+### Bug Fixes
+
+* ensure login token in opening session ([9da5fd0](https://github.com/memori-ai/memori-react/commit/9da5fd02272e38c146bfcb184e7e152c0aeb36bf))
+
+
+### Changes
+
+* show login default if deep thought enabled ([0580201](https://github.com/memori-ai/memori-react/commit/0580201194088b8bfa39ef07fb7de3651964c310))
+
+
+### Maintenance
+
+* update error codes and translations ([c408242](https://github.com/memori-ai/memori-react/commit/c408242957dca7bc498976b508166591454088e0))
+
 ## [6.1.0](https://github.com/memori-ai/memori-react/compare/v6.0.0...v6.1.0) (2024-03-15)
 
 
