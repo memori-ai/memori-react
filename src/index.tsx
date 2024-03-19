@@ -93,7 +93,7 @@ const Memori: React.FC<Props> = ({
   showInputs = true,
   showDates = false,
   showContextPerLine = false,
-  showLogin = true,
+  showLogin,
   height = '100%',
   baseURL,
   apiURL = 'https://backend.memori.ai',
@@ -235,7 +235,7 @@ const Memori: React.FC<Props> = ({
       showInputs={showInputs}
       showDates={showDates}
       showContextPerLine={showContextPerLine}
-      showLogin={showLogin}
+      showLogin={showLogin ?? memori?.enableDeepThought}
       integration={memori?.integrations?.find(i =>
         integrationID
           ? i.integrationID === integrationID

@@ -381,7 +381,7 @@ const MemoriWidget = ({
   showSettings = true,
   showTypingText = false,
   showClear = false,
-  showLogin = true,
+  showLogin = false,
   showOnlyLastMessages,
   height = '100vh',
   secret,
