@@ -302,7 +302,7 @@ const LoginDrawer = ({
               {t('login.login')}
             </Button>
 
-            {!tenant?.disableRegistration && (
+            {!tenant?.disableRegistration ? (
               <p className="memori--login-drawer--signup">
                 {t('login.newUserSignUp')}{' '}
                 <a
@@ -313,7 +313,17 @@ const LoginDrawer = ({
                   {t('login.signUp')}
                 </a>
               </p>
-            )}
+            ) : tenant.adminEmail ? (
+              <div className="memori--login-drawer--signup">
+                <p>{t('login.registrationDisabled')}</p>
+                <p>
+                  {t('login.contactAdmin')}:{' '}
+                  <a href={`mailto:${tenant.adminEmail}`}>
+                    {tenant.adminEmail}
+                  </a>
+                </p>
+              </div>
+            ) : null}
           </form>
 
           {error && (

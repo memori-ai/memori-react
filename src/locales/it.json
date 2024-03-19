@@ -161,6 +161,8 @@
     "loginDrawerTitle": "Accedi",
     "newUserSignUp": "Sei un nuovo utente?",
     "signUp": "Registrati!",
+    "registrationDisabled": "La registrazione è disabilitata.",
+    "contactAdmin": "Contatta l'amministratore per richiedere l'accesso",
     "userNameOrEmail": "Nome utente o email",
     "underage": "Devi avere almeno {{age}} anni per registrarti.",
     "optional": "opzionale",

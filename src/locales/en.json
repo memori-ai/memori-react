@@ -161,6 +161,8 @@
     "loginDrawerTitle": "Login",
     "newUserSignUp": "New user?",
     "signUp": "Sign up!",
+    "registrationDisabled": "Registration is disabled",
+    "contactAdmin": "Contact the administrator to request access",
     "userNameOrEmail": "Username or email",
     "underage": "You must be at least {{age}} years old to sign up.",
     "optional": "Optional",
