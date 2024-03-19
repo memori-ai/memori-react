@@ -298,6 +298,7 @@ let audioContext: IAudioContext;
 let memoriPassword: string | undefined;
 let speakerMuted: boolean = false;
 let memoriSpeaking: boolean = false;
+let userToken: string | undefined;
 
 export interface LayoutProps {
   Header?: typeof Header;
@@ -530,6 +531,7 @@ const MemoriWidget = ({
 
     if (!additionalInfo?.loginToken && !authToken) {
       setLoginToken(getLocalConfig<typeof loginToken>('loginToken', undefined));
+      userToken = getLocalConfig<typeof loginToken>('loginToken', undefined);
     }
   }, []);
 
@@ -950,7 +952,8 @@ const MemoriWidget = ({
         pin: params.pin ?? personification?.pin,
         additionalInfo: {
           ...(additionalInfo || {}),
-          loginToken: additionalInfo?.loginToken ?? loginToken ?? authToken,
+          loginToken:
+            userToken ?? loginToken ?? additionalInfo?.loginToken ?? authToken,
           language: getCultureCodeByLanguage(userLang),
           referral: referral,
         },
@@ -1045,7 +1048,8 @@ const MemoriWidget = ({
         birthDate: birthDate || storageBirthDate || undefined,
         additionalInfo: {
           ...(additionalInfo || {}),
-          loginToken: additionalInfo?.loginToken ?? loginToken ?? authToken,
+          loginToken:
+            userToken ?? loginToken ?? additionalInfo?.loginToken ?? authToken,
           language: getCultureCodeByLanguage(userLang),
           referral: referral,
         },
@@ -1177,7 +1181,11 @@ const MemoriWidget = ({
             birthDate: birthDate || storageBirthDate || undefined,
             additionalInfo: {
               ...(additionalInfo || {}),
-              loginToken: additionalInfo?.loginToken ?? loginToken ?? authToken,
+              loginToken:
+                userToken ??
+                loginToken ??
+                additionalInfo?.loginToken ??
+                authToken,
               language: getCultureCodeByLanguage(userLang),
               referral: referral,
             },
@@ -2319,6 +2327,15 @@ const MemoriWidget = ({
           },
           initialQuestion,
           birthDate: birth,
+          additionalInfo: {
+            ...(additionalInfo || {}),
+            loginToken:
+              userToken ??
+              loginToken ??
+              additionalInfo?.loginToken ??
+              authToken,
+            language: getCultureCodeByLanguage(userLang),
+          },
         });
 
         if (session?.dialogState) {
@@ -2562,12 +2579,16 @@ const MemoriWidget = ({
               // @ts-ignore
               mutation.target.getAttribute('authtoken') || undefined
             );
+            // @ts-ignore
+            userToken = mutation.target.getAttribute('authtoken') || undefined;
           } else {
             // @ts-ignore
             setLoginToken(
               mutation.target?.parentElement?.getAttribute('authtoken') ||
                 undefined
             );
+            // @ts-ignore
+            userToken = mutation.target.getAttribute('authtoken') || undefined;
           }
         }
       }
@@ -2705,7 +2726,8 @@ const MemoriWidget = ({
     typingText,
     showTypingText,
     history: showFullHistory ? history : history.slice(-2),
-    authToken: loginToken,
+    authToken:
+      loginToken ?? userToken ?? additionalInfo?.loginToken ?? authToken,
     dialogState: currentDialogState,
     setDialogState: setCurrentDialogState,
     pushMessage,
@@ -2979,6 +3001,7 @@ const MemoriWidget = ({
           onLogin={(user, token) => {
             setUser(user);
             setLoginToken(token);
+            userToken = token;
             setShowLoginDrawer(false);
             setLocalConfig('loginToken', token);
           }}
@@ -2989,6 +3012,7 @@ const MemoriWidget = ({
               setShowLoginDrawer(false);
               setUser(undefined);
               setLoginToken(undefined);
+              userToken = undefined;
               removeLocalConfig('loginToken');
             });
           }}
