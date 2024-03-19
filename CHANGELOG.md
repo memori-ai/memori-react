@@ -1,5 +1,12 @@
 
 
+## [6.1.2](https://github.com/memori-ai/memori-react/compare/v6.1.1...v6.1.2) (2024-03-19)
+
+
+### Changes
+
+* use adminEmail to request access if signup disabled ([22f7e47](https://github.com/memori-ai/memori-react/commit/22f7e47effc43295e97083f8f61cfb58fa1d4ed0))
+
 ## [6.1.1](https://github.com/memori-ai/memori-react/compare/v6.1.0...v6.1.1) (2024-03-19)
 
 
