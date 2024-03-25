@@ -2061,7 +2061,7 @@ const MemoriWidget = ({
         : selectedLayout === 'WEBSITE_ASSISTANT'
         ? ''
         : ':root,'
-    } .memori-widget {
+    } .memori-widget, .memori-drawer, .memori-modal {
       ${Object.entries(integrationProperties)
         .map(([key, value]) => `${key}: ${value};`)
         .join('\n')}
