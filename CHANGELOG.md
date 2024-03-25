@@ -1,5 +1,18 @@
 
 
+## [6.1.3](https://github.com/memori-ai/memori-react/compare/v6.1.2...v6.1.3) (2024-03-25)
+
+
+### Bug Fixes
+
+* apply integration css vars customizations to modals and drawers ([3ce73b2](https://github.com/memori-ai/memori-react/commit/3ce73b29208df84f124de5df4c58a147309295ff))
+* settings drawer css enhancements ([dc95406](https://github.com/memori-ai/memori-react/commit/dc95406cc60dffba386d032d2ce6cab5efa3f220))
+
+
+### Maintenance
+
+* update api client ([4efa1b2](https://github.com/memori-ai/memori-react/commit/4efa1b2b21c63e730ccbb71d7522809c09cddfa2))
+
 ## [6.1.2](https://github.com/memori-ai/memori-react/compare/v6.1.1...v6.1.2) (2024-03-19)
 
 
