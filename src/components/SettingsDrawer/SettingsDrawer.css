@@ -3,3 +3,15 @@
     flex-direction: column;
     margin: 0.5rem 0 1.5rem;
 }
+
+.memori-settings-drawer .memori-settings-drawer--field .memori-select--value {
+    color: #000;
+}
+
+.memori-settings-drawer--controlsposition-radio,
+.memori-settings-drawer--microphoneMode-radio {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: 0.5rem 0;
+}

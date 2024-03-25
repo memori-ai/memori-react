@@ -71,7 +71,7 @@ const SettingsDrawer = ({
             className="memori-settings-drawer--microphoneMode-radio-button"
           >
             {({ checked }) => (
-              <Button primary={checked}>
+              <Button primary={checked} outlined={!checked}>
                 {t('write_and_speak.holdToSpeak') || 'Hold to speak'}
               </Button>
             )}
@@ -81,7 +81,7 @@ const SettingsDrawer = ({
             className="memori-settings-drawer--microphoneMode-radio-button"
           >
             {({ checked }) => (
-              <Button primary={checked}>
+              <Button primary={checked} outlined={!checked}>
                 {t('write_and_speak.continuousSpeechLabel') ||
                   'Continuous speech'}
               </Button>
@@ -127,7 +127,9 @@ const SettingsDrawer = ({
                 className="memori-settings-drawer--controlsposition-radio-button"
               >
                 {({ checked }) => (
-                  <Button primary={checked}>{t('center') || 'Center'}</Button>
+                  <Button primary={checked} outlined={!checked}>
+                    {t('center') || 'Center'}
+                  </Button>
                 )}
               </RadioGroup.Option>
               <RadioGroup.Option
@@ -135,7 +137,9 @@ const SettingsDrawer = ({
                 className="memori-settings-drawer--controlsposition-radio-button"
               >
                 {({ checked }) => (
-                  <Button primary={checked}>{t('bottom') || 'Bottom'}</Button>
+                  <Button primary={checked} outlined={!checked}>
+                    {t('bottom') || 'Bottom'}
+                  </Button>
                 )}
               </RadioGroup.Option>
             </RadioGroup>
