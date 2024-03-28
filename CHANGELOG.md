@@ -1,5 +1,12 @@
 
 
+## [6.1.4](https://github.com/memori-ai/memori-react/compare/v6.1.3...v6.1.4) (2024-03-28)
+
+
+### Bug Fixes
+
+* drawer mobile width ([0973105](https://github.com/memori-ai/memori-react/commit/0973105012e00f3acff89d07d3c4660e9af4554b))
+
 ## [6.1.3](https://github.com/memori-ai/memori-react/compare/v6.1.2...v6.1.3) (2024-03-25)
 
 
