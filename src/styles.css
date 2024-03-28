@@ -82,10 +82,10 @@ body.sb-show-main #root,
     --memori-button-radius: 5px;
     --memori-button-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
     --memori-blur-background: 0px;
-    --memori-drawer--width: 100%;
+    --memori-drawer--width: 80%;
     --memori-drawer--width--md: 80%;
     --memori-drawer--width--lg: 60%;
-    --memori-modal--width: 100%;
+    --memori-modal--width: 80%;
     --memori-modal--width--md: 80%;
     --memori-error-color: #ff4d4f;
     --memori-warning-color: #faad14;

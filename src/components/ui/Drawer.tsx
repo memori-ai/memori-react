@@ -59,9 +59,9 @@ const Drawer: FC<Props> = ({
             as={React.Fragment}
             enter="ease-out duration-300"
             enterFrom="max-w-0 opacity-0"
-            enterTo="max-w-100 opacity-100"
+            enterTo="max-w-80 opacity-100"
             leave="ease-in duration-200"
-            leaveFrom="max-w-100 opacity-100"
+            leaveFrom="max-w-80 opacity-100"
             leaveTo="max-w-0 opacity-0"
           >
             <Dialog.Panel

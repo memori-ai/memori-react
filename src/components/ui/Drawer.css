@@ -33,6 +33,7 @@
 .memori-drawer--panel {
     position: relative;
     width: var(--memori-drawer--width, 100%);
+    max-width: 80vw;
     height: 100%;
     min-height: 100vh;
     box-sizing: border-box;
@@ -46,6 +47,7 @@
 @media (min-width: 768px) {
     .memori-drawer--panel {
         width: var(--memori-drawer--width--md, 80%);
+        max-width: none;
         padding-top: 1.5rem;
         padding-right: 2rem;
         padding-left: 2rem;
@@ -173,6 +175,6 @@ h2.memori-drawer--title {
     max-width: 0;
 }
 
-.max-w-100 {
-    max-width: 100%;
+.max-w-80 {
+    max-width: 80%;
 }
