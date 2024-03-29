@@ -4084,14 +4084,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@memori.ai/memori-api-client@npm:^4.0.2":
-  version: 4.0.2
-  resolution: "@memori.ai/memori-api-client@npm:4.0.2"
+"@memori.ai/memori-api-client@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "@memori.ai/memori-api-client@npm:4.0.3"
   dependencies:
     cross-fetch: ^3.1.5
   peerDependencies:
     typescript: ">=4.8"
-  checksum: 0c7d25836bbc7078486463be1431a42abb288f624b2ae02ad079abca907d253d54b2e10ce92b99ccf6acca5f0b9a05631b3ce3a02f138bad3bbed3a35044df87
+  checksum: 736c6feba5417921a44c36d7e47707f05fdc96e2e28a6dccea07a5f9dc386bedb465ec1077d2dfeae25b4b85a8bb823503499b4d9656bf289835385dd80543e4
   languageName: node
   linkType: hard
 
@@ -4106,7 +4106,7 @@ __metadata:
     "@commitlint/cli": 17.3.0
     "@commitlint/config-conventional": 17.3.0
     "@headlessui/react": 1.7.4
-    "@memori.ai/memori-api-client": ^4.0.2
+    "@memori.ai/memori-api-client": ^4.0.3
     "@react-three/drei": 8.20.2
     "@react-three/fiber": 7.0.25
     "@release-it/conventional-changelog": 5.1.1
