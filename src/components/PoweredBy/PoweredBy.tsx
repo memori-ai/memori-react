@@ -24,7 +24,7 @@ const PoweredBy = ({
     <div className="memori--powered-by">
       <img src={`https://aisuru.com/images/${tenantId}/logo.png`} alt="" />
       <p>
-        Powered by{' '}
+        <span className="sr-only">Powered by</span>
         <a
           href={`https://memori.ai/${
             userLang?.toLowerCase() === 'it' ? 'it' : 'en'

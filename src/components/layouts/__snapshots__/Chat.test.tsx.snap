@@ -46,8 +46,11 @@ exports[`renders Chat layout unchanged 1`] = `
           src="https://aisuru.com/images/aisuru/logo.png"
         />
         <p>
-          Powered by
-           
+          <span
+            class="sr-only"
+          >
+            Powered by
+          </span>
           <a
             href="https://memori.ai/it?integrationID=cb3c4776-7f0b-4f97-a773-c32a5d7a3bf1&memori=aisuru.com-username-Memori"
             rel="noopener noreferrer"

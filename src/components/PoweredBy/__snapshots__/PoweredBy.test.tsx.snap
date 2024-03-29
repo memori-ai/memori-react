@@ -10,8 +10,11 @@ exports[`renders PoweredBy unchanged 1`] = `
       src="https://aisuru.com/images/aisuru/logo.png"
     />
     <p>
-      Powered by
-       
+      <span
+        class="sr-only"
+      >
+        Powered by
+      </span>
       <a
         href="https://memori.ai/en"
         rel="noopener noreferrer"
@@ -34,8 +37,11 @@ exports[`renders PoweredBy with data unchanged 1`] = `
       src="https://aisuru.com/images/aisuru/logo.png"
     />
     <p>
-      Powered by
-       
+      <span
+        class="sr-only"
+      >
+        Powered by
+      </span>
       <a
         href="https://memori.ai/en?integrationID=abc&memori=tenant-owner-memori"
         rel="noopener noreferrer"

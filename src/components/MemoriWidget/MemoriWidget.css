@@ -120,6 +120,12 @@
     filter: blur(var(--memori-blur-background, 0));
 }
 
+@media (max-width: 870px) {
+    .memori--global-background-image {
+        min-height: 100vh;
+    }
+}
+
 .memori--powered-by {
     position: absolute;
     z-index: 1000;

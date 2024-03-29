@@ -45,6 +45,13 @@
     bottom: auto;
 }
 
+@media (max-width: 870px) {
+    .memori-chat-layout .memori--powered-by {
+        top: 3.5rem;
+        bottom: auto;
+    }
+}
+
 .memori-chat-layout--controls {
     position: relative;
     z-index: 5;
