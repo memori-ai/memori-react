@@ -1,5 +1,17 @@
 
 
+## [6.1.5](https://github.com/memori-ai/memori-react/compare/v6.1.4...v6.1.5) (2024-03-29)
+
+
+### Bug Fixes
+
+* mobile layout fixes + chat layout enhancements ([1bdb6c3](https://github.com/memori-ai/memori-react/commit/1bdb6c3ce337e1fadb9dffb1a473e2575cd6097e))
+
+
+### Maintenance
+
+* update api client ([56f3f4c](https://github.com/memori-ai/memori-react/commit/56f3f4c65a83dc29d01e93842a3e655af88c51b4))
+
 ## [6.1.4](https://github.com/memori-ai/memori-react/compare/v6.1.3...v6.1.4) (2024-03-28)
 
 
