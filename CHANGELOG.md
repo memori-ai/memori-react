@@ -1,5 +1,12 @@
 
 
+## [6.1.6](https://github.com/memori-ai/memori-react/compare/v6.1.5...v6.1.6) (2024-04-02)
+
+
+### Bug Fixes
+
+* disabled signup margins ([6abe01d](https://github.com/memori-ai/memori-react/commit/6abe01d4577b4ec849442d59bd884e9d8eb2b152))
+
 ## [6.1.5](https://github.com/memori-ai/memori-react/compare/v6.1.4...v6.1.5) (2024-03-29)
 
 
