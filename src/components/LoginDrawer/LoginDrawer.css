@@ -79,6 +79,10 @@ p.memori--login-drawer--error {
     margin-top: 1rem;
 }
 
-p.memori--login-drawer--signup {
-    margin-top: 1.25rem;
+.memori--login-drawer--signup {
+    margin-top: 1.5rem;
+}
+
+.memori--login-drawer--signup p:not(:last-of-type) {
+    margin-bottom: 0.5rem;
 }
