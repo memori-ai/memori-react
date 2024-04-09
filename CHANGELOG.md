@@ -1,5 +1,12 @@
 
 
+## [6.1.7](https://github.com/memori-ai/memori-react/compare/v6.1.6...v6.1.7) (2024-04-09)
+
+
+### Bug Fixes
+
+* chat bubble content text size ([b781eb4](https://github.com/memori-ai/memori-react/commit/b781eb4c3e219292ef475adca680b2fb5b9201f4))
+
 ## [6.1.6](https://github.com/memori-ai/memori-react/compare/v6.1.5...v6.1.6) (2024-04-02)
 
 
