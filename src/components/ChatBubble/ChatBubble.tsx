@@ -72,7 +72,9 @@ const ChatBubble: React.FC<Props> = ({
   const { t } = useTranslation();
 
   const renderedText = sanitize(
-    marked.parse(message.translatedText ?? message.text) as string,
+    (marked.parse(message.translatedText || message.text) as string)
+      .trim()
+      .replace(/\n/g, '<br>'),
     {
       ADD_ATTR: ['target'],
     }

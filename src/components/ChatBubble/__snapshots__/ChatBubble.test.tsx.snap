@@ -12,8 +12,6 @@ exports[`renders ChatBubble from user with avatar as react element unchanged 1`]
         <p>
           Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
         </p>
-        
-
       </div>
     </div>
     <div
@@ -39,8 +37,6 @@ exports[`renders ChatBubble from user with avatar unchanged 1`] = `
         <p>
           Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
         </p>
-        
-
       </div>
     </div>
     <picture
@@ -68,8 +64,6 @@ exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
         <p>
           Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
         </p>
-        
-
       </div>
     </div>
     <picture
@@ -107,8 +101,6 @@ exports[`renders ChatBubble unchanged 1`] = `
         <p>
           Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
         </p>
-        
-
       </div>
     </div>
   </div>
@@ -140,8 +132,6 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
         <p>
           Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
         </p>
-        
-
       </div>
     </div>
   </div>
@@ -170,16 +160,13 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
         <h2>
           Test
         </h2>
-        
-
+        <br />
         <p>
           Ecco tutte le possibili personalizzazioni che puoi applicare:
         </p>
-        
-
+        <br />
         <ul>
-          
-
+          <br />
           <li>
             <p>
               <strong>
@@ -187,27 +174,21 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
               </strong>
               :
             </p>
-            
-
+            <br />
             <ul>
-              
-
+              <br />
               <li>
                 Girocollo
               </li>
-              
-
+              <br />
               <li>
                 Scollo a V
               </li>
-              
-
+              <br />
             </ul>
-            
-
+            <br />
           </li>
-          
-
+          <br />
           <li>
             <p>
               <strong>
@@ -215,27 +196,21 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
               </strong>
               :
             </p>
-            
-
+            <br />
             <ul>
-              
-
+              <br />
               <li>
                 Manica Lunga
               </li>
-              
-
+              <br />
               <li>
                 Manica Corta
               </li>
-              
-
+              <br />
             </ul>
-            
-
+            <br />
           </li>
-          
-
+          <br />
           <li>
             <p>
               <strong>
@@ -243,52 +218,41 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
               </strong>
               :
             </p>
-            
-
+            <br />
             <ul>
-              
-
+              <br />
               <li>
                 XS
               </li>
-              
-
+              <br />
               <li>
                 S
               </li>
-              
-
+              <br />
               <li>
                 M
               </li>
-              
-
+              <br />
               <li>
                 L
               </li>
-              
-
+              <br />
               <li>
                 XL
               </li>
-              
-
+              <br />
               <li>
                 XXL
               </li>
-              
-
+              <br />
               <li>
                 3XL
               </li>
-              
-
+              <br />
             </ul>
-            
-
+            <br />
           </li>
-          
-
+          <br />
           <li>
             <p>
               <strong>
@@ -296,37 +260,29 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
               </strong>
               :
             </p>
-            
-
+            <br />
             <ul>
-              
-
+              <br />
               <li>
                 Fronte Petto
               </li>
-              
-
+              <br />
               <li>
                 Retro Schiena
               </li>
-              
-
+              <br />
               <li>
                 Fronte DX
               </li>
-              
-
+              <br />
               <li>
                 Fronte SX
               </li>
-              
-
+              <br />
             </ul>
-            
-
+            <br />
           </li>
-          
-
+          <br />
           <li>
             <p>
               <strong>
@@ -334,30 +290,23 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
               </strong>
               :
             </p>
-            
-
+            <br />
             <ul>
-              
-
+              <br />
               <li>
                 Prompt generazione immagine
               </li>
-              
-
+              <br />
             </ul>
-            
-
+            <br />
           </li>
-          
-
+          <br />
         </ul>
-        
-
+        <br />
         <p>
           Seleziona le personalizzazioni che desideri applicare.
         </p>
-        
-
+        <br />
         <p>
           <a
             href="https://memori.ai"
@@ -367,8 +316,6 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
             Vedi altro
           </a>
         </p>
-        
-
       </div>
     </div>
   </div>
@@ -387,8 +334,6 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
         <p>
           Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
         </p>
-        
-
       </div>
       <div
         class="memori-chat--bubble-addon"
@@ -471,8 +416,6 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
         <p>
           Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
         </p>
-        
-
       </div>
       <div
         class="memori-chat--bubble-addon"
@@ -555,8 +498,6 @@ exports[`renders ChatBubble with user msg unchanged 1`] = `
         <p>
           Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
         </p>
-        
-
       </div>
     </div>
     <div
