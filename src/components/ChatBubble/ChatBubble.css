@@ -76,6 +76,11 @@
     margin: 1em 0;
 }
 
+.memori-chat--bubble ul br,
+.memori-chat--bubble br+br {
+    display: none;
+}
+
 .memori-chat--bubble a {
     color: var(--memori-primary, #000);
     text-decoration: underline;
