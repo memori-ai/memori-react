@@ -36,6 +36,23 @@ Object.defineProperty(window, 'IntersectionObserver', {
   })),
 });
 
+jest.mock('@react-leaflet/core', () => ({
+  useLeafletContext: () => ({
+    map: {
+      on: jest.fn(),
+      off: jest.fn(),
+      remove: jest.fn(),
+      addLayer: jest.fn(),
+      removeLayer: jest.fn(),
+      setView: jest.fn(),
+    },
+    layerContainer: {
+      addLayer: jest.fn(),
+      removeLayer: jest.fn(),
+    },
+  }),
+}));
+
 const now = new Date('2022-09-24');
 
 jest.setSystemTime(now);

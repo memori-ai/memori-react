@@ -1,0 +1,335 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders VenueWidget with venue set, exact location 1`] = `
+<div>
+  <fieldset
+    class="memori--venue-widget"
+  >
+    <legend
+      class="sr-only"
+    >
+      Venue
+    </legend>
+    <div
+      class="memori--venue-widget__form-item"
+    >
+      <div
+        class="memori--venue-widget__geosuggest"
+      >
+        <div
+          class="memori--venue-widget-search"
+        >
+          <input
+            aria-expanded="false"
+            class="memori--venue-widget-search--input"
+            data-headlessui-state=""
+            id="headlessui-combobox-input-:r1:"
+            placeholder="searchVenue"
+            role="combobox"
+            type="text"
+          />
+        </div>
+        <button
+          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
+        >
+          write_and_speak.useMyPosition
+        </button>
+      </div>
+    </div>
+    <div
+      class="memori--venue-widget__form-item"
+    >
+      <p
+        class="memori--venue--widget__place-name"
+      >
+        <strong>
+          venue
+        </strong>
+        : 
+        Altedo, Bologna, Italy
+      </p>
+      <div
+        class="memori--venue-widget__map"
+      >
+        <div
+          data-testid="MapContainer"
+        >
+          <div
+            data-testid="TileLayer"
+          />
+          <div
+            data-testid="Marker"
+          >
+            <div
+              data-testid="Popup"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>
+`;
+
+exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
+<div>
+  <fieldset
+    class="memori--venue-widget"
+  >
+    <legend
+      class="sr-only"
+    >
+      Venue
+    </legend>
+    <div
+      class="memori--venue-widget__form-item"
+    >
+      <div
+        class="memori--venue-widget__geosuggest"
+      >
+        <div
+          class="memori--venue-widget-search"
+        >
+          <input
+            aria-expanded="false"
+            class="memori--venue-widget-search--input"
+            data-headlessui-state=""
+            id="headlessui-combobox-input-:r2:"
+            placeholder="searchVenue"
+            role="combobox"
+            type="text"
+          />
+        </div>
+        <button
+          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
+        >
+          write_and_speak.useMyPosition
+        </button>
+      </div>
+    </div>
+    <div
+      class="memori--venue-widget__form-item"
+    >
+      <p
+        class="memori--venue--widget__place-name"
+      >
+        <strong>
+          venue
+        </strong>
+        : 
+        Altedo, Bologna, Italy
+      </p>
+      <div
+        class="memori--venue-widget__map"
+      >
+        <div
+          data-testid="MapContainer"
+        >
+          <div
+            data-testid="TileLayer"
+          />
+          <div
+            data-testid="Marker"
+          >
+            <div
+              data-testid="Popup"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>
+`;
+
+exports[`renders VenueWidget without gps button unchanged 1`] = `
+<div>
+  <fieldset
+    class="memori--venue-widget"
+  >
+    <legend
+      class="sr-only"
+    >
+      Venue
+    </legend>
+    <div
+      class="memori--venue-widget__form-item"
+    >
+      <div
+        class="memori--venue-widget__geosuggest"
+      >
+        <div
+          class="memori--venue-widget-search"
+        >
+          <input
+            aria-expanded="false"
+            class="memori--venue-widget-search--input"
+            data-headlessui-state=""
+            id="headlessui-combobox-input-:r4:"
+            placeholder="searchVenue"
+            role="combobox"
+            type="text"
+          />
+        </div>
+      </div>
+    </div>
+    <div
+      class="memori--venue-widget__form-item"
+    >
+      <p
+        class="memori--venue--widget__place-name"
+      >
+        <strong>
+          venue
+        </strong>
+        : 
+        Altedo, Bologna, Italy
+      </p>
+      <div
+        class="memori--venue-widget__map"
+      >
+        <div
+          data-testid="MapContainer"
+        >
+          <div
+            data-testid="TileLayer"
+          />
+          <div
+            data-testid="Marker"
+          >
+            <div
+              data-testid="Popup"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>
+`;
+
+exports[`renders VenueWidget without uncertainty unchanged 1`] = `
+<div>
+  <fieldset
+    class="memori--venue-widget"
+  >
+    <legend
+      class="sr-only"
+    >
+      Venue
+    </legend>
+    <div
+      class="memori--venue-widget__form-item"
+    >
+      <div
+        class="memori--venue-widget__geosuggest"
+      >
+        <div
+          class="memori--venue-widget-search"
+        >
+          <input
+            aria-expanded="false"
+            class="memori--venue-widget-search--input"
+            data-headlessui-state=""
+            id="headlessui-combobox-input-:r3:"
+            placeholder="searchVenue"
+            role="combobox"
+            type="text"
+          />
+        </div>
+        <button
+          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
+        >
+          write_and_speak.useMyPosition
+        </button>
+      </div>
+    </div>
+    <div
+      class="memori--venue-widget__form-item"
+    >
+      <p
+        class="memori--venue--widget__place-name"
+      >
+        <strong>
+          venue
+        </strong>
+        : 
+        Altedo, Bologna, Italy
+      </p>
+      <div
+        class="memori--venue-widget__map"
+      >
+        <div
+          data-testid="MapContainer"
+        >
+          <div
+            data-testid="TileLayer"
+          />
+          <div
+            data-testid="Marker"
+          >
+            <div
+              data-testid="Popup"
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>
+`;
+
+exports[`renders empty VenueWidget unchanged 1`] = `
+<div>
+  <fieldset
+    class="memori--venue-widget"
+  >
+    <legend
+      class="sr-only"
+    >
+      Venue
+    </legend>
+    <div
+      class="memori--venue-widget__form-item"
+    >
+      <div
+        class="memori--venue-widget__geosuggest"
+      >
+        <div
+          class="memori--venue-widget-search"
+        >
+          <input
+            aria-expanded="false"
+            class="memori--venue-widget-search--input"
+            data-headlessui-state=""
+            id="headlessui-combobox-input-:r0:"
+            placeholder="searchVenue"
+            role="combobox"
+            type="text"
+          />
+        </div>
+        <button
+          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
+        >
+          write_and_speak.useMyPosition
+        </button>
+      </div>
+    </div>
+    <div
+      class="memori--venue-widget__form-item"
+    >
+      <div
+        class="memori--venue-widget__map"
+      >
+        <div
+          data-testid="MapContainer"
+        >
+          <div
+            data-testid="TileLayer"
+          />
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</div>
+`;

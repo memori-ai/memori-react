@@ -6,6 +6,7 @@ import SelectIcon from '../icons/SelectIcon';
 export interface Props<T = any> {
   className?: string;
   value?: T;
+  name?: string;
   displayValue?: string;
   onChange: (value: T) => void;
   options: { value: T; label: any }[];
@@ -17,6 +18,7 @@ export interface Props<T = any> {
 const Select = ({
   className,
   value,
+  name,
   displayValue,
   options,
   onChange,
@@ -32,7 +34,7 @@ const Select = ({
           onChange(value);
         }}
         disabled={disabled}
-        name="day"
+        name={name}
       >
         {label && (
           <Listbox.Label className="memori-select--label">

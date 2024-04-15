@@ -8,6 +8,7 @@ import {
   KnownFact,
   ExpertReference,
   User,
+  Venue,
 } from '@memori.ai/memori-api-client/dist/types';
 
 export const sessionID = '131165be-9d1a-42fb-a3ce-e8f86d40c88f';
@@ -325,4 +326,11 @@ export const expertReference: ExpertReference = {
   creationSessionID: '0ce713c0-c8f1-4aed-a2a6-40f81c06854f',
   lastChangeTimestamp: '2023-12-01T13:44:04.832072Z',
   lastChangeSessionID: '0ce713c0-c8f1-4aed-a2a6-40f81c06854f',
+};
+
+export const venue: Venue = {
+  latitude: 44.66579,
+  longitude: 11.48823,
+  placeName: 'Altedo, Bologna, Italy',
+  uncertainty: 2,
 };

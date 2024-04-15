@@ -5,14 +5,6 @@ exports[`renders Select disabled unchanged 1`] = `
   <div
     class="memori-select"
   >
-    <input
-      hidden=""
-      name="day"
-      readonly=""
-      style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
-      type="hidden"
-      value="2"
-    />
     <label
       class="memori-select--label"
       data-headlessui-state="disabled"
@@ -113,14 +105,6 @@ exports[`renders Select with custom value display unchanged 1`] = `
   <div
     class="memori-select"
   >
-    <input
-      hidden=""
-      name="day"
-      readonly=""
-      style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
-      type="hidden"
-      value="2"
-    />
     <label
       class="memori-select--label"
       data-headlessui-state=""
@@ -223,14 +207,6 @@ exports[`renders Select with value unchanged 1`] = `
   <div
     class="memori-select"
   >
-    <input
-      hidden=""
-      name="day"
-      readonly=""
-      style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
-      type="hidden"
-      value="2"
-    />
     <label
       class="memori-select--label"
       data-headlessui-state=""

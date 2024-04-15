@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 
 export const hasTouchscreen = (): boolean => {
   let hasTouchScreen = false;
@@ -89,6 +89,41 @@ export function useDebounce<T>(value: T, delay: number): T {
   }, [value, delay]);
 
   return debouncedValue;
+}
+
+export function useDebounceFn<T extends (...args: any) => any>(
+  fn: T,
+  delay: number
+): T {
+  const timeoutId = useRef<number | undefined>();
+  const originalFn = useRef<T | null>(null);
+
+  useEffect(() => {
+    originalFn.current = fn;
+    return () => {
+      originalFn.current = null;
+    };
+  }, [fn]);
+
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutId.current);
+    };
+  }, []);
+
+  return useMemo<T>(
+    () =>
+      ((...args: unknown[]) => {
+        clearTimeout(timeoutId.current);
+
+        timeoutId.current = window.setTimeout(() => {
+          if (originalFn.current) {
+            originalFn.current(...args);
+          }
+        }, delay);
+      }) as unknown as T,
+    [delay]
+  );
 }
 
 export const stripDuplicates = (text: string) => {

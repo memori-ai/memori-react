@@ -40,6 +40,7 @@
 @import url('./components/AgeVerificationModal/AgeVerificationModal.css');
 @import url('./components/KnownFacts/KnownFacts.css');
 @import url('./components/LoginDrawer/LoginDrawer.css');
+@import url('./components/VenueWidget/VenueWidget.css');
 @import url('./components/MemoriWidget/MemoriWidget.css');
 
 @import url('https://fonts.bunny.net/css?family=lexend-deca:200,400,700');
