@@ -1,5 +1,25 @@
 
 
+## [6.2.0](https://github.com/memori-ai/memori-react/compare/v6.1.7...v6.2.0) (2024-04-16)
+
+
+### Features
+
+* add position drawer + dates and position events in widget ([da48175](https://github.com/memori-ai/memori-react/commit/da48175792260f11a17eaee2bf926a9fd3657254))
+* add venue widget ([843c96e](https://github.com/memori-ai/memori-react/commit/843c96eba631d69bb98c93b4a2d4eaa0028e7414))
+
+
+### Bug Fixes
+
+* async events for dates, updating and hints conflicts ([9d81255](https://github.com/memori-ai/memori-react/commit/9d81255f4f362e07a1f3eb10406f1824a93c5fab))
+
+
+### Maintenance
+
+* add newline handling in messages after marked parsing ([2031fd6](https://github.com/memori-ai/memori-react/commit/2031fd6e5cdeb7d58d53e7cd834e12ec2926b157))
+* add newline handling in messages after marked parsing ([4e49005](https://github.com/memori-ai/memori-react/commit/4e49005592767be3765e21b14b5d43d4d95399a6))
+* update api client ([562610c](https://github.com/memori-ai/memori-react/commit/562610c9ae13cbc2a7c3b637f6ba6a942b4a45fd))
+
 ## [6.1.7](https://github.com/memori-ai/memori-react/compare/v6.1.6...v6.1.7) (2024-04-09)
 
 
