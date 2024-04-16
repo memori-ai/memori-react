@@ -572,37 +572,6 @@ const MemoriWidget = ({
   };
 
   /**
-   * Polling dates
-   */
-  const sendDateChangedEvent = async ({
-    sessionID,
-    date,
-  }: {
-    sessionID?: string;
-    date?: string;
-  }) => {
-    const session = sessionID ?? sessionId;
-
-    if (!session || !memori.needsDateTime) return;
-
-    const now = (date ? DateTime.fromISO(date) : DateTime.now())
-      .toUTC()
-      .toFormat('yyyy/MM/dd HH:mm:ss ZZ')
-      .split(':')
-      .slice(0, -1)
-      .join(':');
-
-    const { currentState, ...response } = await postDateChangedEvent(
-      session,
-      now
-    );
-
-    if (response.resultCode === 0 && currentState) {
-      setCurrentDialogState({ ...currentDialogState, ...currentState });
-    }
-  };
-
-  /**
    * History e gestione invio messaggi
    */
   const [userMessage, setUserMessage] = useState<string>('');
@@ -997,10 +966,6 @@ const MemoriWidget = ({
       ) {
         setSessionId(session.sessionID);
 
-        if (position) applyPosition(position, session.sessionID);
-        if (memori.needsDateTime)
-          sendDateChangedEvent({ sessionID: session.sessionID });
-
         setLoading(false);
         return {
           dialogState: session.currentState,
@@ -1117,7 +1082,7 @@ const MemoriWidget = ({
 
         if (position) applyPosition(position, sessionID);
         if (memori.needsDateTime)
-          sendDateChangedEvent({ sessionID: sessionID });
+          sendDateChangedEvent({ sessionID: sessionID, state: currentState });
 
         setLoading(false);
         return {
@@ -1267,20 +1232,60 @@ const MemoriWidget = ({
   /**
    * Polling dates
    */
+  const sendDateChangedEvent = useCallback(
+    async ({
+      sessionID,
+      date,
+      state,
+    }: {
+      sessionID?: string;
+      date?: string;
+      state?: DialogState;
+    }) => {
+      const session = sessionID ?? sessionId;
+      const dialogState = state ?? currentDialogState;
+
+      console.log('sendDateChangedEvent', dialogState);
+      if (!session || !memori.needsDateTime || dialogState?.hints?.length) {
+        return;
+      }
+
+      const now = (date ? DateTime.fromISO(date) : DateTime.now())
+        .toUTC()
+        .toFormat('yyyy/MM/dd HH:mm:ss ZZ')
+        .split(':')
+        .slice(0, -1)
+        .join(':');
+
+      const { currentState, ...response } = await postDateChangedEvent(
+        session,
+        now
+      );
+
+      if (response.resultCode === 0 && currentState) {
+        _setCurrentDialogState(cds => ({
+          ...cds,
+          ...currentState,
+          hints: currentState.hints?.length ? currentState.hints : cds?.hints,
+        }));
+      }
+    },
+    [currentDialogState, memori.needsDateTime, sessionId]
+  );
   useEffect(() => {
     if (sessionId && memori.needsDateTime) {
-      sendDateChangedEvent({ sessionID: sessionId });
+      sendDateChangedEvent({ sessionID: sessionId, state: currentDialogState });
 
       let datePolling = setInterval(() => {
-        sendDateChangedEvent({ sessionID: sessionId });
+        sendDateChangedEvent({
+          sessionID: sessionId,
+        });
       }, 60 * 1000); // 1 minute
 
       return () => {
         clearInterval(datePolling);
       };
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [memori.needsDateTime, sessionId]);
 
   /**
@@ -2429,7 +2434,7 @@ const MemoriWidget = ({
         // date and place events
         if (position) applyPosition(position, sessionID);
         if (memori.needsDateTime)
-          sendDateChangedEvent({ sessionID: sessionID });
+          sendDateChangedEvent({ sessionID: sessionID, state: currentState });
 
         // checks engine state for current tag
         // opening session would have already correct tag
@@ -2604,7 +2609,7 @@ const MemoriWidget = ({
         // date and place events
         if (position) applyPosition(position, sessionID);
         if (memori.needsDateTime)
-          sendDateChangedEvent({ sessionID: sessionID });
+          sendDateChangedEvent({ sessionID: sessionID, state: currentState });
       } else {
         // reset history
         setHistory([]);
