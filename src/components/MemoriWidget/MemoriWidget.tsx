@@ -37,7 +37,7 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import { AudioContext, IAudioContext } from 'standardized-audio-context';
 import * as speechSdk from 'microsoft-cognitiveservices-speech-sdk';
 import cx from 'classnames';
-
+import { DateTime } from 'luxon';
 import toast from 'react-hot-toast';
 
 // Components
@@ -416,6 +416,7 @@ const MemoriWidget = ({
     initSession,
     postTextEnteredEvent,
     postPlaceChangedEvent,
+    postDateChangedEvent,
     postTimeoutEvent,
     postTagChangedEvent,
     getSession,
@@ -568,6 +569,37 @@ const MemoriWidget = ({
   const setPosition = (venue?: Venue) => {
     _setPosition(venue);
     applyPosition(venue);
+  };
+
+  /**
+   * Polling dates
+   */
+  const sendDateChangedEvent = async ({
+    sessionID,
+    date,
+  }: {
+    sessionID?: string;
+    date?: string;
+  }) => {
+    const session = sessionID ?? sessionId;
+
+    if (!session || !memori.needsDateTime) return;
+
+    const now = (date ? DateTime.fromISO(date) : DateTime.now())
+      .toUTC()
+      .toFormat('yyyy/MM/dd HH:mm:ss ZZ')
+      .split(':')
+      .slice(0, -1)
+      .join(':');
+
+    const { currentState, ...response } = await postDateChangedEvent(
+      session,
+      now
+    );
+
+    if (response.resultCode === 0 && currentState) {
+      setCurrentDialogState({ ...currentDialogState, ...currentState });
+    }
   };
 
   /**
@@ -966,6 +998,8 @@ const MemoriWidget = ({
         setSessionId(session.sessionID);
 
         if (position) applyPosition(position, session.sessionID);
+        if (memori.needsDateTime)
+          sendDateChangedEvent({ sessionID: session.sessionID });
 
         setLoading(false);
         return {
@@ -1082,6 +1116,8 @@ const MemoriWidget = ({
         }
 
         if (position) applyPosition(position, sessionID);
+        if (memori.needsDateTime)
+          sendDateChangedEvent({ sessionID: sessionID });
 
         setLoading(false);
         return {
@@ -1227,6 +1263,25 @@ const MemoriWidget = ({
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  /**
+   * Polling dates
+   */
+  useEffect(() => {
+    if (sessionId && memori.needsDateTime) {
+      sendDateChangedEvent({ sessionID: sessionId });
+
+      let datePolling = setInterval(() => {
+        sendDateChangedEvent({ sessionID: sessionId });
+      }, 60 * 1000); // 1 minute
+
+      return () => {
+        clearInterval(datePolling);
+      };
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [memori.needsDateTime, sessionId]);
 
   /**
    * Timeout conversazione
@@ -2371,6 +2426,11 @@ const MemoriWidget = ({
         // reset history
         setHistory([]);
 
+        // date and place events
+        if (position) applyPosition(position, sessionID);
+        if (memori.needsDateTime)
+          sendDateChangedEvent({ sessionID: sessionID });
+
         // checks engine state for current tag
         // opening session would have already correct tag
         // otherwise change tag to anonymous for test, giver for instruct, receiver if set
@@ -2540,6 +2600,11 @@ const MemoriWidget = ({
               setHasUserActivatedSpeak(true);
             });
         }
+
+        // date and place events
+        if (position) applyPosition(position, sessionID);
+        if (memori.needsDateTime)
+          sendDateChangedEvent({ sessionID: sessionID });
       } else {
         // reset history
         setHistory([]);
@@ -2556,7 +2621,7 @@ const MemoriWidget = ({
           });
       }
     },
-    [memoriPwd, memori, memoriTokens, birthDate, sessionId, userLang]
+    [memoriPwd, memori, memoriTokens, birthDate, sessionId, userLang, position]
   );
   useEffect(() => {
     const targetNode =
@@ -2966,6 +3031,18 @@ const MemoriWidget = ({
           hideEmissions={hideEmissions}
           setHideEmissions={setHideEmissions}
           additionalSettings={additionalSettings}
+        />
+      )}
+
+      {showPositionDrawer && (
+        <PositionDrawer
+          open={!!showPositionDrawer}
+          venue={position}
+          setVenue={setPosition}
+          onClose={position => {
+            if (position) applyPosition(position);
+            setShowPositionDrawer(false);
+          }}
         />
       )}
 

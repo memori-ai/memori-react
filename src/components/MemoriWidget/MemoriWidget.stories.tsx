@@ -56,6 +56,15 @@ WithPosition.args = {
   tenant,
 };
 
+export const WithDates = Template.bind({});
+WithDates.args = {
+  memori: {
+    ...memori,
+    needsDateTime: true,
+  },
+  tenant,
+};
+
 export const WithPublicPageIntegration = Template.bind({});
 WithPublicPageIntegration.args = {
   memori,

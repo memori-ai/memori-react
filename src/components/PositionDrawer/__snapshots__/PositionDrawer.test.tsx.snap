@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders PositionDrawer unchanged 1`] = `<div />`;
+
+exports[`renders VenueWidget with venue set 1`] = `<div />`;
