@@ -253,7 +253,7 @@ const VenueWidget = ({
               <div className="memori--venue-widget-search">
                 <Combobox
                   value={
-                    (venue
+                    (venue?.latitude && venue?.longitude
                       ? {
                           place_id: 0,
                           lat: venue?.latitude,
@@ -266,7 +266,9 @@ const VenueWidget = ({
                 >
                   <Combobox.Input
                     className="memori--venue-widget-search--input"
-                    displayValue={(i: NominatimItem) => getPlaceName(i)}
+                    displayValue={(i: NominatimItem) =>
+                      i ? getPlaceName(i) : ''
+                    }
                     placeholder={t('searchVenue')}
                     onChange={e => onQueryChange(e.target.value)}
                   />

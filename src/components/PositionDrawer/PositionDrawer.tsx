@@ -19,6 +19,7 @@ const PositionDrawer = ({ open, onClose, venue, setVenue }: Props) => {
       open={open}
       onClose={() => onClose(venue)}
       title={t('widget.position') || 'Position'}
+      animated={false}
     >
       <VenueWidget venue={venue} setVenue={setVenue} showUncertainty={false} />
     </Drawer>

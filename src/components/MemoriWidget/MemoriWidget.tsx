@@ -12,7 +12,6 @@ import {
   Invitation,
   GamificationLevel,
   Tenant,
-  Asset,
   MemoriSession,
   User,
   ExpertReference,

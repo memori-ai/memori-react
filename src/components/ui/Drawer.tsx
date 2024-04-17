@@ -14,6 +14,7 @@ export interface Props {
   children: JSX.Element | React.ReactNode;
   footer?: JSX.Element | React.ReactNode;
   loading?: boolean;
+  animated?: boolean;
   closable?: boolean;
   side?: 'left' | 'right';
   width?: string;
@@ -30,6 +31,7 @@ const Drawer: FC<Props> = ({
   children,
   footer,
   loading = false,
+  animated = true,
   side = 'right',
   closable = true,
   width = '100%',
@@ -56,13 +58,14 @@ const Drawer: FC<Props> = ({
       <div className="memori-drawer--container">
         <div className="memori-drawer--container-scrollable">
           <Transition.Child
+            static
             as={React.Fragment}
             enter="ease-out duration-300"
-            enterFrom="max-w-0 opacity-0"
+            enterFrom={animated ? 'max-w-0 opacity-0' : 'opacity-0'}
             enterTo="max-w-80 opacity-100"
             leave="ease-in duration-200"
             leaveFrom="max-w-80 opacity-100"
-            leaveTo="max-w-0 opacity-0"
+            leaveTo={animated ? 'max-w-0 opacity-0' : 'opacity-0'}
           >
             <Dialog.Panel
               className={cx('memori-drawer--panel', {
