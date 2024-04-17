@@ -2381,8 +2381,9 @@ const MemoriWidget = ({
           tag: personification?.tag,
           pin: personification?.pin,
           initialContextVars: {
-            PATHNAME: window.location.pathname,
-            ROUTE: window.location.pathname?.split('/')?.pop() || '',
+            PATHNAME: window.location.pathname?.toUpperCase(),
+            ROUTE:
+              window.location.pathname?.split('/')?.pop()?.toUpperCase() || '',
             ...(initialContextVars || {}),
           },
           initialQuestion,
@@ -2481,8 +2482,10 @@ const MemoriWidget = ({
               memori?.giverTag,
               memori?.giverPIN,
               {
-                PATHNAME: window.location.pathname,
-                ROUTE: window.location.pathname?.split('/')?.pop() || '',
+                PATHNAME: window.location.pathname?.toUpperCase(),
+                ROUTE:
+                  window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
+                  '',
                 ...(initialContextVars || {}),
               },
               initialQuestion,
@@ -2532,8 +2535,10 @@ const MemoriWidget = ({
               personification.tag,
               personification.pin,
               {
-                PATHNAME: window.location.pathname,
-                ROUTE: window.location.pathname?.split('/')?.pop() || '',
+                PATHNAME: window.location.pathname?.toUpperCase(),
+                ROUTE:
+                  window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
+                  '',
                 ...(initialContextVars || {}),
               },
               initialQuestion,
@@ -2583,8 +2588,10 @@ const MemoriWidget = ({
               undefined,
               undefined,
               {
-                PATHNAME: window.location.pathname,
-                ROUTE: window.location.pathname?.split('/')?.pop() || '',
+                PATHNAME: window.location.pathname?.toUpperCase(),
+                ROUTE:
+                  window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
+                  '',
                 ...(initialContextVars || {}),
               },
               initialQuestion,
@@ -2959,8 +2966,10 @@ const MemoriWidget = ({
               instruct ? memori.giverTag : personification?.tag,
               instruct ? memori.giverPIN : personification?.pin,
               {
-                PATHNAME: window.location.pathname,
-                ROUTE: window.location.pathname?.split('/')?.pop() || '',
+                PATHNAME: window.location.pathname?.toUpperCase(),
+                ROUTE:
+                  window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
+                  '',
                 ...(initialContextVars || {}),
               },
               initialQuestion,
@@ -2998,8 +3007,12 @@ const MemoriWidget = ({
                 instruct ? memori.giverTag : personification?.tag,
                 instruct ? memori.giverPIN : personification?.pin,
                 {
-                  PATHNAME: window.location.pathname,
-                  ROUTE: window.location.pathname?.split('/')?.pop() || '',
+                  PATHNAME: window.location.pathname?.toUpperCase(),
+                  ROUTE:
+                    window.location.pathname
+                      ?.split('/')
+                      ?.pop()
+                      ?.toUpperCase() || '',
                   ...(initialContextVars || {}),
                 },
                 initialQuestion,
