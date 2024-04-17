@@ -965,6 +965,8 @@ const MemoriWidget = ({
       ) {
         setSessionId(session.sessionID);
 
+        if (position) applyPosition(position, session.sessionID);
+
         setLoading(false);
         return {
           dialogState: session.currentState,
@@ -1244,7 +1246,6 @@ const MemoriWidget = ({
       const session = sessionID ?? sessionId;
       const dialogState = state ?? currentDialogState;
 
-      console.log('sendDateChangedEvent', dialogState);
       if (!session || !memori.needsDateTime || dialogState?.hints?.length) {
         return;
       }
