@@ -1451,8 +1451,24 @@ exports[`renders StartPanel with position required unchanged 1`] = `
         write_and_speak.requirePosition
       </p>
       <button
-        class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
+        class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori-button--with-icon memori--start-button"
       >
+        <span
+          class="memori-button--icon"
+        >
+          <svg
+            aria-hidden="true"
+            focusable="false"
+            role="img"
+            viewBox="0 0 384 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"
+              fill="currentColor"
+            />
+          </svg>
+        </span>
         widget.position
       </button>
     </div>

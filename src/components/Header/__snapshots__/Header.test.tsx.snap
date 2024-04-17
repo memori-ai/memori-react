@@ -757,7 +757,8 @@ exports[`renders Header with position unchanged 1`] = `
         Berlin
       </span>
       <button
-        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--position"
+        class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--position"
+        title="widget.position"
       >
         <span
           class="memori-button--icon"
