@@ -7,6 +7,7 @@ export const keys: { [key: string]: string } = {
   controlsPosition: '@memori:controlsPosition',
   hideEmissions: '@memori:hideEmissions',
   loginToken: '@memori:loginToken',
+  location: '@memori:location',
 };
 
 export const getLocalConfig = <Type>(key: string, defaultValue: Type): Type => {

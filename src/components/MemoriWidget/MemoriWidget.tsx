@@ -568,7 +568,20 @@ const MemoriWidget = ({
   const setPosition = (venue?: Venue) => {
     _setPosition(venue);
     applyPosition(venue);
+
+    if (venue) {
+      setLocalConfig('position', JSON.stringify(venue));
+    } else {
+      removeLocalConfig('position');
+    }
   };
+
+  useEffect(() => {
+    const position = getLocalConfig<Venue | undefined>('position', undefined);
+    if (position) {
+      _setPosition(position);
+    }
+  }, []);
 
   /**
    * History e gestione invio messaggi
