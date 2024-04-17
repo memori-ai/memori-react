@@ -122,7 +122,10 @@ const getPlaceName = (venue?: NominatimItem) => {
         venue.address.state,
       venue.address.country,
     ]
+      // remove undefined values
       .filter(Boolean)
+      // remove duplicates
+      .filter((v, i, a) => a.indexOf(v) === i)
       .join(', ');
   } else if (venue?.display_name) {
     placeName = venue.display_name;

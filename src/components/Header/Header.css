@@ -48,11 +48,19 @@
 }
 
 .memori-header--position {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
 }
 
 .memori-header--position .memori-header--position-placeName {
+    display: inline-block;
+    overflow: hidden;
+    max-width: 250px;
+    padding-right: 0.25rem;
+    margin: 0;
     font-style: italic;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .memori-header--position .memori-header--button {
@@ -60,7 +68,12 @@
     margin-left: 0.5rem;
 }
 
+.memori-header .memori-header--button--position,
 .memori-header .memori-share-button,
 .memori-header .memori-header--button-login {
     margin-left: 0.25rem;
+}
+
+.memori-header .memori-header--button--position {
+    margin-right: 0.25rem;
 }

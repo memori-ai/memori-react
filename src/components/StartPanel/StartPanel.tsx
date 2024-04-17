@@ -18,6 +18,7 @@ import AI from '../icons/AI';
 import Group from '../icons/Group';
 import DeepThought from '../icons/DeepThought';
 import CompletionProviderStatus from '../CompletionProviderStatus/CompletionProviderStatus';
+import MapMarker from '../icons/MapMarker';
 
 export interface Props {
   memori: Memori;
@@ -197,6 +198,7 @@ const StartPanel: React.FC<Props> = ({
             primary
             onClick={() => openPositionDrawer()}
             className="memori--start-button"
+            icon={<MapMarker />}
           >
             {t('widget.position')}
           </Button>

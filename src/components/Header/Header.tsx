@@ -113,9 +113,11 @@ const Header: React.FC<Props> = ({
             {position.placeName}
           </span>
           <Button
-            icon={<MapMarker />}
+            primary
             shape="circle"
             className="memori-header--button memori-header--button--position"
+            title={t('widget.position') || 'Position'}
+            icon={<MapMarker />}
             onClick={() => setShowPositionDrawer(true)}
           />
         </div>

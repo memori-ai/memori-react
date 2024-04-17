@@ -13,6 +13,7 @@ export interface Props {
 
 const PositionDrawer = ({ open, onClose, venue, setVenue }: Props) => {
   const { t } = useTranslation();
+
   return (
     <Drawer
       className="memori-position-drawer"
