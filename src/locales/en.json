@@ -126,6 +126,7 @@
     "updatingPosition": "Updating position...",
     "placeNotFound": "Place not found!",
     "requirePosition": "Insert your position before start",
+    "requirePositionHelp": "To talk to {{name}} you have to decide whether to provide your position or not. This is because different answers that it can provide you may depend on where you are.",
     "attachmentsLabel": "Enrich your message",
     "iWantToTalkToIn": "I want to talk to {{name}} in"
   },

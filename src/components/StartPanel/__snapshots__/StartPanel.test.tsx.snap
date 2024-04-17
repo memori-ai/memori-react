@@ -1448,7 +1448,7 @@ exports[`renders StartPanel with position required unchanged 1`] = `
       class="memori--needsPosition"
     >
       <p>
-        write_and_speak.requirePosition
+        write_and_speak.requirePositionHelp
       </p>
       <button
         class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori-button--with-icon memori--start-button"

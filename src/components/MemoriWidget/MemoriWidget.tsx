@@ -3067,6 +3067,7 @@ const MemoriWidget = ({
 
       {showPositionDrawer && (
         <PositionDrawer
+          memori={memori}
           open={!!showPositionDrawer}
           venue={position}
           setVenue={setPosition}

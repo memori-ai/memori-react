@@ -6,7 +6,6 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { useLeafletContext } from '@react-leaflet/core';
 import L from 'leaflet';
 import toast from 'react-hot-toast';
-import Select from '../ui/Select';
 import Button from '../ui/Button';
 import { useDebounceFn } from '../../helpers/utils';
 import { Combobox, Transition } from '@headlessui/react';

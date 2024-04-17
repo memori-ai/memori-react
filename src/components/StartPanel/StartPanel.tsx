@@ -193,7 +193,9 @@ const StartPanel: React.FC<Props> = ({
       <h2 className="memori--title">{memori.name}</h2>
       {memori.needsPosition && !position && (
         <div className="memori--needsPosition">
-          <p>{t('write_and_speak.requirePosition')}</p>
+          <p>
+            {t('write_and_speak.requirePositionHelp', { name: memori.name })}
+          </p>
           <Button
             primary
             onClick={() => openPositionDrawer()}

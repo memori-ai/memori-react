@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import PositionDrawer from './PositionDrawer';
-import { venue } from '../../mocks/data';
+import { venue, memori } from '../../mocks/data';
 
 beforeEach(() => {
   // @ts-ignore
@@ -15,7 +15,12 @@ beforeEach(() => {
 
 it('renders PositionDrawer unchanged', () => {
   const { container } = render(
-    <PositionDrawer open={false} onClose={jest.fn()} setVenue={jest.fn()} />
+    <PositionDrawer
+      memori={memori}
+      open={true}
+      onClose={jest.fn()}
+      setVenue={jest.fn()}
+    />
   );
   expect(container).toMatchSnapshot();
 });
@@ -23,7 +28,8 @@ it('renders PositionDrawer unchanged', () => {
 it('renders VenueWidget with venue set', () => {
   const { container } = render(
     <PositionDrawer
-      open={false}
+      memori={memori}
+      open={true}
       onClose={jest.fn()}
       venue={venue}
       setVenue={jest.fn()}

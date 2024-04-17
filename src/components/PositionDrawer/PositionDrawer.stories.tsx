@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import I18nWrapper from '../../I18nWrapper';
 import PositionDrawer, { Props } from './PositionDrawer';
 import { Venue } from '@memori.ai/memori-api-client/dist/types';
-import { venue } from '../../mocks/data';
+import { venue, memori } from '../../mocks/data';
 
 const meta: Meta = {
   title: 'Widget/PositionDrawer',
@@ -27,7 +27,12 @@ const Template: Story<Props> = args => {
 
   return (
     <I18nWrapper>
-      <PositionDrawer {...args} venue={venue} setVenue={setVenue} />
+      <PositionDrawer
+        {...args}
+        memori={memori}
+        venue={venue}
+        setVenue={setVenue}
+      />
     </I18nWrapper>
   );
 };
