@@ -23,7 +23,7 @@ const PositionDrawer = ({ memori, open, onClose, venue, setVenue }: Props) => {
       title={t('widget.position') || 'Position'}
       animated={false}
     >
-      <p>{t('write_and_speak.requirePositionHelp', { name: memori.name })} </p>
+      <p>{t('write_and_speak.requirePositionHelp', { name: memori.name })}</p>
       <VenueWidget
         venue={venue}
         setVenue={setVenue}

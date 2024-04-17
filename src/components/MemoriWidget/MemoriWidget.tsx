@@ -560,7 +560,11 @@ const MemoriWidget = ({
       });
 
       if (currentState && response.resultCode === 0) {
-        setCurrentDialogState({ ...currentDialogState, ...currentState });
+        _setCurrentDialogState(cds => ({
+          ...cds,
+          ...currentState,
+          hints: currentState.hints?.length ? currentState.hints : cds?.hints,
+        }));
       }
     }
   };
