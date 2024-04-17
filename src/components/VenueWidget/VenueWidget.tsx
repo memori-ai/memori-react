@@ -39,9 +39,10 @@ export type NominatimItem = {
 
 export interface Props {
   venue?: Venue;
-  setVenue: (venue?: Venue) => void;
+  setVenue: (venue: Venue) => void;
   showUncertainty?: boolean;
   showGpsButton?: boolean;
+  saveAndClose?: (venue: Venue) => void;
 }
 
 const Circle = ({
@@ -138,6 +139,7 @@ const VenueWidget = ({
   setVenue,
   showUncertainty = false,
   showGpsButton = true,
+  saveAndClose,
 }: Props) => {
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
@@ -152,6 +154,13 @@ const VenueWidget = ({
 
     navigator.geolocation.getCurrentPosition(
       async coords => {
+        let venue: Venue = {
+          latitude: coords.coords.latitude,
+          longitude: coords.coords.longitude,
+          placeName: 'Position',
+          uncertainty: coords.coords.accuracy / 1000,
+        };
+
         try {
           const result = await fetch(
             `https://nominatim.openstreetmap.org/reverse?lat=${coords.coords.latitude}&lon=${coords.coords.longitude}&format=jsonv2&addressdetails=1`
@@ -159,24 +168,21 @@ const VenueWidget = ({
           const response = (await result.json()) as NominatimItem;
 
           const placeName = getPlaceName(response);
-
-          setVenue({
+          venue = {
             latitude: coords.coords.latitude,
             longitude: coords.coords.longitude,
             placeName: placeName,
             uncertainty: coords.coords.accuracy / 1000,
-          });
+          };
+          setVenue(venue);
         } catch (e) {
           let err = e as Error;
           console.error('[POSITION ERROR]', err);
           if (err?.message) toast.error(err.message);
 
-          setVenue({
-            latitude: coords.coords.latitude,
-            longitude: coords.coords.longitude,
-            placeName: 'Position',
-            uncertainty: coords.coords.accuracy / 1000,
-          });
+          setVenue(venue);
+        } finally {
+          if (saveAndClose) saveAndClose(venue);
         }
 
         setUpdatingPosition(false);
@@ -324,10 +330,11 @@ const VenueWidget = ({
                   )}
                 </Combobox>
               </div>
+
               {showGpsButton && (
                 <Button
                   className="memori--venue-widget__gps-button"
-                  outlined
+                  primary
                   loading={updatingPosition}
                   onClick={() => {
                     setUpdatingPosition(true);
@@ -339,6 +346,24 @@ const VenueWidget = ({
               )}
             </>
           )}
+        </div>
+        <div>
+          <Button
+            outlined
+            className="memori--venue-widget__no-location-button"
+            onClick={() => {
+              let venue: Venue = {
+                latitude: 0,
+                longitude: 0,
+                placeName: 'Position',
+                uncertainty: 0,
+              };
+              setVenue(venue);
+              if (saveAndClose) saveAndClose(venue);
+            }}
+          >
+            {t('write_and_speak.dontWantToProvidePosition')}
+          </Button>
         </div>
         {showUncertainty && (
           <label className="memori--venue-widget__select-label">
@@ -378,7 +403,7 @@ const VenueWidget = ({
         )}
       </div>
       <div className="memori--venue-widget__form-item">
-        {venue?.placeName && (
+        {venue?.placeName && venue.placeName !== 'Position' && (
           <p className="memori--venue--widget__place-name">
             <strong>{t('venue')}</strong>: {venue.placeName}
           </p>

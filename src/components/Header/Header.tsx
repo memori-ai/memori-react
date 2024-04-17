@@ -109,9 +109,13 @@ const Header: React.FC<Props> = ({
       )}
       {memori.needsPosition && position && (
         <div className="memori-header--position">
-          <span className="memori-header--position-placeName">
-            {position.placeName}
-          </span>
+          {position.latitude !== 0 &&
+            position.longitude !== 0 &&
+            position.placeName !== 'Position' && (
+              <span className="memori-header--position-placeName">
+                {position.placeName}
+              </span>
+            )}
           <Button
             primary
             shape="circle"

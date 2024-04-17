@@ -9,7 +9,7 @@ export interface Props {
   open: boolean;
   onClose: (venue?: Venue) => void;
   venue?: Venue;
-  setVenue: (venue?: Venue) => void;
+  setVenue: (venue: Venue) => void;
 }
 
 const PositionDrawer = ({ memori, open, onClose, venue, setVenue }: Props) => {
@@ -24,7 +24,15 @@ const PositionDrawer = ({ memori, open, onClose, venue, setVenue }: Props) => {
       animated={false}
     >
       <p>{t('write_and_speak.requirePositionHelp', { name: memori.name })} </p>
-      <VenueWidget venue={venue} setVenue={setVenue} showUncertainty={false} />
+      <VenueWidget
+        venue={venue}
+        setVenue={setVenue}
+        showUncertainty={false}
+        saveAndClose={venue => {
+          setVenue(venue);
+          onClose(venue);
+        }}
+      />
     </Drawer>
   );
 };

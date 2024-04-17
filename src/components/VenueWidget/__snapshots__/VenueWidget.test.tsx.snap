@@ -30,9 +30,16 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
           />
         </div>
         <button
-          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
+          class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
         >
           write_and_speak.useMyPosition
+        </button>
+      </div>
+      <div>
+        <button
+          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__no-location-button"
+        >
+          write_and_speak.dontWantToProvidePosition
         </button>
       </div>
     </div>
@@ -101,9 +108,16 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
           />
         </div>
         <button
-          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
+          class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
         >
           write_and_speak.useMyPosition
+        </button>
+      </div>
+      <div>
+        <button
+          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__no-location-button"
+        >
+          write_and_speak.dontWantToProvidePosition
         </button>
       </div>
     </div>
@@ -172,6 +186,13 @@ exports[`renders VenueWidget without gps button unchanged 1`] = `
           />
         </div>
       </div>
+      <div>
+        <button
+          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__no-location-button"
+        >
+          write_and_speak.dontWantToProvidePosition
+        </button>
+      </div>
     </div>
     <div
       class="memori--venue-widget__form-item"
@@ -238,9 +259,16 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
           />
         </div>
         <button
-          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
+          class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
         >
           write_and_speak.useMyPosition
+        </button>
+      </div>
+      <div>
+        <button
+          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__no-location-button"
+        >
+          write_and_speak.dontWantToProvidePosition
         </button>
       </div>
     </div>
@@ -309,9 +337,16 @@ exports[`renders empty VenueWidget unchanged 1`] = `
           />
         </div>
         <button
-          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
+          class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
         >
           write_and_speak.useMyPosition
+        </button>
+      </div>
+      <div>
+        <button
+          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__no-location-button"
+        >
+          write_and_speak.dontWantToProvidePosition
         </button>
       </div>
     </div>
