@@ -1,5 +1,31 @@
 
 
+## [6.3.0](https://github.com/memori-ai/memori-react/compare/v6.2.0...v6.3.0) (2024-04-17)
+
+
+### Features
+
+* allow null position as negation, dont display that as venue ([17cd359](https://github.com/memori-ai/memori-react/commit/17cd35929d8a89433f12d29ddf712a86a7f1572c))
+* save position to localStorage ([4dd10dc](https://github.com/memori-ai/memori-react/commit/4dd10dc3223e0c1b2a3e9a6ee32a88ca7e7d30b5))
+
+
+### Bug Fixes
+
+* position drawer rendering ([02766ac](https://github.com/memori-ai/memori-react/commit/02766ac57a139c67d202a79f77a5f55946cce293))
+* sending position event, cleanup ([79be3bf](https://github.com/memori-ai/memori-react/commit/79be3bff3705d570e8d728af21ab7674888dbc31))
+
+
+### Maintenance
+
+* transform default context vars uppercase ([7627eb1](https://github.com/memori-ai/memori-react/commit/7627eb1290182b8245e093b9a01d628257729b5b))
+
+
+### Changes
+
+* add helper description for position request ([f08c2a7](https://github.com/memori-ai/memori-react/commit/f08c2a7691bb9f25ac92f961e636d929432abefa))
+* cleanup ([77f2e2b](https://github.com/memori-ai/memori-react/commit/77f2e2be28577c81469c69cc24a9ed3e872fea31))
+* position drawer + start icons, styles, formatting and overflow in header ([db5993d](https://github.com/memori-ai/memori-react/commit/db5993db77c771d156cc7f78d7dd7af75acfb44d))
+
 ## [6.2.0](https://github.com/memori-ai/memori-react/compare/v6.1.7...v6.2.0) (2024-04-16)
 
 
