@@ -412,6 +412,196 @@ exports[`renders MediaItemWidget unchanged with no media 1`] = `
 </div>
 `;
 
+exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
+<div>
+  <div
+    class="memori-media-items"
+  >
+    <div
+      class="memori-media-items--grid"
+    >
+      <div
+        class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+      >
+        <a
+          class="memori-media-item--link"
+          href="rgb(255, 0, 0)"
+          rel="noopener noreferrer"
+          target="_blank"
+          title="Rosso"
+        >
+          <div
+            class="memori-card memori-media-item--card memori-media-item--image memori-card--with-cover memori-card--hoverable"
+          >
+            <div
+              class="memori-spin"
+            >
+              <div
+                class="memori-card--cover"
+              >
+                <picture
+                  class="memori-media-item--figure"
+                >
+                  <div
+                    style="min-height: 150px; width: 100%; background-color: rgb(255, 0, 0);"
+                  />
+                  <figcaption
+                    class="memori-media-item--figure-caption"
+                  >
+                    Rosso
+                  </figcaption>
+                </picture>
+              </div>
+              <div
+                class="memori-card--content"
+              >
+                <div
+                  class="memori-card--children"
+                />
+              </div>
+              <div
+                class="memori-spin--spinner"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="memori-loading-icon"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div
+        class="memori-media-item ease-out duration-500 delay-100 opacity-0 scale-95"
+      >
+        <a
+          class="memori-media-item--link"
+          href="rgb(0, 255, 0)"
+          rel="noopener noreferrer"
+          target="_blank"
+          title="Verde"
+        >
+          <div
+            class="memori-card memori-media-item--card memori-media-item--image memori-card--with-cover memori-card--hoverable"
+          >
+            <div
+              class="memori-spin"
+            >
+              <div
+                class="memori-card--cover"
+              >
+                <picture
+                  class="memori-media-item--figure"
+                >
+                  <div
+                    style="min-height: 150px; width: 100%; background-color: rgb(0, 255, 0);"
+                  />
+                  <figcaption
+                    class="memori-media-item--figure-caption"
+                  >
+                    Verde
+                  </figcaption>
+                </picture>
+              </div>
+              <div
+                class="memori-card--content"
+              >
+                <div
+                  class="memori-card--children"
+                />
+              </div>
+              <div
+                class="memori-spin--spinner"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="memori-loading-icon"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+      <div
+        class="memori-media-item ease-out duration-500 delay-200 opacity-0 scale-95"
+      >
+        <a
+          class="memori-media-item--link"
+          href="rgb(0, 0, 255)"
+          rel="noopener noreferrer"
+          target="_blank"
+          title="Blu"
+        >
+          <div
+            class="memori-card memori-media-item--card memori-media-item--image memori-card--with-cover memori-card--hoverable"
+          >
+            <div
+              class="memori-spin"
+            >
+              <div
+                class="memori-card--cover"
+              >
+                <picture
+                  class="memori-media-item--figure"
+                >
+                  <div
+                    style="min-height: 150px; width: 100%; background-color: rgb(0, 0, 255);"
+                  />
+                  <figcaption
+                    class="memori-media-item--figure-caption"
+                  >
+                    Blu
+                  </figcaption>
+                </picture>
+              </div>
+              <div
+                class="memori-card--content"
+              >
+                <div
+                  class="memori-card--children"
+                />
+              </div>
+              <div
+                class="memori-spin--spinner"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="memori-loading-icon"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] = `
 <div>
   <div

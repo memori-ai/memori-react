@@ -124,3 +124,27 @@ WithCustomMediaRenderer.args = {
     }
   },
 };
+
+export const WithRGBColors = Template.bind({});
+WithRGBColors.args = {
+  items: [
+    {
+      mediumID: '65ca4a6d-f20b-402e-9d79-5e470f247927',
+      mimeType: 'image/png',
+      title: 'Rosso',
+      url: 'rgb(255, 0, 0)',
+    },
+    {
+      mediumID: '65ca4a6d-f20b-402e-9d79-5e470f247928',
+      mimeType: 'image/png',
+      title: 'Verde',
+      url: 'rgb(0, 255, 0)',
+    },
+    {
+      mediumID: '65ca4a6d-f20b-402e-9d79-5e470f247929',
+      mimeType: 'image/png',
+      title: 'Blu',
+      url: 'rgb(0, 0, 255)',
+    },
+  ],
+};
