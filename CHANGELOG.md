@@ -1,5 +1,12 @@
 
 
+## [6.3.1](https://github.com/memori-ai/memori-react/compare/v6.3.0...v6.3.1) (2024-04-22)
+
+
+### Changes
+
+* allow rgb bg in media images ([6800a61](https://github.com/memori-ai/memori-react/commit/6800a611eb8b0a66518cf7b68337671ef5ff648a))
+
 ## [6.3.0](https://github.com/memori-ai/memori-react/compare/v6.2.0...v6.3.0) (2024-04-17)
 
 
