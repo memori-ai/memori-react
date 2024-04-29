@@ -49,7 +49,7 @@ const WhyThisAnswer = ({
     try {
       const { matches, ...response } = await searchMemory(sessionID, {
         searchType: 'Semantic',
-        numberOfResults: 5,
+        numberOfResults: 3,
         text: message.questionAnswered,
         date: message.date,
         placeName: message.placeName,
