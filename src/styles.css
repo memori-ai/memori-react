@@ -7,6 +7,7 @@
 @import url('./components/ui/Tooltip.css');
 @import url('./components/ui/Select.css');
 @import url('./components/ui/Table.css');
+@import url('./components/ui/Expandable.css');
 
 @import url('./components/CompletionProviderStatus/CompletionProviderStatus.css');
 @import url('./components/PoweredBy/PoweredBy.css');
@@ -41,6 +42,7 @@
 @import url('./components/KnownFacts/KnownFacts.css');
 @import url('./components/LoginDrawer/LoginDrawer.css');
 @import url('./components/VenueWidget/VenueWidget.css');
+@import url('./components/WhyThisAnswer/WhyThisAnswer.css');
 @import url('./components/MemoriWidget/MemoriWidget.css');
 
 @import url('https://fonts.bunny.net/css?family=lexend-deca:200,400,700');
@@ -76,11 +78,12 @@ body.sb-show-main #root,
     --memori-chat-bubble-bg: #fff;
     --memori-chat-user-bubble-bg: var(--memori-primary);
     --memori-text-color: #000;
+    --memori-border-radius: 5px;
     --memori-button-bg: #fff;
     --memori-button-text: #000;
     --memori-button-padding: 0.5rem 1.5rem;
     --memori-button-border-color: #d9d9d9;
-    --memori-button-radius: 5px;
+    --memori-button-radius: var(--memori-border-radius);
     --memori-button-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
     --memori-blur-background: 0px;
     --memori-drawer--width: 80%;

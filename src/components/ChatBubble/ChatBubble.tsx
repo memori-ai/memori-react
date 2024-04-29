@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import cx from 'classnames';
 import {
   ExpertReference,
@@ -18,14 +18,19 @@ import { useTranslation } from 'react-i18next';
 import { marked } from 'marked';
 import { sanitize } from 'dompurify';
 import { cleanUrl } from '../../helpers/utils';
+import Button from '../ui/Button';
+import QuestionHelp from '../icons/QuestionHelp';
+import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
 
 export interface Props {
   message: Message;
   memori: Memori;
+  sessionID: string;
   tenant?: Tenant;
   baseUrl?: string;
   apiUrl?: string;
   showFeedback?: boolean;
+  showWhyThisAnswer?: boolean;
   simulateUserPrompt?: (msg: string) => void;
   showAIicon?: boolean;
   isFirst?: boolean;
@@ -61,7 +66,9 @@ const ChatBubble: React.FC<Props> = ({
   tenant,
   baseUrl,
   apiUrl,
+  sessionID,
   showFeedback,
+  showWhyThisAnswer = true,
   simulateUserPrompt,
   showAIicon = true,
   isFirst = false,
@@ -70,6 +77,7 @@ const ChatBubble: React.FC<Props> = ({
   experts,
 }) => {
   const { t } = useTranslation();
+  const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
 
   const renderedText = sanitize(
     (marked.parse(message.translatedText || message.text) as string)
@@ -187,11 +195,6 @@ const ChatBubble: React.FC<Props> = ({
             message.fromUser ? '30' : '-30'
           }`}
         >
-          {/*(message.translatedText || message.text)
-            .split(/\r\n|\r|\n/)
-            .map((row, index) => (
-              <p key={index}>{row}</p>
-            ))*/}
           <div dangerouslySetInnerHTML={{ __html: renderedText }} />
           {((message.generatedByAI && showAIicon) ||
             (showFeedback && simulateUserPrompt)) && (
@@ -211,13 +214,30 @@ const ChatBubble: React.FC<Props> = ({
                 <Tooltip
                   align="left"
                   content={t('generatedByAI')}
-                  className="memori-chat--bubble-ai-icon"
+                  className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
                 >
                   <span>
                     <AI title={t('generatedByAI') || undefined} />
                   </span>
                 </Tooltip>
               )}
+
+              {!message.fromUser &&
+                message.questionAnswered &&
+                apiUrl &&
+                showWhyThisAnswer && (
+                  <Button
+                    ghost
+                    shape="circle"
+                    title={t('whyThisAnswer') || undefined}
+                    className="memori-chat--bubble-action-icon"
+                    onClick={() => setShowingWhyThisAnswer(true)}
+                    disabled={showingWhyThisAnswer}
+                    icon={
+                      <QuestionHelp title={t('whyThisAnswer') || undefined} />
+                    }
+                  />
+                )}
             </div>
           )}
         </Transition.Child>
@@ -284,6 +304,16 @@ const ChatBubble: React.FC<Props> = ({
           </>
         )}
       </Transition>
+
+      {showingWhyThisAnswer && apiUrl && (
+        <WhyThisAnswer
+          visible={showingWhyThisAnswer}
+          message={message}
+          closeDrawer={() => setShowingWhyThisAnswer(false)}
+          apiURL={apiUrl}
+          sessionID={sessionID}
+        />
+      )}
     </>
   );
 };

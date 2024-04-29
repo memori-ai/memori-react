@@ -202,6 +202,7 @@ const Chat: React.FC<Props> = ({
                 tenant={tenant}
                 baseUrl={baseUrl}
                 apiUrl={apiUrl}
+                sessionID={sessionID}
                 simulateUserPrompt={simulateUserPrompt}
                 showAIicon={showAIicon}
                 showFeedback={

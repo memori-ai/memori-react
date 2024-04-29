@@ -688,6 +688,13 @@ const MemoriWidget = ({
               emitter: currentState.emitter,
               media: currentState.media,
               fromUser: false,
+              questionAnswered: msg,
+              contextVars: currentState.contextVars,
+              date: currentState.currentDate,
+              placeName: currentState.currentPlaceName,
+              placeLatitude: currentState.currentLatitude,
+              placeLongitude: currentState.currentLongitude,
+              placeUncertaintyKm: currentState.currentUncertaintyKm,
             });
             speak(emission);
           }
@@ -717,6 +724,13 @@ const MemoriWidget = ({
                 emitter: currentState.emitter,
                 media: currentState.media,
                 fromUser: false,
+                questionAnswered: msg,
+                contextVars: currentState.contextVars,
+                date: currentState.currentDate,
+                placeName: currentState.currentPlaceName,
+                placeLatitude: currentState.currentLatitude,
+                placeLongitude: currentState.currentLongitude,
+                placeUncertaintyKm: currentState.currentUncertaintyKm,
               });
               speak(emission);
             }
@@ -736,7 +750,7 @@ const MemoriWidget = ({
         !instruct &&
         isMultilanguageEnabled
       ) {
-        translateDialogState(currentState, userLang).then(ts => {
+        translateDialogState(currentState, userLang, msg).then(ts => {
           if (ts.emission) {
             speak(ts.emission);
           }
@@ -753,7 +767,14 @@ const MemoriWidget = ({
             emitter: currentState.emitter,
             media: currentState.media,
             fromUser: false,
+            questionAnswered: msg,
             generatedByAI: !!currentState.completion,
+            contextVars: currentState.contextVars,
+            date: currentState.currentDate,
+            placeName: currentState.currentPlaceName,
+            placeLatitude: currentState.currentLatitude,
+            placeLongitude: currentState.currentLongitude,
+            placeUncertaintyKm: currentState.currentUncertaintyKm,
           });
           speak(emission);
         }
@@ -794,7 +815,11 @@ const MemoriWidget = ({
   /**
    * Traduzioni istantanee
    */
-  const translateDialogState = async (state: DialogState, userLang: string) => {
+  const translateDialogState = async (
+    state: DialogState,
+    userLang: string,
+    msg?: string
+  ) => {
     const emission = state.emission ?? currentDialogState?.emission;
 
     let translatedState = { ...state };
@@ -813,6 +838,13 @@ const MemoriWidget = ({
           emitter: state.emitter,
           media: state.media,
           fromUser: false,
+          questionAnswered: msg,
+          contextVars: state.contextVars,
+          date: state.currentDate,
+          placeName: state.currentPlaceName,
+          placeLatitude: state.currentLatitude,
+          placeLongitude: state.currentLongitude,
+          placeUncertaintyKm: state.currentUncertaintyKm,
         };
       }
     } else {
@@ -853,7 +885,14 @@ const MemoriWidget = ({
           emitter: state.emitter,
           media: state.media,
           fromUser: false,
+          questionAnswered: msg,
           generatedByAI: !!state.completion,
+          contextVars: state.contextVars,
+          date: state.currentDate,
+          placeName: state.currentPlaceName,
+          placeLatitude: state.currentLatitude,
+          placeLongitude: state.currentLongitude,
+          placeUncertaintyKm: state.currentUncertaintyKm,
         };
     }
 
@@ -1086,6 +1125,12 @@ const MemoriWidget = ({
                     media: currentState.media,
                     fromUser: false,
                     initial: true,
+                    contextVars: currentState.contextVars,
+                    date: currentState.currentDate,
+                    placeName: currentState.currentPlaceName,
+                    placeLatitude: currentState.currentLatitude,
+                    placeLongitude: currentState.currentLongitude,
+                    placeUncertaintyKm: currentState.currentUncertaintyKm,
                   },
                 ])
               : pushMessage({
@@ -1094,6 +1139,12 @@ const MemoriWidget = ({
                   media: currentState.media,
                   fromUser: false,
                   initial: true,
+                  contextVars: currentState.contextVars,
+                  date: currentState.currentDate,
+                  placeName: currentState.currentPlaceName,
+                  placeLatitude: currentState.currentLatitude,
+                  placeLongitude: currentState.currentLongitude,
+                  placeUncertaintyKm: currentState.currentUncertaintyKm,
                 });
           }
         }
@@ -1373,6 +1424,12 @@ const MemoriWidget = ({
             media: currentState.media,
             fromUser: false,
             generatedByAI: !!currentState.completion,
+            contextVars: currentState.contextVars,
+            date: currentState.currentDate,
+            placeName: currentState.currentPlaceName,
+            placeLatitude: currentState.currentLatitude,
+            placeLongitude: currentState.currentLongitude,
+            placeUncertaintyKm: currentState.currentUncertaintyKm,
           });
           speak(emission);
           setCurrentDialogState({
@@ -2263,6 +2320,12 @@ const MemoriWidget = ({
                 emitter: currentState.emitter,
                 media: currentState.media,
                 fromUser: false,
+                contextVars: currentState.contextVars,
+                date: currentState.currentDate,
+                placeName: currentState.currentPlaceName,
+                placeLatitude: currentState.currentLatitude,
+                placeLongitude: currentState.currentLongitude,
+                placeUncertaintyKm: currentState.currentUncertaintyKm,
               });
             }
           } else {
@@ -2277,6 +2340,12 @@ const MemoriWidget = ({
               emitter: currentState.emitter,
               media: currentState.media,
               fromUser: false,
+              contextVars: currentState.contextVars,
+              date: currentState.currentDate,
+              placeName: currentState.currentPlaceName,
+              placeLatitude: currentState.currentLatitude,
+              placeLongitude: currentState.currentLongitude,
+              placeUncertaintyKm: currentState.currentUncertaintyKm,
             });
           }
         }
