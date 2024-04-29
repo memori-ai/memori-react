@@ -20,6 +20,8 @@ export interface Props {
   medium: Medium;
   className?: string;
   preview?: boolean;
+  showLineNumbers?: boolean;
+  showCopyButton?: boolean;
 }
 
 // These have to match prismSyntaxLangs
@@ -33,7 +35,13 @@ SyntaxHighlighter.registerLanguage('php', php);
 SyntaxHighlighter.registerLanguage('ruby', ruby);
 SyntaxHighlighter.registerLanguage('sql', sql);
 
-const Snippet = ({ medium, className, preview = false }: Props) => {
+const Snippet = ({
+  medium,
+  className,
+  preview = false,
+  showLineNumbers = true,
+  showCopyButton = true,
+}: Props) => {
   const { t } = useTranslation();
 
   return (
@@ -43,7 +51,7 @@ const Snippet = ({ medium, className, preview = false }: Props) => {
           aria-labelledby={`#snippet-${medium.mediumID}`}
           className={className}
           style={atomDark}
-          showLineNumbers
+          showLineNumbers={showLineNumbers}
           language={
             prismSyntaxLangs.find(l => medium.mimeType === l.mimeType)?.lang ??
             'text'
@@ -53,14 +61,16 @@ const Snippet = ({ medium, className, preview = false }: Props) => {
             ? `${medium.content.slice(0, 200)}\n...`
             : `${medium.content}`}
         </SyntaxHighlighter>
-        <Button
-          padded={false}
-          ghost
-          className="memori-snippet--copy-button"
-          title={t('copy') || 'Copy'}
-          icon={<Copy />}
-          onClick={() => navigator.clipboard.writeText(medium.content ?? '')}
-        />
+        {showCopyButton && (
+          <Button
+            padded={false}
+            ghost
+            className="memori-snippet--copy-button"
+            title={t('copy') || 'Copy'}
+            icon={<Copy />}
+            onClick={() => navigator.clipboard.writeText(medium.content ?? '')}
+          />
+        )}
       </div>
       {!!medium.title?.length && (
         <p

@@ -61,6 +61,36 @@ it('renders SnippetUpload with js code', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders SnippetUpload with js code without line numbers', () => {
+  const { container } = render(
+    <Snippet
+      showLineNumbers={false}
+      medium={{
+        mediumID: '95226d7e-7bae-465e-8b80-995587bb5971',
+        mimeType: 'text/javascript',
+        title: 'Snippet',
+        content: 'console.log("Hello World!");',
+      }}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders SnippetUpload with js code without copy button', () => {
+  const { container } = render(
+    <Snippet
+      showCopyButton={false}
+      medium={{
+        mediumID: '95226d7e-7bae-465e-8b80-995587bb5971',
+        mimeType: 'text/javascript',
+        title: 'Snippet',
+        content: 'console.log("Hello World!");',
+      }}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
 it('renders SnippetUpload with react/tsx code', () => {
   const { container } = render(
     <Snippet
