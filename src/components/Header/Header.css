@@ -63,6 +63,12 @@
     white-space: nowrap;
 }
 
+@media (max-width: 768px) {
+    .memori-header--position .memori-header--position-placeName {
+        display: none;
+    }
+}
+
 .memori-header--position .memori-header--button {
     margin-right: 0.5rem;
     margin-left: 0.5rem;
