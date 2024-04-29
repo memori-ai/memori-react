@@ -1,6 +1,6 @@
 table.memori--table {
     --memori-table-spacing: 1rem;
-    --memori-table-border-color: hsl(205, 20%, 94%);
+    --memori-table-border-color: rgb(237, 240, 243);
     --memori-table-bg-color: rgb(246, 248, 249);
 
     margin: 1rem 0;
