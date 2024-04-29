@@ -10,8 +10,6 @@ import Expandable from '../ui/Expandable';
 import toast from 'react-hot-toast';
 import { getErrori18nKey } from '../../helpers/error';
 import { useTranslation } from 'react-i18next';
-import MediaItemWidget from '../MediaWidget/MediaItemWidget';
-import MediaWidget from '../MediaWidget/MediaWidget';
 import Snippet from '../Snippet/Snippet';
 
 export interface Props {
@@ -22,6 +20,9 @@ export interface Props {
   visible?: boolean;
   closeDrawer: () => void;
 }
+
+const addQuestionMark = (question: string) =>
+  question.endsWith('?') ? question : `${question}?`;
 
 const WhyThisAnswer = ({
   message,
@@ -109,9 +110,13 @@ const WhyThisAnswer = ({
                   </span>
                   <div className="memori--whythisanswer-title-text">
                     <p>
-                      <strong>{m.memory.title}</strong>
+                      <strong>{addQuestionMark(m.memory.title ?? '')}</strong>
                     </p>
-                    <p>{m.memory.titleVariants?.join(', ')}</p>
+                    <p>
+                      {m.memory.titleVariants
+                        ?.map(t => addQuestionMark(t))
+                        ?.join(' | ')}
+                    </p>
                   </div>
                 </div>
                 {m.memory.answers?.map((a, i) => (
