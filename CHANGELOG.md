@@ -1,5 +1,29 @@
 
 
+## [6.4.0](https://github.com/memori-ai/memori-react/compare/v6.3.1...v6.4.0) (2024-04-29)
+
+
+### Features
+
+* add expandable ([afaed3e](https://github.com/memori-ai/memori-react/commit/afaed3eb5d4fde7be413596dba0f65345333620e))
+* add new props to snippet ([b75e9df](https://github.com/memori-ai/memori-react/commit/b75e9df7b1f0c33b0d879a92e34ae30adb692780))
+* add why this answer panel ([d525f17](https://github.com/memori-ai/memori-react/commit/d525f176d4cee1ed5aaecfd2994ed35704415f1e))
+
+
+### Bug Fixes
+
+* header position place name mobile ([69fe42f](https://github.com/memori-ai/memori-react/commit/69fe42f9d912748b95e1227c6ecf0c97ef67d192))
+
+
+### Maintenance
+
+* update api client ([b5020be](https://github.com/memori-ai/memori-react/commit/b5020be4633e7dc33eded5877315f3aa3d8aecb7))
+
+
+### Changes
+
+* parse questions in why this answers ([98eda36](https://github.com/memori-ai/memori-react/commit/98eda365c7c342ad5b3a7d570e43dde97c7d99d9))
+
 ## [6.3.1](https://github.com/memori-ai/memori-react/compare/v6.3.0...v6.3.1) (2024-04-22)
 
 
