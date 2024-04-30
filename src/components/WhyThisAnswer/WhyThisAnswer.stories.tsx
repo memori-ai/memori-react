@@ -54,6 +54,12 @@ Default.args = {
   visible: true,
 };
 
+export const Loading = Template.bind({});
+Loading.args = {
+  visible: true,
+  _TEST_loading: true,
+};
+
 export const WithData = Template.bind({});
 WithData.args = {
   visible: true,

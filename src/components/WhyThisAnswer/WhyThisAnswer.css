@@ -71,3 +71,40 @@ ul.memori--whythisanswer-list li:last-child {
 .memori-whythisanswer-drawer .memori-snippet--content {
     font-size: 0.75rem;
 }
+
+.memori--whythisanswer-skeleton {
+    min-height: 12rem;
+}
+
+.memori--whythisanswer-skeleton-text {
+    padding: 0.5rem;
+    border-radius: var(--memori-border-radius);
+    margin-bottom: 0.5rem;
+    background: #ccc;
+}
+
+span.memori--whythisanswer-skeleton-text {
+    display: inline;
+    width: 3rem;
+    padding: 0 1rem;
+}
+
+p.memori--whythisanswer-skeleton-text {
+    display: block;
+    width: 100%;
+    min-width: 6rem;
+    margin-bottom: 0.5rem;
+}
+
+div.memori--whythisanswer-skeleton-text {
+    display: block;
+    width: 75%;
+}
+
+.memori--whythisanswer-skeleton-block {
+    height: 3rem;
+    padding: 0.5rem;
+    border-radius: var(--memori-border-radius);
+    margin-bottom: 0.5rem;
+    background: #ccc;
+}

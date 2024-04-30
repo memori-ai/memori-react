@@ -19,6 +19,7 @@ export interface Props {
   initialMatches?: SearchMatches[];
   visible?: boolean;
   closeDrawer: () => void;
+  _TEST_loading?: boolean;
 }
 
 const addQuestionMark = (question: string) =>
@@ -31,6 +32,7 @@ const WhyThisAnswer = ({
   visible = true,
   initialMatches = [],
   closeDrawer,
+  _TEST_loading = false,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -38,13 +40,15 @@ const WhyThisAnswer = ({
   const searchMemory = client.search.searchMemory;
 
   const [matches, setMatches] = useState<SearchMatches[]>(initialMatches);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(_TEST_loading);
 
   /**
    * Fetch matching memories
    */
   const fetchMemories = useCallback(async () => {
     setLoading(true);
+
+    if (_TEST_loading) return;
 
     try {
       const { matches, ...response } = await searchMemory(sessionID, {
@@ -94,11 +98,47 @@ const WhyThisAnswer = ({
         </p>
       )}
 
-      <Spin spinning={loading}>
+      <Spin primary spinning={loading}>
         {!loading && matches.length === 0 && (
           <p role="info" className="memori--whythisanswer-no-results">
             {t('nothingFound')}
           </p>
+        )}
+        {loading && matches.length === 0 && (
+          <ul className="memori--whythisanswer-list memori--whythisanswer-skeleton">
+            <li>
+              <div className="memori--whythisanswer-title">
+                <span className="memori--whythisanswer-confidence">
+                  <span className="memori--whythisanswer-skeleton-text"></span>
+                </span>
+                <div className="memori--whythisanswer-title-text">
+                  <p className="memori--whythisanswer-skeleton-text"></p>
+                </div>
+              </div>
+              <p>
+                <div className="memori--whythisanswer-skeleton-text"></div>
+                <div className="memori--whythisanswer-skeleton-text"></div>
+                <div className="memori--whythisanswer-skeleton-text"></div>
+              </p>
+              <div className="memori--whythisanswer-skeleton-block"></div>
+            </li>
+            <li>
+              <div className="memori--whythisanswer-title">
+                <span className="memori--whythisanswer-confidence">
+                  <span className="memori--whythisanswer-skeleton-text"></span>
+                </span>
+                <div className="memori--whythisanswer-title-text">
+                  <p className="memori--whythisanswer-skeleton-text"></p>
+                  <p className="memori--whythisanswer-skeleton-text"></p>
+                </div>
+              </div>
+              <p>
+                <div className="memori--whythisanswer-skeleton-text"></div>
+                <div className="memori--whythisanswer-skeleton-text"></div>
+              </p>
+              <div className="memori--whythisanswer-skeleton-block"></div>
+            </li>
+          </ul>
         )}
         {matches.length > 0 && (
           <ul className="memori--whythisanswer-list">
