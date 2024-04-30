@@ -64,12 +64,30 @@ ul.memori--whythisanswer-list li:last-child {
     margin: 0;
 }
 
-.memori-whythisanswer-drawer .memori-media-items--grid {
+.memori-whythisanswer-drawer .memori-snippet--content {
+    font-size: 0.75rem;
+}
+
+.memori-whythisanswer-drawer .memori-card--content {
+    padding: 1rem;
+}
+
+.memori-whythisanswer-drawer .memori-card--cover {
     display: none;
 }
 
-.memori-whythisanswer-drawer .memori-snippet--content {
-    font-size: 0.75rem;
+.memori-whythisanswer-drawer .memori-card--title {
+    margin-bottom: 0;
+    font-size: 1rem;
+}
+
+.memori--whythisanswer-snippet-expandable {
+    min-height: 54px;
+    line-height: 40px;
+}
+
+.memori-whythisanswer-drawer .memori-card--description {
+    display: none;
 }
 
 .memori--whythisanswer-skeleton {

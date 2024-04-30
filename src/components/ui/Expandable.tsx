@@ -8,6 +8,7 @@ export interface Props {
   className?: string;
   innerClassName?: string;
   btnClassName?: string;
+  lineHeightMultiplier?: number;
   defaultExpanded?: boolean;
   expandSymbol?: (lang: string) => React.ReactNode;
   collapseSymbol?: (lang: string) => React.ReactNode;
@@ -19,6 +20,7 @@ const Expandable = ({
   className,
   innerClassName,
   btnClassName,
+  lineHeightMultiplier = 1.2,
   defaultExpanded = false,
   expandSymbol = () => '...',
   collapseSymbol = (lang: string) =>
@@ -41,7 +43,7 @@ const Expandable = ({
       let elLineHeight = computedStyle.lineHeight;
       let lineHeight =
         elLineHeight === 'normal' || !elLineHeight?.length
-          ? 1.2 * parseInt(computedStyle.fontSize, 10)
+          ? lineHeightMultiplier * parseInt(computedStyle.fontSize, 10)
           : parseInt(elLineHeight, 10);
 
       console.table({

@@ -11,6 +11,7 @@ import toast from 'react-hot-toast';
 import { getErrori18nKey } from '../../helpers/error';
 import { useTranslation } from 'react-i18next';
 import Snippet from '../Snippet/Snippet';
+import MediaWidget from '../MediaWidget/MediaWidget';
 
 export interface Props {
   apiURL: string;
@@ -165,20 +166,29 @@ const WhyThisAnswer = ({
                   </p>
                 ))}
 
-                {!!m.memory.media?.filter(m => m.mimeType === 'text/plain')
-                  ?.length && (
-                  <Snippet
-                    medium={{
-                      mediumID: m.memory.memoryID,
-                      mimeType: 'text/plain',
-                      content: m.memory.media.filter(
-                        m => m.mimeType === 'text/plain'
-                      )[0].content,
-                    }}
-                    showCopyButton={false}
-                    showLineNumbers={false}
-                  />
-                )}
+                <MediaWidget
+                  links={m.memory.media?.filter(
+                    m => m.mimeType === 'text/html'
+                  )}
+                />
+
+                {m.memory.media
+                  ?.filter(m => m.mimeType === 'text/plain')
+                  ?.map(m => (
+                    <Expandable
+                      rows={2}
+                      key={m.mediumID}
+                      lineHeightMultiplier={2}
+                      innerClassName="memori--whythisanswer-snippet-expandable"
+                    >
+                      <Snippet
+                        key={m.mediumID}
+                        medium={m}
+                        showCopyButton={false}
+                        showLineNumbers={false}
+                      />
+                    </Expandable>
+                  ))}
               </li>
             ))}
           </ul>

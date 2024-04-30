@@ -68,7 +68,7 @@ WithData.args = {
       confidence: 0.8,
       confidenceLevel: 'HIGH',
       memory: {
-        ...memoryQuestion,
+        memoryID: '1',
         title: 'This is the title of the content',
         titleVariants: [
           "This is a variant of the content's title",
@@ -77,22 +77,6 @@ WithData.args = {
         answers: [
           {
             text: 'This is a test answer',
-          },
-        ],
-        memoryID: '1',
-      },
-    } as SearchMatches,
-    {
-      confidence: 0.7,
-      confidenceLevel: 'MEDIUM',
-      memory: {
-        ...memoryQuestion,
-        memoryID: '2',
-        title: 'This is a test title',
-        titleVariants: undefined,
-        answers: [
-          {
-            text: 'This is a an answer',
           },
           {
             text: 'This is another answer',
@@ -104,8 +88,7 @@ WithData.args = {
       confidence: 0.5,
       confidenceLevel: 'LOW',
       memory: {
-        ...memoryQuestion,
-        memoryID: '3',
+        memoryID: '2',
         title: 'Content with a long answer',
         titleVariants: undefined,
         answers: [
@@ -119,9 +102,8 @@ WithData.args = {
       confidence: 0.5,
       confidenceLevel: 'LOW',
       memory: {
-        ...memoryQuestion,
-        memoryID: '4',
-        title: 'Content with a source',
+        memoryID: '3',
+        title: 'Content with sources',
         titleVariants: undefined,
         answers: [
           {
@@ -133,7 +115,42 @@ WithData.args = {
             mediumID: '1',
             mimeType: 'text/plain',
             content:
-              'This is a source. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+              'This is a source. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse a sodales nulla, sed semper nisi. Suspendisse a sodales nulla, sed semper nisi.',
+          },
+          {
+            mediumID: '2',
+            mimeType: 'text/plain',
+            content:
+              'This is a source.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit.\nCras lobortis volutpat nunc.\nProin tincidunt enim in felis aliquet, a ultricies purus bibendum.\n\nQuisque in ultrices lectus.\nNulla at urna diam.\n\nProin sodales lobortis libero eu facilisis.',
+          },
+        ],
+      },
+    } as SearchMatches,
+    {
+      confidence: 0.7,
+      confidenceLevel: 'MEDIUM',
+      memory: {
+        ...memoryQuestion,
+        memoryID: '4',
+        title: 'Content with links',
+        titleVariants: undefined,
+        answers: [
+          {
+            text: 'This is a an answer',
+          },
+        ],
+        media: [
+          {
+            mediumID: '1',
+            mimeType: 'text/html',
+            url: 'https://memori.ai',
+            title: 'Memori.AI',
+          },
+          {
+            mediumID: '2',
+            mimeType: 'text/html',
+            url: 'https://nzambello.dev',
+            title: 'Nicola Zambello',
           },
         ],
       },
