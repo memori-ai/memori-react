@@ -1,5 +1,22 @@
 
 
+## [6.4.1](https://github.com/memori-ai/memori-react/compare/v6.4.0...v6.4.1) (2024-04-30)
+
+
+### Bug Fixes
+
+* why this answer loading spin with skeleton ([45ecf68](https://github.com/memori-ai/memori-react/commit/45ecf68463cab21e775bebd42733333936f8b60c))
+
+
+### Maintenance
+
+* show max 3 contents in why this answer ([29c9114](https://github.com/memori-ai/memori-react/commit/29c91148eba5f14b5a51cc00b22ec6b7f1cc0464))
+
+
+### Changes
+
+* why this answer links + multiline source with expand ([10ff06d](https://github.com/memori-ai/memori-react/commit/10ff06de610aafec725965106902133cae0e45f2))
+
 ## [6.4.0](https://github.com/memori-ai/memori-react/compare/v6.3.1...v6.4.0) (2024-04-29)
 
 
