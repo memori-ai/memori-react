@@ -62,6 +62,8 @@ const WhyThisAnswer = ({
         placeLongitude: message.placeLongitude,
         placeUncertaintyKm: message.placeUncertaintyKm,
         contextVars: message.contextVars,
+        tag: message.tag,
+        // memoryTags: message.memoryTags,
       });
 
       if (response.resultCode !== 0) {

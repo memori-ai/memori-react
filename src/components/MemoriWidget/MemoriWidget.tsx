@@ -695,6 +695,8 @@ const MemoriWidget = ({
               placeLatitude: currentState.currentLatitude,
               placeLongitude: currentState.currentLongitude,
               placeUncertaintyKm: currentState.currentUncertaintyKm,
+              tag: currentState.currentTag,
+              // memoryTags: currentState.memoryTags,
             });
             speak(emission);
           }
@@ -731,6 +733,8 @@ const MemoriWidget = ({
                 placeLatitude: currentState.currentLatitude,
                 placeLongitude: currentState.currentLongitude,
                 placeUncertaintyKm: currentState.currentUncertaintyKm,
+                tag: currentState.currentTag,
+                // memoryTags: currentState.memoryTags,
               });
               speak(emission);
             }
@@ -775,6 +779,8 @@ const MemoriWidget = ({
             placeLatitude: currentState.currentLatitude,
             placeLongitude: currentState.currentLongitude,
             placeUncertaintyKm: currentState.currentUncertaintyKm,
+            tag: currentState.currentTag,
+            // memoryTags: currentState.memoryTags,
           });
           speak(emission);
         }
@@ -845,6 +851,8 @@ const MemoriWidget = ({
           placeLatitude: state.currentLatitude,
           placeLongitude: state.currentLongitude,
           placeUncertaintyKm: state.currentUncertaintyKm,
+          tag: state.currentTag,
+          // memoryTags: currentState.memoryTags,
         };
       }
     } else {
@@ -893,6 +901,8 @@ const MemoriWidget = ({
           placeLatitude: state.currentLatitude,
           placeLongitude: state.currentLongitude,
           placeUncertaintyKm: state.currentUncertaintyKm,
+          tag: state.currentTag,
+          // memoryTags: currentState.memoryTags,
         };
     }
 
@@ -1131,6 +1141,8 @@ const MemoriWidget = ({
                     placeLatitude: currentState.currentLatitude,
                     placeLongitude: currentState.currentLongitude,
                     placeUncertaintyKm: currentState.currentUncertaintyKm,
+                    tag: currentState.currentTag,
+                    // memoryTags: currentState.memoryTags,
                   },
                 ])
               : pushMessage({
@@ -1145,6 +1157,8 @@ const MemoriWidget = ({
                   placeLatitude: currentState.currentLatitude,
                   placeLongitude: currentState.currentLongitude,
                   placeUncertaintyKm: currentState.currentUncertaintyKm,
+                  tag: currentState.currentTag,
+                  // memoryTags: currentState.memoryTags,
                 });
           }
         }
@@ -1430,6 +1444,8 @@ const MemoriWidget = ({
             placeLatitude: currentState.currentLatitude,
             placeLongitude: currentState.currentLongitude,
             placeUncertaintyKm: currentState.currentUncertaintyKm,
+            tag: currentState.currentTag,
+            // memoryTags: currentState.memoryTags,
           });
           speak(emission);
           setCurrentDialogState({
@@ -2326,6 +2342,8 @@ const MemoriWidget = ({
                 placeLatitude: currentState.currentLatitude,
                 placeLongitude: currentState.currentLongitude,
                 placeUncertaintyKm: currentState.currentUncertaintyKm,
+                tag: currentState.currentTag,
+                // memoryTags: currentState.memoryTags,
               });
             }
           } else {
@@ -2346,6 +2364,8 @@ const MemoriWidget = ({
               placeLatitude: currentState.currentLatitude,
               placeLongitude: currentState.currentLongitude,
               placeUncertaintyKm: currentState.currentUncertaintyKm,
+              tag: currentState.currentTag,
+              // memoryTags: currentState.memoryTags,
             });
           }
         }
