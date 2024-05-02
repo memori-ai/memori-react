@@ -461,6 +461,7 @@ const MemoriWidget = ({
     multilingual !== undefined
       ? multilingual
       : !!integrationConfig?.multilanguage;
+  const forcedTimeout = integrationConfig?.forcedTimeout as number | undefined;
   const [userLang, setUserLang] = useState(
     memoriLang ??
       integrationConfig?.lang ??
@@ -1472,6 +1473,7 @@ const MemoriWidget = ({
         timeout = timeout + readTime;
       }
     }
+    if (forcedTimeout) timeout = forcedTimeout;
 
     let uiTimeout = setTimeout(handleTimeout, timeout * 1000);
     setUserInteractionTimeout(uiTimeout);
