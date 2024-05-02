@@ -52,12 +52,29 @@
     width: auto;
     height: auto;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
+.memori-totem-layout .memori-header .memori-header--button,
+.memori-totem-layout .memori-header .memori-header--button button {
+    width: 38px;
+    height: 38px;
+    aspect-ratio: 1;
+}
+
+.memori-totem-layout .memori-header .memori-header--button--position,
+.memori-totem-layout .memori-header .memori-header--button-login,
 .memori-totem-layout .memori-header .memori-share-button,
 .memori-totem-layout .memori-header .memori-header--button+.memori-header--button {
     margin-top: 0.25rem;
+    margin-right: 0;
     margin-left: 0;
+}
+
+.memori-totem-layout .memori-header .memori-header--button--position {
+    margin-bottom: 0.25rem;
 }
 
 .memori-totem-layout .memori-chat--cover {
