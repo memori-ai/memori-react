@@ -1,5 +1,17 @@
 
 
+## [6.4.3](https://github.com/memori-ai/memori-react/compare/v6.4.2...v6.4.3) (2024-05-02)
+
+
+### Bug Fixes
+
+* totem layout header button size and spacings ([f79ed7d](https://github.com/memori-ai/memori-react/commit/f79ed7d5328f548b4638654d68a8804e6691d988))
+
+
+### Changes
+
+* add forced timeout from integration config ([8fdf5c1](https://github.com/memori-ai/memori-react/commit/8fdf5c1816e689754d5f3bb0e925a0f167393bdd))
+
 ## [6.4.2](https://github.com/memori-ai/memori-react/compare/v6.4.1...v6.4.2) (2024-04-30)
 
 
