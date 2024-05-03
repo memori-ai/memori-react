@@ -462,6 +462,7 @@ const MemoriWidget = ({
       ? multilingual
       : !!integrationConfig?.multilanguage;
   const forcedTimeout = integrationConfig?.forcedTimeout as number | undefined;
+  console.log('forcedTimeout', forcedTimeout);
   const [userLang, setUserLang] = useState(
     memoriLang ??
       integrationConfig?.lang ??
@@ -1389,19 +1390,12 @@ const MemoriWidget = ({
   };
   const resetInteractionTimeout = () => {
     clearInteractionTimeout();
-    if (
-      currentDialogState?.acceptsTimeout &&
-      !speechSynthesizer &&
-      !isPlayingAudio &&
-      !userMessage.length &&
-      !memoriTyping &&
-      !listening
-    )
+    if (!isPlayingAudio && !userMessage.length && !memoriTyping && !listening)
       setInteractionTimeout();
   };
   const handleTimeout = async () => {
     if (
-      !!speechSynthesizer ||
+      !hasUserActivatedSpeak ||
       isPlayingAudio ||
       !!userMessage.length ||
       !!memoriTyping ||
@@ -1473,7 +1467,15 @@ const MemoriWidget = ({
         timeout = timeout + readTime;
       }
     }
-    if (forcedTimeout) timeout = forcedTimeout;
+    if (forcedTimeout) {
+      timeout = forcedTimeout;
+
+      if (currentDialogState?.emission) {
+        let readTime = currentDialogState.emission.length / 26.5;
+        timeout = timeout + readTime;
+      }
+    }
+    console.log('set timeout', timeout, forcedTimeout);
 
     let uiTimeout = setTimeout(handleTimeout, timeout * 1000);
     setUserInteractionTimeout(uiTimeout);
@@ -1493,6 +1495,7 @@ const MemoriWidget = ({
     history,
     userMessage,
     memoriTyping,
+    hasUserActivatedSpeak,
   ]);
   useEffect(() => {
     return () => {
