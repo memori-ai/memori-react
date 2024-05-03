@@ -1,5 +1,19 @@
 
 
+## [6.4.4](https://github.com/memori-ai/memori-react/compare/v6.4.3...v6.4.4) (2024-05-03)
+
+
+### Bug Fixes
+
+* first emission timeout triggering ([fecc207](https://github.com/memori-ai/memori-react/commit/fecc207237b05ed5649d4fc637f6ec7339c4bc55))
+* force https for extracted images in links ([2c7f408](https://github.com/memori-ai/memori-react/commit/2c7f4089bb96a358207c76c58b935ac3d307462f))
+* timeout events triggering ([a001e27](https://github.com/memori-ai/memori-react/commit/a001e27f856a3ab504db01d9173e25cd7d2ff37e))
+
+
+### Maintenance
+
+* cleanup logs ([2f5ce87](https://github.com/memori-ai/memori-react/commit/2f5ce875eb2e553eab121be60e21bfedec479092))
+
 ## [6.4.3](https://github.com/memori-ai/memori-react/compare/v6.4.2...v6.4.3) (2024-05-02)
 
 
