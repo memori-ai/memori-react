@@ -1475,7 +1475,6 @@ const MemoriWidget = ({
         timeout = timeout + readTime;
       }
     }
-    console.log('set timeout', timeout, forcedTimeout);
 
     let uiTimeout = setTimeout(handleTimeout, timeout * 1000);
     setUserInteractionTimeout(uiTimeout);
