@@ -462,7 +462,6 @@ const MemoriWidget = ({
       ? multilingual
       : !!integrationConfig?.multilanguage;
   const forcedTimeout = integrationConfig?.forcedTimeout as number | undefined;
-  console.log('forcedTimeout', forcedTimeout);
   const [userLang, setUserLang] = useState(
     memoriLang ??
       integrationConfig?.lang ??
@@ -1449,6 +1448,9 @@ const MemoriWidget = ({
               currentState.hints ??
               (currentState.state === 'G1' ? currentDialogState?.hints : []),
           });
+        } else {
+          resetInteractionTimeout();
+          return;
         }
       }
     }
