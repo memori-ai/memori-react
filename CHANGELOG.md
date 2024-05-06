@@ -1,5 +1,17 @@
 
 
+## [6.4.5](https://github.com/memori-ai/memori-react/compare/v6.4.4...v6.4.5) (2024-05-06)
+
+
+### Maintenance
+
+* update api client ([501eb90](https://github.com/memori-ai/memori-react/commit/501eb90f43ef85290e7eb6f1fbb959de97d76859))
+
+
+### Changes
+
+* add memorytags in message history + why this answer ([1f7e074](https://github.com/memori-ai/memori-react/commit/1f7e07428a3b436f8ef6f4da7f464be072aaa5ec))
+
 ## [6.4.4](https://github.com/memori-ai/memori-react/compare/v6.4.3...v6.4.4) (2024-05-03)
 
 
