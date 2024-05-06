@@ -63,7 +63,7 @@ const WhyThisAnswer = ({
         placeUncertaintyKm: message.placeUncertaintyKm,
         contextVars: message.contextVars,
         tag: message.tag,
-        // memoryTags: message.memoryTags,
+        memoryTags: message.memoryTags,
       });
 
       if (response.resultCode !== 0) {

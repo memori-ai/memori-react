@@ -697,7 +697,7 @@ const MemoriWidget = ({
               placeLongitude: currentState.currentLongitude,
               placeUncertaintyKm: currentState.currentUncertaintyKm,
               tag: currentState.currentTag,
-              // memoryTags: currentState.memoryTags,
+              memoryTags: currentState.memoryTags,
             });
             speak(emission);
           }
@@ -735,7 +735,7 @@ const MemoriWidget = ({
                 placeLongitude: currentState.currentLongitude,
                 placeUncertaintyKm: currentState.currentUncertaintyKm,
                 tag: currentState.currentTag,
-                // memoryTags: currentState.memoryTags,
+                memoryTags: currentState.memoryTags,
               });
               speak(emission);
             }
@@ -781,7 +781,7 @@ const MemoriWidget = ({
             placeLongitude: currentState.currentLongitude,
             placeUncertaintyKm: currentState.currentUncertaintyKm,
             tag: currentState.currentTag,
-            // memoryTags: currentState.memoryTags,
+            memoryTags: currentState.memoryTags,
           });
           speak(emission);
         }
@@ -853,7 +853,7 @@ const MemoriWidget = ({
           placeLongitude: state.currentLongitude,
           placeUncertaintyKm: state.currentUncertaintyKm,
           tag: state.currentTag,
-          // memoryTags: currentState.memoryTags,
+          memoryTags: state.memoryTags,
         };
       }
     } else {
@@ -903,7 +903,7 @@ const MemoriWidget = ({
           placeLongitude: state.currentLongitude,
           placeUncertaintyKm: state.currentUncertaintyKm,
           tag: state.currentTag,
-          // memoryTags: currentState.memoryTags,
+          memoryTags: state.memoryTags,
         };
     }
 
@@ -1143,7 +1143,7 @@ const MemoriWidget = ({
                     placeLongitude: currentState.currentLongitude,
                     placeUncertaintyKm: currentState.currentUncertaintyKm,
                     tag: currentState.currentTag,
-                    // memoryTags: currentState.memoryTags,
+                    memoryTags: currentState.memoryTags,
                   },
                 ])
               : pushMessage({
@@ -1159,7 +1159,7 @@ const MemoriWidget = ({
                   placeLongitude: currentState.currentLongitude,
                   placeUncertaintyKm: currentState.currentUncertaintyKm,
                   tag: currentState.currentTag,
-                  // memoryTags: currentState.memoryTags,
+                  memoryTags: currentState.memoryTags,
                 });
           }
         }
@@ -1439,7 +1439,7 @@ const MemoriWidget = ({
             placeLongitude: currentState.currentLongitude,
             placeUncertaintyKm: currentState.currentUncertaintyKm,
             tag: currentState.currentTag,
-            // memoryTags: currentState.memoryTags,
+            memoryTags: currentState.memoryTags,
           });
           speak(emission);
           setCurrentDialogState({
@@ -2349,7 +2349,7 @@ const MemoriWidget = ({
                 placeLongitude: currentState.currentLongitude,
                 placeUncertaintyKm: currentState.currentUncertaintyKm,
                 tag: currentState.currentTag,
-                // memoryTags: currentState.memoryTags,
+                memoryTags: currentState.memoryTags,
               });
             }
           } else {
@@ -2371,7 +2371,7 @@ const MemoriWidget = ({
               placeLongitude: currentState.currentLongitude,
               placeUncertaintyKm: currentState.currentUncertaintyKm,
               tag: currentState.currentTag,
-              // memoryTags: currentState.memoryTags,
+              memoryTags: currentState.memoryTags,
             });
           }
         }
