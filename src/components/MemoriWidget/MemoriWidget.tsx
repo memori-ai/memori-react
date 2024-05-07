@@ -2238,6 +2238,11 @@ const MemoriWidget = ({
       ? true
       : integrationConfig?.showAIicon;
 
+  const showWhyThisAnswer =
+    integrationConfig?.showWhyThisAnswer === undefined
+      ? true
+      : integrationConfig?.showWhyThisAnswer;
+
   // eslint-disable-next-line
   const [avatar3dVisible, setAvatar3dVisible] = useState(false);
   useEffect(() => {
@@ -2933,6 +2938,7 @@ const MemoriWidget = ({
     showDates,
     showContextPerLine,
     showAIicon,
+    showWhyThisAnswer,
     client,
     selectReceiverTag,
     preview,
