@@ -1558,6 +1558,7 @@ const MemoriWidget = ({
         // }
       }
 
+      // https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support?tabs=tts
       switch (voiceLang) {
         case 'IT':
           voice = `${
@@ -1607,6 +1608,11 @@ const MemoriWidget = ({
         case 'FI':
           voice = `${
             voiceType === 'MALE' ? 'fi-FI-HarriNeural' : 'fi-FI-SelmaNeural'
+          }`;
+          break;
+        case 'EL':
+          voice = `${
+            voiceType === 'MALE' ? 'el-GR-NestorasNeural' : 'el-GR-AthinaNeural'
           }`;
           break;
         default:
@@ -1664,6 +1670,9 @@ const MemoriWidget = ({
         break;
       case 'FI':
         voice = 'fi-FI';
+        break;
+      case 'EL':
+        voice = 'el-GR';
         break;
       default:
         voice = 'it-IT';

@@ -9,6 +9,7 @@ export const chatLanguages = [
   { value: 'RU', label: 'Русский' },
   { value: 'PL', label: 'Polski' },
   { value: 'FI', label: 'Suomi' },
+  { value: 'EL', label: 'Ελληνικά' },
 ];
 
 export const allowedMediaTypes = [
