@@ -1,5 +1,17 @@
 
 
+## [6.4.6](https://github.com/memori-ai/memori-react/compare/v6.4.5...v6.4.6) (2024-05-07)
+
+
+### Maintenance
+
+* add greek lang ([d3767e2](https://github.com/memori-ai/memori-react/commit/d3767e2397101daca1f91f2469a2c365905dd784))
+
+
+### Changes
+
+* show why this answer from integration config, defaults to true ([41e7369](https://github.com/memori-ai/memori-react/commit/41e7369eab695ea110860c9d72472af30a16b665))
+
 ## [6.4.5](https://github.com/memori-ai/memori-react/compare/v6.4.4...v6.4.5) (2024-05-06)
 
 
