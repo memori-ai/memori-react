@@ -1,7 +1,7 @@
+import React from 'react';
 import { render } from '@testing-library/react';
 import LoginDrawer from './LoginDrawer';
-import React from 'react';
-import { tenant, expertReference, user } from '../../mocks/data';
+import { tenant, user } from '../../mocks/data';
 
 beforeEach(() => {
   // @ts-ignore
@@ -80,6 +80,37 @@ it('renders LoginDrawer logged in unchanged', () => {
       open
       user={user}
       loginToken="token"
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders LoginDrawer on signup unchanged', () => {
+  const { container } = render(
+    <LoginDrawer
+      onClose={jest.fn()}
+      apiUrl="https://backend.memori.ai"
+      tenant={tenant}
+      onLogin={jest.fn()}
+      onLogout={jest.fn()}
+      __TEST__signup
+      open
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders LoginDrawer on signup waiting for otp unchanged', () => {
+  const { container } = render(
+    <LoginDrawer
+      onClose={jest.fn()}
+      apiUrl="https://backend.memori.ai"
+      tenant={tenant}
+      onLogin={jest.fn()}
+      onLogout={jest.fn()}
+      __TEST__signup
+      __TEST__waitingForOtp
+      open
     />
   );
   expect(container).toMatchSnapshot();

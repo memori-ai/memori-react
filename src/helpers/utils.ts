@@ -62,9 +62,10 @@ export const isAndroid = (): boolean => {
 };
 
 export const pwdRegEx =
-  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$_:;|,~+={}[]%^&*-]).{8,}$/;
-export const mailRegEx = /^\w+([.-]?[+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,4})+$/;
-export const usernameRegEx = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.+-]{3,32}$/;
+  // eslint-disable-next-line no-useless-escape
+  /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$_:;|,~+=\{\}\[\]%^&*-]).{8,}$/;
+export const mailRegEx = /^\w+([.-]?[+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
+export const usernameRegEx = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.+-]{2,32}$/;
 export const validURLRegEx = /^(ftp|http|https):\/\/[^ "]+$/;
 
 export const isValidUrl = (url: string) => {

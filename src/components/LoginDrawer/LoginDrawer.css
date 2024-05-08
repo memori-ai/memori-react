@@ -14,7 +14,7 @@
     --memori-drawer--width--lg: 30%;
 }
 
-h2.memori--login-drawer--title {
+.memori--login-drawer--title {
     margin: 0;
     font-size: inherit;
     font-weight: 400;
@@ -30,6 +30,13 @@ form.memori--login-drawer--form {
 p.memori--login-drawer--error {
     margin: 0.5rem 0;
     color: var(--memori-error-color);
+    text-align: center;
+}
+
+p.memori--login-drawer--inline-error {
+    margin: 0 0 0.5rem;
+    color: var(--memori-error-color);
+    font-size: 0.875rem;
     text-align: center;
 }
 
@@ -63,6 +70,10 @@ p.memori--login-drawer--error {
     outline: none;
 }
 
+.memori--login-drawer--form input[aria-invalid="true"] {
+    border-color: var(--memori-error-color);
+}
+
 .memori--login-drawer--form a {
     color: var(--memori-primary);
     text-decoration: underline;
@@ -79,10 +90,29 @@ p.memori--login-drawer--error {
     margin-top: 1rem;
 }
 
-.memori--login-drawer--signup {
+.memori--login-drawer--form small {
+    color: #666;
+    font-size: 0.8rem;
+}
+
+p.memori--login-drawer--signup {
     margin-top: 1.5rem;
 }
 
 .memori--login-drawer--signup p:not(:last-of-type) {
     margin-bottom: 0.5rem;
+}
+
+.memori--login-drawer--password-meter {
+    margin: 0;
+    text-align: center;
+}
+
+meter.memori--login-drawer--password-meter {
+    width: 100%;
+}
+
+meter.memori--login-drawer--password-meter+small {
+    display: inline-block;
+    text-align: center;
 }

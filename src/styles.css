@@ -79,12 +79,13 @@ body.sb-show-main #root,
     --memori-chat-user-bubble-bg: var(--memori-primary);
     --memori-text-color: #000;
     --memori-border-radius: 5px;
+    --memori-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
     --memori-button-bg: #fff;
     --memori-button-text: #000;
     --memori-button-padding: 0.5rem 1.5rem;
     --memori-button-border-color: #d9d9d9;
     --memori-button-radius: var(--memori-border-radius);
-    --memori-button-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
+    --memori-button-box-shadow: var(--memori-box-shadow);
     --memori-blur-background: 0px;
     --memori-drawer--width: 80%;
     --memori-drawer--width--md: 80%;

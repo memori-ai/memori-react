@@ -7,8 +7,8 @@ import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { getErrori18nKey } from '../../helpers/error';
-
-export const mailRegEx = /^\w+([.-]?[+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,})+$/;
+import { mailRegEx } from '../../helpers/utils';
+import SignupForm from '../SignupForm/SignupForm';
 
 export interface Props {
   open?: boolean;
@@ -19,7 +19,9 @@ export interface Props {
   onLogout: () => void;
   tenant: Tenant;
   apiUrl: string;
+  __TEST__signup?: boolean;
   __TEST__needMissingData?: boolean;
+  __TEST__waitingForOtp?: boolean;
 }
 
 const LoginDrawer = ({
@@ -31,13 +33,17 @@ const LoginDrawer = ({
   loginToken,
   tenant,
   apiUrl,
+  __TEST__signup = false,
   __TEST__needMissingData = false,
+  __TEST__waitingForOtp = false,
 }: Props) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === 'it' ? 'it' : 'en';
 
   const client = memoriApiClient(apiUrl);
   const { userLogin, updateUser } = client.backend;
+
+  const [showSignup, setShowSignup] = useState(__TEST__signup);
 
   const [loading, setLoading] = useState(false);
   const [needsMissingData, setNeedsMissingData] = useState<{
@@ -54,11 +60,6 @@ const LoginDrawer = ({
       : ({} as any)
   );
   const [error, setError] = useState<string | null>(null);
-
-  const [redirectTo, setRedirectTo] = useState<string | null>(null);
-  useEffect(() => {
-    setRedirectTo(window.location.href);
-  }, []);
 
   const isUserLoggedIn = user?.userID && loginToken;
 
@@ -163,13 +164,16 @@ const LoginDrawer = ({
       onClose={onClose}
       className={cx('memori--login-drawer', {
         'memori--login-drawer--logged': isUserLoggedIn,
+        'memori--login-drawer--signup': showSignup,
       })}
       title={
-        <h2 className="memori--login-drawer--title">
+        <span className="memori--login-drawer--title">
           {isUserLoggedIn
             ? t('login.loggedDrawerTitle', { name: user.userName })
+            : showSignup
+            ? t('login.signupDrawerTitle')
             : t('login.loginDrawerTitle')}
-        </h2>
+        </span>
       }
     >
       {isUserLoggedIn ? (
@@ -272,6 +276,14 @@ const LoginDrawer = ({
             </Button>
           </form>
         </>
+      ) : showSignup ? (
+        <SignupForm
+          tenant={tenant}
+          apiUrl={apiUrl}
+          onLogin={onLogin}
+          goToLogin={() => setShowSignup(false)}
+          __TEST__waitingForOtp={__TEST__waitingForOtp}
+        />
       ) : (
         <>
           <form className="memori--login-drawer--form" onSubmit={login}>
@@ -305,13 +317,9 @@ const LoginDrawer = ({
             {!tenant?.disableRegistration ? (
               <p className="memori--login-drawer--signup">
                 {t('login.newUserSignUp')}{' '}
-                <a
-                  href={`https://${
-                    tenant.name || 'www.aisuru.com'
-                  }/${lang}/auth?signup=1&redirectTo=${redirectTo}`}
-                >
+                <Button outlined onClick={() => setShowSignup(true)}>
                   {t('login.signUp')}
-                </a>
+                </Button>
               </p>
             ) : tenant.adminEmail ? (
               <div className="memori--login-drawer--signup">

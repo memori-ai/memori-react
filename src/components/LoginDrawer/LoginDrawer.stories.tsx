@@ -50,6 +50,19 @@ NeedsMissingData.args = {
   __TEST__needMissingData: true,
 };
 
+export const Signup = Template.bind({});
+Signup.args = {
+  open: true,
+  __TEST__signup: true,
+};
+
+export const SignupWaitingForOtp = Template.bind({});
+SignupWaitingForOtp.args = {
+  open: true,
+  __TEST__signup: true,
+  __TEST__waitingForOtp: true,
+};
+
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {
   open: true,
