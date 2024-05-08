@@ -295,12 +295,12 @@
     "MEMORI_CONFIGURATION_CANT_BE_CHANGED": "Memori: la configurazione non può essere modificata",
     "MEMORI_MISSING_NEW_PASSWORD": "Memori: nuova password mancante",
 
+    "MEMORI_SESSIONS_INVALID_DATE_FROM_FORMAT": "Formato non valido data a partire da",
+    "MEMORI_SESSIONS_INVALID_DATE_TO_FORMAT": "Formato non valido data fino a",
+
     "MEMORI_FEATURE_REQUIRES_SUBSCRIPTION": "Memori: funzionalità richiede un abbonamento",
 
     "INTEGRATION_NOT_FOUND": "Integrazione non trovata",
-
-    "MEMORI_SESSIONS_INVALID_DATE_FROM_FORMAT": "Formato non valido data a partire da",
-    "MEMORI_SESSIONS_INVALID_DATE_TO_FORMAT": "Formato non valido data fino a",
 
     "INTEGRATION_INVALID_TYPE": "Tipo integrazione non valido",
     "INTEGRATION_ALREADY_EXISTS": "Integrazione già esistente",
@@ -365,11 +365,15 @@
     "IMPORTCSV_INVALID_SEPARATOR": "Importazione CSV: separatore non valido",
     "IMPORTCSV_MISSING_HEADERS": "Importazione CSV: intestazioni mancanti",
     "IMPORTCSV_MISSING_TITLE_VARIANT_SEPARATOR": "Importazione CSV: separatore varianti titolo mancante",
+    "IMPORTCSV_INVALID_RECEIVER_ID": "Importazione CSV: ID receiver non valido",
+    "IMPORTCSV_INVALID_MEDIA_LINK": "Importazione CSV: link media non valido",
     "IMPORTCSV_UNDETECTABLE_CHAR_ENCODING": "Importazione CSV: encoding caratteri non rilevabile",
     "IMPORTCSV_CANT_IMPORT_TO_SECRET_MEMORI": "Importazione CSV: impossibile importare in Memori segreti",
 
     "IMPORTTXT_MISSING_ROWS": "Importazione TXT: righe mancanti",
     "IMPORTTXT_INVALID_GRANULARITY": "Importazione TXT: granularità non valida",
+    "IMPORTTXT_INVALID_RECEIVER_ID": "Importazione TXT: ID receiver non valido",
+    "IMPORTTXT_INVALID_MEDIA_LINK": "Importazione TXT: link media non valido",
     "IMPORTTXT_UNDETECTABLE_CHAR_ENCODING": "Importazione TXT: encoding caratteri non rilevabile",
     "IMPORTTXT_CANT_IMPORT_TO_SECRET_MEMORI": "Importazione TXT: impossibile importare in Memori segreti",
     "IMPORTTXT_IMPORT_LIMIT_EXCEEDED": "Importazione TXT: limite importazione superato",

@@ -130,7 +130,7 @@ const SignupForm = ({
       });
       if (resp.resultCode !== 0) {
         console.error(resp);
-        toast.error(t(getErrori18nKey(resp.resultCode), { ns: 'common' }));
+        toast.error(t(getErrori18nKey(resp.resultCode)));
       } else if (user) {
         toast.success(t('success'));
         setWaitingForOtp(true);
@@ -160,7 +160,7 @@ const SignupForm = ({
         toast.success(t('resentVerificationCode'));
       } else {
         console.error(resp);
-        toast.error(t(getErrori18nKey(resp.resultCode), { ns: 'common' }));
+        toast.error(t(getErrori18nKey(resp.resultCode)));
       }
     } catch (e) {
       let err = e as Error;
@@ -194,7 +194,7 @@ const SignupForm = ({
 
       if (resp.resultCode !== 0) {
         console.error(resp);
-        toast.error(t(getErrori18nKey(resp.resultCode), { ns: 'common' }));
+        toast.error(t(getErrori18nKey(resp.resultCode)));
       } else if (user && token) {
         toast.success(t('success'));
         onLogin(user, token);

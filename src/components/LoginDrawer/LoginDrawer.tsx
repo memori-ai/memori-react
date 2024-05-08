@@ -87,7 +87,7 @@ const LoginDrawer = ({
       .then(data => {
         if (data.resultCode !== 0) {
           console.error(data);
-          toast.error(t(getErrori18nKey(data.resultCode), { ns: 'common' }));
+          toast.error(t(getErrori18nKey(data.resultCode)));
           setError(data.resultMessage);
         } else if (data.user && data.token) {
           onLogin(data.user as User, data.token);
@@ -103,9 +103,11 @@ const LoginDrawer = ({
       })
       .catch(err => {
         console.error('[LOGIN]', err);
-        toast.error(err);
 
-        if (err.message) setError(err.message);
+        if (err.message) {
+          toast.error(err.message);
+          setError(err.message);
+        }
       })
       .finally(() => {
         setLoading(false);
@@ -150,7 +152,7 @@ const LoginDrawer = ({
     );
     if (resp.resultCode !== 0) {
       console.error(resp);
-      toast.error(t(getErrori18nKey(resp.resultCode), { ns: 'common' }));
+      toast.error(t(getErrori18nKey(resp.resultCode)));
       setError(resp.resultMessage);
     } else {
       toast.success(t('success'));
