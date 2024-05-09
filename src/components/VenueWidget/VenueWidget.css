@@ -29,6 +29,13 @@
     margin-bottom: 1rem;
 }
 
+@media (max-width: 640px) {
+    .memori--venue-widget__geosuggest {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
 .memori--venue-widget-search {
     z-index: 1001;
 }
@@ -139,4 +146,11 @@ li.memori--venue-widget-search--option--active {
 .memori--venue-widget__gps-button {
     padding: 0.5rem 1rem;
     margin-left: 1rem;
+}
+
+@media (max-width: 640px) {
+    .memori--venue-widget__gps-button {
+        margin-top: 0.5rem;
+        margin-left: 0;
+    }
 }
