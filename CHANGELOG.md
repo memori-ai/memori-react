@@ -1,5 +1,33 @@
 
 
+## [6.5.0](https://github.com/memori-ai/memori-react/compare/v6.4.6...v6.5.0) (2024-05-09)
+
+
+### ⚠ BREAKING CHANGES
+
+* use new aisuru color as default primary
+
+### Features
+
+* add account management in login drawer ([1d03455](https://github.com/memori-ai/memori-react/commit/1d0345543f9d7ffb7a5d93427d1952181f2559ca))
+* add change pwd to login ([cbe4ca5](https://github.com/memori-ai/memori-react/commit/cbe4ca5134bf58c4533b6247c253f53e04f73191))
+* add signup from login drawer ([95c3510](https://github.com/memori-ai/memori-react/commit/95c35103e559134cac1d5de411bc9962f6021e8b))
+
+
+### Bug Fixes
+
+* venue widget mobile buttons ([3f07570](https://github.com/memori-ai/memori-react/commit/3f07570fb2011d532f243419bda91b5827617a84))
+
+
+### Changes
+
+* use new aisuru color as default primary ([57066cf](https://github.com/memori-ai/memori-react/commit/57066cf4421e51270699b0fda30145d710c94dfe))
+
+
+### Maintenance
+
+* update error codes and translations, fix error translation ([bd8484d](https://github.com/memori-ai/memori-react/commit/bd8484d6125e2c20f87d33e9c6580dbafb5d28c7))
+
 ## [6.4.6](https://github.com/memori-ai/memori-react/compare/v6.4.5...v6.4.6) (2024-05-07)
 
 
