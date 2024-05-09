@@ -193,6 +193,7 @@
     "pwdWeak": "Weak",
     "pwdAcceptable": "Acceptable",
     "pwdStrong": "Strong",
+    "mustChangePassword": "You must change your password",
     "underage": "You must be at least {{age}} years old to sign up.",
     "optional": "Optional",
     "birthDate": "Birth date",

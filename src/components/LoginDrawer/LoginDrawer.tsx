@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { getErrori18nKey } from '../../helpers/error';
-import { mailRegEx } from '../../helpers/utils';
+import { mailRegEx, pwdRegEx } from '../../helpers/utils';
 import SignupForm from '../SignupForm/SignupForm';
 
 export interface Props {
@@ -22,6 +22,7 @@ export interface Props {
   __TEST__signup?: boolean;
   __TEST__needMissingData?: boolean;
   __TEST__waitingForOtp?: boolean;
+  __TEST__changePwd?: boolean;
 }
 
 const LoginDrawer = ({
@@ -36,6 +37,7 @@ const LoginDrawer = ({
   __TEST__signup = false,
   __TEST__needMissingData = false,
   __TEST__waitingForOtp = false,
+  __TEST__changePwd = false,
 }: Props) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === 'it' ? 'it' : 'en';
@@ -43,9 +45,23 @@ const LoginDrawer = ({
   const client = memoriApiClient(apiUrl);
   const { userLogin, updateUser } = client.backend;
 
-  const [showSignup, setShowSignup] = useState(__TEST__signup);
+  const isUserLoggedIn = user?.userID && loginToken;
 
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const [showSignup, setShowSignup] = useState(__TEST__signup);
+  const [userMustChangePwd, setUserMustChangePwd] = useState<User | undefined>(
+    __TEST__changePwd
+      ? {
+          flowID: 'flowID',
+          tenant: tenant.id,
+          eMail: 'email',
+          userName: 'username',
+          password: 'password',
+        }
+      : undefined
+  );
   const [needsMissingData, setNeedsMissingData] = useState<{
     token: string;
     birthDate?: boolean;
@@ -59,9 +75,6 @@ const LoginDrawer = ({
         }
       : ({} as any)
   );
-  const [error, setError] = useState<string | null>(null);
-
-  const isUserLoggedIn = user?.userID && loginToken;
 
   const login = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -85,19 +98,27 @@ const LoginDrawer = ({
     setError(null);
     userLogin(user)
       .then(data => {
-        if (data.resultCode !== 0) {
+        if (data.resultCode === -14) {
+          setUserMustChangePwd({
+            tenant: tenant.id,
+            eMail: isEmail ? userNameOrEmail : undefined,
+            userName: isEmail ? undefined : userNameOrEmail,
+            password: password,
+            flowID: (data.flowID || data.user?.flowID) as string,
+          });
+        } else if (data.resultCode !== 0) {
           console.error(data);
           toast.error(t(getErrori18nKey(data.resultCode)));
           setError(data.resultMessage);
         } else if (data.user && data.token) {
-          onLogin(data.user as User, data.token);
-
           if (!data.user?.tnCAndPPAccepted || !data.user?.birthDate) {
             setNeedsMissingData({
               token: data.token,
               birthDate: !data.user?.birthDate,
               tnCAndPPAccepted: !data.user?.tnCAndPPAccepted,
             });
+          } else {
+            onLogin(data.user as User, data.token);
           }
         }
       })
@@ -157,6 +178,72 @@ const LoginDrawer = ({
     } else {
       toast.success(t('success'));
       onLogin(patchedUser || newUser, needsMissingData.token);
+    }
+  };
+
+  const [password, setPassword] = useState<string>();
+  const [confirmPassword, setConfirmPassword] = useState<string>();
+  const pwdAcceptable = !password || (password && pwdRegEx.test(password));
+  const pwdGreen = pwdAcceptable && password && password.length >= 24;
+  const pwdEmpty = !password || password.length === 0;
+  const pwdMeterValue =
+    !pwdAcceptable || pwdEmpty
+      ? 0
+      : password.length < 8
+      ? 15
+      : password.length >= 32
+      ? 100
+      : (password.length - 8) * (50 / 24) + 50;
+
+  const changePassword = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const form = e.currentTarget as HTMLFormElement;
+
+    const tenantID = form.tenant.value ?? tenant.id;
+    const flowID = form.flowID.value ?? userMustChangePwd?.flowID;
+    const eMail = form.eMail.value ?? userMustChangePwd?.eMail;
+    const userName = form.userName.value ?? userMustChangePwd?.userName;
+    const password = form.password.value ?? userMustChangePwd?.password;
+    const newPassword = form.newPassword.value;
+
+    if (!newPassword?.length || !pwdAcceptable) {
+      setError(t('login.passwordFormatError'));
+      return;
+    }
+
+    setLoading(true);
+
+    const user: User = {
+      tenant: tenantID,
+      flowID,
+      eMail,
+      userName,
+      password,
+      newPassword,
+    };
+
+    try {
+      const { user: patchedUser, token, ...resp } = await userLogin(user);
+
+      if (resp.resultCode !== 0) {
+        console.error(resp);
+        toast.error(t(getErrori18nKey(resp.resultCode)));
+        setError(resp.resultMessage);
+      } else if (patchedUser && token) {
+        toast.success(t('success'));
+        onLogin(patchedUser || user, token);
+      }
+    } catch (e) {
+      let err = e as Error;
+      console.error('[LOGIN/CHANGE PWD]', err);
+
+      if (err.message) {
+        toast.error(err.message);
+        setError(err.message);
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -275,6 +362,103 @@ const LoginDrawer = ({
 
             <Button htmlType="submit" primary loading={loading}>
               {t('login.save')}
+            </Button>
+          </form>
+        </>
+      ) : userMustChangePwd?.flowID ? (
+        <>
+          <p>{t('login.mustChangePassword')}</p>
+
+          <form
+            className="memori--login-drawer--form"
+            onSubmit={changePassword}
+          >
+            <input
+              type="hidden"
+              name="tenant"
+              value={userMustChangePwd.tenant ?? tenant?.id}
+            />
+            <input
+              type="hidden"
+              name="flowID"
+              value={userMustChangePwd.flowID}
+            />
+            <input type="hidden" name="eMail" value={userMustChangePwd.eMail} />
+            <input
+              type="hidden"
+              name="userName"
+              value={userMustChangePwd.userName}
+            />
+            <input
+              type="hidden"
+              name="password"
+              value={userMustChangePwd.password}
+            />
+
+            <label htmlFor="#newPassword">
+              {t('login.password')}
+              <input
+                id="newPassword"
+                name="newPassword"
+                type="password"
+                required
+                autoComplete="new-password"
+                placeholder={t('login.password') || 'Password'}
+                onChange={e => setPassword(e.target.value)}
+                aria-invalid={!pwdAcceptable}
+              />
+            </label>
+            {!pwdAcceptable && (
+              <p className="memori--login-drawer--inline-error">
+                {t('login.passwordFormatError')}
+              </p>
+            )}
+
+            <label htmlFor="#confirm-password">
+              {t('login.confirmPassword')}
+              <input
+                id="confirm-password"
+                name="confirmPassword"
+                type="password"
+                required
+                autoComplete="new-password"
+                placeholder={t('login.confirmPassword') || 'Password'}
+                onChange={e => setConfirmPassword(e.target.value)}
+                aria-invalid={
+                  !!password?.length &&
+                  !!confirmPassword?.length &&
+                  password !== confirmPassword
+                }
+              />
+            </label>
+            {!!password?.length &&
+              !!confirmPassword?.length &&
+              password !== confirmPassword && (
+                <p className="memori--login-drawer--inline-error">
+                  {t('login.passwordMatchingError')}
+                </p>
+              )}
+
+            <meter
+              className="memori--login-drawer--password-meter"
+              min={0}
+              low={33}
+              high={66}
+              optimum={80}
+              max={100}
+              value={pwdMeterValue}
+              id="password-strength-meter"
+            />
+            <small>
+              {t(
+                `login.pwd${
+                  pwdGreen ? 'Strong' : pwdAcceptable ? 'Acceptable' : 'Weak'
+                }`
+              )}
+            </small>
+
+            <Button htmlType="submit" primary loading={loading}>
+              {t('confirm')}
             </Button>
           </form>
         </>

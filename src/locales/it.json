@@ -192,6 +192,7 @@
     "pwdWeak": "Debole",
     "pwdAcceptable": "Accettabile",
     "pwdStrong": "Forte",
+    "mustChangePassword": "Devi cambiare la password",
     "underage": "Devi avere almeno {{age}} anni per registrarti.",
     "optional": "opzionale",
     "birthDate": "Data di nascita",

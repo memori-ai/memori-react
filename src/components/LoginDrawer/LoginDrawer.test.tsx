@@ -115,3 +115,18 @@ it('renders LoginDrawer on signup waiting for otp unchanged', () => {
   );
   expect(container).toMatchSnapshot();
 });
+
+it('renders LoginDrawer on change password unchanged', () => {
+  const { container } = render(
+    <LoginDrawer
+      onClose={jest.fn()}
+      apiUrl="https://backend.memori.ai"
+      tenant={tenant}
+      onLogin={jest.fn()}
+      onLogout={jest.fn()}
+      __TEST__changePwd
+      open
+    />
+  );
+  expect(container).toMatchSnapshot();
+});

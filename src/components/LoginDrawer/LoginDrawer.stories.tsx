@@ -63,6 +63,12 @@ SignupWaitingForOtp.args = {
   __TEST__waitingForOtp: true,
 };
 
+export const ChangePassword = Template.bind({});
+ChangePassword.args = {
+  open: true,
+  __TEST__changePwd: true,
+};
+
 export const LoggedIn = Template.bind({});
 LoggedIn.args = {
   open: true,
