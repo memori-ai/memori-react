@@ -71,10 +71,8 @@
     padding-inline-start: 8px;
 }
 
-.memori-checkbox--disabled {
-    cursor: not-allowed;
-}
-
+.memori-checkbox--disabled,
+.memori-checkbox--disabled .memori-checkbox--input-wrapper,
 .memori-checkbox--disabled .memori-checkbox--input {
     cursor: not-allowed;
 }

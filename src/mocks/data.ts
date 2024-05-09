@@ -61,6 +61,7 @@ export const user: User = {
   pAndCUAcceptanceDate: '2021-03-01T00:00:00.000Z',
   birthDate: '1900-03-01T00:00:00.000Z',
   age: 28,
+  avatarURL: 'https://avatars.githubusercontent.com/u/21101435?v=4',
 };
 
 export const memori: Memori = {

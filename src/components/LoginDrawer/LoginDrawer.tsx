@@ -9,6 +9,7 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import { getErrori18nKey } from '../../helpers/error';
 import { mailRegEx, pwdRegEx } from '../../helpers/utils';
 import SignupForm from '../SignupForm/SignupForm';
+import AccountForm from '../AccountForm/AccountForm';
 
 export interface Props {
   open?: boolean;
@@ -267,6 +268,12 @@ const LoginDrawer = ({
     >
       {isUserLoggedIn ? (
         <div className="memori--login-drawer--logged">
+          {user.avatarURL && (
+            <figure className="memori--login-drawer--avatar">
+              <img src={user.avatarURL} alt={user.userName} />
+            </figure>
+          )}
+
           <Button
             primary
             onClick={() => {
@@ -275,6 +282,13 @@ const LoginDrawer = ({
           >
             {t('login.logout')}
           </Button>
+
+          <AccountForm
+            user={user}
+            loginToken={loginToken}
+            apiUrl={apiUrl}
+            onUserUpdate={user => onLogin(user, loginToken)}
+          />
         </div>
       ) : needsMissingData?.token?.length ? (
         <>
