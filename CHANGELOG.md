@@ -1,5 +1,12 @@
 
 
+## [6.5.1](https://github.com/memori-ai/memori-react/compare/v6.5.0...v6.5.1) (2024-05-13)
+
+
+### Bug Fixes
+
+* account form validation ([37eb892](https://github.com/memori-ai/memori-react/commit/37eb8920a3647d8981ba034dc8b227d852e5ec71))
+
 ## [6.5.0](https://github.com/memori-ai/memori-react/compare/v6.4.6...v6.5.0) (2024-05-09)
 
 
