@@ -100,8 +100,9 @@ const AccountForm = ({ user, loginToken, apiUrl, onUserUpdate }: Props) => {
         : {}),
     };
 
-    if (Object.values(patchedUser).length === 0) {
+    if (Object.values(patchedUser).length === 0 && !avatar) {
       console.debug('No changes to submit');
+      setLoading(false);
       return;
     }
 
