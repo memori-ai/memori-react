@@ -77,6 +77,10 @@
     margin-bottom: 0.25rem;
 }
 
+.memori-totem-layout .memori-header--position .memori-header--position-placeName {
+    display: none;
+}
+
 .memori-totem-layout .memori-chat--cover {
     display: none;
 }
