@@ -1,5 +1,13 @@
 
 
+## [6.5.2](https://github.com/memori-ai/memori-react/compare/v6.5.1...v6.5.2) (2024-05-17)
+
+
+### Bug Fixes
+
+* position widget has to be the first in header ([b1e9062](https://github.com/memori-ai/memori-react/commit/b1e9062a77ff274abc462adc81cd3544282dde78))
+* totem layout dont show position place name ([9a2a5d1](https://github.com/memori-ai/memori-react/commit/9a2a5d14bc72be9a90ba787a645bfc2131402c63))
+
 ## [6.5.1](https://github.com/memori-ai/memori-react/compare/v6.5.0...v6.5.1) (2024-05-13)
 
 
