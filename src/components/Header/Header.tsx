@@ -85,6 +85,23 @@ const Header: React.FC<Props> = ({
 
   return (
     <div className={cx('memori-header', className)}>
+      {memori.needsPosition && position && (
+        <div className="memori-header--position">
+          {position.latitude !== 0 && position.longitude !== 0 && (
+            <span className="memori-header--position-placeName">
+              {position.placeName}
+            </span>
+          )}
+          <Button
+            primary
+            shape="circle"
+            className="memori-header--button memori-header--button--position"
+            title={t('widget.position') || 'Position'}
+            icon={<MapMarker />}
+            onClick={() => setShowPositionDrawer(true)}
+          />
+        </div>
+      )}
       {showReload && (
         <Button
           primary
@@ -106,23 +123,6 @@ const Header: React.FC<Props> = ({
           icon={<Clear />}
           onClick={clearHistory}
         />
-      )}
-      {memori.needsPosition && position && (
-        <div className="memori-header--position">
-          {position.latitude !== 0 && position.longitude !== 0 && (
-            <span className="memori-header--position-placeName">
-              {position.placeName}
-            </span>
-          )}
-          <Button
-            primary
-            shape="circle"
-            className="memori-header--button memori-header--button--position"
-            title={t('widget.position') || 'Position'}
-            icon={<MapMarker />}
-            onClick={() => setShowPositionDrawer(true)}
-          />
-        </div>
       )}
       {fullScreenAvailable && (
         <Button
