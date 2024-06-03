@@ -1,5 +1,12 @@
 
 
+## [6.5.3](https://github.com/memori-ai/memori-react/compare/v6.5.2...v6.5.3) (2024-06-03)
+
+
+### Bug Fixes
+
+* show consecutive br in msg ([38ac194](https://github.com/memori-ai/memori-react/commit/38ac194fd4da7af005be8d4913f67785a746c9b5))
+
 ## [6.5.2](https://github.com/memori-ai/memori-react/compare/v6.5.1...v6.5.2) (2024-05-17)
 
 
