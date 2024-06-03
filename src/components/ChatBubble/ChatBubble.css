@@ -76,8 +76,7 @@
     margin: 1em 0;
 }
 
-.memori-chat--bubble ul br,
-.memori-chat--bubble br+br {
+.memori-chat--bubble ul br {
     display: none;
 }
 
