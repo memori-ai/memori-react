@@ -1,5 +1,12 @@
 
 
+## [6.6.0](https://github.com/memori-ai/memori-react/compare/v6.5.3...v6.6.0) (2024-06-06)
+
+
+### Features
+
+* extended markdown parsing with tables, links, mathml + mathjax ([072ebae](https://github.com/memori-ai/memori-react/commit/072ebae83d91b8e1f0bd4ca2e2ebe04e447bcc67))
+
 ## [6.5.3](https://github.com/memori-ai/memori-react/compare/v6.5.2...v6.5.3) (2024-06-03)
 
 
