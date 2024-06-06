@@ -76,7 +76,8 @@
     margin: 1em 0;
 }
 
-.memori-chat--bubble ul br {
+.memori-chat--bubble ul br,
+.memori-chat--bubble ol br {
     display: none;
 }
 
@@ -269,4 +270,12 @@
     30% {
         transform: translateY(-10px);
     }
+}
+
+.memori-chat--bubble-content {
+    width: 100%;
+}
+
+.memori-chat--bubble mjx-container[jax="CHTML"][display="true"] {
+    text-align: left;
 }

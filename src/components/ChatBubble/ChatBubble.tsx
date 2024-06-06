@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import {
   ExpertReference,
@@ -21,6 +21,10 @@ import { cleanUrl } from '../../helpers/utils';
 import Button from '../ui/Button';
 import QuestionHelp from '../icons/QuestionHelp';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
+
+import markedLinkifyIt from 'marked-linkify-it';
+import markedKatex from 'marked-katex-extension';
+import markedExtendedTables from '../../helpers/markedExtendedTables';
 
 export interface Props {
   message: Message;
@@ -59,6 +63,14 @@ marked.use({
     },
   },
 });
+marked.use(markedLinkifyIt());
+marked.use(
+  markedKatex({
+    throwOnError: true,
+    output: 'htmlAndMathml',
+  })
+);
+marked.use(markedExtendedTables());
 
 const ChatBubble: React.FC<Props> = ({
   message,
@@ -80,13 +92,36 @@ const ChatBubble: React.FC<Props> = ({
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
 
   const renderedText = sanitize(
-    (marked.parse(message.translatedText || message.text) as string)
+    (
+      marked.parse(
+        (message.translatedText || message.text)
+          .replaceAll('( ', '\\(')
+          .replaceAll(')', '\\)')
+      ) as string
+    )
       .trim()
-      .replace(/\n/g, '<br>'),
+      .replace(/\n/g, '<br>')
+      // replace consecutive <br> with a <br>
+      .replace(/(<br>)+/g, '<br><br>'),
     {
       ADD_ATTR: ['target'],
     }
-  );
+  )
+    .replaceAll('[', '\\[')
+    .replaceAll(']', '\\]')
+    // replace consecutive <br> with a single <br>
+    .replace(/(<br>)+/g, '<br>');
+
+  useLayoutEffect(() => {
+    if (typeof window !== 'undefined' && !message.fromUser) {
+      // @ts-ignore
+      // eslint-disable-next-line no-undef
+      if ('MathJax' in window && window.MathJax.typesetPromise)
+        // @ts-ignore
+        // eslint-disable-next-line no-undef
+        window.MathJax.typesetPromise();
+    }
+  }, [message.text, message.fromUser]);
 
   return (
     <>
@@ -195,7 +230,10 @@ const ChatBubble: React.FC<Props> = ({
             message.fromUser ? '30' : '-30'
           }`}
         >
-          <div dangerouslySetInnerHTML={{ __html: renderedText }} />
+          <div
+            className="memori-chat--bubble-content"
+            dangerouslySetInnerHTML={{ __html: renderedText }}
+          />
           {((message.generatedByAI && showAIicon) ||
             (showFeedback && simulateUserPrompt)) && (
             <div className="memori-chat--bubble-addon">

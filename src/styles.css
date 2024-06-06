@@ -52,6 +52,8 @@
 @import url('./components/layouts/website-assistant.css');
 @import url('./components/layouts/chat.css');
 
+@import url('../node_modules/katex/dist/katex.min.css');
+
 .sr-only {
     position: absolute;
     overflow: hidden;

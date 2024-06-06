@@ -71,3 +71,16 @@ jest
     (locale, options) =>
       new DateTimeFormat(locale, { ...options, timeZone: 'Europe/Rome' })
   );
+
+// mocks external MathJax as global object
+global.MathJax = {
+  typesetPromise: jest.fn(),
+};
+global.window.MathJax = global.MathJax;
+Object.defineProperty(window, 'MathJax', {
+  writable: true,
+  value: global.MathJax,
+});
+
+jest.spyOn(window, 'MathJax', 'typesetPromise').mockResolvedValue();
+jest.spyOn(global.MathJax, 'typesetPromise').mockResolvedValue();

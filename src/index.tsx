@@ -279,6 +279,37 @@ const Memori: React.FC<Props> = ({
     <I18nextProvider i18n={i18n}>
       <Toaster position="top-center" reverseOrder={true} />
       {renderer}
+
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+          MathJax = {
+            tex: {
+              inlineMath: [['$', '$'], ['\\$', '\\$'], ['(',')'], ['\(','\)'], ['\[', '\]'], ['[', ']'], ['\\(', '\\)'], ['\\[', '\\]'], ['((','))']],
+              displayMath: [['$$', '$$'], ['\\[[', '\\]]']],
+              processEscapes: true,
+            },
+            asciimath: {
+              fixphi: true,
+              displaystyle: true,
+              decimalsign: '.'
+            },
+            skipStartupTypeset: true,
+            chtml: {
+              displayAlign: 'left',
+            },
+            svg: {
+              fontCache: 'global'
+            }
+          };
+        `,
+        }}
+      />
+      <script
+        id="MathJax-script"
+        async
+        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+      ></script>
     </I18nextProvider>
   );
 };
