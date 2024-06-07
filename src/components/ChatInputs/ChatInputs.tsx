@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React from 'react';
 import { DialogState } from '@memori.ai/memori-api-client/dist/types';
-import UploadMenu from '../UploadMenu/UploadMenu';
 import SendOnEnterMenu from '../SendOnEnterMenu/SendOnEnterMenu';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
 import Button from '../ui/Button';
