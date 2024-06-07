@@ -14,6 +14,12 @@ const I18nWrapper = ({ children }: Props) => (
       dangerouslySetInnerHTML={{
         __html: `
           MathJax = {
+            startup: {
+              elements: ['.memori-chat--bubble-content'],
+            },
+            options: {
+              processHtmlClass: 'memori-chat--bubble-content',
+            },
             tex: {
               inlineMath: [['$', '$'], ['\\$', '\\$'], ['(',')'], ['\(','\)'], ['\[', '\]'], ['[', ']'], ['\\(', '\\)'], ['\\[', '\\]'], ['((','))']],
               displayMath: [['$$', '$$'], ['\\[[', '\\]]']],

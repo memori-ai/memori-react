@@ -119,7 +119,7 @@ const ChatBubble: React.FC<Props> = ({
       if ('MathJax' in window && window.MathJax.typesetPromise)
         // @ts-ignore
         // eslint-disable-next-line no-undef
-        window.MathJax.typesetPromise();
+        window.MathJax.typesetPromise(['.memori-chat--bubble-content']);
     }
   }, [message.text, message.fromUser]);
 
