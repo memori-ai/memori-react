@@ -281,19 +281,21 @@ const Chat: React.FC<Props> = ({
             </React.Fragment>
           ))}
 
-          {dialogState?.hints && dialogState.hints.length > 0 && (
-            <MediaWidget
-              simulateUserPrompt={simulateUserPrompt}
-              hints={
-                dialogState.translatedHints
-                  ? dialogState.translatedHints
-                  : dialogState.hints.map(h => ({
-                      text: h,
-                      originalText: h,
-                    }))
-              }
-            />
-          )}
+          {dialogState?.hints &&
+            dialogState.hints.length > 0 &&
+            !memoriTyping && (
+              <MediaWidget
+                simulateUserPrompt={simulateUserPrompt}
+                hints={
+                  dialogState.translatedHints
+                    ? dialogState.translatedHints
+                    : dialogState.hints.map(h => ({
+                        text: h,
+                        originalText: h,
+                      }))
+                }
+              />
+            )}
 
           {!!memoriTyping && (
             <Typing
