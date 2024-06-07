@@ -1,5 +1,12 @@
 
 
+## [6.6.1](https://github.com/memori-ai/memori-react/compare/v6.6.0...v6.6.1) (2024-06-07)
+
+
+### Bug Fixes
+
+* run mathjax only for chat bubbles content ([d51d1ef](https://github.com/memori-ai/memori-react/commit/d51d1ef5c321789bb3b6ca83fabf7941f0b491ea))
+
 ## [6.6.0](https://github.com/memori-ai/memori-react/compare/v6.5.3...v6.6.0) (2024-06-06)
 
 
