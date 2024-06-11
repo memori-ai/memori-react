@@ -1,5 +1,20 @@
 
 
+## [6.6.2](https://github.com/memori-ai/memori-react/compare/v6.6.1...v6.6.2) (2024-06-11)
+
+
+### Maintenance
+
+* cleanup ([f3c9a20](https://github.com/memori-ai/memori-react/commit/f3c9a2056661e156432f8bf3641dbc944e74970e))
+
+
+### Changes
+
+* add video/quicktime to media widget ([d89ea9a](https://github.com/memori-ai/memori-react/commit/d89ea9a2f67db879894f98335cacfe8649093850))
+* dont show hints while loading answer ([8a777c6](https://github.com/memori-ai/memori-react/commit/8a777c6a8274a00133adb9b24e757e6aa17f3966))
+* media items grid smaller size ([349547e](https://github.com/memori-ai/memori-react/commit/349547ebf083d863c5f4aff72240e1b05a6fe1a9))
+* media items grid smaller size ([d60b752](https://github.com/memori-ai/memori-react/commit/d60b7527b087da74fa0af2c7559059f91dec953d))
+
 ## [6.6.1](https://github.com/memori-ai/memori-react/compare/v6.6.0...v6.6.1) (2024-06-07)
 
 
