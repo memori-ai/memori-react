@@ -31,7 +31,8 @@ export const getResourceUrl = ({
       (resourceURI.startsWith('https://') ||
         resourceURI.startsWith('http://')) &&
       (new URL(resourceURI).hostname.includes('memori.ai') ||
-        new URL(resourceURI).hostname.includes('aclambda.online'))
+        new URL(resourceURI).hostname.includes('aclambda.online') ||
+        new URL(resourceURI).hostname.includes('localhost'))
     ) {
       return `${resourceURI}${
         resourceURI.endsWith('/') || !sessionID ? '' : '/'

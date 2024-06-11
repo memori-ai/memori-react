@@ -173,6 +173,7 @@ export const RenderMediaItem = ({
       );
 
     case 'video/mp4':
+    case 'video/quicktime':
     case 'video/avi':
     case 'video/mpeg':
       return (
@@ -200,7 +201,17 @@ export const RenderMediaItem = ({
                 controls
                 src={url}
                 title={item.title}
-              />
+              >
+                {item.mimeType === 'video/quicktime' && (
+                  <source src={item.url} type="video/mp4" />
+                )}
+                <source src={item.url} type={item.mimeType} />
+                Your browser does not support this video format.
+                <br />
+                <a href={item.url} target="_blank" rel="noopener noreferrer">
+                  Download the video
+                </a>
+              </video>
             }
             title={item.title}
           />
