@@ -3,7 +3,7 @@
     padding: 1rem;
     grid-auto-flow: dense;
     grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }
 
 .memori-media-item--card {
@@ -32,7 +32,7 @@
     display: flex;
     width: 100%;
     height: 100%;
-    max-height: 300px;
+    max-height: 150px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -41,13 +41,13 @@
 .memori-media-item--figure img {
     min-width: 100%;
     min-height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     object-position: center;
 }
 
 .memori-media-item--figure-caption {
-    padding: 0.5rem 1rem;
-    margin: 0.5rem 0;
+    padding: 0.25rem 1rem;
+    margin: 0.25rem 0;
     color: #666;
     font-size: 0.875rem;
     font-style: italic;
