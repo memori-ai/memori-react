@@ -72,6 +72,10 @@ a.memori-media-item--link {
     flex-direction: row;
 }
 
+.memori-media-item--modal .memori-media-item--figure img {
+    object-fit: contain;
+}
+
 .memori-media-item--modal .memori-card {
     width: 100%;
     max-width: 100%;
