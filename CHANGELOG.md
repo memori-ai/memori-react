@@ -1,5 +1,23 @@
 
 
+## [6.7.0](https://github.com/memori-ai/memori-react/compare/v6.6.2...v6.7.0) (2024-06-13)
+
+
+### Features
+
+* add credits check, handle not enough credits to open session ([bac77ed](https://github.com/memori-ai/memori-react/commit/bac77ed7883734d0ffac1867123d8f45f489f76e))
+
+
+### Bug Fixes
+
+* media item caption size and word break ([c2f865a](https://github.com/memori-ai/memori-react/commit/c2f865ac00b4c0e81b199cd8e0b956d332c90237))
+
+
+### Maintenance
+
+* change other references to twincreator to aisuru ([2780e01](https://github.com/memori-ai/memori-react/commit/2780e015d376f3d7469750dd72ea6ebeaa613620))
+* update api client and typings ([8cfe352](https://github.com/memori-ai/memori-react/commit/8cfe35290c12098a1e77d62b15a92518036703ec))
+
 ## [6.6.2](https://github.com/memori-ai/memori-react/compare/v6.6.1...v6.6.2) (2024-06-11)
 
 
