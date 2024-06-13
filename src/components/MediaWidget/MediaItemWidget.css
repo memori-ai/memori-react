@@ -49,10 +49,11 @@
     padding: 0.25rem 1rem;
     margin: 0.25rem 0;
     color: #666;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-style: italic;
     font-weight: 400;
     text-align: center;
+    word-break: break-word;
 }
 
 a.memori-media-item--link {
