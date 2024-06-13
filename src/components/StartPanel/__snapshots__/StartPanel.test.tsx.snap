@@ -52,11 +52,11 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
       class="memori--avatar"
     >
       <source
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
       <img
         alt="Memori"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <h2
@@ -175,11 +175,11 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
       class="memori--avatar"
     >
       <source
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
       <img
         alt="Memori"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <h2
@@ -276,11 +276,11 @@ exports[`renders StartPanel unchanged 1`] = `
       class="memori--avatar"
     >
       <source
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
       <img
         alt="Memori"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <h2
@@ -377,11 +377,11 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
       class="memori--avatar"
     >
       <source
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
       <img
         alt="Memori"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <h2
@@ -516,11 +516,11 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
       class="memori--avatar"
     >
       <source
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
       <img
         alt="Memori"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <h2
@@ -617,11 +617,11 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
       class="memori--avatar"
     >
       <source
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
       <img
         alt="Memori"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <h2
@@ -787,11 +787,11 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
       class="memori--avatar"
     >
       <source
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
       <img
         alt="Memori"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <h2
@@ -950,11 +950,11 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
       class="memori--avatar"
     >
       <source
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
       <img
         alt="Memori"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <h2
@@ -1132,11 +1132,11 @@ exports[`renders StartPanel with gamification level unchanged 1`] = `
       class="memori--avatar"
     >
       <source
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
       <img
         alt="Memori"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <h2
@@ -1233,11 +1233,11 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
       class="memori--avatar"
     >
       <source
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
       <img
         alt="Memori"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <h2
@@ -1438,11 +1438,11 @@ exports[`renders StartPanel with position required unchanged 1`] = `
       class="memori--avatar"
     >
       <source
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
       <img
         alt="Memori"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <h2

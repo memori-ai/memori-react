@@ -23,6 +23,7 @@ it('renders Chat layout unchanged', () => {
       showSettings={true}
       memori={memori}
       tenant={tenant}
+      tenantID="aisuru.com"
       integration={integration}
       layout="CHAT"
     />

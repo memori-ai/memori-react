@@ -97,7 +97,7 @@ exports[`renders ChatBubble unchanged 1`] = `
       <img
         alt="Memori"
         class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <div
@@ -127,7 +127,7 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
       <img
         alt="Memori"
         class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <div
@@ -283,7 +283,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
       <img
         alt="Memori"
         class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <div
@@ -411,7 +411,7 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
       <img
         alt="Memori"
         class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <div
@@ -441,7 +441,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
       <img
         alt="Memori"
         class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <div
@@ -483,7 +483,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
       <img
         alt="Memori"
         class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/twincreator/square_logo.png"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
       />
     </picture>
     <div

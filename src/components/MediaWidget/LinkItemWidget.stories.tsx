@@ -36,14 +36,8 @@ Default.args = {
     {
       mediumID: '95226d7e-7bae-465e-8b80-995587bb5971',
       mimeType: 'text/html',
-      title: 'TwinCreator',
-      url: 'https://twincreator.com/en',
-    },
-    {
-      mediumID: '95226d7e-7bae-465e-8b80-995587bb5971',
-      mimeType: 'text/html',
-      title: 'MemoryTwin',
-      url: 'https://memorytwin.com/en',
+      title: 'AIsuru',
+      url: 'https://www.aisuru.com/en',
     },
     {
       mediumID: '95226d7e-7bae-465e-8b80-995587bb5971',

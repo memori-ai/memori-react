@@ -12,7 +12,7 @@ exports[`renders Avatar with blob and avatar in blob unchanged 1`] = `
         <img
           alt=""
           role="presentation"
-          src="https://aisuru.com/images/twincreator/square_logo.png"
+          src="https://aisuru.com/images/aisuru/square_logo.png"
         />
       </figure>
       <div
@@ -49,7 +49,7 @@ exports[`renders Avatar with custom glb model unchanged 1`] = `
         camera-controls="true"
         disable-zoom="true"
         ios-src=""
-        poster="https://aisuru.com/images/twincreator/square_logo.png"
+        poster="https://aisuru.com/images/aisuru/square_logo.png"
         shadow-intensity="1"
         src="https://assets.memori.ai/api/v2/asset/7383f05a-0788-49b0-b9b9-3bfc402c7ddf.glb#1669136149862"
       />

@@ -54,6 +54,20 @@ TwinCreator.args = {
   },
 };
 
+export const AIsuru = Template.bind({});
+AIsuru.args = {
+  tenant: {
+    id: 'AIsuru',
+    theme: 'aisuru',
+    config: {
+      name: 'AIsuru',
+      showNewUser: true,
+      requirePosition: false,
+      feedbackURL: '',
+    },
+  },
+};
+
 export const WithData = Template.bind({});
 WithData.args = {
   integrationID: 'abc',

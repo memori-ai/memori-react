@@ -26,7 +26,7 @@ export const tenant: Tenant = {
   disableRegistration: false,
   id: 'www.aisuru.com',
   lastChangeTimestamp: '2023-05-31T14:32:48.885287Z',
-  logoURL: 'https://aisuru.com/images/twincreator/logo.png',
+  logoURL: 'https://aisuru.com/images/aisuru/logo.png',
   maxAdmins: 0,
   maxCompletions: 0,
   maxCompletionsPerUser: 0,
@@ -91,8 +91,8 @@ export const memori: Memori = {
   secretToken: 'awanagana',
   giverPIN: '1234',
   giverTag: '🧑‍💻',
-  avatarURL: 'https://aisuru.com/images/twincreator/square_logo.png',
-  coverURL: 'https://aisuru.com/images/twincreator/og-image.png',
+  avatarURL: 'https://aisuru.com/images/aisuru/square_logo.png',
+  coverURL: 'https://aisuru.com/images/aisuru/og-image.png',
 };
 
 export const history: Message[] = [

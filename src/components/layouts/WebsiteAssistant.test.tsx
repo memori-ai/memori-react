@@ -23,6 +23,7 @@ it('renders WEBSITE_ASSISTANT layout unchanged', () => {
       showSettings={true}
       memori={memori}
       tenant={tenant}
+      tenantID="aisuru.com"
       integration={integration}
       layout="WEBSITE_ASSISTANT"
     />
