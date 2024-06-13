@@ -270,6 +270,7 @@
     "USER_CANT_ENABLE_DCM_INTEGRATION": "User: not enabled to manage DCM integration",
     "USER_CANT_ENABLE_CHAINING_OR_BOARD_OF_EXPERTS": "User: not allowed to manage chaining or expert group",
     "MEMORI_BOARD_OF_EXPERTS_REQUIRES_COMPLETIONS": "The expert group requires completions to be enabled",
+    "BILLING_DENIED_PERMISSION_TO_CREATE_MEMORI": "You don't have enough credits to create a Twin",
 
     "MEMORI_NOT_FOUND": "Memori not found",
     "MEMORI_NOT_ACCESSIBLE": "Memori not accessible",
