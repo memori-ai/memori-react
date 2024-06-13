@@ -42,6 +42,7 @@ export interface Props {
   user?: User;
   showLogin?: boolean;
   setShowLoginDrawer: (show: boolean) => void;
+  notEnoughCredits?: boolean;
 }
 
 const StartPanel: React.FC<Props> = ({
@@ -65,6 +66,7 @@ const StartPanel: React.FC<Props> = ({
   user,
   showLogin = false,
   setShowLoginDrawer,
+  notEnoughCredits = false,
 }) => {
   const { t, i18n } = useTranslation();
   const [translatedDescription, setTranslatedDescription] = useState(
@@ -260,7 +262,9 @@ const StartPanel: React.FC<Props> = ({
 
           <Button
             primary
-            disabled={!!memori.blockedUntil && !memori.isGiver}
+            disabled={
+              (!!memori.blockedUntil && !memori.isGiver) || notEnoughCredits
+            }
             loading={clickedStart}
             onClick={_e => {
               try {
@@ -292,10 +296,11 @@ const StartPanel: React.FC<Props> = ({
               : t('write_and_speak.pageTryMeExplanation')}
           </p>
 
-          {!!memori.blockedUntil && (
+          {(memori.blockedUntil || notEnoughCredits) && (
             <BlockedMemoriBadge
               memoriName={memori.name}
               blockedUntil={memori.blockedUntil}
+              notEnoughCredits={notEnoughCredits}
               showGiverInfo={memori.isGiver}
               showTitle
               marginLeft

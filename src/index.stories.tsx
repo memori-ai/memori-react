@@ -82,6 +82,20 @@ Staging.args = {
   layout: 'FULLPAGE',
 };
 
+export const StagingTokenized = Template.bind({});
+StagingTokenized.args = {
+  memoriName: 'Test',
+  ownerUserName: 'nicola',
+  memoriID: '36798f8a-7018-4cf7-9be4-e681949a46a3',
+  ownerUserID: '585ec0ff-e805-495e-b8fc-5b0b8dd288ff',
+  tenantID: 'aisuru-staging-tokenized.aclambda.online',
+  apiURL: 'https://backend-staging.memori.ai',
+  baseURL: 'https://aisuru-staging-tokenized.aclambda.online',
+  uiLang: 'EN',
+  lang: 'IT',
+  layout: 'FULLPAGE',
+};
+
 const TemplateWithBatchButton: Story<Props> = args => (
   <div>
     <button

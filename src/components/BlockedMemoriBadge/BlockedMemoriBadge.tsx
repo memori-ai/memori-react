@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next';
 
 export interface Props {
   memoriName: string;
-  blockedUntil: string;
+  blockedUntil?: string;
+  notEnoughCredits?: boolean;
   showGiverInfo?: boolean;
   showTitle?: boolean;
   marginLeft?: boolean;
@@ -14,39 +15,44 @@ export interface Props {
 const BlockedMemoriBadge = ({
   memoriName,
   blockedUntil,
+  notEnoughCredits = false,
   showGiverInfo = false,
   showTitle = false,
   marginLeft = false,
 }: Props) => {
   const { t } = useTranslation();
-  const blockedUntilDate = new Date(blockedUntil);
+  const blockedUntilDate = new Date(blockedUntil || Date.now());
 
-  return blockedUntilDate > new Date() ? (
+  return notEnoughCredits || blockedUntilDate > new Date(Date.now()) ? (
     <Tooltip
       className="blocked-memori-badge--tooltip"
       content={
-        <>
-          {!showGiverInfo &&
-            t('memoriBlockedAnon', {
-              name: memoriName,
-              date: new Intl.DateTimeFormat('it', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric',
-              }).format(blockedUntilDate),
-            })}
-          {showGiverInfo &&
-            t('memoriBlockedUntil', {
-              date: new Intl.DateTimeFormat('it', {
-                day: 'numeric',
-                month: 'long',
-                year: 'numeric',
-              }).format(blockedUntilDate),
-            })}
-          {showGiverInfo && ` ${t('memoriBlockedReasonExceedChats')}`}
-          {showGiverInfo && <br />}
-          {showGiverInfo && `\n${t('memoriBlockedGiverHelper')}`}
-        </>
+        notEnoughCredits ? (
+          <>{t('notEnoughCredits')}</>
+        ) : (
+          <>
+            {!showGiverInfo &&
+              t('memoriBlockedAnon', {
+                name: memoriName,
+                date: new Intl.DateTimeFormat('it', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                }).format(blockedUntilDate),
+              })}
+            {showGiverInfo &&
+              t('memoriBlockedUntil', {
+                date: new Intl.DateTimeFormat('it', {
+                  day: 'numeric',
+                  month: 'long',
+                  year: 'numeric',
+                }).format(blockedUntilDate),
+              })}
+            {showGiverInfo && ` ${t('memoriBlockedReasonExceedChats')}`}
+            {showGiverInfo && <br />}
+            {showGiverInfo && `\n${t('memoriBlockedGiverHelper')}`}
+          </>
+        )
       }
     >
       <div className="blocked-memori-badge--wrapper">

@@ -75,6 +75,7 @@ import {
 import { anonTag } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
 import { getGamificationLevel } from '../../helpers/statistics';
+import { getCredits } from '../../helpers/credits';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -321,6 +322,9 @@ export interface LayoutProps {
 
 export interface Props {
   memori: Memori;
+  ownerUserName?: string | null;
+  ownerUserID?: string | null;
+  tenantID: string;
   memoriConfigs?: MemoriConfig[];
   memoriLang?: string;
   multilingual?: boolean;
@@ -366,6 +370,9 @@ export interface Props {
 const MemoriWidget = ({
   memori,
   memoriConfigs,
+  ownerUserID,
+  ownerUserName,
+  tenantID,
   memoriLang,
   multilingual,
   integration,
@@ -2325,6 +2332,37 @@ const MemoriWidget = ({
     }
   }, [integrationConfig, memori.avatarURL, ogImage]);
 
+  // check if owner has enough credits
+  const needsCredits = tenant?.billingDelegation;
+  const [hasEnoughCredits, setHasEnoughCredits] = useState<boolean>(true);
+  const checkCredits = async () => {
+    if (!tenant?.billingDelegation) return;
+
+    try {
+      const resp = await getCredits({
+        baseUrl: baseUrl,
+        userID: ownerUserID,
+        userName: ownerUserName,
+        tenant: tenantID,
+      });
+
+      if (resp.enough) {
+        setHasEnoughCredits(true);
+      } else {
+        setHasEnoughCredits(false);
+        console.warn('Not enough credits. Required:', resp.required);
+      }
+    } catch (e) {
+      let err = e as Error;
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    if (tenant?.billingDelegation) {
+      checkCredits();
+    }
+  }, [tenant?.billingDelegation]);
+
   // X3 state - tag change
   const selectReceiverTag = async (tag: string) => {
     if (!sessionId) return;
@@ -2903,6 +2941,7 @@ const MemoriWidget = ({
     onClickStart: onClickStart,
     initializeTTS: initializeTTS,
     isUserLoggedIn: !!loginToken && !!user?.userID,
+    notEnoughCredits: needsCredits && !hasEnoughCredits,
     showLogin,
     setShowLoginDrawer,
     user,

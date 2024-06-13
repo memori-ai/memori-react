@@ -63,6 +63,7 @@
   "deepThoughtDisclaimer": "Deep Thought is an advanced feature of the AI that will allow you to fully exploit your conversations by keeping track of them. The AI with Deep Thought can give you information tailored to you and the things you will share together.",
   "deepThoughtPreDisclaimerUnlogged": "Log in to enable Deep Thought.",
   "deepThoughtPreDisclaimerNotAllowed": "Deep Thought is disabled since you didn't consent its usage, you can change this any time in your account settings.",
+  "notEnoughCredits": "The author of this Twin does not have enough credits to answer your question.",
   "knownFacts": {
     "title": "Known facts",
     "description": "Details of the information shared between you and {{memoriName}}",

@@ -63,6 +63,7 @@
   "deepThoughtDisclaimer": "Pensiero Profondo è una funzionalità avanzata delle AI che ti consentirà di poter sfruttare a pieno le tue conversazioni mantenendo memoria delle stesse. Le AI con Pensiero Profondo possono darti informazioni adattandosi a te e alle cose che condividerete insieme.",
   "deepThoughtPreDisclaimerUnlogged": "Accedi per abilitare Pensiero Profondo.",
   "deepThoughtPreDisclaimerNotAllowed": "Pensiero Profondo è disabilitato poiché non hai acconsentito al suo utilizzo, puoi cambiare la tua scelta in qualsiasi momento nelle impostazioni del tuo account.",
+  "notEnoughCredits": "L'autore di questo Twin non ha abbastanza crediti per rispondere alla tua domanda.",
   "knownFacts": {
     "title": "Fatti noti",
     "description": "Dettagli delle informazioni condivise tra te e {{memoriName}}",

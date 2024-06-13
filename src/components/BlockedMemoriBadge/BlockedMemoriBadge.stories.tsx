@@ -50,3 +50,9 @@ WithMarginLeft.args = {
   blockedUntil: '2051-01-01T00:00:00.000Z',
   marginLeft: true,
 };
+
+export const NotEnoughCredits = Template.bind({});
+NotEnoughCredits.args = {
+  memoriName: 'John Doe',
+  notEnoughCredits: true,
+};

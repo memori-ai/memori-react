@@ -221,6 +221,9 @@ const Memori: React.FC<Props> = ({
         ...memori,
         secretToken,
       }}
+      ownerUserName={ownerUserName ?? memori.ownerUserName}
+      ownerUserID={ownerUserID ?? memori.ownerUserID}
+      tenantID={tenantID}
       memoriLang={spokenLang ?? memori.culture?.split('-')?.[0]}
       multilingual={multilingual}
       tenant={tenant}
