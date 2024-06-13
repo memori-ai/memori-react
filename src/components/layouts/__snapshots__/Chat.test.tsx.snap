@@ -215,11 +215,11 @@ exports[`renders Chat layout unchanged 1`] = `
             class="memori--avatar"
           >
             <source
-              src="https://aisuru.com/images/twincreator/square_logo.png"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
             />
             <img
               alt="Memori"
-              src="https://aisuru.com/images/twincreator/square_logo.png"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
             />
           </picture>
           <h2

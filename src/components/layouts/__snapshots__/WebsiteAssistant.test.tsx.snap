@@ -28,7 +28,7 @@ exports[`renders WEBSITE_ASSISTANT layout unchanged 1`] = `
               <img
                 alt=""
                 role="presentation"
-                src="https://aisuru.com/images/twincreator/square_logo.png"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
               />
             </figure>
             <div
