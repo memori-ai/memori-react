@@ -1,5 +1,12 @@
 
 
+## [6.7.2](https://github.com/memori-ai/memori-react/compare/v6.7.1...v6.7.2) (2024-06-18)
+
+
+### Maintenance
+
+* update error codes and translations ([c065d68](https://github.com/memori-ai/memori-react/commit/c065d68d555061b087b2f2581df19b36d4077d30))
+
 ## [6.7.1](https://github.com/memori-ai/memori-react/compare/v6.7.0...v6.7.1) (2024-06-13)
 
 
