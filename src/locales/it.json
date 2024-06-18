@@ -268,8 +268,7 @@
     "USER_CANT_ENABLE_DEEP_THOUGHT": "Utente: non abilitato a gestire Pensiero Profondo",
     "USER_CANT_ENABLE_DCM_INTEGRATION": "Utente: non abilitato a gestire l'integrazione con DCM",
     "USER_CANT_ENABLE_CHAINING_OR_BOARD_OF_EXPERTS": "Utente: non abilitato a gestire la concatenazione o il gruppo di esperti",
-    "MEMORI_BOARD_OF_EXPERTS_REQUIRES_COMPLETIONS": "Il gruppo di esperti richiede l'abilitazione delle completions",
-    "BILLING_DENIED_PERMISSION_TO_CREATE_MEMORI": "Non hai crediti sufficienti per creare un Twin",
+    "USER_CREATION_BILLING_DENIED_PERMISSION": "Non hai crediti sufficienti per creare un Twin",
 
     "MEMORI_NOT_FOUND": "Memori non trovato",
     "MEMORI_NOT_ACCESSIBLE": "Memori non accessibile",
@@ -294,6 +293,7 @@
     "MEMORI_GIVER_TAG_PIN_CHANGE_REQUIRES_SEPARATE_OPERATION": "Memori: cambio TAG e PIN richiedono operazioni separate",
     "MEMORI_NO_PASSWORD_WHEN_PUBLIC": "Memori: password non richiesta su Memori pubblico",
     "MEMORI_DEEP_THOUGHT_REQUIRES_COMPLETIONS": "Pensiero Profondo richiede l'abilitazione delle completions",
+    "MEMORI_BOARD_OF_EXPERTS_REQUIRES_COMPLETIONS": "Il gruppo di esperti richiede l'abilitazione delle completions",
 
     "MEMORI_TRANSFER_MISSING_DESTINATION_USER": "Trasferimento: utente di destinazione mancante",
     "MEMORI_TRANSFER_INVALID_DESTINATION_USER_ID": "Trasferimento: ID utente di destinazione non valido",
@@ -387,6 +387,7 @@
     "IMPORTTXT_IMPORT_LIMIT_EXCEEDED": "Importazione TXT: limite importazione superato",
     "IMPORTTXT_IMPORT_ON_GPT4_REQUIRES_API_KEY": "Importazione TXT: importazione su GPT-4 richiede API key",
     "IMPORTTXT_IMPORT_REQUIRES_PAYING": "Importazione TXT: importazione richiede un piano a pagamento",
+    "IMPORTTXT_BILLING_DENIED_PERMISSION": "Importazione TXT: non hai crediti sufficienti per l'operazione",
 
     "EXPORTCSV_MISSING_CSV_SPECS": "Esportazione CSV: specifiche CSV mancanti",
     "EXPORTCSV_MISSING_SEPARATOR": "Esportazione CSV: separatore mancante",

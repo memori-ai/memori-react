@@ -269,8 +269,7 @@
     "USER_CANT_ENABLE_DEEP_THOUGHT": "User: not enabled to manage Deep Thought",
     "USER_CANT_ENABLE_DCM_INTEGRATION": "User: not enabled to manage DCM integration",
     "USER_CANT_ENABLE_CHAINING_OR_BOARD_OF_EXPERTS": "User: not allowed to manage chaining or expert group",
-    "MEMORI_BOARD_OF_EXPERTS_REQUIRES_COMPLETIONS": "The expert group requires completions to be enabled",
-    "BILLING_DENIED_PERMISSION_TO_CREATE_MEMORI": "You don't have enough credits to create a Twin",
+    "USER_CREATION_BILLING_DENIED_PERMISSION": "You don't have enough credits to create a Twin",
 
     "MEMORI_NOT_FOUND": "Memori not found",
     "MEMORI_NOT_ACCESSIBLE": "Memori not accessible",
@@ -295,6 +294,7 @@
     "MEMORI_GIVER_TAG_PIN_CHANGE_REQUIRES_SEPARATE_OPERATION": "Memories: TAG and PIN change require separate operations",
     "MEMORI_NO_PASSWORD_WHEN_PUBLIC": "Memories: no password required when public",
     "MEMORI_DEEP_THOUGHT_REQUIRES_COMPLETIONS": "Deep Thought requires completions to be enabled",
+    "MEMORI_BOARD_OF_EXPERTS_REQUIRES_COMPLETIONS": "The expert group requires completions to be enabled",
 
     "MEMORI_TRANSFER_MISSING_DESTINATION_USER": "Transfer: missing destination user",
     "MEMORI_TRANSFER_INVALID_DESTINATION_USER_ID": "Transfer: invalid destination user ID",
@@ -388,6 +388,7 @@
     "IMPORTTXT_IMPORT_LIMIT_EXCEEDED": "Import TXT: import limit exceeded",
     "IMPORTTXT_IMPORT_ON_GPT4_REQUIRES_API_KEY": "Import TXT: import on GPT-4 requires API key",
     "IMPORTTXT_IMPORT_REQUIRES_PAYING": "Import TXT: Import requires a paying plan",
+    "IMPORTTXT_BILLING_DENIED_PERMISSION": "Import TXT: you don't have enough credits for the operation",
 
     "EXPORTCSV_MISSING_CSV_SPECS": "CSV export: missing CSV specifications",
     "EXPORTCSV_MISSING_SEPARATOR": "CSV export: missing separator",
