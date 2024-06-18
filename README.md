@@ -118,7 +118,7 @@ You can override the default layout by passing a custom layout component to the 
 The custom layout component must be a React functional component that accepts a [LayoutProps](https://github.com/memori-ai/memori-react/blob/a6e0de73f3610f763bcd8e28deb7626fea91f0d1/src/components/MemoriWidget/MemoriWidget.tsx#LL148C21-L148C21) object as props.
 
 ```tsx
-import type { LayoutProps } from '@memori.ai/memori-react/components/MemoriWidget';
+import { LayoutProps } from '@memori.ai/memori-react/dist/components/MemoriWidget/MemoriWidget';
 
 const MyCustomLayout: React.FC<LayoutProps> = ({
   Header,
