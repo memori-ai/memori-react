@@ -1622,6 +1622,21 @@ const MemoriWidget = ({
             voiceType === 'MALE' ? 'el-GR-NestorasNeural' : 'el-GR-AthinaNeural'
           }`;
           break;
+        case 'AR':
+          voice = `${
+            voiceType === 'MALE' ? 'ar-SA-HamedNeural' : 'ar-SA-ZariyahNeural'
+          }`;
+          break;
+        case 'ZH':
+          voice = `${
+            voiceType === 'MALE' ? 'zh-CN-YunxiNeural' : 'zh-CN-XiaoxiaoNeural'
+          }`;
+          break;
+        case 'JA':
+          voice = `${
+            voiceType === 'MALE' ? 'ja-JP-KeitaNeural' : 'ja-JP-NanamiNeural'
+          }`;
+          break;
         default:
           voice = `${
             voiceType === 'MALE' ? 'it-IT-DiegoNeural' : 'it-IT-IsabellaNeural'
@@ -1680,6 +1695,15 @@ const MemoriWidget = ({
         break;
       case 'EL':
         voice = 'el-GR';
+        break;
+      case 'AR':
+        voice = 'ar-SA';
+        break;
+      case 'ZH':
+        voice = 'zh-CN';
+        break;
+      case 'JA':
+        voice = 'ja-JP';
         break;
       default:
         voice = 'it-IT';

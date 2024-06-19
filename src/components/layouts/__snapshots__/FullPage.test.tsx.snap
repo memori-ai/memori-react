@@ -356,6 +356,24 @@ exports[`renders FullPage layout unchanged 1`] = `
                   >
                     Ελληνικά
                   </option>
+                  <option
+                    aria-label="العربية"
+                    value="AR"
+                  >
+                    العربية
+                  </option>
+                  <option
+                    aria-label="中文"
+                    value="ZH"
+                  >
+                    中文
+                  </option>
+                  <option
+                    aria-label="日本語"
+                    value="JA"
+                  >
+                    日本語
+                  </option>
                 </select>
               </div>
               <button

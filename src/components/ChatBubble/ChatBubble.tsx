@@ -233,6 +233,7 @@ const ChatBubble: React.FC<Props> = ({
           }`}
         >
           <div
+            dir="auto"
             className="memori-chat--bubble-content"
             dangerouslySetInnerHTML={{ __html: renderedText }}
           />
