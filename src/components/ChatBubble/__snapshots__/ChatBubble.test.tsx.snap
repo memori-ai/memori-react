@@ -646,15 +646,13 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
         </p>
         <br />
         <p>
-          \\[Vedi altro\\](
           <a
-            href="https://memori.ai"
+            href="Vedi altro"
             rel="noopener noreferrer"
             target="_blank"
           >
-            https://memori.ai
+            Vedi altro
           </a>
-          )
         </p>
       </div>
     </div>

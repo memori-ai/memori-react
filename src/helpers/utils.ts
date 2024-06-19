@@ -146,6 +146,46 @@ export const stripEmojis = (text: string) => {
   return text.replaceAll(/[^\p{L}\p{N}\p{P}\p{Z}^$\n]/gu, '').trim();
 };
 
+export const stripMarkdown = (text: string) => {
+  // Remove code blocks
+  text = text.replaceAll(/```[\s\S]*?```/g, '');
+  // Remove inline code
+  text = text.replaceAll(/`[^`]*`/g, '');
+  // Remove images
+  text = text.replaceAll(/!\[[^\]]*\]\([^)]*\)/g, '');
+  // Remove links but keep the text
+  text = text.replaceAll(/\[([^\]]*)\]\([^)]*\)/g, '$1');
+  // Remove blockquotes but keep the text
+  text = text.replaceAll(/^> /gm, '');
+  // Remove headings but keep the text
+  text = text.replaceAll(/^#+ /gm, '');
+  // Remove bold and italic symbols and keep the text
+  text = text.replaceAll(/[*_]/g, '');
+  // Remove horizontal rules
+  text = text.replaceAll(/---/g, '');
+  // Remove strikethrough and keep the text
+  text = text.replaceAll(/~~/g, '');
+  // Remove lists
+  text = text.replaceAll(/^\s*[-*+] /gm, '');
+  text = text.replaceAll(/^\s*\d+\.\s+/gm, '');
+  // Remove tables
+  text = text.replaceAll(/^\|.*\|$/gm, '');
+  // Remove MathJax
+  text = text.replaceAll(/\$\$[\s\S]*?\$\$/g, '');
+  text = text.replaceAll(/\$[\s\S]*?\$/g, '');
+  text = text.replaceAll(/\\\([\s\S]*?\\\)/g, '');
+  text = text.replaceAll(/\\\[[\s\S]*?\\\]/g, '');
+  // Remove extra spaces and newlines
+  text = text.replaceAll(/\s+/g, ' ').trim();
+  return text;
+};
+
+export const escapeHTML = (text: string) => {
+  const el = document.createElement('textarea');
+  el.textContent = text;
+  return el.innerHTML;
+};
+
 export const getFieldFromCustomData = (
   fieldName: string,
   data: string | undefined
