@@ -91,26 +91,28 @@ const ChatBubble: React.FC<Props> = ({
   const { t } = useTranslation();
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
 
-  const renderedText = sanitize(
-    (
-      marked.parse(
-        (message.translatedText || message.text)
-          .replaceAll('(', '\\(')
-          .replaceAll(')', '\\)')
-      ) as string
-    )
-      .trim()
-      .replace(/\n/g, '<br>')
-      // replace consecutive <br> with a <br>
-      .replace(/(<br>)+/g, '<br><br>'),
-    {
-      ADD_ATTR: ['target'],
-    }
-  )
-    .replaceAll('[', '\\[')
-    .replaceAll(']', '\\]')
-    // replace consecutive <br> with a single <br>
-    .replace(/(<br>)+/g, '<br>');
+  const renderedText = message.fromUser
+    ? message.translatedText || message.text
+    : sanitize(
+        (
+          marked.parse(
+            (message.translatedText || message.text)
+              .replaceAll('(', '\\(')
+              .replaceAll(')', '\\)')
+          ) as string
+        )
+          .trim()
+          .replace(/\n/g, '<br>')
+          // replace consecutive <br> with a <br>
+          .replace(/(<br>)+/g, '<br><br>'),
+        {
+          ADD_ATTR: ['target'],
+        }
+      )
+        .replaceAll('[', '\\[')
+        .replaceAll(']', '\\]')
+        // replace consecutive <br> with a single <br>
+        .replace(/(<br>)+/g, '<br>');
 
   useLayoutEffect(() => {
     if (typeof window !== 'undefined' && !message.fromUser) {
