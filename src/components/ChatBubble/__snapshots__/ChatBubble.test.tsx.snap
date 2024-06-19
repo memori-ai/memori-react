@@ -151,9 +151,9 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
         <p>
           Dove:
           <br />
-          - \\(c \\) è l'ipotenusa.
+          - \\( c \\) è l'ipotenusa.
           <br />
-          - \\(a \\) e \\(b \\) sono i due cateti del triangolo.
+          - \\( a \\) e \\( b \\) sono i due cateti del triangolo.
         </p>
         <br />
         <h3>
@@ -165,7 +165,7 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
           <li>
             <p>
               <strong>
-                Misura o identifica i cateti \\(a \\) e \\(b \\)
+                Misura o identifica i cateti \\( a \\) e \\( b \\)
               </strong>
               :
               <br />
@@ -181,7 +181,7 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
               </strong>
               :
               <br />
-              Eleva al quadrato entrambe le misure dei cateti: \\(a^2 \\) e \\(b^2 \\).
+              Eleva al quadrato entrambe le misure dei cateti: \\( a^2 \\) e \\( b^2 \\).
             </p>
             <br />
           </li>
@@ -193,7 +193,7 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
               </strong>
               :
               <br />
-              Somma i risultati ottenuti: \\(a^2 + b^2 \\).
+              Somma i risultati ottenuti: \\( a^2 + b^2 \\).
             </p>
             <br />
           </li>
@@ -205,7 +205,7 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
               </strong>
               :
               <br />
-              Prendi la radice quadrata della somma per trovare l'ipotenusa: \\(c = \\sqrt{a^2 + b^2} \\).
+              Prendi la radice quadrata della somma per trovare l'ipotenusa: \\( c = \\sqrt{a^2 + b^2} \\).
             </p>
             <br />
           </li>
@@ -224,14 +224,14 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
           <br />
           <li>
             <strong>
-              Cateto \\(a \\)
+              Cateto \\( a \\)
             </strong>
             : 3 cm
           </li>
           <br />
           <li>
             <strong>
-              Cateto \\(b \\)
+              Cateto \\( b \\)
             </strong>
             : 4 cm
           </li>
@@ -315,13 +315,13 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                 Calcolo della resistenza:
               </strong>
               <br />
-              Il valore della resistenza dei materiali \\(f_d \\) da utilizzare nelle verifiche per carichi gravitazionali si ottiene mediante la seguente espressione:
+              Il valore della resistenza dei materiali \\( f_d \\) da utilizzare nelle verifiche per carichi gravitazionali si ottiene mediante la seguente espressione:
             </p>
             <br />
             <p>
               \\[
               <br />
-              f_d = \\min \\left(\\frac{f_m}{FC \\cdot \\gamma_M}, \\frac{f_k}{FC} \\right)
+              f_d = \\min \\left( \\frac{f_m}{FC \\cdot \\gamma_M}, \\frac{f_k}{FC} \\right)
               <br />
               \\]
             </p>
@@ -333,19 +333,19 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
             <ul>
               <br />
               <li>
-                \\(f_m \\) è il valor medio della resistenza valutato dai risultati delle prove effettuate sui campioni prelevati in situ;
+                \\( f_m \\) è il valor medio della resistenza valutato dai risultati delle prove effettuate sui campioni prelevati in situ;
               </li>
               <br />
               <li>
-                \\(f_k \\) è la resistenza caratteristica calcolata sulla base dei risultati delle prove sui campioni prelevati in situ;
+                \\( f_k \\) è la resistenza caratteristica calcolata sulla base dei risultati delle prove sui campioni prelevati in situ;
               </li>
               <br />
               <li>
-                \\(FC \\) è il Fattore di Confidenza associato al Livello di Conoscenza raggiunto;
+                \\( FC \\) è il Fattore di Confidenza associato al Livello di Conoscenza raggiunto;
               </li>
               <br />
               <li>
-                \\(\\gamma_M \\) è il fattore parziale di sicurezza del materiale   .
+                \\( \\gamma_M \\) è il fattore parziale di sicurezza del materiale   .
               </li>
               <br />
             </ul>
@@ -643,13 +643,15 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
         </p>
         <br />
         <p>
+          \\[Vedi altro\\](
           <a
-            href="https://memori.ai%5C"
+            href="https://memori.ai"
             rel="noopener noreferrer"
             target="_blank"
           >
-            Vedi altro
+            https://memori.ai
           </a>
+          )
         </p>
       </div>
     </div>

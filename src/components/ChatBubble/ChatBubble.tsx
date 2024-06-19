@@ -95,7 +95,7 @@ const ChatBubble: React.FC<Props> = ({
     (
       marked.parse(
         (message.translatedText || message.text)
-          .replaceAll('( ', '\\(')
+          .replaceAll('(', '\\(')
           .replaceAll(')', '\\)')
       ) as string
     )
