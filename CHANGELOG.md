@@ -1,5 +1,19 @@
 
 
+## [6.8.0](https://github.com/memori-ai/memori-react/compare/v6.7.2...v6.8.0) (2024-06-19)
+
+
+### Features
+
+* add arabic, chinese and japanese langs, add dir auto to emissions ([e7dafd2](https://github.com/memori-ai/memori-react/commit/e7dafd2b51285d7bec19e0239eb47768fca103a8))
+
+
+### Changes
+
+* add selectors for MathJax elements in parsing ([f0e6724](https://github.com/memori-ai/memori-react/commit/f0e6724e7d042863b34708aa1c6b7bd855ce17e2))
+* enable markdown parsing for emissions, not user messages ([1e34242](https://github.com/memori-ai/memori-react/commit/1e342421eecf578f570591b1453d80305fa48d81))
+* enhance markdown + mathjax parsing for links, strip markdown and syntax symbols for TTS ([e76c8ea](https://github.com/memori-ai/memori-react/commit/e76c8ea4fbe82c4b27146ff5efc7bcd80724379b))
+
 ## [6.7.2](https://github.com/memori-ai/memori-react/compare/v6.7.1...v6.7.2) (2024-06-18)
 
 
