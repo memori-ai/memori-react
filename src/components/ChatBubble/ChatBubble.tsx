@@ -104,6 +104,8 @@ const ChatBubble: React.FC<Props> = ({
               )
               .replaceAll('(', '\\(')
               .replaceAll(')', '\\)')
+              .replaceAll(/(?<!\\)\(/g, '\\(')
+              .replaceAll(/(?<!\\)\)/g, '\\)')
           ) as string
         )
           .trim()
@@ -114,8 +116,10 @@ const ChatBubble: React.FC<Props> = ({
           ADD_ATTR: ['target'],
         }
       )
-        .replaceAll('[', '\\[')
-        .replaceAll(']', '\\]')
+        .replaceAll(/(?<!\\)\[/g, '\\[')
+        .replaceAll(/(?<!\\)\]/g, '\\]')
+        // .replaceAll(/(?<!\\\\)\[/g, '\\\\[')
+        // .replaceAll(/(?<!\\\\)\]/g, '\\\\]')
         // replace consecutive <br> with a single <br>
         .replace(/(<br>)+/g, '<br>');
 

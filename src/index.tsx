@@ -207,6 +207,59 @@ const Memori: React.FC<Props> = ({
     }
   }, [uiLang]);
 
+  useEffect(() => {
+    // @ts-ignore
+    window.MathJax = {
+      startup: {
+        elements: ['.memori-chat--bubble-content'],
+      },
+      options: {
+        processHtmlClass: 'memori-chat--bubble-content',
+      },
+      tex: {
+        inlineMath: [
+          ['$', '$'],
+          ['\\$', '\\$'],
+          ['(', '\\)'],
+          ['\\(', ')'],
+          ['(', ')'],
+          ['[', '\\]'],
+          ['[', ']'],
+          ['\\(', '\\)'],
+          ['\\[', '\\]'],
+          ['\\\\[', '\\\\]'],
+          ['\\\\\\[', '\\\\\\]'],
+          ['((', '))'],
+        ],
+        displayMath: [
+          ['$$', '$$'],
+          ['\\[[', '\\]]'],
+          ['\\\\[[', '\\\\]]'],
+          ['\\\\\\[[', '\\\\\\]]'],
+        ],
+        processEscapes: false,
+      },
+      asciimath: {
+        fixphi: true,
+        displaystyle: true,
+        decimalsign: '.',
+      },
+      skipStartupTypeset: true,
+      chtml: {
+        displayAlign: 'left',
+      },
+      svg: {
+        fontCache: 'global',
+      },
+    };
+
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+    script.async = true;
+    script.id = 'mathjax-script';
+    document.head.appendChild(script);
+  }, []);
+
   const renderer = memori ? (
     <MemoriWidget
       layout={layout}
@@ -282,43 +335,6 @@ const Memori: React.FC<Props> = ({
     <I18nextProvider i18n={i18n}>
       <Toaster position="top-center" reverseOrder={true} />
       {renderer}
-
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-          MathJax = {
-            startup: {
-              elements: ['.memori-chat--bubble-content'],
-            },
-            options: {
-              processHtmlClass: 'memori-chat--bubble-content',
-            },
-            tex: {
-              inlineMath: [['$', '$'], ['\\$', '\\$'], ['(',')'], ['(','\\)'], ['\[', '\]'], ['[', '\\]'], ['[', ']'], ['\\(', '\\)'], ['\\[', '\\]'], ['((','))']],
-              displayMath: [['$$', '$$'], ['\\[[', '\\]]']],
-              processEscapes: true,
-            },
-            asciimath: {
-              fixphi: true,
-              displaystyle: true,
-              decimalsign: '.'
-            },
-            skipStartupTypeset: true,
-            chtml: {
-              displayAlign: 'left',
-            },
-            svg: {
-              fontCache: 'global'
-            }
-          };
-        `,
-        }}
-      />
-      <script
-        id="MathJax-script"
-        async
-        src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
-      ></script>
     </I18nextProvider>
   );
 };

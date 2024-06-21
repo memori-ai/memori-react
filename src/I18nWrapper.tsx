@@ -13,7 +13,7 @@ const I18nWrapper = ({ children }: Props) => (
     <script
       dangerouslySetInnerHTML={{
         __html: `
-          MathJax = {
+          window.MathJax = {
             startup: {
               elements: ['.memori-chat--bubble-content'],
             },
@@ -21,8 +21,26 @@ const I18nWrapper = ({ children }: Props) => (
               processHtmlClass: 'memori-chat--bubble-content',
             },
             tex: {
-              inlineMath: [['$', '$'], ['\\$', '\\$'], ['(',')'], ['(','\\)'], ['\[', '\]'], ['[', '\\]'], ['[', ']'], ['\\(', '\\)'], ['\\[', '\\]'], ['((','))']],
-              displayMath: [['$$', '$$'], ['\\[[', '\\]]']],
+              inlineMath: [
+                ['$', '$'],
+                ['\\$', '\\$'],
+                ['(', '\\)'],
+                ['\\(', ')'],
+                ['(', ')'],
+                ['[', '\\]'],
+                ['[', ']'],
+                ['\\(', '\\)'],
+                ['\\[', '\\]'],
+                ['\\\\[', '\\\\]'],
+                ['\\\\\\[', '\\\\\\]'],
+                ['((', '))'],
+              ],
+              displayMath: [
+                ['$$', '$$'],
+                ['\\[[', '\\]]'],
+                ['\\\\[[', '\\\\]]'],
+                ['\\\\\\[[', '\\\\\\]]'],
+              ],
               processEscapes: true,
             },
             asciimath: {

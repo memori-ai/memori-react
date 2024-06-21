@@ -291,3 +291,16 @@ ComplexMarkdownMath4.args = {
     text: "Per calcolare l'urto su barriere metalliche, è necessario considerare diversi fattori come la massa del veicolo, la velocità dell'impatto, l'angolo di impatto e le caratteristiche della barriera stessa. Di seguito è riportata una descrizione generale del processo di calcolo:\n\n1. **Determinazione dei parametri dell'urto:**\n - **Massa del veicolo (m):** La massa del veicolo che colpisce la barriera.\n - **Velocità dell'impatto (v):** La velocità del veicolo al momento dell'impatto.\n - **Angolo di impatto (θ):** L'angolo con cui il veicolo colpisce la barriera.\n\n2. **Calcolo dell'energia cinetica:**\n L'energia cinetica del veicolo al momento dell'impatto è data dalla formula:\n \\[\n E_k = \\frac{1}{2} m v^2\n \\]\n dove \\(E_k\\) è l'energia cinetica, \\(m\\) è la massa del veicolo e \\(v\\) è la velocità del veicolo.\n\n3. **Calcolo della forza d'impatto:**\n La forza d'impatto può essere calcolata considerando la decelerazione del veicolo e il tempo di contatto con la barriera. Una formula semplificata per la forza d'impatto \\(F\\) è:\n \\[\n F = \\frac{m \\Delta v}{\\Delta t}\n \\]\n dove \\( \\Delta v \\) è la variazione di velocità (che può essere considerata uguale alla velocità iniziale \\(v\\) se il veicolo si ferma completamente), e \\( \\Delta t \\) è il tempo di contatto.\n\n4. **Considerazioni sulla barriera:**\n Le barriere metalliche sono progettate per assorbire energia e ridurre la forza trasmessa ai veicoli e agli occupanti. La capacità di assorbimento dell'energia della barriera dipende dal materiale, dalla geometria e dalla costruzione della barriera stessa.\n\n5. **Normative e standard:**\n È importante seguire le normative e gli standard specifici per la progettazione e il calcolo delle barriere di sicurezza. Questi possono variare a seconda del paese e dell'applicazione specifica (ad esempio, autostrade, ponti, ecc.).\n\nPer calcoli più dettagliati e specifici, si consiglia di consultare le normative tecniche locali e di utilizzare software di simulazione specializzati che possono prendere in considerazione tutti i fattori rilevanti.",
   },
 };
+
+export const ComplexMarkdownMath5 = Template.bind({});
+ComplexMarkdownMath5.args = {
+  memori,
+  tenant,
+  apiUrl: 'https://backend.memori.ai',
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: "Per calcolare l'ipotenusa di un triangolo rettangolo, puoi utilizzare il teorema di Pitagora. La formula è:\n\n\\\\[ c = \\\\sqrt{a^2 + b^2} \\\\]\n\nDove:\n- \\\\( c \\\\) è l'ipotenusa,\n- \\\\( a \\\\) e \\\\( b \\\\) sono i due cateti del triangolo.\n\nAd esempio, se hai un triangolo con i cateti di lunghezza 3 e 4, l'ipotenusa sarà:\n\n\\\\[ c = \\\\sqrt{3^2 + 4^2} = \\\\sqrt{9 + 16} = \\\\sqrt{25} = 5 \\\\]\n\nSe hai altre domande o dubbi, sono qui per aiutarti!",
+  },
+};
