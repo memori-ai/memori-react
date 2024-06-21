@@ -1,5 +1,13 @@
 
 
+## [6.8.2](https://github.com/memori-ai/memori-react/compare/v6.8.1...v6.8.2) (2024-06-21)
+
+
+### Changes
+
+* completion provider status from openai selecting only API component ([36f37f0](https://github.com/memori-ai/memori-react/commit/36f37f0111d765c5580e53f013b1ec7437a81e71))
+* mobile chat text content size ([5146d85](https://github.com/memori-ai/memori-react/commit/5146d85445d43513b518445a087b8c713bcb1691))
+
 ## [6.8.1](https://github.com/memori-ai/memori-react/compare/v6.8.0...v6.8.1) (2024-06-21)
 
 
