@@ -1,14 +1,27 @@
 import { useEffect, useState } from 'react';
 import Tooltip from '../ui/Tooltip';
 import Warning from '../icons/Warning';
+import { Tenant } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
 
+type Status =
+  | 'operational'
+  | 'degraded_performance'
+  | 'partial_outage'
+  | 'major_outage'
+  | undefined;
+
 export interface Props {
-  forceStatus?: string;
-  provider?: 'OpenAI' | string | null;
+  forceStatus?: Status;
+  provider?: Tenant['defaultCompletionProvider'];
 }
 
-const initProviderStatus = (provider?: Props['provider']) => {
+const initProviderStatus = (
+  provider?: Props['provider'] | 'DEFAULT'
+): {
+  getStatus: () => Promise<Status>;
+  statusPage: string;
+} => {
   switch (provider) {
     case 'DEFAULT':
     case 'OpenAI':
@@ -18,13 +31,16 @@ const initProviderStatus = (provider?: Props['provider']) => {
             'https://status.openai.com/api/v2/summary.json'
           );
           const data = await res.json();
-          return data.status.indicator ?? 'none';
+          const status = data.components.find(
+            (component: { name: string }) => component.name === 'API'
+          )?.status as Status;
+          return status ?? 'operational';
         },
         statusPage: 'https://status.openai.com/',
       };
     default:
       return {
-        getStatus: async () => 'none',
+        getStatus: async () => 'operational',
         statusPage: '',
       };
   }
@@ -32,17 +48,20 @@ const initProviderStatus = (provider?: Props['provider']) => {
 
 const CompletionProviderStatus = ({ forceStatus, provider }: Props) => {
   const { t } = useTranslation();
-  const [status, setStatus] = useState(forceStatus ?? 'none');
+  const [status, setStatus] = useState<Status>(forceStatus ?? 'operational');
 
   const providerStatus = initProviderStatus(provider);
 
   useEffect(() => {
     if (forceStatus) return;
 
-    providerStatus.getStatus().then(status => setStatus(status));
+    providerStatus
+      .getStatus()
+      .then(status => setStatus(status))
+      .catch(console.log);
   }, [forceStatus, provider]);
 
-  return status !== 'none' ? (
+  return status !== 'operational' ? (
     <Tooltip
       className="memori--completion-provider-status--tooltip"
       align="topLeft"

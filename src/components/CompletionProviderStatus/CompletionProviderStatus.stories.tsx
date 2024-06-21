@@ -28,7 +28,7 @@ Default.args = {};
 
 export const Errored = Template.bind({});
 Errored.args = {
-  forceStatus: 'major',
+  forceStatus: 'major_outage',
 };
 
 export const WithSpecifiedProvider = Template.bind({});
@@ -38,6 +38,6 @@ WithSpecifiedProvider.args = {
 
 export const ErroredWithSpecifiedProvider = Template.bind({});
 ErroredWithSpecifiedProvider.args = {
-  forceStatus: 'major',
+  forceStatus: 'major_outage',
   provider: 'OpenAI',
 };

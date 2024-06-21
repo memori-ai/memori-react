@@ -17,7 +17,9 @@ import BlockedMemoriBadge from '../BlockedMemoriBadge/BlockedMemoriBadge';
 import AI from '../icons/AI';
 import Group from '../icons/Group';
 import DeepThought from '../icons/DeepThought';
-import CompletionProviderStatus from '../CompletionProviderStatus/CompletionProviderStatus';
+import CompletionProviderStatus, {
+  Props as CPSProps,
+} from '../CompletionProviderStatus/CompletionProviderStatus';
 import MapMarker from '../icons/MapMarker';
 
 export interface Props {
@@ -37,7 +39,7 @@ export interface Props {
   clickedStart?: boolean;
   onClickStart?: () => void;
   initializeTTS?: () => void;
-  _TEST_forceProviderStatus?: string;
+  _TEST_forceProviderStatus?: CPSProps['forceStatus'];
   isUserLoggedIn?: boolean;
   user?: User;
   showLogin?: boolean;

@@ -255,7 +255,7 @@ it('renders StartPanel with completion provider down unchanged', () => {
       clickedStart={false}
       onClickStart={() => {}}
       setShowLoginDrawer={jest.fn()}
-      _TEST_forceProviderStatus="major"
+      _TEST_forceProviderStatus="major_outage"
     />
   );
   expect(container).toMatchSnapshot();
