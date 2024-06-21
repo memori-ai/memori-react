@@ -1,5 +1,13 @@
 
 
+## [6.8.1](https://github.com/memori-ai/memori-react/compare/v6.8.0...v6.8.1) (2024-06-21)
+
+
+### Bug Fixes
+
+* import katex styles from cdn ([f4cd80d](https://github.com/memori-ai/memori-react/commit/f4cd80dae8558ee2052e27e1360d3858db172d6c))
+* mathjax loading and parsing, moved to effect ([cbd1274](https://github.com/memori-ai/memori-react/commit/cbd12740e4e7764a3f12aa8f3916b19e1c3b42a6))
+
 ## [6.8.0](https://github.com/memori-ai/memori-react/compare/v6.7.2...v6.8.0) (2024-06-19)
 
 
