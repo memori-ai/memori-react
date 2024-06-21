@@ -94,12 +94,12 @@
 
 @media (max-width: 600px) {
     .memori-chat--bubble p {
-        font-size: 11px;
-        line-height: 1.2;
+        font-size: 12px;
+        line-height: 1.25;
     }
 }
 
-.memori-chat--bubble p+p {
+.memori-chat--bubble p + p {
     margin-top: 0.5em;
 }
 
@@ -260,7 +260,6 @@
 }
 
 @keyframes wave {
-
     0%,
     60%,
     100% {
@@ -276,6 +275,6 @@
     width: 100%;
 }
 
-.memori-chat--bubble mjx-container[jax="CHTML"][display="true"] {
+.memori-chat--bubble mjx-container[jax='CHTML'][display='true'] {
     text-align: left;
 }
