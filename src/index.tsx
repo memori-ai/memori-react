@@ -39,6 +39,7 @@ export interface Props {
   height?: number | string;
   baseURL?: string;
   apiURL?: string;
+  engineURL?: string;
   tag?: string;
   pin?: string;
   context?: { [key: string]: string };
@@ -97,6 +98,7 @@ const Memori: React.FC<Props> = ({
   height = '100%',
   baseURL,
   apiURL = 'https://backend.memori.ai',
+  engineURL = 'https://engine.memori.ai',
   tag,
   pin,
   context,
@@ -126,7 +128,7 @@ const Memori: React.FC<Props> = ({
     );
   }
 
-  const client = memoriApiClient(apiURL);
+  const client = memoriApiClient(apiURL, engineURL);
 
   const fetchSpeechKey = useCallback(async () => {
     const url =
