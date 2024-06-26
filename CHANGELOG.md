@@ -1,5 +1,21 @@
 
 
+## [7.0.0](https://github.com/memori-ai/memori-react/compare/v6.8.2...v7.0.0) (2024-06-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* split engine and backend endpoints
+
+### Changes
+
+* split engine and backend endpoints ([6bcb56d](https://github.com/memori-ai/memori-react/commit/6bcb56df8b059c8bb3a9cfe3c4a14691f541aa1d))
+
+
+### Maintenance
+
+* update proptypes ([0dbdfb2](https://github.com/memori-ai/memori-react/commit/0dbdfb268a8844c42014f73a17db1e4ab0db4f9c))
+
 ## [6.8.2](https://github.com/memori-ai/memori-react/compare/v6.8.1...v6.8.2) (2024-06-21)
 
 
