@@ -83,7 +83,9 @@
 
 .memori-chat--bubble a {
     color: var(--memori-primary, #000);
+    overflow-wrap: break-word;
     text-decoration: underline;
+    word-break: break-word;
 }
 
 .memori-chat--bubble a:hover,

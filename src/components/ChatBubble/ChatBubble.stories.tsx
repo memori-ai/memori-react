@@ -93,6 +93,17 @@ GeneratedByAI.args = {
   },
 };
 
+export const WithLongLink = Template.bind({});
+WithLongLink.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    initial: false,
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor. Vedi altro su: https://aisuru.aclambda.online/it/memoridev/MANUALE%20DI%20RICHIEDENTE%20CENTRO%20DI%20COSTOAWANAGANAQUESTOLINKNONESISTEMADIVENTAMOLTOLUNGOESENZASPAZI',
+  },
+};
+
 export const WithFeedbackButtons = Template.bind({});
 WithFeedbackButtons.args = {
   memori,
