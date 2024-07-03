@@ -1,5 +1,13 @@
 
 
+## [7.0.1](https://github.com/memori-ai/memori-react/compare/v7.0.0...v7.0.1) (2024-07-03)
+
+
+### Bug Fixes
+
+* chat link word break ([7ba2993](https://github.com/memori-ai/memori-react/commit/7ba2993e298e3ab0214c92054d35c00c956ced21))
+* markdown link parsing url ([94cab0f](https://github.com/memori-ai/memori-react/commit/94cab0f3951f9e8480e0e92f9873045dd9a259ab))
+
 ## [7.0.0](https://github.com/memori-ai/memori-react/compare/v6.8.2...v7.0.0) (2024-06-26)
 
 
