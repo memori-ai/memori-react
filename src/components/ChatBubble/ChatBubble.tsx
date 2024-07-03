@@ -99,8 +99,8 @@ const ChatBubble: React.FC<Props> = ({
             (message.translatedText || message.text)
               // remove markdown links
               .replaceAll(
-                /\[([^\]]+)\]\([^)]+\)/g,
-                '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>'
+                /\[([^\]]+)\]\(([^\)]+)\)/g,
+                '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
               )
               .replaceAll('(', '\\(')
               .replaceAll(')', '\\)')
