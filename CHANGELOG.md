@@ -1,5 +1,12 @@
 
 
+## [7.0.2](https://github.com/memori-ai/memori-react/compare/v7.0.1...v7.0.2) (2024-07-04)
+
+
+### Changes
+
+* better parse markdown avoiding nested markdown code ([41910a3](https://github.com/memori-ai/memori-react/commit/41910a33f2527a913522ff6953b3139f4a8dec1b))
+
 ## [7.0.1](https://github.com/memori-ai/memori-react/compare/v7.0.0...v7.0.1) (2024-07-03)
 
 
