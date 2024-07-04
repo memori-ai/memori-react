@@ -102,6 +102,8 @@ const ChatBubble: React.FC<Props> = ({
                 /\[([^\]]+)\]\(([^\)]+)\)/g,
                 '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
               )
+              // remove markdown multiline code blocks but keep the content
+              .replaceAll(/```markdown([^```]+)```/g, '$1')
               .replaceAll('(', '\\(')
               .replaceAll(')', '\\)')
               .replaceAll(/(?<!\\)\(/g, '\\(')
