@@ -16,7 +16,7 @@ import Tooltip from '../ui/Tooltip';
 import FeedbackButtons from '../FeedbackButtons/FeedbackButtons';
 import { useTranslation } from 'react-i18next';
 import { marked } from 'marked';
-import { sanitize } from 'dompurify';
+import DOMPurify from 'dompurify';
 import { cleanUrl } from '../../helpers/utils';
 import Button from '../ui/Button';
 import QuestionHelp from '../icons/QuestionHelp';
@@ -93,7 +93,7 @@ const ChatBubble: React.FC<Props> = ({
 
   const renderedText = message.fromUser
     ? message.translatedText || message.text
-    : sanitize(
+    : DOMPurify.sanitize(
         (
           marked.parse(
             (message.translatedText || message.text)
