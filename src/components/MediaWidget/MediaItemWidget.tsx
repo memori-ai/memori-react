@@ -69,7 +69,8 @@ export const RenderMediaItem = ({
       return (
         <a
           className="memori-media-item--link"
-          href={url}
+          href={isImageRGB ? undefined : url}
+          id={isImageRGB ? item.url : undefined}
           onClick={e => {
             if (isChild) {
               e.preventDefault();
@@ -96,9 +97,8 @@ export const RenderMediaItem = ({
                 )}
                 {isImageRGB ? (
                   <div
+                    className="memori-media-item--rgb-item"
                     style={{
-                      minHeight: '150px',
-                      width: '100%',
                       backgroundColor: item.url,
                     }}
                   />

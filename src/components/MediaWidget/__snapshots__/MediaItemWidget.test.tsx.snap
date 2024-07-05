@@ -425,7 +425,7 @@ exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
       >
         <a
           class="memori-media-item--link"
-          href="rgb(255, 0, 0)"
+          id="rgb(255, 0, 0)"
           rel="noopener noreferrer"
           target="_blank"
           title="Rosso"
@@ -443,7 +443,8 @@ exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
                   class="memori-media-item--figure"
                 >
                   <div
-                    style="min-height: 150px; width: 100%; background-color: rgb(255, 0, 0);"
+                    class="memori-media-item--rgb-item"
+                    style="background-color: rgb(255, 0, 0);"
                   />
                   <figcaption
                     class="memori-media-item--figure-caption"
@@ -484,7 +485,7 @@ exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
       >
         <a
           class="memori-media-item--link"
-          href="rgb(0, 255, 0)"
+          id="rgb(0, 255, 0)"
           rel="noopener noreferrer"
           target="_blank"
           title="Verde"
@@ -502,7 +503,8 @@ exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
                   class="memori-media-item--figure"
                 >
                   <div
-                    style="min-height: 150px; width: 100%; background-color: rgb(0, 255, 0);"
+                    class="memori-media-item--rgb-item"
+                    style="background-color: rgb(0, 255, 0);"
                   />
                   <figcaption
                     class="memori-media-item--figure-caption"
@@ -543,7 +545,7 @@ exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
       >
         <a
           class="memori-media-item--link"
-          href="rgb(0, 0, 255)"
+          id="rgb(0, 0, 255)"
           rel="noopener noreferrer"
           target="_blank"
           title="Blu"
@@ -561,7 +563,8 @@ exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
                   class="memori-media-item--figure"
                 >
                   <div
-                    style="min-height: 150px; width: 100%; background-color: rgb(0, 0, 255);"
+                    class="memori-media-item--rgb-item"
+                    style="background-color: rgb(0, 0, 255);"
                   />
                   <figcaption
                     class="memori-media-item--figure-caption"

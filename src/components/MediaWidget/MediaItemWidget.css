@@ -38,6 +38,12 @@
     justify-content: center;
 }
 
+.memori-media-item--rgb-item {
+    width: 100%;
+    min-height: 100px;
+    flex: 1;
+}
+
 .memori-media-item--figure img {
     min-width: 100%;
     min-height: 100%;
