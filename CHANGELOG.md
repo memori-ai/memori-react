@@ -1,5 +1,19 @@
 
 
+## [7.0.3](https://github.com/memori-ai/memori-react/compare/v7.0.2...v7.0.3) (2024-07-05)
+
+
+### Maintenance
+
+* change dompurify sanitize import ([4279ac0](https://github.com/memori-ai/memori-react/commit/4279ac028bba93948705a6243d041cd786c45028))
+
+
+### Changes
+
+* fix media item rgb color sizes ([1be970c](https://github.com/memori-ai/memori-react/commit/1be970cd6d267c1cdc29558b050f815bb918be0a))
+* rgb media items without link ([656517b](https://github.com/memori-ai/memori-react/commit/656517bdb23b3461371281c2074e0c2b8de01b04))
+* table compact styles ([56556db](https://github.com/memori-ai/memori-react/commit/56556dbccbee2a626adbe9de55f3245ffa86b1c7))
+
 ## [7.0.2](https://github.com/memori-ai/memori-react/compare/v7.0.1...v7.0.2) (2024-07-04)
 
 
