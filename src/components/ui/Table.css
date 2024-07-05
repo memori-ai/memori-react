@@ -7,11 +7,20 @@ table.memori--table {
     font-size: 1rem;
 }
 
+table.memori--table.memori--table--compact {
+    --memori-table-spacing: 0.5rem;
+    font-size: 0.875rem;
+}
+
 @media (max-width: 767px) {
     table.memori--table {
         --memori-table-spacing: 0.5rem;
 
         font-size: 0.875rem;
+    }
+
+    table.memori--table.memori--table--compact {
+        font-size: 0.75rem;
     }
 }
 
@@ -26,6 +35,10 @@ table.memori--table {
     width: 100%;
     max-width: 800px;
     overflow-x: auto;
+}
+
+.memori--responsive-table-wrapper > br {
+    display: none;
 }
 
 table.memori--table th,
@@ -47,7 +60,7 @@ table.memori--table tfoot td {
     border-bottom: 0;
 }
 
-table.memori--table[role="grid"] tbody tr:nth-child(odd) {
+table.memori--table[role='grid'] tbody tr:nth-child(odd) {
     background-color: var(--memori-table-bg-color);
 }
 

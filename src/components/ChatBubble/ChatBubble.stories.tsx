@@ -251,14 +251,27 @@ WithMarkdownAndBreakLine.args = {
   },
 };
 
-export const WithMarkdownAndCode = Template.bind({});
-WithMarkdownAndCode.args = {
+export const WithMarkdownCode = Template.bind({});
+WithMarkdownCode.args = {
   memori,
   apiUrl: 'https://backend.memori.ai',
   tenant,
   message: {
     fromUser: false,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\n```markdown\n# titolo\n```\n\nSed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+    initial: false,
+    generatedByAI: true,
+  },
+};
+
+export const WithMarkdownTable = Template.bind({});
+WithMarkdownTable.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\n| Header 1 | Header 2 | Header 3 |\n| -------- | -------- | -------- |\n| Cell 1   | Cell 2   | Cell 3   |\n| Cell 4   | Cell 5   | Cell 6   |\n\nSed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     initial: false,
     generatedByAI: true,
   },

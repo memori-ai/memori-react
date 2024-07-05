@@ -101,7 +101,7 @@ export default function () {
         renderer(token) {
           let i, j, row, cell, col, text;
           let output =
-            '<div class="memori--responsive-table-wrapper"><table class="memori--table">';
+            '<div class="memori--responsive-table-wrapper"><table class="memori--table memori--table--compact">';
           output += '<thead>';
           for (i = 0; i < token.header.length; i++) {
             row = token.header[i];
