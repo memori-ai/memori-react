@@ -85,6 +85,12 @@ Default.args = {
       content:
         'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
     },
+    {
+      mediumID: '65ca4a6d-f20b-402e-9d79-5e470f247928',
+      mimeType: 'image/png',
+      title: 'Verde',
+      url: 'rgb(0, 255, 0)',
+    },
   ],
 };
 
