@@ -1,5 +1,17 @@
 
 
+## [7.0.4](https://github.com/memori-ai/memori-react/compare/v7.0.3...v7.0.4) (2024-07-09)
+
+
+### Bug Fixes
+
+* textarea margins ([086b13e](https://github.com/memori-ai/memori-react/commit/086b13e29826033a6934d7dfb15c8318f6f7da4f))
+
+
+### Changes
+
+* dont store preference and remove selector for send on enter, different defaults for desktop and mobile ([e6af1ba](https://github.com/memori-ai/memori-react/commit/e6af1baf680cd77dc61a29148c70173e0661e3b9))
+
 ## [7.0.3](https://github.com/memori-ai/memori-react/compare/v7.0.2...v7.0.3) (2024-07-05)
 
 
