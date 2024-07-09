@@ -1,6 +1,6 @@
 import React from 'react';
 import { DialogState } from '@memori.ai/memori-api-client/dist/types';
-import SendOnEnterMenu from '../SendOnEnterMenu/SendOnEnterMenu';
+// import SendOnEnterMenu from '../SendOnEnterMenu/SendOnEnterMenu';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
 import Button from '../ui/Button';
 import { useTranslation } from 'react-i18next';
@@ -34,8 +34,6 @@ export interface Props {
 
 const ChatInputs: React.FC<Props> = ({
   dialogState,
-  sendOnEnter = 'click',
-  setSendOnEnter,
   userMessage = '',
   onChangeUserMessage,
   sendMessage,
@@ -65,10 +63,10 @@ const ChatInputs: React.FC<Props> = ({
           disabled={!dialogState?.acceptsMedia}
         />
       )*/}
-      <SendOnEnterMenu
+      {/*<SendOnEnterMenu
         sendOnEnter={sendOnEnter}
         setSendOnEnter={setSendOnEnter}
-      />
+      />*/}
       <ChatTextArea
         value={userMessage}
         onChange={onChangeUserMessage}

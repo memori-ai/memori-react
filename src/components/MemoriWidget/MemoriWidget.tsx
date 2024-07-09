@@ -2176,16 +2176,9 @@ const MemoriWidget = ({
     'keypress'
   );
   useEffect(() => {
-    const stored = getLocalConfig<'keypress' | 'click'>(
-      'sendOnEnter',
-      'keypress'
-    );
     if (window.innerWidth <= 768) setSendOnEnter('click');
-    else setSendOnEnter(stored);
+    else setSendOnEnter('keypress');
   }, []);
-  useEffect(() => {
-    setLocalConfig('sendOnEnter', sendOnEnter);
-  }, [sendOnEnter]);
 
   /**
    * Attachments

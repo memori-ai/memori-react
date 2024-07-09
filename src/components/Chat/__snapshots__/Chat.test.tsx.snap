@@ -348,29 +348,6 @@ exports[`renders Chat on X2a state unchanged 1`] = `
       id="chat-fieldset"
     >
       <div
-        class="memori-send-on-enter-menu"
-        data-headlessui-state=""
-      >
-        <button
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
-          data-headlessui-state=""
-          id="headlessui-menu-button-:re:"
-          type="button"
-        >
-          <div
-            class="memori-button--icon"
-          >
-            <span
-              style="display: block; width: 1rem; height: 1rem;"
-            >
-              …
-            </span>
-          </div>
-        </button>
-      </div>
-      <div
         class="memori-chat-textarea"
         data-testid="chat-textarea"
       >
@@ -812,29 +789,6 @@ exports[`renders Chat on X3 state unchanged 1`] = `
       id="chat-fieldset"
     >
       <div
-        class="memori-send-on-enter-menu"
-        data-headlessui-state=""
-      >
-        <button
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
-          data-headlessui-state=""
-          id="headlessui-menu-button-:rc:"
-          type="button"
-        >
-          <div
-            class="memori-button--icon"
-          >
-            <span
-              style="display: block; width: 1rem; height: 1rem;"
-            >
-              …
-            </span>
-          </div>
-        </button>
-      </div>
-      <div
         class="memori-chat-textarea memori-chat-textarea--disabled"
         data-testid="chat-textarea"
       >
@@ -1213,29 +1167,6 @@ exports[`renders Chat unchanged 1`] = `
       class="memori-chat-inputs"
       id="chat-fieldset"
     >
-      <div
-        class="memori-send-on-enter-menu"
-        data-headlessui-state=""
-      >
-        <button
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
-          data-headlessui-state=""
-          id="headlessui-menu-button-:r0:"
-          type="button"
-        >
-          <div
-            class="memori-button--icon"
-          >
-            <span
-              style="display: block; width: 1rem; height: 1rem;"
-            >
-              …
-            </span>
-          </div>
-        </button>
-      </div>
       <div
         class="memori-chat-textarea"
         data-testid="chat-textarea"
@@ -1645,29 +1576,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
       id="chat-fieldset"
     >
       <div
-        class="memori-send-on-enter-menu"
-        data-headlessui-state=""
-      >
-        <button
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
-          data-headlessui-state=""
-          id="headlessui-menu-button-:ra:"
-          type="button"
-        >
-          <div
-            class="memori-button--icon"
-          >
-            <span
-              style="display: block; width: 1rem; height: 1rem;"
-            >
-              …
-            </span>
-          </div>
-        </button>
-      </div>
-      <div
         class="memori-chat-textarea"
         data-testid="chat-textarea"
       >
@@ -2021,29 +1929,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
       class="memori-chat-inputs"
       id="chat-fieldset"
     >
-      <div
-        class="memori-send-on-enter-menu"
-        data-headlessui-state=""
-      >
-        <button
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
-          data-headlessui-state=""
-          id="headlessui-menu-button-:rk:"
-          type="button"
-        >
-          <div
-            class="memori-button--icon"
-          >
-            <span
-              style="display: block; width: 1rem; height: 1rem;"
-            >
-              …
-            </span>
-          </div>
-        </button>
-      </div>
       <div
         class="memori-chat-textarea"
         data-testid="chat-textarea"
@@ -2404,29 +2289,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
       class="memori-chat-inputs"
       id="chat-fieldset"
     >
-      <div
-        class="memori-send-on-enter-menu"
-        data-headlessui-state=""
-      >
-        <button
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
-          data-headlessui-state=""
-          id="headlessui-menu-button-:ri:"
-          type="button"
-        >
-          <div
-            class="memori-button--icon"
-          >
-            <span
-              style="display: block; width: 1rem; height: 1rem;"
-            >
-              …
-            </span>
-          </div>
-        </button>
-      </div>
       <div
         class="memori-chat-textarea"
         data-testid="chat-textarea"
@@ -2841,29 +2703,6 @@ exports[`renders Chat with dates unchanged 1`] = `
       id="chat-fieldset"
     >
       <div
-        class="memori-send-on-enter-menu"
-        data-headlessui-state=""
-      >
-        <button
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
-          data-headlessui-state=""
-          id="headlessui-menu-button-:r8:"
-          type="button"
-        >
-          <div
-            class="memori-button--icon"
-          >
-            <span
-              style="display: block; width: 1rem; height: 1rem;"
-            >
-              …
-            </span>
-          </div>
-        </button>
-      </div>
-      <div
         class="memori-chat-textarea"
         data-testid="chat-textarea"
       >
@@ -3267,29 +3106,6 @@ exports[`renders Chat with hints unchanged 1`] = `
       class="memori-chat-inputs"
       id="chat-fieldset"
     >
-      <div
-        class="memori-send-on-enter-menu"
-        data-headlessui-state=""
-      >
-        <button
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
-          data-headlessui-state=""
-          id="headlessui-menu-button-:r4:"
-          type="button"
-        >
-          <div
-            class="memori-button--icon"
-          >
-            <span
-              style="display: block; width: 1rem; height: 1rem;"
-            >
-              …
-            </span>
-          </div>
-        </button>
-      </div>
       <div
         class="memori-chat-textarea"
         data-testid="chat-textarea"
@@ -4070,29 +3886,6 @@ exports[`renders Chat with media unchanged 1`] = `
       id="chat-fieldset"
     >
       <div
-        class="memori-send-on-enter-menu"
-        data-headlessui-state=""
-      >
-        <button
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
-          data-headlessui-state=""
-          id="headlessui-menu-button-:r6:"
-          type="button"
-        >
-          <div
-            class="memori-button--icon"
-          >
-            <span
-              style="display: block; width: 1rem; height: 1rem;"
-            >
-              …
-            </span>
-          </div>
-        </button>
-      </div>
-      <div
         class="memori-chat-textarea"
         data-testid="chat-textarea"
       >
@@ -4492,29 +4285,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
       id="chat-fieldset"
     >
       <div
-        class="memori-send-on-enter-menu"
-        data-headlessui-state=""
-      >
-        <button
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
-          data-headlessui-state=""
-          id="headlessui-menu-button-:r2:"
-          type="button"
-        >
-          <div
-            class="memori-button--icon"
-          >
-            <span
-              style="display: block; width: 1rem; height: 1rem;"
-            >
-              …
-            </span>
-          </div>
-        </button>
-      </div>
-      <div
         class="memori-chat-textarea"
         data-testid="chat-textarea"
       >
@@ -4874,29 +4644,6 @@ exports[`renders Chat with user unchanged 1`] = `
       class="memori-chat-inputs"
       id="chat-fieldset"
     >
-      <div
-        class="memori-send-on-enter-menu"
-        data-headlessui-state=""
-      >
-        <button
-          aria-expanded="false"
-          aria-haspopup="true"
-          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
-          data-headlessui-state=""
-          id="headlessui-menu-button-:rg:"
-          type="button"
-        >
-          <div
-            class="memori-button--icon"
-          >
-            <span
-              style="display: block; width: 1rem; height: 1rem;"
-            >
-              …
-            </span>
-          </div>
-        </button>
-      </div>
       <div
         class="memori-chat-textarea"
         data-testid="chat-textarea"
