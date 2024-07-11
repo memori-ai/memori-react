@@ -1,5 +1,12 @@
 
 
+## [7.0.5](https://github.com/memori-ai/memori-react/compare/v7.0.4...v7.0.5) (2024-07-11)
+
+
+### Changes
+
+* fix mathjax selector overlap on parenthesis, refactor mathjax config ([faf91e7](https://github.com/memori-ai/memori-react/commit/faf91e73d790a2c03c9493032b8570e12006605d))
+
 ## [7.0.4](https://github.com/memori-ai/memori-react/compare/v7.0.3...v7.0.4) (2024-07-09)
 
 
