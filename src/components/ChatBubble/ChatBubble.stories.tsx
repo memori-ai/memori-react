@@ -231,8 +231,6 @@ WithMarkdown.args = {
     text: '## Test\n\nEcco tutte le possibili personalizzazioni che puoi applicare:\n\n- **Colletto**:\n - Girocollo\n - Scollo a V\n\n- **Manica**:\n - Manica Lunga\n - Manica Corta\n\n- **Taglia**:\n - XS\n - S\n - M\n - L\n - XL\n - XXL\n - 3XL\n\n- **Posizione Stampa**:\n - Fronte Petto\n - Retro Schiena\n - Fronte DX\n - Fronte SX\n\n- **Generazione Immagine**:\n - Prompt generazione immagine\n\nSeleziona le personalizzazioni che desideri applicare.\n\n[Vedi altro](https://memori.ai)',
     initial: false,
     generatedByAI: true,
-    translatedText:
-      '## Test\n\nEcco tutte le possibili personalizzazioni che puoi applicare:\n\n- **Colletto**:\n - Girocollo\n - Scollo a V\n\n- **Manica**:\n - Manica Lunga\n - Manica Corta\n\n- **Taglia**:\n - XS\n - S\n - M\n - L\n - XL\n - XXL\n - 3XL\n\n- **Posizione Stampa**:\n - Fronte Petto\n - Retro Schiena\n - Fronte DX\n - Fronte SX\n\n- **Generazione Immagine**:\n - Prompt generazione immagine\n\nSeleziona le personalizzazioni che desideri applicare.\n\n[Vedi altro](https://memori.ai)',
   },
 };
 
@@ -246,8 +244,6 @@ WithMarkdownAndBreakLine.args = {
     text: "Per l'avvio di una progettualità è necessario fornire le seguenti informazioni:\n- Natura dell'esigenza progettuale e obiettivi\n- Descrizione del progetto\n- Prima identificazione delle risorse necessarie\n- Costi stimati\n- Benefici attesi\n- Rischi identificati.",
     initial: false,
     generatedByAI: true,
-    translatedText:
-      "Per l'avvio di una progettualità è necessario fornire le seguenti informazioni:\n- Natura dell'esigenza progettuale e obiettivi\n- Descrizione del progetto\n- Prima identificazione delle risorse necessarie\n- Costi stimati\n- Benefici attesi\n- Rischi identificati.",
   },
 };
 
@@ -339,5 +335,18 @@ ComplexMarkdownMath5.args = {
     initial: false,
     generatedByAI: true,
     text: "Per calcolare l'ipotenusa di un triangolo rettangolo, puoi utilizzare il teorema di Pitagora. La formula è:\n\n\\\\[ c = \\\\sqrt{a^2 + b^2} \\\\]\n\nDove:\n- \\\\( c \\\\) è l'ipotenusa,\n- \\\\( a \\\\) e \\\\( b \\\\) sono i due cateti del triangolo.\n\nAd esempio, se hai un triangolo con i cateti di lunghezza 3 e 4, l'ipotenusa sarà:\n\n\\\\[ c = \\\\sqrt{3^2 + 4^2} = \\\\sqrt{9 + 16} = \\\\sqrt{25} = 5 \\\\]\n\nSe hai altre domande o dubbi, sono qui per aiutarti!",
+  },
+};
+
+export const ComplexMarkdownTest = Template.bind({});
+ComplexMarkdownTest.args = {
+  memori,
+  tenant,
+  apiUrl: 'https://backend.memori.ai',
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: "Basandomi sui dati forniti nel bilancio, ecco un'analisi generale della società ACME SRL IN LIQUIDAZIONE per l'anno 2023:\n\n1. Stato di liquidazione: La società è in liquidazione, come indicato dal nome \"ACME SRL IN LIQUIDAZIONE\". Questo significa che l'azienda sta cessando le sue attività e sta procedendo alla liquidazione dei suoi asset.\n\n2. Situazione patrimoniale:\n - Totale attivo: €4.577.945\n - Patrimonio netto: €4.406.550\n - Debiti: €171.395\n\n3. Composizione dell'attivo:\n - L'attivo è composto principalmente da crediti (€4.548.367), che rappresentano circa il 99% del totale attivo.\n - Le immobilizzazioni sono minime (€293), indicando che la società ha probabilmente già dismesso la maggior parte dei suoi asset fissi.\n\n4. Situazione economica:\n - La società ha registrato una perdita di €15.458 nell'esercizio 2023.\n - I ricavi sono minimi (€693), confermando che l'azienda non sta più svolgendo attività operative significative.\n\n5. Liquidità:\n - Le disponibilità liquide ammontano a €29.285, un valore relativamente basso rispetto al totale dell'attivo.\n\n6. Capitale sociale:\n - Il capitale sociale è di €4.251.690, interamente versato.\n\n7. Trend:\n - Rispetto all'anno precedente, si nota una diminuzione del totale attivo e una riduzione dei debiti.\n\nIn conclusione, questa società appare essere in una fase avanzata di liquidazione. La maggior parte dell'attivo è costituita da crediti, probabilmente in attesa di essere riscossi. La società non genera più ricavi significativi e sta probabilmente cercando di chiudere le ultime posizioni aperte prima di concludere definitivamente la sua esistenza. La solidità patrimoniale sembra buona, con un patrimonio netto che copre ampiamente i debiti residui.",
   },
 };
