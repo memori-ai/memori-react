@@ -11,6 +11,7 @@ import MemoriWidget, {
 } from './components/MemoriWidget/MemoriWidget';
 import { Toaster } from 'react-hot-toast';
 import { getTenant } from './helpers/tenant';
+import { installMathJax } from './helpers/utils';
 
 import i18n from './i18n';
 import { I18nextProvider, useTranslation } from 'react-i18next';
@@ -210,56 +211,7 @@ const Memori: React.FC<Props> = ({
   }, [uiLang]);
 
   useEffect(() => {
-    // @ts-ignore
-    window.MathJax = {
-      startup: {
-        elements: ['.memori-chat--bubble-content'],
-      },
-      options: {
-        processHtmlClass: 'memori-chat--bubble-content',
-      },
-      tex: {
-        inlineMath: [
-          ['$', '$'],
-          ['\\$', '\\$'],
-          ['(', '\\)'],
-          ['\\(', ')'],
-          ['(', ')'],
-          ['[', '\\]'],
-          ['[', ']'],
-          ['\\(', '\\)'],
-          ['\\[', '\\]'],
-          ['\\\\[', '\\\\]'],
-          ['\\\\\\[', '\\\\\\]'],
-          ['((', '))'],
-        ],
-        displayMath: [
-          ['$$', '$$'],
-          ['\\[[', '\\]]'],
-          ['\\\\[[', '\\\\]]'],
-          ['\\\\\\[[', '\\\\\\]]'],
-        ],
-        processEscapes: false,
-      },
-      asciimath: {
-        fixphi: true,
-        displaystyle: true,
-        decimalsign: '.',
-      },
-      skipStartupTypeset: true,
-      chtml: {
-        displayAlign: 'left',
-      },
-      svg: {
-        fontCache: 'global',
-      },
-    };
-
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-    script.async = true;
-    script.id = 'mathjax-script';
-    document.head.appendChild(script);
+    installMathJax();
   }, []);
 
   const renderer = memori ? (

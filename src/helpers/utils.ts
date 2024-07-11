@@ -239,3 +239,60 @@ export function cleanUrl(href: string) {
   }
   return href;
 }
+
+export const mathJaxConfig = {
+  startup: {
+    elements: ['.memori-chat--bubble-content'],
+  },
+  options: {
+    processHtmlClass: 'memori-chat--bubble-content',
+  },
+  tex: {
+    inlineMath: [
+      ['$', '$'],
+      ['\\$', '\\$'],
+      ['(', '\\)'],
+      ['\\(', ')'],
+      ['[', '\\]'],
+      ['\\(', '\\)'],
+      ['\\[', '\\]'],
+      ['\\\\[', '\\\\]'],
+      ['\\\\\\[', '\\\\\\]'],
+      ['((', '))'],
+    ],
+    displayMath: [
+      ['$$', '$$'],
+      ['\\[[', '\\]]'],
+      ['\\\\[[', '\\\\]]'],
+      ['\\\\\\[[', '\\\\\\]]'],
+    ],
+    processEscapes: false,
+  },
+  asciimath: {
+    fixphi: true,
+    displaystyle: true,
+    decimalsign: '.',
+  },
+  skipStartupTypeset: true,
+  chtml: {
+    displayAlign: 'left',
+  },
+  svg: {
+    fontCache: 'global',
+  },
+};
+
+export const installMathJaxScript = () => {
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+  script.async = true;
+  script.id = 'mathjax-script';
+  document.head.appendChild(script);
+};
+
+export const installMathJax = () => {
+  // @ts-ignore
+  window.MathJax = mathJaxConfig;
+
+  installMathJaxScript();
+};

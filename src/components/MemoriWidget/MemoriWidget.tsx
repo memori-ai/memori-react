@@ -2176,7 +2176,7 @@ const MemoriWidget = ({
     'keypress'
   );
   useEffect(() => {
-    if (window.innerWidth <= 768) setSendOnEnter('click');
+    if (window.innerWidth <= 768 && hasTouchscreen()) setSendOnEnter('click');
     else setSendOnEnter('keypress');
   }, []);
 

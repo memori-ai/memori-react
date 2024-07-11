@@ -104,8 +104,7 @@ const ChatBubble: React.FC<Props> = ({
               )
               // remove markdown multiline code blocks but keep the content
               .replaceAll(/```markdown([^```]+)```/g, '$1')
-              .replaceAll('(', '\\(')
-              .replaceAll(')', '\\)')
+              // remove redundant mathjax delimiters
               .replaceAll(/(?<!\\)\(/g, '\\(')
               .replaceAll(/(?<!\\)\)/g, '\\)')
           ) as string
@@ -118,10 +117,9 @@ const ChatBubble: React.FC<Props> = ({
           ADD_ATTR: ['target'],
         }
       )
+        // remove redundant mathjax delimiters
         .replaceAll(/(?<!\\)\[/g, '\\[')
         .replaceAll(/(?<!\\)\]/g, '\\]')
-        // .replaceAll(/(?<!\\\\)\[/g, '\\\\[')
-        // .replaceAll(/(?<!\\\\)\]/g, '\\\\]')
         // replace consecutive <br> with a single <br>
         .replace(/(<br>)+/g, '<br>');
 
