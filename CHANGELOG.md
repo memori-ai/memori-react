@@ -1,5 +1,13 @@
 
 
+## [7.0.6](https://github.com/memori-ai/memori-react/compare/v7.0.5...v7.0.6) (2024-07-12)
+
+
+### Maintenance
+
+* add new prop disableTextEnteredEvents to disable listeners ([b4ab8b7](https://github.com/memori-ai/memori-react/commit/b4ab8b7c88d9d79bc19a6bc64694f30bbea0c2e4))
+* add try catch on message sending, stopping loading on error ([079bd15](https://github.com/memori-ai/memori-react/commit/079bd1504354c40cadf18c6620d9f2db49d0e72a))
+
 ## [7.0.5](https://github.com/memori-ai/memori-react/compare/v7.0.4...v7.0.5) (2024-07-11)
 
 
