@@ -2487,7 +2487,7 @@ const MemoriWidget = ({
     ]
   );
   useEffect(() => {
-    if (disableTextEnteredEvents) {
+    if (!disableTextEnteredEvents) {
       document.addEventListener('MemoriTextEntered', memoriTextEnteredHandler);
     } else {
       document.removeEventListener(
@@ -2988,7 +2988,7 @@ const MemoriWidget = ({
     onClickStart: onClickStart,
     initializeTTS: initializeTTS,
     isUserLoggedIn: !!loginToken && !!user?.userID,
-    notEnoughCredits: false, // needsCredits && !hasEnoughCredits,
+    notEnoughCredits: needsCredits && !hasEnoughCredits,
     showLogin,
     setShowLoginDrawer,
     user,
