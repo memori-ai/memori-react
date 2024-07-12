@@ -659,69 +659,32 @@ const MemoriWidget = ({
     let msg = text;
     let gotError = false;
 
-    if (
-      translate &&
-      !instruct &&
-      isMultilanguageEnabled &&
-      userLang.toUpperCase() !== language.toUpperCase()
-    ) {
-      const translation = await getTranslation(
-        text,
-        language,
-        userLang,
-        baseUrl
-      );
-      msg = translation.text;
-    }
-
-    const { currentState, ...response } = await postTextEnteredEvent({
-      sessionId: sessionID,
-      text: msg,
-    });
-    if (response.resultCode === 0 && currentState) {
-      const emission =
-        useLoaderTextAsMsg && typingText
-          ? typingText
-          : currentState.emission ?? currentDialogState?.emission;
-      if (currentState.state === 'X4' && memori.giverTag) {
-        const { currentState, ...resp } = await postTagChangedEvent(
-          sessionID,
-          memori.giverTag
+    try {
+      if (
+        translate &&
+        !instruct &&
+        isMultilanguageEnabled &&
+        userLang.toUpperCase() !== language.toUpperCase()
+      ) {
+        const translation = await getTranslation(
+          text,
+          language,
+          userLang,
+          baseUrl
         );
+        msg = translation.text;
+      }
 
-        if (resp.resultCode === 0) {
-          setCurrentDialogState(currentState);
-
-          if (emission) {
-            pushMessage({
-              text: emission,
-              emitter: currentState.emitter,
-              media: currentState.media,
-              fromUser: false,
-              questionAnswered: msg,
-              contextVars: currentState.contextVars,
-              date: currentState.currentDate,
-              placeName: currentState.currentPlaceName,
-              placeLatitude: currentState.currentLatitude,
-              placeLongitude: currentState.currentLongitude,
-              placeUncertaintyKm: currentState.currentUncertaintyKm,
-              tag: currentState.currentTag,
-              memoryTags: currentState.memoryTags,
-            });
-            speak(emission);
-          }
-        } else {
-          console.error(response, resp);
-          toast.error(t(getErrori18nKey(resp.resultCode)));
-          gotError = true;
-        }
-      } else if (currentState.state === 'X2d' && memori.giverTag) {
-        const { currentState, ...resp } = await postTextEnteredEvent({
-          sessionId: sessionID,
-          text: Math.random().toString().substring(2, 8),
-        });
-
-        if (resp.resultCode === 0) {
+      const { currentState, ...response } = await postTextEnteredEvent({
+        sessionId: sessionID,
+        text: msg,
+      });
+      if (response.resultCode === 0 && currentState) {
+        const emission =
+          useLoaderTextAsMsg && typingText
+            ? typingText
+            : currentState.emission ?? currentDialogState?.emission;
+        if (currentState.state === 'X4' && memori.giverTag) {
           const { currentState, ...resp } = await postTagChangedEvent(
             sessionID,
             memori.giverTag
@@ -753,73 +716,118 @@ const MemoriWidget = ({
             toast.error(t(getErrori18nKey(resp.resultCode)));
             gotError = true;
           }
+        } else if (currentState.state === 'X2d' && memori.giverTag) {
+          const { currentState, ...resp } = await postTextEnteredEvent({
+            sessionId: sessionID,
+            text: Math.random().toString().substring(2, 8),
+          });
+
+          if (resp.resultCode === 0) {
+            const { currentState, ...resp } = await postTagChangedEvent(
+              sessionID,
+              memori.giverTag
+            );
+
+            if (resp.resultCode === 0) {
+              setCurrentDialogState(currentState);
+
+              if (emission) {
+                pushMessage({
+                  text: emission,
+                  emitter: currentState.emitter,
+                  media: currentState.media,
+                  fromUser: false,
+                  questionAnswered: msg,
+                  contextVars: currentState.contextVars,
+                  date: currentState.currentDate,
+                  placeName: currentState.currentPlaceName,
+                  placeLatitude: currentState.currentLatitude,
+                  placeLongitude: currentState.currentLongitude,
+                  placeUncertaintyKm: currentState.currentUncertaintyKm,
+                  tag: currentState.currentTag,
+                  memoryTags: currentState.memoryTags,
+                });
+                speak(emission);
+              }
+            } else {
+              console.error(response, resp);
+              toast.error(t(getErrori18nKey(resp.resultCode)));
+              gotError = true;
+            }
+          } else {
+            console.error(response, resp);
+            toast.error(t(getErrori18nKey(resp.resultCode)));
+            gotError = true;
+          }
+        } else if (
+          userLang.toLowerCase() !== language.toLowerCase() &&
+          emission &&
+          !instruct &&
+          isMultilanguageEnabled
+        ) {
+          translateDialogState(currentState, userLang, msg).then(ts => {
+            if (ts.emission) {
+              speak(ts.emission);
+            }
+          });
         } else {
-          console.error(response, resp);
-          toast.error(t(getErrori18nKey(resp.resultCode)));
-          gotError = true;
+          setCurrentDialogState({
+            ...currentState,
+            emission,
+          });
+
+          if (emission) {
+            pushMessage({
+              text: emission,
+              emitter: currentState.emitter,
+              media: currentState.media,
+              fromUser: false,
+              questionAnswered: msg,
+              generatedByAI: !!currentState.completion,
+              contextVars: currentState.contextVars,
+              date: currentState.currentDate,
+              placeName: currentState.currentPlaceName,
+              placeLatitude: currentState.currentLatitude,
+              placeLongitude: currentState.currentLongitude,
+              placeUncertaintyKm: currentState.currentUncertaintyKm,
+              tag: currentState.currentTag,
+              memoryTags: currentState.memoryTags,
+            });
+            speak(emission);
+          }
         }
-      } else if (
-        userLang.toLowerCase() !== language.toLowerCase() &&
-        emission &&
-        !instruct &&
-        isMultilanguageEnabled
-      ) {
-        translateDialogState(currentState, userLang, msg).then(ts => {
-          if (ts.emission) {
-            speak(ts.emission);
+      } else if (response.resultCode === 404) {
+        // remove last sent message, will set it as initial
+        setHistory(h => [...h.slice(0, h.length - 1)]);
+
+        // post session timeout -> Z0/A0 -> restart session and re-send msg
+        reopenSession(
+          false,
+          memoriPwd || memori.secretToken,
+          memoriTokens,
+          instruct && memori.giverTag ? memori.giverTag : undefined,
+          instruct && memori.giverPIN ? memori.giverPIN : undefined,
+          {
+            PATHNAME: window.location.pathname,
+            ROUTE: window.location.pathname?.split('/')?.pop() || '',
+            ...(initialContextVars || {}),
+          },
+          initialQuestion
+        ).then(state => {
+          console.info('session timeout');
+          if (state?.sessionID) {
+            setTimeout(() => {
+              sendMessage(text, media, state?.sessionID);
+            }, 500);
           }
         });
-      } else {
-        setCurrentDialogState({
-          ...currentState,
-          emission,
-        });
-
-        if (emission) {
-          pushMessage({
-            text: emission,
-            emitter: currentState.emitter,
-            media: currentState.media,
-            fromUser: false,
-            questionAnswered: msg,
-            generatedByAI: !!currentState.completion,
-            contextVars: currentState.contextVars,
-            date: currentState.currentDate,
-            placeName: currentState.currentPlaceName,
-            placeLatitude: currentState.currentLatitude,
-            placeLongitude: currentState.currentLongitude,
-            placeUncertaintyKm: currentState.currentUncertaintyKm,
-            tag: currentState.currentTag,
-            memoryTags: currentState.memoryTags,
-          });
-          speak(emission);
-        }
       }
-    } else if (response.resultCode === 404) {
-      // remove last sent message, will set it as initial
-      setHistory(h => [...h.slice(0, h.length - 1)]);
+    } catch (error) {
+      console.error(error);
+      gotError = true;
 
-      // post session timeout -> Z0/A0 -> restart session and re-send msg
-      reopenSession(
-        false,
-        memoriPwd || memori.secretToken,
-        memoriTokens,
-        instruct && memori.giverTag ? memori.giverTag : undefined,
-        instruct && memori.giverPIN ? memori.giverPIN : undefined,
-        {
-          PATHNAME: window.location.pathname,
-          ROUTE: window.location.pathname?.split('/')?.pop() || '',
-          ...(initialContextVars || {}),
-        },
-        initialQuestion
-      ).then(state => {
-        console.info('session timeout');
-        if (state?.sessionID) {
-          setTimeout(() => {
-            sendMessage(text, media, state?.sessionID);
-          }, 500);
-        }
-      });
+      setTypingText(undefined);
+      setMemoriTyping(false);
     }
 
     if (!hasBatchQueued) {
