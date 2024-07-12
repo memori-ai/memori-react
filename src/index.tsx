@@ -50,6 +50,7 @@ export interface Props {
   multilingual?: boolean;
   authToken?: string;
   defaultSpeakerActive?: boolean;
+  disableTextEnteredEvents?: boolean;
   AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
   onStateChange?: (state?: DialogState) => void;
   additionalInfo?: WidgetProps['additionalInfo'];
@@ -110,6 +111,7 @@ const Memori: React.FC<Props> = ({
   authToken,
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
   defaultSpeakerActive = true,
+  disableTextEnteredEvents = false,
   onStateChange,
   additionalInfo,
   customMediaRenderer,
@@ -258,6 +260,7 @@ const Memori: React.FC<Props> = ({
         speechKey || AZURE_COGNITIVE_SERVICES_TTS_KEY
       }
       defaultSpeakerActive={defaultSpeakerActive}
+      disableTextEnteredEvents={disableTextEnteredEvents}
       onStateChange={onStateChange}
       additionalInfo={additionalInfo}
       customMediaRenderer={customMediaRenderer}
@@ -333,6 +336,7 @@ Memori.propTypes = {
   multilingual: PropTypes.bool,
   authToken: PropTypes.string,
   defaultSpeakerActive: PropTypes.bool,
+  disableTextEnteredEvents: PropTypes.bool,
   AZURE_COGNITIVE_SERVICES_TTS_KEY: PropTypes.string,
   onStateChange: PropTypes.func,
   additionalInfo: PropTypes.objectOf(PropTypes.any),

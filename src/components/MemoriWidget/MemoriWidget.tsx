@@ -362,6 +362,7 @@ export interface Props {
   authToken?: string;
   AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
   defaultSpeakerActive?: boolean;
+  disableTextEnteredEvents?: boolean;
   onStateChange?: (state?: DialogState) => void;
   additionalInfo?: OpenSession['additionalInfo'] & { [key: string]: string };
   customMediaRenderer?: ChatProps['customMediaRenderer'];
@@ -405,6 +406,7 @@ const MemoriWidget = ({
   authToken,
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
   defaultSpeakerActive = true,
+  disableTextEnteredEvents = false,
   onStateChange,
   additionalInfo,
   additionalSettings,
@@ -2438,6 +2440,8 @@ const MemoriWidget = ({
   // to use in integrations or snippets
   const memoriTextEnteredHandler = useCallback(
     (e: MemoriTextEnteredEvent) => {
+      if (disableTextEnteredEvents) return;
+
       const {
         text,
         waitForPrevious,
@@ -2474,10 +2478,23 @@ const MemoriWidget = ({
         }
       }
     },
-    [sessionId, isPlayingAudio, memoriTyping, userLang]
+    [
+      sessionId,
+      isPlayingAudio,
+      memoriTyping,
+      userLang,
+      disableTextEnteredEvents,
+    ]
   );
   useEffect(() => {
-    document.addEventListener('MemoriTextEntered', memoriTextEnteredHandler);
+    if (disableTextEnteredEvents) {
+      document.addEventListener('MemoriTextEntered', memoriTextEnteredHandler);
+    } else {
+      document.removeEventListener(
+        'MemoriTextEntered',
+        memoriTextEnteredHandler
+      );
+    }
 
     return () => {
       document.removeEventListener(
@@ -2485,7 +2502,7 @@ const MemoriWidget = ({
         memoriTextEnteredHandler
       );
     };
-  }, [sessionId, userLang]);
+  }, [sessionId, userLang, disableTextEnteredEvents]);
 
   const onClickStart = useCallback(
     async (session?: { dialogState: DialogState; sessionID: string }) => {
@@ -2971,7 +2988,7 @@ const MemoriWidget = ({
     onClickStart: onClickStart,
     initializeTTS: initializeTTS,
     isUserLoggedIn: !!loginToken && !!user?.userID,
-    notEnoughCredits: needsCredits && !hasEnoughCredits,
+    notEnoughCredits: false, // needsCredits && !hasEnoughCredits,
     showLogin,
     setShowLoginDrawer,
     user,

@@ -168,3 +168,17 @@ WithCustomUserAvatar.args = {
 //   pin: 'giver pin',
 //   authToken: 'your login token',
 // };
+
+export const Test = Template.bind({});
+Test.args = {
+  ownerUserName: 'memoridev',
+  memoriName: 'Assistente Report',
+  tenantID: 'bcc-iccrea.aclambda.online',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://bcc-iccrea.aclambda.online',
+  layout: 'CHAT',
+  uiLang: 'it',
+  showShare: true,
+  showSettings: true,
+  showLogin: true,
+};
