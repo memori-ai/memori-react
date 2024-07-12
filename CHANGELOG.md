@@ -1,5 +1,12 @@
 
 
+## [7.0.7](https://github.com/memori-ai/memori-react/compare/v7.0.6...v7.0.7) (2024-07-12)
+
+
+### Bug Fixes
+
+* typos ([6d62495](https://github.com/memori-ai/memori-react/commit/6d62495fe575942c10588ad0113d99d5836af6bd))
+
 ## [7.0.6](https://github.com/memori-ai/memori-react/compare/v7.0.5...v7.0.6) (2024-07-12)
 
 
