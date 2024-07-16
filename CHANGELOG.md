@@ -1,5 +1,12 @@
 
 
+## [7.0.8](https://github.com/memori-ai/memori-react/compare/v7.0.7...v7.0.8) (2024-07-16)
+
+
+### Changes
+
+* chat layout progressive max-width ([80c8ab8](https://github.com/memori-ai/memori-react/commit/80c8ab8fd237147311be81f68a467eae16fe4143))
+
 ## [7.0.7](https://github.com/memori-ai/memori-react/compare/v7.0.6...v7.0.7) (2024-07-12)
 
 
