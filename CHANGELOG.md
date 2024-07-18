@@ -1,5 +1,12 @@
 
 
+## [7.1.0](https://github.com/memori-ai/memori-react/compare/v7.0.8...v7.1.0) (2024-07-18)
+
+
+### Features
+
+* new event MemoriNewDialogState emitted when receiving new state from engine ([9da9690](https://github.com/memori-ai/memori-react/commit/9da9690173d7cd140baac6a7f2aa611eb8b12ddb))
+
 ## [7.0.8](https://github.com/memori-ai/memori-react/compare/v7.0.7...v7.0.8) (2024-07-16)
 
 
