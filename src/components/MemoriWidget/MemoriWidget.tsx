@@ -260,10 +260,13 @@ const typeBatchMessages = (
   submitNewMessage();
 };
 
+type MemoriNewDialogStateEvent = CustomEvent<DialogState>;
+
 interface CustomEventMap {
   MemoriTextEntered: MemoriTextEnteredEvent;
   MemoriEndSpeak: CustomEvent;
   MemoriResetUIEffects: CustomEvent;
+  MemoriNewDialogState: MemoriNewDialogStateEvent;
 }
 declare global {
   interface Document {
@@ -960,6 +963,14 @@ const MemoriWidget = ({
     if (onStateChange) {
       onStateChange(state);
     }
+
+    const e: MemoriNewDialogStateEvent = new CustomEvent(
+      'MemoriNewDialogState',
+      {
+        detail: state,
+      }
+    );
+    document.dispatchEvent(e);
 
     const executableSnippets = state?.media?.filter(
       m => m.mimeType === 'text/javascript' && !!m.properties?.executable
