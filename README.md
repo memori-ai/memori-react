@@ -316,6 +316,29 @@ typeMessageHidden('Hello World!', waitForPrevious);
 typeMessage('Hello World!', waitForPrevious, true);
 ```
 
+## Conversation state change event
+
+The `onStateChange` prop allows you to listen to state changes in the Memori widget.
+
+```jsx
+<Memori
+  ...
+  onStateChange={(state) => {
+    console.log('Memori state changed:', state);
+  }}
+/>
+```
+
+Or, you can listen to the `MemoriNewDialogState` event on the document:
+
+```js
+document.addEventListener('MemoriNewDialogState', e => {
+  console.log('Memori state changed:', e.details);
+});
+```
+
+where `e.details` is the new state of the Memori. This is useful to use when working with [memori-webcomponent](https://github.com/memori-ai/memori-webcomponent).
+
 ## See also
 
 - [memori-api-client](https://github.com/memori-ai/memori-api-client) - API client for Memori
