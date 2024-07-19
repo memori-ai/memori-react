@@ -333,7 +333,7 @@ Or, you can listen to the `MemoriNewDialogState` event on the document:
 
 ```js
 document.addEventListener('MemoriNewDialogState', e => {
-  console.log('Memori state changed:', e.details);
+  console.log('Memori state changed:', e.detail);
 });
 ```
 
