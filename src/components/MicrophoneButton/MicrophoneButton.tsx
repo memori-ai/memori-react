@@ -83,7 +83,6 @@ const MicrophoneButton = ({
         onMouseDown={startHold}
         onTouchStart={startHold}
         onMouseUp={stopHold}
-        onMouseLeave={stopHold}
         onTouchEnd={stopHold}
         shape="circle"
         icon={<Microphone />}
