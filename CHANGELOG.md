@@ -1,5 +1,13 @@
 
 
+## [7.1.1](https://github.com/memori-ai/memori-react/compare/v7.1.0...v7.1.1) (2024-07-22)
+
+
+### Bug Fixes
+
+* chat layout responsiveness width ([adfc95a](https://github.com/memori-ai/memori-react/commit/adfc95aa0549084a04446118647962bb488cb7c7))
+* remove microphone button mouse leave event, caused conflicts sending on hover ([625626f](https://github.com/memori-ai/memori-react/commit/625626fea505648517c838ea630090460916d016))
+
 ## [7.1.0](https://github.com/memori-ai/memori-react/compare/v7.0.8...v7.1.0) (2024-07-18)
 
 
