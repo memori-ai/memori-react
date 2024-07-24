@@ -97,6 +97,8 @@ const ChatBubble: React.FC<Props> = ({
         (
           marked.parse(
             (message.translatedText || message.text)
+              // remove leading and trailing whitespaces
+              .trim()
               // remove markdown links
               .replaceAll(
                 /\[([^\]]+)\]\(([^\)]+)\)/g,
@@ -110,9 +112,7 @@ const ChatBubble: React.FC<Props> = ({
           ) as string
         )
           .trim()
-          .replace(/\n/g, '<br>')
-          // replace consecutive <br> with a <br>
-          .replace(/(<br>)+/g, '<br><br>'),
+          .replace(/\n/g, '<br>'),
         {
           ADD_ATTR: ['target'],
         }
@@ -121,7 +121,10 @@ const ChatBubble: React.FC<Props> = ({
         .replaceAll(/(?<!\\)\[/g, '\\[')
         .replaceAll(/(?<!\\)\]/g, '\\]')
         // replace consecutive <br> with a single <br>
-        .replace(/(<br>)+/g, '<br>');
+        .replace(/(<br>)+/g, '<br>')
+        // remove empty paragraphs
+        .replace(/<p><\/p>/g, '<br>')
+        .replace(/<p><br><\/p>/g, '<br>');
 
   useLayoutEffect(() => {
     if (typeof window !== 'undefined' && !message.fromUser) {
