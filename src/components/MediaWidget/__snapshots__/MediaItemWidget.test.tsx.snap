@@ -5,9 +5,6 @@ exports[`renders MediaItemWidget unchanged with css snippet to exec 1`] = `
   <div
     class="memori-media-items"
   >
-    <div
-      class="memori-media-items--grid"
-    />
     <style>
       body{
   background-color: #f00;
@@ -22,9 +19,6 @@ exports[`renders MediaItemWidget unchanged with css snippet to show 1`] = `
   <div
     class="memori-media-items"
   >
-    <div
-      class="memori-media-items--grid"
-    />
     <div
       class="memori-media-item--snippet ease-out duration-500 opacity-0 translate-y-1"
     >
@@ -155,11 +149,7 @@ exports[`renders MediaItemWidget unchanged with custom media renderer 1`] = `
 <div>
   <div
     class="memori-media-items"
-  >
-    <div
-      class="memori-media-items--grid"
-    />
-  </div>
+  />
 </div>
 `;
 
@@ -321,11 +311,7 @@ exports[`renders MediaItemWidget unchanged with js snippet to exec 1`] = `
 <div>
   <div
     class="memori-media-items"
-  >
-    <div
-      class="memori-media-items--grid"
-    />
-  </div>
+  />
 </div>
 `;
 
@@ -334,9 +320,6 @@ exports[`renders MediaItemWidget unchanged with js snippet to show 1`] = `
   <div
     class="memori-media-items"
   >
-    <div
-      class="memori-media-items--grid"
-    />
     <div
       class="memori-media-item--snippet ease-out duration-500 opacity-0 translate-y-1"
     >
@@ -404,11 +387,7 @@ exports[`renders MediaItemWidget unchanged with no media 1`] = `
 <div>
   <div
     class="memori-media-items"
-  >
-    <div
-      class="memori-media-items--grid"
-    />
-  </div>
+  />
 </div>
 `;
 

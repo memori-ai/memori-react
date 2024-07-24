@@ -319,23 +319,35 @@ const MediaItemWidget: React.FC<Props> = ({
     if (translateTo) translateMediaCaptions();
   }, [translateTo, translateMediaCaptions]);
 
+  const nonCodeDisplayMedia = media
+    .filter(
+      m =>
+        !m.properties?.executable &&
+        !prismSyntaxLangs.map(l => l.mimeType).includes(m.mimeType)
+    )
+    .sort((a, b) => {
+      return a.creationTimestamp! > b.creationTimestamp!
+        ? 1
+        : a.creationTimestamp! < b.creationTimestamp!
+        ? -1
+        : 0;
+    });
+
+  const codeSnippets = media.filter(
+    m =>
+      !m.properties?.executable &&
+      prismSyntaxLangs.map(l => l.mimeType).includes(m.mimeType)
+  );
+
+  const cssExecutableCode = media.filter(
+    m => m.mimeType === 'text/css' && !!m.properties?.executable
+  );
+
   return (
     <Transition appear show as="div" className="memori-media-items">
-      <div className="memori-media-items--grid">
-        {media
-          .filter(
-            m =>
-              !m.properties?.executable &&
-              !prismSyntaxLangs.map(l => l.mimeType).includes(m.mimeType)
-          )
-          .sort((a, b) => {
-            return a.creationTimestamp! > b.creationTimestamp!
-              ? 1
-              : a.creationTimestamp! < b.creationTimestamp!
-              ? -1
-              : 0;
-          })
-          .map((item: Medium, index: number) => (
+      {!!nonCodeDisplayMedia.length && (
+        <div className="memori-media-items--grid">
+          {nonCodeDisplayMedia.map((item: Medium, index: number) => (
             <Transition.Child
               as="div"
               className="memori-media-item"
@@ -366,36 +378,29 @@ const MediaItemWidget: React.FC<Props> = ({
               />
             </Transition.Child>
           ))}
-      </div>
-      {media
-        .filter(
-          m =>
-            !m.properties?.executable &&
-            prismSyntaxLangs.map(l => l.mimeType).includes(m.mimeType)
-        )
-        .map(medium => (
-          <Transition.Child
-            as="div"
-            className="memori-media-item--snippet"
-            key={medium.mediumID}
-            enter="ease-out duration-500"
-            enterFrom="opacity-0 translate-y-1"
-            enterTo="opacity-1 translate-y-0"
-            leave="ease-in duration-300"
-            leaveFrom="opacity-1"
-            leaveTo="opacity-0"
-          >
-            <Snippet key={medium.mediumID} medium={medium} />
-          </Transition.Child>
-        ))}
-      {media
-        .filter(m => m.mimeType === 'text/css' && !!m.properties?.executable)
-        .map(medium => (
-          <style
-            key={medium.mediumID}
-            dangerouslySetInnerHTML={{ __html: medium.content || '' }}
-          ></style>
-        ))}
+        </div>
+      )}
+      {codeSnippets.map(medium => (
+        <Transition.Child
+          as="div"
+          className="memori-media-item--snippet"
+          key={medium.mediumID}
+          enter="ease-out duration-500"
+          enterFrom="opacity-0 translate-y-1"
+          enterTo="opacity-1 translate-y-0"
+          leave="ease-in duration-300"
+          leaveFrom="opacity-1"
+          leaveTo="opacity-0"
+        >
+          <Snippet key={medium.mediumID} medium={medium} />
+        </Transition.Child>
+      ))}
+      {cssExecutableCode.map(medium => (
+        <style
+          key={medium.mediumID}
+          dangerouslySetInnerHTML={{ __html: medium.content || '' }}
+        ></style>
+      ))}
 
       {openModalMedium?.mediumID && (
         <Modal
