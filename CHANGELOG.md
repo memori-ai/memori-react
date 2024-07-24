@@ -1,5 +1,17 @@
 
 
+## [7.1.2](https://github.com/memori-ai/memori-react/compare/v7.1.1...v7.1.2) (2024-07-24)
+
+
+### Bug Fixes
+
+* dont include media wrapper if no media is shown ([b492706](https://github.com/memori-ai/memori-react/commit/b4927064a411c40a1a3a0785adfe0c70ba092840))
+
+
+### Maintenance
+
+* enhancements for new lines parsing ([c30cde5](https://github.com/memori-ai/memori-react/commit/c30cde58a42db15b25406214d0ee4b73578ca607))
+
 ## [7.1.1](https://github.com/memori-ai/memori-react/compare/v7.1.0...v7.1.1) (2024-07-22)
 
 
