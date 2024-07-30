@@ -993,7 +993,7 @@ const MemoriWidget = ({
           }, 400);
         }, 1000);
       } catch (e) {
-        console.error(e);
+        console.warn(e);
       }
     });
   };
@@ -1040,7 +1040,7 @@ const MemoriWidget = ({
           return window.location.href;
         })();
       } catch (err) {
-        console.error(err);
+        console.debug(err);
       }
 
       const session = await initSession({
@@ -1072,14 +1072,14 @@ const MemoriWidget = ({
       } else if (
         session?.resultMessage.startsWith('This Memori is aged restricted')
       ) {
-        console.error(session);
+        console.warn(session);
         toast.error(t('underageTwinSession', { age: minAge }));
         setGotErrorInOpening(true);
       } else if (session?.resultCode === 403) {
         setMemoriPwd(undefined);
         setAuthModalState('password');
       } else {
-        console.error(session);
+        console.warn(session);
         toast.error(t(getErrori18nKey(session?.resultCode)));
         setGotErrorInOpening(true);
       }
@@ -1127,7 +1127,7 @@ const MemoriWidget = ({
           return window.location.href;
         })();
       } catch (err) {
-        console.error(err);
+        console.debug(err);
       }
 
       const { sessionID, currentState, ...response } = await initSession({
@@ -1279,7 +1279,7 @@ const MemoriWidget = ({
               return window.location.href;
             })();
           } catch (err) {
-            console.error(err);
+            console.debug(err);
           }
 
           fetchSession({
@@ -1315,7 +1315,7 @@ const MemoriWidget = ({
       }
     } catch (_e) {
       let err = _e as Error;
-      console.error('[APPCONTEXT/CHANGETAG]', err);
+      console.warn('[APPCONTEXT/CHANGETAG]', err);
       return Promise.reject(err);
     }
 
@@ -1925,7 +1925,7 @@ const MemoriWidget = ({
               speechSynthesizer = null;
             }
           } catch (e) {
-            console.error('speak error: ', e);
+            console.warn('speak error: ', e);
             window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
             setIsPlayingAudio(false);
             memoriSpeaking = false;
@@ -1970,7 +1970,7 @@ const MemoriWidget = ({
         audioDestination.close();
       }
     } catch (e) {
-      console.error('stopAudio error: ', e);
+      console.debug('stopAudio error: ', e);
     }
   };
 
@@ -2096,9 +2096,9 @@ const MemoriWidget = ({
           resetTranscript();
           recognizer.startContinuousRecognitionAsync();
         })
-        .catch(console.error);
+        .catch(console.debug);
     } catch (error) {
-      console.error(error);
+      console.debug(error);
     }
   };
   const stopListening = () => {
@@ -2318,7 +2318,7 @@ const MemoriWidget = ({
       }
     } catch (_e) {
       let err = _e as Error;
-      console.error('[APPCONTEXT/QUERYGAMIFICATIONPOINTS]', err);
+      console.debug('[APPCONTEXT/QUERYGAMIFICATIONPOINTS]', err);
     }
 
     return {
@@ -2332,7 +2332,7 @@ const MemoriWidget = ({
         .then(value => {
           setGamificationLevel(getGamificationLevel(value.points));
         })
-        .catch(console.error);
+        .catch(console.debug);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [memori.engineMemoriID]);
@@ -2530,7 +2530,7 @@ const MemoriWidget = ({
       if (memoriAudioElement && isSafari) {
         memoriAudioElement.muted = false;
         memoriAudioElement.play().catch((e: any) => {
-          console.error('error playing intro audio', e);
+          console.warn('error playing intro audio', e);
         });
       }
 
@@ -2914,7 +2914,7 @@ const MemoriWidget = ({
       }
     } catch (e) {
       let err = e as Error;
-      console.error(err);
+      console.debug(err);
     }
   }, [tenant?.billingDelegation, deepThoughtEnabled]);
   useEffect(() => {
