@@ -1,5 +1,12 @@
 
 
+## [7.1.3](https://github.com/memori-ai/memori-react/compare/v7.1.2...v7.1.3) (2024-07-30)
+
+
+### Maintenance
+
+* turn console error in warn/debug for non essential/handled errors ([8693910](https://github.com/memori-ai/memori-react/commit/86939103c4b5aaae748ef4350af2d0c902602e1c))
+
 ## [7.1.2](https://github.com/memori-ai/memori-react/compare/v7.1.1...v7.1.2) (2024-07-24)
 
 
