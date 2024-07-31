@@ -20,7 +20,10 @@ import DOMPurify from 'dompurify';
 import { cleanUrl } from '../../helpers/utils';
 import Button from '../ui/Button';
 import QuestionHelp from '../icons/QuestionHelp';
+import Copy from '../icons/Copy';
+import Code from '../icons/Code';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
+import { stripEmojis, escapeHTML, stripMarkdown } from '../../helpers/utils';
 
 import markedLinkifyIt from 'marked-linkify-it';
 import markedKatex from 'marked-katex-extension';
@@ -35,6 +38,7 @@ export interface Props {
   apiUrl?: string;
   showFeedback?: boolean;
   showWhyThisAnswer?: boolean;
+  showCopyButton?: boolean;
   simulateUserPrompt?: (msg: string) => void;
   showAIicon?: boolean;
   isFirst?: boolean;
@@ -81,6 +85,7 @@ const ChatBubble: React.FC<Props> = ({
   sessionID,
   showFeedback,
   showWhyThisAnswer = true,
+  showCopyButton = true,
   simulateUserPrompt,
   showAIicon = true,
   isFirst = false,
@@ -125,6 +130,12 @@ const ChatBubble: React.FC<Props> = ({
         // remove empty paragraphs
         .replace(/<p><\/p>/g, '<br>')
         .replace(/<p><br><\/p>/g, '<br>');
+
+  const plainText = message.fromUser
+    ? message.translatedText || message.text
+    : escapeHTML(
+        stripMarkdown(stripEmojis(message.translatedText || message.text))
+      );
 
   useLayoutEffect(() => {
     if (typeof window !== 'undefined' && !message.fromUser) {
@@ -228,6 +239,7 @@ const ChatBubble: React.FC<Props> = ({
           className={cx('memori-chat--bubble', {
             'memori-chat--user-bubble': !!message.fromUser,
             'memori-chat--with-addon':
+              (!message.fromUser && showCopyButton) ||
               (message.generatedByAI && showAIicon) ||
               (showFeedback && simulateUserPrompt),
             'memori-chat--ai-generated': message.generatedByAI && showAIicon,
@@ -249,9 +261,35 @@ const ChatBubble: React.FC<Props> = ({
             className="memori-chat--bubble-content"
             dangerouslySetInnerHTML={{ __html: renderedText }}
           />
-          {((message.generatedByAI && showAIicon) ||
+          {((!message.fromUser && showCopyButton) ||
+            (message.generatedByAI && showAIicon) ||
             (showFeedback && simulateUserPrompt)) && (
             <div className="memori-chat--bubble-addon">
+              {!message.fromUser && showCopyButton && (
+                <Button
+                  ghost
+                  shape="circle"
+                  title={t('copy') || 'Copy'}
+                  className="memori-chat--bubble-action-icon"
+                  icon={<Copy aria-label={t('copy') || 'Copy'} />}
+                  onClick={() => navigator.clipboard.writeText(plainText)}
+                />
+              )}
+              {!message.fromUser &&
+                showCopyButton &&
+                plainText !== message.text && (
+                  <Button
+                    ghost
+                    shape="circle"
+                    title={t('copyRawCode') || 'Copy raw code'}
+                    className="memori-chat--bubble-action-icon"
+                    icon={
+                      <Code aria-label={t('copyRawCode') || 'Copy raw code'} />
+                    }
+                    onClick={() => navigator.clipboard.writeText(message.text)}
+                  />
+                )}
+
               {showFeedback && !!simulateUserPrompt && (
                 <FeedbackButtons
                   memori={memori}

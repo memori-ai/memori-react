@@ -79,6 +79,17 @@ Initial.args = {
   },
 };
 
+export const CopyDisabled = Template.bind({});
+CopyDisabled.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+  },
+  showCopyButton: false,
+};
+
 export const GeneratedByAI = Template.bind({});
 GeneratedByAI.args = {
   memori,

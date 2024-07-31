@@ -98,7 +98,7 @@ exports[`renders ChatBubble unchanged 1`] = `
       />
     </picture>
     <div
-      class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
       <div
         class="memori-chat--bubble-content"
@@ -107,6 +107,43 @@ exports[`renders ChatBubble unchanged 1`] = `
         <p>
           Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
         </p>
+      </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -129,7 +166,7 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
       />
     </picture>
     <div
-      class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
       <div
         class="memori-chat--bubble-content"
@@ -1089,6 +1126,78 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
           Quindi, l'ipotenusa del triangolo è di 5 cm.
         </p>
       </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -1110,7 +1219,7 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
       />
     </picture>
     <div
-      class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
       <div
         class="memori-chat--bubble-content"
@@ -1638,6 +1747,78 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
           Seguendo questi passaggi, si ottiene una stima accurata delle resistenze dei materiali che possono essere utilizzate per le verifiche di sicurezza rispetto ad azioni antropiche e ambientali.
         </p>
       </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -1659,7 +1840,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
       />
     </picture>
     <div
-      class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
       <div
         class="memori-chat--bubble-content"
@@ -2527,6 +2708,78 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
           .
         </p>
       </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -2548,7 +2801,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
       />
     </picture>
     <div
-      class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
       <div
         class="memori-chat--bubble-content"
@@ -2965,6 +3218,78 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
           Per calcoli più dettagliati e specifici, si consiglia di consultare le normative tecniche locali e di utilizzare software di simulazione specializzati che possono prendere in considerazione tutti i fattori rilevanti.
         </p>
       </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -2986,7 +3311,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
       />
     </picture>
     <div
-      class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
       <div
         class="memori-chat--bubble-content"
@@ -3020,16 +3345,85 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
           Se hai altre domande o dubbi, sono qui per aiutarti!
         </p>
       </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </div>
 `;
 
-exports[`renders ChatBubble with initial msg unchanged 1`] = `
+exports[`renders ChatBubble with copy disabled unchanged 1`] = `
 <div>
-  <div
-    class="memori-chat--bubble-initial"
-  />
   <div
     class="memori-chat--bubble-container"
   >
@@ -3059,6 +3453,77 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
 </div>
 `;
 
+exports[`renders ChatBubble with initial msg unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-initial"
+  />
+  <div
+    class="memori-chat--bubble-container"
+  >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
+    <div
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+    >
+      <div
+        class="memori-chat--bubble-content"
+        dir="auto"
+      >
+        <p>
+          Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+        </p>
+      </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
 <div>
   <div
@@ -3075,7 +3540,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
       />
     </picture>
     <div
-      class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
       <div
         class="memori-chat--bubble-content"
@@ -3096,6 +3561,78 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
           <br />
           - Rischi identificati.
         </p>
+      </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -3118,7 +3655,7 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
       />
     </picture>
     <div
-      class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
       <div
         class="memori-chat--bubble-content"
@@ -3135,6 +3672,78 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
         <p>
           Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
+      </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -3157,7 +3766,7 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
       />
     </picture>
     <div
-      class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
       <div
         class="memori-chat--bubble-content"
@@ -3217,6 +3826,78 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
           Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
       </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -3238,7 +3919,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
       />
     </picture>
     <div
-      class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
       <div
         class="memori-chat--bubble-content"
@@ -3403,6 +4084,78 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
             Vedi altro
           </a>
         </p>
+      </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>

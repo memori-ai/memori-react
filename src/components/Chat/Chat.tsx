@@ -50,6 +50,7 @@ export interface Props {
   attachmentsMenuOpen?: 'link' | 'media';
   setAttachmentsMenuOpen: (attachmentsMenuOpen: 'link' | 'media') => void;
   instruct?: boolean;
+  showCopyButton?: boolean;
   showInputs?: boolean;
   showMicrophone?: boolean;
   userMessage?: string;
@@ -86,6 +87,7 @@ const Chat: React.FC<Props> = ({
   showContextPerLine = false,
   showAIicon = true,
   showWhyThisAnswer = true,
+  showCopyButton = true,
   selectReceiverTag,
   preview = false,
   instruct = false,
@@ -216,6 +218,7 @@ const Chat: React.FC<Props> = ({
                 user={user}
                 userAvatar={userAvatar}
                 experts={experts}
+                showCopyButton={showCopyButton}
               />
               {showDates && !!message.timestamp && (
                 <small

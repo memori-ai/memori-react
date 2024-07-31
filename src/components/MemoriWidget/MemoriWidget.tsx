@@ -337,6 +337,7 @@ export interface Props {
   layout?: 'DEFAULT' | 'FULLPAGE' | 'TOTEM' | 'CHAT' | 'WEBSITE_ASSISTANT';
   customLayout?: React.FC<LayoutProps>;
   showShare?: boolean;
+  showCopyButton?: boolean;
   showInstruct?: boolean;
   showInputs?: boolean;
   showDates?: boolean;
@@ -388,6 +389,7 @@ const MemoriWidget = ({
   showShare,
   preview = false,
   embed = false,
+  showCopyButton = true,
   showInputs = true,
   showDates = false,
   showContextPerLine = false,
@@ -3036,6 +3038,7 @@ const MemoriWidget = ({
     showContextPerLine,
     showAIicon,
     showWhyThisAnswer,
+    showCopyButton,
     client,
     selectReceiverTag,
     preview,

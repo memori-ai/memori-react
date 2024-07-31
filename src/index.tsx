@@ -28,6 +28,7 @@ export interface Props {
   layout?: WidgetProps['layout'];
   customLayout?: WidgetProps['customLayout'];
   showShare?: boolean;
+  showCopyButton?: boolean;
   showInstruct?: boolean;
   showInputs?: boolean;
   showDates?: boolean;
@@ -88,6 +89,7 @@ const Memori: React.FC<Props> = ({
   layout = 'DEFAULT',
   customLayout,
   showShare = true,
+  showCopyButton = true,
   showSettings = true,
   showInstruct = false,
   showTypingText = false,
@@ -239,6 +241,7 @@ const Memori: React.FC<Props> = ({
       secret={secretToken}
       sessionID={sessionID}
       showShare={showShare}
+      showCopyButton={showCopyButton}
       showSettings={showSettings}
       showInstruct={showInstruct}
       showTypingText={showTypingText}
@@ -314,6 +317,7 @@ Memori.propTypes = {
   ]),
   customLayout: PropTypes.any,
   showShare: PropTypes.bool,
+  showCopyButton: PropTypes.bool,
   showInstruct: PropTypes.bool,
   showInputs: PropTypes.bool,
   showDates: PropTypes.bool,

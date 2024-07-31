@@ -28,6 +28,7 @@
   "next": "Next",
   "previous": "Previous",
   "copy": "Copy",
+  "copyRawCode": "Copy raw code",
   "copyToClipboard": "Copy to clipboard",
   "showOriginalText": "Show original",
   "showTranslatedText": "Show translation",

@@ -33,7 +33,7 @@ exports[`renders Chat on X2a state unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -42,6 +42,43 @@ exports[`renders Chat on X2a state unchanged 1`] = `
               <p>
                 Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -94,7 +131,7 @@ exports[`renders Chat on X2a state unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -103,6 +140,43 @@ exports[`renders Chat on X2a state unchanged 1`] = `
               <p>
                 Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -155,7 +229,7 @@ exports[`renders Chat on X2a state unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -164,6 +238,43 @@ exports[`renders Chat on X2a state unchanged 1`] = `
               <p>
                 Ecco qui come.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -307,7 +418,7 @@ exports[`renders Chat on X2a state unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -316,6 +427,43 @@ exports[`renders Chat on X2a state unchanged 1`] = `
               <p>
                 Arrivederci.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -442,7 +590,7 @@ exports[`renders Chat on X3 state unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -451,6 +599,43 @@ exports[`renders Chat on X3 state unchanged 1`] = `
               <p>
                 Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -503,7 +688,7 @@ exports[`renders Chat on X3 state unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -512,6 +697,43 @@ exports[`renders Chat on X3 state unchanged 1`] = `
               <p>
                 Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -564,7 +786,7 @@ exports[`renders Chat on X3 state unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -573,6 +795,43 @@ exports[`renders Chat on X3 state unchanged 1`] = `
               <p>
                 Ecco qui come.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -716,7 +975,7 @@ exports[`renders Chat on X3 state unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -725,6 +984,43 @@ exports[`renders Chat on X3 state unchanged 1`] = `
               <p>
                 Arrivederci.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -884,7 +1180,7 @@ exports[`renders Chat unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -893,6 +1189,43 @@ exports[`renders Chat unchanged 1`] = `
               <p>
                 Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -945,7 +1278,7 @@ exports[`renders Chat unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -954,6 +1287,43 @@ exports[`renders Chat unchanged 1`] = `
               <p>
                 Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1006,7 +1376,7 @@ exports[`renders Chat unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1015,6 +1385,43 @@ exports[`renders Chat unchanged 1`] = `
               <p>
                 Ecco qui come.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1143,7 +1550,7 @@ exports[`renders Chat unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1152,6 +1559,43 @@ exports[`renders Chat unchanged 1`] = `
               <p>
                 Arrivederci.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1262,7 +1706,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1271,6 +1715,43 @@ exports[`renders Chat with context vars unchanged 1`] = `
               <p>
                 Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1323,7 +1804,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1332,6 +1813,43 @@ exports[`renders Chat with context vars unchanged 1`] = `
               <p>
                 Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1384,7 +1902,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1393,6 +1911,43 @@ exports[`renders Chat with context vars unchanged 1`] = `
               <p>
                 Ecco qui come.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1536,7 +2091,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1545,6 +2100,43 @@ exports[`renders Chat with context vars unchanged 1`] = `
               <p>
                 Arrivederci.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1670,7 +2262,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1679,6 +2271,43 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               <p>
                 Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1723,7 +2352,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1732,6 +2361,43 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               <p>
                 Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1776,7 +2442,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1785,6 +2451,43 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               <p>
                 Ecco qui come.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -1905,7 +2608,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1914,6 +2617,43 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               <p>
                 Arrivederci.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -2024,7 +2764,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2033,6 +2773,43 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               <p>
                 Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -2079,7 +2856,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2088,6 +2865,43 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               <p>
                 Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -2134,7 +2948,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2143,6 +2957,43 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               <p>
                 Ecco qui come.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -2265,7 +3116,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2274,6 +3125,43 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               <p>
                 Arrivederci.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -2384,7 +3272,7 @@ exports[`renders Chat with dates unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2393,6 +3281,43 @@ exports[`renders Chat with dates unchanged 1`] = `
               <p>
                 Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -2455,7 +3380,7 @@ exports[`renders Chat with dates unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2464,6 +3389,43 @@ exports[`renders Chat with dates unchanged 1`] = `
               <p>
                 Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -2526,7 +3488,7 @@ exports[`renders Chat with dates unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2535,6 +3497,43 @@ exports[`renders Chat with dates unchanged 1`] = `
               <p>
                 Ecco qui come.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -2673,7 +3672,7 @@ exports[`renders Chat with dates unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2682,6 +3681,43 @@ exports[`renders Chat with dates unchanged 1`] = `
               <p>
                 Arrivederci.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -2797,7 +3833,7 @@ exports[`renders Chat with hints unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2806,6 +3842,43 @@ exports[`renders Chat with hints unchanged 1`] = `
               <p>
                 Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -2858,7 +3931,7 @@ exports[`renders Chat with hints unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2867,6 +3940,43 @@ exports[`renders Chat with hints unchanged 1`] = `
               <p>
                 Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -2919,7 +4029,7 @@ exports[`renders Chat with hints unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2928,6 +4038,43 @@ exports[`renders Chat with hints unchanged 1`] = `
               <p>
                 Ecco qui come.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -3056,7 +4203,7 @@ exports[`renders Chat with hints unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -3065,6 +4212,43 @@ exports[`renders Chat with hints unchanged 1`] = `
               <p>
                 Arrivederci.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -3201,7 +4385,7 @@ exports[`renders Chat with media unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -3210,6 +4394,43 @@ exports[`renders Chat with media unchanged 1`] = `
               <p>
                 Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -3262,7 +4483,7 @@ exports[`renders Chat with media unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -3271,6 +4492,43 @@ exports[`renders Chat with media unchanged 1`] = `
               <p>
                 Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -3323,7 +4581,7 @@ exports[`renders Chat with media unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -3332,6 +4590,43 @@ exports[`renders Chat with media unchanged 1`] = `
               <p>
                 Ecco qui delle cose per te.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -3861,7 +5156,7 @@ exports[`renders Chat with media unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -3870,6 +5165,43 @@ exports[`renders Chat with media unchanged 1`] = `
               <p>
                 Arrivederci.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -3980,7 +5312,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -3989,6 +5321,43 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               <p>
                 Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -4041,7 +5410,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -4050,6 +5419,43 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               <p>
                 Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -4102,7 +5508,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -4111,6 +5517,43 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               <p>
                 Ecco qui come.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -4239,7 +5682,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -4248,6 +5691,43 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               <p>
                 Arrivederci.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -4379,7 +5859,7 @@ exports[`renders Chat with user unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -4388,6 +5868,43 @@ exports[`renders Chat with user unchanged 1`] = `
               <p>
                 Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -4434,7 +5951,7 @@ exports[`renders Chat with user unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -4443,6 +5960,43 @@ exports[`renders Chat with user unchanged 1`] = `
               <p>
                 Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -4489,7 +6043,7 @@ exports[`renders Chat with user unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -4498,6 +6052,43 @@ exports[`renders Chat with user unchanged 1`] = `
               <p>
                 Ecco qui come.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>
@@ -4620,7 +6211,7 @@ exports[`renders Chat with user unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
             <div
               class="memori-chat--bubble-content"
@@ -4629,6 +6220,43 @@ exports[`renders Chat with user unchanged 1`] = `
               <p>
                 Arrivederci.
               </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </div>
           </div>
         </div>

@@ -28,6 +28,7 @@
   "next": "Successivo",
   "previous": "Precedente",
   "copy": "Copia",
+  "copyRawCode": "Copia codice sorgente",
   "copyToClipboard": "Copia negli appunti",
   "showOriginalText": "Mostra originale",
   "showTranslatedText": "Mostra traduzione",
