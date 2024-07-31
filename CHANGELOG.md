@@ -1,5 +1,17 @@
 
 
+## [7.2.0](https://github.com/memori-ai/memori-react/compare/v7.1.3...v7.2.0) (2024-07-31)
+
+
+### Features
+
+* add copy buttons ([e80d12c](https://github.com/memori-ai/memori-react/commit/e80d12c2a373f786a3e65932b06dc34b9474ee38))
+
+
+### Changes
+
+* change copy icon ([6d6fd26](https://github.com/memori-ai/memori-react/commit/6d6fd263a6150a4a6d0a5767aa31b140b0493a71))
+
 ## [7.1.3](https://github.com/memori-ai/memori-react/compare/v7.1.2...v7.1.3) (2024-07-30)
 
 

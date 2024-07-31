@@ -1,5 +1,5 @@
 {
-  "version": "7.1.3",
+  "version": "7.2.0",
   "name": "@memori.ai/memori-react",
   "author": "Memori Srl",
   "main": "dist/index.js",
