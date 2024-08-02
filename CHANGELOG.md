@@ -1,5 +1,22 @@
 
 
+## [7.3.0](https://github.com/memori-ai/memori-react/compare/v7.2.0...v7.3.0) (2024-08-02)
+
+
+### Features
+
+* add showTranslationOriginal, keep emission as from engine and use translatedEmission in msg and state ([38a4302](https://github.com/memori-ai/memori-react/commit/38a4302392a2e960776769b68af074d7b696266d))
+
+
+### Bug Fixes
+
+* prevent <output> tags from translations, use correct default endpoint to skip redirections ([8107c00](https://github.com/memori-ai/memori-react/commit/8107c00f23a85d7ae95505e69690c080ec70f169))
+
+
+### Changes
+
+* make message and state handling resilient on translations failures ([919e126](https://github.com/memori-ai/memori-react/commit/919e1268d22a16fc1270c54db4a38db5e87cffbb))
+
 ## [7.2.0](https://github.com/memori-ai/memori-react/compare/v7.1.3...v7.2.0) (2024-07-31)
 
 
