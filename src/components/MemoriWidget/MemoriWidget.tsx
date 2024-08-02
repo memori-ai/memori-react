@@ -670,6 +670,7 @@ const MemoriWidget = ({
 
     try {
       if (
+        !hidden &&
         translate &&
         !instruct &&
         isMultilanguageEnabled &&
@@ -884,47 +885,66 @@ const MemoriWidget = ({
         };
       }
     } else {
-      const t = await getTranslation(emission, userLang, language, baseUrl);
-      if (state.hints && state.hints.length > 0) {
-        const translatedHints = await Promise.all(
-          (state.hints ?? []).map(async hint => {
-            const tHint = await getTranslation(
-              hint,
-              userLang,
-              language,
-              baseUrl
-            );
-            return {
-              text: tHint?.text ?? hint,
-              originalText: hint,
-            } as TranslatedHint;
-          })
-        );
-        translatedState = {
-          ...state,
-          emission: t.text,
-          translatedHints,
-        };
-      } else {
-        translatedState = {
-          ...state,
-          emission: emission,
-          translatedEmission: t.text,
-          hints:
-            state.hints ??
-            (state.state === 'G1' ? currentDialogState?.hints : []),
-        };
-      }
+      try {
+        const t = await getTranslation(emission, userLang, language, baseUrl);
+        if (state.hints && state.hints.length > 0) {
+          const translatedHints = await Promise.all(
+            (state.hints ?? []).map(async hint => {
+              const tHint = await getTranslation(
+                hint,
+                userLang,
+                language,
+                baseUrl
+              );
+              return {
+                text: tHint?.text ?? hint,
+                originalText: hint,
+              } as TranslatedHint;
+            })
+          );
+          translatedState = {
+            ...state,
+            emission: t.text,
+            translatedHints,
+          };
+        } else {
+          translatedState = {
+            ...state,
+            emission: emission,
+            translatedEmission: t.text,
+            hints:
+              state.hints ??
+              (state.state === 'G1' ? currentDialogState?.hints : []),
+          };
+        }
 
-      if (t.text.length > 0)
+        if (t.text.length > 0)
+          translatedMsg = {
+            text: emission,
+            translatedText: t.text,
+            emitter: state.emitter,
+            media: state.media,
+            fromUser: false,
+            questionAnswered: msg,
+            generatedByAI: !!state.completion,
+            contextVars: state.contextVars,
+            date: state.currentDate,
+            placeName: state.currentPlaceName,
+            placeLatitude: state.currentLatitude,
+            placeLongitude: state.currentLongitude,
+            placeUncertaintyKm: state.currentUncertaintyKm,
+            tag: state.currentTag,
+            memoryTags: state.memoryTags,
+          };
+      } catch (error) {
+        console.error(error);
+        translatedState = { ...state, emission };
         translatedMsg = {
           text: emission,
-          translatedText: t.text,
           emitter: state.emitter,
           media: state.media,
           fromUser: false,
           questionAnswered: msg,
-          generatedByAI: !!state.completion,
           contextVars: state.contextVars,
           date: state.currentDate,
           placeName: state.currentPlaceName,
@@ -934,6 +954,7 @@ const MemoriWidget = ({
           tag: state.currentTag,
           memoryTags: state.memoryTags,
         };
+      }
     }
 
     setCurrentDialogState(translatedState);
