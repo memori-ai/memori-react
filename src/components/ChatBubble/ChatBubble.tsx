@@ -12,6 +12,7 @@ import { Transition } from '@headlessui/react';
 import { getResourceUrl } from '../../helpers/media';
 import UserIcon from '../icons/User';
 import AI from '../icons/AI';
+import Translation from '../icons/Translation';
 import Tooltip from '../ui/Tooltip';
 import FeedbackButtons from '../FeedbackButtons/FeedbackButtons';
 import { useTranslation } from 'react-i18next';
@@ -39,6 +40,7 @@ export interface Props {
   showFeedback?: boolean;
   showWhyThisAnswer?: boolean;
   showCopyButton?: boolean;
+  showTranslationOriginal?: boolean;
   simulateUserPrompt?: (msg: string) => void;
   showAIicon?: boolean;
   isFirst?: boolean;
@@ -86,6 +88,7 @@ const ChatBubble: React.FC<Props> = ({
   showFeedback,
   showWhyThisAnswer = true,
   showCopyButton = true,
+  showTranslationOriginal = false,
   simulateUserPrompt,
   showAIicon = true,
   isFirst = false,
@@ -93,15 +96,18 @@ const ChatBubble: React.FC<Props> = ({
   userAvatar,
   experts,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
 
+  const text = message.translatedText || message.text;
+
   const renderedText = message.fromUser
-    ? message.translatedText || message.text
+    ? text
     : DOMPurify.sanitize(
         (
           marked.parse(
-            (message.translatedText || message.text)
+            text
               // remove leading and trailing whitespaces
               .trim()
               // remove markdown links
@@ -132,10 +138,8 @@ const ChatBubble: React.FC<Props> = ({
         .replace(/<p><br><\/p>/g, '<br>');
 
   const plainText = message.fromUser
-    ? message.translatedText || message.text
-    : escapeHTML(
-        stripMarkdown(stripEmojis(message.translatedText || message.text))
-      );
+    ? text
+    : escapeHTML(stripMarkdown(stripEmojis(text)));
 
   useLayoutEffect(() => {
     if (typeof window !== 'undefined' && !message.fromUser) {
@@ -312,6 +316,26 @@ const ChatBubble: React.FC<Props> = ({
                   </span>
                 </Tooltip>
               )}
+
+              {showTranslationOriginal &&
+                message.translatedText &&
+                message.translatedText !== message.text && (
+                  <Tooltip
+                    align="left"
+                    content={`${
+                      lang === 'it' ? 'Testo originale' : 'Original text'
+                    }: ${message.text}`}
+                    className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
+                  >
+                    <span>
+                      <Translation
+                        aria-label={
+                          lang === 'it' ? 'Testo originale' : 'Original text'
+                        }
+                      />
+                    </span>
+                  </Tooltip>
+                )}
 
               {!message.fromUser &&
                 message.questionAnswered &&

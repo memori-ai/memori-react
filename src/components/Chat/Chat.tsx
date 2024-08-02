@@ -40,6 +40,7 @@ export interface Props {
   showDates?: boolean;
   showContextPerLine?: boolean;
   showAIicon?: boolean;
+  showTranslationOriginal?: boolean;
   showWhyThisAnswer?: boolean;
   client: ReturnType<typeof memoriApiClient>;
   selectReceiverTag: (tag: string) => Promise<void>;
@@ -88,6 +89,7 @@ const Chat: React.FC<Props> = ({
   showAIicon = true,
   showWhyThisAnswer = true,
   showCopyButton = true,
+  showTranslationOriginal = false,
   selectReceiverTag,
   preview = false,
   instruct = false,
@@ -210,6 +212,7 @@ const Chat: React.FC<Props> = ({
                 simulateUserPrompt={simulateUserPrompt}
                 showAIicon={showAIicon}
                 showWhyThisAnswer={showWhyThisAnswer}
+                showTranslationOriginal={showTranslationOriginal}
                 showFeedback={
                   index === history.length - 1 &&
                   !message.fromUser &&

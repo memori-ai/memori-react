@@ -104,6 +104,20 @@ GeneratedByAI.args = {
   },
 };
 
+export const WithTranslationAndOriginal = Template.bind({});
+WithTranslationAndOriginal.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'Hello, this is a translated text so you can talk to me in different languages',
+    initial: false,
+    translatedText:
+      'Ciao, questo è un testo tradotto in modo che tu possa parlarmi in diverse lingue',
+  },
+  showTranslationOriginal: true,
+};
+
 export const WithLongLink = Template.bind({});
 WithLongLink.args = {
   memori,

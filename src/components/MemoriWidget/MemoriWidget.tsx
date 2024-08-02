@@ -338,6 +338,7 @@ export interface Props {
   customLayout?: React.FC<LayoutProps>;
   showShare?: boolean;
   showCopyButton?: boolean;
+  showTranslationOriginal?: boolean;
   showInstruct?: boolean;
   showInputs?: boolean;
   showDates?: boolean;
@@ -390,6 +391,7 @@ const MemoriWidget = ({
   preview = false,
   embed = false,
   showCopyButton = true,
+  showTranslationOriginal = false,
   showInputs = true,
   showDates = false,
   showContextPerLine = false,
@@ -773,8 +775,9 @@ const MemoriWidget = ({
           isMultilanguageEnabled
         ) {
           translateDialogState(currentState, userLang, msg).then(ts => {
-            if (ts.emission) {
-              speak(ts.emission);
+            let text = ts.translatedEmission || ts.emission;
+            if (text) {
+              speak(text);
             }
           });
         } else {
@@ -905,7 +908,8 @@ const MemoriWidget = ({
       } else {
         translatedState = {
           ...state,
-          emission: t.text,
+          emission: emission,
+          translatedEmission: t.text,
           hints:
             state.hints ??
             (state.state === 'G1' ? currentDialogState?.hints : []),
@@ -914,7 +918,8 @@ const MemoriWidget = ({
 
       if (t.text.length > 0)
         translatedMsg = {
-          text: t.text,
+          text: emission,
+          translatedText: t.text,
           emitter: state.emitter,
           media: state.media,
           fromUser: false,
@@ -1453,8 +1458,9 @@ const MemoriWidget = ({
             { ...currentState, emission: emission },
             userLang
           ).then(ts => {
-            if (ts.emission) {
-              speak(ts.emission);
+            let text = ts.translatedEmission || ts.emission;
+            if (text) {
+              speak(text);
             }
           });
         } else if (emission && emission.length > 0) {
@@ -2589,8 +2595,9 @@ const MemoriWidget = ({
 
           translateDialogState(session.dialogState, userLang)
             .then(ts => {
-              if (ts.emission) {
-                speak(ts.emission);
+              let text = ts.translatedEmission || ts.emission;
+              if (text) {
+                speak(text);
               }
             })
             .finally(() => {
@@ -2646,8 +2653,9 @@ const MemoriWidget = ({
             if (session && session.resultCode === 0) {
               translateDialogState(session.currentState, userLang)
                 .then(ts => {
-                  if (ts.emission) {
-                    speak(ts.emission);
+                  let text = ts.translatedEmission || ts.emission;
+                  if (text) {
+                    speak(text);
                   }
                 })
                 .finally(() => {
@@ -2699,8 +2707,9 @@ const MemoriWidget = ({
             if (session && session.resultCode === 0) {
               translateDialogState(session.currentState, userLang)
                 .then(ts => {
-                  if (ts.emission) {
-                    speak(ts.emission);
+                  let text = ts.translatedEmission || ts.emission;
+                  if (text) {
+                    speak(text);
                   }
                 })
                 .finally(() => {
@@ -2752,8 +2761,9 @@ const MemoriWidget = ({
             if (session && session.resultCode === 0) {
               translateDialogState(session.currentState, userLang)
                 .then(ts => {
-                  if (ts.emission) {
-                    speak(ts.emission);
+                  let text = ts.translatedEmission || ts.emission;
+                  if (text) {
+                    speak(text);
                   }
                 })
                 .finally(() => {
@@ -2788,8 +2798,9 @@ const MemoriWidget = ({
           // no need to change tag
           translateDialogState(currentState, userLang)
             .then(ts => {
-              if (ts.emission) {
-                speak(ts.emission);
+              let text = ts.translatedEmission || ts.emission;
+              if (text) {
+                speak(text);
               }
             })
             .finally(() => {
@@ -2808,8 +2819,9 @@ const MemoriWidget = ({
         // everything is fine, just translate dialog state and activate chat
         translateDialogState(dialogState!, userLang)
           .then(ts => {
-            if (ts.emission) {
-              speak(ts.emission);
+            let text = ts.translatedEmission || ts.emission;
+            if (text) {
+              speak(text);
             }
           })
           .finally(() => {
@@ -3039,6 +3051,7 @@ const MemoriWidget = ({
     showAIicon,
     showWhyThisAnswer,
     showCopyButton,
+    showTranslationOriginal,
     client,
     selectReceiverTag,
     preview,
