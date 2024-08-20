@@ -475,10 +475,8 @@ const MemoriWidget = ({
   const integrationConfig = integration?.customData
     ? JSON.parse(integration.customData)
     : null;
-  const isMultilanguageEnabled =
-    multilingual !== undefined
-      ? multilingual
-      : !!integrationConfig?.multilanguage;
+
+  const isMultilanguageEnabled =  multilingual !== undefined ? multilingual : !!integrationConfig?.multilanguage;
   const forcedTimeout = integrationConfig?.forcedTimeout as number | undefined;
   const [userLang, setUserLang] = useState(
     memoriLang ??
@@ -3031,6 +3029,7 @@ const MemoriWidget = ({
     instruct: instruct,
     sessionId: sessionId,
     clickedStart: clickedStart,
+    isMultilanguageEnabled: isMultilanguageEnabled,
     onClickStart: onClickStart,
     initializeTTS: initializeTTS,
     isUserLoggedIn: !!loginToken && !!user?.userID,

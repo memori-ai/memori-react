@@ -45,6 +45,7 @@ export interface Props {
   showLogin?: boolean;
   setShowLoginDrawer: (show: boolean) => void;
   notEnoughCredits?: boolean;
+  isMultilanguageEnabled?: boolean | undefined;
 }
 
 const StartPanel: React.FC<Props> = ({
@@ -58,7 +59,6 @@ const StartPanel: React.FC<Props> = ({
   apiUrl,
   position,
   openPositionDrawer,
-  integrationConfig,
   instruct = false,
   clickedStart,
   onClickStart,
@@ -69,6 +69,7 @@ const StartPanel: React.FC<Props> = ({
   showLogin = false,
   setShowLoginDrawer,
   notEnoughCredits = false,
+  isMultilanguageEnabled
 }) => {
   const { t, i18n } = useTranslation();
   const [translatedDescription, setTranslatedDescription] = useState(
@@ -233,7 +234,7 @@ const StartPanel: React.FC<Props> = ({
             )}
           </p>
 
-          {integrationConfig?.multilanguage && !instruct && (
+          {isMultilanguageEnabled && !instruct && (
             <div className="memori--language-chooser">
               <label id="user-lang-pref-label" htmlFor="user-lang-pref">
                 {t('write_and_speak.iWantToTalkToIn', {
