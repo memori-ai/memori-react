@@ -238,6 +238,26 @@ it('renders StartPanel with integrationConfig unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders StartPanel with multilangual unchanged', () => {
+  const { container } = render(
+    <StartPanel
+      memori={memori}
+      tenant={tenant}
+      isMultilanguageEnabled
+      language="it"
+      userLang="en"
+      setUserLang={() => {}}
+      openPositionDrawer={() => {}}
+      instruct={false}
+      sessionId={sessionID}
+      clickedStart={false}
+      onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
 it('renders StartPanel with completion provider down unchanged', () => {
   const { container } = render(
     <StartPanel
