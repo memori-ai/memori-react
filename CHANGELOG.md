@@ -1,5 +1,12 @@
 
 
+## [7.3.1](https://github.com/memori-ai/memori-react/compare/v7.3.0...v7.3.1) (2024-08-20)
+
+
+### Bug Fixes
+
+* fixed multi language prop bug ([de66171](https://github.com/memori-ai/memori-react/commit/de661712a9a68872b29dc293142ca365ec7462db))
+
 ## [7.3.0](https://github.com/memori-ai/memori-react/compare/v7.2.0...v7.3.0) (2024-08-02)
 
 
