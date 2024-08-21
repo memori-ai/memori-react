@@ -272,6 +272,19 @@ WithMarkdownAndBreakLine.args = {
   },
 };
 
+export const WithMarkdownAndMultipleBreakLine = Template.bind({});
+WithMarkdownAndMultipleBreakLine.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: `Ah, ottima domanda! Stavo giusto riflettendo su come spiegare al meglio le funzionalità di questo sistema. \n\nDa qui puoi fare diverse cose interessanti:\n\n1. Puoi conversare con me, Nunzio Fiore, e io risponderò basandomi sulle mie conoscenze ed esperienze.\n\n2. Puoi aggiungere nuove "memorie" o informazioni al mio database. Questo significa che puoi insegnarmi cose nuove o aggiornare le mie conoscenze esistenti.\n\n3. Puoi creare, modificare o eliminare "ricevitori". Questi sono come utenti specifici che possono interagire con me in modo personalizzato.\n\n4. Puoi associare determinate memorie a ricevitori specifici, creando così contenuti personalizzati per diverse persone.\n\n5. Puoi cercare tra le memorie esistenti, visualizzare le ultime aggiunte, o modificare quelle già presenti.\n\nIn pratica, stai interagendo con un sistema che permette di creare e gestire un "gemello digitale" - in questo caso, me stesso. È un po' come scrivere un libro interattivo sulla mia vita e le mie conoscenze.\n\nC'è qualcosa in particolare che ti interessa esplorare o su cui vorresti saperne di più?`,
+  },
+};
+
 export const WithMarkdownCode = Template.bind({});
 WithMarkdownCode.args = {
   memori,
