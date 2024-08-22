@@ -155,6 +155,8 @@
 }
 
 .memori-button[disabled] {
+    background: var(--memori-button-disabled-bg, #f9f9f9);
+    color: var(--memori-primary);
     cursor: not-allowed;
-    opacity: 0.6;
+    opacity: 0.5;
 }

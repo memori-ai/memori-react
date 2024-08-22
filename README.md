@@ -200,6 +200,7 @@ memori-client,
   --memori-modal--width: 100%;
   --memori-modal--width--md: 80%;
   --memori-error-color: #ff4d4f;
+  --memori-button-disabled-bg: #f9f9f9;
 }
 ```
 
