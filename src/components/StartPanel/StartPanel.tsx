@@ -1,5 +1,4 @@
 import {
-  GamificationLevel,
   Memori,
   Tenant,
   Venue,
@@ -25,7 +24,6 @@ import MapMarker from '../icons/MapMarker';
 export interface Props {
   memori: Memori;
   tenant?: Tenant;
-  gamificationLevel?: GamificationLevel;
   language?: string;
   userLang?: string;
   setUserLang: (lang: string) => void;
@@ -51,7 +49,6 @@ export interface Props {
 const StartPanel: React.FC<Props> = ({
   memori,
   tenant,
-  gamificationLevel,
   language,
   userLang,
   setUserLang,
@@ -69,7 +66,7 @@ const StartPanel: React.FC<Props> = ({
   showLogin = false,
   setShowLoginDrawer,
   notEnoughCredits = false,
-  isMultilanguageEnabled
+  isMultilanguageEnabled,
 }) => {
   const { t, i18n } = useTranslation();
   const [translatedDescription, setTranslatedDescription] = useState(
@@ -118,24 +115,6 @@ const StartPanel: React.FC<Props> = ({
           })}")`,
         }}
       >
-        {!!gamificationLevel?.badge?.length && !memori.enableBoardOfExperts && (
-          <div className="memori--gamification-badge">
-            <Tooltip
-              align="left"
-              content={`${t('gamification.level')} ${
-                gamificationLevel.badge
-              }, ${gamificationLevel.points} ${t('gamification.points')}`}
-            >
-              <span
-                aria-label={`${t('gamification.level')} ${
-                  gamificationLevel.badge
-                }, ${gamificationLevel.points} ${t('gamification.points')}`}
-              >
-                {gamificationLevel.badge}
-              </span>
-            </Tooltip>
-          </div>
-        )}
         {!!memori.enableCompletions && !memori.enableBoardOfExperts && (
           <div className="memori--completions-enabled">
             <Tooltip align="left" content={t('completionsEnabled')}>

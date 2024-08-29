@@ -22,30 +22,6 @@ it('renders StartPanel unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
-it('renders StartPanel with gamification level unchanged', () => {
-  const { container } = render(
-    <StartPanel
-      memori={memori}
-      tenant={tenant}
-      gamificationLevel={{
-        points: 61,
-        pointsForCurrentBadge: 60,
-        badge: '🌍',
-      }}
-      language="it"
-      userLang="en"
-      setUserLang={() => {}}
-      openPositionDrawer={() => {}}
-      instruct={false}
-      sessionId={sessionID}
-      clickedStart={false}
-      onClickStart={() => {}}
-      setShowLoginDrawer={jest.fn()}
-    />
-  );
-  expect(container).toMatchSnapshot();
-});
-
 it('renders StartPanel with completions enabled unchanged', () => {
   const { container } = render(
     <StartPanel
@@ -172,11 +148,6 @@ it('renders StartPanel on instruct unchanged', () => {
     <StartPanel
       memori={memori}
       tenant={tenant}
-      gamificationLevel={{
-        points: 61,
-        pointsForCurrentBadge: 60,
-        badge: '🌍',
-      }}
       language="it"
       userLang="en"
       setUserLang={() => {}}
@@ -199,11 +170,6 @@ it('renders StartPanel with position required unchanged', () => {
         needsPosition: true,
       }}
       tenant={tenant}
-      gamificationLevel={{
-        points: 61,
-        pointsForCurrentBadge: 60,
-        badge: '🌍',
-      }}
       language="it"
       userLang="en"
       setUserLang={() => {}}

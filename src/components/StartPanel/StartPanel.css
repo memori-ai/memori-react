@@ -136,7 +136,7 @@
 .memori--board-of-experts,
 .memori--nsfw {
     position: absolute;
-    right: 2.5rem;
+    right: 0.25rem;
     bottom: -1.25rem;
     display: flex;
     width: 2rem;
@@ -160,12 +160,9 @@
     height: 1rem;
 }
 
-.memori--completions-enabled+.memori--nsfw {
-    right: 4.75rem;
-}
-
-.memori--board-of-experts {
-    right: 0.25rem;
+.memori--board-of-experts + .memori--nsfw,
+.memori--completions-enabled + .memori--nsfw {
+    right: 2.5rem;
 }
 
 .memori--board-of-experts svg {

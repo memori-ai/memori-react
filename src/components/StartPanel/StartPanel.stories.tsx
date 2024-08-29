@@ -110,28 +110,6 @@ Default.args = {
   onClickStart: () => {},
 };
 
-export const WithGamificationLevel = Template.bind({});
-WithGamificationLevel.args = {
-  memori: {
-    ...memori,
-    enableCompletions: false,
-  },
-  tenant,
-  gamificationLevel: {
-    points: 61,
-    pointsForCurrentBadge: 60,
-    badge: '🌍',
-  },
-  language: 'it',
-  userLang: 'en',
-  setUserLang: () => {},
-  openPositionDrawer: () => {},
-  instruct: false,
-  sessionId: sessionID,
-  clickedStart: false,
-  onClickStart: () => {},
-};
-
 export const WithCompletionsEnabled = Template.bind({});
 WithCompletionsEnabled.args = {
   memori: {
@@ -167,17 +145,12 @@ WithNSFWFlag.args = {
   onClickStart: () => {},
 };
 
-export const WithAllTheBadges = Template.bind({});
-WithAllTheBadges.args = {
+export const WithCompletionsAndNSFW = Template.bind({});
+WithCompletionsAndNSFW.args = {
   memori: {
     ...memori,
     enableCompletions: true,
     nsfw: true,
-  },
-  gamificationLevel: {
-    points: 61,
-    pointsForCurrentBadge: 60,
-    badge: '🌍',
   },
   tenant,
   language: 'it',
@@ -261,10 +234,24 @@ BoardOfExpert.args = {
     enableBoardOfExperts: true,
     enableCompletions: true,
   },
-  gamificationLevel: {
-    points: 61,
-    pointsForCurrentBadge: 60,
-    badge: '🌍',
+  tenant,
+  language: 'it',
+  userLang: 'en',
+  setUserLang: () => {},
+  openPositionDrawer: () => {},
+  instruct: false,
+  sessionId: sessionID,
+  clickedStart: false,
+  onClickStart: () => {},
+};
+
+export const BoardOfExpertNSFW = Template.bind({});
+BoardOfExpertNSFW.args = {
+  memori: {
+    ...memori,
+    enableBoardOfExperts: true,
+    enableCompletions: true,
+    nsfw: true,
   },
   tenant,
   language: 'it',
@@ -281,11 +268,6 @@ export const Instruct = Template.bind({});
 Instruct.args = {
   memori,
   tenant,
-  gamificationLevel: {
-    points: 61,
-    pointsForCurrentBadge: 60,
-    badge: '🌍',
-  },
   language: 'it',
   userLang: 'en',
   setUserLang: () => {},

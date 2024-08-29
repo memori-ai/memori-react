@@ -10,7 +10,6 @@ import {
   MemoriConfig,
   TranslatedHint,
   Invitation,
-  GamificationLevel,
   Tenant,
   MemoriSession,
   User,
@@ -76,7 +75,6 @@ import {
 } from '../../helpers/utils';
 import { anonTag } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
-import { getGamificationLevel } from '../../helpers/statistics';
 import { getCredits } from '../../helpers/credits';
 
 // Widget utilities and helpers
@@ -2330,48 +2328,6 @@ const MemoriWidget = ({
     }
   }, []);
 
-  const [gamificationLevel, setGamificationLevel] =
-    useState<GamificationLevel>();
-  const getGamificationPoints = async (
-    memoriID: string
-  ): Promise<{
-    points: number;
-    unansweredQuestions: number;
-  }> => {
-    let gamificationPoints: number | undefined;
-    let unansQuestions: number | undefined;
-    try {
-      const {
-        contentQualityIndex,
-        answerQualityIndex,
-        unansweredQuestions,
-        ...cqResp
-      } = await getContentQualityIndexes(memoriID);
-      if (cqResp.resultCode === 0) {
-        gamificationPoints = contentQualityIndex;
-        unansQuestions = unansweredQuestions;
-      }
-    } catch (_e) {
-      let err = _e as Error;
-      console.debug('[APPCONTEXT/QUERYGAMIFICATIONPOINTS]', err);
-    }
-
-    return {
-      points: gamificationPoints ?? 0,
-      unansweredQuestions: unansQuestions ?? 0,
-    };
-  };
-  useEffect(() => {
-    if (memori.engineMemoriID) {
-      getGamificationPoints(memori.engineMemoriID)
-        .then(value => {
-          setGamificationLevel(getGamificationLevel(value.points));
-        })
-        .catch(console.debug);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [memori.engineMemoriID]);
-
   // Put SEO tags in head
   useEffect(() => {
     if (integrationConfig?.seoTitle) {
@@ -3026,7 +2982,6 @@ const MemoriWidget = ({
   const startPanelProps: StartPanelProps = {
     memori,
     tenant: tenant,
-    gamificationLevel: gamificationLevel,
     language: language,
     userLang: userLang,
     setUserLang: setUserLang,
