@@ -1,5 +1,22 @@
 
 
+## [7.4.0](https://github.com/memori-ai/memori-react/compare/v7.3.1...v7.4.0) (2024-08-29)
+
+
+### Features
+
+* add enableAudio prop, read also from config ([240c03c](https://github.com/memori-ai/memori-react/commit/240c03c60796a2174cb1354d819ded273a0d1c2e))
+
+
+### Bug Fixes
+
+* **ui:** made the disabled buttons visible ([e848145](https://github.com/memori-ai/memori-react/commit/e8481456f3fec7e7a8184c791d98d74c75a9cf8c))
+
+
+### Changes
+
+* remove gamification ([64c3f7e](https://github.com/memori-ai/memori-react/commit/64c3f7eed4b56c7cc4eaa3a550b62497ce4efe2f))
+
 ## [7.3.1](https://github.com/memori-ai/memori-react/compare/v7.3.0...v7.3.1) (2024-08-20)
 
 
