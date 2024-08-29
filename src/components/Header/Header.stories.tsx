@@ -123,6 +123,20 @@ SpeakerMuted.args = {
   showSettings: false,
 };
 
+export const WithoutAudio = Template.bind({});
+WithoutAudio.args = {
+  memori,
+  history,
+  setShowPositionDrawer: () => {},
+  setShowSettingsDrawer: () => {},
+  clearHistory: () => {},
+  speakerMuted: true,
+  enableAudio: false,
+  hasUserActivatedSpeak: false,
+  showShare: false,
+  showSettings: false,
+};
+
 export const WithShare = Template.bind({});
 WithShare.args = {
   memori,

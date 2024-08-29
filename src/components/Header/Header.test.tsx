@@ -74,6 +74,28 @@ it('renders Header with speaker muted unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders Header with audio disabled unchanged', () => {
+  const { container } = render(
+    <Header
+      memori={memori}
+      history={history}
+      setShowPositionDrawer={jest.fn()}
+      setShowSettingsDrawer={jest.fn()}
+      setShowKnownFactsDrawer={jest.fn()}
+      setShowExpertsDrawer={jest.fn()}
+      speakerMuted={true}
+      setSpeakerMuted={jest.fn()}
+      enableAudio={false}
+      hasUserActivatedSpeak={false}
+      showShare={false}
+      showSettings={false}
+      clearHistory={jest.fn()}
+      setShowLoginDrawer={jest.fn()}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
 it('renders Header with share button unchanged', () => {
   const { container } = render(
     <Header

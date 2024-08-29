@@ -33,6 +33,7 @@ export interface Props {
   setShowSettingsDrawer: (show: boolean) => void;
   setShowKnownFactsDrawer: (show: boolean) => void;
   setShowExpertsDrawer: (show: boolean) => void;
+  enableAudio?: boolean;
   speakerMuted: boolean;
   setSpeakerMuted: (mute: boolean) => void;
   hasUserActivatedSpeak?: boolean;
@@ -59,6 +60,7 @@ const Header: React.FC<Props> = ({
   setShowSettingsDrawer,
   setShowKnownFactsDrawer,
   setShowExpertsDrawer,
+  enableAudio = true,
   speakerMuted,
   setSpeakerMuted,
   hasUserActivatedSpeak = false,
@@ -168,7 +170,7 @@ const Header: React.FC<Props> = ({
           title={t('widget.showExpertsInTheBoard') || 'Experts in this board'}
         />
       )}
-      {showSpeaker && (
+      {enableAudio && showSpeaker && (
         <Button
           primary
           shape="circle"

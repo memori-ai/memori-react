@@ -51,6 +51,7 @@ export interface Props {
   spokenLang?: string;
   multilingual?: boolean;
   authToken?: string;
+  enableAudio?: boolean;
   defaultSpeakerActive?: boolean;
   disableTextEnteredEvents?: boolean;
   AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
@@ -114,6 +115,7 @@ const Memori: React.FC<Props> = ({
   multilingual,
   authToken,
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
+  enableAudio,
   defaultSpeakerActive = true,
   disableTextEnteredEvents = false,
   onStateChange,
@@ -265,6 +267,7 @@ const Memori: React.FC<Props> = ({
       AZURE_COGNITIVE_SERVICES_TTS_KEY={
         speechKey || AZURE_COGNITIVE_SERVICES_TTS_KEY
       }
+      enableAudio={enableAudio}
       defaultSpeakerActive={defaultSpeakerActive}
       disableTextEnteredEvents={disableTextEnteredEvents}
       onStateChange={onStateChange}
@@ -343,6 +346,7 @@ Memori.propTypes = {
   spokenLang: PropTypes.string,
   multilingual: PropTypes.bool,
   authToken: PropTypes.string,
+  enableAudio: PropTypes.bool,
   defaultSpeakerActive: PropTypes.bool,
   disableTextEnteredEvents: PropTypes.bool,
   AZURE_COGNITIVE_SERVICES_TTS_KEY: PropTypes.string,

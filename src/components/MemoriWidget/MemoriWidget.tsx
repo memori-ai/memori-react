@@ -366,6 +366,7 @@ export interface Props {
   };
   authToken?: string;
   AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
+  enableAudio?: boolean;
   defaultSpeakerActive?: boolean;
   disableTextEnteredEvents?: boolean;
   onStateChange?: (state?: DialogState) => void;
@@ -412,6 +413,7 @@ const MemoriWidget = ({
   personification,
   authToken,
   AZURE_COGNITIVE_SERVICES_TTS_KEY,
+  enableAudio,
   defaultSpeakerActive = true,
   disableTextEnteredEvents = false,
   onStateChange,
@@ -476,7 +478,10 @@ const MemoriWidget = ({
     ? JSON.parse(integration.customData)
     : null;
 
-  const isMultilanguageEnabled =  multilingual !== undefined ? multilingual : !!integrationConfig?.multilanguage;
+  const isMultilanguageEnabled =
+    multilingual !== undefined
+      ? multilingual
+      : !!integrationConfig?.multilanguage;
   const forcedTimeout = integrationConfig?.forcedTimeout as number | undefined;
   const [userLang, setUserLang] = useState(
     memoriLang ??
@@ -500,7 +505,10 @@ const MemoriWidget = ({
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
   const [showKnownFactsDrawer, setShowKnownFactsDrawer] = useState(false);
   const [showExpertsDrawer, setShowExpertsDrawer] = useState(false);
-  const [muteSpeaker, setMuteSpeaker] = useState(!defaultSpeakerActive);
+  const [muteSpeaker, setMuteSpeaker] = useState(
+    !(enableAudio ?? integrationConfig?.enableAudio ?? true) ||
+      !defaultSpeakerActive
+  );
   const [continuousSpeech, setContinuousSpeech] = useState(false);
   const [continuousSpeechTimeout, setContinuousSpeechTimeout] = useState(2);
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
@@ -2971,6 +2979,7 @@ const MemoriWidget = ({
     setShowSettingsDrawer,
     setShowKnownFactsDrawer,
     setShowExpertsDrawer,
+    enableAudio: enableAudio ?? integrationConfig?.enableAudio ?? true,
     showSpeaker: !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
     speakerMuted: muteSpeaker || speakerMuted,
     setSpeakerMuted: mute => {

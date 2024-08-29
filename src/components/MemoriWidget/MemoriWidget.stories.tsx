@@ -141,6 +141,22 @@ ShowClear.args = {
   showClear: true,
 };
 
+export const WithoutAudio = Template.bind({});
+WithoutAudio.args = {
+  memori,
+  tenant,
+  enableAudio: false,
+  AZURE_COGNITIVE_SERVICES_TTS_KEY: 'provide your key here',
+};
+
+export const DefautSpeakerDisabled = Template.bind({});
+DefautSpeakerDisabled.args = {
+  memori,
+  tenant,
+  defaultSpeakerActive: false,
+  AZURE_COGNITIVE_SERVICES_TTS_KEY: 'provide your key here',
+};
+
 export const ShowOnlyLastMessages = Template.bind({});
 ShowOnlyLastMessages.args = {
   memori,
