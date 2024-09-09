@@ -229,7 +229,12 @@ it('renders StartPanel with completion provider down unchanged', () => {
     <StartPanel
       memori={{
         ...memori,
-        completionProvider: 'OpenAI',
+        completionConfigForQuestionAnswering: {
+          completionConfigID: '1',
+          configName: 'openai-gpt-4',
+          provider: 'OpenAI',
+          model: 'gpt-4',
+        },
       }}
       tenant={tenant}
       language="it"

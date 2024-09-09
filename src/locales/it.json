@@ -295,6 +295,7 @@
     "MEMORI_NO_PASSWORD_WHEN_PUBLIC": "Memori: password non richiesta su Memori pubblico",
     "MEMORI_DEEP_THOUGHT_REQUIRES_COMPLETIONS": "Pensiero Profondo richiede l'abilitazione delle completions",
     "MEMORI_BOARD_OF_EXPERTS_REQUIRES_COMPLETIONS": "Il gruppo di esperti richiede l'abilitazione delle completions",
+    "MEMORI_INVALID_COMPLETION_CONFIG": "Memori: configurazione completions non valida",
 
     "MEMORI_TRANSFER_MISSING_DESTINATION_USER": "Trasferimento: utente di destinazione mancante",
     "MEMORI_TRANSFER_INVALID_DESTINATION_USER_ID": "Trasferimento: ID utente di destinazione non valido",
@@ -425,7 +426,23 @@
 
     "BADGE_NOT_FOUND": "Badge non trovato",
 
-    "OUTCOME_NO_DCM_CONFIGURED": "Esito: nessun DCM configurato",
-    "OUTCOME_USER_BADGES_DISABLED": "Esito: badge utente disabilitati"
+    "OUTCOME_NO_DCM_CONFIGURED": "Outcome: nessun DCM configurato",
+    "OUTCOME_USER_BADGES_DISABLED": "Outcome: badge utente disabilitati",
+
+    "COMPLETION_CONFIG_MISSING_NAME": "Configurazione completions: nome mancante",
+    "COMPLETION_CONFIG_MISSING_PROVIDER": "Configurazione completions: provider mancante",
+    "COMPLETION_CONFIG_MISSING_ENDPOINT": "Configurazione completions: endpoint mancante",
+    "COMPLETION_CONFIG_MISSING_API_KEY": "Configurazione completions: API key mancante",
+    "COMPLETION_CONFIG_MISSING_MODEL": "Configurazione completions: modello mancante",
+    "COMPLETION_CONFIG_NO_PURPOSE_SPECIFIED": "Configurazione completions: almeno un tipo di completions deve essere specificato",
+    "COMPLETION_CONFIG_INVALID_PURPOSE": "Configurazione completions: tipo di completions non valido",
+    "COMPLETION_CONFIG_INVALID_ENDPOINT": "Configurazione completions: endpoint non valido",
+    "COMPLETION_CONFIG_INCONSISTENT_ENDPOINT": "Configurazione completions: endpoint incoerente",
+    "COMPLETION_CONFIG_INVALID_PROVIDER": "Configurazione completions: provider non valido",
+    "COMPLETION_CONFIG_NOT_FOUND": "Configurazione completions: non trovata",
+    "COMPLETION_CONFIG_NOT_ACCESSIBLE": "Configurazione completions: non accessibile",
+    "COMPLETION_CONFIG_NAME_RESERVED": "Configurazione completions: nome riservato",
+    "COMPLETION_CONFIG_NAME_ALREADY_EXISTS": "Configurazione completions: nome già esistente",
+    "COMPLETION_CONFIG_VISIBILITY_CHANGE_NOT_ALLOWED": "Configurazione completions: cambiamento visibilità non consentito"
   }
 }

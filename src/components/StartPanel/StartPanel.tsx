@@ -268,7 +268,7 @@ const StartPanel: React.FC<Props> = ({
           </Button>
 
           <CompletionProviderStatus
-            provider={memori.completionProvider}
+            provider={memori.completionConfigForQuestionAnswering?.provider}
             forceStatus={_TEST_forceProviderStatus}
           />
 

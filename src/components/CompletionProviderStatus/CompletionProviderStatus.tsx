@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import Tooltip from '../ui/Tooltip';
 import Warning from '../icons/Warning';
-import { Tenant } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
 
 type Status =
@@ -13,7 +12,7 @@ type Status =
 
 export interface Props {
   forceStatus?: Status;
-  provider?: Tenant['defaultCompletionProvider'];
+  provider?: string;
 }
 
 const initProviderStatus = (
