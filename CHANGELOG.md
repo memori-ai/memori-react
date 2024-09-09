@@ -1,5 +1,12 @@
 
 
+## [7.4.1](https://github.com/memori-ai/memori-react/compare/v7.4.0...v7.4.1) (2024-09-09)
+
+
+### Changes
+
+* adapt changes from new completions config ([ce5343a](https://github.com/memori-ai/memori-react/commit/ce5343a0f186239a20fb66e0c84844f2202fd2f2))
+
 ## [7.4.0](https://github.com/memori-ai/memori-react/compare/v7.3.1...v7.4.0) (2024-08-29)
 
 
