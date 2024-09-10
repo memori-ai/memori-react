@@ -437,7 +437,6 @@ const MemoriWidget = ({
     postTimeoutEvent,
     postTagChangedEvent,
     getSession,
-    getContentQualityIndexes,
     getExpertReferences,
   } = client;
 
