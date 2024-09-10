@@ -1,5 +1,12 @@
 
 
+## [7.4.2](https://github.com/memori-ai/memori-react/compare/v7.4.1...v7.4.2) (2024-09-10)
+
+
+### Maintenance
+
+* update api client + remove gamification ([e159713](https://github.com/memori-ai/memori-react/commit/e15971388168e1d18360bbff23f000c77e57046c))
+
 ## [7.4.1](https://github.com/memori-ai/memori-react/compare/v7.4.0...v7.4.1) (2024-09-09)
 
 
