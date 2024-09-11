@@ -1,6 +1,6 @@
 import React from 'react';
 import { Html, useProgress } from '@react-three/drei';
-import Spin from '../../ui/Spin';
+import Spin from '../../../ui/Spin';
 
 interface Props {
   fallbackImg?: string;

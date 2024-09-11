@@ -6,7 +6,7 @@ import {
 } from '@memori.ai/memori-api-client/dist/types';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import Tooltip from '../ui/Tooltip';
-import AvatarView, { Props as AvatarViewProps } from '../AvatarView';
+import AvatarView, { Props as AvatarViewProps } from './AvatarView';
 import { getResourceUrl } from '../../helpers/media';
 import Blob from '../Blob/Blob';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
@@ -53,26 +53,40 @@ const Avatar: React.FC<Props> = ({
     setIsClient(true);
   }, []);
 
-  const animation = useMemo(
-    () =>
-      isPlayingAudio
-        ? (['Talk 1', 'Talk 2', 'Talk 3'][
-            Math.round(Math.random() * 2)
-          ] as AvatarViewProps['animation'])
-        : loading
-        ? 'Loading'
-        : (['Idle', 'Idle 1', 'Idle 2', 'Idle 3'][
-            Math.round(Math.random() * 3)
-          ] as AvatarViewProps['animation']),
-    [isPlayingAudio, loading]
-  );
+  // Manage the animation of the avatar, if the user is speaking, the avatar will speak, if the avatar is loading, the avatar will be loading, if the avatar is idle, the avatar will be idle
+  // ? Can we manage the animation of the avatar inside the AvatarView component?
+  const animation = useMemo(() => {
+    if (isPlayingAudio) {
+      return ['Talk 1', 'Talk 2', 'Talk 3'][Math.round(Math.random() * 2)] as AvatarViewProps['animation'];
+    }
+    if (loading) {
+      return 'Loading' as AvatarViewProps['animation'];
+    }
+    return ['Idle', 'Idle 1', 'Idle 2', 'Idle 3'][Math.round(Math.random() * 3)] as AvatarViewProps['animation'];
+  }, [isPlayingAudio, loading]);
 
-  return (
-    <>
-      {(integrationConfig?.avatar === 'readyplayerme' ||
+  // Get the avatar URL, if the avatar is a user avatar, the avatar URL is the user avatar URL, if the avatar is a default avatar, the avatar URL is the default avatar URL
+  const getAvatarUrl = () => {
+    if (integrationConfig?.avatar === 'userAvatar' && memori.avatarURL && memori.avatarURL.length > 0) {
+      return getResourceUrl({
+        type: 'avatar',
+        tenantID: tenant?.id,
+        resourceURI: memori.avatarURL,
+        baseURL: baseUrl,
+        apiURL: apiUrl,
+      });
+    }
+    return undefined;
+  };
+
+
+  // Render the avatar, if the avatar is a user avatar, the avatar is rendered, if the avatar is a default avatar, the avatar is rendered
+  const renderAvatar = () => {
+    if ((integrationConfig?.avatar === 'readyplayerme' ||
         integrationConfig?.avatar === 'readyplayerme-full' ||
         integrationConfig?.avatar === 'customglb') &&
-      integrationConfig?.avatarURL ? (
+      integrationConfig?.avatarURL) {
+      return (
         <>
           <div
             className={cx(
@@ -83,133 +97,122 @@ const Avatar: React.FC<Props> = ({
               }
             )}
           >
-            {isClient &&
-              (integrationConfig.avatar === 'readyplayerme' ||
-                integrationConfig.avatar === 'readyplayerme-full') && (
-                <ErrorBoundary
-                  fallback={
-                    <div className="memori--blob-container">
-                      {isClient && (
-                        <Blob
-                          speaking={isPlayingAudio}
-                          avatar={
-                            integrationConfig?.avatar === 'userAvatar' &&
-                            memori.avatarURL &&
-                            memori.avatarURL.length > 0
-                              ? getResourceUrl({
-                                  type: 'avatar',
-                                  tenantID: tenant?.id,
-                                  resourceURI: memori.avatarURL,
-                                  baseURL: baseUrl,
-                                  apiURL: apiUrl,
-                                })
-                              : undefined
-                          }
-                        />
-                      )}
-                    </div>
-                  }
-                >
-                  <AvatarView
-                    url={integrationConfig.avatarURL}
-                    sex={memori.voiceType === 'FEMALE' ? 'FEMALE' : 'MALE'}
-                    fallbackImg={getResourceUrl({
-                      type: 'avatar',
-                      tenantID: tenant?.id,
-                      resourceURI: memori.avatarURL,
-                      baseURL: baseUrl,
-                      apiURL: apiUrl,
-                    })}
-                    headMovement
-                    eyeBlink
-                    halfBody={integrationConfig.avatar === 'readyplayerme'}
-                    animation={animation}
-                    speaking={isPlayingAudio}
-                    style={
-                      integrationConfig.avatar === 'readyplayerme'
-                        ? {
-                            width: '300px',
-                            height: '300px',
-                            backgroundColor: 'none',
-                            borderRadius: '100%',
-                            boxShadow: 'none',
-                          }
-                        : {
-                            width: '600px',
-                            height: '600px',
-                            backgroundColor: 'none',
-                          }
-                    }
-                  />
-                </ErrorBoundary>
-              )}
-            {isClient && integrationConfig.avatar === 'customglb' && (
-              <ModelViewer
-                poster={getResourceUrl({
-                  type: 'avatar',
-                  tenantID: tenant?.id,
-                  resourceURI: memori.avatarURL,
-                  baseURL: baseUrl,
-                  apiURL: apiUrl,
-                })}
-                src={integrationConfig.avatarURL}
-                alt=""
-              />
-            )}
+            {renderAvatarContent()}
           </div>
-          <div className="memori--avatar-toggle">
-            <Button
-              ghost
-              onClick={() => setAvatar3dVisible(!avatar3dVisible)}
-              icon={avatar3dVisible ? <EyeInvisible /> : <Eye />}
-            >
-              <span className="memori--avatar-toggle-text">
-                {avatar3dVisible ? t('hide') : t('show')}
-              </span>
-            </Button>
-          </div>
+          {renderAvatarToggle()}
         </>
-      ) : (
-        <div className="memori--blob-container">
-          {isClient && (
-            <Blob
-              avatar={
-                integrationConfig?.avatar === 'userAvatar' &&
-                memori.avatarURL &&
-                memori.avatarURL.length > 0
-                  ? getResourceUrl({
-                      type: 'avatar',
-                      tenantID: tenant?.id,
-                      resourceURI: memori.avatarURL,
-                      baseURL: baseUrl,
-                      apiURL: apiUrl,
-                    })
-                  : undefined
-              }
-            />
-          )}
-        </div>
-      )}
-      {instruct && !hasUserActivatedSpeak && memori.isGiver && tenant?.id && (
-        <div className="memori--avatar-link-to-integrations">
-          <a
-            className="memori-button memori-button--circle memori-button--outlined"
-            href={`https://${tenant.id}/${
-              memori.culture === 'it-IT' ? 'it' : 'en'
-            }/${memori.ownerUserName}/${memori.name}/integrations${
-              integration?.integrationID
-                ? `?integration=${integration.integrationID}&openAvatarModal=true`
-                : ''
-            }`}
-          >
-            <Tooltip content={t('widgetgoToIntegrationsToCustomizeAvatar')}>
-              <span className="memori-button--icon">
-                <Edit />
-              </span>
-            </Tooltip>
-          </a>
-        </div>
-      )}
+      );
+    }
+    return (
+      <div className="memori--blob-container">
+        {isClient && <Blob speaking={isPlayingAudio} avatar={getAvatarUrl()} />}
+      </div>
+    );
+  };
+
+  const renderAvatarContent = () => {
+    if (!isClient) return null;
+
+    if (integrationConfig?.avatar === 'readyplayerme' || integrationConfig?.avatar === 'readyplayerme-full') {
+      return (
+        <ErrorBoundary fallback={<BlobFallback />}>
+          <AvatarView
+            url={integrationConfig.avatarURL}
+            sex={memori.voiceType === 'FEMALE' ? 'FEMALE' : 'MALE'}
+            fallbackImg={getAvatarUrl()}
+            headMovement
+            eyeBlink
+            halfBody={integrationConfig.avatar === 'readyplayerme'}
+            animation={animation}
+            speaking={isPlayingAudio}
+            style={getAvatarStyle()}
+          />
+        </ErrorBoundary>
+      );
+    }
+
+    if (integrationConfig?.avatar === 'customglb') {
+      return (
+        <ModelViewer
+          poster={getAvatarUrl() || ''}
+          src={integrationConfig.avatarURL}
+          alt=""
+        />
+      );
+    }
+
+    return null;
+  };
+
+  // Render the avatar toggle
+  const renderAvatarToggle = () => (
+    <div className="memori--avatar-toggle">
+      <Button
+        ghost
+        onClick={() => setAvatar3dVisible(!avatar3dVisible)}
+        icon={avatar3dVisible ? <EyeInvisible /> : <Eye />}
+      >
+        <span className="memori--avatar-toggle-text">
+          {avatar3dVisible ? t('hide') : t('show')}
+        </span>
+      </Button>
+    </div>
+  );
+
+  const BlobFallback = () => (
+    <div className="memori--blob-container">
+      {isClient && <Blob speaking={isPlayingAudio} avatar={getAvatarUrl()} />}
+    </div>
+  );
+
+  const getAvatarStyle = () => {
+    if (integrationConfig?.avatar === 'readyplayerme') {
+      return {
+        width: '300px',
+        height: '300px',
+        backgroundColor: 'none',
+        borderRadius: '100%',
+        boxShadow: 'none',
+      };
+    }
+    return {
+      width: '600px',
+      height: '600px',
+      backgroundColor: 'none',
+    };
+  };
+
+  const renderIntegrationsLink = () => {
+    if (!(instruct && !hasUserActivatedSpeak && memori.isGiver && tenant?.id)) return null;
+
+    const href = `https://${tenant.id}/${
+      memori.culture === 'it-IT' ? 'it' : 'en'
+    }/${memori.ownerUserName}/${memori.name}/integrations${
+      integration?.integrationID
+        ? `?integration=${integration.integrationID}&openAvatarModal=true`
+        : ''
+    }`;
+
+    return (
+      <div className="memori--avatar-link-to-integrations">
+        <a
+          className="memori-button memori-button--circle memori-button--outlined"
+          href={href}
+        >
+          <Tooltip content={t('widgetgoToIntegrationsToCustomizeAvatar')}>
+            <span className="memori-button--icon">
+              <Edit />
+            </span>
+          </Tooltip>
+        </a>
+      </div>
+    );
+  };
+
+  return (
+    <>
+      {renderAvatar()}
+      {renderIntegrationsLink()}
     </>
   );
 };

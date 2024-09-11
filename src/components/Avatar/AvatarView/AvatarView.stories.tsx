@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import I18nWrapper from '../../I18nWrapper';
+import I18nWrapper from '../../../I18nWrapper';
 import AvatarView, { Props } from './index';
 
 const meta: Meta = {
