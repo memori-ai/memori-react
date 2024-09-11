@@ -1,5 +1,12 @@
 
 
+## [7.4.3](https://github.com/memori-ai/memori-react/compare/v7.4.2...v7.4.3) (2024-09-11)
+
+
+### Changes
+
+* hide output tags in chat, strip them for TTS ([02e2e42](https://github.com/memori-ai/memori-react/commit/02e2e423226ec9643c83b371c78e3e468e044737))
+
 ## [7.4.2](https://github.com/memori-ai/memori-react/compare/v7.4.1...v7.4.2) (2024-09-10)
 
 
