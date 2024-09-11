@@ -1,4 +1,9 @@
-import { difference, stripEmojis, stripMarkdown } from './utils';
+import {
+  difference,
+  stripEmojis,
+  stripMarkdown,
+  stripOutputTags,
+} from './utils';
 
 describe('Utils/difference', () => {
   it('should return the difference between two objects with numeric values', () => {
@@ -118,5 +123,19 @@ describe('utils/stripMarkdown', () => {
   it('should strip inline mathjax from a string', () => {
     const result = stripMarkdown('\\( f_m \\)');
     expect(result).toEqual('');
+  });
+});
+
+describe('utils/stripOutputTags', () => {
+  it('should remove output tag', () => {
+    const result = stripOutputTags('test\n<output>pippo</output>');
+    expect(result).toEqual('test\n');
+  });
+
+  it('should remove output tag with class', () => {
+    const result = stripOutputTags(
+      'test\n<output class="memori-output">pippo</output>'
+    );
+    expect(result).toEqual('test\n');
   });
 });

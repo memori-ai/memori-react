@@ -298,6 +298,19 @@ WithMarkdownCode.args = {
   },
 };
 
+export const WithOutputCode = Template.bind({});
+WithOutputCode.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\n```markdown\n# titolo\n```\n\nSed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\n<output class="memori-output">{ "data": [ 0, 1, 2 ] }</output>',
+    initial: false,
+    generatedByAI: true,
+  },
+};
+
 export const WithMarkdownTable = Template.bind({});
 WithMarkdownTable.args = {
   memori,

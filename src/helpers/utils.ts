@@ -180,6 +180,18 @@ export const stripMarkdown = (text: string) => {
   return text;
 };
 
+export const stripOutputTags = (text: string): string => {
+  let hasTags = text.includes('</output>');
+
+  if (!hasTags) return text;
+
+  let output = text.split('</output>');
+  let textBefore = output[0].split('<output')[0];
+  let textAfter = output[1];
+
+  return stripOutputTags(textBefore + textAfter);
+};
+
 export const escapeHTML = (text: string) => {
   const el = document.createElement('textarea');
   el.textContent = text;

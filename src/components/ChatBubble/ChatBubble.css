@@ -101,7 +101,7 @@
     }
 }
 
-.memori-chat--bubble p+p {
+.memori-chat--bubble p + p {
     margin-top: 0.5em;
 }
 
@@ -266,7 +266,6 @@
 }
 
 @keyframes wave {
-
     0%,
     60%,
     100% {
@@ -282,6 +281,10 @@
     width: 100%;
 }
 
-.memori-chat--bubble mjx-container[jax='CHTML'][display='true'] {
+.memori-chat--bubble output {
+    display: none;
+}
+
+.dot mjx-container[jax='CHTML'][display='true'] {
     text-align: left;
 }
