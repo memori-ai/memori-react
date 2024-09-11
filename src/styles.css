@@ -89,6 +89,8 @@ body.sb-show-main #root,
     --memori-button-border-color: #d9d9d9;
     --memori-button-radius: var(--memori-border-radius);
     --memori-button-box-shadow: var(--memori-box-shadow);
+    --memori-button-disabled-bg: #ccc;
+    --memori-button-disabled-color: #000;
     --memori-blur-background: 0px;
     --memori-drawer--width: 80%;
     --memori-drawer--width--md: 80%;
@@ -97,7 +99,6 @@ body.sb-show-main #root,
     --memori-modal--width--md: 80%;
     --memori-error-color: #ff4d4f;
     --memori-warning-color: #faad14;
-    --memori-button-disabled-bg: #f9f9f9;
 
     font-family: var(--memori-font-family, 'Lexend Deca Variable', 'Lexend Deca', sans-serif);
     font-size: 16px;
