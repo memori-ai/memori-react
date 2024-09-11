@@ -1,5 +1,12 @@
 
 
+## [7.4.4](https://github.com/memori-ai/memori-react/compare/v7.4.3...v7.4.4) (2024-09-11)
+
+
+### Bug Fixes
+
+* readability and a11y about disabled buttons ([452559e](https://github.com/memori-ai/memori-react/commit/452559eb6447c88f267da636fb42e80e9d83d46b))
+
 ## [7.4.3](https://github.com/memori-ai/memori-react/compare/v7.4.2...v7.4.3) (2024-09-11)
 
 
