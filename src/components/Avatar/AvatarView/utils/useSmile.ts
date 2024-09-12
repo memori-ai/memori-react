@@ -1,31 +1,39 @@
 import { Nodes } from './utils';
 import { SkinnedMesh } from 'three';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 
-let headMesh: SkinnedMesh;
-let mouthSmileMorphIndex: number = 0;
+interface SmileState {
+  headMesh: SkinnedMesh | null;
+  mouthSmileMorphIndex: number;
+}
+
+const SMILE_INTENSITY = 1 / 3;
 
 export default function useSmile(smiling: boolean | undefined, nodes: Nodes) {
-  useEffect(() => {
-    if (!smiling) return;
+  const smileStateRef = useRef<SmileState>({
+    headMesh: null,
+    mouthSmileMorphIndex: 0,
+  });
 
-    headMesh = (nodes.Wolf3D_Head ||
-      nodes.Wolf3D_Avatar ||
-      nodes.Wolf3D_Avatar001) as SkinnedMesh;
+  useEffect(() => {
+    const headMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar || nodes.Wolf3D_Avatar001) as SkinnedMesh;
+    smileStateRef.current.headMesh = headMesh;
 
     if (headMesh?.morphTargetDictionary && headMesh?.morphTargetInfluences) {
-      mouthSmileMorphIndex = headMesh.morphTargetDictionary.mouthSmile;
+      smileStateRef.current.mouthSmileMorphIndex = headMesh.morphTargetDictionary.mouthSmile;
     }
-  }, [nodes, smiling]);
+  }, [nodes]);
 
   useFrame(() => {
-    if (!smiling) {
-      if (headMesh?.morphTargetInfluences) {
-        headMesh.morphTargetInfluences[mouthSmileMorphIndex] = 0;
-      }
-    } else if (headMesh?.morphTargetInfluences) {
-      headMesh.morphTargetInfluences[mouthSmileMorphIndex] = 1 / 3;
-    }
+    const { headMesh, mouthSmileMorphIndex } = smileStateRef.current;
+
+    if (!headMesh?.morphTargetInfluences) return;
+
+    const targetSmileIntensity = smiling ? SMILE_INTENSITY : 0;
+    const currentSmileIntensity = headMesh.morphTargetInfluences[mouthSmileMorphIndex];
+
+    // Smoothly interpolate between current and target smile intensity
+    headMesh.morphTargetInfluences[mouthSmileMorphIndex] += (targetSmileIntensity - currentSmileIntensity) * 0.1;
   });
 }

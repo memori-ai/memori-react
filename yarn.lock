@@ -4155,6 +4155,7 @@ __metadata:
     jest-environment-jsdom: 29.3.1
     katex: ^0.16.10
     leaflet: ^1.9.4
+    lil-gui: ^0.19.2
     luxon: ^3.4.4
     marked: ^11.1.0
     marked-katex-extension: ^5.0.1
@@ -15050,6 +15051,13 @@ __metadata:
     prelude-ls: ~1.1.2
     type-check: ~0.3.2
   checksum: 0d084a524231a8246bb10fec48cdbb35282099f6954838604f3c7fc66f2e16fa66fd9cc2f3f20a541a113c4dafdf181e822c887c8a319c9195444e6c64ac395e
+  languageName: node
+  linkType: hard
+
+"lil-gui@npm:^0.19.2":
+  version: 0.19.2
+  resolution: "lil-gui@npm:0.19.2"
+  checksum: 39ed27435803fc4e2d43bc84ce4924b49410b5469e0678703d58f201d3a6155e3ecb7df02fb24e169302a8e2be5167d56e231fcc78dc5295b8791e45a588ad83
   languageName: node
   linkType: hard
 

@@ -55,7 +55,9 @@ const meta: Meta = {
     },
   },
   parameters: {
-    controls: { expanded: true },
+    controls: { expanded: false,
+    },
+    
   },
 };
 

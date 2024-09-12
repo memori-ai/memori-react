@@ -301,6 +301,7 @@
     "i18next": "22.0.6",
     "katex": "^0.16.10",
     "leaflet": "^1.9.4",
+    "lil-gui": "^0.19.2",
     "luxon": "^3.4.4",
     "marked": "^11.1.0",
     "marked-katex-extension": "^5.0.1",

@@ -1,45 +1,56 @@
 import { SkinnedMesh } from 'three';
 import { Nodes } from './utils';
-import { useEffect } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { useFrame } from '@react-three/fiber';
 
-let blinkTime: number = 999;
-let timeout: NodeJS.Timeout;
+interface BlinkState {
+  blinkTime: number;
+  headMesh: SkinnedMesh | null;
+  morphIndex: number;
+}
 
-let headMesh: SkinnedMesh;
-let morphIndex: number = 0;
+const BLINK_DURATION = 2;
+const BLINK_INTERVAL_MIN = 2000;
+const BLINK_INTERVAL_MAX = 7000;
 
-const setNextBlink = () => {
-  blinkTime = 0;
-  timeout = setTimeout(setNextBlink, Math.random() * 5000 + 2000);
-};
+export default function useEyeBlink(enabled: boolean | undefined, nodes: Nodes) {
+  const blinkStateRef = useRef<BlinkState>({
+    blinkTime: 999,
+    headMesh: null,
+    morphIndex: 0,
+  });
 
-export default function useEyeBlink(
-  enabled: boolean | undefined,
-  nodes: Nodes
-) {
+  const setNextBlink = useCallback(() => {
+    blinkStateRef.current.blinkTime = 0;
+    const nextBlinkDelay = Math.random() * (BLINK_INTERVAL_MAX - BLINK_INTERVAL_MIN) + BLINK_INTERVAL_MIN;
+    setTimeout(setNextBlink, nextBlinkDelay);
+  }, []);
+
   useEffect(() => {
     if (!enabled) return;
 
-    headMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar) as SkinnedMesh;
+    const headMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar) as SkinnedMesh;
+    blinkStateRef.current.headMesh = headMesh;
 
     if (headMesh?.morphTargetDictionary && headMesh?.morphTargetInfluences) {
-      morphIndex = headMesh.morphTargetDictionary.eyesClosed;
+      blinkStateRef.current.morphIndex = headMesh.morphTargetDictionary.eyesClosed;
     }
 
-    timeout = setTimeout(setNextBlink, 3000);
+    const initialBlinkDelay = setTimeout(setNextBlink, 3000);
 
     return () => {
-      clearTimeout(timeout);
+      clearTimeout(initialBlinkDelay);
     };
-  }, [nodes, enabled]);
+  }, [nodes, enabled, setNextBlink]);
 
   useFrame((_, delta) => {
     if (!enabled) return;
 
-    if (blinkTime < 2 && headMesh?.morphTargetInfluences) {
-      let value = Math.abs(Math.sin((blinkTime * Math.PI) / 2));
-      blinkTime += delta * 10;
+    const { blinkTime, headMesh, morphIndex } = blinkStateRef.current;
+
+    if (blinkTime < BLINK_DURATION && headMesh?.morphTargetInfluences) {
+      const value = Math.abs(Math.sin((blinkTime * Math.PI) / 2));
+      blinkStateRef.current.blinkTime += delta * 10;
       headMesh.morphTargetInfluences[morphIndex] = value;
     } else if (headMesh?.morphTargetInfluences) {
       headMesh.morphTargetInfluences[morphIndex] = 0;

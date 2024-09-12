@@ -1,70 +1,87 @@
 import { Nodes } from './utils';
 import { SkinnedMesh } from 'three';
-import { useEffect } from 'react';
+import { useEffect, useRef, useCallback } from 'react';
 import { useFrame } from '@react-three/fiber';
 
-let mouthMoveTime: number = 999;
-let timeout: NodeJS.Timeout;
+interface MouthState {
+  moveTime: number;
+  mesh: SkinnedMesh | null;
+  morphIndices: {
+    open: number;
+    smile: number;
+    funner: number;
+    pucker: number;
+  };
+}
 
-let mouthMesh: SkinnedMesh;
-let mouthOpenMorphIndex: number = 0;
-let mouthSmileMorphIndex: number = 0;
-let mouthFunnerMorphIndex: number = 0;
-let mouthPuckerMorphIndex: number = 0;
+const MOUTH_MOVE_DURATION = 2;
+const MOUTH_MOVE_INTERVAL_MIN = 100;
+const MOUTH_MOVE_INTERVAL_MAX = 500;
 
-const setNextMouthOpen = () => {
-  mouthMoveTime = 0;
-  timeout = setTimeout(setNextMouthOpen, Math.random() * 500);
-};
+export default function useMouthSpeaking(speaking: boolean | undefined, nodes: Nodes) {
+  const mouthStateRef = useRef<MouthState>({
+    moveTime: 999,
+    mesh: null,
+    morphIndices: { open: 0, smile: 0, funner: 0, pucker: 0 },
+  });
 
-// https://learn.microsoft.com/it-it/azure/cognitive-services/speech-service/how-to-speech-synthesis-viseme?tabs=visemeid&pivots=programming-language-javascript
+  const setNextMouthMove = useCallback(() => {
+    mouthStateRef.current.moveTime = 0;
+    const nextMoveDelay = Math.random() * (MOUTH_MOVE_INTERVAL_MAX - MOUTH_MOVE_INTERVAL_MIN) + MOUTH_MOVE_INTERVAL_MIN;
+    setTimeout(setNextMouthMove, nextMoveDelay);
+  }, []);
 
-export default function useMouthSpeaking(
-  speaking: boolean | undefined,
-  nodes: Nodes
-) {
   useEffect(() => {
     if (!speaking) return;
 
-    mouthMesh = (nodes.Wolf3D_Head ||
-      nodes.Wolf3D_Avatar ||
-      nodes.Wolf3D_Avatar001) as SkinnedMesh;
+    const mouthMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar || nodes.Wolf3D_Avatar001) as SkinnedMesh;
+    mouthStateRef.current.mesh = mouthMesh;
 
     if (mouthMesh?.morphTargetDictionary && mouthMesh?.morphTargetInfluences) {
-      mouthOpenMorphIndex = mouthMesh.morphTargetDictionary.mouthOpen;
-      mouthSmileMorphIndex = mouthMesh.morphTargetDictionary.mouthSmile;
-      mouthFunnerMorphIndex = mouthMesh.morphTargetDictionary.mouthFunner;
-      mouthPuckerMorphIndex = mouthMesh.morphTargetDictionary.mouthPucker;
+      mouthStateRef.current.morphIndices = {
+        open: mouthMesh.morphTargetDictionary.mouthOpen,
+        smile: mouthMesh.morphTargetDictionary.mouthSmile,
+        funner: mouthMesh.morphTargetDictionary.mouthFunner,
+        pucker: mouthMesh.morphTargetDictionary.mouthPucker,
+      };
     }
 
-    timeout = setTimeout(setNextMouthOpen, 200);
-    // timeout = setTimeout(visemeDD = 0.4, start - audioOffset);
+    const initialMoveDelay = setTimeout(setNextMouthMove, 200);
 
     return () => {
-      clearTimeout(timeout);
+      clearTimeout(initialMoveDelay);
     };
-  }, [nodes, speaking]);
+  }, [nodes, speaking, setNextMouthMove]);
 
   useFrame((_, delta) => {
-    if (!speaking) {
-      if (mouthMesh?.morphTargetInfluences) {
-        mouthMesh.morphTargetInfluences[mouthOpenMorphIndex] = 0;
-        mouthMesh.morphTargetInfluences[mouthSmileMorphIndex] = 0;
-        mouthMesh.morphTargetInfluences[mouthFunnerMorphIndex] = 0;
-        mouthMesh.morphTargetInfluences[mouthPuckerMorphIndex] = 0;
-      }
-    } else if (mouthMoveTime < 2 && mouthMesh?.morphTargetInfluences) {
-      let value = Math.abs(Math.sin((mouthMoveTime * Math.PI) / 2));
-      mouthMoveTime += delta * 10;
-      mouthMesh.morphTargetInfluences[mouthOpenMorphIndex] = value / 3;
-      mouthMesh.morphTargetInfluences[mouthSmileMorphIndex] = value / 10;
-      mouthMesh.morphTargetInfluences[mouthFunnerMorphIndex] = value / 7;
-      mouthMesh.morphTargetInfluences[mouthPuckerMorphIndex] = value / 5;
-    } else if (mouthMesh?.morphTargetInfluences) {
-      mouthMesh.morphTargetInfluences[mouthOpenMorphIndex] = 0;
-      mouthMesh.morphTargetInfluences[mouthSmileMorphIndex] = 0;
-      mouthMesh.morphTargetInfluences[mouthFunnerMorphIndex] = 0;
-      mouthMesh.morphTargetInfluences[mouthPuckerMorphIndex] = 0;
+    const { moveTime, mesh, morphIndices } = mouthStateRef.current;
+
+    if (!speaking || !mesh?.morphTargetInfluences) {
+      resetMouthShape(mesh, morphIndices);
+      return;
+    }
+
+    if (moveTime < MOUTH_MOVE_DURATION) {
+      const value = Math.abs(Math.sin((moveTime * Math.PI) / 2));
+      mouthStateRef.current.moveTime += delta * 10;
+      updateMouthShape(mesh, morphIndices, value);
+    } else {
+      resetMouthShape(mesh, morphIndices);
     }
   });
+}
+
+function updateMouthShape(mesh: SkinnedMesh, morphIndices: MouthState['morphIndices'], value: number) {
+  mesh.morphTargetInfluences![morphIndices.open] = value / 3;
+  mesh.morphTargetInfluences![morphIndices.smile] = value / 10;
+  mesh.morphTargetInfluences![morphIndices.funner] = value / 7;
+  mesh.morphTargetInfluences![morphIndices.pucker] = value / 5;
+}
+
+function resetMouthShape(mesh: SkinnedMesh | null, morphIndices: MouthState['morphIndices']) {
+  if (!mesh?.morphTargetInfluences) return;
+  mesh.morphTargetInfluences[morphIndices.open] = 0;
+  mesh.morphTargetInfluences[morphIndices.smile] = 0;
+  mesh.morphTargetInfluences[morphIndices.funner] = 0;
+  mesh.morphTargetInfluences[morphIndices.pucker] = 0;
 }
