@@ -19,7 +19,8 @@ const AVATAR_POSITION = new Vector3(0, -0.6, -0.8);
 const AVATAR_ROTATION = new Euler(0.175, 0, 0);
 const ANIMATION_URLS = {
   MALE: 'https://assets.memori.ai/api/v2/asset/5de7456f-0cd8-4e29-95a7-0cd0045a5325.glb',
-  FEMALE: 'https://assets.memori.ai/api/v2/asset/84487a2b-377c-4565-800a-51459d580ec8.glb'
+  FEMALE:
+    'https://assets.memori.ai/api/v2/asset/84487a2b-377c-4565-800a-51459d580ec8.glb',
 };
 
 export default function FullbodyAvatar({
@@ -34,7 +35,6 @@ export default function FullbodyAvatar({
   const { actions } = useAnimations(animations, scene);
   const [mixer] = useState(() => new AnimationMixer(scene));
 
-
   useEffect(() => {
     correctMaterials(materials);
     onLoaded?.();
@@ -46,43 +46,36 @@ export default function FullbodyAvatar({
   }, [materials, nodes, url, onLoaded]);
 
   useEffect(() => {
-
-
-
-    console.log('mixer', mixer);
     if (!actions || !currentBaseAction.action) return;
 
     const newAction = actions[currentBaseAction.action];
-    const oldAction = actions[currentBaseAction.oldAction];
 
     if (!newAction) {
-      console.warn(`Animation "${currentBaseAction.action}" not found in actions.`);
+      console.warn(
+        `Animation "${currentBaseAction.action}" not found in actions.`
+      );
       return;
     }
 
-    const fadeOutDuration = 0.8;
-    const fadeInDuration = 0.8;
-    const crossFadeDuration = 0.6;
-
-    // Note: crossfades are possible with blend weights being set to (1,0,0), (0,1,0) or (0,0,1)
-    if (oldAction && oldAction !== newAction) {
-      oldAction.reset();
-      oldAction.setEffectiveTimeScale(1);
-      oldAction.crossFadeTo(newAction, crossFadeDuration, true);
-      newAction.setEffectiveTimeScale(1);
-      newAction.play();
-    } else {
-      newAction.reset().fadeIn(fadeInDuration).play();
+    if (currentBaseAction.oldAction === currentBaseAction.action) {
+      newAction.reset().play();
+      return;
     }
 
-    return () => {
-      Object.values(actions).forEach(action => action?.stop());
-    };
-  }, [currentBaseAction, actions]);
 
-  useFrame((_, delta) => {
-    mixer.update(delta * 0.001);
-  });
+    const fadeOutDuration = 0.8;
+    const fadeInDuration = 0.8;
+
+    newAction.reset().fadeIn(fadeInDuration).play();
+
+    return () => {
+      newAction.fadeOut(fadeOutDuration);
+    };
+  }, [currentBaseAction]);
+
+  // useFrame((_, delta) => {
+  //   mixer.update(delta * 0.001);
+  // });
 
   return (
     <group position={AVATAR_POSITION} rotation={AVATAR_ROTATION}>

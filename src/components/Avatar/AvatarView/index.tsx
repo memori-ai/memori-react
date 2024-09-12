@@ -93,7 +93,7 @@ const AvatarComponent = ({
   action: string;
   weight: number;
   oldAction: string;
-} }) =>
+}, baseActions: Record<string, BaseAction> }) =>
   halfBody ? <Avatar {...props} /> : <FullbodyAvatar {...props} />;
 
 const AvatarView = ({
@@ -149,6 +149,7 @@ const AvatarView = ({
         eyeBlink={eyeBlink}
         headMovement={headMovement}
         speaking={speaking}
+        baseActions={baseActions}
         // animation={animation}
         currentBaseAction={currentBaseAction}
       />

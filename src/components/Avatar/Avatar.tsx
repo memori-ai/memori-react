@@ -43,7 +43,7 @@ const Avatar: React.FC<Props> = ({
   setAvatar3dVisible,
   hasUserActivatedSpeak = false,
   isPlayingAudio = false,
-  loading = false,
+  // loading = false,
   baseUrl,
   apiUrl,
 }) => {
