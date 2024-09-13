@@ -21,6 +21,7 @@ export interface AnimationControlPanelProps {
     weight: number;
     oldAction: string;
   };
+  modifyTimeScale: (value: number) => void;
 }
 
 const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
@@ -29,6 +30,7 @@ const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
   baseActions,
   additiveActions,
   currentBaseAction,
+  modifyTimeScale,
 }) => {
   const guiRef = useRef<GUI | null>(null);
   const panelSettingsRef = useRef<Record<string, any>>({
@@ -62,9 +64,6 @@ const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
         .add(panelSettingsRef.current, name, 0.0, 1.0, 0.01)
         .listen()
         .onChange((weight: number) => {
-          if (settings.action) {
-            // setWeight(settings.action, weight);
-          }
           settings.weight = weight;
           onAdditiveActionChange?.(name, weight);
         });
@@ -72,10 +71,9 @@ const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
 
     folder3
       .add(panelSettingsRef.current, 'modify time scale', 0.0, 1.5, 0.01)
-      // .onChange((value: number) => {
-        // modifyTimeScale(value);
-        // onTimeScaleChange(value);
-      // });
+      .onChange((value: number) => {
+        modifyTimeScale(value);
+      });
 
     folder1.open();
     folder2.open();

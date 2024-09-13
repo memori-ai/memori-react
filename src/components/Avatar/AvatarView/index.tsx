@@ -1,8 +1,8 @@
 import { CSSProperties, useRef } from 'react';
 import React, { Suspense } from 'react';
-import Avatar from './components/avatar';
+import Avatar from './components/halfbodyAvatar';
 import FullbodyAvatar, {
-  FullbodyAvatarProps
+  FullbodyAvatarProps,
 } from './components/fullbodyAvatar';
 import Loader from './components/loader';
 import { Canvas } from '@react-three/fiber';
@@ -12,6 +12,7 @@ import { useThree } from '@react-three/fiber';
 import { useState, useEffect, useCallback } from 'react';
 import { GUI } from 'lil-gui';
 import AnimationControlPanel from './components/controls';
+import HalfBodyAvatar from './components/halfbodyAvatar';
 
 interface BaseAction {
   weight: number;
@@ -22,6 +23,7 @@ interface AdditiveAction {
   weight: number;
   action?: string;
 }
+
 
 export interface Props {
   url: string;
@@ -34,7 +36,7 @@ export interface Props {
   style?: CSSProperties;
   fallback?: React.ReactNode;
   halfBody?: boolean;
-  //animation?: FullbodyAvatarProps['animation'];
+  animation?: string;
 }
 
 const baseActions: Record<string, BaseAction> = {
@@ -47,11 +49,6 @@ const baseActions: Record<string, BaseAction> = {
   'Talk 1': { weight: 0 },
   'Talk 2': { weight: 0 },
   'Talk 3': { weight: 0 },
-};
-
-const additiveActions: Record<string, AdditiveAction> = {
-  smile: { weight: 0 },
-  blink: { weight: 0 },
 };
 
 const defaultStyles = {
@@ -68,9 +65,10 @@ const defaultStyles = {
   },
 };
 
+/* Animation Control Panel */
 const getCameraSettings = (halfBody: boolean) =>
   halfBody
-    ? { fov: 40, position: [0, -0.1, 0.5] }
+    ? { fov: 40, position: [0, -0.0000175, 0.5] }
     : { fov: 40, position: [0, 0.0000175, 3] };
 
 const getLightingComponent = () =>
@@ -86,15 +84,22 @@ const getLightingComponent = () =>
     <Environment files="https://raw.githack.com/pmndrs/drei-assets/456060a26bbeb8fdf79326f224b6d99b8bcce736/hdri/venice_sunset_1k.hdr" />
   );
 
+
+  
 const AvatarComponent = ({
   halfBody,
   ...props
-}: Props & { halfBody: boolean, currentBaseAction: {
-  action: string;
-  weight: number;
-  oldAction: string;
-}, baseActions: Record<string, BaseAction> }) =>
-  halfBody ? <Avatar {...props} /> : <FullbodyAvatar {...props} />;
+}: Props & {
+  halfBody: boolean;
+  currentBaseAction: {
+    action: string;
+    weight: number;
+    oldAction: string;
+  };
+  baseActions: Record<string, BaseAction>;
+  additiveActions: Record<string, AdditiveAction>;
+  timeScale: number;
+}) => (halfBody ? <HalfBodyAvatar {...props} /> : <FullbodyAvatar {...props} />);
 
 const AvatarView = ({
   url,
@@ -102,19 +107,23 @@ const AvatarView = ({
   eyeBlink,
   headMovement,
   speaking,
-  // animation,
+  animation,
   halfBody,
 }: Props & { halfBody: boolean }) => {
   const [currentBaseAction, setCurrentBaseAction] = useState({
-    action: 'Idle',
+    action: animation || 'Idle',
     weight: 1,
-    oldAction: 'Idle',
+    oldAction: animation || 'Idle',
   });
 
   const [additiveActions, setAdditiveActions] = useState({
     smile: { weight: 0 },
     blink: { weight: 0 },
+    speak: { weight: 0 },
+    headMovement: { weight: 0 },
   });
+
+  const [timeScale, setTimeScale] = useState(1.0);
 
   function onBaseActionChange(action: string, oldAction: string) {
     setCurrentBaseAction({
@@ -131,15 +140,21 @@ const AvatarView = ({
     });
   }
 
+  function modifyTimeScale(value: number) {
+    setTimeScale(value);
+  }
 
   return (
     <>
-      {!halfBody && (
+      {halfBody === false && (
         <AnimationControlPanel
           onBaseActionChange={onBaseActionChange}
+          onAdditiveActionChange={onAdditiveActionChange}
           baseActions={baseActions}
           additiveActions={additiveActions}
           currentBaseAction={currentBaseAction}
+          modifyTimeScale={modifyTimeScale}
+
         />
       )}
       <AvatarComponent
@@ -149,9 +164,11 @@ const AvatarView = ({
         eyeBlink={eyeBlink}
         headMovement={headMovement}
         speaking={speaking}
+        additiveActions={additiveActions}
         baseActions={baseActions}
         // animation={animation}
         currentBaseAction={currentBaseAction}
+        timeScale={timeScale}
       />
     </>
   );
@@ -166,8 +183,9 @@ export default function ContainerAvatarView({
   headMovement,
   speaking,
   halfBody = true,
-  // animation,
-}: // fallback,
+  animation,
+}: // animation,
+// fallback,
 // fallbackImg,
 Props) {
   return (
@@ -187,7 +205,7 @@ Props) {
         eyeBlink={eyeBlink}
         headMovement={headMovement}
         speaking={speaking}
-        // animation={animation}
+        animation={animation}
       />
       {/* </Suspense> */}
     </Canvas>

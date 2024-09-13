@@ -3,6 +3,10 @@ import { Vector3, Euler, AnimationMixer, AnimationAction } from 'three';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useGraph, dispose, useFrame } from '@react-three/fiber';
 import { correctMaterials, isSkinnedMesh } from '../utils/utils';
+import useEyeBlink from '../utils/useEyeBlink';
+import useMouthSpeaking from '../utils/useMouthSpeaking';
+import useHeadMovement from '../utils/useHeadMovement';
+import useSmile from '../utils/useSmile';
 
 export interface FullbodyAvatarProps {
   url: string;
@@ -13,6 +17,12 @@ export interface FullbodyAvatarProps {
     weight: number;
     oldAction: string;
   };
+  additiveActions: {
+    [key: string]: {
+      weight: number;
+    };
+  };
+  timeScale: number;
 }
 
 const AVATAR_POSITION = new Vector3(0, -0.6, -0.8);
@@ -26,8 +36,10 @@ const ANIMATION_URLS = {
 export default function FullbodyAvatar({
   url,
   sex,
-  onLoaded,
+  // onLoaded,
   currentBaseAction,
+  additiveActions,
+  timeScale,
 }: FullbodyAvatarProps) {
   const { scene } = useGLTF(url);
   const { animations } = useGLTF(ANIMATION_URLS[sex]);
@@ -35,15 +47,15 @@ export default function FullbodyAvatar({
   const { actions } = useAnimations(animations, scene);
   const [mixer] = useState(() => new AnimationMixer(scene));
 
-  useEffect(() => {
-    correctMaterials(materials);
-    onLoaded?.();
+  // useEffect(() => {
+  //   correctMaterials(materials);
+  //   onLoaded?.();
 
-    return () => {
-      Object.values(materials).forEach(dispose);
-      Object.values(nodes).filter(isSkinnedMesh).forEach(dispose);
-    };
-  }, [materials, nodes, url, onLoaded]);
+  //   return () => {
+  //     Object.values(materials).forEach(dispose);
+  //     Object.values(nodes).filter(isSkinnedMesh).forEach(dispose);
+  //   };
+  // }, [materials, nodes, url, onLoaded]);
 
   useEffect(() => {
     if (!actions || !currentBaseAction.action) return;
@@ -57,15 +69,10 @@ export default function FullbodyAvatar({
       return;
     }
 
-    if (currentBaseAction.oldAction === currentBaseAction.action) {
-      newAction.reset().play();
-      return;
-    }
-
-
     const fadeOutDuration = 0.8;
     const fadeInDuration = 0.8;
 
+    newAction.timeScale = timeScale;
     newAction.reset().fadeIn(fadeInDuration).play();
 
     return () => {
@@ -73,9 +80,16 @@ export default function FullbodyAvatar({
     };
   }, [currentBaseAction]);
 
-  // useFrame((_, delta) => {
-  //   mixer.update(delta * 0.001);
-  // });
+  // Additive actions
+  useEyeBlink(additiveActions.blink.weight > 0, nodes );
+  useMouthSpeaking(additiveActions.speak.weight > 0, nodes);
+  useHeadMovement(additiveActions.headMovement.weight > 0, nodes);  
+  useSmile(additiveActions.smile.weight > 0, nodes);
+
+
+  useFrame((_, delta) => {
+    mixer.update(delta * 0.001);
+  });
 
   return (
     <group position={AVATAR_POSITION} rotation={AVATAR_ROTATION}>

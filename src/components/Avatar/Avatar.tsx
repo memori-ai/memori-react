@@ -31,6 +31,7 @@ export interface Props {
   loading?: boolean;
   baseUrl?: string;
   apiUrl?: string;
+  animation?: string;
 }
 
 const Avatar: React.FC<Props> = ({
@@ -46,6 +47,7 @@ const Avatar: React.FC<Props> = ({
   // loading = false,
   baseUrl,
   apiUrl,
+  animation,
 }) => {
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
@@ -53,18 +55,6 @@ const Avatar: React.FC<Props> = ({
   useEffect(() => {
     setIsClient(true);
   }, []);
-
-  // Manage the animation of the avatar, if the user is speaking, the avatar will speak, if the avatar is loading, the avatar will be loading, if the avatar is idle, the avatar will be idle
-  // ? Can we manage the animation of the avatar inside the AvatarView component?
-  // const animation = useMemo(() => {
-  //   if (isPlayingAudio) {
-  //     return ['Talk 1', 'Talk 2', 'Talk 3'][Math.round(Math.random() * 2)] as AvatarViewProps['animation'];
-  //   }
-  //   if (loading) {
-  //     return 'Loading' as AvatarViewProps['animation'];
-  //   }
-  //   return ['Idle', 'Idle 1', 'Idle 2', 'Idle 3'][Math.round(Math.random() * 3)] as AvatarViewProps['animation'];
-  // }, [isPlayingAudio, loading]);
 
   // Get the avatar URL, if the avatar is a user avatar, the avatar URL is the user avatar URL, if the avatar is a default avatar, the avatar URL is the default avatar URL
   const getAvatarUrl = () => {
@@ -124,7 +114,7 @@ const Avatar: React.FC<Props> = ({
             headMovement
             eyeBlink
             halfBody={integrationConfig.avatar === 'readyplayerme'}
-            // animation={animation}
+            animation={animation}
             speaking={isPlayingAudio}
             style={getAvatarStyle()}
           />

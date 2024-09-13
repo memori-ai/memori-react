@@ -7,7 +7,7 @@ import useMouthSpeaking from '../utils/useMouthSpeaking';
 import { dispose, useGraph } from '@react-three/fiber';
 import { correctMaterials, hideHands, isSkinnedMesh } from '../utils/utils';
 
-interface AvatarProps {
+interface HalfBodyAvatarProps {
   url: string;
   eyeBlink?: boolean;
   headMovement?: boolean;
@@ -15,16 +15,15 @@ interface AvatarProps {
   onLoaded?: () => void;
 }
 
-
 const AVATAR_POSITION = new Vector3(0, -0.6, 0);
 
-export default function Avatar({
+export default function HalfBodyAvatar({
   url,
   eyeBlink,
   headMovement,
   speaking,
   onLoaded,
-}: AvatarProps) {
+}: HalfBodyAvatarProps) {
   const { scene } = useGLTF(url);
   const { nodes, materials } = useGraph(scene);
 
@@ -51,17 +50,20 @@ export default function Avatar({
     };
   }, [materials, nodes, url, onLoaded]);
 
-  const skinnedMeshes = useMemo(() => 
-    Object.values(nodes).filter(isSkinnedMesh),
+  const skinnedMeshes = useMemo(
+    () => Object.values(nodes).filter(isSkinnedMesh),
     [nodes]
   );
 
   return (
     <group position={AVATAR_POSITION}>
-      <primitive key="armature" object={nodes.Hips} />
-      {skinnedMeshes.map((node: Object3D) => (
-        <primitive key={node.name} object={node} receiveShadow castShadow />
-      ))}
+      {nodes.Hips && <primitive key="armature" object={nodes.Hips} />}
+      {skinnedMeshes.map(
+        (node: Object3D) =>
+          node && (
+            <primitive key={node.name} object={node} receiveShadow castShadow />
+          )
+      )}
     </group>
   );
 }
