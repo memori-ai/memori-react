@@ -14,14 +14,14 @@ interface AdditiveAction {
 export interface AnimationControlPanelProps {
   baseActions: Record<string, BaseAction>;
   additiveActions: Record<string, AdditiveAction>;
-  onBaseActionChange: (action: string, oldAction: string) => void;
+  onBaseActionChange: (action: string) => void;
   onAdditiveActionChange?: (action: string, weight: number) => void;
   currentBaseAction: {
     action: string;
     weight: number;
-    oldAction: string;
   };
   modifyTimeScale: (value: number) => void;
+  timeScale: number;
 }
 
 const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
@@ -29,12 +29,12 @@ const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
   onAdditiveActionChange,
   baseActions,
   additiveActions,
-  currentBaseAction,
   modifyTimeScale,
+  timeScale,
 }) => {
   const guiRef = useRef<GUI | null>(null);
   const panelSettingsRef = useRef<Record<string, any>>({
-    'modify time scale': 1.0,
+    'modify time scale': timeScale,
   });
   const crossFadeControlsRef = useRef<any[]>([]);
 
@@ -51,7 +51,7 @@ const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
     baseNames.forEach(name => {
       const settings = baseActions[name];
       panelSettingsRef.current[name] = () => {
-        onBaseActionChange(name, currentBaseAction.action);
+        onBaseActionChange(name);
       };
 
       const control = folder1.add(panelSettingsRef.current, name);

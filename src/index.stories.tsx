@@ -82,6 +82,35 @@ Staging.args = {
   layout: 'FULLPAGE',
 };
 
+export const ProductionTotem = Template.bind({});
+ProductionTotem.args = {
+  memoriName: 'Prova12345',
+  ownerUserName: 'patini929',
+  memoriID: '514dd043-ec26-4c57-a014-a512c9014822',
+  ownerUserID: '1941d326-6986-4fa1-872b-458d09fb654c',
+  tenantID: 'www.aisuru.com',
+  engineURL: 'https://engine.memori.ai',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://www.aisuru.com',
+  uiLang: 'IT',
+  spokenLang: 'FR',
+  layout: 'FULLPAGE',
+  
+  showInstruct: false,
+  showSettings: true,
+  showClear: false,
+  showAIicon: 'true',
+  showWhyThisAnswer: true,
+  showTypingText: false,
+  showOnlyLastMessages: false,
+  showTranslationOriginal: false,
+  showCopyButton: false,
+  showShare: true,
+  showLogin: false,
+  enableAudio: true,
+  integrationID: '37d368cf-6241-4cc8-a1f3-742786f22431',
+};
+
 const TemplateWithBatchButton: Story<Props> = args => (
   <div>
     <button

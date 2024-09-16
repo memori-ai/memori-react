@@ -44,10 +44,10 @@ const Avatar: React.FC<Props> = ({
   setAvatar3dVisible,
   hasUserActivatedSpeak = false,
   isPlayingAudio = false,
-  // loading = false,
+  loading = false,
   baseUrl,
   apiUrl,
-  animation,
+  animation 
 }) => {
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
@@ -113,9 +113,10 @@ const Avatar: React.FC<Props> = ({
             fallbackImg={getAvatarUrl()}
             headMovement
             eyeBlink
-            halfBody={integrationConfig.avatar === 'readyplayerme'}
             animation={animation}
+            halfBody={integrationConfig.avatar === 'readyplayerme'}
             speaking={isPlayingAudio}
+            loading={loading}
             style={getAvatarStyle()}
           />
         </ErrorBoundary>
@@ -200,6 +201,9 @@ const Avatar: React.FC<Props> = ({
     );
   };
 
+  console.log('animation', animation);
+  console.log('speaking', isPlayingAudio);
+  console.log('loading', loading);
   return (
     <>
       {renderAvatar()}
