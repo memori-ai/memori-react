@@ -149,6 +149,19 @@ WithoutAudio.args = {
   AZURE_COGNITIVE_SERVICES_TTS_KEY: 'provide your key here',
 };
 
+export const WithoutAudioFromIntegrationConfig = Template.bind({});
+WithoutAudioFromIntegrationConfig.args = {
+  memori,
+  tenant,
+  integration: {
+    ...integration,
+    customData: JSON.stringify({
+      enableAudio: false,
+    }),
+  },
+  AZURE_COGNITIVE_SERVICES_TTS_KEY: 'provide your key here',
+};
+
 export const DefautSpeakerDisabled = Template.bind({});
 DefautSpeakerDisabled.args = {
   memori,

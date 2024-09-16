@@ -496,6 +496,9 @@ const MemoriWidget = ({
 
   const selectedLayout = layout || integrationConfig?.layout || 'DEFAULT';
 
+  const defaultEnableAudio =
+    enableAudio ?? integrationConfig?.enableAudio ?? false;
+
   const [hasUserActivatedSpeak, setHasUserActivatedSpeak] = useState(false);
   const [hasUserActivatedListening, setHasUserActivatedListening] =
     useState(false);
@@ -504,8 +507,7 @@ const MemoriWidget = ({
   const [showKnownFactsDrawer, setShowKnownFactsDrawer] = useState(false);
   const [showExpertsDrawer, setShowExpertsDrawer] = useState(false);
   const [muteSpeaker, setMuteSpeaker] = useState(
-    !(enableAudio ?? integrationConfig?.enableAudio ?? true) ||
-      !defaultSpeakerActive
+    !defaultEnableAudio || !defaultSpeakerActive
   );
   const [continuousSpeech, setContinuousSpeech] = useState(false);
   const [continuousSpeechTimeout, setContinuousSpeechTimeout] = useState(2);
@@ -543,8 +545,16 @@ const MemoriWidget = ({
       defaultControlsPosition = 'bottom';
     }
 
-    setMuteSpeaker(getLocalConfig('muteSpeaker', !defaultSpeakerActive));
-    speakerMuted = getLocalConfig('muteSpeaker', !defaultSpeakerActive);
+    setMuteSpeaker(
+      getLocalConfig(
+        'muteSpeaker',
+        !defaultEnableAudio || !defaultSpeakerActive
+      )
+    );
+    speakerMuted = getLocalConfig(
+      'muteSpeaker',
+      !defaultEnableAudio || !defaultSpeakerActive
+    );
     setContinuousSpeech(microphoneMode === 'CONTINUOUS');
     setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 2));
     setControlsPosition(
