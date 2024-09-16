@@ -1,5 +1,13 @@
 
 
+## [7.4.5](https://github.com/memori-ai/memori-react/compare/v7.4.4...v7.4.5) (2024-09-16)
+
+
+### Bug Fixes
+
+* default audio value for mute speaker ([09022bc](https://github.com/memori-ai/memori-react/commit/09022bcf30fe331e8ddf31edfe8073a5077a9693))
+* knownfacts header icon disabled color ([34225bd](https://github.com/memori-ai/memori-react/commit/34225bd87381316fac2925ddd36070ec8325cb57))
+
 ## [7.4.4](https://github.com/memori-ai/memori-react/compare/v7.4.3...v7.4.4) (2024-09-11)
 
 
