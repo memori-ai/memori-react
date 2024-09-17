@@ -37,6 +37,7 @@ export interface Props {
   halfBody?: boolean;
   loading?: boolean;
   animation?: string;
+  showControls?: boolean;
 }
 
 const baseActions: Record<string, BaseAction> = {
@@ -107,6 +108,7 @@ const AvatarComponent = ({
   halfBody ? <HalfBodyAvatar {...props} /> : <FullbodyAvatar {...props} />;
 
 const AvatarView = ({
+  showControls,
   animation,
   loading,
   url,
@@ -188,7 +190,7 @@ const AvatarView = ({
 
   return (
     <>
-      {halfBody === false && (
+      {showControls && (
         <AnimationControlPanel
           timeScale={timeScale}
           onBaseActionChange={onBaseActionChange}
@@ -228,6 +230,7 @@ export default function ContainerAvatarView({
   halfBody = true,
   loading,
   animation,
+  showControls = false,
 }: Props) {
   return (
     <Canvas
@@ -248,6 +251,7 @@ export default function ContainerAvatarView({
         speaking={speaking}
         loading={loading}
         animation={animation}
+        showControls={showControls}
       />
       {/* </Suspense> */}
     </Canvas>

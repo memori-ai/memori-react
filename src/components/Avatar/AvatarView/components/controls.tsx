@@ -39,6 +39,7 @@ const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
   const crossFadeControlsRef = useRef<any[]>([]);
 
   useEffect(() => {
+
     const gui = new GUI({ width: 310 });
     guiRef.current = gui;
 

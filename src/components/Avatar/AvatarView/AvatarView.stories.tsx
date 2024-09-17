@@ -37,6 +37,11 @@ const meta: Meta = {
         type: 'boolean',
       },
     },
+    showControls: {
+      control: {
+        type: 'boolean',
+      },
+    },
     animation: {
       control: {
         type: 'select',
