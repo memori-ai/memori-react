@@ -72,7 +72,7 @@ marked.use({
 marked.use(markedLinkifyIt());
 marked.use(
   markedKatex({
-    throwOnError: true,
+    throwOnError: false,
     output: 'htmlAndMathml',
   })
 );
@@ -102,40 +102,48 @@ const ChatBubble: React.FC<Props> = ({
 
   const text = message.translatedText || message.text;
 
-  const renderedText = message.fromUser
-    ? text
-    : DOMPurify.sanitize(
-        (
-          marked.parse(
-            text
-              // remove leading and trailing whitespaces
-              .trim()
-              // remove markdown links
-              .replaceAll(
-                /\[([^\]]+)\]\(([^\)]+)\)/g,
-                '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-              )
-              // remove markdown multiline code blocks but keep the content
-              .replaceAll(/```markdown([^```]+)```/g, '$1')
-              // remove redundant mathjax delimiters
-              .replaceAll(/(?<!\\)\(/g, '\\(')
-              .replaceAll(/(?<!\\)\)/g, '\\)')
-          ) as string
+  const renderMsg = (text: string) => {
+    try {
+      return (
+        DOMPurify.sanitize(
+          (
+            marked.parse(
+              text
+                // remove leading and trailing whitespaces
+                .trim()
+                // remove markdown links
+                .replaceAll(
+                  /\[([^\]]+)\]\(([^\)]+)\)/g,
+                  '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+                )
+                // remove markdown multiline code blocks but keep the content
+                .replaceAll(/```markdown([^```]+)```/g, '$1')
+                // remove redundant mathjax delimiters
+                .replaceAll(/(?<!\\)\(/g, '\\(')
+                .replaceAll(/(?<!\\)\)/g, '\\)')
+            ) as string
+          )
+            .trim()
+            .replace(/\n/g, '<br>'),
+          {
+            ADD_ATTR: ['target'],
+          }
         )
-          .trim()
-          .replace(/\n/g, '<br>'),
-        {
-          ADD_ATTR: ['target'],
-        }
-      )
-        // remove redundant mathjax delimiters
-        .replaceAll(/(?<!\\)\[/g, '\\[')
-        .replaceAll(/(?<!\\)\]/g, '\\]')
-        // replace consecutive <br> with a single <br>
-        .replace(/(<br>)+/g, '<br>')
-        // remove empty paragraphs
-        .replace(/<p><\/p>/g, '<br>')
-        .replace(/<p><br><\/p>/g, '<br>');
+          // remove redundant mathjax delimiters
+          .replaceAll(/(?<!\\)\[/g, '\\[')
+          .replaceAll(/(?<!\\)\]/g, '\\]')
+          // replace consecutive <br> with a single <br>
+          .replace(/(<br>)+/g, '<br>')
+          // remove empty paragraphs
+          .replace(/<p><\/p>/g, '<br>')
+          .replace(/<p><br><\/p>/g, '<br>')
+      );
+    } catch (e) {
+      console.error(e);
+      return text;
+    }
+  };
+  const renderedText = message.fromUser ? text : renderMsg(text);
 
   const plainText = message.fromUser
     ? text

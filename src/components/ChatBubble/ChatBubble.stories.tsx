@@ -401,3 +401,34 @@ ComplexMarkdownTest.args = {
     text: "Basandomi sui dati forniti nel bilancio, ecco un'analisi generale della società ACME SRL IN LIQUIDAZIONE per l'anno 2023:\n\n1. Stato di liquidazione: La società è in liquidazione, come indicato dal nome \"ACME SRL IN LIQUIDAZIONE\". Questo significa che l'azienda sta cessando le sue attività e sta procedendo alla liquidazione dei suoi asset.\n\n2. Situazione patrimoniale:\n - Totale attivo: €4.577.945\n - Patrimonio netto: €4.406.550\n - Debiti: €171.395\n\n3. Composizione dell'attivo:\n - L'attivo è composto principalmente da crediti (€4.548.367), che rappresentano circa il 99% del totale attivo.\n - Le immobilizzazioni sono minime (€293), indicando che la società ha probabilmente già dismesso la maggior parte dei suoi asset fissi.\n\n4. Situazione economica:\n - La società ha registrato una perdita di €15.458 nell'esercizio 2023.\n - I ricavi sono minimi (€693), confermando che l'azienda non sta più svolgendo attività operative significative.\n\n5. Liquidità:\n - Le disponibilità liquide ammontano a €29.285, un valore relativamente basso rispetto al totale dell'attivo.\n\n6. Capitale sociale:\n - Il capitale sociale è di €4.251.690, interamente versato.\n\n7. Trend:\n - Rispetto all'anno precedente, si nota una diminuzione del totale attivo e una riduzione dei debiti.\n\nIn conclusione, questa società appare essere in una fase avanzata di liquidazione. La maggior parte dell'attivo è costituita da crediti, probabilmente in attesa di essere riscossi. La società non genera più ricavi significativi e sta probabilmente cercando di chiudere le ultime posizioni aperte prima di concludere definitivamente la sua esistenza. La solidità patrimoniale sembra buona, con un patrimonio netto che copre ampiamente i debiti residui.",
   },
 };
+
+export const FuckedUp = Template.bind({});
+FuckedUp.args = {
+  memori,
+  tenant,
+  apiUrl: 'https://backend.memori.ai',
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: `Il coefficiente di adeguatezza $𝜁_V$ è definito dalle normative NTC18 come il rapporto tra il valore massimo del sovraccarico verticale variabile sopportabile dalla parte i-esima della costruzione e il valore del sovraccarico verticale variabile che si utilizzerebbe nel progetto di una nuova costruzione.
+
+Tale parametro viene calcolato tramite la seguente espressione:
+
+$$
+𝜁_V = \frac{𝑅_d - (𝐸_{d,G} + 𝐸_{d,Q𝑡,𝑜𝑟𝑖𝑧𝑧𝑜𝑛𝑡𝑎𝑙𝑖} + 𝐸_{d,Q𝑣𝑎𝑟𝑖𝑎𝑏𝑖𝑙𝑖})}{𝐸_{d,Q𝑡,𝑣𝑒𝑟𝑡𝑖𝑐𝑎𝑙𝑖}}
+$$
+
+dove:
+
+- $𝑅_d$ è la capacità della sezione resistente;
+- $𝐸_{d,G}$ è l’azione sollecitante derivante dai carichi permanenti;
+- $𝐸_{d,Q𝑣𝑎𝑟𝑖𝑎𝑏𝑖𝑙𝑖}$ è l’azione sollecitante derivante dai carichi accidentali non da traffico (vento, azioni termiche, ecc.);
+- $𝐸_{d,Q𝑡,𝑣𝑒𝑟𝑡𝑖𝑐𝑎𝑙𝑖}$ è l’azione sollecitante derivante dalla componente verticale dei carichi da traffico;
+- $𝐸_{d,Q𝑡,𝑜𝑟𝑖𝑧𝑧𝑜𝑛𝑡𝑎𝑙𝑖}$ è l’azione sollecitante derivante dalla componente orizzontale dei carichi da traffico (frenatura o azione centrifuga).
+
+In accordo con il §6.1.5 delle LG20, il coefficiente $𝜁_V$ ha significato solo per il livello di analisi di "Adeguamento" in quanto per i livelli di "Operatività" e "Transitabilità" la domanda per la quale si svolgono le valutazioni di sicurezza è determinata in condizioni differenti da quelle che si avrebbero per nuove costruzioni ($𝑡_{r𝑒𝑓}$ ridotto, restrizioni all’uso, limitazioni di carico).
+
+I coefficienti $𝜁_V$ possono essere valutati per le combinazioni che considerano carichi da traffico con componente d’azione verticale .`,
+  },
+};
