@@ -1,5 +1,14 @@
 
 
+## [7.4.6](https://github.com/memori-ai/memori-react/compare/v7.4.5...v7.4.6) (2024-09-19)
+
+
+### Bug Fixes
+
+* icons jsx attr camelcase ([97362da](https://github.com/memori-ai/memori-react/commit/97362da774318ff3dcd21e2711e1410085416523))
+* katex parsing with special characters, refactor kiss, cover other edge cases with spaces ([89c15dd](https://github.com/memori-ai/memori-react/commit/89c15dd217f4023dae555385994b800022568c7a))
+* prevent mathjax to throw and explode ([cec112e](https://github.com/memori-ai/memori-react/commit/cec112e877c4b7a7845c9028706ddcdf45e9c802))
+
 ## [7.4.5](https://github.com/memori-ai/memori-react/compare/v7.4.4...v7.4.5) (2024-09-16)
 
 
