@@ -118,9 +118,11 @@ const ChatBubble: React.FC<Props> = ({
                 )
                 // remove markdown multiline code blocks but keep the content
                 .replaceAll(/```markdown([^```]+)```/g, '$1')
-                // remove redundant mathjax delimiters
-                .replaceAll(/(?<!\\)\(/g, '\\(')
-                .replaceAll(/(?<!\\)\)/g, '\\)')
+                .replaceAll('($', '( $')
+                .replaceAll(':$', ': $')
+                .replaceAll('\frac', '\\frac')
+                .replaceAll('\beta', '\\beta')
+                .replaceAll('cdot', '\\cdot')
             ) as string
           )
             .trim()

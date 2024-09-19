@@ -389,8 +389,8 @@ ComplexMarkdownMath5.args = {
   },
 };
 
-export const ComplexMarkdownTest = Template.bind({});
-ComplexMarkdownTest.args = {
+export const ComplexMarkdownMath6 = Template.bind({});
+ComplexMarkdownMath6.args = {
   memori,
   tenant,
   apiUrl: 'https://backend.memori.ai',
@@ -398,12 +398,27 @@ ComplexMarkdownTest.args = {
     fromUser: false,
     initial: false,
     generatedByAI: true,
-    text: "Basandomi sui dati forniti nel bilancio, ecco un'analisi generale della società ACME SRL IN LIQUIDAZIONE per l'anno 2023:\n\n1. Stato di liquidazione: La società è in liquidazione, come indicato dal nome \"ACME SRL IN LIQUIDAZIONE\". Questo significa che l'azienda sta cessando le sue attività e sta procedendo alla liquidazione dei suoi asset.\n\n2. Situazione patrimoniale:\n - Totale attivo: €4.577.945\n - Patrimonio netto: €4.406.550\n - Debiti: €171.395\n\n3. Composizione dell'attivo:\n - L'attivo è composto principalmente da crediti (€4.548.367), che rappresentano circa il 99% del totale attivo.\n - Le immobilizzazioni sono minime (€293), indicando che la società ha probabilmente già dismesso la maggior parte dei suoi asset fissi.\n\n4. Situazione economica:\n - La società ha registrato una perdita di €15.458 nell'esercizio 2023.\n - I ricavi sono minimi (€693), confermando che l'azienda non sta più svolgendo attività operative significative.\n\n5. Liquidità:\n - Le disponibilità liquide ammontano a €29.285, un valore relativamente basso rispetto al totale dell'attivo.\n\n6. Capitale sociale:\n - Il capitale sociale è di €4.251.690, interamente versato.\n\n7. Trend:\n - Rispetto all'anno precedente, si nota una diminuzione del totale attivo e una riduzione dei debiti.\n\nIn conclusione, questa società appare essere in una fase avanzata di liquidazione. La maggior parte dell'attivo è costituita da crediti, probabilmente in attesa di essere riscossi. La società non genera più ricavi significativi e sta probabilmente cercando di chiudere le ultime posizioni aperte prima di concludere definitivamente la sua esistenza. La solidità patrimoniale sembra buona, con un patrimonio netto che copre ampiamente i debiti residui.",
+    text: `La formula per il calcolo della spinta passiva non è riportata precisamente nel documento, ma in base alle informazioni presenti nella Specifica Tecnica per la redazione delle Verifiche Accurate di sicurezza di Livello 4 (ST-VAL4), il contesto del calcolo delle spinte passive può essere richiamato come segue:
+
+Il calcolo della spinta passiva in geotecnica solitamente coinvolge il coefficiente di spinta passiva, che può esser calcolato usando diverse formulazioni a seconda delle condizioni (statiche o sismiche).
+
+1. **In condizioni statiche**, il calcolo della pressione del terreno avviene considerando il coefficiente passivo $k_p$:$k_p = \frac{1 + sin(\phi)}{1 - sin(\phi)}$
+
+2. **In condizioni sismiche**, si può utilizzare la formulazione di Mononobe-Okabe:
+ \[
+ k_h = \beta \cdot \frac{a_{\max}}{g}
+ \]
+ dove:
+ - $\beta$ è il coefficiente di riduzione della accelerazione massima attesa al sito
+ - $a_{\max}$ è l'accelerazione massima
+ - $g$ è l'accelerazione di gravità .
+
+Se hai bisogno di dettagli più specifici o ulteriori informazioni su un altro argomento, fammi sapere!`,
   },
 };
 
-export const FuckedUp = Template.bind({});
-FuckedUp.args = {
+export const ComplexMarkdownMath7 = Template.bind({});
+ComplexMarkdownMath7.args = {
   memori,
   tenant,
   apiUrl: 'https://backend.memori.ai',
@@ -430,5 +445,41 @@ dove:
 In accordo con il §6.1.5 delle LG20, il coefficiente $𝜁_V$ ha significato solo per il livello di analisi di "Adeguamento" in quanto per i livelli di "Operatività" e "Transitabilità" la domanda per la quale si svolgono le valutazioni di sicurezza è determinata in condizioni differenti da quelle che si avrebbero per nuove costruzioni ($𝑡_{r𝑒𝑓}$ ridotto, restrizioni all’uso, limitazioni di carico).
 
 I coefficienti $𝜁_V$ possono essere valutati per le combinazioni che considerano carichi da traffico con componente d’azione verticale .`,
+  },
+};
+
+export const WithHTML = Template.bind({});
+WithHTML.args = {
+  memori,
+  tenant,
+  apiUrl: 'https://backend.memori.ai',
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: `
+<div>
+<div style="width: 30%; margin-bottom: 20px;">
+<img src="https://www.e-stayon.com/images/thumbs/0244280_lenovo-ideapad-3-chromebook-15-intel-celeron-4gb-64gb_360.jpeg" style="width:100%">
+<h3>Lenovo IdeaPad 3 Chromebook</h3>
+<p>Intel Celeron, 15", 4GB RAM, 64GB</p>
+<p>Prezzo: €194,88 (sconto 12% da €221,59)</p>
+</div>
+
+<div style="width: 30%; margin-bottom: 20px;">
+<img src="https://www.e-stayon.com/images/thumbs/0244280_lenovo-ideapad-3-chromebook-15-intel-celeron-4gb-64gb_360.jpeg" style="width:100%">
+<h3>Lenovo IdeaPad 3 Chromebook</h3>
+<p>Intel Celeron, 15", 4GB RAM, 64GB</p>
+<p>Prezzo: €194,88 (sconto 12% da €221,59)</p>
+</div>
+
+<div style="width: 30%; margin-bottom: 20px;">
+<img src="https://www.e-stayon.com/images/thumbs/0244280_lenovo-ideapad-3-chromebook-15-intel-celeron-4gb-64gb_360.jpeg" style="width:100%">
+<h3>Lenovo IdeaPad 3 Chromebook</h3>
+<p>Intel Celeron, 15", 4GB RAM, 64GB</p>
+<p>Prezzo: €194,88 (sconto 12% da €221,59)</p>
+</div>
+</div>
+`,
   },
 };

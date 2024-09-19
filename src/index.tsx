@@ -15,6 +15,7 @@ import { installMathJax } from './helpers/utils';
 
 import i18n from './i18n';
 import { I18nextProvider, useTranslation } from 'react-i18next';
+import I18nWrapper from './I18nWrapper';
 
 export interface Props {
   memoriName?: string | null;
@@ -298,10 +299,10 @@ const Memori: React.FC<Props> = ({
   );
 
   return (
-    <I18nextProvider i18n={i18n}>
+    <I18nWrapper>
       <Toaster position="top-center" reverseOrder={true} />
       {renderer}
-    </I18nextProvider>
+    </I18nWrapper>
   );
 };
 
