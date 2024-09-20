@@ -270,6 +270,7 @@
     "USER_CANT_ENABLE_DCM_INTEGRATION": "Utente: non abilitato a gestire l'integrazione con DCM",
     "USER_CANT_ENABLE_CHAINING_OR_BOARD_OF_EXPERTS": "Utente: non abilitato a gestire la concatenazione o il gruppo di esperti",
     "USER_CREATION_BILLING_DENIED_PERMISSION": "Non hai crediti sufficienti per creare un Twin",
+    "USER_HAS_ONE_OR_MORE_COMPLETION_CONFIGS": "L'utente ha una o più configurazioni",
 
     "MEMORI_NOT_FOUND": "Memori non trovato",
     "MEMORI_NOT_ACCESSIBLE": "Memori non accessibile",
@@ -377,6 +378,7 @@
     "IMPORTCSV_MISSING_TITLE_VARIANT_SEPARATOR": "Importazione CSV: separatore varianti titolo mancante",
     "IMPORTCSV_INVALID_RECEIVER_ID": "Importazione CSV: ID receiver non valido",
     "IMPORTCSV_INVALID_MEDIA_LINK": "Importazione CSV: link media non valido",
+    "IMPORTCSV_INVALID_LINK_TITLE_HANDLING": "Importazione CSV: titolo link non valido",
     "IMPORTCSV_UNDETECTABLE_CHAR_ENCODING": "Importazione CSV: encoding caratteri non rilevabile",
     "IMPORTCSV_CANT_IMPORT_TO_SECRET_MEMORI": "Importazione CSV: impossibile importare in Memori segreti",
 
@@ -384,6 +386,7 @@
     "IMPORTTXT_INVALID_GRANULARITY": "Importazione TXT: granularità non valida",
     "IMPORTTXT_INVALID_RECEIVER_ID": "Importazione TXT: ID receiver non valido",
     "IMPORTTXT_INVALID_MEDIA_LINK": "Importazione TXT: link media non valido",
+    "IMPORTTXT_INVALID_LINK_TITLE_HANDLING": "Importazione TXT: titolo link non valido",
     "IMPORTTXT_UNDETECTABLE_CHAR_ENCODING": "Importazione TXT: encoding caratteri non rilevabile",
     "IMPORTTXT_CANT_IMPORT_TO_SECRET_MEMORI": "Importazione TXT: impossibile importare in Memori segreti",
     "IMPORTTXT_IMPORT_LIMIT_EXCEEDED": "Importazione TXT: limite importazione superato",

@@ -271,6 +271,7 @@
     "USER_CANT_ENABLE_DCM_INTEGRATION": "User: not enabled to manage DCM integration",
     "USER_CANT_ENABLE_CHAINING_OR_BOARD_OF_EXPERTS": "User: not allowed to manage chaining or expert group",
     "USER_CREATION_BILLING_DENIED_PERMISSION": "You don't have enough credits to create a Twin",
+    "USER_HAS_ONE_OR_MORE_COMPLETION_CONFIGS": "The user has one or more completion configurations",
 
     "MEMORI_NOT_FOUND": "Memori not found",
     "MEMORI_NOT_ACCESSIBLE": "Memori not accessible",
@@ -378,6 +379,7 @@
     "IMPORTCSV_MISSING_TITLE_VARIANT_SEPARATOR": "CSV import: missing title variant separator",
     "IMPORTCSV_INVALID_RECEIVER_ID": "CSV import: invalid receiver ID",
     "IMPORTCSV_INVALID_MEDIA_LINK": "CSV import: invalid media link",
+    "IMPORTCSV_INVALID_LINK_TITLE_HANDLING": "CSV import: invalid link title",
     "IMPORTCSV_UNDETECTABLE_CHAR_ENCODING": "CSV import: undetectable character encoding",
     "IMPORTCSV_CANT_IMPORT_TO_SECRET_MEMORI": "CSV Import: Cannot import to Secret Memories",
 
@@ -385,6 +387,7 @@
     "IMPORTTXT_INVALID_GRANULARITY": "Import TXT: invalid granularity",
     "IMPORTTXT_INVALID_RECEIVER_ID": "Import TXT: invalid receiver ID",
     "IMPORTTXT_INVALID_MEDIA_LINK": "Import TXT: invalid media link",
+    "IMPORTTXT_INVALID_LINK_TITLE_HANDLING": "Import TXT: invalid link title",
     "IMPORTTXT_UNDETECTABLE_CHAR_ENCODING": "TXT import: undetectable character encoding",
     "IMPORTTXT_CANT_IMPORT_TO_SECRET_MEMORI": "TXT Import: Cannot import to Secret Memories",
     "IMPORTTXT_IMPORT_LIMIT_EXCEEDED": "Import TXT: import limit exceeded",
