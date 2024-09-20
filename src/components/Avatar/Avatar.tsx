@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useMemo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import {
   Integration,
   Memori,
@@ -6,7 +6,6 @@ import {
 } from '@memori.ai/memori-api-client/dist/types';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 import Tooltip from '../ui/Tooltip';
-import AvatarView, { Props as AvatarViewProps } from './AvatarView';
 import { getResourceUrl } from '../../helpers/media';
 import Blob from '../Blob/Blob';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
@@ -47,7 +46,7 @@ const Avatar: React.FC<Props> = ({
   loading = false,
   baseUrl,
   apiUrl,
-  animation 
+  animation,
 }) => {
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
@@ -58,7 +57,11 @@ const Avatar: React.FC<Props> = ({
 
   // Get the avatar URL, if the avatar is a user avatar, the avatar URL is the user avatar URL, if the avatar is a default avatar, the avatar URL is the default avatar URL
   const getAvatarUrl = () => {
-    if (integrationConfig?.avatar === 'userAvatar' && memori.avatarURL && memori.avatarURL.length > 0) {
+    if (
+      integrationConfig?.avatar === 'userAvatar' &&
+      memori.avatarURL &&
+      memori.avatarURL.length > 0
+    ) {
       return getResourceUrl({
         type: 'avatar',
         tenantID: tenant?.id,
@@ -70,13 +73,14 @@ const Avatar: React.FC<Props> = ({
     return undefined;
   };
 
-
   // Render the avatar, if the avatar is a user avatar, the avatar is rendered, if the avatar is a default avatar, the avatar is rendered
   const renderAvatar = () => {
-    if ((integrationConfig?.avatar === 'readyplayerme' ||
+    if (
+      (integrationConfig?.avatar === 'readyplayerme' ||
         integrationConfig?.avatar === 'readyplayerme-full' ||
         integrationConfig?.avatar === 'customglb') &&
-      integrationConfig?.avatarURL) {
+      integrationConfig?.avatarURL
+    ) {
       return (
         <>
           <div
@@ -104,9 +108,20 @@ const Avatar: React.FC<Props> = ({
   const renderAvatarContent = () => {
     if (!isClient) return null;
 
-    if (integrationConfig?.avatar === 'readyplayerme' || integrationConfig?.avatar === 'readyplayerme-full') {
+    if (
+      integrationConfig?.avatar === 'readyplayerme' ||
+      integrationConfig?.avatar === 'readyplayerme-full'
+    ) {
       return (
-        <ErrorBoundary fallback={<BlobFallback />}>
+        <ErrorBoundary
+          fallback={
+            <div className="memori--blob-container">
+              {isClient && (
+                <Blob speaking={isPlayingAudio} avatar={getAvatarUrl()} />
+              )}
+            </div>
+          }
+        >
           <ContainerAvatarView
             url={integrationConfig.avatarURL}
             sex={memori.voiceType === 'FEMALE' ? 'FEMALE' : 'MALE'}
@@ -151,12 +166,6 @@ const Avatar: React.FC<Props> = ({
     </div>
   );
 
-  const BlobFallback = () => (
-    <div className="memori--blob-container">
-      {isClient && <Blob speaking={isPlayingAudio} avatar={getAvatarUrl()} />}
-    </div>
-  );
-
   const getAvatarStyle = () => {
     if (integrationConfig?.avatar === 'readyplayerme') {
       return {
@@ -175,7 +184,8 @@ const Avatar: React.FC<Props> = ({
   };
 
   const renderIntegrationsLink = () => {
-    if (!(instruct && !hasUserActivatedSpeak && memori.isGiver && tenant?.id)) return null;
+    if (!(instruct && !hasUserActivatedSpeak && memori.isGiver && tenant?.id))
+      return null;
 
     const href = `https://${tenant.id}/${
       memori.culture === 'it-IT' ? 'it' : 'en'
@@ -201,9 +211,6 @@ const Avatar: React.FC<Props> = ({
     );
   };
 
-  console.log('animation', animation);
-  console.log('speaking', isPlayingAudio);
-  console.log('loading', loading);
   return (
     <>
       {renderAvatar()}

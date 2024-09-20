@@ -1,16 +1,10 @@
-import { CSSProperties, useRef } from 'react';
-import React, { Suspense } from 'react';
-import Avatar from './components/halfbodyAvatar';
-import FullbodyAvatar, {
-  FullbodyAvatarProps,
-} from './components/fullbodyAvatar';
-import Loader from './components/loader';
+import { CSSProperties } from 'react';
+import React from 'react';
+import FullbodyAvatar from './components/fullbodyAvatar';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, SpotLight, Environment } from '@react-three/drei';
 import { isAndroid, isiOS } from '../../../helpers/utils';
-import { useThree } from '@react-three/fiber';
-import { useState, useEffect, useCallback } from 'react';
-import { GUI } from 'lil-gui';
+import { useState, useEffect } from 'react';
 import AnimationControlPanel from './components/controls';
 import HalfBodyAvatar from './components/halfbodyAvatar';
 
@@ -239,7 +233,6 @@ export default function ContainerAvatarView({
       }
       camera={getCameraSettings(halfBody) as any}
     >
-      {/* <Suspense fallback={fallback || <Loader fallbackImg={fallbackImg} />} > */}
       {getLightingComponent()}
       {rotateAvatar && <OrbitControls enablePan={false} enableZoom={false} />}
       <AvatarView
@@ -253,7 +246,6 @@ export default function ContainerAvatarView({
         animation={animation}
         showControls={showControls}
       />
-      {/* </Suspense> */}
     </Canvas>
   );
 }
