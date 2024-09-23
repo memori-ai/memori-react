@@ -272,6 +272,7 @@
     "USER_CANT_ENABLE_CHAINING_OR_BOARD_OF_EXPERTS": "Benutzer: darf die Verkettung oder Expertengruppe nicht verwalten",
     "USER_CREATION_BILLING_DENIED_PERMISSION": "Sie haben nicht genügend Credits, um einen Zwilling zu erstellen",
     "USER_HAS_ONE_OR_MORE_COMPLETION_CONFIGS": "Der Benutzer verfügt über eine oder mehrere Abschlusskonfigurationen",
+    "USER_CANT_BE_DELETED": "Benutzer kann nicht gelöscht werden",
 
     "MEMORI_NOT_FOUND": "Erinnerungen nicht gefunden",
     "MEMORI_NOT_ACCESSIBLE": "Memori nicht zugänglich",
@@ -439,6 +440,7 @@
     "COMPLETION_CONFIG_MISSING_API_KEY": "Vervollständigungskonfiguration: fehlender API-Schlüssel",
     "COMPLETION_CONFIG_MISSING_MODEL": "Vervollständigungskonfiguration: fehlendes Modell",
     "COMPLETION_CONFIG_NO_PURPOSE_SPECIFIED": "Vervollständigungskonfiguration: Es muss mindestens ein Vervollständigungstyp angegeben werden",
+    "COMPLETION_CONFIG_INVALID_NAME": "Vervollständigungskonfiguration: ungültiger Name",
     "COMPLETION_CONFIG_INVALID_PURPOSE": "Vervollständigungskonfiguration: Ungültiger Vervollständigungstyp",
     "COMPLETION_CONFIG_INVALID_ENDPOINT": "Abschlusskonfiguration: Ungültiger Endpunkt",
     "COMPLETION_CONFIG_INCONSISTENT_ENDPOINT": "Abschlusskonfiguration: inkonsistenter Endpunkt",

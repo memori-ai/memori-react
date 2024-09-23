@@ -272,6 +272,7 @@
     "USER_CANT_ENABLE_CHAINING_OR_BOARD_OF_EXPERTS": "User: not allowed to manage chaining or expert group",
     "USER_CREATION_BILLING_DENIED_PERMISSION": "You don't have enough credits to create a Twin",
     "USER_HAS_ONE_OR_MORE_COMPLETION_CONFIGS": "The user has one or more completion configurations",
+    "USER_CANT_BE_DELETED": "User can't be deleted",
 
     "MEMORI_NOT_FOUND": "Memori not found",
     "MEMORI_NOT_ACCESSIBLE": "Memori not accessible",
@@ -439,6 +440,7 @@
     "COMPLETION_CONFIG_MISSING_API_KEY": "Completions configuration: missing API key",
     "COMPLETION_CONFIG_MISSING_MODEL": "Completions configuration: missing model",
     "COMPLETION_CONFIG_NO_PURPOSE_SPECIFIED": "Completions configuration: at least one completions type must be specified",
+    "COMPLETION_CONFIG_INVALID_NAME": "Completions configuration: invalid name",
     "COMPLETION_CONFIG_INVALID_PURPOSE": "Completions configuration: invalid completions type",
     "COMPLETION_CONFIG_INVALID_ENDPOINT": "Completions configuration: invalid endpoint",
     "COMPLETION_CONFIG_INCONSISTENT_ENDPOINT": "Completions configuration: inconsistent endpoint",
