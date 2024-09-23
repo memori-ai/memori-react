@@ -14,7 +14,7 @@ import { getTenant } from './helpers/tenant';
 import { installMathJax } from './helpers/utils';
 
 import i18n from './i18n';
-import { I18nextProvider, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import I18nWrapper from './I18nWrapper';
 
 export interface Props {
@@ -48,7 +48,7 @@ export interface Props {
   pin?: string;
   context?: { [key: string]: string };
   initialQuestion?: string;
-  uiLang?: 'en' | 'it' | 'IT' | 'EN';
+  uiLang?: 'en' | 'it' | 'fr' | 'es' | 'de' | 'IT' | 'EN' | 'FR' | 'ES' | 'DE';
   spokenLang?: string;
   multilingual?: boolean;
   authToken?: string;
@@ -343,7 +343,18 @@ Memori.propTypes = {
   pin: PropTypes.string,
   context: PropTypes.objectOf(PropTypes.any),
   initialQuestion: PropTypes.string,
-  uiLang: PropTypes.oneOf(['en', 'it', 'EN', 'IT']),
+  uiLang: PropTypes.oneOf([
+    'en',
+    'it',
+    'fr',
+    'es',
+    'de',
+    'EN',
+    'IT',
+    'FR',
+    'ES',
+    'DE',
+  ]),
   spokenLang: PropTypes.string,
   multilingual: PropTypes.bool,
   authToken: PropTypes.string,

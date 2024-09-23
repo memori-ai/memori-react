@@ -270,7 +270,7 @@
     "USER_CANT_ENABLE_DCM_INTEGRATION": "Utente: non abilitato a gestire l'integrazione con DCM",
     "USER_CANT_ENABLE_CHAINING_OR_BOARD_OF_EXPERTS": "Utente: non abilitato a gestire la concatenazione o il gruppo di esperti",
     "USER_CREATION_BILLING_DENIED_PERMISSION": "Non hai crediti sufficienti per creare un Twin",
-    "USER_HAS_ONE_OR_MORE_COMPLETION_CONFIGS": "L'utente ha una o più configurazioni",
+    "USER_HAS_ONE_OR_MORE_COMPLETION_CONFIGS": "L'utente ha una o più configurazioni completions",
 
     "MEMORI_NOT_FOUND": "Memori non trovato",
     "MEMORI_NOT_ACCESSIBLE": "Memori non accessibile",

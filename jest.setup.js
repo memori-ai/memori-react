@@ -19,7 +19,7 @@ let i18n = {
   language: 'en',
   lng: 'en',
   fallbackLng: 'en',
-  languages: ['it', 'en', 'default'],
+  languages: ['it', 'en', 'fr', 'de', 'es', 'default'],
   options: {},
   changeLanguage: jest.fn(),
 };
