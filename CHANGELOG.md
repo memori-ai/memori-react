@@ -1,5 +1,30 @@
 
 
+## [7.5.0](https://github.com/memori-ai/memori-react/compare/v7.4.6...v7.5.0) (2024-09-23)
+
+
+### Features
+
+* add new ui langs es, fr, de ([a15341c](https://github.com/memori-ai/memori-react/commit/a15341ceec7f8bc85a5b7c231b8e06ab6364cbcd))
+* added additive action weights change ([0fe809e](https://github.com/memori-ai/memori-react/commit/0fe809e20e58bae196936a9f9109910c4c6bbce5))
+* added showControls prop to Storybook ([fdb1f42](https://github.com/memori-ai/memori-react/commit/fdb1f4206b3ba8f949cdfe58d98568e53e0ca836))
+* added smooth animation transition ([c6abba8](https://github.com/memori-ai/memori-react/commit/c6abba85e5d396e218fb556a9f607eeab3df5b28))
+* added talking and loading animations triggered by corresponding props ([601f81d](https://github.com/memori-ai/memori-react/commit/601f81d520c7dda903be6ac74c4b7ef6544c48c4))
+* change ui lang updating spoken lang ([d30b921](https://github.com/memori-ai/memori-react/commit/d30b9210ef6300fe1fe6704a620e8605fec3c8a5))
+
+
+### Changes
+
+* added new gui for animations control ([428cb6f](https://github.com/memori-ai/memori-react/commit/428cb6f898d42b3775be7f0c4da6681dd0d71a35))
+* refactored directories RPM 3D Avatar ([1a1b9fa](https://github.com/memori-ai/memori-react/commit/1a1b9faf1018e9ce2e8ab7c67227fdfb05236b0d))
+
+
+### Maintenance
+
+* cleanup, fix avatar blob fallback ([74b522e](https://github.com/memori-ai/memori-react/commit/74b522e26f8de499ecf3e53050b8f33a782e9bbc))
+* update error codes ([b760518](https://github.com/memori-ai/memori-react/commit/b760518e64cfd472426cf3d718ec764d0b43739f))
+* update error codes ([7995e5d](https://github.com/memori-ai/memori-react/commit/7995e5d0b782bafa8f85bffb83dfc2ee104783f5))
+
 ## [7.4.6](https://github.com/memori-ai/memori-react/compare/v7.4.5...v7.4.6) (2024-09-19)
 
 
