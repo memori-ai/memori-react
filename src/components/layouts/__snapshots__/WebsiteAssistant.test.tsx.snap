@@ -19,7 +19,7 @@ exports[`renders WEBSITE_ASSISTANT layout unchanged 1`] = `
       >
         <button
           class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-website_assistant--trigger-button"
-          title="expand"
+          title="Espandi"
         >
           <div
             class="memori-blob"
@@ -56,5 +56,10 @@ exports[`renders WEBSITE_ASSISTANT layout unchanged 1`] = `
       style="display: none;"
     />
   </div>
+  <script
+    async=""
+    id="MathJax-script"
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  />
 </div>
 `;

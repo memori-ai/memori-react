@@ -79,8 +79,9 @@ const StartPanel: React.FC<Props> = ({
 
   useEffect(() => {
     if (
-      (i18n.language?.toUpperCase() ?? 'IT') !==
-        (language?.toUpperCase() ?? 'IT') &&
+      ((i18n.language?.toUpperCase() ?? 'IT') !==
+        (language?.toUpperCase() ?? 'IT') ||
+        translatedDescription !== memori.description) &&
       !!memori.description?.length
     ) {
       getTranslation(

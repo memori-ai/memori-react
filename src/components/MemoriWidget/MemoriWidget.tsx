@@ -74,7 +74,7 @@ import {
   stripMarkdown,
   stripOutputTags,
 } from '../../helpers/utils';
-import { anonTag } from '../../helpers/constants';
+import { anonTag, uiLanguages } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
 import { getCredits } from '../../helpers/credits';
 
@@ -489,6 +489,16 @@ const MemoriWidget = ({
       i18n.language ??
       'IT'
   );
+
+  /**
+   * Sets the language in the i18n instance
+   */
+  useEffect(() => {
+    if (userLang && uiLanguages.includes(userLang.toLowerCase())) {
+      // @ts-ignore
+      i18n.changeLanguage(userLang.toLowerCase());
+    }
+  }, [userLang]);
 
   const [loading, setLoading] = useState(false);
   const [memoriTyping, setMemoriTyping] = useState<boolean>(false);

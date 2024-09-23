@@ -69,7 +69,7 @@ exports[`renders Chat layout unchanged 1`] = `
           <div
             class="memori-export-history-button memori-header--button memori-header--button--export"
             data-headlessui-state=""
-            title="write_and_speak.exportChatHistoryMessage"
+            title="Vuoi esportare la cronologia chat?"
           >
             <button
               class="memori-button memori-button--circle memori-button--icon-only memori-button--disabled"
@@ -97,7 +97,7 @@ exports[`renders Chat layout unchanged 1`] = `
           </div>
           <button
             class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-settings"
-            title="widget.settings"
+            title="Impostazioni"
           >
             <span
               class="memori-button--icon"
@@ -125,7 +125,7 @@ exports[`renders Chat layout unchanged 1`] = `
               class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-header--button memori-header--button-share memori-button--primary"
               data-headlessui-state=""
               id="headlessui-menu-button-:r5:"
-              title="widget.share"
+              title="Condividi"
               type="button"
             >
               <div
@@ -168,13 +168,13 @@ exports[`renders Chat layout unchanged 1`] = `
                 <div
                   class="memori-tooltip--content"
                 >
-                  completionsEnabled
+                  IA evoluta, può rispondere con risposte generate automaticamente che talvolta potrebbero contenere informazioni non corrette
                 </div>
                 <div
                   class="memori-tooltip--trigger"
                 >
                   <span
-                    aria-label="completionsEnabled"
+                    aria-label="IA evoluta, può rispondere con risposte generate automaticamente che talvolta potrebbero contenere informazioni non corrette"
                   >
                     <svg
                       aria-hidden="true"
@@ -244,7 +244,7 @@ exports[`renders Chat layout unchanged 1`] = `
                 for="user-lang-pref"
                 id="user-lang-pref-label"
               >
-                write_and_speak.iWantToTalkToIn
+                Voglio parlare con Memori in
               </label>
               <select
                 aria-labelledby="user-lang-pref-label"
@@ -340,12 +340,12 @@ exports[`renders Chat layout unchanged 1`] = `
             <button
               class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
             >
-              write_and_speak.tryMeButton
+              INIZIAMO
             </button>
             <p
               class="memori--start-description"
             >
-              write_and_speak.pageTryMeExplanation
+              Per parlare con me clicca sul pulsante INIZIAMO per cominciare
             </p>
           </div>
         </div>
@@ -373,5 +373,10 @@ exports[`renders Chat layout unchanged 1`] = `
       style="display: none;"
     />
   </div>
+  <script
+    async=""
+    id="MathJax-script"
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+  />
 </div>
 `;

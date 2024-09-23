@@ -15,6 +15,8 @@ export const chatLanguages = [
   { value: 'JA', label: '日本語' },
 ];
 
+export const uiLanguages = ['en', 'it', 'fr', 'es', 'de'];
+
 export const allowedMediaTypes = [
   'image/jpeg',
   'image/png',
