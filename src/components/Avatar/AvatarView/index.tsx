@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import React from 'react';
+import React, { Suspense } from 'react';
 import FullbodyAvatar from './components/fullbodyAvatar';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, SpotLight, Environment } from '@react-three/drei';
@@ -7,6 +7,7 @@ import { isAndroid, isiOS } from '../../../helpers/utils';
 import { useState, useEffect } from 'react';
 import AnimationControlPanel from './components/controls';
 import HalfBodyAvatar from './components/halfbodyAvatar';
+import Loader from './components/loader';
 
 interface BaseAction {
   weight: number;
@@ -221,6 +222,8 @@ export default function ContainerAvatarView({
   eyeBlink,
   headMovement,
   speaking,
+  fallback,
+  fallbackImg,
   halfBody = true,
   loading,
   animation,
@@ -233,19 +236,21 @@ export default function ContainerAvatarView({
       }
       camera={getCameraSettings(halfBody) as any}
     >
-      {getLightingComponent()}
-      {rotateAvatar && <OrbitControls enablePan={false} enableZoom={false} />}
-      <AvatarView
-        halfBody={halfBody}
-        url={url}
-        sex={sex}
-        eyeBlink={eyeBlink}
-        headMovement={headMovement}
-        speaking={speaking}
-        loading={loading}
-        animation={animation}
-        showControls={showControls}
-      />
+      <Suspense fallback={fallback || <Loader fallbackImg={fallbackImg} />}>
+        {getLightingComponent()}
+        {rotateAvatar && <OrbitControls enablePan={false} enableZoom={false} />}
+        <AvatarView
+          halfBody={halfBody}
+          url={url}
+          sex={sex}
+          eyeBlink={eyeBlink}
+          headMovement={headMovement}
+          speaking={speaking}
+          loading={loading}
+          animation={animation}
+          showControls={showControls}
+        />
+      </Suspense>
     </Canvas>
   );
 }
