@@ -3,6 +3,7 @@ import {
   stripEmojis,
   stripMarkdown,
   stripOutputTags,
+  escapeHTML,
 } from './utils';
 
 describe('Utils/difference', () => {
@@ -137,5 +138,22 @@ describe('utils/stripOutputTags', () => {
       'test\n<output class="memori-output">pippo</output>'
     );
     expect(result).toEqual('test\n');
+  });
+});
+
+describe('utils/parsing combined', () => {
+  it('should remove output tag from real message', () => {
+    const result = escapeHTML(
+      stripMarkdown(
+        stripEmojis(
+          stripOutputTags(`Beh... grazie, davvero. Non so cosa dire, sono lusingata. Ma... mi scusi se glielo chiedo, è sicuro che non ci sia stato un errore? Di solito ricevo più critiche che complimenti per il mio lavoro. So di impegnarmi molto, faccio spesso straordinari e salto persino la pausa pranzo per finire le pratiche. Però mi rendo conto che a volte ci sono imprecisioni e ritardi nelle consegne... Forse c'è qualcosa che non sto capendo?
+
+    <output class="memori-emotion">["timore"]</output>`)
+        )
+      )
+    );
+    expect(result).toEqual(
+      `Beh... grazie, davvero. Non so cosa dire, sono lusingata. Ma... mi scusi se glielo chiedo, è sicuro che non ci sia stato un errore? Di solito ricevo più critiche che complimenti per il mio lavoro. So di impegnarmi molto, faccio spesso straordinari e salto persino la pausa pranzo per finire le pratiche. Però mi rendo conto che a volte ci sono imprecisioni e ritardi nelle consegne... Forse c'è qualcosa che non sto capendo?`
+    );
   });
 });

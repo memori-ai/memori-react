@@ -1940,7 +1940,7 @@ const MemoriWidget = ({
       `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
         userLang
       )}"><voice name="${getTTSVoice(userLang)}"><s>${replaceTextWithPhonemes(
-        escapeHTML(stripOutputTags(stripMarkdown(stripEmojis(text)))),
+        escapeHTML(stripMarkdown(stripEmojis(stripOutputTags(text)))),
         userLang.toLowerCase()
       )}</s></voice></speak>`,
       result => {
