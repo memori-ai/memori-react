@@ -1,5 +1,13 @@
 
 
+## [7.5.1](https://github.com/memori-ai/memori-react/compare/v7.5.0...v7.5.1) (2024-09-24)
+
+
+### Bug Fixes
+
+* avatar view add suspense ([b3d21ca](https://github.com/memori-ai/memori-react/commit/b3d21ca5cba02d8120297930935a35c1c7873e4e))
+* output tag parsing for tts ([a641461](https://github.com/memori-ai/memori-react/commit/a6414612bbf744d9e4b0f5fce28bc45887132902))
+
 ## [7.5.0](https://github.com/memori-ai/memori-react/compare/v7.4.6...v7.5.0) (2024-09-23)
 
 
