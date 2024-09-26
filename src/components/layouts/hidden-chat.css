@@ -129,6 +129,11 @@
   }
   
   @media (max-width: 768px) {
+
+    .sidebar-container{
+        display: none;
+    }
+    
     .sidebar {
       right: -100%;
       width: 100%;
