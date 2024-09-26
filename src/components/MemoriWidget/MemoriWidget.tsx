@@ -77,6 +77,7 @@ import {
 import { anonTag, uiLanguages } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
 import { getCredits } from '../../helpers/credits';
+import HiddenChatLayout from '../layouts/HiddenChat';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -333,7 +334,7 @@ export interface Props {
   memoriLang?: string;
   multilingual?: boolean;
   integration?: Integration;
-  layout?: 'DEFAULT' | 'FULLPAGE' | 'TOTEM' | 'CHAT' | 'WEBSITE_ASSISTANT';
+  layout?: 'DEFAULT' | 'FULLPAGE' | 'TOTEM' | 'CHAT' | 'WEBSITE_ASSISTANT' | 'HIDDEN_CHAT';
   customLayout?: React.FC<LayoutProps>;
   showShare?: boolean;
   showCopyButton?: boolean;
@@ -3134,6 +3135,8 @@ const MemoriWidget = ({
     ? FullPageLayout
     : selectedLayout === 'WEBSITE_ASSISTANT'
     ? WebsiteAssistantLayout
+    : selectedLayout === 'HIDDEN_CHAT'
+    ? HiddenChatLayout
     : FullPageLayout;
 
   return (
