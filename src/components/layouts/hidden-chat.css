@@ -127,6 +127,10 @@
     height: 90%;
     margin-top: 50px;
   }
+  .icon{
+      width: 25px;
+      height: 25px;
+  }
   
   @media (max-width: 768px) {
 
@@ -175,3 +179,5 @@
   .memori-button--icon > svg {
     margin: 0;
   }
+
+
