@@ -1,11 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
-import Button from '../ui/Button';
-import Blob from '../Blob/Blob';
-import Close from '../icons/Close';
 import { useTranslation } from 'react-i18next';
-import './hidden-chat.css';
 import QuestionHelp from '../icons/QuestionHelp';
 
 const HiddenChatLayout: React.FC<LayoutProps> = ({
@@ -17,26 +13,12 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   sessionId,
   hasUserActivatedSpeak,
 }) => {
-  const { t } = useTranslation();
-  const [collapsed, _setCollapsed] = useState(true);
-  const [expandedKey, setExpandedKey] = useState<string>();
   const [isOpen, setIsOpen] = useState(false);
-  const stopAudio = useMemo(() => chatProps?.stopAudio, [chatProps?.stopAudio]);
-
-  const setCollapsed = (collapsed: boolean) => {
-    _setCollapsed(collapsed);
-    setExpandedKey(collapsed ? undefined : new Date().toISOString());
-    try {
-      stopAudio?.();
-    } catch (e) {
-      console.log(e);
-    }
-  };
 
   const initChat = () => {
     try {
       window.speechSynthesis.speak(
-        new SpeechSynthesisUtterance('') // This is needed to enable the speech synthesis on iOS
+        new SpeechSynthesisUtterance('')
       );
     } catch (e) {
       console.error(e);
@@ -52,7 +34,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     if (mainDiv) {
       if (isOpen) {
         console.log('open');
-        mainDiv.style.width = 'calc(100% - 300px)'; // Adjust 300px to match your sidebar width
+        mainDiv.style.width = 'calc(100% - 300px)';
         mainDiv.style.marginRight = '300px';
         mainDiv.style.transition = 'all 0.5s';
       } else {
