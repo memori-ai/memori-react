@@ -3,6 +3,7 @@ import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { useTranslation } from 'react-i18next';
 import QuestionHelp from '../icons/QuestionHelp';
+import Close from '../icons/Close';
 
 const HiddenChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -70,10 +71,10 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
             htmlFor="sidebar-toggle"
             className="sidebar-toggle-label close-label"
           >
-            <span>CLOSE</span>
+            <span><Close className='icon-close' /></span>
           </label>
           <div className="sidebar-content">
-            <div className="memori-totem-layout--header">
+            <div className="memori-hidden-chat-layout--header">
               {Header && headerProps && (
                 <Header
                   position={{
@@ -82,13 +83,13 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                     placeName: '',
                   }}
                   {...headerProps}
-                  className="memori-totem-layout-header--layout"
+                  className="memori-hidden-chat-layout-header--layout"
                 />
               )}
             </div>
           </div>
           <div id="extension" />
-          <div className="memori-totem-layout--controls">
+          <div className="memori-hidden-chat-layout--controls">
             {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
               <Chat {...chatProps} />
             ) : (

@@ -4,13 +4,13 @@
     top: 0;
     right: 0;
     height: 100%;
-  }
-  
-  .sidebar-toggle {
+}
+
+.sidebar-toggle {
     display: none;
-  }
-  
-  .sidebar-toggle-label {
+}
+
+.sidebar-toggle-label {
     position: absolute;
     top: 50%;
     right: 0;
@@ -29,21 +29,21 @@
     transform: translateY(-50%);
     transition: all 0.3s ease-in-out;
     writing-mode: vertical-rl;
-  }
-  
-  .open-label {
+}
+
+.open-label {
     border-radius: 5px 0 0 5px;
-  }
-  
-  .close-label {
+}
+
+.close-label {
     right: 350px;
     border-radius: 0 5px 5px 0;
     opacity: 0;
     pointer-events: none;
     transform: rotate(180deg);
-  }
-  
-  .sidebar {
+}
+
+.sidebar {
     position: fixed;
     z-index: 1000;
     top: 0;
@@ -53,106 +53,79 @@
     background-color: white;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
     transition: right 0.3s ease-in-out;
-  }
-  
-  .sidebar-content h2 {
+}
+
+.sidebar-content h2 {
     margin-bottom: 20px;
     color: var(--memori-primary);
     font-size: 24px;
     font-weight: bold;
-  }
-  
-  .sidebar-content ul {
+}
+
+.sidebar-content ul {
     padding: 0;
     list-style-type: none;
-  }
-  
-  .sidebar-content li {
+}
+
+.sidebar-content li {
     margin-bottom: 10px;
-  }
-  
-  .sidebar-content a {
+}
+
+.sidebar-content a {
     display: flex;
     align-items: center;
     color: #4b5563;
     text-decoration: none;
     transition: color 0.2s ease-in-out;
-  }
-  
-  .sidebar-content a:hover {
+}
+
+.sidebar-content a:hover {
     color: var(--memori-primary);
-  }
-  
-  .sidebar-content svg {
+}
+
+.sidebar-content svg {
     width: 20px;
     height: 20px;
     margin-right: 10px;
-  }
-  
-  .sidebar-toggle:checked ~ .sidebar-container .sidebar {
+}
+
+.sidebar-toggle:checked ~ .sidebar-container .sidebar {
     right: 0;
-  }
-  
-  .sidebar-toggle:checked ~ .sidebar-container .open-label {
+}
+
+.sidebar-toggle:checked ~ .sidebar-container .open-label {
     opacity: 0;
     pointer-events: none;
     transform: translateY(-50%) translateX(350px);
-  }
-  
-  .loading {
+}
+
+.loading {
     display: flex;
     height: 100%;
     align-items: center;
     justify-content: center;
-  }
-  
-  .memori-totem-layout--header {
-    text-align: right;
-  }
-  
-  .sidebar-content {
+}
+
+
+.sidebar-content {
     position: absolute;
     top: -10px;
     width: 100%;
     padding: 20px;
-  }
-  
-  .sidebar-toggle:checked ~ .sidebar-container .close-label {
+}
+
+.sidebar-toggle:checked ~ .sidebar-container .close-label {
     opacity: 1;
     pointer-events: auto;
-  }
-  
-  .memori-totem-layout--controls {
+}
+
+.memori-hidden-chat-layout--controls {
     display: flex;
     height: 90%;
     margin-top: 50px;
-  }
-  .icon{
-      width: 25px;
-      height: 25px;
-  }
-  
-  @media (max-width: 768px) {
+}
 
-    .sidebar-container{
-        display: none;
-    }
-    
-    .sidebar {
-      right: -100%;
-      width: 100%;
-    }
-  
-    .sidebar-toggle:checked ~ .sidebar-container .open-label {
-      transform: translateY(-50%) translateX(100%);
-    }
-  
-    .close-label {
-      right: 100%;
-    }
-  }
-  
-  .memori-totem-layout-header--layout {
+.memori-hidden-chat-layout-header--layout {
     display: flex;
     width: 100%;
     align-items: center;
@@ -161,9 +134,9 @@
     margin: 0;
     background-color: white;
     color: white;
-  }
-  
-  .memori-header--button {
+}
+
+.memori-hidden-chat-layout-header--layout > button, .memori-hidden-chat-layout-header--layout > div > button {
     display: flex;
     width: 38px;
     height: 38px;
@@ -174,10 +147,37 @@
     background-color: var(--memori-primary);
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
-  }
-  
-  .memori-button--icon > svg {
+}
+
+.memori-button--icon > svg {
     margin: 0;
-  }
+}
+
+.icon,.icon-close {
+    width: 25px;
+    height: 25px;
+}
+
+.icon-close{
+  fill: white;
+}
 
 
+@media (max-width: 768px) {
+    .sidebar-container {
+        display: none;
+    }
+
+    .sidebar {
+        right: -100%;
+        width: 100%;
+    }
+
+    .sidebar-toggle:checked ~ .sidebar-container .open-label {
+        transform: translateY(-50%) translateX(100%);
+    }
+
+    .close-label {
+        right: 100%;
+    }
+}
