@@ -120,7 +120,7 @@ If you don't specify a layout, the default one is `FULLPAGE`.
 
 #### HIDDEN CHAT
 
-<img alt="Hidden Chat" src="./docs/hidden-chat.png">
+<img alt="Hidden Chat" src="./docs/hidden-chat.png" width="300">
 
 #### Custom layout
 
