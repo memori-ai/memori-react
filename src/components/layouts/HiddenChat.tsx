@@ -14,13 +14,12 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   sessionId,
   hasUserActivatedSpeak,
 }) => {
+  const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
 
   const initChat = () => {
     try {
-      window.speechSynthesis.speak(
-        new SpeechSynthesisUtterance('')
-      );
+      window.speechSynthesis.speak(new SpeechSynthesisUtterance(''));
     } catch (e) {
       console.error(e);
     }
@@ -64,14 +63,16 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
           htmlFor="sidebar-toggle"
           className="sidebar-toggle-label open-label"
         >
-          <QuestionHelp className="icon" />
+          <QuestionHelp className="icon" aria-label={t('expand')} />
         </label>
         <aside className="sidebar">
           <label
             htmlFor="sidebar-toggle"
             className="sidebar-toggle-label close-label"
           >
-            <span><Close className='icon-close' /></span>
+            <span>
+              <Close className="icon-close" aria-label={t('collapse')} />
+            </span>
           </label>
           <div className="sidebar-content">
             <div className="memori-hidden-chat-layout--header">
