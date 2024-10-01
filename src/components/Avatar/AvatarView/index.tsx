@@ -33,6 +33,7 @@ export interface Props {
   loading?: boolean;
   animation?: string;
   showControls?: boolean;
+  isZoomed?: boolean;
 }
 
 const baseActions: Record<string, BaseAction> = {
@@ -49,8 +50,9 @@ const baseActions: Record<string, BaseAction> = {
 
 const defaultStyles = {
   halfBody: {
-    width: '250px',
-    height: '250px',
+    width: '100%',
+    height: '100%',
+    minHeight: '500px', // Ensure minimum height
     backgroundColor: 'white',
     borderRadius: '100%',
   },
@@ -62,11 +64,17 @@ const defaultStyles = {
 };
 
 /* Animation Control Panel */
-const getCameraSettings = (halfBody: boolean) =>
+const getCameraSettings = (halfBody: boolean, isZoomed?: boolean) =>
   halfBody
     ? {
         fov: 40,
         position: [0, 0, 0.6],
+      }
+    : !halfBody && isZoomed
+    ? {
+        // Zoomed in
+        fov: 44,
+        position: [0,0,1.25],
       }
     : { fov: 40, position: [0, 0.0000175, 3] };
 
@@ -99,6 +107,7 @@ const AvatarComponent = ({
   timeScale: number;
   loading?: boolean;
   animation?: string;
+  isZoomed?: boolean;
 }) =>
   halfBody ? <HalfBodyAvatar {...props} /> : <FullbodyAvatar {...props} />;
 
@@ -112,6 +121,7 @@ const AvatarView = ({
   headMovement,
   speaking,
   halfBody,
+  isZoomed,
 }: Props & { halfBody: boolean }) => {
   const [currentBaseAction, setCurrentBaseAction] = useState({
     action: animation || 'Idle',
@@ -209,6 +219,7 @@ const AvatarView = ({
         currentBaseAction={currentBaseAction}
         timeScale={timeScale}
         animation={animation}
+        isZoomed={isZoomed}
       />
     </>
   );
@@ -228,13 +239,14 @@ export default function ContainerAvatarView({
   loading,
   animation,
   showControls = false,
+  isZoomed,
 }: Props) {
   return (
     <Canvas
       style={
         style || (halfBody ? defaultStyles.halfBody : defaultStyles.fullBody)
       }
-      camera={getCameraSettings(halfBody) as any}
+      camera={getCameraSettings(halfBody, isZoomed) as any}
     >
       <Suspense fallback={fallback || <Loader fallbackImg={fallbackImg} />}>
         {getLightingComponent()}
@@ -249,6 +261,7 @@ export default function ContainerAvatarView({
           loading={loading}
           animation={animation}
           showControls={showControls}
+          isZoomed={isZoomed}
         />
       </Suspense>
     </Canvas>

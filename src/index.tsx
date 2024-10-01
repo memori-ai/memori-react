@@ -321,6 +321,8 @@ Memori.propTypes = {
     'TOTEM',
     'WEBSITE_ASSISTANT',
     'CHAT',
+    'HIDDEN_CHAT',
+    'ZOOMED_FULL_BODY'
   ]),
   customLayout: PropTypes.any,
   showShare: PropTypes.bool,

@@ -31,6 +31,7 @@ export interface Props {
   baseUrl?: string;
   apiUrl?: string;
   animation?: string;
+  isZoomed?: boolean;
 }
 
 const Avatar: React.FC<Props> = ({
@@ -47,6 +48,7 @@ const Avatar: React.FC<Props> = ({
   baseUrl,
   apiUrl,
   animation,
+  isZoomed = false,
 }) => {
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
@@ -73,12 +75,12 @@ const Avatar: React.FC<Props> = ({
     return undefined;
   };
 
-  // Render the avatar, if the avatar is a user avatar, the avatar is rendered, if the avatar is a default avatar, the avatar is rendered
   const renderAvatar = () => {
     if (
       (integrationConfig?.avatar === 'readyplayerme' ||
         integrationConfig?.avatar === 'readyplayerme-full' ||
-        integrationConfig?.avatar === 'customglb') &&
+        integrationConfig?.avatar === 'customglb' ||
+        integrationConfig?.avatar === 'customrpm') &&
       integrationConfig?.avatarURL
     ) {
       return (
@@ -133,6 +135,7 @@ const Avatar: React.FC<Props> = ({
             speaking={isPlayingAudio}
             loading={loading}
             style={getAvatarStyle()}
+            isZoomed={isZoomed}
           />
         </ErrorBoundary>
       );
@@ -177,8 +180,8 @@ const Avatar: React.FC<Props> = ({
       };
     }
     return {
-      width: '600px',
-      height: '600px',
+      width: '100%',
+      height: '100%',
       backgroundColor: 'none',
     };
   };

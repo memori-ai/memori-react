@@ -100,6 +100,7 @@ Default.args = {
     'https://assets.memori.ai/api/v2/asset/d8035229-08cf-42a7-a532-ab051df2603d.png',
 };
 
+
 export const EyeBlink = Template.bind({});
 EyeBlink.args = {
   eyeBlink: true,
@@ -151,6 +152,20 @@ Fullbody.args = {
   headMovement: true,
   rotateAvatar: true,
   speaking: false,
+  url: 'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb',
+  fallbackImg:
+    'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
+  halfBody: false,
+};
+
+export const FullbodyZoomed = Template.bind({});
+FullbodyZoomed.args = {
+  sex: 'MALE',
+  eyeBlink: true,
+  headMovement: true,
+  rotateAvatar: true,
+  speaking: false,
+  isZoomed: true,
   url: 'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
