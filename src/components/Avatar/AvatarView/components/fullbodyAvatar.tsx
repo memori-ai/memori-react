@@ -30,10 +30,12 @@ export interface FullbodyAvatarProps {
   timeScale: number;
   loading?: boolean;
   speaking?: boolean;
+  isZoomed?: boolean;
 }
 
 const AVATAR_POSITION = new Vector3(0, -1, 0);
 const AVATAR_ROTATION = new Euler(0.175, 0, 0);
+const AVATAR_POSITION_ZOOMED = new Vector3(0, -1.53, 0);
 const ANIMATION_URLS = {
   MALE: 'https://assets.memori.ai/api/v2/asset/5de7456f-0cd8-4e29-95a7-0cd0045a5325.glb',
   FEMALE:
@@ -46,7 +48,8 @@ export default function FullbodyAvatar({
   onLoaded,
   currentBaseAction,
   additiveActions,
-  timeScale
+  timeScale,
+  isZoomed,
 }: FullbodyAvatarProps) {
   const { scene } = useGLTF(url);
   const { animations } = useGLTF(ANIMATION_URLS[sex]);
@@ -87,21 +90,6 @@ export default function FullbodyAvatar({
     };
   }, [currentBaseAction, timeScale]);
 
-
-
-
-  // useEffect(() => {
-  //   if (speaking && actions['Talk 1'] && actions['Talk 2']) {
-  //     const talk1 = actions['Talk 1'].getClip();
-  //     const talk2 = actions['Talk 2'].getClip();
-  //     const talk = new AnimationClip(
-  //       'Talk',
-  //       talk1.duration + talk2.duration,
-  //     );
-  //     mixer.clipAction(talk, scene).play();
-  //   }
-  // }, [speaking]);
-
   // Additive actions
   useEyeBlink(additiveActions.blink.weight > 0, nodes);
   useMouthSpeaking(additiveActions.speak.weight > 0, nodes);
@@ -113,7 +101,10 @@ export default function FullbodyAvatar({
   });
 
   return (
-    <group position={AVATAR_POSITION} rotation={AVATAR_ROTATION}>
+    <group
+      position={isZoomed ? AVATAR_POSITION_ZOOMED : AVATAR_POSITION}
+      rotation={AVATAR_ROTATION}
+    >
       <primitive object={scene} />
     </group>
   );

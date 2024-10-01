@@ -99,7 +99,7 @@ const App = () => (
 
 ### Layouts
 
-The Memori can be displayed in five different layouts: `FULLPAGE`, `CHAT`, `WEBSITE_ASSISTANT`,`TOTEM` and `HIDDEN CHAT`.
+The Memori can be displayed in five different layouts: `FULLPAGE`, `CHAT`, `WEBSITE_ASSISTANT`,`TOTEM`, `HIDDEN CHAT` and `ZOOMED AVATAR`.
 If you don't specify a layout, the default one is `FULLPAGE`.
 
 #### FULLPAGE
@@ -121,6 +121,11 @@ If you don't specify a layout, the default one is `FULLPAGE`.
 #### HIDDEN CHAT
 
 <img alt="Hidden Chat" src="./docs/hidden-chat.png" width="300">
+
+#### ZOOMED AVATAR
+
+<img alt="Zoomed Avatar" src="./docs/zoomed-avatar.png" width="300">
+
 
 #### Custom layout
 
