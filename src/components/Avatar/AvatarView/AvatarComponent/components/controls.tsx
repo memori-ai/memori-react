@@ -13,23 +13,25 @@ interface AdditiveAction {
 
 export interface AnimationControlPanelProps {
   baseActions: Record<string, BaseAction>;
-  additiveActions: Record<string, AdditiveAction>;
   onBaseActionChange: (action: string) => void;
-  onAdditiveActionChange?: (action: string, weight: number) => void;
   currentBaseAction: {
     action: string;
     weight: number;
   };
+  onMorphTargetInfluencesChange: (influences: { [key: string]: number }) => void;
+  onMorphTargetDictionaryChange: (dictionary: { [key: string]: number }) => void;
+  morphTargetDictionary: { [key: string]: number };
   modifyTimeScale: (value: number) => void;
   timeScale: number;
 }
 
 const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
   onBaseActionChange,
-  onAdditiveActionChange,
   baseActions,
-  additiveActions,
   modifyTimeScale,
+  onMorphTargetInfluencesChange,
+  onMorphTargetDictionaryChange,
+  morphTargetDictionary,
   timeScale,
 }) => {
   const guiRef = useRef<GUI | null>(null);
@@ -59,14 +61,13 @@ const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
       crossFadeControlsRef.current.push(control);
     });
 
-    Object.entries(additiveActions).forEach(([name, settings]) => {
-      panelSettingsRef.current[name] = settings.weight;
+    Object.entries(morphTargetDictionary).forEach(([name, settings]) => {
+      panelSettingsRef.current[name] = settings/100;
       folder2
-        .add(panelSettingsRef.current, name, 0.0, 1.0, 0.01)
+        .add(panelSettingsRef.current, name, -1.0, 1.0, 0.01)
         .listen()
         .onChange((weight: number) => {
-          settings.weight = weight;
-          onAdditiveActionChange?.(name, weight);
+          onMorphTargetInfluencesChange({ [name]: weight });
         });
     });
 
@@ -85,7 +86,12 @@ const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
     };
   }, [
     onBaseActionChange,
-    onAdditiveActionChange /*onTimeScaleChange, setWeight, prepareCrossFade, modifyTimeScale */,
+    onMorphTargetInfluencesChange,
+    onMorphTargetDictionaryChange,
+    modifyTimeScale,
+    baseActions,
+    morphTargetDictionary,
+    timeScale,
   ]);
 
   return null; // This component doesn't render anything itself

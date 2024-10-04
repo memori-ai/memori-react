@@ -1,4 +1,6 @@
 import { useState, useEffect, useRef, useMemo } from 'react';
+import { Material, MeshStandardMaterial, SkinnedMesh } from 'three';
+import * as THREE from 'three';
 
 export const hasTouchscreen = (): boolean => {
   let hasTouchScreen = false;
@@ -308,3 +310,67 @@ export const installMathJax = () => {
 
   installMathJaxScript();
 };
+/**
+ * Corrects materials by setting some specific properties.
+ * This is often necessary when working with imported 3D models.
+ *
+ * @param materials - An object containing materials to be corrected.
+ */
+export function correctMaterials(materials: { [key: string]: Material }) {
+  Object.values(materials).forEach(material => {
+    if (material instanceof MeshStandardMaterial) {
+      // Improve the material's appearance
+      material.roughness = 0.8;
+      material.metalness = 0.1;
+
+      // Enable shadow casting and receiving
+      material.shadowSide = 2; // FrontSide and BackSide
+
+      // Improve texture rendering if the material uses textures
+      if (material.map) {
+        material.map.anisotropy = 16;
+      }
+    }
+  });
+}
+
+/**
+ * Type guard to check if an object is a SkinnedMesh.
+ * This is useful when working with 3D models that may contain different types of meshes.
+ *
+ * @param object - The object to check.
+ * @returns True if the object is a SkinnedMesh, false otherwise.
+ */
+export function isSkinnedMesh(object: any): object is SkinnedMesh {
+  return object.isSkinnedMesh === true;
+}
+
+/**
+ * Disposes of a Three.js object and its children recursively.
+ * This is important for memory management, especially when removing objects from the scene.
+ *
+ * @param object - The Three.js object to dispose.
+ */
+export function disposeObject(object: any) {
+  if ('geometry' in object && object.geometry instanceof THREE.BufferGeometry) {
+    object.geometry.dispose();
+  }
+
+  if ('material' in object) {
+    if (Array.isArray(object.material)) {
+      if (Array.isArray(object.material)) {
+        object.material.forEach((material: any) => {
+          if (material instanceof THREE.Material) {
+            material.dispose();
+          }
+        });
+      } else if (object && object.material instanceof THREE.Material) {
+        object.material.dispose();
+      }
+    }
+  }
+
+  if (object.children) {
+    object.children.forEach(disposeObject);
+  }
+}

@@ -34,7 +34,7 @@ export default function useMouthSpeaking(speaking: boolean | undefined, nodes: N
   useEffect(() => {
     if (!speaking) return;
 
-    const mouthMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar || nodes.Wolf3D_Avatar001) as SkinnedMesh;
+    const mouthMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar020 || nodes.Wolf3D_Avatar001) as SkinnedMesh;
     mouthStateRef.current.mesh = mouthMesh;
 
     if (mouthMesh?.morphTargetDictionary && mouthMesh?.morphTargetInfluences) {

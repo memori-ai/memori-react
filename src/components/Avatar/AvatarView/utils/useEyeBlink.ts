@@ -1,59 +1,100 @@
-import { SkinnedMesh } from 'three';
-import { Nodes } from './utils';
-import { useEffect, useRef, useCallback } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useCallback, useEffect, useRef } from 'react';
 
-interface BlinkState {
-  blinkTime: number;
-  headMesh: SkinnedMesh | null;
-  morphIndex: number;
+interface BlinkConfig {
+  minInterval: number;
+  maxInterval: number;
+  blinkDuration: number;
 }
 
-const BLINK_DURATION = 2;
-const BLINK_INTERVAL_MIN = 2000;
-const BLINK_INTERVAL_MAX = 7000;
+const DEFAULT_BLINK_CONFIG: BlinkConfig = {
+  minInterval: 1000,    // Minimum time between blinks in milliseconds
+  maxInterval: 5000,    // Maximum time between blinks in milliseconds
+  blinkDuration: 150,   // Duration of a single blink in milliseconds
+};
 
-export default function useEyeBlink(enabled: boolean | undefined, nodes: Nodes) {
-  const blinkStateRef = useRef<BlinkState>({
-    blinkTime: 999,
-    headMesh: null,
-    morphIndex: 0,
-  });
+interface UseAvatarBlinkProps {
+  enabled: boolean;
+  setMorphTargetInfluences: (morphTargetInfluences: any) => void;
+  config?: Partial<BlinkConfig>;
+}
 
-  const setNextBlink = useCallback(() => {
-    blinkStateRef.current.blinkTime = 0;
-    const nextBlinkDelay = Math.random() * (BLINK_INTERVAL_MAX - BLINK_INTERVAL_MIN) + BLINK_INTERVAL_MIN;
-    setTimeout(setNextBlink, nextBlinkDelay);
-  }, []);
+export function useAvatarBlink({
+  enabled,
+  setMorphTargetInfluences,
+  config = {}
+}: UseAvatarBlinkProps) {
+  const blinkTimeoutRef = useRef<NodeJS.Timeout>();
+  const isBlinkingRef = useRef(false);
+  const lastBlinkTime = useRef(0);
+  
+  const blinkConfig = {
+    ...DEFAULT_BLINK_CONFIG,
+    ...config
+  };
+  
+  const blink = useCallback(() => {
+    if (!enabled || isBlinkingRef.current) return;
+    
+    isBlinkingRef.current = true;
+    // Close eyes
+    setMorphTargetInfluences((prev: any) => ({
+      ...prev,
+      eyesClosed: 1
+    }));
+    
+    // Open eyes after blinkDuration
+    setTimeout(() => {
+      setMorphTargetInfluences((prev: any) => ({
+        ...prev,
+        eyesClosed: 0
+      }));
+      isBlinkingRef.current = false;
+      lastBlinkTime.current = Date.now();
+      
+      // Schedule next blink
+      scheduleNextBlink();
+    }, blinkConfig.blinkDuration);
+  }, [enabled, blinkConfig.blinkDuration, setMorphTargetInfluences]);
+  
+  const scheduleNextBlink = useCallback(() => {
+    if (blinkTimeoutRef.current) {
+      clearTimeout(blinkTimeoutRef.current);
+    }
+    
+    // Randomize the next blink delay between min and max interval
+    const nextBlinkDelay = Math.random() * 
+      (blinkConfig.maxInterval - blinkConfig.minInterval) + 
+      blinkConfig.minInterval;
+    
+    blinkTimeoutRef.current = setTimeout(blink, nextBlinkDelay);
+  }, [blink, blinkConfig.maxInterval, blinkConfig.minInterval]);
 
+  // Handle enabled state changes
   useEffect(() => {
-    if (!enabled) return;
-
-    const headMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar) as SkinnedMesh;
-    blinkStateRef.current.headMesh = headMesh;
-
-    if (headMesh?.morphTargetDictionary && headMesh?.morphTargetInfluences) {
-      blinkStateRef.current.morphIndex = headMesh.morphTargetDictionary.eyesClosed;
+    if (enabled) {
+      scheduleNextBlink();
+    } else {
+      if (blinkTimeoutRef.current) {
+        clearTimeout(blinkTimeoutRef.current);
+      }
+      // Reset eyes to open
+      setMorphTargetInfluences((prevInfluences: any) => ({
+        ...prevInfluences,
+        eyesClosed: 0
+      }));
     }
-
-    const initialBlinkDelay = setTimeout(setNextBlink, 3000);
-
+    
+    // Cleanup
     return () => {
-      clearTimeout(initialBlinkDelay);
+      if (blinkTimeoutRef.current) {
+        clearTimeout(blinkTimeoutRef.current);
+      }
     };
-  }, [nodes, enabled, setNextBlink]);
+  }, [enabled, scheduleNextBlink, setMorphTargetInfluences]);
 
-  useFrame((_, delta) => {
-    if (!enabled) return;
-
-    const { blinkTime, headMesh, morphIndex } = blinkStateRef.current;
-
-    if (blinkTime < BLINK_DURATION && headMesh?.morphTargetInfluences) {
-      const value = Math.abs(Math.sin((blinkTime * Math.PI) / 2));
-      blinkStateRef.current.blinkTime += delta * 10;
-      headMesh.morphTargetInfluences[morphIndex] = value;
-    } else if (headMesh?.morphTargetInfluences) {
-      headMesh.morphTargetInfluences[morphIndex] = 0;
-    }
-  });
+  return {
+    isBlinking: isBlinkingRef.current,
+    lastBlinkTime: lastBlinkTime.current,
+    triggerBlink: blink
+  };
 }

@@ -17,7 +17,7 @@ export default function useSmile(smiling: boolean | undefined, nodes: Nodes) {
   });
 
   useEffect(() => {
-    const headMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar || nodes.Wolf3D_Avatar001) as SkinnedMesh;
+    const headMesh = (nodes.Wolf3D_Head || nodes.Wolf3D_Avatar020 || nodes.Wolf3D_Avatar001) as SkinnedMesh;
     smileStateRef.current.headMesh = headMesh;
 
     if (headMesh?.morphTargetDictionary && headMesh?.morphTargetInfluences) {

@@ -1,15 +1,17 @@
 import React, { useEffect, useMemo } from 'react';
 import { Object3D, Vector3 } from 'three';
 import { useGLTF } from '@react-three/drei';
-import useEyeBlink from '../utils/useEyeBlink';
-import useHeadMovement from '../utils/useHeadMovement';
-import useMouthSpeaking from '../utils/useMouthSpeaking';
-import { dispose, useGraph } from '@react-three/fiber';
-import { correctMaterials, hideHands, isSkinnedMesh } from '../utils/utils';
+import { correctMaterials, isSkinnedMesh } from '../../../../../helpers/utils';
+import { useGraph, dispose } from '@react-three/fiber';
+import { useAvatarBlink } from '../../utils/useEyeBlink';
+import useHeadMovement from '../../utils/useHeadMovement';
+import useMouthSpeaking from '../../utils/useMouthSpeaking';
+import { hideHands } from '../../utils/utils';
+
 
 interface HalfBodyAvatarProps {
   url: string;
-  eyeBlink?: boolean;
+  setMorphTargetInfluences: (morphTargetInfluences: any) => void;
   headMovement?: boolean;
   speaking?: boolean;
   onLoaded?: () => void;
@@ -19,7 +21,7 @@ const AVATAR_POSITION = new Vector3(0, -0.6, 0);
 
 export default function HalfBodyAvatar({
   url,
-  eyeBlink,
+  setMorphTargetInfluences,
   headMovement,
   speaking,
   onLoaded,
@@ -27,7 +29,15 @@ export default function HalfBodyAvatar({
   const { scene } = useGLTF(url);
   const { nodes, materials } = useGraph(scene);
 
-  useEyeBlink(eyeBlink, nodes);
+  useAvatarBlink({
+    enabled: true,
+    setMorphTargetInfluences,
+    config: {
+      minInterval: 1500,
+      maxInterval: 4000,
+      blinkDuration: 120
+    }
+  });
   useHeadMovement(headMovement, nodes);
   useMouthSpeaking(!!speaking, nodes);
 
