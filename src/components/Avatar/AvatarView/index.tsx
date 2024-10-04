@@ -254,7 +254,7 @@ export default function ContainerAvatarView({
   halfBody = true,
   loading,
   animation,
-  showControls = true,
+  showControls = false,
   isZoomed,
 }: Props) {
   return (
