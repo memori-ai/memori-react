@@ -434,8 +434,6 @@ ZoomedFullBody.args = {
   uiLang: 'it',
   showShare: true,
   showSettings: true,
-  // memori,
-  // tenant,
   memori: {
     memoriID: '6573844d-a7cd-47ef-9e78-840d82020c21',
     name: 'Nicola',
@@ -483,11 +481,11 @@ ZoomedFullBody.args = {
     coverURL:
       'https://assets.memori.ai/api/v2/asset/e9bb9f6d-8f34-45ab-af9e-6d630d9a51a8.png',
     avatar3DURL:
-      'https://assets.memori.ai/api/v2/asset/893c41df-7619-436d-9e86-fe1d406fc933.glb',
+      'https://assets.memori.ai/api/v2/asset/3f5ef41c-6c4c-449c-888d-cf9c89782528.glb',
     avatarOriginal3DURL:
-      'https://d1a370nemizbjq.cloudfront.net/c7c80a1d-deda-4fe1-96c6-fabad0771aa2.glb',
+      'https://assets.memori.ai/api/v2/asset/3f5ef41c-6c4c-449c-888d-cf9c89782528.glb',
     needsPosition: false,
-    voiceType: 'MALE',
+    voiceType: 'FEMALE',
     culture: 'it-IT',
     categories: [
       'biografico',
@@ -531,8 +529,7 @@ ZoomedFullBody.args = {
       ),
       avatar: 'readyplayerme-full',
       avatarURL:
-        'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb#' +
-        // 'https://models.readyplayer.me/63b558263858282637c54115.glb#' +
+        'https://assets.memori.ai/api/v2/asset/f26b627f-a5d6-45e9-a000-a3d8f70cfd1c.glb'+
         new Date(Date.now()).getTime(),
     }),
   },

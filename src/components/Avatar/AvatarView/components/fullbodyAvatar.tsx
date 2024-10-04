@@ -14,6 +14,11 @@ import useMouthSpeaking from '../utils/useMouthSpeaking';
 import useHeadMovement from '../utils/useHeadMovement';
 import useSmile from '../utils/useSmile';
 
+interface BaseAction {
+  weight: number;
+  action?: string;
+}
+
 export interface FullbodyAvatarProps {
   url: string;
   sex: 'MALE' | 'FEMALE';
@@ -35,11 +40,11 @@ export interface FullbodyAvatarProps {
 
 const AVATAR_POSITION = new Vector3(0, -1, 0);
 const AVATAR_ROTATION = new Euler(0.175, 0, 0);
-const AVATAR_POSITION_ZOOMED = new Vector3(0, -1.53, 0);
+const AVATAR_POSITION_ZOOMED = new Vector3(0, -1.45, 0);
 const ANIMATION_URLS = {
-  MALE: 'https://assets.memori.ai/api/v2/asset/5de7456f-0cd8-4e29-95a7-0cd0045a5325.glb',
+  MALE: 'https://assets.memori.ai/api/v2/asset/1c350a21-97d8-4add-82cc-9dc10767a26b.glb',
   FEMALE:
-    'https://assets.memori.ai/api/v2/asset/84487a2b-377c-4565-800a-51459d580ec8.glb',
+    'https://assets.memori.ai/api/v2/asset/a1908dbf-8ce8-438d-90df-acf9dc2604ad.glb',
 };
 
 export default function FullbodyAvatar({
@@ -60,7 +65,6 @@ export default function FullbodyAvatar({
   useEffect(() => {
     correctMaterials(materials);
     onLoaded?.();
-
     return () => {
       Object.values(materials).forEach(dispose);
       Object.values(nodes).filter(isSkinnedMesh).forEach(dispose);
@@ -91,10 +95,10 @@ export default function FullbodyAvatar({
   }, [currentBaseAction, timeScale]);
 
   // Additive actions
-  useEyeBlink(additiveActions.blink.weight > 0, nodes);
-  useMouthSpeaking(additiveActions.speak.weight > 0, nodes);
-  useHeadMovement(additiveActions.headMovement.weight > 0, nodes);
-  useSmile(additiveActions.smile.weight > 0, nodes);
+  useEyeBlink(additiveActions.eyesClosed.weight > 0, nodes);
+  useMouthSpeaking(additiveActions.Talk.weight > 0, nodes);
+  // useHeadMovement(additiveActions.headMovement.weight > 0, nodes);
+  useSmile(additiveActions.mouthSmile.weight > 0, nodes);
 
   useFrame((_, delta) => {
     mixer.update(delta * 0.001);

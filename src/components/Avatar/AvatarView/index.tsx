@@ -19,6 +19,30 @@ interface AdditiveAction {
   action?: string;
 }
 
+const baseActions: Record<string, BaseAction> = {
+  'Gioia1': { weight: 0 },
+  'Gioia2': { weight: 0 },
+  'Gioia3': { weight: 0 },
+  'Idle1': { weight: 1 },
+  'Idle2': { weight: 0 },
+  'Idle3': { weight: 0 },
+  'Idle4': { weight: 0 },
+  'Idle5': { weight: 0 },
+  Loading: { weight: 0 },
+  'Rabbia1': { weight: 0 },
+  'Rabbia2': { weight: 0 },
+  'Rabbia3': { weight: 0 },
+  'Sorpresa1': { weight: 0 },
+  'Sorpresa2': { weight: 0 },
+  'Sorpresa3': { weight: 0 },
+  'Timore1': { weight: 0 },
+  'Timore2': { weight: 0 },
+  'Timore3': { weight: 0 },
+  'Tristezza1': { weight: 0 },
+  'Tristezza2': { weight: 0 },
+  'Tristezza3': { weight: 0 },
+};
+
 export interface Props {
   url: string;
   sex: 'MALE' | 'FEMALE';
@@ -35,18 +59,6 @@ export interface Props {
   showControls?: boolean;
   isZoomed?: boolean;
 }
-
-const baseActions: Record<string, BaseAction> = {
-  Idle: { weight: 1 },
-  'Idle 1': { weight: 0 },
-  'Idle 2': { weight: 0 },
-  'Idle 3': { weight: 0 },
-  Loading: { weight: 0 },
-  Sad: { weight: 0 },
-  'Talk 1': { weight: 0 },
-  'Talk 2': { weight: 0 },
-  'Talk 3': { weight: 0 },
-};
 
 const defaultStyles = {
   halfBody: {
@@ -74,7 +86,7 @@ const getCameraSettings = (halfBody: boolean, isZoomed?: boolean) =>
     ? {
         // Zoomed in
         fov: 44,
-        position: [0,0,1.25],
+        position: [0, 0, 1.25],
       }
     : { fov: 40, position: [0, 0.0000175, 3] };
 
@@ -124,15 +136,19 @@ const AvatarView = ({
   isZoomed,
 }: Props & { halfBody: boolean }) => {
   const [currentBaseAction, setCurrentBaseAction] = useState({
-    action: animation || 'Idle',
+    action: animation || 'Idle1',
     weight: 1,
   });
 
   const [additiveActions, setAdditiveActions] = useState({
-    smile: { weight: 0 },
-    blink: { weight: eyeBlink ? 1 : 0 },
-    speak: { weight: speaking ? 1 : 0 },
-    headMovement: { weight: headMovement ? 1 : 0 },
+    mouthSmile: { weight: 0 },
+    eyesClosed: { weight: eyeBlink ? 1 : 0 },
+    Rabbia: { weight: 0 },
+    Sorpresa: { weight: 0 },
+    Talk: { weight: speaking ? 1 : 0 },
+    Timore: { weight: 0 },
+    Tristezza: { weight: 0 },
+    Gioria: { weight: 0 },
   });
 
   const [timeScale, setTimeScale] = useState(0.8);
@@ -157,13 +173,13 @@ const AvatarView = ({
 
   useEffect(() => {
     // If loading and not speaking, set to loading animation
-    if (loading && currentBaseAction.action !== 'Loading' && !speaking) {
-      setCurrentBaseAction({
-        action: 'Loading',
-        weight: 1,
-      });
-      return;
-    }
+    // if (loading && currentBaseAction.action !== 'Loading' && !speaking) {
+    //   setCurrentBaseAction({
+    //     action: 'Loading',
+    //     weight: 1,
+    //   });
+    //   return;
+    // }
 
     // Otherwise, if speaking, set to random talking animation
     if (speaking) {
@@ -173,21 +189,21 @@ const AvatarView = ({
 
       setAdditiveActions({
         ...additiveActions,
-        speak: { weight: 1 },
+        Talk: { weight: 1 },
       });
 
       setCurrentBaseAction({
         action: randomTalkingAnimation,
         weight: 1,
       });
-    } else if (!speaking && additiveActions.speak.weight !== 0) {
+    } else if (!speaking && additiveActions.Talk.weight !== 0) {
       // Otherwise, if not speaking, set to idle
       setAdditiveActions({
         ...additiveActions,
-        speak: { weight: 0 },
+        Talk: { weight: 0 },
       });
       setCurrentBaseAction({
-        action: 'Idle',
+        action:  'Idle 1 - neutral',
         weight: 1,
       });
     }

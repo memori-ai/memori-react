@@ -160,13 +160,13 @@ Fullbody.args = {
 
 export const FullbodyZoomed = Template.bind({});
 FullbodyZoomed.args = {
-  sex: 'MALE',
+  sex: 'FEMALE',
   eyeBlink: true,
   headMovement: true,
   rotateAvatar: true,
   speaking: false,
   isZoomed: true,
-  url: 'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb',
+  url: 'https://assets.memori.ai/api/v2/asset/3f5ef41c-6c4c-449c-888d-cf9c89782528.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
   halfBody: false,
