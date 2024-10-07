@@ -4,6 +4,7 @@ type Viseme = {
   name: string;
   duration: number;
   weight: number;
+  startTime: number;
 };
 
 export const useViseme = () => {
@@ -28,7 +29,7 @@ export const useViseme = () => {
   };
 
   const createVisemeSequence = useCallback((text: string, durationPerPhoneme: number = 0.1) => {
-    // Simple mapping of Italian phonemes to visemes
+    // Improved mapping of Italian phonemes to visemes
     const phonemeToViseme = (char: string): string => {
       char = char.toUpperCase();
       if ('AEIOU'.includes(char)) return visemeMap[char];
@@ -36,33 +37,61 @@ export const useViseme = () => {
       if ('FV'.includes(char)) return visemeMap['FF'];
       if ('TD'.includes(char)) return visemeMap['DD'];
       if ('KG'.includes(char)) return visemeMap['kk'];
-      if ('CS'.includes(char)) return visemeMap['SS'];
+      if ('CSZ'.includes(char)) return visemeMap['SS'];
       if ('NM'.includes(char)) return visemeMap['nn'];
-      if (char === 'R') return visemeMap['RR'];
-      if (char === 'L') return visemeMap['TH'];
+      if ('RL'.includes(char)) return visemeMap['RR'];
+      if ('GN'.includes(char)) return visemeMap['nn'];
+      if ('GL'.includes(char)) return visemeMap['TH'];
       return visemeMap['sil'];
     };
 
+    let startTime = 0;
     const sequence: Viseme[] = [];
     const chars = text.split('');
 
-    chars.forEach((char) => {
+    chars.forEach((char, index) => {
       if (char.trim() === '') {
         // Add a brief silence for spaces
         sequence.push({
           name: visemeMap['sil'],
           duration: durationPerPhoneme / 2,
-          weight: 1
+          weight: 1,
+          startTime,
         });
+        startTime += durationPerPhoneme / 2;
         return;
       }
 
       const visemeName = phonemeToViseme(char);
+      const nextChar = chars[index + 1];
+      const isLastChar = index === chars.length - 1;
+
+      // Adjust duration and weight based on surrounding characters
+      let duration = durationPerPhoneme;
+      let weight = 0.8;
+
+      if (!isLastChar && nextChar && phonemeToViseme(nextChar) === visemeName) {
+        duration *= 1.5; // Lengthen duration for consecutive same visemes
+      } else if (visemeName === visemeMap['sil']) {
+        duration *= 0.5; // Shorten duration for silence
+        weight = 0.5;
+      }
+
       sequence.push({
         name: visemeName,
-        duration: durationPerPhoneme,
-        weight: 1
+        duration,
+        weight,
+        startTime,
       });
+      startTime += duration;
+    });
+
+    // Add a final silence
+    sequence.push({
+      name: visemeMap['sil'],
+      duration: durationPerPhoneme / 2,
+      weight: 0.5,
+      startTime,
     });
 
     setCurrentVisemes(sequence);
@@ -72,6 +101,8 @@ export const useViseme = () => {
   const clearVisemes = useCallback(() => {
     setCurrentVisemes([]);
   }, []);
+
+  
 
   return {
     currentVisemes,

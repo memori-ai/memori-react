@@ -91,7 +91,7 @@ const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
     modifyTimeScale,
     baseActions,
     morphTargetDictionary,
-    timeScale,
+    timeScale
   ]);
 
   return null; // This component doesn't render anything itself

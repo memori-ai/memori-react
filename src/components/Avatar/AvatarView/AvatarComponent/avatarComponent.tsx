@@ -49,7 +49,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   chatEmission,
   showControls,
   animation,
-  loading,
+ // loading,
   url,
   sex,
   eyeBlink,
@@ -75,21 +75,29 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   const { createVisemeSequence, currentVisemes, clearVisemes } = useViseme();
 
   // Set the morph target influences for the given emotions
-  const setEmotion = useCallback(
-    (action: string) => {
-      const emotionMap = {
-        Gioia: { eyesClosed: 0.5, mouthSmile: 1 },
-        Rabbia: { eyesClosed: 1, mouthSmile: -0.5 },
-        Sorpresa: { mouthSmile: 0.5, eyesClosed: -0.2 },
-        Tristezza: { mouthSmile: -0.6, eyesClosed: 0.5 },
-        Timore: { mouthSmile: -0.5, eyesClosed: 1 },
-        default: { mouthSmile: 0, eyesClosed: 0 }
-      };
-      const emotion = Object.keys(emotionMap).find(key => action.startsWith(key)) || 'default';
-      setMorphTargetInfluences(emotionMap[emotion as keyof typeof emotionMap]);
-    },
-    []
-  );
+  const setEmotion = useCallback((action: string) => {
+    const emotionMap: Record<string, Record<string, number>> = {
+      Gioia: { Gioria: 1 },
+      Rabbia: { Rabbia: 1 },
+      Sorpresa: { Sorpresa: 1 },
+      Tristezza: { Tristezza: 1 },
+      Timore: { Timore: 1 },
+    };
+
+    const defaultEmotions = Object.keys(emotionMap).reduce((acc, key) => {
+      acc[key] = 0;
+      return acc;
+    }, {} as Record<string, number>);
+
+    const emotion = Object.keys(emotionMap).find(key => action.startsWith(key)) || 'default';
+    const emotionValues = emotion === 'default' ? defaultEmotions : emotionMap[emotion];
+
+    setMorphTargetInfluences(prevInfluences => ({
+      ...prevInfluences,
+      ...defaultEmotions,
+      ...emotionValues
+    }));
+  }, []);
 
   const onBaseActionChange = useCallback((action: string) => {
     setEmotion(action);
@@ -122,8 +130,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
 
   // Set the emotion based on the chatEmission
   useEffect(() => {
-
-    if(chatEmission){
+    if (chatEmission) {
       createVisemeSequence(chatEmission);
     }
 
@@ -144,19 +151,27 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       //Choose a random number between 1 and 3
       const randomNumber = Math.floor(Math.random() * 3) + 1;
       const emotion = `${outputContent}${randomNumber}`;
-      setEmotion(emotion);
+
+      onBaseActionChange(emotion);
     }
   }, [chatEmission]);
 
+  const resetToIdle = useCallback(() => {
+    const randomIdle = Math.floor(Math.random() * 5) + 1;
+    setCurrentBaseAction({
+      action: `Idle${randomIdle}`,
+      weight: 1,
+    });
+    setMorphTargetInfluences({ mouthSmile: 0, eyesClosed: 0 });
+  }, []);
+
+
   //Set a loading state to true if the avatar is loading
-  useEffect(() => {
-    if (loading) {
-      setCurrentBaseAction({
-        action: 'Idle1',
-        weight: 1,
-      });
-    }
-  }, [loading]);
+  // useEffect(() => {
+  //   if (loading) {
+  //     resetToIdle();
+  //   }
+  // }, [loading]);
 
   return (
     <>
