@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import AnimationControlPanel from './components/controls';
 import FullbodyAvatar from './components/fullbodyAvatar';
 import HalfBodyAvatar from './components/halfbodyAvatar';
-
+import { useViseme } from '../utils/useViseme';
 
 interface Props {
   showControls: boolean;
@@ -14,6 +14,7 @@ interface Props {
   headMovement: boolean;
   speaking: boolean;
   isZoomed: boolean;
+  chatEmission: any;
 }
 
 interface BaseAction {
@@ -30,7 +31,6 @@ const baseActions: Record<string, BaseAction> = {
   Idle3: { weight: 0 },
   Idle4: { weight: 0 },
   Idle5: { weight: 0 },
-  Loading: { weight: 0 },
   Rabbia1: { weight: 0 },
   Rabbia2: { weight: 0 },
   Rabbia3: { weight: 0 },
@@ -45,10 +45,8 @@ const baseActions: Record<string, BaseAction> = {
   Tristezza3: { weight: 0 },
 };
 
-
-
-
 export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
+  chatEmission,
   showControls,
   animation,
   loading,
@@ -74,42 +72,27 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
 
   const [timeScale, setTimeScale] = useState(0.8);
 
-  
+  const { createVisemeSequence, currentVisemes, clearVisemes } = useViseme();
+
+  // Set the morph target influences for the given emotions
+  const setEmotion = useCallback(
+    (action: string) => {
+      const emotionMap = {
+        Gioia: { eyesClosed: 0.5, mouthSmile: 1 },
+        Rabbia: { eyesClosed: 1, mouthSmile: -0.5 },
+        Sorpresa: { mouthSmile: 0.5, eyesClosed: -0.2 },
+        Tristezza: { mouthSmile: -0.6, eyesClosed: 0.5 },
+        Timore: { mouthSmile: -0.5, eyesClosed: 1 },
+        default: { mouthSmile: 0, eyesClosed: 0 }
+      };
+      const emotion = Object.keys(emotionMap).find(key => action.startsWith(key)) || 'default';
+      setMorphTargetInfluences(emotionMap[emotion as keyof typeof emotionMap]);
+    },
+    []
+  );
 
   const onBaseActionChange = useCallback((action: string) => {
-
-    // set the morph target influences for the given emotions
-    if(action === 'Gioia1' || action === 'Gioia2' || action === 'Gioia3'){
-      setMorphTargetInfluences({
-        'eyesClosed': 0.5,
-        'mouthSmile': 1,
-      })
-    }else if(action === 'Rabbia1' || action === 'Rabbia2' || action === 'Rabbia3'){
-      setMorphTargetInfluences({
-        'eyesClosed': 1,
-        'mouthSmile': -0.5,
-      })
-    }else if(action === 'Sorpresa1' || action === 'Sorpresa2' || action === 'Sorpresa3'){
-      setMorphTargetInfluences({
-        'mouthSmile': 0.5,
-        'eyesClosed': -0.5,
-      })
-    } else if(action === 'Tristezza1' || action === 'Tristezza2' || action === 'Tristezza3'){
-      setMorphTargetInfluences({
-        'mouthSmile': -0.6,
-        'eyesClosed': 0.5,
-      })
-    } else if(action === 'Timore1' || action === 'Timore2' || action === 'Timore3'){
-      setMorphTargetInfluences({
-        'mouthSmile': -0.5,
-        'eyesClosed': 1,
-      })
-    } else {
-      setMorphTargetInfluences({
-        'mouthSmile': 0,
-        'eyesClosed': 0,
-      })
-    }
+    setEmotion(action);
     setCurrentBaseAction({
       action,
       weight: 1,
@@ -137,22 +120,43 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
     setTimeScale(value);
   }, []);
 
+  // Set the emotion based on the chatEmission
   useEffect(() => {
-    if(loading){
-      setMorphTargetInfluences({
-        'mouthSmile': 0,
-        'eyesClosed': 0,
-      })
+
+    if(chatEmission){
+      createVisemeSequence(chatEmission);
+    }
+
+    //Check if chatEmission has a tag
+    const hasOutputTag = chatEmission?.includes(
+      '<output class="memori-emotion">'
+    );
+    const outputContent = hasOutputTag
+      ? chatEmission
+          ?.split('<output class="memori-emotion">')[1]
+          ?.split('</output>')[0]
+          ?.trim()
+      : null;
+
+    if (outputContent) {
+      //Based on the outputContent, set the emotion
+      //The outputContent could be: "Gioia", "Sorpresa", "Tristezza", "Rabbia", "Timore"
+      //Choose a random number between 1 and 3
+      const randomNumber = Math.floor(Math.random() * 3) + 1;
+      const emotion = `${outputContent}${randomNumber}`;
+      setEmotion(emotion);
+    }
+  }, [chatEmission]);
+
+  //Set a loading state to true if the avatar is loading
+  useEffect(() => {
+    if (loading) {
       setCurrentBaseAction({
-        action: 'Loading',
+        action: 'Idle1',
         weight: 1,
-      })
+      });
     }
   }, [loading]);
-
-
-
- 
 
   return (
     <>
@@ -168,30 +172,29 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           modifyTimeScale={modifyTimeScale}
         />
       )}
-      {
-        halfBody ? (
-          <HalfBodyAvatar
-            url={url}
-            setMorphTargetInfluences={setMorphTargetInfluences}
-            headMovement={headMovement}
-            speaking={speaking}
-          />
-        ) : (
-          <FullbodyAvatar
-            url={url}
-            sex={sex}
-            eyeBlink={eyeBlink}
-            speaking={speaking}
-            currentBaseAction={currentBaseAction}
-            timeScale={timeScale}
-            setMorphTargetInfluences={setMorphTargetInfluences}
-            setMorphTargetDictionary={setMorphTargetDictionary}
-            morphTargetInfluences={morphTargetInfluences}
-            morphTargetDictionary={morphTargetDictionary}
-            isZoomed={isZoomed}
-          />
-        )
-      }
+      {halfBody ? (
+        <HalfBodyAvatar
+          url={url}
+          setMorphTargetInfluences={setMorphTargetInfluences}
+          headMovement={headMovement}
+          speaking={speaking}
+        />
+      ) : (
+        <FullbodyAvatar
+          url={url}
+          sex={sex}
+          eyeBlink={eyeBlink}
+          speaking={speaking}
+          currentBaseAction={currentBaseAction}
+          timeScale={timeScale}
+          setMorphTargetInfluences={setMorphTargetInfluences}
+          setMorphTargetDictionary={setMorphTargetDictionary}
+          morphTargetInfluences={morphTargetInfluences}
+          morphTargetDictionary={morphTargetDictionary}
+          isZoomed={isZoomed}
+          currentVisemes={currentVisemes}
+        />
+      )}
     </>
   );
 };

@@ -32,6 +32,7 @@ export interface Props {
   apiUrl?: string;
   animation?: string;
   isZoomed?: boolean;
+  chatProps?: any;
 }
 
 const Avatar: React.FC<Props> = ({
@@ -49,6 +50,7 @@ const Avatar: React.FC<Props> = ({
   apiUrl,
   animation,
   isZoomed = false,
+  chatProps,
 }) => {
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
@@ -136,6 +138,7 @@ const Avatar: React.FC<Props> = ({
             loading={loading}
             style={getAvatarStyle()}
             isZoomed={isZoomed}
+            chatEmission={chatProps?.dialogState?.emission}
           />
         </ErrorBoundary>
       );

@@ -1,17 +1,14 @@
 // Import necessary dependencies
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Vector3,
-  Euler,
-  AnimationMixer,
-  SkinnedMesh,
-  Object3D
-} from 'three';
+import { Vector3, Euler, AnimationMixer, SkinnedMesh, Object3D } from 'three';
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useGraph, dispose, useFrame } from '@react-three/fiber';
 import { correctMaterials, isSkinnedMesh } from '../../../../../helpers/utils';
 import { useAvatarBlink } from '../../utils/useEyeBlink';
-import { useViseme } from '../../utils/useViseme';
+
+const lerp = (start: number, end: number, alpha: number): number => {
+  return start * (1 - alpha) + end * alpha;
+};
 
 // Define the props interface for the FullbodyAvatar component
 interface FullbodyAvatarProps {
@@ -41,7 +38,8 @@ const AVATAR_POSITION_ZOOMED = new Vector3(0, -1.45, 0);
 // Define URLs for male and female animation assets
 const ANIMATION_URLS = {
   MALE: 'https://assets.memori.ai/api/v2/asset/1c350a21-97d8-4add-82cc-9dc10767a26b.glb',
-  FEMALE: 'https://assets.memori.ai/api/v2/asset/a1908dbf-8ce8-438d-90df-acf9dc2604ad.glb',
+  FEMALE:
+    'https://assets.memori.ai/api/v2/asset/a1908dbf-8ce8-438d-90df-acf9dc2604ad.glb',
 };
 
 // Define the FullbodyAvatar component
@@ -55,7 +53,7 @@ export default function FullbodyAvatar({
   setMorphTargetInfluences,
   setMorphTargetDictionary,
   morphTargetInfluences,
-  eyeBlink
+  eyeBlink,
 }: FullbodyAvatarProps) {
   // Load the 3D model and animations
   const { scene } = useGLTF(url);
@@ -63,7 +61,7 @@ export default function FullbodyAvatar({
   const { nodes, materials } = useGraph(scene);
   const { actions } = useAnimations(animations, scene);
   const [mixer] = useState(() => new AnimationMixer(scene));
-  
+
   // Create a ref for the SkinnedMesh
   const avatarMeshRef = useRef<SkinnedMesh>();
 
@@ -73,31 +71,28 @@ export default function FullbodyAvatar({
     config: {
       minInterval: 1500,
       maxInterval: 4000,
-      blinkDuration: 120
-    }
+      blinkDuration: 120,
+    },
   });
 
-  
-  
   // Effect to setup morphTargets and cleanup
   useEffect(() => {
     // Correct materials for the avatar
     correctMaterials(materials);
-    
+
     // Find the avatar mesh
     scene.traverse((object: Object3D) => {
       if (object instanceof SkinnedMesh && object.name === 'Wolf3D_Avatar020') {
         avatarMeshRef.current = object;
-        
+
         // Set up morph target dictionary and influences
         if (object.morphTargetDictionary && object.morphTargetInfluences) {
           setMorphTargetDictionary(object.morphTargetDictionary);
-          
+
           // Create an object with all morph target influences set to 0
-          const initialInfluences = Object.keys(object.morphTargetDictionary).reduce(
-            (acc, key) => ({ ...acc, [key]: 0 }),
-            {}
-          );
+          const initialInfluences = Object.keys(
+            object.morphTargetDictionary
+          ).reduce((acc, key) => ({ ...acc, [key]: 0 }), {});
           setMorphTargetInfluences(initialInfluences);
         }
       }
@@ -111,15 +106,24 @@ export default function FullbodyAvatar({
       Object.values(materials).forEach(dispose);
       Object.values(nodes).filter(isSkinnedMesh).forEach(dispose);
     };
-  }, [materials, nodes, url, onLoaded, setMorphTargetDictionary, setMorphTargetInfluences]);
+  }, [
+    materials,
+    nodes,
+    url,
+    onLoaded,
+    setMorphTargetDictionary,
+    setMorphTargetInfluences,
+  ]);
 
   // Effect to handle animation changes
   useEffect(() => {
     if (!actions || !currentBaseAction.action) return;
-    
+
     const newAction = actions[currentBaseAction.action];
     if (!newAction) {
-      console.warn(`Animation "${currentBaseAction.action}" not found in actions.`);
+      console.warn(
+        `Animation "${currentBaseAction.action}" not found in actions.`
+      );
       return;
     }
 
@@ -142,12 +146,17 @@ export default function FullbodyAvatar({
     if (avatarMeshRef.current && avatarMeshRef.current.morphTargetDictionary) {
       Object.entries(morphTargetInfluences).forEach(([key, value]) => {
         const index = avatarMeshRef.current!.morphTargetDictionary![key];
-        if (typeof index === 'number' && avatarMeshRef.current!.morphTargetInfluences) {
-          avatarMeshRef.current!.morphTargetInfluences[index] = value;
+        if (
+          typeof index === 'number' &&
+          avatarMeshRef.current!.morphTargetInfluences
+        ) {
+          const currentValue =
+            avatarMeshRef.current!.morphTargetInfluences[index];
+          const smoothValue = lerp(currentValue, value, 0.1);
+          avatarMeshRef.current!.morphTargetInfluences[index] = smoothValue;
         }
       });
     }
-    
     // Update the animation mixer
     mixer.update(delta * 0.001);
   });

@@ -21,6 +21,7 @@ export interface Props {
   animation?: string;
   showControls?: boolean;
   isZoomed?: boolean;
+  chatEmission?: any;
 }
 
 const defaultStyles = {
@@ -83,6 +84,7 @@ export default function ContainerAvatarView({
   animation,
   showControls = true,
   isZoomed,
+  chatEmission,
 }: Props) {
   return (
     <Canvas
@@ -105,6 +107,7 @@ export default function ContainerAvatarView({
           headMovement={headMovement || false}
           speaking={speaking || false}
           halfBody={halfBody || false}
+          chatEmission={chatEmission}
 />
       </Suspense>
     </Canvas>
