@@ -16,7 +16,7 @@ import { installMathJax } from './helpers/utils';
 import i18n from './i18n';
 import { useTranslation } from 'react-i18next';
 import I18nWrapper from './I18nWrapper';
-
+import { VisemeProvider } from './context/visemeContext';
 export interface Props {
   memoriName?: string | null;
   memoriID?: string | null;
@@ -223,85 +223,87 @@ const Memori: React.FC<Props> = ({
     installMathJax();
   }, []);
 
-  const renderer = memori ? (
-    <MemoriWidget
-      layout={layout}
-      customLayout={customLayout}
-      height={height}
-      baseUrl={
-        baseURL ||
-        (tenantID.startsWith('https://') ? tenantID : `https://${tenantID}`)
-      }
-      apiUrl={apiURL}
-      memori={{
-        ...memori,
-        secretToken,
-      }}
-      ownerUserName={ownerUserName ?? memori.ownerUserName}
-      ownerUserID={ownerUserID ?? memori.ownerUserID}
-      tenantID={tenantID}
-      memoriLang={spokenLang ?? memori.culture?.split('-')?.[0]}
-      multilingual={multilingual}
-      tenant={tenant}
-      secret={secretToken}
-      sessionID={sessionID}
-      showShare={showShare}
-      showCopyButton={showCopyButton}
-      showTranslationOriginal={showTranslationOriginal}
-      showSettings={showSettings}
-      showInstruct={showInstruct}
-      showTypingText={showTypingText}
-      showClear={showClear}
-      showOnlyLastMessages={showOnlyLastMessages}
-      showInputs={showInputs}
-      showDates={showDates}
-      showContextPerLine={showContextPerLine}
-      showLogin={showLogin ?? memori?.enableDeepThought}
-      integration={memori?.integrations?.find(i =>
-        integrationID
-          ? i.integrationID === integrationID
-          : !!i.publish && i.type === 'LANDING_EXPERIENCE'
-      )}
-      initialContextVars={context}
-      initialQuestion={initialQuestion}
-      authToken={authToken}
-      AZURE_COGNITIVE_SERVICES_TTS_KEY={
-        speechKey || AZURE_COGNITIVE_SERVICES_TTS_KEY
-      }
-      enableAudio={enableAudio}
-      defaultSpeakerActive={defaultSpeakerActive}
-      disableTextEnteredEvents={disableTextEnteredEvents}
-      onStateChange={onStateChange}
-      additionalInfo={additionalInfo}
-      customMediaRenderer={customMediaRenderer}
-      additionalSettings={additionalSettings}
-      userAvatar={userAvatar}
-      {...(tag && pin ? { personification: { tag, pin } } : {})}
-    />
-  ) : (
-    <div
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}
-    >
-      <p
-        style={{
-          textAlign: 'center',
-          margin: '2rem auto',
-          textTransform: 'capitalize',
-        }}
-      >
-        {t('loading') || 'Loading'}...
-      </p>
-    </div>
-  );
-
   return (
     <I18nWrapper>
-      <Toaster position="top-center" reverseOrder={true} />
-      {renderer}
+      <VisemeProvider>
+        <Toaster position="top-center" reverseOrder={true} />
+        {memori ? (
+          <MemoriWidget
+            layout={layout}
+            customLayout={customLayout}
+            height={height}
+            baseUrl={
+              baseURL ||
+              (tenantID.startsWith('https://')
+                ? tenantID
+                : `https://${tenantID}`)
+            }
+            apiUrl={apiURL}
+            memori={{
+              ...memori,
+              secretToken,
+            }}
+            ownerUserName={ownerUserName ?? memori.ownerUserName}
+            ownerUserID={ownerUserID ?? memori.ownerUserID}
+            tenantID={tenantID}
+            memoriLang={spokenLang ?? memori.culture?.split('-')?.[0]}
+            multilingual={multilingual}
+            tenant={tenant}
+            secret={secretToken}
+            sessionID={sessionID}
+            showShare={showShare}
+            showCopyButton={showCopyButton}
+            showTranslationOriginal={showTranslationOriginal}
+            showSettings={showSettings}
+            showInstruct={showInstruct}
+            showTypingText={showTypingText}
+            showClear={showClear}
+            showOnlyLastMessages={showOnlyLastMessages}
+            showInputs={showInputs}
+            showDates={showDates}
+            showContextPerLine={showContextPerLine}
+            showLogin={showLogin ?? memori?.enableDeepThought}
+            integration={memori?.integrations?.find(i =>
+              integrationID
+                ? i.integrationID === integrationID
+                : !!i.publish && i.type === 'LANDING_EXPERIENCE'
+            )}
+            initialContextVars={context}
+            initialQuestion={initialQuestion}
+            authToken={authToken}
+            AZURE_COGNITIVE_SERVICES_TTS_KEY={
+              speechKey || AZURE_COGNITIVE_SERVICES_TTS_KEY
+            }
+            enableAudio={enableAudio}
+            defaultSpeakerActive={defaultSpeakerActive}
+            disableTextEnteredEvents={disableTextEnteredEvents}
+            onStateChange={onStateChange}
+            additionalInfo={additionalInfo}
+            customMediaRenderer={customMediaRenderer}
+            additionalSettings={additionalSettings}
+            userAvatar={userAvatar}
+            {...(tag && pin ? { personification: { tag, pin } } : {})}
+          />
+        ) : (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <p
+              style={{
+                textAlign: 'center',
+                margin: '2rem auto',
+                textTransform: 'capitalize',
+              }}
+            >
+              {t('loading') || 'Loading'}...
+            </p>
+          </div>
+        )}
+      </VisemeProvider>
     </I18nWrapper>
   );
 };
@@ -322,7 +324,7 @@ Memori.propTypes = {
     'WEBSITE_ASSISTANT',
     'CHAT',
     'HIDDEN_CHAT',
-    'ZOOMED_FULL_BODY'
+    'ZOOMED_FULL_BODY',
   ]),
   customLayout: PropTypes.any,
   showShare: PropTypes.bool,
