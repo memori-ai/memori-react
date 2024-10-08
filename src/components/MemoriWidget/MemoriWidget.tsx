@@ -29,6 +29,7 @@ import React, {
   useCallback,
   CSSProperties,
   useRef,
+  useContext,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
@@ -79,6 +80,7 @@ import { getErrori18nKey } from '../../helpers/error';
 import { getCredits } from '../../helpers/credits';
 import HiddenChatLayout from '../layouts/HiddenChat';
 import ZoomedFullBodyLayout from '../layouts/ZoomedFullBody';
+import { useViseme } from '../../context/visemeContext';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -335,7 +337,14 @@ export interface Props {
   memoriLang?: string;
   multilingual?: boolean;
   integration?: Integration;
-  layout?: 'DEFAULT' | 'FULLPAGE' | 'TOTEM' | 'CHAT' | 'WEBSITE_ASSISTANT' | 'HIDDEN_CHAT' | 'ZOOMED_FULL_BODY';
+  layout?:
+    | 'DEFAULT'
+    | 'FULLPAGE'
+    | 'TOTEM'
+    | 'CHAT'
+    | 'WEBSITE_ASSISTANT'
+    | 'HIDDEN_CHAT'
+    | 'ZOOMED_FULL_BODY';
   customLayout?: React.FC<LayoutProps>;
   showShare?: boolean;
   showCopyButton?: boolean;
@@ -528,6 +537,9 @@ const MemoriWidget = ({
     'center'
   );
   const [hideEmissions, setHideEmissions] = useState(false);
+
+  const { addVisemeToQueue, processVisemeQueue, clearVisemes } = useViseme();
+
   useEffect(() => {
     setIsPlayingAudio(!!speechSynthesizer);
     memoriSpeaking = !!speechSynthesizer;
@@ -1604,6 +1616,7 @@ const MemoriWidget = ({
     speechConfig.speechSynthesisLanguage = getCultureCodeByLanguage(userLang);
     speechConfig.speechSynthesisVoiceName = getTTSVoice(userLang); // https://docs.microsoft.com/it-it/azure/cognitive-services/speech-service/language-support#text-to-speech
     speechConfig.speechRecognitionLanguage = getCultureCodeByLanguage(userLang);
+    speechConfig.setProperty('speechSynthesis.outputFormat', 'viseme');
 
     if (hasTouchscreen())
       speechConfig.speechSynthesisOutputFormat =
@@ -1938,6 +1951,17 @@ const MemoriWidget = ({
       onEndSpeakStartListen();
     };
 
+    // Clear any existing visemes before starting new speech
+    clearVisemes();
+
+    // Set up the viseme event handler
+    speechSynthesizer.visemeReceived = function (_, e) {
+      addVisemeToQueue({
+        visemeId: e.visemeId,
+        audioOffset: e.audioOffset,
+      });
+    };
+
     speechSynthesizer.speakSsmlAsync(
       `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
         userLang
@@ -1950,7 +1974,11 @@ const MemoriWidget = ({
           setIsPlayingAudio(true);
           memoriSpeaking = true;
 
+          // Process the viseme data
+          processVisemeQueue();
+
           try {
+            // Decode the audio data
             audioContext.decodeAudioData(result.audioData, function (buffer) {
               source.buffer = buffer;
               source.connect(audioContext.destination);
@@ -1960,6 +1988,7 @@ const MemoriWidget = ({
               }
             });
 
+            // Handle the audio context state changes
             audioContext.onstatechange = () => {
               if (
                 audioContext.state === 'suspended' ||
@@ -1982,6 +2011,7 @@ const MemoriWidget = ({
           } catch (e) {
             console.warn('speak error: ', e);
             window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+            clearVisemes();
             setIsPlayingAudio(false);
             memoriSpeaking = false;
 
@@ -1993,6 +2023,7 @@ const MemoriWidget = ({
           }
         } else {
           audioContext.resume();
+          clearVisemes();
           setIsPlayingAudio(false);
           memoriSpeaking = false;
           emitEndSpeakEvent();
