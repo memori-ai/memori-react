@@ -57,7 +57,7 @@ const Avatar: React.FC<Props> = ({
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
 
-  const { setMeshRef, clearVisemes } = useViseme();
+  const { setMeshRef, clearVisemes, setEmotion } = useViseme();
 
   useEffect(() => {
     setIsClient(true);
@@ -145,6 +145,7 @@ const Avatar: React.FC<Props> = ({
             setMeshRef={setMeshRef}
             isZoomed={isZoomed}
             chatEmission={chatProps?.dialogState?.emission}
+            setEmotion={setEmotion}
           />
         </ErrorBoundary>
       );

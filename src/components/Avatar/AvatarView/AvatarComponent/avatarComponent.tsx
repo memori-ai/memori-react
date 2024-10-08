@@ -16,6 +16,7 @@ interface Props {
   chatEmission: any;
   setMeshRef: any;
   clearVisemes: () => void;
+  setEmotion: (emotion: string) => void;
 }
 
 interface BaseAction {
@@ -59,6 +60,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   speaking,
   halfBody,
   isZoomed,
+  setEmotion,
 }) => {
   const [currentBaseAction, setCurrentBaseAction] = useState({
     action: animation || 'Idle1',
@@ -76,7 +78,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   const [timeScale, setTimeScale] = useState(0.8);
 
   // Set the morph target influences for the given emotions
-  const setEmotion = useCallback((action: string) => {
+  const setEmotionMorphTargetInfluences = useCallback((action: string) => {
     const emotionMap: Record<string, Record<string, number>> = {
       Gioia: { Gioria: 1 },
       Rabbia: { Rabbia: 1 },
@@ -84,6 +86,10 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       Tristezza: { Tristezza: 1 },
       Timore: { Timore: 1 },
     };
+
+    //remove the last character from the action
+    const newEmotion = action.slice(0, -1);
+    setEmotion(newEmotion);
 
     const defaultEmotions = Object.keys(emotionMap).reduce((acc, key) => {
       acc[key] = 0;
@@ -101,7 +107,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   }, []);
 
   const onBaseActionChange = useCallback((action: string) => {
-    setEmotion(action);
+    setEmotionMorphTargetInfluences(action);
     setCurrentBaseAction({
       action,
       weight: 1,

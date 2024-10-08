@@ -90,7 +90,7 @@ export default function HalfBodyAvatar({
   );
 
     // Update morph target influences
-    useFrame((_, delta) => {
+    useFrame((_) => {
       if (avatarMeshRef.current && avatarMeshRef.current.morphTargetDictionary) {
         updateMorphTargetInfluences();
       }

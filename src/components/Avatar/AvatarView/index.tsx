@@ -24,6 +24,7 @@ export interface Props {
   chatEmission?: any;
   setMeshRef?: any;
   clearVisemes: () => void;
+  setEmotion: (emotion: string) => void;
 }
 
 const defaultStyles = {
@@ -89,6 +90,7 @@ export default function ContainerAvatarView({
   chatEmission,
   setMeshRef,
   clearVisemes,
+  setEmotion,
 }: Props) {
   return (
     <Canvas
@@ -114,6 +116,7 @@ export default function ContainerAvatarView({
           chatEmission={chatEmission}
           setMeshRef={setMeshRef}
           clearVisemes={clearVisemes}
+          setEmotion={setEmotion}
         />
       </Suspense>
     </Canvas>

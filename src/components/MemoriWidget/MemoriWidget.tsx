@@ -538,7 +538,13 @@ const MemoriWidget = ({
   );
   const [hideEmissions, setHideEmissions] = useState(false);
 
-  const { addVisemeToQueue, processVisemeQueue, clearVisemes } = useViseme();
+  const {
+    addVisemeToQueue,
+    processVisemeQueue,
+    clearVisemes,
+    emotion,
+    getAzureStyleForEmotion,
+  } = useViseme();
 
   useEffect(() => {
     setIsPlayingAudio(!!speechSynthesizer);
@@ -1962,13 +1968,13 @@ const MemoriWidget = ({
       });
     };
 
-    speechSynthesizer.speakSsmlAsync(
-      `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
+    console.log(getAzureStyleForEmotion(emotion))
+    speechSynthesizer.speakSsmlAsync(`<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
         userLang
-      )}"><voice name="${getTTSVoice(userLang)}"><s>${replaceTextWithPhonemes(
+      )}"><voice name="${getTTSVoice(userLang)}"> <mstts:express-as style="${getAzureStyleForEmotion(emotion)}"><s>${replaceTextWithPhonemes(
         escapeHTML(stripMarkdown(stripEmojis(stripOutputTags(text)))),
         userLang.toLowerCase()
-      )}</s></voice></speak>`,
+      )}</s></mstts:express-as></voice></speak>`,
       result => {
         if (result) {
           setIsPlayingAudio(true);
