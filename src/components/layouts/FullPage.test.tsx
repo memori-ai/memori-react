@@ -2,6 +2,7 @@ import { render } from '@testing-library/react';
 import Memori from '../MemoriWidget/MemoriWidget';
 import { integration, memori, tenant } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
+import { VisemeProvider } from '../../context/visemeContext';
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -20,15 +21,17 @@ Object.defineProperty(window, 'matchMedia', {
 it('renders FullPage layout unchanged', () => {
   const { container } = render(
     <I18nWrapper>
-      <Memori
-        showShare={true}
-        showSettings={true}
-        memori={memori}
-        tenant={tenant}
-        tenantID="aisuru.com"
-        integration={integration}
+      <VisemeProvider>
+        <Memori
+          showShare={true}
+          showSettings={true}
+          memori={memori}
+          tenant={tenant}
+          tenantID="aisuru.com"
+          integration={integration}
         layout="FULLPAGE"
-      />
+        />
+      </VisemeProvider>
     </I18nWrapper>
   );
   expect(container).toMatchSnapshot();

@@ -82,33 +82,39 @@ Staging.args = {
   layout: 'FULLPAGE',
 };
 
-export const ProductionTotem = Template.bind({});
-ProductionTotem.args = {
-  memoriName: 'Prova12345',
-  ownerUserName: 'patini929',
-  memoriID: '514dd043-ec26-4c57-a014-a512c9014822',
-  ownerUserID: '1941d326-6986-4fa1-872b-458d09fb654c',
+export const Giovanna = Template.bind({});
+Giovanna.args = {
+  memoriName: 'Giovanna',
+  ownerUserName: 'memoridev',
+  memoriID: '3b308d07-0ff8-4f18-b885-fad501164c43',
+  ownerUserID: '13ab0379-a51d-4a83-8389-4f4b95e15567',
   tenantID: 'www.aisuru.com',
   engineURL: 'https://engine.memori.ai',
   apiURL: 'https://backend.memori.ai',
   baseURL: 'https://www.aisuru.com',
   uiLang: 'IT',
-  spokenLang: 'FR',
-  layout: 'FULLPAGE',
-  
-  showInstruct: false,
-  showSettings: true,
-  showClear: false,
+  spokenLang: 'IT',
+  layout: 'ZOOMED_FULL_BODY',
+  showInstruct: 'false',
+  showSettings: 'true',
+  showClear: 'false',
   showAIicon: 'true',
-  showWhyThisAnswer: true,
-  showTypingText: false,
-  showOnlyLastMessages: false,
-  showTranslationOriginal: false,
-  showCopyButton: false,
-  showShare: true,
-  showLogin: false,
-  enableAudio: true,
-  integrationID: '37d368cf-6241-4cc8-a1f3-742786f22431',
+  showWhyThisAnswer: 'true',
+  showTypingText: 'false',
+  showOnlyLastMessages: 'false',
+  showTranslationOriginal: 'false',
+  showCopyButton: 'false',
+  showShare: 'true',
+  showLogin: 'false',
+  enableAudio: 'true',
+  avatar3DURL:
+    'https://assets.memori.ai/api/v2/asset/3f5ef41c-6c4c-449c-888d-cf9c89782528.glb',
+  avatarOriginal3DURL:
+    'https://assets.memori.ai/api/v2/asset/3f5ef41c-6c4c-449c-888d-cf9c89782528.glb',
+  avatar: 'readyplayerme',
+  avatarURL:
+    'https://assets.memori.ai/api/v2/asset/893c41df-7619-436d-9e86-fe1d406fc933.glb#' +
+    new Date(Date.now()).getTime(),
 };
 
 const TemplateWithBatchButton: Story<Props> = args => (

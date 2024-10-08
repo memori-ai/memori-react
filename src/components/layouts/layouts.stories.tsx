@@ -4,6 +4,7 @@ import { memori, tenant, integration } from '../../mocks/data';
 import Memori, { LayoutProps, Props } from '../MemoriWidget/MemoriWidget';
 import I18nWrapper from '../../I18nWrapper';
 import Spin from '../ui/Spin';
+import { VisemeProvider } from '../../context/visemeContext';
 
 const meta: Meta = {
   title: 'General/Layouts',
@@ -62,7 +63,9 @@ export const CustomLayout: React.FC<LayoutProps> = ({
 
 const Template: Story<Props> = args => (
   <I18nWrapper>
-    <Memori {...args} />
+    <VisemeProvider>
+      <Memori {...args} />
+    </VisemeProvider>
   </I18nWrapper>
 );
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
@@ -434,6 +437,8 @@ ZoomedFullBody.args = {
   uiLang: 'it',
   showShare: true,
   showSettings: true,
+  showAudio: true,
+  enableAudio: true,
   memori: {
     memoriID: '6573844d-a7cd-47ef-9e78-840d82020c21',
     name: 'Nicola',
@@ -454,6 +459,7 @@ ZoomedFullBody.args = {
     giverTag: null,
     giverPIN: null,
     privacyType: 'PUBLIC',
+    enableAudio: true,
     secretToken: null,
     minimumNumberOfRecoveryTokens: null,
     totalNumberOfRecoveryTokens: null,
@@ -481,9 +487,9 @@ ZoomedFullBody.args = {
     coverURL:
       'https://assets.memori.ai/api/v2/asset/e9bb9f6d-8f34-45ab-af9e-6d630d9a51a8.png',
     avatar3DURL:
-      'https://assets.memori.ai/api/v2/asset/3f5ef41c-6c4c-449c-888d-cf9c89782528.glb',
+      'https://assets.memori.ai/api/v2/asset/9b83c11c-ebcc-4e36-ac6c-01d6e010c987.glb#1728304989956',
     avatarOriginal3DURL:
-      'https://assets.memori.ai/api/v2/asset/3f5ef41c-6c4c-449c-888d-cf9c89782528.glb',
+      'https://assets.memori.ai/api/v2/asset/9b83c11c-ebcc-4e36-ac6c-01d6e010c987.glb#1728304989956',
     needsPosition: false,
     voiceType: 'FEMALE',
     culture: 'it-IT',
@@ -529,7 +535,7 @@ ZoomedFullBody.args = {
       ),
       avatar: 'readyplayerme-full',
       avatarURL:
-        'https://assets.memori.ai/api/v2/asset/f26b627f-a5d6-45e9-a000-a3d8f70cfd1c.glb'+
+        'https://assets.memori.ai/api/v2/asset/9b83c11c-ebcc-4e36-ac6c-01d6e010c987.glb#1728304989956'+
         new Date(Date.now()).getTime(),
     }),
   },

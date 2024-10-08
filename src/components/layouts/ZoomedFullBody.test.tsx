@@ -17,18 +17,18 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-it('renders Chat layout unchanged', () => {
+it('renders ZOOMED_FULL_BODY layout unchanged', () => {
   const { container } = render(
     <I18nWrapper>
       <VisemeProvider>
         <Memori
           showShare={true}
-        showSettings={true}
-        memori={memori}
-        tenant={tenant}
-        tenantID="aisuru.com"
-        integration={integration}
-          layout="CHAT"
+          showSettings={true}
+          memori={memori}
+          tenant={tenant}
+          tenantID="aisuru.com"
+          integration={integration}
+          layout="ZOOMED_FULL_BODY"
         />
       </VisemeProvider>
     </I18nWrapper>
