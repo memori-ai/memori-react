@@ -176,7 +176,10 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           setMorphTargetInfluences={setMorphTargetInfluences}
           headMovement={headMovement}
           speaking={speaking}
+          eyeBlink={eyeBlink}
+          morphTargetInfluences={morphTargetInfluences}
           clearVisemes={clearVisemes}
+          setMorphTargetDictionary={setMorphTargetDictionary}
         />
       ) : (
         <FullbodyAvatar

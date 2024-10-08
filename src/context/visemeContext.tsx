@@ -20,7 +20,7 @@ interface VisemeContextType {
 
 const VisemeContext = createContext<VisemeContextType | undefined>(undefined);
 
-const VISEME_SMOOTHING = 0.35;
+const VISEME_SMOOTHING = 0.37;
 const DEFAULT_VISEME_DURATION = 0.1;
 const MINIMUM_ELAPSED_TIME = 0.01;
 const VISEME_SPEED_FACTOR = 1.0;
@@ -28,28 +28,29 @@ const AUDIO_PLAYBACK_RATE = 1.0;
 const VISEME_BASE_SPEED = 1.0;
 
 const VISEME_MAP: { [key: number]: string } = {
-  0: 'viseme_sil',
-  1: 'viseme_aa',
-  2: 'viseme_aa',
-  3: 'viseme_O',
-  4: 'viseme_E',
-  5: 'viseme_I',
-  6: 'viseme_I',
-  7: 'viseme_U',
-  8: 'viseme_O',
-  9: 'viseme_aa',
-  10: 'viseme_O',
-  11: 'viseme_aa',
-  12: 'viseme_CH',
-  13: 'viseme_RR',
-  14: 'viseme_SS',
-  15: 'viseme_SS',
-  16: 'viseme_CH',
-  17: 'viseme_TH',
-  18: 'viseme_FF',
-  19: 'viseme_DD',
-  20: 'viseme_kk',
-  21: 'viseme_PP',
+  0: 'viseme_sil', // silence
+  1: 'viseme_PP', // p, b, m
+  2: 'viseme_FF', // f, v
+  3: 'viseme_TH', // th, dh
+  4: 'viseme_DD', // t, d, n, l
+  5: 'viseme_kk', // k, g, ng
+  6: 'viseme_CH', // tS, dZ, S, Z
+  7: 'viseme_SS', // s, z
+  8: 'viseme_nn', // Not explicitly defined in Azure mapping, keeping for compatibility
+  9: 'viseme_RR', // r
+  10: 'viseme_aa', // A:
+  11: 'viseme_E', // e
+  12: 'viseme_I', // I
+  13: 'viseme_O', // O
+  14: 'viseme_U', // u
+  // Mapping the rest based on closest matches or keeping them as in the original mapping
+  15: 'viseme_kk', // g, k (same as 5)
+  16: 'viseme_CH', // ch, j, sh, zh (same as 6)
+  17: 'viseme_SS', // s, z (same as 7)
+  18: 'viseme_TH', // th, dh (same as 3)
+  19: 'viseme_RR', // r (same as 9)
+  20: 'viseme_kk', // w (closest match, could be debated)
+  21: 'viseme_PP', // y (closest match, could be debated)
 };
 
 export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -74,7 +75,7 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     if (mesh && mesh.morphTargetDictionary && mesh.morphTargetInfluences) {
       meshRef.current = mesh;
       setIsMeshSet(true);
-      console.log('Mesh set successfully:', mesh);
+      // console.log('Mesh set successfully:', mesh);
     } else {
       console.error('Invalid mesh provided:', mesh);
     }
@@ -82,7 +83,7 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
   const addVisemeToQueue = useCallback((viseme: AzureViseme) => {
     visemeQueueRef.current.push(viseme);
-    console.log('Viseme added to queue:', viseme);
+    // console.log('Viseme added to queue:', viseme);
   }, []);
 
   const getCurrentViseme = useCallback((elapsedTime: number) => {
@@ -129,7 +130,7 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     const visemeIndex = meshRef.current.morphTargetDictionary?.[viseme.name];
     if (typeof visemeIndex === 'number' && meshRef.current.morphTargetInfluences) {
       meshRef.current.morphTargetInfluences[visemeIndex] = currentVisemeWeightRef.current[viseme.name];
-      console.log(`Applied viseme: ${viseme.name}, weight: ${currentVisemeWeightRef.current[viseme.name]}`);
+      // console.log(`Applied viseme: ${viseme.name}, weight: ${currentVisemeWeightRef.current[viseme.name]}`);
     } else {
       console.error(`Viseme not found in morph target dictionary: ${viseme.name}`);
     }
@@ -166,7 +167,7 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     visemeQueueRef.current = [];
   
     if (azureVisemes.length === 0) {
-      console.log('No visemes to process');
+      // console.log('No visemes to process');
       return [];
     }
   
@@ -183,7 +184,7 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
           weight: 1,
           startTime: currentViseme.audioOffset / 10000000,
         };
-        console.log('Processed viseme:', processedViseme);
+        //console.log('Processed viseme:', processedViseme);
         return processedViseme;
       }
     );
@@ -194,7 +195,7 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     if (!isAnimatingRef.current) {
       isAnimatingRef.current = true;
       startTimeRef.current = performance.now();
-      console.log('Starting animation');
+      // console.log('Starting animation');
       animationFrameRef.current = requestAnimationFrame(animate);
     } else {
       // If already animating, adjust the start time for the new visemes
@@ -228,7 +229,7 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     currentVisemeWeightRef.current = {};
     startTimeRef.current = null;
     isAnimatingRef.current = false;
-    console.log('Visemes cleared');
+    // console.log('Visemes cleared');
   }, []);
 
   useEffect(() => {
