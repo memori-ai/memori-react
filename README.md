@@ -89,7 +89,7 @@ const App = () => (
 | `defaultSpeakerActive`             |                | `boolean`                                   | `true`                      | Default value for the speaker activation                                                                                                                                                                                                                                                                                                                                                                                                |
 | `disableTextEnteredEvents`         |                | `boolean`                                   | `false`                     | Disable MemoriTextEntered events listeners for `typeMessage` functions, useful to avoid issues with multiple widgets in page.                                                                                                                                                                                                                                                                                                           |
 | `AZURE_COGNITIVE_SERVICES_TTS_KEY` |                | `string`                                    |                             | Azure Cognitive Services TTS key, used to generate the audio of the Memori and for STT recognition                                                                                                                                                                                                                                                                                                                                      |
-| `layout`                           |                | `string`                                    |                             | Layout of the Memori, can be "FULLPAGE" (default), "CHAT", "WEBSITE_ASSISTANT", "TOTEM", "HIDDEN_CHAT" or "ZOOMED_AVATAR". see [below](#layouts)                                                                                                                                                                                                                                                                                        |
+| `layout`                           |                | `string`                                    |                             | Layout of the Memori, can be "FULLPAGE" (default), "CHAT", "WEBSITE_ASSISTANT", "TOTEM", "HIDDEN_CHAT" or "ZOOMED_FULL_BODY". see [below](#layouts)                                                                                                                                                                                                                                                                                        |
 | `customLayout`                     |                | `React.FC<LayoutProps>`                     |                             | Custom layout component, see [below](#custom-layout)                                                                                                                                                                                                                                                                                                                                                                                    |
 | `customMediaRenderer`              |                | `(mimeType: string) => JSX.Element \| null` |                             | Custom media renderer, see [below](#custom-media-renderer)                                                                                                                                                                                                                                                                                                                                                                              |
 | `additionalSettings`               |                | `JSX.Element`                               |                             | Custom JSX or component to render within the settings drawer                                                                                                                                                                                                                                                                                                                                                                            |
@@ -99,7 +99,7 @@ const App = () => (
 
 ### Layouts
 
-The Memori can be displayed in five different layouts: `FULLPAGE`, `CHAT`, `WEBSITE_ASSISTANT`,`TOTEM`, `HIDDEN_CHAT` and `ZOOMED_AVATAR`.
+The Memori can be displayed in five different layouts: `FULLPAGE`, `CHAT`, `WEBSITE_ASSISTANT`,`TOTEM`, `HIDDEN_CHAT` and `ZOOMED_FULL_BODY`.
 If you don't specify a layout, the default one is `FULLPAGE`.
 
 #### FULLPAGE
@@ -122,9 +122,9 @@ If you don't specify a layout, the default one is `FULLPAGE`.
 
 <img alt="Hidden Chat" src="./docs/hidden-chat.png" width="300">
 
-#### ZOOMED_AVATAR
+#### ZOOMED_FULL_BODY
 
-<img alt="Zoomed Avatar" src="./docs/zoomed-avatar.png" width="300">
+<img alt="Zoomed Full Body" src="./docs/zoomed-avatar.png" width="300">
 
 #### Custom layout
 
