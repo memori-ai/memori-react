@@ -22,6 +22,8 @@ export interface Props {
   showControls?: boolean;
   isZoomed?: boolean;
   chatEmission?: any;
+  setMeshRef?: any;
+  clearVisemes: () => void;
 }
 
 const defaultStyles = {
@@ -85,6 +87,8 @@ export default function ContainerAvatarView({
   showControls = true,
   isZoomed,
   chatEmission,
+  setMeshRef,
+  clearVisemes,
 }: Props) {
   return (
     <Canvas
@@ -108,7 +112,9 @@ export default function ContainerAvatarView({
           speaking={speaking || false}
           halfBody={halfBody || false}
           chatEmission={chatEmission}
-/>
+          setMeshRef={setMeshRef}
+          clearVisemes={clearVisemes}
+        />
       </Suspense>
     </Canvas>
   );

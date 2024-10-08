@@ -2,29 +2,32 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import { memori, tenant, integration } from '../../mocks/data';
 import Avatar from './Avatar';
-
+import { VisemeProvider } from '../../context/visemeContext';
 const integrationConfig = JSON.parse(integration.customData ?? '{}');
 
 it('renders defualt Avatar (blob) unchanged', () => {
   const { container } = render(
-    <Avatar
-      memori={memori}
+    <VisemeProvider>
+      <Avatar
+        memori={memori}
       tenant={tenant}
       instruct={false}
       avatar3dVisible={true}
       setAvatar3dVisible={() => {}}
       hasUserActivatedSpeak={false}
-      isPlayingAudio={false}
-    />
+        isPlayingAudio={false}
+      />
+    </VisemeProvider>
   );
   expect(container).toMatchSnapshot();
 });
 
 it('renders Avatar with blob and avatar in blob unchanged', () => {
   const { container } = render(
-    <Avatar
-      memori={memori}
-      integrationConfig={{
+    <VisemeProvider>
+      <Avatar
+        memori={memori}
+        integrationConfig={{
         ...integrationConfig,
         avatar: 'userAvatar',
         avatarURL: memori.avatarURL,
@@ -35,17 +38,19 @@ it('renders Avatar with blob and avatar in blob unchanged', () => {
       setAvatar3dVisible={() => {}}
       hasUserActivatedSpeak={false}
       isPlayingAudio={false}
-    />
+      />
+    </VisemeProvider>
   );
   expect(container).toMatchSnapshot();
 });
 
 it('renders Avatar with custom glb model unchanged', () => {
   const { container } = render(
-    <Avatar
-      memori={memori}
-      integration={integration}
-      integrationConfig={{
+    <VisemeProvider>
+      <Avatar
+        memori={memori}
+        integration={integration}
+        integrationConfig={{
         ...integrationConfig,
         avatar: 'customglb',
         avatarURL:
@@ -57,15 +62,17 @@ it('renders Avatar with custom glb model unchanged', () => {
       setAvatar3dVisible={() => {}}
       hasUserActivatedSpeak={false}
       isPlayingAudio={false}
-    />
+      />
+    </VisemeProvider>
   );
   expect(container).toMatchSnapshot();
 });
 
 it('renders Avatar with rpm 3d avatar unchanged', () => {
-  const { container } = render(
-    <Avatar
-      memori={memori}
+  const { container } = render( 
+    <VisemeProvider>
+      <Avatar
+        memori={memori}
       integration={integration}
       integrationConfig={{
         ...integrationConfig,
@@ -77,9 +84,10 @@ it('renders Avatar with rpm 3d avatar unchanged', () => {
       instruct={false}
       avatar3dVisible={true}
       setAvatar3dVisible={() => {}}
-      hasUserActivatedSpeak={false}
-      isPlayingAudio={false}
-    />
+        hasUserActivatedSpeak={false}
+        isPlayingAudio={false}
+      />
+    </VisemeProvider>
   );
   expect(container).toMatchSnapshot();
 });

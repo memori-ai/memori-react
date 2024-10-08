@@ -16,6 +16,7 @@ import EyeInvisible from '../icons/EyeInvisible';
 import Edit from '../icons/Edit';
 import cx from 'classnames';
 import ContainerAvatarView from './AvatarView';
+import { useViseme } from '../../context/visemeContext';
 
 export interface Props {
   memori: Memori;
@@ -52,8 +53,11 @@ const Avatar: React.FC<Props> = ({
   isZoomed = false,
   chatProps,
 }) => {
+
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
+
+  const { setMeshRef, clearVisemes } = useViseme();
 
   useEffect(() => {
     setIsClient(true);
@@ -137,6 +141,8 @@ const Avatar: React.FC<Props> = ({
             speaking={isPlayingAudio}
             loading={loading}
             style={getAvatarStyle()}
+            clearVisemes={clearVisemes}
+            setMeshRef={setMeshRef}
             isZoomed={isZoomed}
             chatEmission={chatProps?.dialogState?.emission}
           />

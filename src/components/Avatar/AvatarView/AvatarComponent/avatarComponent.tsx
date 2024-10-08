@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import AnimationControlPanel from './components/controls';
 import FullbodyAvatar from './components/fullbodyAvatar';
 import HalfBodyAvatar from './components/halfbodyAvatar';
-import { useViseme } from '../utils/useViseme';
 
 interface Props {
   showControls: boolean;
@@ -15,6 +14,8 @@ interface Props {
   speaking: boolean;
   isZoomed: boolean;
   chatEmission: any;
+  setMeshRef: any;
+  clearVisemes: () => void;
 }
 
 interface BaseAction {
@@ -46,10 +47,11 @@ const baseActions: Record<string, BaseAction> = {
 };
 
 export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
+  setMeshRef,
+  clearVisemes,
   chatEmission,
   showControls,
   animation,
- // loading,
   url,
   sex,
   eyeBlink,
@@ -63,6 +65,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
     weight: 1,
   });
 
+
   const [morphTargetInfluences, setMorphTargetInfluences] = useState<{
     [key: string]: number;
   }>({});
@@ -71,8 +74,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   }>({});
 
   const [timeScale, setTimeScale] = useState(0.8);
-
-  const { createVisemeSequence, currentVisemes, clearVisemes } = useViseme();
 
   // Set the morph target influences for the given emotions
   const setEmotion = useCallback((action: string) => {
@@ -107,6 +108,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
     });
   }, []);
 
+
   const onMorphTargetInfluencesChange = useCallback(
     (influences: { [key: string]: number }) => {
       setMorphTargetInfluences(prevInfluences => ({
@@ -130,9 +132,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
 
   // Set the emotion based on the chatEmission
   useEffect(() => {
-    if (chatEmission) {
-      createVisemeSequence(chatEmission);
-    }
 
     //Check if chatEmission has a tag
     const hasOutputTag = chatEmission?.includes(
@@ -156,23 +155,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
     }
   }, [chatEmission]);
 
-  const resetToIdle = useCallback(() => {
-    const randomIdle = Math.floor(Math.random() * 5) + 1;
-    setCurrentBaseAction({
-      action: `Idle${randomIdle}`,
-      weight: 1,
-    });
-    setMorphTargetInfluences({ mouthSmile: 0, eyesClosed: 0 });
-  }, []);
-
-
-  //Set a loading state to true if the avatar is loading
-  // useEffect(() => {
-  //   if (loading) {
-  //     resetToIdle();
-  //   }
-  // }, [loading]);
-
   return (
     <>
       {showControls && (
@@ -190,9 +172,11 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       {halfBody ? (
         <HalfBodyAvatar
           url={url}
+          setMeshRef={setMeshRef}
           setMorphTargetInfluences={setMorphTargetInfluences}
           headMovement={headMovement}
           speaking={speaking}
+          clearVisemes={clearVisemes}
         />
       ) : (
         <FullbodyAvatar
@@ -207,7 +191,8 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           morphTargetInfluences={morphTargetInfluences}
           morphTargetDictionary={morphTargetDictionary}
           isZoomed={isZoomed}
-          currentVisemes={currentVisemes}
+          setMeshRef={setMeshRef}
+          clearVisemes={clearVisemes}
         />
       )}
     </>

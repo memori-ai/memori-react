@@ -1,11 +1,10 @@
 import React, { useEffect, useMemo } from 'react';
-import { Object3D, Vector3 } from 'three';
+import { Object3D, SkinnedMesh, Vector3 } from 'three';
 import { useGLTF } from '@react-three/drei';
 import { correctMaterials, isSkinnedMesh } from '../../../../../helpers/utils';
 import { useGraph, dispose } from '@react-three/fiber';
 import { useAvatarBlink } from '../../utils/useEyeBlink';
 import useHeadMovement from '../../utils/useHeadMovement';
-import useMouthSpeaking from '../../utils/useMouthSpeaking';
 import { hideHands } from '../../utils/utils';
 
 
@@ -15,6 +14,8 @@ interface HalfBodyAvatarProps {
   headMovement?: boolean;
   speaking?: boolean;
   onLoaded?: () => void;
+  setMeshRef: (mesh: Object3D) => void;
+  clearVisemes: () => void;
 }
 
 const AVATAR_POSITION = new Vector3(0, -0.6, 0);
@@ -23,8 +24,9 @@ export default function HalfBodyAvatar({
   url,
   setMorphTargetInfluences,
   headMovement,
-  speaking,
+  setMeshRef,
   onLoaded,
+  clearVisemes,
 }: HalfBodyAvatarProps) {
   const { scene } = useGLTF(url);
   const { nodes, materials } = useGraph(scene);
@@ -39,12 +41,22 @@ export default function HalfBodyAvatar({
     }
   });
   useHeadMovement(headMovement, nodes);
-  useMouthSpeaking(!!speaking, nodes);
 
   useEffect(() => {
     const setupAvatar = () => {
       hideHands(nodes);
       correctMaterials(materials);
+      // Set mesh reference for the first SkinnedMesh found
+      const firstSkinnedMesh = Object.values(nodes).find(isSkinnedMesh) as SkinnedMesh;
+      if (firstSkinnedMesh) {
+        setMeshRef(firstSkinnedMesh);
+        if (firstSkinnedMesh.morphTargetDictionary && firstSkinnedMesh.morphTargetInfluences) {
+          const initialInfluences = Object.keys(
+            firstSkinnedMesh.morphTargetDictionary
+          ).reduce((acc, key) => ({ ...acc, [key]: 0 }), {});
+          setMorphTargetInfluences(initialInfluences);
+        }
+      }
       onLoaded?.();
     };
 
@@ -54,11 +66,12 @@ export default function HalfBodyAvatar({
       const disposeObjects = () => {
         Object.values(materials).forEach(dispose);
         Object.values(nodes).filter(isSkinnedMesh).forEach(dispose);
+        clearVisemes();
       };
 
       disposeObjects();
     };
-  }, [materials, nodes, url, onLoaded]);
+  }, [materials, nodes, url, onLoaded, clearVisemes]);
 
   const skinnedMeshes = useMemo(
     () => Object.values(nodes).filter(isSkinnedMesh),

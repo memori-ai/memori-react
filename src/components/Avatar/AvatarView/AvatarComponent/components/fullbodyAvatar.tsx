@@ -11,7 +11,7 @@ import { useAnimations, useGLTF } from '@react-three/drei';
 import { useGraph, dispose, useFrame } from '@react-three/fiber';
 import { correctMaterials, isSkinnedMesh } from '../../../../../helpers/utils';
 import { useAvatarBlink } from '../../utils/useEyeBlink';
-import { useMouthAnimation } from '../../utils/useMouthAnimation';
+import { useViseme } from '../../../../../context/visemeContext';
 
 const lerp = (start: number, end: number, alpha: number): number => {
   return start * (1 - alpha) + end * alpha;
@@ -33,13 +33,9 @@ interface FullbodyAvatarProps {
   setMorphTargetDictionary: (dictionary: { [key: string]: number }) => void;
   morphTargetInfluences: { [key: string]: number };
   morphTargetDictionary: { [key: string]: number };
+  setMeshRef: any;
   eyeBlink?: boolean;
-  currentVisemes: {
-    name: string;
-    duration: number;
-    weight: number;
-    startTime: number;
-  }[];
+  clearVisemes: () => void;
 }
 
 const AVATAR_POSITION = new Vector3(0, -1, 0);
@@ -64,7 +60,8 @@ export default function FullbodyAvatar({
   setMorphTargetDictionary,
   morphTargetInfluences,
   eyeBlink,
-  currentVisemes,
+  setMeshRef,
+  clearVisemes,
 }: FullbodyAvatarProps) {
   const { scene } = useGLTF(url);
   const { animations } = useGLTF(ANIMATION_URLS[sex]);
@@ -75,11 +72,8 @@ export default function FullbodyAvatar({
   const avatarMeshRef = useRef<SkinnedMesh>();
   const currentActionRef = useRef<AnimationAction | null>(null);
   const isTransitioningRef = useRef(false);
-  const { handleMouthMovement } = useMouthAnimation({
-    currentVisemes,
-    avatarMeshRef: avatarMeshRef as React.RefObject<SkinnedMesh>,
-  });
-
+   
+  // Blink animation
   useAvatarBlink({
     enabled: eyeBlink || false,
     setMorphTargetInfluences,
@@ -90,6 +84,7 @@ export default function FullbodyAvatar({
     },
   });
 
+  // Idle animation when emotion animation is finished
   const transitionToIdle = useCallback(() => {
     if (!actions || isTransitioningRef.current) return;
 
@@ -107,7 +102,6 @@ export default function FullbodyAvatar({
     };
 
     const startIdleAnimation = () => {
-      // Choose a random Idle animation
       const idleAnimations = Object.keys(actions).filter(key =>
         key.startsWith('Idle')
       );
@@ -137,7 +131,7 @@ export default function FullbodyAvatar({
     }
   }, [actions]);
 
-  // Handle base animation
+  // Base animation
   useEffect(() => {
     if (!actions || !currentBaseAction.action || isTransitioningRef.current)
       return;
@@ -153,7 +147,6 @@ export default function FullbodyAvatar({
     const fadeOutDuration = 0.8;
     const fadeInDuration = 0.8;
 
-    // If the new action is not an Idle animation, set up the transition back to idle
     if (!currentBaseAction.action.startsWith('Idle')) {
       setTimeout(() => {
         transitionToIdle();
@@ -169,7 +162,7 @@ export default function FullbodyAvatar({
     currentActionRef.current = newAction;
   }, [currentBaseAction, timeScale, actions, transitionToIdle]);
 
-  // Handle avatar blend shape animation
+  // Set up the mesh reference and morph target influences
   useEffect(() => {
     correctMaterials(materials);
 
@@ -179,6 +172,7 @@ export default function FullbodyAvatar({
         (object.name === 'Wolf3D_Avatar020' || object.name === 'Wolf3D_Avatar')
       ) {
         avatarMeshRef.current = object;
+        setMeshRef(object);
 
         if (object.morphTargetDictionary && object.morphTargetInfluences) {
           setMorphTargetDictionary(object.morphTargetDictionary);
@@ -196,6 +190,7 @@ export default function FullbodyAvatar({
     return () => {
       Object.values(materials).forEach(dispose);
       Object.values(nodes).filter(isSkinnedMesh).forEach(dispose);
+      clearVisemes();
     };
   }, [
     materials,
@@ -204,16 +199,15 @@ export default function FullbodyAvatar({
     onLoaded,
     setMorphTargetDictionary,
     setMorphTargetInfluences,
+    setMeshRef,
+    clearVisemes,
   ]);
 
-  // Frame update for morph target influences and animation mixer
-  useFrame((state, delta) => {
-    // Update morph target influences
+  // Update morph target influences
+  useFrame((_, delta) => {
     if (avatarMeshRef.current && avatarMeshRef.current.morphTargetDictionary) {
-      handleMouthMovement(state.clock.elapsedTime);
       updateMorphTargetInfluences();
     }
-    // Update the animation mixer
     mixer.update(delta * 0.001);
 
     function updateMorphTargetInfluences() {
