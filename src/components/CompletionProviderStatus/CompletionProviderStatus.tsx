@@ -22,7 +22,6 @@ const initProviderStatus = (
   statusPage: string;
 } => {
   switch (provider) {
-    case 'DEFAULT':
     case 'OpenAI':
       return {
         getStatus: async () => {
@@ -37,6 +36,34 @@ const initProviderStatus = (
         },
         statusPage: 'https://status.openai.com/',
       };
+    case 'Mistral':
+      return {
+        getStatus: async () => {
+          const res = await fetch(
+            'https://status.mistral-data.com/api/v2/summary.json'
+          );
+          const data = await res.json();
+          const status = data.components.find(
+            (component: { name: string }) => component.name === 'API'
+          )?.status as Status;
+          return status ?? 'operational';
+        },
+        statusPage: 'https://status.mistral-data.com/',
+      };
+    case 'Anthropic':
+      return {
+        getStatus: async () => {
+          const res = await fetch(
+            'https://status.anthropic.com/api/v2/summary.json'
+          );
+          const data = await res.json();
+          const status = data.components.find(
+            (component: { name: string }) => component.name === 'API'
+          )?.status as Status;
+          return status ?? 'operational';
+        },
+        statusPage: 'https://status.anthropic.com/',
+      };
     default:
       return {
         getStatus: async () => 'operational',
@@ -45,7 +72,10 @@ const initProviderStatus = (
   }
 };
 
-const CompletionProviderStatus = ({ forceStatus, provider }: Props) => {
+const CompletionProviderStatus = ({
+  forceStatus,
+  provider = 'OpenAI',
+}: Props) => {
   const { t } = useTranslation();
   const [status, setStatus] = useState<Status>(forceStatus ?? 'operational');
 
@@ -58,7 +88,7 @@ const CompletionProviderStatus = ({ forceStatus, provider }: Props) => {
       .getStatus()
       .then(status => setStatus(status))
       .catch(console.log);
-  }, [forceStatus, provider]);
+  }, [forceStatus, providerStatus]);
 
   return status !== 'operational' ? (
     <Tooltip

@@ -1968,10 +1968,9 @@ const MemoriWidget = ({
       });
     };
 
-    console.log(getAzureStyleForEmotion(emotion))
     speechSynthesizer.speakSsmlAsync(`<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
         userLang
-      )}"><voice name="${getTTSVoice(userLang)}"> <mstts:express-as style="${getAzureStyleForEmotion(emotion)}"><s>${replaceTextWithPhonemes(
+      )}"><voice name="${getTTSVoice(userLang)}"><mstts:express-as style="${getAzureStyleForEmotion(emotion)}"><s>${replaceTextWithPhonemes(
         escapeHTML(stripMarkdown(stripEmojis(stripOutputTags(text)))),
         userLang.toLowerCase()
       )}</s></mstts:express-as></voice></speak>`,
