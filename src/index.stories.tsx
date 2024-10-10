@@ -211,13 +211,11 @@ WithCustomUserAvatar.args = {
 
 export const Test = Template.bind({});
 Test.args = {
-  ownerUserName: 'memoridev',
-  memoriName: 'Assistente Report',
-  tenantID: 'bcc-iccrea.aclambda.online',
-  apiURL: 'https://backend.memori.ai',
-  baseURL: 'https://bcc-iccrea.aclambda.online',
+  ownerUserName: 'dpezzettone',
+  memoriName: 'Meta Prompt Engineer',
+  tenantID: 'www.aisuru.com',
   layout: 'CHAT',
-  uiLang: 'it',
+  uiLang: 'en',
   showShare: true,
   showSettings: true,
   showLogin: true,
