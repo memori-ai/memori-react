@@ -169,7 +169,7 @@ export default function FullbodyAvatar({
     scene.traverse((object: Object3D) => {
       if (
         object instanceof SkinnedMesh &&
-        (object.name === 'Wolf3D_Avatar020' || object.name === 'Wolf3D_Avatar')
+        (object.name === 'GBNL__Head' || object.name === 'Wolf3D_Avatar')
       ) {
         avatarMeshRef.current = object;
         setMeshRef(object);

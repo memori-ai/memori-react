@@ -107,14 +107,33 @@ Giovanna.args = {
   showShare: 'true',
   showLogin: 'false',
   enableAudio: 'true',
-  avatar3DURL:
-    'https://assets.memori.ai/api/v2/asset/3f5ef41c-6c4c-449c-888d-cf9c89782528.glb',
-  avatarOriginal3DURL:
-    'https://assets.memori.ai/api/v2/asset/3f5ef41c-6c4c-449c-888d-cf9c89782528.glb',
-  avatar: 'readyplayerme',
-  avatarURL:
-    'https://assets.memori.ai/api/v2/asset/893c41df-7619-436d-9e86-fe1d406fc933.glb#' +
-    new Date(Date.now()).getTime(),
+};
+
+export const GiovannaProva = Template.bind({});
+GiovannaProva.args = {
+  memoriName: 'GiovannaProva',
+  ownerUserName: 'patini929',
+  memoriID: 'aee4c0ab-66c0-4a4e-acf5-e7be0a3a8ddf',
+  ownerUserID: '1941d326-6986-4fa1-872b-458d09fb654c',
+  tenantID: 'www.aisuru.com',
+  engineURL: 'https://engine.memori.ai',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://www.aisuru.com',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  layout: 'ZOOMED_FULL_BODY',
+  showInstruct: false,
+  showSettings: true,
+  showClear: false,
+  showAIicon: true,
+  showWhyThisAnswer: true,
+  showTypingText: false,
+  showOnlyLastMessages: false,
+  showTranslationOriginal: false,
+  showCopyButton: false,
+  showShare: true,
+  showLogin: false,
+  enableAudio: true,
 };
 
 const TemplateWithBatchButton: Story<Props> = args => (

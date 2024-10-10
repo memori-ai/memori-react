@@ -122,8 +122,8 @@
 .memori-hidden-chat-layout--controls {
     display: flex;
     height: 90%;
-    margin-top: 50px;
     padding: 10px;
+    margin-top: 50px;
 }
 
 .memori-hidden-chat-layout-header--layout {

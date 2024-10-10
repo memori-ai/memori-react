@@ -487,9 +487,9 @@ ZoomedFullBody.args = {
     coverURL:
       'https://assets.memori.ai/api/v2/asset/e9bb9f6d-8f34-45ab-af9e-6d630d9a51a8.png',
     avatar3DURL:
-      'https://assets.memori.ai/api/v2/asset/9b83c11c-ebcc-4e36-ac6c-01d6e010c987.glb#1728304989956',
+      'https://assets.memori.ai/api/v2/asset/3932bf70-e953-4e8a-b63a-f316544c283e.glb',
     avatarOriginal3DURL:
-      'https://assets.memori.ai/api/v2/asset/9b83c11c-ebcc-4e36-ac6c-01d6e010c987.glb#1728304989956',
+      'https://assets.memori.ai/api/v2/asset/3932bf70-e953-4e8a-b63a-f316544c283e.glb',
     needsPosition: false,
     voiceType: 'FEMALE',
     culture: 'it-IT',
@@ -535,7 +535,7 @@ ZoomedFullBody.args = {
       ),
       avatar: 'readyplayerme-full',
       avatarURL:
-        'https://assets.memori.ai/api/v2/asset/9b83c11c-ebcc-4e36-ac6c-01d6e010c987.glb#1728304989956'+
+        'https://assets.memori.ai/api/v2/asset/3932bf70-e953-4e8a-b63a-f316544c283e.glb'+
         new Date(Date.now()).getTime(),
     }),
   },
