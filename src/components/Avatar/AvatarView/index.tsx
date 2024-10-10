@@ -85,7 +85,7 @@ export default function ContainerAvatarView({
   halfBody = true,
   loading,
   animation,
-  showControls = true,
+  showControls = false,
   isZoomed,
   chatEmission,
   setMeshRef,
