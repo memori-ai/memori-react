@@ -118,7 +118,8 @@ const Avatar: React.FC<Props> = ({
 
     if (
       integrationConfig?.avatar === 'readyplayerme' ||
-      integrationConfig?.avatar === 'readyplayerme-full'
+      integrationConfig?.avatar === 'readyplayerme-full' || 
+      integrationConfig?.avatar === 'customrpm'
     ) {
       return (
         <ErrorBoundary
