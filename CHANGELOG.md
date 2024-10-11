@@ -1,5 +1,49 @@
 
 
+## [7.6.0](https://github.com/memori-ai/memori-react/compare/v7.5.1...v7.6.0) (2024-10-11)
+
+
+### Features
+
+* added context for handling visemes and lips animation ([82d68e4](https://github.com/memori-ai/memori-react/commit/82d68e49c7354310b74dc34b8956e440cf7e7278))
+* added emotion to XML audio tag ([c188673](https://github.com/memori-ai/memori-react/commit/c188673485078a6f001bc09f99c46a9349e5c184))
+* added face mesh when animation is triggered and eye blink ([76c9374](https://github.com/memori-ai/memori-react/commit/76c937437ea7c111978823f57a6bcf24ff1eaa38))
+* added loading animations ([2c53776](https://github.com/memori-ai/memori-react/commit/2c53776529c303b2128ff28ac6adc15634d1ab54))
+* added mistral and anthropic to completion provider status ([70f05ec](https://github.com/memori-ai/memori-react/commit/70f05ec763579ba75ff30b6fe984ee40ba48dfc5))
+* added mouth movement using visemes based on the text provided ([af55d34](https://github.com/memori-ai/memori-react/commit/af55d342ab4150ea579c0d56ad7c8405674ecbf3))
+* added new animations for Male and Female avatar ([0d63458](https://github.com/memori-ai/memori-react/commit/0d634586d311380d91b7825ce1628ddc7844d5d9))
+* added new hidden chat layout ([a83800d](https://github.com/memori-ai/memori-react/commit/a83800d87a8bdf71817ced43eb1592ea9008d2c2))
+* added new zoomed avatar layout ([b031488](https://github.com/memori-ai/memori-react/commit/b03148818014ca193565131cfb313651c73c09b8))
+* made avatar mesh transitions smoother and added emotion animation based on chat tag ([82a1fae](https://github.com/memori-ai/memori-react/commit/82a1faea17280174875a6ad80d477b66c9816063))
+* removed unused hooks and linked context function for lips animation ([dea3740](https://github.com/memori-ai/memori-react/commit/dea374098259671f4117ec6b77747f989088d7e1))
+* **temp:** modified default prop show animations controls to true ([a3b2adc](https://github.com/memori-ai/memori-react/commit/a3b2adcb6cda2db5506e4724158bf9510f4049ad))
+* updated skinned mesh name for the latest glb released ([278ccb8](https://github.com/memori-ai/memori-react/commit/278ccb86ca13b70714e50ad44675f690c961a877))
+
+
+### Bug Fixes
+
+* **a11y:** add aria label on hidden chat controls ([c858262](https://github.com/memori-ai/memori-react/commit/c858262eae34c969775cd3caedb5ced4c7aaa44d))
+* added padding to HIDDEN_CHAT layout ([5856be7](https://github.com/memori-ai/memori-react/commit/5856be7e9d3fb6db731d765364ff2a26777ea6b4))
+* auto translate ui if not multilingual ([754f6a8](https://github.com/memori-ai/memori-react/commit/754f6a8ba00f7229ee5543d87d743cbdb6e97e11))
+* fixed name of new layout ZOOMED_FULL_BODY ([353bf32](https://github.com/memori-ai/memori-react/commit/353bf32b7ecb69f782912da38978345eb39502bc))
+* hidden chat layout doesn't overlapse with the content ([055cbe5](https://github.com/memori-ai/memori-react/commit/055cbe55ddb19c5165d9effdcfb9c29bf8d6aa48))
+* import style ([543157d](https://github.com/memori-ai/memori-react/commit/543157da01d02981f931e25485e738f4d69c3176))
+* reinserted inside half body the blink and speak animation ([80e4889](https://github.com/memori-ai/memori-react/commit/80e488936e236ce8a7fea482cc0c10745ccec56c))
+* removed chat visibility on mobile ([3aa1fa8](https://github.com/memori-ai/memori-react/commit/3aa1fa8677fa0bdc68930abf8dd45b4beac71b69))
+* removed tag <output> from speech text and adjusted viseme smoothing value ([fe5b4dd](https://github.com/memori-ai/memori-react/commit/fe5b4ddc698517de1eff3b9447361fdf758c808e))
+* **style:** fixed hidden chat layout style ([b95eb60](https://github.com/memori-ai/memori-react/commit/b95eb60e2a099f5f252e32f79e0e463945c59e7d))
+
+
+### Maintenance
+
+* get visemes data from azure and processed the visemes data when speak ([14c76a8](https://github.com/memori-ai/memori-react/commit/14c76a837d0cc045e48e53019d3100af921052a2))
+* update api client ([034eb38](https://github.com/memori-ai/memori-react/commit/034eb38181287d4a5af68f00d5c0074ed6959e70))
+
+
+### Changes
+
+* strip html in msg parsing for TTS, fix plaintext to copy ([4d95f39](https://github.com/memori-ai/memori-react/commit/4d95f392e6f86bf7d512dc7ce1be0ce44b5402a1))
+
 ## [7.5.1](https://github.com/memori-ai/memori-react/compare/v7.5.0...v7.5.1) (2024-09-24)
 
 
