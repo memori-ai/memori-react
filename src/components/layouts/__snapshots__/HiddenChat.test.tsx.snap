@@ -12,20 +12,20 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
     style="height: 100vh;"
   >
     <input
-      class="sidebar-toggle"
-      id="sidebar-toggle"
+      class="memori-sidebar-toggle"
+      id="memori-sidebar-toggle"
       type="checkbox"
     />
     <div
-      class="sidebar-container"
+      class="memori-sidebar-container"
     >
       <label
-        class="sidebar-toggle-label open-label"
-        for="sidebar-toggle"
+        class="memori-sidebar-toggle-label memori-open-label"
+        for="memori-sidebar-toggle"
       >
         <svg
           aria-hidden="true"
-          class="icon"
+          class="memori-icon"
           fill="none"
           focusable="false"
           role="img"
@@ -50,16 +50,16 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
         </svg>
       </label>
       <aside
-        class="sidebar"
+        class="memori-sidebar"
       >
         <label
-          class="sidebar-toggle-label close-label"
-          for="sidebar-toggle"
+          class="memori-sidebar-toggle-label memori-close-label"
+          for="memori-sidebar-toggle"
         >
           <span>
             <svg
               aria-hidden="true"
-              class="icon-close"
+              class="memori-icon-close"
               focusable="false"
               role="img"
               viewBox="0 0 1024 1024"
@@ -72,7 +72,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
           </span>
         </label>
         <div
-          class="sidebar-content"
+          class="memori-sidebar-content"
         >
           <div
             class="memori-hidden-chat-layout--header"
@@ -169,7 +169,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
           class="memori-hidden-chat-layout--controls"
         >
           <div
-            class="loading"
+            class="memori-loading"
           >
             <div
               class="memori-spin"
