@@ -1,5 +1,13 @@
 
 
+## [7.6.1](https://github.com/memori-ai/memori-react/compare/v7.6.0...v7.6.1) (2024-10-11)
+
+
+### Bug Fixes
+
+* added 'memori-' to all of hidden chat classes ([adebe23](https://github.com/memori-ai/memori-react/commit/adebe23427d249be67b9ee138f32dcaa312af672))
+* added DateSelector inside the Jest ignore patterns ([92787c6](https://github.com/memori-ai/memori-react/commit/92787c6db38d88fb5f5ff56dca732e2bf29c7a40))
+
 ## [7.6.0](https://github.com/memori-ai/memori-react/compare/v7.5.1...v7.6.0) (2024-10-11)
 
 
