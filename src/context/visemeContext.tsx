@@ -30,7 +30,7 @@ interface VisemeContextType {
 
 const VisemeContext = createContext<VisemeContextType | undefined>(undefined);
 
-const VISEME_SMOOTHING = 0.45;
+const VISEME_SMOOTHING = 0.5;
 const DEFAULT_VISEME_DURATION = 0.1;
 const MINIMUM_ELAPSED_TIME = 0.01;
 const VISEME_SPEED_FACTOR = 1.0;

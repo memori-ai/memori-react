@@ -45,6 +45,9 @@ const baseActions: Record<string, BaseAction> = {
   Tristezza1: { weight: 0 },
   Tristezza2: { weight: 0 },
   Tristezza3: { weight: 0 },
+  Loading1: { weight: 0 },
+  Loading2: { weight: 0 },
+  Loading3: { weight: 0 },
 };
 
 export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
@@ -59,6 +62,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   headMovement,
   speaking,
   halfBody,
+  loading,
   isZoomed,
   setEmotion,
 }) => {
@@ -66,7 +70,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
     action: animation || 'Idle1',
     weight: 1,
   });
-
 
   const [morphTargetInfluences, setMorphTargetInfluences] = useState<{
     [key: string]: number;
@@ -85,6 +88,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       Sorpresa: { Sorpresa: 1 },
       Tristezza: { Tristezza: 1 },
       Timore: { Timore: 1 },
+      Loading: { Loading1: 1, Loading2: 1, Loading3: 1 },
     };
 
     //remove the last character from the action
@@ -96,13 +100,15 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       return acc;
     }, {} as Record<string, number>);
 
-    const emotion = Object.keys(emotionMap).find(key => action.startsWith(key)) || 'default';
-    const emotionValues = emotion === 'default' ? defaultEmotions : emotionMap[emotion];
+    const emotion =
+      Object.keys(emotionMap).find(key => action.startsWith(key)) || 'default';
+    const emotionValues =
+      emotion === 'default' ? defaultEmotions : emotionMap[emotion];
 
     setMorphTargetInfluences(prevInfluences => ({
       ...prevInfluences,
       ...defaultEmotions,
-      ...emotionValues
+      ...emotionValues,
     }));
   }, []);
 
@@ -113,7 +119,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       weight: 1,
     });
   }, []);
-
 
   const onMorphTargetInfluencesChange = useCallback(
     (influences: { [key: string]: number }) => {
@@ -138,7 +143,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
 
   // Set the emotion based on the chatEmission
   useEffect(() => {
-
     //Check if chatEmission has a tag
     const hasOutputTag = chatEmission?.includes(
       '<output class="memori-emotion">'
@@ -160,6 +164,15 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       onBaseActionChange(emotion);
     }
   }, [chatEmission]);
+
+  useEffect(() => {
+    if (loading) {
+      //Choose a random number between 1 and 3
+      const randomNumber = Math.floor(Math.random() * 3) + 1;
+      const animation = `Loading${randomNumber}`;
+      onBaseActionChange(animation);
+    }
+  }, [loading]);
 
   return (
     <>
