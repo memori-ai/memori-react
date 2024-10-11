@@ -33,8 +33,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     const mainDiv = document.body;
     if (mainDiv) {
       if (isOpen) {
-        console.log('open');
-        mainDiv.style.width = 'calc(100% - 300px)';
+        mainDiv.style.width = 'calc(100% - 350px)';
         mainDiv.style.marginRight = '300px';
         mainDiv.style.transition = 'all 0.5s';
       } else {
@@ -53,28 +52,28 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     <>
       <input
         type="checkbox"
-        id="sidebar-toggle"
-        className="sidebar-toggle"
+        id="memori-sidebar-toggle"
+        className="memori-sidebar-toggle"
         checked={isOpen}
         onChange={handleSidebarToggle}
       />
-      <div className="sidebar-container">
+      <div className="memori-sidebar-container">
         <label
-          htmlFor="sidebar-toggle"
-          className="sidebar-toggle-label open-label"
+          htmlFor="memori-sidebar-toggle"
+          className="memori-sidebar-toggle-label memori-open-label"
         >
-          <QuestionHelp className="icon" aria-label={t('expand')} />
+          <QuestionHelp className="memori-icon" aria-label={t('expand')} />
         </label>
-        <aside className="sidebar">
+        <aside className="memori-sidebar">
           <label
-            htmlFor="sidebar-toggle"
-            className="sidebar-toggle-label close-label"
+            htmlFor="memori-sidebar-toggle"
+            className="memori-sidebar-toggle-label memori-close-label"
           >
             <span>
-              <Close className="icon-close" aria-label={t('collapse')} />
+              <Close className="memori-icon-close" aria-label={t('collapse')} />
             </span>
           </label>
-          <div className="sidebar-content">
+          <div className="memori-sidebar-content">
             <div className="memori-hidden-chat-layout--header">
               {Header && headerProps && (
                 <Header
@@ -94,7 +93,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
             {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
               <Chat {...chatProps} />
             ) : (
-              <div className="loading">
+              <div className="memori-loading">
                 <Spin />
               </div>
             )}
