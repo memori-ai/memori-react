@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useRef, useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import cx from 'classnames';
 import {
   ExpertReference,
@@ -18,13 +18,12 @@ import FeedbackButtons from '../FeedbackButtons/FeedbackButtons';
 import { useTranslation } from 'react-i18next';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
-import { cleanUrl } from '../../helpers/utils';
 import Button from '../ui/Button';
 import QuestionHelp from '../icons/QuestionHelp';
 import Copy from '../icons/Copy';
 import Code from '../icons/Code';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
-import { stripEmojis, escapeHTML, stripMarkdown } from '../../helpers/utils';
+import { cleanUrl, stripHTML, stripOutputTags } from '../../helpers/utils';
 
 import markedLinkifyIt from 'marked-linkify-it';
 import markedKatex from 'marked-katex-extension';
@@ -149,7 +148,7 @@ const ChatBubble: React.FC<Props> = ({
 
   const plainText = message.fromUser
     ? text
-    : escapeHTML(stripMarkdown(stripEmojis(text)));
+    : stripHTML(stripOutputTags(renderedText));
 
   useLayoutEffect(() => {
     if (typeof window !== 'undefined' && !message.fromUser) {

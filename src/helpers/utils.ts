@@ -150,6 +150,7 @@ export const stripEmojis = (text: string) => {
 
 export const stripMarkdown = (text: string) => {
   // Remove code blocks
+  text = text.replaceAll(/```*?```/g, '');
   text = text.replaceAll(/```[\s\S]*?```/g, '');
   // Remove inline code
   text = text.replaceAll(/`[^`]*`/g, '');
@@ -192,6 +193,12 @@ export const stripOutputTags = (text: string): string => {
   let textAfter = output[1];
 
   return stripOutputTags(textBefore + textAfter);
+};
+
+export const stripHTML = (text: string) => {
+  const el = document.createElement('div');
+  el.innerHTML = text;
+  return el.textContent || '';
 };
 
 export const escapeHTML = (text: string) => {
