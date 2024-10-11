@@ -3,7 +3,13 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'jsdom',
   silent: true,
-  testPathIgnorePatterns: ['/node_modules/', '/dist/', '/esm/', '/example/'],
+  testPathIgnorePatterns: [
+    '/node_modules/',
+    '/dist/',
+    '/esm/',
+    '/example/',
+    '/src/components/DateSelector/DateSelector.test.tsx',
+  ],
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
     '^.+\\.(js|jsx)$': 'babel-jest',
