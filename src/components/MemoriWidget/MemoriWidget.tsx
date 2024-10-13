@@ -546,7 +546,16 @@ const MemoriWidget = ({
     startProcessing,
     stopProcessing,
     addViseme,
+    resetVisemeQueue,
+    isProcessing,
   } = useViseme();
+  const audioContextRef = useRef<AudioContext | null>(null);
+  const speechSynthesizerRef = useRef<speechSdk.SpeechSynthesizer | null>(null);
+  const audioDestinationRef = useRef<speechSdk.SpeakerAudioDestination | null>(
+    null
+  );
+  const currentSpeechRef = useRef<{ cancel: () => void } | null>(null);
+
 
   useEffect(() => {
     setIsPlayingAudio(!!speechSynthesizer);
@@ -1881,199 +1890,167 @@ const MemoriWidget = ({
     const e = new CustomEvent('MemoriEndSpeak');
     document.dispatchEvent(e);
   };
+  const initializeAudioContext = useCallback(() => {
+    if (!audioContextRef.current || audioContextRef.current.state === 'closed') {
+      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)() as unknown as IAudioContext;
+    }
+    return audioContextRef.current;
+  }, []);
 
-  const speak = (text: string): void => {
+  const initializeSpeechSynthesizer = useCallback((audioConfig: speechSdk.AudioConfig) => {
+    if (!speechSynthesizerRef.current && AZURE_COGNITIVE_SERVICES_TTS_KEY) {
+      const speechConfig = speechSdk.SpeechConfig.fromSubscription(
+        AZURE_COGNITIVE_SERVICES_TTS_KEY,
+        'eastus'
+      );
+      speechSynthesizerRef.current = new speechSdk.SpeechSynthesizer(speechConfig, audioConfig);
+    }
+    return speechSynthesizerRef.current;
+  }, []);
+
+  const stopCurrentSpeech = useCallback(() => {
+    if (currentSpeechRef.current) {
+      currentSpeechRef.current.cancel();
+      currentSpeechRef.current = null;
+    }
+    if (audioContextRef.current) {
+      audioContextRef.current.suspend();
+    }
+    if (audioDestinationRef.current) {
+      audioDestinationRef.current.pause();
+    }
+    setIsPlayingAudio(false);
+    stopProcessing();
+    resetVisemeQueue();
+  }, []);
+
+  const speak = useCallback(async (text: string): Promise<void> => {
     if (!AZURE_COGNITIVE_SERVICES_TTS_KEY || preview) {
       emitEndSpeakEvent();
       return;
     }
+
     stopListening();
-    // stopAudio();
+    stopCurrentSpeech(); // Stop any ongoing speech
 
-    if (preview) return;
-
-    if (muteSpeaker || speakerMuted) {
-      memoriSpeaking = false;
+    if (preview || muteSpeaker || speakerMuted) {
+      setIsPlayingAudio(false);
       setMemoriTyping(false);
-
       emitEndSpeakEvent();
-
-      // trigger start continuous listening if set, see MemoriChat
       if (continuousSpeech) {
         setListeningTimeout();
       }
       return;
     }
 
-    if (audioDestination) audioDestination.pause();
+    try {
+      const audioContext = initializeAudioContext();
+      await audioContext.resume();
 
-    let isSafari =
-      window.navigator.userAgent.includes('Safari') &&
-      !window.navigator.userAgent.includes('Chrome');
-    let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    if ((audioContext.state as string) === 'interrupted') {
-      audioContext.resume().then(() => speak(text));
-      return;
-    }
-    if (audioContext.state === 'closed') {
-      audioContext = new AudioContext();
-      let buffer = audioContext.createBuffer(1, 10000, 22050);
-      let source = audioContext.createBufferSource();
-      source.buffer = buffer;
-      source.connect(audioContext.destination);
-    } else if (audioContext.state === 'suspended') {
-      stopAudio();
-
-      audioContext = new AudioContext();
-      let buffer = audioContext.createBuffer(1, 10000, 22050);
-      let source = audioContext.createBufferSource();
-      source.buffer = buffer;
-      source.connect(audioContext.destination);
-    }
-
-    if (!speechSynthesizer) {
-      if (!isIOS) {
-        audioDestination = new speechSdk.SpeakerAudioDestination();
+      if (!audioDestinationRef.current) {
+        audioDestinationRef.current = new speechSdk.SpeakerAudioDestination();
       }
-      let audioConfig =
-        speechSdk.AudioConfig.fromSpeakerOutput(audioDestination);
-      speechSynthesizer = new speechSdk.SpeechSynthesizer(
-        speechConfig,
-        audioConfig
-      );
-    }
 
-    const source = audioContext.createBufferSource();
-    source.addEventListener('ended', () => {
-      setIsPlayingAudio(false);
-      memoriSpeaking = false;
-    });
-    audioDestination.onAudioEnd = () => {
-      setIsPlayingAudio(false);
-      memoriSpeaking = false;
-      source.disconnect();
+      const audioConfig = speechSdk.AudioConfig.fromSpeakerOutput(audioDestinationRef.current);
+      const speechSynthesizer = initializeSpeechSynthesizer(audioConfig);
 
-      emitEndSpeakEvent();
+      if (speechSynthesizer) {
 
-      // trigger start continuous listening if set
-      onEndSpeakStartListen();
-    };
+        // Add the new visemeReceived event listener
+        speechSynthesizer.visemeReceived = (_, e) => {
+          addViseme(e.visemeId, e.audioOffset);
+          console.log('viseme added')
+        };
+      }
+      startProcessing();
 
-    // Clear any existing visemes before starting new speech
-    stopProcessing();
+      const textToSpeak = escapeHTML(stripMarkdown(stripEmojis(stripHTML(stripOutputTags(text)))));
 
-    // Set up the viseme event handler
-    speechSynthesizer.visemeReceived = function (_, e) {
-      addViseme(e.visemeId, e.audioOffset);
-    };
+      const ssml = `
+        <speak version="1.0" 
+               xmlns="http://www.w3.org/2001/10/synthesis" 
+               xmlns:mstts="https://www.w3.org/2001/mstts" 
+               xmlns:emo="http://www.w3.org/2009/10/emotionml" 
+               xml:lang="${getCultureCodeByLanguage(userLang)}">
+          <voice name="${getTTSVoice(userLang)}">
+              <s>${replaceTextWithPhonemes(textToSpeak, userLang.toLowerCase())}</s>
+          </voice>
+        </speak>
+      `;
 
-    const textToSpeak = escapeHTML(
-      stripMarkdown(stripEmojis(stripHTML(stripOutputTags(text))))
-    );
+      const speakPromise = new Promise<speechSdk.SpeechSynthesisResult>((resolve, reject) => {
+        speechSynthesizer?.speakSsmlAsync(
+          ssml,
+          result => resolve(result),
+          error => reject(error)
+        );
+      });
 
-    speechSynthesizer.speakSsmlAsync(
-      `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
-        userLang
-      )}"><voice name="${getTTSVoice(
-        userLang
-      )}"><s>${replaceTextWithPhonemes(
-        textToSpeak,
-        userLang.toLowerCase()
-      )}</s></voice></speak>`,
-      result => {
-        if (result) {
-          setIsPlayingAudio(true);
-          memoriSpeaking = true;
-
-          // Process the viseme data
-          startProcessing();
-
-          try {
-            // Decode the audio data
-            audioContext.decodeAudioData(result.audioData, function (buffer) {
-              source.buffer = buffer;
-              source.connect(audioContext.destination);
-
-              if (history.length < 1 || (isSafari && isIOS)) {
-                source.start(0);
-              }
-            });
-
-            // Handle the audio context state changes
-            audioContext.onstatechange = () => {
-              // If the audio context is suspended or closed, disconnect the source and set the playing state to false
-              if (
-                audioContext.state === 'suspended' ||
-                audioContext.state === 'closed'
-              ) {
-                source.disconnect();
-                setIsPlayingAudio(false);
-                memoriSpeaking = false;
-                stopProcessing();
-              } else if ((audioContext.state as string) === 'interrupted') {
-                // If the audio context is interrupted, resume it
-                audioContext.resume();
-              }
-            };
-
-            audioContext.resume();
-
-            if (speechSynthesizer) {
-              speechSynthesizer.close();
-              speechSynthesizer = null;
-            }
-          } catch (e) {
-            console.warn('speak error: ', e);
-            window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
-            stopProcessing();
-            setIsPlayingAudio(false);
-            memoriSpeaking = false;
-
-            if (speechSynthesizer) {
-              speechSynthesizer.close();
-              speechSynthesizer = null;
-            }
-            emitEndSpeakEvent();
-          }
-        } else {
-          audioContext.resume();
-          stopProcessing();
-          setIsPlayingAudio(false);
-          memoriSpeaking = false;
-          emitEndSpeakEvent();
+      currentSpeechRef.current = {
+        cancel: () => {
+          speechSynthesizer?.close();
+          audioDestinationRef.current?.pause();
         }
-      },
-      error => {
-        console.error('speak:', error);
-        window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
-        stopProcessing();
-        setIsPlayingAudio(false);
-        memoriSpeaking = false;
-        emitEndSpeakEvent();
-      }
-    );
+      };
 
-    setMemoriTyping(false);
-  };
-  const stopAudio = () => {
+      const result = await speakPromise;
+
+      setIsPlayingAudio(true);
+
+      if (audioContext && result) {
+        const audioBuffer = await audioContext.decodeAudioData(result.audioData);
+        const source = audioContext.createBufferSource();
+        source.buffer = audioBuffer;
+        source.connect(audioContext.destination);
+
+        source.onended = () => {
+          setIsPlayingAudio(false);
+          stopProcessing();
+          currentSpeechRef.current = null;
+          emitEndSpeakEvent();
+          onEndSpeakStartListen();
+        };
+
+        await audioContext.resume();
+        source.start(0);
+      } else {
+        stopProcessing();
+        resetVisemeQueue();
+        throw new Error('No result from speech synthesis');
+      }
+    } catch (error) {
+      console.error('Speech synthesis error:', error);
+      stopProcessing();
+      resetVisemeQueue();
+      // Fallback to browser's speech synthesis
+      const utterance = new SpeechSynthesisUtterance(text);
+      window.speechSynthesis.speak(utterance);
+    } finally {
+      setMemoriTyping(false);
+    }
+  }, [initializeAudioContext, initializeSpeechSynthesizer, stopCurrentSpeech]);
+
+  const stopAudio = useCallback(() => {
     setIsPlayingAudio(false);
     memoriSpeaking = false;
     try {
-      if (speechSynthesizer) {
-        speechSynthesizer.close();
-        speechSynthesizer = null;
+      if (speechSynthesizerRef.current) {
+        speechSynthesizerRef.current.close();
+        speechSynthesizerRef.current = null;
       }
-      if (audioContext.state !== 'closed') {
-        audioContext.close();
+      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+        audioContextRef.current.close();
       }
-      if (audioDestination) {
-        audioDestination.pause();
-        audioDestination.close();
+      if (audioDestinationRef.current) {
+        audioDestinationRef.current.pause();
+        audioDestinationRef.current.close();
       }
+      stopCurrentSpeech();
     } catch (e) {
       console.debug('stopAudio error: ', e);
     }
-  };
+  }, [stopCurrentSpeech]);
+
 
   /**
    * Focus on the chat input on mount
@@ -2237,6 +2214,12 @@ const MemoriWidget = ({
   useEffect(() => {
     return () => {
       resetUIEffects();
+      if (speechSynthesizerRef.current) {
+        speechSynthesizerRef.current.close();
+      }
+      if (audioContextRef.current) {
+        audioContextRef.current.close();
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
