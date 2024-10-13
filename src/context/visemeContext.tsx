@@ -1,41 +1,17 @@
-import React, {
-  createContext,
-  useContext,
-  useState,
-  useCallback,
-  useRef,
-  useEffect,
-} from 'react';
-import { SkinnedMesh } from 'three';
+import React, { createContext, useContext, useRef, useCallback, useState, useEffect } from 'react';
 
-type AzureViseme = { visemeId: number; audioOffset: number };
-
-type ProcessedViseme = {
-  name: string;
-  duration: number;
-  weight: number;
-  startTime: number;
-};
+type Viseme = { name: string; weight: number; startTime: number; duration: number };
 
 interface VisemeContextType {
-  setMeshRef: (mesh: SkinnedMesh | null) => void;
-  addVisemeToQueue: (viseme: AzureViseme) => void;
-  processVisemeQueue: () => ProcessedViseme[];
-  clearVisemes: () => void;
-  isMeshSet: boolean;
-  setEmotion: (emotion: string) => void;
-  emotion: string;
-  getAzureStyleForEmotion: (emotion: string) => string;
+  addViseme: (visemeId: number, audioOffset: number) => void;
+  updateCurrentViseme: (currentTime: number) => Viseme | null;
+  startProcessing: () => void;
+  stopProcessing: () => void;
+  resetVisemeQueue: () => void;
+  isProcessing: boolean;
 }
 
 const VisemeContext = createContext<VisemeContextType | undefined>(undefined);
-
-const VISEME_SMOOTHING = 0.5;
-const DEFAULT_VISEME_DURATION = 0.1;
-const MINIMUM_ELAPSED_TIME = 0.01;
-const VISEME_SPEED_FACTOR = 1.0;
-const AUDIO_PLAYBACK_RATE = 1.0;
-const VISEME_BASE_SPEED = 1.0;
 
 const VISEME_MAP: { [key: number]: string } = {
   0: 'viseme_sil', // silence
@@ -63,253 +39,121 @@ const VISEME_MAP: { [key: number]: string } = {
   21: 'viseme_PP', // y (closest match, could be debated)
 };
 
-export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
-  children,
-}) => {
-  const [isMeshSet, setIsMeshSet] = useState(false);
-  const [emotion, setEmotion] = useState('Neutral');
-  const isAnimatingRef = useRef(false);
-  const currentVisemesRef = useRef<ProcessedViseme[]>([]);
-  const visemeQueueRef = useRef<AzureViseme[]>([]);
-  const animationFrameRef = useRef<number | null>(null);
+const DEFAULT_VISEME_DURATION = 0.1;
+const VISEME_OVERLAP = 0.05;
+
+export const VisemeProvider: React.FC<{ children: React.ReactNode; enableCleanup?: boolean }> = ({ children, enableCleanup = false }) => {
+  const visemeQueueRef = useRef<Viseme[]>([]);
   const startTimeRef = useRef<number | null>(null);
-  const currentVisemeWeightRef = useRef<{ [key: string]: number }>({});
-  const meshRef = useRef<SkinnedMesh | null>(null);
+  const [isProcessing, setIsProcessing] = useState(false);
 
-  const lerp = (start: number, end: number, alpha: number): number => {
-    return start * (1 - alpha) + end * alpha;
-  };
+  const addViseme = useCallback((visemeId: number, audioOffset: number) => {
+    const visemeName = VISEME_MAP[visemeId] || 'viseme_sil';
+    const startTime = audioOffset / 10000000;
+    const newViseme: Viseme = {
+      name: visemeName,
+      weight: 0,
+      startTime,
+      duration: DEFAULT_VISEME_DURATION,
+    };
+    visemeQueueRef.current.push(newViseme);
 
-  const easeInOutCubic = (x: number): number => {
-    return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-  };
+    if (!isProcessing) {
+      startProcessing();
+    }
+  }, [isProcessing]);
 
-  const setMeshRef = useCallback(
-    (mesh: SkinnedMesh | null) => {
-      if (mesh && mesh.morphTargetDictionary && mesh.morphTargetInfluences) {
-        meshRef.current = mesh;
-        setIsMeshSet(true);
-        // console.log('Mesh set successfully:', mesh);
-      } else {
-        console.error('Invalid mesh provided:', mesh);
-      }
-    },
-    [meshRef]
-  );
-
-  const addVisemeToQueue = useCallback((viseme: AzureViseme) => {
-    visemeQueueRef.current.push(viseme);
-    // console.log('Viseme added to queue:', viseme);
-  }, []);
-
-  const getCurrentViseme = useCallback((elapsedTime: number) => {
-    if (elapsedTime < MINIMUM_ELAPSED_TIME) return null;
-
-    return currentVisemesRef.current.find((viseme, index) => {
-      const nextViseme = currentVisemesRef.current[index + 1];
-      return (
-        elapsedTime >= viseme.startTime &&
-        (!nextViseme || elapsedTime < nextViseme.startTime)
-      );
-    });
-  }, []);
-
-  const getDynamicSpeedFactor = (visemeDuration: number): number => {
-    const baseDuration = 0.1; // Average expected viseme duration
-    return (
-      VISEME_BASE_SPEED * (baseDuration / visemeDuration) * AUDIO_PLAYBACK_RATE
-    );
-  };
-
-  const applyViseme = useCallback(
-    (viseme: ProcessedViseme, elapsedTime: number) => {
-      if (!meshRef.current) {
-        console.error('Mesh not set');
-        return;
-      }
-
-      const visemeProgress = Math.min(
-        (elapsedTime - viseme.startTime) / viseme.duration,
-        1
-      );
-
-      const dynamicSpeedFactor = getDynamicSpeedFactor(viseme.duration);
-      const adjustedProgress = visemeProgress * dynamicSpeedFactor;
-
-      // Use a cubic easing function for smoother transitions
-      const easedProgress = easeInOutCubic(adjustedProgress);
-      const targetWeight = Math.sin(easedProgress * Math.PI) * viseme.weight;
-
-      currentVisemeWeightRef.current[viseme.name] = lerp(
-        currentVisemeWeightRef.current[viseme.name] || 0,
-        targetWeight,
-        VISEME_SMOOTHING
-      );
-
-      const visemeIndex = meshRef.current.morphTargetDictionary?.[viseme.name];
-      if (
-        typeof visemeIndex === 'number' &&
-        meshRef.current.morphTargetInfluences
-      ) {
-        meshRef.current.morphTargetInfluences[visemeIndex] =
-          currentVisemeWeightRef.current[viseme.name];
-        // console.log(`Applied viseme: ${viseme.name}, weight: ${currentVisemeWeightRef.current[viseme.name]}`);
-      } else {
-        console.error(
-          `Viseme not found in morph target dictionary: ${viseme.name}`
-        );
-      }
-    },
-    []
-  );
-
-  const animate = useCallback(
-    (time: number) => {
-      if (startTimeRef.current === null) {
-        startTimeRef.current = time;
-      }
-
-      const elapsedTime =
-        ((time - startTimeRef.current) / 1000) * VISEME_SPEED_FACTOR;
-
-      const currentViseme = getCurrentViseme(elapsedTime);
-
-      if (currentViseme) {
-        applyViseme(currentViseme, elapsedTime);
-      }
-
-      if (
-        currentVisemesRef.current.length > 0 &&
-        elapsedTime <
-          currentVisemesRef.current[currentVisemesRef.current.length - 1]
-            .startTime +
-            currentVisemesRef.current[currentVisemesRef.current.length - 1]
-              .duration
-      ) {
-        animationFrameRef.current = requestAnimationFrame(animate);
-      } else {
-        clearVisemes();
-      }
-    },
-    [getCurrentViseme, applyViseme]
-  );
-
-  const processVisemeQueue = useCallback(() => {
-    const azureVisemes = [...visemeQueueRef.current];
-    visemeQueueRef.current = [];
-
-    if (azureVisemes.length === 0) {
-      // console.log('No visemes to process');
-      return [];
+  const updateCurrentViseme = useCallback((currentTime: number): Viseme | null => {
+    if (!isProcessing || startTimeRef.current === null) {
+      return null;
     }
 
-    const processedVisemes: ProcessedViseme[] = azureVisemes.map(
-      (currentViseme, i) => {
-        const nextViseme = azureVisemes[i + 1];
-        const duration = nextViseme
-          ? (nextViseme.audioOffset - currentViseme.audioOffset) / 10000000
-          : DEFAULT_VISEME_DURATION;
+    let elapsedTime = currentTime - startTimeRef.current;
 
-        const processedViseme = {
-          name: VISEME_MAP[currentViseme.visemeId] || 'viseme_sil',
-          duration,
+    if (elapsedTime < 0) {
+      startTimeRef.current = currentTime;
+      elapsedTime = 0;
+    }
+
+    if (enableCleanup) {
+      visemeQueueRef.current = visemeQueueRef.current.filter(v => 
+        v.startTime + v.duration > elapsedTime - VISEME_OVERLAP
+      );
+    }
+
+    const currentViseme = visemeQueueRef.current.find(v => 
+      v.startTime <= elapsedTime && v.startTime + v.duration > elapsedTime - VISEME_OVERLAP
+    );
+    const nextViseme = visemeQueueRef.current.find(v => v.startTime > elapsedTime);
+
+    if (!currentViseme && !nextViseme) {
+      return null;
+    }
+
+    if (!currentViseme && nextViseme) {
+      return { ...nextViseme, weight: 0 };
+    }
+
+    if (currentViseme) {
+      const visemeProgress = (elapsedTime - currentViseme.startTime) / currentViseme.duration;
+      const weight = Math.sin(Math.PI * Math.min(visemeProgress, 1));
+
+      if (nextViseme && visemeProgress > 0.5) {
+        const nextWeight = Math.sin(Math.PI * Math.max(0, (visemeProgress - 0.5) * 2));
+        return {
+          name: `${currentViseme.name}_to_${nextViseme.name}`,
           weight: 1,
-          startTime: currentViseme.audioOffset / 10000000,
+          startTime: currentViseme.startTime,
+          duration: nextViseme.startTime - currentViseme.startTime,
         };
-        //console.log('Processed viseme:', processedViseme);
-        return processedViseme;
       }
-    );
 
-    currentVisemesRef.current = processedVisemes;
-
-    // Start animation immediately if not already animating
-    if (!isAnimatingRef.current) {
-      isAnimatingRef.current = true;
-      startTimeRef.current = performance.now();
-      // console.log('Starting animation');
-      animationFrameRef.current = requestAnimationFrame(animate);
-    } else {
-      // If already animating, adjust the start time for the new visemes
-      if (startTimeRef.current !== null) {
-        const currentTime = performance.now();
-        const elapsedTime =
-          ((currentTime - startTimeRef.current) / 1000) * VISEME_SPEED_FACTOR;
-        startTimeRef.current =
-          currentTime - (elapsedTime / VISEME_SPEED_FACTOR) * 1000;
-      }
+      return { ...currentViseme, weight };
     }
 
-    return processedVisemes;
-  }, [isMeshSet, animate]);
+    return null;
+  }, [isProcessing, enableCleanup]);
 
-  const clearVisemes = useCallback(() => {
-    currentVisemesRef.current = [];
-    visemeQueueRef.current = [];
-
-    if (animationFrameRef.current !== null) {
-      cancelAnimationFrame(animationFrameRef.current);
-      animationFrameRef.current = null;
+  const startProcessing = useCallback(() => {
+    if (isProcessing) {
+      return;
     }
 
-    if (
-      meshRef.current?.morphTargetDictionary &&
-      meshRef.current?.morphTargetInfluences
-    ) {
-      Object.values(meshRef.current.morphTargetDictionary).forEach(index => {
-        if (typeof index === 'number') {
-          meshRef.current!.morphTargetInfluences![index] = 0;
-        }
-      });
+    const earliestVisemeTime = visemeQueueRef.current.length > 0
+      ? Math.min(...visemeQueueRef.current.map(v => v.startTime))
+      : performance.now() / 1000;
+
+    startTimeRef.current = Math.min(earliestVisemeTime, performance.now() / 1000);
+    setIsProcessing(true);
+  }, [isProcessing]);
+
+  const stopProcessing = useCallback(() => {
+    if (!isProcessing) {
+      return;
     }
 
-    currentVisemeWeightRef.current = {};
     startTimeRef.current = null;
-    isAnimatingRef.current = false;
-    // console.log('Visemes cleared');
+    setIsProcessing(false);
+  }, [isProcessing]);
+
+  const resetVisemeQueue = useCallback(() => {
+    visemeQueueRef.current = [];
   }, []);
-
-  // Your existing emotion map
-  const emotionMap: Record<string, Record<string, number>> = {
-    Gioia: { Gioria: 1 },
-    Rabbia: { Rabbia: 1 },
-    Sorpresa: { Sorpresa: 1 },
-    Tristezza: { Tristezza: 1 },
-    Timore: { Timore: 1 },
-  };
-
-  // Mapping from your emotions to Azure styles
-  const emotionToAzureStyleMap: Record<string, string> = {
-    Gioia: 'cheerful',
-    Rabbia: 'angry',
-    Sorpresa: 'excited',
-    Tristezza: 'sad',
-    Timore: 'terrified',
-  };
-
-  // Function to get Azure style from emotion
-  function getAzureStyleForEmotion(emotion: string): string {
-    return emotionToAzureStyleMap[emotion] || 'neutral';
-  }
-
 
   useEffect(() => {
     return () => {
-      if (animationFrameRef.current !== null) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
+      stopProcessing();
+      resetVisemeQueue();
     };
-  }, []);
+  }, [stopProcessing, resetVisemeQueue]);
 
-  const contextValue: VisemeContextType = {
-    setMeshRef,
-    addVisemeToQueue,
-    processVisemeQueue,
-    clearVisemes,
-    isMeshSet,
-    setEmotion,
-    emotion,
-    getAzureStyleForEmotion,
+  const contextValue = {
+    addViseme,
+    updateCurrentViseme,
+    startProcessing,
+    stopProcessing,
+    resetVisemeQueue,
+    isProcessing,
   };
 
   return (
@@ -321,7 +165,7 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
 
 export const useViseme = (): VisemeContextType => {
   const context = useContext(VisemeContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useViseme must be used within a VisemeProvider');
   }
   return context;

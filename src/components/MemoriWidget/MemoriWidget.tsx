@@ -543,11 +543,9 @@ const MemoriWidget = ({
   const [hideEmissions, setHideEmissions] = useState(false);
 
   const {
-    addVisemeToQueue,
-    processVisemeQueue,
-    clearVisemes,
-    emotion,
-    getAzureStyleForEmotion,
+    startProcessing,
+    stopProcessing,
+    addViseme,
   } = useViseme();
 
   useEffect(() => {
@@ -1962,14 +1960,11 @@ const MemoriWidget = ({
     };
 
     // Clear any existing visemes before starting new speech
-    clearVisemes();
+    stopProcessing();
 
     // Set up the viseme event handler
     speechSynthesizer.visemeReceived = function (_, e) {
-      addVisemeToQueue({
-        visemeId: e.visemeId,
-        audioOffset: e.audioOffset,
-      });
+      addViseme(e.visemeId, e.audioOffset);
     };
 
     const textToSpeak = escapeHTML(
@@ -1981,19 +1976,17 @@ const MemoriWidget = ({
         userLang
       )}"><voice name="${getTTSVoice(
         userLang
-      )}"><mstts:express-as style="${getAzureStyleForEmotion(
-        emotion
       )}"><s>${replaceTextWithPhonemes(
         textToSpeak,
         userLang.toLowerCase()
-      )}</s></mstts:express-as></voice></speak>`,
+      )}</s></voice></speak>`,
       result => {
         if (result) {
           setIsPlayingAudio(true);
           memoriSpeaking = true;
 
           // Process the viseme data
-          processVisemeQueue();
+          startProcessing();
 
           try {
             // Decode the audio data
@@ -2008,6 +2001,7 @@ const MemoriWidget = ({
 
             // Handle the audio context state changes
             audioContext.onstatechange = () => {
+              // If the audio context is suspended or closed, disconnect the source and set the playing state to false
               if (
                 audioContext.state === 'suspended' ||
                 audioContext.state === 'closed'
@@ -2015,7 +2009,9 @@ const MemoriWidget = ({
                 source.disconnect();
                 setIsPlayingAudio(false);
                 memoriSpeaking = false;
+                stopProcessing();
               } else if ((audioContext.state as string) === 'interrupted') {
+                // If the audio context is interrupted, resume it
                 audioContext.resume();
               }
             };
@@ -2029,7 +2025,7 @@ const MemoriWidget = ({
           } catch (e) {
             console.warn('speak error: ', e);
             window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
-            clearVisemes();
+            stopProcessing();
             setIsPlayingAudio(false);
             memoriSpeaking = false;
 
@@ -2041,7 +2037,7 @@ const MemoriWidget = ({
           }
         } else {
           audioContext.resume();
-          clearVisemes();
+          stopProcessing();
           setIsPlayingAudio(false);
           memoriSpeaking = false;
           emitEndSpeakEvent();
@@ -2050,6 +2046,7 @@ const MemoriWidget = ({
       error => {
         console.error('speak:', error);
         window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+        stopProcessing();
         setIsPlayingAudio(false);
         memoriSpeaking = false;
         emitEndSpeakEvent();

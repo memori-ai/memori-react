@@ -14,9 +14,8 @@ interface Props {
   speaking: boolean;
   isZoomed: boolean;
   chatEmission: any;
-  setMeshRef: any;
-  clearVisemes: () => void;
-  setEmotion: (emotion: string) => void;
+  stopProcessing: () => void;
+  updateCurrentViseme: (currentTime: number) => { name: string; weight: number } | null;
 }
 
 interface BaseAction {
@@ -51,8 +50,7 @@ const baseActions: Record<string, BaseAction> = {
 };
 
 export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
-  setMeshRef,
-  clearVisemes,
+  stopProcessing,
   chatEmission,
   showControls,
   animation,
@@ -64,7 +62,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   halfBody,
   loading,
   isZoomed,
-  setEmotion,
+  updateCurrentViseme,
 }) => {
   const [currentBaseAction, setCurrentBaseAction] = useState({
     action: animation || 'Idle1',
@@ -93,7 +91,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
 
     //remove the last character from the action
     const newEmotion = action.slice(0, -1);
-    setEmotion(newEmotion);
+    // setEmotion(newEmotion);
 
     const defaultEmotions = Object.keys(emotionMap).reduce((acc, key) => {
       acc[key] = 0;
@@ -162,6 +160,11 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       const emotion = `${outputContent}${randomNumber}`;
 
       onBaseActionChange(emotion);
+    } else {
+      //Set a random idle animation
+      const randomNumber = Math.floor(Math.random() * 5) + 1;
+      const animation = `Idle${randomNumber}`;
+      onBaseActionChange(animation);
     }
   }, [chatEmission]);
 
@@ -173,6 +176,15 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       onBaseActionChange(animation);
     }
   }, [loading]);
+
+  // useEffect(() => {
+  //   if (speaking) {
+  //     //set a random idle animation
+  //     const randomNumber = Math.floor(Math.random() * 5) + 1;
+  //     const animation = `Idle${randomNumber}`;
+  //     onBaseActionChange(animation);
+  //   }
+  // }, [speaking]);
 
   return (
     <>
@@ -191,30 +203,27 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       {halfBody ? (
         <HalfBodyAvatar
           url={url}
-          setMeshRef={setMeshRef}
-          setMorphTargetInfluences={setMorphTargetInfluences}
           headMovement={headMovement}
           speaking={speaking}
           eyeBlink={eyeBlink}
           morphTargetInfluences={morphTargetInfluences}
-          clearVisemes={clearVisemes}
+          setMorphTargetInfluences={setMorphTargetInfluences}
           setMorphTargetDictionary={setMorphTargetDictionary}
         />
       ) : (
         <FullbodyAvatar
           url={url}
           sex={sex}
+          
           eyeBlink={eyeBlink}
-          speaking={speaking}
           currentBaseAction={currentBaseAction}
           timeScale={timeScale}
-          setMorphTargetInfluences={setMorphTargetInfluences}
-          setMorphTargetDictionary={setMorphTargetDictionary}
           morphTargetInfluences={morphTargetInfluences}
-          morphTargetDictionary={morphTargetDictionary}
           isZoomed={isZoomed}
-          setMeshRef={setMeshRef}
-          clearVisemes={clearVisemes}
+          updateCurrentViseme={updateCurrentViseme}
+          stopProcessing={stopProcessing}
+          setMorphTargetDictionary={setMorphTargetDictionary}
+          setMorphTargetInfluences={setMorphTargetInfluences}
         />
       )}
     </>

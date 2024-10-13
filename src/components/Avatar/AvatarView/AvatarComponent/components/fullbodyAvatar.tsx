@@ -1,21 +1,18 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react';
+import React, { useEffect, useRef, useMemo, useState } from 'react';
 import {
   Vector3,
   Euler,
   AnimationMixer,
   SkinnedMesh,
   Object3D,
+  MathUtils,
   AnimationAction,
+  LoopOnce,
 } from 'three';
 import { useAnimations, useGLTF } from '@react-three/drei';
-import { useGraph, dispose, useFrame } from '@react-three/fiber';
+import { useGraph, useFrame } from '@react-three/fiber';
 import { correctMaterials, isSkinnedMesh } from '../../../../../helpers/utils';
 import { useAvatarBlink } from '../../utils/useEyeBlink';
-import { useViseme } from '../../../../../context/visemeContext';
-
-const lerp = (start: number, end: number, alpha: number): number => {
-  return start * (1 - alpha) + end * alpha;
-};
 
 interface FullbodyAvatarProps {
   url: string;
@@ -26,16 +23,21 @@ interface FullbodyAvatarProps {
     weight: number;
   };
   timeScale: number;
-  loading?: boolean;
-  speaking?: boolean;
   isZoomed?: boolean;
-  setMorphTargetInfluences: (influences: { [key: string]: number }) => void;
-  setMorphTargetDictionary: (dictionary: { [key: string]: number }) => void;
-  morphTargetInfluences: { [key: string]: number };
-  morphTargetDictionary: { [key: string]: number };
-  setMeshRef: any;
   eyeBlink?: boolean;
-  clearVisemes: () => void;
+  stopProcessing: () => void;
+  updateCurrentViseme: (
+    currentTime: number
+  ) => { name: string; weight: number } | null;
+  smoothMorphTarget?: boolean;
+  morphTargetSmoothing?: number;
+  morphTargetInfluences: Record<string, number>;
+  setMorphTargetDictionary: (
+    morphTargetDictionary: Record<string, number>
+  ) => void;
+  setMorphTargetInfluences: (
+    morphTargetInfluences: Record<string, number>
+  ) => void;
 }
 
 const AVATAR_POSITION = new Vector3(0, -1, 0);
@@ -47,7 +49,6 @@ const ANIMATION_URLS = {
   FEMALE:
     'https://assets.memori.ai/api/v2/asset/c2b07166-de10-4c66-918b-7b7cd380cca7.glb',
 };
-const ANIMATION_DURATION = 3000; // Duration in milliseconds for non-idle animations
 
 export default function FullbodyAvatar({
   url,
@@ -56,85 +57,62 @@ export default function FullbodyAvatar({
   currentBaseAction,
   timeScale,
   isZoomed,
-  setMorphTargetInfluences,
-  setMorphTargetDictionary,
-  morphTargetInfluences,
   eyeBlink,
-  setMeshRef,
-  clearVisemes,
+  stopProcessing,
+  morphTargetSmoothing = 0.5,
+  updateCurrentViseme,
+  setMorphTargetDictionary,
+  setMorphTargetInfluences,
+  morphTargetInfluences,
 }: FullbodyAvatarProps) {
   const { scene } = useGLTF(url);
   const { animations } = useGLTF(ANIMATION_URLS[sex]);
   const { nodes, materials } = useGraph(scene);
   const { actions } = useAnimations(animations, scene);
-  const [mixer] = useState(() => new AnimationMixer(scene));
 
-  const avatarMeshRef = useRef<SkinnedMesh>();
+  const mixer = useRef(new AnimationMixer(scene));
+  const headMeshRef = useRef<SkinnedMesh>();
   const currentActionRef = useRef<AnimationAction | null>(null);
-  const isTransitioningRef = useRef(false);
-   
-  // Blink animation
+  const [isTransitioningToIdle, setIsTransitioningToIdle] = useState(false);
+
   useAvatarBlink({
     enabled: eyeBlink || false,
     setMorphTargetInfluences,
-    config: {
-      minInterval: 1500,
-      maxInterval: 4000,
-      blinkDuration: 120,
-    },
   });
 
-  // Idle animation when emotion animation is finished
-  const transitionToIdle = useCallback(() => {
-    if (!actions || isTransitioningRef.current) return;
-
-    isTransitioningRef.current = true;
-
-    const finishCurrentAnimation = () => {
-      if (currentActionRef.current && !currentActionRef.current.paused) {
-        const remainingTime = (currentActionRef.current.getClip().duration - currentActionRef.current.time) * 1000;
-        setTimeout(() => {
-          startIdleAnimation();
-        }, remainingTime);
-      } else {
-        startIdleAnimation();
-      }
-    };
-
-    const startIdleAnimation = () => {
-      const idleAnimations = Object.keys(actions).filter(key =>
-        key.startsWith('Idle')
-      );
-      const randomIdle =
-        idleAnimations[Math.floor(Math.random() * idleAnimations.length)];
-
-      const idleAction = actions[randomIdle];
-      const fadeOutDuration = 0.5;
-      const fadeInDuration = 0.5;
-
-      if (currentActionRef.current) {
-        currentActionRef.current.fadeOut(fadeOutDuration);
-      }
-
-      idleAction?.reset().fadeIn(fadeInDuration).play();
-      currentActionRef.current = idleAction;
-
-      setTimeout(() => {
-        isTransitioningRef.current = false;
-      }, (fadeOutDuration + fadeInDuration) * 1000);
-    };
-
-    if (currentActionRef.current && !currentActionRef.current.getClip().name.startsWith('Idle')) {
-      finishCurrentAnimation();
-    } else {
-      startIdleAnimation();
-    }
-  }, [actions]);
-
-  // Base animation
   useEffect(() => {
-    if (!actions || !currentBaseAction.action || isTransitioningRef.current)
-      return;
+    correctMaterials(materials);
+
+    scene.traverse((object: Object3D) => {
+      if (object instanceof SkinnedMesh) {
+        if (object.name === 'GBNL__Head' || object.name === 'Wolf3D_Avatar') {
+          headMeshRef.current = object;
+          if (object.morphTargetDictionary && object.morphTargetInfluences) {
+            setMorphTargetDictionary(object.morphTargetDictionary);
+
+            const initialInfluences = Object.keys(
+              object.morphTargetDictionary
+            ).reduce((acc, key) => ({ ...acc, [key]: 0 }), {});
+            setMorphTargetInfluences(initialInfluences);
+          }
+        }
+      }
+    });
+
+    onLoaded?.();
+
+    return () => {
+      Object.values(materials).forEach(material => material.dispose());
+      Object.values(nodes)
+        .filter(isSkinnedMesh)
+        .forEach(mesh => mesh.geometry.dispose());
+      stopProcessing();
+    };
+  }, [materials, nodes, url, onLoaded, stopProcessing, scene]);
+
+  // Handle base animation changes
+  useEffect(() => {
+    if (!actions || !currentBaseAction.action) return;
 
     const newAction = actions[currentBaseAction.action];
     if (!newAction) {
@@ -147,79 +125,69 @@ export default function FullbodyAvatar({
     const fadeOutDuration = 0.8;
     const fadeInDuration = 0.8;
 
-    if (!currentBaseAction.action.startsWith('Idle')) {
-      setTimeout(() => {
-        transitionToIdle();
-      }, ANIMATION_DURATION);
-    }
-
     if (currentActionRef.current) {
       currentActionRef.current.fadeOut(fadeOutDuration);
     }
 
-    newAction.timeScale = timeScale;
     newAction.reset().fadeIn(fadeInDuration).play();
     currentActionRef.current = newAction;
-  }, [currentBaseAction, timeScale, actions, transitionToIdle]);
 
-  // Set up the mesh reference and morph target influences
-  useEffect(() => {
-    correctMaterials(materials);
+    // Set the time scale for the new action
+    newAction.timeScale = timeScale;
 
-    scene.traverse((object: Object3D) => {
-      if (
-        object instanceof SkinnedMesh &&
-        (object.name === 'GBNL__Head' || object.name === 'Wolf3D_Avatar')
-      ) {
-        avatarMeshRef.current = object;
-        setMeshRef(object);
+    // If it's an emotion animation, set it to play once and then transition to idle
+    if (currentBaseAction.action.startsWith('Gioia') || 
+        currentBaseAction.action.startsWith('Rabbia') || 
+        currentBaseAction.action.startsWith('Sorpresa') || 
+        currentBaseAction.action.startsWith('Timore') || 
+        currentBaseAction.action.startsWith('Tristezza')) {
+      newAction.setLoop(LoopOnce, 1);
+      newAction.clampWhenFinished = true;
+      setIsTransitioningToIdle(true);
+    }
+  }, [actions, currentBaseAction, timeScale]);
 
-        if (object.morphTargetDictionary && object.morphTargetInfluences) {
-          setMorphTargetDictionary(object.morphTargetDictionary);
+  useFrame(state => {
+    if (headMeshRef.current && headMeshRef.current.morphTargetDictionary && headMeshRef.current.morphTargetInfluences) {
+      const currentViseme = updateCurrentViseme(state.clock.getElapsedTime());
+      const influencesToUpdate = { ...morphTargetInfluences };
 
-          const initialInfluences = Object.keys(
-            object.morphTargetDictionary
-          ).reduce((acc, key) => ({ ...acc, [key]: 0 }), {});
-          setMorphTargetInfluences(initialInfluences);
+      if (currentViseme) {
+        const visemeIndex = headMeshRef.current.morphTargetDictionary[currentViseme.name];
+        if (typeof visemeIndex === 'number') {
+          influencesToUpdate[currentViseme.name] = currentViseme.weight;
         }
       }
-    });
 
-    onLoaded?.();
-
-    return () => {
-      Object.values(materials).forEach(dispose);
-      Object.values(nodes).filter(isSkinnedMesh).forEach(dispose);
-      clearVisemes();
-    };
-  }, [
-    materials,
-    nodes,
-    url,
-    onLoaded,
-    setMorphTargetDictionary,
-    setMorphTargetInfluences,
-    setMeshRef,
-    clearVisemes,
-  ]);
-
-  // Update morph target influences
-  useFrame((_, delta) => {
-    if (avatarMeshRef.current && avatarMeshRef.current.morphTargetDictionary) {
-      updateMorphTargetInfluences();
-    }
-    mixer.update(delta * 0.001);
-
-    function updateMorphTargetInfluences() {
-      Object.entries(morphTargetInfluences).forEach(([key, value]) => {
-        const index = avatarMeshRef.current!.morphTargetDictionary![key];
-        if (typeof index === 'number' &&
-          avatarMeshRef.current!.morphTargetInfluences) {
-          const currentValue = avatarMeshRef.current!.morphTargetInfluences[index];
-          const smoothValue = lerp(currentValue, value, 0.1);
-          avatarMeshRef.current!.morphTargetInfluences[index] = smoothValue;
+      Object.entries(influencesToUpdate).forEach(([key, targetValue]) => {
+        const index = headMeshRef.current!.morphTargetDictionary![key];
+        if (typeof index === 'number' && headMeshRef.current!.morphTargetInfluences) {
+          const currentValue = headMeshRef.current!.morphTargetInfluences[index];
+          const smoothValue = MathUtils.lerp(
+            currentValue,
+            targetValue,
+            morphTargetSmoothing
+          );
+          headMeshRef.current!.morphTargetInfluences[index] = smoothValue;
         }
       });
+    }
+
+    mixer.current.update(0.01); // Fixed delta time for consistent animation speed
+
+    if (isTransitioningToIdle && currentActionRef.current) {
+      if (currentActionRef.current.time >= currentActionRef.current.getClip().duration) {
+        // Transition to the idle animation, take the last character of the current animation
+        const idleNumber = currentBaseAction.action.charAt(currentBaseAction.action.length - 1);
+        const idleAction = actions[`Idle${idleNumber}`];
+        
+        if (idleAction) {
+          currentActionRef.current.fadeOut(0.5);
+          idleAction.reset().fadeIn(0.5).play();
+          currentActionRef.current = idleAction;
+          setIsTransitioningToIdle(false);
+        }
+      }
     }
   });
 
