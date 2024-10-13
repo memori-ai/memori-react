@@ -26,6 +26,7 @@ interface FullbodyAvatarProps {
   isZoomed?: boolean;
   eyeBlink?: boolean;
   stopProcessing: () => void;
+  resetVisemeQueue: () => void;
   updateCurrentViseme: (
     currentTime: number
   ) => { name: string; weight: number } | null;
@@ -64,6 +65,7 @@ export default function FullbodyAvatar({
   setMorphTargetDictionary,
   setMorphTargetInfluences,
   morphTargetInfluences,
+  resetVisemeQueue,
 }: FullbodyAvatarProps) {
   const { scene } = useGLTF(url);
   const { animations } = useGLTF(ANIMATION_URLS[sex]);
@@ -107,6 +109,7 @@ export default function FullbodyAvatar({
         .filter(isSkinnedMesh)
         .forEach(mesh => mesh.geometry.dispose());
       stopProcessing();
+      resetVisemeQueue();
     };
   }, [materials, nodes, url, onLoaded, stopProcessing, scene]);
 
@@ -136,11 +139,13 @@ export default function FullbodyAvatar({
     newAction.timeScale = timeScale;
 
     // If it's an emotion animation, set it to play once and then transition to idle
-    if (currentBaseAction.action.startsWith('Gioia') || 
-        currentBaseAction.action.startsWith('Rabbia') || 
-        currentBaseAction.action.startsWith('Sorpresa') || 
-        currentBaseAction.action.startsWith('Timore') || 
-        currentBaseAction.action.startsWith('Tristezza')) {
+    if (
+      currentBaseAction.action.startsWith('Gioia') ||
+      currentBaseAction.action.startsWith('Rabbia') ||
+      currentBaseAction.action.startsWith('Sorpresa') ||
+      currentBaseAction.action.startsWith('Timore') ||
+      currentBaseAction.action.startsWith('Tristezza')
+    ) {
       newAction.setLoop(LoopOnce, 1);
       newAction.clampWhenFinished = true;
       setIsTransitioningToIdle(true);
@@ -148,39 +153,61 @@ export default function FullbodyAvatar({
   }, [actions, currentBaseAction, timeScale]);
 
   useFrame(state => {
-    if (headMeshRef.current && headMeshRef.current.morphTargetDictionary && headMeshRef.current.morphTargetInfluences) {
+    if (
+      headMeshRef.current &&
+      headMeshRef.current.morphTargetDictionary &&
+      headMeshRef.current.morphTargetInfluences
+    ) {
       const currentViseme = updateCurrentViseme(state.clock.getElapsedTime());
-      const influencesToUpdate = { ...morphTargetInfluences };
 
-      if (currentViseme) {
-        const visemeIndex = headMeshRef.current.morphTargetDictionary[currentViseme.name];
-        if (typeof visemeIndex === 'number') {
-          influencesToUpdate[currentViseme.name] = currentViseme.weight;
+      // Reset all visemes
+      Object.keys(headMeshRef.current.morphTargetDictionary).forEach(
+        visemeName => {
+          if (
+            headMeshRef.current &&
+            headMeshRef.current.morphTargetInfluences &&
+            headMeshRef.current.morphTargetDictionary
+          ) {
+            const index = headMeshRef.current.morphTargetDictionary[visemeName];
+            const currentValue =
+              headMeshRef.current.morphTargetInfluences[index];
+            headMeshRef.current.morphTargetInfluences[index] = MathUtils.lerp(
+              currentValue,
+              0,
+              morphTargetSmoothing
+            );
+          }
         }
-      }
+      );
 
-      Object.entries(influencesToUpdate).forEach(([key, targetValue]) => {
-        const index = headMeshRef.current!.morphTargetDictionary![key];
-        if (typeof index === 'number' && headMeshRef.current!.morphTargetInfluences) {
-          const currentValue = headMeshRef.current!.morphTargetInfluences[index];
+      // Apply current viseme
+      if (currentViseme) {
+        const visemeIndex =
+          headMeshRef.current.morphTargetDictionary[currentViseme.name];
+        if (typeof visemeIndex === 'number') {
+          const currentValue =
+            headMeshRef.current.morphTargetInfluences[visemeIndex];
           const smoothValue = MathUtils.lerp(
             currentValue,
-            targetValue,
+            currentViseme.weight * 1.55, // Amplify the effect
             morphTargetSmoothing
           );
-          headMeshRef.current!.morphTargetInfluences[index] = smoothValue;
+          headMeshRef.current.morphTargetInfluences[visemeIndex] = smoothValue;
         }
-      });
+      }
     }
 
-    mixer.current.update(0.01); // Fixed delta time for consistent animation speed
-
     if (isTransitioningToIdle && currentActionRef.current) {
-      if (currentActionRef.current.time >= currentActionRef.current.getClip().duration) {
+      if (
+        currentActionRef.current.time >=
+        currentActionRef.current.getClip().duration
+      ) {
         // Transition to the idle animation, take the last character of the current animation
-        const idleNumber = currentBaseAction.action.charAt(currentBaseAction.action.length - 1);
+        const idleNumber = currentBaseAction.action.charAt(
+          currentBaseAction.action.length - 1
+        );
         const idleAction = actions[`Idle${idleNumber}`];
-        
+
         if (idleAction) {
           currentActionRef.current.fadeOut(0.5);
           idleAction.reset().fadeIn(0.5).play();
@@ -189,6 +216,8 @@ export default function FullbodyAvatar({
         }
       }
     }
+
+    mixer.current.update(0.01); // Fixed delta time for consistent animation speed
   });
 
   return (

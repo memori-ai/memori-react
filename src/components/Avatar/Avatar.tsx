@@ -57,7 +57,7 @@ const Avatar: React.FC<Props> = ({
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
 
-  const { stopProcessing, updateCurrentViseme } = useViseme();
+  const { stopProcessing, updateCurrentViseme, resetVisemeQueue } = useViseme();
 
   useEffect(() => {
     setIsClient(true);
@@ -144,6 +144,7 @@ const Avatar: React.FC<Props> = ({
             loading={loading}
             style={getAvatarStyle()}
             stopProcessing={stopProcessing}
+            resetVisemeQueue={resetVisemeQueue}
             isZoomed={isZoomed} 
             chatEmission={chatProps?.dialogState?.emission}
           />

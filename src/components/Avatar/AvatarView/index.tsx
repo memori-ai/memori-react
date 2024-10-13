@@ -24,6 +24,7 @@ export interface Props {
   chatEmission?: any;
   setMeshRef?: any;
   stopProcessing: () => void;
+  resetVisemeQueue: () => void;
   updateCurrentViseme: (currentTime: number) => { name: string; weight: number } | null;
 }
 
@@ -89,6 +90,7 @@ export default function ContainerAvatarView({
   isZoomed,
   chatEmission,
   stopProcessing,
+  resetVisemeQueue,
   updateCurrentViseme,
 }: Props) {
   return (
@@ -115,6 +117,7 @@ export default function ContainerAvatarView({
           chatEmission={chatEmission}
           updateCurrentViseme={updateCurrentViseme}
           stopProcessing={stopProcessing}
+          resetVisemeQueue={resetVisemeQueue}
         />
       </Suspense>
     </Canvas>

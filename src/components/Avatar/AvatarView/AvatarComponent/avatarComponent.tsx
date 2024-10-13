@@ -15,6 +15,7 @@ interface Props {
   isZoomed: boolean;
   chatEmission: any;
   stopProcessing: () => void;
+  resetVisemeQueue: () => void;
   updateCurrentViseme: (currentTime: number) => { name: string; weight: number } | null;
 }
 
@@ -63,6 +64,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   loading,
   isZoomed,
   updateCurrentViseme,
+  resetVisemeQueue,
 }) => {
   const [currentBaseAction, setCurrentBaseAction] = useState({
     action: animation || 'Idle1',
@@ -214,7 +216,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
         <FullbodyAvatar
           url={url}
           sex={sex}
-          
+          resetVisemeQueue={resetVisemeQueue}
           eyeBlink={eyeBlink}
           currentBaseAction={currentBaseAction}
           timeScale={timeScale}
