@@ -36,7 +36,7 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
       />
     </div>
     <div
-      class="memori-spin"
+      class="memori-spin memori-spin--zoomed-full-body"
     >
       <div
         class="memori-header"
@@ -390,26 +390,30 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
           </div>
         </div>
         <div
-          class="memori--powered-by"
+          class="memori--powered-by-custom"
         >
-          <img
-            alt=""
-            src="https://aisuru.com/images/aisuru/logo.png"
-          />
-          <p>
-            <span
-              class="sr-only"
-            >
-              Powered by
-            </span>
-            <a
-              href="https://memori.ai/it?integrationID=cb3c4776-7f0b-4f97-a773-c32a5d7a3bf1&memori=aisuru.com-username-Memori"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              Memori.AI
-            </a>
-          </p>
+          <div
+            class="memori--powered-by"
+          >
+            <img
+              alt=""
+              src="https://aisuru.com/images/aisuru/logo.png"
+            />
+            <p>
+              <span
+                class="sr-only"
+              >
+                Powered by
+              </span>
+              <a
+                href="https://memori.ai/it?integrationID=cb3c4776-7f0b-4f97-a773-c32a5d7a3bf1&memori=aisuru.com-username-Memori"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                Memori.AI
+              </a>
+            </p>
+          </div>
         </div>
       </div>
       <div
