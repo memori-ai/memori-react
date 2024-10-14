@@ -190,7 +190,7 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
           />
         </div>
         <div
-          class="memori--grid-column memori--grid-column-right"
+          class="memori--grid-column memori--grid-column--zoomed-full-body memori--grid-column-right"
         >
           <div
             class="memori--start-panel"

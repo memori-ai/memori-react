@@ -28,17 +28,6 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
     };
   }, []);
 
-  const adjustChatInputs = useCallback(() => {
-    const memoriChatInputs = document.getElementById('chat-fieldset');
-    if (memoriChatInputs) {
-      memoriChatInputs.style.bottom = '35px';
-    }
-  }, []);
-
-  useEffect(() => {
-    adjustChatInputs();
-  }, [sessionId, adjustChatInputs]);
-
   return (
     <>
       {integrationStyle}
@@ -57,7 +46,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
 
             <div id="extension" />
           </div>
-          <div className="memori--grid-column memori--grid-column-right">
+          <div className="memori--grid-column memori--grid-column--zoomed-full-body memori--grid-column-right">
             {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
               <Chat {...chatProps} />
             ) : startPanelProps ? (

@@ -48,7 +48,7 @@ const AVATAR_POSITION_ZOOMED = new Vector3(0, -1.45, 0);
 const ANIMATION_URLS = {
   MALE: 'https://assets.memori.ai/api/v2/asset/2c5e88a4-cf62-408b-9ef0-518b099dfcb2.glb',
   FEMALE:
-    'https://assets.memori.ai/api/v2/asset/e60526ba-9d21-4f7b-80ea-b1007da9f02e.glb',
+    'https://assets.memori.ai/api/v2/asset/0e49aa5d-f757-4292-a170-d843c2839a41.glb',
 };
 
 // Blink configuration
