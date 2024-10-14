@@ -94,6 +94,7 @@ export default function FullbodyAvatar({
 
   // Morph targets
   const currentEmotionRef = useRef<Record<string, number>>({});
+  const previousEmotionKeysRef = useRef<Set<string>>(new Set());
 
   useEffect(() => {
     correctMaterials(materials);
@@ -124,7 +125,7 @@ export default function FullbodyAvatar({
       stopProcessing();
       resetVisemeQueue();
     };
-  }, [materials, nodes, url, onLoaded, stopProcessing, scene]);
+  }, [materials, nodes, url, onLoaded, stopProcessing, resetVisemeQueue, scene]);
 
   // Handle base animation changes
   useEffect(() => {
@@ -205,7 +206,23 @@ export default function FullbodyAvatar({
         }
       }
 
-      const currentViseme = updateCurrentViseme(currentTime / 1000); // Convert back to seconds for updateCurrentViseme
+      const currentViseme = updateCurrentViseme(currentTime / 1000);
+
+      // Create a set of current emotion keys
+      const currentEmotionKeys = new Set(Object.keys(emotionMorphTargets));
+
+      // Reset old emotion morph targets
+      previousEmotionKeysRef.current.forEach(key => {
+        if (!currentEmotionKeys.has(key)) {
+          const index = headMeshRef.current!.morphTargetDictionary![key];
+          if (typeof index === 'number') {
+            currentEmotionRef.current[key] = 0;
+            if (headMeshRef.current && headMeshRef.current.morphTargetInfluences) {
+              headMeshRef.current.morphTargetInfluences[index] = 0;
+            }
+          }
+        }
+      });
 
       // Update morph targets
       Object.entries(headMeshRef.current.morphTargetDictionary).forEach(
@@ -214,14 +231,12 @@ export default function FullbodyAvatar({
             let targetValue = 0;
 
             // Handle emotions (base layer)
-            if (
-              Object.prototype.hasOwnProperty.call(emotionMorphTargets, key)
-            ) {
+            if (Object.prototype.hasOwnProperty.call(emotionMorphTargets, key)) {
               const targetEmotionValue = emotionMorphTargets[key];
               const currentEmotionValue = currentEmotionRef.current[key] || 0;
               const newEmotionValue = MathUtils.lerp(
                 currentEmotionValue,
-                targetEmotionValue,
+                targetEmotionValue * 2,
                 EMOTION_TRANSITION_SPEED
               );
               currentEmotionRef.current[key] = newEmotionValue;
@@ -230,7 +245,7 @@ export default function FullbodyAvatar({
 
             // Handle visemes (additive layer)
             if (currentViseme && key === currentViseme.name) {
-              targetValue += currentViseme.weight * 1.55; // Amplify the effect
+              targetValue += currentViseme.weight * 1.2; // Amplify the effect
             }
 
             // Handle blinking (additive layer, only for 'eyesClosed')
@@ -242,10 +257,7 @@ export default function FullbodyAvatar({
             targetValue = MathUtils.clamp(targetValue, 0, 1);
 
             // Apply smoothing
-            if (
-              headMeshRef.current &&
-              headMeshRef.current.morphTargetInfluences
-            ) {
+            if (headMeshRef.current && headMeshRef.current.morphTargetInfluences) {
               headMeshRef.current.morphTargetInfluences[index] = MathUtils.lerp(
                 headMeshRef.current.morphTargetInfluences[index],
                 targetValue,
@@ -256,6 +268,9 @@ export default function FullbodyAvatar({
         }
       );
 
+      // Update the set of previous emotion keys for the next frame
+      previousEmotionKeysRef.current = currentEmotionKeys;
+
       // Handle transition from emotion animation to idle
       if (isTransitioningToIdle && currentActionRef.current) {
         if (
@@ -263,10 +278,8 @@ export default function FullbodyAvatar({
           currentActionRef.current.getClip().duration
         ) {
           // Transition to the idle animation
-          const idleNumber = currentBaseAction.action.charAt(
-            currentBaseAction.action.length - 1
-          );
-          const idleAction = actions[`Idle${idleNumber}`];
+          const idleNumber = Math.floor(Math.random() * 5) + 1; // Randomly choose 1, 2, 3, 4 or 5
+          const idleAction = actions[`Idle${idleNumber == 3 ? 4 : idleNumber}`];
 
           if (idleAction) {
             currentActionRef.current.fadeOut(0.5);

@@ -34,6 +34,7 @@ const VISEME_MAP: { [key: number]: string } = {
   12: 'viseme_I', // I
   13: 'viseme_O', // O
   14: 'viseme_U', // u
+  // Mapping the rest based on closest matches or keeping them as in the original mapping
   15: 'viseme_kk', // g, k (same as 5)
   16: 'viseme_CH', // ch, j, sh, zh (same as 6)
   17: 'viseme_SS', // s, z (same as 7)
@@ -43,11 +44,11 @@ const VISEME_MAP: { [key: number]: string } = {
   21: 'viseme_PP', // y (closest match, could be debated)
 };
 
-const DEFAULT_VISEME_DURATION = 0.06 //0; // Reduced from 0.4 for smoother transitions
-const VISEME_OVERLAP = 0.5; // Slightly increased from 0.04 for more overlap
-const SMOOTHING_FACTOR = 0.4 // New constant for weight smoothing
-const TIME_OFFSET = -0.1; // Adjust this value as needed (in seconds)
-const PRELOAD_TIME = 0.6; // Preload visemes 0.5 seconds in advance
+const DEFAULT_VISEME_DURATION = 0.04 //0; // Reduced from 0.4 for smoother transitions
+const VISEME_OVERLAP = 0.35; // Slightly increased from 0.04 for more overlap
+const SMOOTHING_FACTOR = 0.35 // New constant for weight smoothing
+const TIME_OFFSET =-0.25; // Adjust this value as needed (in seconds)
+const PRELOAD_TIME = 0.525; // Preload visemes 0.5 seconds in advance
 
 export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const visemeQueueRef = useRef<Viseme[]>([]);

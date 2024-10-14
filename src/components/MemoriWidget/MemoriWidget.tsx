@@ -1970,7 +1970,6 @@ const MemoriWidget = ({
         <speak version="1.0" 
                xmlns="http://www.w3.org/2001/10/synthesis" 
                xmlns:mstts="https://www.w3.org/2001/mstts" 
-               xmlns:emo="http://www.w3.org/2009/10/emotionml" 
                xml:lang="${getCultureCodeByLanguage(userLang)}">
           <voice name="${getTTSVoice(userLang)}">
               <s>${replaceTextWithPhonemes(textToSpeak, userLang.toLowerCase())}</s>
@@ -2006,6 +2005,7 @@ const MemoriWidget = ({
         source.onended = () => {
           setIsPlayingAudio(false);
           stopProcessing();
+          resetVisemeQueue();
           currentSpeechRef.current = null;
           emitEndSpeakEvent();
           onEndSpeakStartListen();

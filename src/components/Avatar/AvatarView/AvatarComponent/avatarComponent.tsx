@@ -168,7 +168,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
     } else {
       //Set a random idle animation
       const randomNumber = Math.floor(Math.random() * 5) + 1;
-      const animation = `Idle${randomNumber}`;
+      const animation = `Idle${randomNumber === 3 ? 4 : randomNumber}`;
       onBaseActionChange(animation);
     }
   }, [chatEmission]);
