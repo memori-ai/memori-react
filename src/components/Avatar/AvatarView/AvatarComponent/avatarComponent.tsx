@@ -50,6 +50,7 @@ const baseActions: Record<string, BaseAction> = {
   Loading3: { weight: 0 },
 };
 
+
 export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   stopProcessing,
   chatEmission,
@@ -75,6 +76,9 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
     [key: string]: number;
   }>({});
   const [morphTargetDictionary, setMorphTargetDictionary] = useState<{
+    [key: string]: number;
+  }>({});
+  const [emotionMorphTargets, setEmotionMorphTargets] = useState<{
     [key: string]: number;
   }>({});
 
@@ -105,9 +109,8 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
     const emotionValues =
       emotion === 'default' ? defaultEmotions : emotionMap[emotion];
 
-    setMorphTargetInfluences(prevInfluences => ({
-      ...prevInfluences,
-      ...defaultEmotions,
+    setEmotionMorphTargets(prevEmotions => ({
+      ...prevEmotions,
       ...emotionValues,
     }));
   }, []);
@@ -180,10 +183,8 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   }, [loading]);
 
   // useEffect(() => {
-  //   if (speaking) {
-  //     //set a random idle animation
-  //     const randomNumber = Math.floor(Math.random() * 5) + 1;
-  //     const animation = `Idle${randomNumber}`;
+  //   if (speaking && currentBaseAction.action !== 'Idle1') {
+  //     const animation = `Idle1`;
   //     onBaseActionChange(animation);
   //   }
   // }, [speaking]);
@@ -226,6 +227,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           stopProcessing={stopProcessing}
           setMorphTargetDictionary={setMorphTargetDictionary}
           setMorphTargetInfluences={setMorphTargetInfluences}
+          emotionMorphTargets={emotionMorphTargets}
         />
       )}
     </>

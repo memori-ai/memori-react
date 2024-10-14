@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useMemo, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Vector3,
   Euler,
@@ -12,7 +12,6 @@ import {
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useGraph, useFrame } from '@react-three/fiber';
 import { correctMaterials, isSkinnedMesh } from '../../../../../helpers/utils';
-import { useAvatarBlink } from '../../utils/useEyeBlink';
 
 interface FullbodyAvatarProps {
   url: string;
@@ -39,6 +38,7 @@ interface FullbodyAvatarProps {
   setMorphTargetInfluences: (
     morphTargetInfluences: Record<string, number>
   ) => void;
+  emotionMorphTargets: Record<string, number>;
 }
 
 const AVATAR_POSITION = new Vector3(0, -1, 0);
@@ -46,10 +46,19 @@ const AVATAR_ROTATION = new Euler(0.175, 0, 0);
 const AVATAR_POSITION_ZOOMED = new Vector3(0, -1.45, 0);
 
 const ANIMATION_URLS = {
-  MALE: 'https://assets.memori.ai/api/v2/asset/1c350a21-97d8-4add-82cc-9dc10767a26b.glb',
+  MALE: 'https://assets.memori.ai/api/v2/asset/2c5e88a4-cf62-408b-9ef0-518b099dfcb2.glb',
   FEMALE:
-    'https://assets.memori.ai/api/v2/asset/c2b07166-de10-4c66-918b-7b7cd380cca7.glb',
+    'https://assets.memori.ai/api/v2/asset/e60526ba-9d21-4f7b-80ea-b1007da9f02e.glb',
 };
+
+// Blink configuration
+const BLINK_CONFIG = {
+  minInterval: 1000,
+  maxInterval: 5000,
+  blinkDuration: 150,
+};
+
+const EMOTION_TRANSITION_SPEED = 0.1; // Adjust this value to control emotion transition speed
 
 export default function FullbodyAvatar({
   url,
@@ -64,8 +73,8 @@ export default function FullbodyAvatar({
   updateCurrentViseme,
   setMorphTargetDictionary,
   setMorphTargetInfluences,
-  morphTargetInfluences,
   resetVisemeQueue,
+  emotionMorphTargets,
 }: FullbodyAvatarProps) {
   const { scene } = useGLTF(url);
   const { animations } = useGLTF(ANIMATION_URLS[sex]);
@@ -77,10 +86,14 @@ export default function FullbodyAvatar({
   const currentActionRef = useRef<AnimationAction | null>(null);
   const [isTransitioningToIdle, setIsTransitioningToIdle] = useState(false);
 
-  useAvatarBlink({
-    enabled: eyeBlink || false,
-    setMorphTargetInfluences,
-  });
+  // Blink state
+  const lastBlinkTime = useRef(0);
+  const nextBlinkTime = useRef(0);
+  const isBlinking = useRef(false);
+  const blinkStartTime = useRef(0);
+
+  // Morph targets
+  const currentEmotionRef = useRef<Record<string, number>>({});
 
   useEffect(() => {
     correctMaterials(materials);
@@ -131,7 +144,8 @@ export default function FullbodyAvatar({
     if (currentActionRef.current) {
       currentActionRef.current.fadeOut(fadeOutDuration);
     }
-
+    
+    console.log(newAction);
     newAction.reset().fadeIn(fadeInDuration).play();
     currentActionRef.current = newAction;
 
@@ -158,66 +172,114 @@ export default function FullbodyAvatar({
       headMeshRef.current.morphTargetDictionary &&
       headMeshRef.current.morphTargetInfluences
     ) {
-      const currentViseme = updateCurrentViseme(state.clock.getElapsedTime());
+      const currentTime = state.clock.getElapsedTime() * 1000; // Convert to milliseconds
 
-      // Reset all visemes
-      Object.keys(headMeshRef.current.morphTargetDictionary).forEach(
-        visemeName => {
-          if (
-            headMeshRef.current &&
-            headMeshRef.current.morphTargetInfluences &&
-            headMeshRef.current.morphTargetDictionary
-          ) {
-            const index = headMeshRef.current.morphTargetDictionary[visemeName];
-            const currentValue =
-              headMeshRef.current.morphTargetInfluences[index];
-            headMeshRef.current.morphTargetInfluences[index] = MathUtils.lerp(
-              currentValue,
-              0,
-              morphTargetSmoothing
-            );
+      // Handle blinking
+      let blinkValue = 0;
+      if (eyeBlink) {
+        if (currentTime >= nextBlinkTime.current && !isBlinking.current) {
+          isBlinking.current = true;
+          blinkStartTime.current = currentTime;
+          lastBlinkTime.current = currentTime;
+          nextBlinkTime.current =
+            currentTime +
+            Math.random() *
+              (BLINK_CONFIG.maxInterval - BLINK_CONFIG.minInterval) +
+            BLINK_CONFIG.minInterval;
+        }
+
+        if (isBlinking.current) {
+          const blinkProgress =
+            (currentTime - blinkStartTime.current) / BLINK_CONFIG.blinkDuration;
+          if (blinkProgress <= 0.5) {
+            // Eyes closing
+            blinkValue = blinkProgress * 2;
+          } else if (blinkProgress <= 1) {
+            // Eyes opening
+            blinkValue = 2 - blinkProgress * 2;
+          } else {
+            // Blink finished
+            isBlinking.current = false;
+            blinkValue = 0;
+          }
+        }
+      }
+
+      const currentViseme = updateCurrentViseme(currentTime / 1000); // Convert back to seconds for updateCurrentViseme
+
+      // Update morph targets
+      Object.entries(headMeshRef.current.morphTargetDictionary).forEach(
+        ([key, index]) => {
+          if (typeof index === 'number') {
+            let targetValue = 0;
+
+            // Handle emotions (base layer)
+            if (
+              Object.prototype.hasOwnProperty.call(emotionMorphTargets, key)
+            ) {
+              const targetEmotionValue = emotionMorphTargets[key];
+              const currentEmotionValue = currentEmotionRef.current[key] || 0;
+              const newEmotionValue = MathUtils.lerp(
+                currentEmotionValue,
+                targetEmotionValue,
+                EMOTION_TRANSITION_SPEED
+              );
+              currentEmotionRef.current[key] = newEmotionValue;
+              targetValue += newEmotionValue;
+            }
+
+            // Handle visemes (additive layer)
+            if (currentViseme && key === currentViseme.name) {
+              targetValue += currentViseme.weight * 1.55; // Amplify the effect
+            }
+
+            // Handle blinking (additive layer, only for 'eyesClosed')
+            if (key === 'eyesClosed' && eyeBlink) {
+              targetValue += blinkValue;
+            }
+
+            // Clamp the final value between 0 and 1
+            targetValue = MathUtils.clamp(targetValue, 0, 1);
+
+            // Apply smoothing
+            if (
+              headMeshRef.current &&
+              headMeshRef.current.morphTargetInfluences
+            ) {
+              headMeshRef.current.morphTargetInfluences[index] = MathUtils.lerp(
+                headMeshRef.current.morphTargetInfluences[index],
+                targetValue,
+                morphTargetSmoothing
+              );
+            }
           }
         }
       );
 
-      // Apply current viseme
-      if (currentViseme) {
-        const visemeIndex =
-          headMeshRef.current.morphTargetDictionary[currentViseme.name];
-        if (typeof visemeIndex === 'number') {
-          const currentValue =
-            headMeshRef.current.morphTargetInfluences[visemeIndex];
-          const smoothValue = MathUtils.lerp(
-            currentValue,
-            currentViseme.weight * 1.55, // Amplify the effect
-            morphTargetSmoothing
+      // Handle transition from emotion animation to idle
+      if (isTransitioningToIdle && currentActionRef.current) {
+        if (
+          currentActionRef.current.time >=
+          currentActionRef.current.getClip().duration
+        ) {
+          // Transition to the idle animation
+          const idleNumber = currentBaseAction.action.charAt(
+            currentBaseAction.action.length - 1
           );
-          headMeshRef.current.morphTargetInfluences[visemeIndex] = smoothValue;
+          const idleAction = actions[`Idle${idleNumber}`];
+
+          if (idleAction) {
+            currentActionRef.current.fadeOut(0.5);
+            idleAction.reset().fadeIn(0.5).play();
+            currentActionRef.current = idleAction;
+            setIsTransitioningToIdle(false);
+          }
         }
       }
+
+      // Update the animation mixer
+      mixer.current.update(0.01); // Fixed delta time for consistent animation speed
     }
-
-    if (isTransitioningToIdle && currentActionRef.current) {
-      if (
-        currentActionRef.current.time >=
-        currentActionRef.current.getClip().duration
-      ) {
-        // Transition to the idle animation, take the last character of the current animation
-        const idleNumber = currentBaseAction.action.charAt(
-          currentBaseAction.action.length - 1
-        );
-        const idleAction = actions[`Idle${idleNumber}`];
-
-        if (idleAction) {
-          currentActionRef.current.fadeOut(0.5);
-          idleAction.reset().fadeIn(0.5).play();
-          currentActionRef.current = idleAction;
-          setIsTransitioningToIdle(false);
-        }
-      }
-    }
-
-    mixer.current.update(0.01); // Fixed delta time for consistent animation speed
   });
 
   return (
