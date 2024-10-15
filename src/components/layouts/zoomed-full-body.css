@@ -1,0 +1,16 @@
+.memori-spin--zoomed-full-body {
+    height: 100vh !important;
+}
+
+.memori--powered-by-custom {
+    position: absolute;
+    z-index: 1000;
+    bottom: 35px;
+    display: inline-flex;
+    min-width: 150px;
+    flex-wrap: wrap;
+}
+
+.memori--grid-column--zoomed-full-body {
+    max-height: calc(100% - 80px) !important;
+}

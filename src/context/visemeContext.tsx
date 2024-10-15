@@ -6,7 +6,7 @@ import React, {
   useRef,
   useEffect,
 } from 'react';
-import { SkinnedMesh } from 'three';
+import { MathUtils, SkinnedMesh } from 'three';
 
 type AzureViseme = { visemeId: number; audioOffset: number };
 
@@ -33,34 +33,33 @@ const VisemeContext = createContext<VisemeContextType | undefined>(undefined);
 const VISEME_SMOOTHING = 0.5;
 const DEFAULT_VISEME_DURATION = 0.1;
 const MINIMUM_ELAPSED_TIME = 0.01;
-const VISEME_SPEED_FACTOR = 1.0;
-const AUDIO_PLAYBACK_RATE = 1.0;
-const VISEME_BASE_SPEED = 1.0;
+const VISEME_SPEED_FACTOR = 0.95;
+const AUDIO_PLAYBACK_RATE = 0.95;
+const VISEME_BASE_SPEED = 0.95;
 
 const VISEME_MAP: { [key: number]: string } = {
-  0: 'viseme_sil', // silence
-  1: 'viseme_PP', // p, b, m
-  2: 'viseme_FF', // f, v
-  3: 'viseme_TH', // th, dh
-  4: 'viseme_DD', // t, d, n, l
-  5: 'viseme_kk', // k, g, ng
-  6: 'viseme_CH', // tS, dZ, S, Z
-  7: 'viseme_SS', // s, z
-  8: 'viseme_nn', // Not explicitly defined in Azure mapping, keeping for compatibility
-  9: 'viseme_RR', // r
-  10: 'viseme_aa', // A:
-  11: 'viseme_E', // e
-  12: 'viseme_I', // I
-  13: 'viseme_O', // O
-  14: 'viseme_U', // u
-  // Mapping the rest based on closest matches or keeping them as in the original mapping
-  15: 'viseme_kk', // g, k (same as 5)
-  16: 'viseme_CH', // ch, j, sh, zh (same as 6)
-  17: 'viseme_SS', // s, z (same as 7)
-  18: 'viseme_TH', // th, dh (same as 3)
-  19: 'viseme_RR', // r (same as 9)
-  20: 'viseme_kk', // w (closest match, could be debated)
-  21: 'viseme_PP', // y (closest match, could be debated)
+  0: 'viseme_sil',
+  1: 'viseme_PP',
+  2: 'viseme_FF',
+  3: 'viseme_TH',
+  4: 'viseme_DD',
+  5: 'viseme_kk',
+  6: 'viseme_CH',
+  7: 'viseme_SS',
+  8: 'viseme_nn',
+  9: 'viseme_RR',
+  10: 'viseme_aa',
+  11: 'viseme_E',
+  12: 'viseme_I',
+  13: 'viseme_O',
+  14: 'viseme_U',
+  15: 'viseme_kk',
+  16: 'viseme_CH',
+  17: 'viseme_SS',
+  18: 'viseme_TH',
+  19: 'viseme_RR',
+  20: 'viseme_kk',
+  21: 'viseme_PP',
 };
 
 export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -80,8 +79,8 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
     return start * (1 - alpha) + end * alpha;
   };
 
-  const easeInOutCubic = (x: number): number => {
-    return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+  const easeInOutQuad = (x: number): number => {
+    return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
   };
 
   const setMeshRef = useCallback(
@@ -89,7 +88,6 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
       if (mesh && mesh.morphTargetDictionary && mesh.morphTargetInfluences) {
         meshRef.current = mesh;
         setIsMeshSet(true);
-        // console.log('Mesh set successfully:', mesh);
       } else {
         console.error('Invalid mesh provided:', mesh);
       }
@@ -99,7 +97,6 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const addVisemeToQueue = useCallback((viseme: AzureViseme) => {
     visemeQueueRef.current.push(viseme);
-    // console.log('Viseme added to queue:', viseme);
   }, []);
 
   const getCurrentViseme = useCallback((elapsedTime: number) => {
@@ -115,7 +112,7 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
   }, []);
 
   const getDynamicSpeedFactor = (visemeDuration: number): number => {
-    const baseDuration = 0.1; // Average expected viseme duration
+    const baseDuration = 0.1;
     return (
       VISEME_BASE_SPEED * (baseDuration / visemeDuration) * AUDIO_PLAYBACK_RATE
     );
@@ -136,11 +133,10 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
       const dynamicSpeedFactor = getDynamicSpeedFactor(viseme.duration);
       const adjustedProgress = visemeProgress * dynamicSpeedFactor;
 
-      // Use a cubic easing function for smoother transitions
-      const easedProgress = easeInOutCubic(adjustedProgress);
+      const easedProgress = easeInOutQuad(adjustedProgress);
       const targetWeight = Math.sin(easedProgress * Math.PI) * viseme.weight;
 
-      currentVisemeWeightRef.current[viseme.name] = lerp(
+      currentVisemeWeightRef.current[viseme.name] = MathUtils.lerp(
         currentVisemeWeightRef.current[viseme.name] || 0,
         targetWeight,
         VISEME_SMOOTHING
@@ -153,12 +149,26 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
       ) {
         meshRef.current.morphTargetInfluences[visemeIndex] =
           currentVisemeWeightRef.current[viseme.name];
-        // console.log(`Applied viseme: ${viseme.name}, weight: ${currentVisemeWeightRef.current[viseme.name]}`);
       } else {
         console.error(
           `Viseme not found in morph target dictionary: ${viseme.name}`
         );
       }
+
+      Object.keys(currentVisemeWeightRef.current).forEach((visemeName) => {
+        if (visemeName !== viseme.name) {
+          currentVisemeWeightRef.current[visemeName] = lerp(
+            currentVisemeWeightRef.current[visemeName],
+            0,
+            VISEME_SMOOTHING * 0.5
+          );
+
+          const index = meshRef.current!.morphTargetDictionary?.[visemeName];
+          if (typeof index === 'number' && meshRef.current!.morphTargetInfluences) {
+            meshRef.current!.morphTargetInfluences[index] = currentVisemeWeightRef.current[visemeName];
+          }
+        }
+      });
     },
     []
   );
@@ -199,7 +209,6 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
     visemeQueueRef.current = [];
 
     if (azureVisemes.length === 0) {
-      // console.log('No visemes to process');
       return [];
     }
 
@@ -216,21 +225,34 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
           weight: 1,
           startTime: currentViseme.audioOffset / 10000000,
         };
-        //console.log('Processed viseme:', processedViseme);
         return processedViseme;
       }
     );
 
-    currentVisemesRef.current = processedVisemes;
+    const interpolatedVisemes: ProcessedViseme[] = [];
+    for (let i = 0; i < processedVisemes.length - 1; i++) {
+      const currentViseme = processedVisemes[i];
+      const nextViseme = processedVisemes[i + 1];
+      
+      interpolatedVisemes.push(currentViseme);
+      
+      const intermediateDuration = (nextViseme.startTime - currentViseme.startTime) * 0.5;
+      interpolatedVisemes.push({
+        name: 'viseme_sil',
+        duration: intermediateDuration,
+        weight: 0.5,
+        startTime: currentViseme.startTime + intermediateDuration,
+      });
+    }
+    interpolatedVisemes.push(processedVisemes[processedVisemes.length - 1]);
 
-    // Start animation immediately if not already animating
+    currentVisemesRef.current = interpolatedVisemes;
+
     if (!isAnimatingRef.current) {
       isAnimatingRef.current = true;
       startTimeRef.current = performance.now();
-      // console.log('Starting animation');
       animationFrameRef.current = requestAnimationFrame(animate);
     } else {
-      // If already animating, adjust the start time for the new visemes
       if (startTimeRef.current !== null) {
         const currentTime = performance.now();
         const elapsedTime =
@@ -240,8 +262,8 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
       }
     }
 
-    return processedVisemes;
-  }, [isMeshSet, animate]);
+    return interpolatedVisemes;
+  }, [animate]);
 
   const clearVisemes = useCallback(() => {
     currentVisemesRef.current = [];
@@ -266,10 +288,8 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
     currentVisemeWeightRef.current = {};
     startTimeRef.current = null;
     isAnimatingRef.current = false;
-    // console.log('Visemes cleared');
   }, []);
 
-  // Your existing emotion map
   const emotionMap: Record<string, Record<string, number>> = {
     Gioia: { Gioria: 1 },
     Rabbia: { Rabbia: 1 },
@@ -278,7 +298,6 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
     Timore: { Timore: 1 },
   };
 
-  // Mapping from your emotions to Azure styles
   const emotionToAzureStyleMap: Record<string, string> = {
     Gioia: 'cheerful',
     Rabbia: 'angry',
@@ -287,11 +306,9 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
     Timore: 'terrified',
   };
 
-  // Function to get Azure style from emotion
   function getAzureStyleForEmotion(emotion: string): string {
     return emotionToAzureStyleMap[emotion] || 'neutral';
   }
-
 
   useEffect(() => {
     return () => {

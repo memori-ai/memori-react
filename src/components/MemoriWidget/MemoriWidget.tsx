@@ -1981,12 +1981,12 @@ const MemoriWidget = ({
         userLang
       )}"><voice name="${getTTSVoice(
         userLang
-      )}"><mstts:express-as style="${getAzureStyleForEmotion(
+      )}"><prosody rate="0.95"><mstts:express-as style="${getAzureStyleForEmotion(
         emotion
       )}"><s>${replaceTextWithPhonemes(
         textToSpeak,
         userLang.toLowerCase()
-      )}</s></mstts:express-as></voice></speak>`,
+      )}</s></mstts:express-as></prosody></voice></speak>`,
       result => {
         if (result) {
           setIsPlayingAudio(true);
@@ -2014,6 +2014,7 @@ const MemoriWidget = ({
               ) {
                 source.disconnect();
                 setIsPlayingAudio(false);
+                clearVisemes();
                 memoriSpeaking = false;
               } else if ((audioContext.state as string) === 'interrupted') {
                 audioContext.resume();

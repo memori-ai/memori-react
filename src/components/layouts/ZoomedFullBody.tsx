@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 
-const FullPageLayout: React.FC<LayoutProps> = ({
+const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
   Header,
   headerProps,
   Avatar,
@@ -20,36 +20,45 @@ const FullPageLayout: React.FC<LayoutProps> = ({
   showInstruct = false,
   loading = false,
   poweredBy,
-}) => (
-  <>
-    {integrationStyle}
-    {integrationBackground}
+}) => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
 
-    <Spin spinning={loading}>
-      {showInstruct && ChangeMode && changeModeProps && (
-        <ChangeMode {...changeModeProps} />
-      )}
+  return (
+    <>
+      {integrationStyle}
+      {integrationBackground}
 
-      {Header && headerProps && <Header {...headerProps} />}
+      <Spin className="memori-spin--zoomed-full-body"  spinning={loading}>
+        {showInstruct && ChangeMode && changeModeProps && <ChangeMode {...changeModeProps} />}
 
-      <div className="memori--grid">
-        <div className="memori--grid-column memori--grid-column-left">
-          {Avatar && avatarProps && <Avatar chatProps={chatProps} isZoomed {...avatarProps} />}
+        {Header && headerProps && <Header {...headerProps} />}
 
-          <div id="extension" />
+        <div className="memori--grid">
+          <div className="memori--grid-column memori--grid-column-left">
+            {Avatar && avatarProps && (
+              <Avatar chatProps={chatProps} isZoomed {...avatarProps} />
+            )}
+
+            <div id="extension" />
+          </div>
+          <div className="memori--grid-column memori--grid-column--zoomed-full-body memori--grid-column-right">
+            {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+              <Chat {...chatProps} />
+            ) : startPanelProps ? (
+              <StartPanel {...startPanelProps} />
+            ) : null}
+          </div>
+
+          <div className="memori--powered-by-custom">{poweredBy}</div>
         </div>
-        <div className="memori--grid-column memori--grid-column-right">
-          {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
-            <Chat {...chatProps} />
-          ) : startPanelProps ? (
-            <StartPanel {...startPanelProps} />
-          ) : null}
-        </div>
+      </Spin>
+    </>
+  );
+};
 
-        {poweredBy}
-      </div>
-    </Spin>
-  </>
-);
-
-export default FullPageLayout;
+export default ZoomedFullBodyLayout;
