@@ -1,5 +1,22 @@
 
 
+## [7.7.0](https://github.com/memori-ai/memori-react/compare/v7.6.1...v7.7.0) (2024-10-15)
+
+
+### Features
+
+* improve lip sync ([#20](https://github.com/memori-ai/memori-react/issues/20)) ([e13f520](https://github.com/memori-ai/memori-react/commit/e13f520eb91bd8af1cc42578da29316f0b25033e))
+
+
+### Bug Fixes
+
+* avatar 3d animations, fine tuned lip sync values and removed useless function to useEffect ([1a51c26](https://github.com/memori-ai/memori-react/commit/1a51c26a0220bc9a312c7c34072188e642742111))
+
+
+### Changes
+
+* translate api as post ([04a963c](https://github.com/memori-ai/memori-react/commit/04a963c4bab72d613bbee4a0d7af01715ec1b0e0))
+
 ## [7.6.1](https://github.com/memori-ai/memori-react/compare/v7.6.0...v7.6.1) (2024-10-11)
 
 
