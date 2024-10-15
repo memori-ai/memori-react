@@ -184,15 +184,16 @@ export const stripMarkdown = (text: string) => {
 };
 
 export const stripOutputTags = (text: string): string => {
-  let hasTags = text.includes('</output>');
+  const outputTagRegex = /<output.*?<\/output>/gs;
+  
+  if (!outputTagRegex.test(text)) {
+    return text;
+  }
 
-  if (!hasTags) return text;
-
-  let output = text.split('</output>');
-  let textBefore = output[0].split('<output')[0];
-  let textAfter = output[1];
-
-  return stripOutputTags(textBefore + textAfter);
+  const strippedText = text.replace(outputTagRegex, '');
+  
+  // Recursively strip nested output tags
+  return stripOutputTags(strippedText);
 };
 
 export const stripHTML = (text: string) => {
