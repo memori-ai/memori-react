@@ -30,12 +30,12 @@ interface VisemeContextType {
 
 const VisemeContext = createContext<VisemeContextType | undefined>(undefined);
 
-const VISEME_SMOOTHING = 0.5;
+const VISEME_SMOOTHING = 0.3;
 const DEFAULT_VISEME_DURATION = 0.1;
 const MINIMUM_ELAPSED_TIME = 0.01;
-const VISEME_SPEED_FACTOR = 0.95;
-const AUDIO_PLAYBACK_RATE = 0.95;
-const VISEME_BASE_SPEED = 0.95;
+const VISEME_SPEED_FACTOR = 1;
+const AUDIO_PLAYBACK_RATE = 1;
+const VISEME_BASE_SPEED = 1;
 
 const VISEME_MAP: { [key: number]: string } = {
   0: 'viseme_sil',
