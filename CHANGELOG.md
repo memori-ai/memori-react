@@ -1,5 +1,17 @@
 
 
+## [7.7.1](https://github.com/memori-ai/memori-react/compare/v7.7.0...v7.7.1) (2024-10-15)
+
+
+### Features
+
+* fine tuned lip sync ([5d71023](https://github.com/memori-ai/memori-react/commit/5d71023b78a1722872096a0577cb14cae8848eb8))
+
+
+### Bug Fixes
+
+* fine tuned lip sync and base animations ([6905874](https://github.com/memori-ai/memori-react/commit/69058747e48944c7054802e829654895d4b7823a))
+
 ## [7.7.0](https://github.com/memori-ai/memori-react/compare/v7.6.1...v7.7.0) (2024-10-15)
 
 
