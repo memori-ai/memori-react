@@ -14,6 +14,8 @@ interface HalfBodyAvatarProps {
   headMovement?: boolean;
   speaking?: boolean;
   onLoaded?: () => void;
+  setMeshRef: (mesh: Object3D) => void;
+  clearVisemes: () => void;
   setMorphTargetDictionary: (morphTargetDictionary: any) => void;
   eyeBlink?: boolean;
   morphTargetInfluences: any;
@@ -29,7 +31,9 @@ export default function HalfBodyAvatar({
   setMorphTargetDictionary,
   headMovement,
   eyeBlink,
+  setMeshRef,
   onLoaded,
+  clearVisemes,
   morphTargetInfluences,
 }: HalfBodyAvatarProps) {
   const { scene } = useGLTF(url);
@@ -54,6 +58,7 @@ export default function HalfBodyAvatar({
       // Set mesh reference for the first SkinnedMesh found
       const firstSkinnedMesh = Object.values(nodes).find(isSkinnedMesh) as SkinnedMesh;
       if (firstSkinnedMesh) {
+        setMeshRef(firstSkinnedMesh);
         avatarMeshRef.current = firstSkinnedMesh;
         if (firstSkinnedMesh.morphTargetDictionary && firstSkinnedMesh.morphTargetInfluences) {
           setMorphTargetDictionary(firstSkinnedMesh.morphTargetDictionary);
@@ -72,11 +77,12 @@ export default function HalfBodyAvatar({
       const disposeObjects = () => {
         Object.values(materials).forEach(dispose);
         Object.values(nodes).filter(isSkinnedMesh).forEach(dispose);
+        clearVisemes();
       };
 
       disposeObjects();
     };
-  }, [materials, nodes, url, onLoaded]);
+  }, [materials, nodes, url, onLoaded, clearVisemes]);
 
   const skinnedMeshes = useMemo(
     () => Object.values(nodes).filter(isSkinnedMesh),

@@ -14,9 +14,9 @@ interface Props {
   speaking: boolean;
   isZoomed: boolean;
   chatEmission: any;
-  stopProcessing: () => void;
-  resetVisemeQueue: () => void;
-  updateCurrentViseme: (currentTime: number) => { name: string; weight: number } | null;
+  setMeshRef: any;
+  clearVisemes: () => void;
+  setEmotion: (emotion: string) => void;
 }
 
 interface BaseAction {
@@ -50,9 +50,9 @@ const baseActions: Record<string, BaseAction> = {
   Loading3: { weight: 0 },
 };
 
-
 export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
-  stopProcessing,
+  setMeshRef,
+  clearVisemes,
   chatEmission,
   showControls,
   animation,
@@ -64,8 +64,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   halfBody,
   loading,
   isZoomed,
-  updateCurrentViseme,
-  resetVisemeQueue,
+  setEmotion,
 }) => {
   const [currentBaseAction, setCurrentBaseAction] = useState({
     action: animation || 'Idle1',
@@ -76,9 +75,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
     [key: string]: number;
   }>({});
   const [morphTargetDictionary, setMorphTargetDictionary] = useState<{
-    [key: string]: number;
-  }>({});
-  const [emotionMorphTargets, setEmotionMorphTargets] = useState<{
     [key: string]: number;
   }>({});
 
@@ -97,7 +93,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
 
     //remove the last character from the action
     const newEmotion = action.slice(0, -1);
-    // setEmotion(newEmotion);
+    setEmotion(newEmotion);
 
     const defaultEmotions = Object.keys(emotionMap).reduce((acc, key) => {
       acc[key] = 0;
@@ -109,8 +105,9 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
     const emotionValues =
       emotion === 'default' ? defaultEmotions : emotionMap[emotion];
 
-    setEmotionMorphTargets(prevEmotions => ({
-      ...prevEmotions,
+    setMorphTargetInfluences(prevInfluences => ({
+      ...prevInfluences,
+      ...defaultEmotions,
       ...emotionValues,
     }));
   }, []);
@@ -165,11 +162,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       const emotion = `${outputContent}${randomNumber}`;
 
       onBaseActionChange(emotion);
-    } else {
-      //Set a random idle animation
-      const randomNumber = Math.floor(Math.random() * 5) + 1;
-      const animation = `Idle${randomNumber === 3 ? 4 : randomNumber}`;
-      onBaseActionChange(animation);
     }
   }, [chatEmission]);
 
@@ -181,13 +173,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       onBaseActionChange(animation);
     }
   }, [loading]);
-
-  // useEffect(() => {
-  //   if (speaking && currentBaseAction.action !== 'Idle1') {
-  //     const animation = `Idle1`;
-  //     onBaseActionChange(animation);
-  //   }
-  // }, [speaking]);
 
   return (
     <>
@@ -206,28 +191,30 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       {halfBody ? (
         <HalfBodyAvatar
           url={url}
+          setMeshRef={setMeshRef}
+          setMorphTargetInfluences={setMorphTargetInfluences}
           headMovement={headMovement}
           speaking={speaking}
           eyeBlink={eyeBlink}
           morphTargetInfluences={morphTargetInfluences}
-          setMorphTargetInfluences={setMorphTargetInfluences}
+          clearVisemes={clearVisemes}
           setMorphTargetDictionary={setMorphTargetDictionary}
         />
       ) : (
         <FullbodyAvatar
           url={url}
           sex={sex}
-          resetVisemeQueue={resetVisemeQueue}
           eyeBlink={eyeBlink}
+          speaking={speaking}
           currentBaseAction={currentBaseAction}
           timeScale={timeScale}
-          morphTargetInfluences={morphTargetInfluences}
-          isZoomed={isZoomed}
-          updateCurrentViseme={updateCurrentViseme}
-          stopProcessing={stopProcessing}
-          setMorphTargetDictionary={setMorphTargetDictionary}
           setMorphTargetInfluences={setMorphTargetInfluences}
-          emotionMorphTargets={emotionMorphTargets}
+          setMorphTargetDictionary={setMorphTargetDictionary}
+          morphTargetInfluences={morphTargetInfluences}
+          morphTargetDictionary={morphTargetDictionary}
+          isZoomed={isZoomed}
+          setMeshRef={setMeshRef}
+          clearVisemes={clearVisemes}
         />
       )}
     </>
