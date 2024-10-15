@@ -24,8 +24,6 @@ interface FullbodyAvatarProps {
   timeScale: number;
   isZoomed?: boolean;
   eyeBlink?: boolean;
-  stopProcessing: () => void;
-  resetVisemeQueue: () => void;
   updateCurrentViseme: (
     currentTime: number
   ) => { name: string; weight: number } | null;
@@ -68,12 +66,10 @@ export default function FullbodyAvatar({
   timeScale,
   isZoomed,
   eyeBlink,
-  stopProcessing,
   morphTargetSmoothing = 0.5,
   updateCurrentViseme,
   setMorphTargetDictionary,
   setMorphTargetInfluences,
-  resetVisemeQueue,
   emotionMorphTargets,
 }: FullbodyAvatarProps) {
   const { scene } = useGLTF(url);
@@ -122,10 +118,8 @@ export default function FullbodyAvatar({
       Object.values(nodes)
         .filter(isSkinnedMesh)
         .forEach(mesh => mesh.geometry.dispose());
-      stopProcessing();
-      resetVisemeQueue();
     };
-  }, [materials, nodes, url, onLoaded, stopProcessing, resetVisemeQueue, scene]);
+  }, [materials, nodes, url, onLoaded, scene]);
 
   // Handle base animation changes
   useEffect(() => {
