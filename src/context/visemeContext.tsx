@@ -47,8 +47,8 @@ const VISEME_MAP: { [key: number]: string } = {
 const DEFAULT_VISEME_DURATION = 0.04 //0; // Reduced from 0.4 for smoother transitions
 const VISEME_OVERLAP = 0.35; // Slightly increased from 0.04 for more overlap
 const SMOOTHING_FACTOR = 0.35 // New constant for weight smoothing
-const TIME_OFFSET =-0.15; // Adjust this value as needed (in seconds)
-const PRELOAD_TIME = 0.515; // Preload visemes 0.5 seconds in advance
+const TIME_OFFSET =-0.25; // Adjust this value as needed (in seconds)
+const PRELOAD_TIME = 0.525; // Preload visemes 0.5 seconds in advance
 
 export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const visemeQueueRef = useRef<Viseme[]>([]);

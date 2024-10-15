@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { memori, tenant, integration } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Avatar, { Props } from './Avatar';
-import { VisemeProvider } from '../../context/visemeContext';
+
 import './Avatar.css';
 
 const meta: Meta = {
@@ -32,9 +32,8 @@ const Template: Story<Props> = args => {
 
   return (
     <I18nWrapper>
-      <VisemeProvider>
-        <div
-          style={
+      <div
+        style={
           args.integrationConfig?.avatar === 'customglb' ||
           args.integrationConfig?.avatar === 'readyplayerme' ||
           args.integrationConfig?.avatar === 'readyplayerme-full'
@@ -57,9 +56,8 @@ const Template: Story<Props> = args => {
           avatar3dVisible={avatar3dVisible}
           setAvatar3dVisible={setAvatar3dVisible}
           key={Date.now()}
-          />
-        </div>
-      </VisemeProvider>
+        />
+      </div>
     </I18nWrapper>
   );
 };

@@ -96,9 +96,8 @@ Default.args = {
   headMovement: false,
   rotateAvatar: false,
   speaking: false,
-  stopProcessing: () => {},
-  resetVisemeQueue: () => {},
-  updateCurrentViseme: () => null,
+  clearVisemes: () => {},
+  setMeshRef: () => {},
   url: 'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/d8035229-08cf-42a7-a532-ab051df2603d.png',
@@ -106,9 +105,8 @@ Default.args = {
 
 export const EyeBlink = Template.bind({});
 EyeBlink.args = {
-  stopProcessing: () => {},
-  resetVisemeQueue: () => {},
-  updateCurrentViseme: () => null,
+  clearVisemes: () => {},
+  setMeshRef: () => {},
   eyeBlink: true,
   headMovement: false,
   rotateAvatar: false,
@@ -120,9 +118,8 @@ EyeBlink.args = {
 
 export const HeadMovement = Template.bind({});
 HeadMovement.args = {
-  stopProcessing: () => {},
-  resetVisemeQueue: () => {},
-  updateCurrentViseme: () => null,
+  clearVisemes: () => {},
+  setMeshRef: () => {},
   eyeBlink: false,
   headMovement: true,
   rotateAvatar: false,
@@ -134,9 +131,8 @@ HeadMovement.args = {
 
 export const RotateAvatar = Template.bind({});
 RotateAvatar.args = {
-  stopProcessing: () => {},
-  resetVisemeQueue: () => {},
-  updateCurrentViseme: () => null,
+  clearVisemes: () => {},
+  setMeshRef: () => {},
   eyeBlink: false,
   headMovement: false,
   rotateAvatar: true,
@@ -148,9 +144,8 @@ RotateAvatar.args = {
 
 export const Speaking = Template.bind({});
 Speaking.args = {
-  stopProcessing: () => {},
-  resetVisemeQueue: () => {},
-  updateCurrentViseme: () => null,
+  clearVisemes: () => {},
+  setMeshRef: () => {},
   eyeBlink: false,
   headMovement: false,
   rotateAvatar: false,
@@ -167,9 +162,8 @@ Fullbody.args = {
   headMovement: true,
   rotateAvatar: true,
   speaking: false,
-  stopProcessing: () => {},
-  resetVisemeQueue: () => {},
-  updateCurrentViseme: () => null,
+  clearVisemes: () => {},
+  setMeshRef: () => {},
   url: 'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
@@ -184,9 +178,8 @@ FullbodyZoomed.args = {
   rotateAvatar: true,
   speaking: false,
   isZoomed: true,
-  stopProcessing: () => {},
-  resetVisemeQueue: () => {},
-  updateCurrentViseme: () => null,
+  clearVisemes: () => {},
+  setMeshRef: () => {},
   url: 'https://assets.memori.ai/api/v2/asset/3f5ef41c-6c4c-449c-888d-cf9c89782528.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
@@ -200,9 +193,8 @@ FullbodyAnimatedIdle.args = {
   headMovement: true,
   rotateAvatar: true,
   speaking: false,
-  stopProcessing: () => {},
-  resetVisemeQueue: () => {},
-  updateCurrentViseme: () => null,
+  clearVisemes: () => {},
+  setMeshRef: () => {},
   url: 'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
@@ -217,9 +209,8 @@ FullbodyAnimatedLoading.args = {
   headMovement: true,
   rotateAvatar: true,
   speaking: false,
-  stopProcessing: () => {},
-  resetVisemeQueue: () => {},
-  updateCurrentViseme: () => null,
+  clearVisemes: () => {},
+  setMeshRef: () => {},
   url: 'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
@@ -234,9 +225,8 @@ FullbodyAnimatedSpeaking.args = {
   headMovement: true,
   rotateAvatar: true,
   speaking: true,
-  stopProcessing: () => {},
-  resetVisemeQueue: () => {},
-  updateCurrentViseme: () => null,
+  clearVisemes: () => {},
+  setMeshRef: () => {},
   url: 'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
@@ -251,9 +241,8 @@ FullbodyFemale.args = {
   headMovement: true,
   rotateAvatar: true,
   speaking: false,
-  stopProcessing: () => {},
-  resetVisemeQueue: () => {},
-  updateCurrentViseme: () => null,
+  clearVisemes: () => {},
+  setMeshRef: () => {},
   url: 'https://models.readyplayer.me/650d50c2663b19e0d2831b2b.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
@@ -267,9 +256,8 @@ FullbodyAnimatedFemale.args = {
   headMovement: true,
   rotateAvatar: true,
   speaking: true,
-  stopProcessing: () => {},
-  resetVisemeQueue: () => {},
-  updateCurrentViseme: () => null,
+  clearVisemes: () => {},
+  setMeshRef: () => {},
   url: 'https://models.readyplayer.me/650d50c2663b19e0d2831b2b.glb',
   fallbackImg:
     'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
