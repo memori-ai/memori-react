@@ -28,18 +28,21 @@ export const getTranslation = async (
 
   const isReservedKeyword = dialogKeywords.indexOf(text.toLowerCase()) > -1;
   const fromLanguage = isReservedKeyword ? 'IT' : from?.toUpperCase();
+  const toLanguage = to.toUpperCase();
+
   const deeplResult = await fetch(
-    `${
-      baseUrl || 'https://www.aisuru.com'
-    }/api/translate?text=${encodeURIComponent(
-      textToTranslate
-    )}&target_lang=${to.toUpperCase()}${
-      fromLanguage ? `&source_lang=${fromLanguage}` : ''
-    }`,
+    `${baseUrl || 'https://www.aisuru.com'}/api/translate`,
     {
-      method: 'GET',
+      cache: 'no-cache',
+      method: 'POST',
+      body: JSON.stringify({
+        text: textToTranslate,
+        target_lang: toLanguage,
+        source_lang: fromLanguage,
+      }),
       headers: {
         Accept: '*/*',
+        'Content-Type': 'application/json',
       },
     }
   );
