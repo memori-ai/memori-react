@@ -32,6 +32,7 @@ export interface Props {
   baseUrl?: string;
   apiUrl?: string;
   animation?: string;
+  updateCurrentViseme: (visemeId: number, audioOffset: number) => void;
   isZoomed?: boolean;
   chatProps?: any;
 }
@@ -57,7 +58,7 @@ const Avatar: React.FC<Props> = ({
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
 
-  const { setMeshRef, clearVisemes, setEmotion } = useViseme();
+  const { updateCurrentViseme } = useViseme();
 
   useEffect(() => {
     setIsClient(true);
@@ -142,11 +143,9 @@ const Avatar: React.FC<Props> = ({
             speaking={isPlayingAudio}
             loading={loading}
             style={getAvatarStyle()}
-            clearVisemes={clearVisemes}
-            setMeshRef={setMeshRef}
+            updateCurrentViseme={updateCurrentViseme}
             isZoomed={isZoomed}
             chatEmission={chatProps?.dialogState?.emission}
-            setEmotion={setEmotion}
           />
         </ErrorBoundary>
       );

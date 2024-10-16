@@ -543,11 +543,13 @@ const MemoriWidget = ({
   const [hideEmissions, setHideEmissions] = useState(false);
 
   const {
-    addVisemeToQueue,
-    processVisemeQueue,
-    clearVisemes,
-    emotion,
-    getAzureStyleForEmotion,
+    addViseme,
+    updateCurrentViseme,
+    startProcessing,
+    stopProcessing,
+    resetVisemeQueue,
+    resetAndStartProcessing,
+    isProcessing,
   } = useViseme();
 
   useEffect(() => {
@@ -1961,15 +1963,10 @@ const MemoriWidget = ({
       onEndSpeakStartListen();
     };
 
-    // Clear any existing visemes before starting new speech
-    clearVisemes();
 
     // Set up the viseme event handler
     speechSynthesizer.visemeReceived = function (_, e) {
-      addVisemeToQueue({
-        visemeId: e.visemeId,
-        audioOffset: e.audioOffset,
-      });
+      addViseme(e.visemeId, e.audioOffset);
     };
 
     const textToSpeak = escapeHTML(
@@ -1981,19 +1978,17 @@ const MemoriWidget = ({
         userLang
       )}"><voice name="${getTTSVoice(
         userLang
-      )}"><prosody rate="0.95"><mstts:express-as style="${getAzureStyleForEmotion(
-        emotion
-      )}"><s>${replaceTextWithPhonemes(
+      )}"><prosody rate="0.95"><s>${replaceTextWithPhonemes(
         textToSpeak,
         userLang.toLowerCase()
-      )}</s></mstts:express-as></prosody></voice></speak>`,
+      )}</s></prosody></voice></speak>`,
       result => {
         if (result) {
           setIsPlayingAudio(true);
           memoriSpeaking = true;
 
           // Process the viseme data
-          processVisemeQueue();
+          resetAndStartProcessing();
 
           try {
             // Decode the audio data
@@ -2014,7 +2009,6 @@ const MemoriWidget = ({
               ) {
                 source.disconnect();
                 setIsPlayingAudio(false);
-                clearVisemes();
                 memoriSpeaking = false;
               } else if ((audioContext.state as string) === 'interrupted') {
                 audioContext.resume();
@@ -2030,7 +2024,6 @@ const MemoriWidget = ({
           } catch (e) {
             console.warn('speak error: ', e);
             window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
-            clearVisemes();
             setIsPlayingAudio(false);
             memoriSpeaking = false;
 
@@ -2042,7 +2035,6 @@ const MemoriWidget = ({
           }
         } else {
           audioContext.resume();
-          clearVisemes();
           setIsPlayingAudio(false);
           memoriSpeaking = false;
           emitEndSpeakEvent();
