@@ -32,7 +32,6 @@ export interface Props {
   baseUrl?: string;
   apiUrl?: string;
   animation?: string;
-  updateCurrentViseme: (visemeId: number, audioOffset: number) => void;
   isZoomed?: boolean;
   chatProps?: any;
 }
@@ -58,7 +57,7 @@ const Avatar: React.FC<Props> = ({
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
 
-  const { updateCurrentViseme } = useViseme();
+  const { stopProcessing, updateCurrentViseme, resetVisemeQueue } = useViseme();
 
   useEffect(() => {
     setIsClient(true);
@@ -133,6 +132,7 @@ const Avatar: React.FC<Props> = ({
           }
         >
           <ContainerAvatarView
+            updateCurrentViseme={updateCurrentViseme}
             url={integrationConfig.avatarURL}
             sex={memori.voiceType === 'FEMALE' ? 'FEMALE' : 'MALE'}
             fallbackImg={getAvatarUrl()}
@@ -143,8 +143,9 @@ const Avatar: React.FC<Props> = ({
             speaking={isPlayingAudio}
             loading={loading}
             style={getAvatarStyle()}
-            updateCurrentViseme={updateCurrentViseme}
-            isZoomed={isZoomed}
+            stopProcessing={stopProcessing}
+            resetVisemeQueue={resetVisemeQueue}
+            isZoomed={isZoomed} 
             chatEmission={chatProps?.dialogState?.emission}
           />
         </ErrorBoundary>

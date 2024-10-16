@@ -14,6 +14,8 @@ interface Props {
   speaking: boolean;
   isZoomed: boolean;
   chatEmission: any;
+  stopProcessing: () => void;
+  resetVisemeQueue: () => void;
   updateCurrentViseme: (currentTime: number) => { name: string; weight: number } | null;
 }
 
@@ -50,6 +52,7 @@ const baseActions: Record<string, BaseAction> = {
 
 
 export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
+  stopProcessing,
   chatEmission,
   showControls,
   animation,
@@ -62,6 +65,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   loading,
   isZoomed,
   updateCurrentViseme,
+  resetVisemeQueue,
 }) => {
   const [currentBaseAction, setCurrentBaseAction] = useState({
     action: animation || 'Idle1',
@@ -178,6 +182,12 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
     }
   }, [loading]);
 
+  // useEffect(() => {
+  //   if (speaking && currentBaseAction.action !== 'Idle1') {
+  //     const animation = `Idle1`;
+  //     onBaseActionChange(animation);
+  //   }
+  // }, [speaking]);
 
   return (
     <>
@@ -207,12 +217,14 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
         <FullbodyAvatar
           url={url}
           sex={sex}
+          resetVisemeQueue={resetVisemeQueue}
           eyeBlink={eyeBlink}
           currentBaseAction={currentBaseAction}
           timeScale={timeScale}
           morphTargetInfluences={morphTargetInfluences}
           isZoomed={isZoomed}
           updateCurrentViseme={updateCurrentViseme}
+          stopProcessing={stopProcessing}
           setMorphTargetDictionary={setMorphTargetDictionary}
           setMorphTargetInfluences={setMorphTargetInfluences}
           emotionMorphTargets={emotionMorphTargets}

@@ -24,6 +24,8 @@ interface FullbodyAvatarProps {
   timeScale: number;
   isZoomed?: boolean;
   eyeBlink?: boolean;
+  stopProcessing: () => void;
+  resetVisemeQueue: () => void;
   updateCurrentViseme: (
     currentTime: number
   ) => { name: string; weight: number } | null;
@@ -239,7 +241,7 @@ export default function FullbodyAvatar({
 
             // Handle visemes (additive layer)
             if (currentViseme && key === currentViseme.name) {
-              targetValue += currentViseme.weight * 1.2; // Amplify the effect
+              targetValue += currentViseme.weight * 1.3; // Amplify the effect
             }
 
             // Handle blinking (additive layer, only for 'eyesClosed')

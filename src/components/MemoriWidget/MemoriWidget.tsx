@@ -543,13 +543,13 @@ const MemoriWidget = ({
   const [hideEmissions, setHideEmissions] = useState(false);
 
   const {
-    addViseme,
     updateCurrentViseme,
     startProcessing,
-    stopProcessing,
-    resetVisemeQueue,
     resetAndStartProcessing,
     isProcessing,
+    addViseme,
+    stopProcessing,
+    resetVisemeQueue,
   } = useViseme();
 
   useEffect(() => {
@@ -1978,27 +1978,31 @@ const MemoriWidget = ({
         userLang
       )}"><voice name="${getTTSVoice(
         userLang
-      )}"><prosody rate="0.95"><s>${replaceTextWithPhonemes(
+      )}"><s>${replaceTextWithPhonemes(
         textToSpeak,
         userLang.toLowerCase()
-      )}</s></prosody></voice></speak>`,
+      )}</s></voice></speak>`,
       result => {
         if (result) {
           setIsPlayingAudio(true);
           memoriSpeaking = true;
 
-          // Process the viseme data
-          resetAndStartProcessing();
-
           try {
             // Decode the audio data
-            audioContext.decodeAudioData(result.audioData, function (buffer) {
-              source.buffer = buffer;
-              source.connect(audioContext.destination);
+            audioContext!.decodeAudioData(result.audioData, function (buffer) {
+              const currentSource = audioContext!.createBufferSource();
+              currentSource.buffer = buffer;
+              currentSource.connect(audioContext!.destination);
+              startProcessing();
+              currentSource.start();
 
-              if (history.length < 1 || (isSafari && isIOS)) {
-                source.start(0);
-              }
+              currentSource.onended = () => {
+                setIsPlayingAudio(false);
+                memoriSpeaking = false;
+                stopProcessing();
+                resetVisemeQueue();
+                emitEndSpeakEvent();
+              };
             });
 
             // Handle the audio context state changes
@@ -2009,23 +2013,25 @@ const MemoriWidget = ({
               ) {
                 source.disconnect();
                 setIsPlayingAudio(false);
+                stopProcessing();
+                resetVisemeQueue();
                 memoriSpeaking = false;
+                emitEndSpeakEvent();
               } else if ((audioContext.state as string) === 'interrupted') {
+                stopProcessing();
+                resetVisemeQueue();
                 audioContext.resume();
               }
             };
 
-            audioContext.resume();
 
-            if (speechSynthesizer) {
-              speechSynthesizer.close();
-              speechSynthesizer = null;
-            }
           } catch (e) {
             console.warn('speak error: ', e);
             window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
             setIsPlayingAudio(false);
             memoriSpeaking = false;
+            stopProcessing();
+            resetVisemeQueue();
 
             if (speechSynthesizer) {
               speechSynthesizer.close();
@@ -2035,6 +2041,8 @@ const MemoriWidget = ({
           }
         } else {
           audioContext.resume();
+          stopProcessing();
+          resetVisemeQueue();
           setIsPlayingAudio(false);
           memoriSpeaking = false;
           emitEndSpeakEvent();
@@ -2045,6 +2053,8 @@ const MemoriWidget = ({
         window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
         setIsPlayingAudio(false);
         memoriSpeaking = false;
+        stopProcessing();
+        resetVisemeQueue();
         emitEndSpeakEvent();
       }
     );
