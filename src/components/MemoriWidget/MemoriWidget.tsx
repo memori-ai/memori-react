@@ -1963,6 +1963,8 @@ const MemoriWidget = ({
       onEndSpeakStartListen();
     };
 
+    // Add this before starting new speech synthesis
+    resetVisemeQueue();
 
     // Set up the viseme event handler
     speechSynthesizer.visemeReceived = function (_, e) {
@@ -1976,9 +1978,7 @@ const MemoriWidget = ({
     speechSynthesizer.speakSsmlAsync(
       `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
         userLang
-      )}"><voice name="${getTTSVoice(
-        userLang
-      )}"><s>${replaceTextWithPhonemes(
+      )}"><voice name="${getTTSVoice(userLang)}"><s>${replaceTextWithPhonemes(
         textToSpeak,
         userLang.toLowerCase()
       )}</s></voice></speak>`,
@@ -1990,6 +1990,7 @@ const MemoriWidget = ({
           try {
             // Decode the audio data
             audioContext!.decodeAudioData(result.audioData, function (buffer) {
+              console.log('decoded');
               const currentSource = audioContext!.createBufferSource();
               currentSource.buffer = buffer;
               currentSource.connect(audioContext!.destination);
@@ -1997,6 +1998,7 @@ const MemoriWidget = ({
               currentSource.start();
 
               currentSource.onended = () => {
+                console.log('ended');
                 setIsPlayingAudio(false);
                 memoriSpeaking = false;
                 stopProcessing();
@@ -2011,6 +2013,7 @@ const MemoriWidget = ({
                 audioContext.state === 'suspended' ||
                 audioContext.state === 'closed'
               ) {
+                console.log('suspended');
                 source.disconnect();
                 setIsPlayingAudio(false);
                 stopProcessing();
@@ -2018,12 +2021,13 @@ const MemoriWidget = ({
                 memoriSpeaking = false;
                 emitEndSpeakEvent();
               } else if ((audioContext.state as string) === 'interrupted') {
+                console.log('interrupted');
                 stopProcessing();
                 resetVisemeQueue();
+
                 audioContext.resume();
               }
             };
-
 
           } catch (e) {
             console.warn('speak error: ', e);
