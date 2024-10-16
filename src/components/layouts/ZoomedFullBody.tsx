@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 
@@ -21,15 +21,20 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
   loading = false,
   poweredBy,
 }) => {
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
   return (
     <>
       {integrationStyle}
       {integrationBackground}
 
       <Spin className="memori-spin--zoomed-full-body" spinning={loading}>
-        {showInstruct && ChangeMode && changeModeProps && (
-          <ChangeMode {...changeModeProps} />
-        )}
+        {showInstruct && ChangeMode && changeModeProps && <ChangeMode {...changeModeProps} />}
 
         {Header && headerProps && <Header {...headerProps} />}
 

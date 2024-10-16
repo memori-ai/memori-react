@@ -23,8 +23,9 @@ export interface Props {
   isZoomed?: boolean;
   chatEmission?: any;
   setMeshRef?: any;
-  clearVisemes: () => void;
-  setEmotion: (emotion: string) => void;
+  stopProcessing: () => void;
+  resetVisemeQueue: () => void;
+  updateCurrentViseme: (currentTime: number) => { name: string; weight: number } | null;
 }
 
 const defaultStyles = {
@@ -88,9 +89,9 @@ export default function ContainerAvatarView({
   showControls = false,
   isZoomed,
   chatEmission,
-  setMeshRef,
-  clearVisemes,
-  setEmotion,
+  stopProcessing,
+  resetVisemeQueue,
+  updateCurrentViseme,
 }: Props) {
   return (
     <Canvas
@@ -114,9 +115,9 @@ export default function ContainerAvatarView({
           speaking={speaking || false}
           halfBody={halfBody || false}
           chatEmission={chatEmission}
-          setMeshRef={setMeshRef}
-          clearVisemes={clearVisemes}
-          setEmotion={setEmotion}
+          updateCurrentViseme={updateCurrentViseme}
+          stopProcessing={stopProcessing}
+          resetVisemeQueue={resetVisemeQueue}
         />
       </Suspense>
     </Canvas>
