@@ -14,3 +14,7 @@
 .memori--grid-column--zoomed-full-body {
     max-height: calc(100% - 80px) !important;
 }
+
+.memori.memori-widget.memori-layout-zoomed_full_body .memori--grid {
+    height: calc(100% - 25px);
+}
