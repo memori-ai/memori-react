@@ -1,9 +1,16 @@
-import React, { createContext, useContext, useRef, useCallback, useState, useEffect } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useRef,
+  useCallback,
+  useState,
+  useEffect,
+} from 'react';
 
-type Viseme = { 
-  name: string; 
-  weight: number; 
-  startTime: number; 
+type Viseme = {
+  name: string;
+  weight: number;
+  startTime: number;
   endTime: number;
 };
 
@@ -45,77 +52,95 @@ const VISEME_MAP: { [key: number]: string } = {
   21: 'viseme_PP', // y (closest match, could be debated)
 };
 
-const DEFAULT_VISEME_DURATION = 0.04 //0; // Reduced from 0.4 for smoother transitions
-const VISEME_OVERLAP = 0.35; // Slightly increased from 0.04 for more overlap
-const SMOOTHING_FACTOR = 0.35 // New constant for weight smoothing
+const DEFAULT_VISEME_DURATION = 0.04; //0; // Reduced from 0.4 for smoother transitions
+const VISEME_OVERLAP = 0.15; // Slightly increased from 0.04 for more overlap
+const SMOOTHING_FACTOR = 0.35; // New constant for weight smoothing
 const TIME_OFFSET = -0.04; // Adjust this value as needed (in seconds)
 const PRELOAD_TIME = 1; // Preload visemes 0.5 seconds in advance
 
-export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const visemeQueueRef = useRef<Viseme[]>([]);
   const startTimeRef = useRef<number | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const lastVisemeRef = useRef<Viseme | null>(null);
 
-  const addViseme = useCallback((visemeId: number, audioOffset: number) => {
-    const visemeName = VISEME_MAP[visemeId] || 'viseme_sil';
-    const startTime = audioOffset / 10000000 + TIME_OFFSET;
-    const endTime = startTime + DEFAULT_VISEME_DURATION;
-    const newViseme: Viseme = {
-      name: visemeName,
-      weight: 0,
-      startTime,
-      endTime,
-    };
-    visemeQueueRef.current.push(newViseme);
+  const addViseme = useCallback(
+    (visemeId: number, audioOffset: number) => {
+      const visemeName = VISEME_MAP[visemeId] || 'viseme_sil';
+      const startTime = audioOffset / 10000000 + TIME_OFFSET;
+      const endTime = startTime + DEFAULT_VISEME_DURATION;
+      const newViseme: Viseme = {
+        name: visemeName,
+        weight: 0,
+        startTime,
+        endTime,
+      };
+      visemeQueueRef.current.push(newViseme);
 
-    if (!isProcessing) {
-      startProcessing();
-    }
-  }, [isProcessing]);
-
-  const updateCurrentViseme = useCallback((currentTime: number): Viseme | null => {
-    if (!isProcessing || startTimeRef.current === null) {
-      console.log('StartTimeRef not set');
-      return null;
-    }
-
-    const elapsedTime = currentTime - startTimeRef.current + PRELOAD_TIME
-
-    // Remove expired visemes
-    visemeQueueRef.current = visemeQueueRef.current.filter(v => v.endTime > elapsedTime);
-
-    const currentViseme = visemeQueueRef.current.find(v => 
-      v.startTime <= elapsedTime && v.endTime > elapsedTime - VISEME_OVERLAP
-    );
-
-    if (currentViseme) {
-      console.log('CurrentViseme Found!')
-      const visemeProgress = (elapsedTime - currentViseme.startTime) / (currentViseme.endTime - currentViseme.startTime);
-      const targetWeight = Math.sin(Math.PI * Math.min(visemeProgress, 1));
-      
-      // Smooth the weight transition
-      const smoothedWeight = lastVisemeRef.current
-        ? lastVisemeRef.current.weight + (targetWeight - lastVisemeRef.current.weight) * SMOOTHING_FACTOR
-        : targetWeight;
-
-      const updatedViseme = { ...currentViseme, weight: smoothedWeight };
-      lastVisemeRef.current = updatedViseme;
-      return updatedViseme;
-    }
-
-    // Gradually reduce weight when no viseme is active
-    if (lastVisemeRef.current) {
-      const reducedWeight = lastVisemeRef.current.weight * (1 - SMOOTHING_FACTOR);
-      if (reducedWeight > 0.01) {
-        lastVisemeRef.current = { ...lastVisemeRef.current, weight: reducedWeight };
-        return lastVisemeRef.current;
+      if (!isProcessing) {
+        startProcessing();
       }
-    }
+    },
+    [isProcessing]
+  );
 
-    lastVisemeRef.current = null;
-    return null;
-  }, [isProcessing]);
+  const updateCurrentViseme = useCallback(
+    (currentTime: number): Viseme | null => {
+      if (!isProcessing || startTimeRef.current === null) {
+        console.log('StartTimeRef not set');
+        return null;
+      }
+
+      const elapsedTime = currentTime - startTimeRef.current + PRELOAD_TIME;
+
+      // Remove expired visemes
+      visemeQueueRef.current = visemeQueueRef.current.filter(
+        v => v.endTime > elapsedTime
+      );
+
+      const currentViseme = visemeQueueRef.current.find(
+        v =>
+          v.startTime <= elapsedTime && v.endTime > elapsedTime - VISEME_OVERLAP
+      );
+
+      if (currentViseme) {
+        console.log('CurrentViseme Found!');
+        const visemeProgress =
+          (elapsedTime - currentViseme.startTime) /
+          (currentViseme.endTime - currentViseme.startTime);
+        const targetWeight = Math.sin(Math.PI * Math.min(visemeProgress, 1));
+
+        // Smooth the weight transition
+        const smoothedWeight = lastVisemeRef.current
+          ? lastVisemeRef.current.weight +
+            (targetWeight - lastVisemeRef.current.weight) * SMOOTHING_FACTOR
+          : targetWeight;
+
+        const updatedViseme = { ...currentViseme, weight: smoothedWeight };
+        lastVisemeRef.current = updatedViseme;
+        return updatedViseme;
+      }
+
+      // Gradually reduce weight when no viseme is active
+      if (lastVisemeRef.current) {
+        const reducedWeight =
+          lastVisemeRef.current.weight * (1 - SMOOTHING_FACTOR);
+        if (reducedWeight > 0.01) {
+          lastVisemeRef.current = {
+            ...lastVisemeRef.current,
+            weight: reducedWeight,
+          };
+          return lastVisemeRef.current;
+        }
+      }
+
+      lastVisemeRef.current = null;
+      return null;
+    },
+    [isProcessing]
+  );
 
   const startProcessing = useCallback(() => {
     // if (isProcessing) return;
@@ -140,7 +165,6 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     startTimeRef.current = performance.now() / 1000;
     setIsProcessing(true);
   }, [stopProcessing, resetVisemeQueue]);
-
 
   const contextValue = {
     addViseme,
