@@ -2028,7 +2028,6 @@ const MemoriWidget = ({
                 audioContext.resume();
               }
             };
-
           } catch (e) {
             console.warn('speak error: ', e);
             window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
@@ -3000,7 +2999,9 @@ const MemoriWidget = ({
 
   const showFullHistory =
     showOnlyLastMessages === undefined
-      ? layout !== 'TOTEM' && layout !== 'WEBSITE_ASSISTANT'
+      ? layout !== 'TOTEM' &&
+        layout !== 'WEBSITE_ASSISTANT' &&
+        layout !== 'HIDDEN_CHAT'
       : !showOnlyLastMessages;
 
   const headerProps: HeaderProps = {
