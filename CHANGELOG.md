@@ -1,5 +1,27 @@
 
 
+## [7.8.0-rc.0](https://github.com/memori-ai/memori-react/compare/v7.7.1...v7.8.0-rc.0) (2024-10-17)
+
+
+### Features
+
+* fine tuned lip sync ([f8557ee](https://github.com/memori-ai/memori-react/commit/f8557ee744016967cb70cd4458ab869838027fbd))
+* reintroduced old lip sync system ([3626b55](https://github.com/memori-ai/memori-react/commit/3626b55b8098fc2b832d9b7f74104c13bfc127fc))
+* reintroduced old lip sync system ([0678e46](https://github.com/memori-ai/memori-react/commit/0678e46f93ece534e7ecff6784dc5430ea67428b))
+
+
+### Bug Fixes
+
+* adjusted half body avatar component woth lip sync and blink ([5c8f8cd](https://github.com/memori-ai/memori-react/commit/5c8f8cd201cbcd4ac00e53779d2d31b8e8e8f9da))
+* half body avatar ([c70ca97](https://github.com/memori-ai/memori-react/commit/c70ca979a0642e9a44847697eb6e3ec99489bb14))
+* zoomed full body styles ([47cfc0d](https://github.com/memori-ai/memori-react/commit/47cfc0de775cb7d6e61125eba1ec27db1e176507))
+
+
+### Maintenance
+
+* adapt showFullHistory for hidden chat layout ([872b28d](https://github.com/memori-ai/memori-react/commit/872b28d4b5871590e6f12acb9468988be2cdcea0))
+* reduce VISEME_OVERLAP ([474e3ea](https://github.com/memori-ai/memori-react/commit/474e3ea852377970244d4e20f22d76a4df24d6e3))
+
 ## [7.7.1](https://github.com/memori-ai/memori-react/compare/v7.7.0...v7.7.1) (2024-10-15)
 
 
