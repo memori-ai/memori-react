@@ -36,6 +36,18 @@ Anonymous.args = {
   showSettings: true,
 };
 
+export const Nunzio = Template.bind({});
+Nunzio.args = {
+  ownerUserName: 'nunzio.fiore',
+  memoriName: 'Nunzio',
+  tenantID: 'aisuru.com',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://www.aisuru.com',
+  uiLang: 'it',
+  showShare: true,
+  showSettings: true,
+};
+
 export const Localhost = Template.bind({});
 Localhost.args = {
   memoriName: 'test memori',
@@ -95,18 +107,6 @@ Giovanna.args = {
   uiLang: 'IT',
   spokenLang: 'IT',
   layout: 'ZOOMED_FULL_BODY',
-  showInstruct: 'false',
-  showSettings: 'true',
-  showClear: 'false',
-  showAIicon: 'true',
-  showWhyThisAnswer: 'true',
-  showTypingText: 'false',
-  showOnlyLastMessages: 'false',
-  showTranslationOriginal: 'false',
-  showCopyButton: 'false',
-  showShare: 'true',
-  showLogin: 'false',
-  enableAudio: 'true',
 };
 
 export const GiovannaProva = Template.bind({});
@@ -122,18 +122,6 @@ GiovannaProva.args = {
   uiLang: 'EN',
   spokenLang: 'IT',
   layout: 'ZOOMED_FULL_BODY',
-  showInstruct: 'false',
-  showSettings: 'true',
-  showClear: 'false',
-  showAIicon: 'true',
-  showWhyThisAnswer: 'true',
-  showTypingText: 'false',
-  showOnlyLastMessages: 'false',
-  showTranslationOriginal: 'false',
-  showCopyButton: 'false',
-  showShare: 'true',
-  showLogin: 'false',
-  enableAudio: 'true',
   integrationID: 'e92ac275-39b5-474d-8f9e-826cc5284f1e',
   initialQuestion: 'inizio simulazione',
 };
