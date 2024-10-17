@@ -543,13 +543,10 @@ const MemoriWidget = ({
   const [hideEmissions, setHideEmissions] = useState(false);
 
   const {
-    updateCurrentViseme,
     startProcessing,
-    resetAndStartProcessing,
-    isProcessing,
     addViseme,
     stopProcessing,
-    resetVisemeQueue,
+    resetVisemeQueue
   } = useViseme();
 
   useEffect(() => {
@@ -1963,7 +1960,7 @@ const MemoriWidget = ({
       onEndSpeakStartListen();
     };
 
-    // Add this before starting new speech synthesis
+    // Clear any existing visemes before starting new speech
     resetVisemeQueue();
 
     // Set up the viseme event handler
@@ -1978,7 +1975,9 @@ const MemoriWidget = ({
     speechSynthesizer.speakSsmlAsync(
       `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
         userLang
-      )}"><voice name="${getTTSVoice(userLang)}"><s>${replaceTextWithPhonemes(
+      )}"><voice name="${getTTSVoice(
+        userLang
+      )}"><s>${replaceTextWithPhonemes(
         textToSpeak,
         userLang.toLowerCase()
       )}</s></voice></speak>`,
@@ -1987,24 +1986,18 @@ const MemoriWidget = ({
           setIsPlayingAudio(true);
           memoriSpeaking = true;
 
+          // Process the viseme data
+          startProcessing();
+
           try {
             // Decode the audio data
-            audioContext!.decodeAudioData(result.audioData, function (buffer) {
-              console.log('decoded');
-              const currentSource = audioContext!.createBufferSource();
-              currentSource.buffer = buffer;
-              currentSource.connect(audioContext!.destination);
-              startProcessing();
-              currentSource.start();
+            audioContext.decodeAudioData(result.audioData, function (buffer) {
+              source.buffer = buffer;
+              source.connect(audioContext.destination);
 
-              currentSource.onended = () => {
-                console.log('ended');
-                setIsPlayingAudio(false);
-                memoriSpeaking = false;
-                stopProcessing();
-                resetVisemeQueue();
-                emitEndSpeakEvent();
-              };
+              if (history.length < 1 || (isSafari && isIOS)) {
+                source.start(0);
+              }
             });
 
             // Handle the audio context state changes
@@ -2013,28 +2006,29 @@ const MemoriWidget = ({
                 audioContext.state === 'suspended' ||
                 audioContext.state === 'closed'
               ) {
-                console.log('suspended');
                 source.disconnect();
                 setIsPlayingAudio(false);
                 stopProcessing();
                 resetVisemeQueue();
                 memoriSpeaking = false;
-                emitEndSpeakEvent();
               } else if ((audioContext.state as string) === 'interrupted') {
-                console.log('interrupted');
-                stopProcessing();
-                resetVisemeQueue();
-
                 audioContext.resume();
               }
             };
+
+            audioContext.resume();
+
+            if (speechSynthesizer) {
+              speechSynthesizer.close();
+              speechSynthesizer = null;
+            }
           } catch (e) {
             console.warn('speak error: ', e);
             window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
-            setIsPlayingAudio(false);
-            memoriSpeaking = false;
             stopProcessing();
             resetVisemeQueue();
+            setIsPlayingAudio(false);
+            memoriSpeaking = false;
 
             if (speechSynthesizer) {
               speechSynthesizer.close();
@@ -2045,7 +2039,6 @@ const MemoriWidget = ({
         } else {
           audioContext.resume();
           stopProcessing();
-          resetVisemeQueue();
           setIsPlayingAudio(false);
           memoriSpeaking = false;
           emitEndSpeakEvent();
@@ -2055,9 +2048,9 @@ const MemoriWidget = ({
         console.error('speak:', error);
         window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
         setIsPlayingAudio(false);
-        memoriSpeaking = false;
         stopProcessing();
         resetVisemeQueue();
+        memoriSpeaking = false;
         emitEndSpeakEvent();
       }
     );
