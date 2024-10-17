@@ -80,6 +80,7 @@ export default function HalfBodyAvatar({
     };
   }, [materials, nodes, url, onLoaded, scene]);
   useFrame(state => {
+
     if (
       headMeshRef.current &&
       headMeshRef.current.morphTargetDictionary &&
@@ -161,7 +162,6 @@ export default function HalfBodyAvatar({
 
   return (
     <group position={AVATAR_POSITION}>
-      {nodes.Hips && <primitive key="armature" object={nodes.Hips} />}
       <primitive object={scene} />
     </group>
   );
