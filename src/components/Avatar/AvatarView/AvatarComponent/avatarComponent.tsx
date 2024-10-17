@@ -212,6 +212,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           morphTargetInfluences={morphTargetInfluences}
           setMorphTargetInfluences={setMorphTargetInfluences}
           setMorphTargetDictionary={setMorphTargetDictionary}
+          updateCurrentViseme={updateCurrentViseme}
         />
       ) : (
         <FullbodyAvatar
