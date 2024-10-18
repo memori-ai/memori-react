@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 
@@ -21,6 +21,15 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
   loading = false,
   poweredBy,
 }) => {
+
+  useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
+
   return (
     <>
       {integrationStyle}
