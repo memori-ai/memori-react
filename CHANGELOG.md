@@ -1,5 +1,20 @@
 
 
+## [7.8.0-rc.1](https://github.com/memori-ai/memori-react/compare/v7.8.0-rc.0...v7.8.0-rc.1) (2024-10-18)
+
+
+### Features
+
+* fine tuned lip sync params ([25f6d53](https://github.com/memori-ai/memori-react/commit/25f6d5328855564f8ae186e31d1f070d472dd0dc))
+* improved fullbody avatar state management ([ddac623](https://github.com/memori-ai/memori-react/commit/ddac623afcd4ca58cd887b35d950cf23d3caf8f2))
+* removed scroll beahviour for ZOOMED FULL BODY ([2c9e1ae](https://github.com/memori-ai/memori-react/commit/2c9e1ae9eb468d68fe9b0892f00b03c8fbb41ed4))
+
+
+### Bug Fixes
+
+* adjusted ZOOMED FULL BODY layout style ([cefab1e](https://github.com/memori-ai/memori-react/commit/cefab1e4759a4a01c50cd21c3c828ae6a1cbe3c1))
+* fixed starting twice audio ([d108ea8](https://github.com/memori-ai/memori-react/commit/d108ea89265564b81c6a181347621676780b36af))
+
 ## [7.8.0-rc.0](https://github.com/memori-ai/memori-react/compare/v7.7.1...v7.8.0-rc.0) (2024-10-17)
 
 
