@@ -28,12 +28,25 @@ export const Anonymous = Template.bind({});
 Anonymous.args = {
   ownerUserName: 'nzambello',
   memoriName: 'Nicola',
-  tenantID: 'aisuru.com',
+  tenantID: 'www.aisuru.com',
+  engineURL: 'https://engine.memori.ai',
   apiURL: 'https://backend.memori.ai',
   baseURL: 'https://www.aisuru.com',
-  uiLang: 'it',
-  showShare: true,
-  showSettings: true,
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  layout: 'ZOOMED_FULL_BODY',
+  showInstruct: 'false',
+  showSettings: 'true',
+  showClear: 'false',
+  showAIicon: 'true',
+  showWhyThisAnswer: 'true',
+  showTypingText: 'false',
+  showOnlyLastMessages: 'false',
+  showTranslationOriginal: 'false',
+  showCopyButton: 'false',
+  showShare: 'true',
+  showLogin: 'false',
+  enableAudio: 'true',
 };
 
 export const Nunzio = Template.bind({});
@@ -125,6 +138,32 @@ GiovannaProva.args = {
   integrationID: 'e92ac275-39b5-474d-8f9e-826cc5284f1e',
   initialQuestion: 'inizio simulazione',
 };
+
+export const NunzioFiore = Template.bind({});
+NunzioFiore.args = {
+  ownerUserName: 'nunzio.fiore',
+  memoriName: 'Nunzio',
+  tenantID: 'www.aisuru.com',
+  engineURL: 'https://engine.memori.ai',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://www.aisuru.com',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  layout: 'ZOOMED_FULL_BODY',
+  showInstruct: 'false',
+  showSettings: 'true',
+  showClear: 'false',
+  showAIicon: 'true',
+  showWhyThisAnswer: 'true',
+  showTypingText: 'false',
+  showOnlyLastMessages: 'false',
+  showTranslationOriginal: 'false',
+  showCopyButton: 'false',
+  showShare: 'true',
+  showLogin: 'false',
+  enableAudio: 'true',
+};
+
 
 const TemplateWithBatchButton: Story<Props> = args => (
   <div>
