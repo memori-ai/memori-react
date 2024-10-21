@@ -1,5 +1,13 @@
 
 
+## [7.8.2](https://github.com/memori-ai/memori-react/compare/v7.8.1...v7.8.2) (2024-10-21)
+
+
+### Bug Fixes
+
+* correctly reset emotion morph targets ([e0c3828](https://github.com/memori-ai/memori-react/commit/e0c38283e48a0dddeb70cf9019abb385780ef523))
+* removed unused prop into AvatarComponent ([57774d4](https://github.com/memori-ai/memori-react/commit/57774d4b5f6b1598914009691fcbf409e7d067f8))
+
 ## [7.8.1](https://github.com/memori-ai/memori-react/compare/v7.8.0...v7.8.1) (2024-10-21)
 
 
