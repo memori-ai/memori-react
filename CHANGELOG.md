@@ -1,5 +1,12 @@
 
 
+## [7.8.1](https://github.com/memori-ai/memori-react/compare/v7.8.0...v7.8.1) (2024-10-21)
+
+
+### Features
+
+* added new female animations ([8f26840](https://github.com/memori-ai/memori-react/commit/8f26840c4c4d395171941d0e7345e5aabc3ab724))
+
 ## [7.8.0](https://github.com/memori-ai/memori-react/compare/v7.8.0-rc.1...v7.8.0) (2024-10-18)
 
 ## [7.8.0-rc.1](https://github.com/memori-ai/memori-react/compare/v7.8.0-rc.0...v7.8.0-rc.1) (2024-10-18)
