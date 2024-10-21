@@ -237,7 +237,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           setMorphTargetDictionary={setMorphTargetDictionary}
           setMorphTargetInfluences={setMorphTargetInfluences}
           emotionMorphTargets={emotionMorphTargets}
-          setEmotionMorphTargets={setEmotionMorphTargets}
         />
       )}
     </>
