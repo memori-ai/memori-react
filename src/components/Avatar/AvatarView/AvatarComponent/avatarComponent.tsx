@@ -87,29 +87,38 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
 
   // Set the morph target influences for the given emotions
   const setEmotionMorphTargetInfluences = useCallback((action: string) => {
+
+    if(action === 'Loading1' || action === 'Loading2' || action === 'Loading3') {
+      return;
+    }
+
     const emotionMap: Record<string, Record<string, number>> = {
       Gioia: { Gioria: 1 },
       Rabbia: { Rabbia: 1 },
       Sorpresa: { Sorpresa: 1 },
       Tristezza: { Tristezza: 1 },
       Timore: { Timore: 1 },
-      Loading: { Loading1: 1, Loading2: 1, Loading3: 1 },
     };
+      
 
-    // console.log('action', action);
+    
 
+    // Set all emotions to 0
     const defaultEmotions = Object.keys(emotionMap).reduce((acc, key) => {
       acc[key] = 0;
       return acc;
     }, {} as Record<string, number>);
 
+    // Find the emotion that matches the action
     const emotion =
       Object.keys(emotionMap).find(key => action.startsWith(key)) || 'default';
+
+    // Set the emotion values
     const emotionValues =
       emotion === 'default' ? defaultEmotions : emotionMap[emotion];
 
-    setEmotionMorphTargets(prevEmotions => ({
-      ...prevEmotions,
+    setEmotionMorphTargets(_ => ({
+      ...defaultEmotions,
       ...emotionValues,
     }));
   }, []);
@@ -228,6 +237,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           setMorphTargetDictionary={setMorphTargetDictionary}
           setMorphTargetInfluences={setMorphTargetInfluences}
           emotionMorphTargets={emotionMorphTargets}
+          setEmotionMorphTargets={setEmotionMorphTargets}
         />
       )}
     </>

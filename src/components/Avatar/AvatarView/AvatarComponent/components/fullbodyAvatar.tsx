@@ -197,21 +197,6 @@ export default function FullbodyAvatar({
       const currentViseme = updateCurrentViseme(currentTime / 1000);
       const currentEmotionKeys = new Set(Object.keys(emotionMorphTargets));
 
-      previousEmotionKeysRef.current.forEach(key => {
-        if (!currentEmotionKeys.has(key)) {
-          const index = headMeshRef.current!.morphTargetDictionary![key];
-          if (typeof index === 'number') {
-            currentEmotionRef.current[key] = 0;
-            if (
-              headMeshRef.current &&
-              headMeshRef.current.morphTargetInfluences
-            ) {
-              headMeshRef.current.morphTargetInfluences[index] = 0;
-            }
-          }
-        }
-      });
-
       Object.entries(headMeshRef.current.morphTargetDictionary).forEach(
         ([key, index]) => {
           if (typeof index === 'number') {
