@@ -89,7 +89,7 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
   const updateCurrentViseme = useCallback(
     (currentTime: number): Viseme | null => {
       if (!isProcessing || startTimeRef.current === null) {
-        console.log('StartTimeRef not set');
+        //console.log('StartTimeRef not set');
         return null;
       }
 
@@ -106,7 +106,7 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       if (currentViseme) {
-        console.log('CurrentViseme Found!');
+        //console.log('CurrentViseme Found!');
         const visemeProgress =
           (elapsedTime - currentViseme.startTime) /
           (currentViseme.endTime - currentViseme.startTime);

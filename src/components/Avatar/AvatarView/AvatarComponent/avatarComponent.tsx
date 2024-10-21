@@ -16,7 +16,9 @@ interface Props {
   chatEmission: any;
   stopProcessing: () => void;
   resetVisemeQueue: () => void;
-  updateCurrentViseme: (currentTime: number) => { name: string; weight: number } | null;
+  updateCurrentViseme: (
+    currentTime: number
+  ) => { name: string; weight: number } | null;
 }
 
 interface BaseAction {
@@ -49,7 +51,6 @@ const baseActions: Record<string, BaseAction> = {
   Loading2: { weight: 0 },
   Loading3: { weight: 0 },
 };
-
 
 export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   stopProcessing,
@@ -95,9 +96,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       Loading: { Loading1: 1, Loading2: 1, Loading3: 1 },
     };
 
-    //remove the last character from the action
-    const newEmotion = action.slice(0, -1);
-    // setEmotion(newEmotion);
+    // console.log('action', action);
 
     const defaultEmotions = Object.keys(emotionMap).reduce((acc, key) => {
       acc[key] = 0;

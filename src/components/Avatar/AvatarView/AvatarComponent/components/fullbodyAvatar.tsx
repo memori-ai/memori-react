@@ -40,7 +40,6 @@ interface FullbodyAvatarProps {
   emotionMorphTargets: Record<string, number>;
 }
 
-
 const AVATAR_POSITION = new Vector3(0, -1, 0);
 const AVATAR_ROTATION = new Euler(0.175, 0, 0);
 const AVATAR_POSITION_ZOOMED = new Vector3(0, -1.45, 0);
@@ -48,7 +47,7 @@ const AVATAR_POSITION_ZOOMED = new Vector3(0, -1.45, 0);
 const ANIMATION_URLS = {
   MALE: 'https://assets.memori.ai/api/v2/asset/2c5e88a4-cf62-408b-9ef0-518b099dfcb2.glb',
   FEMALE:
-    'https://assets.memori.ai/api/v2/asset/0e49aa5d-f757-4292-a170-d843c2839a41.glb',
+    'https://assets.memori.ai/api/v2/asset/8d1a5853-f05a-4a34-9f99-6eff64986081.glb',
 };
 
 const BLINK_CONFIG = {
@@ -59,7 +58,6 @@ const BLINK_CONFIG = {
 
 const EMOTION_SMOOTHING = 0.3;
 const VISME_SMOOTHING = 0.5;
-
 
 export default function FullbodyAvatar({
   url,
@@ -204,7 +202,10 @@ export default function FullbodyAvatar({
           const index = headMeshRef.current!.morphTargetDictionary![key];
           if (typeof index === 'number') {
             currentEmotionRef.current[key] = 0;
-            if (headMeshRef.current && headMeshRef.current.morphTargetInfluences) {
+            if (
+              headMeshRef.current &&
+              headMeshRef.current.morphTargetInfluences
+            ) {
               headMeshRef.current.morphTargetInfluences[index] = 0;
             }
           }
@@ -273,12 +274,7 @@ export default function FullbodyAvatar({
 
       mixerRef.current?.update(0.01);
     },
-    [
-      actions,
-      emotionMorphTargets,
-      eyeBlink,
-      updateCurrentViseme,
-    ]
+    [actions, emotionMorphTargets, eyeBlink, updateCurrentViseme]
   );
 
   useFrame(state => {
