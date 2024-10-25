@@ -32,7 +32,11 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { AudioContext, IAudioContext } from 'standardized-audio-context';
+import {
+  AudioContext,
+  IAudioBufferSourceNode,
+  IAudioContext,
+} from 'standardized-audio-context';
 import * as speechSdk from 'microsoft-cognitiveservices-speech-sdk';
 import cx from 'classnames';
 import { DateTime } from 'luxon';
@@ -543,10 +547,10 @@ const MemoriWidget = ({
   const [hideEmissions, setHideEmissions] = useState(false);
 
   const {
-    startProcessing,
+    resetAndStartProcessing,
     addViseme,
     stopProcessing,
-    resetVisemeQueue
+    resetVisemeQueue,
   } = useViseme();
 
   useEffect(() => {
@@ -1883,183 +1887,207 @@ const MemoriWidget = ({
     document.dispatchEvent(e);
   };
 
-  const speak = (text: string): void => {
-    if (!AZURE_COGNITIVE_SERVICES_TTS_KEY || preview) {
-      emitEndSpeakEvent();
-      return;
-    }
-    stopListening();
-    // stopAudio();
+  const handleSpeechEnd = () => {
+    memoriSpeaking = false;
+    setMemoriTyping(false);
+    emitEndSpeakEvent();
+  };
 
-    if (preview) return;
-
-    if (muteSpeaker || speakerMuted) {
-      memoriSpeaking = false;
-      setMemoriTyping(false);
-
-      emitEndSpeakEvent();
-
-      // trigger start continuous listening if set, see MemoriChat
-      if (continuousSpeech) {
-        setListeningTimeout();
-      }
-      return;
-    }
-
-    if (audioDestination) audioDestination.pause();
-
-    let isSafari =
-      window.navigator.userAgent.includes('Safari') &&
-      !window.navigator.userAgent.includes('Chrome');
-    let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    if ((audioContext.state as string) === 'interrupted') {
-      audioContext.resume().then(() => speak(text));
-      return;
-    }
+  const resetAudioContext = () => {
     if (audioContext.state === 'closed') {
       audioContext = new AudioContext();
-      let buffer = audioContext.createBuffer(1, 10000, 22050);
-      let source = audioContext.createBufferSource();
-      source.buffer = buffer;
-      source.connect(audioContext.destination);
-    } else if (audioContext.state === 'suspended') {
-      stopAudio();
-
-      audioContext = new AudioContext();
-      let buffer = audioContext.createBuffer(1, 10000, 22050);
-      let source = audioContext.createBufferSource();
-      source.buffer = buffer;
-      source.connect(audioContext.destination);
     }
+  };
 
-    if (!speechSynthesizer) {
-      if (!isIOS) {
-        audioDestination = new speechSdk.SpeakerAudioDestination();
-      }
-      let audioConfig =
-        speechSdk.AudioConfig.fromSpeakerOutput(audioDestination);
-      speechSynthesizer = new speechSdk.SpeechSynthesizer(
-        speechConfig,
-        audioConfig
-      );
-    }
+  const initializeSpeechSynthesizer = () => {
+    if (!speechConfig) return;
+    audioDestination = new speechSdk.SpeakerAudioDestination();
+    const audioConfig =
+      speechSdk.AudioConfig.fromSpeakerOutput(audioDestination);
+    speechSynthesizer = new speechSdk.SpeechSynthesizer(
+      speechConfig,
+      audioConfig
+    );
+  };
 
-    const source = audioContext.createBufferSource();
-    source.addEventListener('ended', () => {
-      setIsPlayingAudio(false);
-      memoriSpeaking = false;
-    });
-    audioDestination.onAudioEnd = () => {
-      setIsPlayingAudio(false);
-      memoriSpeaking = false;
-      source.disconnect();
-
-      emitEndSpeakEvent();
-
-      // trigger start continuous listening if set
-      onEndSpeakStartListen();
-    };
-
-    // Clear any existing visemes before starting new speech
-    resetVisemeQueue();
-
-    // Set up the viseme event handler
-    speechSynthesizer.visemeReceived = function (_, e) {
-      addViseme(e.visemeId, e.audioOffset);
-    };
-
+  const generateSSMLText = (text: string) => {
     const textToSpeak = escapeHTML(
       stripMarkdown(stripEmojis(stripHTML(stripOutputTags(text))))
     );
+    return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
+      userLang
+    )}"><voice name="${getTTSVoice(userLang)}"><s>${replaceTextWithPhonemes(
+      textToSpeak,
+      userLang.toLowerCase()
+    )}</s></voice></speak>`;
+  };
+
+  const createAudioSource = () => {
+    const source = audioContext.createBufferSource();
+    source.connect(audioContext.destination);
+    return source;
+  };
+
+  // Add this at the top with your other state declarations
+  const speechStateRef = useRef({
+    isInitialized: false,
+    isSpeaking: false,
+  });
+
+  const speak = (text: string): void => {
+    console.log('speak function called with text:', text);
+
+    // Early return conditions
+    if (!AZURE_COGNITIVE_SERVICES_TTS_KEY || preview || speakerMuted) {
+      console.log('Conditions not met for speech, calling handleSpeechEnd');
+      console.log('preview:', preview);
+      console.log('muteSpeaker:', muteSpeaker);
+      console.log('speakerMuted:', speakerMuted);
+      handleSpeechEnd();
+      return;
+    }
+
+    // Stop listening and pause audio
+    console.log('Stopping listening');
+    stopListening();
+
+    // Pause audio destination
+    if (audioDestination) {
+      console.log('Pausing audio destination');
+      audioDestination.pause();
+    }
+
+    // Browser detection
+    const isSafari =
+      navigator.userAgent.includes('Safari') &&
+      !navigator.userAgent.includes('Chrome');
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    console.log('Browser check - isSafari:', isSafari, 'isIOS:', isIOS);
+
+    // Handle suspended audio context
+    if (audioContext.state === 'suspended') {
+      console.log('Audio context suspended, attempting to resume');
+      audioContext.resume().then(() => speak(text));
+      return;
+    }
+
+    // Reset audio context if needed
+    if (['closed', 'suspended'].includes(audioContext.state)) {
+      console.log('Resetting audio context');
+      resetAudioContext();
+    }
+
+    // Initialize speech synthesizer
+    if (!speechSynthesizer) {
+      console.log('Initializing speech synthesizer');
+      initializeSpeechSynthesizer();
+    }
+
+    // Create audio source (now without initial buffer)
+    const source = createAudioSource();
+
+    if (!speechSynthesizer) {
+      console.log('No speech synthesizer available');
+      handleSpeechEnd();
+      return;
+    }
+
+    // Set up viseme handling
+    speechSynthesizer.visemeReceived = (_, e) => {
+      if (!speechStateRef.current.isSpeaking) {
+        console.log('[Speech] First viseme received, initializing processing');
+        resetAndStartProcessing(); // Reset everything on first viseme
+        speechStateRef.current.isSpeaking = true;
+      }
+      addViseme(e.visemeId, e.audioOffset);
+    };
+  
+
+    // Generate and speak SSML
+    const ssmlText = generateSSMLText(text);
 
     speechSynthesizer.speakSsmlAsync(
-      `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
-        userLang
-      )}"><voice name="${getTTSVoice(
-        userLang
-      )}"><s>${replaceTextWithPhonemes(
-        textToSpeak,
-        userLang.toLowerCase()
-      )}</s></voice></speak>`,
+      ssmlText,
       result => {
         if (result) {
           setIsPlayingAudio(true);
           memoriSpeaking = true;
-
-          // Process the viseme data
-          startProcessing();
-
           try {
-            // Decode the audio data
             audioContext.decodeAudioData(result.audioData, function (buffer) {
               source.buffer = buffer;
-              source.connect(audioContext.destination);
-
+  
               if (history.length < 1 || (isSafari && isIOS)) {
                 source.start(0);
               }
+  
+              // Modified audio context state change handler
+              audioContext.onstatechange = () => {
+                console.log('Audio context state changed to:', audioContext.state);
+                if (['suspended', 'closed'].includes(audioContext.state)) {
+                  console.log('Disconnecting source and stopping processing');
+                  source.disconnect();
+                  setIsPlayingAudio(false);
+                  stopProcessing();
+                  resetVisemeQueue();
+                  speechStateRef.current.isSpeaking = false; // Reset speaking state
+                  memoriSpeaking = false;
+                } else if (audioContext.state === 'suspended') {
+                  console.log('Resuming suspended audio context');
+                  audioContext.resume();
+                }
+              };
+  
+              audioContext.resume();
             });
-
-            // Handle the audio context state changes
-            audioContext.onstatechange = () => {
-              if (
-                audioContext.state === 'suspended' ||
-                audioContext.state === 'closed'
-              ) {
-                source.disconnect();
-                setIsPlayingAudio(false);
-                stopProcessing();
-                resetVisemeQueue();
-                memoriSpeaking = false;
-              } else if ((audioContext.state as string) === 'interrupted') {
-                audioContext.resume();
-              }
-            };
-
-            audioContext.resume();
-
-            if (speechSynthesizer) {
-              speechSynthesizer.close();
-              speechSynthesizer = null;
-            }
-          } catch (e) {
-            console.warn('speak error: ', e);
-            window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
-            stopProcessing();
-            resetVisemeQueue();
-            setIsPlayingAudio(false);
-            memoriSpeaking = false;
-
-            if (speechSynthesizer) {
-              speechSynthesizer.close();
-              speechSynthesizer = null;
-            }
-            emitEndSpeakEvent();
+          } catch (error) {
+            console.error('Error processing audio data:', error);
+            handleFallback(text);
           }
         } else {
-          audioContext.resume();
-          stopProcessing();
-          setIsPlayingAudio(false);
-          memoriSpeaking = false;
-          emitEndSpeakEvent();
+          console.log('No speech synthesis result');
+          handleFallback(text);
         }
       },
       error => {
-        console.error('speak:', error);
-        window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
-        setIsPlayingAudio(false);
-        stopProcessing();
-        resetVisemeQueue();
-        memoriSpeaking = false;
-        emitEndSpeakEvent();
+        console.error('speak error:', error);
+        handleFallback(text);
       }
     );
 
+    console.log('Setting memoriTyping to false');
     setMemoriTyping(false);
   };
+
+  // Helper function for fallback behavior
+  const handleFallback = (text: string) => {
+    console.log('Falling back to browser speech synthesis');
+    window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+    cleanup();
+  };
+
+  // Modify cleanup to include speech state reset
+  const cleanup = () => {
+    setIsPlayingAudio(false);
+    stopProcessing();
+    resetVisemeQueue();
+    memoriSpeaking = false;
+    speechStateRef.current.isSpeaking = false; // Reset speaking state
+
+    if (speechSynthesizer) {
+      console.log('Closing speech synthesizer');
+      speechSynthesizer.close();
+      speechSynthesizer = null;
+    }
+
+    emitEndSpeakEvent();
+  };
+
+  // Modify stopAudio to include speech state reset
   const stopAudio = () => {
     setIsPlayingAudio(false);
     memoriSpeaking = false;
+    speechStateRef.current.isSpeaking = false; // Reset speaking state
+
     try {
       if (speechSynthesizer) {
         speechSynthesizer.close();
@@ -2206,6 +2234,7 @@ const MemoriWidget = ({
   };
   const stopListening = () => {
     if (recognizer) {
+      // Stop continuous recognition and close the recognizer
       recognizer.stopContinuousRecognitionAsync();
       recognizer.close();
       recognizer = null;
