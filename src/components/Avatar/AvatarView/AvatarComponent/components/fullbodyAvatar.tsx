@@ -194,9 +194,11 @@ export default function FullbodyAvatar({
         }
       }
 
+      // Update current viseme
       const currentViseme = updateCurrentViseme(currentTime / 1000);
       const currentEmotionKeys = new Set(Object.keys(emotionMorphTargets));
 
+      // Update morph target influences
       Object.entries(headMeshRef.current.morphTargetDictionary).forEach(
         ([key, index]) => {
           if (typeof index === 'number') {
@@ -215,7 +217,7 @@ export default function FullbodyAvatar({
             }
 
             if (currentViseme && key === currentViseme.name) {
-              targetValue += currentViseme.weight * 1;
+              targetValue += currentViseme.weight;
             }
 
             if (key === 'eyesClosed' && eyeBlink) {
@@ -237,8 +239,10 @@ export default function FullbodyAvatar({
         }
       );
 
+      // Update previous emotion keys
       previousEmotionKeysRef.current = currentEmotionKeys;
 
+      // Transition to idle
       if (isTransitioningToIdleRef.current && currentActionRef.current) {
         if (
           currentActionRef.current.time >=
@@ -263,7 +267,7 @@ export default function FullbodyAvatar({
   );
 
   useFrame(state => {
-    updateFrame(state.clock.getElapsedTime() * 1000);
+    updateFrame(state.clock.elapsedTime * 1000);
   });
 
   return (

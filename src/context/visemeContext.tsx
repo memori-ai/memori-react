@@ -4,8 +4,9 @@ import React, {
   useRef,
   useCallback,
   useState,
-  useEffect,
+  useMemo,
 } from 'react';
+import { IAudioContext } from 'standardized-audio-context';
 
 type Viseme = {
   name: string;
@@ -17,16 +18,17 @@ type Viseme = {
 interface VisemeContextType {
   addViseme: (visemeId: number, audioOffset: number) => void;
   updateCurrentViseme: (currentTime: number) => Viseme | null;
-  startProcessing: () => void;
+  startProcessing: (audioCtx: IAudioContext) => void;
   stopProcessing: () => void;
+  resetAndStartProcessing: (audioCtx: IAudioContext) => void;
   resetVisemeQueue: () => void;
-  resetAndStartProcessing: () => void;
   isProcessing: boolean;
+  setAudioContext: (ctx: IAudioContext) => void;
 }
 
 const VisemeContext = createContext<VisemeContextType | undefined>(undefined);
 
-const VISEME_MAP: { [key: number]: string } = {
+const VISEME_MAP: Readonly<{ [key: number]: string }> = {
   0: 'viseme_sil', // silence
   1: 'viseme_PP', // p, b, m
   2: 'viseme_FF', // f, v
@@ -42,7 +44,6 @@ const VISEME_MAP: { [key: number]: string } = {
   12: 'viseme_I', // I
   13: 'viseme_O', // O
   14: 'viseme_U', // u
-  // Mapping the rest based on closest matches or keeping them as in the original mapping
   15: 'viseme_kk', // g, k (same as 5)
   16: 'viseme_CH', // ch, j, sh, zh (same as 6)
   17: 'viseme_SS', // s, z (same as 7)
@@ -52,218 +53,249 @@ const VISEME_MAP: { [key: number]: string } = {
   21: 'viseme_PP', // y (closest match, could be debated)
 };
 
-const DEFAULT_VISEME_DURATION = 0.04; //0; // Reduced from 0.4 for smoother transitions
-const VISEME_OVERLAP = 0.02; // Slightly increased from 0.04 for more overlap
-const SMOOTHING_FACTOR = 0.35; // New constant for weight smoothing
-const PRELOAD_TIME = 0.5; // Preload visemes 0.5 seconds in advance
+// Optimized constants with explanations
+const CONSTANTS = {
+  // Duration of each viseme - optimized for natural speech
+  // Slightly longer to ensure smoother transitions
+  // Average syllable duration in natural speech is ~0.2s
+  // We want shorter duration for more precise lip movements
+  DEFAULT_VISEME_DURATION: 0.1, // 100ms per viseme
 
-// Utility function for formatted logging
-const logVisemeEvent = (event: string, data: any) => {
-  console.log(
-    `%c[VisemeContext] ${event}`,
-    'color: #4CAF50; font-weight: bold;',
-    data
-  );
+  // Overlap between consecutive visemes
+  // Increased for smoother blending between mouth shapes
+  // Should be about 1/3 of the viseme duration for natural transition
+  VISEME_OVERLAP: 0.01, // 30ms overlap
+
+  // Smoothing factor for weight transitions
+  // Lower value = smoother but slower transitions
+  // Higher value = faster but potentially jerky transitions
+  // 0.4 provides good balance between responsiveness and smoothness
+  SMOOTHING_FACTOR: 0.35,
+
+  // How often to log debug information (in frames)
+  // Adjusted to be less frequent to reduce console spam
+  // 60 frames = roughly 1 second at 60fps
+  LOG_INTERVAL: 60,
+
+  // Time to preload/buffer visemes (in seconds)
+  // Reduced from 1s to 0.5s as we don't need such a large buffer
+  // Half a second is enough to prepare upcoming visemes
+  PRELOAD: 0.5,
+
+  // Weight multiplication factor for emphasis
+  // Can be adjusted to make lip movements more or less pronounced
+  WEIGHT_MULTIPLIER: 0.8,
+} as const;
+
+// Export individual constants for backwards compatibility
+export const {
+  DEFAULT_VISEME_DURATION,
+  VISEME_OVERLAP,
+  SMOOTHING_FACTOR,
+  LOG_INTERVAL,
+  PRELOAD,
+  WEIGHT_MULTIPLIER,
+} = CONSTANTS;
+
+// Helper functions for timing calculations
+const timing = {
+  // Calculate viseme end time based on start time
+  calculateEndTime: (startTime: number) => startTime + DEFAULT_VISEME_DURATION,
+
+  // Check if viseme is expired
+  isExpired: (viseme: Viseme, currentTime: number) =>
+    viseme.endTime < currentTime - VISEME_OVERLAP,
+
+  // Calculate viseme weight based on progress
+  calculateWeight: (progress: number) =>
+    Math.sin(Math.PI * Math.min(progress, 1)) * WEIGHT_MULTIPLIER,
+
+  // Calculate smooth transition between weights
+  smoothWeight: (currentWeight: number, targetWeight: number) =>
+    currentWeight + (targetWeight - currentWeight) * SMOOTHING_FACTOR,
 };
 
-const logVisemeError = (event: string, data: any) => {
-  console.log(
-    `%c[VisemeContext] ${event}`,
-    'color: #f44336; font-weight: bold;',
-    data
-  );
-};
+const createLogger =
+  (type: 'event' | 'error' | 'debug') => (event: string, data: any) => {
+    const styles = {
+      event: 'color: #4CAF50; font-weight: bold;',
+      error: 'color: #f44336; font-weight: bold;',
+      debug: 'color: #2196F3; font-weight: bold;',
+    };
+    console.log(`%c[VisemeContext] ${event}`, styles[type], data);
+  };
 
-const logVisemeDebug = (event: string, data: any) => {
-  console.log(
-    `%c[VisemeContext] ${event}`,
-    'color: #2196F3; font-weight: bold;',
-    data
-  );
-};
+const logVisemeEvent = createLogger('event');
+const logVisemeError = createLogger('error');
+const logVisemeDebug = createLogger('debug');
+
+type VisemeState = 'idle' | 'preparing' | 'active' | 'paused' | 'finished';
 
 export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const visemeQueueRef = useRef<Viseme[]>([]);
-  const baseTimeRef = useRef<number>(0);
+  const audioContextRef = useRef<IAudioContext | null>(null);
+  const audioStartTimeRef = useRef<number | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [visemeState, setVisemeState] = useState<VisemeState>('idle');
   const lastVisemeRef = useRef<Viseme | null>(null);
   const frameCountRef = useRef(0);
+  const firstVisemeTimeRef = useRef<number | null>(null);
+
+  const setAudioContext = useCallback((ctx: IAudioContext) => {
+    audioContextRef.current = ctx;
+
+    // Listen to audio context state changes
+    ctx.onstatechange = () => {
+      logVisemeEvent('Audio Context State Change', {
+        state: ctx.state,
+        currentTime: ctx.currentTime,
+      });
+
+      switch (ctx.state) {
+        case 'running':
+          setVisemeState('active');
+          break;
+        case 'suspended':
+          setVisemeState('paused');
+          break;
+        case 'closed':
+          setVisemeState('finished');
+          stopProcessing();
+          break;
+      }
+    };
+  }, []);
 
   const addViseme = useCallback(
     (visemeId: number, audioOffset: number) => {
+      if (visemeState === 'finished') return;
+
       const visemeName = VISEME_MAP[visemeId] || 'viseme_sil';
       const startTime = audioOffset / 10000000;
-      const endTime = startTime + DEFAULT_VISEME_DURATION;
-      
+
+      // Store first viseme time as reference
+      if (firstVisemeTimeRef.current === null) {
+        firstVisemeTimeRef.current = startTime;
+      }
+
+      // Calculate time relative to first viseme
+      const relativeStartTime = startTime - (firstVisemeTimeRef.current || 0);
+      const endTime = relativeStartTime + DEFAULT_VISEME_DURATION;
+
       const newViseme: Viseme = {
         name: visemeName,
         weight: 0,
-        startTime,
+        startTime: relativeStartTime,
         endTime,
       };
 
       visemeQueueRef.current.push(newViseme);
-      
-      logVisemeEvent('Added Viseme', {
-        visemeId,
-        name: visemeName,
-        startTime,
-        endTime,
-        queueLength: visemeQueueRef.current.length,
-        audioOffset,
-      });
 
-      if (!isProcessing) {
-        logVisemeDebug('Starting processing due to new viseme', {
-          isProcessing,
-          queueLength: visemeQueueRef.current.length,
-        });
-        startProcessing();
+      if (visemeState === 'idle') {
+        setVisemeState('preparing');
       }
+
+      // logVisemeEvent('Added Viseme', {
+      //   visemeId,
+      //   name: visemeName,
+      //   absoluteStartTime: startTime,
+      //   relativeStartTime,
+      //   endTime,
+      //   queueLength: visemeQueueRef.current.length,
+      //   state: visemeState,
+      // });
     },
-    [isProcessing]
+    [visemeState]
   );
 
+  const startProcessing = useCallback((audioCtx: IAudioContext) => {
+    if (!audioCtx) {
+      logVisemeError('No audio context provided', { state: visemeState });
+      return;
+    }
 
-  const startProcessing = useCallback(() => {
-    baseTimeRef.current = 0;
+    audioContextRef.current = audioCtx;
+    audioStartTimeRef.current = audioCtx.currentTime;
     frameCountRef.current = 0;
     setIsProcessing(true);
-    
+    setVisemeState('active');
+
     logVisemeEvent('Started Processing', {
-      baseTime: baseTimeRef.current,
+      audioTime: audioCtx.currentTime,
       queueLength: visemeQueueRef.current.length,
+      state: visemeState,
     });
   }, []);
 
   const stopProcessing = useCallback(() => {
     setIsProcessing(false);
-    baseTimeRef.current = 0;
+    setVisemeState('finished');
+    audioStartTimeRef.current = null;
     lastVisemeRef.current = null;
     frameCountRef.current = 0;
-    
+    audioContextRef.current = null;
+
     logVisemeEvent('Stopped Processing', {
       queueLength: visemeQueueRef.current.length,
-      lastViseme: lastVisemeRef.current,
+      state: visemeState,
     });
   }, []);
 
-  const resetVisemeQueue = useCallback(() => {
-    const queueLength = visemeQueueRef.current.length;
-    visemeQueueRef.current = [];
-    lastVisemeRef.current = null;
-    baseTimeRef.current = 0;
-    frameCountRef.current = 0;
-    
-    logVisemeEvent('Reset Viseme Queue', {
-      previousQueueLength: queueLength,
-      baseTime: baseTimeRef.current,
-    });
-  }, []);
+  const updateCurrentViseme = useCallback(
+    (_: number): Viseme | null => {
+      if (!isProcessing || !audioContextRef.current) return null;
 
-  const resetAndStartProcessing = useCallback(() => {
-    logVisemeEvent('Resetting and Starting Processing', {
-      previousQueueLength: visemeQueueRef.current.length,
-      wasProcessing: isProcessing,
-    });
-    
-    stopProcessing();
-    resetVisemeQueue();
-    startProcessing();
-  }, [stopProcessing, resetVisemeQueue, startProcessing]);
+      const audioTime =
+        audioContextRef.current.currentTime -
+        (audioStartTimeRef.current || 0) +
+        PRELOAD;
 
-
-    const updateCurrentViseme = useCallback(
-    (elapsedTime: number): Viseme | null => {
-      frameCountRef.current++;
-      
-      // Log every 60 frames to avoid console spam
-      const shouldLog = frameCountRef.current % 60 === 0;
-      
-      if (!isProcessing) {
-        if (shouldLog) {
-          logVisemeError('Not processing visemes', { elapsedTime, isProcessing });
-        }
-        return null;
-      }
-
-      // Calculate time relative to when processing started
-      const relativeTime = elapsedTime - baseTimeRef.current;
-
-      // Remove expired visemes and log the cleanup
-      const initialLength = visemeQueueRef.current.length;
+      // Remove expired visemes
       visemeQueueRef.current = visemeQueueRef.current.filter(
-        v => v.endTime > relativeTime
+        v => !timing.isExpired(v, audioTime)
       );
-      
-      if (initialLength !== visemeQueueRef.current.length && shouldLog) {
-        logVisemeDebug('Cleaned up expired visemes', {
-          before: initialLength,
-          after: visemeQueueRef.current.length,
-          relativeTime,
+
+      // Find current active viseme
+      const currentViseme = visemeQueueRef.current.find(
+        v => v.startTime <= audioTime && v.endTime > audioTime - VISEME_OVERLAP
+      );
+
+      //log it every LOG_INTERVAL frames
+      if (frameCountRef.current % LOG_INTERVAL === 60) {
+        logVisemeDebug('Current Viseme', {
+          currentViseme,
+          audioTime,
+          visemeQueue: visemeQueueRef.current,
         });
       }
 
-      const currentViseme = visemeQueueRef.current.find(
-        v => v.startTime <= relativeTime && 
-             v.endTime > relativeTime - VISEME_OVERLAP
-      );
-
       if (currentViseme) {
-        const visemeProgress =
-          (relativeTime - currentViseme.startTime) /
+        const progress =
+          (audioTime - currentViseme.startTime) /
           (currentViseme.endTime - currentViseme.startTime);
-        const targetWeight = Math.sin(Math.PI * Math.min(visemeProgress, 1));
+
+        const targetWeight = timing.calculateWeight(progress);
 
         const smoothedWeight = lastVisemeRef.current
-          ? lastVisemeRef.current.weight +
-            (targetWeight - lastVisemeRef.current.weight) * SMOOTHING_FACTOR
+          ? timing.smoothWeight(lastVisemeRef.current.weight, targetWeight)
           : targetWeight;
 
         const updatedViseme = { ...currentViseme, weight: smoothedWeight };
         lastVisemeRef.current = updatedViseme;
 
-        if (shouldLog) {
-          logVisemeDebug('Active viseme updated', {
-            name: updatedViseme.name,
-            weight: smoothedWeight.toFixed(3),
-            progress: visemeProgress.toFixed(3),
-            relativeTime: relativeTime.toFixed(3),
-            queueLength: visemeQueueRef.current.length,
-          });
-        }
-
         return updatedViseme;
       }
 
-      // Gradually reduce weight when no viseme is active
+      // Handle fade out
       if (lastVisemeRef.current) {
-        const reducedWeight = lastVisemeRef.current.weight * (1 - SMOOTHING_FACTOR);
-        if (reducedWeight > 0.01) {
-          lastVisemeRef.current = {
-            ...lastVisemeRef.current,
-            weight: reducedWeight,
-          };
-          
-          if (shouldLog) {
-            logVisemeDebug('Fading out last viseme', {
-              name: lastVisemeRef.current.name,
-              weight: reducedWeight.toFixed(3),
-              relativeTime: relativeTime.toFixed(3),
-            });
-          }
-          
-          return lastVisemeRef.current;
-        }
-      }
-
-      if (shouldLog && lastVisemeRef.current) {
-        logVisemeDebug('No active viseme', {
-          relativeTime: relativeTime.toFixed(3),
-          queueLength: visemeQueueRef.current.length,
-        });
+        const reducedWeight =
+          lastVisemeRef.current.weight * (1 - SMOOTHING_FACTOR);
+        lastVisemeRef.current = {
+          ...lastVisemeRef.current,
+          weight: reducedWeight,
+        };
       }
 
       lastVisemeRef.current = null;
@@ -272,15 +304,55 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
     [isProcessing]
   );
 
-  const contextValue = {
-    addViseme,
-    updateCurrentViseme,
-    startProcessing,
-    stopProcessing,
-    resetAndStartProcessing,
-    resetVisemeQueue,
-    isProcessing,
-  };
+  const resetVisemeQueue = useCallback(() => {
+    visemeQueueRef.current = [];
+    lastVisemeRef.current = null;
+    audioStartTimeRef.current = null;
+    firstVisemeTimeRef.current = null;
+    frameCountRef.current = 0;
+    setVisemeState('idle');
+
+    logVisemeEvent('Reset Viseme Queue', {
+      previousState: visemeState,
+    });
+  }, [visemeState]);
+
+  const resetAndStartProcessing = useCallback(
+    (audioCtx: IAudioContext) => {
+      logVisemeEvent('Reset And Start Processing', {
+        previousState: visemeState,
+        queueLength: visemeQueueRef.current.length,
+      });
+
+      stopProcessing();
+      resetVisemeQueue();
+      startProcessing(audioCtx);
+    },
+    [stopProcessing, resetVisemeQueue, startProcessing, visemeState]
+  );
+
+  const contextValue = useMemo(
+    () => ({
+      addViseme,
+      updateCurrentViseme,
+      startProcessing,
+      stopProcessing,
+      resetAndStartProcessing,
+      resetVisemeQueue,
+      isProcessing,
+      setAudioContext,
+    }),
+    [
+      addViseme,
+      updateCurrentViseme,
+      startProcessing,
+      stopProcessing,
+      resetAndStartProcessing,
+      resetVisemeQueue,
+      isProcessing,
+      setAudioContext,
+    ]
+  );
 
   return (
     <VisemeContext.Provider value={contextValue}>
@@ -289,10 +361,10 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-export const useViseme = (): VisemeContextType => {
+export const useViseme = () => {
   const context = useContext(VisemeContext);
   if (!context) {
-    throw new Error('useViseme must be used within a VisemeProvider');
+    throw new Error('useVisemeContext must be used within a VisemeProvider');
   }
   return context;
 };
