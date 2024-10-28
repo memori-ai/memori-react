@@ -1,5 +1,23 @@
 
 
+## [7.8.3](https://github.com/memori-ai/memori-react/compare/v7.8.2...v7.8.3) (2024-10-28)
+
+
+### Bug Fixes
+
+* restored working speak function ([4981353](https://github.com/memori-ai/memori-react/commit/498135332357520df43e65bd070827e81805f1d5))
+
+
+### Changes
+
+* speak function and viseme handling ([237f20d](https://github.com/memori-ai/memori-react/commit/237f20de397427370a98356613c74bb276063530))
+
+
+### Maintenance
+
+* refactor lip sync process, calculate time relative to when processing started ([0d33986](https://github.com/memori-ai/memori-react/commit/0d33986f4566e6de911e9fd724184785e2ac61f2))
+* the visemeContext begin visemes process when AudioContext starts ([11c78ab](https://github.com/memori-ai/memori-react/commit/11c78ab5d9017d45b163d973bca909e7a43cca09))
+
 ## [7.8.2](https://github.com/memori-ai/memori-react/compare/v7.8.1...v7.8.2) (2024-10-21)
 
 
