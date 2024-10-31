@@ -1,5 +1,12 @@
 
 
+## [7.8.4](https://github.com/memori-ai/memori-react/compare/v7.8.3...v7.8.4) (2024-10-31)
+
+
+### Maintenance
+
+* change speech services region ([d851f29](https://github.com/memori-ai/memori-react/commit/d851f29b2381335fc2978d69db45bbd54c18a06f))
+
 ## [7.8.3](https://github.com/memori-ai/memori-react/compare/v7.8.2...v7.8.3) (2024-10-28)
 
 
