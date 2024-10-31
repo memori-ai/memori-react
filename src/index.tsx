@@ -1,14 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
+
 import {
   DialogState,
   Memori as IMemori,
   Tenant,
 } from '@memori.ai/memori-api-client/dist/types';
 import memoriApiClient from '@memori.ai/memori-api-client';
+
 import MemoriWidget, {
   Props as WidgetProps,
 } from './components/MemoriWidget/MemoriWidget';
+import { VisemeProvider } from './context/visemeContext';
+
 import { Toaster } from 'react-hot-toast';
 import { getTenant } from './helpers/tenant';
 import { installMathJax } from './helpers/utils';
@@ -16,7 +20,7 @@ import { installMathJax } from './helpers/utils';
 import i18n from './i18n';
 import { useTranslation } from 'react-i18next';
 import I18nWrapper from './I18nWrapper';
-import { VisemeProvider } from './context/visemeContext';
+
 export interface Props {
   memoriName?: string | null;
   memoriID?: string | null;

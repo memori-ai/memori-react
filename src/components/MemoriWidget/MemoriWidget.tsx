@@ -1624,7 +1624,7 @@ const MemoriWidget = ({
 
     speechConfig = speechSdk.SpeechConfig.fromSubscription(
       AZURE_COGNITIVE_SERVICES_TTS_KEY,
-      'eastus'
+      'westeurope'
     );
 
     speechConfig.speechSynthesisLanguage = getCultureCodeByLanguage(userLang);
@@ -2178,7 +2178,7 @@ const MemoriWidget = ({
           if (!speechConfig) {
             speechConfig = speechSdk.SpeechConfig.fromSubscription(
               AZURE_COGNITIVE_SERVICES_TTS_KEY,
-              'eastus'
+              'westeurope'
             );
             speechConfig.speechRecognitionLanguage =
               getCultureCodeByLanguage(userLang);
