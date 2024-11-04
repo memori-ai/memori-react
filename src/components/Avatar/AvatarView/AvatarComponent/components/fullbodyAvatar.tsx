@@ -93,7 +93,6 @@ export default function FullbodyAvatar({
   const currentEmotionRef = useRef<Record<string, number>>({});
   const previousEmotionKeysRef = useRef<Set<string>>(new Set());
 
-
   // Memoize the scene traversal
   const headMesh = useMemo(() => {
     let foundMesh: SkinnedMesh | undefined;
@@ -134,7 +133,6 @@ export default function FullbodyAvatar({
       return;
     }
 
-
     if (currentActionRef.current) {
       currentActionRef.current.fadeOut(FADE_DURATION);
     }
@@ -144,11 +142,10 @@ export default function FullbodyAvatar({
     newAction.timeScale = timeScale;
 
     if (!currentBaseAction.action.startsWith('Loading')) {
-      console.log('Setting loop to once');
       newAction.setLoop(LoopOnce, 1);
       newAction.clampWhenFinished = true;
       isTransitioningToIdleRef.current = true;
-    }else{
+    } else {
       isTransitioningToIdleRef.current = false;
     }
   }, [actions, currentBaseAction, timeScale]);
@@ -246,7 +243,8 @@ export default function FullbodyAvatar({
       // Transition to idle
       if (isTransitioningToIdleRef.current && currentActionRef.current) {
         // Check if the current animation has finished playing,
-        let animationDuration =currentActionRef.current.getClip().duration * 0.9;
+        let animationDuration =
+          currentActionRef.current.getClip().duration * 0.9;
         if (currentActionRef.current.time >= animationDuration) {
           // Generate random number between 1-5 for idle animation variation
           let idleNumber = Math.floor(Math.random() * 5) + 1;
@@ -254,19 +252,29 @@ export default function FullbodyAvatar({
           // If the current animation is already the last idle animation,
           // we need to skip it and go to the next one
           if (
-            currentActionRef.current?.getClip().name.endsWith(
-              idleNumber.toString()
-            )
+            currentActionRef.current
+              ?.getClip()
+              .name.endsWith(idleNumber.toString())
           ) {
-            idleNumber = idleNumber + 1 === 6 ? 4 : idleNumber + 1;
+            idleNumber = idleNumber === 5 ? 4 : idleNumber + 1;
           }
 
           // If the chat has already started, we need to skip idle3 and go to idle4,
-          // because idle3 is the animation in which the avatar turn around 
+          // because idle3 is the animation in which the avatar turn around
           if (isChatAlreadyStarted && idleNumber === 3) {
-            idleNumber = 4;
+            idleNumber = currentActionRef.current?.getClip().name.endsWith('4')
+              ? 2
+              : 4;
           }
           const idleAction = actions[`Idle${idleNumber}`];
+
+          // console.log(
+          //   'currentActionRef.current' +
+          //     currentActionRef.current?.getClip().name +
+          //     ' idle action ' +
+          //     idleAction?.getClip().name +
+          //     idleAction?.getClip().duration
+          // );
 
           if (idleAction) {
             // Smoothly transition from current animation to new idle animation:
@@ -278,7 +286,7 @@ export default function FullbodyAvatar({
             currentActionRef.current = idleAction;
             // Set the time scale of the new idle animation
             idleAction.timeScale = timeScale;
-            // Reset the transitiontoIdle flag only 
+            // Reset the transitiontoIdle flag only
           }
         }
       }
