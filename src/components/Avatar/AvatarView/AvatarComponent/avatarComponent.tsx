@@ -19,6 +19,7 @@ interface Props {
   updateCurrentViseme: (
     currentTime: number
   ) => { name: string; weight: number } | null;
+  isChatAlreadyStarted: boolean;
 }
 
 interface BaseAction {
@@ -67,6 +68,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   isZoomed,
   updateCurrentViseme,
   resetVisemeQueue,
+  isChatAlreadyStarted,
 }) => {
   const [currentBaseAction, setCurrentBaseAction] = useState({
     action: animation || 'Idle1',
@@ -190,13 +192,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
     }
   }, [loading]);
 
-  // useEffect(() => {
-  //   if (speaking && currentBaseAction.action !== 'Idle1') {
-  //     const animation = `Idle1`;
-  //     onBaseActionChange(animation);
-  //   }
-  // }, [speaking]);
-
   return (
     <>
       {showControls && (
@@ -237,6 +232,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           setMorphTargetDictionary={setMorphTargetDictionary}
           setMorphTargetInfluences={setMorphTargetInfluences}
           emotionMorphTargets={emotionMorphTargets}
+          isChatAlreadyStarted={isChatAlreadyStarted}
         />
       )}
     </>

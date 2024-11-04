@@ -147,6 +147,7 @@ const Avatar: React.FC<Props> = ({
             resetVisemeQueue={resetVisemeQueue}
             isZoomed={isZoomed} 
             chatEmission={chatProps?.dialogState?.emission}
+            isChatAlreadyStarted={chatProps?.history?.length > 0}
           />
         </ErrorBoundary>
       );

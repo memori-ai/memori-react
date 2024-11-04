@@ -38,6 +38,7 @@ interface FullbodyAvatarProps {
     morphTargetInfluences: Record<string, number>
   ) => void;
   emotionMorphTargets: Record<string, number>;
+  isChatAlreadyStarted: boolean;
 }
 
 const AVATAR_POSITION = new Vector3(0, -1, 0);
@@ -59,6 +60,9 @@ const BLINK_CONFIG = {
 const EMOTION_SMOOTHING = 0.3;
 const VISME_SMOOTHING = 0.5;
 
+const TOTAL_IDLE_ANIMATIONS = 5;
+const FADE_DURATION = 0.8;
+
 export default function FullbodyAvatar({
   url,
   sex,
@@ -70,6 +74,7 @@ export default function FullbodyAvatar({
   setMorphTargetDictionary,
   setMorphTargetInfluences,
   emotionMorphTargets,
+  isChatAlreadyStarted,
 }: FullbodyAvatarProps) {
   const { scene } = useGLTF(url);
   const { animations } = useGLTF(ANIMATION_URLS[sex]);
@@ -87,6 +92,7 @@ export default function FullbodyAvatar({
 
   const currentEmotionRef = useRef<Record<string, number>>({});
   const previousEmotionKeysRef = useRef<Set<string>>(new Set());
+
 
   // Memoize the scene traversal
   const headMesh = useMemo(() => {
@@ -128,27 +134,22 @@ export default function FullbodyAvatar({
       return;
     }
 
-    const fadeOutDuration = 0.8;
-    const fadeInDuration = 0.8;
 
     if (currentActionRef.current) {
-      currentActionRef.current.fadeOut(fadeOutDuration);
+      currentActionRef.current.fadeOut(FADE_DURATION);
     }
 
-    newAction.reset().fadeIn(fadeInDuration).play();
+    newAction.reset().fadeIn(FADE_DURATION).play();
     currentActionRef.current = newAction;
     newAction.timeScale = timeScale;
 
-    if (
-      currentBaseAction.action.startsWith('Gioia') ||
-      currentBaseAction.action.startsWith('Rabbia') ||
-      currentBaseAction.action.startsWith('Sorpresa') ||
-      currentBaseAction.action.startsWith('Timore') ||
-      currentBaseAction.action.startsWith('Tristezza')
-    ) {
+    if (!currentBaseAction.action.startsWith('Loading')) {
+      console.log('Setting loop to once');
       newAction.setLoop(LoopOnce, 1);
       newAction.clampWhenFinished = true;
       isTransitioningToIdleRef.current = true;
+    }else{
+      isTransitioningToIdleRef.current = false;
     }
   }, [actions, currentBaseAction, timeScale]);
 
@@ -244,19 +245,40 @@ export default function FullbodyAvatar({
 
       // Transition to idle
       if (isTransitioningToIdleRef.current && currentActionRef.current) {
-        if (
-          currentActionRef.current.time >=
-          currentActionRef.current.getClip().duration
-        ) {
-          const idleNumber = Math.floor(Math.random() * 5) + 1;
-          const idleAction =
-            actions[`Idle${idleNumber === 3 ? 4 : idleNumber}`];
+        // Check if the current animation has finished playing,
+        let animationDuration =currentActionRef.current.getClip().duration * 0.9;
+        if (currentActionRef.current.time >= animationDuration) {
+          // Generate random number between 1-5 for idle animation variation
+          let idleNumber = Math.floor(Math.random() * 5) + 1;
+
+          // If the current animation is already the last idle animation,
+          // we need to skip it and go to the next one
+          if (
+            currentActionRef.current?.getClip().name.endsWith(
+              idleNumber.toString()
+            )
+          ) {
+            idleNumber = idleNumber + 1 === 6 ? 4 : idleNumber + 1;
+          }
+
+          // If the chat has already started, we need to skip idle3 and go to idle4,
+          // because idle3 is the animation in which the avatar turn around 
+          if (isChatAlreadyStarted && idleNumber === 3) {
+            idleNumber = 4;
+          }
+          const idleAction = actions[`Idle${idleNumber}`];
 
           if (idleAction) {
-            currentActionRef.current.fadeOut(0.5);
-            idleAction.reset().fadeIn(0.5).play();
+            // Smoothly transition from current animation to new idle animation:
+            // 1. Fade out current animation over 0.8 seconds
+            currentActionRef.current.fadeOut(FADE_DURATION);
+            // 2. Reset idle animation to start, fade it in over 0.8 seconds, and play it
+            idleAction.reset().fadeIn(FADE_DURATION).play();
+            // 3. Update the current animation reference to the new idle animation
             currentActionRef.current = idleAction;
-            isTransitioningToIdleRef.current = false;
+            // Set the time scale of the new idle animation
+            idleAction.timeScale = timeScale;
+            // Reset the transitiontoIdle flag only 
           }
         }
       }

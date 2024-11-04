@@ -26,6 +26,7 @@ export interface Props {
   stopProcessing: () => void;
   resetVisemeQueue: () => void;
   updateCurrentViseme: (currentTime: number) => { name: string; weight: number } | null;
+  isChatAlreadyStarted: boolean;
 }
 
 const defaultStyles = {
@@ -92,6 +93,7 @@ export default function ContainerAvatarView({
   stopProcessing,
   resetVisemeQueue,
   updateCurrentViseme,
+  isChatAlreadyStarted,
 }: Props) {
   return (
     <Canvas
@@ -118,6 +120,7 @@ export default function ContainerAvatarView({
           updateCurrentViseme={updateCurrentViseme}
           stopProcessing={stopProcessing}
           resetVisemeQueue={resetVisemeQueue}
+          isChatAlreadyStarted={isChatAlreadyStarted}
         />
       </Suspense>
     </Canvas>
