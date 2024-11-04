@@ -64,13 +64,13 @@ const CONSTANTS = {
   // Overlap between consecutive visemes
   // Increased for smoother blending between mouth shapes
   // Should be about 1/3 of the viseme duration for natural transition
-  VISEME_OVERLAP: 0.01, // 30ms overlap
+  VISEME_OVERLAP: 0.02, // 30ms overlap
 
   // Smoothing factor for weight transitions
   // Lower value = smoother but slower transitions
   // Higher value = faster but potentially jerky transitions
   // 0.4 provides good balance between responsiveness and smoothness
-  SMOOTHING_FACTOR: 0.35,
+  SMOOTHING_FACTOR: 0.4,
 
   // How often to log debug information (in frames)
   // Adjusted to be less frequent to reduce console spam
