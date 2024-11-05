@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import AnimationControlPanel from './components/controls';
-import FullbodyAvatar from './components/fullbodyAvatar';
+import FullbodyAvatar from './components/FullbodyAvatar/fullbodyAvatar';
 import HalfBodyAvatar from './components/halfbodyAvatar';
 
 interface Props {
@@ -19,7 +19,6 @@ interface Props {
   updateCurrentViseme: (
     currentTime: number
   ) => { name: string; weight: number } | null;
-  isChatAlreadyStarted: boolean;
 }
 
 interface BaseAction {
@@ -68,7 +67,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   isZoomed,
   updateCurrentViseme,
   resetVisemeQueue,
-  isChatAlreadyStarted,
 }) => {
   const [currentBaseAction, setCurrentBaseAction] = useState({
     action: animation || 'Idle1',
@@ -89,8 +87,11 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
 
   // Set the morph target influences for the given emotions
   const setEmotionMorphTargetInfluences = useCallback((action: string) => {
-
-    if(action === 'Loading1' || action === 'Loading2' || action === 'Loading3') {
+    if (
+      action === 'Loading1' ||
+      action === 'Loading2' ||
+      action === 'Loading3'
+    ) {
       return;
     }
 
@@ -101,9 +102,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       Tristezza: { Tristezza: 1 },
       Timore: { Timore: 1 },
     };
-      
-
-    
 
     // Set all emotions to 0
     const defaultEmotions = Object.keys(emotionMap).reduce((acc, key) => {
@@ -232,7 +230,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           setMorphTargetDictionary={setMorphTargetDictionary}
           setMorphTargetInfluences={setMorphTargetInfluences}
           emotionMorphTargets={emotionMorphTargets}
-          isChatAlreadyStarted={isChatAlreadyStarted}
         />
       )}
     </>

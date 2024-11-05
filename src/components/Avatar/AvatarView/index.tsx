@@ -3,7 +3,7 @@ import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, SpotLight, Environment } from '@react-three/drei';
 import { isAndroid, isiOS } from '../../../helpers/utils';
-import {AvatarView} from './AvatarComponent/avatarComponent';
+import { AvatarView } from './AvatarComponent/avatarComponent';
 import Loader from './AvatarComponent/components/loader';
 
 export interface Props {
@@ -25,8 +25,9 @@ export interface Props {
   setMeshRef?: any;
   stopProcessing: () => void;
   resetVisemeQueue: () => void;
-  updateCurrentViseme: (currentTime: number) => { name: string; weight: number } | null;
-  isChatAlreadyStarted: boolean;
+  updateCurrentViseme: (
+    currentTime: number
+  ) => { name: string; weight: number } | null;
 }
 
 const defaultStyles = {
@@ -71,8 +72,6 @@ const getLightingComponent = () =>
   ) : (
     <Environment files="https://raw.githack.com/pmndrs/drei-assets/456060a26bbeb8fdf79326f224b6d99b8bcce736/hdri/venice_sunset_1k.hdr" />
   );
-  
-
 
 export default function ContainerAvatarView({
   url,
@@ -93,7 +92,6 @@ export default function ContainerAvatarView({
   stopProcessing,
   resetVisemeQueue,
   updateCurrentViseme,
-  isChatAlreadyStarted,
 }: Props) {
   return (
     <Canvas
@@ -120,7 +118,6 @@ export default function ContainerAvatarView({
           updateCurrentViseme={updateCurrentViseme}
           stopProcessing={stopProcessing}
           resetVisemeQueue={resetVisemeQueue}
-          isChatAlreadyStarted={isChatAlreadyStarted}
         />
       </Suspense>
     </Canvas>
