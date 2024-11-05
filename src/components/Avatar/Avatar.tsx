@@ -53,7 +53,6 @@ const Avatar: React.FC<Props> = ({
   isZoomed = false,
   chatProps,
 }) => {
-
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
 
@@ -118,7 +117,7 @@ const Avatar: React.FC<Props> = ({
 
     if (
       integrationConfig?.avatar === 'readyplayerme' ||
-      integrationConfig?.avatar === 'readyplayerme-full' || 
+      integrationConfig?.avatar === 'readyplayerme-full' ||
       integrationConfig?.avatar === 'customrpm'
     ) {
       return (
@@ -145,9 +144,8 @@ const Avatar: React.FC<Props> = ({
             style={getAvatarStyle()}
             stopProcessing={stopProcessing}
             resetVisemeQueue={resetVisemeQueue}
-            isZoomed={isZoomed} 
+            isZoomed={isZoomed}
             chatEmission={chatProps?.dialogState?.emission}
-            isChatAlreadyStarted={chatProps?.history?.length > 0}
           />
         </ErrorBoundary>
       );
