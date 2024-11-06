@@ -23,7 +23,7 @@ export class AnimationController {
   // Counter for number of times current idle has looped
   private currentIdleLoopCount: number = 0;
   // Maximum number of idle loops before forcing change
-  private readonly MAX_IDLE_LOOPS = 4;
+  private readonly MAX_IDLE_LOOPS = 5;
   // Timestamp of last animation frame
   private lastAnimationTime: number = 0;
   // Flag to check if chat has already started
@@ -34,7 +34,7 @@ export class AnimationController {
     actions: Record<string, AnimationAction>,
     config: AnimationConfig = DEFAULT_CONFIG
   ) {
-    console.log('Initializing AnimationController');
+    // console.log('Initializing AnimationController');
     this.mixer = mixer;
     this.actions = actions;
     this.config = config;
@@ -54,15 +54,15 @@ export class AnimationController {
     // it means the animation has looped
     if (currentTime < this.lastAnimationTime) {
       this.currentIdleLoopCount++;
-      console.log(
-        `[AnimationController] Loop detected! Count: ${this.currentIdleLoopCount}`
-      );
+      // console.log(
+      //   `[AnimationController] Loop detected! Count: ${this.currentIdleLoopCount}`
+      // );
 
       // Force idle change after MAX_IDLE_LOOPS
       if (this.currentIdleLoopCount >= this.MAX_IDLE_LOOPS) {
-        console.log(
-          '[AnimationController] Max loops reached, changing idle animation'
-        );
+        // console.log(
+        //   '[AnimationController] Max loops reached, changing idle animation'
+        // );
         this.forceIdleChange();
       }
     }
@@ -74,7 +74,7 @@ export class AnimationController {
    * Forces transition to a new idle animation
    */
   private forceIdleChange() {
-    console.log('[AnimationController] Forcing idle change');
+    // console.log('[AnimationController] Forcing idle change');
     this.currentIdleLoopCount = 0;
     this.lastAnimationTime = 0;
     this.transitionTo(AnimationState.IDLE);
@@ -89,19 +89,19 @@ export class AnimationController {
       nextIndex = Math.floor(Math.random() * this.config.idleCount) + 1;
     } while (nextIndex === this.lastIdleIndex);
 
-    console.log(
-      '[AnimationController] isChatAlreadyStarted',
-      this.isChatAlreadyStarted
-    );
+    // console.log(
+    //   '[AnimationController] isChatAlreadyStarted',
+    //   this.isChatAlreadyStarted
+    // );
 
     if (this.isChatAlreadyStarted && nextIndex === 3) {
       // If chat has already started and the last idle was Idle4, use Idle3 instead
       nextIndex = this.lastIdleIndex !== 4 ? 4 : 2;
     }
 
-    console.log(
-      `[AnimationController] Selected idle animation: Idle${nextIndex}`
-    );
+    // console.log(
+    //   `[AnimationController] Selected idle animation: Idle${nextIndex}`
+    // );
     this.lastIdleIndex = nextIndex;
     const idleAction = this.actions[`Idle${nextIndex}`];
 
@@ -117,17 +117,17 @@ export class AnimationController {
    */
   transitionTo(state: AnimationState, emotionName?: string) {
     if (this.isTransitioning) {
-      console.log(
-        '[AnimationController] Transition already in progress, skipping'
-      );
+      // console.log(
+      //   '[AnimationController] Transition already in progress, skipping'
+      // );
       return;
     }
 
-    console.log(
-      `[AnimationController] Transitioning to ${state}${
-        emotionName ? ` (${emotionName})` : ''
-      }`
-    );
+    // console.log(
+    //   `[AnimationController] Transitioning to ${state}${
+    //     emotionName ? ` (${emotionName})` : ''
+    //   }`
+    // );
     this.isTransitioning = true;
 
     try {
@@ -177,7 +177,7 @@ export class AnimationController {
 
       this.currentAction = nextAction;
       this.currentState = state;
-      console.log('[AnimationController] Transition completed successfully');
+      // console.log('[AnimationController] Transition completed successfully');
     } catch (error) {
       console.error(
         '[AnimationController] Error during animation transition:',
@@ -205,9 +205,9 @@ export class AnimationController {
       this.currentState !== AnimationState.IDLE &&
       this.currentAction.time >= this.currentAction.getClip().duration * 0.9
     ) {
-      console.log(
-        '[AnimationController] Non-idle animation completed, transitioning to idle'
-      );
+      // console.log(
+      //   '[AnimationController] Non-idle animation completed, transitioning to idle'
+      // );
       this.transitionTo(AnimationState.IDLE);
     }
 
@@ -232,7 +232,7 @@ export class AnimationController {
    * Updates animation playback speed
    */
   setTimeScale(timeScale: number) {
-    console.log(`[AnimationController] Setting time scale to ${timeScale}`);
+    // console.log(`[AnimationController] Setting time scale to ${timeScale}`);
     this.config.timeScale = timeScale;
     if (this.currentAction) {
       this.currentAction.timeScale = timeScale;
