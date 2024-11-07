@@ -7,7 +7,7 @@ export interface Props {
   max?: number;
   step?: number;
   defaultValue?: number;
-  label?: string;
+  label?: string | React.ReactNode;
   onChange?: (value: number) => void;
 }
 
@@ -44,8 +44,7 @@ const CustomSlider = ({
   return (
     <div className="slider-container" style={{ '--percentage': `${percentage}%` } as React.CSSProperties}>
       <div className="slider-header">
-        <span className="slider-label">{label}</span>
-        {/* <span className="slider-value">{value}</span> */}
+        {label}
       </div>
       
       <div className="slider-track-container" onClick={handleSliderClick}>
