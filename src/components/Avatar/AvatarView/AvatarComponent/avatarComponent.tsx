@@ -4,6 +4,7 @@ import { FullbodyAvatar } from './components/FullbodyAvatar/FullbodyAvatar';
 import HalfBodyAvatar from './components/halfbodyAvatar';
 import PositionControls from './positionControls/positionControls';
 import { PerspectiveCamera, Vector3 } from 'three';
+import { getLocalConfig } from '../../../../helpers/configuration';
 
 interface Props {
   showControls: boolean;
@@ -23,8 +24,6 @@ interface Props {
   updateCurrentViseme: (
     currentTime: number
   ) => { name: string; weight: number } | null;
-  enablePositionControls?: boolean;
-  setEnablePositionControls?: (value: boolean) => void;
   setCameraZ: (value: number) => void;
 }
 
@@ -72,10 +71,10 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   halfBody,
   loading,
   isZoomed,
+  avatarHeight,
+  avatarDepth,
   updateCurrentViseme,
   resetVisemeQueue,
-  enablePositionControls,
-  setEnablePositionControls,
   setCameraZ,
 }) => {
   const [currentBaseAction, setCurrentBaseAction] = useState({
@@ -94,9 +93,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   }>({});
 
   const [timeScale, setTimeScale] = useState(0.8);
-
-  const [avatarHeight, setAvatarHeight] = useState(0);
-  const [avatarDepth, setAvatarDepth] = useState(0);
 
   // Set the morph target influences for the given emotions
   const setEmotionMorphTargetInfluences = useCallback((action: string) => {
@@ -217,16 +213,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           modifyTimeScale={modifyTimeScale}
         />
       )}
-      {
-        enablePositionControls && (
-         <PositionControls
-          avatarHeight={avatarHeight}
-          avatarDepth={avatarDepth}
-          setAvatarHeight={setAvatarHeight}
-          setAvatarDepth={setAvatarDepth}
-         />
-        )
-      }
       {halfBody ? (
         <HalfBodyAvatar
           url={url}
@@ -234,8 +220,8 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           setMorphTargetInfluences={setMorphTargetInfluences}
           setMorphTargetDictionary={setMorphTargetDictionary}
           updateCurrentViseme={updateCurrentViseme}
-          avatarHeight={avatarHeight}
-          avatarDepth={avatarDepth}
+          avatarHeight={avatarHeight || 50}
+          avatarDepth={avatarDepth || -50}
         />
       ) : (
         <FullbodyAvatar
@@ -254,8 +240,8 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           emotionMorphTargets={emotionMorphTargets}
           halfBody={halfBody}
           onCameraZChange={setCameraZ}
-          avatarHeight={avatarHeight}
-          avatarDepth={avatarDepth}
+          avatarHeight={avatarHeight || 50}
+          avatarDepth={avatarDepth || -50}
         />
       )}
     </>
