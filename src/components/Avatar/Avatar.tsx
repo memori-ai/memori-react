@@ -34,6 +34,9 @@ export interface Props {
   animation?: string;
   isZoomed?: boolean;
   chatProps?: any;
+  enablePositionControls?: boolean;
+  setEnablePositionControls?: (value: boolean) => void;
+  avatarType?: 'blob' | 'avatar3d' | undefined;
 }
 
 const Avatar: React.FC<Props> = ({
@@ -52,6 +55,9 @@ const Avatar: React.FC<Props> = ({
   animation,
   isZoomed = false,
   chatProps,
+  avatarType,
+  enablePositionControls,
+  setEnablePositionControls,
 }) => {
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
@@ -86,7 +92,8 @@ const Avatar: React.FC<Props> = ({
         integrationConfig?.avatar === 'readyplayerme-full' ||
         integrationConfig?.avatar === 'customglb' ||
         integrationConfig?.avatar === 'customrpm') &&
-      integrationConfig?.avatarURL
+      integrationConfig?.avatarURL &&
+      (avatarType && avatarType !== 'blob')
     ) {
       return (
         <>
@@ -118,7 +125,7 @@ const Avatar: React.FC<Props> = ({
     if (
       integrationConfig?.avatar === 'readyplayerme' ||
       integrationConfig?.avatar === 'readyplayerme-full' ||
-      integrationConfig?.avatar === 'customrpm'
+      integrationConfig?.avatar === 'customrpm' 
     ) {
       return (
         <ErrorBoundary
@@ -146,6 +153,8 @@ const Avatar: React.FC<Props> = ({
             resetVisemeQueue={resetVisemeQueue}
             isZoomed={isZoomed}
             chatEmission={chatProps?.dialogState?.emission}
+            enablePositionControls={enablePositionControls}
+            setEnablePositionControls={setEnablePositionControls}
           />
         </ErrorBoundary>
       );
