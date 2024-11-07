@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import AnimationControlPanel from './components/controls';
-import FullbodyAvatar from './components/FullbodyAvatar/fullbodyAvatar';
+import { FullbodyAvatar } from './components/FullbodyAvatar/FullbodyAvatar';
 import HalfBodyAvatar from './components/halfbodyAvatar';
+import PositionControls from './positionControls/positionControls';
+import { PerspectiveCamera, Vector3 } from 'three';
 
 interface Props {
   showControls: boolean;
@@ -14,11 +16,16 @@ interface Props {
   speaking: boolean;
   isZoomed: boolean;
   chatEmission: any;
+  avatarHeight?: number;
+  avatarDepth?: number;
   stopProcessing: () => void;
   resetVisemeQueue: () => void;
   updateCurrentViseme: (
     currentTime: number
   ) => { name: string; weight: number } | null;
+  enablePositionControls?: boolean;
+  setEnablePositionControls?: (value: boolean) => void;
+  setCameraZ: (value: number) => void;
 }
 
 interface BaseAction {
@@ -67,6 +74,9 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   isZoomed,
   updateCurrentViseme,
   resetVisemeQueue,
+  enablePositionControls,
+  setEnablePositionControls,
+  setCameraZ,
 }) => {
   const [currentBaseAction, setCurrentBaseAction] = useState({
     action: animation || 'Idle1',
@@ -84,6 +94,9 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   }>({});
 
   const [timeScale, setTimeScale] = useState(0.8);
+
+  const [avatarHeight, setAvatarHeight] = useState(0);
+  const [avatarDepth, setAvatarDepth] = useState(0);
 
   // Set the morph target influences for the given emotions
   const setEmotionMorphTargetInfluences = useCallback((action: string) => {
@@ -204,16 +217,25 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           modifyTimeScale={modifyTimeScale}
         />
       )}
+      {
+        enablePositionControls && (
+         <PositionControls
+          avatarHeight={avatarHeight}
+          avatarDepth={avatarDepth}
+          setAvatarHeight={setAvatarHeight}
+          setAvatarDepth={setAvatarDepth}
+         />
+        )
+      }
       {halfBody ? (
         <HalfBodyAvatar
           url={url}
-          headMovement={headMovement}
-          speaking={speaking}
-          eyeBlink={eyeBlink}
-          morphTargetInfluences={morphTargetInfluences}
+          onCameraZChange={setCameraZ}
           setMorphTargetInfluences={setMorphTargetInfluences}
           setMorphTargetDictionary={setMorphTargetDictionary}
           updateCurrentViseme={updateCurrentViseme}
+          avatarHeight={avatarHeight}
+          avatarDepth={avatarDepth}
         />
       ) : (
         <FullbodyAvatar
@@ -230,6 +252,10 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           setMorphTargetDictionary={setMorphTargetDictionary}
           setMorphTargetInfluences={setMorphTargetInfluences}
           emotionMorphTargets={emotionMorphTargets}
+          halfBody={halfBody}
+          onCameraZChange={setCameraZ}
+          avatarHeight={avatarHeight}
+          avatarDepth={avatarDepth}
         />
       )}
     </>

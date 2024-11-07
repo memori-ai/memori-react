@@ -544,6 +544,9 @@ const MemoriWidget = ({
   const [controlsPosition, setControlsPosition] = useState<'center' | 'bottom'>(
     'center'
   );
+
+  const [enablePositionControls, setEnablePositionControls] = useState(false);
+  const [avatarType, setAvatarType] = useState<'blob' | 'avatar3d' | undefined>(undefined);
   const [hideEmissions, setHideEmissions] = useState(false);
 
   const {
@@ -598,6 +601,7 @@ const MemoriWidget = ({
     setControlsPosition(
       getLocalConfig('controlsPosition', defaultControlsPosition)
     );
+    setAvatarType(getLocalConfig('avatarType', 'avatar3d'));
     setHideEmissions(getLocalConfig('hideEmissions', false));
 
     if (!additionalInfo?.loginToken && !authToken) {
@@ -3079,6 +3083,9 @@ const MemoriWidget = ({
     loading: !!memoriTyping,
     baseUrl,
     apiUrl,
+    enablePositionControls,
+    setEnablePositionControls,
+    avatarType,
   };
 
   const startPanelProps: StartPanelProps = {
@@ -3378,6 +3385,10 @@ const MemoriWidget = ({
           setControlsPosition={setControlsPosition}
           hideEmissions={hideEmissions}
           setHideEmissions={setHideEmissions}
+          avatarType={avatarType}
+          setAvatarType={setAvatarType}
+          enablePositionControls={enablePositionControls}
+          setEnablePositionControls={setEnablePositionControls}
           additionalSettings={additionalSettings}
         />
       )}
