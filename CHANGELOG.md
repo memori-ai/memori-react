@@ -1,5 +1,24 @@
 
 
+## [7.8.5](https://github.com/memori-ai/memori-react/compare/v7.8.4...v7.8.5) (2024-11-07)
+
+
+### Features
+
+* added idle random after every animation except for Loading ([18264fa](https://github.com/memori-ai/memori-react/commit/18264fa892a77bb7154548566039a3fc297d544b))
+
+
+### Bug Fixes
+
+* condition to avoid repeating the same idle animation twice ([6137575](https://github.com/memori-ai/memori-react/commit/61375754dbc176a6e3875b9d25d34cc2d822251b))
+
+
+### Changes
+
+* fine tuned lip sync constant values ([2756914](https://github.com/memori-ai/memori-react/commit/2756914a023b6ccc90316698ccc2dbba8df7b4c1))
+* handle full body avatar animation and morph target in separated classes ([f8c20d1](https://github.com/memori-ai/memori-react/commit/f8c20d15ff67c6b7c6857f893c1ec14dd88660c9))
+* removed logs and set max idle count ([12d06b7](https://github.com/memori-ai/memori-react/commit/12d06b7f154387cfe405545f0db8ba3ade5fd966))
+
 ## [7.8.4](https://github.com/memori-ai/memori-react/compare/v7.8.3...v7.8.4) (2024-10-31)
 
 
