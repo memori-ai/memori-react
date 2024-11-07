@@ -11,6 +11,8 @@ import { isAndroid, isiOS } from '../../../helpers/utils';
 import { AvatarView } from './AvatarComponent/avatarComponent';
 import Loader from './AvatarComponent/components/loader';
 import { Vector3 } from 'three';
+import PositionControls from './AvatarComponent/positionControls/positionControls';
+import { getLocalConfig } from '../../../helpers/configuration';
 export interface Props {
   url: string;
   sex: 'MALE' | 'FEMALE';
@@ -28,7 +30,7 @@ export interface Props {
   isZoomed?: boolean;
   chatEmission?: any;
   enablePositionControls?: boolean;
-  setEnablePositionControls?: (value: boolean) => void;
+  setEnablePositionControls: (value: boolean) => void;
   setMeshRef?: any;
   stopProcessing: () => void;
   resetVisemeQueue: () => void;
@@ -74,6 +76,8 @@ const getLightingComponent = () =>
       target: [0, 0, 0]
     };
   };
+
+  
   
   export default function ContainerAvatarView({
     url,
@@ -98,10 +102,12 @@ const getLightingComponent = () =>
     setEnablePositionControls,
   }: Props) {
     const [cameraZ, setCameraZ] = useState(() => getCameraSettings(halfBody).position[2]);
-    
+      const [avatarHeight, setAvatarHeight] = useState(getLocalConfig('avatarHeight', 50));
+      const [avatarDepth, setAvatarDepth] = useState(getLocalConfig('avatarDepth', 50));
     return (
-      <Canvas
-        style={style || (halfBody ? defaultStyles.halfBody : defaultStyles.fullBody)}
+      <>
+        <Canvas
+          style={style || defaultStyles.fullBody}
       >
         <PerspectiveCamera
           makeDefault
@@ -135,11 +141,21 @@ const getLightingComponent = () =>
             updateCurrentViseme={updateCurrentViseme}
             stopProcessing={stopProcessing}
             resetVisemeQueue={resetVisemeQueue}
-            enablePositionControls={enablePositionControls}
-            setEnablePositionControls={setEnablePositionControls}
             setCameraZ={setCameraZ}
+            avatarHeight={avatarHeight}
+            avatarDepth={avatarDepth}
           />
         </Suspense>
-      </Canvas>
+        </Canvas>
+        {enablePositionControls && (
+          <PositionControls
+            avatarHeight={avatarHeight}
+            avatarDepth={avatarDepth}
+            setAvatarHeight={setAvatarHeight}
+            setAvatarDepth={setAvatarDepth}
+            setEnablePositionControls={setEnablePositionControls}
+          />
+        )}
+      </>
     );
   }

@@ -1,0 +1,65 @@
+.memori--position-controls{
+  position: fixed;
+  z-index: 1000;
+  top: 60px;
+  left: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 400px;
+  height: auto !important;
+  text-align: left;
+  max-width: 400px;
+  padding: calc(var(--memori-inner-content-pad) / 4) calc(var(--memori-inner-content-pad) / 2);
+  border-radius: 10px;
+  margin-left: auto;
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  background-color: var(--memori-inner-bg, #fff);
+}
+
+.memori--position-controls-helper-text{
+  font-size: 0.875rem;
+  color: #3b3e46;
+}
+
+.memori--slider-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.memori--preset-button{
+  border: 1px solid #ccc;
+  padding: 0.5rem;
+}
+
+.memori--preset-button:hover{
+  background-color: #f0f0f0;
+}
+
+.memori--preset-buttons{
+  display: flex;
+  gap: 0.5rem;
+}
+
+.memori--slider-label{
+  font-size: 0.875rem;
+  color: #3b3e46;
+  margin: 0px;
+}
+
+.memori--position-controls-close{
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.memori--position-controls-close-button{
+  padding: 0.5rem;
+}
+
+.memori--position-controls-close-button:hover, .memori--position-controls-close-button:active, .memori--position-controls-close-button:focus {
+  border: none !important;
+  box-shadow: none !important;
+}
