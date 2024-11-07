@@ -25,6 +25,7 @@ export interface Props {
   setAvatarType: (value: 'blob' | 'avatar3d') => void;
   enablePositionControls?: boolean;
   setEnablePositionControls: (value: boolean) => void;
+  isAvatar3d?: boolean;
 }
 
 const silenceSeconds = [2, 3, 5, 10, 15, 20, 30, 60];
@@ -46,6 +47,7 @@ const SettingsDrawer = ({
   setAvatarType,
   enablePositionControls,
   setEnablePositionControls,
+  isAvatar3d,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -153,58 +155,70 @@ const SettingsDrawer = ({
             </RadioGroup.Option>
           </RadioGroup>
         </div>
-        <div className="memori-settings-drawer--field controls">
-          <label htmlFor="#avatarControls" style={{ marginBottom: '1rem' }}>
-            {t('write_and_speak.avatarControls') || 'Avatar controls'}:
-          </label>
 
-          <label htmlFor="avatarType" className="memori-settings-drawer-label">
-            {t('write_and_speak.avatarType') || 'Avatar type'}:
-          </label>
-          <RadioGroup
-            id="avatarType"
-            name="avatarType"
-            value={avatarType}
-            defaultValue={avatarType}
-            className="memori-settings-drawer--avatarType-radio"
-            onChange={(value: any) => {
-              setAvatarType && setAvatarType(value);
-              setLocalConfig('avatarType', value);
-            }}
-          >
-            <RadioGroup.Option
-              value="blob"
-              className="memori-settings-drawer--avatarType-radio-button"
-            >
-              {({ checked }) => (
-                <Button primary={checked} outlined={!checked}>
-                  {t('write_and_speak.blob') || 'Blob'}
-                </Button>
-              )}
-            </RadioGroup.Option>
-            <RadioGroup.Option
-              value="avatar3d"
-              className="memori-settings-drawer--avatarType-radio-button"
-            >
-              {({ checked }) => (
-                <Button primary={checked} outlined={!checked}>
-                  {t('write_and_speak.avatar3d') || 'Avatar 3D'}
-                </Button>
-              )}
-            </RadioGroup.Option>
-          </RadioGroup>
-        </div>
+        {isAvatar3d && (
+          <>
+            <div className="memori-settings-drawer--field controls">
+              <label htmlFor="#avatarControls" style={{ marginBottom: '1rem' }}>
+                {t('write_and_speak.avatarControls') || 'Avatar controls'}:
+              </label>
 
-        <div className="memori-settings-drawer--field">
-          <Checkbox
-            label={t('write_and_speak.enablePositionControls') || 'Enable position controls'}
-            name="enablePositionControls"
-            checked={enablePositionControls}
-            onChange={e => {
-              setEnablePositionControls(e.target.checked);
-            }}
-          />
-        </div>
+              <label
+                htmlFor="avatarType"
+                className="memori-settings-drawer-label"
+              >
+                {t('write_and_speak.avatarType') || 'Avatar type'}:
+              </label>
+              <RadioGroup
+                id="avatarType"
+                name="avatarType"
+                value={avatarType}
+                defaultValue={avatarType}
+                className="memori-settings-drawer--avatarType-radio"
+                onChange={(value: any) => {
+                  setAvatarType && setAvatarType(value);
+                  setLocalConfig('avatarType', value);
+                }}
+              >
+                <RadioGroup.Option
+                  value="blob"
+                  className="memori-settings-drawer--avatarType-radio-button"
+                >
+                  {({ checked }) => (
+                    <Button primary={checked} outlined={!checked}>
+                      {t('write_and_speak.blob') || 'Blob'}
+                    </Button>
+                  )}
+                </RadioGroup.Option>
+                <RadioGroup.Option
+                  value="avatar3d"
+                  className="memori-settings-drawer--avatarType-radio-button"
+                >
+                  {({ checked }) => (
+                    <Button primary={checked} outlined={!checked}>
+                      {t('write_and_speak.avatar3d') || 'Avatar 3D'}
+                    </Button>
+                  )}
+                </RadioGroup.Option>
+              </RadioGroup>
+            </div>
+
+            <div className="memori-settings-drawer--field">
+              <Checkbox
+                label={
+                  t('write_and_speak.enablePositionControls') ||
+                  'Enable position controls'
+                }
+                name="enablePositionControls"
+                checked={enablePositionControls}
+                onChange={e => {
+                  setEnablePositionControls(e.target.checked);
+                }}
+              />
+            </div>
+          </>
+        )}
+
         <div className="memori-settings-drawer--field">
           <Checkbox
             label={t('write_and_speak.hideEmissionsLabel') || 'Hide emissions'}
