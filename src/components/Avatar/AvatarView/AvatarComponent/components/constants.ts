@@ -1,9 +1,10 @@
 import { Vector3, Euler } from 'three';
-import { AnimationConfig } from './types';
+import { AnimationConfig } from './FullbodyAvatar/types';
 
 export const AVATAR_POSITION = new Vector3(0, -1, 0);
 export const AVATAR_ROTATION = new Euler(0.175, 0, 0);
 export const AVATAR_POSITION_ZOOMED = new Vector3(0, -1.45, 0);
+export const SCALE_LERP_FACTOR = 0.1;
 
 export const ANIMATION_URLS = {
   MALE: 'https://assets.memori.ai/api/v2/asset/2c5e88a4-cf62-408b-9ef0-518b099dfcb2.glb',
