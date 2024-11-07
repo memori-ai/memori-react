@@ -17,6 +17,8 @@ import Edit from '../icons/Edit';
 import cx from 'classnames';
 import ContainerAvatarView from './AvatarView';
 import { useViseme } from '../../context/visemeContext';
+import PositionControls from './AvatarView/AvatarComponent/positionControls/positionControls';
+import { getLocalConfig } from '../../helpers/configuration';
 
 export interface Props {
   memori: Memori;
@@ -35,7 +37,7 @@ export interface Props {
   isZoomed?: boolean;
   chatProps?: any;
   enablePositionControls?: boolean;
-  setEnablePositionControls?: (value: boolean) => void;
+  setEnablePositionControls: (value: boolean) => void;
   avatarType?: 'blob' | 'avatar3d' | undefined;
 }
 
@@ -138,6 +140,7 @@ const Avatar: React.FC<Props> = ({
           }
         >
           <ContainerAvatarView
+            enablePositionControls={enablePositionControls}
             updateCurrentViseme={updateCurrentViseme}
             url={integrationConfig.avatarURL}
             sex={memori.voiceType === 'FEMALE' ? 'FEMALE' : 'MALE'}
@@ -153,7 +156,6 @@ const Avatar: React.FC<Props> = ({
             resetVisemeQueue={resetVisemeQueue}
             isZoomed={isZoomed}
             chatEmission={chatProps?.dialogState?.emission}
-            enablePositionControls={enablePositionControls}
             setEnablePositionControls={setEnablePositionControls}
           />
         </ErrorBoundary>
@@ -191,10 +193,10 @@ const Avatar: React.FC<Props> = ({
   const getAvatarStyle = () => {
     if (integrationConfig?.avatar === 'readyplayerme') {
       return {
-        width: '300px',
-        height: '300px',
+        width: '100%',
+        height: '100%',
         backgroundColor: 'none',
-        borderRadius: '100%',
+        // borderRadius: '100%',
         boxShadow: 'none',
       };
     }
