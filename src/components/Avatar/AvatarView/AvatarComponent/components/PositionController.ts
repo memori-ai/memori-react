@@ -28,9 +28,9 @@ export class AvatarPositionController {
   private mapHeightToScale(sliderValue: number, isHalfBody: boolean): number {
     // Convert slider value to scale factor
     if (isHalfBody) {
-      return MathUtils.lerp(1.6, 3, sliderValue / 100);
+      return MathUtils.lerp(1.4, 1.8, sliderValue / 100);
     } else {
-      return MathUtils.lerp(0, 1.5, sliderValue / 100);
+      return MathUtils.lerp(0.5, 1.5, sliderValue / 100);
     }
   }
 
