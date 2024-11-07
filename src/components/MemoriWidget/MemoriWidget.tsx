@@ -3389,6 +3389,7 @@ const MemoriWidget = ({
           setAvatarType={setAvatarType}
           enablePositionControls={enablePositionControls}
           setEnablePositionControls={setEnablePositionControls}
+          isAvatar3d={!!integrationConfig?.avatarURL}
           additionalSettings={additionalSettings}
         />
       )}
