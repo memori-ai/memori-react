@@ -31,6 +31,14 @@ export interface Props {
   chatEmission?: any;
   enablePositionControls?: boolean;
   setEnablePositionControls: (value: boolean) => void;
+  layout?:
+    | 'DEFAULT'
+    | 'FULLPAGE'
+    | 'TOTEM'
+    | 'CHAT'
+    | 'WEBSITE_ASSISTANT'
+    | 'HIDDEN_CHAT'
+    | 'ZOOMED_FULL_BODY';
   setMeshRef?: any;
   stopProcessing: () => void;
   resetVisemeQueue: () => void;
@@ -67,54 +75,71 @@ const getLightingComponent = () =>
     <Environment files="https://raw.githack.com/pmndrs/drei-assets/456060a26bbeb8fdf79326f224b6d99b8bcce736/hdri/venice_sunset_1k.hdr" />
   );
 
-  const getCameraSettings = (halfBody: boolean) => {
-    const baseZ = halfBody ? 0.6 : 3;
-    
-    return {
-      fov: 40,
-      position: [0, 0, baseZ],
-      target: [0, 0, 0]
-    };
+const getCameraSettings = (halfBody: boolean, isZoomed: boolean) => {
+  const baseZ = halfBody ? 0.6 : 3;
+
+  return {
+    fov: isZoomed ? 44 : 40,
+    position: [0, 0, baseZ],
+    target: [0, 0, 0],
+  };
+};
+
+export default function ContainerAvatarView({
+  url,
+  sex,
+  style,
+  rotateAvatar,
+  eyeBlink,
+  headMovement,
+  speaking,
+  fallback,
+  fallbackImg,
+  halfBody = true,
+  loading,
+  animation,
+  showControls = false,
+  isZoomed,
+  chatEmission,
+  stopProcessing,
+  resetVisemeQueue,
+  updateCurrentViseme,
+  enablePositionControls,
+  setEnablePositionControls,
+  layout,
+}: Props) {
+  const [cameraZ, setCameraZ] = useState(
+    () => getCameraSettings(halfBody, isZoomed || false).position[2]
+  );
+
+  const getAvatarHeight = () => {
+    if (layout === 'TOTEM') {
+      return getLocalConfig('avatarHeight', 50);
+    } else {
+      return isZoomed ? 20 : !halfBody ? 60 : 60;
+    }
   };
 
-  
-  
-  export default function ContainerAvatarView({
-    url,
-    sex,
-    style,
-    rotateAvatar,
-    eyeBlink,
-    headMovement,
-    speaking,
-    fallback,
-    fallbackImg,
-    halfBody = true,
-    loading,
-    animation,
-    showControls = false,
-    isZoomed,
-    chatEmission,
-    stopProcessing,
-    resetVisemeQueue,
-    updateCurrentViseme,
-    enablePositionControls,
-    setEnablePositionControls,
-  }: Props) {
-    const [cameraZ, setCameraZ] = useState(() => getCameraSettings(halfBody).position[2]);
-      const [avatarHeight, setAvatarHeight] = useState(getLocalConfig('avatarHeight', 50));
-      const [avatarDepth, setAvatarDepth] = useState(getLocalConfig('avatarDepth', 50));
-    return (
-      <>
-        <Canvas
-          style={style || defaultStyles.fullBody}
-      >
+  const getAvatarDepth = () => {
+    if (layout === 'TOTEM') {
+      return getLocalConfig('avatarDepth', 50);
+    } else {
+      return isZoomed ? -80 : !halfBody ? -80 : -80;
+    }
+  };
+
+  const [avatarHeight, setAvatarHeight] = useState(getAvatarHeight());
+  const [avatarDepth, setAvatarDepth] = useState(getAvatarDepth());
+
+  return (
+    <>
+      <Canvas style={style || defaultStyles.fullBody}>
         <PerspectiveCamera
           makeDefault
           position={[0, 0, cameraZ]}
-          fov={getCameraSettings(halfBody).fov}
+          fov={getCameraSettings(halfBody, isZoomed || false).fov}
         />
-  
+
         {rotateAvatar && (
           <OrbitControls
             enablePan={false}
@@ -122,10 +147,10 @@ const getLightingComponent = () =>
             target={[0, 0, 0]}
           />
         )}
-  
+
         <Suspense fallback={fallback || <Loader fallbackImg={fallbackImg} />}>
           {getLightingComponent()}
-          
+
           <AvatarView
             url={url}
             sex={sex}
@@ -146,16 +171,16 @@ const getLightingComponent = () =>
             avatarDepth={avatarDepth}
           />
         </Suspense>
-        </Canvas>
-        {enablePositionControls && (
-          <PositionControls
-            avatarHeight={avatarHeight}
-            avatarDepth={avatarDepth}
-            setAvatarHeight={setAvatarHeight}
-            setAvatarDepth={setAvatarDepth}
-            setEnablePositionControls={setEnablePositionControls}
-          />
-        )}
-      </>
-    );
-  }
+      </Canvas>
+      {enablePositionControls && (
+        <PositionControls
+          avatarHeight={avatarHeight}
+          avatarDepth={avatarDepth}
+          setAvatarHeight={setAvatarHeight}
+          setAvatarDepth={setAvatarDepth}
+          setEnablePositionControls={setEnablePositionControls}
+        />
+      )}
+    </>
+  );
+}
