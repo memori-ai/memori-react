@@ -1,57 +1,116 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Listbox } from '@headlessui/react';
-import './Slider.css';
 
-export interface Props {
+interface Props {
   min?: number;
   max?: number;
   step?: number;
   defaultValue?: number;
   label?: string | React.ReactNode;
   onChange?: (value: number) => void;
+  disabled?: boolean;
 }
 
-const CustomSlider = ({ 
-  min = 0, 
-  max = 100, 
-  step = 1, 
+const CustomSlider = ({
+  min = 0,
+  max = 100,
+  step = 1,
   defaultValue = 50,
   label,
   onChange,
+  disabled = false,
 }: Props) => {
   const [value, setValue] = useState(defaultValue);
-  
+  const [isDragging, setIsDragging] = useState(false);
+  const sliderRef = useRef<HTMLDivElement>(null);
   const percentage = ((value - min) / (max - min)) * 100;
-  
+
   const marks = [];
   for (let i = min; i <= max; i += (max - min) / 4) {
     marks.push(Math.round(i));
   }
 
-  const handleSliderClick = (e: any) => {
-    const bounds = e.currentTarget.getBoundingClientRect();
-    const clickPosition = e.clientX - bounds.left;
+  const calculateNewValue = (clientX: number) => {
+    if (!sliderRef.current) return value;
+
+    const bounds = sliderRef.current.getBoundingClientRect();
+    const position = clientX - bounds.left;
     const sliderWidth = bounds.width;
-    const percentage = (clickPosition / sliderWidth) * 100;
+    const percentage = Math.max(0, Math.min(100, (position / sliderWidth) * 100));
     const newValue = Math.round((percentage / 100) * (max - min) + min);
     const steppedValue = Math.round(newValue / step) * step;
-    const clampedValue = Math.min(Math.max(steppedValue, min), max);
-    
-    setValue(clampedValue);
-    onChange?.(clampedValue);
+    return Math.min(Math.max(steppedValue, min), max);
   };
 
+  const handleInteractionStart = (clientX: number) => {
+    if (disabled) return;
+    setIsDragging(true);
+    const newValue = calculateNewValue(clientX);
+    setValue(newValue);
+    onChange?.(newValue);
+  };
+
+  const handleInteractionMove = (clientX: number) => {
+    if (!isDragging || disabled) return;
+    const newValue = calculateNewValue(clientX);
+    setValue(newValue);
+    onChange?.(newValue);
+  };
+
+  const handleInteractionEnd = () => {
+    setIsDragging(false);
+  };
+
+  useEffect(() => {
+    const handleTouchMove = (e: TouchEvent) => {
+      if (!isDragging) return;
+      e.preventDefault(); // Prevent scrolling while dragging
+      handleInteractionMove(e.touches[0].clientX);
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      handleInteractionMove(e.clientX);
+    };
+
+    const handleEndInteraction = () => {
+      handleInteractionEnd();
+    };
+
+    if (isDragging) {
+      window.addEventListener('touchmove', handleTouchMove, { passive: false });
+      window.addEventListener('mousemove', handleMouseMove);
+      window.addEventListener('touchend', handleEndInteraction);
+      window.addEventListener('mouseup', handleEndInteraction);
+    }
+
+    return () => {
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('touchend', handleEndInteraction);
+      window.removeEventListener('mouseup', handleEndInteraction);
+    };
+  }, [isDragging]);
+
   return (
-    <div className="slider-container" style={{ '--percentage': `${percentage}%` } as React.CSSProperties}>
+    <div 
+      className={`slider-container ${disabled ? 'slider-disabled' : ''}`}
+      style={{ '--percentage': `${percentage}%` } as React.CSSProperties}
+    >
       <div className="slider-header">
-        {label}
+        {label && <div className="slider-label">{label}</div>}
+        <div className="slider-value">{value}</div>
       </div>
       
-      <div className="slider-track-container" onClick={handleSliderClick}>
+      <div
+        ref={sliderRef}
+        className="slider-track-container"
+        onMouseDown={(e) => handleInteractionStart(e.clientX)}
+        onTouchStart={(e) => handleInteractionStart(e.touches[0].clientX)}
+      >
         <div className="slider-track">
           <div className="slider-track-fill" />
         </div>
-
+        
         <div className="slider-marks">
           {marks.map((mark) => (
             <div key={mark} className="slider-mark">
@@ -61,8 +120,15 @@ const CustomSlider = ({
           ))}
         </div>
 
-        <Listbox value={value} onChange={setValue}>
-          <div className="slider-thumb" />
+        <Listbox value={value} onChange={setValue} disabled={disabled}>
+          <div 
+            className="slider-thumb"
+            role="slider"
+            aria-valuemin={min}
+            aria-valuemax={max}
+            aria-valuenow={value}
+            tabIndex={disabled ? -1 : 0}
+          />
         </Listbox>
       </div>
     </div>
