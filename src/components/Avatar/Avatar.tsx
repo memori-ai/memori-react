@@ -123,7 +123,6 @@ const Avatar: React.FC<Props> = ({
 
   const renderAvatarContent = () => {
     if (!isClient) return null;
-
     if (
       integrationConfig?.avatar === 'readyplayerme' ||
       integrationConfig?.avatar === 'readyplayerme-full' ||

@@ -28,7 +28,6 @@ const PositionControls: React.FC<PositionControlsProps> = ({
   isZoomed = false,
   setEnablePositionControls,
 }: PositionControlsProps) => {
-  const { t } = useTranslation();
   const settingsRef = useRef<Record<string, any>>({
     height: avatarHeight,
     depth: avatarDepth,
@@ -36,34 +35,41 @@ const PositionControls: React.FC<PositionControlsProps> = ({
     normal: false,
     far: false,
   });
+  const { t } = useTranslation();
 
   // Update settings when values change externally
-  // useEffect(() => {
-  //   settingsRef.current.height = avatarHeight;
-  //   settingsRef.current.depth = avatarDepth;
-  // }, [avatarHeight, avatarDepth]);
+  useEffect(() => {
+    settingsRef.current.height = avatarHeight;
+    settingsRef.current.depth = avatarDepth;
+  }, [avatarHeight, avatarDepth]);
 
   // Keyboard controls for depth
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === '-' || event.key === '_') {
+      if (event.key === '-' || event.key === '_' && settingsRef.current.depth < 100) {
         const newValue = Math.min(settingsRef.current.depth + 10, 100);
         setAvatarDepth(newValue);
         setLocalConfig('avatarDepth', newValue);
-      } else if (event.key === '+' || event.key === '=') {
+      } else if (
+        (event.key === '+' || event.key === '=') &&
+        settingsRef.current.depth > -100
+      ) {
         const newValue = Math.max(settingsRef.current.depth - 10, -100);
         setAvatarDepth(newValue);
         setLocalConfig('avatarDepth', newValue);
       }
     };
 
+    //add event listeners for plus and minus
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
   }, [setAvatarDepth]);
 
   useEffect(() => {
     const handleArrowUp = (event: KeyboardEvent) => {
-      if (event.key === 'ArrowUp') {
+      if (event.key === 'ArrowUp' && settingsRef.current.height < 100) {
         const newValue = settingsRef.current.height + 5;
         setAvatarHeight(newValue);
         setLocalConfig('avatarHeight', newValue);
@@ -71,7 +77,7 @@ const PositionControls: React.FC<PositionControlsProps> = ({
     };
 
     const handleArrowDown = (event: KeyboardEvent) => {
-      if (event.key === 'ArrowDown') {
+      if (event.key === 'ArrowDown' && settingsRef.current.height > 0) {
         const newValue = settingsRef.current.height - 5;
         setAvatarHeight(newValue);
         setLocalConfig('avatarHeight', newValue);
@@ -86,8 +92,6 @@ const PositionControls: React.FC<PositionControlsProps> = ({
       window.removeEventListener('keydown', handleArrowDown);
     };
   }, [setAvatarHeight]);
-
-  console.log(avatarHeight, avatarDepth);
 
   return (
     <div className="memori--position-controls">
@@ -116,7 +120,7 @@ const PositionControls: React.FC<PositionControlsProps> = ({
           defaultValue={settingsRef.current.height}
           min={0}
           max={100}
-          label={<label className="memori--slider-label">{t('Height')}</label>}
+          label={<label className="memori--slider-label">{t('write_and_speak.height')}</label>}
           step={1}
           onChange={(value: number) => {
             setAvatarHeight(value);
@@ -130,7 +134,7 @@ const PositionControls: React.FC<PositionControlsProps> = ({
           min={isZoomed ? -50 : -100}
           max={isZoomed ? 50 : 100}
           step={5}
-          label={<label className="memori--slider-label">{t('Depth')}</label>}
+          label={<label className="memori--slider-label">{t('write_and_speak.depth')}</label>}
           onChange={(value: number) => {
             setAvatarDepth(value);
             setLocalConfig('avatarDepth', value);
@@ -151,7 +155,7 @@ const PositionControls: React.FC<PositionControlsProps> = ({
             setLocalConfig('avatarDepth', zoomedPosition.depth);
           }}
         >
-          {t('Zoomed')}
+          {t('write_and_speak.zoomed')}
         </Button>
         <Button
           outlined
@@ -166,7 +170,7 @@ const PositionControls: React.FC<PositionControlsProps> = ({
             setLocalConfig('avatarDepth', normalPosition.depth);
           }}
         >
-          {t('Normal')}
+          {t('write_and_speak.normal')}
         </Button>
         <Button
           outlined
@@ -181,7 +185,7 @@ const PositionControls: React.FC<PositionControlsProps> = ({
             setLocalConfig('avatarDepth', farPosition.depth);
           }}
         >
-          {t('Far')}
+          {t('write_and_speak.far')}
         </Button>
       </div>
     </div>

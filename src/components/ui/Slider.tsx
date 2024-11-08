@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Listbox } from '@headlessui/react';
-
-interface Props {
+import cx from 'classnames';
+export interface Props {
   min?: number;
   max?: number;
   step?: number;
@@ -91,38 +91,42 @@ const CustomSlider = ({
     };
   }, [isDragging]);
 
+  useEffect(() => {
+    setValue(defaultValue);
+  }, [defaultValue]);
+
   return (
     <div 
-      className={`slider-container ${disabled ? 'slider-disabled' : ''}`}
+      className={cx('memori--slider-container', { 'memori--slider-disabled': disabled })}
       style={{ '--percentage': `${percentage}%` } as React.CSSProperties}
     >
-      <div className="slider-header">
-        {label && <div className="slider-label">{label}</div>}
-        <div className="slider-value">{value}</div>
+      <div className="memori--slider-header">
+        {label && <div className="memori--slider-label">{label}</div>}
+        <div className="memori--slider-value">{value}</div>
       </div>
       
       <div
         ref={sliderRef}
-        className="slider-track-container"
+        className="memori--slider-track-container"
         onMouseDown={(e) => handleInteractionStart(e.clientX)}
         onTouchStart={(e) => handleInteractionStart(e.touches[0].clientX)}
       >
-        <div className="slider-track">
-          <div className="slider-track-fill" />
+        <div className="memori--slider-track">
+          <div className="memori--slider-track-fill" />
         </div>
-        
-        <div className="slider-marks">
+
+        <div className="memori--slider-marks">
           {marks.map((mark) => (
-            <div key={mark} className="slider-mark">
-              <div className="slider-mark-line" />
-              <span className="slider-mark-value">{mark}</span>
+            <div key={mark} className="memori--slider-mark">
+              <div className="memori--slider-mark-line" />
+              <span className="memori--slider-mark-value">{mark}</span>
             </div>
           ))}
         </div>
 
         <Listbox value={value} onChange={setValue} disabled={disabled}>
           <div 
-            className="slider-thumb"
+            className="memori--slider-thumb"
             role="slider"
             aria-valuemin={min}
             aria-valuemax={max}
