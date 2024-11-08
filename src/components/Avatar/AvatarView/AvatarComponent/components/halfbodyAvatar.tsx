@@ -10,6 +10,7 @@ import {
   SCALE_LERP_FACTOR,
   AVATAR_POSITION_ZOOMED,
 } from './constants';
+import { hideHands } from '../../utils/utils';
 
 interface HalfBodyAvatarProps {
   url: string;
@@ -90,7 +91,8 @@ export default function HalfBodyAvatar({
 
     correctMaterials(materials);
     onLoaded?.();
-
+    hideHands(nodes);
+    
     return () => {
       Object.values(materials).forEach(material => material.dispose());
       Object.values(nodes)
