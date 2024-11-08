@@ -15,6 +15,10 @@ interface PositionControlsProps {
   setEnablePositionControls: (value: boolean) => void;
 }
 
+export const normalPosition = { height: 75, depth: -45 };
+export const zoomedPosition = { height: 65, depth: -80 };
+export const farPosition = { height: 100, depth: 50 };
+
 // eslint-disable-next-line no-undef
 const PositionControls: React.FC<PositionControlsProps> = ({
   avatarHeight,
@@ -83,6 +87,8 @@ const PositionControls: React.FC<PositionControlsProps> = ({
     };
   }, [setAvatarHeight]);
 
+  console.log(avatarHeight, avatarDepth);
+
   return (
     <div className="memori--position-controls">
       <div className="memori--position-controls-close">
@@ -134,39 +140,45 @@ const PositionControls: React.FC<PositionControlsProps> = ({
       <div className="memori--preset-buttons">
         <Button
           outlined
-          // className="memori--preset-button"
+          isActive={
+            avatarHeight === zoomedPosition.height &&
+            avatarDepth === zoomedPosition.depth
+          }
           onClick={() => {
-            const position = { height: 50, depth: -50 };
-            setAvatarHeight(position.height);
-            setAvatarDepth(position.depth);
-            setLocalConfig('avatarHeight', position.height);
-            setLocalConfig('avatarDepth', position.depth);
+            setAvatarHeight(zoomedPosition.height);
+            setAvatarDepth(zoomedPosition.depth);
+            setLocalConfig('avatarHeight', zoomedPosition.height);
+            setLocalConfig('avatarDepth', zoomedPosition.depth);
           }}
         >
           {t('Zoomed')}
         </Button>
         <Button
           outlined
-          // className="memori--preset-button"
+          isActive={
+            avatarHeight === normalPosition.height &&
+            avatarDepth === normalPosition.depth
+          }
           onClick={() => {
-            const position = { height: 50, depth: 0 };
-            setAvatarHeight(position.height);
-            setAvatarDepth(position.depth);
-            setLocalConfig('avatarHeight', position.height);
-            setLocalConfig('avatarDepth', position.depth);
+            setAvatarHeight(normalPosition.height);
+            setAvatarDepth(normalPosition.depth);
+            setLocalConfig('avatarHeight', normalPosition.height);
+            setLocalConfig('avatarDepth', normalPosition.depth);
           }}
         >
           {t('Normal')}
         </Button>
         <Button
           outlined
-          // className="memori--preset-button"
+          isActive={
+            avatarHeight === farPosition.height &&
+            avatarDepth === farPosition.depth
+          }
           onClick={() => {
-            const position = { height: 50, depth: 50 };
-            setAvatarHeight(position.height);
-            setAvatarDepth(position.depth);
-            setLocalConfig('avatarHeight', position.height);
-            setLocalConfig('avatarDepth', position.depth);
+            setAvatarHeight(farPosition.height);
+            setAvatarDepth(farPosition.depth);
+            setLocalConfig('avatarHeight', farPosition.height);
+            setLocalConfig('avatarDepth', farPosition.depth);
           }}
         >
           {t('Far')}
