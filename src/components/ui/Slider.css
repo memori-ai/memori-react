@@ -1,14 +1,21 @@
 .slider-container {
   width: 100%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  touch-action: none; /* Prevent default touch behaviors */
+  user-select: none; /* Prevent text selection during drag */
+  padding: 16px 8px;
+}
+
+.slider-disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .slider-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
-  position: absolute;
+  margin-bottom: 16px;
 }
 
 .slider-label {
@@ -20,6 +27,8 @@
 .slider-value {
   color: #666;
   font-size: 14px;
+  min-width: 40px;
+  text-align: right;
 }
 
 .slider-track-container {
@@ -28,16 +37,16 @@
   height: 48px;
   align-items: center;
   cursor: pointer;
-  margin-top: 8px;
+  touch-action: none;
 }
 
 .slider-track {
   position: absolute;
-  overflow: hidden;
   width: 100%;
   height: 8px;
   border-radius: 4px;
   background-color: #e5e5e5;
+  overflow: hidden;
 }
 
 .slider-track-fill {
@@ -45,8 +54,8 @@
   width: var(--percentage);
   height: 100%;
   border-radius: 4px;
-  background-color: var(--memori-primary);
-  transition: width 0.2s ease;
+  background-color: var(--memori-primary, #2563eb);
+  transition: width 0.1s ease;
 }
 
 .slider-marks {
@@ -81,31 +90,44 @@
   position: absolute;
   z-index: 1;
   left: var(--percentage);
-  width: 24px;
-  height: 24px;
-  border: 2px solid var(--memori-primary);
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--memori-primary, #2563eb);
   border-radius: 50%;
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transform: translateX(-50%);
   transition: transform 0.2s ease;
+  touch-action: none;
 }
 
-.slider-thumb:hover {
+.slider-thumb:hover,
+.slider-thumb:active {
   transform: translateX(-50%) scale(1.1);
 }
 
+/* Mobile-specific styles */
 @media (max-width: 640px) {
   .slider-container {
-    padding: 12px;
+    padding: 12px 4px;
   }
-
+  
   .slider-track {
     height: 6px;
   }
-
+  
   .slider-thumb {
-    width: 20px;
-    height: 20px;
+    width: 32px; /* Larger touch target for mobile */
+    height: 32px;
+  }
+  
+  .slider-mark-value {
+    font-size: 11px;
+  }
+  
+  /* Add active state styles for touch devices */
+  .slider-thumb:active {
+    transform: translateX(-50%) scale(1.15);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   }
 }
