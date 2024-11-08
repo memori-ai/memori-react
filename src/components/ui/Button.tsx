@@ -21,6 +21,7 @@ export interface Props {
   className?: string;
   title?: string;
   id?: string;
+  isActive?: boolean;
   htmlType?: 'button' | 'submit' | 'reset';
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onMouseDown?: (
@@ -60,6 +61,7 @@ const Button: FC<Props> = ({
   onTouchStart,
   onTouchEnd,
   children,
+  isActive,
 }) => (
   <button
     id={id}
@@ -87,6 +89,7 @@ const Button: FC<Props> = ({
         'memori-button--icon-only': (icon || loading) && !children,
         'memori-button--danger': danger,
         'memori-button--loading': loading,
+        'memori-button--active': isActive,
       },
       className
     )}
