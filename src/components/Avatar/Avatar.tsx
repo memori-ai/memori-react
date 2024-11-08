@@ -155,6 +155,7 @@ const Avatar: React.FC<Props> = ({
             stopProcessing={stopProcessing}
             resetVisemeQueue={resetVisemeQueue}
             isZoomed={isZoomed}
+            layout={chatProps?.layout}
             chatEmission={chatProps?.dialogState?.emission}
             setEnablePositionControls={setEnablePositionControls}
           />
