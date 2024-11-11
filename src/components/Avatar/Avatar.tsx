@@ -38,7 +38,7 @@ export interface Props {
   chatProps?: any;
   enablePositionControls?: boolean;
   setEnablePositionControls: (value: boolean) => void;
-  avatarType?: 'blob' | 'avatar3d' | undefined;
+  avatarType?: 'blob' | 'avatar3d' | null;
   isTotem?: boolean;
 }
 
@@ -58,7 +58,7 @@ const Avatar: React.FC<Props> = ({
   animation,
   isZoomed = false,
   chatProps,
-  avatarType,
+  avatarType = null,
   enablePositionControls,
   setEnablePositionControls,
   isTotem = false,

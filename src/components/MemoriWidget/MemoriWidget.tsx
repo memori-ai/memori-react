@@ -546,7 +546,7 @@ const MemoriWidget = ({
   );
 
   const [enablePositionControls, setEnablePositionControls] = useState(false);
-  const [avatarType, setAvatarType] = useState<'blob' | 'avatar3d' | undefined>(undefined);
+  const [avatarType, setAvatarType] = useState<'blob' | 'avatar3d' | null>(null);
   const [hideEmissions, setHideEmissions] = useState(false);
 
   const {
@@ -600,7 +600,7 @@ const MemoriWidget = ({
     setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 2));
     setControlsPosition(
       getLocalConfig('controlsPosition', defaultControlsPosition)
-    );
+    );  
     setAvatarType(getLocalConfig('avatarType', 'avatar3d'));
     setHideEmissions(getLocalConfig('hideEmissions', false));
 

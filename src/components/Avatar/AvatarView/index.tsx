@@ -1,4 +1,4 @@
-import { CSSProperties, useEffect, useRef, useState } from 'react';
+import { CSSProperties, useState } from 'react';
 import React, { Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import {
@@ -9,10 +9,10 @@ import {
 } from '@react-three/drei';
 import { isAndroid, isiOS } from '../../../helpers/utils';
 import { AvatarView } from './AvatarComponent/avatarComponent';
-import Loader from './AvatarComponent/components/loader';
-import { Vector3 } from 'three';
 import PositionControls from './AvatarComponent/positionControls/positionControls';
 import { getLocalConfig } from '../../../helpers/configuration';
+import Loader from './AvatarComponent/components/loader';
+
 export interface Props {
   url: string;
   sex: 'MALE' | 'FEMALE';
@@ -100,6 +100,7 @@ export default function ContainerAvatarView({
   enablePositionControls,
   setEnablePositionControls,
   isTotem = false,
+
 }: Props) {
   const [cameraZ, setCameraZ] = useState(
     () => getCameraSettings(halfBody, isZoomed || false).position[2]
@@ -118,7 +119,7 @@ export default function ContainerAvatarView({
     }
 
     // For full body avatars, adjust height based on zoom
-    return isZoomed ? 20 : 65;
+    return isZoomed ? 16 : 65;
   };
 
   const getAvatarDepth = () => {
@@ -134,7 +135,7 @@ export default function ContainerAvatarView({
     }
 
     // For full body avatars, adjust depth based on zoom
-    return isZoomed ? -80 : 100;
+    return isZoomed ? 5 : 100;
   };
 
   const [avatarHeight, setAvatarHeight] = useState(getAvatarHeight());

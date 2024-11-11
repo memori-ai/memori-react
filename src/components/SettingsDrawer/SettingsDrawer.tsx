@@ -21,8 +21,8 @@ export interface Props {
   hideEmissions?: boolean;
   setHideEmissions: (value: boolean) => void;
   additionalSettings?: WidgetProps['additionalSettings'];
-  avatarType?: 'blob' | 'avatar3d';
-  setAvatarType: (value: 'blob' | 'avatar3d') => void;
+  avatarType?: 'blob' | 'avatar3d' | null;
+  setAvatarType: (value: 'blob' | 'avatar3d' | null) => void;
   enablePositionControls?: boolean;
   setEnablePositionControls: (value: boolean) => void;
   isAvatar3d?: boolean;
