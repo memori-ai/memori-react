@@ -138,6 +138,7 @@ export function FullbodyAvatar({
     if (!animationControllerRef.current) return;
 
     if (currentBaseAction.action.startsWith('Loading')) {
+      animationControllerRef.current.updateIsChatAlreadyStarted(true);
       animationControllerRef.current.transitionTo(
         AnimationState.LOADING,
         currentBaseAction.action
@@ -145,7 +146,6 @@ export function FullbodyAvatar({
     } else if (currentBaseAction.action.startsWith('Idle')) {
       animationControllerRef.current.transitionTo(AnimationState.IDLE);
     } else {
-      animationControllerRef.current.updateIsChatAlreadyStarted(true);
       animationControllerRef.current.transitionTo(
         AnimationState.EMOTION,
         currentBaseAction.action
