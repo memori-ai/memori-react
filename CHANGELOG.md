@@ -1,5 +1,12 @@
 
 
+## [7.8.7](https://github.com/memori-ai/memori-react/compare/v7.8.6...v7.8.7) (2024-11-11)
+
+
+### Changes
+
+* prisma as external dep from cdn ([f93abb8](https://github.com/memori-ai/memori-react/commit/f93abb8f2ea6786373e7089908b046fd980f2bfc))
+
 ## [7.8.6](https://github.com/memori-ai/memori-react/compare/v7.8.5...v7.8.6) (2024-11-11)
 
 
