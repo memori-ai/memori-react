@@ -106,25 +106,35 @@ export default function ContainerAvatarView({
   );
 
   const getAvatarHeight = () => {
-    console.log('avatarHeight', getLocalConfig('avatarHeight', 50), isTotem);
+    // For totem avatars, use stored config value or default to 50
     if (isTotem) {
-      return getLocalConfig('avatarHeight', 50);
-    } else if (halfBody) {
-      return 100;
-    } else {
-      return isZoomed ? 20 : 55;
+      const height = getLocalConfig('avatarHeight', 50);
+      return height;
     }
+
+    // For half body avatars, use fixed height of 100
+    if (halfBody) {
+      return 80;
+    }
+
+    // For full body avatars, adjust height based on zoom
+    return isZoomed ? 20 : 65;
   };
 
   const getAvatarDepth = () => {
+    // For totem avatars, use stored config value or default to 50
     if (isTotem) {
-      console.log('avatarDepth', getLocalConfig('avatarDepth', 50));
-      return getLocalConfig('avatarDepth', 50);
-    } else if (halfBody) {
-      return 50
-    } else {
-      return isZoomed ? -80 : 70;
+      const depth = getLocalConfig('avatarDepth', 50);
+      return depth;
     }
+
+    // For half body avatars, use fixed depth of 50
+    if (halfBody) {
+      return 50;
+    }
+
+    // For full body avatars, adjust depth based on zoom
+    return isZoomed ? -80 : 100;
   };
 
   const [avatarHeight, setAvatarHeight] = useState(getAvatarHeight());
@@ -132,6 +142,16 @@ export default function ContainerAvatarView({
 
   return (
     <>
+          {enablePositionControls && (
+        <PositionControls
+          avatarHeight={avatarHeight}
+          avatarDepth={avatarDepth}
+          halfBody={halfBody}
+          setAvatarHeight={setAvatarHeight}
+          setAvatarDepth={setAvatarDepth}
+          setEnablePositionControls={setEnablePositionControls}
+        />
+      )}
       <Canvas style={style || defaultStyles.fullBody}>
         <PerspectiveCamera
           makeDefault
@@ -171,15 +191,6 @@ export default function ContainerAvatarView({
           />
         </Suspense>
       </Canvas>
-      {enablePositionControls && (
-        <PositionControls
-          avatarHeight={avatarHeight}
-          avatarDepth={avatarDepth}
-          setAvatarHeight={setAvatarHeight}
-          setAvatarDepth={setAvatarDepth}
-          setEnablePositionControls={setEnablePositionControls}
-        />
-      )}
     </>
   );
 }

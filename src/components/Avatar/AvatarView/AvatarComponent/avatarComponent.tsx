@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import AnimationControlPanel from './components/controls';
-import { FullbodyAvatar } from './components/FullbodyAvatar/FullbodyAvatar';
+import { FullbodyAvatar } from './components/FullbodyAvatar/fullbodyAvatar'
 import HalfBodyAvatar from './components/halfbodyAvatar';
-import PositionControls from './positionControls/positionControls';
-import { PerspectiveCamera, Vector3 } from 'three';
-import { getLocalConfig } from '../../../../helpers/configuration';
 
 interface Props {
   showControls: boolean;

@@ -27,10 +27,7 @@ it('renders SettingsDrawer unchanged', () => {
       setHideEmissions={jest.fn()}
       avatarType="avatar3d"
       setAvatarType={jest.fn()}
-      avatarHeight={150}
-      setAvatarHeight={jest.fn()}
-      avatarDepth={150}
-      setAvatarDepth={jest.fn()}
+      setEnablePositionControls={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -51,10 +48,7 @@ it('renders SettingsDrawer open unchanged', () => {
       setHideEmissions={jest.fn()}
       avatarType="avatar3d"
       setAvatarType={jest.fn()}
-      avatarHeight={150}
-      setAvatarHeight={jest.fn()}
-      avatarDepth={150}
-      setAvatarDepth={jest.fn()}
+      setEnablePositionControls={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -75,10 +69,7 @@ it('renders SettingsDrawer open with continuous speech enabled unchanged', () =>
       setHideEmissions={jest.fn()}
       avatarType="avatar3d"
       setAvatarType={jest.fn()}
-      avatarHeight={150}
-      setAvatarHeight={jest.fn()}
-      avatarDepth={150}
-      setAvatarDepth={jest.fn()}
+      setEnablePositionControls={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -99,10 +90,7 @@ it('renders SettingsDrawer open with non-default continuous speech timeout uncha
       setHideEmissions={jest.fn()}
       avatarType="avatar3d"
       setAvatarType={jest.fn()}
-      avatarHeight={150}
-      setAvatarHeight={jest.fn()}
-      avatarDepth={150}
-      setAvatarDepth={jest.fn()}
+      setEnablePositionControls={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -124,10 +112,7 @@ it('renders SettingsDrawer for totem layout open unchanged', () => {
       setHideEmissions={jest.fn()}
       avatarType="avatar3d"
       setAvatarType={jest.fn()}
-      avatarHeight={150}
-      setAvatarHeight={jest.fn()}
-      avatarDepth={150}
-      setAvatarDepth={jest.fn()}
+      setEnablePositionControls={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -149,10 +134,7 @@ it('renders SettingsDrawer for totem layout open with controls at center unchang
       setHideEmissions={jest.fn()}
       avatarType="avatar3d"
       setAvatarType={jest.fn()}
-      avatarHeight={150}
-      setAvatarHeight={jest.fn()}
-      avatarDepth={150}
-      setAvatarDepth={jest.fn()}
+      setEnablePositionControls={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -174,10 +156,7 @@ it('renders SettingsDrawer for totem layout with continuous speech and hide emis
       setHideEmissions={jest.fn()}
       avatarType="avatar3d"
       setAvatarType={jest.fn()}
-      avatarHeight={150}
-      setAvatarHeight={jest.fn()}
-      avatarDepth={150}
-      setAvatarDepth={jest.fn()}
+      setEnablePositionControls={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -216,10 +195,7 @@ it('renders SettingsDrawer with additional custom settings unchanged', () => {
       additionalSettings={<AdditionalSettings />}
       avatarType="avatar3d"
       setAvatarType={jest.fn()}
-      avatarHeight={150}
-      setAvatarHeight={jest.fn()}
-      avatarDepth={150}
-      setAvatarDepth={jest.fn()}
+      setEnablePositionControls={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();

@@ -28,19 +28,19 @@ export class AvatarPositionController {
   private mapHeightToScale(sliderValue: number, isHalfBody: boolean): number {
     // Convert slider value to scale factor
     if (isHalfBody) {
-      return MathUtils.lerp(1.4, 1.8, sliderValue / 100);
+      return MathUtils.lerp(1.4, 2.1, sliderValue / 100);
     } else {
       return MathUtils.lerp(0.5, 1.5, sliderValue / 100);
     }
   }
 
-  // Map depth slider value (-100 to 100) to camera Z position
+  // Map depth slider value (0 to 100) to camera Z position
   private mapDepthToCamera(depthValue: number, isHalfBody: boolean): number {
     const baseZ = this.initialCameraPosition.z;
     if (isHalfBody) {
-      return MathUtils.lerp(baseZ - 0, baseZ + 1.5, (depthValue + 100) / 200);
+      return MathUtils.lerp(baseZ, baseZ + 3, depthValue / 100);
     } else {
-      return MathUtils.lerp(baseZ - 0, baseZ + 3, (depthValue + 100) / 200);
+      return MathUtils.lerp(baseZ, baseZ + 3, depthValue / 100);
     }
   }
 
