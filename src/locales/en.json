@@ -126,6 +126,7 @@
     "height": "Height",
     "depth": "Depth",
     "avatarType": "Avatar type",
+    "suggestions": "Use the arrow keys to adjust the avatar height\nUse +/- to adjust the avatar depth",
     "blob": "Blob",
     "avatar3d": "3D Avatar",
     "zoomed": "Zoomed",

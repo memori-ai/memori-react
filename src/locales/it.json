@@ -131,6 +131,7 @@
     "zoomed": "Vicino",
     "normal": "Normale",
     "far": "Lontano",
+    "suggestions": "Usa le frecce per regolare l'altezza dell'avatar\nUsa +/- per regolare la profondità dell'avatar",
     "enablePositionControls": "Abilita controlli posizione",
     "tryMeHeaderLabel": "PROVA",
     "unknownPosition": "Posizione sconosciuta",
