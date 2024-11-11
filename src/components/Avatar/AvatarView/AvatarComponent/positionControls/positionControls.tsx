@@ -110,9 +110,7 @@ const PositionControls: React.FC<PositionControlsProps> = ({
       </div>
       <div className="memori--position-controls-helper">
         <p className="memori--position-controls-helper-text">
-          {t('Use the arrow keys to adjust the avatar height')}
-          <br />
-          {t('Use +/- to adjust the avatar depth')}
+          {t('write_and_speak.suggestions')}
         </p>
       </div>
       <div className="memori--slider-container">

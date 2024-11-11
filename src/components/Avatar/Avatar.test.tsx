@@ -11,6 +11,8 @@ it('renders defualt Avatar (blob) unchanged', () => {
       <Avatar
         memori={memori}
       tenant={tenant}
+      isTotem={false}
+      setEnablePositionControls={() => {}}
       instruct={false}
       avatar3dVisible={true}
       setAvatar3dVisible={() => {}}
@@ -34,6 +36,8 @@ it('renders Avatar with blob and avatar in blob unchanged', () => {
       }}
       tenant={tenant}
       instruct={false}
+      isTotem={false}
+      setEnablePositionControls={() => {}}
       avatar3dVisible={true}
       setAvatar3dVisible={() => {}}
       hasUserActivatedSpeak={false}
@@ -50,6 +54,8 @@ it('renders Avatar with custom glb model unchanged', () => {
       <Avatar
         memori={memori}
         integration={integration}
+        isTotem={false}
+        setEnablePositionControls={() => {}}
         integrationConfig={{
         ...integrationConfig,
         avatar: 'customglb',
@@ -74,6 +80,8 @@ it('renders Avatar with rpm 3d avatar unchanged', () => {
       <Avatar
         memori={memori}
       integration={integration}
+      isTotem={false}
+      setEnablePositionControls={() => {}}
       integrationConfig={{
         ...integrationConfig,
         avatar: 'readyplayerme',

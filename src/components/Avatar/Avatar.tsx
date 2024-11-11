@@ -39,6 +39,7 @@ export interface Props {
   enablePositionControls?: boolean;
   setEnablePositionControls: (value: boolean) => void;
   avatarType?: 'blob' | 'avatar3d' | undefined;
+  isTotem?: boolean;
 }
 
 const Avatar: React.FC<Props> = ({
@@ -60,6 +61,7 @@ const Avatar: React.FC<Props> = ({
   avatarType,
   enablePositionControls,
   setEnablePositionControls,
+  isTotem = false,
 }) => {
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
@@ -154,7 +156,7 @@ const Avatar: React.FC<Props> = ({
             stopProcessing={stopProcessing}
             resetVisemeQueue={resetVisemeQueue}
             isZoomed={isZoomed}
-            layout={chatProps?.layout}
+            isTotem={isTotem}
             chatEmission={chatProps?.dialogState?.emission}
             setEnablePositionControls={setEnablePositionControls}
           />

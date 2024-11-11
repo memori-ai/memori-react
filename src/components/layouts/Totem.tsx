@@ -36,7 +36,7 @@ const TotemLayout: React.FC<LayoutProps> = ({
       </div>
 
       <div className="memori-totem-layout--avatar">
-        {Avatar && avatarProps && <Avatar {...avatarProps} />}
+        {Avatar && avatarProps && <Avatar {...avatarProps} isTotem />}
       </div>
 
       <div id="extension" />

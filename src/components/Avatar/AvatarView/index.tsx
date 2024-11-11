@@ -31,14 +31,7 @@ export interface Props {
   chatEmission?: any;
   enablePositionControls?: boolean;
   setEnablePositionControls: (value: boolean) => void;
-  layout?:
-    | 'DEFAULT'
-    | 'FULLPAGE'
-    | 'TOTEM'
-    | 'CHAT'
-    | 'WEBSITE_ASSISTANT'
-    | 'HIDDEN_CHAT'
-    | 'ZOOMED_FULL_BODY';
+  isTotem?: boolean;
   setMeshRef?: any;
   stopProcessing: () => void;
   resetVisemeQueue: () => void;
@@ -106,25 +99,31 @@ export default function ContainerAvatarView({
   updateCurrentViseme,
   enablePositionControls,
   setEnablePositionControls,
-  layout,
+  isTotem = false,
 }: Props) {
   const [cameraZ, setCameraZ] = useState(
     () => getCameraSettings(halfBody, isZoomed || false).position[2]
   );
 
   const getAvatarHeight = () => {
-    if (layout === 'TOTEM') {
+    console.log('avatarHeight', getLocalConfig('avatarHeight', 50), isTotem);
+    if (isTotem) {
       return getLocalConfig('avatarHeight', 50);
+    } else if (halfBody) {
+      return 100;
     } else {
-      return isZoomed ? 20 : !halfBody ? 60 : 60;
+      return isZoomed ? 20 : 55;
     }
   };
 
   const getAvatarDepth = () => {
-    if (layout === 'TOTEM') {
+    if (isTotem) {
+      console.log('avatarDepth', getLocalConfig('avatarDepth', 50));
       return getLocalConfig('avatarDepth', 50);
+    } else if (halfBody) {
+      return 50
     } else {
-      return isZoomed ? -80 : !halfBody ? -80 : -80;
+      return isZoomed ? -80 : 70;
     }
   };
 
