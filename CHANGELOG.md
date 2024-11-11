@@ -1,5 +1,12 @@
 
 
+## [7.8.6](https://github.com/memori-ai/memori-react/compare/v7.8.5...v7.8.6) (2024-11-11)
+
+
+### Maintenance
+
+* update female fullbody animation glb url ([afb11f7](https://github.com/memori-ai/memori-react/commit/afb11f71b3efce56e1439bbc523abaa335b4c624))
+
 ## [7.8.5](https://github.com/memori-ai/memori-react/compare/v7.8.4...v7.8.5) (2024-11-07)
 
 
