@@ -1,10 +1,11 @@
 .memori--slider-container {
   position: relative;
   width: 100%;
-  padding: 16px 8px;
+  max-width: 100%;
+  padding: 16px 12px; /* Increased padding for better touch area */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  touch-action: none; /* Prevent default touch behaviors */
-  user-select: none; /* Prevent text selection during drag */
+  touch-action: none;
+  user-select: none;
 }
 
 .memori--slider-disabled {
@@ -13,9 +14,8 @@
 }
 
 .memori--slider-header {
-  position: absolute;
+  position: absolute; /* Changed from absolute for better layout */
   top: 0;
-  left: 0;
   display: flex;
   width: 100%;
   align-items: center;
@@ -24,22 +24,26 @@
 }
 
 .memori--slider-label {
+  max-width: 100%;
   color: #333;
-  font-size: 1.2rem;
+  font-size: 1.4rem; /* Larger font for kiosk display */
   font-weight: 500;
 }
 
 .memori--slider-value {
-  min-width: 40px;
+  min-width: 50px; /* Increased for larger numbers */
+  max-width: 100%;
   color: #666;
-  font-size: 1.0rem;
+  font-size: 1.2rem; /* Larger font */
+  font-weight: 500;
   text-align: right;
 }
 
 .memori--slider-track-container {
   position: relative;
   display: flex;
-  height: 48px;
+  height: 64px; /* Increased height for better touch area */
+  max-height: 64px;
   align-items: center;
   cursor: pointer;
   touch-action: none;
@@ -49,8 +53,9 @@
   position: absolute;
   overflow: hidden;
   width: 100%;
-  height: 8px;
-  border-radius: 4px;
+  height: 12px; /* Thicker track */
+  max-height: 12px;
+  border-radius: 6px;
   background-color: #e5e5e5;
 }
 
@@ -58,9 +63,9 @@
   position: absolute;
   width: var(--percentage);
   height: 100%;
-  border-radius: 4px;
+  border-radius: 6px;
   background-color: var(--memori-primary, #2563eb);
-  transition: width 0.1s ease;
+  transition: width 0.15s ease;
 }
 
 .memori--slider-marks {
@@ -69,7 +74,7 @@
   width: 100%;
   justify-content: space-between;
   padding: 0 4px;
-  padding-top: 15px;
+  padding-top: 20px; /* Increased spacing */
   pointer-events: none;
 }
 
@@ -80,59 +85,93 @@
 }
 
 .memori--slider-mark-line {
-  width: 2px;
-  height: 4px;
-  margin-bottom: 4px;
+  width: 3px; /* Thicker marks */
+  height: 6px;
+  max-height: 6px;
+  margin-bottom: 6px;
   background-color: #9ca3af;
 }
 
 .memori--slider-mark-value {
   color: #666;
-  font-size: 12px;
+  font-size: 1rem; /* Larger font */
+  font-weight: 500;
 }
 
 .memori--slider-thumb {
   position: absolute;
   z-index: 1;
   left: var(--percentage);
-  width: 28px;
-  height: 28px;
-  border: 2px solid var(--memori-primary, #2563eb);
+  width: 36px; /* Larger thumb */
+  max-width: 36px;
+  height: 36px;
+  max-height: 36px;
+  border: 3px solid var(--memori-primary, #2563eb);
   border-radius: 50%;
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
   touch-action: none;
   transform: translateX(-50%);
-  transition: transform 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .memori--slider-thumb:hover,
 .memori--slider-thumb:active {
-  transform: translateX(-50%) scale(1.1);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+  transform: translateX(-50%) scale(1.15);
 }
 
-/* Mobile-specific styles */
-@media (max-width: 640px) {
+/* Portrait/Totem specific styles */
+@media screen and (max-aspect-ratio: 3/4) {
   .memori--slider-container {
-    padding: 12px 4px;
+    padding: 28px 16px;
   }
-  
+
+  .memori--slider-label {
+    font-size: 1.5rem;
+  }
+
+  .memori--slider-value {
+    min-width: 60px;
+    font-size: 1.3rem;
+  }
+
+  .memori--slider-track-container {
+    height: 72px;
+  }
+
   .memori--slider-track {
-    height: 6px;
+    height: 14px;
+    border-radius: 7px;
   }
-  
+
   .memori--slider-thumb {
-    width: 32px; /* Larger touch target for mobile */
-    height: 32px;
+    width: 44px;
+    height: 44px;
+    border-width: 4px;
   }
-  
+
   .memori--slider-mark-value {
-    font-size: 11px;
+    font-size: 1.1rem;
   }
-  
-  /* Add active state styles for touch devices */
-  .memori--slider-thumb:active {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transform: translateX(-50%) scale(1.15);
+}
+
+/* Very tall displays */
+@media screen and (min-height: 1200px) {
+  .memori--slider-container {
+    padding: 32px 20px;
+  }
+
+  .memori--slider-label {
+    font-size: 1.6rem;
+  }
+
+  .memori--slider-track-container {
+    height: 80px;
+  }
+
+  .memori--slider-thumb {
+    width: 48px;
+    height: 48px;
   }
 }

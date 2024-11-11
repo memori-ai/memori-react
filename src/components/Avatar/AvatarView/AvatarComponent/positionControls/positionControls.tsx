@@ -9,15 +9,12 @@ import Close from '../../../../icons/Close';
 interface PositionControlsProps {
   avatarHeight: number;
   avatarDepth: number;
+  halfBody: boolean;
   setAvatarHeight: (value: number) => void;
   setAvatarDepth: (value: number) => void;
   isZoomed?: boolean;
   setEnablePositionControls: (value: boolean) => void;
 }
-
-export const normalPosition = { height: 75, depth: -45 };
-export const zoomedPosition = { height: 65, depth: -80 };
-export const farPosition = { height: 100, depth: 50 };
 
 // eslint-disable-next-line no-undef
 const PositionControls: React.FC<PositionControlsProps> = ({
@@ -26,8 +23,12 @@ const PositionControls: React.FC<PositionControlsProps> = ({
   setAvatarHeight,
   setAvatarDepth,
   isZoomed = false,
+  halfBody,
   setEnablePositionControls,
 }: PositionControlsProps) => {
+  const normalPosition = halfBody ? { height: 80, depth: 50 } : { height: 25, depth: 25 };
+  const zoomedPosition = halfBody ? { height: 55, depth: 10 } : { height: 15, depth: 5 };
+  const farPosition = halfBody ? { height: 100, depth: 80 } : { height: 65, depth: 100 };
   const settingsRef = useRef<Record<string, any>>({
     height: avatarHeight,
     depth: avatarDepth,
@@ -108,15 +109,10 @@ const PositionControls: React.FC<PositionControlsProps> = ({
           }}
         />
       </div>
-      <div className="memori--position-controls-helper">
-        <p className="memori--position-controls-helper-text">
-          {t('write_and_speak.suggestions')}
-        </p>
-      </div>
       <div className="memori--slider-container">
         <Slider
           defaultValue={settingsRef.current.height}
-          min={0}
+          min={0.5}
           max={100}
           label={<label className="memori--slider-label">{t('write_and_speak.height')}</label>}
           step={1}
@@ -129,8 +125,8 @@ const PositionControls: React.FC<PositionControlsProps> = ({
       <div className="memori--slider-container">
         <Slider
           defaultValue={settingsRef.current.depth}
-          min={isZoomed ? -50 : -100}
-          max={isZoomed ? 50 : 100}
+          min={0.5}
+          max={100}
           step={5}
           label={<label className="memori--slider-label">{t('write_and_speak.depth')}</label>}
           onChange={(value: number) => {
@@ -143,8 +139,8 @@ const PositionControls: React.FC<PositionControlsProps> = ({
         <Button
           outlined
           isActive={
-            avatarHeight === zoomedPosition.height &&
-            avatarDepth === zoomedPosition.depth
+            avatarHeight === (halfBody ? zoomedPosition.height : normalPosition.height) &&
+            avatarDepth === (halfBody ? zoomedPosition.depth : normalPosition.depth)
           }
           onClick={() => {
             setAvatarHeight(zoomedPosition.height);
@@ -158,8 +154,8 @@ const PositionControls: React.FC<PositionControlsProps> = ({
         <Button
           outlined
           isActive={
-            avatarHeight === normalPosition.height &&
-            avatarDepth === normalPosition.depth
+            avatarHeight === (halfBody ? normalPosition.height : zoomedPosition.height) &&
+            avatarDepth === (halfBody ? normalPosition.depth : zoomedPosition.depth)
           }
           onClick={() => {
             setAvatarHeight(normalPosition.height);
@@ -173,8 +169,8 @@ const PositionControls: React.FC<PositionControlsProps> = ({
         <Button
           outlined
           isActive={
-            avatarHeight === farPosition.height &&
-            avatarDepth === farPosition.depth
+            avatarHeight === (halfBody ? farPosition.height : normalPosition.height) &&
+            avatarDepth === (halfBody ? farPosition.depth : normalPosition.depth)
           }
           onClick={() => {
             setAvatarHeight(farPosition.height);

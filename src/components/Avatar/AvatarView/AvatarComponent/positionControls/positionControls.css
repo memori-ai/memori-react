@@ -1,65 +1,99 @@
-.memori--position-controls{
+.memori--position-controls {
   position: fixed;
   z-index: 1000;
-  top: 60px;
-  left: 15px;
+  top: auto; /* Remove top positioning */
+  top: 65px; /* Position from bottom to avoid overlapping with buttons */
+  left: 15px; /* Remove left positioning */
   display: flex;
-  min-width: 400px;
-  max-width: 400px;
-  height: auto !important;
+  width: 350px; /* Fixed width */
+  max-width: 90%; /* Maximum width relative to screen */
+  height: 300px;
   flex-direction: column;
-  padding: calc(var(--memori-inner-content-pad) / 4) calc(var(--memori-inner-content-pad) / 2);
-  border-radius: 10px;
-  margin-left: auto;
+  padding: 16px;
+  border-radius: 16px;
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   background-color: var(--memori-inner-bg, #fff);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   gap: 0.5rem;
   text-align: left;
+  transform: none; /* Remove transform */
 }
 
-.memori--position-controls-helper-text{
-  color: #3b3e46;
-  font-size: 0.875rem;
-}
-
+/* Slider adjustments */
 .memori--slider-container {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  padding: 8px 0;
+  gap: 0.75rem;
 }
 
-.memori--preset-button{
-  padding: 0.5rem;
-  border: 1px solid #ccc;
+.memori--slider-label {
+  margin-bottom: 4px;
+  font-size: 1rem;
 }
 
-.memori--preset-button:hover{
-  background-color: #f0f0f0;
-}
-
-.memori--preset-buttons{
+/* Button adjustments */
+.memori--preset-buttons {
   display: flex;
-  gap: 0.5rem;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 8px;
+  gap: 8px;
 }
 
-.memori--slider-label{
-  margin: 0px;
-  color: #3b3e46;
-  font-size: 0.875rem;
+.memori--preset-buttons button {
+  min-height: 36px;
+  flex: 1;
+  padding: 8px 4px;
+  font-size: 0.9rem;
 }
 
-.memori--position-controls-close{
+/* Close button */
+.memori--position-controls-close {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: -25px;
+  right: -30px;
+  border-radius: 50%;
+  background-color: var(--memori-inner-bg, #fff);
 }
 
-.memori--position-controls-close-button{
-  padding: 0.5rem;
+.memori--position-controls-close-button {
+  min-width: 36px;
+  min-height: 36px;
+  padding: 8px;
 }
 
-.memori--position-controls-close-button:hover, .memori--position-controls-close-button:active, .memori--position-controls-close-button:focus {
-  border: none !important;
-  box-shadow: none !important;
+/* Totem specific adjustments */
+@media screen and (max-width: 480px) {
+  .memori--position-controls {
+    right: 10px;
+    bottom: 80px;
+    width: 280px;
+  }
+  
+  .memori--preset-buttons button {
+    padding: 6px 4px;
+    font-size: 0.85rem;
+  }
+  
+  .memori--slider-container {
+    padding: 6px 0;
+  }
+}
+
+/* Portrait/vertical orientation */
+@media screen and (min-height: 800px) {
+  .memori--position-controls {
+    bottom: 120px;
+  }
+  
+  .memori--slider-label {
+    font-size: 1.1rem;
+  }
+  
+  .memori--preset-buttons button {
+    padding: 10px 6px;
+    font-size: 1rem;
+  }
 }
