@@ -30,86 +30,14 @@ exports[`renders MediaItemWidget unchanged with css snippet to show 1`] = `
         >
           <pre
             aria-labelledby="#snippet-65ca4a6d-f20b-402e-9d79-5e470f247927"
-            style="color: rgb(197, 200, 198); text-shadow: 0 1px rgba(0, 0, 0, 0.3); font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: .5em 0px; overflow: auto; border-radius: 0.3em; background: rgb(29, 31, 33);"
+            class="line-numbers"
           >
             <code
               class="language-scss"
-              style="color: rgb(197, 200, 198); text-shadow: 0 1px rgba(0, 0, 0, 0.3); font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"
             >
-              <span
-                class="linenumber react-syntax-highlighter-line-number"
-                style="display: inline-block; min-width: 2.25em; padding-right: 1em; text-align: right; user-select: none; color: rgb(124, 124, 124);"
-              >
-                1
-              </span>
-              <span
-                class="token"
-                style="color: rgb(168, 255, 96);"
-              >
-                body
-              </span>
-              <span
-                class="token"
-                style="color: rgb(197, 200, 198);"
-              >
-                {
-              </span>
-              <span>
-                
-
-              </span>
-              <span
-                class="linenumber react-syntax-highlighter-line-number"
-                style="display: inline-block; min-width: 2.25em; padding-right: 1em; text-align: right; user-select: none; color: rgb(124, 124, 124);"
-              >
-                2
-              </span>
-              <span>
-                  
-              </span>
-              <span
-                class="token"
-                style="color: rgb(150, 203, 254);"
-              >
-                background-color
-              </span>
-              <span
-                class="token"
-                style="color: rgb(197, 200, 198);"
-              >
-                :
-              </span>
-              <span>
-                 
-              </span>
-              <span
-                class="token hexcode color"
-              >
-                #f00
-              </span>
-              <span
-                class="token"
-                style="color: rgb(197, 200, 198);"
-              >
-                ;
-              </span>
-              <span>
-                
-
-              </span>
-              <span
-                class="linenumber react-syntax-highlighter-line-number"
-                style="display: inline-block; min-width: 2.25em; padding-right: 1em; text-align: right; user-select: none; color: rgb(124, 124, 124);"
-              >
-                3
-              </span>
-              <span />
-              <span
-                class="token"
-                style="color: rgb(197, 200, 198);"
-              >
-                }
-              </span>
+              body{
+  background-color: #f00;
+}
             </code>
           </pre>
           <button
@@ -344,21 +272,10 @@ exports[`renders MediaItemWidget unchanged with js snippet to show 1`] = `
         >
           <pre
             aria-labelledby="#snippet-a669fadb-12c0-469b-9b6c-34db22d371ca"
-            style="color: rgb(197, 200, 198); text-shadow: 0 1px rgba(0, 0, 0, 0.3); font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; padding: 1em; margin: .5em 0px; overflow: auto; border-radius: 0.3em; background: rgb(29, 31, 33);"
+            class="line-numbers"
           >
             <code
-              style="color: rgb(197, 200, 198); text-shadow: 0 1px rgba(0, 0, 0, 0.3); font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none; float: left; padding-right: 10px;"
-            >
-              <span
-                class="react-syntax-highlighter-line-number"
-              >
-                1
-
-              </span>
-            </code>
-            <code
               class="language-jsx"
-              style="color: rgb(197, 200, 198); text-shadow: 0 1px rgba(0, 0, 0, 0.3); font-family: Inconsolata, Monaco, Consolas, 'Courier New', Courier, monospace; direction: ltr; text-align: left; white-space: pre; word-spacing: normal; word-break: normal; line-height: 1.5; tab-size: 4; hyphens: none;"
             >
               console.log("Hello World!");
             </code>

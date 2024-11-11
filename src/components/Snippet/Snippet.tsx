@@ -1,66 +1,85 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Medium } from '@memori.ai/memori-api-client/dist/types';
 import Button from '../ui/Button';
 import Copy from '../icons/Copy';
 import { prismSyntaxLangs } from '../../helpers/constants';
-import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import tsx from 'react-syntax-highlighter/dist/cjs/languages/prism/tsx';
-import json from 'react-syntax-highlighter/dist/cjs/languages/prism/json';
-import scss from 'react-syntax-highlighter/dist/cjs/languages/prism/scss';
-import bash from 'react-syntax-highlighter/dist/cjs/languages/prism/bash';
-import python from 'react-syntax-highlighter/dist/cjs/languages/prism/python';
-import cpp from 'react-syntax-highlighter/dist/cjs/languages/prism/cpp';
-import php from 'react-syntax-highlighter/dist/cjs/languages/prism/php';
-import ruby from 'react-syntax-highlighter/dist/cjs/languages/prism/ruby';
-import sql from 'react-syntax-highlighter/dist/cjs/languages/prism/sql';
 import { useTranslation } from 'react-i18next';
+import cx from 'classnames';
 
 export interface Props {
   medium: Medium;
   className?: string;
   preview?: boolean;
-  showLineNumbers?: boolean;
   showCopyButton?: boolean;
 }
 
-// These have to match prismSyntaxLangs
-SyntaxHighlighter.registerLanguage('tsx', tsx);
-SyntaxHighlighter.registerLanguage('json', json);
-SyntaxHighlighter.registerLanguage('scss', scss);
-SyntaxHighlighter.registerLanguage('bash', bash);
-SyntaxHighlighter.registerLanguage('python', python);
-SyntaxHighlighter.registerLanguage('cpp', cpp);
-SyntaxHighlighter.registerLanguage('php', php);
-SyntaxHighlighter.registerLanguage('ruby', ruby);
-SyntaxHighlighter.registerLanguage('sql', sql);
+const loadPrismScripts = () => {
+  const existingScript = document.getElementById('memori-prism-script');
+  if (existingScript) {
+    return;
+  }
+
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js';
+  script.async = true;
+  script.id = 'memori-prism-script';
+
+  const autoloaderScript = document.createElement('script');
+  autoloaderScript.src =
+    'https://cdn.jsdelivr.net/npm/prismjs@v1.29.0/plugins/autoloader/prism-autoloader.min.js';
+  autoloaderScript.async = true;
+  autoloaderScript.id = 'memori-prism-autoloader-script';
+
+  const prismCss = document.createElement('link');
+  prismCss.rel = 'stylesheet';
+  prismCss.href =
+    'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css';
+
+  document.head.appendChild(prismCss);
+
+  document.head.appendChild(script);
+  document.head.appendChild(autoloaderScript);
+};
 
 const Snippet = ({
   medium,
   className,
   preview = false,
-  showLineNumbers = true,
   showCopyButton = true,
 }: Props) => {
   const { t } = useTranslation();
 
+  useEffect(() => {
+    loadPrismScripts();
+  }, []);
+
+  useEffect(() => {
+    // @ts-ignore
+    // eslint-disable-next-line no-undef
+    if ('Prism' in window && window.Prism.highlightAll) Prism.highlightAll();
+  }, [medium.content]);
+
   return (
     <div className="memori-snippet">
       <div className="memori-snippet--content">
-        <SyntaxHighlighter
-          aria-labelledby={`#snippet-${medium.mediumID}`}
-          className={className}
-          style={atomDark}
-          showLineNumbers={showLineNumbers}
-          language={
-            prismSyntaxLangs.find(l => medium.mimeType === l.mimeType)?.lang ??
-            'text'
+        <pre
+          className={cx('line-numbers', className)}
+          aria-labelledby={
+            !!medium.title?.length ? `#snippet-${medium.mediumID}` : undefined
           }
         >
-          {medium.content?.length && medium.content.length > 200 && preview
-            ? `${medium.content.slice(0, 200)}\n...`
-            : `${medium.content}`}
-        </SyntaxHighlighter>
+          <code
+            className={`language-${
+              prismSyntaxLangs.find(l => medium.mimeType === l.mimeType)
+                ?.lang ?? 'text'
+            }`}
+          >
+            {medium.content?.length && medium.content.length > 200 && preview
+              ? `${medium.content.slice(0, 200)}\n...`
+              : `${medium.content}`}
+          </code>
+        </pre>
+
         {showCopyButton && (
           <Button
             padded={false}

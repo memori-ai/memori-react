@@ -64,7 +64,6 @@ it('renders SnippetUpload with js code', () => {
 it('renders SnippetUpload with js code without line numbers', () => {
   const { container } = render(
     <Snippet
-      showLineNumbers={false}
       medium={{
         mediumID: '95226d7e-7bae-465e-8b80-995587bb5971',
         mimeType: 'text/javascript',

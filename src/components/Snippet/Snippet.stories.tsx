@@ -105,14 +105,6 @@ Default.args = {
   preview: false,
 };
 
-export const WithoutLineNumbers = Template.bind({});
-WithoutLineNumbers.args = {
-  mimeType: 'text/plain',
-  content: 'Some text',
-  preview: false,
-  showLineNumbers: false,
-};
-
 export const WithoutCopyButton = Template.bind({});
 WithoutCopyButton.args = {
   mimeType: 'text/plain',

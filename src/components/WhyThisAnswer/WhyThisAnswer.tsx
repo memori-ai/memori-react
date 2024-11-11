@@ -187,7 +187,6 @@ const WhyThisAnswer = ({
                         key={m.mediumID}
                         medium={m}
                         showCopyButton={false}
-                        showLineNumbers={false}
                       />
                     </Expandable>
                   ))}
