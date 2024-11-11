@@ -8,7 +8,7 @@ export const AVATAR_POSITION_ZOOMED = new Vector3(0, -1.45, 0);
 export const ANIMATION_URLS = {
   MALE: 'https://assets.memori.ai/api/v2/asset/2c5e88a4-cf62-408b-9ef0-518b099dfcb2.glb',
   FEMALE:
-    'https://assets.memori.ai/api/v2/asset/8d1a5853-f05a-4a34-9f99-6eff64986081.glb',
+    'https://assets.memori.ai/api/v2/asset/2adc934b-24b2-45bd-94ad-ffec58d3cb32.glb',
 };
 
 export const BLINK_CONFIG = {
