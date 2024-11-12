@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useRef } from 'react';
-import { MathUtils, Object3D, SkinnedMesh, Vector3 } from 'three';
+import { useEffect, useMemo, useRef } from 'react';
+import { Object3D, SkinnedMesh } from 'three';
 import { useGLTF } from '@react-three/drei';
 import { useGraph, useFrame, useThree } from '@react-three/fiber';
 import { correctMaterials, isSkinnedMesh } from '../../../../../helpers/utils';
@@ -11,6 +11,7 @@ import {
   AVATAR_POSITION_ZOOMED,
 } from './constants';
 import { hideHands } from '../../utils/utils';
+import useHeadMovement from '../../utils/useHeadMovement';
 
 interface HalfBodyAvatarProps {
   url: string;
@@ -18,13 +19,12 @@ interface HalfBodyAvatarProps {
   setMorphTargetDictionary: (morphTargetDictionary: any) => void;
   updateCurrentViseme: (currentTime: number) => any;
   eyeBlink?: boolean;
-  isZoomed?: boolean;
   heightValue?: number; // 0-100 slider value
   avatarHeight: number;
   avatarDepth: number;
-  morphTargetSmoothing?: number;
   onLoaded?: () => void;
   onCameraZChange: (value: number) => void;
+  headMovement?: boolean;
 }
 
 export default function HalfBodyAvatar({
@@ -33,10 +33,9 @@ export default function HalfBodyAvatar({
   setMorphTargetDictionary,
   updateCurrentViseme,
   eyeBlink = false,
-  isZoomed = false,
   avatarHeight = 50,
   avatarDepth = 0,
-  morphTargetSmoothing = 0.5,
+  headMovement = false,
   onLoaded,
   onCameraZChange,
 }: HalfBodyAvatarProps) {
@@ -47,6 +46,9 @@ export default function HalfBodyAvatar({
   const morphTargetControllerRef = useRef<MorphTargetController>();
   const positionControllerRef = useRef<AvatarPositionController>();
   const targetCameraZRef = useRef(camera.position.z);
+
+
+  useHeadMovement(headMovement, nodes);
   
   const blinkStateRef = useRef({
     isBlinking: false,

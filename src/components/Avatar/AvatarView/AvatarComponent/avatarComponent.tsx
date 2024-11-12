@@ -64,7 +64,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   sex,
   eyeBlink,
   headMovement,
-  speaking,
+  // speaking,
   halfBody,
   loading,
   isZoomed,
@@ -219,6 +219,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           updateCurrentViseme={updateCurrentViseme}
           avatarHeight={avatarHeight || 50}
           avatarDepth={avatarDepth || -50}
+          headMovement={headMovement}
         />
       ) : (
         <FullbodyAvatar
