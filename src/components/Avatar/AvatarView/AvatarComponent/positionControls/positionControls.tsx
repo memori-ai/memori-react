@@ -12,7 +12,6 @@ interface PositionControlsProps {
   halfBody: boolean;
   setAvatarHeight: (value: number) => void;
   setAvatarDepth: (value: number) => void;
-  isZoomed?: boolean;
   setEnablePositionControls: (value: boolean) => void;
 }
 
@@ -22,7 +21,6 @@ const PositionControls: React.FC<PositionControlsProps> = ({
   avatarDepth,
   setAvatarHeight,
   setAvatarDepth,
-  isZoomed = false,
   halfBody,
   setEnablePositionControls,
 }: PositionControlsProps) => {
