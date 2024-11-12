@@ -67,7 +67,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   // speaking,
   halfBody,
   loading,
-  isZoomed,
+  // isZoomed,
   avatarHeight,
   avatarDepth,
   updateCurrentViseme,
@@ -230,7 +230,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           currentBaseAction={currentBaseAction}
           timeScale={timeScale}
           morphTargetInfluences={morphTargetInfluences}
-          isZoomed={isZoomed}
           updateCurrentViseme={updateCurrentViseme}
           stopProcessing={stopProcessing}
           setMorphTargetDictionary={setMorphTargetDictionary}

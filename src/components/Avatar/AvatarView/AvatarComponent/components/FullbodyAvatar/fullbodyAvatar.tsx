@@ -25,7 +25,6 @@ export function FullbodyAvatar({
   sex,
   currentBaseAction,
   timeScale,
-  isZoomed,
   eyeBlink,
   updateCurrentViseme,
   setMorphTargetDictionary,

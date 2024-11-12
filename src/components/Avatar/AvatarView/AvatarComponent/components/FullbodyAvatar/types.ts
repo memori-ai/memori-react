@@ -21,7 +21,6 @@ export interface FullbodyAvatarProps {
   };
   timeScale: number;
   onCameraZChange: (value: number) => void;
-  isZoomed?: boolean;
   eyeBlink?: boolean;
   avatarDepth?: number;
   avatarHeight?: number;
