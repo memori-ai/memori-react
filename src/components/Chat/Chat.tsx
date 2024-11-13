@@ -58,6 +58,8 @@ export interface Props {
   onChangeUserMessage: (userMessage: string) => void;
   sendMessage: (msg: string) => void;
   listening?: boolean;
+  enableFocusChatInput?: boolean;
+  setEnableFocusChatInput: (enableFocusChatInput: boolean) => void;
   isPlayingAudio?: boolean;
   stopAudio: () => void;
   startListening: () => void;
@@ -104,6 +106,8 @@ const Chat: React.FC<Props> = ({
   onChangeUserMessage,
   sendMessage,
   listening,
+  enableFocusChatInput = true,
+  setEnableFocusChatInput,
   isPlayingAudio,
   stopAudio,
   startListening,
@@ -130,8 +134,14 @@ const Chat: React.FC<Props> = ({
 
   const onTextareaFocus = () => {
     stopListening();
+    // if the user is on mobile and had not recorded audio, add the chat-focused class to the chat wrapper
     if (hasTouchscreen() && window.innerWidth <= 768) {
+
+      if (enableFocusChatInput === false) {
+        setEnableFocusChatInput(true);
+      }
       document.getElementById('chat-wrapper')?.classList?.add('chat-focused');
+      // add the chat-focused class to the memori widget
       document
         .querySelector('.memori.memori-widget')
         ?.classList?.add('chat-focused');

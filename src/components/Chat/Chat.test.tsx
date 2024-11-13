@@ -55,6 +55,7 @@ it('renders Chat unchanged', () => {
       startListening={jest.fn()}
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
+      setEnableFocusChatInput={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -86,6 +87,7 @@ it('renders Chat with memori typing unchanged', () => {
       showMicrophone={false}
       listening={false}
       startListening={jest.fn()}
+      setEnableFocusChatInput={jest.fn()}
       memoriTyping
     />
   );
@@ -118,6 +120,7 @@ it('renders Chat with hints unchanged', () => {
       showMicrophone={false}
       listening={false}
       startListening={jest.fn()}
+      setEnableFocusChatInput={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -149,6 +152,7 @@ it('renders Chat with media unchanged', () => {
       showMicrophone={false}
       listening={false}
       startListening={jest.fn()}
+      setEnableFocusChatInput={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -181,6 +185,7 @@ it('renders Chat with dates unchanged', () => {
       listening={false}
       startListening={jest.fn()}
       showDates
+      setEnableFocusChatInput={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -212,6 +217,7 @@ it('renders Chat with context vars unchanged', () => {
       showMicrophone={false}
       listening={false}
       startListening={jest.fn()}
+      setEnableFocusChatInput={jest.fn()}
       showContextPerLine
     />
   );
@@ -247,6 +253,7 @@ it('renders Chat on X3 state unchanged', () => {
       showMicrophone={false}
       listening={false}
       startListening={jest.fn()}
+      setEnableFocusChatInput={jest.fn()}
       showContextPerLine
     />
   );
@@ -282,6 +289,7 @@ it('renders Chat on X2a state unchanged', () => {
       showMicrophone={false}
       listening={false}
       startListening={jest.fn()}
+      setEnableFocusChatInput={jest.fn()}
       showContextPerLine
     />
   );
@@ -315,6 +323,7 @@ it('renders Chat with user unchanged', () => {
       startListening={jest.fn()}
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
+      setEnableFocusChatInput={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -347,6 +356,7 @@ it('renders Chat with custom user avatar unchanged', () => {
       startListening={jest.fn()}
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
+      setEnableFocusChatInput={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -379,6 +389,7 @@ it('renders Chat with custom user avatar as react element unchanged', () => {
       startListening={jest.fn()}
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
+      setEnableFocusChatInput={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();

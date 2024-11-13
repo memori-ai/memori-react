@@ -457,6 +457,7 @@ const MemoriWidget = ({
   } = client;
 
   const [instruct, setInstruct] = useState(false);
+  const [enableFocusChatInput, setEnableFocusChatInput] = useState(true);
 
   const [loginToken, setLoginToken] = useState<string | undefined>(
     additionalInfo?.loginToken ?? authToken
@@ -697,6 +698,10 @@ const MemoriWidget = ({
     useLoaderTextAsMsg = false,
     hasBatchQueued = false
   ) => {
+    
+    // enable focus on chat input
+    setEnableFocusChatInput(true);
+
     const sessionID =
       newSessionId ||
       sessionId ||
@@ -2106,14 +2111,18 @@ const MemoriWidget = ({
     }
   };
 
+  const focusChatInput = () => {
+    let textarea = document.querySelector(
+      '#chat-fieldset textarea'
+    ) as HTMLTextAreaElement | null;
+    if (textarea && enableFocusChatInput) textarea.focus(); else textarea?.blur();
+  };
+
   /**
    * Focus on the chat input on mount
    */
   useEffect(() => {
-    let textarea = document.querySelector(
-      '#chat-fieldset textarea'
-    ) as HTMLTextAreaElement | null;
-    if (textarea) textarea.focus();
+    focusChatInput();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDialogState?.emission]);
 
@@ -2162,12 +2171,15 @@ const MemoriWidget = ({
   /**
    * Listening methods
    */
-  const startListening = () => {
+  const startListening = async () => {
     if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) return;
 
     clearListening();
     setTranscript('');
     resetTranscript();
+
+    // remove focus on chat input if the user is on mobile
+    if (hasTouchscreen()) setEnableFocusChatInput(false);
 
     try {
       navigator.mediaDevices
@@ -3163,6 +3175,8 @@ const MemoriWidget = ({
     stopAudio,
     resetTranscript,
     listening,
+    enableFocusChatInput,
+    setEnableFocusChatInput,
     isPlayingAudio,
     customMediaRenderer,
     user,
