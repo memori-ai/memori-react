@@ -3179,7 +3179,6 @@ const MemoriWidget = ({
     stopAudio,
     resetTranscript,
     listening,
-    enableFocusChatInput,
     setEnableFocusChatInput,
     isPlayingAudio,
     customMediaRenderer,
