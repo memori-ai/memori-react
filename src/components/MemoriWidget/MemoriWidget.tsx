@@ -698,9 +698,6 @@ const MemoriWidget = ({
     useLoaderTextAsMsg = false,
     hasBatchQueued = false
   ) => {
-    
-    // enable focus on chat input
-    setEnableFocusChatInput(true);
 
     const sessionID =
       newSessionId ||
@@ -2115,7 +2112,14 @@ const MemoriWidget = ({
     let textarea = document.querySelector(
       '#chat-fieldset textarea'
     ) as HTMLTextAreaElement | null;
-    if (textarea && enableFocusChatInput) textarea.focus(); else textarea?.blur();
+    // console.log('textarea', enableFocusChatInput);
+    if (textarea && enableFocusChatInput) {
+      textarea.focus();
+      // console.log('focused');
+    } else {
+      textarea?.blur();
+      // console.log('blurred');
+    }
   };
 
   /**
