@@ -1,5 +1,12 @@
 
 
+## [7.8.8](https://github.com/memori-ai/memori-react/compare/v7.8.7...v7.8.8) (2024-11-14)
+
+
+### Bug Fixes
+
+* replace regex lookbehind to support old safari versions ([4aea110](https://github.com/memori-ai/memori-react/commit/4aea1108450e36018a90cab5bdd86cf3a1737275))
+
 ## [7.8.7](https://github.com/memori-ai/memori-react/compare/v7.8.6...v7.8.7) (2024-11-11)
 
 
