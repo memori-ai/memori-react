@@ -101,38 +101,57 @@ const ChatBubble: React.FC<Props> = ({
 
   const text = message.translatedText || message.text;
 
+  // remove redundant mathjax delimiters: old code
+  // .replaceAll(/(?<!\\)\[/g, '\\[')
+  // .replaceAll(/(?<!\\)\]/g, '\\]')
+  // since old Safari < 16.4 doesn't support negative lookbehind, we need to use a workaround
+  const parseSquaredBrackets = (text: string) => {
+    let result = '';
+    let isEscaped = false;
+    for (let i = 0; i < text.length; i++) {
+      if (text[i] === '[' && !isEscaped) {
+        result += '\\[';
+      } else if (text[i] === ']' && !isEscaped) {
+        result += '\\]';
+      } else {
+        result += text[i];
+      }
+      isEscaped = text[i] === '\\' && !isEscaped;
+    }
+    return result;
+  };
+
   const renderMsg = (text: string) => {
     try {
       return (
-        DOMPurify.sanitize(
-          (
-            marked.parse(
-              text
-                // remove leading and trailing whitespaces
-                .trim()
-                // remove markdown links
-                .replaceAll(
-                  /\[([^\]]+)\]\(([^\)]+)\)/g,
-                  '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-                )
-                // remove markdown multiline code blocks but keep the content
-                .replaceAll(/```markdown([^```]+)```/g, '$1')
-                .replaceAll('($', '( $')
-                .replaceAll(':$', ': $')
-                .replaceAll('\frac', '\\frac')
-                .replaceAll('\beta', '\\beta')
-                .replaceAll('cdot', '\\cdot')
-            ) as string
+        parseSquaredBrackets(
+          DOMPurify.sanitize(
+            (
+              marked.parse(
+                text
+                  // remove leading and trailing whitespaces
+                  .trim()
+                  // remove markdown links
+                  .replaceAll(
+                    /\[([^\]]+)\]\(([^\)]+)\)/g,
+                    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+                  )
+                  // remove markdown multiline code blocks but keep the content
+                  .replaceAll(/```markdown([^```]+)```/g, '$1')
+                  .replaceAll('($', '( $')
+                  .replaceAll(':$', ': $')
+                  .replaceAll('\frac', '\\frac')
+                  .replaceAll('\beta', '\\beta')
+                  .replaceAll('cdot', '\\cdot')
+              ) as string
+            )
+              .trim()
+              .replace(/\n/g, '<br>'),
+            {
+              ADD_ATTR: ['target'],
+            }
           )
-            .trim()
-            .replace(/\n/g, '<br>'),
-          {
-            ADD_ATTR: ['target'],
-          }
         )
-          // remove redundant mathjax delimiters
-          .replaceAll(/(?<!\\)\[/g, '\\[')
-          .replaceAll(/(?<!\\)\]/g, '\\]')
           // replace consecutive <br> with a single <br>
           .replace(/(<br>)+/g, '<br>')
           // remove empty paragraphs
