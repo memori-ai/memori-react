@@ -1,20 +1,294 @@
-.memori-spin--zoomed-full-body {
+/* Base styles */
+.memori-full-body--container {
+    position: unset;
     height: 100vh !important;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
 }
 
 .memori--powered-by-custom {
     position: absolute;
     z-index: 1000;
-    bottom: 35px;
+    bottom: 50px;
     display: inline-flex;
     min-width: 150px;
     flex-wrap: wrap;
 }
 
+/* Grid and layout */
 .memori--grid-column--zoomed-full-body {
-    max-height: calc(100% - 130px) !important;
+    max-height: 100%;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
 }
 
 .memori.memori-widget.memori-layout-zoomed_full_body .memori--grid {
     height: calc(100% - 25px);
+}
+
+/* Touch interaction improvements */
+.memori-interactive {
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    user-select: none;
+}
+
+.memori-scrollable {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+    scroll-behavior: smooth;
+}
+
+.memori-chat--history {
+    max-height: calc(100% - 180px);
+}
+
+/* Mobile styles */
+@media (max-width: 870px) {
+    /* Layout */
+    .memori-full-body--container {
+        display: flex;
+        height: 85vh !important;
+        flex-direction: column;
+        overscroll-behavior-y: none;
+    }
+
+    .memori--powered-by-custom {
+        top: 30px;
+        bottom: auto;
+        left: 30px;
+    }
+
+    /* Avatar */
+    .memori-full-body-layout--avatar-mobile {
+        position: fixed;
+        z-index: 0;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        width: 100%;
+        min-height: 100vh;
+        flex: 1;
+        touch-action: pan-y pinch-zoom;
+    }
+
+    .memori-full-body-layout--avatar-mobile .memori--avatar-wrapper > div {
+        overflow: visible !important;
+        width: auto !important;
+        height: 80vh !important;
+        max-height: 80vh;
+        border-radius: 0;
+        transform: scale(1.7) translate(0px, 10vh);
+        will-change: transform;
+    }
+
+    .memori-full-body-layout--avatar-mobile .memori--avatar-wrapper canvas {
+        width: auto !important;
+        max-width: 100%;
+        height: 100% !important;
+        max-height: 100%;
+        touch-action: none;
+    }
+
+    .memori-full-body-layout--avatar-mobile .memori--avatar-wrapper > div canvas + div,
+    .memori-full-body-layout--avatar-mobile .memori--avatar-wrapper .avatar-loader {
+        position: absolute !important;
+        width: 100%;
+        height: 100%;
+        transform: none !important;
+    }
+
+    .memori-full-body-layout--avatar-mobile .memori--avatar-wrapper .avatar-loader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Grid and Controls */
+    .memori-full-body-grid-column-right {
+        position: fixed;
+        z-index: 2;
+        bottom: 0;
+        width: 100%;
+        max-width: 93%;
+        margin-bottom: 5%;
+    }
+
+    .memori--grid-column--zoomed-full-body {
+        height: 450px;
+        /* padding: 12px;
+        margin-bottom: 32px; */
+    }
+
+    .memori-chat--history {
+        max-height: 100%;
+    }
+
+    /* Improved touch targets */
+    .memori-control-button {
+        min-width: 44px;
+        min-height: 44px;
+        padding: 12px;
+        margin: 4px;
+        touch-action: manipulation;
+    }
+
+    /* Header */
+    .memori-full-body--header {
+        padding: 16px;
+        text-align: right;
+        touch-action: manipulation;
+    }
+
+    .memori-header {
+        position: relative;
+        z-index: 100;
+        display: inline-flex;
+        width: auto;
+        height: auto;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.25rem;
+        text-align: center;
+        touch-action: manipulation;
+    }
+
+    /* Hide elements */
+    .memori-chat--cover,
+    .memori--avatar-toggle {
+        display: none;
+    }
+
+    /* Layout adjustments */
+    .memori--powered-by {
+        top: 0;
+        bottom: auto;
+    }
+
+    .memori--cover,
+    .memori--start-panel {
+        max-height: 100%;
+        padding: 0px;
+        background: none;
+    }
+
+    /* Chat layout */
+    .memori-full-body-layout--controls {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        width: 100%;
+        height: 100%;
+        flex-direction: column;
+        justify-content: flex-end;
+        touch-action: pan-y;
+    }
+
+    /* Improved scrolling container */
+    .memori-chat--content {
+        padding-bottom: env(safe-area-inset-bottom);
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+        scroll-behavior: smooth;
+    }
+
+    .memori-full-body-layout--controls .memori-chat--history,
+    .memori-full-body-layout--controls .memori-chat--content {
+        padding: 0;
+        background: transparent;
+        -webkit-overflow-scrolling: touch;
+        overscroll-behavior: contain;
+    }
+
+    .memori-full-body-layout--controls .memori-chat--history {
+        margin-top: 0;
+        backdrop-filter: none;
+    }
+
+    .memori--start-panel {
+        padding: 24px 12px;
+        -webkit-overflow-scrolling: touch;
+        overflow-y: auto;
+    }
+
+    .memori--start-panel .memori-full-body-layout--controls,
+    .memori-full-body-layout--controls .memori-chat--wrapper {
+        width: 100%;
+        max-width: 800px;
+        margin: 0 auto;
+        touch-action: pan-y;
+    }
+    .memori-full-body-layout--controls .memori-chat--wrapper {
+        height: calc(100% - 1rem);
+    }
+
+    .memori-full-body-layout--controls .memori-chat--bubble,
+    .memori-full-body-layout--controls .memori-chat--bubble.memori-chat--user-bubble {
+        position: relative;
+        opacity: 0.6;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+        touch-action: manipulation;
+        transition: all 0.3s ease-in-out;
+        user-select: text;
+    }
+
+    /* Focus state */
+    .memori-full-body-layout--controls .memori-chat--bubble.focused,
+    .memori-full-body-layout--controls .memori-chat--bubble.memori-chat--user-bubble.focused {
+        background-color: #fff;
+        box-shadow: 0 0 0 1px rgba(var(--memori-primary-rgb, 0, 0, 0), 0.1);
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    /* Touch active state */
+    @media (hover: none) {
+        .memori-full-body-layout--controls .memori-chat--bubble:active,
+        .memori-full-body-layout--controls .memori-chat--bubble.memori-chat--user-bubble:active {
+            opacity: 1;
+            transform: scale(0.98);
+        }
+
+        /* Maintain focus styles during touch */
+        .memori-full-body-layout--controls .memori-chat--bubble.focused:active,
+        .memori-full-body-layout--controls .memori-chat--bubble.memori-chat--user-bubble.focused:active {
+            background-color: #fff;
+            opacity: 1;
+        }
+    }
+
+    /* Hover states for non-touch devices */
+    @media (hover: hover) {
+        .memori-full-body-layout--controls .memori-chat--bubble:hover,
+        .memori-full-body-layout--controls .memori-chat--bubble.memori-chat--user-bubble:hover {
+            opacity: 1;
+        }
+
+        /* Maintain focus styles on hover */
+        .memori-full-body-layout--controls .memori-chat--bubble.focused:hover,
+        .memori-full-body-layout--controls .memori-chat--bubble.memori-chat--user-bubble.focused:hover {
+            background-color: #fff;
+            opacity: 1;
+        }
+    }
+
+    /* Safe area insets for modern mobile devices */
+    @supports (padding: max(0px)) {
+        .memori-full-body-layout--controls {
+            padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        }
+
+        .memori-header {
+            padding-top: max(1rem, env(safe-area-inset-top));
+        }
+    }
+}
+
+/* Momentum scrolling for iOS devices */
+@supports (-webkit-overflow-scrolling: touch) {
+    .memori-scrollable {
+        -webkit-overflow-scrolling: touch;
+    }
 }
