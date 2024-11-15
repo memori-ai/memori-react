@@ -70,12 +70,14 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
     };
   }, []); // Empty dependency array since we only want this to run once on mount
 
+  const isChrome = navigator.userAgent.includes('Chrome');
+
   return (
     <>
       {integrationStyle}
       {integrationBackground}
 
-      <Spin className="memori-full-body--container" spinning={loading}>
+      <Spin className={`memori-full-body--container  ${isChrome ? 'memori-full-body--container--chrome' : 'memori-full-body--container--safari'}`} spinning={loading}>
         {showInstruct && ChangeMode && changeModeProps && (
           <ChangeMode {...changeModeProps} />
         )}

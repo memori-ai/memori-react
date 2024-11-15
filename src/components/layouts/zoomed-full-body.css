@@ -40,19 +40,24 @@
     scroll-behavior: smooth;
 }
 
-.memori-chat--history {
-    max-height: calc(100% - 180px);
-}
 
 /* Mobile styles */
 @media (max-width: 870px) {
     /* Layout */
     .memori-full-body--container {
         display: flex;
-        height: 85vh !important;
         flex-direction: column;
         overscroll-behavior-y: none;
     }
+
+    .memori-full-body--container--chrome{
+        height: 90vh !important;
+    }
+
+    .memori-full-body--container--safari{
+        height: 85vh !important;
+    }
+
 
     .memori--powered-by-custom {
         top: 30px;
@@ -222,6 +227,10 @@
     }
     .memori-full-body-layout--controls .memori-chat--wrapper {
         height: calc(100% - 1rem);
+    }
+
+    .memori--grid-column-right{
+        overflow-y: auto;
     }
 
     .memori-full-body-layout--controls .memori-chat--bubble,

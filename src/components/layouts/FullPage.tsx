@@ -20,12 +20,15 @@ const FullPageLayout: React.FC<LayoutProps> = ({
   showInstruct = false,
   loading = false,
   poweredBy,
-}) => (
-  <>
+}) => {
+  const isChrome = navigator.userAgent.includes('Chrome');
+
+  return (
+    <>
     {integrationStyle}
     {integrationBackground}
 
-    <Spin className="memori-full-body--container" spinning={loading}>
+    <Spin className={`memori-full-body--container  ${isChrome ? 'memori-full-body--container--chrome' : 'memori-full-body--container--safari'}`} spinning={loading}>
       {showInstruct && ChangeMode && changeModeProps && (
         <ChangeMode {...changeModeProps} />
       )}
@@ -52,6 +55,7 @@ const FullPageLayout: React.FC<LayoutProps> = ({
       </div>
     </Spin>
   </>
-);
+  );
+};
 
 export default FullPageLayout;
