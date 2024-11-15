@@ -17,6 +17,8 @@ import Edit from '../icons/Edit';
 import cx from 'classnames';
 import ContainerAvatarView from './AvatarView';
 import { useViseme } from '../../context/visemeContext';
+import PositionControls from './AvatarView/AvatarComponent/positionControls/positionControls';
+import { getLocalConfig } from '../../helpers/configuration';
 
 export interface Props {
   memori: Memori;
@@ -34,6 +36,10 @@ export interface Props {
   animation?: string;
   isZoomed?: boolean;
   chatProps?: any;
+  enablePositionControls?: boolean;
+  setEnablePositionControls: (value: boolean) => void;
+  avatarType?: 'blob' | 'avatar3d' | null;
+  isTotem?: boolean;
 }
 
 const Avatar: React.FC<Props> = ({
@@ -52,6 +58,10 @@ const Avatar: React.FC<Props> = ({
   animation,
   isZoomed = false,
   chatProps,
+  avatarType = null,
+  enablePositionControls,
+  setEnablePositionControls,
+  isTotem = false,
 }) => {
   const { t } = useTranslation();
   const [isClient, setIsClient] = useState(false);
@@ -86,7 +96,8 @@ const Avatar: React.FC<Props> = ({
         integrationConfig?.avatar === 'readyplayerme-full' ||
         integrationConfig?.avatar === 'customglb' ||
         integrationConfig?.avatar === 'customrpm') &&
-      integrationConfig?.avatarURL
+      integrationConfig?.avatarURL &&
+      (avatarType && avatarType !== 'blob')
     ) {
       return (
         <>
@@ -114,11 +125,10 @@ const Avatar: React.FC<Props> = ({
 
   const renderAvatarContent = () => {
     if (!isClient) return null;
-
     if (
       integrationConfig?.avatar === 'readyplayerme' ||
       integrationConfig?.avatar === 'readyplayerme-full' ||
-      integrationConfig?.avatar === 'customrpm'
+      integrationConfig?.avatar === 'customrpm' 
     ) {
       return (
         <ErrorBoundary
@@ -131,6 +141,7 @@ const Avatar: React.FC<Props> = ({
           }
         >
           <ContainerAvatarView
+            enablePositionControls={enablePositionControls}
             updateCurrentViseme={updateCurrentViseme}
             url={integrationConfig.avatarURL}
             sex={memori.voiceType === 'FEMALE' ? 'FEMALE' : 'MALE'}
@@ -145,7 +156,9 @@ const Avatar: React.FC<Props> = ({
             stopProcessing={stopProcessing}
             resetVisemeQueue={resetVisemeQueue}
             isZoomed={isZoomed}
+            isTotem={isTotem}
             chatEmission={chatProps?.dialogState?.emission}
+            setEnablePositionControls={setEnablePositionControls}
           />
         </ErrorBoundary>
       );
@@ -182,10 +195,10 @@ const Avatar: React.FC<Props> = ({
   const getAvatarStyle = () => {
     if (integrationConfig?.avatar === 'readyplayerme') {
       return {
-        width: '300px',
-        height: '300px',
+        width: '100%',
+        height: '100%',
         backgroundColor: 'none',
-        borderRadius: '100%',
+        // borderRadius: '100%',
         boxShadow: 'none',
       };
     }

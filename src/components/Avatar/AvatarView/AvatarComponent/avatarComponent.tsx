@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import AnimationControlPanel from './components/controls';
-import FullbodyAvatar from './components/FullbodyAvatar/fullbodyAvatar';
+import { FullbodyAvatar } from './components/FullbodyAvatar/fullbodyAvatar'
 import HalfBodyAvatar from './components/halfbodyAvatar';
 
 interface Props {
@@ -14,11 +14,14 @@ interface Props {
   speaking: boolean;
   isZoomed: boolean;
   chatEmission: any;
+  avatarHeight?: number;
+  avatarDepth?: number;
   stopProcessing: () => void;
   resetVisemeQueue: () => void;
   updateCurrentViseme: (
     currentTime: number
   ) => { name: string; weight: number } | null;
+  setCameraZ: (value: number) => void;
 }
 
 interface BaseAction {
@@ -61,12 +64,15 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   sex,
   eyeBlink,
   headMovement,
-  speaking,
+  // speaking,
   halfBody,
   loading,
-  isZoomed,
+  // isZoomed,
+  avatarHeight,
+  avatarDepth,
   updateCurrentViseme,
   resetVisemeQueue,
+  setCameraZ,
 }) => {
   const [currentBaseAction, setCurrentBaseAction] = useState({
     action: animation || 'Idle1',
@@ -207,13 +213,13 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       {halfBody ? (
         <HalfBodyAvatar
           url={url}
-          headMovement={headMovement}
-          speaking={speaking}
-          eyeBlink={eyeBlink}
-          morphTargetInfluences={morphTargetInfluences}
+          onCameraZChange={setCameraZ}
           setMorphTargetInfluences={setMorphTargetInfluences}
           setMorphTargetDictionary={setMorphTargetDictionary}
           updateCurrentViseme={updateCurrentViseme}
+          avatarHeight={avatarHeight || 50}
+          avatarDepth={avatarDepth || -50}
+          headMovement={headMovement}
         />
       ) : (
         <FullbodyAvatar
@@ -224,12 +230,15 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           currentBaseAction={currentBaseAction}
           timeScale={timeScale}
           morphTargetInfluences={morphTargetInfluences}
-          isZoomed={isZoomed}
           updateCurrentViseme={updateCurrentViseme}
           stopProcessing={stopProcessing}
           setMorphTargetDictionary={setMorphTargetDictionary}
           setMorphTargetInfluences={setMorphTargetInfluences}
           emotionMorphTargets={emotionMorphTargets}
+          halfBody={halfBody}
+          onCameraZChange={setCameraZ}
+          avatarHeight={avatarHeight || 50}
+          avatarDepth={avatarDepth || -50}
         />
       )}
     </>

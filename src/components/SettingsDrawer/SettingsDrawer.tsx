@@ -3,10 +3,11 @@ import { useTranslation } from 'react-i18next';
 import Checkbox from '../ui/Checkbox';
 import Select from '../ui/Select';
 import { setLocalConfig } from '../../helpers/configuration';
-import { RadioGroup } from '@headlessui/react';
+import { RadioGroup, Switch } from '@headlessui/react';
 import Button from '../ui/Button';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
-
+import { useState } from 'react';
+import Slider from '../ui/Slider';
 export interface Props {
   open: boolean;
   layout?: WidgetProps['layout'];
@@ -20,6 +21,11 @@ export interface Props {
   hideEmissions?: boolean;
   setHideEmissions: (value: boolean) => void;
   additionalSettings?: WidgetProps['additionalSettings'];
+  avatarType?: 'blob' | 'avatar3d' | null;
+  setAvatarType: (value: 'blob' | 'avatar3d' | null) => void;
+  enablePositionControls?: boolean;
+  setEnablePositionControls: (value: boolean) => void;
+  isAvatar3d?: boolean;
 }
 
 const silenceSeconds = [2, 3, 5, 10, 15, 20, 30, 60];
@@ -37,6 +43,11 @@ const SettingsDrawer = ({
   hideEmissions,
   setHideEmissions,
   additionalSettings,
+  avatarType,
+  setAvatarType,
+  enablePositionControls,
+  setEnablePositionControls,
+  isAvatar3d,
 }: Props) => {
   const { t } = useTranslation();
 
@@ -58,7 +69,7 @@ const SettingsDrawer = ({
           value={microphoneMode}
           defaultValue={microphoneMode}
           className="memori-settings-drawer--microphoneMode-radio"
-          onChange={value => {
+          onChange={(value: any) => {
             let micMode =
               value === 'CONTINUOUS' ? 'CONTINUOUS' : 'HOLD_TO_TALK';
 
@@ -117,7 +128,7 @@ const SettingsDrawer = ({
               value={controlsPosition}
               defaultValue={controlsPosition}
               className="memori-settings-drawer--controlsposition-radio"
-              onChange={value => {
+              onChange={(value: any) => {
                 setControlsPosition(value);
                 setLocalConfig('controlsPosition', value);
               }}
@@ -144,6 +155,67 @@ const SettingsDrawer = ({
               </RadioGroup.Option>
             </RadioGroup>
           </div>
+
+          {isAvatar3d && (
+            <>
+              <div className="memori-settings-drawer--field controls">
+
+                <label
+                  htmlFor="avatarType"
+                  className="memori-settings-drawer-label"
+                >
+                  {t('write_and_speak.avatarType') || 'Avatar type'}:
+                </label>
+                <RadioGroup
+                  id="avatarType"
+                  name="avatarType"
+                  value={avatarType}
+                  defaultValue={avatarType}
+                  className="memori-settings-drawer--avatarType-radio"
+                  onChange={(value: any) => {
+                    setAvatarType && setAvatarType(value);
+                    setLocalConfig('avatarType', value);
+                  }}
+                >
+                  <RadioGroup.Option
+                    value="blob"
+                    className="memori-settings-drawer--avatarType-radio-button"
+                  >
+                    {({ checked }) => (
+                      <Button primary={checked} outlined={!checked}>
+                        {t('write_and_speak.blob') || 'Blob'}
+                      </Button>
+                    )}
+                  </RadioGroup.Option>
+                  <RadioGroup.Option
+                    value="avatar3d"
+                    className="memori-settings-drawer--avatarType-radio-button"
+                  >
+                    {({ checked }) => (
+                      <Button primary={checked} outlined={!checked}>
+                        {t('write_and_speak.avatar3d') || 'Avatar 3D'}
+                      </Button>
+                    )}
+                  </RadioGroup.Option>
+                </RadioGroup>
+              </div>
+
+              <div className="memori-settings-drawer--field">
+                <Checkbox
+                  label={
+                    t('write_and_speak.enablePositionControls') ||
+                    'Enable position controls'
+                  }
+                  name="enablePositionControls"
+                  checked={enablePositionControls}
+                  onChange={e => {
+                    setEnablePositionControls(e.target.checked);
+                  }}
+                />
+              </div>
+            </>
+          )}
+
           <div className="memori-settings-drawer--field">
             <Checkbox
               label={

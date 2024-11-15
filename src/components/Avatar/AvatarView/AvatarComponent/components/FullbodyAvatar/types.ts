@@ -20,8 +20,10 @@ export interface FullbodyAvatarProps {
     weight: number;
   };
   timeScale: number;
-  isZoomed?: boolean;
+  onCameraZChange: (value: number) => void;
   eyeBlink?: boolean;
+  avatarDepth?: number;
+  avatarHeight?: number;
   stopProcessing: () => void;
   resetVisemeQueue: () => void;
   updateCurrentViseme: (
@@ -37,4 +39,5 @@ export interface FullbodyAvatarProps {
     morphTargetInfluences: Record<string, number>
   ) => void;
   emotionMorphTargets: Record<string, number>;
+  halfBody: boolean;
 }

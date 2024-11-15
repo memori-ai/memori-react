@@ -95,28 +95,28 @@
     bottom: auto;
 }
 
-.memori-totem-layout--avatar .memori--avatar-wrapper>div {
-    overflow: visible !important;
+/* .memori-totem-layout--avatar .memori--avatar-wrapper>div {
+    overflow: visible !important; */
     /* width: 100% !important;
     height: 100% !important; */
-    width: auto !important;
+    /* width: auto !important;
     height: 90vh !important;
     max-height: 90vh;
     border-radius: 0;
     transform: scale(1.7) translate(0px, 10vh);
-}
+} */
 
-.memori-totem-layout--avatar .memori--avatar-wrapper canvas {
+/* .memori-totem-layout--avatar .memori--avatar-wrapper canvas {
     width: auto !important;
     max-width: 100%;
     height: 100% !important;
     max-height: 100%;
-}
+} */
 
-.memori-totem-layout--controls {
+/* .memori-totem-layout--controls {
     position: relative;
     z-index: 5;
-}
+} */
 
 .memori-totem-layout--controls .memori--start-panel,
 .memori-totem-layout--controls .memori-chat--history,

@@ -1,167 +1,149 @@
-import React, { useEffect, useMemo, useRef } from 'react';
-import { Object3D, SkinnedMesh, Vector3 } from 'three';
+import { useEffect, useMemo, useRef } from 'react';
+import { Object3D, SkinnedMesh } from 'three';
 import { useGLTF } from '@react-three/drei';
+import { useGraph, useFrame, useThree } from '@react-three/fiber';
 import { correctMaterials, isSkinnedMesh } from '../../../../../helpers/utils';
-import { useGraph, dispose, useFrame } from '@react-three/fiber';
-import { useAvatarBlink } from '../../utils/useEyeBlink';
-import useHeadMovement from '../../utils/useHeadMovement';
+import { MorphTargetController } from './MorphTargetController';
+import { AvatarPositionController } from './PositionController';
+import {
+  AVATAR_POSITION,
+  SCALE_LERP_FACTOR,
+  AVATAR_POSITION_ZOOMED,
+} from './constants';
 import { hideHands } from '../../utils/utils';
-import { AnimationMixer, MathUtils } from 'three';
+import useHeadMovement from '../../utils/useHeadMovement';
 
 interface HalfBodyAvatarProps {
   url: string;
   setMorphTargetInfluences: (morphTargetInfluences: any) => void;
-  headMovement?: boolean;
-  speaking?: boolean;
-  onLoaded?: () => void;
   setMorphTargetDictionary: (morphTargetDictionary: any) => void;
-  eyeBlink?: boolean;
-  morphTargetInfluences: any;
   updateCurrentViseme: (currentTime: number) => any;
-  morphTargetSmoothing?: number;
+  eyeBlink?: boolean;
+  heightValue?: number; // 0-100 slider value
+  avatarHeight: number;
+  avatarDepth: number;
+  onLoaded?: () => void;
+  onCameraZChange: (value: number) => void;
+  headMovement?: boolean;
 }
-
-const AVATAR_POSITION = new Vector3(0, -0.6, 0);
-// Blink configuration
-const BLINK_CONFIG = {
-  minInterval: 1000,
-  maxInterval: 5000,
-  blinkDuration: 150,
-};
 
 export default function HalfBodyAvatar({
   url,
   setMorphTargetInfluences,
   setMorphTargetDictionary,
-  eyeBlink,
-  onLoaded,
-  morphTargetSmoothing = 0.5,
   updateCurrentViseme,
+  eyeBlink = false,
+  avatarHeight = 50,
+  avatarDepth = 0,
+  headMovement = false,
+  onLoaded,
+  onCameraZChange,
 }: HalfBodyAvatarProps) {
   const { scene } = useGLTF(url);
   const { nodes, materials } = useGraph(scene);
-  const mixer = useRef(new AnimationMixer(scene));
-  const avatarMeshRef = useRef<SkinnedMesh | null>(null);
+  const { camera } = useThree();
 
-  // Blink state
-  const lastBlinkTime = useRef(0);
-  const nextBlinkTime = useRef(0);
-  const isBlinking = useRef(false);
-  const blinkStartTime = useRef(0);
+  const morphTargetControllerRef = useRef<MorphTargetController>();
+  const positionControllerRef = useRef<AvatarPositionController>();
+  const targetCameraZRef = useRef(camera.position.z);
 
-  const headMeshRef = useRef<SkinnedMesh>();
 
-  useEffect(() => {
-    correctMaterials(materials);
+  useHeadMovement(headMovement, nodes);
+  
+  const blinkStateRef = useRef({
+    isBlinking: false,
+    lastBlinkTime: 0,
+    nextBlinkTime: 0,
+    blinkStartTime: 0,
+  });
 
-    scene.traverse((object: Object3D) => {
-      if (object instanceof SkinnedMesh) {
-        if (object.name === 'GBNL__Head' || object.name === 'Wolf3D_Avatar') {
-          headMeshRef.current = object;
-          if (object.morphTargetDictionary && object.morphTargetInfluences) {
-            setMorphTargetDictionary(object.morphTargetDictionary);
-
-            const initialInfluences = Object.keys(
-              object.morphTargetDictionary
-            ).reduce((acc, key) => ({ ...acc, [key]: 0 }), {});
-            setMorphTargetInfluences(initialInfluences);
-          }
-        }
+  // Find head mesh
+  const headMesh = useMemo(() => {
+    let foundMesh: SkinnedMesh | undefined;
+    scene?.traverse((object: Object3D) => {
+      if (
+        object instanceof SkinnedMesh &&
+        (object.name === 'GBNL__Head' || object.name === 'Wolf3D_Avatar')
+      ) {
+        foundMesh = object;
       }
     });
+    return foundMesh;
+  }, [scene]);
 
+  // Initialize controllers
+  useEffect(() => {
+    if (!positionControllerRef.current) {
+      positionControllerRef.current = new AvatarPositionController(
+        AVATAR_POSITION,
+        AVATAR_POSITION_ZOOMED,
+      );
+    }
+
+    if (headMesh) {
+      morphTargetControllerRef.current = new MorphTargetController(headMesh);
+
+      if (headMesh.morphTargetDictionary && headMesh.morphTargetInfluences) {
+        setMorphTargetDictionary(headMesh.morphTargetDictionary);
+        const initialInfluences = Object.keys(headMesh.morphTargetDictionary)
+          .reduce((acc, key) => ({ ...acc, [key]: 0 }), {});
+        setMorphTargetInfluences(initialInfluences);
+      }
+    }
+
+    correctMaterials(materials);
     onLoaded?.();
-
+    hideHands(nodes);
+    
     return () => {
       Object.values(materials).forEach(material => material.dispose());
       Object.values(nodes)
         .filter(isSkinnedMesh)
         .forEach(mesh => mesh.geometry.dispose());
     };
-  }, [materials, nodes, url, onLoaded, scene]);
-  useFrame(state => {
+  }, [materials, nodes, url, onLoaded, scene, headMesh]);
 
-    if (
-      headMeshRef.current &&
-      headMeshRef.current.morphTargetDictionary &&
-      headMeshRef.current.morphTargetInfluences
-    ) {
-      const currentTime = state.clock.getElapsedTime() * 1000; // Convert to milliseconds
+  useEffect(() => {
+    if (positionControllerRef.current) {
+      positionControllerRef.current.updateHeight(avatarHeight, true);
+    }
+  }, [avatarHeight]);
 
-      // Handle blinking
-      let blinkValue = 0;
-      if (eyeBlink) {
-        if (currentTime >= nextBlinkTime.current && !isBlinking.current) {
-          isBlinking.current = true;
-          blinkStartTime.current = currentTime;
-          lastBlinkTime.current = currentTime;
-          nextBlinkTime.current =
-            currentTime +
-            Math.random() *
-              (BLINK_CONFIG.maxInterval - BLINK_CONFIG.minInterval) +
-            BLINK_CONFIG.minInterval;
-        }
+  useEffect(() => {
+    if (positionControllerRef.current && onCameraZChange) {
+      const newCameraZ = positionControllerRef.current.updateDepth(avatarDepth, true);
+      onCameraZChange(newCameraZ);
+    }
+  }, [avatarDepth, onCameraZChange]);
 
-        if (isBlinking.current) {
-          const blinkProgress =
-            (currentTime - blinkStartTime.current) / BLINK_CONFIG.blinkDuration;
-          if (blinkProgress <= 0.5) {
-            // Eyes closing
-            blinkValue = blinkProgress * 2;
-          } else if (blinkProgress <= 1) {
-            // Eyes opening
-            blinkValue = 2 - blinkProgress * 2;
-          } else {
-            // Blink finished
-            isBlinking.current = false;
-            blinkValue = 0;
-          }
-        }
-      }
+  // Animation and morphing update loop
+  useFrame((state) => {
+    const currentTime = state.clock.elapsedTime * 1000;
 
+    // Update morph targets
+    if (morphTargetControllerRef.current) {
       const currentViseme = updateCurrentViseme(currentTime / 1000);
-
-      // Update morph targets
-      Object.entries(headMeshRef.current.morphTargetDictionary).forEach(
-        ([key, index]) => {
-          if (typeof index === 'number') {
-            let targetValue = 0;
-
-            // Handle visemes (additive layer)
-            if (currentViseme && key === currentViseme.name) {
-              targetValue += currentViseme.weight * 1.3; // Amplify the effect
-            }
-
-            // Handle blinking (additive layer, only for 'eyesClosed')
-            if (key === 'eyesClosed' && eyeBlink) {
-              targetValue += blinkValue;
-            }
-
-            // Clamp the final value between 0 and 1
-            targetValue = MathUtils.clamp(targetValue, 0, 1);
-
-            // Apply smoothing
-            if (
-              headMeshRef.current &&
-              headMeshRef.current.morphTargetInfluences
-            ) {
-              headMeshRef.current.morphTargetInfluences[index] = MathUtils.lerp(
-                headMeshRef.current.morphTargetInfluences[index],
-                targetValue,
-                morphTargetSmoothing
-              );
-            }
-          }
-        }
+      morphTargetControllerRef.current.updateMorphTargets(
+        currentTime,
+        {},
+        currentViseme,
+        eyeBlink,
+        blinkStateRef.current,
       );
+    }
 
-      // Update the animation mixer
-      mixer.current.update(0.01); // Fixed delta time for consistent animation speed
+    // Update scale with smooth transition
+    if (scene && positionControllerRef.current) {
+      const newScale = positionControllerRef.current.updateScale(SCALE_LERP_FACTOR);
+      scene.scale.copy(newScale);
     }
   });
 
+  // Get current position from controller
+  const position = positionControllerRef.current?.getPosition() || AVATAR_POSITION;
+
   return (
-    <group position={AVATAR_POSITION}>
+    <group position={position}>
       <primitive object={scene} />
     </group>
   );
