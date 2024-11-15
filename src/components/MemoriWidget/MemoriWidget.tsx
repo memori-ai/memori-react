@@ -2126,7 +2126,10 @@ const MemoriWidget = ({
    * Focus on the chat input on mount
    */
   useEffect(() => {
-    focusChatInput();
+    // focus on chat input disabled for totem layout
+    if (selectedLayout !== 'TOTEM') {
+      focusChatInput();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDialogState?.emission]);
 
