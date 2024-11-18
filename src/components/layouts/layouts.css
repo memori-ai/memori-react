@@ -182,9 +182,9 @@
         /* margin-bottom: 10%; */
     }
 
-    .memori-chat--wrapper {
-        margin-bottom: 2rem !important;
-    }
+    /* .memori-chat--wrapper {
+        margin-bottom: 1rem !important;
+    } */
 
     .memori--start-panel .memori-full-body-layout--controls,
     .memori-full-body-layout--controls .memori-chat--wrapper {
