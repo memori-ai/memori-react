@@ -47,7 +47,7 @@
 
 @media (max-width: 870px) {
     .memori-chat-layout .memori--powered-by {
-        top: 3.5rem;
+        /* top: 3.5rem; */
         bottom: auto;
     }
 }

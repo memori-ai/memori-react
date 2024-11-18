@@ -54,6 +54,9 @@
 @import url('./components/layouts/website-assistant.css');
 @import url('./components/layouts/chat.css');
 @import url('./components/layouts/zoomed-full-body.css');
+
+/* Default layout style */
+@import url('./components/layouts/layouts.css');
 @import url('https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css');
 
 .sr-only {

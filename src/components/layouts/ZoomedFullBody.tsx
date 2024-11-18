@@ -24,60 +24,14 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
   useEffect(() => {
     // Prevent body scrolling
     document.body.style.overflow = 'hidden';
-
-    // Touch focus handler for chat bubbles
-    const handleBubbleTouch = (e: any) => {
-        const bubble = e.target.closest('.memori-chat--bubble');
-        if (bubble) {
-            // Remove focus from other bubbles
-            document.querySelectorAll('.memori-chat--bubble.focused').forEach(other => {
-                if (other !== bubble) {
-                    other.classList.remove('focused');
-                }
-            });
-            bubble.classList.add('focused');
-            // Prevent any default touch behaviors
-            e.stopPropagation();
-        }
-    };
-
-    // Handle clicking outside to remove focus
-    const handleOutsideTouch = (e: any) => {
-        const chatContainer = e.target.closest('.memori-full-body-layout--controls');
-        const bubble = e.target.closest('.memori-chat--bubble');
-        
-        if (chatContainer && !bubble) {
-            document.querySelectorAll('.memori-chat--bubble.focused').forEach(bubble => {
-                bubble.classList.remove('focused');
-            });
-        }
-    };
-
-    // Add event listeners
-    const chatContainer = document.querySelector('.memori-full-body-layout--controls');
-    if (chatContainer) {
-        chatContainer.addEventListener('touchstart', handleBubbleTouch, { passive: true });
-        document.addEventListener('touchstart', handleOutsideTouch, { passive: true });
-    }
-
-    // Cleanup function
-    return () => {
-        document.body.style.overflow = '';
-        if (chatContainer) {
-            chatContainer.removeEventListener('touchstart', handleBubbleTouch);
-            document.removeEventListener('touchstart', handleOutsideTouch);
-        }
-    };
   }, []); // Empty dependency array since we only want this to run once on mount
-
-  const isChrome = navigator.userAgent.includes('Chrome');
 
   return (
     <>
       {integrationStyle}
       {integrationBackground}
 
-      <Spin className={`memori-full-body--container  ${isChrome ? 'memori-full-body--container--chrome' : 'memori-full-body--container--safari'}`} spinning={loading}>
+      <Spin className={`memori-full-body--container`} spinning={loading}>
         {showInstruct && ChangeMode && changeModeProps && (
           <ChangeMode {...changeModeProps} />
         )}

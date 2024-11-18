@@ -36,7 +36,7 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
       />
     </div>
     <div
-      class="memori-spin memori-full-body--container  memori-full-body--container--safari"
+      class="memori-spin memori-full-body--container"
     >
       <div
         class="memori-full-body--header"
