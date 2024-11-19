@@ -547,7 +547,9 @@ const MemoriWidget = ({
   );
 
   const [enablePositionControls, setEnablePositionControls] = useState(false);
-  const [avatarType, setAvatarType] = useState<'blob' | 'avatar3d' | null>(null);
+  const [avatarType, setAvatarType] = useState<'blob' | 'avatar3d' | null>(
+    null
+  );
   const [hideEmissions, setHideEmissions] = useState(false);
 
   const {
@@ -601,7 +603,7 @@ const MemoriWidget = ({
     setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 2));
     setControlsPosition(
       getLocalConfig('controlsPosition', defaultControlsPosition)
-    );  
+    );
     setAvatarType(getLocalConfig('avatarType', 'avatar3d'));
     setHideEmissions(getLocalConfig('hideEmissions', false));
 
@@ -702,7 +704,6 @@ const MemoriWidget = ({
     useLoaderTextAsMsg = false,
     hasBatchQueued = false
   ) => {
-
     const sessionID =
       newSessionId ||
       sessionId ||
@@ -1139,6 +1140,7 @@ const MemoriWidget = ({
             userToken ?? loginToken ?? additionalInfo?.loginToken ?? authToken,
           language: getCultureCodeByLanguage(userLang),
           referral: referral,
+          timeZoneOffset: new Date().getTimezoneOffset().toString(),
         },
       });
       if (
@@ -1235,6 +1237,7 @@ const MemoriWidget = ({
             userToken ?? loginToken ?? additionalInfo?.loginToken ?? authToken,
           language: getCultureCodeByLanguage(userLang),
           referral: referral,
+          timeZoneOffset: new Date().getTimezoneOffset().toString(),
         },
       });
 
@@ -1389,6 +1392,7 @@ const MemoriWidget = ({
                 authToken,
               language: getCultureCodeByLanguage(userLang),
               referral: referral,
+              timeZoneOffset: new Date().getTimezoneOffset().toString(),
             },
           });
         } else if (!!currentState) {
@@ -2692,6 +2696,7 @@ const MemoriWidget = ({
               additionalInfo?.loginToken ??
               authToken,
             language: getCultureCodeByLanguage(userLang),
+            timeZoneOffset: new Date().getTimezoneOffset().toString(),
           },
         });
 
