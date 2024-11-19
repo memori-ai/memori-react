@@ -21,14 +21,12 @@ const FullPageLayout: React.FC<LayoutProps> = ({
   loading = false,
   poweredBy,
 }) => {
-  const isChrome = navigator.userAgent.includes('Chrome');
-
   return (
     <>
     {integrationStyle}
     {integrationBackground}
 
-    <Spin className={`memori-full-body--container  ${isChrome ? 'memori-full-body--container--chrome' : 'memori-full-body--container--safari'}`} spinning={loading}>
+    <Spin className="memori-full-body--container" spinning={loading}>
       {showInstruct && ChangeMode && changeModeProps && (
         <ChangeMode {...changeModeProps} />
       )}
@@ -38,7 +36,7 @@ const FullPageLayout: React.FC<LayoutProps> = ({
       </div>
 
       <div className="memori--grid">
-        <div className="memori-full-body-layout--avatar-mobile memori--grid-column memori--grid-column-left">
+        <div className="memori-full-body-layout--avatar-column memori--grid-column memori--grid-column-left">
           {Avatar && avatarProps && <Avatar {...avatarProps} />}
 
           <div id="extension" />
@@ -51,7 +49,7 @@ const FullPageLayout: React.FC<LayoutProps> = ({
           ) : null}
         </div>
 
-        <div className="memori--powered-by-custom">{poweredBy}</div>
+        <div className="memori--powered-by-container">{poweredBy}</div>
       </div>
     </Spin>
   </>

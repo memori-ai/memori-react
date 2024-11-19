@@ -31,7 +31,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
       {integrationStyle}
       {integrationBackground}
 
-      <Spin className={`memori-full-body--container`} spinning={loading}>
+      <Spin className="memori-full-body--container" spinning={loading}>
         {showInstruct && ChangeMode && changeModeProps && (
           <ChangeMode {...changeModeProps} />
         )}
@@ -41,7 +41,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
         </div>
 
         <div className="memori--grid">
-          <div className="memori-full-body-layout--avatar-mobile memori--grid-column memori--grid-column-left ">
+          <div className="memori-full-body-layout--avatar-column memori--grid-column memori--grid-column-left ">
             {Avatar && avatarProps && (
               <Avatar chatProps={chatProps} isZoomed {...avatarProps} />
             )}

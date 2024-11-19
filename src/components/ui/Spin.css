@@ -33,19 +33,8 @@
 
 @media (max-width: 870px) {
 
-    .memori-spin--spinning {
-       top: 60% !important;
-       left: 110%;
-       font-size: 1rem;
-    }
-
-    .memori-spin--spinner {
-        margin: auto;
-        background: transparent ;
-    }
-
-    .memori-spin--spinner svg {
-       width: 20%;
-       height: 20%;
+   .memori-spin--spinner svg {
+       max-width: 3rem;
+       max-height: 3rem;
     }
 }
