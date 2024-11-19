@@ -69,7 +69,6 @@
     "format": "prettier --write src",
     "sb": "storybook dev -p 6006",
     "storybook": "storybook dev -p 6006",
-    "storybook:emulator": "storybook dev --port 3000 --host 0.0.0.0 --ci",
     "build-storybook": "storybook build"
   },
   "prettier": {

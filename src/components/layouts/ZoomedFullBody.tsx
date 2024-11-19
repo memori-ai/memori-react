@@ -56,7 +56,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
             ) : null}
           </div>
 
-          <div className="memori--powered-by-custom">{poweredBy}</div>
+          <div className="memori--powered-by-container">{poweredBy}</div>
         </div>
       </Spin>
     </>
