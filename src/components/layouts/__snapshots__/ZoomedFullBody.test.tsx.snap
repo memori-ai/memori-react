@@ -394,7 +394,7 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
           </div>
         </div>
         <div
-          class="memori--powered-by-custom"
+          class="memori--powered-by-container"
         >
           <div
             class="memori--powered-by"

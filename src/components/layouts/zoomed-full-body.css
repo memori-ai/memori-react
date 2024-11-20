@@ -17,10 +17,11 @@
 
 /* Grid and layout */
 .memori--grid-column--zoomed-full-body {
-    max-height: 100%;
+    max-height: calc(100% - 100px);
     align-self: flex-start;
     -webkit-overflow-scrolling: touch;
     overscroll-behavior: contain;
+
 }
 
 .memori.memori-widget.memori-layout-zoomed_full_body .memori--grid {

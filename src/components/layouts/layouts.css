@@ -7,19 +7,21 @@
         overscroll-behavior-y: none;
     }
 
-    .memori-widget>.memori-spin {
-        height: calc(100vh - 150px) !important;
-    }
-
     .memori-widget.memori-layout-totem {
-        height: 100% !important;
+        height: 100%;
+        max-height: 90vh !important;
     }
 
+    .memori-widget.memori-layout-chat {
+        height: 100%;
+        max-height: 95vh !important;
+    }
 
     .memori--powered-by-container {
         top: 30px !important;
         bottom: auto;
-        left: 30px;
+        left: 35px;
+        display: none;
     }
 
     /* Avatar */
@@ -35,7 +37,7 @@
         touch-action: pan-y pinch-zoom;
     }
 
-    .memori-full-body-layout--avatar-column .memori--avatar-wrapper > div  {
+    .memori-full-body-layout--avatar-column .memori--avatar-wrapper > div {
         overflow: visible !important;
         width: auto !important;
         height: 80vh !important;
@@ -78,13 +80,19 @@
     }
 
     .memori--active .memori--grid-column-right {
-        overflow-y: auto;
+        height: 100%;
+        min-height: 75vh;
+        overflow-y: hidden;
     }
 
     .memori--grid-column--zoomed-full-body {
-        height: 450px;
-        /* padding: 12px;
-        margin-bottom: 32px; */
+        height: 100%;
+    }
+
+    .memori-header .memori-header--button, .memori-header .memori-header--button button{
+        width: 44px;
+        height: 44px;
+        aspect-ratio: 1;
     }
 
     .memori-chat--history {
@@ -95,7 +103,6 @@
     .memori-control-button {
         min-width: 44px;
         min-height: 44px;
-        /* padding: 12px; */
         margin: 4px;
         touch-action: manipulation;
     }
@@ -113,7 +120,7 @@
         display: inline-flex;
         width: auto;
         height: auto;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         justify-content: center;
         gap: 0.25rem;
@@ -133,10 +140,16 @@
         bottom: auto;
     }
 
-    .memori--cover,
-    .memori--start-panel {
+    .memori--cover {
         max-height: 100%;
         padding: 0px;
+        background: none;
+    }
+
+    .memori--start-panel {
+        max-height: 100%;
+        padding: 24px 12px;
+        margin-top: 1rem;
         background: none;
     }
 
@@ -166,6 +179,10 @@
         overscroll-behavior: contain;
     }
 
+    .memori-totem-layout--controls .memori-chat--content {
+        max-height: 35vh;
+    }
+
     .memori-full-body-layout--controls .memori-chat--history {
         margin-top: 0;
         -webkit-backdrop-filter: none;
@@ -174,28 +191,22 @@
 
     .memori-button--icon-only.memori-header--button.memori-header--button--reload,
     .memori-button--icon-only.memori-header--button.memori-header--button--clear {
-       display: none !important;
+        display: none !important;
     }
 
-    .memori--start-panel {
-        padding: 24px 12px;
-        /* margin-bottom: 10%; */
+    .memori-full-body-layout--controls .memori-chat--wrapper {
+        height: calc(100% - 1rem);
+        padding: 12px;
     }
-
-    /* .memori-chat--wrapper {
-        margin-bottom: 1rem !important;
-    } */
 
     .memori--start-panel .memori-full-body-layout--controls,
     .memori-full-body-layout--controls .memori-chat--wrapper {
         width: 100%;
-        max-width: 800px;
+        max-width: 100%;
         margin: 0 auto;
         touch-action: pan-y;
     }
-    .memori-full-body-layout--controls .memori-chat--wrapper {
-        height: calc(100% - 1rem);
-    }
+
 
     .memori-full-body-layout--controls .memori-chat--bubble,
     .memori-full-body-layout--controls .memori-chat--bubble.memori-chat--user-bubble {
@@ -207,7 +218,7 @@
         user-select: text;
     }
 
-    .memori--description-text{
+    .memori--description-text {
         max-height: 200px;
         overflow-y: auto;
     }
@@ -234,14 +245,39 @@
         opacity: 1;
     }
 
+
     /* Safe area insets for modern mobile devices */
     @supports (padding: max(0px)) {
-        .memori-full-body-layout--controls {
-            padding-bottom: max(1rem, env(safe-area-inset-bottom));
+        .memori-widget > .memori-spin {
+            height: 100%;
+            max-height: 100vh;
+            /* padding-bottom: max(1rem, env(safe-area-inset-bottom)); */
         }
+        .memori-widget.memori-layout-chat {
+            height: 100%;
+            max-height: 95vh !important;
+        }
+    }
 
-        /* .memori-header {
-            padding-top: max(1rem, env(safe-area-inset-top));
-        } */
+    /* increase bottom padding just for safari -webkit-touch-callout is a Safari-specific property. */
+    @supports (-webkit-touch-callout: none) {
+        .memori-widget > .memori-spin {
+            height: 100% !important;
+            max-height: 95vh;
+        }
+        .memori-widget.memori-layout-chat {
+            height: 100%;
+            max-height: 90vh !important;
+        }
+    }
+}
+
+@media (max-width: 360px) {
+    .memori-full-body-layout--controls .memori-chat--wrapper {
+        padding-bottom: max(2rem, env(safe-area-inset-bottom));
+    }
+
+    .memori--start-panel {
+        padding-bottom: max(2rem, env(safe-area-inset-bottom));
     }
 }
