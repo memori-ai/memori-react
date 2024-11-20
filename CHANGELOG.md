@@ -1,5 +1,59 @@
 
 
+## [7.9.0](https://github.com/memori-ai/memori-react/compare/v7.8.8...v7.9.0) (2024-11-20)
+
+
+### Features
+
+* added isactive flag for reusable button component ([ec80372](https://github.com/memori-ai/memori-react/commit/ec8037272912fce5f797c74d93b109594fc276ae))
+* added isAvatar3D flag for making the Avatar Controls visible ([779b9ad](https://github.com/memori-ai/memori-react/commit/779b9ad610f0af067fe8219ef83e8b2b45d68233))
+* added isTotem prop in Avatar Component for managing default avatar size for different layouts ([d704f9b](https://github.com/memori-ai/memori-react/commit/d704f9bcea7489a3eb00e719dc8d406e952d1d5b))
+* added new slider component ([d1bb0be](https://github.com/memori-ai/memori-react/commit/d1bb0be1757f47fbc7af483aee86ce7d2e48634b))
+* added position controller to handle height and camera depth of the 3d avatar ([c54ca4b](https://github.com/memori-ai/memori-react/commit/c54ca4b52149aee56a7d1b91d92874628318fbb9))
+* added position controls for height and depth ([be348fd](https://github.com/memori-ai/memori-react/commit/be348fd17d27f17330e6b0910a144b78f53c3c9a))
+* added script that make local web server working on emulator ([c62de47](https://github.com/memori-ai/memori-react/commit/c62de475703c0b303e2763991cfd3cf002e18582))
+* adjusted fixed positions for totem ([45edd05](https://github.com/memori-ai/memori-react/commit/45edd05aed3877af6c65dae9bb8d1c9db36e7467))
+* for slider component improved compatibility for mobile and animations ([e32d511](https://github.com/memori-ai/memori-react/commit/e32d511f356234f64e7d8e0f10ac6725572a9813))
+* for TOTEM layout get the position values from the local storage otherwise are fixed ([85624a3](https://github.com/memori-ai/memori-react/commit/85624a3498011f2092325573d8b49ec2e0ee9974))
+* half body and full body dynamic position update ([3b2f1a6](https://github.com/memori-ai/memori-react/commit/3b2f1a6deda00a8a67925d9a74ecf5ea62a9d570))
+* **lang:** updated lang ([388de3f](https://github.com/memori-ai/memori-react/commit/388de3feab6d7f239d52d7160c801dfd8edd55ec))
+* **lang:** updated translations ([b7cea50](https://github.com/memori-ai/memori-react/commit/b7cea5050b2b0b00cee989e7bc8aa2dc549c1ca1))
+* passed enablePositionControl to avatar component ([1177358](https://github.com/memori-ai/memori-react/commit/1177358b6bdc9b59d03aaabc9022fe0cc8349cdb))
+* settings drawer added enable controls checkbox ([792cae0](https://github.com/memori-ai/memori-react/commit/792cae0e876085c4c1521ccbfb6a2882ad83e8d3))
+* updated slider component, now the label can be a ReactNode ([f213711](https://github.com/memori-ai/memori-react/commit/f2137111475af423e5006c3e4049773c916d6de9))
+
+
+### Bug Fixes
+
+* lint css ([2f40128](https://github.com/memori-ai/memori-react/commit/2f401282069cb0a450ca00c96e25ada999f7e401))
+* on mount disabled textarea focus only for TOTEM layout ([a8b0ab4](https://github.com/memori-ai/memori-react/commit/a8b0ab44b282e61c49eef39adbaa054222a18d08))
+* reintroduced head movement for half body avatar and removed unused speaking prop ([997f6f5](https://github.com/memori-ai/memori-react/commit/997f6f568a5c753386de7df72fcfaa66e1c0271b))
+* removed hands for half body avatar ([c0bd4a0](https://github.com/memori-ai/memori-react/commit/c0bd4a0221bfec3f81773eb7a66d315be202cddd))
+* removed important from reusable button css ([c8774d4](https://github.com/memori-ai/memori-react/commit/c8774d438aa3f31acb9b00987f8d1830e0a59fb9))
+* removed keyboard automatic focus on mobile after audio recording ([ae8d737](https://github.com/memori-ai/memori-react/commit/ae8d737de031a9b2434c4bb7ba951bf9f9ea1d13))
+* removed negative range values for depth slider and asjusted default layout values position for the avatar ([5c197d8](https://github.com/memori-ai/memori-react/commit/5c197d8c7d4c7e093df6e2625c002d9f3c8abada))
+* removed style that was cropping the half body avatar ([cab622c](https://github.com/memori-ai/memori-react/commit/cab622c81ce09f3a68103a09d22f7922590ec138))
+* removed unused prop and fixed reset textarea focus logic ([b5ff368](https://github.com/memori-ai/memori-react/commit/b5ff368922614791d26a358d5e6c92bfb471a1c1))
+* removed unused prop for PositionControls Component ([fff69d1](https://github.com/memori-ai/memori-react/commit/fff69d1dec3fcb38e85561e851637e1e0b7da4e8))
+* removed unused props for FullbodyAvatar component ([b28ff76](https://github.com/memori-ai/memori-react/commit/b28ff7646852f971517c8f37b0afc8423e0c6578))
+* removed wrong state update and logs ([7570aa4](https://github.com/memori-ai/memori-react/commit/7570aa4f3906a51e27f45c038fc26fd25dde5a3f))
+* replaced undefined type with null for avatarType prop ([d4cd4fb](https://github.com/memori-ai/memori-react/commit/d4cd4fbc90f65756a7bec03ab7d63093e684b8ad))
+* update slider state and fixed depth buttons ([4192537](https://github.com/memori-ai/memori-react/commit/41925376863a26205735c86e2847175debd3ea87))
+* updated avatar test ([4bcd669](https://github.com/memori-ai/memori-react/commit/4bcd6693ef632a86719bd27c9b5f0a39c3e963fa))
+* updated flag isChatAlreadyStarted as soon as the avatar isLoading ([9b13b55](https://github.com/memori-ai/memori-react/commit/9b13b555a118ef7492011ebd3705b3f056b07e12))
+
+
+### Maintenance
+
+* update api client ([87de67e](https://github.com/memori-ai/memori-react/commit/87de67e8720425cb5592e76cdbcd3cd19354b461))
+
+
+### Changes
+
+* add timezoneOffset in session opening ([4e4a4cb](https://github.com/memori-ai/memori-react/commit/4e4a4cb69e622edf6954c4b1617e4618bfcf1cc9))
+* enhanced UI of Position Controls for totem layout ([99a2008](https://github.com/memori-ai/memori-react/commit/99a20082eac9b97603308b26ef0ed95490d97bbb))
+* replaced constants and morp target controller to the parent directory for better organization ([c1097ce](https://github.com/memori-ai/memori-react/commit/c1097ce00b90a6acae021a7cb3b32bdd577766d5))
+
 ## [7.8.8](https://github.com/memori-ai/memori-react/compare/v7.8.7...v7.8.8) (2024-11-14)
 
 
