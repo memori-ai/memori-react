@@ -189,6 +189,10 @@
         backdrop-filter: none;
     }
 
+    .memori-totem-layout--controls {
+        margin-top: 1rem;
+    }
+
     .memori-button--icon-only.memori-header--button.memori-header--button--reload,
     .memori-button--icon-only.memori-header--button.memori-header--button--clear {
         display: none !important;
