@@ -1,5 +1,12 @@
 
 
+## [7.9.1](https://github.com/memori-ai/memori-react/compare/v7.9.0...v7.9.1) (2024-11-21)
+
+
+### Bug Fixes
+
+* refactor api client vs url usage, fix engine url in client init ([ff4958e](https://github.com/memori-ai/memori-react/commit/ff4958ed3a7c75ec8e1a8fab5c2359ced075fcc6))
+
 ## [7.9.0](https://github.com/memori-ai/memori-react/compare/v7.8.8...v7.9.0) (2024-11-20)
 
 
