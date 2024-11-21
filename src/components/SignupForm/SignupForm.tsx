@@ -27,7 +27,7 @@ const reservedUserNames = [
 
 export interface Props {
   tenant: Tenant;
-  apiUrl: string;
+  apiClient: ReturnType<typeof memoriApiClient>;
   onLogin: (user: User, token: string) => void;
   goToLogin: () => void;
   __TEST__waitingForOtp?: boolean;
@@ -35,7 +35,7 @@ export interface Props {
 
 const SignupForm = ({
   tenant,
-  apiUrl,
+  apiClient,
   onLogin,
   goToLogin,
   __TEST__waitingForOtp = false,
@@ -43,9 +43,8 @@ const SignupForm = ({
   const { t, i18n } = useTranslation();
   const lang = i18n.language === 'it' ? 'it' : 'en';
 
-  const client = memoriApiClient(apiUrl);
   const { userSignUp, userConfirmSignUp, resendVerificationCode } =
-    client.backend;
+    apiClient.backend;
 
   const [email, setEmail] = useState<string>();
   const [username, setUsername] = useState<string>();

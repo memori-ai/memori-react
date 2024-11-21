@@ -15,7 +15,7 @@ import ChevronLeft from '../icons/ChevronLeft';
 import ChevronRight from '../icons/ChevronRight';
 
 export interface Props {
-  apiURL: string;
+  apiClient: ReturnType<typeof memoriApiClient>;
   sessionID: string;
   memori: Memori;
   initialKnownFacts?: KnownFact[];
@@ -24,7 +24,7 @@ export interface Props {
 }
 
 const KnownFacts = ({
-  apiURL,
+  apiClient,
   sessionID,
   memori,
   visible = true,
@@ -33,8 +33,7 @@ const KnownFacts = ({
 }: Props) => {
   const { t } = useTranslation();
 
-  const client = memoriApiClient(apiURL);
-  const { getKnownFactsPaginated, deleteKnownFact } = client.knownFacts;
+  const { getKnownFactsPaginated, deleteKnownFact } = apiClient.knownFacts;
 
   const [knownFacts, setKnownFacts] = useState<KnownFact[]>(initialKnownFacts);
   const [numberOfResults, setNumberOfResults] = useState(25);

@@ -142,7 +142,10 @@ const Memori: React.FC<Props> = ({
     );
   }
 
+  console.log('backendURL', apiURL);
+  console.log('engineURL', engineURL);
   const client = memoriApiClient(apiURL, engineURL);
+  console.log(client.constants.ENGINE_URL);
 
   const fetchSpeechKey = useCallback(async () => {
     const url =
@@ -242,7 +245,8 @@ const Memori: React.FC<Props> = ({
                 ? tenantID
                 : `https://${tenantID}`)
             }
-            apiUrl={apiURL}
+            apiURL={apiURL}
+            engineURL={engineURL}
             memori={{
               ...memori,
               secretToken,

@@ -3,6 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { memori, sessionID, knownFact } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import KnownFacts, { Props } from './KnownFacts';
+import memoriApiClient from '@memori.ai/memori-api-client';
 
 import './KnownFacts.css';
 
@@ -26,11 +27,12 @@ export default meta;
 const Template: Story<Props> = args => (
   <I18nWrapper>
     <KnownFacts
-      apiURL="https://backend.memori.ai"
-      sessionID={sessionID}
+      // @ts-ignore-next-line
       memori={memori}
-      closeDrawer={() => {}}
       {...args}
+      sessionID={sessionID}
+      closeDrawer={() => {}}
+      apiClient={memoriApiClient()}
     />
   </I18nWrapper>
 );
@@ -61,7 +63,6 @@ export const WithRealDataLocalhost = Template.bind({});
 WithRealDataLocalhost.args = {
   visible: true,
   sessionID: '5841f5f9-3315-4a5a-9b62-33b13d5a27fd',
-  apiURL: 'http://localhost:7778',
   memori: {
     memoriName: 'test memori',
     ownerUserName: 'nicola',

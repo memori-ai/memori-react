@@ -367,7 +367,8 @@ export interface Props {
   height?: number | string;
   secret?: string;
   baseUrl?: string;
-  apiUrl?: string;
+  apiURL?: string;
+  engineURL?: string;
   initialContextVars?: { [key: string]: string };
   initialQuestion?: string;
   ogImage?: string;
@@ -418,7 +419,8 @@ const MemoriWidget = ({
   height = '100vh',
   secret,
   baseUrl = 'https://aisuru.com',
-  apiUrl = 'https://backend.memori.ai',
+  apiURL = 'https://backend.memori.ai',
+  engineURL = 'https://engine.memori.ai',
   initialContextVars,
   initialQuestion,
   ogImage,
@@ -444,7 +446,10 @@ const MemoriWidget = ({
   }, []);
 
   // API calls methods
-  const client = memoriApiClient(apiUrl);
+  console.log('backendURL', apiURL);
+  console.log('engineURL', engineURL);
+  const client = memoriApiClient(apiURL, engineURL);
+  console.log(client.constants.ENGINE_URL);
   const {
     initSession,
     postTextEnteredEvent,
@@ -3106,7 +3111,7 @@ const MemoriWidget = ({
     isPlayingAudio: isPlayingAudio && !muteSpeaker,
     loading: !!memoriTyping,
     baseUrl,
-    apiUrl,
+    apiUrl: client.constants.BACKEND_URL,
     enablePositionControls,
     setEnablePositionControls,
     avatarType,
@@ -3119,7 +3124,7 @@ const MemoriWidget = ({
     userLang: userLang,
     setUserLang: setUserLang,
     baseUrl: baseUrl,
-    apiUrl: apiUrl,
+    apiUrl: client.constants.BACKEND_URL,
     position: position,
     openPositionDrawer: () => setShowPositionDrawer(true),
     integrationConfig: integrationConfig,
@@ -3151,7 +3156,7 @@ const MemoriWidget = ({
         ? userLang
         : undefined,
     baseUrl,
-    apiUrl,
+    apiUrl: client.constants.BACKEND_URL,
     layout,
     memoriTyping,
     typingText,
@@ -3434,7 +3439,7 @@ const MemoriWidget = ({
 
       {showKnownFactsDrawer && sessionId && (
         <KnownFacts
-          apiURL={apiUrl}
+          apiClient={client}
           memori={memori}
           sessionID={sessionId}
           visible={showKnownFactsDrawer}
@@ -3444,7 +3449,7 @@ const MemoriWidget = ({
 
       {showExpertsDrawer && !!experts && (
         <ExpertsDrawer
-          apiUrl={apiUrl}
+          apiUrl={client.constants.BACKEND_URL}
           baseUrl={baseUrl}
           tenant={tenant}
           experts={experts}
@@ -3456,7 +3461,7 @@ const MemoriWidget = ({
       {showLoginDrawer && tenant?.id && (
         <LoginDrawer
           tenant={tenant}
-          apiUrl={apiUrl}
+          apiClient={client}
           open={!!showLoginDrawer}
           user={user}
           loginToken={loginToken}

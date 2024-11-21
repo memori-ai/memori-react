@@ -3,6 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import I18nWrapper from '../../I18nWrapper';
 import LoginDrawer, { Props } from './LoginDrawer';
 import { tenant, user } from '../../mocks/data';
+import memoriApiClient from '@memori.ai/memori-api-client';
 import './LoginDrawer.css';
 
 const meta: Meta = {
@@ -31,7 +32,7 @@ const Template: Story<Props> = args => {
         onLogin={console.log}
         onLogout={() => {}}
         tenant={tenant}
-        apiUrl="https://backend.memori.ai"
+        apiClient={memoriApiClient()}
       />
     </I18nWrapper>
   );

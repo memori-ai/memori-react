@@ -19,7 +19,7 @@ export interface Props {
   onLogin: (user: User, token: string) => void;
   onLogout: () => void;
   tenant: Tenant;
-  apiUrl: string;
+  apiClient: ReturnType<typeof memoriApiClient>;
   __TEST__signup?: boolean;
   __TEST__needMissingData?: boolean;
   __TEST__waitingForOtp?: boolean;
@@ -34,7 +34,7 @@ const LoginDrawer = ({
   user,
   loginToken,
   tenant,
-  apiUrl,
+  apiClient,
   __TEST__signup = false,
   __TEST__needMissingData = false,
   __TEST__waitingForOtp = false,
@@ -43,8 +43,7 @@ const LoginDrawer = ({
   const { t, i18n } = useTranslation();
   const lang = i18n.language === 'it' ? 'it' : 'en';
 
-  const client = memoriApiClient(apiUrl);
-  const { userLogin, updateUser } = client.backend;
+  const { userLogin, updateUser } = apiClient.backend;
 
   const isUserLoggedIn = user?.userID && loginToken;
 
@@ -286,7 +285,7 @@ const LoginDrawer = ({
           <AccountForm
             user={user}
             loginToken={loginToken}
-            apiUrl={apiUrl}
+            apiClient={apiClient}
             onUserUpdate={user => onLogin(user, loginToken)}
           />
         </div>
@@ -479,7 +478,7 @@ const LoginDrawer = ({
       ) : showSignup ? (
         <SignupForm
           tenant={tenant}
-          apiUrl={apiUrl}
+          apiClient={apiClient}
           onLogin={onLogin}
           goToLogin={() => setShowSignup(false)}
           __TEST__waitingForOtp={__TEST__waitingForOtp}

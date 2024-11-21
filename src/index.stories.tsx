@@ -101,6 +101,7 @@ Staging.args = {
   ownerUserID: 'fbee9aaa-0c46-460e-9800-15e31d7c99c0',
   tenantID: 'aisuru-staging.aclambda.online',
   apiURL: 'https://backend-staging.memori.ai',
+  engineURL: 'https://engine-staging-tmp.memori.ai',
   baseURL: 'https://aisuru-staging.aclambda.online',
   uiLang: 'EN',
   lang: 'IT',
@@ -163,7 +164,6 @@ NunzioFiore.args = {
   showLogin: 'false',
   enableAudio: 'true',
 };
-
 
 const TemplateWithBatchButton: Story<Props> = args => (
   <div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import LoginDrawer from './LoginDrawer';
 import { tenant, user } from '../../mocks/data';
+import memoriApiClient from '@memori.ai/memori-api-client';
 
 beforeEach(() => {
   // @ts-ignore
@@ -17,7 +18,7 @@ it('renders LoginDrawer closed unchanged', () => {
   const { container } = render(
     <LoginDrawer
       onClose={jest.fn()}
-      apiUrl="https://backend.memori.ai"
+      apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
       onLogout={jest.fn()}
@@ -30,7 +31,7 @@ it('renders LoginDrawer open unchanged', () => {
   const { container } = render(
     <LoginDrawer
       onClose={jest.fn()}
-      apiUrl="https://backend.memori.ai"
+      apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
       onLogout={jest.fn()}
@@ -44,7 +45,7 @@ it('renders LoginDrawer unlogged unchanged', () => {
   const { container } = render(
     <LoginDrawer
       onClose={jest.fn()}
-      apiUrl="https://backend.memori.ai"
+      apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
       onLogout={jest.fn()}
@@ -58,7 +59,7 @@ it('renders LoginDrawer logged with missing data unchanged', () => {
   const { container } = render(
     <LoginDrawer
       onClose={jest.fn()}
-      apiUrl="https://backend.memori.ai"
+      apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
       onLogout={jest.fn()}
@@ -73,7 +74,7 @@ it('renders LoginDrawer logged in unchanged', () => {
   const { container } = render(
     <LoginDrawer
       onClose={jest.fn()}
-      apiUrl="https://backend.memori.ai"
+      apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
       onLogout={jest.fn()}
@@ -89,7 +90,7 @@ it('renders LoginDrawer on signup unchanged', () => {
   const { container } = render(
     <LoginDrawer
       onClose={jest.fn()}
-      apiUrl="https://backend.memori.ai"
+      apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
       onLogout={jest.fn()}
@@ -104,7 +105,7 @@ it('renders LoginDrawer on signup waiting for otp unchanged', () => {
   const { container } = render(
     <LoginDrawer
       onClose={jest.fn()}
-      apiUrl="https://backend.memori.ai"
+      apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
       onLogout={jest.fn()}
@@ -120,7 +121,7 @@ it('renders LoginDrawer on change password unchanged', () => {
   const { container } = render(
     <LoginDrawer
       onClose={jest.fn()}
-      apiUrl="https://backend.memori.ai"
+      apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
       onLogout={jest.fn()}

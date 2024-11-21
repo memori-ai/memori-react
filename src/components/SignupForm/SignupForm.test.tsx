@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import SignupForm from './SignupForm';
 import { tenant } from '../../mocks/data';
+import memoriApiClient from '@memori.ai/memori-api-client';
 
 beforeEach(() => {
   // @ts-ignore
@@ -16,7 +17,7 @@ beforeEach(() => {
 it('renders SignupForm unchanged', () => {
   const { container } = render(
     <SignupForm
-      apiUrl="https://backend.memori.ai"
+      apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
       goToLogin={jest.fn()}
@@ -28,7 +29,7 @@ it('renders SignupForm unchanged', () => {
 it('renders SignupForm on otp form unchanged', () => {
   const { container } = render(
     <SignupForm
-      apiUrl="https://backend.memori.ai"
+      apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
       goToLogin={jest.fn()}

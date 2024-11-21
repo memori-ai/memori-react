@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import KnownFacts from './KnownFacts';
 import { knownFact, memori, sessionID } from '../../mocks/data';
+import memoriApiClient from '@memori.ai/memori-api-client';
 
 beforeEach(() => {
   // @ts-ignore
@@ -13,10 +14,12 @@ beforeEach(() => {
   }));
 });
 
+const client = memoriApiClient();
+
 it('renders KnownFacts hidden unchanged', () => {
   const { container } = render(
     <KnownFacts
-      apiURL="https://backend.memori.ai"
+      apiClient={client}
       memori={memori}
       sessionID={sessionID}
       visible={false}
@@ -29,7 +32,7 @@ it('renders KnownFacts hidden unchanged', () => {
 it('renders KnownFacts visible unchanged', () => {
   const { container } = render(
     <KnownFacts
-      apiURL="https://backend.memori.ai"
+      apiClient={client}
       memori={memori}
       sessionID={sessionID}
       visible={true}
@@ -42,7 +45,7 @@ it('renders KnownFacts visible unchanged', () => {
 it('renders KnownFacts with data unchanged', () => {
   const { container } = render(
     <KnownFacts
-      apiURL="https://backend.memori.ai"
+      apiClient={client}
       memori={memori}
       sessionID={sessionID}
       visible={true}

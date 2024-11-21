@@ -11,19 +11,17 @@ import Tooltip from '../ui/Tooltip';
 export interface Props {
   user: User;
   loginToken: string;
-  apiUrl: string;
+  apiClient: ReturnType<typeof memoriApiClient>;
   onUserUpdate: (user: User) => void;
 }
 
 const imgMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
 
-const AccountForm = ({ user, loginToken, apiUrl, onUserUpdate }: Props) => {
+const AccountForm = ({ user, loginToken, apiClient, onUserUpdate }: Props) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === 'it' ? 'it' : 'en';
 
-  const client = memoriApiClient(apiUrl);
-
-  const { updateUser, uploadAsset } = client.backend;
+  const { updateUser, uploadAsset } = apiClient.backend;
 
   const [email, setEmail] = useState<string>();
   const [password, setPassword] = useState<string>();
