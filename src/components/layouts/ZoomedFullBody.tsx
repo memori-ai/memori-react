@@ -21,36 +21,34 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
   loading = false,
   poweredBy,
 }) => {
-
   useEffect(() => {
+    // Prevent body scrolling
     document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, []);
-
+  }, []); // Empty dependency array since we only want this to run once on mount
 
   return (
     <>
       {integrationStyle}
       {integrationBackground}
 
-      <Spin className="memori-spin--zoomed-full-body" spinning={loading}>
+      <Spin className="memori-full-body--container" spinning={loading}>
         {showInstruct && ChangeMode && changeModeProps && (
           <ChangeMode {...changeModeProps} />
         )}
 
-        {Header && headerProps && <Header {...headerProps} />}
+        <div className="memori-full-body--header">
+          {Header && headerProps && <Header {...headerProps} />}
+        </div>
 
         <div className="memori--grid">
-          <div className="memori--grid-column memori--grid-column-left">
+          <div className="memori-full-body-layout--avatar-column memori--grid-column memori--grid-column-left ">
             {Avatar && avatarProps && (
               <Avatar chatProps={chatProps} isZoomed {...avatarProps} />
             )}
 
             <div id="extension" />
           </div>
-          <div className="memori--grid-column memori--grid-column--zoomed-full-body memori--grid-column-right">
+          <div className="memori--grid-column--zoomed-full-body memori-full-body-layout--controls memori--grid-column memori--grid-column-right ">
             {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
               <Chat {...chatProps} />
             ) : startPanelProps ? (
@@ -58,7 +56,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
             ) : null}
           </div>
 
-          <div className="memori--powered-by-custom">{poweredBy}</div>
+          <div className="memori--powered-by-container">{poweredBy}</div>
         </div>
       </Spin>
     </>

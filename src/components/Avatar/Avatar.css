@@ -61,12 +61,12 @@
 }
 
 @media (max-width: 870px) {
-    .memori--avatar-wrapper div,
+    /* .memori--avatar-wrapper div,
     .memori--avatar-wrapper canvas,
     .memori--avatar-wrapper model-viewer {
         width: 150px !important;
         height: 150px !important;
-    }
+    } */
 
     .memori--avatar-wrapper model-viewer {
         margin-top: 2rem;
