@@ -163,7 +163,7 @@ const ChatBubble: React.FC<Props> = ({
       return text;
     }
   };
-  const renderedText = message.fromUser ? text : renderMsg(text);
+  const renderedText = renderMsg(text);
 
   const plainText = message.fromUser
     ? text
