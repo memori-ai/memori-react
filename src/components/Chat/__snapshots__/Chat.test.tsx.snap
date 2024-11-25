@@ -95,7 +95,9 @@ exports[`renders Chat on X2a state unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Prova
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -193,7 +195,9 @@ exports[`renders Chat on X2a state unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Come faccio a fare delle cose con questa cosa?
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -382,7 +386,9 @@ exports[`renders Chat on X2a state unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Ah, grazie! Ciao!
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -652,7 +658,9 @@ exports[`renders Chat on X3 state unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Prova
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -750,7 +758,9 @@ exports[`renders Chat on X3 state unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Come faccio a fare delle cose con questa cosa?
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -939,7 +949,9 @@ exports[`renders Chat on X3 state unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Ah, grazie! Ciao!
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -1242,7 +1254,9 @@ exports[`renders Chat unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Prova
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -1340,7 +1354,9 @@ exports[`renders Chat unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Come faccio a fare delle cose con questa cosa?
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -1514,7 +1530,9 @@ exports[`renders Chat unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Ah, grazie! Ciao!
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -1768,7 +1786,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Prova
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -1866,7 +1886,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Come faccio a fare delle cose con questa cosa?
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -2055,7 +2077,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Ah, grazie! Ciao!
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -2324,7 +2348,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Prova
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -2414,7 +2440,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Come faccio a fare delle cose con questa cosa?
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -2580,7 +2608,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Ah, grazie! Ciao!
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -2826,7 +2856,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Prova
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <picture
@@ -2918,7 +2950,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Come faccio a fare delle cose con questa cosa?
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <picture
@@ -3086,7 +3120,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Ah, grazie! Ciao!
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <picture
@@ -3339,7 +3375,9 @@ exports[`renders Chat with dates unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Prova
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -3447,7 +3485,9 @@ exports[`renders Chat with dates unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Come faccio a fare delle cose con questa cosa?
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -3631,7 +3671,9 @@ exports[`renders Chat with dates unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Ah, grazie! Ciao!
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -3895,7 +3937,9 @@ exports[`renders Chat with hints unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Prova
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -3993,7 +4037,9 @@ exports[`renders Chat with hints unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Come faccio a fare delle cose con questa cosa?
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -4167,7 +4213,9 @@ exports[`renders Chat with hints unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Ah, grazie! Ciao!
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -4447,7 +4495,9 @@ exports[`renders Chat with media unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Prova
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -4545,7 +4595,9 @@ exports[`renders Chat with media unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Come faccio a fare delle cose con questa cosa?
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -5120,7 +5172,9 @@ exports[`renders Chat with media unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Ah, grazie! Ciao!
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -5374,7 +5428,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Prova
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -5472,7 +5528,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Come faccio a fare delle cose con questa cosa?
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -5646,7 +5704,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Ah, grazie! Ciao!
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -5921,7 +5981,9 @@ exports[`renders Chat with user unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Prova
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <picture
@@ -6013,7 +6075,9 @@ exports[`renders Chat with user unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Come faccio a fare delle cose con questa cosa?
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <picture
@@ -6181,7 +6245,9 @@ exports[`renders Chat with user unchanged 1`] = `
               class="memori-chat--bubble-content"
               dir="auto"
             >
-              Ah, grazie! Ciao!
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <picture
