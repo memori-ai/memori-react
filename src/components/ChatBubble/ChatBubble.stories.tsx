@@ -324,6 +324,23 @@ WithMarkdownTable.args = {
   },
 };
 
+export const MarkdownWithSquareBrackets = Template.bind({});
+MarkdownWithSquareBrackets.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  message: {
+    fromUser: false,
+    text: `B. Funzione per lo stock:
+  - Nome: "check_stock"
+  - Descrizione: "Usa questa funzione per verificare la disponibilità di un prodotto nel magazzino"
+  - Webhook: [URL del tuo gestionale]
+  - Parametro: "product_id" (string)`,
+    initial: false,
+    generatedByAI: true,
+  },
+};
+
 export const ComplexMarkdownMath1 = Template.bind({});
 ComplexMarkdownMath1.args = {
   memori,
@@ -333,7 +350,7 @@ ComplexMarkdownMath1.args = {
     fromUser: false,
     initial: false,
     generatedByAI: true,
-    text: `Per calcolare l'ipotenusa di un triangolo rettangolo, puoi usare il Teorema di Pitagora. Il teorema afferma che in un triangolo rettangolo, il quadrato dell'ipotenusa (la lato opposto all'angolo retto) è uguale alla somma dei quadrati degli altri due lati.\n\nLa formula è:\n\n\\[ c = \\sqrt{a^2 + b^2} \\]\n\nDove:\n- $c$ è l'ipotenusa.\n- $a$ e $ b $ sono i due cateti del triangolo.\n\n### Passaggi per il Calcolo\n\n1. **Misura o identifica i cateti $ a $ e $ b $**:\n   I cateti sono i due lati che formano l'angolo retto.\n\n2. **Calcola i quadrati dei cateti**:\n   Eleva al quadrato entrambe le misure dei cateti: $ a^2 $ e $ b^2 $.\n\n3. **Somma i quadrati dei cateti**:\n   Somma i risultati ottenuti: $ a^2 + b^2 $.\n\n4. **Calcola la radice quadrata della somma**:\n   Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 + b^2} $.\n\n### Esempio di Calcolo\n\nSupponiamo di avere un triangolo rettangolo con i cateti di lunghezza 3 cm e 4 cm.\n\n1. **Cateto $ a $**: 3 cm\n2. **Cateto $ b $**: 4 cm\n\nUsiamo la formula:\n\n\\[ c = \\sqrt{a^2 + b^2} \\]\n\n\\[ c = \\sqrt{(3 \\, \\text{cm})^2 + (4 \\, \\text{cm})^2} \\]\n\n\\[ c = \\sqrt{9 \\, \\text{cm}^2 + 16 \\, \\text{cm}^2} \\]\n\n\\[ c = \\sqrt{25 \\, \\text{cm}^2} \\]\n\n\\[ c = 5 \\, \\text{cm} \\]\n\nQuindi, l'ipotenusa del triangolo è di 5 cm.`,
+    text: `Per calcolare l'ipotenusa di un triangolo rettangolo, puoi usare il Teorema di Pitagora. Il teorema afferma che in un triangolo rettangolo, il quadrato dell'ipotenusa (la lato opposto all'angolo retto) è uguale alla somma dei quadrati degli altri due lati.\n\nLa formula è:\n\n\\[ c = \\sqrt{a^2 + b^2} \\]\n\nDove:\n- $c$ è l'ipotenusa.\n- $a$ e $ b $ sono i due cateti del triangolo.\n\n### Passaggi per il Calcolo\n\n1. **Misura o identifica i cateti $ a $ e $ b $**:\n   I cateti sono i due lati che formano l'angolo retto.\n\n2. **Calcola i quadrati dei cateti**:\n   Eleva al quadrato entrambe le misure dei cateti: $ a^2 $ e $ b^2 $.\n\n3. **Somma i quadrati dei cateti**:\n   Somma i risultati ottenuti: $ a^2 + b^2 $.\n\n4. **Calcola la radice quadrata della somma**:\n   Prendi la radice quadrata della somma per trovare l'ipotenusa: [ c = \\sqrt{a^2 + b^2} ].\n\n### Esempio di Calcolo\n\nSupponiamo di avere un triangolo rettangolo con i cateti di lunghezza 3 cm e 4 cm.\n\n1. **Cateto $ a $**: 3 cm\n2. **Cateto $ b $**: 4 cm\n\nUsiamo la formula:\n\n\\[ c = \\sqrt{a^2 + b^2} \\]\n\n\\[ c = \\sqrt{(3 \\, \\text{cm})^2 + (4 \\, \\text{cm})^2} \\]\n\n\\[ c = \\sqrt{9 \\, \\text{cm}^2 + 16 \\, \\text{cm}^2} \\]\n\n\\[ c = \\sqrt{25 \\, \\text{cm}^2} \\]\n\n\\[ c = 5 \\, \\text{cm} \\]\n\nQuindi, l'ipotenusa del triangolo è di 5 cm.`,
   },
 };
 
