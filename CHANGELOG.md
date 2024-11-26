@@ -1,5 +1,30 @@
 
 
+## [7.10.0](https://github.com/memori-ai/memori-react/compare/v7.9.1...v7.10.0) (2024-11-26)
+
+
+### Features
+
+* markdown parsing for user messages too ([34f991d](https://github.com/memori-ai/memori-react/commit/34f991dceec9a04e501faab2f0947678a9d40ce3))
+
+
+### Bug Fixes
+
+* avoid issues with square brackets in text with markdown and math parsing ([a87569f](https://github.com/memori-ai/memori-react/commit/a87569f4be1f71217243b6d74dbfd20c8df64a71))
+
+
+### Maintenance
+
+* cleanup logs ([720ff84](https://github.com/memori-ai/memori-react/commit/720ff844cb6fce23b7990f02448dafe66e1de642))
+* format storybook preview ([c77455b](https://github.com/memori-ai/memori-react/commit/c77455b39d78e7d835ee9d7cc6198f286ff11068))
+* update deps ([bb3dbc6](https://github.com/memori-ai/memori-react/commit/bb3dbc63a41a5952b8daf6a30ca2a4d4241a937f))
+
+
+### Changes
+
+* removed unused or dangerous mathjax selectors ([0faf89f](https://github.com/memori-ai/memori-react/commit/0faf89f8d0a058a852ecfa2363e89908ea7e6473))
+* update marked ([08bd938](https://github.com/memori-ai/memori-react/commit/08bd938d23bc214ddd0c8c12cc22f6099dcc7b23))
+
 ## [7.9.1](https://github.com/memori-ai/memori-react/compare/v7.9.0...v7.9.1) (2024-11-21)
 
 
