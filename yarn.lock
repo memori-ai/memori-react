@@ -4156,7 +4156,7 @@ __metadata:
     leaflet: ^1.9.4
     lil-gui: ^0.19.2
     luxon: ^3.5.0
-    marked: ^11.1.0
+    marked: ^15.0.2
     marked-katex-extension: ^5.1.3
     marked-linkify-it: ^3.1.12
     microsoft-cognitiveservices-speech-sdk: 1.34.0
@@ -15503,12 +15503,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:^11.1.0":
-  version: 11.1.0
-  resolution: "marked@npm:11.1.0"
+"marked@npm:^15.0.2":
+  version: 15.0.2
+  resolution: "marked@npm:15.0.2"
   bin:
     marked: bin/marked.js
-  checksum: fdc553ebfdc5fc5fe5c5d0d1831f4f8c3ed5fd89af7a428df5e0abce8fceac23da826b762c53027b7a900579b73e6d33908a0cf0c7618d03e0f378e710439d18
+  checksum: 2315c8cbe1127d9598da5a978d7776aef6bc4dd65ea79a6632cd45e3cf4c8505700f1c8375104243677cc7d6b0f1275679cdfdf02f202cc805ed33cbf6b79c23
   languageName: node
   linkType: hard
 
