@@ -185,13 +185,13 @@ export const stripMarkdown = (text: string) => {
 
 export const stripOutputTags = (text: string): string => {
   const outputTagRegex = /<output.*?<\/output>/gs;
-  
+
   if (!outputTagRegex.test(text)) {
     return text;
   }
 
   const strippedText = text.replace(outputTagRegex, '');
-  
+
   // Recursively strip nested output tags
   return stripOutputTags(strippedText);
 };
@@ -273,22 +273,9 @@ export const mathJaxConfig = {
     inlineMath: [
       ['$', '$'],
       ['\\$', '\\$'],
-      ['(', '\\)'],
-      ['\\(', ')'],
-      ['[', '\\]'],
-      ['\\(', '\\)'],
-      ['\\[', '\\]'],
-      ['\\\\[', '\\\\]'],
-      ['\\\\\\[', '\\\\\\]'],
-      ['((', '))'],
     ],
-    displayMath: [
-      ['$$', '$$'],
-      ['\\[[', '\\]]'],
-      ['\\\\[[', '\\\\]]'],
-      ['\\\\\\[[', '\\\\\\]]'],
-    ],
-    processEscapes: false,
+    displayMath: [['$$', '$$']],
+    processEscapes: true,
   },
   asciimath: {
     fixphi: true,
