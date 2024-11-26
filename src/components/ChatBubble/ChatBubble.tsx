@@ -101,24 +101,29 @@ const ChatBubble: React.FC<Props> = ({
 
   const text = message.translatedText || message.text;
 
-  // remove redundant mathjax delimiters: old code
-  // .replaceAll(/(?<!\\)\[/g, '\\[')
-  // .replaceAll(/(?<!\\)\]/g, '\\]')
-  // since old Safari < 16.4 doesn't support negative lookbehind, we need to use a workaround
   const parseSquaredBrackets = (text: string) => {
-    let result = '';
-    let isEscaped = false;
-    for (let i = 0; i < text.length; i++) {
-      if (text[i] === '[' && !isEscaped) {
-        result += '\\[';
-      } else if (text[i] === ']' && !isEscaped) {
-        result += '\\]';
+    const rows = text.split('\n');
+
+    return rows.reduce((acc, row) => {
+      if (row.includes('=')) {
+        let result = '';
+        let isEscaped = false;
+        for (let i = 0; i < row.length; i++) {
+          if (row[i] === '[' && !isEscaped) {
+            result += '\\[';
+          } else if (row[i] === ']' && !isEscaped) {
+            result += '\\]';
+          } else {
+            result += row[i];
+          }
+          isEscaped = row[i] === '\\' && !isEscaped;
+        }
+
+        return acc?.length ? `${acc}\n${result}` : result;
       } else {
-        result += text[i];
+        return acc?.length ? `${acc}\n${row}` : row;
       }
-      isEscaped = text[i] === '\\' && !isEscaped;
-    }
-    return result;
+    }, '');
   };
 
   const renderMsg = (text: string) => {
