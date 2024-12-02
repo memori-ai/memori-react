@@ -473,6 +473,11 @@ const MemoriWidget = ({
         if (user && resultCode === 0) {
           setUser(user);
           setLocalConfig('loginToken', loginToken);
+
+          if (user.birthDate) {
+            setBirthDate(user.birthDate);
+            setLocalConfig('birthDate', user.birthDate);
+          }
         } else {
           removeLocalConfig('loginToken');
         }
@@ -612,6 +617,8 @@ const MemoriWidget = ({
     if (!additionalInfo?.loginToken && !authToken) {
       setLoginToken(getLocalConfig<typeof loginToken>('loginToken', undefined));
       userToken = getLocalConfig<typeof loginToken>('loginToken', undefined);
+
+      setBirthDate(getLocalConfig<string | undefined>('birthDate', undefined));
     }
   }, []);
 
@@ -1092,11 +1099,7 @@ const MemoriWidget = ({
     dialogState: DialogState;
     sessionID: string;
   } | void> => {
-    let storageBirthDate = getLocalConfig<string | undefined>(
-      'birthDate',
-      undefined
-    );
-    if (!(birthDate || storageBirthDate) && !!minAge) {
+    if (!birthDate && !!minAge) {
       setShowAgeVerification(true);
       return;
     }
@@ -1190,11 +1193,7 @@ const MemoriWidget = ({
   ) => {
     setLoading(true);
     try {
-      let storageBirthDate = getLocalConfig<string | undefined>(
-        'birthDate',
-        undefined
-      );
-      if (!(birthDate || storageBirthDate) && !!minAge) {
+      if (!birthDate && !!minAge) {
         setShowAgeVerification(true);
         return;
       }
@@ -1232,7 +1231,7 @@ const MemoriWidget = ({
           ...(initialContextVars || {}),
         },
         initialQuestion,
-        birthDate: birthDate || storageBirthDate || undefined,
+        birthDate: birthDate || undefined,
         additionalInfo: {
           ...(additionalInfo || {}),
           loginToken:
