@@ -53,7 +53,7 @@ marked.use({
   gfm: true,
   pedantic: true,
   renderer: {
-    link: ({ href, title, text }) => {
+    link: (href: string, title: string | null | undefined, text: string) => {
       const cleanHref = cleanUrl(href);
       if (cleanHref === null) {
         return text;
