@@ -1086,12 +1086,23 @@ const MemoriWidget = ({
       }
     });
   };
+
+
+  /**
+   * Opening Session
+   */
+  /**
+   * Fetches a new session with the given parameters
+   * @param params OpenSession parameters
+   * @returns Promise resolving to dialog state and session ID if successful, void otherwise
+   */
   const fetchSession = async (
     params: OpenSession
   ): Promise<{
     dialogState: DialogState;
     sessionID: string;
   } | void> => {
+    // Check if age verification is needed
     let storageBirthDate = getLocalConfig<string | undefined>(
       'birthDate',
       undefined
@@ -1101,6 +1112,7 @@ const MemoriWidget = ({
       return;
     }
 
+    // Check if authentication is needed for private Memori
     if (
       memori.privacyType !== 'PUBLIC' &&
       !memori.secretToken &&
@@ -1112,6 +1124,7 @@ const MemoriWidget = ({
     }
     setLoading(true);
     try {
+      // Check for and set giver invitation if available
       if (!memori.giverTag && !!memori.receivedInvitations?.length) {
         let giverInvitation = memori.receivedInvitations.find(
           (i: Invitation) => i.type === 'GIVER' && i.state === 'ACCEPTED'
@@ -1123,6 +1136,7 @@ const MemoriWidget = ({
         }
       }
 
+      // Get referral URL
       let referral;
       try {
         referral = (() => {
@@ -1132,6 +1146,7 @@ const MemoriWidget = ({
         console.debug(err);
       }
 
+      // Initialize session with parameters
       const session = await initSession({
         ...params,
         tag: params.tag ?? personification?.tag,
@@ -1145,6 +1160,8 @@ const MemoriWidget = ({
           timeZoneOffset: new Date().getTimezoneOffset().toString(),
         },
       });
+
+      // Handle successful session creation
       if (
         session?.sessionID &&
         session?.currentState &&
@@ -1159,25 +1176,45 @@ const MemoriWidget = ({
           dialogState: session.currentState,
           sessionID: session.sessionID,
         } as { dialogState: DialogState; sessionID: string };
-      } else if (
+      } 
+      // Handle age restriction error
+      else if (
         session?.resultMessage.startsWith('This Memori is aged restricted')
       ) {
         console.warn(session);
         toast.error(t('underageTwinSession', { age: minAge }));
         setGotErrorInOpening(true);
-      } else if (session?.resultCode === 403) {
+      }
+      // Handle authentication error 
+      else if (session?.resultCode === 403) {
         setMemoriPwd(undefined);
         setAuthModalState('password');
-      } else {
+      }
+      // Handle other errors
+      else {
         console.warn(session);
         toast.error(t(getErrori18nKey(session?.resultCode)));
         setGotErrorInOpening(true);
       }
     } catch (err) {
       console.error(err);
-      new Error('Error fetching session');
+      toast.error(t('errorFetchingSession'));
+      throw new Error('Error fetching session');
     }
   };
+
+  /**
+   * Reopens an existing session with optional parameters
+   * @param updateDialogState Whether to update dialog state
+   * @param password Optional password for authentication
+   * @param recoveryTokens Optional recovery tokens
+   * @param tag Optional tag
+   * @param pin Optional PIN
+   * @param initialContextVars Optional initial context variables
+   * @param initialQuestion Optional initial question
+   * @param birthDate Optional birth date for age verification
+   * @returns Promise resolving to dialog state and session ID if successful, null otherwise
+   */
   const reopenSession = async (
     updateDialogState: boolean = false,
     password?: string,
@@ -1190,6 +1227,7 @@ const MemoriWidget = ({
   ) => {
     setLoading(true);
     try {
+      // Check if age verification is needed
       let storageBirthDate = getLocalConfig<string | undefined>(
         'birthDate',
         undefined
@@ -1199,6 +1237,7 @@ const MemoriWidget = ({
         return;
       }
 
+      // Check if authentication is needed
       if (
         memori.privacyType !== 'PUBLIC' &&
         !password &&
@@ -1211,6 +1250,7 @@ const MemoriWidget = ({
         return;
       }
 
+      // Get referral URL
       let referral;
       try {
         referral = (() => {
@@ -1218,8 +1258,11 @@ const MemoriWidget = ({
         })();
       } catch (err) {
         console.debug(err);
+        toast.error(t('errorGettingReferralURL'));
+        throw new Error('Error getting referral URL');
       }
 
+      // Initialize session with parameters
       const { sessionID, currentState, ...response } = await initSession({
         memoriID: memori.engineMemoriID ?? '',
         password: password || memoriPwd || memori.secretToken,
@@ -1243,12 +1286,15 @@ const MemoriWidget = ({
         },
       });
 
+      // Handle successful session creation
       if (sessionID && currentState && response.resultCode === 0) {
         setSessionId(sessionID);
 
+        // Update dialog state if requested
         if (updateDialogState) {
           setCurrentDialogState(currentState);
           if (currentState.emission) {
+            // Set history based on current length
             history.length <= 1
               ? setHistory([
                   {
@@ -1285,6 +1331,7 @@ const MemoriWidget = ({
           }
         }
 
+        // Apply position and date if needed
         if (position) applyPosition(position, sessionID);
         if (memori.needsDateTime)
           sendDateChangedEvent({ sessionID: sessionID, state: currentState });
@@ -1294,28 +1341,37 @@ const MemoriWidget = ({
           dialogState: currentState,
           sessionID,
         };
-      } else if (
+      }
+      // Handle age restriction error
+      else if (
         response?.resultMessage.startsWith('This Memori is aged restricted')
       ) {
         console.error(response);
         toast.error(t('underageTwinSession', { age: minAge }));
         setGotErrorInOpening(true);
-      } else if (response?.resultCode === 403) {
+      }
+      // Handle authentication error
+      else if (response?.resultCode === 403) {
         setMemoriPwd(undefined);
         setAuthModalState('password');
-      } else {
+      }
+      // Handle other errors
+      else {
         console.error(response);
         toast.error(t(getErrori18nKey(response.resultCode)));
         setGotErrorInOpening(true);
       }
     } catch (err) {
       console.error(err);
+      toast.error(t('errorReopeningSession'));
+      throw new Error('Error reopening session');
     }
     setLoading(false);
 
     return null;
   };
 
+  
   const changeTag = async (
     memoriId: string,
     sessionId: string,
