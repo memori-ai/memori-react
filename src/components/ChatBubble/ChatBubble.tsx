@@ -55,6 +55,7 @@ marked.use({
   renderer: {
     link: ({ href, title, text }) => {
       const cleanHref = cleanUrl(href);
+
       if (cleanHref === null) {
         return text;
       }
