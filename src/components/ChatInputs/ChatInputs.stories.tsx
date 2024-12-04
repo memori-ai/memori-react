@@ -5,6 +5,7 @@ import I18nWrapper from '../../I18nWrapper';
 import { dialogState } from '../../mocks/data';
 
 import './ChatInputs.css';
+import UploadButton from '../UploadButton/UploadButton';
 
 const meta: Meta = {
   title: 'Widget/Chat inputs (footer)',
@@ -225,6 +226,11 @@ ContinuousSpeechListening.args = {
   stopListening: () => {},
   showMicrophone: true,
   microphoneMode: 'CONTINUOUS',
+};
+
+export const WithUploadButton = Template.bind({});
+WithUploadButton.args = {
+  showUpload: true,
 };
 
 export const WithoutMicrophone = Template.bind({});

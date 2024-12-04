@@ -10,7 +10,6 @@ it('renders ChatInputs unchanged', () => {
       userMessage=""
       onChangeUserMessage={jest.fn()}
       sendMessage={jest.fn()}
-      onTextareaPressEnter={jest.fn()}
       onTextareaFocus={jest.fn()}
       onTextareaBlur={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
@@ -20,6 +19,7 @@ it('renders ChatInputs unchanged', () => {
       stopAudio={jest.fn()}
       startListening={jest.fn()}
       stopListening={jest.fn()}
+      resetTranscript={jest.fn()}
       showMicrophone={true}
     />
   );
@@ -33,7 +33,6 @@ it('renders ChatInputs with user message unchanged', () => {
       onChangeUserMessage={jest.fn()}
       dialogState={dialogState}
       sendMessage={jest.fn()}
-      onTextareaPressEnter={jest.fn()}
       onTextareaFocus={jest.fn()}
       onTextareaBlur={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
@@ -43,6 +42,7 @@ it('renders ChatInputs with user message unchanged', () => {
       stopAudio={jest.fn()}
       startListening={jest.fn()}
       stopListening={jest.fn()}
+      resetTranscript={jest.fn()}
       showMicrophone={true}
     />
   );
@@ -59,7 +59,6 @@ it('renders ChatInputs on instruct unchanged', () => {
         acceptsMedia: true,
       }}
       sendMessage={jest.fn()}
-      onTextareaPressEnter={jest.fn()}
       onTextareaFocus={jest.fn()}
       onTextareaBlur={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
@@ -70,6 +69,7 @@ it('renders ChatInputs on instruct unchanged', () => {
       stopAudio={jest.fn()}
       startListening={jest.fn()}
       stopListening={jest.fn()}
+      resetTranscript={jest.fn()}
       showMicrophone={true}
     />
   );
@@ -83,7 +83,6 @@ it('renders ChatInputs listening unchanged', () => {
       onChangeUserMessage={jest.fn()}
       dialogState={dialogState}
       sendMessage={jest.fn()}
-      onTextareaPressEnter={jest.fn()}
       onTextareaFocus={jest.fn()}
       onTextareaBlur={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
@@ -93,6 +92,7 @@ it('renders ChatInputs listening unchanged', () => {
       stopAudio={jest.fn()}
       startListening={jest.fn()}
       stopListening={jest.fn()}
+      resetTranscript={jest.fn()}
       showMicrophone={true}
     />
   );
@@ -106,7 +106,6 @@ it('renders ChatInputs without microphone button unchanged', () => {
       onChangeUserMessage={jest.fn()}
       dialogState={dialogState}
       sendMessage={jest.fn()}
-      onTextareaPressEnter={jest.fn()}
       onTextareaFocus={jest.fn()}
       onTextareaBlur={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
@@ -116,6 +115,7 @@ it('renders ChatInputs without microphone button unchanged', () => {
       stopAudio={jest.fn()}
       startListening={jest.fn()}
       stopListening={jest.fn()}
+      resetTranscript={jest.fn()}
       showMicrophone={false}
     />
   );
@@ -132,7 +132,6 @@ it('renders ChatInputs disabled unchanged', () => {
         state: 'X3',
       }}
       sendMessage={jest.fn()}
-      onTextareaPressEnter={jest.fn()}
       onTextareaFocus={jest.fn()}
       onTextareaBlur={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
@@ -142,6 +141,7 @@ it('renders ChatInputs disabled unchanged', () => {
       stopAudio={jest.fn()}
       startListening={jest.fn()}
       stopListening={jest.fn()}
+      resetTranscript={jest.fn()}
       showMicrophone={true}
     />
   );
