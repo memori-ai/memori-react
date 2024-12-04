@@ -103,7 +103,8 @@
     "env": {
       "browser": true,
       "es2021": true,
-      "jest": true
+      "jest": true,
+      "node": true
     },
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -296,6 +297,7 @@
     "@react-three/drei": "8.20.2",
     "@react-three/fiber": "7.0.25",
     "classnames": "2.5.1",
+    "convertapi-js": "^1.0.8",
     "dompurify": "^3.2.1",
     "ellipsed": "1.6.0",
     "i18next": "22.0.6",
