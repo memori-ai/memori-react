@@ -140,6 +140,33 @@ GiovannaProva.args = {
   initialQuestion: 'inizio simulazione',
 };
 
+export const CreaRiassunti = Template.bind({});
+CreaRiassunti.args = {
+  memoriName: 'Crea Riassunti',
+  ownerUserName: 'patini929',
+  memoriID: '514dd043-ec26-4c57-a014-a512c9014822',
+  ownerUserID: '1941d326-6986-4fa1-872b-458d09fb654c',
+  tenantID: 'www.aisuru.com',
+  engineURL: 'https://engine.memori.ai',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://www.aisuru.com',
+  uiLang: 'IT',
+  spokenLang: 'FR',
+  layout: 'CHAT',
+  showUpload: true,
+  showInstruct: false,
+  showSettings: true,
+  showClear: false,
+  showAIicon: true,
+  showWhyThisAnswer: true,
+  showTypingText: false,
+  showOnlyLastMessages: false,
+  showTranslationOriginal: false,
+  showCopyButton: false,
+  showShare: true,
+  showLogin: false,
+};
+
 export const NunzioFiore = Template.bind({});
 NunzioFiore.args = {
   ownerUserName: 'nunzio.fiore',
