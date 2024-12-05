@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
 import ConvertApi from 'convertapi-js';
 import UploadIcon from '../icons/Upload';
@@ -7,12 +7,10 @@ import Spin from '../ui/Spin';
 /**
  * UploadButton component
  * @param {Function} setPreviewFiles - Callback function to handle the uploaded text
- * @param {string} convertapiToken - ConvertAPI token
  * @returns {JSX.Element}
  */
 const FileUploadButton = ({
   setPreviewFiles,
-  convertapiToken,
 }: {
   setPreviewFiles: (
     previewFiles: { name: string; id: string; content: string }[]
@@ -22,6 +20,16 @@ const FileUploadButton = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const [convertapiToken, setConvertapiToken] = useState<string>();
+  useEffect(() => {
+    fetch('https://www.aisuru.com/api/convertapi-token')
+      .then((r) => r.json())
+      .then((r) => {
+        console.log('r', r);
+        setConvertapiToken(r.Tokens?.[0]?.Id);
+      });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const convertToTxt = async (file: File) => {
     if (!convertapiToken || !file) {
@@ -101,9 +109,7 @@ const FileUploadButton = ({
         onClick={() => fileInputRef.current?.click()}
         disabled={isLoading}
       >
-        {error ? (
-          <span className="memori--error-message">{error}</span>
-        ) : isLoading ? (
+        {isLoading ? (
           <Spin spinning className="memori--upload-icon" />
         ) : (
           <UploadIcon className="memori--upload-icon" />

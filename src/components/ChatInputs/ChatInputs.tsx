@@ -10,8 +10,6 @@ import Microphone from '../icons/Microphone';
 import UploadButton from '../UploadButton/UploadButton';
 import FilePreview from '../FilePreview/FilePreview';
 
-// API keys for file conversion service
-const CONVERTAPI_SECRETKEY = process.env.CONVERTAPI_SECRETKEY || '';
 
 export interface Props {
   /** Current dialog state */
@@ -185,7 +183,6 @@ const ChatInputs: React.FC<Props> = ({
           />
           <UploadButton
             setPreviewFiles={setPreviewFiles}
-            convertapiToken={CONVERTAPI_SECRETKEY}
           />
         </>
       )}
