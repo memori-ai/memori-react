@@ -361,6 +361,7 @@ MarkdownWithSquareBracketsAndTable.args = {
  <th colspan="4" style="text-align: center; padding: 8px;">Mag 2025</th>
  <th colspan="4" style="text-align: center; padding: 8px;">Giu 2025</th>
 </tr>
+</table>
 
 [Vuoi che continui con l'intera tabella mantenendo lo stesso formato della precedente ma con table-layout: fixed per garantire celle di uguale dimensione?]`,
   },
