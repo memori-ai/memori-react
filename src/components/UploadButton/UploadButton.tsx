@@ -15,19 +15,23 @@ const FileUploadButton = ({
   setPreviewFiles: (
     previewFiles: { name: string; id: string; content: string }[]
   ) => void;
-  convertapiToken: string;
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [convertapiToken, setConvertapiToken] = useState<string>();
+
+  const fetchConvertapiToken = async () => {
+    try {
+      const result = await fetch('https://www.aisuru.com/api/convertapi-token');
+      const response = await result.json();
+      setConvertapiToken(response.Tokens?.[0]?.Id);
+    } catch (error) {
+      console.error('Error fetching ConvertAPI token:', error);
+    }
+  };
   useEffect(() => {
-    fetch('https://www.aisuru.com/api/convertapi-token')
-      .then((r) => r.json())
-      .then((r) => {
-        console.log('r', r);
-        setConvertapiToken(r.Tokens?.[0]?.Id);
-      });
+    fetchConvertapiToken();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

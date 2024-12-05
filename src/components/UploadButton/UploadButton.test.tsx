@@ -4,7 +4,7 @@ import UploadButton from './UploadButton';
 
 it('renders UploadButton unchanged', () => {
   const { container } = render(
-    <UploadButton setPreviewFiles={jest.fn()} convertapiToken={''} />
+    <UploadButton setPreviewFiles={jest.fn()} />
   );
   expect(container).toMatchSnapshot();
 });
