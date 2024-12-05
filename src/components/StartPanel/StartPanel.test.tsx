@@ -22,6 +22,26 @@ it('renders StartPanel unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders StartPanel with existing sessionunchanged', () => {
+  const { container } = render(
+    <StartPanel
+      memori={memori}
+      tenant={tenant}
+      language="it"
+      userLang="en"
+      hasInitialSession
+      setUserLang={() => {}}
+      openPositionDrawer={() => {}}
+      instruct={false}
+      sessionId={sessionID}
+      clickedStart={false}
+      onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
 it('renders StartPanel with completions enabled unchanged', () => {
   const { container } = render(
     <StartPanel

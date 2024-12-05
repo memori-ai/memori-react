@@ -5,6 +5,7 @@ import I18nWrapper from '../../I18nWrapper';
 import MemoriWidget, { Props } from './MemoriWidget';
 
 import './MemoriWidget.css';
+import { VisemeProvider } from '../../context/visemeContext';
 
 const meta: Meta = {
   title: 'Widget/Default',
@@ -36,7 +37,9 @@ export default meta;
 
 const Template: Story<Props> = args => (
   <I18nWrapper>
-    <MemoriWidget {...args} />
+    <VisemeProvider>
+      <MemoriWidget {...args} />
+    </VisemeProvider>
   </I18nWrapper>
 );
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test

@@ -111,6 +111,7 @@
     "pageTryMeExplanation": "To talk to me click on the START button to get started",
     "instructButton": "INSTRUCT ME",
     "tryMeButton": "START",
+    "resumeButton": "RESUME",
     "chatHistory": "Chat history",
     "exportChatHistory": "Export chat history",
     "exportChatHistoryMessage": "Do you want to export chat history?",

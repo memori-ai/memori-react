@@ -79,7 +79,11 @@ import {
   stripOutputTags,
   stripHTML,
 } from '../../helpers/utils';
-import { anonTag, uiLanguages } from '../../helpers/constants';
+import {
+  allowedMediaTypes,
+  anonTag,
+  uiLanguages,
+} from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
 import { getCredits } from '../../helpers/credits';
 import HiddenChatLayout from '../layouts/HiddenChat';
@@ -456,6 +460,7 @@ const MemoriWidget = ({
     postTagChangedEvent,
     getSession,
     getExpertReferences,
+    getSessionChatLogs,
   } = client;
 
   const [instruct, setInstruct] = useState(false);
@@ -1087,7 +1092,6 @@ const MemoriWidget = ({
     });
   };
 
-
   /**
    * Opening Session
    */
@@ -1176,7 +1180,7 @@ const MemoriWidget = ({
           dialogState: session.currentState,
           sessionID: session.sessionID,
         } as { dialogState: DialogState; sessionID: string };
-      } 
+      }
       // Handle age restriction error
       else if (
         session?.resultMessage.startsWith('This Memori is aged restricted')
@@ -1185,7 +1189,7 @@ const MemoriWidget = ({
         toast.error(t('underageTwinSession', { age: minAge }));
         setGotErrorInOpening(true);
       }
-      // Handle authentication error 
+      // Handle authentication error
       else if (session?.resultCode === 403) {
         setMemoriPwd(undefined);
         setAuthModalState('password');
@@ -1371,7 +1375,6 @@ const MemoriWidget = ({
     return null;
   };
 
-  
   const changeTag = async (
     memoriId: string,
     sessionId: string,
@@ -2914,7 +2917,9 @@ const MemoriWidget = ({
           // this is the default case with anonymous tag
           !instruct &&
           !personification &&
-          currentDialogState?.currentTag !== anonTag
+          currentDialogState?.currentTag &&
+          currentDialogState?.currentTag !== anonTag &&
+          currentDialogState?.currentTag !== '-'
         ) {
           try {
             console.debug('change tag #6');
@@ -2964,6 +2969,55 @@ const MemoriWidget = ({
             });
           }
         } else {
+          try {
+            const { chatLogs, ...resp } = await getSessionChatLogs(
+              sessionID,
+              sessionID
+            );
+
+            const messages = chatLogs?.[0]?.lines.map(
+              (l, i) =>
+                ({
+                  text: l.text,
+                  media: l.media
+                    ?.filter(m => allowedMediaTypes.includes(m.mimeType))
+                    ?.map(m => ({
+                      mediumID: `${i}-${m.mimeType}`,
+                      ...m,
+                    })),
+                  fromUser: l.inbound,
+                  timestamp: l.timestamp,
+                  emitter: l.emitter,
+                  initial: i === 0,
+                } as Message)
+            );
+
+            // we remove the last one as it is the current state
+            let translatedMessages = messages.slice(0, -1);
+            if (
+              language.toUpperCase() !== userLang.toUpperCase() &&
+              isMultilanguageEnabled
+            ) {
+              try {
+                translatedMessages = await Promise.all(
+                  messages.map(async m => ({
+                    ...m,
+                    originalText: m.text,
+                    text: (
+                      await getTranslation(m.text, userLang, language, baseUrl)
+                    ).text,
+                  }))
+                );
+              } catch (e) {
+                console.log('Error translating messages', e);
+              }
+            }
+
+            setHistory(translatedMessages);
+          } catch (e) {
+            console.log('Error retrieving chat logs', e);
+          }
+
           // no need to change tag
           translateDialogState(currentState, userLang)
             .then(ts => {
@@ -3188,6 +3242,7 @@ const MemoriWidget = ({
     onClickStart: onClickStart,
     initializeTTS: initializeTTS,
     isUserLoggedIn: !!loginToken && !!user?.userID,
+    hasInitialSession: !!initialSessionID,
     notEnoughCredits: needsCredits && !hasEnoughCredits,
     showLogin,
     setShowLoginDrawer,
@@ -3240,10 +3295,10 @@ const MemoriWidget = ({
     showMicrophone: !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
     userMessage,
     onChangeUserMessage,
-    sendMessage: (msg: string) => {
+    sendMessage: (msg: string, media?: Medium[]) => {
       stopAudio();
       stopListening();
-      sendMessage(msg);
+      sendMessage(msg, media);
       setUserMessage('');
       resetTranscript();
     },
