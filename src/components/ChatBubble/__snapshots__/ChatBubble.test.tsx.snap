@@ -3428,6 +3428,235 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
 </div>
 `;
 
+exports[`renders ChatBubble with complex markdown and math but disabled unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-container"
+  >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
+    <div
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+    >
+      <div
+        class="memori-chat--bubble-content"
+        dir="auto"
+      >
+        <p>
+          Per calcolare l'ipotenusa di un triangolo rettangolo, puoi usare il Teorema di Pitagora. Il teorema afferma che in un triangolo rettangolo, il quadrato dell'ipotenusa (la lato opposto all'angolo retto) è uguale alla somma dei quadrati degli altri due lati.
+        </p>
+        <br />
+        <p>
+          La formula è:
+        </p>
+        <br />
+        <p>
+          [ c = \\sqrt{a^2 + b^2} ]
+        </p>
+        <br />
+        <p>
+          Dove:
+          <br />
+          - $c$ è l'ipotenusa.
+          <br />
+          - $a$ e $ b $ sono i due cateti del triangolo.
+        </p>
+        <br />
+        <h3>
+          Passaggi per il Calcolo
+        </h3>
+        <br />
+        <ol>
+          <br />
+          <li>
+            <p>
+              <strong>
+                Misura o identifica i cateti $ a $ e $ b $
+              </strong>
+              :
+              <br />
+              I cateti sono i due lati che formano l'angolo retto.
+            </p>
+            <br />
+          </li>
+          <br />
+          <li>
+            <p>
+              <strong>
+                Calcola i quadrati dei cateti
+              </strong>
+              :
+              <br />
+              Eleva al quadrato entrambe le misure dei cateti: $ a^2 $ e $ b^2 $.
+            </p>
+            <br />
+          </li>
+          <br />
+          <li>
+            <p>
+              <strong>
+                Somma i quadrati dei cateti
+              </strong>
+              :
+              <br />
+              Somma i risultati ottenuti: $ a^2 + b^2 $.
+            </p>
+            <br />
+          </li>
+          <br />
+          <li>
+            <p>
+              <strong>
+                Calcola la radice quadrata della somma
+              </strong>
+              :
+              <br />
+              Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 + b^2} $.
+            </p>
+            <br />
+          </li>
+          <br />
+        </ol>
+        <br />
+        <h3>
+          Esempio di Calcolo
+        </h3>
+        <br />
+        <p>
+          Supponiamo di avere un triangolo rettangolo con i cateti di lunghezza 3 cm e 4 cm.
+        </p>
+        <br />
+        <ol>
+          <br />
+          <li>
+            <strong>
+              Cateto $ a $
+            </strong>
+            : 3 cm
+          </li>
+          <br />
+          <li>
+            <strong>
+              Cateto $ b $
+            </strong>
+            : 4 cm
+          </li>
+          <br />
+        </ol>
+        <br />
+        <p>
+          Usiamo la formula:
+        </p>
+        <br />
+        <p>
+          [ c = \\sqrt{a^2 + b^2} ]
+        </p>
+        <br />
+        <p>
+          [ c = \\sqrt{(3 , \\text{cm})^2 + (4 , \\text{cm})^2} ]
+        </p>
+        <br />
+        <p>
+          [ c = \\sqrt{9 , \\text{cm}^2 + 16 , \\text{cm}^2} ]
+        </p>
+        <br />
+        <p>
+          [ c = \\sqrt{25 , \\text{cm}^2} ]
+        </p>
+        <br />
+        <p>
+          [ c = 5 , \\text{cm} ]
+        </p>
+        <br />
+        <p>
+          Quindi, l'ipotenusa del triangolo è di 5 cm.
+        </p>
+      </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renders ChatBubble with copy disabled unchanged 1`] = `
 <div>
   <div

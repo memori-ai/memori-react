@@ -69,6 +69,7 @@ export interface Props {
   userAvatar?: MemoriProps['userAvatar'];
   user?: User;
   experts?: ExpertReference[];
+  useMathFormatting?: boolean;
 }
 
 const Chat: React.FC<Props> = ({
@@ -115,6 +116,7 @@ const Chat: React.FC<Props> = ({
   user,
   userAvatar,
   experts,
+  useMathFormatting = false,
 }) => {
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -132,7 +134,7 @@ const Chat: React.FC<Props> = ({
 
   const onTextareaFocus = () => {
     stopListening();
-    const hasTouch = hasTouchscreen();  
+    const hasTouch = hasTouchscreen();
 
     if (hasTouch) setEnableFocusChatInput(true);
     // if the user is on mobile and had not recorded audio, add the chat-focused class to the chat wrapper
@@ -229,6 +231,7 @@ const Chat: React.FC<Props> = ({
                 userAvatar={userAvatar}
                 experts={experts}
                 showCopyButton={showCopyButton}
+                useMathFormatting={useMathFormatting}
               />
               {showDates && !!message.timestamp && (
                 <small

@@ -393,6 +393,7 @@ export interface Props {
   customMediaRenderer?: ChatProps['customMediaRenderer'];
   additionalSettings?: JSX.Element | null;
   userAvatar?: string | JSX.Element;
+  useMathFormatting?: boolean;
 }
 
 const MemoriWidget = ({
@@ -441,6 +442,7 @@ const MemoriWidget = ({
   additionalSettings,
   customMediaRenderer,
   userAvatar,
+  useMathFormatting = false,
 }: Props) => {
   const { t, i18n } = useTranslation();
 
@@ -512,6 +514,11 @@ const MemoriWidget = ({
       i18n.language ??
       'IT'
   );
+
+  const applyMathFormatting =
+    useMathFormatting !== undefined
+      ? useMathFormatting
+      : !!integrationConfig?.useMathFormatting;
 
   /**
    * Sets the language in the i18n instance
@@ -3313,6 +3320,7 @@ const MemoriWidget = ({
     user,
     userAvatar,
     experts,
+    useMathFormatting: applyMathFormatting,
   };
 
   const integrationBackground =
