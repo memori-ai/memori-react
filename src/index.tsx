@@ -65,6 +65,7 @@ export interface Props {
   customMediaRenderer?: WidgetProps['customMediaRenderer'];
   additionalSettings?: WidgetProps['additionalSettings'];
   userAvatar?: WidgetProps['userAvatar'];
+  useMathFormatting?: boolean;
 }
 
 const getPreferredLanguages = () => {
@@ -128,6 +129,7 @@ const Memori: React.FC<Props> = ({
   customMediaRenderer,
   additionalSettings,
   userAvatar,
+  useMathFormatting = false,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
   const [tenant, setTenant] = useState<Tenant>();
@@ -287,6 +289,7 @@ const Memori: React.FC<Props> = ({
             customMediaRenderer={customMediaRenderer}
             additionalSettings={additionalSettings}
             userAvatar={userAvatar}
+            useMathFormatting={useMathFormatting}
             {...(tag && pin ? { personification: { tag, pin } } : {})}
           />
         ) : (
@@ -376,6 +379,7 @@ Memori.propTypes = {
   customMediaRenderer: PropTypes.func,
   additionalSettings: PropTypes.any,
   userAvatar: PropTypes.oneOfType([PropTypes.string, PropTypes.any]),
+  useMathFormatting: PropTypes.bool,
 };
 
 export default Memori;

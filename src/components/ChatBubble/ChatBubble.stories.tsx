@@ -341,11 +341,37 @@ MarkdownWithSquareBrackets.args = {
   },
 };
 
+export const MarkdownWithSquareBracketsAndTable = Template.bind({});
+MarkdownWithSquareBracketsAndTable.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: `<table border="1" style="border-collapse: collapse; width: 100%; table-layout: fixed; font-family: Arial, sans-serif;">
+<tr style="background-color: #f0f0f0;">
+ <th style="text-align: left; padding: 8px; width: 200px;">Attività</th>
+ <th colspan="4" style="text-align: center; padding: 8px;">Dic 2024</th>
+ <th colspan="4" style="text-align: center; padding: 8px;">Gen 2025</th>
+ <th colspan="4" style="text-align: center; padding: 8px;">Feb 2025</th>
+ <th colspan="4" style="text-align: center; padding: 8px;">Mar 2025</th>
+ <th colspan="4" style="text-align: center; padding: 8px;">Apr 2025</th>
+ <th colspan="4" style="text-align: center; padding: 8px;">Mag 2025</th>
+ <th colspan="4" style="text-align: center; padding: 8px;">Giu 2025</th>
+</tr>
+
+[Vuoi che continui con l'intera tabella mantenendo lo stesso formato della precedente ma con table-layout: fixed per garantire celle di uguale dimensione?]`,
+  },
+};
+
 export const ComplexMarkdownMath1 = Template.bind({});
 ComplexMarkdownMath1.args = {
   memori,
   apiUrl: 'https://backend.memori.ai',
   tenant,
+  useMathFormatting: true,
   message: {
     fromUser: false,
     initial: false,
@@ -359,6 +385,7 @@ ComplexMarkdownMath2.args = {
   memori,
   apiUrl: 'https://backend.memori.ai',
   tenant,
+  useMathFormatting: true,
   message: {
     fromUser: false,
     initial: false,
@@ -372,6 +399,7 @@ ComplexMarkdownMath3.args = {
   memori,
   apiUrl: 'https://backend.memori.ai',
   tenant,
+  useMathFormatting: true,
   message: {
     fromUser: false,
     initial: false,
@@ -385,6 +413,7 @@ ComplexMarkdownMath4.args = {
   memori,
   apiUrl: 'https://backend.memori.ai',
   tenant,
+  useMathFormatting: true,
   message: {
     fromUser: false,
     initial: false,
@@ -397,6 +426,7 @@ export const ComplexMarkdownMath5 = Template.bind({});
 ComplexMarkdownMath5.args = {
   memori,
   tenant,
+  useMathFormatting: true,
   apiUrl: 'https://backend.memori.ai',
   message: {
     fromUser: false,
@@ -410,6 +440,7 @@ export const ComplexMarkdownMath6 = Template.bind({});
 ComplexMarkdownMath6.args = {
   memori,
   tenant,
+  useMathFormatting: true,
   apiUrl: 'https://backend.memori.ai',
   message: {
     fromUser: false,
@@ -439,6 +470,7 @@ ComplexMarkdownMath7.args = {
   memori,
   tenant,
   apiUrl: 'https://backend.memori.ai',
+  useMathFormatting: true,
   message: {
     fromUser: false,
     initial: false,
