@@ -1,5 +1,12 @@
 
 
+## [7.11.3](https://github.com/memori-ai/memori-react/compare/v7.11.2...v7.11.3) (2024-12-06)
+
+
+### Bug Fixes
+
+* errors opening session ([ba33f73](https://github.com/memori-ai/memori-react/commit/ba33f73c5733f9417fd5b6e17b4e2d5ab950d701))
+
 ## [7.11.2](https://github.com/memori-ai/memori-react/compare/v7.11.1...v7.11.2) (2024-12-06)
 
 
