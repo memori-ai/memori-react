@@ -34,19 +34,7 @@ Anonymous.args = {
   baseURL: 'https://www.aisuru.com',
   uiLang: 'IT',
   spokenLang: 'IT',
-  layout: 'ZOOMED_FULL_BODY',
-  showInstruct: 'false',
-  showSettings: 'true',
-  showClear: 'false',
-  showAIicon: 'true',
-  showWhyThisAnswer: 'true',
-  showTypingText: 'false',
-  showOnlyLastMessages: 'false',
-  showTranslationOriginal: 'false',
-  showCopyButton: 'false',
-  showShare: 'true',
-  showLogin: 'false',
-  enableAudio: 'true',
+  enableAudio: true,
 };
 
 export const WithPreviousSession = Template.bind({});
@@ -60,19 +48,6 @@ WithPreviousSession.args = {
   sessionID: '1234567890',
   uiLang: 'IT',
   spokenLang: 'IT',
-  layout: 'ZOOMED_FULL_BODY',
-  showInstruct: 'false',
-  showSettings: 'true',
-  showClear: 'false',
-  showAIicon: 'true',
-  showWhyThisAnswer: 'true',
-  showTypingText: 'false',
-  showOnlyLastMessages: 'false',
-  showTranslationOriginal: 'false',
-  showCopyButton: 'false',
-  showShare: 'true',
-  showLogin: 'false',
-  enableAudio: 'true',
 };
 
 export const Nunzio = Template.bind({});
