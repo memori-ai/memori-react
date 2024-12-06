@@ -1,5 +1,12 @@
 
 
+## [7.11.2](https://github.com/memori-ai/memori-react/compare/v7.11.1...v7.11.2) (2024-12-06)
+
+
+### Changes
+
+* install mathjax only if useMathFormatting is enabled ([8648ed0](https://github.com/memori-ai/memori-react/commit/8648ed00627801b8904bc77bd41fc15448756bf1))
+
 ## [7.11.1](https://github.com/memori-ai/memori-react/compare/v7.11.0...v7.11.1) (2024-12-06)
 
 
