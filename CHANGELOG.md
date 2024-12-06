@@ -1,5 +1,13 @@
 
 
+## [7.11.1](https://github.com/memori-ai/memori-react/compare/v7.11.0...v7.11.1) (2024-12-06)
+
+
+### Bug Fixes
+
+* markdown formatting lists and newlines ([ff42a33](https://github.com/memori-ai/memori-react/commit/ff42a33df9b45c32e503859c49147bc2b9c8ea39))
+* resume session will create new session if expired ([a85ea67](https://github.com/memori-ai/memori-react/commit/a85ea6794a729c7a9fd01bf1c966e01abf877cd2))
+
 ## [7.11.0](https://github.com/memori-ai/memori-react/compare/v7.10.0...v7.11.0) (2024-12-05)
 
 
