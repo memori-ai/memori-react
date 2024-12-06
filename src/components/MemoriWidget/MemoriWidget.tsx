@@ -78,6 +78,7 @@ import {
   stripMarkdown,
   stripOutputTags,
   stripHTML,
+  installMathJax,
 } from '../../helpers/utils';
 import {
   allowedMediaTypes,
@@ -524,6 +525,9 @@ const MemoriWidget = ({
     useMathFormatting !== undefined
       ? useMathFormatting
       : !!integrationConfig?.useMathFormatting;
+  useEffect(() => {
+    if (applyMathFormatting) installMathJax();
+  }, [applyMathFormatting]);
 
   /**
    * Sets the language in the i18n instance

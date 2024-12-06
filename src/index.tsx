@@ -225,10 +225,6 @@ const Memori: React.FC<Props> = ({
     }
   }, [uiLang]);
 
-  useEffect(() => {
-    installMathJax();
-  }, []);
-
   return (
     <I18nWrapper>
       <VisemeProvider>

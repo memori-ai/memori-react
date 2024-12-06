@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { memori, tenant } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import ChatBubble, { Props } from './ChatBubble';
+import { installMathJax } from '../../helpers/utils';
 
 import './ChatBubble.css';
 
@@ -25,6 +26,11 @@ const meta: Meta = {
         type: 'boolean',
       },
     },
+    useMathFormatting: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
   parameters: {
     controls: { expanded: true },
@@ -33,11 +39,19 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => (
-  <I18nWrapper>
-    <ChatBubble {...args} />
-  </I18nWrapper>
-);
+const Template: Story<Props> = args => {
+  useEffect(() => {
+    // @ts-ignore
+    if (args.useMathFormatting && !window.MathJax) installMathJax();
+  }, [args.useMathFormatting]);
+
+  return (
+    <I18nWrapper>
+      <ChatBubble {...args} />
+    </I18nWrapper>
+  );
+};
+
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
 export const Default = Template.bind({});
