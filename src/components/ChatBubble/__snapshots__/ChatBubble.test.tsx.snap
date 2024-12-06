@@ -192,122 +192,128 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
         <br />
         <p>
           Dove:
-          <br />
-          - 
-          <span
-            class="katex"
-          >
-            <span
-              class="katex-mathml"
-            >
-              <math
-                xmlns="http://www.w3.org/1998/Math/MathML"
-              >
-                <mrow>
-                  <mi>
-                    c
-                  </mi>
-                </mrow>
-                c
-              </math>
-            </span>
-            <span
-              aria-hidden="true"
-              class="katex-html"
-            >
-              <span
-                class="base"
-              >
-                <span
-                  class="strut"
-                  style="height:0.4306em;"
-                />
-                <span
-                  class="mord mathnormal"
-                >
-                  c
-                </span>
-              </span>
-            </span>
-          </span>
-           è l'ipotenusa.
-          <br />
-          - 
-          <span
-            class="katex"
-          >
-            <span
-              class="katex-mathml"
-            >
-              <math
-                xmlns="http://www.w3.org/1998/Math/MathML"
-              >
-                <mrow>
-                  <mi>
-                    a
-                  </mi>
-                </mrow>
-                a
-              </math>
-            </span>
-            <span
-              aria-hidden="true"
-              class="katex-html"
-            >
-              <span
-                class="base"
-              >
-                <span
-                  class="strut"
-                  style="height:0.4306em;"
-                />
-                <span
-                  class="mord mathnormal"
-                >
-                  a
-                </span>
-              </span>
-            </span>
-          </span>
-           e 
-          <span
-            class="katex"
-          >
-            <span
-              class="katex-mathml"
-            >
-              <math
-                xmlns="http://www.w3.org/1998/Math/MathML"
-              >
-                <mrow>
-                  <mi>
-                    b
-                  </mi>
-                </mrow>
-                b
-              </math>
-            </span>
-            <span
-              aria-hidden="true"
-              class="katex-html"
-            >
-              <span
-                class="base"
-              >
-                <span
-                  class="strut"
-                  style="height:0.6944em;"
-                />
-                <span
-                  class="mord mathnormal"
-                >
-                  b
-                </span>
-              </span>
-            </span>
-          </span>
-           sono i due cateti del triangolo.
         </p>
+        <br />
+        <ul>
+          <br />
+          <li>
+            <span
+              class="katex"
+            >
+              <span
+                class="katex-mathml"
+              >
+                <math
+                  xmlns="http://www.w3.org/1998/Math/MathML"
+                >
+                  <mrow>
+                    <mi>
+                      c
+                    </mi>
+                  </mrow>
+                  c
+                </math>
+              </span>
+              <span
+                aria-hidden="true"
+                class="katex-html"
+              >
+                <span
+                  class="base"
+                >
+                  <span
+                    class="strut"
+                    style="height:0.4306em;"
+                  />
+                  <span
+                    class="mord mathnormal"
+                  >
+                    c
+                  </span>
+                </span>
+              </span>
+            </span>
+             è l'ipotenusa.
+          </li>
+          <br />
+          <li>
+            <span
+              class="katex"
+            >
+              <span
+                class="katex-mathml"
+              >
+                <math
+                  xmlns="http://www.w3.org/1998/Math/MathML"
+                >
+                  <mrow>
+                    <mi>
+                      a
+                    </mi>
+                  </mrow>
+                  a
+                </math>
+              </span>
+              <span
+                aria-hidden="true"
+                class="katex-html"
+              >
+                <span
+                  class="base"
+                >
+                  <span
+                    class="strut"
+                    style="height:0.4306em;"
+                  />
+                  <span
+                    class="mord mathnormal"
+                  >
+                    a
+                  </span>
+                </span>
+              </span>
+            </span>
+             e 
+            <span
+              class="katex"
+            >
+              <span
+                class="katex-mathml"
+              >
+                <math
+                  xmlns="http://www.w3.org/1998/Math/MathML"
+                >
+                  <mrow>
+                    <mi>
+                      b
+                    </mi>
+                  </mrow>
+                  b
+                </math>
+              </span>
+              <span
+                aria-hidden="true"
+                class="katex-html"
+              >
+                <span
+                  class="base"
+                >
+                  <span
+                    class="strut"
+                    style="height:0.6944em;"
+                  />
+                  <span
+                    class="mord mathnormal"
+                  >
+                    b
+                  </span>
+                </span>
+              </span>
+            </span>
+             sono i due cateti del triangolo.
+          </li>
+          <br />
+        </ul>
         <br />
         <h3>
           Passaggi per il Calcolo
@@ -1905,15 +1911,15 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
             </p>
             <br />
             <p>
-              \\[
+               \\[
               <br />
-              F_{\\text{urto}} = \\frac{M_{\\text{pl}}}{h^*}
+               F_{\\text{urto}} = \\frac{M_{\\text{pl}}}{h^*}
               <br />
-              \\]
+               \\]
             </p>
             <br />
             <p>
-              Dove:
+               Dove:
             </p>
             <br />
             <ul>
@@ -2661,11 +2667,11 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
             </p>
             <br />
             <p>
-              \\[
+               \\[
               <br />
-              M_{\\text{urto}} = F_{\\text{urto}} \\cdot h_B = M_{\\text{pl}} \\cdot \\left(1 + \\frac{h_R}{h^*}\\right)
+               M_{\\text{urto}} = F_{\\text{urto}} \\cdot h_B = M_{\\text{pl}} \\cdot \\left(1 + \\frac{h_R}{h^*}\\right)
               <br />
-              \\]
+               \\]
             </p>
             <br />
           </li>
@@ -2820,38 +2826,41 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
         <ol>
           <br />
           <li>
-            <p>
-              <strong>
-                Determinazione dei parametri dell'urto:
-              </strong>
-            </p>
-            <br />
-            <ul>
-              <br />
-              <li>
-                <strong>
-                  Massa del veicolo (m):
-                </strong>
-                 La massa del veicolo che colpisce la barriera.
-              </li>
-              <br />
-              <li>
-                <strong>
-                  Velocità dell'impatto (v):
-                </strong>
-                 La velocità del veicolo al momento dell'impatto.
-              </li>
-              <br />
-              <li>
-                <strong>
-                  Angolo di impatto (θ):
-                </strong>
-                 L'angolo con cui il veicolo colpisce la barriera.
-              </li>
-              <br />
-            </ul>
-            <br />
+            <strong>
+              Determinazione dei parametri dell'urto:
+            </strong>
           </li>
+          <br />
+        </ol>
+        <br />
+        <ul>
+          <br />
+          <li>
+            <strong>
+              Massa del veicolo (m):
+            </strong>
+             La massa del veicolo che colpisce la barriera.
+          </li>
+          <br />
+          <li>
+            <strong>
+              Velocità dell'impatto (v):
+            </strong>
+             La velocità del veicolo al momento dell'impatto.
+          </li>
+          <br />
+          <li>
+            <strong>
+              Angolo di impatto (θ):
+            </strong>
+             L'angolo con cui il veicolo colpisce la barriera.
+          </li>
+          <br />
+        </ul>
+        <br />
+        <ol
+          start="2"
+        >
           <br />
           <li>
             <p>
@@ -2859,15 +2868,15 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                 Calcolo dell'energia cinetica:
               </strong>
               <br />
-              L'energia cinetica del veicolo al momento dell'impatto è data dalla formula:
+               L'energia cinetica del veicolo al momento dell'impatto è data dalla formula:
               <br />
-              \\[
+               \\[
               <br />
-              E_k = \\frac{1}{2} m v^2
+               E_k = \\frac{1}{2} m v^2
               <br />
-              \\]
+               \\]
               <br />
-              dove 
+               dove 
               <span
                 class="katex"
               >
@@ -3050,7 +3059,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                 Calcolo della forza d'impatto:
               </strong>
               <br />
-              La forza d'impatto può essere calcolata considerando la decelerazione del veicolo e il tempo di contatto con la barriera. Una formula semplificata per la forza d'impatto 
+               La forza d'impatto può essere calcolata considerando la decelerazione del veicolo e il tempo di contatto con la barriera. Una formula semplificata per la forza d'impatto 
               <span
                 class="katex"
               >
@@ -3090,13 +3099,13 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
               </span>
                è:
               <br />
-              \\[
+               \\[
               <br />
-              F = \\frac{m \\Delta v}{\\Delta t}
+               F = \\frac{m \\Delta v}{\\Delta t}
               <br />
-              \\]
+               \\]
               <br />
-              dove 
+               dove 
               <span
                 class="katex"
               >
@@ -3202,7 +3211,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                 Considerazioni sulla barriera:
               </strong>
               <br />
-              Le barriere metalliche sono progettate per assorbire energia e ridurre la forza trasmessa ai veicoli e agli occupanti. La capacità di assorbimento dell'energia della barriera dipende dal materiale, dalla geometria e dalla costruzione della barriera stessa.
+               Le barriere metalliche sono progettate per assorbire energia e ridurre la forza trasmessa ai veicoli e agli occupanti. La capacità di assorbimento dell'energia della barriera dipende dal materiale, dalla geometria e dalla costruzione della barriera stessa.
             </p>
             <br />
           </li>
@@ -3213,7 +3222,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                 Normative e standard:
               </strong>
               <br />
-              È importante seguire le normative e gli standard specifici per la progettazione e il calcolo delle barriere di sicurezza. Questi possono variare a seconda del paese e dell'applicazione specifica (ad esempio, autostrade, ponti, ecc.).
+               È importante seguire le normative e gli standard specifici per la progettazione e il calcolo delle barriere di sicurezza. Questi possono variare a seconda del paese e dell'applicazione specifica (ad esempio, autostrade, ponti, ecc.).
             </p>
             <br />
           </li>
@@ -3333,11 +3342,19 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
         <br />
         <p>
           Dove:
-          <br />
-          - \\( c \\) è l'ipotenusa,
-          <br />
-          - \\( a \\) e \\( b \\) sono i due cateti del triangolo.
         </p>
+        <br />
+        <ul>
+          <br />
+          <li>
+            \\( c \\) è l'ipotenusa,
+          </li>
+          <br />
+          <li>
+            \\( a \\) e \\( b \\) sono i due cateti del triangolo.
+          </li>
+          <br />
+        </ul>
         <br />
         <p>
           Ad esempio, se hai un triangolo con i cateti di lunghezza 3 e 4, l'ipotenusa sarà:
@@ -3453,129 +3470,164 @@ exports[`renders ChatBubble with complex markdown and math but disabled unchange
         <p>
           Per calcolare l'ipotenusa di un triangolo rettangolo, puoi usare il Teorema di Pitagora. Il teorema afferma che in un triangolo rettangolo, il quadrato dell'ipotenusa (la lato opposto all'angolo retto) è uguale alla somma dei quadrati degli altri due lati.
         </p>
-        <br />
+        
+
         <p>
           La formula è:
         </p>
-        <br />
+        
+
         <p>
           [ c = \\sqrt{a^2 + b^2} ]
         </p>
-        <br />
+        
+
         <p>
           Dove:
-          <br />
-          - $c$ è l'ipotenusa.
-          <br />
-          - $a$ e $ b $ sono i due cateti del triangolo.
         </p>
-        <br />
+        
+
+        <ul>
+          
+
+          <li>
+            $c$ è l'ipotenusa.
+          </li>
+          
+
+          <li>
+            $a$ e $ b $ sono i due cateti del triangolo.
+          </li>
+          
+
+        </ul>
+        
+
         <h3>
           Passaggi per il Calcolo
         </h3>
-        <br />
+        
+
         <ol>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Misura o identifica i cateti $ a $ e $ b $
               </strong>
               :
-              <br />
-              I cateti sono i due lati che formano l'angolo retto.
+I cateti sono i due lati che formano l'angolo retto.
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Calcola i quadrati dei cateti
               </strong>
               :
-              <br />
-              Eleva al quadrato entrambe le misure dei cateti: $ a^2 $ e $ b^2 $.
+Eleva al quadrato entrambe le misure dei cateti: $ a^2 $ e $ b^2 $.
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Somma i quadrati dei cateti
               </strong>
               :
-              <br />
-              Somma i risultati ottenuti: $ a^2 + b^2 $.
+Somma i risultati ottenuti: $ a^2 + b^2 $.
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Calcola la radice quadrata della somma
               </strong>
               :
-              <br />
-              Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 + b^2} $.
+Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 + b^2} $.
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
         </ol>
-        <br />
+        
+
         <h3>
           Esempio di Calcolo
         </h3>
-        <br />
+        
+
         <p>
           Supponiamo di avere un triangolo rettangolo con i cateti di lunghezza 3 cm e 4 cm.
         </p>
-        <br />
+        
+
         <ol>
-          <br />
+          
+
           <li>
             <strong>
               Cateto $ a $
             </strong>
             : 3 cm
           </li>
-          <br />
+          
+
           <li>
             <strong>
               Cateto $ b $
             </strong>
             : 4 cm
           </li>
-          <br />
+          
+
         </ol>
-        <br />
+        
+
         <p>
           Usiamo la formula:
         </p>
-        <br />
+        
+
         <p>
           [ c = \\sqrt{a^2 + b^2} ]
         </p>
-        <br />
+        
+
         <p>
           [ c = \\sqrt{(3 , \\text{cm})^2 + (4 , \\text{cm})^2} ]
         </p>
-        <br />
+        
+
         <p>
           [ c = \\sqrt{9 , \\text{cm}^2 + 16 , \\text{cm}^2} ]
         </p>
-        <br />
+        
+
         <p>
           [ c = \\sqrt{25 , \\text{cm}^2} ]
         </p>
-        <br />
+        
+
         <p>
           [ c = 5 , \\text{cm} ]
         </p>
-        <br />
+        
+
         <p>
           Quindi, l'ipotenusa del triangolo è di 5 cm.
         </p>
@@ -3783,19 +3835,43 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
       >
         <p>
           Per l'avvio di una progettualità è necessario fornire le seguenti informazioni:
-          <br />
-          - Natura dell'esigenza progettuale e obiettivi
-          <br />
-          - Descrizione del progetto
-          <br />
-          - Prima identificazione delle risorse necessarie
-          <br />
-          - Costi stimati
-          <br />
-          - Benefici attesi
-          <br />
-          - Rischi identificati.
         </p>
+        
+
+        <ul>
+          
+
+          <li>
+            Natura dell'esigenza progettuale e obiettivi
+          </li>
+          
+
+          <li>
+            Descrizione del progetto
+          </li>
+          
+
+          <li>
+            Prima identificazione delle risorse necessarie
+          </li>
+          
+
+          <li>
+            Costi stimati
+          </li>
+          
+
+          <li>
+            Benefici attesi
+          </li>
+          
+
+          <li>
+            Rischi identificati.
+          </li>
+          
+
+        </ul>
       </div>
       <div
         class="memori-chat--bubble-addon"
@@ -3899,11 +3975,13 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </p>
-        <br />
+        
+
         <h1>
           titolo
         </h1>
-        <br />
+        
+
         <p>
           Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
         </p>
@@ -4010,11 +4088,11 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
         </p>
-        <br />
+        
+
         <div
           class="memori--responsive-table-wrapper"
         >
-          <br />
           <table
             class="memori--table memori--table--compact"
           >
@@ -4023,12 +4101,18 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
                 <th>
                   Header 1
                 </th>
+                
+
                 <th>
                   Header 2
                 </th>
+                
+
                 <th>
                   Header 3
                 </th>
+                
+
               </tr>
             </thead>
             <tbody>
@@ -4036,23 +4120,35 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
                 <td>
                   Cell 1
                 </td>
+                
+
                 <td>
                   Cell 2
                 </td>
+                
+
                 <td>
                   Cell 3
                 </td>
+                
+
               </tr>
               <tr>
                 <td>
                   Cell 4
                 </td>
+                
+
                 <td>
                   Cell 5
                 </td>
+                
+
                 <td>
                   Cell 6
                 </td>
+                
+
               </tr>
             </tbody>
           </table>
@@ -4163,13 +4259,16 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
         <h2>
           Test
         </h2>
-        <br />
+        
+
         <p>
           Ecco tutte le possibili personalizzazioni che puoi applicare:
         </p>
-        <br />
+        
+
         <ul>
-          <br />
+          
+
           <li>
             <p>
               <strong>
@@ -4177,21 +4276,29 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
               </strong>
               :
             </p>
-            <br />
-            <ul>
-              <br />
-              <li>
-                Girocollo
-              </li>
-              <br />
-              <li>
-                Scollo a V
-              </li>
-              <br />
-            </ul>
-            <br />
+            
+
           </li>
-          <br />
+          
+
+          <li>
+            <p>
+              Girocollo
+            </p>
+            
+
+          </li>
+          
+
+          <li>
+            <p>
+              Scollo a V
+            </p>
+            
+
+          </li>
+          
+
           <li>
             <p>
               <strong>
@@ -4199,21 +4306,29 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
               </strong>
               :
             </p>
-            <br />
-            <ul>
-              <br />
-              <li>
-                Manica Lunga
-              </li>
-              <br />
-              <li>
-                Manica Corta
-              </li>
-              <br />
-            </ul>
-            <br />
+            
+
           </li>
-          <br />
+          
+
+          <li>
+            <p>
+              Manica Lunga
+            </p>
+            
+
+          </li>
+          
+
+          <li>
+            <p>
+              Manica Corta
+            </p>
+            
+
+          </li>
+          
+
           <li>
             <p>
               <strong>
@@ -4221,41 +4336,74 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
               </strong>
               :
             </p>
-            <br />
-            <ul>
-              <br />
-              <li>
-                XS
-              </li>
-              <br />
-              <li>
-                S
-              </li>
-              <br />
-              <li>
-                M
-              </li>
-              <br />
-              <li>
-                L
-              </li>
-              <br />
-              <li>
-                XL
-              </li>
-              <br />
-              <li>
-                XXL
-              </li>
-              <br />
-              <li>
-                3XL
-              </li>
-              <br />
-            </ul>
-            <br />
+            
+
           </li>
-          <br />
+          
+
+          <li>
+            <p>
+              XS
+            </p>
+            
+
+          </li>
+          
+
+          <li>
+            <p>
+              S
+            </p>
+            
+
+          </li>
+          
+
+          <li>
+            <p>
+              M
+            </p>
+            
+
+          </li>
+          
+
+          <li>
+            <p>
+              L
+            </p>
+            
+
+          </li>
+          
+
+          <li>
+            <p>
+              XL
+            </p>
+            
+
+          </li>
+          
+
+          <li>
+            <p>
+              XXL
+            </p>
+            
+
+          </li>
+          
+
+          <li>
+            <p>
+              3XL
+            </p>
+            
+
+          </li>
+          
+
           <li>
             <p>
               <strong>
@@ -4263,29 +4411,47 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
               </strong>
               :
             </p>
-            <br />
-            <ul>
-              <br />
-              <li>
-                Fronte Petto
-              </li>
-              <br />
-              <li>
-                Retro Schiena
-              </li>
-              <br />
-              <li>
-                Fronte DX
-              </li>
-              <br />
-              <li>
-                Fronte SX
-              </li>
-              <br />
-            </ul>
-            <br />
+            
+
           </li>
-          <br />
+          
+
+          <li>
+            <p>
+              Fronte Petto
+            </p>
+            
+
+          </li>
+          
+
+          <li>
+            <p>
+              Retro Schiena
+            </p>
+            
+
+          </li>
+          
+
+          <li>
+            <p>
+              Fronte DX
+            </p>
+            
+
+          </li>
+          
+
+          <li>
+            <p>
+              Fronte SX
+            </p>
+            
+
+          </li>
+          
+
           <li>
             <p>
               <strong>
@@ -4293,23 +4459,28 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
               </strong>
               :
             </p>
-            <br />
-            <ul>
-              <br />
-              <li>
-                Prompt generazione immagine
-              </li>
-              <br />
-            </ul>
-            <br />
+            
+
           </li>
-          <br />
+          
+
+          <li>
+            <p>
+              Prompt generazione immagine
+            </p>
+            
+
+          </li>
+          
+
         </ul>
-        <br />
+        
+
         <p>
           Seleziona le personalizzazioni che desideri applicare.
         </p>
-        <br />
+        
+
         <p>
           <a
             href="https://memori.ai"

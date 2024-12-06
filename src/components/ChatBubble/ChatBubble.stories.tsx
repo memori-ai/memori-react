@@ -253,7 +253,35 @@ WithMarkdown.args = {
   tenant,
   message: {
     fromUser: false,
-    text: '## Test\n\nEcco tutte le possibili personalizzazioni che puoi applicare:\n\n- **Colletto**:\n - Girocollo\n - Scollo a V\n\n- **Manica**:\n - Manica Lunga\n - Manica Corta\n\n- **Taglia**:\n - XS\n - S\n - M\n - L\n - XL\n - XXL\n - 3XL\n\n- **Posizione Stampa**:\n - Fronte Petto\n - Retro Schiena\n - Fronte DX\n - Fronte SX\n\n- **Generazione Immagine**:\n - Prompt generazione immagine\n\nSeleziona le personalizzazioni che desideri applicare.\n\n[Vedi altro](https://memori.ai)',
+    text: `## Test
+
+Ecco tutte le possibili personalizzazioni che puoi applicare:
+
+- **Colletto**:
+  - Girocollo
+  - Scollo a V
+- **Manica**:
+  - Manica Lunga
+  - Manica Corta
+- **Taglia**:
+  - XS
+  - S\
+  - M
+  - L
+  - XL
+  - XXL
+  - 3XL
+- **Posizione Stampa**:
+  - Fronte Petto
+  - Retro Schiena
+  - Fronte DX
+  - Fronte SX
+- **Generazione Immagine**:
+  - Prompt generazione immagine
+
+Seleziona le personalizzazioni che desideri applicare.
+
+[Vedi altro](https://memori.ai)`,
     initial: false,
     generatedByAI: true,
   },
@@ -364,6 +392,36 @@ MarkdownWithSquareBracketsAndTable.args = {
 </table>
 
 [Vuoi che continui con l'intera tabella mantenendo lo stesso formato della precedente ma con table-layout: fixed per garantire celle di uguale dimensione?]`,
+  },
+};
+
+export const MarkdownWithLists = Template.bind({});
+MarkdownWithLists.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: `I buoni spesa sono acquistabili con il credito Fringe Benefit (pari a 1.000 € per l'anno 2024) e si distinguono in 3 tipologie:
+
+1. **Buoni Elettronici**:
+- Emessi digitalmente
+- Scaricabili/stampabili dalla piattaforma
+- Consegna in 3-4 giorni lavorativi
+
+2. **Buoni Fisici**:
+- Tessere fisiche inviate direttamente
+- Tempi di consegna più lunghi
+
+3. **Buoni Elettronici Locali**:
+- Emessi da fornitori della zona
+- Inviati in formato PDF
+
+**NOTA IMPORTANTE**: Non è possibile acquistare buoni Amazon sulla piattaforma TreCuori.
+
+Se hai bisogno di vedere quali buoni sono disponibili e dove spenderli, fammi sapere!`,
   },
 };
 

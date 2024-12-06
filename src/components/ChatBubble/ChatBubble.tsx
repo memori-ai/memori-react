@@ -33,7 +33,7 @@ import markedExtendedTables from '../../helpers/markedExtendedTables';
 marked.use({
   async: false,
   gfm: true,
-  pedantic: true,
+  pedantic: false,
   renderer: {
     link: ({ href, title, text }) => {
       const cleanHref = cleanUrl(href);
@@ -81,36 +81,33 @@ const parseSquaredBrackets = (text: string) => {
 
 const renderMsg = (text: string, useMathFormatting = false) => {
   try {
-    let parsedText = DOMPurify.sanitize(
-      (
-        marked.parse(
-          text
-            // remove leading and trailing whitespaces
-            .trim()
-            // remove markdown links
-            .replaceAll(
-              /\[([^\]]+)\]\(([^\)]+)\)/g,
-              '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-            )
-            // remove markdown multiline code blocks but keep the content
-            .replaceAll(/```markdown([^```]+)```/g, '$1')
-            .replaceAll('($', '( $')
-            .replaceAll(':$', ': $')
-            .replaceAll('\frac', '\\frac')
-            .replaceAll('\beta', '\\beta')
-            .replaceAll('cdot', '\\cdot')
-        ) as string
-      )
-        .trim()
-        .replace(/\n/g, '<br>'),
-      {
-        ADD_ATTR: ['target'],
-      }
-    );
+    let parsedText = (
+      marked.parse(
+        text
+          // remove leading and trailing whitespaces
+          .trim()
+          // remove markdown links
+          .replaceAll(
+            /\[([^\]]+)\]\(([^\)]+)\)/g,
+            '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+          )
+          // remove markdown multiline code blocks but keep the content
+          .replaceAll(/```markdown([^```]+)```/g, '$1')
+          .replaceAll('($', '( $')
+          .replaceAll(':$', ': $')
+          .replaceAll('\frac', '\\frac')
+          .replaceAll('\beta', '\\beta')
+          .replaceAll('cdot', '\\cdot')
+      ) as string
+    ).trim();
 
     if (useMathFormatting) {
-      parsedText = parseSquaredBrackets(parsedText);
+      parsedText = parseSquaredBrackets(parsedText.replace(/\n/g, '<br>'));
     }
+
+    parsedText = DOMPurify.sanitize(parsedText, {
+      ADD_ATTR: ['target'],
+    });
 
     return (
       parsedText
