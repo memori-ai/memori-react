@@ -2699,7 +2699,10 @@ const MemoriWidget = ({
   }, [sessionId, userLang, disableTextEnteredEvents]);
 
   const onClickStart = useCallback(
-    async (session?: { dialogState: DialogState; sessionID: string }) => {
+    async (
+      session?: { dialogState: DialogState; sessionID: string },
+      initialSessionExpired = false
+    ) => {
       const sessionID = session?.sessionID || sessionId;
       const dialogState = session?.dialogState || currentDialogState;
       setClickedStart(true);
@@ -2737,7 +2740,7 @@ const MemoriWidget = ({
         setAuthModalState('password');
         setClickedStart(false);
         return;
-      } else if (!sessionID) {
+      } else if (!sessionID || initialSessionExpired) {
         setClickedStart(false);
         setGotErrorInOpening(false);
         const session = await fetchSession({
@@ -2792,7 +2795,7 @@ const MemoriWidget = ({
           setGotErrorInOpening(true);
           setSessionId(undefined);
           setClickedStart(false);
-          await onClickStart();
+          await onClickStart(undefined, true);
           return;
         }
 
