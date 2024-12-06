@@ -482,7 +482,7 @@ const MemoriWidget = ({
           setUser(user);
           setLocalConfig('loginToken', loginToken);
 
-          if (user.birthDate) {
+          if (!birthDate && user.birthDate) {
             setBirthDate(user.birthDate);
             setLocalConfig('birthDate', user.birthDate);
           }
@@ -1124,7 +1124,12 @@ const MemoriWidget = ({
     dialogState: DialogState;
     sessionID: string;
   } | void> => {
-    if (!birthDate && !!minAge) {
+    let storageBirthDate = getLocalConfig<string | undefined>(
+      'birthDate',
+      undefined
+    );
+    let userBirthDate = birthDate ?? params.birthDate ?? storageBirthDate;
+    if (!userBirthDate && !!minAge) {
       setShowAgeVerification(true);
       return;
     }
@@ -1166,6 +1171,7 @@ const MemoriWidget = ({
       // Initialize session with parameters
       const session = await initSession({
         ...params,
+        birthDate: userBirthDate,
         tag: params.tag ?? personification?.tag,
         pin: params.pin ?? personification?.pin,
         additionalInfo: {
@@ -1215,8 +1221,6 @@ const MemoriWidget = ({
       }
     } catch (err) {
       console.error(err);
-      toast.error(t('errorFetchingSession'));
-      throw new Error('Error fetching session');
     }
   };
 
@@ -1243,8 +1247,15 @@ const MemoriWidget = ({
     birthDate?: string
   ) => {
     setLoading(true);
+
+    let storageBirthDate = getLocalConfig<string | undefined>(
+      'birthDate',
+      undefined
+    );
+    let userBirthDate = birthDate ?? storageBirthDate;
+
     try {
-      if (!birthDate && !!minAge) {
+      if (!userBirthDate && !!minAge) {
         setShowAgeVerification(true);
         return;
       }
@@ -1270,8 +1281,6 @@ const MemoriWidget = ({
         })();
       } catch (err) {
         console.debug(err);
-        toast.error(t('errorGettingReferralURL'));
-        throw new Error('Error getting referral URL');
       }
 
       // Initialize session with parameters
@@ -1287,7 +1296,7 @@ const MemoriWidget = ({
           ...(initialContextVars || {}),
         },
         initialQuestion,
-        birthDate: birthDate || undefined,
+        birthDate: userBirthDate,
         additionalInfo: {
           ...(additionalInfo || {}),
           loginToken:
@@ -1375,8 +1384,6 @@ const MemoriWidget = ({
       }
     } catch (err) {
       console.error(err);
-      toast.error(t('errorReopeningSession'));
-      throw new Error('Error reopening session');
     }
     setLoading(false);
 
