@@ -1,5 +1,12 @@
 
 
+## [7.11.4](https://github.com/memori-ai/memori-react/compare/v7.11.3...v7.11.4) (2024-12-10)
+
+
+### Bug Fixes
+
+* links color in user chat bubbles ([813e557](https://github.com/memori-ai/memori-react/commit/813e5574bb32467f52f397a9ff3da1bfeb5b6b4c))
+
 ## [7.11.3](https://github.com/memori-ai/memori-react/compare/v7.11.2...v7.11.3) (2024-12-06)
 
 
