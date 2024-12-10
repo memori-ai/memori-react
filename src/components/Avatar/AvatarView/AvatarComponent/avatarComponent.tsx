@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import AnimationControlPanel from './components/controls';
-import { FullbodyAvatar } from './components/FullbodyAvatar/fullbodyAvatar'
+import { FullbodyAvatar } from './components/FullbodyAvatar/fullbodyAvatar';
 import HalfBodyAvatar from './components/halfbodyAvatar';
 
 interface Props {
@@ -91,22 +91,32 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
 
   const [timeScale, setTimeScale] = useState(0.8);
 
+  const mappingEmotionsItalianToEnglish = {
+    Gioia: 'Joy',
+    Rabbia: 'Anger',
+    Sorpresa: 'Surprise',
+    Tristezza: 'Sadness',
+    Timore: 'Fear',
+  };
+
   // Set the morph target influences for the given emotions
-  const setEmotionMorphTargetInfluences = useCallback((action: string) => {
-    if (
-      action === 'Loading1' ||
+  const setEmotionMorphTargetInfluences = useCallback(
+    (action: string, outputContent: string) => {
+      if (
+        action === 'Loading1' ||
       action === 'Loading2' ||
       action === 'Loading3'
     ) {
       return;
     }
 
+    //list of emotions that will be used to set the morph targets
     const emotionMap: Record<string, Record<string, number>> = {
-      Gioia: { Gioria: 1 },
-      Rabbia: { Rabbia: 1 },
-      Sorpresa: { Sorpresa: 1 },
-      Tristezza: { Tristezza: 1 },
-      Timore: { Timore: 1 },
+      Joy: { Joy: 1 },
+      Anger: { Anger: 1 },
+      Surprise: { Surprise: 1 },
+      Sadness: { Sadness: 1 },
+      Fear: { Fear: 1 },
     };
 
     // Set all emotions to 0
@@ -115,11 +125,11 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       return acc;
     }, {} as Record<string, number>);
 
-    // Find the emotion that matches the action
-    const emotion =
-      Object.keys(emotionMap).find(key => action.startsWith(key)) || 'default';
+    // Find the emotion that matches the current animation name
+    const emotion = mappingEmotionsItalianToEnglish[
+      outputContent as keyof typeof mappingEmotionsItalianToEnglish
+    ];
 
-    // Set the emotion values
     const emotionValues =
       emotion === 'default' ? defaultEmotions : emotionMap[emotion];
 
@@ -129,10 +139,11 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
     }));
   }, []);
 
-  const onBaseActionChange = useCallback((action: string) => {
-    setEmotionMorphTargetInfluences(action);
-    setCurrentBaseAction({
-      action,
+  const onBaseActionChange = useCallback(
+    (action: string, outputContent: string) => {
+      setEmotionMorphTargetInfluences(action, outputContent);
+      setCurrentBaseAction({
+        action,
       weight: 1,
     });
   }, []);
@@ -177,13 +188,12 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       //Choose a random number between 1 and 3
       const randomNumber = Math.floor(Math.random() * 3) + 1;
       const emotion = `${outputContent}${randomNumber}`;
-
-      onBaseActionChange(emotion);
+      onBaseActionChange(emotion, outputContent);
     } else {
       //Set a random idle animation
       const randomNumber = Math.floor(Math.random() * 5) + 1;
       const animation = `Idle${randomNumber === 3 ? 4 : randomNumber}`;
-      onBaseActionChange(animation);
+      onBaseActionChange(animation, '');
     }
   }, [chatEmission]);
 
@@ -192,7 +202,7 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       //Choose a random number between 1 and 3
       const randomNumber = Math.floor(Math.random() * 3) + 1;
       const animation = `Loading${randomNumber}`;
-      onBaseActionChange(animation);
+      onBaseActionChange(animation, '');
     }
   }, [loading]);
 

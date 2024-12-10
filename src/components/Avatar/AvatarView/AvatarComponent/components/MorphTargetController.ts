@@ -69,11 +69,12 @@ export class MorphTargetController {
         // Apply final value
         targetValue = MathUtils.clamp(targetValue, 0, 1);
         if (this.headMesh.morphTargetInfluences) {
-          this.headMesh.morphTargetInfluences[index] = MathUtils.lerp(
+          const finalValue = MathUtils.lerp(
             this.headMesh.morphTargetInfluences[index] || 0,
             targetValue,
             VISEME_SMOOTHING
           );
+          this.headMesh.morphTargetInfluences[index] = finalValue;
         }
       }
     );

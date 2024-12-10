@@ -140,7 +140,7 @@ GiovannaProva.args = {
   uiLang: 'EN',
   spokenLang: 'IT',
   layout: 'ZOOMED_FULL_BODY',
-  integrationID: 'e92ac275-39b5-474d-8f9e-826cc5284f1e',
+  integrationID: '061898c0-2138-49da-a6b3-5d86267aad05',
   initialQuestion: 'inizio simulazione',
 };
 

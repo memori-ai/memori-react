@@ -13,7 +13,7 @@ interface AdditiveAction {
 
 export interface AnimationControlPanelProps {
   baseActions: Record<string, BaseAction>;
-  onBaseActionChange: (action: string) => void;
+  onBaseActionChange: (action: string, outputContent: string) => void;
   currentBaseAction: {
     action: string;
     weight: number;
@@ -54,7 +54,7 @@ const AnimationControlPanel: React.FC<AnimationControlPanelProps> = ({
     baseNames.forEach(name => {
       const settings = baseActions[name];
       panelSettingsRef.current[name] = () => {
-        onBaseActionChange(name);
+        onBaseActionChange(name, '');
       };
 
       const control = folder1.add(panelSettingsRef.current, name);
