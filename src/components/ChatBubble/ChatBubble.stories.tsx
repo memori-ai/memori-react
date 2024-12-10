@@ -80,6 +80,18 @@ FromUser.args = {
   },
 };
 
+export const FromUserWithLink = Template.bind({});
+FromUserWithLink.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: true,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor. [Vedi altro](https://memori.ai)',
+    initial: false,
+  },
+};
+
+
 export const Initial = Template.bind({});
 Initial.args = {
   memori,
