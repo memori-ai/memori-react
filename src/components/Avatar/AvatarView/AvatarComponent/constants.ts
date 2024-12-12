@@ -55,7 +55,7 @@ export const MAPPING_EMOTIONS_ITALIAN_TO_ENGLISH = {
 };
 
 // Mapping of blend shapes to emotions
-export const MAPPING_BLEND_SHAPE_TO_EMOTION = {
+export const MAPPING_BLEND_SHAPE_TO_EMOTION_RPM = {
   Rabbia: {
     'browDownLeft': 0.5,
     'browDownRight': 0.5,

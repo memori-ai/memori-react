@@ -5,8 +5,8 @@ import { FullbodyAvatar } from './components/FullbodyAvatar/fullbodyAvatar';
 import HalfBodyAvatar from './components/halfbodyAvatar';
 import {
   BASE_ACTIONS,
-  MAPPING_BLEND_SHAPE_TO_EMOTION,
   MAPPING_BLEND_SHAPE_TO_EMOTION_CUSTOM_GLB,
+  MAPPING_BLEND_SHAPE_TO_EMOTION_RPM,
 } from './constants';
 
 // Props interface for AvatarView component
@@ -76,33 +76,59 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
 
   // Handlers for different blend shape types
   const handleRPMBlendShape = useCallback((outputContent: string) => 
-    MAPPING_BLEND_SHAPE_TO_EMOTION[outputContent as keyof typeof MAPPING_BLEND_SHAPE_TO_EMOTION],
+    MAPPING_BLEND_SHAPE_TO_EMOTION_RPM[outputContent as keyof typeof MAPPING_BLEND_SHAPE_TO_EMOTION_RPM],
   []);
 
   const handleCustomGLBBlendShape = useCallback((outputContent: string) => 
     MAPPING_BLEND_SHAPE_TO_EMOTION_CUSTOM_GLB[outputContent as keyof typeof MAPPING_BLEND_SHAPE_TO_EMOTION_CUSTOM_GLB],
   []);
 
-  // Handler for setting emotion morph target influences
+  // Handler for setting emotion morph target influences, used for RPM and GLB blend shapes
   const setEmotionMorphTargetInfluences = useCallback((action: string, outputContent: string) => {
     if (action.startsWith('Loading')) return;
 
     const defaultEmotions = getDefaultEmotions();
 
+    // If output content is default, set default emotions
     if (outputContent === 'default') {
       setEmotionMorphTargets(defaultEmotions);
       return;
     }
 
+    // If RPM, convert blend shape to emotion
+    /*examples of RPM blend shapes are:
+    * browDownLeft
+    * browDownRight
+    * browUpLeft
+    * browUpRight
+    *
+    * being converted to:
+    * Anger
+    * Joy
+    * Surprise
+    * Sadness
+    * Fear
+    */ 
     if (isRPM) {
-      // console.log('[AvatarView RPM] Blend Shape', outputContent);
       const emotion = handleRPMBlendShape(outputContent);
-      // console.log('[AvatarView RPM] Emotion', emotion);
       setEmotionMorphTargets((_) => ({...defaultEmotions, ...emotion}));
     } else {
-      // console.log('[AvatarView] CustomGLB Blend Shape', outputContent);
+      // If GLB, convert italian emotions to english ones
+      /*examples of GLB blend shapes are:
+      * Rabbia
+      * Felicità
+      * Surpresa
+      * Tristezza
+      * Paura
+      * 
+      * being converted to:
+      * Anger
+      * Joy
+      * Surprise
+      * Sadness
+      * Fear
+      */
       const emotion = handleCustomGLBBlendShape(outputContent);
-      // console.log('[AvatarView] Emotion', emotion);
       const emotionValues = emotion === 'default' ? defaultEmotions : emotionMap[emotion];
       setEmotionMorphTargets((_) => ({...defaultEmotions, ...emotionValues}));
     }
@@ -110,34 +136,41 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
 
   // Callback handlers for various avatar state changes
   const onBaseActionChange = useCallback((action: string, outputContent: string) => {
-    console.log('[AvatarView] Base Action', action);
+
+    // Set emotion morph target influences
     setEmotionMorphTargetInfluences(action, outputContent);
+
+    // Set current base action
     setCurrentBaseAction({action, weight: 1});
   }, [setEmotionMorphTargetInfluences]);
 
   const onMorphTargetInfluencesChange = useCallback((influences: Record<string, number>) => {
-    // console.log('[AvatarView] Morph Target Influences', influences);
+    // Set morph target influences
     setMorphTargetInfluences(prev => ({...prev, ...influences}));
   }, []);
 
   const onMorphTargetDictionaryChange = useCallback((dictionary: Record<string, number>) => {
-    // console.log('[AvatarView] Morph Target Dictionary', dictionary);
+    // Set morph target dictionary
     setMorphTargetDictionary(dictionary);
   }, []);
 
   // Effect to handle animation changes based on loading state and chat emissions
   useEffect(() => {
+
+    // If loading, set a random loading animation
     if (loading) {
       const randomNumber = Math.floor(Math.random() * 3) + 1;
       onBaseActionChange(`Loading${randomNumber}`, '');
       return;
     }
 
+    // If there's chat emission, set the corresponding emotion animation
     const hasOutputTag = chatEmission?.includes('<output class="memori-emotion">');
     const outputContent = hasOutputTag
       ? chatEmission?.split('<output class="memori-emotion">')[1]?.split('</output>')[0]?.trim()
       : null;
 
+    // If there's an emotion, set the corresponding animation
     if (outputContent) {
       const randomNumber = Math.floor(Math.random() * 3) + 1;
       onBaseActionChange(`${outputContent}${randomNumber}`, outputContent);
