@@ -1,5 +1,5 @@
 .memori-widget.memori-layout-totem {
-    height: 95vh !important;
+    height: 90vh !important;
 }
 
 .memori-widget.memori-layout-totem .memori--global-background.no-background-image {
@@ -145,11 +145,11 @@
 }
 
 @media (max-width: 480px) {
-    .memori-totem-layou .memori-send-on-enter-menu {
+    .memori-totem-layout .memori-send-on-enter-menu {
         display: none;
     }
 
-    .memori-totem-layou .memori-header--button-settings {
+    .memori-totem-layout .memori-header--button-settings {
         display: none;
     }
 }
