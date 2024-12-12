@@ -9,7 +9,7 @@ import {
   AVATAR_POSITION,
   SCALE_LERP_FACTOR,
   AVATAR_POSITION_ZOOMED,
-} from './constants';
+} from '../constants';
 import { hideHands } from '../../utils/utils';
 import useHeadMovement from '../../utils/useHeadMovement';
 

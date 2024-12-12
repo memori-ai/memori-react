@@ -1,6 +1,6 @@
 import { AnimationState, AnimationConfig } from './types';
 import { AnimationAction, AnimationMixer, LoopOnce } from 'three';
-import { DEFAULT_CONFIG, MAX_IDLE_LOOPS_DEFAULT } from '../constants';
+import { DEFAULT_CONFIG, MAX_IDLE_LOOPS_DEFAULT } from '../../constants';
 
 /**
  * Controller class for managing avatar animations and transitions between states
