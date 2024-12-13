@@ -95,39 +95,20 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       return;
     }
 
-    // If RPM, convert blend shape to emotion
-    /*examples of RPM blend shapes are:
-    * browDownLeft
-    * browDownRight
-    * browUpLeft
-    * browUpRight
-    *
-    * being converted to:
-    * Anger
-    * Joy
-    * Surprise
-    * Sadness
-    * Fear
+    // If RPM, convert emotion to blend shape
+    /*from the chat output, we get the emotion and we convert it to the blend shapes
+    * we map the emotion to the blend shape, example:
+    * Anger -> {browDownLeft: 1, browDownRight: 0}
+    * Joy -> {browUpLeft: 1, browUpRight: 0}
+    * Surprise -> {browUpLeft: 1, browUpRight: 0}
+    * Sadness -> {browDownLeft: 1, browDownRight: 0}
+    * Fear -> {browDownLeft: 1, browDownRight: 0}
     */ 
     if (isRPM) {
       const emotion = handleRPMBlendShape(outputContent);
       setEmotionMorphTargets((_) => ({...defaultEmotions, ...emotion}));
     } else {
       // If GLB, convert italian emotions to english ones
-      /*examples of GLB blend shapes are:
-      * Rabbia
-      * Felicità
-      * Surpresa
-      * Tristezza
-      * Paura
-      * 
-      * being converted to:
-      * Anger
-      * Joy
-      * Surprise
-      * Sadness
-      * Fear
-      */
       const emotion = handleCustomGLBBlendShape(outputContent);
       const emotionValues = emotion === 'default' ? defaultEmotions : emotionMap[emotion];
       setEmotionMorphTargets((_) => ({...defaultEmotions, ...emotionValues}));
