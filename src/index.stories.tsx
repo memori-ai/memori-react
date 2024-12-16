@@ -144,6 +144,24 @@ GiovannaProva.args = {
   initialQuestion: 'inizio simulazione',
 };
 
+export const GiovannaProvaWithPreviousSession = Template.bind({});
+GiovannaProvaWithPreviousSession.args = {
+  memoriName: 'Giovanna Test',
+  ownerUserName: 'andrea.patini3',
+  memoriID: '431d9819-c958-442c-a799-f90617371c0c',
+  ownerUserID: '58770358-a5db-4b49-b3a4-734fc468e745',
+  tenantID: 'aisuru-staging.aclambda.online',
+  engineURL: 'https://engine-staging.memori.ai',
+  apiURL: 'https://backend-staging.memori.ai',
+  baseURL: 'https://aisuru-staging.aclambda.online',
+  uiLang: 'EN',
+  spokenLang: 'IT',
+  layout: 'ZOOMED_FULL_BODY',
+  integrationID: 'e92ac275-39b5-474d-8f9e-826cc5284f1e',
+  initialQuestion: 'inizio simulazione',
+  sessionID: 'c1d13cec-1571-41a0-90bc-15bd2d62e263',
+};
+
 export const NunzioFiore = Template.bind({});
 NunzioFiore.args = {
   ownerUserName: 'nunzio.fiore',
