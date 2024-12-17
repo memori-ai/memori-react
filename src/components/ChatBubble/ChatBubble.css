@@ -94,6 +94,10 @@
     text-decoration: underline !important;
 }
 
+.memori-chat--bubble.memori-chat--user-bubble a {
+    color: var(--memori-primary-text);
+}
+
 @media (max-width: 600px) {
     .memori-chat--bubble p {
         font-size: 12px;
