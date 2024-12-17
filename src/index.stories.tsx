@@ -127,8 +127,8 @@ Giovanna.args = {
   layout: 'ZOOMED_FULL_BODY',
 };
 
-export const GiovannaProva = Template.bind({});
-GiovannaProva.args = {
+export const GiovannaRPMProva = Template.bind({});
+GiovannaRPMProva.args = {
   memoriName: 'Giovanna Test',
   ownerUserName: 'andrea.patini3',
   memoriID: '431d9819-c958-442c-a799-f90617371c0c',
@@ -140,8 +140,15 @@ GiovannaProva.args = {
   uiLang: 'EN',
   spokenLang: 'IT',
   layout: 'ZOOMED_FULL_BODY',
-  integrationID: 'e92ac275-39b5-474d-8f9e-826cc5284f1e',
+  integrationID: '061898c0-2138-49da-a6b3-5d86267aad05',
   initialQuestion: 'inizio simulazione',
+};
+
+export const GiovannaGLBProva = Template.bind({});
+GiovannaGLBProva.args = {
+  ...GiovannaRPMProva.args,
+  integrationID: 'd2099459-0f10-40cd-85e1-06e77a678723',
+  layout: 'ZOOMED_FULL_BODY',
 };
 
 export const GiovannaProvaWithPreviousSession = Template.bind({});

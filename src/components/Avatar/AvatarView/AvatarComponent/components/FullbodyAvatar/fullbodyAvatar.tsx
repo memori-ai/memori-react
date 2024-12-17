@@ -18,11 +18,12 @@ import {
   ANIMATION_URLS,
   DEFAULT_CONFIG,
   SCALE_LERP_FACTOR,
-} from '../constants';
+} from '../../constants';
 
 export function FullbodyAvatar({
   url,
   sex,
+  setIsRpm,
   currentBaseAction,
   timeScale,
   eyeBlink,
@@ -65,12 +66,15 @@ export function FullbodyAvatar({
     );
 
     if (headMesh) {
+      // console.log('[FullbodyAvatar] Head mesh found:', headMesh.name);
       morphTargetControllerRef.current = new MorphTargetController(headMesh);
 
       if (headMesh.morphTargetDictionary && headMesh.morphTargetInfluences) {
+        // console.log('[FullbodyAvatar] Setting morph target dictionary and influences', headMesh.morphTargetDictionary, headMesh.morphTargetInfluences);
         setMorphTargetDictionary(headMesh.morphTargetDictionary);
         const initialInfluences = Object.keys(headMesh.morphTargetDictionary)
           .reduce((acc, key) => ({ ...acc, [key]: 0 }), {});
+        // console.log('[FullbodyAvatar] Setting initial influences', initialInfluences);
         setMorphTargetInfluences(initialInfluences);
       }
     }
@@ -96,6 +100,12 @@ export function FullbodyAvatar({
         object instanceof SkinnedMesh &&
         (object.name === 'GBNL__Head' || object.name === 'Wolf3D_Avatar')
       ) {
+        // console.log('[FullbodyAvatar] Found head mesh:', object.name);
+        if(object.name === 'GBNL__Head') {
+          setIsRpm(false);
+        } else {
+          setIsRpm(true);
+        }
         foundMesh = object;
       }
     });

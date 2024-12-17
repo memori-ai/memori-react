@@ -1,6 +1,6 @@
 import { AnimationState, AnimationConfig } from './types';
 import { AnimationAction, AnimationMixer, LoopOnce } from 'three';
-import { DEFAULT_CONFIG } from '../constants';
+import { DEFAULT_CONFIG, MAX_IDLE_LOOPS_DEFAULT } from '../../constants';
 
 /**
  * Controller class for managing avatar animations and transitions between states
@@ -23,7 +23,7 @@ export class AnimationController {
   // Counter for number of times current idle has looped
   private currentIdleLoopCount: number = 0;
   // Maximum number of idle loops before forcing change
-  private readonly MAX_IDLE_LOOPS = 5;
+  private readonly MAX_IDLE_LOOPS = MAX_IDLE_LOOPS_DEFAULT;
   // Timestamp of last animation frame
   private lastAnimationTime: number = 0;
   // Flag to check if chat has already started
@@ -60,9 +60,6 @@ export class AnimationController {
 
       // Force idle change after MAX_IDLE_LOOPS
       if (this.currentIdleLoopCount >= this.MAX_IDLE_LOOPS) {
-        // console.log(
-        //   '[AnimationController] Max loops reached, changing idle animation'
-        // );
         this.forceIdleChange();
       }
     }
@@ -74,7 +71,6 @@ export class AnimationController {
    * Forces transition to a new idle animation
    */
   private forceIdleChange() {
-    // console.log('[AnimationController] Forcing idle change');
     this.currentIdleLoopCount = 0;
     this.lastAnimationTime = 0;
     this.transitionTo(AnimationState.IDLE);
@@ -133,6 +129,7 @@ export class AnimationController {
     try {
       let nextAction: AnimationAction | null = null;
 
+      // Select the next action based on the current state
       switch (state) {
         case AnimationState.LOADING:
           nextAction = this.actions[emotionName || 'Loading1'];
