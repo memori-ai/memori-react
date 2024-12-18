@@ -29,7 +29,6 @@ import markedLinkifyIt from 'marked-linkify-it';
 import markedKatex from 'marked-katex-extension';
 import markedExtendedTables from '../../helpers/markedExtendedTables';
 
-
 marked.use({
   async: false,
   gfm: true,
@@ -245,7 +244,9 @@ const ChatBubble: React.FC<Props> = ({
                 !!message.emitter?.length &&
                 !!memori.enableBoardOfExperts &&
                 experts?.find(e => e.name === message.emitter)
-                  ? `${apiUrl}/api/v1/memoriai/memori/avatar/${
+                  ? `${
+                      new URL(apiUrl ?? '/').origin
+                    }/api/v1/memoriai/memori/avatar/${
                       experts.find(e => e.name === message.emitter)
                         ?.expertMemoriID
                     }`

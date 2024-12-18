@@ -41,7 +41,9 @@ const ExpertsDrawer = ({
           <li key={expert.expertID} className="memori--experts-drawer--item">
             <figure className="memori--experts-drawer--avatar">
               <img
-                src={`${apiUrl}/api/v1/memoriai/memori/avatar/${expert.expertMemoriID}`}
+                src={`${new URL(apiUrl).origin}/api/v1/memoriai/memori/avatar/${
+                  expert.expertMemoriID
+                }`}
                 alt={expert.name}
                 onError={e => {
                   e.currentTarget.src = getResourceUrl({
