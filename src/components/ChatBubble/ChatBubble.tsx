@@ -24,13 +24,11 @@ import Copy from '../icons/Copy';
 import Code from '../icons/Code';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
 import { cleanUrl, stripHTML, stripOutputTags } from '../../helpers/utils';
+import FilePreview from '../FilePreview/FilePreview';
 
 import markedLinkifyIt from 'marked-linkify-it';
 import markedKatex from 'marked-katex-extension';
 import markedExtendedTables from '../../helpers/markedExtendedTables';
-import UploadIcon from '../icons/Upload';
-import PreviewIcon from '../icons/Preview';
-import FilePreview from '../FilePreview/FilePreview';
 
 export interface Props {
   message: Message;
@@ -205,7 +203,6 @@ const ChatBubble: React.FC<Props> = ({
             (showFeedback && simulateUserPrompt),
         })}
       >
-        {/* Avatar for non-user messages */}
         {!message.fromUser && (
           <Transition.Child
             as="picture"
@@ -278,7 +275,6 @@ const ChatBubble: React.FC<Props> = ({
           </Transition.Child>
         )}
 
-        {/* Message bubble content */}
         <Transition.Child
           as="div"
           className={cx('memori-chat--bubble', {
@@ -301,19 +297,16 @@ const ChatBubble: React.FC<Props> = ({
             message.fromUser ? '30' : '-30'
           }`}
         >
-          {/* Message text content */}
           <div
             dir="auto"
             className="memori-chat--bubble-content"
             dangerouslySetInnerHTML={{ __html: renderedText }}
           />
 
-          {/* Action buttons and indicators */}
           {((!message.fromUser && showCopyButton) ||
             (message.generatedByAI && showAIicon) ||
             (showFeedback && simulateUserPrompt)) && (
             <div className="memori-chat--bubble-addon">
-              {/* Copy text button */}
               {!message.fromUser && showCopyButton && (
                 <Button
                   ghost
@@ -325,7 +318,6 @@ const ChatBubble: React.FC<Props> = ({
                 />
               )}
 
-              {/* Copy raw code button */}
               {!message.fromUser &&
                 showCopyButton &&
                 plainText !== message.text && (
@@ -341,7 +333,6 @@ const ChatBubble: React.FC<Props> = ({
                   />
                 )}
 
-              {/* Feedback buttons */}
               {showFeedback && !!simulateUserPrompt && (
                 <FeedbackButtons
                   memori={memori}
@@ -353,7 +344,6 @@ const ChatBubble: React.FC<Props> = ({
                 />
               )}
 
-              {/* AI generation indicator */}
               {message.generatedByAI && showAIicon && (
                 <Tooltip
                   align="left"
@@ -366,7 +356,6 @@ const ChatBubble: React.FC<Props> = ({
                 </Tooltip>
               )}
 
-              {/* Translation original text indicator */}
               {showTranslationOriginal &&
                 message.translatedText &&
                 message.translatedText !== message.text && (
@@ -387,7 +376,6 @@ const ChatBubble: React.FC<Props> = ({
                   </Tooltip>
                 )}
 
-              {/* Why this answer button */}
               {!message.fromUser &&
                 message.questionAnswered &&
                 apiUrl &&
@@ -407,7 +395,6 @@ const ChatBubble: React.FC<Props> = ({
             </div>
           )}
 
-          {/* Render User attachments if there are any */}
           {message.fromUser &&
             message.media?.length &&
             message.media[0].properties?.isAttachedFile && (
@@ -424,10 +411,8 @@ const ChatBubble: React.FC<Props> = ({
             )}
         </Transition.Child>
 
-        {/* User avatar section */}
         {message.fromUser && (
           <>
-            {/* Show user avatar if it's a URL or user has an avatar URL */}
             {(!!userAvatar && typeof userAvatar === 'string') ||
             (!userAvatar && !!user?.avatarURL?.length) ? (
               <Transition.Child
@@ -451,7 +436,6 @@ const ChatBubble: React.FC<Props> = ({
                 />
               </Transition.Child>
             ) : !!userAvatar ? (
-              /* Show custom avatar component if provided */
               <Transition.Child
                 as="div"
                 className="memori-chat--bubble-avatar"
@@ -469,7 +453,6 @@ const ChatBubble: React.FC<Props> = ({
                 {userAvatar}
               </Transition.Child>
             ) : (
-              /* Show default user icon if no avatar is provided */
               <Transition.Child
                 as="div"
                 className="memori-chat--bubble-avatar"

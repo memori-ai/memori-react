@@ -10,25 +10,15 @@ import Microphone from '../icons/Microphone';
 import UploadButton from '../UploadButton/UploadButton';
 import FilePreview from '../FilePreview/FilePreview';
 
-
 export interface Props {
-  /** Current dialog state */
   dialogState?: DialogState;
-  /** Whether to show instruction mode */
   instruct?: boolean;
-  /** When to send message - on enter key or click */
   sendOnEnter?: 'keypress' | 'click';
-  /** Callback to update send on enter setting */
   setSendOnEnter: (sendOnEnter: 'keypress' | 'click') => void;
-  /** Current attachments menu state */
   attachmentsMenuOpen?: 'link' | 'media';
-  /** Callback to update attachments menu state */
   setAttachmentsMenuOpen: (attachmentsMenuOpen: 'link' | 'media') => void;
-  /** Current user message text */
   userMessage?: string;
-  /** Callback when user message changes */
   onChangeUserMessage: (userMessage: string) => void;
-  /** Callback to send a message */
   sendMessage: (
     msg: string,
     media?: {
@@ -39,40 +29,20 @@ export interface Props {
       properties?: { [key: string]: any };
     }
   ) => void;
-  /** Callback when textarea is focused */
   onTextareaFocus: () => void;
-  /** Callback when textarea loses focus */
   onTextareaBlur: () => void;
-  /** Callback to reset speech transcript */
   resetTranscript: () => void;
-  /** Whether microphone is currently listening */
   listening?: boolean;
-  /** Whether audio is currently playing */
   isPlayingAudio?: boolean;
-  /** Callback to stop audio playback */
   stopAudio: () => void;
-  /** Callback to start microphone listening */
   startListening: () => void;
-  /** Callback to stop microphone listening */
   stopListening: () => void;
-  /** Whether to show microphone button */
   showMicrophone?: boolean;
-  /** Microphone input mode */
   microphoneMode?: 'CONTINUOUS' | 'HOLD_TO_TALK';
-  /** Auth token for API requests */
   authToken?: string;
-  /** Whether to show file upload button */
   showUpload?: boolean;
 }
 
-/**
- * Chat inputs component
- * Handles the chat input area, including:
- * - Text input for typing messages
- * - Send button
- * - File upload/attachment
- * - Voice input via microphone
- */
 const ChatInputs: React.FC<Props> = ({
   dialogState,
   userMessage = '',
@@ -91,7 +61,6 @@ const ChatInputs: React.FC<Props> = ({
   showUpload = false,
 }) => {
   const { t } = useTranslation();
-
 
   // State for file preview list
   const [previewFiles, setPreviewFiles] = useState<
@@ -177,13 +146,8 @@ const ChatInputs: React.FC<Props> = ({
       />
       {showUpload && (
         <>
-          <FilePreview
-            previewFiles={previewFiles}
-            removeFile={removeFile}
-          />
-          <UploadButton
-            setPreviewFiles={setPreviewFiles}
-          />
+          <FilePreview previewFiles={previewFiles} removeFile={removeFile} />
+          <UploadButton setPreviewFiles={setPreviewFiles} />
         </>
       )}
       <Button

@@ -57,13 +57,16 @@ export interface Props {
   showMicrophone?: boolean;
   userMessage?: string;
   onChangeUserMessage: (userMessage: string) => void;
-  sendMessage: (msg: string, media?: {
-    mediumID: string;
-    mimeType: string;
-    content: string;
-    title?: string;
-    properties?: { [key: string]: any };
-  }) => void;
+  sendMessage: (
+    msg: string,
+    media?: {
+      mediumID: string;
+      mimeType: string;
+      content: string;
+      title?: string;
+      properties?: { [key: string]: any };
+    }
+  ) => void;
   listening?: boolean;
   setEnableFocusChatInput: (enableFocusChatInput: boolean) => void;
   isPlayingAudio?: boolean;
@@ -140,7 +143,7 @@ const Chat: React.FC<Props> = ({
 
   const onTextareaFocus = () => {
     stopListening();
-    const hasTouch = hasTouchscreen();  
+    const hasTouch = hasTouchscreen();
 
     if (hasTouch) setEnableFocusChatInput(true);
     // if the user is on mobile and had not recorded audio, add the chat-focused class to the chat wrapper
@@ -208,8 +211,6 @@ const Chat: React.FC<Props> = ({
 
           {history.map((message, index) => (
             <React.Fragment key={index}>
-              
-              {/* Main message */}
               <ChatBubble
                 isFirst={index === 0}
                 message={message}
@@ -233,7 +234,6 @@ const Chat: React.FC<Props> = ({
                 showCopyButton={showCopyButton}
               />
 
-              {/* Date and time */}
               {showDates && !!message.timestamp && (
                 <small
                   className={`memori-chat--timestamp ${
@@ -254,7 +254,6 @@ const Chat: React.FC<Props> = ({
                 </small>
               )}
 
-              {/* Context variables */}
               {showContextPerLine &&
                 !!Object.keys(message.contextVars ?? {}).length && (
                   <div className="memori-chat--context-vars">
@@ -285,7 +284,6 @@ const Chat: React.FC<Props> = ({
                   </div>
                 )}
 
-              {/* Media */}
               <MediaWidget
                 simulateUserPrompt={simulateUserPrompt}
                 media={message?.media?.filter(

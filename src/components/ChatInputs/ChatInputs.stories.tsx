@@ -5,7 +5,6 @@ import I18nWrapper from '../../I18nWrapper';
 import { dialogState } from '../../mocks/data';
 
 import './ChatInputs.css';
-import UploadButton from '../UploadButton/UploadButton';
 
 const meta: Meta = {
   title: 'Widget/Chat inputs (footer)',

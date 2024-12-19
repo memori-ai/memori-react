@@ -379,6 +379,7 @@ export interface Props {
   showOnlyLastMessages?: boolean;
   showTypingText?: boolean;
   showLogin?: boolean;
+  showUpload?: boolean;
   preview?: boolean;
   embed?: boolean;
   height?: number | string;
@@ -432,6 +433,7 @@ const MemoriWidget = ({
   showTypingText = false,
   showClear = false,
   showLogin = false,
+  showUpload = false,
   showOnlyLastMessages,
   height = '100vh',
   secret,
@@ -733,7 +735,7 @@ const MemoriWidget = ({
     hidden: boolean = false,
     typingText?: string,
     useLoaderTextAsMsg = false,
-    hasBatchQueued = false,
+    hasBatchQueued = false
   ) => {
     // Get the session ID from params or global state
     const sessionID =
@@ -779,25 +781,20 @@ const MemoriWidget = ({
         msg = translation.text;
       }
 
-      console.log('media', media);
-
-      if(media?.length && media[0]?.properties?.isAttachedFile) {
+      if (media?.length && media[0]?.properties?.isAttachedFile) {
         msg = msg + ' ' + media[0].content;
       }
 
-      // Send message to backend
       const { currentState, ...response } = await postTextEnteredEvent({
         sessionId: sessionID,
         text: msg,
       });
       if (response.resultCode === 0 && currentState) {
-
         const emission =
           useLoaderTextAsMsg && typingText
             ? typingText
             : currentState.emission ?? currentDialogState?.emission;
 
-        // Handle X4 state - tag change needed
         if (currentState.state === 'X4' && memori.giverTag) {
           const { currentState, ...resp } = await postTagChangedEvent(
             sessionID,
@@ -830,9 +827,7 @@ const MemoriWidget = ({
             toast.error(t(getErrori18nKey(resp.resultCode)));
             gotError = true;
           }
-        }
-        // Handle X2d state - random number + tag change needed
-        else if (currentState.state === 'X2d' && memori.giverTag) {
+        } else if (currentState.state === 'X2d' && memori.giverTag) {
           const { currentState, ...resp } = await postTextEnteredEvent({
             sessionId: sessionID,
             text: Math.random().toString().substring(2, 8),
@@ -875,9 +870,7 @@ const MemoriWidget = ({
             toast.error(t(getErrori18nKey(resp.resultCode)));
             gotError = true;
           }
-        }
-        // Handle translation if needed
-        else if (
+        } else if (
           userLang.toLowerCase() !== language.toLowerCase() &&
           emission &&
           !instruct &&
@@ -889,9 +882,7 @@ const MemoriWidget = ({
               speak(text);
             }
           });
-        }
-        // Normal message handling
-        else {
+        } else {
           setCurrentDialogState({
             ...currentState,
             emission,
@@ -917,13 +908,11 @@ const MemoriWidget = ({
             speak(emission);
           }
         }
-      }
-      // Handle session timeout
-      else if (response.resultCode === 404) {
+      } else if (response.resultCode === 404) {
+        // Handle expired session
         // remove last sent message, will set it as initial
         setHistory(h => [...h.slice(0, h.length - 1)]);
 
-        // post session timeout -> Z0/A0 -> restart session and re-send msg
         reopenSession(
           false,
           memoriPwd || memori.secretToken,
@@ -953,7 +942,6 @@ const MemoriWidget = ({
       setMemoriTyping(false);
     }
 
-    // Reset typing state if no more messages queued
     if (!hasBatchQueued) {
       setTypingText(undefined);
       setMemoriTyping(false);
@@ -2547,10 +2535,7 @@ const MemoriWidget = ({
       ? true
       : integrationConfig?.showAIicon;
 
-  const showUpload =
-    integrationConfig?.showUpload === undefined
-      ? true
-      : integrationConfig?.showUpload;
+  const enableUpload = showUpload ?? integrationConfig?.showUpload ?? false;
 
   const showWhyThisAnswer =
     integrationConfig?.showWhyThisAnswer === undefined
@@ -3279,7 +3264,7 @@ const MemoriWidget = ({
     showDates,
     showContextPerLine,
     showAIicon,
-    showUpload,
+    showUpload: enableUpload,
     showWhyThisAnswer,
     showCopyButton,
     showTranslationOriginal,
