@@ -1,5 +1,46 @@
 
 
+## [7.12.0](https://github.com/memori-ai/memori-react/compare/v7.11.4...v7.12.0) (2024-12-20)
+
+
+### Features
+
+* add new story for GiovannaProvaWithPreviousSession with session details ([cade750](https://github.com/memori-ai/memori-react/commit/cade750b199aa94d050d277b17e380fd470a064a))
+* add new story variants for Giovanna and enhance MorphTargetController with detailed comments ([ee944c8](https://github.com/memori-ai/memori-react/commit/ee944c8d272c7d4877b23132ab99962950318303))
+* added comments to separeted handling for GLB and RPM ([893ad9f](https://github.com/memori-ai/memori-react/commit/893ad9f938fa6e323325b1803f4be636910f5aaf))
+* added sperated blend shape emotions handling for RPM and custom GLB ([511e716](https://github.com/memori-ai/memori-react/commit/511e716788aa76670568649dcce7c533e214a966))
+* **ChatBubble:** integrate file upload and preview features ([7651640](https://github.com/memori-ai/memori-react/commit/7651640e984afb4775cf73762a21825cb7715bb6))
+* **Chat:** enhance chat inputs with file upload functionality and media handling ([2bdd9bb](https://github.com/memori-ai/memori-react/commit/2bdd9bb1a1a729edf9dc9c5b40f14fb48b40ebaa))
+* consolidate avatar animation constants into a single file with the emotions mapping constants ([98d6085](https://github.com/memori-ai/memori-react/commit/98d60859bb349aadff34fca079378bb72c9c02bc))
+* enhance organization of avatar animation configuration ([312f3a2](https://github.com/memori-ai/memori-react/commit/312f3a21f0edc1b4d7e6eae557666aa336ff2e08))
+* **FilePreview:** add FilePreview component with styles, stories, and tests ([0bb6262](https://github.com/memori-ai/memori-react/commit/0bb6262b99828695d5acbdeadb0851e66ddbd042))
+* updated snapshots ([9a04d6d](https://github.com/memori-ai/memori-react/commit/9a04d6dd210e839534615b236701de3f80e6b5c6))
+* **UploadButton:** add file upload component with styling and stories ([bd9d526](https://github.com/memori-ai/memori-react/commit/bd9d526473c9531bb5f3cbc159cef04aeeef6573))
+
+
+### Bug Fixes
+
+* **AgeVerificationModal:** update z-index for improved modal visibility ([39043c7](https://github.com/memori-ai/memori-react/commit/39043c779b30551bc66b79c8901b2228ad3a1956))
+* boe avatar url ([7e32f25](https://github.com/memori-ai/memori-react/commit/7e32f254a2892396f9f881677e9a5dfe7611888a))
+* for CompletionProviderStatus improved react renders and api calls ([911ee87](https://github.com/memori-ai/memori-react/commit/911ee8764eba8286549fd2131dc11804a3b3d61d))
+
+
+### Changes
+
+* remove ConvertAPI token and fetch token dynamically in UploadButton component ([568da4f](https://github.com/memori-ai/memori-react/commit/568da4fcfbd58f1e1fb8ddcf567f1de3275efefc))
+* replaced old blenshapes name with updated ones ([3fffd62](https://github.com/memori-ai/memori-react/commit/3fffd62fe184057ad29031a75662681ad8946831))
+* update comments for RPM and GLB emotion handling in AvatarComponent ([533bd93](https://github.com/memori-ai/memori-react/commit/533bd937ac4aaf25f912c28713d0ed6a7f8ea221))
+* update import paths for avatar components ([1ee58c9](https://github.com/memori-ai/memori-react/commit/1ee58c944ebdd6dcc33d7a630327862ff6d7152e))
+* **UploadButton:** remove convertapiToken prop and streamline token fetching logic ([1bbc761](https://github.com/memori-ai/memori-react/commit/1bbc76134dbe52449b8c49f8cfb51040e711c64f))
+
+
+### Maintenance
+
+* cleanup + add global prop for showUpload ([fa29eb6](https://github.com/memori-ai/memori-react/commit/fa29eb690bbc027213207c39aac8a27065327867))
+* downgrade convertapi-js version and update dependencies in package.json and yarn.lock ([ce33a34](https://github.com/memori-ai/memori-react/commit/ce33a343ae4ab18c4ee6543b57703f2ce0167647))
+* update configuration and add convertapi-js mock ([d961e72](https://github.com/memori-ai/memori-react/commit/d961e725b04cedf2580d063d4f55e79e65e6e6e9))
+* update dependencies and package versions in package.json and yarn.lock ([fcc0220](https://github.com/memori-ai/memori-react/commit/fcc0220e200ba6eb4bca44d97e069fe3f542e3c1))
+
 ## [7.11.4](https://github.com/memori-ai/memori-react/compare/v7.11.3...v7.11.4) (2024-12-10)
 
 
