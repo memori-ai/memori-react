@@ -198,6 +198,7 @@ const ChatBubble: React.FC<Props> = ({
     }
   }, [message.text, message.fromUser, useMathFormatting]);
 
+  
   return (
     <>
       {(message.initial || isFirst) && (
@@ -409,7 +410,8 @@ const ChatBubble: React.FC<Props> = ({
           )}
 
           {message.fromUser &&
-            message.media?.length &&
+            message.media &&
+            message.media?.length > 0 &&
             message.media[0].properties?.isAttachedFile && (
               <FilePreview
                 previewFiles={message.media.map(m => ({
