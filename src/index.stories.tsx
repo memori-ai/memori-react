@@ -50,6 +50,20 @@ WithPreviousSession.args = {
   spokenLang: 'IT',
 };
 
+export const WithUpload = Template.bind({});
+WithUpload.args = {
+  ownerUserName: 'nzambello',
+  memoriName: 'Nicola',
+  tenantID: 'www.aisuru.com',
+  engineURL: 'https://engine.memori.ai',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://www.aisuru.com',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  enableAudio: true,
+  showUpload: true,
+};
+
 export const Nunzio = Template.bind({});
 Nunzio.args = {
   ownerUserName: 'nunzio.fiore',
