@@ -18,11 +18,13 @@ module.exports = {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
     uuid: require.resolve('uuid'),
     '@react-leaflet/core': require.resolve('./__mocks__/react-leaflet-core.js'),
+    'convertapi-js': require.resolve('./__mocks__/convertapi-js.js'),
   },
   transformIgnorePatterns: [
     '/node_modules/(?!@memori.ai/memori-api-client)',
     '/node_modules/(?!microsoft-cognitiveservices-speech-sdk)',
     '/node_modules/(?!uuid)',
     '/node_modules/(?!@react-leaflet/core)',
+    '/node_modules/(?!(convertapi-js|convertapi-js-node)/)',
   ],
 };

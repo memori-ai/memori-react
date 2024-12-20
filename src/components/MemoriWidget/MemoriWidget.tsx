@@ -123,6 +123,15 @@ type MemoriTextEnteredEvent = CustomEvent<{
   hasBatchQueued?: boolean;
 }>;
 
+/**
+ * Dispatches a MemoriTextEntered event to simulate a user typing a message
+ * @param message The text message to send
+ * @param waitForPrevious Whether to wait for previous message to finish before sending (default true)
+ * @param hidden Whether to hide the message from chat history (default false)
+ * @param typingText Optional custom typing indicator text
+ * @param useLoaderTextAsMsg Whether to use the loader text as the message (default false)
+ * @param hasBatchQueued Whether there are more messages queued to be sent (default false)
+ */
 const typeMessage = (
   message: string,
   waitForPrevious = true,
@@ -143,17 +152,24 @@ const typeMessage = (
   });
   document.dispatchEvent(e);
 
+  // Special handling for Safari on iOS devices
   const isSafariIOS =
     window.navigator.userAgent.includes('Safari') &&
     !window.navigator.userAgent.includes('Chrome') &&
     /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   if (isSafariIOS) {
+    // Dispatch end speak event after short delay for iOS Safari
     setTimeout(() => {
       document.dispatchEvent(new CustomEvent('MemoriEndSpeak'));
     }, 300);
   }
 };
+
+/**
+ * Helper function to send a hidden message
+ * Wraps typeMessage with hidden=true and passes through other params
+ */
 const typeMessageHidden = (
   message: string,
   waitForPrevious = true,
@@ -334,6 +350,7 @@ export interface LayoutProps {
   sessionId?: string;
   hasUserActivatedSpeak?: boolean;
   showInstruct?: boolean;
+  showUpload?: boolean;
   loading?: boolean;
 }
 
@@ -367,6 +384,7 @@ export interface Props {
   showOnlyLastMessages?: boolean;
   showTypingText?: boolean;
   showLogin?: boolean;
+  showUpload?: boolean;
   preview?: boolean;
   embed?: boolean;
   height?: number | string;
@@ -421,6 +439,7 @@ const MemoriWidget = ({
   showTypingText = false,
   showClear = false,
   showLogin = false,
+  showUpload = false,
   showOnlyLastMessages,
   height = '100vh',
   secret,
@@ -718,6 +737,18 @@ const MemoriWidget = ({
       },
     ]);
   };
+  /**
+   * Sends a message to the Memori and handles the response
+   * @param text The text message to send
+   * @param media Optional media attachments
+   * @param newSessionId Optional new session ID to use
+   * @param translate Whether to translate the message before sending (default true)
+   * @param translatedText Optional pre-translated text
+   * @param hidden Whether to hide the message from chat history (default false)
+   * @param typingText Optional custom typing indicator text
+   * @param useLoaderTextAsMsg Whether to use the loader text as the message (default false)
+   * @param hasBatchQueued Whether there are more messages queued to be sent (default false)
+   */
   const sendMessage = async (
     text: string,
     media?: Medium[],
@@ -729,12 +760,14 @@ const MemoriWidget = ({
     useLoaderTextAsMsg = false,
     hasBatchQueued = false
   ) => {
+    // Get the session ID from params or global state
     const sessionID =
       newSessionId ||
       sessionId ||
       (window.getMemoriState() as MemoriSession)?.sessionID;
     if (!sessionID || !text?.length) return;
 
+    // Add user message to chat history if not hidden
     if (!hidden)
       pushMessage({
         text: text,
@@ -746,6 +779,7 @@ const MemoriWidget = ({
           : !!newSessionId,
       });
 
+    // Show typing indicator
     setMemoriTyping(true);
     setTypingText(typingText);
 
@@ -753,6 +787,7 @@ const MemoriWidget = ({
     let gotError = false;
 
     try {
+      // Translate message if needed
       if (
         !hidden &&
         translate &&
@@ -769,6 +804,10 @@ const MemoriWidget = ({
         msg = translation.text;
       }
 
+      if (media?.length && media[0]?.properties?.isAttachedFile) {
+        msg = msg + ' ' + media[0].content;
+      }
+
       const { currentState, ...response } = await postTextEnteredEvent({
         sessionId: sessionID,
         text: msg,
@@ -778,6 +817,7 @@ const MemoriWidget = ({
           useLoaderTextAsMsg && typingText
             ? typingText
             : currentState.emission ?? currentDialogState?.emission;
+
         if (currentState.state === 'X4' && memori.giverTag) {
           const { currentState, ...resp } = await postTagChangedEvent(
             sessionID,
@@ -892,10 +932,10 @@ const MemoriWidget = ({
           }
         }
       } else if (response.resultCode === 404) {
+        // Handle expired session
         // remove last sent message, will set it as initial
         setHistory(h => [...h.slice(0, h.length - 1)]);
 
-        // post session timeout -> Z0/A0 -> restart session and re-send msg
         reopenSession(
           false,
           memoriPwd || memori.secretToken,
@@ -2515,6 +2555,8 @@ const MemoriWidget = ({
       ? true
       : integrationConfig?.showAIicon;
 
+  const enableUpload = showUpload ?? integrationConfig?.showUpload ?? false;
+
   const showWhyThisAnswer =
     integrationConfig?.showWhyThisAnswer === undefined
       ? true
@@ -3297,6 +3339,7 @@ const MemoriWidget = ({
     showDates,
     showContextPerLine,
     showAIicon,
+    showUpload: enableUpload,
     showWhyThisAnswer,
     showCopyButton,
     showTranslationOriginal,
@@ -3313,10 +3356,32 @@ const MemoriWidget = ({
     showMicrophone: !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
     userMessage,
     onChangeUserMessage,
-    sendMessage: (msg: string, media?: Medium[]) => {
+    sendMessage: (
+      msg: string,
+      media?: {
+        mediumID: string;
+        mimeType: string;
+        content: string;
+        title?: string;
+        properties?: { [key: string]: any };
+      }
+    ) => {
       stopAudio();
       stopListening();
-      sendMessage(msg, media);
+      sendMessage(
+        msg,
+        media
+          ? [
+              {
+                mediumID: media.mediumID,
+                mimeType: media.mimeType,
+                content: media.content,
+                title: media.title,
+                properties: media.properties,
+              },
+            ]
+          : undefined
+      );
       setUserMessage('');
       resetTranscript();
     },

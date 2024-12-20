@@ -44,6 +44,7 @@ export interface Props {
   showOnlyLastMessages?: boolean;
   showTypingText?: boolean;
   showLogin?: boolean;
+  showUpload?: boolean;
   height?: number | string;
   baseURL?: string;
   apiURL?: string;
@@ -107,6 +108,7 @@ const Memori: React.FC<Props> = ({
   showInputs = true,
   showDates = false,
   showContextPerLine = false,
+  showUpload = false,
   showLogin,
   height = '100%',
   baseURL,
@@ -266,6 +268,7 @@ const Memori: React.FC<Props> = ({
             showDates={showDates}
             showContextPerLine={showContextPerLine}
             showLogin={showLogin ?? memori?.enableDeepThought}
+            showUpload={showUpload}
             integration={memori?.integrations?.find(i =>
               integrationID
                 ? i.integrationID === integrationID
@@ -343,6 +346,7 @@ Memori.propTypes = {
   showOnlyLastMessages: PropTypes.bool,
   showTypingText: PropTypes.bool,
   showLogin: PropTypes.bool,
+  showUpload: PropTypes.bool,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   baseURL: PropTypes.string,
   apiURL: PropTypes.string,

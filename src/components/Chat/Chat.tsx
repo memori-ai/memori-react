@@ -38,6 +38,7 @@ export interface Props {
   pushMessage: (message: Message) => void;
   simulateUserPrompt: (text: string, translatedText?: string) => void;
   showDates?: boolean;
+  showUpload?: boolean;
   showContextPerLine?: boolean;
   showAIicon?: boolean;
   showTranslationOriginal?: boolean;
@@ -56,7 +57,16 @@ export interface Props {
   showMicrophone?: boolean;
   userMessage?: string;
   onChangeUserMessage: (userMessage: string) => void;
-  sendMessage: (msg: string) => void;
+  sendMessage: (
+    msg: string,
+    media?: {
+      mediumID: string;
+      mimeType: string;
+      content: string;
+      title?: string;
+      properties?: { [key: string]: any };
+    }
+  ) => void;
   listening?: boolean;
   setEnableFocusChatInput: (enableFocusChatInput: boolean) => void;
   isPlayingAudio?: boolean;
@@ -115,6 +125,7 @@ const Chat: React.FC<Props> = ({
   customMediaRenderer,
   user,
   userAvatar,
+  showUpload = false,
   experts,
   useMathFormatting = false,
 }) => {
@@ -160,14 +171,6 @@ const Chat: React.FC<Props> = ({
         .querySelector('.memori.memori-widget')
         ?.classList?.remove('chat-focused');
       scrollToBottom();
-    }
-  };
-  const onTextareaPressEnter = () => {
-    if (sendOnEnter === 'keypress' && userMessage?.length > 0) {
-      stopListening();
-      sendMessage(userMessage);
-      onChangeUserMessage('');
-      resetTranscript();
     }
   };
 
@@ -233,6 +236,7 @@ const Chat: React.FC<Props> = ({
                 showCopyButton={showCopyButton}
                 useMathFormatting={useMathFormatting}
               />
+
               {showDates && !!message.timestamp && (
                 <small
                   className={`memori-chat--timestamp ${
@@ -252,6 +256,7 @@ const Chat: React.FC<Props> = ({
                   )}
                 </small>
               )}
+
               {showContextPerLine &&
                 !!Object.keys(message.contextVars ?? {}).length && (
                   <div className="memori-chat--context-vars">
@@ -363,6 +368,7 @@ const Chat: React.FC<Props> = ({
 
       {showInputs && (
         <ChatInputs
+          resetTranscript={resetTranscript}
           userMessage={userMessage}
           onChangeUserMessage={onChangeUserMessage}
           dialogState={dialogState}
@@ -372,9 +378,9 @@ const Chat: React.FC<Props> = ({
           microphoneMode={microphoneMode}
           sendOnEnter={sendOnEnter}
           setSendOnEnter={setSendOnEnter}
+          showUpload={showUpload}
           attachmentsMenuOpen={attachmentsMenuOpen}
           setAttachmentsMenuOpen={setAttachmentsMenuOpen}
-          onTextareaPressEnter={onTextareaPressEnter}
           onTextareaFocus={onTextareaFocus}
           onTextareaBlur={onTextareaBlur}
           startListening={startListening}

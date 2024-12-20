@@ -24,6 +24,7 @@ import Copy from '../icons/Copy';
 import Code from '../icons/Code';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
 import { cleanUrl, stripHTML, stripOutputTags } from '../../helpers/utils';
+import FilePreview from '../FilePreview/FilePreview';
 
 import markedLinkifyIt from 'marked-linkify-it';
 import markedKatex from 'marked-katex-extension';
@@ -266,6 +267,7 @@ const ChatBubble: React.FC<Props> = ({
                     })
               }
               onError={e => {
+                // Fallback image handling if primary source fails
                 e.currentTarget.src =
                   memori.avatarURL && memori.avatarURL.length > 0
                     ? getResourceUrl({
@@ -285,6 +287,7 @@ const ChatBubble: React.FC<Props> = ({
             />
           </Transition.Child>
         )}
+
         <Transition.Child
           as="div"
           className={cx('memori-chat--bubble', {
@@ -312,6 +315,7 @@ const ChatBubble: React.FC<Props> = ({
             className="memori-chat--bubble-content"
             dangerouslySetInnerHTML={{ __html: renderedText }}
           />
+
           {((!message.fromUser && showCopyButton) ||
             (message.generatedByAI && showAIicon) ||
             (showFeedback && simulateUserPrompt)) && (
@@ -326,6 +330,7 @@ const ChatBubble: React.FC<Props> = ({
                   onClick={() => navigator.clipboard.writeText(plainText)}
                 />
               )}
+
               {!message.fromUser &&
                 showCopyButton &&
                 plainText !== message.text && (
@@ -402,6 +407,21 @@ const ChatBubble: React.FC<Props> = ({
                 )}
             </div>
           )}
+
+          {message.fromUser &&
+            message.media?.length &&
+            message.media[0].properties?.isAttachedFile && (
+              <FilePreview
+                previewFiles={message.media.map(m => ({
+                  name: m.title ?? '',
+                  id: m.mediumID,
+                  content: m.content ?? '',
+                }))}
+                removeFile={() => {}}
+                allowRemove={false}
+                isMessagePreview={true}
+              />
+            )}
         </Transition.Child>
 
         {message.fromUser && (

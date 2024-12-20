@@ -1,0 +1,155 @@
+.memori--preview-container {
+    min-width: 200px;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+    animation: slide-in 0.3s ease;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+
+  .memori--preview-container.slide-down {
+    animation: slide-down 0.3s ease;
+  }
+
+  .memori--absolute-preview {
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    left: 0;
+  }
+
+  .memori--message-preview {
+    margin: 12px 0;
+  }
+
+  .memori--preview-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .memori--preview-item {
+    position: relative;
+    display: flex;
+    max-width: fit-content;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    animation: slide-in 0.3s ease;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    gap: 8px;
+    transition: all 0.2s ease;
+  }
+
+  .memori--preview-item:hover {
+    background-color: #f1f3f5;
+    transform: translateX(4px);
+  }
+
+  .memori--preview-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    fill: var(--memori-primary);
+  }
+
+  .memori--preview-filename {
+    overflow: hidden;
+    max-width: 200px;
+    color: #495057;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .memori--modal-title-preview {
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .memori--remove-button {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    padding: 4px;
+    border: none;
+    border-radius: 50%;
+    background-color: #e03131;
+    color: white;
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0.75);
+    transition: all 0.2s ease;
+  }
+
+  .memori--remove-button.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .memori--remove-button:hover {
+    background-color: #c92a2a;
+    transform: scale(1.1);
+  }
+
+  .memori--remove-icon {
+    width: 12px;
+    height: 12px;
+  }
+
+  .memori--modal-preview-file {
+    width: 100%;
+    max-width: 800px;
+    height: 100%;
+    padding: 12px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes scaleIn {
+    from { 
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to { 
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slide-down {
+    from {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }

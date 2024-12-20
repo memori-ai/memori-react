@@ -10,6 +10,8 @@
 @import url('./components/ui/Details.css');
 @import url('./components/ui/Expandable.css');
 @import url('./components/ui/Slider.css');
+@import url('./components/UploadButton/UploadButton.css');
+@import url('./components/FilePreview/FilePreview.css');
 
 @import url('./components/CompletionProviderStatus/CompletionProviderStatus.css');
 @import url('./components/PoweredBy/PoweredBy.css');

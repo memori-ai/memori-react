@@ -227,6 +227,11 @@ ContinuousSpeechListening.args = {
   microphoneMode: 'CONTINUOUS',
 };
 
+export const WithUploadButton = Template.bind({});
+WithUploadButton.args = {
+  showUpload: true,
+};
+
 export const WithoutMicrophone = Template.bind({});
 WithoutMicrophone.args = {
   dialogState,
