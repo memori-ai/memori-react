@@ -110,6 +110,24 @@ Default.args = {
   onClickStart: () => {},
 };
 
+export const WithExistingSession = Template.bind({});
+WithExistingSession.args = {
+  memori: {
+    ...memori,
+    enableCompletions: false,
+  },
+  tenant,
+  language: 'it',
+  userLang: 'en',
+  setUserLang: () => {},
+  openPositionDrawer: () => {},
+  instruct: false,
+  sessionId: sessionID,
+  hasInitialSession: true,
+  clickedStart: false,
+  onClickStart: () => {},
+};
+
 export const WithCompletionsEnabled = Template.bind({});
 WithCompletionsEnabled.args = {
   memori: {

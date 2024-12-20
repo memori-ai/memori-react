@@ -1,8 +1,15 @@
+// Import required dependencies
 import React, { useState, useEffect, useCallback } from 'react';
 import AnimationControlPanel from './components/controls';
-import { FullbodyAvatar } from './components/FullbodyAvatar/fullbodyAvatar'
+import { FullbodyAvatar } from './components/FullbodyAvatar/fullbodyAvatar';
 import HalfBodyAvatar from './components/halfbodyAvatar';
+import {
+  BASE_ACTIONS,
+  MAPPING_BLEND_SHAPE_TO_EMOTION_CUSTOM_GLB,
+  MAPPING_BLEND_SHAPE_TO_EMOTION_RPM,
+} from './constants';
 
+// Props interface for AvatarView component
 interface Props {
   showControls: boolean;
   animation?: string;
@@ -18,43 +25,14 @@ interface Props {
   avatarDepth?: number;
   stopProcessing: () => void;
   resetVisemeQueue: () => void;
-  updateCurrentViseme: (
-    currentTime: number
-  ) => { name: string; weight: number } | null;
+  updateCurrentViseme: (currentTime: number) => { name: string; weight: number } | null;
   setCameraZ: (value: number) => void;
 }
 
-interface BaseAction {
-  weight: number;
-  action?: string;
-}
-
-const baseActions: Record<string, BaseAction> = {
-  Gioia1: { weight: 0 },
-  Gioia2: { weight: 0 },
-  Gioia3: { weight: 0 },
-  Idle1: { weight: 1 },
-  Idle2: { weight: 0 },
-  Idle3: { weight: 0 },
-  Idle4: { weight: 0 },
-  Idle5: { weight: 0 },
-  Rabbia1: { weight: 0 },
-  Rabbia2: { weight: 0 },
-  Rabbia3: { weight: 0 },
-  Sorpresa1: { weight: 0 },
-  Sorpresa2: { weight: 0 },
-  Sorpresa3: { weight: 0 },
-  Timore1: { weight: 0 },
-  Timore2: { weight: 0 },
-  Timore3: { weight: 0 },
-  Tristezza1: { weight: 0 },
-  Tristezza2: { weight: 0 },
-  Tristezza3: { weight: 0 },
-  Loading1: { weight: 0 },
-  Loading2: { weight: 0 },
-  Loading3: { weight: 0 },
-};
-
+/**
+ * AvatarView Component
+ * Renders either a full body or half body 3D avatar with animations and morphing capabilities
+ */
 export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   stopProcessing,
   chatEmission,
@@ -64,138 +42,137 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   sex,
   eyeBlink,
   headMovement,
-  // speaking,
   halfBody,
   loading,
-  // isZoomed,
-  avatarHeight,
-  avatarDepth,
+  avatarHeight = 50,
+  avatarDepth = -50,
   updateCurrentViseme,
   resetVisemeQueue,
   setCameraZ,
 }) => {
+  // State management for avatar animations and morphing
   const [currentBaseAction, setCurrentBaseAction] = useState({
     action: animation || 'Idle1',
     weight: 1,
   });
-
-  const [morphTargetInfluences, setMorphTargetInfluences] = useState<{
-    [key: string]: number;
-  }>({});
-  const [morphTargetDictionary, setMorphTargetDictionary] = useState<{
-    [key: string]: number;
-  }>({});
-  const [emotionMorphTargets, setEmotionMorphTargets] = useState<{
-    [key: string]: number;
-  }>({});
-
+  const [morphTargetInfluences, setMorphTargetInfluences] = useState<Record<string, number>>({});
+  const [morphTargetDictionary, setMorphTargetDictionary] = useState<Record<string, number>>({});
+  const [emotionMorphTargets, setEmotionMorphTargets] = useState<Record<string, number>>({});
+  const [isRPM, setIsRPM] = useState(false);
   const [timeScale, setTimeScale] = useState(0.8);
 
-  // Set the morph target influences for the given emotions
-  const setEmotionMorphTargetInfluences = useCallback((action: string) => {
-    if (
-      action === 'Loading1' ||
-      action === 'Loading2' ||
-      action === 'Loading3'
-    ) {
+  // Map of basic emotions with their corresponding morph values
+  const emotionMap: Record<string, Record<string, number>> = {
+    Joy: { Joy: 1 },
+    Anger: { Anger: 1 },
+    Surprise: { Surprise: 1 },
+    Sadness: { Sadness: 1 },
+    Fear: { Fear: 1 },
+  };
+
+  // Helper function to get default emotion state (all set to 0)
+  const getDefaultEmotions = () => 
+    Object.keys(emotionMap).reduce((acc, key) => ({...acc, [key]: 0}), {});
+
+  // Handlers for different blend shape types
+  const handleRPMBlendShape = useCallback((outputContent: string) => 
+    MAPPING_BLEND_SHAPE_TO_EMOTION_RPM[outputContent as keyof typeof MAPPING_BLEND_SHAPE_TO_EMOTION_RPM],
+  []);
+
+  const handleCustomGLBBlendShape = useCallback((outputContent: string) => 
+    MAPPING_BLEND_SHAPE_TO_EMOTION_CUSTOM_GLB[outputContent as keyof typeof MAPPING_BLEND_SHAPE_TO_EMOTION_CUSTOM_GLB],
+  []);
+
+  // Handler for setting emotion morph target influences, used for RPM and GLB blend shapes
+  const setEmotionMorphTargetInfluences = useCallback((action: string, outputContent: string) => {
+    if (action.startsWith('Loading')) return;
+
+    const defaultEmotions = getDefaultEmotions();
+
+    // If output content is default, set default emotions
+    if (outputContent === 'default') {
+      setEmotionMorphTargets(defaultEmotions);
       return;
     }
 
-    const emotionMap: Record<string, Record<string, number>> = {
-      Gioia: { Gioria: 1 },
-      Rabbia: { Rabbia: 1 },
-      Sorpresa: { Sorpresa: 1 },
-      Tristezza: { Tristezza: 1 },
-      Timore: { Timore: 1 },
-    };
+    // If RPM, convert emotion to blend shape
+    /*from the chat output, we get the emotion and we convert it to the blend shapes
+    * we map the emotion to the blend shape, example:
+    * Anger -> {browDownLeft: 1, browDownRight: 0}
+    * Joy -> {browUpLeft: 1, browUpRight: 0}
+    * Surprise -> {browUpLeft: 1, browUpRight: 0}
+    * Sadness -> {browDownLeft: 1, browDownRight: 0}
+    * Fear -> {browDownLeft: 1, browDownRight: 0}
+    */ 
+    if (isRPM) {
+      const emotion = handleRPMBlendShape(outputContent);
+      setEmotionMorphTargets((_) => ({...defaultEmotions, ...emotion}));
+    } else {
+      // If GLB, convert italian emotions to english ones
+      const emotion = handleCustomGLBBlendShape(outputContent);
+      const emotionValues = emotion === 'default' ? defaultEmotions : emotionMap[emotion];
+      setEmotionMorphTargets((_) => ({...defaultEmotions, ...emotionValues}));
+    }
+  }, [isRPM, handleRPMBlendShape, handleCustomGLBBlendShape]);
 
-    // Set all emotions to 0
-    const defaultEmotions = Object.keys(emotionMap).reduce((acc, key) => {
-      acc[key] = 0;
-      return acc;
-    }, {} as Record<string, number>);
+  // Callback handlers for various avatar state changes
+  const onBaseActionChange = useCallback((action: string, outputContent: string) => {
 
-    // Find the emotion that matches the action
-    const emotion =
-      Object.keys(emotionMap).find(key => action.startsWith(key)) || 'default';
+    // Set emotion morph target influences
+    setEmotionMorphTargetInfluences(action, outputContent);
 
-    // Set the emotion values
-    const emotionValues =
-      emotion === 'default' ? defaultEmotions : emotionMap[emotion];
+    // Set current base action
+    setCurrentBaseAction({action, weight: 1});
+  }, [setEmotionMorphTargetInfluences]);
 
-    setEmotionMorphTargets(_ => ({
-      ...defaultEmotions,
-      ...emotionValues,
-    }));
+  const onMorphTargetInfluencesChange = useCallback((influences: Record<string, number>) => {
+    // Set morph target influences
+    setMorphTargetInfluences(prev => ({...prev, ...influences}));
   }, []);
 
-  const onBaseActionChange = useCallback((action: string) => {
-    setEmotionMorphTargetInfluences(action);
-    setCurrentBaseAction({
-      action,
-      weight: 1,
-    });
+  const onMorphTargetDictionaryChange = useCallback((dictionary: Record<string, number>) => {
+    // Set morph target dictionary
+    setMorphTargetDictionary(dictionary);
   }, []);
 
-  const onMorphTargetInfluencesChange = useCallback(
-    (influences: { [key: string]: number }) => {
-      setMorphTargetInfluences(prevInfluences => ({
-        ...prevInfluences,
-        ...influences,
-      }));
-    },
-    []
-  );
-
-  const onMorphTargetDictionaryChange = useCallback(
-    (dictionary: { [key: string]: number }) => {
-      setMorphTargetDictionary(dictionary);
-    },
-    []
-  );
-
-  const modifyTimeScale = useCallback((value: number) => {
-    setTimeScale(value);
-  }, []);
-
-  // Set the emotion based on the chatEmission
+  // Effect to handle animation changes based on loading state and chat emissions
   useEffect(() => {
-    //Check if chatEmission has a tag
-    const hasOutputTag = chatEmission?.includes(
-      '<output class="memori-emotion">'
-    );
+
+    // If loading, set a random loading animation
+    if (loading) {
+      const randomNumber = Math.floor(Math.random() * 3) + 1;
+      onBaseActionChange(`Loading${randomNumber}`, '');
+      return;
+    }
+
+    // If there's chat emission, set the corresponding emotion animation
+    const hasOutputTag = chatEmission?.includes('<output class="memori-emotion">');
     const outputContent = hasOutputTag
-      ? chatEmission
-          ?.split('<output class="memori-emotion">')[1]
-          ?.split('</output>')[0]
-          ?.trim()
+      ? chatEmission?.split('<output class="memori-emotion">')[1]?.split('</output>')[0]?.trim()
       : null;
 
+    // If there's an emotion, set the corresponding animation
     if (outputContent) {
-      //Based on the outputContent, set the emotion
-      //The outputContent could be: "Gioia", "Sorpresa", "Tristezza", "Rabbia", "Timore"
-      //Choose a random number between 1 and 3
       const randomNumber = Math.floor(Math.random() * 3) + 1;
-      const emotion = `${outputContent}${randomNumber}`;
-
-      onBaseActionChange(emotion);
+      onBaseActionChange(`${outputContent}${randomNumber}`, outputContent);
     } else {
-      //Set a random idle animation
       const randomNumber = Math.floor(Math.random() * 5) + 1;
-      const animation = `Idle${randomNumber === 3 ? 4 : randomNumber}`;
-      onBaseActionChange(animation);
+      onBaseActionChange(`Idle${randomNumber === 3 ? 4 : randomNumber}`, '');
     }
-  }, [chatEmission]);
+  }, [chatEmission, loading, onBaseActionChange]);
 
-  useEffect(() => {
-    if (loading) {
-      //Choose a random number between 1 and 3
-      const randomNumber = Math.floor(Math.random() * 3) + 1;
-      const animation = `Loading${randomNumber}`;
-      onBaseActionChange(animation);
-    }
-  }, [loading]);
+  // Common props shared between full body and half body avatars
+  const commonAvatarProps = {
+    url,
+    onCameraZChange: setCameraZ,
+    setMorphTargetInfluences,
+    setMorphTargetDictionary,
+    updateCurrentViseme,
+    avatarHeight,
+    avatarDepth,
+  };
 
+  // Render avatar with controls
   return (
     <>
       {showControls && (
@@ -205,40 +182,30 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           onBaseActionChange={onBaseActionChange}
           onMorphTargetInfluencesChange={onMorphTargetInfluencesChange}
           onMorphTargetDictionaryChange={onMorphTargetDictionaryChange}
-          baseActions={baseActions}
+          baseActions={BASE_ACTIONS}
           currentBaseAction={currentBaseAction}
-          modifyTimeScale={modifyTimeScale}
+          modifyTimeScale={setTimeScale}
         />
       )}
+      
       {halfBody ? (
         <HalfBodyAvatar
-          url={url}
-          onCameraZChange={setCameraZ}
-          setMorphTargetInfluences={setMorphTargetInfluences}
-          setMorphTargetDictionary={setMorphTargetDictionary}
-          updateCurrentViseme={updateCurrentViseme}
-          avatarHeight={avatarHeight || 50}
-          avatarDepth={avatarDepth || -50}
+          {...commonAvatarProps}
           headMovement={headMovement}
         />
       ) : (
         <FullbodyAvatar
-          url={url}
+          {...commonAvatarProps}
           sex={sex}
+          setIsRpm={setIsRPM}
           resetVisemeQueue={resetVisemeQueue}
           eyeBlink={eyeBlink}
           currentBaseAction={currentBaseAction}
           timeScale={timeScale}
           morphTargetInfluences={morphTargetInfluences}
-          updateCurrentViseme={updateCurrentViseme}
           stopProcessing={stopProcessing}
-          setMorphTargetDictionary={setMorphTargetDictionary}
-          setMorphTargetInfluences={setMorphTargetInfluences}
           emotionMorphTargets={emotionMorphTargets}
           halfBody={halfBody}
-          onCameraZChange={setCameraZ}
-          avatarHeight={avatarHeight || 50}
-          avatarDepth={avatarDepth || -50}
         />
       )}
     </>

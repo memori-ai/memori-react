@@ -78,8 +78,13 @@ import {
   stripMarkdown,
   stripOutputTags,
   stripHTML,
+  installMathJax,
 } from '../../helpers/utils';
-import { anonTag, uiLanguages } from '../../helpers/constants';
+import {
+  allowedMediaTypes,
+  anonTag,
+  uiLanguages,
+} from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
 import { getCredits } from '../../helpers/credits';
 import HiddenChatLayout from '../layouts/HiddenChat';
@@ -407,6 +412,7 @@ export interface Props {
   customMediaRenderer?: ChatProps['customMediaRenderer'];
   additionalSettings?: JSX.Element | null;
   userAvatar?: string | JSX.Element;
+  useMathFormatting?: boolean;
 }
 
 const MemoriWidget = ({
@@ -456,6 +462,7 @@ const MemoriWidget = ({
   additionalSettings,
   customMediaRenderer,
   userAvatar,
+  useMathFormatting = false,
 }: Props) => {
   const { t, i18n } = useTranslation();
 
@@ -475,6 +482,7 @@ const MemoriWidget = ({
     postTagChangedEvent,
     getSession,
     getExpertReferences,
+    getSessionChatLogs,
   } = client;
 
   const [instruct, setInstruct] = useState(false);
@@ -492,6 +500,11 @@ const MemoriWidget = ({
         if (user && resultCode === 0) {
           setUser(user);
           setLocalConfig('loginToken', loginToken);
+
+          if (!birthDate && user.birthDate) {
+            setBirthDate(user.birthDate);
+            setLocalConfig('birthDate', user.birthDate);
+          }
         } else {
           removeLocalConfig('loginToken');
         }
@@ -526,6 +539,14 @@ const MemoriWidget = ({
       i18n.language ??
       'IT'
   );
+
+  const applyMathFormatting =
+    useMathFormatting !== undefined
+      ? useMathFormatting
+      : !!integrationConfig?.useMathFormatting;
+  useEffect(() => {
+    if (applyMathFormatting) installMathJax();
+  }, [applyMathFormatting]);
 
   /**
    * Sets the language in the i18n instance
@@ -631,6 +652,8 @@ const MemoriWidget = ({
     if (!additionalInfo?.loginToken && !authToken) {
       setLoginToken(getLocalConfig<typeof loginToken>('loginToken', undefined));
       userToken = getLocalConfig<typeof loginToken>('loginToken', undefined);
+
+      setBirthDate(getLocalConfig<string | undefined>('birthDate', undefined));
     }
   }, []);
 
@@ -1141,12 +1164,12 @@ const MemoriWidget = ({
     dialogState: DialogState;
     sessionID: string;
   } | void> => {
-    // Check if age verification is needed
     let storageBirthDate = getLocalConfig<string | undefined>(
       'birthDate',
       undefined
     );
-    if (!(birthDate || storageBirthDate) && !!minAge) {
+    let userBirthDate = birthDate ?? params.birthDate ?? storageBirthDate;
+    if (!userBirthDate && !!minAge) {
       setShowAgeVerification(true);
       return;
     }
@@ -1188,6 +1211,7 @@ const MemoriWidget = ({
       // Initialize session with parameters
       const session = await initSession({
         ...params,
+        birthDate: userBirthDate,
         tag: params.tag ?? personification?.tag,
         pin: params.pin ?? personification?.pin,
         additionalInfo: {
@@ -1237,8 +1261,6 @@ const MemoriWidget = ({
       }
     } catch (err) {
       console.error(err);
-      toast.error(t('errorFetchingSession'));
-      throw new Error('Error fetching session');
     }
   };
 
@@ -1265,13 +1287,15 @@ const MemoriWidget = ({
     birthDate?: string
   ) => {
     setLoading(true);
+
+    let storageBirthDate = getLocalConfig<string | undefined>(
+      'birthDate',
+      undefined
+    );
+    let userBirthDate = birthDate ?? storageBirthDate;
+
     try {
-      // Check if age verification is needed
-      let storageBirthDate = getLocalConfig<string | undefined>(
-        'birthDate',
-        undefined
-      );
-      if (!(birthDate || storageBirthDate) && !!minAge) {
+      if (!userBirthDate && !!minAge) {
         setShowAgeVerification(true);
         return;
       }
@@ -1297,8 +1321,6 @@ const MemoriWidget = ({
         })();
       } catch (err) {
         console.debug(err);
-        toast.error(t('errorGettingReferralURL'));
-        throw new Error('Error getting referral URL');
       }
 
       // Initialize session with parameters
@@ -1314,7 +1336,7 @@ const MemoriWidget = ({
           ...(initialContextVars || {}),
         },
         initialQuestion,
-        birthDate: birthDate || storageBirthDate || undefined,
+        birthDate: userBirthDate,
         additionalInfo: {
           ...(additionalInfo || {}),
           loginToken:
@@ -1402,8 +1424,6 @@ const MemoriWidget = ({
       }
     } catch (err) {
       console.error(err);
-      toast.error(t('errorReopeningSession'));
-      throw new Error('Error reopening session');
     }
     setLoading(false);
 
@@ -2732,7 +2752,10 @@ const MemoriWidget = ({
   }, [sessionId, userLang, disableTextEnteredEvents]);
 
   const onClickStart = useCallback(
-    async (session?: { dialogState: DialogState; sessionID: string }) => {
+    async (
+      session?: { dialogState: DialogState; sessionID: string },
+      initialSessionExpired = false
+    ) => {
       const sessionID = session?.sessionID || sessionId;
       const dialogState = session?.dialogState || currentDialogState;
       setClickedStart(true);
@@ -2770,7 +2793,7 @@ const MemoriWidget = ({
         setAuthModalState('password');
         setClickedStart(false);
         return;
-      } else if (!sessionID) {
+      } else if (!sessionID || initialSessionExpired) {
         setClickedStart(false);
         setGotErrorInOpening(false);
         const session = await fetchSession({
@@ -2825,7 +2848,7 @@ const MemoriWidget = ({
           setGotErrorInOpening(true);
           setSessionId(undefined);
           setClickedStart(false);
-          await onClickStart();
+          await onClickStart(undefined, true);
           return;
         }
 
@@ -2954,7 +2977,9 @@ const MemoriWidget = ({
           // this is the default case with anonymous tag
           !instruct &&
           !personification &&
-          currentDialogState?.currentTag !== anonTag
+          currentDialogState?.currentTag &&
+          currentDialogState?.currentTag !== anonTag &&
+          currentDialogState?.currentTag !== '-'
         ) {
           try {
             console.debug('change tag #6');
@@ -3004,6 +3029,55 @@ const MemoriWidget = ({
             });
           }
         } else {
+          try {
+            const { chatLogs, ...resp } = await getSessionChatLogs(
+              sessionID,
+              sessionID
+            );
+
+            const messages = chatLogs?.[0]?.lines.map(
+              (l, i) =>
+                ({
+                  text: l.text,
+                  media: l.media
+                    ?.filter(m => allowedMediaTypes.includes(m.mimeType))
+                    ?.map(m => ({
+                      mediumID: `${i}-${m.mimeType}`,
+                      ...m,
+                    })),
+                  fromUser: l.inbound,
+                  timestamp: l.timestamp,
+                  emitter: l.emitter,
+                  initial: i === 0,
+                } as Message)
+            );
+
+            // we remove the last one as it is the current state
+            let translatedMessages = messages.slice(0, -1);
+            if (
+              language.toUpperCase() !== userLang.toUpperCase() &&
+              isMultilanguageEnabled
+            ) {
+              try {
+                translatedMessages = await Promise.all(
+                  messages.map(async m => ({
+                    ...m,
+                    originalText: m.text,
+                    text: (
+                      await getTranslation(m.text, userLang, language, baseUrl)
+                    ).text,
+                  }))
+                );
+              } catch (e) {
+                console.log('Error translating messages', e);
+              }
+            }
+
+            setHistory(translatedMessages);
+          } catch (e) {
+            console.log('Error retrieving chat logs', e);
+          }
+
           // no need to change tag
           translateDialogState(currentState, userLang)
             .then(ts => {
@@ -3228,6 +3302,7 @@ const MemoriWidget = ({
     onClickStart: onClickStart,
     initializeTTS: initializeTTS,
     isUserLoggedIn: !!loginToken && !!user?.userID,
+    hasInitialSession: !!initialSessionID,
     notEnoughCredits: needsCredits && !hasEnoughCredits,
     showLogin,
     setShowLoginDrawer,
@@ -3321,6 +3396,7 @@ const MemoriWidget = ({
     user,
     userAvatar,
     experts,
+    useMathFormatting: applyMathFormatting,
   };
 
   const integrationBackground =

@@ -16,3 +16,11 @@
 .memori--completion-provider-status--tooltip.memori-tooltip .memori-tooltip--content p+p {
     margin-top: 1em;
 }
+
+.memori--completion-provider-status--loading {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}

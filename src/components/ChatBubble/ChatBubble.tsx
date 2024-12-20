@@ -30,29 +30,10 @@ import markedLinkifyIt from 'marked-linkify-it';
 import markedKatex from 'marked-katex-extension';
 import markedExtendedTables from '../../helpers/markedExtendedTables';
 
-export interface Props {
-  message: Message;
-  memori: Memori;
-  sessionID: string;
-  tenant?: Tenant;
-  baseUrl?: string;
-  apiUrl?: string;
-  showFeedback?: boolean;
-  showWhyThisAnswer?: boolean;
-  showCopyButton?: boolean;
-  showTranslationOriginal?: boolean;
-  simulateUserPrompt?: (msg: string) => void;
-  showAIicon?: boolean;
-  isFirst?: boolean;
-  userAvatar?: MemoriProps['userAvatar'];
-  user?: User;
-  experts?: ExpertReference[];
-}
-
 marked.use({
   async: false,
   gfm: true,
-  pedantic: true,
+  pedantic: false,
   renderer: {
     link: ({ href, title, text }) => {
       const cleanHref = cleanUrl(href);
@@ -71,13 +52,96 @@ marked.use({
   },
 });
 marked.use(markedLinkifyIt());
-marked.use(
-  markedKatex({
-    throwOnError: false,
-    output: 'htmlAndMathml',
-  })
-);
 marked.use(markedExtendedTables());
+
+const parseSquaredBrackets = (text: string) => {
+  const rows = text.split('\n');
+
+  return rows.reduce((acc, row) => {
+    if (row.includes('=')) {
+      let result = '';
+      let isEscaped = false;
+      for (let i = 0; i < row.length; i++) {
+        if (row[i] === '[' && !isEscaped) {
+          result += '\\[';
+        } else if (row[i] === ']' && !isEscaped) {
+          result += '\\]';
+        } else {
+          result += row[i];
+        }
+        isEscaped = row[i] === '\\' && !isEscaped;
+      }
+
+      return acc?.length ? `${acc}\n${result}` : result;
+    } else {
+      return acc?.length ? `${acc}\n${row}` : row;
+    }
+  }, '');
+};
+
+const renderMsg = (text: string, useMathFormatting = false) => {
+  try {
+    let parsedText = (
+      marked.parse(
+        text
+          // remove leading and trailing whitespaces
+          .trim()
+          // remove markdown links
+          .replaceAll(
+            /\[([^\]]+)\]\(([^\)]+)\)/g,
+            '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+          )
+          // remove markdown multiline code blocks but keep the content
+          .replaceAll(/```markdown([^```]+)```/g, '$1')
+          .replaceAll('($', '( $')
+          .replaceAll(':$', ': $')
+          .replaceAll('\frac', '\\frac')
+          .replaceAll('\beta', '\\beta')
+          .replaceAll('cdot', '\\cdot')
+      ) as string
+    ).trim();
+
+    if (useMathFormatting) {
+      parsedText = parseSquaredBrackets(parsedText.replace(/\n/g, '<br>'));
+    }
+
+    parsedText = DOMPurify.sanitize(parsedText, {
+      ADD_ATTR: ['target'],
+    });
+
+    return (
+      parsedText
+        // replace consecutive <br> with a single <br>
+        .replace(/(<br>)+/g, '<br>')
+        // remove empty paragraphs
+        .replace(/<p><\/p>/g, '<br>')
+        .replace(/<p><br><\/p>/g, '<br>')
+    );
+  } catch (e) {
+    console.error(e);
+    return text;
+  }
+};
+
+export interface Props {
+  message: Message;
+  memori: Memori;
+  sessionID: string;
+  tenant?: Tenant;
+  baseUrl?: string;
+  apiUrl?: string;
+  showFeedback?: boolean;
+  showWhyThisAnswer?: boolean;
+  showCopyButton?: boolean;
+  showTranslationOriginal?: boolean;
+  simulateUserPrompt?: (msg: string) => void;
+  showAIicon?: boolean;
+  useMathFormatting?: boolean;
+  isFirst?: boolean;
+  userAvatar?: MemoriProps['userAvatar'];
+  user?: User;
+  experts?: ExpertReference[];
+}
 
 const ChatBubble: React.FC<Props> = ({
   message,
@@ -93,6 +157,7 @@ const ChatBubble: React.FC<Props> = ({
   simulateUserPrompt,
   showAIicon = true,
   isFirst = false,
+  useMathFormatting = false,
   user,
   userAvatar,
   experts,
@@ -101,83 +166,29 @@ const ChatBubble: React.FC<Props> = ({
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
 
+  if (useMathFormatting) {
+    marked.use(
+      markedKatex({
+        throwOnError: false,
+        output: 'htmlAndMathml',
+      })
+    );
+  }
+
   const text = message.translatedText || message.text;
 
-  const parseSquaredBrackets = (text: string) => {
-    const rows = text.split('\n');
-
-    return rows.reduce((acc, row) => {
-      if (row.includes('=')) {
-        let result = '';
-        let isEscaped = false;
-        for (let i = 0; i < row.length; i++) {
-          if (row[i] === '[' && !isEscaped) {
-            result += '\\[';
-          } else if (row[i] === ']' && !isEscaped) {
-            result += '\\]';
-          } else {
-            result += row[i];
-          }
-          isEscaped = row[i] === '\\' && !isEscaped;
-        }
-
-        return acc?.length ? `${acc}\n${result}` : result;
-      } else {
-        return acc?.length ? `${acc}\n${row}` : row;
-      }
-    }, '');
-  };
-
-  const renderMsg = (text: string) => {
-    try {
-      return (
-        parseSquaredBrackets(
-          DOMPurify.sanitize(
-            (
-              marked.parse(
-                text
-                  // remove leading and trailing whitespaces
-                  .trim()
-                  // remove markdown links
-                  .replaceAll(
-                    /\[([^\]]+)\]\(([^\)]+)\)/g,
-                    '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-                  )
-                  // remove markdown multiline code blocks but keep the content
-                  .replaceAll(/```markdown([^```]+)```/g, '$1')
-                  .replaceAll('($', '( $')
-                  .replaceAll(':$', ': $')
-                  .replaceAll('\frac', '\\frac')
-                  .replaceAll('\beta', '\\beta')
-                  .replaceAll('cdot', '\\cdot')
-              ) as string
-            )
-              .trim()
-              .replace(/\n/g, '<br>'),
-            {
-              ADD_ATTR: ['target'],
-            }
-          )
-        )
-          // replace consecutive <br> with a single <br>
-          .replace(/(<br>)+/g, '<br>')
-          // remove empty paragraphs
-          .replace(/<p><\/p>/g, '<br>')
-          .replace(/<p><br><\/p>/g, '<br>')
-      );
-    } catch (e) {
-      console.error(e);
-      return text;
-    }
-  };
-  const renderedText = renderMsg(text);
+  const renderedText = renderMsg(text, useMathFormatting);
 
   const plainText = message.fromUser
     ? text
     : stripHTML(stripOutputTags(renderedText));
 
   useLayoutEffect(() => {
-    if (typeof window !== 'undefined' && !message.fromUser) {
+    if (
+      typeof window !== 'undefined' &&
+      !message.fromUser &&
+      useMathFormatting
+    ) {
       // @ts-ignore
       // eslint-disable-next-line no-undef
       if ('MathJax' in window && window.MathJax.typesetPromise)
@@ -185,7 +196,7 @@ const ChatBubble: React.FC<Props> = ({
         // eslint-disable-next-line no-undef
         window.MathJax.typesetPromise(['.memori-chat--bubble-content']);
     }
-  }, [message.text, message.fromUser]);
+  }, [message.text, message.fromUser, useMathFormatting]);
 
   return (
     <>
@@ -234,7 +245,9 @@ const ChatBubble: React.FC<Props> = ({
                 !!message.emitter?.length &&
                 !!memori.enableBoardOfExperts &&
                 experts?.find(e => e.name === message.emitter)
-                  ? `${apiUrl}/api/v1/memoriai/memori/avatar/${
+                  ? `${
+                      new URL(apiUrl ?? '/').origin
+                    }/api/v1/memoriai/memori/avatar/${
                       experts.find(e => e.name === message.emitter)
                         ?.expertMemoriID
                     }`

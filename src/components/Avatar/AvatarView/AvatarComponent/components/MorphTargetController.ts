@@ -1,7 +1,10 @@
 import { SkinnedMesh } from 'three';
 import { MathUtils } from 'three';
-import { EMOTION_SMOOTHING, VISEME_SMOOTHING, BLINK_CONFIG } from './constants';
+import { EMOTION_SMOOTHING, VISEME_SMOOTHING, BLINK_CONFIG } from '../constants';
 
+/**
+ * Controller class for handling morph target animations including emotions, visemes and blinking
+ */
 export class MorphTargetController {
   private headMesh: SkinnedMesh;
   private currentEmotionValues: Record<string, number> = {};
@@ -10,7 +13,9 @@ export class MorphTargetController {
   constructor(headMesh: SkinnedMesh) {
     this.headMesh = headMesh;
   }
-
+  /**
+   * Updates the morph target influences for emotions, visemes and blinking
+   */
   updateMorphTargets(
     currentTime: number,
     emotionMorphTargets: Record<string, number>,
@@ -23,57 +28,64 @@ export class MorphTargetController {
       blinkStartTime: number;
     }
   ) {
+    // Validate required mesh properties exist
     if (
       !this.headMesh.morphTargetDictionary ||
       !this.headMesh.morphTargetInfluences
     ) {
+      console.error('[MorphTargetController] Missing morphTargetDictionary or morphTargetInfluences');
       return;
     }
 
+    // Calculate blink value for this frame
     const blinkValue = this.calculateBlinkValue(
       currentTime,
       blinkState,
       eyeBlink
     );
+    
     const currentEmotionKeys = new Set(Object.keys(emotionMorphTargets));
 
+    // Process each morph target
     Object.entries(this.headMesh.morphTargetDictionary).forEach(
       ([key, index]) => {
         if (typeof index !== 'number') return;
 
         let targetValue = 0;
 
-        // Handle emotion morphs
+        // Handle emotion morphs with smoothing
         if (currentEmotionKeys.has(key)) {
           const targetEmotionValue = emotionMorphTargets[key];
           const currentEmotionValue = this.currentEmotionValues[key] || 0;
           const newEmotionValue = MathUtils.lerp(
             currentEmotionValue,
-            targetEmotionValue * 2.5,
+            targetEmotionValue * 3, // Amplify emotion by 3x
             EMOTION_SMOOTHING
           );
+          console.log(`[MorphTargetController] Emotion ${key}: current=${currentEmotionValue}, target=${targetEmotionValue}, new=${newEmotionValue}`);
           this.currentEmotionValues[key] = newEmotionValue;
           targetValue += newEmotionValue;
         }
 
-        // Handle viseme
+        // Add viseme influence if active
         if (currentViseme && key === currentViseme.name) {
           targetValue += currentViseme.weight;
         }
 
-        // Handle blinking
+        // Add blink influence if active
         if (key === 'eyesClosed' && eyeBlink) {
           targetValue += blinkValue;
         }
 
-        // Apply final value
+        // Clamp and smooth final value
         targetValue = MathUtils.clamp(targetValue, 0, 1);
         if (this.headMesh.morphTargetInfluences) {
-          this.headMesh.morphTargetInfluences[index] = MathUtils.lerp(
+          const finalValue = MathUtils.lerp(
             this.headMesh.morphTargetInfluences[index] || 0,
             targetValue,
             VISEME_SMOOTHING
           );
+          this.headMesh.morphTargetInfluences[index] = finalValue;
         }
       }
     );
@@ -81,6 +93,9 @@ export class MorphTargetController {
     this.previousEmotionKeys = currentEmotionKeys;
   }
 
+  /**
+   * Calculates the blink value based on timing and state
+   */
   private calculateBlinkValue(
     currentTime: number,
     blinkState: {
@@ -95,6 +110,7 @@ export class MorphTargetController {
 
     let blinkValue = 0;
 
+    // Start new blink if it's time
     if (currentTime >= blinkState.nextBlinkTime && !blinkState.isBlinking) {
       blinkState.isBlinking = true;
       blinkState.blinkStartTime = currentTime;
@@ -105,14 +121,21 @@ export class MorphTargetController {
         BLINK_CONFIG.minInterval;
     }
 
+    // Calculate blink animation progress
     if (blinkState.isBlinking) {
       const blinkProgress =
         (currentTime - blinkState.blinkStartTime) / BLINK_CONFIG.blinkDuration;
+      
+      // First half of blink - closing eyes
       if (blinkProgress <= 0.5) {
         blinkValue = blinkProgress * 2;
-      } else if (blinkProgress <= 1) {
+      } 
+      // Second half of blink - opening eyes
+      else if (blinkProgress <= 1) {
         blinkValue = 2 - blinkProgress * 2;
-      } else {
+      } 
+      // Blink complete
+      else {
         blinkState.isBlinking = false;
         blinkValue = 0;
       }

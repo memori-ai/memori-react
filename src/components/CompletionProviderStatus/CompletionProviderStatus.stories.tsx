@@ -7,7 +7,7 @@ import './CompletionProviderStatus.css';
 
 const meta: Meta = {
   title: 'Completion Provider Status',
-  component: CompletionProviderStatus,
+  component: CompletionProviderStatus as React.ComponentType<any>,
   argTypes: {},
   parameters: {
     layout: 'centered',

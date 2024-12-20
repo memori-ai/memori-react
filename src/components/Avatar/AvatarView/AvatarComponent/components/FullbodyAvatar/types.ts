@@ -14,6 +14,7 @@ export interface AnimationConfig {
 export interface FullbodyAvatarProps {
   url: string;
   sex: 'MALE' | 'FEMALE';
+  setIsRpm: (value: boolean) => void;
   onLoaded?: () => void;
   currentBaseAction: {
     action: string;

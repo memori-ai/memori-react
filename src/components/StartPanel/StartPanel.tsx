@@ -34,6 +34,7 @@ export interface Props {
   integrationConfig?: { [key: string]: any };
   instruct?: boolean;
   sessionId?: string;
+  hasInitialSession?: boolean;
   clickedStart?: boolean;
   onClickStart?: () => void;
   initializeTTS?: () => void;
@@ -57,6 +58,7 @@ const StartPanel: React.FC<Props> = ({
   position,
   openPositionDrawer,
   instruct = false,
+  hasInitialSession = false,
   clickedStart,
   onClickStart,
   initializeTTS,
@@ -264,7 +266,13 @@ const StartPanel: React.FC<Props> = ({
             className="memori--start-button"
           >
             {t(
-              `write_and_speak.${!instruct ? 'tryMeButton' : 'instructButton'}`
+              `write_and_speak.${
+                instruct
+                  ? 'instructButton'
+                  : !hasInitialSession
+                  ? 'tryMeButton'
+                  : 'resumeButton'
+              }`
             )}
           </Button>
 

@@ -61,7 +61,6 @@
 
 .memori-chat-layout--controls .memori--start-panel,
 .memori-chat-layout--controls .memori-chat--wrapper {
-    width: 80%;
     max-width: 1200px;
     margin: 0 auto;
 }

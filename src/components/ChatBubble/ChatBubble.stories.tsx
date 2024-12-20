@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { memori, tenant } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import ChatBubble, { Props } from './ChatBubble';
+import { installMathJax } from '../../helpers/utils';
 
 import './ChatBubble.css';
 
@@ -25,6 +26,11 @@ const meta: Meta = {
         type: 'boolean',
       },
     },
+    useMathFormatting: {
+      control: {
+        type: 'boolean',
+      },
+    },
   },
   parameters: {
     controls: { expanded: true },
@@ -33,11 +39,19 @@ const meta: Meta = {
 
 export default meta;
 
-const Template: Story<Props> = args => (
-  <I18nWrapper>
-    <ChatBubble {...args} />
-  </I18nWrapper>
-);
+const Template: Story<Props> = args => {
+  useEffect(() => {
+    // @ts-ignore
+    if (args.useMathFormatting && !window.MathJax) installMathJax();
+  }, [args.useMathFormatting]);
+
+  return (
+    <I18nWrapper>
+      <ChatBubble {...args} />
+    </I18nWrapper>
+  );
+};
+
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
 // https://storybook.js.org/docs/react/workflows/unit-testing
 export const Default = Template.bind({});
@@ -65,6 +79,18 @@ FromUser.args = {
       'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
   },
 };
+
+export const FromUserWithLink = Template.bind({});
+FromUserWithLink.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: true,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor. [Vedi altro](https://memori.ai)',
+    initial: false,
+  },
+};
+
 
 export const Initial = Template.bind({});
 Initial.args = {
@@ -253,7 +279,35 @@ WithMarkdown.args = {
   tenant,
   message: {
     fromUser: false,
-    text: '## Test\n\nEcco tutte le possibili personalizzazioni che puoi applicare:\n\n- **Colletto**:\n - Girocollo\n - Scollo a V\n\n- **Manica**:\n - Manica Lunga\n - Manica Corta\n\n- **Taglia**:\n - XS\n - S\n - M\n - L\n - XL\n - XXL\n - 3XL\n\n- **Posizione Stampa**:\n - Fronte Petto\n - Retro Schiena\n - Fronte DX\n - Fronte SX\n\n- **Generazione Immagine**:\n - Prompt generazione immagine\n\nSeleziona le personalizzazioni che desideri applicare.\n\n[Vedi altro](https://memori.ai)',
+    text: `## Test
+
+Ecco tutte le possibili personalizzazioni che puoi applicare:
+
+- **Colletto**:
+  - Girocollo
+  - Scollo a V
+- **Manica**:
+  - Manica Lunga
+  - Manica Corta
+- **Taglia**:
+  - XS
+  - S\
+  - M
+  - L
+  - XL
+  - XXL
+  - 3XL
+- **Posizione Stampa**:
+  - Fronte Petto
+  - Retro Schiena
+  - Fronte DX
+  - Fronte SX
+- **Generazione Immagine**:
+  - Prompt generazione immagine
+
+Seleziona le personalizzazioni che desideri applicare.
+
+[Vedi altro](https://memori.ai)`,
     initial: false,
     generatedByAI: true,
   },
@@ -341,11 +395,68 @@ MarkdownWithSquareBrackets.args = {
   },
 };
 
+export const MarkdownWithSquareBracketsAndTable = Template.bind({});
+MarkdownWithSquareBracketsAndTable.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: `<table border="1" style="border-collapse: collapse; width: 100%; table-layout: fixed; font-family: Arial, sans-serif;">
+<tr style="background-color: #f0f0f0;">
+ <th style="text-align: left; padding: 8px; width: 200px;">Attività</th>
+ <th colspan="4" style="text-align: center; padding: 8px;">Dic 2024</th>
+ <th colspan="4" style="text-align: center; padding: 8px;">Gen 2025</th>
+ <th colspan="4" style="text-align: center; padding: 8px;">Feb 2025</th>
+ <th colspan="4" style="text-align: center; padding: 8px;">Mar 2025</th>
+ <th colspan="4" style="text-align: center; padding: 8px;">Apr 2025</th>
+ <th colspan="4" style="text-align: center; padding: 8px;">Mag 2025</th>
+ <th colspan="4" style="text-align: center; padding: 8px;">Giu 2025</th>
+</tr>
+</table>
+
+[Vuoi che continui con l'intera tabella mantenendo lo stesso formato della precedente ma con table-layout: fixed per garantire celle di uguale dimensione?]`,
+  },
+};
+
+export const MarkdownWithLists = Template.bind({});
+MarkdownWithLists.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  message: {
+    fromUser: false,
+    initial: false,
+    generatedByAI: true,
+    text: `I buoni spesa sono acquistabili con il credito Fringe Benefit (pari a 1.000 € per l'anno 2024) e si distinguono in 3 tipologie:
+
+1. **Buoni Elettronici**:
+- Emessi digitalmente
+- Scaricabili/stampabili dalla piattaforma
+- Consegna in 3-4 giorni lavorativi
+
+2. **Buoni Fisici**:
+- Tessere fisiche inviate direttamente
+- Tempi di consegna più lunghi
+
+3. **Buoni Elettronici Locali**:
+- Emessi da fornitori della zona
+- Inviati in formato PDF
+
+**NOTA IMPORTANTE**: Non è possibile acquistare buoni Amazon sulla piattaforma TreCuori.
+
+Se hai bisogno di vedere quali buoni sono disponibili e dove spenderli, fammi sapere!`,
+  },
+};
+
 export const ComplexMarkdownMath1 = Template.bind({});
 ComplexMarkdownMath1.args = {
   memori,
   apiUrl: 'https://backend.memori.ai',
   tenant,
+  useMathFormatting: true,
   message: {
     fromUser: false,
     initial: false,
@@ -359,6 +470,7 @@ ComplexMarkdownMath2.args = {
   memori,
   apiUrl: 'https://backend.memori.ai',
   tenant,
+  useMathFormatting: true,
   message: {
     fromUser: false,
     initial: false,
@@ -372,6 +484,7 @@ ComplexMarkdownMath3.args = {
   memori,
   apiUrl: 'https://backend.memori.ai',
   tenant,
+  useMathFormatting: true,
   message: {
     fromUser: false,
     initial: false,
@@ -385,6 +498,7 @@ ComplexMarkdownMath4.args = {
   memori,
   apiUrl: 'https://backend.memori.ai',
   tenant,
+  useMathFormatting: true,
   message: {
     fromUser: false,
     initial: false,
@@ -397,6 +511,7 @@ export const ComplexMarkdownMath5 = Template.bind({});
 ComplexMarkdownMath5.args = {
   memori,
   tenant,
+  useMathFormatting: true,
   apiUrl: 'https://backend.memori.ai',
   message: {
     fromUser: false,
@@ -410,6 +525,7 @@ export const ComplexMarkdownMath6 = Template.bind({});
 ComplexMarkdownMath6.args = {
   memori,
   tenant,
+  useMathFormatting: true,
   apiUrl: 'https://backend.memori.ai',
   message: {
     fromUser: false,
@@ -439,6 +555,7 @@ ComplexMarkdownMath7.args = {
   memori,
   tenant,
   apiUrl: 'https://backend.memori.ai',
+  useMathFormatting: true,
   message: {
     fromUser: false,
     initial: false,

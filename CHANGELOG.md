@@ -1,5 +1,61 @@
 
 
+## [7.11.4](https://github.com/memori-ai/memori-react/compare/v7.11.3...v7.11.4) (2024-12-10)
+
+
+### Bug Fixes
+
+* links color in user chat bubbles ([813e557](https://github.com/memori-ai/memori-react/commit/813e5574bb32467f52f397a9ff3da1bfeb5b6b4c))
+
+## [7.11.3](https://github.com/memori-ai/memori-react/compare/v7.11.2...v7.11.3) (2024-12-06)
+
+
+### Bug Fixes
+
+* errors opening session ([ba33f73](https://github.com/memori-ai/memori-react/commit/ba33f73c5733f9417fd5b6e17b4e2d5ab950d701))
+
+## [7.11.2](https://github.com/memori-ai/memori-react/compare/v7.11.1...v7.11.2) (2024-12-06)
+
+
+### Changes
+
+* install mathjax only if useMathFormatting is enabled ([8648ed0](https://github.com/memori-ai/memori-react/commit/8648ed00627801b8904bc77bd41fc15448756bf1))
+
+## [7.11.1](https://github.com/memori-ai/memori-react/compare/v7.11.0...v7.11.1) (2024-12-06)
+
+
+### Bug Fixes
+
+* markdown formatting lists and newlines ([ff42a33](https://github.com/memori-ai/memori-react/commit/ff42a33df9b45c32e503859c49147bc2b9c8ea39))
+* resume session will create new session if expired ([a85ea67](https://github.com/memori-ai/memori-react/commit/a85ea6794a729c7a9fd01bf1c966e01abf877cd2))
+
+## [7.11.0](https://github.com/memori-ai/memori-react/compare/v7.10.0...v7.11.0) (2024-12-05)
+
+
+### Features
+
+* math markdown parsing by flag (config or props) ([31c272f](https://github.com/memori-ai/memori-react/commit/31c272fc47825a2292e3a620df55c9a3c615c855))
+* resume previous session with sessionID set ([8524d85](https://github.com/memori-ai/memori-react/commit/8524d85f41f5a4cc17f9c876d220f0e36c02dab0))
+
+
+### Bug Fixes
+
+* **AgeVerificationModal:** update z-index for improved modal visibility ([ddbe6e3](https://github.com/memori-ai/memori-react/commit/ddbe6e39812b0070df06c8d05d19fde3da900232))
+* improved error handling for fetchSession and reopenSession functions ([b9b092a](https://github.com/memori-ai/memori-react/commit/b9b092aef1d427afd7d845ae0dc0d65c0ed95326))
+* linting ChatBubble ([cf5fb09](https://github.com/memori-ai/memori-react/commit/cf5fb09200499880fb4fb8ec23468529e2b0d0c2))
+* recover birthdate from localstorage or login ([fc7c54d](https://github.com/memori-ai/memori-react/commit/fc7c54d887c1184f31fcb258bd7a29cf00168324))
+* **test:** reverted linting modifies on ChatBubble ([3e26519](https://github.com/memori-ai/memori-react/commit/3e26519d531934211f0201f1bec9530aae393a10))
+
+
+### Changes
+
+* chat layout width ([2aa5d23](https://github.com/memori-ai/memori-react/commit/2aa5d23d79896a9651973f7db940b55e4dc0a782))
+
+
+### Maintenance
+
+* fix typo in stories ([1b71ac9](https://github.com/memori-ai/memori-react/commit/1b71ac9666c9160b650b6f37801184af75de1aec))
+
 ## [7.10.0](https://github.com/memori-ai/memori-react/compare/v7.9.1...v7.10.0) (2024-11-26)
 
 

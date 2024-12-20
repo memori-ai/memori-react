@@ -79,6 +79,7 @@ export interface Props {
   userAvatar?: MemoriProps['userAvatar'];
   user?: User;
   experts?: ExpertReference[];
+  useMathFormatting?: boolean;
 }
 
 const Chat: React.FC<Props> = ({
@@ -126,6 +127,7 @@ const Chat: React.FC<Props> = ({
   userAvatar,
   showUpload = false,
   experts,
+  useMathFormatting = false,
 }) => {
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -232,6 +234,7 @@ const Chat: React.FC<Props> = ({
                 userAvatar={userAvatar}
                 experts={experts}
                 showCopyButton={showCopyButton}
+                useMathFormatting={useMathFormatting}
               />
 
               {showDates && !!message.timestamp && (
