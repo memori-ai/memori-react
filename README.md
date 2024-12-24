@@ -4,7 +4,7 @@
 ![Tests](https://github.com/memori-ai/memori-react/workflows/CI/badge.svg?branch=main)
 ![TypeScript Support](https://img.shields.io/badge/TypeScript-Support-blue)
 
-Library to integrate a Twin from [Memori](https://memori.ai) in a React app.
+Library to integrate an Agent from [Memori](https://memori.ai) in a React app.
 
 Web Platform: [AIsuru](https://aisuru.com)
 
@@ -57,7 +57,7 @@ const App = () => (
 | ---------------------------------- | -------------- | ------------------------------------------- | --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `memoriName`                       | \* (see below) | `string`                                    |                             | Name of the Memori                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `ownerUserName`                    | \* (see below) | `string`                                    |                             | Username of the Memori owner                                                                                                                                                                                                                                                                                                                                                                                                            |
-| `memoriID`                         | \* (see below) | `string`                                    |                             | ID of the Memori                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `memoriID`                         | \* (see below) | `string`                                    |                             | ID of the Memori (agent)                                                                                                                                                                                                                                                                                                                                                                                                                        |
 | `ownerUserID`                      | \* (see below) | `string`                                    |                             | ID of the Memori owner                                                                                                                                                                                                                                                                                                                                                                                                                  |
 | `tenantID`                         | ✔️             | `string`                                    |                             | Tenant ID, example: "aisuru.com" or "app.memorytwin.com"                                                                                                                                                                                                                                                                                                                                                                                |
 | `sessionID`                        |                | `string`                                    |                             | Initial Session ID, UUID which refers to the session to the Memori and identifies a conversation and its permissions (giver, receiver, anonymous). A session would be started autonomously with the params set, but if you have an existing and valid sessionID you can pass it as already opened one. Use this at your risk, as session recovery might break or start session as anon user. In most cases, you shoudn't use this prop. |
@@ -284,9 +284,9 @@ You can also use this to extend the default media renderer with additional media
 
 ## Global utilities
 
-When rendered, the Memori widget exposes some global functions that can be used to interact with the Memori.
+When rendered, the Memori widget exposes some global functions that can be used to interact with the Agent.
 
-### Get the state of the Twin
+### Get the state of the conversation
 
 ```js
 let dialogState = getMemoriState();
@@ -303,9 +303,9 @@ let dialogState = JSON.parse(
 );
 ```
 
-### Write and send a message to the Twin
+### Write and send a message to the Agent
 
-Write and send a message to the Twin. You can use this method to send a message to the Twin, such as to continue a conversation with a specific message or following an action.
+Write and send a message to the agent. You can use this method to send a message, such as to continue a conversation with a specific message or following an action.
 
 ```js
 typeMessage('Hello World!');
@@ -316,11 +316,11 @@ Additional parameters:
 ```js
 const waitForPrevious = true; // waits for previous message to be read, default: true
 const hidden = true; // message is not visible to the user, only the response is, default: false
-const typingText = "Asking the unicorns' opinion..."; // text to show in the loader while the Twin is answering, defaults to none
+const typingText = "Asking the unicorns' opinion..."; // text to show in the loader while the Agent is answering, defaults to none
 typeMessage('Hello World!', waitForPrevious, hidden, typingText);
 ```
 
-There is also an alias function that does not show the message sent to the user, but only the Twin's response:
+There is also an alias function that does not show the message sent to the user, but only the Agent's response:
 
 ```js
 const waitForPrevious = true; // waits for previous message to be read, default: true

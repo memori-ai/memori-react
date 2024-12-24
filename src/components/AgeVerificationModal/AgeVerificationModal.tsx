@@ -34,7 +34,7 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
       toast.error(t('underageTwinSession', { age: minAge }));
       setError(
         t('underageTwinSession', { age: minAge }) ||
-          `You must be at least ${minAge} years old to interact with this Twin`
+          `You must be at least ${minAge} years old to interact with this Agent`
       );
       setSubmitting(false);
       return;
