@@ -2555,7 +2555,7 @@ const MemoriWidget = ({
       ? true
       : integrationConfig?.showAIicon;
 
-  const enableUpload = showUpload ?? integrationConfig?.showUpload ?? false;
+  const enableUpload = showUpload || !!integrationConfig?.showUpload;
 
   const showWhyThisAnswer =
     integrationConfig?.showWhyThisAnswer === undefined

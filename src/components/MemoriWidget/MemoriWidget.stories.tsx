@@ -144,6 +144,27 @@ ShowClear.args = {
   showClear: true,
 };
 
+export const ShowUpload = Template.bind({});
+ShowUpload.args = {
+  memori,
+  tenant,
+  showUpload: true,
+};
+
+export const ShowUploadFromIntegration = Template.bind({});
+ShowUploadFromIntegration.args = {
+  memori,
+  tenant,
+  showUpload: false,
+  integration: {
+    ...integration,
+    customData: JSON.stringify({
+      ...JSON.parse(integration.customData ?? '{}'),
+      showUpload: true,
+    }),
+  },
+};
+
 export const WithoutAudio = Template.bind({});
 WithoutAudio.args = {
   memori,
