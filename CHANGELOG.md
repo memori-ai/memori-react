@@ -1,5 +1,13 @@
 
 
+## [7.12.1](https://github.com/memori-ai/memori-react/compare/v7.12.0...v7.12.1) (2024-12-24)
+
+
+### Bug Fixes
+
+* improve condition for media handling in ChatBubble component ([89506e7](https://github.com/memori-ai/memori-react/commit/89506e738fee548537bc82cdb20472fc53162239))
+* showUpload from integration bool checking and fallbacks ([c87f5d8](https://github.com/memori-ai/memori-react/commit/c87f5d84863048d4ef067fec38573996351ee515))
+
 ## [7.12.0](https://github.com/memori-ai/memori-react/compare/v7.11.4...v7.12.0) (2024-12-20)
 
 
