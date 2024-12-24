@@ -1,5 +1,17 @@
 
 
+## [7.12.2](https://github.com/memori-ai/memori-react/compare/v7.12.1...v7.12.2) (2024-12-24)
+
+
+### Changes
+
+* new scroll logic by last user msg ([bc469d3](https://github.com/memori-ai/memori-react/commit/bc469d30b3f00065e5d75d465c4984a8727bab7a))
+
+
+### Maintenance
+
+* rename memori/twin in agents ([179868d](https://github.com/memori-ai/memori-react/commit/179868d8a9171370edb5fe56b63be0efd2f7d152))
+
 ## [7.12.1](https://github.com/memori-ai/memori-react/compare/v7.12.0...v7.12.1) (2024-12-24)
 
 
