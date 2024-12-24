@@ -131,12 +131,10 @@ const Chat: React.FC<Props> = ({
 }) => {
   const scrollToBottom = () => {
     setTimeout(() => {
-      document
-        .querySelector('.memori-chat--content')
-        ?.scrollTo(
-          0,
-          document.querySelector('.memori-chat--content')?.scrollHeight ?? 0
-        );
+      let userMsgs = document.querySelectorAll(
+        '.memori-chat--bubble-container.memori-chat--bubble-from-user'
+      );
+      userMsgs[userMsgs.length - 1].scrollIntoView();
     }, 200);
   };
   useEffect(() => {
