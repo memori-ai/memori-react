@@ -134,7 +134,7 @@ const Chat: React.FC<Props> = ({
       let userMsgs = document.querySelectorAll(
         '.memori-chat--bubble-container.memori-chat--bubble-from-user'
       );
-      userMsgs[userMsgs.length - 1].scrollIntoView();
+      userMsgs[userMsgs.length - 1]?.scrollIntoView?.();
     }, 200);
   };
   useEffect(() => {
