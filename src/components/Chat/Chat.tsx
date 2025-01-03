@@ -14,7 +14,6 @@ import ChatBubble from '../ChatBubble/ChatBubble';
 import MediaWidget, {
   Props as MediaWidgetProps,
 } from '../MediaWidget/MediaWidget';
-import Button from '../ui/Button';
 import { Props as MemoriProps } from '../MemoriWidget/MemoriWidget';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
@@ -43,7 +42,7 @@ export interface Props {
   showAIicon?: boolean;
   showTranslationOriginal?: boolean;
   showWhyThisAnswer?: boolean;
-  client: ReturnType<typeof memoriApiClient>;
+  client?: ReturnType<typeof memoriApiClient>;
   preview?: boolean;
   microphoneMode?: 'CONTINUOUS' | 'HOLD_TO_TALK';
   sendOnEnter?: 'keypress' | 'click';
@@ -74,7 +73,7 @@ export interface Props {
   stopListening: () => void;
   resetTranscript: () => void;
   customMediaRenderer?: MediaWidgetProps['customMediaRenderer'];
-  layout: MemoriProps['layout'];
+  layout?: MemoriProps['layout'];
   userAvatar?: MemoriProps['userAvatar'];
   user?: User;
   experts?: ExpertReference[];
