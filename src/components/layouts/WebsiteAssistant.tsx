@@ -16,11 +16,8 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   StartPanel,
   startPanelProps,
   integrationStyle,
-  ChangeMode,
-  changeModeProps,
   sessionId,
   hasUserActivatedSpeak,
-  showInstruct = false,
   loading = false,
   poweredBy,
 }) => {
@@ -75,10 +72,6 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                 title={t('close') || 'Close'}
               />
             </div>
-
-            {showInstruct && ChangeMode && changeModeProps && (
-              <ChangeMode {...changeModeProps} />
-            )}
 
             <div className="memori-website_assistant-layout--header">
               {Header && headerProps && (

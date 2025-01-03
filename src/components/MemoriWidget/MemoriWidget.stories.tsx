@@ -120,16 +120,6 @@ WithPublicPageIntegrationAndNonDefaultLang.args = {
   },
 };
 
-export const ShowInstruct = Template.bind({});
-ShowInstruct.args = {
-  memori: {
-    ...memori,
-    isGiver: true,
-  },
-  tenant,
-  showInstruct: true,
-};
-
 export const ShowShare = Template.bind({});
 ShowShare.args = {
   memori,

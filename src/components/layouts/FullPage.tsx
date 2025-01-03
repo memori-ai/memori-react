@@ -13,11 +13,8 @@ const FullPageLayout: React.FC<LayoutProps> = ({
   startPanelProps,
   integrationStyle,
   integrationBackground,
-  ChangeMode,
-  changeModeProps,
   sessionId,
   hasUserActivatedSpeak,
-  showInstruct = false,
   loading = false,
   poweredBy,
 }) => (
@@ -26,10 +23,6 @@ const FullPageLayout: React.FC<LayoutProps> = ({
     {integrationBackground}
 
     <Spin spinning={loading}>
-      {showInstruct && ChangeMode && changeModeProps && (
-        <ChangeMode {...changeModeProps} />
-      )}
-
       {Header && headerProps && <Header {...headerProps} />}
 
       <div className="memori--grid">

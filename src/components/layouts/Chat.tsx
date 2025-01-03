@@ -11,11 +11,8 @@ const ChatLayout: React.FC<LayoutProps> = ({
   startPanelProps,
   integrationStyle,
   integrationBackground,
-  ChangeMode,
-  changeModeProps,
   sessionId,
   hasUserActivatedSpeak,
-  showInstruct = false,
   loading = false,
   poweredBy,
 }) => (
@@ -25,9 +22,6 @@ const ChatLayout: React.FC<LayoutProps> = ({
 
     <Spin spinning={loading} className="memori-chat-layout">
       {poweredBy}
-      {showInstruct && ChangeMode && changeModeProps && (
-        <ChangeMode {...changeModeProps} />
-      )}
 
       <div className="memori-chat-layout--header">
         {Header && headerProps && <Header {...headerProps} />}

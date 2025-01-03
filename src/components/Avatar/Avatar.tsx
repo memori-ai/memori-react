@@ -17,8 +17,6 @@ import Edit from '../icons/Edit';
 import cx from 'classnames';
 import ContainerAvatarView from './AvatarView';
 import { useViseme } from '../../context/visemeContext';
-import PositionControls from './AvatarView/AvatarComponent/positionControls/positionControls';
-import { getLocalConfig } from '../../helpers/configuration';
 
 export interface Props {
   memori: Memori;
@@ -97,7 +95,8 @@ const Avatar: React.FC<Props> = ({
         integrationConfig?.avatar === 'customglb' ||
         integrationConfig?.avatar === 'customrpm') &&
       integrationConfig?.avatarURL &&
-      (avatarType && avatarType !== 'blob')
+      avatarType &&
+      avatarType !== 'blob'
     ) {
       return (
         <>
@@ -128,7 +127,7 @@ const Avatar: React.FC<Props> = ({
     if (
       integrationConfig?.avatar === 'readyplayerme' ||
       integrationConfig?.avatar === 'readyplayerme-full' ||
-      integrationConfig?.avatar === 'customrpm' 
+      integrationConfig?.avatar === 'customrpm'
     ) {
       return (
         <ErrorBoundary

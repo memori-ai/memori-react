@@ -44,7 +44,6 @@ export interface Props {
   showTranslationOriginal?: boolean;
   showWhyThisAnswer?: boolean;
   client: ReturnType<typeof memoriApiClient>;
-  selectReceiverTag: (tag: string) => Promise<void>;
   preview?: boolean;
   microphoneMode?: 'CONTINUOUS' | 'HOLD_TO_TALK';
   sendOnEnter?: 'keypress' | 'click';
@@ -102,7 +101,6 @@ const Chat: React.FC<Props> = ({
   showWhyThisAnswer = true,
   showCopyButton = true,
   showTranslationOriginal = false,
-  selectReceiverTag,
   preview = false,
   instruct = false,
   showInputs = true,
@@ -340,29 +338,6 @@ const Chat: React.FC<Props> = ({
           <div id="end-messages-ref" />
         </div>
       </div>
-
-      {/*
-       * TODO: X2a emoji picker
-       */}
-
-      {dialogState?.state === 'X3' && sessionID && (
-        <div className="memori-chat--known-tags">
-          {Object.keys(dialogState.knownTags ?? {})
-            .filter(t => t !== memori.giverTag)
-            .map(tag => (
-              <Button
-                key={tag}
-                icon={
-                  <span className="memori-chat--known-tag-icon">{tag}</span>
-                }
-                className="memori-chat--known-tag"
-                onClick={() => selectReceiverTag(tag)}
-              >
-                {dialogState.knownTags?.[tag]}
-              </Button>
-            ))}
-        </div>
-      )}
 
       {showInputs && (
         <ChatInputs

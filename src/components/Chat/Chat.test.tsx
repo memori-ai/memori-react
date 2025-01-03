@@ -42,7 +42,6 @@ it('renders Chat unchanged', () => {
       pushMessage={jest.fn()}
       sessionID={sessionID}
       simulateUserPrompt={jest.fn()}
-      selectReceiverTag={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
       setSendOnEnter={jest.fn()}
       userMessage=""
@@ -74,7 +73,6 @@ it('renders Chat with memori typing unchanged', () => {
       pushMessage={jest.fn()}
       sessionID={sessionID}
       simulateUserPrompt={jest.fn()}
-      selectReceiverTag={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
       setSendOnEnter={jest.fn()}
       userMessage=""
@@ -107,7 +105,6 @@ it('renders Chat with hints unchanged', () => {
       pushMessage={jest.fn()}
       sessionID={sessionID}
       simulateUserPrompt={jest.fn()}
-      selectReceiverTag={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
       setSendOnEnter={jest.fn()}
       userMessage=""
@@ -139,7 +136,6 @@ it('renders Chat with media unchanged', () => {
       pushMessage={jest.fn()}
       sessionID={sessionID}
       simulateUserPrompt={jest.fn()}
-      selectReceiverTag={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
       setSendOnEnter={jest.fn()}
       userMessage=""
@@ -171,7 +167,6 @@ it('renders Chat with dates unchanged', () => {
       pushMessage={jest.fn()}
       sessionID={sessionID}
       simulateUserPrompt={jest.fn()}
-      selectReceiverTag={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
       setSendOnEnter={jest.fn()}
       userMessage=""
@@ -204,79 +199,6 @@ it('renders Chat with context vars unchanged', () => {
       pushMessage={jest.fn()}
       sessionID={sessionID}
       simulateUserPrompt={jest.fn()}
-      selectReceiverTag={jest.fn()}
-      setAttachmentsMenuOpen={jest.fn()}
-      setSendOnEnter={jest.fn()}
-      userMessage=""
-      onChangeUserMessage={jest.fn()}
-      sendMessage={jest.fn()}
-      stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
-      isPlayingAudio={false}
-      stopAudio={jest.fn()}
-      showMicrophone={false}
-      listening={false}
-      startListening={jest.fn()}
-      setEnableFocusChatInput={jest.fn()}
-      showContextPerLine
-    />
-  );
-  expect(container).toMatchSnapshot();
-});
-
-it('renders Chat on X3 state unchanged', () => {
-  const { container } = render(
-    <Chat
-      memori={memori}
-      tenant={tenant}
-      dialogState={{
-        ...dialogState,
-        state: 'X3',
-      }}
-      setDialogState={jest.fn()}
-      client={client}
-      history={history}
-      layout="DEFAULT"
-      pushMessage={jest.fn()}
-      sessionID={sessionID}
-      simulateUserPrompt={jest.fn()}
-      selectReceiverTag={jest.fn()}
-      setAttachmentsMenuOpen={jest.fn()}
-      setSendOnEnter={jest.fn()}
-      userMessage=""
-      onChangeUserMessage={jest.fn()}
-      sendMessage={jest.fn()}
-      stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
-      isPlayingAudio={false}
-      stopAudio={jest.fn()}
-      showMicrophone={false}
-      listening={false}
-      startListening={jest.fn()}
-      setEnableFocusChatInput={jest.fn()}
-      showContextPerLine
-    />
-  );
-  expect(container).toMatchSnapshot();
-});
-
-it('renders Chat on X2a state unchanged', () => {
-  const { container } = render(
-    <Chat
-      memori={memori}
-      tenant={tenant}
-      dialogState={{
-        ...dialogState,
-        state: 'X2a',
-      }}
-      setDialogState={jest.fn()}
-      client={client}
-      history={history}
-      layout="DEFAULT"
-      pushMessage={jest.fn()}
-      sessionID={sessionID}
-      simulateUserPrompt={jest.fn()}
-      selectReceiverTag={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
       setSendOnEnter={jest.fn()}
       userMessage=""
@@ -310,7 +232,6 @@ it('renders Chat with user unchanged', () => {
       pushMessage={jest.fn()}
       sessionID={sessionID}
       simulateUserPrompt={jest.fn()}
-      selectReceiverTag={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
       setSendOnEnter={jest.fn()}
       userMessage=""
@@ -343,7 +264,6 @@ it('renders Chat with custom user avatar unchanged', () => {
       pushMessage={jest.fn()}
       sessionID={sessionID}
       simulateUserPrompt={jest.fn()}
-      selectReceiverTag={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
       setSendOnEnter={jest.fn()}
       userMessage=""
@@ -376,7 +296,6 @@ it('renders Chat with custom user avatar as react element unchanged', () => {
       pushMessage={jest.fn()}
       sessionID={sessionID}
       simulateUserPrompt={jest.fn()}
-      selectReceiverTag={jest.fn()}
       setAttachmentsMenuOpen={jest.fn()}
       setSendOnEnter={jest.fn()}
       userMessage=""

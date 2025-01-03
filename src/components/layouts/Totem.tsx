@@ -13,11 +13,8 @@ const TotemLayout: React.FC<LayoutProps> = ({
   startPanelProps,
   integrationStyle,
   integrationBackground,
-  ChangeMode,
-  changeModeProps,
   sessionId,
   hasUserActivatedSpeak,
-  showInstruct = false,
   loading = false,
   poweredBy,
 }) => (
@@ -27,9 +24,6 @@ const TotemLayout: React.FC<LayoutProps> = ({
 
     <Spin spinning={loading} className="memori-totem-layout">
       {poweredBy}
-      {showInstruct && ChangeMode && changeModeProps && (
-        <ChangeMode {...changeModeProps} />
-      )}
 
       <div className="memori-totem-layout--header">
         {Header && headerProps && <Header {...headerProps} />}

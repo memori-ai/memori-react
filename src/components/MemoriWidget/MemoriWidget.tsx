@@ -9,7 +9,6 @@ import {
   OpenSession,
   MemoriConfig,
   TranslatedHint,
-  Invitation,
   Tenant,
   MemoriSession,
   User,
@@ -32,11 +31,7 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import {
-  AudioContext,
-  IAudioBufferSourceNode,
-  IAudioContext,
-} from 'standardized-audio-context';
+import { AudioContext, IAudioContext } from 'standardized-audio-context';
 import * as speechSdk from 'microsoft-cognitiveservices-speech-sdk';
 import cx from 'classnames';
 import { DateTime } from 'luxon';
@@ -48,7 +43,6 @@ import MemoriAuth from '../Auth/Auth';
 import Chat, { Props as ChatProps } from '../Chat/Chat';
 import StartPanel, { Props as StartPanelProps } from '../StartPanel/StartPanel';
 import Avatar, { Props as AvatarProps } from '../Avatar/Avatar';
-import ChangeMode, { Props as ChangeModeProps } from '../ChangeMode/ChangeMode';
 import Header, { Props as HeaderProps } from '../Header/Header';
 import PoweredBy from '../PoweredBy/PoweredBy';
 import AgeVerificationModal from '../AgeVerificationModal/AgeVerificationModal';
@@ -344,12 +338,9 @@ export interface LayoutProps {
   startPanelProps?: StartPanelProps;
   integrationStyle?: JSX.Element | null;
   integrationBackground?: JSX.Element | null;
-  ChangeMode?: typeof ChangeMode;
-  changeModeProps?: ChangeModeProps;
   poweredBy?: JSX.Element | null;
   sessionId?: string;
   hasUserActivatedSpeak?: boolean;
-  showInstruct?: boolean;
   showUpload?: boolean;
   loading?: boolean;
 }
@@ -375,7 +366,6 @@ export interface Props {
   showShare?: boolean;
   showCopyButton?: boolean;
   showTranslationOriginal?: boolean;
-  showInstruct?: boolean;
   showInputs?: boolean;
   showDates?: boolean;
   showContextPerLine?: boolean;
@@ -428,7 +418,6 @@ const MemoriWidget = ({
   integration,
   layout = 'DEFAULT',
   customLayout,
-  showInstruct = false,
   showShare,
   preview = false,
   embed = false,
@@ -798,7 +787,6 @@ const MemoriWidget = ({
       if (
         !hidden &&
         translate &&
-        !instruct &&
         isMultilanguageEnabled &&
         userLang.toUpperCase() !== language.toUpperCase()
       ) {
@@ -825,85 +813,9 @@ const MemoriWidget = ({
             ? typingText
             : currentState.emission ?? currentDialogState?.emission;
 
-        if (currentState.state === 'X4' && memori.giverTag) {
-          const { currentState, ...resp } = await postTagChangedEvent(
-            sessionID,
-            memori.giverTag
-          );
-
-          if (resp.resultCode === 0) {
-            setCurrentDialogState(currentState);
-
-            if (emission) {
-              pushMessage({
-                text: emission,
-                emitter: currentState.emitter,
-                media: currentState.media,
-                fromUser: false,
-                questionAnswered: msg,
-                contextVars: currentState.contextVars,
-                date: currentState.currentDate,
-                placeName: currentState.currentPlaceName,
-                placeLatitude: currentState.currentLatitude,
-                placeLongitude: currentState.currentLongitude,
-                placeUncertaintyKm: currentState.currentUncertaintyKm,
-                tag: currentState.currentTag,
-                memoryTags: currentState.memoryTags,
-              });
-              speak(emission);
-            }
-          } else {
-            console.error(response, resp);
-            toast.error(t(getErrori18nKey(resp.resultCode)));
-            gotError = true;
-          }
-        } else if (currentState.state === 'X2d' && memori.giverTag) {
-          const { currentState, ...resp } = await postTextEnteredEvent({
-            sessionId: sessionID,
-            text: Math.random().toString().substring(2, 8),
-          });
-
-          if (resp.resultCode === 0) {
-            const { currentState, ...resp } = await postTagChangedEvent(
-              sessionID,
-              memori.giverTag
-            );
-
-            if (resp.resultCode === 0) {
-              setCurrentDialogState(currentState);
-
-              if (emission) {
-                pushMessage({
-                  text: emission,
-                  emitter: currentState.emitter,
-                  media: currentState.media,
-                  fromUser: false,
-                  questionAnswered: msg,
-                  contextVars: currentState.contextVars,
-                  date: currentState.currentDate,
-                  placeName: currentState.currentPlaceName,
-                  placeLatitude: currentState.currentLatitude,
-                  placeLongitude: currentState.currentLongitude,
-                  placeUncertaintyKm: currentState.currentUncertaintyKm,
-                  tag: currentState.currentTag,
-                  memoryTags: currentState.memoryTags,
-                });
-                speak(emission);
-              }
-            } else {
-              console.error(response, resp);
-              toast.error(t(getErrori18nKey(resp.resultCode)));
-              gotError = true;
-            }
-          } else {
-            console.error(response, resp);
-            toast.error(t(getErrori18nKey(resp.resultCode)));
-            gotError = true;
-          }
-        } else if (
+        if (
           userLang.toLowerCase() !== language.toLowerCase() &&
           emission &&
-          !instruct &&
           isMultilanguageEnabled
         ) {
           translateDialogState(currentState, userLang, msg).then(ts => {
@@ -947,8 +859,8 @@ const MemoriWidget = ({
           false,
           memoriPwd || memori.secretToken,
           memoriTokens,
-          instruct && memori.giverTag ? memori.giverTag : undefined,
-          instruct && memori.giverPIN ? memori.giverPIN : undefined,
+          undefined,
+          undefined,
           {
             PATHNAME: window.location.pathname,
             ROUTE: window.location.pathname?.split('/')?.pop() || '',
@@ -993,7 +905,6 @@ const MemoriWidget = ({
 
     if (
       !emission ||
-      instruct ||
       language.toUpperCase() === userLang.toUpperCase() ||
       !isMultilanguageEnabled
     ) {
@@ -1191,19 +1102,21 @@ const MemoriWidget = ({
       setAuthModalState('password');
       return;
     }
+
     setLoading(true);
+
     try {
       // Check for and set giver invitation if available
-      if (!memori.giverTag && !!memori.receivedInvitations?.length) {
-        let giverInvitation = memori.receivedInvitations.find(
-          (i: Invitation) => i.type === 'GIVER' && i.state === 'ACCEPTED'
-        );
+      // if (!memori.giverTag && !!memori.receivedInvitations?.length) {
+      //   let giverInvitation = memori.receivedInvitations.find(
+      //     (i: Invitation) => i.type === 'GIVER' && i.state === 'ACCEPTED'
+      //   );
 
-        if (giverInvitation) {
-          memori.giverTag = giverInvitation.tag;
-          memori.giverPIN = giverInvitation.pin;
-        }
-      }
+      //   if (giverInvitation) {
+      //     memori.giverTag = giverInvitation.tag;
+      //     memori.giverPIN = giverInvitation.pin;
+      //   }
+      // }
 
       // Get referral URL
       let referral;
@@ -1238,6 +1151,9 @@ const MemoriWidget = ({
         session.resultCode === 0
       ) {
         setSessionId(session.sessionID);
+
+        // save giver state
+        setInstruct(currentDialogState?.currentTag === memori.giverTag);
 
         if (position) applyPosition(position, session.sessionID);
 
@@ -1335,8 +1251,8 @@ const MemoriWidget = ({
         memoriID: memori.engineMemoriID ?? '',
         password: password || memoriPwd || memori.secretToken,
         recoveryTokens: recoveryTokens || memoriTokens,
-        tag,
-        pin,
+        tag: tag ?? personification?.tag,
+        pin: pin ?? personification?.pin,
         initialContextVars: {
           PATHNAME: window.location.pathname,
           ROUTE: window.location.pathname?.split('/')?.pop() || '',
@@ -1361,6 +1277,7 @@ const MemoriWidget = ({
         // Update dialog state if requested
         if (updateDialogState) {
           setCurrentDialogState(currentState);
+
           if (currentState.emission) {
             // Set history based on current length
             history.length <= 1
@@ -1497,8 +1414,8 @@ const MemoriWidget = ({
           fetchSession({
             memoriID: memori.engineMemoriID ?? '',
             password: secret || memoriPwd || memori.secretToken,
-            tag: memori.giverTag,
-            pin: memori.giverPIN,
+            tag: tag ?? personification?.tag,
+            pin: pin ?? personification?.pin,
             initialContextVars: {
               PATHNAME: window.location.pathname,
               ROUTE: window.location.pathname?.split('/')?.pop() || '',
@@ -1534,27 +1451,6 @@ const MemoriWidget = ({
 
     return null;
   };
-  const restoreGiverTag = async () => {
-    if (sessionId && memori.giverTag && memori.giverPIN) {
-      setHistory([]);
-      await changeTag(
-        memori.engineMemoriID!,
-        sessionId,
-        memori.giverTag,
-        memori.giverPIN
-      );
-    }
-  };
-  useEffect(() => {
-    return () => {
-      if (
-        !currentDialogState ||
-        currentDialogState?.currentTag !== memori.giverTag
-      )
-        restoreGiverTag();
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   /**
    * Polling dates
@@ -1654,7 +1550,6 @@ const MemoriWidget = ({
       if (response.resultCode === 0 && currentState) {
         const emission = currentState.emission;
         if (
-          !instruct &&
           isMultilanguageEnabled &&
           userLang !== i18n?.language &&
           emission &&
@@ -2479,7 +2374,7 @@ const MemoriWidget = ({
     integration
       ? {
           '--memori-chat-bubble-bg': '#fff',
-          ...(integrationConfig && !showInstruct
+          ...(integrationConfig && !instruct
             ? { '--memori-text-color': integrationConfig.textColor ?? '#000' }
             : {}),
           ...(integrationConfig?.buttonBgColor
@@ -2583,81 +2478,6 @@ const MemoriWidget = ({
       document.head.append(meta);
     }
   }, [integrationConfig, memori.avatarURL, ogImage]);
-
-  // X3 state - tag change
-  const selectReceiverTag = async (tag: string) => {
-    if (!sessionId) return;
-
-    try {
-      const { currentState, ...resp } = await postTagChangedEvent(
-        sessionId,
-        tag
-      );
-
-      if (resp.resultCode === 0) {
-        pushMessage({
-          text: tag,
-          fromUser: true,
-        });
-
-        if (currentState.state === 'X4' && memori.giverTag) {
-          const { currentState, ...resp } = await client.postTagChangedEvent(
-            sessionId,
-            memori.giverTag
-          );
-
-          if (resp.resultCode === 0) {
-            setCurrentDialogState(currentState);
-
-            if (currentState.emission) {
-              pushMessage({
-                text: currentState.emission,
-                emitter: currentState.emitter,
-                media: currentState.media,
-                fromUser: false,
-                contextVars: currentState.contextVars,
-                date: currentState.currentDate,
-                placeName: currentState.currentPlaceName,
-                placeLatitude: currentState.currentLatitude,
-                placeLongitude: currentState.currentLongitude,
-                placeUncertaintyKm: currentState.currentUncertaintyKm,
-                tag: currentState.currentTag,
-                memoryTags: currentState.memoryTags,
-              });
-            }
-          } else {
-            console.error(resp);
-            toast.error(t(getErrori18nKey(resp.resultCode)));
-          }
-        } else {
-          setCurrentDialogState(currentState);
-          if (currentState.emission) {
-            pushMessage({
-              text: currentState.emission,
-              emitter: currentState.emitter,
-              media: currentState.media,
-              fromUser: false,
-              contextVars: currentState.contextVars,
-              date: currentState.currentDate,
-              placeName: currentState.currentPlaceName,
-              placeLatitude: currentState.currentLatitude,
-              placeLongitude: currentState.currentLongitude,
-              placeUncertaintyKm: currentState.currentUncertaintyKm,
-              tag: currentState.currentTag,
-              memoryTags: currentState.memoryTags,
-            });
-          }
-        }
-      } else {
-        console.error(resp, tag, currentDialogState?.knownTags?.[tag]);
-        toast.error(t(getErrori18nKey(resp.resultCode)));
-      }
-    } catch (e) {
-      let err = e as Error;
-      console.error(err);
-      toast.error(err.message);
-    }
-  };
 
   const simulateUserPrompt = (text: string, translatedText?: string) => {
     stopListening();
@@ -2844,65 +2664,10 @@ const MemoriWidget = ({
 
         // checks engine state for current tag
         // opening session would have already correct tag
-        // otherwise change tag to anonymous for test, giver for instruct, receiver if set
+        // otherwise change tag to anonymous for test, giver or receiver if set
 
-        // test if current tag is giver on instruct
+        // test if current tag is receiver on test as it is requested
         if (
-          instruct &&
-          memori.giverTag &&
-          currentDialogState?.currentTag !== memori.giverTag
-        ) {
-          try {
-            console.debug('change tag #0');
-            // reset tag
-            await changeTag(memori.engineMemoriID!, sessionID, '-');
-            // change tag to giver
-            const session = await changeTag(
-              memori.engineMemoriID!,
-              sessionID,
-              memori.giverTag,
-              memori.giverPIN
-            );
-
-            if (session && session.resultCode === 0) {
-              translateDialogState(session.currentState, userLang)
-                .then(ts => {
-                  let text = ts.translatedEmission || ts.emission;
-                  if (text) {
-                    speak(text);
-                  }
-                })
-                .finally(() => {
-                  setHasUserActivatedSpeak(true);
-                });
-            } else {
-              console.error('session #1', session);
-              throw new Error('No session');
-            }
-          } catch (e) {
-            console.error('session #2', e);
-            reopenSession(
-              true,
-              memori?.secretToken,
-              undefined,
-              memori?.giverTag,
-              memori?.giverPIN,
-              {
-                PATHNAME: window.location.pathname?.toUpperCase(),
-                ROUTE:
-                  window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
-                  '',
-                ...(initialContextVars || {}),
-              },
-              initialQuestion,
-              birth
-            ).then(() => {
-              setHasUserActivatedSpeak(true);
-            });
-          }
-        } else if (
-          // test if current tag is receiver on test as it is requested
-          !instruct &&
           personification &&
           currentDialogState?.currentTag !== personification.tag
         ) {
@@ -2957,7 +2722,6 @@ const MemoriWidget = ({
         } else if (
           // test if current tag is anonymous on test without personification
           // this is the default case with anonymous tag
-          !instruct &&
           !personification &&
           currentDialogState?.currentTag &&
           currentDialogState?.currentTag !== anonTag &&
@@ -3332,14 +3096,13 @@ const MemoriWidget = ({
     showCopyButton,
     showTranslationOriginal,
     client,
-    selectReceiverTag,
+    instruct,
     preview,
     sendOnEnter,
     setSendOnEnter,
     microphoneMode: continuousSpeech ? 'CONTINUOUS' : 'HOLD_TO_TALK',
     attachmentsMenuOpen,
     setAttachmentsMenuOpen,
-    instruct,
     showInputs,
     showMicrophone: !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
     userMessage,
@@ -3402,17 +3165,6 @@ const MemoriWidget = ({
   const integrationStyle = integration ? (
     <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
   ) : null;
-
-  const onChangeMode = (mode: 'instruct' | 'test') => {
-    setInstruct(mode === 'instruct');
-    setHasUserActivatedSpeak(false);
-    setClickedStart(false);
-  };
-  const changeModeProps: ChangeModeProps = {
-    canInstruct: !!memori.giverTag,
-    instruct: !!instruct,
-    onChangeMode,
-  };
 
   const poweredBy = (
     <PoweredBy
@@ -3480,12 +3232,9 @@ const MemoriWidget = ({
         startPanelProps={startPanelProps}
         integrationStyle={integrationStyle}
         integrationBackground={integrationBackground}
-        ChangeMode={ChangeMode}
-        changeModeProps={changeModeProps}
         poweredBy={poweredBy}
         sessionId={sessionId}
         hasUserActivatedSpeak={hasUserActivatedSpeak}
-        showInstruct={showInstruct}
         loading={loading}
       />
 
@@ -3511,8 +3260,8 @@ const MemoriWidget = ({
               !sessionId,
               values['password'],
               values['tokens'],
-              instruct ? memori.giverTag : personification?.tag,
-              instruct ? memori.giverPIN : personification?.pin,
+              personification?.tag,
+              personification?.pin,
               {
                 PATHNAME: window.location.pathname?.toUpperCase(),
                 ROUTE:
@@ -3552,8 +3301,8 @@ const MemoriWidget = ({
                 !sessionId,
                 memoriPassword || memoriPwd || memori?.secretToken,
                 memoriTokens,
-                instruct ? memori.giverTag : personification?.tag,
-                instruct ? memori.giverPIN : personification?.pin,
+                personification?.tag,
+                personification?.pin,
                 {
                   PATHNAME: window.location.pathname?.toUpperCase(),
                   ROUTE:

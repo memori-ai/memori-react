@@ -13,15 +13,11 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
   startPanelProps,
   integrationStyle,
   integrationBackground,
-  ChangeMode,
-  changeModeProps,
   sessionId,
   hasUserActivatedSpeak,
-  showInstruct = false,
   loading = false,
   poweredBy,
 }) => {
-
   useEffect(() => {
     document.body.style.overflow = 'hidden';
     return () => {
@@ -29,17 +25,12 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
     };
   }, []);
 
-
   return (
     <>
       {integrationStyle}
       {integrationBackground}
 
       <Spin className="memori-spin--zoomed-full-body" spinning={loading}>
-        {showInstruct && ChangeMode && changeModeProps && (
-          <ChangeMode {...changeModeProps} />
-        )}
-
         {Header && headerProps && <Header {...headerProps} />}
 
         <div className="memori--grid">

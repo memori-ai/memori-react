@@ -184,7 +184,6 @@ ChatOnly.args = {
     uiLang: 'IT',
     spokenLang: 'FR',
     layout: 'FULLPAGE',
-    showInstruct: false,
     showSettings: true,
     showClear: false,
     showAIicon: true,
@@ -272,7 +271,6 @@ export const CustomLayout: React.FC<LayoutProps> = ({
   changeModeProps,
   sessionId,
   hasUserActivatedSpeak,
-  showInstruct = false,
   loading = false,
   poweredBy,
 }) => (

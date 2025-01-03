@@ -36,7 +36,6 @@ export interface Props {
   showShare?: boolean;
   showCopyButton?: boolean;
   showTranslationOriginal?: boolean;
-  showInstruct?: boolean;
   showInputs?: boolean;
   showDates?: boolean;
   showContextPerLine?: boolean;
@@ -105,7 +104,6 @@ const Memori: React.FC<Props> = ({
   showCopyButton = true,
   showTranslationOriginal = false,
   showSettings = true,
-  showInstruct = false,
   showTypingText = false,
   showClear = false,
   showOnlyLastMessages = false,
@@ -266,7 +264,6 @@ const Memori: React.FC<Props> = ({
             showCopyButton={showCopyButton}
             showTranslationOriginal={showTranslationOriginal}
             showSettings={showSettings}
-            showInstruct={showInstruct}
             showTypingText={showTypingText}
             showClear={showClear}
             showOnlyLastMessages={showOnlyLastMessages}
@@ -349,7 +346,6 @@ Memori.propTypes = {
   showShare: PropTypes.bool,
   showCopyButton: PropTypes.bool,
   showTranslationOriginal: PropTypes.bool,
-  showInstruct: PropTypes.bool,
   showInputs: PropTypes.bool,
   showDates: PropTypes.bool,
   showContextPerLine: PropTypes.bool,
