@@ -1,5 +1,23 @@
 
 
+## [7.13.0](https://github.com/memori-ai/memori-react/compare/v7.12.2...v7.13.0) (2025-01-03)
+
+
+### Features
+
+* auto start prop, starts chat on load ([773feae](https://github.com/memori-ai/memori-react/commit/773feaeb5715c40ba61c27aba4dab3d44536cc94))
+* **internal:** allow integration object as prop ([63b3f0f](https://github.com/memori-ai/memori-react/commit/63b3f0f3c005741ff062b101212d53a57a342df7))
+
+
+### Bug Fixes
+
+* scrollIntoView optional chaining ([7c0a290](https://github.com/memori-ai/memori-react/commit/7c0a290d6205808da413ba03f0380cc747ec3ffe))
+
+
+### Changes
+
+* new prop to apply css properties to :root ([055a189](https://github.com/memori-ai/memori-react/commit/055a189e8091e422477a0a16d21a95dfed074fd5))
+
 ## [7.12.2](https://github.com/memori-ai/memori-react/compare/v7.12.1...v7.12.2) (2024-12-24)
 
 
