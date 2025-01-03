@@ -68,6 +68,7 @@ export interface Props {
   additionalSettings?: WidgetProps['additionalSettings'];
   userAvatar?: WidgetProps['userAvatar'];
   useMathFormatting?: boolean;
+  autoStart?: boolean;
 }
 
 const getPreferredLanguages = () => {
@@ -134,6 +135,7 @@ const Memori: React.FC<Props> = ({
   additionalSettings,
   userAvatar,
   useMathFormatting = false,
+  autoStart = false,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
   const [tenant, setTenant] = useState<Tenant>();
@@ -285,6 +287,7 @@ const Memori: React.FC<Props> = ({
             AZURE_COGNITIVE_SERVICES_TTS_KEY={
               speechKey || AZURE_COGNITIVE_SERVICES_TTS_KEY
             }
+            autoStart={autoStart}
             enableAudio={enableAudio}
             defaultSpeakerActive={defaultSpeakerActive}
             disableTextEnteredEvents={disableTextEnteredEvents}
@@ -386,6 +389,7 @@ Memori.propTypes = {
   additionalSettings: PropTypes.any,
   userAvatar: PropTypes.oneOfType([PropTypes.string, PropTypes.any]),
   useMathFormatting: PropTypes.bool,
+  autoStart: PropTypes.bool,
 };
 
 export default Memori;

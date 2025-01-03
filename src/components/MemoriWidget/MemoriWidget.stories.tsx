@@ -50,6 +50,13 @@ Default.args = {
   tenant,
 };
 
+export const WithAutoStart = Template.bind({});
+WithAutoStart.args = {
+  memori,
+  tenant,
+  autoStart: true,
+};
+
 export const WithPosition = Template.bind({});
 WithPosition.args = {
   memori: {

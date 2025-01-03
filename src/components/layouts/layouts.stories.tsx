@@ -24,43 +24,6 @@ const meta: Meta = {
 
 export default meta;
 
-export const CustomLayout: React.FC<LayoutProps> = ({
-  Header,
-  headerProps,
-  Avatar,
-  avatarProps,
-  Chat,
-  chatProps,
-  StartPanel,
-  startPanelProps,
-  integrationStyle,
-  integrationBackground,
-  ChangeMode,
-  changeModeProps,
-  sessionId,
-  hasUserActivatedSpeak,
-  showInstruct = false,
-  loading = false,
-  poweredBy,
-}) => (
-  <>
-    {integrationStyle}
-    {integrationBackground}
-
-    <Spin spinning={loading} className="memori-mycustom-layout">
-      {poweredBy}
-
-      <div className="memori-mycustom-layout--controls">
-        {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
-          <Chat {...chatProps} />
-        ) : startPanelProps ? (
-          <StartPanel {...startPanelProps} />
-        ) : null}
-      </div>
-    </Spin>
-  </>
-);
-
 const Template: Story<Props> = args => (
   <I18nWrapper>
     <VisemeProvider>
@@ -293,6 +256,43 @@ ChatOnly.args = {
   },
   layout: 'CHAT',
 };
+
+export const CustomLayout: React.FC<LayoutProps> = ({
+  Header,
+  headerProps,
+  Avatar,
+  avatarProps,
+  Chat,
+  chatProps,
+  StartPanel,
+  startPanelProps,
+  integrationStyle,
+  integrationBackground,
+  ChangeMode,
+  changeModeProps,
+  sessionId,
+  hasUserActivatedSpeak,
+  showInstruct = false,
+  loading = false,
+  poweredBy,
+}) => (
+  <>
+    {integrationStyle}
+    {integrationBackground}
+
+    <Spin spinning={loading} className="memori-mycustom-layout">
+      {poweredBy}
+
+      <div className="memori-mycustom-layout--controls">
+        {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+          <Chat {...chatProps} />
+        ) : startPanelProps ? (
+          <StartPanel {...startPanelProps} />
+        ) : null}
+      </div>
+    </Spin>
+  </>
+);
 
 export const Custom = Template.bind({});
 Custom.args = {

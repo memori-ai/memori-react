@@ -413,6 +413,7 @@ export interface Props {
   additionalSettings?: JSX.Element | null;
   userAvatar?: string | JSX.Element;
   useMathFormatting?: boolean;
+  autoStart?: boolean;
 }
 
 const MemoriWidget = ({
@@ -463,6 +464,7 @@ const MemoriWidget = ({
   customMediaRenderer,
   userAvatar,
   useMathFormatting = false,
+  autoStart = false,
 }: Props) => {
   const { t, i18n } = useTranslation();
 
@@ -579,7 +581,7 @@ const MemoriWidget = ({
   const [showKnownFactsDrawer, setShowKnownFactsDrawer] = useState(false);
   const [showExpertsDrawer, setShowExpertsDrawer] = useState(false);
   const [muteSpeaker, setMuteSpeaker] = useState(
-    !defaultEnableAudio || !defaultSpeakerActive
+    !defaultEnableAudio || !defaultSpeakerActive || autoStart
   );
   const [continuousSpeech, setContinuousSpeech] = useState(false);
   const [continuousSpeechTimeout, setContinuousSpeechTimeout] = useState(2);
@@ -632,15 +634,18 @@ const MemoriWidget = ({
     }
 
     setMuteSpeaker(
+      autoStart ||
+        getLocalConfig(
+          'muteSpeaker',
+          !defaultEnableAudio || !defaultSpeakerActive || autoStart
+        )
+    );
+    speakerMuted =
+      autoStart ||
       getLocalConfig(
         'muteSpeaker',
-        !defaultEnableAudio || !defaultSpeakerActive
-      )
-    );
-    speakerMuted = getLocalConfig(
-      'muteSpeaker',
-      !defaultEnableAudio || !defaultSpeakerActive
-    );
+        !defaultEnableAudio || !defaultSpeakerActive || autoStart
+      );
     setContinuousSpeech(microphoneMode === 'CONTINUOUS');
     setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 2));
     setControlsPosition(
@@ -2014,24 +2019,6 @@ const MemoriWidget = ({
     document.dispatchEvent(e);
   };
 
-  const handleSpeechEnd = () => {
-    memoriSpeaking = false;
-    setMemoriTyping(false);
-    emitEndSpeakEvent();
-  };
-
-  const generateSSMLText = (text: string) => {
-    const textToSpeak = escapeHTML(
-      stripMarkdown(stripEmojis(stripHTML(stripOutputTags(text))))
-    );
-    return `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
-      userLang
-    )}"><voice name="${getTTSVoice(userLang)}"><s>${replaceTextWithPhonemes(
-      textToSpeak,
-      userLang.toLowerCase()
-    )}</s></voice></speak>`;
-  };
-
   const speak = (text: string): void => {
     if (!AZURE_COGNITIVE_SERVICES_TTS_KEY || preview) {
       emitEndSpeakEvent();
@@ -2236,13 +2223,10 @@ const MemoriWidget = ({
     let textarea = document.querySelector(
       '#chat-fieldset textarea'
     ) as HTMLTextAreaElement | null;
-    // console.log('textarea', enableFocusChatInput);
     if (textarea && enableFocusChatInput) {
       textarea.focus();
-      // console.log('focused');
     } else {
       textarea?.blur();
-      // console.log('blurred');
     }
   };
 
@@ -3115,6 +3099,12 @@ const MemoriWidget = ({
     [memoriPwd, memori, memoriTokens, birthDate, sessionId, userLang, position]
   );
   useEffect(() => {
+    if (!clickedStart && autoStart) {
+      onClickStart();
+    }
+  }, [clickedStart, autoStart]);
+
+  useEffect(() => {
     const targetNode =
       document.querySelector(`memori-client[memoriname="${memori.name}"]`) ||
       document.querySelector(`memori-client[memoriid="${memori.memoriID}"]`) ||
@@ -3460,6 +3450,7 @@ const MemoriWidget = ({
         `memori-controls-${controlsPosition.toLowerCase()}`,
         `memori--avatar-${integrationConfig?.avatar || 'default'}`,
         {
+          'memori--auto-start': autoStart,
           'memori--preview': preview,
           'memori--embed': embed,
           'memori--with-integration': integration,

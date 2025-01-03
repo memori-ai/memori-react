@@ -9,7 +9,7 @@
     box-sizing: border-box;
 }
 
-.memori-widget>.memori-spin {
+.memori-widget > .memori-spin {
     height: calc(100vh - 50px);
 }
 
@@ -180,7 +180,7 @@
     font-size: 1rem;
 }
 
-.memori--conversation-button+.memori--conversation-button {
+.memori--conversation-button + .memori--conversation-button {
     margin-left: 0.33rem;
 }
 
@@ -197,6 +197,12 @@
 }
 
 .memori.memori-widget.chat-focused .memori--powered-by,
-.memori.memori-widget.chat-focused .memori-website_assistant--close-button-wrapper button.memori-website_assistant--close-button {
+.memori.memori-widget.chat-focused
+    .memori-website_assistant--close-button-wrapper
+    button.memori-website_assistant--close-button {
+    display: none;
+}
+
+.memori.memori--auto-start .memori--start-panel {
     display: none;
 }

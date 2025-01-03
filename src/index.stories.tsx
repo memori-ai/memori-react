@@ -35,6 +35,7 @@ Anonymous.args = {
   uiLang: 'IT',
   spokenLang: 'IT',
   enableAudio: true,
+  autoStart: true,
 };
 
 export const WithPreviousSession = Template.bind({});
