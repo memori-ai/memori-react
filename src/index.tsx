@@ -5,6 +5,7 @@ import {
   DialogState,
   Memori as IMemori,
   Tenant,
+  Integration,
 } from '@memori.ai/memori-api-client/dist/types';
 import memoriApiClient from '@memori.ai/memori-api-client';
 
@@ -15,7 +16,6 @@ import { VisemeProvider } from './context/visemeContext';
 
 import { Toaster } from 'react-hot-toast';
 import { getTenant } from './helpers/tenant';
-import { installMathJax } from './helpers/utils';
 
 import i18n from './i18n';
 import { useTranslation } from 'react-i18next';
@@ -26,6 +26,7 @@ export interface Props {
   memoriID?: string | null;
   ownerUserName?: string | null;
   ownerUserID?: string | null;
+  integration?: Integration;
   integrationID?: string;
   tenantID: string;
   secretToken?: string;
@@ -91,6 +92,7 @@ const Memori: React.FC<Props> = ({
   ownerUserID,
   memoriName,
   memoriID,
+  integration,
   integrationID,
   tenantID,
   secretToken,
@@ -269,11 +271,14 @@ const Memori: React.FC<Props> = ({
             showContextPerLine={showContextPerLine}
             showLogin={showLogin ?? memori?.enableDeepThought}
             showUpload={showUpload}
-            integration={memori?.integrations?.find(i =>
-              integrationID
-                ? i.integrationID === integrationID
-                : !!i.publish && i.type === 'LANDING_EXPERIENCE'
-            )}
+            integration={
+              integration ??
+              memori?.integrations?.find(i =>
+                integrationID
+                  ? i.integrationID === integrationID
+                  : !!i.publish && i.type === 'LANDING_EXPERIENCE'
+              )
+            }
             initialContextVars={context}
             initialQuestion={initialQuestion}
             authToken={authToken}
@@ -321,6 +326,7 @@ Memori.propTypes = {
   ownerUserName: PropTypes.string,
   ownerUserID: PropTypes.string,
   integrationID: PropTypes.string,
+  integration: PropTypes.any,
   tenantID: PropTypes.string.isRequired,
   secretToken: PropTypes.string,
   sessionID: PropTypes.string,
