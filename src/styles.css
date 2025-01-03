@@ -18,6 +18,7 @@
 @import url('./components/AttachmentLinkModal/AttachmentLinkModal.css');
 @import url('./components/Auth/Auth.css');
 @import url('./components/Avatar/Avatar.css');
+@import url('./components/Avatar/AvatarView/AvatarComponent/positionControls/positionControls.css');
 @import url('./components/Blob/Blob.css');
 @import url('./components/BlockedMemoriBadge/BlockedMemoriBadge.css');
 @import url('./components/ChangeMode/ChangeMode.css');

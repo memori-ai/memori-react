@@ -2,7 +2,6 @@ import { useEffect, useRef } from 'react';
 import { setLocalConfig } from '../../../../../helpers/configuration';
 import { useTranslation } from 'react-i18next';
 import Slider from '../../../../../components/ui/Slider';
-import './positionControls.css';
 import Button from '../../../../ui/Button';
 import Close from '../../../../icons/Close';
 
@@ -24,9 +23,15 @@ const PositionControls: React.FC<PositionControlsProps> = ({
   halfBody,
   setEnablePositionControls,
 }: PositionControlsProps) => {
-  const normalPosition = halfBody ? { height: 80, depth: 50 } : { height: 25, depth: 25 };
-  const zoomedPosition = halfBody ? { height: 55, depth: 10 } : { height: 15, depth: 5 };
-  const farPosition = halfBody ? { height: 100, depth: 80 } : { height: 65, depth: 100 };
+  const normalPosition = halfBody
+    ? { height: 80, depth: 50 }
+    : { height: 25, depth: 25 };
+  const zoomedPosition = halfBody
+    ? { height: 55, depth: 10 }
+    : { height: 15, depth: 5 };
+  const farPosition = halfBody
+    ? { height: 100, depth: 80 }
+    : { height: 65, depth: 100 };
   const settingsRef = useRef<Record<string, any>>({
     height: avatarHeight,
     depth: avatarDepth,
@@ -45,7 +50,10 @@ const PositionControls: React.FC<PositionControlsProps> = ({
   // Keyboard controls for depth
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === '-' || event.key === '_' && settingsRef.current.depth < 100) {
+      if (
+        event.key === '-' ||
+        (event.key === '_' && settingsRef.current.depth < 100)
+      ) {
         const newValue = Math.min(settingsRef.current.depth + 10, 100);
         setAvatarDepth(newValue);
         setLocalConfig('avatarDepth', newValue);
@@ -112,7 +120,11 @@ const PositionControls: React.FC<PositionControlsProps> = ({
           defaultValue={settingsRef.current.height}
           min={0.5}
           max={100}
-          label={<label className="memori--slider-label">{t('write_and_speak.height')}</label>}
+          label={
+            <label className="memori--slider-label">
+              {t('write_and_speak.height')}
+            </label>
+          }
           step={1}
           onChange={(value: number) => {
             setAvatarHeight(value);
@@ -126,7 +138,11 @@ const PositionControls: React.FC<PositionControlsProps> = ({
           min={0.5}
           max={100}
           step={5}
-          label={<label className="memori--slider-label">{t('write_and_speak.depth')}</label>}
+          label={
+            <label className="memori--slider-label">
+              {t('write_and_speak.depth')}
+            </label>
+          }
           onChange={(value: number) => {
             setAvatarDepth(value);
             setLocalConfig('avatarDepth', value);
@@ -137,8 +153,10 @@ const PositionControls: React.FC<PositionControlsProps> = ({
         <Button
           outlined
           isActive={
-            avatarHeight === (halfBody ? zoomedPosition.height : normalPosition.height) &&
-            avatarDepth === (halfBody ? zoomedPosition.depth : normalPosition.depth)
+            avatarHeight ===
+              (halfBody ? zoomedPosition.height : normalPosition.height) &&
+            avatarDepth ===
+              (halfBody ? zoomedPosition.depth : normalPosition.depth)
           }
           onClick={() => {
             setAvatarHeight(zoomedPosition.height);
@@ -152,8 +170,10 @@ const PositionControls: React.FC<PositionControlsProps> = ({
         <Button
           outlined
           isActive={
-            avatarHeight === (halfBody ? normalPosition.height : zoomedPosition.height) &&
-            avatarDepth === (halfBody ? normalPosition.depth : zoomedPosition.depth)
+            avatarHeight ===
+              (halfBody ? normalPosition.height : zoomedPosition.height) &&
+            avatarDepth ===
+              (halfBody ? normalPosition.depth : zoomedPosition.depth)
           }
           onClick={() => {
             setAvatarHeight(normalPosition.height);
@@ -167,8 +187,10 @@ const PositionControls: React.FC<PositionControlsProps> = ({
         <Button
           outlined
           isActive={
-            avatarHeight === (halfBody ? farPosition.height : normalPosition.height) &&
-            avatarDepth === (halfBody ? farPosition.depth : normalPosition.depth)
+            avatarHeight ===
+              (halfBody ? farPosition.height : normalPosition.height) &&
+            avatarDepth ===
+              (halfBody ? farPosition.depth : normalPosition.depth)
           }
           onClick={() => {
             setAvatarHeight(farPosition.height);
