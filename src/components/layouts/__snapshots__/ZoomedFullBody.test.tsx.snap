@@ -13,7 +13,7 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
   >
     <style>
       
-    :root, .memori-widget, .memori-drawer, .memori-modal {
+    memori-client, .memori-widget, .memori-drawer, .memori-modal {
       --memori-chat-bubble-bg: #fff;
 --memori-text-color: #2a2a2a;
 --memori-button-bg: #823ce1;

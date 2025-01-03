@@ -29,7 +29,27 @@ it('renders FullPage layout unchanged', () => {
           tenant={tenant}
           tenantID="aisuru.com"
           integration={integration}
-        layout="FULLPAGE"
+          layout="FULLPAGE"
+        />
+      </VisemeProvider>
+    </I18nWrapper>
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders FullPage layout with root css properties unchanged', () => {
+  const { container } = render(
+    <I18nWrapper>
+      <VisemeProvider>
+        <Memori
+          showShare={true}
+          showSettings={true}
+          memori={memori}
+          tenant={tenant}
+          tenantID="aisuru.com"
+          integration={integration}
+          layout="FULLPAGE"
+          applyVarsToRoot
         />
       </VisemeProvider>
     </I18nWrapper>

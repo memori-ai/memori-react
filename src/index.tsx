@@ -69,6 +69,7 @@ export interface Props {
   userAvatar?: WidgetProps['userAvatar'];
   useMathFormatting?: boolean;
   autoStart?: boolean;
+  applyVarsToRoot?: boolean;
 }
 
 const getPreferredLanguages = () => {
@@ -136,6 +137,7 @@ const Memori: React.FC<Props> = ({
   userAvatar,
   useMathFormatting = false,
   autoStart = false,
+  applyVarsToRoot = false,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
   const [tenant, setTenant] = useState<Tenant>();
@@ -297,6 +299,7 @@ const Memori: React.FC<Props> = ({
             additionalSettings={additionalSettings}
             userAvatar={userAvatar}
             useMathFormatting={useMathFormatting}
+            applyVarsToRoot={applyVarsToRoot}
             {...(tag && pin ? { personification: { tag, pin } } : {})}
           />
         ) : (
@@ -390,6 +393,7 @@ Memori.propTypes = {
   userAvatar: PropTypes.oneOfType([PropTypes.string, PropTypes.any]),
   useMathFormatting: PropTypes.bool,
   autoStart: PropTypes.bool,
+  applyVarsToRoot: PropTypes.bool,
 };
 
 export default Memori;

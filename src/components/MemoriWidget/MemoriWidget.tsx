@@ -414,6 +414,7 @@ export interface Props {
   userAvatar?: string | JSX.Element;
   useMathFormatting?: boolean;
   autoStart?: boolean;
+  applyVarsToRoot?: boolean;
 }
 
 const MemoriWidget = ({
@@ -465,6 +466,7 @@ const MemoriWidget = ({
   userAvatar,
   useMathFormatting = false,
   autoStart = false,
+  applyVarsToRoot = false,
 }: Props) => {
   const { t, i18n } = useTranslation();
 
@@ -2522,12 +2524,8 @@ const MemoriWidget = ({
 
   const integrationStylesheet = `
     ${
-      preview
-        ? '#preview,'
-        : selectedLayout === 'WEBSITE_ASSISTANT'
-        ? ''
-        : ':root,'
-    } .memori-widget, .memori-drawer, .memori-modal {
+      preview ? '#preview, ' : applyVarsToRoot ? ':root, ' : ''
+    }memori-client, .memori-widget, .memori-drawer, .memori-modal {
       ${Object.entries(integrationProperties)
         .map(([key, value]) => `${key}: ${value};`)
         .join('\n')}
