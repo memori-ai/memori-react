@@ -1,5 +1,17 @@
 
 
+## [7.13.1](https://github.com/memori-ai/memori-react/compare/v7.13.0...v7.13.1) (2025-01-03)
+
+
+### Bug Fixes
+
+* move css import in tsx to main css file ([29714ac](https://github.com/memori-ai/memori-react/commit/29714ac793a6b310bb269c61c6f38d80745dad18))
+
+
+### Maintenance
+
+* remove giver/instruct flows ([8dbef44](https://github.com/memori-ai/memori-react/commit/8dbef4462fad41fafa1c0425c8a4e3e4be39f558))
+
 ## [7.13.0](https://github.com/memori-ai/memori-react/compare/v7.12.2...v7.13.0) (2025-01-03)
 
 
