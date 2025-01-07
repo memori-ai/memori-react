@@ -1,5 +1,17 @@
 
 
+## [7.13.2](https://github.com/memori-ai/memori-react/compare/v7.13.1...v7.13.2) (2025-01-07)
+
+
+### Maintenance
+
+* unused chat props as optional ([6e90a9f](https://github.com/memori-ai/memori-react/commit/6e90a9fc9ea87725392532d9eebf4ed6118abf9a))
+
+
+### Changes
+
+* clean up audio handling ([bb08519](https://github.com/memori-ai/memori-react/commit/bb085199781331abb3b3a2c2aa9864b3cf0c8fe5))
+
 ## [7.13.1](https://github.com/memori-ai/memori-react/compare/v7.13.0...v7.13.1) (2025-01-03)
 
 
