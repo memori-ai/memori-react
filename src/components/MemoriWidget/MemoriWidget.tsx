@@ -1922,11 +1922,10 @@ const MemoriWidget = ({
       return;
     }
     stopListening();
-    // stopAudio();
 
     if (preview) return;
-
-    if (muteSpeaker || speakerMuted) {
+    
+    if (speakerMuted) {
       memoriSpeaking = false;
       setMemoriTyping(false);
 
@@ -1945,6 +1944,7 @@ const MemoriWidget = ({
       window.navigator.userAgent.includes('Safari') &&
       !window.navigator.userAgent.includes('Chrome');
     let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+
     if ((audioContext.state as string) === 'interrupted') {
       audioContext.resume().then(() => speak(text));
       return;
