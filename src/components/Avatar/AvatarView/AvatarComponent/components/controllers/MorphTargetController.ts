@@ -1,6 +1,6 @@
 import { SkinnedMesh } from 'three';
 import { MathUtils } from 'three';
-import { EMOTION_SMOOTHING, VISEME_SMOOTHING, BLINK_CONFIG } from '../constants';
+import { EMOTION_SMOOTHING, VISEME_SMOOTHING, BLINK_CONFIG } from '../../constants';
 
 /**
  * Controller class for handling morph target animations including emotions, visemes and blinking
@@ -62,7 +62,6 @@ export class MorphTargetController {
             targetEmotionValue * 3, // Amplify emotion by 3x
             EMOTION_SMOOTHING
           );
-          console.log(`[MorphTargetController] Emotion ${key}: current=${currentEmotionValue}, target=${targetEmotionValue}, new=${newEmotionValue}`);
           this.currentEmotionValues[key] = newEmotionValue;
           targetValue += newEmotionValue;
         }
