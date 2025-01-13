@@ -8,7 +8,7 @@ import {
 import { useAnimations, useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { AnimationState, FullbodyAvatarProps } from './types';
-import { AnimationController } from './AnimationController';
+import { AnimationController } from '../controllers/AnimationController';
 import { MorphTargetController } from '../controllers/MorphTargetController';
 import { AvatarPositionController } from '../controllers/AvatarPositionController';
 import {

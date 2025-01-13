@@ -1,4 +1,4 @@
-import { AnimationState, AnimationConfig } from './types';
+import { AnimationState, AnimationConfig } from '../FullbodyAvatar/types';
 import { AnimationAction, AnimationMixer, LoopOnce } from 'three';
 import { DEFAULT_CONFIG, MAX_IDLE_LOOPS_DEFAULT } from '../../constants';
 
