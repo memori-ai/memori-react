@@ -9,8 +9,8 @@ import { useAnimations, useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { AnimationState, FullbodyAvatarProps } from './types';
 import { AnimationController } from './AnimationController';
-import { MorphTargetController } from '../MorphTargetController';
-import { AvatarPositionController } from '../PositionController';
+import { MorphTargetController } from '../controllers/MorphTargetController';
+import { AvatarPositionController } from '../controllers/AvatarPositionController';
 import {
   AVATAR_POSITION,
   AVATAR_ROTATION,
@@ -152,6 +152,8 @@ export function FullbodyAvatar({
         AnimationState.LOADING,
         currentBaseAction.action
       );
+    }  else if (currentBaseAction.action.includes('->')) {
+      animationControllerRef.current.playSequence(currentBaseAction.action);
     } else if (currentBaseAction.action.startsWith('Idle')) {
       animationControllerRef.current.transitionTo(AnimationState.IDLE);
     } else {
