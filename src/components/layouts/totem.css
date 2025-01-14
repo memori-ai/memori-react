@@ -121,7 +121,16 @@
 .memori-totem-layout--controls .memori--start-panel,
 .memori-totem-layout--controls .memori-chat--history,
 .memori-totem-layout--controls .memori-chat--content {
+    z-index: 100;
     background: transparent;
+}
+
+.memori-totem-layout--controls .memori-chat--history .memori-chat--content {
+    max-height: 400px;
+}
+
+.memori-totem-layout--controls {
+    z-index: 100;
 }
 
 .memori-totem-layout--controls .memori--start-panel,
