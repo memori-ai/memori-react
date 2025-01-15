@@ -898,7 +898,7 @@ const MemoriWidget = ({
     userLang: string,
     msg?: string
   ) => {
-    const emission = state.emission ?? currentDialogState?.emission;
+    const emission = state?.emission ?? currentDialogState?.emission;
 
     let translatedState = { ...state };
     let translatedMsg = null;
@@ -1924,7 +1924,7 @@ const MemoriWidget = ({
     stopListening();
 
     if (preview) return;
-    
+
     if (speakerMuted) {
       memoriSpeaking = false;
       setMemoriTyping(false);
