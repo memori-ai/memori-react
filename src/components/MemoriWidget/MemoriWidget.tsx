@@ -416,7 +416,7 @@ const MemoriWidget = ({
   memoriLang,
   multilingual,
   integration,
-  layout = 'DEFAULT',
+  layout,
   customLayout,
   showShare,
   preview = false,
@@ -430,7 +430,7 @@ const MemoriWidget = ({
   showTypingText = false,
   showClear = false,
   showLogin = false,
-  showUpload = false,
+  showUpload,
   showOnlyLastMessages,
   height = '100vh',
   secret,
@@ -898,7 +898,7 @@ const MemoriWidget = ({
     userLang: string,
     msg?: string
   ) => {
-    const emission = state.emission ?? currentDialogState?.emission;
+    const emission = state?.emission ?? currentDialogState?.emission;
 
     let translatedState = { ...state };
     let translatedMsg = null;
@@ -1924,7 +1924,7 @@ const MemoriWidget = ({
     stopListening();
 
     if (preview) return;
-    
+
     if (speakerMuted) {
       memoriSpeaking = false;
       setMemoriTyping(false);
@@ -2432,7 +2432,7 @@ const MemoriWidget = ({
       ? true
       : integrationConfig?.showAIicon;
 
-  const enableUpload = showUpload || !!integrationConfig?.showUpload;
+  const enableUpload = !!(showUpload ?? integrationConfig?.showUpload);
 
   const showWhyThisAnswer =
     integrationConfig?.showWhyThisAnswer === undefined
@@ -2974,9 +2974,9 @@ const MemoriWidget = ({
 
   const showFullHistory =
     showOnlyLastMessages === undefined
-      ? layout !== 'TOTEM' &&
-        layout !== 'WEBSITE_ASSISTANT' &&
-        layout !== 'HIDDEN_CHAT'
+      ? selectedLayout !== 'TOTEM' &&
+        selectedLayout !== 'WEBSITE_ASSISTANT' &&
+        selectedLayout !== 'HIDDEN_CHAT'
       : !showOnlyLastMessages;
 
   const headerProps: HeaderProps = {
@@ -3196,7 +3196,7 @@ const MemoriWidget = ({
       className={cx(
         'memori',
         'memori-widget',
-        `memori-layout-${layout.toLowerCase()}`,
+        `memori-layout-${selectedLayout.toLowerCase()}`,
         `memori-controls-${controlsPosition.toLowerCase()}`,
         `memori--avatar-${integrationConfig?.avatar || 'default'}`,
         {
