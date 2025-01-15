@@ -166,9 +166,9 @@ GiovannaGLBProva.args = {
   layout: 'ZOOMED_FULL_BODY',
 };
 
-export const AnimationSequenceTest = Template.bind({});
-AnimationSequenceTest.args = {
-  memoriName: 'Test Sequenze Animazioni',
+export const MoodChefAssistant = Template.bind({});
+MoodChefAssistant.args = {
+  memoriName: 'Mood Chef Assistant',
   ownerUserName: 'andrea.patini3',
   memoriID: 'fb4f9251-e7ec-4002-b0e5-ffa6e75b2fd8',
   ownerUserID: '58770358-a5db-4b49-b3a4-734fc468e745',
@@ -179,21 +179,6 @@ AnimationSequenceTest.args = {
   uiLang: 'EN',
   spokenLang: 'IT',
   layout: 'ZOOMED_FULL_BODY',
-  showInstruct: 'false',
-  showSettings: 'true',
-  showClear: 'false',
-  showAIicon: 'true',
-  showWhyThisAnswer: 'true',
-  showTypingText: 'false',
-  showOnlyLastMessages: 'false',
-  showTranslationOriginal: 'false',
-  showCopyButton: 'false',
-  showShare: 'true',
-  showLogin: 'false',
-  useMathFormatting: 'false',
-  showUpload: 'false',
-  autoStart: 'false',
-  enableAudio: 'true',
   integrationID: '6e289cc1-df99-4879-8a3a-fe10baea7eac',
 };
 
