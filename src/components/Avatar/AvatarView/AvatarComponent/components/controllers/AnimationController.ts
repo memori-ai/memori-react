@@ -1,4 +1,4 @@
-import { AnimationState, AnimationConfig } from './types';
+import { AnimationState, AnimationConfig } from '../FullbodyAvatar/types';
 import { AnimationAction, AnimationMixer, LoopOnce } from 'three';
 import { DEFAULT_CONFIG, MAX_IDLE_LOOPS_DEFAULT } from '../../constants';
 
@@ -28,6 +28,10 @@ export class AnimationController {
   private lastAnimationTime: number = 0;
   // Flag to check if chat has already started
   private isChatAlreadyStarted: boolean = false;
+  // Sequence of animations
+  private sequence: string[] | null = null;
+  // Index of current animation in sequence
+  private sequenceIndex: number = 0;
 
   constructor(
     mixer: AnimationMixer,
@@ -106,6 +110,33 @@ export class AnimationController {
     }
 
     return idleAction;
+  }
+
+  /**
+   * Plays a sequence of animations
+   */
+  playSequence(sequenceString: string) {
+    const animations = sequenceString.split('->').map(anim => anim.trim());
+    console.log('[AnimationController] playSequence:', animations);
+
+    this.sequence = animations;
+    this.sequenceIndex = 0;
+
+    const firstAnim = this.parseAnimationName(animations[0]);
+    this.transitionTo(AnimationState.EMOTION, firstAnim);
+  }
+
+  // Animation Name Parsing
+  private parseAnimationName(animation: string): string {
+    const randomMatch = animation.match(/(\w+)\[(\d+),(\d+)\]/);
+    if (randomMatch) {
+      const [_, base, min, max] = randomMatch;
+      const random =
+        Math.floor(Math.random() * (Number(max) - Number(min) + 1)) +
+        Number(min);
+      return `${base}${random}`;
+    }
+    return animation;
   }
 
   /**
@@ -196,6 +227,26 @@ export class AnimationController {
 
     // Check for loop completion in idle animations
     this.checkForLoop();
+
+    // Sequence progression,
+    // If sequence is playing, transition to the next animation in the sequence
+    // If sequence is finished, transition to idle
+    if (
+      this.sequence &&
+      this.currentState === AnimationState.EMOTION &&
+      this.currentAction.time >= this.currentAction.getClip().duration * 0.9
+    ) {
+      this.sequenceIndex++;
+
+      if (this.sequenceIndex < this.sequence.length) {
+        const nextAnim = this.parseAnimationName(this.sequence[this.sequenceIndex]);
+        this.transitionTo(AnimationState.EMOTION, nextAnim);
+      } else {
+        this.sequence = null;
+        this.sequenceIndex = 0;
+        this.transitionTo(AnimationState.IDLE);
+      }
+    }
 
     // Check if emotion/loading animation is finished
     if (

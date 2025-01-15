@@ -3,8 +3,8 @@ import { Object3D, SkinnedMesh } from 'three';
 import { useGLTF } from '@react-three/drei';
 import { useGraph, useFrame, useThree } from '@react-three/fiber';
 import { correctMaterials, isSkinnedMesh } from '../../../../../helpers/utils';
-import { MorphTargetController } from './MorphTargetController';
-import { AvatarPositionController } from './PositionController';
+import { MorphTargetController } from './controllers/MorphTargetController';
+import { AvatarPositionController } from './controllers/AvatarPositionController';
 import {
   AVATAR_POSITION,
   SCALE_LERP_FACTOR,

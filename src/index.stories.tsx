@@ -166,6 +166,22 @@ GiovannaGLBProva.args = {
   layout: 'ZOOMED_FULL_BODY',
 };
 
+export const MoodChefAssistant = Template.bind({});
+MoodChefAssistant.args = {
+  memoriName: 'Mood Chef Assistant',
+  ownerUserName: 'andrea.patini3',
+  memoriID: 'fb4f9251-e7ec-4002-b0e5-ffa6e75b2fd8',
+  ownerUserID: '58770358-a5db-4b49-b3a4-734fc468e745',
+  tenantID: 'aisuru-staging.aclambda.online',
+  engineURL: 'https://engine-staging-tmp.memori.ai',
+  apiURL: 'https://backend-staging.memori.ai',
+  baseURL: 'https://aisuru-staging.aclambda.online',
+  uiLang: 'EN',
+  spokenLang: 'IT',
+  layout: 'ZOOMED_FULL_BODY',
+  integrationID: '6e289cc1-df99-4879-8a3a-fe10baea7eac',
+};
+
 export const GiovannaProvaWithPreviousSession = Template.bind({});
 GiovannaProvaWithPreviousSession.args = {
   memoriName: 'Giovanna Test',

@@ -1,5 +1,5 @@
 import { Vector3, MathUtils } from 'three';
-import { AVATAR_POSITION, AVATAR_POSITION_ZOOMED } from '../constants';
+import { AVATAR_POSITION, AVATAR_POSITION_ZOOMED } from '../../constants';
 
 export class AvatarPositionController {
   private currentScale: Vector3;
