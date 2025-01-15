@@ -1,5 +1,18 @@
 
 
+## [7.13.3](https://github.com/memori-ai/memori-react/compare/v7.13.2...v7.13.3) (2025-01-15)
+
+
+### Bug Fixes
+
+* optional chaining ([0a8b20c](https://github.com/memori-ai/memori-react/commit/0a8b20cce61afd2fe60e73b705a139d749ea451b))
+* showUpload fallback values ([ffc3c4e](https://github.com/memori-ai/memori-react/commit/ffc3c4eb46b16e67432e295809045bfb40286e91))
+
+
+### Maintenance
+
+* update api client ([6bd877e](https://github.com/memori-ai/memori-react/commit/6bd877eacb69acbd38b375f7ee7ceaa33b2abd83))
+
 ## [7.13.2](https://github.com/memori-ai/memori-react/compare/v7.13.1...v7.13.2) (2025-01-07)
 
 
