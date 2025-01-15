@@ -416,7 +416,7 @@ const MemoriWidget = ({
   memoriLang,
   multilingual,
   integration,
-  layout = 'DEFAULT',
+  layout,
   customLayout,
   showShare,
   preview = false,
@@ -2974,9 +2974,9 @@ const MemoriWidget = ({
 
   const showFullHistory =
     showOnlyLastMessages === undefined
-      ? layout !== 'TOTEM' &&
-        layout !== 'WEBSITE_ASSISTANT' &&
-        layout !== 'HIDDEN_CHAT'
+      ? selectedLayout !== 'TOTEM' &&
+        selectedLayout !== 'WEBSITE_ASSISTANT' &&
+        selectedLayout !== 'HIDDEN_CHAT'
       : !showOnlyLastMessages;
 
   const headerProps: HeaderProps = {
@@ -3196,7 +3196,7 @@ const MemoriWidget = ({
       className={cx(
         'memori',
         'memori-widget',
-        `memori-layout-${layout.toLowerCase()}`,
+        `memori-layout-${selectedLayout.toLowerCase()}`,
         `memori-controls-${controlsPosition.toLowerCase()}`,
         `memori--avatar-${integrationConfig?.avatar || 'default'}`,
         {
