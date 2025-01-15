@@ -1,5 +1,12 @@
 
 
+## [7.13.4](https://github.com/memori-ai/memori-react/compare/v7.13.3...v7.13.4) (2025-01-15)
+
+
+### Maintenance
+
+* refactor showOnlyLastMessages and default props, prevents issues ([3e72aff](https://github.com/memori-ai/memori-react/commit/3e72aff6c701f2e4475562254b1e1dff9f524bbd))
+
 ## [7.13.3](https://github.com/memori-ai/memori-react/compare/v7.13.2...v7.13.3) (2025-01-15)
 
 
