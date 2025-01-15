@@ -430,7 +430,7 @@ const MemoriWidget = ({
   showTypingText = false,
   showClear = false,
   showLogin = false,
-  showUpload = false,
+  showUpload,
   showOnlyLastMessages,
   height = '100vh',
   secret,
@@ -2432,7 +2432,7 @@ const MemoriWidget = ({
       ? true
       : integrationConfig?.showAIicon;
 
-  const enableUpload = showUpload || !!integrationConfig?.showUpload;
+  const enableUpload = !!(showUpload ?? integrationConfig?.showUpload);
 
   const showWhyThisAnswer =
     integrationConfig?.showWhyThisAnswer === undefined
