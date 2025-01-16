@@ -1,5 +1,20 @@
 
 
+## [7.14.0](https://github.com/memori-ai/memori-react/compare/v7.13.4...v7.14.0) (2025-01-16)
+
+
+### Features
+
+* add AnimationSequenceTest story ([2be61d9](https://github.com/memori-ai/memori-react/commit/2be61d97fbdac1436bc11503a1201a1b1c35a7bd))
+* added sequence animation handling system ([e2d6518](https://github.com/memori-ai/memori-react/commit/e2d65186a3a4d52d30b7d4cf9c47085adba4a56e))
+
+
+### Changes
+
+* moved AnimationController to controllers directory ([bef5e76](https://github.com/memori-ai/memori-react/commit/bef5e76aa8e503802ccf19b72d1277a145c0255a))
+* rename AnimationSequenceTest to MoodChefAssistant and simplify args ([438dc8c](https://github.com/memori-ai/memori-react/commit/438dc8c5ba52a827068323bc4c338434cdd12dfe))
+* replaced AvatarPositionController and MorphTargetController directory position ([12fd311](https://github.com/memori-ai/memori-react/commit/12fd311444c09f55a60f948db09829c1a06139b5))
+
 ## [7.13.4](https://github.com/memori-ai/memori-react/compare/v7.13.3...v7.13.4) (2025-01-15)
 
 
