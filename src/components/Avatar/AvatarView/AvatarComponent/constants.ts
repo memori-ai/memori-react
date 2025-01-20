@@ -45,59 +45,58 @@ export const BASE_ACTIONS: Record<string, BaseAction> = {
   Loading3: { weight: 0 },
 };
 
-// Mapping of emotions from Italian to English
-export const MAPPING_EMOTIONS_ITALIAN_TO_ENGLISH = {
-  Gioia: 'Joy',
-  Rabbia: 'Anger',
-  Sorpresa: 'Surprise',
-  Tristezza: 'Sadness',
-  Timore: 'Fear',
-};
-
-// Mapping of blend shapes to emotions
 export const MAPPING_BLEND_SHAPE_TO_EMOTION_RPM = {
-  Rabbia: {
+  Rabbia: { // Anger
     'browDownLeft': 0.5,
     'browDownRight': 0.5,
     'browOuterUpLeft': 0.5,
     'browOuterUpRight': 0.5,
     'mouthSmile': -0.2,
   },
-  Timore: {
+  Timore: { // Fear
     'browOuterUpLeft': -0.5,
     'browOuterUpRight': -0.5,
     'eyeWideLeft': -0.5,
     'eyeWideRight': -0.5,
   },
-  Tristezza: {
+  Tristezza: { // Sadness
     'browDownLeft': -0.5,
     'browDownRight': -0.5,
     'eyeSquintLeft': 0.5,
     'eyeSquintRight': 0.5,
     'mouthSmile': -0.6,
   },
-  Sorpresa: {
+  Sorpresa: { // Surprise
     'browInnerUp': 0.5,
     'browOuterUpLeft': 0.5,
     'browOuterUpRight': 0.5,
     'eyeWideLeft': 0.5,
     'eyeWideRight': 0.5,
   },
-  Gioia: {
+  Gioia: { // Joy
     'browDownLeft': 0.5,
     'browDownRight': 0.5,
     'browInnerUp': 0.5,
     'mouthSmile': 0.8,
-  },
+  }
 };
 
-// Mapping of blend shapes to emotions for custom GLB
+// For custom GLB - using direct emotion morphs
 export const MAPPING_BLEND_SHAPE_TO_EMOTION_CUSTOM_GLB = {
   Gioia: 'Joy',
-  Rabbia: 'Anger',
+  Rabbia: 'Anger', 
   Sorpresa: 'Surprise',
   Tristezza: 'Sadness',
-  Timore: 'Fear',
+  Timore: 'Fear'
+};
+
+// Direct emotion map for custom GLB
+export const EMOTION_MAP_CUSTOM_GLB = {
+  Joy: { Joy: 1 },
+  Anger: { Anger: 1 },
+  Surprise: { Surprise: 1 },
+  Sadness: { Sadness: 1 },
+  Fear: { Fear: 1 }
 };
 
 // URL for the male avatar
