@@ -1,5 +1,12 @@
 
 
+## [7.14.1](https://github.com/memori-ai/memori-react/compare/v7.14.0...v7.14.1) (2025-01-20)
+
+
+### Bug Fixes
+
+* update Avatar component props in TotemLayout to include chatProps ([04c9737](https://github.com/memori-ai/memori-react/commit/04c97374bbb3af9b7c824f153d040242f1db6ddc))
+
 ## [7.14.0](https://github.com/memori-ai/memori-react/compare/v7.13.4...v7.14.0) (2025-01-16)
 
 
