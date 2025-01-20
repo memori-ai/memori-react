@@ -105,12 +105,12 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   // Handler for setting emotion morph target influences, used for RPM and GLB blend shapes
   const setEmotionMorphTargetInfluences = useCallback(
     (action: string, outputContent: string) => {
-      console.log('[AvatarView] Setting emotion influences:', { action, outputContent });
+      // console.log('[AvatarView] Setting emotion influences:', { action, outputContent });
       
       if (action.startsWith('Loading')) return;
   
       const defaultEmotions = getDefaultEmotions();
-      console.log('[AvatarView] Default emotions state:', defaultEmotions);
+      // console.log('[AvatarView] Default emotions state:', defaultEmotions);
   
       if (!outputContent || outputContent === 'default') {
         setEmotionMorphTargets(defaultEmotions);
@@ -133,13 +133,9 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   
         // Create the direct emotion mapping - key should match the morph target name
         const emotionValue = { [emotionName]: 1 };
-        console.log('[AvatarView] Setting direct emotion:', emotionValue);
+        // console.log('[AvatarView] Setting direct emotion:', emotionValue);
         
-        setEmotionMorphTargets(prev => {
-          const newState = { ...defaultEmotions, ...emotionValue };
-          console.log('[AvatarView] New emotion state:', newState);
-          return newState;
-        });
+        setEmotionMorphTargets(_ => ({ ...defaultEmotions, ...emotionValue }));
       }
     },
     [isRPM, handleRPMBlendShape, handleCustomGLBBlendShape]
