@@ -107,7 +107,7 @@
 .memori-website_assistant--trigger-button .memori-blob figure {
     width: 85%;
     border-radius: 0;
-    opacity: 0.75;
+    opacity: 1;
 }
 
 .memori-website_assistant-layout .memori--powered-by {
@@ -391,7 +391,7 @@
 
 .memori-website_assistant-layout .memori-chat--bubble,
 .memori-website_assistant-layout .memori-chat--bubble.memori-chat--user-bubble {
-    opacity: 0.6;
+    opacity: 1;
     transition: opacity 0.2s ease-in-out;
 }
 
