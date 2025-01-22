@@ -1,5 +1,17 @@
 
 
+## [7.14.2](https://github.com/memori-ai/memori-react/compare/v7.14.1...v7.14.2) (2025-01-22)
+
+
+### Features
+
+* **style:** updated opacity for website assistant layout ([ee89183](https://github.com/memori-ai/memori-react/commit/ee891834d7e4f4646c7c8e8f7773d66026f10303))
+
+
+### Bug Fixes
+
+* double translation of last message when reopening session ([4f356bc](https://github.com/memori-ai/memori-react/commit/4f356bc7ef17daacd31de250a2898d403076c682))
+
 ## [7.14.1](https://github.com/memori-ai/memori-react/compare/v7.14.0...v7.14.1) (2025-01-20)
 
 
