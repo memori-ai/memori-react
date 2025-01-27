@@ -100,9 +100,8 @@ export function FullbodyAvatar({
     scene?.traverse((object: Object3D) => {
       if (
         object instanceof SkinnedMesh &&
-        (object.name === 'GBNL__Head' || object.name === 'Wolf3D_Avatar')
+        (object.name === 'GBNL__Head' || object.name === 'Wolf3D_Avatar' || object.name === 'Wolf3D_Avatar006_1')
       ) {
-        // console.log('[FullbodyAvatar] Found head mesh:', object.name);
         if(object.name === 'GBNL__Head') {
           setIsRpm(false);
         } else {
