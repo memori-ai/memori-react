@@ -250,6 +250,24 @@ NunzioFiore.args = {
   enableAudio: 'true',
 };
 
+export const DancingAvatar = Template.bind({});
+DancingAvatar.args = {
+  memoriName: 'Dancing Avatar',
+  ownerUserName: 'andrea.patini3',
+  memoriID: '04a56ff0-c202-425d-907d-1ca0b7563e44',
+  ownerUserID: '58770358-a5db-4b49-b3a4-734fc468e745',
+  tenantID: 'aisuru-staging.aclambda.online',
+  apiURL: 'https://backend-staging.memori.ai',
+  engineURL: 'https://engine-staging-tmp.memori.ai',
+  baseURL: 'https://aisuru-staging.aclambda.online',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  layout: 'FULLPAGE',
+  multilingual: 'true',
+  showShare: 'true',
+  integrationID: '16a142a0-cb4e-4484-b2b1-662f965fc29c',
+};
+
 const TemplateWithBatchButton: Story<Props> = args => (
   <div>
     <button

@@ -27,7 +27,7 @@ const FullPageLayout: React.FC<LayoutProps> = ({
 
       <div className="memori--grid">
         <div className="memori--grid-column memori--grid-column-left">
-          {Avatar && avatarProps && <Avatar {...avatarProps} />}
+          {Avatar && avatarProps && <Avatar chatProps={chatProps}  {...avatarProps} />}
 
           <div id="extension" />
         </div>

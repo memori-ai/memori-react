@@ -36,8 +36,10 @@ export function FullbodyAvatar({
   onCameraZChange,
 }: FullbodyAvatarProps) {
   const { scene } = useGLTF(url);
-  const { animations } = useGLTF(ANIMATION_URLS[sex]);
-  const { actions } = useAnimations(animations, scene);
+  const { animations: baseAnimations } = useGLTF(url);
+  const { animations: additionalAnimations } = useGLTF(ANIMATION_URLS[sex]); 
+  const mergedAnimations = useMemo(() => [...baseAnimations, ...additionalAnimations], [baseAnimations, additionalAnimations]);
+  const { actions } = useAnimations(mergedAnimations, scene);
 
   const animationControllerRef = useRef<AnimationController>();
   const morphTargetControllerRef = useRef<MorphTargetController>();
