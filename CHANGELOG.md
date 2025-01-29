@@ -1,5 +1,17 @@
 
 
+## [7.15.0](https://github.com/memori-ai/memori-react/compare/v7.14.2...v7.15.0) (2025-01-29)
+
+
+### Features
+
+* enhance avatar animations and add new story example ([a02564d](https://github.com/memori-ai/memori-react/commit/a02564df11cc1c2b71d6475ac772c1185007041d))
+
+
+### Bug Fixes
+
+* improve avatar mesh detection for different avatar types ([442a6c5](https://github.com/memori-ai/memori-react/commit/442a6c52304d25f980c3c90e404e9a16856a605d))
+
 ## [7.14.2](https://github.com/memori-ai/memori-react/compare/v7.14.1...v7.14.2) (2025-01-22)
 
 
