@@ -369,3 +369,11 @@ export function disposeObject(object: any) {
     object.children.forEach(disposeObject);
   }
 }
+
+export const safeParseJSON = (jsonString: string, fallbackString = false) => {
+  try {
+    return JSON.parse(jsonString);
+  } catch (error) {
+    return fallbackString ? jsonString : null;
+  }
+};

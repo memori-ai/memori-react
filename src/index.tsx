@@ -16,6 +16,7 @@ import { VisemeProvider } from './context/visemeContext';
 
 import { Toaster } from 'react-hot-toast';
 import { getTenant } from './helpers/tenant';
+import { safeParseJSON } from './helpers/utils';
 
 import i18n from './i18n';
 import { useTranslation } from 'react-i18next';
@@ -86,6 +87,15 @@ const getPreferredLanguages = () => {
     lng: 'en',
     fallbackLng: 'it',
   };
+};
+
+const getParsedContext = (context?: string | null) => {
+  if (!context) return {};
+  const parsedContext = context?.split(',')?.reduce((acc, cur) => {
+    const [key, value] = cur.split(':').map(t => t.trim());
+    return { ...acc, [key]: value };
+  }, {});
+  return parsedContext;
 };
 
 const Memori: React.FC<Props> = ({
@@ -231,6 +241,21 @@ const Memori: React.FC<Props> = ({
     }
   }, [uiLang]);
 
+  const layoutIntegration =
+    integration ??
+    memori?.integrations?.find(i =>
+      integrationID
+        ? i.integrationID === integrationID
+        : !!i.publish && i.type === 'LANDING_EXPERIENCE'
+    );
+  const layoutIntegrationConfig = safeParseJSON(
+    layoutIntegration?.customData ?? '{}'
+  );
+  const initialContextVars =
+    context ?? getParsedContext(layoutIntegrationConfig.contextVars);
+  const initialQuestionLayout =
+    initialQuestion ?? layoutIntegrationConfig.initialQuestion ?? '';
+
   return (
     <I18nWrapper>
       <VisemeProvider>
@@ -272,16 +297,9 @@ const Memori: React.FC<Props> = ({
             showContextPerLine={showContextPerLine}
             showLogin={showLogin ?? memori?.enableDeepThought}
             showUpload={showUpload}
-            integration={
-              integration ??
-              memori?.integrations?.find(i =>
-                integrationID
-                  ? i.integrationID === integrationID
-                  : !!i.publish && i.type === 'LANDING_EXPERIENCE'
-              )
-            }
-            initialContextVars={context}
-            initialQuestion={initialQuestion}
+            integration={layoutIntegration}
+            initialContextVars={initialContextVars}
+            initialQuestion={initialQuestionLayout}
             authToken={authToken}
             AZURE_COGNITIVE_SERVICES_TTS_KEY={
               speechKey || AZURE_COGNITIVE_SERVICES_TTS_KEY

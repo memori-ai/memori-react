@@ -38,6 +38,43 @@ Anonymous.args = {
   autoStart: true,
 };
 
+export const WithInitialContextAndQuestion = Template.bind({});
+WithInitialContextAndQuestion.args = {
+  ownerUserName: 'nzambello',
+  memoriName: 'Nicola',
+  tenantID: 'www.aisuru.com',
+  engineURL: 'https://engine.memori.ai',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://www.aisuru.com',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  enableAudio: true,
+  autoStart: true,
+  initialQuestion: 'Ciao',
+  context: { STORYBOOK: 'true' },
+};
+
+export const WithInitialContextAndQuestionFromIntegration = Template.bind({});
+WithInitialContextAndQuestionFromIntegration.args = {
+  ownerUserName: 'nzambello',
+  memoriName: 'Nicola',
+  tenantID: 'www.aisuru.com',
+  engineURL: 'https://engine.memori.ai',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://www.aisuru.com',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  enableAudio: true,
+  autoStart: true,
+  integration: {
+    integrationID: 'test',
+    customData: JSON.stringify({
+      initialQuestion: 'Ciao',
+      contextVars: 'STORYBOOK:true',
+    }),
+  },
+};
+
 export const WithPreviousSession = Template.bind({});
 WithPreviousSession.args = {
   ownerUserName: 'nzambello',
