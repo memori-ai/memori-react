@@ -254,7 +254,8 @@ const Memori: React.FC<Props> = ({
   const initialContextVars =
     context ?? getParsedContext(layoutIntegrationConfig.contextVars);
   const initialQuestionLayout =
-    initialQuestion ?? layoutIntegrationConfig.initialQuestion ?? '';
+    initialQuestion ??
+    (layoutIntegrationConfig.initialQuestion as string | undefined);
 
   return (
     <I18nWrapper>
