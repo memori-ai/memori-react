@@ -1,5 +1,12 @@
 
 
+## [7.15.1](https://github.com/memori-ai/memori-react/compare/v7.15.0...v7.15.1) (2025-01-29)
+
+
+### Bug Fixes
+
+* better parsing initial context and question ([9972821](https://github.com/memori-ai/memori-react/commit/9972821fb1d64243cdb1094028ebfc0087e60b94))
+
 ## [7.15.0](https://github.com/memori-ai/memori-react/compare/v7.14.2...v7.15.0) (2025-01-29)
 
 
