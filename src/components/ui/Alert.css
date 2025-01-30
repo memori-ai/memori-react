@@ -1,0 +1,93 @@
+.memori-alert {
+    position: fixed;
+    z-index: 50;
+    top: 20px;
+    right: 20px;
+    width: var(--memori-alert--width, 400px);
+  }
+  
+  .memori-alert--container {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    background-color: white;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  }
+  
+  .memori-alert--icon {
+    flex-shrink: 0;
+    margin-right: 12px;
+  }
+  
+  .memori-alert--content {
+    min-width: 0;
+    flex: 1;
+  }
+  
+  .memori-alert--title {
+    margin-bottom: 4px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+  
+  .memori-alert--description {
+    color: rgb(107 114 128);
+    font-size: 14px;
+  }
+  
+  .memori-alert--actions {
+    display: flex;
+    align-items: center;
+    margin-left: 16px;
+  }
+  
+  .memori-alert--action {
+    margin-right: 8px;
+  }
+  
+  .memori-alert--close {
+    flex-shrink: 0;
+  }
+  
+  /* Alert types */
+  .memori-alert--success {
+    --alert-color: rgb(34 197 94);
+    --alert-bg: rgb(240 253 244);
+  }
+  
+  .memori-alert--warning {
+    --alert-color: rgb(234 179 8);
+    --alert-bg: rgb(254 252 232);
+  }
+  
+  .memori-alert--error {
+    --alert-color: rgb(239 68 68);
+    --alert-bg: rgb(254 242 242);
+  }
+  
+  .memori-alert--info {
+    --alert-color: rgb(59 130 246);
+    --alert-bg: rgb(239 246 255);
+  }
+  
+  .memori-alert--success .memori-alert--container {
+    border: 1px solid var(--alert-color);
+    background-color: var(--alert-bg);
+  }
+  
+  .memori-alert--warning .memori-alert--container {
+    border: 1px solid var(--alert-color);
+    background-color: var(--alert-bg);
+  }
+  
+  .memori-alert--error .memori-alert--container {
+    border: 1px solid var(--alert-color);
+    background-color: var(--alert-bg);
+  }
+  
+  .memori-alert--info .memori-alert--container {
+    border: 1px solid var(--alert-color);
+    background-color: var(--alert-bg);
+  }
