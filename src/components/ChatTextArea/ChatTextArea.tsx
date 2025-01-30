@@ -48,6 +48,7 @@ const ChatTextArea: React.FC<Props> = ({
           }}
           onFocus={onFocus}
           onBlur={onBlur}
+          maxLength={100000}
         />
         <div className="memori-chat-textarea--expand">
           <Button
