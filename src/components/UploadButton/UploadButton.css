@@ -36,3 +36,10 @@
     transition: fill 0.2s ease;
 }
 
+.memori--error-message-container {
+    position: absolute;
+    z-index: 1000;
+    right: 0;
+    bottom: 50%;
+    width: 100%;
+}
