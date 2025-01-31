@@ -49,7 +49,7 @@
 @import url('./components/VenueWidget/VenueWidget.css');
 @import url('./components/WhyThisAnswer/WhyThisAnswer.css');
 @import url('./components/MemoriWidget/MemoriWidget.css');
-
+@import url('./components/ui/Alert.css');
 @import url('https://fonts.bunny.net/css?family=lexend-deca:200,400,700');
 
 @import url('./components/layouts/hidden-chat.css');

@@ -11,6 +11,7 @@ exports[`renders ChatTextArea unchanged 1`] = `
     >
       <textarea
         class="memori-chat-textarea--input"
+        maxlength="100000"
       />
       <div
         class="memori-chat-textarea--expand"
@@ -52,6 +53,7 @@ exports[`renders ChatTextArea with long text unchanged 1`] = `
     >
       <textarea
         class="memori-chat-textarea--input"
+        maxlength="100000"
       >
         Suspendisse sit amet volutpat velit. Nunc at commodo tortor, id rutrum nunc. Vivamus condimentum vel nunc et congue. Ut laoreet imperdiet nisi ac finibus. Suspendisse molestie risus a justo sagittis efficitur. Suspendisse sit amet volutpat velit. Nunc at commodo tortor, id rutrum nunc. Vivamus condimentum vel nunc et congue. Ut laoreet imperdiet nisi ac finibus. Suspendisse molestie risus a justo sagittis efficitur.
       </textarea>
@@ -95,6 +97,7 @@ exports[`renders ChatTextArea with value unchanged 1`] = `
     >
       <textarea
         class="memori-chat-textarea--input"
+        maxlength="100000"
       >
         Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
       </textarea>

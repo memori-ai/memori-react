@@ -17,6 +17,7 @@ exports[`renders ChatInputs disabled unchanged 1`] = `
         <textarea
           class="memori-chat-textarea--input"
           disabled=""
+          maxlength="100000"
         >
           Lorem ipsum
         </textarea>
@@ -120,6 +121,7 @@ exports[`renders ChatInputs listening unchanged 1`] = `
       >
         <textarea
           class="memori-chat-textarea--input"
+          maxlength="100000"
         >
           Lorem ipsum
         </textarea>
@@ -223,6 +225,7 @@ exports[`renders ChatInputs on instruct unchanged 1`] = `
       >
         <textarea
           class="memori-chat-textarea--input"
+          maxlength="100000"
         >
           Lorem ipsum
         </textarea>
@@ -326,6 +329,7 @@ exports[`renders ChatInputs unchanged 1`] = `
       >
         <textarea
           class="memori-chat-textarea--input"
+          maxlength="100000"
         />
         <div
           class="memori-chat-textarea--expand"
@@ -428,6 +432,7 @@ exports[`renders ChatInputs with user message unchanged 1`] = `
       >
         <textarea
           class="memori-chat-textarea--input"
+          maxlength="100000"
         >
           Lorem ipsum
         </textarea>
@@ -531,6 +536,7 @@ exports[`renders ChatInputs without microphone button unchanged 1`] = `
       >
         <textarea
           class="memori-chat-textarea--input"
+          maxlength="100000"
         >
           Lorem ipsum
         </textarea>
