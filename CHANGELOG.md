@@ -1,5 +1,12 @@
 
 
+## [7.16.1](https://github.com/memori-ai/memori-react/compare/v7.16.0...v7.16.1) (2025-01-31)
+
+
+### Bug Fixes
+
+* opening session current tag check + history ([adc90f9](https://github.com/memori-ai/memori-react/commit/adc90f9a0c1e7414ec24a55a19d6504a0aec65a8))
+
 ## [7.16.0](https://github.com/memori-ai/memori-react/compare/v7.15.2...v7.16.0) (2025-01-31)
 
 
