@@ -1,5 +1,15 @@
 
 
+## [7.16.0](https://github.com/memori-ai/memori-react/compare/v7.15.2...v7.16.0) (2025-01-31)
+
+
+### Features
+
+* add Alert component with multiple variants and customization options ([8ddc456](https://github.com/memori-ai/memori-react/commit/8ddc4565318b09729c0c30d7e54750bc639f56d1))
+* add dynamic shadow rendering for avatar with emotion-based shadow properties ([78030e2](https://github.com/memori-ai/memori-react/commit/78030e2729b00c5bb09fb666e5cd746e8a2ed065))
+* add maxLength attribute to textarea inputs in Chat and ChatTextArea components ([46c1d6e](https://github.com/memori-ai/memori-react/commit/46c1d6e60514f50178e9bf11ebda15061e5abfd3))
+* improve file upload with robust error handling and validation ([1851d5e](https://github.com/memori-ai/memori-react/commit/1851d5ec8d96031c3c4401e1e6eb0066772d8983))
+
 ## [7.15.2](https://github.com/memori-ai/memori-react/compare/v7.15.1...v7.15.2) (2025-01-29)
 
 
