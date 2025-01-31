@@ -947,7 +947,7 @@ const MemoriWidget = ({
       try {
         // console.log('[TRANSLATE] Translating emission');
         const t = await getTranslation(emission, userLang, language, baseUrl);
-        
+
         // Handle hints translation if present
         if (state.hints && state.hints.length > 0) {
           // console.log('[TRANSLATE] Translating hints');
@@ -2638,6 +2638,9 @@ const MemoriWidget = ({
       if (memoriAudioElement && isSafari) {
         // console.log('[CLICK_START] Enabling audio for Safari');
         memoriAudioElement.muted = false;
+        memoriAudioElement.play().catch((e: any) => {
+          console.warn('error playing intro audio', e);
+        });
       }
 
       // Get birth date from storage or props
@@ -2722,11 +2725,11 @@ const MemoriWidget = ({
       }
       // Handle initial session
       else if (initialSessionID) {
-        // console.log('[CLICK_START] Handling initial session');
+        console.debug('[CLICK_START] Handling initial session');
         // check if session is valid and not expired
         const { currentState, ...response } = await getSession(sessionID);
         if (response.resultCode !== 0 || !currentState) {
-          // console.debug('[CLICK_START] Session expired, opening new session');
+          console.debug('[CLICK_START] Session expired, opening new session');
           setGotErrorInOpening(true);
           setSessionId(undefined);
           setClickedStart(false);
@@ -2745,10 +2748,14 @@ const MemoriWidget = ({
         // Handle personification tag changes
         if (
           personification &&
-          currentDialogState?.currentTag !== personification.tag
+          currentState.currentTag !== personification.tag
         ) {
           try {
-            // console.debug('[CLICK_START] Changing tag for personification');
+            console.debug(
+              '[CLICK_START] Changing tag for personification',
+              personification,
+              currentState
+            );
             // reset tag
             await changeTag(memori.engineMemoriID!, sessionID, '-');
             // change tag to receiver
@@ -2799,12 +2806,12 @@ const MemoriWidget = ({
         // Handle anonymous tag changes
         else if (
           !personification &&
-          currentDialogState?.currentTag &&
-          currentDialogState?.currentTag !== anonTag &&
-          currentDialogState?.currentTag !== '-'
+          currentState?.currentTag &&
+          currentState?.currentTag !== anonTag &&
+          currentState?.currentTag !== '-'
         ) {
           try {
-            // console.debug('[CLICK_START] Changing to anonymous tag');
+            console.debug('[CLICK_START] Changing to anonymous tag');
             // reset tag
             await changeTag(memori.engineMemoriID!, sessionID, '-');
             // change tag to anonymous
@@ -2854,7 +2861,7 @@ const MemoriWidget = ({
         // No tag changes needed
         else {
           try {
-            // console.log('[CLICK_START] Getting chat history');
+            console.debug('[CLICK_START] Getting chat history');
             const { chatLogs, ...resp } = await getSessionChatLogs(
               sessionID,
               sessionID
@@ -2878,13 +2885,13 @@ const MemoriWidget = ({
             );
 
             // we dont remove the last one as it is the current state
-            translatedMessages = messages;
+            translatedMessages = messages ?? [];
             if (
               language.toUpperCase() !== userLang.toUpperCase() &&
               isMultilanguageEnabled
             ) {
               try {
-                // console.log('[CLICK_START] Translating messages');
+                console.debug('[CLICK_START] Translating messages');
                 translatedMessages = await Promise.all(
                   messages.map(async m => ({
                     ...m,
@@ -2901,22 +2908,37 @@ const MemoriWidget = ({
             }
 
             setHistory(translatedMessages);
-            // console.log('[CLICK_START] props currentState:', currentState, 'userLang:', userLang, 'translatedMessages:', translatedMessages, 'history:', history);
+            console.debug(
+              '[CLICK_START] props currentState:',
+              currentState,
+              'userLang:',
+              userLang,
+              'translatedMessages:',
+              translatedMessages,
+              'history:',
+              history
+            );
           } catch (e) {
-            // console.log('[CLICK_START] Error retrieving chat logs:', e);
+            console.log('[CLICK_START] Error retrieving chat logs:', e);
           }
 
-          // no need to change tag
-          translateDialogState(currentState, userLang, undefined, true)
+          translateDialogState(
+            currentState,
+            userLang,
+            undefined,
+            // if empty history, pick current state emission
+            // otherwise, don't push message
+            !!translatedMessages?.length
+          )
             .then(ts => {
               let text = ts.translatedEmission || ts.emission;
               if (text) {
                 speak(text);
               }
             })
-              .finally(() => {
-                setHasUserActivatedSpeak(true);
-              });
+            .finally(() => {
+              setHasUserActivatedSpeak(true);
+            });
         }
 
         // date and place events
@@ -2926,7 +2948,7 @@ const MemoriWidget = ({
       }
       // Default case - just translate and activate
       else {
-        // console.log('[CLICK_START] Using existing session');
+        console.debug('[CLICK_START] Using existing session');
         // reset history
         setHistory([]);
 
@@ -2945,7 +2967,7 @@ const MemoriWidget = ({
     },
     [memoriPwd, memori, memoriTokens, birthDate, sessionId, userLang, position]
   );
-  
+
   useEffect(() => {
     if (!clickedStart && autoStart) {
       onClickStart();
