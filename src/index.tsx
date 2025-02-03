@@ -166,17 +166,21 @@ const Memori: React.FC<Props> = ({
     const url =
       baseURL ||
       (tenantID.startsWith('https://') ? tenantID : `https://${tenantID}`);
-    const result = await fetch(`${url}/api/speechkey`);
-    const data = await result.json();
+    try {
+      const result = await fetch(`${url}/api/speechkey`);
+      const data = await result.json();
 
-    if (data.AZURE_COGNITIVE_SERVICES_TTS_KEY) {
-      setSpeechKey(data.AZURE_COGNITIVE_SERVICES_TTS_KEY);
+      if (data.AZURE_COGNITIVE_SERVICES_TTS_KEY) {
+        setSpeechKey(data.AZURE_COGNITIVE_SERVICES_TTS_KEY);
+      } else {
+        console.log('AZURE_COGNITIVE_SERVICES_TTS_KEY not found');
+      }
+    } catch (error) {
+      console.error('Error fetching speech key', error);
     }
   }, []);
   useEffect(() => {
-    if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) {
-      fetchSpeechKey();
-    }
+    fetchSpeechKey();
   }, [AZURE_COGNITIVE_SERVICES_TTS_KEY]);
 
   /**
@@ -306,7 +310,7 @@ const Memori: React.FC<Props> = ({
               speechKey || AZURE_COGNITIVE_SERVICES_TTS_KEY
             }
             autoStart={autoStart}
-            enableAudio={enableAudio}
+            enableAudio={enableAudio && !!speechKey}
             defaultSpeakerActive={defaultSpeakerActive}
             disableTextEnteredEvents={disableTextEnteredEvents}
             onStateChange={onStateChange}
