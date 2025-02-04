@@ -61,7 +61,6 @@ export interface Props {
   enableAudio?: boolean;
   defaultSpeakerActive?: boolean;
   disableTextEnteredEvents?: boolean;
-  AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
   onStateChange?: (state?: DialogState) => void;
   additionalInfo?: WidgetProps['additionalInfo'];
   customMediaRenderer?: WidgetProps['customMediaRenderer'];
@@ -134,7 +133,6 @@ const Memori: React.FC<Props> = ({
   spokenLang,
   multilingual,
   authToken,
-  AZURE_COGNITIVE_SERVICES_TTS_KEY,
   enableAudio,
   defaultSpeakerActive = true,
   disableTextEnteredEvents = false,
@@ -149,9 +147,7 @@ const Memori: React.FC<Props> = ({
 }) => {
   const [memori, setMemori] = useState<IMemori>();
   const [tenant, setTenant] = useState<Tenant>();
-  const [speechKey, setSpeechKey] = useState<string | undefined>(
-    AZURE_COGNITIVE_SERVICES_TTS_KEY
-  );
+  const [speechKey, setSpeechKey] = useState<string | undefined>();
   const { t } = useTranslation();
 
   if (!((memoriID && ownerUserID) || (memoriName && ownerUserName))) {
@@ -181,7 +177,7 @@ const Memori: React.FC<Props> = ({
   }, []);
   useEffect(() => {
     fetchSpeechKey();
-  }, [AZURE_COGNITIVE_SERVICES_TTS_KEY]);
+  }, []);
 
   /**
    * Fetches the Memori data from the backend
@@ -306,9 +302,7 @@ const Memori: React.FC<Props> = ({
             initialContextVars={initialContextVars}
             initialQuestion={initialQuestionLayout}
             authToken={authToken}
-            AZURE_COGNITIVE_SERVICES_TTS_KEY={
-              speechKey || AZURE_COGNITIVE_SERVICES_TTS_KEY
-            }
+            AZURE_COGNITIVE_SERVICES_TTS_KEY={speechKey}
             autoStart={autoStart}
             enableAudio={enableAudio && !!speechKey}
             defaultSpeakerActive={defaultSpeakerActive}
@@ -404,7 +398,6 @@ Memori.propTypes = {
   enableAudio: PropTypes.bool,
   defaultSpeakerActive: PropTypes.bool,
   disableTextEnteredEvents: PropTypes.bool,
-  AZURE_COGNITIVE_SERVICES_TTS_KEY: PropTypes.string,
   onStateChange: PropTypes.func,
   additionalInfo: PropTypes.objectOf(PropTypes.any),
   customMediaRenderer: PropTypes.func,
