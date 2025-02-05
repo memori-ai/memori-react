@@ -6,7 +6,7 @@ exports[`renders UploadButton unchanged 1`] = `
     class="relative file-upload-wrapper"
   >
     <input
-      accept=".pdf,.doc,.docx,.txt"
+      accept=".pdf,.txt"
       class="memori--upload-file-input"
       multiple=""
       type="file"
@@ -37,7 +37,7 @@ exports[`renders UploadButton unchanged 1`] = `
         <style>
           
               .memori-alert {
-                --memori-alert--width: 300px;
+                --memori-alert--width: 350px;
               }
             
         </style>
@@ -49,6 +49,11 @@ exports[`renders UploadButton unchanged 1`] = `
           >
             <div
               class="memori-alert--title"
+            >
+              File upload failed
+            </div>
+            <div
+              class="memori-alert--description"
             >
               Failed to initialize file conversion service. Please try again later.
             </div>
