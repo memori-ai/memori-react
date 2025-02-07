@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import cx from 'classnames';
-import ConvertApi from 'convertapi-js';
 import UploadIcon from '../icons/Upload';
 import Spin from '../ui/Spin';
 import Alert from '../ui/Alert';
@@ -14,8 +13,8 @@ type UploadError = {
 
 /**
  * FileUploadButton component allows users to upload and convert files to text
- * Supports PDF, DOC, DOCX and TXT files up to 10MB
- * Converts files to text using ConvertAPI service
+ * Supports PDF and TXT files up to 10MB
+ * Extracts text from PDFs using PDF.js
  */
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
@@ -40,12 +39,10 @@ const FileUploadButton = ({
 }) => {
   // State for loading indicator
   const [isLoading, setIsLoading] = useState(false);
-  // State for tracking upload errors
+  // State for tracking upload errors  
   const [errors, setErrors] = useState<UploadError[]>([]);
   // Reference to hidden file input
   const fileInputRef = useRef<HTMLInputElement>(null);
-  // State for ConvertAPI authentication token
-  const [convertapiToken, setConvertapiToken] = useState<string>();
 
   // Clear all errors
   const clearErrors = () => setErrors([]);
@@ -65,33 +62,7 @@ const FileUploadButton = ({
   };
 
   /**
-   * Fetches ConvertAPI token from backend service
-   * Displays error if token fetch fails
-   */
-  const fetchConvertapiToken = async () => {
-    try {
-      const result = await fetch('https://www.aisuru.com/api/convertapi-token');
-      const response = await result.json();
-      if (!response.Tokens?.[0]?.Id) {
-        throw new Error('Invalid token response');
-      }
-      setConvertapiToken(response.Tokens[0].Id);
-    } catch (error) {
-      addError({
-        message:
-          'Failed to initialize file conversion service. Please try again later.',
-        severity: 'error',
-      });
-    }
-  };
-
-  // Fetch token on component mount
-  useEffect(() => {
-    fetchConvertapiToken();
-  }, []);
-
-  /**
-   * Extracts text from PDF using PDF.js as a fallback method
+   * Extracts text from PDF using PDF.js
    * @param file PDF file to process
    * @returns Promise resolving to extracted text
    */
@@ -150,7 +121,8 @@ const FileUploadButton = ({
    */
   const validateFile = (file: File): boolean => {
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
-    const ALLOWED_FILE_TYPES = convertapiToken ? ['.pdf', '.doc', '.docx', '.txt'] : ['.pdf', '.txt'];
+    const ALLOWED_FILE_TYPES = ['.pdf', '.txt'];
+    
     if (!ALLOWED_FILE_TYPES.includes(fileExt)) {
       addError({
         message: `File type "${fileExt}" is not supported. Please use: ${ALLOWED_FILE_TYPES.join(
@@ -177,56 +149,20 @@ const FileUploadButton = ({
   };
 
   /**
-   * Converts uploaded file to text using ConvertAPI
-   * @param file File to convert
-   * @returns Promise resolving to converted text or null if conversion fails
+   * Processes file to extract text content
+   * @param file File to process
+   * @returns Promise resolving to extracted text or null if processing fails
    */
-  const convertToTxt = async (file: File): Promise<string | null> => {
-    const fileExt = file.name.split('.').pop()?.toLowerCase() || 'pdf';
+  const processFile = async (file: File): Promise<string | null> => {
+    const fileExt = file.name.split('.').pop()?.toLowerCase() || '';
 
     try {
       let text: string | null = null;
 
-      // Try ConvertAPI first
-      if (convertapiToken) {
-        try {
-          const convertApi = ConvertApi.auth(convertapiToken);
-          const params = convertApi.createParams();
-          params.add('File', file);
-          params.add('TextEncoding', 'UTF-8');
-          params.add('PageRange', '1-2000');
-
-          const result = await convertApi.convert(fileExt, 'txt', params);
-          const fileUrl = result.files[0].Url;
-
-          const response = await fetch(fileUrl);
-          if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-          }
-          text = (await response.text()).replace(/\s+/g, ' ').trim();
-        } catch (convertError) {
-          // Only try PDF.js fallback for PDF files
-          if (fileExt === 'pdf') {
-            text = await extractTextFromPDF(file);
-          } else {
-            throw new Error('File conversion service not initialized');
-          }
-        }
-      } else {
-        // Only try PDF.js fallback for PDF files
-        if (fileExt === 'pdf') {
-          try {
-            text = await extractTextFromPDF(file);
-          } catch (pdfError) {
-            throw new Error(
-              `Both conversion methods failed: ${
-                pdfError instanceof Error ? pdfError.message : 'Unknown error'
-              }`
-            );
-          }
-        } else {
-          throw new Error('File conversion service not initialized');
-        }
+      if (fileExt === 'pdf') {
+        text = await extractTextFromPDF(file);
+      } else if (fileExt === 'txt') {
+        text = await file.text();
       }
 
       // Check text length limit
@@ -242,7 +178,7 @@ const FileUploadButton = ({
       return text;
     } catch (error) {
       addError({
-        message: `Failed to convert "${file.name}": ${
+        message: `Failed to process "${file.name}": ${
           error instanceof Error ? error.message : 'Unknown error'
         }`,
         severity: 'error',
@@ -251,10 +187,11 @@ const FileUploadButton = ({
       return null;
     }
   };
+
   /**
    * Handles file selection event
-   * Validates files and converts them to text
-   * Updates preview files state with converted content
+   * Validates files and processes them to extract text
+   * Updates preview files state with processed content
    */
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || []);
@@ -270,7 +207,7 @@ const FileUploadButton = ({
       if (!validateFile(file)) continue;
 
       const fileId = Math.random().toString(36).substr(2, 9);
-      const text = await convertToTxt(file);
+      const text = await processFile(file);
 
       if (text) {
         newPreviewFiles.push({
@@ -281,7 +218,7 @@ const FileUploadButton = ({
       }
     }
 
-    // Update preview files if any conversions succeeded
+    // Update preview files if any processing succeeded
     if (newPreviewFiles.length > 0) {
       setPreviewFiles(newPreviewFiles);
       if (newPreviewFiles.length < files.length) {
@@ -298,15 +235,13 @@ const FileUploadButton = ({
     }
   };
 
-  console.log(errors);
-
   return (
     <div className="relative file-upload-wrapper">
       {/* Hidden file input triggered by button click */}
       <input
         ref={fileInputRef}
         type="file"
-        accept={convertapiToken ? ".pdf,.doc,.docx,.txt" : ".pdf,.txt"}
+        accept=".pdf,.txt"
         className="memori--upload-file-input"
         onChange={handleFileSelect}
         multiple

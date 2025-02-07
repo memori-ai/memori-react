@@ -12,7 +12,7 @@ exports[`renders UploadButton unchanged 1`] = `
       type="file"
     />
     <button
-      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button memori--error"
+      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
       title="Upload file"
     >
       <svg
@@ -30,61 +30,7 @@ exports[`renders UploadButton unchanged 1`] = `
     </button>
     <div
       class="memori--error-message-container"
-    >
-      <div
-        class="memori-alert memori-alert--error"
-      >
-        <style>
-          
-              .memori-alert {
-                --memori-alert--width: 350px;
-              }
-            
-        </style>
-        <div
-          class="memori-alert--container ease-out duration-300 opacity-0 translate-y-4"
-        >
-          <div
-            class="memori-alert--content"
-          >
-            <div
-              class="memori-alert--title"
-            >
-              File upload failed
-            </div>
-            <div
-              class="memori-alert--description"
-            >
-              Failed to initialize file conversion service. Please try again later.
-            </div>
-          </div>
-          <div
-            class="memori-alert--actions"
-          >
-            <button
-              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-alert--close"
-              title="close"
-            >
-              <span
-                class="memori-button--icon"
-              >
-                <svg
-                  aria-hidden="true"
-                  focusable="false"
-                  role="img"
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"
-                  />
-                </svg>
-              </span>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
+    />
   </div>
 </div>
 `;
