@@ -1,5 +1,23 @@
 
 
+## [7.16.2](https://github.com/memori-ai/memori-react/compare/v7.16.1...v7.16.2) (2025-02-10)
+
+
+### Bug Fixes
+
+* improve speech key fetching and audio enabling logic ([f6ea5e2](https://github.com/memori-ai/memori-react/commit/f6ea5e2f23e0316b70702661670a487572cda07c))
+
+
+### Changes
+
+* send initial question with previous session with empty history ([1a6ff68](https://github.com/memori-ai/memori-react/commit/1a6ff6838c19a2099da4bfe224150718d794fd6f))
+
+
+### Maintenance
+
+* remove AZURE_COGNITIVE_SERVICES_TTS_KEY as prop ([06ee821](https://github.com/memori-ai/memori-react/commit/06ee821d309532941121c949badeb6f9d3a6d297))
+* update api client ([a97c44e](https://github.com/memori-ai/memori-react/commit/a97c44e4ac052135b2e515aa36c76424bdf729b5))
+
 ## [7.16.1](https://github.com/memori-ai/memori-react/compare/v7.16.0...v7.16.1) (2025-01-31)
 
 
