@@ -2922,23 +2922,55 @@ const MemoriWidget = ({
             console.log('[CLICK_START] Error retrieving chat logs:', e);
           }
 
-          translateDialogState(
-            currentState,
-            userLang,
-            undefined,
-            // if empty history, pick current state emission
-            // otherwise, don't push message
-            !!translatedMessages?.length
-          )
-            .then(ts => {
-              let text = ts.translatedEmission || ts.emission;
-              if (text) {
-                speak(text);
-              }
-            })
-            .finally(() => {
-              setHasUserActivatedSpeak(true);
+          if (
+            (!!translatedMessages?.length && translatedMessages.length > 1) ||
+            !initialQuestion
+          ) {
+            // we have a history, don't push message
+            translateDialogState(
+              currentState,
+              userLang,
+              undefined,
+              // if empty history, pick current state emission
+              // otherwise, don't push message
+              !!translatedMessages?.length
+            )
+              .then(ts => {
+                let text = ts.translatedEmission || ts.emission;
+                if (text) {
+                  speak(text);
+                }
+              })
+              .finally(() => {
+                setHasUserActivatedSpeak(true);
+              });
+          } else {
+            // remove default initial message
+            translatedMessages = [];
+            setHistory([]);
+
+            // we have no chat history, we start by initial question
+            const response = await postTextEnteredEvent({
+              sessionId: sessionID,
+              text: initialQuestion,
             });
+
+            translateDialogState(
+              response.currentState ?? currentState,
+              userLang,
+              undefined,
+              false
+            )
+              .then(ts => {
+                let text = ts.translatedEmission || ts.emission;
+                if (text) {
+                  speak(text);
+                }
+              })
+              .finally(() => {
+                setHasUserActivatedSpeak(true);
+              });
+          }
         }
 
         // date and place events
