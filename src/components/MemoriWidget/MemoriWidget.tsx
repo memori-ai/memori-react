@@ -2308,6 +2308,23 @@ const MemoriWidget = ({
       // Start recognition
       setListening(true);
       recognizer.startContinuousRecognitionAsync();
+
+      recognizer.canceled = (_s, e) => {
+        if (e.reason === speechSdk.CancellationReason.Error) {
+          console.debug(`"CANCELED: ErrorCode=${e.errorCode}`);
+          console.debug(`"CANCELED: ErrorDetails=${e.errorDetails}`);
+          console.debug(
+            'CANCELED: Did you set the speech resource key and region values?'
+          );
+        }
+
+        stopListening();
+      };
+
+      recognizer.sessionStopped = (_s, _e) => {
+        stopListening();
+        resetTranscript();
+      };
     } catch (error) {
       console.error('Error in startListening:', error);
       stopListening();
@@ -2338,20 +2355,34 @@ const MemoriWidget = ({
   };
 
   const handleRecognizedSpeech = (text: string) => {
-    setIsSpeaking(true);
+    console.debug('Handling recognized speech:', text);
     setTranscript(text || '');
+    setIsSpeaking(false);
 
-    // Enhanced timing for speech end
+    // Add delay before processing the transcript
     setTimeout(() => {
-      setIsSpeaking(false);
-
-      // Add delay before processing the transcript
-      setTimeout(() => {
-        if (!isSpeaking && !isProcessingSTT) {
-          handleTranscriptProcessing();
-        }
-      }, 100);
-    }, 100);
+      console.debug(
+        'Processing transcript, isSpeaking:',
+        isSpeaking,
+        'isProcessingSTT:',
+        isProcessingSTT
+      );
+      if (!isSpeaking && !isProcessingSTT) {
+      const message = stripDuplicates(text);
+      console.debug('Stripped message:', message);
+      if (message.length > 0) {
+        console.debug('Valid message detected, setting processing state');
+        setIsProcessingSTT(true);
+        sendMessage(message);
+        resetTranscript();
+        setUserMessage('');
+        clearListening();
+      } else if (listening) {
+        console.debug('No valid message, resetting interaction timeout');
+        resetInteractionTimeout();
+      }
+    }
+    }, 200);
   };
 
   // Helper function to handle transcript processing
@@ -2361,7 +2392,7 @@ const MemoriWidget = ({
       setIsProcessingSTT(true);
       sendMessage(message);
       resetTranscript();
-      setUserMessage('');
+      clearListening();
     } else if (listening) {
       resetInteractionTimeout();
     }
@@ -2389,6 +2420,7 @@ const MemoriWidget = ({
     setHasUserActivatedListening(false);
     stopListening();
     clearListeningTimeout();
+    setIsSpeaking(false);
   };
 
   /**
