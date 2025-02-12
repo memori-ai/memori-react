@@ -119,6 +119,7 @@
     "conversationStartedLabel": "Conversazione avvenuta il",
     "settingsHeaderLabel": "Configura qui se vuoi impostare una conversazione continua. Setta i secondi di silenzio prima dell'invio.",
     "continuousSpeechLabel": "Conversazione continua",
+    "continuousSpeechDisabled": "Conversazione continua disabilitata poichè l'agente è in modalità muta",
     "holdToSpeak": "Tieni premuto per parlare",
     "releaseToEndListening": "Rilascia per smettere di parlare",
     "pressAndHoldToSpeak": "Premi e tieni premuto per parlare",

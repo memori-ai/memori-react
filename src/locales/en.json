@@ -119,6 +119,7 @@
     "conversationStartedLabel": "Conversation started on",
     "settingsHeaderLabel": "Setup here if you want to set the continuous speech, and change the silence seconds if you want to customize them.",
     "continuousSpeechLabel": "Continuous speech",
+    "continuousSpeechDisabled": "Continuous speech disabled because the agent is in mute mode",
     "holdToSpeak": "Hold to speak",
     "releaseToEndListening": "Release to end listening",
     "pressAndHoldToSpeak": "Press and hold to speak",

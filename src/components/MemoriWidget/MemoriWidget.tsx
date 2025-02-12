@@ -628,20 +628,22 @@ const MemoriWidget = ({
       defaultControlsPosition = 'bottom';
     }
 
-    setMuteSpeaker(
+    const muteSpeaker =
       autoStart ||
-        getLocalConfig(
-          'muteSpeaker',
-          !defaultEnableAudio || !defaultSpeakerActive || autoStart
-        )
-    );
+      getLocalConfig(
+        'muteSpeaker',
+        !defaultEnableAudio || !defaultSpeakerActive || autoStart
+      );
+      
+
+    setMuteSpeaker(muteSpeaker);
     speakerMuted =
       autoStart ||
       getLocalConfig(
         'muteSpeaker',
         !defaultEnableAudio || !defaultSpeakerActive || autoStart
       );
-    setContinuousSpeech(microphoneMode === 'CONTINUOUS');
+    setContinuousSpeech(muteSpeaker ? false : microphoneMode === 'CONTINUOUS');
     setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 2));
     setControlsPosition(
       getLocalConfig('controlsPosition', defaultControlsPosition)
@@ -2333,7 +2335,6 @@ const MemoriWidget = ({
   };
 
   const setupSpeechConfig = (AZURE_COGNITIVE_SERVICES_TTS_KEY: string) => {
-    if (!speechConfig) {
       speechConfig = speechSdk.SpeechConfig.fromSubscription(
         AZURE_COGNITIVE_SERVICES_TTS_KEY,
         'westeurope'
@@ -2342,7 +2343,6 @@ const MemoriWidget = ({
         getCultureCodeByLanguage(userLang);
       speechConfig.speechSynthesisLanguage = getCultureCodeByLanguage(userLang);
       speechConfig.speechSynthesisVoiceName = getTTSVoice(userLang); // https://docs.microsoft.com/it-it/azure/cognitive-services/speech-service/language-support#text-to-speech
-    }
     return speechConfig;
   };
 
@@ -2373,13 +2373,7 @@ const MemoriWidget = ({
       if (message.length > 0) {
         console.debug('Valid message detected, setting processing state');
         setIsProcessingSTT(true);
-        sendMessage(message);
-        resetTranscript();
-        setUserMessage('');
-        clearListening();
-      } else if (listening) {
-        console.debug('No valid message, resetting interaction timeout');
-        resetInteractionTimeout();
+        setUserMessage(message);
       }
     }
     }, 200);
@@ -2392,6 +2386,7 @@ const MemoriWidget = ({
       setIsProcessingSTT(true);
       sendMessage(message);
       resetTranscript();
+      setUserMessage('');
       clearListening();
     } else if (listening) {
       resetInteractionTimeout();
@@ -2502,14 +2497,14 @@ const MemoriWidget = ({
     if (
       !isPlayingAudio &&
       continuousSpeech &&
-      (hasUserActivatedListening || !requestedListening)
+      (hasUserActivatedListening)
     ) {
       startListening();
     } else if (isPlayingAudio && listening) {
       stopListening();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPlayingAudio]);
+  }, [isPlayingAudio, history]);
 
   useEffect(() => {
     resetListening();
@@ -3218,6 +3213,14 @@ const MemoriWidget = ({
     setSpeakerMuted: mute => {
       speakerMuted = !!mute;
       setMuteSpeaker(mute);
+      let microphoneMode = getLocalConfig<string>(
+        'microphoneMode',
+        'HOLD_TO_TALK'
+      );
+      if(microphoneMode === 'CONTINUOUS' && mute){
+        setContinuousSpeech(false);
+        setLocalConfig('microphoneMode', 'HOLD_TO_TALK');
+      }
       setLocalConfig('muteSpeaker', !!mute);
       if (mute) {
         stopAudio();
@@ -3574,6 +3577,7 @@ const MemoriWidget = ({
           setEnablePositionControls={setEnablePositionControls}
           isAvatar3d={!!integrationConfig?.avatarURL}
           additionalSettings={additionalSettings}
+          speakerMuted={speakerMuted}
         />
       )}
 
