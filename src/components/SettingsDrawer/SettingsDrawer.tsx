@@ -95,6 +95,7 @@ const SettingsDrawer = ({
             content={
               speakerMuted ? t('write_and_speak.continuousSpeechDisabled') : ''
             }
+            visible={speakerMuted}
           >
             <RadioGroup.Option
               value="CONTINUOUS"

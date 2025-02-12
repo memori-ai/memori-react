@@ -600,7 +600,6 @@ const MemoriWidget = ({
   } = useViseme();
 
   useEffect(() => {
-    // setIsPlayingAudio(!!speechSynthesizer);
     memoriSpeaking = !!speechSynthesizer;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [speechSynthesizer]);
@@ -634,7 +633,6 @@ const MemoriWidget = ({
         'muteSpeaker',
         !defaultEnableAudio || !defaultSpeakerActive || autoStart
       );
-      
 
     setMuteSpeaker(muteSpeaker);
     speakerMuted =
@@ -2145,14 +2143,11 @@ const MemoriWidget = ({
 
   // Helper function for fallback behavior
   const handleFallback = (text: string) => {
-    console.log('Falling back to browser speech synthesis');
     window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
     cleanup();
   };
 
   const cleanup = (): void => {
-    console.debug('Starting cleanup');
-
     setIsPlayingAudio(false);
     stopProcessing();
     resetVisemeQueue();
@@ -2175,8 +2170,7 @@ const MemoriWidget = ({
   };
 
   // Modify stopAudio to include speech state reset
-  const stopAudio = (): void => {
-    console.debug('stopAudio');
+  const stopAudio = async (): Promise<void> => {
     setIsPlayingAudio(false);
     memoriSpeaking = false;
 
@@ -2184,7 +2178,11 @@ const MemoriWidget = ({
       if (speechSynthesizer) {
         const currentSynthesizer = speechSynthesizer;
         speechSynthesizer = null;
-        currentSynthesizer.close();
+        try {
+          currentSynthesizer.close();
+        } catch (e) {
+          console.debug('Error closing speech synthesizer:', e);
+        }
       }
 
       if (audioContext?.state !== 'closed') {
@@ -2199,7 +2197,6 @@ const MemoriWidget = ({
       console.debug('stopAudio error: ', e);
     }
   };
-
   const focusChatInput = () => {
     let textarea = document.querySelector(
       '#chat-fieldset textarea'
@@ -2226,23 +2223,20 @@ const MemoriWidget = ({
   const [transcriptTimeout, setTranscriptTimeout] =
     useState<NodeJS.Timeout | null>(null);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [isProcessingSTT, setIsProcessingSTT] = useState(false);
+  // const [isProcessingSTT, setIsProcessingSTT] = useState(false);
 
   const resetTranscript = () => {
     setTranscript('');
-    setIsProcessingSTT(false);
+    // setIsProcessingSTT(false);
   };
 
   const setListeningTimeout = () => {
     clearListeningTimeout();
-
-    if (!isSpeaking && !isProcessingSTT) {
       const timeout = setTimeout(
         handleTranscriptProcessing,
-        continuousSpeechTimeout * 1000
+        (continuousSpeechTimeout * 1000) + 300
       );
       setTranscriptTimeout(timeout as unknown as NodeJS.Timeout);
-    }
   };
 
   const clearListeningTimeout = () => {
@@ -2254,7 +2248,7 @@ const MemoriWidget = ({
 
   const resetListeningTimeout = () => {
     clearListeningTimeout();
-    if (continuousSpeech && !isProcessingSTT) {
+    if (continuousSpeech) {
       setListeningTimeout();
     }
   };
@@ -2285,21 +2279,19 @@ const MemoriWidget = ({
       throw new Error('No TTS key available');
     }
 
-    // Ensure clean state before starting
-    stopListening();
+    // Ensure complete cleanup before starting
     cleanup();
-
-    setTranscript('');
     resetTranscript();
 
     try {
+      // Add delay to ensure previous instance is fully cleaned up
+      // await new Promise(resolve => setTimeout(resolve, 300));
+
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       setHasUserActivatedListening(true);
 
-      // Initialize speech config if needed
-      if (!speechConfig) {
-        speechConfig = setupSpeechConfig(AZURE_COGNITIVE_SERVICES_TTS_KEY);
-      }
+      // Recreate speech config each time
+      speechConfig = setupSpeechConfig(AZURE_COGNITIVE_SERVICES_TTS_KEY);
 
       const audioConfig = speechSdk.AudioConfig.fromDefaultMicrophoneInput();
       recognizer = new speechSdk.SpeechRecognizer(speechConfig, audioConfig);
@@ -2335,14 +2327,13 @@ const MemoriWidget = ({
   };
 
   const setupSpeechConfig = (AZURE_COGNITIVE_SERVICES_TTS_KEY: string) => {
-      speechConfig = speechSdk.SpeechConfig.fromSubscription(
-        AZURE_COGNITIVE_SERVICES_TTS_KEY,
-        'westeurope'
-      );
-      speechConfig.speechRecognitionLanguage =
-        getCultureCodeByLanguage(userLang);
-      speechConfig.speechSynthesisLanguage = getCultureCodeByLanguage(userLang);
-      speechConfig.speechSynthesisVoiceName = getTTSVoice(userLang); // https://docs.microsoft.com/it-it/azure/cognitive-services/speech-service/language-support#text-to-speech
+    speechConfig = speechSdk.SpeechConfig.fromSubscription(
+      AZURE_COGNITIVE_SERVICES_TTS_KEY,
+      'westeurope'
+    );
+    speechConfig.speechRecognitionLanguage = getCultureCodeByLanguage(userLang);
+    speechConfig.speechSynthesisLanguage = getCultureCodeByLanguage(userLang);
+    speechConfig.speechSynthesisVoiceName = getTTSVoice(userLang); // https://docs.microsoft.com/it-it/azure/cognitive-services/speech-service/language-support#text-to-speech
     return speechConfig;
   };
 
@@ -2356,41 +2347,34 @@ const MemoriWidget = ({
 
   const handleRecognizedSpeech = (text: string) => {
     console.debug('Handling recognized speech:', text);
+
+    if (!text) {
+      console.debug('No text received from speech recognition');
+      return;
+    }
+
     setTranscript(text || '');
     setIsSpeaking(false);
 
     // Add delay before processing the transcript
-    setTimeout(() => {
-      console.debug(
-        'Processing transcript, isSpeaking:',
-        isSpeaking,
-        'isProcessingSTT:',
-        isProcessingSTT
-      );
-      if (!isSpeaking && !isProcessingSTT) {
       const message = stripDuplicates(text);
       console.debug('Stripped message:', message);
       if (message.length > 0) {
-        console.debug('Valid message detected, setting processing state');
-        setIsProcessingSTT(true);
         setUserMessage(message);
       }
-    }
-    }, 200);
   };
 
   // Helper function to handle transcript processing
   const handleTranscriptProcessing = () => {
-    const message = stripDuplicates(transcript);
-    if (message.length > 0 && listening) {
-      setIsProcessingSTT(true);
-      sendMessage(message);
-      resetTranscript();
-      setUserMessage('');
-      clearListening();
-    } else if (listening) {
-      resetInteractionTimeout();
-    }
+      const message = stripDuplicates(transcript);
+      if (message.length > 0 && listening) {
+        sendMessage(message);
+        resetTranscript();
+        setUserMessage('');
+        clearListening();
+      } else if (listening) {
+        resetInteractionTimeout();
+      }
   };
 
   /**
@@ -2494,17 +2478,23 @@ const MemoriWidget = ({
   // turn-taking between the user and Memori
   useEffect(() => {
     // if memori is speaking, don't start listening
+    console.debug(
+      'isPlayingAudio',
+      !isPlayingAudio,
+      continuousSpeech,
+      hasUserActivatedListening || !requestedListening
+    );
     if (
       !isPlayingAudio &&
       continuousSpeech &&
-      (hasUserActivatedListening)
+      (hasUserActivatedListening || !requestedListening)
     ) {
       startListening();
     } else if (isPlayingAudio && listening) {
       stopListening();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPlayingAudio, history]);
+  }, [isPlayingAudio, hasUserActivatedListening]);
 
   useEffect(() => {
     resetListening();
@@ -3217,7 +3207,7 @@ const MemoriWidget = ({
         'microphoneMode',
         'HOLD_TO_TALK'
       );
-      if(microphoneMode === 'CONTINUOUS' && mute){
+      if (microphoneMode === 'CONTINUOUS' && mute) {
         setContinuousSpeech(false);
         setLocalConfig('microphoneMode', 'HOLD_TO_TALK');
       }
