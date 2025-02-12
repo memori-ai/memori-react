@@ -5,9 +5,10 @@
   top: 65px; /* Position from bottom to avoid overlapping with buttons */
   left: 15px; /* Remove left positioning */
   display: flex;
-  width: 350px; /* Fixed width */
-  max-width: 90%; /* Maximum width relative to screen */
-  height: 300px;
+  width: 380px; /* Fixed width */
+  max-width: 100%; /* Maximum width relative to screen */
+  height: 320px;
+  max-height: 320px;
   flex-direction: column;
   padding: 16px;
   border-radius: 16px;
@@ -29,16 +30,19 @@
 }
 
 .memori--slider-label {
-  margin-bottom: 4px;
-  font-size: 1rem;
+  color: var(--memori-text-color, #333);
+  /* margin-bottom: 8px; */
+  font-size: 1.2rem;
 }
 
 /* Button adjustments */
 .memori--preset-buttons {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  margin-top: 8px;
+  margin-top: 0px;
+  margin-bottom: 12px;
+  /* justify-content: space-between; */
+  /* margin-top: 36px; */
   gap: 8px;
 }
 
@@ -71,6 +75,10 @@
     bottom: 80px;
     width: 280px;
   }
+
+  .memori--preset-buttons {
+    margin-top: 32px;
+  }
   
   .memori--preset-buttons button {
     padding: 6px 4px;
@@ -87,6 +95,10 @@
   .memori--position-controls {
     bottom: 120px;
   }
+
+  /* .memori--preset-buttons {
+    margin-top: 32px;
+  } */
   
   .memori--slider-label {
     font-size: 1.1rem;
