@@ -12,6 +12,7 @@ import { AvatarView } from './AvatarComponent/avatarComponent';
 import PositionControls from './AvatarComponent/positionControls/positionControls';
 import { getLocalConfig } from '../../../helpers/configuration';
 import Loader from './AvatarComponent/components/loader';
+import Lights from './AvatarComponent/lights/Lights';
 
 export interface Props {
   url: string;
@@ -55,18 +56,6 @@ const defaultStyles = {
   },
 };
 
-const getLightingComponent = () =>
-  isAndroid() || isiOS() ? (
-    <SpotLight
-      distance={100}
-      position={[-0.3, 0.2, 1.25]}
-      angle={Math.PI / 2}
-      attenuation={5}
-      anglePower={5}
-    />
-  ) : (
-    <Environment files="https://raw.githack.com/pmndrs/drei-assets/456060a26bbeb8fdf79326f224b6d99b8bcce736/hdri/venice_sunset_1k.hdr" />
-  );
 
 const getCameraSettings = (halfBody: boolean, isZoomed: boolean) => {
   const baseZ = halfBody ? 0.6 : 3;
@@ -153,7 +142,7 @@ export default function ContainerAvatarView({
           setEnablePositionControls={setEnablePositionControls}
         />
       )}
-      <Canvas style={style || defaultStyles.fullBody}>
+      <Canvas style={style || defaultStyles.fullBody} shadows>
         <PerspectiveCamera
           makeDefault
           position={[0, 0, cameraZ]}
@@ -169,7 +158,9 @@ export default function ContainerAvatarView({
         )}
 
         <Suspense fallback={fallback || <Loader fallbackImg={fallbackImg} />}>
-          {getLightingComponent()}
+          <Lights 
+          
+          />
 
           <AvatarView
             url={url}
