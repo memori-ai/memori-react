@@ -2926,6 +2926,8 @@ const MemoriWidget = ({
             (!!translatedMessages?.length && translatedMessages.length > 1) ||
             !initialQuestion
           ) {
+            console.log('[CLICK_START] Using existing chat history');
+
             // we have a history, don't push message
             translateDialogState(
               currentState,
@@ -2945,9 +2947,15 @@ const MemoriWidget = ({
                 setHasUserActivatedSpeak(true);
               });
           } else {
+            console.log(
+              '[CLICK_START] Using existing chat history with message from initial question'
+            );
+
             // remove default initial message
             translatedMessages = [];
             setHistory([]);
+
+            setMemoriTyping(true);
 
             // we have no chat history, we start by initial question
             const response = await postTextEnteredEvent({
@@ -2968,6 +2976,7 @@ const MemoriWidget = ({
                 }
               })
               .finally(() => {
+                setMemoriTyping(false);
                 setHasUserActivatedSpeak(true);
               });
           }
