@@ -32,27 +32,26 @@ export const definedProps = (obj: Object) =>
 export const LIGHT_CONFIG = Object.freeze({
   fillLightAngle: Math.PI / 3,
   backLightAngle: Math.PI / 8,
-  keyLightAngle: Math.PI,
-  silhouetteLightAngle: Math.PI * 1.5,
-  keyLightPosition: new Vector3(0.5, 1.55, 0.5),
-  liftLightPosition: new Vector3(0.25, 1.7, 2.0),
+  keyLightAngle: Math.PI / 2, // Reduced angle for more focused key light
+  silhouetteLightAngle: Math.PI * 1.25, // Slightly reduced angle
+  keyLightPosition: new Vector3(0.75, 1.75, 0.75), // Adjusted for better face illumination
+  liftLightPosition: new Vector3(0.25, 1.5, 2.0), // Lower height for better body lighting
   dirLightPosition: new Vector3(-0.75, 2.5, -1.0),
-  silhouetteLightPosition: new Vector3(-1.5, 0.1, -1.5),
+  silhouetteLightPosition: new Vector3(-1.25, 0.25, -1.25), // Adjusted for better rim lighting
   defaultProps: {
-    keyLightIntensity: 0.8,
-    keyLightColor: '#FFFFFF',
-    fillLightIntensity: 3.0,
-    fillLightColor: '#6794FF',
-    fillLightPosition: new Vector3(-0.5, 1.6, -0.5),
-    backLightIntensity: 6.0,
-    backLightColor: '#FFB878',
-    backLightPosition: new Vector3(0.5, 1.6, -1.0),
-    lightTarget: new Vector3(0.0, 1.7, 0.0),
+    keyLightIntensity: 1.2, // Increased for better main illumination
+    keyLightColor: '#FFF5EB', // Slightly warmer white
+    fillLightIntensity: 2.5, // Reduced to prevent over-exposure
+    fillLightColor: '#A4C4FF', // Softer blue
+    fillLightPosition: new Vector3(-0.6, 1.7, -0.4), // Adjusted for better fill
+    backLightIntensity: 4.0, // Reduced to prevent over-exposure
+    backLightColor: '#FFD4A8', // Softer orange
+    backLightPosition: new Vector3(0.6, 1.7, -1.0), // Adjusted for better rim light
+    lightTarget: new Vector3(0.0, 1.65, 0.0), // Slightly lower target point
   } as Required<LightingProps>,
 });
 
 const Lights: FC<LightingProps> = lightingProps => {
-  // use default props as fallback if no custom lighting settings are provided
   const {
     keyLightIntensity,
     keyLightColor,
@@ -73,18 +72,21 @@ const Lights: FC<LightingProps> = lightingProps => {
   });
 
   useEffect(() => {
-    // apply provided positions for targets
     targets.head.position.copy(lightTarget);
-    targets.shoe.position.set(0.0, 0.0, 0.0);
+    targets.shoe.position.set(0.0, 0.1, 0.0); // Slightly raised shoe target
 
-    // add targets to scene (without the spotlights would not aim at them)
     scene.add(targets.head);
     scene.add(targets.shoe);
-  }, []);
+
+    return () => {
+      scene.remove(targets.head);
+      scene.remove(targets.shoe);
+    };
+  }, [scene, targets, lightTarget]);
 
   return (
     <group>
-      {/* Fill light that by default creates strong blue rim on the right face side. */}
+      {/* Fill light - creates soft blue rim on the right face side */}
       <spotLight
         position={fillLightPosition}
         target={targets.head}
@@ -92,8 +94,10 @@ const Lights: FC<LightingProps> = lightingProps => {
         color={fillLightColor}
         intensity={fillLightIntensity}
         castShadow
+        shadow-bias={-0.0001}
+        penumbra={0.2}
       />
-      {/* Back light that by default creates light warm rim on the left face side. */}
+      {/* Back light - creates warm rim on the left face side */}
       <spotLight
         position={backLightPosition}
         target={targets.head}
@@ -101,31 +105,39 @@ const Lights: FC<LightingProps> = lightingProps => {
         color={backLightColor}
         intensity={backLightIntensity}
         castShadow
+        shadow-bias={-0.0001}
+        penumbra={0.2}
       />
-      {/* Key light that creates soft face light. */}
+      {/* Key light - main face illumination */}
       <spotLight
         position={LIGHT_CONFIG.keyLightPosition}
         target={targets.head}
         angle={LIGHT_CONFIG.keyLightAngle}
         color={keyLightColor}
         intensity={keyLightIntensity}
+        penumbra={0.3}
+        castShadow
       />
-      {/* Lift light that creates soft light on body and shoes. */}
+      {/* Lift light - soft body and shoe illumination */}
       <spotLight
         position={LIGHT_CONFIG.liftLightPosition}
         target={targets.shoe}
         angle={LIGHT_CONFIG.keyLightAngle}
         color={keyLightColor}
-        intensity={keyLightIntensity * 0.25}
+        intensity={keyLightIntensity * 0.3}
+        penumbra={0.4}
       />
-      {/* Silhouette light on arms and legs. */}
+      {/* Silhouette light - rim lighting for arms and legs */}
       <spotLight
         position={LIGHT_CONFIG.silhouetteLightPosition}
         target={targets.head}
         angle={LIGHT_CONFIG.silhouetteLightAngle}
         color={keyLightColor}
-        intensity={keyLightIntensity * 0.25}
+        intensity={keyLightIntensity * 0.3}
+        penumbra={0.3}
       />
+      {/* Ambient light for overall scene brightness */}
+      <ambientLight intensity={0.2} color="#FFF8EF" />
     </group>
   );
 };
