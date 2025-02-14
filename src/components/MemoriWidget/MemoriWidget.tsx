@@ -628,7 +628,6 @@ const MemoriWidget = ({
     }
 
     const muteSpeaker =
-      autoStart ||
       getLocalConfig(
         'muteSpeaker',
         !defaultEnableAudio || !defaultSpeakerActive || autoStart
@@ -636,7 +635,6 @@ const MemoriWidget = ({
 
     setMuteSpeaker(muteSpeaker);
     speakerMuted =
-      autoStart ||
       getLocalConfig(
         'muteSpeaker',
         !defaultEnableAudio || !defaultSpeakerActive || autoStart
@@ -1983,11 +1981,16 @@ const MemoriWidget = ({
       return;
     }
 
+    console.debug('Stopping listening before speaking');
     stopListening();
 
-    if (preview) return;
+    if (preview) {
+      console.debug('Preview mode, returning early');
+      return;
+    }
 
     if (speakerMuted) {
+      console.debug('Speaker muted, skipping speech synthesis');
       memoriSpeaking = false;
       setMemoriTyping(false);
 
@@ -1995,29 +1998,38 @@ const MemoriWidget = ({
 
       // trigger start continuous listening if set, see MemoriChat
       if (continuousSpeech) {
+        console.debug('Setting listening timeout for continuous speech');
         setListeningTimeout();
       }
       return;
     }
 
-    if (audioDestination) audioDestination.pause();
+    if (audioDestination) {
+      console.debug('Pausing existing audio destination');
+      audioDestination.pause();
+    }
 
     let isSafari =
       window.navigator.userAgent.includes('Safari') &&
       !window.navigator.userAgent.includes('Chrome');
     let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 
+    console.debug('Browser detection - Safari:', isSafari, 'iOS:', isIOS);
+
     if ((audioContext.state as string) === 'interrupted') {
+      console.debug('Audio context interrupted, attempting resume');
       audioContext.resume().then(() => speak(text));
       return;
     }
     if (audioContext.state === 'closed') {
+      console.debug('Audio context closed, creating new context');
       audioContext = new AudioContext();
       let buffer = audioContext.createBuffer(1, 10000, 22050);
       let source = audioContext.createBufferSource();
       source.buffer = buffer;
       source.connect(audioContext.destination);
     } else if (audioContext.state === 'suspended') {
+      console.debug('Audio context suspended, stopping audio and creating new context');
       stopAudio();
 
       audioContext = new AudioContext();
@@ -2028,23 +2040,17 @@ const MemoriWidget = ({
     }
 
     if (!speechSynthesizer) {
-      if (!isIOS) {
-        audioDestination = new speechSdk.SpeakerAudioDestination();
-      }
-      let audioConfig =
-        speechSdk.AudioConfig.fromSpeakerOutput(audioDestination);
-      speechSynthesizer = new speechSdk.SpeechSynthesizer(
-        speechConfig,
-        audioConfig
-      );
+      initializeTTS();
     }
 
     const source = audioContext.createBufferSource();
     source.addEventListener('ended', () => {
+      console.debug('Audio source ended');
       setIsPlayingAudio(false);
       memoriSpeaking = false;
     });
     audioDestination.onAudioEnd = () => {
+      console.debug('Audio destination ended');
       setIsPlayingAudio(false);
       memoriSpeaking = false;
       source.disconnect();
@@ -2056,19 +2062,26 @@ const MemoriWidget = ({
     };
 
     // Clear any existing visemes before starting new speech
+    console.debug('Resetting viseme queue');
     resetVisemeQueue();
 
     // Set up the viseme event handler
-    speechSynthesizer.visemeReceived = function (_, e) {
-      addViseme(e.visemeId, e.audioOffset);
-    };
+    if (speechSynthesizer) {
+      speechSynthesizer.visemeReceived = function (_, e) {
+        console.debug('Viseme received:', e.visemeId, 'at offset:', e.audioOffset);
+        addViseme(e.visemeId, e.audioOffset);
+      };
+    }
 
     // Set up viseme handling
     const textToSpeak = escapeHTML(
       stripMarkdown(stripEmojis(stripHTML(stripOutputTags(text))))
     );
+    console.debug('Processed text to speak:', textToSpeak);
+    
     setTimeout(() => {
       if (speechSynthesizer) {
+        console.debug('Starting speech synthesis');
         speechSynthesizer.speakSsmlAsync(
           `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
             userLang
@@ -2080,6 +2093,7 @@ const MemoriWidget = ({
           )}</s></voice></speak>`,
           result => {
             if (result) {
+              console.debug('Speech synthesis successful');
               setIsPlayingAudio(true);
               memoriSpeaking = true;
 
@@ -2088,13 +2102,16 @@ const MemoriWidget = ({
 
               try {
                 // Decode the audio data
+                console.debug('Decoding audio data');
                 audioContext.decodeAudioData(
                   result.audioData,
                   function (buffer) {
+                    console.debug('Audio data decoded successfully');
                     source.buffer = buffer;
                     source.connect(audioContext.destination);
 
                     if (history.length < 1 || (isSafari && isIOS)) {
+                      console.debug('Starting audio playback');
                       source.start(0);
                     }
                   }
@@ -2102,6 +2119,7 @@ const MemoriWidget = ({
 
                 // Handle the audio context state changes
                 audioContext.onstatechange = () => {
+                  console.debug('Audio context state changed to:', audioContext.state);
                   if (
                     audioContext.state === 'suspended' ||
                     audioContext.state === 'closed'
@@ -2119,6 +2137,7 @@ const MemoriWidget = ({
                 audioContext.resume();
 
                 if (speechSynthesizer) {
+                  console.debug('Closing speech synthesizer');
                   speechSynthesizer.close();
                   speechSynthesizer = null;
                 }
@@ -2720,11 +2739,6 @@ const MemoriWidget = ({
       session?: { dialogState: DialogState; sessionID: string },
       initialSessionExpired = false
     ) => {
-      // console.log('[CLICK_START] Starting onClickStart with params:', {
-      //   hasSession: !!session,
-      //   initialSessionExpired
-      // });
-
       const sessionID = session?.sessionID || sessionId;
       const dialogState = session?.dialogState || currentDialogState;
       setClickedStart(true);
@@ -3114,9 +3128,14 @@ const MemoriWidget = ({
 
   useEffect(() => {
     if (!clickedStart && autoStart) {
+      // Initialize TTS before starting if AZURE_COGNITIVE_SERVICES_TTS_KEY exists
+      if (AZURE_COGNITIVE_SERVICES_TTS_KEY && !speechSynthesizer) {
+        initializeTTS();
+      }
       onClickStart();
     }
   }, [clickedStart, autoStart]);
+  
 
   useEffect(() => {
     const targetNode =
