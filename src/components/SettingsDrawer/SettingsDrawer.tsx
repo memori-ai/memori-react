@@ -8,6 +8,7 @@ import Button from '../ui/Button';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 import { useState } from 'react';
 import Slider from '../ui/Slider';
+import Tooltip from '../ui/Tooltip';
 export interface Props {
   open: boolean;
   layout?: WidgetProps['layout'];
@@ -26,6 +27,7 @@ export interface Props {
   enablePositionControls?: boolean;
   setEnablePositionControls: (value: boolean) => void;
   isAvatar3d?: boolean;
+  speakerMuted?: boolean;
 }
 
 const silenceSeconds = [2, 3, 5, 10, 15, 20, 30, 60];
@@ -34,6 +36,7 @@ const SettingsDrawer = ({
   open,
   layout = 'DEFAULT',
   onClose,
+  speakerMuted,
   microphoneMode = 'HOLD_TO_TALK',
   continuousSpeechTimeout,
   setMicrophoneMode,
@@ -87,17 +90,33 @@ const SettingsDrawer = ({
               </Button>
             )}
           </RadioGroup.Option>
-          <RadioGroup.Option
-            value="CONTINUOUS"
-            className="memori-settings-drawer--microphoneMode-radio-button"
+
+          <Tooltip
+            content={
+              speakerMuted ? t('write_and_speak.continuousSpeechDisabled') : ''
+            }
+            visible={speakerMuted}
           >
-            {({ checked }) => (
-              <Button primary={checked} outlined={!checked}>
-                {t('write_and_speak.continuousSpeechLabel') ||
-                  'Continuous speech'}
-              </Button>
-            )}
-          </RadioGroup.Option>
+            <RadioGroup.Option
+              value="CONTINUOUS"
+              className={`memori-settings-drawer--microphoneMode-radio-button ${
+                speakerMuted
+                  ? 'memori-settings-drawer--microphoneMode-radio-button-disabled'
+                  : ''
+              }`}
+            >
+              {({ checked }) => (
+                <Button
+                  primary={checked}
+                  outlined={!checked}
+                  disabled={speakerMuted}
+                >
+                  {t('write_and_speak.continuousSpeechLabel') ||
+                    'Continuous speech'}
+                </Button>
+              )}
+            </RadioGroup.Option>
+          </Tooltip>
         </RadioGroup>
       </div>
 
@@ -159,7 +178,6 @@ const SettingsDrawer = ({
           {isAvatar3d && (
             <>
               <div className="memori-settings-drawer--field controls">
-
                 <label
                   htmlFor="avatarType"
                   className="memori-settings-drawer-label"

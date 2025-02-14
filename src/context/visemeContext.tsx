@@ -59,7 +59,7 @@ const CONSTANTS = {
   // Slightly longer to ensure smoother transitions
   // Average syllable duration in natural speech is ~0.2s
   // We want shorter duration for more precise lip movements
-  DEFAULT_VISEME_DURATION: 0.1, // 100ms per viseme
+  DEFAULT_VISEME_DURATION: 0.12, // 120ms per viseme
 
   // Overlap between consecutive visemes
   // Increased for smoother blending between mouth shapes
@@ -80,7 +80,7 @@ const CONSTANTS = {
   // Time to preload/buffer visemes (in seconds)
   // Reduced from 1s to 0.5s as we don't need such a large buffer
   // Half a second is enough to prepare upcoming visemes
-  PRELOAD: 0.5,
+  PRELOAD: 0.2,
 
   // Weight multiplication factor for emphasis
   // Can be adjusted to make lip movements more or less pronounced

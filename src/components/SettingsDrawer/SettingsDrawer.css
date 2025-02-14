@@ -17,3 +17,8 @@
     margin: 0.5rem 0;
     gap: 0.2rem;
 }
+
+.memori-settings-drawer--microphoneMode-radio-button-disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}

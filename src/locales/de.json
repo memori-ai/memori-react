@@ -118,6 +118,7 @@
     "conversationStartedLabel": "Das Gespräch begann am",
     "settingsHeaderLabel": "Richten Sie hier ein, wenn Sie die Agent als Dauerrede einstellen möchten, und ändern Sie die Stillesekunden, wenn Sie sie anpassen möchten.",
     "continuousSpeechLabel": "Kontinuierliche Rede",
+    "continuousSpeechDisabled": "Kontinuierliche Rede deaktiviert, da der Agent im Stummschaltmodus ist",
     "holdToSpeak": "Halten Sie gedrückt, um zu sprechen",
     "releaseToEndListening": "Lassen Sie los, um das Hören zu beenden",
     "pressAndHoldToSpeak": "Zum Sprechen gedrückt halten",

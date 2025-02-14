@@ -118,6 +118,7 @@
     "conversationStartedLabel": "La conversación comenzó el",
     "settingsHeaderLabel": "Configure aquí si desea configurar la memoria como voz continua y cambie los segundos de silencio si desea personalizarlos.",
     "continuousSpeechLabel": "discurso continuo",
+    "continuousSpeechDisabled": "Discurso continuo deshabilitado porque el agente está en modo silencioso",
     "holdToSpeak": "Mantenga para hablar",
     "releaseToEndListening": "Suelte para finalizar la escucha",
     "pressAndHoldToSpeak": "Mantenga presionado para hablar",
