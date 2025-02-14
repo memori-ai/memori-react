@@ -2232,11 +2232,11 @@ const MemoriWidget = ({
 
   const setListeningTimeout = () => {
     clearListeningTimeout();
-      const timeout = setTimeout(
-        handleTranscriptProcessing,
-        (continuousSpeechTimeout * 1000) + 300
-      );
-      setTranscriptTimeout(timeout as unknown as NodeJS.Timeout);
+    const timeout = setTimeout(
+      handleTranscriptProcessing,
+      continuousSpeechTimeout * 1000 + 300
+    );
+    setTranscriptTimeout(timeout as unknown as NodeJS.Timeout);
   };
 
   const clearListeningTimeout = () => {
@@ -2279,7 +2279,11 @@ const MemoriWidget = ({
       throw new Error('No TTS key available');
     }
 
-    // Ensure complete cleanup before starting
+    if (!sessionId) {
+      throw new Error('No session ID available');
+    }
+
+    // Ensure complete cleanup before starting, if it's already listening, stop it
     cleanup();
     resetTranscript();
 
@@ -2310,6 +2314,8 @@ const MemoriWidget = ({
           console.debug(
             'CANCELED: Did you set the speech resource key and region values?'
           );
+          stopListening();
+          cleanup();
         }
 
         stopListening();
@@ -2340,41 +2346,57 @@ const MemoriWidget = ({
   const setupRecognizerHandlers = (recognizer: speechSdk.SpeechRecognizer) => {
     if (recognizer) {
       recognizer.recognized = (_, event) => {
+        // Process the recognized speech result
         handleRecognizedSpeech(event.result.text);
       };
+
+      // Configure speech recognition properties directly on the recognizer
+      recognizer.properties.setProperty(
+        'SpeechServiceResponse_JsonResult',
+        'true'
+      );
+
+      recognizer.properties.setProperty(
+        'SpeechServiceConnection_NoiseSuppression',
+        'true'
+      );
+
+      recognizer.properties.setProperty(
+        'SpeechServiceConnection_SNRThresholdDb',
+        '10.0'
+      );
     }
   };
 
   const handleRecognizedSpeech = (text: string) => {
     console.debug('Handling recognized speech:', text);
 
-    if (!text) {
-      console.debug('No text received from speech recognition');
+    if (!text || text.trim().length === 0) {
+      console.debug('No valid text received from speech recognition');
       return;
     }
 
-    setTranscript(text || '');
+    setTranscript(text);
     setIsSpeaking(false);
 
-    // Add delay before processing the transcript
-      const message = stripDuplicates(text);
-      console.debug('Stripped message:', message);
-      if (message.length > 0) {
-        setUserMessage(message);
-      }
+    const message = stripDuplicates(text);
+    console.debug('Stripped message:', message);
+    if (message.length > 0) {
+      setUserMessage(message);
+    }
   };
 
   // Helper function to handle transcript processing
   const handleTranscriptProcessing = () => {
-      const message = stripDuplicates(transcript);
-      if (message.length > 0 && listening) {
-        sendMessage(message);
-        resetTranscript();
-        setUserMessage('');
-        clearListening();
-      } else if (listening) {
-        resetInteractionTimeout();
-      }
+    const message = stripDuplicates(transcript);
+    if (message.length > 0 && listening) {
+      sendMessage(message);
+      resetTranscript();
+      setUserMessage('');
+      clearListening();
+    } else if (listening) {
+      resetInteractionTimeout();
+    }
   };
 
   /**
@@ -2396,12 +2418,10 @@ const MemoriWidget = ({
    * Clears all listening state and stops recognition
    */
   const clearListening = () => {
-    setHasUserActivatedListening(false);
     stopListening();
     clearListeningTimeout();
     setIsSpeaking(false);
   };
-
   /**
    * Resets listening state and restarts recognition if currently listening
    */
@@ -2463,31 +2483,14 @@ const MemoriWidget = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [continuousSpeech, hasUserActivatedListening]
   );
-  // This useEffect manages the listening state based on audio playback:
-  // 1. If audio is NOT playing (isPlayingAudio is false) AND:
-  //    - continuousSpeech is enabled AND
-  //    - either the user has activated listening OR listening hasn't been requested yet
-  //    Then start listening for user speech
-  //
-  // 2. If audio IS playing (isPlayingAudio is true) AND:
-  //    - we are currently listening AND
-  //    - the Memori isn't actually speaking (memoriSpeaking is false)
-  //    Then stop listening
-  //
-  // This prevents listening while audio is playing and ensures proper
-  // turn-taking between the user and Memori
+
   useEffect(() => {
     // if memori is speaking, don't start listening
-    console.debug(
-      'isPlayingAudio',
-      !isPlayingAudio,
-      continuousSpeech,
-      hasUserActivatedListening || !requestedListening
-    );
     if (
       !isPlayingAudio &&
       continuousSpeech &&
-      (hasUserActivatedListening || !requestedListening)
+      (hasUserActivatedListening || !requestedListening) &&
+      sessionId
     ) {
       startListening();
     } else if (isPlayingAudio && listening) {
