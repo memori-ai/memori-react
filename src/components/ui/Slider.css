@@ -2,10 +2,11 @@
   position: relative;
   width: 100%;
   max-width: 100%;
-  padding: 16px 12px; /* Increased padding for better touch area */
+  padding: 12px 12px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   touch-action: none;
   user-select: none;
+
 }
 
 .memori--slider-disabled {
@@ -14,27 +15,26 @@
 }
 
 .memori--slider-header {
-  position: absolute; /* Changed from absolute for better layout */
-  top: 0;
+  position: absolute;
   display: flex;
   width: 100%;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 8px;
+  margin-bottom: 16px;
+  /* max-height: 10px; */
 }
 
 .memori--slider-label {
-  max-width: 100%;
-  color: #333;
-  font-size: 1.4rem; /* Larger font for kiosk display */
+  max-width: 70%;
+  font-size: 1.2rem;
   font-weight: 500;
+  line-height: 1.2;
 }
 
 .memori--slider-value {
-  min-width: 50px; /* Increased for larger numbers */
-  max-width: 100%;
-  color: #666;
-  font-size: 1.2rem; /* Larger font */
+  min-width: 40px;
+  max-width: 30%;
+  font-size: 1rem;
   font-weight: 500;
   text-align: right;
 }
@@ -42,9 +42,10 @@
 .memori--slider-track-container {
   position: relative;
   display: flex;
-  height: 64px; /* Increased height for better touch area */
-  max-height: 64px;
+  height: 96px;
+  max-height: 96px;
   align-items: center;
+  margin-top: 8px;
   cursor: pointer;
   touch-action: none;
 }
@@ -53,9 +54,9 @@
   position: absolute;
   overflow: hidden;
   width: 100%;
-  height: 12px; /* Thicker track */
-  max-height: 12px;
-  border-radius: 6px;
+  height: 16px;
+  max-height: 16px;
+  border-radius: 8px;
   background-color: #e5e5e5;
 }
 
@@ -63,7 +64,7 @@
   position: absolute;
   width: var(--percentage);
   height: 100%;
-  border-radius: 6px;
+  border-radius: 8px;
   background-color: var(--memori-primary, #2563eb);
   transition: width 0.15s ease;
 }
@@ -73,40 +74,42 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
-  padding: 0 4px;
-  padding-top: 20px; /* Increased spacing */
+  padding: 0 8px;
+  padding-top: 24px;
   pointer-events: none;
 }
 
 .memori--slider-mark {
   display: flex;
+  min-width: 40px;
   flex-direction: column;
   align-items: center;
 }
 
 .memori--slider-mark-line {
-  width: 3px; /* Thicker marks */
-  height: 6px;
-  max-height: 6px;
-  margin-bottom: 6px;
+  width: 3px;
+  height: 8px;
+  max-height: 8px;
+  margin-bottom: 8px;
   background-color: #9ca3af;
 }
 
 .memori--slider-mark-value {
   color: #666;
-  font-size: 1rem; /* Larger font */
+  font-size: 1rem;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .memori--slider-thumb {
   position: absolute;
   z-index: 1;
   left: var(--percentage);
-  width: 36px; /* Larger thumb */
-  max-width: 36px;
-  height: 36px;
-  max-height: 36px;
-  border: 3px solid var(--memori-primary, #2563eb);
+  width: 40px;
+  max-width: 40px;
+  height: 40px;
+  max-height: 40px;
+  border: 4px solid var(--memori-primary, #2563eb);
   border-radius: 50%;
   background-color: white;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
@@ -118,40 +121,46 @@
 .memori--slider-thumb:hover,
 .memori--slider-thumb:active {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
-  transform: translateX(-50%) scale(1.15);
+  transform: translateX(-50%) scale(1.1);
 }
 
 /* Portrait/Totem specific styles */
 @media screen and (max-aspect-ratio: 3/4) {
   .memori--slider-container {
-    padding: 28px 16px;
+    padding: 16px;
+  }
+
+  .memori--slider-header {
+    margin-bottom: 16px;
   }
 
   .memori--slider-label {
-    font-size: 1.5rem;
-  }
-
-  .memori--slider-value {
-    min-width: 60px;
     font-size: 1.3rem;
   }
 
+  .memori--slider-value {
+    min-width: 50px;
+    font-size: 1.1rem;
+  }
+
   .memori--slider-track-container {
-    height: 72px;
+    height: 80px;
+    margin-top: 8px;
   }
 
   .memori--slider-track {
-    height: 14px;
-    border-radius: 7px;
+    height: 16px;
+    border-radius: 10px;
   }
 
   .memori--slider-thumb {
-    width: 44px;
-    height: 44px;
+    width: 48px;
+    height: 48px;
     border-width: 4px;
   }
 
   .memori--slider-mark-value {
+    margin-top: 4px;
     font-size: 1.1rem;
   }
 }
@@ -159,19 +168,25 @@
 /* Very tall displays */
 @media screen and (min-height: 1200px) {
   .memori--slider-container {
-    padding: 32px 20px;
+    padding: 24px 20px;
+  }
+
+  .memori--slider-header {
+    margin-bottom: 24px;
   }
 
   .memori--slider-label {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
   .memori--slider-track-container {
-    height: 80px;
+    height: 96px;
+    margin-top: 12px;
   }
 
   .memori--slider-thumb {
-    width: 48px;
-    height: 48px;
+    width: 56px;
+    height: 56px;
+    border-width: 5px;
   }
 }

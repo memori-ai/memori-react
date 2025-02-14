@@ -115,40 +115,32 @@ const PositionControls: React.FC<PositionControlsProps> = ({
           }}
         />
       </div>
-      <div className="memori--slider-container">
+      {/* <div className="memori--slider-container"> */}
         <Slider
           defaultValue={settingsRef.current.height}
           min={0.5}
           max={100}
-          label={
-            <label className="memori--slider-label">
-              {t('write_and_speak.height')}
-            </label>
-          }
+          label={t('write_and_speak.height')}
           step={1}
           onChange={(value: number) => {
             setAvatarHeight(value);
             setLocalConfig('avatarHeight', value);
           }}
         />
-      </div>
-      <div className="memori--slider-container">
+      {/* </div> */}
+      {/* <div className="memori--slider-container"> */}
         <Slider
           defaultValue={settingsRef.current.depth}
           min={0.5}
           max={100}
           step={5}
-          label={
-            <label className="memori--slider-label">
-              {t('write_and_speak.depth')}
-            </label>
-          }
+          label={t('write_and_speak.depth')}
           onChange={(value: number) => {
             setAvatarDepth(value);
             setLocalConfig('avatarDepth', value);
           }}
         />
-      </div>
+      {/* </div> */}
       <div className="memori--preset-buttons">
         <Button
           outlined
