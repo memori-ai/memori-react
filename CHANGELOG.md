@@ -1,5 +1,38 @@
 
 
+## [7.17.0](https://github.com/memori-ai/memori-react/compare/v7.16.2...v7.17.0) (2025-02-17)
+
+
+### Features
+
+* add customizable lighting component for avatar rendering ([e362cb4](https://github.com/memori-ai/memori-react/commit/e362cb4f626d4b3b1784c8b2a19497b4a63d1777))
+* disable continuous speech when speaker is muted ([663fd94](https://github.com/memori-ai/memori-react/commit/663fd94ee782cbc79a0f10ec400e9736c082b866))
+* enhance PDF text extraction with PDF.js fallback and dynamic file type support ([25964c7](https://github.com/memori-ai/memori-react/commit/25964c7730cf9ace1e10a41778f2e1faebd4de3f))
+
+
+### Bug Fixes
+
+* improve continuous speech and listening conditions ([ee74480](https://github.com/memori-ai/memori-react/commit/ee74480ed5d3dfdef433bf07711d4af22093e6c3))
+* speak on autostart ([b0d9917](https://github.com/memori-ai/memori-react/commit/b0d9917d8a13b410d92dc7c3853e3b5bad5c0755))
+
+
+### Maintenance
+
+* remove ConvertAPI dependency and simplify file processing ([ff55006](https://github.com/memori-ai/memori-react/commit/ff5500668a631ae3bdb4b14893d6faf9022f0be5))
+
+
+### Changes
+
+* enhance Slider and PositionControls UI styling and responsiveness ([adc3ff7](https://github.com/memori-ai/memori-react/commit/adc3ff7a43098bd4e4efe1d4af7727dba048fb7c))
+* enhance speech recognition and audio handling logic ([c616547](https://github.com/memori-ai/memori-react/commit/c616547c709e70d461fddb180bcbd08ae1446b6d))
+* fine-tune avatar lighting parameters for improved visual quality ([7642549](https://github.com/memori-ai/memori-react/commit/7642549ef44275b209b20a62f3ee6492a8452db2))
+* fine-tune viseme timing parameters for smoother lip movements ([1797582](https://github.com/memori-ai/memori-react/commit/17975824f7627e7c64b0b94f977dc3411c537980))
+* improve ChatTextArea CSS for better responsiveness and styling ([ec70a5e](https://github.com/memori-ai/memori-react/commit/ec70a5e09a2a2a214ec4c53a5f8517675e700e01))
+* improve speech recognition error handling and processing logic ([a33f7d8](https://github.com/memori-ai/memori-react/commit/a33f7d843d91fcef23edefb8265dcde81ee0ea5d))
+* initial muteSpeaker value with autoStart + birth date fallbacks ([4a8e3a6](https://github.com/memori-ai/memori-react/commit/4a8e3a624e6d11a7ce8c7a51a20c7a4d3fe88108))
+* optimize speech recognition and audio handling ([653d503](https://github.com/memori-ai/memori-react/commit/653d503b28ece5bbfac8bda6f0167d2eeb5cdc73))
+* show typing while sending initial question with previous session ([6186353](https://github.com/memori-ai/memori-react/commit/618635369271f0fb7be46024bde064367c0a71bf))
+
 ## [7.16.2](https://github.com/memori-ai/memori-react/compare/v7.16.1...v7.16.2) (2025-02-10)
 
 
