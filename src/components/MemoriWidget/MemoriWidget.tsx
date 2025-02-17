@@ -628,17 +628,15 @@ const MemoriWidget = ({
     }
 
     const muteSpeaker =
+      autoStart ||
       getLocalConfig(
         'muteSpeaker',
         !defaultEnableAudio || !defaultSpeakerActive || autoStart
       );
 
     setMuteSpeaker(muteSpeaker);
-    speakerMuted =
-      getLocalConfig(
-        'muteSpeaker',
-        !defaultEnableAudio || !defaultSpeakerActive || autoStart
-      );
+    speakerMuted = muteSpeaker;
+
     setContinuousSpeech(muteSpeaker ? false : microphoneMode === 'CONTINUOUS');
     setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 2));
     setControlsPosition(
@@ -2029,7 +2027,9 @@ const MemoriWidget = ({
       source.buffer = buffer;
       source.connect(audioContext.destination);
     } else if (audioContext.state === 'suspended') {
-      console.debug('Audio context suspended, stopping audio and creating new context');
+      console.debug(
+        'Audio context suspended, stopping audio and creating new context'
+      );
       stopAudio();
 
       audioContext = new AudioContext();
@@ -2068,7 +2068,12 @@ const MemoriWidget = ({
     // Set up the viseme event handler
     if (speechSynthesizer) {
       speechSynthesizer.visemeReceived = function (_, e) {
-        console.debug('Viseme received:', e.visemeId, 'at offset:', e.audioOffset);
+        console.debug(
+          'Viseme received:',
+          e.visemeId,
+          'at offset:',
+          e.audioOffset
+        );
         addViseme(e.visemeId, e.audioOffset);
       };
     }
@@ -2078,7 +2083,7 @@ const MemoriWidget = ({
       stripMarkdown(stripEmojis(stripHTML(stripOutputTags(text))))
     );
     console.debug('Processed text to speak:', textToSpeak);
-    
+
     setTimeout(() => {
       if (speechSynthesizer) {
         console.debug('Starting speech synthesis');
@@ -2119,7 +2124,10 @@ const MemoriWidget = ({
 
                 // Handle the audio context state changes
                 audioContext.onstatechange = () => {
-                  console.debug('Audio context state changed to:', audioContext.state);
+                  console.debug(
+                    'Audio context state changed to:',
+                    audioContext.state
+                  );
                   if (
                     audioContext.state === 'suspended' ||
                     audioContext.state === 'closed'
@@ -2765,7 +2773,10 @@ const MemoriWidget = ({
         'birthDate',
         undefined
       );
-      let birth = birthDate || storageBirthDate || undefined;
+      let birth = birthDate || storageBirthDate || user?.birthDate;
+      if (!birth && autoStart && initialSessionID)
+        birth = '1970-01-01T10:24:03.845Z';
+
       // console.log('[CLICK_START] Using birth date:', birth);
 
       // Handle age verification
@@ -3135,7 +3146,6 @@ const MemoriWidget = ({
       onClickStart();
     }
   }, [clickedStart, autoStart]);
-  
 
   useEffect(() => {
     const targetNode =
