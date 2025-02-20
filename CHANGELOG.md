@@ -1,5 +1,12 @@
 
 
+## [7.17.1](https://github.com/memori-ai/memori-react/compare/v7.17.0...v7.17.1) (2025-02-20)
+
+
+### Bug Fixes
+
+* ja zh lang labels ([07e9d05](https://github.com/memori-ai/memori-react/commit/07e9d05815d60b387eafbd1bd86b6b790fa3948a))
+
 ## [7.17.0](https://github.com/memori-ai/memori-react/compare/v7.16.2...v7.17.0) (2025-02-17)
 
 
