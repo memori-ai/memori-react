@@ -364,13 +364,13 @@ exports[`renders FullPage layout unchanged 1`] = `
                   </option>
                   <option
                     aria-label="中文"
-                    value="ZH"
+                    value="JA"
                   >
                     中文
                   </option>
                   <option
                     aria-label="日本語"
-                    value="JA"
+                    value="ZH"
                   >
                     日本語
                   </option>
@@ -826,13 +826,13 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                   </option>
                   <option
                     aria-label="中文"
-                    value="ZH"
+                    value="JA"
                   >
                     中文
                   </option>
                   <option
                     aria-label="日本語"
-                    value="JA"
+                    value="ZH"
                   >
                     日本語
                   </option>
