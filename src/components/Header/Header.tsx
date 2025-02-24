@@ -139,10 +139,25 @@ const Header: React.FC<Props> = ({
           icon={fullScreen ? <FullscreenExit /> : <Fullscreen />}
           onClick={() => {
             if (!document.fullscreenElement) {
-              document.documentElement.requestFullscreen();
+              const memoriWidget = document.querySelector('.memori-widget');
+              if (memoriWidget) {
+                // Set white background before entering fullscreen
+                (memoriWidget as HTMLElement).style.backgroundColor =
+                  '#FFFFFF';
+                memoriWidget.requestFullscreen().catch(err => {
+                  console.warn('Error attempting to enable fullscreen:', err);
+                });
+              }
               setFullScreen(true);
             } else if (document.exitFullscreen) {
-              document.exitFullscreen();
+              const memoriWidget = document.querySelector('.memori-widget');
+              if (memoriWidget) {
+                // Reset background on exit
+                (memoriWidget as HTMLElement).style.backgroundColor = '';
+              }
+              document.exitFullscreen().catch(err => {
+                console.warn('Error attempting to exit fullscreen:', err);
+              });
               setFullScreen(false);
             }
           }}
