@@ -35,8 +35,16 @@ marked.use({
   gfm: true,
   pedantic: false,
   renderer: {
-    link: ({ href, title, text }) => {
-      const cleanHref = cleanUrl(href);
+    link: ({
+      href,
+      title,
+      text,
+    }: {
+      href: string | null;
+      title?: string | null;
+      text: string;
+    }) => {
+      const cleanHref = href ? cleanUrl(href) : null;
 
       if (cleanHref === null) {
         return text;
@@ -54,71 +62,72 @@ marked.use({
 marked.use(markedLinkifyIt());
 marked.use(markedExtendedTables());
 
-const parseSquaredBrackets = (text: string) => {
-  const rows = text.split('\n');
-
-  return rows.reduce((acc, row) => {
-    if (row.includes('=')) {
-      let result = '';
-      let isEscaped = false;
-      for (let i = 0; i < row.length; i++) {
-        if (row[i] === '[' && !isEscaped) {
-          result += '\\[';
-        } else if (row[i] === ']' && !isEscaped) {
-          result += '\\]';
-        } else {
-          result += row[i];
-        }
-        isEscaped = row[i] === '\\' && !isEscaped;
-      }
-
-      return acc?.length ? `${acc}\n${result}` : result;
-    } else {
-      return acc?.length ? `${acc}\n${row}` : row;
-    }
-  }, '');
-};
-
-const renderMsg = (text: string, useMathFormatting = false) => {
+// Update the renderMsg function to properly handle math formatting
+const renderMsg = (text: string, useMathFormatting = false): string => {
   try {
-    let parsedText = (
-      marked.parse(
+    // First parse the markdown content
+    let parsedText = marked
+      .parse(
         text
-          // remove leading and trailing whitespaces
           .trim()
-          // remove markdown links
           .replaceAll(
             /\[([^\]]+)\]\(([^\)]+)\)/g,
             '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
           )
-          // remove markdown multiline code blocks but keep the content
           .replaceAll(/```markdown([^```]+)```/g, '$1')
           .replaceAll('($', '( $')
           .replaceAll(':$', ': $')
           .replaceAll('\frac', '\\frac')
           .replaceAll('\beta', '\\beta')
           .replaceAll('cdot', '\\cdot')
-      ) as string
-    ).trim();
+      )
+      .toString()
+      .trim();
 
+    // If math formatting is enabled, process the square brackets
     if (useMathFormatting) {
-      parsedText = parseSquaredBrackets(parsedText.replace(/\n/g, '<br>'));
+      // Convert square bracket notation to proper LaTeX before HTML processing
+      const preProcessed = text.replace(
+        /\[([^\]]+)\]/g,
+        (_: string, content: string) => {
+          return `$$${content}$$`;
+        }
+      );
+
+      // Re-parse with the proper math delimiters
+      parsedText = marked
+        .parse(
+          preProcessed
+            .trim()
+            .replaceAll(
+              /\[([^\]]+)\]\(([^\)]+)\)/g,
+              '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+            )
+            .replaceAll(/```markdown([^```]+)```/g, '$1')
+            .replaceAll('($', '( $')
+            .replaceAll(':$', ': $')
+            .replaceAll('\frac', '\\frac')
+            .replaceAll('\beta', '\\beta')
+            .replaceAll('cdot', '\\cdot')
+        )
+        .toString()
+        .trim();
     }
 
+    // Sanitize the HTML
     parsedText = DOMPurify.sanitize(parsedText, {
       ADD_ATTR: ['target'],
     });
 
-    return (
-      parsedText
-        // replace consecutive <br> with a single <br>
-        .replace(/(<br>)+/g, '<br>')
-        // remove empty paragraphs
-        .replace(/<p><\/p>/g, '<br>')
-        .replace(/<p><br><\/p>/g, '<br>')
-    );
+    // Clean up the final output
+    const finalText = parsedText
+      .replace(/(<br>)+/g, '<br>')
+      .replace(/<p><\/p>/g, '<br>')
+      .replace(/<p><br><\/p>/g, '<br>');
+
+    return finalText;
   } catch (e) {
-    console.error(e);
+    console.error('Error rendering message:', e);
     return text;
   }
 };
@@ -189,16 +198,14 @@ const ChatBubble: React.FC<Props> = ({
       !message.fromUser &&
       useMathFormatting
     ) {
-      // @ts-ignore
-      // eslint-disable-next-line no-undef
-      if ('MathJax' in window && window.MathJax.typesetPromise)
-        // @ts-ignore
-        // eslint-disable-next-line no-undef
-        window.MathJax.typesetPromise(['.memori-chat--bubble-content']);
+      // Add type declaration for MathJax
+      const mathJax = (window as any).MathJax;
+      if (mathJax?.typesetPromise) {
+        mathJax.typesetPromise(['.memori-chat--bubble-content']);
+      }
     }
   }, [message.text, message.fromUser, useMathFormatting]);
 
-  
   return (
     <>
       {(message.initial || isFirst) && (

@@ -181,21 +181,299 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
         <p>
           Per calcolare l'ipotenusa di un triangolo rettangolo, puoi usare il Teorema di Pitagora. Il teorema afferma che in un triangolo rettangolo, il quadrato dell'ipotenusa (la lato opposto all'angolo retto) è uguale alla somma dei quadrati degli altri due lati.
         </p>
-        <br />
+        
+
         <p>
           La formula è:
         </p>
-        <br />
+        
+
         <p>
-          \\[ c = \\sqrt{a^2 + b^2} \\]
+          $
+          <span
+            class="katex"
+          >
+            <span
+              class="katex-mathml"
+            >
+              <math
+                xmlns="http://www.w3.org/1998/Math/MathML"
+              >
+                <mrow>
+                  <mi>
+                    c
+                  </mi>
+                  <mo>
+                    =
+                  </mo>
+                  <msqrt>
+                    <mrow>
+                      <msup>
+                        <mi>
+                          a
+                        </mi>
+                        <mn>
+                          2
+                        </mn>
+                      </msup>
+                      <mo>
+                        +
+                      </mo>
+                      <msup>
+                        <mi>
+                          b
+                        </mi>
+                        <mn>
+                          2
+                        </mn>
+                      </msup>
+                    </mrow>
+                  </msqrt>
+                  <mi
+                    mathvariant="normal"
+                  >
+                    $
+                  </mi>
+                </mrow>
+                c = \\sqrt{a^2 + b^2} \\$
+              </math>
+            </span>
+            <span
+              aria-hidden="true"
+              class="katex-html"
+            >
+              <span
+                class="base"
+              >
+                <span
+                  class="strut"
+                  style="height:0.4306em;"
+                />
+                <span
+                  class="mord mathnormal"
+                >
+                  c
+                </span>
+                <span
+                  class="mspace"
+                  style="margin-right:0.2778em;"
+                />
+                <span
+                  class="mrel"
+                >
+                  =
+                </span>
+                <span
+                  class="mspace"
+                  style="margin-right:0.2778em;"
+                />
+              </span>
+              <span
+                class="base"
+              >
+                <span
+                  class="strut"
+                  style="height:1.04em;vertical-align:-0.1266em;"
+                />
+                <span
+                  class="mord sqrt"
+                >
+                  <span
+                    class="vlist-t vlist-t2"
+                  >
+                    <span
+                      class="vlist-r"
+                    >
+                      <span
+                        class="vlist"
+                        style="height:0.9134em;"
+                      >
+                        <span
+                          class="svg-align"
+                          style="top:-3em;"
+                        >
+                          <span
+                            class="pstrut"
+                            style="height:3em;"
+                          />
+                          <span
+                            class="mord"
+                            style="padding-left:0.833em;"
+                          >
+                            <span
+                              class="mord"
+                            >
+                              <span
+                                class="mord mathnormal"
+                              >
+                                a
+                              </span>
+                              <span
+                                class="msupsub"
+                              >
+                                <span
+                                  class="vlist-t"
+                                >
+                                  <span
+                                    class="vlist-r"
+                                  >
+                                    <span
+                                      class="vlist"
+                                      style="height:0.7401em;"
+                                    >
+                                      <span
+                                        style="top:-2.989em;margin-right:0.05em;"
+                                      >
+                                        <span
+                                          class="pstrut"
+                                          style="height:2.7em;"
+                                        />
+                                        <span
+                                          class="sizing reset-size6 size3 mtight"
+                                        >
+                                          <span
+                                            class="mord mtight"
+                                          >
+                                            2
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                            <span
+                              class="mspace"
+                              style="margin-right:0.2222em;"
+                            />
+                            <span
+                              class="mbin"
+                            >
+                              +
+                            </span>
+                            <span
+                              class="mspace"
+                              style="margin-right:0.2222em;"
+                            />
+                            <span
+                              class="mord"
+                            >
+                              <span
+                                class="mord mathnormal"
+                              >
+                                b
+                              </span>
+                              <span
+                                class="msupsub"
+                              >
+                                <span
+                                  class="vlist-t"
+                                >
+                                  <span
+                                    class="vlist-r"
+                                  >
+                                    <span
+                                      class="vlist"
+                                      style="height:0.7401em;"
+                                    >
+                                      <span
+                                        style="top:-2.989em;margin-right:0.05em;"
+                                      >
+                                        <span
+                                          class="pstrut"
+                                          style="height:2.7em;"
+                                        />
+                                        <span
+                                          class="sizing reset-size6 size3 mtight"
+                                        >
+                                          <span
+                                            class="mord mtight"
+                                          >
+                                            2
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                        </span>
+                        <span
+                          style="top:-2.8734em;"
+                        >
+                          <span
+                            class="pstrut"
+                            style="height:3em;"
+                          />
+                          <span
+                            class="hide-tail"
+                            style="min-width:0.853em;height:1.08em;"
+                          >
+                            <svg
+                              height="1.08em"
+                              preserveAspectRatio="xMinYMin slice"
+                              viewBox="0 0 400000 1080"
+                              width="400em"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </span>
+                      <span
+                        class="vlist-s"
+                      >
+                        ​
+                      </span>
+                    </span>
+                    <span
+                      class="vlist-r"
+                    >
+                      <span
+                        class="vlist"
+                        style="height:0.1266em;"
+                      >
+                        <span />
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <span
+                  class="mord"
+                >
+                  $
+                </span>
+              </span>
+            </span>
+          </span>
         </p>
-        <br />
+        
+
         <p>
           Dove:
         </p>
-        <br />
+        
+
         <ul>
-          <br />
+          
+
           <li>
             <span
               class="katex"
@@ -235,7 +513,8 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
             </span>
              è l'ipotenusa.
           </li>
-          <br />
+          
+
           <li>
             <span
               class="katex"
@@ -312,15 +591,19 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
             </span>
              sono i due cateti del triangolo.
           </li>
-          <br />
+          
+
         </ul>
-        <br />
+        
+
         <h3>
           Passaggi per il Calcolo
         </h3>
-        <br />
+        
+
         <ol>
-          <br />
+          
+
           <li>
             <p>
               <strong>
@@ -400,20 +683,20 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
                 </span>
               </strong>
               :
-              <br />
-              I cateti sono i due lati che formano l'angolo retto.
+I cateti sono i due lati che formano l'angolo retto.
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Calcola i quadrati dei cateti
               </strong>
               :
-              <br />
-              Eleva al quadrato entrambe le misure dei cateti: 
+Eleva al quadrato entrambe le misure dei cateti: 
               <span
                 class="katex"
               >
@@ -575,17 +858,18 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
               </span>
               .
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Somma i quadrati dei cateti
               </strong>
               :
-              <br />
-              Somma i risultati ottenuti: 
+Somma i risultati ottenuti: 
               <span
                 class="katex"
               >
@@ -742,17 +1026,18 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
               </span>
               .
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Calcola la radice quadrata della somma
               </strong>
               :
-              <br />
-              Prendi la radice quadrata della somma per trovare l'ipotenusa: 
+Prendi la radice quadrata della somma per trovare l'ipotenusa: 
               <span
                 class="katex"
               >
@@ -978,7 +1263,18 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
                                   xmlns="http://www.w3.org/2000/svg"
                                 >
                                   <path
-                                    d="M95,702<br>c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14<br>c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54<br>c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10<br>s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429<br>c69,-144,104.5,-217.7,106.5,-221<br>l0 -0<br>c5.3,-9.3,12,-14,20,-14<br>H400000v40H845.2724<br>s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7<br>c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z<br>M834 80h400000v40h-400000z"
+                                    d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"
                                   />
                                 </svg>
                               </span>
@@ -1007,21 +1303,27 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
               </span>
               .
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
         </ol>
-        <br />
+        
+
         <h3>
           Esempio di Calcolo
         </h3>
-        <br />
+        
+
         <p>
           Supponiamo di avere un triangolo rettangolo con i cateti di lunghezza 3 cm e 4 cm.
         </p>
-        <br />
+        
+
         <ol>
-          <br />
+          
+
           <li>
             <strong>
               Cateto 
@@ -1064,7 +1366,8 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
             </strong>
             : 3 cm
           </li>
-          <br />
+          
+
           <li>
             <strong>
               Cateto 
@@ -1107,33 +1410,1297 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
             </strong>
             : 4 cm
           </li>
-          <br />
+          
+
         </ol>
-        <br />
+        
+
         <p>
           Usiamo la formula:
         </p>
-        <br />
+        
+
         <p>
-          \\[ c = \\sqrt{a^2 + b^2} \\]
+          $
+          <span
+            class="katex"
+          >
+            <span
+              class="katex-mathml"
+            >
+              <math
+                xmlns="http://www.w3.org/1998/Math/MathML"
+              >
+                <mrow>
+                  <mi>
+                    c
+                  </mi>
+                  <mo>
+                    =
+                  </mo>
+                  <msqrt>
+                    <mrow>
+                      <msup>
+                        <mi>
+                          a
+                        </mi>
+                        <mn>
+                          2
+                        </mn>
+                      </msup>
+                      <mo>
+                        +
+                      </mo>
+                      <msup>
+                        <mi>
+                          b
+                        </mi>
+                        <mn>
+                          2
+                        </mn>
+                      </msup>
+                    </mrow>
+                  </msqrt>
+                  <mi
+                    mathvariant="normal"
+                  >
+                    $
+                  </mi>
+                </mrow>
+                c = \\sqrt{a^2 + b^2} \\$
+              </math>
+            </span>
+            <span
+              aria-hidden="true"
+              class="katex-html"
+            >
+              <span
+                class="base"
+              >
+                <span
+                  class="strut"
+                  style="height:0.4306em;"
+                />
+                <span
+                  class="mord mathnormal"
+                >
+                  c
+                </span>
+                <span
+                  class="mspace"
+                  style="margin-right:0.2778em;"
+                />
+                <span
+                  class="mrel"
+                >
+                  =
+                </span>
+                <span
+                  class="mspace"
+                  style="margin-right:0.2778em;"
+                />
+              </span>
+              <span
+                class="base"
+              >
+                <span
+                  class="strut"
+                  style="height:1.04em;vertical-align:-0.1266em;"
+                />
+                <span
+                  class="mord sqrt"
+                >
+                  <span
+                    class="vlist-t vlist-t2"
+                  >
+                    <span
+                      class="vlist-r"
+                    >
+                      <span
+                        class="vlist"
+                        style="height:0.9134em;"
+                      >
+                        <span
+                          class="svg-align"
+                          style="top:-3em;"
+                        >
+                          <span
+                            class="pstrut"
+                            style="height:3em;"
+                          />
+                          <span
+                            class="mord"
+                            style="padding-left:0.833em;"
+                          >
+                            <span
+                              class="mord"
+                            >
+                              <span
+                                class="mord mathnormal"
+                              >
+                                a
+                              </span>
+                              <span
+                                class="msupsub"
+                              >
+                                <span
+                                  class="vlist-t"
+                                >
+                                  <span
+                                    class="vlist-r"
+                                  >
+                                    <span
+                                      class="vlist"
+                                      style="height:0.7401em;"
+                                    >
+                                      <span
+                                        style="top:-2.989em;margin-right:0.05em;"
+                                      >
+                                        <span
+                                          class="pstrut"
+                                          style="height:2.7em;"
+                                        />
+                                        <span
+                                          class="sizing reset-size6 size3 mtight"
+                                        >
+                                          <span
+                                            class="mord mtight"
+                                          >
+                                            2
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                            <span
+                              class="mspace"
+                              style="margin-right:0.2222em;"
+                            />
+                            <span
+                              class="mbin"
+                            >
+                              +
+                            </span>
+                            <span
+                              class="mspace"
+                              style="margin-right:0.2222em;"
+                            />
+                            <span
+                              class="mord"
+                            >
+                              <span
+                                class="mord mathnormal"
+                              >
+                                b
+                              </span>
+                              <span
+                                class="msupsub"
+                              >
+                                <span
+                                  class="vlist-t"
+                                >
+                                  <span
+                                    class="vlist-r"
+                                  >
+                                    <span
+                                      class="vlist"
+                                      style="height:0.7401em;"
+                                    >
+                                      <span
+                                        style="top:-2.989em;margin-right:0.05em;"
+                                      >
+                                        <span
+                                          class="pstrut"
+                                          style="height:2.7em;"
+                                        />
+                                        <span
+                                          class="sizing reset-size6 size3 mtight"
+                                        >
+                                          <span
+                                            class="mord mtight"
+                                          >
+                                            2
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                        </span>
+                        <span
+                          style="top:-2.8734em;"
+                        >
+                          <span
+                            class="pstrut"
+                            style="height:3em;"
+                          />
+                          <span
+                            class="hide-tail"
+                            style="min-width:0.853em;height:1.08em;"
+                          >
+                            <svg
+                              height="1.08em"
+                              preserveAspectRatio="xMinYMin slice"
+                              viewBox="0 0 400000 1080"
+                              width="400em"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </span>
+                      <span
+                        class="vlist-s"
+                      >
+                        ​
+                      </span>
+                    </span>
+                    <span
+                      class="vlist-r"
+                    >
+                      <span
+                        class="vlist"
+                        style="height:0.1266em;"
+                      >
+                        <span />
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <span
+                  class="mord"
+                >
+                  $
+                </span>
+              </span>
+            </span>
+          </span>
         </p>
-        <br />
+        
+
         <p>
-          \\[ c = \\sqrt{(3 , \\text{cm})^2 + (4 , \\text{cm})^2} \\]
+          $
+          <span
+            class="katex"
+          >
+            <span
+              class="katex-mathml"
+            >
+              <math
+                xmlns="http://www.w3.org/1998/Math/MathML"
+              >
+                <mrow>
+                  <mi>
+                    c
+                  </mi>
+                  <mo>
+                    =
+                  </mo>
+                  <msqrt>
+                    <mrow>
+                      <mo
+                        stretchy="false"
+                      >
+                        (
+                      </mo>
+                      <mn>
+                        3
+                      </mn>
+                      <mtext>
+                         
+                      </mtext>
+                      <mtext>
+                        cm
+                      </mtext>
+                      <msup>
+                        <mo
+                          stretchy="false"
+                        >
+                          )
+                        </mo>
+                        <mn>
+                          2
+                        </mn>
+                      </msup>
+                      <mo>
+                        +
+                      </mo>
+                      <mo
+                        stretchy="false"
+                      >
+                        (
+                      </mo>
+                      <mn>
+                        4
+                      </mn>
+                      <mtext>
+                         
+                      </mtext>
+                      <mtext>
+                        cm
+                      </mtext>
+                      <msup>
+                        <mo
+                          stretchy="false"
+                        >
+                          )
+                        </mo>
+                        <mn>
+                          2
+                        </mn>
+                      </msup>
+                    </mrow>
+                  </msqrt>
+                  <mi
+                    mathvariant="normal"
+                  >
+                    $
+                  </mi>
+                </mrow>
+                c = \\sqrt{(3 \\, \\text{cm})^2 + (4 \\, \\text{cm})^2} \\$
+              </math>
+            </span>
+            <span
+              aria-hidden="true"
+              class="katex-html"
+            >
+              <span
+                class="base"
+              >
+                <span
+                  class="strut"
+                  style="height:0.4306em;"
+                />
+                <span
+                  class="mord mathnormal"
+                >
+                  c
+                </span>
+                <span
+                  class="mspace"
+                  style="margin-right:0.2778em;"
+                />
+                <span
+                  class="mrel"
+                >
+                  =
+                </span>
+                <span
+                  class="mspace"
+                  style="margin-right:0.2778em;"
+                />
+              </span>
+              <span
+                class="base"
+              >
+                <span
+                  class="strut"
+                  style="height:1.24em;vertical-align:-0.305em;"
+                />
+                <span
+                  class="mord sqrt"
+                >
+                  <span
+                    class="vlist-t vlist-t2"
+                  >
+                    <span
+                      class="vlist-r"
+                    >
+                      <span
+                        class="vlist"
+                        style="height:0.935em;"
+                      >
+                        <span
+                          class="svg-align"
+                          style="top:-3.2em;"
+                        >
+                          <span
+                            class="pstrut"
+                            style="height:3.2em;"
+                          />
+                          <span
+                            class="mord"
+                            style="padding-left:1em;"
+                          >
+                            <span
+                              class="mopen"
+                            >
+                              (
+                            </span>
+                            <span
+                              class="mord"
+                            >
+                              3
+                            </span>
+                            <span
+                              class="mspace"
+                              style="margin-right:0.1667em;"
+                            />
+                            <span
+                              class="mord text"
+                            >
+                              <span
+                                class="mord"
+                              >
+                                cm
+                              </span>
+                            </span>
+                            <span
+                              class="mclose"
+                            >
+                              <span
+                                class="mclose"
+                              >
+                                )
+                              </span>
+                              <span
+                                class="msupsub"
+                              >
+                                <span
+                                  class="vlist-t"
+                                >
+                                  <span
+                                    class="vlist-r"
+                                  >
+                                    <span
+                                      class="vlist"
+                                      style="height:0.7401em;"
+                                    >
+                                      <span
+                                        style="top:-2.989em;margin-right:0.05em;"
+                                      >
+                                        <span
+                                          class="pstrut"
+                                          style="height:2.7em;"
+                                        />
+                                        <span
+                                          class="sizing reset-size6 size3 mtight"
+                                        >
+                                          <span
+                                            class="mord mtight"
+                                          >
+                                            2
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                            <span
+                              class="mspace"
+                              style="margin-right:0.2222em;"
+                            />
+                            <span
+                              class="mbin"
+                            >
+                              +
+                            </span>
+                            <span
+                              class="mspace"
+                              style="margin-right:0.2222em;"
+                            />
+                            <span
+                              class="mopen"
+                            >
+                              (
+                            </span>
+                            <span
+                              class="mord"
+                            >
+                              4
+                            </span>
+                            <span
+                              class="mspace"
+                              style="margin-right:0.1667em;"
+                            />
+                            <span
+                              class="mord text"
+                            >
+                              <span
+                                class="mord"
+                              >
+                                cm
+                              </span>
+                            </span>
+                            <span
+                              class="mclose"
+                            >
+                              <span
+                                class="mclose"
+                              >
+                                )
+                              </span>
+                              <span
+                                class="msupsub"
+                              >
+                                <span
+                                  class="vlist-t"
+                                >
+                                  <span
+                                    class="vlist-r"
+                                  >
+                                    <span
+                                      class="vlist"
+                                      style="height:0.7401em;"
+                                    >
+                                      <span
+                                        style="top:-2.989em;margin-right:0.05em;"
+                                      >
+                                        <span
+                                          class="pstrut"
+                                          style="height:2.7em;"
+                                        />
+                                        <span
+                                          class="sizing reset-size6 size3 mtight"
+                                        >
+                                          <span
+                                            class="mord mtight"
+                                          >
+                                            2
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                        </span>
+                        <span
+                          style="top:-2.895em;"
+                        >
+                          <span
+                            class="pstrut"
+                            style="height:3.2em;"
+                          />
+                          <span
+                            class="hide-tail"
+                            style="min-width:1.02em;height:1.28em;"
+                          >
+                            <svg
+                              height="1.28em"
+                              preserveAspectRatio="xMinYMin slice"
+                              viewBox="0 0 400000 1296"
+                              width="400em"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M263,681c0.7,0,18,39.7,52,119
+c34,79.3,68.167,158.7,102.5,238c34.3,79.3,51.8,119.3,52.5,120
+c340,-704.7,510.7,-1060.3,512,-1067
+l0 -0
+c4.7,-7.3,11,-11,19,-11
+H40000v40H1012.3
+s-271.3,567,-271.3,567c-38.7,80.7,-84,175,-136,283c-52,108,-89.167,185.3,-111.5,232
+c-22.3,46.7,-33.8,70.3,-34.5,71c-4.7,4.7,-12.3,7,-23,7s-12,-1,-12,-1
+s-109,-253,-109,-253c-72.7,-168,-109.3,-252,-110,-252c-10.7,8,-22,16.7,-34,26
+c-22,17.3,-33.3,26,-34,26s-26,-26,-26,-26s76,-59,76,-59s76,-60,76,-60z
+M1001 80h400000v40h-400000z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </span>
+                      <span
+                        class="vlist-s"
+                      >
+                        ​
+                      </span>
+                    </span>
+                    <span
+                      class="vlist-r"
+                    >
+                      <span
+                        class="vlist"
+                        style="height:0.305em;"
+                      >
+                        <span />
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <span
+                  class="mord"
+                >
+                  $
+                </span>
+              </span>
+            </span>
+          </span>
         </p>
-        <br />
+        
+
         <p>
-          \\[ c = \\sqrt{9 , \\text{cm}^2 + 16 , \\text{cm}^2} \\]
+          $
+          <span
+            class="katex"
+          >
+            <span
+              class="katex-mathml"
+            >
+              <math
+                xmlns="http://www.w3.org/1998/Math/MathML"
+              >
+                <mrow>
+                  <mi>
+                    c
+                  </mi>
+                  <mo>
+                    =
+                  </mo>
+                  <msqrt>
+                    <mrow>
+                      <mn>
+                        9
+                      </mn>
+                      <mtext>
+                         
+                      </mtext>
+                      <msup>
+                        <mtext>
+                          cm
+                        </mtext>
+                        <mn>
+                          2
+                        </mn>
+                      </msup>
+                      <mo>
+                        +
+                      </mo>
+                      <mn>
+                        16
+                      </mn>
+                      <mtext>
+                         
+                      </mtext>
+                      <msup>
+                        <mtext>
+                          cm
+                        </mtext>
+                        <mn>
+                          2
+                        </mn>
+                      </msup>
+                    </mrow>
+                  </msqrt>
+                  <mi
+                    mathvariant="normal"
+                  >
+                    $
+                  </mi>
+                </mrow>
+                c = \\sqrt{9 \\, \\text{cm}^2 + 16 \\, \\text{cm}^2} \\$
+              </math>
+            </span>
+            <span
+              aria-hidden="true"
+              class="katex-html"
+            >
+              <span
+                class="base"
+              >
+                <span
+                  class="strut"
+                  style="height:0.4306em;"
+                />
+                <span
+                  class="mord mathnormal"
+                >
+                  c
+                </span>
+                <span
+                  class="mspace"
+                  style="margin-right:0.2778em;"
+                />
+                <span
+                  class="mrel"
+                >
+                  =
+                </span>
+                <span
+                  class="mspace"
+                  style="margin-right:0.2778em;"
+                />
+              </span>
+              <span
+                class="base"
+              >
+                <span
+                  class="strut"
+                  style="height:1.04em;vertical-align:-0.1266em;"
+                />
+                <span
+                  class="mord sqrt"
+                >
+                  <span
+                    class="vlist-t vlist-t2"
+                  >
+                    <span
+                      class="vlist-r"
+                    >
+                      <span
+                        class="vlist"
+                        style="height:0.9134em;"
+                      >
+                        <span
+                          class="svg-align"
+                          style="top:-3em;"
+                        >
+                          <span
+                            class="pstrut"
+                            style="height:3em;"
+                          />
+                          <span
+                            class="mord"
+                            style="padding-left:0.833em;"
+                          >
+                            <span
+                              class="mord"
+                            >
+                              9
+                            </span>
+                            <span
+                              class="mspace"
+                              style="margin-right:0.1667em;"
+                            />
+                            <span
+                              class="mord"
+                            >
+                              <span
+                                class="mord text"
+                              >
+                                <span
+                                  class="mord"
+                                >
+                                  cm
+                                </span>
+                              </span>
+                              <span
+                                class="msupsub"
+                              >
+                                <span
+                                  class="vlist-t"
+                                >
+                                  <span
+                                    class="vlist-r"
+                                  >
+                                    <span
+                                      class="vlist"
+                                      style="height:0.7401em;"
+                                    >
+                                      <span
+                                        style="top:-2.989em;margin-right:0.05em;"
+                                      >
+                                        <span
+                                          class="pstrut"
+                                          style="height:2.7em;"
+                                        />
+                                        <span
+                                          class="sizing reset-size6 size3 mtight"
+                                        >
+                                          <span
+                                            class="mord mtight"
+                                          >
+                                            2
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                            <span
+                              class="mspace"
+                              style="margin-right:0.2222em;"
+                            />
+                            <span
+                              class="mbin"
+                            >
+                              +
+                            </span>
+                            <span
+                              class="mspace"
+                              style="margin-right:0.2222em;"
+                            />
+                            <span
+                              class="mord"
+                            >
+                              16
+                            </span>
+                            <span
+                              class="mspace"
+                              style="margin-right:0.1667em;"
+                            />
+                            <span
+                              class="mord"
+                            >
+                              <span
+                                class="mord text"
+                              >
+                                <span
+                                  class="mord"
+                                >
+                                  cm
+                                </span>
+                              </span>
+                              <span
+                                class="msupsub"
+                              >
+                                <span
+                                  class="vlist-t"
+                                >
+                                  <span
+                                    class="vlist-r"
+                                  >
+                                    <span
+                                      class="vlist"
+                                      style="height:0.7401em;"
+                                    >
+                                      <span
+                                        style="top:-2.989em;margin-right:0.05em;"
+                                      >
+                                        <span
+                                          class="pstrut"
+                                          style="height:2.7em;"
+                                        />
+                                        <span
+                                          class="sizing reset-size6 size3 mtight"
+                                        >
+                                          <span
+                                            class="mord mtight"
+                                          >
+                                            2
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                        </span>
+                        <span
+                          style="top:-2.8734em;"
+                        >
+                          <span
+                            class="pstrut"
+                            style="height:3em;"
+                          />
+                          <span
+                            class="hide-tail"
+                            style="min-width:0.853em;height:1.08em;"
+                          >
+                            <svg
+                              height="1.08em"
+                              preserveAspectRatio="xMinYMin slice"
+                              viewBox="0 0 400000 1080"
+                              width="400em"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </span>
+                      <span
+                        class="vlist-s"
+                      >
+                        ​
+                      </span>
+                    </span>
+                    <span
+                      class="vlist-r"
+                    >
+                      <span
+                        class="vlist"
+                        style="height:0.1266em;"
+                      >
+                        <span />
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <span
+                  class="mord"
+                >
+                  $
+                </span>
+              </span>
+            </span>
+          </span>
         </p>
-        <br />
+        
+
         <p>
-          \\[ c = \\sqrt{25 , \\text{cm}^2} \\]
+          $
+          <span
+            class="katex"
+          >
+            <span
+              class="katex-mathml"
+            >
+              <math
+                xmlns="http://www.w3.org/1998/Math/MathML"
+              >
+                <mrow>
+                  <mi>
+                    c
+                  </mi>
+                  <mo>
+                    =
+                  </mo>
+                  <msqrt>
+                    <mrow>
+                      <mn>
+                        25
+                      </mn>
+                      <mtext>
+                         
+                      </mtext>
+                      <msup>
+                        <mtext>
+                          cm
+                        </mtext>
+                        <mn>
+                          2
+                        </mn>
+                      </msup>
+                    </mrow>
+                  </msqrt>
+                  <mi
+                    mathvariant="normal"
+                  >
+                    $
+                  </mi>
+                </mrow>
+                c = \\sqrt{25 \\, \\text{cm}^2} \\$
+              </math>
+            </span>
+            <span
+              aria-hidden="true"
+              class="katex-html"
+            >
+              <span
+                class="base"
+              >
+                <span
+                  class="strut"
+                  style="height:0.4306em;"
+                />
+                <span
+                  class="mord mathnormal"
+                >
+                  c
+                </span>
+                <span
+                  class="mspace"
+                  style="margin-right:0.2778em;"
+                />
+                <span
+                  class="mrel"
+                >
+                  =
+                </span>
+                <span
+                  class="mspace"
+                  style="margin-right:0.2778em;"
+                />
+              </span>
+              <span
+                class="base"
+              >
+                <span
+                  class="strut"
+                  style="height:1.04em;vertical-align:-0.0849em;"
+                />
+                <span
+                  class="mord sqrt"
+                >
+                  <span
+                    class="vlist-t vlist-t2"
+                  >
+                    <span
+                      class="vlist-r"
+                    >
+                      <span
+                        class="vlist"
+                        style="height:0.9551em;"
+                      >
+                        <span
+                          class="svg-align"
+                          style="top:-3em;"
+                        >
+                          <span
+                            class="pstrut"
+                            style="height:3em;"
+                          />
+                          <span
+                            class="mord"
+                            style="padding-left:0.833em;"
+                          >
+                            <span
+                              class="mord"
+                            >
+                              25
+                            </span>
+                            <span
+                              class="mspace"
+                              style="margin-right:0.1667em;"
+                            />
+                            <span
+                              class="mord"
+                            >
+                              <span
+                                class="mord text"
+                              >
+                                <span
+                                  class="mord"
+                                >
+                                  cm
+                                </span>
+                              </span>
+                              <span
+                                class="msupsub"
+                              >
+                                <span
+                                  class="vlist-t"
+                                >
+                                  <span
+                                    class="vlist-r"
+                                  >
+                                    <span
+                                      class="vlist"
+                                      style="height:0.7401em;"
+                                    >
+                                      <span
+                                        style="top:-2.989em;margin-right:0.05em;"
+                                      >
+                                        <span
+                                          class="pstrut"
+                                          style="height:2.7em;"
+                                        />
+                                        <span
+                                          class="sizing reset-size6 size3 mtight"
+                                        >
+                                          <span
+                                            class="mord mtight"
+                                          >
+                                            2
+                                          </span>
+                                        </span>
+                                      </span>
+                                    </span>
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                        </span>
+                        <span
+                          style="top:-2.9151em;"
+                        >
+                          <span
+                            class="pstrut"
+                            style="height:3em;"
+                          />
+                          <span
+                            class="hide-tail"
+                            style="min-width:0.853em;height:1.08em;"
+                          >
+                            <svg
+                              height="1.08em"
+                              preserveAspectRatio="xMinYMin slice"
+                              viewBox="0 0 400000 1080"
+                              width="400em"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="M95,702
+c-2.7,0,-7.17,-2.7,-13.5,-8c-5.8,-5.3,-9.5,-10,-9.5,-14
+c0,-2,0.3,-3.3,1,-4c1.3,-2.7,23.83,-20.7,67.5,-54
+c44.2,-33.3,65.8,-50.3,66.5,-51c1.3,-1.3,3,-2,5,-2c4.7,0,8.7,3.3,12,10
+s173,378,173,378c0.7,0,35.3,-71,104,-213c68.7,-142,137.5,-285,206.5,-429
+c69,-144,104.5,-217.7,106.5,-221
+l0 -0
+c5.3,-9.3,12,-14,20,-14
+H400000v40H845.2724
+s-225.272,467,-225.272,467s-235,486,-235,486c-2.7,4.7,-9,7,-19,7
+c-6,0,-10,-1,-12,-3s-194,-422,-194,-422s-65,47,-65,47z
+M834 80h400000v40h-400000z"
+                              />
+                            </svg>
+                          </span>
+                        </span>
+                      </span>
+                      <span
+                        class="vlist-s"
+                      >
+                        ​
+                      </span>
+                    </span>
+                    <span
+                      class="vlist-r"
+                    >
+                      <span
+                        class="vlist"
+                        style="height:0.0849em;"
+                      >
+                        <span />
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <span
+                  class="mord"
+                >
+                  $
+                </span>
+              </span>
+            </span>
+          </span>
         </p>
-        <br />
+        
+
         <p>
-          \\[ c = 5 , \\text{cm} \\]
+          $
+          <span
+            class="katex"
+          >
+            <span
+              class="katex-mathml"
+            >
+              <math
+                xmlns="http://www.w3.org/1998/Math/MathML"
+              >
+                <mrow>
+                  <mi>
+                    c
+                  </mi>
+                  <mo>
+                    =
+                  </mo>
+                  <mn>
+                    5
+                  </mn>
+                  <mtext>
+                     
+                  </mtext>
+                  <mtext>
+                    cm
+                  </mtext>
+                  <mi
+                    mathvariant="normal"
+                  >
+                    $
+                  </mi>
+                </mrow>
+                c = 5 \\, \\text{cm} \\$
+              </math>
+            </span>
+            <span
+              aria-hidden="true"
+              class="katex-html"
+            >
+              <span
+                class="base"
+              >
+                <span
+                  class="strut"
+                  style="height:0.4306em;"
+                />
+                <span
+                  class="mord mathnormal"
+                >
+                  c
+                </span>
+                <span
+                  class="mspace"
+                  style="margin-right:0.2778em;"
+                />
+                <span
+                  class="mrel"
+                >
+                  =
+                </span>
+                <span
+                  class="mspace"
+                  style="margin-right:0.2778em;"
+                />
+              </span>
+              <span
+                class="base"
+              >
+                <span
+                  class="strut"
+                  style="height:0.8056em;vertical-align:-0.0556em;"
+                />
+                <span
+                  class="mord"
+                >
+                  5
+                </span>
+                <span
+                  class="mspace"
+                  style="margin-right:0.1667em;"
+                />
+                <span
+                  class="mord text"
+                >
+                  <span
+                    class="mord"
+                  >
+                    cm
+                  </span>
+                </span>
+                <span
+                  class="mord"
+                >
+                  $
+                </span>
+              </span>
+            </span>
+          </span>
         </p>
-        <br />
+        
+
         <p>
           Quindi, l'ipotenusa del triangolo è di 5 cm.
         </p>
@@ -1240,27 +2807,31 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
         <p>
           Per calcolare le resistenze dei materiali per le verifiche rispetto ad azioni antropiche e ambientali secondo la Specifica Tecnica ST-VAL4, si procede in questo modo:
         </p>
-        <br />
+        
+
         <ol>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Determinazione della resistenza dei materiali:
               </strong>
-              <br />
-              La resistenza dei materiali da utilizzare nelle verifiche accurate si determina a partire dalle indagini sull’opera. La caratterizzazione deve essere distinta per tutti i materiali presenti nell'opera, in accordo con la ST-PI. Le resistenze per verifiche rispetto ad azioni antropiche come i carichi da traffico e le azioni ambientali sono definite dalle LG20. Questo include la distinzione rispetto a quelle utilizzate per le azioni sismiche, come dettagliato dalle NTC18 e CIR19  .
+              
+La resistenza dei materiali da utilizzare nelle verifiche accurate si determina a partire dalle indagini sull’opera. La caratterizzazione deve essere distinta per tutti i materiali presenti nell'opera, in accordo con la ST-PI. Le resistenze per verifiche rispetto ad azioni antropiche come i carichi da traffico e le azioni ambientali sono definite dalle LG20. Questo include la distinzione rispetto a quelle utilizzate per le azioni sismiche, come dettagliato dalle NTC18 e CIR19  .
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Calcolo della resistenza:
               </strong>
-              <br />
-              Il valore della resistenza dei materiali 
+              
+Il valore della resistenza dei materiali 
               <span
                 class="katex"
               >
@@ -1358,21 +2929,23 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
               </span>
                da utilizzare nelle verifiche per carichi gravitazionali si ottiene mediante la seguente espressione:
             </p>
-            <br />
+            
+
             <p>
-              \\[
-              <br />
-              f_d = \\min \\left( \\frac{f_m}{FC \\cdot \\gamma_M}, \\frac{f_k}{FC} \\right)
-              <br />
-              \\]
+              $$
+f_d = \\min \\left( \\frac{f_m}{FC \\cdot \\gamma_M}, \\frac{f_k}{FC} \\right)
+$$
             </p>
-            <br />
+            
+
             <p>
               Dove:
             </p>
-            <br />
+            
+
             <ul>
-              <br />
+              
+
               <li>
                 <span
                   class="katex"
@@ -1471,7 +3044,8 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                 </span>
                  è il valor medio della resistenza valutato dai risultati delle prove effettuate sui campioni prelevati in situ;
               </li>
-              <br />
+              
+
               <li>
                 <span
                   class="katex"
@@ -1571,7 +3145,8 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                 </span>
                  è la resistenza caratteristica calcolata sulla base dei risultati delle prove sui campioni prelevati in situ;
               </li>
-              <br />
+              
+
               <li>
                 <span
                   class="katex"
@@ -1615,7 +3190,8 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                 </span>
                  è il Fattore di Confidenza associato al Livello di Conoscenza raggiunto;
               </li>
-              <br />
+              
+
               <li>
                 <span
                   class="katex"
@@ -1715,46 +3291,56 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
                 </span>
                  è il fattore parziale di sicurezza del materiale   .
               </li>
-              <br />
+              
+
             </ul>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Caratterizzazione dei materiali:
               </strong>
-              <br />
-              I valori medi, caratteristici e di progetto delle resistenze a compressione e trazione per il calcestruzzo, e delle resistenze a snervamento per l’acciaio ordinario sono determinati a partire dai risultati delle prove. Specifiche espressioni e metodi sono forniti per diversi materiali nell'Appendice 13 della ST-VAL4  .
+              
+I valori medi, caratteristici e di progetto delle resistenze a compressione e trazione per il calcestruzzo, e delle resistenze a snervamento per l’acciaio ordinario sono determinati a partire dai risultati delle prove. Specifiche espressioni e metodi sono forniti per diversi materiali nell'Appendice 13 della ST-VAL4  .
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Stima della resistenza da prove non distruttive:
               </strong>
-              <br />
-              Per valutare le resistenze dei materiali, si possono anche utilizzare prove non distruttive come le prove SonReb per il calcestruzzo e le prove di durezza per l'acciaio ordinario e armonico. Formulazioni specifiche per queste prove si trovano in Appendice al §13.1 della ST-VAL4 .
+              
+Per valutare le resistenze dei materiali, si possono anche utilizzare prove non distruttive come le prove SonReb per il calcestruzzo e le prove di durezza per l'acciaio ordinario e armonico. Formulazioni specifiche per queste prove si trovano in Appendice al §13.1 della ST-VAL4 .
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Analisi dei risultati delle indagini:
               </strong>
-              <br />
-              Gli esiti delle prove devono essere attentamente analizzati per confermare le caratteristiche originarie o rilevare eventuali decadimenti del materiale. Questo processo include anche l'identificazione delle cause di dispersione significative nei risultati delle prove  .
+              
+Gli esiti delle prove devono essere attentamente analizzati per confermare le caratteristiche originarie o rilevare eventuali decadimenti del materiale. Questo processo include anche l'identificazione delle cause di dispersione significative nei risultati delle prove  .
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
         </ol>
-        <br />
+        
+
         <p>
           Seguendo questi passaggi, si ottiene una stima accurata delle resistenze dei materiali che possono essere utilizzate per le verifiche di sicurezza rispetto ad azioni antropiche e ambientali.
         </p>
@@ -1861,7 +3447,8 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
         <p>
           Ok. 
         </p>
-        <br />
+        
+
         <p>
           Per calcolare l'urto su barriere metalliche, il documento 
           <em>
@@ -1869,9 +3456,11 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
           </em>
            fornisce un metodo specifico. Ecco l'iter riassunto:
         </p>
-        <br />
+        
+
         <ol>
-          <br />
+          
+
           <li>
             <p>
               <strong>
@@ -1879,9 +3468,11 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
               </strong>
                Partendo dal momento di plasticizzazione del montante (§5.1.3.10 delle NTC18). La forza orizzontale che plasticizza il montante può essere determinata con riferimento alla resistenza caratteristica degli elementi strutturali principali della barriera.
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
@@ -1889,9 +3480,11 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
               </strong>
                La forza orizzontale deve essere applicata ad una quota h, che è il minimo tra (altezza della barriera - 0,10 m) e 1,00 m.
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
@@ -1899,9 +3492,11 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
               </strong>
                Per il dimensionamento dell'impalcato, le forze orizzontali sono amplificate di un fattore di 1,50, e il coefficiente parziale di sicurezza per la combinazione di carico agli SLU per l’urto di veicolo in svio è assunto unitario.
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
@@ -1909,21 +3504,23 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
               </strong>
                Alla base del montante (estradosso cordolo):
             </p>
-            <br />
+            
+
             <p>
-               \\[
-              <br />
-               F_{\\text{urto}} = \\frac{M_{\\text{pl}}}{h^*}
-              <br />
-               \\]
+               $$
+ F_{\\text{urto}} = \\frac{M_{\\text{pl}}}{h^*}
+ $$
             </p>
-            <br />
+            
+
             <p>
                Dove:
             </p>
-            <br />
+            
+
             <ul>
-              <br />
+              
+
               <li>
                 <span
                   class="katex"
@@ -2030,7 +3627,8 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                 </span>
                  è il momento plastico calcolato con la resistenza caratteristica.
               </li>
-              <br />
+              
+
               <li>
                 <span
                   class="katex"
@@ -2326,7 +3924,8 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                   </span>
                 </span>
               </li>
-              <br />
+              
+
               <li>
                 <span
                   class="katex"
@@ -2654,28 +4253,32 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                 </span>
                  è l’altezza dell’irrigidimento del nodo e della piastra di base.
               </li>
-              <br />
+              
+
             </ul>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Determinazione del momento trasferito all’estradosso del cordolo:
               </strong>
             </p>
-            <br />
+            
+
             <p>
-               \\[
-              <br />
-               M_{\\text{urto}} = F_{\\text{urto}} \\cdot h_B = M_{\\text{pl}} \\cdot \\left(1 + \\frac{h_R}{h^*}\\right)
-              <br />
-               \\]
+               $$
+ M_{\\text{urto}} = F_{\\text{urto}} \\cdot h_B = M_{\\text{pl}} \\cdot \\left(1 + \\frac{h_R}{h^*}\\right)
+ $$
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
@@ -2683,9 +4286,11 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
               </strong>
                Il valore caratteristico è amplificato di un fattore parziale pari a 1,50 per tenere conto delle incertezze e possibili deformabilità della lamiera irrigidita.
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
@@ -2693,9 +4298,11 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
               </strong>
                Nel caso di barriere ordinarie, si considera la piena plasticizzazione di tre montanti consecutivi a seguito dell’urto, salvo diversa valutazione motivata.
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
@@ -2703,11 +4310,14 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
               </strong>
                In assenza di informazioni, si può fare riferimento al valore normativo della forza d’urto di 100 kN (NTC18) da collocarsi a 100 mm sotto la sommità dell’elemento o 1,0 m sopra il livello del piano di marcia【4:0†source】【4:1†source】【4:4†source】【4:9†source】【4:5†source】.
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
         </ol>
-        <br />
+        
+
         <p>
           Per ulteriori dettagli o chiarimenti, puoi consultare la sezione del documento ST-VAL4 o scrivere a 
           <a
@@ -2822,61 +4432,67 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
         <p>
           Per calcolare l'urto su barriere metalliche, è necessario considerare diversi fattori come la massa del veicolo, la velocità dell'impatto, l'angolo di impatto e le caratteristiche della barriera stessa. Di seguito è riportata una descrizione generale del processo di calcolo:
         </p>
-        <br />
+        
+
         <ol>
-          <br />
+          
+
           <li>
             <strong>
               Determinazione dei parametri dell'urto:
             </strong>
           </li>
-          <br />
+          
+
         </ol>
-        <br />
+        
+
         <ul>
-          <br />
+          
+
           <li>
             <strong>
               Massa del veicolo (m):
             </strong>
              La massa del veicolo che colpisce la barriera.
           </li>
-          <br />
+          
+
           <li>
             <strong>
               Velocità dell'impatto (v):
             </strong>
              La velocità del veicolo al momento dell'impatto.
           </li>
-          <br />
+          
+
           <li>
             <strong>
               Angolo di impatto (θ):
             </strong>
              L'angolo con cui il veicolo colpisce la barriera.
           </li>
-          <br />
+          
+
         </ul>
-        <br />
+        
+
         <ol
           start="2"
         >
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Calcolo dell'energia cinetica:
               </strong>
-              <br />
-               L'energia cinetica del veicolo al momento dell'impatto è data dalla formula:
-              <br />
-               \\[
-              <br />
-               E_k = \\frac{1}{2} m v^2
-              <br />
-               \\]
-              <br />
-               dove 
+              
+ L'energia cinetica del veicolo al momento dell'impatto è data dalla formula:
+ $$
+ E_k = \\frac{1}{2} m v^2
+ $$
+ dove 
               <span
                 class="katex"
               >
@@ -3050,16 +4666,18 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
               </span>
                è la velocità del veicolo.
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Calcolo della forza d'impatto:
               </strong>
-              <br />
-               La forza d'impatto può essere calcolata considerando la decelerazione del veicolo e il tempo di contatto con la barriera. Una formula semplificata per la forza d'impatto 
+              
+ La forza d'impatto può essere calcolata considerando la decelerazione del veicolo e il tempo di contatto con la barriera. Una formula semplificata per la forza d'impatto 
               <span
                 class="katex"
               >
@@ -3098,14 +4716,10 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                 </span>
               </span>
                è:
-              <br />
-               \\[
-              <br />
-               F = \\frac{m \\Delta v}{\\Delta t}
-              <br />
-               \\]
-              <br />
-               dove 
+ $$
+ F = \\frac{m \\Delta v}{\\Delta t}
+ $$
+ dove 
               <span
                 class="katex"
               >
@@ -3202,33 +4816,40 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
               </span>
                è il tempo di contatto.
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Considerazioni sulla barriera:
               </strong>
-              <br />
-               Le barriere metalliche sono progettate per assorbire energia e ridurre la forza trasmessa ai veicoli e agli occupanti. La capacità di assorbimento dell'energia della barriera dipende dal materiale, dalla geometria e dalla costruzione della barriera stessa.
+              
+ Le barriere metalliche sono progettate per assorbire energia e ridurre la forza trasmessa ai veicoli e agli occupanti. La capacità di assorbimento dell'energia della barriera dipende dal materiale, dalla geometria e dalla costruzione della barriera stessa.
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
           <li>
             <p>
               <strong>
                 Normative e standard:
               </strong>
-              <br />
-               È importante seguire le normative e gli standard specifici per la progettazione e il calcolo delle barriere di sicurezza. Questi possono variare a seconda del paese e dell'applicazione specifica (ad esempio, autostrade, ponti, ecc.).
+              
+ È importante seguire le normative e gli standard specifici per la progettazione e il calcolo delle barriere di sicurezza. Questi possono variare a seconda del paese e dell'applicazione specifica (ad esempio, autostrade, ponti, ecc.).
             </p>
-            <br />
+            
+
           </li>
-          <br />
+          
+
         </ol>
-        <br />
+        
+
         <p>
           Per calcoli più dettagliati e specifici, si consiglia di consultare le normative tecniche locali e di utilizzare software di simulazione specializzati che possono prendere in considerazione tutti i fattori rilevanti.
         </p>
@@ -3335,35 +4956,696 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
         <p>
           Per calcolare l'ipotenusa di un triangolo rettangolo, puoi utilizzare il teorema di Pitagora. La formula è:
         </p>
-        <br />
+        
+
         <p>
-          \\[ c = \\sqrt{a^2 + b^2} \\]
+          \\
+          <span
+            class="katex-display"
+          >
+            <span
+              class="katex"
+            >
+              <span
+                class="katex-mathml"
+              >
+                <math
+                  display="block"
+                  xmlns="http://www.w3.org/1998/Math/MathML"
+                >
+                  <mrow>
+                    <mi>
+                      c
+                    </mi>
+                    <mo>
+                      =
+                    </mo>
+                    <mspace />
+                    <mi>
+                      s
+                    </mi>
+                    <mi>
+                      q
+                    </mi>
+                    <mi>
+                      r
+                    </mi>
+                    <mi>
+                      t
+                    </mi>
+                    <mrow>
+                      <msup>
+                        <mi>
+                          a
+                        </mi>
+                        <mn>
+                          2
+                        </mn>
+                      </msup>
+                      <mo>
+                        +
+                      </mo>
+                      <msup>
+                        <mi>
+                          b
+                        </mi>
+                        <mn>
+                          2
+                        </mn>
+                      </msup>
+                    </mrow>
+                    <mspace />
+                  </mrow>
+                  c = \\\\sqrt{a^2 + b^2} \\\\
+                </math>
+              </span>
+              <span
+                aria-hidden="true"
+                class="katex-html"
+              >
+                <span
+                  class="base"
+                >
+                  <span
+                    class="strut"
+                    style="height:0.4306em;"
+                  />
+                  <span
+                    class="mord mathnormal"
+                  >
+                    c
+                  </span>
+                  <span
+                    class="mspace"
+                    style="margin-right:0.2778em;"
+                  />
+                  <span
+                    class="mrel"
+                  >
+                    =
+                  </span>
+                </span>
+                <span
+                  class="mspace newline"
+                />
+                <span
+                  class="base"
+                >
+                  <span
+                    class="strut"
+                    style="height:1.0585em;vertical-align:-0.1944em;"
+                  />
+                  <span
+                    class="mord mathnormal"
+                  >
+                    s
+                  </span>
+                  <span
+                    class="mord mathnormal"
+                    style="margin-right:0.03588em;"
+                  >
+                    q
+                  </span>
+                  <span
+                    class="mord mathnormal"
+                    style="margin-right:0.02778em;"
+                  >
+                    r
+                  </span>
+                  <span
+                    class="mord mathnormal"
+                  >
+                    t
+                  </span>
+                  <span
+                    class="mord"
+                  >
+                    <span
+                      class="mord"
+                    >
+                      <span
+                        class="mord mathnormal"
+                      >
+                        a
+                      </span>
+                      <span
+                        class="msupsub"
+                      >
+                        <span
+                          class="vlist-t"
+                        >
+                          <span
+                            class="vlist-r"
+                          >
+                            <span
+                              class="vlist"
+                              style="height:0.8641em;"
+                            >
+                              <span
+                                style="top:-3.113em;margin-right:0.05em;"
+                              >
+                                <span
+                                  class="pstrut"
+                                  style="height:2.7em;"
+                                />
+                                <span
+                                  class="sizing reset-size6 size3 mtight"
+                                >
+                                  <span
+                                    class="mord mtight"
+                                  >
+                                    2
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      class="mspace"
+                      style="margin-right:0.2222em;"
+                    />
+                    <span
+                      class="mbin"
+                    >
+                      +
+                    </span>
+                    <span
+                      class="mspace"
+                      style="margin-right:0.2222em;"
+                    />
+                    <span
+                      class="mord"
+                    >
+                      <span
+                        class="mord mathnormal"
+                      >
+                        b
+                      </span>
+                      <span
+                        class="msupsub"
+                      >
+                        <span
+                          class="vlist-t"
+                        >
+                          <span
+                            class="vlist-r"
+                          >
+                            <span
+                              class="vlist"
+                              style="height:0.8641em;"
+                            >
+                              <span
+                                style="top:-3.113em;margin-right:0.05em;"
+                              >
+                                <span
+                                  class="pstrut"
+                                  style="height:2.7em;"
+                                />
+                                <span
+                                  class="sizing reset-size6 size3 mtight"
+                                >
+                                  <span
+                                    class="mord mtight"
+                                  >
+                                    2
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                </span>
+                <span
+                  class="mspace newline"
+                />
+              </span>
+            </span>
+          </span>
         </p>
-        <br />
+        
+
         <p>
           Dove:
         </p>
-        <br />
+        
+
         <ul>
-          <br />
+          
+
           <li>
             \\( c \\) è l'ipotenusa,
           </li>
-          <br />
+          
+
           <li>
             \\( a \\) e \\( b \\) sono i due cateti del triangolo.
           </li>
-          <br />
+          
+
         </ul>
-        <br />
+        
+
         <p>
           Ad esempio, se hai un triangolo con i cateti di lunghezza 3 e 4, l'ipotenusa sarà:
         </p>
-        <br />
+        
+
         <p>
-          \\[ c = \\sqrt{3^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5 \\]
+          \\
+          <span
+            class="katex-display"
+          >
+            <span
+              class="katex"
+            >
+              <span
+                class="katex-mathml"
+              >
+                <math
+                  display="block"
+                  xmlns="http://www.w3.org/1998/Math/MathML"
+                >
+                  <mrow>
+                    <mi>
+                      c
+                    </mi>
+                    <mo>
+                      =
+                    </mo>
+                    <mspace />
+                    <mi>
+                      s
+                    </mi>
+                    <mi>
+                      q
+                    </mi>
+                    <mi>
+                      r
+                    </mi>
+                    <mi>
+                      t
+                    </mi>
+                    <mrow>
+                      <msup>
+                        <mn>
+                          3
+                        </mn>
+                        <mn>
+                          2
+                        </mn>
+                      </msup>
+                      <mo>
+                        +
+                      </mo>
+                      <msup>
+                        <mn>
+                          4
+                        </mn>
+                        <mn>
+                          2
+                        </mn>
+                      </msup>
+                    </mrow>
+                    <mo>
+                      =
+                    </mo>
+                    <mspace />
+                    <mi>
+                      s
+                    </mi>
+                    <mi>
+                      q
+                    </mi>
+                    <mi>
+                      r
+                    </mi>
+                    <mi>
+                      t
+                    </mi>
+                    <mrow>
+                      <mn>
+                        9
+                      </mn>
+                      <mo>
+                        +
+                      </mo>
+                      <mn>
+                        16
+                      </mn>
+                    </mrow>
+                    <mo>
+                      =
+                    </mo>
+                    <mspace />
+                    <mi>
+                      s
+                    </mi>
+                    <mi>
+                      q
+                    </mi>
+                    <mi>
+                      r
+                    </mi>
+                    <mi>
+                      t
+                    </mi>
+                    <mn>
+                      25
+                    </mn>
+                    <mo>
+                      =
+                    </mo>
+                    <mn>
+                      5
+                    </mn>
+                    <mspace />
+                  </mrow>
+                  c = \\\\sqrt{3^2 + 4^2} = \\\\sqrt{9 + 16} = \\\\sqrt{25} = 5 \\\\
+                </math>
+              </span>
+              <span
+                aria-hidden="true"
+                class="katex-html"
+              >
+                <span
+                  class="base"
+                >
+                  <span
+                    class="strut"
+                    style="height:0.4306em;"
+                  />
+                  <span
+                    class="mord mathnormal"
+                  >
+                    c
+                  </span>
+                  <span
+                    class="mspace"
+                    style="margin-right:0.2778em;"
+                  />
+                  <span
+                    class="mrel"
+                  >
+                    =
+                  </span>
+                </span>
+                <span
+                  class="mspace newline"
+                />
+                <span
+                  class="base"
+                >
+                  <span
+                    class="strut"
+                    style="height:1.0585em;vertical-align:-0.1944em;"
+                  />
+                  <span
+                    class="mord mathnormal"
+                  >
+                    s
+                  </span>
+                  <span
+                    class="mord mathnormal"
+                    style="margin-right:0.03588em;"
+                  >
+                    q
+                  </span>
+                  <span
+                    class="mord mathnormal"
+                    style="margin-right:0.02778em;"
+                  >
+                    r
+                  </span>
+                  <span
+                    class="mord mathnormal"
+                  >
+                    t
+                  </span>
+                  <span
+                    class="mord"
+                  >
+                    <span
+                      class="mord"
+                    >
+                      <span
+                        class="mord"
+                      >
+                        3
+                      </span>
+                      <span
+                        class="msupsub"
+                      >
+                        <span
+                          class="vlist-t"
+                        >
+                          <span
+                            class="vlist-r"
+                          >
+                            <span
+                              class="vlist"
+                              style="height:0.8641em;"
+                            >
+                              <span
+                                style="top:-3.113em;margin-right:0.05em;"
+                              >
+                                <span
+                                  class="pstrut"
+                                  style="height:2.7em;"
+                                />
+                                <span
+                                  class="sizing reset-size6 size3 mtight"
+                                >
+                                  <span
+                                    class="mord mtight"
+                                  >
+                                    2
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                        </span>
+                      </span>
+                    </span>
+                    <span
+                      class="mspace"
+                      style="margin-right:0.2222em;"
+                    />
+                    <span
+                      class="mbin"
+                    >
+                      +
+                    </span>
+                    <span
+                      class="mspace"
+                      style="margin-right:0.2222em;"
+                    />
+                    <span
+                      class="mord"
+                    >
+                      <span
+                        class="mord"
+                      >
+                        4
+                      </span>
+                      <span
+                        class="msupsub"
+                      >
+                        <span
+                          class="vlist-t"
+                        >
+                          <span
+                            class="vlist-r"
+                          >
+                            <span
+                              class="vlist"
+                              style="height:0.8641em;"
+                            >
+                              <span
+                                style="top:-3.113em;margin-right:0.05em;"
+                              >
+                                <span
+                                  class="pstrut"
+                                  style="height:2.7em;"
+                                />
+                                <span
+                                  class="sizing reset-size6 size3 mtight"
+                                >
+                                  <span
+                                    class="mord mtight"
+                                  >
+                                    2
+                                  </span>
+                                </span>
+                              </span>
+                            </span>
+                          </span>
+                        </span>
+                      </span>
+                    </span>
+                  </span>
+                  <span
+                    class="mspace"
+                    style="margin-right:0.2778em;"
+                  />
+                  <span
+                    class="mrel"
+                  >
+                    =
+                  </span>
+                </span>
+                <span
+                  class="mspace newline"
+                />
+                <span
+                  class="base"
+                >
+                  <span
+                    class="strut"
+                    style="height:0.8389em;vertical-align:-0.1944em;"
+                  />
+                  <span
+                    class="mord mathnormal"
+                  >
+                    s
+                  </span>
+                  <span
+                    class="mord mathnormal"
+                    style="margin-right:0.03588em;"
+                  >
+                    q
+                  </span>
+                  <span
+                    class="mord mathnormal"
+                    style="margin-right:0.02778em;"
+                  >
+                    r
+                  </span>
+                  <span
+                    class="mord mathnormal"
+                  >
+                    t
+                  </span>
+                  <span
+                    class="mord"
+                  >
+                    <span
+                      class="mord"
+                    >
+                      9
+                    </span>
+                    <span
+                      class="mspace"
+                      style="margin-right:0.2222em;"
+                    />
+                    <span
+                      class="mbin"
+                    >
+                      +
+                    </span>
+                    <span
+                      class="mspace"
+                      style="margin-right:0.2222em;"
+                    />
+                    <span
+                      class="mord"
+                    >
+                      16
+                    </span>
+                  </span>
+                  <span
+                    class="mspace"
+                    style="margin-right:0.2778em;"
+                  />
+                  <span
+                    class="mrel"
+                  >
+                    =
+                  </span>
+                </span>
+                <span
+                  class="mspace newline"
+                />
+                <span
+                  class="base"
+                >
+                  <span
+                    class="strut"
+                    style="height:0.8389em;vertical-align:-0.1944em;"
+                  />
+                  <span
+                    class="mord mathnormal"
+                  >
+                    s
+                  </span>
+                  <span
+                    class="mord mathnormal"
+                    style="margin-right:0.03588em;"
+                  >
+                    q
+                  </span>
+                  <span
+                    class="mord mathnormal"
+                    style="margin-right:0.02778em;"
+                  >
+                    r
+                  </span>
+                  <span
+                    class="mord mathnormal"
+                  >
+                    t
+                  </span>
+                  <span
+                    class="mord"
+                  >
+                    <span
+                      class="mord"
+                    >
+                      25
+                    </span>
+                  </span>
+                  <span
+                    class="mspace"
+                    style="margin-right:0.2778em;"
+                  />
+                  <span
+                    class="mrel"
+                  >
+                    =
+                  </span>
+                  <span
+                    class="mspace"
+                    style="margin-right:0.2778em;"
+                  />
+                </span>
+                <span
+                  class="base"
+                >
+                  <span
+                    class="strut"
+                    style="height:0.6444em;"
+                  />
+                  <span
+                    class="mord"
+                  >
+                    5
+                  </span>
+                </span>
+                <span
+                  class="mspace newline"
+                />
+              </span>
+            </span>
+          </span>
         </p>
-        <br />
+        
+
         <p>
           Se hai altre domande o dubbi, sono qui per aiutarti!
         </p>
