@@ -13,6 +13,7 @@ import {
   MemoriSession,
   User,
   ExpertReference,
+  ResponseSpec,
 } from '@memori.ai/memori-api-client/src/types';
 import {
   SpeakerAudioDestination,
@@ -31,11 +32,7 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import {
-  AudioContext,
-  IAudioBufferSourceNode,
-  IAudioContext,
-} from 'standardized-audio-context';
+import { AudioContext, IAudioContext } from 'standardized-audio-context';
 import * as speechSdk from 'microsoft-cognitiveservices-speech-sdk';
 import cx from 'classnames';
 import { DateTime } from 'luxon';
@@ -54,12 +51,16 @@ import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import KnownFacts from '../KnownFacts/KnownFacts';
 import ExpertsDrawer from '../ExpertsDrawer/ExpertsDrawer';
 import LoginDrawer from '../LoginDrawer/LoginDrawer';
+import Button from '../ui/Button';
+import CloseIcon from '../icons/Close';
 
 // Layout
 import FullPageLayout from '../layouts/FullPage';
 import TotemLayout from '../layouts/Totem';
 import ChatLayout from '../layouts/Chat';
 import WebsiteAssistantLayout from '../layouts/WebsiteAssistant';
+import HiddenChatLayout from '../layouts/HiddenChat';
+import ZoomedFullBodyLayout from '../layouts/ZoomedFullBody';
 
 // Helpers / Utils
 import { getTranslation } from '../../helpers/translations';
@@ -85,8 +86,6 @@ import {
 } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
 import { getCredits } from '../../helpers/credits';
-import HiddenChatLayout from '../layouts/HiddenChat';
-import ZoomedFullBodyLayout from '../layouts/ZoomedFullBody';
 import { useViseme } from '../../context/visemeContext';
 
 // Widget utilities and helpers
@@ -1103,10 +1102,14 @@ const MemoriWidget = ({
    */
   const fetchSession = async (
     params: OpenSession
-  ): Promise<{
-    dialogState: DialogState;
-    sessionID: string;
-  } | void> => {
+  ): Promise<
+    | (ResponseSpec & {
+        dialogState?: DialogState;
+        sessionID: string;
+      })
+    | undefined
+    | void
+  > => {
     let storageBirthDate = getLocalConfig<string | undefined>(
       'birthDate',
       undefined
@@ -1186,7 +1189,7 @@ const MemoriWidget = ({
         return {
           dialogState: session.currentState,
           sessionID: session.sessionID,
-        } as { dialogState: DialogState; sessionID: string };
+        } as any;
       }
       // Handle age restriction error
       else if (
@@ -1200,12 +1203,31 @@ const MemoriWidget = ({
       else if (session?.resultCode === 403) {
         setMemoriPwd(undefined);
         setAuthModalState('password');
+        return session;
       }
       // Handle other errors
       else {
         console.warn(session);
-        toast.error(t(getErrori18nKey(session?.resultCode)));
+        toast.error(
+          tst => (
+            <div>
+              <p>{t(getErrori18nKey(session?.resultCode))}</p>
+              <Button
+                outlined
+                padded={false}
+                onClick={() => toast.dismiss(tst.id)}
+                icon={<CloseIcon />}
+              >
+                {t('close')}
+              </Button>
+            </div>
+          ),
+          {
+            duration: Infinity,
+          }
+        );
         setGotErrorInOpening(true);
+        return session;
       }
     } catch (err) {
       console.error(err);
@@ -2844,9 +2866,11 @@ const MemoriWidget = ({
             .finally(() => {
               setHasUserActivatedSpeak(true);
             });
-        } else {
+        } else if (session?.resultCode === 0) {
           // console.log('[CLICK_START] Retrying with session:', session);
-          await onClickStart(session || undefined);
+          await onClickStart((session as any) || undefined);
+        } else {
+          setLoading(false);
         }
 
         return;
