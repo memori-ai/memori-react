@@ -1,5 +1,24 @@
 
 
+## [7.17.2](https://github.com/memori-ai/memori-react/compare/v7.17.1...v7.17.2) (2025-02-25)
+
+
+### Bug Fixes
+
+* double backslashes for LaTeX parsing ([b81a2a8](https://github.com/memori-ai/memori-react/commit/b81a2a8e5d1dfcda27c9a7e405b4befd30ac63d3))
+* improve fullscreen handling ([5d0f350](https://github.com/memori-ai/memori-react/commit/5d0f3500f9d00737b778a9f9de2ccffb7d5440b0))
+* prevent start session loops on error ([13032a9](https://github.com/memori-ai/memori-react/commit/13032a9f2c05366ceeb21501ae75c17752f7797d))
+
+
+### Changes
+
+* improve markdown rendering and math formatting in ChatBubble ([df93671](https://github.com/memori-ai/memori-react/commit/df93671a953309db0b100c4ccbbf2752b1be5a64))
+
+
+### Maintenance
+
+* update api client ([6bacc0b](https://github.com/memori-ai/memori-react/commit/6bacc0bd11fb2c7db40d39bf19be6175cedf2770))
+
 ## [7.17.1](https://github.com/memori-ai/memori-react/compare/v7.17.0...v7.17.1) (2025-02-20)
 
 
