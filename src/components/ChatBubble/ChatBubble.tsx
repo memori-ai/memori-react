@@ -65,61 +65,58 @@ marked.use(markedExtendedTables());
 // Update the renderMsg function to properly handle math formatting
 const renderMsg = (text: string, useMathFormatting = false): string => {
   try {
-    // First parse the markdown content
-    let parsedText = marked
-      .parse(
-        text
-          .trim()
-          .replaceAll(
-            /\[([^\]]+)\]\(([^\)]+)\)/g,
-            '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-          )
-          .replaceAll(/```markdown([^```]+)```/g, '$1')
-          .replaceAll('($', '( $')
-          .replaceAll(':$', ': $')
-          .replaceAll('\frac', '\\frac')
-          .replaceAll('\beta', '\\beta')
-          .replaceAll('cdot', '\\cdot')
+    // Preprocessing del testo per gestire i delimitatori LaTeX
+    let preprocessedText = text
+      .trim()
+      .replaceAll(
+        /\[([^\]]+)\]\(([^\)]+)\)/g,
+        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
       )
-      .toString()
-      .trim();
-
-    // If math formatting is enabled, process the square brackets
+      .replaceAll(/```markdown([^```]+)```/g, '$1')
+      .replaceAll('($', '( $')
+      .replaceAll(':$', ': $')
+      .replaceAll('\frac', '\\frac')
+      .replaceAll('\beta', '\\beta')
+      .replaceAll('cdot', '\\cdot');
+    
+    // Correzione dei delimitatori LaTeX inconsistenti
     if (useMathFormatting) {
-      // Convert square bracket notation to proper LaTeX before HTML processing
-      const preProcessed = text.replace(
-        /\[([^\]]+)\]/g,
-        (_: string, content: string) => {
+      // Normalizza tutti i delimitatori LaTeX per equazioni su linea separata
+      // Da \\[ ... \\] o \\[ ... ] a $$ ... $$
+      preprocessedText = preprocessedText.replace(
+        /\\+\[(.*?)\\*\]/gs,
+        (_, content) => {
           return `$$${content}$$`;
         }
       );
-
-      // Re-parse with the proper math delimiters
-      parsedText = marked
-        .parse(
-          preProcessed
-            .trim()
-            .replaceAll(
-              /\[([^\]]+)\]\(([^\)]+)\)/g,
-              '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-            )
-            .replaceAll(/```markdown([^```]+)```/g, '$1')
-            .replaceAll('($', '( $')
-            .replaceAll(':$', ': $')
-            .replaceAll('\frac', '\\frac')
-            .replaceAll('\beta', '\\beta')
-            .replaceAll('cdot', '\\cdot')
-        )
-        .toString()
-        .trim();
+      
+      // Gestione dei delimitatori [ ... ] che dovrebbero essere equazioni
+      preprocessedText = preprocessedText.replace(
+        /\[([^[\]]+?)\]/g,
+        (match, content) => {
+          // Verifica se sembra una formula matematica
+          if (/[\\+a-z0-9_{}^=\-\+\*\/]+/i.test(content) && 
+              !match.startsWith('[http') && 
+              !match.includes('](')) {
+            return `$$${content}$$`;
+          }
+          return match; // Mantieni invariati i link e altre strutture
+        }
+      );
     }
 
-    // Sanitize the HTML
+    // Ora procedi con il parsing markdown
+    let parsedText = marked
+      .parse(preprocessedText)
+      .toString()
+      .trim();
+
+    // Sanitizza l'HTML
     parsedText = DOMPurify.sanitize(parsedText, {
       ADD_ATTR: ['target'],
     });
 
-    // Clean up the final output
+    // Pulizia del testo finale
     const finalText = parsedText
       .replace(/(<br>)+/g, '<br>')
       .replace(/<p><\/p>/g, '<br>')
