@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import cx from 'classnames';
 import {
   ExpertReference,
@@ -209,7 +209,7 @@ const ChatBubble: React.FC<Props> = ({
     : stripHTML(stripOutputTags(renderedText));
 
   // Render MathJax whenever message content changes
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (typeof window !== 'undefined' && !message.fromUser) {
       // Allow a short delay for the DOM to update
       const timer = setTimeout(() => {
