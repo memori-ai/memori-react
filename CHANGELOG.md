@@ -1,5 +1,25 @@
 
 
+## [7.18.0](https://github.com/memori-ai/memori-react/compare/v7.17.2...v7.18.0) (2025-02-26)
+
+
+### Features
+
+* enhance MathJax rendering and initialization in ChatBubble ([3fe76f5](https://github.com/memori-ai/memori-react/commit/3fe76f54d163ebe14b9c46ccf6f2cb80719b1de6))
+
+
+### Bug Fixes
+
+* add showSettings prop from integrationConfig ([d6fe636](https://github.com/memori-ai/memori-react/commit/d6fe6362f6f5e0ae8cf93501137fdee1e197c5c1))
+* ja zh lang labels ([cb16897](https://github.com/memori-ai/memori-react/commit/cb16897dd53af1de86a8b429f66a0e56277f7123))
+* revert ChatTextArea CSS for better responsiveness and styling ([69a3199](https://github.com/memori-ai/memori-react/commit/69a3199916d8a1493b5b57e435c240efd08b677e))
+
+
+### Changes
+
+* expand textarea more ([c1e09ce](https://github.com/memori-ai/memori-react/commit/c1e09ce439c9ce314e37102d727e5ccc201d53f1))
+* use useLayoutEffect for MathJax rendering ([e75676d](https://github.com/memori-ai/memori-react/commit/e75676d2a73f1524ec5d2dd04f7ab91cb6e8d0b5))
+
 ## [7.17.2](https://github.com/memori-ai/memori-react/compare/v7.17.1...v7.17.2) (2025-02-25)
 
 
