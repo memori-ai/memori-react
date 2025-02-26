@@ -3319,7 +3319,7 @@ const MemoriWidget = ({
         source.connect(audioContext.destination);
       }
     },
-    showSettings,
+    showSettings: showSettings ?? integrationConfig?.showSettings ?? true,
     hasUserActivatedSpeak,
     showReload: selectedLayout === 'TOTEM',
     showClear,
