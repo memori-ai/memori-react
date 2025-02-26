@@ -24,7 +24,7 @@
 }
 
 .memori-chat-textarea--expanded .memori-chat-textarea--inner {
-    max-height: 200px;
+    max-height: 300px;
 }
 
 .memori-chat-textarea--disabled .memori-chat-textarea--inner {
