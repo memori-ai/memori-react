@@ -1,35 +1,40 @@
 .memori-chat-textarea {
     position: relative;
-    min-height: 40px;
+    height: 40px;
     box-sizing: border-box;
     flex: 1 0 auto;
     margin-right: 0.5rem;
-  }
-  
-  .memori-chat-textarea--inner {
-    position: relative; /* Changed from absolute */
+    /* margin-left: 0.5rem; */
+}
+
+.memori-chat-textarea--inner {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
     display: flex;
     overflow: hidden;
-    min-height: 40px;
+    height: 1000px;
+    max-height: 40px;
     box-sizing: border-box;
     border: 1px solid lightgray;
     border-radius: 10px;
     background: #fff;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .memori-chat-textarea--expanded .memori-chat-textarea--inner {
-    min-height: 200px;
-  }
-  
-  .memori-chat-textarea--disabled .memori-chat-textarea--inner {
+    transition: max-height 0.2s ease-in-out;
+}
+
+.memori-chat-textarea--expanded .memori-chat-textarea--inner {
+    max-height: 200px;
+}
+
+.memori-chat-textarea--disabled .memori-chat-textarea--inner {
     background: #e3e3e3;
     opacity: 0.8;
-  }
-  
-  textarea.memori-chat-textarea--input {
+}
+
+textarea.memori-chat-textarea--input {
     width: 100%;
-    min-height: 40px;
+    height: 100%;
     box-sizing: border-box;
     padding: 6.5px 11px;
     border: none;
@@ -37,51 +42,51 @@
     color: #000;
     font-family: var(--memori-font-family);
     resize: none;
-    transition: min-height 0.2s ease-in-out;
-  }
-  
-  .memori-chat-textarea--expanded textarea.memori-chat-textarea--input {
-    min-height: 200px;
-  }
-  
-  textarea.memori-chat-textarea--input:focus {
+}
+
+textarea.memori-chat-textarea--input:focus {
     outline: none;
-  }
-  
-  .memori-chat-textarea--disabled textarea.memori-chat-textarea--input {
+}
+
+.memori-chat-textarea--disabled textarea.memori-chat-textarea--input {
     cursor: not-allowed;
-  }
-  
-  .memori-chat-textarea--expand {
-    flex: 0 0 auto;
+}
+
+.memori-chat-textarea--expand {
+    flex-grow: 0;
     margin: 0.25rem;
-  }
-  
-  button.memori-chat-textarea--expand-button {
+}
+
+button.memori-chat-textarea--expand-button {
     padding: 0.25rem 0.5rem;
     color: #000;
     opacity: 0.6;
     transition: all 0.2s ease-in-out;
-  }
-  
-  button.memori-chat-textarea--expand-button:hover,
-  button.memori-chat-textarea--expand-button:focus {
+}
+
+button.memori-chat-textarea--expand-button:hover,
+button.memori-chat-textarea--expand-button:focus {
     color: #000;
     opacity: 1;
-  }
-  
-  .memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:hover,
-  .memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:focus,
-  .memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:focus-within {
+}
+
+.memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:hover,
+.memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:focus,
+.memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:focus-within {
     border-color: var(--memori-primary);
-    box-shadow: 0 0.2rem 0.33rem rgba(181, 182, 196, 0.25);
-  }
-  
-  .memori-chat-textarea:not(.memori-chat-textarea--disabled)
-  .memori-chat-textarea--inner:focus
-  .memori-chat-textarea--expand-button,
-  .memori-chat-textarea:not(.memori-chat-textarea--disabled)
-  .memori-chat-textarea--inner:focus-within
-  .memori-chat-textarea--expand-button {
+    box-shadow: none;
+    outline: none;
+}
+
+.memori-chat-textarea:not(.memori-chat-textarea--disabled)
+    .memori-chat-textarea--inner:focus
+    .memori-chat-textarea--expand-button,
+.memori-chat-textarea:not(.memori-chat-textarea--disabled)
+    .memori-chat-textarea--inner:focus-within
+    .memori-chat-textarea--expand-button {
     opacity: 1;
-  }
+}
+
+.memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea-inner:focus-within {
+    box-shadow: 0 0.2rem 0.33rem #b5b6c4;
+}
