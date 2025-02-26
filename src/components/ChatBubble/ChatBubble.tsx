@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import {
   ExpertReference,
@@ -30,6 +30,19 @@ import markedLinkifyIt from 'marked-linkify-it';
 import markedKatex from 'marked-katex-extension';
 import markedExtendedTables from '../../helpers/markedExtendedTables';
 
+// Always import and load MathJax
+import { installMathJax } from '../../helpers/utils';
+
+// Import MathJax types
+declare global {
+  interface Window {
+    MathJax?: {
+      typesetPromise?: (elements: string[]) => Promise<void>;
+    };
+  }
+}
+
+// Always configure marked with necessary extensions
 marked.use({
   async: false,
   gfm: true,
@@ -59,6 +72,7 @@ marked.use({
     },
   },
 });
+
 marked.use(markedLinkifyIt());
 marked.use(markedExtendedTables());
 
@@ -78,31 +92,31 @@ const renderMsg = (text: string, useMathFormatting = false): string => {
       .replaceAll('\frac', '\\frac')
       .replaceAll('\beta', '\\beta')
       .replaceAll('cdot', '\\cdot');
-    
+
     // Correzione dei delimitatori LaTeX inconsistenti
     if (useMathFormatting) {
       // Normalizza tutti i delimitatori LaTeX per equazioni su linea separata
       // Da \\[ ... \\] o \\[ ... ] a $$ ... $$
-      preprocessedText = preprocessedText.replace(
-        /\\+\[(.*?)\\*\]/gs,
-        (_, content) => {
-          return `$$${content}$$`;
-        }
-      );
-      
+    preprocessedText = preprocessedText.replace(
+      /\\+\[(.*?)\\*\]/gs,
+      (_, content) => {
+        return `$$${content}$$`;
+      }
+    );
+
       // Gestione dei delimitatori [ ... ] che dovrebbero essere equazioni
-      preprocessedText = preprocessedText.replace(
-        /\[([^[\]]+?)\]/g,
-        (match, content) => {
+    preprocessedText = preprocessedText.replace(
+      /\[([^[\]]+?)\]/g,
+      (match, content) => {
           // Verifica se sembra una formula matematica
           if (/[\\+a-z0-9_{}^=\-\+\*\/]+/i.test(content) && 
-              !match.startsWith('[http') && 
+          !match.startsWith('[http') &&
               !match.includes('](')) {
-            return `$$${content}$$`;
-          }
-          return match; // Mantieni invariati i link e altre strutture
+          return `$$${content}$$`;
         }
-      );
+          return match; // Mantieni invariati i link e altre strutture
+      }
+    );
     }
 
     // Ora procedi con il parsing markdown
@@ -111,12 +125,12 @@ const renderMsg = (text: string, useMathFormatting = false): string => {
       .toString()
       .trim();
 
-    // Sanitizza l'HTML
+    // Sanitize HTML
     parsedText = DOMPurify.sanitize(parsedText, {
       ADD_ATTR: ['target'],
     });
 
-    // Pulizia del testo finale
+    // Clean up final text
     const finalText = parsedText
       .replace(/(<br>)+/g, '<br>')
       .replace(/<p><\/p>/g, '<br>')
@@ -172,6 +186,13 @@ const ChatBubble: React.FC<Props> = ({
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
 
+  // Initialize MathJax on component mount
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !window.MathJax) {
+      installMathJax();
+    }
+  }, []);
+
   if (useMathFormatting) {
     marked.use(
       markedKatex({
@@ -182,26 +203,37 @@ const ChatBubble: React.FC<Props> = ({
   }
 
   const text = message.translatedText || message.text;
-
   const renderedText = renderMsg(text, useMathFormatting);
-
   const plainText = message.fromUser
     ? text
     : stripHTML(stripOutputTags(renderedText));
 
-  useLayoutEffect(() => {
-    if (
-      typeof window !== 'undefined' &&
-      !message.fromUser &&
-      useMathFormatting
-    ) {
-      // Add type declaration for MathJax
-      const mathJax = (window as any).MathJax;
-      if (mathJax?.typesetPromise) {
-        mathJax.typesetPromise(['.memori-chat--bubble-content']);
-      }
+  // Render MathJax whenever message content changes
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !message.fromUser) {
+      // Allow a short delay for the DOM to update
+      const timer = setTimeout(() => {
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          try {
+            const elements = document.querySelectorAll(
+              '.memori-chat--bubble-content'
+            );
+            if (elements.length > 0) {
+              window.MathJax.typesetPromise([
+                '.memori-chat--bubble-content',
+              ]).catch(err =>
+                console.error('MathJax typesetting failed:', err)
+              );
+            }
+          } catch (error) {
+            console.error('Error during MathJax typesetting:', error);
+          }
+        }
+      }, 100);
+
+      return () => clearTimeout(timer);
     }
-  }, [message.text, message.fromUser, useMathFormatting]);
+  }, [message.text, message.fromUser, renderedText]);
 
   return (
     <>
