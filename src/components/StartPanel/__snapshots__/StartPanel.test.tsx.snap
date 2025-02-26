@@ -1616,13 +1616,13 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
           </option>
           <option
             aria-label="中文"
-            value="JA"
+            value="ZH"
           >
             中文
           </option>
           <option
             aria-label="日本語"
-            value="ZH"
+            value="JA"
           >
             日本語
           </option>

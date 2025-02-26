@@ -11,8 +11,8 @@ export const chatLanguages = [
   { value: 'FI', label: 'Suomi' },
   { value: 'EL', label: 'Ελληνικά' },
   { value: 'AR', label: 'العربية' },
-  { value: 'JA', label: '中文' },
-  { value: 'ZH', label: '日本語' },
+  { value: 'ZH', label: '中文' },
+  { value: 'JA', label: '日本語' },
 ];
 
 export const uiLanguages = ['en', 'it', 'fr', 'es', 'de'];
