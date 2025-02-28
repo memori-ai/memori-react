@@ -429,7 +429,7 @@ const MemoriWidget = ({
   showInputs = true,
   showDates = false,
   showContextPerLine = false,
-  showSettings = true,
+  showSettings,
   showTypingText = false,
   showClear = false,
   showLogin = false,
