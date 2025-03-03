@@ -142,26 +142,38 @@ export default function ContainerAvatarView({
           setEnablePositionControls={setEnablePositionControls}
         />
       )}
-      <Canvas style={style || defaultStyles.fullBody} shadows>
+      <Canvas 
+        style={style || defaultStyles.fullBody}
+        shadows={true}
+        dpr={[1, 2]} // Optimize pixel ratio
+        gl={{
+          antialias: true,
+          alpha: true,
+          powerPreference: "high-performance",
+          stencil: false
+        }}
+      >
         <PerspectiveCamera
           makeDefault
           position={[0, 0, cameraZ]}
           fov={getCameraSettings(halfBody, isZoomed || false).fov}
+          near={0.1}
+          far={1000}
         />
 
         {rotateAvatar && (
           <OrbitControls
-            enablePan={false}
+            enablePan={false} 
             enableZoom={false}
             target={[0, 0, 0]}
+            enableDamping
+            dampingFactor={0.05}
           />
         )}
 
         <Suspense fallback={fallback || <Loader fallbackImg={fallbackImg} />}>
-          <Lights 
+          <Lights />
           
-          />
-
           <AvatarView
             url={url}
             sex={sex}
