@@ -60,10 +60,10 @@ const ConfirmDialog: FC<{
                 {message}
               </Dialog.Description>
               <div className="memori-confirm-dialog--actions">
-                <Button outlined onClick={onClose}>
+                <Button  onClick={onClose}>
                   {cancelText}
                 </Button>
-                <Button onClick={onConfirm}>
+                <Button primary onClick={onConfirm}>
                   {confirmText}
                 </Button>
               </div>
@@ -167,10 +167,10 @@ const Drawer: FC<Props> = ({
         isOpen={confirmDialogOpen}
         onClose={() => setConfirmDialogOpen(false)}
         onConfirm={handleConfirmUnsavedChanges}
-        title={t('confirmDialog.title', { ns: 'common' })}
-        message={t('confirmDialog.message', { ns: 'common' })}
-        confirmText={t('confirm', { ns: 'common' })}
-        cancelText={t('cancel', { ns: 'common' })}
+        title={t('confirmDialog.title')}
+        message={t('confirmDialog.message')}
+        confirmText={t('confirm')}
+        cancelText={t('cancel')}
       />
       
       <Transition appear show={open} as={React.Fragment}>
