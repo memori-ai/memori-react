@@ -73,6 +73,12 @@
   "deepThoughtPreDisclaimerUnlogged": "Melden Sie sich an, um Deep Thought zu aktivieren.",
   "deepThoughtPreDisclaimerNotAllowed": "Deep Thought ist deaktiviert, da Sie der Nutzung nicht zugestimmt haben. Sie können dies jederzeit in Ihren Kontoeinstellungen ändern.",
   "notEnoughCredits": "Der Autor dieses Zwillings verfügt nicht über genügend Credits, um Ihre Frage zu beantworten.",
+  "confirmDialog": {
+    "title": "Bestätigung",
+    "message": "Sind Sie sicher, dass Sie diese Aktion ausführen möchten?",
+    "cancel": "Abbrechen",
+    "confirm": "Bestätigen"
+  },
   "knownFacts": {
     "title": "Bekannte Fakten",
     "description": "Einzelheiten zu den Informationen, die zwischen Ihnen und geteilt werden {{memoriName}}",

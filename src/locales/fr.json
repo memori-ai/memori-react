@@ -72,6 +72,12 @@
   "deepThoughtPreDisclaimerUnlogged": "Connectez-vous pour activer Deep Thought.",
   "deepThoughtPreDisclaimerNotAllowed": "Deep Thought est désactivé car vous n'avez pas consenti à son utilisation, vous pouvez le modifier à tout moment dans les paramètres de votre compte.",
   "notEnoughCredits": "L'auteur de ce Agent n'a pas suffisamment de crédits pour répondre à votre question.",
+  "confirmDialog": {
+    "title": "Confirmation",
+    "message": "Êtes-vous sûr de vouloir fermer cette fenêtre ?",
+    "cancel": "Annuler",
+    "confirm": "Confirmer"
+  },
   "knownFacts": {
     "title": "Faits connus",
     "description": "Détails des informations partagées entre vous et {{memoriName}}",
