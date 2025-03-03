@@ -95,7 +95,7 @@ const Drawer: FC<Props> = ({
 }: Props) => {
   const [originalData, setOriginalData] = useState<any>(null);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
-  const { t } = useTranslation(['admin', 'common']);
+  const { t } = useTranslation();
   
   // Track if the drawer has been opened to handle data initialization correctly
   const drawerOpenedRef = useRef(false);
@@ -169,8 +169,8 @@ const Drawer: FC<Props> = ({
         onConfirm={handleConfirmUnsavedChanges}
         title={t('confirmDialog.title', { ns: 'common' })}
         message={t('confirmDialog.message', { ns: 'common' })}
-        confirmText={t('confirmDialog.confirm', { ns: 'common' })}
-        cancelText={t('confirmDialog.cancel', { ns: 'common' })}
+        confirmText={t('confirm', { ns: 'common' })}
+        cancelText={t('cancel', { ns: 'common' })}
       />
       
       <Transition appear show={open} as={React.Fragment}>
