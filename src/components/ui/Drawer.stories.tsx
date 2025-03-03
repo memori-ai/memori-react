@@ -210,15 +210,13 @@ const ConfirmationDialogTemplate: Story<Props> = args => {
   const [isOpen, setIsOpen] = React.useState(!!args.open || false);
   const [data, setData] = React.useState({ id: 1, name: 'John Doe' });
   
-  // This will create a modified version for display purposes only
-  const [displayModified, setDisplayModified] = React.useState(false);
-  const modifiedData = { id: 1, name: 'Jane Smith' };
-
-  // Function to modify data (simulate user changes)
-  const handleModifyData = () => {
+  // Memoize this object to reduce rerenders
+  const modifiedData = React.useMemo(() => ({ id: 1, name: 'Jane Smith' }), []);
+  
+  // Optimize the handler
+  const handleModifyData = React.useCallback(() => {
     setData(modifiedData);
-    setDisplayModified(true);
-  };
+  }, [modifiedData]);
 
   return (
     <>
@@ -227,10 +225,10 @@ const ConfirmationDialogTemplate: Story<Props> = args => {
       <Drawer
         {...args}
         open={isOpen}
-        data={data}  // Pass the potentially modified data
+        data={data}
         onClose={() => setIsOpen(false)}
         footer={{
-          leftAction: displayModified ? (
+          leftAction: data.name === 'Jane Smith' ? (
             <span>Data has been modified</span>
           ) : (
             <Button onClick={handleModifyData}>
@@ -246,7 +244,7 @@ const ConfirmationDialogTemplate: Story<Props> = args => {
           
           <div style={{ marginTop: '20px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}>
             <p><strong>Current data:</strong> {JSON.stringify(data)}</p>
-            {displayModified && (
+            {data.name === 'Jane Smith' && (
               <p><strong>Original data:</strong> {JSON.stringify({ id: 1, name: 'John Doe' })}</p>
             )}
           </div>
@@ -254,7 +252,7 @@ const ConfirmationDialogTemplate: Story<Props> = args => {
           <div style={{ marginTop: '20px' }}>
             <p><strong>Instructions:</strong></p>
             <ol>
-              <li>Click the &quot;Modify Data&quot; button in the footer</li>
+              <li>Click the Modify Data button in the footer</li>
               <li>Then click the X button or Cancel to see the confirmation dialog</li>
             </ol>
           </div>

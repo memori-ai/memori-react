@@ -74,10 +74,8 @@
   "deepThoughtPreDisclaimerNotAllowed": "Pensiero Profondo è disabilitato poiché non hai acconsentito al suo utilizzo, puoi cambiare la tua scelta in qualsiasi momento nelle impostazioni del tuo account.",
   "notEnoughCredits": "L'autore di questo agente non ha abbastanza crediti per rispondere alla tua domanda.",
   "confirmDialog": {
-    "title": "Conferma",
-    "message": "Sei sicuro di voler chiudere questa finestra?",
-    "cancel": "Annulla",
-    "confirm": "Conferma"
+    "title": "Confermi di voler lasciare questa pagina?",
+    "message": "Le modifiche non salvate andranno perse."
   },
   "knownFacts": {
     "title": "Fatti noti",

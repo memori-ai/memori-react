@@ -74,10 +74,8 @@
   "deepThoughtPreDisclaimerNotAllowed": "Deep Thought está deshabilitado porque usted no dio su consentimiento para su uso; puede cambiar esto en cualquier momento en la configuración de su cuenta.",
   "notEnoughCredits": "El autor de este Gemelo no tiene suficientes créditos para responder a tu pregunta.",
   "confirmDialog": {
-    "title": "Confirmación",
-    "message": "¿Está seguro de que desea cerrar esta ventana?",
-    "cancel": "Cancelar",
-    "confirm": "Confirmar"
+    "title": "¿Quieres salir de esta página?",
+    "message": "Los cambios que has realizado se perderán."
   },
   "knownFacts": {
     "title": "hechos conocidos",

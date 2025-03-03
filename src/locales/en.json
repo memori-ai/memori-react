@@ -74,10 +74,8 @@
   "deepThoughtPreDisclaimerNotAllowed": "Deep Thought is disabled since you didn't consent its usage, you can change this any time in your account settings.",
   "notEnoughCredits": "The author of this agent does not have enough credits to answer your question.",
   "confirmDialog": {
-    "title": "Conferma",
-    "message": "Sei sicuro di voler chiudere questa finestra?",
-    "cancel": "Annulla",
-    "confirm": "Confirm"
+    "title": "Do you want to leave this page?",
+    "message": "The changes you made will be lost."
   },
   "knownFacts": {
     "title": "Known facts",
