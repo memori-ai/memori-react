@@ -85,7 +85,11 @@ it('renders Drawer loading unchanged', () => {
 
 it('renders Drawer with footer unchanged', () => {
   const { container } = render(
-    <Drawer open={true} onClose={jest.fn()} footer={footer}>
+    <Drawer open={true} onClose={jest.fn()} footer={{
+      leftAction: <Button>Cancel</Button>,
+      onSubmit: jest.fn(),
+      loading: false
+    }}>
       {content}
     </Drawer>
   );
@@ -103,7 +107,7 @@ it('renders Drawer non closable unchanged', () => {
 
 it('renders Drawer side left unchanged', () => {
   const { container } = render(
-    <Drawer open={true} onClose={jest.fn()} side="left">
+    <Drawer open={true} onClose={jest.fn()} placement="left">
       {content}
     </Drawer>
   );
