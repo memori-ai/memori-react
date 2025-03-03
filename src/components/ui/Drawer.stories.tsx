@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Meta, Story } from '@storybook/react';
 import Drawer, { Props } from './Drawer';
 import Button from './Button';
@@ -34,10 +34,25 @@ const meta: Meta = {
         type: 'text',
       },
     },
-    side: {
+    placement: {
       control: {
         type: 'select',
         options: ['left', 'right'],
+      },
+    },
+    width: {
+      control: {
+        type: 'text',
+      },
+    },
+    animated: {
+      control: {
+        type: 'boolean',
+      },
+    },
+    closable: {
+      control: {
+        type: 'boolean',
       },
     },
   },
@@ -61,25 +76,10 @@ const content = (
     <p>Nulla at urna diam.</p>
     <h3>Suspendisse a sodales nulla, sed semper nisi.</h3>
     <p>Proin tincidunt enim in felis aliquet, a ultricies purus bibendum.</p>
-    <ul>
-      <li>Quisque in ultrices lectus.</li>
-      <li>Quisque in ultrices lectus.</li>
-      <li>Quisque in ultrices lectus.</li>
-    </ul>
-    <p>Nulla at urna diam.</p>
-    <p>Nulla at urna diam.</p>
-    <h3>Suspendisse a sodales nulla, sed semper nisi.</h3>
-    <p>Proin tincidunt enim in felis aliquet, a ultricies purus bibendum.</p>
-    <ul>
-      <li>Quisque in ultrices lectus.</li>
-      <li>Quisque in ultrices lectus.</li>
-      <li>Quisque in ultrices lectus.</li>
-    </ul>
-    <p>Nulla at urna diam.</p>
   </>
 );
 
-const footer = (
+const simpleFooter = (
   <>
     <Button primary>OK</Button>
     <Button>Cancel</Button>
@@ -91,12 +91,11 @@ const Template: Story<Props> = args => {
 
   return (
     <>
-      <Button onClick={() => setIsOpen(true)}>Click me</Button>
+      <Button onClick={() => setIsOpen(true)}>Open Drawer</Button>
       <Drawer
         {...args}
         open={isOpen}
         onClose={() => setIsOpen(false)}
-        footer={args.footer}
       >
         {content}
       </Drawer>
@@ -104,30 +103,7 @@ const Template: Story<Props> = args => {
   );
 };
 
-const TemplateWithALotOfContent: Story<Props> = args => {
-  const [isOpen, setIsOpen] = React.useState(!!args.open || false);
-
-  return (
-    <>
-      <Button onClick={() => setIsOpen(true)}>Click me</Button>
-      <Drawer
-        {...args}
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-        footer={args.footer}
-      >
-        {content}
-        {content}
-        {content}
-        {content}
-        {content}
-      </Drawer>
-    </>
-  );
-};
-
-// By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
-// https://storybook.js.org/docs/react/workflows/unit-testing
+// Basic examples
 export const Default = Template.bind({});
 Default.args = {
   open: false,
@@ -159,24 +135,167 @@ Loading.args = {
   loading: true,
 };
 
-export const WithFooter = Template.bind({});
-WithFooter.args = {
+export const WithSimpleFooter = Template.bind({});
+WithSimpleFooter.args = {
   open: true,
   title: 'Drawer Title',
   description: 'Drawer Description',
-  footer,
+  footer: {
+    leftAction: <Button>Cancel</Button>,
+    onSubmit: () => console.log('Submit'),
+    loading: false
+  },
 };
 
-export const SideLeft = Template.bind({});
-SideLeft.args = {
+export const PlacementLeft = Template.bind({});
+PlacementLeft.args = {
   open: true,
-  side: 'left',
+  placement: 'left',
+  title: 'Left Drawer',
 };
 
-export const WithALotOfContent = TemplateWithALotOfContent.bind({});
-WithALotOfContent.args = {
+export const CustomWidth = Template.bind({});
+CustomWidth.args = {
   open: true,
-  title: 'Drawer Title',
-  description: 'Drawer Description',
-  footer,
+  title: 'Custom Width Drawer',
+  width: '50%',
+};
+
+export const NonAnimated = Template.bind({});
+NonAnimated.args = {
+  open: true,
+  title: 'Non-Animated Drawer',
+  animated: false,
+};
+
+export const NonClosable = Template.bind({});
+NonClosable.args = {
+  open: true,
+  title: 'Non-Closable Drawer',
+  closable: false,
+};
+
+
+// Template for data detection
+const DataTemplate: Story<Props> = args => {
+  const [isOpen, setIsOpen] = React.useState(!!args.open || false);
+  // Use static data for the story - don't try to update it which might cause issues
+  const staticData = { id: 1, name: 'John Doe' };
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Data Drawer</Button>
+      <Drawer
+        {...args}
+        open={isOpen}
+        data={staticData}
+        onClose={() => setIsOpen(false)}
+      >
+        <p>This drawer has data associated with it.</p>
+        <p>When you close it, the component will check for unsaved changes.</p>
+        <p>(For this demo, no actual changes are tracked)</p>
+      </Drawer>
+    </>
+  );
+};
+
+export const WithDataDetection = DataTemplate.bind({});
+WithDataDetection.args = {
+  open: true,
+  title: 'Data Change Detection',
+  description: 'This drawer demonstrates the data change detection feature',
+};
+
+const ConfirmationDialogTemplate: Story<Props> = args => {
+  const [isOpen, setIsOpen] = React.useState(!!args.open || false);
+  const [data, setData] = React.useState({ id: 1, name: 'John Doe' });
+  
+  // This will create a modified version for display purposes only
+  const [displayModified, setDisplayModified] = React.useState(false);
+  const modifiedData = { id: 1, name: 'Jane Smith' };
+
+  // Function to modify data (simulate user changes)
+  const handleModifyData = () => {
+    setData(modifiedData);
+    setDisplayModified(true);
+  };
+
+  return (
+    <>
+      <Button onClick={() => { setIsOpen(true); }}>Open Dialog Demo Drawer</Button>
+      
+      <Drawer
+        {...args}
+        open={isOpen}
+        data={data}  // Pass the potentially modified data
+        onClose={() => setIsOpen(false)}
+        footer={{
+          leftAction: displayModified ? (
+            <span>Data has been modified</span>
+          ) : (
+            <Button onClick={handleModifyData}>
+              Modify Data (to trigger dialog)
+            </Button>
+          ),
+          onSubmit: () => setIsOpen(false),
+        }}
+      >
+        <div style={{ padding: '8px 0' }}>
+          <h3>Confirmation Dialog Demo</h3>
+          <p>This drawer will trigger the confirmation dialog when you try to close it after modifying data.</p>
+          
+          <div style={{ marginTop: '20px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}>
+            <p><strong>Current data:</strong> {JSON.stringify(data)}</p>
+            {displayModified && (
+              <p><strong>Original data:</strong> {JSON.stringify({ id: 1, name: 'John Doe' })}</p>
+            )}
+          </div>
+          
+          <div style={{ marginTop: '20px' }}>
+            <p><strong>Instructions:</strong></p>
+            <ol>
+              <li>Click the &quot;Modify Data&quot; button in the footer</li>
+              <li>Then click the X button or Cancel to see the confirmation dialog</li>
+            </ol>
+          </div>
+        </div>
+      </Drawer>
+    </>
+  );
+};
+
+export const WithConfirmationDialog = ConfirmationDialogTemplate.bind({});
+WithConfirmationDialog.args = {
+  open: true,
+  title: 'Unsaved Changes Demo',
+  description: 'This drawer shows the confirmation dialog when closing with unsaved changes',
+};
+
+// Template with lots of content
+const LongContentTemplate: Story<Props> = args => {
+  const [isOpen, setIsOpen] = React.useState(!!args.open || false);
+
+  return (
+    <>
+      <Button onClick={() => setIsOpen(true)}>Open Long Content Drawer</Button>
+      <Drawer
+        {...args}
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+      >
+        {content}
+        {content}
+        {content}
+        {content}
+      </Drawer>
+    </>
+  );
+};
+
+export const WithLongContent = LongContentTemplate.bind({});
+WithLongContent.args = {
+  open: true,
+  title: 'Long Content Drawer',
+  description: 'This drawer has a lot of content',
+  footer: simpleFooter,
 };
