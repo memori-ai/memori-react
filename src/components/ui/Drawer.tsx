@@ -101,23 +101,15 @@ const Drawer: FC<Props> = ({
   const drawerOpenedRef = useRef(false);
   // Reset original data when drawer opens
   useEffect(() => {
-    console.log('useEffect - open:', open, 'drawerOpenedRef:', drawerOpenedRef.current, 'data:', data);
-    // Only set original data when the drawer opens
     if (open && !drawerOpenedRef.current && data) {
       try {
-        // Create a deep copy to ensure independence from the source data
         const dataCopy = JSON.parse(JSON.stringify(data));
-        console.log('Setting original data:', dataCopy);
         setOriginalData(dataCopy);
       } catch (e) {
-        // Fallback to direct reference if JSON methods fail
-        console.warn('Failed to deep copy data, using direct reference:', e);
         setOriginalData(data);
       }
       drawerOpenedRef.current = true;
     } else if (!open) {
-      // Reset when drawer closes
-      console.log('Resetting original data and drawer ref');
       setOriginalData(null);
       drawerOpenedRef.current = false;
     }
@@ -125,53 +117,37 @@ const Drawer: FC<Props> = ({
 
   // Memoize the check changes function to avoid recreating it on every render
   const checkChanges = useCallback(() => {
-    console.log('Checking changes - data:', data, 'originalData:', originalData);
     try {
-      // Handle case where data is missing or invalid
       if (!data || typeof data !== 'object' || Object.keys(data).length === 0) {
-        console.log('No valid data to check, closing drawer');
         return onClose();
       }
 
-      // Handle case where original data hasn't been set yet
       if (!originalData) {
-        console.log('No original data to compare against, closing drawer');
         return onClose();
       }
 
-      // Safely compare data
       let hasChanges = false;
       try {
         const dataStr = JSON.stringify(data);
         const originalDataStr = JSON.stringify(originalData);
         hasChanges = dataStr !== originalDataStr;
-        console.log('Data comparison - current:', dataStr, 'original:', originalDataStr, 'hasChanges:', hasChanges);
       } catch (e) {
-        // Fallback to reference comparison if JSON fails
-        console.warn('Failed to stringify data for comparison:', e);
         hasChanges = data !== originalData;
-        console.log('Fallback reference comparison result:', hasChanges);
       }
 
       if (hasChanges) {
-        console.log('Changes detected, showing confirmation dialog');
         setConfirmDialogOpen(true);
-        //close the drawer
         onClose();
       } else {
-        console.log('No changes detected, closing drawer');
         onClose();
       }
     } catch (error) {
-      // Safely close on error
-      console.error('Error checking changes:', error);
       onClose();
     }
   }, [data, originalData, onClose]);
 
   // Use the callback consistently
   const handleClose = useCallback(() => {
-    console.log('handleClose called - data present:', !!data, 'originalData:', originalData, 'confirmDialogOpen:', confirmDialogOpen, );
     if (data) {
       checkChanges();
     } else {
@@ -181,7 +157,6 @@ const Drawer: FC<Props> = ({
 
   // Handle the confirmation of unsaved changes
   const handleConfirmUnsavedChanges = useCallback(() => {
-    console.log('Confirming unsaved changes, closing drawer');
     setConfirmDialogOpen(false);
     onClose();
   }, [onClose]);
