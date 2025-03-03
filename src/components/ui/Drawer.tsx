@@ -192,10 +192,10 @@ const Drawer: FC<Props> = ({
         isOpen={confirmDialogOpen}
         onClose={() => setConfirmDialogOpen(false)}
         onConfirm={handleConfirmUnsavedChanges}
-        title={t('leaveWarning', { ns: 'common' })}
-        message={t('leaveWarningDescription', { ns: 'common' })}
-        confirmText={t('leaveWarningConfirm', { ns: 'common' })}
-        cancelText={t('leaveWarningCancel', { ns: 'common' })}
+        title={t('confirmDialog.title', { ns: 'common' })}
+        message={t('confirmDialog.message', { ns: 'common' })}
+        confirmText={t('confirmDialog.confirm', { ns: 'common' })}
+        cancelText={t('confirmDialog.cancel', { ns: 'common' })}
       />
       
       <Transition appear show={open} as={React.Fragment}>
