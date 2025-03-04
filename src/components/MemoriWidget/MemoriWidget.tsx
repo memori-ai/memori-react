@@ -2276,7 +2276,6 @@ const MemoriWidget = ({
 
   const resetTranscript = () => {
     setTranscript('');
-    // setIsProcessingSTT(false);
   };
 
   const setListeningTimeout = () => {
@@ -2335,6 +2334,7 @@ const MemoriWidget = ({
     // Ensure complete cleanup before starting, if it's already listening, stop it
     cleanup();
     resetTranscript();
+    setIsProcessingSTT(false);
 
     try {
       // Add delay to ensure previous instance is fully cleaned up
@@ -2392,6 +2392,8 @@ const MemoriWidget = ({
     return speechConfig;
   };
 
+  const [isProcessingSTT, setIsProcessingSTT] = useState(false);
+
   const setupRecognizerHandlers = (recognizer: speechSdk.SpeechRecognizer) => {
     if (recognizer) {
       recognizer.recognized = (_, event) => {
@@ -2430,18 +2432,23 @@ const MemoriWidget = ({
 
     const message = stripDuplicates(text);
     console.debug('Stripped message:', message);
-    if (message.length > 0) {
-      setUserMessage(message);
+    if (message.length > 0 && !isProcessingSTT) {
+      sendMessage(message);
+      resetTranscript();
+      setIsProcessingSTT(true);
+      setUserMessage('');
+      clearListening();
     }
   };
 
   // Helper function to handle transcript processing
   const handleTranscriptProcessing = () => {
     const message = stripDuplicates(transcript);
-    if (message.length > 0 && listening) {
+    if (message.length > 0 && listening && !isProcessingSTT) {
+      setIsProcessingSTT(true);
       sendMessage(message);
-      resetTranscript();
       setUserMessage('');
+      resetTranscript();
       clearListening();
     } else if (listening) {
       resetInteractionTimeout();
