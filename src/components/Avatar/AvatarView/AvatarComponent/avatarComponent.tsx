@@ -1,13 +1,39 @@
 // Import required dependencies
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import AnimationControlPanel from './components/controls';
 import { FullbodyAvatar } from './components/FullbodyAvatar/fullbodyAvatar';
 import HalfBodyAvatar from './components/halfbodyAvatar';
+import { AvatarAnimator } from './components/controllers/animations/AvatarAnimator';
 import {
-  BASE_ACTIONS,
   MAPPING_BLEND_SHAPE_TO_EMOTION_CUSTOM_GLB,
   MAPPING_BLEND_SHAPE_TO_EMOTION_RPM,
+  ANIMATION_URLS
 } from './constants';
+
+// Animation source configuration for the animator
+const ANIMATION_SOURCES = {
+  'IDLE': {
+    primary: 'avatar',
+    fallbacks: {
+      'RPM': ANIMATION_URLS['MALE'], // Use existing animation URLs
+      'CUSTOM_GLB': ANIMATION_URLS['FEMALE']
+    }
+  },
+  'LOADING': {
+    primary: 'avatar',
+    fallbacks: {
+      'RPM': ANIMATION_URLS['MALE'],
+      'CUSTOM_GLB': ANIMATION_URLS['FEMALE']
+    }
+  },
+  'ACTION': {
+    primary: 'avatar',
+    fallbacks: {
+      'RPM': ANIMATION_URLS['MALE'],
+      'CUSTOM_GLB': ANIMATION_URLS['FEMALE']
+    }
+  }
+};
 
 // Props interface for AvatarView component
 interface Props {
@@ -38,7 +64,7 @@ interface Props {
 export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   stopProcessing,
   chatEmission,
-  showControls,
+  // showControls,
   animation,
   url,
   sex,
@@ -52,11 +78,10 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   resetVisemeQueue,
   setCameraZ,
 }) => {
+  // Reference to the AvatarAnimator instance
+  const animatorRef = useRef<AvatarAnimator | null>(null);
+  
   // State management for avatar animations and morphing
-  const [currentBaseAction, setCurrentBaseAction] = useState({
-    action: animation || 'Idle1',
-    weight: 1,
-  });
   const [morphTargetInfluences, setMorphTargetInfluences] = useState<
     Record<string, number>
   >({});
@@ -68,6 +93,13 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   >({});
   const [isRPM, setIsRPM] = useState(false);
   const [timeScale, setTimeScale] = useState(0.8);
+  const [animationList, setAnimationList] = useState<string[]>([]);
+  
+  // Track current animation for UI purposes
+  const [currentBaseAction, setCurrentBaseAction] = useState({
+    action: animation || 'Idle1',
+    weight: 1,
+  });
 
   // Map of basic emotions with their corresponding morph values
   const emotionMap: Record<string, Record<string, number>> = {
@@ -113,14 +145,6 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
       }
 
       // If RPM, convert emotion to blend shape
-      /*from the chat output, we get the emotion and we convert it to the blend shapes
-       * we map the emotion to the blend shape, example:
-       * Anger -> {browDownLeft: 1, browDownRight: 0}
-       * Joy -> {browUpLeft: 1, browUpRight: 0}
-       * Surprise -> {browUpLeft: 1, browUpRight: 0}
-       * Sadness -> {browDownLeft: 1, browDownRight: 0}
-       * Fear -> {browDownLeft: 1, browDownRight: 0}
-       */
       if (isRPM) {
         const emotion = handleRPMBlendShape(outputContent);
         setEmotionMorphTargets(_ => ({ ...defaultEmotions, ...emotion }));
@@ -135,13 +159,57 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
     [isRPM, handleRPMBlendShape, handleCustomGLBBlendShape]
   );
 
+  // New function to handle animator initialization
+  const handleAnimatorReady = useCallback((animator: AvatarAnimator) => {
+    // Store reference
+    animatorRef.current = animator;
+    
+    // Set time scale
+    animator.setTimeScale(timeScale);
+    
+    // Register animation events
+    animator.on('start', (data) => {
+      console.log(`[AvatarAnimator] Animation started: ${data.animation}`);
+      
+      // Update UI state to reflect current animation
+      setCurrentBaseAction({
+        action: data.animation,
+        weight: 1
+      });
+      
+      // Handle emotion morphing if needed
+      if (data.animation && !data.animation.startsWith('Loading') && !data.animation.startsWith('Idle')) {
+        // Extract emotion name from animation (e.g., Joy1 -> Joy)
+        const emotionName = data.animation.replace(/\d+$/, '');
+        setEmotionMorphTargetInfluences(data.animation, emotionName);
+      } else if (data.animation.startsWith('Idle')) {
+        // Reset emotions for idle
+        setEmotionMorphTargetInfluences(data.animation, 'default');
+      }
+    });
+    
+    // Get list of available animations for control panel
+    setAnimationList(animator.getAllAnimationNames());
+  }, [timeScale, setEmotionMorphTargetInfluences]);
+
   // Callback handlers for various avatar state changes
   const onBaseActionChange = useCallback(
     (action: string, outputContent: string) => {
+      if (!animatorRef.current) return;
+      
       // Set emotion morph target influences
       setEmotionMorphTargetInfluences(action, outputContent);
-
-      // Set current base action
+      
+      // Using new animator API
+      if (action.includes('->')) {
+        // It's a sequence
+        animatorRef.current.execute(action);
+      } else {
+        // Single animation
+        animatorRef.current.play(action);
+      }
+      
+      // Update UI state (actual animation state is managed by animator)
       setCurrentBaseAction({ action, weight: 1 });
     },
     [setEmotionMorphTargetInfluences]
@@ -165,10 +233,11 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
 
   // Effect to handle animation changes based on loading state and chat emissions
   useEffect(() => {
+    if (!animatorRef.current) return;
+    
     // If loading, set a random loading animation
     if (loading) {
-      const randomNumber = Math.floor(Math.random() * 3) + 1;
-      onBaseActionChange(`Loading${randomNumber}`, '');
+      animatorRef.current.loading();
       return;
     }
 
@@ -196,21 +265,31 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
 
     if (outputContentSequence && outputContentSequence.includes('->')) {
       // It's a sequence
-      onBaseActionChange(outputContentSequence, outputContentSequence);
+      animatorRef.current.execute(outputContentSequence);
+      // Also update emotion morphing
+      setEmotionMorphTargetInfluences(outputContentSequence, outputContentSequence);
     } else if (outputContentEmotion) {
-
       console.log('[AvatarView] outputContentEmotion:', outputContentEmotion);
-      // It's an emotion
+      // It's an emotion - randomize between variants
       const randomNumber = Math.floor(Math.random() * 3) + 1;
-      onBaseActionChange(
-        `${outputContentEmotion}${randomNumber}`,
-        outputContentEmotion
-      );
+      const animationName = `${outputContentEmotion}${randomNumber}`;
+      animatorRef.current.play(animationName);
+      // Also update emotion morphing
+      setEmotionMorphTargetInfluences(animationName, outputContentEmotion);
     } else {
-      const randomNumber = Math.floor(Math.random() * 5) + 1;
-      onBaseActionChange(`Idle${randomNumber === 3 ? 4 : randomNumber}`, '');
+      // Default to idle
+      animatorRef.current.idle();
+      // Reset emotions
+      setEmotionMorphTargetInfluences('Idle', 'default');
     }
-  }, [chatEmission, loading, onBaseActionChange]);
+  }, [chatEmission, loading, setEmotionMorphTargetInfluences]);
+
+  // Update time scale when it changes
+  useEffect(() => {
+    if (animatorRef.current) {
+      animatorRef.current.setTimeScale(timeScale);
+    }
+  }, [timeScale]);
 
   // Common props shared between full body and half body avatars
   const commonAvatarProps = {
@@ -226,18 +305,18 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
   // Render avatar with controls
   return (
     <>
-      {showControls && (
+      {/* {showControls && (
         <AnimationControlPanel
           timeScale={timeScale}
           morphTargetDictionary={morphTargetDictionary}
           onBaseActionChange={onBaseActionChange}
           onMorphTargetInfluencesChange={onMorphTargetInfluencesChange}
           onMorphTargetDictionaryChange={onMorphTargetDictionaryChange}
-          baseActions={BASE_ACTIONS}
+          baseActions={[]}
           currentBaseAction={currentBaseAction}
           modifyTimeScale={setTimeScale}
         />
-      )}
+      )} */}
 
       {halfBody ? (
         <HalfBodyAvatar {...commonAvatarProps} headMovement={headMovement} />
@@ -248,12 +327,15 @@ export const AvatarView: React.FC<Props & { halfBody: boolean }> = ({
           setIsRpm={setIsRPM}
           resetVisemeQueue={resetVisemeQueue}
           eyeBlink={eyeBlink}
+          // For backwards compatibility, pass currentBaseAction
+          // but main animation control is now done through animator
           currentBaseAction={currentBaseAction}
           timeScale={timeScale}
-          morphTargetInfluences={morphTargetInfluences}
+          setMorphTargetInfluences={setMorphTargetInfluences}
           stopProcessing={stopProcessing}
           emotionMorphTargets={emotionMorphTargets}
-          halfBody={halfBody}
+          animationSources={ANIMATION_SOURCES}
+          onAnimatorReady={handleAnimatorReady}
         />
       )}
     </>
