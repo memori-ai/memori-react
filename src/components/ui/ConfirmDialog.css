@@ -1,0 +1,42 @@
+/* Confirmation dialog styles */
+.memori-confirm-dialog--backdrop {
+    position: fixed;
+    z-index: 50;
+    background-color: rgba(0, 0, 0, 0.5);
+    inset: 0;
+  }
+  
+  .memori-confirm-dialog--container {
+    position: fixed;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    inset: 0;
+  }
+  
+  .memori-confirm-dialog--panel {
+    width: 100%;
+    max-width: 28rem;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    background-color: white;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  
+  .memori-confirm-dialog--title {
+    margin-bottom: 0.75rem;
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+  
+  .memori-confirm-dialog--message {
+    margin-bottom: 1.5rem;
+  }
+  
+  .memori-confirm-dialog--actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+  }
