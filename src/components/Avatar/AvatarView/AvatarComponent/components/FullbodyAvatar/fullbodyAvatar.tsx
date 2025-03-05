@@ -1,11 +1,5 @@
-import { useEffect, useRef, useMemo } from 'react';
-import {
-  AnimationAction,
-  Vector3,
-  Scene,
-  SkinnedMesh,
-  Object3D
-} from 'three';
+import { useEffect, useRef, useMemo, useCallback } from 'react';
+import { AnimationAction, Vector3, Scene, SkinnedMesh, Object3D } from 'three';
 import { useGLTF, useAnimations } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { MorphTargetController } from '../controllers/MorphTargetController';
@@ -19,7 +13,7 @@ import {
 } from '../../constants';
 import DynamicShadow from '../../Shadow/DynamicShadow';
 
-// Simplified props interface for FullbodyAvatar
+// Enhanced props interface for FullbodyAvatar
 export interface FullbodyAvatarProps {
   url: string;
   sex: 'MALE' | 'FEMALE';
@@ -32,6 +26,8 @@ export interface FullbodyAvatarProps {
   onCameraZChange?: (value: number) => void;
   chatEmission: any;
   loading: boolean;
+  // New prop to expose animator to parent component
+  setAnimatorRef?: (animator: AvatarAnimator | null) => void;
 }
 
 export function FullbodyAvatar({
@@ -44,24 +40,28 @@ export function FullbodyAvatar({
   onCameraZChange,
   chatEmission,
   loading,
+  setAnimatorRef,
 }: FullbodyAvatarProps) {
   // Load the avatar model and its animations
   const { scene, animations: baseAnimations } = useGLTF(url);
-  // Load additional animations based on sex
+
+  // Load additional animations based on sex (fallback animations)
   const { animations: additionalAnimations } = useGLTF(ANIMATION_URLS[sex]);
-  // Merge base and additional animations
+
+  // Merge base and additional animations - only recompute when dependencies change
   const mergedAnimations = useMemo(
     () => [...baseAnimations, ...additionalAnimations],
     [baseAnimations, additionalAnimations]
   );
+
   // Create animation actions from the merged animations
   const { actions } = useAnimations(mergedAnimations, scene);
 
-  // System controllers
+  // System controllers - use refs to maintain instance across renders
   const morphTargetControllerRef = useRef<MorphTargetController | null>(null);
   const positionControllerRef = useRef<AvatarPositionController | null>(null);
   const animatorRef = useRef<AvatarAnimator | null>(null);
-  
+
   // Reference to track initialization status
   const isInitializedRef = useRef<boolean>(false);
 
@@ -78,7 +78,7 @@ export function FullbodyAvatar({
     blinkStartTime: 0,
   });
 
-  // Find head mesh and initialize morph target controller
+  // Find head mesh and initialize morph target controller - only run when scene changes
   useEffect(() => {
     if (!scene) return;
 
@@ -87,7 +87,9 @@ export function FullbodyAvatar({
     scene.traverse((object: Object3D) => {
       if (
         object instanceof SkinnedMesh &&
-        (object.name === 'GBNL__Head' || object.name === 'Wolf3D_Avatar' || object.name === 'Wolf3D_Avatar006_1')
+        (object.name === 'GBNL__Head' ||
+          object.name === 'Wolf3D_Avatar' ||
+          object.name === 'Wolf3D_Avatar006_1')
       ) {
         headMesh = object;
       }
@@ -95,18 +97,26 @@ export function FullbodyAvatar({
 
     // Initialize morph target controller if head mesh found
     if (headMesh) {
-      morphTargetControllerRef.current = new MorphTargetController(headMesh);
+      // Only create a new controller if one doesn't exist
+      if (!morphTargetControllerRef.current) {
+        morphTargetControllerRef.current = new MorphTargetController(headMesh);
+      }
     }
-  }, [scene]);
+  }, [scene]); // Only re-run if scene changes
 
-  // Initialize position controller
+  // Initialize position controller once
   useEffect(() => {
     if (!positionControllerRef.current) {
       positionControllerRef.current = new AvatarPositionController(
         AVATAR_POSITION
       );
     }
-  }, []);
+    
+    // Cleanup function
+    return () => {
+      // No need to dispose the position controller here
+    };
+  }, []); // Empty dependency array means this runs once
 
   // Handle avatar height changes
   useEffect(() => {
@@ -126,18 +136,31 @@ export function FullbodyAvatar({
     }
   }, [avatarDepth, onCameraZChange]);
 
-  // Initialize the animation system - only once
+  // Initialize animator only once and cleanup properly
   useEffect(() => {
     // Only initialize if not already initialized and dependencies are available
-    if (!scene || !actions || isInitializedRef.current) return;
+    if (!scene || !actions || isInitializedRef.current) {
+      return;
+    }
 
     console.log('Initializing animator');
 
-    // Create the animator
-    const animator = new AvatarAnimator();
+    // Create the animator only once
+    if (!animatorRef.current) {
+      animatorRef.current = new AvatarAnimator();
+    }
+
+    const animator = animatorRef.current;
 
     const initWithPreloadedAnimations = async () => {
       try {
+        // Prevent multiple initializations
+        if (animator.isInitialized()) {
+          console.log('Animator already initialized, skipping initialization');
+          return;
+        }
+
+        // Initialize animator with avatar animations first, then fallback animations
         await animator.initialize(
           scene as unknown as Scene,
           actions as Record<string, AnimationAction>,
@@ -150,10 +173,12 @@ export function FullbodyAvatar({
           Object.keys(actions).length,
           'animations'
         );
-        
-        // Store animator in ref
-        animatorRef.current = animator;
-        
+
+        // Expose animator to parent component if callback provided
+        if (setAnimatorRef) {
+          setAnimatorRef(animator);
+        }
+
         // Mark as initialized
         isInitializedRef.current = true;
 
@@ -168,28 +193,29 @@ export function FullbodyAvatar({
 
     // Cleanup on unmount
     return () => {
-      // Dispose the animator
-      if (animatorRef.current) {
+      // Only clean up if we created it in this component
+      if (animatorRef.current && isInitializedRef.current) {
+        console.log('Cleaning up animator');
+
         // Dispose mixer if needed
         if ('mixer' in animatorRef.current && animatorRef.current['mixer']) {
           (animatorRef.current['mixer'] as any).stopAllAction();
         }
-        animatorRef.current = null;
+
+        // Clear reference in parent component
+        if (setAnimatorRef) {
+          setAnimatorRef(null);
+        }
+
+        // Reset references
+        isInitializedRef.current = false;
+        // Don't null out animatorRef here to prevent flickering during re-renders
       }
-      isInitializedRef.current = false;
     };
-  }, [scene, actions, mergedAnimations, sex]);
+  }, [scene, actions, mergedAnimations, sex, setAnimatorRef]);
 
-  // Process chat emission changes for animations
-  useEffect(() => {
-    if (!animatorRef.current || !isInitializedRef.current) return;
-    
-    // Let the animator handle the chat emission processing
-    animatorRef.current.processChatEmission(chatEmission, loading);
-  }, [chatEmission, loading]);
-
-  // Animation and morphing update loop
-  useFrame((state, delta) => {
+  // Memoize the frame callback to prevent creating a new function every render
+  const frameCallback = useCallback((state: any, delta: number) => {
     const currentTime = state.clock.elapsedTime * 1000;
 
     // Update animation system
@@ -200,21 +226,14 @@ export function FullbodyAvatar({
     // Update morph targets for facial expressions and visemes
     if (morphTargetControllerRef.current) {
       const currentViseme = updateCurrentViseme(currentTime / 1000);
-      
-      // Extract emotion data from chat emission - this would be handled by the MorphTargetController
-      // in a real implementation with proper encapsulation
-      let emotionMorphTargets = {};
-      
-      // Instead of trying to extract emotion data here, we should enhance the MorphTargetController
-      // to handle chat emission processing for emotions like the AvatarAnimator does for animations
-      
+
       morphTargetControllerRef.current.updateMorphTargets(
         currentTime,
         chatEmission,
         loading,
         currentViseme,
         eyeBlink,
-        blinkStateRef.current,
+        blinkStateRef.current
       );
     }
 
@@ -241,24 +260,27 @@ export function FullbodyAvatar({
         positionUpdateThrottleRef.current = currentTime;
       }
     }
-  });
+  }, [scene, updateCurrentViseme, chatEmission, loading, eyeBlink]);
 
-  // Get current position from controller with fallback
+  // Use the memoized callback in useFrame
+  useFrame(frameCallback);
+
+  // Get current position from controller with fallback - memoize to prevent recreation
   const position = useMemo(() => {
     return (
       positionControllerRef.current?.getPosition() || AVATAR_POSITION.clone()
     );
-  }, [positionControllerRef.current]);
+  }, []);
 
   return (
     <>
-      <DynamicShadow
-        animator={animatorRef.current}
-        avatarPosition={position}
-      />
+      <DynamicShadow animator={animatorRef.current} avatarPosition={position} />
       <group position={position} rotation={AVATAR_ROTATION}>
         <primitive object={scene} />
       </group>
     </>
   );
 }
+
+// Avoid using React.memo here as it's exported as a named function
+// The parent component should handle memoization if needed
