@@ -1,5 +1,17 @@
 
 
+## [7.19.0](https://github.com/memori-ai/memori-react/compare/v7.18.0...v7.19.0) (2025-03-05)
+
+
+### Features
+
+* optimize Avatar Canvas rendering performance ([7147cb2](https://github.com/memori-ai/memori-react/commit/7147cb209a31814828b7bdb19a35aa83ce8ad09e))
+
+
+### Bug Fixes
+
+* make showShare and showSettings optional props with default values ([ca33292](https://github.com/memori-ai/memori-react/commit/ca33292f4cc9485b1e06ef2ff2664ec538680814))
+
 ## [7.18.0](https://github.com/memori-ai/memori-react/compare/v7.17.2...v7.18.0) (2025-02-26)
 
 
