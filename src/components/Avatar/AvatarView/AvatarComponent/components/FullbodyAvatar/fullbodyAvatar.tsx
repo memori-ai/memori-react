@@ -1,76 +1,75 @@
-import { useEffect, useRef, useMemo, useState } from 'react';
+import { useEffect, useRef, useMemo } from 'react';
 import {
-  AnimationMixer,
-  SkinnedMesh,
-  Object3D,
   AnimationAction,
   Vector3,
-  Scene
+  Scene,
+  SkinnedMesh,
+  Object3D
 } from 'three';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, useAnimations } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { MorphTargetController } from '../controllers/MorphTargetController';
 import { AvatarPositionController } from '../controllers/AvatarPositionController';
-import { AvatarAnimator } from '../controllers/animations/AvatarAnimator';
+import { AvatarAnimator } from '../controllers/AvatarAnimator';
 import {
+  ANIMATION_URLS,
   AVATAR_POSITION,
   AVATAR_ROTATION,
   SCALE_LERP_FACTOR,
 } from '../../constants';
 import DynamicShadow from '../../Shadow/DynamicShadow';
 
-// Updated props interface for FullbodyAvatar
+// Simplified props interface for FullbodyAvatar
 export interface FullbodyAvatarProps {
   url: string;
   sex: 'MALE' | 'FEMALE';
-  setIsRpm: (isRpm: boolean) => void;
-  currentBaseAction: { action: string; weight: number }; // For backwards compatibility
-  timeScale: number;
   eyeBlink: boolean;
-  updateCurrentViseme: (currentTime: number) => { name: string; weight: number } | null;
-  setMorphTargetDictionary: (dict: Record<string, number>) => void;
-  setMorphTargetInfluences: (influences: Record<string, number>) => void;
-  emotionMorphTargets: Record<string, number>;
+  updateCurrentViseme: (
+    currentTime: number
+  ) => { name: string; weight: number } | null;
   avatarHeight?: number;
   avatarDepth?: number;
   onCameraZChange?: (value: number) => void;
-  resetVisemeQueue: () => void;
-  stopProcessing: () => void;
-  halfBody?: boolean;
-  animationSources?: Record<string, any>; // Animation sources for the animator
-  onAnimatorReady?: (animator: AvatarAnimator) => void; // Callback when animator is ready
+  chatEmission: any;
+  loading: boolean;
 }
 
 export function FullbodyAvatar({
   url,
-  // sex,
-  setIsRpm,
-  currentBaseAction,
-  timeScale,
+  sex,
   eyeBlink,
   updateCurrentViseme,
-  setMorphTargetDictionary,
-  setMorphTargetInfluences,
-  emotionMorphTargets,
   avatarHeight = 50,
   avatarDepth = 0,
   onCameraZChange,
-  animationSources,
-  onAnimatorReady,
+  chatEmission,
+  loading
 }: FullbodyAvatarProps) {
-  // Load the avatar model
-  const { scene } = useGLTF(url);
-  
-  // Animation system references
-  const morphTargetControllerRef = useRef<MorphTargetController>();
-  const positionControllerRef = useRef<AvatarPositionController>();
+  // Load the avatar model and its animations
+  const { scene, animations: baseAnimations } = useGLTF(url);
+  // Load additional animations based on sex
+  const { animations: additionalAnimations } = useGLTF(ANIMATION_URLS[sex]);
+  // Merge base and additional animations
+  const mergedAnimations = useMemo(
+    () => [...baseAnimations, ...additionalAnimations],
+    [baseAnimations, additionalAnimations]
+  );
+  // Create animation actions from the merged animations
+  const { actions } = useAnimations(mergedAnimations, scene);
+
+  // System controllers
+  const morphTargetControllerRef = useRef<MorphTargetController | null>(null);
+  const positionControllerRef = useRef<AvatarPositionController | null>(null);
   const animatorRef = useRef<AvatarAnimator | null>(null);
   
+  // Reference to track initialization status
+  const isInitializedRef = useRef<boolean>(false);
+
   // For position tracking and updates
   const lastPositionRef = useRef<Vector3>(AVATAR_POSITION.clone());
   const positionUpdateThrottleRef = useRef<number>(0);
   const POSITION_UPDATE_INTERVAL = 1; // ~1000fps for more frequent updates
-  
+
   // For eye blinking
   const blinkStateRef = useRef({
     isBlinking: false,
@@ -79,10 +78,33 @@ export function FullbodyAvatar({
     blinkStartTime: 0,
   });
 
+  // Find head mesh and initialize morph target controller
+  useEffect(() => {
+    if (!scene) return;
+
+    // Find head mesh
+    let headMesh: SkinnedMesh | null = null;
+    scene.traverse((object: Object3D) => {
+      if (
+        object instanceof SkinnedMesh &&
+        (object.name === 'GBNL__Head' || object.name === 'Wolf3D_Avatar' || object.name === 'Wolf3D_Avatar006_1')
+      ) {
+        headMesh = object;
+      }
+    });
+
+    // Initialize morph target controller if head mesh found
+    if (headMesh) {
+      morphTargetControllerRef.current = new MorphTargetController(headMesh);
+    }
+  }, [scene]);
+
   // Initialize position controller
   useEffect(() => {
     if (!positionControllerRef.current) {
-      positionControllerRef.current = new AvatarPositionController(AVATAR_POSITION);
+      positionControllerRef.current = new AvatarPositionController(
+        AVATAR_POSITION
+      );
     }
   }, []);
 
@@ -96,116 +118,125 @@ export function FullbodyAvatar({
   // Handle avatar depth changes
   useEffect(() => {
     if (positionControllerRef.current && onCameraZChange) {
-      const newCameraZ = positionControllerRef.current.updateDepth(avatarDepth, false);
+      const newCameraZ = positionControllerRef.current.updateDepth(
+        avatarDepth,
+        false
+      );
       onCameraZChange(newCameraZ);
     }
   }, [avatarDepth, onCameraZChange]);
 
-  // Find head mesh for morphing
-  const headMesh = useMemo(() => {
-    let foundMesh: SkinnedMesh | undefined;
-    scene?.traverse((object: Object3D) => {
-      if (
-        object instanceof SkinnedMesh &&
-        (object.name === 'GBNL__Head' || object.name === 'Wolf3D_Avatar' || object.name === 'Wolf3D_Avatar006_1')
-      ) {
-        if(object.name === 'GBNL__Head') {
-          setIsRpm(false);
-        } else {
-          setIsRpm(true);
-        }
-        foundMesh = object;
-      }
-    });
-    return foundMesh;
-  }, [scene, setIsRpm]);
-
-  // Initialize the animation system
+  // Initialize the animation system - only once
   useEffect(() => {
-    if (!scene) return;
-    
+    // Only initialize if not already initialized and dependencies are available
+    if (!scene || !actions || isInitializedRef.current) return;
+
+    console.log('Initializing animator');
+
     // Create the animator
-    const animator = new AvatarAnimator(animationSources);
-    
-    // Initialize the animator with the scene
-    animator.initialize(scene as unknown as Scene)
-      .then(() => {
-        console.log('AvatarAnimator initialized');
+    const animator = new AvatarAnimator();
+
+    const initWithPreloadedAnimations = async () => {
+      try {
+        await animator.initialize(
+          scene as unknown as Scene,
+          actions as Record<string, AnimationAction>,
+          mergedAnimations,
+          sex === 'MALE' ? 'RPM' : 'CUSTOM_GLB'
+        );
+
+        console.log(
+          'AvatarAnimator initialized with',
+          Object.keys(actions).length,
+          'animations'
+        );
+        
+        // Store animator in ref
         animatorRef.current = animator;
         
+        // Mark as initialized
+        isInitializedRef.current = true;
+
         // Set initial time scale
-        animator.setTimeScale(timeScale);
-        
-        // Call the onAnimatorReady callback if provided
-        if (onAnimatorReady) {
-          onAnimatorReady(animator);
-        }
-      })
-      .catch(error => {
+        animator.setTimeScale(0.8);
+      } catch (error) {
         console.error('Error initializing AvatarAnimator:', error);
-      });
-    
-    // Initialize morph target controller if we have a head mesh
-    if (headMesh) {
-      morphTargetControllerRef.current = new MorphTargetController(headMesh);
-      
-      if (headMesh.morphTargetDictionary && headMesh.morphTargetInfluences) {
-        setMorphTargetDictionary(headMesh.morphTargetDictionary);
-        const initialInfluences = Object.keys(headMesh.morphTargetDictionary)
-          .reduce((acc, key) => ({ ...acc, [key]: 0 }), {});
-        setMorphTargetInfluences(initialInfluences);
       }
-    }
-    
+    };
+
+    initWithPreloadedAnimations();
+
     // Cleanup on unmount
     return () => {
-      // Any cleanup logic here
+      // Dispose the animator
+      if (animatorRef.current) {
+        // Dispose mixer if needed
+        if ('mixer' in animatorRef.current && animatorRef.current['mixer']) {
+          (animatorRef.current['mixer'] as any).stopAllAction();
+        }
+        animatorRef.current = null;
+      }
+      isInitializedRef.current = false;
     };
-  }, [scene, timeScale, setMorphTargetDictionary, setMorphTargetInfluences, headMesh, animationSources, onAnimatorReady]);
+  }, [scene, actions, mergedAnimations, sex]);
 
-  // Update time scale when it changes
+  // Process chat emission changes for animations
   useEffect(() => {
-    if (animatorRef.current) {
-      animatorRef.current.setTimeScale(timeScale);
-    }
-  }, [timeScale]);
+    if (!animatorRef.current || !isInitializedRef.current) return;
+    
+    // Let the animator handle the chat emission processing
+    animatorRef.current.processChatEmission(chatEmission, loading);
+  }, [chatEmission, loading]);
 
   // Animation and morphing update loop
   useFrame((state, delta) => {
     const currentTime = state.clock.elapsedTime * 1000;
-    
+
     // Update animation system
-    if (animatorRef.current) {
+    if (animatorRef.current && isInitializedRef.current) {
       animatorRef.current.update(delta);
     }
-    
+
     // Update morph targets for facial expressions and visemes
     if (morphTargetControllerRef.current) {
       const currentViseme = updateCurrentViseme(currentTime / 1000);
+      
+      // Extract emotion data from chat emission - this would be handled by the MorphTargetController
+      // in a real implementation with proper encapsulation
+      let emotionMorphTargets = {};
+      
+      // Instead of trying to extract emotion data here, we should enhance the MorphTargetController
+      // to handle chat emission processing for emotions like the AvatarAnimator does for animations
+      
       morphTargetControllerRef.current.updateMorphTargets(
         currentTime,
-        emotionMorphTargets,
+        chatEmission,
+        loading,
         currentViseme,
-        eyeBlink || false,
-        blinkStateRef.current
+        eyeBlink,
+        blinkStateRef.current,
       );
     }
-    
+
     // Update position and scale
     if (scene && positionControllerRef.current) {
       // Update scale
-      const newScale = positionControllerRef.current.updateScale(SCALE_LERP_FACTOR);
+      const newScale =
+        positionControllerRef.current.updateScale(SCALE_LERP_FACTOR);
       scene.scale.copy(newScale);
-      
+
       // High frequency position update check
-      if (currentTime - positionUpdateThrottleRef.current >= POSITION_UPDATE_INTERVAL) {
+      if (
+        currentTime - positionUpdateThrottleRef.current >=
+        POSITION_UPDATE_INTERVAL
+      ) {
         const currentPosition = positionControllerRef.current.getPosition();
-        
+
         // Round to 6 decimal places for high precision
         currentPosition.setX(Number(currentPosition.x.toFixed(6)));
         currentPosition.setY(Number(currentPosition.y.toFixed(6)));
         currentPosition.setZ(Number(currentPosition.z.toFixed(6)));
-        
+
         lastPositionRef.current.copy(currentPosition);
         positionUpdateThrottleRef.current = currentTime;
       }
@@ -214,19 +245,18 @@ export function FullbodyAvatar({
 
   // Get current position from controller with fallback
   const position = useMemo(() => {
-    return positionControllerRef.current?.getPosition() || AVATAR_POSITION.clone();
+    return (
+      positionControllerRef.current?.getPosition() || AVATAR_POSITION.clone()
+    );
   }, [positionControllerRef.current]);
 
   return (
     <>
       <DynamicShadow
-        currentBaseAction={currentBaseAction}
+        animator={animatorRef.current}
         avatarPosition={position}
       />
-      <group
-        position={position}
-        rotation={AVATAR_ROTATION}
-      >
+      <group position={position} rotation={AVATAR_ROTATION}>
         <primitive object={scene} />
       </group>
     </>
