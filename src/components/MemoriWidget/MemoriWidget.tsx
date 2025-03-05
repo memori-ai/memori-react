@@ -2807,6 +2807,13 @@ const MemoriWidget = ({
         setShowAgeVerification(true);
         setClickedStart(false);
       }
+
+      const localPosition = getLocalConfig<Venue | undefined>('position', undefined);
+      if(autoStart && !localPosition && memori.needsPosition) {
+        console.log('position required', localPosition);
+        setShowPositionDrawer(true);
+        return;
+      }
       // Handle authentication
       else if (
         (!sessionID &&
@@ -2893,7 +2900,9 @@ const MemoriWidget = ({
         setHistory([]);
 
         // date and place events
-        if (position) applyPosition(position, sessionID);
+        if (position) {
+          applyPosition(position, sessionID);
+        } 
         if (memori.needsDateTime)
           sendDateChangedEvent({ sessionID: sessionID, state: currentState });
 
@@ -3677,6 +3686,9 @@ const MemoriWidget = ({
           onClose={position => {
             if (position) applyPosition(position);
             setShowPositionDrawer(false);
+            if (autoStart) {
+              onClickStart();
+            }
           }}
         />
       )}

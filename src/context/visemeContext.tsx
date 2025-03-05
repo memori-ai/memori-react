@@ -115,19 +115,18 @@ const timing = {
     currentWeight + (targetWeight - currentWeight) * SMOOTHING_FACTOR,
 };
 
-const createLogger =
-  (type: 'event' | 'error' | 'debug') => (event: string, data: any) => {
-    const styles = {
-      event: 'color: #4CAF50; font-weight: bold;',
-      error: 'color: #f44336; font-weight: bold;',
-      debug: 'color: #2196F3; font-weight: bold;',
-    };
-    console.log(`%c[VisemeContext] ${event}`, styles[type], data);
-  };
+// const createLogger =
+//   (type: 'event' | 'error' | 'debug') => (event: string, data: any) => {
+//     const styles = {
+//       event: 'color: #4CAF50; font-weight: bold;',
+//       error: 'color: #f44336; font-weight: bold;',
+//       debug: 'color: #2196F3; font-weight: bold;',
+//     };
+//   };
 
-const logVisemeEvent = createLogger('event');
-const logVisemeError = createLogger('error');
-const logVisemeDebug = createLogger('debug');
+// const logVisemeEvent = createLogger('event');
+// const logVisemeError = createLogger('error');
+// const logVisemeDebug = createLogger('debug');
 
 type VisemeState = 'idle' | 'preparing' | 'active' | 'paused' | 'finished';
 
@@ -148,10 +147,10 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
 
     // Listen to audio context state changes
     ctx.onstatechange = () => {
-      logVisemeEvent('Audio Context State Change', {
-        state: ctx.state,
-        currentTime: ctx.currentTime,
-      });
+      // logVisemeEvent('Audio Context State Change', {
+      //   state: ctx.state,
+      //   currentTime: ctx.currentTime,
+      // });
 
       switch (ctx.state) {
         case 'running':
@@ -212,7 +211,7 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
 
   const startProcessing = useCallback((audioCtx: IAudioContext) => {
     if (!audioCtx) {
-      logVisemeError('No audio context provided', { state: visemeState });
+      // logVisemeError('No audio context provided', { state: visemeState });
       return;
     }
 
@@ -222,11 +221,11 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
     setIsProcessing(true);
     setVisemeState('active');
 
-    logVisemeEvent('Started Processing', {
-      audioTime: audioCtx.currentTime,
-      queueLength: visemeQueueRef.current.length,
-      state: visemeState,
-    });
+    // logVisemeEvent('Started Processing', {
+    //   audioTime: audioCtx.currentTime,
+    //   queueLength: visemeQueueRef.current.length,
+    //   state: visemeState,
+    // });
   }, []);
 
   const stopProcessing = useCallback(() => {
@@ -237,10 +236,10 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
     frameCountRef.current = 0;
     audioContextRef.current = null;
 
-    logVisemeEvent('Stopped Processing', {
-      queueLength: visemeQueueRef.current.length,
-      state: visemeState,
-    });
+    // logVisemeEvent('Stopped Processing', {
+    //   queueLength: visemeQueueRef.current.length,
+    //   state: visemeState,
+    // });
   }, []);
 
   const updateCurrentViseme = useCallback(
@@ -263,13 +262,13 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
       );
 
       //log it every LOG_INTERVAL frames
-      if (frameCountRef.current % LOG_INTERVAL === 60) {
-        logVisemeDebug('Current Viseme', {
-          currentViseme,
-          audioTime,
-          visemeQueue: visemeQueueRef.current,
-        });
-      }
+      // if (frameCountRef.current % LOG_INTERVAL === 60) {
+      //   logVisemeDebug('Current Viseme', {
+      //     currentViseme,
+      //     audioTime,
+      //     visemeQueue: visemeQueueRef.current,
+      //   });
+      // }
 
       if (currentViseme) {
         const progress =
@@ -312,17 +311,17 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
     frameCountRef.current = 0;
     setVisemeState('idle');
 
-    logVisemeEvent('Reset Viseme Queue', {
-      previousState: visemeState,
-    });
+    // logVisemeEvent('Reset Viseme Queue', {
+    //   previousState: visemeState,
+    // });
   }, [visemeState]);
 
   const resetAndStartProcessing = useCallback(
     (audioCtx: IAudioContext) => {
-      logVisemeEvent('Reset And Start Processing', {
-        previousState: visemeState,
-        queueLength: visemeQueueRef.current.length,
-      });
+      // logVisemeEvent('Reset And Start Processing', {
+      //   previousState: visemeState,
+      //   queueLength: visemeQueueRef.current.length,
+      // });
 
       stopProcessing();
       resetVisemeQueue();

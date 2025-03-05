@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { ContactShadows, PerspectiveCamera } from '@react-three/drei';
+import { AvatarAnimator } from '../components/controllers/AvatarAnimator';
 
 const DynamicShadow = ({
-  currentBaseAction,
+  animator,
   avatarPosition,
-}: {
-  currentBaseAction: any;
+  }: {
+    animator: AvatarAnimator | null;
   avatarPosition: any;
 }) => {
   // Calculate shadow properties based on animation
@@ -21,8 +22,14 @@ const DynamicShadow = ({
       color: '#000000',
     };
 
+    if (!animator) {
+      return {
+        ...baseProps,
+        opacity: 0,
+      };
+    }
     // Adjust shadow based on animation type
-    if (currentBaseAction.action.startsWith('Loading')) {
+    if (animator.getCurrentAnimationName()?.startsWith('Loading')) {
       return {
         ...baseProps,
         opacity: 0.85,
@@ -31,8 +38,8 @@ const DynamicShadow = ({
         height: 12,
       };
     } else if (
-      currentBaseAction.action.includes('Gioia') ||
-      currentBaseAction.action.includes('Joy')
+      animator.getCurrentAnimationName()?.includes('Gioia') ||
+      animator.getCurrentAnimationName()?.includes('Joy')
     ) {
       return {
         ...baseProps,
@@ -42,8 +49,8 @@ const DynamicShadow = ({
         height: 11,
       };
     } else if (
-      currentBaseAction.action.includes('Rabbia') ||
-      currentBaseAction.action.includes('Anger')
+      animator.getCurrentAnimationName()?.includes('Rabbia') ||
+      animator.getCurrentAnimationName()?.includes('Anger')
     ) {
       return {
         ...baseProps,
