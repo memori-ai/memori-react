@@ -43,7 +43,7 @@ export function FullbodyAvatar({
   avatarDepth = 0,
   onCameraZChange,
   chatEmission,
-  loading
+  loading,
 }: FullbodyAvatarProps) {
   // Load the avatar model and its animations
   const { scene, animations: baseAnimations } = useGLTF(url);
