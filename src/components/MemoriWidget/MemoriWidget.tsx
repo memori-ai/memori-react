@@ -2804,6 +2804,12 @@ const MemoriWidget = ({
         birth = '1970-01-01T10:24:03.845Z';
 
       // console.log('[CLICK_START] Using birth date:', birth);
+      const localPosition = getLocalConfig<Venue | undefined>('position', undefined);
+      if(autoStart && !localPosition && memori.needsPosition) {
+        console.log('position required', localPosition);
+        setShowPositionDrawer(true);
+        return;
+      }
 
       // Handle age verification
       if (!sessionID && !!minAge && !birth) {
@@ -3681,6 +3687,9 @@ const MemoriWidget = ({
           onClose={position => {
             if (position) applyPosition(position);
             setShowPositionDrawer(false);
+            if (autoStart) {
+              onClickStart();
+            }
           }}
         />
       )}
