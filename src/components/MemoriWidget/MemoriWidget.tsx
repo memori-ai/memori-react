@@ -1181,7 +1181,11 @@ const MemoriWidget = ({
         setSessionId(session.sessionID);
 
         // save giver state
-        setInstruct(currentDialogState?.currentTag === memori.giverTag);
+        if (currentDialogState?.currentTag && memori.giverTag) {
+          setInstruct(currentDialogState?.currentTag === memori.giverTag);
+        } else {
+          setInstruct(false);
+        }
 
         if (position) applyPosition(position, session.sessionID);
 
