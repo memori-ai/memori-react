@@ -5,6 +5,7 @@ import {
   LoopOnce,
   Scene,
 } from 'three';
+import { AnimationState } from '../FullbodyAvatar/types';
 
 // Animation categories
 export type AnimationCategory = 'IDLE' | 'LOADING' | 'ACTION';
@@ -45,8 +46,8 @@ export class AvatarAnimator {
 
   // Configuration
   private timeScale: number = 1.0;
-  private fadeInDuration: number = 0.5;
-  private fadeOutDuration: number = 0.5;
+  private fadeInDuration: number = 0.8;
+  private fadeOutDuration: number = 0.8;
   private avatarType: 'RPM' | 'CUSTOM_GLB' = 'CUSTOM_GLB';
 
   // Event system
@@ -60,6 +61,11 @@ export class AvatarAnimator {
 
   // Initialization state
   private initialized: boolean = false;
+
+  // Track idle rotations
+  private idleRotationCount = 0;
+  private currentIdleAnimation: string | null = null;
+  private idleRotationLimit = 5; // Number of loops before changing idle animation
 
   /**
    * Initialize the animator with pre-loaded animations
@@ -198,9 +204,6 @@ export class AvatarAnimator {
     });
   }
 
-  /**
-   * Register animations with basic metadata inference
-   */
   /**
    * Register animations with basic metadata inference
    * This version has been modified to avoid duplications and prioritize model animations
@@ -376,13 +379,17 @@ export class AvatarAnimator {
           );
           this.currentSequence = null;
           this.sequenceIndex = 0;
-          this.idleWithRotation(); // Use the special idle rotation
+          
+          // FIXED: Force the transition to idle by directly calling idle()
+          // instead of idleWithRotation() which may not properly transition
+          this.idle();
         } else if (
           this.getAnimationInfo(this.currentAnimation)?.category !== 'IDLE'
         ) {
           // Single non-idle animation completed
           console.log('[AvatarAnimator] Returning to idle after completion');
-          this.idleWithRotation();
+          // FIXED: Force the transition to idle
+          this.idle();
         }
       }
     });
@@ -468,6 +475,10 @@ export class AvatarAnimator {
       if (isIdleAnimation) {
         this.currentIdleAnimation = animationName;
         this.idleRotationCount = 0;
+      } else {
+        // FIXED: Only update currentIdleAnimation for idle animations
+        // For non-idle animations, we keep track of the current animation
+        // but don't modify currentIdleAnimation
       }
 
       // Emit transition event
@@ -768,22 +779,82 @@ export class AvatarAnimator {
     }
   }
 
-  // Track idle rotations
-  private idleRotationCount = 0;
-  private currentIdleAnimation: string | null = null;
-  private idleRotationLimit = 5; // Number of loops before changing idle animation
-
   /**
    * Transition to a random idle animation
+   * FIXED: Improved to always trigger a new animation
    */
   idle(): void {
-    // Try to get a random idle animation different from current one
-    const randomIdle = this.getRandomAnimation('IDLE', [this.currentAnimation]);
-
-    if (randomIdle) {
-      console.log('[AvatarAnimator] Transitioning to idle:', randomIdle);
-      this.play(randomIdle, { loopCount: 0 }); // infinite loop
-      this.currentIdleAnimation = randomIdle;
+    // FIXED: Added debug logging
+    console.log('[AvatarAnimator] Idle called with current state:', {
+      currentAnimation: this.currentAnimation,
+      currentIdleAnimation: this.currentIdleAnimation, 
+      idleRotationCount: this.idleRotationCount
+    });
+    
+    // Get all idle animations
+    const idleAnimations = this.getAnimationsByCategory('IDLE');
+    console.log(`[AvatarAnimator] Available idle animations: ${idleAnimations.length}`);
+    
+    if (idleAnimations.length > 0) {
+      // Choose a random idle animation different from current one
+      let randomIdle = this.getRandomAnimation('IDLE', [this.currentAnimation]);
+      
+      // Force a change if stuck
+      if (!randomIdle || randomIdle === this.currentAnimation) {
+        // Get the first available idle that's not the current one
+        const alternativeIdles = idleAnimations
+          .filter(info => info.name !== this.currentAnimation)
+          .map(info => info.name);
+          
+        if (alternativeIdles.length > 0) {
+          randomIdle = alternativeIdles[0];
+        } else if (idleAnimations.length > 0) {
+          // If all else fails, use the first available idle
+          randomIdle = idleAnimations[0].name;
+        }
+      }
+      
+      if (randomIdle) {
+        console.log('[AvatarAnimator] Transitioning to idle:', randomIdle);
+        // Get current animation state for smoother transition
+        const currentAction = this.actions[this.currentAnimation || ''];
+        const currentTime = currentAction?.time || 0;
+        
+        // Calculate dynamic fade durations based on current state and animation type
+        let fadeOutDuration = 0.4; // Default faster fade out
+        let fadeInDuration = 0.6; // Default slower fade in for smoothness
+        
+        // Adjust fade durations based on current animation state
+        if (currentAction?.isRunning()) {
+          // If current animation is active, use longer crossfade
+          fadeOutDuration = 0.8;
+          fadeInDuration = 1.0;
+        }
+        
+        // Further adjust based on animation categories
+        const currentCategory = this.getAnimationCategory();
+        if (currentCategory === 'ACTION') {
+          // Faster transitions from action animations
+          fadeOutDuration = 0.3;
+          fadeInDuration = 0.5;
+        } else if (currentCategory === 'IDLE') {
+          // Smoother transitions between idle animations
+          fadeOutDuration = 1.0;
+          fadeInDuration = 1.2;
+        }
+        
+        // Play new animation with optimized transition parameters
+        this.play(randomIdle, {
+          loopCount: 0,
+          fadeInDuration,
+          fadeOutDuration,
+          timeScale: 0.85 // Slightly slower for more natural idle motion
+        });
+        
+        this.currentIdleAnimation = randomIdle;
+        this.idleRotationCount = 0;
+        return;
+      }
     } else {
       // Fallback for avatars without idle animations
       console.warn(
@@ -810,8 +881,14 @@ export class AvatarAnimator {
             '[AvatarAnimator] Using fallback loopable animation as idle:',
             fallbackAnimation
           );
-          this.play(fallbackAnimation, { loopCount: 0 });
+          this.play(fallbackAnimation, { 
+            loopCount: 0, 
+            fadeInDuration: 0.8,
+            fadeOutDuration: 0.6,
+            timeScale: 0.85
+          });
           this.currentIdleAnimation = fallbackAnimation;
+          this.idleRotationCount = 0;
         } else if (Object.keys(this.actions).length > 0) {
           // Last resort: use the first available animation
           const firstAnimation = Object.keys(this.actions)[0];
@@ -819,21 +896,43 @@ export class AvatarAnimator {
             '[AvatarAnimator] Using first available animation as idle fallback:',
             firstAnimation
           );
-          this.play(firstAnimation, { loopCount: 0 });
+          this.play(firstAnimation, { 
+            loopCount: 0,
+            fadeInDuration: 0.8,
+            fadeOutDuration: 0.6,
+            timeScale: 0.85
+          });
           this.currentIdleAnimation = firstAnimation;
+          this.idleRotationCount = 0;
         }
       }
     }
-
-    // Reset idle rotation counter when starting a new idle animation
-    this.idleRotationCount = 0;
   }
+
 
   /**
    * Specialized idle mode that rotates between different idle animations
    * after a certain number of loops
+   * FIXED: More aggressive about forcing the transition
    */
   idleWithRotation(): void {
+    console.log('[AvatarAnimator] idleWithRotation called with state:', {
+      currentAnimation: this.currentAnimation,
+      currentIdleAnimation: this.currentIdleAnimation,
+      category: this.getAnimationCategory()
+    });
+    
+    // FIXED: First check if we're even in an idle animation
+    const currentCategory = this.getAnimationCategory();
+    const isCurrentlyIdle = currentCategory === 'IDLE';
+    
+    // If not in an idle animation, force transition to idle
+    if (!isCurrentlyIdle) {
+      console.log('[AvatarAnimator] Not currently in an idle animation, forcing idle transition');
+      this.idle();
+      return;
+    }
+    
     // If we already have an idle animation playing
     if (
       this.currentIdleAnimation &&
@@ -849,7 +948,11 @@ export class AvatarAnimator {
           console.log(
             `[AvatarAnimator] Rotating idle after ${this.idleRotationCount} loops: ${previousIdle} -> ${newIdle}`
           );
-          this.play(newIdle, { loopCount: 0 });
+          this.play(newIdle, { 
+            loopCount: 0,
+            fadeInDuration: 0.2,
+            fadeOutDuration: 0.2
+          });
           this.currentIdleAnimation = newIdle;
           this.idleRotationCount = 0;
         } else {
@@ -864,24 +967,60 @@ export class AvatarAnimator {
         );
       }
     } else {
-      // Start a new idle animation
+      // FIXED: Even if currentCategory is IDLE but currentIdleAnimation is wrong,
+      // force a transition to a proper idle animation
+      console.log('[AvatarAnimator] State inconsistency detected, forcing proper idle');
       this.idle();
     }
   }
 
   /**
    * Transition to a random loading animation
+   * FIXED: Added faster transitions for loading animations
    */
   loading(): void {
     const randomLoading = this.getRandomAnimation('LOADING');
     if (randomLoading) {
       console.log('[AvatarAnimator] Transitioning to loading:', randomLoading);
-      this.play(randomLoading, { loopCount: 0 }); // infinite loop
+      this.play(randomLoading, { 
+        loopCount: 0,
+        fadeInDuration: 1.0,
+        fadeOutDuration: 1.0
+      }); // infinite loop with faster transitions
     } else {
       console.warn(
         '[AvatarAnimator] No loading animations available, using idle instead'
       );
       this.idle();
+    }
+  }
+  
+  /**
+   * FIXED: Added a method to force transition to idle, useful for debugging
+   */
+  forceIdle(): void {
+    console.log('[AvatarAnimator] Force transitioning to idle');
+
+    
+    const idleAnimations = this.getAnimationsByCategory('IDLE');
+    if (idleAnimations.length > 0) {
+      // Just pick the first idle animation
+      const forcedIdle = idleAnimations[0].name;
+      
+      // Force play with immediate transition
+      this.play(forcedIdle, {
+        loopCount: 0,
+        fadeInDuration: 0.8,
+        fadeOutDuration: 0.8
+      });
+      
+      // Update state
+      this.currentIdleAnimation = forcedIdle;
+      this.idleRotationCount = 0;
+      
+      console.log(`[AvatarAnimator] Forced idle transition to: ${forcedIdle}`);
+    } else {
+      console.error('[AvatarAnimator] No idle animations available for forced transition');
     }
   }
 
