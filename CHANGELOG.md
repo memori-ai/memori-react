@@ -1,5 +1,12 @@
 
 
+## [7.19.1](https://github.com/memori-ai/memori-react/compare/v7.19.0...v7.19.1) (2025-03-06)
+
+
+### Bug Fixes
+
+* prevent set instruct on pending sessions ([fcbc7c0](https://github.com/memori-ai/memori-react/commit/fcbc7c07a83c4cf7c563cca234db6e6f62558f89))
+
 ## [7.19.0](https://github.com/memori-ai/memori-react/compare/v7.18.0...v7.19.0) (2025-03-05)
 
 
