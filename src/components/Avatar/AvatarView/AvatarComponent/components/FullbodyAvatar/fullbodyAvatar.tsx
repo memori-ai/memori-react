@@ -1,4 +1,4 @@
-import { useEffect, useRef, useMemo, useCallback } from 'react';
+import { useEffect, useRef, useMemo, useCallback, useState } from 'react';
 import { AnimationAction, Vector3, Scene, SkinnedMesh, Object3D } from 'three';
 import { useGLTF, useAnimations } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
@@ -48,10 +48,26 @@ export function FullbodyAvatar({
   // Load additional animations based on sex (fallback animations)
   const { animations: additionalAnimations } = useGLTF(ANIMATION_URLS[sex]);
 
-  // Merge base and additional animations - only recompute when dependencies change
+  // Check if avatar needs additional animations
+  const needsAdditionalAnimations = useMemo(() => {
+    let found = false;
+    scene.traverse((object: Object3D) => {
+      if (
+        object instanceof SkinnedMesh &&
+        (object.name === 'GBNL__Head' ||
+          object.name === 'Wolf3D_Avatar' ||
+          object.name === 'Wolf3D_Avatar006_1')
+      ) {
+        found = true;
+      }
+    });
+    return found;
+  }, [scene]);
+
+  // Merge base and additional animations only if needed
   const mergedAnimations = useMemo(
-    () => [...baseAnimations, ...additionalAnimations],
-    [baseAnimations, additionalAnimations]
+    () => needsAdditionalAnimations ? [...baseAnimations, ...additionalAnimations] : baseAnimations,
+    [baseAnimations, additionalAnimations, needsAdditionalAnimations]
   );
 
   // Create animation actions from the merged animations
@@ -69,6 +85,9 @@ export function FullbodyAvatar({
   const lastPositionRef = useRef<Vector3>(AVATAR_POSITION.clone());
   const positionUpdateThrottleRef = useRef<number>(0);
   const POSITION_UPDATE_INTERVAL = 1; // ~1000fps for more frequent updates
+
+
+  const [isRpm, setIsRpm] = useState(false);
 
   // For eye blinking
   const blinkStateRef = useRef({
@@ -91,6 +110,12 @@ export function FullbodyAvatar({
           object.name === 'Wolf3D_Avatar' ||
           object.name === 'Wolf3D_Avatar006_1')
       ) {
+
+        if(object.name === 'Wolf3D_Avatar' ||
+          object.name === 'Wolf3D_Avatar006_1') {
+          setIsRpm(true);
+          console.log('RPM avatar detected');
+        }
         headMesh = object;
       }
     });
@@ -165,7 +190,7 @@ export function FullbodyAvatar({
           scene as unknown as Scene,
           actions as Record<string, AnimationAction>,
           mergedAnimations,
-          sex === 'MALE' ? 'RPM' : 'CUSTOM_GLB'
+          isRpm ? 'RPM' : 'CUSTOM_GLB'
         );
 
         console.log(
