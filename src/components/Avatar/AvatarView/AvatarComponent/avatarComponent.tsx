@@ -39,7 +39,7 @@ export const AvatarView = ({
   updateCurrentViseme,
   setCameraZ,
   headMovement,
-  speaking,
+  // speaking,
   showControls,
 }: AvatarViewProps) => {
   // Reference to the AvatarAnimator instance for animation control

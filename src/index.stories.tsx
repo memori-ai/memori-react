@@ -229,9 +229,9 @@ NunzioFiore.args = {
   enableAudio: 'true',
 };
 
-export const DancingAvatar = Template.bind({});
-DancingAvatar.args = {
-  memoriName: 'Dancing Avatar',
+export const TestCustomAnimationsWithRPMSequence = Template.bind({});
+TestCustomAnimationsWithRPMSequence.args = {
+  memoriName: 'Test Custom Animations with RPM sequence',
   ownerUserName: 'andrea.patini3',
   memoriID: '45420d30-a103-455c-bab1-b708a0566a02',
   ownerUserID: '58770358-a5db-4b49-b3a4-734fc468e745',
@@ -241,7 +241,7 @@ DancingAvatar.args = {
   baseURL: 'https://aisuru-staging.aclambda.online',
   uiLang: 'IT',
   spokenLang: 'IT',
-  layout: 'FULLPAGE',
+  layout: 'ZOOMED_FULL_BODY',
   showInstruct: 'false',
   showSettings: 'true',
   showClear: 'false',
@@ -258,8 +258,8 @@ DancingAvatar.args = {
   integrationID: 'a2b9bddc-bb8c-4b0e-b80f-b50ec90e9c99',
 };
 
-export const DragonsJourney = Template.bind({});
-DragonsJourney.args = {
+export const TestCustomGLBSingleAnimation = Template.bind({});
+TestCustomGLBSingleAnimation.args = {
   memoriName: "Dragon's Journey",
   ownerUserName: 'andrea.patini3',
   memoriID: 'fa0568c0-aac2-494b-bde7-6a8ec7725a2d',
@@ -285,6 +285,22 @@ DragonsJourney.args = {
   autoStart: 'false',
   enableAudio: 'true',
   integrationID: 'eea150e2-3ab3-47ae-a9ad-d3ea1704f623',
+};
+
+export const TestRPMEmotionFunction = Template.bind({});
+TestRPMEmotionFunction.args = {
+  memoriName: 'Test RPM',
+  ownerUserName: 'andrea.patini3',
+  memoriID: '35b7059f-08f4-45ab-98d8-899957666b77',
+  ownerUserID: '58770358-a5db-4b49-b3a4-734fc468e745',
+  tenantID: 'aisuru-staging.aclambda.online',
+  engineURL: 'https://engine-staging-tmp.memori.ai',
+  apiURL: 'https://backend-staging.memori.ai',
+  baseURL: 'https://aisuru-staging.aclambda.online',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  layout: 'ZOOMED_FULL_BODY',
+  integrationID: '60a37903-44a2-48c2-82e3-c7b8b620cb64',
 };
 
 const TemplateWithBatchButton: Story<Props> = args => (
