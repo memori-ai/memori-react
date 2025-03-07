@@ -80,7 +80,7 @@ const SignupForm = ({
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
 
-    const tenantID = form.tenant.value ?? tenant.id;
+    const tenantID = form.tenant.value ?? tenant.name;
 
     const eMail = (form.eMail.value ?? email).toLowerCase();
     const userName = form.userName.value ?? username;
@@ -151,7 +151,7 @@ const SignupForm = ({
 
     try {
       const resp = await resendVerificationCode({
-        tenant: tenant?.id,
+        tenant: tenant?.name,
         userName: username,
       });
 
@@ -174,7 +174,7 @@ const SignupForm = ({
     e.preventDefault();
     const form = e.currentTarget as HTMLFormElement;
 
-    const tenantID = form.tenant.value ?? tenant.id;
+    const tenantID = form.tenant.value ?? tenant.name;
     const userName = form.userName.value ?? username;
     const pwd = form.password.value ?? password;
 
@@ -212,7 +212,7 @@ const SignupForm = ({
       <form className="memori--login-drawer--form" onSubmit={validateOtp}>
         <input type="hidden" name="userName" value={username} />
         <input type="hidden" name="password" value={password} />
-        <input type="hidden" name="tenant" value={tenant.id} />
+        <input type="hidden" name="tenant" value={tenant.name} />
 
         <label htmlFor="#verificationCode">
           {t('login.otpCode')}
@@ -244,7 +244,7 @@ const SignupForm = ({
   ) : (
     <>
       <form className="memori--login-drawer--form" onSubmit={signup}>
-        <input type="hidden" name="tenant" value={tenant.id} />
+        <input type="hidden" name="tenant" value={tenant.name} />
         <input type="hidden" name="referral" value={referral} />
 
         <label htmlFor="#eMail">

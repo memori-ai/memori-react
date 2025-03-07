@@ -97,33 +97,32 @@ const renderMsg = (text: string, useMathFormatting = false): string => {
     if (useMathFormatting) {
       // Normalizza tutti i delimitatori LaTeX per equazioni su linea separata
       // Da \\[ ... \\] o \\[ ... ] a $$ ... $$
-    preprocessedText = preprocessedText.replace(
-      /\\+\[(.*?)\\*\]/gs,
-      (_, content) => {
-        return `$$${content}$$`;
-      }
-    );
-
-      // Gestione dei delimitatori [ ... ] che dovrebbero essere equazioni
-    preprocessedText = preprocessedText.replace(
-      /\[([^[\]]+?)\]/g,
-      (match, content) => {
-          // Verifica se sembra una formula matematica
-          if (/[\\+a-z0-9_{}^=\-\+\*\/]+/i.test(content) && 
-          !match.startsWith('[http') &&
-              !match.includes('](')) {
+      preprocessedText = preprocessedText.replace(
+        /\\+\[(.*?)\\*\]/gs,
+        (_, content) => {
           return `$$${content}$$`;
         }
+      );
+
+      // Gestione dei delimitatori [ ... ] che dovrebbero essere equazioni
+      preprocessedText = preprocessedText.replace(
+        /\[([^[\]]+?)\]/g,
+        (match, content) => {
+          // Verifica se sembra una formula matematica
+          if (
+            /[\\+a-z0-9_{}^=\-\+\*\/]+/i.test(content) &&
+            !match.startsWith('[http') &&
+            !match.includes('](')
+          ) {
+            return `$$${content}$$`;
+          }
           return match; // Mantieni invariati i link e altre strutture
-      }
-    );
+        }
+      );
     }
 
     // Ora procedi con il parsing markdown
-    let parsedText = marked
-      .parse(preprocessedText)
-      .toString()
-      .trim();
+    let parsedText = marked.parse(preprocessedText).toString().trim();
 
     // Sanitize HTML
     parsedText = DOMPurify.sanitize(parsedText, {
@@ -291,13 +290,13 @@ const ChatBubble: React.FC<Props> = ({
                   : memori.avatarURL && memori.avatarURL.length > 0
                   ? getResourceUrl({
                       type: 'avatar',
-                      tenantID: tenant?.id,
+                      tenantID: tenant?.name,
                       resourceURI: memori.avatarURL,
                       baseURL: baseUrl,
                       apiURL: apiUrl,
                     })
                   : getResourceUrl({
-                      tenantID: tenant?.id,
+                      tenantID: tenant?.name,
                       type: 'avatar',
                       baseURL: baseUrl || 'https://www.aisuru.com',
                       apiURL: apiUrl,
@@ -309,12 +308,12 @@ const ChatBubble: React.FC<Props> = ({
                   memori.avatarURL && memori.avatarURL.length > 0
                     ? getResourceUrl({
                         type: 'avatar',
-                        tenantID: tenant?.id,
+                        tenantID: tenant?.name,
                         resourceURI: memori.avatarURL,
                         baseURL: baseUrl,
                       })
                     : getResourceUrl({
-                        tenantID: tenant?.id,
+                        tenantID: tenant?.name,
                         type: 'avatar',
                         baseURL: baseUrl,
                       });

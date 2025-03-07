@@ -47,7 +47,7 @@ const ExpertsDrawer = ({
                 alt={expert.name}
                 onError={e => {
                   e.currentTarget.src = getResourceUrl({
-                    tenantID: tenant?.id,
+                    tenantID: tenant?.name,
                     type: 'avatar',
                     baseURL: baseUrl,
                   });

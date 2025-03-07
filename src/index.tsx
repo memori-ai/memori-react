@@ -15,7 +15,6 @@ import MemoriWidget, {
 import { VisemeProvider } from './context/visemeContext';
 
 import { Toaster } from 'react-hot-toast';
-import { getTenant } from './helpers/tenant';
 import { safeParseJSON } from './helpers/utils';
 
 import i18n from './i18n';
@@ -217,8 +216,11 @@ const Memori: React.FC<Props> = ({
    * Fetches the Tenant data from the backend
    */
   const fetchTenant = useCallback(async () => {
-    const tenant = await getTenant(tenantID, baseURL);
-    if (tenant) setTenant(tenant);
+    const { tenant, ...resp } = await client.backend.tenant.getTenantConfig(
+      tenantID
+    );
+    if (tenant && resp.resultCode === 0) setTenant(tenant);
+    else console.debug('[TENANT]', resp, tenant);
   }, [tenantID, apiURL]);
   useEffect(() => {
     fetchTenant();

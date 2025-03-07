@@ -1959,7 +1959,9 @@ const MemoriWidget = ({
 
     const phonemes = {
       ...(phonemesMap.common ?? {}),
-      ...(tenant?.id && phonemesMap[tenant.id] ? phonemesMap[tenant.id] : {}),
+      ...(tenant?.name && phonemesMap[tenant.name]
+        ? phonemesMap[tenant.name]
+        : {}),
     };
     const phonemesPairs = Object.keys(phonemes).map(word => {
       const phoneme =
@@ -2804,8 +2806,11 @@ const MemoriWidget = ({
         birth = '1970-01-01T10:24:03.845Z';
 
       // console.log('[CLICK_START] Using birth date:', birth);
-      const localPosition = getLocalConfig<Venue | undefined>('position', undefined);
-      if(autoStart && !localPosition && memori.needsPosition) {
+      const localPosition = getLocalConfig<Venue | undefined>(
+        'position',
+        undefined
+      );
+      if (autoStart && !localPosition && memori.needsPosition) {
         console.log('position required', localPosition);
         setShowPositionDrawer(true);
         return;
@@ -3715,7 +3720,7 @@ const MemoriWidget = ({
         />
       )}
 
-      {showLoginDrawer && tenant?.id && (
+      {showLoginDrawer && tenant?.name && (
         <LoginDrawer
           tenant={tenant}
           apiClient={client}

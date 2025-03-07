@@ -193,13 +193,13 @@ const Chat: React.FC<Props> = ({
             style={{
               backgroundImage: `url("${getResourceUrl({
                 type: 'cover',
-                tenantID: tenant?.id,
+                tenantID: tenant?.name,
                 resourceURI: memori.coverURL,
                 baseURL: baseUrl,
                 apiURL: apiUrl,
               })}"), url("${getResourceUrl({
                 type: 'cover',
-                tenantID: tenant?.id,
+                tenantID: tenant?.name,
                 baseURL: baseUrl || 'https://www.aisuru.com',
                 apiURL: apiUrl,
               })}")`,

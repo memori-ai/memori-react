@@ -55,7 +55,7 @@ const LoginDrawer = ({
     __TEST__changePwd
       ? {
           flowID: 'flowID',
-          tenant: tenant.id,
+          tenant: tenant.name,
           eMail: 'email',
           userName: 'username',
           password: 'password',
@@ -85,12 +85,12 @@ const LoginDrawer = ({
     const isEmail = mailRegEx.test(userNameOrEmail);
     const user: User = isEmail
       ? {
-          tenant: tenant?.id,
+          tenant: tenant?.name,
           eMail: userNameOrEmail,
           password: password,
         }
       : {
-          tenant: tenant?.id,
+          tenant: tenant?.name,
           userName: userNameOrEmail,
           password: password,
         };
@@ -100,7 +100,7 @@ const LoginDrawer = ({
       .then(data => {
         if (data.resultCode === -14) {
           setUserMustChangePwd({
-            tenant: tenant.id,
+            tenant: tenant.name,
             eMail: isEmail ? userNameOrEmail : undefined,
             userName: isEmail ? undefined : userNameOrEmail,
             password: password,
@@ -200,7 +200,7 @@ const LoginDrawer = ({
 
     const form = e.currentTarget as HTMLFormElement;
 
-    const tenantID = form.tenant.value ?? tenant.id;
+    const tenantID = form.tenant.value ?? tenant.name;
     const flowID = form.flowID.value ?? userMustChangePwd?.flowID;
     const eMail = form.eMail.value ?? userMustChangePwd?.eMail;
     const userName = form.userName.value ?? userMustChangePwd?.userName;
@@ -389,7 +389,7 @@ const LoginDrawer = ({
             <input
               type="hidden"
               name="tenant"
-              value={userMustChangePwd.tenant ?? tenant?.id}
+              value={userMustChangePwd.tenant ?? tenant?.name}
             />
             <input
               type="hidden"

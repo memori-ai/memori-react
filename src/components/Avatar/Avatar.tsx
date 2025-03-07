@@ -79,7 +79,7 @@ const Avatar: React.FC<Props> = ({
     ) {
       return getResourceUrl({
         type: 'avatar',
-        tenantID: tenant?.id,
+        tenantID: tenant?.name,
         resourceURI: memori.avatarURL,
         baseURL: baseUrl,
         apiURL: apiUrl,
@@ -209,10 +209,10 @@ const Avatar: React.FC<Props> = ({
   };
 
   const renderIntegrationsLink = () => {
-    if (!(instruct && !hasUserActivatedSpeak && memori.isGiver && tenant?.id))
+    if (!(instruct && !hasUserActivatedSpeak && memori.isGiver && tenant?.name))
       return null;
 
-    const href = `https://${tenant.id}/${
+    const href = `https://${tenant.name}/${
       memori.culture === 'it-IT' ? 'it' : 'en'
     }/${memori.ownerUserName}/${memori.name}/integrations${
       integration?.integrationID

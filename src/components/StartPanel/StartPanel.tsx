@@ -106,13 +106,13 @@ const StartPanel: React.FC<Props> = ({
         style={{
           backgroundImage: `url("${getResourceUrl({
             type: 'cover',
-            tenantID: tenant?.id,
+            tenantID: tenant?.name,
             resourceURI: memori.coverURL,
             baseURL: baseUrl,
             apiURL: apiUrl,
           })}"), url("${getResourceUrl({
             type: 'cover',
-            tenantID: tenant?.id,
+            tenantID: tenant?.name,
             baseURL: baseUrl,
             apiURL: apiUrl,
           })}")`,
@@ -150,7 +150,7 @@ const StartPanel: React.FC<Props> = ({
             memori.avatarURL ??
             getResourceUrl({
               type: 'avatar',
-              tenantID: tenant?.id,
+              tenantID: tenant?.name,
               resourceURI: memori.avatarURL,
               baseURL: baseUrl,
               apiURL: apiUrl,
@@ -163,14 +163,14 @@ const StartPanel: React.FC<Props> = ({
             memori.avatarURL && memori.avatarURL.length > 0
               ? getResourceUrl({
                   type: 'avatar',
-                  tenantID: tenant?.id,
+                  tenantID: tenant?.name,
                   resourceURI: memori.avatarURL,
                   baseURL: baseUrl,
                   apiURL: apiUrl,
                 })
               : getResourceUrl({
                   type: 'avatar',
-                  tenantID: tenant?.id,
+                  tenantID: tenant?.name,
                   baseURL: baseUrl,
                   apiURL: apiUrl,
                 })

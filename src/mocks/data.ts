@@ -15,16 +15,12 @@ import {
 export const sessionID = '131165be-9d1a-42fb-a3ce-e8f86d40c88f';
 
 export const tenant: Tenant = {
-  adminCount: 3,
-  config: {
-    name: 'AIsuru',
-    requirePosition: false,
-    showNewUser: true,
-  },
-  creationTimestamp: '2023-05-31T14:32:48.885287Z',
+  tenantID: '96caa4b4-31a4-48e5-8163-dec61869a2a7',
+  name: 'www.aisuru.com',
   description: 'AIsuru',
+  adminCount: 3,
+  creationTimestamp: '2023-05-31T14:32:48.885287Z',
   disableRegistration: false,
-  id: 'www.aisuru.com',
   lastChangeTimestamp: '2023-05-31T14:32:48.885287Z',
   logoURL: 'https://aisuru.com/images/aisuru/logo.png',
   maxAdmins: 0,
@@ -37,10 +33,8 @@ export const tenant: Tenant = {
   maxTotalMemori: 0,
   maxUsers: 0,
   memoriCount: 0,
-  name: 'www.aisuru.com',
   nonFreeSessionCost: 0.02,
   paying: true,
-  tenantID: '96caa4b4-31a4-48e5-8163-dec61869a2a7',
   theme: 'aisuru',
   userCount: 0,
 };
