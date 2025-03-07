@@ -1,5 +1,17 @@
 
 
+## [7.19.2](https://github.com/memori-ai/memori-react/compare/v7.19.1...v7.19.2) (2025-03-07)
+
+
+### Bug Fixes
+
+* handle position requirement before auto-starting memori ([1b1948d](https://github.com/memori-ai/memori-react/commit/1b1948ded9d773c0fb280623998f0f250f0f7015))
+
+
+### Changes
+
+* tenant types from backend, remove customizations from dashboard ([9aa6deb](https://github.com/memori-ai/memori-react/commit/9aa6deb8d9b46124154a516c49435ecce9cd90a5))
+
 ## [7.19.1](https://github.com/memori-ai/memori-react/compare/v7.19.0...v7.19.1) (2025-03-06)
 
 
