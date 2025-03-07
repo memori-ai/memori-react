@@ -215,7 +215,7 @@ export class MorphTargetController {
           const currentEmotionValue = this.currentEmotionValues[key] || 0;
           const newEmotionValue = MathUtils.lerp(
             currentEmotionValue,
-            targetEmotionValue * 2, // Amplify emotion by 3x
+            targetEmotionValue * 3, // Amplify emotion by 3x
             EMOTION_SMOOTHING
           );
           this.currentEmotionValues[key] = newEmotionValue;
@@ -241,17 +241,6 @@ export class MorphTargetController {
             VISEME_SMOOTHING
           );
           this.headMesh.morphTargetInfluences[index] = finalValue;
-
-          // Only log when emotion is actually applied
-          if (finalValue > 0 && currentEmotionKeys.has(key)) {
-            console.log(
-              '[MorphTargetController] Applied emotion morph target:',
-              {
-                key,
-                value: finalValue,
-              }
-            );
-          }
         }
       }
     );
