@@ -2196,26 +2196,20 @@ const MemoriWidget = ({
     cleanup();
   };
 
-  const cleanup = (): void => {
-    setIsPlayingAudio(false);
-    stopProcessing();
-    resetVisemeQueue();
-    memoriSpeaking = false;
+  const cleanup = () => {
+    if (recognizer) {
+      recognizer.stopContinuousRecognitionAsync();
+      recognizer.close();
+      recognizer = null;
+    }
 
-    try {
-      if (speechSynthesizer) {
-        const currentSynthesizer = speechSynthesizer;
-        speechSynthesizer = null; // Clear reference first
-        console.debug('Closing speech synthesizer');
-        currentSynthesizer.close();
-      }
-    } catch (error) {
-      console.debug('Error during synthesizer cleanup:', error);
-      // Even if close fails, ensure synthesizer is nullified
+    if (speechSynthesizer) {
+      speechSynthesizer.close();
       speechSynthesizer = null;
     }
 
-    emitEndSpeakEvent();
+    setListening(false);
+    clearListeningTimeout();
   };
 
   // Modify stopAudio to include speech state reset
@@ -2289,14 +2283,17 @@ const MemoriWidget = ({
 
   const clearListeningTimeout = () => {
     if (transcriptTimeout) {
+      console.debug('Clearing transcript timeout');
       clearTimeout(transcriptTimeout);
       setTranscriptTimeout(null);
     }
   };
 
+  // Add safety check in resetListeningTimeout
   const resetListeningTimeout = () => {
     clearListeningTimeout();
-    if (continuousSpeech) {
+    if (continuousSpeech && !isProcessingSTT) {
+      console.debug('Setting new listening timeout');
       setListeningTimeout();
     }
   };
@@ -2318,74 +2315,107 @@ const MemoriWidget = ({
   /**
    * Listening methods
    */
-  /**
-   * Starts speech recognition using Azure Cognitive Services
-   * Sets up recognizer and begins continuous recognition
-   */
+  let microphoneStream: MediaStream | null = null;
+  // Modify startListening to ensure full cleanup before starting
   const startListening = async (): Promise<void> => {
+    console.debug('Starting speech recognition...');
+
     if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) {
+      console.error('No TTS key available');
       throw new Error('No TTS key available');
     }
 
     if (!sessionId) {
+      console.error('No session ID available');
       throw new Error('No session ID available');
     }
 
-    // Ensure complete cleanup before starting, if it's already listening, stop it
-    cleanup();
+    // First, ensure any existing recognizer is fully closed
+    if (recognizer) {
+      console.debug('Cleaning up existing recognizer...');
+      try {
+        // Stop the recognizer properly
+        await new Promise<void>((resolve, _) => {
+          recognizer?.stopContinuousRecognitionAsync(resolve, error => {
+            console.error('Error stopping recognition:', error);
+            resolve(); // Resolve anyway to continue cleanup
+          });
+        });
+
+        console.debug('Closing existing recognizer...');
+        recognizer.close();
+        recognizer = null;
+      } catch (error) {
+        console.error('Error during recognizer cleanup:', error);
+        // Continue with initialization anyway
+      }
+    }
+
+    // Clear any existing state
+    console.debug('Resetting transcript and STT state...');
     resetTranscript();
     setIsProcessingSTT(false);
 
-    try {
-      // Add delay to ensure previous instance is fully cleaned up
-      // await new Promise(resolve => setTimeout(resolve, 300));
+    // Add a small delay to ensure Azure services have time to release resources
+    console.debug('Adding delay for Azure services cleanup...');
+    await new Promise(resolve => setTimeout(resolve, 500));
 
-      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+    try {
+      console.debug('Requesting microphone access...');
+      // Release previous microphone stream if it exists
+      if (microphoneStream) {
+        microphoneStream.getTracks().forEach(track => track.stop());
+        microphoneStream = null;
+      }
+
+      const stream = await navigator.mediaDevices.getUserMedia({
+        audio: true,
+      });
       setHasUserActivatedListening(true);
 
       // Recreate speech config each time
+      console.debug('Setting up speech config...');
       speechConfig = setupSpeechConfig(AZURE_COGNITIVE_SERVICES_TTS_KEY);
 
+      console.debug('Creating audio config and recognizer...');
       const audioConfig = speechSdk.AudioConfig.fromDefaultMicrophoneInput();
       recognizer = new speechSdk.SpeechRecognizer(speechConfig, audioConfig);
 
       // Set up recognizer event handlers
+      console.debug('Setting up recognizer handlers...');
       setupRecognizerHandlers(recognizer);
 
-      // Start recognition
+      // Start recognition - use promises for better error handling
+      console.debug('Starting continuous recognition...');
+      await new Promise<void>((resolve, reject) => {
+        recognizer?.startContinuousRecognitionAsync(resolve, error => {
+          console.error('Failed to start recognition:', error);
+          reject(error);
+        });
+      });
+
+      console.debug('Speech recognition started successfully');
       setListening(true);
-      recognizer.startContinuousRecognitionAsync();
-
-      recognizer.canceled = (_s, e) => {
-        if (e.reason === speechSdk.CancellationReason.Error) {
-          console.debug(`"CANCELED: ErrorCode=${e.errorCode}`);
-          console.debug(`"CANCELED: ErrorDetails=${e.errorDetails}`);
-          console.debug(
-            'CANCELED: Did you set the speech resource key and region values?'
-          );
-          stopListening();
-          cleanup();
-        }
-
-        stopListening();
-      };
-
-      recognizer.sessionStopped = (_s, _e) => {
-        stopListening();
-        resetTranscript();
-      };
     } catch (error) {
       console.error('Error in startListening:', error);
-      stopListening();
+      // Ensure cleanup happens even on error
+      if (recognizer) {
+        console.debug('Cleaning up recognizer after error...');
+        recognizer.close();
+        recognizer = null;
+      }
+      setListening(false);
       throw error;
     }
   };
 
   const setupSpeechConfig = (AZURE_COGNITIVE_SERVICES_TTS_KEY: string) => {
+    console.debug('Creating speech config...');
     speechConfig = speechSdk.SpeechConfig.fromSubscription(
       AZURE_COGNITIVE_SERVICES_TTS_KEY,
       'westeurope'
     );
+    console.debug('Setting speech recognition language:', userLang);
     speechConfig.speechRecognitionLanguage = getCultureCodeByLanguage(userLang);
     speechConfig.speechSynthesisLanguage = getCultureCodeByLanguage(userLang);
     speechConfig.speechSynthesisVoiceName = getTTSVoice(userLang); // https://docs.microsoft.com/it-it/azure/cognitive-services/speech-service/language-support#text-to-speech
@@ -2396,12 +2426,15 @@ const MemoriWidget = ({
 
   const setupRecognizerHandlers = (recognizer: speechSdk.SpeechRecognizer) => {
     if (recognizer) {
+      console.debug('Setting up recognizer event handlers...');
       recognizer.recognized = (_, event) => {
         // Process the recognized speech result
+        console.debug('Recognition event received');
         handleRecognizedSpeech(event.result.text);
       };
 
       // Configure speech recognition properties directly on the recognizer
+      console.debug('Configuring recognizer properties...');
       recognizer.properties.setProperty(
         'SpeechServiceResponse_JsonResult',
         'true'
@@ -2419,6 +2452,27 @@ const MemoriWidget = ({
     }
   };
 
+  // Add a debounce mechanism to prevent duplicate sends
+  let lastSentMessage = '';
+  let lastSentTimestamp = 0;
+
+  const sendMessageWithDebounce = (message: string) => {
+    const currentTime = Date.now();
+    // Check if this is a duplicate message within a short time window (1 second)
+    if (message === lastSentMessage && currentTime - lastSentTimestamp < 1000) {
+      console.debug('Duplicate message detected, ignoring:', message);
+      return;
+    }
+
+    // Update tracking variables
+    lastSentMessage = message;
+    lastSentTimestamp = currentTime;
+
+    // Send the message
+    sendMessage(message);
+  };
+
+  // Update handleRecognizedSpeech
   const handleRecognizedSpeech = (text: string) => {
     console.debug('Handling recognized speech:', text);
 
@@ -2432,21 +2486,22 @@ const MemoriWidget = ({
 
     const message = stripDuplicates(text);
     console.debug('Stripped message:', message);
+
     if (message.length > 0 && !isProcessingSTT) {
-      sendMessage(message);
-      resetTranscript();
       setIsProcessingSTT(true);
+      sendMessageWithDebounce(message); // Use debounced version
+      resetTranscript();
       setUserMessage('');
       clearListening();
     }
   };
 
-  // Helper function to handle transcript processing
+  // Similarly update handleTranscriptProcessing
   const handleTranscriptProcessing = () => {
     const message = stripDuplicates(transcript);
     if (message.length > 0 && listening && !isProcessingSTT) {
       setIsProcessingSTT(true);
-      sendMessage(message);
+      sendMessageWithDebounce(message); // Use debounced version
       setUserMessage('');
       resetTranscript();
       clearListening();
@@ -2459,14 +2514,32 @@ const MemoriWidget = ({
    * Stops the speech recognition process
    * Closes recognizer and cleans up resources
    */
-  const stopListening = () => {
+  // Similarly, modify stopListening to use promises
+  // Enhance stopListening to fully release resources
+  const stopListening = async () => {
     console.debug('Stopping speech recognition');
+
+    // Stop the recognizer
     if (recognizer) {
-      // Stop continuous recognition and close the recognizer
-      recognizer.stopContinuousRecognitionAsync();
-      recognizer.close();
+      try {
+        recognizer.stopContinuousRecognitionAsync();
+        recognizer.close();
+      } catch (error) {
+        console.error('Error stopping recognizer:', error);
+      }
       recognizer = null;
     }
+
+    // Release the microphone stream
+    if (microphoneStream) {
+      try {
+        microphoneStream.getTracks().forEach(track => track.stop());
+      } catch (error) {
+        console.error('Error stopping microphone stream:', error);
+      }
+      microphoneStream = null;
+    }
+
     setListening(false);
   };
 
