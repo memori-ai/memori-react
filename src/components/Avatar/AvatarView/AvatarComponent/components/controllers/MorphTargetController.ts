@@ -1,20 +1,14 @@
 import { SkinnedMesh } from 'three';
 import { MathUtils } from 'three';
-import { EMOTION_SMOOTHING, VISEME_SMOOTHING, BLINK_CONFIG } from '../../constants';
-
-/**
- * Type definitions for blend shape mapping
- */
-interface BlendShapeMap {
-  [key: string]: Record<string, number>;
-}
-
-/**
- * Interface for emotion mapping
- */
-interface EmotionMapping {
-  [key: string]: string;
-}
+import {
+  EMOTION_SMOOTHING,
+  VISEME_SMOOTHING,
+  BLINK_CONFIG,
+  MAPPING_EMOTIONS_ITALIAN_TO_ENGLISH,
+  MAPPING_BLEND_SHAPE_TO_EMOTION_RPM,
+  EmotionMapping,
+  BlendShapeMap,
+} from '../../constants';
 
 /**
  * Controller class for handling morph target animations including emotions, visemes and blinking
@@ -24,52 +18,14 @@ export class MorphTargetController {
   private currentEmotionValues: Record<string, number> = {};
   private previousEmotionKeys: Set<string> = new Set();
   private isRPM: boolean = false;
-  
+
   // Default RPM blend shape mappings
-  private rpmBlendShapes: BlendShapeMap = {
-    Rabbia: {
-      'browDownLeft': 0.5,
-      'browDownRight': 0.5,
-      'browOuterUpLeft': 0.5,
-      'browOuterUpRight': 0.5,
-      'mouthSmile': -0.2,
-    },
-    Timore: {
-      'browOuterUpLeft': -0.5,
-      'browOuterUpRight': -0.5,
-      'eyeWideLeft': -0.5,
-      'eyeWideRight': -0.5,
-    },
-    Tristezza: {
-      'browDownLeft': -0.5,
-      'browDownRight': -0.5,
-      'eyeSquintLeft': 0.5,
-      'eyeSquintRight': 0.5,
-      'mouthSmile': -0.6,
-    },
-    Sorpresa: {
-      'browInnerUp': 0.5,
-      'browOuterUpLeft': 0.5,
-      'browOuterUpRight': 0.5,
-      'eyeWideLeft': 0.5,
-      'eyeWideRight': 0.5,
-    },
-    Gioia: {
-      'browDownLeft': 0.5,
-      'browDownRight': 0.5,
-      'browInnerUp': 0.5,
-      'mouthSmile': 0.8,
-    }
-  };
-  
+  private rpmBlendShapes: BlendShapeMap =
+    MAPPING_BLEND_SHAPE_TO_EMOTION_RPM as BlendShapeMap;
+
   // Default custom GLB emotion mappings
-  private customGlbMapping: EmotionMapping = {
-    Gioia: 'Joy',
-    Rabbia: 'Anger',
-    Sorpresa: 'Surprise',
-    Tristezza: 'Sadness',
-    Timore: 'Fear',
-  };
+  private customGlbMapping: EmotionMapping =
+    MAPPING_EMOTIONS_ITALIAN_TO_ENGLISH as EmotionMapping;
 
   /**
    * Constructor for MorphTargetController
@@ -78,20 +34,20 @@ export class MorphTargetController {
    * @param customGlbMapping Optional custom GLB emotion mapping
    */
   constructor(
-    headMesh: SkinnedMesh, 
+    headMesh: SkinnedMesh,
     rpmBlendShapes?: BlendShapeMap,
     customGlbMapping?: EmotionMapping
   ) {
     this.headMesh = headMesh;
-    
+
     // Detect if this is an RPM avatar based on mesh name
     this.isRPM = headMesh.name !== 'GBNL__Head';
-    
+
     // Override default maps if provided
     if (rpmBlendShapes) {
       this.rpmBlendShapes = rpmBlendShapes;
     }
-    
+
     if (customGlbMapping) {
       this.customGlbMapping = customGlbMapping;
     }
@@ -103,89 +59,106 @@ export class MorphTargetController {
    * @param isLoading Loading state
    * @returns Object with emotion morph targets
    */
-  processChatEmission(chatEmission: any, isLoading: boolean): Record<string, number> {
+  processChatEmission(
+    chatEmission: any,
+    isLoading: boolean
+  ): Record<string, number> {
     // Default empty emotion targets
     const defaultEmotions = this.getDefaultEmotionMorphTargets();
-    
+
     // If loading or no chat emission, return default emotions
     if (isLoading || !chatEmission) {
       return defaultEmotions;
     }
-    
+
     // Check if chat emission contains emotion tag
     const hasOutputTagEmotion = chatEmission?.includes(
       '<output class="memori-emotion">'
     );
-    
+
     if (!hasOutputTagEmotion) {
       return defaultEmotions;
     }
-    
+
     // Extract emotion name
     const outputContentEmotion = chatEmission
       ?.split('<output class="memori-emotion">')[1]
       ?.split('</output>')[0]
       ?.trim();
-    
+
     if (!outputContentEmotion) {
       return defaultEmotions;
     }
-    
+
     // Process emotion based on avatar type
     return this.processEmotion(outputContentEmotion);
   }
-  
+
   /**
    * Process an emotion name into morph target values
-   * @param emotionName Emotion name (in Italian)
+   * @param emotionName Emotion name (in Italian or English)
    * @returns Object with morph target values
    */
   private processEmotion(emotionName: string): Record<string, number> {
     // Get default empty emotion targets
     const defaultEmotions = this.getDefaultEmotionMorphTargets();
-    
-    // Handle RPM avatars differently from custom GLB
+
+    // First, try to find the emotion regardless of language
     if (this.isRPM) {
-      // Get blend shapes for this emotion
-      const blendShapes = this.rpmBlendShapes[emotionName] || {};
-      return { ...defaultEmotions, ...blendShapes };
+      // For RPM avatars, find the matching emotion in the rpmBlendShapes array
+      const foundEmotion = this.rpmBlendShapes.find(
+        item =>
+          item.emotion.italian.toLowerCase() === emotionName.toLowerCase() ||
+          item.emotion.english.toLowerCase() === emotionName.toLowerCase()
+      );
+
+      if (foundEmotion) {
+        return { ...defaultEmotions, ...foundEmotion.blendShapes };
+      }
     } else {
-      // For custom GLB, map to English emotion name
-      const englishEmotion = this.customGlbMapping[emotionName] || '';
-      if (englishEmotion) {
-        // Set only the mapped emotion to 1, leave others at 0
-        return { ...defaultEmotions, [englishEmotion]: 1 };
+      // For custom GLB, find the matching emotion in the customGlbMapping array
+      const foundEmotion = this.customGlbMapping.find(
+        item =>
+          item.italian.toLowerCase() === emotionName.toLowerCase() ||
+          item.english.toLowerCase() === emotionName.toLowerCase()
+      );
+
+      if (foundEmotion) {
+        return { ...defaultEmotions, [foundEmotion.english]: 1 };
       }
     }
-    
+
+    console.log('[MorphTargetController] No emotion found:', emotionName);
     return defaultEmotions;
   }
-  
+
   /**
    * Get default emotion morph targets (all set to 0)
    */
   private getDefaultEmotionMorphTargets(): Record<string, number> {
-    // For RPM, use blend shape keys
+    // For RPM, collect all blend shape keys
     if (this.isRPM) {
       const allBlendShapeKeys = new Set<string>();
-      Object.values(this.rpmBlendShapes).forEach(blendShapes => {
-        Object.keys(blendShapes).forEach(key => allBlendShapeKeys.add(key));
+
+      this.rpmBlendShapes.forEach(item => {
+        Object.keys(item.blendShapes).forEach(key =>
+          allBlendShapeKeys.add(key)
+        );
       });
-      
+
       return Array.from(allBlendShapeKeys).reduce(
         (acc, key) => ({ ...acc, [key]: 0 }),
         {}
       );
-    } 
+    }
     // For custom GLB, use English emotion names
     else {
-      return Object.values(this.customGlbMapping).reduce(
-        (acc, emotion) => ({ ...acc, [emotion]: 0 }),
+      return this.customGlbMapping.reduce(
+        (acc, emotion) => ({ ...acc, [emotion.english]: 0 }),
         {}
       );
     }
   }
-
   /**
    * Updates the morph target influences for emotions, visemes and blinking
    */
@@ -207,12 +180,17 @@ export class MorphTargetController {
       !this.headMesh.morphTargetDictionary ||
       !this.headMesh.morphTargetInfluences
     ) {
-      console.error('[MorphTargetController] Missing morphTargetDictionary or morphTargetInfluences');
+      console.error(
+        '[MorphTargetController] Missing morphTargetDictionary or morphTargetInfluences'
+      );
       return;
     }
 
     // Process chat emission to get emotion morph targets
-    const emotionMorphTargets = this.processChatEmission(chatEmission, isLoading);
+    const emotionMorphTargets = this.processChatEmission(
+      chatEmission,
+      isLoading
+    );
 
     // Calculate blink value for this frame
     const blinkValue = this.calculateBlinkValue(
@@ -220,7 +198,7 @@ export class MorphTargetController {
       blinkState,
       eyeBlink
     );
-    
+
     const currentEmotionKeys = new Set(Object.keys(emotionMorphTargets));
 
     // Process each morph target
@@ -232,11 +210,12 @@ export class MorphTargetController {
 
         // Handle emotion morphs with smoothing
         if (currentEmotionKeys.has(key)) {
+          // console.log('[MorphTargetController] Processing morph target:', key);
           const targetEmotionValue = emotionMorphTargets[key];
           const currentEmotionValue = this.currentEmotionValues[key] || 0;
           const newEmotionValue = MathUtils.lerp(
             currentEmotionValue,
-            targetEmotionValue * 3, // Amplify emotion by 3x
+            targetEmotionValue * 2, // Amplify emotion by 3x
             EMOTION_SMOOTHING
           );
           this.currentEmotionValues[key] = newEmotionValue;
@@ -262,6 +241,17 @@ export class MorphTargetController {
             VISEME_SMOOTHING
           );
           this.headMesh.morphTargetInfluences[index] = finalValue;
+
+          // Only log when emotion is actually applied
+          if (finalValue > 0 && currentEmotionKeys.has(key)) {
+            console.log(
+              '[MorphTargetController] Applied emotion morph target:',
+              {
+                key,
+                value: finalValue,
+              }
+            );
+          }
         }
       }
     );
@@ -301,15 +291,15 @@ export class MorphTargetController {
     if (blinkState.isBlinking) {
       const blinkProgress =
         (currentTime - blinkState.blinkStartTime) / BLINK_CONFIG.blinkDuration;
-      
+
       // First half of blink - closing eyes
       if (blinkProgress <= 0.5) {
         blinkValue = blinkProgress * 2;
-      } 
+      }
       // Second half of blink - opening eyes
       else if (blinkProgress <= 1) {
         blinkValue = 2 - blinkProgress * 2;
-      } 
+      }
       // Blink complete
       else {
         blinkState.isBlinking = false;
