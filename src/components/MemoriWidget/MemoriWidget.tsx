@@ -2271,13 +2271,16 @@ const MemoriWidget = ({
   const resetTranscript = () => {
     setTranscript('');
   };
-
+  // Modify setListeningTimeout to be more robust
   const setListeningTimeout = () => {
-    clearListeningTimeout();
-    const timeout = setTimeout(
-      handleTranscriptProcessing,
-      continuousSpeechTimeout * 1000 + 300
-    );
+    clearListeningTimeout(); // Clear any existing timeout
+
+    console.debug('Setting speech processing timeout');
+    const timeout = setTimeout(() => {
+      console.debug('Speech timeout triggered, processing transcript');
+      handleTranscriptProcessing();
+    }, continuousSpeechTimeout * 1000 + 300);
+
     setTranscriptTimeout(timeout as unknown as NodeJS.Timeout);
   };
 
@@ -2297,9 +2300,11 @@ const MemoriWidget = ({
       setListeningTimeout();
     }
   };
-  // Modified useEffect to handle transcript changes
+
+  // Make sure only one path can trigger message sending
   useEffect(() => {
-    if (!isSpeaking) {
+    if (!isSpeaking && transcript && transcript.length > 0) {
+      console.debug('Transcript updated while not speaking, resetting timeout');
       resetListeningTimeout();
       resetInteractionTimeout();
     }
@@ -2452,59 +2457,66 @@ const MemoriWidget = ({
     }
   };
 
-  // Add a debounce mechanism to prevent duplicate sends
-  let lastSentMessage = '';
-  let lastSentTimestamp = 0;
+  // Add a mutex-like flag to prevent duplicate processing
+  let isProcessingSpeech = false;
 
-  const sendMessageWithDebounce = (message: string) => {
-    const currentTime = Date.now();
-    // Check if this is a duplicate message within a short time window (1 second)
-    if (message === lastSentMessage && currentTime - lastSentTimestamp < 1000) {
-      console.debug('Duplicate message detected, ignoring:', message);
+  // Create a single, centralized function to process and send messages
+  const processSpeechAndSendMessage = (text: string) => {
+    // Skip if already processing or no text
+    if (isProcessingSpeech || !text || text.trim().length === 0) {
+      console.debug(
+        'Skipping speech processing: already processing or empty text'
+      );
       return;
     }
 
-    // Update tracking variables
-    lastSentMessage = message;
-    lastSentTimestamp = currentTime;
+    try {
+      // Set processing flag immediately
+      isProcessingSpeech = true;
 
-    // Send the message
-    sendMessage(message);
+      // Process the text
+      const message = stripDuplicates(text);
+      console.debug('Processing speech message:', message);
+
+      if (message.length > 0) {
+        // Update UI states
+        setIsProcessingSTT(true);
+        setUserMessage('');
+
+        // Send the message
+        console.debug('Sending message:', message);
+        sendMessage(message);
+
+        // Reset states
+        resetTranscript();
+        clearListening();
+      }
+    } finally {
+      // Reset processing flag after a short delay to prevent race conditions
+      setTimeout(() => {
+        isProcessingSpeech = false;
+      }, 1000);
+    }
   };
 
-  // Update handleRecognizedSpeech
+  // Update handleRecognizedSpeech to use the centralized function
   const handleRecognizedSpeech = (text: string) => {
-    console.debug('Handling recognized speech:', text);
-
-    if (!text || text.trim().length === 0) {
-      console.debug('No valid text received from speech recognition');
-      return;
-    }
-
+    console.debug('Speech recognized:', text);
     setTranscript(text);
     setIsSpeaking(false);
 
-    const message = stripDuplicates(text);
-    console.debug('Stripped message:', message);
-
-    if (message.length > 0 && !isProcessingSTT) {
-      setIsProcessingSTT(true);
-      sendMessageWithDebounce(message); // Use debounced version
-      resetTranscript();
-      setUserMessage('');
-      clearListening();
+    // Don't process here - wait for timeout or explicit processing
+    if (!continuousSpeech) {
+      // For manual mode, process immediately
+      processSpeechAndSendMessage(text);
     }
+    // For continuous mode, rely on the timeout
   };
 
-  // Similarly update handleTranscriptProcessing
+  // Update handleTranscriptProcessing to use the centralized function
   const handleTranscriptProcessing = () => {
-    const message = stripDuplicates(transcript);
-    if (message.length > 0 && listening && !isProcessingSTT) {
-      setIsProcessingSTT(true);
-      sendMessageWithDebounce(message); // Use debounced version
-      setUserMessage('');
-      resetTranscript();
-      clearListening();
+    if (transcript && transcript.length > 0 && listening) {
+      processSpeechAndSendMessage(transcript);
     } else if (listening) {
       resetInteractionTimeout();
     }
