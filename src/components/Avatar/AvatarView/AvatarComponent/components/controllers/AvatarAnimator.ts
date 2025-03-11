@@ -258,83 +258,10 @@ export class AvatarAnimator {
   }
 
   /**
-   * Set up event listeners for the animation mixer
-   */
-  private setupMixerEvents(): void {
-    if (!this.mixer) {
-      console.warn(
-        '[AvatarAnimator] Cannot setup mixer events - mixer not initialized'
-      );
-      return;
-    }
-
-    // Listen for animation loops
-    this.mixer.addEventListener('loop', event => {
-      const action = event.action as AnimationAction;
-      if (!action || !this.currentAnimation) return;
-
-      if (action === this.actions[this.currentAnimation]) {
-        this.emit('loop', { animation: this.currentAnimation });
-      }
-    });
-
-    // Listen for animation completion
-    this.mixer.addEventListener('finished', event => {
-      const action = event.action as AnimationAction;
-      if (!action || !this.currentAnimation) return;
-
-      if (action === this.actions[this.currentAnimation]) {
-        // console.log(
-        //   '[AvatarAnimator] Animation complete:',
-        //   this.currentAnimation
-        // );
-        this.emit('complete', { animation: this.currentAnimation });
-
-        // Handle sequence progression
-        if (
-          this.currentSequence &&
-          this.sequenceIndex < this.currentSequence.length - 1
-        ) {
-          // Proceed to next animation in sequence with fast transition
-          this.sequenceIndex++;
-          this.play(this.currentSequence[this.sequenceIndex], {
-            fadeInDuration: 0.8,
-            fadeOutDuration: 0.8,
-            loopCount: 1,
-          });
-        } else if (
-          this.currentSequence &&
-          this.sequenceIndex >= this.currentSequence.length - 1
-        ) {
-          // End of sequence reached - clear sequence and return to idle
-          // console.log(
-          //   '[AvatarAnimator] End of sequence reached, returning to idle'
-          // );
-          this.currentSequence = null;
-          this.sequenceIndex = 0;
-
-          // FIXED: Force the transition to idle by directly calling idle()
-          // instead of idleWithRotation() which may not properly transition
-          this.idle();
-        } else if (
-          this.getAnimationInfo(this.currentAnimation)?.category !== 'IDLE'
-        ) {
-          // Single non-idle animation completed
-          // console.log('[AvatarAnimator] Returning to idle after completion');
-          // FIXED: Force the transition to idle
-          this.idle();
-        }
-      }
-    });
-  }
-
-  /**
-   * Play a specific animation with improved error handling and debugging
+   * Play a specific animation with improved transition handling
    */
   play(animationName: string, options: AnimationPlayOptions = {}): void {
     try {
-      // console.log(`[AvatarAnimator] Attempting to play: ${animationName}`);
-
       if (!this.initialized || !this.mixer) {
         console.warn(
           `[AvatarAnimator] Cannot play ${animationName} - not initialized`
@@ -347,12 +274,6 @@ export class AvatarAnimator {
 
       if (!nextAction) {
         console.warn(`[AvatarAnimator] Animation not found: ${animationName}`);
-        console.warn(
-          '[AvatarAnimator] Available animations:',
-          Object.keys(this.actions).join(', ')
-        );
-
-        // Try a different animation as fallback
         if (options.fallbackToIdle !== false) {
           const fallbackAnim = Object.keys(this.actions)[0];
           if (fallbackAnim) {
@@ -372,6 +293,26 @@ export class AvatarAnimator {
           this.idle();
         }
         return;
+      }
+
+      // Skip if the same animation is already playing and is the same category
+      if (
+        this.currentAnimation === animationName &&
+        !this.isTransitioning &&
+        options.loopCount === undefined // Only skip if not explicitly changing loop count
+      ) {
+        return;
+      }
+
+      // Prevent overlapping transitions
+      if (this.isTransitioning) {
+        // Complete any ongoing transition first
+        if (this.currentAnimation) {
+          const currentAction = this.actions[this.currentAnimation];
+          if (currentAction) {
+            currentAction.fadeOut(0.1); // Quick fade out of current transition
+          }
+        }
       }
 
       // Set up transition parameters
@@ -397,8 +338,12 @@ export class AvatarAnimator {
       if (this.currentAnimation) {
         const currentAction = this.actions[this.currentAnimation];
         if (currentAction) {
-          console.log('[AvatarAnimator] Fading out:', this.currentAnimation);
-          currentAction.fadeOut(fadeOut);
+          // Important: We must stop the action if we're resetting it to the same animation
+          if (this.currentAnimation === animationName) {
+            currentAction.stop();
+          } else {
+            currentAction.fadeOut(fadeOut);
+          }
         }
       }
 
@@ -407,9 +352,9 @@ export class AvatarAnimator {
       nextAction.fadeIn(fadeIn);
       nextAction.timeScale = timeScale;
 
-      // Ensure action is enabled
+      // Ensure action is enabled and weight is reset
       nextAction.enabled = true;
-      nextAction.setEffectiveWeight(1.0);
+      // nextAction.setEffectiveWeight(0); // Start from zero weight for smooth fade in
 
       // Set loop behavior
       if (loopCount === 0) {
@@ -424,16 +369,18 @@ export class AvatarAnimator {
         nextAction.clampWhenFinished = true;
       }
 
+      // Play the animation
       nextAction.play();
 
       // Update state
       this.currentAnimation = animationName;
       this.isTransitioning = true;
 
-      // Reset transition state after fade-in time
+      // Clear transition state after the longer of the fade durations
+      const transitionDuration = Math.max(fadeIn, fadeOut) * 1000;
       setTimeout(() => {
         this.isTransitioning = false;
-      }, fadeIn * 1000);
+      }, transitionDuration);
 
       // Emit start event
       this.emit('start', {
@@ -556,8 +503,7 @@ export class AvatarAnimator {
     );
 
     // Calculate transition parameters based on current state
-    const transitionOptions =
-      this.calculateTransitionOptions();
+    const transitionOptions = this.calculateTransitionOptions();
 
     // Process matches in order of priority
     //ex. <output class="animation-sequence">Anger->Sadness->Surprise</output>
@@ -663,8 +609,7 @@ export class AvatarAnimator {
   /**
    * Calculate optimal transition parameters based on current state
    */
-  private calculateTransitionOptions(
-  ): AnimationPlayOptions {
+  private calculateTransitionOptions(): AnimationPlayOptions {
     // Start with base transition parameters
     const options: AnimationPlayOptions = {
       fadeInDuration: this.fadeInDuration,
@@ -755,97 +700,92 @@ export class AvatarAnimator {
   }
 
   /**
-   * Improved idle transition that accepts transition parameters
+   * Improved idle transition with better animation selection and transitions
    */
   idle(options: AnimationPlayOptions = {}): void {
     // Get all idle animations
     const idleAnimations = this.getAnimationsByCategory('IDLE');
 
     if (idleAnimations.length > 0) {
-      // Choose a random idle animation different from current one
-      let randomIdle = this.getRandomAnimation('IDLE', [this.currentAnimation]);
+      // If already in an idle animation, ensure we pick a different one
+      let availableIdles = idleAnimations;
 
-      // Force a change if stuck
-      if (!randomIdle || randomIdle === this.currentAnimation) {
-        // Get the first available idle that's not the current one
-        const alternativeIdles = idleAnimations
-          .filter(info => info.name !== this.currentAnimation)
-          .map(info => info.name);
+      if (this.getAnimationCategory() === 'IDLE') {
+        // Filter out current idle to ensure variety
+        availableIdles = idleAnimations.filter(
+          info => info.name !== this.currentAnimation
+        );
 
-        if (alternativeIdles.length > 0) {
-          randomIdle = alternativeIdles[0];
-        } else if (idleAnimations.length > 0) {
-          // If all else fails, use the first available idle
-          randomIdle = idleAnimations[0].name;
+        // If we've filtered out all options, reset to full list
+        if (availableIdles.length === 0) {
+          availableIdles = idleAnimations;
         }
       }
 
-      if (randomIdle) {
-        // Use provided options with defaults for any missing values
-        const transitionOptions: AnimationPlayOptions = {
-          fadeInDuration: options.fadeInDuration ?? 0.8,
-          fadeOutDuration: options.fadeOutDuration ?? 0.8,
-          timeScale: options.timeScale ?? 0.85, // Slightly slower for more natural idle motion
-          loopCount: 0, // Always infinite for idle
-          ...options,
-        };
+      // Choose a random idle from available options
+      const randomIndex = Math.floor(Math.random() * availableIdles.length);
+      const selectedIdle = availableIdles[randomIndex].name;
 
-        // Always ensure loopCount is 0 (infinite) for idle animations
-        transitionOptions.loopCount = 0;
+      // Apply smooth transition options
+      const transitionOptions: AnimationPlayOptions = {
+        fadeInDuration: options.fadeInDuration ?? 0.7, // Slower fade for natural idle transition
+        fadeOutDuration: options.fadeOutDuration ?? 0.7, // Slower fade for natural idle transition
+        timeScale: options.timeScale ?? 0.9, // Slightly slower for more natural movement
+        loopCount: 0, // Always infinite for idle
+        ...options,
+      };
 
-        // Play new animation with optimized transition parameters
-        this.play(randomIdle, transitionOptions);
+      // Always ensure loopCount is 0 (infinite) for idle animations
+      transitionOptions.loopCount = 0;
 
-        this.currentIdleAnimation = randomIdle;
-        this.idleRotationCount = 0;
-        return;
-      }
+      // Play new idle with optimized transition parameters
+      this.play(selectedIdle, transitionOptions);
+
+      // Update idle tracking state
+      this.currentIdleAnimation = selectedIdle;
+      this.idleRotationCount = 0;
+
+      return;
     } else {
       // Fallback for avatars without idle animations
       console.warn(
         '[AvatarAnimator] No idle animations available, checking fallback options'
       );
 
-      if (this.avatarType === 'RPM') {
-        // For RPM avatars, we should have fallback animations
-        console.warn(
-          '[AvatarAnimator] RPM avatar without idle animations - this is unexpected'
+      // For custom GLB, use any loopable animation
+      const loopableAnimations = Array.from(this.animations.values())
+        .filter(info => info.canLoop)
+        .map(info => info.name);
+
+      if (loopableAnimations.length > 0) {
+        const randomIndex = Math.floor(
+          Math.random() * loopableAnimations.length
         );
-      } else {
-        // For custom GLB, use any loopable animation
-        const loopableAnimations = Array.from(this.animations.values())
-          .filter(info => info.canLoop)
-          .map(info => info.name);
+        const fallbackAnimation = loopableAnimations[randomIndex];
 
-        if (loopableAnimations.length > 0) {
-          const randomIndex = Math.floor(
-            Math.random() * loopableAnimations.length
-          );
-          const fallbackAnimation = loopableAnimations[randomIndex];
+        // Use smooth transition parameters
+        this.play(fallbackAnimation, {
+          loopCount: 0,
+          fadeInDuration: options.fadeInDuration ?? 0.7,
+          fadeOutDuration: options.fadeOutDuration ?? 0.7,
+          timeScale: options.timeScale ?? 0.9,
+        });
 
-          this.play(fallbackAnimation, {
-            loopCount: 0,
-            fadeInDuration: options.fadeInDuration ?? 0.8,
-            fadeOutDuration: options.fadeOutDuration ?? 0.8,
-            timeScale: options.timeScale ?? 0.85,
-          });
+        this.currentIdleAnimation = fallbackAnimation;
+        this.idleRotationCount = 0;
+      } else if (Object.keys(this.actions).length > 0) {
+        // Last resort: use any available animation
+        const firstAnimation = Object.keys(this.actions)[0];
 
-          this.currentIdleAnimation = fallbackAnimation;
-          this.idleRotationCount = 0;
-        } else if (Object.keys(this.actions).length > 0) {
-          // Last resort: use the first available animation
-          const firstAnimation = Object.keys(this.actions)[0];
+        this.play(firstAnimation, {
+          loopCount: 0,
+          fadeInDuration: options.fadeInDuration ?? 0.7,
+          fadeOutDuration: options.fadeOutDuration ?? 0.7,
+          timeScale: options.timeScale ?? 0.9,
+        });
 
-          this.play(firstAnimation, {
-            loopCount: 0,
-            fadeInDuration: options.fadeInDuration ?? 0.8,
-            fadeOutDuration: options.fadeOutDuration ?? 0.8,
-            timeScale: options.timeScale ?? 0.85,
-          });
-
-          this.currentIdleAnimation = firstAnimation;
-          this.idleRotationCount = 0;
-        }
+        this.currentIdleAnimation = firstAnimation;
+        this.idleRotationCount = 0;
       }
     }
   }
@@ -905,14 +845,24 @@ export class AvatarAnimator {
       return;
     }
 
+    // Complete any ongoing transition first
+    if (this.isTransitioning) {
+      // If we're already transitioning, let's make sure it completes
+      // before starting the sequence
+      setTimeout(() => {
+        this.playSequence(sequence, options);
+      }, 100);
+      return;
+    }
+
     // Store sequence info
     this.currentSequence = [...validSequence];
     this.sequenceIndex = 0;
 
-    // Use consistent transition parameters for sequences
+    // Use optimized transition parameters for first animation in sequence
     const firstAnimationOptions = {
-      fadeInDuration: 0.4,
-      fadeOutDuration: 0.4,
+      fadeInDuration: 0.6, // Smoother entry into sequence
+      fadeOutDuration: 0.6, // Smoother exit from current animation
       loopCount: 1,
       timeScale: options.timeScale ?? this.timeScale,
     };
@@ -953,22 +903,165 @@ export class AvatarAnimator {
   }
 
   /**
-   * Updates animation system with better sequence and transition handling
+   * Updates animation system with better transition handling
    */
   update(delta: number): void {
     if (!this.initialized || !this.mixer) return;
 
-    // Update mixer with exact delta
-    this.mixer.update(delta);
+    // Clamp delta to prevent extreme time jumps which cause jerky transitions
+    const clampedDelta = Math.min(delta, 0.1);
 
-    // Skip other processing during transitions
-    if (this.isTransitioning) return;
+    // Update the mixer with clamped delta
+    this.mixer.update(clampedDelta);
+
+    // Skip other processing during active transitions
+    if (this.isTransitioning) {
+      return;
+    }
 
     // Handle sequence progression
-    this.handleSequenceProgressionIfNeeded();
+    if (this.currentSequence && this.currentAnimation) {
+      const currentAction = this.actions[this.currentAnimation];
+      if (currentAction) {
+        const clipDuration = currentAction.getClip().duration;
+        const progress = currentAction.time / clipDuration;
 
-    // Handle automatic idle rotation
-    this.handleIdleRotationIfNeeded();
+        // If near end of animation and not already transitioning to next
+        if (progress > 0.85 && !this.isTransitioning) {
+          if (this.sequenceIndex < this.currentSequence.length - 1) {
+            // Move to next animation in sequence with smooth transition
+            this.sequenceIndex++;
+            const nextAnimation = this.currentSequence[this.sequenceIndex];
+            this.play(nextAnimation, {
+              fadeInDuration: 0.5, // Longer fade for smoother transitions
+              fadeOutDuration: 0.5, // Longer fade for smoother transitions
+              loopCount: 1,
+            });
+          } else {
+            // End of sequence - return to idle with smooth transition
+            this.currentSequence = null;
+            this.sequenceIndex = 0;
+            this.idle({
+              fadeInDuration: 0.7,
+              fadeOutDuration: 0.7,
+            });
+          }
+        }
+      }
+    }
+
+    // Handle idle rotation
+    if (
+      this.currentAnimation &&
+      this.currentIdleAnimation &&
+      this.getAnimationCategory() === 'IDLE'
+    ) {
+      const currentAction = this.actions[this.currentAnimation];
+      if (currentAction) {
+        const clipDuration = currentAction.getClip().duration;
+        const currentTime = currentAction.time % clipDuration;
+        const previousTime = this.lastAnimationTime || 0;
+
+        // Detect loop completion (time wraps around)
+        if (previousTime > currentTime + 0.1) {
+          this.idleRotationCount++;
+
+          // Change idle animation after certain number of loops
+          if (this.idleRotationCount >= this.idleRotationLimit) {
+            this.idleRotationCount = 0;
+            this.idle({
+              fadeInDuration: 0.6, // Smooth transition between idles
+              fadeOutDuration: 0.6, // Smooth transition between idles
+            });
+          }
+        }
+
+        // Store time for next comparison
+        this.lastAnimationTime = currentTime;
+      }
+    }
+  }
+
+  // Add this helper method to check if an animation is actually playing
+  private isAnimationPlaying(animationName: string): boolean {
+    if (!this.actions[animationName]) return false;
+
+    const action = this.actions[animationName];
+    return action.isRunning() && action.getEffectiveWeight() > 0.1;
+  }
+
+  /**
+   * Set up event listeners for the animation mixer with improved transition handling
+   */
+  private setupMixerEvents(): void {
+    if (!this.mixer) {
+      console.warn(
+        '[AvatarAnimator] Cannot setup mixer events - mixer not initialized'
+      );
+      return;
+    }
+
+    // Listen for animation loops
+    this.mixer.addEventListener('loop', event => {
+      const action = event.action as AnimationAction;
+      if (!action || !this.currentAnimation) return;
+
+      if (action === this.actions[this.currentAnimation]) {
+        this.emit('loop', { animation: this.currentAnimation });
+      }
+    });
+
+    // Listen for animation completion with improved transition handling
+    this.mixer.addEventListener('finished', event => {
+      const action = event.action as AnimationAction;
+      if (!action || !this.currentAnimation) return;
+
+      if (action === this.actions[this.currentAnimation]) {
+        // Prevent multiple completion handlers during transition
+        if (this.isTransitioning) {
+          return;
+        }
+
+        this.emit('complete', { animation: this.currentAnimation });
+
+        // Add a small delay to ensure clean transition
+        setTimeout(() => {
+          // Handle sequence progression
+          if (
+            this.currentSequence &&
+            this.sequenceIndex < this.currentSequence.length - 1
+          ) {
+            // Proceed to next animation in sequence with smooth transition
+            this.sequenceIndex++;
+            this.play(this.currentSequence[this.sequenceIndex], {
+              fadeInDuration: 0.5, // Increased for smoother transitions
+              fadeOutDuration: 0.5, // Increased for smoother transitions
+              loopCount: 1,
+            });
+          } else if (
+            this.currentSequence &&
+            this.sequenceIndex >= this.currentSequence.length - 1
+          ) {
+            // End of sequence - return to idle with smooth transition
+            this.currentSequence = null;
+            this.sequenceIndex = 0;
+            this.idle({
+              fadeInDuration: 0.7,
+              fadeOutDuration: 0.7,
+            });
+          } else if (
+            this.currentAnimation &&
+            this.getAnimationInfo(this.currentAnimation)?.category !== 'IDLE'
+          ) {
+            // Non-idle animation completed - return to idle with smooth transition
+            this.idle({
+              fadeInDuration: 0.7,
+              fadeOutDuration: 0.7,
+            });
+          }
+        }, 50); // Small delay to ensure smooth timing
+      }
+    });
   }
 
   /**
