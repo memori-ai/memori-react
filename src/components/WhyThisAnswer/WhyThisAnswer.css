@@ -126,3 +126,37 @@ div.memori--whythisanswer-skeleton-text {
     margin-bottom: 0.5rem;
     background: #ccc;
 }
+
+.memori--whythisanswer-title-text{
+    width: 100%;
+}
+
+.memori--whythisanswer-title-text-top {
+    display: flex;
+    align-items: space-between;
+    gap: 0.5rem;
+}
+
+.memori--whythisanswer-title-text-top p {
+    margin: 0;
+    font-size: 0.75rem;
+}
+
+.memori--whythisanswer-confidence-card {
+    max-width: max-content;
+    padding: 0.5rem;
+    box-shadow: 0 0 .25rem var(--memori-primary);
+    font-size: 0.75rem;
+}
+
+.memori--whythisanswer-confidence-card > div > div {
+    padding: 0 !important;
+}
+
+.memori--whythisanswer-title-text-top-container{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    gap: 0.5rem;
+    
+}

@@ -12,6 +12,7 @@ import { getErrori18nKey } from '../../helpers/error';
 import { useTranslation } from 'react-i18next';
 import Snippet from '../Snippet/Snippet';
 import MediaWidget from '../MediaWidget/MediaWidget';
+import Card from '../ui/Card';
 
 export interface Props {
   apiURL: string;
@@ -152,15 +153,34 @@ const WhyThisAnswer = ({
                     {m.confidenceLevel}
                   </span>
                   <div className="memori--whythisanswer-title-text">
-                    <p>
-                      <strong>{addQuestionMark(m.memory.title ?? '')}</strong>
-                    </p>
-                    <p>
-                      {m.memory.titleVariants
-                        ?.map(t => addQuestionMark(t))
-                        ?.join(' | ')}
-                    </p>
+                    <div className="memori--whythisanswer-title-text-top-container">
+                      <p>
+                        <strong>{addQuestionMark(m.memory.title ?? '')}</strong>
+                      </p>
+                      <p className="memori--whythisanswer-title-text-top">
+                        Assegnato a:{' '}
+                        {m.memory.receiverName + ' ' + m.memory.receiverTag}
+                      </p>
+                    </div>
+                    {m.memory.contextVarsToSet &&
+                      Object.entries(m.memory.contextVarsToSet).map(
+                        ([key, value]) => (
+                          <Card
+                            key={key}
+                            className="memori--whythisanswer-confidence-card"
+                          >
+                            <p>
+                              {key}: {value}
+                            </p>
+                          </Card>
+                        )
+                      )}
                   </div>
+                  <p>
+                    {m.memory.titleVariants
+                      ?.map(t => addQuestionMark(t))
+                      ?.join(' | ')}
+                  </p>
                 </div>
                 {m.memory.answers?.map((a, i) => (
                   <p key={i} className="memori--whythisanswer-answer">
