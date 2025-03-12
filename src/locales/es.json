@@ -109,6 +109,8 @@
     "micButtonPopoverListening": "Haga clic en el botón para dejar de hablar.",
     "pageInstructExplanation": "Para enseñarme cosas nuevas, haga clic en el botón INSTRUIRME para comenzar.",
     "pageTryMeExplanation": "Para hablar conmigo haga clic en el botón INICIO para comenzar",
+    "pagePrivacyExplanation": "Las conversaciones son visibles por el autor del agente",
+    "pagePrivacyExplanationTooltip": "Al iniciar la conversación, le informamos que:\n\n- Todas las conversaciones con este agente son visibles por el autor del agente\n- Si está utilizando la chat como usuario anónimo, el autor podrá ver el contenido de la conversación y su dirección IP\n- Si está utilizando la chat como usuario registrado (conectado), el autor podrá ver el contenido de la conversación y su nombre de usuario\n- El autor utiliza estas informaciones para mejorar las funciones del agente y para ofrecerte un mejor servicio\n- Continuando la conversación, acepta estas condiciones.",
     "instructButton": "INSTRUÍME",
     "tryMeButton": "COMENZAR",
     "chatHistory": "Historial de chat",

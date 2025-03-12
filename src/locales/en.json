@@ -109,6 +109,8 @@
     "micButtonPopoverListening": "Click the button to stop speak",
     "pageInstructExplanation": "To teach me new things click on the INSTRUCT ME button to get started",
     "pageTryMeExplanation": "To talk to me click on the START button to get started",
+    "pagePrivacyExplanation": "The conversations are visible by the author of the agent",
+    "pagePrivacyExplanationTooltip": "When starting the conversation, we inform you that:\n\n- All conversations with this agent are visible to the author of the agent\n- If you are using the chat as an anonymous user, the author will see the content of the conversation and your IP address\n- If you are using the chat as a registered user (logged in), the author will see the content of the conversation and your username\n- The author uses this information to improve the features of the agent and to provide you with a better service\n- Continuing the conversation, you accept these conditions.",
     "instructButton": "INSTRUCT ME",
     "tryMeButton": "START",
     "resumeButton": "RESUME",

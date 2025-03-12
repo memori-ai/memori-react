@@ -95,6 +95,25 @@
     display: block;
 }
 
+.memori--start-privacy-explanation {
+    color: var(--memori-text-color, rgba(0, 0, 0, 0.85));
+    font-size: 0.85em;
+    font-style: italic;
+    opacity: 0.85;
+}
+
+.memori--start-privacy-explanation-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.memori--start-privacy-explanation-icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    margin-left: 0.5rem;
+}
+
 .memori--translation-toggle {
     height: auto;
     padding-right: 0;

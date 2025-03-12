@@ -74,6 +74,53 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
           Lorem ipsum.
         </span>
       </p>
+      <div
+        class="memori--start-privacy-explanation-container"
+      >
+        <p
+          class="memori--start-privacy-explanation"
+        >
+          write_and_speak.pagePrivacyExplanation
+        </p>
+        <div
+          class="memori-tooltip memori-tooltip--align-right"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            write_and_speak.pagePrivacyExplanationTooltip
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <svg
+              aria-hidden="true"
+              class="memori--start-privacy-explanation-icon"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+              />
+              <path
+                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+              />
+              <path
+                d="M12 17L12.01 17"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
       <button
         class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
       >
@@ -199,6 +246,53 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
           Lorem ipsum.
         </span>
       </p>
+      <div
+        class="memori--start-privacy-explanation-container"
+      >
+        <p
+          class="memori--start-privacy-explanation"
+        >
+          write_and_speak.pagePrivacyExplanation
+        </p>
+        <div
+          class="memori-tooltip memori-tooltip--align-right"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            write_and_speak.pagePrivacyExplanationTooltip
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <svg
+              aria-hidden="true"
+              class="memori--start-privacy-explanation-icon"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+              />
+              <path
+                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+              />
+              <path
+                d="M12 17L12.01 17"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
       <button
         class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
       >
@@ -324,6 +418,53 @@ exports[`renders StartPanel unchanged 1`] = `
           Lorem ipsum.
         </span>
       </p>
+      <div
+        class="memori--start-privacy-explanation-container"
+      >
+        <p
+          class="memori--start-privacy-explanation"
+        >
+          write_and_speak.pagePrivacyExplanation
+        </p>
+        <div
+          class="memori-tooltip memori-tooltip--align-right"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            write_and_speak.pagePrivacyExplanationTooltip
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <svg
+              aria-hidden="true"
+              class="memori--start-privacy-explanation-icon"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+              />
+              <path
+                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+              />
+              <path
+                d="M12 17L12.01 17"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
       <button
         class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
       >
@@ -449,6 +590,53 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
           Lorem ipsum.
         </span>
       </p>
+      <div
+        class="memori--start-privacy-explanation-container"
+      >
+        <p
+          class="memori--start-privacy-explanation"
+        >
+          write_and_speak.pagePrivacyExplanation
+        </p>
+        <div
+          class="memori-tooltip memori-tooltip--align-right"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            write_and_speak.pagePrivacyExplanationTooltip
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <svg
+              aria-hidden="true"
+              class="memori--start-privacy-explanation-icon"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+              />
+              <path
+                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+              />
+              <path
+                d="M12 17L12.01 17"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
       <button
         class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
       >
@@ -588,6 +776,53 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
           Lorem ipsum.
         </span>
       </p>
+      <div
+        class="memori--start-privacy-explanation-container"
+      >
+        <p
+          class="memori--start-privacy-explanation"
+        >
+          write_and_speak.pagePrivacyExplanation
+        </p>
+        <div
+          class="memori-tooltip memori-tooltip--align-right"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            write_and_speak.pagePrivacyExplanationTooltip
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <svg
+              aria-hidden="true"
+              class="memori--start-privacy-explanation-icon"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+              />
+              <path
+                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+              />
+              <path
+                d="M12 17L12.01 17"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
       <button
         class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
       >
@@ -713,6 +948,53 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
           Lorem ipsum.
         </span>
       </p>
+      <div
+        class="memori--start-privacy-explanation-container"
+      >
+        <p
+          class="memori--start-privacy-explanation"
+        >
+          write_and_speak.pagePrivacyExplanation
+        </p>
+        <div
+          class="memori-tooltip memori-tooltip--align-right"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            write_and_speak.pagePrivacyExplanationTooltip
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <svg
+              aria-hidden="true"
+              class="memori--start-privacy-explanation-icon"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+              />
+              <path
+                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+              />
+              <path
+                d="M12 17L12.01 17"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
       <button
         class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
       >
@@ -907,6 +1189,53 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
           Lorem ipsum.
         </span>
       </p>
+      <div
+        class="memori--start-privacy-explanation-container"
+      >
+        <p
+          class="memori--start-privacy-explanation"
+        >
+          write_and_speak.pagePrivacyExplanation
+        </p>
+        <div
+          class="memori-tooltip memori-tooltip--align-right"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            write_and_speak.pagePrivacyExplanationTooltip
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <svg
+              aria-hidden="true"
+              class="memori--start-privacy-explanation-icon"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+              />
+              <path
+                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+              />
+              <path
+                d="M12 17L12.01 17"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
       <button
         class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
       >
@@ -1094,6 +1423,53 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
           Lorem ipsum.
         </span>
       </p>
+      <div
+        class="memori--start-privacy-explanation-container"
+      >
+        <p
+          class="memori--start-privacy-explanation"
+        >
+          write_and_speak.pagePrivacyExplanation
+        </p>
+        <div
+          class="memori-tooltip memori-tooltip--align-right"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            write_and_speak.pagePrivacyExplanationTooltip
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <svg
+              aria-hidden="true"
+              class="memori--start-privacy-explanation-icon"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+              />
+              <path
+                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+              />
+              <path
+                d="M12 17L12.01 17"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
       <button
         class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
       >
@@ -1278,6 +1654,53 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
           Lorem ipsum.
         </span>
       </p>
+      <div
+        class="memori--start-privacy-explanation-container"
+      >
+        <p
+          class="memori--start-privacy-explanation"
+        >
+          write_and_speak.pagePrivacyExplanation
+        </p>
+        <div
+          class="memori-tooltip memori-tooltip--align-right"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            write_and_speak.pagePrivacyExplanationTooltip
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <svg
+              aria-hidden="true"
+              class="memori--start-privacy-explanation-icon"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+              />
+              <path
+                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+              />
+              <path
+                d="M12 17L12.01 17"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
       <button
         class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
       >
@@ -1403,6 +1826,53 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
           Lorem ipsum.
         </span>
       </p>
+      <div
+        class="memori--start-privacy-explanation-container"
+      >
+        <p
+          class="memori--start-privacy-explanation"
+        >
+          write_and_speak.pagePrivacyExplanation
+        </p>
+        <div
+          class="memori-tooltip memori-tooltip--align-right"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            write_and_speak.pagePrivacyExplanationTooltip
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <svg
+              aria-hidden="true"
+              class="memori--start-privacy-explanation-icon"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+              />
+              <path
+                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+              />
+              <path
+                d="M12 17L12.01 17"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
       <button
         class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
       >
@@ -1627,6 +2097,53 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
             日本語
           </option>
         </select>
+      </div>
+      <div
+        class="memori--start-privacy-explanation-container"
+      >
+        <p
+          class="memori--start-privacy-explanation"
+        >
+          write_and_speak.pagePrivacyExplanation
+        </p>
+        <div
+          class="memori-tooltip memori-tooltip--align-right"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            write_and_speak.pagePrivacyExplanationTooltip
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <svg
+              aria-hidden="true"
+              class="memori--start-privacy-explanation-icon"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="12"
+                cy="12"
+                r="10"
+              />
+              <path
+                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+              />
+              <path
+                d="M12 17L12.01 17"
+              />
+            </svg>
+          </div>
+        </div>
       </div>
       <button
         class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"

@@ -376,6 +376,64 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
                   </option>
                 </select>
               </div>
+              <div
+                class="memori--start-privacy-explanation-container"
+              >
+                <p
+                  class="memori--start-privacy-explanation"
+                >
+                  Le conversazioni sono visibili all'autore dell'agente
+                </p>
+                <div
+                  class="memori-tooltip memori-tooltip--align-right"
+                >
+                  <div
+                    class="memori-tooltip--content"
+                  >
+                    Iniziando la conversazione, ti informiamo che:
+
+- Tutte le conversazioni con questo agente sono visibili all'autore dell'agente
+- Se stai utilizzando la chat come utente anonimo, l'autore potrà vedere il contenuto della conversazione e il tuo indirizzo IP
+- Se stai utilizzando la chat come utente registrato (loggato), l'autore potrà vedere il contenuto della conversazione e il tuo nome utente
+- L'autore utilizza queste informazioni per migliorare le funzionalità dell'agente e per fornirti un servizio migliore
+- Continuando la conversazione, accetti queste condizioni.
+
+Formato:
+- Testo: il testo della conversazione
+- Indirizzo IP: solo per utenti anonimi
+- Nome utente: solo per utenti registrati
+                  </div>
+                  <div
+                    class="memori-tooltip--trigger"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="memori--start-privacy-explanation-icon"
+                      fill="none"
+                      focusable="false"
+                      role="img"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="1.5"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="10"
+                      />
+                      <path
+                        d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+                      />
+                      <path
+                        d="M12 17L12.01 17"
+                      />
+                    </svg>
+                  </div>
+                </div>
+              </div>
               <button
                 class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
               >

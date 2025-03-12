@@ -109,6 +109,7 @@
     "micButtonPopoverListening": "Klicken Sie auf die Schaltfläche, um das Sprechen zu stoppen",
     "pageInstructExplanation": "Um mir neue Dinge beizubringen, klicken Sie auf die Schaltfläche „ANLEITEN“, um zu beginnen",
     "pageTryMeExplanation": "Um mit mir zu sprechen, klicken Sie auf die Schaltfläche START, um zu beginnen",
+    "pagePrivacyExplanation": "Die Konversationen sind sichtbar von dem Autor des Agenten",
     "instructButton": "WEISE MICH AN",
     "tryMeButton": "START",
     "chatHistory": "Chatverlauf",

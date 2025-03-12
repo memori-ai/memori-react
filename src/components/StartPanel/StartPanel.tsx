@@ -20,6 +20,7 @@ import CompletionProviderStatus, {
   Props as CPSProps,
 } from '../CompletionProviderStatus/CompletionProviderStatus';
 import MapMarker from '../icons/MapMarker';
+import QuestionHelp from '../icons/QuestionHelp';
 
 export interface Props {
   memori: Memori;
@@ -74,6 +75,7 @@ const StartPanel: React.FC<Props> = ({
   const [translatedDescription, setTranslatedDescription] = useState(
     memori.description
   );
+  
   const [showTranslation, setShowTranslation] = useState(true);
   const toggleTranslations = () => {
     setShowTranslation(show => !show);
@@ -244,6 +246,15 @@ const StartPanel: React.FC<Props> = ({
               </select>
             </div>
           )}
+
+          <div className="memori--start-privacy-explanation-container">
+            <p className="memori--start-privacy-explanation">
+              {t('write_and_speak.pagePrivacyExplanation')}
+            </p>
+            <Tooltip align="right" content={t('write_and_speak.pagePrivacyExplanationTooltip')}>
+              <QuestionHelp className="memori--start-privacy-explanation-icon" />
+            </Tooltip>
+          </div>
 
           <Button
             primary
