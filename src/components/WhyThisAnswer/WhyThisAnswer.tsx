@@ -83,6 +83,7 @@ const WhyThisAnswer = ({
   useEffect(() => {
     fetchMemories();
   }, [fetchMemories, message, sessionID]);
+  
 
   return (
     <Drawer
@@ -157,20 +158,28 @@ const WhyThisAnswer = ({
                       <p>
                         <strong>{addQuestionMark(m.memory.title ?? '')}</strong>
                       </p>
-                      <p className="memori--whythisanswer-title-text-top">
-                        Assegnato a:{' '}
-                        {m.memory.receiverName + ' ' + m.memory.receiverTag}
-                      </p>
+                      {m.memory.receiverName || m.memory.receiverTag && (
+                        <p className="memori--whythisanswer-title-text-top">
+                          Assegnato a:{' '}
+                          {m.memory.receiverName && m.memory.receiverTag
+                            ? m.memory.receiverName + ' ' + m.memory.receiverTag
+                          : m.memory.receiverName
+                            ? m.memory.receiverName
+                            : m.memory.receiverTag
+                              ? m.memory.receiverTag
+                              : ''}
+                        </p>
+                      )}
                     </div>
-                    {m.memory.contextVarsToSet &&
-                      Object.entries(m.memory.contextVarsToSet).map(
+                    {m.memory.contextVars &&
+                      Object.entries(m.memory.contextVars || {}).map(
                         ([key, value]) => (
                           <Card
                             key={key}
                             className="memori--whythisanswer-confidence-card"
                           >
                             <p>
-                              {key}: {value}
+                              {key}: {value?.toString() || ''}
                             </p>
                           </Card>
                         )
