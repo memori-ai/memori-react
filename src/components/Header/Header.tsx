@@ -22,6 +22,7 @@ import Clear from '../icons/Clear';
 import DeepThought from '../icons/DeepThought';
 import Group from '../icons/Group';
 import UserIcon from '../icons/User';
+import History from '../icons/History';
 
 export interface Props {
   className?: string;
@@ -31,6 +32,7 @@ export interface Props {
   position?: Venue;
   setShowPositionDrawer: (show: boolean) => void;
   setShowSettingsDrawer: (show: boolean) => void;
+  setShowChatHistoryDrawer: (show: boolean) => void;
   setShowKnownFactsDrawer: (show: boolean) => void;
   setShowExpertsDrawer: (show: boolean) => void;
   enableAudio?: boolean;
@@ -39,6 +41,7 @@ export interface Props {
   hasUserActivatedSpeak?: boolean;
   showShare?: boolean;
   showSettings?: boolean;
+  showChatHistory?: boolean;
   showSpeaker?: boolean;
   showReload?: boolean;
   showClear?: boolean;
@@ -58,6 +61,7 @@ const Header: React.FC<Props> = ({
   position,
   setShowPositionDrawer,
   setShowSettingsDrawer,
+  setShowChatHistoryDrawer,
   setShowKnownFactsDrawer,
   setShowExpertsDrawer,
   enableAudio = true,
@@ -75,6 +79,7 @@ const Header: React.FC<Props> = ({
   loginToken,
   user,
   sessionID,
+  showChatHistory = true,
 }) => {
   const { t } = useTranslation();
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
@@ -124,6 +129,16 @@ const Header: React.FC<Props> = ({
           title={t('clearHistory') || 'Clear chat'}
           icon={<Clear />}
           onClick={clearHistory}
+        />
+      )}
+      {showChatHistory && (
+        <Button
+          primary
+          shape="circle"
+          className="memori-header--button memori-header--button--chat-history"
+          title={t('chatHistory') || 'Chat history'}
+          icon={<History />}
+          onClick={() => setShowChatHistoryDrawer(true)}
         />
       )}
       {fullScreenAvailable && (

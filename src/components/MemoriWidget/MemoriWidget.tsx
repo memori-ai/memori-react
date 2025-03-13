@@ -87,6 +87,7 @@ import {
 import { getErrori18nKey } from '../../helpers/error';
 import { getCredits } from '../../helpers/credits';
 import { useViseme } from '../../context/visemeContext';
+import ChatHistoryDrawer from '../ChatHistoryDrawer/ChatHistory';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -378,6 +379,7 @@ export interface Props {
   showTypingText?: boolean;
   showLogin?: boolean;
   showUpload?: boolean;
+  showChatHistory?: boolean;
   preview?: boolean;
   embed?: boolean;
   height?: number | string;
@@ -435,11 +437,12 @@ const MemoriWidget = ({
   showLogin = false,
   showUpload,
   showOnlyLastMessages,
+  showChatHistory,
   height = '100vh',
   secret,
   baseUrl = 'https://aisuru.com',
-  apiURL = 'https://backend.memori.ai',
-  engineURL = 'https://engine.memori.ai',
+  apiURL = 'https://backend-staging.memori.ai',
+  engineURL = 'https://engine-staging.memori.ai',
   initialContextVars,
   initialQuestion,
   ogImage,
@@ -572,6 +575,7 @@ const MemoriWidget = ({
     useState(false);
   const [showPositionDrawer, setShowPositionDrawer] = useState(false);
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
+  const [showChatHistoryDrawer, setShowChatHistoryDrawer] = useState(false);
   const [showKnownFactsDrawer, setShowKnownFactsDrawer] = useState(false);
   const [showExpertsDrawer, setShowExpertsDrawer] = useState(false);
   const [muteSpeaker, setMuteSpeaker] = useState(
@@ -3334,7 +3338,9 @@ const MemoriWidget = ({
         source.connect(audioContext.destination);
       }
     },
+    setShowChatHistoryDrawer,
     showSettings: showSettings ?? integrationConfig?.showSettings ?? true,
+    showChatHistory: showChatHistory ?? integrationConfig?.showChatHistory ?? true,
     hasUserActivatedSpeak,
     showReload: selectedLayout === 'TOTEM',
     showClear,
@@ -3680,6 +3686,15 @@ const MemoriWidget = ({
           isAvatar3d={!!integrationConfig?.avatarURL}
           additionalSettings={additionalSettings}
           speakerMuted={speakerMuted}
+        />
+      )}
+
+      {showChatHistoryDrawer && (
+        <ChatHistoryDrawer
+          open={!!showChatHistoryDrawer}
+          onClose={() => setShowChatHistoryDrawer(false)}
+          apiClient={client}
+          sessionId={sessionId || ''}
         />
       )}
 
