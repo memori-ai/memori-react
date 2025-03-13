@@ -102,6 +102,8 @@
     "boardOfExperts": "Gruppo di esperti",
     "showExpertsInTheBoard": "Mostra gli esperti di questo gruppo",
     "expertsInTheBoard": "Esperti di questo gruppo",
+    "chatHistory": "Cronologia chat",
+    "chatHistoryDescription": "Visualizza la cronologia delle chat con questo agente",
     "goToIntegrationsToCustomizeAvatar": "Per personalizzare l'avatar, vai a Condividimi e configura la pagina pubblica"
   },
   "write_and_speak": {

@@ -102,6 +102,8 @@
     "boardOfExperts": "junta de expertos",
     "showExpertsInTheBoard": "Mostrar expertos en este foro",
     "expertsInTheBoard": "Expertos en este foro",
+    "chatHistory": "Historial de chat",
+    "chatHistoryDescription": "Mostrar el historial de chat con este agente",
     "goToIntegrationsToCustomizeAvatar": "Para personalizar el avatar, vaya a Compartir y personalice la página pública."
   },
   "write_and_speak": {

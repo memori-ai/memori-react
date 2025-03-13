@@ -36,6 +36,7 @@ Anonymous.args = {
   spokenLang: 'IT',
   enableAudio: true,
   autoStart: true,
+  showChatHistory: true,
 };
 
 export const WithInitialContextAndQuestion = Template.bind({});
@@ -263,6 +264,7 @@ CreaRiassunti.args = {
   showLogin: false,
 };
 
+
 export const NunzioFiore = Template.bind({});
 NunzioFiore.args = {
   ownerUserName: 'nunzio.fiore',
@@ -291,7 +293,7 @@ export const DancingAvatar = Template.bind({});
 DancingAvatar.args = {
   memoriName: 'Dancing Avatar',
   ownerUserName: 'andrea.patini3',
-  memoriID: '04a56ff0-c202-425d-907d-1ca0b7563e44',
+  memoriID: '45420d30-a103-455c-bab1-b708a0566a02',
   ownerUserID: '58770358-a5db-4b49-b3a4-734fc468e745',
   tenantID: 'aisuru-staging.aclambda.online',
   apiURL: 'https://backend-staging.memori.ai',
@@ -301,6 +303,7 @@ DancingAvatar.args = {
   spokenLang: 'IT',
   layout: 'FULLPAGE',
   multilingual: 'true',
+  showChatHistory: 'true',
   showShare: 'true',
   integrationID: '16a142a0-cb4e-4484-b2b1-662f965fc29c',
 };

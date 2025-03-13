@@ -102,7 +102,9 @@
     "boardOfExperts": "Conseil d'experts",
     "showExpertsInTheBoard": "Afficher les experts dans ce forum",
     "expertsInTheBoard": "Experts dans ce forum",
-    "goToIntegrationsToCustomizeAvatar": "Pour personnaliser l'avatar, allez dans Partager et personnalisez la page publique"
+    "goToIntegrationsToCustomizeAvatar": "Pour personnaliser l'avatar, allez dans Partager et personnalisez la page publique",
+    "chatHistory": "Historique des discussions",
+    "chatHistoryDescription": "Afficher l'historique des discussions avec cet agent"
   },
   "write_and_speak": {
     "micButtonPopover": "Cliquez sur le bouton pour parler",
