@@ -46,6 +46,7 @@
   "generatedByAI": "La respuesta generada por IA, ocasionalmente puede generar información incorrecta",
   "whyThisAnswer": "¿Por qué esta respuesta?",
   "whyThisAnswerHelper": "Esta respuesta fue generada automáticamente por una inteligencia artificial basada en estos contenidos verificados.",
+  "receiverLabel": "Asignado a",
   "completionsEnabled": "La IA avanzada puede responder con respuestas generadas automáticamente que a veces pueden contener información incorrecta.",
   "completionProviderDown": "Este Agent está integrado con una IA generativa de {{provider}}, pero actualmente no está disponible. ",
   "completionProviderFallbackName": "un proveedor externo",

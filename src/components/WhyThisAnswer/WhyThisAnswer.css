@@ -127,7 +127,7 @@ div.memori--whythisanswer-skeleton-text {
     background: #ccc;
 }
 
-.memori--whythisanswer-title-text{
+.memori--whythisanswer-title-text {
     width: 100%;
 }
 
@@ -142,21 +142,30 @@ div.memori--whythisanswer-skeleton-text {
     font-size: 0.75rem;
 }
 
-.memori--whythisanswer-confidence-card {
+.memori--whythisanswer-contextvars {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.memori--whythisanswer-contextvars-card {
     max-width: max-content;
     padding: 0.5rem;
-    box-shadow: 0 0 .25rem var(--memori-primary);
+    box-shadow: 0 0 0.25rem var(--memori-primary);
     font-size: 0.75rem;
 }
 
-.memori--whythisanswer-confidence-card > div > div {
+.memori--whythisanswer-contextvars-card + .memori--whythisanswer-contextvars-card {
+    margin-left: 0.5rem;
+}
+
+.memori--whythisanswer-contextvars-card > div > div {
     padding: 0 !important;
 }
 
-.memori--whythisanswer-title-text-top-container{
+.memori--whythisanswer-title-text-top-container {
     display: flex;
     justify-content: space-between;
     margin-bottom: 8px;
     gap: 0.5rem;
-    
 }

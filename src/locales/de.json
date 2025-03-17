@@ -46,6 +46,7 @@
   "generatedByAI": "Von KI generierte Antworten können gelegentlich falsche Informationen generieren",
   "whyThisAnswer": "Warum diese Antwort?",
   "whyThisAnswerHelper": "Diese Antwort wurde automatisch von einer künstlichen Intelligenz auf Basis dieser verifizierten Inhalte generiert.",
+  "receiverLabel": "Zugewiesen an",
   "completionsEnabled": "Fortschrittliche KI kann mit automatisch generierten Antworten reagieren, die manchmal falsche Informationen enthalten können",
   "completionProviderDown": "Dieser Zwilling ist mit einer generativen KI von integriert {{provider}}, aber es ist derzeit nicht verfügbar. ",
   "completionProviderFallbackName": "ein externer Anbieter",

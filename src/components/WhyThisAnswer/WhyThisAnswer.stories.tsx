@@ -185,7 +185,8 @@ WithData.args = {
         title: 'Content with context',
         titleVariants: undefined,
         contextVars: {
-          KEY: 'VALUE',
+          KEY1: 'VALUE1',
+          KEY2: 'VALUE2',
         },
         answers: [
           {

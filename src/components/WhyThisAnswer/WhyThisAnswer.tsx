@@ -83,7 +83,6 @@ const WhyThisAnswer = ({
   useEffect(() => {
     fetchMemories();
   }, [fetchMemories, message, sessionID]);
-  
 
   return (
     <Drawer
@@ -158,39 +157,36 @@ const WhyThisAnswer = ({
                       <p>
                         <strong>{addQuestionMark(m.memory.title ?? '')}</strong>
                       </p>
-                      {m.memory.receiverName || m.memory.receiverTag && (
-                        <p className="memori--whythisanswer-title-text-top">
-                          Assegnato a:{' '}
-                          {m.memory.receiverName && m.memory.receiverTag
-                            ? m.memory.receiverName + ' ' + m.memory.receiverTag
-                          : m.memory.receiverName
-                            ? m.memory.receiverName
-                            : m.memory.receiverTag
-                              ? m.memory.receiverTag
-                              : ''}
-                        </p>
-                      )}
                     </div>
-                    {m.memory.contextVars &&
-                      Object.entries(m.memory.contextVars || {}).map(
-                        ([key, value]) => (
-                          <Card
-                            key={key}
-                            className="memori--whythisanswer-confidence-card"
-                          >
-                            <p>
-                              {key}: {value?.toString() || ''}
-                            </p>
-                          </Card>
-                        )
-                      )}
+                    <p>
+                      {m.memory.titleVariants
+                        ?.map(t => addQuestionMark(t))
+                        ?.join(' | ')}
+                    </p>
+                    {(m.memory.receiverName || m.memory.receiverTag) && (
+                      <p className="memori--whythisanswer-title-text-top">
+                        {t('receiverLabel')}: {m.memory.receiverTag}{' '}
+                        {m.memory.receiverName}
+                      </p>
+                    )}
                   </div>
-                  <p>
-                    {m.memory.titleVariants
-                      ?.map(t => addQuestionMark(t))
-                      ?.join(' | ')}
-                  </p>
                 </div>
+                {m.memory.contextVars && (
+                  <div className="memori--whythisanswer-contextvars">
+                    {Object.entries(m.memory.contextVars || {}).map(
+                      ([key, value]) => (
+                        <Card
+                          key={key}
+                          className="memori--whythisanswer-contextvars-card"
+                        >
+                          <span>
+                            {key}: {value?.toString() || '✔️'}
+                          </span>
+                        </Card>
+                      )
+                    )}
+                  </div>
+                )}
                 {m.memory.answers?.map((a, i) => (
                   <p key={i} className="memori--whythisanswer-answer">
                     <Expandable rows={3}>{a.text}</Expandable>
