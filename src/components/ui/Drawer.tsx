@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState, useRef, useCallback } from 'react';
+import React, { FC, useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import Spin from './Spin';
 import Button from './Button';
@@ -31,7 +31,6 @@ export interface Props {
   widthLg?: string;
 }
 
-
 const Drawer: FC<Props> = ({
   title,
   open = false,
@@ -56,52 +55,48 @@ const Drawer: FC<Props> = ({
   
   // Track if the drawer has been opened to handle data initialization correctly
   const drawerOpenedRef = useRef(false);
+  
+  // Memoize data comparison to avoid unnecessary recalculations
+  const dataString = useMemo(() => {
+    if (!data) return null;
+    try {
+      return JSON.stringify(data);
+    } catch (e) {
+      return null;
+    }
+  }, [data]);
+
   // Reset original data when drawer opens
   useEffect(() => {
     if (open && !drawerOpenedRef.current && data) {
-      try {
-        const dataCopy = JSON.parse(JSON.stringify(data));
-        setOriginalData(dataCopy);
-      } catch (e) {
-        setOriginalData(data);
-      }
+      setOriginalData(dataString);
       drawerOpenedRef.current = true;
     } else if (!open) {
       setOriginalData(null);
       drawerOpenedRef.current = false;
     }
-  }, [open, data]);
+  }, [open, dataString]);
 
   // Memoize the check changes function to avoid recreating it on every render
   const checkChanges = useCallback(() => {
     try {
-      if (!data || typeof data !== 'object' || Object.keys(data).length === 0) {
+      if (!data || !originalData) {
         return onClose();
       }
 
-      if (!originalData) {
-        return onClose();
-      }
-
-      let hasChanges = false;
-      try {
-        const dataStr = JSON.stringify(data);
-        const originalDataStr = JSON.stringify(originalData);
-        hasChanges = dataStr !== originalDataStr;
-      } catch (e) {
-        hasChanges = data !== originalData;
-      }
+      // Compare strings instead of objects for better performance
+      const currentDataString = dataString;
+      const hasChanges = currentDataString !== originalData;
 
       if (hasChanges) {
         setConfirmDialogOpen(true);
-        onClose();
       } else {
         onClose();
       }
     } catch (error) {
       onClose();
     }
-  }, [data, originalData, onClose]);
+  }, [data, dataString, originalData, onClose]);
 
   // Use the callback consistently
   const handleClose = useCallback(() => {
@@ -187,48 +182,52 @@ const Drawer: FC<Props> = ({
                     </div>
                   )}
                   <Spin spinning={loading}>
-                    {title && (
-                      <Dialog.Title className="memori-drawer--title">
-                        {title}
-                      </Dialog.Title>
-                    )}
-                    {description && (
-                      <Dialog.Description className="memori-drawer--description">
-                        {description}
-                      </Dialog.Description>
-                    )}
-                    {children}
-                    {footer && (
-                      <div className="memori-drawer--footer">
-                        {footer.leftAction && (
-                          <div
-                            className={
-                              'memori-drawer--footer-left-action ' +
-                              (footer.leftActionClassName || '')
-                            }
-                          >
-                            {footer.leftAction}
-                          </div>
-                        )}
-                        {footer.onSubmit && (
-                          <div className="memori-drawer--footer-actions">
-                            <Button outlined onClick={handleClose}>
-                              {t('cancel', { ns: 'common' })}
-                            </Button>
-                            <Button
-                              htmlType="submit"
-                              onClick={footer.onSubmit}
-                              loading={footer.loading}
-                              className="memori-drawer--footer-confirm"
-                            >
-                              {t('confirm', { ns: 'common' })}
-                            </Button>
-                          </div>
-                        )}
-                        {extra && <div className="memori-drawer--extra">{extra}</div>}
+                    <div className="memori-drawer--content">
+                      {title && (
+                        <Dialog.Title className="memori-drawer--title">
+                          {title}
+                        </Dialog.Title>
+                      )}
+                      {description && (
+                        <Dialog.Description className="memori-drawer--description">
+                          {description}
+                        </Dialog.Description>
+                      )}
+                      <div className="memori-drawer--content--scrollable">
+                        {children}
                       </div>
-                    )}
+                    </div>
                   </Spin>
+                  {footer && (
+                    <div className="memori-drawer--footer">
+                      {footer.leftAction && (
+                        <div
+                          className={
+                            'memori-drawer--footer-left-action ' +
+                            (footer.leftActionClassName || '')
+                          }
+                        >
+                          {footer.leftAction}
+                        </div>
+                      )}
+                      {footer.onSubmit && (
+                        <div className="memori-drawer--footer-actions">
+                          <Button outlined onClick={handleClose}>
+                            {t('cancel', { ns: 'common' })}
+                          </Button>
+                          <Button
+                            htmlType="submit"
+                            onClick={footer.onSubmit}
+                            loading={footer.loading}
+                            className="memori-drawer--footer-confirm"
+                          >
+                            {t('confirm', { ns: 'common' })}
+                          </Button>
+                        </div>
+                      )}
+                      {extra && <div className="memori-drawer--extra">{extra}</div>}
+                    </div>
+                  )}
                 </Dialog.Panel>
               </Transition.Child>
             </div>

@@ -79,12 +79,11 @@ const content = (
   </>
 );
 
-const simpleFooter = (
-  <>
-    <Button primary>OK</Button>
-    <Button>Cancel</Button>
-  </>
-);
+// Create a proper footer object for the Drawer component
+const simpleFooterObject = {
+  onSubmit: () => console.log('Submit clicked'),
+  loading: false,
+};
 
 const Template: Story<Props> = args => {
   const [isOpen, setIsOpen] = React.useState(!!args.open || false);
@@ -141,7 +140,6 @@ WithSimpleFooter.args = {
   title: 'Drawer Title',
   description: 'Drawer Description',
   footer: {
-    leftAction: <Button>Cancel</Button>,
     onSubmit: () => console.log('Submit'),
     loading: false
   },
@@ -174,7 +172,6 @@ NonClosable.args = {
   title: 'Non-Closable Drawer',
   closable: false,
 };
-
 
 // Template for data detection
 const DataTemplate: Story<Props> = args => {
@@ -269,7 +266,7 @@ WithConfirmationDialog.args = {
   description: 'This drawer shows the confirmation dialog when closing with unsaved changes',
 };
 
-// Template with lots of content
+// Fixed Template with lots of content and proper footer
 const LongContentTemplate: Story<Props> = args => {
   const [isOpen, setIsOpen] = React.useState(!!args.open || false);
 
@@ -295,5 +292,5 @@ WithLongContent.args = {
   open: true,
   title: 'Long Content Drawer',
   description: 'This drawer has a lot of content',
-  footer: simpleFooter,
+  footer: simpleFooterObject, // Use the properly structured footer object
 };
