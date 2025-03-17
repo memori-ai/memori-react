@@ -3695,6 +3695,7 @@ const MemoriWidget = ({
           onClose={() => setShowChatHistoryDrawer(false)}
           apiClient={client}
           sessionId={sessionId || ''}
+          memori={memori}
         />
       )}
 
