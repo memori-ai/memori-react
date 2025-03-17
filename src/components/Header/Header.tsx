@@ -23,6 +23,8 @@ import DeepThought from '../icons/DeepThought';
 import Group from '../icons/Group';
 import UserIcon from '../icons/User';
 import History from '../icons/History';
+import Tooltip from '../ui/Tooltip';
+import { Popover } from '@headlessui/react';
 
 export interface Props {
   className?: string;
@@ -134,12 +136,13 @@ const Header: React.FC<Props> = ({
       {showChatHistory && (
         <Button
           primary
+          disabled={!loginToken || history.length === 0}
           shape="circle"
           className="memori-header--button memori-header--button--chat-history"
           title={t('chatHistory') || 'Chat history'}
-          icon={<History />}
-          onClick={() => setShowChatHistoryDrawer(true)}
-        />
+          icon={<History disabled={!loginToken || history.length === 0} />}
+            onClick={() => setShowChatHistoryDrawer(true)}
+          />
       )}
       {fullScreenAvailable && (
         <Button
