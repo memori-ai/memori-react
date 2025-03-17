@@ -179,64 +179,6 @@ Giovanna.args = {
   layout: 'ZOOMED_FULL_BODY',
 };
 
-export const GiovannaRPMProva = Template.bind({});
-GiovannaRPMProva.args = {
-  memoriName: 'Giovanna Test',
-  ownerUserName: 'andrea.patini3',
-  memoriID: '431d9819-c958-442c-a799-f90617371c0c',
-  ownerUserID: '58770358-a5db-4b49-b3a4-734fc468e745',
-  tenantID: 'aisuru-staging.aclambda.online',
-  engineURL: 'https://engine-staging.memori.ai',
-  apiURL: 'https://backend-staging.memori.ai',
-  baseURL: 'https://aisuru-staging.aclambda.online',
-  uiLang: 'EN',
-  spokenLang: 'IT',
-  layout: 'ZOOMED_FULL_BODY',
-  integrationID: '061898c0-2138-49da-a6b3-5d86267aad05',
-  initialQuestion: 'inizio simulazione',
-};
-
-export const GiovannaGLBProva = Template.bind({});
-GiovannaGLBProva.args = {
-  ...GiovannaRPMProva.args,
-  integrationID: 'd2099459-0f10-40cd-85e1-06e77a678723',
-  layout: 'ZOOMED_FULL_BODY',
-};
-
-export const MoodChefAssistant = Template.bind({});
-MoodChefAssistant.args = {
-  memoriName: 'Mood Chef Assistant',
-  ownerUserName: 'andrea.patini3',
-  memoriID: 'fb4f9251-e7ec-4002-b0e5-ffa6e75b2fd8',
-  ownerUserID: '58770358-a5db-4b49-b3a4-734fc468e745',
-  tenantID: 'aisuru-staging.aclambda.online',
-  engineURL: 'https://engine-staging-tmp.memori.ai',
-  apiURL: 'https://backend-staging.memori.ai',
-  baseURL: 'https://aisuru-staging.aclambda.online',
-  uiLang: 'EN',
-  spokenLang: 'IT',
-  layout: 'ZOOMED_FULL_BODY',
-  integrationID: '6e289cc1-df99-4879-8a3a-fe10baea7eac',
-};
-
-export const GiovannaProvaWithPreviousSession = Template.bind({});
-GiovannaProvaWithPreviousSession.args = {
-  memoriName: 'Giovanna Test',
-  ownerUserName: 'andrea.patini3',
-  memoriID: '431d9819-c958-442c-a799-f90617371c0c',
-  ownerUserID: '58770358-a5db-4b49-b3a4-734fc468e745',
-  tenantID: 'aisuru-staging.aclambda.online',
-  engineURL: 'https://engine-staging.memori.ai',
-  apiURL: 'https://backend-staging.memori.ai',
-  baseURL: 'https://aisuru-staging.aclambda.online',
-  uiLang: 'EN',
-  spokenLang: 'IT',
-  layout: 'ZOOMED_FULL_BODY',
-  integrationID: 'e92ac275-39b5-474d-8f9e-826cc5284f1e',
-  initialQuestion: 'inizio simulazione',
-  sessionID: 'c1d13cec-1571-41a0-90bc-15bd2d62e263',
-};
-
 export const CreaRiassunti = Template.bind({});
 CreaRiassunti.args = {
   memoriName: 'Crea Riassunti',
@@ -287,22 +229,78 @@ NunzioFiore.args = {
   enableAudio: 'true',
 };
 
-export const DancingAvatar = Template.bind({});
-DancingAvatar.args = {
-  memoriName: 'Dancing Avatar',
+export const TestCustomAnimationsWithRPMSequence = Template.bind({});
+TestCustomAnimationsWithRPMSequence.args = {
+  memoriName: 'Test Custom Animations with RPM sequence',
   ownerUserName: 'andrea.patini3',
-  memoriID: '04a56ff0-c202-425d-907d-1ca0b7563e44',
+  memoriID: '45420d30-a103-455c-bab1-b708a0566a02',
   ownerUserID: '58770358-a5db-4b49-b3a4-734fc468e745',
   tenantID: 'aisuru-staging.aclambda.online',
-  apiURL: 'https://backend-staging.memori.ai',
   engineURL: 'https://engine-staging-tmp.memori.ai',
+  apiURL: 'https://backend-staging.memori.ai',
   baseURL: 'https://aisuru-staging.aclambda.online',
   uiLang: 'IT',
   spokenLang: 'IT',
-  layout: 'FULLPAGE',
-  multilingual: 'true',
+  layout: 'ZOOMED_FULL_BODY',
+  showInstruct: 'false',
+  showSettings: 'true',
+  showClear: 'false',
+  showTypingText: 'false',
+  showOnlyLastMessages: 'false',
+  showTranslationOriginal: 'false',
+  showCopyButton: 'false',
   showShare: 'true',
-  integrationID: '16a142a0-cb4e-4484-b2b1-662f965fc29c',
+  showLogin: 'false',
+  useMathFormatting: 'false',
+  showUpload: 'false',
+  autoStart: 'false',
+  enableAudio: 'true',
+  integrationID: 'a2b9bddc-bb8c-4b0e-b80f-b50ec90e9c99',
+};
+
+export const TestCustomGLBSingleAnimation = Template.bind({});
+TestCustomGLBSingleAnimation.args = {
+  memoriName: "Dragon's Journey",
+  ownerUserName: 'andrea.patini3',
+  memoriID: 'fa0568c0-aac2-494b-bde7-6a8ec7725a2d',
+  ownerUserID: '58770358-a5db-4b49-b3a4-734fc468e745',
+  tenantID: 'aisuru-staging.aclambda.online',
+  engineURL: 'https://engine-staging-tmp.memori.ai',
+  apiURL: 'https://backend-staging.memori.ai',
+  baseURL: 'https://aisuru-staging.aclambda.online',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  layout: 'TOTEM',
+  showInstruct: 'false',
+  showSettings: 'true',
+  showClear: 'false',
+  showTypingText: 'false',
+  showOnlyLastMessages: 'false',
+  showTranslationOriginal: 'false',
+  showCopyButton: 'false',
+  showShare: 'true',
+  showLogin: 'false',
+  useMathFormatting: 'false',
+  showUpload: 'false',
+  autoStart: 'false',
+  enableAudio: 'true',
+  integrationID: 'eea150e2-3ab3-47ae-a9ad-d3ea1704f623',
+};
+
+export const TestRPMEmotionFunction = Template.bind({});
+TestRPMEmotionFunction.args = {
+  memoriName: 'Test RPM',
+  ownerUserName: 'andrea.patini3',
+  memoriID: '35b7059f-08f4-45ab-98d8-899957666b77',
+  ownerUserID: '58770358-a5db-4b49-b3a4-734fc468e745',
+  tenantID: 'aisuru-staging.aclambda.online',
+  engineURL: 'https://engine-staging-tmp.memori.ai',
+  apiURL: 'https://backend-staging.memori.ai',
+  baseURL: 'https://aisuru-staging.aclambda.online',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  layout: 'ZOOMED_FULL_BODY',
+  integrationID: '60a37903-44a2-48c2-82e3-c7b8b620cb64',
 };
 
 const TemplateWithBatchButton: Story<Props> = args => (

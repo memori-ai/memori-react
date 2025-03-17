@@ -11,94 +11,95 @@ export const SCALE_LERP_FACTOR = 0.1;
 
 // Maximum number of idle loops before forcing change
 export const MAX_IDLE_LOOPS_DEFAULT = 5;
-
-
-interface BaseAction {
-  weight: number;
-  action?: string;
+// Type definitions for emotion handling
+interface EmotionMappingItem {
+  italian: string;
+  english: string;
 }
+export type EmotionMapping = EmotionMappingItem[];
 
-// Base animations for the avatar
-export const BASE_ACTIONS: Record<string, BaseAction> = {
-  Gioia1: { weight: 0 },
-  Gioia2: { weight: 0 },
-  Gioia3: { weight: 0 },
-  Idle1: { weight: 1 },
-  Idle2: { weight: 0 },
-  Idle3: { weight: 0 },
-  Idle4: { weight: 0 },
-  Idle5: { weight: 0 },
-  Rabbia1: { weight: 0 },
-  Rabbia2: { weight: 0 },
-  Rabbia3: { weight: 0 },
-  Sorpresa1: { weight: 0 },
-  Sorpresa2: { weight: 0 },
-  Sorpresa3: { weight: 0 },
-  Timore1: { weight: 0 },
-  Timore2: { weight: 0 },
-  Timore3: { weight: 0 },
-  Tristezza1: { weight: 0 },
-  Tristezza2: { weight: 0 },
-  Tristezza3: { weight: 0 },
-  Loading1: { weight: 0 },
-  Loading2: { weight: 0 },
-  Loading3: { weight: 0 },
-};
+interface BlendShapeMapItem {
+  emotion: { italian: string; english: string };
+  blendShapes: Record<string, number>;
+}
+export type BlendShapeMap = BlendShapeMapItem[];
 
-// Mapping of emotions from Italian to English
-export const MAPPING_EMOTIONS_ITALIAN_TO_ENGLISH = {
-  Gioia: 'Joy',
-  Rabbia: 'Anger',
-  Sorpresa: 'Surprise',
-  Tristezza: 'Sadness',
-  Timore: 'Fear',
-};
+// Italian to English emotion mapping
+// Italian to English emotion mapping
+export const MAPPING_EMOTIONS_ITALIAN_TO_ENGLISH: EmotionMapping = [
+  {
+    italian: 'Gioia',
+    english: 'Joy',
+  },
+  {
+    italian: 'Rabbia',
+    english: 'Anger',
+  },
+  {
+    italian: 'Sorpresa',
+    english: 'Surprise',
+  },
+  {
+    italian: 'Tristezza',
+    english: 'Sadness',
+  },
+  {
+    italian: 'Timore',
+    english: 'Fear',
+  },
+];
 
-// Mapping of blend shapes to emotions
-export const MAPPING_BLEND_SHAPE_TO_EMOTION_RPM = {
-  Rabbia: {
-    'browDownLeft': 0.5,
-    'browDownRight': 0.5,
-    'browOuterUpLeft': 0.5,
-    'browOuterUpRight': 0.5,
-    'mouthSmile': -0.2,
+// Mapping of blend shapes to emotions for RPM avatars
+export const MAPPING_BLEND_SHAPE_TO_EMOTION_RPM: BlendShapeMap = [
+  {
+    emotion: { italian: 'Rabbia', english: 'Anger' },
+    blendShapes: {
+      'browDownLeft': 0.5,
+      'browDownRight': 0.5,
+      'browOuterUpLeft': 0.5,
+      'browOuterUpRight': 0.5,
+      'mouthSmile': -0.2,
+    },
   },
-  Timore: {
-    'browOuterUpLeft': -0.5,
-    'browOuterUpRight': -0.5,
-    'eyeWideLeft': -0.5,
-    'eyeWideRight': -0.5,
+  {
+    emotion: { italian: 'Timore', english: 'Fear' },
+    blendShapes: {
+      'browOuterUpLeft': -0.5,
+      'browOuterUpRight': -0.5,
+      'eyeWideLeft': -0.5,
+      'eyeWideRight': -0.5,
+    },
   },
-  Tristezza: {
-    'browDownLeft': -0.5,
-    'browDownRight': -0.5,
-    'eyeSquintLeft': 0.5,
-    'eyeSquintRight': 0.5,
-    'mouthSmile': -0.6,
+  {
+    emotion: { italian: 'Tristezza', english: 'Sadness' },
+    blendShapes: {
+      'browDownLeft': -0.5,
+      'browDownRight': -0.5,
+      'eyeSquintLeft': 0.5,
+      'eyeSquintRight': 0.5,
+      'mouthSmile': -0.6,
+    },
   },
-  Sorpresa: {
-    'browInnerUp': 0.5,
-    'browOuterUpLeft': 0.5,
-    'browOuterUpRight': 0.5,
-    'eyeWideLeft': 0.5,
-    'eyeWideRight': 0.5,
+  {
+    emotion: { italian: 'Sorpresa', english: 'Surprise' },
+    blendShapes: {
+      'browInnerUp': 0.5,
+      'browOuterUpLeft': 0.5,
+      'browOuterUpRight': 0.5,
+      'eyeWideLeft': 0.5,
+      'eyeWideRight': 0.5,
+    },
   },
-  Gioia: {
-    'browDownLeft': 0.5,
-    'browDownRight': 0.5,
-    'browInnerUp': 0.5,
-    'mouthSmile': 0.8,
+  {
+    emotion: { italian: 'Gioia', english: 'Joy' },
+    blendShapes: {
+      'browDownLeft': 0.5,
+      'browDownRight': 0.5,
+      'browInnerUp': 0.5,
+      'mouthSmile': 0.8,
+    },
   },
-};
-
-// Mapping of blend shapes to emotions for custom GLB
-export const MAPPING_BLEND_SHAPE_TO_EMOTION_CUSTOM_GLB = {
-  Gioia: 'Joy',
-  Rabbia: 'Anger',
-  Sorpresa: 'Surprise',
-  Tristezza: 'Sadness',
-  Timore: 'Fear',
-};
+];
 
 // URL for the male avatar
 export const ANIMATION_URLS = {
