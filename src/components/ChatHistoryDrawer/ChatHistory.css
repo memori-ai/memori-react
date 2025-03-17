@@ -3,3 +3,48 @@
     flex-direction: column;
     gap: 1rem;
 }
+
+.memori-chat-history-drawer--content--card{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.memori-chat-history-drawer--content--card--content{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.memori-chat-history-drawer--content--card--content--line--text--user{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 1rem;
+}
+
+.memori-chat-history-drawer--content--card--content--line--text--assistant{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+
+.memori-chat-history-drawer--pagination{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 2rem;
+}
+
+.memori-chat-history-drawer--content--card--icon{
+    width: 2rem
+}
+
+.memori-chat-history-drawer--content--card--board-of-experts{
+    background-color: var(--memori-color-primary);
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
