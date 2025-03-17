@@ -163,6 +163,7 @@ h2.memori-drawer--title {
 .memori-drawer--content{
     overflow-y: auto;
     flex: 1;
+    padding-top: 12px;
 }
 
 .memori-drawer--content--scrollable{
