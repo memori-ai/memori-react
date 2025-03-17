@@ -6,7 +6,7 @@ exports[`renders UploadButton unchanged 1`] = `
     class="relative file-upload-wrapper"
   >
     <input
-      accept=".pdf,.txt"
+      accept=".pdf,.txt,.json"
       class="memori--upload-file-input"
       multiple=""
       type="file"

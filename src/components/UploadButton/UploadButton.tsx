@@ -39,7 +39,7 @@ const FileUploadButton = ({
 }) => {
   // State for loading indicator
   const [isLoading, setIsLoading] = useState(false);
-  // State for tracking upload errors  
+  // State for tracking upload errors
   const [errors, setErrors] = useState<UploadError[]>([]);
   // Reference to hidden file input
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -122,7 +122,7 @@ const FileUploadButton = ({
   const validateFile = (file: File): boolean => {
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
     const ALLOWED_FILE_TYPES = ['.pdf', '.txt'];
-    
+
     if (!ALLOWED_FILE_TYPES.includes(fileExt)) {
       addError({
         message: `File type "${fileExt}" is not supported. Please use: ${ALLOWED_FILE_TYPES.join(
@@ -161,7 +161,7 @@ const FileUploadButton = ({
 
       if (fileExt === 'pdf') {
         text = await extractTextFromPDF(file);
-      } else if (fileExt === 'txt') {
+      } else if (fileExt === 'txt' || fileExt === 'json') {
         text = await file.text();
       }
 
@@ -241,7 +241,7 @@ const FileUploadButton = ({
       <input
         ref={fileInputRef}
         type="file"
-        accept=".pdf,.txt"
+        accept=".pdf,.txt,.json"
         className="memori--upload-file-input"
         onChange={handleFileSelect}
         multiple
