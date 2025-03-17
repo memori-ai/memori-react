@@ -165,8 +165,8 @@ const Drawer: FC<Props> = ({
                       __html: `
                       .memori-drawer--panel {
                         --memori-drawer--width: ${width};
-                        --memori-drawer--width-lg: ${widthLg};
-                        --memori-drawer--width-md: ${widthMd};
+                        --memori-drawer--width--lg: ${widthLg};
+                        --memori-drawer--width--md: ${widthMd};
                       }
                       `,
                     }}
