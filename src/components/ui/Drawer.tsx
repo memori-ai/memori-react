@@ -52,62 +52,39 @@ const Drawer: FC<Props> = ({
   const [originalData, setOriginalData] = useState<any>(null);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const { t } = useTranslation();
-  
-  // Track if the drawer has been opened to handle data initialization correctly
-  const drawerOpenedRef = useRef(false);
-  
-  // Memoize data comparison to avoid unnecessary recalculations
-  const dataString = useMemo(() => {
-    if (!data) return null;
-    try {
-      return JSON.stringify(data);
-    } catch (e) {
-      return null;
-    }
-  }, [data]);
 
-  // Reset original data when drawer opens
+  // Set original data when drawer opens and data is available
   useEffect(() => {
-    if (open && !drawerOpenedRef.current && data) {
-      setOriginalData(dataString);
-      drawerOpenedRef.current = true;
-    } else if (!open) {
+    if (open && data && !originalData) {
+      setOriginalData(data);
+    }
+    
+    // Reset original data when drawer closes
+    if (!open) {
       setOriginalData(null);
-      drawerOpenedRef.current = false;
     }
-  }, [open, dataString]);
+  }, [open, data, originalData]);
 
-  // Memoize the check changes function to avoid recreating it on every render
+  // Check if data has changed
   const checkChanges = useCallback(() => {
-    try {
-      if (!data || !originalData) {
-        return onClose();
-      }
-
-      // Compare strings instead of objects for better performance
-      const currentDataString = dataString;
-      const hasChanges = currentDataString !== originalData;
-
-      if (hasChanges) {
-        setConfirmDialogOpen(true);
-      } else {
-        onClose();
-      }
-    } catch (error) {
-      onClose();
+    if (!data || Object.keys(data).length === 0) {
+      return onClose();
     }
-  }, [data, dataString, originalData, onClose]);
 
-  // Use the callback consistently
-  const handleClose = useCallback(() => {
-    if (data) {
-      checkChanges();
+    // Compare current data with original data
+    if (originalData && JSON.stringify(originalData) !== JSON.stringify(data)) {
+      setConfirmDialogOpen(true);
     } else {
       onClose();
     }
-  }, [data, checkChanges, onClose]);
+  }, [data, originalData, onClose]);
 
-  // Handle the confirmation of unsaved changes
+  // Handle drawer close
+  const handleClose = useCallback(() => {
+    checkChanges();
+  }, [checkChanges]);
+
+  // Confirm unsaved changes
   const handleConfirmUnsavedChanges = useCallback(() => {
     setConfirmDialogOpen(false);
     onClose();
@@ -124,13 +101,9 @@ const Drawer: FC<Props> = ({
         confirmText={t('confirm')}
         cancelText={t('cancel')}
       />
-      
+
       <Transition appear show={open} as={React.Fragment}>
-        <Dialog
-          open={open}
-          onClose={handleClose}
-          className={cx('memori-drawer', className)}
-        >
+        <Dialog open={open} onClose={handleClose} className={cx('memori-drawer', className)}>
           <Transition.Child
             as={React.Fragment}
             enter="ease-out duration-300"
@@ -159,69 +132,36 @@ const Drawer: FC<Props> = ({
                     'memori-drawer--panel-left': placement === 'left',
                     'memori-drawer--with-footer': !!footer,
                   })}
+                  style={{
+                    '--memori-drawer--width': width,
+                    '--memori-drawer--width--lg': widthLg,
+                    '--memori-drawer--width--md': widthMd,
+                  } as React.CSSProperties}
                 >
-                  <style
-                    dangerouslySetInnerHTML={{
-                      __html: `
-                      .memori-drawer--panel {
-                        --memori-drawer--width: ${width};
-                        --memori-drawer--width--lg: ${widthLg};
-                        --memori-drawer--width--md: ${widthMd};
-                      }
-                      `,
-                    }}
-                  />
                   {closable && (
                     <div className="memori-drawer--close">
-                      <Button
-                        shape="circle"
-                        outlined
-                        icon={<Close />}
-                        onClick={handleClose}
-                      />
+                      <Button shape="circle" outlined icon={<Close />} onClick={handleClose} />
                     </div>
                   )}
                   <Spin spinning={loading}>
                     <div className="memori-drawer--content">
-                      {title && (
-                        <Dialog.Title className="memori-drawer--title">
-                          {title}
-                        </Dialog.Title>
-                      )}
-                      {description && (
-                        <Dialog.Description className="memori-drawer--description">
-                          {description}
-                        </Dialog.Description>
-                      )}
-                      <div className="memori-drawer--content--scrollable">
-                        {children}
-                      </div>
+                      {title && <Dialog.Title className="memori-drawer--title">{title}</Dialog.Title>}
+                      {description && <Dialog.Description className="memori-drawer--description">{description}</Dialog.Description>}
+                      <div className="memori-drawer--content--scrollable">{children}</div>
                     </div>
                   </Spin>
                   {footer && (
                     <div className="memori-drawer--footer">
                       {footer.leftAction && (
-                        <div
-                          className={
-                            'memori-drawer--footer-left-action ' +
-                            (footer.leftActionClassName || '')
-                          }
-                        >
+                        <div className={'memori-drawer--footer-left-action ' + (footer.leftActionClassName || '')}>
                           {footer.leftAction}
                         </div>
                       )}
                       {footer.onSubmit && (
                         <div className="memori-drawer--footer-actions">
-                          <Button outlined onClick={handleClose}>
-                            {t('cancel', { ns: 'common' })}
-                          </Button>
-                          <Button
-                            htmlType="submit"
-                            onClick={footer.onSubmit}
-                            loading={footer.loading}
-                            className="memori-drawer--footer-confirm"
-                          >
-                            {t('confirm', { ns: 'common' })}
+                          <Button outlined onClick={handleClose}>{t('cancel')}</Button>
+                          <Button htmlType="submit" onClick={footer.onSubmit} loading={footer.loading} className="memori-drawer--footer-confirm">
+                            {t('confirm')}
                           </Button>
                         </div>
                       )}

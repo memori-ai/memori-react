@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback, useMemo, useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import Drawer, { Props } from './Drawer';
 import Button from './Button';
@@ -203,57 +203,32 @@ WithDataDetection.args = {
   description: 'This drawer demonstrates the data change detection feature',
 };
 
-const ConfirmationDialogTemplate: Story<Props> = args => {
-  const [isOpen, setIsOpen] = React.useState(!!args.open || false);
-  const [data, setData] = React.useState({ id: 1, name: 'John Doe' });
-  
-  // Memoize this object to reduce rerenders
-  const modifiedData = React.useMemo(() => ({ id: 1, name: 'Jane Smith' }), []);
-  
-  // Optimize the handler
-  const handleModifyData = React.useCallback(() => {
-    setData(modifiedData);
-  }, [modifiedData]);
+// Improved ConfirmationDialog template with better state management
+
+const ConfirmationDialogTemplate: Story<Props> = ({ open = true }: Props) => {
+  const [isOpen, setIsOpen] = useState(open);
+  const [data, setData] = useState({ id: 1, name: 'John Doe' });
 
   return (
     <>
-      <Button onClick={() => { setIsOpen(true); }}>Open Dialog Demo Drawer</Button>
-      
-      <Drawer
-        {...args}
-        open={isOpen}
-        data={data}
+      <Button onClick={() => setIsOpen(true)}>Open Confirmation Dialog</Button>
+      <Drawer 
+        open={isOpen} 
         onClose={() => setIsOpen(false)}
+        data={data}
+        title="Confirmation Example"
         footer={{
-          leftAction: data.name === 'Jane Smith' ? (
-            <span>Data has been modified</span>
-          ) : (
-            <Button onClick={handleModifyData}>
-              Modify Data (to trigger dialog)
-            </Button>
-          ),
-          onSubmit: () => setIsOpen(false),
+          onSubmit: () => {
+            console.log('Submitted with data:', data);
+            setIsOpen(false);
+          }
         }}
       >
-        <div style={{ padding: '8px 0' }}>
-          <h3>Confirmation Dialog Demo</h3>
-          <p>This drawer will trigger the confirmation dialog when you try to close it after modifying data.</p>
-          
-          <div style={{ marginTop: '20px', padding: '12px', background: '#f5f5f5', borderRadius: '4px' }}>
-            <p><strong>Current data:</strong> {JSON.stringify(data)}</p>
-            {data.name === 'Jane Smith' && (
-              <p><strong>Original data:</strong> {JSON.stringify({ id: 1, name: 'John Doe' })}</p>
-            )}
-          </div>
-          
-          <div style={{ marginTop: '20px' }}>
-            <p><strong>Instructions:</strong></p>
-            <ol>
-              <li>Click the Modify Data button in the footer</li>
-              <li>Then click the X button or Cancel to see the confirmation dialog</li>
-            </ol>
-          </div>
-        </div>
+        <h3>Sample Form Content</h3>
+        <p>Current data: {JSON.stringify(data)}</p>
+        <Button onClick={() => setData({ id: 1, name: 'Jane Smith' })}>
+          Modify Data
+        </Button>
       </Drawer>
     </>
   );

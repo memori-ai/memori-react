@@ -1,6 +1,6 @@
 .memori-drawer {
   position: relative;
-  z-index: 10000;
+  z-index: 50;
 }
 
 .memori-drawer--backdrop {
