@@ -29,6 +29,8 @@ export interface Props {
   closable?: boolean;
   widthMd?: string;
   widthLg?: string;
+  confirmDialogTitle?: string;
+  confirmDialogMessage?: string;
 }
 
 const Drawer: FC<Props> = ({
@@ -48,6 +50,8 @@ const Drawer: FC<Props> = ({
   closable = true,
   widthMd = '80%',
   widthLg = '60%',
+  confirmDialogTitle,
+  confirmDialogMessage,
 }: Props) => {
   const [originalData, setOriginalData] = useState<any>(null);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
@@ -96,8 +100,8 @@ const Drawer: FC<Props> = ({
         isOpen={confirmDialogOpen}
         onClose={() => setConfirmDialogOpen(false)}
         onConfirm={handleConfirmUnsavedChanges}
-        title={t('confirmDialog.title')}
-        message={t('confirmDialog.message')}
+        title={confirmDialogTitle || t('confirmDialog.title')}
+        message={confirmDialogMessage || t('confirmDialog.message')}
         confirmText={t('confirm')}
         cancelText={t('cancel')}
       />
