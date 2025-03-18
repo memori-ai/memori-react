@@ -217,6 +217,8 @@ const ConfirmationDialogTemplate: Story<Props> = ({ open = true }: Props) => {
         onClose={() => setIsOpen(false)}
         data={data}
         title="Confirmation Example"
+        confirmDialogTitle="Confirmation Example"
+        confirmDialogMessage="Are you sure you want to close this drawer?"
         footer={{
           onSubmit: () => {
             console.log('Submitted with data:', data);
