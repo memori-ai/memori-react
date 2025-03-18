@@ -43,8 +43,8 @@
 }
 
 .memori-chat-history-drawer--content--card--board-of-experts{
-    background-color: var(--memori-color-primary);
-    color: #fff;
     padding: 0.5rem;
     border-radius: 0.5rem;
+    background-color: var(--memori-color-primary);
+    color: #fff;
 }
