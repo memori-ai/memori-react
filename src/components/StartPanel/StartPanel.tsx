@@ -20,6 +20,7 @@ import CompletionProviderStatus, {
   Props as CPSProps,
 } from '../CompletionProviderStatus/CompletionProviderStatus';
 import MapMarker from '../icons/MapMarker';
+import QuestionHelp from '../icons/QuestionHelp';
 
 export interface Props {
   memori: Memori;
@@ -244,6 +245,52 @@ const StartPanel: React.FC<Props> = ({
               </select>
             </div>
           )}
+
+          <div className="memori--start-privacy-explanation-container">
+            <p className="memori--start-privacy-explanation">
+              {t('write_and_speak.pagePrivacyExplanation')}
+            </p>
+            <Tooltip
+              align="right"
+              content={
+                <div className="memori--privacy-tooltip-content">
+                  <p>
+                    {' '}
+                    {t(
+                      'write_and_speak.pagePrivacyExplanationList.allConversations'
+                    )}
+                  </p>
+                  <ul className="memori--privacy-tooltip-content-list">
+                    <li>
+                      {t(
+                        'write_and_speak.pagePrivacyExplanationList.anonymousUser'
+                      )}
+                    </li>
+                    <li>
+                      {t(
+                        'write_and_speak.pagePrivacyExplanationList.registeredUser'
+                      )}
+                    </li>
+                  </ul>
+                  <p>
+                    {t(
+                      'write_and_speak.pagePrivacyExplanationList.authorUsesInfo'
+                    )}
+                  </p>
+
+                  <a
+                    href={'https://memori.ai/en/privacy-policy'}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {t('privacyPolicy')}
+                  </a>
+                </div>
+              }
+            >
+              <QuestionHelp className="memori--start-privacy-explanation-icon" />
+            </Tooltip>
+          </div>
 
           <Button
             primary

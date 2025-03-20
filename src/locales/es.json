@@ -38,6 +38,7 @@
   "nothingFound": "No se encontró nada",
   "venue": "Evento",
   "searchVenue": "Buscar lugar...",
+  "privacyPolicy": "Política de privacidad",
   "memoriBlockedTitle": "Obstruido",
   "memoriBlockedUntil": "Agent bloqueado hasta {{date}}",
   "memoriBlockedAnon": "Actualmente \"{{name}}\"No puedo responder, vuelve aquí. {{date}}",
@@ -110,6 +111,13 @@
     "micButtonPopoverListening": "Haga clic en el botón para dejar de hablar.",
     "pageInstructExplanation": "Para enseñarme cosas nuevas, haga clic en el botón INSTRUIRME para comenzar.",
     "pageTryMeExplanation": "Para hablar conmigo haga clic en el botón INICIO para comenzar",
+    "pagePrivacyExplanation": "Las conversaciones son visibles por el autor del agente",
+    "pagePrivacyExplanationList": {
+      "allConversations": "Todas las conversaciones con este agente son visibles por el autor del agente",
+      "anonymousUser": "Para usuarios anónimos: el autor verá el contenido de la conversación y su dirección IP",
+      "registeredUser": "Para usuarios registrados: el autor verá el contenido de la conversación y su nombre de usuario",
+      "authorUsesInfo": "El autor utiliza estas informaciones para mejorar las funciones del agente y para ofrecerte un mejor servicio. Continuando la conversación, acepta estas condiciones."
+    },
     "instructButton": "INSTRUÍME",
     "tryMeButton": "COMENZAR",
     "chatHistory": "Historial de chat",

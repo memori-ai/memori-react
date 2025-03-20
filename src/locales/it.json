@@ -38,6 +38,7 @@
   "nothingFound": "Nessun risultato",
   "venue": "Luogo",
   "searchVenue": "Cerca luogo...",
+  "privacyPolicy": "Informativa sulla privacy",
   "memoriBlockedTitle": "Bloccato",
   "memoriBlockedUntil": "Agente bloccato fino al {{date}}",
   "memoriBlockedAnon": "Attualmente \"{{name}}\" non può rispondere, torna qui il {{date}}",
@@ -110,6 +111,13 @@
     "micButtonPopoverListening": "Premi il pulsante per smettere di parlare",
     "pageInstructExplanation": "Per insegnarmi nuove cose clicca sul pulsante ISTRUISCIMI per cominciare",
     "pageTryMeExplanation": "Per parlare con me clicca sul pulsante INIZIAMO per cominciare",
+    "pagePrivacyExplanation": "Le conversazioni sono visibili all'autore dell'agente",
+    "pagePrivacyExplanationList": {
+      "allConversations": "Tutte le conversazioni con questo agente sono visibili all'autore dell'agente",
+      "anonymousUser": "Per utenti anonimi: l'autore vedrà il contenuto e l'indirizzo IP",
+      "registeredUser": "Per utenti registrati: l'autore vedrà il contenuto e il nome utente",
+      "authorUsesInfo": "L'autore utilizza queste informazioni per migliorare le funzionalità dell'agente. Continuando, accetti queste condizioni."
+    },
     "instructButton": "ISTRUISCIMI",
     "tryMeButton": "INIZIAMO",
     "resumeButton": "RIPRENDI",
