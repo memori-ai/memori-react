@@ -32,18 +32,18 @@
 
 .memori-drawer--panel {
   position: relative;
+  display: flex;
   width: var(--memori-drawer--width, 100%);
   max-width: 80vw;
   height: 100%;
   min-height: 100vh;
   box-sizing: border-box;
+  flex-direction: column;
   padding: 1rem 1.5rem 1.5rem;
   margin-right: 0;
   margin-left: auto;
   background-color: #fff;
   font-family: var(--memori-font-family);
-  display: flex;
-  flex-direction: column;
 }
 
 @media (min-width: 768px) {
@@ -70,8 +70,8 @@
   display: flex;
   width: 100%;
   height: 100%;
-  flex-direction: column;
   flex: 1;
+  flex-direction: column;
   overflow-y: auto;
 }
 
@@ -161,14 +161,14 @@ h2.memori-drawer--title {
 }
 
 .memori-drawer--content{
-    overflow-y: auto;
     flex: 1;
     padding-top: 12px;
+    overflow-y: auto;
 }
 
 .memori-drawer--content--scrollable{
-    overflow-y: auto;
     flex: 1;
+    overflow-y: auto;
 }
 
 /* Transition classes */
