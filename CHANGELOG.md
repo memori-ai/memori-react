@@ -1,5 +1,12 @@
 
 
+## [7.21.1](https://github.com/memori-ai/memori-react/compare/v7.21.0...v7.21.1) (2025-03-20)
+
+
+### Bug Fixes
+
+* chat bubble headings color inherit ([4b342df](https://github.com/memori-ai/memori-react/commit/4b342df452a66422d7d6d8b5118895a907b98f1b))
+
 ## [7.21.0](https://github.com/memori-ai/memori-react/compare/v7.19.2...v7.21.0) (2025-03-17)
 
 
