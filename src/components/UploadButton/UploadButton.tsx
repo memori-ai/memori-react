@@ -13,8 +13,9 @@ type UploadError = {
 
 /**
  * FileUploadButton component allows users to upload and convert files to text
- * Supports PDF and TXT files up to 10MB
+ * Supports PDF, TXT, CSV and XLSX files up to 10MB
  * Extracts text from PDFs using PDF.js
+ * Extracts text from XLSX using xlsx library
  */
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
@@ -22,11 +23,14 @@ const MAX_TEXT_LENGTH = 100000; // 100,000 characters
 const PDF_JS_VERSION = '3.11.174'; // Last stable version with .min.js files
 const WORKER_URL = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDF_JS_VERSION}/pdf.worker.min.js`;
 const PDF_JS_URL = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDF_JS_VERSION}/pdf.min.js`;
+const XLSX_URL =
+  'https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js';
 
-// Add type definition for pdfjsLib
+// Add type definitions for external libraries
 declare global {
   interface Window {
     pdfjsLib: any;
+    XLSX: any;
   }
 }
 
@@ -105,8 +109,203 @@ const FileUploadButton = ({
       // Return extracted text
       return text;
     } catch (error) {
+      setErrors(prev => [
+        ...prev,
+        {
+          message: `PDF extraction failed: ${
+            error instanceof Error ? error.message : 'Unknown error'
+          }`,
+          severity: 'error',
+          fileId: file.name,
+        },
+      ]);
       throw new Error(
         `PDF extraction failed: ${
+          error instanceof Error ? error.message : 'Unknown error'
+        }`
+      );
+    }
+  };
+
+  /**
+   * Extracts text from XLSX using xlsx library with enhanced error handling
+   * @param file XLSX file to process
+   * @returns Promise resolving to extracted text
+   */
+  const extractTextFromXLSX = async (file: File): Promise<string> => {
+    try {
+      // First, check if the XLSX library is loaded in the window object
+      // If not, dynamically load it by creating and appending a script tag
+      if (!window.XLSX) {
+        await new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = XLSX_URL;
+          script.onload = resolve;
+          script.onerror = reject;
+          document.head.appendChild(script);
+        });
+      }
+
+      // Convert the File object to ArrayBuffer for XLSX parsing
+      const arrayBuffer = await file.arrayBuffer();
+
+      // Check for minimum valid Excel file size
+      if (arrayBuffer.byteLength < 4) {
+        throw new Error('File appears to be corrupted or empty');
+      }
+
+      let workbook;
+      try {
+        // Try parsing with full options first
+        workbook = window.XLSX.read(arrayBuffer, {
+          type: 'array',
+          cellFormula: false, // Disable formula parsing to avoid potential issues
+          cellNF: false, // Disable number format parsing
+          cellHTML: false, // Disable HTML parsing
+          cellText: true, // Force text output
+          cellDates: false, // Disable date parsing to avoid errors
+          error: (e: any) => {
+            console.warn('Non-fatal XLSX error:', e);
+          }, // Log non-fatal errors
+          cellStyles: false, // Disable style parsing
+        });
+      } catch (initialError) {
+        console.warn(
+          'Initial XLSX parsing failed, attempting recovery mode:',
+          initialError
+        );
+
+        // Fallback to a more permissive parsing method
+        try {
+          workbook = window.XLSX.read(arrayBuffer, {
+            type: 'array',
+            sheetRows: 1000, // Limit number of rows to parse
+            cellFormula: false,
+            cellStyles: false,
+            bookDeps: false, // Don't parse external dependencies
+            bookFiles: false, // Don't parse embedded files
+            bookProps: false, // Don't parse document properties
+            bookSheets: false, // Don't parse sheet properties
+            bookVBA: false, // Don't parse VBA
+            WTF: true, // "What the Formula" mode - ignores errors when possible
+          });
+        } catch (recoveryError) {
+          setErrors(prev => [
+            ...prev,
+            {
+              message: `File appears to be corrupted. Recovery attempt failed: ${
+                recoveryError instanceof Error
+                  ? recoveryError.message
+                  : 'Unknown error'
+              }`,
+              severity: 'error',
+              fileId: file.name,
+            },
+          ]);
+          throw new Error(
+            `File appears to be corrupted. Recovery attempt failed: ${
+              recoveryError instanceof Error
+                ? recoveryError.message
+                : 'Unknown error'
+            }`
+          );
+        }
+      }
+
+      // Verify that workbook contains at least one sheet
+      if (
+        !workbook ||
+        !workbook.SheetNames ||
+        workbook.SheetNames.length === 0
+      ) {
+        throw new Error('Excel file contains no valid worksheets');
+      }
+
+      let text = '';
+      let successfulSheets = 0;
+      const totalSheets = workbook.SheetNames.length;
+
+      // Loop through each sheet in the workbook
+      for (const sheetName of workbook.SheetNames) {
+        try {
+          const worksheet = workbook.Sheets[sheetName];
+          if (!worksheet) {
+            throw new Error(`Sheet ${sheetName} is empty or corrupted`);
+          }
+
+          // Safely get the dimensions of the sheet
+          const range = window.XLSX.utils.decode_range(
+            worksheet['!ref'] || 'A1:A1'
+          );
+
+          // Check if sheet seems abnormally large (possible corruption)
+          const rowCount = range.e.r - range.s.r + 1;
+          const colCount = range.e.c - range.s.c + 1;
+          if (rowCount > 10000 || colCount > 1000) {
+            throw new Error(
+              `Sheet ${sheetName} has suspicious dimensions (${rowCount}x${colCount}) and may be corrupted`
+            );
+          }
+
+          // Try to convert sheet to CSV
+          let csv;
+          try {
+            csv = window.XLSX.utils.sheet_to_csv(worksheet);
+          } catch (csvError) {
+            // If CSV conversion fails, try a more basic cell-by-cell approach
+            csv = '';
+            for (let r = range.s.r; r <= Math.min(range.e.r, 1000); ++r) {
+              let row = '';
+              for (let c = range.s.c; c <= Math.min(range.e.c, 100); ++c) {
+                const cell =
+                  worksheet[window.XLSX.utils.encode_cell({ r: r, c: c })];
+                row += (cell ? String(cell.v || '') : '') + ',';
+              }
+              csv += row + '\n';
+            }
+            csv += '...(truncated due to potential corruption)';
+          }
+
+          // Add sheet name and content to final text
+          text += `Sheet: ${sheetName}\n${csv}\n\n`;
+          successfulSheets++;
+        } catch (sheetError) {
+          // Log sheet-specific error but continue with other sheets
+          text += `Sheet: ${sheetName}\nError extracting content: ${
+            sheetError instanceof Error ? sheetError.message : 'Unknown error'
+          }\n\n`;
+        }
+      }
+
+      // If we couldn't extract any sheets successfully
+      if (successfulSheets === 0) {
+        throw new Error(
+          'Could not extract any valid content from the Excel file'
+        );
+      }
+
+      // If some sheets failed but others succeeded
+      if (successfulSheets < totalSheets) {
+        text =
+          `Warning: Only extracted ${successfulSheets} of ${totalSheets} sheets due to possible corruption.\n\n` +
+          text;
+      }
+
+      return text; // Return the extracted text from all sheets
+    } catch (error) {
+      setErrors(prev => [
+        ...prev,
+        {
+          message: `XLSX extraction failed: ${
+            error instanceof Error ? error.message : 'Unknown error'
+          }`,
+          severity: 'error',
+          fileId: file.name,
+        },
+      ]);
+      // If any error occurs during processing, throw with descriptive message
+      throw new Error(
+        `XLSX extraction failed: ${
           error instanceof Error ? error.message : 'Unknown error'
         }`
       );
@@ -121,7 +320,7 @@ const FileUploadButton = ({
    */
   const validateFile = (file: File): boolean => {
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
-    const ALLOWED_FILE_TYPES = ['.pdf', '.txt'];
+    const ALLOWED_FILE_TYPES = ['.pdf', '.txt', '.json', '.xlsx', '.csv'];
 
     if (!ALLOWED_FILE_TYPES.includes(fileExt)) {
       addError({
@@ -161,8 +360,10 @@ const FileUploadButton = ({
 
       if (fileExt === 'pdf') {
         text = await extractTextFromPDF(file);
-      } else if (fileExt === 'txt' || fileExt === 'json') {
+      } else if (fileExt === 'txt' || fileExt === 'json' || fileExt === 'csv') {
         text = await file.text();
+      } else if (fileExt === 'xlsx') {
+        text = await extractTextFromXLSX(file);
       }
 
       // Check text length limit
@@ -241,7 +442,7 @@ const FileUploadButton = ({
       <input
         ref={fileInputRef}
         type="file"
-        accept=".pdf,.txt,.json"
+        accept=".pdf,.txt,.json,.xlsx,.csv"
         className="memori--upload-file-input"
         onChange={handleFileSelect}
         multiple
