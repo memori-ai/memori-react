@@ -98,6 +98,15 @@
     color: var(--memori-primary-text);
 }
 
+.memori-chat--bubble h1,
+.memori-chat--bubble h2,
+.memori-chat--bubble h3,
+.memori-chat--bubble h4,
+.memori-chat--bubble h5,
+.memori-chat--bubble h6 {
+    color: inherit;
+}
+
 @media (max-width: 600px) {
     .memori-chat--bubble p {
         font-size: 12px;
