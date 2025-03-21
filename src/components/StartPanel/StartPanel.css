@@ -219,7 +219,6 @@
     text-decoration: underline;
 }
 
-
 .memori--start-privacy-explanation-container {
     display: flex;
     align-items: center;
@@ -239,6 +238,10 @@
     height: 1.2rem;
     align-self: center;
     margin-left: 0.5rem;
+}
+
+.memori--privacy-tooltip-content {
+    text-align: left;
 }
 
 .memori--privacy-tooltip-content-list {
