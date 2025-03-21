@@ -1,5 +1,23 @@
 
 
+## [7.22.0](https://github.com/memori-ai/memori-react/compare/v7.21.1...v7.22.0) (2025-03-21)
+
+
+### Features
+
+* add privacy explanation section to StartPanel with tooltip and translations ([1f214b7](https://github.com/memori-ai/memori-react/commit/1f214b719e77e3c2d4df9de340806042b99e01d1))
+* enhance UploadButton to support XLSX and CSV file uploads with improved error handling ([574a47c](https://github.com/memori-ai/memori-react/commit/574a47c273c1445ef8426cb7db8054279fff49fd))
+
+
+### Maintenance
+
+* align text privacy tooltip startpanel ([1f539eb](https://github.com/memori-ai/memori-react/commit/1f539ebd8e3f93bfb2c5aea9b935b180e7ce1070))
+
+
+### Changes
+
+* upload accpets json ([49a76fa](https://github.com/memori-ai/memori-react/commit/49a76faa19cc85c5b2b828bfb65f7cb2f2d81687))
+
 ## [7.21.1](https://github.com/memori-ai/memori-react/compare/v7.21.0...v7.21.1) (2025-03-20)
 
 
