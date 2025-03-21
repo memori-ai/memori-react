@@ -455,14 +455,14 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
         write_and_speak.tryMeButton
       </button>
       <div
-        class="memori-tooltip memori-tooltip--align-topLeft memori--completion-provider-status--tooltip"
+        class="memori-tooltip memori-tooltip--align-right memori--completion-provider-status--tooltip"
       >
         <div
           class="memori-tooltip--content"
         >
           <div>
             <p>
-              completionProviderDown
+              completionProviderMajorOutage
             </p>
             <p>
               <a
@@ -480,14 +480,20 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
         >
           <svg
             aria-hidden="true"
-            class="memori--completion-provider-status--icon"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
+            class="memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
+            color="currentColor"
+            fill="none"
+            height="800px"
+            viewBox="0 0 24 24"
+            width="800px"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M464 720a48 48 0 1096 0 48 48 0 10-96 0zm16-304v184c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V416c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8zm475.7 440l-416-720c-6.2-10.7-16.9-16-27.7-16s-21.6 5.3-27.7 16l-416 720C56 877.4 71.4 904 96 904h832c24.6 0 40-26.6 27.7-48zm-783.5-27.9L512 239.9l339.8 588.2H172.2z"
+              d="M12 16H12.01M12 8V12M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
             />
           </svg>
         </div>
