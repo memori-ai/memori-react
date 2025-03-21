@@ -109,11 +109,13 @@ const FileUploadButton = ({
       // Return extracted text
       return text;
     } catch (error) {
-      setErrors(prev => [...prev, {
-        message: `PDF extraction failed: ${
-          error instanceof Error ? error.message : 'Unknown error'
-        }`,
-        severity: 'error',
+      setErrors(prev => [
+        ...prev,
+        {
+          message: `PDF extraction failed: ${
+            error instanceof Error ? error.message : 'Unknown error'
+          }`,
+          severity: 'error',
           fileId: file.name,
         },
       ]);
@@ -188,15 +190,18 @@ const FileUploadButton = ({
             WTF: true, // "What the Formula" mode - ignores errors when possible
           });
         } catch (recoveryError) {
-          setErrors(prev => [...prev, {
-            message: `File appears to be corrupted. Recovery attempt failed: ${
-              recoveryError instanceof Error
-                ? recoveryError.message
-                : 'Unknown error'
-            }`,
-            severity: 'error',
-            fileId: file.name,
-          }]);
+          setErrors(prev => [
+            ...prev,
+            {
+              message: `File appears to be corrupted. Recovery attempt failed: ${
+                recoveryError instanceof Error
+                  ? recoveryError.message
+                  : 'Unknown error'
+              }`,
+              severity: 'error',
+              fileId: file.name,
+            },
+          ]);
           throw new Error(
             `File appears to be corrupted. Recovery attempt failed: ${
               recoveryError instanceof Error
@@ -288,14 +293,16 @@ const FileUploadButton = ({
 
       return text; // Return the extracted text from all sheets
     } catch (error) {
-      setErrors(prev => [...prev, {
-        message: `XLSX extraction failed: ${
-          error instanceof Error ? error.message : 'Unknown error'
-        }`,
-        severity: 'error',
-            fileId: file.name,
-          },
-        ]);
+      setErrors(prev => [
+        ...prev,
+        {
+          message: `XLSX extraction failed: ${
+            error instanceof Error ? error.message : 'Unknown error'
+          }`,
+          severity: 'error',
+          fileId: file.name,
+        },
+      ]);
       // If any error occurs during processing, throw with descriptive message
       throw new Error(
         `XLSX extraction failed: ${
@@ -313,7 +320,7 @@ const FileUploadButton = ({
    */
   const validateFile = (file: File): boolean => {
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
-    const ALLOWED_FILE_TYPES = ['.pdf', '.txt', '.xlsx', '.csv'];
+    const ALLOWED_FILE_TYPES = ['.pdf', '.txt', '.json', '.xlsx', '.csv'];
 
     if (!ALLOWED_FILE_TYPES.includes(fileExt)) {
       addError({
