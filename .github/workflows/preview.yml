@@ -13,16 +13,21 @@ jobs:
   deploy-preview:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: ⬇️ Checkout
         uses: actions/checkout@v4
 
-      - name: Install and Build
-        if: github.event.action != 'closed'
-        run: |
-          npm install
-          npm run build
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
 
-      - name: Deploy preview
+      - name: ⚒ Install deps
+        run: corepack enable && yarn install --immutable
+
+      - name: ⚙️ Build storybook
+        run: yarn build-storybook
+
+      - name: 🚀 Deploy preview
         uses: rossjrw/pr-preview-action@v1
         with:
           source-dir: ./storybook-static/
