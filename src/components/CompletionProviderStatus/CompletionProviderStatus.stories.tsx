@@ -279,16 +279,16 @@ export const AllProvidersWithDifferentStatuses = () => (
         marginBottom: '20px'
       }}>
         <div>
-          <h3>OpenAI - Degraded Performance</h3>
-          <CompletionProviderStatus provider="OpenAI" forceStatus="degraded_performance" />
+          <h3>OpenAI - Real-time status</h3>
+          <CompletionProviderStatus provider="OpenAI"  />
         </div>
         <div>
-          <h3>Anthropic - Partial Outage</h3>
-          <CompletionProviderStatus provider="Anthropic" forceStatus="partial_outage" />
+          <h3>Anthropic - Real-time status</h3>
+          <CompletionProviderStatus provider="Anthropic"  />
         </div>
         <div>
-          <h3>Mistral - Major Outage</h3>
-          <CompletionProviderStatus provider="Mistral" forceStatus="major_outage" />
+          <h3>Mistral - Real-time status</h3>
+          <CompletionProviderStatus provider="Mistral"  />
         </div>
       </div>
     </div>

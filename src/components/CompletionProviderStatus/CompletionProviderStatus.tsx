@@ -28,7 +28,7 @@ const PROVIDER_CONFIGS: Record<string, ProviderConfig> = {
   OpenAI: {
     statusUrl: 'https://status.openai.com/api/v2/summary.json',
     statusPage: 'https://status.openai.com/',
-    apiComponentName: ['Chat', 'Completions (legacy)', 'Assistants', 'Responses'],
+    apiComponentName: ['Chat', 'Completions (legacy)'],
   },
   Mistral: {
     statusUrl: 'https://status.mistral-data.com/api/v2/summary.json',
@@ -38,7 +38,7 @@ const PROVIDER_CONFIGS: Record<string, ProviderConfig> = {
   Anthropic: {
     statusUrl: 'https://status.anthropic.com/api/v2/summary.json',
     statusPage: 'https://status.anthropic.com/',
-    apiComponentName: ['api.anthropic.com', 'claude.ai'],
+    apiComponentName: ['api.anthropic.com'],
   },
 };
 
