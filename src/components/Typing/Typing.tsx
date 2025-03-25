@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 
 const separator = ' ';
-const defaultDelay = 3;
-const timeoutMs = 30 * 1000;
+const defaultDelay = 15;
+const timeoutMs = 20 * 1000;
 const newWordInterval = 50;
 const defaultSentences = {
   en: [
