@@ -2,54 +2,52 @@ import { useEffect, useState } from 'react';
 
 const separator = ' ';
 const defaultDelay = 3;
+const timeoutMs = 30 * 1000;
+const newWordInterval = 50;
 const defaultSentences = {
   en: [
-    {
-      delayAfter: defaultDelay,
-      text: 'Generating an accurate and fancy response...',
-    },
-    {
-      delayAfter: defaultDelay,
-      text: 'Generating a response that will blow your mind...',
-    },
-    {
-      delayAfter: defaultDelay,
-      text: 'Generating a response that will make you smile...',
-    },
-    { delayAfter: defaultDelay, text: 'Thinking of a response...' },
-    {
-      delayAfter: defaultDelay,
-      text: 'Thinking of a response that will make you smile...',
-    },
-    { delayAfter: defaultDelay, text: 'Gathering my thoughts...' },
-    {
-      delayAfter: defaultDelay,
-      text: 'Gathering my thoughts to give you a response...',
-    },
+    { delayAfter: defaultDelay, text: 'Processing in progress...' },
+    { delayAfter: defaultDelay, text: "I'm thinking..." },
+    { delayAfter: defaultDelay, text: 'Analysing the request...' },
+    { delayAfter: defaultDelay, text: 'Preparing the reply...' },
+    { delayAfter: defaultDelay, text: 'Gathering information...' },
+    { delayAfter: defaultDelay, text: 'Formulating ideas...' },
+    { delayAfter: defaultDelay, text: 'One moment please...' },
+    { delayAfter: defaultDelay, text: 'Almost ready...' },
+    { delayAfter: defaultDelay, text: 'Connecting concepts...' },
+    { delayAfter: defaultDelay, text: 'Organising ideas...' },
+    { delayAfter: defaultDelay, text: 'Evaluating options...' },
+    { delayAfter: defaultDelay, text: 'Looking for the best solution...' },
+    { delayAfter: defaultDelay, text: 'Working for you...' },
+    { delayAfter: defaultDelay, text: 'Please wait...' },
+    { delayAfter: defaultDelay, text: 'Processing data...' },
+    { delayAfter: defaultDelay, text: 'Calculating response...' },
+    { delayAfter: defaultDelay, text: 'Synthesising information...' },
+    { delayAfter: defaultDelay, text: 'Generating content...' },
+    { delayAfter: defaultDelay, text: 'Reflecting on question...' },
+    { delayAfter: defaultDelay, text: 'Refining the answer' },
   ],
   it: [
-    {
-      delayAfter: defaultDelay,
-      text: 'Sto generando una risposta accurata e fantasiosa...',
-    },
-    {
-      delayAfter: defaultDelay,
-      text: 'Sto generando una risposta che ti farà impazzire...',
-    },
-    {
-      delayAfter: defaultDelay,
-      text: 'Sto generando una risposta che ti farà sorridere...',
-    },
-    { delayAfter: defaultDelay, text: 'Sto pensando ad una risposta...' },
-    {
-      delayAfter: defaultDelay,
-      text: 'Sto pensando ad una risposta che ti farà sorridere...',
-    },
-    { delayAfter: defaultDelay, text: 'Sto raccogliendo i miei pensieri...' },
-    {
-      delayAfter: defaultDelay,
-      text: 'Sto raccogliendo i miei pensieri per darti una risposta...',
-    },
+    { delayAfter: defaultDelay, text: 'Elaborazione in corso...' },
+    { delayAfter: defaultDelay, text: 'Sto pensando...' },
+    { delayAfter: defaultDelay, text: 'Analizzando la richiesta...' },
+    { delayAfter: defaultDelay, text: 'Preparando la risposta...' },
+    { delayAfter: defaultDelay, text: 'Raccogliendo informazioni...' },
+    { delayAfter: defaultDelay, text: 'Formulando idee...' },
+    { delayAfter: defaultDelay, text: 'Un momento per favore...' },
+    { delayAfter: defaultDelay, text: 'Quasi pronto...' },
+    { delayAfter: defaultDelay, text: 'Connettendo i concetti...' },
+    { delayAfter: defaultDelay, text: 'Organizzando le idee...' },
+    { delayAfter: defaultDelay, text: 'Valutando le opzioni...' },
+    { delayAfter: defaultDelay, text: 'Cercando la soluzione migliore...' },
+    { delayAfter: defaultDelay, text: 'Sto lavorando per te...' },
+    { delayAfter: defaultDelay, text: 'Attendere prego...' },
+    { delayAfter: defaultDelay, text: 'Elaborazione dati in corso...' },
+    { delayAfter: defaultDelay, text: 'Calcolando la risposta...' },
+    { delayAfter: defaultDelay, text: 'Sintetizzando informazioni...' },
+    { delayAfter: defaultDelay, text: 'Generando contenuti...' },
+    { delayAfter: defaultDelay, text: 'Sto riflettendo sulla domanda...' },
+    { delayAfter: defaultDelay, text: 'Perfezionando la risposta...' },
   ],
 };
 
