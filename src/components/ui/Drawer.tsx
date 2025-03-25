@@ -1,4 +1,11 @@
-import React, { FC, useEffect, useState, useRef, useCallback, useMemo } from 'react';
+import React, {
+  FC,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useMemo,
+} from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import Spin from './Spin';
 import Button from './Button';
@@ -62,7 +69,7 @@ const Drawer: FC<Props> = ({
     if (open && data && !originalData) {
       setOriginalData(data);
     }
-    
+
     // Reset original data when drawer closes
     if (!open) {
       setOriginalData(null);
@@ -102,12 +109,16 @@ const Drawer: FC<Props> = ({
         onConfirm={handleConfirmUnsavedChanges}
         title={confirmDialogTitle || t('confirmDialog.title')}
         message={confirmDialogMessage || t('confirmDialog.message')}
-        confirmText={t('confirm')}
-        cancelText={t('cancel')}
+        confirmText={t('confirm') || 'Confirm'}
+        cancelText={t('cancel') || 'Cancel'}
       />
 
       <Transition appear show={open} as={React.Fragment}>
-        <Dialog open={open} onClose={handleClose} className={cx('memori-drawer', className)}>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          className={cx('memori-drawer', className)}
+        >
           <Transition.Child
             as={React.Fragment}
             enter="ease-out duration-300"
@@ -136,40 +147,71 @@ const Drawer: FC<Props> = ({
                     'memori-drawer--panel-left': placement === 'left',
                     'memori-drawer--with-footer': !!footer,
                   })}
-                  style={{
-                    '--memori-drawer--width': width,
-                    '--memori-drawer--width--lg': widthLg,
-                    '--memori-drawer--width--md': widthMd,
-                  } as React.CSSProperties}
+                  style={
+                    {
+                      '--memori-drawer--width': width,
+                      '--memori-drawer--width--lg': widthLg,
+                      '--memori-drawer--width--md': widthMd,
+                    } as React.CSSProperties
+                  }
                 >
                   {closable && (
                     <div className="memori-drawer--close">
-                      <Button shape="circle" outlined icon={<Close />} onClick={handleClose} />
+                      <Button
+                        shape="circle"
+                        outlined
+                        icon={<Close />}
+                        onClick={handleClose}
+                      />
                     </div>
                   )}
                   <Spin spinning={loading}>
                     <div className="memori-drawer--content">
-                      {title && <Dialog.Title className="memori-drawer--title">{title}</Dialog.Title>}
-                      {description && <Dialog.Description className="memori-drawer--description">{description}</Dialog.Description>}
-                      <div className="memori-drawer--content--scrollable">{children}</div>
+                      {title && (
+                        <Dialog.Title className="memori-drawer--title">
+                          {title}
+                        </Dialog.Title>
+                      )}
+                      {description && (
+                        <Dialog.Description className="memori-drawer--description">
+                          {description}
+                        </Dialog.Description>
+                      )}
+                      <div className="memori-drawer--content--scrollable">
+                        {children}
+                      </div>
                     </div>
                   </Spin>
                   {footer && (
                     <div className="memori-drawer--footer">
                       {footer.leftAction && (
-                        <div className={'memori-drawer--footer-left-action ' + (footer.leftActionClassName || '')}>
+                        <div
+                          className={
+                            'memori-drawer--footer-left-action ' +
+                            (footer.leftActionClassName || '')
+                          }
+                        >
                           {footer.leftAction}
                         </div>
                       )}
                       {footer.onSubmit && (
                         <div className="memori-drawer--footer-actions">
-                          <Button outlined onClick={handleClose}>{t('cancel')}</Button>
-                          <Button htmlType="submit" onClick={footer.onSubmit} loading={footer.loading} className="memori-drawer--footer-confirm">
+                          <Button outlined onClick={handleClose}>
+                            {t('cancel')}
+                          </Button>
+                          <Button
+                            htmlType="submit"
+                            onClick={footer.onSubmit}
+                            loading={footer.loading}
+                            className="memori-drawer--footer-confirm"
+                          >
                             {t('confirm')}
                           </Button>
                         </div>
                       )}
-                      {extra && <div className="memori-drawer--extra">{extra}</div>}
+                      {extra && (
+                        <div className="memori-drawer--extra">{extra}</div>
+                      )}
                     </div>
                   )}
                 </Dialog.Panel>
@@ -181,5 +223,7 @@ const Drawer: FC<Props> = ({
     </>
   );
 };
+
+Drawer.displayName = 'Drawer';
 
 export default Drawer;

@@ -4,6 +4,7 @@ import Drawer, { Props } from './Drawer';
 import Button from './Button';
 
 import './Drawer.css';
+import I18nWrapper from '../../I18nWrapper';
 
 const meta: Meta = {
   title: 'UI/Drawer',
@@ -89,16 +90,12 @@ const Template: Story<Props> = args => {
   const [isOpen, setIsOpen] = React.useState(!!args.open || false);
 
   return (
-    <>
+    <I18nWrapper>
       <Button onClick={() => setIsOpen(true)}>Open Drawer</Button>
-      <Drawer
-        {...args}
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-      >
+      <Drawer {...args} open={isOpen} onClose={() => setIsOpen(false)}>
         {content}
       </Drawer>
-    </>
+    </I18nWrapper>
   );
 };
 
@@ -141,7 +138,7 @@ WithSimpleFooter.args = {
   description: 'Drawer Description',
   footer: {
     onSubmit: () => console.log('Submit'),
-    loading: false
+    loading: false,
   },
 };
 
@@ -180,7 +177,7 @@ const DataTemplate: Story<Props> = args => {
   const staticData = { id: 1, name: 'John Doe' };
 
   return (
-    <>
+    <I18nWrapper>
       <Button onClick={() => setIsOpen(true)}>Open Data Drawer</Button>
       <Drawer
         {...args}
@@ -192,7 +189,7 @@ const DataTemplate: Story<Props> = args => {
         <p>When you close it, the component will check for unsaved changes.</p>
         <p>(For this demo, no actual changes are tracked)</p>
       </Drawer>
-    </>
+    </I18nWrapper>
   );
 };
 
@@ -210,10 +207,10 @@ const ConfirmationDialogTemplate: Story<Props> = ({ open = true }: Props) => {
   const [data, setData] = useState({ id: 1, name: 'John Doe' });
 
   return (
-    <>
+    <I18nWrapper>
       <Button onClick={() => setIsOpen(true)}>Open Confirmation Dialog</Button>
-      <Drawer 
-        open={isOpen} 
+      <Drawer
+        open={isOpen}
         onClose={() => setIsOpen(false)}
         data={data}
         title="Confirmation Example"
@@ -223,7 +220,7 @@ const ConfirmationDialogTemplate: Story<Props> = ({ open = true }: Props) => {
           onSubmit: () => {
             console.log('Submitted with data:', data);
             setIsOpen(false);
-          }
+          },
         }}
       >
         <h3>Sample Form Content</h3>
@@ -232,7 +229,7 @@ const ConfirmationDialogTemplate: Story<Props> = ({ open = true }: Props) => {
           Modify Data
         </Button>
       </Drawer>
-    </>
+    </I18nWrapper>
   );
 };
 
@@ -240,7 +237,8 @@ export const WithConfirmationDialog = ConfirmationDialogTemplate.bind({});
 WithConfirmationDialog.args = {
   open: true,
   title: 'Unsaved Changes Demo',
-  description: 'This drawer shows the confirmation dialog when closing with unsaved changes',
+  description:
+    'This drawer shows the confirmation dialog when closing with unsaved changes',
 };
 
 // Fixed Template with lots of content and proper footer
@@ -248,19 +246,15 @@ const LongContentTemplate: Story<Props> = args => {
   const [isOpen, setIsOpen] = React.useState(!!args.open || false);
 
   return (
-    <>
+    <I18nWrapper>
       <Button onClick={() => setIsOpen(true)}>Open Long Content Drawer</Button>
-      <Drawer
-        {...args}
-        open={isOpen}
-        onClose={() => setIsOpen(false)}
-      >
+      <Drawer {...args} open={isOpen} onClose={() => setIsOpen(false)}>
         {content}
         {content}
         {content}
         {content}
       </Drawer>
-    </>
+    </I18nWrapper>
   );
 };
 
