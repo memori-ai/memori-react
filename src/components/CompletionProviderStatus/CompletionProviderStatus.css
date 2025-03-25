@@ -1,26 +1,36 @@
 .memori--completion-provider-status--icon {
-    width: 1em;
-    height: 1em;
-    fill: var(--memori-error-color, red);
-}
-
-.memori--completion-provider-status--tooltip.memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content,
-.memori--completion-provider-status--tooltip.memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled):not(.memori-tooltip--visible):hover .memori-tooltip--content {
-    transform: translateY(calc(-100% - 2em)) translateX(3em);
-}
-
-.memori--completion-provider-status--tooltip.memori-tooltip .memori-tooltip--content p {
-    margin: 0.5em auto;
-}
-
-.memori--completion-provider-status--tooltip.memori-tooltip .memori-tooltip--content p+p {
-    margin-top: 1em;
-}
-
-.memori--completion-provider-status--loading {
-    display: flex;
-    width: 100%;
-    height: 100%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .memori--completion-provider-status--loading {
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-}
+  }
+  
+  .memori--completion-provider-status--icon-error {
+    color: #f5222d;
+  }
+  
+  .memori--completion-provider-status--icon-warning {
+    color: #faad14;
+  }
+  
+  .memori--completion-provider-status--icon-info {
+    color: #1890ff;
+  }
+  
+  .memori--completion-provider-status--tooltip {
+    max-width: 300px;
+  }
+  
+  .memori--completion-provider-status--tooltip p {
+    margin-bottom: 8px;
+  }
+  
+  .memori--completion-provider-status--tooltip p:last-child {
+    margin-bottom: 0;
+  }
