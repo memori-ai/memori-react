@@ -96,9 +96,12 @@ const Typing = ({
       : ''
   );
   const [shownText, setShownText] = useState('');
+  const [elapsedTime, setElapsedTime] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
+      setElapsedTime(prev => prev + newWordInterval);
+
       const letter = text[shownText.length];
       if (letter !== undefined && text.length > 0) {
         setShownText(prev => prev + letter);
@@ -117,7 +120,11 @@ const Typing = ({
         );
         setShownText('');
         setIndex(nextIndex);
-      } else if (!sentences && !sentence && useDefaultSentences) {
+      } else if (
+        !sentences &&
+        !sentence &&
+        (useDefaultSentences || elapsedTime > timeoutMs)
+      ) {
         const sentence =
           defaultSentences[lang][
             Math.floor(Math.random() * defaultSentences[lang].length)
@@ -125,7 +132,7 @@ const Typing = ({
         setText(`${sentence.text}${getSeparatorString(sentence.delayAfter)}`);
         setShownText('');
       }
-    }, 50);
+    }, newWordInterval);
 
     return () => clearInterval(interval);
   });
