@@ -1,5 +1,43 @@
 
 
+## [7.23.0](https://github.com/memori-ai/memori-react/compare/v7.22.0...v7.23.0) (2025-03-25)
+
+
+### Features
+
+* add ConfirmDialog component with styling and stories ([fcd51da](https://github.com/memori-ai/memori-react/commit/fcd51dad2ebff94e2d262bde4c798db40c5d5d5e))
+* add confirmDialogTitle and confirmDialogMessage props ([0869a65](https://github.com/memori-ai/memori-react/commit/0869a65af4687b6a0f9546322646f63bf2990644))
+* add localized messages for completion provider outages and degraded performance ([e712b31](https://github.com/memori-ai/memori-react/commit/e712b31c15be9bd238eb5b136a10dbf94c094e8a))
+* add new Alert and Info icons, update Warning icon for improved accessibility and styling ([5af4ee8](https://github.com/memori-ai/memori-react/commit/5af4ee80b1988c5dc347a7f2435b5cef30641416))
+* enhance CompletionProviderStatus component, improved status handling and visual feedback ([a0da536](https://github.com/memori-ai/memori-react/commit/a0da5363799e359255f02a3521c1e27a00daeebb))
+* refactored Drawer component with advanced features and improved UX ([729d188](https://github.com/memori-ai/memori-react/commit/729d188b1ddf9fdf97584309359813b8dd88f77a))
+* show typing text after 30s ([4b53e75](https://github.com/memori-ai/memori-react/commit/4b53e756c782b73d9c5b67d24988c0bcf7e921f6))
+* standardize confirm dialog translations across locales ([60f380d](https://github.com/memori-ai/memori-react/commit/60f380dca44dda46d6d30b993561234dcf84cd85))
+
+
+### Bug Fixes
+
+* correct CSS variable naming in Drawer component for consistent styling ([a5cf788](https://github.com/memori-ai/memori-react/commit/a5cf7881a2686fbeca4322f915349b65c510cafa))
+* lint ([85e2466](https://github.com/memori-ai/memori-react/commit/85e2466229d46d9d0d50bc6ea4484b0cc649a821))
+* remove deprecated API component names from CompletionProviderStatus ([68ff1ae](https://github.com/memori-ai/memori-react/commit/68ff1ae94a145e1d6e75520125a27295877af809))
+
+
+### Changes
+
+* enhance Drawer component with improved footer structure and content handling ([4b22245](https://github.com/memori-ai/memori-react/commit/4b22245c87c760c34c42a8696f21025102f47dbd))
+* i18n and styles import ([c3ee4b3](https://github.com/memori-ai/memori-react/commit/c3ee4b333d66ef9c46acb3bb541dae02f6edff0e))
+* improve ConfirmDialog and Drawer components with enhanced z-index management and state handling ([4b6554f](https://github.com/memori-ai/memori-react/commit/4b6554f58a3adca7d4aef68c4e544a4063d4570a))
+* optimize Drawer stories and translations for confirmation dialog ([26b303c](https://github.com/memori-ai/memori-react/commit/26b303cb5fff849839131bbec97a61d521a82271))
+* remove ConfirmDialog from Drawer component ([95a1036](https://github.com/memori-ai/memori-react/commit/95a10368ede07a57d36c18ed7dc8c22f960021e4))
+* remove console logs and simplify Drawer component logic ([39f8a78](https://github.com/memori-ai/memori-react/commit/39f8a78678481e166b35f9d82979b7e2f97a0d49))
+* simplify translation namespace in Drawer confirmation dialog ([981df76](https://github.com/memori-ai/memori-react/commit/981df769ff6f32311c9f4af386e3bb568f4cd706))
+
+
+### Maintenance
+
+* replace default typing sentences ([fe50410](https://github.com/memori-ai/memori-react/commit/fe504108f62d39bd0e69fdb0d603b18ffca5d4f5))
+* typing text timeout timespans ([8e3e3cf](https://github.com/memori-ai/memori-react/commit/8e3e3cf6c7434c7c07a3beae046559676e64b541))
+
 ## [7.22.0](https://github.com/memori-ai/memori-react/compare/v7.21.1...v7.22.0) (2025-03-21)
 
 
