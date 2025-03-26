@@ -23,7 +23,12 @@ import QuestionHelp from '../icons/QuestionHelp';
 import Copy from '../icons/Copy';
 import Code from '../icons/Code';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
-import { cleanUrl, stripHTML, stripOutputTags } from '../../helpers/utils';
+import {
+  cleanUrl,
+  detectAndFormatCSV,
+  stripHTML,
+  stripOutputTags,
+} from '../../helpers/utils';
 import FilePreview from '../FilePreview/FilePreview';
 
 import markedLinkifyIt from 'marked-linkify-it';
@@ -76,10 +81,16 @@ marked.use({
 marked.use(markedLinkifyIt());
 marked.use(markedExtendedTables());
 
-// Update the renderMsg function to properly handle math formatting
 const renderMsg = (text: string, useMathFormatting = false): string => {
   try {
-    // Preprocessing del testo per gestire i delimitatori LaTeX
+    // First, check for CSV data using our direct detection function
+    const csvFormatted = detectAndFormatCSV(text);
+    if (csvFormatted !== text) {
+      // CSV detected and formatted - return it directly without further processing
+      return csvFormatted;
+    }
+    
+    // If not CSV, proceed with normal text processing
     let preprocessedText = text
       .trim()
       .replaceAll(
@@ -96,7 +107,6 @@ const renderMsg = (text: string, useMathFormatting = false): string => {
     // Correzione dei delimitatori LaTeX inconsistenti
     if (useMathFormatting) {
       // Normalizza tutti i delimitatori LaTeX per equazioni su linea separata
-      // Da \\[ ... \\] o \\[ ... ] a $$ ... $$
       preprocessedText = preprocessedText.replace(
         /\\+\[(.*?)\\*\]/gs,
         (_, content) => {
@@ -124,9 +134,10 @@ const renderMsg = (text: string, useMathFormatting = false): string => {
     // Ora procedi con il parsing markdown
     let parsedText = marked.parse(preprocessedText).toString().trim();
 
-    // Sanitize HTML
+    // Sanitize HTML - make sure to allow style tags and attributes for our tables
     parsedText = DOMPurify.sanitize(parsedText, {
-      ADD_ATTR: ['target'],
+      ADD_ATTR: ['target', 'style'],
+      ADD_TAGS: ['style']
     });
 
     // Clean up final text

@@ -301,3 +301,47 @@
 .dot mjx-container[jax='CHTML'][display='true'] {
     text-align: left;
 }
+
+/* CSV Table Styling */
+.memori-chat--bubble-content .csv-table-container {
+    max-width: 100%;
+    margin: 10px 0;
+    overflow-x: auto;
+}
+
+.memori-chat--bubble-content .csv-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    table-layout: auto;
+}
+
+.memori-chat--bubble-content .csv-table th {
+    padding: 8px;
+    border: 1px solid #5e35b1;
+    background-color: #673ab7;
+    color: white;
+    font-weight: bold;
+    text-align: left;
+}
+
+.memori-chat--bubble-content .csv-table td {
+    padding: 6px 8px;
+    border: 1px solid #d1c4e9;
+    white-space: nowrap;
+}
+
+.memori-chat--bubble-content .csv-table tr:nth-child(even) {
+    background-color: #f3e5f5;
+}
+
+.memori-chat--bubble-content .csv-table tr:nth-child(odd) {
+    background-color: #ede7f6;
+}
+
+/* Ensure tables scroll horizontally on mobile */
+@media (max-width: 768px) {
+    .memori-chat--bubble-content .csv-table-container {
+        max-width: calc(100vw - 60px);
+    }
+}
