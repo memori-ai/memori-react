@@ -360,6 +360,7 @@
     "ASSET_NOT_ACCESSIBLE": "Asset nicht zugänglich",
     "ASSET_MISSING_SESSION_ID": "Asset: Sitzungs-ID fehlt",
     "ASSET_INVALID_FILE_NAME": "Asset: ungültiger Dateiname",
+    "ASSET_MALWARE_SCAN_THREATS_FOUND": "Asset: malware scan threats found",
 
     "INVITATION_NOT_FOUND": "Einladung nicht gefunden",
     "INVITATION_NOT_ACCESSIBLE": "Einladung nicht zugänglich",

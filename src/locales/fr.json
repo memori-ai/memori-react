@@ -339,6 +339,7 @@
     "ASSET_NOT_ACCESSIBLE": "Actif non accessible",
     "ASSET_MISSING_SESSION_ID": "Élément : ID de session manquant",
     "ASSET_INVALID_FILE_NAME": "Élément : nom de fichier non valide",
+    "ASSET_MALWARE_SCAN_THREATS_FOUND": "Élément : menaces de scan de malware trouvées",
     "INVITATION_NOT_FOUND": "Invitation introuvable",
     "INVITATION_NOT_ACCESSIBLE": "Invitation non accessible",
     "INVITATION_ALREADY_ACCEPTED": "Invitation déjà acceptée",
