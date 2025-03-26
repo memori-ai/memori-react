@@ -377,3 +377,117 @@ export const safeParseJSON = (jsonString: string, fallbackString = false) => {
     return fallbackString ? jsonString : null;
   }
 };
+
+/**
+ * Detects if a string looks like CSV data and formats it as an HTML table
+ * More aggressive detection for different formats
+ * @param text The input text to check and format
+ * @returns The formatted HTML or the original text if not CSV
+ */
+// Add this function to your ChatBubble.tsx file directly above the ChatBubble component
+
+/**
+ * Special function to detect and format CSV data in the specific format from your screenshot
+ */
+export const detectAndFormatCSV = (text: string): string => {
+  // Check for the specific CSV patterns we see in the screenshot
+  if (
+    (text.includes('Area di riferimento') && text.includes('Mese di riferimeno')) ||
+    (text.includes('Regione,Vendite,Crescita,Obiettivo,Performance')) ||
+    (text.includes('Prodotto;Quantità;Prezzo;Totale;Disponibilità'))
+  ) {
+    let separator = '|';
+    
+    // Detect separator
+    if (text.includes('Regione,Vendite,Crescita')) {
+      separator = ',';
+    } else if (text.includes('Prodotto;Quantità;Prezzo')) {
+      separator = ';';
+    }
+    
+    // Split lines and filter empty ones
+    const lines = text.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+    if (lines.length < 2) return text;
+    
+    // Extract headers and data rows
+    const headers = lines[0].split(separator).map(header => header.trim());
+    const dataRows = lines.slice(1);
+    
+    // Build HTML table
+    let htmlTable = '<div class="csv-table-container">';
+    htmlTable += '<table class="csv-table">';
+    
+    // Add header row
+    htmlTable += '<thead><tr>';
+    headers.forEach(header => {
+      htmlTable += `<th>${header}</th>`;
+    });
+    htmlTable += '</tr></thead>';
+    
+    // Add data rows
+    htmlTable += '<tbody>';
+    dataRows.forEach(row => {
+      if (!row.trim()) return;
+      
+      const cells = row.split(separator).map(cell => cell.trim());
+      
+      htmlTable += '<tr>';
+      cells.forEach((cell, index) => {
+        // Format numbers nicely
+        if (/^-?\d+(\.\d+)?$/.test(cell) && cell.length > 10) {
+          const num = parseFloat(cell);
+          if (!isNaN(num)) {
+            cell = num.toFixed(2); // Format long numbers to 2 decimal places
+          }
+        }
+        
+        // Only add cells if we have headers for them
+        if (index < headers.length) {
+          htmlTable += `<td>${cell}</td>`;
+        }
+      });
+      
+      htmlTable += '</tr>';
+    });
+    
+    htmlTable += '</tbody></table></div>';
+    
+    // Inline CSS for styling the table
+    const styles = `
+      <style>
+        .csv-table-container {
+          overflow-x: auto;
+          margin: 10px 0;
+          width: 100%;
+        }
+        .csv-table {
+          border-collapse: collapse;
+          width: 100%;
+          font-size: 14px;
+        }
+        .csv-table th {
+          background-color: #673AB7;
+          color: white;
+          text-align: left;
+          padding: 8px;
+          border: 1px solid #5e35b1;
+        }
+        .csv-table td {
+          padding: 6px 8px;
+          border: 1px solid #d1c4e9;
+        }
+        .csv-table tr:nth-child(even) {
+          background-color: #f3e5f5;
+        }
+        .csv-table tr:nth-child(odd) {
+          background-color: #ede7f6;
+        }
+      </style>
+    `;
+    
+    return styles + htmlTable;
+  }
+  
+  // If not matching our CSV patterns, return original text
+  return text;
+};

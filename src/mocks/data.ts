@@ -254,6 +254,82 @@ export const historyWithAIGeneratedMessages: Message[] = [
   },
 ];
 
+export const historyWithCSV: Message[] = [
+  {
+    text: "Ciao, io sono test, c'è qualcosa che vorresti chiedermi?",
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: 'Mostrami i dati delle aree',
+    fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: `Ecco i dati di riferimento per l'area di Bologna:
+
+Area di riferimento | Mese di riferimeno | Somma numero di turni | Somma frequenza sopralluoghi | Media numero di turni | Media frequenza sopralluoghi
+Area Bologna | 2023-02-01 | 40 | 19 | 20.0 | 9.5
+Area Bologna | 2023-03-01 | 40 | 28 | 20.0 | 14.0
+Area Bologna | 2023-04-01 | 60 | 26 | 20.0 | 8.6666666666666666
+Area Bologna | 2023-05-01 | 60 | 28 | 20.0 | 9.3333333333333334
+Area Bologna | 2023-06-01 | 77 | 55 | 15.4 | 11.0
+Area Bologna | 2023-07-01 | 91 | 93 | 18.2 | 18.6
+Area Bologna | 2023-08-01 | 58 | 50 | 14.5 | 12.5
+Area Bologna | 2023-09-01 | 80 | 80 | 20.0 | 20.0`,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: 'Grazie per i dati! Hai anche informazioni sul 2024?',
+    fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: `Certamente, ecco i dati per l'area di Bologna del 2024:
+
+Area di riferimento | Mese di riferimeno | Somma numero di turni | Somma frequenza sopralluoghi | Media numero di turni | Media frequenza sopralluoghi
+Area Bologna | 2024-01-01 | 91 | 69 | 22.75 | 17.25
+Area Bologna | 2024-02-01 | 88 | 79 | 22.0 | 19.75
+Area Bologna | 2024-03-01 | 85 | 85 | 21.25 | 21.25
+Area Bologna | 2024-04-01 | 79 | 77 | 19.75 | 19.25
+Area Bologna | 2024-05-01 | 87 | 87 | 29.0 | 29.0
+Area Bologna | 2024-06-01 | 101 | 137 | 25.25 | 34.25
+Area Bologna | 2024-07-01 | 97 | 126 | 24.25 | 31.5
+Area Bologna | 2024-08-01 | 77 | 74 | 19.25 | 18.5`,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: 'E per altri tipi di dati in CSV?',
+    fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: `Posso mostrarti anche dati in formato CSV con virgole:
+
+Regione,Vendite,Crescita,Obiettivo,Performance
+Nord,125000,15.2%,130000,96.2%
+Sud,98000,-2.3%,100000,98.0%
+Est,112000,8.7%,105000,106.7%
+Ovest,104000,5.1%,110000,94.5%
+Centro,131000,12.8%,125000,104.8%`,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: 'E con i punti e virgola?',
+    fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: `Ecco un esempio con separatore punto e virgola:
+
+Prodotto;Quantità;Prezzo;Totale;Disponibilità
+Laptop;250;€500;€125000;In magazzino
+Smartphone;180;€300;€54000;In magazzino
+Tablet;120;€400;€48000;Esaurito
+Smartwatch;90;€200;€18000;Pochi pezzi`,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+];
+
 export const dialogState: DialogState = {
   state: 'R1',
   previousState: 'I0',

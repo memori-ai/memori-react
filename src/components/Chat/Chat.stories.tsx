@@ -8,6 +8,7 @@ import {
   historyWithAIGeneratedMessages,
   sessionID,
   dialogState as dialogStateWithHints,
+  historyWithCSV,
 } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Chat, { Props } from './Chat';
@@ -285,4 +286,30 @@ WithCustomUserAvatarAsElement.args = {
   resetTranscript: () => {},
   setAttachmentsMenuOpen: () => {},
   setSendOnEnter: () => {},
+};
+
+export const WithCSV = Template.bind({});
+WithCSV.args = {
+  memori,
+  tenant,
+  sessionID,
+  history: historyWithCSV,
+  dialogState,
+  layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+  useMathFormatting: true, // Add this to ensure our custom formatting functions work
+};
+
+WithCSV.parameters = {
+  docs: {
+    description: {
+      story:
+        'Shows how CSV-formatted text is displayed as formatted tables. The component automatically detects tabular data with pipe (|), comma (,) or semicolon (;) separators and formats them accordingly.',
+    },
+  },
 };
