@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
 import Spin from './Spin';
 import Button from './Button';
@@ -6,7 +6,8 @@ import Close from '../icons/Close';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 
-export interface Props {
+export interface ModalProps {
+  // Core props from your custom Modal
   open?: boolean;
   onClose: (value: boolean) => void;
   className?: string;
@@ -18,28 +19,110 @@ export interface Props {
   closable?: boolean;
   width?: string;
   widthMd?: string;
+  
+  // Additional props from Ant Design Modal
+  visible?: boolean;
+  onCancel?: () => void;
+  onOk?: () => void;
+  okText?: string;
+  cancelText?: string;
+  okButtonProps?: any;
+  cancelButtonProps?: any;
+  maskClosable?: boolean;
+  destroyOnClose?: boolean;
 }
 
-const Modal: FC<Props> = ({
+const Modal: FC<ModalProps> = ({
+  // Handle both naming conventions
   open = false,
+  visible = false,
   onClose,
+  onCancel,
+  onOk,
+  
+  // Text props
   className,
   title,
   description,
   children,
-  footer,
+  
+  // Style/behavior props
   loading = false,
   closable = true,
   width = '100%',
   widthMd = '100%',
-}: Props) => {
+  maskClosable = true,
+  
+  // Footer props
+  footer,
+  okText,
+  cancelText,
+  okButtonProps = {},
+  cancelButtonProps = {},
+  
+  // Not used but included for compatibility
+  destroyOnClose,
+}) => {
   const { t } = useTranslation();
+  
+  // Use either visible or open prop
+  const isOpen = visible || open;
+  
+  // Handle closing with compatibility for both API styles
+  const handleClose = (value: boolean) => {
+    if (onClose) onClose(value);
+    if (!value && onCancel) onCancel();
+  };
+  
+  // Only close on backdrop click if maskClosable is true
+  const handleBackdropClick = () => {
+    if (maskClosable) {
+      handleClose(false);
+    }
+    return false; // Prevent closing if maskClosable is false
+  };
+  
+  // Generate default footer if okText/cancelText are provided and no custom footer
+  const renderFooter = () => {
+    if (footer) return footer;
+    
+    if (okText || cancelText || onOk) {
+      return (
+        <div className="memori-modal--footer">
+          {(cancelText || onCancel) && (
+            <Button 
+              onClick={() => {
+                if (onCancel) onCancel();
+                handleClose(false);
+              }}
+              {...cancelButtonProps}
+            >
+              {cancelText || t('cancel', { ns: 'common' })}
+            </Button>
+          )}
+          {(okText || onOk) && (
+            <Button 
+              primary 
+              onClick={() => {
+                if (onOk) onOk();
+              }}
+              {...okButtonProps}
+            >
+              {okText || t('ok', { ns: 'common' })}
+            </Button>
+          )}
+        </div>
+      );
+    }
+    
+    return null;
+  };
 
   return (
-    <Transition appear show={open} as={React.Fragment}>
+    <Transition appear show={isOpen} as={React.Fragment}>
       <Dialog
-        open={open}
-        onClose={onClose}
+        open={isOpen}
+        onClose={handleBackdropClick}
         className={cx('memori-modal', className)}
       >
         <Transition.Child
@@ -68,11 +151,11 @@ const Modal: FC<Props> = ({
                 <style
                   dangerouslySetInnerHTML={{
                     __html: `
-                    .memori-modal--panel {
-                      --memori-modal--width: ${width};
-                      --memori-modal--width-md: ${widthMd};
-                    }
-                  `,
+                      .memori-modal--panel {
+                        --memori-modal--width: ${width};
+                        --memori-modal--width-md: ${widthMd};
+                      }
+                    `,
                   }}
                 />
                 {closable && (
@@ -83,7 +166,7 @@ const Modal: FC<Props> = ({
                       shape="circle"
                       icon={<Close />}
                       title={t('close') || 'Close'}
-                      onClick={() => onClose(false)}
+                      onClick={() => handleClose(false)}
                     />
                   </div>
                 )}
@@ -98,12 +181,8 @@ const Modal: FC<Props> = ({
                       {description}
                     </Dialog.Description>
                   )}
-
-                  {children}
-
-                  {footer && (
-                    <div className="memori-modal--footer">{footer}</div>
-                  )}
+                  <div className="memori-modal--content">{children}</div>
+                  {renderFooter()}
                 </Spin>
               </Dialog.Panel>
             </Transition.Child>
