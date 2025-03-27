@@ -25,6 +25,7 @@ import Code from '../icons/Code';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
 import { cleanUrl, stripHTML, stripOutputTags } from '../../helpers/utils';
 import FilePreview from '../FilePreview/FilePreview';
+import Expandable from '../ui/Expandable';
 
 import markedLinkifyIt from 'marked-linkify-it';
 import markedKatex from 'marked-katex-extension';
@@ -160,6 +161,7 @@ export interface Props {
   userAvatar?: MemoriProps['userAvatar'];
   user?: User;
   experts?: ExpertReference[];
+  allowExpandable?: boolean;
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -180,6 +182,7 @@ const ChatBubble: React.FC<Props> = ({
   user,
   userAvatar,
   experts,
+  allowExpandable = false,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
@@ -233,6 +236,8 @@ const ChatBubble: React.FC<Props> = ({
       return () => clearTimeout(timer);
     }
   }, [message.text, message.fromUser, renderedText]);
+
+  const shouldTruncate = allowExpandable && (plainText.length > 4000 || plainText.split(' ').length > 300);
 
   return (
     <>
@@ -346,11 +351,21 @@ const ChatBubble: React.FC<Props> = ({
             message.fromUser ? '30' : '-30'
           }`}
         >
-          <div
-            dir="auto"
-            className="memori-chat--bubble-content"
-            dangerouslySetInnerHTML={{ __html: renderedText }}
-          />
+          {shouldTruncate ? (
+            <Expandable rows={10}>
+              <div
+                dir="auto"
+                className="memori-chat--bubble-content"
+                dangerouslySetInnerHTML={{ __html: renderedText }}
+              />
+            </Expandable>
+          ) : (
+            <div
+              dir="auto"
+              className="memori-chat--bubble-content"
+              dangerouslySetInnerHTML={{ __html: renderedText }}
+            />
+          )}
 
           {((!message.fromUser && showCopyButton) ||
             (message.generatedByAI && showAIicon) ||
