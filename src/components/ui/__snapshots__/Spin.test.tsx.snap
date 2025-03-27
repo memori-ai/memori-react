@@ -3,31 +3,8 @@
 exports[`renders Spin spinning primary unchanged 1`] = `
 <div>
   <div
-    class="memori-spin memori-spin--spinning memori-spin--primary"
+    class="memori-spin memori-spin--spinning memori-spin--primary memori-spin--middle"
   >
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    </p>
-    <h2>
-      Suspendisse a sodales nulla, sed semper nisi.
-    </h2>
-    <p>
-      Proin tincidunt enim in felis aliquet, a ultricies purus bibendum.
-    </p>
-    <ul>
-      <li>
-        Quisque in ultrices lectus.
-      </li>
-      <li>
-        Quisque in ultrices lectus.
-      </li>
-      <li>
-        Quisque in ultrices lectus.
-      </li>
-    </ul>
-    <p>
-      Nulla at urna diam.
-    </p>
     <div
       class="memori-spin--spinner"
     >
@@ -51,31 +28,8 @@ exports[`renders Spin spinning primary unchanged 1`] = `
 exports[`renders Spin spinning unchanged 1`] = `
 <div>
   <div
-    class="memori-spin memori-spin--spinning"
+    class="memori-spin memori-spin--spinning memori-spin--middle"
   >
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    </p>
-    <h2>
-      Suspendisse a sodales nulla, sed semper nisi.
-    </h2>
-    <p>
-      Proin tincidunt enim in felis aliquet, a ultricies purus bibendum.
-    </p>
-    <ul>
-      <li>
-        Quisque in ultrices lectus.
-      </li>
-      <li>
-        Quisque in ultrices lectus.
-      </li>
-      <li>
-        Quisque in ultrices lectus.
-      </li>
-    </ul>
-    <p>
-      Nulla at urna diam.
-    </p>
     <div
       class="memori-spin--spinner"
     >
@@ -99,31 +53,8 @@ exports[`renders Spin spinning unchanged 1`] = `
 exports[`renders Spin unchanged 1`] = `
 <div>
   <div
-    class="memori-spin"
+    class="memori-spin memori-spin--middle"
   >
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    </p>
-    <h2>
-      Suspendisse a sodales nulla, sed semper nisi.
-    </h2>
-    <p>
-      Proin tincidunt enim in felis aliquet, a ultricies purus bibendum.
-    </p>
-    <ul>
-      <li>
-        Quisque in ultrices lectus.
-      </li>
-      <li>
-        Quisque in ultrices lectus.
-      </li>
-      <li>
-        Quisque in ultrices lectus.
-      </li>
-    </ul>
-    <p>
-      Nulla at urna diam.
-    </p>
     <div
       class="memori-spin--spinner"
     >
@@ -147,31 +78,8 @@ exports[`renders Spin unchanged 1`] = `
 exports[`renders Spin with custom className unchanged 1`] = `
 <div>
   <div
-    class="memori-spin lorem-ipsum"
+    class="memori-spin lorem-ipsum memori-spin--middle"
   >
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    </p>
-    <h2>
-      Suspendisse a sodales nulla, sed semper nisi.
-    </h2>
-    <p>
-      Proin tincidunt enim in felis aliquet, a ultricies purus bibendum.
-    </p>
-    <ul>
-      <li>
-        Quisque in ultrices lectus.
-      </li>
-      <li>
-        Quisque in ultrices lectus.
-      </li>
-      <li>
-        Quisque in ultrices lectus.
-      </li>
-    </ul>
-    <p>
-      Nulla at urna diam.
-    </p>
     <div
       class="memori-spin--spinner"
     >
