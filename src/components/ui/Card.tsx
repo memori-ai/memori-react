@@ -12,7 +12,7 @@ export interface Props {
   hoverable?: boolean;
 }
 
-const Card: FC<Props> = ({
+export const Card: FC<Props> = ({
   loading = false,
   className,
   title,
@@ -41,4 +41,17 @@ const Card: FC<Props> = ({
   </div>
 );
 
-export default Card;
+export interface MetaProps {
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  className?: string;
+}
+
+export const Meta: FC<MetaProps> = ({ title, description, className }) => (
+  <div className={cx('memori-card--meta', className)}>
+    {title && <div className="memori-card--meta-title">{title}</div>}
+    {description && <div className="memori-card--meta-description">{description}</div>}
+  </div>
+);
+
+Meta.displayName = 'Card.Meta';

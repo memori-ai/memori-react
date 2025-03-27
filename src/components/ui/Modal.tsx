@@ -29,7 +29,6 @@ export interface ModalProps {
   okButtonProps?: any;
   cancelButtonProps?: any;
   maskClosable?: boolean;
-  destroyOnClose?: boolean;
 }
 
 const Modal: FC<ModalProps> = ({
@@ -60,8 +59,7 @@ const Modal: FC<ModalProps> = ({
   okButtonProps = {},
   cancelButtonProps = {},
   
-  // Not used but included for compatibility
-  destroyOnClose,
+
 }) => {
   const { t } = useTranslation();
   
