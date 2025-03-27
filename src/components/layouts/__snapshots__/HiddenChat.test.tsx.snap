@@ -172,7 +172,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
             class="memori-loading"
           >
             <div
-              class="memori-spin"
+              class="memori-spin memori-spin--middle"
             >
               <div
                 class="memori-spin--spinner"
