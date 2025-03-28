@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 
 export interface ModalProps {
-  // Core props from your custom Modal
   open?: boolean;
   onClose: (value: boolean) => void;
   className?: string;
@@ -19,10 +18,6 @@ export interface ModalProps {
   closable?: boolean;
   width?: string;
   widthMd?: string;
-  
-  // Additional props from Ant Design Modal
-  visible?: boolean;
-  onCancel?: () => void;
   onOk?: () => void;
   okText?: string;
   cancelText?: string;
@@ -32,44 +27,29 @@ export interface ModalProps {
 }
 
 const Modal: FC<ModalProps> = ({
-  // Handle both naming conventions
   open = false,
-  visible = false,
   onClose,
-  onCancel,
-  onOk,
-  
-  // Text props
   className,
   title,
   description,
   children,
-  
-  // Style/behavior props
   loading = false,
   closable = true,
   width = '100%',
   widthMd = '100%',
   maskClosable = true,
-  
-  // Footer props
   footer,
+  onOk,
   okText,
   cancelText,
   okButtonProps = {},
   cancelButtonProps = {},
-  
-
 }) => {
   const { t } = useTranslation();
   
-  // Use either visible or open prop
-  const isOpen = visible || open;
-  
-  // Handle closing with compatibility for both API styles
+  // Handle closing
   const handleClose = (value: boolean) => {
-    if (onClose) onClose(value);
-    if (!value && onCancel) onCancel();
+    onClose(value);
   };
   
   // Only close on backdrop click if maskClosable is true
@@ -84,15 +64,12 @@ const Modal: FC<ModalProps> = ({
   const renderFooter = () => {
     if (footer) return footer;
     
-    if (okText || cancelText || onOk) {
+    if (okText || onOk) {
       return (
         <div className="memori-modal--footer">
-          {(cancelText || onCancel) && (
+          {cancelText && (
             <Button 
-              onClick={() => {
-                if (onCancel) onCancel();
-                handleClose(false);
-              }}
+              onClick={() => handleClose(false)}
               {...cancelButtonProps}
             >
               {cancelText || t('cancel', { ns: 'common' })}
@@ -117,9 +94,9 @@ const Modal: FC<ModalProps> = ({
   };
 
   return (
-    <Transition appear show={isOpen} as={React.Fragment}>
+    <Transition appear show={open} as={React.Fragment}>
       <Dialog
-        open={isOpen}
+        open={open}
         onClose={handleBackdropClick}
         className={cx('memori-modal', className)}
       >
