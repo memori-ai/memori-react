@@ -1,0 +1,264 @@
+.memori-tabs {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+/* Tab list styles */
+.memori-tabs--list {
+    position: relative;
+    display: flex;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 16px;
+}
+
+.memori-tabs--list-vertical {
+    width: max-content;
+    flex-direction: column;
+    border-right: 1px solid #f0f0f0;
+    border-bottom: none;
+    margin-right: 16px;
+    margin-bottom: 0;
+}
+
+/* Tab position variants */
+.memori-tabs--bottom {
+    flex-direction: column-reverse;
+}
+
+.memori-tabs--bottom .memori-tabs--list {
+    border-top: 1px solid #f0f0f0;
+    border-bottom: none;
+    margin-top: 16px;
+    margin-bottom: 0;
+}
+
+.memori-tabs--left {
+    flex-direction: row;
+}
+
+.memori-tabs--right {
+    flex-direction: row-reverse;
+}
+
+.memori-tabs--right .memori-tabs--list {
+    border-right: none;
+    border-left: 1px solid #f0f0f0;
+    margin-right: 0;
+    margin-left: 16px;
+}
+
+/* Centered tabs */
+.memori-tabs--centered .memori-tabs--list {
+    justify-content: center;
+}
+
+/* Individual tab styles */
+.memori-tabs--tab {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    border: none;
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.65);
+    cursor: pointer;
+    font-size: 14px;
+    outline: none;
+    transition: color 0.3s;
+}
+
+.memori-tabs--list-vertical .memori-tabs--tab {
+    justify-content: flex-start;
+    padding: 8px 24px 8px 16px;
+}
+
+.memori-tabs--tab:hover {
+    color: #40a9ff;
+}
+
+.memori-tabs--tab:focus-visible {
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+}
+
+.memori-tabs--tab-selected {
+    color: #1890ff;
+    font-weight: 500;
+}
+
+.memori-tabs--tab-disabled {
+    color: rgba(0, 0, 0, 0.25);
+    cursor: not-allowed;
+}
+
+.memori-tabs--tab-disabled:hover {
+    color: rgba(0, 0, 0, 0.25);
+}
+
+/* Tab line indicator */
+.memori-tabs--tab-line {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: transparent;
+    transition: all 0.3s;
+}
+
+.memori-tabs--tab-line-active {
+    background-color: #1890ff;
+}
+
+.memori-tabs--list-vertical .memori-tabs--tab-line {
+    top: 0;
+    right: 0;
+    bottom: auto;
+    width: 2px;
+    height: 100%;
+}
+
+/* Card style tabs */
+.memori-tabs--card .memori-tabs--list {
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.memori-tabs--card .memori-tabs--tab {
+    border: 1px solid transparent;
+    border-radius: 4px 4px 0 0;
+    border-bottom: none;
+    margin-right: 2px;
+    background-color: #fafafa;
+}
+
+/* Editable card style */
+.memori-tabs--editable-card .memori-tabs--tab {
+    position: relative;
+    padding-right: 32px;
+}
+
+/* Size variants */
+.memori-tabs--small .memori-tabs--tab {
+    padding: 8px 12px;
+    font-size: 12px;
+}
+
+.memori-tabs--large .memori-tabs--tab {
+    padding: 16px 20px;
+    font-size: 16px;
+}
+
+.memori-tabs--small.memori-tabs--left .memori-tabs--tab,
+.memori-tabs--small.memori-tabs--right .memori-tabs--tab {
+    padding: 6px 16px 6px 12px;
+}
+
+.memori-tabs--large.memori-tabs--left .memori-tabs--tab,
+.memori-tabs--large.memori-tabs--right .memori-tabs--tab {
+    padding: 12px 32px 12px 20px;
+}
+
+/* Tab with icon */
+.memori-tabs--tab-with-icon {
+    display: inline-flex;
+    align-items: center;
+}
+
+.memori-tabs--tab-icon {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+}
+
+/* Tab content panel */
+.memori-tabs--panels {
+    flex: 1;
+}
+
+.memori-tabs--panel {
+    outline: none;
+}
+
+.memori-tabs--card .memori-tabs--tab-selected {
+    border-color: #f0f0f0;
+    border-bottom: 1px solid #fff;
+    margin-bottom: -1px;
+    background-color: #fff;
+}
+
+.memori-tabs--card.memori-tabs--bottom .memori-tabs--tab {
+    border-radius: 0 0 4px 4px;
+    border-top: none;
+    border-bottom: 1px solid transparent;
+}
+
+.memori-tabs--card.memori-tabs--bottom .memori-tabs--tab-selected {
+    border-color: #f0f0f0;
+    border-top: 1px solid #fff;
+    margin-top: -1px;
+}
+
+.memori-tabs--card.memori-tabs--left .memori-tabs--tab {
+    border-radius: 4px 0 0 4px;
+    border-right: none;
+    margin-bottom: 2px;
+}
+
+.memori-tabs--card.memori-tabs--left .memori-tabs--tab-selected {
+    border-color: #f0f0f0;
+    border-right: 1px solid #fff;
+    margin-right: -1px;
+}
+
+.memori-tabs--card.memori-tabs--right .memori-tabs--tab {
+    border-radius: 0 4px 4px 0;
+    border-left: none;
+    margin-bottom: 2px;
+}
+
+.memori-tabs--card.memori-tabs--right .memori-tabs--tab-selected {
+    border-color: #f0f0f0;
+    border-left: 1px solid #fff;
+    margin-left: -1px;
+}
+
+.memori-tabs--editable-card .memori-tabs--tab-close {
+    position: absolute;
+    top: 50%;
+    right: 12px;
+    display: flex;
+    width: 16px;
+    height: 16px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 12px;
+    opacity: 0;
+    transform: translateY(-50%);
+    transition: opacity 0.3s;
+}
+
+.memori-tabs--editable-card .memori-tabs--tab-close:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.65);
+}
+
+.memori-tabs--editable-card .memori-tabs--tab:hover .memori-tabs--tab-close {
+    opacity: 1;
+}
+
+/* Animation */
+.memori-tabs--panel-animated {
+    animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
