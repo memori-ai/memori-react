@@ -270,7 +270,7 @@ const Memori: React.FC<Props> = ({
             height={height}
             baseUrl={
               baseURL ||
-              (tenantID.startsWith('https://')
+              (tenantID.startsWith('https://') || tenantID.startsWith('http://')
                 ? tenantID
                 : `https://${tenantID}`)
             }
