@@ -12,7 +12,7 @@ import { getErrori18nKey } from '../../helpers/error';
 import { useTranslation } from 'react-i18next';
 import Snippet from '../Snippet/Snippet';
 import MediaWidget from '../MediaWidget/MediaWidget';
-import Card from '../ui/Card';
+import { Card } from '../ui/Card';
 
 export interface Props {
   apiURL: string;

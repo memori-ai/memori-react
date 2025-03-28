@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import Link from '../icons/Link';
 import cx from 'classnames';
 import { ellipsis } from 'ellipsed';
-import Card from '../ui/Card';
+import { Card } from '../ui/Card';
 import { Transition } from '@headlessui/react';
 
 export declare type ILinkPreviewInfo = {

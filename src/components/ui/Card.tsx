@@ -12,7 +12,22 @@ export interface Props {
   hoverable?: boolean;
 }
 
-const Card: FC<Props> = ({
+export interface MetaProps {
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  className?: string;
+}
+
+const Meta: FC<MetaProps> = ({ title, description, className }) => (
+  <div className={cx('memori-card--meta', className)}>
+    {title && <div className="memori-card--meta-title">{title}</div>}
+    {description && <div className="memori-card--meta-description">{description}</div>}
+  </div>
+);
+
+Meta.displayName = 'Card.Meta';
+
+const Card: FC<Props> & { Meta: FC<MetaProps> } = ({
   loading = false,
   className,
   title,
@@ -20,7 +35,7 @@ const Card: FC<Props> = ({
   cover,
   hoverable = false,
   children,
-}) => (
+}: Props) => (
   <div
     className={cx('memori-card', className, {
       'memori-card--loading': loading,
@@ -41,4 +56,7 @@ const Card: FC<Props> = ({
   </div>
 );
 
-export default Card;
+// Attach Meta as a static property of Card
+Card.Meta = Meta;
+
+export { Card };

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Card from './Card';
+import { Card } from './Card';
 
 it('renders Card unchanged', () => {
   const { container } = render(<Card />);

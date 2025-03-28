@@ -157,7 +157,7 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
         class="memori--completion-provider-status--loading"
       >
         <div
-          class="memori-spin memori-spin--spinning"
+          class="memori-spin memori-spin--spinning memori-spin--middle"
         >
           <div
             class="memori-spin--spinner"
@@ -356,7 +356,7 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
         class="memori--completion-provider-status--loading"
       >
         <div
-          class="memori-spin memori-spin--spinning"
+          class="memori-spin memori-spin--spinning memori-spin--middle"
         >
           <div
             class="memori-spin--spinner"
@@ -555,7 +555,7 @@ exports[`renders StartPanel unchanged 1`] = `
         class="memori--completion-provider-status--loading"
       >
         <div
-          class="memori-spin memori-spin--spinning"
+          class="memori-spin memori-spin--spinning memori-spin--middle"
         >
           <div
             class="memori-spin--spinner"
@@ -973,7 +973,7 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
         class="memori--completion-provider-status--loading"
       >
         <div
-          class="memori-spin memori-spin--spinning"
+          class="memori-spin memori-spin--spinning memori-spin--middle"
         >
           <div
             class="memori-spin--spinner"
@@ -1172,7 +1172,7 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
         class="memori--completion-provider-status--loading"
       >
         <div
-          class="memori-spin memori-spin--spinning"
+          class="memori-spin memori-spin--spinning memori-spin--middle"
         >
           <div
             class="memori-spin--spinner"
@@ -1440,7 +1440,7 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
         class="memori--completion-provider-status--loading"
       >
         <div
-          class="memori-spin memori-spin--spinning"
+          class="memori-spin memori-spin--spinning memori-spin--middle"
         >
           <div
             class="memori-spin--spinner"
@@ -1701,7 +1701,7 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
         class="memori--completion-provider-status--loading"
       >
         <div
-          class="memori-spin memori-spin--spinning"
+          class="memori-spin memori-spin--spinning memori-spin--middle"
         >
           <div
             class="memori-spin--spinner"
@@ -1959,7 +1959,7 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
         class="memori--completion-provider-status--loading"
       >
         <div
-          class="memori-spin memori-spin--spinning"
+          class="memori-spin memori-spin--spinning memori-spin--middle"
         >
           <div
             class="memori-spin--spinner"
@@ -2158,7 +2158,7 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
         class="memori--completion-provider-status--loading"
       >
         <div
-          class="memori-spin memori-spin--spinning"
+          class="memori-spin memori-spin--spinning memori-spin--middle"
         >
           <div
             class="memori-spin--spinner"
@@ -2457,7 +2457,7 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
         class="memori--completion-provider-status--loading"
       >
         <div
-          class="memori-spin memori-spin--spinning"
+          class="memori-spin memori-spin--spinning memori-spin--middle"
         >
           <div
             class="memori-spin--spinner"

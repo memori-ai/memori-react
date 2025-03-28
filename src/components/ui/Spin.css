@@ -29,3 +29,28 @@
 .memori-spin--primary svg {
     fill: var(--memori-primary);
 }
+
+.memori-spin--small svg {
+    width: 20%;
+    height: 20%;
+}
+
+
+.memori-spin--large svg {
+    width: 40%;
+    height: 40%;
+}
+
+.memori-spin--middle svg {
+    width: 30%;
+    height: 30%;
+}
+
+.memori-spin--tip {
+    position: absolute;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
