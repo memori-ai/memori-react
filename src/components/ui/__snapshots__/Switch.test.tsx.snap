@@ -1,0 +1,292 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Switch Component renders Switch checked unchanged 1`] = `
+<div>
+  <div
+    class="memori-switch-wrapper"
+  >
+    <button
+      aria-checked="true"
+      class="memori-switch memori-switch--default memori-switch--checked"
+      data-headlessui-state="checked"
+      id="headlessui-switch-:r2:"
+      role="switch"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="memori-switch--handle memori-switch--handle-checked"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Switch Component renders Switch disabled and checked unchanged 1`] = `
+<div>
+  <div
+    class="memori-switch-wrapper"
+  >
+    <button
+      aria-checked="true"
+      class="memori-switch memori-switch--default memori-switch--checked memori-switch--disabled"
+      data-headlessui-state="checked"
+      disabled=""
+      id="headlessui-switch-:r5:"
+      role="switch"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="memori-switch--handle memori-switch--handle-checked memori-switch--handle-disabled"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Switch Component renders Switch disabled unchanged 1`] = `
+<div>
+  <div
+    class="memori-switch-wrapper"
+  >
+    <button
+      aria-checked="false"
+      class="memori-switch memori-switch--default memori-switch--disabled"
+      data-headlessui-state=""
+      disabled=""
+      id="headlessui-switch-:r4:"
+      role="switch"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="memori-switch--handle memori-switch--handle-disabled"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Switch Component renders Switch unchanged 1`] = `
+<div>
+  <div
+    class="memori-switch-wrapper"
+  >
+    <button
+      aria-checked="false"
+      class="memori-switch memori-switch--default"
+      data-headlessui-state=""
+      id="headlessui-switch-:r0:"
+      role="switch"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="memori-switch--handle"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Switch Component renders Switch with checkedChildren and unCheckedChildren unchanged 1`] = `
+<div>
+  <div
+    class="memori-switch-wrapper"
+  >
+    <button
+      aria-checked="false"
+      class="memori-switch memori-switch--default"
+      data-headlessui-state=""
+      id="headlessui-switch-:r9:"
+      role="switch"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="memori-switch--handle"
+      />
+      <span
+        class="memori-switch--inner"
+      >
+        OFF
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Switch Component renders Switch with data-testid unchanged 1`] = `
+<div>
+  <div
+    class="memori-switch-wrapper"
+  >
+    <button
+      aria-checked="false"
+      class="memori-switch memori-switch--default"
+      data-headlessui-state=""
+      data-testid="feature-toggle"
+      id="headlessui-switch-:ra:"
+      role="switch"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="memori-switch--handle"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Switch Component renders Switch with defaultChecked unchanged 1`] = `
+<div>
+  <div
+    class="memori-switch-wrapper"
+  >
+    <button
+      aria-checked="true"
+      class="memori-switch memori-switch--default memori-switch--checked"
+      data-headlessui-state="checked"
+      id="headlessui-switch-:r3:"
+      role="switch"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="memori-switch--handle memori-switch--handle-checked"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Switch Component renders Switch with label unchanged 1`] = `
+<div>
+  <div
+    class="memori-switch-wrapper"
+  >
+    <label
+      class="memori-switch--label"
+    >
+      Toggle me
+    </label>
+    <button
+      aria-checked="false"
+      class="memori-switch memori-switch--default"
+      data-headlessui-state=""
+      id="headlessui-switch-:r1:"
+      role="switch"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="memori-switch--handle"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Switch Component renders Switch with loading state unchanged 1`] = `
+<div>
+  <div
+    class="memori-switch-wrapper"
+  >
+    <button
+      aria-checked="false"
+      class="memori-switch memori-switch--default memori-switch--disabled memori-switch--loading"
+      data-headlessui-state=""
+      disabled=""
+      id="headlessui-switch-:r8:"
+      role="switch"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="memori-switch--handle memori-switch--handle-disabled memori-switch--handle-loading"
+      >
+        <span
+          class="memori-switch--loading-icon"
+        >
+          <svg
+            class="memori-switch--loading-spinner"
+            fill="none"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+            <path
+              d="M12 6v2"
+            />
+          </svg>
+        </span>
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Switch Component renders Switch with size large unchanged 1`] = `
+<div>
+  <div
+    class="memori-switch-wrapper"
+  >
+    <button
+      aria-checked="false"
+      class="memori-switch memori-switch--large"
+      data-headlessui-state=""
+      id="headlessui-switch-:r7:"
+      role="switch"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="memori-switch--handle"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Switch Component renders Switch with size small unchanged 1`] = `
+<div>
+  <div
+    class="memori-switch-wrapper"
+  >
+    <button
+      aria-checked="false"
+      class="memori-switch memori-switch--small"
+      data-headlessui-state=""
+      id="headlessui-switch-:r6:"
+      role="switch"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        aria-hidden="true"
+        class="memori-switch--handle"
+      />
+    </button>
+  </div>
+</div>
+`;
