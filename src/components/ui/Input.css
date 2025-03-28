@@ -1,0 +1,142 @@
+.memori-input-wrapper {
+    width: 100%;
+    margin-bottom: 1rem;
+    font-family: inherit;
+  }
+  
+  .memori-input--label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 500;
+  }
+  
+  .memori-input-container {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    border-radius: 0.25rem;
+  }
+  
+  .memori-input--field-container {
+    position: relative;
+    display: flex;
+    flex: 1;
+    align-items: center;
+    border: 1px solid #d9d9d9;
+    border-radius: 0.25rem;
+    background-color: #fff;
+    transition: all 0.3s;
+  }
+  
+  .memori-input--with-addon-before .memori-input--field-container {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+  }
+  
+  .memori-input--with-addon-after .memori-input--field-container {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+  }
+  
+  .memori-input--field {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: none;
+    background: transparent;
+    color: #333;
+    font-size: 14px;
+    outline: none;
+  }
+  
+  .memori-input--field::placeholder {
+    color: #bfbfbf;
+  }
+
+  .memori-input--disabled .memori-input--field-container {
+    border-color: #d9d9d9;
+    background-color: #f5f5f5;
+    color: rgba(0, 0, 0, 0.25);
+    cursor: not-allowed;
+  }
+  
+  
+  .memori-input--field-container:hover:not(.memori-input--disabled):not(.memori-input--readonly) {
+    border-color: #40a9ff;
+  }
+  
+  .memori-input--field-container:focus-within:not(.memori-input--disabled):not(.memori-input--readonly) {
+    border-color: #40a9ff;
+    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+  }
+  
+  .memori-input--disabled .memori-input--field,
+  .memori-input--readonly .memori-input--field {
+    background-color: #f5f5f5;
+    color: rgba(0, 0, 0, 0.25);
+    cursor: not-allowed;
+  }
+  
+  .memori-input--addon-before,
+  .memori-input--addon-after {
+    display: flex;
+    align-items: center;
+    padding: 0 0.75rem;
+    border: 1px solid #d9d9d9;
+    background-color: #fafafa;
+    white-space: nowrap;
+  }
+  
+  .memori-input--addon-before {
+    border-right: none;
+    border-bottom-left-radius: 0.25rem;
+    border-top-left-radius: 0.25rem;
+  }
+  
+  .memori-input--addon-after {
+    border-left: none;
+    border-bottom-right-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+  }
+  
+  .memori-input--prefix,
+  .memori-input--suffix,
+  .memori-input--clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.45);
+  }
+  
+  .memori-input--prefix {
+    margin-left: 0.75rem;
+  }
+  
+  .memori-input--suffix,
+  .memori-input--clear {
+    margin-right: 0.75rem;
+  }
+  
+  .memori-input--clear {
+    width: 1rem;
+    height: 1rem;
+    color: #bfbfbf;
+    cursor: pointer;
+    transition: color 0.3s;
+  }
+
+  .memori-input--clear-icon {
+    color: #bfbfbf;
+  }
+  
+  .memori-input--clear:hover {
+    color: rgba(0, 0, 0, 0.45);
+  }
+  
+  .memori-input--with-prefix .memori-input--field {
+    padding-left: 0;
+  }
+  
+  .memori-input--with-suffix .memori-input--field {
+    padding-right: 0;
+  }

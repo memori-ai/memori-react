@@ -1,0 +1,392 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input Component renders Input unchanged 1`] = `
+<div>
+  <div
+    class="memori-input-wrapper"
+  >
+    <div
+      class="memori-input-container"
+    >
+      <div
+        class="memori-input--field-container"
+      >
+        <input
+          class="memori-input--field"
+          id="test-input"
+          name="test-input"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Input Component renders Input with addonAfter unchanged 1`] = `
+<div>
+  <div
+    class="memori-input-wrapper"
+  >
+    <div
+      class="memori-input-container memori-input--with-addon-after"
+    >
+      <div
+        class="memori-input--field-container"
+      >
+        <input
+          class="memori-input--field"
+          id="test-input"
+          name="test-input"
+          type="text"
+          value=""
+        />
+      </div>
+      <div
+        class="memori-input--addon-after"
+      >
+        .com
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Input Component renders Input with addonBefore unchanged 1`] = `
+<div>
+  <div
+    class="memori-input-wrapper"
+  >
+    <div
+      class="memori-input-container memori-input--with-addon-before"
+    >
+      <div
+        class="memori-input--addon-before"
+      >
+        https://
+      </div>
+      <div
+        class="memori-input--field-container"
+      >
+        <input
+          class="memori-input--field"
+          id="test-input"
+          name="test-input"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Input Component renders Input with allowClear unchanged 1`] = `
+<div>
+  <div
+    class="memori-input-wrapper"
+  >
+    <div
+      class="memori-input-container memori-input--with-suffix"
+    >
+      <div
+        class="memori-input--field-container"
+      >
+        <input
+          class="memori-input--field"
+          id="test-input"
+          name="test-input"
+          type="text"
+          value="Clear me"
+        />
+        <div
+          class="memori-input--clear"
+          role="button"
+          tabindex="0"
+          title="Clear"
+        >
+          <svg
+            aria-hidden="true"
+            class="memori-input--clear-icon"
+            focusable="false"
+            role="img"
+            viewBox="0 0 1024 1024"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Input Component renders Input with label unchanged 1`] = `
+<div>
+  <div
+    class="memori-input-wrapper"
+  >
+    <label
+      class="memori-input--label"
+      for="test-input"
+    >
+      Input Label
+    </label>
+    <div
+      class="memori-input-container"
+    >
+      <div
+        class="memori-input--field-container"
+      >
+        <input
+          class="memori-input--field"
+          id="test-input"
+          name="test-input"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Input Component renders Input with placeholder unchanged 1`] = `
+<div>
+  <div
+    class="memori-input-wrapper"
+  >
+    <div
+      class="memori-input-container"
+    >
+      <div
+        class="memori-input--field-container"
+      >
+        <input
+          class="memori-input--field"
+          id="test-input"
+          name="test-input"
+          placeholder="Enter text here"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Input Component renders Input with prefix unchanged 1`] = `
+<div>
+  <div
+    class="memori-input-wrapper"
+  >
+    <div
+      class="memori-input-container memori-input--with-prefix"
+    >
+      <div
+        class="memori-input--field-container"
+      >
+        <div
+          class="memori-input--prefix"
+        >
+          <span
+            data-testid="prefix-icon"
+          >
+            @
+          </span>
+        </div>
+        <input
+          class="memori-input--field"
+          id="test-input"
+          name="test-input"
+          type="text"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Input Component renders Input with suffix unchanged 1`] = `
+<div>
+  <div
+    class="memori-input-wrapper"
+  >
+    <div
+      class="memori-input-container memori-input--with-suffix"
+    >
+      <div
+        class="memori-input--field-container"
+      >
+        <input
+          class="memori-input--field"
+          id="test-input"
+          name="test-input"
+          type="text"
+          value=""
+        />
+        <div
+          class="memori-input--suffix"
+        >
+          <span
+            data-testid="suffix-icon"
+          >
+            %
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Input Component renders Input with value unchanged 1`] = `
+<div>
+  <div
+    class="memori-input-wrapper"
+  >
+    <div
+      class="memori-input-container"
+    >
+      <div
+        class="memori-input--field-container"
+      >
+        <input
+          class="memori-input--field"
+          id="test-input"
+          name="test-input"
+          type="text"
+          value="Test Value"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Input Component renders complete example unchanged 1`] = `
+<div>
+  <div
+    class="memori-input-wrapper"
+  >
+    <label
+      class="memori-input--label"
+      for="query"
+    >
+      Search
+    </label>
+    <div
+      class="memori-input-container memori-input--with-addon-after memori-input--with-prefix"
+    >
+      <div
+        class="memori-input--field-container"
+      >
+        <div
+          class="memori-input--prefix"
+        >
+          <span>
+            🔍
+          </span>
+        </div>
+        <input
+          class="memori-input--field"
+          id="query"
+          name="query"
+          placeholder="Search by name"
+          role="searchbox"
+          type="search"
+          value=""
+        />
+      </div>
+      <div
+        class="memori-input--addon-after"
+      >
+        <button>
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Input Component renders disabled Input unchanged 1`] = `
+<div>
+  <div
+    class="memori-input-wrapper"
+  >
+    <div
+      class="memori-input-container memori-input--disabled"
+    >
+      <div
+        class="memori-input--field-container"
+      >
+        <input
+          class="memori-input--field"
+          disabled=""
+          id="test-input"
+          name="test-input"
+          type="text"
+          value="Disabled input"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Input Component renders password Input unchanged 1`] = `
+<div>
+  <div
+    class="memori-input-wrapper"
+  >
+    <div
+      class="memori-input-container"
+    >
+      <div
+        class="memori-input--field-container"
+      >
+        <input
+          class="memori-input--field"
+          id="test-input"
+          name="test-input"
+          type="password"
+          value="password123"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Input Component renders search Input unchanged 1`] = `
+<div>
+  <div
+    class="memori-input-wrapper"
+  >
+    <div
+      class="memori-input-container"
+    >
+      <div
+        class="memori-input--field-container"
+      >
+        <input
+          class="memori-input--field"
+          id="test-input"
+          name="test-input"
+          placeholder="Search..."
+          role="searchbox"
+          type="search"
+          value=""
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
