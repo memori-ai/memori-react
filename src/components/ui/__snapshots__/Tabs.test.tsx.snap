@@ -1,0 +1,1491 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs Component renders Tabs centered unchanged 1`] = `
+<div>
+  <div
+    class="memori-tabs memori-tabs--line memori-tabs--default memori-tabs--top memori-tabs--centered memori-tabs--animated"
+    data-testid="test-tabs"
+  >
+    <div
+      aria-orientation="horizontal"
+      class="memori-tabs--list"
+      role="tablist"
+    >
+      <button
+        aria-controls="headlessui-tabs-panel-:r1d:"
+        aria-selected="true"
+        class="memori-tabs--tab memori-tabs--tab-selected"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-tab-tab1"
+        id="headlessui-tabs-tab-:r1a:"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 1
+        </span>
+        <span
+          class="memori-tabs--tab-line memori-tabs--tab-line-active"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r1e:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab2"
+        id="headlessui-tabs-tab-:r1b:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 2
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r1f:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab3"
+        id="headlessui-tabs-tab-:r1c:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 3
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+    </div>
+    <div
+      class="memori-tabs--panels"
+    >
+      <div
+        aria-labelledby="headlessui-tabs-tab-:r1a:"
+        class="memori-tabs--panel memori-tabs--panel-animated"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-panel-tab1"
+        id="headlessui-tabs-panel-:r1d:"
+        role="tabpanel"
+        tabindex="0"
+      >
+        <div>
+          Content of Tab 1
+        </div>
+      </div>
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r1b:"
+        id="headlessui-tabs-panel-:r1e:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r1c:"
+        id="headlessui-tabs-panel-:r1f:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Tabs Component renders Tabs unchanged 1`] = `
+<div>
+  <div
+    class="memori-tabs memori-tabs--line memori-tabs--default memori-tabs--top memori-tabs--animated"
+    data-testid="test-tabs"
+  >
+    <div
+      aria-orientation="horizontal"
+      class="memori-tabs--list"
+      role="tablist"
+    >
+      <button
+        aria-controls="headlessui-tabs-panel-:r3:"
+        aria-selected="true"
+        class="memori-tabs--tab memori-tabs--tab-selected"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-tab-tab1"
+        id="headlessui-tabs-tab-:r0:"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 1
+        </span>
+        <span
+          class="memori-tabs--tab-line memori-tabs--tab-line-active"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r4:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab2"
+        id="headlessui-tabs-tab-:r1:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 2
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r5:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab3"
+        id="headlessui-tabs-tab-:r2:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 3
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+    </div>
+    <div
+      class="memori-tabs--panels"
+    >
+      <div
+        aria-labelledby="headlessui-tabs-tab-:r0:"
+        class="memori-tabs--panel memori-tabs--panel-animated"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-panel-tab1"
+        id="headlessui-tabs-panel-:r3:"
+        role="tabpanel"
+        tabindex="0"
+      >
+        <div>
+          Content of Tab 1
+        </div>
+      </div>
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r1:"
+        id="headlessui-tabs-panel-:r4:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r2:"
+        id="headlessui-tabs-panel-:r5:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Tabs Component renders Tabs with activeKey unchanged 1`] = `
+<div>
+  <div
+    class="memori-tabs memori-tabs--line memori-tabs--default memori-tabs--top memori-tabs--animated"
+    data-testid="test-tabs"
+  >
+    <div
+      aria-orientation="horizontal"
+      class="memori-tabs--list"
+      role="tablist"
+    >
+      <button
+        aria-controls="headlessui-tabs-panel-:rf:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab1"
+        id="headlessui-tabs-tab-:rc:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 1
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:rg:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab2"
+        id="headlessui-tabs-tab-:rd:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 2
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:rh:"
+        aria-selected="true"
+        class="memori-tabs--tab memori-tabs--tab-selected"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-tab-tab3"
+        id="headlessui-tabs-tab-:re:"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 3
+        </span>
+        <span
+          class="memori-tabs--tab-line memori-tabs--tab-line-active"
+        />
+      </button>
+    </div>
+    <div
+      class="memori-tabs--panels"
+    >
+      <span
+        aria-labelledby="headlessui-tabs-tab-:rc:"
+        id="headlessui-tabs-panel-:rf:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+      <span
+        aria-labelledby="headlessui-tabs-tab-:rd:"
+        id="headlessui-tabs-panel-:rg:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+      <div
+        aria-labelledby="headlessui-tabs-tab-:re:"
+        class="memori-tabs--panel memori-tabs--panel-animated"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-panel-tab3"
+        id="headlessui-tabs-panel-:rh:"
+        role="tabpanel"
+        tabindex="0"
+      >
+        <div>
+          Content of Tab 3
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Tabs Component renders Tabs with defaultActiveKey unchanged 1`] = `
+<div>
+  <div
+    class="memori-tabs memori-tabs--line memori-tabs--default memori-tabs--top memori-tabs--animated"
+    data-testid="test-tabs"
+  >
+    <div
+      aria-orientation="horizontal"
+      class="memori-tabs--list"
+      role="tablist"
+    >
+      <button
+        aria-controls="headlessui-tabs-panel-:r9:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab1"
+        id="headlessui-tabs-tab-:r6:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 1
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:ra:"
+        aria-selected="true"
+        class="memori-tabs--tab memori-tabs--tab-selected"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-tab-tab2"
+        id="headlessui-tabs-tab-:r7:"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 2
+        </span>
+        <span
+          class="memori-tabs--tab-line memori-tabs--tab-line-active"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:rb:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab3"
+        id="headlessui-tabs-tab-:r8:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 3
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+    </div>
+    <div
+      class="memori-tabs--panels"
+    >
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r6:"
+        id="headlessui-tabs-panel-:r9:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+      <div
+        aria-labelledby="headlessui-tabs-tab-:r7:"
+        class="memori-tabs--panel memori-tabs--panel-animated"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-panel-tab2"
+        id="headlessui-tabs-panel-:ra:"
+        role="tabpanel"
+        tabindex="0"
+      >
+        <div>
+          Content of Tab 2
+        </div>
+      </div>
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r8:"
+        id="headlessui-tabs-panel-:rb:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Tabs Component renders Tabs with disabled tab unchanged 1`] = `
+<div>
+  <div
+    class="memori-tabs memori-tabs--line memori-tabs--default memori-tabs--top memori-tabs--animated"
+    data-testid="test-tabs"
+  >
+    <div
+      aria-orientation="horizontal"
+      class="memori-tabs--list"
+      role="tablist"
+    >
+      <button
+        aria-controls="headlessui-tabs-panel-:rl:"
+        aria-selected="true"
+        class="memori-tabs--tab memori-tabs--tab-selected"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-tab-tab1"
+        id="headlessui-tabs-tab-:ri:"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 1
+        </span>
+        <span
+          class="memori-tabs--tab-line memori-tabs--tab-line-active"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:rm:"
+        aria-selected="false"
+        class="memori-tabs--tab memori-tabs--tab-disabled"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab2"
+        disabled=""
+        id="headlessui-tabs-tab-:rj:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 2
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:rn:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab3"
+        id="headlessui-tabs-tab-:rk:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 3
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+    </div>
+    <div
+      class="memori-tabs--panels"
+    >
+      <div
+        aria-labelledby="headlessui-tabs-tab-:ri:"
+        class="memori-tabs--panel memori-tabs--panel-animated"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-panel-tab1"
+        id="headlessui-tabs-panel-:rl:"
+        role="tabpanel"
+        tabindex="0"
+      >
+        <div>
+          Content of Tab 1
+        </div>
+      </div>
+      <span
+        aria-labelledby="headlessui-tabs-tab-:rj:"
+        id="headlessui-tabs-panel-:rm:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+      <span
+        aria-labelledby="headlessui-tabs-tab-:rk:"
+        id="headlessui-tabs-panel-:rn:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Tabs Component renders Tabs with size large unchanged 1`] = `
+<div>
+  <div
+    class="memori-tabs memori-tabs--line memori-tabs--large memori-tabs--top memori-tabs--animated"
+    data-testid="test-tabs"
+  >
+    <div
+      aria-orientation="horizontal"
+      class="memori-tabs--list"
+      role="tablist"
+    >
+      <button
+        aria-controls="headlessui-tabs-panel-:r1p:"
+        aria-selected="true"
+        class="memori-tabs--tab memori-tabs--tab-selected"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-tab-tab1"
+        id="headlessui-tabs-tab-:r1m:"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 1
+        </span>
+        <span
+          class="memori-tabs--tab-line memori-tabs--tab-line-active"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r1q:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab2"
+        id="headlessui-tabs-tab-:r1n:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 2
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r1r:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab3"
+        id="headlessui-tabs-tab-:r1o:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 3
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+    </div>
+    <div
+      class="memori-tabs--panels"
+    >
+      <div
+        aria-labelledby="headlessui-tabs-tab-:r1m:"
+        class="memori-tabs--panel memori-tabs--panel-animated"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-panel-tab1"
+        id="headlessui-tabs-panel-:r1p:"
+        role="tabpanel"
+        tabindex="0"
+      >
+        <div>
+          Content of Tab 1
+        </div>
+      </div>
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r1n:"
+        id="headlessui-tabs-panel-:r1q:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r1o:"
+        id="headlessui-tabs-panel-:r1r:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Tabs Component renders Tabs with size small unchanged 1`] = `
+<div>
+  <div
+    class="memori-tabs memori-tabs--line memori-tabs--small memori-tabs--top memori-tabs--animated"
+    data-testid="test-tabs"
+  >
+    <div
+      aria-orientation="horizontal"
+      class="memori-tabs--list"
+      role="tablist"
+    >
+      <button
+        aria-controls="headlessui-tabs-panel-:r1j:"
+        aria-selected="true"
+        class="memori-tabs--tab memori-tabs--tab-selected"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-tab-tab1"
+        id="headlessui-tabs-tab-:r1g:"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 1
+        </span>
+        <span
+          class="memori-tabs--tab-line memori-tabs--tab-line-active"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r1k:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab2"
+        id="headlessui-tabs-tab-:r1h:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 2
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r1l:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab3"
+        id="headlessui-tabs-tab-:r1i:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 3
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+    </div>
+    <div
+      class="memori-tabs--panels"
+    >
+      <div
+        aria-labelledby="headlessui-tabs-tab-:r1g:"
+        class="memori-tabs--panel memori-tabs--panel-animated"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-panel-tab1"
+        id="headlessui-tabs-panel-:r1j:"
+        role="tabpanel"
+        tabindex="0"
+      >
+        <div>
+          Content of Tab 1
+        </div>
+      </div>
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r1h:"
+        id="headlessui-tabs-panel-:r1k:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r1i:"
+        id="headlessui-tabs-panel-:r1l:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Tabs Component renders Tabs with tab position bottom unchanged 1`] = `
+<div>
+  <div
+    class="memori-tabs memori-tabs--line memori-tabs--default memori-tabs--bottom memori-tabs--animated"
+    data-testid="test-tabs"
+  >
+    <div
+      aria-orientation="horizontal"
+      class="memori-tabs--list"
+      role="tablist"
+    >
+      <button
+        aria-controls="headlessui-tabs-panel-:rr:"
+        aria-selected="true"
+        class="memori-tabs--tab memori-tabs--tab-selected"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-tab-tab1"
+        id="headlessui-tabs-tab-:ro:"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 1
+        </span>
+        <span
+          class="memori-tabs--tab-line memori-tabs--tab-line-active"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:rs:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab2"
+        id="headlessui-tabs-tab-:rp:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 2
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:rt:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab3"
+        id="headlessui-tabs-tab-:rq:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 3
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+    </div>
+    <div
+      class="memori-tabs--panels"
+    >
+      <div
+        aria-labelledby="headlessui-tabs-tab-:ro:"
+        class="memori-tabs--panel memori-tabs--panel-animated"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-panel-tab1"
+        id="headlessui-tabs-panel-:rr:"
+        role="tabpanel"
+        tabindex="0"
+      >
+        <div>
+          Content of Tab 1
+        </div>
+      </div>
+      <span
+        aria-labelledby="headlessui-tabs-tab-:rp:"
+        id="headlessui-tabs-panel-:rs:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+      <span
+        aria-labelledby="headlessui-tabs-tab-:rq:"
+        id="headlessui-tabs-panel-:rt:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Tabs Component renders Tabs with tab position left unchanged 1`] = `
+<div>
+  <div
+    class="memori-tabs memori-tabs--line memori-tabs--default memori-tabs--left memori-tabs--animated"
+    data-testid="test-tabs"
+  >
+    <div
+      aria-orientation="vertical"
+      class="memori-tabs--list memori-tabs--list-vertical"
+      role="tablist"
+    >
+      <button
+        aria-controls="headlessui-tabs-panel-:r11:"
+        aria-selected="true"
+        class="memori-tabs--tab memori-tabs--tab-selected"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-tab-tab1"
+        id="headlessui-tabs-tab-:ru:"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 1
+        </span>
+        <span
+          class="memori-tabs--tab-line memori-tabs--tab-line-active"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r12:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab2"
+        id="headlessui-tabs-tab-:rv:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 2
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r13:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab3"
+        id="headlessui-tabs-tab-:r10:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 3
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+    </div>
+    <div
+      class="memori-tabs--panels"
+    >
+      <div
+        aria-labelledby="headlessui-tabs-tab-:ru:"
+        class="memori-tabs--panel memori-tabs--panel-animated"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-panel-tab1"
+        id="headlessui-tabs-panel-:r11:"
+        role="tabpanel"
+        tabindex="0"
+      >
+        <div>
+          Content of Tab 1
+        </div>
+      </div>
+      <span
+        aria-labelledby="headlessui-tabs-tab-:rv:"
+        id="headlessui-tabs-panel-:r12:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r10:"
+        id="headlessui-tabs-panel-:r13:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Tabs Component renders Tabs with tab position right unchanged 1`] = `
+<div>
+  <div
+    class="memori-tabs memori-tabs--line memori-tabs--default memori-tabs--right memori-tabs--animated"
+    data-testid="test-tabs"
+  >
+    <div
+      aria-orientation="vertical"
+      class="memori-tabs--list memori-tabs--list-vertical"
+      role="tablist"
+    >
+      <button
+        aria-controls="headlessui-tabs-panel-:r17:"
+        aria-selected="true"
+        class="memori-tabs--tab memori-tabs--tab-selected"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-tab-tab1"
+        id="headlessui-tabs-tab-:r14:"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 1
+        </span>
+        <span
+          class="memori-tabs--tab-line memori-tabs--tab-line-active"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r18:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab2"
+        id="headlessui-tabs-tab-:r15:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 2
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r19:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab3"
+        id="headlessui-tabs-tab-:r16:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 3
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+    </div>
+    <div
+      class="memori-tabs--panels"
+    >
+      <div
+        aria-labelledby="headlessui-tabs-tab-:r14:"
+        class="memori-tabs--panel memori-tabs--panel-animated"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-panel-tab1"
+        id="headlessui-tabs-panel-:r17:"
+        role="tabpanel"
+        tabindex="0"
+      >
+        <div>
+          Content of Tab 1
+        </div>
+      </div>
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r15:"
+        id="headlessui-tabs-panel-:r18:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r16:"
+        id="headlessui-tabs-panel-:r19:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Tabs Component renders Tabs with type card unchanged 1`] = `
+<div>
+  <div
+    class="memori-tabs memori-tabs--card memori-tabs--default memori-tabs--top memori-tabs--animated"
+    data-testid="test-tabs"
+  >
+    <div
+      aria-orientation="horizontal"
+      class="memori-tabs--list"
+      role="tablist"
+    >
+      <button
+        aria-controls="headlessui-tabs-panel-:r1v:"
+        aria-selected="true"
+        class="memori-tabs--tab memori-tabs--tab-selected"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-tab-tab1"
+        id="headlessui-tabs-tab-:r1s:"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 1
+        </span>
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r20:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab2"
+        id="headlessui-tabs-tab-:r1t:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 2
+        </span>
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r21:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab3"
+        id="headlessui-tabs-tab-:r1u:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 3
+        </span>
+      </button>
+    </div>
+    <div
+      class="memori-tabs--panels"
+    >
+      <div
+        aria-labelledby="headlessui-tabs-tab-:r1s:"
+        class="memori-tabs--panel memori-tabs--panel-animated"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-panel-tab1"
+        id="headlessui-tabs-panel-:r1v:"
+        role="tabpanel"
+        tabindex="0"
+      >
+        <div>
+          Content of Tab 1
+        </div>
+      </div>
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r1t:"
+        id="headlessui-tabs-panel-:r20:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r1u:"
+        id="headlessui-tabs-panel-:r21:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Tabs Component renders Tabs with type editable-card unchanged 1`] = `
+<div>
+  <div
+    class="memori-tabs memori-tabs--editable-card memori-tabs--default memori-tabs--top memori-tabs--animated"
+    data-testid="test-tabs"
+  >
+    <div
+      aria-orientation="horizontal"
+      class="memori-tabs--list"
+      role="tablist"
+    >
+      <button
+        aria-controls="headlessui-tabs-panel-:r25:"
+        aria-selected="true"
+        class="memori-tabs--tab memori-tabs--tab-selected"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-tab-tab1"
+        id="headlessui-tabs-tab-:r22:"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 1
+        </span>
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r26:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab2"
+        id="headlessui-tabs-tab-:r23:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 2
+        </span>
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r27:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab3"
+        id="headlessui-tabs-tab-:r24:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 3
+        </span>
+      </button>
+    </div>
+    <div
+      class="memori-tabs--panels"
+    >
+      <div
+        aria-labelledby="headlessui-tabs-tab-:r22:"
+        class="memori-tabs--panel memori-tabs--panel-animated"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-panel-tab1"
+        id="headlessui-tabs-panel-:r25:"
+        role="tabpanel"
+        tabindex="0"
+      >
+        <div>
+          Content of Tab 1
+        </div>
+      </div>
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r23:"
+        id="headlessui-tabs-panel-:r26:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r24:"
+        id="headlessui-tabs-panel-:r27:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Tabs Component renders Tabs without animation unchanged 1`] = `
+<div>
+  <div
+    class="memori-tabs memori-tabs--line memori-tabs--default memori-tabs--top"
+    data-testid="test-tabs"
+  >
+    <div
+      aria-orientation="horizontal"
+      class="memori-tabs--list"
+      role="tablist"
+    >
+      <button
+        aria-controls="headlessui-tabs-panel-:r2b:"
+        aria-selected="true"
+        class="memori-tabs--tab memori-tabs--tab-selected"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-tab-tab1"
+        id="headlessui-tabs-tab-:r28:"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 1
+        </span>
+        <span
+          class="memori-tabs--tab-line memori-tabs--tab-line-active"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r2c:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab2"
+        id="headlessui-tabs-tab-:r29:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 2
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r2d:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab3"
+        id="headlessui-tabs-tab-:r2a:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 3
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+    </div>
+    <div
+      class="memori-tabs--panels"
+    >
+      <div
+        aria-labelledby="headlessui-tabs-tab-:r28:"
+        class="memori-tabs--panel"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-panel-tab1"
+        id="headlessui-tabs-panel-:r2b:"
+        role="tabpanel"
+        tabindex="0"
+      >
+        <div>
+          Content of Tab 1
+        </div>
+      </div>
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r29:"
+        id="headlessui-tabs-panel-:r2c:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r2a:"
+        id="headlessui-tabs-panel-:r2d:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Tabs Component renders tabs with icons 1`] = `
+<div>
+  <div
+    class="memori-tabs memori-tabs--line memori-tabs--default memori-tabs--top memori-tabs--animated"
+    data-testid="test-tabs"
+  >
+    <div
+      aria-orientation="horizontal"
+      class="memori-tabs--list"
+      role="tablist"
+    >
+      <button
+        aria-controls="headlessui-tabs-panel-:r3f:"
+        aria-selected="true"
+        class="memori-tabs--tab memori-tabs--tab-selected memori-tabs--tab-with-icon"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-tab-tab1"
+        id="headlessui-tabs-tab-:r3c:"
+        role="tab"
+        tabindex="0"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-icon"
+        >
+          <span
+            data-testid="tab-icon"
+          >
+            Icon
+          </span>
+        </span>
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 1
+        </span>
+        <span
+          class="memori-tabs--tab-line memori-tabs--tab-line-active"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r3g:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab2"
+        id="headlessui-tabs-tab-:r3d:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 2
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+      <button
+        aria-controls="headlessui-tabs-panel-:r3h:"
+        aria-selected="false"
+        class="memori-tabs--tab"
+        data-headlessui-state=""
+        data-testid="test-tabs-tab-tab3"
+        id="headlessui-tabs-tab-:r3e:"
+        role="tab"
+        tabindex="-1"
+        type="button"
+      >
+        <span
+          class="memori-tabs--tab-label"
+        >
+          Tab 3
+        </span>
+        <span
+          class="memori-tabs--tab-line"
+        />
+      </button>
+    </div>
+    <div
+      class="memori-tabs--panels"
+    >
+      <div
+        aria-labelledby="headlessui-tabs-tab-:r3c:"
+        class="memori-tabs--panel memori-tabs--panel-animated"
+        data-headlessui-state="selected"
+        data-testid="test-tabs-panel-tab1"
+        id="headlessui-tabs-panel-:r3f:"
+        role="tabpanel"
+        tabindex="0"
+      >
+        <div>
+          Content of Tab 1
+        </div>
+      </div>
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r3d:"
+        id="headlessui-tabs-panel-:r3g:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+      <span
+        aria-labelledby="headlessui-tabs-tab-:r3e:"
+        id="headlessui-tabs-panel-:r3h:"
+        role="tabpanel"
+        style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px;"
+        tabindex="-1"
+      />
+    </div>
+  </div>
+</div>
+`;
