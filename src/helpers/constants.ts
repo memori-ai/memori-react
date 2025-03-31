@@ -183,3 +183,6 @@ export const boardOfExpertsLoadingSentences: {
     },
   ],
 };
+
+export const MAX_MSG_CHARS = 4000;
+export const MAX_MSG_WORDS = 300;

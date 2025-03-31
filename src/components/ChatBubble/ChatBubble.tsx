@@ -16,19 +16,14 @@ import Translation from '../icons/Translation';
 import Tooltip from '../ui/Tooltip';
 import FeedbackButtons from '../FeedbackButtons/FeedbackButtons';
 import { useTranslation } from 'react-i18next';
-import { marked } from 'marked';
-import DOMPurify from 'dompurify';
 import Button from '../ui/Button';
 import QuestionHelp from '../icons/QuestionHelp';
 import Copy from '../icons/Copy';
 import Code from '../icons/Code';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
-import { cleanUrl, stripHTML, stripOutputTags } from '../../helpers/utils';
+import { stripHTML, stripOutputTags } from '../../helpers/utils';
 import FilePreview from '../FilePreview/FilePreview';
-
-import markedLinkifyIt from 'marked-linkify-it';
-import markedKatex from 'marked-katex-extension';
-import markedExtendedTables from '../../helpers/markedExtendedTables';
+import { renderMsg, truncateMessage } from '../../helpers/message';
 
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
@@ -41,106 +36,6 @@ declare global {
     };
   }
 }
-
-// Always configure marked with necessary extensions
-marked.use({
-  async: false,
-  gfm: true,
-  pedantic: false,
-  renderer: {
-    link: ({
-      href,
-      title,
-      text,
-    }: {
-      href: string | null;
-      title?: string | null;
-      text: string;
-    }) => {
-      const cleanHref = href ? cleanUrl(href) : null;
-
-      if (cleanHref === null) {
-        return text;
-      }
-      href = cleanHref;
-      let out = '<a href="' + href + '"';
-      if (title) {
-        out += ' title="' + title + '"';
-      }
-      out += ' target="_blank" rel="noopener noreferrer">' + text + '</a>';
-      return out;
-    },
-  },
-});
-
-marked.use(markedLinkifyIt());
-marked.use(markedExtendedTables());
-
-// Update the renderMsg function to properly handle math formatting
-const renderMsg = (text: string, useMathFormatting = false): string => {
-  try {
-    // Preprocessing del testo per gestire i delimitatori LaTeX
-    let preprocessedText = text
-      .trim()
-      .replaceAll(
-        /\[([^\]]+)\]\(([^\)]+)\)/g,
-        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-      )
-      .replaceAll(/```markdown([^```]+)```/g, '$1')
-      .replaceAll('($', '( $')
-      .replaceAll(':$', ': $')
-      .replaceAll('\frac', '\\frac')
-      .replaceAll('\beta', '\\beta')
-      .replaceAll('cdot', '\\cdot');
-
-    // Correzione dei delimitatori LaTeX inconsistenti
-    if (useMathFormatting) {
-      // Normalizza tutti i delimitatori LaTeX per equazioni su linea separata
-      // Da \\[ ... \\] o \\[ ... ] a $$ ... $$
-      preprocessedText = preprocessedText.replace(
-        /\\+\[(.*?)\\*\]/gs,
-        (_, content) => {
-          return `$$${content}$$`;
-        }
-      );
-
-      // Gestione dei delimitatori [ ... ] che dovrebbero essere equazioni
-      preprocessedText = preprocessedText.replace(
-        /\[([^[\]]+?)\]/g,
-        (match, content) => {
-          // Verifica se sembra una formula matematica
-          if (
-            /[\\+a-z0-9_{}^=\-\+\*\/]+/i.test(content) &&
-            !match.startsWith('[http') &&
-            !match.includes('](')
-          ) {
-            return `$$${content}$$`;
-          }
-          return match; // Mantieni invariati i link e altre strutture
-        }
-      );
-    }
-
-    // Ora procedi con il parsing markdown
-    let parsedText = marked.parse(preprocessedText).toString().trim();
-
-    // Sanitize HTML
-    parsedText = DOMPurify.sanitize(parsedText, {
-      ADD_ATTR: ['target'],
-    });
-
-    // Clean up final text
-    const finalText = parsedText
-      .replace(/(<br>)+/g, '<br>')
-      .replace(/<p><\/p>/g, '<br>')
-      .replace(/<p><br><\/p>/g, '<br>');
-
-    return finalText;
-  } catch (e) {
-    console.error('Error rendering message:', e);
-    return text;
-  }
-};
 
 export interface Props {
   message: Message;
@@ -192,19 +87,14 @@ const ChatBubble: React.FC<Props> = ({
     }
   }, []);
 
-  if (useMathFormatting) {
-    marked.use(
-      markedKatex({
-        throwOnError: false,
-        output: 'htmlAndMathml',
-      })
-    );
-  }
-
   const text = message.translatedText || message.text;
-  const renderedText = renderMsg(text, useMathFormatting);
+  const { text: renderedText, truncated } = renderMsg(
+    text,
+    useMathFormatting,
+    message.fromUser
+  );
   const plainText = message.fromUser
-    ? text
+    ? truncateMessage(text)
     : stripHTML(stripOutputTags(renderedText));
 
   // Render MathJax whenever message content changes
