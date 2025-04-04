@@ -6,20 +6,8 @@ exports[`renders Card hoverable unchanged 1`] = `
     class="memori-card memori-card--hoverable"
   >
     <div
-      class="memori-spin"
+      class="memori-spin memori-spin--middle"
     >
-      <div
-        class="memori-card--content"
-      >
-        <h3
-          class="memori-card--title"
-        >
-          lorem-ipsum
-        </h3>
-        <div
-          class="memori-card--children"
-        />
-      </div>
       <div
         class="memori-spin--spinner"
       >
@@ -47,20 +35,8 @@ exports[`renders Card loading unchanged 1`] = `
     class="memori-card memori-card--loading"
   >
     <div
-      class="memori-spin memori-spin--spinning"
+      class="memori-spin memori-spin--spinning memori-spin--middle"
     >
-      <div
-        class="memori-card--content"
-      >
-        <h3
-          class="memori-card--title"
-        >
-          Card title
-        </h3>
-        <div
-          class="memori-card--children"
-        />
-      </div>
       <div
         class="memori-spin--spinner"
       >
@@ -88,15 +64,8 @@ exports[`renders Card unchanged 1`] = `
     class="memori-card"
   >
     <div
-      class="memori-spin"
+      class="memori-spin memori-spin--middle"
     >
-      <div
-        class="memori-card--content"
-      >
-        <div
-          class="memori-card--children"
-        />
-      </div>
       <div
         class="memori-spin--spinner"
       >
@@ -124,19 +93,8 @@ exports[`renders Card with children unchanged 1`] = `
     class="memori-card"
   >
     <div
-      class="memori-spin"
+      class="memori-spin memori-spin--middle"
     >
-      <div
-        class="memori-card--content"
-      >
-        <div
-          class="memori-card--children"
-        >
-          <p>
-            Ciao
-          </p>
-        </div>
-      </div>
       <div
         class="memori-spin--spinner"
       >
@@ -164,23 +122,8 @@ exports[`renders Card with cover unchanged 1`] = `
     class="memori-card memori-card--with-cover"
   >
     <div
-      class="memori-spin"
+      class="memori-spin memori-spin--middle"
     >
-      <div
-        class="memori-card--cover"
-      >
-        <img
-          alt=""
-          src="#"
-        />
-      </div>
-      <div
-        class="memori-card--content"
-      >
-        <div
-          class="memori-card--children"
-        />
-      </div>
       <div
         class="memori-spin--spinner"
       >
@@ -208,15 +151,8 @@ exports[`renders Card with custom CSS class unchanged 1`] = `
     class="memori-card lorem-ipsum"
   >
     <div
-      class="memori-spin"
+      class="memori-spin memori-spin--middle"
     >
-      <div
-        class="memori-card--content"
-      >
-        <div
-          class="memori-card--children"
-        />
-      </div>
       <div
         class="memori-spin--spinner"
       >
@@ -244,20 +180,8 @@ exports[`renders Card with description unchanged 1`] = `
     class="memori-card"
   >
     <div
-      class="memori-spin"
+      class="memori-spin memori-spin--middle"
     >
-      <div
-        class="memori-card--content"
-      >
-        <p
-          class="memori-card--description"
-        >
-          Card description
-        </p>
-        <div
-          class="memori-card--children"
-        />
-      </div>
       <div
         class="memori-spin--spinner"
       >
@@ -285,20 +209,8 @@ exports[`renders Card with title unchanged 1`] = `
     class="memori-card"
   >
     <div
-      class="memori-spin"
+      class="memori-spin memori-spin--middle"
     >
-      <div
-        class="memori-card--content"
-      >
-        <h3
-          class="memori-card--title"
-        >
-          Card title
-        </h3>
-        <div
-          class="memori-card--children"
-        />
-      </div>
       <div
         class="memori-spin--spinner"
       >

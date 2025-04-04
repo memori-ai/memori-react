@@ -5,7 +5,7 @@ import { getTranslation } from '../../helpers/translations';
 import { prismSyntaxLangs } from '../../helpers/constants';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
 import Snippet from '../Snippet/Snippet';
-import Card from '../ui/Card';
+import { Card } from '../ui/Card';
 import Modal from '../ui/Modal';
 import File from '../icons/File';
 import FilePdf from '../icons/FilePdf';

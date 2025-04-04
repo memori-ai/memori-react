@@ -10,7 +10,7 @@ exports[`renders CompletionProviderStatus errored unchanged 1`] = `
     >
       <div>
         <p>
-          completionProviderMajorOutage
+          completionProviderDegraded
         </p>
         <p>
           <a
@@ -28,20 +28,32 @@ exports[`renders CompletionProviderStatus errored unchanged 1`] = `
     >
       <svg
         aria-hidden="true"
-        class="memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
-        color="currentColor"
+        class="memori--completion-provider-status--icon memori--completion-provider-status--icon-info"
         fill="none"
         height="800px"
         viewBox="0 0 24 24"
         width="800px"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <circle
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="1.5"
+        />
         <path
-          d="M12 16H12.01M12 8V12M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
+          d="M12 17V11"
           stroke="currentColor"
           stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          stroke-width="1.5"
+        />
+        <circle
+          cx="1"
+          cy="1"
+          fill="currentColor"
+          r="1"
+          transform="matrix(1 0 0 -1 11 9)"
         />
       </svg>
     </div>
@@ -59,7 +71,7 @@ exports[`renders CompletionProviderStatus errored with provider specified unchan
     >
       <div>
         <p>
-          completionProviderMajorOutage
+          completionProviderDegraded
         </p>
         <p>
           <a
@@ -77,20 +89,32 @@ exports[`renders CompletionProviderStatus errored with provider specified unchan
     >
       <svg
         aria-hidden="true"
-        class="memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
-        color="currentColor"
+        class="memori--completion-provider-status--icon memori--completion-provider-status--icon-info"
         fill="none"
         height="800px"
         viewBox="0 0 24 24"
         width="800px"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <circle
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="1.5"
+        />
         <path
-          d="M12 16H12.01M12 8V12M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
+          d="M12 17V11"
           stroke="currentColor"
           stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          stroke-width="1.5"
+        />
+        <circle
+          cx="1"
+          cy="1"
+          fill="currentColor"
+          r="1"
+          transform="matrix(1 0 0 -1 11 9)"
         />
       </svg>
     </div>
@@ -108,7 +132,7 @@ exports[`renders CompletionProviderStatus unchanged 1`] = `
     >
       <div>
         <p>
-          completionProviderMajorOutage
+          completionProviderDegraded
         </p>
         <p>
           <a
@@ -126,20 +150,32 @@ exports[`renders CompletionProviderStatus unchanged 1`] = `
     >
       <svg
         aria-hidden="true"
-        class="memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
-        color="currentColor"
+        class="memori--completion-provider-status--icon memori--completion-provider-status--icon-info"
         fill="none"
         height="800px"
         viewBox="0 0 24 24"
         width="800px"
         xmlns="http://www.w3.org/2000/svg"
       >
+        <circle
+          cx="12"
+          cy="12"
+          r="10"
+          stroke="currentColor"
+          stroke-width="1.5"
+        />
         <path
-          d="M12 16H12.01M12 8V12M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
+          d="M12 17V11"
           stroke="currentColor"
           stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          stroke-width="1.5"
+        />
+        <circle
+          cx="1"
+          cy="1"
+          fill="currentColor"
+          r="1"
+          transform="matrix(1 0 0 -1 11 9)"
         />
       </svg>
     </div>

@@ -159,15 +159,15 @@ const FileUploadButton = ({
         // Try parsing with full options first
         workbook = window.XLSX.read(arrayBuffer, {
           type: 'array',
-          cellFormula: false, // Disable formula parsing to avoid potential issues
-          cellNF: false, // Disable number format parsing
-          cellHTML: false, // Disable HTML parsing
-          cellText: true, // Force text output
-          cellDates: false, // Disable date parsing to avoid errors
+          cellFormula: true,
+          cellNF: true,
+          cellHTML: true,
+          cellText: true,
+          cellDates: true,
           error: (e: any) => {
             console.warn('Non-fatal XLSX error:', e);
-          }, // Log non-fatal errors
-          cellStyles: false, // Disable style parsing
+          },
+          cellStyles: true,
         });
       } catch (initialError) {
         console.warn(
@@ -179,15 +179,15 @@ const FileUploadButton = ({
         try {
           workbook = window.XLSX.read(arrayBuffer, {
             type: 'array',
-            sheetRows: 1000, // Limit number of rows to parse
-            cellFormula: false,
-            cellStyles: false,
-            bookDeps: false, // Don't parse external dependencies
-            bookFiles: false, // Don't parse embedded files
-            bookProps: false, // Don't parse document properties
-            bookSheets: false, // Don't parse sheet properties
-            bookVBA: false, // Don't parse VBA
-            WTF: true, // "What the Formula" mode - ignores errors when possible
+            sheetRows: 1000,
+            cellFormula: true,
+            cellStyles: true,
+            bookDeps: true,
+            bookFiles: true,
+            bookProps: true,
+            bookSheets: true,
+            bookVBA: true,
+            WTF: true,
           });
         } catch (recoveryError) {
           setErrors(prev => [
@@ -247,27 +247,62 @@ const FileUploadButton = ({
             );
           }
 
-          // Try to convert sheet to CSV
-          let csv;
+          // Try to convert sheet to formatted text with columns
+          let formattedText;
           try {
-            csv = window.XLSX.utils.sheet_to_csv(worksheet);
-          } catch (csvError) {
-            // If CSV conversion fails, try a more basic cell-by-cell approach
-            csv = '';
+            // Get array of arrays representation
+            const data = window.XLSX.utils.sheet_to_json(worksheet, {
+              header: 1,
+              raw: false,
+            });
+
+            // Find the maximum width for each column
+            const colWidths = data.reduce((widths: number[], row: any[]) => {
+              row.forEach((cell, i) => {
+                const cellWidth = (cell || '').toString().length;
+                widths[i] = Math.max(widths[i] || 0, cellWidth);
+              });
+              return widths;
+            }, []);
+
+            // Format each row with proper column spacing
+            formattedText = data.map((row: any[]) => {
+              return row
+                .map((cell, i) => {
+                  const cellStr = (cell || '').toString();
+                  return cellStr.padEnd(colWidths[i] + 2); // Add 2 spaces padding
+                })
+                .join('|')
+                .trim();
+            });
+
+            // Add separator line after header
+            if (formattedText.length > 0) {
+              const separator = colWidths
+                .map((w: number) => '-'.repeat(w + 2))
+                .join('+');
+              formattedText.splice(1, 0, separator);
+            }
+
+            formattedText = formattedText.join('\n');
+
+          } catch (formatError) {
+            // Fallback to basic formatting if advanced fails
+            formattedText = '';
             for (let r = range.s.r; r <= Math.min(range.e.r, 1000); ++r) {
               let row = '';
               for (let c = range.s.c; c <= Math.min(range.e.c, 100); ++c) {
                 const cell =
                   worksheet[window.XLSX.utils.encode_cell({ r: r, c: c })];
-                row += (cell ? String(cell.v || '') : '') + ',';
+                row += (cell ? String(cell.v || '').padEnd(15) : ' '.repeat(15)) + '|';
               }
-              csv += row + '\n';
+              formattedText += row + '\n';
             }
-            csv += '...(truncated due to potential corruption)';
+            formattedText += '...(truncated due to potential corruption)';
           }
 
-          // Add sheet name and content to final text
-          text += `Sheet: ${sheetName}\n${csv}\n\n`;
+          // Add sheet name and formatted content to final text
+          text += `Sheet: ${sheetName}\n${formattedText}\n\n`;
           successfulSheets++;
         } catch (sheetError) {
           // Log sheet-specific error but continue with other sheets
@@ -291,7 +326,7 @@ const FileUploadButton = ({
           text;
       }
 
-      return text; // Return the extracted text from all sheets
+      return text;
     } catch (error) {
       setErrors(prev => [
         ...prev,
@@ -303,7 +338,6 @@ const FileUploadButton = ({
           fileId: file.name,
         },
       ]);
-      // If any error occurs during processing, throw with descriptive message
       throw new Error(
         `XLSX extraction failed: ${
           error instanceof Error ? error.message : 'Unknown error'

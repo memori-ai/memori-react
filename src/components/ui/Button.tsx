@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import cx from 'classnames';
 import Loading from '../icons/Loading';
 
-export interface Props {
+export interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?:
     | React.ReactChild
     | React.ReactChild[]
@@ -17,26 +17,8 @@ export interface Props {
   shape?: 'square' | 'rounded' | 'circle';
   danger?: boolean;
   loading?: boolean;
-  disabled?: boolean;
-  className?: string;
-  title?: string;
-  id?: string;
   isActive?: boolean;
   htmlType?: 'button' | 'submit' | 'reset';
-  onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  onMouseDown?: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
-  onMouseUp?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
-  onMouseLeave?: (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => void;
-  onTouchStart?: (
-    event: React.TouchEvent<HTMLButtonElement> | React.MouseEvent
-  ) => void;
-  onTouchEnd?: (
-    event: React.TouchEvent<HTMLButtonElement> | React.MouseEvent
-  ) => void;
 }
 
 const Button: FC<Props> = ({
@@ -62,6 +44,7 @@ const Button: FC<Props> = ({
   onTouchEnd,
   children,
   isActive,
+  ...rest
 }) => (
   <button
     id={id}
@@ -93,6 +76,7 @@ const Button: FC<Props> = ({
       },
       className
     )}
+    {...rest}
   >
     {icon && !loading && <span className="memori-button--icon">{icon}</span>}
     {loading && (

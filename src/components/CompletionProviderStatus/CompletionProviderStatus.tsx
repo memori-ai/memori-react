@@ -62,16 +62,7 @@ const fetchProviderStatus = async (config: ProviderConfig): Promise<Status> => {
       );
       
       if (activeIncidents.length > 0) {
-        // If there are active incidents, determine the severity
-        const critical = activeIncidents.some((i: { impact: string }) => 
-          i.impact === 'critical' || i.impact === 'major'
-        );
-        const major = activeIncidents.some((i: { impact: string }) => 
-          i.impact === 'moderate'
-        );
-        
-        if (critical) return 'major_outage';
-        if (major) return 'partial_outage';
+        // For any active incident, return degraded performance to be less alarming
         return 'degraded_performance';
       }
     }
@@ -90,7 +81,8 @@ const fetchProviderStatus = async (config: ProviderConfig): Promise<Status> => {
           );
           
           if (apiComponent && apiComponent.status !== 'operational') {
-            return apiComponent.status as Status;
+            // Return degraded performance instead of component's actual status
+            return 'degraded_performance';
           }
         }
       }
@@ -107,9 +99,10 @@ const fetchProviderStatus = async (config: ProviderConfig): Promise<Status> => {
     
     // If no specific component issues found, check overall status
     if (data.status && data.status.indicator !== 'none') {
-      if (data.status.indicator === 'critical') return 'major_outage';
-      if (data.status.indicator === 'major') return 'partial_outage';
-      if (data.status.indicator === 'minor') return 'degraded_performance';
+      // Simplify all non-operational states to degraded performance
+      if (data.status.indicator !== 'none' && data.status.indicator !== 'operational') {
+        return 'degraded_performance';
+      }
     }
     
     return 'operational'; // Default to operational if no issues detected
@@ -181,27 +174,7 @@ const CompletionProviderStatus = ({
   const getStatusDetails = () => {
     switch (status) {
       case 'major_outage':
-        return {
-          Icon: Alert,
-          message: t('completionProviderMajorOutage', {
-            provider: provider ?? t('completionProviderFallbackName'),
-            fallback: t('completionProviderDown', {
-              provider: provider ?? t('completionProviderFallbackName'),
-            })
-          }),
-          className: "memori--completion-provider-status--icon-error"
-        };
       case 'partial_outage':
-        return {
-          Icon: Warning,
-          message: t('completionProviderPartialOutage', {
-            provider: provider ?? t('completionProviderFallbackName'),
-            fallback: t('completionProviderDown', {
-              provider: provider ?? t('completionProviderFallbackName'),
-            })
-          }),
-          className: "memori--completion-provider-status--icon-warning"
-        };
       case 'degraded_performance':
       default:
         return {
