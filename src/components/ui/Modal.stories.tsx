@@ -1,7 +1,8 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import Modal, { ModalProps } from './Modal';
+import Modal, { Props } from './Modal';
 import Button from './Button';
+
 import './Modal.css';
 
 const meta: Meta = {
@@ -28,42 +29,7 @@ const meta: Meta = {
         type: 'boolean',
       },
     },
-    visible: {
-      control: {
-        type: 'boolean',
-      },
-    },
     className: {
-      control: {
-        type: 'text',
-      },
-    },
-    maskClosable: {
-      control: {
-        type: 'boolean',
-      },
-    },
-    destroyOnClose: {
-      control: {
-        type: 'boolean',
-      },
-    },
-    width: {
-      control: {
-        type: 'text',
-      },
-    },
-    widthMd: {
-      control: {
-        type: 'text',
-      },
-    },
-    okText: {
-      control: {
-        type: 'text',
-      },
-    },
-    cancelText: {
       control: {
         type: 'text',
       },
@@ -99,18 +65,16 @@ const footer = (
 
 const footerNonClosableModal = <Button primary>OK</Button>;
 
-const Template: Story<ModalProps> = args => {
-  const [isOpen, setIsOpen] = React.useState(!!args.open || !!args.visible || false);
-  
+const Template: Story<Props> = args => {
+  const [isOpen, setIsOpen] = React.useState(!!args.open || false);
+
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Click me</Button>
       <Modal
         {...args}
         open={isOpen}
-        visible={isOpen}
-        onClose={args.closable !== false ? () => setIsOpen(false) : () => {}}
-        onCancel={args.closable !== false ? () => setIsOpen(false) : undefined}
+        onClose={args.closable ? () => setIsOpen(false) : () => {}}
         footer={args.footer}
       >
         {content}
@@ -119,18 +83,16 @@ const Template: Story<ModalProps> = args => {
   );
 };
 
-const TemplateWithALotOfContent: Story<ModalProps> = args => {
-  const [isOpen, setIsOpen] = React.useState(!!args.open || !!args.visible || false);
-  
+const TemplateWithALotOfContent: Story<Props> = args => {
+  const [isOpen, setIsOpen] = React.useState(!!args.open || false);
+
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Click me</Button>
       <Modal
         {...args}
         open={isOpen}
-        visible={isOpen}
-        onClose={args.closable !== false ? () => setIsOpen(false) : () => {}}
-        onCancel={args.closable !== false ? () => setIsOpen(false) : undefined}
+        onClose={args.closable ? () => setIsOpen(false) : () => {}}
         footer={args.footer}
       >
         {content}
@@ -190,17 +152,6 @@ WithFooter.args = {
   footer,
 };
 
-export const WithAutoFooter = Template.bind({});
-WithAutoFooter.args = {
-  open: true,
-  closable: true,
-  title: 'Modal Title',
-  description: 'Modal Description',
-  okText: 'Confirm',
-  cancelText: 'Cancel',
-  onOk: () => console.log('OK clicked'),
-};
-
 export const NonClosable = Template.bind({});
 NonClosable.args = {
   open: true,
@@ -210,14 +161,6 @@ NonClosable.args = {
   closable: false,
 };
 
-export const MaskClosable = Template.bind({});
-MaskClosable.args = {
-  open: true,
-  title: 'Modal Title',
-  description: 'Modal Description',
-  maskClosable: true,
-};
-
 export const WithALotOfContent = TemplateWithALotOfContent.bind({});
 WithALotOfContent.args = {
   open: true,
@@ -225,27 +168,4 @@ WithALotOfContent.args = {
   title: 'Modal Title',
   description: 'Modal Description',
   footer,
-};
-
-export const CustomWidth = Template.bind({});
-CustomWidth.args = {
-  open: true,
-  closable: true,
-  title: 'Modal Title',
-  description: 'Modal Description',
-  width: '500px',
-  widthMd: '700px',
-};
-
-export const AntDesignStyle = Template.bind({});
-AntDesignStyle.args = {
-  visible: true,
-  title: 'Ant Design Style Modal',
-  okText: 'Submit',
-  cancelText: 'Back',
-  onOk: () => console.log('OK clicked'),
-  onCancel: () => console.log('Cancel clicked'),
-  okButtonProps: { disabled: false },
-  cancelButtonProps: { danger: true },
-  destroyOnClose: true,
 };

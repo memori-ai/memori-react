@@ -1,142 +1,239 @@
 .memori-input-wrapper {
-    width: 100%;
-    margin-bottom: 1rem;
-    font-family: inherit;
-  }
-  
-  .memori-input--label {
-    display: block;
-    margin-bottom: 0.5rem;
-    color: #333;
-    font-weight: 500;
-  }
-  
-  .memori-input-container {
-    display: flex;
-    overflow: hidden;
-    width: 100%;
-    border-radius: 0.25rem;
-  }
-  
-  .memori-input--field-container {
-    position: relative;
-    display: flex;
-    flex: 1;
-    align-items: center;
-    border: 1px solid #d9d9d9;
-    border-radius: 0.25rem;
-    background-color: #fff;
-    transition: all 0.3s;
-  }
-  
-  .memori-input--with-addon-before .memori-input--field-container {
-    border-bottom-left-radius: 0;
-    border-top-left-radius: 0;
-  }
-  
-  .memori-input--with-addon-after .memori-input--field-container {
-    border-bottom-right-radius: 0;
-    border-top-right-radius: 0;
-  }
-  
-  .memori-input--field {
-    width: 100%;
-    padding: 0.5rem 0.75rem;
-    border: none;
-    background: transparent;
-    color: #333;
-    font-size: 14px;
-    outline: none;
-  }
-  
-  .memori-input--field::placeholder {
-    color: #bfbfbf;
-  }
+  width: 100%;
+  margin-bottom: 1.25rem;
+  font-family: inherit;
+}
 
-  .memori-input--disabled .memori-input--field-container {
-    border-color: #d9d9d9;
-    background-color: #f5f5f5;
-    color: rgba(0, 0, 0, 0.25);
-    cursor: not-allowed;
-  }
-  
-  
-  .memori-input--field-container:hover:not(.memori-input--disabled):not(.memori-input--readonly) {
-    border-color: #40a9ff;
-  }
-  
-  .memori-input--field-container:focus-within:not(.memori-input--disabled):not(.memori-input--readonly) {
-    border-color: #40a9ff;
-    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
-  }
-  
-  .memori-input--disabled .memori-input--field,
-  .memori-input--readonly .memori-input--field {
-    background-color: #f5f5f5;
-    color: rgba(0, 0, 0, 0.25);
-    cursor: not-allowed;
-  }
-  
-  .memori-input--addon-before,
-  .memori-input--addon-after {
-    display: flex;
-    align-items: center;
-    padding: 0 0.75rem;
-    border: 1px solid #d9d9d9;
-    background-color: #fafafa;
-    white-space: nowrap;
-  }
-  
-  .memori-input--addon-before {
-    border-right: none;
-    border-bottom-left-radius: 0.25rem;
-    border-top-left-radius: 0.25rem;
-  }
-  
-  .memori-input--addon-after {
-    border-left: none;
-    border-bottom-right-radius: 0.25rem;
-    border-top-right-radius: 0.25rem;
-  }
-  
-  .memori-input--prefix,
-  .memori-input--suffix,
-  .memori-input--clear {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(0, 0, 0, 0.45);
-  }
-  
-  .memori-input--prefix {
-    margin-left: 0.75rem;
-  }
-  
-  .memori-input--suffix,
-  .memori-input--clear {
-    margin-right: 0.75rem;
-  }
-  
-  .memori-input--clear {
-    width: 1rem;
-    height: 1rem;
-    color: #bfbfbf;
-    cursor: pointer;
-    transition: color 0.3s;
-  }
+.memori-input--label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #374151;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
 
-  .memori-input--clear-icon {
-    color: #bfbfbf;
-  }
-  
-  .memori-input--clear:hover {
-    color: rgba(0, 0, 0, 0.45);
-  }
-  
-  .memori-input--with-prefix .memori-input--field {
-    padding-left: 0;
-  }
-  
-  .memori-input--with-suffix .memori-input--field {
-    padding-right: 0;
-  }
+.memori-input-container {
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  border-radius: 0.375rem;
+}
+
+.memori-input--field-container {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  background-color: #fff;
+  transition: all 0.2s ease;
+}
+
+.memori-input--with-addon-before .memori-input--field-container {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.memori-input--with-addon-after .memori-input--field-container {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+}
+
+.memori-input--field {
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  border: none;
+  background: transparent;
+  color: #1f2937;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  outline: none;
+}
+
+.memori-input--field::placeholder {
+  color: #9ca3af;
+}
+
+.memori-input--field-focused {
+  border-color: var(--memori-primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+.memori-input--disabled .memori-input--field-container {
+  border-color: #e5e7eb;
+  background-color: #f9fafb;
+  cursor: not-allowed;
+}
+
+.memori-input--disabled .memori-input--field,
+.memori-input--readonly .memori-input--field {
+  background-color: transparent;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+
+.memori-input--field-container:hover:not(.memori-input--disabled):not(.memori-input--readonly) {
+  border-color: var(--memori-primary);
+}
+
+.memori-input--field-container:focus-within:not(.memori-input--disabled):not(.memori-input--readonly) {
+  border-color: var(--memori-primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Status variants */
+.memori-input--field-error {
+  border-color: #ef4444 !important;
+}
+
+.memori-input--field-error:focus-within {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+}
+
+.memori-input--field-warning {
+  border-color: #f59e0b !important;
+}
+
+.memori-input--field-warning:focus-within {
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.1) !important;
+}
+
+.memori-input--field-success {
+  border-color: #10b981 !important;
+}
+
+.memori-input--field-success:focus-within {
+  box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+}
+
+/* Addons */
+.memori-input--addon-before,
+.memori-input--addon-after {
+  display: flex;
+  align-items: center;
+  padding: 0 0.75rem;
+  border: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  color: #6b7280;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.memori-input--addon-before {
+  border-right: none;
+  border-bottom-left-radius: 0.375rem;
+  border-top-left-radius: 0.375rem;
+}
+
+.memori-input--addon-after {
+  border-left: none;
+  border-bottom-right-radius: 0.375rem;
+  border-top-right-radius: 0.375rem;
+}
+
+/* Search button styling */
+.memori-input--addon-after button {
+  padding: 1.2rem !important;
+  border: none;
+  border-radius: 0 0.375rem 0.375rem 0;
+  margin: -0.5rem -0.75rem;
+  background-color: var(--memori-primary) !important;
+  color: white;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+
+.memori-input--addon-after button:disabled {
+  background-color: var(--memori-primary) !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.memori-input--addon-after button:hover:not(:disabled) {
+  background-color: var(--memori-primary) !important;
+}
+
+.memori-input--addon-after button:active:not(:disabled) {
+  background-color: var(--memori-primary) !important;
+}
+
+
+/* Icons */
+.memori-input--prefix,
+.memori-input--suffix,
+.memori-input--clear {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+
+.memori-input--prefix {
+  margin-left: 0.75rem;
+}
+
+.memori-input--suffix,
+.memori-input--clear {
+  margin-right: 0.75rem;
+}
+
+.memori-input--prefix svg,
+.memori-input--suffix svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.memori-input--clear {
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 9999px;
+  background-color: #f3f4f6;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.memori-input--clear:hover {
+  background-color: #e5e7eb;
+  color: #4b5563;
+}
+
+.memori-input--clear:focus {
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+  outline: none;
+}
+
+.memori-input--clear-icon {
+  width: 0.75rem;
+  height: 0.75rem;
+  color: #6b7280;
+}
+
+.memori-input--with-prefix .memori-input--field {
+  padding-left: 0;
+}
+
+.memori-input--with-suffix .memori-input--field {
+  padding-right: 0;
+}
+
+/* Help text */
+.memori-input--help {
+  margin-top: 0.375rem;
+  color: #6b7280;
+  font-size: 0.75rem;
+}
+
+.memori-input--help-error {
+  color: #ef4444;
+}
+
+.memori-input--help-warning {
+  color: #f59e0b;
+}
+
+.memori-input--help-success {
+  color: #10b981;
+}
