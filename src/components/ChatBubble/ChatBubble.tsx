@@ -27,6 +27,7 @@ import { renderMsg, truncateMessage } from '../../helpers/message';
 
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
+import Expandable from '../ui/Expandable';
 
 // Import MathJax types
 declare global {
@@ -236,11 +237,22 @@ const ChatBubble: React.FC<Props> = ({
             message.fromUser ? '30' : '-30'
           }`}
         >
-          <div
-            dir="auto"
-            className="memori-chat--bubble-content"
-            dangerouslySetInnerHTML={{ __html: renderedText }}
-          />
+          {message.fromUser ? (
+            <Expandable
+              className="memori-chat--bubble-content"
+              mode="characters"
+              maxCharacters={1000}
+            >
+              {text}
+            </Expandable>
+          ) : (
+            <div
+              className="memori-chat--bubble-content"
+              dangerouslySetInnerHTML={{
+                __html: stripHTML(stripOutputTags(renderedText)),
+              }}
+            />
+          )}
 
           {((!message.fromUser && showCopyButton) ||
             (message.generatedByAI && showAIicon) ||
