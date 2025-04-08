@@ -1,5 +1,18 @@
 
 
+## [7.23.1](https://github.com/memori-ai/memori-react/compare/v7.23.0...v7.23.1) (2025-04-08)
+
+
+### Bug Fixes
+
+* baseurl from tenant protocol parsing accepts local http ([d1d595a](https://github.com/memori-ai/memori-react/commit/d1d595a7572444584ecedfa5de072795dffaa0e2))
+* drawer z-index ([e28ec3f](https://github.com/memori-ai/memori-react/commit/e28ec3f960c9d25d99c405f8d94fe4e26e3e5fd8))
+
+
+### Maintenance
+
+* add new error code from backend/assets ([e43e834](https://github.com/memori-ai/memori-react/commit/e43e834185719f5665ff82fdd4f269c1ebb514be))
+
 ## [7.23.0](https://github.com/memori-ai/memori-react/compare/v7.22.0...v7.23.0) (2025-03-25)
 
 
