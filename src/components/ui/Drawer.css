@@ -1,11 +1,11 @@
 .memori-drawer {
   position: relative;
-  z-index: 50;
+  z-index: 1001;
 }
 
 .memori-drawer--backdrop {
   position: fixed;
-  z-index: 40;
+  z-index: 1000;
   top: 0;
   left: 0;
   width: 100%;
@@ -15,7 +15,7 @@
 
 .memori-drawer--container {
   position: fixed;
-  z-index: 50;
+  z-index: 1001;
   top: 0;
   right: 0;
   bottom: 0;
