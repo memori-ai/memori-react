@@ -37,11 +37,8 @@ exports[`renders Chat unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
-              </p>
+              Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -92,12 +89,14 @@ exports[`renders Chat unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Prova
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -137,11 +136,8 @@ exports[`renders Chat unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
-              </p>
+              Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -192,12 +188,14 @@ exports[`renders Chat unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Come faccio a fare delle cose con questa cosa?
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -237,11 +235,8 @@ exports[`renders Chat unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ecco qui come.
-              </p>
+              Ecco qui come.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -368,12 +363,14 @@ exports[`renders Chat unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Ah, grazie! Ciao!
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -413,11 +410,8 @@ exports[`renders Chat unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Arrivederci.
-              </p>
+              Arrivederci.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -570,11 +564,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
-              </p>
+              Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -625,12 +616,14 @@ exports[`renders Chat with context vars unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Prova
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -670,11 +663,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
-              </p>
+              Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -725,12 +715,14 @@ exports[`renders Chat with context vars unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Come faccio a fare delle cose con questa cosa?
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -770,11 +762,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ecco qui come.
-              </p>
+              Ecco qui come.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -916,12 +905,14 @@ exports[`renders Chat with context vars unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Ah, grazie! Ciao!
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -961,11 +952,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Arrivederci.
-              </p>
+              Arrivederci.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -1133,11 +1121,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
-              </p>
+              Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -1188,12 +1173,14 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Prova
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -1225,11 +1212,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
-              </p>
+              Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -1280,12 +1264,14 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Come faccio a fare delle cose con questa cosa?
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -1317,11 +1303,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ecco qui come.
-              </p>
+              Ecco qui come.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -1448,12 +1431,14 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Ah, grazie! Ciao!
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -1485,11 +1470,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Arrivederci.
-              </p>
+              Arrivederci.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -1642,11 +1624,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
-              </p>
+              Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -1697,12 +1676,14 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Prova
-              </p>
+              </div>
             </div>
           </div>
           <picture
@@ -1736,11 +1717,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
-              </p>
+              Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -1791,12 +1769,14 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Come faccio a fare delle cose con questa cosa?
-              </p>
+              </div>
             </div>
           </div>
           <picture
@@ -1830,11 +1810,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ecco qui come.
-              </p>
+              Ecco qui come.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -1961,12 +1938,14 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Ah, grazie! Ciao!
-              </p>
+              </div>
             </div>
           </div>
           <picture
@@ -2000,11 +1979,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Arrivederci.
-              </p>
+              Arrivederci.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -2157,11 +2133,8 @@ exports[`renders Chat with dates unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
-              </p>
+              Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -2217,12 +2190,14 @@ exports[`renders Chat with dates unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Prova
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -2267,11 +2242,8 @@ exports[`renders Chat with dates unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
-              </p>
+              Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -2327,12 +2299,14 @@ exports[`renders Chat with dates unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Come faccio a fare delle cose con questa cosa?
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -2377,11 +2351,8 @@ exports[`renders Chat with dates unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ecco qui come.
-              </p>
+              Ecco qui come.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -2513,12 +2484,14 @@ exports[`renders Chat with dates unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Ah, grazie! Ciao!
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -2563,11 +2536,8 @@ exports[`renders Chat with dates unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Arrivederci.
-              </p>
+              Arrivederci.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -2725,11 +2695,8 @@ exports[`renders Chat with hints unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
-              </p>
+              Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -2780,12 +2747,14 @@ exports[`renders Chat with hints unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Prova
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -2825,11 +2794,8 @@ exports[`renders Chat with hints unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
-              </p>
+              Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -2880,12 +2846,14 @@ exports[`renders Chat with hints unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Come faccio a fare delle cose con questa cosa?
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -2925,11 +2893,8 @@ exports[`renders Chat with hints unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ecco qui come.
-              </p>
+              Ecco qui come.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -3056,12 +3021,14 @@ exports[`renders Chat with hints unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Ah, grazie! Ciao!
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -3101,11 +3068,8 @@ exports[`renders Chat with hints unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Arrivederci.
-              </p>
+              Arrivederci.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -3284,11 +3248,8 @@ exports[`renders Chat with media unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
-              </p>
+              Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -3339,12 +3300,14 @@ exports[`renders Chat with media unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Prova
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -3384,11 +3347,8 @@ exports[`renders Chat with media unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
-              </p>
+              Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -3439,12 +3399,14 @@ exports[`renders Chat with media unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Come faccio a fare delle cose con questa cosa?
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -3484,11 +3446,8 @@ exports[`renders Chat with media unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ecco qui delle cose per te.
-              </p>
+              Ecco qui delle cose per te.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -4016,12 +3975,14 @@ exports[`renders Chat with media unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Ah, grazie! Ciao!
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -4061,11 +4022,8 @@ exports[`renders Chat with media unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Arrivederci.
-              </p>
+              Arrivederci.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -4218,11 +4176,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
-              </p>
+              Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -4273,12 +4228,14 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Prova
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -4318,11 +4275,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
-              </p>
+              Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -4373,12 +4327,14 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Come faccio a fare delle cose con questa cosa?
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -4418,11 +4374,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ecco qui come.
-              </p>
+              Ecco qui come.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -4549,12 +4502,14 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Ah, grazie! Ciao!
-              </p>
+              </div>
             </div>
           </div>
           <div
@@ -4594,11 +4549,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Arrivederci.
-              </p>
+              Arrivederci.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -4772,11 +4724,8 @@ exports[`renders Chat with user unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
-              </p>
+              Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -4827,12 +4776,14 @@ exports[`renders Chat with user unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Prova
-              </p>
+              </div>
             </div>
           </div>
           <picture
@@ -4866,11 +4817,8 @@ exports[`renders Chat with user unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
-              </p>
+              Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -4921,12 +4869,14 @@ exports[`renders Chat with user unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Come faccio a fare delle cose con questa cosa?
-              </p>
+              </div>
             </div>
           </div>
           <picture
@@ -4960,11 +4910,8 @@ exports[`renders Chat with user unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Ecco qui come.
-              </p>
+              Ecco qui come.
             </div>
             <div
               class="memori-chat--bubble-addon"
@@ -5091,12 +5038,14 @@ exports[`renders Chat with user unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-chat--bubble-content"
-              dir="auto"
+              class="memori-expandable memori-chat--bubble-content"
             >
-              <p>
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
                 Ah, grazie! Ciao!
-              </p>
+              </div>
             </div>
           </div>
           <picture
@@ -5130,11 +5079,8 @@ exports[`renders Chat with user unchanged 1`] = `
           >
             <div
               class="memori-chat--bubble-content"
-              dir="auto"
             >
-              <p>
-                Arrivederci.
-              </p>
+              Arrivederci.
             </div>
             <div
               class="memori-chat--bubble-addon"

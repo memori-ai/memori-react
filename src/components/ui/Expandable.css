@@ -1,15 +1,39 @@
 .memori-expandable {
     line-height: 1;
-}
-
-.memori-expandable--inner {
-    overflow: hidden;
+  }
+  
+  .memori-expandable--content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+  }
+  
+  .memori-expandable--inner {
+    min-width: 0; /* Helps with text truncation */
     max-height: 9999px;
+    flex: 1;
     transition: max-height 0.2s ease-in-out;
-}
-
-.memori-expandable>button {
-    color: var(--memori-primary, #333);
+  }
+  
+  .memori-expandable--inline-button {
+    display: inline-flex;
+    height: auto;
+    min-height: 0;
+    align-items: center;
+    padding: 0;
+    border: none;
+    margin-left: 4px; /* Small space between content and button */
+    background: none;
+    color: #fff;
+    cursor: pointer;
     font-size: 0.9em;
-    text-decoration: underline
-}
+    text-decoration: underline;
+    white-space: nowrap;
+  }
+  
+  /* For better mobile experience */
+  @media (max-width: 768px) {
+    .memori-expandable--content-wrapper {
+      align-items: flex-start;
+    }
+  }
