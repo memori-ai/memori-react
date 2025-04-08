@@ -56,7 +56,6 @@ export const truncateMessage = (message: string) => {
       .split(' ')
       .slice(0, MAX_MSG_WORDS)
       .join(' ')
-      .concat('\n<br/>...');
   }
   return truncatedMessage;
 };
