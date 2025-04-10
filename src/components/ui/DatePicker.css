@@ -1,0 +1,256 @@
+.memori-datepicker {
+  position: relative;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.memori-datepicker--label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.memori-datepicker--container {
+  position: relative;
+  width: 100%;
+}
+
+.memori-datepicker--input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.memori-datepicker--icon {
+  position: absolute;
+  z-index: 1;
+  left: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6b7280;
+}
+
+.memori-datepicker--input-wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.memori-datepicker--input {
+  width: 100%;
+  padding: 0.5rem 2.5rem 0.5rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.375rem;
+  background-color: #fff;
+  color: #1f2937;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  outline: none;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.memori-datepicker--input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25);
+}
+
+.memori-datepicker--input:disabled {
+    background-color: #f3f4f6;
+    cursor: not-allowed;
+  }
+
+.memori-datepicker--input-container:has(.memori-datepicker--icon) .memori-datepicker--input {
+  padding-left: 2.5rem;
+}
+
+
+.memori-datepicker--clear-button {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  display: flex;
+  width: 1rem;
+  height: 1rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: none;
+  color: #6b7280;
+  cursor: pointer;
+  transform: translateY(-50%);
+}
+
+.memori-datepicker--clear-button:hover {
+  color: #ef4444;
+}
+
+.memori-datepicker--popup {
+  position: absolute;
+  z-index: 50;
+  left: 0;
+  overflow: auto;
+  max-width: calc(100vw - 1rem);
+  max-height: calc(100vh - 5rem);
+  border: 1px solid #e5e7eb;
+  border-radius: 0.375rem;
+  margin-top: 0.5rem;
+  background-color: #fff;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.memori-datepicker--popup-end {
+  right: 0;
+  left: auto;
+}
+
+.memori-datepicker--popup-content {
+  width: 18rem;
+  padding: 0.75rem;
+}
+
+.memori-datepicker--header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.memori-datepicker--nav-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem;
+  border: none;
+  border-radius: 0.25rem;
+  background: transparent;
+  color: #4b5563;
+  cursor: pointer;
+}
+
+.memori-datepicker--nav-button:hover {
+  background-color: #f3f4f6;
+  color: #1f2937;
+}
+
+.memori-datepicker--current-month {
+  color: #1f2937;
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.memori-datepicker--icon-svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.memori-datepicker--days-header {
+  display: grid;
+  margin-bottom: 0.25rem;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.memori-datepicker--day-name {
+  padding: 0.25rem 0;
+  color: #6b7280;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.memori-datepicker--days-grid {
+  display: grid;
+  gap: 1px;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.memori-datepicker--day {
+  display: flex;
+  width: 100%;
+  height: 2rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.35rem;
+  border: none;
+  border-radius: 0.25rem;
+  background: transparent;
+  color: #1f2937;
+  cursor: pointer;
+  font-size: 0.75rem;
+}
+
+.memori-datepicker--day:hover:not(.memori-datepicker--day-outside-month):not(.memori-datepicker--day-selected) {
+  background-color: #f3f4f6;
+}
+
+.memori-datepicker--day-outside-month {
+  color: #9ca3af;
+}
+
+.memori-datepicker--day-today {
+  font-weight: 600;
+}
+
+.memori-datepicker--day-selected {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.memori-datepicker--time-select {
+  padding-top: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 0.75rem;
+}
+
+.memori-datepicker--time-caption {
+  margin-bottom: 0.5rem;
+  color: #4b5563;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.memori-datepicker--time-container {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.memori-datepicker--time-column {
+  flex: 1;
+}
+
+.memori-datepicker--time-label {
+  margin-bottom: 0.25rem;
+  color: #6b7280;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.memori-datepicker--time-options {
+  display: flex;
+  max-height: 10rem;
+  flex-direction: column;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.25rem;
+  overflow-y: auto;
+}
+
+.memori-datepicker--time-option {
+  padding: 0.25rem 0.5rem;
+  border: none;
+  background: transparent;
+  color: #1f2937;
+  cursor: pointer;
+  font-size: 0.75rem;
+  text-align: center;
+}
+
+.memori-datepicker--time-option:hover:not(.memori-datepicker--time-option-selected) {
+  background-color: #f3f4f6;
+}
+
+.memori-datepicker--time-option-selected {
+  background-color: #3b82f6;
+  color: white;
+}
