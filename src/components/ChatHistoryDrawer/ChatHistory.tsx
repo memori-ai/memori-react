@@ -9,6 +9,7 @@ import {
   User,
   Memori,
   Medium,
+  DialogState,
 } from '@memori.ai/memori-api-client/dist/types';
 import Card from '../ui/Card';
 import ChatBubble from '../ChatBubble/ChatBubble';
@@ -23,6 +24,7 @@ export interface Props {
   apiClient: ReturnType<typeof memoriApiClient>;
   sessionId: string;
   memori: Memori;
+  resumeSession: (sessionId: string, currentState: DialogState, chatLogs: ChatLogLine[]) => void;
 }
 
 const ITEMS_PER_PAGE = 10;
@@ -34,10 +36,12 @@ const ChatHistoryDrawer = ({
   apiClient,
   sessionId,
   memori,
+  resumeSession,
 }: Props) => {
   const { t } = useTranslation();
 
   const { getChatLogsByUser } = apiClient.chatLogs;
+  const { postTextEnteredEventExtended } = apiClient;
 
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
   const [selectedChatLog, setSelectedChatLog] = useState<ChatLog | null>(null);
@@ -64,6 +68,35 @@ const ChatHistoryDrawer = ({
   const currentChatLogs =
     chatLogs && chatLogs.length > 0 ? chatLogs.slice(startIndex, endIndex) : [];
 
+  const handleResumeChat = async () => {
+    console.log('Resuming chat from:', selectedChatLog?.lines);
+    // create a new array of objects with question and answer
+    let questionsAndAnswers: { question: string; answer: string }[] = [];
+    selectedChatLog?.lines.forEach(line => {
+      if (line.inbound) {
+        // This is an answer from the Memori
+        if (questionsAndAnswers.length > 0) {
+          questionsAndAnswers[questionsAndAnswers.length - 1].answer = line.text;
+        }
+      } else {
+        // This is a question from the user
+        questionsAndAnswers.push({
+          question: line.text,
+          answer: ''
+        });
+      }
+    });
+    const response = await postTextEnteredEventExtended({
+      sessionId,
+      text: `Resume chat from ${selectedChatLog?.chatLogID}`,
+      questionsAndAnswersHistory: questionsAndAnswers,
+    });
+    if (response.resultCode === 0) {
+      console.log('Resuming chat from:', response);
+      resumeSession(sessionId, response.currentState, selectedChatLog?.lines || []);
+    }
+  };
+
   return (
     <Drawer
       className="memori-chat-history-drawer"
@@ -86,10 +119,27 @@ const ChatHistoryDrawer = ({
               <>
                 <div className="memori-chat-history-drawer--content--card">
                   <ChatRound className="memori-chat-history-drawer--content--card--icon" />
-                  <h3 style={{ fontSize: '1rem', margin: 0 }}>{'Chat-' + chatLog.chatLogID.substring(0, 4)}</h3>
-                  {chatLog.boardOfExperts && <div className="memori-chat-history-drawer--content--card--board-of-experts">Board of Experts</div>}
+                  <h3 style={{ fontSize: '1rem', margin: 0 }}>
+                    {'Chat-' + chatLog.chatLogID.substring(0, 4)}
+                  </h3>
+                  <h4 style={{ fontSize: '0.8rem', margin: 0 }}>
+                    {chatLog.lines.length === 1
+                      ? '1 message'
+                      : `${chatLog.lines.length} messages`}
+                  </h4>
+                  {chatLog.boardOfExperts && (
+                    <div className="memori-chat-history-drawer--content--card--board-of-experts">
+                      Board of Experts
+                    </div>
+                  )}
                   <span style={{ marginLeft: 'auto' }}>
-                    {new Date(Math.max(...chatLog.lines.map(line => new Date(line.timestamp).getTime()))).toLocaleDateString()}
+                    {new Date(
+                      Math.max(
+                        ...chatLog.lines.map(line =>
+                          new Date(line.timestamp).getTime()
+                        )
+                      )
+                    ).toLocaleDateString()}
                   </span>
                 </div>
                 {selectedChatLog?.chatLogID === chatLog.chatLogID && (
@@ -108,6 +158,10 @@ const ChatHistoryDrawer = ({
                         sessionID={sessionId}
                       />
                     ))}
+
+                    <Button primary onClick={handleResumeChat}>
+                      Resume chat
+                    </Button>
                   </div>
                 )}
               </>
