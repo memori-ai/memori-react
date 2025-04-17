@@ -189,7 +189,7 @@ const WhyThisAnswer = ({
                 )}
                 {m.memory.answers?.map((a, i) => (
                   <p key={i} className="memori--whythisanswer-answer">
-                    <Expandable rows={3}>{a.text}</Expandable>
+                    <Expandable mode="rows" rows={3}>{a.text}</Expandable>
                   </p>
                 ))}
 
@@ -203,6 +203,7 @@ const WhyThisAnswer = ({
                   ?.filter(m => m.mimeType === 'text/plain')
                   ?.map(m => (
                     <Expandable
+                      mode="rows"
                       rows={2}
                       key={m.mediumID}
                       lineHeightMultiplier={2}

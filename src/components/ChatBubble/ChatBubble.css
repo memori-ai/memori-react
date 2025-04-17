@@ -301,3 +301,7 @@
 .dot mjx-container[jax='CHTML'][display='true'] {
     text-align: left;
 }
+
+.memori-chat--bubble.memori-chat--user-bubble .memori-expandable > button {
+    color: var(--memori-primary-text);
+}
