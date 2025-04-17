@@ -1,21 +1,22 @@
 .memori-expandable {
     line-height: 1;
-  }
-  
-  .memori-expandable--content-wrapper {
+}
+
+.memori-expandable--content-wrapper {
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-  }
-  
-  .memori-expandable--inner {
+}
+
+.memori-expandable--inner {
+    overflow: hidden;
     min-width: 0; /* Helps with text truncation */
     max-height: 9999px;
     flex: 1;
     transition: max-height 0.2s ease-in-out;
-  }
-  
-  .memori-expandable--inline-button {
+}
+
+.memori-expandable--inline-button {
     display: inline-flex;
     height: auto;
     min-height: 0;
@@ -29,11 +30,11 @@
     font-size: 0.9em;
     text-decoration: underline;
     white-space: nowrap;
-  }
-  
-  /* For better mobile experience */
-  @media (max-width: 768px) {
+}
+
+/* For better mobile experience */
+@media (max-width: 768px) {
     .memori-expandable--content-wrapper {
-      align-items: flex-start;
+        align-items: flex-start;
     }
-  }
+}

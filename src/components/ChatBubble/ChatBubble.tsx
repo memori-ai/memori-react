@@ -24,10 +24,10 @@ import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
 import { stripHTML, stripOutputTags } from '../../helpers/utils';
 import FilePreview from '../FilePreview/FilePreview';
 import { renderMsg, truncateMessage } from '../../helpers/message';
+import Expandable from '../ui/Expandable';
 
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
-import Expandable from '../ui/Expandable';
 
 // Import MathJax types
 declare global {
@@ -89,11 +89,7 @@ const ChatBubble: React.FC<Props> = ({
   }, []);
 
   const text = message.translatedText || message.text;
-  const { text: renderedText, truncated } = renderMsg(
-    text,
-    useMathFormatting,
-    message.fromUser
-  );
+  const { text: renderedText } = renderMsg(text, useMathFormatting);
   const plainText = message.fromUser
     ? truncateMessage(text)
     : stripHTML(stripOutputTags(renderedText));
@@ -241,16 +237,18 @@ const ChatBubble: React.FC<Props> = ({
             <Expandable
               className="memori-chat--bubble-content"
               mode="characters"
-              maxCharacters={1000}
             >
-              {text}
+              <div
+                dir="auto"
+                className="memori-chat--bubble-content"
+                dangerouslySetInnerHTML={{ __html: renderedText }}
+              />
             </Expandable>
           ) : (
             <div
+              dir="auto"
               className="memori-chat--bubble-content"
-              dangerouslySetInnerHTML={{
-                __html: stripHTML(stripOutputTags(renderedText)),
-              }}
+              dangerouslySetInnerHTML={{ __html: renderedText }}
             />
           )}
 

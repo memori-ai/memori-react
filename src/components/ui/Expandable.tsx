@@ -3,11 +3,7 @@ import Button from './Button';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { truncateMessage } from '../../helpers/message';
-
-export const MAX_MSG_CHARS = 4000;
-export const MAX_MSG_WORDS = 300;
-
-export type ExpandableMode = 'rows' | 'characters';
+import { MAX_MSG_CHARS, MAX_MSG_WORDS } from '../../helpers/constants';
 
 export interface Props {
   rows?: number;
@@ -19,8 +15,7 @@ export interface Props {
   expandSymbol?: (lang: string) => React.ReactNode;
   collapseSymbol?: (lang: string) => React.ReactNode;
   children: React.ReactNode;
-  mode?: ExpandableMode;
-  maxCharacters?: number;
+  mode?: 'rows' | 'characters';
 }
 
 const Expandable = ({
@@ -35,7 +30,6 @@ const Expandable = ({
     lang === 'it' ? 'Mostra meno' : 'Show less',
   children,
   mode = 'rows',
-  maxCharacters = MAX_MSG_CHARS,
 }: Props) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
@@ -44,7 +38,6 @@ const Expandable = ({
   const [expanded, setExpanded] = useState(defaultExpanded);
   const [needsExpanding, setNeedsExpanding] = useState(false);
   const [rowHeight, setRowHeight] = useState(16);
-  const [contentLength, setContentLength] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -57,8 +50,7 @@ const Expandable = ({
           elLineHeight === 'normal' || !elLineHeight?.length
             ? lineHeightMultiplier * parseInt(computedStyle.fontSize, 10)
             : parseInt(elLineHeight, 10);
-            
-        
+
         setRowHeight(lineHeight);
         if (height && rows && height > rows * lineHeight) {
           setNeedsExpanding(true);
@@ -66,36 +58,40 @@ const Expandable = ({
       } else if (mode === 'characters') {
         // Get text content length
         const textContent = ref.current.textContent || '';
-        setContentLength(textContent.length);
-        
-        if (textContent.length > maxCharacters || 
-            textContent.split(' ').length > MAX_MSG_WORDS) {
+
+        if (
+          textContent.length > MAX_MSG_CHARS ||
+          textContent.split(' ').length > MAX_MSG_WORDS
+        ) {
           setNeedsExpanding(true);
         }
       }
     }
-  }, [rows, maxCharacters, mode, ref.current]);
+  }, [rows, mode, ref.current]);
 
   const renderContent = () => {
     if (mode === 'characters' && !expanded && needsExpanding) {
       const content = ref.current?.textContent || '';
       let truncatedContent = truncateMessage(content);
-      
+
       return truncatedContent;
     }
-    
+
     return children;
   };
 
   return (
     <div className={cx('memori-expandable', className)}>
+      <p>Needs expanding: {needsExpanding ? 'true' : 'false'}</p>
+      <p>Expanded: {expanded ? 'true' : 'false'}</p>
+      <p>Mode: {mode}</p>
       <div
         ref={ref}
         className={cx('memori-expandable--inner', innerClassName)}
         style={{
           maxHeight:
-            expanded || !needsExpanding || mode === 'characters' 
-              ? '9999px' 
+            expanded || !needsExpanding || mode === 'characters'
+              ? '9999px'
               : `${rowHeight * (rows || 1)}px`,
         }}
       >

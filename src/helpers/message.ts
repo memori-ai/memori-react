@@ -55,20 +55,17 @@ export const truncateMessage = (message: string) => {
     truncatedMessage = truncatedMessage
       .split(' ')
       .slice(0, MAX_MSG_WORDS)
-      .join(' ')
+      .join(' ');
   }
   return truncatedMessage;
 };
 
 export const renderMsg = (
   text: string,
-  useMathFormatting = false,
-  fromUser = false
+  useMathFormatting = false
 ): {
   text: string;
-  truncated: boolean;
 } => {
-  let truncated = false;
   try {
     // Preprocessing del testo per gestire i delimitatori LaTeX
     let preprocessedText = text
@@ -120,11 +117,6 @@ export const renderMsg = (
       );
     }
 
-    if (needsTruncation(preprocessedText) && fromUser) {
-      truncated = true;
-      preprocessedText = truncateMessage(preprocessedText);
-    }
-
     // Ora procedi con il parsing markdown
     let parsedText = marked.parse(preprocessedText).toString().trim();
 
@@ -139,9 +131,9 @@ export const renderMsg = (
       .replace(/<p><\/p>/g, '<br>')
       .replace(/<p><br><\/p>/g, '<br>');
 
-    return { text: finalText, truncated };
+    return { text: finalText };
   } catch (e) {
     console.error('Error rendering message:', e);
-    return { text, truncated };
+    return { text };
   }
 };
