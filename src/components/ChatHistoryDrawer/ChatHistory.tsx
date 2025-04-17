@@ -87,7 +87,7 @@ const ChatHistoryDrawer = ({
       }
     });
     selectedChatLog?.lines.push({
-      text: `Riprendiamo la conversazione con ${selectedChatLog?.chatLogID} di ${new Date(selectedChatLog?.lines[0].timestamp || 0).toLocaleDateString()}`,
+      text: `Riprendiamo la conversazione con ${selectedChatLog?.chatLogID} del ${new Date(selectedChatLog?.lines[0].timestamp || 0).toLocaleDateString()}`,
       inbound: true,
       timestamp: new Date().toISOString(),
       emitter: 'Memori',
@@ -96,7 +96,7 @@ const ChatHistoryDrawer = ({
     });
     const response = await postTextEnteredEventExtended({
       sessionId,
-      text: `Riprendiamo la conversazione con ${selectedChatLog?.chatLogID} di ${new Date(selectedChatLog?.lines[0].timestamp || 0).toLocaleDateString()}`,
+      text: `Riprendiamo la conversazione con ${selectedChatLog?.chatLogID} del ${new Date(selectedChatLog?.lines[0].timestamp || 0).toLocaleDateString()}`,
       questionsAndAnswersHistory: questionsAndAnswers,
     });
     if (response.resultCode === 0) {
@@ -168,7 +168,7 @@ const ChatHistoryDrawer = ({
                     ))}
 
                     <Button primary onClick={handleResumeChat}>
-                      Resume chat
+                      {t('write_and_speak.resumeButton') || 'Resume chat'}
                     </Button>
                   </div>
                 )}
