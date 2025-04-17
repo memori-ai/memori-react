@@ -82,9 +82,6 @@ const Expandable = ({
 
   return (
     <div className={cx('memori-expandable', className)}>
-      <p>Needs expanding: {needsExpanding ? 'true' : 'false'}</p>
-      <p>Expanded: {expanded ? 'true' : 'false'}</p>
-      <p>Mode: {mode}</p>
       <div
         ref={ref}
         className={cx('memori-expandable--inner', innerClassName)}
