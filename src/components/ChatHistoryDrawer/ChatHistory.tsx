@@ -2,7 +2,7 @@ import Drawer from '../ui/Drawer';
 import { useTranslation } from 'react-i18next';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
   ChatLog,
   ChatLogLine,
@@ -24,7 +24,10 @@ export interface Props {
   apiClient: ReturnType<typeof memoriApiClient>;
   sessionId: string;
   memori: Memori;
-  resumeSession: (sessionId: string, currentState: DialogState, chatLogs: ChatLogLine[]) => void;
+  resumeSession: (
+    sessionId: string,
+    chatLogs: ChatLogLine[]
+  ) => void;
 }
 
 const ITEMS_PER_PAGE = 10;
@@ -46,27 +49,33 @@ const ChatHistoryDrawer = ({
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
   const [selectedChatLog, setSelectedChatLog] = useState<ChatLog | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchText, setSearchText] = useState('');
 
   useEffect(() => {
     console.log('Fetching chat logs for session:', sessionId);
     getChatLogsByUser(sessionId)
       .then(res => {
         console.log('Received chat logs:', res.chatLogs);
-        setChatLogs(res.chatLogs);
+        setChatLogs(res.chatLogs.reverse());
       })
       .catch(err => {
         console.error('Error fetching chat logs:', err);
       });
   }, []);
 
-  const totalPages =
-    chatLogs && chatLogs.length > 0
-      ? Math.ceil(chatLogs.length / ITEMS_PER_PAGE)
-      : 1;
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
   const endIndex = startIndex + ITEMS_PER_PAGE;
-  const currentChatLogs =
-    chatLogs && chatLogs.length > 0 ? chatLogs.slice(startIndex, endIndex) : [];
+  const filteredChatLogs = useMemo(() => {
+    return chatLogs
+      .filter(
+        c => c.lines.some(l => l.text.toLowerCase().includes(searchText.toLowerCase())) && c.lines.length > 1
+      )
+      .slice(startIndex, endIndex);
+  }, [chatLogs, searchText, startIndex, endIndex]);
+  const totalPages =
+    filteredChatLogs && filteredChatLogs.length > 0
+      ? Math.ceil(filteredChatLogs.length / ITEMS_PER_PAGE)
+      : 1;
 
   const handleResumeChat = async () => {
     console.log('Resuming chat from:', selectedChatLog?.lines);
@@ -76,32 +85,33 @@ const ChatHistoryDrawer = ({
       if (line.inbound) {
         // This is an answer from the Memori
         if (questionsAndAnswers.length > 0) {
-          questionsAndAnswers[questionsAndAnswers.length - 1].answer = line.text;
+          questionsAndAnswers[questionsAndAnswers.length - 1].answer =
+            line.text;
         }
       } else {
         // This is a question from the user
         questionsAndAnswers.push({
           question: line.text,
-          answer: ''
+          answer: '',
         });
       }
     });
-    selectedChatLog?.lines.push({
-      text: `Riprendiamo la conversazione con ${selectedChatLog?.chatLogID} del ${new Date(selectedChatLog?.lines[0].timestamp || 0).toLocaleDateString()}`,
-      inbound: true,
-      timestamp: new Date().toISOString(),
-      emitter: 'Memori',
-      media: [],
-      contextVars: {},
-    });
     const response = await postTextEnteredEventExtended({
       sessionId,
-      text: `Riprendiamo la conversazione con ${selectedChatLog?.chatLogID} del ${new Date(selectedChatLog?.lines[0].timestamp || 0).toLocaleDateString()}`,
+      text: `Riprendiamo la conversazione con ${
+        selectedChatLog?.chatLogID
+      } del ${new Intl.DateTimeFormat('it', {
+        dateStyle: 'short',
+        timeStyle: 'short',
+      }).format(new Date(selectedChatLog?.lines[0].timestamp || 0))}`,
       questionsAndAnswersHistory: questionsAndAnswers,
     });
     if (response.resultCode === 0) {
       console.log('Resuming chat from:', response);
-      resumeSession(sessionId, response.currentState, selectedChatLog?.lines || []);
+      resumeSession(
+        sessionId,
+        selectedChatLog?.lines || []
+      );
     }
   };
 
@@ -114,8 +124,26 @@ const ChatHistoryDrawer = ({
       description={t('widget.chatHistoryDescription')}
     >
       <div className="memori-chat-history-drawer--content">
+        <div className="memori-chat-history-drawer--search">
+          <input
+            type="text"
+            placeholder={t('search') || 'Search in chat history...'}
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+              setCurrentPage(1); // Reset to first page when searching
+            }}
+            style={{
+              width: '100%',
+              padding: '8px',
+              marginBottom: '16px',
+              borderRadius: '4px',
+              border: '1px solid #ccc'
+            }}
+          />
+        </div>
         <ul>
-          {currentChatLogs.map((chatLog: ChatLog) => (
+          {filteredChatLogs.map((chatLog: ChatLog) => (
             <Card
               hoverable
               onClick={() => {
@@ -141,13 +169,16 @@ const ChatHistoryDrawer = ({
                     </div>
                   )}
                   <span style={{ marginLeft: 'auto' }}>
-                    {new Date(
+                    {new Intl.DateTimeFormat('it', {
+                      dateStyle: 'short',
+                      timeStyle: 'short',
+                    }).format(new Date(
                       Math.max(
                         ...chatLog.lines.map(line =>
                           new Date(line.timestamp).getTime()
                         )
                       )
-                    ).toLocaleDateString()}
+                    ))}
                   </span>
                 </div>
                 {selectedChatLog?.chatLogID === chatLog.chatLogID && (

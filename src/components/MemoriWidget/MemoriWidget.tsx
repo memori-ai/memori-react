@@ -1440,49 +1440,29 @@ const MemoriWidget = ({
     return null;
   };
 
-  const resumeSession = async (
-    sessionId: string,
-    currentState: DialogState,
-    chatLogs: ChatLogLine[]
-  ) => {
+  const resumeSession = async (sessionId: string, chatLogs: ChatLogLine[]) => {
     // Handle successful session initialization
     if (sessionId) {
       // console.log('[REOPEN_SESSION] Session initialized successfully:', sessionID);
       setSessionId(sessionId);
 
-      // Update dialog state and history if requested
-      if (currentState) {
-        // console.log('[REOPEN_SESSION] Updating dialog state');
-        setCurrentDialogState(currentState);
-
-        if (currentState.emission) {
-          // console.log('[REOPEN_SESSION] Processing emission:', currentState.emission);
-          // Set initial message or append to existing history
-          setHistory(
-            chatLogs.map(log => ({
-              text: log.text,
-              emitter: log.emitter,
-              media: log.media?.map(m => ({
-                ...m,
-                mediumID:
-                  'mediumID' in m ? String(m.mediumID) : crypto.randomUUID(),
-              })),
-              fromUser: log.inbound,
-              initial: false,
-              contextVars: log.contextVars,
-              date: log.timestamp,
-            }))
-          );
-
-          pushMessage({
-            text: currentState.emission,
-            emitter: currentState.emitter,
-            media: currentState.media,
-            fromUser: false,
-            initial: false,
-          });
-        }
-      }
+      // console.log('[REOPEN_SESSION] Processing emission:', currentState.emission);
+      // Set initial message or append to existing history
+      setHistory(
+        chatLogs.map(log => ({
+          text: log.text,
+          emitter: log.emitter,
+          media: log.media?.map(m => ({
+            ...m,
+            mediumID:
+              'mediumID' in m ? String(m.mediumID) : crypto.randomUUID(),
+          })),
+          fromUser: log.inbound,
+          initial: false,
+          contextVars: log.contextVars,
+          date: log.timestamp,
+        }))
+      );
     }
   };
 
@@ -3742,8 +3722,8 @@ const MemoriWidget = ({
         <ChatHistoryDrawer
           open={!!showChatHistoryDrawer}
           onClose={() => setShowChatHistoryDrawer(false)}
-          resumeSession={(sessionId, currentState, chatLogs) => {
-            resumeSession(sessionId, currentState, chatLogs);
+          resumeSession={(sessionId, chatLogs) => {
+            resumeSession(sessionId, chatLogs);
             setShowChatHistoryDrawer(false);
           }}
           apiClient={client}
