@@ -86,9 +86,17 @@ const ChatHistoryDrawer = ({
         });
       }
     });
+    selectedChatLog?.lines.push({
+      text: `Riprendiamo la conversazione con ${selectedChatLog?.chatLogID} di ${new Date(selectedChatLog?.lines[0].timestamp || 0).toLocaleDateString()}`,
+      inbound: true,
+      timestamp: new Date().toISOString(),
+      emitter: 'Memori',
+      media: [],
+      contextVars: {},
+    });
     const response = await postTextEnteredEventExtended({
       sessionId,
-      text: `Resume chat from ${selectedChatLog?.chatLogID}`,
+      text: `Riprendiamo la conversazione con ${selectedChatLog?.chatLogID} di ${new Date(selectedChatLog?.lines[0].timestamp || 0).toLocaleDateString()}`,
       questionsAndAnswersHistory: questionsAndAnswers,
     });
     if (response.resultCode === 0) {

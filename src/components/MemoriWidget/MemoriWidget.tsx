@@ -1479,7 +1479,7 @@ const MemoriWidget = ({
             emitter: currentState.emitter,
             media: currentState.media,
             fromUser: false,
-            initial: true,
+            initial: false,
           });
         }
       }
