@@ -26,7 +26,11 @@ export interface Props {
   memori: Memori;
   resumeSession: (
     sessionId: string,
-    chatLogs: ChatLogLine[]
+    chatLogs: ChatLogLine[],
+    questionsAndAnswers: { question: string; answer: string }[],
+    initialContextVars?: { [key: string]: string },
+    initialQuestion?: string,
+    birthDate?: string
   ) => void;
 }
 
@@ -85,34 +89,32 @@ const ChatHistoryDrawer = ({
       if (line.inbound) {
         // This is an answer from the Memori
         if (questionsAndAnswers.length > 0) {
-          questionsAndAnswers[questionsAndAnswers.length - 1].answer =
+          questionsAndAnswers[questionsAndAnswers.length - 1].question =
             line.text;
         }
       } else {
         // This is a question from the user
         questionsAndAnswers.push({
-          question: line.text,
-          answer: '',
+          answer: line.text,
+          question: '',
         });
       }
     });
-    const response = await postTextEnteredEventExtended({
-      sessionId,
-      text: `Riprendiamo la conversazione con ${
-        selectedChatLog?.chatLogID
-      } del ${new Intl.DateTimeFormat('it', {
-        dateStyle: 'short',
-        timeStyle: 'short',
-      }).format(new Date(selectedChatLog?.lines[0].timestamp || 0))}`,
-      questionsAndAnswersHistory: questionsAndAnswers,
-    });
-    if (response.resultCode === 0) {
-      console.log('Resuming chat from:', response);
+    // const response = await postTextEnteredEventExtended({
+    //   sessionId,
+    //   text: `Riprendiamo la conversazione con ${
+    //     selectedChatLog?.chatLogID
+    //   } del ${new Intl.DateTimeFormat('it', {
+    //     dateStyle: 'short',
+    //     timeStyle: 'short',
+    //   }).format(new Date(selectedChatLog?.lines[0].timestamp || 0))}`,
+    //   questionsAndAnswersHistory: questionsAndAnswers,
+    // });
       resumeSession(
         sessionId,
-        selectedChatLog?.lines || []
+        selectedChatLog?.lines || [],
+        questionsAndAnswers,
       );
-    }
   };
 
   return (
@@ -151,6 +153,7 @@ const ChatHistoryDrawer = ({
                 setSelectedChatLog(chatLog);
               }}
               key={chatLog.chatLogID}
+              className="memori-chat-history-drawer--card"
             >
               <>
                 <div className="memori-chat-history-drawer--content--card">
@@ -198,9 +201,11 @@ const ChatHistoryDrawer = ({
                       />
                     ))}
 
-                    <Button primary onClick={handleResumeChat}>
-                      {t('write_and_speak.resumeButton') || 'Resume chat'}
-                    </Button>
+                    <div className="memori-chat-history-drawer--resume-button-container">
+                      <Button className="memori-chat-history-drawer--resume-button" primary onClick={handleResumeChat}>
+                        {t('write_and_speak.resumeButton') || 'Resume chat'}
+                      </Button>
+                    </div>
                   </div>
                 )}
               </>

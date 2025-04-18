@@ -1,3 +1,9 @@
+.memori-chat-history-drawer--card{
+    max-height: 60vh;
+    overflow-y: auto;
+
+}
+
 .memori-chat-history-drawer--content{
     display: flex;
     flex-direction: column;
@@ -48,4 +54,14 @@
     border-radius: 0.5rem;
     background-color: var(--memori-color-primary);
     color: #fff;
+}
+
+
+.memori-chat-history-drawer--resume-button-container{
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+    padding: 1rem;
+    border-top: 1px solid #e0e0e0;
+    background-color: #fff;
 }

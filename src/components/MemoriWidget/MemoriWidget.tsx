@@ -484,6 +484,7 @@ const MemoriWidget = ({
     getSession,
     getExpertReferences,
     getSessionChatLogs,
+    postTextEnteredEventExtended,
   } = client;
 
   const [instruct, setInstruct] = useState(false);
@@ -808,11 +809,26 @@ const MemoriWidget = ({
         msg = msg + ' ' + media[0].content;
       }
 
-      const { currentState, ...response } = await postTextEnteredEvent({
-        sessionId: sessionID,
-        text: msg,
-      });
-      if (response.resultCode === 0 && currentState) {
+      let currentState: DialogState | undefined;
+      let response: ResponseSpec | undefined;
+      let initial = false;
+      if(chatLogs.length > 0) {
+        ({ currentState, ...response } = await postTextEnteredEventExtended({
+          sessionId: sessionID,
+          text: msg,
+          questionsAndAnswersHistory: chatLogs,
+        }));
+        setChatLogs([]);
+        initial = true;
+      } else {
+        ({ currentState, ...response } = await postTextEnteredEvent({
+          sessionId: sessionID,
+          text: msg,
+        }));
+        initial = false;
+      }
+
+      if (response?.resultCode === 0 && currentState) {
         const emission =
           useLoaderTextAsMsg && typingText
             ? typingText
@@ -855,7 +871,7 @@ const MemoriWidget = ({
             speak(emission);
           }
         }
-      } else if (response.resultCode === 404) {
+      } else if (response?.resultCode === 404) {
         // Handle expired session
         // remove last sent message, will set it as initial
         setHistory(h => [...h.slice(0, h.length - 1)]);
@@ -1440,30 +1456,128 @@ const MemoriWidget = ({
     return null;
   };
 
-  const resumeSession = async (sessionId: string, chatLogs: ChatLogLine[]) => {
-    // Handle successful session initialization
-    if (sessionId) {
-      // console.log('[REOPEN_SESSION] Session initialized successfully:', sessionID);
-      setSessionId(sessionId);
+  const [chatLogs, setChatLogs] = useState<any[]>([]);
+  const resumeSession = async (sessionId: string, chatLogs: ChatLogLine[], questionsAndAnswers: { question: string; answer: string }[],  initialContextVars?: { [key: string]: string }, initialQuestion?: string, birthDate?: string) => {
+    // Set loading state while reopening session
+    setLoading(true);
 
-      // console.log('[REOPEN_SESSION] Processing emission:', currentState.emission);
-      // Set initial message or append to existing history
-      setHistory(
-        chatLogs.map(log => ({
-          text: log.text,
-          emitter: log.emitter,
-          media: log.media?.map(m => ({
-            ...m,
-            mediumID:
-              'mediumID' in m ? String(m.mediumID) : crypto.randomUUID(),
-          })),
-          fromUser: log.inbound,
-          initial: false,
-          contextVars: log.contextVars,
-          date: log.timestamp,
-        }))
-      );
+    // Get birth date from local storage if not provided
+    let storageBirthDate = getLocalConfig<string | undefined>(
+      'birthDate',
+      undefined
+    );
+    let userBirthDate = birthDate ?? storageBirthDate;
+    // console.log('[REOPEN_SESSION] Using birth date:', userBirthDate);
+
+    try {
+      // Show age verification if required and birth date not provided
+      if (!userBirthDate && !!minAge) {
+        // console.log('[REOPEN_SESSION] Age verification required, showing modal');
+        setShowAgeVerification(true);
+        return;
+      }
+
+      
+      // Check if authentication is needed based on privacy type and credentials
+      if (
+        memori.privacyType !== 'PUBLIC' &&
+        !memoriPassword &&
+        !memori.secretToken &&
+        !memoriPwd &&
+        !memoriTokens
+      ) {
+        // console.log('[REOPEN_SESSION] Authentication required, showing modal');
+        setAuthModalState('password');
+        return;
+      }
+
+      // Get current URL as referral
+      let referral;
+      try {
+        referral = (() => {
+          return window.location.href;
+        })();
+        console.log('[REOPEN_SESSION] Got referral:', referral);
+      } catch (err) {
+        console.debug('[REOPEN_SESSION] Error getting referral:', err);
+      }
+
+      // Initialize session with provided parameters
+      // console.log('[REOPEN_SESSION] Initializing session...');
+      const { sessionID, currentState, ...response } = await initSession({
+        memoriID: memori.engineMemoriID ?? '',
+        password: memoriPassword || memoriPwd || memori.secretToken,
+        recoveryTokens: memoriTokens,
+        tag: personification?.tag,
+        pin: personification?.pin,
+        initialContextVars: {
+          PATHNAME: window.location.pathname,
+          ROUTE: window.location.pathname?.split('/')?.pop() || '',
+          ...(initialContextVars || {}),
+        },
+        initialQuestion,
+        birthDate: userBirthDate,
+        additionalInfo: {
+          ...(additionalInfo || {}),
+          loginToken:
+            userToken ?? loginToken ?? additionalInfo?.loginToken ?? authToken,
+          language: getCultureCodeByLanguage(userLang),
+          referral: referral,
+          timeZoneOffset: new Date().getTimezoneOffset().toString(),
+        },
+      });
+
+      // Handle successful session initialization
+      if (sessionId) {
+        // console.log('[REOPEN_SESSION] Session initialized successfully:', sessionID);
+        setSessionId(sessionId);
+
+        // console.log('[REOPEN_SESSION] Processing emission:', currentState.emission);
+        // Set initial message or append to existing history
+        setHistory(
+          chatLogs.map((log, index) => ({
+            text: log.text,
+            emitter: log.emitter,
+            media: log.media?.map(m => ({
+              ...m,
+              mediumID:
+                'mediumID' in m ? String(m.mediumID) : crypto.randomUUID(),
+            })),
+            fromUser: log.inbound,
+            initial: false,
+            contextVars: log.contextVars,
+            date: log.timestamp,
+          }))
+        );
+
+        setChatLogs(questionsAndAnswers);
+      }
+
+       // Handle age restriction error
+       else if (
+        response?.resultMessage.startsWith('This Memori is aged restricted')
+      ) {
+        console.error('[REOPEN_SESSION] Age restriction error:', response);
+        toast.error(t('underageTwinSession', { age: minAge }));
+        setGotErrorInOpening(true);
+      }
+      // Handle authentication error
+      else if (response?.resultCode === 403) {
+        console.error('[REOPEN_SESSION] Authentication error');
+        setMemoriPwd(undefined);
+        setAuthModalState('password');
+      }
+      // Handle other errors
+      else {
+        console.error('[REOPEN_SESSION] Other error:', response);
+        toast.error(t(getErrori18nKey(response.resultCode)));
+        setGotErrorInOpening(true);
+      }
+    } catch (err) {
+      console.error('[RESUME_SESSION] Caught error:', err);
     }
+
+    setLoading(false);
   };
 
   const changeTag = async (
@@ -3722,8 +3836,8 @@ const MemoriWidget = ({
         <ChatHistoryDrawer
           open={!!showChatHistoryDrawer}
           onClose={() => setShowChatHistoryDrawer(false)}
-          resumeSession={(sessionId, chatLogs) => {
-            resumeSession(sessionId, chatLogs);
+          resumeSession={(sessionId, chatLogs, questionsAndAnswers) => {
+            resumeSession(sessionId, chatLogs, questionsAndAnswers);
             setShowChatHistoryDrawer(false);
           }}
           apiClient={client}
