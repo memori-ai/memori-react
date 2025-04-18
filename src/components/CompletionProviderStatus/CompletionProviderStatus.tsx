@@ -121,7 +121,7 @@ const fetchProviderStatus = async (config: ProviderConfig): Promise<Status> => {
 
 const CompletionProviderStatus = ({
   forceStatus,
-  provider = 'OpenAI',
+  provider = 'Anthropic',
 }: Props) => {
   const { t } = useTranslation();
   const [status, setStatus] = useState<Status>(forceStatus ?? 'operational');

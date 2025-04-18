@@ -14,7 +14,7 @@ exports[`renders CompletionProviderStatus errored unchanged 1`] = `
         </p>
         <p>
           <a
-            href="https://status.openai.com/"
+            href="https://status.anthropic.com/"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -112,7 +112,7 @@ exports[`renders CompletionProviderStatus unchanged 1`] = `
         </p>
         <p>
           <a
-            href="https://status.openai.com/"
+            href="https://status.anthropic.com/"
             rel="noopener noreferrer"
             target="_blank"
           >
