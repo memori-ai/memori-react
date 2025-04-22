@@ -156,7 +156,9 @@
     "requirePositionHelp": "Per parlare con {{name}} devi decidere se fornire o meno la tua posizione. Questo perchè diverse risposte che potrà fornirti potrebbero dipendere da dove ti trovi.",
     "dontWantToProvidePosition": "Non voglio fornire la mia posizione",
     "attachmentsLabel": "Arricchisci il tuo messaggio",
-    "iWantToTalkToIn": "Voglio parlare con {{name}} in"
+    "iWantToTalkToIn": "Voglio parlare con {{name}} in",
+    "message": "messaggio",
+    "messages": "messaggi"
   },
   "media": {
     "title": "Titolo",

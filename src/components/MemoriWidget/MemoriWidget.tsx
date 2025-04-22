@@ -1457,7 +1457,7 @@ const MemoriWidget = ({
   };
 
   const [chatLogs, setChatLogs] = useState<any[]>([]);
-  const resumeSession = async (sessionId: string, chatLogs: ChatLogLine[], questionsAndAnswers: { question: string; answer: string }[],  initialContextVars?: { [key: string]: string }, initialQuestion?: string, birthDate?: string) => {
+  const resumeSession = async (chatLogs: ChatLogLine[], questionsAndAnswers: { question: string; answer: string }[],  initialContextVars?: { [key: string]: string }, initialQuestion?: string, birthDate?: string) => {
     // Set loading state while reopening session
     setLoading(true);
 
@@ -1528,9 +1528,9 @@ const MemoriWidget = ({
       });
 
       // Handle successful session initialization
-      if (sessionId) {
+      if (sessionID) {
         // console.log('[REOPEN_SESSION] Session initialized successfully:', sessionID);
-        setSessionId(sessionId);
+        setSessionId(sessionID);
 
         // console.log('[REOPEN_SESSION] Processing emission:', currentState.emission);
         // Set initial message or append to existing history
@@ -3836,8 +3836,8 @@ const MemoriWidget = ({
         <ChatHistoryDrawer
           open={!!showChatHistoryDrawer}
           onClose={() => setShowChatHistoryDrawer(false)}
-          resumeSession={(sessionId, chatLogs, questionsAndAnswers) => {
-            resumeSession(sessionId, chatLogs, questionsAndAnswers);
+          resumeSession={(chatLogs, questionsAndAnswers) => {
+            resumeSession(chatLogs, questionsAndAnswers);
             setShowChatHistoryDrawer(false);
           }}
           apiClient={client}

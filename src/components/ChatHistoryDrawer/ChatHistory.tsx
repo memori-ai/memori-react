@@ -23,7 +23,6 @@ export interface Props {
   sessionId: string;
   memori: Memori;
   resumeSession: (
-    sessionId: string,
     chatLogs: ChatLogLine[],
     questionsAndAnswers: { question: string; answer: string }[],
     initialContextVars?: { [key: string]: string },
@@ -106,7 +105,6 @@ const ChatHistoryDrawer = ({
       }
     });
     resumeSession(
-      sessionId,
       selectedChatLog?.lines || [],
       questionsAndAnswers,
     );
@@ -152,7 +150,7 @@ const ChatHistoryDrawer = ({
             <Card
               hoverable
               onClick={() => {
-                console.log('Selected chat log:', chatLog);
+
                 setSelectedChatLog(chatLog);
               }}
               key={chatLog.chatLogID}
@@ -166,8 +164,8 @@ const ChatHistoryDrawer = ({
                   </h3>
                   <h4 style={{ fontSize: '0.8rem', margin: 0 }}>
                     {chatLog.lines.length === 1
-                      ? '1 message'
-                      : `${chatLog.lines.length} messages`}
+                      ? '1' + t('write_and_speak.message')
+                      : `${chatLog.lines.length} ${t('write_and_speak.messages')}`}
                   </h4>
                   {chatLog.boardOfExperts && (
                     <div className="memori-chat-history-drawer--content--card--board-of-experts">

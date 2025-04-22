@@ -145,7 +145,9 @@
     "requirePositionHelp": "Pour parler à {{name}} vous devez décider si vous souhaitez ou non fournir votre poste. ",
     "dontWantToProvidePosition": "Je ne veux pas donner ma position",
     "attachmentsLabel": "Enrichissez votre message",
-    "iWantToTalkToIn": "je veux parler à {{name}} dans"
+    "iWantToTalkToIn": "je veux parler à {{name}} dans",
+    "message": "message",
+    "messages": "messages"
   },
   "media": {
     "title": "Titre",

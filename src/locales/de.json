@@ -144,7 +144,9 @@
     "requirePositionHelp": "Zum Reden {{name}} Sie müssen entscheiden, ob Sie Ihre Position angeben oder nicht. ",
     "dontWantToProvidePosition": "Ich möchte meine Position nicht bekannt geben",
     "attachmentsLabel": "Bereichern Sie Ihre Botschaft",
-    "iWantToTalkToIn": "Ich möchte mit reden {{name}} In"
+    "iWantToTalkToIn": "Ich möchte mit reden {{name}} in",
+    "message": "nachricht",
+    "messages": "nachrichten"
   },
   "media": {
     "title": "Titel",
