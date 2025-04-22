@@ -15,8 +15,6 @@ import Card from '../ui/Card';
 import ChatBubble from '../ChatBubble/ChatBubble';
 import Button from '../ui/Button';
 import ChatRound from '../icons/Chat';
-import './ChatHistory.css';
-
 export interface Props {
   open: boolean;
   layout?: WidgetProps['layout'];
@@ -74,19 +72,19 @@ const ChatHistoryDrawer = ({
       });
   }, []);
 
-  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-  const endIndex = startIndex + ITEMS_PER_PAGE;
   const filteredChatLogs = useMemo(() => {
-    return chatLogs
-      .filter(
-        c => c.lines.some(l => l.text.toLowerCase().includes(searchText.toLowerCase())) && c.lines.length > 1
-      )
-      .slice(startIndex, endIndex);
-  }, [chatLogs, searchText, startIndex, endIndex]);
-  const totalPages =
-    filteredChatLogs && filteredChatLogs.length > 0
-      ? Math.ceil(filteredChatLogs.length / ITEMS_PER_PAGE)
-      : 1;
+    return chatLogs.filter(c => 
+      c.lines.some(l => l.text.toLowerCase().includes(searchText.toLowerCase())) && 
+      c.lines.length > 1
+    );
+  }, [chatLogs, searchText]);
+
+  const totalPages = Math.ceil(filteredChatLogs.length / ITEMS_PER_PAGE);
+  
+  const paginatedChatLogs = useMemo(() => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    return filteredChatLogs.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+  }, [filteredChatLogs, currentPage]);
 
   const handleResumeChat = async () => {
     console.log('Resuming chat from:', selectedChatLog?.lines);
@@ -150,7 +148,7 @@ const ChatHistoryDrawer = ({
     return (
       <>
         <ul>
-          {filteredChatLogs.map((chatLog: ChatLog) => (
+          {paginatedChatLogs.map((chatLog: ChatLog) => (
             <Card
               hoverable
               onClick={() => {
@@ -238,6 +236,7 @@ const ChatHistoryDrawer = ({
                 console.log('Moving to next page');
                 setCurrentPage(p => Math.min(totalPages, p + 1));
               }}
+              className="memori-chat-history-drawer--pagination-button"
               disabled={currentPage === totalPages}
             >
               {t('next') || 'Next'}

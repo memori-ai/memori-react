@@ -14,6 +14,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    padding-bottom: 12px;
     gap: 1rem;
 }
 
@@ -60,8 +61,12 @@
 .memori-chat-history-drawer--resume-button-container{
     position: sticky;
     bottom: 0;
-    width: 100%;
+    width: 95%;
     padding: 1rem;
     border-top: 1px solid #e0e0e0;
     background-color: #fff;
+}
+
+.memori-chat-history-drawer--pagination-button{
+    width: 100%;
 }
