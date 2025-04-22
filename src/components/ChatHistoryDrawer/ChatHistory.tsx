@@ -48,14 +48,17 @@ const ChatHistoryDrawer = ({
   const { t } = useTranslation();
 
   const { getChatLogsByUser } = apiClient.chatLogs;
-  const { postTextEnteredEventExtended } = apiClient;
 
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
   const [selectedChatLog, setSelectedChatLog] = useState<ChatLog | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchText, setSearchText] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    setIsLoading(true);
+    setError(null);
     console.log('Fetching chat logs for session:', sessionId);
     getChatLogsByUser(sessionId)
       .then(res => {
@@ -64,6 +67,10 @@ const ChatHistoryDrawer = ({
       })
       .catch(err => {
         console.error('Error fetching chat logs:', err);
+        setError(t('errorFetchingSession') || 'Error loading chat history');
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, []);
 
@@ -100,50 +107,48 @@ const ChatHistoryDrawer = ({
         });
       }
     });
-    // const response = await postTextEnteredEventExtended({
-    //   sessionId,
-    //   text: `Riprendiamo la conversazione con ${
-    //     selectedChatLog?.chatLogID
-    //   } del ${new Intl.DateTimeFormat('it', {
-    //     dateStyle: 'short',
-    //     timeStyle: 'short',
-    //   }).format(new Date(selectedChatLog?.lines[0].timestamp || 0))}`,
-    //   questionsAndAnswersHistory: questionsAndAnswers,
-    // });
-      resumeSession(
-        sessionId,
-        selectedChatLog?.lines || [],
-        questionsAndAnswers,
-      );
+    resumeSession(
+      sessionId,
+      selectedChatLog?.lines || [],
+      questionsAndAnswers,
+    );
   };
 
-  return (
-    <Drawer
-      className="memori-chat-history-drawer"
-      open={open}
-      onClose={onClose}
-      title={t('widget.chatHistory') || 'Chat History'}
-      description={t('widget.chatHistoryDescription')}
-    >
-      <div className="memori-chat-history-drawer--content">
-        <div className="memori-chat-history-drawer--search">
-          <input
-            type="text"
-            placeholder={t('search') || 'Search in chat history...'}
-            value={searchText}
-            onChange={(e) => {
-              setSearchText(e.target.value);
-              setCurrentPage(1); // Reset to first page when searching
-            }}
-            style={{
-              width: '100%',
-              padding: '8px',
-              marginBottom: '16px',
-              borderRadius: '4px',
-              border: '1px solid #ccc'
-            }}
-          />
+  const renderContent = () => {
+    if (isLoading) {
+      return (
+        <div className="memori-chat-history-drawer--loading">
+          <p>{t('widget.loadingChatHistory') || 'Loading chat history...'}</p>
         </div>
+      );
+    }
+
+    if (error) {
+      return (
+        <div className="memori-chat-history-drawer--error">
+          <p>{error}</p>
+        </div>
+      );
+    }
+
+    if (!chatLogs.length) {
+      return (
+        <div className="memori-chat-history-drawer--empty">
+          <p>{t('widget.noChatHistoryAvailable') || 'No chat history available'}</p>
+        </div>
+      );
+    }
+
+    if (filteredChatLogs.length === 0) {
+      return (
+        <div className="memori-chat-history-drawer--no-results">
+          <p>{t('widget.noResultsFound', { searchText }) || 'No results found for &quot;{searchText}&quot;'}</p>
+        </div>
+      );
+    }
+
+    return (
+      <>
         <ul>
           {filteredChatLogs.map((chatLog: ChatLog) => (
             <Card
@@ -239,6 +244,38 @@ const ChatHistoryDrawer = ({
             </Button>
           </div>
         )}
+      </>
+    );
+  };
+
+  return (
+    <Drawer
+      className="memori-chat-history-drawer"
+      open={open}
+      onClose={onClose}
+      title={t('widget.chatHistory') || 'Chat History'}
+      description={t('widget.chatHistoryDescription')}
+    >
+      <div className="memori-chat-history-drawer--content">
+        <div className="memori-chat-history-drawer--search">
+          <input
+            type="text"
+            placeholder={t('search') || 'Search in chat history...'}
+            value={searchText}
+            onChange={(e) => {
+              setSearchText(e.target.value);
+              setCurrentPage(1); // Reset to first page when searching
+            }}
+            style={{
+              width: '100%',
+              padding: '8px',
+              marginBottom: '16px',
+              borderRadius: '4px',
+              border: '1px solid #ccc'
+            }}
+          />
+        </div>
+        {renderContent()}
       </div>
     </Drawer>
   );

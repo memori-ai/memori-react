@@ -104,6 +104,9 @@
     "expertsInTheBoard": "Expertos en este foro",
     "chatHistory": "Historial de chat",
     "chatHistoryDescription": "Mostrar el historial de chat con este agente",
+    "loadingChatHistory": "Cargando historial de chat...",
+    "noChatHistoryAvailable": "No hay historial de chat disponible",
+    "noResultsFound": "No se encontraron resultados para &quot;{{searchText}}&quot;",
     "goToIntegrationsToCustomizeAvatar": "Para personalizar el avatar, vaya a Compartir y personalice la página pública."
   },
   "write_and_speak": {

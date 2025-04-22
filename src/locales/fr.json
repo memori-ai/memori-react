@@ -104,7 +104,10 @@
     "expertsInTheBoard": "Experts dans ce forum",
     "goToIntegrationsToCustomizeAvatar": "Pour personnaliser l'avatar, allez dans Partager et personnalisez la page publique",
     "chatHistory": "Historique des discussions",
-    "chatHistoryDescription": "Afficher l'historique des discussions avec cet agent"
+    "chatHistoryDescription": "Afficher l'historique des discussions avec cet agent",
+    "loadingChatHistory": "Chargement de l'historique des discussions...",
+    "noChatHistoryAvailable": "Aucun historique des discussions disponible",
+    "noResultsFound": "Aucun résultat trouvé pour &quot;{{searchText}}&quot;"
   },
   "write_and_speak": {
     "micButtonPopover": "Cliquez sur le bouton pour parler",

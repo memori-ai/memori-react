@@ -104,6 +104,9 @@
     "expertsInTheBoard": "Experten in diesem Forum",
     "chatHistory": "Chatverlauf",
     "chatHistoryDescription": "Zeige den Chatverlauf mit diesem Agenten",
+    "loadingChatHistory": "Chatverlauf wird geladen...",
+    "noChatHistoryAvailable": "Kein Chatverlauf verfügbar",
+    "noResultsFound": "Keine Ergebnisse gefunden für &quot;{{searchText}}&quot;",
     "goToIntegrationsToCustomizeAvatar": "Um den Avatar anzupassen, gehen Sie zu „Teilen“ und passen Sie die öffentliche Seite an"
   },
   "write_and_speak": {

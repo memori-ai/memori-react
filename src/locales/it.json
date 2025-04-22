@@ -104,6 +104,9 @@
     "expertsInTheBoard": "Esperti di questo gruppo",
     "chatHistory": "Cronologia chat",
     "chatHistoryDescription": "Visualizza la cronologia delle chat con questo agente",
+    "loadingChatHistory": "Caricamento cronologia chat...",
+    "noChatHistoryAvailable": "Nessuna cronologia chat disponibile",
+    "noResultsFound": "Nessun risultato trovato per &quot;{{searchText}}&quot;",
     "goToIntegrationsToCustomizeAvatar": "Per personalizzare l'avatar, vai a Condividimi e configura la pagina pubblica"
   },
   "write_and_speak": {
