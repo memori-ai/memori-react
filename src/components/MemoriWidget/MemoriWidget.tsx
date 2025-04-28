@@ -108,7 +108,13 @@ const getMemoriState = (integrationId?: string): object | null => {
   if (!engineState) return null;
 
   let dialogState = JSON.parse(engineState);
-  return dialogState;
+
+  let loginToken = getLocalConfig<string | undefined>('loginToken', undefined);
+
+  return {
+    ...dialogState,
+    loginToken,
+  };
 };
 
 type MemoriTextEnteredEvent = CustomEvent<{
