@@ -839,7 +839,7 @@ const MemoriWidget = ({
             pushMessage({
               text: emission,
               emitter: currentState.emitter,
-              media: currentState.media,
+              media: currentState.emittedMedia ?? currentState.media,
               fromUser: false,
               questionAnswered: msg,
               generatedByAI: !!currentState.completion,
@@ -935,7 +935,7 @@ const MemoriWidget = ({
         translatedMsg = {
           text: emission,
           emitter: state.emitter,
-          media: state.media,
+          media: state.emittedMedia ?? state.media,
           fromUser: false,
           questionAnswered: msg,
           contextVars: state.contextVars,
@@ -992,7 +992,7 @@ const MemoriWidget = ({
             text: emission,
             translatedText: t.text,
             emitter: state.emitter,
-            media: state.media,
+            media: state.emittedMedia ?? state.media,
             fromUser: false,
             questionAnswered: msg,
             generatedByAI: !!state.completion,
@@ -1012,7 +1012,7 @@ const MemoriWidget = ({
         translatedMsg = {
           text: emission,
           emitter: state.emitter,
-          media: state.media,
+          media: state.emittedMedia ?? state.media,
           fromUser: false,
           questionAnswered: msg,
           contextVars: state.contextVars,
@@ -1072,7 +1072,7 @@ const MemoriWidget = ({
     );
     document.dispatchEvent(e);
 
-    const executableSnippets = state?.media?.filter(
+    const executableSnippets = (state?.emittedMedia ?? state?.media)?.filter(
       m => m.mimeType === 'text/javascript' && !!m.properties?.executable
     );
     executableSnippets?.forEach(s => {
@@ -1364,7 +1364,7 @@ const MemoriWidget = ({
                   {
                     text: currentState.emission,
                     emitter: currentState.emitter,
-                    media: currentState.media,
+                    media: currentState.emittedMedia ?? currentState.media,
                     fromUser: false,
                     initial: true,
                     contextVars: currentState.contextVars,
@@ -1380,7 +1380,7 @@ const MemoriWidget = ({
               : pushMessage({
                   text: currentState.emission,
                   emitter: currentState.emitter,
-                  media: currentState.media,
+                  media: currentState.emittedMedia ?? currentState.media,
                   fromUser: false,
                   initial: true,
                   contextVars: currentState.contextVars,
@@ -1654,7 +1654,7 @@ const MemoriWidget = ({
           pushMessage({
             text: emission,
             emitter: currentState.emitter,
-            media: currentState.media,
+            media: currentState.emittedMedia ?? currentState.media,
             fromUser: false,
             generatedByAI: !!currentState.completion,
             contextVars: currentState.contextVars,
