@@ -285,7 +285,6 @@ const FileUploadButton = ({
             }
 
             formattedText = formattedText.join('\n');
-
           } catch (formatError) {
             // Fallback to basic formatting if advanced fails
             formattedText = '';
@@ -294,7 +293,9 @@ const FileUploadButton = ({
               for (let c = range.s.c; c <= Math.min(range.e.c, 100); ++c) {
                 const cell =
                   worksheet[window.XLSX.utils.encode_cell({ r: r, c: c })];
-                row += (cell ? String(cell.v || '').padEnd(15) : ' '.repeat(15)) + '|';
+                row +=
+                  (cell ? String(cell.v || '').padEnd(15) : ' '.repeat(15)) +
+                  '|';
               }
               formattedText += row + '\n';
             }
@@ -394,7 +395,12 @@ const FileUploadButton = ({
 
       if (fileExt === 'pdf') {
         text = await extractTextFromPDF(file);
-      } else if (fileExt === 'txt' || fileExt === 'json' || fileExt === 'csv') {
+      } else if (
+        fileExt === 'txt' ||
+        fileExt === 'md' ||
+        fileExt === 'json' ||
+        fileExt === 'csv'
+      ) {
         text = await file.text();
       } else if (fileExt === 'xlsx') {
         text = await extractTextFromXLSX(file);
@@ -476,7 +482,7 @@ const FileUploadButton = ({
       <input
         ref={fileInputRef}
         type="file"
-        accept=".pdf,.txt,.json,.xlsx,.csv"
+        accept=".pdf,.txt,.md,.json,.xlsx,.csv"
         className="memori--upload-file-input"
         onChange={handleFileSelect}
         multiple
