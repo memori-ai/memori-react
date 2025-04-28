@@ -1,5 +1,36 @@
 
 
+## [7.24.0](https://github.com/memori-ai/memori-react/compare/v7.23.1...v7.24.0) (2025-04-28)
+
+
+### Features
+
+* add WithExpandable story to Chat component and update snapshots for expandable chat bubbles ([ec0e37f](https://github.com/memori-ai/memori-react/commit/ec0e37f1ddb18a7fb6e178a4e9908aefe1b7e30f))
+* enhance Expandable component with character and word limit options ([31b7e07](https://github.com/memori-ai/memori-react/commit/31b7e07818b9e358931b693a43b705ba6cc4f608))
+* enhance XLSX file parsing and formatting in UploadButton component ([419d866](https://github.com/memori-ai/memori-react/commit/419d8669f74fe6ea9bc6d345b0c213c6092c0cd1))
+* integrate Expandable component in ChatBubble and WhyThisAnswer for improved text display ([0509d65](https://github.com/memori-ai/memori-react/commit/0509d6574eae7aeb94b3eb0fda4f1577fe1159b9))
+
+
+### Bug Fixes
+
+* update default provider from OpenAI to Anthropic in CompletionProviderStatus component ([7a1847c](https://github.com/memori-ai/memori-react/commit/7a1847c9cce921d6763146a72f19bebfe16680e0))
+
+
+### Changes
+
+* add loginToken in getMemoriState ([f12f67c](https://github.com/memori-ai/memori-react/commit/f12f67cf16ad8590d9636ccfd1d8346bd2a652d9))
+* allow markdown as text upload ([546ba42](https://github.com/memori-ai/memori-react/commit/546ba424b63ecf533f1ed136504a2b752b9ab278))
+* expandable fix overflow + add stories ([9332bb5](https://github.com/memori-ai/memori-react/commit/9332bb592973292542a933fef9d9396073cd7385))
+* remove unnecessary concatenation in truncateMessage function ([7e1aacf](https://github.com/memori-ai/memori-react/commit/7e1aacf4956f0aa2959635af52a5c238edbf14da))
+* truncate user messages ([a181614](https://github.com/memori-ai/memori-react/commit/a1816140c550a47c2c5dcc8476545aed5a2118b7))
+
+
+### Maintenance
+
+* expandable remove debug text, fix colors and css ([91175e1](https://github.com/memori-ai/memori-react/commit/91175e1206f0048c53b3b3795a18f634205bae95))
+* switch state media to emittedMedia, with fallback ([f1d78ab](https://github.com/memori-ai/memori-react/commit/f1d78ab536244b4d689a87e095dbec6e010802b8))
+* update api client ([46ed9d9](https://github.com/memori-ai/memori-react/commit/46ed9d90952dfe24562a48523cce28eb018731da))
+
 ## [7.23.1](https://github.com/memori-ai/memori-react/compare/v7.23.0...v7.23.1) (2025-04-08)
 
 
