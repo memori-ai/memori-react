@@ -3,31 +3,163 @@
 exports[`renders UploadButton unchanged 1`] = `
 <div>
   <div
-    class="relative file-upload-wrapper"
+    class="memori--unified-upload-wrapper"
   >
-    <input
-      accept=".pdf,.txt,.md,.json,.xlsx,.csv"
-      class="memori--upload-file-input"
-      multiple=""
-      type="file"
-    />
     <button
-      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
-      title="Upload file"
+      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button memori--unified-upload-button"
+      title="Upload files"
     >
       <svg
-        aria-hidden="true"
         class="memori--upload-icon"
-        focusable="false"
-        role="img"
+        fill="none"
         viewBox="0 0 24 24"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"
+          d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+        />
+        <path
+          d="M17 8L12 3L7 8"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
+        />
+        <path
+          d="M12 3V15"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="1.5"
         />
       </svg>
     </button>
+    <div
+      class="memori--hidden-uploader"
+    >
+      <div
+        class="memori--document-upload-wrapper"
+      >
+        <input
+          accept=".pdf,.txt,.md,.json,.xlsx,.csv"
+          class="memori--upload-file-input"
+          multiple=""
+          type="file"
+        />
+        <button
+          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button memori--document-upload-button"
+          title="Upload documents"
+        >
+          <svg
+            class="memori--upload-icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M14 2.5H6C5.60218 2.5 5.22064 2.65804 4.93934 2.93934C4.65804 3.22064 4.5 3.60218 4.5 4V20C4.5 20.3978 4.65804 20.7794 4.93934 21.0607C5.22064 21.342 5.60218 21.5 6 21.5H18C18.3978 21.5 18.7794 21.342 19.0607 21.0607C19.342 20.7794 19.5 20.3978 19.5 20V8L14 2.5Z"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+            <path
+              d="M14 2.5V8H19.5"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+            <path
+              d="M16 13H8"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+            <path
+              d="M16 17H8"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+            <path
+              d="M10 9H8"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+          </svg>
+        </button>
+        <div
+          class="memori--error-message-container"
+        />
+      </div>
+    </div>
+    <div
+      class="memori--hidden-uploader"
+    >
+      <div
+        class="memori--image-upload-wrapper"
+      >
+        <input
+          accept="image/*"
+          class="memori--upload-file-input"
+          disabled=""
+          multiple=""
+          type="file"
+        />
+        <button
+          class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button memori--image-upload-button"
+          disabled=""
+          title="Please login to upload images"
+        >
+          <svg
+            class="memori--upload-icon"
+            fill="none"
+            viewBox="0 0 24 24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect
+              height="18"
+              rx="2"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              width="18"
+              x="3"
+              y="3"
+            />
+            <circle
+              cx="8.5"
+              cy="8.5"
+              fill="currentColor"
+              r="1.5"
+            />
+            <path
+              d="M21 15L16 10L5 21"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+            />
+          </svg>
+        </button>
+        <div
+          class="memori--error-message-container"
+        />
+        <div
+          class="memori--login-tip"
+        />
+      </div>
+    </div>
     <div
       class="memori--error-message-container"
     />
