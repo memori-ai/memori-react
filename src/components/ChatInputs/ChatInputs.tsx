@@ -41,6 +41,8 @@ export interface Props {
   microphoneMode?: 'CONTINUOUS' | 'HOLD_TO_TALK';
   authToken?: string;
   showUpload?: boolean;
+  sessionID?: string;
+  apiURL?: string;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -59,11 +61,14 @@ const ChatInputs: React.FC<Props> = ({
   startListening,
   stopListening,
   showUpload = false,
+  sessionID,
+  authToken,
+  apiURL,
 }) => {
   const { t } = useTranslation();
 
-  // State for file preview list
-  const [previewFiles, setPreviewFiles] = useState<
+  // State for document preview files
+  const [documentPreviewFiles, setDocumentPreviewFiles] = useState<
     { name: string; id: string; content: string }[]
   >([]);
 
@@ -73,12 +78,12 @@ const ChatInputs: React.FC<Props> = ({
   const onSendMessage = () => {
     sendMessage(
       userMessage,
-      previewFiles[0]
+      documentPreviewFiles[0]
         ? {
             mediumID: '',
             mimeType: 'text/plain',
-            content: previewFiles[0].content,
-            title: previewFiles[0].name,
+            content: documentPreviewFiles[0].content,
+            title: documentPreviewFiles[0].name,
             properties: {
               isAttachedFile: true,
             },
@@ -87,7 +92,7 @@ const ChatInputs: React.FC<Props> = ({
     );
 
     // Reset states after sending
-    setPreviewFiles([]);
+    setDocumentPreviewFiles([]);
     stopAudio();
     speechSynthesis.speak(new SpeechSynthesisUtterance(''));
   };
@@ -100,12 +105,12 @@ const ChatInputs: React.FC<Props> = ({
       stopListening();
       sendMessage(
         userMessage,
-        previewFiles[0]
+        documentPreviewFiles[0]
           ? {
               mediumID: '',
               mimeType: 'text/plain',
-              content: previewFiles[0].content,
-              title: previewFiles[0].name,
+              content: documentPreviewFiles[0].content,
+              title: documentPreviewFiles[0].name,
               properties: {
                 isAttachedFile: true,
               },
@@ -113,7 +118,7 @@ const ChatInputs: React.FC<Props> = ({
           : undefined
       );
 
-      setPreviewFiles([]);
+      setDocumentPreviewFiles([]);
       onChangeUserMessage('');
       resetTranscript();
     }
@@ -123,10 +128,11 @@ const ChatInputs: React.FC<Props> = ({
    * Removes a file from the preview list
    */
   const removeFile = (fileId: string) => {
-    setPreviewFiles((prev: { name: string; id: string; content: string }[]) =>
+    setDocumentPreviewFiles((prev: { name: string; id: string; content: string }[]) =>
       prev.filter((file: { id: string }) => file.id !== fileId)
     );
   };
+
 
   return (
     <fieldset
@@ -144,10 +150,22 @@ const ChatInputs: React.FC<Props> = ({
           dialogState?.state || ''
         )}
       />
-      {showUpload && (
+        {/* Preview for document files */}
+        {showUpload && (
         <>
-          <FilePreview previewFiles={previewFiles} removeFile={removeFile} />
-          <UploadButton setPreviewFiles={setPreviewFiles} />
+          <FilePreview 
+            previewFiles={documentPreviewFiles} 
+            removeFile={removeFile} 
+          />
+          
+          {/* Replace the individual buttons with our unified upload component */}
+          <UploadButton
+            authToken={authToken}
+            apiUrl={apiURL}
+            sessionID={sessionID}
+            isMediaAccepted={dialogState?.acceptsMedia || false}
+            setDocumentPreviewFiles={setDocumentPreviewFiles}
+          />
         </>
       )}
       <Button

@@ -340,6 +340,7 @@ const Chat: React.FC<Props> = ({
 
       {showInputs && (
         <ChatInputs
+          apiURL={apiUrl || ''}
           resetTranscript={resetTranscript}
           userMessage={userMessage}
           onChangeUserMessage={onChangeUserMessage}
@@ -350,6 +351,7 @@ const Chat: React.FC<Props> = ({
           microphoneMode={microphoneMode}
           sendOnEnter={sendOnEnter}
           setSendOnEnter={setSendOnEnter}
+          sessionID={sessionID}
           showUpload={showUpload}
           attachmentsMenuOpen={attachmentsMenuOpen}
           setAttachmentsMenuOpen={setAttachmentsMenuOpen}
