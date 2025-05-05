@@ -1,23 +1,29 @@
-const PreviewIcon = ({
-  className,
-  title,
-}: {
-  className?: string;
-  title?: string;
-}) => (
-  <svg
-    {...(!title ? { 'aria-hidden': 'true' } : {})}
-    focusable="false"
-    role="img"
-    xmlns="http://www.w3.org/2000/svg"
-    viewBox="0 0 24 24"
-    className={className}
-    aria-label={title}
-  >
-    <path
-      d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"
-    />
-  </svg>
-);
+import React from 'react';
 
-export default PreviewIcon;
+export const PreviewIcon: React.FC<{ className?: string }> = ({ className }) => {
+  return (
+    <svg 
+      className={className} 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path 
+        d="M1 12C1 12 5 4 12 4C19 4 23 12 23 12C23 12 19 20 12 20C5 20 1 12 1 12Z" 
+        stroke="currentColor" 
+        strokeWidth="1.5" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+      />
+      <circle 
+        cx="12" 
+        cy="12" 
+        r="3" 
+        stroke="currentColor" 
+        strokeWidth="1.5" 
+        strokeLinecap="round" 
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+};
