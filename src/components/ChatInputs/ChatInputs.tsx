@@ -43,6 +43,7 @@ export interface Props {
   showUpload?: boolean;
   sessionID?: string;
   apiURL?: string;
+  setPreviewFiles: (files: { name: string; id: string; content: string; mediumID: string | undefined }[]) => void;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -54,6 +55,7 @@ const ChatInputs: React.FC<Props> = ({
   onTextareaFocus,
   onTextareaBlur,
   resetTranscript,
+  setPreviewFiles,
   showMicrophone = false,
   microphoneMode = 'HOLD_TO_TALK',
   listening = false,
@@ -83,6 +85,7 @@ const ChatInputs: React.FC<Props> = ({
    */
   const onSendMessage = () => {
     const fileToSend = documentPreviewFiles.find(file => !file.mediumID);
+    setPreviewFiles(documentPreviewFiles);
     sendMessage(
       userMessage,
       fileToSend
@@ -137,8 +140,8 @@ const ChatInputs: React.FC<Props> = ({
   const removeFile = async (fileId: string, mediumID: string | undefined) => {
     console.log('removeFile', fileId);
     // Call the MediumDeselected event if dialog API is available
-    if (dialog.postMediumDeselectedEvent && sessionID) {
-      await dialog.postMediumDeselectedEvent(sessionID, mediumID || '');
+    if (dialog.postMediumDeselectedEvent && sessionID && mediumID) {
+      await dialog.postMediumDeselectedEvent(sessionID, mediumID);
     }
     setDocumentPreviewFiles(
       (prev: { name: string; id: string; content: string; mediumID: string | undefined }[]) =>
