@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { UploadIcon } from '../icons/Upload';
 import { DocumentIcon } from '../icons/Document';
 import { ImageIcon } from '../icons/Image';
+import { UploadIcon } from '../icons/Upload';
 import Spin from '../ui/Spin';
 import Alert from '../ui/Alert';
 import cx from 'classnames';
@@ -9,37 +9,36 @@ import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
 
 // Define types for files
-type CombinedFile = {
+type FilePreviewType = {
   name: string;
   id: string;
   content: string;
   type: 'document' | 'image';
+  mediumID?: string;
   previewUrl?: string;
 };
 
 // Props interface
-interface ParentComponentProps {
+interface UploadManagerProps {
   authToken?: string;
   apiUrl?: string;
   sessionID?: string;
-  isMediaAccepted?: boolean;  
+  isMediaAccepted?: boolean;
   setDocumentPreviewFiles: any;
-  documentPreviewFiles: any;
+  documentPreviewFiles: { name: string; id: string; content: string; mediumID?: string }[];
 }
 
-const UploadButton: React.FC<ParentComponentProps> = ({
+const UploadButton: React.FC<UploadManagerProps> = ({
   authToken = '',
   apiUrl = '',
   sessionID = '',
   isMediaAccepted = false,
   setDocumentPreviewFiles,
-  documentPreviewFiles,
+  documentPreviewFiles
 }) => {
   // State
   const [isLoading, setIsLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [documentFiles, setDocumentFiles] = useState<{ name: string; id: string; content: string }[]>([]);
-  const [allFiles, setAllFiles] = useState<CombinedFile[]>([]);
   const [errors, setErrors] = useState<{ message: string; severity: 'error' | 'warning' | 'info' }[]>([]);
   
   // Refs
@@ -88,20 +87,50 @@ const UploadButton: React.FC<ParentComponentProps> = ({
     };
   }, []);
   
-  // Handler for document files
+  // Menu handling
+
+  
+  // Click outside handler
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        menuRef.current && 
+        buttonRef.current && 
+        !menuRef.current.contains(event.target as Node) && 
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        closeMenu();
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+  
+  // Handler for document files - only stores the latest document
   const handleDocumentFiles = (files: { name: string; id: string; content: string }[]) => {
-    setDocumentFiles(files);
-    setDocumentPreviewFiles((prevFiles: { name: string; id: string; content: string; type: string }[]) => [...prevFiles, ...files]);
-    // Update combined files
-    const nonDocuments = allFiles.filter(file => file.type !== 'document');
+    if (files.length === 0) return;
     
-    const newDocuments = files.map(file => ({
-      ...file,
-      type: 'document' as const
-    }));
+    // For simplicity, we only take the first file
+    const file = files[0];
     
-    setAllFiles([...nonDocuments, ...newDocuments]);
+    // Format content with XML tags to improve readability for LLM
+    const formattedContent = `<Documento allegato al messaggio: ${file.name}>
+${file.content}
+</Documento allegato al messaggio: ${file.name}>`;
+    
+    // Replace existing file with new one
+    setDocumentPreviewFiles([{
+      name: file.name,
+      id: file.id,
+      content: formattedContent
+    }]);
+    
+    setIsLoading(false);
   };
+
 
   // When document option is clicked
   const handleDocumentClick = () => {
@@ -163,7 +192,10 @@ const UploadButton: React.FC<ParentComponentProps> = ({
             onClick={handleDocumentClick}
           >
             <DocumentIcon className="memori--upload-menu-icon" />
-            <span>Upload Document</span>
+            <span>
+              Upload Document
+              {documentPreviewFiles.length > 0 ? ' (Replace)' : ''}
+            </span>
           </div>
           
           <div 
@@ -174,7 +206,9 @@ const UploadButton: React.FC<ParentComponentProps> = ({
             title={!authToken ? "Please login to upload images" : "Upload image"}
           >
             <ImageIcon className="memori--upload-menu-icon-image" />
-            <span>Upload Image</span>
+            <span>
+              Upload Image
+            </span>
           </div>
         </div>
       )}
@@ -224,7 +258,6 @@ const UploadButton: React.FC<ParentComponentProps> = ({
           />
         </div>
       )}
-    
     </div>
   );
 };

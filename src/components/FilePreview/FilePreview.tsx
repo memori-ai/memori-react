@@ -5,6 +5,7 @@ import { ImageIcon } from '../icons/Image';
 import CloseIcon from '../icons/Close';
 import Button from '../ui/Button';
 import Modal from '../ui/Modal';
+import { stripHTML } from '../../helpers/utils';
 
 type FilePreviewProps = {
   previewFiles: { 
@@ -169,7 +170,7 @@ const FilePreview = ({
               style={{ maxWidth: '100%', maxHeight: '60vh' }} 
             />
           ) : (
-            selectedFile?.content
+            stripHTML(selectedFile?.content || '')
           )}
         </div>
       </Modal>

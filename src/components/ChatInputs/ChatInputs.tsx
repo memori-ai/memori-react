@@ -69,7 +69,7 @@ const ChatInputs: React.FC<Props> = ({
 
   // State for document preview files
   const [documentPreviewFiles, setDocumentPreviewFiles] = useState<
-    { name: string; id: string; content: string }[]
+    { name: string; id: string; content: string; mediumID: string | undefined }[]
   >([]);
 
   // Client
@@ -82,14 +82,15 @@ const ChatInputs: React.FC<Props> = ({
    * Handles sending a message, including any attached files
    */
   const onSendMessage = () => {
+    const fileToSend = documentPreviewFiles.find(file => !file.mediumID);
     sendMessage(
       userMessage,
-      documentPreviewFiles[0]
+      fileToSend
         ? {
             mediumID: '',
             mimeType: 'text/plain',
-            content: documentPreviewFiles[0].content,
-            title: documentPreviewFiles[0].name,
+            content: fileToSend.content,
+            title: fileToSend.name,
             properties: {
               isAttachedFile: true,
             },
@@ -140,7 +141,7 @@ const ChatInputs: React.FC<Props> = ({
       await dialog.postMediumDeselectedEvent(sessionID, mediumID || '');
     }
     setDocumentPreviewFiles(
-      (prev: { name: string; id: string; content: string }[]) =>
+      (prev: { name: string; id: string; content: string; mediumID: string | undefined }[]) =>
         prev.filter((file: { id: string }) => file.id !== fileId)
     );
   };

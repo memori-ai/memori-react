@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import cx from 'classnames';
 import { UploadIcon } from '../../icons/Upload';
 import Spin from '../../ui/Spin';
@@ -54,7 +54,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   const [errors, setErrors] = useState<UploadError[]>([]);
   const [previewFiles, setPreviewFiles] = useState<PreviewFile[]>([]);
   const [selectedFile, setSelectedFile] = useState<PreviewFile | null>(null);
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   // Refs
   const documentInputRef = useRef<HTMLInputElement>(null);
@@ -71,22 +70,10 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
     setTimeout(() => removeError(error.message), 5000);
   };
 
-  // File handling
-  const removeFile = async (fileId: string) => {
-    setPreviewFiles(prev => prev.filter(file => file.id !== fileId));
-    
-    // Update document preview files
-    const documentFiles = previewFiles
-      .filter(file => file.id !== fileId)
-      .map(({ name, id, content }) => ({ name, id, content }));
-    
-    setDocumentPreviewFiles(documentFiles);
-  };
-
   // Document upload
   const validateDocumentFile = (file: File): boolean => {
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
-    const ALLOWED_FILE_TYPES = ['.pdf', '.txt', '.json', '.xlsx', '.csv'];
+    const ALLOWED_FILE_TYPES = ['.pdf', '.txt', '.json', '.xlsx', '.csv', '.md']; // Added .md
 
     if (!ALLOWED_FILE_TYPES.includes(fileExt)) {
       addError({
@@ -240,72 +227,54 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
 
+    // Only process the first file
+    const file = files[0];
+
     setIsLoading(true);
     clearErrors();
 
-    const newDocumentFiles: { name: string; id: string; content: string }[] = [];
-
-    for (const file of files) {
-      if (!validateDocumentFile(file)) continue;
-
-      const fileId = Math.random().toString(36).substr(2, 9);
-      
-      try {
-        const text = await processDocumentFile(file);
-        
-        if (text) {
-          // Add to preview files
-          setPreviewFiles(prev => [
-            ...prev,
-            {
-              name: file.name,
-              id: fileId,
-              content: text,
-              type: 'document',
-            }
-          ]);
-          
-          // Add to document-specific preview
-          newDocumentFiles.push({
-            name: file.name,
-            id: fileId,
-            content: text,
-          });
-        }
-      } catch (error) {
-        addError({
-          message: `${error instanceof Error ? error.message : 'Unknown error'}`,
-          severity: 'error',
-          fileId: file.name,
-        });
+    if (!validateDocumentFile(file)) {
+      setIsLoading(false);
+      if (documentInputRef.current) {
+        documentInputRef.current.value = '';
       }
+      return;
     }
 
-    if (newDocumentFiles.length > 0) {
-      setDocumentPreviewFiles(newDocumentFiles);
+    const fileId = Math.random().toString(36).substr(2, 9);
+      
+    try {
+      const text = await processDocumentFile(file);
+      
+      if (text) {
+        // Replace existing preview files with the new one
+        const newPreviewFile = {
+          name: file.name,
+          id: fileId,
+          content: text,
+          type: 'document' as const,
+        };
+        
+        setPreviewFiles([newPreviewFile]);
+        
+        // Replace document preview files with the new one
+        setDocumentPreviewFiles([{
+          name: file.name,
+          id: fileId,
+          content: text,
+        }]);
+      }
+    } catch (error) {
+      addError({
+        message: `${error instanceof Error ? error.message : 'Unknown error'}`,
+        severity: 'error',
+        fileId: file.name,
+      });
     }
 
     setIsLoading(false);
     if (documentInputRef.current) {
       documentInputRef.current.value = '';
-    }
-  };
-
-  const getFileType = (filename: string) => {
-    const extension = filename.split('.').pop()?.toLowerCase();
-    switch (extension) {
-      case 'pdf':
-        return 'PDF';
-      case 'txt':
-        return 'Text';
-      case 'json':
-        return 'JSON';
-      case 'xlsx':
-        return 'Excel';
-      case 'csv':
-        return 'CSV';
-      default:
-        return 'File';
     }
   };
 
@@ -318,7 +287,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         accept=".pdf,.txt,.md,.json,.xlsx,.csv"
         className="memori--upload-file-input"
         onChange={handleDocumentUpload}
-        multiple
       />
       
       {/* Upload document button */}
