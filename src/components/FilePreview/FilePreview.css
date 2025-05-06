@@ -22,12 +22,14 @@
 
 .memori--message-preview {
   margin: 12px 0;
+  max-width: 100%;
 }
 
 .memori--preview-list {
   display: flex;
   flex-direction: row;
   gap: 8px;
+  overflow-x: auto;
 }
 
 .memori--preview-item {

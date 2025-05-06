@@ -8,13 +8,7 @@ import Modal from '../ui/Modal';
 import { stripHTML } from '../../helpers/utils';
 
 type FilePreviewProps = {
-  previewFiles: { 
-    name: string; 
-    id: string; 
-    content: string;
-    type?: string; // Added type to determine if it's an image or document
-    mediumID?: string;
-  }[];
+  previewFiles: any;
   removeFile: (id: string, mediumID: string | undefined) => void;
   allowRemove?: boolean;
   isMessagePreview?: boolean;
@@ -98,7 +92,7 @@ const FilePreview = ({
           }`}
         >
           <div className="memori--preview-list">
-            {previewFiles.map(file => (
+            {previewFiles.map((file: any) => (
               <div
                 key={file.id}
                 className={`memori--preview-item ${
