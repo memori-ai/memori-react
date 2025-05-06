@@ -22,8 +22,9 @@ interface ParentComponentProps {
   authToken?: string;
   apiUrl?: string;
   sessionID?: string;
-  isMediaAccepted?: boolean;
+  isMediaAccepted?: boolean;  
   setDocumentPreviewFiles: any;
+  documentPreviewFiles: any;
 }
 
 const UploadButton: React.FC<ParentComponentProps> = ({
@@ -32,6 +33,7 @@ const UploadButton: React.FC<ParentComponentProps> = ({
   sessionID = '',
   isMediaAccepted = false,
   setDocumentPreviewFiles,
+  documentPreviewFiles,
 }) => {
   // State
   const [isLoading, setIsLoading] = useState(false);
@@ -190,6 +192,7 @@ const UploadButton: React.FC<ParentComponentProps> = ({
           apiUrl={apiUrl}
           setDocumentPreviewFiles={setDocumentPreviewFiles}
           sessionID={sessionID}
+          documentPreviewFiles={documentPreviewFiles}
           isMediaAccepted={isMediaAccepted}
         />
       </div>

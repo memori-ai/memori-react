@@ -12,8 +12,9 @@ type FilePreviewProps = {
     id: string; 
     content: string;
     type?: string; // Added type to determine if it's an image or document
+    mediumID?: string;
   }[];
-  removeFile: (id: string) => void;
+  removeFile: (id: string, mediumID: string | undefined) => void;
   allowRemove?: boolean;
   isMessagePreview?: boolean;
 };
@@ -43,12 +44,6 @@ const FilePreview = ({
           return 'JPEG';
         case 'png':
           return 'PNG';
-        case 'gif':
-          return 'GIF';
-        case 'webp':
-          return 'WebP';
-        case 'svg':
-          return 'SVG';
         default:
           return 'Image';
       }
@@ -72,12 +67,6 @@ const FilePreview = ({
         return 'JPEG';
       case 'png':
         return 'PNG';
-      case 'gif':
-        return 'GIF';
-      case 'webp':
-        return 'WebP';
-      case 'svg':
-        return 'SVG';
       default:
         return 'Document';
     }
@@ -145,7 +134,7 @@ const FilePreview = ({
                     }`}
                     onClick={e => {
                       e.stopPropagation();
-                      removeFile(file.id);
+                      removeFile(file.id, file?.mediumID);
                     }}
                   />
                 )}

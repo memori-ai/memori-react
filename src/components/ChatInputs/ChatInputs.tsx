@@ -9,7 +9,7 @@ import cx from 'classnames';
 import Microphone from '../icons/Microphone';
 import UploadButton from '../UploadButton/UploadButton';
 import FilePreview from '../FilePreview/FilePreview';
-
+import memoriApiClient from '@memori.ai/memori-api-client';
 export interface Props {
   dialogState?: DialogState;
   instruct?: boolean;
@@ -72,6 +72,12 @@ const ChatInputs: React.FC<Props> = ({
     { name: string; id: string; content: string }[]
   >([]);
 
+  // Client
+  const client = apiURL ? memoriApiClient(apiURL) : null;
+  const { dialog } = client || {
+    dialog: { postMediumDeselectedEvent: null },
+  };
+
   /**
    * Handles sending a message, including any attached files
    */
@@ -127,12 +133,17 @@ const ChatInputs: React.FC<Props> = ({
   /**
    * Removes a file from the preview list
    */
-  const removeFile = (fileId: string) => {
-    setDocumentPreviewFiles((prev: { name: string; id: string; content: string }[]) =>
-      prev.filter((file: { id: string }) => file.id !== fileId)
+  const removeFile = async (fileId: string, mediumID: string | undefined) => {
+    console.log('removeFile', fileId);
+    // Call the MediumDeselected event if dialog API is available
+    if (dialog.postMediumDeselectedEvent && sessionID) {
+      await dialog.postMediumDeselectedEvent(sessionID, mediumID || '');
+    }
+    setDocumentPreviewFiles(
+      (prev: { name: string; id: string; content: string }[]) =>
+        prev.filter((file: { id: string }) => file.id !== fileId)
     );
   };
-
 
   return (
     <fieldset
@@ -150,14 +161,14 @@ const ChatInputs: React.FC<Props> = ({
           dialogState?.state || ''
         )}
       />
-        {/* Preview for document files */}
-        {showUpload && (
+      {/* Preview for document files */}
+      {showUpload && (
         <>
-          <FilePreview 
-            previewFiles={documentPreviewFiles} 
-            removeFile={removeFile} 
+          <FilePreview
+            previewFiles={documentPreviewFiles}
+            removeFile={removeFile}
           />
-          
+
           {/* Replace the individual buttons with our unified upload component */}
           <UploadButton
             authToken={authToken}
@@ -165,6 +176,7 @@ const ChatInputs: React.FC<Props> = ({
             sessionID={sessionID}
             isMediaAccepted={dialogState?.acceptsMedia || false}
             setDocumentPreviewFiles={setDocumentPreviewFiles}
+            documentPreviewFiles={documentPreviewFiles}
           />
         </>
       )}

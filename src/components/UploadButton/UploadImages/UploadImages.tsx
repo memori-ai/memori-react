@@ -57,8 +57,15 @@ interface UploadImagesProps {
   sessionID?: string;
   isMediaAccepted?: boolean;
   setDocumentPreviewFiles: any;
+  documentPreviewFiles: any;
   onLoadingChange?: (loading: boolean) => void;
 }
+
+const ALLOWED_FILE_TYPES = [
+  '.jpg',
+  '.jpeg',
+  '.png',
+];
 
 const UploadImages: React.FC<UploadImagesProps> = ({
   authToken = '',
@@ -66,6 +73,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
   sessionID = '',
   isMediaAccepted = false,
   setDocumentPreviewFiles,
+  documentPreviewFiles,
   onLoadingChange,
 }) => {
   // Client
@@ -105,34 +113,10 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     setTimeout(() => removeError(error.message), 5000);
   };
 
-  // File handling
-  const removeFile = async (fileId: string) => {
-    // Remove from preview files
-    setPreviewFiles(prev => prev.filter(file => file.id !== fileId));
-    
-    // Remove from image files state
-    setImageFiles(prev => prev.filter(file => file.id !== fileId));
-    
-    // Update parent component state
-    setDocumentPreviewFiles((prevFiles: { name: string; id: string; content: string; type: string }[]) => prevFiles.filter(file => file.id !== fileId));
-
-    // Call the MediumDeselected event if dialog API is available
-    if (dialog.postMediumDeselectedEvent && sessionID) {
-      await dialog.postMediumDeselectedEvent(sessionID, fileId);
-    }
-  };
 
   // Image upload
   const validateImageFile = (file: File): boolean => {
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
-    const ALLOWED_FILE_TYPES = [
-      '.jpg',
-      '.jpeg',
-      '.png',
-      '.gif',
-      '.webp',
-      '.svg',
-    ];
 
     if (
       !ALLOWED_FILE_TYPES.includes(fileExt) &&
@@ -235,14 +219,42 @@ const UploadImages: React.FC<UploadImagesProps> = ({
               setImageFiles(prev => [...prev, newImageFile]);
 
               // Call the MediumSelected event if dialog API is available
+              let medium: any = null;
               if (dialog?.postMediumSelectedEvent && sessionID) {
-                await dialog.postMediumSelectedEvent(sessionID, {
+                medium = await dialog.postMediumSelectedEvent(sessionID, {
                   url: asset.assetURL,
                   mimeType: asset.mimeType,
                 } as Medium);
+                console.log('medium', medium);
               }
-              // Update parent component with the new file
-              setDocumentPreviewFiles((prevFiles: { name: string; id: string; content: string; type: string }[]) => [...prevFiles, newImageFile]);
+
+              // Find mediumID that isn't already in documentPreviewFiles
+              let finalMediumID: string | undefined = undefined;
+              if (medium?.currentState?.currentMedia) {
+
+                // create a set of existing mediumIDs
+                const existingMediumIDs = new Set(
+                  documentPreviewFiles.map((file: any) => file.mediumID)
+                );
+
+                // find the first mediumID that isn't already in the set
+                finalMediumID = medium.currentState.currentMedia.find(
+                  (media: any) => !existingMediumIDs.has(media.mediumID)
+                )?.mediumID;
+                console.log('finalMediumID', finalMediumID);
+              }
+
+              // Update parent component with the new file, including all properties and mediumID
+              setDocumentPreviewFiles((prevFiles: { name: string; id: string; content: string; type: string; mediumID: string | undefined }[]) => [
+                ...prevFiles,
+                {
+                  name: file.name,
+                  id: fileId,
+                  content: asset.assetURL,
+                  type: 'image',
+                  mediumID: finalMediumID
+                }
+              ]);
             } catch (error) {
               setPreviewFiles(prev =>
                 prev.map(item =>
@@ -305,12 +317,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({
         return 'JPEG';
       case 'png':
         return 'PNG';
-      case 'gif':
-        return 'GIF';
-      case 'webp':
-        return 'WebP';
-      case 'svg':
-        return 'SVG';
       default:
         return 'Image';
     }
@@ -322,7 +328,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
       <input
         ref={imageInputRef}
         type="file"
-        accept="image/*"
+        accept={ALLOWED_FILE_TYPES.join(',')}
         className="memori--upload-file-input"
         onChange={handleImageUpload}
         disabled={!isMediaAccepted || !authToken}
@@ -352,61 +358,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({
           <ImageIcon className="memori--upload-icon" />
         )}
       </button>
-
-      {/* File previews */}
-      {previewFiles.length > 0 && (
-        <div className="memori--preview-container memori--absolute-preview">
-          <div className="memori--preview-list">
-            {previewFiles.map(file => (
-              <div
-                key={file.id}
-                className={cx('memori--preview-item', {
-                  'memori--preview-item--image': true,
-                  'memori--preview-item--uploaded': file.uploaded,
-                  'memori--preview-item--error': file.error,
-                })}
-                onMouseEnter={() => setHoveredId(file.id)}
-                onMouseLeave={() => setHoveredId(null)}
-                onClick={() => setSelectedFile(file)}
-              >
-                {file.previewUrl ? (
-                  <div className="memori--preview-thumbnail">
-                    <img src={file.previewUrl} alt={file.name} />
-                  </div>
-                ) : null}
-
-                <div className="memori--preview-file-info">
-                  <span className="memori--preview-filename">{file.name}</span>
-                  <span className="memori--preview-filetype">
-                    {getFileType(file.name)}
-                    {file.uploaded && (
-                      <span className="memori--upload-status">• Uploaded</span>
-                    )}
-                    {file.error && (
-                      <span className="memori--upload-status memori--upload-status-error">
-                        • Failed
-                      </span>
-                    )}
-                  </span>
-                </div>
-
-                <Button
-                  shape="rounded"
-                  icon={<CloseIcon />}
-                  danger
-                  className={`memori--remove-button ${
-                    hoveredId === file.id ? 'visible' : ''
-                  }`}
-                  onClick={e => {
-                    e.stopPropagation();
-                    removeFile(file.id);
-                  }}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
 
       {/* Modal */}
       <Modal

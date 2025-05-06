@@ -109,7 +109,7 @@ exports[`renders UploadButton unchanged 1`] = `
         class="memori--image-upload-wrapper"
       >
         <input
-          accept="image/*"
+          accept=".jpg,.jpeg,.png"
           class="memori--upload-file-input"
           disabled=""
           multiple=""
