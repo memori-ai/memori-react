@@ -204,6 +204,28 @@ it('renders StartPanel with position required unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders StartPanel with login required unchanged', () => {
+  const { container } = render(
+    <StartPanel
+      memori={{
+        ...memori,
+        requireLoginToken: true,
+      }}
+      tenant={tenant}
+      language="it"
+      userLang="en"
+      setUserLang={() => {}}
+      openPositionDrawer={() => {}}
+      instruct={true}
+      sessionId={sessionID}
+      clickedStart={false}
+      onClickStart={() => {}}
+      setShowLoginDrawer={jest.fn()}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
 it('renders StartPanel with integrationConfig unchanged', () => {
   const { container } = render(
     <StartPanel
