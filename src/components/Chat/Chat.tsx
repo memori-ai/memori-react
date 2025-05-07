@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, useState } from 'react';
 import cx from 'classnames';
 import {
   DialogState,
@@ -126,6 +126,8 @@ const Chat: React.FC<Props> = ({
   experts,
   useMathFormatting = false,
 }) => {
+
+  const [previewFiles, setPreviewFiles] = useState<{ name: string; id: string; content: string; mediumID: string | undefined }[]>([]);
   const scrollToBottom = () => {
     setTimeout(() => {
       let userMsgs = document.querySelectorAll(
@@ -230,6 +232,7 @@ const Chat: React.FC<Props> = ({
                 experts={experts}
                 showCopyButton={showCopyButton}
                 useMathFormatting={useMathFormatting}
+                previewFiles={previewFiles}
               />
 
               {showDates && !!message.timestamp && (
@@ -340,6 +343,7 @@ const Chat: React.FC<Props> = ({
 
       {showInputs && (
         <ChatInputs
+          apiURL={apiUrl || ''}
           resetTranscript={resetTranscript}
           userMessage={userMessage}
           onChangeUserMessage={onChangeUserMessage}
@@ -350,6 +354,7 @@ const Chat: React.FC<Props> = ({
           microphoneMode={microphoneMode}
           sendOnEnter={sendOnEnter}
           setSendOnEnter={setSendOnEnter}
+          sessionID={sessionID}
           showUpload={showUpload}
           attachmentsMenuOpen={attachmentsMenuOpen}
           setAttachmentsMenuOpen={setAttachmentsMenuOpen}
@@ -361,6 +366,7 @@ const Chat: React.FC<Props> = ({
           listening={listening}
           isPlayingAudio={isPlayingAudio}
           showMicrophone={showMicrophone}
+          setPreviewFiles={setPreviewFiles}
         />
       )}
     </div>
