@@ -47,7 +47,6 @@ exports[`renders UploadButton unchanged 1`] = `
         <input
           accept=".pdf,.txt,.md,.json,.xlsx,.csv"
           class="memori--upload-file-input"
-          multiple=""
           type="file"
         />
         <button

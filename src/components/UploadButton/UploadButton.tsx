@@ -25,7 +25,12 @@ interface UploadManagerProps {
   sessionID?: string;
   isMediaAccepted?: boolean;
   setDocumentPreviewFiles: any;
-  documentPreviewFiles: { name: string; id: string; content: string; mediumID?: string }[];
+  documentPreviewFiles: {
+    name: string;
+    id: string;
+    content: string;
+    mediumID?: string;
+  }[];
 }
 
 const UploadButton: React.FC<UploadManagerProps> = ({
@@ -34,31 +39,36 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   sessionID = '',
   isMediaAccepted = false,
   setDocumentPreviewFiles,
-  documentPreviewFiles
+  documentPreviewFiles,
 }) => {
   // State
   const [isLoading, setIsLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [errors, setErrors] = useState<{ message: string; severity: 'error' | 'warning' | 'info' }[]>([]);
-  
+  const [errors, setErrors] = useState<
+    { message: string; severity: 'error' | 'warning' | 'info' }[]
+  >([]);
+
   // Refs
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const documentRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
-  
+
   // Error handling
   const clearErrors = () => setErrors([]);
-  
+
   const removeError = (errorMessage: string) => {
     setErrors(prev => prev.filter(e => e.message !== errorMessage));
   };
-  
-  const addError = (error: { message: string; severity: 'error' | 'warning' | 'info' }) => {
+
+  const addError = (error: {
+    message: string;
+    severity: 'error' | 'warning' | 'info';
+  }) => {
     setErrors(prev => [...prev, error]);
     setTimeout(() => removeError(error.message), 5000);
   };
-  
+
   // Menu handling
   const toggleMenu = () => {
     setMenuOpen(prev => !prev);
@@ -67,14 +77,14 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   const closeMenu = () => {
     setMenuOpen(false);
   };
-  
+
   // Click outside handler
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        menuRef.current && 
-        buttonRef.current && 
-        !menuRef.current.contains(event.target as Node) && 
+        menuRef.current &&
+        buttonRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
         !buttonRef.current.contains(event.target as Node)
       ) {
         closeMenu();
@@ -86,17 +96,16 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-  
+
   // Menu handling
 
-  
   // Click outside handler
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        menuRef.current && 
-        buttonRef.current && 
-        !menuRef.current.contains(event.target as Node) && 
+        menuRef.current &&
+        buttonRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
         !buttonRef.current.contains(event.target as Node)
       ) {
         closeMenu();
@@ -108,29 +117,38 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-  
+
   // Handler for document files - only stores the latest document
-  const handleDocumentFiles = (files: { name: string; id: string; content: string }[]) => {
+  const handleDocumentFiles = (
+    files: { name: string; id: string; content: string }[]
+  ) => {
     if (files.length === 0) return;
-    
+
     // For simplicity, we only take the first file
     const file = files[0];
-    
+
     // Format content with XML tags to improve readability for LLM
     const formattedContent = `<Documento allegato al messaggio: ${file.name}>
 ${file.content}
 </Documento allegato al messaggio: ${file.name}>`;
-    
+
+    //keep just the images in the documentPreviewFiles
+    const imageFiles = documentPreviewFiles.filter(
+      (file: any) => file.type === 'image'
+    );
+
     // Replace existing file with new one
-    setDocumentPreviewFiles([{
-      name: file.name,
-      id: file.id,
-      content: formattedContent
-    }]);
-    
+    setDocumentPreviewFiles([
+      {
+        name: file.name,
+        id: file.id,
+        content: formattedContent,
+      },
+      ...imageFiles,
+    ]);
+
     setIsLoading(false);
   };
-
 
   // When document option is clicked
   const handleDocumentClick = () => {
@@ -141,7 +159,7 @@ ${file.content}
     }
     closeMenu();
   };
-  
+
   // When image option is clicked
   const handleImageClick = () => {
     if (isMediaAccepted && authToken) {
@@ -152,13 +170,13 @@ ${file.content}
       }
     } else if (!authToken) {
       addError({
-        message: "Please login to upload images",
-        severity: "info"
+        message: 'Please login to upload images',
+        severity: 'info',
       });
     }
     closeMenu();
   };
-  
+
   return (
     <div className="memori--unified-upload-wrapper">
       {/* Main upload button */}
@@ -183,11 +201,11 @@ ${file.content}
           <UploadIcon className="memori--upload-icon" />
         )}
       </button>
-      
+
       {/* Floating menu */}
       {menuOpen && (
         <div className="memori--upload-menu" ref={menuRef}>
-          <div 
+          <div
             className="memori--upload-menu-item"
             onClick={handleDocumentClick}
           >
@@ -197,31 +215,30 @@ ${file.content}
               {documentPreviewFiles.length > 0 ? ' (Replace)' : ''}
             </span>
           </div>
-          
-          <div 
-            className={cx("memori--upload-menu-item", {
-              "memori--upload-menu-item--disabled": !isMediaAccepted || !authToken
+
+          <div
+            className={cx('memori--upload-menu-item', {
+              'memori--upload-menu-item--disabled':
+                !isMediaAccepted || !authToken,
             })}
             onClick={handleImageClick}
-            title={!authToken ? "Please login to upload images" : "Upload image"}
+            title={
+              !authToken ? 'Please login to upload images' : 'Upload image'
+            }
           >
             <ImageIcon className="memori--upload-menu-icon-image" />
-            <span>
-              Upload Image
-            </span>
+            <span>Upload Image</span>
           </div>
         </div>
       )}
-      
+
       {/* Hidden components */}
       <div className="memori--hidden-uploader" ref={documentRef}>
-        <UploadDocuments 
-          setDocumentPreviewFiles={handleDocumentFiles}
-        />
+        <UploadDocuments setDocumentPreviewFiles={handleDocumentFiles} />
       </div>
-      
+
       <div className="memori--hidden-uploader" ref={imageRef}>
-        <UploadImages 
+        <UploadImages
           authToken={authToken}
           apiUrl={apiUrl}
           setDocumentPreviewFiles={setDocumentPreviewFiles}
@@ -230,7 +247,7 @@ ${file.content}
           isMediaAccepted={isMediaAccepted}
         />
       </div>
-      
+
       {/* Error messages container */}
       <div className="memori--error-message-container">
         {errors.map((error, index) => (
@@ -245,7 +262,7 @@ ${file.content}
           />
         ))}
       </div>
-      
+
       {/* Login tip */}
       {!authToken && menuOpen && (
         <div className="memori--login-tip">
