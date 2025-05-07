@@ -1,5 +1,12 @@
 
 
+## [7.25.0](https://github.com/memori-ai/memori-react/compare/v7.24.0...v7.25.0) (2025-05-07)
+
+
+### Features
+
+* support for login-required sessions ([631388a](https://github.com/memori-ai/memori-react/commit/631388afa101d4b41d29feff1e0880a4b924e32f))
+
 ## [7.24.0](https://github.com/memori-ai/memori-react/compare/v7.23.1...v7.24.0) (2025-04-28)
 
 
