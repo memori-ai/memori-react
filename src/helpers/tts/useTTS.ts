@@ -1,8 +1,10 @@
-// tts/useTTS.ts
+// Improved useTTS.ts with better viseme handling
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { sanitizeText } from '../sanitizer';
 import { getLocalConfig } from '../configuration';
 import Alert from '../../components/ui/Alert';
+import { useViseme } from '../../context/visemeContext';
+import { IAudioContext } from 'standardized-audio-context';
 
 /**
  * Configurazione per il TTS
@@ -15,6 +17,11 @@ export interface TTSConfig {
   tenant?: string; // Tenant identifier for multi-tenant applications
 }
 
+type VisemeData = {
+  visemeId: number;
+  audioOffset: number;
+};
+
 /**
  * Opzioni per l'hook useTTS
  */
@@ -24,6 +31,13 @@ export interface UseTTSOptions {
   onEndSpeakStartListen?: () => void;
   preview?: boolean;
   disableSpeaker?: boolean;
+}
+
+// Create our own simplified audio context interface for better typing
+interface SimpleAudioWrapper {
+  currentTime: number;
+  state: 'running' | 'suspended' | 'closed';
+  onstatechange: ((this: AudioContext, ev: Event) => any) | null;
 }
 
 /**
@@ -36,62 +50,157 @@ export function useTTS(
   defaultEnableAudio: boolean = true,
   defaultSpeakerActive: boolean = true
 ) {
-  console.log('[useTTS] Initializing with config:', config);
-  console.log('[useTTS] Options:', options);
-
   // Stato locale
   const [isPlaying, setIsPlaying] = useState(false);
   const [speakerMuted, setSpeakerMuted] = useState(
-      getLocalConfig(
-        'muteSpeaker',
-        !defaultEnableAudio || !defaultSpeakerActive || autoStart
-      )
-  );
-  const [hasUserActivatedSpeak, setHasUserActivatedSpeak] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
-  const [showAlert, setShowAlert] = useState(false);
-  // Riferimenti
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const globalSpeakRef = useRef<Function | null>(null);
-  const apiUrl = options.apiUrl || '/api/tts';
-  console.log(
-    'speakerMuted',
-    speakerMuted,
-    'autoStart',
-    autoStart,
-    'defaultEnableAudio',
-    defaultEnableAudio,
-    'defaultSpeakerActive',
-    defaultSpeakerActive,
-    'getLocalConfig',
     getLocalConfig(
       'muteSpeaker',
       !defaultEnableAudio || !defaultSpeakerActive || autoStart
     )
   );
+  // Get viseme methods from your context
+  const {
+    addViseme,
+    resetVisemeQueue,
+    startProcessing,
+    stopProcessing,
+  } = useViseme();
+  const [hasUserActivatedSpeak, setHasUserActivatedSpeak] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
+  
+  // Riferimenti
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+  const audioWrapperRef = useRef<SimpleAudioWrapper | null>(null);
+  const globalSpeakRef = useRef<Function | null>(null);
+  const visemeLoadedRef = useRef<boolean>(false);
+  const apiUrl = options.apiUrl || '/api/tts';
 
-  /**
-   * Cleanup delle risorse audio
-   */
-  const cleanup = useCallback(() => {
-    console.log('[useTTS] Cleaning up audio resources');
-    if (audioRef.current?.src) {
-      URL.revokeObjectURL(audioRef.current.src);
-      audioRef.current = null;
+  // Load viseme data into the queue
+  const loadVisemeData = useCallback(
+    (visemeData: VisemeData[]) => {
+      // Make sure we're in a clean state before loading new visemes
+      resetVisemeQueue();
+      visemeLoadedRef.current = false;
+
+      if (visemeData && visemeData.length > 0) {
+        console.log(`[useTTS] Loading ${visemeData.length} viseme events`);
+        visemeData.forEach(viseme => {
+          addViseme(viseme.visemeId, viseme.audioOffset);
+        });
+        visemeLoadedRef.current = true;
+        return true;
+      } else {
+        console.warn('[useTTS] No viseme data available');
+        return false;
+      }
+    },
+    [addViseme, resetVisemeQueue]
+  );
+
+  // Create audio wrapper for viseme processing
+  const createAudioWrapper = useCallback(() => {
+    if (!audioRef.current) {
+      console.warn('[useTTS] Cannot create audio wrapper: audio element is null');
+      return null;
     }
+
+    // Create a clean wrapper for this audio session
+    const wrapper: SimpleAudioWrapper = {
+      state: 'running',
+      onstatechange: null,
+      get currentTime() {
+        return audioRef.current ? audioRef.current.currentTime : 0;
+      }
+    };
+
+    // Add event listeners to update the state
+    const handlePause = () => {
+      wrapper.state = 'suspended';
+      if (wrapper.onstatechange) {
+        wrapper.onstatechange.call(null as any, new Event('statechange'));
+      }
+    };
+
+    const handlePlay = () => {
+      wrapper.state = 'running';
+      if (wrapper.onstatechange) {
+        wrapper.onstatechange.call(null as any, new Event('statechange'));
+      }
+    };
+
+    const handleEnded = () => {
+      wrapper.state = 'closed';
+      if (wrapper.onstatechange) {
+        wrapper.onstatechange.call(null as any, new Event('statechange'));
+      }
+    };
+
+    // Attach event listeners to the audio element
+    audioRef.current.addEventListener('pause', handlePause);
+    audioRef.current.addEventListener('play', handlePlay);
+    audioRef.current.addEventListener('ended', handleEnded);
+
+    // Store cleanup function
+    const cleanupEventListeners = () => {
+      if (audioRef.current) {
+        audioRef.current.removeEventListener('pause', handlePause);
+        audioRef.current.removeEventListener('play', handlePlay);
+        audioRef.current.removeEventListener('ended', handleEnded);
+      }
+    };
+
+    // Store the cleanup function on the wrapper for later use
+    (wrapper as any).cleanup = cleanupEventListeners;
+
+    console.log('[useTTS] Created audio wrapper for viseme processing');
+    return wrapper;
   }, []);
 
   /**
-   * Interrompe la riproduzione in corso
+   * Performs a complete cleanup of audio and viseme resources
+   */
+  const cleanup = useCallback(() => {
+    console.log('[useTTS] Cleaning up audio and viseme resources');
+    
+    // First, clean up audio wrapper
+    if (audioWrapperRef.current && (audioWrapperRef.current as any).cleanup) {
+      (audioWrapperRef.current as any).cleanup();
+      console.log('[useTTS] Cleaned up audio wrapper event listeners');
+    }
+    audioWrapperRef.current = null;
+    
+    // Then stop viseme processing
+    stopProcessing();
+    console.log('[useTTS] Stopped viseme processing');
+    
+    // Finally clean up audio resources
+    if (audioRef.current?.src) {
+      URL.revokeObjectURL(audioRef.current.src);
+      console.log('[useTTS] Revoked audio object URL');
+      audioRef.current = null;
+    }
+    
+    // Reset viseme loaded flag
+    visemeLoadedRef.current = false;
+  }, [stopProcessing]);
+
+  /**
+   * Stops audio playback and cleans up
    */
   const stop = useCallback((): void => {
     console.log('[useTTS] Stopping audio playback');
+    
+    // Pause audio first
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
-      cleanup();
     }
+    
+    // Set UI state
     setIsPlaying(false);
+    
+    // Clean up all resources
+    cleanup();
   }, [cleanup]);
 
   /**
@@ -132,7 +241,7 @@ export function useTTS(
       }
 
       try {
-        // Interrompe qualsiasi riproduzione in corso
+        // Perform complete cleanup of any previous state
         stop();
 
         // Notifica l'inizio
@@ -143,12 +252,13 @@ export function useTTS(
         const processedText = sanitizeText(text);
         console.log('[useTTS] Processed text:', processedText);
 
-        // Prepara la richiesta all'API (senza inviare l'apiKey dal client)
+        // Prepara la richiesta all'API
         console.log(
           '[useTTS] Making API request to:',
           'http://localhost:3000/api/tts',
           config.voice
         );
+        
         const response = await fetch('http://localhost:3000/api/tts', {
           method: 'POST',
           headers: {
@@ -156,11 +266,12 @@ export function useTTS(
           },
           body: JSON.stringify({
             text: processedText,
-            tenant: config.tenant || 'www.aisuru.com', // Usa il tenant specificato o default
+            tenant: config.tenant || 'www.aisuru.com',
             voice: config.voice,
             model: config.model || 'tts-1',
             region: config.region,
             provider: config.provider,
+            includeVisemes: true,
           }),
         });
 
@@ -168,46 +279,104 @@ export function useTTS(
           const errorData = await response.json().catch(() => ({}));
           throw new Error(errorData.error || `API error: ${response.status}`);
         }
+        
+        // Extract viseme data from header
+        console.log('[useTTS] Checking for viseme data in response headers');
+        const visemeDataHeader = response.headers.get('X-Viseme-Data');
+        console.log('[useTTS] Viseme data header present:', visemeDataHeader ? 'Yes' : 'No');
+        
+        let hasVisemeData = false;
+        if (visemeDataHeader) {
+          console.log('[useTTS] Found viseme data header, attempting to parse');
+          try {
+            const visemeData: VisemeData[] = JSON.parse(visemeDataHeader);
+            console.log('[useTTS] Successfully parsed viseme data, entries:', visemeData.length);
+            
+            // Load viseme data BEFORE audio setup
+            hasVisemeData = loadVisemeData(visemeData);
+            console.log('[useTTS] Loaded viseme data into queue:', hasVisemeData);
+          } catch (err) {
+            console.error('[useTTS] Failed to parse viseme data:', err);
+          }
+        } else {
+          console.log('[useTTS] No viseme data found in response headers');
+        }
 
-        // Ottiene il blob audio dalla risposta
+        // Get audio blob from response
+        console.log('[useTTS] Getting audio blob from response');
         const audioBlob = await response.blob();
         console.log('[useTTS] Received audio blob of size:', audioBlob.size);
         const audioUrl = URL.createObjectURL(audioBlob);
+        console.log('[useTTS] Created audio URL:', audioUrl);
 
-        // Crea un elemento audio
+        // Create new audio element
+        console.log('[useTTS] Creating new Audio element');
         audioRef.current = new Audio(audioUrl);
 
-        // Configura gli eventi dell'audio
+        // Set up event listeners for the audio element
+        console.log('[useTTS] Configuring audio event handlers');
+        
+        // Create the audio wrapper first
+        if (hasVisemeData) {
+          audioWrapperRef.current = createAudioWrapper();
+        }
+        
+        // Configure audio event handlers
+        audioRef.current.oncanplaythrough = async () => {
+          console.log('[useTTS] Audio can play through, ready to start playback');
+          
+          try {
+            // Start viseme processing if we have data BEFORE playing audio
+            if (hasVisemeData && audioWrapperRef.current) {
+              console.log('[useTTS] Starting viseme processing before audio playback');
+              startProcessing(audioWrapperRef.current as unknown as IAudioContext);
+              console.log('[useTTS] Viseme processing started successfully');
+            }
+            
+            // Start audio playback
+            console.log('[useTTS] Starting audio playback');
+            await audioRef.current?.play();
+            console.log('[useTTS] Audio playback started successfully');
+            
+            // Remove the event handler to avoid calling it multiple times
+            if (audioRef.current) {
+              audioRef.current.oncanplaythrough = null;
+            }
+          } catch (e) {
+            console.error('[useTTS] Error in canplaythrough handler:', e);
+            cleanup();
+            emitEndSpeakEvent();
+          }
+        };
+        
         audioRef.current.onended = () => {
           console.log('[useTTS] Audio playback ended normally');
           setIsPlaying(false);
+          cleanup(); // This will also stop viseme processing
           emitEndSpeakEvent();
-          cleanup();
         };
 
         audioRef.current.onerror = e => {
           console.error('[useTTS] Audio playback error:', e);
           setIsPlaying(false);
+          cleanup(); // This will also stop viseme processing
           const errorMsg = new Error(`Audio error: ${e}`);
           setError(errorMsg);
-          cleanup();
           emitEndSpeakEvent();
         };
-
-        // Riproduci l'audio
-        console.log('[useTTS] Starting audio playback');
-        await audioRef.current.play();
+        
+        // Begin loading the audio
+        console.log('[useTTS] Beginning audio load');
+        audioRef.current.load();
+        
       } catch (err) {
         console.error('[useTTS] Error during speech synthesis:', err);
-        if (err instanceof Error && err.message.includes('play() failed')) {
-          setError(err);
-        }
         setIsPlaying(false);
+        cleanup();
         const errorMsg = err instanceof Error ? err : new Error(String(err));
         setError(errorMsg);
-        console.error('TTS error:', err);
 
-        // Fallback a sintesi vocale nativa del browser
+        // Fallback to browser's native speech synthesis if available
         try {
           if ('speechSynthesis' in window) {
             console.log('[useTTS] Attempting browser fallback synthesis');
@@ -225,13 +394,15 @@ export function useTTS(
       }
     },
     [
-      apiUrl,
       config,
       speakerMuted,
       options.preview,
       hasUserActivatedSpeak,
       stop,
       cleanup,
+      loadVisemeData,
+      createAudioWrapper,
+      startProcessing,
       emitEndSpeakEvent,
     ]
   );
