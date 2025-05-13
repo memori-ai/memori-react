@@ -617,3 +617,121 @@ WithHTML.args = {
 `,
   },
 };
+
+
+// 9. Complex HTML Table
+export const ComplexHTMLTable = Template.bind({});
+ComplexHTMLTable.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: `<table border="1" style="border-collapse: collapse; width: 100%;">
+    <thead>
+      <tr style="background-color: #f2f2f2;">
+        <th colspan="3" style="text-align: center; padding: 8px;">Project Timeline</th>
+      </tr>
+      <tr style="background-color: #f2f2f2;">
+        <th style="text-align: left; padding: 8px;">Phase</th>
+        <th style="text-align: left; padding: 8px;">Start Date</th>
+        <th style="text-align: left; padding: 8px;">End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 8px;">Planning</td>
+        <td style="padding: 8px;">Jan 15, 2025</td>
+        <td style="padding: 8px;">Feb 28, 2025</td>
+      </tr>
+      <tr style="background-color: #f9f9f9;">
+        <td style="padding: 8px;">Development</td>
+        <td style="padding: 8px;">Mar 1, 2025</td>
+        <td style="padding: 8px;">Jun 30, 2025</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px;">Testing</td>
+        <td style="padding: 8px;">Jul 1, 2025</td>
+        <td style="padding: 8px;">Aug 15, 2025</td>
+      </tr>
+      <tr style="background-color: #f9f9f9;">
+        <td style="padding: 8px;">Deployment</td>
+        <td style="padding: 8px;">Aug 16, 2025</td>
+        <td style="padding: 8px;">Sep 30, 2025</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr style="background-color: #f2f2f2;">
+        <td colspan="3" style="text-align: center; padding: 8px;">Total Duration: 8.5 months</td>
+      </tr>
+    </tfoot>
+  </table>`,
+    initial: false,
+  },
+};
+ComplexHTMLTable.parameters = {
+  docs: {
+    description: {
+      story: 'A message containing a complex HTML table that should trigger the loading spinner before rendering.',
+    },
+  },
+};
+
+//10. Long text message
+export const MediumLongTextMessage = Template.bind({});
+MediumLongTextMessage.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: Array(100).fill('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.').join('\n\n'),
+    initial: false,
+  },
+};
+
+export const LongTextMessage = Template.bind({});
+LongTextMessage.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: Array(200).fill('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.').join('\n\n'),
+    initial: false,
+  },
+};
+
+export const LongTextMessageWithHTML = Template.bind({});
+LongTextMessageWithHTML.args = {
+  memori,
+  tenant, 
+  message: {
+    fromUser: false,
+    text: Array(200).fill('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat.').join('\n\n') + `
+    <div>
+    <div style="width: 30%; margin-bottom: 20px;">
+    <img src="https://www.e-stayon.com/images/thumbs/0244280_lenovo-ideapad-3-chromebook-15-intel-celeron-4gb-64gb_360.jpeg" style="width:100%">
+    <h3>Lenovo IdeaPad 3 Chromebook</h3>
+    <p>Intel Celeron, 15", 4GB RAM, 64GB</p>
+    <p>Prezzo: €194,88 (sconto 12% da €221,59)</p>
+    </div>`,
+  },
+};
+
+
+// 10. Message with an embedded helper function to show requiresFormatting detection
+export const FormattingDetectionDemo = Template.bind({});
+FormattingDetectionDemo.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'This message demonstrates how the formatting detection works.\n\nBelow are some examples of content that will be detected as requiring formatting:\n\n1. HTML tags: <div>Example</div>\n2. Markdown tables: | Header | Content |\n3. Code blocks: ```javascript\nconst x = 1;\n```\n4. Math formulas: $E = mc^2$\n5. Tabbed data: Name\tAge\tLocation\n\nThe requiresFormatting function will detect these patterns and show a loading spinner.',
+    initial: false,
+  },
+};
+FormattingDetectionDemo.parameters = {
+  docs: {
+    description: {
+      story: 'A demonstration of different content patterns that trigger the loading spinner.',
+    },
+  },
+};
