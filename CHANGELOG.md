@@ -1,5 +1,12 @@
 
 
+## [7.25.1](https://github.com/memori-ai/memori-react/compare/v7.25.0...v7.25.1) (2025-05-13)
+
+
+### Bug Fixes
+
+* show login if requiredLoginToken enabled ([174722d](https://github.com/memori-ai/memori-react/commit/174722d10e37b4b953290c8e8e8b8ee772e66adc))
+
 ## [7.25.0](https://github.com/memori-ai/memori-react/compare/v7.24.0...v7.25.0) (2025-05-07)
 
 
