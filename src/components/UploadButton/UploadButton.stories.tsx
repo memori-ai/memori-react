@@ -17,7 +17,7 @@ interface UploadButtonProps {
 
 const meta: Meta<UploadButtonProps> = {
   title: 'Widget/Upload Button',
-  component: UploadButton,
+  component: UploadButton as React.ComponentType<UploadButtonProps>,
   argTypes: {
     disabled: {
       control: {
@@ -80,7 +80,7 @@ const Template: Story<UploadButtonProps> = (args) => {
         }}
       >
         <div style={{ alignSelf: 'flex-end', marginBottom: '20px' }}>
-          <UploadButton {...args} setDocumentPreviewFiles={setDocumentPreviewFiles} />
+          <UploadButton {...args} setDocumentPreviewFiles={setDocumentPreviewFiles} documentPreviewFiles={documentPreviewFiles} />
         </div>
         
         {documentPreviewFiles.length > 0 && (

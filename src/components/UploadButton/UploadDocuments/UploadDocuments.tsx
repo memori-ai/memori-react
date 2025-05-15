@@ -44,15 +44,18 @@ declare global {
 // Props interface
 interface UploadDocumentsProps {
   setDocumentPreviewFiles: (files: { name: string; id: string; content: string }[]) => void;
+  maxDocuments?: number;
+  documentPreviewFiles: any;
 }
 
 const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   setDocumentPreviewFiles,
+  maxDocuments,
+  documentPreviewFiles,
 }) => {
   // State
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<UploadError[]>([]);
-  const [previewFiles, setPreviewFiles] = useState<PreviewFile[]>([]);
   const [selectedFile, setSelectedFile] = useState<PreviewFile | null>(null);
 
   // Refs
@@ -247,15 +250,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       const text = await processDocumentFile(file);
       
       if (text) {
-        // Replace existing preview files with the new one
-        const newPreviewFile = {
-          name: file.name,
-          id: fileId,
-          content: text,
-          type: 'document' as const,
-        };
-        
-        setPreviewFiles([newPreviewFile]);
         
         // Replace document preview files with the new one
         setDocumentPreviewFiles([{
@@ -301,7 +295,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           { 'memori--error': errors.length > 0 }
         )}
         onClick={() => documentInputRef.current?.click()}
-        disabled={isLoading}
+        disabled={isLoading || (maxDocuments && documentPreviewFiles.length >= maxDocuments) || false}
         title="Upload documents"
       >
         {isLoading ? (

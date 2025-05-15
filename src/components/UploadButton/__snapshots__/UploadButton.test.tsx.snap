@@ -7,7 +7,7 @@ exports[`renders UploadButton unchanged 1`] = `
   >
     <button
       class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button memori--unified-upload-button"
-      title="Upload files"
+      title="upload.uploadFiles"
     >
       <svg
         class="memori--upload-icon"
@@ -117,7 +117,6 @@ exports[`renders UploadButton unchanged 1`] = `
         <button
           class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button memori--image-upload-button"
           disabled=""
-          title="Please login to upload images"
         >
           <svg
             class="memori--upload-icon"
@@ -153,9 +152,6 @@ exports[`renders UploadButton unchanged 1`] = `
         </button>
         <div
           class="memori--error-message-container"
-        />
-        <div
-          class="memori--login-tip"
         />
       </div>
     </div>

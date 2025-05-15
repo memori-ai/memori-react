@@ -155,21 +155,6 @@
   color: #666;
 }
 
-/* Floating Menu */
-.memori--upload-menu {
-  position: absolute;
-  z-index: 1000;
-  right: 0;
-  bottom: 50px;
-  width: 200px;
-  padding: 8px 0;
-  border-radius: 12px;
-  animation: fadeIn 0.2s ease;
-  background-color: #fff;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  transform-origin: bottom right;
-}
-
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -197,15 +182,6 @@
   transform: translateX(4px);
 }
 
-.memori--upload-menu-item--disabled {
-  cursor: not-allowed;
-  opacity: 0.5;
-}
-
-.memori--upload-menu-item--disabled:hover {
-  background-color: transparent;
-  transform: none;
-}
 
 /* Menu icons - Consolidated styles */
 .memori--upload-menu-icon,
@@ -428,6 +404,74 @@
 .memori--file-stats p {
   padding: 2px 0;
   margin: 0;
+}
+
+/* Improved image count indicator */
+.memori--image-count {
+  position: absolute;
+  z-index: 5;
+  top: -8px;
+  right: -8px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background-color: #4dabf7;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.memori--image-count-full {
+  background-color: #fa5252;
+}
+
+/* Styled upload slots info */
+.memori--upload-slots-info {
+  margin-left: 4px;
+  color: #868e96;
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* Disabled menu item styling */
+.memori--upload-menu-item--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.memori--upload-menu-item--disabled:hover {
+  background-color: transparent;
+  transform: none;
+}
+
+/* Enhanced floating menu */
+.memori--upload-menu {
+  position: absolute;
+  z-index: 1000;
+  right: 0;
+  bottom: 50px;
+  width: 220px; /* Slightly wider to accommodate the text */
+  padding: 8px 0;
+  border-radius: 12px;
+  animation: fadeIn 0.2s ease;
+  background-color: #fff;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  transform-origin: bottom right;
+}
+
+/* Menu item hover effect */
+.memori--upload-menu-item:hover:not(.memori--upload-menu-item--disabled) {
+  background-color: #f5f5f5;
+  transform: translateX(4px);
+}
+
+/* Error container positioning */
+.memori--error-message-container {
+  position: absolute;
+  z-index: 1001;
+  right: 0;
+  bottom: 50px;
+  min-width: 250px;
 }
 
 /* Animation Keyframes */
