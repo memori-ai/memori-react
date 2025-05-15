@@ -156,6 +156,22 @@
     "attachmentsLabel": "Enriquece tu mensaje",
     "iWantToTalkToIn": "quiero hablar con {{name}} en"
   },
+  "upload": {
+    "loginRequired": "Connexion requise",
+    "loginRequiredDescription": "Veuillez vous connecter pour télécharger des images",
+    "uploadFiles": "Télécharger des fichiers",
+    "uploadImage": "Télécharger une image",
+    "uploadDocument": "Télécharger un document",
+    "apiClientNotConfigured": "API client non configuré correctement pour le téléchargement de médias",
+    "fileReadingFailed": "Échec de la lecture du fichier",
+    "uploadFailed": "Échec du téléchargement",
+    "uploadSuccess": "Téléchargement réussi",
+    "uploadSuccessDescription": "Le fichier a été téléchargé avec succès",
+    "replace": "Remplacer",
+    "maxImagesReached": "Vous pouvez télécharger jusqu'à {{max}} images",
+    "remaining": "restant",
+    "maxReached": "Limite atteinte"
+  },
   "media": {
     "title": "Título",
     "editAttributes": "Editar atributos de medios",

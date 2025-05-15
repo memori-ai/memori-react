@@ -168,6 +168,22 @@
     "attachmentsLabel": "Enrich your message",
     "iWantToTalkToIn": "I want to talk to {{name}} in"
   },
+  "upload": {
+    "loginRequired": "Login required",
+    "loginRequiredDescription": "Please login to upload images",
+    "uploadFiles": "Upload files",
+    "uploadImage": "Upload image",
+    "uploadDocument": "Upload document",
+    "replace": "Replace",
+    "maxImagesReached": "You can upload up to {{max}} images",
+    "remaining": "remaining",
+    "maxReached": "Max limit reached",
+    "apiClientNotConfigured": "API client not configured properly for media upload",
+    "fileReadingFailed": "File reading failed",
+    "uploadFailed": "Upload failed",
+    "uploadSuccess": "Upload success",
+    "uploadSuccessDescription": "The file has been uploaded successfully"
+  },
   "media": {
     "title": "Title",
     "editAttributes": "Edit media attributes",

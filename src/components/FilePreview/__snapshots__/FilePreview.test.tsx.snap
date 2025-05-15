@@ -5,31 +5,70 @@ exports[`renders FilePreview unchanged 1`] = `<div />`;
 exports[`renders FilePreview with one file 1`] = `
 <div>
   <div
-    class="memori--preview-container memori--absolute-preview"
+    class="memori--preview-container  memori--absolute-preview"
   >
     <div
       class="memori--preview-list"
     >
       <div
-        class="memori--preview-item"
+        class="memori--preview-item memori--preview-item--document"
       >
         <svg
-          aria-hidden="true"
           class="memori--preview-icon"
-          focusable="false"
-          role="img"
+          fill="none"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"
+            d="M14 2.5H6C5.60218 2.5 5.22064 2.65804 4.93934 2.93934C4.65804 3.22064 4.5 3.60218 4.5 4V20C4.5 20.3978 4.65804 20.7794 4.93934 21.0607C5.22064 21.342 5.60218 21.5 6 21.5H18C18.3978 21.5 18.7794 21.342 19.0607 21.0607C19.342 20.7794 19.5 20.3978 19.5 20V8L14 2.5Z"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+          />
+          <path
+            d="M14 2.5V8H19.5"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+          />
+          <path
+            d="M16 13H8"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+          />
+          <path
+            d="M16 17H8"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+          />
+          <path
+            d="M10 9H8"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
           />
         </svg>
-        <span
-          class="memori--preview-filename"
+        <div
+          class="memori--preview-file-info"
         >
-          test.pdf
-        </span>
+          <span
+            class="memori--preview-filename"
+          >
+            test.pdf
+          </span>
+          <span
+            class="memori--preview-filetype"
+          >
+            PDF
+          </span>
+        </div>
         <button
           class="memori-button memori-button--rounded memori-button--padded memori-button--icon-only memori-button--danger memori--remove-button "
         >
@@ -58,31 +97,70 @@ exports[`renders FilePreview with one file 1`] = `
 exports[`renders FilePreview with two files 1`] = `
 <div>
   <div
-    class="memori--preview-container memori--absolute-preview"
+    class="memori--preview-container  memori--absolute-preview"
   >
     <div
       class="memori--preview-list"
     >
       <div
-        class="memori--preview-item"
+        class="memori--preview-item memori--preview-item--document"
       >
         <svg
-          aria-hidden="true"
           class="memori--preview-icon"
-          focusable="false"
-          role="img"
+          fill="none"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"
+            d="M14 2.5H6C5.60218 2.5 5.22064 2.65804 4.93934 2.93934C4.65804 3.22064 4.5 3.60218 4.5 4V20C4.5 20.3978 4.65804 20.7794 4.93934 21.0607C5.22064 21.342 5.60218 21.5 6 21.5H18C18.3978 21.5 18.7794 21.342 19.0607 21.0607C19.342 20.7794 19.5 20.3978 19.5 20V8L14 2.5Z"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+          />
+          <path
+            d="M14 2.5V8H19.5"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+          />
+          <path
+            d="M16 13H8"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+          />
+          <path
+            d="M16 17H8"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+          />
+          <path
+            d="M10 9H8"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
           />
         </svg>
-        <span
-          class="memori--preview-filename"
+        <div
+          class="memori--preview-file-info"
         >
-          test.pdf
-        </span>
+          <span
+            class="memori--preview-filename"
+          >
+            test.pdf
+          </span>
+          <span
+            class="memori--preview-filetype"
+          >
+            PDF
+          </span>
+        </div>
         <button
           class="memori-button memori-button--rounded memori-button--padded memori-button--icon-only memori-button--danger memori--remove-button "
         >
@@ -104,25 +182,64 @@ exports[`renders FilePreview with two files 1`] = `
         </button>
       </div>
       <div
-        class="memori--preview-item"
+        class="memori--preview-item memori--preview-item--document"
       >
         <svg
-          aria-hidden="true"
           class="memori--preview-icon"
-          focusable="false"
-          role="img"
+          fill="none"
           viewBox="0 0 24 24"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"
+            d="M14 2.5H6C5.60218 2.5 5.22064 2.65804 4.93934 2.93934C4.65804 3.22064 4.5 3.60218 4.5 4V20C4.5 20.3978 4.65804 20.7794 4.93934 21.0607C5.22064 21.342 5.60218 21.5 6 21.5H18C18.3978 21.5 18.7794 21.342 19.0607 21.0607C19.342 20.7794 19.5 20.3978 19.5 20V8L14 2.5Z"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+          />
+          <path
+            d="M14 2.5V8H19.5"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+          />
+          <path
+            d="M16 13H8"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+          />
+          <path
+            d="M16 17H8"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
+          />
+          <path
+            d="M10 9H8"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.5"
           />
         </svg>
-        <span
-          class="memori--preview-filename"
+        <div
+          class="memori--preview-file-info"
         >
-          test.pdf
-        </span>
+          <span
+            class="memori--preview-filename"
+          >
+            test.pdf
+          </span>
+          <span
+            class="memori--preview-filetype"
+          >
+            PDF
+          </span>
+        </div>
         <button
           class="memori-button memori-button--rounded memori-button--padded memori-button--icon-only memori-button--danger memori--remove-button "
         >

@@ -156,6 +156,22 @@
     "attachmentsLabel": "Bereichern Sie Ihre Botschaft",
     "iWantToTalkToIn": "Ich möchte mit reden {{name}} In"
   },
+  "upload": {
+    "loginRequired": "Login erforderlich",
+    "loginRequiredDescription": "Bitte melden Sie sich an, um Bilder hochzuladen",
+    "uploadFiles": "Dateien hochladen",
+    "uploadImage": "Bild hochladen",
+    "uploadDocument": "Dokument hochladen",
+    "replace": "Ersetzen",
+    "remaining": "verbleibend",
+    "maxReached": "Maximal erreicht",
+    "apiClientNotConfigured": "Client API nicht korrekt konfiguriert für das Hochladen von Medien",
+    "fileReadingFailed": "Datei lesen fehlgeschlagen",
+    "uploadFailed": "Hochladen fehlgeschlagen",
+    "uploadSuccess": "Hochladen erfolgreich",
+    "uploadSuccessDescription": "Die Datei wurde erfolgreich hochgeladen",
+    "maxImagesReached": "Sie können bis zu {{max}} Bilder hochladen"
+  },
   "media": {
     "title": "Titel",
     "editAttributes": "Medienattribute bearbeiten",

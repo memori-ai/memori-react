@@ -21,6 +21,7 @@ it('renders ChatInputs unchanged', () => {
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
       showMicrophone={true}
+      setPreviewFiles={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -44,6 +45,7 @@ it('renders ChatInputs with user message unchanged', () => {
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
       showMicrophone={true}
+      setPreviewFiles={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -71,6 +73,7 @@ it('renders ChatInputs on instruct unchanged', () => {
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
       showMicrophone={true}
+      setPreviewFiles={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -94,6 +97,7 @@ it('renders ChatInputs listening unchanged', () => {
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
       showMicrophone={true}
+      setPreviewFiles={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -117,6 +121,7 @@ it('renders ChatInputs without microphone button unchanged', () => {
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
       showMicrophone={false}
+      setPreviewFiles={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();
@@ -143,6 +148,7 @@ it('renders ChatInputs disabled unchanged', () => {
       stopListening={jest.fn()}
       resetTranscript={jest.fn()}
       showMicrophone={true}
+      setPreviewFiles={jest.fn()}
     />
   );
   expect(container).toMatchSnapshot();

@@ -187,6 +187,22 @@
     "linkValue": "Titolo link",
     "insertThisLink": "Inserisci un link a {{url}} con titolo {{title}}"
   },
+  "upload": {
+    "loginRequired": "Login richiesto",
+    "loginRequiredDescription": "Per caricare immagini, devi prima accedere",
+    "uploadFiles": "Carica file",
+    "uploadImage": "Carica immagine",
+    "uploadDocument": "Carica documento",
+    "replace": "Sostituisci documento",
+    "maxImagesReached": "Puoi caricare fino a {{max}} immagini",
+    "apiClientNotConfigured": "Client API non configurato correttamente per il caricamento di media",
+    "fileReadingFailed": "Lettura del file fallita",
+    "uploadFailed": "Caricamento fallito",
+    "uploadSuccess": "Caricamento riuscito",
+    "remaining": "rimanenti",
+    "maxReached": "Limite raggiunto",
+    "uploadSuccessDescription": "Il file è stato caricato con successo"
+  },
   "gamification": {
     "level": "Livello",
     "points": "punti",
