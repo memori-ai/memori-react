@@ -30,6 +30,12 @@
     line-height: 1.33;
 }
 
+/* Ensure the loading state doesn't affect the bubble sizing too much */
+.memori-chat--bubble-container .memori-chat--bubble {
+    width: 100%;
+    min-width: 120px;
+}
+
 .memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble {
     min-width: 9rem;
 }
@@ -292,6 +298,7 @@
 
 .memori-chat--bubble-content {
     width: 100%;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .memori-chat--bubble output {
@@ -304,4 +311,113 @@
 
 .memori-chat--bubble.memori-chat--user-bubble .memori-expandable > button {
     color: var(--memori-primary-text);
+}
+
+.memori-chat--bubble-loading {
+    display: flex;
+    min-height: 100px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 12px;
+    background-color: rgba(0, 0, 0, 0.03);
+}
+
+/* Make the antd spinner match the theme better */
+.memori-chat--bubble-loading .ant-spin {
+    color: inherit;
+}
+
+.memori-chat--bubble-loading .ant-spin-text {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    opacity: 0.8;
+}
+
+/* Add a subtle pulse animation to the loading spinner */
+@keyframes pulse {
+    0% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.6;
+    }
+}
+
+.memori-chat--bubble-loading .ant-spin-dot {
+    animation: pulse 2s infinite ease-in-out;
+}
+
+/* Make user messages with loading state visually distinct */
+.memori-chat--user-bubble .memori-chat--bubble-loading {
+    background-color: rgba(0, 100, 255, 0.03);
+}
+
+/* Styles for large message handling */
+.memori-chat--large-message {
+    max-width: 95% !important; /* Allow large messages to use more space */
+}
+
+/* Virtualized content styles */
+.memori-chat--virtualized-content {
+    height: auto;
+    max-height: 500px;
+    padding: 5px 10px;
+    margin: 0;
+    overflow-y: auto;
+}
+
+.virtualized-content-container {
+    overflow: hidden;
+    width: 100%;
+    border-radius: 8px;
+    scrollbar-color: rgba(0, 0, 0, 0.2) rgba(0, 0, 0, 0.05);
+    scrollbar-width: thin;
+}
+
+.virtualized-content-line {
+    width: 100%;
+    padding: 2px 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.virtualized-content-loading {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    color: rgba(0, 0, 0, 0.45);
+    font-size: 14px;
+}
+
+/* Add scrollbar styling for better UX */
+.virtualized-content-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.virtualized-content-container::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.virtualized-content-container::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.virtualized-content-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+/* Optimized performance for large messages */
+.memori-chat--large-content {
+    contain: content; /* CSS containment for performance */
+    content-visibility: auto; /* Automatically manage content rendering */
+    will-change: transform; /* Optimize for animations */
 }
