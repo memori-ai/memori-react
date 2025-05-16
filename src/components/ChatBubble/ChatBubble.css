@@ -305,3 +305,13 @@
 .memori-chat--bubble.memori-chat--user-bubble .memori-expandable > button {
     color: var(--memori-primary-text);
 }
+
+.memori-chat--function-cache-modal .memori-modal--panel {
+    width: 80%;
+    height: 100%;
+    /* padding: 20px; */
+    max-height: 80vh;
+    border-radius: 10px;
+    background-color: #fff;
+    overflow-y: auto;
+}
