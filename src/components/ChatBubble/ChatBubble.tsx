@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState, useRef, lazy, Suspense } from 'react';
 import cx from 'classnames';
 import {
   ExpertReference,
@@ -25,6 +25,7 @@ import { stripHTML, stripOutputTags } from '../../helpers/utils';
 import FilePreview from '../FilePreview/FilePreview';
 import { renderMsg, truncateMessage } from '../../helpers/message';
 import Expandable from '../ui/Expandable';
+import Spin from '../ui/Spin';
 
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
@@ -37,6 +38,9 @@ declare global {
     };
   }
 }
+
+// Import virtualized list component - using dynamic import for better performance
+const VirtualizedContent = lazy(() => import('./VirtualizedContent/VirtualizedContent'));
 
 export interface Props {
   message: Message;
@@ -57,6 +61,14 @@ export interface Props {
   user?: User;
   experts?: ExpertReference[];
 }
+
+// The size threshold for when to use virtualized rendering
+const LARGE_MESSAGE_THRESHOLD = 5000; // characters
+
+// Helper function to check if a message is large and needs special handling
+const isLargeMessage = (message: Message): boolean => {
+  return message.text.length > LARGE_MESSAGE_THRESHOLD;
+};
 
 const ChatBubble: React.FC<Props> = ({
   message,
@@ -80,6 +92,25 @@ const ChatBubble: React.FC<Props> = ({
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const contentRef = useRef<HTMLDivElement>(null);
+  
+  // For large messages, set loading state briefly to show loading indicator
+  useEffect(() => {
+    if (isLargeMessage(message)) {
+      // Just show loading indicator briefly
+      setIsLoading(true);
+      
+      // Use a short timeout to allow UI to update before rendering virtualized content
+      const timer = setTimeout(() => {
+        setIsLoading(false);
+      }, 100);
+      
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [message.text]);
 
   // Initialize MathJax on component mount
   useEffect(() => {
@@ -94,32 +125,54 @@ const ChatBubble: React.FC<Props> = ({
     ? truncateMessage(text)
     : stripHTML(stripOutputTags(renderedText));
 
-  // Render MathJax whenever message content changes
-  useLayoutEffect(() => {
-    if (typeof window !== 'undefined' && !message.fromUser) {
-      // Allow a short delay for the DOM to update
-      const timer = setTimeout(() => {
-        if (window.MathJax && window.MathJax.typesetPromise) {
-          try {
-            const elements = document.querySelectorAll(
-              '.memori-chat--bubble-content'
-            );
-            if (elements.length > 0) {
-              window.MathJax.typesetPromise([
-                '.memori-chat--bubble-content',
-              ]).catch(err =>
-                console.error('MathJax typesetting failed:', err)
-              );
-            }
-          } catch (error) {
-            console.error('Error during MathJax typesetting:', error);
-          }
-        }
-      }, 100);
+  // Determine if we should use virtualized rendering
+  const useVirtualizedRendering = isLargeMessage(message);
 
-      return () => clearTimeout(timer);
+  // Render the message content based on size and formatting needs
+  const renderMessageContent = () => {
+    if (isLoading) {
+      // Show loading spinner for any content that's processing
+      return (
+        <div className="memori-chat--bubble-content memori-chat--bubble-loading">
+          <Spin />
+        </div>
+      );
+    } else if (useVirtualizedRendering) {
+      // For large messages, use virtualized rendering immediately
+      return (
+        <Suspense fallback={<Spin />}>
+          <VirtualizedContent 
+            content={renderedText} 
+            className="memori-chat--bubble-content memori-chat--virtualized-content"
+          />
+        </Suspense>
+      );
+    } else if (message.fromUser) {
+      // For regular user messages that don't need formatting, keep the expandable
+      return (
+        <Expandable
+          className="memori-chat--bubble-content"
+          mode="characters"
+        >
+          <div
+            dir="auto"
+            className="memori-chat--bubble-content"
+            dangerouslySetInnerHTML={{ __html: renderedText }}
+          />
+        </Expandable>
+      );
+    } else {
+      // For all other messages, render directly
+      return (
+        <div
+          dir="auto"
+          ref={contentRef}
+          className="memori-chat--bubble-content"
+          dangerouslySetInnerHTML={{ __html: renderedText }}
+        />
+      );
     }
-  }, [message.text, message.fromUser, renderedText]);
+  };
 
   return (
     <>
@@ -135,6 +188,7 @@ const ChatBubble: React.FC<Props> = ({
           'memori-chat--with-addon':
             (message.generatedByAI && showAIicon) ||
             (showFeedback && simulateUserPrompt),
+          'memori-chat--large-content': useVirtualizedRendering,
         })}
       >
         {!message.fromUser && (
@@ -221,6 +275,7 @@ const ChatBubble: React.FC<Props> = ({
               (showFeedback && simulateUserPrompt),
             'memori-chat--ai-generated': message.generatedByAI && showAIicon,
             'memori-chat--with-feedback': showFeedback,
+            'memori-chat--large-message': useVirtualizedRendering,
           })}
           enter="transition ease-in-out duration-300"
           enterFrom={`opacity-0 scale-09 translate-x-${
@@ -233,24 +288,7 @@ const ChatBubble: React.FC<Props> = ({
             message.fromUser ? '30' : '-30'
           }`}
         >
-          {message.fromUser ? (
-            <Expandable
-              className="memori-chat--bubble-content"
-              mode="characters"
-            >
-              <div
-                dir="auto"
-                className="memori-chat--bubble-content"
-                dangerouslySetInnerHTML={{ __html: renderedText }}
-              />
-            </Expandable>
-          ) : (
-            <div
-              dir="auto"
-              className="memori-chat--bubble-content"
-              dangerouslySetInnerHTML={{ __html: renderedText }}
-            />
-          )}
+          {renderMessageContent()}
 
           {((!message.fromUser && showCopyButton) ||
             (message.generatedByAI && showAIicon) ||
