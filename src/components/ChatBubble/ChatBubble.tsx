@@ -65,44 +65,9 @@ export interface Props {
 // The size threshold for when to use virtualized rendering
 const LARGE_MESSAGE_THRESHOLD = 5000; // characters
 
-
 // Helper function to check if a message is large and needs special handling
 const isLargeMessage = (message: Message): boolean => {
   return message.text.length > LARGE_MESSAGE_THRESHOLD;
-};
-
-// Function to create a web worker for processing large text
-const createTextProcessingWorker = (text: string, callback: (processedText: string) => void) => {
-  const workerCode = `
-    self.onmessage = function(e) {
-      const text = e.data;
-      
-      // Process the text in chunks to avoid blocking
-      const result = processText(text);
-      
-      self.postMessage(result);
-      self.close();
-    };
-
-    function processText(text) {
-      // Simple processing for now - in a real implementation, 
-      // this would do more complex operations like parsing, 
-      // formatting, etc.
-      return text;
-    }
-  `;
-
-  const blob = new Blob([workerCode], { type: 'application/javascript' });
-  const url = URL.createObjectURL(blob);
-  const worker = new Worker(url);
-
-  worker.onmessage = (e) => {
-    callback(e.data);
-    URL.revokeObjectURL(url);
-  };
-
-  worker.postMessage(text);
-  return worker;
 };
 
 const ChatBubble: React.FC<Props> = ({
@@ -128,24 +93,24 @@ const ChatBubble: React.FC<Props> = ({
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [processedText, setProcessedText] = useState('');
   const contentRef = useRef<HTMLDivElement>(null);
   
-  // For very large messages, initiate processing in web worker
+  // For large messages, set loading state briefly to show loading indicator
   useEffect(() => {
-    if (isLargeMessage(message) && !processedText) {
-      // Use a web worker for processing to avoid blocking the main thread
-      const worker = createTextProcessingWorker(message.text, (result) => {
-        setProcessedText(result);
+    if (isLargeMessage(message)) {
+      // Just show loading indicator briefly
+      setIsLoading(true);
+      
+      // Use a short timeout to allow UI to update before rendering virtualized content
+      const timer = setTimeout(() => {
         setIsLoading(false);
-      });
+      }, 100);
       
       return () => {
-        // Cleanup worker if component unmounts during processing
-        worker.terminate();
+        clearTimeout(timer);
       };
     }
-  }, [message.text, processedText]);
+  }, [message.text]);
 
   // Initialize MathJax on component mount
   useEffect(() => {
