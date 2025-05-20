@@ -22,16 +22,6 @@ exports[`renders Chat unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -88,6 +78,16 @@ exports[`renders Chat unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -96,15 +96,11 @@ exports[`renders Chat unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Prova
-                  </p>
+                  Prova
                 </div>
               </div>
             </div>
@@ -131,16 +127,6 @@ exports[`renders Chat unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -197,6 +183,16 @@ exports[`renders Chat unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -205,15 +201,11 @@ exports[`renders Chat unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Come faccio a fare delle cose con questa cosa?
-                  </p>
+                  Come faccio a fare delle cose con questa cosa?
                 </div>
               </div>
             </div>
@@ -240,16 +232,6 @@ exports[`renders Chat unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -382,6 +364,16 @@ exports[`renders Chat unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -390,15 +382,11 @@ exports[`renders Chat unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Ah, grazie! Ciao!
-                  </p>
+                  Ah, grazie! Ciao!
                 </div>
               </div>
             </div>
@@ -425,16 +413,6 @@ exports[`renders Chat unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -582,16 +560,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -648,6 +616,16 @@ exports[`renders Chat with context vars unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -656,15 +634,11 @@ exports[`renders Chat with context vars unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Prova
-                  </p>
+                  Prova
                 </div>
               </div>
             </div>
@@ -691,16 +665,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -757,6 +721,16 @@ exports[`renders Chat with context vars unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -765,15 +739,11 @@ exports[`renders Chat with context vars unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Come faccio a fare delle cose con questa cosa?
-                  </p>
+                  Come faccio a fare delle cose con questa cosa?
                 </div>
               </div>
             </div>
@@ -800,16 +770,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -957,6 +917,16 @@ exports[`renders Chat with context vars unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -965,15 +935,11 @@ exports[`renders Chat with context vars unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Ah, grazie! Ciao!
-                  </p>
+                  Ah, grazie! Ciao!
                 </div>
               </div>
             </div>
@@ -1000,16 +966,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -1172,16 +1128,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -1238,6 +1184,16 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -1246,15 +1202,11 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Prova
-                  </p>
+                  Prova
                 </div>
               </div>
             </div>
@@ -1273,16 +1225,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -1339,6 +1281,16 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -1347,15 +1299,11 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Come faccio a fare delle cose con questa cosa?
-                  </p>
+                  Come faccio a fare delle cose con questa cosa?
                 </div>
               </div>
             </div>
@@ -1374,16 +1322,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -1516,6 +1454,16 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -1524,15 +1472,11 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Ah, grazie! Ciao!
-                  </p>
+                  Ah, grazie! Ciao!
                 </div>
               </div>
             </div>
@@ -1551,16 +1495,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -1708,16 +1642,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -1774,6 +1698,16 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -1782,15 +1716,11 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Prova
-                  </p>
+                  Prova
                 </div>
               </div>
             </div>
@@ -1811,16 +1741,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -1877,6 +1797,16 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -1885,15 +1815,11 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Come faccio a fare delle cose con questa cosa?
-                  </p>
+                  Come faccio a fare delle cose con questa cosa?
                 </div>
               </div>
             </div>
@@ -1914,16 +1840,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -2056,6 +1972,16 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -2064,15 +1990,11 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Ah, grazie! Ciao!
-                  </p>
+                  Ah, grazie! Ciao!
                 </div>
               </div>
             </div>
@@ -2093,16 +2015,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -2250,16 +2162,6 @@ exports[`renders Chat with dates unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -2321,6 +2223,16 @@ exports[`renders Chat with dates unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -2329,15 +2241,11 @@ exports[`renders Chat with dates unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Prova
-                  </p>
+                  Prova
                 </div>
               </div>
             </div>
@@ -2369,16 +2277,6 @@ exports[`renders Chat with dates unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -2440,6 +2338,16 @@ exports[`renders Chat with dates unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -2448,15 +2356,11 @@ exports[`renders Chat with dates unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Come faccio a fare delle cose con questa cosa?
-                  </p>
+                  Come faccio a fare delle cose con questa cosa?
                 </div>
               </div>
             </div>
@@ -2488,16 +2392,6 @@ exports[`renders Chat with dates unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -2635,6 +2529,16 @@ exports[`renders Chat with dates unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -2643,15 +2547,11 @@ exports[`renders Chat with dates unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Ah, grazie! Ciao!
-                  </p>
+                  Ah, grazie! Ciao!
                 </div>
               </div>
             </div>
@@ -2683,16 +2583,6 @@ exports[`renders Chat with dates unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -2845,16 +2735,6 @@ exports[`renders Chat with hints unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -2911,6 +2791,16 @@ exports[`renders Chat with hints unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -2919,15 +2809,11 @@ exports[`renders Chat with hints unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Prova
-                  </p>
+                  Prova
                 </div>
               </div>
             </div>
@@ -2954,16 +2840,6 @@ exports[`renders Chat with hints unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -3020,6 +2896,16 @@ exports[`renders Chat with hints unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -3028,15 +2914,11 @@ exports[`renders Chat with hints unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Come faccio a fare delle cose con questa cosa?
-                  </p>
+                  Come faccio a fare delle cose con questa cosa?
                 </div>
               </div>
             </div>
@@ -3063,16 +2945,6 @@ exports[`renders Chat with hints unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -3205,6 +3077,16 @@ exports[`renders Chat with hints unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -3213,15 +3095,11 @@ exports[`renders Chat with hints unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Ah, grazie! Ciao!
-                  </p>
+                  Ah, grazie! Ciao!
                 </div>
               </div>
             </div>
@@ -3248,16 +3126,6 @@ exports[`renders Chat with hints unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -3431,16 +3299,6 @@ exports[`renders Chat with media unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -3497,6 +3355,16 @@ exports[`renders Chat with media unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -3505,15 +3373,11 @@ exports[`renders Chat with media unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Prova
-                  </p>
+                  Prova
                 </div>
               </div>
             </div>
@@ -3540,16 +3404,6 @@ exports[`renders Chat with media unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -3606,6 +3460,16 @@ exports[`renders Chat with media unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -3614,15 +3478,11 @@ exports[`renders Chat with media unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Come faccio a fare delle cose con questa cosa?
-                  </p>
+                  Come faccio a fare delle cose con questa cosa?
                 </div>
               </div>
             </div>
@@ -3649,16 +3509,6 @@ exports[`renders Chat with media unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -4192,6 +4042,16 @@ exports[`renders Chat with media unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -4200,15 +4060,11 @@ exports[`renders Chat with media unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Ah, grazie! Ciao!
-                  </p>
+                  Ah, grazie! Ciao!
                 </div>
               </div>
             </div>
@@ -4235,16 +4091,6 @@ exports[`renders Chat with media unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -4392,16 +4238,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -4458,6 +4294,16 @@ exports[`renders Chat with memori typing unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -4466,15 +4312,11 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Prova
-                  </p>
+                  Prova
                 </div>
               </div>
             </div>
@@ -4501,16 +4343,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -4567,6 +4399,16 @@ exports[`renders Chat with memori typing unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -4575,15 +4417,11 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Come faccio a fare delle cose con questa cosa?
-                  </p>
+                  Come faccio a fare delle cose con questa cosa?
                 </div>
               </div>
             </div>
@@ -4610,16 +4448,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -4752,6 +4580,16 @@ exports[`renders Chat with memori typing unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -4760,15 +4598,11 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Ah, grazie! Ciao!
-                  </p>
+                  Ah, grazie! Ciao!
                 </div>
               </div>
             </div>
@@ -4795,16 +4629,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -4973,16 +4797,6 @@ exports[`renders Chat with user unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -5039,6 +4853,16 @@ exports[`renders Chat with user unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -5047,15 +4871,11 @@ exports[`renders Chat with user unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Prova
-                  </p>
+                  Prova
                 </div>
               </div>
             </div>
@@ -5076,16 +4896,6 @@ exports[`renders Chat with user unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -5142,6 +4952,16 @@ exports[`renders Chat with user unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -5150,15 +4970,11 @@ exports[`renders Chat with user unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Come faccio a fare delle cose con questa cosa?
-                  </p>
+                  Come faccio a fare delle cose con questa cosa?
                 </div>
               </div>
             </div>
@@ -5179,16 +4995,6 @@ exports[`renders Chat with user unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >
@@ -5321,6 +5127,16 @@ exports[`renders Chat with user unchanged 1`] = `
         <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
@@ -5329,15 +5145,11 @@ exports[`renders Chat with user unchanged 1`] = `
             >
               <div
                 class="memori-expandable--inner"
-                style="max-height: 9999px;"
               >
                 <div
-                  class="memori-chat--bubble-content"
-                  dir="auto"
+                  class="truncated-content"
                 >
-                  <p>
-                    Ah, grazie! Ciao!
-                  </p>
+                  Ah, grazie! Ciao!
                 </div>
               </div>
             </div>
@@ -5358,16 +5170,6 @@ exports[`renders Chat with user unchanged 1`] = `
         <div
           class="memori-chat--bubble-container"
         >
-          <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
-            title="Memori"
-          >
-            <img
-              alt="Memori"
-              class="memori-chat--bubble-avatar-img"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
-            />
-          </picture>
           <div
             class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
           >

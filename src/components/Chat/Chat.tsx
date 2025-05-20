@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, useState } from 'react';
 import cx from 'classnames';
 import {
   DialogState,
@@ -80,7 +80,7 @@ export interface Props {
   useMathFormatting?: boolean;
 }
 
-const Chat: React.FC<Props> = ({
+const OptimizedChat: React.FC<Props> = ({
   memori,
   tenant,
   sessionID,
@@ -126,18 +126,30 @@ const Chat: React.FC<Props> = ({
   experts,
   useMathFormatting = false,
 }) => {
+  // Determine if the chat has a lot of messages (for optimization)
+  const hasLargeHistory = history.length > 50;
+  
+  // Track if we're currently in a loading state (for large messages)
+  const [isLoadingMessage, setIsLoadingMessage] = useState(false);
+  
+  // Scroll to the bottom of the chat
   const scrollToBottom = () => {
-    setTimeout(() => {
-      let userMsgs = document.querySelectorAll(
-        '.memori-chat--bubble-container.memori-chat--bubble-from-user'
-      );
-      userMsgs[userMsgs.length - 1]?.scrollIntoView?.();
-    }, 200);
+    // Only attempt to scroll if we're not in a loading state
+    if (!isLoadingMessage) {
+      setTimeout(() => {
+        let userMsgs = document.querySelectorAll(
+          '.memori-chat--bubble-container.memori-chat--bubble-from-user'
+        );
+        userMsgs[userMsgs.length - 1]?.scrollIntoView?.();
+      }, 200);
+    }
   };
+  
   useEffect(() => {
     !preview && scrollToBottom();
-  }, [history, preview]);
-
+  }, [history, preview, isLoadingMessage]);
+  
+  // Text input focus/blur handlers
   const onTextareaFocus = () => {
     stopListening();
     const hasTouch = hasTouchscreen();
@@ -155,6 +167,7 @@ const Chat: React.FC<Props> = ({
       }, 300);
     }
   };
+  
   const onTextareaBlur = () => {
     if (
       document
@@ -167,6 +180,11 @@ const Chat: React.FC<Props> = ({
         ?.classList?.remove('chat-focused');
       scrollToBottom();
     }
+  };
+
+  // Callback when a message starts/finishes formatting
+  const handleMessageLoadingState = (isLoading: boolean) => {
+    setIsLoadingMessage(isLoading);
   };
 
   return (
@@ -188,6 +206,7 @@ const Chat: React.FC<Props> = ({
             'memori-chat--content-touch': hasTouchscreen(),
           })}
         >
+          {/* Cover image */}
           <div
             className={cx('memori-chat--cover')}
             style={{
@@ -206,8 +225,10 @@ const Chat: React.FC<Props> = ({
             }}
           />
 
+          {/* Message history */}
           {history.map((message, index) => (
             <React.Fragment key={index}>
+              {/* Use optimized chat bubble */}
               <ChatBubble
                 isFirst={index === 0}
                 message={message}
@@ -232,6 +253,7 @@ const Chat: React.FC<Props> = ({
                 useMathFormatting={useMathFormatting}
               />
 
+              {/* Timestamps */}
               {showDates && !!message.timestamp && (
                 <small
                   className={`memori-chat--timestamp ${
@@ -252,6 +274,7 @@ const Chat: React.FC<Props> = ({
                 </small>
               )}
 
+              {/* Context variables */}
               {showContextPerLine &&
                 !!Object.keys(message.contextVars ?? {}).length && (
                   <div className="memori-chat--context-vars">
@@ -282,6 +305,7 @@ const Chat: React.FC<Props> = ({
                   </div>
                 )}
 
+              {/* Media attachments */}
               <MediaWidget
                 simulateUserPrompt={simulateUserPrompt}
                 media={message?.media?.filter(
@@ -297,6 +321,7 @@ const Chat: React.FC<Props> = ({
             </React.Fragment>
           ))}
 
+          {/* Hints display */}
           {dialogState?.hints &&
             dialogState.hints.length > 0 &&
             !memoriTyping && (
@@ -313,6 +338,7 @@ const Chat: React.FC<Props> = ({
               />
             )}
 
+          {/* Typing indicator */}
           {!!memoriTyping && (
             <Typing
               useDefaultSentences={showTypingText}
@@ -334,10 +360,13 @@ const Chat: React.FC<Props> = ({
               key={typingText}
             />
           )}
+          
+          {/* Reference element for scrolling */}
           <div id="end-messages-ref" />
         </div>
       </div>
 
+      {/* Chat input area */}
       {showInputs && (
         <ChatInputs
           resetTranscript={resetTranscript}
@@ -367,4 +396,4 @@ const Chat: React.FC<Props> = ({
   );
 };
 
-export default memo(Chat);
+export default memo(OptimizedChat);

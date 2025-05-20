@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState, useRef, lazy, Suspense } from 'react';
+import React, { useEffect, useState, useRef, lazy, Suspense } from 'react';
 import cx from 'classnames';
 import {
   ExpertReference,
@@ -30,20 +30,80 @@ import Spin from '../ui/Spin';
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
 
-// Import MathJax types
-declare global {
-  interface Window {
-    MathJax?: {
-      typesetPromise?: (elements: string[]) => Promise<void>;
-    };
-  }
-}
-
-// Import virtualized list component - using dynamic import for better performance
+// Lazy load the virtualized content component
 const VirtualizedContent = lazy(() => import('./VirtualizedContent/VirtualizedContent'));
 
+// Custom Expandable component optimized for chat bubble content
+const OptimizedExpandable = ({ 
+  children, 
+  className, 
+  content,
+  isLarge,
+  onExpand 
+}: { 
+  children: React.ReactNode; 
+  className?: string; 
+  content: string;
+  isLarge: boolean;
+  onExpand: () => void;
+}) => {
+  const { i18n } = useTranslation();
+  const lang = i18n.language;
+  const [expanded, setExpanded] = useState(false);
+  const [needsExpanding, setNeedsExpanding] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (ref.current) {
+      const textContent = ref.current.textContent || '';
+      // Determine if content needs to be expandable
+      if (textContent.length > 300 || isLarge) {
+        setNeedsExpanding(true);
+      }
+    }
+  }, [isLarge]);
+
+  return (
+    <div className={cx('memori-expandable', className)}>
+      <div
+        ref={ref}
+        className="memori-expandable--inner"
+      >
+        {expanded ? children : (
+          <div className="truncated-content">
+            {truncateMessage(typeof content === 'string' ? content : '')}
+          </div>
+        )}
+      </div>
+      {needsExpanding && !expanded && (
+        <Button
+          ghost
+          padded={false}
+          className="expand-button"
+          onClick={() => {
+            setExpanded(true);
+            onExpand();
+          }}
+        >
+          ...
+        </Button>
+      )}
+      {needsExpanding && expanded && (
+        <Button
+          ghost
+          padded={false}
+          className="collapse-button"
+          onClick={() => setExpanded(false)}
+        >
+          {lang === 'it' ? 'Mostra meno' : 'Show less'}
+        </Button>
+      )}
+    </div>
+  );
+};
+
 export interface Props {
-  message: Message;
+  message: Message | undefined;
   memori: Memori;
   sessionID: string;
   tenant?: Tenant;
@@ -59,16 +119,12 @@ export interface Props {
   isFirst?: boolean;
   userAvatar?: MemoriProps['userAvatar'];
   user?: User;
-  experts?: ExpertReference[];
+  experts?: ExpertReference[]
 }
 
-// The size threshold for when to use virtualized rendering
+// Size thresholds for different rendering strategies
 const LARGE_MESSAGE_THRESHOLD = 5000; // characters
-
-// Helper function to check if a message is large and needs special handling
-const isLargeMessage = (message: Message): boolean => {
-  return message.text.length > LARGE_MESSAGE_THRESHOLD;
-};
+const VERY_LARGE_MESSAGE_THRESHOLD = 15000; // characters for virtualized rendering
 
 const ChatBubble: React.FC<Props> = ({
   message,
@@ -93,90 +149,131 @@ const ChatBubble: React.FC<Props> = ({
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [contentExpanded, setContentExpanded] = useState(false);
+  const [formattedContent, setFormattedContent] = useState<string>('');
   const contentRef = useRef<HTMLDivElement>(null);
+
+  // Determine message size categories
+  const messageLength = message?.text?.length || 0;
+  const isLargeMessage = messageLength > LARGE_MESSAGE_THRESHOLD;
+  const isVeryLargeMessage = messageLength > VERY_LARGE_MESSAGE_THRESHOLD;
   
-  // For large messages, set loading state briefly to show loading indicator
+  // Get original and plaintext content
+  const originalText = message?.translatedText || message?.text || '';
+  const plainText = message?.fromUser 
+    ? truncateMessage(originalText)
+    : stripHTML(stripOutputTags(originalText));
+
+  // Initial minimal formatting - only applied to truncated preview
   useEffect(() => {
-    if (isLargeMessage(message)) {
-      // Just show loading indicator briefly
+    // For small messages, we can format immediately
+    if (!isLargeMessage) {
+      const { text } = renderMsg(originalText, useMathFormatting);
+      setFormattedContent(text);
+    } else {
+      // For large messages, only format what's visible initially (truncated content)
+      const truncated = truncateMessage(originalText);
+      const { text } = renderMsg(truncated, useMathFormatting);
+      setFormattedContent(text);
+    }
+  }, [originalText, useMathFormatting, isLargeMessage]);
+
+  // Handle expansion - format full content when expanding
+  const handleExpand = () => {
+    if (isLargeMessage) {
       setIsLoading(true);
+      setContentExpanded(true);
       
-      // Use a short timeout to allow UI to update before rendering virtualized content
-      const timer = setTimeout(() => {
-        setIsLoading(false);
-      }, 100);
-      
-      return () => {
-        clearTimeout(timer);
-      };
+      // Use timeout to avoid blocking the UI
+      setTimeout(() => {
+        try {
+          const { text } = renderMsg(originalText, useMathFormatting);
+          setFormattedContent(text);
+        } catch (error) {
+          console.error('Error formatting message:', error);
+          // Fallback to plain unformatted text in case of error
+          setFormattedContent(`<p>${originalText}</p>`);
+        } finally {
+          setIsLoading(false);
+        }
+      }, 50);
     }
-  }, [message.text]);
+  };
 
-  // Initialize MathJax on component mount
-  useEffect(() => {
-    if (typeof window !== 'undefined' && !window.MathJax) {
-      installMathJax();
-    }
-  }, []);
-
-  const text = message.translatedText || message.text;
-  const { text: renderedText } = renderMsg(text, useMathFormatting);
-  const plainText = message.fromUser
-    ? truncateMessage(text)
-    : stripHTML(stripOutputTags(renderedText));
-
-  // Determine if we should use virtualized rendering
-  const useVirtualizedRendering = isLargeMessage(message);
-
-  // Render the message content based on size and formatting needs
+  // Render the appropriate content based on size and expanded state
   const renderMessageContent = () => {
     if (isLoading) {
-      // Show loading spinner for any content that's processing
       return (
         <div className="memori-chat--bubble-content memori-chat--bubble-loading">
           <Spin />
         </div>
       );
-    } else if (useVirtualizedRendering) {
-      // For large messages, use virtualized rendering immediately
+    }
+    
+    if (contentExpanded && isVeryLargeMessage) {
+      // For very large expanded content, use virtualization
       return (
         <Suspense fallback={<Spin />}>
-          <VirtualizedContent 
-            content={renderedText} 
+          <VirtualizedContent
+            content={formattedContent}
             className="memori-chat--bubble-content memori-chat--virtualized-content"
           />
         </Suspense>
       );
-    } else if (message.fromUser) {
-      // For regular user messages that don't need formatting, keep the expandable
+    }
+    
+    if (message?.fromUser) {
+      // User messages get the optimized expandable wrapper
       return (
-        <Expandable
-          className="memori-chat--bubble-content"
-          mode="characters"
+        <OptimizedExpandable 
+          className="memori-chat--bubble-content" 
+          content={originalText}
+          isLarge={isLargeMessage}
+          onExpand={handleExpand}
         >
           <div
             dir="auto"
             className="memori-chat--bubble-content"
-            dangerouslySetInnerHTML={{ __html: renderedText }}
+            dangerouslySetInnerHTML={{ __html: formattedContent }}
           />
-        </Expandable>
+        </OptimizedExpandable>
       );
-    } else {
-      // For all other messages, render directly
+    } 
+    
+    // AI/system messages - use optimized expandable for large content
+    if (isLargeMessage) {
       return (
-        <div
-          dir="auto"
-          ref={contentRef}
-          className="memori-chat--bubble-content"
-          dangerouslySetInnerHTML={{ __html: renderedText }}
-        />
+        <OptimizedExpandable 
+          className="memori-chat--bubble-content" 
+          content={originalText}
+          isLarge={isLargeMessage}
+          onExpand={handleExpand}
+        >
+          <div
+            dir="auto"
+            ref={contentRef}
+            className="memori-chat--bubble-content"
+            dangerouslySetInnerHTML={{ __html: formattedContent }}
+          />
+        </OptimizedExpandable>
       );
     }
+    
+    // Default rendering for normal-sized messages
+    return (
+      <div
+        dir="auto"
+        ref={contentRef}
+        className="memori-chat--bubble-content"
+        dangerouslySetInnerHTML={{ __html: formattedContent }}
+      />
+    );
   };
 
+  // Full component render
   return (
     <>
-      {(message.initial || isFirst) && (
+      {(message?.initial || isFirst) && (
         <div className="memori-chat--bubble-initial" />
       )}
       <Transition
@@ -184,30 +281,30 @@ const ChatBubble: React.FC<Props> = ({
         appear
         as="div"
         className={cx('memori-chat--bubble-container', {
-          'memori-chat--bubble-from-user': !!message.fromUser,
+          'memori-chat--bubble-from-user': !!message?.fromUser,
           'memori-chat--with-addon':
-            (message.generatedByAI && showAIicon) ||
+            (message?.generatedByAI && showAIicon) ||
             (showFeedback && simulateUserPrompt),
-          'memori-chat--large-content': useVirtualizedRendering,
+          'memori-chat--large-content': isLargeMessage,
         })}
       >
-        {!message.fromUser && (
+        {!!message?.fromUser && (
           <Transition.Child
             as="picture"
             className="memori-chat--bubble-avatar"
             enter="transition ease-in-out duration-300"
             enterFrom={`opacity-0 scale-075 ${
-              message.fromUser ? 'translate-x-15' : 'translate-x--15'
+              message?.fromUser ? 'translate-x-15' : 'translate-x--15'
             }`}
             enterTo="opacity-1 scale-1 translate-x-0"
             leave="transition ease-in-out duration-300"
             leaveFrom="opacity-1 scale-1 translate-x-0"
             leaveTo={`opacity-0 scale-075 ${
-              message.fromUser ? 'translate-x-15' : 'translate-x--15'
+              message?.fromUser ? 'translate-x-15' : 'translate-x--15'
             }`}
             title={
-              !!message.emitter?.length && !!memori.enableBoardOfExperts
-                ? message.emitter
+              !!message?.emitter?.length && !!memori.enableBoardOfExperts
+                ? message?.emitter
                 : memori.name
             }
           >
@@ -221,11 +318,11 @@ const ChatBubble: React.FC<Props> = ({
               src={
                 !!message.emitter?.length &&
                 !!memori.enableBoardOfExperts &&
-                experts?.find(e => e.name === message.emitter)
+                experts?.find((e) => e.name === message.emitter)
                   ? `${
                       new URL(apiUrl ?? '/').origin
                     }/api/v1/memoriai/memori/avatar/${
-                      experts.find(e => e.name === message.emitter)
+                      experts.find((e) => e.name === message.emitter)
                         ?.expertMemoriID
                     }`
                   : memori.avatarURL && memori.avatarURL.length > 0
@@ -243,8 +340,7 @@ const ChatBubble: React.FC<Props> = ({
                       apiURL: apiUrl,
                     })
               }
-              onError={e => {
-                // Fallback image handling if primary source fails
+              onError={(e) => {
                 e.currentTarget.src =
                   memori.avatarURL && memori.avatarURL.length > 0
                     ? getResourceUrl({
@@ -268,33 +364,33 @@ const ChatBubble: React.FC<Props> = ({
         <Transition.Child
           as="div"
           className={cx('memori-chat--bubble', {
-            'memori-chat--user-bubble': !!message.fromUser,
+            'memori-chat--user-bubble': !!message?.fromUser,
             'memori-chat--with-addon':
-              (!message.fromUser && showCopyButton) ||
-              (message.generatedByAI && showAIicon) ||
+              (!message?.fromUser && showCopyButton) ||
+              (message?.generatedByAI && showAIicon) ||
               (showFeedback && simulateUserPrompt),
-            'memori-chat--ai-generated': message.generatedByAI && showAIicon,
+            'memori-chat--ai-generated': message?.generatedByAI && showAIicon,
             'memori-chat--with-feedback': showFeedback,
-            'memori-chat--large-message': useVirtualizedRendering,
+            'memori-chat--large-message': isLargeMessage,
           })}
           enter="transition ease-in-out duration-300"
           enterFrom={`opacity-0 scale-09 translate-x-${
-            message.fromUser ? '30' : '-30'
+            message?.fromUser ? '30' : '-30'
           }`}
           enterTo="opacity-1 scale-1 translate-x-0"
           leave="transition ease-in-out duration-300"
           leaveFrom="opacity-1 scale-1 translate-x-0"
           leaveTo={`opacity-0 scale-09  translate-x-${
-            message.fromUser ? '30' : '-30'
+            message?.fromUser ? '30' : '-30'
           }`}
         >
           {renderMessageContent()}
 
-          {((!message.fromUser && showCopyButton) ||
-            (message.generatedByAI && showAIicon) ||
+          {((!message?.fromUser && showCopyButton) ||
+            (message?.generatedByAI && showAIicon) ||
             (showFeedback && simulateUserPrompt)) && (
             <div className="memori-chat--bubble-addon">
-              {!message.fromUser && showCopyButton && (
+              {!message?.fromUser && showCopyButton && (
                 <Button
                   ghost
                   shape="circle"
@@ -305,9 +401,9 @@ const ChatBubble: React.FC<Props> = ({
                 />
               )}
 
-              {!message.fromUser &&
+              {!message?.fromUser &&
                 showCopyButton &&
-                plainText !== message.text && (
+                plainText !== message?.text && (
                   <Button
                     ghost
                     shape="circle"
@@ -316,7 +412,7 @@ const ChatBubble: React.FC<Props> = ({
                     icon={
                       <Code aria-label={t('copyRawCode') || 'Copy raw code'} />
                     }
-                    onClick={() => navigator.clipboard.writeText(message.text)}
+                    onClick={() => navigator.clipboard.writeText(message?.text || '')}
                   />
                 )}
 
@@ -325,13 +421,13 @@ const ChatBubble: React.FC<Props> = ({
                   memori={memori}
                   className="memori-chat--bubble-feedback"
                   dropdown
-                  onNegativeClick={msg => {
+                  onNegativeClick={(msg) => {
                     if (msg) simulateUserPrompt(msg);
                   }}
                 />
               )}
 
-              {message.generatedByAI && showAIicon && (
+              {message?.generatedByAI && showAIicon && (
                 <Tooltip
                   align="left"
                   content={
@@ -356,13 +452,13 @@ const ChatBubble: React.FC<Props> = ({
               )}
 
               {showTranslationOriginal &&
-                message.translatedText &&
-                message.translatedText !== message.text && (
+                message?.translatedText &&
+                message?.translatedText !== message?.text && (
                   <Tooltip
                     align="left"
                     content={`${
                       lang === 'it' ? 'Testo originale' : 'Original text'
-                    }: ${message.text}`}
+                    }: ${message?.text}`}
                     className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
                   >
                     <span>
@@ -375,8 +471,8 @@ const ChatBubble: React.FC<Props> = ({
                   </Tooltip>
                 )}
 
-              {!message.fromUser &&
-                message.questionAnswered &&
+              {!message?.fromUser &&
+                message?.questionAnswered &&
                 apiUrl &&
                 showWhyThisAnswer && (
                   <Button
@@ -394,12 +490,12 @@ const ChatBubble: React.FC<Props> = ({
             </div>
           )}
 
-          {message.fromUser &&
-            message.media &&
-            message.media?.length > 0 &&
-            message.media[0].properties?.isAttachedFile && (
+          {message?.fromUser &&
+            message?.media &&
+            message?.media?.length > 0 &&
+            message?.media[0]?.properties?.isAttachedFile && (
               <FilePreview
-                previewFiles={message.media.map(m => ({
+                previewFiles={message?.media?.map((m) => ({
                   name: m.title ?? '',
                   id: m.mediumID,
                   content: m.content ?? '',
@@ -411,7 +507,7 @@ const ChatBubble: React.FC<Props> = ({
             )}
         </Transition.Child>
 
-        {message.fromUser && (
+        {message?.fromUser && (
           <>
             {(!!userAvatar && typeof userAvatar === 'string') ||
             (!userAvatar && !!user?.avatarURL?.length) ? (
@@ -420,13 +516,13 @@ const ChatBubble: React.FC<Props> = ({
                 className="memori-chat--bubble-avatar"
                 enter="transition ease-in-out duration-300"
                 enterFrom={`opacity-0 scale-075 ${
-                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
+                  message?.fromUser ? 'translate-x-15' : 'translate-x--15'
                 }`}
                 enterTo="opacity-1 scale-1 translate-x-0"
                 leave="transition ease-in-out duration-300"
                 leaveFrom="opacity-1 scale-1 translate-x-0"
                 leaveTo={`opacity-0 scale-075 ${
-                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
+                  message?.fromUser ? 'translate-x-15' : 'translate-x--15'
                 }`}
               >
                 <img
@@ -441,13 +537,13 @@ const ChatBubble: React.FC<Props> = ({
                 className="memori-chat--bubble-avatar"
                 enter="transition ease-in-out duration-300"
                 enterFrom={`opacity-0 scale-075 ${
-                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
+                  message?.fromUser ? 'translate-x-15' : 'translate-x--15'
                 }`}
                 enterTo="opacity-1 scale-1 translate-x-0"
                 leave="transition ease-in-out duration-300"
                 leaveFrom="opacity-1 scale-1 translate-x-0"
                 leaveTo={`opacity-0 scale-075 ${
-                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
+                  message?.fromUser ? 'translate-x-15' : 'translate-x--15'
                 }`}
               >
                 {userAvatar}
@@ -458,13 +554,13 @@ const ChatBubble: React.FC<Props> = ({
                 className="memori-chat--bubble-avatar"
                 enter="transition ease-in-out duration-300"
                 enterFrom={`opacity-0 scale-075 ${
-                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
+                  message?.fromUser ? 'translate-x-15' : 'translate-x--15'
                 }`}
                 enterTo="opacity-1 scale-1 translate-x-0"
                 leave="transition ease-in-out duration-300"
                 leaveFrom="opacity-1 scale-1 translate-x-0"
                 leaveTo={`opacity-0 scale-075 ${
-                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
+                  message?.fromUser ? 'translate-x-15' : 'translate-x--15'
                 }`}
               >
                 <UserIcon />
@@ -477,7 +573,7 @@ const ChatBubble: React.FC<Props> = ({
       {showingWhyThisAnswer && apiUrl && (
         <WhyThisAnswer
           visible={showingWhyThisAnswer}
-          message={message}
+          message={message as Message }
           closeDrawer={() => setShowingWhyThisAnswer(false)}
           apiURL={apiUrl}
           sessionID={sessionID}
