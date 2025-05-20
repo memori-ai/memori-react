@@ -295,7 +295,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           { 'memori--error': errors.length > 0 }
         )}
         onClick={() => documentInputRef.current?.click()}
-        disabled={isLoading || (maxDocuments && documentPreviewFiles.length >= maxDocuments) || false}
+        disabled={isLoading || (maxDocuments && documentPreviewFiles.filter((file: any) => file.type !== 'image').length >= maxDocuments) || false}
         title="Upload documents"
       >
         {isLoading ? (
