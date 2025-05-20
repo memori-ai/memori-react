@@ -78,6 +78,7 @@ export interface Props {
   user?: User;
   experts?: ExpertReference[];
   useMathFormatting?: boolean;
+  showFunctionCache?: boolean;
 }
 
 const OptimizedChat: React.FC<Props> = ({
@@ -124,6 +125,7 @@ const OptimizedChat: React.FC<Props> = ({
   userAvatar,
   showUpload = false,
   experts,
+  showFunctionCache = false,
   useMathFormatting = false,
 }) => {
   // Determine if the chat has a lot of messages (for optimization)
@@ -251,6 +253,7 @@ const OptimizedChat: React.FC<Props> = ({
                 experts={experts}
                 showCopyButton={showCopyButton}
                 useMathFormatting={useMathFormatting}
+                showFunctionCache={showFunctionCache}
               />
 
               {/* Timestamps */}

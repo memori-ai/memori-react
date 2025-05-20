@@ -1,12 +1,6 @@
-import React, { useEffect, useState, useRef, lazy, Suspense } from 'react';
+import React, { useEffect, useState, useRef, lazy, Suspense, useLayoutEffect } from 'react';
 import cx from 'classnames';
-import {
-  ExpertReference,
-  Memori,
-  Message,
-  Tenant,
-  User,
-} from '@memori.ai/memori-api-client/dist/types';
+import { Message, Memori, Tenant, User, ExpertReference } from '@memori.ai/memori-api-client/dist/types';
 import { Props as MemoriProps } from '../MemoriWidget/MemoriWidget';
 import { Transition } from '@headlessui/react';
 import { getResourceUrl } from '../../helpers/media';
@@ -20,21 +14,29 @@ import Button from '../ui/Button';
 import QuestionHelp from '../icons/QuestionHelp';
 import Copy from '../icons/Copy';
 import Code from '../icons/Code';
+import Bug from '../icons/Bug'
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
 import { stripHTML, stripOutputTags } from '../../helpers/utils';
 import FilePreview from '../FilePreview/FilePreview';
 import { renderMsg, truncateMessage } from '../../helpers/message';
-import Expandable from '../ui/Expandable';
 import Spin from '../ui/Spin';
+import Modal from '../ui/Modal';
 
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
 
-// Lazy load the virtualized content component
-const VirtualizedContent = lazy(() => import('./VirtualizedContent/VirtualizedContent'));
+// Import MathJax types
+declare global {
+  interface Window {
+    MathJax?: {
+      typesetPromise?: (elements: string[]) => Promise<void>;
+    };
+  }
+}
+
 
 // Custom Expandable component optimized for chat bubble content
-const OptimizedExpandable = ({ 
+const ChatBubbleExpandable = ({ 
   children, 
   className, 
   content,
@@ -102,6 +104,9 @@ const OptimizedExpandable = ({
   );
 };
 
+// Lazy load the virtualized content component
+const VirtualizedContent = lazy(() => import('./VirtualizedContent/VirtualizedContent'));
+
 export interface Props {
   message: Message | undefined;
   memori: Memori;
@@ -119,7 +124,9 @@ export interface Props {
   isFirst?: boolean;
   userAvatar?: MemoriProps['userAvatar'];
   user?: User;
-  experts?: ExpertReference[]
+  experts?: ExpertReference[];
+  showFunctionCache?: boolean;
+  onLoadingStateChange?: (isLoading: boolean) => void;
 }
 
 // Size thresholds for different rendering strategies
@@ -144,10 +151,13 @@ const ChatBubble: React.FC<Props> = ({
   user,
   userAvatar,
   experts,
+  showFunctionCache = false,
+  onLoadingStateChange,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
+  const [openFunctionCache, setOpenFunctionCache] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [contentExpanded, setContentExpanded] = useState(false);
   const [formattedContent, setFormattedContent] = useState<string>('');
@@ -162,7 +172,26 @@ const ChatBubble: React.FC<Props> = ({
   const originalText = message?.translatedText || message?.text || '';
   const plainText = message?.fromUser 
     ? truncateMessage(originalText)
-    : stripHTML(stripOutputTags(originalText));
+    : stripHTML(stripOutputTags(formattedContent || originalText));
+
+  // Handle loading state changes
+  useEffect(() => {
+    if (onLoadingStateChange) {
+      onLoadingStateChange(isLoading);
+    }
+  }, [isLoading, onLoadingStateChange]);
+
+  // Initialize MathJax on component mount
+  useEffect(() => {
+    if (typeof window !== 'undefined' && !window.MathJax) {
+      installMathJax();
+    }
+  }, []);
+
+  // Format function cache content
+  const functionCacheData = message?.media?.find(
+    m => m.properties?.functionCache === "true"
+  );
 
   // Initial minimal formatting - only applied to truncated preview
   useEffect(() => {
@@ -200,6 +229,25 @@ const ChatBubble: React.FC<Props> = ({
     }
   };
 
+  // Render MathJax whenever the formatted content changes
+  useLayoutEffect(() => {
+    if (!message?.fromUser && formattedContent && contentRef.current && useMathFormatting) {
+      // Allow a short delay for the DOM to update
+      const timer = setTimeout(() => {
+        if (window.MathJax && window.MathJax.typesetPromise) {
+          try {
+            window.MathJax.typesetPromise([contentRef.current?.innerHTML ?? ''])
+              .catch(err => console.error('MathJax typesetting failed:', err));
+          } catch (error) {
+            console.error('Error during MathJax typesetting:', error);
+          }
+        }
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [formattedContent, message?.fromUser, useMathFormatting]);
+
   // Render the appropriate content based on size and expanded state
   const renderMessageContent = () => {
     if (isLoading) {
@@ -223,11 +271,11 @@ const ChatBubble: React.FC<Props> = ({
     }
     
     if (message?.fromUser) {
-      // User messages get the optimized expandable wrapper
+      // User messages use Expandable with simple truncation
       return (
-        <OptimizedExpandable 
+        <ChatBubbleExpandable 
           className="memori-chat--bubble-content" 
-          content={originalText}
+          content={formattedContent}
           isLarge={isLargeMessage}
           onExpand={handleExpand}
         >
@@ -236,16 +284,16 @@ const ChatBubble: React.FC<Props> = ({
             className="memori-chat--bubble-content"
             dangerouslySetInnerHTML={{ __html: formattedContent }}
           />
-        </OptimizedExpandable>
+        </ChatBubbleExpandable>
       );
     } 
     
-    // AI/system messages - use optimized expandable for large content
+    // AI/system messages - use expandable for large content
     if (isLargeMessage) {
       return (
-        <OptimizedExpandable 
+        <ChatBubbleExpandable 
           className="memori-chat--bubble-content" 
-          content={originalText}
+          content={formattedContent}
           isLarge={isLargeMessage}
           onExpand={handleExpand}
         >
@@ -255,7 +303,7 @@ const ChatBubble: React.FC<Props> = ({
             className="memori-chat--bubble-content"
             dangerouslySetInnerHTML={{ __html: formattedContent }}
           />
-        </OptimizedExpandable>
+        </ChatBubbleExpandable>
       );
     }
     
@@ -288,7 +336,7 @@ const ChatBubble: React.FC<Props> = ({
           'memori-chat--large-content': isLargeMessage,
         })}
       >
-        {!!message?.fromUser && (
+        {!message?.fromUser && (
           <Transition.Child
             as="picture"
             className="memori-chat--bubble-avatar"
@@ -311,18 +359,18 @@ const ChatBubble: React.FC<Props> = ({
             <img
               className="memori-chat--bubble-avatar-img"
               alt={
-                !!message.emitter?.length && !!memori.enableBoardOfExperts
-                  ? message.emitter
+                !!message?.emitter?.length && !!memori.enableBoardOfExperts
+                  ? message?.emitter
                   : memori.name
               }
               src={
-                !!message.emitter?.length &&
+                !!message?.emitter?.length &&
                 !!memori.enableBoardOfExperts &&
-                experts?.find((e) => e.name === message.emitter)
+                experts?.find((e) => e.name === message?.emitter)
                   ? `${
                       new URL(apiUrl ?? '/').origin
                     }/api/v1/memoriai/memori/avatar/${
-                      experts.find((e) => e.name === message.emitter)
+                      experts?.find((e) => e.name === message?.emitter)
                         ?.expertMemoriID
                     }`
                   : memori.avatarURL && memori.avatarURL.length > 0
@@ -413,6 +461,19 @@ const ChatBubble: React.FC<Props> = ({
                       <Code aria-label={t('copyRawCode') || 'Copy raw code'} />
                     }
                     onClick={() => navigator.clipboard.writeText(message?.text || '')}
+                  />
+                )}
+
+              {!message?.fromUser &&
+                showFunctionCache &&
+                message?.media?.some(m => m.properties?.functionCache === "true") && (
+                  <Button
+                    ghost
+                    shape="circle"
+                    title="Debug"
+                    className="memori-chat--bubble-action-icon"
+                    icon={<Bug aria-label="Debug" />}
+                    onClick={() => setOpenFunctionCache(true)}
                   />
                 )}
 
@@ -570,15 +631,27 @@ const ChatBubble: React.FC<Props> = ({
         )}
       </Transition>
 
-      {showingWhyThisAnswer && apiUrl && (
+      {showingWhyThisAnswer && apiUrl && message && (
         <WhyThisAnswer
           visible={showingWhyThisAnswer}
-          message={message as Message }
+          message={message}
           closeDrawer={() => setShowingWhyThisAnswer(false)}
           apiURL={apiUrl}
           sessionID={sessionID}
         />
       )}
+
+      {/* Function cache modal */}
+      <Modal
+        title={functionCacheData?.title}
+        open={openFunctionCache}
+        onClose={() => setOpenFunctionCache(false)}
+        className="memori-chat--function-cache-modal"
+      >
+        <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+          {functionCacheData?.content}
+        </pre>
+      </Modal>
     </>
   );
 };

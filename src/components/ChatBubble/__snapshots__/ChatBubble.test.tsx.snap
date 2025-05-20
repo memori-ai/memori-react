@@ -5,16 +5,6 @@ exports[`renders ChatBubble from user with avatar as react element unchanged 1`]
   <div
     class="memori-chat--bubble-container memori-chat--bubble-from-user"
   >
-    <picture
-      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
     >
@@ -27,7 +17,7 @@ exports[`renders ChatBubble from user with avatar as react element unchanged 1`]
           <div
             class="truncated-content"
           >
-            Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+            &lt;p&gt;Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.&lt;/p&gt;
           </div>
         </div>
       </div>
@@ -48,16 +38,6 @@ exports[`renders ChatBubble from user with avatar unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat--bubble-from-user"
   >
-    <picture
-      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
     >
@@ -70,7 +50,7 @@ exports[`renders ChatBubble from user with avatar unchanged 1`] = `
           <div
             class="truncated-content"
           >
-            Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+            &lt;p&gt;Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.&lt;/p&gt;
           </div>
         </div>
       </div>
@@ -93,16 +73,6 @@ exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat--bubble-from-user"
   >
-    <picture
-      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
     >
@@ -115,7 +85,7 @@ exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
           <div
             class="truncated-content"
           >
-            Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+            &lt;p&gt;Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.&lt;/p&gt;
           </div>
         </div>
       </div>
@@ -138,6 +108,16 @@ exports[`renders ChatBubble unchanged 1`] = `
   <div
     class="memori-chat--bubble-container"
   >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
     <div
       class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
@@ -196,6 +176,16 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
   <div
     class="memori-chat--bubble-container"
   >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
     <div
       class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
@@ -2727,6 +2717,41 @@ M834 80h400000v40h-400000z"
             </svg>
           </span>
         </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -2738,6 +2763,16 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
   <div
     class="memori-chat--bubble-container"
   >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
     <div
       class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
@@ -3933,6 +3968,41 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
             </svg>
           </span>
         </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -3944,6 +4014,16 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
   <div
     class="memori-chat--bubble-container"
   >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
     <div
       class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
@@ -4873,6 +4953,41 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -4884,6 +4999,16 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
   <div
     class="memori-chat--bubble-container"
   >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
     <div
       class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
@@ -5352,6 +5477,41 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -5363,6 +5523,16 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
   <div
     class="memori-chat--bubble-container"
   >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
     <div
       class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
@@ -6093,6 +6263,41 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -6104,6 +6309,16 @@ exports[`renders ChatBubble with complex markdown and math but disabled unchange
   <div
     class="memori-chat--bubble-container"
   >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
     <div
       class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
@@ -6312,6 +6527,41 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
             </svg>
           </span>
         </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -6323,6 +6573,16 @@ exports[`renders ChatBubble with copy disabled unchanged 1`] = `
   <div
     class="memori-chat--bubble-container"
   >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
     <div
       class="memori-chat--bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
@@ -6347,6 +6607,16 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
   <div
     class="memori-chat--bubble-container"
   >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
     <div
       class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
@@ -6405,6 +6675,16 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
   <div
     class="memori-chat--bubble-container"
   >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
     <div
       class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
@@ -6488,6 +6768,41 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -6499,6 +6814,16 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
   <div
     class="memori-chat--bubble-container"
   >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
     <div
       class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
@@ -6556,6 +6881,41 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -6567,6 +6927,16 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
   <div
     class="memori-chat--bubble-container"
   >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
     <div
       class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
@@ -6682,6 +7052,41 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -6693,6 +7098,16 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
   <div
     class="memori-chat--bubble-container"
   >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
     <div
       class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
@@ -6971,6 +7386,41 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -6982,16 +7432,6 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat--bubble-from-user memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
-      title="Expert name"
-    >
-      <img
-        alt="Expert name"
-        class="memori-chat--bubble-avatar-img"
-        src="https://backend.memori.ai/api/v1/memoriai/memori/avatar/9b0a2913-d3d8-4e98-a49d-6e1c99479e1b"
-      />
-    </picture>
     <div
       class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon memori-chat--ai-generated transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
     >
@@ -7004,7 +7444,7 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
           <div
             class="truncated-content"
           >
-            Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+            &lt;p&gt;Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.&lt;/p&gt;
           </div>
         </div>
       </div>
@@ -7082,16 +7522,6 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat--bubble-from-user memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon memori-chat--ai-generated transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
     >
@@ -7104,7 +7534,7 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
           <div
             class="truncated-content"
           >
-            Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+            &lt;p&gt;Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.&lt;/p&gt;
           </div>
         </div>
       </div>
@@ -7182,6 +7612,16 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
   <div
     class="memori-chat--bubble-container"
   >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
     <div
       class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
     >
@@ -7304,16 +7744,6 @@ exports[`renders ChatBubble with user msg unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat--bubble-from-user"
   >
-    <picture
-      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
     >
@@ -7326,7 +7756,7 @@ exports[`renders ChatBubble with user msg unchanged 1`] = `
           <div
             class="truncated-content"
           >
-            Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+            &lt;p&gt;Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.&lt;/p&gt;
           </div>
         </div>
       </div>
