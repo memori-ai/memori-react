@@ -85,7 +85,6 @@ const ChatInputs: React.FC<Props> = ({
    */
   const onSendMessage = () => {
     const fileToSend = documentPreviewFiles.find(file => !file.mediumID);
-    setPreviewFiles(documentPreviewFiles);
     sendMessage(
       userMessage,
       fileToSend
@@ -189,7 +188,10 @@ const ChatInputs: React.FC<Props> = ({
         primary={!!userMessage?.length}
         disabled={!userMessage || userMessage.length === 0}
         className="memori-chat-inputs--send"
-        onClick={onSendMessage}
+        onClick={() => {
+          setPreviewFiles(documentPreviewFiles);
+          onSendMessage();
+        }}
         title={t('send') || 'Send'}
         icon={<Send />}
       />
