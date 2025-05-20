@@ -155,6 +155,31 @@ WithLongLink.args = {
   },
 };
 
+export const WithFunctionCache = Template.bind({});
+WithFunctionCache.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    initial: false,
+    translatedText:
+      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    generatedByAI: true,
+    media: [
+      {
+        functionCache: "true",
+        title: "Test",
+        content: "Test",
+        properties: {
+          functionCache: "true",
+        },
+      },
+    ],
+  },
+  showFunctionCache: true,
+};
+
 export const WithFeedbackButtons = Template.bind({});
 WithFeedbackButtons.args = {
   memori,

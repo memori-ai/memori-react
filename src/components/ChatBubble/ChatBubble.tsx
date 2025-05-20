@@ -20,11 +20,13 @@ import Button from '../ui/Button';
 import QuestionHelp from '../icons/QuestionHelp';
 import Copy from '../icons/Copy';
 import Code from '../icons/Code';
+import Bug from '../icons/Bug';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
 import { stripHTML, stripOutputTags } from '../../helpers/utils';
 import FilePreview from '../FilePreview/FilePreview';
 import { renderMsg, truncateMessage } from '../../helpers/message';
 import Expandable from '../ui/Expandable';
+import Modal from '../ui/Modal';
 
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
@@ -56,6 +58,7 @@ export interface Props {
   userAvatar?: MemoriProps['userAvatar'];
   user?: User;
   experts?: ExpertReference[];
+  showFunctionCache?: boolean;
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -76,10 +79,12 @@ const ChatBubble: React.FC<Props> = ({
   user,
   userAvatar,
   experts,
+  showFunctionCache = false,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
+  const [openFunctionCache, setOpenFunctionCache] = useState(false);
 
   // Initialize MathJax on component mount
   useEffect(() => {
@@ -93,6 +98,11 @@ const ChatBubble: React.FC<Props> = ({
   const plainText = message.fromUser
     ? truncateMessage(text)
     : stripHTML(stripOutputTags(renderedText));
+
+  // Format function cache content
+  const functionCacheData = message.media?.find(
+    m => m.properties?.functionCache === "true"
+  );
 
   // Render MathJax whenever message content changes
   useLayoutEffect(() => {
@@ -120,6 +130,11 @@ const ChatBubble: React.FC<Props> = ({
       return () => clearTimeout(timer);
     }
   }, [message.text, message.fromUser, renderedText]);
+
+  console.log(
+    'message',
+    message.media?.find(m => m.properties?.functionCache)
+  );
 
   return (
     <>
@@ -279,6 +294,19 @@ const ChatBubble: React.FC<Props> = ({
                       <Code aria-label={t('copyRawCode') || 'Copy raw code'} />
                     }
                     onClick={() => navigator.clipboard.writeText(message.text)}
+                  />
+                )}
+
+              {!message.fromUser &&
+                showFunctionCache &&
+                message.media?.some(m => m.properties?.functionCache === "true") && (
+                  <Button
+                    ghost
+                    shape="circle"
+                    title="Debug"
+                    className="memori-chat--bubble-action-icon"
+                    icon={<Bug aria-label="Debug" />}
+                    onClick={() => setOpenFunctionCache(true)}
                   />
                 )}
 
@@ -445,6 +473,17 @@ const ChatBubble: React.FC<Props> = ({
           sessionID={sessionID}
         />
       )}
+
+      <Modal
+        title={functionCacheData?.title}
+        open={openFunctionCache}
+        onClose={() => setOpenFunctionCache(false)}
+        className="memori-chat--function-cache-modal"
+      >
+        <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+          {functionCacheData?.content}
+        </pre>
+      </Modal>
     </>
   );
 };

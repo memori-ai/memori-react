@@ -414,6 +414,7 @@ export interface Props {
   useMathFormatting?: boolean;
   autoStart?: boolean;
   applyVarsToRoot?: boolean;
+  showFunctionCache?: boolean;
 }
 
 const MemoriWidget = ({
@@ -465,6 +466,7 @@ const MemoriWidget = ({
   useMathFormatting = false,
   autoStart = false,
   applyVarsToRoot = false,
+  showFunctionCache = false,
 }: Props) => {
   const { t, i18n } = useTranslation();
 
@@ -3535,6 +3537,7 @@ const MemoriWidget = ({
     setAttachmentsMenuOpen,
     showInputs,
     showMicrophone: !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
+    showFunctionCache,
     userMessage,
     onChangeUserMessage,
     sendMessage: (
