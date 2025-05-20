@@ -58,6 +58,7 @@ export interface Props {
   userAvatar?: MemoriProps['userAvatar'];
   user?: User;
   experts?: ExpertReference[];
+  showFunctionCache?: boolean;
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -78,11 +79,12 @@ const ChatBubble: React.FC<Props> = ({
   user,
   userAvatar,
   experts,
+  showFunctionCache = false,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
-  const [showFunctionCache, setShowFunctionCache] = useState(false);
+  const [openFunctionCache, setOpenFunctionCache] = useState(false);
 
   // Initialize MathJax on component mount
   useEffect(() => {
@@ -296,6 +298,7 @@ const ChatBubble: React.FC<Props> = ({
                 )}
 
               {!message.fromUser &&
+                showFunctionCache &&
                 message.media?.some(m => m.properties?.functionCache === "true") && (
                   <Button
                     ghost
@@ -303,7 +306,7 @@ const ChatBubble: React.FC<Props> = ({
                     title="Debug"
                     className="memori-chat--bubble-action-icon"
                     icon={<Bug aria-label="Debug" />}
-                    onClick={() => setShowFunctionCache(true)}
+                    onClick={() => setOpenFunctionCache(true)}
                   />
                 )}
 
@@ -473,8 +476,8 @@ const ChatBubble: React.FC<Props> = ({
 
       <Modal
         title={functionCacheData?.title}
-        open={showFunctionCache}
-        onClose={() => setShowFunctionCache(false)}
+        open={openFunctionCache}
+        onClose={() => setOpenFunctionCache(false)}
         className="memori-chat--function-cache-modal"
       >
         <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
