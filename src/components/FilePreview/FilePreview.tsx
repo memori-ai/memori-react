@@ -158,11 +158,13 @@ const FilePreview = ({
           }}
         >
           {selectedFile && isImageContent(selectedFile.content, selectedFile.type) ? (
-            <img 
-              src={selectedFile.content} 
-              alt={selectedFile.name} 
-              style={{ maxWidth: '100%', maxHeight: '60vh' }} 
+            <>
+              <img 
+                src={selectedFile.content} 
+                alt={selectedFile.name} 
+                style={{ maxWidth: '100%', maxHeight: '60vh' }} 
             />
+            </>
           ) : (
             stripHTML(selectedFile?.content || '')
           )}
