@@ -50,7 +50,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
         </svg>
       </label>
       <aside
-        class="memori-sidebar"
+        class="memori-sidebar "
       >
         <label
           class="memori-sidebar-toggle-label memori-close-label"
