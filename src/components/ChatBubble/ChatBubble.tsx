@@ -25,6 +25,7 @@ import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
 import { stripHTML, stripOutputTags } from '../../helpers/utils';
 import { renderMsg, truncateMessage } from '../../helpers/message';
 import Expandable from '../ui/Expandable';
+import Modal from '../ui/Modal';
 
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
@@ -99,7 +100,7 @@ const ChatBubble: React.FC<Props> = ({
 
   // Format function cache content
   const functionCacheData = message.media?.find(
-    m => m.properties?.functionCache === "true"
+    m => m.properties?.functionCache === 'true'
   );
 
   // Render MathJax whenever message content changes
@@ -297,7 +298,9 @@ const ChatBubble: React.FC<Props> = ({
 
               {!message.fromUser &&
                 showFunctionCache &&
-                message.media?.some(m => m.properties?.functionCache === "true") && (
+                message.media?.some(
+                  m => m.properties?.functionCache === 'true'
+                ) && (
                   <Button
                     ghost
                     shape="circle"
