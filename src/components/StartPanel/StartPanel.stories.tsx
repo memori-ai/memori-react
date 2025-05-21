@@ -313,6 +313,41 @@ PositionRequired.args = {
   onClickStart: () => {},
 };
 
+export const LoginRequired = Template.bind({});
+LoginRequired.args = {
+  memori: {
+    ...memori,
+    requireLoginToken: true,
+  },
+  tenant,
+  language: 'it',
+  userLang: 'en',
+  setUserLang: () => {},
+  openPositionDrawer: () => {},
+  instruct: true,
+  sessionId: sessionID,
+  clickedStart: false,
+  onClickStart: () => {},
+};
+
+export const LoginRequiredWithAuth = Template.bind({});
+LoginRequiredWithAuth.args = {
+  memori: {
+    ...memori,
+    requireLoginToken: true,
+  },
+  tenant,
+  language: 'it',
+  userLang: 'en',
+  setUserLang: () => {},
+  openPositionDrawer: () => {},
+  instruct: false,
+  sessionId: sessionID,
+  isUserLoggedIn: true,
+  clickedStart: false,
+  onClickStart: () => {},
+};
+
 export const WithIntegration = Template.bind({});
 WithIntegration.args = {
   memori,

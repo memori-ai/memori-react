@@ -85,6 +85,7 @@
 }
 
 .memori--description,
+.memori--needsLogin,
 .memori--needsPosition {
     color: var(--memori-text-color, rgba(0, 0, 0, 0.85));
     font-size: 14px;

@@ -414,6 +414,7 @@ export interface Props {
   useMathFormatting?: boolean;
   autoStart?: boolean;
   applyVarsToRoot?: boolean;
+  showFunctionCache?: boolean;
 }
 
 const MemoriWidget = ({
@@ -465,6 +466,7 @@ const MemoriWidget = ({
   useMathFormatting = false,
   autoStart = false,
   applyVarsToRoot = false,
+  showFunctionCache = false,
 }: Props) => {
   const { t, i18n } = useTranslation();
 
@@ -497,7 +499,11 @@ const MemoriWidget = ({
     avatarURL: typeof userAvatar === 'string' ? userAvatar : undefined,
   } as User);
   useEffect(() => {
-    if (loginToken && !user?.userID && showLogin) {
+    if (
+      loginToken &&
+      !user?.userID &&
+      (showLogin || memori.requireLoginToken)
+    ) {
       client.backend.getCurrentUser(loginToken).then(({ user, resultCode }) => {
         if (user && resultCode === 0) {
           setUser(user);
@@ -3438,7 +3444,7 @@ const MemoriWidget = ({
     showReload: selectedLayout === 'TOTEM',
     showClear,
     clearHistory: () => setHistory(h => h.slice(-1)),
-    showLogin,
+    showLogin: showLogin ?? memori.requireLoginToken,
     setShowLoginDrawer,
     loginToken,
     user,
@@ -3483,7 +3489,7 @@ const MemoriWidget = ({
     isUserLoggedIn: !!loginToken && !!user?.userID,
     hasInitialSession: !!initialSessionID,
     notEnoughCredits: needsCredits && !hasEnoughCredits,
-    showLogin,
+    showLogin: showLogin ?? memori.requireLoginToken,
     setShowLoginDrawer,
     user,
   };
@@ -3532,6 +3538,7 @@ const MemoriWidget = ({
     setAttachmentsMenuOpen,
     showInputs,
     showMicrophone: !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
+    showFunctionCache,
     userMessage,
     onChangeUserMessage,
     sendMessage: (

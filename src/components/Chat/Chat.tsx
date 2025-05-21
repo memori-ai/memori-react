@@ -73,6 +73,7 @@ export interface Props {
   user?: User;
   experts?: ExpertReference[];
   useMathFormatting?: boolean;
+  showFunctionCache?: boolean;
 }
 
 const Chat: React.FC<Props> = ({
@@ -120,6 +121,7 @@ const Chat: React.FC<Props> = ({
   showUpload = false,
   experts,
   useMathFormatting = false,
+  showFunctionCache = false,
 }) => {
   const scrollToBottom = () => {
     setTimeout(() => {
@@ -225,6 +227,7 @@ const Chat: React.FC<Props> = ({
                 experts={experts}
                 showCopyButton={showCopyButton}
                 useMathFormatting={useMathFormatting}
+                showFunctionCache={showFunctionCache}
               />
 
               {showDates && !!message.timestamp && (
