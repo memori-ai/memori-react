@@ -170,6 +170,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     }
 
     // Set file and create preview
+    console.log('file', file);
     setSelectedFile(file);
     setFilePreview(URL.createObjectURL(file));
 
@@ -244,15 +245,19 @@ const UploadImages: React.FC<UploadImagesProps> = ({
                   content: string;
                   type: string;
                   mediumID: string | undefined;
+                  url: string;
+                  mimeType: string;
                 }[]
               ) => [
                 ...prevFiles,
                 {
                   name: imageTitle,
                   id: fileId,
+                  url: asset.assetURL,
                   content: asset.assetURL,
                   type: 'image',
                   mediumID: finalMediumID,
+                  mimeType: asset.mimeType,
                 },
               ]
             );

@@ -22,7 +22,6 @@ import Copy from '../icons/Copy';
 import Code from '../icons/Code';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
 import { stripHTML, stripOutputTags } from '../../helpers/utils';
-import FilePreview from '../FilePreview/FilePreview';
 import { renderMsg, truncateMessage } from '../../helpers/message';
 import Expandable from '../ui/Expandable';
 // Always import and load MathJax
@@ -55,7 +54,6 @@ export interface Props {
   userAvatar?: MemoriProps['userAvatar'];
   user?: User;
   experts?: ExpertReference[];
-  previewFiles?: { name: string; id: string; content: string; mediumID: string | undefined }[];
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -76,7 +74,6 @@ const ChatBubble: React.FC<Props> = ({
   user,
   userAvatar,
   experts,
-  previewFiles,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
@@ -121,8 +118,6 @@ const ChatBubble: React.FC<Props> = ({
       return () => clearTimeout(timer);
     }
   }, [message.text, message.fromUser, renderedText]);
-
-  console.log('previewFiles', previewFiles);
 
   return (
     <>
@@ -358,18 +353,6 @@ const ChatBubble: React.FC<Props> = ({
                 )}
             </div>
           )}
-
-          {message.fromUser &&
-            message.media &&
-            message.media?.length > 0 &&
-            message.media[0].properties?.isAttachedFile && (
-              <FilePreview
-                previewFiles={previewFiles}
-                removeFile={() => {}}
-                allowRemove={false}
-                isMessagePreview={true}
-              />
-            )}
         </Transition.Child>
 
         {message.fromUser && (

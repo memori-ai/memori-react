@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DialogState } from '@memori.ai/memori-api-client/dist/types';
+import { DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
 import Button from '../ui/Button';
 import { useTranslation } from 'react-i18next';
@@ -21,13 +21,7 @@ export interface Props {
   onChangeUserMessage: (userMessage: string) => void;
   sendMessage: (
     msg: string,
-    media?: {
-      mediumID: string;
-      mimeType: string;
-      content: string;
-      title?: string;
-      properties?: { [key: string]: any };
-    }
+    media?: (Medium & { type: string })[]
   ) => void;
   onTextareaFocus: () => void;
   onTextareaBlur: () => void;
@@ -43,7 +37,6 @@ export interface Props {
   showUpload?: boolean;
   sessionID?: string;
   apiURL?: string;
-  setPreviewFiles: (files: { name: string; id: string; content: string; mediumID: string | undefined }[]) => void;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -55,7 +48,6 @@ const ChatInputs: React.FC<Props> = ({
   onTextareaFocus,
   onTextareaBlur,
   resetTranscript,
-  setPreviewFiles,
   showMicrophone = false,
   microphoneMode = 'HOLD_TO_TALK',
   listening = false,
@@ -71,7 +63,15 @@ const ChatInputs: React.FC<Props> = ({
 
   // State for document preview files
   const [documentPreviewFiles, setDocumentPreviewFiles] = useState<
-    { name: string; id: string; content: string; mediumID: string | undefined }[]
+    {
+      name: string;
+      id: string;
+      content: string;
+      mediumID: string | undefined;
+      mimeType: string;
+      url?: string;
+      type: string;
+    }[]
   >([]);
 
   // Client
@@ -83,21 +83,28 @@ const ChatInputs: React.FC<Props> = ({
   /**
    * Handles sending a message, including any attached files
    */
-  const onSendMessage = () => {
-    const fileToSend = documentPreviewFiles.find(file => !file.mediumID);
+  const onSendMessage = (
+    files: {
+      name: string;
+      id: string;
+      content: string;
+      mediumID: string | undefined;
+      mimeType: string;
+      type: string;
+      url?: string;
+    }[]
+  ) => {
     sendMessage(
       userMessage,
-      fileToSend
-        ? {
-            mediumID: '',
-            mimeType: 'text/plain',
-            content: fileToSend.content,
-            title: fileToSend.name,
-            properties: {
-              isAttachedFile: true,
-            },
-          }
-        : undefined
+      files.map(file => ({
+        mediumID: file.mediumID || '',
+        mimeType: file.mimeType,
+        content: file.content,
+        title: file.name,
+        properties: { isAttachedFile: true },
+        type: file.type,
+        url: file.url,
+      }))
     );
 
     // Reset states after sending
@@ -114,17 +121,15 @@ const ChatInputs: React.FC<Props> = ({
       stopListening();
       sendMessage(
         userMessage,
-        documentPreviewFiles[0]
-          ? {
-              mediumID: '',
-              mimeType: 'text/plain',
-              content: documentPreviewFiles[0].content,
-              title: documentPreviewFiles[0].name,
-              properties: {
-                isAttachedFile: true,
-              },
-            }
-          : undefined
+        documentPreviewFiles.map(file => ({
+          mediumID: file.mediumID || '',
+          mimeType: file.mimeType,
+          content: file.content,
+          title: file.name,
+          properties: { isAttachedFile: true },
+          type: file.type,
+          url: file.url,
+        }))
       );
 
       setDocumentPreviewFiles([]);
@@ -143,8 +148,17 @@ const ChatInputs: React.FC<Props> = ({
       await dialog.postMediumDeselectedEvent(sessionID, mediumID);
     }
     setDocumentPreviewFiles(
-      (prev: { name: string; id: string; content: string; mediumID: string | undefined }[]) =>
-        prev.filter((file: { id: string }) => file.id !== fileId)
+      (
+        prev: {
+          name: string;
+          id: string;
+          content: string;
+          mediumID: string | undefined;
+          mimeType: string;
+          type: string;
+          url?: string;
+        }[]
+      ) => prev.filter((file: { id: string }) => file.id !== fileId)
     );
   };
 
@@ -189,8 +203,7 @@ const ChatInputs: React.FC<Props> = ({
         disabled={!userMessage || userMessage.length === 0}
         className="memori-chat-inputs--send"
         onClick={() => {
-          setPreviewFiles(documentPreviewFiles);
-          onSendMessage();
+          onSendMessage(documentPreviewFiles);
         }}
         title={t('send') || 'Send'}
         icon={<Send />}

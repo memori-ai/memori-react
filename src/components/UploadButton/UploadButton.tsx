@@ -104,7 +104,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 
   // Handler for document files - only stores the latest document
   const handleDocumentFiles = (
-    files: { name: string; id: string; content: string }[]
+    files: { name: string; id: string; content: string; mimeType: string }[]
   ) => {
     if (files.length === 0) return;
 
@@ -127,7 +127,8 @@ ${file.content}
         name: file.name,
         id: file.id,
         content: formattedContent,
-        type: 'document'
+        type: 'file',
+        mimeType: file.mimeType,
       },
       ...imageFiles,
     ]);

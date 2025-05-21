@@ -3,6 +3,7 @@ import cx from 'classnames';
 import {
   DialogState,
   ExpertReference,
+  Medium,
   Memori,
   Message,
   Tenant,
@@ -57,13 +58,7 @@ export interface Props {
   onChangeUserMessage: (userMessage: string) => void;
   sendMessage: (
     msg: string,
-    media?: {
-      mediumID: string;
-      mimeType: string;
-      content: string;
-      title?: string;
-      properties?: { [key: string]: any };
-    }
+    media?: (Medium & { type: string })[]
   ) => void;
   listening?: boolean;
   setEnableFocusChatInput: (enableFocusChatInput: boolean) => void;
@@ -126,8 +121,6 @@ const Chat: React.FC<Props> = ({
   experts,
   useMathFormatting = false,
 }) => {
-
-  const [previewFiles, setPreviewFiles] = useState<{ name: string; id: string; content: string; mediumID: string | undefined }[]>([]);
   const scrollToBottom = () => {
     setTimeout(() => {
       let userMsgs = document.querySelectorAll(
@@ -232,7 +225,6 @@ const Chat: React.FC<Props> = ({
                 experts={experts}
                 showCopyButton={showCopyButton}
                 useMathFormatting={useMathFormatting}
-                previewFiles={previewFiles}
               />
 
               {showDates && !!message.timestamp && (
@@ -366,7 +358,6 @@ const Chat: React.FC<Props> = ({
           listening={listening}
           isPlayingAudio={isPlayingAudio}
           showMicrophone={showMicrophone}
-          setPreviewFiles={setPreviewFiles}
         />
       )}
     </div>

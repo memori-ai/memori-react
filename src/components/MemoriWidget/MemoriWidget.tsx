@@ -804,8 +804,9 @@ const MemoriWidget = ({
         msg = translation.text;
       }
 
-      if (media?.length && media[0]?.properties?.isAttachedFile) {
-        msg = msg + ' ' + media[0].content;
+      const findMediaDocument = media?.find(m => !m.mediumID && m.properties?.isAttachedFile);
+      if (findMediaDocument) {
+        msg = msg + ' ' + findMediaDocument.content;
       }
 
       const { currentState, ...response } = await postTextEnteredEvent({
@@ -3535,29 +3536,13 @@ const MemoriWidget = ({
     onChangeUserMessage,
     sendMessage: (
       msg: string,
-      media?: {
-        mediumID: string;
-        mimeType: string;
-        content: string;
-        title?: string;
-        properties?: { [key: string]: any };
-      }
+      media?: (Medium & { type: string })[]
     ) => {
       stopAudio();
       stopListening();
       sendMessage(
         msg,
         media
-          ? [
-              {
-                mediumID: media.mediumID,
-                mimeType: media.mimeType,
-                content: media.content,
-                title: media.title,
-                properties: media.properties,
-              },
-            ]
-          : undefined
       );
       setUserMessage('');
       resetTranscript();

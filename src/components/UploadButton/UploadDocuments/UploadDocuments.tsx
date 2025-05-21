@@ -43,7 +43,7 @@ declare global {
 
 // Props interface
 interface UploadDocumentsProps {
-  setDocumentPreviewFiles: (files: { name: string; id: string; content: string }[]) => void;
+  setDocumentPreviewFiles: (files: { name: string; id: string; content: string; mimeType: string }[]) => void;
   maxDocuments?: number;
   documentPreviewFiles: any;
 }
@@ -256,6 +256,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           name: file.name,
           id: fileId,
           content: text,
+          mimeType: file.type,
         }]);
       }
     } catch (error) {
