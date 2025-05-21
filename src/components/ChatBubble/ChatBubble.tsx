@@ -23,7 +23,6 @@ import Code from '../icons/Code';
 import Bug from '../icons/Bug';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
 import { stripHTML, stripOutputTags } from '../../helpers/utils';
-import FilePreview from '../FilePreview/FilePreview';
 import { renderMsg, truncateMessage } from '../../helpers/message';
 import Expandable from '../ui/Expandable';
 import Modal from '../ui/Modal';
@@ -101,7 +100,7 @@ const ChatBubble: React.FC<Props> = ({
 
   // Format function cache content
   const functionCacheData = message.media?.find(
-    m => m.properties?.functionCache === "true"
+    m => m.properties?.functionCache === 'true'
   );
 
   // Render MathJax whenever message content changes
@@ -299,7 +298,9 @@ const ChatBubble: React.FC<Props> = ({
 
               {!message.fromUser &&
                 showFunctionCache &&
-                message.media?.some(m => m.properties?.functionCache === "true") && (
+                message.media?.some(
+                  m => m.properties?.functionCache === 'true'
+                ) && (
                   <Button
                     ghost
                     shape="circle"
@@ -383,22 +384,6 @@ const ChatBubble: React.FC<Props> = ({
                 )}
             </div>
           )}
-
-          {message.fromUser &&
-            message.media &&
-            message.media?.length > 0 &&
-            message.media[0].properties?.isAttachedFile && (
-              <FilePreview
-                previewFiles={message.media.map(m => ({
-                  name: m.title ?? '',
-                  id: m.mediumID,
-                  content: m.content ?? '',
-                }))}
-                removeFile={() => {}}
-                allowRemove={false}
-                isMessagePreview={true}
-              />
-            )}
         </Transition.Child>
 
         {message.fromUser && (
