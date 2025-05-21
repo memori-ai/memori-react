@@ -353,11 +353,8 @@ const UploadImages: React.FC<UploadImagesProps> = ({
         className="memori--modal-preview-file"
         onClose={handleCancelUpload}
         closable
-        title={t('upload.titleImage') ?? 'Title your image'}
-        description={
-          t('upload.imageTitleDescription') ??
-          'Please provide a title for your image'
-        }
+        title={t('upload.titleImage', { title: imageTitle })}
+        // description={t('upload.imageTitleDescription')}
       >
         <div
           className="memori--preview-content"
@@ -383,8 +380,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
             style={{ maxWidth: '400px', margin: '0 auto', textAlign: 'left' }}
           >
             <p style={{ marginBottom: '10px', color: '#666' }}>
-              {t('upload.titleHelp') ??
-                'Adding a descriptive title helps the AI provide more context and appropriate responses.'}
+              {t('upload.titleHelp')}
             </p>
             <input
               value={imageTitle}
@@ -399,13 +395,13 @@ const UploadImages: React.FC<UploadImagesProps> = ({
                 disabled={!selectedFile || !imageTitle.trim()}
                 className="memori-button memori-button--primary"
               >
-                {t('upload.submit') ?? 'Submit'}
+                {t('confirm') ?? 'Confirm'}
               </Button>
               <Button
                 onClick={handleCancelUpload}
                 className="memori-button memori-button--secondary"
               >
-                {t('upload.cancel') ?? 'Cancel'}
+                {t('cancel') ?? 'Cancel'}
               </Button>
             </div>
           </div>

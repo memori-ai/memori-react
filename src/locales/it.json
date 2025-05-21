@@ -201,13 +201,13 @@
     "uploadSuccess": "Caricamento riuscito",
     "remaining": "rimanenti",
     "maxReached": "Limite raggiunto",
-    "imageTitleDescription": "L'immagine é stata caricata con successo!",
+    "titleImage": "Immagine: {{title}}",
+    "titleImageUpload": "Carica immagini",
     "titleHelp": "Aggiungi un titolo descrittivo per aiutare l'AI a fornire risposte più appropriate.",
     "titlePlaceholder": "Inserisci il titolo dell'immagine",
     "uploadSuccessDescription": "Il file è stato caricato con successo",
-    "submit": "Invia",
     "partialUpload": "Solo {{uploaded}} immagini su {{total}} immagini saranno caricate. Massimo {{max}} immagini consentite.",
-    "cancel": "Cancella"
+    "cancel": "Annulla"
   },
   "gamification": {
     "level": "Livello",

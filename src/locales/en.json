@@ -185,8 +185,9 @@
     "fileReadingFailed": "File reading failed",
     "uploadFailed": "Upload failed",
     "uploadSuccess": "Upload success",
+    "titleImage": "Image: {{title}}",
     "uploadSuccessDescription": "The file has been uploaded successfully",
-    "submit": "Submit",
+    "titleImageUpload": "Upload images",
     "partialUpload": "Only {{uploaded}} images on {{total}} will be uploaded. Maximum {{max}} images allowed.",
     "maxImages": "Maximum {{max}} images allowed.",
     "upload": "Upload"
