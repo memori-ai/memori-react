@@ -1,5 +1,40 @@
 
 
+## [7.26.0](https://github.com/memori-ai/memori-react/compare/v7.25.1...v7.26.0) (2025-05-21)
+
+
+### Features
+
+* add function cache modal and debug button in ChatBubble component ([64d65d0](https://github.com/memori-ai/memori-react/commit/64d65d0bced4ac2e8b14ce6dc3732fae25ec7426))
+* add multi-language support for upload functionality in locales ([a0dddc5](https://github.com/memori-ai/memori-react/commit/a0dddc5b7b0102fb70129d288bca8fa5b3d0cf9a))
+* add new Document, Image, Preview, and Upload icons components ([0a93941](https://github.com/memori-ai/memori-react/commit/0a93941ca6364b88e6736701ab9923677a544e00))
+* add showFunctionCache prop to Chat, ChatBubble, and MemoriWidget components ([6dc9107](https://github.com/memori-ai/memori-react/commit/6dc9107d2a68d90de3051de93e7fbd9891bcc7dc))
+* add WithFunctionCache story to ChatBubble ([5b638a0](https://github.com/memori-ai/memori-react/commit/5b638a0bca964bc951d741b1787c9a4d2d5a325b))
+* added images deselection functionality integrated with API ([f03cda6](https://github.com/memori-ai/memori-react/commit/f03cda6e17baf3d041688ab4e06f3a220b25d119))
+* enhance FilePreview component to support image and document previews ([0d1dffc](https://github.com/memori-ai/memori-react/commit/0d1dffc315a3f74d69f5708f661322d55fa57910))
+* enhance UploadButton with image count indicator and improved upload menu styling ([c141517](https://github.com/memori-ai/memori-react/commit/c141517823b725cb48a0c640d876f24573bcc694))
+* implement fullscreen functionality for hidden chat layout and fixed reopening chat ([1158775](https://github.com/memori-ai/memori-react/commit/1158775fe8cc904dcf01c9350095f8fcf35cd2c6))
+* implement image title input and preview modal in upload functionality ([a1358c1](https://github.com/memori-ai/memori-react/commit/a1358c144fed1f76370423ffe12812e4c9427892))
+* integrate preview file management in Chat components ([6349fed](https://github.com/memori-ai/memori-react/commit/6349fedbad42c1977194e897280fbd6b0d58cb86))
+
+
+### Bug Fixes
+
+*  localization strings ([d98f091](https://github.com/memori-ai/memori-react/commit/d98f0913d4f7f324fde504c16ec342a1878b04ed))
+*  preview medium file for documents and images ([7b28cd0](https://github.com/memori-ai/memori-react/commit/7b28cd0d8b0abe53c2d104444be65a7d5722fea1))
+* add modal import ([8d9bd4a](https://github.com/memori-ai/memori-react/commit/8d9bd4acc4f7e4688a598e5d89038c4ab14cb3e7))
+* ensure preview files are set before sending messages ([f03b834](https://github.com/memori-ai/memori-react/commit/f03b834952159540539c425f0abee99d22960302))
+* lint ([6891c1f](https://github.com/memori-ai/memori-react/commit/6891c1f6d0eb83c7da97cf5c851ee02352aded4f))
+* only one document can be uploaded per message ([4102f2f](https://github.com/memori-ai/memori-react/commit/4102f2f7c2c2b6ae2a0eaca0f252692b8c87b73a))
+* update document upload button to correctly limit non-image file uploads ([210a258](https://github.com/memori-ai/memori-react/commit/210a258ba63f2b847aa9c563ab075ad1e0f2a62e))
+* update engineURL to production and refactor boolean properties in story configurations ([14c2622](https://github.com/memori-ai/memori-react/commit/14c2622da8a7d0be91b4e027486ebff48d8e1f03))
+
+
+### Changes
+
+* improve UploadButton component structure and error handling ([d51e1fe](https://github.com/memori-ai/memori-react/commit/d51e1fe158a6b68029f9101b9f2e4ecc729a7b2d))
+* update UploadButton component to support document and image uploads ([2809dfc](https://github.com/memori-ai/memori-react/commit/2809dfc7200dc50ecfd9d8946d5048e8f29261f5))
+
 ## [7.25.1](https://github.com/memori-ai/memori-react/compare/v7.25.0...v7.25.1) (2025-05-13)
 
 
