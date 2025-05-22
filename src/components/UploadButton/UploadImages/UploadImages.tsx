@@ -134,33 +134,18 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
 
-    // Check if adding these files would exceed the limit
-    const availableSlots = maxImages - currentImageCount;
-
-    if (availableSlots <= 0) {
-      // This check should rarely be needed since the button should be disabled
-      return;
-    }
-
-    // If we can't upload all files, only upload what we can and show warning
-    let filesToUpload = files;
-    if (files.length > availableSlots) {
-      filesToUpload = files.slice(0, availableSlots);
+    // Check if adding this file would exceed the limit
+    if (currentImageCount >= maxImages) {
       addError({
-        message:
-          t('upload.partialUpload', {
-            uploaded: availableSlots,
-            total: files.length,
-          }) ??
-          `Only ${availableSlots} out of ${files.length} images will be uploaded. Maximum ${maxImages} images allowed.`,
-        severity: 'warning',
+        message: t('upload.maxImagesReached') ?? `Maximum ${maxImages} images allowed.`,
+        severity: 'error'
       });
+      return;
     }
 
     clearErrors();
 
-    // For simplicity, we'll handle one file at a time
-    const file = filesToUpload[0];
+    const file = files[0]; // Only handle the first file
 
     if (!validateImageFile(file)) {
       if (imageInputRef.current) {
@@ -170,7 +155,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     }
 
     // Set file and create preview
-    console.log('file', file);
     setSelectedFile(file);
     setFilePreview(URL.createObjectURL(file));
 
@@ -322,7 +306,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({
           !authToken ||
           currentImageCount >= maxImages
         }
-        multiple
       />
 
       {/* Upload image button */}
@@ -404,7 +387,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
               </Button>
               <Button
                 onClick={handleCancelUpload}
-                className="memori-button memori-button--secondary"
+                className="memori-button memori-button--primary"
               >
                 {t('cancel') ?? 'Cancel'}
               </Button>
