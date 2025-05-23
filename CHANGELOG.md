@@ -1,5 +1,22 @@
 
 
+## [7.26.1](https://github.com/memori-ai/memori-react/compare/v7.26.0...v7.26.1) (2025-05-23)
+
+
+### Bug Fixes
+
+* add RTL support to MediaWidget link items ([afea49c](https://github.com/memori-ai/memori-react/commit/afea49c06716e24d0a2c570283278544f0bc5142))
+* aligned user media items to the right ([790031d](https://github.com/memori-ai/memori-react/commit/790031dec51455e5f8df5cb69face522ac54af22))
+* enabled upload documents for unauthenticated users ([88c7cc8](https://github.com/memori-ai/memori-react/commit/88c7cc892c729269ed4a80b2da0f40cf5cb6ecc6))
+* for MediaItemWidget with modal preview for document content ([f6e5d3b](https://github.com/memori-ai/memori-react/commit/f6e5d3b131f68b83741980a2e6ae78c920f0a721))
+* prevent scrolling while rendering MathJax ([cec210a](https://github.com/memori-ai/memori-react/commit/cec210aad3d2d4f4bb98d1c954f5ddb064a15398))
+* prevent user to upload multiple images and fix style button Cancel ([d084675](https://github.com/memori-ai/memori-react/commit/d0846758cda3346e10234f3d9acbbef8df70ce52))
+
+
+### Changes
+
+* improve XML formatting and readability in UploadButton component ([1842018](https://github.com/memori-ai/memori-react/commit/18420185387dce24f928918c5c3f6eed2d45ad16))
+
 ## [7.26.0](https://github.com/memori-ai/memori-react/compare/v7.25.1...v7.26.0) (2025-05-21)
 
 
