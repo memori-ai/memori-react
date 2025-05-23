@@ -91,7 +91,6 @@ FromUserWithLink.args = {
   },
 };
 
-
 export const Initial = Template.bind({});
 Initial.args = {
   memori,
@@ -618,7 +617,6 @@ WithHTML.args = {
   },
 };
 
-
 // 9. Complex HTML Table
 export const ComplexHTMLTable = Template.bind({});
 ComplexHTMLTable.args = {
@@ -671,7 +669,8 @@ ComplexHTMLTable.args = {
 ComplexHTMLTable.parameters = {
   docs: {
     description: {
-      story: 'A message containing a complex HTML table that should trigger the loading spinner before rendering.',
+      story:
+        'A message containing a complex HTML table that should trigger the loading spinner before rendering.',
     },
   },
 };
@@ -683,7 +682,11 @@ MediumLongTextMessage.args = {
   tenant,
   message: {
     fromUser: false,
-    text: Array(100).fill('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.').join('\n\n'),
+    text: Array(100)
+      .fill(
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.'
+      )
+      .join('\n\n'),
     initial: false,
   },
 };
@@ -694,7 +697,11 @@ LongTextMessage.args = {
   tenant,
   message: {
     fromUser: false,
-    text: Array(200).fill('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.').join('\n\n'),
+    text: Array(200)
+      .fill(
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.'
+      )
+      .join('\n\n'),
     initial: false,
   },
 };
@@ -702,10 +709,16 @@ LongTextMessage.args = {
 export const LongTextMessageWithHTML = Template.bind({});
 LongTextMessageWithHTML.args = {
   memori,
-  tenant, 
+  tenant,
   message: {
     fromUser: false,
-    text: Array(200).fill('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat.').join('\n\n') + `
+    text:
+      Array(200)
+        .fill(
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat.'
+        )
+        .join('\n\n') +
+      `
     <div>
     <div style="width: 30%; margin-bottom: 20px;">
     <img src="https://www.e-stayon.com/images/thumbs/0244280_lenovo-ideapad-3-chromebook-15-intel-celeron-4gb-64gb_360.jpeg" style="width:100%">
@@ -715,7 +728,6 @@ LongTextMessageWithHTML.args = {
     </div>`,
   },
 };
-
 
 // 10. Message with an embedded helper function to show requiresFormatting detection
 export const FormattingDetectionDemo = Template.bind({});
@@ -731,7 +743,79 @@ FormattingDetectionDemo.args = {
 FormattingDetectionDemo.parameters = {
   docs: {
     description: {
-      story: 'A demonstration of different content patterns that trigger the loading spinner.',
+      story:
+        'A demonstration of different content patterns that trigger the loading spinner.',
     },
+  },
+};
+
+export const HTMLTable = Template.bind({});
+HTMLTable.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: `Ecco la lista formattata in HTML dei task e dei relativi assegnatari:
+<table>
+ <tr>
+ <th>Task</th>
+ <th>Assegnato a</th>
+ </tr>
+ <tr><td>Market Research</td><td>Alice</td></tr>
+ <tr><td>Content Creation</td><td>Bob</td></tr>
+ <tr><td>Social Media Planning</td><td>Charlie</td></tr>
+ <tr><td>Campaign Analysis</td><td>Daisy</td></tr>
+ <tr><td>Prototype Development</td><td>Ethan</td></tr>
+ <tr><td>Quality Assurance</td><td>Fiona</td></tr>
+ <tr><td>User Interface Design</td><td>Gabriel</td></tr>
+ <tr><td>Service Improvement</td><td>Hannah</td></tr>
+ <tr><td>Ticket Resolution</td><td>Ian</td></tr>
+ <tr><td>Customer Feedback</td><td>Julia</td></tr>
+ <tr><td>Budget Analysis</td><td>Kevin</td></tr>
+ <tr><td>Financial Reporting</td><td>Mark</td></tr>
+ <tr><td>Investment Planning</td><td>Mark</td></tr>
+ <tr><td>Market Trends Analysis</td><td>Nathan</td></tr>
+ <tr><td>Data Collection</td><td>Olivia</td></tr>
+ <tr><td>Research Paper Writing</td><td>Peter</td></tr>
+ <tr><td>Software Development</td><td>Quinn</td></tr>
+ <tr><td>Feature Enhancement</td><td>Rachel</td></tr>
+ <tr><td>Code Review</td><td>Sam</td></tr>
+ <tr><td>Manufacturing</td><td>Tim</td></tr>
+ <tr><td>Product Design</td><td>Uma</td></tr>
+ <tr><td>UX Research</td><td>Victor</td></tr>
+ <tr><td>API Development</td><td>Wendy</td></tr>
+ <tr><td>Database Management</td><td>Xavier</td></tr>
+ <tr><td>Cloud Infrastructure</td><td>Yara</td></tr>
+ <tr><td>Security Testing</td><td>Zack</td></tr>
+ <tr><td>Documentation</td><td>Adam</td></tr>
+ <tr><td>Technical Support</td><td>Beth</td></tr>
+ <tr><td>Project Management</td><td>Carl</td></tr>
+ <tr><td>Business Analysis</td><td>Diana</td></tr>
+ <tr><td>DevOps Engineering</td><td>Erik</td></tr>
+ <tr><td>Mobile Development</td><td>Faith</td></tr>
+ <tr><td>Frontend Development</td><td>George</td></tr>
+ <tr><td>Backend Development</td><td>Helen</td></tr>
+ <tr><td>System Architecture</td><td>Isaac</td></tr>
+ <tr><td>Data Analysis</td><td>Jane</td></tr>
+ <tr><td>Machine Learning</td><td>Kyle</td></tr>
+ <tr><td>AI Development</td><td>Lisa</td></tr>
+ <tr><td>Network Security</td><td>Mike</td></tr>
+ <tr><td>Performance Testing</td><td>Nina</td></tr>
+ <tr><td>Load Testing</td><td>Oscar</td></tr>
+ <tr><td>Penetration Testing</td><td>Penny</td></tr>
+ <tr><td>Automation Testing</td><td>Quentin</td></tr>
+ <tr><td>Release Management</td><td>Rose</td></tr>
+ <tr><td>Configuration Management</td><td>Steve</td></tr>
+ <tr><td>Change Management</td><td>Tina</td></tr>
+ <tr><td>Risk Management</td><td>Ulysses</td></tr>
+ <tr><td>Resource Planning</td><td>Violet</td></tr>
+ <tr><td>Capacity Planning</td><td>Walter</td></tr>
+ <tr><td>Strategic Planning</td><td>Xena</td></tr>
+ <tr><td>Operations Management</td><td>Yuki</td></tr>
+ <tr><td>Quality Management</td><td>Zara</td></tr>
+</table>
+
+Ho mostrato i primi 20 task per brevità. La tabella include il nome del task e la persona assegnata.`,
+    initial: false,
   },
 };

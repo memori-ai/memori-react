@@ -9,6 +9,7 @@ import {
   sessionID,
   dialogState as dialogStateWithHints,
   historyWithExpandable,
+  historyWithLongHTMLTable,
 } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Chat, { Props } from './Chat';
@@ -301,4 +302,15 @@ WithExpandable.args = {
   sendMessage: (msg: string) => console.log(msg),
   stopListening: () => {},
   resetTranscript: () => {},
+};
+
+
+export const WithLongHTMLTable = Template.bind({});
+WithLongHTMLTable.args = {
+  memori,
+  tenant,
+  sessionID,
+  history: historyWithLongHTMLTable,
+  dialogState,
+  layout: 'DEFAULT',
 };

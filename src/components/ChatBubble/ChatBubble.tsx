@@ -102,11 +102,8 @@ const ChatBubble: React.FC<Props> = ({
   const functionCacheData = message.media?.find(
     m => m.properties?.functionCache === 'true'
   );
-
-  // Render MathJax whenever message content changes
   useLayoutEffect(() => {
     if (typeof window !== 'undefined' && !message.fromUser) {
-      // Allow a short delay for the DOM to update
       const timer = setTimeout(() => {
         if (window.MathJax && window.MathJax.typesetPromise) {
           try {
@@ -114,9 +111,21 @@ const ChatBubble: React.FC<Props> = ({
               '.memori-chat--bubble-content'
             );
             if (elements.length > 0) {
+              // Salva la posizione di scroll corrente
+              const scrollContainer = document.querySelector('.memori-chat--history');
+              const currentScrollTop = scrollContainer?.scrollTop || 0;
+              const currentScrollHeight = scrollContainer?.scrollHeight || 0;
+              
               window.MathJax.typesetPromise([
                 '.memori-chat--bubble-content',
-              ]).catch(err =>
+              ]).then(() => {
+                // Ripristina la posizione di scroll dopo il rendering MathJax
+                if (scrollContainer) {
+                  const newScrollHeight = scrollContainer.scrollHeight;
+                  const heightDifference = newScrollHeight - currentScrollHeight;
+                  scrollContainer.scrollTop = currentScrollTop + heightDifference;
+                }
+              }).catch(err =>
                 console.error('MathJax typesetting failed:', err)
               );
             }
@@ -125,11 +134,10 @@ const ChatBubble: React.FC<Props> = ({
           }
         }
       }, 100);
-
+  
       return () => clearTimeout(timer);
     }
   }, [message.text, message.fromUser, renderedText]);
-
   return (
     <>
       {(message.initial || isFirst) && (

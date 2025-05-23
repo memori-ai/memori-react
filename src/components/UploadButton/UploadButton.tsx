@@ -251,7 +251,7 @@ ${file.content}
           <div
             className={cx('memori--upload-menu-item', {
               'memori--upload-menu-item--disabled':
-                !isMediaAccepted || hasReachedImageLimit,
+                !authToken || !isMediaAccepted || hasReachedImageLimit,
             })}
             onClick={handleImageClick}
             title={
