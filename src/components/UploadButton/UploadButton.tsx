@@ -52,9 +52,13 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   const imageRef = useRef<HTMLDivElement>(null);
 
   // Calculate image count and remaining slots
-  const currentImageCount = documentPreviewFiles.filter(file => file.type === 'image').length;
+  const currentImageCount = documentPreviewFiles.filter(
+    file => file.type === 'image'
+  ).length;
   const remainingSlots = MAX_IMAGES - currentImageCount;
-  const currentDocumentCount = documentPreviewFiles.filter(file => file.type === 'document').length;
+  const currentDocumentCount = documentPreviewFiles.filter(
+    file => file.type === 'document'
+  ).length;
   const remainingDocumentSlots = MAX_DOCUMENTS - currentDocumentCount;
   const hasReachedImageLimit = remainingSlots <= 0;
   const hasReachedDocumentLimit = remainingDocumentSlots <= 0;
@@ -111,16 +115,25 @@ const UploadButton: React.FC<UploadManagerProps> = ({
     // For simplicity, we only take the first file
     const file = files[0];
 
-    // Format content with XML tags to improve readability for LLM
-    const formattedContent = `<Documento allegato al messaggio: ${file.name}>
-${file.content}
-</Documento allegato al messaggio: ${file.name}>`;
+    // Funzione helper per fare escape dell'HTML nei valori degli attributi
+    const escapeAttributeValue = (text: string) => {
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    };
 
+    // ✅ MIGLIORE SOLUZIONE: Tag XML valido con attributi chiari
+    const escapedFileName = escapeAttributeValue(file.name);
+    const formattedContent = `<document_attachment filename="${escapedFileName}" type="${file.mimeType}">
+${file.content}
+</document_attachment>`;
     //keep just the images in the documentPreviewFiles
     const imageFiles = documentPreviewFiles.filter(
       (file: any) => file.type === 'image'
     );
-
     // Replace existing file with new one
     setDocumentPreviewFiles([
       {
@@ -156,26 +169,28 @@ ${file.content}
       closeMenu();
       return;
     }
-    
+
     if (!isMediaAccepted) {
       addError({
-        message: t('upload.mediaNotAccepted') ?? 'Media uploads are not accepted',
+        message:
+          t('upload.mediaNotAccepted') ?? 'Media uploads are not accepted',
         severity: 'info',
       });
       closeMenu();
       return;
     }
-    
+
     if (hasReachedImageLimit) {
       addError({
-        message: t('upload.maxImagesReached', { max: MAX_IMAGES }) ?? 
+        message:
+          t('upload.maxImagesReached', { max: MAX_IMAGES }) ??
           `Maximum ${MAX_IMAGES} images already uploaded`,
         severity: 'warning',
       });
       closeMenu();
       return;
     }
-    
+
     // If all checks pass, click the button in UploadImages component
     const imageButtonElement = imageRef.current?.querySelector('button');
     if (imageButtonElement) {
@@ -213,13 +228,14 @@ ${file.content}
           <UploadIcon className="memori--upload-icon" />
         )}
       </button>
-      
+
       {/* Image count indicator - moved here from UploadImages */}
       {currentImageCount > 0 && (
-        <div className={cx(
-          'memori--image-count',
-          { 'memori--image-count-full': hasReachedImageLimit }
-        )}>
+        <div
+          className={cx('memori--image-count', {
+            'memori--image-count-full': hasReachedImageLimit,
+          })}
+        >
           {currentImageCount}/{MAX_IMAGES}
         </div>
       )}
@@ -228,9 +244,8 @@ ${file.content}
       {menuOpen && (
         <div className="memori--upload-menu" ref={menuRef}>
           <div
-             className={cx('memori--upload-menu-item', {
-              'memori--upload-menu-item--disabled':
-                hasReachedDocumentLimit,
+            className={cx('memori--upload-menu-item', {
+              'memori--upload-menu-item--disabled': hasReachedDocumentLimit,
             })}
             onClick={handleDocumentClick}
           >
@@ -241,8 +256,9 @@ ${file.content}
                 <span className="memori--upload-slots-info">
                   {hasReachedDocumentLimit
                     ? ` (${t('upload.maxReached') ?? 'Max reached'})`
-                    : ` (${remainingDocumentSlots} ${t('upload.remaining') ?? 'remaining'})`
-                  }
+                    : ` (${remainingDocumentSlots} ${
+                        t('upload.remaining') ?? 'remaining'
+                      })`}
                 </span>
               )}
             </span>
@@ -258,12 +274,14 @@ ${file.content}
               !authToken
                 ? t('upload.loginRequired') ?? 'Login Required'
                 : !isMediaAccepted
-                  ? t('upload.mediaNotAccepted') ?? 'Media uploads not accepted'
-                  : hasReachedImageLimit
-                    ? t('upload.maxImagesReached', { max: MAX_IMAGES }) ?? `Maximum ${MAX_IMAGES} images already uploaded`
-                    : remainingSlots === 1
-                      ? t('upload.lastImageSlot') ?? 'Upload last image'
-                      : t('upload.uploadImage', { remaining: remainingSlots }) ?? `Upload image (${remainingSlots} remaining)`
+                ? t('upload.mediaNotAccepted') ?? 'Media uploads not accepted'
+                : hasReachedImageLimit
+                ? t('upload.maxImagesReached', { max: MAX_IMAGES }) ??
+                  `Maximum ${MAX_IMAGES} images already uploaded`
+                : remainingSlots === 1
+                ? t('upload.lastImageSlot') ?? 'Upload last image'
+                : t('upload.uploadImage', { remaining: remainingSlots }) ??
+                  `Upload image (${remainingSlots} remaining)`
             }
           >
             <ImageIcon className="memori--upload-menu-icon-image" />
@@ -273,8 +291,9 @@ ${file.content}
                 <span className="memori--upload-slots-info">
                   {hasReachedImageLimit
                     ? ` (${t('upload.maxReached') ?? 'Max reached'})`
-                    : ` (${remainingSlots} ${t('upload.remaining') ?? 'remaining'})`
-                  }
+                    : ` (${remainingSlots} ${
+                        t('upload.remaining') ?? 'remaining'
+                      })`}
                 </span>
               )}
             </span>
@@ -284,7 +303,7 @@ ${file.content}
 
       {/* Hidden components */}
       <div className="memori--hidden-uploader" ref={documentRef}>
-        <UploadDocuments 
+        <UploadDocuments
           setDocumentPreviewFiles={handleDocumentFiles}
           maxDocuments={MAX_DOCUMENTS}
           documentPreviewFiles={documentPreviewFiles}
@@ -327,7 +346,10 @@ ${file.content}
           <Alert
             type="info"
             title={t('upload.loginRequired') ?? 'Login Required'}
-            description={t('upload.loginRequiredDescription') ?? 'Please login to upload images'}
+            description={
+              t('upload.loginRequiredDescription') ??
+              'Please login to upload images'
+            }
             width="350px"
             onClose={closeMenu}
           />
