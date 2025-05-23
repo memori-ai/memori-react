@@ -230,7 +230,7 @@ ${file.content}
           <div
              className={cx('memori--upload-menu-item', {
               'memori--upload-menu-item--disabled':
-                !authToken || hasReachedDocumentLimit,
+                hasReachedDocumentLimit,
             })}
             onClick={handleDocumentClick}
           >
@@ -251,7 +251,7 @@ ${file.content}
           <div
             className={cx('memori--upload-menu-item', {
               'memori--upload-menu-item--disabled':
-                !isMediaAccepted || !authToken || hasReachedImageLimit,
+                !isMediaAccepted || hasReachedImageLimit,
             })}
             onClick={handleImageClick}
             title={
