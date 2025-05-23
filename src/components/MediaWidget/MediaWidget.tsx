@@ -13,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 export interface Props {
   hints?: TranslatedHint[];
   links?: Medium[];
-  media?: Medium[];
+  media?: (Medium & { type?: string })[];
   simulateUserPrompt?: (item: string, translatedItem?: string) => void;
   sessionID?: string;
   baseUrl?: string;
