@@ -130,11 +130,6 @@ const ChatBubble: React.FC<Props> = ({
     }
   }, [message.text, message.fromUser, renderedText]);
 
-  console.log(
-    'message',
-    message.media?.find(m => m.properties?.functionCache)
-  );
-
   return (
     <>
       {(message.initial || isFirst) && (
