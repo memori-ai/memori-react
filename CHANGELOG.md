@@ -1,5 +1,17 @@
 
 
+## [7.26.2](https://github.com/memori-ai/memori-react/compare/v7.26.1...v7.26.2) (2025-05-26)
+
+
+### Features
+
+* add autoStart prop to HiddenChat component ([f0381ec](https://github.com/memori-ai/memori-react/commit/f0381ec13d29886b58c3d95a90ef4b42e7b96972))
+
+
+### Changes
+
+* removed initChat function from HiddenChatLayout ([c52c492](https://github.com/memori-ai/memori-react/commit/c52c492cbd7eb017f83f1d9abcf71530478443d8))
+
 ## [7.26.1](https://github.com/memori-ai/memori-react/compare/v7.26.0...v7.26.1) (2025-05-23)
 
 
