@@ -12,7 +12,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   headerProps,
   Chat,
   chatProps,
-  startPanelProps,
+  // startPanelProps,
   sessionId,
   hasUserActivatedSpeak,
 }) => {
@@ -27,18 +27,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     width: '',
     backgroundColor: '',
   });
-
-  const initChat = () => {
-    try {
-      window.speechSynthesis.speak(new SpeechSynthesisUtterance(''));
-    } catch (e) {
-      console.error(e);
-    }
-    if (startPanelProps && startPanelProps?.initializeTTS)
-      startPanelProps?.initializeTTS();
-    if (startPanelProps && startPanelProps?.onClickStart)
-      startPanelProps?.onClickStart();
-  };
 
   useEffect(() => {
     // Check if fullscreen is available
@@ -93,9 +81,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     }
 
     setIsOpen(prev => {
-      if (!prev) {
-        initChat();
-      }
       return !prev;
     });
   };
