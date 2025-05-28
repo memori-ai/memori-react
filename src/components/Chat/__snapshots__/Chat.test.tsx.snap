@@ -92,17 +92,12 @@ exports[`renders Chat unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Prova&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -197,17 +192,12 @@ exports[`renders Chat unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Come faccio a fare delle cose con questa cosa?&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -378,17 +368,12 @@ exports[`renders Chat unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Ah, grazie! Ciao!&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -640,17 +625,12 @@ exports[`renders Chat with context vars unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Prova&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -745,17 +725,12 @@ exports[`renders Chat with context vars unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Come faccio a fare delle cose con questa cosa?&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -941,17 +916,12 @@ exports[`renders Chat with context vars unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Ah, grazie! Ciao!&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -1218,17 +1188,12 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Prova&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -1315,17 +1280,12 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Come faccio a fare delle cose con questa cosa?&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -1488,17 +1448,12 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Ah, grazie! Ciao!&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -1742,17 +1697,12 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Prova&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <picture
@@ -1841,17 +1791,12 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Come faccio a fare delle cose con questa cosa?&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <picture
@@ -2016,17 +1961,12 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Ah, grazie! Ciao!&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <picture
@@ -2277,17 +2217,12 @@ exports[`renders Chat with dates unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Prova&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -2392,17 +2327,12 @@ exports[`renders Chat with dates unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Come faccio a fare delle cose con questa cosa?&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -2583,17 +2513,12 @@ exports[`renders Chat with dates unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Ah, grazie! Ciao!&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -2855,17 +2780,12 @@ exports[`renders Chat with hints unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Prova&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -2960,17 +2880,12 @@ exports[`renders Chat with hints unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Come faccio a fare delle cose con questa cosa?&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -3141,17 +3056,12 @@ exports[`renders Chat with hints unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Ah, grazie! Ciao!&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -3429,17 +3339,12 @@ exports[`renders Chat with media unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Prova&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -3534,17 +3439,12 @@ exports[`renders Chat with media unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Come faccio a fare delle cose con questa cosa?&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -4116,17 +4016,12 @@ exports[`renders Chat with media unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Ah, grazie! Ciao!&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -4378,17 +4273,12 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Prova&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <div
@@ -4483,17 +4373,12 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Come faccio a fare delle cose con questa cosa?&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <div
@@ -4664,17 +4549,12 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Ah, grazie! Ciao!&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <div
@@ -4947,17 +4827,12 @@ exports[`renders Chat with user unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Prova&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Prova
+              </p>
             </div>
           </div>
           <picture
@@ -5046,17 +4921,12 @@ exports[`renders Chat with user unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Come faccio a fare delle cose con questa cosa?&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Come faccio a fare delle cose con questa cosa?
+              </p>
             </div>
           </div>
           <picture
@@ -5221,17 +5091,12 @@ exports[`renders Chat with user unchanged 1`] = `
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
           >
             <div
-              class="memori-expandable memori-chat--bubble-content"
+              class="memori-chat--bubble-content"
+              dir="auto"
             >
-              <div
-                class="memori-expandable--inner"
-              >
-                <div
-                  class="truncated-content"
-                >
-                  &lt;p&gt;Ah, grazie! Ciao!&lt;/p&gt;
-                </div>
-              </div>
+              <p>
+                Ah, grazie! Ciao!
+              </p>
             </div>
           </div>
           <picture

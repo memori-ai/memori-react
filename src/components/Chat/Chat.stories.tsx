@@ -297,6 +297,7 @@ WithExpandable.args = {
   history: historyWithExpandable,
   dialogState,
   layout: 'DEFAULT',
+  mode: 'log',
   simulateUserPrompt: () => {},
   sendMessage: (msg: string) => console.log(msg),
   stopListening: () => {},

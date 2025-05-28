@@ -692,6 +692,7 @@ export const LongTextMessage = Template.bind({});
 LongTextMessage.args = {
   memori,
   tenant,
+  mode: 'log',
   message: {
     fromUser: false,
     text: Array(200).fill('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.').join('\n\n'),
@@ -703,6 +704,7 @@ export const LongTextMessageWithHTML = Template.bind({});
 LongTextMessageWithHTML.args = {
   memori,
   tenant, 
+  mode: 'log',
   message: {
     fromUser: false,
     text: Array(200).fill('Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat.').join('\n\n') + `
@@ -722,6 +724,7 @@ export const FormattingDetectionDemo = Template.bind({});
 FormattingDetectionDemo.args = {
   memori,
   tenant,
+  mode: 'log',
   message: {
     fromUser: false,
     text: 'This message demonstrates how the formatting detection works.\n\nBelow are some examples of content that will be detected as requiring formatting:\n\n1. HTML tags: <div>Example</div>\n2. Markdown tables: | Header | Content |\n3. Code blocks: ```javascript\nconst x = 1;\n```\n4. Math formulas: $E = mc^2$\n5. Tabbed data: Name\tAge\tLocation\n\nThe requiresFormatting function will detect these patterns and show a loading spinner.',

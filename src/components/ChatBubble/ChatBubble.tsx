@@ -41,13 +41,15 @@ const ChatBubbleExpandable = ({
   className, 
   content,
   isLarge,
-  onExpand 
+  onExpand,
+  mode = 'chat'
 }: { 
   children: React.ReactNode; 
   className?: string; 
   content: string;
   isLarge: boolean;
   onExpand: () => void;
+  mode?: 'chat' | 'log';
 }) => {
   const { i18n } = useTranslation();
   const lang = i18n.language;
@@ -56,14 +58,25 @@ const ChatBubbleExpandable = ({
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (ref.current) {
+    if (ref.current && mode === 'log') {
       const textContent = ref.current.textContent || '';
       // Determine if content needs to be expandable
       if (textContent.length > 300 || isLarge) {
         setNeedsExpanding(true);
       }
     }
-  }, [isLarge]);
+  }, [isLarge, mode]);
+
+  // If mode is log, always render full content
+  if (mode === 'chat') {
+    return (
+      <div className={cx('memori-expandable', className)}>
+        <div ref={ref} className="memori-expandable--inner">
+          {children}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={cx('memori-expandable', className)}>
@@ -127,6 +140,7 @@ export interface Props {
   experts?: ExpertReference[];
   showFunctionCache?: boolean;
   onLoadingStateChange?: (isLoading: boolean) => void;
+  mode?: 'chat' | 'log';
 }
 
 // Size thresholds for different rendering strategies
@@ -153,6 +167,7 @@ const ChatBubble: React.FC<Props> = ({
   experts,
   showFunctionCache = false,
   onLoadingStateChange,
+  mode = 'chat',
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
@@ -171,7 +186,7 @@ const ChatBubble: React.FC<Props> = ({
   // Get original and plaintext content
   const originalText = message?.translatedText || message?.text || '';
   const plainText = message?.fromUser 
-    ? truncateMessage(originalText)
+    ? (mode === 'chat' ? truncateMessage(originalText) : originalText)
     : stripHTML(stripOutputTags(formattedContent || originalText));
 
   // Handle loading state changes
@@ -193,23 +208,29 @@ const ChatBubble: React.FC<Props> = ({
     m => m.properties?.functionCache === "true"
   );
 
-  // Initial minimal formatting - only applied to truncated preview
+  // Initial formatting - format full content if mode is chat
   useEffect(() => {
-    // For small messages, we can format immediately
-    if (!isLargeMessage) {
+    if (mode === 'chat') {
+      // Always format full content when in chat mode
       const { text } = renderMsg(originalText, useMathFormatting);
       setFormattedContent(text);
     } else {
-      // For large messages, only format what's visible initially (truncated content)
-      const truncated = truncateMessage(originalText);
-      const { text } = renderMsg(truncated, useMathFormatting);
-      setFormattedContent(text);
+      // Log mode behavior
+      if (!isLargeMessage) {
+        const { text } = renderMsg(originalText, useMathFormatting);
+        setFormattedContent(text);
+      } else {
+        // For large messages, only format what's visible initially (truncated content)
+        const truncated = truncateMessage(originalText);
+        const { text } = renderMsg(truncated, useMathFormatting);
+        setFormattedContent(text);
+      }
     }
-  }, [originalText, useMathFormatting, isLargeMessage]);
+  }, [originalText, useMathFormatting, isLargeMessage, mode]);
 
   // Handle expansion - format full content when expanding
   const handleExpand = () => {
-    if (isLargeMessage) {
+    if (isLargeMessage && mode === 'log') {
       setIsLoading(true);
       setContentExpanded(true);
       
@@ -258,6 +279,32 @@ const ChatBubble: React.FC<Props> = ({
       );
     }
     
+    // If mode is chat, render content directly without expandable wrapper
+    if (mode === 'chat') {
+      if (isVeryLargeMessage) {
+        // For very large content without expand functionality, use virtualization
+        return (
+          <Suspense fallback={<Spin />}>
+            <VirtualizedContent
+              content={formattedContent}
+              className="memori-chat--bubble-content memori-chat--virtualized-content"
+            />
+          </Suspense>
+        );
+      }
+      
+      // Default rendering for normal-sized messages without expand functionality
+      return (
+        <div
+          dir="auto"
+          ref={contentRef}
+          className="memori-chat--bubble-content"
+          dangerouslySetInnerHTML={{ __html: formattedContent }}
+        />
+      );
+    }
+    
+    // Log mode expandable behavior
     if (contentExpanded && isVeryLargeMessage) {
       // For very large expanded content, use virtualization
       return (
@@ -278,6 +325,7 @@ const ChatBubble: React.FC<Props> = ({
           content={formattedContent}
           isLarge={isLargeMessage}
           onExpand={handleExpand}
+          mode={mode}
         >
           <div
             dir="auto"
@@ -296,6 +344,7 @@ const ChatBubble: React.FC<Props> = ({
           content={formattedContent}
           isLarge={isLargeMessage}
           onExpand={handleExpand}
+          mode={mode}
         >
           <div
             dir="auto"
@@ -333,7 +382,7 @@ const ChatBubble: React.FC<Props> = ({
           'memori-chat--with-addon':
             (message?.generatedByAI && showAIicon) ||
             (showFeedback && simulateUserPrompt),
-          'memori-chat--large-content': isLargeMessage,
+          'memori-chat--large-content': isLargeMessage && mode === 'log',
         })}
       >
         {!message?.fromUser && (
@@ -419,7 +468,7 @@ const ChatBubble: React.FC<Props> = ({
               (showFeedback && simulateUserPrompt),
             'memori-chat--ai-generated': message?.generatedByAI && showAIicon,
             'memori-chat--with-feedback': showFeedback,
-            'memori-chat--large-message': isLargeMessage,
+            'memori-chat--large-message': isLargeMessage && mode === 'log',
           })}
           enter="transition ease-in-out duration-300"
           enterFrom={`opacity-0 scale-09 translate-x-${

@@ -79,6 +79,7 @@ export interface Props {
   experts?: ExpertReference[];
   useMathFormatting?: boolean;
   showFunctionCache?: boolean;
+  mode?: 'chat' | 'log';
 }
 
 const OptimizedChat: React.FC<Props> = ({
@@ -127,6 +128,7 @@ const OptimizedChat: React.FC<Props> = ({
   experts,
   showFunctionCache = false,
   useMathFormatting = false,
+  mode = 'chat',
 }) => {
   // Determine if the chat has a lot of messages (for optimization)
   const hasLargeHistory = history.length > 50;
@@ -254,6 +256,7 @@ const OptimizedChat: React.FC<Props> = ({
                 showCopyButton={showCopyButton}
                 useMathFormatting={useMathFormatting}
                 showFunctionCache={showFunctionCache}
+                mode={mode}
               />
 
               {/* Timestamps */}
