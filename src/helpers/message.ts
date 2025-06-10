@@ -62,7 +62,8 @@ export const truncateMessage = (message: string) => {
 
 export const renderMsg = (
   text: string,
-  useMathFormatting = false
+  useMathFormatting = false,
+  reasoningText = 'Reasoning...'
 ): {
   text: string;
 } => {
@@ -73,6 +74,10 @@ export const renderMsg = (
       .replaceAll(
         /\[([^\]]+)\]\(([^\)]+)\)/g,
         '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+      )
+      .replaceAll(
+        /<think>(.*?)<\/think>/g,
+        `<details class="memori-think"><summary>${reasoningText}</summary>$1</details>`
       )
       .replaceAll(/```markdown([^```]+)```/g, '$1')
       .replaceAll('($', '( $')

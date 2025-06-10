@@ -93,7 +93,11 @@ const ChatBubble: React.FC<Props> = ({
   }, []);
 
   const text = message.translatedText || message.text;
-  const { text: renderedText } = renderMsg(text, useMathFormatting);
+  const { text: renderedText } = renderMsg(
+    text,
+    useMathFormatting,
+    t('reasoning') || 'Reasoning...'
+  );
   const plainText = message.fromUser
     ? truncateMessage(text)
     : stripHTML(stripOutputTags(renderedText));
@@ -112,29 +116,33 @@ const ChatBubble: React.FC<Props> = ({
             );
             if (elements.length > 0) {
               // Salva la posizione di scroll corrente
-              const scrollContainer = document.querySelector('.memori-chat--history');
+              const scrollContainer = document.querySelector(
+                '.memori-chat--history'
+              );
               const currentScrollTop = scrollContainer?.scrollTop || 0;
               const currentScrollHeight = scrollContainer?.scrollHeight || 0;
-              
-              window.MathJax.typesetPromise([
-                '.memori-chat--bubble-content',
-              ]).then(() => {
-                // Ripristina la posizione di scroll dopo il rendering MathJax
-                if (scrollContainer) {
-                  const newScrollHeight = scrollContainer.scrollHeight;
-                  const heightDifference = newScrollHeight - currentScrollHeight;
-                  scrollContainer.scrollTop = currentScrollTop + heightDifference;
-                }
-              }).catch(err =>
-                console.error('MathJax typesetting failed:', err)
-              );
+
+              window.MathJax.typesetPromise(['.memori-chat--bubble-content'])
+                .then(() => {
+                  // Ripristina la posizione di scroll dopo il rendering MathJax
+                  if (scrollContainer) {
+                    const newScrollHeight = scrollContainer.scrollHeight;
+                    const heightDifference =
+                      newScrollHeight - currentScrollHeight;
+                    scrollContainer.scrollTop =
+                      currentScrollTop + heightDifference;
+                  }
+                })
+                .catch(err =>
+                  console.error('MathJax typesetting failed:', err)
+                );
             }
           } catch (error) {
             console.error('Error during MathJax typesetting:', error);
           }
         }
       }, 100);
-  
+
       return () => clearTimeout(timer);
     }
   }, [message.text, message.fromUser, renderedText]);

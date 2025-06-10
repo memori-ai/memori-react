@@ -45,6 +45,7 @@
   "memoriBlockedReasonExceedChats": "weil der monatliche Schwellenwert für erlaubte Chats überschritten wurde.",
   "memoriBlockedGiverHelper": "Sie können es weiterhin als Administrator verwalten, andere Benutzer können jedoch nicht damit interagieren.",
   "generatedByAI": "Von KI generierte Antworten können gelegentlich falsche Informationen generieren",
+  "reasoning": "Überlegung...",
   "whyThisAnswer": "Warum diese Antwort?",
   "whyThisAnswerHelper": "Diese Antwort wurde automatisch von einer künstlichen Intelligenz auf Basis dieser verifizierten Inhalte generiert.",
   "receiverLabel": "Zugewiesen an",

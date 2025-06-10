@@ -44,6 +44,7 @@
   "memoriBlockedReasonExceedChats": "car il a dépassé le seuil mensuel de chats autorisés.",
   "memoriBlockedGiverHelper": "Vous pouvez toujours le gérer en tant qu'administrateur, mais les autres utilisateurs ne pourront pas interagir avec lui.",
   "generatedByAI": "Réponse générée par l'IA, peut occasionnellement générer des informations incorrectes",
+  "reasoning": "Réflexion...",
   "whyThisAnswer": "Pourquoi cette réponse ?",
   "whyThisAnswerHelper": "Cette réponse a été générée automatiquement par une intelligence artificielle basée sur ces contenus vérifiés.",
   "receiverLabel": "Assigné à",

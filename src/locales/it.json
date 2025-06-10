@@ -45,6 +45,7 @@
   "memoriBlockedReasonExceedChats": "perchè ha superato la soglia mensile di chat ammesse.",
   "memoriBlockedGiverHelper": "Puoi sempre gestirlo in qualità di amministratore, ma altri utenti non potranno interrogarlo.",
   "generatedByAI": "Risposta generata da IA, può talvolta generare informazioni non corrette",
+  "reasoning": "Ragionamento...",
   "whyThisAnswer": "Perché questa risposta?",
   "whyThisAnswerHelper": "Questa risposta è stata generata automaticamente da un'intelligenza artificiale sulla base di questi contenuti verificati.",
   "receiverLabel": "Assegnato a",
