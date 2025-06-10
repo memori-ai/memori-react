@@ -15,6 +15,7 @@ import Card from '../ui/Card';
 import ChatBubble from '../ChatBubble/ChatBubble';
 import Button from '../ui/Button';
 import ChatRound from '../icons/Chat';
+import { truncateMessage } from '../../helpers/utils';
 export interface Props {
   open: boolean;
   layout?: WidgetProps['layout'];
@@ -23,11 +24,7 @@ export interface Props {
   sessionId: string;
   memori: Memori;
   resumeSession: (
-    chatLogs: ChatLogLine[],
-    questionsAndAnswers: { question: string; answer: string }[],
-    initialContextVars?: { [key: string]: string },
-    initialQuestion?: string,
-    birthDate?: string
+    chatLog: ChatLog
   ) => void;
 }
 
@@ -87,27 +84,9 @@ const ChatHistoryDrawer = ({
 
   const handleResumeChat = async () => {
     console.log('Resuming chat from:', selectedChatLog?.lines);
-    // create a new array of objects with question and answer
-    let questionsAndAnswers: { question: string; answer: string }[] = [];
-    selectedChatLog?.lines.forEach(line => {
-      if (line.inbound) {
-        // This is an answer from the Memori
-        if (questionsAndAnswers.length > 0) {
-          questionsAndAnswers[questionsAndAnswers.length - 1].question =
-            line.text;
-        }
-      } else {
-        // This is a question from the user
-        questionsAndAnswers.push({
-          answer: line.text,
-          question: '',
-        });
-      }
-    });
-    resumeSession(
-      selectedChatLog?.lines || [],
-      questionsAndAnswers,
-    );
+    if (selectedChatLog) {
+      resumeSession(selectedChatLog);
+    }
   };
 
   const renderContent = () => {
@@ -191,7 +170,7 @@ const ChatHistoryDrawer = ({
                       <ChatBubble
                         key={line.text}
                         message={{
-                          text: line.text,
+                          text: truncateMessage(line.text),
                           contextVars: line.contextVars,
                           media: line.media as Medium[],
                           fromUser: line.inbound,

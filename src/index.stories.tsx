@@ -131,19 +131,32 @@ Nunzio.args = {
 
 export const Localhost = Template.bind({});
 Localhost.args = {
-  memoriName: 'test memori',
-  ownerUserName: 'nicola',
-  memoriID: '1a9c75e8-57aa-4ce3-8ea5-256185fa79a7',
-  ownerUserID: '04a8cff9-13d6-4367-9cb2-72b9af9ee494',
-  tenantID: 'www.aisuru.com',
-  apiURL: 'http://localhost:7778',
+  memoriName: 'test9',
+  ownerUserName: 'andrea.patini',
+  memoriID: 'e31aa393-08c4-469a-b2e8-971eb45f4925',
+  ownerUserID: '9266e23e-6822-4658-bbb0-4bebbc232bd4',
+  tenantID: 'localhost:3000',
   engineURL: 'http://localhost:7778',
+  apiURL: 'http://localhost:7778',
   baseURL: 'http://localhost:3000',
-  uiLang: 'EN',
-  lang: 'IT',
+  uiLang: 'IT',
+  spokenLang: 'IT',
   layout: 'FULLPAGE',
+  showInstruct: false,
+  showSettings: true,
+  showChatHistory: true,
+  showClear: false,
+  showTypingText: false,
+  showOnlyLastMessages: false,
+  showTranslationOriginal: false,
+  showCopyButton: false,
   showShare: true,
-  integrationID: '82f017cc-450b-4c47-acf5-47910d336ce9',
+  showLogin: true,
+  useMathFormatting: false,
+  showUpload: false,
+  autoStart: false,
+  enableAudio: true,
+  integrationID: 'c13fe42a-2d25-4bde-a502-f34824cd4ff1',
 };
 
 export const LocalhostBoE = Template.bind({});
@@ -261,7 +274,6 @@ CreaRiassunti.args = {
   showLogin: false,
 };
 
-
 export const NunzioFiore = Template.bind({});
 NunzioFiore.args = {
   ownerUserName: 'nunzio.fiore',
@@ -294,7 +306,7 @@ DancingAvatar.args = {
   ownerUserID: '58770358-a5db-4b49-b3a4-734fc468e745',
   tenantID: 'aisuru-staging.aclambda.online',
   apiURL: 'https://backend-staging.memori.ai',
-  engineURL: 'https://engine-staging-tmp.memori.ai',
+  engineURL: 'https://engine-staging.memori.ai',
   baseURL: 'https://aisuru-staging.aclambda.online',
   uiLang: 'IT',
   spokenLang: 'IT',

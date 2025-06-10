@@ -133,7 +133,7 @@ const Header: React.FC<Props> = ({
           onClick={clearHistory}
         />
       )}
-      {showChatHistory && (
+      {showChatHistory && !!loginToken && (
         <Button
           primary
           disabled={!loginToken || history.length === 0}

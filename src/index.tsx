@@ -129,7 +129,7 @@ const Memori: React.FC<Props> = ({
   pin,
   context,
   initialQuestion,
-  showChatHistory = false,
+  showChatHistory = true,
   uiLang,
   spokenLang,
   multilingual,
