@@ -4,6 +4,11 @@ import * as THREE from 'three';
 
 export const hasTouchscreen = (): boolean => {
   let hasTouchScreen = false;
+
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+    return hasTouchScreen;
+  }
+
   if ('maxTouchPoints' in navigator) {
     hasTouchScreen = navigator.maxTouchPoints > 0;
   } else if ('msMaxTouchPoints' in navigator) {
