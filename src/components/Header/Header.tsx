@@ -48,6 +48,7 @@ export interface Props {
   loginToken?: string;
   user?: User;
   sessionID?: string;
+  fullScreenHandler?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Header: React.FC<Props> = ({
@@ -75,6 +76,7 @@ const Header: React.FC<Props> = ({
   loginToken,
   user,
   sessionID,
+  fullScreenHandler,
 }) => {
   const { t } = useTranslation();
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
@@ -137,30 +139,33 @@ const Header: React.FC<Props> = ({
               : t('fullscreenEnter') || 'Enter fullscreen'
           }
           icon={fullScreen ? <FullscreenExit /> : <Fullscreen />}
-          onClick={() => {
-            if (!document.fullscreenElement) {
-              const memoriWidget = document.querySelector('.memori-widget');
-              if (memoriWidget) {
-                // Set white background before entering fullscreen
-                (memoriWidget as HTMLElement).style.backgroundColor =
-                  '#FFFFFF';
-                memoriWidget.requestFullscreen().catch(err => {
-                  console.warn('Error attempting to enable fullscreen:', err);
+          onClick={
+            fullScreenHandler ||
+            (() => {
+              if (!document.fullscreenElement) {
+                const memoriWidget = document.querySelector('.memori-widget');
+                if (memoriWidget) {
+                  // Set white background before entering fullscreen
+                  (memoriWidget as HTMLElement).style.backgroundColor =
+                    '#FFFFFF';
+                  memoriWidget.requestFullscreen().catch(err => {
+                    console.warn('Error attempting to enable fullscreen:', err);
+                  });
+                }
+                setFullScreen(true);
+              } else if (document.exitFullscreen) {
+                const memoriWidget = document.querySelector('.memori-widget');
+                if (memoriWidget) {
+                  // Reset background on exit
+                  (memoriWidget as HTMLElement).style.backgroundColor = '';
+                }
+                document.exitFullscreen().catch(err => {
+                  console.warn('Error attempting to exit fullscreen:', err);
                 });
+                setFullScreen(false);
               }
-              setFullScreen(true);
-            } else if (document.exitFullscreen) {
-              const memoriWidget = document.querySelector('.memori-widget');
-              if (memoriWidget) {
-                // Reset background on exit
-                (memoriWidget as HTMLElement).style.backgroundColor = '';
-              }
-              document.exitFullscreen().catch(err => {
-                console.warn('Error attempting to exit fullscreen:', err);
-              });
-              setFullScreen(false);
-            }
-          }}
+            })
+          }
         />
       )}
       {memori.enableDeepThought && !!loginToken && user?.pAndCUAccepted && (

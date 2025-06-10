@@ -188,24 +188,8 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                   }}
                   {...headerProps}
                   className="memori-hidden-chat-layout-header--layout"
+                  fullScreenHandler={handleFullscreenToggle}
                 />
-              )}
-              {fullScreenAvailable && (
-                <button
-                  className="memori-fullscreen-button memori-button--primary memori-button--icon"
-                  onClick={handleFullscreenToggle}
-                  title={
-                    fullScreen
-                      ? t('fullscreenExit') || 'Exit fullscreen'
-                      : t('fullscreenEnter') || 'Enter fullscreen'
-                  }
-                >
-                  {fullScreen ? (
-                    <FullscreenExit className="memori-icon" />
-                  ) : (
-                    <Fullscreen className="memori-icon" />
-                  )}
-                </button>
               )}
             </div>
           </div>
