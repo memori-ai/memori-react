@@ -1,5 +1,23 @@
 
 
+## [7.27.0](https://github.com/memori-ai/memori-react/compare/v7.26.2...v7.27.0) (2025-06-10)
+
+
+### Features
+
+* add reasoning tag <think> formatted display ([20d61c7](https://github.com/memori-ai/memori-react/commit/20d61c7c3bb08a85a7d93f9a56dbd7a1dc0a4459))
+* share chat link in share button ([53d33f5](https://github.com/memori-ai/memori-react/commit/53d33f59e58db690e92780fabd76eadd829ae840))
+
+
+### Bug Fixes
+
+* remove double fullscreen buttons in hidden chat layout ([a60e811](https://github.com/memori-ai/memori-react/commit/a60e8118c3ea12f9858498f10f39848a6c3bc494))
+
+
+### Maintenance
+
+* prevent errors server side ([de5203e](https://github.com/memori-ai/memori-react/commit/de5203e8f1933ed27101ead3a8f0d71510e98d9f))
+
 ## [7.26.2](https://github.com/memori-ai/memori-react/compare/v7.26.1...v7.26.2) (2025-05-26)
 
 
