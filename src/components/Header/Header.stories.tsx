@@ -58,6 +58,8 @@ const Template: Story<Props> = args => {
         setControlsPosition={() => {}}
         hideEmissions={false}
         setHideEmissions={() => {}}
+        setAvatarType={() => {}}
+        setEnablePositionControls={() => {}}
       />
       <LoginDrawer
         tenant={tenant}
@@ -68,7 +70,11 @@ const Template: Story<Props> = args => {
           setShowLoginDrawer(false);
         }}
         onLogout={() => setShowLoginDrawer(false)}
-        apiUrl="https://backend.memori.ai"
+        apiClient={
+          {
+            backend: {},
+          } as any
+        }
       />
     </I18nWrapper>
   );
