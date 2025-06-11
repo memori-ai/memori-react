@@ -159,7 +159,10 @@
     "attachmentsLabel": "Enrich your message",
     "iWantToTalkToIn": "I want to talk to {{name}} in",
     "message": "message",
-    "messages": "messages"
+    "messages": "messages",
+    "latestFirst": "Latest first",
+    "oldestFirst": "Oldest first",
+    "page": "Page {{current}} of {{total}}"
   },
   "media": {
     "title": "Title",

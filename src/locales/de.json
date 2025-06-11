@@ -146,7 +146,10 @@
     "attachmentsLabel": "Bereichern Sie Ihre Botschaft",
     "iWantToTalkToIn": "Ich möchte mit reden {{name}} in",
     "message": "nachricht",
-    "messages": "nachrichten"
+    "messages": "nachrichten",
+    "latestFirst": "Neueste zuerst",
+    "oldestFirst": "Älteste zuerst",
+    "page": "Seite {{current}} von {{total}}"
   },
   "media": {
     "title": "Titel",

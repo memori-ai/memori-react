@@ -147,7 +147,10 @@
     "attachmentsLabel": "Enrichissez votre message",
     "iWantToTalkToIn": "je veux parler à {{name}} dans",
     "message": "message",
-    "messages": "messages"
+    "messages": "messages",
+    "latestFirst": "Plus récent",
+    "oldestFirst": "Plus ancien",
+    "page": "Page {{current}} de {{total}}"
   },
   "media": {
     "title": "Titre",

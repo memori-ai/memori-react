@@ -3889,6 +3889,8 @@ const MemoriWidget = ({
           apiClient={client}
           sessionId={sessionId || ''}
           memori={memori}
+          baseUrl={baseUrl}
+          apiUrl={client.constants.BACKEND_URL}
         />
       )}
 
