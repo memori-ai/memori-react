@@ -19,6 +19,7 @@ import { truncateMessage } from '../../helpers/utils';
 import { Dialog, Transition } from '@headlessui/react';
 import debounce from 'lodash/debounce';
 import Chat from '../Chat/Chat';
+import Spin from '../ui/Spin';
 
 export interface Props {
   open: boolean;
@@ -116,7 +117,7 @@ const ChatHistoryDrawer = ({
     if (isLoading) {
       return (
         <div className="memori-chat-history-drawer--loading">
-          <div className="memori-chat-history-drawer--loading--spinner" />
+          <Spin spinning={true} primary={true} className="memori-chat-history-drawer--loading--spinner" />
           <p className="memori-chat-history-drawer--loading--text">{t('widget.loadingChatHistory') || 'Loading chat history...'}</p>
         </div>
       );
@@ -146,8 +147,6 @@ const ChatHistoryDrawer = ({
         </div>
       );
     }
-
-    console.log('selectedChatLog', selectedChatLog);
 
     return (
       <>
