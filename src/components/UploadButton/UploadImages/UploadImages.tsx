@@ -5,7 +5,7 @@ import Alert from '../../ui/Alert';
 import { ImageIcon } from '../../icons/Image';
 import Modal from '../../ui/Modal';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { Medium } from '@memori.ai/memori-api-client/dist/types';
+import { Asset, Medium } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
 import Button from '../../ui/Button';
 
@@ -41,6 +41,7 @@ interface UploadImagesProps {
   documentPreviewFiles: any;
   onLoadingChange?: (loading: boolean) => void;
   maxImages?: number;
+  memoriID?: string;
 }
 
 const ALLOWED_FILE_TYPES = ['.jpg', '.jpeg', '.png'];
@@ -53,13 +54,14 @@ const UploadImages: React.FC<UploadImagesProps> = ({
   setDocumentPreviewFiles,
   documentPreviewFiles,
   onLoadingChange,
-  maxImages = 5, // Default value if not provided
+  maxImages = 5,
+  memoriID = '',
 }) => {
   const { t, i18n } = useTranslation();
   // Client
   const client = apiUrl ? memoriApiClient(apiUrl) : null;
   const { backend, dialog } = client || {
-    backend: { uploadAsset: null },
+    backend: { uploadAsset: null, uploadAssetUnlogged: null },
     dialog: { postMediumSelectedEvent: null, postMediumDeselectedEvent: null },
   };
 
@@ -137,8 +139,10 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     // Check if adding this file would exceed the limit
     if (currentImageCount >= maxImages) {
       addError({
-        message: t('upload.maxImagesReached') ?? `Maximum ${maxImages} images allowed.`,
-        severity: 'error'
+        message:
+          t('upload.maxImagesReached') ??
+          `Maximum ${maxImages} images allowed.`,
+        severity: 'error',
       });
       return;
     }
@@ -177,27 +181,43 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     setShowUploadModal(false);
 
     try {
-      // Read the file as a data URL
       const reader = new FileReader();
 
       reader.onload = async e => {
         const fileDataUrl = e.target?.result as string;
         const fileId = Math.random().toString(36).substr(2, 9);
 
-        if (backend?.uploadAsset && authToken) {
+        if (apiUrl) {
           try {
-            // Upload the asset
-            const { asset, ...resp } = await backend.uploadAsset(
-              selectedFile.name,
-              fileDataUrl,
-              authToken
-            );
+            let asset: Asset;
+            let response;
 
-            if (resp.resultCode !== 0) {
-              throw new Error(resp.resultMessage || 'Upload failed');
+            if (authToken && backend?.uploadAsset) {
+              response = await backend.uploadAsset(
+                selectedFile.name,
+                fileDataUrl,
+                authToken
+              );
+            } else if (memoriID && sessionID && backend?.uploadAssetUnlogged) {
+              response = await backend.uploadAssetUnlogged(
+                selectedFile.name,
+                fileDataUrl,
+                memoriID,
+                sessionID
+              );
+
+              if (!response) {
+                throw new Error('Upload failed');
+              }
+            } else {
+              throw new Error('Missing required parameters for upload');
             }
 
-            // Call the MediumSelected event if dialog API is available
+            asset = response.asset;
+            if (response.resultCode !== 0) {
+              throw new Error(response.resultMessage || 'Upload failed');
+            }
+
             let medium: any = null;
             if (dialog?.postMediumSelectedEvent && sessionID) {
               medium = await dialog.postMediumSelectedEvent(sessionID, {
@@ -206,21 +226,17 @@ const UploadImages: React.FC<UploadImagesProps> = ({
               } as Medium);
             }
 
-            // Find mediumID that isn't already in documentPreviewFiles
             let finalMediumID: string | undefined = undefined;
             if (medium?.currentState?.currentMedia) {
-              // create a set of existing mediumIDs
               const existingMediumIDs = new Set(
                 documentPreviewFiles.map((file: any) => file.mediumID)
               );
 
-              // find the first mediumID that isn't already in the set
               finalMediumID = medium.currentState.currentMedia.find(
                 (media: any) => !existingMediumIDs.has(media.mediumID)
               )?.mediumID;
             }
 
-            // Update parent component with the new file
             setDocumentPreviewFiles(
               (
                 prevFiles: {
@@ -301,10 +317,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
         className="memori--upload-file-input"
         onChange={handleImageUpload}
         disabled={
-          isLoading ||
-          !isMediaAccepted ||
-          !authToken ||
-          currentImageCount >= maxImages
+          isLoading || !isMediaAccepted || currentImageCount >= maxImages
         }
       />
 
@@ -320,10 +333,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
         )}
         onClick={() => imageInputRef.current?.click()}
         disabled={
-          isLoading ||
-          !isMediaAccepted ||
-          !authToken ||
-          currentImageCount >= maxImages
+          isLoading || !isMediaAccepted || currentImageCount >= maxImages
         }
       >
         {isLoading ? (
