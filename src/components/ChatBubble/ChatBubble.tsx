@@ -106,6 +106,7 @@ const ChatBubble: React.FC<Props> = ({
   const functionCacheData = message.media?.find(
     m => m.properties?.functionCache === 'true'
   );
+
   useLayoutEffect(() => {
     if (typeof window !== 'undefined' && !message.fromUser) {
       const timer = setTimeout(() => {
@@ -146,6 +147,7 @@ const ChatBubble: React.FC<Props> = ({
       return () => clearTimeout(timer);
     }
   }, [message.text, message.fromUser, renderedText]);
+
   return (
     <>
       {(message.initial || isFirst) && (

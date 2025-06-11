@@ -76,7 +76,7 @@ export const renderMsg = (
         '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
       )
       .replaceAll(
-        /<think>(.*?)<\/think>/g,
+        /<think>([\s\S]*?)<\/think>/g,
         `<details class="memori-think"><summary>${reasoningText}</summary>$1</details>`
       )
       .replaceAll(/```markdown([^```]+)```/g, '$1')
