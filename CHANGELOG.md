@@ -1,5 +1,23 @@
 
 
+## [7.28.0](https://github.com/memori-ai/memori-react/compare/v7.27.1...v7.28.0) (2025-06-11)
+
+
+### Features
+
+* added unlogged images upload ([0697bfe](https://github.com/memori-ai/memori-react/commit/0697bfe61ad063f71eccde7270ffac47f91d8c3c))
+
+
+### Bug Fixes
+
+* autoStart default for hidden chat layout ([c0e2f8c](https://github.com/memori-ai/memori-react/commit/c0e2f8cbe333d93216637fa963de5842f3edb5fb))
+* for Hidden Chat layout removed session init ([c81de97](https://github.com/memori-ai/memori-react/commit/c81de970be9a97320f411bc31e9d4189ff5f1484))
+
+
+### Maintenance
+
+* update [@memori](https://github.com/memori).ai/memori-api-client to version 6.5.5 ([f1388dd](https://github.com/memori-ai/memori-react/commit/f1388ddedc3f4a90c82d6f8421674834b1ac68bd))
+
 ## [7.27.1](https://github.com/memori-ai/memori-react/compare/v7.27.0...v7.27.1) (2025-06-11)
 
 
