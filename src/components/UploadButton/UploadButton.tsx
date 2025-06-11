@@ -125,11 +125,13 @@ const UploadButton: React.FC<UploadManagerProps> = ({
         .replace(/>/g, '&gt;');
     };
 
-    // ✅ MIGLIORE SOLUZIONE: Tag XML valido con attributi chiari
     const escapedFileName = escapeAttributeValue(file.name);
     const formattedContent = `<document_attachment filename="${escapedFileName}" type="${file.mimeType}">
+
 ${file.content}
+
 </document_attachment>`;
+
     //keep just the images in the documentPreviewFiles
     const imageFiles = documentPreviewFiles.filter(
       (file: any) => file.type === 'image'
