@@ -352,7 +352,6 @@ export interface LayoutProps {
   hasUserActivatedSpeak?: boolean;
   showUpload?: boolean;
   loading?: boolean;
-  onClickStart?: () => void;
 }
 
 export interface Props {
@@ -3655,7 +3654,6 @@ const MemoriWidget = ({
         sessionId={sessionId}
         hasUserActivatedSpeak={hasUserActivatedSpeak}
         loading={loading}
-        onClickStart={onClickStart}
       />
 
       <audio

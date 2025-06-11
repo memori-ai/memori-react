@@ -15,13 +15,11 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   // startPanelProps,
   sessionId,
   hasUserActivatedSpeak,
-  onClickStart,
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
-  const hasStarted = useRef(false);
 
   // Use refs to store original sidebar properties to restore them later
   const originalSidebarStyles = useRef({
@@ -83,13 +81,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     }
 
     setIsOpen(prev => {
-      const newIsOpen = !prev;
-      // Only call onClickStart when opening the sidebar for the first time
-      if (newIsOpen && !hasStarted.current && onClickStart) {
-        hasStarted.current = true;
-        onClickStart();
-      }
-      return newIsOpen;
+      return !prev;
     });
   };
 
