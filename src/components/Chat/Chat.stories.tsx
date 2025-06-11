@@ -9,7 +9,6 @@ import {
   sessionID,
   dialogState as dialogStateWithHints,
   historyWithExpandable,
-  historyWithLongHTMLTable,
 } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Chat, { Props } from './Chat';
@@ -310,7 +309,7 @@ WithLongHTMLTable.args = {
   memori,
   tenant,
   sessionID,
-  history: historyWithLongHTMLTable,
+  history,
   dialogState,
   layout: 'DEFAULT',
 };

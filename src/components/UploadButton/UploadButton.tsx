@@ -27,6 +27,7 @@ interface UploadManagerProps {
     mediumID?: string;
     type?: string;
   }[];
+  memoriID?: string;
 }
 
 const UploadButton: React.FC<UploadManagerProps> = ({
@@ -36,6 +37,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   isMediaAccepted = false,
   setDocumentPreviewFiles,
   documentPreviewFiles,
+  memoriID = '',
 }) => {
   // State
   const [isLoading, setIsLoading] = useState(false);
@@ -64,8 +66,6 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   const hasReachedDocumentLimit = remainingDocumentSlots <= 0;
 
   // Error handling
-  const clearErrors = () => setErrors([]);
-
   const removeError = (errorMessage: string) => {
     setErrors(prev => prev.filter(e => e.message !== errorMessage));
   };
@@ -161,14 +161,7 @@ ${file.content}
 
   // When image option is clicked
   const handleImageClick = () => {
-    if (!authToken) {
-      addError({
-        message: t('upload.loginRequired') ?? 'Login required to upload images',
-        severity: 'info',
-      });
-      closeMenu();
-      return;
-    }
+
 
     if (!isMediaAccepted) {
       addError({
@@ -267,13 +260,11 @@ ${file.content}
           <div
             className={cx('memori--upload-menu-item', {
               'memori--upload-menu-item--disabled':
-                !authToken || !isMediaAccepted || hasReachedImageLimit,
+                 !isMediaAccepted || hasReachedImageLimit,
             })}
             onClick={handleImageClick}
             title={
-              !authToken
-                ? t('upload.loginRequired') ?? 'Login Required'
-                : !isMediaAccepted
+                !isMediaAccepted
                 ? t('upload.mediaNotAccepted') ?? 'Media uploads not accepted'
                 : hasReachedImageLimit
                 ? t('upload.maxImagesReached', { max: MAX_IMAGES }) ??
@@ -320,8 +311,8 @@ ${file.content}
           documentPreviewFiles={documentPreviewFiles}
           isMediaAccepted={isMediaAccepted}
           onLoadingChange={handleLoadingChange}
-          // Pass the constants to UploadImages
           maxImages={MAX_IMAGES}
+          memoriID={memoriID}
         />
       </div>
 
@@ -339,22 +330,6 @@ ${file.content}
           />
         ))}
       </div>
-
-      {/* Login tip */}
-      {!authToken && menuOpen && (
-        <div className="memori--login-tip">
-          <Alert
-            type="info"
-            title={t('upload.loginRequired') ?? 'Login Required'}
-            description={
-              t('upload.loginRequiredDescription') ??
-              'Please login to upload images'
-            }
-            width="350px"
-            onClose={closeMenu}
-          />
-        </div>
-      )}
     </div>
   );
 };

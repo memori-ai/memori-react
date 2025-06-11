@@ -37,6 +37,7 @@ export interface Props {
   showUpload?: boolean;
   sessionID?: string;
   apiURL?: string;
+  memoriID?: string;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -58,6 +59,7 @@ const ChatInputs: React.FC<Props> = ({
   sessionID,
   authToken,
   apiURL,
+  memoriID,
 }) => {
   const { t } = useTranslation();
 
@@ -194,6 +196,7 @@ const ChatInputs: React.FC<Props> = ({
             isMediaAccepted={dialogState?.acceptsMedia || false}
             setDocumentPreviewFiles={setDocumentPreviewFiles}
             documentPreviewFiles={documentPreviewFiles}
+            memoriID={memoriID}
           />
         </>
       )}

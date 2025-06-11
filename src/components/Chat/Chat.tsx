@@ -361,6 +361,7 @@ const Chat: React.FC<Props> = ({
           listening={listening}
           isPlayingAudio={isPlayingAudio}
           showMicrophone={showMicrophone}
+          memoriID={memori?.memoriID}
         />
       )}
     </div>
