@@ -1,5 +1,18 @@
 
 
+## [7.27.1](https://github.com/memori-ai/memori-react/compare/v7.27.0...v7.27.1) (2025-06-11)
+
+
+### Features
+
+* add onClickStart prop to MemoriWidget and trigger on sidebar open in HiddenChat ([05df27d](https://github.com/memori-ai/memori-react/commit/05df27dcda4860495086ff7ee5e553691c1f0351))
+* added new lines before and after the content of the <document_attachment /> ([ad5bf12](https://github.com/memori-ai/memori-react/commit/ad5bf12864e33c92fbf96d63212d5082e0371f22))
+
+
+### Bug Fixes
+
+* reasoning tag <think> regex ([f7f0c22](https://github.com/memori-ai/memori-react/commit/f7f0c2258429da5646c5faee3b0fcf55562a4228))
+
 ## [7.27.0](https://github.com/memori-ai/memori-react/compare/v7.26.2...v7.27.0) (2025-06-10)
 
 
