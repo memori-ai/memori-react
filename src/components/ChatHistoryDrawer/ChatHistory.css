@@ -117,11 +117,14 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
 
-    .memori-chat-history-drawer--card--content--messages--user .memori-chat--cover,
-    .memori-chat-history-drawer--card--content--messages--assistant .memori-chat--cover {
-        display: none;
-    }
+.memori-chat-history-drawer--card--content--messages .memori-chat--cover {
+    display: none;
+}
+.memori-chat-history-drawer--card--content--messages .memori-chat--content {
+    mask-image: none !important;
+    padding: 0 !important;
 }
 
 .memori-chat-history-drawer--card--content--messages--user {
