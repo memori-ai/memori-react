@@ -1,5 +1,12 @@
 
 
+## [7.28.1](https://github.com/memori-ai/memori-react/compare/v7.28.0...v7.28.1) (2025-06-13)
+
+
+### Bug Fixes
+
+* share chat link props ([0561153](https://github.com/memori-ai/memori-react/commit/05611536a1812ebf38f2dce5548a434d810ce8fc))
+
 ## [7.28.0](https://github.com/memori-ai/memori-react/compare/v7.27.1...v7.28.0) (2025-06-11)
 
 
