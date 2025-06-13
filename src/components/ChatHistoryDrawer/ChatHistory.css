@@ -123,8 +123,8 @@
     display: none;
 }
 .memori-chat-history-drawer--card--content--messages .memori-chat--content {
-    mask-image: none !important;
     padding: 0 !important;
+    mask-image: none !important;
 }
 
 .memori-chat-history-drawer--card--content--messages--user {
@@ -178,14 +178,14 @@
 }
 
 .memori-chat-history-drawer--card--content--resume-button--icon {
-    transition: transform 0.2s ease-in-out;
     color: var(--memori-primary);
+    transition: transform 0.2s ease-in-out;
 }
 
 .memori-chat-history-drawer--card--content--resume-button:hover
     .memori-chat-history-drawer--card--content--resume-button--icon {
-    transform: scale(1.1);
     color: #fff;
+    transform: scale(1.1);
 }
 
 .memori-chat-history-drawer--card--content--resume-button--text {
@@ -195,11 +195,11 @@
 /* Loading state */
 .memori-chat-history-drawer--loading {
     display: flex;
+    min-height: 80px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 2rem;
-    min-height: 80px;
 }
 
 .memori-chat-history-drawer--loading--spinner {
@@ -288,6 +288,7 @@
 }
 
 .memori-chat-history-drawer--toolbar--sort-button {
+    color: var(--memori-primary);
     white-space: nowrap;
 }
 

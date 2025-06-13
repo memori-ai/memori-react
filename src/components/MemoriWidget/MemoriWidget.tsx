@@ -738,6 +738,9 @@ const MemoriWidget = ({
       },
     ]);
   };
+
+  // When a user resumes a chat, we need to set the chat reference link of the previous chat
+  const [chatLogID, setChatLogID] = useState<string | undefined>(undefined);
   /**
    * Sends a message to the Memori and handles the response
    * @param text The text message to send
@@ -811,11 +814,24 @@ const MemoriWidget = ({
         msg = msg + ' ' + findMediaDocument.content;
       }
 
+      // Add chat reference link to the message if it exists
+      if (chatLogID) {
+        msg =
+          msg +
+          ' \n\n' +
+          '<chat-reference session-id="' +
+          sessionID +
+          '" event-log-id="' +
+          chatLogID +
+          '"></chat-reference>';
+      }
+
       const { currentState, ...response } = await postTextEnteredEvent({
         sessionId: sessionID,
         text: msg,
       });
       if (response.resultCode === 0 && currentState) {
+        setChatLogID(undefined);
         const emission =
           useLoaderTextAsMsg && typingText
             ? typingText
@@ -1528,7 +1544,7 @@ const MemoriWidget = ({
         // console.log('[REOPEN_SESSION] Processing emission:', currentState.emission);
         // Set initial message or append to existing history
         setHistory(
-          chatLog.lines.map((log) => ({
+          chatLog.lines.map(log => ({
             text: log.text,
             emitter: log.emitter,
             media: log.media?.map(m => ({
@@ -2915,8 +2931,10 @@ const MemoriWidget = ({
       initialSessionExpired = false,
       chatLog?: ChatLog
     ) => {
-      const sessionID = chatLog ? undefined : (session?.sessionID || sessionId);
-      const dialogState = chatLog ? undefined : (session?.dialogState || currentDialogState);
+      const sessionID = chatLog ? undefined : session?.sessionID || sessionId;
+      const dialogState = chatLog
+        ? undefined
+        : session?.dialogState || currentDialogState;
       setClickedStart(true);
 
       let translatedMessages: Message[] = [];
@@ -3016,15 +3034,15 @@ const MemoriWidget = ({
             setHistory([]);
 
             translateDialogState(session.dialogState, userLang)
-            .then(ts => {
-              let text = ts.translatedEmission || ts.emission;
-              if (text) {
-                speak(text);
-              }
-            })
-            .finally(() => {
-              setHasUserActivatedSpeak(true);
-            });
+              .then(ts => {
+                let text = ts.translatedEmission || ts.emission;
+                if (text) {
+                  speak(text);
+                }
+              })
+              .finally(() => {
+                setHasUserActivatedSpeak(true);
+              });
           } else {
             const messages = chatLog.lines.map(
               (l, i) =>
@@ -3068,8 +3086,12 @@ const MemoriWidget = ({
 
             setHistory(translatedMessages);
 
-            translateDialogState(session.dialogState, userLang, undefined, true)
-            .finally(() => {
+            translateDialogState(
+              session.dialogState,
+              userLang,
+              undefined,
+              true
+            ).finally(() => {
               setHasUserActivatedSpeak(true);
             });
           }
@@ -3882,7 +3904,8 @@ const MemoriWidget = ({
         <ChatHistoryDrawer
           open={!!showChatHistoryDrawer}
           onClose={() => setShowChatHistoryDrawer(false)}
-          resumeSession={(chatLog) => {
+          resumeSession={chatLog => {
+            setChatLogID(chatLog.chatLogID);
             onClickStart(undefined, false, chatLog);
             setShowChatHistoryDrawer(false);
           }}

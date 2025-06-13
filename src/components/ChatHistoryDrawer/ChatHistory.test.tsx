@@ -109,6 +109,8 @@ describe('ChatHistoryDrawer', () => {
         sessionId="session123"
         memori={mockMemori}
         resumeSession={() => {}}
+         baseUrl="https://www.aisuru.com"
+        apiUrl="https://backend.memori.ai"
       />
     );
 
@@ -131,6 +133,8 @@ describe('ChatHistoryDrawer', () => {
         sessionId="session123"
         memori={mockMemori}
         resumeSession={() => {}}
+        baseUrl="https://www.aisuru.com"
+        apiUrl="https://backend.memori.ai"
       />
     );
 
@@ -159,6 +163,8 @@ describe('ChatHistoryDrawer', () => {
         sessionId="session123"
         memori={mockMemori}
         resumeSession={() => {}}
+        baseUrl="https://www.aisuru.com"
+        apiUrl="https://backend.memori.ai"
       />
     );
 
@@ -187,6 +193,8 @@ describe('ChatHistoryDrawer', () => {
         sessionId="session123"
         memori={mockMemori}
         resumeSession={mockResumeSession}
+        baseUrl="https://www.aisuru.com"
+        apiUrl="https://backend.memori.ai"
       />
     );
 
@@ -246,6 +254,8 @@ describe('ChatHistoryDrawer', () => {
         sessionId="session123"
         memori={mockMemori}
         resumeSession={() => {}}
+        apiUrl="https://backend.memori.ai"
+        baseUrl="https://www.aisuru.com"
       />
     );
 

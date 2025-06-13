@@ -78,6 +78,7 @@ export interface Props {
   user?: User;
   experts?: ExpertReference[];
   useMathFormatting?: boolean;
+  isHistoryView?: boolean;
 }
 
 const Chat: React.FC<Props> = ({
@@ -125,8 +126,10 @@ const Chat: React.FC<Props> = ({
   showUpload = false,
   experts,
   useMathFormatting = false,
+  isHistoryView = false,
 }) => {
   const scrollToBottom = () => {
+    if (isHistoryView) return;
     setTimeout(() => {
       let userMsgs = document.querySelectorAll(
         '.memori-chat--bubble-container.memori-chat--bubble-from-user'
@@ -135,8 +138,8 @@ const Chat: React.FC<Props> = ({
     }, 200);
   };
   useEffect(() => {
-    !preview && scrollToBottom();
-  }, [history, preview]);
+    !preview && !isHistoryView && scrollToBottom();
+  }, [history, preview, isHistoryView]);
 
   const onTextareaFocus = () => {
     stopListening();

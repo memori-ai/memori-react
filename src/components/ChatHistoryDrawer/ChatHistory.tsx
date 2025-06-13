@@ -10,6 +10,7 @@ import {
   Memori,
   Medium,
   DialogState,
+  EventLog,
 } from '@memori.ai/memori-api-client/dist/types';
 import Card from '../ui/Card';
 import ChatBubble from '../ChatBubble/ChatBubble';
@@ -23,7 +24,6 @@ import Spin from '../ui/Spin';
 
 export interface Props {
   open: boolean;
-  layout?: WidgetProps['layout'];
   onClose: () => void;
   apiClient: ReturnType<typeof memoriApiClient>;
   sessionId: string;
@@ -38,7 +38,6 @@ const DEBOUNCE_DELAY = 300;
 
 const ChatHistoryDrawer = ({
   open,
-  layout = 'DEFAULT',
   onClose,
   apiClient,
   sessionId,
@@ -48,7 +47,7 @@ const ChatHistoryDrawer = ({
   apiUrl,
 }: Props) => {
   const { t } = useTranslation();
-  const { getChatLogsByUser } = apiClient.chatLogs;
+  const { getChatLogsByUser, getSessionChatLogs } = apiClient.chatLogs;
 
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
   const [selectedChatLog, setSelectedChatLog] = useState<ChatLog | null>(null);
@@ -148,6 +147,8 @@ const ChatHistoryDrawer = ({
       );
     }
 
+    console.log('selectedChatLog', selectedChatLog);
+
     return (
       <>
         <ul className="memori-chat-history-drawer--list">
@@ -159,9 +160,36 @@ const ChatHistoryDrawer = ({
             return (
               <Card
                 hoverable
-                onClick={() => setSelectedChatLog(
-                  selectedChatLog?.chatLogID === chatLog.chatLogID ? null : chatLog
-                )}
+                onClick={async () => {
+                  if (selectedChatLog?.chatLogID === chatLog.chatLogID) {
+                    setSelectedChatLog(null);
+                    return;
+                  }
+                  // Check for chat-reference tag in the first line
+                  const firstMessage = chatLog.lines[1]?.text;
+                  const chatReferenceMatch = firstMessage?.match(/<chat-reference session-id="([^"]+)" event-log-id="([^"]+)"><\/chat-reference>/);
+                  if (chatReferenceMatch) {
+                    const [_, refSessionId, refChatLogId] = chatReferenceMatch;
+                    try {
+                      const res = await getSessionChatLogs(refChatLogId, refSessionId);
+                      const prevChatLog = res.chatLogs.find((c: ChatLog) => c.chatLogID === refChatLogId);
+                      if (prevChatLog) {
+                        // Merge previous chat log lines with current
+                        setSelectedChatLog({
+                          ...chatLog,
+                          lines: [
+                            ...prevChatLog.lines,
+                            ...chatLog.lines
+                          ]
+                        });
+                        return;
+                      }
+                    } catch (e) {
+                      console.error('Error fetching referenced chat log:', e);
+                    }
+                  }
+                  setSelectedChatLog(chatLog);
+                }}
                 key={chatLog.chatLogID}
                 className={`memori-chat-history-drawer--card ${
                   selectedChatLog?.chatLogID === chatLog.chatLogID ? 'memori-chat-history-drawer--card--selected' : ''
@@ -248,6 +276,7 @@ const ChatHistoryDrawer = ({
                             listening={false}
                             setEnableFocusChatInput={() => {}}
                             stopAudio={() => {}}
+                            isHistoryView={true}
                           />
                       </div>
 
