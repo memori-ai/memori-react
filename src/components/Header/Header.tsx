@@ -220,6 +220,8 @@ const Header: React.FC<Props> = ({
         <ShareButton
           className="memori-header--button memori-header--button-share"
           title={memori.name}
+          memori={memori}
+          sessionID={sessionID}
           tenant={tenant}
           showQrCode
           align="left"
