@@ -1,5 +1,51 @@
 
 
+## [7.29.0](https://github.com/memori-ai/memori-react/compare/v7.28.1...v7.29.0) (2025-06-16)
+
+
+### Features
+
+* add ChatHistoryDrawer component with API integration and styling ([3d3529f](https://github.com/memori-ai/memori-react/commit/3d3529fe811e729bf62dc1cb9968e71aaa3ebd4b))
+* add ChatHistoryDrawer component with storybook stories and tests ([ff68960](https://github.com/memori-ai/memori-react/commit/ff689606ddfb59d6cd794f4d001062e9409cb3f7))
+* add ChatRound icon component and enhance History icon with disabled state styling ([5c97dda](https://github.com/memori-ai/memori-react/commit/5c97ddaac594e55242e1a319538e50cbe91bcd5f))
+* add isHistoryView prop to Chat component ([05f2730](https://github.com/memori-ai/memori-react/commit/05f2730a5bc901df5dbeedcc012427d48b36549b))
+* add onClick prop to Card component and update styles for pointer cursor ([88cf6bb](https://github.com/memori-ai/memori-react/commit/88cf6bb4544b2f72c8f7b0fec8a916a5565c2c7f))
+* add privacy explanation section to StartPanel with localized text and styling ([48e5b30](https://github.com/memori-ai/memori-react/commit/48e5b30c385460464d888d832c3596054769b04b))
+* add showChatHistory prop to Memori component for chat history visibility ([9fd1f95](https://github.com/memori-ai/memori-react/commit/9fd1f9559369a55a49223ba2ba29a033a716a517))
+* add WithChatHistory story to showcase chat history functionality ([335a3db](https://github.com/memori-ai/memori-react/commit/335a3dbe26680310b06062b8c1033612b587a766))
+* enhance chat history search functionality and improve chat log display in ChatHistoryDrawer ([939bc5d](https://github.com/memori-ai/memori-react/commit/939bc5d9ef6e5c569992151136663d045e212fe5))
+* enhance chat history search functionality and improve chat log display in ChatHistoryDrawer ([c871926](https://github.com/memori-ai/memori-react/commit/c871926e0020a526c72a0c04177cc970fc096251))
+* enhance Header component with chat history button and tooltip integration ([f6cdfe1](https://github.com/memori-ai/memori-react/commit/f6cdfe14fbdf63e3bb82dff295121b791da3107b))
+* implement chat history pagination and enhance chat log display in ChatHistoryDrawer ([6bfdcc1](https://github.com/memori-ai/memori-react/commit/6bfdcc18e331ae8c933c0446a7c074cfb252b730))
+* implement resume chat functionality in ChatHistoryDrawer with updated UI elements ([200c456](https://github.com/memori-ai/memori-react/commit/200c45684cc5665217669ef0aeb5ac82faf451e5))
+* improved UI of Chat History component ([210ef22](https://github.com/memori-ai/memori-react/commit/210ef223c67c7ec2f17f7847ab0952c4037c06af))
+* integrate chat history functionality into Header and MemoriWidget components ([830a4c7](https://github.com/memori-ai/memori-react/commit/830a4c75e9b3f0a88ce5c2fa4ce8e2d1eb8322c2))
+* integrate ChatHistoryDrawer styles and implement pagination for chat logs ([4975190](https://github.com/memori-ai/memori-react/commit/4975190ac6c24e4b6bcf237129474470961e3e9a))
+* pass memori prop to MemoriWidget for enhanced functionality ([ff64219](https://github.com/memori-ai/memori-react/commit/ff64219ddbb7d59e50599ee35f067df183640fb0))
+* reopening chat session with new flag 'continueFromChatLogID' ([26029ec](https://github.com/memori-ai/memori-react/commit/26029ec2a40ea3af7d024039250a4d8052264e64))
+* update chat resume functionality in ChatHistoryDrawer and adjust initial state in MemoriWidget ([cbc78b6](https://github.com/memori-ai/memori-react/commit/cbc78b61f82ea9515eeb7b6523fcdf5535367bcb))
+
+
+### Bug Fixes
+
+* center align loading and no results messages in VenueWidget and removed kated props ([9f84fae](https://github.com/memori-ai/memori-react/commit/9f84faed5cca8aeb2ae5f9ecfdf9467883054a81))
+* correct text formatting in chat resume messages and update button label in ChatHistoryDrawer ([564e40d](https://github.com/memori-ai/memori-react/commit/564e40dc6cd8f9d90dd57a804cc6068853f60285))
+* spinner loading chat style ([addc05b](https://github.com/memori-ai/memori-react/commit/addc05b713f5ea42b3c5f0ac3bee21a403538750))
+* update color variables and improve loading spinner in ChatHistoryDrawer ([86b5126](https://github.com/memori-ai/memori-react/commit/86b5126baddc43dff490a4a4dfd4ff06bd2a5d9f))
+
+
+### Maintenance
+
+* update [@memori](https://github.com/memori).ai/memori-api-client to version 6.0.3 in package.json and yarn.lock ([a6e80e4](https://github.com/memori-ai/memori-react/commit/a6e80e4ed12794c1b274a8154e9f398e35bde7a2))
+* update dependencies in package.json and yarn.lock for improved stability and performance ([e6f3023](https://github.com/memori-ai/memori-react/commit/e6f30233eef242604d265159c595178b0cb0cc75))
+
+
+### Changes
+
+* comment out chat log reference retrieval in ChatHistory component ([e3f68fa](https://github.com/memori-ai/memori-react/commit/e3f68fa91c2fa22e5f248f282a77739503407fd3))
+* fix session chat log retrieval in ChatHistory component ([8a55462](https://github.com/memori-ai/memori-react/commit/8a554626755f6921e1c8c3b4c69d2f7b639cffb6))
+* simplify resumeSession parameters in ChatHistoryDrawer ([4e6de0a](https://github.com/memori-ai/memori-react/commit/4e6de0a65caf2b984af9ab7494a82d5512ffd2be))
+
 ## [7.28.1](https://github.com/memori-ai/memori-react/compare/v7.28.0...v7.28.1) (2025-06-13)
 
 
