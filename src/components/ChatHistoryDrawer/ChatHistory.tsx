@@ -147,7 +147,6 @@ const ChatHistoryDrawer = ({
       );
     }
 
-    console.log('selectedChatLog', selectedChatLog);
 
     return (
       <>
@@ -167,14 +166,21 @@ const ChatHistoryDrawer = ({
                   }
                   // Check for chat-reference tag in the first line
                   const firstMessage = chatLog.lines[1]?.text;
+                  console.log('First message:', firstMessage);
                   const chatReferenceMatch = firstMessage?.match(/<chat-reference session-id="([^"]+)" event-log-id="([^"]+)"><\/chat-reference>/);
+                  console.log('Chat reference match:', chatReferenceMatch);
                   if (chatReferenceMatch) {
                     const [_, refSessionId, refChatLogId] = chatReferenceMatch;
+                    console.log('Reference session ID:', refSessionId);
+                    console.log('Reference chat log ID:', refChatLogId);
                     try {
-                      const res = await getSessionChatLogs(refChatLogId, refSessionId);
+                      const res = await getSessionChatLogs(refSessionId, refChatLogId);
+                      console.log('Got session chat logs:', res);
                       const prevChatLog = res.chatLogs.find((c: ChatLog) => c.chatLogID === refChatLogId);
+                      console.log('Previous chat log:', prevChatLog);
                       if (prevChatLog) {
                         // Merge previous chat log lines with current
+                        console.log('Merging chat logs...');
                         setSelectedChatLog({
                           ...chatLog,
                           lines: [
@@ -182,6 +188,7 @@ const ChatHistoryDrawer = ({
                             ...chatLog.lines
                           ]
                         });
+                        console.log('Chat logs merged successfully');
                         return;
                       }
                     } catch (e) {

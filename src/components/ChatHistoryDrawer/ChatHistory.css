@@ -200,6 +200,11 @@
     align-items: center;
     justify-content: center;
     padding: 2rem;
+    overflow-y: hidden;
+}
+
+.memori-chat-history-drawer--loading > div {
+    overflow-y: hidden !important;
 }
 
 .memori-chat-history-drawer--loading--spinner {
