@@ -165,27 +165,27 @@ const ChatHistoryDrawer = ({
                     return;
                   }
                   // Check for chat-reference tag in the first line
-                  const firstMessage = chatLog.lines[1]?.text;
-                  const chatReferenceMatch = firstMessage?.match(/<chat-reference session-id="([^"]+)" event-log-id="([^"]+)"><\/chat-reference>/);
-                  if (chatReferenceMatch) {
-                    const [_, refSessionId, refChatLogId] = chatReferenceMatch;
-                    try {
-                      const res = await getSessionChatLogs(refSessionId, refSessionId);
-                      const prevChatLog = res.chatLogs.find((c: ChatLog) => c.chatLogID === refChatLogId);
-                      if (prevChatLog) {
-                        setSelectedChatLog({
-                          ...chatLog,
-                          lines: [
-                            ...prevChatLog.lines,
-                            ...chatLog.lines
-                          ]
-                        });
-                        return;
-                      }
-                    } catch (e) {
-                      console.error('Error fetching referenced chat log:', e);
-                    }
-                  }
+                  // const firstMessage = chatLog.lines[1]?.text;
+                  // const chatReferenceMatch = firstMessage?.match(/<chat-reference session-id="([^"]+)" event-log-id="([^"]+)"><\/chat-reference>/);
+                  // if (chatReferenceMatch) {
+                  //   const [_, refSessionId, refChatLogId] = chatReferenceMatch;
+                  //   try {
+                  //     const res = await getSessionChatLogs(refSessionId, refSessionId);
+                  //     const prevChatLog = res.chatLogs.find((c: ChatLog) => c.chatLogID === refChatLogId);
+                  //     if (prevChatLog) {
+                  //       setSelectedChatLog({
+                  //         ...chatLog,
+                  //         lines: [
+                  //           ...prevChatLog.lines,
+                  //           ...chatLog.lines
+                  //         ]
+                  //       });
+                  //       return;
+                  //     }
+                  //   } catch (e) {
+                  //     console.error('Error fetching referenced chat log:', e);
+                  //   }
+                  // }
                   setSelectedChatLog(chatLog);
                 }}
                 key={chatLog.chatLogID}
