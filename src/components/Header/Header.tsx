@@ -141,7 +141,7 @@ const Header: React.FC<Props> = ({
           disabled={!loginToken || history.length === 0}
           shape="circle"
           className="memori-header--button memori-header--button--chat-history"
-          title={t('chatHistory') || 'Chat history'}
+          title={t('write_and_speak.chatHistory') || 'Chat history'}
           icon={<History disabled={!loginToken || history.length === 0} />}
             onClick={() => setShowChatHistoryDrawer(true)}
           />

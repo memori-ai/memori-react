@@ -156,15 +156,17 @@
 .memori-chat-history-drawer--card--content--resume-button {
     padding: 0.75rem 1.5rem;
     border-radius: 0.5rem;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.6);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    background-color: rgba(255, 255, 255, 0.8);
     color: var(--memori-primary);
     font-weight: 500;
     transition: all 0.2s ease-in-out;
 }
 
 .memori-chat-history-drawer--card--content--resume-button:hover {
+    -webkit-backdrop-filter: blur(0);
+    backdrop-filter: blur(0);
     background-color: var(--memori-primary);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.27), 0 2px 4px -1px rgba(0, 0, 0, 0.35);
     color: var(--memori-primary-text);
@@ -293,6 +295,7 @@
 }
 
 .memori-chat-history-drawer--toolbar--sort-button {
+    background-color: #fff;
     color: var(--memori-primary);
     white-space: nowrap;
 }

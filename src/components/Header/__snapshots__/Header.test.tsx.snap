@@ -7,7 +7,7 @@ exports[`renders Header for board of experts unchanged 1`] = `
   >
     <button
       class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--chat-history"
-      title="chatHistory"
+      title="write_and_speak.chatHistory"
     >
       <span
         class="memori-button--icon"
@@ -141,7 +141,7 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
   >
     <button
       class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--chat-history"
-      title="chatHistory"
+      title="write_and_speak.chatHistory"
     >
       <span
         class="memori-button--icon"
@@ -508,7 +508,7 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
   >
     <button
       class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--chat-history"
-      title="chatHistory"
+      title="write_and_speak.chatHistory"
     >
       <span
         class="memori-button--icon"
@@ -614,7 +614,7 @@ exports[`renders Header with deep thought logged but without permission flag unc
   >
     <button
       class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--chat-history"
-      title="chatHistory"
+      title="write_and_speak.chatHistory"
     >
       <span
         class="memori-button--icon"
@@ -720,7 +720,7 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
   >
     <button
       class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--chat-history"
-      title="chatHistory"
+      title="write_and_speak.chatHistory"
     >
       <span
         class="memori-button--icon"

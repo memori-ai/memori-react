@@ -1,0 +1,41 @@
+.memori-chat-history-drawer {
+  // ... existing code ...
+
+  &--toolbar {
+    // ... existing code ...
+
+    &--actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    &--sort-button {
+      background: transparent;
+      border: 1px solid var(--memori-primary-color);
+      color: var(--memori-primary-color);
+
+      &:hover {
+        background: var(--memori-primary-color);
+        color: white;
+      }
+    }
+
+    &--export-button {
+      background: transparent;
+      border: 1px solid var(--memori-primary-color);
+      color: var(--memori-primary-color);
+
+      &:hover {
+        background: var(--memori-primary-color);
+        color: white;
+      }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+  }
+  // ... existing code ...
+} 

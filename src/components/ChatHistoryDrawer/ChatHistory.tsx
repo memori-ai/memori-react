@@ -117,7 +117,7 @@ const ChatHistoryDrawer = ({
       return (
         <div className="memori-chat-history-drawer--loading">
           <Spin spinning={true} primary={true} className="memori-chat-history-drawer--loading--spinner" />
-          <p className="memori-chat-history-drawer--loading--text">{t('widget.loadingChatHistory') || 'Loading chat history...'}</p>
+          <p className="memori-chat-history-drawer--loading--text">{t('write_and_speak.loadingChatHistory') || 'Loading chat history...'}</p>
         </div>
       );
     }
@@ -134,7 +134,7 @@ const ChatHistoryDrawer = ({
       return (
         <div className="memori-chat-history-drawer--empty">
           <ChatRound className="memori-chat-history-drawer--empty--icon" />
-          <p className="memori-chat-history-drawer--empty--text">{t('widget.noChatHistoryAvailable') || 'No chat history available'}</p>
+          <p className="memori-chat-history-drawer--empty--text">{t('write_and_speak.noChatHistoryAvailable') || 'No chat history available'}</p>
         </div>
       );
     }
@@ -142,7 +142,7 @@ const ChatHistoryDrawer = ({
     if (filteredChatLogs.length === 0) {
       return (
         <div className="memori-chat-history-drawer--no-results">
-          <p>{t('widget.noResultsFound', { searchText }) || `No results found for "${searchText}"`}</p>
+          <p>{t('write_and_speak.noResultsFound', { searchText: searchText || '' }) || 'No results found'}</p>
         </div>
       );
     }
@@ -332,8 +332,8 @@ const ChatHistoryDrawer = ({
       className="memori-chat-history-drawer"
       open={open}
       onClose={onClose}
-      title={t('widget.chatHistory') || 'Chat History'} 
-      description={t('widget.chatHistoryDescription')}
+      title={t('write_and_speak.chatHistory') || 'Chat History'} 
+      description={t('write_and_speak.chatHistoryDescription')}
     >
       <div className="memori-chat-history-drawer--content">
         <div className="memori-chat-history-drawer--toolbar">
@@ -341,7 +341,7 @@ const ChatHistoryDrawer = ({
             <input
               type="search"
               className="memori-chat-history-drawer--toolbar--search--input"
-              placeholder={t('search') || 'Search in chat history...'}
+              placeholder={t('write_and_speak.searchInChatHistory') || 'Search in chat history...'}
               onChange={(e: ChangeEvent<HTMLInputElement>) => debouncedSearch(e.target.value)}
             />
             <span className="memori-chat-history-drawer--toolbar--search--icon">
@@ -350,15 +350,39 @@ const ChatHistoryDrawer = ({
               </svg>
             </span>
           </div>
-          <Button
-            onClick={() => {
-              setSortOrder(order => order === 'asc' ? 'desc' : 'asc');
-              setCurrentPage(1);
-            }}
-            className="memori-chat-history-drawer--toolbar--sort-button"
-          >
-            {sortOrder === 'desc' ? t('write_and_speak.latestFirst') : t('write_and_speak.oldestFirst')}
-          </Button>
+          <div className="memori-chat-history-drawer--toolbar--actions">
+            <Button
+              onClick={() => {
+                setSortOrder(order => order === 'asc' ? 'desc' : 'asc');
+                setCurrentPage(1);
+              }}
+              className="memori-chat-history-drawer--toolbar--sort-button"
+            >
+              {sortOrder === 'desc' ? t('write_and_speak.latestFirst') : t('write_and_speak.oldestFirst')}
+            </Button>
+            {/* <Button
+              onClick={() => {
+                if (selectedChatLog) {
+                  const chatText = selectedChatLog.lines
+                    .map(line => `${line.inbound ? 'User' : 'AI'}: ${line.text}`)
+                    .join('\n\n');
+                  const blob = new Blob([chatText], { type: 'text/plain' });
+                  const url = URL.createObjectURL(blob);
+                  const a = document.createElement('a');
+                  a.href = url;
+                  a.download = `chat-${selectedChatLog.chatLogID.substring(0, 4)}.txt`;
+                  document.body.appendChild(a);
+                  a.click();
+                  document.body.removeChild(a);
+                  URL.revokeObjectURL(url);
+                }
+              }}
+              disabled={!selectedChatLog}
+              className="memori-chat-history-drawer--toolbar--export-button"
+            >
+              {t('write_and_speak.exportChat') || 'Export Chat'}
+            </Button> */}
+          </div>
         </div>
         {renderContent()}
       </div>
