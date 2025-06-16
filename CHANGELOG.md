@@ -1,5 +1,12 @@
 
 
+## [7.29.1](https://github.com/memori-ai/memori-react/compare/v7.29.0...v7.29.1) (2025-06-16)
+
+
+### Bug Fixes
+
+* locales and style for Chat History ([604a438](https://github.com/memori-ai/memori-react/commit/604a438474afd08777ec2fb50c76e6db6fbf0840))
+
 ## [7.29.0](https://github.com/memori-ai/memori-react/compare/v7.28.1...v7.29.0) (2025-06-16)
 
 
