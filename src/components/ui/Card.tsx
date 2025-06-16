@@ -24,12 +24,13 @@ const Card: FC<Props> = ({
   onClick,
 }) => (
   <div
+    onClick={onClick}
     className={cx('memori-card', className, {
       'memori-card--loading': loading,
       'memori-card--with-cover': cover,
       'memori-card--hoverable': hoverable,
+      'memori-card--pointer': !!onClick,
     })}
-    onClick={onClick}
   >
     <Spin spinning={loading}>
       {cover && <div className="memori-card--cover">{cover}</div>}

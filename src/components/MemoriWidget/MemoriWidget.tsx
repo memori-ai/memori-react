@@ -14,6 +14,8 @@ import {
   User,
   ExpertReference,
   ResponseSpec,
+  ChatLog,
+  ChatLogLine,
 } from '@memori.ai/memori-api-client/src/types';
 import {
   SpeakerAudioDestination,
@@ -87,6 +89,7 @@ import {
 import { getErrori18nKey } from '../../helpers/error';
 import { getCredits } from '../../helpers/credits';
 import { useViseme } from '../../context/visemeContext';
+import ChatHistoryDrawer from '../ChatHistoryDrawer/ChatHistory';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -384,6 +387,7 @@ export interface Props {
   showTypingText?: boolean;
   showLogin?: boolean;
   showUpload?: boolean;
+  showChatHistory?: boolean;
   preview?: boolean;
   embed?: boolean;
   height?: number | string;
@@ -442,11 +446,12 @@ const MemoriWidget = ({
   showLogin = false,
   showUpload,
   showOnlyLastMessages,
+  showChatHistory,
   height = '100vh',
   secret,
   baseUrl = 'https://aisuru.com',
-  apiURL = 'https://backend.memori.ai',
-  engineURL = 'https://engine.memori.ai',
+  apiURL = 'https://backend-staging.memori.ai',
+  engineURL = 'https://engine-staging.memori.ai',
   initialContextVars,
   initialQuestion,
   ogImage,
@@ -584,6 +589,7 @@ const MemoriWidget = ({
     useState(false);
   const [showPositionDrawer, setShowPositionDrawer] = useState(false);
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
+  const [showChatHistoryDrawer, setShowChatHistoryDrawer] = useState(false);
   const [showKnownFactsDrawer, setShowKnownFactsDrawer] = useState(false);
   const [showExpertsDrawer, setShowExpertsDrawer] = useState(false);
   const [muteSpeaker, setMuteSpeaker] = useState(
@@ -744,6 +750,9 @@ const MemoriWidget = ({
       },
     ]);
   };
+
+  // When a user resumes a chat, we need to set the chat reference link of the previous chat
+  const [chatLogID, setChatLogID] = useState<string | undefined>(undefined);
   /**
    * Sends a message to the Memori and handles the response
    * @param text The text message to send
@@ -810,9 +819,23 @@ const MemoriWidget = ({
         msg = translation.text;
       }
 
-      const findMediaDocument = media?.find(m => !m.mediumID && m.properties?.isAttachedFile);
+      const findMediaDocument = media?.find(
+        m => !m.mediumID && m.properties?.isAttachedFile
+      );
       if (findMediaDocument) {
         msg = msg + ' ' + findMediaDocument.content;
+      }
+
+      // Add chat reference link to the message if it exists
+      if (chatLogID) {
+        msg =
+          msg +
+          ' \n\n' +
+          '<chat-reference session-id="' +
+          sessionID +
+          '" event-log-id="' +
+          chatLogID +
+          '"></chat-reference>';
       }
 
       const { currentState, ...response } = await postTextEnteredEvent({
@@ -820,6 +843,7 @@ const MemoriWidget = ({
         text: msg,
       });
       if (response.resultCode === 0 && currentState) {
+        setChatLogID(undefined);
         const emission =
           useLoaderTextAsMsg && typingText
             ? typingText
@@ -1445,6 +1469,136 @@ const MemoriWidget = ({
     setLoading(false);
 
     return null;
+  };
+
+  const [chatLogs, setChatLogs] = useState<any[]>([]);
+  const resumeSession = async (
+    chatLog: ChatLog,
+    questionsAndAnswers: { question: string; answer: string }[],
+    initialContextVars?: { [key: string]: string },
+    initialQuestion?: string,
+    birthDate?: string
+  ) => {
+    // Set loading state while reopening session
+    setLoading(true);
+
+    // Get birth date from local storage if not provided
+    let storageBirthDate = getLocalConfig<string | undefined>(
+      'birthDate',
+      undefined
+    );
+    let userBirthDate = birthDate ?? storageBirthDate;
+    // console.log('[REOPEN_SESSION] Using birth date:', userBirthDate);
+
+    try {
+      // Show age verification if required and birth date not provided
+      if (!userBirthDate && !!minAge) {
+        // console.log('[REOPEN_SESSION] Age verification required, showing modal');
+        setShowAgeVerification(true);
+        return;
+      }
+
+      // Check if authentication is needed based on privacy type and credentials
+      if (
+        memori.privacyType !== 'PUBLIC' &&
+        !memoriPassword &&
+        !memori.secretToken &&
+        !memoriPwd &&
+        !memoriTokens
+      ) {
+        // console.log('[REOPEN_SESSION] Authentication required, showing modal');
+        setAuthModalState('password');
+        return;
+      }
+
+      // Get current URL as referral
+      let referral;
+      try {
+        referral = (() => {
+          return window.location.href;
+        })();
+        console.log('[REOPEN_SESSION] Got referral:', referral);
+      } catch (err) {
+        console.debug('[REOPEN_SESSION] Error getting referral:', err);
+      }
+
+      // Initialize session with provided parameters
+      // console.log('[REOPEN_SESSION] Initializing session...');
+      const { sessionID, currentState, ...response } = await initSession({
+        memoriID: memori.engineMemoriID ?? '',
+        password: memoriPassword || memoriPwd || memori.secretToken,
+        recoveryTokens: memoriTokens,
+        tag: personification?.tag,
+        pin: personification?.pin,
+        continueFromChatLogID: chatLog.chatLogID,
+        initialContextVars: {
+          PATHNAME: window.location.pathname,
+          ROUTE: window.location.pathname?.split('/')?.pop() || '',
+          ...(initialContextVars || {}),
+        },
+        initialQuestion,
+        birthDate: userBirthDate,
+        additionalInfo: {
+          ...(additionalInfo || {}),
+          loginToken:
+            userToken ?? loginToken ?? additionalInfo?.loginToken ?? authToken,
+          language: getCultureCodeByLanguage(userLang),
+          referral: referral,
+          timeZoneOffset: new Date().getTimezoneOffset().toString(),
+        },
+      });
+
+      // Handle successful session initialization
+      if (sessionID) {
+        // console.log('[REOPEN_SESSION] Session initialized successfully:', sessionID);
+        setSessionId(sessionID);
+
+        // console.log('[REOPEN_SESSION] Processing emission:', currentState.emission);
+        // Set initial message or append to existing history
+        setHistory(
+          chatLog.lines.map(log => ({
+            text: log.text,
+            emitter: log.emitter,
+            media: log.media?.map(m => ({
+              ...m,
+              mediumID:
+                'mediumID' in m ? String(m.mediumID) : crypto.randomUUID(),
+            })),
+            fromUser: log.inbound,
+            initial: false,
+            contextVars: log.contextVars,
+            date: log.timestamp,
+          }))
+        );
+
+        setChatLogs(questionsAndAnswers);
+      }
+
+      // Handle age restriction error
+      else if (
+        response?.resultMessage.startsWith('This Memori is aged restricted')
+      ) {
+        console.error('[REOPEN_SESSION] Age restriction error:', response);
+        toast.error(t('underageTwinSession', { age: minAge }));
+        setGotErrorInOpening(true);
+      }
+      // Handle authentication error
+      else if (response?.resultCode === 403) {
+        console.error('[REOPEN_SESSION] Authentication error');
+        setMemoriPwd(undefined);
+        setAuthModalState('password');
+      }
+      // Handle other errors
+      else {
+        console.error('[REOPEN_SESSION] Other error:', response);
+        toast.error(t(getErrori18nKey(response.resultCode)));
+        setGotErrorInOpening(true);
+      }
+    } catch (err) {
+      console.error('[RESUME_SESSION] Caught error:', err);
+    }
+
+    setLoading(false);
   };
 
   const changeTag = async (
@@ -2878,10 +3032,13 @@ const MemoriWidget = ({
   const onClickStart = useCallback(
     async (
       session?: { dialogState: DialogState; sessionID: string },
-      initialSessionExpired = false
+      initialSessionExpired = false,
+      chatLog?: ChatLog
     ) => {
-      const sessionID = session?.sessionID || sessionId;
-      const dialogState = session?.dialogState || currentDialogState;
+      const sessionID = chatLog ? undefined : session?.sessionID || sessionId;
+      const dialogState = chatLog
+        ? undefined
+        : session?.dialogState || currentDialogState;
       setClickedStart(true);
 
       let translatedMessages: Message[] = [];
@@ -2951,13 +3108,16 @@ const MemoriWidget = ({
           password: secret || memoriPwd || memori.secretToken,
           tag: personification?.tag,
           pin: personification?.pin,
+          continueFromChatLogID: chatLog?.chatLogID,
           initialContextVars: {
             PATHNAME: window.location.pathname?.toUpperCase(),
             ROUTE:
               window.location.pathname?.split('/')?.pop()?.toUpperCase() || '',
-            ...(initialContextVars || {}),
+            ...((!chatLog
+              ? initialContextVars
+              : chatLog.lines[chatLog.lines.length - 1].contextVars) || {}),
           },
-          initialQuestion,
+          initialQuestion: chatLog ? undefined : initialQuestion,
           birthDate: birth,
           additionalInfo: {
             ...(additionalInfo || {}),
@@ -2974,18 +3134,71 @@ const MemoriWidget = ({
         if (session?.dialogState) {
           // console.log('[CLICK_START] Got new session with dialog state');
           // reset history
-          setHistory([]);
+          if (!chatLog) {
+            setHistory([]);
 
-          translateDialogState(session.dialogState, userLang)
-            .then(ts => {
-              let text = ts.translatedEmission || ts.emission;
-              if (text) {
-                speak(text);
+            translateDialogState(session.dialogState, userLang)
+              .then(ts => {
+                let text = ts.translatedEmission || ts.emission;
+                if (text) {
+                  speak(text);
+                }
+              })
+              .finally(() => {
+                setHasUserActivatedSpeak(true);
+              });
+          } else {
+            const messages = chatLog.lines.map(
+              (l, i) =>
+                ({
+                  text: l.text,
+                  media: l.media
+                    ?.filter(m => allowedMediaTypes.includes(m.mimeType))
+                    ?.map(m => ({
+                      mediumID: `${i}-${m.mimeType}`,
+                      ...m,
+                    })),
+                  fromUser: l.inbound,
+                  timestamp: l.timestamp,
+                  emitter: l.emitter,
+                  initial: i === 0,
+                } as Message)
+            );
+
+            // we dont remove the last one as it is the current state
+            translatedMessages = messages ?? [];
+            if (
+              language.toUpperCase() !== userLang.toUpperCase() &&
+              isMultilanguageEnabled
+            ) {
+              try {
+                console.debug('[CLICK_START] Translating messages');
+                translatedMessages = await Promise.all(
+                  messages.map(async m => ({
+                    ...m,
+                    originalText: m.text,
+                    text: (
+                      await getTranslation(m.text, userLang, language, baseUrl)
+                    ).text,
+                  }))
+                );
+                // console.log('[CLICK_START] Translated messages:', translatedMessages);
+              } catch (e) {
+                // console.log('[CLICK_START] Error translating messages:', e);
               }
-            })
-            .finally(() => {
+            }
+
+            setHistory(translatedMessages);
+
+            translateDialogState(
+              session.dialogState,
+              userLang,
+              undefined,
+              true
+            ).finally(() => {
               setHasUserActivatedSpeak(true);
             });
+          }
         } else if (session?.resultCode === 0) {
           // console.log('[CLICK_START] Retrying with session:', session);
           await onClickStart((session as any) || undefined);
@@ -3439,7 +3652,10 @@ const MemoriWidget = ({
         source.connect(audioContext.destination);
       }
     },
+    setShowChatHistoryDrawer,
     showSettings: showSettings ?? integrationConfig?.showSettings ?? true,
+    showChatHistory:
+      showChatHistory ?? integrationConfig?.showChatHistory ?? true,
     hasUserActivatedSpeak,
     showReload: selectedLayout === 'TOTEM',
     showClear,
@@ -3770,6 +3986,23 @@ const MemoriWidget = ({
           isAvatar3d={!!integrationConfig?.avatarURL}
           additionalSettings={additionalSettings}
           speakerMuted={speakerMuted}
+        />
+      )}
+
+      {showChatHistoryDrawer && (
+        <ChatHistoryDrawer
+          open={!!showChatHistoryDrawer}
+          onClose={() => setShowChatHistoryDrawer(false)}
+          resumeSession={chatLog => {
+            setChatLogID(chatLog.chatLogID);
+            onClickStart(undefined, false, chatLog);
+            setShowChatHistoryDrawer(false);
+          }}
+          apiClient={client}
+          sessionId={sessionId || ''}
+          memori={memori}
+          baseUrl={baseUrl}
+          apiUrl={client.constants.BACKEND_URL}
         />
       )}
 

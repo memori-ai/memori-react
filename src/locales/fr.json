@@ -112,13 +112,20 @@
     "boardOfExperts": "Conseil d'experts",
     "showExpertsInTheBoard": "Afficher les experts dans ce forum",
     "expertsInTheBoard": "Experts dans ce forum",
-    "goToIntegrationsToCustomizeAvatar": "Pour personnaliser l'avatar, allez dans Partager et personnalisez la page publique"
+    "goToIntegrationsToCustomizeAvatar": "Pour personnaliser l'avatar, allez dans Partager et personnalisez la page publique",
+    "chatHistory": "Historique des discussions",
+    "chatHistoryDescription": "Afficher l'historique des discussions avec cet agent",
+    "loadingChatHistory": "Chargement de l'historique des discussions...",
+    "noChatHistoryAvailable": "Aucun historique des discussions disponible",
+    "noResultsFound": "Aucun résultat trouvé pour &quot;{{searchText}}&quot;"
   },
   "write_and_speak": {
     "micButtonPopover": "Cliquez sur le bouton pour parler",
     "micButtonPopoverListening": "Cliquez sur le bouton pour arrêter de parler",
     "pageInstructExplanation": "Pour m'apprendre de nouvelles choses, cliquez sur le bouton INSTRUCTEZ-MOI pour commencer",
     "pageTryMeExplanation": "Pour me parler, cliquez sur le bouton START pour commencer",
+    "pagePrivacyExplanation": "Les conversations sont visibles par l'auteur de l'agent",
+    "pagePrivacyExplanationTooltip": "En commençant la conversation, nous vous informons que :\n\n- Toutes les conversations avec cet agent sont visibles par l'auteur de l'agent\n- Si vous utilisez la chat comme utilisateur anonyme, l'auteur pourra voir le contenu de la conversation et votre adresse IP\n- Si vous utilisez la chat comme utilisateur enregistré (connecté), l'auteur pourra voir le contenu de la conversation et votre nom d'utilisateur\n- L'auteur utilise ces informations pour améliorer les fonctionnalités de l'agent et pour vous fournir un meilleur service\n- En continuant la conversation, vous acceptez ces conditions.",
     "instructButton": "INSTRUCTEZ-MOI",
     "tryMeButton": "COMMENCER",
     "chatHistory": "Historique des discussions",
@@ -148,7 +155,12 @@
     "requirePositionHelp": "Pour parler à {{name}} vous devez décider si vous souhaitez ou non fournir votre poste. ",
     "dontWantToProvidePosition": "Je ne veux pas donner ma position",
     "attachmentsLabel": "Enrichissez votre message",
-    "iWantToTalkToIn": "je veux parler à {{name}} dans"
+    "iWantToTalkToIn": "je veux parler à {{name}} dans",
+    "message": "message",
+    "messages": "messages",
+    "latestFirst": "Plus récent",
+    "oldestFirst": "Plus ancien",
+    "page": "Page {{current}} de {{total}}"
   },
   "upload": {
     "loginRequired": "Connexion requise",

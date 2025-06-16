@@ -113,6 +113,11 @@
     "boardOfExperts": "Expertengremium",
     "showExpertsInTheBoard": "Experten in diesem Forum anzeigen",
     "expertsInTheBoard": "Experten in diesem Forum",
+    "chatHistory": "Chatverlauf",
+    "chatHistoryDescription": "Zeige den Chatverlauf mit diesem Agenten",
+    "loadingChatHistory": "Chatverlauf wird geladen...",
+    "noChatHistoryAvailable": "Kein Chatverlauf verfügbar",
+    "noResultsFound": "Keine Ergebnisse gefunden für &quot;{{searchText}}&quot;",
     "goToIntegrationsToCustomizeAvatar": "Um den Avatar anzupassen, gehen Sie zu „Teilen“ und passen Sie die öffentliche Seite an"
   },
   "write_and_speak": {
@@ -156,7 +161,12 @@
     "requirePositionHelp": "Zum Reden {{name}} Sie müssen entscheiden, ob Sie Ihre Position angeben oder nicht. ",
     "dontWantToProvidePosition": "Ich möchte meine Position nicht bekannt geben",
     "attachmentsLabel": "Bereichern Sie Ihre Botschaft",
-    "iWantToTalkToIn": "Ich möchte mit reden {{name}} In"
+    "iWantToTalkToIn": "Ich möchte mit reden {{name}} In",
+    "message": "nachricht",
+    "messages": "nachrichten",
+    "latestFirst": "Neueste zuerst",
+    "oldestFirst": "Älteste zuerst",
+    "page": "Seite {{current}} von {{total}}"
   },
   "upload": {
     "loginRequired": "Login erforderlich",

@@ -113,6 +113,11 @@
     "boardOfExperts": "Board of experts",
     "showExpertsInTheBoard": "Show experts in this board",
     "expertsInTheBoard": "Experts in this board",
+    "chatHistory": "Chat history",
+    "chatHistoryDescription": "Show the chat history with this agent",
+    "loadingChatHistory": "Loading chat history...",
+    "noChatHistoryAvailable": "No chat history available",
+    "noResultsFound": "No results found for &quot;{{searchText}}&quot;",
     "goToIntegrationsToCustomizeAvatar": "To customize the avatar, go to Share and customize the public page"
   },
   "write_and_speak": {
@@ -168,7 +173,12 @@
     "requirePositionHelp": "To talk to {{name}} you have to decide whether to provide your position or not. This is because different answers that it can provide you may depend on where you are.",
     "dontWantToProvidePosition": "I don't want to provide my position",
     "attachmentsLabel": "Enrich your message",
-    "iWantToTalkToIn": "I want to talk to {{name}} in"
+    "iWantToTalkToIn": "I want to talk to {{name}} in",
+    "message": "message",
+    "messages": "messages",
+    "latestFirst": "Latest first",
+    "oldestFirst": "Oldest first",
+    "page": "Page {{current}} of {{total}}"
   },
   "upload": {
     "loginRequired": "Login required",

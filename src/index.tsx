@@ -34,6 +34,7 @@ export interface Props {
   layout?: WidgetProps['layout'];
   customLayout?: WidgetProps['customLayout'];
   showShare?: boolean;
+  showChatHistory?: boolean;
   showCopyButton?: boolean;
   showTranslationOriginal?: boolean;
   showInputs?: boolean;
@@ -128,6 +129,7 @@ const Memori: React.FC<Props> = ({
   pin,
   context,
   initialQuestion,
+  showChatHistory = true,
   uiLang,
   spokenLang,
   multilingual,
@@ -285,6 +287,7 @@ const Memori: React.FC<Props> = ({
             tenantID={tenantID}
             memoriLang={spokenLang ?? memori.culture?.split('-')?.[0]}
             multilingual={multilingual}
+            showChatHistory={showChatHistory}
             tenant={tenant}
             secret={secretToken}
             sessionID={sessionID}

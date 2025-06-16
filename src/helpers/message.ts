@@ -91,8 +91,6 @@ export const renderMsg = (
       // Abilita il supporto per KaTeX
       marked.use(
         markedKatex({
-          throwOnError: false,
-          output: 'htmlAndMathml',
         })
       );
 

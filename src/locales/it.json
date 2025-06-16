@@ -113,6 +113,11 @@
     "boardOfExperts": "Gruppo di esperti",
     "showExpertsInTheBoard": "Mostra gli esperti di questo gruppo",
     "expertsInTheBoard": "Esperti di questo gruppo",
+    "chatHistory": "Cronologia chat",
+    "chatHistoryDescription": "Visualizza la cronologia delle chat con questo agente",
+    "loadingChatHistory": "Caricamento cronologia chat...",
+    "noChatHistoryAvailable": "Nessuna cronologia chat disponibile",
+    "noResultsFound": "Nessun risultato trovato per &quot;{{searchText}}&quot;",
     "goToIntegrationsToCustomizeAvatar": "Per personalizzare l'avatar, vai a Condividimi e configura la pagina pubblica"
   },
   "write_and_speak": {
@@ -167,7 +172,12 @@
     "requirePositionHelp": "Per parlare con {{name}} devi decidere se fornire o meno la tua posizione. Questo perchè diverse risposte che potrà fornirti potrebbero dipendere da dove ti trovi.",
     "dontWantToProvidePosition": "Non voglio fornire la mia posizione",
     "attachmentsLabel": "Arricchisci il tuo messaggio",
-    "iWantToTalkToIn": "Voglio parlare con {{name}} in"
+    "iWantToTalkToIn": "Voglio parlare con {{name}} in",
+    "message": "messaggio",
+    "messages": "messaggi",
+    "latestFirst": "Più recenti",
+    "oldestFirst": "Più vecchi",
+    "page": "Pagina {{current}} di {{total}}"
   },
   "media": {
     "title": "Titolo",

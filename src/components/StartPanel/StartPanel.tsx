@@ -80,6 +80,7 @@ const StartPanel: React.FC<Props> = ({
   const [translatedDescription, setTranslatedDescription] = useState(
     memori.description
   );
+  
   const [showTranslation, setShowTranslation] = useState(true);
   const toggleTranslations = () => {
     setShowTranslation(show => !show);

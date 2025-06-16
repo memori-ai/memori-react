@@ -113,6 +113,11 @@
     "boardOfExperts": "junta de expertos",
     "showExpertsInTheBoard": "Mostrar expertos en este foro",
     "expertsInTheBoard": "Expertos en este foro",
+    "chatHistory": "Historial de chat",
+    "chatHistoryDescription": "Mostrar el historial de chat con este agente",
+    "loadingChatHistory": "Cargando historial de chat...",
+    "noChatHistoryAvailable": "No hay historial de chat disponible",
+    "noResultsFound": "No se encontraron resultados para &quot;{{searchText}}&quot;",
     "goToIntegrationsToCustomizeAvatar": "Para personalizar el avatar, vaya a Compartir y personalice la página pública."
   },
   "write_and_speak": {
@@ -156,7 +161,12 @@
     "requirePositionHelp": "para hablar con {{name}} usted tiene que decidir si proporciona su puesto o no. ",
     "dontWantToProvidePosition": "No quiero proporcionar mi puesto.",
     "attachmentsLabel": "Enriquece tu mensaje",
-    "iWantToTalkToIn": "quiero hablar con {{name}} en"
+    "iWantToTalkToIn": "quiero hablar con {{name}} en",
+    "message": "mensaje",
+    "messages": "mensajes",
+    "latestFirst": "Más recientes",
+    "oldestFirst": "Más antiguos",
+    "page": "Página {{current}} de {{total}}"
   },
   "upload": {
     "loginRequired": "Connexion requise",
