@@ -15,22 +15,19 @@ import useHeadMovement from '../../utils/useHeadMovement';
 
 interface HalfBodyAvatarProps {
   url: string;
-  setMorphTargetInfluences: (morphTargetInfluences: any) => void;
-  setMorphTargetDictionary: (morphTargetDictionary: any) => void;
   updateCurrentViseme: (currentTime: number) => any;
   eyeBlink?: boolean;
-  heightValue?: number; // 0-100 slider value
   avatarHeight: number;
   avatarDepth: number;
   onLoaded?: () => void;
   onCameraZChange: (value: number) => void;
   headMovement?: boolean;
+  chatEmission?: any;
+  loading?: boolean;
 }
 
 export default function HalfBodyAvatar({
   url,
-  setMorphTargetInfluences,
-  setMorphTargetDictionary,
   updateCurrentViseme,
   eyeBlink = false,
   avatarHeight = 50,
@@ -38,18 +35,22 @@ export default function HalfBodyAvatar({
   headMovement = false,
   onLoaded,
   onCameraZChange,
+  chatEmission,
+  loading = false,
 }: HalfBodyAvatarProps) {
   const { scene } = useGLTF(url);
   const { nodes, materials } = useGraph(scene);
   const { camera } = useThree();
 
-  const morphTargetControllerRef = useRef<MorphTargetController>();
-  const positionControllerRef = useRef<AvatarPositionController>();
+  const morphTargetControllerRef = useRef<MorphTargetController | null>(null);
+  const positionControllerRef = useRef<AvatarPositionController | null>(null);
   const targetCameraZRef = useRef(camera.position.z);
 
-
+  // Apply head movement if enabled
   useHeadMovement(headMovement, nodes);
   
+
+  // Eye blinking state
   const blinkStateRef = useRef({
     isBlinking: false,
     lastBlinkTime: 0,
@@ -63,7 +64,7 @@ export default function HalfBodyAvatar({
     scene?.traverse((object: Object3D) => {
       if (
         object instanceof SkinnedMesh &&
-        (object.name === 'GBNL__Head' || object.name === 'Wolf3D_Avatar')
+        (object.name === 'GBNL__Head' || object.name === 'Wolf3D_Avatar' || object.name === 'Wolf3D_Avatar006_1')
       ) {
         foundMesh = object;
       }
@@ -80,21 +81,17 @@ export default function HalfBodyAvatar({
       );
     }
 
+    // Initialize MorphTargetController if head mesh exists
     if (headMesh) {
       morphTargetControllerRef.current = new MorphTargetController(headMesh);
-
-      if (headMesh.morphTargetDictionary && headMesh.morphTargetInfluences) {
-        setMorphTargetDictionary(headMesh.morphTargetDictionary);
-        const initialInfluences = Object.keys(headMesh.morphTargetDictionary)
-          .reduce((acc, key) => ({ ...acc, [key]: 0 }), {});
-        setMorphTargetInfluences(initialInfluences);
-      }
     }
 
+    // Correct materials and perform other initialization tasks
     correctMaterials(materials);
     onLoaded?.();
     hideHands(nodes);
     
+    // Cleanup on unmount
     return () => {
       Object.values(materials).forEach(material => material.dispose());
       Object.values(nodes)
@@ -103,12 +100,14 @@ export default function HalfBodyAvatar({
     };
   }, [materials, nodes, url, onLoaded, scene, headMesh]);
 
+  // Handle avatar height changes
   useEffect(() => {
     if (positionControllerRef.current) {
       positionControllerRef.current.updateHeight(avatarHeight, true);
     }
   }, [avatarHeight]);
 
+  // Handle avatar depth changes
   useEffect(() => {
     if (positionControllerRef.current && onCameraZChange) {
       const newCameraZ = positionControllerRef.current.updateDepth(avatarDepth, true);
@@ -123,9 +122,12 @@ export default function HalfBodyAvatar({
     // Update morph targets
     if (morphTargetControllerRef.current) {
       const currentViseme = updateCurrentViseme(currentTime / 1000);
+      
+      // Use the updated MorphTargetController that handles chat emission directly
       morphTargetControllerRef.current.updateMorphTargets(
         currentTime,
-        {},
+        chatEmission,
+        loading,
         currentViseme,
         eyeBlink,
         blinkStateRef.current,

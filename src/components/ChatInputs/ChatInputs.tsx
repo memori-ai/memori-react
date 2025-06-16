@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { DialogState } from '@memori.ai/memori-api-client/dist/types';
+import { DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
 import Button from '../ui/Button';
 import { useTranslation } from 'react-i18next';
@@ -9,7 +9,7 @@ import cx from 'classnames';
 import Microphone from '../icons/Microphone';
 import UploadButton from '../UploadButton/UploadButton';
 import FilePreview from '../FilePreview/FilePreview';
-
+import memoriApiClient from '@memori.ai/memori-api-client';
 export interface Props {
   dialogState?: DialogState;
   instruct?: boolean;
@@ -21,13 +21,7 @@ export interface Props {
   onChangeUserMessage: (userMessage: string) => void;
   sendMessage: (
     msg: string,
-    media?: {
-      mediumID: string;
-      mimeType: string;
-      content: string;
-      title?: string;
-      properties?: { [key: string]: any };
-    }
+    media?: (Medium & { type: string })[]
   ) => void;
   onTextareaFocus: () => void;
   onTextareaBlur: () => void;
@@ -41,6 +35,9 @@ export interface Props {
   microphoneMode?: 'CONTINUOUS' | 'HOLD_TO_TALK';
   authToken?: string;
   showUpload?: boolean;
+  sessionID?: string;
+  apiURL?: string;
+  memoriID?: string;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -59,35 +56,61 @@ const ChatInputs: React.FC<Props> = ({
   startListening,
   stopListening,
   showUpload = false,
+  sessionID,
+  authToken,
+  apiURL,
+  memoriID,
 }) => {
   const { t } = useTranslation();
 
-  // State for file preview list
-  const [previewFiles, setPreviewFiles] = useState<
-    { name: string; id: string; content: string }[]
+  // State for document preview files
+  const [documentPreviewFiles, setDocumentPreviewFiles] = useState<
+    {
+      name: string;
+      id: string;
+      content: string;
+      mediumID: string | undefined;
+      mimeType: string;
+      url?: string;
+      type: string;
+    }[]
   >([]);
+
+  // Client
+  const client = apiURL ? memoriApiClient(apiURL) : null;
+  const { dialog } = client || {
+    dialog: { postMediumDeselectedEvent: null },
+  };
 
   /**
    * Handles sending a message, including any attached files
    */
-  const onSendMessage = () => {
+  const onSendMessage = (
+    files: {
+      name: string;
+      id: string;
+      content: string;
+      mediumID: string | undefined;
+      mimeType: string;
+      type: string;
+      url?: string;
+    }[]
+  ) => {
     sendMessage(
       userMessage,
-      previewFiles[0]
-        ? {
-            mediumID: '',
-            mimeType: 'text/plain',
-            content: previewFiles[0].content,
-            title: previewFiles[0].name,
-            properties: {
-              isAttachedFile: true,
-            },
-          }
-        : undefined
+      files.map(file => ({
+        mediumID: file.mediumID || '',
+        mimeType: file.mimeType,
+        content: file.content,
+        title: file.name,
+        properties: { isAttachedFile: true },
+        type: file.type,
+        url: file.url,
+      }))
     );
 
     // Reset states after sending
-    setPreviewFiles([]);
+    setDocumentPreviewFiles([]);
     stopAudio();
     speechSynthesis.speak(new SpeechSynthesisUtterance(''));
   };
@@ -100,20 +123,18 @@ const ChatInputs: React.FC<Props> = ({
       stopListening();
       sendMessage(
         userMessage,
-        previewFiles[0]
-          ? {
-              mediumID: '',
-              mimeType: 'text/plain',
-              content: previewFiles[0].content,
-              title: previewFiles[0].name,
-              properties: {
-                isAttachedFile: true,
-              },
-            }
-          : undefined
+        documentPreviewFiles.map(file => ({
+          mediumID: file.mediumID || '',
+          mimeType: file.mimeType,
+          content: file.content,
+          title: file.name,
+          properties: { isAttachedFile: true },
+          type: file.type,
+          url: file.url,
+        }))
       );
 
-      setPreviewFiles([]);
+      setDocumentPreviewFiles([]);
       onChangeUserMessage('');
       resetTranscript();
     }
@@ -122,9 +143,24 @@ const ChatInputs: React.FC<Props> = ({
   /**
    * Removes a file from the preview list
    */
-  const removeFile = (fileId: string) => {
-    setPreviewFiles((prev: { name: string; id: string; content: string }[]) =>
-      prev.filter((file: { id: string }) => file.id !== fileId)
+  const removeFile = async (fileId: string, mediumID: string | undefined) => {
+    console.log('removeFile', fileId);
+    // Call the MediumDeselected event if dialog API is available
+    if (dialog.postMediumDeselectedEvent && sessionID && mediumID) {
+      await dialog.postMediumDeselectedEvent(sessionID, mediumID);
+    }
+    setDocumentPreviewFiles(
+      (
+        prev: {
+          name: string;
+          id: string;
+          content: string;
+          mediumID: string | undefined;
+          mimeType: string;
+          type: string;
+          url?: string;
+        }[]
+      ) => prev.filter((file: { id: string }) => file.id !== fileId)
     );
   };
 
@@ -144,10 +180,24 @@ const ChatInputs: React.FC<Props> = ({
           dialogState?.state || ''
         )}
       />
+      {/* Preview for document files */}
       {showUpload && (
         <>
-          <FilePreview previewFiles={previewFiles} removeFile={removeFile} />
-          <UploadButton setPreviewFiles={setPreviewFiles} />
+          <FilePreview
+            previewFiles={documentPreviewFiles}
+            removeFile={removeFile}
+          />
+
+          {/* Replace the individual buttons with our unified upload component */}
+          <UploadButton
+            authToken={authToken}
+            apiUrl={apiURL}
+            sessionID={sessionID}
+            isMediaAccepted={dialogState?.acceptsMedia || false}
+            setDocumentPreviewFiles={setDocumentPreviewFiles}
+            documentPreviewFiles={documentPreviewFiles}
+            memoriID={memoriID}
+          />
         </>
       )}
       <Button
@@ -155,7 +205,9 @@ const ChatInputs: React.FC<Props> = ({
         primary={!!userMessage?.length}
         disabled={!userMessage || userMessage.length === 0}
         className="memori-chat-inputs--send"
-        onClick={onSendMessage}
+        onClick={() => {
+          onSendMessage(documentPreviewFiles);
+        }}
         title={t('send') || 'Send'}
         icon={<Send />}
       />

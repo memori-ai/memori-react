@@ -1,11 +1,11 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { sessionID, memoryQuestion } from '../../mocks/data';
+import { sessionID } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import WhyThisAnswer, { Props } from './WhyThisAnswer';
+import { SearchMatches } from '@memori.ai/memori-api-client/dist/types';
 
 import './WhyThisAnswer.css';
-import { SearchMatches } from '@memori.ai/memori-api-client/dist/types';
 
 const meta: Meta = {
   title: 'Why This Answer',
@@ -69,6 +69,7 @@ WithData.args = {
       confidenceLevel: 'HIGH',
       memory: {
         memoryID: '1',
+        memoryType: 'Question',
         title: 'This is the title of the content',
         titleVariants: [
           "This is a variant of the content's title",
@@ -89,6 +90,7 @@ WithData.args = {
       confidenceLevel: 'LOW',
       memory: {
         memoryID: '2',
+        memoryType: 'Question',
         title: 'Content with a long answer',
         titleVariants: undefined,
         answers: [
@@ -105,6 +107,7 @@ WithData.args = {
         memoryID: '3',
         title: 'Content with sources',
         titleVariants: undefined,
+        memoryType: 'Question',
         answers: [
           {
             text: 'This is a test answer',
@@ -130,9 +133,9 @@ WithData.args = {
       confidence: 0.7,
       confidenceLevel: 'MEDIUM',
       memory: {
-        ...memoryQuestion,
         memoryID: '4',
         title: 'Content with links',
+        memoryType: 'Question',
         titleVariants: undefined,
         answers: [
           {
@@ -153,6 +156,44 @@ WithData.args = {
             title: 'Nicola Zambello',
           },
         ],
+      },
+    } as SearchMatches,
+    {
+      confidence: 0.7,
+      confidenceLevel: 'MEDIUM',
+      memory: {
+        memoryID: '5',
+        memoryType: 'Question',
+        title: 'Content with receiver',
+        titleVariants: undefined,
+        receiverName: 'receiver',
+        receiverTag: '🧑‍💻',
+        answers: [
+          {
+            text: 'This is a an answer',
+          },
+        ],
+        media: [],
+      },
+    } as SearchMatches,
+    {
+      confidence: 0.5,
+      confidenceLevel: 'MEDIUM',
+      memory: {
+        memoryID: '5',
+        memoryType: 'Question',
+        title: 'Content with context',
+        titleVariants: undefined,
+        contextVars: {
+          KEY1: 'VALUE1',
+          KEY2: 'VALUE2',
+        },
+        answers: [
+          {
+            text: 'This is a an answer',
+          },
+        ],
+        media: [],
       },
     } as SearchMatches,
   ],

@@ -66,6 +66,15 @@ WithPosition.args = {
   tenant,
 };
 
+export const WithLoginRequired = Template.bind({});
+WithLoginRequired.args = {
+  memori: {
+    ...memori,
+    requireLoginToken: true,
+  },
+  tenant,
+};
+
 export const WithDates = Template.bind({});
 WithDates.args = {
   memori: {

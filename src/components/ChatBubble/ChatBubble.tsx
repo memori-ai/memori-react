@@ -16,19 +16,16 @@ import Translation from '../icons/Translation';
 import Tooltip from '../ui/Tooltip';
 import FeedbackButtons from '../FeedbackButtons/FeedbackButtons';
 import { useTranslation } from 'react-i18next';
-import { marked } from 'marked';
-import DOMPurify from 'dompurify';
 import Button from '../ui/Button';
 import QuestionHelp from '../icons/QuestionHelp';
 import Copy from '../icons/Copy';
 import Code from '../icons/Code';
+import Bug from '../icons/Bug';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
-import { cleanUrl, stripHTML, stripOutputTags } from '../../helpers/utils';
-import FilePreview from '../FilePreview/FilePreview';
-
-import markedLinkifyIt from 'marked-linkify-it';
-import markedKatex from 'marked-katex-extension';
-import markedExtendedTables from '../../helpers/markedExtendedTables';
+import { stripHTML, stripOutputTags } from '../../helpers/utils';
+import { renderMsg, truncateMessage } from '../../helpers/message';
+import Expandable from '../ui/Expandable';
+import Modal from '../ui/Modal';
 
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
@@ -41,106 +38,6 @@ declare global {
     };
   }
 }
-
-// Always configure marked with necessary extensions
-marked.use({
-  async: false,
-  gfm: true,
-  pedantic: false,
-  renderer: {
-    link: ({
-      href,
-      title,
-      text,
-    }: {
-      href: string | null;
-      title?: string | null;
-      text: string;
-    }) => {
-      const cleanHref = href ? cleanUrl(href) : null;
-
-      if (cleanHref === null) {
-        return text;
-      }
-      href = cleanHref;
-      let out = '<a href="' + href + '"';
-      if (title) {
-        out += ' title="' + title + '"';
-      }
-      out += ' target="_blank" rel="noopener noreferrer">' + text + '</a>';
-      return out;
-    },
-  },
-});
-
-marked.use(markedLinkifyIt());
-marked.use(markedExtendedTables());
-
-// Update the renderMsg function to properly handle math formatting
-const renderMsg = (text: string, useMathFormatting = false): string => {
-  try {
-    // Preprocessing del testo per gestire i delimitatori LaTeX
-    let preprocessedText = text
-      .trim()
-      .replaceAll(
-        /\[([^\]]+)\]\(([^\)]+)\)/g,
-        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-      )
-      .replaceAll(/```markdown([^```]+)```/g, '$1')
-      .replaceAll('($', '( $')
-      .replaceAll(':$', ': $')
-      .replaceAll('\frac', '\\frac')
-      .replaceAll('\beta', '\\beta')
-      .replaceAll('cdot', '\\cdot');
-
-    // Correzione dei delimitatori LaTeX inconsistenti
-    if (useMathFormatting) {
-      // Normalizza tutti i delimitatori LaTeX per equazioni su linea separata
-      // Da \\[ ... \\] o \\[ ... ] a $$ ... $$
-      preprocessedText = preprocessedText.replace(
-        /\\+\[(.*?)\\*\]/gs,
-        (_, content) => {
-          return `$$${content}$$`;
-        }
-      );
-
-      // Gestione dei delimitatori [ ... ] che dovrebbero essere equazioni
-      preprocessedText = preprocessedText.replace(
-        /\[([^[\]]+?)\]/g,
-        (match, content) => {
-          // Verifica se sembra una formula matematica
-          if (
-            /[\\+a-z0-9_{}^=\-\+\*\/]+/i.test(content) &&
-            !match.startsWith('[http') &&
-            !match.includes('](')
-          ) {
-            return `$$${content}$$`;
-          }
-          return match; // Mantieni invariati i link e altre strutture
-        }
-      );
-    }
-
-    // Ora procedi con il parsing markdown
-    let parsedText = marked.parse(preprocessedText).toString().trim();
-
-    // Sanitize HTML
-    parsedText = DOMPurify.sanitize(parsedText, {
-      ADD_ATTR: ['target'],
-    });
-
-    // Clean up final text
-    const finalText = parsedText
-      .replace(/(<br>)+/g, '<br>')
-      .replace(/<p><\/p>/g, '<br>')
-      .replace(/<p><br><\/p>/g, '<br>');
-
-    return finalText;
-  } catch (e) {
-    console.error('Error rendering message:', e);
-    return text;
-  }
-};
 
 export interface Props {
   message: Message;
@@ -160,6 +57,7 @@ export interface Props {
   userAvatar?: MemoriProps['userAvatar'];
   user?: User;
   experts?: ExpertReference[];
+  showFunctionCache?: boolean;
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -180,10 +78,12 @@ const ChatBubble: React.FC<Props> = ({
   user,
   userAvatar,
   experts,
+  showFunctionCache = false,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
+  const [openFunctionCache, setOpenFunctionCache] = useState(false);
 
   // Initialize MathJax on component mount
   useEffect(() => {
@@ -192,25 +92,23 @@ const ChatBubble: React.FC<Props> = ({
     }
   }, []);
 
-  if (useMathFormatting) {
-    marked.use(
-      markedKatex({
-        throwOnError: false,
-        output: 'htmlAndMathml',
-      })
-    );
-  }
-
   const text = message.translatedText || message.text;
-  const renderedText = renderMsg(text, useMathFormatting);
+  const { text: renderedText } = renderMsg(
+    text,
+    useMathFormatting,
+    t('reasoning') || 'Reasoning...'
+  );
   const plainText = message.fromUser
-    ? text
+    ? truncateMessage(text)
     : stripHTML(stripOutputTags(renderedText));
 
-  // Render MathJax whenever message content changes
+  // Format function cache content
+  const functionCacheData = message.media?.find(
+    m => m.properties?.functionCache === 'true'
+  );
+
   useLayoutEffect(() => {
     if (typeof window !== 'undefined' && !message.fromUser) {
-      // Allow a short delay for the DOM to update
       const timer = setTimeout(() => {
         if (window.MathJax && window.MathJax.typesetPromise) {
           try {
@@ -218,11 +116,27 @@ const ChatBubble: React.FC<Props> = ({
               '.memori-chat--bubble-content'
             );
             if (elements.length > 0) {
-              window.MathJax.typesetPromise([
-                '.memori-chat--bubble-content',
-              ]).catch(err =>
-                console.error('MathJax typesetting failed:', err)
+              // Salva la posizione di scroll corrente
+              const scrollContainer = document.querySelector(
+                '.memori-chat--history'
               );
+              const currentScrollTop = scrollContainer?.scrollTop || 0;
+              const currentScrollHeight = scrollContainer?.scrollHeight || 0;
+
+              window.MathJax.typesetPromise(['.memori-chat--bubble-content'])
+                .then(() => {
+                  // Ripristina la posizione di scroll dopo il rendering MathJax
+                  if (scrollContainer) {
+                    const newScrollHeight = scrollContainer.scrollHeight;
+                    const heightDifference =
+                      newScrollHeight - currentScrollHeight;
+                    scrollContainer.scrollTop =
+                      currentScrollTop + heightDifference;
+                  }
+                })
+                .catch(err =>
+                  console.error('MathJax typesetting failed:', err)
+                );
             }
           } catch (error) {
             console.error('Error during MathJax typesetting:', error);
@@ -346,11 +260,24 @@ const ChatBubble: React.FC<Props> = ({
             message.fromUser ? '30' : '-30'
           }`}
         >
-          <div
-            dir="auto"
-            className="memori-chat--bubble-content"
-            dangerouslySetInnerHTML={{ __html: renderedText }}
-          />
+          {message.fromUser ? (
+            <Expandable
+              className="memori-chat--bubble-content"
+              mode="characters"
+            >
+              <div
+                dir="auto"
+                className="memori-chat--bubble-content"
+                dangerouslySetInnerHTML={{ __html: renderedText }}
+              />
+            </Expandable>
+          ) : (
+            <div
+              dir="auto"
+              className="memori-chat--bubble-content"
+              dangerouslySetInnerHTML={{ __html: renderedText }}
+            />
+          )}
 
           {((!message.fromUser && showCopyButton) ||
             (message.generatedByAI && showAIicon) ||
@@ -379,6 +306,21 @@ const ChatBubble: React.FC<Props> = ({
                       <Code aria-label={t('copyRawCode') || 'Copy raw code'} />
                     }
                     onClick={() => navigator.clipboard.writeText(message.text)}
+                  />
+                )}
+
+              {!message.fromUser &&
+                showFunctionCache &&
+                message.media?.some(
+                  m => m.properties?.functionCache === 'true'
+                ) && (
+                  <Button
+                    ghost
+                    shape="circle"
+                    title="Debug"
+                    className="memori-chat--bubble-action-icon"
+                    icon={<Bug aria-label="Debug" />}
+                    onClick={() => setOpenFunctionCache(true)}
                   />
                 )}
 
@@ -455,22 +397,6 @@ const ChatBubble: React.FC<Props> = ({
                 )}
             </div>
           )}
-
-          {message.fromUser &&
-            message.media &&
-            message.media?.length > 0 &&
-            message.media[0].properties?.isAttachedFile && (
-              <FilePreview
-                previewFiles={message.media.map(m => ({
-                  name: m.title ?? '',
-                  id: m.mediumID,
-                  content: m.content ?? '',
-                }))}
-                removeFile={() => {}}
-                allowRemove={false}
-                isMessagePreview={true}
-              />
-            )}
         </Transition.Child>
 
         {message.fromUser && (
@@ -545,6 +471,17 @@ const ChatBubble: React.FC<Props> = ({
           sessionID={sessionID}
         />
       )}
+
+      <Modal
+        title={functionCacheData?.title}
+        open={openFunctionCache}
+        onClose={() => setOpenFunctionCache(false)}
+        className="memori-chat--function-cache-modal"
+      >
+        <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+          {functionCacheData?.content}
+        </pre>
+      </Modal>
     </>
   );
 };

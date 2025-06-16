@@ -13,10 +13,12 @@ import { QRCodeCanvas } from 'qrcode.react';
 import { Menu } from '@headlessui/react';
 import Button from '../ui/Button';
 import cx from 'classnames';
-import { Tenant } from '@memori.ai/memori-api-client/dist/types';
+import { Tenant, Memori } from '@memori.ai/memori-api-client/dist/types';
 
 export interface Props {
   tenant?: Tenant;
+  memori?: Memori;
+  sessionID?: string;
   url?: string;
   title?: string;
   className?: string;
@@ -28,6 +30,8 @@ export interface Props {
 
 const ShareButton: React.FC<Props> = ({
   tenant,
+  memori,
+  sessionID,
   url,
   title = '',
   className,
@@ -36,7 +40,7 @@ const ShareButton: React.FC<Props> = ({
   showQrCode = true,
   align = 'right',
 }: Props) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [targetUrl, setTargetUrl] = useState(url);
 
   const qrImageURL = useMemo(
@@ -132,6 +136,33 @@ const ShareButton: React.FC<Props> = ({
         </div>
       </Menu.Button>
       <Menu.Items className="memori-share-button--overlay" as="ul">
+        {memori && sessionID && (
+          <Menu.Item
+            key="shared"
+            as="li"
+            className="memori-share-button--li memori-share-button--li-shared"
+          >
+            <a
+              className={cx(
+                'memori-button',
+                'memori-button--with-icon',
+                'memori-button--ghost',
+                'memori-button--padded',
+                'memori-share-button--link'
+              )}
+              href={`${baseUrl ?? 'https://www.aisuru.com'}/${
+                i18n.language === 'it' ? 'it' : 'en'
+              }/shared/${memori.ownerUserID}/${memori.memoriID}/${sessionID}`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="memori-button--icon">
+                <Share />
+              </div>
+              {t('widget.shareChat') || 'Share chat'}
+            </a>
+          </Menu.Item>
+        )}
         <Menu.Item key="copy" as="li" className="memori-share-button--li">
           <Button
             className="memori-share-button--link"

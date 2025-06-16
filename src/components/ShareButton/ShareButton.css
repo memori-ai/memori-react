@@ -65,3 +65,9 @@ a.memori-share-button--link {
     background: #fff;
     color: #000;
 }
+
+.memori-share-button--li-shared {
+    padding-bottom: 0.25rem;
+    border-bottom: 1px solid var(--memori-primary);
+    margin-bottom: 0.5rem;
+}

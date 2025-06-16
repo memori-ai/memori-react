@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import I18nWrapper from '../../I18nWrapper';
 import ShareButton, { Props } from './ShareButton';
-import { tenant } from '../../mocks/data';
+import { tenant, memori, sessionID } from '../../mocks/data';
 
 import './ShareButton.css';
 
@@ -78,4 +78,21 @@ WithQrCodeAndOtherTenant.args = {
     ...tenant,
     theme: 'tailoor',
   },
+};
+
+export const WithMemoriAndSessionID = Template.bind({});
+WithMemoriAndSessionID.args = {
+  url: 'https://memori.ai',
+  memori,
+  sessionID,
+  showQrCode: false,
+};
+
+export const WithMemoriAndSessionIDAndQrCode = Template.bind({});
+WithMemoriAndSessionIDAndQrCode.args = {
+  url: 'https://memori.ai',
+  memori,
+  sessionID,
+  showQrCode: true,
+  align: 'right',
 };

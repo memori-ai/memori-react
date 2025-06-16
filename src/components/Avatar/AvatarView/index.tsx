@@ -79,12 +79,10 @@ export default function ContainerAvatarView({
   fallbackImg,
   halfBody = true,
   loading,
-  animation,
+  // animation,
   showControls = false,
   isZoomed,
   chatEmission,
-  stopProcessing,
-  resetVisemeQueue,
   updateCurrentViseme,
   enablePositionControls,
   setEnablePositionControls,
@@ -179,16 +177,12 @@ export default function ContainerAvatarView({
             sex={sex}
             showControls={showControls}
             loading={loading || false}
-            animation={animation}
-            isZoomed={isZoomed || false}
             eyeBlink={eyeBlink || false}
             headMovement={headMovement || false}
             speaking={speaking || false}
             halfBody={halfBody}
             chatEmission={chatEmission}
             updateCurrentViseme={updateCurrentViseme}
-            stopProcessing={stopProcessing}
-            resetVisemeQueue={resetVisemeQueue}
             setCameraZ={setCameraZ}
             avatarHeight={avatarHeight}
             avatarDepth={avatarDepth}

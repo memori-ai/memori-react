@@ -1,265 +1,221 @@
-import React, { useState, useRef } from 'react';
-import cx from 'classnames';
-import UploadIcon from '../icons/Upload';
+import React, { useState, useRef, useEffect } from 'react';
+import { DocumentIcon } from '../icons/Document';
+import { ImageIcon } from '../icons/Image';
+import { UploadIcon } from '../icons/Upload';
 import Spin from '../ui/Spin';
 import Alert from '../ui/Alert';
+import cx from 'classnames';
+import UploadDocuments from './UploadDocuments/UploadDocuments';
+import UploadImages from './UploadImages/UploadImages';
+import { useTranslation } from 'react-i18next';
 
-// Define error types for better type safety
-type UploadError = {
-  message: string;
-  severity: 'error' | 'warning';
-  fileId?: string;
-};
+// Constants
+const MAX_IMAGES = 5;
+const MAX_DOCUMENTS = 1;
 
-/**
- * FileUploadButton component allows users to upload and convert files to text
- * Supports PDF and TXT files up to 10MB
- * Extracts text from PDFs using PDF.js
- */
-
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
-const MAX_TEXT_LENGTH = 100000; // 100,000 characters
-const PDF_JS_VERSION = '3.11.174'; // Last stable version with .min.js files
-const WORKER_URL = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDF_JS_VERSION}/pdf.worker.min.js`;
-const PDF_JS_URL = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDF_JS_VERSION}/pdf.min.js`;
-
-// Add type definition for pdfjsLib
-declare global {
-  interface Window {
-    pdfjsLib: any;
-  }
+// Props interface
+interface UploadManagerProps {
+  authToken?: string;
+  apiUrl?: string;
+  sessionID?: string;
+  isMediaAccepted?: boolean;
+  setDocumentPreviewFiles: any;
+  documentPreviewFiles: {
+    name: string;
+    id: string;
+    content: string;
+    mediumID?: string;
+    type?: string;
+  }[];
+  memoriID?: string;
 }
 
-const FileUploadButton = ({
-  setPreviewFiles,
-}: {
-  setPreviewFiles: (
-    previewFiles: { name: string; id: string; content: string }[]
-  ) => void;
+const UploadButton: React.FC<UploadManagerProps> = ({
+  authToken = '',
+  apiUrl = '',
+  sessionID = '',
+  isMediaAccepted = false,
+  setDocumentPreviewFiles,
+  documentPreviewFiles,
+  memoriID = '',
 }) => {
-  // State for loading indicator
+  // State
   const [isLoading, setIsLoading] = useState(false);
-  // State for tracking upload errors  
-  const [errors, setErrors] = useState<UploadError[]>([]);
-  // Reference to hidden file input
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [errors, setErrors] = useState<
+    { message: string; severity: 'error' | 'warning' | 'info' }[]
+  >([]);
+  const { t, i18n } = useTranslation();
 
-  // Clear all errors
-  const clearErrors = () => setErrors([]);
+  // Refs
+  const menuRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const documentRef = useRef<HTMLDivElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
 
-  // Remove a specific error by message
+  // Calculate image count and remaining slots
+  const currentImageCount = documentPreviewFiles.filter(
+    file => file.type === 'image'
+  ).length;
+  const remainingSlots = MAX_IMAGES - currentImageCount;
+  const currentDocumentCount = documentPreviewFiles.filter(
+    file => file.type === 'document'
+  ).length;
+  const remainingDocumentSlots = MAX_DOCUMENTS - currentDocumentCount;
+  const hasReachedImageLimit = remainingSlots <= 0;
+  const hasReachedDocumentLimit = remainingDocumentSlots <= 0;
+
+  // Error handling
   const removeError = (errorMessage: string) => {
     setErrors(prev => prev.filter(e => e.message !== errorMessage));
   };
 
-  // Add a new error and auto-remove after 5 seconds
-  const addError = (error: UploadError) => {
+  const addError = (error: {
+    message: string;
+    severity: 'error' | 'warning' | 'info';
+  }) => {
     setErrors(prev => [...prev, error]);
-    // Auto-clear errors after 5 seconds
-    setTimeout(() => {
-      removeError(error.message);
-    }, 5000);
+    setTimeout(() => removeError(error.message), 5000);
   };
 
-  /**
-   * Extracts text from PDF using PDF.js
-   * @param file PDF file to process
-   * @returns Promise resolving to extracted text
-   */
-  const extractTextFromPDF = async (file: File): Promise<string> => {
-    try {
-      // Load PDF.js if not already loaded
-      if (!window.pdfjsLib) {
-        await new Promise((resolve, reject) => {
-          const script = document.createElement('script');
-          script.src = PDF_JS_URL;
-          script.onload = () => {
-            // Set up worker
-            window.pdfjsLib.GlobalWorkerOptions.workerSrc = WORKER_URL;
-            resolve(true);
-          };
-          script.onerror = reject;
-          document.head.appendChild(script);
-        });
-      }
-
-      // Extract text from PDF
-      const arrayBuffer = await file.arrayBuffer();
-      // Get PDF document
-      const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer })
-        .promise;
-      let text = '';
-
-      // Iterate through each page and extract text
-      for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        const content = await page.getTextContent();
-        // Filter out non-string items and join text
-        const pageText = content.items
-          .filter((item: any) => item.str && typeof item.str === 'string')
-          .map((item: any) => item.str)
-          .join(' ');
-        text += pageText + '\n';
-      }
-
-      // Return extracted text
-      return text;
-    } catch (error) {
-      throw new Error(
-        `PDF extraction failed: ${
-          error instanceof Error ? error.message : 'Unknown error'
-        }`
-      );
-    }
+  // Menu handling
+  const toggleMenu = () => {
+    setMenuOpen(prev => !prev);
   };
 
-  /**
-   * Validates uploaded file
-   * Checks file type and size restrictions
-   * @param file File to validate
-   * @returns boolean indicating if file is valid
-   */
-  const validateFile = (file: File): boolean => {
-    const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
-    const ALLOWED_FILE_TYPES = ['.pdf', '.txt'];
-    
-    if (!ALLOWED_FILE_TYPES.includes(fileExt)) {
-      addError({
-        message: `File type "${fileExt}" is not supported. Please use: ${ALLOWED_FILE_TYPES.join(
-          ', '
-        )}`,
-        severity: 'error',
-        fileId: file.name,
-      });
-      return false;
-    }
-
-    if (file.size > MAX_FILE_SIZE) {
-      addError({
-        message: `File "${file.name}" exceeds ${
-          MAX_FILE_SIZE / 1024 / 1024
-        }MB limit`,
-        severity: 'error',
-        fileId: file.name,
-      });
-      return false;
-    }
-
-    return true;
+  const closeMenu = () => {
+    setMenuOpen(false);
   };
 
-  /**
-   * Processes file to extract text content
-   * @param file File to process
-   * @returns Promise resolving to extracted text or null if processing fails
-   */
-  const processFile = async (file: File): Promise<string | null> => {
-    const fileExt = file.name.split('.').pop()?.toLowerCase() || '';
-
-    try {
-      let text: string | null = null;
-
-      if (fileExt === 'pdf') {
-        text = await extractTextFromPDF(file);
-      } else if (fileExt === 'txt') {
-        text = await file.text();
+  // Click outside handler
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        menuRef.current &&
+        buttonRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
+        closeMenu();
       }
+    };
 
-      // Check text length limit
-      if (text && text.length > MAX_TEXT_LENGTH) {
-        addError({
-          message: `File "${file.name}" content exceeds ${MAX_TEXT_LENGTH} characters`,
-          severity: 'error',
-          fileId: file.name,
-        });
-        return null;
-      }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
-      return text;
-    } catch (error) {
-      addError({
-        message: `Failed to process "${file.name}": ${
-          error instanceof Error ? error.message : 'Unknown error'
-        }`,
-        severity: 'error',
-        fileId: file.name,
-      });
-      return null;
-    }
-  };
-
-  /**
-   * Handles file selection event
-   * Validates files and processes them to extract text
-   * Updates preview files state with processed content
-   */
-  const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(e.target.files || []);
+  // Handler for document files - only stores the latest document
+  const handleDocumentFiles = (
+    files: { name: string; id: string; content: string; mimeType: string }[]
+  ) => {
     if (files.length === 0) return;
 
-    setIsLoading(true);
-    clearErrors();
+    // For simplicity, we only take the first file
+    const file = files[0];
 
-    const newPreviewFiles: { name: string; id: string; content: string }[] = [];
+    // Funzione helper per fare escape dell'HTML nei valori degli attributi
+    const escapeAttributeValue = (text: string) => {
+      return text
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    };
 
-    // Process each selected file
-    for (const file of files) {
-      if (!validateFile(file)) continue;
+    const escapedFileName = escapeAttributeValue(file.name);
+    const formattedContent = `<document_attachment filename="${escapedFileName}" type="${file.mimeType}">
 
-      const fileId = Math.random().toString(36).substr(2, 9);
-      const text = await processFile(file);
+${file.content}
 
-      if (text) {
-        newPreviewFiles.push({
-          name: file.name,
-          id: fileId,
-          content: text,
-        });
-      }
-    }
+</document_attachment>`;
 
-    // Update preview files if any processing succeeded
-    if (newPreviewFiles.length > 0) {
-      setPreviewFiles(newPreviewFiles);
-      if (newPreviewFiles.length < files.length) {
-        addError({
-          message: 'Some files were not processed successfully',
-          severity: 'warning',
-        });
-      }
-    }
+    //keep just the images in the documentPreviewFiles
+    const imageFiles = documentPreviewFiles.filter(
+      (file: any) => file.type === 'image'
+    );
+    // Replace existing file with new one
+    setDocumentPreviewFiles([
+      {
+        name: file.name,
+        id: file.id,
+        content: formattedContent,
+        type: 'file',
+        mimeType: file.mimeType,
+      },
+      ...imageFiles,
+    ]);
 
     setIsLoading(false);
-    if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+  };
+
+  // When document option is clicked
+  const handleDocumentClick = () => {
+    // Find the actual button in the UploadDocuments component and click it
+    const documentButtonElement = documentRef.current?.querySelector('button');
+    if (documentButtonElement) {
+      documentButtonElement.click();
     }
+    closeMenu();
+  };
+
+  // When image option is clicked
+  const handleImageClick = () => {
+
+
+    if (!isMediaAccepted) {
+      addError({
+        message:
+          t('upload.mediaNotAccepted') ?? 'Media uploads are not accepted',
+        severity: 'info',
+      });
+      closeMenu();
+      return;
+    }
+
+    if (hasReachedImageLimit) {
+      addError({
+        message:
+          t('upload.maxImagesReached', { max: MAX_IMAGES }) ??
+          `Maximum ${MAX_IMAGES} images already uploaded`,
+        severity: 'warning',
+      });
+      closeMenu();
+      return;
+    }
+
+    // If all checks pass, click the button in UploadImages component
+    const imageButtonElement = imageRef.current?.querySelector('button');
+    if (imageButtonElement) {
+      imageButtonElement.click();
+    }
+    closeMenu();
+  };
+
+  // Set loading state for child components
+  const handleLoadingChange = (loading: boolean) => {
+    setIsLoading(loading);
   };
 
   return (
-    <div className="relative file-upload-wrapper">
-      {/* Hidden file input triggered by button click */}
-      <input
-        ref={fileInputRef}
-        type="file"
-        accept=".pdf,.txt"
-        className="memori--upload-file-input"
-        onChange={handleFileSelect}
-        multiple
-      />
-
-      {/* Upload button with loading state */}
+    <div className="memori--unified-upload-wrapper">
+      {/* Main upload button */}
       <button
+        ref={buttonRef}
         className={cx(
           'memori-button',
           'memori-button--circle',
           'memori-button--icon-only',
           'memori-share-button--button',
           'memori--conversation-button',
+          'memori--unified-upload-button',
           { 'memori--error': errors.length > 0 }
         )}
-        onClick={() => fileInputRef.current?.click()}
+        onClick={toggleMenu}
         disabled={isLoading}
-        title="Upload file"
+        title={t('upload.uploadFiles') ?? 'Upload files'}
       >
         {isLoading ? (
           <Spin spinning className="memori--upload-icon" />
@@ -268,6 +224,100 @@ const FileUploadButton = ({
         )}
       </button>
 
+      {/* Image count indicator - moved here from UploadImages */}
+      {currentImageCount > 0 && (
+        <div
+          className={cx('memori--image-count', {
+            'memori--image-count-full': hasReachedImageLimit,
+          })}
+        >
+          {currentImageCount}/{MAX_IMAGES}
+        </div>
+      )}
+
+      {/* Floating menu */}
+      {menuOpen && (
+        <div className="memori--upload-menu" ref={menuRef}>
+          <div
+            className={cx('memori--upload-menu-item', {
+              'memori--upload-menu-item--disabled': hasReachedDocumentLimit,
+            })}
+            onClick={handleDocumentClick}
+          >
+            <DocumentIcon className="memori--upload-menu-icon" />
+            <span>
+              {t('upload.uploadDocument') ?? 'Upload document'}
+              {currentDocumentCount > 0 && (
+                <span className="memori--upload-slots-info">
+                  {hasReachedDocumentLimit
+                    ? ` (${t('upload.maxReached') ?? 'Max reached'})`
+                    : ` (${remainingDocumentSlots} ${
+                        t('upload.remaining') ?? 'remaining'
+                      })`}
+                </span>
+              )}
+            </span>
+          </div>
+
+          <div
+            className={cx('memori--upload-menu-item', {
+              'memori--upload-menu-item--disabled':
+                 !isMediaAccepted || hasReachedImageLimit,
+            })}
+            onClick={handleImageClick}
+            title={
+                !isMediaAccepted
+                ? t('upload.mediaNotAccepted') ?? 'Media uploads not accepted'
+                : hasReachedImageLimit
+                ? t('upload.maxImagesReached', { max: MAX_IMAGES }) ??
+                  `Maximum ${MAX_IMAGES} images already uploaded`
+                : remainingSlots === 1
+                ? t('upload.lastImageSlot') ?? 'Upload last image'
+                : t('upload.uploadImage', { remaining: remainingSlots }) ??
+                  `Upload image (${remainingSlots} remaining)`
+            }
+          >
+            <ImageIcon className="memori--upload-menu-icon-image" />
+            <span>
+              {t('upload.uploadImage') ?? 'Upload image'}
+              {currentImageCount > 0 && (
+                <span className="memori--upload-slots-info">
+                  {hasReachedImageLimit
+                    ? ` (${t('upload.maxReached') ?? 'Max reached'})`
+                    : ` (${remainingSlots} ${
+                        t('upload.remaining') ?? 'remaining'
+                      })`}
+                </span>
+              )}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Hidden components */}
+      <div className="memori--hidden-uploader" ref={documentRef}>
+        <UploadDocuments
+          setDocumentPreviewFiles={handleDocumentFiles}
+          maxDocuments={MAX_DOCUMENTS}
+          documentPreviewFiles={documentPreviewFiles}
+          // onLoadingChange={handleLoadingChange}
+        />
+      </div>
+
+      <div className="memori--hidden-uploader" ref={imageRef}>
+        <UploadImages
+          authToken={authToken}
+          apiUrl={apiUrl}
+          setDocumentPreviewFiles={setDocumentPreviewFiles}
+          sessionID={sessionID}
+          documentPreviewFiles={documentPreviewFiles}
+          isMediaAccepted={isMediaAccepted}
+          onLoadingChange={handleLoadingChange}
+          maxImages={MAX_IMAGES}
+          memoriID={memoriID}
+        />
+      </div>
+
       {/* Error messages container */}
       <div className="memori--error-message-container">
         {errors.map((error, index) => (
@@ -275,7 +325,7 @@ const FileUploadButton = ({
             key={`${error.message}-${index}`}
             open={true}
             type={error.severity}
-            title={'File upload failed'}
+            title={'Upload notification'}
             description={error.message}
             onClose={() => removeError(error.message)}
             width="350px"
@@ -286,4 +336,4 @@ const FileUploadButton = ({
   );
 };
 
-export default FileUploadButton;
+export default UploadButton;

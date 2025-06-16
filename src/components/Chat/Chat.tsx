@@ -1,8 +1,9 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, useState } from 'react';
 import cx from 'classnames';
 import {
   DialogState,
   ExpertReference,
+  Medium,
   Memori,
   Message,
   Tenant,
@@ -57,13 +58,7 @@ export interface Props {
   onChangeUserMessage: (userMessage: string) => void;
   sendMessage: (
     msg: string,
-    media?: {
-      mediumID: string;
-      mimeType: string;
-      content: string;
-      title?: string;
-      properties?: { [key: string]: any };
-    }
+    media?: (Medium & { type: string })[]
   ) => void;
   listening?: boolean;
   setEnableFocusChatInput: (enableFocusChatInput: boolean) => void;
@@ -79,6 +74,7 @@ export interface Props {
   experts?: ExpertReference[];
   useMathFormatting?: boolean;
   isHistoryView?: boolean;
+  showFunctionCache?: boolean;
 }
 
 const Chat: React.FC<Props> = ({
@@ -127,6 +123,7 @@ const Chat: React.FC<Props> = ({
   experts,
   useMathFormatting = false,
   isHistoryView = false,
+  showFunctionCache = false,
 }) => {
   const scrollToBottom = () => {
     if (isHistoryView) return;
@@ -233,6 +230,7 @@ const Chat: React.FC<Props> = ({
                 experts={experts}
                 showCopyButton={showCopyButton}
                 useMathFormatting={useMathFormatting}
+                showFunctionCache={showFunctionCache}
               />
 
               {showDates && !!message.timestamp && (
@@ -343,6 +341,7 @@ const Chat: React.FC<Props> = ({
 
       {showInputs && (
         <ChatInputs
+          apiURL={apiUrl || ''}
           resetTranscript={resetTranscript}
           userMessage={userMessage}
           onChangeUserMessage={onChangeUserMessage}
@@ -353,6 +352,7 @@ const Chat: React.FC<Props> = ({
           microphoneMode={microphoneMode}
           sendOnEnter={sendOnEnter}
           setSendOnEnter={setSendOnEnter}
+          sessionID={sessionID}
           showUpload={showUpload}
           attachmentsMenuOpen={attachmentsMenuOpen}
           setAttachmentsMenuOpen={setAttachmentsMenuOpen}
@@ -364,6 +364,7 @@ const Chat: React.FC<Props> = ({
           listening={listening}
           isPlayingAudio={isPlayingAudio}
           showMicrophone={showMicrophone}
+          memoriID={memori?.memoriID}
         />
       )}
     </div>

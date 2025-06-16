@@ -417,6 +417,7 @@ HiddenChat.args = {
   uiLang: 'it',
   showShare: true,
   showSettings: true,
+  // autoStart: true,
   // memori,
   // tenant,
   memori: {
@@ -572,14 +573,6 @@ ZoomedFullBody.args = {
         lastChangeTimestamp: '2022-06-13T14:44:52.833573Z',
       },
     ],
-    avatarURL:
-      'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
-    coverURL:
-      'https://assets.memori.ai/api/v2/asset/e9bb9f6d-8f34-45ab-af9e-6d630d9a51a8.png',
-    avatar3DURL:
-      'https://assets.memori.ai/api/v2/asset/3932bf70-e953-4e8a-b63a-f316544c283e.glb',
-    avatarOriginal3DURL:
-      'https://assets.memori.ai/api/v2/asset/3932bf70-e953-4e8a-b63a-f316544c283e.glb',
     needsPosition: false,
     voiceType: 'FEMALE',
     culture: 'it-IT',

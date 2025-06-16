@@ -1,5 +1,284 @@
 
 
+## [7.28.0](https://github.com/memori-ai/memori-react/compare/v7.27.1...v7.28.0) (2025-06-11)
+
+
+### Features
+
+* added unlogged images upload ([0697bfe](https://github.com/memori-ai/memori-react/commit/0697bfe61ad063f71eccde7270ffac47f91d8c3c))
+
+
+### Bug Fixes
+
+* autoStart default for hidden chat layout ([c0e2f8c](https://github.com/memori-ai/memori-react/commit/c0e2f8cbe333d93216637fa963de5842f3edb5fb))
+* for Hidden Chat layout removed session init ([c81de97](https://github.com/memori-ai/memori-react/commit/c81de970be9a97320f411bc31e9d4189ff5f1484))
+
+
+### Maintenance
+
+* update [@memori](https://github.com/memori).ai/memori-api-client to version 6.5.5 ([f1388dd](https://github.com/memori-ai/memori-react/commit/f1388ddedc3f4a90c82d6f8421674834b1ac68bd))
+
+## [7.27.1](https://github.com/memori-ai/memori-react/compare/v7.27.0...v7.27.1) (2025-06-11)
+
+
+### Features
+
+* add onClickStart prop to MemoriWidget and trigger on sidebar open in HiddenChat ([05df27d](https://github.com/memori-ai/memori-react/commit/05df27dcda4860495086ff7ee5e553691c1f0351))
+* added new lines before and after the content of the <document_attachment /> ([ad5bf12](https://github.com/memori-ai/memori-react/commit/ad5bf12864e33c92fbf96d63212d5082e0371f22))
+
+
+### Bug Fixes
+
+* reasoning tag <think> regex ([f7f0c22](https://github.com/memori-ai/memori-react/commit/f7f0c2258429da5646c5faee3b0fcf55562a4228))
+
+## [7.27.0](https://github.com/memori-ai/memori-react/compare/v7.26.2...v7.27.0) (2025-06-10)
+
+
+### Features
+
+* add reasoning tag <think> formatted display ([20d61c7](https://github.com/memori-ai/memori-react/commit/20d61c7c3bb08a85a7d93f9a56dbd7a1dc0a4459))
+* share chat link in share button ([53d33f5](https://github.com/memori-ai/memori-react/commit/53d33f59e58db690e92780fabd76eadd829ae840))
+
+
+### Bug Fixes
+
+* remove double fullscreen buttons in hidden chat layout ([a60e811](https://github.com/memori-ai/memori-react/commit/a60e8118c3ea12f9858498f10f39848a6c3bc494))
+
+
+### Maintenance
+
+* prevent errors server side ([de5203e](https://github.com/memori-ai/memori-react/commit/de5203e8f1933ed27101ead3a8f0d71510e98d9f))
+
+## [7.26.2](https://github.com/memori-ai/memori-react/compare/v7.26.1...v7.26.2) (2025-05-26)
+
+
+### Features
+
+* add autoStart prop to HiddenChat component ([f0381ec](https://github.com/memori-ai/memori-react/commit/f0381ec13d29886b58c3d95a90ef4b42e7b96972))
+
+
+### Changes
+
+* removed initChat function from HiddenChatLayout ([c52c492](https://github.com/memori-ai/memori-react/commit/c52c492cbd7eb017f83f1d9abcf71530478443d8))
+
+## [7.26.1](https://github.com/memori-ai/memori-react/compare/v7.26.0...v7.26.1) (2025-05-23)
+
+
+### Bug Fixes
+
+* add RTL support to MediaWidget link items ([afea49c](https://github.com/memori-ai/memori-react/commit/afea49c06716e24d0a2c570283278544f0bc5142))
+* aligned user media items to the right ([790031d](https://github.com/memori-ai/memori-react/commit/790031dec51455e5f8df5cb69face522ac54af22))
+* enabled upload documents for unauthenticated users ([88c7cc8](https://github.com/memori-ai/memori-react/commit/88c7cc892c729269ed4a80b2da0f40cf5cb6ecc6))
+* for MediaItemWidget with modal preview for document content ([f6e5d3b](https://github.com/memori-ai/memori-react/commit/f6e5d3b131f68b83741980a2e6ae78c920f0a721))
+* prevent scrolling while rendering MathJax ([cec210a](https://github.com/memori-ai/memori-react/commit/cec210aad3d2d4f4bb98d1c954f5ddb064a15398))
+* prevent user to upload multiple images and fix style button Cancel ([d084675](https://github.com/memori-ai/memori-react/commit/d0846758cda3346e10234f3d9acbbef8df70ce52))
+
+
+### Changes
+
+* improve XML formatting and readability in UploadButton component ([1842018](https://github.com/memori-ai/memori-react/commit/18420185387dce24f928918c5c3f6eed2d45ad16))
+
+## [7.26.0](https://github.com/memori-ai/memori-react/compare/v7.25.1...v7.26.0) (2025-05-21)
+
+
+### Features
+
+* add function cache modal and debug button in ChatBubble component ([64d65d0](https://github.com/memori-ai/memori-react/commit/64d65d0bced4ac2e8b14ce6dc3732fae25ec7426))
+* add multi-language support for upload functionality in locales ([a0dddc5](https://github.com/memori-ai/memori-react/commit/a0dddc5b7b0102fb70129d288bca8fa5b3d0cf9a))
+* add new Document, Image, Preview, and Upload icons components ([0a93941](https://github.com/memori-ai/memori-react/commit/0a93941ca6364b88e6736701ab9923677a544e00))
+* add showFunctionCache prop to Chat, ChatBubble, and MemoriWidget components ([6dc9107](https://github.com/memori-ai/memori-react/commit/6dc9107d2a68d90de3051de93e7fbd9891bcc7dc))
+* add WithFunctionCache story to ChatBubble ([5b638a0](https://github.com/memori-ai/memori-react/commit/5b638a0bca964bc951d741b1787c9a4d2d5a325b))
+* added images deselection functionality integrated with API ([f03cda6](https://github.com/memori-ai/memori-react/commit/f03cda6e17baf3d041688ab4e06f3a220b25d119))
+* enhance FilePreview component to support image and document previews ([0d1dffc](https://github.com/memori-ai/memori-react/commit/0d1dffc315a3f74d69f5708f661322d55fa57910))
+* enhance UploadButton with image count indicator and improved upload menu styling ([c141517](https://github.com/memori-ai/memori-react/commit/c141517823b725cb48a0c640d876f24573bcc694))
+* implement fullscreen functionality for hidden chat layout and fixed reopening chat ([1158775](https://github.com/memori-ai/memori-react/commit/1158775fe8cc904dcf01c9350095f8fcf35cd2c6))
+* implement image title input and preview modal in upload functionality ([a1358c1](https://github.com/memori-ai/memori-react/commit/a1358c144fed1f76370423ffe12812e4c9427892))
+* integrate preview file management in Chat components ([6349fed](https://github.com/memori-ai/memori-react/commit/6349fedbad42c1977194e897280fbd6b0d58cb86))
+
+
+### Bug Fixes
+
+*  localization strings ([d98f091](https://github.com/memori-ai/memori-react/commit/d98f0913d4f7f324fde504c16ec342a1878b04ed))
+*  preview medium file for documents and images ([7b28cd0](https://github.com/memori-ai/memori-react/commit/7b28cd0d8b0abe53c2d104444be65a7d5722fea1))
+* add modal import ([8d9bd4a](https://github.com/memori-ai/memori-react/commit/8d9bd4acc4f7e4688a598e5d89038c4ab14cb3e7))
+* ensure preview files are set before sending messages ([f03b834](https://github.com/memori-ai/memori-react/commit/f03b834952159540539c425f0abee99d22960302))
+* lint ([6891c1f](https://github.com/memori-ai/memori-react/commit/6891c1f6d0eb83c7da97cf5c851ee02352aded4f))
+* only one document can be uploaded per message ([4102f2f](https://github.com/memori-ai/memori-react/commit/4102f2f7c2c2b6ae2a0eaca0f252692b8c87b73a))
+* update document upload button to correctly limit non-image file uploads ([210a258](https://github.com/memori-ai/memori-react/commit/210a258ba63f2b847aa9c563ab075ad1e0f2a62e))
+* update engineURL to production and refactor boolean properties in story configurations ([14c2622](https://github.com/memori-ai/memori-react/commit/14c2622da8a7d0be91b4e027486ebff48d8e1f03))
+
+
+### Changes
+
+* improve UploadButton component structure and error handling ([d51e1fe](https://github.com/memori-ai/memori-react/commit/d51e1fe158a6b68029f9101b9f2e4ecc729a7b2d))
+* update UploadButton component to support document and image uploads ([2809dfc](https://github.com/memori-ai/memori-react/commit/2809dfc7200dc50ecfd9d8946d5048e8f29261f5))
+
+## [7.25.1](https://github.com/memori-ai/memori-react/compare/v7.25.0...v7.25.1) (2025-05-13)
+
+
+### Bug Fixes
+
+* show login if requiredLoginToken enabled ([174722d](https://github.com/memori-ai/memori-react/commit/174722d10e37b4b953290c8e8e8b8ee772e66adc))
+
+## [7.25.0](https://github.com/memori-ai/memori-react/compare/v7.24.0...v7.25.0) (2025-05-07)
+
+
+### Features
+
+* support for login-required sessions ([631388a](https://github.com/memori-ai/memori-react/commit/631388afa101d4b41d29feff1e0880a4b924e32f))
+
+## [7.24.0](https://github.com/memori-ai/memori-react/compare/v7.23.1...v7.24.0) (2025-04-28)
+
+
+### Features
+
+* add WithExpandable story to Chat component and update snapshots for expandable chat bubbles ([ec0e37f](https://github.com/memori-ai/memori-react/commit/ec0e37f1ddb18a7fb6e178a4e9908aefe1b7e30f))
+* enhance Expandable component with character and word limit options ([31b7e07](https://github.com/memori-ai/memori-react/commit/31b7e07818b9e358931b693a43b705ba6cc4f608))
+* enhance XLSX file parsing and formatting in UploadButton component ([419d866](https://github.com/memori-ai/memori-react/commit/419d8669f74fe6ea9bc6d345b0c213c6092c0cd1))
+* integrate Expandable component in ChatBubble and WhyThisAnswer for improved text display ([0509d65](https://github.com/memori-ai/memori-react/commit/0509d6574eae7aeb94b3eb0fda4f1577fe1159b9))
+
+
+### Bug Fixes
+
+* update default provider from OpenAI to Anthropic in CompletionProviderStatus component ([7a1847c](https://github.com/memori-ai/memori-react/commit/7a1847c9cce921d6763146a72f19bebfe16680e0))
+
+
+### Changes
+
+* add loginToken in getMemoriState ([f12f67c](https://github.com/memori-ai/memori-react/commit/f12f67cf16ad8590d9636ccfd1d8346bd2a652d9))
+* allow markdown as text upload ([546ba42](https://github.com/memori-ai/memori-react/commit/546ba424b63ecf533f1ed136504a2b752b9ab278))
+* expandable fix overflow + add stories ([9332bb5](https://github.com/memori-ai/memori-react/commit/9332bb592973292542a933fef9d9396073cd7385))
+* remove unnecessary concatenation in truncateMessage function ([7e1aacf](https://github.com/memori-ai/memori-react/commit/7e1aacf4956f0aa2959635af52a5c238edbf14da))
+* truncate user messages ([a181614](https://github.com/memori-ai/memori-react/commit/a1816140c550a47c2c5dcc8476545aed5a2118b7))
+
+
+### Maintenance
+
+* expandable remove debug text, fix colors and css ([91175e1](https://github.com/memori-ai/memori-react/commit/91175e1206f0048c53b3b3795a18f634205bae95))
+* switch state media to emittedMedia, with fallback ([f1d78ab](https://github.com/memori-ai/memori-react/commit/f1d78ab536244b4d689a87e095dbec6e010802b8))
+* update api client ([46ed9d9](https://github.com/memori-ai/memori-react/commit/46ed9d90952dfe24562a48523cce28eb018731da))
+
+## [7.23.1](https://github.com/memori-ai/memori-react/compare/v7.23.0...v7.23.1) (2025-04-08)
+
+
+### Bug Fixes
+
+* baseurl from tenant protocol parsing accepts local http ([d1d595a](https://github.com/memori-ai/memori-react/commit/d1d595a7572444584ecedfa5de072795dffaa0e2))
+* drawer z-index ([e28ec3f](https://github.com/memori-ai/memori-react/commit/e28ec3f960c9d25d99c405f8d94fe4e26e3e5fd8))
+
+
+### Maintenance
+
+* add new error code from backend/assets ([e43e834](https://github.com/memori-ai/memori-react/commit/e43e834185719f5665ff82fdd4f269c1ebb514be))
+
+## [7.23.0](https://github.com/memori-ai/memori-react/compare/v7.22.0...v7.23.0) (2025-03-25)
+
+
+### Features
+
+* add ConfirmDialog component with styling and stories ([fcd51da](https://github.com/memori-ai/memori-react/commit/fcd51dad2ebff94e2d262bde4c798db40c5d5d5e))
+* add confirmDialogTitle and confirmDialogMessage props ([0869a65](https://github.com/memori-ai/memori-react/commit/0869a65af4687b6a0f9546322646f63bf2990644))
+* add localized messages for completion provider outages and degraded performance ([e712b31](https://github.com/memori-ai/memori-react/commit/e712b31c15be9bd238eb5b136a10dbf94c094e8a))
+* add new Alert and Info icons, update Warning icon for improved accessibility and styling ([5af4ee8](https://github.com/memori-ai/memori-react/commit/5af4ee80b1988c5dc347a7f2435b5cef30641416))
+* enhance CompletionProviderStatus component, improved status handling and visual feedback ([a0da536](https://github.com/memori-ai/memori-react/commit/a0da5363799e359255f02a3521c1e27a00daeebb))
+* refactored Drawer component with advanced features and improved UX ([729d188](https://github.com/memori-ai/memori-react/commit/729d188b1ddf9fdf97584309359813b8dd88f77a))
+* show typing text after 30s ([4b53e75](https://github.com/memori-ai/memori-react/commit/4b53e756c782b73d9c5b67d24988c0bcf7e921f6))
+* standardize confirm dialog translations across locales ([60f380d](https://github.com/memori-ai/memori-react/commit/60f380dca44dda46d6d30b993561234dcf84cd85))
+
+
+### Bug Fixes
+
+* correct CSS variable naming in Drawer component for consistent styling ([a5cf788](https://github.com/memori-ai/memori-react/commit/a5cf7881a2686fbeca4322f915349b65c510cafa))
+* lint ([85e2466](https://github.com/memori-ai/memori-react/commit/85e2466229d46d9d0d50bc6ea4484b0cc649a821))
+* remove deprecated API component names from CompletionProviderStatus ([68ff1ae](https://github.com/memori-ai/memori-react/commit/68ff1ae94a145e1d6e75520125a27295877af809))
+
+
+### Changes
+
+* enhance Drawer component with improved footer structure and content handling ([4b22245](https://github.com/memori-ai/memori-react/commit/4b22245c87c760c34c42a8696f21025102f47dbd))
+* i18n and styles import ([c3ee4b3](https://github.com/memori-ai/memori-react/commit/c3ee4b333d66ef9c46acb3bb541dae02f6edff0e))
+* improve ConfirmDialog and Drawer components with enhanced z-index management and state handling ([4b6554f](https://github.com/memori-ai/memori-react/commit/4b6554f58a3adca7d4aef68c4e544a4063d4570a))
+* optimize Drawer stories and translations for confirmation dialog ([26b303c](https://github.com/memori-ai/memori-react/commit/26b303cb5fff849839131bbec97a61d521a82271))
+* remove ConfirmDialog from Drawer component ([95a1036](https://github.com/memori-ai/memori-react/commit/95a10368ede07a57d36c18ed7dc8c22f960021e4))
+* remove console logs and simplify Drawer component logic ([39f8a78](https://github.com/memori-ai/memori-react/commit/39f8a78678481e166b35f9d82979b7e2f97a0d49))
+* simplify translation namespace in Drawer confirmation dialog ([981df76](https://github.com/memori-ai/memori-react/commit/981df769ff6f32311c9f4af386e3bb568f4cd706))
+
+
+### Maintenance
+
+* replace default typing sentences ([fe50410](https://github.com/memori-ai/memori-react/commit/fe504108f62d39bd0e69fdb0d603b18ffca5d4f5))
+* typing text timeout timespans ([8e3e3cf](https://github.com/memori-ai/memori-react/commit/8e3e3cf6c7434c7c07a3beae046559676e64b541))
+
+## [7.22.0](https://github.com/memori-ai/memori-react/compare/v7.21.1...v7.22.0) (2025-03-21)
+
+
+### Features
+
+* add privacy explanation section to StartPanel with tooltip and translations ([1f214b7](https://github.com/memori-ai/memori-react/commit/1f214b719e77e3c2d4df9de340806042b99e01d1))
+* enhance UploadButton to support XLSX and CSV file uploads with improved error handling ([574a47c](https://github.com/memori-ai/memori-react/commit/574a47c273c1445ef8426cb7db8054279fff49fd))
+
+
+### Maintenance
+
+* align text privacy tooltip startpanel ([1f539eb](https://github.com/memori-ai/memori-react/commit/1f539ebd8e3f93bfb2c5aea9b935b180e7ce1070))
+
+
+### Changes
+
+* upload accpets json ([49a76fa](https://github.com/memori-ai/memori-react/commit/49a76faa19cc85c5b2b828bfb65f7cb2f2d81687))
+
+## [7.21.1](https://github.com/memori-ai/memori-react/compare/v7.21.0...v7.21.1) (2025-03-20)
+
+
+### Bug Fixes
+
+* chat bubble headings color inherit ([4b342df](https://github.com/memori-ai/memori-react/commit/4b342df452a66422d7d6d8b5118895a907b98f1b))
+
+## [7.21.0](https://github.com/memori-ai/memori-react/compare/v7.19.2...v7.21.0) (2025-03-17)
+
+
+### Features
+
+* added AnimationLoader for flexible avatar animation management ([d0837a1](https://github.com/memori-ai/memori-react/commit/d0837a1d2e94a6ae898a12ed86258fb844425919))
+* added AnimationParser for advanced avatar animation parsing ([f66daf2](https://github.com/memori-ai/memori-react/commit/f66daf20f7d2de994a240b91f8b31188b2b73e5d))
+* create AnimationRegistry for centralized avatar animation management ([0c735ef](https://github.com/memori-ai/memori-react/commit/0c735ef87e00bfd57efcdce20a99017e2992faa5))
+* enhance WhyThisAnswer component with receiver details and context variables ([5251cb1](https://github.com/memori-ai/memori-react/commit/5251cb195f2cbe8da6a8867ed13abb2843a25dba))
+* implement AnimationStateMachine for advanced avatar animation control ([1aefb00](https://github.com/memori-ai/memori-react/commit/1aefb00129bc6c5bce01308c71bca56f3a8ab285))
+* implement AvatarAnimator as comprehensive animation management system ([3049ef7](https://github.com/memori-ai/memori-react/commit/3049ef77125a1b5986b00029f8a3366594e1984e))
+* improve RPM avatar detection and animation merging logic ([1e86edb](https://github.com/memori-ai/memori-react/commit/1e86edb8c294d3a59e4223a3a654077fc3de5f95))
+
+
+### Bug Fixes
+
+* improve AvatarAnimator idle and animation transition logic ([ee797aa](https://github.com/memori-ai/memori-react/commit/ee797aa51a6fc0b452ef518d2afeccaa71fb7776))
+* improve receiver display logic and ensure context variables are handled correctly ([6ce1227](https://github.com/memori-ai/memori-react/commit/6ce12273974eaeeb0618769e50e4726c24cc95e3))
+* improve speech-to-text processing state management ([cfe9f4a](https://github.com/memori-ai/memori-react/commit/cfe9f4a18fc3dd43ba80b397d7c4965c37164b63))
+
+
+### Changes
+
+* adjust emotion amplification and remove debug logging in MorphTargetController ([4af0a70](https://github.com/memori-ai/memori-react/commit/4af0a70ba23bc4b4dfc204008ffb4c0bdee82692))
+* enhance AvatarAnimator with advanced animation management ([3cda44c](https://github.com/memori-ai/memori-react/commit/3cda44c679390fd5fe71befc18af571358a81bcd))
+* enhance AvatarAnimator with advanced emotion and sequence handling ([f1e8f63](https://github.com/memori-ai/memori-react/commit/f1e8f630c324cbf2e41583da15c10fdd14a795c0))
+* enhance MorphTargetController with dynamic emotion processing ([2fd8c2e](https://github.com/memori-ai/memori-react/commit/2fd8c2e34acfed487ffe0c1bdcd14c8a50049d35))
+* enhance speech processing with robust message handling ([1a1370f](https://github.com/memori-ai/memori-react/commit/1a1370f2c600223aa6911b27e72dc5a389939b1b))
+* improve emotion mapping and processing in MorphTargetController ([4a49461](https://github.com/memori-ai/memori-react/commit/4a49461985217f382d355883f9d52f7d15f7414d))
+* improve speech recognition ([c6d1a1c](https://github.com/memori-ai/memori-react/commit/c6d1a1ca39e42e8c6636aeb4d00772946a8463e6))
+* optimize AvatarAnimator with advanced transition and sequence handling ([1f67479](https://github.com/memori-ai/memori-react/commit/1f674795dcb85f5a14d419426f324ac2f70e615d))
+* simplify AvatarView component and remove unused animation-related props ([d84dbc0](https://github.com/memori-ai/memori-react/commit/d84dbc0e3c19a19c2bbcbfbab3d647998c658e34))
+* simplify DynamicShadow component with AvatarAnimator integration ([71c0991](https://github.com/memori-ai/memori-react/commit/71c09917b11baa96a252ff75882be3785f266f30))
+* streamline HalfBodyAvatar component with simplified morph target and chat handling ([8d68795](https://github.com/memori-ai/memori-react/commit/8d687959c52056a4e01f3aa74e025a7567424405))
+* upload button accepts pdf, txt and json ([36d8c65](https://github.com/memori-ai/memori-react/commit/36d8c65d9a7ace9399527b93cc36089c28a709d8))
+* why this answer i18n, ui and styles ([18292dc](https://github.com/memori-ai/memori-react/commit/18292dce56d9609ae56525a50f44503c762abeda))
+
+
+### Maintenance
+
+* generated by ai label in chat with fallback ([f28199b](https://github.com/memori-ai/memori-react/commit/f28199be65f9ea010ef6c9b3c6bc6eb5700fb669))
+* update api client ([8ab1bfd](https://github.com/memori-ai/memori-react/commit/8ab1bfd9cee3d486155bb053226666621e0aa295))
+* update Storybook stories with new avatar configurations and layouts ([749c57a](https://github.com/memori-ai/memori-react/commit/749c57a3cae69edadf032240a5d7b3fd36afe213))
+* update Storybook stories with test scenarios for RPM avatar animations and layouts ([b61a063](https://github.com/memori-ai/memori-react/commit/b61a063f6607d1216fcd7e967e60149f888ba51f))
+
 ## [7.19.2](https://github.com/memori-ai/memori-react/compare/v7.19.1...v7.19.2) (2025-03-07)
 
 

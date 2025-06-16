@@ -8,6 +8,7 @@ import {
   historyWithAIGeneratedMessages,
   sessionID,
   dialogState as dialogStateWithHints,
+  historyWithExpandable,
 } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Chat, { Props } from './Chat';
@@ -285,4 +286,30 @@ WithCustomUserAvatarAsElement.args = {
   resetTranscript: () => {},
   setAttachmentsMenuOpen: () => {},
   setSendOnEnter: () => {},
+};
+
+
+export const WithExpandable = Template.bind({});
+WithExpandable.args = {
+  memori,
+  tenant,
+  sessionID,
+  history: historyWithExpandable,
+  dialogState,
+  layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+};
+
+
+export const WithLongHTMLTable = Template.bind({});
+WithLongHTMLTable.args = {
+  memori,
+  tenant,
+  sessionID,
+  history,
+  dialogState,
+  layout: 'DEFAULT',
 };

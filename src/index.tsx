@@ -272,7 +272,7 @@ const Memori: React.FC<Props> = ({
             height={height}
             baseUrl={
               baseURL ||
-              (tenantID.startsWith('https://')
+              (tenantID.startsWith('https://') || tenantID.startsWith('http://')
                 ? tenantID
                 : `https://${tenantID}`)
             }
@@ -308,7 +308,7 @@ const Memori: React.FC<Props> = ({
             initialQuestion={initialQuestionLayout}
             authToken={authToken}
             AZURE_COGNITIVE_SERVICES_TTS_KEY={speechKey}
-            autoStart={autoStart}
+            autoStart={layout === 'HIDDEN_CHAT' ? true : autoStart}
             enableAudio={enableAudio && !!speechKey}
             defaultSpeakerActive={defaultSpeakerActive}
             disableTextEnteredEvents={disableTextEnteredEvents}

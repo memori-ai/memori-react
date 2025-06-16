@@ -60,7 +60,7 @@ const KnownFacts = ({
         howMany ?? numberOfResults
       );
 
-      setKnownFacts(knownFacts ?? []);
+      setKnownFacts(knownFacts ?? initialKnownFacts);
       setKnownFactsCount(count ?? 0);
 
       if (response.resultCode !== 0) {

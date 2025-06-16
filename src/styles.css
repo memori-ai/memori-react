@@ -1,6 +1,7 @@
 @import url('./components/ui/Button.css');
 @import url('./components/ui/Card.css');
 @import url('./components/ui/Checkbox.css');
+@import url('./components/ui/ConfirmDialog.css');
 @import url('./components/ui/Drawer.css');
 @import url('./components/ui/Modal.css');
 @import url('./components/ui/Spin.css');
@@ -10,8 +11,7 @@
 @import url('./components/ui/Details.css');
 @import url('./components/ui/Expandable.css');
 @import url('./components/ui/Slider.css');
-@import url('./components/UploadButton/UploadButton.css');
-@import url('./components/FilePreview/FilePreview.css');
+@import url('./components/ui/Alert.css');
 
 @import url('./components/CompletionProviderStatus/CompletionProviderStatus.css');
 @import url('./components/PoweredBy/PoweredBy.css');
@@ -50,14 +50,16 @@
 @import url('./components/VenueWidget/VenueWidget.css');
 @import url('./components/WhyThisAnswer/WhyThisAnswer.css');
 @import url('./components/MemoriWidget/MemoriWidget.css');
-@import url('./components/ui/Alert.css');
-@import url('https://fonts.bunny.net/css?family=lexend-deca:200,400,700');
+@import url('./components/UploadButton/UploadButton.css');
+@import url('./components/FilePreview/FilePreview.css');
 
 @import url('./components/layouts/hidden-chat.css');
 @import url('./components/layouts/totem.css');
 @import url('./components/layouts/website-assistant.css');
 @import url('./components/layouts/chat.css');
 @import url('./components/layouts/zoomed-full-body.css');
+
+@import url('https://fonts.bunny.net/css?family=lexend-deca:200,400,700');
 @import url('https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css');
 
 .sr-only {

@@ -1,0 +1,36 @@
+name: Storybook PR previews
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+concurrency: preview-${{ github.ref }}
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: ⚒ Install deps
+        if: github.event.action != 'closed' # You might want to skip the build if the PR has been closed
+        run: corepack enable && yarn install --immutable
+
+      - name: ⚙️ Build storybook
+        if: github.event.action != 'closed' # You might want to skip the build if the PR has been closed
+        run: yarn build-storybook
+
+      - name: 🚀 Deploy preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./storybook-static/

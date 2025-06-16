@@ -351,18 +351,34 @@ exports[`renders Chat layout unchanged 1`] = `
                 <div
                   class="memori-tooltip--content"
                 >
-                  Iniziando la conversazione, ti informiamo che:
-
-- Tutte le conversazioni con questo agente sono visibili all'autore dell'agente
-- Se stai utilizzando la chat come utente anonimo, l'autore potrà vedere il contenuto della conversazione e il tuo indirizzo IP
-- Se stai utilizzando la chat come utente registrato (loggato), l'autore potrà vedere il contenuto della conversazione e il tuo nome utente
-- L'autore utilizza queste informazioni per migliorare le funzionalità dell'agente e per fornirti un servizio migliore
-- Continuando la conversazione, accetti queste condizioni.
-
-Formato:
-- Testo: il testo della conversazione
-- Indirizzo IP: solo per utenti anonimi
-- Nome utente: solo per utenti registrati
+                  <div
+                    class="memori--privacy-tooltip-content"
+                  >
+                    <p>
+                       
+                      Tutte le conversazioni con questo agente sono visibili all'autore dell'agente
+                    </p>
+                    <ul
+                      class="memori--privacy-tooltip-content-list"
+                    >
+                      <li>
+                        Per utenti anonimi: l'autore vedrà il contenuto e l'indirizzo IP
+                      </li>
+                      <li>
+                        Per utenti registrati: l'autore vedrà il contenuto e il nome utente
+                      </li>
+                    </ul>
+                    <p>
+                      L'autore utilizza queste informazioni per migliorare le funzionalità dell'agente. Continuando, accetti queste condizioni.
+                    </p>
+                    <a
+                      href="https://memori.ai/en/privacy-policy"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      Informativa sulla privacy
+                    </a>
+                  </div>
                 </div>
                 <div
                   class="memori-tooltip--trigger"

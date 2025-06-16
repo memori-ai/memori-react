@@ -85,6 +85,7 @@
 }
 
 .memori--description,
+.memori--needsLogin,
 .memori--needsPosition {
     color: var(--memori-text-color, rgba(0, 0, 0, 0.85));
     font-size: 14px;
@@ -111,6 +112,7 @@
 .memori--start-privacy-explanation-icon {
     width: 1.2rem;
     height: 1.2rem;
+    align-self: center;
     margin-left: 0.5rem;
 }
 
@@ -236,4 +238,12 @@
 .memori--deep-thought-disclaimer a {
     color: inherit;
     text-decoration: underline;
+}
+
+.memori--privacy-tooltip-content {
+    text-align: left;
+}
+
+.memori--privacy-tooltip-content-list {
+    padding-left: 1rem;
 }

@@ -1,6 +1,7 @@
 .memori-media-items--grid {
     display: grid;
     padding: 1rem;
+    direction: rtl;
     grid-auto-flow: dense;
     grid-gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -142,4 +143,13 @@ a.memori-media-item--link {
 .memori-media-item--modal .memori-modal--close button {
     border-color: #fff;
     color: #fff;
+}
+
+.memori-media-item-preview--modal {
+    z-index: 10000;
+    width: 100%;
+    max-width: 80%;
+    height: 100%;
+    max-height: 80%;
+    background: #fff;
 }

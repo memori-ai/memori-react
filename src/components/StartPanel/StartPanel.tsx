@@ -1,5 +1,5 @@
 import {
-  Memori,
+  Memori as MemoriOriginal,
   Tenant,
   Venue,
   User,
@@ -20,7 +20,12 @@ import CompletionProviderStatus, {
   Props as CPSProps,
 } from '../CompletionProviderStatus/CompletionProviderStatus';
 import MapMarker from '../icons/MapMarker';
+import UserIcon from '../icons/User';
 import QuestionHelp from '../icons/QuestionHelp';
+
+interface Memori extends MemoriOriginal {
+  requireLoginToken?: boolean;
+}
 
 export interface Props {
   memori: Memori;
@@ -195,154 +200,210 @@ const StartPanel: React.FC<Props> = ({
           </Button>
         </div>
       )}
-      {((memori.needsPosition && position) || !memori.needsPosition) && (
-        <div className="memori--description">
-          <p>
-            <span className="memori--description-text">
-              {translatedDescription && showTranslation
-                ? translatedDescription
-                : memori.description}
-            </span>
-
-            {translatedDescription !== memori.description && (
-              <Button
-                ghost
-                className="memori--translation-toggle"
-                icon={<Translation />}
-                onClick={() => toggleTranslations()}
-              >
-                {showTranslation
-                  ? t('showOriginalText')
-                  : t('showTranslatedText')}
-              </Button>
-            )}
-          </p>
-
-          {isMultilanguageEnabled && !instruct && (
-            <div className="memori--language-chooser">
-              <label id="user-lang-pref-label" htmlFor="user-lang-pref">
-                {t('write_and_speak.iWantToTalkToIn', {
-                  name: memori.name,
-                })}
-              </label>
-              <select
-                id="user-lang-pref"
-                className="memori-select--button"
-                value={(userLang ?? i18n.language).toUpperCase()}
-                aria-labelledby="user-lang-pref-label"
-                onChange={e => {
-                  setUserLang(e.target.value);
-                }}
-              >
-                {chatLanguages.map(lang => (
-                  <option
-                    key={lang.value}
-                    value={lang.value}
-                    aria-label={lang.label}
-                  >
-                    {lang.label}
-                  </option>
-                ))}
-              </select>
-            </div>
-          )}
-
-          <div className="memori--start-privacy-explanation-container">
-            <p className="memori--start-privacy-explanation">
-              {t('write_and_speak.pagePrivacyExplanation')}
+      {((memori.needsPosition && position) || !memori.needsPosition) &&
+        !!memori.requireLoginToken &&
+        !isUserLoggedIn && (
+          <div className="memori--needsLogin">
+            <p>
+              {t('write_and_speak.requirePositionHelp', { name: memori.name })}
             </p>
-            <Tooltip align="right" content={t('write_and_speak.pagePrivacyExplanationTooltip')}>
-              <QuestionHelp className="memori--start-privacy-explanation-icon" />
-            </Tooltip>
+            <Button
+              primary
+              onClick={() => setShowLoginDrawer(true)}
+              className="memori--start-button"
+              icon={<UserIcon />}
+            >
+              {t('login.login') || 'Login'}
+            </Button>
           </div>
+        )}
+      {((memori.needsPosition && position) || !memori.needsPosition) &&
+        (!memori.requireLoginToken ||
+          (memori.requireLoginToken && isUserLoggedIn)) && (
+          <div className="memori--description">
+            <p>
+              <span className="memori--description-text">
+                {translatedDescription && showTranslation
+                  ? translatedDescription
+                  : memori.description}
+              </span>
 
-          <Button
-            primary
-            disabled={
-              (!!memori.blockedUntil && !memori.isGiver) || notEnoughCredits
-            }
-            loading={clickedStart}
-            onClick={_e => {
-              try {
-                window.speechSynthesis.speak(
-                  new SpeechSynthesisUtterance('') // This is needed to enable the speech synthesis on iOS
-                );
-              } catch (e) {
-                console.error(e);
-              }
+              {translatedDescription !== memori.description && (
+                <Button
+                  ghost
+                  className="memori--translation-toggle"
+                  icon={<Translation />}
+                  onClick={() => toggleTranslations()}
+                >
+                  {showTranslation
+                    ? t('showOriginalText')
+                    : t('showTranslatedText')}
+                </Button>
+              )}
+            </p>
 
-              if (initializeTTS) initializeTTS();
-              if (onClickStart) onClickStart();
-            }}
-            className="memori--start-button"
-          >
-            {t(
-              `write_and_speak.${
-                instruct
-                  ? 'instructButton'
-                  : !hasInitialSession
-                  ? 'tryMeButton'
-                  : 'resumeButton'
-              }`
+            {isMultilanguageEnabled && !instruct && (
+              <div className="memori--language-chooser">
+                <label id="user-lang-pref-label" htmlFor="user-lang-pref">
+                  {t('write_and_speak.iWantToTalkToIn', {
+                    name: memori.name,
+                  })}
+                </label>
+                <select
+                  id="user-lang-pref"
+                  className="memori-select--button"
+                  value={(userLang ?? i18n.language).toUpperCase()}
+                  aria-labelledby="user-lang-pref-label"
+                  onChange={e => {
+                    setUserLang(e.target.value);
+                  }}
+                >
+                  {chatLanguages.map(lang => (
+                    <option
+                      key={lang.value}
+                      value={lang.value}
+                      aria-label={lang.label}
+                    >
+                      {lang.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
             )}
-          </Button>
 
-          <CompletionProviderStatus
-            provider={memori?.completionConfigForQuestionAnswering?.provider}
-            forceStatus={_TEST_forceProviderStatus}
-          />
-
-          <p className="memori--start-description">
-            {instruct
-              ? t('write_and_speak.pageInstructExplanation')
-              : t('write_and_speak.pageTryMeExplanation')}
-          </p>
-
-          {(memori.blockedUntil || notEnoughCredits) && (
-            <BlockedMemoriBadge
-              memoriName={memori.name}
-              blockedUntil={memori.blockedUntil}
-              notEnoughCredits={notEnoughCredits}
-              showGiverInfo={memori.isGiver}
-              showTitle
-              marginLeft
-            />
-          )}
-
-          {!!memori.enableDeepThought && !instruct && (
-            <div className="memori--deep-thought-disclaimer">
-              <Tooltip align="left" content={t('deepThoughtHelper')}>
-                <DeepThought />
-              </Tooltip>
-              <h2>
-                {isUserLoggedIn && !!user?.pAndCUAccepted
-                  ? t('deepThoughtDisclaimerTitle')
-                  : t('deepThought')}
-              </h2>
-              {isUserLoggedIn && !user?.pAndCUAccepted && (
-                <p>{t('deepThoughtPreDisclaimerNotAllowed')}</p>
-              )}
-              {!isUserLoggedIn && (
-                <p>{t('deepThoughtPreDisclaimerUnlogged')}</p>
-              )}
-              {!isUserLoggedIn && showLogin && (
-                <p>
-                  <Button
-                    outlined
-                    padded={false}
-                    onClick={() => setShowLoginDrawer(true)}
-                  >
-                    Login
-                  </Button>
-                </p>
-              )}
-              <p className="memori--deep-thought-disclaimer-text">
-                {t('deepThoughtDisclaimer')}
+            <div className="memori--start-privacy-explanation-container">
+              <p className="memori--start-privacy-explanation">
+                {t('write_and_speak.pagePrivacyExplanation')}
               </p>
+              <Tooltip
+                align="right"
+                content={
+                  <div className="memori--privacy-tooltip-content">
+                    <p>
+                      {' '}
+                      {t(
+                        'write_and_speak.pagePrivacyExplanationList.allConversations'
+                      )}
+                    </p>
+                    <ul className="memori--privacy-tooltip-content-list">
+                      <li>
+                        {t(
+                          'write_and_speak.pagePrivacyExplanationList.anonymousUser'
+                        )}
+                      </li>
+                      <li>
+                        {t(
+                          'write_and_speak.pagePrivacyExplanationList.registeredUser'
+                        )}
+                      </li>
+                    </ul>
+                    <p>
+                      {t(
+                        'write_and_speak.pagePrivacyExplanationList.authorUsesInfo'
+                      )}
+                    </p>
+
+                    <a
+                      href={'https://memori.ai/en/privacy-policy'}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {t('privacyPolicy')}
+                    </a>
+                  </div>
+                }
+              >
+                <QuestionHelp className="memori--start-privacy-explanation-icon" />
+              </Tooltip>
             </div>
-          )}
-        </div>
-      )}
+
+            <Button
+              primary
+              disabled={
+                (!!memori.blockedUntil && !memori.isGiver) || notEnoughCredits
+              }
+              loading={clickedStart}
+              onClick={_e => {
+                try {
+                  window.speechSynthesis.speak(
+                    new SpeechSynthesisUtterance('') // This is needed to enable the speech synthesis on iOS
+                  );
+                } catch (e) {
+                  console.error(e);
+                }
+
+                if (initializeTTS) initializeTTS();
+                if (onClickStart) onClickStart();
+              }}
+              className="memori--start-button"
+            >
+              {t(
+                `write_and_speak.${
+                  instruct
+                    ? 'instructButton'
+                    : !hasInitialSession
+                    ? 'tryMeButton'
+                    : 'resumeButton'
+                }`
+              )}
+            </Button>
+
+            <CompletionProviderStatus
+              provider={memori?.completionConfigForQuestionAnswering?.provider}
+              forceStatus={_TEST_forceProviderStatus}
+            />
+
+            <p className="memori--start-description">
+              {instruct
+                ? t('write_and_speak.pageInstructExplanation')
+                : t('write_and_speak.pageTryMeExplanation')}
+            </p>
+
+            {(memori.blockedUntil || notEnoughCredits) && (
+              <BlockedMemoriBadge
+                memoriName={memori.name}
+                blockedUntil={memori.blockedUntil}
+                notEnoughCredits={notEnoughCredits}
+                showGiverInfo={memori.isGiver}
+                showTitle
+                marginLeft
+              />
+            )}
+
+            {!!memori.enableDeepThought && !instruct && (
+              <div className="memori--deep-thought-disclaimer">
+                <Tooltip align="left" content={t('deepThoughtHelper')}>
+                  <DeepThought />
+                </Tooltip>
+                <h2>
+                  {isUserLoggedIn && !!user?.pAndCUAccepted
+                    ? t('deepThoughtDisclaimerTitle')
+                    : t('deepThought')}
+                </h2>
+                {isUserLoggedIn && !user?.pAndCUAccepted && (
+                  <p>{t('deepThoughtPreDisclaimerNotAllowed')}</p>
+                )}
+                {!isUserLoggedIn && (
+                  <p>{t('deepThoughtPreDisclaimerUnlogged')}</p>
+                )}
+                {!isUserLoggedIn && showLogin && (
+                  <p>
+                    <Button
+                      outlined
+                      padded={false}
+                      onClick={() => setShowLoginDrawer(true)}
+                    >
+                      {t('login.login') || 'Login'}
+                    </Button>
+                  </p>
+                )}
+                <p className="memori--deep-thought-disclaimer-text">
+                  {t('deepThoughtDisclaimer')}
+                </p>
+              </div>
+            )}
+          </div>
+        )}
     </div>
   );
 };
