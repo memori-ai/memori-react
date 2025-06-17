@@ -44,13 +44,13 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 
 .memori-chat-history-drawer--card--header--icon-wrapper {
     display: flex;
-    width: 2.5rem;
-    height: 2.5rem;
+    width: 2rem;
+    height: 2rem;
     align-items: center;
     justify-content: center;
     border-radius: 0.5rem;
@@ -123,7 +123,7 @@
     padding: 8px;
     border: none;
     background: transparent;
-    color: var(--memori-text-color, #666);
+    color: var(--memori-primary);
     cursor: pointer;
     gap: 8px;
     transition: color 0.2s ease;
@@ -140,8 +140,9 @@
 }
 
 .memori-chat-history-drawer--card--content--export-button--icon {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
+    fill: var(--memori-primary);
 }
 
 .memori-chat-history-drawer--card--content--messages {

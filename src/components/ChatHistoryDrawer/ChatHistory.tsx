@@ -22,9 +22,8 @@ import { Dialog, Transition } from '@headlessui/react';
 import debounce from 'lodash/debounce';
 import Chat from '../Chat/Chat';
 import Spin from '../ui/Spin';
-import MessageIcon from '../icons/Message';
-import './ChatHistory.css';
 import Download from '../icons/Download';
+import MessageIcon from '../icons/Message';
 
 export interface Props {
   open: boolean;
@@ -288,7 +287,7 @@ const ChatHistoryDrawer = ({
                   <div className="memori-chat-history-drawer--card--header">
                     <div className="memori-chat-history-drawer--card--header--content">
                       <div className="memori-chat-history-drawer--card--header--icon-wrapper">
-                        <ChatRound className="memori-chat-history-drawer--card--header--icon" />
+                        <MessageIcon className="memori-chat-history-drawer--card--header--icon" />
                       </div>
                       <div className="memori-chat-history-drawer--card--header--info">
                         <div className="memori-chat-history-drawer--card--header--title-wrapper">
@@ -386,9 +385,9 @@ const ChatHistoryDrawer = ({
                       >
                         <div className="memori-chat-history-drawer--card--content--export-button--content">
                           <Download className="memori-chat-history-drawer--card--content--export-button--icon" />
-                          <span className="memori-chat-history-drawer--card--content--export-button--text">
+                          {/* <span className="memori-chat-history-drawer--card--content--export-button--text">
                             {t('write_and_speak.exportChat') || 'Export Chat'}
-                          </span>
+                          </span> */}
                         </div>
                       </Button>
                     </div>
