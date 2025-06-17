@@ -1,5 +1,12 @@
 
 
+## [7.30.0](https://github.com/memori-ai/memori-react/compare/v7.29.1...v7.30.0) (2025-06-17)
+
+
+### Bug Fixes
+
+* hidden chat opens session on click, delete session on nav away ([f95c804](https://github.com/memori-ai/memori-react/commit/f95c8041ba8f70dc6a34eca5473b58a5952f3fd4))
+
 ## [7.29.1](https://github.com/memori-ai/memori-react/compare/v7.29.0...v7.29.1) (2025-06-16)
 
 
