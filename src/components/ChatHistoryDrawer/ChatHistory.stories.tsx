@@ -167,18 +167,18 @@ const meta: Meta<typeof ChatHistory> = {
     memori: mockMemori,
     apiClient: mockApiClient as any,
     onClose: () => console.log('Close button clicked'),
-    resumeSession: (sessionId, lines, questionsAndAnswers) => {
-      console.log('Resume session called with:', { sessionId, lines, questionsAndAnswers });
+    history: mockChatLogs.map(chatLog => ({
+      text: chatLog.lines[0].text,
+      fromUser: chatLog.lines[0].inbound,
+      timestamp: chatLog.lines[0].timestamp
+    })),
+    resumeSession: (chatLog: ChatLog) => {
+      console.log('Resume session called with:', chatLog);
     }
   },
   // Add argTypes to configure controls in Storybook
   argTypes: {
     open: { control: 'boolean', description: 'Whether the drawer is open' },
-    layout: { 
-      control: { type: 'select' }, 
-      options: ['DEFAULT', 'FLOATING', 'FULLPAGE', 'INLINE'],
-      description: 'Layout mode for the drawer'
-    },
     onClose: { action: 'closed' },
     resumeSession: { action: 'resumed session' }
   }

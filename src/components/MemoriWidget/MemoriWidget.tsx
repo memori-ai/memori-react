@@ -827,16 +827,16 @@ const MemoriWidget = ({
       }
 
       // Add chat reference link to the message if it exists
-      if (chatLogID) {
-        msg =
-          msg +
-          ' \n\n' +
-          '<chat-reference session-id="' +
-          sessionID +
-          '" event-log-id="' +
-          chatLogID +
-          '"></chat-reference>';
-      }
+      // if (chatLogID) {
+      //   msg =
+      //     msg +
+      //     ' \n\n' +
+      //     '<chat-reference session-id="' +
+      //     sessionID +
+      //     '" event-log-id="' +
+      //     chatLogID +
+      //     '"></chat-reference>';
+      // }
 
       const { currentState, ...response } = await postTextEnteredEvent({
         sessionId: sessionID,
@@ -4012,6 +4012,7 @@ const MemoriWidget = ({
           sessionId={sessionId || ''}
           memori={memori}
           baseUrl={baseUrl}
+          history={history}
           apiUrl={client.constants.BACKEND_URL}
         />
       )}

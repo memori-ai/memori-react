@@ -105,18 +105,51 @@
 }
 
 .memori-chat-history-drawer--card--content {
+    position: relative;
     display: flex;
+    height: 100%;
     flex-direction: column;
-    padding: 1rem;
-    border-top: 1px solid var(--memori-border);
-    background-color: var(--memori-background-alt);
-    gap: 1rem;
+}
+
+.memori-chat-history-drawer--card--content--header {
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    right: 0;
+    padding: 8px;
+}
+
+.memori-chat-history-drawer--card--content--export-button {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    border: none;
+    background: transparent;
+    color: var(--memori-text-color, #666);
+    cursor: pointer;
+    gap: 8px;
+    transition: color 0.2s ease;
+}
+
+.memori-chat-history-drawer--card--content--export-button:hover {
+    color: var(--memori-primary-color, #007bff);
+}
+
+.memori-chat-history-drawer--card--content--export-button--content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.memori-chat-history-drawer--card--content--export-button--icon {
+    width: 16px;
+    height: 16px;
 }
 
 .memori-chat-history-drawer--card--content--messages {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
 }
 
 .memori-chat-history-drawer--card--content--messages .memori-chat--cover {
@@ -143,55 +176,40 @@
 
 .memori-chat-history-drawer--card--content--actions {
     position: sticky;
+    z-index: 10;
+    right: 0;
     bottom: 0;
+    left: 0;
     display: flex;
-    width: 100%;
     justify-content: center;
-    padding: 1rem;
-    border-top: 1px solid var(--memori-border);
-    margin-top: 1rem;
-    background-color: var(--memori-background-alt);
+    padding: 16px;
+    background: linear-gradient(to top, var(--memori-background-color, #fff) 80%, transparent);
 }
 
 .memori-chat-history-drawer--card--content--resume-button {
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    -webkit-backdrop-filter: blur(16px);
-    backdrop-filter: blur(16px);
-    background-color: rgba(255, 255, 255, 0.8);
-    color: var(--memori-primary);
-    font-weight: 500;
-    transition: all 0.2s ease-in-out;
+    display: flex;
+    min-width: 200px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border-radius: 24px;
+    gap: 8px;
+    transition: transform 0.2s ease;
 }
 
 .memori-chat-history-drawer--card--content--resume-button:hover {
-    -webkit-backdrop-filter: blur(0);
-    backdrop-filter: blur(0);
-    background-color: var(--memori-primary);
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.27), 0 2px 4px -1px rgba(0, 0, 0, 0.35);
-    color: var(--memori-primary-text);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
 }
 
 .memori-chat-history-drawer--card--content--resume-button--content {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 8px;
 }
 
 .memori-chat-history-drawer--card--content--resume-button--icon {
-    color: var(--memori-primary);
-    transition: transform 0.2s ease-in-out;
-}
-
-.memori-chat-history-drawer--card--content--resume-button:hover
-    .memori-chat-history-drawer--card--content--resume-button--icon {
-    color: #fff;
-    transform: scale(1.1);
-}
-
-.memori-chat-history-drawer--card--content--resume-button--text {
-    font-weight: 500;
+    width: 20px;
+    height: 20px;
 }
 
 /* Loading state */

@@ -11,16 +11,20 @@ import {
   Medium,
   DialogState,
   EventLog,
+  Message,
 } from '@memori.ai/memori-api-client/dist/types';
 import Card from '../ui/Card';
 import ChatBubble from '../ChatBubble/ChatBubble';
 import Button from '../ui/Button';
 import ChatRound from '../icons/Chat';
-import { truncateMessage } from '../../helpers/utils';
+import { escapeHTML, stripHTML, truncateMessage } from '../../helpers/utils';
 import { Dialog, Transition } from '@headlessui/react';
 import debounce from 'lodash/debounce';
 import Chat from '../Chat/Chat';
 import Spin from '../ui/Spin';
+import MessageIcon from '../icons/Message';
+import './ChatHistory.css';
+import Download from '../icons/Download';
 
 export interface Props {
   open: boolean;
@@ -31,10 +35,41 @@ export interface Props {
   resumeSession: (chatLog: ChatLog) => void;
   baseUrl: string;
   apiUrl: string;
+  history: Message[];
 }
 
 const ITEMS_PER_PAGE = 8;
 const DEBOUNCE_DELAY = 300;
+
+const calculateTitle = (lines: ChatLogLine[]): string => {
+  const userMessages = lines.filter(line => line.inbound);
+  if (userMessages.length === 0) return '';
+
+  let messageIndex = 0;
+  if (userMessages.length === 3) {
+    messageIndex = 1;
+  } else if (userMessages.length === 5) {
+    messageIndex = 3;
+  } else if (userMessages.length > 5) {
+    messageIndex = 5;
+  }
+
+  const message = stripHTML(userMessages[messageIndex]?.text || '');
+  return message.length > 100 ? `${message.substring(0, 100)}...` : message;
+};
+
+const downloadFile = (text: string, filename: string) => {
+  const data = new Blob([text], { type: 'text/plain' });
+  const url = URL.createObjectURL(data);
+  const element = document.createElement('a');
+  element.setAttribute('href', url);
+  element.setAttribute('download', filename);
+  element.style.display = 'none';
+
+  document.body.appendChild(element);
+  element.click();
+  document.body.removeChild(element);
+};
 
 const ChatHistoryDrawer = ({
   open,
@@ -45,10 +80,21 @@ const ChatHistoryDrawer = ({
   resumeSession,
   baseUrl,
   apiUrl,
+  history,
 }: Props) => {
   const { t } = useTranslation();
   const { getChatLogsByUser, getSessionChatLogs } = apiClient.chatLogs;
 
+  const textCurrentChat = `${t(
+    'write_and_speak.conversationStartedLabel'
+  )} ${new Intl.DateTimeFormat('it', {
+    dateStyle: 'short',
+    timeStyle: 'short',
+  }).format(new Date())}\n\n`.concat(
+    history
+      .map(m => `${m.fromUser ? 'YOU' : memori.name}: ${m.text}`)
+      .join('\n')
+  );
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
   const [selectedChatLog, setSelectedChatLog] = useState<ChatLog | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -62,11 +108,17 @@ const ChatHistoryDrawer = ({
     setError(null);
     try {
       const res = await getChatLogsByUser(sessionId);
-      setChatLogs(res.chatLogs.sort((a, b) => {
-        const dateA = Math.max(...a.lines.map(l => new Date(l.timestamp).getTime()));
-        const dateB = Math.max(...b.lines.map(l => new Date(l.timestamp).getTime()));
-        return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
-      }));
+      setChatLogs(
+        res.chatLogs.sort((a, b) => {
+          const dateA = Math.max(
+            ...a.lines.map(l => new Date(l.timestamp).getTime())
+          );
+          const dateB = Math.max(
+            ...b.lines.map(l => new Date(l.timestamp).getTime())
+          );
+          return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+        })
+      );
     } catch (err) {
       setError(t('errorFetchingSession') || 'Error loading chat history');
       console.error('Error fetching chat logs:', err);
@@ -85,14 +137,16 @@ const ChatHistoryDrawer = ({
   );
 
   const filteredChatLogs = useMemo(() => {
-    return chatLogs.filter(c => 
-      c.lines.some(l => l.text.toLowerCase().includes(searchText.toLowerCase())) && 
-      c.lines.length > 1
+    return chatLogs.filter(
+      c =>
+        c.lines.some(l =>
+          l.text.toLowerCase().includes(searchText.toLowerCase())
+        ) && c.lines.length > 1
     );
   }, [chatLogs, searchText]);
 
   const totalPages = Math.ceil(filteredChatLogs.length / ITEMS_PER_PAGE);
-  
+
   const paginatedChatLogs = useMemo(() => {
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     return filteredChatLogs.slice(startIndex, startIndex + ITEMS_PER_PAGE);
@@ -103,6 +157,27 @@ const ChatHistoryDrawer = ({
       resumeSession(selectedChatLog);
       onClose();
     }
+  };
+
+  const handleExportChat = (chatLog: ChatLog) => {
+    const text = `${t(
+      'write_and_speak.conversationStartedLabel'
+    )} ${new Intl.DateTimeFormat(navigator.language, {
+      dateStyle: 'short',
+      timeStyle: 'short',
+    }).format(new Date())}\n\n`.concat(
+      chatLog.lines
+        .map(line => `${line.inbound ? 'YOU' : memori.name}: ${line.text}`)
+        .join('\n')
+    );
+
+    downloadFile(
+      text,
+      `${memori.name.replace(/\W+/g, '-')}-chat-${chatLog.chatLogID.substring(
+        0,
+        4
+      )}.txt`
+    );
   };
 
   const formatDate = (timestamp: string) => {
@@ -116,8 +191,15 @@ const ChatHistoryDrawer = ({
     if (isLoading) {
       return (
         <div className="memori-chat-history-drawer--loading">
-          <Spin spinning={true} primary={true} className="memori-chat-history-drawer--loading--spinner" />
-          <p className="memori-chat-history-drawer--loading--text">{t('write_and_speak.loadingChatHistory') || 'Loading chat history...'}</p>
+          <Spin
+            spinning={true}
+            primary={true}
+            className="memori-chat-history-drawer--loading--spinner"
+          />
+          <p className="memori-chat-history-drawer--loading--text">
+            {t('write_and_speak.loadingChatHistory') ||
+              'Loading chat history...'}
+          </p>
         </div>
       );
     }
@@ -134,7 +216,10 @@ const ChatHistoryDrawer = ({
       return (
         <div className="memori-chat-history-drawer--empty">
           <ChatRound className="memori-chat-history-drawer--empty--icon" />
-          <p className="memori-chat-history-drawer--empty--text">{t('write_and_speak.noChatHistoryAvailable') || 'No chat history available'}</p>
+          <p className="memori-chat-history-drawer--empty--text">
+            {t('write_and_speak.noChatHistoryAvailable') ||
+              'No chat history available'}
+          </p>
         </div>
       );
     }
@@ -142,11 +227,14 @@ const ChatHistoryDrawer = ({
     if (filteredChatLogs.length === 0) {
       return (
         <div className="memori-chat-history-drawer--no-results">
-          <p>{t('write_and_speak.noResultsFound', { searchText: searchText || '' }) || 'No results found'}</p>
+          <p>
+            {t('write_and_speak.noResultsFound', {
+              searchText: searchText || '',
+            }) || 'No results found'}
+          </p>
         </div>
       );
     }
-
 
     return (
       <>
@@ -155,7 +243,7 @@ const ChatHistoryDrawer = ({
             const lastMessageDate = Math.max(
               ...chatLog.lines.map(line => new Date(line.timestamp).getTime())
             );
-            
+
             return (
               <Card
                 hoverable
@@ -190,7 +278,9 @@ const ChatHistoryDrawer = ({
                 }}
                 key={chatLog.chatLogID}
                 className={`memori-chat-history-drawer--card ${
-                  selectedChatLog?.chatLogID === chatLog.chatLogID ? 'memori-chat-history-drawer--card--selected' : ''
+                  selectedChatLog?.chatLogID === chatLog.chatLogID
+                    ? 'memori-chat-history-drawer--card--selected'
+                    : ''
                 }`}
               >
                 <>
@@ -201,8 +291,12 @@ const ChatHistoryDrawer = ({
                       </div>
                       <div className="memori-chat-history-drawer--card--header--info">
                         <div className="memori-chat-history-drawer--card--header--title-wrapper">
-                          <Dialog.Title as="h3" className="memori-chat-history-drawer--card--header--title">
-                            {'Chat-' + chatLog.chatLogID.substring(0, 4)}
+                          <Dialog.Title
+                            as="h3"
+                            className="memori-chat-history-drawer--card--header--title"
+                          >
+                            {calculateTitle(chatLog.lines) ||
+                              'Chat-' + chatLog.chatLogID.substring(0, 4)}
                           </Dialog.Title>
                           {chatLog.boardOfExperts && (
                             <div className="memori-chat-history-drawer--card--header--badge">
@@ -210,84 +304,147 @@ const ChatHistoryDrawer = ({
                             </div>
                           )}
                         </div>
-                        <div className="memori-chat-history-drawer--card--header--meta">
-                          {chatLog.lines.some(line => line.media && line.media.filter(m => m.mimeType !== 'text/html' && m.mimeType !== 'text/plain').length > 0) && (
-                            <span className="memori-chat-history-drawer--card--header--meta--messages">
-                              <svg className="memori-chat-history-drawer--card--header--meta--icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                              </svg>
-                              {chatLog.lines.reduce((acc, line) => acc + (line.media?.filter(m => m.mimeType !== 'text/html' && m.mimeType !== 'text/plain').length || 0), 0)}
-                            </span>
-                          )}
-                          <span className="memori-chat-history-drawer--card--header--meta--messages">
-                            <svg className="memori-chat-history-drawer--card--header--meta--icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                            </svg>
-                            {chatLog.lines.length}
-                          </span>
-                          <time className="memori-chat-history-drawer--card--header--meta--time" dateTime={new Date(lastMessageDate).toISOString()}>
-                            <svg className="memori-chat-history-drawer--card--header--meta--icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            {formatDate(new Date(lastMessageDate).toISOString())}
-                          </time>
-                        </div>
                       </div>
                     </div>
                   </div>
-                  
+                  <div className="memori-chat-history-drawer--card--header--meta">
+                    <time
+                      className="memori-chat-history-drawer--card--header--meta--time"
+                      dateTime={new Date(lastMessageDate).toISOString()}
+                    >
+                      <svg
+                        className="memori-chat-history-drawer--card--header--meta--icon"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                      {formatDate(new Date(lastMessageDate).toISOString())}
+                    </time>
+                    {chatLog.lines.some(
+                      line =>
+                        line.media &&
+                        line.media.filter(
+                          m =>
+                            m.mimeType !== 'text/html' &&
+                            m.mimeType !== 'text/plain'
+                        ).length > 0
+                    ) && (
+                      <span className="memori-chat-history-drawer--card--header--meta--messages">
+                        <svg
+                          className="memori-chat-history-drawer--card--header--meta--icon"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          />
+                        </svg>
+                        {chatLog.lines.reduce(
+                          (acc, line) =>
+                            acc +
+                            (line.media?.filter(
+                              m =>
+                                m.mimeType !== 'text/html' &&
+                                m.mimeType !== 'text/plain'
+                            ).length || 0),
+                          0
+                        )}
+                      </span>
+                    )}
+                    <span className="memori-chat-history-drawer--card--header--meta--messages">
+                      <svg
+                        className="memori-chat-history-drawer--card--header--meta--icon"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
+                        />
+                      </svg>
+                      {chatLog.lines.length}
+                    </span>
+                    <div className="memori-chat-history-drawer--card--content--header">
+                      <Button
+                        className="memori-chat-history-drawer--card--content--export-button"
+                        onClick={() => handleExportChat(chatLog)}
+                      >
+                        <div className="memori-chat-history-drawer--card--content--export-button--content">
+                          <Download className="memori-chat-history-drawer--card--content--export-button--icon" />
+                          <span className="memori-chat-history-drawer--card--content--export-button--text">
+                            {t('write_and_speak.exportChat') || 'Export Chat'}
+                          </span>
+                        </div>
+                      </Button>
+                    </div>
+                  </div>
+
                   {selectedChatLog?.chatLogID === chatLog.chatLogID && (
                     <div className="memori-chat-history-drawer--card--content">
                       <div className="memori-chat-history-drawer--card--content--messages">
-                          <Chat
-                            key={`${chatLog.lines[0].text}-${chatLog.lines[0].timestamp}`}
-                            baseUrl={baseUrl}
-                            apiUrl={apiUrl}
-                            memoriTyping={false}
-                            showTypingText={false}
-                            showAIicon={true}
-                            showTranslationOriginal={false}
-                            showWhyThisAnswer={false}
-                            showCopyButton={false}
-                            showInputs={false}
-                            history={chatLog.lines.map(line => ({
-                              text: truncateMessage(line.text),
-                              contextVars: line.contextVars,
-                              media: line.media as Medium[],
-                              fromUser: line.inbound,
-                              timestamp: line.timestamp,
-                            }))}
-                            memori={memori}
-                            sessionID={sessionId}
-                            setDialogState={() => {}}
-                            pushMessage={() => {}}
-                            simulateUserPrompt={() => {}}
-                            setSendOnEnter={() => {}}
-                            attachmentsMenuOpen={undefined}
-                            setAttachmentsMenuOpen={() => {}}
-                            userMessage={''}
-                            onChangeUserMessage={() => {}}
-                            sendMessage={() => {}}
-                            startListening={() => {}}
-                            stopListening={() => {}}
-                            resetTranscript={() => {}}
-                            listening={false}
-                            setEnableFocusChatInput={() => {}}
-                            stopAudio={() => {}}
-                            isHistoryView={true}
-                          />
+                        <Chat
+                          key={`${chatLog.lines[0].text}-${chatLog.lines[0].timestamp}`}
+                          baseUrl={baseUrl}
+                          apiUrl={apiUrl}
+                          memoriTyping={false}
+                          showTypingText={false}
+                          showAIicon={true}
+                          showTranslationOriginal={false}
+                          showWhyThisAnswer={false}
+                          showCopyButton={false}
+                          showInputs={false}
+                          history={chatLog.lines.map(line => ({
+                            text: truncateMessage(line.text),
+                            contextVars: line.contextVars,
+                            media: line.media as Medium[],
+                            fromUser: line.inbound,
+                            timestamp: line.timestamp,
+                          }))}
+                          memori={memori}
+                          sessionID={sessionId}
+                          setDialogState={() => {}}
+                          pushMessage={() => {}}
+                          simulateUserPrompt={() => {}}
+                          setSendOnEnter={() => {}}
+                          attachmentsMenuOpen={undefined}
+                          setAttachmentsMenuOpen={() => {}}
+                          userMessage={''}
+                          onChangeUserMessage={() => {}}
+                          sendMessage={() => {}}
+                          startListening={() => {}}
+                          stopListening={() => {}}
+                          resetTranscript={() => {}}
+                          listening={false}
+                          setEnableFocusChatInput={() => {}}
+                          stopAudio={() => {}}
+                          isHistoryView={true}
+                        />
                       </div>
-
                       <div className="memori-chat-history-drawer--card--content--actions">
-                        <Button 
+                        <Button
                           className="memori-chat-history-drawer--card--content--resume-button"
-                          primary 
+                          primary
                           onClick={handleResumeChat}
                         >
                           <div className="memori-chat-history-drawer--card--content--resume-button--content">
                             <ChatRound className="memori-chat-history-drawer--card--content--resume-button--icon" />
                             <span className="memori-chat-history-drawer--card--content--resume-button--text">
-                              {t('write_and_speak.resumeButton') || 'Resume chat'}
+                              {t('write_and_speak.resumeButton') ||
+                                'Resume chat'}
                             </span>
                           </div>
                         </Button>
@@ -299,7 +456,7 @@ const ChatHistoryDrawer = ({
             );
           })}
         </ul>
-        
+
         {totalPages > 1 && (
           <div className="memori-chat-history-drawer--pagination">
             <Button
@@ -311,7 +468,10 @@ const ChatHistoryDrawer = ({
               {t('previous') || 'Previous'}
             </Button>
             <span className="memori-chat-history-drawer--pagination--info">
-              {t('write_and_speak.page', { current: currentPage, total: totalPages })}
+              {t('write_and_speak.page', {
+                current: currentPage,
+                total: totalPages,
+              })}
             </span>
             <Button
               primary
@@ -332,7 +492,32 @@ const ChatHistoryDrawer = ({
       className="memori-chat-history-drawer"
       open={open}
       onClose={onClose}
-      title={t('write_and_speak.chatHistory') || 'Chat History'} 
+      title={
+        <div
+          className="memori-chat-history-drawer--title-wrapper"
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '100%',
+          }}
+        >
+          <span>{t('write_and_speak.chatHistory') || 'Chat History'}</span>
+          <Button
+            primary
+            shape="circle"
+            className="memori-chat-history-drawer--download-button"
+            title={t('download') || 'Download chat'}
+            icon={<Download />}
+            // disabled={!selectedChatLog}
+            onClick={() => {
+              //download the chat already opened
+              const fileName = `${memori.name.replace(/\W+/g, '-')}-chat-${new Date().toISOString().split('T')[0]}.txt`;
+              downloadFile(textCurrentChat, fileName);
+            }}
+          />
+        </div>
+      }
       description={t('write_and_speak.chatHistoryDescription')}
     >
       <div className="memori-chat-history-drawer--content">
@@ -341,24 +526,36 @@ const ChatHistoryDrawer = ({
             <input
               type="search"
               className="memori-chat-history-drawer--toolbar--search--input"
-              placeholder={t('write_and_speak.searchInChatHistory') || 'Search in chat history...'}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => debouncedSearch(e.target.value)}
+              placeholder={
+                t('write_and_speak.searchInChatHistory') ||
+                'Search in chat history...'
+              }
+              onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                debouncedSearch(e.target.value)
+              }
             />
             <span className="memori-chat-history-drawer--toolbar--search--icon">
               <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
               </svg>
             </span>
           </div>
           <div className="memori-chat-history-drawer--toolbar--actions">
             <Button
               onClick={() => {
-                setSortOrder(order => order === 'asc' ? 'desc' : 'asc');
+                setSortOrder(order => (order === 'asc' ? 'desc' : 'asc'));
                 setCurrentPage(1);
               }}
               className="memori-chat-history-drawer--toolbar--sort-button"
             >
-              {sortOrder === 'desc' ? t('write_and_speak.latestFirst') : t('write_and_speak.oldestFirst')}
+              {sortOrder === 'desc'
+                ? t('write_and_speak.latestFirst')
+                : t('write_and_speak.oldestFirst')}
             </Button>
             {/* <Button
               onClick={() => {

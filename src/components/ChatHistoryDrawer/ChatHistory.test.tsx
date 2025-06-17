@@ -29,6 +29,7 @@ const client = memoriApiClient();
 it('renders ChatHistoryDrawer unchanged', () => {
   const { container } = render(
     <ChatHistoryDrawer
+      history={[]}
       open={true}
       onClose={jest.fn()}
       apiClient={client}
@@ -45,6 +46,7 @@ it('renders ChatHistoryDrawer unchanged', () => {
 it('renders ChatHistoryDrawer with chat logs unchanged', () => {
   const { container } = render(
     <ChatHistoryDrawer
+      history={[]}
       open={true}
       onClose={jest.fn()}
       apiClient={client}
@@ -61,6 +63,7 @@ it('renders ChatHistoryDrawer with chat logs unchanged', () => {
 it('renders ChatHistoryDrawer with selected chat log unchanged', () => {
   const { container } = render(
     <ChatHistoryDrawer
+      history={[]}
       open={true}
       onClose={jest.fn()}
       apiClient={client}
@@ -77,6 +80,7 @@ it('renders ChatHistoryDrawer with selected chat log unchanged', () => {
 it('renders ChatHistoryDrawer closed unchanged', () => {
   const { container } = render(
     <ChatHistoryDrawer
+      history={[]}
       open={false}
       onClose={jest.fn()}
       apiClient={client}
