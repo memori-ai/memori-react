@@ -121,6 +121,7 @@
     "pageInstructExplanation": "Per insegnarmi nuove cose clicca sul pulsante ISTRUISCIMI per cominciare",
     "pageTryMeExplanation": "Per parlare con me clicca sul pulsante INIZIAMO per cominciare",
     "pagePrivacyExplanation": "Le conversazioni sono visibili all'autore dell'agente",
+    "downloadChat": "Scarica chat",
     "pagePrivacyExplanationList": {
       "allConversations": "Tutte le conversazioni con questo agente sono visibili all'autore dell'agente",
       "anonymousUser": "Per utenti anonimi: l'autore vedrà il contenuto e l'indirizzo IP",

@@ -121,6 +121,7 @@
     "pageInstructExplanation": "Um mir neue Dinge beizubringen, klicken Sie auf die Schaltfläche \"ANLEITEN\", um zu beginnen",
     "pageTryMeExplanation": "Um mit mir zu sprechen, klicken Sie auf die Schaltfläche START, um zu beginnen",
     "pagePrivacyExplanation": "Die Konversationen sind sichtbar von dem Autor des Agenten",
+    "downloadChat": "Chat herunterladen",
     "pagePrivacyExplanationList": {
       "allConversations": "Alle Konversationen mit diesem Agenten sind sichtbar von dem Autor des Agenten",
       "anonymousUser": "Für anonyme Benutzer: der Autor wird den Inhalt der Konversation und Ihre IP-Adresse sehen",

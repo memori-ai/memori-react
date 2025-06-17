@@ -338,3 +338,15 @@
     border-color: var(--memori-primary);
     box-shadow: 0 0 0 2px var(--memori-primary-light);
 }
+
+.memori-chat-history-drawer--download-button-wrapper{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.memori-chat-history-drawer--download-button-wrapper--text{
+    color: var(--memori-primary);
+    font-size: 0.875rem;
+    font-weight: 500;
+}

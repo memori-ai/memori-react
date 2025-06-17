@@ -128,6 +128,7 @@
       "authorUsesInfo": "El autor utiliza estas informaciones para mejorar las funciones del agente y para ofrecerte un mejor servicio. Continuando la conversación, acepta estas condiciones."
     },
     "instructButton": "INSTRUÍME",
+    "downloadChat": "Descargar chat",
     "tryMeButton": "COMENZAR",
     "chatHistory": "Historial de chat",
     "chatHistoryDescription": "Mostrar el historial de chat con este agente",

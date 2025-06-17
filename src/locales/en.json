@@ -121,6 +121,7 @@
     "pageInstructExplanation": "To teach me new things click on the INSTRUCT ME button to get started",
     "pageTryMeExplanation": "To talk to me click on the START button to get started",
     "pagePrivacyExplanation": "The conversations are visible by the author of the agent",
+    "downloadChat": "Download chat",
     "pagePrivacyExplanationList": {
       "allConversations": "All conversations with this agent are visible to the author of the agent",
       "anonymousUser": "For anonymous users: the author will see the content of the conversation and your IP address",

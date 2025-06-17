@@ -504,6 +504,13 @@ const ChatHistoryDrawer = ({
           }}
         >
           <span>{t('write_and_speak.chatHistory') || 'Chat History'}</span>
+
+          <div
+          className="memori-chat-history-drawer--download-button-wrapper"
+          >
+            <span className="memori-chat-history-drawer--download-button-wrapper--text">
+              {t('write_and_speak.downloadChat') || 'Download chat'}
+            </span>
           <Button
             primary
             shape="circle"
@@ -517,6 +524,9 @@ const ChatHistoryDrawer = ({
               downloadFile(textCurrentChat, fileName);
             }}
           />
+
+          </div>
+
         </div>
       }
       description={t('write_and_speak.chatHistoryDescription')}
