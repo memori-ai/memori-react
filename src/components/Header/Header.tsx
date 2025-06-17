@@ -12,7 +12,6 @@ import MapMarker from '../icons/MapMarker';
 import SoundDeactivated from '../icons/SoundDeactivated';
 import Sound from '../icons/Sound';
 import { useTranslation } from 'react-i18next';
-import ExportHistoryButton from '../ExportHistoryButton/ExportHistoryButton';
 import Setting from '../icons/Setting';
 import ShareButton from '../ShareButton/ShareButton';
 import FullscreenExit from '../icons/FullscreenExit';
@@ -22,9 +21,7 @@ import Clear from '../icons/Clear';
 import DeepThought from '../icons/DeepThought';
 import Group from '../icons/Group';
 import UserIcon from '../icons/User';
-import History from '../icons/History';
-import Tooltip from '../ui/Tooltip';
-import { Popover } from '@headlessui/react';
+import MessageIcon from '../icons/Message';
 
 export interface Props {
   className?: string;
@@ -142,7 +139,7 @@ const Header: React.FC<Props> = ({
           shape="circle"
           className="memori-header--button memori-header--button--chat-history"
           title={t('write_and_speak.chatHistory') || 'Chat history'}
-          icon={<History disabled={!loginToken || history.length === 0} />}
+          icon={<MessageIcon />}
             onClick={() => setShowChatHistoryDrawer(true)}
           />
       )}
@@ -218,12 +215,12 @@ const Header: React.FC<Props> = ({
           title={t('widget.sound') || 'Sound'}
         />
       )}
-      <ExportHistoryButton
+      {/* <ExportHistoryButton
         history={history}
         memori={memori}
         className="memori-header--button memori-header--button--export"
         disabled={!hasUserActivatedSpeak || history.length === 0}
-      />
+      /> */}
       {showSettings && (
         <Button
           primary
