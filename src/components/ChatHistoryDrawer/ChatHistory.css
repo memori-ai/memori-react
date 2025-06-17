@@ -114,9 +114,7 @@
 .memori-chat-history-drawer--card--content--header {
     position: absolute;
     z-index: 10;
-    top: 0;
-    right: 0;
-    padding: 8px;
+    right: 12px;
 }
 
 .memori-chat-history-drawer--card--content--export-button {
@@ -132,7 +130,7 @@
 }
 
 .memori-chat-history-drawer--card--content--export-button:hover {
-    color: var(--memori-primary-color, #007bff);
+    color: var(--memori-primary);
 }
 
 .memori-chat-history-drawer--card--content--export-button--content {

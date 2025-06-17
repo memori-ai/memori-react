@@ -2,7 +2,7 @@ import Drawer from '../ui/Drawer';
 import { useTranslation } from 'react-i18next';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { useEffect, useMemo, useState, useCallback, ChangeEvent } from 'react';
+import React, { useEffect, useMemo, useState, useCallback, ChangeEvent } from 'react';
 import {
   ChatLog,
   ChatLogLine,
@@ -18,7 +18,7 @@ import ChatBubble from '../ChatBubble/ChatBubble';
 import Button from '../ui/Button';
 import ChatRound from '../icons/Chat';
 import { escapeHTML, stripHTML, truncateMessage } from '../../helpers/utils';
-import { Dialog, Transition } from '@headlessui/react';
+import { Dialog, Transition } from '@headlessui/react'; 
 import debounce from 'lodash/debounce';
 import Chat from '../Chat/Chat';
 import Spin from '../ui/Spin';
@@ -159,7 +159,8 @@ const ChatHistoryDrawer = ({
     }
   };
 
-  const handleExportChat = (chatLog: ChatLog) => {
+  const handleExportChat = (chatLog: ChatLog, e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent the card from toggling
     const text = `${t(
       'write_and_speak.conversationStartedLabel'
     )} ${new Intl.DateTimeFormat(navigator.language, {
@@ -381,7 +382,7 @@ const ChatHistoryDrawer = ({
                     <div className="memori-chat-history-drawer--card--content--header">
                       <Button
                         className="memori-chat-history-drawer--card--content--export-button"
-                        onClick={() => handleExportChat(chatLog)}
+                        onClick={(e) => handleExportChat(chatLog, e)}
                       >
                         <div className="memori-chat-history-drawer--card--content--export-button--content">
                           <Download className="memori-chat-history-drawer--card--content--export-button--icon" />
