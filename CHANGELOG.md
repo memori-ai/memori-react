@@ -1,5 +1,19 @@
 
 
+## [7.30.1](https://github.com/memori-ai/memori-react/compare/v7.30.0...v7.30.1) (2025-06-17)
+
+
+### Features
+
+* add download chat button and localization support in ChatHistoryDrawer ([130524c](https://github.com/memori-ai/memori-react/commit/130524c6bb600cb51922cfae2336cfe27fa2b499))
+
+
+### Changes
+
+* enhance ChatHistoryDrawer with export functionality and new title handling ([5b1b5f4](https://github.com/memori-ai/memori-react/commit/5b1b5f4cd367afea75d1f14f320d9154d8fbaf7a))
+* removed Export Chat Button form the Header component ([7ccd463](https://github.com/memori-ai/memori-react/commit/7ccd463ddebd0f3e9edb6104f8cf5bb35ce68e3e))
+* removed unused .scss file for ChatHistory component and improved UX ([cc1910b](https://github.com/memori-ai/memori-react/commit/cc1910b4a09872d86fe410383192c726946c28f3))
+
 ## [7.30.0](https://github.com/memori-ai/memori-react/compare/v7.29.1...v7.30.0) (2025-06-17)
 
 
