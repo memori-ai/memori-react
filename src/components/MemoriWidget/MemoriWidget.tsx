@@ -15,7 +15,6 @@ import {
   ExpertReference,
   ResponseSpec,
   ChatLog,
-  ChatLogLine,
 } from '@memori.ai/memori-api-client/src/types';
 import {
   SpeakerAudioDestination,
@@ -484,6 +483,7 @@ const MemoriWidget = ({
   const client = memoriApiClient(apiURL, engineURL);
   const {
     initSession,
+    deleteSession,
     postTextEnteredEvent,
     postPlaceChangedEvent,
     postDateChangedEvent,
@@ -3610,6 +3610,22 @@ const MemoriWidget = ({
     }
   }, [tenant?.billingDelegation, deepThoughtEnabled]);
 
+  useEffect(() => {
+    const closeSession = () => {
+      if (sessionId) {
+        deleteSession(sessionId);
+      }
+    };
+
+    // delete session when the user closes the browser tab
+    window.addEventListener('beforeunload', closeSession);
+
+    return () => {
+      window.removeEventListener('beforeunload', closeSession);
+      closeSession();
+    };
+  }, [sessionId]);
+
   const showFullHistory =
     showOnlyLastMessages === undefined
       ? selectedLayout !== 'TOTEM' &&
@@ -3757,16 +3773,10 @@ const MemoriWidget = ({
     showFunctionCache,
     userMessage,
     onChangeUserMessage,
-    sendMessage: (
-      msg: string,
-      media?: (Medium & { type: string })[]
-    ) => {
+    sendMessage: (msg: string, media?: (Medium & { type: string })[]) => {
       stopAudio();
       stopListening();
-      sendMessage(
-        msg,
-        media
-      );
+      sendMessage(msg, media);
       setUserMessage('');
       resetTranscript();
     },

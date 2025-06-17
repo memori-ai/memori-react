@@ -4,22 +4,21 @@ import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { useTranslation } from 'react-i18next';
 import QuestionHelp from '../icons/QuestionHelp';
 import Close from '../icons/Close';
-import Fullscreen from '../icons/Fullscreen';
-import FullscreenExit from '../icons/FullscreenExit';
 
 const HiddenChatLayout: React.FC<LayoutProps> = ({
   Header,
   headerProps,
   Chat,
   chatProps,
-  // startPanelProps,
+  startPanelProps,
   sessionId,
   hasUserActivatedSpeak,
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
-  const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
+
+  const { onClickStart } = startPanelProps || {};
 
   // Use refs to store original sidebar properties to restore them later
   const originalSidebarStyles = useRef({
@@ -29,11 +28,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   });
 
   useEffect(() => {
-    // Check if fullscreen is available
-    if (document.fullscreenEnabled) {
-      setFullScreenAvailable(true);
-    }
-
     // Add fullscreen change event listener to handle ESC key
     const handleFullscreenChange = () => {
       if (!document.fullscreenElement && fullScreen) {
@@ -78,6 +72,8 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
       }
       // Restore sidebar styles
       restoreFromFullscreen();
+    } else if (!sessionId) {
+      onClickStart?.();
     }
 
     setIsOpen(prev => {
