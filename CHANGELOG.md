@@ -1,5 +1,12 @@
 
 
+## [7.30.2](https://github.com/memori-ai/memori-react/compare/v7.30.1...v7.30.2) (2025-06-17)
+
+
+### Features
+
+* add download chat button and localization support in ChatHistoryDrawer ([2b5cb43](https://github.com/memori-ai/memori-react/commit/2b5cb43d55c75d1b021678f632af95d2301571ae))
+
 ## [7.30.1](https://github.com/memori-ai/memori-react/compare/v7.30.0...v7.30.1) (2025-06-17)
 
 
