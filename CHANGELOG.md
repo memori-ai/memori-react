@@ -1,5 +1,12 @@
 
 
+## [7.30.5](https://github.com/memori-ai/memori-react/compare/v7.30.4...v7.30.5) (2025-06-18)
+
+
+### Bug Fixes
+
+* shared url parameters and baseURL ([5c8eb2d](https://github.com/memori-ai/memori-react/commit/5c8eb2dec938457ac5342d45b2f35f4c92630502))
+
 ## [7.30.4](https://github.com/memori-ai/memori-react/compare/v7.30.3...v7.30.4) (2025-06-18)
 
 
