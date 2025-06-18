@@ -1,5 +1,12 @@
 
 
+## [7.30.4](https://github.com/memori-ai/memori-react/compare/v7.30.3...v7.30.4) (2025-06-18)
+
+
+### Bug Fixes
+
+* shared chat url with usernames as fallback or skip if none available ([549a95f](https://github.com/memori-ai/memori-react/commit/549a95fb54a6a73f86d704190979ebca023f227b))
+
 ## [7.30.3](https://github.com/memori-ai/memori-react/compare/v7.30.2...v7.30.3) (2025-06-18)
 
 
