@@ -1,5 +1,12 @@
 
 
+## [7.30.3](https://github.com/memori-ai/memori-react/compare/v7.30.2...v7.30.3) (2025-06-18)
+
+
+### Changes
+
+* improve title calculation logic in ChatHistory component with significance scoring ([89a5c55](https://github.com/memori-ai/memori-react/commit/89a5c553663f566bd975a38fefb895fafc9602b4))
+
 ## [7.30.2](https://github.com/memori-ai/memori-react/compare/v7.30.1...v7.30.2) (2025-06-17)
 
 
