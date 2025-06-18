@@ -2,7 +2,13 @@ import Drawer from '../ui/Drawer';
 import { useTranslation } from 'react-i18next';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import React, { useEffect, useMemo, useState, useCallback, ChangeEvent } from 'react';
+import React, {
+  useEffect,
+  useMemo,
+  useState,
+  useCallback,
+  ChangeEvent,
+} from 'react';
 import {
   ChatLog,
   ChatLogLine,
@@ -18,7 +24,7 @@ import ChatBubble from '../ChatBubble/ChatBubble';
 import Button from '../ui/Button';
 import ChatRound from '../icons/Chat';
 import { escapeHTML, stripHTML, truncateMessage } from '../../helpers/utils';
-import { Dialog, Transition } from '@headlessui/react'; 
+import { Dialog, Transition } from '@headlessui/react';
 import debounce from 'lodash/debounce';
 import Chat from '../Chat/Chat';
 import Spin from '../ui/Spin';
@@ -40,21 +46,311 @@ export interface Props {
 const ITEMS_PER_PAGE = 8;
 const DEBOUNCE_DELAY = 300;
 
+// This function calculates the title of the chat log based on the most meaningful user message
 const calculateTitle = (lines: ChatLogLine[]): string => {
   const userMessages = lines.filter(line => line.inbound);
   if (userMessages.length === 0) return '';
 
-  let messageIndex = 0;
-  if (userMessages.length === 3) {
-    messageIndex = 1;
-  } else if (userMessages.length === 5) {
-    messageIndex = 3;
-  } else if (userMessages.length > 5) {
-    messageIndex = 5;
+  // Common non-significant phrases that shouldn't be used as titles (English and Italian)
+  const insignificantPhrases = [
+    // English phrases
+    'hello',
+    'hi',
+    'hey',
+    'good morning',
+    'good afternoon',
+    'good evening',
+    'thanks',
+    'thank you',
+    'thx',
+    'tnx',
+    'ty',
+    'thanks!',
+    'thank you!',
+    'ok',
+    'okay',
+    'k',
+    'yes',
+    'no',
+    'yep',
+    'nope',
+    'yeah',
+    'nah',
+    'good',
+    'great',
+    'nice',
+    'cool',
+    'awesome',
+    'perfect',
+    'excellent',
+    'bye',
+    'goodbye',
+    'see you',
+    'see ya',
+    'later',
+    'good night',
+    'how are you',
+    'how are you doing',
+    "what's up",
+    'sup',
+    'please',
+    'pls',
+    'sorry',
+    'excuse me',
+    'pardon',
+    'i see',
+    'i understand',
+    'got it',
+    'gotcha',
+    'understood',
+    'continue',
+    'go on',
+    'tell me more',
+    'more',
+    'next',
+    'start',
+    'begin',
+    "let's start",
+    "let's begin",
+    'help',
+    'can you help',
+    'i need help',
+    'test',
+    'testing',
+    'test message',
+    '?',
+    '??',
+    '???',
+    '!',
+    '!!',
+    '!!!',
+    '...',
+    '..',
+    '.',
+    'a',
+    'an',
+    'the',
+    'and',
+    'or',
+    'but',
+    'in',
+    'on',
+    'at',
+    'to',
+    'for',
+    'of',
+    'with',
+    'by',
+
+    // Italian phrases
+    'ciao',
+    'salve',
+    'buongiorno',
+    'buonasera',
+    'buonanotte',
+    'grazie',
+    'grazie mille',
+    'grazie!',
+    'grazie mille!',
+    'thx',
+    'tnx',
+    'ok',
+    'va bene',
+    'va bene così',
+    'perfetto',
+    'ottimo',
+    'bene',
+    'sì',
+    'si',
+    'no',
+    'certo',
+    'certamente',
+    'assolutamente',
+    'arrivederci',
+    'a presto',
+    'a dopo',
+    'ci vediamo',
+    'addio',
+    'come stai',
+    'come va',
+    'tutto bene',
+    'che succede',
+    'per favore',
+    'per piacere',
+    'scusa',
+    'scusami',
+    'mi dispiace',
+    'capisco',
+    'ho capito',
+    'capito',
+    'perfetto',
+    'continua',
+    'vai avanti',
+    'dimmi di più',
+    'altro',
+    'altro ancora',
+    'inizia',
+    'iniziamo',
+    'comincia',
+    'cominciamo',
+    'aiuto',
+    'puoi aiutarmi',
+    'ho bisogno di aiuto',
+    'test',
+    'prova',
+    'messaggio di prova',
+    '?',
+    '??',
+    '???',
+    '!',
+    '!!',
+    '!!!',
+    '...',
+    '..',
+    '.',
+    'un',
+    'una',
+    'il',
+    'la',
+    'gli',
+    'le',
+    'e',
+    'o',
+    'ma',
+    'in',
+    'su',
+    'a',
+    'per',
+    'di',
+    'con',
+    'da',
+  ];
+
+  // Function to calculate message significance score
+  const calculateSignificanceScore = (message: string): number => {
+    const cleanMessage = message.toLowerCase().trim();
+
+    // Check if it's an insignificant phrase
+    if (insignificantPhrases.includes(cleanMessage)) {
+      return 0;
+    }
+
+    // Check if it's too short (less than 3 words)
+    const wordCount = cleanMessage
+      .split(/\s+/)
+      .filter(word => word.length > 0).length;
+    if (wordCount < 3) {
+      return 0.1;
+    }
+
+    // Check if it's just punctuation or very short
+    if (cleanMessage.length < 5) {
+      return 0.1;
+    }
+
+    // Check if it's a question (questions are often more significant) - English and Italian
+    const isQuestion =
+      /\?$/.test(cleanMessage) ||
+      // English question starters
+      /^(what|how|why|when|where|who|which|can|could|would|will|do|does|did|is|are|was|were)/.test(
+        cleanMessage
+      ) ||
+      // Italian question starters
+      /^(cosa|come|perché|perche|quando|dove|chi|quale|quali|può|puo|potrebbe|vorrebbe|sarà|sara|fa|fai|fanno|è|e|sono|era|erano)/.test(
+        cleanMessage
+      );
+
+    // Calculate base score
+    let score = 0.5;
+
+    // Boost score for questions
+    if (isQuestion) score += 0.3;
+
+    // Boost score for longer, more detailed messages
+    if (wordCount > 5) score += 0.2;
+    if (wordCount > 10) score += 0.2;
+
+    // Reduce score for very long messages (might be too verbose for a title)
+    if (wordCount > 20) score -= 0.1;
+
+    // Boost score for messages with specific details (numbers, dates, names)
+    if (/\d/.test(cleanMessage)) score += 0.1;
+    if (
+      /[A-ZÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞŸ][a-zàáâãäåæçèéêëìíîïðñòóôõöøùúûüýþÿ]+/.test(
+        message
+      )
+    )
+      score += 0.1; // Proper nouns (including accented characters)
+
+    return Math.min(score, 1.0);
+  };
+
+  // Score all user messages
+  const scoredMessages = userMessages.map((msg, index) => {
+    const cleanText = stripHTML(msg.text || '');
+    const score = calculateSignificanceScore(cleanText);
+    return {
+      text: cleanText,
+      score,
+      index,
+      originalIndex: index,
+    };
+  });
+
+  // Sort by score (highest first) and then by position (earlier messages preferred for same score)
+  scoredMessages.sort((a, b) => {
+    if (Math.abs(a.score - b.score) < 0.1) {
+      // If scores are close, prefer earlier messages
+      return a.index - b.index;
+    }
+    return b.score - a.score;
+  });
+
+  // Find the best message
+  let bestMessage = scoredMessages[0];
+
+  // If the best message has a very low score, try to find a better one
+  if (bestMessage.score < 0.3) {
+    // Look for the first message that's not completely insignificant
+    const betterMessage = scoredMessages.find(msg => msg.score > 0.1);
+    if (betterMessage) {
+      bestMessage = betterMessage;
+    }
   }
 
-  const message = stripHTML(userMessages[messageIndex]?.text || '');
-  return message.length > 100 ? `${message.substring(0, 100)}...` : message;
+  // If we still don't have a good message, try to create a title from multiple messages
+  if (bestMessage.score < 0.2) {
+    // Try to combine first few meaningful messages
+    const meaningfulMessages = scoredMessages
+      .filter(msg => msg.score > 0.1)
+      .slice(0, 3)
+      .sort((a, b) => a.index - b.index);
+
+    if (meaningfulMessages.length > 1) {
+      const combinedText = meaningfulMessages
+        .map(msg => msg.text)
+        .join(' - ')
+        .substring(0, 80);
+      return combinedText.length > 80 ? `${combinedText}...` : combinedText;
+    }
+  }
+
+  // Format the final title
+  const title = bestMessage.text;
+  const maxLength = 100;
+
+  if (title.length > maxLength) {
+    // Try to cut at a word boundary
+    const truncated = title.substring(0, maxLength);
+    const lastSpace = truncated.lastIndexOf(' ');
+    if (lastSpace > maxLength * 0.7) {
+      // If we can cut at a word boundary without losing too much
+      return `${truncated.substring(0, lastSpace)}...`;
+    }
+    return `${truncated}...`;
+  }
+
+  return title;
 };
 
 const downloadFile = (text: string, filename: string) => {
@@ -381,7 +677,7 @@ const ChatHistoryDrawer = ({
                     <div className="memori-chat-history-drawer--card--content--header">
                       <Button
                         className="memori-chat-history-drawer--card--content--export-button"
-                        onClick={(e) => handleExportChat(chatLog, e)}
+                        onClick={e => handleExportChat(chatLog, e)}
                       >
                         <div className="memori-chat-history-drawer--card--content--export-button--content">
                           <Download className="memori-chat-history-drawer--card--content--export-button--icon" />
@@ -504,28 +800,26 @@ const ChatHistoryDrawer = ({
         >
           <span>{t('write_and_speak.chatHistory') || 'Chat History'}</span>
 
-          <div
-          className="memori-chat-history-drawer--download-button-wrapper"
-          >
+          <div className="memori-chat-history-drawer--download-button-wrapper">
             <span className="memori-chat-history-drawer--download-button-wrapper--text">
               {t('write_and_speak.downloadChat') || 'Download chat'}
             </span>
-          <Button
-            primary
-            shape="circle"
-            className="memori-chat-history-drawer--download-button"
-            title={t('download') || 'Download chat'}
-            icon={<Download />}
-            // disabled={!selectedChatLog}
-            onClick={() => {
-              //download the chat already opened
-              const fileName = `${memori.name.replace(/\W+/g, '-')}-chat-${new Date().toISOString().split('T')[0]}.txt`;
-              downloadFile(textCurrentChat, fileName);
-            }}
-          />
-
+            <Button
+              primary
+              shape="circle"
+              className="memori-chat-history-drawer--download-button"
+              title={t('download') || 'Download chat'}
+              icon={<Download />}
+              // disabled={!selectedChatLog}
+              onClick={() => {
+                //download the chat already opened
+                const fileName = `${memori.name.replace(/\W+/g, '-')}-chat-${
+                  new Date().toISOString().split('T')[0]
+                }.txt`;
+                downloadFile(textCurrentChat, fileName);
+              }}
+            />
           </div>
-
         </div>
       }
       description={t('write_and_speak.chatHistoryDescription')}
