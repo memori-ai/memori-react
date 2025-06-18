@@ -3634,7 +3634,10 @@ const MemoriWidget = ({
       : !showOnlyLastMessages;
 
   const headerProps: HeaderProps = {
-    memori,
+    memori: {
+      ...memori,
+      ownerUserID: memori.ownerUserID ?? ownerUserID ?? undefined,
+    },
     tenant,
     history,
     showShare: showShare ?? integrationConfig?.showShare ?? true,
@@ -3681,6 +3684,7 @@ const MemoriWidget = ({
     loginToken,
     user,
     sessionID: sessionId,
+    baseUrl,
   };
 
   const avatarProps: AvatarProps = {

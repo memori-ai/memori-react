@@ -120,9 +120,13 @@ const ShareButton: React.FC<Props> = ({
       }/shared/${memori.ownerUserID}/${memori.memoriID}/${sessionID}`;
     }
 
-    return `${baseUrl ?? 'https://www.aisuru.com'}/${
-      i18n.language === 'it' ? 'it' : 'en'
-    }/shared/${memori.ownerUserName}/${memori.name}/${sessionID}`;
+    if (memori.exposed) {
+      return `${baseUrl ?? 'https://www.aisuru.com'}/${
+        i18n.language === 'it' ? 'it' : 'en'
+      }/shared/${memori.ownerUserName}/${memori.name}/${sessionID}`;
+    }
+
+    return undefined;
   }, [memori, sessionID, baseUrl, i18n.language]);
 
   return (

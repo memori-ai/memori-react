@@ -50,6 +50,7 @@ export interface Props {
   loginToken?: string;
   user?: User;
   sessionID?: string;
+  baseUrl?: string;
   fullScreenHandler?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -81,6 +82,7 @@ const Header: React.FC<Props> = ({
   sessionID,
   showChatHistory = true,
   fullScreenHandler,
+  baseUrl,
 }) => {
   const { t } = useTranslation();
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
@@ -140,8 +142,8 @@ const Header: React.FC<Props> = ({
           className="memori-header--button memori-header--button--chat-history"
           title={t('write_and_speak.chatHistory') || 'Chat history'}
           icon={<MessageIcon />}
-            onClick={() => setShowChatHistoryDrawer(true)}
-          />
+          onClick={() => setShowChatHistoryDrawer(true)}
+        />
       )}
       {fullScreenAvailable && (
         <Button
@@ -240,6 +242,7 @@ const Header: React.FC<Props> = ({
           tenant={tenant}
           showQrCode
           align="left"
+          baseUrl={baseUrl}
         />
       )}
       {showLogin && (
