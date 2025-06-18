@@ -204,6 +204,10 @@ const Memori: React.FC<Props> = ({
       );
 
       if (resp.resultCode === 0 && !!memori) {
+        if (!memori.ownerUserID && ownerUserID) {
+          memori.ownerUserID = ownerUserID;
+        }
+
         setMemori(memori);
       } else {
         console.error('[MEMORI]', resp, memori);

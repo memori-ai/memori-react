@@ -111,6 +111,20 @@ const ShareButton: React.FC<Props> = ({
     document.body.removeChild(link);
   };
 
+  const sharedUrl = useMemo(() => {
+    if (!memori || !sessionID) return undefined;
+
+    if (memori.ownerUserID) {
+      return `${baseUrl ?? 'https://www.aisuru.com'}/${
+        i18n.language === 'it' ? 'it' : 'en'
+      }/shared/${memori.ownerUserID}/${memori.memoriID}/${sessionID}`;
+    }
+
+    return `${baseUrl ?? 'https://www.aisuru.com'}/${
+      i18n.language === 'it' ? 'it' : 'en'
+    }/shared/${memori.ownerUserName}/${memori.name}/${sessionID}`;
+  }, [memori, sessionID, baseUrl, i18n.language]);
+
   return (
     <Menu
       as="div"
@@ -136,7 +150,7 @@ const ShareButton: React.FC<Props> = ({
         </div>
       </Menu.Button>
       <Menu.Items className="memori-share-button--overlay" as="ul">
-        {memori && sessionID && (
+        {memori && sessionID && sharedUrl && (
           <Menu.Item
             key="shared"
             as="li"
@@ -150,9 +164,7 @@ const ShareButton: React.FC<Props> = ({
                 'memori-button--padded',
                 'memori-share-button--link'
               )}
-              href={`${baseUrl ?? 'https://www.aisuru.com'}/${
-                i18n.language === 'it' ? 'it' : 'en'
-              }/shared/${memori.ownerUserID}/${memori.memoriID}/${sessionID}`}
+              href={sharedUrl}
               target="_blank"
               rel="noopener noreferrer"
             >
