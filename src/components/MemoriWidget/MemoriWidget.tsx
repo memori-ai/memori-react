@@ -470,7 +470,7 @@ const MemoriWidget = ({
   useMathFormatting = false,
   autoStart = false,
   applyVarsToRoot = false,
-  showFunctionCache = false,
+  showFunctionCache = true,
 }: Props) => {
   const { t, i18n } = useTranslation();
 

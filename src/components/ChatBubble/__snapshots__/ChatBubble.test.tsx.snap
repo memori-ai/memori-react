@@ -177,6 +177,102 @@ exports[`renders ChatBubble unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--debug-button"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            Debug
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--debug-button"
+              title="Debug"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  class="memori-chat--debug-icon"
+                  color="currentColor"
+                  fill="none"
+                  height="800px"
+                  viewBox="0 0 24 24"
+                  width="800px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M19 14H22"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M5 14H2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M14.5 3.5L17 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M9.5 3.5L7 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 20.0002L18.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 7.9998L18.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 20.0002L5.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 7.9998L5.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M12 21.5V15"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -2764,6 +2860,102 @@ M834 80h400000v40h-400000z"
             </svg>
           </span>
         </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--debug-button"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            Debug
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--debug-button"
+              title="Debug"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  class="memori-chat--debug-icon"
+                  color="currentColor"
+                  fill="none"
+                  height="800px"
+                  viewBox="0 0 24 24"
+                  width="800px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M19 14H22"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M5 14H2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M14.5 3.5L17 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M9.5 3.5L7 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 20.0002L18.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 7.9998L18.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 20.0002L5.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 7.9998L5.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M12 21.5V15"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -4015,6 +4207,102 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
             </svg>
           </span>
         </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--debug-button"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            Debug
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--debug-button"
+              title="Debug"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  class="memori-chat--debug-icon"
+                  color="currentColor"
+                  fill="none"
+                  height="800px"
+                  viewBox="0 0 24 24"
+                  width="800px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M19 14H22"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M5 14H2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M14.5 3.5L17 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M9.5 3.5L7 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 20.0002L18.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 7.9998L18.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 20.0002L5.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 7.9998L5.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M12 21.5V15"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -5000,6 +5288,102 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--debug-button"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            Debug
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--debug-button"
+              title="Debug"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  class="memori-chat--debug-icon"
+                  color="currentColor"
+                  fill="none"
+                  height="800px"
+                  viewBox="0 0 24 24"
+                  width="800px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M19 14H22"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M5 14H2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M14.5 3.5L17 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M9.5 3.5L7 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 20.0002L18.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 7.9998L18.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 20.0002L5.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 7.9998L5.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M12 21.5V15"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -5524,6 +5908,102 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--debug-button"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            Debug
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--debug-button"
+              title="Debug"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  class="memori-chat--debug-icon"
+                  color="currentColor"
+                  fill="none"
+                  height="800px"
+                  viewBox="0 0 24 24"
+                  width="800px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M19 14H22"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M5 14H2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M14.5 3.5L17 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M9.5 3.5L7 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 20.0002L18.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 7.9998L18.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 20.0002L5.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 7.9998L5.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M12 21.5V15"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -6310,6 +6790,102 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--debug-button"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            Debug
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--debug-button"
+              title="Debug"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  class="memori-chat--debug-icon"
+                  color="currentColor"
+                  fill="none"
+                  height="800px"
+                  viewBox="0 0 24 24"
+                  width="800px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M19 14H22"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M5 14H2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M14.5 3.5L17 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M9.5 3.5L7 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 20.0002L18.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 7.9998L18.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 20.0002L5.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 7.9998L5.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M12 21.5V15"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -6574,6 +7150,102 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
             </svg>
           </span>
         </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--debug-button"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            Debug
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--debug-button"
+              title="Debug"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  class="memori-chat--debug-icon"
+                  color="currentColor"
+                  fill="none"
+                  height="800px"
+                  viewBox="0 0 24 24"
+                  width="800px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M19 14H22"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M5 14H2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M14.5 3.5L17 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M9.5 3.5L7 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 20.0002L18.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 7.9998L18.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 20.0002L5.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 7.9998L5.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M12 21.5V15"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -6676,6 +7348,102 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--debug-button"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            Debug
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--debug-button"
+              title="Debug"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  class="memori-chat--debug-icon"
+                  color="currentColor"
+                  fill="none"
+                  height="800px"
+                  viewBox="0 0 24 24"
+                  width="800px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M19 14H22"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M5 14H2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M14.5 3.5L17 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M9.5 3.5L7 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 20.0002L18.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 7.9998L18.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 20.0002L5.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 7.9998L5.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M12 21.5V15"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -6815,6 +7583,102 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--debug-button"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            Debug
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--debug-button"
+              title="Debug"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  class="memori-chat--debug-icon"
+                  color="currentColor"
+                  fill="none"
+                  height="800px"
+                  viewBox="0 0 24 24"
+                  width="800px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M19 14H22"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M5 14H2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M14.5 3.5L17 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M9.5 3.5L7 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 20.0002L18.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 7.9998L18.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 20.0002L5.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 7.9998L5.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M12 21.5V15"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -6928,6 +7792,102 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--debug-button"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            Debug
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--debug-button"
+              title="Debug"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  class="memori-chat--debug-icon"
+                  color="currentColor"
+                  fill="none"
+                  height="800px"
+                  viewBox="0 0 24 24"
+                  width="800px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M19 14H22"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M5 14H2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M14.5 3.5L17 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M9.5 3.5L7 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 20.0002L18.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 7.9998L18.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 20.0002L5.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 7.9998L5.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M12 21.5V15"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -7099,6 +8059,102 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--debug-button"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            Debug
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--debug-button"
+              title="Debug"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  class="memori-chat--debug-icon"
+                  color="currentColor"
+                  fill="none"
+                  height="800px"
+                  viewBox="0 0 24 24"
+                  width="800px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M19 14H22"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M5 14H2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M14.5 3.5L17 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M9.5 3.5L7 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 20.0002L18.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 7.9998L18.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 20.0002L5.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 7.9998L5.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M12 21.5V15"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -7433,6 +8489,102 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--debug-button"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            Debug
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--debug-button"
+              title="Debug"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  class="memori-chat--debug-icon"
+                  color="currentColor"
+                  fill="none"
+                  height="800px"
+                  viewBox="0 0 24 24"
+                  width="800px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M19 14H22"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M5 14H2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M14.5 3.5L17 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M9.5 3.5L7 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 20.0002L18.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 7.9998L18.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 20.0002L5.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 7.9998L5.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M12 21.5V15"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -7743,6 +8895,102 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--debug-button"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            Debug
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--debug-button"
+              title="Debug"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  class="memori-chat--debug-icon"
+                  color="currentColor"
+                  fill="none"
+                  height="800px"
+                  viewBox="0 0 24 24"
+                  width="800px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M19 14H22"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M5 14H2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M14.5 3.5L17 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M9.5 3.5L7 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 20.0002L18.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 7.9998L18.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 20.0002L5.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 7.9998L5.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M12 21.5V15"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -7853,6 +9101,102 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
             </svg>
           </span>
         </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--debug-button"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            Debug
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--debug-button"
+              title="Debug"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  class="memori-chat--debug-icon"
+                  color="currentColor"
+                  fill="none"
+                  height="800px"
+                  viewBox="0 0 24 24"
+                  width="800px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M19 14H22"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M5 14H2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M14.5 3.5L17 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M9.5 3.5L7 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 20.0002L18.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 7.9998L18.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 20.0002L5.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 7.9998L5.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M12 21.5V15"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -7956,6 +9300,102 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
             </svg>
           </span>
         </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--debug-button"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            Debug
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <button
+              class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--debug-button"
+              title="Debug"
+            >
+              <span
+                class="memori-button--icon"
+              >
+                <svg
+                  class="memori-chat--debug-icon"
+                  color="currentColor"
+                  fill="none"
+                  height="800px"
+                  viewBox="0 0 24 24"
+                  width="800px"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M19 14H22"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M5 14H2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M14.5 3.5L17 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M9.5 3.5L7 2"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 20.0002L18.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M20.5 7.9998L18.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 20.0002L5.5 19.2002"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M3.5 7.9998L5.5 8.7998"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M12 21.5V15"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-width="1.5"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </div>
         <div
           class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
         >

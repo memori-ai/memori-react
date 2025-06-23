@@ -21,6 +21,8 @@ import QuestionHelp from '../icons/QuestionHelp';
 import Copy from '../icons/Copy';
 import Code from '../icons/Code';
 import Bug from '../icons/Bug';
+import ChevronLeft from '../icons/ChevronLeft';
+import ChevronRight from '../icons/ChevronRight';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
 import { stripHTML, stripOutputTags } from '../../helpers/utils';
 import { renderMsg, truncateMessage } from '../../helpers/message';
@@ -37,6 +39,13 @@ declare global {
       typesetPromise?: (elements: string[]) => Promise<void>;
     };
   }
+}
+
+interface DebugLog {
+  timestamp: string;
+  level: string;
+  message: string;
+  // Add other log fields as needed
 }
 
 export interface Props {
@@ -78,12 +87,20 @@ const ChatBubble: React.FC<Props> = ({
   user,
   userAvatar,
   experts,
-  showFunctionCache = false,
+  showFunctionCache = true,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
   const [openFunctionCache, setOpenFunctionCache] = useState(false);
+  const [debugLogs, setDebugLogs] = useState<DebugLog[]>([]);
+  const [isLoadingLogs, setIsLoadingLogs] = useState(false);
+  const [debugError, setDebugError] = useState<string | null>(null);
+  const [activeDebugTab, setActiveDebugTab] = useState<'function' | 'logs'>('function');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [totalLogs, setTotalLogs] = useState(0);
+  const [pageSize, setPageSize] = useState(10);
 
   // Initialize MathJax on component mount
   useEffect(() => {
@@ -148,6 +165,63 @@ const ChatBubble: React.FC<Props> = ({
     }
   }, [message.text, message.fromUser, renderedText]);
 
+  const fetchDebugLogs = async (page = 1, size = pageSize) => {
+    setIsLoadingLogs(true);
+    setDebugError(null);
+  
+    console.log('Fetching debug logs via Next.js API:', {
+      sessionID,
+      page,
+      size,
+    });
+  
+    try {
+      const response = await fetch(`http://localhost:3000/api/debug-logs`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          sessionID: sessionID,
+          page: page,
+          size: size,
+        }),
+      });
+  
+      console.log('API response:', {
+        status: response.status,
+        statusText: response.statusText,
+        ok: response.ok,
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('API error response:', errorData);
+        throw new Error(errorData.error || `Request failed: ${response.status}`);
+      }
+  
+      const data = await response.json();
+      console.log('Debug logs data:', data);
+      
+      // Handle both possible response formats
+      const logs = data.logs || data.documents || [];
+      const total = data.total || logs.length;
+      
+      setDebugLogs(logs);
+      setTotalLogs(total);
+      setTotalPages(Math.ceil(total / size));
+      setCurrentPage(page);
+      
+    } catch (error) {
+      console.error('Debug logs fetch error:', error);
+      setDebugError(
+        error instanceof Error ? error.message : 'Failed to fetch debug logs'
+      );
+    } finally {
+      setIsLoadingLogs(false);
+    }
+  };
+
   return (
     <>
       {(message.initial || isFirst) && (
@@ -207,7 +281,6 @@ const ChatBubble: React.FC<Props> = ({
                       tenantID: tenant?.name,
                       resourceURI: memori.avatarURL,
                       baseURL: baseUrl,
-                      apiURL: apiUrl,
                     })
                   : getResourceUrl({
                       tenantID: tenant?.name,
@@ -311,17 +384,30 @@ const ChatBubble: React.FC<Props> = ({
 
               {!message.fromUser &&
                 showFunctionCache &&
-                message.media?.some(
-                  m => m.properties?.functionCache === 'true'
-                ) && (
-                  <Button
-                    ghost
-                    shape="circle"
-                    title="Debug"
-                    className="memori-chat--bubble-action-icon"
-                    icon={<Bug aria-label="Debug" />}
-                    onClick={() => setOpenFunctionCache(true)}
-                  />
+                // message.media?.some(
+                //   m => m.properties?.functionCache === 'true'
+                // ) && (
+                (
+                  <Tooltip
+                    align="left"
+                    content={
+                        'Debug'
+                    }
+                    className="memori-chat--bubble-action-icon memori-chat--debug-button"
+                  >
+                    <Button
+                      ghost
+                      shape="circle"
+                      title={'Debug'}
+                      className="memori-chat--bubble-action-icon memori-chat--debug-button"
+                      icon={<Bug aria-label="Debug" className="memori-chat--debug-icon" />}
+                      onClick={() => {
+                        setOpenFunctionCache(true);
+                        setCurrentPage(1);
+                        fetchDebugLogs(1, pageSize);
+                      }}
+                    />
+                  </Tooltip>
                 )}
 
               {showFeedback && !!simulateUserPrompt && (
@@ -473,14 +559,107 @@ const ChatBubble: React.FC<Props> = ({
       )}
 
       <Modal
-        title={functionCacheData?.title}
+        title="Debug Information"
         open={openFunctionCache}
         onClose={() => setOpenFunctionCache(false)}
         className="memori-chat--function-cache-modal"
       >
-        <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
-          {functionCacheData?.content}
-        </pre>
+        <div className="memori-chat--debug-tabs">
+          <button
+            className={`memori-chat--debug-tab ${
+              activeDebugTab === 'function' ? 'active' : ''
+            }`}
+            onClick={() => setActiveDebugTab('function')}
+          >
+            Function Cache
+          </button>
+          <button
+            className={`memori-chat--debug-tab ${
+              activeDebugTab === 'logs' ? 'active' : ''
+            }`}
+            onClick={() => {
+              setActiveDebugTab('logs');
+              setCurrentPage(1);
+              fetchDebugLogs(1, pageSize);
+            }}
+          >
+            Injest Logs
+          </button>
+        </div>
+
+        <div className="memori-chat--debug-content">
+          {activeDebugTab === 'function' && functionCacheData?.content && (
+            <div className="memori-chat--function-cache">
+              <h3 className="memori-chat--debug-subtitle">
+                {functionCacheData.title || 'Function Cache'}
+              </h3>
+              <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
+                {functionCacheData.content}
+              </pre>
+            </div>
+          )}
+
+          {activeDebugTab === 'logs' && (
+            <div className="memori-chat--debug-logs-container">
+              {isLoadingLogs ? (
+                <div className="memori-chat--debug-loading">Loading logs...</div>
+              ) : debugError ? (
+                <div className="memori-chat--debug-error">{debugError}</div>
+              ) : debugLogs.length === 0 ? (
+                <div className="memori-chat--debug-empty">No logs found</div>
+              ) : (
+                <>
+                  <div className="memori-chat--debug-logs">
+                    {debugLogs.map((log, index) => (
+                      <div key={index} className="memori-chat--debug-log-entry">
+                        <div className="memori-chat--debug-log-header">
+                          <span className="memori-chat--debug-timestamp">
+                            {new Date(log.timestamp).toLocaleString()}
+                          </span>
+                          <span
+                            className={`memori-chat--debug-level memori-chat--debug-level-${log.level.toLowerCase()}`}
+                          >
+                            {log.level}
+                          </span>
+                        </div>
+                        <pre className="memori-chat--debug-message">{log.message}</pre>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {totalPages > 1 && (
+                    <div className="memori-chat--debug-pagination">
+                      <div className="memori-chat--debug-pagination--info">
+                        Showing {((currentPage - 1) * pageSize) + 1} to {Math.min(currentPage * pageSize, totalLogs)} of {totalLogs} logs
+                      </div>
+                      <div className="memori-chat--debug-pagination--controls">
+                        <button
+                          className="memori-chat--debug-pagination--button"
+                          onClick={() => fetchDebugLogs(currentPage - 1, pageSize)}
+                          disabled={currentPage === 1}
+                          title="Previous page"
+                        >
+                          <ChevronLeft />
+                        </button>
+                        <span className="memori-chat--debug-pagination--page-info">
+                          {currentPage} / {totalPages}
+                        </span>
+                        <button
+                          className="memori-chat--debug-pagination--button"
+                          onClick={() => fetchDebugLogs(currentPage + 1, pageSize)}
+                          disabled={currentPage === totalPages}
+                          title="Next page"
+                        >
+                          <ChevronRight />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </>
+              )}
+            </div>
+          )}
+        </div>
       </Modal>
     </>
   );

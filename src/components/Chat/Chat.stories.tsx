@@ -12,6 +12,7 @@ import {
 } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Chat, { Props } from './Chat';
+import { DialogState, Message } from '@memori.ai/memori-api-client/dist/types';
 
 import './Chat.css';
 
@@ -288,7 +289,6 @@ WithCustomUserAvatarAsElement.args = {
   setSendOnEnter: () => {},
 };
 
-
 export const WithExpandable = Template.bind({});
 WithExpandable.args = {
   memori,
@@ -303,7 +303,6 @@ WithExpandable.args = {
   resetTranscript: () => {},
 };
 
-
 export const WithLongHTMLTable = Template.bind({});
 WithLongHTMLTable.args = {
   memori,
@@ -312,4 +311,62 @@ WithLongHTMLTable.args = {
   history,
   dialogState,
   layout: 'DEFAULT',
+};
+
+// Mock data for testing
+const mockMemori = {
+  memoriID: 'test-memori-id',
+  name: 'Test Memori',
+  culture: 'en-US',
+  coverURL: 'https://example.com/cover.jpg',
+};
+
+const mockHistory: Message[] = Array.from({ length: 20 }, (_, i) => ({
+  text: `Message ${i + 1}`,
+  fromUser: i % 2 === 0,
+  timestamp: new Date().toISOString(),
+}));
+
+const mockDialogState: DialogState = {
+  acceptsFeedback: true,
+  hints: ['Hint 1', 'Hint 2'],
+};
+
+// Story for testing preview mode with scrolling
+export const PreviewMode = Template.bind({});
+PreviewMode.args = {
+  memori: mockMemori,
+  sessionID: 'test-session',
+  history: mockHistory,
+  dialogState: mockDialogState,
+  preview: true,
+  showInputs: true,
+  showDates: true,
+  showContextPerLine: true,
+  showAIicon: true,
+  showWhyThisAnswer: true,
+  showCopyButton: true,
+  showTranslationOriginal: false,
+  showUpload: false,
+  showMicrophone: false,
+  userMessage: '',
+  onChangeUserMessage: () => {},
+  sendMessage: () => {},
+  setDialogState: () => {},
+  pushMessage: () => {},
+  simulateUserPrompt: () => {},
+  setSendOnEnter: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setEnableFocusChatInput: () => {},
+  stopAudio: () => {},
+  startListening: () => {},
+  stopListening: () => {},
+  resetTranscript: () => {},
+};
+
+// Story for testing normal mode (non-preview) with scrolling
+export const NormalMode = Template.bind({});
+NormalMode.args = {
+  ...PreviewMode.args,
+  preview: false,
 };
