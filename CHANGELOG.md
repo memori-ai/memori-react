@@ -1,5 +1,12 @@
 
 
+## [7.30.6](https://github.com/memori-ai/memori-react/compare/v7.30.5...v7.30.6) (2025-06-24)
+
+
+### Features
+
+* enhance avatar detection logic for custom avatars with dynamic morph target checks ([ad8d6b8](https://github.com/memori-ai/memori-react/commit/ad8d6b8a437dd04b668b8fdc26b673f2e73e9c7d))
+
 ## [7.30.5](https://github.com/memori-ai/memori-react/compare/v7.30.4...v7.30.5) (2025-06-18)
 
 
