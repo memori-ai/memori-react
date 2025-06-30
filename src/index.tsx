@@ -158,7 +158,7 @@ const Memori: React.FC<Props> = ({
   }
 
   const client = memoriApiClient(
-    apiURL === 'https://backend.memori.ai'
+    new URL(apiURL).hostname === 'backend.memori.ai'
       ? 'https://backend-proxy.aisuru.com'
       : apiURL,
     engineURL
