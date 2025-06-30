@@ -1,5 +1,12 @@
 
 
+## [7.31.1](https://github.com/memori-ai/memori-react/compare/v7.31.0...v7.31.1) (2025-06-30)
+
+
+### Maintenance
+
+* **temp:** adopt cache proxy endpoint for backend ([00f5f42](https://github.com/memori-ai/memori-react/commit/00f5f42797f03a7eea0818be677cb18a3f69906b))
+
 ## [7.31.0](https://github.com/memori-ai/memori-react/compare/v7.30.6...v7.31.0) (2025-06-30)
 
 
