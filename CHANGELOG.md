@@ -1,5 +1,17 @@
 
 
+## [7.31.0](https://github.com/memori-ai/memori-react/compare/v7.30.6...v7.31.0) (2025-06-30)
+
+
+### Features
+
+* add support for rendering document attachments in messages with expandable details ([388b93f](https://github.com/memori-ai/memori-react/commit/388b93f871ba1a1a45ad050abd0aa597f30de216))
+
+
+### Maintenance
+
+* **temp:** adopt cache proxy endpoint for backend ([1c70b8b](https://github.com/memori-ai/memori-react/commit/1c70b8bfa5f13c80e80cf10e9a433bbd9f68ac97))
+
 ## [7.30.6](https://github.com/memori-ai/memori-react/compare/v7.30.5...v7.30.6) (2025-06-24)
 
 
