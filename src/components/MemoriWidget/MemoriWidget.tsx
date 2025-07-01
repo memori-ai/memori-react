@@ -685,7 +685,8 @@ const MemoriWidget = ({
   const [position, _setPosition] = useState<Venue>();
   const applyPosition = async (venue?: Venue, sessionID?: string) => {
     const session = sessionID ?? sessionId;
-    if (venue && session) {
+    // Only apply position if memori.needsPosition is true
+    if (venue && session && memori.needsPosition) {
       const { currentState, ...response } = await postPlaceChangedEvent({
         sessionId: session,
         placeName: venue.placeName,
@@ -708,19 +709,23 @@ const MemoriWidget = ({
     _setPosition(venue);
     applyPosition(venue);
 
-    if (venue) {
+    // Only save position to local config if memori.needsPosition is true
+    if (venue && memori.needsPosition) {
       setLocalConfig('position', JSON.stringify(venue));
-    } else {
+    } else if (!venue) {
       removeLocalConfig('position');
     }
   };
 
   useEffect(() => {
-    const position = getLocalConfig<Venue | undefined>('position', undefined);
-    if (position) {
-      _setPosition(position);
+    // Only load position from local config if memori.needsPosition is true
+    if (memori.needsPosition) {
+      const position = getLocalConfig<Venue | undefined>('position', undefined);
+      if (position) {
+        _setPosition(position);
+      }
     }
-  }, []);
+  }, [memori.needsPosition]);
 
   /**
    * History e gestione invio messaggi
@@ -1226,7 +1231,7 @@ const MemoriWidget = ({
           setInstruct(false);
         }
 
-        if (position) applyPosition(position, session.sessionID);
+        if (position && memori.needsPosition) applyPosition(position, session.sessionID);
 
         setLoading(false);
         return {
@@ -1429,7 +1434,7 @@ const MemoriWidget = ({
         }
 
         // Apply position and date settings if needed
-        if (position) {
+        if (position && memori.needsPosition) {
           // console.log('[REOPEN_SESSION] Applying position');
           applyPosition(position, sessionID);
         }
@@ -3074,6 +3079,7 @@ const MemoriWidget = ({
         'position',
         undefined
       );
+      // Only check for position requirement if memori.needsPosition is true
       if (autoStart && !localPosition && memori.needsPosition) {
         console.log('position required', localPosition);
         setShowPositionDrawer(true);
@@ -3228,7 +3234,7 @@ const MemoriWidget = ({
         setHistory([]);
 
         // date and place events
-        if (position) applyPosition(position, sessionID);
+        if (position && memori.needsPosition) applyPosition(position, sessionID);
         if (memori.needsDateTime)
           sendDateChangedEvent({ sessionID: sessionID, state: currentState });
 
@@ -3470,7 +3476,7 @@ const MemoriWidget = ({
         }
 
         // date and place events
-        if (position) applyPosition(position, sessionID);
+        if (position && memori.needsPosition) applyPosition(position, sessionID);
         if (memori.needsDateTime)
           sendDateChangedEvent({ sessionID: sessionID, state: currentState });
       }
