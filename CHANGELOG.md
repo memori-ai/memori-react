@@ -1,5 +1,22 @@
 
 
+## [7.32.0](https://github.com/memori-ai/memori-react/compare/v7.31.1...v7.32.0) (2025-07-02)
+
+
+### Features
+
+* conditionally apply and save position based on memori.needsPosition flag ([cf73ae3](https://github.com/memori-ai/memori-react/commit/cf73ae362c878b9c4566b2a1329c582e155edee1))
+
+
+### Bug Fixes
+
+* translate typingText if useLoaderTextAsMsg with multilingual ([6833f59](https://github.com/memori-ai/memori-react/commit/6833f5967a47b877d9c003917b2084cb16715f1c))
+
+
+### Maintenance
+
+* cleanup replace backend url with proxy ([1c9ea7a](https://github.com/memori-ai/memori-react/commit/1c9ea7aea315c7e4c0ae891752f05378061ef211))
+
 ## [7.31.1](https://github.com/memori-ai/memori-react/compare/v7.31.0...v7.31.1) (2025-06-30)
 
 
