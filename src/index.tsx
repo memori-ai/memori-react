@@ -157,12 +157,7 @@ const Memori: React.FC<Props> = ({
     );
   }
 
-  const client = memoriApiClient(
-    new URL(apiURL).hostname === 'backend.memori.ai'
-      ? 'https://backend-proxy.aisuru.com'
-      : apiURL,
-    engineURL
-  );
+  const client = memoriApiClient(apiURL, engineURL);
 
   const fetchSpeechKey = useCallback(async () => {
     const url =
