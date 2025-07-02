@@ -854,6 +854,8 @@ const MemoriWidget = ({
           emission &&
           isMultilanguageEnabled
         ) {
+          currentState.emission = emission;
+
           translateDialogState(currentState, userLang, msg).then(ts => {
             let text = ts.translatedEmission || ts.emission;
             if (text) {
