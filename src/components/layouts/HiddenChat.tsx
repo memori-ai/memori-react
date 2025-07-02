@@ -18,7 +18,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
 
-  const { onClickStart } = startPanelProps || {};
+  const { onClickStart, hasInitialSession } = startPanelProps || {};
 
   // Use refs to store original sidebar properties to restore them later
   const originalSidebarStyles = useRef({
@@ -72,7 +72,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
       }
       // Restore sidebar styles
       restoreFromFullscreen();
-    } else if (!sessionId) {
+    } else if (!sessionId || hasInitialSession) {
       onClickStart?.();
     }
 

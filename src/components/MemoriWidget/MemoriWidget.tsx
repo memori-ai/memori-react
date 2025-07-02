@@ -1231,7 +1231,8 @@ const MemoriWidget = ({
           setInstruct(false);
         }
 
-        if (position && memori.needsPosition) applyPosition(position, session.sessionID);
+        if (position && memori.needsPosition)
+          applyPosition(position, session.sessionID);
 
         setLoading(false);
         return {
@@ -3234,7 +3235,8 @@ const MemoriWidget = ({
         setHistory([]);
 
         // date and place events
-        if (position && memori.needsPosition) applyPosition(position, sessionID);
+        if (position && memori.needsPosition)
+          applyPosition(position, sessionID);
         if (memori.needsDateTime)
           sendDateChangedEvent({ sessionID: sessionID, state: currentState });
 
@@ -3476,7 +3478,8 @@ const MemoriWidget = ({
         }
 
         // date and place events
-        if (position && memori.needsPosition) applyPosition(position, sessionID);
+        if (position && memori.needsPosition)
+          applyPosition(position, sessionID);
         if (memori.needsDateTime)
           sendDateChangedEvent({ sessionID: sessionID, state: currentState });
       }
