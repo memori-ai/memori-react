@@ -1,5 +1,18 @@
 
 
+## [7.32.1](https://github.com/memori-ai/memori-react/compare/v7.32.0...v7.32.1) (2025-07-04)
+
+
+### Bug Fixes
+
+* initial session inside chat with layout HIDDEN CHAT ([ba23ea1](https://github.com/memori-ai/memori-react/commit/ba23ea1d66bd4da337c69f07004af99eab93e1b7))
+
+
+### Maintenance
+
+* rename get tenant api ([eeeaa2b](https://github.com/memori-ai/memori-react/commit/eeeaa2b3f3cfefe7ba8fb3c881f37eaa0f7b8026))
+* update api client ([9ab11a4](https://github.com/memori-ai/memori-react/commit/9ab11a4f04f2ac5442d8c7cf9ce0ccc03b88ee4f))
+
 ## [7.32.0](https://github.com/memori-ai/memori-react/compare/v7.31.1...v7.32.0) (2025-07-02)
 
 
