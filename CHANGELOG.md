@@ -1,5 +1,12 @@
 
 
+## [7.32.2](https://github.com/memori-ai/memori-react/compare/v7.32.1...v7.32.2) (2025-07-04)
+
+
+### Bug Fixes
+
+* totem layout sharing z-index ([2dab8a5](https://github.com/memori-ai/memori-react/commit/2dab8a522095d9044d1fe971da467a9d8750e82b))
+
 ## [7.32.1](https://github.com/memori-ai/memori-react/compare/v7.32.0...v7.32.1) (2025-07-04)
 
 
