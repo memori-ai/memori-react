@@ -222,9 +222,7 @@ const Memori: React.FC<Props> = ({
    * Fetches the Tenant data from the backend
    */
   const fetchTenant = useCallback(async () => {
-    const { tenant, ...resp } = await client.backend.tenant.getTenantConfig(
-      tenantID
-    );
+    const { tenant, ...resp } = await client.backend.tenant.getTenant(tenantID);
     if (tenant && resp.resultCode === 0) setTenant(tenant);
     else console.debug('[TENANT]', resp, tenant);
   }, [tenantID, apiURL]);
