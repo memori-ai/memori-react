@@ -3932,7 +3932,14 @@ const MemoriWidget = ({
             )
               .then(state => {
                 setAuthModalState(null);
-                onClickStart(state || undefined);
+                // If we got a valid state from reopenSession, don't call onClickStart again
+                // to avoid duplicate snippet execution
+                if (state?.dialogState) {
+                  setHasUserActivatedSpeak(true);
+                } else {
+                  // Only call onClickStart if reopenSession didn't return a valid state
+                  onClickStart(state || undefined);
+                }
               })
               .catch(() => {
                 setAuthModalState(null);
