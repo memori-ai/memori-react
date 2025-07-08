@@ -1,5 +1,24 @@
 
 
+## [7.32.3](https://github.com/memori-ai/memori-react/compare/v7.32.2...v7.32.3) (2025-07-08)
+
+
+### Bug Fixes
+
+* alignment of the media items ([b17890d](https://github.com/memori-ai/memori-react/commit/b17890ddff229531a1e54f66c0a925814a0e1870))
+* prevent duplicate snippet execution by checking dialog state before calling onClickStart ([0e550ee](https://github.com/memori-ai/memori-react/commit/0e550ee22bbe2016e3b83e6dd8399c7579c35b8a))
+
+
+### Maintenance
+
+* cleanup unused props ([f4ae85f](https://github.com/memori-ai/memori-react/commit/f4ae85f2175d3974e7c9de88f446971d822ca086))
+* cleanup unused props ([53c421a](https://github.com/memori-ai/memori-react/commit/53c421aadf7d6a3d2f2561dea58e627b0a0b5970))
+
+
+### Changes
+
+* debug icon in chat bubble color, tests and stories ([54ba7d5](https://github.com/memori-ai/memori-react/commit/54ba7d5a4220a355a2c87688151c5631f2261730))
+
 ## [7.32.2](https://github.com/memori-ai/memori-react/compare/v7.32.1...v7.32.2) (2025-07-04)
 
 
