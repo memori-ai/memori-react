@@ -179,6 +179,14 @@
     color: #000;
 }
 
+.memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--debug {
+    color: var(--memori-error-color);
+}
+
+.memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--debug svg {
+    color: currentColor;
+}
+
 .memori-chat--bubble-addon .memori-chat--feedback {
     display: flex;
     align-items: center;

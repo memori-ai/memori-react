@@ -281,6 +281,7 @@ const ChatBubble: React.FC<Props> = ({
 
           {((!message.fromUser && showCopyButton) ||
             (message.generatedByAI && showAIicon) ||
+            (message.generatedByAI && showFunctionCache) ||
             (showFeedback && simulateUserPrompt)) && (
             <div className="memori-chat--bubble-addon">
               {!message.fromUser && showCopyButton && (
@@ -312,13 +313,15 @@ const ChatBubble: React.FC<Props> = ({
               {!message.fromUser &&
                 showFunctionCache &&
                 message.media?.some(
-                  m => m.properties?.functionCache === 'true'
+                  m =>
+                    Boolean(m.properties?.functionCache) ||
+                    m.properties?.functionCache === 'true'
                 ) && (
                   <Button
                     ghost
                     shape="circle"
                     title="Debug"
-                    className="memori-chat--bubble-action-icon"
+                    className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--debug"
                     icon={<Bug aria-label="Debug" />}
                     onClick={() => setOpenFunctionCache(true)}
                   />

@@ -144,6 +144,35 @@ it('renders ChatBubble with msg from BoE expert unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders ChatBubble with debug button unchanged', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      showFunctionCache
+      message={{
+        fromUser: false,
+        text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+        initial: false,
+        generatedByAI: true,
+        media: [
+          {
+            mediumID: 'c6851968-5d4d-409a-ae75-f22ec077efcd',
+            mimeType: 'text/plain',
+            content: 'Lorem ipsum dolor sit amet',
+            title: 'Function Cache Lorem ispum',
+            properties: {
+              functionCache: true,
+            },
+          },
+        ],
+      }}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
 it('renders ChatBubble from user with avatar unchanged', () => {
   const { container } = render(
     <ChatBubble
