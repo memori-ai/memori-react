@@ -34,7 +34,6 @@ export interface Props {
   history: Message[];
   authToken?: string;
   dialogState?: DialogState;
-  setDialogState: (dialogState: DialogState) => void;
   pushMessage: (message: Message) => void;
   simulateUserPrompt: (text: string, translatedText?: string) => void;
   showDates?: boolean;
@@ -56,10 +55,7 @@ export interface Props {
   showMicrophone?: boolean;
   userMessage?: string;
   onChangeUserMessage: (userMessage: string) => void;
-  sendMessage: (
-    msg: string,
-    media?: (Medium & { type: string })[]
-  ) => void;
+  sendMessage: (msg: string, media?: (Medium & { type: string })[]) => void;
   listening?: boolean;
   setEnableFocusChatInput: (enableFocusChatInput: boolean) => void;
   isPlayingAudio?: boolean;

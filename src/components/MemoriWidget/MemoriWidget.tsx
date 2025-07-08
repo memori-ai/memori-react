@@ -3765,7 +3765,6 @@ const MemoriWidget = ({
     authToken:
       loginToken ?? userToken ?? additionalInfo?.loginToken ?? authToken,
     dialogState: currentDialogState,
-    setDialogState: setCurrentDialogState,
     pushMessage,
     simulateUserPrompt,
     showDates,
