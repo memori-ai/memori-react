@@ -1,10 +1,19 @@
 .memori-media-items--grid {
     display: grid;
     padding: 1rem;
-    direction: rtl;
     grid-auto-flow: dense;
     grid-gap: 1rem;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+
+/* Allineamento media per messaggi dell'utente */
+.memori-media-items--grid.memori-media-items--user {
+    direction: rtl;
+}
+
+/* Allineamento media per messaggi dell'agente */
+.memori-media-items--grid.memori-media-items--agent {
+    direction: ltr;
 }
 
 .memori-media-item--card {

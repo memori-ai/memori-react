@@ -6,7 +6,7 @@ exports[`renders LinkItemWidget unchanged 1`] = `
     class="memori-link-items"
   >
     <div
-      class="memori-link-items--grid"
+      class="memori-link-items--grid memori-link-items--agent"
     >
       <div
         class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -86,7 +86,7 @@ exports[`renders LinkItemWidget unchanged with baseUrl 1`] = `
     class="memori-link-items"
   >
     <div
-      class="memori-link-items--grid"
+      class="memori-link-items--grid memori-link-items--agent"
     >
       <div
         class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -166,7 +166,7 @@ exports[`renders LinkItemWidget unchanged with description oneline 1`] = `
     class="memori-link-items"
   >
     <div
-      class="memori-link-items--grid"
+      class="memori-link-items--grid memori-link-items--agent"
     >
       <div
         class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -246,7 +246,7 @@ exports[`renders LinkItemWidget unchanged with no media 1`] = `
     class="memori-link-items"
   >
     <div
-      class="memori-link-items--grid"
+      class="memori-link-items--grid memori-link-items--agent"
     />
   </div>
 </div>

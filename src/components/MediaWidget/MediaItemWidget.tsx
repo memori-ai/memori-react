@@ -13,6 +13,7 @@ import FileExcel from '../icons/FileExcel';
 import FileWord from '../icons/FileWord';
 import { Transition } from '@headlessui/react';
 import { stripHTML } from '../../helpers/utils';
+import cx from 'classnames';
 
 export interface Props {
   items: (Medium & { type?: string })[];
@@ -22,6 +23,7 @@ export interface Props {
   baseURL?: string;
   apiURL?: string;
   customMediaRenderer?: (mimeType: string) => JSX.Element | null;
+  fromUser?: boolean;
 }
 
 export const RenderMediaItem = ({
@@ -305,6 +307,7 @@ const MediaItemWidget: React.FC<Props> = ({
   baseURL,
   apiURL,
   customMediaRenderer,
+  fromUser = false,
 }: Props) => {
   const [media, setMedia] = useState(items);
   const [openModalMedium, setOpenModalMedium] = useState<Medium>();
@@ -362,7 +365,10 @@ const MediaItemWidget: React.FC<Props> = ({
   return (
     <Transition appear show as="div" className="memori-media-items">
       {!!nonCodeDisplayMedia.length && (
-        <div className="memori-media-items--grid">
+        <div className={cx('memori-media-items--grid', {
+          'memori-media-items--user': fromUser,
+          'memori-media-items--agent': !fromUser,
+        })}>
           {nonCodeDisplayMedia.map((item: Medium, index: number) => (
             <Transition.Child
               as="div"

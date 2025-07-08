@@ -20,6 +20,7 @@ export interface Props {
   apiUrl?: string;
   translateTo?: string;
   customMediaRenderer?: MediaItemProps['customMediaRenderer'];
+  fromUser?: boolean;
 }
 
 const MediaWidget: React.FC<Props> = ({
@@ -32,6 +33,7 @@ const MediaWidget: React.FC<Props> = ({
   apiUrl,
   translateTo,
   customMediaRenderer,
+  fromUser = false,
 }: Props) => {
   const { t } = useTranslation();
   const [showHints, setShowHints] = useState(true);
@@ -51,9 +53,10 @@ const MediaWidget: React.FC<Props> = ({
           baseURL={baseUrl}
           apiURL={apiUrl}
           customMediaRenderer={customMediaRenderer}
+          fromUser={fromUser}
         />
       )}
-      {links?.length > 0 && <LinkItemWidget items={links} baseUrl={baseUrl} />}
+      {links?.length > 0 && <LinkItemWidget items={links} baseUrl={baseUrl} fromUser={fromUser} />}
       {hints?.length > 0 && showHints && (
         <>
           <Transition appear show as="ul" className="memori-media--hints">

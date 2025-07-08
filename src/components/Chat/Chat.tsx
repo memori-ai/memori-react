@@ -290,6 +290,7 @@ const Chat: React.FC<Props> = ({
                 apiUrl={apiUrl}
                 translateTo={translateTo}
                 customMediaRenderer={customMediaRenderer}
+                fromUser={message.fromUser}
               />
             </React.Fragment>
           ))}
