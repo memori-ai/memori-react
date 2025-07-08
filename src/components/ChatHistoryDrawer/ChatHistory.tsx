@@ -712,7 +712,6 @@ const ChatHistoryDrawer = ({
                           }))}
                           memori={memori}
                           sessionID={sessionId}
-                          setDialogState={() => {}}
                           pushMessage={() => {}}
                           simulateUserPrompt={() => {}}
                           setSendOnEnter={() => {}}
