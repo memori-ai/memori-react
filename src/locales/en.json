@@ -305,6 +305,7 @@
     "TENANT_ALREADY_EXISTS": "Tenant already exists",
     "TENANT_MISSING_DESCRIPTION": "Tenant: description missing",
     "TENANT_CANT_SET_COMPLETION_PROVIDER": "Tenant: can't set completion provider",
+    "TENANT_INVALID_TYPE": "Tenant: invalid type",
 
     "USER_NOT_CONFIRMED": "User still not confirmed",
     "USER_NOT_FOUND": "User not found",
@@ -339,6 +340,7 @@
     "USER_CREATION_BILLING_DENIED_PERMISSION": "You don't have enough credits to create an agent",
     "USER_HAS_ONE_OR_MORE_COMPLETION_CONFIGS": "The user has one or more completion configurations",
     "USER_CANT_BE_DELETED": "User can't be deleted",
+    "USER_ORDER_BY_INVALID": "Order by invalid",
 
     "MEMORI_NOT_FOUND": "Agent not found",
     "MEMORI_NOT_ACCESSIBLE": "Agent not accessible",
@@ -365,6 +367,9 @@
     "MEMORI_DEEP_THOUGHT_REQUIRES_COMPLETIONS": "Deep Thought requires completions to be enabled",
     "MEMORI_BOARD_OF_EXPERTS_REQUIRES_COMPLETIONS": "The expert group requires completions to be enabled",
     "MEMORI_INVALID_COMPLETION_CONFIG": "Agent: invalid completions configuration",
+    "MEMORI_MACRO_FUNCTIONS_REQUIRES_COMPLETIONS": "Macro functions requires completions to be enabled",
+    "MEMORI_BLOCKING_DATE_MISSING_OR_WRONG": "Agent: blocking date missing or wrong",
+    "MEMORI_LIST_FILTER_NOT_SPECIFIED": "Agent: list filter not specified",
 
     "MEMORI_TRANSFER_MISSING_DESTINATION_USER": "Transfer: missing destination user",
     "MEMORI_TRANSFER_INVALID_DESTINATION_USER_ID": "Transfer: invalid destination user ID",
@@ -380,6 +385,8 @@
 
     "MEMORI_SESSIONS_INVALID_DATE_FROM_FORMAT": "Invalid date from format",
     "MEMORI_SESSIONS_INVALID_DATE_TO_FORMAT": "Invalid date to format",
+    "MEMORI_SESSION_NOT_FOUND": "Session not found",
+    "MEMORI_SESSION_DOESNT_ACCEPT_MEDIA": "Session doesn't accept media",
 
     "INTEGRATION_INVALID_TYPE": "Invalid integration type",
     "INTEGRATION_ALREADY_EXISTS": "Integration already exists",
@@ -434,6 +441,11 @@
     "CONSUMPTIONLOG_INVALID_MEMORI_ID": "Invalid Memori ID",
 
     "NOTIFICATIONPREFS_INVALID_CHATLOG_EXTRACTION_PERIOD": "Notifications: Invalid chat log extraction period",
+    "BROADCAST_NOT_ALLOWED": "Broadcast not allowed",
+    "INVALID_NOTIFICATION_TYPE": "Invalid notification type",
+    "NOTIFICATION_NOT_FOUND": "Notification not found",
+    "INVALID_NOTIFICATION_FILTER": "Invalid notification filter",
+    "INVALID_NOTIFICATION_PERIOD": "Invalid notification period",
 
     "PROCESS_INVALID_TYPE": "Invalid process type",
     "PROCESS_ALREADY_RUNNING": "Process already running",
@@ -462,6 +474,12 @@
     "IMPORTTXT_IMPORT_ON_GPT4_REQUIRES_API_KEY": "Import TXT: import on GPT-4 requires API key",
     "IMPORTTXT_IMPORT_REQUIRES_PAYING": "Import TXT: Import requires a paying plan",
     "IMPORTTXT_BILLING_DENIED_PERMISSION": "Import TXT: you don't have enough credits for the operation",
+    "IMPORT_MISSING_ROWS": "Import: missing rows",
+    "IMPORT_CANT_IMPORT_TO_SECRET_MEMORI": "Import: can't import to Secret Memories",
+    "IMPORTMEMORI_INVALID_MEMORI_SPECS": "Import MEMORI: invalid memory specs",
+    "IMPORT_MISSING_JSONL": "Import: missing JSONL",
+    "IMPORTMEMORI_INVALID_SPECS": "Import MEMORI: invalid specs",
+    "EXPORT_MISSING_PASSWORD": "Export: missing password",
 
     "EXPORTCSV_MISSING_CSV_SPECS": "CSV export: missing CSV specifications",
     "EXPORTCSV_MISSING_SEPARATOR": "CSV export: missing separator",
@@ -516,6 +534,19 @@
     "COMPLETION_CONFIG_NOT_ACCESSIBLE": "Completions configuration: not accessible",
     "COMPLETION_CONFIG_NAME_RESERVED": "Completions configuration: name reserved",
     "COMPLETION_CONFIG_NAME_ALREADY_EXISTS": "Completions configuration: name already exists",
-    "COMPLETION_CONFIG_VISIBILITY_CHANGE_NOT_ALLOWED": "Completions configuration: visibility change not allowed"
+    "COMPLETION_CONFIG_VISIBILITY_CHANGE_NOT_ALLOWED": "Completions configuration: visibility change not allowed",
+    "COMPLETION_CONFIG_MISSING_MANDATORY_PREFIX": "Completions configuration: missing mandatory prefix",
+    "COMPLETION_CONFIG_VISIBILITY_NOT_PERMITTED": "Completions configuration: visibility not permitted",
+    "COMPLETION_CONFIG_USE_AS_DEFAULT_NOT_PERMITTED": "Completions configuration: use as default not permitted",
+    "COMPLETION_CONFIG_USE_AS_DEFAULT_REQUIRES_TENANT_VISIBILITY": "Completions configuration: use as default requires tenant visibility",
+    "COMPLETION_CONFIG_CHARGEABLE_NOT_PERMITTED": "Completions configuration: chargeable not permitted",
+    "COMPLETION_CONFIG_INVALID_APPLY_TO": "Completions configuration: apply to invalid",
+    "COMPLETION_CONFIG_APPLY_TO_TENANT_NOT_ALLOWED": "Completions configuration: apply to tenant not allowed",
+    "TRUSTED_APPLICATION_NOT_FOUND": "Trusted application not found",
+    "TRUSTED_APPLICATION_NOT_ACCESSIBLE": "Trusted application not accessible",
+    "TRUSTED_APPLICATION_NAME_REQUIRED": "Trusted application: name required",
+    "TRUSTED_APPLICATION_TOKEN_REQUIRED": "Trusted application: token required",
+    "TRUSTED_APPLICATION_NAME_ALREADY_EXISTS": "Trusted application: name already exists",
+    "TRUSTED_APPLICATION_INVALID_TOKEN": "Trusted application: invalid token"
   }
 }

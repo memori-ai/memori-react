@@ -285,6 +285,7 @@
     "TENANT_ALREADY_EXISTS": "Mieter existiert bereits",
     "TENANT_MISSING_DESCRIPTION": "Mieter: Beschreibung fehlt",
     "TENANT_CANT_SET_COMPLETION_PROVIDER": "Mandant: Abschlussanbieter kann nicht festgelegt werden",
+    "TENANT_INVALID_TYPE": "Mandant: ungültiger Typ",
 
     "USER_NOT_CONFIRMED": "Benutzer noch nicht bestätigt",
     "USER_NOT_FOUND": "Benutzer nicht gefunden",
@@ -319,6 +320,7 @@
     "USER_CREATION_BILLING_DENIED_PERMISSION": "Sie haben nicht genügend Credits, um einen Zwilling zu erstellen",
     "USER_HAS_ONE_OR_MORE_COMPLETION_CONFIGS": "Der Benutzer verfügt über eine oder mehrere Abschlusskonfigurationen",
     "USER_CANT_BE_DELETED": "Benutzer kann nicht gelöscht werden",
+    "USER_ORDER_BY_INVALID": "Ungültige Sortierreihenfolge",
 
     "MEMORI_NOT_FOUND": "Erinnerungen nicht gefunden",
     "MEMORI_NOT_ACCESSIBLE": "Agent nicht zugänglich",
@@ -345,6 +347,9 @@
     "MEMORI_DEEP_THOUGHT_REQUIRES_COMPLETIONS": "Für \"Deep Thought\" müssen Vervollständigungen aktiviert sein",
     "MEMORI_BOARD_OF_EXPERTS_REQUIRES_COMPLETIONS": "Für die Expertengruppe müssen Vervollständigungen aktiviert sein",
     "MEMORI_INVALID_COMPLETION_CONFIG": "Zwilling: Ungültige Abschlusskonfiguration",
+    "MEMORI_MACRO_FUNCTIONS_REQUIRES_COMPLETIONS": "Für die Makrofunktionen müssen Vervollständigungen aktiviert sein",
+    "MEMORI_BLOCKING_DATE_MISSING_OR_WRONG": "Zwilling: fehlende oder falsche Blockierungsdatum",
+    "MEMORI_LIST_FILTER_NOT_SPECIFIED": "Zwilling: fehlender Filter",
 
     "MEMORI_TRANSFER_MISSING_DESTINATION_USER": "Übertragung: Zielbenutzer fehlt",
     "MEMORI_TRANSFER_INVALID_DESTINATION_USER_ID": "Übertragung: Ungültige Zielbenutzer-ID",
@@ -360,6 +365,8 @@
 
     "MEMORI_SESSIONS_INVALID_DATE_FROM_FORMAT": "Ungültiges Datum aus Format",
     "MEMORI_SESSIONS_INVALID_DATE_TO_FORMAT": "Ungültiges Datum zum Formatieren",
+    "MEMORI_SESSION_NOT_FOUND": "Sitzung nicht gefunden",
+    "MEMORI_SESSION_DOESNT_ACCEPT_MEDIA": "Sitzung akzeptiert keine Medien",
 
     "INTEGRATION_INVALID_TYPE": "Ungültiger Integrationstyp",
     "INTEGRATION_ALREADY_EXISTS": "Die Integration ist bereits vorhanden",
@@ -414,6 +421,11 @@
     "CONSUMPTIONLOG_INVALID_MEMORI_ID": "Ungültige Memori-ID",
 
     "NOTIFICATIONPREFS_INVALID_CHATLOG_EXTRACTION_PERIOD": "Benachrichtigungen: Ungültiger Chat-Protokoll-Extraktionszeitraum",
+    "BROADCAST_NOT_ALLOWED": "Broadcast nicht erlaubt",
+    "INVALID_NOTIFICATION_TYPE": "Ungültiger Benachrichtigungstyp",
+    "NOTIFICATION_NOT_FOUND": "Benachrichtigung nicht gefunden",
+    "INVALID_NOTIFICATION_FILTER": "Ungültiger Benachrichtigungsfilter",
+    "INVALID_NOTIFICATION_PERIOD": "Ungültiger Benachrichtigungszeitraum",
 
     "PROCESS_INVALID_TYPE": "Ungültiger Prozesstyp",
     "PROCESS_ALREADY_RUNNING": "Prozess läuft bereits",
@@ -443,6 +455,12 @@
     "IMPORTTXT_IMPORT_REQUIRES_PAYING": "TXT importieren: Für den Import ist ein kostenpflichtiger Plan erforderlich",
     "IMPORTTXT_BILLING_DENIED_PERMISSION": "TXT importieren: Sie haben nicht genügend Credits für den Vorgang",
 
+    "IMPORT_MISSING_ROWS": "Import: fehlende Zeilen",
+    "IMPORT_CANT_IMPORT_TO_SECRET_MEMORI": "Import: Der Import in Secret Memories ist nicht möglich",
+    "IMPORTMEMORI_INVALID_MEMORI_SPECS": "Import MEMORI: ungültige Agentenspezifikationen",
+    "IMPORT_MISSING_JSONL": "Import: JSONL fehlt",
+    "IMPORTMEMORI_INVALID_SPECS": "Import MEMORI: ungültige Spezifikationen",
+    "EXPORT_MISSING_PASSWORD": "Export: Passwort fehlt",
     "EXPORTCSV_MISSING_CSV_SPECS": "CSV-Export: CSV-Spezifikationen fehlen",
     "EXPORTCSV_MISSING_SEPARATOR": "CSV-Export: fehlendes Trennzeichen",
     "EXPORTCSV_INVALID_SEPARATOR": "CSV-Export: Ungültiges Trennzeichen",
@@ -496,6 +514,19 @@
     "COMPLETION_CONFIG_NOT_ACCESSIBLE": "Vervollständigungskonfiguration: nicht zugänglich",
     "COMPLETION_CONFIG_NAME_RESERVED": "Vervollständigungskonfiguration: Name reserviert",
     "COMPLETION_CONFIG_NAME_ALREADY_EXISTS": "Vervollständigungskonfiguration: Name existiert bereits",
-    "COMPLETION_CONFIG_VISIBILITY_CHANGE_NOT_ALLOWED": "Vervollständigungskonfiguration: Änderung der Sichtbarkeit nicht zulässig"
+    "COMPLETION_CONFIG_VISIBILITY_CHANGE_NOT_ALLOWED": "Vervollständigungskonfiguration: Änderung der Sichtbarkeit nicht zulässig",
+    "COMPLETION_CONFIG_MISSING_MANDATORY_PREFIX": "Vervollständigungskonfiguration: Pflichtpräfix fehlt",
+    "COMPLETION_CONFIG_VISIBILITY_NOT_PERMITTED": "Vervollständigungskonfiguration: Sichtbarkeit nicht erlaubt",
+    "COMPLETION_CONFIG_USE_AS_DEFAULT_NOT_PERMITTED": "Vervollständigungskonfiguration: Verwendung als Standard nicht erlaubt",
+    "COMPLETION_CONFIG_USE_AS_DEFAULT_REQUIRES_TENANT_VISIBILITY": "Vervollständigungskonfiguration: Verwendung als Standard erfordert Mandantensichtbarkeit",
+    "COMPLETION_CONFIG_CHARGEABLE_NOT_PERMITTED": "Vervollständigungskonfiguration: Chargeable nicht erlaubt",
+    "COMPLETION_CONFIG_INVALID_APPLY_TO": "Vervollständigungskonfiguration: Ungültige Anwendung",
+    "COMPLETION_CONFIG_APPLY_TO_TENANT_NOT_ALLOWED": "Vervollständigungskonfiguration: Anwendung auf Mandant nicht erlaubt",
+    "TRUSTED_APPLICATION_NOT_FOUND": "Vertrauenswürdige Anwendung nicht gefunden",
+    "TRUSTED_APPLICATION_NOT_ACCESSIBLE": "Vertrauenswürdige Anwendung nicht zugänglich",
+    "TRUSTED_APPLICATION_NAME_REQUIRED": "Vertrauenswürdige Anwendung: Name erforderlich",
+    "TRUSTED_APPLICATION_TOKEN_REQUIRED": "Vertrauenswürdige Anwendung: Token erforderlich",
+    "TRUSTED_APPLICATION_NAME_ALREADY_EXISTS": "Vertrauenswürdige Anwendung: Name existiert bereits",
+    "TRUSTED_APPLICATION_INVALID_TOKEN": "Vertrauenswürdige Anwendung: Ungültiger Token"
   }
 }
