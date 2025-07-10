@@ -79,9 +79,10 @@ export const renderMsg = (
         /<think>([\s\S]*?)<\/think>/g,
         `<details class="memori-think"><summary>${reasoningText}</summary>$1</details>`
       )
+      // Remove document_attachment tags from text - they will be handled as media
       .replaceAll(
         /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g,
-        '<details class="memori-document-attachment"><summary>$1 ($2)</summary>$3</details>'
+        ''
       )
       .replaceAll(/```markdown([^```]+)```/g, '$1')
       .replaceAll('($', '( $')

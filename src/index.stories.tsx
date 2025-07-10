@@ -258,9 +258,9 @@ NunzioFiore.args = {
 
 export const TestCustomAnimationsWithRPMSequence = Template.bind({});
 TestCustomAnimationsWithRPMSequence.args = {
-    memoriName: "Test Firenze",
+    memoriName: "Dancing Avatar",
     ownerUserName: "andrea.patini3",
-    memoriID: "0c813457-0b96-4d83-b4d4-604f7b42a9ac",
+    memoriID: "45420d30-a103-455c-bab1-b708a0566a02",
     ownerUserID: "58770358-a5db-4b49-b3a4-734fc468e745",
     tenantID: "aisuru-staging.aclambda.online",
     engineURL: "https://engine-staging.memori.ai/memori/v2",
@@ -268,22 +268,8 @@ TestCustomAnimationsWithRPMSequence.args = {
     baseURL: "https://aisuru-staging.aclambda.online",
     uiLang: "IT",
     spokenLang: "IT",
-    layout: "FULLPAGE",
-    showInstruct: "false",
-    showSettings: "true",
-    showClear: "false",
-    showTypingText: "false",
-    showOnlyLastMessages: "false",
-    showTranslationOriginal: "false",
-    showCopyButton: "false",
-    showShare: "true",
-    showLogin: "false",
-    useMathFormatting: "false",
-    showUpload: "false",
-    autoStart: false,
-    enableAudio: "true", 
-    integrationID: "dfb7ac75-98f0-430e-b9bb-0b2835452619",
-    initialQuestion: "Benvenuto"
+    layout: "ZOOMED_FULL_BODY",
+    integrationID: "ea181116-1b9a-4562-b8b2-41608221adb2",
 };
 
 export const TestCustomGLBSingleAnimation = Template.bind({});

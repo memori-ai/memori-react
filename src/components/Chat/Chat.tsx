@@ -203,8 +203,9 @@ const Chat: React.FC<Props> = ({
           />
 
           {history.map((message, index) => (
-            <React.Fragment key={index}>
+            <React.Fragment key={`${index}-${message.text?.includes('<document_attachment') ? 'has-attachments' : 'no-attachments'}-${message.timestamp}`}>
               <ChatBubble
+                key={`chatbubble-${index}-${message.text?.includes('<document_attachment') ? 'has-attachments' : 'no-attachments'}-${message.timestamp}`}
                 isFirst={index === 0}
                 message={message}
                 memori={memori}

@@ -7,13 +7,16 @@ import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
 import Snippet from '../Snippet/Snippet';
 import Card from '../ui/Card';
 import Modal from '../ui/Modal';
+import Button from '../ui/Button';
 import File from '../icons/File';
 import FilePdf from '../icons/FilePdf';
 import FileExcel from '../icons/FileExcel';
 import FileWord from '../icons/FileWord';
+import Copy from '../icons/Copy';
 import { Transition } from '@headlessui/react';
 import { stripHTML } from '../../helpers/utils';
 import cx from 'classnames';
+import './MediaItemWidget.css';
 
 export interface Props {
   items: (Medium & { type?: string })[];
@@ -48,6 +51,7 @@ export const RenderMediaItem = ({
   customMediaRenderer?: (mimeType: string) => JSX.Element | null;
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [copyNotification, setCopyNotification] = useState(false);
 
   const url = getResourceUrl({
     resourceURI: item.url,
@@ -178,8 +182,35 @@ export const RenderMediaItem = ({
           onClose={() => setModalOpen(false)}
           title={item.title}
           className="memori-media-item-preview--modal"
+          width="60%"
+          widthMd="70%"
+          footer={
+            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
+              <Button
+                onClick={async () => {
+                  try {
+                    await navigator.clipboard.writeText(item.content || '');
+                    setCopyNotification(true);
+                    setTimeout(() => setCopyNotification(false), 2000);
+                  } catch (err) {
+                    console.error('Failed to copy content:', err);
+                  }
+                }}
+                icon={<Copy />}
+              >
+                {copyNotification ? 'Copied!' : 'Copy Content'}
+              </Button>
+            </div>
+          }
         >
-          <pre>{stripHTML(item.content)}</pre>
+          <div className="memori-media-item-preview--content">
+            <div
+              className="memori-media-item-preview--text"
+              dangerouslySetInnerHTML={{
+                __html: stripHTML(item.content || ''),
+              }}
+            />
+          </div>
         </Modal>
       </>
     );

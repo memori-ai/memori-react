@@ -6,6 +6,7 @@ import {
   Message,
   Tenant,
   User,
+  Medium,
 } from '@memori.ai/memori-api-client/dist/types';
 import { Props as MemoriProps } from '../MemoriWidget/MemoriWidget';
 import { Transition } from '@headlessui/react';
@@ -26,6 +27,7 @@ import { stripHTML, stripOutputTags } from '../../helpers/utils';
 import { renderMsg, truncateMessage } from '../../helpers/message';
 import Expandable from '../ui/Expandable';
 import Modal from '../ui/Modal';
+import MediaWidget from '../MediaWidget/MediaWidget';
 
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
@@ -84,6 +86,7 @@ const ChatBubble: React.FC<Props> = ({
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
   const [openFunctionCache, setOpenFunctionCache] = useState(false);
+  const [documentAttachments, setDocumentAttachments] = useState<(Medium & { type?: string })[]>([]);
 
   // Initialize MathJax on component mount
   useEffect(() => {
@@ -92,14 +95,41 @@ const ChatBubble: React.FC<Props> = ({
     }
   }, []);
 
-  const text = message.translatedText || message.text;
+  // Extract document attachments from text and convert them to media
+  useEffect(() => {
+    const text = message.translatedText || message.text;
+    const documentAttachmentRegex = /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
+    const attachments: (Medium & { type?: string })[] = [];
+    let match;
+
+    while ((match = documentAttachmentRegex.exec(text)) !== null) {
+      const [, filename, type, content] = match;
+      attachments.push({
+        mediumID: `doc_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        url: '',
+        mimeType: type,
+        title: filename,
+        content: content.trim(),
+        properties: { isDocumentAttachment: true },
+        type: 'document',
+      });
+    }
+
+    setDocumentAttachments(attachments);
+  }, [message.text, message.translatedText]);
+
+  // Clean text by removing document_attachment tags before rendering
+  const cleanText = (message.translatedText || message.text).replace(
+    /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g,
+    ''
+  );
   const { text: renderedText } = renderMsg(
-    text,
+    cleanText,
     useMathFormatting,
     t('reasoning') || 'Reasoning...'
   );
   const plainText = message.fromUser
-    ? truncateMessage(text)
+    ? truncateMessage(cleanText)
     : stripHTML(stripOutputTags(renderedText));
 
   // Format function cache content
@@ -146,7 +176,9 @@ const ChatBubble: React.FC<Props> = ({
 
       return () => clearTimeout(timer);
     }
-  }, [message.text, message.fromUser, renderedText]);
+  }, [cleanText, message.fromUser, renderedText]);
+
+  console.log('media',message?.media);
 
   return (
     <>
@@ -464,6 +496,31 @@ const ChatBubble: React.FC<Props> = ({
           </>
         )}
       </Transition>
+
+      {/* Render document attachments as media */}
+      {documentAttachments.length > 0 && (
+        <MediaWidget
+          media={documentAttachments}
+          sessionID={sessionID}
+          baseUrl={baseUrl}
+          apiUrl={apiUrl}
+          fromUser={message.fromUser}
+        />
+      )}
+
+      {/* Render existing media */}
+      {message.media && message.media.length > 0 && (
+        <MediaWidget
+          media={message.media.filter(
+            m => m.mimeType !== 'text/html' && m.mimeType !== 'text/plain'
+          )}
+          links={message.media.filter(m => m.mimeType === 'text/html')}
+          sessionID={sessionID}
+          baseUrl={baseUrl}
+          apiUrl={apiUrl}
+          fromUser={message.fromUser}
+        />
+      )}
 
       {showingWhyThisAnswer && apiUrl && (
         <WhyThisAnswer

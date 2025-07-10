@@ -693,7 +693,7 @@ const ChatHistoryDrawer = ({
                     <div className="memori-chat-history-drawer--card--content">
                       <div className="memori-chat-history-drawer--card--content--messages">
                         <Chat
-                          key={`${chatLog.lines[0].text}-${chatLog.lines[0].timestamp}`}
+                          key={`${chatLog.chatLogID}-${chatLog.lines.length}`}
                           baseUrl={baseUrl}
                           apiUrl={apiUrl}
                           memoriTyping={false}
@@ -704,7 +704,7 @@ const ChatHistoryDrawer = ({
                           showCopyButton={false}
                           showInputs={false}
                           history={chatLog.lines.map(line => ({
-                            text: truncateMessage(line.text),
+                            text: line.text, // Don't truncate to preserve document_attachment tags
                             contextVars: line.contextVars,
                             media: line.media as Medium[],
                             fromUser: line.inbound,
