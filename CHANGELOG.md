@@ -1,5 +1,17 @@
 
 
+## [7.32.4](https://github.com/memori-ai/memori-react/compare/v7.32.3...v7.32.4) (2025-07-11)
+
+
+### Features
+
+* added attached media handling for resume chat ([5da312c](https://github.com/memori-ai/memori-react/commit/5da312c83ad9f05b1ea77c3999b627ed1f5b3ff6))
+
+
+### Maintenance
+
+* update error codes ([9368041](https://github.com/memori-ai/memori-react/commit/9368041e2fc3b684e16054c037cf37c3832057b3))
+
 ## [7.32.3](https://github.com/memori-ai/memori-react/compare/v7.32.2...v7.32.3) (2025-07-08)
 
 
