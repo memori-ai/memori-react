@@ -1,5 +1,12 @@
 
 
+## [7.32.5](https://github.com/memori-ai/memori-react/compare/v7.32.4...v7.32.5) (2025-07-11)
+
+
+### Maintenance
+
+* remove unused CSS import from MediaItemWidget ([a830dc9](https://github.com/memori-ai/memori-react/commit/a830dc9473ae53aff5a19dc0e45b56d644fa0239))
+
 ## [7.32.4](https://github.com/memori-ai/memori-react/compare/v7.32.3...v7.32.4) (2025-07-11)
 
 
