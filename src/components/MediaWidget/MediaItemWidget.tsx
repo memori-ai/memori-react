@@ -16,8 +16,6 @@ import Copy from '../icons/Copy';
 import { Transition } from '@headlessui/react';
 import { stripHTML } from '../../helpers/utils';
 import cx from 'classnames';
-import './MediaItemWidget.css';
-
 export interface Props {
   items: (Medium & { type?: string })[];
   sessionID?: string;
