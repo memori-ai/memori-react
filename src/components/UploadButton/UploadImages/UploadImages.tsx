@@ -34,7 +34,7 @@ const DEFAULT_MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 // Props interface
 interface UploadImagesProps {
   authToken?: string;
-  apiUrl?: string;
+  client?: ReturnType<typeof memoriApiClient>;
   sessionID?: string;
   isMediaAccepted?: boolean;
   setDocumentPreviewFiles: any;
@@ -48,8 +48,8 @@ const ALLOWED_FILE_TYPES = ['.jpg', '.jpeg', '.png'];
 
 const UploadImages: React.FC<UploadImagesProps> = ({
   authToken = '',
-  apiUrl = '',
   sessionID = '',
+  client,
   isMediaAccepted = false,
   setDocumentPreviewFiles,
   documentPreviewFiles,
@@ -59,7 +59,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({
 }) => {
   const { t, i18n } = useTranslation();
   // Client
-  const client = apiUrl ? memoriApiClient(apiUrl) : null;
   const { backend, dialog } = client || {
     backend: { uploadAsset: null, uploadAssetUnlogged: null },
     dialog: { postMediumSelectedEvent: null, postMediumDeselectedEvent: null },
@@ -187,7 +186,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
         const fileDataUrl = e.target?.result as string;
         const fileId = Math.random().toString(36).substr(2, 9);
 
-        if (apiUrl) {
+        if (client) {
           try {
             let asset: Asset;
             let response;

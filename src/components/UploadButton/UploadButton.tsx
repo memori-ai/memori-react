@@ -8,6 +8,7 @@ import cx from 'classnames';
 import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
 import { useTranslation } from 'react-i18next';
+import memoriApiClient from '@memori.ai/memori-api-client';
 
 // Constants
 const MAX_IMAGES = 5;
@@ -16,7 +17,7 @@ const MAX_DOCUMENTS = 1;
 // Props interface
 interface UploadManagerProps {
   authToken?: string;
-  apiUrl?: string;
+  client?: ReturnType<typeof memoriApiClient>;
   sessionID?: string;
   isMediaAccepted?: boolean;
   setDocumentPreviewFiles: any;
@@ -32,7 +33,7 @@ interface UploadManagerProps {
 
 const UploadButton: React.FC<UploadManagerProps> = ({
   authToken = '',
-  apiUrl = '',
+  client,
   sessionID = '',
   isMediaAccepted = false,
   setDocumentPreviewFiles,
@@ -163,8 +164,6 @@ ${file.content}
 
   // When image option is clicked
   const handleImageClick = () => {
-
-
     if (!isMediaAccepted) {
       addError({
         message:
@@ -262,11 +261,11 @@ ${file.content}
           <div
             className={cx('memori--upload-menu-item', {
               'memori--upload-menu-item--disabled':
-                 !isMediaAccepted || hasReachedImageLimit,
+                !isMediaAccepted || hasReachedImageLimit,
             })}
             onClick={handleImageClick}
             title={
-                !isMediaAccepted
+              !isMediaAccepted
                 ? t('upload.mediaNotAccepted') ?? 'Media uploads not accepted'
                 : hasReachedImageLimit
                 ? t('upload.maxImagesReached', { max: MAX_IMAGES }) ??
@@ -307,7 +306,7 @@ ${file.content}
       <div className="memori--hidden-uploader" ref={imageRef}>
         <UploadImages
           authToken={authToken}
-          apiUrl={apiUrl}
+          client={client}
           setDocumentPreviewFiles={setDocumentPreviewFiles}
           sessionID={sessionID}
           documentPreviewFiles={documentPreviewFiles}

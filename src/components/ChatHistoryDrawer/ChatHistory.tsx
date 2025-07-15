@@ -378,7 +378,7 @@ const ChatHistoryDrawer = ({
   history,
 }: Props) => {
   const { t } = useTranslation();
-  const { getChatLogsByUser, getSessionChatLogs } = apiClient.chatLogs;
+  const { getChatLogsByUser } = apiClient.chatLogs;
 
   const textCurrentChat = `${t(
     'write_and_speak.conversationStartedLabel'

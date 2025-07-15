@@ -19,10 +19,7 @@ export interface Props {
   setAttachmentsMenuOpen: (attachmentsMenuOpen: 'link' | 'media') => void;
   userMessage?: string;
   onChangeUserMessage: (userMessage: string) => void;
-  sendMessage: (
-    msg: string,
-    media?: (Medium & { type: string })[]
-  ) => void;
+  sendMessage: (msg: string, media?: (Medium & { type: string })[]) => void;
   onTextareaFocus: () => void;
   onTextareaBlur: () => void;
   resetTranscript: () => void;
@@ -36,8 +33,8 @@ export interface Props {
   authToken?: string;
   showUpload?: boolean;
   sessionID?: string;
-  apiURL?: string;
   memoriID?: string;
+  client?: ReturnType<typeof memoriApiClient>;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -58,8 +55,8 @@ const ChatInputs: React.FC<Props> = ({
   showUpload = false,
   sessionID,
   authToken,
-  apiURL,
   memoriID,
+  client,
 }) => {
   const { t } = useTranslation();
 
@@ -77,7 +74,6 @@ const ChatInputs: React.FC<Props> = ({
   >([]);
 
   // Client
-  const client = apiURL ? memoriApiClient(apiURL) : null;
   const { dialog } = client || {
     dialog: { postMediumDeselectedEvent: null },
   };
@@ -191,7 +187,7 @@ const ChatInputs: React.FC<Props> = ({
           {/* Replace the individual buttons with our unified upload component */}
           <UploadButton
             authToken={authToken}
-            apiUrl={apiURL}
+            client={client}
             sessionID={sessionID}
             isMediaAccepted={dialogState?.acceptsMedia || false}
             setDocumentPreviewFiles={setDocumentPreviewFiles}

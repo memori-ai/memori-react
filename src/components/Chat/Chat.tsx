@@ -79,6 +79,7 @@ const Chat: React.FC<Props> = ({
   sessionID,
   baseUrl,
   apiUrl,
+  client,
   translateTo,
   memoriTyping,
   typingText,
@@ -203,13 +204,24 @@ const Chat: React.FC<Props> = ({
           />
 
           {history.map((message, index) => (
-            <React.Fragment key={`${index}-${message.text?.includes('<document_attachment') ? 'has-attachments' : 'no-attachments'}-${message.timestamp}`}>
+            <React.Fragment
+              key={`${index}-${
+                message.text?.includes('<document_attachment')
+                  ? 'has-attachments'
+                  : 'no-attachments'
+              }-${message.timestamp}`}
+            >
               <ChatBubble
-                key={`chatbubble-${index}-${message.text?.includes('<document_attachment') ? 'has-attachments' : 'no-attachments'}-${message.timestamp}`}
+                key={`chatbubble-${index}-${
+                  message.text?.includes('<document_attachment')
+                    ? 'has-attachments'
+                    : 'no-attachments'
+                }-${message.timestamp}`}
                 isFirst={index === 0}
                 message={message}
                 memori={memori}
                 tenant={tenant}
+                client={client}
                 baseUrl={baseUrl}
                 apiUrl={apiUrl}
                 sessionID={sessionID}
@@ -339,7 +351,6 @@ const Chat: React.FC<Props> = ({
 
       {showInputs && (
         <ChatInputs
-          apiURL={apiUrl || ''}
           resetTranscript={resetTranscript}
           userMessage={userMessage}
           onChangeUserMessage={onChangeUserMessage}
@@ -350,6 +361,7 @@ const Chat: React.FC<Props> = ({
           microphoneMode={microphoneMode}
           sendOnEnter={sendOnEnter}
           setSendOnEnter={setSendOnEnter}
+          client={client}
           sessionID={sessionID}
           showUpload={showUpload}
           attachmentsMenuOpen={attachmentsMenuOpen}

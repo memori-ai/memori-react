@@ -28,6 +28,7 @@ import { renderMsg, truncateMessage } from '../../helpers/message';
 import Expandable from '../ui/Expandable';
 import Modal from '../ui/Modal';
 import MediaWidget from '../MediaWidget/MediaWidget';
+import memoriApiClient from '@memori.ai/memori-api-client';
 
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
@@ -48,6 +49,7 @@ export interface Props {
   tenant?: Tenant;
   baseUrl?: string;
   apiUrl?: string;
+  client?: ReturnType<typeof memoriApiClient>;
   showFeedback?: boolean;
   showWhyThisAnswer?: boolean;
   showCopyButton?: boolean;
@@ -68,6 +70,7 @@ const ChatBubble: React.FC<Props> = ({
   tenant,
   baseUrl,
   apiUrl,
+  client,
   sessionID,
   showFeedback,
   showWhyThisAnswer = true,
@@ -86,7 +89,9 @@ const ChatBubble: React.FC<Props> = ({
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
   const [openFunctionCache, setOpenFunctionCache] = useState(false);
-  const [documentAttachments, setDocumentAttachments] = useState<(Medium & { type?: string })[]>([]);
+  const [documentAttachments, setDocumentAttachments] = useState<
+    (Medium & { type?: string })[]
+  >([]);
 
   // Initialize MathJax on component mount
   useEffect(() => {
@@ -98,14 +103,17 @@ const ChatBubble: React.FC<Props> = ({
   // Extract document attachments from text and convert them to media
   useEffect(() => {
     const text = message.translatedText || message.text;
-    const documentAttachmentRegex = /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
+    const documentAttachmentRegex =
+      /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
     const attachments: (Medium & { type?: string })[] = [];
     let match;
 
     while ((match = documentAttachmentRegex.exec(text)) !== null) {
       const [, filename, type, content] = match;
       attachments.push({
-        mediumID: `doc_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        mediumID: `doc_${Date.now()}_${Math.random()
+          .toString(36)
+          .substr(2, 9)}`,
         url: '',
         mimeType: type,
         title: filename,
@@ -139,14 +147,15 @@ const ChatBubble: React.FC<Props> = ({
 
   // Filter out media items that are already being rendered as document attachments
   // to prevent duplicate rendering
-  const filteredMedia = message.media?.filter(mediaItem => {
-    // If this is a document attachment (has isAttachedFile property), 
-    // don't render it in the regular media widget
-    if (mediaItem.properties?.isAttachedFile) {
-      return false;
-    }
-    return true;
-  }) || [];
+  const filteredMedia =
+    message.media?.filter(mediaItem => {
+      // If this is a document attachment (has isAttachedFile property),
+      // don't render it in the regular media widget
+      if (mediaItem.properties?.isAttachedFile) {
+        return false;
+      }
+      return true;
+    }) || [];
 
   // Filter out HTML and plain text from regular media
   const regularMedia = filteredMedia.filter(
@@ -535,12 +544,12 @@ const ChatBubble: React.FC<Props> = ({
         />
       )}
 
-      {showingWhyThisAnswer && apiUrl && (
+      {showingWhyThisAnswer && client && (
         <WhyThisAnswer
+          client={client}
           visible={showingWhyThisAnswer}
           message={message}
           closeDrawer={() => setShowingWhyThisAnswer(false)}
-          apiURL={apiUrl}
           sessionID={sessionID}
         />
       )}

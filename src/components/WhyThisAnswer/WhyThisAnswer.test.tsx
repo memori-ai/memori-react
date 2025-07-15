@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import WhyThisAnswer from './WhyThisAnswer';
 import { sessionID } from '../../mocks/data';
+import memoriApiClient from '@memori.ai/memori-api-client';
 
 beforeEach(() => {
   // @ts-ignore
@@ -16,7 +17,7 @@ beforeEach(() => {
 it('renders WhyThisAnswer hidden unchanged', () => {
   const { container } = render(
     <WhyThisAnswer
-      apiURL="https://backend.memori.ai"
+      client={memoriApiClient()}
       sessionID={sessionID}
       visible={false}
       message={{
@@ -40,7 +41,7 @@ it('renders WhyThisAnswer hidden unchanged', () => {
 it('renders WhyThisAnswer visible unchanged', () => {
   const { container } = render(
     <WhyThisAnswer
-      apiURL="https://backend.memori.ai"
+      client={memoriApiClient()}
       sessionID={sessionID}
       visible={true}
       message={{
@@ -64,7 +65,7 @@ it('renders WhyThisAnswer visible unchanged', () => {
 it('renders WhyThisAnswer loading unchanged', () => {
   const { container } = render(
     <WhyThisAnswer
-      apiURL="https://backend.memori.ai"
+      client={memoriApiClient()}
       sessionID={sessionID}
       visible={true}
       message={{
@@ -89,7 +90,7 @@ it('renders WhyThisAnswer loading unchanged', () => {
 it('renders WhyThisAnswer with data unchanged', () => {
   const { container } = render(
     <WhyThisAnswer
-      apiURL="https://backend.memori.ai"
+      client={memoriApiClient()}
       sessionID={sessionID}
       visible={true}
       message={{
