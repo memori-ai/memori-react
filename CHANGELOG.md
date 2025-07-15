@@ -1,5 +1,12 @@
 
 
+## [7.32.6](https://github.com/memori-ai/memori-react/compare/v7.32.5...v7.32.6) (2025-07-15)
+
+
+### Bug Fixes
+
+* enhance media rendering in ChatBubble to prevent duplicates and filter out non-media items ([9918d82](https://github.com/memori-ai/memori-react/commit/9918d828bff11b612b9a1f5e1be1a57bc07e7319))
+
 ## [7.32.5](https://github.com/memori-ai/memori-react/compare/v7.32.4...v7.32.5) (2025-07-11)
 
 
