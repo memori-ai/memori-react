@@ -1,5 +1,12 @@
 
 
+## [7.32.7](https://github.com/memori-ai/memori-react/compare/v7.32.6...v7.32.7) (2025-07-15)
+
+
+### Maintenance
+
+* fix api client init, pass same instance down ([24a5113](https://github.com/memori-ai/memori-react/commit/24a5113f1607091cf9e3e7ad0dcb2e1e55af7318))
+
 ## [7.32.6](https://github.com/memori-ai/memori-react/compare/v7.32.5...v7.32.6) (2025-07-15)
 
 
