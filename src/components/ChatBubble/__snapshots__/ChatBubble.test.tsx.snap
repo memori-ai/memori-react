@@ -6803,9 +6803,6 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
       </div>
     </div>
   </div>
-  <div
-    class="memori-media-widget"
-  />
 </div>
 `;
 

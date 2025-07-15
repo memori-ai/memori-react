@@ -137,6 +137,23 @@ const ChatBubble: React.FC<Props> = ({
     m => m.properties?.functionCache === 'true'
   );
 
+  // Filter out media items that are already being rendered as document attachments
+  // to prevent duplicate rendering
+  const filteredMedia = message.media?.filter(mediaItem => {
+    // If this is a document attachment (has isAttachedFile property), 
+    // don't render it in the regular media widget
+    if (mediaItem.properties?.isAttachedFile) {
+      return false;
+    }
+    return true;
+  }) || [];
+
+  // Filter out HTML and plain text from regular media
+  const regularMedia = filteredMedia.filter(
+    m => m.mimeType !== 'text/html' && m.mimeType !== 'text/plain'
+  );
+  const links = filteredMedia.filter(m => m.mimeType === 'text/html');
+
   useLayoutEffect(() => {
     if (typeof window !== 'undefined' && !message.fromUser) {
       const timer = setTimeout(() => {
@@ -177,8 +194,6 @@ const ChatBubble: React.FC<Props> = ({
       return () => clearTimeout(timer);
     }
   }, [cleanText, message.fromUser, renderedText]);
-
-  console.log('media',message?.media);
 
   return (
     <>
@@ -509,12 +524,10 @@ const ChatBubble: React.FC<Props> = ({
       )}
 
       {/* Render existing media */}
-      {message.media && message.media.length > 0 && (
+      {regularMedia.length > 0 && (
         <MediaWidget
-          media={message.media.filter(
-            m => m.mimeType !== 'text/html' && m.mimeType !== 'text/plain'
-          )}
-          links={message.media.filter(m => m.mimeType === 'text/html')}
+          media={regularMedia}
+          links={links}
           sessionID={sessionID}
           baseUrl={baseUrl}
           apiUrl={apiUrl}
