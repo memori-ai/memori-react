@@ -372,10 +372,7 @@ exports[`renders FullPage layout unchanged 1`] = `
                         class="memori--privacy-tooltip-content-list"
                       >
                         <li>
-                          Per utenti anonimi: l'autore vedrà il contenuto e l'indirizzo IP
-                        </li>
-                        <li>
-                          Per utenti registrati: l'autore vedrà il contenuto e il nome utente
+                          L'autore può vedere il contenuto e il tuo indirizzo IP
                         </li>
                       </ul>
                       <p>
@@ -879,10 +876,7 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                         class="memori--privacy-tooltip-content-list"
                       >
                         <li>
-                          Per utenti anonimi: l'autore vedrà il contenuto e l'indirizzo IP
-                        </li>
-                        <li>
-                          Per utenti registrati: l'autore vedrà il contenuto e il nome utente
+                          L'autore può vedere il contenuto e il tuo indirizzo IP
                         </li>
                       </ul>
                       <p>

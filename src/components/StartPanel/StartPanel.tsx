@@ -286,16 +286,19 @@ const StartPanel: React.FC<Props> = ({
                       )}
                     </p>
                     <ul className="memori--privacy-tooltip-content-list">
+                                          {isUserLoggedIn ? (
                       <li>
                         {t(
-                          'write_and_speak.pagePrivacyExplanationList.anonymousUser'
+                          'write_and_speak.pagePrivacyExplanationList.contentAndUsername'
                         )}
                       </li>
+                    ) : (
                       <li>
                         {t(
-                          'write_and_speak.pagePrivacyExplanationList.registeredUser'
+                          'write_and_speak.pagePrivacyExplanationList.contentAndIpAddress'
                         )}
                       </li>
+                    )}
                     </ul>
                     <p>
                       {t(

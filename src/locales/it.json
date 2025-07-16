@@ -126,6 +126,8 @@
       "allConversations": "Tutte le conversazioni con questo agente sono visibili all'autore dell'agente",
       "anonymousUser": "Per utenti anonimi: l'autore vedrà il contenuto e l'indirizzo IP",
       "registeredUser": "Per utenti registrati: l'autore vedrà il contenuto e il nome utente",
+      "contentAndUsername": "L'autore può vedere il contenuto, il tuo nome utente e il tuo indirizzo IP",
+      "contentAndIpAddress": "L'autore può vedere il contenuto e il tuo indirizzo IP",
       "authorUsesInfo": "L'autore utilizza queste informazioni per migliorare le funzionalità dell'agente. Continuando, accetti queste condizioni."
     },
     "instructButton": "ISTRUISCIMI",

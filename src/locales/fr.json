@@ -130,6 +130,14 @@
     "pageTryMeExplanation": "Pour me parler, cliquez sur le bouton START pour commencer",
     "pagePrivacyExplanation": "Les conversations sont visibles par l'auteur de l'agent",
     "pagePrivacyExplanationTooltip": "En commençant la conversation, nous vous informons que :\n\n- Toutes les conversations avec cet agent sont visibles par l'auteur de l'agent\n- Si vous utilisez la chat comme utilisateur anonyme, l'auteur pourra voir le contenu de la conversation et votre adresse IP\n- Si vous utilisez la chat comme utilisateur enregistré (connecté), l'auteur pourra voir le contenu de la conversation et votre nom d'utilisateur\n- L'auteur utilise ces informations pour améliorer les fonctionnalités de l'agent et pour vous fournir un meilleur service\n- En continuant la conversation, vous acceptez ces conditions.",
+    "pagePrivacyExplanationList": {
+      "allConversations": "Toutes les conversations avec cet agent sont visibles par l'auteur de l'agent",
+      "anonymousUser": "Pour les utilisateurs anonymes : l'auteur verra le contenu de la conversation et votre adresse IP",
+      "registeredUser": "Pour les utilisateurs enregistrés : l'auteur verra le contenu de la conversation et votre nom d'utilisateur",
+      "contentAndUsername": "L'auteur peut voir le contenu, votre nom d'utilisateur et votre adresse IP",
+      "contentAndIpAddress": "L'auteur peut voir le contenu et votre adresse IP",
+      "authorUsesInfo": "L'auteur utilise ces informations pour améliorer les fonctionnalités de l'agent et pour vous fournir un meilleur service. En continuant la conversation, vous acceptez ces conditions."
+    },
     "downloadChat": "Télécharger le chat",
     "instructButton": "INSTRUCTEZ-MOI",
     "tryMeButton": "COMMENCER",

@@ -126,6 +126,8 @@
       "allConversations": "Alle Konversationen mit diesem Agenten sind sichtbar von dem Autor des Agenten",
       "anonymousUser": "Für anonyme Benutzer: der Autor wird den Inhalt der Konversation und Ihre IP-Adresse sehen",
       "registeredUser": "Für registrierte Benutzer: der Autor wird den Inhalt der Konversation und Ihren Benutzernamen sehen",
+      "contentAndUsername": "Der Autor kann den Inhalt, Ihren Benutzernamen und Ihre IP-Adresse sehen",
+      "contentAndIpAddress": "Der Autor kann den Inhalt und Ihre IP-Adresse sehen",
       "authorUsesInfo": "Der Autor verwendet diese Informationen, um die Funktionen des Agenten zu verbessern und Ihnen einen besseren Service anzubieten. Wenn Sie die Konversation fortsetzen, stimmen Sie diesen Bedingungen zu."
     },
     "instructButton": "WEISE MICH AN",
