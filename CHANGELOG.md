@@ -1,5 +1,24 @@
 
 
+## [7.32.8](https://github.com/memori-ai/memori-react/compare/v7.32.7...v7.32.8) (2025-07-17)
+
+
+### Features
+
+* implement date range filtering for chat history ([2027a30](https://github.com/memori-ai/memori-react/commit/2027a3074d79f0e64782d02ceef6f2fba2cf2df4))
+* sort chat history icon ([3c5eab1](https://github.com/memori-ai/memori-react/commit/3c5eab1eaafa4002f52a09b7969844d1156f62e1))
+
+
+### Bug Fixes
+
+* update privacy explanation based on authentication ([5c89e4e](https://github.com/memori-ai/memori-react/commit/5c89e4e132bb67748c120e09ec521766ad4c2ccb))
+* update privacy policy link handling in StartPanel component ([c1ed644](https://github.com/memori-ai/memori-react/commit/c1ed644e4748e37a1cf6d07ce450f3278edc88cc))
+
+
+### Maintenance
+
+* add arrow icon, fix icon stories ([cfc58c8](https://github.com/memori-ai/memori-react/commit/cfc58c87a322c7faaf3b32033f4520d56bae4bd5))
+
 ## [7.32.7](https://github.com/memori-ai/memori-react/compare/v7.32.6...v7.32.7) (2025-07-15)
 
 
