@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, StoryObj } from '@storybook/react';
 import ChatHistory from './ChatHistory';
+import I18nWrapper from '../../I18nWrapper';
 import { ChatLog, Memori } from '@memori.ai/memori-api-client/dist/types';
 
 // Mock API client
@@ -157,6 +158,13 @@ const mockMemori: Memori = {
 const meta: Meta<typeof ChatHistory> = {
   title: 'Widget/Chat History Drawer',
   component: ChatHistory,
+  decorators: [
+    Story => (
+      <I18nWrapper>
+        <Story />
+      </I18nWrapper>
+    ),
+  ],
   parameters: {
     layout: 'fullscreen',
   },
@@ -170,18 +178,18 @@ const meta: Meta<typeof ChatHistory> = {
     history: mockChatLogs.map(chatLog => ({
       text: chatLog.lines[0].text,
       fromUser: chatLog.lines[0].inbound,
-      timestamp: chatLog.lines[0].timestamp
+      timestamp: chatLog.lines[0].timestamp,
     })),
     resumeSession: (chatLog: ChatLog) => {
       console.log('Resume session called with:', chatLog);
-    }
+    },
   },
   // Add argTypes to configure controls in Storybook
   argTypes: {
     open: { control: 'boolean', description: 'Whether the drawer is open' },
     onClose: { action: 'closed' },
-    resumeSession: { action: 'resumed session' }
-  }
+    resumeSession: { action: 'resumed session' },
+  },
 };
 
 export default meta;

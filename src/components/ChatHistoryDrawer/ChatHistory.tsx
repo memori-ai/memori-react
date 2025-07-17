@@ -1,6 +1,5 @@
 import Drawer from '../ui/Drawer';
 import { useTranslation } from 'react-i18next';
-import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import React, {
   useEffect,
@@ -12,24 +11,21 @@ import React, {
 import {
   ChatLog,
   ChatLogLine,
-  User,
   Memori,
   Medium,
-  DialogState,
-  EventLog,
   Message,
 } from '@memori.ai/memori-api-client/dist/types';
 import Card from '../ui/Card';
-import ChatBubble from '../ChatBubble/ChatBubble';
 import Button from '../ui/Button';
 import ChatRound from '../icons/Chat';
-import { escapeHTML, stripHTML, truncateMessage } from '../../helpers/utils';
-import { Dialog, Transition } from '@headlessui/react';
+import { stripHTML } from '../../helpers/utils';
+import { Dialog } from '@headlessui/react';
 import debounce from 'lodash/debounce';
-import Chat from '../Chat/Chat';
 import Spin from '../ui/Spin';
+import Chat from '../Chat/Chat';
 import Download from '../icons/Download';
 import MessageIcon from '../icons/Message';
+import ArrowUpIcon from '../icons/ArrowUp';
 
 export interface Props {
   open: boolean;
@@ -856,6 +852,11 @@ const ChatHistoryDrawer = ({
               }}
               className="memori-chat-history-drawer--toolbar--sort-button"
             >
+              <ArrowUpIcon
+                className={`memori-chat-history-drawer--toolbar--sort-button--icon ${
+                  sortOrder === 'asc' ? 'rotate-180' : ''
+                }`}
+              />
               {sortOrder === 'desc'
                 ? t('write_and_speak.latestFirst')
                 : t('write_and_speak.oldestFirst')}
