@@ -307,11 +307,11 @@ const StartPanel: React.FC<Props> = ({
                     </p>
 
                     <a
-                      href={'https://memori.ai/en/privacy-policy'}
+                      href={tenant?.privacyPolicyURL ?? 'https://memori.ai/en/privacy-policy'}
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      {t('privacyPolicy')}
+                      {tenant?.privacyPolicyURL ?? t('privacyPolicy')}
                     </a>
                   </div>
                 }
