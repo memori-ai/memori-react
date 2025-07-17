@@ -269,6 +269,7 @@ TestCustomAnimationsWithRPMSequence.args = {
     uiLang: "IT",
     spokenLang: "IT",
     layout: "ZOOMED_FULL_BODY",
+    showLogin: true,
     integrationID: "ea181116-1b9a-4562-b8b2-41608221adb2",
 };
 

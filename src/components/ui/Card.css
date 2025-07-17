@@ -39,6 +39,7 @@
 }
 
 .memori-card--content {
+    z-index: 0;
     display: flex;
     flex: 1;
     flex-direction: column;

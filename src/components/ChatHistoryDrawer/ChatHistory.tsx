@@ -26,6 +26,7 @@ import Chat from '../Chat/Chat';
 import Download from '../icons/Download';
 import MessageIcon from '../icons/Message';
 import ArrowUpIcon from '../icons/ArrowUp';
+import Select from '../ui/Select';
 
 export interface Props {
   open: boolean;
@@ -37,6 +38,7 @@ export interface Props {
   baseUrl: string;
   apiUrl: string;
   history: Message[];
+  loginToken?: string;
 }
 
 const ITEMS_PER_PAGE = 8;
@@ -372,9 +374,10 @@ const ChatHistoryDrawer = ({
   baseUrl,
   apiUrl,
   history,
+  loginToken,
 }: Props) => {
   const { t } = useTranslation();
-  const { getChatLogsByUser } = apiClient.chatLogs;
+  const { getUserChatLogsByToken } = apiClient.chatLogs;
 
   const textCurrentChat = `${t(
     'write_and_speak.conversationStartedLabel'
@@ -393,12 +396,102 @@ const ChatHistoryDrawer = ({
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('desc');
+  const [dateRange, setDateRange] = useState<
+    'today' | 'yesterday' | 'last_7_days' | 'last_30_days' | 'all'
+  >('all');
+
+  const formatDateForAPI = (date: Date) => {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+    const seconds = String(date.getSeconds()).padStart(2, '0');
+    const milliseconds = String(date.getMilliseconds()).padStart(3, '0');
+
+    return `${year}${month}${day}${hours}${minutes}${seconds}${milliseconds}`;
+  };
+
+  const formatDateRangeForAPI = (
+    dateRange: 'today' | 'yesterday' | 'last_7_days' | 'last_30_days'
+  ) => {
+    if (dateRange === 'today') {
+      const now = new Date();
+      const yesterday = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() - 1
+      );
+      const dateFrom = formatDateForAPI(yesterday);
+      const dateTo = formatDateForAPI(now);
+      return { dateFrom, dateTo };
+    }
+    if (dateRange === 'yesterday') {
+      const now = new Date();
+      const yesterday = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() - 1
+      );
+      const dayBeforeYesterday = new Date(
+        yesterday.getFullYear(),
+        yesterday.getMonth(),
+        yesterday.getDate() - 2
+      );
+      const dateFrom = formatDateForAPI(dayBeforeYesterday);
+      const dateTo = formatDateForAPI(yesterday);
+      return { dateFrom, dateTo };
+    }
+    if (dateRange === 'last_7_days') {
+      const now = new Date();
+      const sevenDaysAgo = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() - 7
+      );
+      const dateFrom = formatDateForAPI(sevenDaysAgo);
+      const dateTo = formatDateForAPI(now);
+      return { dateFrom, dateTo };
+    }
+    if (dateRange === 'last_30_days') {
+      const now = new Date();
+      const thirtyDaysAgo = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate() - 30
+      );
+      const dateFrom = formatDateForAPI(thirtyDaysAgo);
+      const dateTo = formatDateForAPI(now);
+      return { dateFrom, dateTo };
+    }
+  };
 
   const fetchChatLogs = useCallback(async () => {
+    if (!loginToken) {
+      setError(
+        t('errorFetchingSession') ||
+          'Login token required to fetch chat history'
+      );
+      return;
+    }
+
     setIsLoading(true);
     setError(null);
     try {
-      const res = await getChatLogsByUser(sessionId);
+      let dateFrom = '';
+      let dateTo = '';
+      if (dateRange !== 'all') {
+        const { dateFrom: dateFromTemp, dateTo: dateToTemp } = formatDateRangeForAPI(dateRange) ?? {};
+        dateFrom = dateFromTemp ?? '';
+        dateTo = dateToTemp ?? '';
+      }
+
+      const res = await getUserChatLogsByToken(
+        loginToken,
+        memori.engineMemoriID ?? '',
+        dateFrom ?? '',
+        dateTo ?? ''
+      );
       setChatLogs(
         res.chatLogs.sort((a, b) => {
           const dateA = Math.max(
@@ -416,7 +509,7 @@ const ChatHistoryDrawer = ({
     } finally {
       setIsLoading(false);
     }
-  }, [sessionId, sortOrder]);
+  }, [loginToken, memori.memoriID, sortOrder, dateRange]);
 
   useEffect(() => {
     if (open) fetchChatLogs();
@@ -477,6 +570,10 @@ const ChatHistoryDrawer = ({
       dateStyle: 'medium',
       timeStyle: 'short',
     }).format(new Date(timestamp));
+  };
+
+  const escapeUnderScore = (value: string) => {
+    return value.replace(/_/g, ' ');
   };
 
   const renderContent = () => {
@@ -821,7 +918,7 @@ const ChatHistoryDrawer = ({
     >
       <div className="memori-chat-history-drawer--content">
         <div className="memori-chat-history-drawer--toolbar">
-          <div className="memori-chat-history-drawer--toolbar--search">
+          {/* <div className="memori-chat-history-drawer--toolbar--search">
             <input
               type="search"
               className="memori-chat-history-drawer--toolbar--search--input"
@@ -843,8 +940,8 @@ const ChatHistoryDrawer = ({
                 />
               </svg>
             </span>
-          </div>
-          <div className="memori-chat-history-drawer--toolbar--actions">
+          </div> */}
+          {/* <div className="memori-chat-history-drawer--toolbar--actions">
             <Button
               onClick={() => {
                 setSortOrder(order => (order === 'asc' ? 'desc' : 'asc'));
@@ -861,28 +958,43 @@ const ChatHistoryDrawer = ({
                 ? t('write_and_speak.latestFirst')
                 : t('write_and_speak.oldestFirst')}
             </Button>
-            {/* <Button
-              onClick={() => {
-                if (selectedChatLog) {
-                  const chatText = selectedChatLog.lines
-                    .map(line => `${line.inbound ? 'User' : 'AI'}: ${line.text}`)
-                    .join('\n\n');
-                  const blob = new Blob([chatText], { type: 'text/plain' });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement('a');
-                  a.href = url;
-                  a.download = `chat-${selectedChatLog.chatLogID.substring(0, 4)}.txt`;
-                  document.body.appendChild(a);
-                  a.click();
-                  document.body.removeChild(a);
-                  URL.revokeObjectURL(url);
-                }
+          </div> */}
+          <div className="memori-chat-history-drawer--toolbar--actions">
+            <Select
+              options={[
+                {
+                  label: t('all') || 'All',
+                  value: 'all',
+                },
+                {
+                  label: t('today') || 'Today',
+                  value: 'today',
+                },
+                {
+                  label: t('yesterday') || 'Yesterday',
+                  value: 'yesterday',
+                },
+                {
+                  label: t('last_7_days') || 'Last 7 days',
+                  value: 'last_7_days',
+                },
+                {
+                  label: t('last_30_days') || 'Last 30 days',
+                  value: 'last_30_days',
+                },
+              ]}
+              value={t(dateRange) || 'All'}
+              className="memori-chat-history-drawer--toolbar--actions--select"
+              onChange={(value: string) => {
+                setDateRange(
+                  value as
+                    | 'today'
+                    | 'yesterday'
+                    | 'last_7_days'
+                    | 'last_30_days'
+                );
               }}
-              disabled={!selectedChatLog}
-              className="memori-chat-history-drawer--toolbar--export-button"
-            >
-              {t('write_and_speak.exportChat') || 'Export Chat'}
-            </Button> */}
+            />
           </div>
         </div>
         {renderContent()}

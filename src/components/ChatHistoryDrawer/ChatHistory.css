@@ -145,6 +145,12 @@
     fill: var(--memori-primary);
 }
 
+.memori-chat-history-drawer--toolbar--actions > div > ul {
+    z-index: 10;
+    right: 0.25rem;
+    margin-left: auto;
+}
+
 .memori-chat-history-drawer--card--content--messages {
     flex: 1;
     padding: 16px;
@@ -277,6 +283,7 @@
 .memori-chat-history-drawer--toolbar {
     display: flex;
     margin-bottom: 1.5rem;
+    margin-left: auto;
     gap: 1rem;
 }
 

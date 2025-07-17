@@ -7,7 +7,7 @@ import { ChatLog, Memori } from '@memori.ai/memori-api-client/dist/types';
 // Mock API client
 const mockApiClient = {
   chatLogs: {
-    getChatLogsByUser: () => Promise.resolve({
+    getUserChatLogsByToken: (loginToken: string, memoriID: string, dateFrom: string, dateTo: string) => Promise.resolve({
       chatLogs: mockChatLogs
     })
   }
@@ -183,6 +183,7 @@ const meta: Meta<typeof ChatHistory> = {
     resumeSession: (chatLog: ChatLog) => {
       console.log('Resume session called with:', chatLog);
     },
+    loginToken: 'mock-login-token',
   },
   // Add argTypes to configure controls in Storybook
   argTypes: {
@@ -222,7 +223,7 @@ export const EmptyState: Story = {
   args: {
     apiClient: {
       chatLogs: {
-        getChatLogsByUser: () => Promise.resolve({ chatLogs: [] })
+        getUserChatLogsByToken: (loginToken: string, memoriID: string, dateFrom: string, dateTo: string) => Promise.resolve({ chatLogs: [] })
       }
     } as any
   }
@@ -233,7 +234,7 @@ export const LoadingState: Story = {
   args: {
     apiClient: {
       chatLogs: {
-        getChatLogsByUser: () => new Promise(resolve => {
+        getUserChatLogsByToken: (loginToken: string, memoriID: string, dateFrom: string, dateTo: string) => new Promise(resolve => {
           // Simulate a slow network
           setTimeout(() => {
             resolve({ chatLogs: mockChatLogs });
@@ -264,7 +265,7 @@ export const WithPagination: Story = {
   args: {
     apiClient: {
       chatLogs: {
-        getChatLogsByUser: () => {
+        getUserChatLogsByToken: (loginToken: string, memoriID: string, dateFrom: string, dateTo: string) => {
           // Create 20 mock chat logs to trigger pagination
           const manyLogs = Array.from({ length: 20 }, (_, i) => ({
             chatLogID: `chat${i}`,
@@ -284,7 +285,7 @@ export const WithPagination: Story = {
                 timestamp: `2023-01-0${(i % 9) + 1}T10:01:00Z`,
                 contextVars: {},
                 media: [],
-                memoryID: 'mem123',
+                memoryID: 'memori.memoriID',
                 sessionID: 'session123'
               }
             ],

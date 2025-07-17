@@ -4035,6 +4035,7 @@ const MemoriWidget = ({
           baseUrl={baseUrl}
           history={history}
           apiUrl={client.constants.BACKEND_URL}
+          loginToken={loginToken}
         />
       )}
 
