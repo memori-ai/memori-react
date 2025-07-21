@@ -354,6 +354,7 @@ export interface LayoutProps {
   hasUserActivatedSpeak?: boolean;
   showUpload?: boolean;
   loading?: boolean;
+  autoStart?: boolean;
 }
 
 export interface Props {
@@ -3891,6 +3892,7 @@ const MemoriWidget = ({
         integrationStyle={integrationStyle}
         integrationBackground={integrationBackground}
         poweredBy={poweredBy}
+        autoStart={autoStart}
         sessionId={sessionId}
         hasUserActivatedSpeak={hasUserActivatedSpeak}
         loading={loading}

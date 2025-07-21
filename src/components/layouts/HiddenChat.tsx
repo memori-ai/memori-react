@@ -13,6 +13,8 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   startPanelProps,
   sessionId,
   hasUserActivatedSpeak,
+  autoStart,
+  StartPanel,
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -72,7 +74,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
       }
       // Restore sidebar styles
       restoreFromFullscreen();
-    } else if (!sessionId || hasInitialSession) {
+    } else if ((!sessionId || hasInitialSession) && autoStart) {
       onClickStart?.();
     }
 
@@ -193,6 +195,10 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
           <div className="memori-hidden-chat-layout--controls">
             {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
               <Chat {...chatProps} />
+            ) : !autoStart && startPanelProps ? (
+              <div className="memori-loading">
+                <StartPanel {...startPanelProps} />
+              </div>
             ) : (
               <div className="memori-loading">
                 <Spin />
