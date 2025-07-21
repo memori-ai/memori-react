@@ -310,7 +310,7 @@ const Memori: React.FC<Props> = ({
             initialQuestion={initialQuestionLayout}
             authToken={authToken}
             AZURE_COGNITIVE_SERVICES_TTS_KEY={speechKey}
-            autoStart={layout === 'HIDDEN_CHAT' ? false : autoStart}
+            autoStart={autoStart}
             enableAudio={enableAudio && !!speechKey}
             defaultSpeakerActive={defaultSpeakerActive}
             disableTextEnteredEvents={disableTextEnteredEvents}

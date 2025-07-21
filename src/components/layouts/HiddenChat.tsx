@@ -63,7 +63,17 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     }
   }, [isOpen, fullScreen]);
 
+
+
   const handleSidebarToggle = () => {
+
+    console.log('autoStart', autoStart);
+    console.log('sessionId', sessionId);
+    console.log('hasInitialSession', hasInitialSession);
+
+    if((autoStart || autoStart === undefined) && (!sessionId || hasInitialSession)) {
+      onClickStart?.();
+    }
     // If we're in fullscreen mode and trying to close the sidebar
     if (fullScreen && isOpen) {
       // Exit fullscreen first
@@ -74,9 +84,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
       }
       // Restore sidebar styles
       restoreFromFullscreen();
-    } else if ((!sessionId || hasInitialSession) && autoStart) {
-      onClickStart?.();
-    }
+    } 
 
     setIsOpen(prev => {
       return !prev;
