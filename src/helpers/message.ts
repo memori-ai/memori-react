@@ -74,6 +74,10 @@ export const renderMsg = (
         /\[([^\]]+)\]\(([^\)]+)\)/g,
         '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
       )
+      .replaceAll(
+        /<think>([\s\S]*?)<\/think>/g,
+        ``
+      )
       // Remove document_attachment tags from text - they will be handled as media
       .replaceAll(
         /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g,
