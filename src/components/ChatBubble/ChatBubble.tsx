@@ -134,7 +134,6 @@ const ChatBubble: React.FC<Props> = ({
   const { text: renderedText } = renderMsg(
     cleanText,
     useMathFormatting,
-    t('reasoning') || 'Reasoning...'
   );
   const plainText = message.fromUser
     ? truncateMessage(cleanText)

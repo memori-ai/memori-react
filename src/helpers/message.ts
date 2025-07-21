@@ -62,8 +62,7 @@ export const truncateMessage = (message: string) => {
 
 export const renderMsg = (
   text: string,
-  useMathFormatting = false,
-  reasoningText = 'Reasoning...'
+  useMathFormatting = false
 ): {
   text: string;
 } => {
@@ -74,10 +73,6 @@ export const renderMsg = (
       .replaceAll(
         /\[([^\]]+)\]\(([^\)]+)\)/g,
         '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-      )
-      .replaceAll(
-        /<think>([\s\S]*?)<\/think>/g,
-        `<details class="memori-think"><summary>${reasoningText}</summary>$1</details>`
       )
       // Remove document_attachment tags from text - they will be handled as media
       .replaceAll(
