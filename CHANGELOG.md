@@ -1,5 +1,24 @@
 
 
+## [7.33.0](https://github.com/memori-ai/memori-react/compare/v7.32.8...v7.33.0) (2025-07-25)
+
+
+### Features
+
+* add autoStart prop to MemoriWidget and update HiddenChatLayout logic ([6e95d46](https://github.com/memori-ai/memori-react/commit/6e95d46d659d9b09dc61d785b4848199d855b906))
+
+
+### Bug Fixes
+
+* remove <think> tags from message rendering in renderMsg function ([d8de4df](https://github.com/memori-ai/memori-react/commit/d8de4dfcb0db9f8e21d7d6d9ee2587e58d23363d))
+* simplify autoStart logic in Memori and update HiddenChatLayout handling ([ff0ce3f](https://github.com/memori-ai/memori-react/commit/ff0ce3f42bbb0c03aee64a9efe675a98f73a5145))
+
+
+### Changes
+
+* show reasoning output based on config or prop ([1a0b683](https://github.com/memori-ai/memori-react/commit/1a0b683e5f6e312744488904dbdbedf6e8f0e4b4))
+* update ChatBubble component to remove reasoning details and adjust message rendering ([2bb8800](https://github.com/memori-ai/memori-react/commit/2bb8800eda2745171702b0337bb2f9cc446f6e5a))
+
 ## [7.32.8](https://github.com/memori-ai/memori-react/compare/v7.32.7...v7.32.8) (2025-07-17)
 
 
