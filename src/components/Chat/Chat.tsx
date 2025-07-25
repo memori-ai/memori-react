@@ -42,6 +42,7 @@ export interface Props {
   showAIicon?: boolean;
   showTranslationOriginal?: boolean;
   showWhyThisAnswer?: boolean;
+  showReasoning?: boolean;
   client?: ReturnType<typeof memoriApiClient>;
   preview?: boolean;
   microphoneMode?: 'CONTINUOUS' | 'HOLD_TO_TALK';
@@ -94,6 +95,7 @@ const Chat: React.FC<Props> = ({
   showWhyThisAnswer = true,
   showCopyButton = true,
   showTranslationOriginal = false,
+  showReasoning = false,
   preview = false,
   instruct = false,
   showInputs = true,
@@ -240,6 +242,7 @@ const Chat: React.FC<Props> = ({
                 showCopyButton={showCopyButton}
                 useMathFormatting={useMathFormatting}
                 showFunctionCache={showFunctionCache}
+                showReasoning={showReasoning}
               />
 
               {showDates && !!message.timestamp && (

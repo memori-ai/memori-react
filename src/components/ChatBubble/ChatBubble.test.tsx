@@ -263,6 +263,23 @@ it('renders ChatBubble with reasoning unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders ChatBubble with reasoning shown unchanged', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      showReasoning
+      message={{
+        fromUser: false,
+        text: '<think>Lorem ipsum is a dummy or placeholder text commonly used in graphic design, publishing, and web development. Its purpose is to permit a page layout to be designed, independently of the copy that will subsequently populate it, or to demonstrate various fonts of a typeface without meaningful text that could be distracting. More at WikipediaDicta sequi dignissimos quis earum. Quis vel sint voluptas eos ex assumenda. Similique sed modi deleniti et ut quas cumque. Quaerat quis labore ut asperiores aliquid. Voluptatem similique nostrum neque culpa. Ex et iste voluptas est itaque aut aliquam. Qui error perspiciatis aut fuga maiores sint aut aspernatur. Veritatis ipsam iure voluptas asperiores consequuntur unde consequatur vitae. Sequi doloremque inventore reiciendis doloremque voluptates. Quidem repellendus id maxime. Fuga autem quam reiciendis provident in ad. Quia ut nihil voluptate voluptas ipsa porro. Magnam assumenda earum ipsam quisquam aut perspiciatis officiis. Et totam deleniti sed quisquam repellat. Ducimus nostrum voluptatem deleniti sed. Et accusamus temporibus occaecati. Est explicabo vel eum animi deleniti. Qui vel totam est officiis ducimus eligendi iure. Impedit eum ipsa omnis qui dolorem nobis at inventore. Aliquid aliquam esse neque ut vel magni accusamus. Et quia quas consectetur. Dolor dolorum sunt aut enim et quam ut expedita. Quia ut odio totam mollitia. Qui tempore quia quaerat quis enim. Numquam quasi maiores ipsa qui illo. Ea iste iure in corporis non nihil molestias quisquam. Sed suscipit esse dolorem omnis dolore aut. Enim eos id eligendi doloremque.</think>\nProin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+        initial: false,
+      }}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
 it('renders ChatBubble with markdown unchanged', () => {
   const { container } = render(
     <ChatBubble

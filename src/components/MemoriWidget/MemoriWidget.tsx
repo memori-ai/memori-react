@@ -388,6 +388,7 @@ export interface Props {
   showLogin?: boolean;
   showUpload?: boolean;
   showChatHistory?: boolean;
+  showReasoning?: boolean;
   preview?: boolean;
   embed?: boolean;
   height?: number | string;
@@ -447,6 +448,7 @@ const MemoriWidget = ({
   showUpload,
   showOnlyLastMessages,
   showChatHistory,
+  showReasoning,
   height = '100vh',
   secret,
   baseUrl = 'https://aisuru.com',
@@ -2914,6 +2916,8 @@ const MemoriWidget = ({
 
   const enableUpload = !!(showUpload ?? integrationConfig?.showUpload);
 
+  const enableReasoning = !!(showReasoning ?? integrationConfig?.showReasoning);
+
   const showWhyThisAnswer =
     integrationConfig?.showWhyThisAnswer === undefined
       ? true
@@ -3772,6 +3776,7 @@ const MemoriWidget = ({
     showContextPerLine,
     showAIicon,
     showUpload: enableUpload,
+    showReasoning: enableReasoning,
     showWhyThisAnswer,
     showCopyButton,
     showTranslationOriginal,

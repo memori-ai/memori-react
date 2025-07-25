@@ -62,7 +62,9 @@ export const truncateMessage = (message: string) => {
 
 export const renderMsg = (
   text: string,
-  useMathFormatting = false
+  useMathFormatting = false,
+  reasoningText = 'Reasoning...',
+  showReasoning = false
 ): {
   text: string;
 } => {
@@ -76,7 +78,9 @@ export const renderMsg = (
       )
       .replaceAll(
         /<think>([\s\S]*?)<\/think>/g,
-        ``
+        showReasoning
+          ? `<details class="memori-think"><summary>${reasoningText}</summary>$1</details>`
+          : ''
       )
       // Remove document_attachment tags from text - they will be handled as media
       .replaceAll(
@@ -93,10 +97,7 @@ export const renderMsg = (
     // Correzione dei delimitatori LaTeX inconsistenti
     if (useMathFormatting) {
       // Abilita il supporto per KaTeX
-      marked.use(
-        markedKatex({
-        })
-      );
+      marked.use(markedKatex({}));
 
       // Normalizza tutti i delimitatori LaTeX per equazioni su linea separata
       // Da \\[ ... \\] o \\[ ... ] a $$ ... $$

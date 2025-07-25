@@ -46,6 +46,7 @@ export interface Props {
   showTypingText?: boolean;
   showLogin?: boolean;
   showUpload?: boolean;
+  showReasoning?: boolean;
   height?: number | string;
   baseURL?: string;
   apiURL?: string;
@@ -121,6 +122,7 @@ const Memori: React.FC<Props> = ({
   showContextPerLine = false,
   showUpload,
   showLogin,
+  showReasoning,
   height = '100%',
   baseURL,
   apiURL = 'https://backend.memori.ai',
@@ -305,6 +307,7 @@ const Memori: React.FC<Props> = ({
             showContextPerLine={showContextPerLine}
             showLogin={showLogin ?? memori?.enableDeepThought}
             showUpload={showUpload}
+            showReasoning={showReasoning}
             integration={layoutIntegration}
             initialContextVars={initialContextVars}
             initialQuestion={initialQuestionLayout}
@@ -379,6 +382,7 @@ Memori.propTypes = {
   showTypingText: PropTypes.bool,
   showLogin: PropTypes.bool,
   showUpload: PropTypes.bool,
+  showReasoning: PropTypes.bool,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   baseURL: PropTypes.string,
   apiURL: PropTypes.string,

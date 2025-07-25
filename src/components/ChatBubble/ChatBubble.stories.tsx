@@ -473,6 +473,90 @@ Questi link ti permettono di creare un materiale visivo coerente e basato su inf
   },
 };
 
+export const WithReasoningShown = Template.bind({});
+WithReasoningShown.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  showReasoning: true,
+  message: {
+    fromUser: false,
+    text: `<think>
+Okay, the user is asking for a couple of relevant links to help them show the product to the girl. Let me think about what they need.
+
+First, they want to present the Lenovo tablet and accessories. The user mentioned using visual materials, so links to product pages or guides would be useful. They might need official Lenovo sources for accuracy.
+
+I should check if there are official Lenovo pages for the Yoga Tab 10 Pro and ThinkPad X1 Tablet. Those would be the main products. Also, maybe a guide on how to use the tablet for video calls, especially for elderly users.
+
+Wait, the user is a girl who wants to give a gift to her grandmother. The links should be trustworthy and in Italian. Let me make sure the links are in Italian and from Lenovo's official site.
+
+I remember that Lenovo has a website with product details. The Yoga Tab 10 Pro and ThinkPad X1 Tablet are both available there. Also, there might be a guide or FAQ section on their site that explains how to use the tablet for video calls, which would be helpful for the grandmother.
+
+I should also consider if there are any official guides or videos from Lenovo that demonstrate the tablet's features, especially for elderly users. Maybe a video tutorial on setting up the tablet for video calls.
+
+Wait, the user might need links that are in Italian. So I should check if Lenovo's Italian site has these resources. If not, maybe a general guide in Italian from a reliable source. But the user wants to use Lenovo's official materials, so sticking to their site is better.
+
+Also, the user might need links to the product pages, the accessories, and a guide on using the tablet for video calls. Let me verify the URLs for the Yoga Tab 10 Pro and ThinkPad X1 Tablet on Lenovo's Italian site.
+
+Once I have those, I can provide them as the main links. Then, a guide or FAQ that explains how to use the tablet for video calls, especially for elderly users.
+
+I should make sure the links are up-to-date and correct. If there's a specific page on Lenovo's site that's relevant, that's the best. If not, maybe a general guide from a trusted source, but the user prefers Lenovo's official resources.
+
+So, the two main links would be the product pages for the Yoga Tab 10 Pro and ThinkPad X1 Tablet. Then, a guide or video on using the tablet for video calls.
+
+Wait, the user asked for a couple of links. Maybe two main ones: the product pages and a guide. That should cover the essentials.
+
+I need to present these links in a clear way, making sure they are from Lenovo's official site and in Italian. Also, mention that they can use these to show the product and its features to the girl.
+
+Double-check the URLs to ensure they are correct. If there's a specific page for the accessories, that could be another link, but the user might need the main product pages first.
+
+Alright, I think that's it. Provide the product pages and a guide on using the tablet for video calls, both from Lenovo's official site in Italian.
+</think>
+
+Ecco due link rilevanti che puoi utilizzare per aiutare la ragazza a mostrare il prodotto e i suoi accessori. Questi link puntano a risorse ufficiali Lenovo in italiano, che forniscono informazioni dettagliate e accurate su i prodotti e le loro funzionalità:
+
+---
+
+### **1. Pagina ufficiale del Lenovo Yoga Tab 10 Pro (10.1" - 2024)**
+**Link**: [https://www.lenovo.com/it/it/products/tablets/yoga-tab-10-pro/](https://www.lenovo.com/it/it/products/tablets/yoga-tab-10-pro/)
+**Descrizione**:
+- Informazioni complete sul tablet, inclusi i dettagli tecnici (display, batteria, sistema operativo), le caratteristiche principali e le opzioni di personalizzazione.
+- Include una sezione dedicata alle videochiamate, con spiegazioni su come utilizzare il tablet per chiamate in alta definizione.
+- Ideale per mostrare la compatibilità con app di videochiamate come Zoom, Skype e FaceTime.
+
+**Utilizzo consigliato**:
+- Mostra la pagina per spiegare le caratteristiche tecniche del tablet.
+- Fornisci un'immagine del tablet con il filtro di privacy attivo per illustrare la protezione della privacy.
+
+---
+
+### **2. Guida ufficiale per l'uso del tablet per videochiamate (in italiano)**
+**Link**: [https://www.lenovo.com/it/it/support/faq/](https://www.lenovo.com/it/it/support/faq/)
+**Descrizione**:
+- Una sezione FAQ (Frequently Asked Questions) che risponde a domande comuni su come utilizzare il tablet per videochiamate, inclusi:
+ - Come iniziare una chiamata.
+ - Come utilizzare il filtro di privacy.
+ - Come gestire la batteria e le connessioni.
+- Include video tutorial e immagini per spiegare passaggi semplici.
+- Adatto per un pubblico non esperto, come la nonna.
+
+**Utilizzo consigliato**:
+- Mostra la guida per spiegare come usare il tablet in modo semplice.
+- Usa i video tutorial per dimostrare l'esperienza di videochiamate.
+
+---
+
+### **Altri consigli per il materiale visivo**
+Se vuoi aggiungere ulteriori risorse, puoi consultare:
+- **Pagina ufficiale degli accessori Lenovo**: [https://www.lenovo.com/it/it/products/accessories/](https://www.lenovo.com/it/it/products/accessories/)
+- **Video tutorial ufficiali su YouTube**: Cerca "Lenovo Yoga Tab 10 Pro videochiamate" o "Lenovo ThinkPad X1 Tablet uso per videochiamate".
+
+Questi link ti permettono di creare un materiale visivo coerente e basato su informazioni verificate, che aiuterà la ragazza a spiegare il prodotto e gli accessori in modo chiaro e professionale. Se hai bisogno di aiuto per personalizzare ulteriormente il materiale, posso aiutarti! 😊`,
+    initial: false,
+    generatedByAI: true,
+  },
+};
+
 export const WithMarkdownTable = Template.bind({});
 WithMarkdownTable.args = {
   memori,

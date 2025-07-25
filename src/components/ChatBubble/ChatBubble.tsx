@@ -62,6 +62,7 @@ export interface Props {
   user?: User;
   experts?: ExpertReference[];
   showFunctionCache?: boolean;
+  showReasoning?: boolean;
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -84,6 +85,7 @@ const ChatBubble: React.FC<Props> = ({
   userAvatar,
   experts,
   showFunctionCache = false,
+  showReasoning = false,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
@@ -134,6 +136,8 @@ const ChatBubble: React.FC<Props> = ({
   const { text: renderedText } = renderMsg(
     cleanText,
     useMathFormatting,
+    t('reasoning') || 'Reasoning...',
+    showReasoning
   );
   const plainText = message.fromUser
     ? truncateMessage(cleanText)
