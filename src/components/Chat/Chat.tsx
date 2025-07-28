@@ -297,9 +297,51 @@ const Chat: React.FC<Props> = ({
 
               <MediaWidget
                 simulateUserPrompt={simulateUserPrompt}
-                media={message?.media?.filter(
-                  m => m.mimeType !== 'text/html' && m.mimeType !== 'text/plain'
-                )}
+                media={[
+                  // Filter out HTML and plain text media items from the message
+                  ...(message?.media?.filter(
+                    m => m.mimeType !== 'text/html' && m.mimeType !== 'text/plain'
+                  ) || []),
+
+                  // Extract document attachments that are embedded in the message text
+                  ...(() => {
+                    // Get the translated or original message text
+                    const text = message.translatedText || message.text;
+
+                    // Regex to match document attachments in format:
+                    // <document_attachment filename="name.ext" type="mime/type">content</document_attachment>
+                    const documentAttachmentRegex =
+                      /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
+                    
+                    const attachments: (Medium & { type?: string })[] = [];
+                    let match;
+
+                    // Find all document attachments in the text
+                    while ((match = documentAttachmentRegex.exec(text)) !== null) {
+                      const [, filename, type, content] = match;
+                      
+                      // Create a Medium object for each attachment with:
+                      // - Unique ID using timestamp and random string
+                      // - Empty URL since content is embedded
+                      // - Original mime type and filename
+                      // - Trimmed content from the attachment
+                      // - Properties to mark it as a document attachment
+                      attachments.push({
+                        mediumID: `doc_${Date.now()}_${Math.random()
+                          .toString(36)
+                          .substr(2, 9)}`,
+                        url: '',
+                        mimeType: type,
+                        title: filename,
+                        content: content.trim(),
+                        properties: { isDocumentAttachment: true },
+                        type: 'document',
+                      });
+                    }
+
+                    return attachments;
+                  })(),
+                ]}
                 links={message?.media?.filter(m => m.mimeType === 'text/html')}
                 sessionID={sessionID}
                 baseUrl={baseUrl}
