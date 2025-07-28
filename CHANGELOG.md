@@ -1,5 +1,12 @@
 
 
+## [7.33.1](https://github.com/memori-ai/memori-react/compare/v7.33.0...v7.33.1) (2025-07-28)
+
+
+### Bug Fixes
+
+* enhance autoStart logic in Memori to handle undefined cases and improve layout handling ([c0fa52f](https://github.com/memori-ai/memori-react/commit/c0fa52fea8dd7f3822a19747a4190134c459dc90))
+
 ## [7.33.0](https://github.com/memori-ai/memori-react/compare/v7.32.8...v7.33.0) (2025-07-25)
 
 
