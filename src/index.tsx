@@ -145,7 +145,7 @@ const Memori: React.FC<Props> = ({
   additionalSettings,
   userAvatar,
   useMathFormatting = false,
-  autoStart = false,
+  autoStart,
   applyVarsToRoot = false,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
