@@ -1,5 +1,12 @@
 
 
+## [7.33.2](https://github.com/memori-ai/memori-react/compare/v7.33.1...v7.33.2) (2025-07-28)
+
+
+### Bug Fixes
+
+* update autoStart prop in Memori to allow undefined values ([096196d](https://github.com/memori-ai/memori-react/commit/096196d57b7158f1f084d45cf4042196dd4371c0))
+
 ## [7.33.1](https://github.com/memori-ai/memori-react/compare/v7.33.0...v7.33.1) (2025-07-28)
 
 
