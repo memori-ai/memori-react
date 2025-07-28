@@ -1,5 +1,12 @@
 
 
+## [7.33.3](https://github.com/memori-ai/memori-react/compare/v7.33.2...v7.33.3) (2025-07-28)
+
+
+### Changes
+
+*  removed media handling inside the ChatBubble and kept it all inside Chat ([d916e53](https://github.com/memori-ai/memori-react/commit/d916e537a86ddd320e39bb0acf14a9b2582b15d2))
+
 ## [7.33.2](https://github.com/memori-ai/memori-react/compare/v7.33.1...v7.33.2) (2025-07-28)
 
 
