@@ -1,5 +1,12 @@
 
 
+## [7.33.4](https://github.com/memori-ai/memori-react/compare/v7.33.3...v7.33.4) (2025-07-29)
+
+
+### Changes
+
+* show multiple function cache results if present ([f00c104](https://github.com/memori-ai/memori-react/commit/f00c104030066a97b139511fdd758f30a3102fc8))
+
 ## [7.33.3](https://github.com/memori-ai/memori-react/compare/v7.33.2...v7.33.3) (2025-07-28)
 
 
