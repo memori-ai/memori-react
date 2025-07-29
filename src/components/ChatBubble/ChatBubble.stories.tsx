@@ -212,6 +212,41 @@ WithDebugButton.args = {
   simulateUserPrompt: () => {},
 };
 
+export const WithMultipleFunctionCache = Template.bind({});
+WithMultipleFunctionCache.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    initial: false,
+    generatedByAI: true,
+    media: [
+      {
+        mediumID: 'c6851968-5d4d-409a-ae75-f22ec077efcd',
+        mimeType: 'text/plain',
+        content: 'Lorem ipsum dolor sit amet',
+        title: 'Function Cache Lorem ispum',
+        properties: {
+          functionCache: 'true',
+        },
+      },
+      {
+        mediumID: 'c6851968-5d4d-409a-ae75-f22ec077efce',
+        mimeType: 'text/plain',
+        content: 'Lorem ipsum dolor sit amet 2',
+        title: 'Function Cache 2',
+        properties: {
+          functionCache: 'true',
+        },
+      },
+    ],
+  },
+  showFeedback: true,
+  showFunctionCache: true,
+  simulateUserPrompt: () => {},
+};
+
 export const FromUserWithAvatar = Template.bind({});
 FromUserWithAvatar.args = {
   memori,

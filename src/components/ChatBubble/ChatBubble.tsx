@@ -112,11 +112,9 @@ const ChatBubble: React.FC<Props> = ({
     : stripHTML(stripOutputTags(renderedText));
 
   // Format function cache content
-  const functionCacheData = message.media?.find(
+  const functionCacheData = message.media?.filter(
     m => m.properties?.functionCache === 'true'
   );
-
-
 
   useLayoutEffect(() => {
     if (typeof window !== 'undefined' && !message.fromUser) {
@@ -489,14 +487,34 @@ const ChatBubble: React.FC<Props> = ({
       )}
 
       <Modal
-        title={functionCacheData?.title}
         open={openFunctionCache}
         onClose={() => setOpenFunctionCache(false)}
         className="memori-chat--function-cache-modal"
       >
-        <pre style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}>
-          {functionCacheData?.content}
-        </pre>
+        {functionCacheData?.map((f, i) => (
+          <div
+            key={f.mediumID}
+            style={
+              i > 0
+                ? {
+                    marginTop: '1.5rem',
+                    paddingTop: '1.5rem',
+                    borderTop: '1px solid #e0e0e0',
+                  }
+                : {
+                    paddingTop: '1.5rem',
+                  }
+            }
+          >
+            <h3 style={{ marginTop: 0 }}>{f.title}</h3>
+            <pre
+              key={f.mediumID}
+              style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
+            >
+              {f.content}
+            </pre>
+          </div>
+        ))}
       </Modal>
     </>
   );
