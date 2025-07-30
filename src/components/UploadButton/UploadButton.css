@@ -380,10 +380,20 @@
 /* Positioned containers */
 .memori--error-message-container,
 .memori--login-tip {
-  position: absolute;
+  position: fixed;
   z-index: 1001;
-  right: 0;
-  bottom: 50px;
+  top: 120px;
+  right: 20px;
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .memori--error-message-container,
+  .memori--login-tip {
+    top: 100px;
+    right: 10px;
+    max-width: calc(100vw - 20px);
+  }
 }
 
 /* File Stats */
@@ -425,6 +435,25 @@
   background-color: #fa5252;
 }
 
+/* Document count indicator */
+.memori--document-count {
+  position: absolute;
+  z-index: 5;
+  top: -8px;
+  right: -8px;
+  padding: 1px 6px;
+  border-radius: 10px;
+  background-color: #51cf66;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.memori--document-count-full {
+  background-color: #fa5252;
+}
+
 /* Styled upload slots info */
 .memori--upload-slots-info {
   margin-left: 4px;
@@ -463,15 +492,6 @@
 .memori--upload-menu-item:hover:not(.memori--upload-menu-item--disabled) {
   background-color: #f5f5f5;
   transform: translateX(4px);
-}
-
-/* Error container positioning */
-.memori--error-message-container {
-  position: absolute;
-  z-index: 1001;
-  right: 0;
-  bottom: 50px;
-  min-width: 250px;
 }
 
 input.memori--upload-title-input {

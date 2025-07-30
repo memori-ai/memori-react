@@ -9,10 +9,11 @@ import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
+import { MAX_DOCUMENTS_PER_MESSAGE } from '../../helpers/constants';
 
 // Constants
 const MAX_IMAGES = 5;
-const MAX_DOCUMENTS = 1;
+const MAX_DOCUMENTS = MAX_DOCUMENTS_PER_MESSAGE;
 
 // Props interface
 interface UploadManagerProps {
@@ -107,14 +108,11 @@ const UploadButton: React.FC<UploadManagerProps> = ({
     };
   }, []);
 
-  // Handler for document files - only stores the latest document
+  // Handler for document files - now supports multiple documents
   const handleDocumentFiles = (
     files: { name: string; id: string; content: string; mimeType: string }[]
   ) => {
     if (files.length === 0) return;
-
-    // For simplicity, we only take the first file
-    const file = files[0];
 
     // Funzione helper per fare escape dell'HTML nei valori degli attributi
     const escapeAttributeValue = (text: string) => {
@@ -126,34 +124,134 @@ const UploadButton: React.FC<UploadManagerProps> = ({
         .replace(/>/g, '&gt;');
     };
 
-    const escapedFileName = escapeAttributeValue(file.name);
-    const formattedContent = `<document_attachment filename="${escapedFileName}" type="${file.mimeType}">
+    // Process each document file
+    const processedDocuments = files.map(file => {
+      const escapedFileName = escapeAttributeValue(file.name);
+      const formattedContent = `<document_attachment filename="${escapedFileName}" type="${file.mimeType}">
 
 ${file.content}
 
 </document_attachment>`;
 
-    //keep just the images in the documentPreviewFiles
-    const imageFiles = documentPreviewFiles.filter(
-      (file: any) => file.type === 'image'
-    );
-    // Replace existing file with new one
-    setDocumentPreviewFiles([
-      {
+      return {
         name: file.name,
         id: file.id,
         content: formattedContent,
-        type: 'file',
+        type: 'document',
         mimeType: file.mimeType,
-      },
+      };
+    });
+
+    // Keep existing images and add new documents
+    const imageFiles = documentPreviewFiles.filter(
+      (file: any) => file.type === 'image'
+    );
+    
+    setDocumentPreviewFiles([
+      ...processedDocuments,
       ...imageFiles,
     ]);
 
     setIsLoading(false);
   };
 
+  // Document validation and error handling
+  const validateDocumentFile = (file: File): boolean => {
+    const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
+    const ALLOWED_FILE_TYPES = ['.pdf', '.txt', '.json', '.xlsx', '.csv', '.md'];
+    const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+
+    if (!ALLOWED_FILE_TYPES.includes(fileExt)) {
+      addError({
+        message: `File type "${fileExt}" is not supported. Please use: ${ALLOWED_FILE_TYPES.join(', ')}`,
+        severity: 'error',
+      });
+      return false;
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      addError({
+        message: `File "${file.name}" exceeds ${MAX_FILE_SIZE / 1024 / 1024}MB limit`,
+        severity: 'error',
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  // Validate total payload size
+  const validatePayloadSize = (newDocuments: { name: string; id: string; content: string; mimeType: string }[]): boolean => {
+    const { MAX_TOTAL_MESSAGE_PAYLOAD } = require('../../helpers/constants');
+    
+    const existingDocuments = documentPreviewFiles.filter(
+      (file: any) => file.type === 'document'
+    );
+    
+    const allDocuments = [...existingDocuments, ...newDocuments];
+    const totalPayloadSize = allDocuments.reduce((total, doc) => total + doc.content.length, 0);
+    
+    if (totalPayloadSize > MAX_TOTAL_MESSAGE_PAYLOAD) {
+      addError({
+        message: `Total document content exceeds ${MAX_TOTAL_MESSAGE_PAYLOAD} characters limit. Please remove some documents.`,
+        severity: 'error',
+      });
+      return false;
+    }
+    
+    return true;
+  };
+
+  // Handle document upload errors
+  const handleDocumentError = (error: { message: string; severity: 'error' | 'warning' | 'info' }) => {
+    addError(error);
+  };
+
+  // Image validation and error handling
+  const validateImageFile = (file: File): boolean => {
+    const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
+    const ALLOWED_FILE_TYPES = ['.jpg', '.jpeg', '.png'];
+    const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+
+    if (
+      !ALLOWED_FILE_TYPES.includes(fileExt) &&
+      !file.type.startsWith('image/')
+    ) {
+      addError({
+        message: `File type "${fileExt}" is not supported. Please use: ${ALLOWED_FILE_TYPES.join(', ')}`,
+        severity: 'error',
+      });
+      return false;
+    }
+
+    if (file.size > MAX_FILE_SIZE) {
+      addError({
+        message: `File "${file.name}" exceeds ${MAX_FILE_SIZE / 1024 / 1024}MB limit`,
+        severity: 'error',
+      });
+      return false;
+    }
+
+    return true;
+  };
+
+  // Handle image upload errors
+  const handleImageError = (error: { message: string; severity: 'error' | 'warning' | 'info' }) => {
+    addError(error);
+  };
+
   // When document option is clicked
   const handleDocumentClick = () => {
+    // Check if document limit has been reached
+    if (hasReachedDocumentLimit) {
+      addError({
+        message: `Maximum ${MAX_DOCUMENTS} documents allowed.`,
+        severity: 'error',
+      });
+      closeMenu();
+      return;
+    }
+
     // Find the actual button in the UploadDocuments component and click it
     const documentButtonElement = documentRef.current?.querySelector('button');
     if (documentButtonElement) {
@@ -234,6 +332,17 @@ ${file.content}
         </div>
       )}
 
+      {/* Document count indicator */}
+      {currentDocumentCount > 0 && (
+        <div
+          className={cx('memori--document-count', {
+            'memori--document-count-full': hasReachedDocumentLimit,
+          })}
+        >
+          {currentDocumentCount}/{MAX_DOCUMENTS}
+        </div>
+      )}
+
       {/* Floating menu */}
       {menuOpen && (
         <div className="memori--upload-menu" ref={menuRef}>
@@ -242,6 +351,15 @@ ${file.content}
               'memori--upload-menu-item--disabled': hasReachedDocumentLimit,
             })}
             onClick={handleDocumentClick}
+            title={
+              hasReachedDocumentLimit
+                ? t('upload.maxDocumentsReached', { max: MAX_DOCUMENTS }) ??
+                  `Maximum ${MAX_DOCUMENTS} documents already uploaded`
+                : remainingDocumentSlots === 1
+                ? t('upload.lastDocumentSlot') ?? 'Upload last document'
+                : t('upload.uploadDocument', { remaining: remainingDocumentSlots }) ??
+                  `Upload document (${remainingDocumentSlots} remaining)`
+            }
           >
             <DocumentIcon className="memori--upload-menu-icon" />
             <span>
@@ -299,7 +417,10 @@ ${file.content}
           setDocumentPreviewFiles={handleDocumentFiles}
           maxDocuments={MAX_DOCUMENTS}
           documentPreviewFiles={documentPreviewFiles}
-          // onLoadingChange={handleLoadingChange}
+          onLoadingChange={handleLoadingChange}
+          onDocumentError={handleDocumentError}
+          onValidateFile={validateDocumentFile}
+          onValidatePayloadSize={validatePayloadSize}
         />
       </div>
 
@@ -314,6 +435,8 @@ ${file.content}
           onLoadingChange={handleLoadingChange}
           maxImages={MAX_IMAGES}
           memoriID={memoriID}
+          onImageError={handleImageError}
+          onValidateImageFile={validateImageFile}
         />
       </div>
 
@@ -321,6 +444,7 @@ ${file.content}
       <div className="memori--error-message-container">
         {errors.map((error, index) => (
           <Alert
+            className='memori--error-message-alert'
             key={`${error.message}-${index}`}
             open={true}
             type={error.severity}
