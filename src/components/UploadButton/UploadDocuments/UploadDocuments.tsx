@@ -285,13 +285,15 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         (file: any) => file.type === 'image'
       );
       
+      console.log('existingDocuments', existingDocuments);
+      console.log('processedFiles', processedFiles);
+      console.log('existingImages', existingImages);
       setDocumentPreviewFiles([
         ...existingDocuments,
         ...processedFiles.map(file => ({
           ...file,
           type: 'document'
         })),
-        ...existingImages
       ]);
     }
 
