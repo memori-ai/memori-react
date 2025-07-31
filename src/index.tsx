@@ -259,6 +259,22 @@ const Memori: React.FC<Props> = ({
   const layoutIntegrationConfig = safeParseJSON(
     layoutIntegration?.customData ?? '{}'
   );
+
+  const whiteListedDomains = layoutIntegrationConfig.whiteListedDomains;
+  if (whiteListedDomains) {
+    // check if we are client side
+    if (typeof window !== 'undefined') {
+      // check if the current domain is in the whiteListedDomains with Regex
+      if (
+        !whiteListedDomains.some((domain: string) =>
+          new RegExp(domain).test(window.location.hostname)
+        )
+      ) {
+        return null;
+      }
+    }
+  }
+
   const initialContextVars =
     context ?? getParsedContext(layoutIntegrationConfig.contextVars);
   const initialQuestionLayout =
