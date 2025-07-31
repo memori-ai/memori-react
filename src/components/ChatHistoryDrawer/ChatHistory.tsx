@@ -499,7 +499,10 @@ const ChatHistoryDrawer = ({
             loginToken,
             memori.engineMemoriID ?? '',
             calculatedIndex,
-            ITEMS_PER_PAGE
+            ITEMS_PER_PAGE,
+            undefined,
+            undefined,
+            false,
           );
         } else {
           const { dateFrom, dateTo } =
@@ -509,8 +512,9 @@ const ChatHistoryDrawer = ({
             memori.engineMemoriID ?? '',
             calculatedIndex,
             ITEMS_PER_PAGE,
-            dateFrom ?? '',
-            dateTo ?? ''
+            dateFrom ?? undefined,
+            dateTo ?? undefined,
+            false,
           );
         }
 
