@@ -364,7 +364,7 @@ ${file.content}
             <DocumentIcon className="memori--upload-menu-icon" />
             <span>
               {t('upload.uploadDocument') ?? 'Upload document'}
-              {currentDocumentCount > 0 && (
+              {/* {currentDocumentCount > 0 && (
                 <span className="memori--upload-slots-info">
                   {hasReachedDocumentLimit
                     ? ` (${t('upload.maxReached') ?? 'Max reached'})`
@@ -372,7 +372,7 @@ ${file.content}
                         t('upload.remaining') ?? 'remaining'
                       })`}
                 </span>
-              )}
+              )} */}
             </span>
           </div>
 
@@ -397,7 +397,7 @@ ${file.content}
             <ImageIcon className="memori--upload-menu-icon-image" />
             <span>
               {t('upload.uploadImage') ?? 'Upload image'}
-              {currentImageCount > 0 && (
+              {/* {currentImageCount > 0 && (
                 <span className="memori--upload-slots-info">
                   {hasReachedImageLimit
                     ? ` (${t('upload.maxReached') ?? 'Max reached'})`
@@ -405,7 +405,7 @@ ${file.content}
                         t('upload.remaining') ?? 'remaining'
                       })`}
                 </span>
-              )}
+              )} */}
             </span>
           </div>
         </div>
