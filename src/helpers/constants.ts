@@ -186,3 +186,8 @@ export const boardOfExpertsLoadingSentences: {
 
 export const MAX_MSG_CHARS = 4000;
 export const MAX_MSG_WORDS = 300;
+
+// Document upload limits
+export const MAX_DOCUMENTS_PER_MESSAGE = 5;
+export const MAX_TOTAL_MESSAGE_PAYLOAD = 100000; // 100KB total payload limit
+export const MAX_DOCUMENT_CONTENT_LENGTH = 100000; // 100KB per document content

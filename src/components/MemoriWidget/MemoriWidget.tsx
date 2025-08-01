@@ -834,6 +834,15 @@ const MemoriWidget = ({
         msg = msg + ' ' + findMediaDocument.content;
       }
 
+      // Handle multiple documents
+      const mediaDocuments = media?.filter(
+        m => !m.mediumID && m.properties?.isAttachedFile
+      );
+      if (mediaDocuments && mediaDocuments.length > 0) {
+        const documentContents = mediaDocuments.map(doc => doc.content).join(' ');
+        msg = msg + ' ' + documentContents;
+      }
+
       // Add chat reference link to the message if it exists
       // if (chatLogID) {
       //   msg =

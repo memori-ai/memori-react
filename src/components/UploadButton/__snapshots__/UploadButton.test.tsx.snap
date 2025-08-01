@@ -96,9 +96,6 @@ exports[`renders UploadButton unchanged 1`] = `
             />
           </svg>
         </button>
-        <div
-          class="memori--error-message-container"
-        />
       </div>
     </div>
     <div
@@ -149,9 +146,6 @@ exports[`renders UploadButton unchanged 1`] = `
             />
           </svg>
         </button>
-        <div
-          class="memori--error-message-container"
-        />
       </div>
     </div>
     <div

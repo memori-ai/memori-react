@@ -10,12 +10,6 @@ import { useTranslation } from 'react-i18next';
 import Button from '../../ui/Button';
 
 // Types
-type UploadError = {
-  message: string;
-  severity: 'error' | 'warning' | 'info';
-  fileId?: string;
-};
-
 type PreviewFile = {
   name: string;
   id: string;
@@ -28,9 +22,6 @@ type PreviewFile = {
   title?: string;
 };
 
-// Constants
-const DEFAULT_MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
-
 // Props interface
 interface UploadImagesProps {
   authToken?: string;
@@ -42,9 +33,9 @@ interface UploadImagesProps {
   onLoadingChange?: (loading: boolean) => void;
   maxImages?: number;
   memoriID?: string;
+  onImageError?: (error: { message: string; severity: 'error' | 'warning' | 'info' }) => void;
+  onValidateImageFile?: (file: File) => boolean;
 }
-
-const ALLOWED_FILE_TYPES = ['.jpg', '.jpeg', '.png'];
 
 const UploadImages: React.FC<UploadImagesProps> = ({
   authToken = '',
@@ -56,6 +47,8 @@ const UploadImages: React.FC<UploadImagesProps> = ({
   onLoadingChange,
   maxImages = 5,
   memoriID = '',
+  onImageError,
+  onValidateImageFile,
 }) => {
   const { t, i18n } = useTranslation();
   // Client
@@ -66,7 +59,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({
 
   // State
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState<UploadError[]>([]);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<string | null>(null);
   const [imageTitle, setImageTitle] = useState('');
@@ -82,18 +74,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     }
   }, [isLoading, onLoadingChange]);
 
-  // Error handling
-  const clearErrors = () => setErrors([]);
-
-  const removeError = (errorMessage: string) => {
-    setErrors(prev => prev.filter(e => e.message !== errorMessage));
-  };
-
-  const addError = (error: UploadError) => {
-    setErrors(prev => [...prev, error]);
-    setTimeout(() => removeError(error.message), 5000);
-  };
-
   // Check current image count
   const currentImageCount = documentPreviewFiles.filter(
     (file: any) => file.type === 'image'
@@ -101,33 +81,9 @@ const UploadImages: React.FC<UploadImagesProps> = ({
 
   // Image upload
   const validateImageFile = (file: File): boolean => {
-    const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
-
-    if (
-      !ALLOWED_FILE_TYPES.includes(fileExt) &&
-      !file.type.startsWith('image/')
-    ) {
-      addError({
-        message: `File type "${fileExt}" is not supported. Please use: ${ALLOWED_FILE_TYPES.join(
-          ', '
-        )}`,
-        severity: 'error',
-        fileId: file.name,
-      });
-      return false;
+    if (onValidateImageFile) {
+      return onValidateImageFile(file);
     }
-
-    if (file.size > DEFAULT_MAX_FILE_SIZE) {
-      addError({
-        message: `File "${file.name}" exceeds ${
-          DEFAULT_MAX_FILE_SIZE / 1024 / 1024
-        }MB limit`,
-        severity: 'error',
-        fileId: file.name,
-      });
-      return false;
-    }
-
     return true;
   };
 
@@ -137,7 +93,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
 
     // Check if adding this file would exceed the limit
     if (currentImageCount >= maxImages) {
-      addError({
+      onImageError?.({
         message:
           t('upload.maxImagesReached') ??
           `Maximum ${maxImages} images allowed.`,
@@ -145,8 +101,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({
       });
       return;
     }
-
-    clearErrors();
 
     const file = files[0]; // Only handle the first file
 
@@ -261,14 +215,13 @@ const UploadImages: React.FC<UploadImagesProps> = ({
               ]
             );
           } catch (error) {
-            addError({
+            onImageError?.({
               message: t('upload.uploadFailed') ?? 'Upload failed',
               severity: 'error',
-              fileId: selectedFile.name,
             });
           }
         } else {
-          addError({
+          onImageError?.({
             message:
               t('upload.apiClientNotConfigured') ??
               'API client not configured properly for media upload',
@@ -280,20 +233,18 @@ const UploadImages: React.FC<UploadImagesProps> = ({
       };
 
       reader.onerror = () => {
-        addError({
+        onImageError?.({
           message: t('upload.fileReadingFailed') ?? 'File reading failed',
           severity: 'error',
-          fileId: selectedFile.name,
         });
         setIsLoading(false);
       };
 
       reader.readAsDataURL(selectedFile);
     } catch (error) {
-      addError({
+      onImageError?.({
         message: t('upload.uploadFailed') ?? 'Upload failed',
         severity: 'error',
-        fileId: selectedFile.name,
       });
       setIsLoading(false);
     }
@@ -312,7 +263,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
       <input
         ref={imageInputRef}
         type="file"
-        accept={ALLOWED_FILE_TYPES.join(',')}
+        accept=".jpg,.jpeg,.png"
         className="memori--upload-file-input"
         onChange={handleImageUpload}
         disabled={
@@ -404,21 +355,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({
           </div>
         </div>
       </Modal>
-
-      {/* Error messages container */}
-      <div className="memori--error-message-container">
-        {errors.map((error, index) => (
-          <Alert
-            key={`${error.message}-${index}`}
-            open={true}
-            type={error.severity}
-            title={'Upload notification'}
-            description={error.message}
-            onClose={() => removeError(error.message)}
-            width="350px"
-          />
-        ))}
-      </div>
     </div>
   );
 };
