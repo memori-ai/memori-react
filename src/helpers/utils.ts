@@ -4,6 +4,11 @@ import * as THREE from 'three';
 
 export const hasTouchscreen = (): boolean => {
   let hasTouchScreen = false;
+
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+    return hasTouchScreen;
+  }
+
   if ('maxTouchPoints' in navigator) {
     hasTouchScreen = navigator.maxTouchPoints > 0;
   } else if ('msMaxTouchPoints' in navigator) {
@@ -221,6 +226,29 @@ export const getFieldFromCustomData = (
   } catch (error) {
     return '';
   }
+};
+
+const MAX_MSG_CHARS = 4000;
+
+const MAX_MSG_WORDS = 300;
+
+export const truncateMessage = (message: string) => {
+
+  let truncatedMessage = message;
+
+  if (message.length > MAX_MSG_CHARS) {
+    truncatedMessage = `${message.slice(0, MAX_MSG_CHARS)}\n<br />...`;
+  }
+
+  if (truncatedMessage.split(' ').length > MAX_MSG_WORDS) {
+    truncatedMessage = truncatedMessage
+      .split(' ')
+      .slice(0, MAX_MSG_WORDS)
+      .join(' ')
+      .concat('\n<br/>...');
+  }
+
+  return truncatedMessage;
 };
 
 export const stripObjNulls = (obj: { [key: string]: any }) => {

@@ -13,17 +13,25 @@ interface IconProps {
   title?: string;
 }
 
+// Import all icons at module level
+const iconContext = (require as any).context('./', false, /\.tsx$/);
+const iconModules: { [key: string]: React.ComponentType<any> } = {};
+
+iconContext.keys().forEach((key: string) => {
+  const iconName = key.replace('./', '').replace('.tsx', '');
+  if (!iconName.includes('stories')) {
+    iconModules[iconName] = iconContext(key).default;
+  }
+});
+
 const IconShowcaseItem = ({ iconName, ...iconProps }: Props & IconProps) => {
-  const Icon = require(`./${iconName}`).default;
+  const Icon = iconModules[iconName];
+  if (!Icon) return null;
   return <Icon {...iconProps} className="showcase-icon" />;
 };
 
 const IconsShowcase = (iconProps: IconProps) => {
-  const icons = require.context('./', false, /\.tsx$/);
-  const iconNames = icons
-    .keys()
-    .map(key => key.replace('./', '').replace('.tsx', ''))
-    .filter(name => !name.includes('stories'));
+  const iconNames = Object.keys(iconModules);
   return (
     <div
       style={{

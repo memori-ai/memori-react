@@ -307,7 +307,7 @@ exports[`renders Chat unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid"
+              class="memori-link-items--grid memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -882,7 +882,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid"
+              class="memori-link-items--grid memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -1441,7 +1441,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid"
+              class="memori-link-items--grid memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -1981,7 +1981,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid"
+              class="memori-link-items--grid memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -2560,7 +2560,7 @@ exports[`renders Chat with dates unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid"
+              class="memori-link-items--grid memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -3130,7 +3130,7 @@ exports[`renders Chat with hints unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid"
+              class="memori-link-items--grid memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -3716,7 +3716,7 @@ exports[`renders Chat with media unchanged 1`] = `
             class="memori-media-items"
           >
             <div
-              class="memori-media-items--grid"
+              class="memori-media-items--grid memori-media-items--agent"
             >
               <div
                 class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -3916,7 +3916,7 @@ exports[`renders Chat with media unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid"
+              class="memori-link-items--grid memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -4677,7 +4677,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid"
+              class="memori-link-items--grid memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -5246,7 +5246,7 @@ exports[`renders Chat with user unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid"
+              class="memori-link-items--grid memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"

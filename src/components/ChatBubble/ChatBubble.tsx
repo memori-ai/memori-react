@@ -20,11 +20,13 @@ import Button from '../ui/Button';
 import QuestionHelp from '../icons/QuestionHelp';
 import Copy from '../icons/Copy';
 import Code from '../icons/Code';
+import Bug from '../icons/Bug';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
 import { stripHTML, stripOutputTags } from '../../helpers/utils';
-import FilePreview from '../FilePreview/FilePreview';
 import { renderMsg, truncateMessage } from '../../helpers/message';
 import Expandable from '../ui/Expandable';
+import Modal from '../ui/Modal';
+import memoriApiClient from '@memori.ai/memori-api-client';
 
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
@@ -45,6 +47,7 @@ export interface Props {
   tenant?: Tenant;
   baseUrl?: string;
   apiUrl?: string;
+  client?: ReturnType<typeof memoriApiClient>;
   showFeedback?: boolean;
   showWhyThisAnswer?: boolean;
   showCopyButton?: boolean;
@@ -56,6 +59,8 @@ export interface Props {
   userAvatar?: MemoriProps['userAvatar'];
   user?: User;
   experts?: ExpertReference[];
+  showFunctionCache?: boolean;
+  showReasoning?: boolean;
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -64,6 +69,7 @@ const ChatBubble: React.FC<Props> = ({
   tenant,
   baseUrl,
   apiUrl,
+  client,
   sessionID,
   showFeedback,
   showWhyThisAnswer = true,
@@ -76,11 +82,13 @@ const ChatBubble: React.FC<Props> = ({
   user,
   userAvatar,
   experts,
+  showFunctionCache = false,
+  showReasoning = false,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
-
+  const [openFunctionCache, setOpenFunctionCache] = useState(false);
   // Initialize MathJax on component mount
   useEffect(() => {
     if (typeof window !== 'undefined' && !window.MathJax) {
@@ -88,16 +96,28 @@ const ChatBubble: React.FC<Props> = ({
     }
   }, []);
 
-  const text = message.translatedText || message.text;
-  const { text: renderedText } = renderMsg(text, useMathFormatting);
+  // Clean text by removing document_attachment tags before rendering
+  const cleanText = (message.translatedText || message.text).replace(
+    /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g,
+    ''
+  );
+  const { text: renderedText } = renderMsg(
+    cleanText,
+    useMathFormatting,
+    t('reasoning') || 'Reasoning...',
+    showReasoning
+  );
   const plainText = message.fromUser
-    ? truncateMessage(text)
+    ? truncateMessage(cleanText)
     : stripHTML(stripOutputTags(renderedText));
 
-  // Render MathJax whenever message content changes
+  // Format function cache content
+  const functionCacheData = message.media?.filter(
+    m => m.properties?.functionCache === 'true'
+  );
+
   useLayoutEffect(() => {
     if (typeof window !== 'undefined' && !message.fromUser) {
-      // Allow a short delay for the DOM to update
       const timer = setTimeout(() => {
         if (window.MathJax && window.MathJax.typesetPromise) {
           try {
@@ -105,11 +125,27 @@ const ChatBubble: React.FC<Props> = ({
               '.memori-chat--bubble-content'
             );
             if (elements.length > 0) {
-              window.MathJax.typesetPromise([
-                '.memori-chat--bubble-content',
-              ]).catch(err =>
-                console.error('MathJax typesetting failed:', err)
+              // Salva la posizione di scroll corrente
+              const scrollContainer = document.querySelector(
+                '.memori-chat--history'
               );
+              const currentScrollTop = scrollContainer?.scrollTop || 0;
+              const currentScrollHeight = scrollContainer?.scrollHeight || 0;
+
+              window.MathJax.typesetPromise(['.memori-chat--bubble-content'])
+                .then(() => {
+                  // Ripristina la posizione di scroll dopo il rendering MathJax
+                  if (scrollContainer) {
+                    const newScrollHeight = scrollContainer.scrollHeight;
+                    const heightDifference =
+                      newScrollHeight - currentScrollHeight;
+                    scrollContainer.scrollTop =
+                      currentScrollTop + heightDifference;
+                  }
+                })
+                .catch(err =>
+                  console.error('MathJax typesetting failed:', err)
+                );
             }
           } catch (error) {
             console.error('Error during MathJax typesetting:', error);
@@ -119,7 +155,7 @@ const ChatBubble: React.FC<Props> = ({
 
       return () => clearTimeout(timer);
     }
-  }, [message.text, message.fromUser, renderedText]);
+  }, [cleanText, message.fromUser, renderedText]);
 
   return (
     <>
@@ -254,6 +290,7 @@ const ChatBubble: React.FC<Props> = ({
 
           {((!message.fromUser && showCopyButton) ||
             (message.generatedByAI && showAIicon) ||
+            (message.generatedByAI && showFunctionCache) ||
             (showFeedback && simulateUserPrompt)) && (
             <div className="memori-chat--bubble-addon">
               {!message.fromUser && showCopyButton && (
@@ -279,6 +316,23 @@ const ChatBubble: React.FC<Props> = ({
                       <Code aria-label={t('copyRawCode') || 'Copy raw code'} />
                     }
                     onClick={() => navigator.clipboard.writeText(message.text)}
+                  />
+                )}
+
+              {!message.fromUser &&
+                showFunctionCache &&
+                message.media?.some(
+                  m =>
+                    Boolean(m.properties?.functionCache) ||
+                    m.properties?.functionCache === 'true'
+                ) && (
+                  <Button
+                    ghost
+                    shape="circle"
+                    title="Debug"
+                    className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--debug"
+                    icon={<Bug aria-label="Debug" />}
+                    onClick={() => setOpenFunctionCache(true)}
                   />
                 )}
 
@@ -355,22 +409,6 @@ const ChatBubble: React.FC<Props> = ({
                 )}
             </div>
           )}
-
-          {message.fromUser &&
-            message.media &&
-            message.media?.length > 0 &&
-            message.media[0].properties?.isAttachedFile && (
-              <FilePreview
-                previewFiles={message.media.map(m => ({
-                  name: m.title ?? '',
-                  id: m.mediumID,
-                  content: m.content ?? '',
-                }))}
-                removeFile={() => {}}
-                allowRemove={false}
-                isMessagePreview={true}
-              />
-            )}
         </Transition.Child>
 
         {message.fromUser && (
@@ -436,15 +474,48 @@ const ChatBubble: React.FC<Props> = ({
         )}
       </Transition>
 
-      {showingWhyThisAnswer && apiUrl && (
+      {/* Document attachments are extracted and passed to Chat.tsx for rendering */}
+
+      {showingWhyThisAnswer && client && (
         <WhyThisAnswer
+          client={client}
           visible={showingWhyThisAnswer}
           message={message}
           closeDrawer={() => setShowingWhyThisAnswer(false)}
-          apiURL={apiUrl}
           sessionID={sessionID}
         />
       )}
+
+      <Modal
+        open={openFunctionCache}
+        onClose={() => setOpenFunctionCache(false)}
+        className="memori-chat--function-cache-modal"
+      >
+        {functionCacheData?.map((f, i) => (
+          <div
+            key={f.mediumID}
+            style={
+              i > 0
+                ? {
+                    marginTop: '1.5rem',
+                    paddingTop: '1.5rem',
+                    borderTop: '1px solid #e0e0e0',
+                  }
+                : {
+                    paddingTop: '1.5rem',
+                  }
+            }
+          >
+            <h3 style={{ marginTop: 0 }}>{f.title}</h3>
+            <pre
+              key={f.mediumID}
+              style={{ whiteSpace: 'pre-wrap', wordWrap: 'break-word' }}
+            >
+              {f.content}
+            </pre>
+          </div>
+        ))}
+      </Modal>
     </>
   );
 };

@@ -26,6 +26,11 @@
   "page": "pagina",
   "actions": "Azioni",
   "next": "Successivo",
+  "all": "Tutti",
+  "today": "Oggi",
+  "yesterday": "Ieri",
+  "last_7_days": "Ultimi 7 giorni",
+  "last_30_days": "Ultimi 30 giorni",
   "previous": "Precedente",
   "copy": "Copia",
   "copyRawCode": "Copia codice sorgente",
@@ -45,6 +50,7 @@
   "memoriBlockedReasonExceedChats": "perchè ha superato la soglia mensile di chat ammesse.",
   "memoriBlockedGiverHelper": "Puoi sempre gestirlo in qualità di amministratore, ma altri utenti non potranno interrogarlo.",
   "generatedByAI": "Risposta generata da IA, può talvolta generare informazioni non corrette",
+  "reasoning": "Ragionamento...",
   "whyThisAnswer": "Perché questa risposta?",
   "whyThisAnswerHelper": "Questa risposta è stata generata automaticamente da un'intelligenza artificiale sulla base di questi contenuti verificati.",
   "receiverLabel": "Assegnato a",
@@ -102,15 +108,16 @@
   "widget": {
     "instruct": "Istruisci",
     "test": "Prova",
-    "sound": "Audio",
+    "sound": "Suono",
     "position": "Preferenze posizione",
     "settings": "Impostazioni",
     "share": "Condividi",
+    "shareChat": "Condividi chat",
     "sendOnKeypress": "Premi Invio per inviare",
-    "sendOnClick": "Clicca sul bottone di invio",
-    "boardOfExperts": "Gruppo di esperti",
-    "showExpertsInTheBoard": "Mostra gli esperti di questo gruppo",
-    "expertsInTheBoard": "Esperti di questo gruppo",
+    "sendOnClick": "Clicca su Invia",
+    "boardOfExperts": "Board di esperti",
+    "showExpertsInTheBoard": "Mostra esperti in questa board",
+    "expertsInTheBoard": "Esperti in questa board",
     "goToIntegrationsToCustomizeAvatar": "Per personalizzare l'avatar, vai a Condividimi e configura la pagina pubblica"
   },
   "write_and_speak": {
@@ -119,16 +126,27 @@
     "pageInstructExplanation": "Per insegnarmi nuove cose clicca sul pulsante ISTRUISCIMI per cominciare",
     "pageTryMeExplanation": "Per parlare con me clicca sul pulsante INIZIAMO per cominciare",
     "pagePrivacyExplanation": "Le conversazioni sono visibili all'autore dell'agente",
+    "downloadChat": "Scarica chat",
     "pagePrivacyExplanationList": {
       "allConversations": "Tutte le conversazioni con questo agente sono visibili all'autore dell'agente",
       "anonymousUser": "Per utenti anonimi: l'autore vedrà il contenuto e l'indirizzo IP",
       "registeredUser": "Per utenti registrati: l'autore vedrà il contenuto e il nome utente",
+      "contentAndUsername": "L'autore può vedere il contenuto, il tuo nome utente e il tuo indirizzo IP",
+      "contentAndIpAddress": "L'autore può vedere il contenuto e il tuo indirizzo IP",
       "authorUsesInfo": "L'autore utilizza queste informazioni per migliorare le funzionalità dell'agente. Continuando, accetti queste condizioni."
     },
     "instructButton": "ISTRUISCIMI",
     "tryMeButton": "INIZIAMO",
     "resumeButton": "RIPRENDI",
     "chatHistory": "Cronologia chat",
+    "chatHistoryDescription": "Mostra la cronologia chat con questo agente",
+    "loadingChatHistory": "Caricamento cronologia chat...",
+    "noChatHistoryAvailable": "Nessuna cronologia chat disponibile",
+    "noResultsFound": "Nessun risultato trovato per \"{{searchText}}\"",
+    "searchInChatHistory": "Cerca nella cronologia chat...",
+    "latestFirst": "Più recenti prima",
+    "oldestFirst": "Più vecchi prima",
+    "exportChat": "Esporta Chat",
     "exportChatHistory": "Esporta la cronologia chat",
     "exportChatHistoryMessage": "Vuoi esportare la cronologia chat?",
     "chatBotButtonText": "CLICCA QUI PER APRIRE LA CHAT",
@@ -165,7 +183,10 @@
     "requirePositionHelp": "Per parlare con {{name}} devi decidere se fornire o meno la tua posizione. Questo perchè diverse risposte che potrà fornirti potrebbero dipendere da dove ti trovi.",
     "dontWantToProvidePosition": "Non voglio fornire la mia posizione",
     "attachmentsLabel": "Arricchisci il tuo messaggio",
-    "iWantToTalkToIn": "Voglio parlare con {{name}} in"
+    "iWantToTalkToIn": "Voglio parlare con {{name}} in",
+    "message": "messaggio",
+    "messages": "messaggi",
+    "page": "Pagina {{current}} di {{total}}"
   },
   "media": {
     "title": "Titolo",
@@ -186,6 +207,28 @@
     "linkKey": "URL",
     "linkValue": "Titolo link",
     "insertThisLink": "Inserisci un link a {{url}} con titolo {{title}}"
+  },
+  "upload": {
+    "loginRequired": "Login richiesto",
+    "loginRequiredDescription": "Per caricare immagini, devi prima accedere",
+    "uploadFiles": "Carica file",
+    "uploadImage": "Carica immagine",
+    "uploadDocument": "Carica documento",
+    "replace": "Sostituisci documento",
+    "maxImagesReached": "Puoi caricare fino a {{max}} immagini",
+    "apiClientNotConfigured": "Client API non configurato correttamente per il caricamento di media",
+    "fileReadingFailed": "Lettura del file fallita",
+    "uploadFailed": "Caricamento fallito",
+    "uploadSuccess": "Caricamento riuscito",
+    "remaining": "rimanenti",
+    "maxReached": "Limite raggiunto",
+    "titleImage": "Immagine: {{title}}",
+    "titleImageUpload": "Carica immagini",
+    "titleHelp": "Aggiungi un titolo descrittivo per aiutare l'AI a fornire risposte più appropriate.",
+    "titlePlaceholder": "Inserisci il titolo dell'immagine",
+    "uploadSuccessDescription": "Il file è stato caricato con successo",
+    "partialUpload": "Solo {{uploaded}} immagini su {{total}} immagini saranno caricate. Massimo {{max}} immagini consentite.",
+    "cancel": "Annulla"
   },
   "gamification": {
     "level": "Livello",
@@ -270,6 +313,7 @@
     "TENANT_ALREADY_EXISTS": "Tenant già esistente",
     "TENANT_MISSING_DESCRIPTION": "Tenant: descrizione mancante",
     "TENANT_CANT_SET_COMPLETION_PROVIDER": "Tenant: non abilitato a gestire il provider di completamento",
+    "TENANT_INVALID_TYPE": "Tenant: tipo non valido",
 
     "USER_NOT_CONFIRMED": "Utente ancora non confermato",
     "USER_NOT_FOUND": "Utente non trovato",
@@ -304,6 +348,7 @@
     "USER_CREATION_BILLING_DENIED_PERMISSION": "Non hai crediti sufficienti per creare un agente",
     "USER_HAS_ONE_OR_MORE_COMPLETION_CONFIGS": "L'utente ha una o più configurazioni completions",
     "USER_CANT_BE_DELETED": "Utente non può essere cancellato",
+    "USER_ORDER_BY_INVALID": "Ordine non valido",
 
     "MEMORI_NOT_FOUND": "Agente non trovato",
     "MEMORI_NOT_ACCESSIBLE": "Agente non accessibile",
@@ -330,6 +375,9 @@
     "MEMORI_DEEP_THOUGHT_REQUIRES_COMPLETIONS": "Pensiero Profondo richiede l'abilitazione delle completions",
     "MEMORI_BOARD_OF_EXPERTS_REQUIRES_COMPLETIONS": "Il gruppo di esperti richiede l'abilitazione delle completions",
     "MEMORI_INVALID_COMPLETION_CONFIG": "Agente: configurazione completions non valida",
+    "MEMORI_MACRO_FUNCTIONS_REQUIRES_COMPLETIONS": "Macro funzioni richiede l'abilitazione delle completions",
+    "MEMORI_BLOCKING_DATE_MISSING_OR_WRONG": "Agente: data di blocco mancante o non valida",
+    "MEMORI_LIST_FILTER_NOT_SPECIFIED": "Agente: filtro non specificato",
 
     "MEMORI_TRANSFER_MISSING_DESTINATION_USER": "Trasferimento: utente di destinazione mancante",
     "MEMORI_TRANSFER_INVALID_DESTINATION_USER_ID": "Trasferimento: ID utente di destinazione non valido",
@@ -341,6 +389,8 @@
 
     "MEMORI_SESSIONS_INVALID_DATE_FROM_FORMAT": "Formato non valido data a partire da",
     "MEMORI_SESSIONS_INVALID_DATE_TO_FORMAT": "Formato non valido data fino a",
+    "MEMORI_SESSION_NOT_FOUND": "Sessione non trovata",
+    "MEMORI_SESSION_DOESNT_ACCEPT_MEDIA": "Sessione non accetta media",
 
     "MEMORI_FEATURE_REQUIRES_SUBSCRIPTION": "Agente: funzionalità richiede un abbonamento",
 
@@ -399,6 +449,11 @@
     "CONSUMPTIONLOG_INVALID_MEMORI_ID": "Memori ID non valido",
 
     "NOTIFICATIONPREFS_INVALID_CHATLOG_EXTRACTION_PERIOD": "Notifiche: Periodo di estrazione chatlog non valido",
+    "BROADCAST_NOT_ALLOWED": "Broadcast non consentito",
+    "INVALID_NOTIFICATION_TYPE": "Tipo notifica non valido",
+    "NOTIFICATION_NOT_FOUND": "Notifica non trovata",
+    "INVALID_NOTIFICATION_FILTER": "Filtro notifica non valido",
+    "INVALID_NOTIFICATION_PERIOD": "Periodo notifica non valido",
 
     "PROCESS_INVALID_TYPE": "Tipo di processo non valido",
     "PROCESS_ALREADY_RUNNING": "Processo già in esecuzione",
@@ -428,6 +483,12 @@
     "IMPORTTXT_IMPORT_REQUIRES_PAYING": "Importazione TXT: importazione richiede un piano a pagamento",
     "IMPORTTXT_BILLING_DENIED_PERMISSION": "Importazione TXT: non hai crediti sufficienti per l'operazione",
 
+    "IMPORT_MISSING_ROWS": "Importazione: righe mancanti",
+    "IMPORT_CANT_IMPORT_TO_SECRET_MEMORI": "Importazione: impossibile importare in agenti segreti",
+    "IMPORTMEMORI_INVALID_MEMORI_SPECS": "Importazione MEMORI: specifiche agente non valide",
+    "IMPORT_MISSING_JSONL": "Importazione MEMORI: JSONL mancante",
+    "IMPORTMEMORI_INVALID_SPECS": "Importazione MEMORI: specifiche non valide",
+    "EXPORT_MISSING_PASSWORD": "Esportazione: password mancante",
     "EXPORTCSV_MISSING_CSV_SPECS": "Esportazione CSV: specifiche CSV mancanti",
     "EXPORTCSV_MISSING_SEPARATOR": "Esportazione CSV: separatore mancante",
     "EXPORTCSV_INVALID_SEPARATOR": "Esportazione CSV: separatore non valido",
@@ -481,6 +542,19 @@
     "COMPLETION_CONFIG_NOT_ACCESSIBLE": "Configurazione completions: non accessibile",
     "COMPLETION_CONFIG_NAME_RESERVED": "Configurazione completions: nome riservato",
     "COMPLETION_CONFIG_NAME_ALREADY_EXISTS": "Configurazione completions: nome già esistente",
-    "COMPLETION_CONFIG_VISIBILITY_CHANGE_NOT_ALLOWED": "Configurazione completions: cambiamento visibilità non consentito"
+    "COMPLETION_CONFIG_VISIBILITY_CHANGE_NOT_ALLOWED": "Configurazione completions: cambiamento visibilità non consentito",
+    "COMPLETION_CONFIG_MISSING_MANDATORY_PREFIX": "Configurazione completions: prefisso obbligatorio mancante",
+    "COMPLETION_CONFIG_VISIBILITY_NOT_PERMITTED": "Configurazione completions: visibilità non consentita",
+    "COMPLETION_CONFIG_USE_AS_DEFAULT_NOT_PERMITTED": "Configurazione completions: uso come default non consentito",
+    "COMPLETION_CONFIG_USE_AS_DEFAULT_REQUIRES_TENANT_VISIBILITY": "Configurazione completions: uso come default richiede visibilità tenant",
+    "COMPLETION_CONFIG_CHARGEABLE_NOT_PERMITTED": "Configurazione completions: chargeable non consentito",
+    "COMPLETION_CONFIG_INVALID_APPLY_TO": "Configurazione completions: apply to non valido",
+    "COMPLETION_CONFIG_APPLY_TO_TENANT_NOT_ALLOWED": "Configurazione completions: apply to tenant non consentito",
+    "TRUSTED_APPLICATION_NOT_FOUND": "Applicazione trusted non trovata",
+    "TRUSTED_APPLICATION_NOT_ACCESSIBLE": "Applicazione trusted non accessibile",
+    "TRUSTED_APPLICATION_NAME_REQUIRED": "Applicazione trusted: nome richiesto",
+    "TRUSTED_APPLICATION_TOKEN_REQUIRED": "Applicazione trusted: token richiesto",
+    "TRUSTED_APPLICATION_NAME_ALREADY_EXISTS": "Applicazione trusted: nome già esistente",
+    "TRUSTED_APPLICATION_INVALID_TOKEN": "Applicazione trusted: token non valido"
   }
 }

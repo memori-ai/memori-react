@@ -417,6 +417,7 @@ HiddenChat.args = {
   uiLang: 'it',
   showShare: true,
   showSettings: true,
+  // autoStart: true,
   // memori,
   // tenant,
   memori: {

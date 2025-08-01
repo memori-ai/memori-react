@@ -1,8 +1,9 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, useState } from 'react';
 import cx from 'classnames';
 import {
   DialogState,
   ExpertReference,
+  Medium,
   Memori,
   Message,
   Tenant,
@@ -33,7 +34,6 @@ export interface Props {
   history: Message[];
   authToken?: string;
   dialogState?: DialogState;
-  setDialogState: (dialogState: DialogState) => void;
   pushMessage: (message: Message) => void;
   simulateUserPrompt: (text: string, translatedText?: string) => void;
   showDates?: boolean;
@@ -42,6 +42,7 @@ export interface Props {
   showAIicon?: boolean;
   showTranslationOriginal?: boolean;
   showWhyThisAnswer?: boolean;
+  showReasoning?: boolean;
   client?: ReturnType<typeof memoriApiClient>;
   preview?: boolean;
   microphoneMode?: 'CONTINUOUS' | 'HOLD_TO_TALK';
@@ -55,16 +56,7 @@ export interface Props {
   showMicrophone?: boolean;
   userMessage?: string;
   onChangeUserMessage: (userMessage: string) => void;
-  sendMessage: (
-    msg: string,
-    media?: {
-      mediumID: string;
-      mimeType: string;
-      content: string;
-      title?: string;
-      properties?: { [key: string]: any };
-    }
-  ) => void;
+  sendMessage: (msg: string, media?: (Medium & { type: string })[]) => void;
   listening?: boolean;
   setEnableFocusChatInput: (enableFocusChatInput: boolean) => void;
   isPlayingAudio?: boolean;
@@ -78,6 +70,8 @@ export interface Props {
   user?: User;
   experts?: ExpertReference[];
   useMathFormatting?: boolean;
+  isHistoryView?: boolean;
+  showFunctionCache?: boolean;
 }
 
 const Chat: React.FC<Props> = ({
@@ -86,6 +80,7 @@ const Chat: React.FC<Props> = ({
   sessionID,
   baseUrl,
   apiUrl,
+  client,
   translateTo,
   memoriTyping,
   typingText,
@@ -100,6 +95,7 @@ const Chat: React.FC<Props> = ({
   showWhyThisAnswer = true,
   showCopyButton = true,
   showTranslationOriginal = false,
+  showReasoning = false,
   preview = false,
   instruct = false,
   showInputs = true,
@@ -125,8 +121,11 @@ const Chat: React.FC<Props> = ({
   showUpload = false,
   experts,
   useMathFormatting = false,
+  isHistoryView = false,
+  showFunctionCache = false,
 }) => {
   const scrollToBottom = () => {
+    if (isHistoryView) return;
     setTimeout(() => {
       let userMsgs = document.querySelectorAll(
         '.memori-chat--bubble-container.memori-chat--bubble-from-user'
@@ -135,8 +134,8 @@ const Chat: React.FC<Props> = ({
     }, 200);
   };
   useEffect(() => {
-    !preview && scrollToBottom();
-  }, [history, preview]);
+    !preview && !isHistoryView && scrollToBottom();
+  }, [history, preview, isHistoryView]);
 
   const onTextareaFocus = () => {
     stopListening();
@@ -207,12 +206,24 @@ const Chat: React.FC<Props> = ({
           />
 
           {history.map((message, index) => (
-            <React.Fragment key={index}>
+            <React.Fragment
+              key={`${index}-${
+                message.text?.includes('<document_attachment')
+                  ? 'has-attachments'
+                  : 'no-attachments'
+              }-${message.timestamp}`}
+            >
               <ChatBubble
+                key={`chatbubble-${index}-${
+                  message.text?.includes('<document_attachment')
+                    ? 'has-attachments'
+                    : 'no-attachments'
+                }-${message.timestamp}`}
                 isFirst={index === 0}
                 message={message}
                 memori={memori}
                 tenant={tenant}
+                client={client}
                 baseUrl={baseUrl}
                 apiUrl={apiUrl}
                 sessionID={sessionID}
@@ -230,6 +241,8 @@ const Chat: React.FC<Props> = ({
                 experts={experts}
                 showCopyButton={showCopyButton}
                 useMathFormatting={useMathFormatting}
+                showFunctionCache={showFunctionCache}
+                showReasoning={showReasoning}
               />
 
               {showDates && !!message.timestamp && (
@@ -284,15 +297,58 @@ const Chat: React.FC<Props> = ({
 
               <MediaWidget
                 simulateUserPrompt={simulateUserPrompt}
-                media={message?.media?.filter(
-                  m => m.mimeType !== 'text/html' && m.mimeType !== 'text/plain'
-                )}
+                media={[
+                  // Filter out HTML and plain text media items from the message
+                  ...(message?.media?.filter(
+                    m => m.mimeType !== 'text/html' && m.mimeType !== 'text/plain'
+                  ) || []),
+
+                  // Extract document attachments that are embedded in the message text
+                  ...(() => {
+                    // Get the translated or original message text
+                    const text = message.translatedText || message.text;
+
+                    // Regex to match document attachments in format:
+                    // <document_attachment filename="name.ext" type="mime/type">content</document_attachment>
+                    const documentAttachmentRegex =
+                      /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
+                    
+                    const attachments: (Medium & { type?: string })[] = [];
+                    let match;
+
+                    // Find all document attachments in the text
+                    while ((match = documentAttachmentRegex.exec(text)) !== null) {
+                      const [, filename, type, content] = match;
+                      
+                      // Create a Medium object for each attachment with:
+                      // - Unique ID using timestamp and random string
+                      // - Empty URL since content is embedded
+                      // - Original mime type and filename
+                      // - Trimmed content from the attachment
+                      // - Properties to mark it as a document attachment
+                      attachments.push({
+                        mediumID: `doc_${Date.now()}_${Math.random()
+                          .toString(36)
+                          .substr(2, 9)}`,
+                        url: '',
+                        mimeType: type,
+                        title: filename,
+                        content: content.trim(),
+                        properties: { isDocumentAttachment: true },
+                        type: 'document',
+                      });
+                    }
+
+                    return attachments;
+                  })(),
+                ]}
                 links={message?.media?.filter(m => m.mimeType === 'text/html')}
                 sessionID={sessionID}
                 baseUrl={baseUrl}
                 apiUrl={apiUrl}
                 translateTo={translateTo}
                 customMediaRenderer={customMediaRenderer}
+                fromUser={message.fromUser}
               />
             </React.Fragment>
           ))}
@@ -350,6 +406,8 @@ const Chat: React.FC<Props> = ({
           microphoneMode={microphoneMode}
           sendOnEnter={sendOnEnter}
           setSendOnEnter={setSendOnEnter}
+          client={client}
+          sessionID={sessionID}
           showUpload={showUpload}
           attachmentsMenuOpen={attachmentsMenuOpen}
           setAttachmentsMenuOpen={setAttachmentsMenuOpen}
@@ -361,6 +419,7 @@ const Chat: React.FC<Props> = ({
           listening={listening}
           isPlayingAudio={isPlayingAudio}
           showMicrophone={showMicrophone}
+          memoriID={memori?.memoriID}
         />
       )}
     </div>

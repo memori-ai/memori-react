@@ -50,7 +50,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
         </svg>
       </label>
       <aside
-        class="memori-sidebar"
+        class="memori-sidebar "
       >
         <label
           class="memori-sidebar-toggle-label memori-close-label"
@@ -80,35 +80,6 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
             <div
               class="memori-header memori-hidden-chat-layout-header--layout"
             >
-              <div
-                class="memori-export-history-button memori-header--button memori-header--button--export"
-                data-headlessui-state=""
-                title="Vuoi esportare la cronologia chat?"
-              >
-                <button
-                  class="memori-button memori-button--circle memori-button--icon-only memori-button--disabled"
-                  data-headlessui-state=""
-                  disabled=""
-                  id="headlessui-popover-button-:r0:"
-                  type="button"
-                >
-                  <div
-                    class="memori-button--icon"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      focusable="false"
-                      role="img"
-                      viewBox="0 0 1024 1024"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M464 512a48 48 0 1096 0 48 48 0 10-96 0zm200 0a48 48 0 1096 0 48 48 0 10-96 0zm-400 0a48 48 0 1096 0 48 48 0 10-96 0zm661.2-173.6c-22.6-53.7-55-101.9-96.3-143.3a444.35 444.35 0 00-143.3-96.3C630.6 75.7 572.2 64 512 64h-2c-60.6.3-119.3 12.3-174.5 35.9a445.35 445.35 0 00-142 96.5c-40.9 41.3-73 89.3-95.2 142.8-23 55.4-34.6 114.3-34.3 174.9A449.4 449.4 0 00112 714v152a46 46 0 0046 46h152.1A449.4 449.4 0 00510 960h2.1c59.9 0 118-11.6 172.7-34.3a444.48 444.48 0 00142.8-95.2c41.3-40.9 73.8-88.7 96.5-142 23.6-55.2 35.6-113.9 35.9-174.5.3-60.9-11.5-120-34.8-175.6zm-151.1 438C704 845.8 611 884 512 884h-1.7c-60.3-.3-120.2-15.3-173.1-43.5l-8.4-4.5H188V695.2l-4.5-8.4C155.3 633.9 140.3 574 140 513.7c-.4-99.7 37.7-193.3 107.6-263.8 69.8-70.5 163.1-109.5 262.8-109.9h1.7c50 0 98.5 9.7 144.2 28.9 44.6 18.7 84.6 45.6 119 80 34.3 34.3 61.3 74.4 80 119 19.4 46.2 29.1 95.2 28.9 145.8-.6 99.6-39.7 192.9-110.1 262.7z"
-                      />
-                    </svg>
-                  </div>
-                </button>
-              </div>
               <button
                 class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-settings"
                 title="Impostazioni"
@@ -138,7 +109,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                   aria-haspopup="true"
                   class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-header--button memori-header--button-share memori-button--primary"
                   data-headlessui-state=""
-                  id="headlessui-menu-button-:r5:"
+                  id="headlessui-menu-button-:r0:"
                   title="Condividi"
                   type="button"
                 >
@@ -172,23 +143,294 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
             class="memori-loading"
           >
             <div
-              class="memori-spin"
+              class="memori--start-panel"
             >
               <div
-                class="memori-spin--spinner"
+                class="memori--cover"
               >
-                <svg
-                  aria-hidden="true"
-                  class="memori-loading-icon"
-                  focusable="false"
-                  role="img"
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
+                <div
+                  class="memori--completions-enabled"
                 >
-                  <path
-                    d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                  />
-                </svg>
+                  <div
+                    class="memori-tooltip memori-tooltip--align-left"
+                  >
+                    <div
+                      class="memori-tooltip--content"
+                    >
+                      IA evoluta, può rispondere con risposte generate automaticamente che talvolta potrebbero contenere informazioni non corrette
+                    </div>
+                    <div
+                      class="memori-tooltip--trigger"
+                    >
+                      <span
+                        aria-label="IA evoluta, può rispondere con risposte generate automaticamente che talvolta potrebbero contenere informazioni non corrette"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          fill="none"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <g
+                            clip-rule="evenodd"
+                            fill="currentColor"
+                            fill-rule="evenodd"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M0 4a4 4 0 014-4h16a4 4 0 014 4v16a4 4 0 01-4 4H4a4 4 0 01-4-4zm4-2.4A2.4 2.4 0 001.6 4v16A2.4 2.4 0 004 22.4h16a2.4 2.4 0 002.4-2.4V4A2.4 2.4 0 0020 1.6z"
+                              fill-rule="evenodd"
+                            />
+                            <path
+                              clip-rule="evenodd"
+                              d="M9.715 8.442a.798.798 0 00-1.43 0l-3.2 6.4a.799.799 0 101.431.716l.579-1.158h3.811l.578 1.158a.8.8 0 001.431-.716zm.391 4.358L9 10.589 7.894 12.8z"
+                              fill-rule="evenodd"
+                            />
+                            <path
+                              clip-rule="evenodd"
+                              d="M17 8c.552 0 1 .358 1 .8v6.4c0 .442-.448.8-1 .8s-1-.358-1-.8V8.8c0-.442.448-.8 1-.8z"
+                              fill-rule="evenodd"
+                            />
+                          </g>
+                        </svg>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <picture
+                class="memori--avatar"
+              >
+                <source
+                  src="https://aisuru.com/images/aisuru/square_logo.png"
+                />
+                <img
+                  alt="Memori"
+                  src="https://aisuru.com/images/aisuru/square_logo.png"
+                />
+              </picture>
+              <h2
+                class="memori--title"
+              >
+                Memori
+              </h2>
+              <div
+                class="memori--description"
+              >
+                <p>
+                  <span
+                    class="memori--description-text"
+                  >
+                    Lorem ipsum.
+                  </span>
+                </p>
+                <div
+                  class="memori--language-chooser"
+                >
+                  <label
+                    for="user-lang-pref"
+                    id="user-lang-pref-label"
+                  >
+                    Voglio parlare con Memori in
+                  </label>
+                  <select
+                    aria-labelledby="user-lang-pref-label"
+                    class="memori-select--button"
+                    id="user-lang-pref"
+                  >
+                    <option
+                      aria-label="Italiano"
+                      value="IT"
+                    >
+                      Italiano
+                    </option>
+                    <option
+                      aria-label="English"
+                      value="EN"
+                    >
+                      English
+                    </option>
+                    <option
+                      aria-label="Deutsch"
+                      value="DE"
+                    >
+                      Deutsch
+                    </option>
+                    <option
+                      aria-label="Español"
+                      value="ES"
+                    >
+                      Español
+                    </option>
+                    <option
+                      aria-label="Français"
+                      value="FR"
+                    >
+                      Français
+                    </option>
+                    <option
+                      aria-label="Português"
+                      value="PT"
+                    >
+                      Português
+                    </option>
+                    <option
+                      aria-label="Українська"
+                      value="UK"
+                    >
+                      Українська
+                    </option>
+                    <option
+                      aria-label="Русский"
+                      value="RU"
+                    >
+                      Русский
+                    </option>
+                    <option
+                      aria-label="Polski"
+                      value="PL"
+                    >
+                      Polski
+                    </option>
+                    <option
+                      aria-label="Suomi"
+                      value="FI"
+                    >
+                      Suomi
+                    </option>
+                    <option
+                      aria-label="Ελληνικά"
+                      value="EL"
+                    >
+                      Ελληνικά
+                    </option>
+                    <option
+                      aria-label="العربية"
+                      value="AR"
+                    >
+                      العربية
+                    </option>
+                    <option
+                      aria-label="中文"
+                      value="ZH"
+                    >
+                      中文
+                    </option>
+                    <option
+                      aria-label="日本語"
+                      value="JA"
+                    >
+                      日本語
+                    </option>
+                  </select>
+                </div>
+                <div
+                  class="memori--start-privacy-explanation-container"
+                >
+                  <p
+                    class="memori--start-privacy-explanation"
+                  >
+                    Le conversazioni sono visibili all'autore dell'agente
+                  </p>
+                  <div
+                    class="memori-tooltip memori-tooltip--align-right"
+                  >
+                    <div
+                      class="memori-tooltip--content"
+                    >
+                      <div
+                        class="memori--privacy-tooltip-content"
+                      >
+                        <p>
+                           
+                          Tutte le conversazioni con questo agente sono visibili all'autore dell'agente
+                        </p>
+                        <ul
+                          class="memori--privacy-tooltip-content-list"
+                        >
+                          <li>
+                            L'autore può vedere il contenuto e il tuo indirizzo IP
+                          </li>
+                        </ul>
+                        <p>
+                          L'autore utilizza queste informazioni per migliorare le funzionalità dell'agente. Continuando, accetti queste condizioni.
+                        </p>
+                        <a
+                          href="https://memori.ai/en/privacy-policy"
+                          rel="noopener noreferrer"
+                          target="_blank"
+                        >
+                          Informativa sulla privacy
+                        </a>
+                      </div>
+                    </div>
+                    <div
+                      class="memori-tooltip--trigger"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="memori--start-privacy-explanation-icon"
+                        fill="none"
+                        focusable="false"
+                        role="img"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="1.5"
+                        viewBox="0 0 24 24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="10"
+                        />
+                        <path
+                          d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+                        />
+                        <path
+                          d="M12 17L12.01 17"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <button
+                  class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
+                >
+                  INIZIAMO
+                </button>
+                <div
+                  class="memori--completion-provider-status--loading"
+                >
+                  <div
+                    class="memori-spin memori-spin--spinning"
+                  >
+                    <div
+                      class="memori-spin--spinner"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        class="memori-loading-icon"
+                        focusable="false"
+                        role="img"
+                        viewBox="0 0 1024 1024"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                <p
+                  class="memori--start-description"
+                >
+                  Per parlare con me clicca sul pulsante INIZIAMO per cominciare
+                </p>
               </div>
             </div>
           </div>

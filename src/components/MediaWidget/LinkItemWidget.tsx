@@ -26,6 +26,7 @@ export interface Props {
   baseUrl?: string;
   descriptionOneLine?: boolean;
   onLinkPreviewInfo?: (linkPreviewInfo: ILinkPreviewInfo) => void;
+  fromUser?: boolean;
 }
 
 const getSiteInfo = async (url: string, baseUrl?: string) => {
@@ -167,10 +168,14 @@ const LinkItemWidget: React.FC<Props> = ({
   baseUrl,
   descriptionOneLine = false,
   onLinkPreviewInfo,
+  fromUser = false,
 }: Props) => {
   return (
     <Transition appear show as="div" className="memori-link-items">
-      <div className="memori-link-items--grid">
+      <div className={cx('memori-link-items--grid', {
+        'memori-link-items--user': fromUser,
+        'memori-link-items--agent': !fromUser,
+      })}>
         {items.map((item, index) => (
           <Transition.Child
             as="div"

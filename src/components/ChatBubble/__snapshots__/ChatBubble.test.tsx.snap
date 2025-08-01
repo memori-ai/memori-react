@@ -6611,6 +6611,201 @@ exports[`renders ChatBubble with copy disabled unchanged 1`] = `
 </div>
 `;
 
+exports[`renders ChatBubble with debug button unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-container memori-chat--with-addon"
+  >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
+    <div
+      class="memori-chat--bubble memori-chat--with-addon memori-chat--ai-generated transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+    >
+      <div
+        class="memori-chat--bubble-content"
+        dir="auto"
+      >
+        <p>
+          Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+        </p>
+      </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--debug"
+          title="Debug"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              color="currentColor"
+              fill="none"
+              height="800px"
+              viewBox="0 0 24 24"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 15V11.9375C19 9.76288 17.2371 8 15.0625 8H8.9375C6.76288 8 5 9.76288 5 11.9375V15C5 18.866 8.13401 22 12 22C15.866 22 19 18.866 19 15Z"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M16.5 8.5V7.5C16.5 5.01472 14.4853 3 12 3C9.51472 3 7.5 5.01472 7.5 7.5V8.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+              />
+              <path
+                d="M19 14H22"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="1.5"
+              />
+              <path
+                d="M5 14H2"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="1.5"
+              />
+              <path
+                d="M14.5 3.5L17 2"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="1.5"
+              />
+              <path
+                d="M9.5 3.5L7 2"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="1.5"
+              />
+              <path
+                d="M20.5 20.0002L18.5 19.2002"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="1.5"
+              />
+              <path
+                d="M20.5 7.9998L18.5 8.7998"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="1.5"
+              />
+              <path
+                d="M3.5 20.0002L5.5 19.2002"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="1.5"
+              />
+              <path
+                d="M3.5 7.9998L5.5 8.7998"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="1.5"
+              />
+              <path
+                d="M12 21.5V15"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-width="1.5"
+              />
+            </svg>
+          </span>
+        </button>
+        <div
+          class="memori-tooltip memori-tooltip--align-left memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
+        >
+          <div
+            class="memori-tooltip--content"
+          >
+            generatedByAI
+          </div>
+          <div
+            class="memori-tooltip--trigger"
+          >
+            <span>
+              <svg
+                aria-label="generatedByAI"
+                fill="none"
+                focusable="false"
+                role="img"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g
+                  clip-rule="evenodd"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M0 4a4 4 0 014-4h16a4 4 0 014 4v16a4 4 0 01-4 4H4a4 4 0 01-4-4zm4-2.4A2.4 2.4 0 001.6 4v16A2.4 2.4 0 004 22.4h16a2.4 2.4 0 002.4-2.4V4A2.4 2.4 0 0020 1.6z"
+                    fill-rule="evenodd"
+                  />
+                  <path
+                    clip-rule="evenodd"
+                    d="M9.715 8.442a.798.798 0 00-1.43 0l-3.2 6.4a.799.799 0 101.431.716l.579-1.158h3.811l.578 1.158a.8.8 0 001.431-.716zm.391 4.358L9 10.589 7.894 12.8z"
+                    fill-rule="evenodd"
+                  />
+                  <path
+                    clip-rule="evenodd"
+                    d="M17 8c.552 0 1 .358 1 .8v6.4c0 .442-.448.8-1 .8s-1-.358-1-.8V8.8c0-.442.448-.8 1-.8z"
+                    fill-rule="evenodd"
+                  />
+                </g>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renders ChatBubble with initial msg unchanged 1`] = `
 <div>
   <div
@@ -7622,6 +7817,341 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
           d="M858.5 763.6a374 374 0 0 0-80.6-119.5 375.63 375.63 0 0 0-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 0 0-80.6 119.5A371.7 371.7 0 0 0 136 901.8a8 8 0 0 0 8 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 0 0 8-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z"
         />
       </svg>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders ChatBubble with output code unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-container"
+  >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
+    <div
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+    >
+      <div
+        class="memori-chat--bubble-content"
+        dir="auto"
+      >
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        </p>
+        
+
+        <h1>
+          titolo
+        </h1>
+        
+
+        <p>
+          Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+        
+
+        <p>
+          <output
+            class="memori-output"
+          >
+            { "data": [ 0, 1, 2 ] }
+          </output>
+        </p>
+      </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-container"
+  >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
+    <div
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+    >
+      <div
+        class="memori-chat--bubble-content"
+        dir="auto"
+      >
+        <details
+          class="memori-think"
+        >
+          <summary>
+            reasoning
+          </summary>
+          Lorem ipsum is a dummy or placeholder text commonly used in graphic design, publishing, and web development. Its purpose is to permit a page layout to be designed, independently of the copy that will subsequently populate it, or to demonstrate various fonts of a typeface without meaningful text that could be distracting. More at WikipediaDicta sequi dignissimos quis earum. Quis vel sint voluptas eos ex assumenda. Similique sed modi deleniti et ut quas cumque. Quaerat quis labore ut asperiores aliquid. Voluptatem similique nostrum neque culpa. Ex et iste voluptas est itaque aut aliquam. Qui error perspiciatis aut fuga maiores sint aut aspernatur. Veritatis ipsam iure voluptas asperiores consequuntur unde consequatur vitae. Sequi doloremque inventore reiciendis doloremque voluptates. Quidem repellendus id maxime. Fuga autem quam reiciendis provident in ad. Quia ut nihil voluptate voluptas ipsa porro. Magnam assumenda earum ipsam quisquam aut perspiciatis officiis. Et totam deleniti sed quisquam repellat. Ducimus nostrum voluptatem deleniti sed. Et accusamus temporibus occaecati. Est explicabo vel eum animi deleniti. Qui vel totam est officiis ducimus eligendi iure. Impedit eum ipsa omnis qui dolorem nobis at inventore. Aliquid aliquam esse neque ut vel magni accusamus. Et quia quas consectetur. Dolor dolorum sunt aut enim et quam ut expedita. Quia ut odio totam mollitia. Qui tempore quia quaerat quis enim. Numquam quasi maiores ipsa qui illo. Ea iste iure in corporis non nihil molestias quisquam. Sed suscipit esse dolorem omnis dolore aut. Enim eos id eligendi doloremque.
+        </details>
+        
+Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+      </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders ChatBubble with reasoning unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-container"
+  >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
+    <div
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+    >
+      <div
+        class="memori-chat--bubble-content"
+        dir="auto"
+      >
+        <p>
+          Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
+        </p>
+      </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </div>

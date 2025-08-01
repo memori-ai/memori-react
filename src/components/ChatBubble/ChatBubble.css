@@ -179,6 +179,14 @@
     color: #000;
 }
 
+.memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--debug {
+    color: var(--memori-error-color);
+}
+
+.memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--debug svg {
+    color: currentColor;
+}
+
 .memori-chat--bubble-addon .memori-chat--feedback {
     display: flex;
     align-items: center;
@@ -304,4 +312,47 @@
 
 .memori-chat--bubble.memori-chat--user-bubble .memori-expandable > button {
     color: var(--memori-primary-text);
+}
+
+.memori-chat--function-cache-modal .memori-modal--panel {
+    width: 80%;
+    height: 100%;
+    /* padding: 20px; */
+    max-height: 80vh;
+    border-radius: 10px;
+    background-color: #fff;
+    overflow-y: auto;
+}
+
+details.memori-think {
+    display: block;
+    width: calc(100% - 1.5rem);
+    max-width: 500px;
+    padding: 0.75rem;
+    border-radius: var(--memori-border-radius);
+    margin-bottom: 0.75rem;
+    background-color: #f6f6f6;
+    font-size: 0.85em;
+    font-style: italic;
+    line-height: 1.33;
+}
+
+details.memori-think summary {
+    cursor: pointer;
+    font-weight: bold;
+    opacity: 0.6;
+}
+
+details.memori-think summary:hover {
+    color: var(--memori-primary);
+    opacity: 1;
+}
+
+details.memori-think[open] {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+details.memori-think[open] summary {
+    margin-bottom: 0.5rem;
+    color: #000;
 }

@@ -6,6 +6,16 @@
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
 }
 
+/* Allineamento link per messaggi dell'utente */
+.memori-link-items--grid.memori-link-items--user {
+    direction: rtl;
+}
+
+/* Allineamento link per messaggi dell'agente */
+.memori-link-items--grid.memori-link-items--agent {
+    direction: ltr;
+}
+
 .memori-link-item--card {
     height: 100%;
     margin-bottom: 1rem;

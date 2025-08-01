@@ -139,6 +139,13 @@ li.memori--venue-widget-search--option--active {
     background-color: #f7fafc;
 }
 
+.memori--venue-widget-search--option-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
 .memori--venue--widget__place-name {
     margin: 0 0 1rem;
 }

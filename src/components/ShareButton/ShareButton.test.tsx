@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import ShareButton from './ShareButton';
-import { tenant } from '../../mocks/data';
+import { tenant, memori, sessionID } from '../../mocks/data';
 
 it('renders ShareButton unchanged', () => {
   const { container } = render(<ShareButton />);
@@ -41,6 +41,13 @@ it('renders ShareButton with tenant img set unchanged', () => {
 it('renders ShareButton with other tenant img set unchanged', () => {
   const { container } = render(
     <ShareButton tenant={{ ...tenant, theme: 'tailoor' }} />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders ShareButton with share chat unchanged', () => {
+  const { container } = render(
+    <ShareButton memori={memori} sessionID={sessionID} />
   );
   expect(container).toMatchSnapshot();
 });

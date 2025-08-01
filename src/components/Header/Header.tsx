@@ -12,7 +12,6 @@ import MapMarker from '../icons/MapMarker';
 import SoundDeactivated from '../icons/SoundDeactivated';
 import Sound from '../icons/Sound';
 import { useTranslation } from 'react-i18next';
-import ExportHistoryButton from '../ExportHistoryButton/ExportHistoryButton';
 import Setting from '../icons/Setting';
 import ShareButton from '../ShareButton/ShareButton';
 import FullscreenExit from '../icons/FullscreenExit';
@@ -22,6 +21,7 @@ import Clear from '../icons/Clear';
 import DeepThought from '../icons/DeepThought';
 import Group from '../icons/Group';
 import UserIcon from '../icons/User';
+import MessageIcon from '../icons/Message';
 
 export interface Props {
   className?: string;
@@ -31,6 +31,7 @@ export interface Props {
   position?: Venue;
   setShowPositionDrawer: (show: boolean) => void;
   setShowSettingsDrawer: (show: boolean) => void;
+  setShowChatHistoryDrawer: (show: boolean) => void;
   setShowKnownFactsDrawer: (show: boolean) => void;
   setShowExpertsDrawer: (show: boolean) => void;
   enableAudio?: boolean;
@@ -39,6 +40,7 @@ export interface Props {
   hasUserActivatedSpeak?: boolean;
   showShare?: boolean;
   showSettings?: boolean;
+  showChatHistory?: boolean;
   showSpeaker?: boolean;
   showReload?: boolean;
   showClear?: boolean;
@@ -48,16 +50,19 @@ export interface Props {
   loginToken?: string;
   user?: User;
   sessionID?: string;
+  baseUrl?: string;
+  fullScreenHandler?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const Header: React.FC<Props> = ({
   className,
   memori,
   tenant,
-  history,
+  // history,
   position,
   setShowPositionDrawer,
   setShowSettingsDrawer,
+  setShowChatHistoryDrawer,
   setShowKnownFactsDrawer,
   setShowExpertsDrawer,
   enableAudio = true,
@@ -75,6 +80,9 @@ const Header: React.FC<Props> = ({
   loginToken,
   user,
   sessionID,
+  showChatHistory = true,
+  fullScreenHandler,
+  baseUrl,
 }) => {
   const { t } = useTranslation();
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
@@ -126,6 +134,17 @@ const Header: React.FC<Props> = ({
           onClick={clearHistory}
         />
       )}
+      {showChatHistory && !!loginToken && (
+        <Button
+          primary
+          disabled={!loginToken}
+          shape="circle"
+          className="memori-header--button memori-header--button--chat-history"
+          title={t('write_and_speak.chatHistory') || 'Chat history'}
+          icon={<MessageIcon />}
+          onClick={() => setShowChatHistoryDrawer(true)}
+        />
+      )}
       {fullScreenAvailable && (
         <Button
           primary
@@ -137,30 +156,33 @@ const Header: React.FC<Props> = ({
               : t('fullscreenEnter') || 'Enter fullscreen'
           }
           icon={fullScreen ? <FullscreenExit /> : <Fullscreen />}
-          onClick={() => {
-            if (!document.fullscreenElement) {
-              const memoriWidget = document.querySelector('.memori-widget');
-              if (memoriWidget) {
-                // Set white background before entering fullscreen
-                (memoriWidget as HTMLElement).style.backgroundColor =
-                  '#FFFFFF';
-                memoriWidget.requestFullscreen().catch(err => {
-                  console.warn('Error attempting to enable fullscreen:', err);
+          onClick={
+            fullScreenHandler ||
+            (() => {
+              if (!document.fullscreenElement) {
+                const memoriWidget = document.querySelector('.memori-widget');
+                if (memoriWidget) {
+                  // Set white background before entering fullscreen
+                  (memoriWidget as HTMLElement).style.backgroundColor =
+                    '#FFFFFF';
+                  memoriWidget.requestFullscreen().catch(err => {
+                    console.warn('Error attempting to enable fullscreen:', err);
+                  });
+                }
+                setFullScreen(true);
+              } else if (document.exitFullscreen) {
+                const memoriWidget = document.querySelector('.memori-widget');
+                if (memoriWidget) {
+                  // Reset background on exit
+                  (memoriWidget as HTMLElement).style.backgroundColor = '';
+                }
+                document.exitFullscreen().catch(err => {
+                  console.warn('Error attempting to exit fullscreen:', err);
                 });
+                setFullScreen(false);
               }
-              setFullScreen(true);
-            } else if (document.exitFullscreen) {
-              const memoriWidget = document.querySelector('.memori-widget');
-              if (memoriWidget) {
-                // Reset background on exit
-                (memoriWidget as HTMLElement).style.backgroundColor = '';
-              }
-              document.exitFullscreen().catch(err => {
-                console.warn('Error attempting to exit fullscreen:', err);
-              });
-              setFullScreen(false);
-            }
-          }}
+            })
+          }
         />
       )}
       {memori.enableDeepThought && !!loginToken && user?.pAndCUAccepted && (
@@ -195,12 +217,12 @@ const Header: React.FC<Props> = ({
           title={t('widget.sound') || 'Sound'}
         />
       )}
-      <ExportHistoryButton
+      {/* <ExportHistoryButton
         history={history}
         memori={memori}
         className="memori-header--button memori-header--button--export"
         disabled={!hasUserActivatedSpeak || history.length === 0}
-      />
+      /> */}
       {showSettings && (
         <Button
           primary
@@ -215,9 +237,12 @@ const Header: React.FC<Props> = ({
         <ShareButton
           className="memori-header--button memori-header--button-share"
           title={memori.name}
+          memori={memori}
+          sessionID={sessionID}
           tenant={tenant}
           showQrCode
           align="left"
+          baseUrl={baseUrl}
         />
       )}
       {showLogin && (

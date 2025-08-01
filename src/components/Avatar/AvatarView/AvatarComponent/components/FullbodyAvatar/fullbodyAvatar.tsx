@@ -100,32 +100,69 @@ export function FullbodyAvatar({
   // Find head mesh and initialize morph target controller - only run when scene changes
   useEffect(() => {
     if (!scene) return;
-
+  
     // Find head mesh
     let headMesh: SkinnedMesh | null = null;
+    
     scene.traverse((object: Object3D) => {
-      if (
-        object instanceof SkinnedMesh &&
-        (object.name === 'GBNL__Head' ||
-          object.name === 'Wolf3D_Avatar' ||
-          object.name === 'Wolf3D_Avatar006_1')
-      ) {
-
-        if(object.name === 'Wolf3D_Avatar' ||
-          object.name === 'Wolf3D_Avatar006_1') {
+      if (object instanceof SkinnedMesh) {
+        // Keep existing RPM check
+        if (object.name === 'Wolf3D_Avatar' || object.name === 'Wolf3D_Avatar006_1') {
           setIsRpm(true);
           console.log('RPM avatar detected');
+          headMesh = object;
+          return; // Stop here if RPM found
         }
-        headMesh = object;
+        
+        // Dynamic detection for custom avatars
+        if (object.name === 'GBNL__Head') {
+          // Known custom avatar
+          headMesh = object;
+        } else {
+          // Dynamic detection for unknown custom avatars
+          const hasMorphTargets = object.morphTargetDictionary && 
+                                 Object.keys(object.morphTargetDictionary).length > 0;
+          
+          if (hasMorphTargets) {
+            const morphTargetNames = Object.keys(object.morphTargetDictionary || {});
+            
+            // Check if it has viseme-related morph targets (for custom avatars)
+            const hasVisemes = morphTargetNames.some(name => 
+              name.toLowerCase().includes('viseme')
+            );
+            
+            // Check for other face-related blend shapes
+            const hasFaceBlendShapes = morphTargetNames.some(name => {
+              const lower = name.toLowerCase();
+              return lower.includes('mouth') || 
+                     lower.includes('eye') || 
+                     lower.includes('jaw') ||
+                     lower.includes('smile');
+            });
+  
+            if (hasVisemes || hasFaceBlendShapes) {
+              console.log('🎭 Custom avatar detected:', {
+                name: object.name,
+                morphTargets: morphTargetNames,
+                visemeCount: morphTargetNames.filter(name => 
+                  name.toLowerCase().includes('viseme')).length
+              });
+              
+              headMesh = object;
+            }
+          }
+        }
       }
     });
-
+  
     // Initialize morph target controller if head mesh found
     if (headMesh) {
       // Only create a new controller if one doesn't exist
       if (!morphTargetControllerRef.current) {
         morphTargetControllerRef.current = new MorphTargetController(headMesh);
       }
+    } else {
+      console.warn('⚠️ No suitable avatar mesh found');
     }
   }, [scene]); // Only re-run if scene changes
 

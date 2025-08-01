@@ -39,6 +39,7 @@
 }
 
 .memori-card--content {
+    z-index: 0;
     display: flex;
     flex: 1;
     flex-direction: column;
@@ -57,4 +58,8 @@
     color: #999;
     font-size: 0.875rem;
     font-weight: 400;
+}
+
+.memori-card--pointer {
+    cursor: pointer;
 }

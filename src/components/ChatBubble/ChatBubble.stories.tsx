@@ -91,7 +91,6 @@ FromUserWithLink.args = {
   },
 };
 
-
 export const Initial = Template.bind({});
 Initial.args = {
   memori,
@@ -184,6 +183,67 @@ WithAllAddonsContents.args = {
     generatedByAI: true,
   },
   showFeedback: true,
+  simulateUserPrompt: () => {},
+};
+
+export const WithDebugButton = Template.bind({});
+WithDebugButton.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    initial: false,
+    generatedByAI: true,
+    media: [
+      {
+        mediumID: 'c6851968-5d4d-409a-ae75-f22ec077efcd',
+        mimeType: 'text/plain',
+        content: 'Lorem ipsum dolor sit amet',
+        title: 'Function Cache Lorem ispum',
+        properties: {
+          functionCache: 'true',
+        },
+      },
+    ],
+  },
+  showFeedback: true,
+  showFunctionCache: true,
+  simulateUserPrompt: () => {},
+};
+
+export const WithMultipleFunctionCache = Template.bind({});
+WithMultipleFunctionCache.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    initial: false,
+    generatedByAI: true,
+    media: [
+      {
+        mediumID: 'c6851968-5d4d-409a-ae75-f22ec077efcd',
+        mimeType: 'text/plain',
+        content: 'Lorem ipsum dolor sit amet',
+        title: 'Function Cache Lorem ispum',
+        properties: {
+          functionCache: 'true',
+        },
+      },
+      {
+        mediumID: 'c6851968-5d4d-409a-ae75-f22ec077efce',
+        mimeType: 'text/plain',
+        content: 'Lorem ipsum dolor sit amet 2',
+        title: 'Function Cache 2',
+        properties: {
+          functionCache: 'true',
+        },
+      },
+    ],
+  },
+  showFeedback: true,
+  showFunctionCache: true,
   simulateUserPrompt: () => {},
 };
 
@@ -360,6 +420,173 @@ WithOutputCode.args = {
   message: {
     fromUser: false,
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\n```markdown\n# titolo\n```\n\nSed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\n<output class="memori-output">{ "data": [ 0, 1, 2 ] }</output>',
+    initial: false,
+    generatedByAI: true,
+  },
+};
+
+export const WithReasoning = Template.bind({});
+WithReasoning.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  message: {
+    fromUser: false,
+    text: `<think>
+Okay, the user is asking for a couple of relevant links to help them show the product to the girl. Let me think about what they need.
+
+First, they want to present the Lenovo tablet and accessories. The user mentioned using visual materials, so links to product pages or guides would be useful. They might need official Lenovo sources for accuracy.
+
+I should check if there are official Lenovo pages for the Yoga Tab 10 Pro and ThinkPad X1 Tablet. Those would be the main products. Also, maybe a guide on how to use the tablet for video calls, especially for elderly users.
+
+Wait, the user is a girl who wants to give a gift to her grandmother. The links should be trustworthy and in Italian. Let me make sure the links are in Italian and from Lenovo's official site.
+
+I remember that Lenovo has a website with product details. The Yoga Tab 10 Pro and ThinkPad X1 Tablet are both available there. Also, there might be a guide or FAQ section on their site that explains how to use the tablet for video calls, which would be helpful for the grandmother.
+
+I should also consider if there are any official guides or videos from Lenovo that demonstrate the tablet's features, especially for elderly users. Maybe a video tutorial on setting up the tablet for video calls.
+
+Wait, the user might need links that are in Italian. So I should check if Lenovo's Italian site has these resources. If not, maybe a general guide in Italian from a reliable source. But the user wants to use Lenovo's official materials, so sticking to their site is better.
+
+Also, the user might need links to the product pages, the accessories, and a guide on using the tablet for video calls. Let me verify the URLs for the Yoga Tab 10 Pro and ThinkPad X1 Tablet on Lenovo's Italian site.
+
+Once I have those, I can provide them as the main links. Then, a guide or FAQ that explains how to use the tablet for video calls, especially for elderly users.
+
+I should make sure the links are up-to-date and correct. If there's a specific page on Lenovo's site that's relevant, that's the best. If not, maybe a general guide from a trusted source, but the user prefers Lenovo's official resources.
+
+So, the two main links would be the product pages for the Yoga Tab 10 Pro and ThinkPad X1 Tablet. Then, a guide or video on using the tablet for video calls.
+
+Wait, the user asked for a couple of links. Maybe two main ones: the product pages and a guide. That should cover the essentials.
+
+I need to present these links in a clear way, making sure they are from Lenovo's official site and in Italian. Also, mention that they can use these to show the product and its features to the girl.
+
+Double-check the URLs to ensure they are correct. If there's a specific page for the accessories, that could be another link, but the user might need the main product pages first.
+
+Alright, I think that's it. Provide the product pages and a guide on using the tablet for video calls, both from Lenovo's official site in Italian.
+</think>
+
+Ecco due link rilevanti che puoi utilizzare per aiutare la ragazza a mostrare il prodotto e i suoi accessori. Questi link puntano a risorse ufficiali Lenovo in italiano, che forniscono informazioni dettagliate e accurate su i prodotti e le loro funzionalità:
+
+---
+
+### **1. Pagina ufficiale del Lenovo Yoga Tab 10 Pro (10.1" - 2024)**
+**Link**: [https://www.lenovo.com/it/it/products/tablets/yoga-tab-10-pro/](https://www.lenovo.com/it/it/products/tablets/yoga-tab-10-pro/)
+**Descrizione**:
+- Informazioni complete sul tablet, inclusi i dettagli tecnici (display, batteria, sistema operativo), le caratteristiche principali e le opzioni di personalizzazione.
+- Include una sezione dedicata alle videochiamate, con spiegazioni su come utilizzare il tablet per chiamate in alta definizione.
+- Ideale per mostrare la compatibilità con app di videochiamate come Zoom, Skype e FaceTime.
+
+**Utilizzo consigliato**:
+- Mostra la pagina per spiegare le caratteristiche tecniche del tablet.
+- Fornisci un'immagine del tablet con il filtro di privacy attivo per illustrare la protezione della privacy.
+
+---
+
+### **2. Guida ufficiale per l'uso del tablet per videochiamate (in italiano)**
+**Link**: [https://www.lenovo.com/it/it/support/faq/](https://www.lenovo.com/it/it/support/faq/)
+**Descrizione**:
+- Una sezione FAQ (Frequently Asked Questions) che risponde a domande comuni su come utilizzare il tablet per videochiamate, inclusi:
+ - Come iniziare una chiamata.
+ - Come utilizzare il filtro di privacy.
+ - Come gestire la batteria e le connessioni.
+- Include video tutorial e immagini per spiegare passaggi semplici.
+- Adatto per un pubblico non esperto, come la nonna.
+
+**Utilizzo consigliato**:
+- Mostra la guida per spiegare come usare il tablet in modo semplice.
+- Usa i video tutorial per dimostrare l'esperienza di videochiamate.
+
+---
+
+### **Altri consigli per il materiale visivo**
+Se vuoi aggiungere ulteriori risorse, puoi consultare:
+- **Pagina ufficiale degli accessori Lenovo**: [https://www.lenovo.com/it/it/products/accessories/](https://www.lenovo.com/it/it/products/accessories/)
+- **Video tutorial ufficiali su YouTube**: Cerca "Lenovo Yoga Tab 10 Pro videochiamate" o "Lenovo ThinkPad X1 Tablet uso per videochiamate".
+
+Questi link ti permettono di creare un materiale visivo coerente e basato su informazioni verificate, che aiuterà la ragazza a spiegare il prodotto e gli accessori in modo chiaro e professionale. Se hai bisogno di aiuto per personalizzare ulteriormente il materiale, posso aiutarti! 😊`,
+    initial: false,
+    generatedByAI: true,
+  },
+};
+
+export const WithReasoningShown = Template.bind({});
+WithReasoningShown.args = {
+  memori,
+  apiUrl: 'https://backend.memori.ai',
+  tenant,
+  showReasoning: true,
+  message: {
+    fromUser: false,
+    text: `<think>
+Okay, the user is asking for a couple of relevant links to help them show the product to the girl. Let me think about what they need.
+
+First, they want to present the Lenovo tablet and accessories. The user mentioned using visual materials, so links to product pages or guides would be useful. They might need official Lenovo sources for accuracy.
+
+I should check if there are official Lenovo pages for the Yoga Tab 10 Pro and ThinkPad X1 Tablet. Those would be the main products. Also, maybe a guide on how to use the tablet for video calls, especially for elderly users.
+
+Wait, the user is a girl who wants to give a gift to her grandmother. The links should be trustworthy and in Italian. Let me make sure the links are in Italian and from Lenovo's official site.
+
+I remember that Lenovo has a website with product details. The Yoga Tab 10 Pro and ThinkPad X1 Tablet are both available there. Also, there might be a guide or FAQ section on their site that explains how to use the tablet for video calls, which would be helpful for the grandmother.
+
+I should also consider if there are any official guides or videos from Lenovo that demonstrate the tablet's features, especially for elderly users. Maybe a video tutorial on setting up the tablet for video calls.
+
+Wait, the user might need links that are in Italian. So I should check if Lenovo's Italian site has these resources. If not, maybe a general guide in Italian from a reliable source. But the user wants to use Lenovo's official materials, so sticking to their site is better.
+
+Also, the user might need links to the product pages, the accessories, and a guide on using the tablet for video calls. Let me verify the URLs for the Yoga Tab 10 Pro and ThinkPad X1 Tablet on Lenovo's Italian site.
+
+Once I have those, I can provide them as the main links. Then, a guide or FAQ that explains how to use the tablet for video calls, especially for elderly users.
+
+I should make sure the links are up-to-date and correct. If there's a specific page on Lenovo's site that's relevant, that's the best. If not, maybe a general guide from a trusted source, but the user prefers Lenovo's official resources.
+
+So, the two main links would be the product pages for the Yoga Tab 10 Pro and ThinkPad X1 Tablet. Then, a guide or video on using the tablet for video calls.
+
+Wait, the user asked for a couple of links. Maybe two main ones: the product pages and a guide. That should cover the essentials.
+
+I need to present these links in a clear way, making sure they are from Lenovo's official site and in Italian. Also, mention that they can use these to show the product and its features to the girl.
+
+Double-check the URLs to ensure they are correct. If there's a specific page for the accessories, that could be another link, but the user might need the main product pages first.
+
+Alright, I think that's it. Provide the product pages and a guide on using the tablet for video calls, both from Lenovo's official site in Italian.
+</think>
+
+Ecco due link rilevanti che puoi utilizzare per aiutare la ragazza a mostrare il prodotto e i suoi accessori. Questi link puntano a risorse ufficiali Lenovo in italiano, che forniscono informazioni dettagliate e accurate su i prodotti e le loro funzionalità:
+
+---
+
+### **1. Pagina ufficiale del Lenovo Yoga Tab 10 Pro (10.1" - 2024)**
+**Link**: [https://www.lenovo.com/it/it/products/tablets/yoga-tab-10-pro/](https://www.lenovo.com/it/it/products/tablets/yoga-tab-10-pro/)
+**Descrizione**:
+- Informazioni complete sul tablet, inclusi i dettagli tecnici (display, batteria, sistema operativo), le caratteristiche principali e le opzioni di personalizzazione.
+- Include una sezione dedicata alle videochiamate, con spiegazioni su come utilizzare il tablet per chiamate in alta definizione.
+- Ideale per mostrare la compatibilità con app di videochiamate come Zoom, Skype e FaceTime.
+
+**Utilizzo consigliato**:
+- Mostra la pagina per spiegare le caratteristiche tecniche del tablet.
+- Fornisci un'immagine del tablet con il filtro di privacy attivo per illustrare la protezione della privacy.
+
+---
+
+### **2. Guida ufficiale per l'uso del tablet per videochiamate (in italiano)**
+**Link**: [https://www.lenovo.com/it/it/support/faq/](https://www.lenovo.com/it/it/support/faq/)
+**Descrizione**:
+- Una sezione FAQ (Frequently Asked Questions) che risponde a domande comuni su come utilizzare il tablet per videochiamate, inclusi:
+ - Come iniziare una chiamata.
+ - Come utilizzare il filtro di privacy.
+ - Come gestire la batteria e le connessioni.
+- Include video tutorial e immagini per spiegare passaggi semplici.
+- Adatto per un pubblico non esperto, come la nonna.
+
+**Utilizzo consigliato**:
+- Mostra la guida per spiegare come usare il tablet in modo semplice.
+- Usa i video tutorial per dimostrare l'esperienza di videochiamate.
+
+---
+
+### **Altri consigli per il materiale visivo**
+Se vuoi aggiungere ulteriori risorse, puoi consultare:
+- **Pagina ufficiale degli accessori Lenovo**: [https://www.lenovo.com/it/it/products/accessories/](https://www.lenovo.com/it/it/products/accessories/)
+- **Video tutorial ufficiali su YouTube**: Cerca "Lenovo Yoga Tab 10 Pro videochiamate" o "Lenovo ThinkPad X1 Tablet uso per videochiamate".
+
+Questi link ti permettono di creare un materiale visivo coerente e basato su informazioni verificate, che aiuterà la ragazza a spiegare il prodotto e gli accessori in modo chiaro e professionale. Se hai bisogno di aiuto per personalizzare ulteriormente il materiale, posso aiutarti! 😊`,
     initial: false,
     generatedByAI: true,
   },
@@ -615,5 +842,208 @@ WithHTML.args = {
 </div>
 </div>
 `,
+  },
+};
+
+// 9. Complex HTML Table
+export const ComplexHTMLTable = Template.bind({});
+ComplexHTMLTable.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: `<table border="1" style="border-collapse: collapse; width: 100%;">
+    <thead>
+      <tr style="background-color: #f2f2f2;">
+        <th colspan="3" style="text-align: center; padding: 8px;">Project Timeline</th>
+      </tr>
+      <tr style="background-color: #f2f2f2;">
+        <th style="text-align: left; padding: 8px;">Phase</th>
+        <th style="text-align: left; padding: 8px;">Start Date</th>
+        <th style="text-align: left; padding: 8px;">End Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="padding: 8px;">Planning</td>
+        <td style="padding: 8px;">Jan 15, 2025</td>
+        <td style="padding: 8px;">Feb 28, 2025</td>
+      </tr>
+      <tr style="background-color: #f9f9f9;">
+        <td style="padding: 8px;">Development</td>
+        <td style="padding: 8px;">Mar 1, 2025</td>
+        <td style="padding: 8px;">Jun 30, 2025</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px;">Testing</td>
+        <td style="padding: 8px;">Jul 1, 2025</td>
+        <td style="padding: 8px;">Aug 15, 2025</td>
+      </tr>
+      <tr style="background-color: #f9f9f9;">
+        <td style="padding: 8px;">Deployment</td>
+        <td style="padding: 8px;">Aug 16, 2025</td>
+        <td style="padding: 8px;">Sep 30, 2025</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr style="background-color: #f2f2f2;">
+        <td colspan="3" style="text-align: center; padding: 8px;">Total Duration: 8.5 months</td>
+      </tr>
+    </tfoot>
+  </table>`,
+    initial: false,
+  },
+};
+ComplexHTMLTable.parameters = {
+  docs: {
+    description: {
+      story:
+        'A message containing a complex HTML table that should trigger the loading spinner before rendering.',
+    },
+  },
+};
+
+//10. Long text message
+export const MediumLongTextMessage = Template.bind({});
+MediumLongTextMessage.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: Array(100)
+      .fill(
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor.'
+      )
+      .join('\n\n'),
+    initial: false,
+  },
+};
+
+export const LongTextMessage = Template.bind({});
+LongTextMessage.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: Array(200)
+      .fill(
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.'
+      )
+      .join('\n\n'),
+    initial: false,
+  },
+};
+
+export const LongTextMessageWithHTML = Template.bind({});
+LongTextMessageWithHTML.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text:
+      Array(200)
+        .fill(
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi. Proin porttitor, orci nec nonummy molestie, enim est eleifend mi, non fermentum diam nisl sit amet erat.'
+        )
+        .join('\n\n') +
+      `
+    <div>
+    <div style="width: 30%; margin-bottom: 20px;">
+    <img src="https://www.e-stayon.com/images/thumbs/0244280_lenovo-ideapad-3-chromebook-15-intel-celeron-4gb-64gb_360.jpeg" style="width:100%">
+    <h3>Lenovo IdeaPad 3 Chromebook</h3>
+    <p>Intel Celeron, 15", 4GB RAM, 64GB</p>
+    <p>Prezzo: €194,88 (sconto 12% da €221,59)</p>
+    </div>`,
+  },
+};
+
+// 10. Message with an embedded helper function to show requiresFormatting detection
+export const FormattingDetectionDemo = Template.bind({});
+FormattingDetectionDemo.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'This message demonstrates how the formatting detection works.\n\nBelow are some examples of content that will be detected as requiring formatting:\n\n1. HTML tags: <div>Example</div>\n2. Markdown tables: | Header | Content |\n3. Code blocks: ```javascript\nconst x = 1;\n```\n4. Math formulas: $E = mc^2$\n5. Tabbed data: Name\tAge\tLocation\n\nThe requiresFormatting function will detect these patterns and show a loading spinner.',
+    initial: false,
+  },
+};
+FormattingDetectionDemo.parameters = {
+  docs: {
+    description: {
+      story:
+        'A demonstration of different content patterns that trigger the loading spinner.',
+    },
+  },
+};
+
+export const HTMLTable = Template.bind({});
+HTMLTable.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: `Ecco la lista formattata in HTML dei task e dei relativi assegnatari:
+<table>
+ <tr>
+ <th>Task</th>
+ <th>Assegnato a</th>
+ </tr>
+ <tr><td>Market Research</td><td>Alice</td></tr>
+ <tr><td>Content Creation</td><td>Bob</td></tr>
+ <tr><td>Social Media Planning</td><td>Charlie</td></tr>
+ <tr><td>Campaign Analysis</td><td>Daisy</td></tr>
+ <tr><td>Prototype Development</td><td>Ethan</td></tr>
+ <tr><td>Quality Assurance</td><td>Fiona</td></tr>
+ <tr><td>User Interface Design</td><td>Gabriel</td></tr>
+ <tr><td>Service Improvement</td><td>Hannah</td></tr>
+ <tr><td>Ticket Resolution</td><td>Ian</td></tr>
+ <tr><td>Customer Feedback</td><td>Julia</td></tr>
+ <tr><td>Budget Analysis</td><td>Kevin</td></tr>
+ <tr><td>Financial Reporting</td><td>Mark</td></tr>
+ <tr><td>Investment Planning</td><td>Mark</td></tr>
+ <tr><td>Market Trends Analysis</td><td>Nathan</td></tr>
+ <tr><td>Data Collection</td><td>Olivia</td></tr>
+ <tr><td>Research Paper Writing</td><td>Peter</td></tr>
+ <tr><td>Software Development</td><td>Quinn</td></tr>
+ <tr><td>Feature Enhancement</td><td>Rachel</td></tr>
+ <tr><td>Code Review</td><td>Sam</td></tr>
+ <tr><td>Manufacturing</td><td>Tim</td></tr>
+ <tr><td>Product Design</td><td>Uma</td></tr>
+ <tr><td>UX Research</td><td>Victor</td></tr>
+ <tr><td>API Development</td><td>Wendy</td></tr>
+ <tr><td>Database Management</td><td>Xavier</td></tr>
+ <tr><td>Cloud Infrastructure</td><td>Yara</td></tr>
+ <tr><td>Security Testing</td><td>Zack</td></tr>
+ <tr><td>Documentation</td><td>Adam</td></tr>
+ <tr><td>Technical Support</td><td>Beth</td></tr>
+ <tr><td>Project Management</td><td>Carl</td></tr>
+ <tr><td>Business Analysis</td><td>Diana</td></tr>
+ <tr><td>DevOps Engineering</td><td>Erik</td></tr>
+ <tr><td>Mobile Development</td><td>Faith</td></tr>
+ <tr><td>Frontend Development</td><td>George</td></tr>
+ <tr><td>Backend Development</td><td>Helen</td></tr>
+ <tr><td>System Architecture</td><td>Isaac</td></tr>
+ <tr><td>Data Analysis</td><td>Jane</td></tr>
+ <tr><td>Machine Learning</td><td>Kyle</td></tr>
+ <tr><td>AI Development</td><td>Lisa</td></tr>
+ <tr><td>Network Security</td><td>Mike</td></tr>
+ <tr><td>Performance Testing</td><td>Nina</td></tr>
+ <tr><td>Load Testing</td><td>Oscar</td></tr>
+ <tr><td>Penetration Testing</td><td>Penny</td></tr>
+ <tr><td>Automation Testing</td><td>Quentin</td></tr>
+ <tr><td>Release Management</td><td>Rose</td></tr>
+ <tr><td>Configuration Management</td><td>Steve</td></tr>
+ <tr><td>Change Management</td><td>Tina</td></tr>
+ <tr><td>Risk Management</td><td>Ulysses</td></tr>
+ <tr><td>Resource Planning</td><td>Violet</td></tr>
+ <tr><td>Capacity Planning</td><td>Walter</td></tr>
+ <tr><td>Strategic Planning</td><td>Xena</td></tr>
+ <tr><td>Operations Management</td><td>Yuki</td></tr>
+ <tr><td>Quality Management</td><td>Zara</td></tr>
+</table>
+
+Ho mostrato i primi 20 task per brevità. La tabella include il nome del task e la persona assegnata.`,
+    initial: false,
   },
 };

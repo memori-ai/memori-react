@@ -4,6 +4,7 @@ import { sessionID } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import WhyThisAnswer, { Props } from './WhyThisAnswer';
 import { SearchMatches } from '@memori.ai/memori-api-client/dist/types';
+import memoriApiClient from '@memori.ai/memori-api-client';
 
 import './WhyThisAnswer.css';
 
@@ -28,7 +29,7 @@ const Template: Story<Props> = args => (
   <I18nWrapper>
     <WhyThisAnswer
       {...args}
-      apiURL="https://backend.memori.ai"
+      client={memoriApiClient()}
       sessionID={sessionID}
       message={{
         questionAnswered: 'Test message',

@@ -292,14 +292,14 @@ const VenueWidget = ({
                       <Combobox.Options className="memori--venue-widget-search--options">
                         {fetching ? (
                           <Spin spinning>
-                            <center className="memori--venue-widget-search--option">
+                            <div className="memori--venue-widget-search--option memori--venue-widget-search--option-centered">
                               {t('loading')}...
-                            </center>
+                            </div>
                           </Spin>
                         ) : suggestions.length === 0 && query !== '' ? (
-                          <center className="memori--venue-widget-search--option">
+                          <div className="memori--venue-widget-search--option memori--venue-widget-search--option-centered">
                             {t('nothingFound')}
-                          </center>
+                          </div>
                         ) : (
                           suggestions?.map(s => (
                             <Combobox.Option

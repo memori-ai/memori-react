@@ -15,12 +15,12 @@ import MediaWidget from '../MediaWidget/MediaWidget';
 import Card from '../ui/Card';
 
 export interface Props {
-  apiURL: string;
   sessionID: string;
   message: Message;
   initialMatches?: SearchMatches[];
   visible?: boolean;
   closeDrawer: () => void;
+  client?: ReturnType<typeof memoriApiClient>;
   _TEST_loading?: boolean;
 }
 
@@ -29,17 +29,16 @@ const addQuestionMark = (question: string) =>
 
 const WhyThisAnswer = ({
   message,
-  apiURL,
   sessionID,
   visible = true,
   initialMatches = [],
   closeDrawer,
+  client,
   _TEST_loading = false,
 }: Props) => {
   const { t } = useTranslation();
 
-  const client = memoriApiClient(apiURL);
-  const searchMemory = client.search.searchMemory;
+  const searchMemory = client?.search.searchMemory;
 
   const [matches, setMatches] = useState<SearchMatches[]>(initialMatches);
   const [loading, setLoading] = useState(_TEST_loading);
@@ -50,7 +49,7 @@ const WhyThisAnswer = ({
   const fetchMemories = useCallback(async () => {
     setLoading(true);
 
-    if (_TEST_loading) return;
+    if (_TEST_loading || !searchMemory) return;
 
     try {
       const { matches, ...response } = await searchMemory(sessionID, {
@@ -189,7 +188,9 @@ const WhyThisAnswer = ({
                 )}
                 {m.memory.answers?.map((a, i) => (
                   <p key={i} className="memori--whythisanswer-answer">
-                    <Expandable mode="rows" rows={3}>{a.text}</Expandable>
+                    <Expandable mode="rows" rows={3}>
+                      {a.text}
+                    </Expandable>
                   </p>
                 ))}
 

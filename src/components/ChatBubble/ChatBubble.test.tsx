@@ -144,6 +144,35 @@ it('renders ChatBubble with msg from BoE expert unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders ChatBubble with debug button unchanged', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      showFunctionCache
+      message={{
+        fromUser: false,
+        text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+        initial: false,
+        generatedByAI: true,
+        media: [
+          {
+            mediumID: 'c6851968-5d4d-409a-ae75-f22ec077efcd',
+            mimeType: 'text/plain',
+            content: 'Lorem ipsum dolor sit amet',
+            title: 'Function Cache Lorem ispum',
+            properties: {
+              functionCache: true,
+            },
+          },
+        ],
+      }}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
 it('renders ChatBubble from user with avatar unchanged', () => {
   const { container } = render(
     <ChatBubble
@@ -196,6 +225,55 @@ it('renders ChatBubble from user with avatar as react element unchanged', () => 
         initial: false,
         translatedText:
           'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+      }}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders ChatBubble with output code unchanged', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      message={{
+        fromUser: false,
+        text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n\n```markdown\n# titolo\n```\n\nSed do eiusmod tempor incididunt ut labore et dolore magna aliqua.\n\n<output class="memori-output">{ "data": [ 0, 1, 2 ] }</output>',
+        initial: false,
+      }}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders ChatBubble with reasoning unchanged', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      message={{
+        fromUser: false,
+        text: '<think>Lorem ipsum is a dummy or placeholder text commonly used in graphic design, publishing, and web development. Its purpose is to permit a page layout to be designed, independently of the copy that will subsequently populate it, or to demonstrate various fonts of a typeface without meaningful text that could be distracting. More at WikipediaDicta sequi dignissimos quis earum. Quis vel sint voluptas eos ex assumenda. Similique sed modi deleniti et ut quas cumque. Quaerat quis labore ut asperiores aliquid. Voluptatem similique nostrum neque culpa. Ex et iste voluptas est itaque aut aliquam. Qui error perspiciatis aut fuga maiores sint aut aspernatur. Veritatis ipsam iure voluptas asperiores consequuntur unde consequatur vitae. Sequi doloremque inventore reiciendis doloremque voluptates. Quidem repellendus id maxime. Fuga autem quam reiciendis provident in ad. Quia ut nihil voluptate voluptas ipsa porro. Magnam assumenda earum ipsam quisquam aut perspiciatis officiis. Et totam deleniti sed quisquam repellat. Ducimus nostrum voluptatem deleniti sed. Et accusamus temporibus occaecati. Est explicabo vel eum animi deleniti. Qui vel totam est officiis ducimus eligendi iure. Impedit eum ipsa omnis qui dolorem nobis at inventore. Aliquid aliquam esse neque ut vel magni accusamus. Et quia quas consectetur. Dolor dolorum sunt aut enim et quam ut expedita. Quia ut odio totam mollitia. Qui tempore quia quaerat quis enim. Numquam quasi maiores ipsa qui illo. Ea iste iure in corporis non nihil molestias quisquam. Sed suscipit esse dolorem omnis dolore aut. Enim eos id eligendi doloremque.</think>\nProin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+        initial: false,
+      }}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders ChatBubble with reasoning shown unchanged', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      showReasoning
+      message={{
+        fromUser: false,
+        text: '<think>Lorem ipsum is a dummy or placeholder text commonly used in graphic design, publishing, and web development. Its purpose is to permit a page layout to be designed, independently of the copy that will subsequently populate it, or to demonstrate various fonts of a typeface without meaningful text that could be distracting. More at WikipediaDicta sequi dignissimos quis earum. Quis vel sint voluptas eos ex assumenda. Similique sed modi deleniti et ut quas cumque. Quaerat quis labore ut asperiores aliquid. Voluptatem similique nostrum neque culpa. Ex et iste voluptas est itaque aut aliquam. Qui error perspiciatis aut fuga maiores sint aut aspernatur. Veritatis ipsam iure voluptas asperiores consequuntur unde consequatur vitae. Sequi doloremque inventore reiciendis doloremque voluptates. Quidem repellendus id maxime. Fuga autem quam reiciendis provident in ad. Quia ut nihil voluptate voluptas ipsa porro. Magnam assumenda earum ipsam quisquam aut perspiciatis officiis. Et totam deleniti sed quisquam repellat. Ducimus nostrum voluptatem deleniti sed. Et accusamus temporibus occaecati. Est explicabo vel eum animi deleniti. Qui vel totam est officiis ducimus eligendi iure. Impedit eum ipsa omnis qui dolorem nobis at inventore. Aliquid aliquam esse neque ut vel magni accusamus. Et quia quas consectetur. Dolor dolorum sunt aut enim et quam ut expedita. Quia ut odio totam mollitia. Qui tempore quia quaerat quis enim. Numquam quasi maiores ipsa qui illo. Ea iste iure in corporis non nihil molestias quisquam. Sed suscipit esse dolorem omnis dolore aut. Enim eos id eligendi doloremque.</think>\nProin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+        initial: false,
       }}
     />
   );

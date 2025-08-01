@@ -1,5 +1,5 @@
 {
-  "version": "7.24.0",
+  "version": "7.33.4",
   "name": "@memori.ai/memori-react",
   "author": "Memori Srl",
   "main": "dist/index.js",
@@ -240,6 +240,7 @@
     "@storybook/react-webpack5": "7.4.0",
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "13.4.0",
+    "@types/d3-dispatch": "^2.0.4",
     "@types/jest": "29.2.4",
     "@types/leaflet": "^1.9.11",
     "@types/luxon": "^3.3.7",
@@ -293,7 +294,7 @@
   "dependencies": {
     "@headlessui/react": "1.7.4",
     "@lobehub/tts": "^2.0.0",
-    "@memori.ai/memori-api-client": "^6.1.0",
+    "@memori.ai/memori-api-client": "6.7.8",
     "@react-three/drei": "8.20.2",
     "@react-three/fiber": "7.0.25",
     "classnames": "2.5.1",

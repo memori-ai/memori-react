@@ -7,11 +7,12 @@ import { render } from '@testing-library/react';
 import { medium } from '../../mocks/data';
 import MediaWidget from './MediaWidget';
 
-const linkMedium: Medium = {
+const linkMedium: Medium & { type?: string } = {
   mediumID: '95226d7e-7bae-465e-8b80-995587bb5971',
   mimeType: 'text/html',
   title: 'Memori Srl',
   url: 'https://memori.ai/en',
+  type: 'document',
 };
 
 const hint: TranslatedHint = {

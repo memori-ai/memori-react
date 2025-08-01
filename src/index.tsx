@@ -34,6 +34,7 @@ export interface Props {
   layout?: WidgetProps['layout'];
   customLayout?: WidgetProps['customLayout'];
   showShare?: boolean;
+  showChatHistory?: boolean;
   showCopyButton?: boolean;
   showTranslationOriginal?: boolean;
   showInputs?: boolean;
@@ -45,6 +46,7 @@ export interface Props {
   showTypingText?: boolean;
   showLogin?: boolean;
   showUpload?: boolean;
+  showReasoning?: boolean;
   height?: number | string;
   baseURL?: string;
   apiURL?: string;
@@ -120,6 +122,7 @@ const Memori: React.FC<Props> = ({
   showContextPerLine = false,
   showUpload,
   showLogin,
+  showReasoning,
   height = '100%',
   baseURL,
   apiURL = 'https://backend.memori.ai',
@@ -128,6 +131,7 @@ const Memori: React.FC<Props> = ({
   pin,
   context,
   initialQuestion,
+  showChatHistory = true,
   uiLang,
   spokenLang,
   multilingual,
@@ -141,7 +145,7 @@ const Memori: React.FC<Props> = ({
   additionalSettings,
   userAvatar,
   useMathFormatting = false,
-  autoStart = false,
+  autoStart,
   applyVarsToRoot = false,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
@@ -201,6 +205,10 @@ const Memori: React.FC<Props> = ({
       );
 
       if (resp.resultCode === 0 && !!memori) {
+        if (!memori.ownerUserID && ownerUserID) {
+          memori.ownerUserID = ownerUserID;
+        }
+
         setMemori(memori);
       } else {
         console.error('[MEMORI]', resp, memori);
@@ -215,9 +223,7 @@ const Memori: React.FC<Props> = ({
    * Fetches the Tenant data from the backend
    */
   const fetchTenant = useCallback(async () => {
-    const { tenant, ...resp } = await client.backend.tenant.getTenantConfig(
-      tenantID
-    );
+    const { tenant, ...resp } = await client.backend.tenant.getTenant(tenantID);
     if (tenant && resp.resultCode === 0) setTenant(tenant);
     else console.debug('[TENANT]', resp, tenant);
   }, [tenantID, apiURL]);
@@ -284,6 +290,7 @@ const Memori: React.FC<Props> = ({
             tenantID={tenantID}
             memoriLang={spokenLang ?? memori.culture?.split('-')?.[0]}
             multilingual={multilingual}
+            showChatHistory={showChatHistory}
             tenant={tenant}
             secret={secretToken}
             sessionID={sessionID}
@@ -299,12 +306,19 @@ const Memori: React.FC<Props> = ({
             showContextPerLine={showContextPerLine}
             showLogin={showLogin ?? memori?.enableDeepThought}
             showUpload={showUpload}
+            showReasoning={showReasoning}
             integration={layoutIntegration}
             initialContextVars={initialContextVars}
             initialQuestion={initialQuestionLayout}
             authToken={authToken}
             ttsProvider={provider ? 'azure' : undefined}
-            autoStart={autoStart}
+            autoStart={
+              autoStart !== undefined
+                ? autoStart
+                : layout === 'HIDDEN_CHAT'
+                  ? true
+                  : autoStart
+            }
             enableAudio={enableAudio && !!provider}
             defaultSpeakerActive={defaultSpeakerActive}
             disableTextEnteredEvents={disableTextEnteredEvents}
@@ -373,6 +387,7 @@ Memori.propTypes = {
   showTypingText: PropTypes.bool,
   showLogin: PropTypes.bool,
   showUpload: PropTypes.bool,
+  showReasoning: PropTypes.bool,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   baseURL: PropTypes.string,
   apiURL: PropTypes.string,

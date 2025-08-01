@@ -10,6 +10,7 @@ export interface Props {
   description?: string;
   cover?: JSX.Element | React.ReactNode | string;
   hoverable?: boolean;
+  onClick?: () => void;
 }
 
 const Card: FC<Props> = ({
@@ -20,12 +21,15 @@ const Card: FC<Props> = ({
   cover,
   hoverable = false,
   children,
+  onClick,
 }) => (
   <div
+    onClick={onClick}
     className={cx('memori-card', className, {
       'memori-card--loading': loading,
       'memori-card--with-cover': cover,
       'memori-card--hoverable': hoverable,
+      'memori-card--pointer': !!onClick,
     })}
   >
     <Spin spinning={loading}>
