@@ -1,5 +1,32 @@
 
 
+## [7.34.0](https://github.com/memori-ai/memori-react/compare/v7.33.4...v7.34.0) (2025-08-01)
+
+
+### Features
+
+* add multiple document upload functionality with validation and error handling ([8ada71b](https://github.com/memori-ai/memori-react/commit/8ada71b6b70176f22ade287da0c3f0b0b42d6813))
+* add white listed domains filter from layout config ([3fe2522](https://github.com/memori-ai/memori-react/commit/3fe2522db8a0cfdb3ea2dea27e60178d2bf0866a))
+* centralized error handling inside the UploadButton ([e5e06ca](https://github.com/memori-ai/memori-react/commit/e5e06ca244cc8e55a4bf0ba27f4f6f0027d086e7))
+* implement server-side pagination for chat logs in ChatHistory component ([c3ad0ba](https://github.com/memori-ai/memori-react/commit/c3ad0baf08a5e00e613cb493b9a9a1c0364d7c63))
+
+
+### Bug Fixes
+
+* handle showChatWithNoHistory prop filter ([4003549](https://github.com/memori-ai/memori-react/commit/40035497490441cd0f661e59675b77db3fe2ab8d))
+
+
+### Maintenance
+
+* update [@memori](https://github.com/memori).ai/memori-api-client ([3267fc2](https://github.com/memori-ai/memori-react/commit/3267fc25bb4af2668cb621f7ab8ce520c289a7e1))
+* update [@memori](https://github.com/memori).ai/memori-api-client--no-verify ([1600f2d](https://github.com/memori-ai/memori-react/commit/1600f2ddae7f4d2880c69ac1eecd3dc5e15134be))
+
+
+### Changes
+
+* comment out document and image count display logic in UploadButton ([8a32702](https://github.com/memori-ai/memori-react/commit/8a32702fef240cb9e6daa36928650c1a21de8c7b))
+* remove existing images from document preview files in UploadDocuments component ([e7ce3fc](https://github.com/memori-ai/memori-react/commit/e7ce3fcc9ede323d6d7eb2febfffedc211594b8a))
+
 ## [7.33.4](https://github.com/memori-ai/memori-react/compare/v7.33.3...v7.33.4) (2025-07-29)
 
 
