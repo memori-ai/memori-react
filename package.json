@@ -292,7 +292,7 @@
   },
   "dependencies": {
     "@headlessui/react": "1.7.4",
-    "@memori.ai/memori-api-client": "6.7.8",
+    "@memori.ai/memori-api-client": "6.11.0",
     "@react-three/drei": "8.20.2",
     "@react-three/fiber": "7.0.25",
     "classnames": "2.5.1",

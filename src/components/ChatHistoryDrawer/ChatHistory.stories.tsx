@@ -9,6 +9,10 @@ const mockApiClient = {
   chatLogs: {
     getUserChatLogsByToken: (loginToken: string, memoriID: string, dateFrom: string, dateTo: string) => Promise.resolve({
       chatLogs: mockChatLogs
+    }),
+    getUserChatLogsByTokenPaged: (requestBody: any) => Promise.resolve({
+      chatLogs: mockChatLogs,
+      totalItems: mockChatLogs.length
     })
   }
 };
@@ -223,7 +227,8 @@ export const EmptyState: Story = {
   args: {
     apiClient: {
       chatLogs: {
-        getUserChatLogsByToken: (loginToken: string, memoriID: string, dateFrom: string, dateTo: string) => Promise.resolve({ chatLogs: [] })
+        getUserChatLogsByToken: (loginToken: string, memoriID: string, dateFrom: string, dateTo: string) => Promise.resolve({ chatLogs: [] }),
+        getUserChatLogsByTokenPaged: (requestBody: any) => Promise.resolve({ chatLogs: [], totalItems: 0 })
       }
     } as any
   }
@@ -238,6 +243,12 @@ export const LoadingState: Story = {
           // Simulate a slow network
           setTimeout(() => {
             resolve({ chatLogs: mockChatLogs });
+          }, 2000);
+        }),
+        getUserChatLogsByTokenPaged: (requestBody: any) => new Promise(resolve => {
+          // Simulate a slow network
+          setTimeout(() => {
+            resolve({ chatLogs: mockChatLogs, totalItems: mockChatLogs.length });
           }, 2000);
         })
       }
@@ -292,6 +303,34 @@ export const WithPagination: Story = {
             boardOfExperts: i % 3 === 0
           }));
           return Promise.resolve({ chatLogs: manyLogs });
+        },
+        getUserChatLogsByTokenPaged: (requestBody: any) => {
+          // Create 20 mock chat logs to trigger pagination
+          const manyLogs = Array.from({ length: 20 }, (_, i) => ({
+            chatLogID: `chat${i}`,
+            lines: [
+              {
+                text: `Question ${i}`,
+                inbound: false,
+                timestamp: `2023-01-0${(i % 9) + 1}T10:00:00Z`,
+                contextVars: {},
+                media: [],
+                memoryID: 'mem123',
+                sessionID: 'session123'
+              },
+              {
+                text: `Answer ${i}`,
+                inbound: true,
+                timestamp: `2023-01-0${(i % 9) + 1}T10:01:00Z`,
+                contextVars: {},
+                media: [],
+                memoryID: 'memori.memoriID',
+                sessionID: 'session123'
+              }
+            ],
+            boardOfExperts: i % 3 === 0
+          }));
+          return Promise.resolve({ chatLogs: manyLogs, totalItems: 20 });
         }
       }
     } as any

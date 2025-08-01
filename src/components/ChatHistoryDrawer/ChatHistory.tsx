@@ -377,7 +377,7 @@ const ChatHistoryDrawer = ({
   loginToken,
 }: Props) => {
   const { t } = useTranslation();
-  const { getUserChatLogsByToken } = apiClient.chatLogs;
+  const { getUserChatLogsByTokenPaged } = apiClient.chatLogs;
 
   const textCurrentChat = `${t(
     'write_and_speak.conversationStartedLabel'
@@ -392,6 +392,7 @@ const ChatHistoryDrawer = ({
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
   const [selectedChatLog, setSelectedChatLog] = useState<ChatLog | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [indexPage, setIndexPage] = useState(0);
   const [searchText, setSearchText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -399,6 +400,8 @@ const ChatHistoryDrawer = ({
   const [dateRange, setDateRange] = useState<
     'today' | 'yesterday' | 'last_7_days' | 'last_30_days' | 'all'
   >('all');
+  const [totalItems, setTotalItems] = useState(0);
+  const [totalPages, setTotalPages] = useState(0);
 
   const formatDateForAPI = (date: Date) => {
     const year = date.getFullYear();
@@ -466,75 +469,111 @@ const ChatHistoryDrawer = ({
     }
   };
 
-  const fetchChatLogs = useCallback(async () => {
-    if (!loginToken) {
-      setError(
-        t('errorFetchingSession') ||
-          'Login token required to fetch chat history'
-      );
-      return;
-    }
-
-    setIsLoading(true);
-    setError(null);
-    try {
-      let dateFrom = '';
-      let dateTo = '';
-      if (dateRange !== 'all') {
-        const { dateFrom: dateFromTemp, dateTo: dateToTemp } = formatDateRangeForAPI(dateRange) ?? {};
-        dateFrom = dateFromTemp ?? '';
-        dateTo = dateToTemp ?? '';
+  const fetchChatLogs = useCallback(
+    async (
+      dateRangeValue:
+        | 'today'
+        | 'yesterday'
+        | 'last_7_days'
+        | 'last_30_days'
+        | 'all' = 'all'
+    ) => {
+      if (!loginToken) {
+        setError(
+          t('errorFetchingSession') ||
+            'Login token required to fetch chat history'
+        );
+        return;
       }
 
-      const res = await getUserChatLogsByToken(
-        loginToken,
-        memori.engineMemoriID ?? '',
-        dateFrom ?? '',
-        dateTo ?? ''
-      );
-      setChatLogs(
-        res.chatLogs.sort((a, b) => {
+      // Calculate the index based on current page
+      const calculatedIndex = ITEMS_PER_PAGE * (currentPage - 1);
+      setIndexPage(calculatedIndex);
+
+      setIsLoading(true);
+      setError(null);
+      let response;
+      try {
+        if (dateRangeValue === 'all') {
+          response = await getUserChatLogsByTokenPaged(
+            loginToken,
+            memori.engineMemoriID ?? '',
+            calculatedIndex,
+            ITEMS_PER_PAGE,
+            undefined,
+            undefined,
+            false,
+          );
+        } else {
+          const { dateFrom, dateTo } =
+            formatDateRangeForAPI(dateRangeValue) ?? {};
+          response = await getUserChatLogsByTokenPaged(
+            loginToken,
+            memori.engineMemoriID ?? '',
+            calculatedIndex,
+            ITEMS_PER_PAGE,
+            dateFrom ?? undefined,
+            dateTo ?? undefined,
+            false,
+          );
+        }
+
+        const res = response;
+
+        // Sort the chat logs by date
+        const sortedChatLogs = res.chatLogs.sort((a: ChatLog, b: ChatLog) => {
           const dateA = Math.max(
-            ...a.lines.map(l => new Date(l.timestamp).getTime())
+            ...a.lines.map((l: any) => new Date(l.timestamp).getTime())
           );
           const dateB = Math.max(
-            ...b.lines.map(l => new Date(l.timestamp).getTime())
+            ...b.lines.map((l: any) => new Date(l.timestamp).getTime())
           );
           return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
-        })
-      );
-    } catch (err) {
-      setError(t('errorFetchingSession') || 'Error loading chat history');
-      console.error('Error fetching chat logs:', err);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [loginToken, memori.memoriID, sortOrder, dateRange]);
+        });
+
+        setChatLogs(sortedChatLogs);
+        setTotalItems(res.count || sortedChatLogs.length);
+        setTotalPages(
+          Math.ceil((res.count || sortedChatLogs.length) / ITEMS_PER_PAGE)
+        );
+      } catch (err) {
+        setError(t('errorFetchingSession') || 'Error loading chat history');
+        console.error('Error fetching chat logs:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [loginToken, memori.engineMemoriID, currentPage, sortOrder, apiUrl]
+  );
 
   useEffect(() => {
-    if (open) fetchChatLogs();
-  }, [open, fetchChatLogs]);
+    if (open) {
+      setCurrentPage(1); // Reset to first page when opening
+      setIndexPage(0); // Reset index to 0
+    }
+  }, [open]);
+
+  // Reset to first page when changing sort order or date range
+  useEffect(() => {
+    if (open) {
+      setCurrentPage(1);
+      setIndexPage(0);
+    }
+  }, [sortOrder, dateRange, open]);
+
+  // Fetch chat logs when current page or date range changes
+  useEffect(() => {
+    if (open && currentPage > 0) {
+      fetchChatLogs(dateRange);
+    }
+  }, [currentPage, dateRange, fetchChatLogs, open]);
 
   const debouncedSearch = useMemo(
     () => debounce((value: string) => setSearchText(value), DEBOUNCE_DELAY),
     []
   );
-
-  const filteredChatLogs = useMemo(() => {
-    return chatLogs.filter(
-      c =>
-        c.lines.some(l =>
-          l.text.toLowerCase().includes(searchText.toLowerCase())
-        ) && c.lines.length > 1
-    );
-  }, [chatLogs, searchText]);
-
-  const totalPages = Math.ceil(filteredChatLogs.length / ITEMS_PER_PAGE);
-
-  const paginatedChatLogs = useMemo(() => {
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    return filteredChatLogs.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-  }, [filteredChatLogs, currentPage]);
+  // Remove client-side pagination since we're now using server-side pagination
+  const paginatedChatLogs = chatLogs;
 
   const handleResumeChat = async () => {
     if (selectedChatLog) {
@@ -613,7 +652,7 @@ const ChatHistoryDrawer = ({
       );
     }
 
-    if (filteredChatLogs.length === 0) {
+    if (chatLogs.length === 0) {
       return (
         <div className="memori-chat-history-drawer--no-results">
           <p>
@@ -849,7 +888,10 @@ const ChatHistoryDrawer = ({
           <div className="memori-chat-history-drawer--pagination">
             <Button
               primary
-              onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+              onClick={() => {
+                setCurrentPage(p => Math.max(1, p - 1));
+                // fetchChatLogs will be triggered by the useEffect that depends on currentPage
+              }}
               disabled={currentPage === 1}
               className="memori-chat-history-drawer--pagination--button"
             >
@@ -863,7 +905,10 @@ const ChatHistoryDrawer = ({
             </span>
             <Button
               primary
-              onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+              onClick={() => {
+                setCurrentPage(p => Math.min(totalPages, p + 1));
+                // fetchChatLogs will be triggered by the useEffect that depends on currentPage
+              }}
               disabled={currentPage === totalPages}
               className="memori-chat-history-drawer--pagination--button"
             >
@@ -992,7 +1037,10 @@ const ChatHistoryDrawer = ({
                     | 'yesterday'
                     | 'last_7_days'
                     | 'last_30_days'
+                    | 'all'
                 );
+                setCurrentPage(1);
+                // fetchChatLogs will be triggered by the useEffect that depends on dateRange
               }}
             />
           </div>
