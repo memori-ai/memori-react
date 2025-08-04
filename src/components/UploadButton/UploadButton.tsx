@@ -9,11 +9,10 @@ import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { MAX_DOCUMENTS_PER_MESSAGE } from '../../helpers/constants';
 
 // Constants
 const MAX_IMAGES = 5;
-const MAX_DOCUMENTS = MAX_DOCUMENTS_PER_MESSAGE;
+const MAX_DOCUMENTS = 5;
 
 // Props interface
 interface UploadManagerProps {
@@ -146,11 +145,8 @@ ${file.content}
     const imageFiles = documentPreviewFiles.filter(
       (file: any) => file.type === 'image'
     );
-    
-    setDocumentPreviewFiles([
-      ...processedDocuments,
-      ...imageFiles,
-    ]);
+
+    setDocumentPreviewFiles([...processedDocuments, ...imageFiles]);
 
     setIsLoading(false);
   };
@@ -158,12 +154,21 @@ ${file.content}
   // Document validation and error handling
   const validateDocumentFile = (file: File): boolean => {
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
-    const ALLOWED_FILE_TYPES = ['.pdf', '.txt', '.json', '.xlsx', '.csv', '.md'];
+    const ALLOWED_FILE_TYPES = [
+      '.pdf',
+      '.txt',
+      '.json',
+      '.xlsx',
+      '.csv',
+      '.md',
+    ];
     const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
     if (!ALLOWED_FILE_TYPES.includes(fileExt)) {
       addError({
-        message: `File type "${fileExt}" is not supported. Please use: ${ALLOWED_FILE_TYPES.join(', ')}`,
+        message: `File type "${fileExt}" is not supported. Please use: ${ALLOWED_FILE_TYPES.join(
+          ', '
+        )}`,
         severity: 'error',
       });
       return false;
@@ -171,7 +176,9 @@ ${file.content}
 
     if (file.size > MAX_FILE_SIZE) {
       addError({
-        message: `File "${file.name}" exceeds ${MAX_FILE_SIZE / 1024 / 1024}MB limit`,
+        message: `File "${file.name}" exceeds ${
+          MAX_FILE_SIZE / 1024 / 1024
+        }MB limit`,
         severity: 'error',
       });
       return false;
@@ -181,16 +188,26 @@ ${file.content}
   };
 
   // Validate total payload size
-  const validatePayloadSize = (newDocuments: { name: string; id: string; content: string; mimeType: string }[]): boolean => {
+  const validatePayloadSize = (
+    newDocuments: {
+      name: string;
+      id: string;
+      content: string;
+      mimeType: string;
+    }[]
+  ): boolean => {
     const { MAX_TOTAL_MESSAGE_PAYLOAD } = require('../../helpers/constants');
-    
+
     const existingDocuments = documentPreviewFiles.filter(
       (file: any) => file.type === 'document'
     );
-    
+
     const allDocuments = [...existingDocuments, ...newDocuments];
-    const totalPayloadSize = allDocuments.reduce((total, doc) => total + doc.content.length, 0);
-    
+    const totalPayloadSize = allDocuments.reduce(
+      (total, doc) => total + doc.content.length,
+      0
+    );
+
     if (totalPayloadSize > MAX_TOTAL_MESSAGE_PAYLOAD) {
       addError({
         message: `Total document content exceeds ${MAX_TOTAL_MESSAGE_PAYLOAD} characters limit. Please remove some documents.`,
@@ -198,12 +215,15 @@ ${file.content}
       });
       return false;
     }
-    
+
     return true;
   };
 
   // Handle document upload errors
-  const handleDocumentError = (error: { message: string; severity: 'error' | 'warning' | 'info' }) => {
+  const handleDocumentError = (error: {
+    message: string;
+    severity: 'error' | 'warning' | 'info';
+  }) => {
     addError(error);
   };
 
@@ -218,7 +238,9 @@ ${file.content}
       !file.type.startsWith('image/')
     ) {
       addError({
-        message: `File type "${fileExt}" is not supported. Please use: ${ALLOWED_FILE_TYPES.join(', ')}`,
+        message: `File type "${fileExt}" is not supported. Please use: ${ALLOWED_FILE_TYPES.join(
+          ', '
+        )}`,
         severity: 'error',
       });
       return false;
@@ -226,7 +248,9 @@ ${file.content}
 
     if (file.size > MAX_FILE_SIZE) {
       addError({
-        message: `File "${file.name}" exceeds ${MAX_FILE_SIZE / 1024 / 1024}MB limit`,
+        message: `File "${file.name}" exceeds ${
+          MAX_FILE_SIZE / 1024 / 1024
+        }MB limit`,
         severity: 'error',
       });
       return false;
@@ -236,7 +260,10 @@ ${file.content}
   };
 
   // Handle image upload errors
-  const handleImageError = (error: { message: string; severity: 'error' | 'warning' | 'info' }) => {
+  const handleImageError = (error: {
+    message: string;
+    severity: 'error' | 'warning' | 'info';
+  }) => {
     addError(error);
   };
 
@@ -357,8 +384,9 @@ ${file.content}
                   `Maximum ${MAX_DOCUMENTS} documents already uploaded`
                 : remainingDocumentSlots === 1
                 ? t('upload.lastDocumentSlot') ?? 'Upload last document'
-                : t('upload.uploadDocument', { remaining: remainingDocumentSlots }) ??
-                  `Upload document (${remainingDocumentSlots} remaining)`
+                : t('upload.uploadDocument', {
+                    remaining: remainingDocumentSlots,
+                  }) ?? `Upload document (${remainingDocumentSlots} remaining)`
             }
           >
             <DocumentIcon className="memori--upload-menu-icon" />
@@ -444,7 +472,7 @@ ${file.content}
       <div className="memori--error-message-container">
         {errors.map((error, index) => (
           <Alert
-            className='memori--error-message-alert'
+            className="memori--error-message-alert"
             key={`${error.message}-${index}`}
             open={true}
             type={error.severity}

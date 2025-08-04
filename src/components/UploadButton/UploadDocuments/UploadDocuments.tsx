@@ -1,13 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
-import { UploadIcon } from '../../icons/Upload';
 import Spin from '../../ui/Spin';
-import Alert from '../../ui/Alert';
 import { DocumentIcon } from '../../icons/Document';
-import CloseIcon from '../../icons/Close';
-import Button from '../../ui/Button';
 import Modal from '../../ui/Modal';
-import { MAX_DOCUMENT_CONTENT_LENGTH, MAX_TOTAL_MESSAGE_PAYLOAD } from '../../../helpers/constants';
+import { MAX_DOCUMENT_CONTENT_LENGTH } from '../../../helpers/constants';
 
 // Types
 type PreviewFile = {
@@ -24,7 +20,8 @@ type PreviewFile = {
 const PDF_JS_VERSION = '3.11.174';
 const WORKER_URL = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDF_JS_VERSION}/pdf.worker.min.js`;
 const PDF_JS_URL = `https://cdnjs.cloudflare.com/ajax/libs/pdf.js/${PDF_JS_VERSION}/pdf.min.js`;
-const XLSX_URL = 'https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js';
+const XLSX_URL =
+  'https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js';
 
 // Add type definitions for external libraries
 declare global {
@@ -36,13 +33,25 @@ declare global {
 
 // Props interface
 interface UploadDocumentsProps {
-  setDocumentPreviewFiles: (files: { name: string; id: string; content: string; mimeType: string }[]) => void;
+  setDocumentPreviewFiles: (
+    files: { name: string; id: string; content: string; mimeType: string }[]
+  ) => void;
   maxDocuments?: number;
   documentPreviewFiles: any;
   onLoadingChange?: (loading: boolean) => void;
-  onDocumentError?: (error: { message: string; severity: 'error' | 'warning' | 'info' }) => void;
+  onDocumentError?: (error: {
+    message: string;
+    severity: 'error' | 'warning' | 'info';
+  }) => void;
   onValidateFile?: (file: File) => boolean;
-  onValidatePayloadSize?: (newDocuments: { name: string; id: string; content: string; mimeType: string }[]) => boolean;
+  onValidatePayloadSize?: (
+    newDocuments: {
+      name: string;
+      id: string;
+      content: string;
+      mimeType: string;
+    }[]
+  ) => boolean;
 }
 
 const UploadDocuments: React.FC<UploadDocumentsProps> = ({
@@ -77,7 +86,14 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   };
 
   // Validate total payload size
-  const validatePayloadSize = (newDocuments: { name: string; id: string; content: string; mimeType: string }[]): boolean => {
+  const validatePayloadSize = (
+    newDocuments: {
+      name: string;
+      id: string;
+      content: string;
+      mimeType: string;
+    }[]
+  ): boolean => {
     if (onValidatePayloadSize) {
       return onValidatePayloadSize(newDocuments);
     }
@@ -105,7 +121,8 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
       // Extract text from PDF
       const arrayBuffer = await file.arrayBuffer();
-      const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer })
+        .promise;
       console.log('PDF loaded, pages:', pdf.numPages);
       let text = '';
 
@@ -125,7 +142,11 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       return text;
     } catch (error) {
       console.error('PDF extraction failed:', error);
-      throw new Error(`PDF extraction failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `PDF extraction failed: ${
+          error instanceof Error ? error.message : 'Unknown error'
+        }`
+      );
     }
   };
 
@@ -158,8 +179,11 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       for (const sheetName of workbook.SheetNames) {
         console.log('Processing sheet:', sheetName);
         const worksheet = workbook.Sheets[sheetName];
-        const data = window.XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false });
-        
+        const data = window.XLSX.utils.sheet_to_json(worksheet, {
+          header: 1,
+          raw: false,
+        });
+
         const colWidths = data.reduce((widths: number[], row: any[]) => {
           row.forEach((cell, i) => {
             const cellWidth = (cell || '').toString().length;
@@ -192,7 +216,11 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       return text;
     } catch (error) {
       console.error('XLSX extraction failed:', error);
-      throw new Error(`XLSX extraction failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `XLSX extraction failed: ${
+          error instanceof Error ? error.message : 'Unknown error'
+        }`
+      );
     }
   };
 
@@ -212,23 +240,36 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       }
 
       if (text && text.length > MAX_DOCUMENT_CONTENT_LENGTH) {
-        console.warn('Document content exceeds length limit:', text.length, '>', MAX_DOCUMENT_CONTENT_LENGTH);
+        console.warn(
+          'Document content exceeds length limit:',
+          text.length,
+          '>',
+          MAX_DOCUMENT_CONTENT_LENGTH
+        );
         onDocumentError?.({
           message: `File "${file.name}" content exceeds ${MAX_DOCUMENT_CONTENT_LENGTH} characters and was truncated`,
           severity: 'warning',
         });
-        text = text.substring(0, MAX_DOCUMENT_CONTENT_LENGTH) + "\n\n[Content truncated due to size limits]";
+        text =
+          text.substring(0, MAX_DOCUMENT_CONTENT_LENGTH) +
+          '\n\n[Content truncated due to size limits]';
       }
 
       console.log('Document processing complete');
       return text;
     } catch (error) {
       console.error('Document processing failed:', error);
-      throw new Error(`Failed to process "${file.name}": ${error instanceof Error ? error.message : 'Unknown error'}`);
+      throw new Error(
+        `Failed to process "${file.name}": ${
+          error instanceof Error ? error.message : 'Unknown error'
+        }`
+      );
     }
   };
 
-  const handleDocumentUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleDocumentUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     console.log('Document upload started');
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
@@ -236,8 +277,13 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
     setIsLoading(true);
 
     // Process each file
-    const processedFiles: { name: string; id: string; content: string; mimeType: string }[] = [];
-    
+    const processedFiles: {
+      name: string;
+      id: string;
+      content: string;
+      mimeType: string;
+    }[] = [];
+
     for (const file of files) {
       console.log('Processing file:', file.name);
       if (!validateDocumentFile(file)) {
@@ -245,10 +291,10 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       }
 
       const fileId = Math.random().toString(36).substr(2, 9);
-      
+
       try {
         const text = await processDocumentFile(file);
-        
+
         if (text) {
           processedFiles.push({
             name: file.name,
@@ -260,7 +306,9 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       } catch (error) {
         console.error('File processing error:', error);
         onDocumentError?.({
-          message: `${error instanceof Error ? error.message : 'Unknown error'}`,
+          message: `${
+            error instanceof Error ? error.message : 'Unknown error'
+          }`,
           severity: 'error',
         });
       }
@@ -284,7 +332,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       const existingImages = documentPreviewFiles.filter(
         (file: any) => file.type === 'image'
       );
-      
+
       console.log('existingDocuments', existingDocuments);
       console.log('processedFiles', processedFiles);
       console.log('existingImages', existingImages);
@@ -292,7 +340,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         ...existingDocuments,
         ...processedFiles.map(file => ({
           ...file,
-          type: 'document'
+          type: 'document',
         })),
       ]);
     }
@@ -306,7 +354,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
   return (
     <div className="memori--document-upload-wrapper">
-
       {/* Hidden file input */}
       <input
         ref={documentInputRef}
@@ -315,7 +362,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         className="memori--upload-file-input"
         onChange={handleDocumentUpload}
       />
-      
+
       {/* Upload document button */}
       <button
         className={cx(
@@ -328,7 +375,13 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           { 'memori--error': false } // Removed errors.length > 0
         )}
         onClick={() => documentInputRef.current?.click()}
-        disabled={isLoading || (maxDocuments && documentPreviewFiles.filter((file: any) => file.type !== 'image').length >= maxDocuments) || false}
+        disabled={
+          isLoading ||
+          (maxDocuments &&
+            documentPreviewFiles.filter((file: any) => file.type !== 'image')
+              .length >= maxDocuments) ||
+          false
+        }
         title="Upload documents"
       >
         {isLoading ? (
@@ -350,19 +403,18 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         closable
         title={selectedFile?.name}
       >
-        <div 
-          className="memori--preview-content" 
-          style={{ 
-            maxHeight: '70vh', 
-            overflowY: 'auto', 
+        <div
+          className="memori--preview-content"
+          style={{
+            maxHeight: '70vh',
+            overflowY: 'auto',
             textAlign: 'center',
-            whiteSpace: 'pre-wrap'
+            whiteSpace: 'pre-wrap',
           }}
         >
           {selectedFile?.content}
         </div>
       </Modal>
-
     </div>
   );
 };
