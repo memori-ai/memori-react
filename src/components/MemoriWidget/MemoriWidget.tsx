@@ -79,6 +79,7 @@ import {
   stripOutputTags,
   stripHTML,
   installMathJax,
+  stripReasoningTags,
 } from '../../helpers/utils';
 import {
   allowedMediaTypes,
@@ -2295,7 +2296,9 @@ const MemoriWidget = ({
 
     // Set up viseme handling
     const textToSpeak = escapeHTML(
-      stripMarkdown(stripEmojis(stripHTML(stripOutputTags(text))))
+      stripMarkdown(
+        stripEmojis(stripHTML(stripReasoningTags(stripOutputTags(text))))
+      )
     );
     console.debug('Processed text to speak:', textToSpeak);
 

@@ -201,6 +201,19 @@ export const stripOutputTags = (text: string): string => {
   return stripOutputTags(strippedText);
 };
 
+export const stripReasoningTags = (text: string) => {
+  const reasoningTagRegex = /<think.*?<\/think>/gs;
+
+  if (!reasoningTagRegex.test(text)) {
+    return text;
+  }
+
+  const strippedText = text.replace(reasoningTagRegex, '');
+
+  // Recursively strip nested reasoning tags
+  return stripOutputTags(strippedText);
+};
+
 export const stripHTML = (text: string) => {
   const el = document.createElement('div');
   el.innerHTML = text;
