@@ -1,5 +1,12 @@
 
 
+## [7.34.2](https://github.com/memori-ai/memori-react/compare/v7.34.1...v7.34.2) (2025-08-04)
+
+
+### Bug Fixes
+
+* constant import ([a75e6ea](https://github.com/memori-ai/memori-react/commit/a75e6ead875a17c65313cdbfbcb5d475d6a0a126))
+
 ## [7.34.1](https://github.com/memori-ai/memori-react/compare/v7.34.0...v7.34.1) (2025-08-04)
 
 
