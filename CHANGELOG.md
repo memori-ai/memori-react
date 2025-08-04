@@ -1,5 +1,12 @@
 
 
+## [7.34.1](https://github.com/memori-ai/memori-react/compare/v7.34.0...v7.34.1) (2025-08-04)
+
+
+### Bug Fixes
+
+* strip reasoning content from tts ([eaa5c02](https://github.com/memori-ai/memori-react/commit/eaa5c0279eaf081f81b1bce4ead3070ea5b23a61))
+
 ## [7.34.0](https://github.com/memori-ai/memori-react/compare/v7.33.4...v7.34.0) (2025-08-01)
 
 
