@@ -3336,6 +3336,7 @@ const MemoriWidget = ({
     memori,
     sessionID: sessionId || '',
     tenant,
+    provider: ttsProvider as 'azure' | 'openai',
     translateTo:
       isMultilanguageEnabled &&
       userLang.toUpperCase() !==
