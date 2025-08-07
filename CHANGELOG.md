@@ -1,5 +1,12 @@
 
 
+## [8.0.0-rc.1](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.0...v8.0.0-rc.1) (2025-08-07)
+
+
+### Maintenance
+
+* remove unused dependencies ([c7d6852](https://github.com/memori-ai/memori-react/commit/c7d685265b78f3e7d3214fe59ab1cea9300cf65c))
+
 ## [8.0.0-rc.0](https://github.com/memori-ai/memori-react/compare/v7.34.2...v8.0.0-rc.0) (2025-08-07)
 
 
