@@ -353,6 +353,7 @@ export interface LayoutProps {
   showUpload?: boolean;
   loading?: boolean;
   autoStart?: boolean;
+  onSidebarToggle?: (isOpen: boolean) => void;
 }
 
 export interface Props {
@@ -497,6 +498,7 @@ const MemoriWidget = ({
 
   const [instruct, setInstruct] = useState(false);
   const [enableFocusChatInput, setEnableFocusChatInput] = useState(true);
+  const [isHiddenChatHistory, setIsHiddenChatHistory] = useState(false);
 
   const [loginToken, setLoginToken] = useState<string | undefined>(
     additionalInfo?.loginToken ?? authToken
@@ -1778,34 +1780,7 @@ const MemoriWidget = ({
    * Speech recognition event handlers
    */
   const [requestedListening, setRequestedListening] = useState(false);
-  const onEndSpeakStartListen = useCallback(
-    (_e?: Event) => {
-      if (isPlayingAudio && speechSynthesizerRef.current) {
-        speechSynthesizerRef.current.close();
-        speechSynthesizerRef.current = null;
-      }
-      if (
-        continuousSpeech &&
-        (hasUserActivatedListening || !requestedListening)
-      ) {
-        setRequestedListening(true);
-        startListening();
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [continuousSpeech, hasUserActivatedListening]
-  );
-
-  // Define audio playback options
-  const audioPlaybackOptions = useMemo(
-    () => ({
-      apiUrl: `${baseUrl}/api/tts`,
-      continuousSpeech: continuousSpeech,
-      onEndSpeakStartListen: onEndSpeakStartListen,
-      preview: preview,
-    }),
-    [baseUrl, continuousSpeech, preview, onEndSpeakStartListen]
-  );
+  const startListeningRef = useRef<(() => Promise<void>) | null>(null);
 
   console.log('tenantID', tenantID);
 
@@ -1825,7 +1800,7 @@ const MemoriWidget = ({
     [ttsProvider, userLang, memori.culture, memori.voiceType]
   );
 
-  // Initialize TTS hook
+  // Initialize TTS hook with basic options first
   const {
     speak: ttsSpeak,
     stop: ttsStop,
@@ -1836,7 +1811,15 @@ const MemoriWidget = ({
     setHasUserActivatedSpeak,
     error,
     setError,
-  } = useTTS(ttsConfig as TTSConfig, audioPlaybackOptions, autoStart, defaultEnableAudio, defaultSpeakerActive);
+  } = useTTS(ttsConfig as TTSConfig, {
+    apiUrl: `${baseUrl}/api/tts`,
+    continuousSpeech: continuousSpeech,
+    onEndSpeakStartListen: () => {
+      // Placeholder - will be implemented after startListening is defined
+      console.log('[MemoriWidget] onEndSpeakStartListen called');
+    },
+    preview: preview,
+  }, autoStart, defaultEnableAudio, defaultSpeakerActive);
 
   const resetInteractionTimeout = () => {
     clearInteractionTimeout();
@@ -2300,6 +2283,29 @@ const MemoriWidget = ({
       throw error;
     }
   };
+
+  // Store startListening in ref for use in onEndSpeakStartListen
+  startListeningRef.current = startListening;
+
+  // Define proper onEndSpeakStartListen after startListening is available
+  const onEndSpeakStartListen = useCallback(
+    (_e?: Event) => {
+      if (isPlayingAudio && speechSynthesizerRef.current) {
+        speechSynthesizerRef.current.close();
+        speechSynthesizerRef.current = null;
+      }
+      if (
+        continuousSpeech &&
+        (hasUserActivatedListening || !requestedListening)
+      ) {
+        setRequestedListening(true);
+        if (startListeningRef.current) {
+          startListeningRef.current();
+        }
+      }
+    },
+    [continuousSpeech, hasUserActivatedListening, isPlayingAudio, requestedListening]
+  );
 
   const setupSpeechConfig = (AZURE_COGNITIVE_SERVICES_TTS_KEY: string) => {
     console.debug('Creating speech config...');
@@ -3252,7 +3258,7 @@ const MemoriWidget = ({
     setShowExpertsDrawer,
     enableAudio: enableAudio ?? integrationConfig?.enableAudio ?? true,
     showSpeaker: !!ttsProvider,
-    speakerMuted: speakerMuted,
+    speakerMuted: speakerMuted ?? false,
     setSpeakerMuted: mute => {
       toggleMute(mute);
       let microphoneMode = getLocalConfig<string>(
@@ -3399,6 +3405,7 @@ const MemoriWidget = ({
     userAvatar,
     experts,
     useMathFormatting: applyMathFormatting,
+    isHistoryView: isHiddenChatHistory,
   };
 
   const integrationBackground =
@@ -3488,6 +3495,7 @@ const MemoriWidget = ({
         sessionId={sessionId}
         hasUserActivatedSpeak={hasUserActivatedSpeak}
         loading={loading}
+        onSidebarToggle={selectedLayout === 'HIDDEN_CHAT' ? setIsHiddenChatHistory : undefined}
       />
 
       <audio

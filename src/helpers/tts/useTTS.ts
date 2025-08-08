@@ -74,6 +74,8 @@ export function useTTS(
   const globalSpeakRef = useRef<Function | null>(null);
   const visemeLoadedRef = useRef<boolean>(false);
   const isSpeakingRef = useRef<boolean>(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isMountedRef = useRef<boolean>(true);
   const apiUrl = options.apiUrl || '/api/tts';
 
   // Load viseme data into the queue
@@ -163,6 +165,13 @@ export function useTTS(
   const cleanup = useCallback(() => {
     console.log('[useTTS] Cleaning up audio and viseme resources');
     
+    // Clear any pending timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+      console.log('[useTTS] Cleared pending timeout');
+    }
+    
     // First, clean up audio wrapper
     if (audioWrapperRef.current && (audioWrapperRef.current as any).cleanup) {
       (audioWrapperRef.current as any).cleanup();
@@ -192,10 +201,14 @@ export function useTTS(
   const stop = useCallback((): void => {
     console.log('[useTTS] Stopping audio playback');
     
+    // Set speaking flag to false first to prevent new speech from starting
+    isSpeakingRef.current = false;
+    
     // Pause audio first
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
+      console.log('[useTTS] Paused and reset audio element');
     }
     
     // Set UI state
@@ -225,28 +238,59 @@ export function useTTS(
    */
   const speak = useCallback(
     async (text: string): Promise<void> => {
-      if (isSpeakingRef.current) {
+      if (!isMountedRef.current) {
+        console.log('[useTTS] Component unmounted, ignoring speak request');
         return;
       }
 
+      if (isSpeakingRef.current) {
+        console.log('[useTTS] Already speaking, ignoring new request');
+        return;
+      }
+
+
+
       if (!text || options.preview || speakerMuted) {
+        console.log('[useTTS] Skipping speech due to conditions:', { 
+          hasText: !!text, 
+          isPreview: options.preview, 
+          isMuted: speakerMuted 
+        });
         emitEndSpeakEvent();
         return;
       }
 
+      console.log('[useTTS] Starting speech synthesis for text length:', text.length);
       isSpeakingRef.current = true;
 
       if (!hasUserActivatedSpeak) {
         setHasUserActivatedSpeak(true);
       }
 
+      // Set a timeout for long texts to prevent hanging
+      // const timeoutDuration = Math.max(30000, text.length * 100); // At least 30 seconds, or 100ms per character
+      // timeoutRef.current = setTimeout(() => {
+      //   console.warn('[useTTS] TTS timeout reached, cleaning up');
+      //   if (isSpeakingRef.current) {
+      //     isSpeakingRef.current = false;
+      //     setIsPlaying(false);
+      //     cleanup();
+      //     emitEndSpeakEvent();
+      //   }
+      // }, timeoutDuration);
+
       try {
-        stop();
+        // Only stop if we're currently playing, don't stop if we're just starting
+        if (isPlaying) {
+          console.log('[useTTS] Stopping current playback before starting new speech');
+          stop();
+        }
 
         setIsPlaying(true);
         setError(null);
 
         const processedText = sanitizeText(text);
+        console.log('[useTTS] Sending TTS request for processed text length:', processedText.length);
         
         const response = await fetch(options.apiUrl || '/api/tts', {
           method: 'POST',
@@ -269,6 +313,7 @@ export function useTTS(
           throw new Error(errorData.error || `API error: ${response.status}`);
         }
         
+        console.log('[useTTS] TTS response received, processing audio blob');
         const visemeDataHeader = response.headers.get('X-Viseme-Data');
         
         let hasVisemeData = false;
@@ -276,6 +321,7 @@ export function useTTS(
           try {
             const visemeData: VisemeData[] = JSON.parse(visemeDataHeader);
             hasVisemeData = loadVisemeData(visemeData);
+            console.log('[useTTS] Loaded viseme data:', visemeData.length, 'events');
           } catch (err) {
             console.error('[useTTS] Error parsing viseme data:', err);
           }
@@ -283,6 +329,14 @@ export function useTTS(
 
         const audioBlob = await response.blob();
         const audioUrl = URL.createObjectURL(audioBlob);
+        console.log('[useTTS] Created audio URL, blob size:', audioBlob.size);
+
+        // Check if we're still supposed to be speaking (component might have unmounted)
+        if (!isSpeakingRef.current || !isMountedRef.current) {
+          console.log('[useTTS] Speech was cancelled during audio loading');
+          URL.revokeObjectURL(audioUrl);
+          return;
+        }
 
         audioRef.current = new Audio(audioUrl);
         
@@ -290,31 +344,51 @@ export function useTTS(
           audioWrapperRef.current = createAudioWrapper();
         }
         
+        // Set up event handlers before loading
         audioRef.current.oncanplaythrough = async () => {
+          console.log('[useTTS] Audio can play through, starting playback');
           try {
+            // Check again if we should still be speaking
+            if (!isSpeakingRef.current || !isMountedRef.current) {
+              console.log('[useTTS] Speech cancelled during canplaythrough');
+              return;
+            }
+
             if (hasVisemeData && audioWrapperRef.current) {
+              console.log('[useTTS] Starting viseme processing');
               startProcessing(audioWrapperRef.current as unknown as IAudioContext);
             }
             
             await audioRef.current?.play();
+            console.log('[useTTS] Audio playback started successfully');
+            
+            // Clear the timeout since we successfully started playing
+            if (timeoutRef.current) {
+              clearTimeout(timeoutRef.current);
+              timeoutRef.current = null;
+              console.log('[useTTS] Cleared timeout - audio started successfully');
+            }
             
             if (audioRef.current) {
               audioRef.current.oncanplaythrough = null;
             }
           } catch (e: any) {
+            console.error('[useTTS] Error during audio playback:', e);
             cleanup();
             emitEndSpeakEvent();
           }
         };
         
         audioRef.current.onended = () => {
+          console.log('[useTTS] Audio playback ended');
           setIsPlaying(false);
           isSpeakingRef.current = false;
-          cleanup();
+          // cleanup();
           emitEndSpeakEvent();
         };
 
-        audioRef.current.onerror = () => {
+        audioRef.current.onerror = (e) => {
+          console.error('[useTTS] Audio playback error:', e);
           setIsPlaying(false);
           isSpeakingRef.current = false;
           cleanup();
@@ -324,17 +398,27 @@ export function useTTS(
           emitEndSpeakEvent();
         };
         
+        console.log('[useTTS] Loading audio element');
         audioRef.current.load();
         
       } catch (err) {
+        console.error('[useTTS] Error during speech synthesis:', err);
         setIsPlaying(false);
         isSpeakingRef.current = false;
+        
+        // Clear timeout on error
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+          timeoutRef.current = null;
+        }
+        
         cleanup();
         const errorMsg = err instanceof Error ? err : new Error(String(err));
         setError(errorMsg);
 
         try {
           if ('speechSynthesis' in window) {
+            console.log('[useTTS] Attempting browser fallback synthesis');
             const utterance = new SpeechSynthesisUtterance(sanitizeText(text));
             window.speechSynthesis.speak(utterance);
           }
@@ -356,6 +440,7 @@ export function useTTS(
       createAudioWrapper,
       startProcessing,
       emitEndSpeakEvent,
+      isPlaying,
     ]
   );
 
@@ -375,6 +460,8 @@ export function useTTS(
     },
     [speakerMuted, isPlaying, stop]
   );
+
+
 
   /**
    * Aggiorna la variabile globale quando cambia isPlaying
@@ -413,6 +500,9 @@ export function useTTS(
   useEffect(() => {
     return () => {
       console.log('[useTTS] Component unmounting, cleaning up');
+      // Set speaking flag to false to prevent new operations
+      isSpeakingRef.current = false;
+      isMountedRef.current = false; // Mark component as unmounted
       stop();
     };
   }, [stop]);

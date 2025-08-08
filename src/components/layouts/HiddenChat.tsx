@@ -15,6 +15,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   hasUserActivatedSpeak,
   autoStart,
   StartPanel,
+  onSidebarToggle,
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -87,7 +88,10 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     } 
 
     setIsOpen(prev => {
-      return !prev;
+      const newState = !prev;
+      // Call the callback to notify parent component about sidebar state change
+      onSidebarToggle?.(newState);
+      return newState;
     });
   };
 
