@@ -1,5 +1,12 @@
 
 
+## [8.0.0-rc.3](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.2...v8.0.0-rc.3) (2025-08-08)
+
+
+### Features
+
+* fixed viseme handling for TTS ([e284034](https://github.com/memori-ai/memori-react/commit/e284034990990cc48e559466dfb8183b19d6bbaa))
+
 ## [8.0.0-rc.2](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.1...v8.0.0-rc.2) (2025-08-08)
 
 
