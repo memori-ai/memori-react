@@ -72,6 +72,7 @@ export interface Props {
   useMathFormatting?: boolean;
   isHistoryView?: boolean;
   showFunctionCache?: boolean;
+  provider?: 'azure' | 'openai';
 }
 
 const Chat: React.FC<Props> = ({
@@ -123,6 +124,7 @@ const Chat: React.FC<Props> = ({
   useMathFormatting = false,
   isHistoryView = false,
   showFunctionCache = false,
+  provider = 'azure',
 }) => {
   const scrollToBottom = () => {
     if (isHistoryView) return;
@@ -420,6 +422,7 @@ const Chat: React.FC<Props> = ({
           isPlayingAudio={isPlayingAudio}
           showMicrophone={showMicrophone}
           memoriID={memori?.memoriID}
+          provider={provider}
         />
       )}
     </div>

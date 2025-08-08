@@ -35,6 +35,7 @@ export interface Props {
   sessionID?: string;
   memoriID?: string;
   client?: ReturnType<typeof memoriApiClient>;
+  provider?: 'azure' | 'openai';
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -57,6 +58,7 @@ const ChatInputs: React.FC<Props> = ({
   authToken,
   memoriID,
   client,
+  provider = 'azure',
 }) => {
   const { t } = useTranslation();
 
@@ -207,7 +209,7 @@ const ChatInputs: React.FC<Props> = ({
         title={t('send') || 'Send'}
         icon={<Send />}
       />
-      {showMicrophone && microphoneMode === 'HOLD_TO_TALK' && (
+      {provider === 'azure' && showMicrophone && microphoneMode === 'HOLD_TO_TALK' && (
         <MicrophoneButton
           listening={listening}
           startListening={startListening}
@@ -220,7 +222,7 @@ const ChatInputs: React.FC<Props> = ({
           stopAudio={stopAudio}
         />
       )}
-      {showMicrophone && microphoneMode === 'CONTINUOUS' && (
+      {provider === 'azure' && showMicrophone && microphoneMode === 'CONTINUOUS' && (
         <Button
           primary
           className={cx('memori-chat-inputs--mic', {
