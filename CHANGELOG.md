@@ -1,5 +1,12 @@
 
 
+## [8.0.0-rc.2](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.1...v8.0.0-rc.2) (2025-08-08)
+
+
+### Bug Fixes
+
+* update TTS API URL handling in MemoriWidget and useTTS ([c257064](https://github.com/memori-ai/memori-react/commit/c2570641d56b787d233519c81fb59d19f1c70939))
+
 ## [8.0.0-rc.1](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.0...v8.0.0-rc.1) (2025-08-07)
 
 
