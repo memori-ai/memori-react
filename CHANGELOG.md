@@ -1,5 +1,12 @@
 
 
+## [8.0.0-rc.4](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.3...v8.0.0-rc.4) (2025-08-08)
+
+
+### Bug Fixes
+
+* prevent TTS on auto-start in HIDDEN_CHAT ([933857c](https://github.com/memori-ai/memori-react/commit/933857ca1ab8e7a4ab37c5ce1eb689aaf5a4862d))
+
 ## [8.0.0-rc.3](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.2...v8.0.0-rc.3) (2025-08-08)
 
 
