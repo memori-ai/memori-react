@@ -20,6 +20,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
+  const [hasTriggeredAutostart, setHasTriggeredAutostart] = useState(false);
 
   const { onClickStart, hasInitialSession } = startPanelProps || {};
 
@@ -64,6 +65,10 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     }
   }, [isOpen, fullScreen]);
 
+  // Reset autostart trigger when session changes
+  useEffect(() => {
+    setHasTriggeredAutostart(false);
+  }, [sessionId]);
 
 
   const handleSidebarToggle = () => {
@@ -72,9 +77,13 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     console.log('sessionId', sessionId);
     console.log('hasInitialSession', hasInitialSession);
 
-    if((autoStart || autoStart === undefined) && (!sessionId || hasInitialSession)) {
+    // Only trigger autostart when opening the sidebar for the first time
+    // and when we haven't already triggered it
+    if (!isOpen && !hasTriggeredAutostart && (autoStart || autoStart === undefined) && (!sessionId || hasInitialSession)) {
+      setHasTriggeredAutostart(true);
       onClickStart?.();
     }
+    
     // If we're in fullscreen mode and trying to close the sidebar
     if (fullScreen && isOpen) {
       // Exit fullscreen first

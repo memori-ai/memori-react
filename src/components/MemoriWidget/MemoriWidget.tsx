@@ -3109,10 +3109,11 @@ const MemoriWidget = ({
   );
 
   useEffect(() => {
-    if (!clickedStart && autoStart) {
+    // Don't auto-start for HIDDEN_CHAT layout - let the layout handle it
+    if (!clickedStart && autoStart && selectedLayout !== 'HIDDEN_CHAT') {
       onClickStart();
     }
-  }, [clickedStart, autoStart]);
+  }, [clickedStart, autoStart, selectedLayout]);
 
   useEffect(() => {
     const targetNode =
