@@ -1799,12 +1799,12 @@ const MemoriWidget = ({
   // Define audio playback options
   const audioPlaybackOptions = useMemo(
     () => ({
-      apiUrl: apiURL,
+      apiUrl: `${baseUrl}/api/tts`,
       continuousSpeech: continuousSpeech,
       onEndSpeakStartListen: onEndSpeakStartListen,
       preview: preview,
     }),
-    [apiURL, continuousSpeech, preview, onEndSpeakStartListen]
+    [baseUrl, continuousSpeech, preview, onEndSpeakStartListen]
   );
 
   console.log('tenantID', tenantID);

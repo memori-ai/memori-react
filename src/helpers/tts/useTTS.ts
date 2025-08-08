@@ -248,7 +248,7 @@ export function useTTS(
 
         const processedText = sanitizeText(text);
         
-        const response = await fetch('http://localhost:3000/api/tts', {
+        const response = await fetch(options.apiUrl || '/api/tts', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
