@@ -1810,7 +1810,8 @@ const MemoriWidget = ({
       ),
       tenant: tenantID,
       region: 'westeurope',
-      voiceType: memori.voiceType
+      voiceType: memori.voiceType,
+      layout: selectedLayout
     }),
     [ttsProvider, userLang, memori.culture, memori.voiceType]
   );

@@ -15,6 +15,7 @@ export interface TTSConfig {
   model?: string;
   region?: string; // richiesto per Azure
   tenant?: string; // Tenant identifier for multi-tenant applications
+  layout?: 'DEFAULT' | 'ZOOMED_FULL_BODY' | 'FULL_BODY';
 }
 
 type VisemeData = {
@@ -48,7 +49,7 @@ export function useTTS(
   options: UseTTSOptions = {},
   autoStart: boolean = false,
   defaultEnableAudio: boolean = true,
-  defaultSpeakerActive: boolean = true
+  defaultSpeakerActive: boolean = true,
 ) {
   // Stato locale
   const [isPlaying, setIsPlaying] = useState(false);
@@ -253,7 +254,7 @@ export function useTTS(
             model: config.model || 'tts-1',
             region: config.region,
             provider: config.provider,
-            includeVisemes: true,
+            includeVisemes: config.layout === 'ZOOMED_FULL_BODY' || config.layout === 'FULL_BODY',
           }),
         });
 
@@ -347,14 +348,14 @@ export function useTTS(
         const errorMsg = err instanceof Error ? err : new Error(String(err));
         setError(errorMsg);
 
-        try {
-          if ('speechSynthesis' in window) {
-            const utterance = new SpeechSynthesisUtterance(sanitizeText(text));
-            window.speechSynthesis.speak(utterance);
-          }
-        } catch (fallbackErr) {
-          // Silently handle fallback errors
-        }
+        // try {
+        //   if ('speechSynthesis' in window) {
+        //     const utterance = new SpeechSynthesisUtterance(sanitizeText(text));
+        //     window.speechSynthesis.speak(utterance);
+        //   }
+        // } catch (fallbackErr) {
+        //   // Silently handle fallback errors
+        // }
 
         emitEndSpeakEvent();
       }
