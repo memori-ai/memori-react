@@ -1,5 +1,12 @@
 
 
+## [8.0.0-rc.8](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.7...v8.0.0-rc.8) (2025-08-11)
+
+
+### Bug Fixes
+
+* update audio handling defaults and improve alert z-index ([4b10151](https://github.com/memori-ai/memori-react/commit/4b10151bbfc45ce3d9db2d663cbe77de412e66ff))
+
 ## [8.0.0-rc.7](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.6...v8.0.0-rc.7) (2025-08-11)
 
 
