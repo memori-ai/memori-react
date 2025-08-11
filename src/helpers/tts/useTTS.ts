@@ -254,7 +254,7 @@ export function useTTS(
             model: config.model || 'tts-1',
             region: config.region,
             provider: config.provider,
-            includeVisemes: config.layout === 'ZOOMED_FULL_BODY' || config.layout === 'FULL_BODY',
+            includeVisemes: config.layout === 'ZOOMED_FULL_BODY' || config.layout === 'FULL_BODY' || config.layout === 'DEFAULT',
           }),
         });
 

@@ -1,6 +1,6 @@
 // tts/TextSanitizer.ts
 
-import { stripEmojis, stripHTML, stripMarkdown, stripOutputTags } from "./utils";
+import { escapeHTML, stripEmojis, stripHTML, stripMarkdown, stripOutputTags, stripReasoningTags } from "./utils";
 
 
 
@@ -9,5 +9,9 @@ import { stripEmojis, stripHTML, stripMarkdown, stripOutputTags } from "./utils"
  * @param text Testo da sanitizzare
  */
 export function sanitizeText(text: string): string {
-  return stripMarkdown(stripEmojis(stripHTML(stripOutputTags(text))));
+  return escapeHTML(
+    stripMarkdown(
+      stripEmojis(stripHTML(stripReasoningTags(stripOutputTags(text))))
+    )
+  );
 }
