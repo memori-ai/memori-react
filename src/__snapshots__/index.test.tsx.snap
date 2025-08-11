@@ -5,39 +5,7 @@ exports[`renders client 1`] = `
   <div
     id="_rht_toaster"
     style="position: fixed; z-index: 9999; top: 16px; left: 16px; right: 16px; bottom: 16px; pointer-events: none;"
-  >
-    <div
-      class="go4109123758"
-      style="left: 0px; right: 0px; display: flex; position: absolute; transition: all 230ms cubic-bezier(.21,1.02,.73,1); transform: translateY(0px); top: 0px; justify-content: center;"
-    >
-      <div
-        class="go2072408551"
-        style="opacity: 0;"
-      >
-        <div
-          class="go685806154"
-        >
-          <div
-            class="go1858758034"
-          />
-          <div
-            class="go1579819456"
-          >
-            <div
-              class="go2534082608"
-            />
-          </div>
-        </div>
-        <div
-          aria-live="polite"
-          class="go3958317564"
-          role="status"
-        >
-          Failed to fetch speech key
-        </div>
-      </div>
-    </div>
-  </div>
+  />
   <div
     style="display: flex; align-items: center; justify-content: center;"
   >
@@ -56,70 +24,7 @@ exports[`renders client with whiteListedDomains on allowed domains 1`] = `
   <div
     id="_rht_toaster"
     style="position: fixed; z-index: 9999; top: 16px; left: 16px; right: 16px; bottom: 16px; pointer-events: none;"
-  >
-    <div
-      class="go4109123758"
-      style="left: 0px; right: 0px; display: flex; position: absolute; transition: all 230ms cubic-bezier(.21,1.02,.73,1); transform: translateY(0px); top: 0px; justify-content: center;"
-    >
-      <div
-        class="go2072408551"
-        style="opacity: 0;"
-      >
-        <div
-          class="go685806154"
-        >
-          <div
-            class="go1858758034"
-          />
-          <div
-            class="go1579819456"
-          >
-            <div
-              class="go2534082608"
-            />
-          </div>
-        </div>
-        <div
-          aria-live="polite"
-          class="go3958317564"
-          role="status"
-        >
-          Failed to fetch speech key
-        </div>
-      </div>
-    </div>
-    <div
-      class="go4109123758"
-      style="left: 0px; right: 0px; display: flex; position: absolute; transition: all 230ms cubic-bezier(.21,1.02,.73,1); transform: translateY(0px); top: 0px; justify-content: center;"
-    >
-      <div
-        class="go2072408551"
-        style="opacity: 0;"
-      >
-        <div
-          class="go685806154"
-        >
-          <div
-            class="go1858758034"
-          />
-          <div
-            class="go1579819456"
-          >
-            <div
-              class="go2534082608"
-            />
-          </div>
-        </div>
-        <div
-          aria-live="polite"
-          class="go3958317564"
-          role="status"
-        >
-          Failed to fetch speech key
-        </div>
-      </div>
-    </div>
-  </div>
+  />
   <div
     style="display: flex; align-items: center; justify-content: center;"
   >

@@ -163,8 +163,9 @@ const Memori: React.FC<Props> = ({
   const client = memoriApiClient(apiURL, engineURL);
 
   const fetchSpeechKey = useCallback(async () => {
-    const url =  baseURL ||
-       (tenantID.startsWith('https://') ? tenantID : `https://${tenantID}`);
+    const url =
+      baseURL ||
+      (tenantID.startsWith('https://') ? tenantID : `https://${tenantID}`);
     try {
       const result = await fetch(`${url}/api/speechkey?tenant=${tenantID}`, {
         method: 'GET',
@@ -172,17 +173,15 @@ const Memori: React.FC<Props> = ({
           'Content-Type': 'application/json',
         },
       });
-      
+
       const data = await result.json();
 
       if (data.provider) {
         setProvider(data.provider);
       } else {
-        toast.error('Speech provider not found, set to Azure');
-        console.warn('Provider not found in speech key response');
+          console.warn('Provider not found in speech key response');
       }
     } catch (error) {
-      toast.error('Failed to fetch speech key');
       console.error('Error fetching speech key:', error);
     }
   }, [baseURL, tenantID]);
@@ -337,15 +336,15 @@ const Memori: React.FC<Props> = ({
             initialContextVars={initialContextVars}
             initialQuestion={initialQuestionLayout}
             authToken={authToken}
-            ttsProvider={provider ? provider as 'azure' | 'openai' : 'azure'}
+            ttsProvider={provider ? (provider as 'azure' | 'openai') : 'azure'}
             autoStart={
               autoStart !== undefined
                 ? autoStart
                 : layout === 'HIDDEN_CHAT'
-                  ? true
-                  : autoStart
+                ? true
+                : autoStart
             }
-            enableAudio={enableAudio}
+            enableAudio={!provider ? false : enableAudio}
             defaultSpeakerActive={defaultSpeakerActive}
             disableTextEnteredEvents={disableTextEnteredEvents}
             onStateChange={onStateChange}
