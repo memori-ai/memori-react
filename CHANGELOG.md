@@ -1,5 +1,12 @@
 
 
+## [8.0.0-rc.11](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.10...v8.0.0-rc.11) (2025-08-11)
+
+
+### Bug Fixes
+
+* resolve race condition in TTS audio playback and improve cleanup handling ([384d45e](https://github.com/memori-ai/memori-react/commit/384d45e29d970807fb4bb5d9f6b645ebe7dc4e53))
+
 ## [8.0.0-rc.10](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.9...v8.0.0-rc.10) (2025-08-11)
 
 
