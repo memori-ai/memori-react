@@ -586,7 +586,7 @@ const MemoriWidget = ({
   const selectedLayout = layout || integrationConfig?.layout || 'DEFAULT';
 
   const defaultEnableAudio =
-    enableAudio ?? integrationConfig?.enableAudio ?? false;
+    enableAudio ?? integrationConfig?.enableAudio ?? true;
 
   const [hasUserActivatedListening, setHasUserActivatedListening] =
     useState(false);

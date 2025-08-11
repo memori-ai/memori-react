@@ -1,6 +1,6 @@
 .memori-alert {
     position: fixed;
-    z-index: 50;
+    z-index: 1000;
     top: 20px;
     right: 20px;
     width: var(--memori-alert--width, 400px);
