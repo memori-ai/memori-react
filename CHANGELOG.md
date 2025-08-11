@@ -1,5 +1,12 @@
 
 
+## [8.0.0-rc.9](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.8...v8.0.0-rc.9) (2025-08-11)
+
+
+### Features
+
+* add layout option to TTS configuration ([6fe466f](https://github.com/memori-ai/memori-react/commit/6fe466f128ac6cbf9687697a40be080353d77d13))
+
 ## [8.0.0-rc.8](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.7...v8.0.0-rc.8) (2025-08-11)
 
 
