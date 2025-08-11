@@ -340,7 +340,7 @@ const Memori: React.FC<Props> = ({
                   ? true
                   : autoStart
             }
-            enableAudio={enableAudio && !!provider}
+            enableAudio={enableAudio}
             defaultSpeakerActive={defaultSpeakerActive}
             disableTextEnteredEvents={disableTextEnteredEvents}
             onStateChange={onStateChange}

@@ -334,6 +334,7 @@ let audioDestination: SpeakerAudioDestination;
 let audioContext: IAudioContext;
 
 let memoriPassword: string | undefined;
+let speakerMuted: boolean = false;
 let userToken: string | undefined;
 
 export interface LayoutProps {
@@ -650,7 +651,21 @@ const MemoriWidget = ({
 
       setBirthDate(getLocalConfig<string | undefined>('birthDate', undefined));
     }
+
+    // If audio is disabled, automatically mute the speaker
+    if (!(enableAudio ?? integrationConfig?.enableAudio ?? true)) {
+      setLocalConfig('muteSpeaker', true);
+    }
   }, []);
+
+  // Effect to handle enableAudio changes
+  useEffect(() => {
+    const isAudioEnabled = enableAudio ?? integrationConfig?.enableAudio ?? true;
+    if (!isAudioEnabled) {
+      // Force mute when audio is disabled
+      setLocalConfig('muteSpeaker', true);
+    }
+  }, [enableAudio, integrationConfig?.enableAudio]);
 
   /**
    * Auth for private and secret memori
@@ -1995,34 +2010,34 @@ const MemoriWidget = ({
    * Enhanced handleSpeak that integrates with the improved useTTS hook
    * Uses promise-based approach for better reliability
    */
-  const handleSpeak =  async (text: string) => {
-      if (!text || preview || speakerMuted) {
-        const e = new CustomEvent('MemoriEndSpeak');
-        document.dispatchEvent(e);
+  const handleSpeak = async (text: string) => {
+    if (!text || preview || speakerMuted || !defaultEnableAudio) {
+      const e = new CustomEvent('MemoriEndSpeak');
+      document.dispatchEvent(e);
 
-        if (continuousSpeech) {
-          setListeningTimeout();
-        }
-        return Promise.resolve();
+      if (continuousSpeech) {
+        setListeningTimeout();
       }
-
-      if (typeof stopListening === 'function') {
-        stopListening();
-      }
-
-      setMemoriTyping(true);
-
-      const processedText = sanitizeText(text);
-
-      return ttsSpeak(processedText)
-        .then(() => {
-          setMemoriTyping(false);
-        })
-        .catch(error => {
-          setMemoriTyping(false);
-          throw error;
-        });
+      return Promise.resolve();
     }
+
+    if (typeof stopListening === 'function') {
+      stopListening();
+    }
+
+    setMemoriTyping(true);
+
+    const processedText = sanitizeText(text);
+
+    return ttsSpeak(processedText)
+      .then(() => {
+        setMemoriTyping(false);
+      })
+      .catch(error => {
+        setMemoriTyping(false);
+        throw error;
+      });
+  }
   /**
    * Integrated solution for translating dialog state and speaking
    * This uses promise chaining for reliable sequencing without timeouts
@@ -2083,7 +2098,9 @@ const MemoriWidget = ({
 
   // Helper function for fallback behavior
   const handleFallback = (text: string) => {
-    window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+    if (defaultEnableAudio) {
+      window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+    }
     cleanup();
   };
 
@@ -2743,20 +2760,6 @@ const MemoriWidget = ({
 
       let translatedMessages: Message[] = [];
 
-      // Handle Safari audio autoplay
-      let memoriAudioElement = document.getElementById(
-        'memori-audio'
-      ) as HTMLAudioElement;
-      let isSafari =
-        window.navigator.userAgent.includes('Safari') &&
-        !window.navigator.userAgent.includes('Chrome');
-      if (memoriAudioElement && isSafari) {
-        memoriAudioElement.muted = false;
-        memoriAudioElement.play().catch((e: any) => {
-          console.warn('[CLICK_START] Error playing intro audio:', e);
-        });
-      }
-
       // Get birth date from storage or props
       let storageBirthDate = getLocalConfig<string | undefined>(
         'birthDate',
@@ -3257,10 +3260,14 @@ const MemoriWidget = ({
     setShowSettingsDrawer,
     setShowKnownFactsDrawer,
     setShowExpertsDrawer,
-    enableAudio: enableAudio ?? integrationConfig?.enableAudio ?? true,
-    showSpeaker: !!ttsProvider,
+    enableAudio: defaultEnableAudio,
     speakerMuted: speakerMuted ?? false,
     setSpeakerMuted: mute => {
+      // If audio is disabled, force mute and don't allow unmuting
+      if (!(enableAudio ?? integrationConfig?.enableAudio ?? true)) {
+        mute = true;
+      }
+      
       toggleMute(mute);
       let microphoneMode = getLocalConfig<string>(
         'microphoneMode',
@@ -3306,7 +3313,7 @@ const MemoriWidget = ({
     avatar3dVisible,
     setAvatar3dVisible,
     hasUserActivatedSpeak,
-    isPlayingAudio: isPlayingAudio && !speakerMuted,
+    isPlayingAudio: isPlayingAudio && !speakerMuted && (enableAudio ?? integrationConfig?.enableAudio ?? true),
     loading: !!memoriTyping,
     baseUrl,
     apiUrl: client.constants.BACKEND_URL,
@@ -3383,7 +3390,7 @@ const MemoriWidget = ({
     attachmentsMenuOpen,
     setAttachmentsMenuOpen,
     showInputs,
-    showMicrophone: !!ttsProvider,
+    showMicrophone: !!ttsProvider && (enableAudio ?? integrationConfig?.enableAudio ?? true),
     showFunctionCache,
     userMessage,
     onChangeUserMessage,
