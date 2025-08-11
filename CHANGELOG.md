@@ -1,5 +1,12 @@
 
 
+## [8.0.0-rc.6](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.5...v8.0.0-rc.6) (2025-08-11)
+
+
+### Bug Fixes
+
+* enhance error handling TTS components ([85eef2f](https://github.com/memori-ai/memori-react/commit/85eef2fec9339625549ad9dabaf35176fff60831))
+
 ## [8.0.0-rc.5](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.4...v8.0.0-rc.5) (2025-08-11)
 
 
