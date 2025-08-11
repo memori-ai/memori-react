@@ -1,5 +1,12 @@
 
 
+## [8.0.0-rc.10](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.9...v8.0.0-rc.10) (2025-08-11)
+
+
+### Bug Fixes
+
+* enhance text sanitization and update TTS layout options ([26ab442](https://github.com/memori-ai/memori-react/commit/26ab4427b79caaca5239e8a69932e7a58a5889da))
+
 ## [8.0.0-rc.9](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.8...v8.0.0-rc.9) (2025-08-11)
 
 
