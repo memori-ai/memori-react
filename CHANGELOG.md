@@ -1,5 +1,12 @@
 
 
+## [8.0.0-rc.5](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.4...v8.0.0-rc.5) (2025-08-11)
+
+
+### Bug Fixes
+
+* simplify audio handling by removing showSpeaker prop ([4d3ea86](https://github.com/memori-ai/memori-react/commit/4d3ea865a3c23a8f2381ac95e92cfa53353a0900))
+
 ## [8.0.0-rc.4](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.3...v8.0.0-rc.4) (2025-08-08)
 
 
