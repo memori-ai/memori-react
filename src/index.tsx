@@ -15,6 +15,7 @@ import MemoriWidget, {
 import { VisemeProvider } from './context/visemeContext';
 
 import { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { safeParseJSON } from './helpers/utils';
 
 import i18n from './i18n';
@@ -171,17 +172,21 @@ const Memori: React.FC<Props> = ({
           'Content-Type': 'application/json',
         },
       });
+      
       const data = await result.json();
 
       if (data.provider) {
         setProvider(data.provider);
       } else {
-        console.log('provider not found');
+        toast.error('Speech provider not found, set to Azure');
+        console.warn('Provider not found in speech key response');
       }
     } catch (error) {
-      console.error('Error fetching speech key', error);
+      toast.error('Failed to fetch speech key');
+      console.error('Error fetching speech key:', error);
     }
-  }, []);
+  }, [baseURL, tenantID]);
+
   useEffect(() => {
     fetchSpeechKey();
   }, []);
