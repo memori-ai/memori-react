@@ -1,5 +1,12 @@
 
 
+## [8.0.0-rc.7](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.6...v8.0.0-rc.7) (2025-08-11)
+
+
+### Bug Fixes
+
+* improve URL formatting and error handling in speech key fetching ([95cc693](https://github.com/memori-ai/memori-react/commit/95cc693a2749bc525843c8ad8d3cd78c51be80b6))
+
 ## [8.0.0-rc.6](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.5...v8.0.0-rc.6) (2025-08-11)
 
 
