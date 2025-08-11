@@ -1,4 +1,4 @@
-// Improved useTTS.ts with better viseme handling
+// Improved useTTS.ts with race condition fix
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { sanitizeText } from '../sanitizer';
 import { getLocalConfig } from '../configuration';
@@ -15,7 +15,7 @@ export interface TTSConfig {
   model?: string;
   region?: string; // richiesto per Azure
   tenant?: string; // Tenant identifier for multi-tenant applications
-  layout?: 'DEFAULT' | 'ZOOMED_FULL_BODY' | 'FULL_BODY';
+  layout?: 'DEFAULT' | 'ZOOMED_FULL_BODY' | 'FULLPAGE';
 }
 
 type VisemeData = {
@@ -161,6 +161,7 @@ export function useTTS(
    * Performs a complete cleanup of audio and viseme resources
    */
   const cleanup = useCallback(() => {
+    console.log('[useTTS] Cleaning up');
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
@@ -179,14 +180,14 @@ export function useTTS(
     }
     
     visemeLoadedRef.current = false;
-    isSpeakingRef.current = false;
+    // Don't reset isSpeakingRef here - let the speak function manage it
   }, [stopProcessing]);
 
   /**
    * Stops audio playback and cleans up
    */
   const stop = useCallback((): void => {
-    isSpeakingRef.current = false;
+    console.log('[useTTS] Stopping audio playback');
     
     if (audioRef.current) {
       audioRef.current.pause();
@@ -194,8 +195,10 @@ export function useTTS(
     }
     
     setIsPlaying(false);
-    
     cleanup();
+    
+    // Only reset speaking flag after cleanup
+    isSpeakingRef.current = false;
   }, [cleanup]);
 
   /**
@@ -219,15 +222,23 @@ export function useTTS(
         return;
       }
 
-      if (isSpeakingRef.current) {
-        return;
-      }
-
+      // Early exit conditions before setting speaking flag
       if (!text || options.preview || speakerMuted) {
         emitEndSpeakEvent();
         return;
       }
 
+      // Stop any existing playback first (before checking/setting speaking flag)
+      if (isPlaying) {
+        stop();
+      }
+
+      // Now check if we're already processing a request
+      if (isSpeakingRef.current) {
+        return;
+      }
+
+      // Set the flag after all the early exits and cleanup
       isSpeakingRef.current = true;
 
       if (!hasUserActivatedSpeak) {
@@ -235,10 +246,6 @@ export function useTTS(
       }
 
       try {
-        if (isPlaying) {
-          stop();
-        }
-
         setIsPlaying(true);
         setError(null);
 
@@ -254,7 +261,7 @@ export function useTTS(
             model: config.model || 'tts-1',
             region: config.region,
             provider: config.provider,
-            includeVisemes: config.layout === 'ZOOMED_FULL_BODY' || config.layout === 'FULL_BODY' || config.layout === 'DEFAULT',
+            includeVisemes: config.layout === 'ZOOMED_FULL_BODY' || config.layout === 'FULLPAGE' || config.layout === 'DEFAULT',
           }),
         });
 
@@ -311,6 +318,7 @@ export function useTTS(
             }
           } catch (e: any) {
             cleanup();
+            isSpeakingRef.current = false;
             emitEndSpeakEvent();
           }
         };
@@ -347,15 +355,6 @@ export function useTTS(
         cleanup();
         const errorMsg = err instanceof Error ? err : new Error(String(err));
         setError(errorMsg);
-
-        // try {
-        //   if ('speechSynthesis' in window) {
-        //     const utterance = new SpeechSynthesisUtterance(sanitizeText(text));
-        //     window.speechSynthesis.speak(utterance);
-        //   }
-        // } catch (fallbackErr) {
-        //   // Silently handle fallback errors
-        // }
 
         emitEndSpeakEvent();
       }
