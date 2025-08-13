@@ -28,6 +28,13 @@ interface VisemeContextType {
 
 const VisemeContext = createContext<VisemeContextType | undefined>(undefined);
 
+// Add this interface at the top near your other types
+interface SimpleAudioWrapper {
+  currentTime: number;
+  state: string;
+  onstatechange: ((this: AudioContext, ev: Event) => any) | null;
+}
+
 const VISEME_MAP: Readonly<{ [key: number]: string }> = {
   0: 'viseme_sil', // silence
   1: 'viseme_PP', // p, b, m
@@ -142,30 +149,59 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
   const frameCountRef = useRef(0);
   const firstVisemeTimeRef = useRef<number | null>(null);
 
-  const setAudioContext = useCallback((ctx: IAudioContext) => {
-    audioContextRef.current = ctx;
+  // Update the setAudioContext function
+  const setAudioContext = useCallback(
+    (ctx: IAudioContext | SimpleAudioWrapper) => {
+      audioContextRef.current = ctx as IAudioContext;
 
-    // Listen to audio context state changes
-    ctx.onstatechange = () => {
-      // logVisemeEvent('Audio Context State Change', {
-      //   state: ctx.state,
-      //   currentTime: ctx.currentTime,
-      // });
-
-      switch (ctx.state) {
-        case 'running':
-          setVisemeState('active');
-          break;
-        case 'suspended':
-          setVisemeState('paused');
-          break;
-        case 'closed':
-          setVisemeState('finished');
-          stopProcessing();
-          break;
+      // Listen to audio context state changes
+      if (ctx.onstatechange !== null) {
+        ctx.onstatechange = () => {
+          switch (ctx.state) {
+            case 'running':
+              setVisemeState('active');
+              break;
+            case 'suspended':
+              setVisemeState('paused');
+              break;
+            case 'closed':
+              setVisemeState('finished');
+              stopProcessing();
+              break;
+          }
+        };
       }
-    };
-  }, []);
+    },
+    []
+  );
+
+  // Update the startProcessing function
+  const startProcessing = useCallback(
+    (audioCtx: IAudioContext | SimpleAudioWrapper) => {
+      if (!audioCtx) {
+        console.error('[VisemeContext] No audio context provided');
+        return;
+      }
+
+      audioContextRef.current = audioCtx as IAudioContext;
+
+      // Initialize with the current time of the audio context
+      audioStartTimeRef.current = audioCtx.currentTime;
+
+      // Reset frame counter
+      frameCountRef.current = 0;
+
+      // Update state
+      setIsProcessing(true);
+      setVisemeState('active');
+
+      console.log('[VisemeContext] Started processing visemes', {
+        audioTime: audioCtx.currentTime,
+        queueLength: visemeQueueRef.current.length,
+      });
+    },
+    []
+  );
 
   const addViseme = useCallback(
     (visemeId: number, audioOffset: number) => {
@@ -209,37 +245,36 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
     [visemeState]
   );
 
-  const startProcessing = useCallback((audioCtx: IAudioContext) => {
-    if (!audioCtx) {
-      // logVisemeError('No audio context provided', { state: visemeState });
-      return;
-    }
+  // Make resetVisemeQueue more robust
+  const resetVisemeQueue = useCallback(() => {
+    console.log('[VisemeContext] Resetting viseme queue');
 
-    audioContextRef.current = audioCtx;
-    audioStartTimeRef.current = audioCtx.currentTime;
+    // Clear all queued visemes
+    visemeQueueRef.current = [];
+
+    // Reset all other state
+    lastVisemeRef.current = null;
+    audioStartTimeRef.current = null;
+    firstVisemeTimeRef.current = null;
     frameCountRef.current = 0;
-    setIsProcessing(true);
-    setVisemeState('active');
 
-    // logVisemeEvent('Started Processing', {
-    //   audioTime: audioCtx.currentTime,
-    //   queueLength: visemeQueueRef.current.length,
-    //   state: visemeState,
-    // });
+    // Set state back to idle
+    setVisemeState('idle');
   }, []);
 
+  // Make stopProcessing more robust
   const stopProcessing = useCallback(() => {
+    console.log('[VisemeContext] Stopping viseme processing');
+
+    // Update processing state first
     setIsProcessing(false);
     setVisemeState('finished');
+
+    // Then reset all refs
     audioStartTimeRef.current = null;
     lastVisemeRef.current = null;
     frameCountRef.current = 0;
     audioContextRef.current = null;
-
-    // logVisemeEvent('Stopped Processing', {
-    //   queueLength: visemeQueueRef.current.length,
-    //   state: visemeState,
-    // });
   }, []);
 
   const updateCurrentViseme = useCallback(
@@ -302,19 +337,6 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
     },
     [isProcessing]
   );
-
-  const resetVisemeQueue = useCallback(() => {
-    visemeQueueRef.current = [];
-    lastVisemeRef.current = null;
-    audioStartTimeRef.current = null;
-    firstVisemeTimeRef.current = null;
-    frameCountRef.current = 0;
-    setVisemeState('idle');
-
-    // logVisemeEvent('Reset Viseme Queue', {
-    //   previousState: visemeState,
-    // });
-  }, [visemeState]);
 
   const resetAndStartProcessing = useCallback(
     (audioCtx: IAudioContext) => {

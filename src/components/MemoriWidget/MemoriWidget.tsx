@@ -30,6 +30,7 @@ import React, {
   useCallback,
   CSSProperties,
   useRef,
+  useMemo,
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
@@ -73,14 +74,10 @@ import {
 import {
   hasTouchscreen,
   stripDuplicates,
-  stripEmojis,
-  escapeHTML,
-  stripMarkdown,
-  stripOutputTags,
-  stripHTML,
   installMathJax,
   stripReasoningTags,
 } from '../../helpers/utils';
+import { getTTSVoice } from '../../helpers/tts/ttsVoiceUtility';
 import {
   allowedMediaTypes,
   anonTag,
@@ -89,6 +86,9 @@ import {
 import { getErrori18nKey } from '../../helpers/error';
 import { getCredits } from '../../helpers/credits';
 import { useViseme } from '../../context/visemeContext';
+import { sanitizeText } from '../../helpers/sanitizer';
+import { TTSConfig, useTTS } from '../../helpers/tts/useTTS';
+import Alert from '../ui/Alert';
 import ChatHistoryDrawer from '../ChatHistoryDrawer/ChatHistory';
 
 // Widget utilities and helpers
@@ -330,13 +330,11 @@ window.typeBatchMessages = typeBatchMessages;
 // Global variables
 let recognizer: SpeechRecognizer | null;
 let speechConfig: SpeechConfig;
-let speechSynthesizer: SpeechSynthesizer | null;
 let audioDestination: SpeakerAudioDestination;
 let audioContext: IAudioContext;
 
 let memoriPassword: string | undefined;
 let speakerMuted: boolean = false;
-let memoriSpeaking: boolean = false;
 let userToken: string | undefined;
 
 export interface LayoutProps {
@@ -356,6 +354,7 @@ export interface LayoutProps {
   showUpload?: boolean;
   loading?: boolean;
   autoStart?: boolean;
+  onSidebarToggle?: (isOpen: boolean) => void;
 }
 
 export interface Props {
@@ -407,8 +406,7 @@ export interface Props {
     tag: string;
     pin: string;
   };
-  authToken?: string;
-  AZURE_COGNITIVE_SERVICES_TTS_KEY?: string;
+  ttsProvider?: 'azure' | 'openai';
   enableAudio?: boolean;
   defaultSpeakerActive?: boolean;
   disableTextEnteredEvents?: boolean;
@@ -421,6 +419,7 @@ export interface Props {
   autoStart?: boolean;
   applyVarsToRoot?: boolean;
   showFunctionCache?: boolean;
+  authToken?: string;
 }
 
 const MemoriWidget = ({
@@ -457,12 +456,12 @@ const MemoriWidget = ({
   engineURL = 'https://engine-staging.memori.ai',
   initialContextVars,
   initialQuestion,
+  ttsProvider,
   ogImage,
   sessionID: initialSessionID,
   tenant,
   personification,
   authToken,
-  AZURE_COGNITIVE_SERVICES_TTS_KEY,
   enableAudio,
   defaultSpeakerActive = true,
   disableTextEnteredEvents = false,
@@ -500,6 +499,7 @@ const MemoriWidget = ({
 
   const [instruct, setInstruct] = useState(false);
   const [enableFocusChatInput, setEnableFocusChatInput] = useState(true);
+  const [isHiddenChatHistory, setIsHiddenChatHistory] = useState(false);
 
   const [loginToken, setLoginToken] = useState<string | undefined>(
     additionalInfo?.loginToken ?? authToken
@@ -586,9 +586,8 @@ const MemoriWidget = ({
   const selectedLayout = layout || integrationConfig?.layout || 'DEFAULT';
 
   const defaultEnableAudio =
-    enableAudio ?? integrationConfig?.enableAudio ?? false;
+    enableAudio ?? integrationConfig?.enableAudio ?? true;
 
-  const [hasUserActivatedSpeak, setHasUserActivatedSpeak] = useState(false);
   const [hasUserActivatedListening, setHasUserActivatedListening] =
     useState(false);
   const [showPositionDrawer, setShowPositionDrawer] = useState(false);
@@ -596,12 +595,8 @@ const MemoriWidget = ({
   const [showChatHistoryDrawer, setShowChatHistoryDrawer] = useState(false);
   const [showKnownFactsDrawer, setShowKnownFactsDrawer] = useState(false);
   const [showExpertsDrawer, setShowExpertsDrawer] = useState(false);
-  const [muteSpeaker, setMuteSpeaker] = useState(
-    !defaultEnableAudio || !defaultSpeakerActive || autoStart
-  );
   const [continuousSpeech, setContinuousSpeech] = useState(false);
   const [continuousSpeechTimeout, setContinuousSpeechTimeout] = useState(2);
-  const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [controlsPosition, setControlsPosition] = useState<'center' | 'bottom'>(
     'center'
   );
@@ -612,18 +607,12 @@ const MemoriWidget = ({
   );
   const [hideEmissions, setHideEmissions] = useState(false);
 
-  const {
-    startProcessing,
-    setAudioContext,
-    addViseme,
-    stopProcessing,
-    resetVisemeQueue,
-  } = useViseme();
+  const speechSynthesizerRef = useRef<SpeechSynthesizer | null>(null);
+  const [memoriSpeaking, setMemoriSpeaking] = useState(false);
 
   useEffect(() => {
-    memoriSpeaking = !!speechSynthesizer;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [speechSynthesizer]);
+    setMemoriSpeaking(!!speechSynthesizerRef.current);
+  }, [speechSynthesizerRef.current]);
 
   useEffect(() => {
     let defaultControlsPosition: 'center' | 'bottom' = 'bottom';
@@ -648,17 +637,7 @@ const MemoriWidget = ({
       defaultControlsPosition = 'bottom';
     }
 
-    const muteSpeaker =
-      autoStart ||
-      getLocalConfig(
-        'muteSpeaker',
-        !defaultEnableAudio || !defaultSpeakerActive || autoStart
-      );
-
-    setMuteSpeaker(muteSpeaker);
-    speakerMuted = muteSpeaker;
-
-    setContinuousSpeech(muteSpeaker ? false : microphoneMode === 'CONTINUOUS');
+    setContinuousSpeech(speakerMuted ? false : microphoneMode === 'CONTINUOUS');
     setContinuousSpeechTimeout(getLocalConfig('continuousSpeechTimeout', 2));
     setControlsPosition(
       getLocalConfig('controlsPosition', defaultControlsPosition)
@@ -672,7 +651,21 @@ const MemoriWidget = ({
 
       setBirthDate(getLocalConfig<string | undefined>('birthDate', undefined));
     }
+
+    // If audio is disabled, automatically mute the speaker
+    if (!(enableAudio ?? integrationConfig?.enableAudio ?? true)) {
+      setLocalConfig('muteSpeaker', true);
+    }
   }, []);
+
+  // Effect to handle enableAudio changes
+  useEffect(() => {
+    const isAudioEnabled = enableAudio ?? integrationConfig?.enableAudio ?? true;
+    if (!isAudioEnabled) {
+      // Force mute when audio is disabled
+      setLocalConfig('muteSpeaker', true);
+    }
+  }, [enableAudio, integrationConfig?.enableAudio]);
 
   /**
    * Auth for private and secret memori
@@ -877,7 +870,7 @@ const MemoriWidget = ({
           translateDialogState(currentState, userLang, msg).then(ts => {
             let text = ts.translatedEmission || ts.emission;
             if (text) {
-              speak(text);
+              handleSpeak(text);
             }
           });
         } else {
@@ -903,7 +896,7 @@ const MemoriWidget = ({
               tag: currentState.currentTag,
               memoryTags: currentState.memoryTags,
             });
-            speak(emission);
+            handleSpeak(emission);
           }
         }
       } else if (response.resultCode === 404) {
@@ -947,14 +940,8 @@ const MemoriWidget = ({
   };
 
   /**
-   * Traduzioni istantanee
-   */
-  /**
-   * Translates the dialog state and message into the user's language if needed
-   * @param state The current dialog state to translate
-   * @param userLang The target language to translate to
-   * @param msg Optional message that was answered
-   * @returns The translated dialog state
+   * An enhanced version of translateDialogState that integrates smooth speaking
+   * This preserves all your existing logic while improving speech reliability
    */
   const translateDialogState = async (
     state: DialogState,
@@ -1794,6 +1781,62 @@ const MemoriWidget = ({
       timeoutRef.current = undefined;
     }
   };
+  useEffect(() => {
+    return () => {
+      setHasUserActivatedSpeak(false);
+      setClickedStart(false);
+      clearInteractionTimeout();
+      timeoutRef.current = undefined;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  /**
+   * Speech recognition event handlers
+   */
+  const [requestedListening, setRequestedListening] = useState(false);
+  const startListeningRef = useRef<(() => Promise<void>) | null>(null);
+
+  console.log('tenantID', tenantID);
+
+  // Define TTS configuration
+  const ttsConfig = useMemo(
+    () => ({
+      provider: ttsProvider,
+      voice: getTTSVoice(
+        userLang || memori.culture?.split('-')?.[0] || 'EN', 
+        ttsProvider, 
+        memori.voiceType as 'MALE' | 'FEMALE' | 'NEUTRAL'
+      ),
+      tenant: tenantID,
+      region: 'westeurope',
+      voiceType: memori.voiceType,
+      layout: selectedLayout
+    }),
+    [ttsProvider, userLang, memori.culture, memori.voiceType]
+  );
+
+  // Initialize TTS hook with basic options first
+  const {
+    speak: ttsSpeak,
+    stop: ttsStop,
+    isPlaying: isPlayingAudio,
+    speakerMuted,
+    toggleMute,
+    hasUserActivatedSpeak,
+    setHasUserActivatedSpeak,
+    error,
+    setError,
+  } = useTTS(ttsConfig as TTSConfig, {
+    apiUrl: `${baseUrl}/api/tts`,
+    continuousSpeech: continuousSpeech,
+    onEndSpeakStartListen: () => {
+      // Placeholder - will be implemented after startListening is defined
+      console.log('[MemoriWidget] onEndSpeakStartListen called');
+    },
+    preview: preview,
+  }, autoStart, defaultEnableAudio, defaultSpeakerActive);
+
   const resetInteractionTimeout = () => {
     clearInteractionTimeout();
     if (!isPlayingAudio && !userMessage.length && !memoriTyping && !listening)
@@ -1829,7 +1872,7 @@ const MemoriWidget = ({
           ).then(ts => {
             let text = ts.translatedEmission || ts.emission;
             if (text) {
-              speak(text);
+              handleSpeak(text);
             }
           });
         } else if (emission && emission.length > 0) {
@@ -1848,7 +1891,7 @@ const MemoriWidget = ({
             tag: currentState.currentTag,
             memoryTags: currentState.memoryTags,
           });
-          speak(emission);
+          handleSpeak(emission);
           setCurrentDialogState({
             ...currentState,
             hints:
@@ -1905,155 +1948,6 @@ const MemoriWidget = ({
     memoriTyping,
     hasUserActivatedSpeak,
   ]);
-  useEffect(() => {
-    return () => {
-      setHasUserActivatedSpeak(false);
-      setClickedStart(false);
-      clearInteractionTimeout();
-      timeoutRef.current = undefined;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const initializeTTS = () => {
-    if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) return;
-
-    speechConfig = speechSdk.SpeechConfig.fromSubscription(
-      AZURE_COGNITIVE_SERVICES_TTS_KEY,
-      'westeurope'
-    );
-
-    speechConfig.speechSynthesisLanguage = getCultureCodeByLanguage(userLang);
-    speechConfig.speechSynthesisVoiceName = getTTSVoice(userLang); // https://docs.microsoft.com/it-it/azure/cognitive-services/speech-service/language-support#text-to-speech
-    speechConfig.speechRecognitionLanguage = getCultureCodeByLanguage(userLang);
-    speechConfig.setProperty('speechSynthesis.outputFormat', 'viseme');
-
-    if (hasTouchscreen())
-      speechConfig.speechSynthesisOutputFormat =
-        speechSdk.SpeechSynthesisOutputFormat.Audio16Khz32KBitRateMonoMp3;
-
-    audioContext = new AudioContext();
-    let buffer = audioContext.createBuffer(1, 10000, 22050);
-    let source = audioContext.createBufferSource();
-    source.buffer = buffer;
-    source.connect(audioContext.destination);
-
-    audioDestination = new speechSdk.SpeakerAudioDestination();
-    let audioConfig = speechSdk.AudioConfig.fromSpeakerOutput(audioDestination);
-    speechSynthesizer = new speechSdk.SpeechSynthesizer(
-      speechConfig,
-      audioConfig
-    );
-  };
-
-  const getTTSVoice = useCallback(
-    (lang?: string): string => {
-      let voice = '';
-      let voiceLang = (
-        lang ??
-        memori.culture?.split('-')?.[0] ??
-        i18n.language ??
-        'IT'
-      ).toUpperCase();
-
-      let voiceType = memori.voiceType;
-      if (memori.enableBoardOfExperts && currentDialogState?.emitter) {
-        let expert = experts?.find(e => e.name === currentDialogState?.emitter);
-
-        // TODO: once got info from backend, select voice from expert
-        // if (expert?.voiceType) {
-        //   voiceType = expert.voiceType;
-        // }
-      }
-
-      // https://learn.microsoft.com/en-us/azure/ai-services/speech-service/language-support?tabs=tts
-      switch (voiceLang) {
-        case 'IT':
-          voice = `${
-            voiceType === 'MALE' ? 'it-IT-DiegoNeural' : 'it-IT-ElsaNeural'
-          }`;
-          break;
-        case 'DE':
-          voice = `${
-            voiceType === 'MALE' ? 'de-DE-ConradNeural' : 'de-DE-KatjaNeural'
-          }`;
-          break;
-        case 'EN':
-          voice = `${
-            voiceType === 'MALE' ? 'en-GB-RyanNeural' : 'en-GB-SoniaNeural'
-          }`;
-          break;
-        case 'ES':
-          voice = `${
-            voiceType === 'MALE' ? 'es-ES-AlvaroNeural' : 'es-ES-ElviraNeural'
-          }`;
-          break;
-        case 'FR':
-          voice = `${
-            voiceType === 'MALE' ? 'fr-FR-HenriNeural' : 'fr-FR-DeniseNeural'
-          }`;
-          break;
-        case 'PT':
-          voice = `${
-            voiceType === 'MALE' ? 'pt-PT-DuarteNeural' : 'pt-PT-RaquelNeural'
-          }`;
-          break;
-        case 'UK':
-          voice = `${
-            voiceType === 'MALE' ? 'uk-UA-OstapNeural' : 'uk-UA-PolinaNeural'
-          }`;
-          break;
-        case 'RU':
-          voice = `${
-            voiceType === 'MALE' ? 'ru-RU-DmitryNeural' : 'ru-RU-SvetlanaNeural'
-          }`;
-          break;
-        case 'PL':
-          voice = `${
-            voiceType === 'MALE' ? 'pl-PL-MarekNeural' : 'pl-PL-AgnieszkaNeural'
-          }`;
-          break;
-        case 'FI':
-          voice = `${
-            voiceType === 'MALE' ? 'fi-FI-HarriNeural' : 'fi-FI-SelmaNeural'
-          }`;
-          break;
-        case 'EL':
-          voice = `${
-            voiceType === 'MALE' ? 'el-GR-NestorasNeural' : 'el-GR-AthinaNeural'
-          }`;
-          break;
-        case 'AR':
-          voice = `${
-            voiceType === 'MALE' ? 'ar-SA-HamedNeural' : 'ar-SA-ZariyahNeural'
-          }`;
-          break;
-        case 'ZH':
-          voice = `${
-            voiceType === 'MALE' ? 'zh-CN-YunxiNeural' : 'zh-CN-XiaoxiaoNeural'
-          }`;
-          break;
-        case 'JA':
-          voice = `${
-            voiceType === 'MALE' ? 'ja-JP-KeitaNeural' : 'ja-JP-NanamiNeural'
-          }`;
-          break;
-        default:
-          voice = `${
-            voiceType === 'MALE' ? 'it-IT-DiegoNeural' : 'it-IT-IsabellaNeural'
-          }`;
-          break;
-      }
-      return voice;
-    },
-    [
-      memori.voiceType,
-      memori.enableBoardOfExperts,
-      currentDialogState?.emitter,
-      i18n.language,
-      memori.culture,
-    ]
-  );
 
   const getCultureCodeByLanguage = (lang?: string): string => {
     let voice = '';
@@ -2113,282 +2007,101 @@ const MemoriWidget = ({
     return voice;
   };
 
-  const [phonemesMap, setPhonemesMap] = useState<{
-    [ns: 'common' | string]: {
-      [word: string]: {
-        caseSensitive: boolean;
-        default: string;
-        it?: string;
-        en?: string;
-        fr?: string;
-      };
-    };
-  }>();
-  const fetchLexiconJSON = async () => {
-    try {
-      const lexiconReq = await fetch(
-        `${baseUrl || 'https://aisuru.com'}/api/lexiconmap`
-      );
-      const lexicon = await lexiconReq.json();
-      return lexicon;
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  useEffect(() => {
-    fetchLexiconJSON().then(lexicon => {
-      setPhonemesMap(lexicon);
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  /**
+   * Enhanced handleSpeak that integrates with the improved useTTS hook
+   * Uses promise-based approach for better reliability
+   */
+  const handleSpeak = async (text: string) => {
+    if (!text || preview || speakerMuted || !defaultEnableAudio) {
+      const e = new CustomEvent('MemoriEndSpeak');
+      document.dispatchEvent(e);
 
-  const replaceTextWithPhonemes = (text: string, lang: string) => {
-    if (!phonemesMap) return text;
-
-    const phonemes = {
-      ...(phonemesMap.common ?? {}),
-      ...(tenant?.name && phonemesMap[tenant.name]
-        ? phonemesMap[tenant.name]
-        : {}),
-    };
-    const phonemesPairs = Object.keys(phonemes).map(word => {
-      const phoneme =
-        phonemes[word][lang.toLowerCase() as 'it' | 'en' | 'fr'] ??
-        phonemes[word].default;
-      return { word, phoneme, caseSensitive: phonemes[word].caseSensitive };
-    });
-    const ssmlText = phonemesPairs.reduce(
-      (acc, { word, phoneme, caseSensitive }) => {
-        return acc.replace(
-          new RegExp(`\\b${word}\\b`, caseSensitive ? 'g' : 'gi'),
-          `<phoneme alphabet="ipa" ph="${phoneme}">${word}</phoneme>`
-        );
-      },
-      text
-    );
-
-    return ssmlText;
-
-    // E.g.:
-    // return text.replace(
-    //   /martius/gi,
-    //   `<phoneme alphabet="ipa" ph="ˈmaːrːtzius">Martius</phoneme>`,
-    // )
-    // .replace(
-    //   /rawmaterial/gi,
-    //   `<phoneme alphabet="ipa" ph="ˈpippo">RawMaterial</phoneme>`,
-    // )
-    // .replace(/qfe/gi, `<sub alias="Quota Filo Erba">QFE</sub>`)
-  };
-
-  const emitEndSpeakEvent = () => {
-    const e = new CustomEvent('MemoriEndSpeak');
-    document.dispatchEvent(e);
-  };
-
-  const speak = (text: string): void => {
-    console.debug('speak called with text:', text);
-
-    if (!AZURE_COGNITIVE_SERVICES_TTS_KEY || preview) {
-      console.debug('No TTS key or preview mode, emitting end speak event');
-      emitEndSpeakEvent();
-      return;
-    }
-
-    console.debug('Stopping listening before speaking');
-    stopListening();
-
-    if (preview) {
-      console.debug('Preview mode, returning early');
-      return;
-    }
-
-    if (speakerMuted) {
-      console.debug('Speaker muted, skipping speech synthesis');
-      memoriSpeaking = false;
-      setMemoriTyping(false);
-
-      emitEndSpeakEvent();
-
-      // trigger start continuous listening if set, see MemoriChat
       if (continuousSpeech) {
-        console.debug('Setting listening timeout for continuous speech');
         setListeningTimeout();
       }
-      return;
+      return Promise.resolve();
     }
 
-    if (audioDestination) {
-      console.debug('Pausing existing audio destination');
-      audioDestination.pause();
+    if (typeof stopListening === 'function') {
+      stopListening();
     }
 
-    let isSafari =
-      window.navigator.userAgent.includes('Safari') &&
-      !window.navigator.userAgent.includes('Chrome');
-    let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    setMemoriTyping(true);
 
-    console.debug('Browser detection - Safari:', isSafari, 'iOS:', isIOS);
+    const processedText = sanitizeText(text);
 
-    if ((audioContext.state as string) === 'interrupted') {
-      console.debug('Audio context interrupted, attempting resume');
-      audioContext.resume().then(() => speak(text));
-      return;
-    }
-    if (audioContext.state === 'closed') {
-      console.debug('Audio context closed, creating new context');
-      audioContext = new AudioContext();
-      let buffer = audioContext.createBuffer(1, 10000, 22050);
-      let source = audioContext.createBufferSource();
-      source.buffer = buffer;
-      source.connect(audioContext.destination);
-    } else if (audioContext.state === 'suspended') {
-      console.debug(
-        'Audio context suspended, stopping audio and creating new context'
-      );
-      stopAudio();
+    return ttsSpeak(processedText)
+      .then(() => {
+        setMemoriTyping(false);
+      })
+      .catch(error => {
+        setMemoriTyping(false);
+        throw error;
+      });
+  }
+  /**
+   * Integrated solution for translating dialog state and speaking
+   * This uses promise chaining for reliable sequencing without timeouts
+   */
+  const translateAndSpeak = useCallback(
+    async (
+      dialogState: DialogState,
+      language: string,
+      msg?: string,
+      skipEmission: boolean = false
+    ) => {
+      try {
+        // First ensure we have a valid dialog state
+        if (!dialogState) {
+          console.warn('translateAndSpeak called with empty dialog state');
+          return null;
+        }
 
-      audioContext = new AudioContext();
-      let buffer = audioContext.createBuffer(1, 10000, 22050);
-      let source = audioContext.createBufferSource();
-      source.buffer = buffer;
-      source.connect(audioContext.destination);
-    }
-
-    if (!speechSynthesizer) {
-      initializeTTS();
-    }
-
-    const source = audioContext.createBufferSource();
-    source.addEventListener('ended', () => {
-      console.debug('Audio source ended');
-      setIsPlayingAudio(false);
-      memoriSpeaking = false;
-    });
-    audioDestination.onAudioEnd = () => {
-      console.debug('Audio destination ended');
-      setIsPlayingAudio(false);
-      memoriSpeaking = false;
-      source.disconnect();
-
-      emitEndSpeakEvent();
-
-      // trigger start continuous listening if set
-      onEndSpeakStartListen();
-    };
-
-    // Clear any existing visemes before starting new speech
-    console.debug('Resetting viseme queue');
-    resetVisemeQueue();
-
-    // Set up the viseme event handler
-    if (speechSynthesizer) {
-      speechSynthesizer.visemeReceived = function (_, e) {
-        console.debug(
-          'Viseme received:',
-          e.visemeId,
-          'at offset:',
-          e.audioOffset
+        // Then translate the dialog state
+        const translatedState = await translateDialogState(
+          dialogState,
+          language,
+          msg,
+          skipEmission
         );
-        addViseme(e.visemeId, e.audioOffset);
-      };
-    }
 
-    // Set up viseme handling
-    const textToSpeak = escapeHTML(
-      stripMarkdown(
-        stripEmojis(stripHTML(stripReasoningTags(stripOutputTags(text))))
-      )
-    );
-    console.debug('Processed text to speak:', textToSpeak);
+        // If we're not skipping emission and there's something to speak, speak it
+        const textToSpeak =
+          translatedState.translatedEmission || translatedState.emission;
 
-    setTimeout(() => {
-      if (speechSynthesizer) {
-        console.debug('Starting speech synthesis');
-        speechSynthesizer.speakSsmlAsync(
-          `<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="https://www.w3.org/2001/mstts" xmlns:emo="http://www.w3.org/2009/10/emotionml" xml:lang="${getCultureCodeByLanguage(
-            userLang
-          )}"><voice name="${getTTSVoice(
-            userLang
-          )}"><s>${replaceTextWithPhonemes(
-            textToSpeak,
-            userLang.toLowerCase()
-          )}</s></voice></speak>`,
-          result => {
-            if (result) {
-              console.debug('Speech synthesis successful');
-              setIsPlayingAudio(true);
-              memoriSpeaking = true;
-
-              // Process the viseme data
-              startProcessing(audioContext);
-
-              try {
-                // Decode the audio data
-                console.debug('Decoding audio data');
-                audioContext.decodeAudioData(
-                  result.audioData,
-                  function (buffer) {
-                    console.debug('Audio data decoded successfully');
-                    source.buffer = buffer;
-                    source.connect(audioContext.destination);
-
-                    if (history.length < 1 || (isSafari && isIOS)) {
-                      console.debug('Starting audio playback');
-                      source.start(0);
-                    }
-                  }
-                );
-
-                // Handle the audio context state changes
-                audioContext.onstatechange = () => {
-                  console.debug(
-                    'Audio context state changed to:',
-                    audioContext.state
-                  );
-                  if (
-                    audioContext.state === 'suspended' ||
-                    audioContext.state === 'closed'
-                  ) {
-                    source.disconnect();
-                    setIsPlayingAudio(false);
-                    stopProcessing();
-                    resetVisemeQueue();
-                    memoriSpeaking = false;
-                  } else if ((audioContext.state as string) === 'interrupted') {
-                    audioContext.resume();
-                  }
-                };
-
-                audioContext.resume();
-
-                if (speechSynthesizer) {
-                  console.debug('Closing speech synthesizer');
-                  speechSynthesizer.close();
-                  speechSynthesizer = null;
-                }
-              } catch (error) {
-                console.error('Error processing audio data:', error);
-                handleFallback(text);
-              }
-            } else {
-              console.debug('No result from speech synthesis, using fallback');
-              handleFallback(text);
-            }
-          },
-          error => {
-            console.error('Speak error:', error);
-            handleFallback(text);
+        if (textToSpeak && !skipEmission) {
+          // Update activation state before speaking for better browser interaction
+          if (!hasUserActivatedSpeak) {
+            setHasUserActivatedSpeak(true);
           }
-        );
+
+          // Note: now using the Promise-based speak function to ensure proper sequencing
+          await handleSpeak(textToSpeak);
+        }
+
+        return translatedState;
+      } catch (error) {
+        console.error('Error in translateAndSpeak:', error);
+        // Still update activation state even if there's an error
+        if (!hasUserActivatedSpeak) {
+          setHasUserActivatedSpeak(true);
+        }
+        return dialogState;
       }
-    }, 100);
-    setMemoriTyping(false);
-  };
+    },
+    [
+      translateDialogState,
+      handleSpeak,
+      hasUserActivatedSpeak,
+      setHasUserActivatedSpeak,
+    ]
+  );
 
   // Helper function for fallback behavior
   const handleFallback = (text: string) => {
-    window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+    if (defaultEnableAudio) {
+      window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
+    }
     cleanup();
   };
 
@@ -2399,43 +2112,22 @@ const MemoriWidget = ({
       recognizer = null;
     }
 
-    if (speechSynthesizer) {
-      speechSynthesizer.close();
-      speechSynthesizer = null;
+    if (speechSynthesizerRef.current) {
+      speechSynthesizerRef.current.close();
+      speechSynthesizerRef.current = null;
     }
 
     setListening(false);
     clearListeningTimeout();
   };
 
-  // Modify stopAudio to include speech state reset
-  const stopAudio = async (): Promise<void> => {
-    setIsPlayingAudio(false);
-    memoriSpeaking = false;
+  /**
+   * Funzione stopAudio che sostituisce quella originale
+   */
+  const stopAudio = useCallback(async () => {
+    ttsStop();
+  }, [ttsStop]);
 
-    try {
-      if (speechSynthesizer) {
-        const currentSynthesizer = speechSynthesizer;
-        speechSynthesizer = null;
-        try {
-          currentSynthesizer.close();
-        } catch (e) {
-          console.debug('Error closing speech synthesizer:', e);
-        }
-      }
-
-      if (audioContext?.state !== 'closed') {
-        audioContext.close();
-      }
-
-      if (audioDestination) {
-        audioDestination.pause();
-        audioDestination.close();
-      }
-    } catch (e) {
-      console.debug('stopAudio error: ', e);
-    }
-  };
   const focusChatInput = () => {
     let textarea = document.querySelector(
       '#chat-fieldset textarea'
@@ -2521,10 +2213,10 @@ const MemoriWidget = ({
   const startListening = async (): Promise<void> => {
     console.debug('Starting speech recognition...');
 
-    if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) {
-      console.error('No TTS key available');
-      throw new Error('No TTS key available');
-    }
+    // if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) {
+    //   console.error('No TTS key available');
+    //   throw new Error('No TTS key available');
+    // }
 
     if (!sessionId) {
       console.error('No session ID available');
@@ -2576,7 +2268,7 @@ const MemoriWidget = ({
 
       // Recreate speech config each time
       console.debug('Setting up speech config...');
-      speechConfig = setupSpeechConfig(AZURE_COGNITIVE_SERVICES_TTS_KEY);
+      // speechConfig = setupSpeechConfig(AZURE_COGNITIVE_SERVICES_TTS_KEY);
 
       console.debug('Creating audio config and recognizer...');
       const audioConfig = speechSdk.AudioConfig.fromDefaultMicrophoneInput();
@@ -2609,6 +2301,29 @@ const MemoriWidget = ({
       throw error;
     }
   };
+
+  // Store startListening in ref for use in onEndSpeakStartListen
+  startListeningRef.current = startListening;
+
+  // Define proper onEndSpeakStartListen after startListening is available
+  const onEndSpeakStartListen = useCallback(
+    (_e?: Event) => {
+      if (isPlayingAudio && speechSynthesizerRef.current) {
+        speechSynthesizerRef.current.close();
+        speechSynthesizerRef.current = null;
+      }
+      if (
+        continuousSpeech &&
+        (hasUserActivatedListening || !requestedListening)
+      ) {
+        setRequestedListening(true);
+        if (startListeningRef.current) {
+          startListeningRef.current();
+        }
+      }
+    },
+    [continuousSpeech, hasUserActivatedListening, isPlayingAudio, requestedListening]
+  );
 
   const setupSpeechConfig = (AZURE_COGNITIVE_SERVICES_TTS_KEY: string) => {
     console.debug('Creating speech config...');
@@ -2798,28 +2513,6 @@ const MemoriWidget = ({
     if (currentDialogState?.state === 'Z0') clearListening();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDialogState?.state]);
-
-  /**
-   * Speech recognition event handlers
-   */
-  const [requestedListening, setRequestedListening] = useState(false);
-  const onEndSpeakStartListen = useCallback(
-    (_e?: Event) => {
-      if (isPlayingAudio && speechSynthesizer) {
-        speechSynthesizer.close();
-        speechSynthesizer = null;
-      }
-      if (
-        continuousSpeech &&
-        (hasUserActivatedListening || !requestedListening)
-      ) {
-        setRequestedListening(true);
-        startListening();
-      }
-    },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [continuousSpeech, hasUserActivatedListening]
-  );
 
   useEffect(() => {
     // if memori is speaking, don't start listening
@@ -3068,21 +2761,6 @@ const MemoriWidget = ({
 
       let translatedMessages: Message[] = [];
 
-      // Handle Safari audio autoplay
-      let memoriAudioElement = document.getElementById(
-        'memori-audio'
-      ) as HTMLAudioElement;
-      let isSafari =
-        window.navigator.userAgent.includes('Safari') &&
-        !window.navigator.userAgent.includes('Chrome');
-      if (memoriAudioElement && isSafari) {
-        // console.log('[CLICK_START] Enabling audio for Safari');
-        memoriAudioElement.muted = false;
-        memoriAudioElement.play().catch((e: any) => {
-          console.warn('error playing intro audio', e);
-        });
-      }
-
       // Get birth date from storage or props
       let storageBirthDate = getLocalConfig<string | undefined>(
         'birthDate',
@@ -3092,21 +2770,18 @@ const MemoriWidget = ({
       if (!birth && autoStart && initialSessionID)
         birth = '1970-01-01T10:24:03.845Z';
 
-      // console.log('[CLICK_START] Using birth date:', birth);
       const localPosition = getLocalConfig<Venue | undefined>(
         'position',
         undefined
       );
       // Only check for position requirement if memori.needsPosition is true
       if (autoStart && !localPosition && memori.needsPosition) {
-        console.log('position required', localPosition);
         setShowPositionDrawer(true);
         return;
       }
 
       // Handle age verification
       if (!sessionID && !!minAge && !birth) {
-        // console.log('[CLICK_START] Age verification required');
         setShowAgeVerification(true);
         setClickedStart(false);
       }
@@ -3119,14 +2794,12 @@ const MemoriWidget = ({
           !memoriTokens) ||
         (!sessionID && gotErrorInOpening)
       ) {
-        // console.log('[CLICK_START] Authentication required');
         setAuthModalState('password');
         setClickedStart(false);
         return;
       }
       // Create new session if needed
       else if (!sessionID || initialSessionExpired) {
-        // console.log('[CLICK_START] Creating new session');
         setClickedStart(false);
         setGotErrorInOpening(false);
         const session = await fetchSession({
@@ -3158,21 +2831,14 @@ const MemoriWidget = ({
         });
 
         if (session?.dialogState) {
-          // console.log('[CLICK_START] Got new session with dialog state');
           // reset history
           if (!chatLog) {
             setHistory([]);
 
-            translateDialogState(session.dialogState, userLang)
-              .then(ts => {
-                let text = ts.translatedEmission || ts.emission;
-                if (text) {
-                  speak(text);
-                }
-              })
-              .finally(() => {
-                setHasUserActivatedSpeak(true);
-              });
+            // Use translateAndSpeak which already handles the speaking
+            await translateAndSpeak(session.dialogState, userLang);
+            // No need for additional handleSpeak call since translateAndSpeak already handles it
+            setHasUserActivatedSpeak(true);
           } else {
             const messages = chatLog.lines.map(
               (l, i) =>
@@ -3198,7 +2864,6 @@ const MemoriWidget = ({
               isMultilanguageEnabled
             ) {
               try {
-                console.debug('[CLICK_START] Translating messages');
                 translatedMessages = await Promise.all(
                   messages.map(async m => ({
                     ...m,
@@ -3208,9 +2873,8 @@ const MemoriWidget = ({
                     ).text,
                   }))
                 );
-                // console.log('[CLICK_START] Translated messages:', translatedMessages);
               } catch (e) {
-                // console.log('[CLICK_START] Error translating messages:', e);
+                console.error('[CLICK_START] Error translating messages:', e);
               }
             }
 
@@ -3226,7 +2890,6 @@ const MemoriWidget = ({
             });
           }
         } else if (session?.resultCode === 0) {
-          // console.log('[CLICK_START] Retrying with session:', session);
           await onClickStart((session as any) || undefined);
         } else {
           setLoading(false);
@@ -3236,11 +2899,10 @@ const MemoriWidget = ({
       }
       // Handle initial session
       else if (initialSessionID) {
-        console.debug('[CLICK_START] Handling initial session');
         // check if session is valid and not expired
         const { currentState, ...response } = await getSession(sessionID);
+
         if (response.resultCode !== 0 || !currentState) {
-          console.debug('[CLICK_START] Session expired, opening new session');
           setGotErrorInOpening(true);
           setSessionId(undefined);
           setClickedStart(false);
@@ -3252,10 +2914,12 @@ const MemoriWidget = ({
         setHistory([]);
 
         // date and place events
-        if (position && memori.needsPosition)
+        if (position && memori.needsPosition) {
           applyPosition(position, sessionID);
-        if (memori.needsDateTime)
+        }
+        if (memori.needsDateTime) {
           sendDateChangedEvent({ sessionID: sessionID, state: currentState });
+        }
 
         // Handle personification tag changes
         if (
@@ -3263,11 +2927,6 @@ const MemoriWidget = ({
           currentState.currentTag !== personification.tag
         ) {
           try {
-            console.debug(
-              '[CLICK_START] Changing tag for personification',
-              personification,
-              currentState
-            );
             // reset tag
             await changeTag(memori.engineMemoriID!, sessionID, '-');
             // change tag to receiver
@@ -3279,22 +2938,11 @@ const MemoriWidget = ({
             );
 
             if (session && session.resultCode === 0) {
-              translateDialogState(session.currentState, userLang)
-                .then(ts => {
-                  let text = ts.translatedEmission || ts.emission;
-                  if (text) {
-                    speak(text);
-                  }
-                })
-                .finally(() => {
-                  setHasUserActivatedSpeak(true);
-                });
+              await translateAndSpeak(session.currentState, userLang);
             } else {
-              console.error('[CLICK_START] Session error:', session);
               throw new Error('No session');
             }
           } catch (e) {
-            console.error('[CLICK_START] Error changing tag:', e);
             reopenSession(
               true,
               memori?.secretToken,
@@ -3323,7 +2971,6 @@ const MemoriWidget = ({
           currentState?.currentTag !== '-'
         ) {
           try {
-            console.debug('[CLICK_START] Changing to anonymous tag');
             // reset tag
             await changeTag(memori.engineMemoriID!, sessionID, '-');
             // change tag to anonymous
@@ -3334,22 +2981,11 @@ const MemoriWidget = ({
             );
 
             if (session && session.resultCode === 0) {
-              translateDialogState(session.currentState, userLang)
-                .then(ts => {
-                  let text = ts.translatedEmission || ts.emission;
-                  if (text) {
-                    speak(text);
-                  }
-                })
-                .finally(() => {
-                  setHasUserActivatedSpeak(true);
-                });
+              await translateAndSpeak(session.currentState, userLang);
             } else {
-              console.error('[CLICK_START] Session error:', session);
               throw new Error('No session');
             }
           } catch (e) {
-            console.error('[CLICK_START] Error changing tag:', e);
             reopenSession(
               true,
               memori?.secretToken,
@@ -3373,8 +3009,7 @@ const MemoriWidget = ({
         // No tag changes needed
         else {
           try {
-            console.debug('[CLICK_START] Getting chat history');
-            const { chatLogs, ...resp } = await getSessionChatLogs(
+            const { chatLogs } = await getSessionChatLogs(
               sessionID,
               sessionID
             );
@@ -3403,7 +3038,6 @@ const MemoriWidget = ({
               isMultilanguageEnabled
             ) {
               try {
-                console.debug('[CLICK_START] Translating messages');
                 translatedMessages = await Promise.all(
                   messages.map(async m => ({
                     ...m,
@@ -3413,35 +3047,22 @@ const MemoriWidget = ({
                     ).text,
                   }))
                 );
-                // console.log('[CLICK_START] Translated messages:', translatedMessages);
               } catch (e) {
-                // console.log('[CLICK_START] Error translating messages:', e);
+                console.error('[CLICK_START] Error translating messages:', e);
               }
             }
 
             setHistory(translatedMessages);
-            console.debug(
-              '[CLICK_START] props currentState:',
-              currentState,
-              'userLang:',
-              userLang,
-              'translatedMessages:',
-              translatedMessages,
-              'history:',
-              history
-            );
           } catch (e) {
-            console.log('[CLICK_START] Error retrieving chat logs:', e);
+            console.error('[CLICK_START] Error retrieving chat logs:', e);
           }
 
           if (
             (!!translatedMessages?.length && translatedMessages.length > 1) ||
             !initialQuestion
           ) {
-            console.log('[CLICK_START] Using existing chat history');
-
             // we have a history, don't push message
-            translateDialogState(
+            await translateAndSpeak(
               currentState,
               userLang,
               undefined,
@@ -3449,20 +3070,7 @@ const MemoriWidget = ({
               // otherwise, don't push message
               !!translatedMessages?.length
             )
-              .then(ts => {
-                let text = ts.translatedEmission || ts.emission;
-                if (text) {
-                  speak(text);
-                }
-              })
-              .finally(() => {
-                setHasUserActivatedSpeak(true);
-              });
           } else {
-            console.log(
-              '[CLICK_START] Using existing chat history with message from initial question'
-            );
-
             // remove default initial message
             translatedMessages = [];
             setHistory([]);
@@ -3475,62 +3083,41 @@ const MemoriWidget = ({
               text: initialQuestion,
             });
 
-            translateDialogState(
+            await translateAndSpeak(
               response.currentState ?? currentState,
               userLang,
               undefined,
               false
             )
-              .then(ts => {
-                let text = ts.translatedEmission || ts.emission;
-                if (text) {
-                  speak(text);
-                }
-              })
-              .finally(() => {
-                setMemoriTyping(false);
-                setHasUserActivatedSpeak(true);
-              });
           }
         }
 
         // date and place events
-        if (position && memori.needsPosition)
+        if (position && memori.needsPosition) {
           applyPosition(position, sessionID);
-        if (memori.needsDateTime)
+        }
+        if (memori.needsDateTime) {
           sendDateChangedEvent({ sessionID: sessionID, state: currentState });
+        }
       }
       // Default case - just translate and activate
       else {
-        console.debug('[CLICK_START] Using existing session');
         // reset history
         setHistory([]);
 
         // everything is fine, just translate dialog state and activate chat
-        translateDialogState(dialogState!, userLang)
-          .then(ts => {
-            let text = ts.translatedEmission || ts.emission;
-            if (text) {
-              speak(text);
-            }
-          })
-          .finally(() => {
-            setHasUserActivatedSpeak(true);
-          });
+        await translateAndSpeak(dialogState!, userLang);
       }
     },
     [memoriPwd, memori, memoriTokens, birthDate, sessionId, userLang, position]
   );
 
   useEffect(() => {
-    if (!clickedStart && autoStart) {
-      // Initialize TTS before starting if AZURE_COGNITIVE_SERVICES_TTS_KEY exists
-      if (AZURE_COGNITIVE_SERVICES_TTS_KEY && !speechSynthesizer) {
-        initializeTTS();
-      }
+    // Don't auto-start for HIDDEN_CHAT layout - let the layout handle it
+    if (!clickedStart && autoStart && selectedLayout !== 'HIDDEN_CHAT') {
       onClickStart();
     }
-  }, [clickedStart, autoStart]);
+  }, [clickedStart, autoStart, selectedLayout]);
 
   useEffect(() => {
     const targetNode =
@@ -3674,12 +3261,15 @@ const MemoriWidget = ({
     setShowSettingsDrawer,
     setShowKnownFactsDrawer,
     setShowExpertsDrawer,
-    enableAudio: enableAudio ?? integrationConfig?.enableAudio ?? true,
-    showSpeaker: !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
-    speakerMuted: muteSpeaker || speakerMuted,
+    enableAudio: defaultEnableAudio,
+    speakerMuted: speakerMuted ?? false,
     setSpeakerMuted: mute => {
-      speakerMuted = !!mute;
-      setMuteSpeaker(mute);
+      // If audio is disabled, force mute and don't allow unmuting
+      if (!(enableAudio ?? integrationConfig?.enableAudio ?? true)) {
+        mute = true;
+      }
+      
+      toggleMute(mute);
       let microphoneMode = getLocalConfig<string>(
         'microphoneMode',
         'HOLD_TO_TALK'
@@ -3724,7 +3314,7 @@ const MemoriWidget = ({
     avatar3dVisible,
     setAvatar3dVisible,
     hasUserActivatedSpeak,
-    isPlayingAudio: isPlayingAudio && !muteSpeaker,
+    isPlayingAudio: isPlayingAudio && !speakerMuted && (enableAudio ?? integrationConfig?.enableAudio ?? true),
     loading: !!memoriTyping,
     baseUrl,
     apiUrl: client.constants.BACKEND_URL,
@@ -3749,7 +3339,6 @@ const MemoriWidget = ({
     clickedStart: clickedStart,
     isMultilanguageEnabled: isMultilanguageEnabled,
     onClickStart: onClickStart,
-    initializeTTS: initializeTTS,
     isUserLoggedIn: !!loginToken && !!user?.userID,
     hasInitialSession: !!initialSessionID,
     notEnoughCredits: needsCredits && !hasEnoughCredits,
@@ -3762,6 +3351,7 @@ const MemoriWidget = ({
     memori,
     sessionID: sessionId || '',
     tenant,
+    provider: ttsProvider as 'azure' | 'openai',
     translateTo:
       isMultilanguageEnabled &&
       userLang.toUpperCase() !==
@@ -3801,7 +3391,7 @@ const MemoriWidget = ({
     attachmentsMenuOpen,
     setAttachmentsMenuOpen,
     showInputs,
-    showMicrophone: !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
+    showMicrophone: !!ttsProvider && (enableAudio ?? integrationConfig?.enableAudio ?? true),
     showFunctionCache,
     userMessage,
     onChangeUserMessage,
@@ -3824,6 +3414,7 @@ const MemoriWidget = ({
     userAvatar,
     experts,
     useMathFormatting: applyMathFormatting,
+    isHistoryView: isHiddenChatHistory,
   };
 
   const integrationBackground =
@@ -3880,7 +3471,7 @@ const MemoriWidget = ({
           'memori--preview': preview,
           'memori--embed': embed,
           'memori--with-integration': integration,
-          'memori--with-speechkey': !!AZURE_COGNITIVE_SERVICES_TTS_KEY,
+          'memori--with-speechkey': !!ttsProvider,
           'memori--active': hasUserActivatedSpeak,
           'memori--hide-emissions': hideEmissions,
           'memori--has-active-session': !!sessionId,
@@ -3913,6 +3504,7 @@ const MemoriWidget = ({
         sessionId={sessionId}
         hasUserActivatedSpeak={hasUserActivatedSpeak}
         loading={loading}
+        onSidebarToggle={selectedLayout === 'HIDDEN_CHAT' ? setIsHiddenChatHistory : undefined}
       />
 
       <audio
@@ -4036,6 +3628,26 @@ const MemoriWidget = ({
           isAvatar3d={!!integrationConfig?.avatarURL}
           additionalSettings={additionalSettings}
           speakerMuted={speakerMuted}
+
+        />
+      )}
+
+      {showChatHistoryDrawer && (
+        <ChatHistoryDrawer
+          open={!!showChatHistoryDrawer}
+          onClose={() => setShowChatHistoryDrawer(false)}
+          resumeSession={chatLog => {
+            setChatLogID(chatLog.chatLogID);
+            onClickStart(undefined, false, chatLog);
+            setShowChatHistoryDrawer(false);
+          }}
+          apiClient={client}
+          sessionId={sessionId || ''}
+          memori={memori}
+          baseUrl={baseUrl}
+          history={history}
+          apiUrl={client.constants.BACKEND_URL}
+          loginToken={loginToken}
         />
       )}
 
@@ -4121,6 +3733,20 @@ const MemoriWidget = ({
               removeLocalConfig('loginToken');
             });
           }}
+        />
+      )}
+
+      {error && (
+        <Alert
+          open={!!error}
+          onClose={() => {
+            setError(null);
+            //opens up the allow media of the browser
+            window.open('chrome://settings/content/autoplay', '_blank');
+          }}
+          title="Error"
+          description={error.message}
+          type="error"
         />
       )}
     </div>

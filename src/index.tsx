@@ -15,6 +15,7 @@ import MemoriWidget, {
 import { VisemeProvider } from './context/visemeContext';
 
 import { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { safeParseJSON } from './helpers/utils';
 
 import i18n from './i18n';
@@ -150,7 +151,7 @@ const Memori: React.FC<Props> = ({
 }) => {
   const [memori, setMemori] = useState<IMemori>();
   const [tenant, setTenant] = useState<Tenant>();
-  const [speechKey, setSpeechKey] = useState<string | undefined>();
+  const [provider, setProvider] = useState<string | undefined>();
   const { t } = useTranslation();
 
   if (!((memoriID && ownerUserID) || (memoriName && ownerUserName))) {
@@ -166,18 +167,25 @@ const Memori: React.FC<Props> = ({
       baseURL ||
       (tenantID.startsWith('https://') ? tenantID : `https://${tenantID}`);
     try {
-      const result = await fetch(`${url}/api/speechkey`);
+      const result = await fetch(`${url}/api/speechkey?tenant=${tenantID}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
       const data = await result.json();
 
-      if (data.AZURE_COGNITIVE_SERVICES_TTS_KEY) {
-        setSpeechKey(data.AZURE_COGNITIVE_SERVICES_TTS_KEY);
+      if (data.provider) {
+        setProvider(data.provider);
       } else {
-        console.log('AZURE_COGNITIVE_SERVICES_TTS_KEY not found');
+          console.warn('Provider not found in speech key response');
       }
     } catch (error) {
-      console.error('Error fetching speech key', error);
+      console.error('Error fetching speech key:', error);
     }
-  }, []);
+  }, [baseURL, tenantID]);
+
   useEffect(() => {
     fetchSpeechKey();
   }, []);
@@ -328,15 +336,15 @@ const Memori: React.FC<Props> = ({
             initialContextVars={initialContextVars}
             initialQuestion={initialQuestionLayout}
             authToken={authToken}
-            AZURE_COGNITIVE_SERVICES_TTS_KEY={speechKey}
+            ttsProvider={provider ? (provider as 'azure' | 'openai') : 'azure'}
             autoStart={
               autoStart !== undefined
                 ? autoStart
                 : layout === 'HIDDEN_CHAT'
-                  ? true
-                  : autoStart
+                ? true
+                : autoStart
             }
-            enableAudio={enableAudio && !!speechKey}
+            enableAudio={enableAudio}
             defaultSpeakerActive={defaultSpeakerActive}
             disableTextEnteredEvents={disableTextEnteredEvents}
             onStateChange={onStateChange}

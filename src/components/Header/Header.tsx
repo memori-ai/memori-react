@@ -41,7 +41,6 @@ export interface Props {
   showShare?: boolean;
   showSettings?: boolean;
   showChatHistory?: boolean;
-  showSpeaker?: boolean;
   showReload?: boolean;
   showClear?: boolean;
   showLogin?: boolean;
@@ -71,7 +70,6 @@ const Header: React.FC<Props> = ({
   hasUserActivatedSpeak = false,
   showShare = true,
   showSettings = true,
-  showSpeaker = true,
   showReload = false,
   showClear = false,
   showLogin = true,
@@ -207,7 +205,7 @@ const Header: React.FC<Props> = ({
           title={t('widget.showExpertsInTheBoard') || 'Experts in this board'}
         />
       )}
-      {enableAudio && showSpeaker && (
+      {enableAudio && (
         <Button
           primary
           shape="circle"

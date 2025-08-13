@@ -1,5 +1,110 @@
 
 
+## [8.0.0-rc.11](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.10...v8.0.0-rc.11) (2025-08-11)
+
+
+### Bug Fixes
+
+* resolve race condition in TTS audio playback and improve cleanup handling ([384d45e](https://github.com/memori-ai/memori-react/commit/384d45e29d970807fb4bb5d9f6b645ebe7dc4e53))
+
+## [8.0.0-rc.10](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.9...v8.0.0-rc.10) (2025-08-11)
+
+
+### Bug Fixes
+
+* enhance text sanitization and update TTS layout options ([26ab442](https://github.com/memori-ai/memori-react/commit/26ab4427b79caaca5239e8a69932e7a58a5889da))
+
+## [8.0.0-rc.9](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.8...v8.0.0-rc.9) (2025-08-11)
+
+
+### Features
+
+* add layout option to TTS configuration ([6fe466f](https://github.com/memori-ai/memori-react/commit/6fe466f128ac6cbf9687697a40be080353d77d13))
+
+## [8.0.0-rc.8](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.7...v8.0.0-rc.8) (2025-08-11)
+
+
+### Bug Fixes
+
+* update audio handling defaults and improve alert z-index ([4b10151](https://github.com/memori-ai/memori-react/commit/4b10151bbfc45ce3d9db2d663cbe77de412e66ff))
+
+## [8.0.0-rc.7](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.6...v8.0.0-rc.7) (2025-08-11)
+
+
+### Bug Fixes
+
+* improve URL formatting and error handling in speech key fetching ([95cc693](https://github.com/memori-ai/memori-react/commit/95cc693a2749bc525843c8ad8d3cd78c51be80b6))
+
+## [8.0.0-rc.6](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.5...v8.0.0-rc.6) (2025-08-11)
+
+
+### Bug Fixes
+
+* enhance error handling TTS components ([85eef2f](https://github.com/memori-ai/memori-react/commit/85eef2fec9339625549ad9dabaf35176fff60831))
+
+## [8.0.0-rc.5](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.4...v8.0.0-rc.5) (2025-08-11)
+
+
+### Bug Fixes
+
+* simplify audio handling by removing showSpeaker prop ([4d3ea86](https://github.com/memori-ai/memori-react/commit/4d3ea865a3c23a8f2381ac95e92cfa53353a0900))
+
+## [8.0.0-rc.4](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.3...v8.0.0-rc.4) (2025-08-08)
+
+
+### Bug Fixes
+
+* prevent TTS on auto-start in HIDDEN_CHAT ([933857c](https://github.com/memori-ai/memori-react/commit/933857ca1ab8e7a4ab37c5ce1eb689aaf5a4862d))
+
+## [8.0.0-rc.3](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.2...v8.0.0-rc.3) (2025-08-08)
+
+
+### Features
+
+* fixed viseme handling for TTS ([e284034](https://github.com/memori-ai/memori-react/commit/e284034990990cc48e559466dfb8183b19d6bbaa))
+
+## [8.0.0-rc.2](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.1...v8.0.0-rc.2) (2025-08-08)
+
+
+### Bug Fixes
+
+* update TTS API URL handling in MemoriWidget and useTTS ([c257064](https://github.com/memori-ai/memori-react/commit/c2570641d56b787d233519c81fb59d19f1c70939))
+
+## [8.0.0-rc.1](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.0...v8.0.0-rc.1) (2025-08-07)
+
+
+### Maintenance
+
+* remove unused dependencies ([c7d6852](https://github.com/memori-ai/memori-react/commit/c7d685265b78f3e7d3214fe59ab1cea9300cf65c))
+
+## [8.0.0-rc.0](https://github.com/memori-ai/memori-react/compare/v7.34.2...v8.0.0-rc.0) (2025-08-07)
+
+
+### Features
+
+* add provider prop to Chat and ChatInputs components for TTS integration ([c362f9a](https://github.com/memori-ai/memori-react/commit/c362f9a759f087ef32f1965ad87483506ebf6c13))
+* add text sanitization helper functions and useTTS hook for speech synthesis ([c6ab5cb](https://github.com/memori-ai/memori-react/commit/c6ab5cb23c2a7817d8065abf3be823e83e53f3ca))
+* add TTS voice utility module with Azure and OpenAI voice configurations ([391efc6](https://github.com/memori-ai/memori-react/commit/391efc6d119996523eb856b63e2ec1c44e915929))
+
+
+### Bug Fixes
+
+* update fetch request in Memori to include tenant ID and set headers ([cbcad0a](https://github.com/memori-ai/memori-react/commit/cbcad0a5558c42e6d6d9e5e4cafe74d9edf36fd6))
+
+
+### Maintenance
+
+* update dependencies and add TTS module ([3e49360](https://github.com/memori-ai/memori-react/commit/3e49360dc7c8f48a594063cb925d22f40cea0582))
+
+
+### Changes
+
+* enhance viseme handling in useTTS and visemeContext for improved audio processing ([f6141c4](https://github.com/memori-ai/memori-react/commit/f6141c446f61314dd182eba47be34bcc8e169d44))
+* replace speechKey state with provider state and update related API handling ([4fbdf5d](https://github.com/memori-ai/memori-react/commit/4fbdf5d146b958a3b34aa44a06f4ec3a171bfb5e))
+* replaced old TTS logic useTTS hook and improve speech handling logic ([0b620d1](https://github.com/memori-ai/memori-react/commit/0b620d1b8356cab73f9bd8d05086ff0949692c60))
+* simplify handleSpeak function and improve TTS integration ([a85f128](https://github.com/memori-ai/memori-react/commit/a85f128985ff72776b3fff0dd0a208bb747bb5b5))
+* update speech key API to retrieve provider based on tenant ([84c2b97](https://github.com/memori-ai/memori-react/commit/84c2b97e89c1313096e7dcf6af11021179dc3829))
+
 ## [7.34.2](https://github.com/memori-ai/memori-react/compare/v7.34.1...v7.34.2) (2025-08-04)
 
 
