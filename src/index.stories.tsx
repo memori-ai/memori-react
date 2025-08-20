@@ -270,8 +270,8 @@ TestCustomAnimationsWithRPMSequence.args = {
     spokenLang: "IT",
     layout: "HIDDEN_CHAT",
     showLogin: true,
-    autoStart: false,
-    integrationID: "ea181116-1b9a-4562-b8b2-41608221adb2",
+    autoStart: true,
+    integrationID: "2f6e11a0-d799-4974-aa17-cf111d0af82a"
 };
 
 export const TestCustomGLBSingleAnimation = Template.bind({});

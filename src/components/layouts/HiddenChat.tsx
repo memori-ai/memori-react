@@ -17,6 +17,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   StartPanel,
   onSidebarToggle,
 }) => {
+
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
@@ -32,8 +33,13 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   });
 
   useEffect(() => {
+    console.log('[HiddenChatLayout] Setting up fullscreen change listener');
     // Add fullscreen change event listener to handle ESC key
     const handleFullscreenChange = () => {
+      console.log('[HiddenChatLayout] Fullscreen changed:', {
+        fullscreenElement: !!document.fullscreenElement,
+        fullScreen
+      });
       if (!document.fullscreenElement && fullScreen) {
         restoreFromFullscreen();
       }
@@ -42,11 +48,13 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     document.addEventListener('fullscreenchange', handleFullscreenChange);
 
     return () => {
+      console.log('[HiddenChatLayout] Cleaning up fullscreen change listener');
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
     };
   }, [fullScreen]);
 
   useEffect(() => {
+    console.log('[HiddenChatLayout] Updating body styles:', { isOpen, fullScreen });
     const mainDiv = document.body;
     if (isOpen) {
       if (!fullScreen) {
@@ -65,46 +73,49 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     }
   }, [isOpen, fullScreen]);
 
-  // Reset autostart trigger when session changes
-  useEffect(() => {
-    setHasTriggeredAutostart(false);
-  }, [sessionId]);
-
-
   const handleSidebarToggle = () => {
-
-    console.log('autoStart', autoStart);
-    console.log('sessionId', sessionId);
-    console.log('hasInitialSession', hasInitialSession);
+    console.log('[HiddenChatLayout] Sidebar toggle clicked:', {
+      currentState: isOpen,
+      autoStart,
+      sessionId,
+      hasInitialSession,
+      hasTriggeredAutostart
+    });
 
     // Only trigger autostart when opening the sidebar for the first time
     // and when we haven't already triggered it
     if (!isOpen && !hasTriggeredAutostart && (autoStart || autoStart === undefined) && (!sessionId || hasInitialSession)) {
+      console.log('[HiddenChatLayout] Triggering autostart');
       setHasTriggeredAutostart(true);
       onClickStart?.();
     }
     
     // If we're in fullscreen mode and trying to close the sidebar
     if (fullScreen && isOpen) {
+      console.log('[HiddenChatLayout] Exiting fullscreen before closing sidebar');
       // Exit fullscreen first
       if (document.fullscreenElement) {
         document.exitFullscreen().catch(err => {
-          console.warn('Error attempting to exit fullscreen:', err);
+          console.warn('[HiddenChatLayout] Error exiting fullscreen:', err);
         });
       }
       // Restore sidebar styles
       restoreFromFullscreen();
     } 
 
-    setIsOpen(prev => {
-      const newState = !prev;
-      // Call the callback to notify parent component about sidebar state change
-      onSidebarToggle?.(newState);
-      return newState;
-    });
+    const newState = !isOpen;
+    setIsOpen(newState);
+    
+    // Notify parent component about sidebar state change
+    if (onSidebarToggle) {
+      onSidebarToggle(newState);
+    }
+    
+    console.log('[HiddenChatLayout] Setting isOpen to:', newState);
   };
 
   const restoreFromFullscreen = () => {
+    console.log('[HiddenChatLayout] Restoring from fullscreen');
     const sidebarElement = document.querySelector('.memori-sidebar');
     if (sidebarElement) {
       //restore closing button
@@ -126,6 +137,10 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   };
 
   const handleFullscreenToggle = () => {
+    console.log('[HiddenChatLayout] Fullscreen toggle clicked:', {
+      currentFullscreen: !!document.fullscreenElement
+    });
+    
     if (!document.fullscreenElement) {
       // Enter fullscreen
       const sidebarElement = document.querySelector('.memori-sidebar');
@@ -145,6 +160,8 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
           backgroundColor: sidebar.style.backgroundColor,
         };
 
+        console.log('[HiddenChatLayout] Stored original styles:', originalSidebarStyles.current);
+
         // Set styles for fullscreen
         sidebar.style.right = '0';
         sidebar.style.width = '100%';
@@ -152,7 +169,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
 
         // Request fullscreen
         sidebar.requestFullscreen().catch(err => {
-          console.warn('Error attempting to enable fullscreen:', err);
+          console.warn('[HiddenChatLayout] Error enabling fullscreen:', err);
         });
       }
       setFullScreen(true);
@@ -160,7 +177,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
       // Exit fullscreen
       if (document.exitFullscreen) {
         document.exitFullscreen().catch(err => {
-          console.warn('Error attempting to exit fullscreen:', err);
+          console.warn('[HiddenChatLayout] Error exiting fullscreen:', err);
         });
       }
       restoreFromFullscreen();
