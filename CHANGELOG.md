@@ -1,5 +1,12 @@
 
 
+## [8.0.0-rc.12](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.11...v8.0.0-rc.12) (2025-08-20)
+
+
+### Bug Fixes
+
+* remove unused state and enhance logging in HiddenChat layout ([5df5817](https://github.com/memori-ai/memori-react/commit/5df58171b5d9c6c01a65855729677a0dae2b598e))
+
 ## [8.0.0-rc.11](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.10...v8.0.0-rc.11) (2025-08-11)
 
 
