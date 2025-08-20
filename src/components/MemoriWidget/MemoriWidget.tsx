@@ -499,7 +499,6 @@ const MemoriWidget = ({
 
   const [instruct, setInstruct] = useState(false);
   const [enableFocusChatInput, setEnableFocusChatInput] = useState(true);
-  const [isHiddenChatHistory, setIsHiddenChatHistory] = useState(false);
 
   const [loginToken, setLoginToken] = useState<string | undefined>(
     additionalInfo?.loginToken ?? authToken
@@ -3114,6 +3113,9 @@ const MemoriWidget = ({
 
   useEffect(() => {
     // Don't auto-start for HIDDEN_CHAT layout - let the layout handle it
+    console.log('clickedStart', clickedStart);
+    console.log('autoStart', autoStart);
+    console.log('selectedLayout', selectedLayout);
     if (!clickedStart && autoStart && selectedLayout !== 'HIDDEN_CHAT') {
       onClickStart();
     }
@@ -3414,7 +3416,6 @@ const MemoriWidget = ({
     userAvatar,
     experts,
     useMathFormatting: applyMathFormatting,
-    isHistoryView: isHiddenChatHistory,
   };
 
   const integrationBackground =
@@ -3504,7 +3505,6 @@ const MemoriWidget = ({
         sessionId={sessionId}
         hasUserActivatedSpeak={hasUserActivatedSpeak}
         loading={loading}
-        onSidebarToggle={selectedLayout === 'HIDDEN_CHAT' ? setIsHiddenChatHistory : undefined}
       />
 
       <audio
