@@ -14,6 +14,7 @@ import {
   Memori,
   Medium,
   Message,
+  ChatLogFilters,
 } from '@memori.ai/memori-api-client/dist/types';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
@@ -403,6 +404,12 @@ const ChatHistoryDrawer = ({
   const [totalItems, setTotalItems] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
 
+  // New filter for minimum messages per chat
+  const [minimumMessagesPerChat, setMinimumMessagesPerChat] =
+    useState<number>(3);
+
+  const [customMinimumMessages, setCustomMinimumMessages] = useState<number>(0);
+
   const formatDateForAPI = (date: Date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -493,28 +500,26 @@ const ChatHistoryDrawer = ({
       setIsLoading(true);
       setError(null);
       let response;
+      let filters: ChatLogFilters = {
+        loginToken,
+        memoriID: memori.engineMemoriID ?? '',
+        index: calculatedIndex,
+        itemsPerPage: ITEMS_PER_PAGE,
+        dateFrom: undefined,
+        dateTo: undefined,
+        minimumMessagesPerChat: minimumMessagesPerChat !== 0 ? minimumMessagesPerChat : undefined,
+      }
       try {
         if (dateRangeValue === 'all') {
-          response = await getUserChatLogsByTokenPaged(
-            loginToken,
-            memori.engineMemoriID ?? '',
-            calculatedIndex,
-            ITEMS_PER_PAGE,
-            undefined,
-            undefined,
-            false,
-          );
+          response = await getUserChatLogsByTokenPaged(filters);
         } else {
           const { dateFrom, dateTo } =
             formatDateRangeForAPI(dateRangeValue) ?? {};
-          response = await getUserChatLogsByTokenPaged(
-            loginToken,
-            memori.engineMemoriID ?? '',
-            calculatedIndex,
-            ITEMS_PER_PAGE,
-            dateFrom ?? undefined,
-            dateTo ?? undefined,
-            false,
+          response = await getUserChatLogsByTokenPaged({
+            ...filters,
+            dateFrom: dateFrom ?? undefined,
+            dateTo: dateTo ?? undefined,
+          }
           );
         }
 
@@ -543,7 +548,7 @@ const ChatHistoryDrawer = ({
         setIsLoading(false);
       }
     },
-    [loginToken, memori.engineMemoriID, currentPage, sortOrder, apiUrl]
+    [loginToken, memori.engineMemoriID, currentPage, sortOrder, apiUrl, minimumMessagesPerChat, customMinimumMessages]
   );
 
   useEffect(() => {
@@ -963,47 +968,64 @@ const ChatHistoryDrawer = ({
     >
       <div className="memori-chat-history-drawer--content">
         <div className="memori-chat-history-drawer--toolbar">
-          {/* <div className="memori-chat-history-drawer--toolbar--search">
-            <input
-              type="search"
-              className="memori-chat-history-drawer--toolbar--search--input"
-              placeholder={
-                t('write_and_speak.searchInChatHistory') ||
-                'Search in chat history...'
-              }
-              onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                debouncedSearch(e.target.value)
-              }
-            />
-            <span className="memori-chat-history-drawer--toolbar--search--icon">
-              <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                />
-              </svg>
-            </span>
-          </div> */}
-          {/* <div className="memori-chat-history-drawer--toolbar--actions">
-            <Button
-              onClick={() => {
-                setSortOrder(order => (order === 'asc' ? 'desc' : 'asc'));
-                setCurrentPage(1);
+          {/* New minimum messages filter */}
+          <div className="memori-chat-history-drawer--toolbar--min-messages-filter">
+            {/* <label className={styles.filterLabel}>
+                {t('chatLogs.minimumMessages', { ns: 'admin' })}
+              </label> */}
+            <Select
+              value={minimumMessagesPerChat}
+              onChange={value => {
+                setMinimumMessagesPerChat(value);
+                window.localStorage.setItem(
+                  'minimumMessagesPerChat',
+                  value.toString()
+                );
               }}
-              className="memori-chat-history-drawer--toolbar--sort-button"
-            >
-              <ArrowUpIcon
-                className={`memori-chat-history-drawer--toolbar--sort-button--icon ${
-                  sortOrder === 'asc' ? 'rotate-180' : ''
-                }`}
+              className="memori-chat-history-drawer--toolbar--min-messages-filter--select"
+              options={[
+                {
+                  value: 1,
+                  label: t('chatLogs.anyMessage', { ns: 'admin' }),
+                },
+                { value: 2, label: t('chatLogs.atLeast2', { ns: 'admin' }) },
+                { value: 3, label: t('chatLogs.atLeast3', { ns: 'admin' }) },
+                { value: 5, label: t('chatLogs.atLeast5', { ns: 'admin' }) },
+                {
+                  value: 10,
+                  label: t('chatLogs.atLeast10', { ns: 'admin' }),
+                },
+                {
+                  value: 15,
+                  label: t('chatLogs.atLeast15', { ns: 'admin' }),
+                },
+                {
+                  value: 20,
+                  label: t('chatLogs.atLeast20', { ns: 'admin' }),
+                },
+                {
+                  value: 0,
+                  label: t('chatLogs.customMinimumMessages', { ns: 'admin' }),
+                },
+              ]}
+            />
+            {minimumMessagesPerChat === 0 && (
+              <input
+                type="number"
+                value={customMinimumMessages}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  const value = parseInt(e.target.value, 10);
+                  setCustomMinimumMessages(value);
+                  window.localStorage.setItem(
+                    'customMinimumMessages',
+                    value.toString()
+                  );
+                }}
+                style={{ minWidth: 50 }}
+                className="memori-chat-history-drawer--toolbar--min-messages-filter--input-number"
               />
-              {sortOrder === 'desc'
-                ? t('write_and_speak.latestFirst')
-                : t('write_and_speak.oldestFirst')}
-            </Button>
-          </div> */}
+            )}
+          </div>
           <div className="memori-chat-history-drawer--toolbar--actions">
             <Select
               options={[
