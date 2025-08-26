@@ -293,6 +293,17 @@
     "editAccount": "Modifica account",
     "save": "Salva"
   },
+  "chatLogs": {
+    "atLeast": "Almeno {{count}} messaggi",
+    "anyMessage": "Qualunque messaggio",
+    "atLeast2": "Almeno 2 messaggi",
+    "atLeast3": "Almeno 3 messaggi",
+    "atLeast5": "Almeno 5 messaggi",
+    "atLeast10": "Almeno 10 messaggi",
+    "atLeast15": "Almeno 15 messaggi",
+    "atLeast20": "Almeno 20 messaggi",
+    "customMinimumMessages": "Personalizza il numero di messaggi"
+  },
   "success": "Operazione andata a buon fine",
   "Error": "Errore",
   "internal server error": "Ops, scusa... qualcosa è andato storto nel server",

@@ -279,6 +279,17 @@
     "editAccount": "Modifier le compte",
     "save": "Sauvegarder"
   },
+  "chatLogs": {
+    "anyMessage": "Tout message",
+    "atLeast": "Au moins {{count}} messages",
+    "atLeast2": "Au moins 2 messages",
+    "atLeast3": "Au moins 3 messages",
+    "atLeast5": "Au moins 5 messages",
+    "atLeast10": "Au moins 10 messages",
+    "atLeast15": "Au moins 15 messages",
+    "atLeast20": "Au moins 20 messages",
+    "customMinimumMessages": "Personnaliser le nombre de messages"
+  },
   "success": "Succès",
   "Error": "Erreur",
   "internal server error": "Oupsie, désolé... Quelque chose s'est mal passé sur le serveur",
