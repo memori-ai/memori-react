@@ -500,15 +500,18 @@ const ChatHistoryDrawer = ({
       setIsLoading(true);
       setError(null);
       let response;
-      let filters: ChatLogFilters = {
-        loginToken,
-        memoriID: memori.engineMemoriID ?? '',
-        index: calculatedIndex,
-        itemsPerPage: ITEMS_PER_PAGE,
+      let filters: any = {
+        loginToken: loginToken,
+        memoriID: memori.engineMemoriID,
         dateFrom: undefined,
         dateTo: undefined,
-        minimumMessagesPerChat: minimumMessagesPerChat !== 0 ? minimumMessagesPerChat : undefined,
-      }
+        from: calculatedIndex,
+        howMany: ITEMS_PER_PAGE,
+        minimumMessagesPerChat:
+          customMinimumMessages > 0
+            ? customMinimumMessages
+            : minimumMessagesPerChat,
+      };
       try {
         if (dateRangeValue === 'all') {
           response = await getUserChatLogsByTokenPaged(filters);
@@ -519,8 +522,7 @@ const ChatHistoryDrawer = ({
             ...filters,
             dateFrom: dateFrom ?? undefined,
             dateTo: dateTo ?? undefined,
-          }
-          );
+          });
         }
 
         const res = response;
@@ -548,7 +550,15 @@ const ChatHistoryDrawer = ({
         setIsLoading(false);
       }
     },
-    [loginToken, memori.engineMemoriID, currentPage, sortOrder, apiUrl, minimumMessagesPerChat, customMinimumMessages]
+    [
+      loginToken,
+      memori.engineMemoriID,
+      currentPage,
+      sortOrder,
+      apiUrl,
+      minimumMessagesPerChat,
+      customMinimumMessages,
+    ]
   );
 
   useEffect(() => {
@@ -974,6 +984,21 @@ const ChatHistoryDrawer = ({
                 {t('chatLogs.minimumMessages', { ns: 'admin' })}
               </label> */}
             <Select
+              displayValue={
+                minimumMessagesPerChat === 0
+                  ? (t('chatLogs.customMinimumMessages') ||
+                      'Customize the number of messages') ??
+                    'Customize the number of messages'
+                  : minimumMessagesPerChat === 1
+                  ? (t('chatLogs.anyMessage') || 'Any message') ?? 'Any message'
+                  : t('chatLogs.atLeast', { count: minimumMessagesPerChat }) ??
+                    `At least ${minimumMessagesPerChat} messages`
+              }
+              placeholder={
+                (t('chatLogs.customMinimumMessages') ||
+                  'Customize the number of messages') ??
+                'Customize the number of messages'
+              }
               value={minimumMessagesPerChat}
               onChange={value => {
                 setMinimumMessagesPerChat(value);
@@ -986,26 +1011,37 @@ const ChatHistoryDrawer = ({
               options={[
                 {
                   value: 1,
-                  label: t('chatLogs.anyMessage', { ns: 'admin' }),
+                  label: t('chatLogs.anyMessage') || 'Any message',
                 },
-                { value: 2, label: t('chatLogs.atLeast2', { ns: 'admin' }) },
-                { value: 3, label: t('chatLogs.atLeast3', { ns: 'admin' }) },
-                { value: 5, label: t('chatLogs.atLeast5', { ns: 'admin' }) },
+                {
+                  value: 2,
+                  label: t('chatLogs.atLeast2') || 'At least 2 messages',
+                },
+                {
+                  value: 3,
+                  label: t('chatLogs.atLeast3') || 'At least 3 messages',
+                },
+                {
+                  value: 5,
+                  label: t('chatLogs.atLeast5') || 'At least 5 messages',
+                },
                 {
                   value: 10,
-                  label: t('chatLogs.atLeast10', { ns: 'admin' }),
+                  label: t('chatLogs.atLeast10') || 'At least 10 messages',
                 },
                 {
                   value: 15,
-                  label: t('chatLogs.atLeast15', { ns: 'admin' }),
+                  label: t('chatLogs.atLeast15') || 'At least 15 messages',
                 },
                 {
                   value: 20,
-                  label: t('chatLogs.atLeast20', { ns: 'admin' }),
+                  label: t('chatLogs.atLeast20') || 'At least 20 messages',
                 },
                 {
                   value: 0,
-                  label: t('chatLogs.customMinimumMessages', { ns: 'admin' }),
+                  label:
+                    t('chatLogs.customMinimumMessages') ||
+                    'Customize the number of messages',
                 },
               ]}
             />

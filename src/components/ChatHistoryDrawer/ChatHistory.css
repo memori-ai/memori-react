@@ -16,6 +16,38 @@
     flex-direction: column;
     gap: 1rem;
 }
+.memori-chat-history-drawer--toolbar--min-messages-filter{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.memori-chat-history-drawer--toolbar--min-messages-filter--select{
+    width: 100%;
+    min-width: 240px;
+}
+
+.memori-chat-history-drawer--toolbar--min-messages-filter--input-number{
+    position: relative;
+    width: 100%;
+    max-width: 60px;
+    min-height: 32px;
+    /* padding-top: 0.5rem;
+    padding-right: 2.5rem;
+    padding-bottom: 0.5rem;
+    padding-left: 0.75rem; */
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background: transparent;
+    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
+        rgba(0, 0, 0, 0.1) 0px 2px 4px -2px;
+    color: var(--memori-text-color, #333);
+    cursor: pointer;
+    font-family: var(--memori-font-family);
+    font-size: 16px;
+    text-align: left;
+}
 
 .memori-chat-history-drawer--card--header {
     position: sticky;

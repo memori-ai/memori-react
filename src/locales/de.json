@@ -270,6 +270,17 @@
     "editAccount": "Konto bearbeiten",
     "save": "Speichern"
   },
+  "chatLogs": {
+    "anyMessage": "Jede Nachricht",
+    "atLeast": "Mindestens {{count}} Nachrichten",
+    "atLeast2": "Mindestens 2 Nachrichten",
+    "atLeast3": "Mindestens 3 Nachrichten",
+    "atLeast5": "Mindestens 5 Nachrichten",
+    "atLeast10": "Mindestens 10 Nachrichten",
+    "atLeast15": "Mindestens 15 Nachrichten",
+    "atLeast20": "Mindestens 20 Nachrichten",
+    "customMinimumMessages": "Anpassen Sie die Anzahl der Nachrichten"
+  },
   "success": "Erfolg",
   "Error": "Fehler",
   "internal server error": "Oupsie, tut mir leid... Auf dem Server ist ein Fehler aufgetreten",
