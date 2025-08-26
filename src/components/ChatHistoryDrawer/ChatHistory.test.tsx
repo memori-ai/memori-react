@@ -39,6 +39,8 @@ it('renders ChatHistoryDrawer unchanged', () => {
       baseUrl="https://www.aisuru.com"
       apiUrl="https://backend.memori.ai"
       loginToken="test-login-token"
+      language="EN"
+      userLang="EN"
     />
   );
   expect(container).toMatchSnapshot();
@@ -57,6 +59,8 @@ it('renders ChatHistoryDrawer with chat logs unchanged', () => {
       baseUrl="https://www.aisuru.com"
       apiUrl="https://backend.memori.ai"
       loginToken="test-login-token"
+      language="EN"
+      userLang="EN"
     />
   );
   expect(container).toMatchSnapshot();
@@ -75,6 +79,8 @@ it('renders ChatHistoryDrawer with selected chat log unchanged', () => {
       baseUrl="https://www.aisuru.com"
       apiUrl="https://backend.memori.ai"
       loginToken="test-login-token"
+      language="EN"
+      userLang="EN"
     />
   );
   expect(container).toMatchSnapshot();
@@ -93,6 +99,8 @@ it('renders ChatHistoryDrawer closed unchanged', () => {
       baseUrl="https://www.aisuru.com"
       apiUrl="https://backend.memori.ai"
       loginToken="test-login-token"
+      language="EN"
+      userLang="EN"
     />
   );
   expect(container).toMatchSnapshot();

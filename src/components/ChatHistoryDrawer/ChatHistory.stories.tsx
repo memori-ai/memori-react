@@ -188,6 +188,8 @@ const meta: Meta<typeof ChatHistory> = {
       console.log('Resume session called with:', chatLog);
     },
     loginToken: 'mock-login-token',
+    language: 'EN',
+    userLang: 'EN',
   },
   // Add argTypes to configure controls in Storybook
   argTypes: {

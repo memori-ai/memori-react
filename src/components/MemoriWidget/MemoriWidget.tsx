@@ -3648,25 +3648,9 @@ const MemoriWidget = ({
           history={history}
           apiUrl={client.constants.BACKEND_URL}
           loginToken={loginToken}
-        />
-      )}
-
-      {showChatHistoryDrawer && (
-        <ChatHistoryDrawer
-          open={!!showChatHistoryDrawer}
-          onClose={() => setShowChatHistoryDrawer(false)}
-          resumeSession={chatLog => {
-            setChatLogID(chatLog.chatLogID);
-            onClickStart(undefined, false, chatLog);
-            setShowChatHistoryDrawer(false);
-          }}
-          apiClient={client}
-          sessionId={sessionId || ''}
-          memori={memori}
-          baseUrl={baseUrl}
-          history={history}
-          apiUrl={client.constants.BACKEND_URL}
-          loginToken={loginToken}
+          language={language}
+          userLang={userLang}
+          isMultilanguageEnabled={isMultilanguageEnabled}
         />
       )}
 
