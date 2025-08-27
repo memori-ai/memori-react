@@ -84,7 +84,7 @@ export function useSTT(
   const analyserRef = useRef<AnalyserNode | null>(null);
   const dataArrayRef = useRef<Uint8Array | null>(null);
   const apiUrl = options.apiUrl || '/api/stt';
-  const silenceTimeout = options.silenceTimeout || 300; // Default 300ms
+  const silenceTimeout = options.silenceTimeout || 2; // Default 300ms
 
   // Replace the initializeRecording function in your useSTT.ts with this:
 
@@ -327,7 +327,7 @@ export function useSTT(
             console.log(`[useSTT] Silence detected for ${silenceTimeout}ms, stopping recording`);
             stopRecording();
           }
-        }, silenceTimeout);
+        }, silenceTimeout * 1000);
       }
     };
 
@@ -502,7 +502,7 @@ export function useSTT(
    */
   const stopRecording = useCallback((): void => {
     console.log('[useSTT] Stopping recording...');
-    if (!isRecordingRef.current || recordingState !== 'recording') {
+    if (!isRecordingRef.current) {
       console.log('[useSTT] Cannot stop recording:', {
         isRecording: isRecordingRef.current,
         state: recordingState,
