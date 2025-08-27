@@ -52,7 +52,6 @@ it('renders Chat unchanged', () => {
       listening={false}
       startListening={jest.fn()}
       stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
       setEnableFocusChatInput={jest.fn()}
     />
   );
@@ -77,7 +76,6 @@ it('renders Chat with memori typing unchanged', () => {
       onChangeUserMessage={jest.fn()}
       sendMessage={jest.fn()}
       stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
       isPlayingAudio={false}
       stopAudio={jest.fn()}
       showMicrophone={false}
@@ -108,7 +106,6 @@ it('renders Chat with hints unchanged', () => {
       onChangeUserMessage={jest.fn()}
       sendMessage={jest.fn()}
       stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
       isPlayingAudio={false}
       stopAudio={jest.fn()}
       showMicrophone={false}
@@ -138,7 +135,6 @@ it('renders Chat with media unchanged', () => {
       onChangeUserMessage={jest.fn()}
       sendMessage={jest.fn()}
       stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
       isPlayingAudio={false}
       stopAudio={jest.fn()}
       showMicrophone={false}
@@ -168,7 +164,6 @@ it('renders Chat with dates unchanged', () => {
       onChangeUserMessage={jest.fn()}
       sendMessage={jest.fn()}
       stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
       isPlayingAudio={false}
       stopAudio={jest.fn()}
       showMicrophone={false}
@@ -199,7 +194,6 @@ it('renders Chat with context vars unchanged', () => {
       onChangeUserMessage={jest.fn()}
       sendMessage={jest.fn()}
       stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
       isPlayingAudio={false}
       stopAudio={jest.fn()}
       showMicrophone={false}
@@ -236,7 +230,6 @@ it('renders Chat with user unchanged', () => {
       listening={false}
       startListening={jest.fn()}
       stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
       setEnableFocusChatInput={jest.fn()}
     />
   );
@@ -267,7 +260,6 @@ it('renders Chat with custom user avatar unchanged', () => {
       listening={false}
       startListening={jest.fn()}
       stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
       setEnableFocusChatInput={jest.fn()}
     />
   );
@@ -298,7 +290,6 @@ it('renders Chat with custom user avatar as react element unchanged', () => {
       listening={false}
       startListening={jest.fn()}
       stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
       setEnableFocusChatInput={jest.fn()}
     />
   );

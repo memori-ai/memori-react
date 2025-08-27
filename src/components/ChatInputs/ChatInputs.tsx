@@ -22,7 +22,6 @@ export interface Props {
   sendMessage: (msg: string, media?: (Medium & { type: string })[]) => void;
   onTextareaFocus: () => void;
   onTextareaBlur: () => void;
-  resetTranscript: () => void;
   listening?: boolean;
   isPlayingAudio?: boolean;
   stopAudio: () => void;
@@ -35,7 +34,6 @@ export interface Props {
   sessionID?: string;
   memoriID?: string;
   client?: ReturnType<typeof memoriApiClient>;
-  provider?: 'azure' | 'openai';
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -46,7 +44,6 @@ const ChatInputs: React.FC<Props> = ({
   sendMessage,
   onTextareaFocus,
   onTextareaBlur,
-  resetTranscript,
   showMicrophone = false,
   microphoneMode = 'HOLD_TO_TALK',
   listening = false,
@@ -58,7 +55,6 @@ const ChatInputs: React.FC<Props> = ({
   authToken,
   memoriID,
   client,
-  provider = 'azure',
 }) => {
   const { t } = useTranslation();
 
@@ -134,7 +130,6 @@ const ChatInputs: React.FC<Props> = ({
 
       setDocumentPreviewFiles([]);
       onChangeUserMessage('');
-      resetTranscript();
     }
   };
 
@@ -209,7 +204,7 @@ const ChatInputs: React.FC<Props> = ({
         title={t('send') || 'Send'}
         icon={<Send />}
       />
-      {provider === 'azure' && showMicrophone && microphoneMode === 'HOLD_TO_TALK' && (
+      {showMicrophone && microphoneMode === 'HOLD_TO_TALK' && (
         <MicrophoneButton
           listening={listening}
           startListening={startListening}
@@ -222,7 +217,7 @@ const ChatInputs: React.FC<Props> = ({
           stopAudio={stopAudio}
         />
       )}
-      {provider === 'azure' && showMicrophone && microphoneMode === 'CONTINUOUS' && (
+      {showMicrophone && microphoneMode === 'CONTINUOUS' && (
         <Button
           primary
           className={cx('memori-chat-inputs--mic', {

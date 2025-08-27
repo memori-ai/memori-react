@@ -16,12 +16,6 @@ import {
   ResponseSpec,
   ChatLog,
 } from '@memori.ai/memori-api-client/src/types';
-import {
-  SpeakerAudioDestination,
-  SpeechConfig,
-  SpeechSynthesizer,
-  SpeechRecognizer,
-} from 'microsoft-cognitiveservices-speech-sdk';
 
 // Libraries
 import React, {
@@ -35,7 +29,6 @@ import React, {
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { AudioContext, IAudioContext } from 'standardized-audio-context';
-import * as speechSdk from 'microsoft-cognitiveservices-speech-sdk';
 import cx from 'classnames';
 import { DateTime } from 'luxon';
 import toast from 'react-hot-toast';
@@ -90,6 +83,7 @@ import { sanitizeText } from '../../helpers/sanitizer';
 import { TTSConfig, useTTS } from '../../helpers/tts/useTTS';
 import Alert from '../ui/Alert';
 import ChatHistoryDrawer from '../ChatHistoryDrawer/ChatHistory';
+import { STTConfig, useSTT } from '../../helpers/stt/useSTT';
 
 // Widget utilities and helpers
 const getMemoriState = (integrationId?: string): object | null => {
@@ -327,10 +321,6 @@ window.typeMessage = typeMessage;
 window.typeMessageHidden = typeMessageHidden;
 window.typeBatchMessages = typeBatchMessages;
 
-// Global variables
-let recognizer: SpeechRecognizer | null;
-let speechConfig: SpeechConfig;
-let audioDestination: SpeakerAudioDestination;
 let audioContext: IAudioContext;
 
 let memoriPassword: string | undefined;
@@ -606,7 +596,7 @@ const MemoriWidget = ({
   );
   const [hideEmissions, setHideEmissions] = useState(false);
 
-  const speechSynthesizerRef = useRef<SpeechSynthesizer | null>(null);
+  const speechSynthesizerRef = useRef<any | null>(null);
   const [memoriSpeaking, setMemoriSpeaking] = useState(false);
 
   useEffect(() => {
@@ -659,7 +649,8 @@ const MemoriWidget = ({
 
   // Effect to handle enableAudio changes
   useEffect(() => {
-    const isAudioEnabled = enableAudio ?? integrationConfig?.enableAudio ?? true;
+    const isAudioEnabled =
+      enableAudio ?? integrationConfig?.enableAudio ?? true;
     if (!isAudioEnabled) {
       // Force mute when audio is disabled
       setLocalConfig('muteSpeaker', true);
@@ -832,7 +823,9 @@ const MemoriWidget = ({
         m => !m.mediumID && m.properties?.isAttachedFile
       );
       if (mediaDocuments && mediaDocuments.length > 0) {
-        const documentContents = mediaDocuments.map(doc => doc.content).join(' ');
+        const documentContents = mediaDocuments
+          .map(doc => doc.content)
+          .join(' ');
         msg = msg + ' ' + documentContents;
       }
 
@@ -1087,6 +1080,64 @@ const MemoriWidget = ({
       : 0;
   const [birthDate, setBirthDate] = useState<string | undefined>();
   const [showAgeVerification, setShowAgeVerification] = useState(false);
+
+  const getCultureCodeByLanguage = (lang?: string): string => {
+    let voice = '';
+    let voiceLang = (
+      lang ||
+      memori.culture?.split('-')?.[0] ||
+      i18n.language ||
+      'IT'
+    ).toUpperCase();
+    switch (voiceLang) {
+      case 'IT':
+        voice = 'it-IT';
+        break;
+      case 'DE':
+        voice = 'de-DE';
+        break;
+      case 'EN':
+        voice = 'en-GB';
+        break;
+      case 'ES':
+        voice = 'es-ES';
+        break;
+      case 'FR':
+        voice = 'fr-FR';
+        break;
+      case 'PT':
+        voice = 'pt-PT';
+        break;
+      case 'UK':
+        voice = 'uk-UK';
+        break;
+      case 'RU':
+        voice = 'ru-RU';
+        break;
+      case 'PL':
+        voice = 'pl-PL';
+        break;
+      case 'FI':
+        voice = 'fi-FI';
+        break;
+      case 'EL':
+        voice = 'el-GR';
+        break;
+      case 'AR':
+        voice = 'ar-SA';
+        break;
+      case 'ZH':
+        voice = 'zh-CN';
+        break;
+      case 'JA':
+        voice = 'ja-JP';
+        break;
+      default:
+        voice = 'it-IT';
+        break;
+    }
+    return voice;
+  };
 
   /**
    * Sessione
@@ -1803,16 +1854,25 @@ const MemoriWidget = ({
     () => ({
       provider: ttsProvider,
       voice: getTTSVoice(
-        userLang || memori.culture?.split('-')?.[0] || 'EN', 
-        ttsProvider, 
+        userLang || memori.culture?.split('-')?.[0] || 'EN',
+        ttsProvider,
         memori.voiceType as 'MALE' | 'FEMALE' | 'NEUTRAL'
       ),
       tenant: tenantID,
       region: 'westeurope',
       voiceType: memori.voiceType,
-      layout: selectedLayout
+      layout: selectedLayout,
     }),
     [ttsProvider, userLang, memori.culture, memori.voiceType]
+  );
+
+  const sttConfig = useMemo(
+    () => ({
+      provider: ttsProvider,
+      language: getCultureCodeByLanguage(userLang),
+      tenant: tenantID,
+    }),
+    [ttsProvider, userLang]
   );
 
   // Initialize TTS hook with basic options first
@@ -1826,15 +1886,61 @@ const MemoriWidget = ({
     setHasUserActivatedSpeak,
     error,
     setError,
-  } = useTTS(ttsConfig as TTSConfig, {
-    apiUrl: `${baseUrl}/api/tts`,
-    continuousSpeech: continuousSpeech,
-    onEndSpeakStartListen: () => {
-      // Placeholder - will be implemented after startListening is defined
-      console.log('[MemoriWidget] onEndSpeakStartListen called');
+  } = useTTS(
+    ttsConfig as TTSConfig,
+    {
+      apiUrl: `${baseUrl}/api/tts`,
+      continuousSpeech: continuousSpeech,
+      preview: preview,
     },
-    preview: preview,
-  }, autoStart, defaultEnableAudio, defaultSpeakerActive);
+    autoStart,
+    defaultEnableAudio,
+    defaultSpeakerActive
+  );
+
+    // Create a single, centralized function to process and send messages
+    const processSpeechAndSendMessage = (text: string) => {
+
+      console.log('processSpeechAndSendMessage', text);
+      // Skip if already processing or no text
+      if (!text || text.trim().length === 0) {
+        return;
+      }
+  
+      try {
+        // Process the text
+        const message = stripDuplicates(text);
+        console.debug('Processing speech message:', message);
+  
+        if (message.length > 0) {
+          setUserMessage('');
+  
+          // Send the message
+          console.debug('Sending message:', message);
+          sendMessage(message);
+        }
+      } catch (error) {
+        console.error('Error in processSpeechAndSendMessage:', error);
+      }
+    };
+
+  const {
+    isListening,
+
+    // Actions
+    startRecording,
+    stopRecording,
+  } = useSTT(
+    sttConfig as STTConfig,
+    processSpeechAndSendMessage,
+    {
+      apiUrl: `${baseUrl}/api/stt`,
+      continuousRecording: continuousSpeech,
+      silenceTimeout: continuousSpeechTimeout,
+      autoStart: autoStart,
+    },
+    defaultEnableAudio
+  );
 
   const resetInteractionTimeout = () => {
     clearInteractionTimeout();
@@ -1948,64 +2054,6 @@ const MemoriWidget = ({
     hasUserActivatedSpeak,
   ]);
 
-  const getCultureCodeByLanguage = (lang?: string): string => {
-    let voice = '';
-    let voiceLang = (
-      lang ||
-      memori.culture?.split('-')?.[0] ||
-      i18n.language ||
-      'IT'
-    ).toUpperCase();
-    switch (voiceLang) {
-      case 'IT':
-        voice = 'it-IT';
-        break;
-      case 'DE':
-        voice = 'de-DE';
-        break;
-      case 'EN':
-        voice = 'en-GB';
-        break;
-      case 'ES':
-        voice = 'es-ES';
-        break;
-      case 'FR':
-        voice = 'fr-FR';
-        break;
-      case 'PT':
-        voice = 'pt-PT';
-        break;
-      case 'UK':
-        voice = 'uk-UK';
-        break;
-      case 'RU':
-        voice = 'ru-RU';
-        break;
-      case 'PL':
-        voice = 'pl-PL';
-        break;
-      case 'FI':
-        voice = 'fi-FI';
-        break;
-      case 'EL':
-        voice = 'el-GR';
-        break;
-      case 'AR':
-        voice = 'ar-SA';
-        break;
-      case 'ZH':
-        voice = 'zh-CN';
-        break;
-      case 'JA':
-        voice = 'ja-JP';
-        break;
-      default:
-        voice = 'it-IT';
-        break;
-    }
-    return voice;
-  };
-
   /**
    * Enhanced handleSpeak that integrates with the improved useTTS hook
    * Uses promise-based approach for better reliability
@@ -2015,14 +2063,11 @@ const MemoriWidget = ({
       const e = new CustomEvent('MemoriEndSpeak');
       document.dispatchEvent(e);
 
-      if (continuousSpeech) {
-        setListeningTimeout();
-      }
       return Promise.resolve();
     }
 
-    if (typeof stopListening === 'function') {
-      stopListening();
+    if (typeof stopRecording === 'function') {
+      stopRecording();
     }
 
     setMemoriTyping(true);
@@ -2037,7 +2082,7 @@ const MemoriWidget = ({
         setMemoriTyping(false);
         throw error;
       });
-  }
+  };
   /**
    * Integrated solution for translating dialog state and speaking
    * This uses promise chaining for reliable sequencing without timeouts
@@ -2096,30 +2141,6 @@ const MemoriWidget = ({
     ]
   );
 
-  // Helper function for fallback behavior
-  const handleFallback = (text: string) => {
-    if (defaultEnableAudio) {
-      window.speechSynthesis.speak(new SpeechSynthesisUtterance(text));
-    }
-    cleanup();
-  };
-
-  const cleanup = () => {
-    if (recognizer) {
-      recognizer.stopContinuousRecognitionAsync();
-      recognizer.close();
-      recognizer = null;
-    }
-
-    if (speechSynthesizerRef.current) {
-      speechSynthesizerRef.current.close();
-      speechSynthesizerRef.current = null;
-    }
-
-    setListening(false);
-    clearListeningTimeout();
-  };
-
   /**
    * Funzione stopAudio che sostituisce quella originale
    */
@@ -2149,344 +2170,8 @@ const MemoriWidget = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentDialogState?.emission]);
 
-  const [transcript, setTranscript] = useState('');
-  const [transcriptTimeout, setTranscriptTimeout] =
-    useState<NodeJS.Timeout | null>(null);
-  const [isSpeaking, setIsSpeaking] = useState(false);
-  // const [isProcessingSTT, setIsProcessingSTT] = useState(false);
-
-  const resetTranscript = () => {
-    setTranscript('');
-  };
-  // Modify setListeningTimeout to be more robust
-  const setListeningTimeout = () => {
-    clearListeningTimeout(); // Clear any existing timeout
-
-    console.debug('Setting speech processing timeout');
-    const timeout = setTimeout(() => {
-      console.debug('Speech timeout triggered, processing transcript');
-      handleTranscriptProcessing();
-    }, continuousSpeechTimeout * 1000 + 300);
-
-    setTranscriptTimeout(timeout as unknown as NodeJS.Timeout);
-  };
-
-  const clearListeningTimeout = () => {
-    if (transcriptTimeout) {
-      console.debug('Clearing transcript timeout');
-      clearTimeout(transcriptTimeout);
-      setTranscriptTimeout(null);
-    }
-  };
-
-  // Add safety check in resetListeningTimeout
-  const resetListeningTimeout = () => {
-    clearListeningTimeout();
-    if (continuousSpeech && !isProcessingSTT) {
-      console.debug('Setting new listening timeout');
-      setListeningTimeout();
-    }
-  };
-
-  // Make sure only one path can trigger message sending
-  useEffect(() => {
-    if (!isSpeaking && transcript && transcript.length > 0) {
-      console.debug('Transcript updated while not speaking, resetting timeout');
-      resetListeningTimeout();
-      resetInteractionTimeout();
-    }
-  }, [transcript, isSpeaking]);
-
-  // Clean up function for component unmount
-  useEffect(() => {
-    return () => {
-      clearListeningTimeout();
-    };
-  }, []);
-
-  /**
-   * Listening methods
-   */
-  let microphoneStream: MediaStream | null = null;
-  // Modify startListening to ensure full cleanup before starting
-  const startListening = async (): Promise<void> => {
-    console.debug('Starting speech recognition...');
-
-    // if (!AZURE_COGNITIVE_SERVICES_TTS_KEY) {
-    //   console.error('No TTS key available');
-    //   throw new Error('No TTS key available');
-    // }
-
-    if (!sessionId) {
-      console.error('No session ID available');
-      throw new Error('No session ID available');
-    }
-
-    // First, ensure any existing recognizer is fully closed
-    if (recognizer) {
-      console.debug('Cleaning up existing recognizer...');
-      try {
-        // Stop the recognizer properly
-        await new Promise<void>((resolve, _) => {
-          recognizer?.stopContinuousRecognitionAsync(resolve, error => {
-            console.error('Error stopping recognition:', error);
-            resolve(); // Resolve anyway to continue cleanup
-          });
-        });
-
-        console.debug('Closing existing recognizer...');
-        recognizer.close();
-        recognizer = null;
-      } catch (error) {
-        console.error('Error during recognizer cleanup:', error);
-        // Continue with initialization anyway
-      }
-    }
-
-    // Clear any existing state
-    console.debug('Resetting transcript and STT state...');
-    resetTranscript();
-    setIsProcessingSTT(false);
-
-    // Add a small delay to ensure Azure services have time to release resources
-    console.debug('Adding delay for Azure services cleanup...');
-    await new Promise(resolve => setTimeout(resolve, 500));
-
-    try {
-      console.debug('Requesting microphone access...');
-      // Release previous microphone stream if it exists
-      if (microphoneStream) {
-        microphoneStream.getTracks().forEach(track => track.stop());
-        microphoneStream = null;
-      }
-
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-      });
-      setHasUserActivatedListening(true);
-
-      // Recreate speech config each time
-      console.debug('Setting up speech config...');
-      // speechConfig = setupSpeechConfig(AZURE_COGNITIVE_SERVICES_TTS_KEY);
-
-      console.debug('Creating audio config and recognizer...');
-      const audioConfig = speechSdk.AudioConfig.fromDefaultMicrophoneInput();
-      recognizer = new speechSdk.SpeechRecognizer(speechConfig, audioConfig);
-
-      // Set up recognizer event handlers
-      console.debug('Setting up recognizer handlers...');
-      setupRecognizerHandlers(recognizer);
-
-      // Start recognition - use promises for better error handling
-      console.debug('Starting continuous recognition...');
-      await new Promise<void>((resolve, reject) => {
-        recognizer?.startContinuousRecognitionAsync(resolve, error => {
-          console.error('Failed to start recognition:', error);
-          reject(error);
-        });
-      });
-
-      console.debug('Speech recognition started successfully');
-      setListening(true);
-    } catch (error) {
-      console.error('Error in startListening:', error);
-      // Ensure cleanup happens even on error
-      if (recognizer) {
-        console.debug('Cleaning up recognizer after error...');
-        recognizer.close();
-        recognizer = null;
-      }
-      setListening(false);
-      throw error;
-    }
-  };
-
-  // Store startListening in ref for use in onEndSpeakStartListen
-  startListeningRef.current = startListening;
-
-  // Define proper onEndSpeakStartListen after startListening is available
-  const onEndSpeakStartListen = useCallback(
-    (_e?: Event) => {
-      if (isPlayingAudio && speechSynthesizerRef.current) {
-        speechSynthesizerRef.current.close();
-        speechSynthesizerRef.current = null;
-      }
-      if (
-        continuousSpeech &&
-        (hasUserActivatedListening || !requestedListening)
-      ) {
-        setRequestedListening(true);
-        if (startListeningRef.current) {
-          startListeningRef.current();
-        }
-      }
-    },
-    [continuousSpeech, hasUserActivatedListening, isPlayingAudio, requestedListening]
-  );
-
-  const setupSpeechConfig = (AZURE_COGNITIVE_SERVICES_TTS_KEY: string) => {
-    console.debug('Creating speech config...');
-    speechConfig = speechSdk.SpeechConfig.fromSubscription(
-      AZURE_COGNITIVE_SERVICES_TTS_KEY,
-      'westeurope'
-    );
-    console.debug('Setting speech recognition language:', userLang);
-    speechConfig.speechRecognitionLanguage = getCultureCodeByLanguage(userLang);
-    speechConfig.speechSynthesisLanguage = getCultureCodeByLanguage(userLang);
-    speechConfig.speechSynthesisVoiceName = getTTSVoice(userLang); // https://docs.microsoft.com/it-it/azure/cognitive-services/speech-service/language-support#text-to-speech
-    return speechConfig;
-  };
-
-  const [isProcessingSTT, setIsProcessingSTT] = useState(false);
-
-  const setupRecognizerHandlers = (recognizer: speechSdk.SpeechRecognizer) => {
-    if (recognizer) {
-      console.debug('Setting up recognizer event handlers...');
-      recognizer.recognized = (_, event) => {
-        // Process the recognized speech result
-        console.debug('Recognition event received');
-        handleRecognizedSpeech(event.result.text);
-      };
-
-      // Configure speech recognition properties directly on the recognizer
-      console.debug('Configuring recognizer properties...');
-      recognizer.properties.setProperty(
-        'SpeechServiceResponse_JsonResult',
-        'true'
-      );
-
-      recognizer.properties.setProperty(
-        'SpeechServiceConnection_NoiseSuppression',
-        'true'
-      );
-
-      recognizer.properties.setProperty(
-        'SpeechServiceConnection_SNRThresholdDb',
-        '10.0'
-      );
-    }
-  };
-
-  // Add a mutex-like flag to prevent duplicate processing
-  let isProcessingSpeech = false;
-
-  // Create a single, centralized function to process and send messages
-  const processSpeechAndSendMessage = (text: string) => {
-    // Skip if already processing or no text
-    if (isProcessingSpeech || !text || text.trim().length === 0) {
-      console.debug(
-        'Skipping speech processing: already processing or empty text'
-      );
-      return;
-    }
-
-    try {
-      // Set processing flag immediately
-      isProcessingSpeech = true;
-
-      // Process the text
-      const message = stripDuplicates(text);
-      console.debug('Processing speech message:', message);
-
-      if (message.length > 0) {
-        // Update UI states
-        setIsProcessingSTT(true);
-        setUserMessage('');
-
-        // Send the message
-        console.debug('Sending message:', message);
-        sendMessage(message);
-
-        // Reset states
-        resetTranscript();
-        clearListening();
-      }
-    } finally {
-      // Reset processing flag after a short delay to prevent race conditions
-      setTimeout(() => {
-        isProcessingSpeech = false;
-      }, 1000);
-    }
-  };
-
-  // Update handleRecognizedSpeech to use the centralized function
-  const handleRecognizedSpeech = (text: string) => {
-    console.debug('Speech recognized:', text);
-    setTranscript(text);
-    setIsSpeaking(false);
-
-    // Don't process here - wait for timeout or explicit processing
-    if (!continuousSpeech) {
-      // For manual mode, process immediately
-      processSpeechAndSendMessage(text);
-    }
-    // For continuous mode, rely on the timeout
-  };
-
-  // Update handleTranscriptProcessing to use the centralized function
-  const handleTranscriptProcessing = () => {
-    if (transcript && transcript.length > 0 && listening) {
-      processSpeechAndSendMessage(transcript);
-    } else if (listening) {
-      resetInteractionTimeout();
-    }
-  };
-
-  /**
-   * Stops the speech recognition process
-   * Closes recognizer and cleans up resources
-   */
-  // Similarly, modify stopListening to use promises
-  // Enhance stopListening to fully release resources
-  const stopListening = async () => {
-    console.debug('Stopping speech recognition');
-
-    // Stop the recognizer
-    if (recognizer) {
-      try {
-        recognizer.stopContinuousRecognitionAsync();
-        recognizer.close();
-      } catch (error) {
-        console.error('Error stopping recognizer:', error);
-      }
-      recognizer = null;
-    }
-
-    // Release the microphone stream
-    if (microphoneStream) {
-      try {
-        microphoneStream.getTracks().forEach(track => track.stop());
-      } catch (error) {
-        console.error('Error stopping microphone stream:', error);
-      }
-      microphoneStream = null;
-    }
-
-    setListening(false);
-  };
-
-  /**
-   * Clears all listening state and stops recognition
-   */
-  const clearListening = () => {
-    stopListening();
-    clearListeningTimeout();
-    setIsSpeaking(false);
-  };
-  /**
-   * Resets listening state and restarts recognition if currently listening
-   */
-  const resetListening = () => {
-    if (listening) {
-      clearListening();
-      resetTranscript();
-      setUserMessage('');
-      startListening();
-    }
-  };
   const resetUIEffects = () => {
     try {
-      clearListening();
       clearInteractionTimeout();
       setClickedStart(false);
       timeoutRef.current = undefined;
@@ -2508,10 +2193,6 @@ const MemoriWidget = ({
       document.removeEventListener('MemoriResetUIEffects', resetUIEffects);
     };
   }, []);
-  useEffect(() => {
-    if (currentDialogState?.state === 'Z0') clearListening();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentDialogState?.state]);
 
   useEffect(() => {
     // if memori is speaking, don't start listening
@@ -2521,15 +2202,15 @@ const MemoriWidget = ({
       (hasUserActivatedListening || !requestedListening) &&
       sessionId
     ) {
-      startListening();
-    } else if (isPlayingAudio && listening) {
-      stopListening();
+      startRecording();
+    } else if (isPlayingAudio && isListening) {
+      stopRecording();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isPlayingAudio, hasUserActivatedListening]);
 
   useEffect(() => {
-    resetListening();
+    stopRecording();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [language]);
 
@@ -2668,7 +2349,6 @@ const MemoriWidget = ({
   }, [integrationConfig, memori.avatarURL, ogImage]);
 
   const simulateUserPrompt = (text: string, translatedText?: string) => {
-    stopListening();
     stopAudio();
     sendMessage(text, undefined, undefined, false, translatedText);
   };
@@ -2699,7 +2379,6 @@ const MemoriWidget = ({
             memoriTextEnteredHandler(e);
           }, 1000);
         } else {
-          stopListening();
           stopAudio();
           sendMessage(
             text,
@@ -3015,10 +2694,7 @@ const MemoriWidget = ({
         // No tag changes needed
         else {
           try {
-            const { chatLogs } = await getSessionChatLogs(
-              sessionID,
-              sessionID
-            );
+            const { chatLogs } = await getSessionChatLogs(sessionID, sessionID);
 
             const messages = chatLogs?.[0]?.lines.map(
               (l, i) =>
@@ -3075,7 +2751,7 @@ const MemoriWidget = ({
               // if empty history, pick current state emission
               // otherwise, don't push message
               !!translatedMessages?.length
-            )
+            );
           } else {
             // remove default initial message
             translatedMessages = [];
@@ -3094,7 +2770,7 @@ const MemoriWidget = ({
               userLang,
               undefined,
               false
-            )
+            );
           }
         }
 
@@ -3277,7 +2953,7 @@ const MemoriWidget = ({
       if (!(enableAudio ?? integrationConfig?.enableAudio ?? true)) {
         mute = true;
       }
-      
+
       toggleMute(mute);
       let microphoneMode = getLocalConfig<string>(
         'microphoneMode',
@@ -3323,7 +2999,10 @@ const MemoriWidget = ({
     avatar3dVisible,
     setAvatar3dVisible,
     hasUserActivatedSpeak,
-    isPlayingAudio: isPlayingAudio && !speakerMuted && (enableAudio ?? integrationConfig?.enableAudio ?? true),
+    isPlayingAudio:
+      isPlayingAudio &&
+      !speakerMuted &&
+      (enableAudio ?? integrationConfig?.enableAudio ?? true),
     loading: !!memoriTyping,
     baseUrl,
     apiUrl: client.constants.BACKEND_URL,
@@ -3360,7 +3039,6 @@ const MemoriWidget = ({
     memori,
     sessionID: sessionId || '',
     tenant,
-    provider: ttsProvider as 'azure' | 'openai',
     translateTo:
       isMultilanguageEnabled &&
       userLang.toUpperCase() !==
@@ -3400,22 +3078,21 @@ const MemoriWidget = ({
     attachmentsMenuOpen,
     setAttachmentsMenuOpen,
     showInputs,
-    showMicrophone: !!ttsProvider && (enableAudio ?? integrationConfig?.enableAudio ?? true),
+    showMicrophone:
+      !!ttsProvider && (enableAudio ?? integrationConfig?.enableAudio ?? true),
     showFunctionCache,
     userMessage,
     onChangeUserMessage,
     sendMessage: (msg: string, media?: (Medium & { type: string })[]) => {
       stopAudio();
-      stopListening();
+      stopRecording();
       sendMessage(msg, media);
       setUserMessage('');
-      resetTranscript();
     },
-    stopListening: clearListening,
-    startListening,
+    stopListening: stopRecording,
+    startListening: startRecording,
     stopAudio,
-    resetTranscript,
-    listening,
+    listening: isListening,
     setEnableFocusChatInput,
     isPlayingAudio,
     customMediaRenderer,
@@ -3635,7 +3312,6 @@ const MemoriWidget = ({
           isAvatar3d={!!integrationConfig?.avatarURL}
           additionalSettings={additionalSettings}
           speakerMuted={speakerMuted}
-
         />
       )}
 

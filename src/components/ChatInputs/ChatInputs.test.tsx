@@ -19,7 +19,6 @@ it('renders ChatInputs unchanged', () => {
       stopAudio={jest.fn()}
       startListening={jest.fn()}
       stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
       showMicrophone={true}
     />
   );
@@ -42,7 +41,6 @@ it('renders ChatInputs with user message unchanged', () => {
       stopAudio={jest.fn()}
       startListening={jest.fn()}
       stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
       showMicrophone={true}
     />
   );
@@ -69,7 +67,6 @@ it('renders ChatInputs on instruct unchanged', () => {
       stopAudio={jest.fn()}
       startListening={jest.fn()}
       stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
       showMicrophone={true}
     />
   );
@@ -92,7 +89,6 @@ it('renders ChatInputs listening unchanged', () => {
       stopAudio={jest.fn()}
       startListening={jest.fn()}
       stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
       showMicrophone={true}
     />
   );
@@ -115,7 +111,6 @@ it('renders ChatInputs without microphone button unchanged', () => {
       stopAudio={jest.fn()}
       startListening={jest.fn()}
       stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
       showMicrophone={false}
     />
   );
@@ -141,7 +136,6 @@ it('renders ChatInputs disabled unchanged', () => {
       stopAudio={jest.fn()}
       startListening={jest.fn()}
       stopListening={jest.fn()}
-      resetTranscript={jest.fn()}
       showMicrophone={true}
     />
   );

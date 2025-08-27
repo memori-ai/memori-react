@@ -947,7 +947,6 @@ const ChatHistoryDrawer = ({
                           sendMessage={() => {}}
                           startListening={() => {}}
                           stopListening={() => {}}
-                          resetTranscript={() => {}}
                           listening={false}
                           setEnableFocusChatInput={() => {}}
                           stopAudio={() => {}}
