@@ -57,10 +57,6 @@ export function useSTT(
   options: UseSTTOptions = {},
   defaultEnableAudio: boolean = true
 ) {
-  console.log('[useSTT] Initializing with config:', config);
-  console.log('[useSTT] Options:', options);
-  console.log('[useSTT] Default enable audio:', defaultEnableAudio);
-
   // Local state
   const [recordingState, setRecordingState] = useState<RecordingState>('idle');
   const [microphoneMuted, setMicrophoneMuted] = useState(
@@ -89,10 +85,8 @@ export function useSTT(
   // Replace the initializeRecording function in your useSTT.ts with this:
 
   const initializeRecording = useCallback(async (): Promise<boolean> => {
-    console.log('[useSTT] Initializing recording...');
     try {
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        console.error('[useSTT] Media recording not supported');
         throw new Error('Media recording is not supported in this browser');
       }
 
@@ -104,7 +98,6 @@ export function useSTT(
           sampleRate: 16000, // Optimal for speech recognition
         },
       });
-      console.log('[useSTT] Got media stream');
 
       audioStreamRef.current = stream;
 
@@ -119,10 +112,8 @@ export function useSTT(
           
           const source = audioContextRef.current.createMediaStreamSource(stream);
           source.connect(analyserRef.current);
-          
-          console.log('[useSTT] Audio context initialized for silence detection');
         } catch (err) {
-          console.warn('[useSTT] Failed to initialize audio context for silence detection:', err);
+          // Silence detection initialization failed but we can continue
         }
       }
 
@@ -130,9 +121,6 @@ export function useSTT(
       let mimeType = '';
 
       if (config.provider === 'azure') {
-        // For Azure, prioritize formats that work better with Azure STT
-        // Azure supports: WAV, MP3, MP4, OGG, but WebM support is limited
-
         if (MediaRecorder.isTypeSupported('audio/mp4')) {
           mimeType = 'audio/mp4';
         } else if (MediaRecorder.isTypeSupported('audio/ogg;codecs=opus')) {
@@ -140,20 +128,9 @@ export function useSTT(
         } else if (MediaRecorder.isTypeSupported('audio/ogg')) {
           mimeType = 'audio/ogg';
         } else if (MediaRecorder.isTypeSupported('audio/webm')) {
-          // Last resort - Azure may have issues with this
           mimeType = 'audio/webm';
-          console.warn(
-            '[useSTT] Using WebM format - Azure compatibility not guaranteed'
-          );
-        } else {
-          // Let browser choose
-          mimeType = '';
-          console.warn(
-            '[useSTT] No preferred format supported, using browser default'
-          );
         }
       } else {
-        // For OpenAI (Whisper), use existing logic - it handles WebM well
         if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
           mimeType = 'audio/webm;codecs=opus';
         } else if (MediaRecorder.isTypeSupported('audio/webm')) {
@@ -162,63 +139,41 @@ export function useSTT(
           mimeType = 'audio/mp4';
         } else if (MediaRecorder.isTypeSupported('audio/ogg;codecs=opus')) {
           mimeType = 'audio/ogg;codecs=opus';
-        } else {
-          mimeType = '';
         }
       }
-
-      console.log(
-        `[useSTT] Selected mimeType for ${config.provider}:`,
-        mimeType
-      );
 
       const mediaRecorder = new MediaRecorder(
         stream,
         mimeType ? { mimeType } : {}
       );
 
-      console.log(
-        '[useSTT] Created MediaRecorder with actual mimeType:',
-        mediaRecorder.mimeType
-      );
-
-      mediaRecorder.ondataavailable = event => {
+      mediaRecorder.ondataavailable = (event: BlobEvent) => {
         if (event.data.size > 0) {
-          console.log('[useSTT] Received data chunk of size:', event.data.size);
           chunksRef.current.push(event.data);
         }
       };
 
       mediaRecorder.onstop = async () => {
-        console.log('[useSTT] MediaRecorder stopped');
         if (!isRecordingRef.current || !isMountedRef.current) {
-          console.log(
-            '[useSTT] Recording or component not active, skipping processing'
-          );
           return;
         }
 
         setRecordingState('processing');
-        console.log('[useSTT] Processing recorded audio...');
 
         try {
           if (chunksRef.current.length === 0) {
-            console.error('[useSTT] No audio chunks recorded');
             throw new Error('No audio data recorded');
           }
 
           const audioBlob = new Blob(chunksRef.current, {
             type: mediaRecorder.mimeType,
           });
-          console.log('[useSTT] Created audio blob of size:', audioBlob.size);
 
           if (audioBlob.size === 0) {
-            console.error('[useSTT] Empty audio blob');
             throw new Error('Recorded audio is empty');
           }
 
           const result = await transcribeAudio(audioBlob);
-          console.log('[useSTT] Transcription result:', result);
 
           if (processSpeechAndSendMessage) {
             processSpeechAndSendMessage(result.text);
@@ -227,13 +182,11 @@ export function useSTT(
           setLastTranscription(result);
 
           if (options.onTranscriptionComplete) {
-            console.log('[useSTT] Calling transcription complete callback');
             options.onTranscriptionComplete(result);
           }
 
           setRecordingState('idle');
         } catch (err) {
-          console.error('[useSTT] Transcription error:', err);
           const errorMsg = err instanceof Error ? err : new Error(String(err));
           setError(errorMsg);
           setRecordingState('error');
@@ -242,15 +195,12 @@ export function useSTT(
             options.onError(errorMsg);
           }
         } finally {
-          // Reset chunks for next recording
-          console.log('[useSTT] Resetting audio chunks');
           chunksRef.current = [];
           isRecordingRef.current = false;
         }
       };
 
-      mediaRecorder.onerror = event => {
-        console.error('[useSTT] MediaRecorder error:', event);
+      mediaRecorder.onerror = () => {
         const errorMsg = new Error('Recording failed');
         setError(errorMsg);
         setRecordingState('error');
@@ -262,10 +212,8 @@ export function useSTT(
       };
 
       mediaRecorderRef.current = mediaRecorder;
-      console.log('[useSTT] Recording initialized successfully');
       return true;
     } catch (err) {
-      console.error('[useSTT] Failed to initialize recording:', err);
       const errorMsg =
         err instanceof Error ? err : new Error('Failed to access microphone');
       setError(errorMsg);
@@ -305,8 +253,6 @@ export function useSTT(
     if (!options.continuousRecording || !analyserRef.current) {
       return;
     }
-
-    console.log('[useSTT] Starting silence detection monitoring');
     
     const checkAudioActivity = () => {
       if (!isRecordingRef.current || !isMountedRef.current) {
@@ -324,7 +270,6 @@ export function useSTT(
         // Set new timeout for when user stops speaking
         silenceTimeoutRef.current = setTimeout(() => {
           if (isRecordingRef.current && isMountedRef.current) {
-            console.log(`[useSTT] Silence detected for ${silenceTimeout}ms, stopping recording`);
             stopRecording();
           }
         }, silenceTimeout * 1000);
@@ -358,10 +303,7 @@ export function useSTT(
    */
   const transcribeAudio = useCallback(
     async (audioBlob: Blob): Promise<STTResult> => {
-      console.log('[useSTT] Starting audio transcription');
       const formData = new FormData();
-      // Use appropriate file extension based on the actual recorded format
-      // Note: Azure STT can handle various formats, so we use the actual recorded format
       let fileExtension = 'webm'; // default fallback
 
       if (mediaRecorderRef.current?.mimeType) {
@@ -373,13 +315,6 @@ export function useSTT(
           fileExtension = 'ogg';
         }
       }
-
-      console.log(
-        '[useSTT] Using file extension:',
-        fileExtension,
-        'for mimeType:',
-        mediaRecorderRef.current?.mimeType
-      );
 
       formData.append('audio', audioBlob, `recording.${fileExtension}`);
       formData.append('provider', config.provider);
@@ -397,23 +332,19 @@ export function useSTT(
         formData.append('region', config.region);
       }
 
-      console.log('[useSTT] Sending request to:', apiUrl);
       const response = await fetch(apiUrl, {
         method: 'POST',
         body: formData,
       });
 
       if (!response.ok) {
-        console.error('[useSTT] API error response:', response.status);
         const errorData = await response.json().catch(() => ({}));
         throw new Error(errorData.error || `API error: ${response.status}`);
       }
 
       const data = await response.json();
-      console.log('[useSTT] API response:', data);
 
       if (!data.success || !data.result) {
-        console.error('[useSTT] Invalid API response');
         throw new Error('Invalid response from transcription service');
       }
 
@@ -426,22 +357,15 @@ export function useSTT(
    * Start recording audio
    */
   const startRecording = useCallback(async (): Promise<void> => {
-    console.log('[useSTT] Starting recording...');
     if (
       !isMountedRef.current ||
       microphoneMuted ||
       recordingState === 'recording'
     ) {
-      console.log('[useSTT] Cannot start recording:', {
-        mounted: isMountedRef.current,
-        muted: microphoneMuted,
-        state: recordingState,
-      });
       return;
     }
 
     if (!hasUserActivatedRecord) {
-      console.log('[useSTT] First user activation');
       setHasUserActivatedRecord(true);
     }
 
@@ -451,10 +375,8 @@ export function useSTT(
 
       // Initialize recording if needed
       if (!mediaRecorderRef.current) {
-        console.log('[useSTT] Initializing recording...');
         const initialized = await initializeRecording();
         if (!initialized) {
-          console.error('[useSTT] Failed to initialize recording');
           return;
         }
       }
@@ -467,7 +389,6 @@ export function useSTT(
         mediaRecorderRef.current &&
         mediaRecorderRef.current.state === 'inactive'
       ) {
-        console.log('[useSTT] Starting MediaRecorder');
         mediaRecorderRef.current.start(100); // Collect data every 100ms
         setIsListening(true);
         
@@ -477,7 +398,6 @@ export function useSTT(
         }
       }
     } catch (err) {
-      console.error('[useSTT] Failed to start recording:', err);
       const errorMsg =
         err instanceof Error ? err : new Error('Failed to start recording');
       setError(errorMsg);
@@ -501,12 +421,7 @@ export function useSTT(
    * Stop recording audio
    */
   const stopRecording = useCallback((): void => {
-    console.log('[useSTT] Stopping recording...');
     if (!isRecordingRef.current) {
-      console.log('[useSTT] Cannot stop recording:', {
-        isRecording: isRecordingRef.current,
-        state: recordingState,
-      });
       return;
     }
 
@@ -520,11 +435,9 @@ export function useSTT(
         mediaRecorderRef.current &&
         mediaRecorderRef.current.state === 'recording'
       ) {
-        console.log('[useSTT] Stopping MediaRecorder');
         mediaRecorderRef.current.stop();
       }
     } catch (err) {
-      console.error('[useSTT] Failed to stop recording:', err);
       const errorMsg =
         err instanceof Error ? err : new Error('Failed to stop recording');
       setError(errorMsg);
@@ -541,7 +454,6 @@ export function useSTT(
    * Toggle recording state
    */
   const toggleRecording = useCallback(async (): Promise<void> => {
-    console.log('[useSTT] Toggling recording, current state:', recordingState);
     if (recordingState === 'recording') {
       stopRecording();
     } else if (recordingState === 'idle') {
@@ -555,11 +467,9 @@ export function useSTT(
   const toggleMute = useCallback(
     (mute?: boolean): void => {
       const newMuteState = mute !== undefined ? mute : !microphoneMuted;
-      console.log('[useSTT] Toggling mute state to:', newMuteState);
       setMicrophoneMuted(newMuteState);
 
       if (newMuteState && recordingState === 'recording') {
-        console.log('[useSTT] Stopping recording due to mute');
         stopRecording();
       }
     },
@@ -570,20 +480,16 @@ export function useSTT(
    * Clean up resources
    */
   const cleanup = useCallback((): void => {
-    console.log('[useSTT] Cleaning up resources');
-
     isRecordingRef.current = false;
 
     if (mediaRecorderRef.current) {
       if (mediaRecorderRef.current.state === 'recording') {
-        console.log('[useSTT] Stopping active recording');
         mediaRecorderRef.current.stop();
       }
       mediaRecorderRef.current = null;
     }
 
     if (audioStreamRef.current) {
-      console.log('[useSTT] Stopping audio tracks');
       audioStreamRef.current.getTracks().forEach(track => track.stop());
       audioStreamRef.current = null;
     }
@@ -607,7 +513,6 @@ export function useSTT(
    */
   useEffect(() => {
     return () => {
-      console.log('[useSTT] Component unmounting');
       isMountedRef.current = false;
       cleanup();
     };
@@ -618,7 +523,6 @@ export function useSTT(
    */
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      console.log('[useSTT] Updating global listening state:', isListening);
       (window as any).memoriListening = isListening;
     }
   }, [isListening]);
