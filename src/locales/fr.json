@@ -146,6 +146,7 @@
     "downloadChat": "Télécharger le chat",
     "instructButton": "INSTRUCTEZ-MOI",
     "tryMeButton": "COMMENCER",
+    "resumeButton": "RÉSUMER",
     "chatHistory": "Historique des discussions",
     "chatHistoryDescription": "Afficher l'historique des discussions avec cet agent",
     "loadingChatHistory": "Chargement de l'historique des discussions...",

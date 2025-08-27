@@ -137,6 +137,7 @@
     "instructButton": "INSTRUÍME",
     "downloadChat": "Descargar chat",
     "tryMeButton": "COMENZAR",
+    "resumeButton": "CONTINUAR",
     "chatHistory": "Historial de chat",
     "chatHistoryDescription": "Mostrar el historial de chat con este agente",
     "loadingChatHistory": "Cargando historial de chat...",
