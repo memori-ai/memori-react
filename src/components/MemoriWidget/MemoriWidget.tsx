@@ -16,12 +16,6 @@ import {
   ResponseSpec,
   ChatLog,
 } from '@memori.ai/memori-api-client/src/types';
-import {
-  SpeakerAudioDestination,
-  SpeechConfig,
-  SpeechSynthesizer,
-  SpeechRecognizer,
-} from 'microsoft-cognitiveservices-speech-sdk';
 
 // Libraries
 import React, {
@@ -35,7 +29,6 @@ import React, {
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { AudioContext, IAudioContext } from 'standardized-audio-context';
-import * as speechSdk from 'microsoft-cognitiveservices-speech-sdk';
 import cx from 'classnames';
 import { DateTime } from 'luxon';
 import toast from 'react-hot-toast';
@@ -328,10 +321,6 @@ window.typeMessage = typeMessage;
 window.typeMessageHidden = typeMessageHidden;
 window.typeBatchMessages = typeBatchMessages;
 
-// Global variables
-let recognizer: SpeechRecognizer | null;
-let speechConfig: SpeechConfig;
-let audioDestination: SpeakerAudioDestination;
 let audioContext: IAudioContext;
 
 let memoriPassword: string | undefined;
@@ -607,7 +596,7 @@ const MemoriWidget = ({
   );
   const [hideEmissions, setHideEmissions] = useState(false);
 
-  const speechSynthesizerRef = useRef<SpeechSynthesizer | null>(null);
+  const speechSynthesizerRef = useRef<any | null>(null);
   const [memoriSpeaking, setMemoriSpeaking] = useState(false);
 
   useEffect(() => {
