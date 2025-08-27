@@ -939,6 +939,54 @@ const MemoriWidget = ({
   };
 
   /**
+   * Translates an array of messages if multilanguage is enabled and languages differ
+   * @param messages Array of messages to translate
+   * @param userLang Target language for translation
+   * @param language Source language
+   * @param isMultilanguageEnabled Whether multilanguage feature is enabled
+   * @param baseUrl Base URL for translation service
+   * @returns Promise resolving to translated messages array
+   */
+  const translateMessages = async (
+    messages: Message[],
+    userLang: string,
+    language: string,
+    isMultilanguageEnabled: boolean,
+    baseUrl: string
+  ): Promise<Message[]> => {
+    let translatedMessages = messages ?? [];
+    
+    if (
+      language.toUpperCase() !== userLang.toUpperCase() &&
+      isMultilanguageEnabled
+    ) {
+      try {
+        translatedMessages = await Promise.all(
+          messages.map(async m => {
+            // If original text is present, the message is already translated
+            if ('originalText' in m && m.originalText) {
+              return m;
+            }
+
+            // Otherwise translate the message
+            return {
+              ...m,
+              originalText: m.text,
+              text: (
+                await getTranslation(m.text, userLang, language, baseUrl)
+              ).text,
+            };
+          })
+        );
+      } catch (e) {
+        console.error('[TRANSLATE_MESSAGES] Error translating messages:', e);
+      }
+    }
+    
+    return translatedMessages;
+  };
+
+  /**
    * An enhanced version of translateDialogState that integrates smooth speaking
    * This preserves all your existing logic while improving speech reliability
    */
@@ -2857,25 +2905,13 @@ const MemoriWidget = ({
             );
 
             // we dont remove the last one as it is the current state
-            translatedMessages = messages ?? [];
-            if (
-              language.toUpperCase() !== userLang.toUpperCase() &&
-              isMultilanguageEnabled
-            ) {
-              try {
-                translatedMessages = await Promise.all(
-                  messages.map(async m => ({
-                    ...m,
-                    originalText: m.text,
-                    text: (
-                      await getTranslation(m.text, userLang, language, baseUrl)
-                    ).text,
-                  }))
-                );
-              } catch (e) {
-                console.error('[CLICK_START] Error translating messages:', e);
-              }
-            }
+            translatedMessages = await translateMessages(
+              messages ?? [],
+              userLang,
+              language,
+              isMultilanguageEnabled,
+              baseUrl
+            );
 
             setHistory(translatedMessages);
 
@@ -3031,25 +3067,13 @@ const MemoriWidget = ({
             );
 
             // we dont remove the last one as it is the current state
-            translatedMessages = messages ?? [];
-            if (
-              language.toUpperCase() !== userLang.toUpperCase() &&
-              isMultilanguageEnabled
-            ) {
-              try {
-                translatedMessages = await Promise.all(
-                  messages.map(async m => ({
-                    ...m,
-                    originalText: m.text,
-                    text: (
-                      await getTranslation(m.text, userLang, language, baseUrl)
-                    ).text,
-                  }))
-                );
-              } catch (e) {
-                console.error('[CLICK_START] Error translating messages:', e);
-              }
-            }
+            translatedMessages = await translateMessages(
+              messages ?? [],
+              userLang,
+              language,
+              isMultilanguageEnabled,
+              baseUrl
+            );
 
             setHistory(translatedMessages);
           } catch (e) {
