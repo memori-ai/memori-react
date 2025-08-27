@@ -2864,13 +2864,20 @@ const MemoriWidget = ({
             ) {
               try {
                 translatedMessages = await Promise.all(
-                  messages.map(async m => ({
-                    ...m,
-                    originalText: m.text,
-                    text: (
-                      await getTranslation(m.text, userLang, language, baseUrl)
-                    ).text,
-                  }))
+                  messages.map(async m => {
+                    // If original text is present, the message is already translated
+                    if ('originalText' in m && m.originalText) {
+                      return m;
+                    }
+                    // Otherwise translate the message
+                    return {
+                      ...m,
+                      originalText: m.text,
+                      text: (
+                        await getTranslation(m.text, userLang, language, baseUrl)
+                      ).text,
+                    };
+                  })
                 );
               } catch (e) {
                 console.error('[CLICK_START] Error translating messages:', e);
