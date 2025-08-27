@@ -6,7 +6,7 @@
     transition: all 0.2s ease-in-out;
 }
 
-.memori-chat-history-drawer--card:hover {
+.memori-chat-history-drawer--card--hoverable:hover {
     border-color: var(--memori-primary-light);
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
@@ -90,7 +90,7 @@
     transition: all 0.2s ease-in-out;
 }
 
-.memori-chat-history-drawer--card:hover .memori-chat-history-drawer--card--header--icon-wrapper {
+.memori-chat-history-drawer--card--hoverable:hover .memori-chat-history-drawer--card--header--icon-wrapper {
     transform: scale(1.05);
 }
 
@@ -163,6 +163,10 @@
 
 .memori-chat-history-drawer--card--content--export-button:hover {
     color: var(--memori-primary);
+}
+
+.memori-chat-history-drawer--card--content--export-button:disabled {
+    background-color: transparent;
 }
 
 .memori-chat-history-drawer--card--content--export-button--content {
@@ -389,6 +393,12 @@
 .memori-chat-history-drawer--card--selected {
     border-color: var(--memori-primary);
     box-shadow: 0 0 0 2px var(--memori-primary-light);
+}
+
+/* Card disabled state */
+.memori-chat-history-drawer--card--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
 }
 
 .memori-chat-history-drawer--download-button-wrapper{

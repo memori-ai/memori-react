@@ -758,8 +758,12 @@ const ChatHistoryDrawer = ({
 
             return (
               <Card
-                hoverable
+                hoverable={chatLog?.sessionID !== sessionId}
                 onClick={async () => {
+                  // the active chat
+                  if (chatLog?.sessionID === sessionId) {
+                    return;
+                  }
                   if (selectedChatLog?.chatLogID === chatLog.chatLogID) {
                     setSelectedChatLog(null);
                     return;
@@ -793,6 +797,10 @@ const ChatHistoryDrawer = ({
                   selectedChatLog?.chatLogID === chatLog.chatLogID
                     ? 'memori-chat-history-drawer--card--selected'
                     : ''
+                } ${
+                  chatLog?.sessionID === sessionId
+                    ? 'memori-chat-history-drawer--card--disabled'
+                    : 'memori-chat-history-drawer--card--hoverable'
                 }`}
               >
                 <>
@@ -894,6 +902,7 @@ const ChatHistoryDrawer = ({
                       <Button
                         className="memori-chat-history-drawer--card--content--export-button"
                         onClick={e => handleExportChat(chatLog, e)}
+                        disabled={chatLog?.sessionID === sessionId}
                       >
                         <div className="memori-chat-history-drawer--card--content--export-button--content">
                           <Download className="memori-chat-history-drawer--card--content--export-button--icon" />

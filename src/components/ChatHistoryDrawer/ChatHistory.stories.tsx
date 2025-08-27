@@ -105,7 +105,7 @@ const mockChatLogs: ChatLog[] = [
   {
     chatLogID: 'chat345678',
     memoriID: 'mem123',
-    sessionID: 'session123',
+    sessionID: 'session1234',
     timestamp: '2023-01-04T09:30:00Z',
     lines: [
       {
@@ -160,7 +160,7 @@ const mockMemori: Memori = {
 
 const mockParams = {
     open: true,
-    sessionId: 'session123',
+    sessionId: 'session12345',
     memori: mockMemori,
     apiClient: mockApiClient as any,
     onClose: () => console.log('Close button clicked'),
@@ -349,5 +349,13 @@ export const WithTranslation: Story = {
     language: 'EN',
     userLang: 'IT',
     isMultilanguageEnabled: true
+  }
+};
+
+// With current chat disabled
+export const WithCurrentChatDisabled: Story = {
+  args: {
+    ...mockParams,
+    sessionId: 'session1234',
   }
 };
