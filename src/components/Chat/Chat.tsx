@@ -63,7 +63,6 @@ export interface Props {
   stopAudio: () => void;
   startListening: () => void;
   stopListening: () => void;
-  resetTranscript: () => void;
   customMediaRenderer?: MediaWidgetProps['customMediaRenderer'];
   layout?: MemoriProps['layout'];
   userAvatar?: MemoriProps['userAvatar'];
@@ -72,7 +71,6 @@ export interface Props {
   useMathFormatting?: boolean;
   isHistoryView?: boolean;
   showFunctionCache?: boolean;
-  provider?: 'azure' | 'openai';
 }
 
 const Chat: React.FC<Props> = ({
@@ -115,7 +113,6 @@ const Chat: React.FC<Props> = ({
   stopAudio,
   startListening,
   stopListening,
-  resetTranscript,
   customMediaRenderer,
   user,
   userAvatar,
@@ -124,7 +121,6 @@ const Chat: React.FC<Props> = ({
   useMathFormatting = false,
   isHistoryView = false,
   showFunctionCache = false,
-  provider = 'azure',
 }) => {
   const scrollToBottom = () => {
     if (isHistoryView) return;
@@ -398,7 +394,6 @@ const Chat: React.FC<Props> = ({
 
       {showInputs && (
         <ChatInputs
-          resetTranscript={resetTranscript}
           userMessage={userMessage}
           onChangeUserMessage={onChangeUserMessage}
           dialogState={dialogState}
@@ -422,7 +417,6 @@ const Chat: React.FC<Props> = ({
           isPlayingAudio={isPlayingAudio}
           showMicrophone={showMicrophone}
           memoriID={memori?.memoriID}
-          provider={provider}
         />
       )}
     </div>
