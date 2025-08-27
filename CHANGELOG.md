@@ -1,5 +1,30 @@
 
 
+## [8.1.0-rc.0](https://github.com/memori-ai/memori-react/compare/v8.0.2...v8.1.0-rc.0) (2025-08-27)
+
+
+### Features
+
+* add minimum messages filter to ChatHistoryDrawer ([2f0970f](https://github.com/memori-ai/memori-react/commit/2f0970f13b1ae8c7ce49046c3f813138b3f2e5f4))
+* implement custom minimum messages filter in ChatHistoryDrawer with localization support ([54f3146](https://github.com/memori-ai/memori-react/commit/54f31468fb9f62355b550a3ac7efb5100e03b495))
+
+
+### Bug Fixes
+
+* adjust silence timeout handling in useSTT hook for accurate recording control ([7c831b0](https://github.com/memori-ai/memori-react/commit/7c831b091d59ea0802f7904f900f35ce6e98404b))
+
+
+### Maintenance
+
+* update yarn.lock ([4e7e96e](https://github.com/memori-ai/memori-react/commit/4e7e96e26029439cf14f8ec40e7c1e9d823c7f62))
+
+
+### Changes
+
+* integrate new STT hook for improved speech recognition functionality ([515aa5f](https://github.com/memori-ai/memori-react/commit/515aa5fad382ccbf00da3c06deb401b51a74fee0))
+* remove logs for useSTT hook ([cc1b132](https://github.com/memori-ai/memori-react/commit/cc1b132fd999aa61cc406169d75a6d1ee5d051bb))
+* remove unused speech SDK imports ([8121cdc](https://github.com/memori-ai/memori-react/commit/8121cdc68b12fc743567e032751f0adb2c5cc5bc))
+
 ## [8.0.2](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.12...v8.0.2) (2025-08-20)
 
 ## [8.0.0-rc.12](https://github.com/memori-ai/memori-react/compare/v8.0.0-rc.11...v8.0.0-rc.12) (2025-08-20)
