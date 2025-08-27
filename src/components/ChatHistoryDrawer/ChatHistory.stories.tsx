@@ -158,22 +158,7 @@ const mockMemori: Memori = {
   voiceType: 'FEMALE'
 } as Memori;
 
-// Create a meta object for the component
-const meta: Meta<typeof ChatHistory> = {
-  title: 'Widget/Chat History Drawer',
-  component: ChatHistory,
-  decorators: [
-    Story => (
-      <I18nWrapper>
-        <Story />
-      </I18nWrapper>
-    ),
-  ],
-  parameters: {
-    layout: 'fullscreen',
-  },
-  // Define common args that apply to all stories
-  args: {
+const mockParams = {
     open: true,
     sessionId: 'session123',
     memori: mockMemori,
@@ -190,7 +175,24 @@ const meta: Meta<typeof ChatHistory> = {
     loginToken: 'mock-login-token',
     language: 'EN',
     userLang: 'EN',
+}
+
+// Create a meta object for the component
+const meta: Meta<typeof ChatHistory> = {
+  title: 'Widget/Chat History Drawer',
+  component: ChatHistory,
+  decorators: [
+    Story => (
+      <I18nWrapper>
+        <Story />
+      </I18nWrapper>
+    ),
+  ],
+  parameters: {
+    layout: 'fullscreen',
   },
+  // Define common args that apply to all stories
+  args: mockParams,
   // Add argTypes to configure controls in Storybook
   argTypes: {
     open: { control: 'boolean', description: 'Whether the drawer is open' },
@@ -336,5 +338,16 @@ export const WithPagination: Story = {
         }
       }
     } as any
+  }
+}
+  
+
+// With translation
+export const WithTranslation: Story = {
+  args: {
+    ...mockParams,
+    language: 'EN',
+    userLang: 'IT',
+    isMultilanguageEnabled: true
   }
 };
