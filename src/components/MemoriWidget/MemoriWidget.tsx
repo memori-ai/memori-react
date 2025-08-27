@@ -2864,13 +2864,20 @@ const MemoriWidget = ({
             ) {
               try {
                 translatedMessages = await Promise.all(
-                  messages.map(async m => ({
-                    ...m,
-                    originalText: m.text,
-                    text: (
-                      await getTranslation(m.text, userLang, language, baseUrl)
-                    ).text,
-                  }))
+                  messages.map(async m => {
+                    // If original text is present, the message is already translated
+                    if ('originalText' in m && m.originalText) {
+                      return m;
+                    }
+                    // Otherwise translate the message
+                    return {
+                      ...m,
+                      originalText: m.text,
+                      text: (
+                        await getTranslation(m.text, userLang, language, baseUrl)
+                      ).text,
+                    };
+                  })
                 );
               } catch (e) {
                 console.error('[CLICK_START] Error translating messages:', e);
@@ -3648,25 +3655,9 @@ const MemoriWidget = ({
           history={history}
           apiUrl={client.constants.BACKEND_URL}
           loginToken={loginToken}
-        />
-      )}
-
-      {showChatHistoryDrawer && (
-        <ChatHistoryDrawer
-          open={!!showChatHistoryDrawer}
-          onClose={() => setShowChatHistoryDrawer(false)}
-          resumeSession={chatLog => {
-            setChatLogID(chatLog.chatLogID);
-            onClickStart(undefined, false, chatLog);
-            setShowChatHistoryDrawer(false);
-          }}
-          apiClient={client}
-          sessionId={sessionId || ''}
-          memori={memori}
-          baseUrl={baseUrl}
-          history={history}
-          apiUrl={client.constants.BACKEND_URL}
-          loginToken={loginToken}
+          language={language}
+          userLang={userLang}
+          isMultilanguageEnabled={isMultilanguageEnabled}
         />
       )}
 

@@ -28,6 +28,8 @@ import Download from '../icons/Download';
 import MessageIcon from '../icons/Message';
 import ArrowUpIcon from '../icons/ArrowUp';
 import Select from '../ui/Select';
+// Helpers / Utils
+import { getTranslation } from '../../helpers/translations';
 
 export interface Props {
   open: boolean;
@@ -40,6 +42,9 @@ export interface Props {
   apiUrl: string;
   history: Message[];
   loginToken?: string;
+  language: string;
+  userLang: string;
+  isMultilanguageEnabled?: boolean;
 }
 
 const ITEMS_PER_PAGE = 8;
@@ -352,6 +357,54 @@ const calculateTitle = (lines: ChatLogLine[]): string => {
   return title;
 };
 
+// Function to translate all chat logs lines
+const translateChatLogs = async (
+  chatLogs: ChatLog[],
+  fromLanguage: string,
+  toLanguage: string,
+  baseUrl: string
+): Promise<ChatLog[]> => {
+  try {
+    const translatedChatLogs = await Promise.all(
+      chatLogs.map(async (chatLog) => {
+        const translatedLines = await Promise.all(
+          chatLog.lines.map(async (line) => {
+            if (!line.text) return line;
+
+            try {
+              const translation = await getTranslation(
+                line.text,
+                toLanguage,
+                fromLanguage,
+                baseUrl
+              );
+
+              return {
+                ...line,
+                originalText: line.text,
+                text: translation.text,
+              };
+            } catch (e) {
+              console.error('Error translating line:', e);
+              return line; // Return original line if translation fails
+            }
+          })
+        );
+
+        return {
+          ...chatLog,
+          lines: translatedLines,
+        };
+      })
+    );
+
+    return translatedChatLogs;
+  } catch (e) {
+    console.error('Error translating chat logs:', e);
+    return chatLogs; // Return original chat logs if translation fails
+  }
+};
+
 const downloadFile = (text: string, filename: string) => {
   const data = new Blob([text], { type: 'text/plain' });
   const url = URL.createObjectURL(data);
@@ -376,6 +429,9 @@ const ChatHistoryDrawer = ({
   apiUrl,
   history,
   loginToken,
+  language,
+  userLang,
+  isMultilanguageEnabled = false,
 }: Props) => {
   const { t } = useTranslation();
   const { getUserChatLogsByTokenPaged } = apiClient.chatLogs;
@@ -528,7 +584,7 @@ const ChatHistoryDrawer = ({
         const res = response;
 
         // Sort the chat logs by date
-        const sortedChatLogs = res.chatLogs.sort((a: ChatLog, b: ChatLog) => {
+        let sortedChatLogs = res.chatLogs.sort((a: ChatLog, b: ChatLog) => {
           const dateA = Math.max(
             ...a.lines.map((l: any) => new Date(l.timestamp).getTime())
           );
@@ -537,6 +593,19 @@ const ChatHistoryDrawer = ({
           );
           return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
         });
+
+        // Translate chat logs if needed
+        if (
+          language.toUpperCase() !== userLang.toUpperCase() &&
+          isMultilanguageEnabled
+        ) {
+          sortedChatLogs = await translateChatLogs(
+            sortedChatLogs,
+            language,
+            userLang,
+            baseUrl
+          );
+        }
 
         setChatLogs(sortedChatLogs);
         setTotalItems(res.count || sortedChatLogs.length);
@@ -689,8 +758,12 @@ const ChatHistoryDrawer = ({
 
             return (
               <Card
-                hoverable
+                hoverable={chatLog?.sessionID !== sessionId}
                 onClick={async () => {
+                  // the active chat
+                  if (chatLog?.sessionID === sessionId) {
+                    return;
+                  }
                   if (selectedChatLog?.chatLogID === chatLog.chatLogID) {
                     setSelectedChatLog(null);
                     return;
@@ -724,6 +797,10 @@ const ChatHistoryDrawer = ({
                   selectedChatLog?.chatLogID === chatLog.chatLogID
                     ? 'memori-chat-history-drawer--card--selected'
                     : ''
+                } ${
+                  chatLog?.sessionID === sessionId
+                    ? 'memori-chat-history-drawer--card--disabled'
+                    : 'memori-chat-history-drawer--card--hoverable'
                 }`}
               >
                 <>
@@ -825,6 +902,7 @@ const ChatHistoryDrawer = ({
                       <Button
                         className="memori-chat-history-drawer--card--content--export-button"
                         onClick={e => handleExportChat(chatLog, e)}
+                        disabled={chatLog?.sessionID === sessionId}
                       >
                         <div className="memori-chat-history-drawer--card--content--export-button--content">
                           <Download className="memori-chat-history-drawer--card--content--export-button--icon" />

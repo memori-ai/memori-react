@@ -105,7 +105,7 @@ const mockChatLogs: ChatLog[] = [
   {
     chatLogID: 'chat345678',
     memoriID: 'mem123',
-    sessionID: 'session123',
+    sessionID: 'session1234',
     timestamp: '2023-01-04T09:30:00Z',
     lines: [
       {
@@ -158,6 +158,25 @@ const mockMemori: Memori = {
   voiceType: 'FEMALE'
 } as Memori;
 
+const mockParams = {
+    open: true,
+    sessionId: 'session12345',
+    memori: mockMemori,
+    apiClient: mockApiClient as any,
+    onClose: () => console.log('Close button clicked'),
+    history: mockChatLogs.map(chatLog => ({
+      text: chatLog.lines[0].text,
+      fromUser: chatLog.lines[0].inbound,
+      timestamp: chatLog.lines[0].timestamp,
+    })),
+    resumeSession: (chatLog: ChatLog) => {
+      console.log('Resume session called with:', chatLog);
+    },
+    loginToken: 'mock-login-token',
+    language: 'EN',
+    userLang: 'EN',
+}
+
 // Create a meta object for the component
 const meta: Meta<typeof ChatHistory> = {
   title: 'Widget/Chat History Drawer',
@@ -173,22 +192,7 @@ const meta: Meta<typeof ChatHistory> = {
     layout: 'fullscreen',
   },
   // Define common args that apply to all stories
-  args: {
-    open: true,
-    sessionId: 'session123',
-    memori: mockMemori,
-    apiClient: mockApiClient as any,
-    onClose: () => console.log('Close button clicked'),
-    history: mockChatLogs.map(chatLog => ({
-      text: chatLog.lines[0].text,
-      fromUser: chatLog.lines[0].inbound,
-      timestamp: chatLog.lines[0].timestamp,
-    })),
-    resumeSession: (chatLog: ChatLog) => {
-      console.log('Resume session called with:', chatLog);
-    },
-    loginToken: 'mock-login-token',
-  },
+  args: mockParams,
   // Add argTypes to configure controls in Storybook
   argTypes: {
     open: { control: 'boolean', description: 'Whether the drawer is open' },
@@ -334,5 +338,24 @@ export const WithPagination: Story = {
         }
       }
     } as any
+  }
+}
+  
+
+// With translation
+export const WithTranslation: Story = {
+  args: {
+    ...mockParams,
+    language: 'EN',
+    userLang: 'IT',
+    isMultilanguageEnabled: true
+  }
+};
+
+// With current chat disabled
+export const WithCurrentChatDisabled: Story = {
+  args: {
+    ...mockParams,
+    sessionId: 'session1234',
   }
 };
