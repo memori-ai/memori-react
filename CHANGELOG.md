@@ -1,5 +1,21 @@
 
 
+## [8.1.0](https://github.com/memori-ai/memori-react/compare/v8.1.0-rc.0...v8.1.0) (2025-08-28)
+
+
+### Features
+
+* add resume button translations for German, Spanish, and French locales ([f36d358](https://github.com/memori-ai/memori-react/commit/f36d358d9515b1c979a4979945c3931c832adda3))
+
+
+### Maintenance
+
+* added check to avoid translation if message is already translated + refactoring ([5a4b000](https://github.com/memori-ai/memori-react/commit/5a4b000e0cee808890481f86c5103546d4a31447))
+* added story for chat history translation ([84fed16](https://github.com/memori-ai/memori-react/commit/84fed16fbba3b4e0d301bf70defcfffd5bb3c19a))
+* added translations on chat history preview ([dfdc9b4](https://github.com/memori-ai/memori-react/commit/dfdc9b44a0c77824a3d4ebf652286bcfb4f266b2))
+* avoid chatLog message translation if already translated from history ([c42f075](https://github.com/memori-ai/memori-react/commit/c42f075325324ab06fe372eb46b6acf1ae46051e))
+* disabled card of active chat on chat history ([ccfe96a](https://github.com/memori-ai/memori-react/commit/ccfe96ae0ad1422298cdb86afe9a70999362178d))
+
 ## [8.1.0-rc.0](https://github.com/memori-ai/memori-react/compare/v8.0.2...v8.1.0-rc.0) (2025-08-27)
 
 
