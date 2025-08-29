@@ -1,5 +1,17 @@
 
 
+## [8.2.0](https://github.com/memori-ai/memori-react/compare/v8.1.0...v8.2.0) (2025-08-29)
+
+
+### Features
+
+* add ignoreClientAttributes param from layout to block attr/props ([8e5838d](https://github.com/memori-ai/memori-react/commit/8e5838d7ec1d9b36584e93eece8acac88bf9afc7))
+
+
+### Bug Fixes
+
+* chat history min msg filter no negative values ([4211f39](https://github.com/memori-ai/memori-react/commit/4211f3968805bdee43a5641b5b47b63f80aa53e8))
+
 ## [8.1.0](https://github.com/memori-ai/memori-react/compare/v8.1.0-rc.0...v8.1.0) (2025-08-28)
 
 
