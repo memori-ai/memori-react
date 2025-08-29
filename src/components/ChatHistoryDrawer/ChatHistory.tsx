@@ -464,7 +464,7 @@ const ChatHistoryDrawer = ({
   const [minimumMessagesPerChat, setMinimumMessagesPerChat] =
     useState<number>(3);
 
-  const [customMinimumMessages, setCustomMinimumMessages] = useState<number>(0);
+  const [customMinimumMessages, setCustomMinimumMessages] = useState<number>(1);
 
   const formatDateForAPI = (date: Date) => {
     const year = date.getFullYear();
@@ -1125,6 +1125,7 @@ const ChatHistoryDrawer = ({
             {minimumMessagesPerChat === 0 && (
               <input
                 type="number"
+                min={1}
                 value={customMinimumMessages}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   const value = parseInt(e.target.value, 10);
