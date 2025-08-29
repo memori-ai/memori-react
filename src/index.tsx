@@ -283,11 +283,51 @@ const Memori: React.FC<Props> = ({
     }
   }
 
-  const initialContextVars =
-    context ?? getParsedContext(layoutIntegrationConfig.contextVars);
-  const initialQuestionLayout =
-    initialQuestion ??
-    (layoutIntegrationConfig.initialQuestion as string | undefined);
+  const ignoreClientAttributes =
+    layoutIntegrationConfig.ignoreClientAttributes ?? false;
+
+  const clientAttributes = ignoreClientAttributes
+    ? {
+        initialContextVars: getParsedContext(
+          layoutIntegrationConfig.contextVars
+        ),
+        initialQuestion: layoutIntegrationConfig.initialQuestion as
+          | string
+          | undefined,
+        showLogin: memori?.enableDeepThought,
+        memoriLang: memori?.culture?.split('-')?.[0],
+        autoStart: layout === 'HIDDEN_CHAT',
+      }
+    : {
+        ...(tag && pin ? { personification: { tag, pin } } : {}),
+        multilingual,
+        showCopyButton,
+        showTranslationOriginal,
+        showSettings,
+        showChatHistory,
+        showShare,
+        showTypingText,
+        showClear,
+        showLogin: showLogin ?? memori?.enableDeepThought,
+        showUpload,
+        showReasoning,
+        showContextPerLine,
+        initialContextVars:
+          context ?? getParsedContext(layoutIntegrationConfig.contextVars),
+        initialQuestion:
+          initialQuestion ??
+          (layoutIntegrationConfig.initialQuestion as string | undefined),
+        autoStart:
+          autoStart !== undefined
+            ? autoStart
+            : layout === 'HIDDEN_CHAT'
+            ? true
+            : autoStart,
+        enableAudio,
+        defaultSpeakerActive,
+        useMathFormatting,
+        memoriLang: spokenLang ?? memori?.culture?.split('-')?.[0],
+      };
 
   return (
     <I18nWrapper>
@@ -295,6 +335,7 @@ const Memori: React.FC<Props> = ({
         <Toaster position="top-center" reverseOrder={true} />
         {memori ? (
           <MemoriWidget
+            // General props
             layout={layout}
             customLayout={customLayout}
             height={height}
@@ -312,49 +353,26 @@ const Memori: React.FC<Props> = ({
             }}
             ownerUserName={ownerUserName ?? memori.ownerUserName}
             ownerUserID={ownerUserID ?? memori.ownerUserID}
-            tenantID={tenantID}
-            memoriLang={spokenLang ?? memori.culture?.split('-')?.[0]}
-            multilingual={multilingual}
-            showChatHistory={showChatHistory}
             tenant={tenant}
-            secret={secretToken}
+            tenantID={tenantID}
             sessionID={sessionID}
-            showShare={showShare}
-            showCopyButton={showCopyButton}
-            showTranslationOriginal={showTranslationOriginal}
-            showSettings={showSettings}
-            showTypingText={showTypingText}
-            showClear={showClear}
-            showOnlyLastMessages={showOnlyLastMessages}
-            showInputs={showInputs}
-            showDates={showDates}
-            showContextPerLine={showContextPerLine}
-            showLogin={showLogin ?? memori?.enableDeepThought}
-            showUpload={showUpload}
-            showReasoning={showReasoning}
-            integration={layoutIntegration}
-            initialContextVars={initialContextVars}
-            initialQuestion={initialQuestionLayout}
-            authToken={authToken}
+            secret={secretToken}
             ttsProvider={provider ? (provider as 'azure' | 'openai') : 'azure'}
-            autoStart={
-              autoStart !== undefined
-                ? autoStart
-                : layout === 'HIDDEN_CHAT'
-                ? true
-                : autoStart
-            }
-            enableAudio={enableAudio}
-            defaultSpeakerActive={defaultSpeakerActive}
-            disableTextEnteredEvents={disableTextEnteredEvents}
+            integration={layoutIntegration}
+            authToken={authToken}
             onStateChange={onStateChange}
             additionalInfo={additionalInfo}
             customMediaRenderer={customMediaRenderer}
             additionalSettings={additionalSettings}
             userAvatar={userAvatar}
-            useMathFormatting={useMathFormatting}
             applyVarsToRoot={applyVarsToRoot}
-            {...(tag && pin ? { personification: { tag, pin } } : {})}
+            disableTextEnteredEvents={disableTextEnteredEvents}
+            // From layout, from client if allowed
+            {...clientAttributes}
+            // Client only
+            showOnlyLastMessages={showOnlyLastMessages}
+            showInputs={showInputs}
+            showDates={showDates}
           />
         ) : (
           <div
