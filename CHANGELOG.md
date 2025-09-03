@@ -1,5 +1,12 @@
 
 
+## [8.3.0](https://github.com/memori-ai/memori-react/compare/v8.2.0...v8.3.0) (2025-09-03)
+
+
+### Features
+
+* implement WAV format conversion for Azure STT support in useSTT hook ([4b10032](https://github.com/memori-ai/memori-react/commit/4b10032998274ba738c66c69d532f7bc4544cfc0))
+
 ## [8.2.0](https://github.com/memori-ai/memori-react/compare/v8.1.0...v8.2.0) (2025-08-29)
 
 
