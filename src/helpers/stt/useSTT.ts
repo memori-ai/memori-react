@@ -1,8 +1,9 @@
-// hooks/useSTT.ts
+// hooks/useSTT.ts - Modified version for Azure WAV support
 // Audio format compatibility:
 // - MediaRecorder supports: webm, mp4, ogg formats
 // - Azure STT supported formats:
-//   * webm-16khz-16bit-mono-opus (recommended for this config)
+//   * WAV format (required for Azure Speech SDK)
+//   * webm-16khz-16bit-mono-opus (for REST API)
 //   * webm-24khz-16bit-24kbps-mono-opus
 //   * webm-24khz-16bit-mono-opus
 // - OpenAI: Supports multiple formats including webm, mp4, ogg
@@ -49,6 +50,76 @@ export interface UseSTTOptions {
 export type RecordingState = 'idle' | 'recording' | 'processing' | 'error';
 
 /**
+ * Convert audio blob to WAV format
+ */
+async function convertToWav(audioBlob: Blob): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    const fileReader = new FileReader();
+    
+    fileReader.onload = async () => {
+      try {
+        const arrayBuffer = fileReader.result as ArrayBuffer;
+        const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
+        
+        // Convert to WAV format
+        const wavBlob = audioBufferToWav(audioBuffer);
+        resolve(wavBlob);
+      } catch (error) {
+        reject(error);
+      }
+    };
+    
+    fileReader.onerror = () => reject(new Error('Failed to read audio file'));
+    fileReader.readAsArrayBuffer(audioBlob);
+  });
+}
+
+/**
+ * Convert AudioBuffer to WAV Blob
+ */
+function audioBufferToWav(buffer: AudioBuffer): Blob {
+  const length = buffer.length;
+  const sampleRate = buffer.sampleRate;
+  const numberOfChannels = buffer.numberOfChannels;
+  const arrayBuffer = new ArrayBuffer(44 + length * numberOfChannels * 2);
+  const view = new DataView(arrayBuffer);
+  
+  // WAV header
+  const writeString = (offset: number, string: string) => {
+    for (let i = 0; i < string.length; i++) {
+      view.setUint8(offset + i, string.charCodeAt(i));
+    }
+  };
+  
+  writeString(0, 'RIFF');
+  view.setUint32(4, 36 + length * numberOfChannels * 2, true);
+  writeString(8, 'WAVE');
+  writeString(12, 'fmt ');
+  view.setUint32(16, 16, true);
+  view.setUint16(20, 1, true);
+  view.setUint16(22, numberOfChannels, true);
+  view.setUint32(24, sampleRate, true);
+  view.setUint32(28, sampleRate * numberOfChannels * 2, true);
+  view.setUint16(32, numberOfChannels * 2, true);
+  view.setUint16(34, 16, true);
+  writeString(36, 'data');
+  view.setUint32(40, length * numberOfChannels * 2, true);
+  
+  // Convert audio data
+  let offset = 44;
+  for (let i = 0; i < length; i++) {
+    for (let channel = 0; channel < numberOfChannels; channel++) {
+      const sample = Math.max(-1, Math.min(1, buffer.getChannelData(channel)[i]));
+      view.setInt16(offset, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
+      offset += 2;
+    }
+  }
+  
+  return new Blob([arrayBuffer], { type: 'audio/wav' });
+}
+
+/**
  * Unified hook for handling Speech-to-Text functionality
  */
 export function useSTT(
@@ -80,9 +151,7 @@ export function useSTT(
   const analyserRef = useRef<AnalyserNode | null>(null);
   const dataArrayRef = useRef<Uint8Array | null>(null);
   const apiUrl = options.apiUrl || '/api/stt';
-  const silenceTimeout = options.silenceTimeout || 2; // Default 300ms
-
-  // Replace the initializeRecording function in your useSTT.ts with this:
+  const silenceTimeout = options.silenceTimeout || 2; // Default 2 seconds
 
   const initializeRecording = useCallback(async (): Promise<boolean> => {
     try {
@@ -117,20 +186,22 @@ export function useSTT(
         }
       }
 
-      // Format selection based on provider and browser support
+      // Format selection based on provider
       let mimeType = '';
 
       if (config.provider === 'azure') {
-        if (MediaRecorder.isTypeSupported('audio/mp4')) {
+        // For Azure, we'll record in a supported format and convert to WAV
+        if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
+          mimeType = 'audio/webm;codecs=opus';
+        } else if (MediaRecorder.isTypeSupported('audio/webm')) {
+          mimeType = 'audio/webm';
+        } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
           mimeType = 'audio/mp4';
         } else if (MediaRecorder.isTypeSupported('audio/ogg;codecs=opus')) {
           mimeType = 'audio/ogg;codecs=opus';
-        } else if (MediaRecorder.isTypeSupported('audio/ogg')) {
-          mimeType = 'audio/ogg';
-        } else if (MediaRecorder.isTypeSupported('audio/webm')) {
-          mimeType = 'audio/webm';
         }
       } else {
+        // For OpenAI, use the best available format
         if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
           mimeType = 'audio/webm;codecs=opus';
         } else if (MediaRecorder.isTypeSupported('audio/webm')) {
@@ -165,12 +236,24 @@ export function useSTT(
             throw new Error('No audio data recorded');
           }
 
-          const audioBlob = new Blob(chunksRef.current, {
+          let audioBlob = new Blob(chunksRef.current, {
             type: mediaRecorder.mimeType,
           });
 
           if (audioBlob.size === 0) {
             throw new Error('Recorded audio is empty');
+          }
+
+          // Convert to WAV if using Azure
+          if (config.provider === 'azure') {
+            try {
+              console.log('Converting audio to WAV format for Azure');
+              audioBlob = await convertToWav(audioBlob);
+              console.log('Audio converted to WAV successfully');
+            } catch (conversionError) {
+              console.error('Failed to convert audio to WAV:', conversionError);
+              throw new Error('Failed to convert audio to WAV format for Azure');
+            }
           }
 
           const result = await transcribeAudio(audioBlob);
@@ -225,7 +308,7 @@ export function useSTT(
 
       return false;
     }
-  }, [config.provider, options, silenceTimeout]); // Add silenceTimeout to dependencies
+  }, [config.provider, options, silenceTimeout]);
 
   /**
    * Detect if there's audio activity (not silence)
@@ -241,7 +324,6 @@ export function useSTT(
     const average = dataArrayRef.current.reduce((sum, value) => sum + value, 0) / dataArrayRef.current.length;
     
     // Consider audio active if average volume is above threshold
-    // Adjust this threshold based on your needs
     const threshold = 10; // Adjust this value as needed
     return average > threshold;
   }, []);
@@ -306,7 +388,10 @@ export function useSTT(
       const formData = new FormData();
       let fileExtension = 'webm'; // default fallback
 
-      if (mediaRecorderRef.current?.mimeType) {
+      // Determine file extension based on provider and blob type
+      if (config.provider === 'azure') {
+        fileExtension = 'wav'; // We convert to WAV for Azure
+      } else if (mediaRecorderRef.current?.mimeType) {
         if (mediaRecorderRef.current.mimeType.includes('webm')) {
           fileExtension = 'webm';
         } else if (mediaRecorderRef.current.mimeType.includes('mp4')) {
