@@ -20,6 +20,7 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import Typing from '../Typing/Typing';
 import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
+import { ArtifactSystemActions, ArtifactSystemState, ArtifactSystemConfig, MemoriArtifactSystem } from '../MemoriArtifactSystem';
 
 export interface Props {
   memori: Memori;
@@ -347,6 +348,24 @@ const Chat: React.FC<Props> = ({
                 translateTo={translateTo}
                 customMediaRenderer={customMediaRenderer}
                 fromUser={message.fromUser}
+              />
+
+              <MemoriArtifactSystem
+                message={message}
+                config={{
+                  autoOpenArtifacts: true,
+                  enableSyntaxHighlighting: true,
+                  showLineNumbers: true,
+                  supportedMimeTypes: {
+                    html: {
+                      name: 'HTML',
+                      icon: '📄',
+                      hasPreview: true,
+                      language: 'html',
+                      mimeType: 'text/html',
+                    },
+                  },
+                }}
               />
             </React.Fragment>
           ))}

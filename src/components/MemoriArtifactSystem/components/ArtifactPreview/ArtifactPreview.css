@@ -1,0 +1,342 @@
+/**
+ * ArtifactPreview CSS Styles
+ * Following the project's design system and CSS patterns
+ */
+
+.memori-artifact-preview {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+/* Tabs */
+.memori-artifact-tabs {
+  display: flex;
+  background: var(--memori-inner-bg, #f8f9fa);
+  /* border-bottom: 1px solid var(--memori-button-border-color, #e9ecef); */
+  border-radius: var(--memori-border-radius, 6px) var(--memori-border-radius, 6px) 0 0;
+  padding: 0.5rem;
+  gap: 0.25rem;
+  justify-content: flex-end;
+}
+
+.memori-artifact-tab-icon{
+  width: 16px;
+  height: 16px;
+}
+
+.memori-artifact-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  color: var(--memori-text-color, #666);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: var(--memori-border-radius, 4px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.memori-artifact-tab:hover:not(.memori-artifact-tab--active) {
+  background: rgba(0, 123, 255, 0.05);
+  color: var(--memori-text-color, #333);
+}
+
+.memori-artifact-tab--active {
+  background: var(--memori-chat-bubble-bg, #fff);
+  color: var(--memori-primary);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Content */
+.memori-artifact-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  background: var(--memori-chat-bubble-bg, #fff);
+  border-radius: 0 0 var(--memori-border-radius, 6px) var(--memori-border-radius, 6px);
+  overflow: hidden;
+}
+
+.memori-artifact-tab-content {
+  display: none;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.memori-artifact-tab-content--active {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Code Content */
+.memori-artifact-code {
+  flex: 1;
+  overflow: auto;
+  background: var(--memori-chat-bubble-bg, #fff);
+  border: 1px solid var(--memori-button-border-color, #e9ecef);
+  border-radius: var(--memori-border-radius, 6px);
+  margin: 1rem;
+}
+
+.memori-artifact-code-content {
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--memori-text-color, #333);
+  padding: 1rem;
+  margin: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Preview Content */
+.memori-artifact-preview-content {
+  flex: 1;
+  overflow: auto;
+  background: var(--memori-chat-bubble-bg, #fff);
+  border: 1px solid var(--memori-button-border-color, #e9ecef);
+  border-radius: var(--memori-border-radius, 6px);
+  margin: 1rem;
+  position: relative;
+}
+
+/* Markdown Preview */
+.memori-artifact-preview-markdown {
+  padding: 1rem;
+  font-family: var(--memori-font-family);
+  line-height: 1.6;
+  color: var(--memori-text-color, #333);
+}
+
+.memori-artifact-preview-markdown h1,
+.memori-artifact-preview-markdown h2,
+.memori-artifact-preview-markdown h3,
+.memori-artifact-preview-markdown h4,
+.memori-artifact-preview-markdown h5,
+.memori-artifact-preview-markdown h6 {
+  margin: 1.5rem 0 0.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.memori-artifact-preview-markdown h1:first-child,
+.memori-artifact-preview-markdown h2:first-child,
+.memori-artifact-preview-markdown h3:first-child {
+  margin-top: 0;
+}
+
+.memori-artifact-preview-markdown p {
+  margin: 0 0 1rem;
+}
+
+.memori-artifact-preview-markdown code {
+  background: var(--memori-inner-bg, #f1f3f4);
+  padding: 0.125rem 0.25rem;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.875em;
+}
+
+.memori-artifact-preview-markdown pre {
+  background: var(--memori-inner-bg, #f1f3f4);
+  padding: 1rem;
+  border-radius: var(--memori-border-radius, 6px);
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.memori-artifact-preview-markdown pre code {
+  background: none;
+  padding: 0;
+}
+
+.memori-artifact-preview-markdown a {
+  color: var(--memori-primary);
+  text-decoration: none;
+}
+
+.memori-artifact-preview-markdown a:hover {
+  text-decoration: underline;
+}
+
+/* SVG Preview */
+.memori-artifact-preview-svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  min-height: 200px;
+}
+
+.memori-artifact-preview-svg svg {
+  max-width: 100%;
+  max-height: 100%;
+  border: 1px solid var(--memori-button-border-color, #e9ecef);
+  border-radius: var(--memori-border-radius, 6px);
+}
+
+/* CSS Preview */
+.memori-artifact-preview-css {
+  padding: 1rem;
+}
+
+.memori-artifact-preview-css-demo {
+  border: 1px solid var(--memori-button-border-color, #e9ecef);
+  border-radius: var(--memori-border-radius, 6px);
+  overflow: hidden;
+}
+
+.memori-artifact-preview-css-content {
+  padding: 1rem;
+  font-family: var(--memori-font-family);
+  line-height: 1.6;
+  color: var(--memori-text-color, #333);
+}
+
+.memori-artifact-preview-css-content h3 {
+  margin: 0 0 1rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.memori-artifact-preview-css-content p {
+  margin: 0 0 1rem;
+}
+
+.memori-artifact-preview-css-content button {
+  background: var(--memori-primary);
+  color: var(--memori-primary-text);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--memori-border-radius, 4px);
+  cursor: pointer;
+  margin: 0.5rem 0;
+}
+
+.memori-artifact-preview-css-container {
+  background: var(--memori-inner-bg, #f1f3f4);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: var(--memori-border-radius, 4px);
+}
+
+/* Text Preview */
+.memori-artifact-preview-text {
+  padding: 1rem;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--memori-text-color, #333);
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Syntax Highlighting */
+.memori-artifact--comment {
+  color: #6a737d;
+  font-style: italic;
+}
+
+.memori-artifact--keyword {
+  color: #d73a49;
+  font-weight: 600;
+}
+
+.memori-artifact--string {
+  color: #032f62;
+}
+
+.memori-artifact--number {
+  color: #005cc5;
+  font-weight: 500;
+}
+
+.memori-artifact--function {
+  color: #6f42c1;
+  font-weight: 600;
+}
+
+.memori-artifact--operator {
+  color: #d73a49;
+}
+
+.memori-artifact--property {
+  color: #005cc5;
+}
+
+.memori-artifact--selector {
+  color: #6f42c1;
+  font-weight: 600;
+}
+
+.memori-artifact--tag {
+  color: #22863a;
+  font-weight: 600;
+}
+
+.memori-artifact--line-number {
+  color: #6a737d;
+  margin-right: 1rem;
+  user-select: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+
+  .memori-artifact-tab {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .memori-artifact-code,
+  .memori-artifact-preview-content {
+    margin: 0.5rem;
+  }
+
+  .memori-artifact-code-content {
+    font-size: 0.75rem;
+    padding: 0.75rem;
+  }
+
+  .memori-artifact-preview-markdown,
+  .memori-artifact-preview-css,
+  .memori-artifact-preview-text {
+    padding: 0.75rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .memori-artifact-tabs {
+    background: var(--memori-inner-bg, #2a2a2a);
+    border-bottom-color: var(--memori-button-border-color, #404040);
+  }
+
+  .memori-artifact-tab--active {
+    background: var(--memori-chat-bubble-bg, #1a1a1a);
+  }
+
+  .memori-artifact-code,
+  .memori-artifact-preview-content {
+    border-color: var(--memori-button-border-color, #404040);
+  }
+
+  .memori-artifact-preview-markdown code,
+  .memori-artifact-preview-css-demo {
+    background: var(--memori-inner-bg, #2a2a2a);
+    border-color: var(--memori-button-border-color, #404040);
+  }
+
+  .memori-artifact-preview-css-container {
+    background: var(--memori-inner-bg, #2a2a2a);
+  }
+}

@@ -9,6 +9,7 @@ import {
   sessionID,
   dialogState as dialogStateWithHints,
   historyWithExpandable,
+  historyWithArtifacts,
 } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Chat, { Props } from './Chat';
@@ -88,6 +89,23 @@ WithHints.args = {
   history,
   dialogState: dialogStateWithHints,
   layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
+
+
+export const WithArtifacts = Template.bind({});
+WithArtifacts.args = {
+  memori,
+  tenant,
+  sessionID,
+  history: historyWithArtifacts,
+  dialogState,
+  layout: 'CHAT',
   simulateUserPrompt: () => {},
   sendMessage: (msg: string) => console.log(msg),
   stopListening: () => {},
