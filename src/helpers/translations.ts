@@ -47,5 +47,5 @@ export const getTranslation = async (
     }
   );
   const deeplResponse = await deeplResult.json();
-  return deeplResponse?.translations?.[0];
+  return deeplResponse?.translations?.[0] ?? { text: textToTranslate };
 };
