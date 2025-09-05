@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
+import { ArtifactDrawer } from '../MemoriArtifactSystem';
+import { useArtifactSystemContext } from '../MemoriArtifactSystem/context/ArtifactSystemContext';
 
 const ChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -15,29 +17,82 @@ const ChatLayout: React.FC<LayoutProps> = ({
   hasUserActivatedSpeak,
   loading = false,
   poweredBy,
-}) => (
-  <>
-    {integrationStyle}
-    {integrationBackground}
+}) => {
+  const { actions, state } = useArtifactSystemContext();
+  const [isMobile, setIsMobile] = useState(false);
 
-    <Spin spinning={loading} className="memori-chat-layout">
-      {poweredBy}
+  useEffect(() => {
+    const handleResize = () => {
+      const newIsMobile = window.innerWidth < 769;
+      if (newIsMobile !== isMobile) {
+        setTimeout(() => {
+          setIsMobile(newIsMobile);
+        }, 300);
+      } else {
+        setIsMobile(newIsMobile);
+      }
+    };
 
-      <div className="memori-chat-layout--header">
-        {Header && headerProps && <Header {...headerProps} />}
-      </div>
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobile]);
 
-      <div id="extension" />
+  const hasArtifact = state.currentArtifact && !isMobile;
 
-      <div className="memori-chat-layout--controls">
-        {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
-          <Chat {...chatProps} />
-        ) : startPanelProps ? (
-          <StartPanel {...startPanelProps} />
-        ) : null}
-      </div>
-    </Spin>
-  </>
-);
+  return (
+    <>
+      {integrationStyle}
+      {integrationBackground}
+
+      <Spin spinning={loading} className="memori-chat-layout">
+        {poweredBy}
+
+        <div className="memori-chat-layout--header">
+          {Header && headerProps && <Header {...headerProps} />}
+        </div>
+
+        <div id="extension" />
+
+        <div
+          className={`memori-chat-layout--main ${
+            hasArtifact ? 'memori-chat-layout--main-with-artifact' : ''
+          }`}
+        >
+          <div
+            className={
+              state.isFullscreen
+                ? `memori-chat-layout-controls-hide`
+                : `memori-chat-layout--controls ${
+                    hasArtifact
+                      ? 'memori-chat-layout--controls-with-artifact'
+                      : ''
+                  }`
+            }
+          >
+            {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+              <Chat {...chatProps} />
+            ) : startPanelProps ? (
+              <StartPanel {...startPanelProps} />
+            ) : null}
+          </div>
+
+          {hasArtifact && (
+            <div className={state.isFullscreen ? `memori-chat-layout-artifact-panel-full-screen` : `memori-chat-layout--artifact-panel memori-chat-layout--artifact-panel-enter`}>
+              <ArtifactDrawer />
+            </div>
+          )}
+        </div>
+
+        {/* Mobile drawer - always rendered but only shown on mobile */}
+        {state.currentArtifact && isMobile && (
+          <div className="memori-chat-layout--artifact-drawer">
+            <ArtifactDrawer />
+          </div>
+        )}
+      </Spin>
+    </>
+  );
+};
 
 export default ChatLayout;
