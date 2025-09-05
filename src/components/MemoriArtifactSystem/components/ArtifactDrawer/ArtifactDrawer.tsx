@@ -1,7 +1,7 @@
 /**
  * ArtifactDrawer Component
- * Main drawer component for displaying artifacts with full functionality
- * Following the project's drawer patterns and design system
+ * Displays artifacts as a drawer on mobile and as a split panel on web
+ * Following the project's design system and responsive patterns
  */
 
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
@@ -13,26 +13,32 @@ import Close from '../../../icons/Close';
 import ArtifactActions from '../ArtifactActions/ArtifactActions';
 import ArtifactPreview from '../ArtifactPreview/ArtifactPreview';
 import ArtifactHistory from '../ArtifactHistory/ArtifactHistory';
-import { ArtifactDrawerProps, ArtifactTab } from '../../types/artifact.types';
+import { ArtifactTab } from '../../types/artifact.types';
+import { useArtifactSystemContext } from '../../context/ArtifactSystemContext';
 
-const ArtifactDrawer: React.FC<ArtifactDrawerProps> = ({
-  open,
-  onClose,
-  artifact,
-  onToggleFullscreen,
-  isFullscreen = false,
-}) => {
+const ArtifactDrawer: React.FC = () => {
+  const { actions, state } = useArtifactSystemContext();
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<ArtifactTab>('preview');
   const [showHistory, setShowHistory] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
   /**
    * Handle window resize to detect mobile/desktop changes
    */
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 769);
+      const newIsMobile = window.innerWidth < 769;
+      if (newIsMobile !== isMobile) {
+        setIsAnimating(true);
+        setTimeout(() => {
+          setIsMobile(newIsMobile);
+          setIsAnimating(false);
+        }, 150);
+      } else {
+        setIsMobile(newIsMobile);
+      }
     };
 
     // Set initial value
@@ -43,7 +49,7 @@ const ArtifactDrawer: React.FC<ArtifactDrawerProps> = ({
 
     // Cleanup
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [isMobile]);
 
   /**
    * Handle tab change
@@ -56,15 +62,15 @@ const ArtifactDrawer: React.FC<ArtifactDrawerProps> = ({
    * Handle copy action
    */
   const handleCopy = useCallback(async () => {
-    if (!artifact) return;
+    if (!state.currentArtifact) return;
 
     try {
       if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(artifact.content);
+        await navigator.clipboard.writeText(state.currentArtifact.content);
       } else {
         // Fallback for older browsers
         const textArea = document.createElement('textarea');
-        textArea.value = artifact.content;
+        textArea.value = state.currentArtifact.content;
         textArea.style.position = 'fixed';
         textArea.style.left = '-999999px';
         textArea.style.top = '-999999px';
@@ -78,7 +84,7 @@ const ArtifactDrawer: React.FC<ArtifactDrawerProps> = ({
       console.error('Copy failed:', error);
       throw error;
     }
-  }, [artifact]);
+  }, [state.currentArtifact]);
 
   /**
    * Handle download action
@@ -108,17 +114,21 @@ const ArtifactDrawer: React.FC<ArtifactDrawerProps> = ({
    * Handle fullscreen toggle
    */
   const handleToggleFullscreen = useCallback(() => {
-    if (onToggleFullscreen) {
-      onToggleFullscreen();
+    if (actions.toggleFullscreen) {
+      actions.toggleFullscreen();
     }
-  }, [onToggleFullscreen]);
+  }, [actions.toggleFullscreen]);
 
   /**
    * Handle close with escape key
    */
   const handleClose = useCallback(() => {
-    onClose();
-  }, [onClose]);
+    setIsAnimating(true);
+    setTimeout(() => {
+      actions.closeDrawer();
+      setIsAnimating(false);
+    }, 200);
+  }, [actions.closeDrawer]);
 
   /**
    * Toggle history panel
@@ -127,124 +137,60 @@ const ArtifactDrawer: React.FC<ArtifactDrawerProps> = ({
     setShowHistory(prev => !prev);
   }, []);
 
-  /**
-   * Get drawer width based on fullscreen state and screen size
-   */
-  const drawerWidth = useMemo(() => {
-    if (isFullscreen) return '100%';
-    if (isMobile) return '100%';
-    return showHistory ? '70%' : '60%';
-  }, [isFullscreen, showHistory, isMobile]);
 
-  /**
-   * Get drawer placement based on history visibility and screen size
-   */
-  const drawerPlacement = useMemo(() => {
-    // On mobile, always use right placement for consistency
-    if (isMobile) return 'right';
-    return showHistory ? 'left' : 'right';
-  }, [showHistory, isMobile]);
-
-  if (!artifact) {
+  if (!state.currentArtifact) {
     return null;
   }
 
-  return (
-    <Transition appear show={open} as={React.Fragment}>
-      <Dialog
-        open={open}
-        onClose={handleClose}
-        className={cx('memori-artifact-drawer', {
-          'memori-artifact-drawer--fullscreen': isFullscreen,
-          'memori-artifact-drawer--mobile': isMobile,
-        })}
-      >
-        <Transition.Child
-          as={React.Fragment}
-          enter="ease-out duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in duration-200"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="memori-artifact-drawer--backdrop" />
-        </Transition.Child>
-
-        <div className="memori-artifact-drawer--container">
-          <Transition.Child
-            as={React.Fragment}
-            enter="ease-out duration-300"
-            enterFrom={
-              drawerPlacement === 'right'
-                ? 'translate-x-full'
-                : '-translate-x-full'
-            }
-            enterTo="translate-x-0"
-            leave="ease-in duration-200"
-            leaveFrom="translate-x-0"
-            leaveTo={
-              drawerPlacement === 'right'
-                ? 'translate-x-full'
-                : '-translate-x-full'
-            }
+  // Render mobile drawer
+  if (isMobile) {
+    return (
+      <Transition show={state.isDrawerOpen}>
+        {state.isDrawerOpen && (
+          <Dialog
+            open={state.isDrawerOpen}
+            onClose={handleClose}
+            className="memori-artifact-drawer memori-artifact-drawer--mobile"
+            as="div"
           >
             <div
-              className={cx('memori-artifact-drawer--panel', {
-                'memori-artifact-drawer--panel-left':
-                  drawerPlacement === 'left',
-                'memori-artifact-drawer--panel-fullscreen': isFullscreen,
-              })}
-              style={{ width: drawerWidth }}
-            >
+              className="memori-artifact-drawer--backdrop"
+              onClick={handleClose}
+            />
+            <div className="memori-artifact-drawer--panel memori-artifact-drawer--panel-mobile">
               {/* Header */}
               <div className="memori-artifact-drawer--header">
                 <div className="memori-artifact-drawer--header-content">
                   <h2 className="memori-artifact-drawer--title">
-                    {artifact.title}
+                    {state.currentArtifact.title}
                   </h2>
                   <p className="memori-artifact-drawer--subtitle">
-                    {artifact.customTitle ||
-                      `${artifact.typeInfo.name} Content`}
+                    {state.currentArtifact.customTitle ||
+                      `${state.currentArtifact.typeInfo.name} Content`}
                   </p>
                   <div className="memori-artifact-drawer--meta">
                     <span className="memori-artifact-drawer--meta-item">
-                      {t('artifact.type', 'Type')}: {artifact.typeInfo.name}
+                      {t('artifact.type', 'Type')}: {state.currentArtifact.typeInfo.name}
                     </span>
                     <span className="memori-artifact-drawer--meta-item">
-                      {t('artifact.size', 'Size')}: {formatBytes(artifact.size)}
+                      {t('artifact.size', 'Size')}: {formatBytes(state.currentArtifact.size)}
                     </span>
                     <span className="memori-artifact-drawer--meta-item">
                       {t('artifact.generated', 'Generated')}:{' '}
-                      {formatTimestamp(artifact.timestamp)}
+                      {formatTimestamp(state.currentArtifact.timestamp)}
                     </span>
                   </div>
                 </div>
 
                 <div className="memori-artifact-drawer--header-actions">
-                  {/* <Button
-                    onClick={toggleHistory}
-                    className="memori-artifact-drawer--history-toggle"
-                    ghost
-                    title={
-                      showHistory
-                        ? t('artifact.hideHistory', 'Hide history') ||
-                          'Hide history'
-                        : t('artifact.showHistory', 'Show history') ||
-                          'Show history'
-                    }
-                  >
-                    <HistoryIcon className="memori-artifact-drawer--history-toggle-icon" />
-                  </Button> */}
-
                   <ArtifactActions
-                    artifact={artifact}
+                    artifact={state.currentArtifact}
                     onCopy={handleCopy}
                     onDownload={handleDownload}
                     onPrint={handlePrint}
                     onOpenExternal={handleOpenExternal}
                     onToggleFullscreen={handleToggleFullscreen}
-                    isFullscreen={isFullscreen}
+                    isFullscreen={state.isFullscreen}
                   />
                 </div>
 
@@ -262,28 +208,79 @@ const ArtifactDrawer: React.FC<ArtifactDrawerProps> = ({
               <div className="memori-artifact-drawer--content">
                 <div className="memori-artifact-drawer--main">
                   <ArtifactPreview
-                    artifact={artifact}
+                    artifact={state.currentArtifact}
                     activeTab={activeTab}
                     onTabChange={handleTabChange}
                   />
                 </div>
-
-                {/* History Sidebar */}
-                {/* {showHistory && (
-                  <div className="memori-artifact-drawer--sidebar">
-                    <ArtifactHistory
-                      history={history}
-                      onSelectArtifact={onSelectArtifact}
-                      maxItems={20}
-                    />
-                  </div>
-                )} */}
               </div>
             </div>
-          </Transition.Child>
+          </Dialog>
+        )}
+      </Transition>
+    );
+  }
+
+  // Render web split panel
+  return (
+    <div className="memori-artifact-panel">
+      {/* Header */}
+      <div className="memori-artifact-panel--header">
+        <div className="memori-artifact-panel--header-content">
+          <h2 className="memori-artifact-panel--title">
+            {state.currentArtifact.title}
+          </h2>
+          <p className="memori-artifact-panel--subtitle">
+            {state.currentArtifact.customTitle ||
+              `${state.currentArtifact.typeInfo.name} Content`}
+          </p>
+          <div className="memori-artifact-panel--meta">
+            <span className="memori-artifact-panel--meta-item">
+              {t('artifact.type', 'Type')}: {state.currentArtifact.typeInfo.name}
+            </span>
+            <span className="memori-artifact-panel--meta-item">
+              {t('artifact.size', 'Size')}: {formatBytes(state.currentArtifact.size)}
+            </span>
+            <span className="memori-artifact-panel--meta-item">
+              {t('artifact.generated', 'Generated')}:{' '}
+              {formatTimestamp(state.currentArtifact.timestamp)}
+            </span>
+          </div>
         </div>
-      </Dialog>
-    </Transition>
+
+        <div className="memori-artifact-panel--header-actions">
+          <ArtifactActions
+            artifact={state.currentArtifact}
+            onCopy={handleCopy}
+            onDownload={handleDownload}
+            onPrint={handlePrint}
+            onOpenExternal={handleOpenExternal}
+            onToggleFullscreen={handleToggleFullscreen}
+            isFullscreen={state.isFullscreen}
+          />
+        </div>
+
+        <Button
+          onClick={handleClose}
+          className="memori-artifact-panel--close"
+          ghost
+          title={t('artifact.close', 'Close') || 'Close'}
+        >
+          <Close className="memori-artifact-panel--close-icon" />
+        </Button>
+      </div>
+
+      {/* Content */}
+      <div className="memori-artifact-panel--content">
+        <div className="memori-artifact-panel--main">
+          <ArtifactPreview
+            artifact={state.currentArtifact}
+            activeTab={activeTab}
+            onTabChange={handleTabChange}
+          />
+        </div>
+      </div>
+    </div>
   );
 };
 

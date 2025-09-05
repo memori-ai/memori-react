@@ -19,21 +19,25 @@ import {
  * Custom hook for managing artifact system state and actions
  */
 export const useArtifactSystem = (config: Partial<ArtifactSystemConfig> = {}): ArtifactSystemHook => {
+  console.log('Initializing artifact system with config:', config);
+  
   const mergedConfig = { ...DEFAULT_ARTIFACT_CONFIG, ...config };
   
   const [state, setState] = useState<ArtifactSystemState>({
-    history: [],
+    history: [
+    ],
     currentArtifact: null,
     isDrawerOpen: false,
     isFullscreen: false,
-    processedArtifacts: new Set(),
-    artifactCounter: 0,
+    processedArtifacts: new Set(['artifact-1', 'artifact-2']),
+    artifactCounter: 2,
   });
 
   const processedArtifactsRef = useRef<Set<string>>(new Set());
 
   // Update ref when state changes
   useEffect(() => {
+    console.log('Updating processed artifacts ref:', state.processedArtifacts);
     processedArtifactsRef.current = state.processedArtifacts;
   }, [state.processedArtifacts]);
 
@@ -41,16 +45,19 @@ export const useArtifactSystem = (config: Partial<ArtifactSystemConfig> = {}): A
    * Add a new artifact to the system
    */
   const addArtifact = useCallback((artifact: ArtifactData) => {
+    console.log('Adding artifact:', artifact);
     setState(prevState => {
       // Check if artifact already exists
       const existingIndex = prevState.history.findIndex(item => item.id === artifact.id);
       
       let newHistory: ArtifactHistoryEntry[];
       if (existingIndex >= 0) {
+        console.log('Updating existing artifact at index:', existingIndex);
         // Update existing artifact
         newHistory = [...prevState.history];
         newHistory[existingIndex] = { ...artifact, isActive: false };
       } else {
+        console.log('Adding new artifact to history');
         // Add new artifact
         newHistory = [
           { ...artifact, isActive: false },
@@ -70,6 +77,7 @@ export const useArtifactSystem = (config: Partial<ArtifactSystemConfig> = {}): A
    * Select an artifact and open the drawer
    */
   const selectArtifact = useCallback((artifact: ArtifactData) => {
+    console.log('Selecting artifact:', artifact);
     setState(prevState => {
       const newHistory = prevState.history.map(item => ({
         ...item,
@@ -89,6 +97,7 @@ export const useArtifactSystem = (config: Partial<ArtifactSystemConfig> = {}): A
    * Close the artifact drawer
    */
   const closeDrawer = useCallback(() => {
+    console.log('Closing artifact drawer');
     setState(prevState => ({
       ...prevState,
       isDrawerOpen: false,
@@ -102,6 +111,7 @@ export const useArtifactSystem = (config: Partial<ArtifactSystemConfig> = {}): A
    * Toggle fullscreen mode
    */
   const toggleFullscreen = useCallback(() => {
+    console.log('Toggling fullscreen mode');
     setState(prevState => ({
       ...prevState,
       isFullscreen: !prevState.isFullscreen,
@@ -112,6 +122,7 @@ export const useArtifactSystem = (config: Partial<ArtifactSystemConfig> = {}): A
    * Clear all artifact history
    */
   const clearHistory = useCallback(() => {
+    console.log('Clearing artifact history');
     setState(prevState => ({
       ...prevState,
       history: [],
@@ -128,6 +139,7 @@ export const useArtifactSystem = (config: Partial<ArtifactSystemConfig> = {}): A
    * Remove a specific artifact from history
    */
   const removeArtifact = useCallback((id: string) => {
+    console.log('Removing artifact:', id);
     setState(prevState => {
       const newHistory = prevState.history.filter(item => item.id !== id);
       const isRemovingCurrent = prevState.currentArtifact?.id === id;
@@ -162,6 +174,7 @@ export const useArtifactSystem = (config: Partial<ArtifactSystemConfig> = {}): A
  */
 export const useArtifactCreator = () => {
   const generateId = useCallback((content: string, mimeType: string): string => {
+    console.log('Generating ID for content type:', mimeType);
     const timestamp = Date.now();
     const hash = content.substring(0, 100).split('').reduce((a, b) => {
       a = ((a << 5) - a) + b.charCodeAt(0);
@@ -173,8 +186,10 @@ export const useArtifactCreator = () => {
   const createArtifact = useCallback((
     content: string,
     mimeType: string,
-    customTitle?: string
+    customTitle?: string,
+    messageID?: string
   ): ArtifactData => {
+    console.log('Creating artifact:', { mimeType, customTitle, messageID });
     const typeInfo = SUPPORTED_MIME_TYPES[mimeType as keyof typeof SUPPORTED_MIME_TYPES] || {
       name: mimeType.toUpperCase(),
       icon: '📄',
@@ -193,6 +208,7 @@ export const useArtifactCreator = () => {
       typeInfo,
       title,
       customTitle,
+      messageID: messageID || '',
       timestamp: new Date(),
       size: content.length,
     };
@@ -208,6 +224,7 @@ export const useArtifactProcessor = () => {
   const processedArtifacts = useRef<Set<string>>(new Set());
 
   const generateContentHash = useCallback((content: string): string => {
+    console.log('Generating content hash');
     let hash = 0;
     const str = content.substring(0, 500);
     for (let i = 0; i < str.length; i++) {
@@ -219,21 +236,26 @@ export const useArtifactProcessor = () => {
   }, []);
 
   const removeThinkTags = useCallback((text: string): string => {
+    console.log('Removing think tags from text');
     return text.replace(/<think>[\s\S]*?<\/think>/gi, '');
   }, []);
 
   const isValidArtifact = useCallback((content: string, mimeType: string): boolean => {
+    console.log('Validating artifact:', { mimeType, contentLength: content.length });
     // Minimum size check
     if (content.length < 50) {
+      console.log('Artifact too small');
       return false;
     }
 
     // HTML validation
     if (mimeType === 'html') {
       if (!content.includes('<!DOCTYPE') && !content.includes('<html')) {
+        console.log('Invalid HTML: missing DOCTYPE or html tag');
         return false;
       }
       if (content.includes('<!DOCTYPE') && !content.includes('</html>')) {
+        console.log('Invalid HTML: unclosed html tag');
         return false;
       }
     }
@@ -243,6 +265,7 @@ export const useArtifactProcessor = () => {
       try {
         JSON.parse(content);
       } catch (e) {
+        console.log('Invalid JSON:', e);
         return false;
       }
     }
@@ -251,6 +274,7 @@ export const useArtifactProcessor = () => {
   }, []);
 
   const cleanArtifactContent = useCallback((content: string, mimeType: string): string => {
+    console.log('Cleaning artifact content:', { mimeType });
     if (!content) return '';
     
     // Remove closing output tags
@@ -268,6 +292,7 @@ export const useArtifactProcessor = () => {
       try {
         JSON.parse(content);
       } catch (e) {
+        console.log('Failed to parse JSON:', e);
         return '';
       }
     }
@@ -282,6 +307,7 @@ export const useArtifactProcessor = () => {
     // Callback function called when an artifact is found
     onArtifactFound: (content: string, mimeType: string, title?: string) => void
   ): boolean => {
+    console.log('Processing artifact content');
     // Return false if emission is empty or not a string
     if (!emission || typeof emission !== 'string') return false;
     
@@ -307,6 +333,7 @@ export const useArtifactProcessor = () => {
     let match;
     // Find all artifact output tags in the cleaned emission
     while ((match = outputRegex.exec(cleanedEmission)) !== null) {
+      console.log('Found artifact match:', { mimeType: match[1] });
       const fullTag = match[0];
       const mimeType = match[1];
       let content = match[2].trim();
@@ -314,12 +341,14 @@ export const useArtifactProcessor = () => {
       // Look for an optional data-title attribute
       const titleMatch = fullTag.match(/data-title\s*=\s*["\']([^"']+)["\']/i);
       const extractedTitle = titleMatch ? titleMatch[1] : undefined;
+      console.log('Extracted title:', extractedTitle);
       
       // Clean the content and validate it matches the mimetype
       content = cleanArtifactContent(content, mimeType);
       
       // Skip if content is empty or invalid
       if (!content || !isValidArtifact(content, mimeType)) {
+        console.log('Skipping invalid artifact');
         continue;
       }
       
@@ -350,6 +379,7 @@ export const useArtifactProcessor = () => {
       
       // Only process new artifacts we haven't seen before
       if (!processedArtifacts.current.has(hash)) {
+        console.log('Processing new artifact:', { mimeType: artifact.mimeType, hash });
         processedArtifacts.current.add(hash);
         onArtifactFound(artifact.content, artifact.mimeType, artifact.extractedTitle);
         processed = true;
@@ -364,4 +394,26 @@ export const useArtifactProcessor = () => {
     processArtifactContent,
     processedArtifacts: processedArtifacts.current,
   };
+};
+
+/**
+ * Hook for checking if a message contains artifacts
+ */
+export const useArtifactDetector = () => {
+  const hasArtifacts = useCallback((messageText: string): boolean => {
+    console.log('Checking for artifacts in message');
+    if (!messageText || typeof messageText !== 'string') {
+      return false;
+    }
+
+    // Remove think tags first
+    const cleanedText = messageText.replace(/<think>[\s\S]*?<\/think>/gi, '');
+    
+    // Check for artifact output tags
+    const outputRegex = /<output\s+class\s*=\s*["\']memori-artifact["\'][^>]*data-mimetype\s*=\s*["\']([^"']+)["\'][^>]*>([\s\S]*?)(?:<\/output>|$)/gi;
+    
+    return outputRegex.test(cleanedText);
+  }, []);
+
+  return { hasArtifacts };
 };

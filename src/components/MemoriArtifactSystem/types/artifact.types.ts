@@ -3,6 +3,8 @@
  * Following the project's TypeScript patterns and conventions
  */
 
+import { Message } from "@memori.ai/memori-api-client/dist/types";
+
 export type ArtifactMimeType = 
   | 'html'
   | 'json'
@@ -39,6 +41,7 @@ export interface ArtifactData {
   typeInfo: ArtifactTypeInfo;
   title: string;
   customTitle?: string;
+  messageID: string;
   timestamp: Date;
   size: number;
 }
@@ -47,15 +50,6 @@ export interface ArtifactHistoryEntry extends ArtifactData {
   isActive?: boolean;
 }
 
-export interface ArtifactDrawerProps {
-  open: boolean;
-  onClose: () => void;
-  artifact?: ArtifactData | null;
-  history: ArtifactHistoryEntry[];
-  onSelectArtifact: (artifact: ArtifactData) => void;
-  onToggleFullscreen?: () => void;
-  isFullscreen?: boolean;
-}
 
 export interface ArtifactActionsProps {
   artifact: ArtifactData;
@@ -85,8 +79,12 @@ export interface ArtifactHistoryProps {
 
 export interface ArtifactHandlerProps {
   artifact?: ArtifactData | null;
-  content: string;
-  mimeType: ArtifactMimeType;
+  artifacts?: ArtifactHistoryEntry[];
+  content?: string;
+  mimeType?: ArtifactMimeType;
+  config: ArtifactSystemConfig;
+  actions: ArtifactSystemActions;
+  message: Message;
   customTitle?: string;
   onArtifactCreated?: (artifact: ArtifactData) => void;
 }
@@ -160,7 +158,7 @@ export const DEFAULT_ARTIFACT_CONFIG: ArtifactSystemConfig = {
 };
 
 export const SUPPORTED_MIME_TYPES: Record<ArtifactMimeType, ArtifactTypeInfo> = {
-  html: { name: 'HTML', icon: '🌐', hasPreview: true, language: 'html', mimeType: 'text/html' },
+  html: { name: 'HTML', icon: '🌐', hasPreview: true, language: 'html', mimeType: 'application/xml' },
   json: { name: 'JSON', icon: '📊', hasPreview: false, language: 'json', mimeType: 'application/json' },
   markdown: { name: 'Markdown', icon: '📝', hasPreview: true, language: 'markdown', mimeType: 'text/markdown' },
   css: { name: 'CSS', icon: '🎨', hasPreview: true, language: 'css', mimeType: 'text/css' },

@@ -3,9 +3,6 @@
  * Complete artifact system for Memori/Aisuru
  */
 
-// Main component
-export { default as MemoriArtifactSystem } from './MemoriArtifactSystem';
-
 // Individual components
 export { default as ArtifactDrawer } from './components/ArtifactDrawer/ArtifactDrawer';
 export { default as ArtifactActions } from './components/ArtifactActions/ArtifactActions';
@@ -16,13 +13,19 @@ export { default as ArtifactHandler } from './components/ArtifactHandler/Artifac
 // Hooks
 export { useArtifactSystem, useArtifactCreator, useArtifactProcessor } from './hooks/useArtifactSystem';
 
+// Context
+export { 
+  ArtifactSystemProvider, 
+  useArtifactSystemContext,
+  ArtifactSystemContext 
+} from './context/ArtifactSystemContext';
+
 // Types
 export type {
   ArtifactMimeType,
   ArtifactTypeInfo,
   ArtifactData,
   ArtifactHistoryEntry,
-  ArtifactDrawerProps,
   ArtifactActionsProps,
   ArtifactPreviewProps,
   ArtifactHistoryProps,
@@ -40,12 +43,3 @@ export type {
 
 // Constants
 export { DEFAULT_ARTIFACT_CONFIG, SUPPORTED_MIME_TYPES } from './types/artifact.types';
-
-// Utilities
-export {
-  highlightCode,
-  getHighlightLanguage,
-  isSyntaxHighlightingSupported,
-  formatCodeWithLineNumbers,
-  escapeHtml,
-} from './utils/syntaxHighlighter';

@@ -8,8 +8,7 @@ import React, { useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import Button from '../../../ui/Button';
-import { ArtifactPreviewProps, ArtifactTab } from '../../types/artifact.types';
-import { highlightCode } from '../../utils/syntaxHighlighter';
+import { ArtifactMimeType, ArtifactPreviewProps, ArtifactTab, SUPPORTED_MIME_TYPES } from '../../types/artifact.types';
 import Code from '../../../icons/Code';
 import { PreviewIcon } from '../../../icons/Preview';
 import Snippet from '../../../Snippet/Snippet';
@@ -19,8 +18,6 @@ const ArtifactPreview: React.FC<ArtifactPreviewProps> = ({
   artifact,
   activeTab,
   onTabChange,
-  showLineNumbers = false,
-  enableSyntaxHighlighting = true,
 }) => {
   const { t } = useTranslation();
 
@@ -30,21 +27,6 @@ const ArtifactPreview: React.FC<ArtifactPreviewProps> = ({
   const handleTabChange = useCallback((tab: ArtifactTab) => {
     onTabChange(tab);
   }, [onTabChange]);
-
-  /**
-   * Get highlighted code content
-   */
-  const highlightedCode = useMemo(() => {
-    if (!enableSyntaxHighlighting) {
-      return artifact.content.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-    }
-    
-    return highlightCode(artifact.content, artifact.mimeType, {
-      showLineNumbers,
-      enableHighlighting: enableSyntaxHighlighting,
-    });
-  }, [artifact.content, artifact.mimeType, showLineNumbers, enableSyntaxHighlighting]);
-
   /**
    * Render preview content based on MIME type
    */
@@ -132,6 +114,10 @@ const ArtifactPreview: React.FC<ArtifactPreviewProps> = ({
     return artifact.typeInfo.hasPreview;
   }, [artifact.typeInfo.hasPreview]);
 
+  const mapArtifactMimeType = useCallback((mimeType: ArtifactMimeType) => {
+    return SUPPORTED_MIME_TYPES[mimeType as keyof typeof SUPPORTED_MIME_TYPES].mimeType;
+  }, []);
+
   return (
     <div className="memori-artifact-preview">
       {/* Tabs */}
@@ -169,9 +155,11 @@ const ArtifactPreview: React.FC<ArtifactPreviewProps> = ({
           })}
         >
           <div className="memori-artifact-code">
-            <Snippet medium={{
+            <Snippet 
+            // preview={true}
+            medium={{
               mediumID: artifact.id,
-              mimeType: artifact.mimeType,
+              mimeType: mapArtifactMimeType(artifact.mimeType as ArtifactMimeType),
               content: artifact.content,
               title: artifact.title,
               creationTimestamp: artifact.timestamp.toISOString(),
