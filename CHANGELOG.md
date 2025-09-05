@@ -1,5 +1,25 @@
 
 
+## [8.4.0-rc.0](https://github.com/memori-ai/memori-react/compare/v8.3.0...v8.4.0-rc.0) (2025-09-05)
+
+
+### Features
+
+* enhance chat layout with artifact drawer and responsive design adjustments ([2c37bc5](https://github.com/memori-ai/memori-react/commit/2c37bc5cfb15ce56395157f98f3ff3466d97a5eb))
+* integrate ArtifactSystemProvider for enhanced artifact management across layouts ([3201f45](https://github.com/memori-ai/memori-react/commit/3201f454b14a2880bb3f3e5cf72f6d7fa380d445))
+* integrate MemoriArtifactSystem for enhanced artifact handling in chat ([d1f6cd9](https://github.com/memori-ai/memori-react/commit/d1f6cd91e503d9fad1fc1b86a4c3d3556c7000f7))
+* update layouts and chat components ([6b4382e](https://github.com/memori-ai/memori-react/commit/6b4382eac91aeeeffdc2395ae9395849c9a18b82))
+
+
+### Bug Fixes
+
+* adjust min-height property in chat layout for better responsiveness ([065a8ee](https://github.com/memori-ai/memori-react/commit/065a8ee63ee32a2c040c5fc9a7d791a7d6dbfe28))
+
+
+### Changes
+
+* introduce context for improved artifact management ([42da76e](https://github.com/memori-ai/memori-react/commit/42da76e4d9ca57040efd31646d6b5669c52cb988))
+
 ## [8.3.0](https://github.com/memori-ai/memori-react/compare/v8.2.0...v8.3.0) (2025-09-03)
 
 

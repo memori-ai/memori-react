@@ -87,6 +87,7 @@ export const renderMsg = (
         /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g,
         ''
       )
+      .replaceAll(/<output\s+class\s*=\s*["\']memori-artifact["\'][^>]*data-mimetype\s*=\s*["\']([^"']+)["\'][^>]*>([\s\S]*?)(?:<\/output>|$)/gi, '')
       .replaceAll(/```markdown([^```]+)```/g, '$1')
       .replaceAll('($', '( $')
       .replaceAll(':$', ': $')

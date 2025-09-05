@@ -52,6 +52,11 @@
 @import url('./components/MemoriWidget/MemoriWidget.css');
 @import url('./components/UploadButton/UploadButton.css');
 @import url('./components/FilePreview/FilePreview.css');
+@import url('./components/MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer.css');
+@import url('./components/MemoriArtifactSystem/components/ArtifactActions/ArtifactActions.css');
+@import url('./components/MemoriArtifactSystem/components/ArtifactPreview/ArtifactPreview.css');
+@import url('./components/MemoriArtifactSystem/components/ArtifactHistory/ArtifactHistory.css');
+@import url('./components/MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler.css');
 
 @import url('./components/layouts/hidden-chat.css');
 @import url('./components/layouts/totem.css');

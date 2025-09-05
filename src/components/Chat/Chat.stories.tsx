@@ -9,11 +9,13 @@ import {
   sessionID,
   dialogState as dialogStateWithHints,
   historyWithExpandable,
+  historyWithArtifacts,
 } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Chat, { Props } from './Chat';
 
 import './Chat.css';
+import { ArtifactSystemProvider } from '../MemoriArtifactSystem';
 
 const meta: Meta = {
   title: 'Widget/Chat',
@@ -36,11 +38,23 @@ const Template: Story<Props> = args => {
 
   return (
     <I18nWrapper>
+      <ArtifactSystemProvider config={{
+        supportedMimeTypes: {
+          html: {
+            name: 'HTML',
+            icon: '🌐',
+            hasPreview: true,
+            language: 'html',
+            mimeType: 'text/html',
+          },
+        },
+      }}>
       <Chat
         {...args}
         userMessage={userMessage}
-        onChangeUserMessage={setUserMessage}
-      />
+          onChangeUserMessage={setUserMessage}
+        />
+      </ArtifactSystemProvider>
     </I18nWrapper>
   );
 };
@@ -88,6 +102,23 @@ WithHints.args = {
   history,
   dialogState: dialogStateWithHints,
   layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
+
+
+export const WithArtifacts = Template.bind({});
+WithArtifacts.args = {
+  memori,
+  tenant,
+  sessionID,
+  history: historyWithArtifacts,
+  dialogState,
+  layout: 'CHAT',
   simulateUserPrompt: () => {},
   sendMessage: (msg: string) => console.log(msg),
   stopListening: () => {},

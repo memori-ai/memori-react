@@ -89,6 +89,264 @@ export const memori: Memori = {
   coverURL: 'https://aisuru.com/images/aisuru/og-image.png',
 };
 
+export const historyWithArtifacts: Message[] = [
+  {
+    text: "Ciao, io sono test, c'è qualcosa che vorresti chiedermi?",
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: 'Prova',
+    fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  
+  {
+    text: "Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?",
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  
+  {
+    text: 'Come faccio a fare delle cose con questa cosa?',
+    fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  
+  
+  {
+    text: `Ecco qui come. <think>L'utente mi sta chiedendo di generare un'immagine di gattini. Per fare questo devo utilizzare il sistema di generazione immagini. Prima devo controllare quali strumenti sono disponibili per la generazione di immagini. Dovrei:1. Prima chiamare LISTA_TOOLS_FREE_IMAGE_GENERATOR_MCP_PROD per vedere gli strumenti disponibili2. Poi usare ESEGUI_TOOL_FREE_IMAGE_GENERATOR_MCP_PROD per generare l'immagine 2. Poi usare ESEGUI_TOOL_FREE_IMAGE_GENERATOR_MCP_PROD per generare l'immagine Dalle istruzioni so che devo provare i modelli in questo ordine: turbo, flux, kontext (iniziando sempre con turbo). Inoltre, dalle istruzioni specifiche, vedo che se ho ARTIFACT attivo posso usare JavaScript e ARTIFACT per effetti più avanzati, altrimenti devo avvisare che l'immagine ci può mettere un po' a caricarsi e predisporre il bordo width:100%. Dato che sto lavorando con il sistema Memori Artifact, dovrei avere ARTIFACT disponibile, quindi userò quello per una gestione più bella del loading.</think>Perfetto! Ho generato per te un'adorabile immagine di gattini! 🐱✨ <output class="memori-artifact" data-mimetype="html" data-title="Gattini Adorabili">
+<!DOCTYPE html>
+<html lang="it">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Gattini Adorabili</title>
+ <style>
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ }
+ 
+ body {
+ font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+ min-height: 100vh;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ padding: 20px;
+ }
+ 
+ .container {
+ background: rgba(255, 255, 255, 0.95);
+ border-radius: 20px;
+ padding: 30px;
+ box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+ max-width: 800px;
+ width: 100%;
+ text-align: center;
+ backdrop-filter: blur(10px);
+ border: 1px solid rgba(255, 255, 255, 0.3);
+ }
+ 
+ h1 {
+ color: #ff6b9d;
+ margin-bottom: 20px;
+ font-size: 2.5rem;
+ text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+ }
+ 
+ .image-container {
+ position: relative;
+ border-radius: 15px;
+ overflow: hidden;
+ box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+ margin: 20px 0;
+ background: #f0f0f0;
+ min-height: 400px;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ }
+ 
+ .loading {
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ color: #ff6b9d;
+ font-size: 1.2rem;
+ z-index: 1;
+ }
+ 
+ .spinner {
+ border: 4px solid #f3f3f3;
+ border-top: 4px solid #ff6b9d;
+ border-radius: 50%;
+ width: 40px;
+ height: 40px;
+ animation: spin 1s linear infinite;
+ margin: 0 auto 15px;
+ }
+ 
+ @keyframes spin {
+ 0% { transform: rotate(0deg); }
+ 100% { transform: rotate(360deg); }
+ }
+ 
+ .generated-image {
+ width: 100%;
+ max-width: 100%;
+ height: auto;
+ border-radius: 15px;
+ opacity: 0;
+ transition: opacity 0.5s ease-in-out;
+ }
+ 
+ .generated-image.loaded {
+ opacity: 1;
+ }
+ 
+ .description {
+ color: #666;
+ font-size: 1.1rem;
+ line-height: 1.6;
+ margin-top: 20px;
+ }
+ 
+ .features {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+ gap: 15px;
+ margin-top: 25px;
+ }
+ 
+ .feature {
+ background: linear-gradient(135deg, #ff9a9e, #fecfef);
+ color: white;
+ padding: 15px;
+ border-radius: 10px;
+ font-weight: 600;
+ text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+ }
+ 
+ .download-btn {
+ margin-top: 25px;
+ padding: 12px 25px;
+ background: linear-gradient(135deg, #ff6b9d, #c44569);
+ color: white;
+ border: none;
+ border-radius: 25px;
+ font-size: 1rem;
+ font-weight: 600;
+ cursor: pointer;
+ transition: all 0.3s ease;
+ text-decoration: none;
+ display: inline-block;
+ }
+ 
+ .download-btn:hover {
+ transform: translateY(-2px);
+ box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
+ }
+ </style>
+</head>
+<body>
+ <div class="container">
+ <h1>🐱 Gattini Adorabili 🐱</h1>
+ 
+ <div class="image-container">
+ <div class="loading" id="loading">
+ <div class="spinner"></div>
+ Generando i gattini più adorabili del mondo...
+ </div>
+ <img 
+ class="generated-image" 
+ id="kittenImage"
+ src="https://image.pollinations.ai/prompt/adorable%20fluffy%20kittens%20playing%20together%2C%20cute%20baby%20cats%20with%20big%20eyes%2C%20soft%20fur%2C%20playful%20pose%2C%20warm%20lighting%2C%20high%20quality%2C%20detailed?model=turbo&seed=908545&width=1024&height=1024&enhance=true&nologo=true&private=true&safe=false"
+ alt="Adorabili gattini che giocano insieme"
+ >
+ </div>
+ 
+ <div class="description">
+ <p>Ecco la tua immagine di <strong>gattini adorabili</strong> generata con AI! 
+ Questi piccoli felini con i loro occhi grandi e il pelo soffice sono pronti a riempire la tua giornata di dolcezza.</p>
+ </div>
+ 
+ <div class="features">
+ <div class="feature">🎨 Alta Qualità</div>
+ <div class="feature">✨ AI Generata</div>
+ <div class="feature">💕 Adorabili</div>
+ <div class="feature">🐾 Dettagliata</div>
+ </div>
+ 
+ <a href="https://image.pollinations.ai/prompt/adorable%20fluffy%20kittens%20playing%20together%2C%20cute%20baby%20cats%20with%20big%20eyes%2C%20soft%20fur%2C%20playful%20pose%2C%20warm%20lighting%2C%20high%20quality%2C%20detailed?model=turbo&seed=908545&width=1024&height=1024&enhance=true&nologo=true&private=true&safe=false" 
+ download="gattini-adorabili.jpg" 
+ class="download-btn">
+ 📥 Scarica Immagine
+ </a>
+ </div>
+ 
+ <script>
+ const image = document.getElementById('kittenImage');
+ const loading = document.getElementById('loading');
+ 
+ image.onload = function() {
+ loading.style.display = 'none';
+ image.classList.add('loaded');
+ };
+ 
+ image.onerror = function() {
+ loading.innerHTML = '😿 Ops! Errore nel caricamento dell\'immagine';
+ };
+ 
+ // Preload dell'immagine per un caricamento più fluido
+ setTimeout(() => {
+ if (!image.complete) {
+ loading.innerHTML = '<div class="spinner"></div>I gattini stanno arrivando... 🐱';
+ }
+ }, 3000);
+ </script>
+</body>
+</html>
+</output>
+
+Ho creato per te un'immagine di gattini adorabili utilizzando il modello AI "turbo"! 🐱✨
+
+**Caratteristiche dell'immagine:**
+- 🎨 **Qualità**: 1024x1024 pixel, alta risoluzione
+- 🐾 **Soggetto**: Gattini soffici che giocano insieme con grandi occhi dolci
+- ✨ **Stile**: Illuminazione calda, dettagli realistici, pelo morbido
+- 💕 **Mood**: Adorabile e giocoso
+
+L'immagine è visualizzata in una pagina web interattiva con:
+- Loading animation mentre si carica
+- Design responsive e moderno
+- Pulsante per scaricare l'immagine
+- Effetti di transizione fluidi
+
+Se vuoi provare variazioni diverse, posso generare altre immagini con stili o pose differenti! 🎨`,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  
+  
+  {
+    text: 'Ah, grazie! Ciao!',
+    fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  
+  
+  {
+    text: 'Arrivederci.',
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  
+  
+];
+
+
 export const history: Message[] = [
   {
     text: "Ciao, io sono test, c'è qualcosa che vorresti chiedermi?",

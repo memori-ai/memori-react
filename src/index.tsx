@@ -21,6 +21,7 @@ import { safeParseJSON } from './helpers/utils';
 import i18n from './i18n';
 import { useTranslation } from 'react-i18next';
 import I18nWrapper from './I18nWrapper';
+import { ArtifactSystemProvider } from './components/MemoriArtifactSystem';
 
 export interface Props {
   memoriName?: string | null;
@@ -332,6 +333,50 @@ const Memori: React.FC<Props> = ({
   return (
     <I18nWrapper>
       <VisemeProvider>
+        <ArtifactSystemProvider config={{
+          supportedMimeTypes: {
+            html: {
+              name: 'HTML',
+              icon: '🌐',
+              hasPreview: true,
+              language: 'html',
+              mimeType: 'text/html',
+            },
+            css: {
+              name: 'CSS',
+              icon: '🎨',
+              hasPreview: false,
+              language: 'css',
+              mimeType: 'text/css',
+            },
+            javascript: {
+              name: 'JavaScript',
+              icon: '⚡',
+              hasPreview: false,
+              language: 'javascript',
+              mimeType: 'text/javascript',
+            },
+            typescript: {
+              name: 'TypeScript',
+              icon: '🔷',
+              hasPreview: false,
+              language: 'typescript',
+              mimeType: 'text/typescript',
+            },
+            markdown: {
+              name: 'Markdown',
+              icon: '📝',
+              hasPreview: true,
+              language: 'markdown',
+              mimeType: 'text/markdown',
+            },
+          },
+          autoOpenArtifacts: true,
+          enableSyntaxHighlighting: true,
+          showLineNumbers: true,
+          maxHistoryItems: 10,
+        }}>
+
         <Toaster position="top-center" reverseOrder={true} />
         {memori ? (
           <MemoriWidget
@@ -393,6 +438,7 @@ const Memori: React.FC<Props> = ({
             </p>
           </div>
         )}
+        </ArtifactSystemProvider>
       </VisemeProvider>
     </I18nWrapper>
   );

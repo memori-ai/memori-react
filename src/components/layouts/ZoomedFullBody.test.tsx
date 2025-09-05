@@ -3,6 +3,7 @@ import Memori from '../MemoriWidget/MemoriWidget';
 import { integration, memori, tenant } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import { VisemeProvider } from '../../context/visemeContext';
+import { ArtifactSystemProvider } from '../MemoriArtifactSystem';
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(query => ({
@@ -20,6 +21,17 @@ Object.defineProperty(window, 'matchMedia', {
 it('renders ZOOMED_FULL_BODY layout unchanged', () => {
   const { container } = render(
     <I18nWrapper>
+      <ArtifactSystemProvider config={{
+        supportedMimeTypes: {
+          html: {
+            name: 'HTML',
+            icon: '🌐',
+            hasPreview: true,
+            language: 'html',
+            mimeType: 'text/html',
+          },
+        },
+      }}>
       <VisemeProvider>
         <Memori
           showShare={true}
@@ -31,6 +43,7 @@ it('renders ZOOMED_FULL_BODY layout unchanged', () => {
           layout="ZOOMED_FULL_BODY"
         />
       </VisemeProvider>
+      </ArtifactSystemProvider>
     </I18nWrapper>
   );
   expect(container).toMatchSnapshot();

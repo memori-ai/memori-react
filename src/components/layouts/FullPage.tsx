@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
+import {
+  ArtifactDrawer,
+  useArtifactSystemContext,
+} from '../MemoriArtifactSystem';
 
 const FullPageLayout: React.FC<LayoutProps> = ({
   Header,
@@ -17,32 +21,96 @@ const FullPageLayout: React.FC<LayoutProps> = ({
   hasUserActivatedSpeak,
   loading = false,
   poweredBy,
-}) => (
-  <>
-    {integrationStyle}
-    {integrationBackground}
+}) => {
+  const { state } = useArtifactSystemContext();
+  const [isMobile, setIsMobile] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
 
-    <Spin spinning={loading}>
-      {Header && headerProps && <Header {...headerProps} />}
+  useEffect(() => {
+    const handleResize = () => {
+      const newIsMobile = window.innerWidth < 769;
+      if (newIsMobile !== isMobile) {
+        setIsAnimating(true);
+        setTimeout(() => {
+          setIsMobile(newIsMobile);
+          setIsAnimating(false);
+        }, 300);
+      } else {
+        setIsMobile(newIsMobile);
+      }
+    };
 
-      <div className="memori--grid">
-        <div className="memori--grid-column memori--grid-column-left">
-          {Avatar && avatarProps && <Avatar chatProps={chatProps}  {...avatarProps} />}
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [isMobile]);
 
-          <div id="extension" />
+  const hasArtifact = state.currentArtifact && !isMobile;
+  return (
+    <>
+      {integrationStyle}
+      {integrationBackground}
+
+      <Spin spinning={loading}>
+        {Header && headerProps && <Header {...headerProps} />}
+
+        <div className="memori--grid">
+          {!hasArtifact && (
+            <div className="memori--grid-column memori--grid-column-left">
+              {Avatar && avatarProps && !hasArtifact && (
+                <Avatar chatProps={chatProps} {...avatarProps} />
+              )}
+
+              <div id="extension" />
+            </div>
+          )}
+          <div
+            className={`memori-chat-layout--main ${
+              hasArtifact ? 'memori-chat-layout--main-with-artifact' : ''
+            }`}
+          >
+            <div
+              className={
+                state.isFullscreen
+                  ? `memori-chat-layout-controls-hide`
+                  : `memori-chat-layout--controls ${
+                      hasArtifact
+                        ? 'memori-chat-layout--controls-with-artifact'
+                        : ''
+                    }`
+              }
+            >
+              {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+                <Chat {...chatProps} />
+              ) : startPanelProps ? (
+                <StartPanel {...startPanelProps} />
+              ) : null}
+            </div>
+
+            {hasArtifact && (
+              <div
+                className={
+                  state.isFullscreen
+                    ? `memori-chat-layout-artifact-panel-full-screen`
+                    : `memori-chat-layout--artifact-panel memori-chat-layout--artifact-panel-enter`
+                }
+              >
+                <ArtifactDrawer />
+              </div>
+            )}
+          </div>
+          {/* Mobile drawer - always rendered but only shown on mobile */}
+          {state.currentArtifact && isMobile && (
+            <div className="memori-chat-layout--artifact-drawer">
+              <ArtifactDrawer />
+            </div>
+          )}
+
+          {poweredBy}
         </div>
-        <div className="memori--grid-column memori--grid-column-right">
-          {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
-            <Chat {...chatProps} />
-          ) : startPanelProps ? (
-            <StartPanel {...startPanelProps} />
-          ) : null}
-        </div>
-
-        {poweredBy}
-      </div>
-    </Spin>
-  </>
-);
+      </Spin>
+    </>
+  );
+};
 
 export default FullPageLayout;
