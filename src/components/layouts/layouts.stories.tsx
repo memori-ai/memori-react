@@ -5,6 +5,7 @@ import Memori, { LayoutProps, Props } from '../MemoriWidget/MemoriWidget';
 import I18nWrapper from '../../I18nWrapper';
 import Spin from '../ui/Spin';
 import { VisemeProvider } from '../../context/visemeContext';
+import { ArtifactSystemProvider } from '../MemoriArtifactSystem';
 
 const meta: Meta = {
   title: 'General/Layouts',
@@ -26,9 +27,21 @@ export default meta;
 
 const Template: Story<Props> = args => (
   <I18nWrapper>
+    <ArtifactSystemProvider config={{
+      supportedMimeTypes: {
+        html: {
+          name: 'HTML',
+          icon: '🌐',
+          hasPreview: true,
+          language: 'html',
+          mimeType: 'text/html',
+        },
+      },
+    }}>
     <VisemeProvider>
       <Memori {...args} />
     </VisemeProvider>
+    </ArtifactSystemProvider>
   </I18nWrapper>
 );
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
@@ -267,8 +280,6 @@ export const CustomLayout: React.FC<LayoutProps> = ({
   startPanelProps,
   integrationStyle,
   integrationBackground,
-  ChangeMode,
-  changeModeProps,
   sessionId,
   hasUserActivatedSpeak,
   loading = false,

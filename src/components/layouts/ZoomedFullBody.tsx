@@ -64,7 +64,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
           {!hasArtifact && (
             <div className="memori--grid-column memori--grid-column-left">
               {Avatar && avatarProps && !hasArtifact && (
-                <Avatar chatProps={chatProps} {...avatarProps} />
+                <Avatar isZoomed chatProps={chatProps} {...avatarProps} />
               )}
 
               <div id="extension" />

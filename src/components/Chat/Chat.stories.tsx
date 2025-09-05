@@ -15,6 +15,7 @@ import I18nWrapper from '../../I18nWrapper';
 import Chat, { Props } from './Chat';
 
 import './Chat.css';
+import { ArtifactSystemProvider } from '../MemoriArtifactSystem';
 
 const meta: Meta = {
   title: 'Widget/Chat',
@@ -37,11 +38,23 @@ const Template: Story<Props> = args => {
 
   return (
     <I18nWrapper>
+      <ArtifactSystemProvider config={{
+        supportedMimeTypes: {
+          html: {
+            name: 'HTML',
+            icon: '🌐',
+            hasPreview: true,
+            language: 'html',
+            mimeType: 'text/html',
+          },
+        },
+      }}>
       <Chat
         {...args}
         userMessage={userMessage}
-        onChangeUserMessage={setUserMessage}
-      />
+          onChangeUserMessage={setUserMessage}
+        />
+      </ArtifactSystemProvider>
     </I18nWrapper>
   );
 };

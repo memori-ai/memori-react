@@ -36,10 +36,6 @@
   outline-offset: 2px;
 }
 
-.memori-artifact-action-btn:focus:not(:focus-visible) {
-  outline: none;
-}
-
 .memori-artifact-action-btn:active {
   transform: translateY(0);
 }
@@ -48,6 +44,10 @@
   cursor: not-allowed;
   opacity: 0.6;
   transform: none !important;
+}
+
+.memori-artifact-action-btn:focus:not(:focus-visible) {
+  outline: none;
 }
 
 .memori-artifact-action-btn:disabled:hover {
