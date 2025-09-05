@@ -149,13 +149,6 @@
     }
 }
 
-.memori-chat-layout--controls {
-    position: relative;
-    z-index: 5;
-    max-height: calc(100% - 50px);
-    flex: 1;
-}
-
 .memori-chat-layout--controls .memori--start-panel,
 .memori-chat-layout--controls .memori-chat--wrapper {
     max-width: 1200px;
@@ -245,34 +238,19 @@
 }
 
 /* Enhanced micro-interactions */
-.memori-chat-layout--main {
-    height: 100%;
-    flex: 1;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
 .memori-chat-layout--main:hover {
     transform: translateY(-2px);
     /* box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15); */
 }
 
-.memori-chat-layout--controls {
-    height: 100%;
-    transition: all 0.2s ease-in-out;
-}
 
 .memori-chat-layout--controls:hover {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
     transform: translateY(-1px);
 }
 
-.memori-chat-layout--artifact-panel {
-    transition: all 0.2s ease-in-out;
-}
 
-.memori-chat-layout-artifact-panel-full-screen {
-    transition: all 0.2s ease-in-out;
-}
 
 .memori-chat-layout--artifact-panel:hover {
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
@@ -392,26 +370,7 @@
 }
 
 /* Mobile drawer animations */
-.memori-chat-layout--artifact-drawer {
-    position: fixed;
-    z-index: 1000;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    backdrop-filter: blur(8px) saturate(180%);
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
-    opacity: 0;
-    pointer-events: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    visibility: hidden;
-}
 
-.memori-chat-layout--artifact-drawer .memori-artifact-drawer {
-    pointer-events: auto;
-    transform: translateX(100%);
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
 .memori-chat-layout--artifact-drawer[data-headlessui-state~="open"] {
     opacity: 1;

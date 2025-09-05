@@ -31,20 +31,28 @@
   height: 16px;
 }
 
-.memori-artifact-action-btn {
-  display: flex;
-  align-items: center;
-  padding: 0.75rem 1rem;
-  border: none;
-  border-radius: var(--memori-border-radius, 4px);
-  background: transparent;
-  color: var(--memori-text-color, #666);
-  cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 500;
-  gap: 0.5rem;
-  transition: all 0.2s ease;
-  white-space: nowrap;
+.memori-artifact-action-btn:focus {
+  outline: 2px solid var(--memori-primary);
+  outline-offset: 2px;
+}
+
+.memori-artifact-action-btn:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.memori-artifact-action-btn:active {
+  transform: translateY(0);
+}
+
+.memori-artifact-action-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none !important;
+}
+
+.memori-artifact-action-btn:disabled:hover {
+  box-shadow: none !important;
+  transform: none !important;
 }
 
 .memori-artifact-action-btn:hover:not(.memori-artifact-action-btn--active) {
@@ -56,10 +64,6 @@
   background: var(--memori-chat-bubble-bg, #fff);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   color: var(--memori-primary);
-}
-
-.memori-artifact-action-btn:active {
-  transform: translateY(0);
 }
 
 .memori-artifact-action-text {
@@ -88,15 +92,11 @@
   .memori-artifact-action-btn {
     min-width: 42px;
     min-height: auto;
+    justify-content: center;
   }
 
   .memori-artifact-action-text {
     display: none;
-  }
-
-  .memori-artifact-action-btn {
-    min-width: 2.5rem;
-    justify-content: center;
   }
 
   .memori-artifact-fullscreen-btn{
@@ -119,26 +119,6 @@
 }
 
 /* Loading State */
-.memori-artifact-action-btn:disabled {
-  cursor: not-allowed;
-  opacity: 0.6;
-  transform: none !important;
-}
-
-.memori-artifact-action-btn:disabled:hover {
-  box-shadow: none !important;
-  transform: none !important;
-}
-
-/* Focus States */
-.memori-artifact-action-btn:focus {
-  outline: 2px solid var(--memori-primary);
-  outline-offset: 2px;
-}
-
-.memori-artifact-action-btn:focus:not(:focus-visible) {
-  outline: none;
-}
 
 /* Icon Sizing */
 .memori-artifact-action-btn .memori-button--icon {

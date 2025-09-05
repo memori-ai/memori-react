@@ -29,57 +29,57 @@
 
 /* Web Split Panel Container */
 .memori-artifact-panel {
+    position: relative;
     display: flex;
-    flex-direction: column;
+    overflow: hidden;
     height: 100%;
+    flex-direction: column;
     border-left: 1px solid var(--artifact-drawer-border);
-    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
     backdrop-filter: blur(10px);
     box-shadow: var(--artifact-drawer-shadow);
+    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
     transition: var(--artifact-drawer-transition);
-    overflow: hidden;
-    position: relative;
 }
 
 .memori-artifact-panel::before {
-    content: '';
     position: absolute;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
     height: 1px;
     background: white;
+    content: '';
     opacity: 0.6;
 }
 
 /* Web Split Panel Header */
 .memori-artifact-panel--header {
+    position: relative;
     display: flex;
+    overflow: hidden;
     flex-flow: column;
     align-items: flex-start;
     justify-content: space-between;
     padding: 1.5rem;
     border-radius: var(--artifact-drawer-radius-lg) var(--artifact-drawer-radius-lg) 0 0;
     border-bottom: 1px solid white;
+    backdrop-filter: blur(20px);
     /* margin-bottom: 1.5rem; */
     background: white;
-    backdrop-filter: blur(20px);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    position: relative;
-    overflow: hidden;
     transition: var(--artifact-drawer-transition);
 }
 
 .memori-artifact-panel--header::before {
-    content: '';
     position: absolute;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
     height: 2px;
+    animation: shimmer 3s ease-in-out infinite;
     background: white;
     background-size: 200% 100%;
-    animation: shimmer 3s ease-in-out infinite;
+    content: '';
 }
 
 @keyframes shimmer {
@@ -99,13 +99,13 @@
 
 .memori-artifact-panel--title {
     margin: 0 0 0.75rem;
+    background: white;
+    background-clip: text;
     color: var(--artifact-drawer-text);
     font-size: 1.5rem;
     font-weight: 700;
-    line-height: 1.2;
     letter-spacing: -0.02em;
-    background: white;
-    background-clip: text;
+    line-height: 1.2;
     transition: var(--artifact-drawer-transition);
 }
 
@@ -118,55 +118,55 @@
     color: var(--artifact-drawer-text-muted);
     font-size: 0.95rem;
     font-weight: 500;
-    opacity: 0.9;
     line-height: 1.4;
+    opacity: 0.9;
     transition: var(--artifact-drawer-transition);
 }
 
 .memori-artifact-panel--subtitle:hover {
-    opacity: 1;
     color: var(--artifact-drawer-accent);
+    opacity: 1;
 }
 
 .memori-artifact-panel--meta {
     display: flex;
     flex-wrap: wrap;
+    margin-top: 0.5rem;
     color: var(--artifact-drawer-text-muted);
     font-size: 0.8rem;
     font-weight: 500;
     gap: 0.5rem;
-    margin-top: 0.5rem;
 }
 
 .memori-artifact-panel--meta-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.25rem 0.75rem;
-    background: rgba(0, 123, 255, 0.08);
-    border-radius: 20px;
-    border: 1px solid rgba(0, 123, 255, 0.15);
-    transition: var(--artifact-drawer-transition-fast);
     position: relative;
+    display: flex;
     overflow: hidden;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid rgba(0, 123, 255, 0.15);
+    border-radius: 20px;
+    background: rgba(0, 123, 255, 0.08);
+    gap: 0.5rem;
+    transition: var(--artifact-drawer-transition-fast);
 }
 
 .memori-artifact-panel--meta-item::before {
-    content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
     background: white;
+    content: '';
     transition: left 0.6s ease;
 }
 
 .memori-artifact-panel--meta-item:hover {
-    background: rgba(0, 123, 255, 0.12);
     border-color: rgba(0, 123, 255, 0.25);
-    transform: translateY(-1px);
+    background: rgba(0, 123, 255, 0.12);
     box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+    transform: translateY(-1px);
 }
 
 .memori-artifact-panel--meta-item:hover::before {
@@ -177,13 +177,13 @@
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    gap: 0.75rem;
-    margin-top: 1rem;
     padding: 0.5rem;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: var(--artifact-drawer-radius);
-    backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--artifact-drawer-radius);
+    margin-top: 1rem;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.5);
+    gap: 0.75rem;
     transition: var(--artifact-drawer-transition);
 }
 
@@ -194,10 +194,10 @@
 
 .memori-artifact-panel--close {
     position: absolute;
+    z-index: 10;
     top: 1.5rem;
     right: 1.5rem;
     margin-left: 0.5rem;
-    z-index: 10;
     /* transition: var(--artifact-drawer-transition); */
 }
 
@@ -209,38 +209,38 @@
 
 /* Web Split Panel Content */
 .memori-artifact-panel--content {
+    position: relative;
     display: flex;
+    overflow: hidden;
     min-height: 0;
     flex: 1;
-    gap: 1.5rem;
     padding: 0 1.5rem 1.5rem;
-    overflow: hidden;
-    position: relative;
+    gap: 1.5rem;
 }
 
 .memori-artifact-panel--main {
+    position: relative;
     display: flex;
+    overflow: hidden;
     min-width: 0;
     flex: 1;
     flex-direction: column;
-    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: var(--artifact-drawer-radius-lg);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.6);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
     transition: var(--artifact-drawer-transition);
-    position: relative;
 }
 
 .memori-artifact-panel--main::before {
-    content: '';
     position: absolute;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
     height: 1px;
     background: white;
+    content: '';
 }
 
 .memori-artifact-drawer--backdrop {
@@ -267,36 +267,36 @@
 
 .memori-artifact-drawer--panel {
     position: fixed;
+    position: relative;
+    z-index: 1001;
     top: 0;
     right: 0;
     bottom: 0;
     display: flex;
+    overflow: hidden;
     width: 50%;
     height: 100vh;
     box-sizing: border-box;
     flex-direction: column;
     padding: 1.5rem 2rem 2rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
     background: white;
     box-shadow: var(--artifact-drawer-shadow-lg);
     font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
-    transition: var(--artifact-drawer-transition-slow);
     transform: translateX(100%);
-    z-index: 1001;
-    border-left: 1px solid rgba(255, 255, 255, 0.2);
-    overflow: hidden;
-    position: relative;
+    transition: var(--artifact-drawer-transition-slow);
 }
 
 .memori-artifact-drawer--panel::before {
-    content: '';
     position: absolute;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
     height: 2px;
+    animation: shimmer 3s ease-in-out infinite;
     background: white;
     background-size: 200% 100%;
-    animation: shimmer 3s ease-in-out infinite;
+    content: '';
 }
 
 .memori-artifact-drawer--panel-left {
@@ -306,17 +306,19 @@
 }
 
 .memori-artifact-drawer--panel-fullscreen {
-    width: 100% !important;
-    max-width: 100% !important;
     right: 0 !important;
     left: 0 !important;
-    transform: translateX(0) !important;
+    width: 100% !important;
+    max-width: 100% !important;
     box-shadow: none !important;
+    transform: translateX(0) !important;
 }
 
 /* Header */
 .memori-artifact-drawer--header {
+    position: relative;
     display: flex;
+    overflow: hidden;
     flex-flow: column;
     align-items: flex-start;
     justify-content: space-between;
@@ -324,24 +326,22 @@
     border-radius: var(--artifact-drawer-radius-lg) var(--artifact-drawer-radius-lg) 0 0;
     border-bottom: 1px solid var(--artifact-drawer-border);
     margin-bottom: 1.5rem;
-    background: white;
     backdrop-filter: blur(20px);
+    background: white;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    position: relative;
-    overflow: hidden;
     transition: var(--artifact-drawer-transition);
 }
 
 .memori-artifact-drawer--header::before {
-    content: '';
     position: absolute;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
     height: 2px;
+    animation: shimmer 3s ease-in-out infinite;
     background: linear-gradient(90deg, var(--artifact-drawer-accent), #00d4ff, var(--artifact-drawer-accent));
     background-size: 200% 100%;
-    animation: shimmer 3s ease-in-out infinite;
+    content: '';
 }
 
 .memori-artifact-drawer--header-content {
@@ -351,15 +351,15 @@
 
 .memori-artifact-drawer--title {
     margin: 0 0 0.75rem;
+    background: linear-gradient(135deg, var(--artifact-drawer-text) 0%, var(--artifact-drawer-accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
     color: var(--artifact-drawer-text);
     font-size: 1.5rem;
     font-weight: 700;
-    line-height: 1.2;
     letter-spacing: -0.02em;
-    background: linear-gradient(135deg, var(--artifact-drawer-text) 0%, var(--artifact-drawer-accent) 100%);
-    -webkit-background-clip: text;
+    line-height: 1.2;
     -webkit-text-fill-color: transparent;
-    background-clip: text;
     transition: var(--artifact-drawer-transition);
 }
 
@@ -372,58 +372,58 @@
     color: var(--artifact-drawer-text-muted);
     font-size: 0.95rem;
     font-weight: 500;
-    opacity: 0.9;
     line-height: 1.4;
+    opacity: 0.9;
     transition: var(--artifact-drawer-transition);
 }
 
 .memori-artifact-drawer--subtitle:hover {
-    opacity: 1;
     color: var(--artifact-drawer-accent);
+    opacity: 1;
 }
 
 .memori-artifact-drawer--meta {
     display: flex;
-    flex-wrap: wrap;
     flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
     color: var(--artifact-drawer-text-muted);
     font-size: 0.8rem;
     font-weight: 500;
     gap: 1rem;
-    margin-top: 0.5rem;
 }
 
 .memori-artifact-drawer--meta-item {
+    position: relative;
     display: flex;
-    align-items: center;
+    overflow: hidden;
     max-width: 120px;
     max-height: 40px;
-    gap: 0.5rem;
+    align-items: center;
     padding: 0.25rem 0.75rem;
-    background: rgba(0, 123, 255, 0.08);
-    border-radius: 20px;
     border: 1px solid rgba(0, 123, 255, 0.15);
+    border-radius: 20px;
+    background: rgba(0, 123, 255, 0.08);
+    gap: 0.5rem;
     transition: var(--artifact-drawer-transition-fast);
-    position: relative;
-    overflow: hidden;
 }
 
 .memori-artifact-drawer--meta-item::before {
-    content: '';
     position: absolute;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    content: '';
     transition: left 0.6s ease;
 }
 
 .memori-artifact-drawer--meta-item:hover {
-    background: rgba(0, 123, 255, 0.12);
     border-color: rgba(0, 123, 255, 0.25);
-    transform: translateY(-1px);
+    background: rgba(0, 123, 255, 0.12);
     box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+    transform: translateY(-1px);
 }
 
 .memori-artifact-drawer--meta-item:hover::before {
@@ -434,13 +434,13 @@
     display: flex;
     flex-shrink: 0;
     align-items: center;
-    gap: 0.75rem;
-    margin-top: 1rem;
     padding: 0.5rem;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: var(--artifact-drawer-radius);
-    backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--artifact-drawer-radius);
+    margin-top: 1rem;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.5);
+    gap: 0.75rem;
     transition: var(--artifact-drawer-transition);
 }
 
@@ -455,15 +455,15 @@
 
 .memori-artifact-drawer--close {
     position: absolute;
+    z-index: 10;
     top: 1.5rem;
     right: 1.5rem;
     margin-left: 0.5rem;
-    z-index: 10;
 }
 
 .memori-artifact-drawer--close:hover {
-    background: rgba(255, 59, 48, 0.1) !important;
     border-color: rgba(255, 59, 48, 0.3) !important;
+    background: rgba(255, 59, 48, 0.1) !important;
 }
 
 .memori-artifact-drawer--close-icon {
@@ -477,38 +477,38 @@
 
 /* Content */
 .memori-artifact-drawer--content {
+    position: relative;
     display: flex;
+    overflow: hidden;
     min-height: 0;
     flex: 1;
-    gap: 1.5rem;
     padding: 0 0 1.5rem;
-    overflow: hidden;
-    position: relative;
+    gap: 1.5rem;
 }
 
 .memori-artifact-drawer--main {
+    position: relative;
     display: flex;
+    overflow: hidden;
     min-width: 0;
     flex: 1;
     flex-direction: column;
-    background: rgba(255, 255, 255, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: var(--artifact-drawer-radius-lg);
     backdrop-filter: blur(20px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.6);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
     transition: var(--artifact-drawer-transition);
-    position: relative;
 }
 
 .memori-artifact-drawer--main::before {
-    content: '';
     position: absolute;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(0, 123, 255, 0.3), transparent);
+    content: '';
 }
 
 .memori-artifact-drawer--sidebar {
@@ -524,35 +524,35 @@
 /* Mobile Drawer Panel */
 .memori-artifact-drawer--panel-mobile {
     position: fixed;
+    position: relative;
+    z-index: 1001;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
+    overflow: hidden;
     width: 100%;
     height: 100vh;
     padding: 1rem 1.5rem 1.5rem;
     border-radius: 0;
-    box-shadow: none;
-    transform: translateX(100%);
-    background: linear-gradient(135deg, var(--artifact-drawer-bg) 0%, rgba(248, 250, 252, 0.95) 100%);
     backdrop-filter: blur(20px);
+    background: linear-gradient(135deg, var(--artifact-drawer-bg) 0%, rgba(248, 250, 252, 0.95) 100%);
+    box-shadow: none;
     font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    transform: translateX(100%);
     transition: var(--artifact-drawer-transition-slow);
-    z-index: 1001;
-    overflow: hidden;
-    position: relative;
 }
 
 .memori-artifact-drawer--panel-mobile::before {
-    content: '';
     position: absolute;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
     height: 2px;
+    animation: shimmer 3s ease-in-out infinite;
     background: linear-gradient(90deg, var(--artifact-drawer-accent), #00d4ff, var(--artifact-drawer-accent));
     background-size: 200% 100%;
-    animation: shimmer 3s ease-in-out infinite;
+    content: '';
 }
 
 /* Responsive Design */
@@ -574,10 +574,10 @@
         height: 100vh !important;
         padding: 1rem 1.5rem 1.5rem;
         border-radius: 0 !important;
+        backdrop-filter: blur(20px) !important;
+        background: linear-gradient(135deg, var(--artifact-drawer-bg) 0%, rgba(248, 250, 252, 0.95) 100%) !important;
         box-shadow: none !important;
         transform: translateX(100%) !important;
-        background: linear-gradient(135deg, var(--artifact-drawer-bg) 0%, rgba(248, 250, 252, 0.95) 100%) !important;
-        backdrop-filter: blur(20px) !important;
     }
 
     .memori-artifact-drawer[data-headlessui-state~='open'] .memori-artifact-drawer--panel-mobile {
@@ -589,13 +589,13 @@
         padding: 1.5rem;
         border-radius: 0;
         margin-bottom: 1rem;
-        gap: 1.5rem;
+        backdrop-filter: blur(20px) !important;
         background: linear-gradient(
             135deg,
             var(--memori-inner-bg, #f8f9fa) 0%,
             rgba(255, 255, 255, 0.9) 100%
         ) !important;
-        backdrop-filter: blur(20px) !important;
+        gap: 1.5rem;
     }
 
     .memori-artifact-drawer--header-content{
@@ -604,19 +604,19 @@
 
     .memori-artifact-drawer--header-actions {
         position: relative;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        right: 80px;
         width: 100%;
+        max-width: 250px;
         justify-content: space-between;
-        background: rgba(255, 255, 255, 0.5) !important;
-        backdrop-filter: blur(10px) !important;
+        justify-content: flex-end;
         border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        backdrop-filter: blur(10px) !important;
+        background: rgba(255, 255, 255, 0.5) !important;
         opacity: 1;
         transform: none;
-        position: absolute;
-        right: 0px;
-        justify-content: flex-end;
-        top: 0px;
-        max-width: 250px;
-        right: 80px;
     }
 
     .memori-artifact-drawer--close {
@@ -638,16 +638,16 @@
         overflow: auto;
         min-height: 0;
         flex: 1;
-        background: rgba(255, 255, 255, 0.6) !important;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
         border-radius: var(--artifact-drawer-radius-lg) !important;
         backdrop-filter: blur(20px) !important;
-        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        background: rgba(255, 255, 255, 0.6) !important;
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
     }
 
     .memori-artifact-drawer--meta {
-        gap: 0.75rem;
         width: 100%;
+        gap: 0.75rem;
     }
 
     .memori-artifact-drawer--meta-item {
@@ -658,8 +658,8 @@
 
     /* Ensure full screen coverage */
     .memori-artifact-drawer--backdrop {
-        background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 100%) !important;
         backdrop-filter: blur(8px) saturate(180%) !important;
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 100%) !important;
     }
 }
 
@@ -678,12 +678,12 @@
 
 @keyframes slideInFromRight {
     from {
-        transform: translateX(100%);
         opacity: 0;
+        transform: translateX(100%);
     }
     to {
-        transform: translateX(0);
         opacity: 1;
+        transform: translateX(0);
     }
 }
 
@@ -739,15 +739,6 @@
     background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
-/* Animation Classes */
-.memori-artifact-drawer[data-headlessui-state~='open'] .memori-artifact-drawer--panel {
-    transform: translateX(0);
-}
-
-.memori-artifact-drawer[data-headlessui-state~='open'] .memori-artifact-drawer--panel-left {
-    transform: translateX(0);
-}
-
 /* Focus and Accessibility */
 .memori-artifact-drawer--panel:focus {
     outline: none;
@@ -758,6 +749,15 @@
     outline-offset: 2px;
 }
 
+/* Animation Classes */
+.memori-artifact-drawer[data-headlessui-state~='open'] .memori-artifact-drawer--panel {
+    transform: translateX(0);
+}
+
+.memori-artifact-drawer[data-headlessui-state~='open'] .memori-artifact-drawer--panel-left {
+    transform: translateX(0);
+}
+
 /* Loading States and Animations */
 .memori-artifact-drawer--loading {
     position: relative;
@@ -765,15 +765,15 @@
 }
 
 .memori-artifact-drawer--loading::before {
-    content: '';
     position: absolute;
+    z-index: 1;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     animation: loading-shimmer 1.5s infinite;
-    z-index: 1;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    content: '';
 }
 
 @keyframes loading-shimmer {
@@ -791,15 +791,15 @@
 }
 
 .memori-artifact-panel--loading::before {
-    content: '';
     position: absolute;
+    z-index: 1;
     top: 0;
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     animation: loading-shimmer 1.5s infinite;
-    z-index: 1;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    content: '';
 }
 
 /* Pulse animation for interactive elements */
@@ -845,9 +845,9 @@
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
     .memori-artifact-drawer--panel {
+        border-left-color: rgba(255, 255, 255, 0.1);
         background: white;
         color: var(--memori-text-color, #fff);
-        border-left-color: rgba(255, 255, 255, 0.1);
     }
 
     .memori-artifact-drawer--header {
@@ -861,17 +861,17 @@
     }
 
     .memori-artifact-drawer--main {
-        background: rgba(42, 42, 42, 0.6) !important;
         border-color: rgba(255, 255, 255, 0.1) !important;
+        background: rgba(42, 42, 42, 0.6) !important;
     }
 
     .memori-artifact-panel {
-        background: white;
         border-left-color: white;
+        background: white;
     }
 
     .memori-artifact-panel--main {
-        background: rgba(42, 42, 42, 0.6) !important;
         border-color: rgba(255, 255, 255, 0.1) !important;
+        background: rgba(42, 42, 42, 0.6) !important;
     }
 }

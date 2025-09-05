@@ -137,6 +137,15 @@
   background: rgba(255, 255, 255, 0.2);
 }
 
+.memori-artifact-handler-toggle:focus {
+  outline: 2px solid var(--memori-primary);
+  outline-offset: 2px;
+}
+
+.memori-artifact-handler-toggle:focus:not(:focus-visible) {
+  outline: none;
+}
+
 .memori-artifact-handler--active .memori-artifact-handler-toggle:hover {
   background: rgba(255, 255, 255, 0.3);
 }
@@ -225,14 +234,5 @@
 }
 
 .memori-artifact-handler:focus:not(:focus-visible) {
-  outline: none;
-}
-
-.memori-artifact-handler-toggle:focus {
-  outline: 2px solid var(--memori-primary);
-  outline-offset: 2px;
-}
-
-.memori-artifact-handler-toggle:focus:not(:focus-visible) {
   outline: none;
 }
