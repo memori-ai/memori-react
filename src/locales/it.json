@@ -135,6 +135,19 @@
       "contentAndIpAddress": "L'autore può vedere il contenuto e il tuo indirizzo IP",
       "authorUsesInfo": "L'autore utilizza queste informazioni per migliorare le funzionalità dell'agente. Continuando, accetti queste condizioni."
     },
+    "artifact": {
+      "close": "Chiudi",
+      "size": "Dimensione",
+      "generated": "Generato",
+      "download": "Scarica",
+      "print": "Stampa",
+      "external": "Apri in una nuova finestra",
+      "type": "Tipo",
+      "generatedAt": "Generato il",
+      "open": "Apri",
+      "code": "Codice",
+      "preview": "Anteprima"
+    },
     "instructButton": "ISTRUISCIMI",
     "tryMeButton": "INIZIAMO",
     "resumeButton": "RIPRENDI",

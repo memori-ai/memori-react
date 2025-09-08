@@ -134,6 +134,19 @@
       "contentAndIpAddress": "El autor puede ver el contenido y tu dirección IP",
       "authorUsesInfo": "El autor utiliza estas informaciones para mejorar las funciones del agente y para ofrecerte un mejor servicio. Continuando la conversación, acepta estas condiciones."
     },
+    "artifact": {
+      "close": "Cerrar",
+      "size": "Tamaño",
+      "generated": "Generado",
+      "download": "Descargar",
+      "print": "Imprimir",
+      "external": "Abrir en una nueva ventana",
+      "type": "Tipo",
+      "generatedAt": "Generado el",
+      "open": "Abrir",
+      "code": "Código",
+      "preview": "Vista previa"
+    },
     "instructButton": "INSTRUÍME",
     "downloadChat": "Descargar chat",
     "tryMeButton": "COMENZAR",
