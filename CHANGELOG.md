@@ -1,5 +1,20 @@
 
 
+## [8.4.0-rc.1](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.0...v8.4.0-rc.1) (2025-09-08)
+
+
+### Features
+
+* add multilingual support for artifact-related terms in localization files ([312b2b5](https://github.com/memori-ai/memori-react/commit/312b2b5ebaf80ef733c64104c676fac6a6cbb3db))
+* add Storybook stories for ArtifactDrawer ([3465875](https://github.com/memori-ai/memori-react/commit/3465875f01cd803fbf80c3eef95cb5a4c4dca1b9))
+
+
+### Changes
+
+* remove unnecessary transitions and clean up CSS for Artifact components ([de9677a](https://github.com/memori-ai/memori-react/commit/de9677a20aef223d6cdc4a469f0d80b0fde5a9ff))
+* remove unused CSS rules and animations from ArtifactDrawer for cleaner styling ([25ee0f3](https://github.com/memori-ai/memori-react/commit/25ee0f3ec0ca009efc1b0601e93ff0dbb8ffb769))
+* replace ArtifactSystemProvider with ArtifactProvider for improved context management ([6c79d50](https://github.com/memori-ai/memori-react/commit/6c79d5006e07d23b61433f62103a11f6b057f45d))
+
 ## [8.4.0-rc.0](https://github.com/memori-ai/memori-react/compare/v8.3.0...v8.4.0-rc.0) (2025-09-05)
 
 
