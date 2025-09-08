@@ -38,7 +38,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
 
         <div
           className={`memori-chat-layout--main ${
-            hasArtifact ? 'memori-chat-layout--main-with-artifact' : ''
+            state.isDrawerOpen ? 'memori-chat-layout--main-with-artifact' : ''
           }`}
         >
           <div
@@ -46,7 +46,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
               state.isFullscreen
                 ? `memori-chat-layout-controls-hide`
                 : `memori-chat-layout--controls ${
-                    hasArtifact
+                    state.isDrawerOpen
                       ? 'memori-chat-layout--controls-with-artifact'
                       : ''
                   }`
@@ -59,7 +59,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
             ) : null}
           </div>
 
-          {hasArtifact && state.isDrawerOpen && (
+          {state.isDrawerOpen && (
             <div className={state.isFullscreen ? `memori-chat-layout-artifact-panel-full-screen` : `memori-chat-layout--artifact-panel memori-chat-layout--artifact-panel-enter`}>
               <ArtifactDrawer />
             </div>

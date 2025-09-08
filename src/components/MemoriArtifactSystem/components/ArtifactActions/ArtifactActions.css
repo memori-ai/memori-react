@@ -22,7 +22,6 @@
   font-size: 0.875rem;
   font-weight: 500;
   gap: 0.5rem;
-  transition: all 0.2s ease;
   white-space: nowrap;
 }
 
@@ -50,15 +49,11 @@
   outline: none;
 }
 
-.memori-artifact-action-btn:disabled:hover {
+/* .memori-artifact-action-btn:disabled:hover {
   box-shadow: none !important;
   transform: none !important;
-}
+} */
 
-.memori-artifact-action-btn:hover:not(.memori-artifact-action-btn--active) {
-  background: rgba(0, 123, 255, 0.05);
-  color: var(--memori-text-color, #333);
-}
 
 .memori-artifact-action-btn--active {
   background: var(--memori-chat-bubble-bg, #fff);
@@ -126,12 +121,6 @@
   line-height: 1;
 }
 
-/* Dark Mode Support */
-@media (prefers-color-scheme: dark) {
-  .memori-artifact-action-btn:hover {
-    box-shadow: 0 2px 8px rgba(255, 255, 255, 0.1);
-  }
-}
 
 /* Animation for Copy Feedback */
 @keyframes copyFeedback {

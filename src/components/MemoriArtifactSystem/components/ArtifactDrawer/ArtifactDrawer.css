@@ -15,9 +15,6 @@
     --artifact-drawer-shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
     --artifact-drawer-radius: var(--memori-border-radius, 8px);
     --artifact-drawer-radius-lg: 12px;
-    --artifact-drawer-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --artifact-drawer-transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    --artifact-drawer-transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Main Drawer Container (Mobile Only) */
@@ -67,7 +64,6 @@
     /* margin-bottom: 1.5rem; */
     background: white;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    transition: var(--artifact-drawer-transition);
 }
 
 .memori-artifact-panel--header::before {
@@ -106,7 +102,6 @@
     font-weight: 700;
     letter-spacing: -0.02em;
     line-height: 1.2;
-    transition: var(--artifact-drawer-transition);
 }
 
 .memori-artifact-panel--title:hover {
@@ -120,7 +115,6 @@
     font-weight: 500;
     line-height: 1.4;
     opacity: 0.9;
-    transition: var(--artifact-drawer-transition);
 }
 
 .memori-artifact-panel--subtitle:hover {
@@ -148,7 +142,6 @@
     border-radius: 20px;
     background: rgba(0, 123, 255, 0.08);
     gap: 0.5rem;
-    transition: var(--artifact-drawer-transition-fast);
 }
 
 .memori-artifact-panel--meta-item::before {
@@ -184,7 +177,6 @@
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.5);
     gap: 0.75rem;
-    transition: var(--artifact-drawer-transition);
 }
 
 .memori-artifact-panel--header-actions:hover {
@@ -204,7 +196,6 @@
 .memori-artifact-panel--close-icon {
     width: 18px;
     height: 18px;
-    transition: var(--artifact-drawer-transition-fast);
 }
 
 /* Web Split Panel Content */
@@ -230,7 +221,6 @@
     backdrop-filter: blur(20px);
     background: rgba(255, 255, 255, 0.6);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    transition: var(--artifact-drawer-transition);
 }
 
 .memori-artifact-panel--main::before {
@@ -252,7 +242,6 @@
     height: 100%;
     backdrop-filter: blur(8px) saturate(180%);
     background: white;
-    transition: var(--artifact-drawer-transition);
 }
 
 .memori-artifact-drawer--container {
@@ -283,8 +272,7 @@
     background: white;
     box-shadow: var(--artifact-drawer-shadow-lg);
     font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
-    transform: translateX(100%);
-    transition: var(--artifact-drawer-transition-slow);
+    transform: opacity(0);
 }
 
 .memori-artifact-drawer--panel::before {
@@ -329,7 +317,6 @@
     backdrop-filter: blur(20px);
     background: white;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    transition: var(--artifact-drawer-transition);
 }
 
 .memori-artifact-drawer--header::before {
@@ -360,7 +347,6 @@
     letter-spacing: -0.02em;
     line-height: 1.2;
     -webkit-text-fill-color: transparent;
-    transition: var(--artifact-drawer-transition);
 }
 
 .memori-artifact-drawer--title:hover {
@@ -374,7 +360,6 @@
     font-weight: 500;
     line-height: 1.4;
     opacity: 0.9;
-    transition: var(--artifact-drawer-transition);
 }
 
 .memori-artifact-drawer--subtitle:hover {
@@ -405,7 +390,6 @@
     border-radius: 20px;
     background: rgba(0, 123, 255, 0.08);
     gap: 0.5rem;
-    transition: var(--artifact-drawer-transition-fast);
 }
 
 .memori-artifact-drawer--meta-item::before {
@@ -441,7 +425,6 @@
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.5);
     gap: 0.75rem;
-    transition: var(--artifact-drawer-transition);
 }
 
 .memori-artifact-drawer--header-actions:hover {
@@ -498,7 +481,6 @@
     backdrop-filter: blur(20px);
     background: rgba(255, 255, 255, 0.6);
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-    transition: var(--artifact-drawer-transition);
 }
 
 .memori-artifact-drawer--main::before {
@@ -539,8 +521,6 @@
     background: linear-gradient(135deg, var(--artifact-drawer-bg) 0%, rgba(248, 250, 252, 0.95) 100%);
     box-shadow: none;
     font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
-    transform: translateX(100%);
-    transition: var(--artifact-drawer-transition-slow);
 }
 
 .memori-artifact-drawer--panel-mobile::before {

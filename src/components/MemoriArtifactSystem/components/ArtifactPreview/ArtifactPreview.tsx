@@ -13,6 +13,7 @@ import Code from '../../../icons/Code';
 import { PreviewIcon } from '../../../icons/Preview';
 import Snippet from '../../../Snippet/Snippet';
 import { Medium } from '@memori.ai/memori-api-client/dist/types';
+
 const ArtifactPreview: React.FC<{
   artifact: ArtifactData;
   activeTab: ArtifactTab;
@@ -30,6 +31,7 @@ const ArtifactPreview: React.FC<{
   const handleTabChange = useCallback((tab: ArtifactTab) => {
     onTabChange(tab);
   }, [onTabChange]);
+
   /**
    * Render preview content based on MIME type
    */
@@ -57,37 +59,8 @@ const ArtifactPreview: React.FC<{
           />
         );
 
-      case 'svg':
-        return (
-          <div 
-            className="memori-artifact-preview-svg"
-            dangerouslySetInnerHTML={{ __html: artifact.content }}
-          />
-        );
-
-      case 'css':
-        return (
-          <div className="memori-artifact-preview-css">
-            <div className="memori-artifact-preview-css-demo">
-              <style dangerouslySetInnerHTML={{ __html: artifact.content }} />
-              <div className="memori-artifact-preview-css-content">
-                <h3>CSS Preview</h3>
-                <p>This is an example of text to see the CSS effect.</p>
-                <button>Example Button</button>
-                <div className="memori-artifact-preview-css-container">
-                  Example Container
-                </div>
-              </div>
-            </div>
-          </div>
-        );
-
       default:
-        return (
-          <div className="memori-artifact-preview-text">
-            <pre>{artifact.content}</pre>
-          </div>
-        );
+        return null;
     }
   }, [artifact]);
 
@@ -110,21 +83,41 @@ const ArtifactPreview: React.FC<{
       .replace(/\n/g, '<br>');
   }, []);
 
-  // /**
-  //  * Check if preview is available for this artifact type
-  //  */
-  // const hasPreview = useMemo(() => {
-  //   return artifact.mimeType in SUPPORTED_MIME_TYPES && SUPPORTED_MIME_TYPES[artifact.mimeType as keyof typeof SUPPORTED_MIME_TYPES].hasPreview;
-  // }, [artifact.mimeType]);
+  const mapArtifactMimeTypeToSnippetMimeType = useCallback((mimeType: string) => {
+    switch (mimeType) {
+      case 'javascript':
+        return 'text/javascript';
+      case 'typescript':
+        return 'text/ecmascript';
+      case 'html':
+        return 'application/xml';
+      case 'css':
+        return 'text/css';
+      case 'json':
+        return 'application/json';
+      case 'python':
+        return 'text/x-python';
+      case 'bash':
+        return 'application/x-sh';
+      case 'cpp':
+      case 'csharp':
+        return 'text/x-c++src';
+      case 'php':
+        return 'application/x-php';
+      case 'sql':
+        return 'text/x-sql';
+      case 'ruby':
+        return 'text/x-ruby';
+      default:
+        return 'text/plain';
+    }
+  }, []);
 
-  // const mapArtifactMimeType = useCallback((mimeType: ArtifactMimeType) => {
-  //   return SUPPORTED_MIME_TYPES[mimeType as keyof typeof SUPPORTED_MIME_TYPES].mimeType;
-  // }, []);
+  const hasPreview = artifact.mimeType === 'html' || artifact.mimeType === 'markdown';
 
   return (
     <div className="memori-artifact-preview">
       {/* Tabs */}
-      {artifact.mimeType === 'html' && (
         <div className="memori-artifact-tabs">
           <Button
             onClick={() => handleTabChange('code' as ArtifactTab)}
@@ -136,33 +129,33 @@ const ArtifactPreview: React.FC<{
            <Code className="memori-artifact-tab-icon" />
            <span className="memori-artifact-tab-text">{t('artifact.code', 'Code')}</span>
           </Button>
-          <Button
-            onClick={() => handleTabChange('preview' as ArtifactTab)}
-            className={cx('memori-artifact-tab', {
-              'memori-artifact-tab--active': activeTab === 'preview',
-            })}
-            ghost
-          >
-            <PreviewIcon className="memori-artifact-tab-icon" />
-            <span className="memori-artifact-tab-text">{t('artifact.preview', 'Preview')}</span>
-          </Button>
+          {hasPreview && (
+            <Button
+              onClick={() => handleTabChange('preview' as ArtifactTab)}
+              className={cx('memori-artifact-tab', {
+                'memori-artifact-tab--active': activeTab === 'preview',
+              })}
+              ghost
+            >
+              <PreviewIcon className="memori-artifact-tab-icon" />
+              <span className="memori-artifact-tab-text">{t('artifact.preview', 'Preview')}</span>
+            </Button>
+          )}
         </div>
-      )}
 
       {/* Content */}
       <div className="memori-artifact-content">
         {/* Code Tab */}
         <div 
           className={cx('memori-artifact-tab-content', {
-            'memori-artifact-tab-content--active': activeTab === 'code'// || !hasPreview,
+            'memori-artifact-tab-content--active': activeTab === 'code' || !hasPreview,
           })}
         >
           <div className="memori-artifact-code">
             <Snippet 
-            // preview={true}
             medium={{
               mediumID: artifact.id,
-              mimeType: artifact.mimeType,
+              mimeType: mapArtifactMimeTypeToSnippetMimeType(artifact.mimeType),
               content: artifact.content,
               title: artifact.title,
               creationTimestamp: artifact.timestamp.toISOString(),
@@ -174,7 +167,7 @@ const ArtifactPreview: React.FC<{
         </div>
 
         {/* Preview Tab */}
-        {artifact.mimeType === 'html' && (
+        {hasPreview && (
           <div 
             className={cx('memori-artifact-tab-content', {
               'memori-artifact-tab-content--active': activeTab === 'preview',
