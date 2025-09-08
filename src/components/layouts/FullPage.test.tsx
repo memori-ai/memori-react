@@ -3,7 +3,7 @@ import Memori from '../MemoriWidget/MemoriWidget';
 import { integration, memori, tenant } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import { VisemeProvider } from '../../context/visemeContext';
-import { ArtifactSystemProvider } from '../MemoriArtifactSystem';
+import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -22,18 +22,7 @@ Object.defineProperty(window, 'matchMedia', {
 it('renders FullPage layout unchanged', () => {
   const { container } = render(
     <I18nWrapper>
-      <ArtifactSystemProvider
-        config={{
-          supportedMimeTypes: {
-            html: {
-              name: 'HTML',
-              icon: '🌐',
-              hasPreview: true,
-              language: 'html',
-              mimeType: 'text/html',
-            },
-          },
-        }}
+      <ArtifactProvider
       >
         <VisemeProvider>
           <Memori
@@ -46,7 +35,7 @@ it('renders FullPage layout unchanged', () => {
             layout="FULLPAGE"
           />
         </VisemeProvider>
-      </ArtifactSystemProvider>
+      </ArtifactProvider>
     </I18nWrapper>
   );
   expect(container).toMatchSnapshot();
@@ -55,18 +44,7 @@ it('renders FullPage layout unchanged', () => {
 it('renders FullPage layout with root css properties unchanged', () => {
   const { container } = render(
     <I18nWrapper>
-      <ArtifactSystemProvider
-        config={{
-          supportedMimeTypes: {
-            html: {
-              name: 'HTML',
-              icon: '🌐',
-              hasPreview: true,
-              language: 'html',
-              mimeType: 'text/html',
-            },
-          },
-        }}
+      <ArtifactProvider
       >
       <VisemeProvider>
         <Memori
@@ -80,7 +58,7 @@ it('renders FullPage layout with root css properties unchanged', () => {
           applyVarsToRoot
         />
       </VisemeProvider>
-      </ArtifactSystemProvider>
+      </ArtifactProvider>
     </I18nWrapper>
   );
   expect(container).toMatchSnapshot();

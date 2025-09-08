@@ -3,7 +3,7 @@ import Memori from '../MemoriWidget/MemoriWidget';
 import { integration, memori, tenant } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import { VisemeProvider } from '../../context/visemeContext';
-import { ArtifactSystemProvider } from '../MemoriArtifactSystem';
+import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(query => ({
@@ -21,17 +21,7 @@ Object.defineProperty(window, 'matchMedia', {
 it('renders Chat layout unchanged', () => {
   const { container } = render(
     <I18nWrapper>
-      <ArtifactSystemProvider config={{
-        supportedMimeTypes: {
-          html: {
-            name: 'HTML',
-            icon: '🌐',
-            hasPreview: true,
-            language: 'html',
-            mimeType: 'text/html',
-          },
-        },
-      }}>
+      <ArtifactProvider >
       <VisemeProvider>
         <Memori
           showShare={true}
@@ -43,7 +33,7 @@ it('renders Chat layout unchanged', () => {
           layout="CHAT"
         />
       </VisemeProvider>
-      </ArtifactSystemProvider>
+      </ArtifactProvider>
     </I18nWrapper>
   );
   expect(container).toMatchSnapshot();

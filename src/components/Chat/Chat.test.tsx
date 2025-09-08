@@ -10,7 +10,7 @@ import {
   dialogState as dialogStateWithHints,
 } from '../../mocks/data';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { ArtifactSystemProvider } from '../MemoriArtifactSystem';
+import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 
 const client = memoriApiClient();
 
@@ -32,18 +32,7 @@ beforeEach(() => {
 
 it('renders Chat unchanged', () => {
   const { container } = render(
-    <ArtifactSystemProvider
-      config={{
-        supportedMimeTypes: {
-          html: {
-            name: 'HTML',
-            icon: '🌐',
-            hasPreview: true,
-            language: 'html',
-            mimeType: 'text/html',
-          },
-        },
-      }}
+    <ArtifactProvider
     >
       <Chat
         memori={memori}
@@ -68,25 +57,14 @@ it('renders Chat unchanged', () => {
         stopListening={jest.fn()}
         setEnableFocusChatInput={jest.fn()}
       />
-    </ArtifactSystemProvider>
+    </ArtifactProvider>
   );
   expect(container).toMatchSnapshot();
 });
 
 it('renders Chat with memori typing unchanged', () => {
   const { container } = render(
-    <ArtifactSystemProvider
-      config={{
-        supportedMimeTypes: {
-          html: {
-            name: 'HTML',
-            icon: '🌐',
-            hasPreview: true,
-            language: 'html',
-            mimeType: 'text/html',
-          },
-        },
-      }}
+    <ArtifactProvider
     >
       <Chat
         memori={memori}
@@ -112,25 +90,14 @@ it('renders Chat with memori typing unchanged', () => {
         setEnableFocusChatInput={jest.fn()}
         memoriTyping
       />
-    </ArtifactSystemProvider>
+    </ArtifactProvider>
   );
   expect(container).toMatchSnapshot();
 });
 
 it('renders Chat with hints unchanged', () => {
   const { container } = render(
-    <ArtifactSystemProvider
-      config={{
-        supportedMimeTypes: {
-          html: {
-            name: 'HTML',
-            icon: '🌐',
-            hasPreview: true,
-            language: 'html',
-            mimeType: 'text/html',
-          },
-        },
-      }}
+    <ArtifactProvider
     >
       <Chat
         memori={memori}
@@ -155,25 +122,14 @@ it('renders Chat with hints unchanged', () => {
         startListening={jest.fn()}
         setEnableFocusChatInput={jest.fn()}
       />
-    </ArtifactSystemProvider>
+    </ArtifactProvider>
   );
   expect(container).toMatchSnapshot();
 });
 
 it('renders Chat with media unchanged', () => {
   const { container } = render(
-    <ArtifactSystemProvider
-      config={{
-        supportedMimeTypes: {
-          html: {
-            name: 'HTML',
-            icon: '🌐',
-            hasPreview: true,
-            language: 'html',
-            mimeType: 'text/html',
-          },
-        },
-      }}
+    <ArtifactProvider
     >
       <Chat
         memori={memori}
@@ -198,25 +154,14 @@ it('renders Chat with media unchanged', () => {
         startListening={jest.fn()}
         setEnableFocusChatInput={jest.fn()}
       />
-    </ArtifactSystemProvider>
+    </ArtifactProvider>
   );
   expect(container).toMatchSnapshot();
 });
 
 it('renders Chat with dates unchanged', () => {
   const { container } = render(
-    <ArtifactSystemProvider
-      config={{
-        supportedMimeTypes: {
-          html: {
-            name: 'HTML',
-            icon: '🌐',
-            hasPreview: true,
-            language: 'html',
-            mimeType: 'text/html',
-          },
-        },
-      }}
+    <ArtifactProvider
     >
       <Chat
         memori={memori}
@@ -242,25 +187,14 @@ it('renders Chat with dates unchanged', () => {
         showDates
         setEnableFocusChatInput={jest.fn()}
       />
-    </ArtifactSystemProvider>
+    </ArtifactProvider>
   );
   expect(container).toMatchSnapshot();
 });
 
 it('renders Chat with context vars unchanged', () => {
   const { container } = render(
-    <ArtifactSystemProvider
-      config={{
-        supportedMimeTypes: {
-          html: {
-            name: 'HTML',
-            icon: '🌐',
-            hasPreview: true,
-            language: 'html',
-            mimeType: 'text/html',
-          },
-        },
-      }}
+    <ArtifactProvider
     >
       <Chat
         memori={memori}
@@ -286,25 +220,14 @@ it('renders Chat with context vars unchanged', () => {
         setEnableFocusChatInput={jest.fn()}
         showContextPerLine
       />
-    </ArtifactSystemProvider>
+    </ArtifactProvider>
   );
   expect(container).toMatchSnapshot();
 });
 
 it('renders Chat with user unchanged', () => {
   const { container } = render(
-    <ArtifactSystemProvider
-      config={{
-        supportedMimeTypes: {
-          html: {
-            name: 'HTML',
-            icon: '🌐',
-            hasPreview: true,
-            language: 'html',
-            mimeType: 'text/html',
-          },
-        },
-      }}
+    <ArtifactProvider
     >
       <Chat
         user={{ avatarURL: 'https://picsum.photos/200' }}
@@ -330,25 +253,14 @@ it('renders Chat with user unchanged', () => {
         stopListening={jest.fn()}
         setEnableFocusChatInput={jest.fn()}
       />
-    </ArtifactSystemProvider>
+    </ArtifactProvider>
   );
   expect(container).toMatchSnapshot();
 });
 
 it('renders Chat with custom user avatar unchanged', () => {
   const { container } = render(
-    <ArtifactSystemProvider
-      config={{
-        supportedMimeTypes: {
-          html: {
-            name: 'HTML',
-            icon: '🌐',
-            hasPreview: true,
-            language: 'html',
-            mimeType: 'text/html',
-          },
-        },
-      }}
+    <ArtifactProvider
     >
       <Chat
         userAvatar="https://picsum.photos/200"
@@ -374,25 +286,14 @@ it('renders Chat with custom user avatar unchanged', () => {
         stopListening={jest.fn()}
         setEnableFocusChatInput={jest.fn()}
       />
-    </ArtifactSystemProvider>
+    </ArtifactProvider>
   );
   expect(container).toMatchSnapshot();
 });
 
 it('renders Chat with custom user avatar as react element unchanged', () => {
   const { container } = render(
-    <ArtifactSystemProvider
-      config={{
-        supportedMimeTypes: {
-          html: {
-            name: 'HTML',
-            icon: '🌐',
-            hasPreview: true,
-            language: 'html',
-            mimeType: 'text/html',
-          },
-        },
-      }}
+    <ArtifactProvider
     >
       <Chat
         userAvatar={<span>USER</span>}
@@ -418,7 +319,7 @@ it('renders Chat with custom user avatar as react element unchanged', () => {
         stopListening={jest.fn()}
         setEnableFocusChatInput={jest.fn()}
       />
-    </ArtifactSystemProvider>
+    </ArtifactProvider>
   );
   expect(container).toMatchSnapshot();
 });

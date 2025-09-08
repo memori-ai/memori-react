@@ -8,7 +8,7 @@ import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import Button from '../../../ui/Button';
-import { ArtifactActionsProps } from '../../types/artifact.types';
+import { ArtifactData } from '../../types/artifact.types';
 import Download from '../../../icons/Download';
 import Link from '../../../icons/Link';
 import Fullscreen from '../../../icons/Fullscreen';
@@ -16,7 +16,16 @@ import FullscreenExit from '../../../icons/FullscreenExit';
 import PrintIcon from '../../../icons/Print';
 import Copy from '../../../icons/Copy';
 
-const ArtifactActions: React.FC<ArtifactActionsProps> = ({
+const ArtifactActions: React.FC<{
+  artifact: ArtifactData;
+  onCopy: () => void;
+  onDownload: () => void;
+  onPrint: () => void;
+  onOpenExternal: () => void;
+  onToggleFullscreen: () => void;
+  isFullscreen: boolean;
+  loading: boolean;
+}> = ({
   artifact,
   onCopy,
   onDownload,

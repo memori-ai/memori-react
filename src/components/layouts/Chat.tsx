@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
-import { ArtifactDrawer } from '../MemoriArtifactSystem';
-import { useArtifactSystemContext } from '../MemoriArtifactSystem/context/ArtifactSystemContext';
+import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
+import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
 
 const ChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -18,27 +18,9 @@ const ChatLayout: React.FC<LayoutProps> = ({
   loading = false,
   poweredBy,
 }) => {
-  const { actions, state } = useArtifactSystemContext();
-  const [isMobile, setIsMobile] = useState(false);
+  const { state } = useArtifact();
 
-  useEffect(() => {
-    const handleResize = () => {
-      const newIsMobile = window.innerWidth < 769;
-      if (newIsMobile !== isMobile) {
-        setTimeout(() => {
-          setIsMobile(newIsMobile);
-        }, 300);
-      } else {
-        setIsMobile(newIsMobile);
-      }
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isMobile]);
-
-  const hasArtifact = state.currentArtifact && !isMobile;
+  const hasArtifact = state.currentArtifact;
 
   return (
     <>
@@ -77,19 +59,13 @@ const ChatLayout: React.FC<LayoutProps> = ({
             ) : null}
           </div>
 
-          {hasArtifact && (
+          {hasArtifact && state.isDrawerOpen && (
             <div className={state.isFullscreen ? `memori-chat-layout-artifact-panel-full-screen` : `memori-chat-layout--artifact-panel memori-chat-layout--artifact-panel-enter`}>
               <ArtifactDrawer />
             </div>
           )}
         </div>
 
-        {/* Mobile drawer - always rendered but only shown on mobile */}
-        {state.currentArtifact && isMobile && (
-          <div className="memori-chat-layout--artifact-drawer">
-            <ArtifactDrawer />
-          </div>
-        )}
       </Spin>
     </>
   );

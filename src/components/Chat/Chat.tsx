@@ -20,12 +20,9 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import Typing from '../Typing/Typing';
 import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
-import {
-  ArtifactHandler,
-  useArtifactSystemContext,
-} from '../MemoriArtifactSystem';
-import { useArtifactDetector } from '../MemoriArtifactSystem/hooks/useArtifactSystem';
 
+import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
+import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler';
 export interface Props {
   memori: Memori;
   tenant?: Tenant;
@@ -128,8 +125,7 @@ const Chat: React.FC<Props> = ({
   showFunctionCache = false,
 }) => {
 
-  const { state, actions, config } = useArtifactSystemContext();
-  const { hasArtifacts } = useArtifactDetector();
+  const { state, openArtifact, closeArtifact, toggleFullscreen } = useArtifact();
   const scrollToBottom = () => {
     if (isHistoryView) return;
     setTimeout(() => {
@@ -363,13 +359,12 @@ const Chat: React.FC<Props> = ({
               />
 
                 <ArtifactHandler
-                  onArtifactCreated={artifact => {
-                    actions.selectArtifact(artifact);
+                  message={{
+                    text: message.text || '',
+                    translatedText: message.translatedText || '',
+                    fromUser: message.fromUser || false,
+                    timestamp: message.timestamp || '',
                   }}
-                  artifacts={state.history}
-                  config={config}
-                  actions={actions}
-                  message={message}
                 />
             </React.Fragment>
           ))}

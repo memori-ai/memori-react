@@ -47,7 +47,7 @@
     align-items: center;
     justify-content: center;
     /* max-width: 1200px; */
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease-in-out;
 }
 
 .memori-chat-layout--main-with-artifact {
@@ -66,7 +66,7 @@
     overflow: hidden;
     min-width: 0;
     flex: 1;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease-in-out;
 }
 
 .memori-chat-layout--controls-with-artifact {
@@ -91,11 +91,11 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
     opacity: 0;
     transform: translateX(100%) scale(0.95);
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease-in-out;
 }
 
 .memori-chat-layout--artifact-panel-enter {
-    animation: artifact-panel-slide-in 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation: artifact-panel-slide-in 0.2s ease-in-out forwards;
     opacity: 1;
     transform: translateX(0) scale(1);
 }
@@ -152,13 +152,13 @@
 .memori-chat-layout--controls .memori-chat--wrapper {
     max-width: 1200px;
     height: 100%;
-    min-height: calc(87vh - 1rem);
+    max-height: calc(87vh - 1rem);
     margin: 0 auto;
 }
 
 
 .memori-chat-layout--controls .memori-chat--wrapper {
-    height: calc(87vh - 1rem);
+    height: calc(80vh - 1rem);
 }
 
 .memori-chat-layout .memori-chat--content {
@@ -305,8 +305,6 @@
 /* Focus states for accessibility */
 .memori-chat-layout--controls:focus-within {
     border-radius: 12px;
-    box-shadow: 0 0 0 4px rgba(0, 123, 255, 0.1);
-    outline: 2px solid #007bff;
     outline-offset: 2px;
 }
 
@@ -403,13 +401,13 @@
     filter: blur(1px);
     opacity: 0.8;
     transform: scale(0.98);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease-in-out;
 }
 
 .memori-chat-layout:has(.memori-chat-layout--artifact-drawer .memori-artifact-drawer[data-headlessui-state~="open"]) .memori-chat-layout--main {
     backdrop-filter: blur(5px);
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(248, 250, 252, 0.02) 100%);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.2s ease-in-out;
 }
 
 /* Mobile adjustments */

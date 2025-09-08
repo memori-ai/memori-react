@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
-import {
-  ArtifactDrawer,
-  useArtifactSystemContext,
-} from '../MemoriArtifactSystem';
+import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
+import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 
 const FullPageLayout: React.FC<LayoutProps> = ({
   Header,
@@ -22,30 +20,8 @@ const FullPageLayout: React.FC<LayoutProps> = ({
   loading = false,
   poweredBy,
 }) => {
-  const { state } = useArtifactSystemContext();
-  const [isMobile, setIsMobile] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const newIsMobile = window.innerWidth < 769;
-      if (newIsMobile !== isMobile) {
-        setIsAnimating(true);
-        setTimeout(() => {
-          setIsMobile(newIsMobile);
-          setIsAnimating(false);
-        }, 300);
-      } else {
-        setIsMobile(newIsMobile);
-      }
-    };
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, [isMobile]);
-
-  const hasArtifact = state.currentArtifact && !isMobile;
+  const { state } = useArtifact();
+  const hasArtifact = state.currentArtifact;
   return (
     <>
       {integrationStyle}
@@ -55,9 +31,9 @@ const FullPageLayout: React.FC<LayoutProps> = ({
         {Header && headerProps && <Header {...headerProps} />}
 
         <div className="memori--grid">
-          {!hasArtifact && (
+          {!state.isDrawerOpen && (
             <div className="memori--grid-column memori--grid-column-left">
-              {Avatar && avatarProps && !hasArtifact && (
+              {Avatar && avatarProps && (
                 <Avatar chatProps={chatProps} {...avatarProps} />
               )}
 
@@ -74,7 +50,7 @@ const FullPageLayout: React.FC<LayoutProps> = ({
                 state.isFullscreen
                   ? `memori-chat-layout-controls-hide`
                   : `memori-chat-layout--controls ${
-                      hasArtifact
+                      state.isDrawerOpen
                         ? 'memori-chat-layout--controls-with-artifact'
                         : ''
                     }`
@@ -87,7 +63,7 @@ const FullPageLayout: React.FC<LayoutProps> = ({
               ) : null}
             </div>
 
-            {hasArtifact && (
+            {state.isDrawerOpen && (
               <div
                 className={
                   state.isFullscreen
@@ -99,12 +75,6 @@ const FullPageLayout: React.FC<LayoutProps> = ({
               </div>
             )}
           </div>
-          {/* Mobile drawer - always rendered but only shown on mobile */}
-          {state.currentArtifact && isMobile && (
-            <div className="memori-chat-layout--artifact-drawer">
-              <ArtifactDrawer />
-            </div>
-          )}
 
           {poweredBy}
         </div>

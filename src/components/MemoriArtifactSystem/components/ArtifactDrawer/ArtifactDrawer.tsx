@@ -11,13 +11,12 @@ import cx from 'classnames';
 import Button from '../../../ui/Button';
 import Close from '../../../icons/Close';
 import ArtifactActions from '../ArtifactActions/ArtifactActions';
+import { useArtifact } from '../../context/ArtifactContext';
 import ArtifactPreview from '../ArtifactPreview/ArtifactPreview';
-import ArtifactHistory from '../ArtifactHistory/ArtifactHistory';
 import { ArtifactTab } from '../../types/artifact.types';
-import { useArtifactSystemContext } from '../../context/ArtifactSystemContext';
 
 const ArtifactDrawer: React.FC = () => {
-  const { actions, state } = useArtifactSystemContext();
+  const { state, openArtifact, closeArtifact, toggleFullscreen } = useArtifact();
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<ArtifactTab>('preview');
   const [showHistory, setShowHistory] = useState(false);
@@ -114,10 +113,10 @@ const ArtifactDrawer: React.FC = () => {
    * Handle fullscreen toggle
    */
   const handleToggleFullscreen = useCallback(() => {
-    if (actions.toggleFullscreen) {
-      actions.toggleFullscreen();
+    if (toggleFullscreen) {
+      toggleFullscreen();
     }
-  }, [actions.toggleFullscreen]);
+  }, [toggleFullscreen]);
 
   /**
    * Handle close with escape key
@@ -125,10 +124,10 @@ const ArtifactDrawer: React.FC = () => {
   const handleClose = useCallback(() => {
     setIsAnimating(true);
     setTimeout(() => {
-      actions.closeDrawer();
+      closeArtifact();
       setIsAnimating(false);
     }, 200);
-  }, [actions.closeDrawer]);
+  }, [closeArtifact]);
 
   /**
    * Toggle history panel
@@ -165,12 +164,12 @@ const ArtifactDrawer: React.FC = () => {
                     {state.currentArtifact.title}
                   </h2>
                   <p className="memori-artifact-drawer--subtitle">
-                    {state.currentArtifact.customTitle ||
-                      `${state.currentArtifact.typeInfo.name} Content`}
+                    {state.currentArtifact.title ||
+                      `${state.currentArtifact.mimeType} Content`}
                   </p>
                   <div className="memori-artifact-drawer--meta">
                     <span className="memori-artifact-drawer--meta-item">
-                      {t('artifact.type', 'Type')}: {state.currentArtifact.typeInfo.name}
+                      {t('artifact.type', 'Type')}: {state.currentArtifact.mimeType}
                     </span>
                     <span className="memori-artifact-drawer--meta-item">
                       {t('artifact.size', 'Size')}: {formatBytes(state.currentArtifact.size)}
@@ -188,6 +187,7 @@ const ArtifactDrawer: React.FC = () => {
                     onCopy={handleCopy}
                     onDownload={handleDownload}
                     onPrint={handlePrint}
+                    loading={false}
                     onOpenExternal={handleOpenExternal}
                     onToggleFullscreen={handleToggleFullscreen}
                     isFullscreen={state.isFullscreen}
@@ -209,8 +209,8 @@ const ArtifactDrawer: React.FC = () => {
                 <div className="memori-artifact-drawer--main">
                   <ArtifactPreview
                     artifact={state.currentArtifact}
-                    activeTab={activeTab}
-                    onTabChange={handleTabChange}
+                    activeTab={activeTab as ArtifactTab}
+                    onTabChange={handleTabChange as (tab: ArtifactTab) => void}
                   />
                 </div>
               </div>
@@ -231,12 +231,12 @@ const ArtifactDrawer: React.FC = () => {
             {state.currentArtifact.title}
           </h2>
           <p className="memori-artifact-panel--subtitle">
-            {state.currentArtifact.customTitle ||
-              `${state.currentArtifact.typeInfo.name} Content`}
+            {state.currentArtifact.title ||
+              `${state.currentArtifact.mimeType} Content`}
           </p>
           <div className="memori-artifact-panel--meta">
             <span className="memori-artifact-panel--meta-item">
-              {t('artifact.type', 'Type')}: {state.currentArtifact.typeInfo.name}
+              {t('artifact.type', 'Type')}: {state.currentArtifact.mimeType}
             </span>
             <span className="memori-artifact-panel--meta-item">
               {t('artifact.size', 'Size')}: {formatBytes(state.currentArtifact.size)}
@@ -253,6 +253,7 @@ const ArtifactDrawer: React.FC = () => {
             artifact={state.currentArtifact}
             onCopy={handleCopy}
             onDownload={handleDownload}
+            loading={false}
             onPrint={handlePrint}
             onOpenExternal={handleOpenExternal}
             onToggleFullscreen={handleToggleFullscreen}
@@ -261,7 +262,7 @@ const ArtifactDrawer: React.FC = () => {
         </div>
 
         <Button
-          onClick={handleClose}
+          onClick={closeArtifact}
           className="memori-artifact-panel--close"
           ghost
           title={t('artifact.close', 'Close') || 'Close'}
@@ -275,8 +276,8 @@ const ArtifactDrawer: React.FC = () => {
         <div className="memori-artifact-panel--main">
           <ArtifactPreview
             artifact={state.currentArtifact}
-            activeTab={activeTab}
-            onTabChange={handleTabChange}
+            activeTab={activeTab as ArtifactTab}
+            onTabChange={handleTabChange as (tab: ArtifactTab) => void}
           />
         </div>
       </div>

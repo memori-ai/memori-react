@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
-import {
-  ArtifactDrawer,
-  useArtifactSystemContext,
-} from '../MemoriArtifactSystem';
+import 
+  ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
+import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
 
 const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
   Header,
@@ -22,35 +21,8 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
   loading = false,
   poweredBy,
 }) => {
-  const { state } = useArtifactSystemContext();
-  const [isMobile, setIsMobile] = useState(false);
-  const [isAnimating, setIsAnimating] = useState(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      const newIsMobile = window.innerWidth < 769;
-      if (newIsMobile !== isMobile) {
-        setIsAnimating(true);
-        setTimeout(() => {
-          setIsMobile(newIsMobile);
-          setIsAnimating(false);
-        }, 300);
-      } else {
-        setIsMobile(newIsMobile);
-      }
-    };
-
-    document.body.style.overflow = 'hidden';
-
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => {
-      document.body.style.overflow = '';
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [isMobile]);
-
-  const hasArtifact = state.currentArtifact && !isMobile;
+  const { state } = useArtifact();
+  const hasArtifact = state.currentArtifact;
 
   return (
     <>
@@ -93,7 +65,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
               ) : null}
             </div>
 
-            {hasArtifact && (
+            {hasArtifact && state.isDrawerOpen && (
               <div
                 className={
                   state.isFullscreen
@@ -105,13 +77,6 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
               </div>
             )}
           </div>
-
-          {/* Mobile drawer - always rendered but only shown on mobile */}
-          {state.currentArtifact && isMobile && (
-            <div className="memori-chat-layout--artifact-drawer">
-              <ArtifactDrawer />
-            </div>
-          )}
 
           <div className="memori--powered-by-custom">{poweredBy}</div>
         </div>

@@ -4,6 +4,10 @@
  */
 
 .memori-artifact-handler {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px;
   border: 1px solid var(--memori-button-border-color, #e9ecef);
   border-radius: var(--memori-border-radius, 12px);
   margin: 0.75rem 0;
@@ -12,6 +16,7 @@
   background: rgba(255, 255, 255, 0.95);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   cursor: pointer;
+  gap: 12px;
   opacity: 0;
   transform: translateY(10px);
   transition: all 0.3s ease;
@@ -52,6 +57,14 @@
 .memori-artifact-handler-info {
   min-width: 0;
   flex: 1;
+}
+
+.memori-artifact-handler-action-icon {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  font-size: 1.5rem;
+  line-height: 1;
 }
 
 .memori-artifact-handler-title {
