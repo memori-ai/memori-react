@@ -1,5 +1,12 @@
 
 
+## [8.4.0-rc.5](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.4...v8.4.0-rc.5) (2025-09-09)
+
+
+### Features
+
+* implement artifact auto-opening and enhance artifact handling in chat ([c7a3720](https://github.com/memori-ai/memori-react/commit/c7a372029b8b2d0864e5cc329bc66a6d180cc581))
+
 ## [8.4.0-rc.4](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.3...v8.4.0-rc.4) (2025-09-09)
 
 
