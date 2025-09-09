@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useArtifact } from '../../context/ArtifactContext';
 import { ArtifactData } from '../../types/artifact.types';
 import ChevronRight from '../../../icons/ChevronRight';
@@ -18,6 +18,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
   message,
 }) => {
   const { openArtifact, state, closeArtifact } = useArtifact();
+  const [currentArtifact, setCurrentArtifact] = useState<ArtifactData | null>(null);
 
   // Auto-open artifacts when detected in new messages
   useEffect(() => {
@@ -28,6 +29,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
       if (artifacts.length > 0) {
         setTimeout(() => {
           openArtifact(artifacts[0]);
+          setCurrentArtifact(artifacts[0]);
         }, 100);
       }
     }
@@ -68,37 +70,39 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
   const artifacts = detectArtifacts(messageText);
 
   if (artifacts.length === 0) return null;
+  
+  
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
       <div
-        key={state.currentArtifact?.id}
+        key={currentArtifact?.id}
         className="memori-artifact-handler"
         onClick={() => {
-          if (state.isDrawerOpen) {
+          if (state.isDrawerOpen && state.currentArtifact?.id === currentArtifact?.id) {
             closeArtifact();
           } else {
-            openArtifact(state.currentArtifact as ArtifactData);
+            openArtifact(currentArtifact as ArtifactData);
           }
         }}
       >
         <div className="memori-artifact-handler-icon">📄</div>
         <div className="memori-artifact-handler-info">
           <div className="memori-artifact-handler-title">
-            {state.currentArtifact?.title}
+            {currentArtifact?.title}
           </div>
           <div className="memori-artifact-handler-meta">
-            {state.currentArtifact?.mimeType} •{' '}
-            {formatBytes(state.currentArtifact?.size || 0)}
+            {currentArtifact?.mimeType} •{' '}
+            {formatBytes(currentArtifact?.size || 0)}
           </div>
         </div>
         <div className="memori-artifact-handler-action">
           {isChatlogPanel ? (
-            state.isDrawerOpen ? (
+            state.isDrawerOpen && state.currentArtifact?.id === currentArtifact?.id ? (
               <ChevronUp className="memori-artifact-handler-action-icon" />
             ) : (
               <ChevronDown className="memori-artifact-handler-action-icon" />
             )
-          ) : state.isDrawerOpen ? (
+          ) : state.isDrawerOpen && state.currentArtifact?.id === currentArtifact?.id ? (
             <ChevronLeft className="memori-artifact-handler-action-icon" />
           ) : (
             <ChevronRight className="memori-artifact-handler-action-icon" />
@@ -107,7 +111,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
       </div>
 
       {/* Render ArtifactDrawer inline when in chatlog panel */}
-      {isChatlogPanel && state.isDrawerOpen && (
+      {isChatlogPanel && state.isDrawerOpen && state.currentArtifact?.id === currentArtifact?.id && (
         <ArtifactDrawer isChatLogPanel={isChatlogPanel} />
       )}
     </div>
