@@ -33,10 +33,10 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
         {Header && headerProps && <Header {...headerProps} />}
 
         <div className="memori--grid">
-          {!hasArtifact && (
+          {!state.isDrawerOpen && (
             <div className="memori--grid-column memori--grid-column-left">
-              {Avatar && avatarProps && !hasArtifact && (
-                <Avatar isZoomed chatProps={chatProps} {...avatarProps} />
+              {Avatar && avatarProps && (
+                <Avatar chatProps={chatProps} isZoomed {...avatarProps} />
               )}
 
               <div id="extension" />
@@ -52,7 +52,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
                 state.isFullscreen
                   ? `memori-chat-layout-controls-hide`
                   : `memori-chat-layout--controls ${
-                      hasArtifact
+                      state.isDrawerOpen
                         ? 'memori-chat-layout--controls-with-artifact'
                         : ''
                     }`
@@ -65,7 +65,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
               ) : null}
             </div>
 
-            {hasArtifact && state.isDrawerOpen && (
+            {state.isDrawerOpen && (
               <div
                 className={
                   state.isFullscreen
@@ -78,7 +78,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
             )}
           </div>
 
-          <div className="memori--powered-by-custom">{poweredBy}</div>
+          {poweredBy}
         </div>
       </Spin>
     </>

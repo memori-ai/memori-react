@@ -53,10 +53,6 @@
 .memori-chat-layout--main-with-artifact {
     flex-direction: row;
     padding: 1rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(20px);
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 250, 252, 0.9) 100%);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     gap: 1rem;
 }
 
@@ -148,13 +144,12 @@
 .memori-chat-layout--controls .memori-chat--wrapper {
     max-width: 1200px;
     height: 100%;
-    max-height: calc(87vh - 1rem);
     margin: 0 auto;
 }
 
 
 .memori-chat-layout--controls .memori-chat--wrapper {
-    height: calc(80vh - 1rem);
+    height: calc(75vh - 1rem);
 }
 
 .memori-chat-layout .memori-chat--content {
@@ -240,7 +235,7 @@
     /* box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15); */
 }
 
-
+/* 
 .memori-chat-layout--controls:hover {
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
     transform: translateY(-1px);
@@ -251,7 +246,7 @@
 .memori-chat-layout--artifact-panel:hover {
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
     transform: translateY(-1px) scale(1.01);
-}
+} */
 
 /* Loading states */
 .memori-chat-layout--loading {
@@ -371,10 +366,10 @@
     visibility: visible;
 }
 
-.memori-chat-layout--artifact-drawer[data-headlessui-state~="open"] .memori-artifact-drawer {
+/* .memori-chat-layout--artifact-drawer[data-headlessui-state~="open"] .memori-artifact-drawer {
     animation: mobile-drawer-slide-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
     transform: translateX(0);
-}
+} */
 
 @keyframes mobile-drawer-slide-in {
     0% {
