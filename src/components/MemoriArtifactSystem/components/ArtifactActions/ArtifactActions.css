@@ -3,12 +3,6 @@
  * Following the project's design system and CSS patterns
  */
 
-.memori-artifact-actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.5rem;
-}
 
 .memori-artifact-action-btn {
   display: flex;
@@ -80,36 +74,16 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .memori-artifact-actions {
-    gap: 0.25rem;
-  }
-
-  .memori-artifact-action-btn {
+  .memori-artifact-actions-trigger {
     min-width: 42px;
-    min-height: auto;
-    justify-content: center;
-  }
-
-  .memori-artifact-action-text {
-    display: none;
-  }
-
-  .memori-artifact-fullscreen-btn{
-    display: none;
+    min-height: 42px;
   }
 }
 
 @media (max-width: 480px) {
-  .memori-artifact-actions {
-    flex-flow: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .memori-artifact-action-btn {
-    min-width: 0;
-    max-width: 3rem;
-    flex: 1;
+  .memori-artifact-actions-trigger {
+    min-width: 36px;
+    min-height: 36px;
   }
 }
 
@@ -119,6 +93,10 @@
 .memori-artifact-action-btn .memori-button--icon, .memori-artifact-action-icon-fullscreen {
   font-size: 1rem;
   line-height: 1;
+}
+
+.memori-remove-button-border{
+  border: none;
 }
 
 .memori-artifact-action-icon-fullscreen{
@@ -151,3 +129,56 @@
   position: relative;
 }
 
+/* Menu Overlay Styles */
+.memori-artifact-actions-menu {
+  position: relative;
+}
+
+.memori-artifact-actions-menu .memori-menu--overlay {
+  position: absolute;
+  z-index: 1000;
+  top: 100%;
+  right: 0;
+  left: auto;
+  display: flex;
+  min-width: 12rem;
+  flex-direction: column;
+  padding: 0.5rem 0;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.375rem;
+  margin-top: 0.5rem;
+  background: white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.memori-artifact-actions-menu .memori-menu--li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.memori-artifact-actions-menu .memori-menu--button {
+  width: 100%;
+  justify-content: flex-start;
+  padding: 0.75rem 1rem;
+  border: none;
+  background: transparent;
+  color: #000;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 500;
+  gap: 0.5rem;
+  text-align: left;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.memori-artifact-actions-menu .memori-menu--button:hover {
+  background: rgba(0, 123, 255, 0.1);
+  color: var(--memori-primary);
+}
+
+.memori-artifact-actions-menu .memori-menu--icon {
+  width: 1em;
+  height: 1em;
+}

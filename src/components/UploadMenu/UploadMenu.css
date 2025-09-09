@@ -9,9 +9,9 @@
 
 .memori-menu--overlay {
     position: absolute;
-    right: auto;
-    bottom: 100%;
-    left: 0;
+    top: 100%;
+    right: 0;
+    left: auto;
     display: flex;
     min-width: 12rem;
     flex-direction: column;

@@ -7,16 +7,19 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dialog, Transition } from '@headlessui/react';
-import cx from 'classnames';
 import Button from '../../../ui/Button';
 import Close from '../../../icons/Close';
 import ArtifactActions from '../ArtifactActions/ArtifactActions';
 import { useArtifact } from '../../context/ArtifactContext';
 import ArtifactPreview from '../ArtifactPreview/ArtifactPreview';
 import { ArtifactTab } from '../../types/artifact.types';
+import cx from 'classnames';
 
-const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({ isChatLogPanel = false }) => {
-  const { state, openArtifact, closeArtifact, toggleFullscreen } = useArtifact();
+const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
+  isChatLogPanel = false,
+}) => {
+  const { state, openArtifact, closeArtifact, toggleFullscreen } =
+    useArtifact();
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<ArtifactTab>('preview');
   const [showHistory, setShowHistory] = useState(false);
@@ -136,7 +139,6 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({ isChatLogPanel
     setShowHistory(prev => !prev);
   }, []);
 
-
   if (!state.currentArtifact) {
     return null;
   }
@@ -163,16 +165,14 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({ isChatLogPanel
                   <h2 className="memori-artifact-drawer--title">
                     {state.currentArtifact.title}
                   </h2>
-                  <p className="memori-artifact-drawer--subtitle">
-                    {state.currentArtifact.title ||
-                      `${state.currentArtifact.mimeType} Content`}
-                  </p>
                   <div className="memori-artifact-drawer--meta">
                     <span className="memori-artifact-drawer--meta-item">
-                      {t('artifact.type') || 'Type'}: {state.currentArtifact.mimeType}
+                      {t('artifact.type') || 'Type'}:{' '}
+                      {state.currentArtifact.mimeType}
                     </span>
                     <span className="memori-artifact-drawer--meta-item">
-                      {t('artifact.size') || 'Size'}: {formatBytes(state.currentArtifact.size)}
+                      {t('artifact.size') || 'Size'}:{' '}
+                      {formatBytes(state.currentArtifact.size)}
                     </span>
                     <span className="memori-artifact-drawer--meta-item">
                       {t('artifact.generated') || 'Generated'}:{' '}
@@ -191,12 +191,17 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({ isChatLogPanel
                     onOpenExternal={handleOpenExternal}
                     onToggleFullscreen={handleToggleFullscreen}
                     isFullscreen={state.isFullscreen}
+                    isChatLogPanel={isChatLogPanel}
                   />
                 </div>
 
                 <Button
                   onClick={handleClose}
-                  className="memori-artifact-drawer--close"
+                  className={cx(
+                    'memori-artifact-drawer--close',
+                    'memori-button--circle',
+                    'memori-button--icon-only'
+                  )}
                   ghost
                   title={t('artifact.close') || 'Close'}
                 >
@@ -223,23 +228,23 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({ isChatLogPanel
 
   // Render web split panel
   return (
-    <div style={isChatLogPanel ? {minHeight: '75vh', maxHeight: '75vh'} : {}} className="memori-artifact-panel">
+    <div
+      style={isChatLogPanel ? { minHeight: '75vh', maxHeight: '75vh' } : {}}
+      className="memori-artifact-panel"
+    >
       {/* Header */}
       <div className="memori-artifact-panel--header">
         <div className="memori-artifact-panel--header-content">
           <h2 className="memori-artifact-panel--title">
             {state.currentArtifact.title}
           </h2>
-          <p className="memori-artifact-panel--subtitle">
-            {state.currentArtifact.title ||
-              `${state.currentArtifact.mimeType} Content`}
-          </p>
           <div className="memori-artifact-panel--meta">
             <span className="memori-artifact-panel--meta-item">
               {t('artifact.type') || 'Type'}: {state.currentArtifact.mimeType}
             </span>
             <span className="memori-artifact-panel--meta-item">
-              {t('artifact.size') || 'Size'}: {formatBytes(state.currentArtifact.size)}
+              {t('artifact.size') || 'Size'}:{' '}
+              {formatBytes(state.currentArtifact.size)}
             </span>
             <span className="memori-artifact-panel--meta-item">
               {t('artifact.generated') || 'Generated'}:{' '}
@@ -258,12 +263,17 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({ isChatLogPanel
             onOpenExternal={handleOpenExternal}
             onToggleFullscreen={handleToggleFullscreen}
             isFullscreen={state.isFullscreen}
+            isChatLogPanel={isChatLogPanel}
           />
         </div>
 
         <Button
           onClick={closeArtifact}
-          className="memori-artifact-panel--close"
+          className={cx(
+            'memori-artifact-drawer--close',
+            'memori-button--circle',
+            'memori-button--icon-only'
+          )}
           ghost
           title={t('artifact.close') || 'Close'}
         >

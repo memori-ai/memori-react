@@ -4,61 +4,19 @@ import { ArtifactData } from '../../types/artifact.types';
 import ChevronRight from '../../../icons/ChevronRight';
 import ArtifactDrawer from '../ArtifactDrawer/ArtifactDrawer';
 import ChevronDown from '../../../icons/ChevronDown';
-import ArrowUp from '../../../icons/ArrowUp';
 import ChevronLeft from '../../../icons/ChevronLeft';
 import ChevronUp from '../../../icons/ChevronUp';
 
 interface ArtifactHandlerProps {
-  message: {
-    text: string;
-    translatedText?: string;
-    fromUser: boolean;
-    timestamp: string;
-  };
+  artifacts: ArtifactData[];
   isChatlogPanel?: boolean;
 }
 
 const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
-  message,
+  artifacts,
   isChatlogPanel = false,
 }) => {
   const { openArtifact, state, closeArtifact } = useArtifact();
-
-  // Simple artifact detection - look for <output class="memori-artifact"> tags
-  const detectArtifacts = (text: string): ArtifactData[] => {
-    if (!text || message.fromUser) return [];
-
-    const artifactRegex =
-      /<output\s+class="memori-artifact"[^>]*data-mimetype="([^"]+)"[^>]*>([\s\S]*?)<\/output>/gi;
-    const artifacts: ArtifactData[] = [];
-    let match;
-
-    while ((match = artifactRegex.exec(text)) !== null) {
-      const mimeType = match[1];
-      const content = match[2].trim();
-
-      if (content.length > 50) {
-        // Basic validation
-        artifacts.push({
-          id: `artifact-${Date.now()}-${Math.random()
-            .toString(36)
-            .substr(2, 9)}`,
-          content,
-          mimeType,
-          title: `${mimeType.toUpperCase()} Artifact`,
-          timestamp: new Date(),
-          size: content.length,
-        });
-      }
-    }
-
-    return artifacts;
-  };
-
-  const messageText = message.translatedText || message.text || '';
-  const artifacts = detectArtifacts(messageText);
-
-  if (artifacts.length === 0) return null;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -67,7 +25,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
           key={artifact.id}
           className="memori-artifact-handler"
           onClick={() => {
-            if (state.isDrawerOpen) {
+            if (state.isDrawerOpen ) {
               closeArtifact();
             } else {
               openArtifact(artifact);

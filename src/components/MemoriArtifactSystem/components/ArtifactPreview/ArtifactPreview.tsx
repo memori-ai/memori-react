@@ -4,11 +4,11 @@
  * Following the project's component patterns and design system
  */
 
-import React, { useState, useCallback, useMemo } from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import Button from '../../../ui/Button';
-import { ArtifactData, ArtifactSystemState, ArtifactTab } from '../../types/artifact.types';
+import { ArtifactData, ArtifactTab } from '../../types/artifact.types';
 import Code from '../../../icons/Code';
 import { PreviewIcon } from '../../../icons/Preview';
 import Snippet from '../../../Snippet/Snippet';

@@ -86,6 +86,9 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -127,6 +130,9 @@ exports[`renders Chat unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -195,6 +201,9 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -236,6 +245,9 @@ exports[`renders Chat unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -380,6 +392,9 @@ exports[`renders Chat unchanged 1`] = `
           </div>
         </div>
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -421,6 +436,9 @@ exports[`renders Chat unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -487,6 +505,9 @@ exports[`renders Chat unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           id="end-messages-ref"
@@ -646,6 +667,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -687,6 +711,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -755,6 +782,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -796,6 +826,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -955,6 +988,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
           </div>
         </div>
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -996,6 +1032,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -1077,6 +1116,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           id="end-messages-ref"
@@ -1236,6 +1278,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -1269,6 +1314,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -1337,6 +1385,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -1370,6 +1421,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -1514,6 +1568,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           </div>
         </div>
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -1547,6 +1604,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -1613,6 +1673,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           id="end-messages-ref"
@@ -1772,6 +1835,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -1807,6 +1873,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -1875,6 +1944,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -1910,6 +1982,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -2054,6 +2129,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           </div>
         </div>
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -2089,6 +2167,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -2155,6 +2236,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           id="end-messages-ref"
@@ -2319,6 +2403,9 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -2365,6 +2452,9 @@ exports[`renders Chat with dates unchanged 1`] = `
         </small>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -2438,6 +2528,9 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -2484,6 +2577,9 @@ exports[`renders Chat with dates unchanged 1`] = `
         </small>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -2633,6 +2729,9 @@ exports[`renders Chat with dates unchanged 1`] = `
           </div>
         </div>
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -2679,6 +2778,9 @@ exports[`renders Chat with dates unchanged 1`] = `
         </small>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -2750,6 +2852,9 @@ exports[`renders Chat with dates unchanged 1`] = `
         </small>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           id="end-messages-ref"
@@ -2909,6 +3014,9 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -2950,6 +3058,9 @@ exports[`renders Chat with hints unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -3018,6 +3129,9 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -3059,6 +3173,9 @@ exports[`renders Chat with hints unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -3203,6 +3320,9 @@ exports[`renders Chat with hints unchanged 1`] = `
           </div>
         </div>
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -3244,6 +3364,9 @@ exports[`renders Chat with hints unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -3310,6 +3433,9 @@ exports[`renders Chat with hints unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-media-widget"
@@ -3495,6 +3621,9 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -3536,6 +3665,9 @@ exports[`renders Chat with media unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -3604,6 +3736,9 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -3645,6 +3780,9 @@ exports[`renders Chat with media unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -4190,6 +4328,9 @@ exports[`renders Chat with media unchanged 1`] = `
           </div>
         </div>
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -4231,6 +4372,9 @@ exports[`renders Chat with media unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -4297,6 +4441,9 @@ exports[`renders Chat with media unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           id="end-messages-ref"
@@ -4456,6 +4603,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -4497,6 +4647,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -4565,6 +4718,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -4606,6 +4762,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -4750,6 +4909,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           </div>
         </div>
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -4791,6 +4953,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -4857,6 +5022,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble"
@@ -5037,6 +5205,9 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -5072,6 +5243,9 @@ exports[`renders Chat with user unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -5140,6 +5314,9 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -5175,6 +5352,9 @@ exports[`renders Chat with user unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -5319,6 +5499,9 @@ exports[`renders Chat with user unchanged 1`] = `
           </div>
         </div>
         <div
+          style="display: flex; flex-direction: column; gap: 10px;"
+        />
+        <div
           class="memori-chat--bubble-container memori-chat--bubble-from-user"
         >
           <div
@@ -5354,6 +5537,9 @@ exports[`renders Chat with user unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           class="memori-chat--bubble-container"
@@ -5420,6 +5606,9 @@ exports[`renders Chat with user unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          style="display: flex; flex-direction: column; gap: 10px;"
         />
         <div
           id="end-messages-ref"
