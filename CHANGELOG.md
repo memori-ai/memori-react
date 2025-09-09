@@ -1,5 +1,13 @@
 
 
+## [8.4.0-rc.8](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.7...v8.4.0-rc.8) (2025-09-09)
+
+
+### Changes
+
+* enhance ArtifactActions and ArtifactDrawer and improved layout and responsiveness ([af3139c](https://github.com/memori-ai/memori-react/commit/af3139c45726c76af454056cf4773098bf6face9))
+* update ArtifactDrawer styles and enhance title extraction logic in ArtifactHandler ([8d6c503](https://github.com/memori-ai/memori-react/commit/8d6c5031e44c15d3ba1e98ccf2bc5a8736ce1ce5))
+
 ## [8.4.0-rc.7](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.6...v8.4.0-rc.7) (2025-09-09)
 
 
