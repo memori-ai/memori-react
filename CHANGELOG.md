@@ -1,5 +1,12 @@
 
 
+## [8.4.0-rc.2](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.1...v8.4.0-rc.2) (2025-09-09)
+
+
+### Changes
+
+* update chat layout styles and improve component responsiveness ([51c3596](https://github.com/memori-ai/memori-react/commit/51c3596403eedfe842abd0fadd713420a1264f28))
+
 ## [8.4.0-rc.1](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.0...v8.4.0-rc.1) (2025-09-08)
 
 
