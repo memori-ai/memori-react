@@ -4,34 +4,71 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { ArtifactProvider } from './context/ArtifactContext';
 import ArtifactHandler from './components/ArtifactHandler/ArtifactHandler';
 import ArtifactDrawer from './components/ArtifactDrawer/ArtifactDrawer';
+import Chat from '../Chat/Chat';
+import {
+  Message,
+  Memori,
+  Tenant,
+} from '@memori.ai/memori-api-client/dist/types';
 
-// Mock chat component for testing
-const MockChat = ({ messages, isChatlogPanel }: { messages: any[], isChatlogPanel?: boolean }) => (
-  <div style={{ padding: '20px', background: '#f5f5f5', minHeight: '400px' }}>
-    {messages.map((message, index) => (
-      <div key={index} style={{ marginBottom: '20px' }}>
-        <div style={{ 
-          background: message.fromUser ? '#007bff' : '#fff', 
-          color: message.fromUser ? '#fff' : '#000',
-          padding: '12px',
-          borderRadius: '12px',
-          marginBottom: '8px'
-        }}>
-          {message.text}
-        </div>
-        <ArtifactHandler message={message} isChatlogPanel={isChatlogPanel} />
-      </div>
-    ))}
-  </div>
-);
+// Mock data for Chat component
+const mockMemori: Memori = {
+  memoriID: 'test-memori-id',
+  name: 'Test Memori',
+  culture: 'en-US',
+  coverURL: '',
+  enableBoardOfExperts: false,
+} as Memori;
+
+const mockTenant: Tenant = {
+  name: 'test-tenant',
+} as Tenant;
+
+// Mock functions for Chat component
+const mockPushMessage = (message: Message) => {
+  console.log('Push message:', message);
+};
+
+const mockSimulateUserPrompt = (text: string, translatedText?: string) => {
+  console.log('Simulate user prompt:', text, translatedText);
+};
+
+const mockOnChangeUserMessage = (userMessage: string) => {
+  console.log('Change user message:', userMessage);
+};
+
+const mockSendMessage = (msg: string, media?: any[]) => {
+  console.log('Send message:', msg, media);
+};
+
+const mockSetEnableFocusChatInput = (enableFocusChatInput: boolean) => {
+  console.log('Set enable focus chat input:', enableFocusChatInput);
+};
+
+const mockStopAudio = () => {
+  console.log('Stop audio');
+};
+
+const mockStartListening = () => {
+  console.log('Start listening');
+};
+
+const mockStopListening = () => {
+  console.log('Stop listening');
+};
+
+const mockSetSendOnEnter = (sendOnEnter: 'keypress' | 'click') => {
+  console.log('Set send on enter:', sendOnEnter);
+};
+
+const mockSetAttachmentsMenuOpen = (attachmentsMenuOpen: 'link' | 'media') => {
+  console.log('Set attachments menu open:', attachmentsMenuOpen);
+};
 
 // Story decorator to provide context
 const withArtifactProvider = (Story: any) => (
   <ArtifactProvider>
-    <div style={{ fontFamily: 'Arial, sans-serif' }}>
       <Story />
-      <ArtifactDrawer />
-    </div>
   </ArtifactProvider>
 );
 
@@ -263,18 +300,33 @@ const jsonArtifact = `<output class="memori-artifact" data-mimetype="json">
 export const HTMLArtifact: Story = {
   args: {},
   render: () => (
-    <MockChat 
-      messages={[
-        { 
+    <Chat
+      memori={mockMemori}
+      tenant={mockTenant}
+      sessionID="test-session"
+      history={[
+        {
           text: `Here's a complete HTML page for your landing page:
 
 ${htmlArtifact}
 
 This page includes modern styling and an interactive button. You can customize the colors and layout as needed.`,
           fromUser: false,
-          timestamp: new Date().toISOString()
-        }
-      ]} 
+          timestamp: new Date().toISOString(),
+        },
+      ]}
+      pushMessage={mockPushMessage}
+      simulateUserPrompt={mockSimulateUserPrompt}
+      onChangeUserMessage={mockOnChangeUserMessage}
+      sendMessage={mockSendMessage}
+      setEnableFocusChatInput={mockSetEnableFocusChatInput}
+      stopAudio={mockStopAudio}
+      startListening={mockStartListening}
+      stopListening={mockStopListening}
+      setSendOnEnter={mockSetSendOnEnter}
+      setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
+      showInputs={false}
+      isChatlogPanel={true}
     />
   ),
 };
@@ -282,18 +334,33 @@ This page includes modern styling and an interactive button. You can customize t
 export const MarkdownDocumentation: Story = {
   args: {},
   render: () => (
-    <MockChat 
-      messages={[
-        { 
+    <Chat
+      memori={mockMemori}
+      tenant={mockTenant}
+      sessionID="test-session"
+      history={[
+        {
           text: `I've created comprehensive project documentation for you:
 
 ${markdownArtifact}
 
 This includes all the essential sections for a project README with proper formatting and structure.`,
           fromUser: false,
-          timestamp: new Date().toISOString()
-        }
-      ]} 
+          timestamp: new Date().toISOString(),
+        },
+      ]}
+      pushMessage={mockPushMessage}
+      simulateUserPrompt={mockSimulateUserPrompt}
+      onChangeUserMessage={mockOnChangeUserMessage}
+      sendMessage={mockSendMessage}
+      setEnableFocusChatInput={mockSetEnableFocusChatInput}
+      stopAudio={mockStopAudio}
+      startListening={mockStartListening}
+      stopListening={mockStopListening}
+      setSendOnEnter={mockSetSendOnEnter}
+      setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
+      showInputs={false}
+      isChatlogPanel={true}
     />
   ),
 };
@@ -301,18 +368,33 @@ This includes all the essential sections for a project README with proper format
 export const CSSStyles: Story = {
   args: {},
   render: () => (
-    <MockChat 
-      messages={[
-        { 
-          text: `Here's a modern CSS grid layout with hover effects:
+    <Chat
+      memori={mockMemori}
+      tenant={mockTenant}
+      sessionID="test-session"
+      history={[
+        {
+          text: `I've created comprehensive project documentation for you:
 
 ${cssArtifact}
 
-This creates responsive cards with beautiful gradients and smooth animations.`,
+This includes all the essential sections for a project README with proper formatting and structure.`,
           fromUser: false,
-          timestamp: new Date().toISOString()
-        }
-      ]} 
+          timestamp: new Date().toISOString(),
+        },
+      ]}
+      pushMessage={mockPushMessage}
+      simulateUserPrompt={mockSimulateUserPrompt}
+      onChangeUserMessage={mockOnChangeUserMessage}
+      sendMessage={mockSendMessage}
+      setEnableFocusChatInput={mockSetEnableFocusChatInput}
+      stopAudio={mockStopAudio}
+      startListening={mockStartListening}
+      stopListening={mockStopListening}
+      setSendOnEnter={mockSetSendOnEnter}
+      setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
+      showInputs={false}
+      isChatlogPanel={true}
     />
   ),
 };
@@ -320,18 +402,33 @@ This creates responsive cards with beautiful gradients and smooth animations.`,
 export const JavaScriptApp: Story = {
   args: {},
   render: () => (
-    <MockChat 
-      messages={[
-        { 
+    <Chat
+      memori={mockMemori}
+      tenant={mockTenant}
+      sessionID="test-session"
+      history={[
+        {
           text: `I've built a complete Todo List application in JavaScript:
 
 ${javascriptArtifact}
 
 This includes full CRUD functionality with a clean class-based architecture.`,
           fromUser: false,
-          timestamp: new Date().toISOString()
-        }
-      ]} 
+          timestamp: new Date().toISOString(),
+        },
+      ]}
+      pushMessage={mockPushMessage}
+      simulateUserPrompt={mockSimulateUserPrompt}
+      onChangeUserMessage={mockOnChangeUserMessage}
+      sendMessage={mockSendMessage}
+      setEnableFocusChatInput={mockSetEnableFocusChatInput}
+      stopAudio={mockStopAudio}
+      startListening={mockStartListening}
+      stopListening={mockStopListening}
+      setSendOnEnter={mockSetSendOnEnter}
+      setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
+      showInputs={false}
+      isChatlogPanel={true}
     />
   ),
 };
@@ -339,27 +436,45 @@ This includes full CRUD functionality with a clean class-based architecture.`,
 export const JSONConfiguration: Story = {
   args: {},
   render: () => (
-    <MockChat 
-      messages={[
-        { 
+    <Chat
+      memori={mockMemori}
+      tenant={mockTenant}
+      sessionID="test-session"
+      history={[
+        {
           text: `Here's a complete package.json configuration for your API project:
 
 ${jsonArtifact}
 
 This includes all necessary dependencies, scripts, and metadata for a production-ready Node.js API.`,
           fromUser: false,
-          timestamp: new Date().toISOString()
-        }
-      ]} 
+          timestamp: new Date().toISOString(),
+        },
+      ]}
+      pushMessage={mockPushMessage}
+      simulateUserPrompt={mockSimulateUserPrompt}
+      onChangeUserMessage={mockOnChangeUserMessage}
+      sendMessage={mockSendMessage}
+      setEnableFocusChatInput={mockSetEnableFocusChatInput}
+      stopAudio={mockStopAudio}
+      startListening={mockStartListening}
+      stopListening={mockStopListening}
+      setSendOnEnter={mockSetSendOnEnter}
+      setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
+      showInputs={false}
+      isChatlogPanel={true}
     />
   ),
 };
 export const MultipleArtifacts: Story = {
   args: {},
   render: () => (
-    <MockChat 
-      messages={[
-        { 
+    <Chat
+      memori={mockMemori}
+      tenant={mockTenant}
+      sessionID="test-session"
+      history={[
+        {
           text: `I'll create both the HTML structure and CSS styling for your dashboard:
 
 ${htmlArtifact}
@@ -368,47 +483,75 @@ ${cssArtifact}
 
 This combination gives you a complete, styled web page ready for deployment.`,
           fromUser: false,
-          timestamp: new Date().toISOString()
-        }
-      ]} 
+          timestamp: new Date().toISOString(),
+        },
+      ]}
+      pushMessage={mockPushMessage}
+      simulateUserPrompt={mockSimulateUserPrompt}
+      onChangeUserMessage={mockOnChangeUserMessage}
+      sendMessage={mockSendMessage}
+      setEnableFocusChatInput={mockSetEnableFocusChatInput}
+      stopAudio={mockStopAudio}
+      startListening={mockStartListening}
+      stopListening={mockStopListening}
+      setSendOnEnter={mockSetSendOnEnter}
+      setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
+      showInputs={false}
+      isChatlogPanel={true}
     />
   ),
 };
 
+
 export const ConversationFlow: Story = {
   args: {},
   render: () => (
-    <MockChat 
-      messages={[
-        { 
-          text: "Can you create a simple HTML page for me?",
+    <Chat
+      memori={mockMemori}
+      tenant={mockTenant}
+      sessionID="test-session"
+      history={[
+        {
+          text: 'Can you create a simple HTML page for me?',
           fromUser: true,
-          timestamp: new Date(Date.now() - 300000).toISOString()
+          timestamp: new Date(Date.now() - 300000).toISOString(),
         },
-        { 
+        {
           text: `Of course! Here's a complete HTML page with modern styling:
 
 ${htmlArtifact}
 
 Would you like me to modify anything about the design or add more functionality?`,
           fromUser: false,
-          timestamp: new Date(Date.now() - 240000).toISOString()
+          timestamp: new Date(Date.now() - 240000).toISOString(),
         },
-        { 
-          text: "Now can you create the CSS to make it look more modern?",
+        {
+          text: 'Now can you create the CSS to make it look more modern?',
           fromUser: true,
-          timestamp: new Date(Date.now() - 180000).toISOString()
+          timestamp: new Date(Date.now() - 180000).toISOString(),
         },
-        { 
+        {
           text: `Here's enhanced CSS with modern design patterns:
 
 ${cssArtifact}
 
 This adds responsive grid layouts, smooth animations, and contemporary styling.`,
           fromUser: false,
-          timestamp: new Date(Date.now() - 120000).toISOString()
-        }
-      ]} 
+          timestamp: new Date(Date.now() - 120000).toISOString(),
+        },
+      ]}
+      pushMessage={mockPushMessage}
+      simulateUserPrompt={mockSimulateUserPrompt}
+      onChangeUserMessage={mockOnChangeUserMessage}
+      sendMessage={mockSendMessage}
+      setEnableFocusChatInput={mockSetEnableFocusChatInput}
+      stopAudio={mockStopAudio}
+      startListening={mockStartListening}
+      stopListening={mockStopListening}
+      setSendOnEnter={mockSetSendOnEnter}
+      setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
+      showInputs={false}
+      isChatlogPanel={true}
     />
   ),
 };
@@ -416,63 +559,39 @@ This adds responsive grid layouts, smooth animations, and contemporary styling.`
 export const NoArtifacts: Story = {
   args: {},
   render: () => (
-    <MockChat 
-      messages={[
-        { 
-          text: "Hello! How can I help you today?",
+    <Chat
+      memori={mockMemori}
+      tenant={mockTenant}
+      sessionID="test-session"
+      history={[
+        {
+          text: 'Hello! How can I help you today?',
           fromUser: false,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
         },
-        { 
-          text: "I need help with my project planning",
+        {
+          text: 'I need help with my project planning',
           fromUser: true,
-          timestamp: new Date().toISOString()
+          timestamp: new Date().toISOString(),
         },
-        { 
+        {
           text: "I'd be happy to help with project planning! What type of project are you working on? Are you looking for help with timeline management, resource allocation, task breakdown, or something else?",
           fromUser: false,
-          timestamp: new Date().toISOString()
-        }
-      ]} 
-    />
-  ),
-};
-
-export const ChatLogPanelArtifact: Story = {
-  args: {},
-  render: () => (
-    <MockChat
-        isChatlogPanel={true}
-      messages={[
-        { 
-          text: `Here's some code that has issues:
-${htmlArtifact}`,
-          fromUser: false,
-          timestamp: new Date().toISOString()
-        }
-      ]} 
-    />
-  ),
-};
-
-export const InvalidArtifact: Story = {
-  args: {},
-  render: () => (
-    <MockChat 
-      messages={[
-        { 
-          text: `Here's some code that has issues:
-
-<output class="memori-artifact" data-mimetype="html">
-<h1>Broken HTML
-<p>Missing closing tags
-</output>
-
-This artifact is too short and has invalid HTML, so it won't be displayed as an artifact.`,
-          fromUser: false,
-          timestamp: new Date().toISOString()
-        }
-      ]} 
+          timestamp: new Date().toISOString(),
+        },
+      ]}
+      pushMessage={mockPushMessage}
+      simulateUserPrompt={mockSimulateUserPrompt}
+      onChangeUserMessage={mockOnChangeUserMessage}
+      sendMessage={mockSendMessage}
+      setEnableFocusChatInput={mockSetEnableFocusChatInput}
+      stopAudio={mockStopAudio}
+      startListening={mockStartListening}
+      stopListening={mockStopListening}
+      setSendOnEnter={mockSetSendOnEnter}
+      setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
+      showInputs={false}
+      isChatlogPanel={true}
     />
   ),
 };

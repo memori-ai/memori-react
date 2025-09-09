@@ -20,10 +20,7 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import Typing from '../Typing/Typing';
 import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
-
-import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
 import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler';
-import { ArtifactData } from '../MemoriArtifactSystem/types/artifact.types';
 export interface Props {
   memori: Memori;
   tenant?: Tenant;
@@ -127,58 +124,6 @@ const Chat: React.FC<Props> = ({
   isChatlogPanel = false,
   showFunctionCache = false,
 }) => {
-
-  const { state, openArtifact, closeArtifact, toggleFullscreen } = useArtifact();
-
-  // Auto-open artifacts when detected in new messages
-  useEffect(() => {
-    if (!state.isDrawerOpen && history.length > 0) {
-      const lastMessage = history[history.length - 1];
-      if (!lastMessage.fromUser) {
-        const artifacts = detectArtifacts(
-          lastMessage.translatedText || lastMessage.text || '',
-          lastMessage.fromUser || false
-        );
-        
-        if (artifacts.length > 0) {
-          setTimeout(() => {
-            openArtifact(artifacts[0]);
-          }, 100);
-        }
-      }
-    }
-  }, [history]);
-
-  // Artifact detection utility function
-  const detectArtifacts = (text: string, fromUser: boolean): ArtifactData[] => {
-    if (!text || fromUser) return [];
-
-    const artifactRegex =
-      /<output\s+class="memori-artifact"[^>]*data-mimetype="([^"]+)"[^>]*>([\s\S]*?)<\/output>/gi;
-    const artifacts: ArtifactData[] = [];
-    let match;
-
-    while ((match = artifactRegex.exec(text)) !== null) {
-      const mimeType = match[1];
-      const content = match[2].trim();
-
-      if (content.length > 50) {
-        // Basic validation
-        artifacts.push({
-          id: `artifact-${Date.now()}-${Math.random()
-            .toString(36)
-            .substr(2, 9)}`,
-          content,
-          mimeType,
-          title: `${mimeType.toUpperCase()} Artifact`,
-          timestamp: new Date(),
-          size: content.length,
-        });
-      }
-    }
-
-    return artifacts;
-  };
   const scrollToBottom = () => {
     if (isHistoryView) return;
     setTimeout(() => {
@@ -409,13 +354,12 @@ const Chat: React.FC<Props> = ({
                 fromUser={message.fromUser}
               />
 
+              {!isHistoryView && (
                 <ArtifactHandler
-                  artifacts={detectArtifacts(
-                    message.translatedText || message.text || '',
-                    message.fromUser || false
-                  )}
                   isChatlogPanel={isChatlogPanel}
+                  message={message}
                 />
+              )}
             </React.Fragment>
           ))}
 
