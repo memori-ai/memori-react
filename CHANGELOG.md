@@ -1,5 +1,12 @@
 
 
+## [8.4.0-rc.4](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.3...v8.4.0-rc.4) (2025-09-09)
+
+
+### Features
+
+* add isChatlogPanel prop to Chat and Artifact components ([1cae0b8](https://github.com/memori-ai/memori-react/commit/1cae0b82f39fb851c37acd98d027284e59256eb4))
+
 ## [8.4.0-rc.3](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.2...v8.4.0-rc.3) (2025-09-09)
 
 
