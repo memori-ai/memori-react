@@ -1,5 +1,12 @@
 
 
+## [8.4.0-rc.7](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.6...v8.4.0-rc.7) (2025-09-09)
+
+
+### Changes
+
+* update ArtifactHandler to use local state for currentArtifact ([8273c7d](https://github.com/memori-ai/memori-react/commit/8273c7dfb1ba2fcac039c68454b27eac0870f05e))
+
 ## [8.4.0-rc.6](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.5...v8.4.0-rc.6) (2025-09-09)
 
 
