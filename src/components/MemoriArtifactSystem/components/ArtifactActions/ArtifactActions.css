@@ -25,7 +25,7 @@
   white-space: nowrap;
 }
 
-.memori-artifact-action-icon{
+.memori-artifact-action-icon, .memori-artifact-action-icon-fullscreen{
   width: 16px;
   height: 16px;
 }
@@ -116,9 +116,13 @@
 /* Loading State */
 
 /* Icon Sizing */
-.memori-artifact-action-btn .memori-button--icon {
+.memori-artifact-action-btn .memori-button--icon, .memori-artifact-action-icon-fullscreen {
   font-size: 1rem;
   line-height: 1;
+}
+
+.memori-artifact-action-icon-fullscreen{
+  fill: #fff
 }
 
 

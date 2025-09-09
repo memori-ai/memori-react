@@ -275,7 +275,7 @@ const ArtifactActions: React.FC<{
         primary={isFullscreen}
         ghost={!isFullscreen}
       >
-        {isFullscreen ? <Fullscreen className="memori-artifact-action-icon" /> : <FullscreenExit className="memori-artifact-action-icon" />}
+        {isFullscreen ? <Fullscreen className="memori-artifact-action-icon-fullscreen" /> : <FullscreenExit className="memori-artifact-action-icon" />}
         <span className="memori-artifact-action-text">
           {isFullscreen ? t('artifact.exitFullscreen') || 'Exit' : t('artifact.fullscreen') || 'Full'}
         </span>
