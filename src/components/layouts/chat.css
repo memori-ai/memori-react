@@ -347,8 +347,8 @@
     }
     
     .memori-chat-layout--artifact-drawer .memori-artifact-drawer {
-        transition: none;
         animation: none;
+        transition: none;
     }
     
     .memori-chat-layout--artifact-drawer[data-headlessui-state~="open"] .memori-artifact-drawer {
@@ -364,10 +364,10 @@
     right: 0;
     bottom: 0;
     left: 0;
-    pointer-events: none;
     opacity: 0;
-    visibility: hidden;
+    pointer-events: none;
     transition: opacity 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), visibility 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    visibility: hidden;
 }
 
 .memori-chat-layout--artifact-drawer .memori-artifact-drawer {
