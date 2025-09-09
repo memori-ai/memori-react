@@ -1,5 +1,12 @@
 
 
+## [8.4.0-rc.6](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.5...v8.4.0-rc.6) (2025-09-09)
+
+
+### Changes
+
+* move artifact detection logic to ArtifactHandler and simplify Chat component ([596e9a1](https://github.com/memori-ai/memori-react/commit/596e9a11d6f741a5993d1d39c2e4eb968173487b))
+
 ## [8.4.0-rc.5](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.4...v8.4.0-rc.5) (2025-09-09)
 
 
