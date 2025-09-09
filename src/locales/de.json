@@ -135,19 +135,6 @@
       "contentAndIpAddress": "Der Autor kann den Inhalt und Ihre IP-Adresse sehen",
       "authorUsesInfo": "Der Autor verwendet diese Informationen, um die Funktionen des Agenten zu verbessern und Ihnen einen besseren Service anzubieten. Wenn Sie die Konversation fortsetzen, stimmen Sie diesen Bedingungen zu."
     },
-    "artifact": {
-      "close": "Schließen",
-      "size": "Größe", 
-      "generated": "Generiert",
-      "download": "Herunterladen",
-      "print": "Drucken",
-      "external": "In neuem Fenster öffnen",
-      "type": "Typ",
-      "generatedAt": "Generiert am",
-      "open": "Öffnen",
-      "code": "Code",
-      "preview": "Vorschau"
-    },
     "instructButton": "WEISE MICH AN",
     "tryMeButton": "START",
     "resumeButton": "FORTSETZEN",
@@ -186,6 +173,22 @@
     "message": "nachricht",
     "messages": "nachrichten",
     "page": "Seite {{current}} von {{total}}"
+  },
+  "artifact": {
+    "close": "Schließen",
+    "size": "Größe", 
+    "generated": "Generiert",
+    "download": "Herunterladen",
+    "print": "Drucken",
+    "external": "In neuem Fenster öffnen",
+    "type": "Typ",
+    "fullscreen": "Vollbild",
+    "exitFullscreen": "Vollbild beenden",
+    "copy": "Kopieren",
+    "generatedAt": "Generiert am",
+    "open": "Öffnen",
+    "code": "Code",
+    "preview": "Vorschau"
   },
   "upload": {
     "loginRequired": "Login erforderlich",

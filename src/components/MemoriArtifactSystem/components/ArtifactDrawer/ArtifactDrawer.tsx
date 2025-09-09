@@ -169,13 +169,13 @@ const ArtifactDrawer: React.FC = () => {
                   </p>
                   <div className="memori-artifact-drawer--meta">
                     <span className="memori-artifact-drawer--meta-item">
-                      {t('artifact.type', 'Type')}: {state.currentArtifact.mimeType}
+                      {t('artifact.type') || 'Type'}: {state.currentArtifact.mimeType}
                     </span>
                     <span className="memori-artifact-drawer--meta-item">
-                      {t('artifact.size', 'Size')}: {formatBytes(state.currentArtifact.size)}
+                      {t('artifact.size') || 'Size'}: {formatBytes(state.currentArtifact.size)}
                     </span>
                     <span className="memori-artifact-drawer--meta-item">
-                      {t('artifact.generated', 'Generated')}:{' '}
+                      {t('artifact.generated') || 'Generated'}:{' '}
                       {formatTimestamp(state.currentArtifact.timestamp)}
                     </span>
                   </div>
@@ -198,7 +198,7 @@ const ArtifactDrawer: React.FC = () => {
                   onClick={handleClose}
                   className="memori-artifact-drawer--close"
                   ghost
-                  title={t('artifact.close', 'Close') || 'Close'}
+                  title={t('artifact.close') || 'Close'}
                 >
                   <Close className="memori-artifact-drawer--close-icon" />
                 </Button>
@@ -236,13 +236,13 @@ const ArtifactDrawer: React.FC = () => {
           </p>
           <div className="memori-artifact-panel--meta">
             <span className="memori-artifact-panel--meta-item">
-              {t('artifact.type', 'Type')}: {state.currentArtifact.mimeType}
+              {t('artifact.type') || 'Type'}: {state.currentArtifact.mimeType}
             </span>
             <span className="memori-artifact-panel--meta-item">
-              {t('artifact.size', 'Size')}: {formatBytes(state.currentArtifact.size)}
+              {t('artifact.size') || 'Size'}: {formatBytes(state.currentArtifact.size)}
             </span>
             <span className="memori-artifact-panel--meta-item">
-              {t('artifact.generated', 'Generated')}:{' '}
+              {t('artifact.generated') || 'Generated'}:{' '}
               {formatTimestamp(state.currentArtifact.timestamp)}
             </span>
           </div>
@@ -265,7 +265,7 @@ const ArtifactDrawer: React.FC = () => {
           onClick={closeArtifact}
           className="memori-artifact-panel--close"
           ghost
-          title={t('artifact.close', 'Close') || 'Close'}
+          title={t('artifact.close') || 'Close'}
         >
           <Close className="memori-artifact-panel--close-icon" />
         </Button>

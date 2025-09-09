@@ -127,7 +127,7 @@ const ArtifactPreview: React.FC<{
             ghost
           >
            <Code className="memori-artifact-tab-icon" />
-           <span className="memori-artifact-tab-text">{t('artifact.code', 'Code')}</span>
+           <span className="memori-artifact-tab-text">{t('artifact.code') || 'Code'}</span>
           </Button>
           {hasPreview && (
             <Button
@@ -138,7 +138,7 @@ const ArtifactPreview: React.FC<{
               ghost
             >
               <PreviewIcon className="memori-artifact-tab-icon" />
-              <span className="memori-artifact-tab-text">{t('artifact.preview', 'Preview')}</span>
+              <span className="memori-artifact-tab-text">{t('artifact.preview') || 'Preview'}</span>
             </Button>
           )}
         </div>

@@ -216,59 +216,59 @@ const ArtifactActions: React.FC<{
       <Button
         onClick={handleCopy}
         disabled={loading}
-        title={t('artifact.copy', 'Copy code') || 'Copy code'}
+        title={t('artifact.copy') || 'Copy code'}
         className="memori-artifact-action-btn"
         ghost
       >
       <Copy className="memori-artifact-action-icon" />
         <span className="memori-artifact-action-text">
-          {copyFeedback || t('artifact.copy', 'Copy')}
+          {copyFeedback || t('artifact.copy') || 'Copy'}
         </span>
       </Button>
 
       <Button
         onClick={handleDownload}
         disabled={loading}
-        title={t('artifact.download', 'Download artifact') || 'Download artifact'}
+        title={t('artifact.download') || 'Download artifact'}
         className="memori-artifact-action-btn"
         ghost
       >
         <Download className="memori-artifact-action-icon" />
         <span className="memori-artifact-action-text">
-          {t('artifact.download', 'Download')}
+          {t('artifact.download') || 'Download'}
         </span>
       </Button>
 
       <Button
         onClick={handlePrint}
         disabled={loading}
-        title={t('artifact.print', 'Print artifact') || 'Print artifact'}
+        title={t('artifact.print') || 'Print artifact'}
         className="memori-artifact-action-btn"
         ghost
       >
         <PrintIcon className="memori-artifact-action-icon" />
         <span className="memori-artifact-action-text">
-          {t('artifact.print', 'Print')}
+          {t('artifact.print') || 'Print'}
         </span>
       </Button>
 
       <Button
         onClick={handleOpenExternal}
         disabled={loading}
-        title={t('artifact.external', 'Open in new window') || 'Open in new window'}
+        title={t('artifact.external') || 'Open in new window'}
         className="memori-artifact-action-btn"
         ghost
       >
         <Link className="memori-artifact-action-icon" />
         <span className="memori-artifact-action-text">
-          {t('artifact.external', 'External')}
+          {t('artifact.external') || 'External'}
         </span>
       </Button>
 
       <Button
         onClick={onToggleFullscreen}
         disabled={loading}
-        title={isFullscreen ? (t('artifact.exitFullscreen', 'Exit fullscreen') || 'Exit fullscreen') : (t('artifact.fullscreen', 'Fullscreen') || 'Fullscreen')}
+        title={isFullscreen ? (t('artifact.exitFullscreen') || 'Exit fullscreen') : (t('artifact.fullscreen') || 'Fullscreen')}
         className={cx('memori-artifact-action-btn', 'memori-artifact-fullscreen-btn', {
           'memori-artifact-fullscreen-btn--active': isFullscreen,
         })}
@@ -277,7 +277,7 @@ const ArtifactActions: React.FC<{
       >
         {isFullscreen ? <Fullscreen className="memori-artifact-action-icon" /> : <FullscreenExit className="memori-artifact-action-icon" />}
         <span className="memori-artifact-action-text">
-          {isFullscreen ? t('artifact.exitFullscreen', 'Exit') : t('artifact.fullscreen', 'Full')}
+          {isFullscreen ? t('artifact.exitFullscreen') || 'Exit' : t('artifact.fullscreen') || 'Full'}
         </span>
       </Button>
     </div>
