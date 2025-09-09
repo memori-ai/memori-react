@@ -72,6 +72,7 @@ export interface Props {
   experts?: ExpertReference[];
   useMathFormatting?: boolean;
   isHistoryView?: boolean;
+  isChatlogPanel?: boolean;
   showFunctionCache?: boolean;
 }
 
@@ -122,6 +123,7 @@ const Chat: React.FC<Props> = ({
   experts,
   useMathFormatting = false,
   isHistoryView = false,
+  isChatlogPanel = false,
   showFunctionCache = false,
 }) => {
 
@@ -365,6 +367,7 @@ const Chat: React.FC<Props> = ({
                     fromUser: message.fromUser || false,
                     timestamp: message.timestamp || '',
                   }}
+                  isChatlogPanel={isChatlogPanel}
                 />
             </React.Fragment>
           ))}

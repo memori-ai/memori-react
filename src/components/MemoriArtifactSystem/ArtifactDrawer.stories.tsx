@@ -6,7 +6,7 @@ import ArtifactHandler from './components/ArtifactHandler/ArtifactHandler';
 import ArtifactDrawer from './components/ArtifactDrawer/ArtifactDrawer';
 
 // Mock chat component for testing
-const MockChat = ({ messages }: { messages: any[] }) => (
+const MockChat = ({ messages, isChatlogPanel }: { messages: any[], isChatlogPanel?: boolean }) => (
   <div style={{ padding: '20px', background: '#f5f5f5', minHeight: '400px' }}>
     {messages.map((message, index) => (
       <div key={index} style={{ marginBottom: '20px' }}>
@@ -19,7 +19,7 @@ const MockChat = ({ messages }: { messages: any[] }) => (
         }}>
           {message.text}
         </div>
-        <ArtifactHandler message={message} />
+        <ArtifactHandler message={message} isChatlogPanel={isChatlogPanel} />
       </div>
     ))}
   </div>
@@ -430,6 +430,23 @@ export const NoArtifacts: Story = {
         },
         { 
           text: "I'd be happy to help with project planning! What type of project are you working on? Are you looking for help with timeline management, resource allocation, task breakdown, or something else?",
+          fromUser: false,
+          timestamp: new Date().toISOString()
+        }
+      ]} 
+    />
+  ),
+};
+
+export const ChatLogPanelArtifact: Story = {
+  args: {},
+  render: () => (
+    <MockChat
+        isChatlogPanel={true}
+      messages={[
+        { 
+          text: `Here's some code that has issues:
+${htmlArtifact}`,
           fromUser: false,
           timestamp: new Date().toISOString()
         }

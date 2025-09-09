@@ -15,7 +15,7 @@ import { useArtifact } from '../../context/ArtifactContext';
 import ArtifactPreview from '../ArtifactPreview/ArtifactPreview';
 import { ArtifactTab } from '../../types/artifact.types';
 
-const ArtifactDrawer: React.FC = () => {
+const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({ isChatLogPanel = false }) => {
   const { state, openArtifact, closeArtifact, toggleFullscreen } = useArtifact();
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<ArtifactTab>('preview');
@@ -223,7 +223,7 @@ const ArtifactDrawer: React.FC = () => {
 
   // Render web split panel
   return (
-    <div className="memori-artifact-panel">
+    <div style={isChatLogPanel ? {minHeight: '75vh', maxHeight: '75vh'} : {}} className="memori-artifact-panel">
       {/* Header */}
       <div className="memori-artifact-panel--header">
         <div className="memori-artifact-panel--header-content">

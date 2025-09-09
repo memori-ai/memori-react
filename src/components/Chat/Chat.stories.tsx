@@ -106,6 +106,7 @@ WithArtifacts.args = {
   memori,
   tenant,
   sessionID,
+  isChatlogPanel: true,
   history: historyWithArtifacts,
   dialogState,
   layout: 'CHAT',

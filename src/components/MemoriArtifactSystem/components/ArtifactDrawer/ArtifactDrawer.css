@@ -53,6 +53,7 @@
     position: relative;
     display: flex;
     overflow: hidden;
+    min-height: 180px;
     flex-flow: column;
     align-items: flex-start;
     justify-content: space-between;
