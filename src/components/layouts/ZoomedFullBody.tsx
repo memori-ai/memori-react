@@ -64,18 +64,6 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
                 <StartPanel {...startPanelProps} />
               ) : null}
             </div>
-
-            {state.isDrawerOpen && (
-              <div
-                className={
-                  state.isFullscreen
-                    ? `memori-chat-layout-artifact-panel-full-screen`
-                    : `memori-chat-layout--artifact-panel memori-chat-layout--artifact-panel-enter`
-                }
-              >
-                <ArtifactDrawer />
-              </div>
-            )}
           </div>
 
           {poweredBy}

@@ -4,7 +4,7 @@
  * Following the project's component patterns and design system
  */
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import Button from '../../../ui/Button';
@@ -16,21 +16,18 @@ import { Medium } from '@memori.ai/memori-api-client/dist/types';
 
 const ArtifactPreview: React.FC<{
   artifact: ArtifactData;
-  activeTab: ArtifactTab;
-  onTabChange: (tab: ArtifactTab) => void;
 }> = ({
   artifact,
-  activeTab,
-  onTabChange,
 }) => {
   const { t } = useTranslation();
+  const [activeTab, setActiveTab] = useState<ArtifactTab>('preview');
 
   /**
    * Handle tab switching
    */
   const handleTabChange = useCallback((tab: ArtifactTab) => {
-    onTabChange(tab);
-  }, [onTabChange]);
+    setActiveTab(tab);
+  }, [activeTab]);
 
   /**
    * Render preview content based on MIME type

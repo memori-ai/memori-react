@@ -7,7 +7,6 @@
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
-import { Menu, Transition } from '@headlessui/react';
 import Button from '../../../ui/Button';
 import { ArtifactData } from '../../types/artifact.types';
 import Download from '../../../icons/Download';
@@ -16,8 +15,6 @@ import Fullscreen from '../../../icons/Fullscreen';
 import FullscreenExit from '../../../icons/FullscreenExit';
 import PrintIcon from '../../../icons/Print';
 import Copy from '../../../icons/Copy';
-import Setting from '../../../icons/Setting';
-import MenuHorizontal from '../../../icons/MenuHorizontal';
 
 const ArtifactActions: React.FC<{
   artifact: ArtifactData;
@@ -222,106 +219,78 @@ const ArtifactActions: React.FC<{
 
   return (
     <div className="memori-artifact-actions">
-      <Menu as="div" className="memori-artifact-actions-menu">
-        <Menu.Button
+      <div className="memori-artifact-actions-row">
+        <Button
+          onClick={handleCopy}
           disabled={loading}
-          className={cx(
-            'memori-button',
-            'memori-button--circle',
-            'memori-button--icon-only',
-            'memori-artifact-actions-trigger',
-            'memori-remove-button-border'
-          )}
-          title={t('artifact.actions') || 'Actions'}
+          className="memori-artifact-action-btn"
+          ghost
+          icon={<Copy className="memori-artifact-action-icon" />}
+          title={copyFeedback || t('artifact.copy') || 'Copy'}
         >
-          <div className="memori-button--icon">
-              <MenuHorizontal className="memori-menu--icon" stroke="#fff" />
-          </div>
-        </Menu.Button>
-        <Transition
-          as={React.Fragment}
-          enter="transition ease-out duration-200"
-          enterFrom="transform opacity-0 scale-95"
-          enterTo="transform opacity-100 scale-100"
-          leave="transition ease-in duration-75"
-          leaveFrom="transform opacity-100 scale-100"
-          leaveTo="transform opacity-0 scale-95"
+          {copyFeedback || t('artifact.copy') || 'Copy'}
+        </Button>
+
+        <Button
+          onClick={handleDownload}
+          disabled={loading}
+          className="memori-artifact-action-btn"
+          ghost
+          icon={<Download className="memori-artifact-action-icon" />}
+          title={t('artifact.download') || 'Download'}
         >
-          <Menu.Items as="ul" className="memori-menu--overlay" >
-            <Menu.Item as="li" className="memori-menu--li">
-              <Button
-                onClick={handleCopy}
-                disabled={loading}
-                className="memori-menu--button"
-                ghost
-                icon={<Copy className="memori-menu--icon" />}
-              >
-                {copyFeedback || t('artifact.copy') || 'Copy'}
-              </Button>
-            </Menu.Item>
+          {t('artifact.download') || 'Download'}
+        </Button>
 
-            <Menu.Item as="li" className="memori-menu--li">
-              <Button
-                onClick={handleDownload}
-                disabled={loading}
-                className="memori-menu--button"
-                ghost
-                icon={<Download className="memori-menu--icon" />}
-              >
-                {t('artifact.download') || 'Download'}
-              </Button>
-            </Menu.Item>
+        <Button
+          onClick={handlePrint}
+          disabled={loading}
+          className="memori-artifact-action-btn"
+          ghost
+          icon={<PrintIcon className="memori-artifact-action-icon" />}
+          title={t('artifact.print') || 'Print'}
+        >
+          {t('artifact.print') || 'Print'}
+        </Button>
 
-            <Menu.Item as="li" className="memori-menu--li">
-              <Button
-                onClick={handlePrint}
-                disabled={loading}
-                className="memori-menu--button"
-                ghost
-                icon={<PrintIcon className="memori-menu--icon" />}
-              >
-                {t('artifact.print') || 'Print'}
-              </Button>
-            </Menu.Item>
+        <Button
+          onClick={handleOpenExternal}
+          disabled={loading}
+          className="memori-artifact-action-btn"
+          ghost
+          icon={<Link className="memori-artifact-action-icon" />}
+          title={t('artifact.external') || 'External'}
+        >
+          {t('artifact.external') || 'External'}
+        </Button>
 
-            <Menu.Item as="li" className="memori-menu--li">
-              <Button
-                onClick={handleOpenExternal}
-                disabled={loading}
-                className="memori-menu--button"
-                ghost
-                icon={<Link className="memori-menu--icon" />}
-              >
-                {t('artifact.external') || 'External'}
-              </Button>
-            </Menu.Item>
-
-            {!isChatLogPanel && (
-              <Menu.Item as="li" className="memori-menu--li">
-                <Button
-                  onClick={onToggleFullscreen}
-                  disabled={loading}
-                  className={cx('memori-menu--button', {
-                    'memori-artifact-fullscreen-btn--active': isFullscreen,
-                  })}
-                  ghost
-                  icon={
-                    isFullscreen ? (
-                      <Fullscreen className="memori-menu--icon" />
-                    ) : (
-                      <FullscreenExit className="memori-menu--icon" />
-                    )
-                  }
-                >
-                  {isFullscreen
-                    ? t('artifact.exitFullscreen') || 'Exit'
-                    : t('artifact.fullscreen') || 'Fullscreen'}
-                </Button>
-              </Menu.Item>
-            )}
-          </Menu.Items>
-        </Transition>
-      </Menu>
+        {!isChatLogPanel && (
+          <Button
+            onClick={onToggleFullscreen}
+            disabled={loading}
+            className={cx('memori-artifact-action-btn', 'memori-artifact-fullscreen-btn', {
+              'memori-artifact-fullscreen-btn--active': isFullscreen,
+            })}
+            ghost
+            icon={
+              isFullscreen ? (
+                <Fullscreen className="memori-artifact-action-icon-fullscreen" />
+              ) : (
+                <FullscreenExit className="memori-artifact-action-icon-fullscreen" />
+              )
+            }
+            title={
+              isFullscreen
+                ? t('artifact.exitFullscreen') || 'Exit Fullscreen'
+                : t('artifact.fullscreen') || 'Fullscreen'
+            }
+          >
+            {isFullscreen
+              ? t('artifact.exitFullscreen') || 'Exit'
+              : t('artifact.fullscreen') || 'Fullscreen'}
+          </Button>
+        )}
+      </div>
     </div>
   );
 };

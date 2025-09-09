@@ -38,6 +38,7 @@ export interface Props {
   widthLg?: string;
   confirmDialogTitle?: string;
   confirmDialogMessage?: string;
+  showBackdrop?: boolean;
 }
 
 const Drawer: FC<Props> = ({
@@ -48,6 +49,7 @@ const Drawer: FC<Props> = ({
   children,
   width = '80%',
   footer,
+  showBackdrop = true,
   extra,
   className,
   placement = 'right',
@@ -119,7 +121,8 @@ const Drawer: FC<Props> = ({
           onClose={handleClose}
           className={cx('memori-drawer', className)}
         >
-          <Transition.Child
+          {showBackdrop && (
+            <Transition.Child
             as={React.Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0"
@@ -128,8 +131,9 @@ const Drawer: FC<Props> = ({
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="memori-drawer--backdrop" />
-          </Transition.Child>
+              <div className="memori-drawer--backdrop" />
+            </Transition.Child>
+          )}
           <div className="memori-drawer--container">
             <div className="memori-drawer--container-scrollable">
               <Transition.Child
