@@ -1,5 +1,18 @@
 
 
+## [8.4.0-rc.3](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.2...v8.4.0-rc.3) (2025-09-09)
+
+
+### Bug Fixes
+
+* linting ([bd671aa](https://github.com/memori-ai/memori-react/commit/bd671aa4a977c09a108e15263f31ba5011f4a247))
+
+
+### Changes
+
+* enhance artifact action icons with fullscreen styling ([0f53e8c](https://github.com/memori-ai/memori-react/commit/0f53e8c850ba75ffbd0ac959ecfe33a97c72515a))
+* streamline localization keys for artifact actions and improve css animations ([46ac364](https://github.com/memori-ai/memori-react/commit/46ac364cb6237cb627804e71ee89bf6becd5ddcb))
+
 ## [8.4.0-rc.2](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.1...v8.4.0-rc.2) (2025-09-09)
 
 
