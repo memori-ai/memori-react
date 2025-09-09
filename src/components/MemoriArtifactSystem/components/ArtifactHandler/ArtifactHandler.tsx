@@ -45,8 +45,13 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
       /<output\s+class="memori-artifact"[^>]*data-mimetype="([^"]+)"[^>]*>([\s\S]*?)<\/output>/gi;
     const artifacts: ArtifactData[] = [];
     let match;
-    const HTMLTitleTag = /<title>([^<]+)<\/title>/gi;
-
+    const titleRegex = {
+      dataTitle: /data-title\s*=\s*["\']([^"']+)["\']/i,
+      htmlTitle: /<title>([^<]+)<\/title>/gi
+    };
+    const findTitle = (mimeType: string, content: string) => {
+      return titleRegex.dataTitle.exec(content)?.[1] || titleRegex.htmlTitle.exec(content)?.[1] || `${mimeType.toUpperCase()} Artifact`;
+    };
     while ((match = artifactRegex.exec(text)) !== null) {
       const mimeType = match[1];
       const content = match[2].trim();
@@ -59,10 +64,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
             .substr(2, 9)}`,
           content,
           mimeType,
-          title: HTMLTitleTag
-            ? HTMLTitleTag.exec(content)?.[1] || `${mimeType.toUpperCase()} Artifact`
-            : `${mimeType.toUpperCase()} Artifact`,
-          timestamp: new Date(),
+          title: findTitle(mimeType, text),          timestamp: new Date(),
           size: content.length,
         });
       }

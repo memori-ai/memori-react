@@ -17,6 +17,11 @@
     --artifact-drawer-radius-lg: 12px;
 }
 
+/* Override drawer width for ArtifactDrawer */
+.memori-artifact-panel-drawer {
+    --memori-drawer--width-lg: 53%;
+}
+
 /* Main Drawer Container (Mobile Only) */
 .memori-artifact-drawer {
     position: relative;
