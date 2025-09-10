@@ -1,5 +1,12 @@
 
 
+## [8.4.0-rc.9](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.8...v8.4.0-rc.9) (2025-09-10)
+
+
+### Changes
+
+* improve responsiveness and styling of ArtifactActions ([9a960dc](https://github.com/memori-ai/memori-react/commit/9a960dc25ce1273b798a70090af200b714affa94))
+
 ## [8.4.0-rc.8](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.7...v8.4.0-rc.8) (2025-09-09)
 
 
