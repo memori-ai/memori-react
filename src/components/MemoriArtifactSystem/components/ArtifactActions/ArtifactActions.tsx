@@ -228,7 +228,9 @@ const ArtifactActions: React.FC<{
           icon={<Copy className="memori-artifact-action-icon" />}
           title={copyFeedback || t('artifact.copy') || 'Copy'}
         >
-          {copyFeedback || t('artifact.copy') || 'Copy'}
+          <span className="memori-artifact-action-text">
+            {copyFeedback || t('artifact.copy') || 'Copy'}
+          </span>
         </Button>
 
         <Button
@@ -239,7 +241,9 @@ const ArtifactActions: React.FC<{
           icon={<Download className="memori-artifact-action-icon" />}
           title={t('artifact.download') || 'Download'}
         >
-          {t('artifact.download') || 'Download'}
+          <span className="memori-artifact-action-text">
+            {t('artifact.download') || 'Download'}
+          </span>
         </Button>
 
         <Button
@@ -250,7 +254,9 @@ const ArtifactActions: React.FC<{
           icon={<PrintIcon className="memori-artifact-action-icon" />}
           title={t('artifact.print') || 'Print'}
         >
-          {t('artifact.print') || 'Print'}
+          <span className="memori-artifact-action-text">
+            {t('artifact.print') || 'Print'}
+          </span>
         </Button>
 
         <Button
@@ -261,7 +267,9 @@ const ArtifactActions: React.FC<{
           icon={<Link className="memori-artifact-action-icon" />}
           title={t('artifact.external') || 'External'}
         >
-          {t('artifact.external') || 'External'}
+          <span className="memori-artifact-action-text">
+            {t('artifact.external') || 'External'}
+          </span>
         </Button>
 
         {!isChatLogPanel && (
@@ -285,9 +293,11 @@ const ArtifactActions: React.FC<{
                 : t('artifact.fullscreen') || 'Fullscreen'
             }
           >
-            {isFullscreen
-              ? t('artifact.exitFullscreen') || 'Exit'
-              : t('artifact.fullscreen') || 'Fullscreen'}
+            <span className="memori-artifact-action-text">
+              {isFullscreen
+                ? t('artifact.exitFullscreen') || 'Exit'
+                : t('artifact.fullscreen') || 'Fullscreen'}
+            </span>
           </Button>
         )}
       </div>

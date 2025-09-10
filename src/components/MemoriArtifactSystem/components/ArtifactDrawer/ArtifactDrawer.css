@@ -19,7 +19,7 @@
 
 /* Override drawer width for ArtifactDrawer */
 .memori-artifact-panel-drawer {
-    --memori-drawer--width-lg: 53%;
+    --memori-drawer--width-lg: 46%;
 }
 
 /* Main Drawer Container (Mobile Only) */
