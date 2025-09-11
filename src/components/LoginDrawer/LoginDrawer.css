@@ -142,3 +142,152 @@ h3.memori--login-drawer--edit-account-title {
     font-weight: 400;
     line-height: 1.2;
 }
+
+/* OTP Login Styles */
+.memori--login-drawer--welcome {
+    padding: 1rem 0.5rem;
+    text-align: center;
+}
+
+.memori--login-drawer--welcome h3 {
+    margin: 0 0 1rem;
+    color: var(--memori-text-color, #333);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.memori--login-drawer--welcome-description {
+    margin: 0 0 2rem;
+    color: var(--memori-text-secondary, #666);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.memori--login-drawer--otp-info {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 2rem;
+    gap: 1rem;
+    text-align: left;
+}
+
+.memori--login-drawer--otp-info-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border: 1px solid var(--memori-border-color, #e9ecef);
+    border-radius: 8px;
+    background: var(--memori-background-light, #f8f9fa);
+    gap: 1rem;
+}
+
+.memori--login-drawer--otp-info-number {
+    display: flex;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--memori-primary);
+    color: white;
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.memori--login-drawer--start-otp-button {
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.memori--login-drawer--otp-container {
+    padding: 1rem 0.5rem;
+    text-align: center;
+}
+
+.memori--login-drawer--otp-container h3 {
+    margin: 0 0 1rem;
+    color: var(--memori-text-color, #333);
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.memori--login-drawer--otp-description {
+    margin: 0 0 2rem;
+    color: var(--memori-text-secondary, #666);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.memori--login-drawer--otp-input-container {
+    margin: 0 0 1.5rem;
+}
+
+.memori--login-drawer--otp-input {
+    width: 200px;
+    height: 60px;
+    border: 2px solid var(--memori-border-color, #e9ecef);
+    border-radius: 12px;
+    background: var(--memori-background, #fff);
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.5rem;
+    outline: none;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.memori--login-drawer--otp-input:focus {
+    border-color: var(--memori-primary);
+    box-shadow: 0 0 0 3px rgba(var(--memori-primary-rgb, 0, 123, 255), 0.1);
+}
+
+.memori--login-drawer--otp-input::placeholder {
+    color: var(--memori-text-muted, #999);
+    letter-spacing: 0.5rem;
+}
+
+.memori--login-drawer--otp-timer {
+    margin: 0 0 1.5rem;
+    color: var(--memori-warning-color, #ffc107);
+    font-size: 0.875rem;
+    font-weight: 600;
+}
+
+.memori--login-drawer--otp-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.memori--login-drawer--otp-actions .memori-button {
+    min-width: 120px;
+}
+
+.memori--login-drawer--otp-error {
+    margin: 1rem 0 0;
+    color: var(--memori-error-color);
+    font-size: 0.875rem;
+    text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .memori--login-drawer--otp-input {
+        width: 160px;
+        height: 50px;
+        font-size: 1.5rem;
+        letter-spacing: 0.3rem;
+    }
+    
+    .memori--login-drawer--otp-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .memori--login-drawer--otp-actions .memori-button {
+        width: 100%;
+        max-width: 200px;
+    }
+}

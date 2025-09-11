@@ -441,7 +441,7 @@ const MemoriWidget = ({
   showReasoning,
   height = '100vh',
   secret,
-  baseUrl = 'https://aisuru.com',
+  baseUrl = 'https://aisuru-staging.aclambda.online',
   apiURL = 'https://backend-staging.memori.ai',
   engineURL = 'https://engine-staging.memori.ai',
   initialContextVars,
@@ -3379,6 +3379,7 @@ const MemoriWidget = ({
           tenant={tenant}
           apiClient={client}
           open={!!showLoginDrawer}
+          baseURL={baseUrl}
           user={user}
           loginToken={loginToken}
           onClose={() => setShowLoginDrawer(false)}

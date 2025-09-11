@@ -408,5 +408,6 @@ Test.args = {
   layout: 'FULLPAGE',
   uiLang: 'EN',
   spokenLang: 'EN',
+  showLogin: true,
   integrationID: '2b37c25d-8cf9-456f-b9ee-2c27dc4d54fc',
 };
