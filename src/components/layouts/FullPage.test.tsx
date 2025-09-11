@@ -3,6 +3,7 @@ import Memori from '../MemoriWidget/MemoriWidget';
 import { integration, memori, tenant } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import { VisemeProvider } from '../../context/visemeContext';
+import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -21,17 +22,20 @@ Object.defineProperty(window, 'matchMedia', {
 it('renders FullPage layout unchanged', () => {
   const { container } = render(
     <I18nWrapper>
-      <VisemeProvider>
-        <Memori
-          showShare={true}
-          showSettings={true}
-          memori={memori}
-          tenant={tenant}
-          tenantID="aisuru.com"
-          integration={integration}
-          layout="FULLPAGE"
-        />
-      </VisemeProvider>
+      <ArtifactProvider
+      >
+        <VisemeProvider>
+          <Memori
+            showShare={true}
+            showSettings={true}
+            memori={memori}
+            tenant={tenant}
+            tenantID="aisuru.com"
+            integration={integration}
+            layout="FULLPAGE"
+          />
+        </VisemeProvider>
+      </ArtifactProvider>
     </I18nWrapper>
   );
   expect(container).toMatchSnapshot();
@@ -40,6 +44,8 @@ it('renders FullPage layout unchanged', () => {
 it('renders FullPage layout with root css properties unchanged', () => {
   const { container } = render(
     <I18nWrapper>
+      <ArtifactProvider
+      >
       <VisemeProvider>
         <Memori
           showShare={true}
@@ -52,6 +58,7 @@ it('renders FullPage layout with root css properties unchanged', () => {
           applyVarsToRoot
         />
       </VisemeProvider>
+      </ArtifactProvider>
     </I18nWrapper>
   );
   expect(container).toMatchSnapshot();

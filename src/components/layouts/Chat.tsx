@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
+import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
+import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
 
 const ChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -15,29 +17,51 @@ const ChatLayout: React.FC<LayoutProps> = ({
   hasUserActivatedSpeak,
   loading = false,
   poweredBy,
-}) => (
-  <>
-    {integrationStyle}
-    {integrationBackground}
+}) => {
+  const { state } = useArtifact();
 
-    <Spin spinning={loading} className="memori-chat-layout">
-      {poweredBy}
 
-      <div className="memori-chat-layout--header">
-        {Header && headerProps && <Header {...headerProps} />}
-      </div>
+  return (
+    <>
+      {integrationStyle}
+      {integrationBackground}
 
-      <div id="extension" />
+      <Spin spinning={loading} className="memori-chat-layout">
+        {poweredBy}
 
-      <div className="memori-chat-layout--controls">
-        {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
-          <Chat {...chatProps} />
-        ) : startPanelProps ? (
-          <StartPanel {...startPanelProps} />
-        ) : null}
-      </div>
-    </Spin>
-  </>
-);
+        <div className="memori-chat-layout--header">
+          {Header && headerProps && <Header {...headerProps} />}
+        </div>
+
+        <div id="extension" />
+
+        <div
+          className={`memori-chat-layout--main ${
+            state.isDrawerOpen ? 'memori-chat-layout--main-with-artifact' : ''
+          }`}
+        >
+          <div
+            className={
+              state.isFullscreen
+                ? `memori-chat-layout-controls-hide`
+                : `memori-chat-layout--controls ${
+                    state.isDrawerOpen
+                      ? 'memori-chat-layout--controls-with-artifact'
+                      : ''
+                  }`
+            }
+          >
+            {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+              <Chat {...chatProps} />
+            ) : startPanelProps ? (
+              <StartPanel {...startPanelProps} />
+            ) : null}
+          </div>
+        </div>
+
+      </Spin>
+    </>
+  );
+};
 
 export default ChatLayout;

@@ -3,11 +3,13 @@ import { render } from '@testing-library/react';
 import { memori, tenant, integration } from '../../mocks/data';
 import Avatar from './Avatar';
 import { VisemeProvider } from '../../context/visemeContext';
+import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 const integrationConfig = JSON.parse(integration.customData ?? '{}');
 
 it('renders defualt Avatar (blob) unchanged', () => {
   const { container } = render(
     <VisemeProvider>
+      <ArtifactProvider>
       <Avatar
         memori={memori}
       tenant={tenant}
@@ -19,6 +21,7 @@ it('renders defualt Avatar (blob) unchanged', () => {
       hasUserActivatedSpeak={false}
         isPlayingAudio={false}
       />
+      </ArtifactProvider>
     </VisemeProvider>
   );
   expect(container).toMatchSnapshot();

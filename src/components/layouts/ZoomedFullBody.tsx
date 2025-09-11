@@ -1,6 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
+import 
+  ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
+import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
 
 const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
   Header,
@@ -18,12 +21,8 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
   loading = false,
   poweredBy,
 }) => {
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, []);
+  const { state } = useArtifact();
+  const hasArtifact = state.currentArtifact;
 
   return (
     <>
@@ -34,22 +33,40 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
         {Header && headerProps && <Header {...headerProps} />}
 
         <div className="memori--grid">
-          <div className="memori--grid-column memori--grid-column-left">
-            {Avatar && avatarProps && (
-              <Avatar chatProps={chatProps} isZoomed {...avatarProps} />
-            )}
+          {!state.isDrawerOpen && (
+            <div className="memori--grid-column memori--grid-column-left">
+              {Avatar && avatarProps && (
+                <Avatar chatProps={chatProps} isZoomed {...avatarProps} />
+              )}
 
-            <div id="extension" />
-          </div>
-          <div className="memori--grid-column memori--grid-column--zoomed-full-body memori--grid-column-right">
-            {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
-              <Chat {...chatProps} />
-            ) : startPanelProps ? (
-              <StartPanel {...startPanelProps} />
-            ) : null}
+              <div id="extension" />
+            </div>
+          )}
+          <div
+            className={`memori-chat-layout--main ${
+              hasArtifact ? 'memori-chat-layout--main-with-artifact' : ''
+            }`}
+          >
+            <div
+              className={
+                state.isFullscreen
+                  ? `memori-chat-layout-controls-hide`
+                  : `memori-chat-layout--controls ${
+                      state.isDrawerOpen
+                        ? 'memori-chat-layout--controls-with-artifact'
+                        : ''
+                    }`
+              }
+            >
+              {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+                <Chat {...chatProps} />
+              ) : startPanelProps ? (
+                <StartPanel {...startPanelProps} />
+              ) : null}
+            </div>
           </div>
 
-          <div className="memori--powered-by-custom">{poweredBy}</div>
+          {poweredBy}
         </div>
       </Spin>
     </>

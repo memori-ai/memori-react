@@ -1,0 +1,167 @@
+/**
+ * ArtifactActions CSS Styles
+ * Following the project's design system and CSS patterns
+ */
+
+
+
+.memori-artifact-action-btn  {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 12px 16px;
+  border: none;
+  background: none;
+  color: #374151;
+  cursor: pointer;
+  font-size: 14px;
+  text-align: left;
+  transition: background-color 0.15s ease;
+}
+
+.memori-artifact-action-icon, .memori-artifact-action-icon-fullscreen{
+  width: 16px;
+  height: 16px;
+}
+
+.memori-artifact-action-icon{
+  fill: #000;
+}
+
+.memori-artifact-action-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none !important;
+}
+
+.memori-artifact-action-btn:focus {
+  outline: 2px solid var(--memori-primary);
+  outline-offset: 2px;
+}
+
+.memori-artifact-action-btn:active {
+  transform: translateY(0);
+}
+
+.memori-artifact-action-btn:hover:not(:disabled),
+.memori-artifact-action-btn--active {
+  background: #f9fafb;
+}
+
+.memori-artifact-action-btn:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* .memori-artifact-action-btn:disabled:hover {
+  box-shadow: none !important;
+  transform: none !important;
+} */
+
+
+.memori-artifact-action-btn--active {
+  background: var(--memori-chat-bubble-bg, #fff);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: var(--memori-primary);
+}
+
+.memori-artifact-action-text {
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+/* Fullscreen Button Special Styling */
+.memori-artifact-fullscreen-btn {
+  position: relative;
+}
+
+.memori-artifact-fullscreen-btn--active {
+  border-color: var(--memori-primary) !important;
+  background: var(--memori-primary) !important;
+  color: var(--memori-primary-text) !important;
+}
+
+
+/* Responsive Design */
+
+@media (max-width: 768px) {
+
+  .memori-artifact-fullscreen-btn{
+    display: none;
+  }
+  
+  .memori-artifact-action-text {
+    display: none;
+  }
+  
+  .memori-artifact-action-btn {
+    min-width: 2.5rem;
+    justify-content: center;
+    padding: 0.5rem;
+  }
+  
+  .memori-artifact-actions-row {
+    gap: 0.25rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .memori-artifact-actions-row {
+    gap: 0.125rem;
+  }
+  
+  .memori-artifact-action-btn {
+    min-width: 2.25rem;
+    padding: 0.375rem;
+    font-size: 0.75rem;
+  }
+}
+
+/* Loading State */
+
+/* Icon Sizing */
+.memori-artifact-action-btn .memori-button--icon, .memori-artifact-action-icon-fullscreen {
+  font-size: 1rem;
+  line-height: 1;
+}
+
+/* Remove unused styles */
+
+.memori-artifact-action-icon-fullscreen{
+  fill: #fff
+}
+
+
+/* Animation for Copy Feedback */
+@keyframes copyFeedback {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.memori-artifact-action-btn.copied {
+  animation: copyFeedback 0.3s ease;
+}
+
+/* Tooltip Support */
+.memori-artifact-action-btn[title] {
+  position: relative;
+}
+
+/* Horizontal Button Row Styles */
+.memori-artifact-actions-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}

@@ -174,6 +174,22 @@
     "messages": "mensajes",
     "page": "Página {{current}} de {{total}}"
   },
+  "artifact": {
+    "close": "Cerrar",
+    "size": "Tamaño",
+    "generated": "Generado",
+    "download": "Descargar",
+    "print": "Imprimir",
+    "external": "Abrir en una nueva ventana",
+    "type": "Tipo",
+    "fullscreen": "Pantalla completa",
+    "exitFullscreen": "Salir de pantalla completa",
+    "copy": "Copiar",
+    "generatedAt": "Generado el",
+    "open": "Abrir",
+    "code": "Código",
+    "preview": "Vista previa"
+  },
   "upload": {
     "loginRequired": "Connexion requise",
     "loginRequiredDescription": "Veuillez vous connecter pour télécharger des images",

@@ -21,6 +21,7 @@ import { safeParseJSON } from './helpers/utils';
 import i18n from './i18n';
 import { useTranslation } from 'react-i18next';
 import I18nWrapper from './I18nWrapper';
+import { ArtifactProvider } from './components/MemoriArtifactSystem/context/ArtifactContext';
 
 export interface Props {
   memoriName?: string | null;
@@ -332,6 +333,7 @@ const Memori: React.FC<Props> = ({
   return (
     <I18nWrapper>
       <VisemeProvider>
+        <ArtifactProvider>
         <Toaster position="top-center" reverseOrder={true} />
         {memori ? (
           <MemoriWidget
@@ -393,6 +395,7 @@ const Memori: React.FC<Props> = ({
             </p>
           </div>
         )}
+        </ArtifactProvider>
       </VisemeProvider>
     </I18nWrapper>
   );

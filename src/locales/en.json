@@ -185,6 +185,22 @@
     "messages": "messages",
     "page": "Page {{current}} of {{total}}"
   },
+  "artifact": {
+    "close": "Close",
+    "size": "Size",
+    "generated": "Generated",
+    "download": "Download",
+    "print": "Print",
+    "external": "Open in a new window",
+    "type": "Type",
+    "fullscreen": "Fullscreen",
+    "exitFullscreen": "Exit fullscreen",
+    "generatedAt": "Generated at",
+    "copy": "Copy",
+    "open": "Open",
+    "code": "Code",
+    "preview": "Preview"
+  },
   "upload": {
     "loginRequired": "Login required",
     "loginRequiredDescription": "Please login to upload images",

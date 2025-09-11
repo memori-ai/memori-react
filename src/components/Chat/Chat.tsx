@@ -20,7 +20,7 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import Typing from '../Typing/Typing';
 import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
-
+import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler';
 export interface Props {
   memori: Memori;
   tenant?: Tenant;
@@ -70,6 +70,7 @@ export interface Props {
   experts?: ExpertReference[];
   useMathFormatting?: boolean;
   isHistoryView?: boolean;
+  isChatlogPanel?: boolean;
   showFunctionCache?: boolean;
 }
 
@@ -120,6 +121,7 @@ const Chat: React.FC<Props> = ({
   experts,
   useMathFormatting = false,
   isHistoryView = false,
+  isChatlogPanel = false,
   showFunctionCache = false,
 }) => {
   const scrollToBottom = () => {
@@ -298,7 +300,8 @@ const Chat: React.FC<Props> = ({
                 media={[
                   // Filter out HTML and plain text media items from the message
                   ...(message?.media?.filter(
-                    m => m.mimeType !== 'text/html' && m.mimeType !== 'text/plain'
+                    m =>
+                      m.mimeType !== 'text/html' && m.mimeType !== 'text/plain'
                   ) || []),
 
                   // Extract document attachments that are embedded in the message text
@@ -310,14 +313,16 @@ const Chat: React.FC<Props> = ({
                     // <document_attachment filename="name.ext" type="mime/type">content</document_attachment>
                     const documentAttachmentRegex =
                       /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
-                    
+
                     const attachments: (Medium & { type?: string })[] = [];
                     let match;
 
                     // Find all document attachments in the text
-                    while ((match = documentAttachmentRegex.exec(text)) !== null) {
+                    while (
+                      (match = documentAttachmentRegex.exec(text)) !== null
+                    ) {
                       const [, filename, type, content] = match;
-                      
+
                       // Create a Medium object for each attachment with:
                       // - Unique ID using timestamp and random string
                       // - Empty URL since content is embedded
@@ -348,6 +353,13 @@ const Chat: React.FC<Props> = ({
                 customMediaRenderer={customMediaRenderer}
                 fromUser={message.fromUser}
               />
+
+              {!isHistoryView && (
+                <ArtifactHandler
+                  isChatlogPanel={isChatlogPanel}
+                  message={message}
+                />
+              )}
             </React.Fragment>
           ))}
 

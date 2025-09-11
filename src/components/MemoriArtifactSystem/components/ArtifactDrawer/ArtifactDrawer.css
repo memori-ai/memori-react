@@ -1,0 +1,633 @@
+/**
+ * ArtifactDrawer CSS Styles
+ * Modern design system with smooth animations and improved spacing
+ * Handles both mobile drawer and web split panel layouts
+ */
+
+/* CSS Custom Properties for consistent theming */
+:root {
+    --artifact-drawer-bg: var(--memori-chat-bubble-bg, #ffffff);
+    --artifact-drawer-border: var(--memori-button-border-color, #e9ecef);
+    --artifact-drawer-text: var(--memori-text-color, #333333);
+    --artifact-drawer-text-muted: var(--memori-text-color, #666666);
+    --artifact-drawer-accent: var(--memori-primary, #007bff);
+    --artifact-drawer-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    --artifact-drawer-shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.15);
+    --artifact-drawer-radius: var(--memori-border-radius, 8px);
+    --artifact-drawer-radius-lg: 12px;
+}
+
+/* Override drawer width for ArtifactDrawer */
+.memori-artifact-panel-drawer {
+    --memori-drawer--width-lg: 50%;
+}
+
+/* Main Drawer Container (Mobile Only) */
+.memori-artifact-drawer {
+    position: relative;
+    z-index: 1001;
+    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+}
+
+.memori-artifact-panel-drawer > div > div > div {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+/* Web Split Panel Container */
+.memori-artifact-panel {
+    position: relative;
+    display: flex;
+    overflow: visible;
+    height: 100%;
+    flex-direction: column;
+    border-left: 1px solid var(--artifact-drawer-border);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--artifact-drawer-shadow);
+    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+}
+
+.memori-artifact-panel::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background: white;
+    content: '';
+    opacity: 0.6;
+}
+
+/* Web Split Panel Header */
+.memori-artifact-panel--header {
+    position: relative;
+    z-index: 1000;
+    display: flex;
+    overflow: visible;
+    flex-flow: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-top: 1rem;
+}
+
+
+
+.memori-artifact-panel--header-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.memori-artifact-panel--title {
+    overflow: hidden;
+    /* max-width: 90%; */
+    margin: 0 0 0.75rem;
+    background: white;
+    background-clip: text;
+    color: var(--artifact-drawer-text);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+.memori-artifact-panel--subtitle {
+    margin: 0 0 1rem;
+    color: var(--artifact-drawer-text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.4;
+    opacity: 0.9;
+}
+
+
+.memori-artifact-panel--meta {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+    color: var(--artifact-drawer-text-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    gap: 0.5rem;
+}
+
+.memori-artifact-panel--meta-item {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid rgba(0, 123, 255, 0.15);
+    border-radius: 20px;
+    background: rgba(0, 123, 255, 0.08);
+    gap: 0.5rem;
+}
+
+
+
+
+.memori-artifact-panel--header-actions {
+    position: absolute;
+    z-index: 1000;
+    right: 65px;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    /* padding: 0.5rem; */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--artifact-drawer-radius);
+    /* margin-top: 1rem; */
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.5);
+    gap: 0.75rem;
+}
+
+
+.memori-artifact-panel--close {
+    position: absolute;
+    z-index: 10;
+    top: 1.5rem;
+    right: 1.5rem;
+    margin-left: 0.5rem;
+}
+
+.memori-artifact-panel--close-icon {
+    width: 18px;
+    height: 18px;
+    fill: #000 !important;
+}
+
+/* Web Split Panel Content */
+.memori-artifact-panel--content {
+    position: relative;
+    display: flex;
+    overflow: visible;
+    height: 88vh;
+    min-height: 0;
+    flex: 1;
+    /* padding: 1.5rem 1.5rem; */
+    gap: 1.5rem;
+}
+
+.memori-artifact-panel--main {
+    position: relative;
+    display: flex;
+    overflow: visible;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+}
+
+.memori-artifact-panel--main::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background: white;
+    content: '';
+}
+
+.memori-artifact-drawer--backdrop {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px) saturate(180%);
+    background: white;
+}
+
+.memori-artifact-drawer--container {
+    position: fixed;
+    z-index: 1001;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.memori-artifact-drawer--panel {
+    position: fixed;
+    position: relative;
+    z-index: 1001;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    overflow: hidden;
+    width: 50%;
+    height: 100vh;
+    box-sizing: border-box;
+    flex-direction: column;
+    padding: 1.5rem 2rem 2rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    background: white;
+    box-shadow: var(--artifact-drawer-shadow-lg);
+    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+    transform: opacity(0);
+}
+
+
+.memori-artifact-drawer--panel-left {
+    right: auto;
+    left: 0;
+    transform: translateX(-100%);
+}
+
+.memori-artifact-drawer--panel-fullscreen {
+    right: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    transform: translateX(0) !important;
+}
+
+/* Header */
+.memori-artifact-drawer--header {
+    position: relative;
+    display: flex;
+    overflow: visible;
+    flex-flow: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 1.5rem;
+    border-radius: var(--artifact-drawer-radius-lg) var(--artifact-drawer-radius-lg) 0 0;
+    border-bottom: 1px solid var(--artifact-drawer-border);
+    margin-bottom: 1.5rem;
+    backdrop-filter: blur(20px);
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+
+.memori-artifact-drawer--header-content {
+    min-width: 0;
+    flex: 1;
+}
+
+.memori-artifact-drawer--title {
+    margin: 0 0 0.75rem;
+    background: linear-gradient(135deg, var(--artifact-drawer-text) 0%, var(--artifact-drawer-accent) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: var(--artifact-drawer-text);
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    -webkit-text-fill-color: transparent;
+}
+
+
+.memori-artifact-drawer--subtitle {
+    margin: 0 0 1rem;
+    color: var(--artifact-drawer-text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.4;
+    opacity: 0.9;
+}
+
+
+.memori-artifact-drawer--meta {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+    color: var(--artifact-drawer-text-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    gap: 1rem;
+}
+
+.memori-artifact-drawer--meta-item {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    max-width: 120px;
+    max-height: 40px;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border: 1px solid rgba(0, 123, 255, 0.15);
+    border-radius: 20px;
+    background: rgba(0, 123, 255, 0.08);
+    gap: 0.5rem;
+}
+
+.memori-artifact-panel-drawer-fullscreen > div > div > div {
+    width: 100% !important;
+    max-width: 100% !important;
+    box-shadow: none !important;
+    transform: translateX(0) !important;
+}
+
+
+
+.memori-artifact-drawer--header-actions {
+    z-index: 100;
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    padding: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--artifact-drawer-radius);
+    margin-top: 1rem;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.5);
+    gap: 0.75rem;
+}
+
+
+.memori-artifact-drawer--history-toggle {
+    margin-right: 0.5rem;
+}
+
+.memori-artifact-drawer--close {
+    position: absolute;
+    z-index: 10;
+    top: 1.5rem;
+    right: 1.5rem;
+    margin-left: 0.5rem;
+}
+
+.memori-artifact-drawer-fullscreen {
+    display: flex;
+    margin-left: 0.5rem;
+}
+
+.memori-artifact-drawer-container-actions{
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    margin-top: 1rem;
+    /* justify-content: space-between; */
+    gap: 0.75rem;
+}
+
+.memori-artifact-drawer--close-icon {
+    width: 18px;
+    height: 18px;
+}
+
+
+/* Content */
+.memori-artifact-drawer--content {
+    position: relative;
+    display: flex;
+    overflow: hidden;
+    min-height: 0;
+    flex: 1;
+    padding: 0 0 1.5rem;
+    gap: 1.5rem;
+}
+
+.memori-artifact-drawer--main {
+    position: relative;
+    display: flex;
+    overflow: visible;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--artifact-drawer-radius-lg);
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.memori-artifact-drawer--main::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(0, 123, 255, 0.3), transparent);
+    content: '';
+}
+
+.memori-artifact-drawer--sidebar {
+    width: 300px;
+    flex-shrink: 0;
+    padding: 1rem;
+    padding-left: 1rem;
+    border-radius: var(--memori-border-radius, 6px);
+    border-left: 1px solid var(--memori-button-border-color, #e9ecef);
+    background: var(--memori-inner-bg, #f8f9fa);
+}
+
+/* Mobile Drawer Panel */
+.memori-artifact-drawer--panel-mobile {
+    position: fixed;
+    position: relative;
+    z-index: 1001;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+    padding: 1rem 1.5rem 1.5rem;
+    border-radius: 0;
+    backdrop-filter: blur(20px);
+    background: linear-gradient(135deg, var(--artifact-drawer-bg) 0%, rgba(248, 250, 252, 0.95) 100%);
+    box-shadow: none;
+    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
+}
+
+
+@media (max-width: 1024px) {
+    .memori-artifact-panel-drawer > div > div > div {
+        z-index: 0;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-shadow: none !important;
+    }
+
+    .memori-artifact-drawer-fullscreen {
+        display: none;
+    }
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* Hide web panel on mobile */
+    .memori-artifact-panel {
+        display: none !important;
+    }
+
+    /* Mobile drawer styles */
+    .memori-artifact-drawer--panel-mobile {
+        position: fixed !important;
+        top: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100vh !important;
+        padding: 1rem 1.5rem 1.5rem;
+        border-radius: 0 !important;
+        backdrop-filter: blur(20px) !important;
+        background: linear-gradient(135deg, var(--artifact-drawer-bg) 0%, rgba(248, 250, 252, 0.95) 100%) !important;
+        box-shadow: none !important;
+        transform: translateX(100%) !important;
+    }
+
+    .memori-artifact-drawer[data-headlessui-state~='open'] .memori-artifact-drawer--panel-mobile {
+        transform: translateX(0) !important;
+    }
+
+    .memori-artifact-drawer--header {
+        flex-direction: column;
+        padding: 1.5rem;
+        border-radius: 0;
+        margin-bottom: 1rem;
+        backdrop-filter: blur(20px) !important;
+        background: linear-gradient(
+            135deg,
+            var(--memori-inner-bg, #f8f9fa) 0%,
+            rgba(255, 255, 255, 0.9) 100%
+        ) !important;
+        gap: 1.5rem;
+    }
+
+    .memori-artifact-drawer--header-content{
+      width: 100%;
+    }
+
+    .memori-artifact-drawer--header-actions {
+        position: relative;
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        right: 65px;
+        width: 100%;
+        max-width: 250px;
+        justify-content: space-between;
+        justify-content: flex-end;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        backdrop-filter: blur(10px) !important;
+        background: rgba(255, 255, 255, 0.5) !important;
+        opacity: 1;
+        transform: none;
+    }
+
+    .memori-artifact-drawer--close {
+        position: absolute !important;
+        top: 1.5rem !important;
+        right: 1.5rem !important;
+        margin: 0 !important;
+    }
+
+    .memori-artifact-drawer--content {
+        overflow: hidden;
+        min-height: 0;
+        flex: 1;
+        flex-direction: column;
+        padding: 0 0 1.5rem;
+    }
+
+    .memori-artifact-drawer--main {
+        overflow: visible;
+        min-height: 0;
+        flex: 1;
+        border: 1px solid rgba(255, 255, 255, 0.3) !important;
+        border-radius: var(--artifact-drawer-radius-lg) !important;
+        backdrop-filter: blur(20px) !important;
+        background: rgba(255, 255, 255, 0.6) !important;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    .memori-artifact-drawer--meta {
+        width: 100%;
+        gap: 0.75rem;
+    }
+
+    .memori-artifact-drawer--meta-item {
+        width: 100%;
+        justify-content: center;
+        font-size: 0.75rem;
+    }
+
+    /* Ensure full screen coverage */
+    .memori-artifact-drawer--backdrop {
+        backdrop-filter: blur(8px) saturate(180%) !important;
+        background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.3) 100%) !important;
+    }
+}
+
+@media (min-width: 769px) {
+    /* Hide mobile drawer on desktop */
+    .memori-artifact-drawer {
+        display: none !important;
+    }
+
+    /* Show web panel on desktop */
+    .memori-artifact-panel {
+        display: flex !important;
+    }
+}
+
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .memori-artifact-drawer--panel {
+        width: 70%;
+    }
+
+}
+
+@media (min-width: 1025px) {
+    .memori-artifact-drawer--panel {
+        width: 50%;
+    }
+
+}
+
+/* Fullscreen Mode */
+.memori-artifact-drawer--fullscreen .memori-artifact-drawer--panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+}
+
+.memori-artifact-drawer--fullscreen .memori-artifact-drawer--backdrop {
+    backdrop-filter: none;
+    background-color: transparent;
+}
+
+/* Mobile Mode */
+.memori-artifact-drawer--mobile .memori-artifact-drawer--panel {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    height: 100vh !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+}
+
+.memori-artifact-drawer--mobile .memori-artifact-drawer--backdrop {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Focus and Accessibility */
+.memori-artifact-drawer--panel:focus {
+    outline: none;
+}
+
+.memori-artifact-drawer--panel:focus-visible {
+    outline: 2px solid var(--memori-primary);
+    outline-offset: 2px;
+}
+

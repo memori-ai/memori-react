@@ -174,6 +174,22 @@
     "messages": "nachrichten",
     "page": "Seite {{current}} von {{total}}"
   },
+  "artifact": {
+    "close": "Schließen",
+    "size": "Größe", 
+    "generated": "Generiert",
+    "download": "Herunterladen",
+    "print": "Drucken",
+    "external": "In neuem Fenster öffnen",
+    "type": "Typ",
+    "fullscreen": "Vollbild",
+    "exitFullscreen": "Vollbild beenden",
+    "copy": "Kopieren",
+    "generatedAt": "Generiert am",
+    "open": "Öffnen",
+    "code": "Code",
+    "preview": "Vorschau"
+  },
   "upload": {
     "loginRequired": "Login erforderlich",
     "loginRequiredDescription": "Bitte melden Sie sich an, um Bilder hochzuladen",

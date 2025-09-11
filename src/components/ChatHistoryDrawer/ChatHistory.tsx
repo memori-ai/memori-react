@@ -927,6 +927,7 @@ const ChatHistoryDrawer = ({
                           showTranslationOriginal={false}
                           showWhyThisAnswer={false}
                           showCopyButton={false}
+                          isChatlogPanel={true}
                           showInputs={false}
                           history={chatLog.lines.map(line => ({
                             text: line.text, // Don't truncate to preserve document_attachment tags

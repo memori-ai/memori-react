@@ -188,6 +188,22 @@
     "messages": "messaggi",
     "page": "Pagina {{current}} di {{total}}"
   },
+  "artifact": {
+    "close": "Chiudi",
+    "size": "Dimensione",
+    "generated": "Generato",
+    "download": "Scarica",
+    "print": "Stampa",
+    "external": "Apri in una nuova finestra",
+    "type": "Tipo",
+    "fullscreen": "Schermo intero",
+    "exitFullscreen": "Esci da schermo intero",
+    "copy": "Copia",
+    "generatedAt": "Generato il",
+    "open": "Apri",
+    "code": "Codice",
+    "preview": "Anteprima"
+  },
   "media": {
     "title": "Titolo",
     "editAttributes": "Modifica attributi media",

@@ -258,20 +258,20 @@ NunzioFiore.args = {
 
 export const TestCustomAnimationsWithRPMSequence = Template.bind({});
 TestCustomAnimationsWithRPMSequence.args = {
-    memoriName: "Dancing Avatar",
-    ownerUserName: "andrea.patini3",
-    memoriID: "45420d30-a103-455c-bab1-b708a0566a02",
-    ownerUserID: "58770358-a5db-4b49-b3a4-734fc468e745",
-    tenantID: "aisuru-staging.aclambda.online",
-    engineURL: "https://engine-staging.memori.ai/memori/v2",
-    apiURL: "https://backend-staging.memori.ai/api/v2",
-    baseURL: "https://aisuru-staging.aclambda.online",
-    uiLang: "IT",
-    spokenLang: "IT",
-    layout: "HIDDEN_CHAT",
-    showLogin: true,
-    autoStart: true,
-    integrationID: "2f6e11a0-d799-4974-aa17-cf111d0af82a"
+  memoriName: 'Dancing Avatar',
+  ownerUserName: 'andrea.patini3',
+  memoriID: '45420d30-a103-455c-bab1-b708a0566a02',
+  ownerUserID: '58770358-a5db-4b49-b3a4-734fc468e745',
+  tenantID: 'aisuru-staging.aclambda.online',
+  engineURL: 'https://engine-staging.memori.ai/memori/v2',
+  apiURL: 'https://backend-staging.memori.ai/api/v2',
+  baseURL: 'https://aisuru-staging.aclambda.online',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  layout: 'HIDDEN_CHAT',
+  showLogin: true,
+  autoStart: true,
+  integrationID: '2f6e11a0-d799-4974-aa17-cf111d0af82a',
 };
 
 export const TestCustomGLBSingleAnimation = Template.bind({});
@@ -397,12 +397,16 @@ WithCustomUserAvatar.args = {
 
 export const Test = Template.bind({});
 Test.args = {
-  ownerUserName: 'dpezzettone',
-  memoriName: 'Meta Prompt Engineer',
-  tenantID: 'www.aisuru.com',
-  layout: 'CHAT',
-  uiLang: 'en',
-  showShare: true,
-  showSettings: true,
-  showLogin: true,
+  memoriName: 'Test Artifact',
+  ownerUserName: 'Andrea-Patini',
+  memoriID: '8cec936c-d440-4781-91df-e4ddf044255e',
+  ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
+  tenantID: 'aisuru-staging.aclambda.online',
+  engineURL: 'https://engine-staging.memori.ai/memori/v2',
+  apiURL: 'https://backend-staging.memori.ai/api/v2',
+  baseURL: 'https://aisuru-staging.aclambda.online',
+  layout: 'FULLPAGE',
+  uiLang: 'EN',
+  spokenLang: 'EN',
+  integrationID: '2b37c25d-8cf9-456f-b9ee-2c27dc4d54fc',
 };
