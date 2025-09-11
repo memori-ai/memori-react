@@ -1,5 +1,13 @@
 
 
+## [8.4.1](https://github.com/memori-ai/memori-react/compare/v8.4.0...v8.4.1) (2025-09-11)
+
+
+### Features
+
+* enhance OTP login form with username input, validation, and loading states ([833bcf3](https://github.com/memori-ai/memori-react/commit/833bcf35d873ebcfeb3ec8634425b5ec381a881e))
+* implement OTP login functionality in LoginDrawer ([b378ed3](https://github.com/memori-ai/memori-react/commit/b378ed3c8c2821cbd1ae858cb406f8273967fd50))
+
 ## [8.4.0](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.9...v8.4.0) (2025-09-11)
 
 
