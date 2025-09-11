@@ -56,7 +56,7 @@
 /* Content */
 .memori-artifact-content {
   display: flex;
-  overflow: hidden;
+  overflow: visible;
   min-height: 0;
   flex: 1;
   flex-direction: column;
@@ -80,7 +80,7 @@
 .memori-artifact-code {
   overflow: auto;
   flex: 1;
-  border: 1px solid var(--memori-button-border-color, #e9ecef);
+  /* border: 1px solid var(--memori-button-border-color, #e9ecef); */
   border-radius: var(--memori-border-radius, 6px);
   margin: 1rem;
   background: var(--memori-chat-bubble-bg, #fff);
@@ -103,9 +103,10 @@
   position: relative;
   overflow: auto;
   flex: 1;
-  border: 1px solid var(--memori-button-border-color, #e9ecef);
+  /* border: 1px solid var(--memori-button-border-color, #e9ecef); */
   border-radius: var(--memori-border-radius, 6px);
-  margin: 1rem;
+  /* margin: 1rem; */
+  margin-top: 1rem;
   background: var(--memori-chat-bubble-bg, #fff);
 }
 
@@ -186,7 +187,7 @@
 .memori-artifact-preview-svg svg {
   max-width: 100%;
   max-height: 100%;
-  border: 1px solid var(--memori-button-border-color, #e9ecef);
+  /* border: 1px solid var(--memori-buttonr-border-color, #e9ecef); */
   border-radius: var(--memori-border-radius, 6px);
 }
 
@@ -197,7 +198,7 @@
 
 .memori-artifact-preview-css-demo {
   overflow: hidden;
-  border: 1px solid var(--memori-button-border-color, #e9ecef);
+  /* border: 1px solid var(--memori-button-border-color, #e9ecef); */
   border-radius: var(--memori-border-radius, 6px);
 }
 

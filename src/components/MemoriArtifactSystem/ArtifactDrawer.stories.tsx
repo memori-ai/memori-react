@@ -360,7 +360,7 @@ This includes all the essential sections for a project README with proper format
       setSendOnEnter={mockSetSendOnEnter}
       setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
       showInputs={false}
-      isChatlogPanel={true}
+      isChatlogPanel={false}
     />
   ),
 };
@@ -394,7 +394,7 @@ This includes all the essential sections for a project README with proper format
       setSendOnEnter={mockSetSendOnEnter}
       setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
       showInputs={false}
-      isChatlogPanel={true}
+      isChatlogPanel={false}
     />
   ),
 };
@@ -428,7 +428,7 @@ This includes full CRUD functionality with a clean class-based architecture.`,
       setSendOnEnter={mockSetSendOnEnter}
       setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
       showInputs={false}
-      isChatlogPanel={true}
+      isChatlogPanel={false}
     />
   ),
 };
@@ -462,7 +462,7 @@ This includes all necessary dependencies, scripts, and metadata for a production
       setSendOnEnter={mockSetSendOnEnter}
       setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
       showInputs={false}
-      isChatlogPanel={true}
+      isChatlogPanel={false}
     />
   ),
 };
@@ -497,7 +497,7 @@ This combination gives you a complete, styled web page ready for deployment.`,
       setSendOnEnter={mockSetSendOnEnter}
       setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
       showInputs={false}
-      isChatlogPanel={true}
+      isChatlogPanel={false}
     />
   ),
 };
@@ -550,8 +550,8 @@ This adds responsive grid layouts, smooth animations, and contemporary styling.`
       stopListening={mockStopListening}
       setSendOnEnter={mockSetSendOnEnter}
       setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
-      showInputs={false}
-      isChatlogPanel={true}
+        showInputs={false}
+        isChatlogPanel={false}
     />
   ),
 };
@@ -591,7 +591,7 @@ export const NoArtifacts: Story = {
       setSendOnEnter={mockSetSendOnEnter}
       setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
       showInputs={false}
-      isChatlogPanel={true}
+      isChatlogPanel={false}
     />
   ),
 };

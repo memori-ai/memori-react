@@ -16,18 +16,19 @@ import { Medium } from '@memori.ai/memori-api-client/dist/types';
 
 const ArtifactPreview: React.FC<{
   artifact: ArtifactData;
-}> = ({
-  artifact,
-}) => {
+}> = ({ artifact }) => {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<ArtifactTab>('preview');
 
   /**
    * Handle tab switching
    */
-  const handleTabChange = useCallback((tab: ArtifactTab) => {
-    setActiveTab(tab);
-  }, [activeTab]);
+  const handleTabChange = useCallback(
+    (tab: ArtifactTab) => {
+      setActiveTab(tab);
+    },
+    [activeTab]
+  );
 
   /**
    * Render preview content based on MIME type
@@ -50,9 +51,11 @@ const ArtifactPreview: React.FC<{
 
       case 'markdown':
         return (
-          <div 
+          <div
             className="memori-artifact-preview-markdown"
-            dangerouslySetInnerHTML={{ __html: renderMarkdown(artifact.content) }}
+            dangerouslySetInnerHTML={{
+              __html: renderMarkdown(artifact.content),
+            }}
           />
         );
 
@@ -76,96 +79,114 @@ const ArtifactPreview: React.FC<{
       .replace(/\*(.*?)\*/g, '<em>$1</em>')
       .replace(/`(.*?)`/g, '<code>$1</code>')
       .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
-      .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>')
+      .replace(
+        /\[([^\]]+)\]\(([^)]+)\)/g,
+        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
+      )
       .replace(/\n/g, '<br>');
   }, []);
 
-  const mapArtifactMimeTypeToSnippetMimeType = useCallback((mimeType: string) => {
-    switch (mimeType) {
-      case 'javascript':
-        return 'text/javascript';
-      case 'typescript':
-        return 'text/ecmascript';
-      case 'html':
-        return 'application/xml';
-      case 'css':
-        return 'text/css';
-      case 'json':
-        return 'application/json';
-      case 'python':
-        return 'text/x-python';
-      case 'bash':
-        return 'application/x-sh';
-      case 'cpp':
-      case 'csharp':
-        return 'text/x-c++src';
-      case 'php':
-        return 'application/x-php';
-      case 'sql':
-        return 'text/x-sql';
-      case 'ruby':
-        return 'text/x-ruby';
-      default:
-        return 'text/plain';
-    }
-  }, []);
+  const mapArtifactMimeTypeToSnippetMimeType = useCallback(
+    (mimeType: string) => {
+      switch (mimeType) {
+        case 'javascript':
+          return 'text/javascript';
+        case 'typescript':
+          return 'text/ecmascript';
+        case 'html':
+          return 'application/xml';
+        case 'css':
+          return 'text/css';
+        case 'json':
+          return 'application/json';
+        case 'python':
+          return 'text/x-python';
+        case 'bash':
+          return 'application/x-sh';
+        case 'cpp':
+        case 'csharp':
+          return 'text/x-c++src';
+        case 'php':
+          return 'application/x-php';
+        case 'sql':
+          return 'text/x-sql';
+        case 'ruby':
+          return 'text/x-ruby';
+        default:
+          return 'text/plain';
+      }
+    },
+    []
+  );
 
-  const hasPreview = artifact.mimeType === 'html' || artifact.mimeType === 'markdown';
+  const hasPreview =
+    artifact.mimeType === 'html' || artifact.mimeType === 'markdown';
 
   return (
     <div className="memori-artifact-preview">
       {/* Tabs */}
-        <div className="memori-artifact-tabs">
+      <div className="memori-artifact-tabs">
+        <Button
+          onClick={() => handleTabChange('code' as ArtifactTab)}
+          className={cx('memori-artifact-tab', {
+            'memori-artifact-tab--active': activeTab === 'code',
+          })}
+          ghost
+        >
+          <Code className="memori-artifact-tab-icon" />
+          <span className="memori-artifact-tab-text">
+            {t('artifact.code') || 'Code'}
+          </span>
+        </Button>
+        {hasPreview && (
           <Button
-            onClick={() => handleTabChange('code' as ArtifactTab)}
+            onClick={() => handleTabChange('preview' as ArtifactTab)}
             className={cx('memori-artifact-tab', {
-              'memori-artifact-tab--active': activeTab === 'code',
+              'memori-artifact-tab--active': activeTab === 'preview',
             })}
             ghost
           >
-           <Code className="memori-artifact-tab-icon" />
-           <span className="memori-artifact-tab-text">{t('artifact.code') || 'Code'}</span>
+            <PreviewIcon className="memori-artifact-tab-icon" />
+            <span className="memori-artifact-tab-text">
+              {t('artifact.preview') || 'Preview'}
+            </span>
           </Button>
-          {hasPreview && (
-            <Button
-              onClick={() => handleTabChange('preview' as ArtifactTab)}
-              className={cx('memori-artifact-tab', {
-                'memori-artifact-tab--active': activeTab === 'preview',
-              })}
-              ghost
-            >
-              <PreviewIcon className="memori-artifact-tab-icon" />
-              <span className="memori-artifact-tab-text">{t('artifact.preview') || 'Preview'}</span>
-            </Button>
-          )}
-        </div>
+        )}
+      </div>
 
       {/* Content */}
       <div className="memori-artifact-content">
         {/* Code Tab */}
-        <div 
+        <div
           className={cx('memori-artifact-tab-content', {
-            'memori-artifact-tab-content--active': activeTab === 'code' || !hasPreview,
+            'memori-artifact-tab-content--active':
+              activeTab === 'code' || !hasPreview,
           })}
         >
           <div className="memori-artifact-code">
-            <Snippet 
-            medium={{
-              mediumID: artifact.id,
-              mimeType: mapArtifactMimeTypeToSnippetMimeType(artifact.mimeType),
-              content: artifact.content,
-              title: artifact.title,
-              creationTimestamp: artifact.timestamp.toISOString(),
-              creationName: 'System',
-              lastChangeTimestamp: artifact.timestamp.toISOString(),
-              lastChangeName: 'System',
-            } as Medium} />
+            <Snippet
+              showCopyButton={false}
+              medium={
+                {
+                  mediumID: artifact.id,
+                  mimeType: mapArtifactMimeTypeToSnippetMimeType(
+                    artifact.mimeType
+                  ),
+                  content: artifact.content,
+                  title: artifact.title,
+                  creationTimestamp: artifact.timestamp.toISOString(),
+                  creationName: 'System',
+                  lastChangeTimestamp: artifact.timestamp.toISOString(),
+                  lastChangeName: 'System',
+                } as Medium
+              }
+            />
           </div>
         </div>
 
         {/* Preview Tab */}
         {hasPreview && (
-          <div 
+          <div
             className={cx('memori-artifact-tab-content', {
               'memori-artifact-tab-content--active': activeTab === 'preview',
             })}

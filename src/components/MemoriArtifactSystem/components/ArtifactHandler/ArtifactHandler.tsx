@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useMemo, useCallback, memo } from 'react';
 import { useArtifact } from '../../context/ArtifactContext';
 import { ArtifactData } from '../../types/artifact.types';
 import ChevronRight from '../../../icons/ChevronRight';
@@ -64,7 +64,8 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
             .substr(2, 9)}`,
           content,
           mimeType,
-          title: findTitle(mimeType, text),          timestamp: new Date(),
+          title: findTitle(mimeType, text),          
+          timestamp: new Date(),
           size: content.length,
         });
       }

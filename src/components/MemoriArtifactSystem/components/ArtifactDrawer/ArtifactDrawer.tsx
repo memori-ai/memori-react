@@ -15,6 +15,8 @@ import ArtifactPreview from '../ArtifactPreview/ArtifactPreview';
 import { ArtifactTab } from '../../types/artifact.types';
 import cx from 'classnames';
 import Drawer from '../../../ui/Drawer';
+import Fullscreen from '../../../icons/Fullscreen';
+import FullscreenExit from '../../../icons/FullscreenExit';
 
 const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
   isChatLogPanel = false,
@@ -90,11 +92,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
    * Handle close with escape key
    */
   const handleClose = useCallback(() => {
-    setIsAnimating(true);
-    setTimeout(() => {
       closeArtifact();
-      setIsAnimating(false);
-    }, 200);
   }, [closeArtifact]);
 
   /**
@@ -108,117 +106,115 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
     return null;
   }
 
-
-  const ContentContainer = ({ children }: { children: React.ReactNode }) => {
-    if(isChatLogPanel){
-      return <div
-        style={isChatLogPanel ? { minHeight: '75vh', maxHeight: '75vh' } : {}}
-        className="memori-artifact-panel"
-      >
-        {children}
-      </div>
-    } else {
-      return <Drawer
-        open={state.isDrawerOpen}
-        onClose={handleClose}
-        placement="right"
-        width="50%"
-        className={state.isFullscreen ? 'memori-artifact-panel-drawer-fullscreen' : 'memori-artifact-panel-drawer'}
-        widthMd="100%"
-        widthLg="50%"
-        closable={false}
-        animated={true}
-        showBackdrop={false}
-        confirmDialogTitle={t('artifact.confirmDialogTitle') || 'Are you sure you want to close this artifact?'}
-        confirmDialogMessage={t('artifact.confirmDialogMessage') || 'This action cannot be undone.'}
-        // className="memori-artifact-panel"
-      >
-        {children}
-      </Drawer>
-    }
-  }
-
+  const ContentContainer = useCallback(
+    ({ children }: { children: React.ReactNode }) => {
+      if (isChatLogPanel) {
+        return (
+          <div
+            style={
+              isChatLogPanel ? { minHeight: '75vh', maxHeight: '75vh' } : {}
+            }
+            className="memori-artifact-panel"
+          >
+            {children}
+          </div>
+        );
+      } else {
+        return (
+          <Drawer
+            open={state.isDrawerOpen}
+            onClose={handleClose}
+            placement="right"
+            width="50%"
+            className={
+              state.isFullscreen
+                ? 'memori-artifact-panel-drawer-fullscreen'
+                : 'memori-artifact-panel-drawer'
+            }
+            widthMd="100%"
+            widthLg="50%"
+            closable={false}
+            animated={true}
+            showBackdrop={false}
+            confirmDialogTitle={
+              t('artifact.confirmDialogTitle') ||
+              'Are you sure you want to close this artifact?'
+            }
+            confirmDialogMessage={
+              t('artifact.confirmDialogMessage') ||
+              'This action cannot be undone.'
+            }
+            // className="memori-artifact-panel"
+          >
+            {children}
+          </Drawer>
+        );
+      }
+    },
+    [isChatLogPanel, handleClose, state.isDrawerOpen, state.isFullscreen, t]
+  );
 
   // Render web split panel
   return (
-    <ContentContainer> 
+    <ContentContainer>
       {/* Header */}
-      <div className="memori-artifact-panel--header">
-        <div className="memori-artifact-panel--header-content">
-          <h2 className="memori-artifact-panel--title">
-            {state.currentArtifact.title}
-          </h2>
-          <div className="memori-artifact-panel--meta">
-            <span className="memori-artifact-panel--meta-item">
-              {t('artifact.type') || 'Type'}: {state.currentArtifact.mimeType}
-            </span>
-            <span className="memori-artifact-panel--meta-item">
-              {t('artifact.size') || 'Size'}:{' '}
-              {formatBytes(state.currentArtifact.size)}
-            </span>
-            <span className="memori-artifact-panel--meta-item">
-              {t('artifact.generated') || 'Generated'}:{' '}
-              {formatTimestamp(state.currentArtifact.timestamp)}
-            </span>
-          </div>
-        </div>
-          <ArtifactActions
-            artifact={state.currentArtifact}
-            onCopy={handleCopy}
-            onDownload={handleDownload}
-            loading={false}
-            onPrint={handlePrint}
-            onOpenExternal={handleOpenExternal}
-            onToggleFullscreen={handleToggleFullscreen}
-            isFullscreen={state.isFullscreen}
-            isChatLogPanel={isChatLogPanel}
-          />
 
-        <Button
-          onClick={closeArtifact}
-          className={cx(
-            'memori-artifact-drawer--close',
-            'memori-button--circle',
-            'memori-button--icon-only'
-          )}
-          ghost
-          title={t('artifact.close') || 'Close'}
-        >
-          <Close className="memori-artifact-panel--close-icon" />
-        </Button>
+      <div className="memori-artifact-drawer-container-actions">
+        {!isChatLogPanel && (
+          <Button
+            onClick={handleToggleFullscreen}
+            className={cx(
+              'memori-artifact-drawer-fullscreen',
+              'memori-button--circle',
+              'memori-button--icon-only'
+            )}
+            ghost
+            icon={
+              state.isFullscreen ? (
+                <Fullscreen className="memori-artifact-panel--close-icon" />
+              ) : (
+                <FullscreenExit className="memori-artifact-panel--close-icon" />
+              )
+            }
+            title={
+              state.isFullscreen
+                ? t('artifact.exitFullscreen') || 'Exit Fullscreen'
+                : t('artifact.fullscreen') || 'Fullscreen'
+            }
+          />
+        )}
+        <ArtifactActions
+          artifact={state.currentArtifact}
+          onCopy={handleCopy}
+          onDownload={handleDownload}
+          loading={false}
+          onPrint={handlePrint}
+          onOpenExternal={handleOpenExternal}
+        />
       </div>
+
+      <Button
+        onClick={closeArtifact}
+        className={cx(
+          'memori-artifact-drawer--close',
+          'memori-button--circle',
+          'memori-button--icon-only'
+        )}
+        ghost
+        title={t('artifact.close') || 'Close'}
+      >
+        <Close className="memori-artifact-panel--close-icon" />
+      </Button>
+      <div className="memori-artifact-panel--header"></div>
 
       {/* Content */}
       <div className="memori-artifact-panel--content">
         <div className="memori-artifact-panel--main">
-          <ArtifactPreview
-            artifact={state.currentArtifact}
-          />
+          <ArtifactPreview artifact={state.currentArtifact} />
         </div>
       </div>
     </ContentContainer>
   );
 };
-
-/**
- * Format file size in human readable format
- */
-function formatBytes(bytes: number): string {
-  if (bytes === 0) return '0 Bytes';
-  const k = 1024;
-  const sizes = ['Bytes', 'KB', 'MB'];
-  const i = Math.floor(Math.log(bytes) / Math.log(k));
-  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-}
-
-/**
- * Format timestamp for display
- */
-function formatTimestamp(timestamp: Date): string {
-  return timestamp.toLocaleTimeString('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-}
 
 export default ArtifactDrawer;

@@ -19,7 +19,7 @@
 
 /* Override drawer width for ArtifactDrawer */
 .memori-artifact-panel-drawer {
-    --memori-drawer--width-lg: 46%;
+    --memori-drawer--width-lg: 50%;
 }
 
 /* Main Drawer Container (Mobile Only) */
@@ -29,14 +29,14 @@
     font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
 }
 
-.memori-artifact-panel-drawer > div > div > div{
+.memori-artifact-panel-drawer > div > div > div {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 /* Web Split Panel Container */
 .memori-artifact-panel {
     position: relative;
     display: flex;
-    overflow: hidden;
+    overflow: visible;
     height: 100%;
     flex-direction: column;
     border-left: 1px solid var(--artifact-drawer-border);
@@ -59,19 +59,13 @@
 /* Web Split Panel Header */
 .memori-artifact-panel--header {
     position: relative;
+    z-index: 1000;
     display: flex;
     overflow: visible;
-    min-height: 120px;
     flex-flow: column;
     align-items: flex-start;
     justify-content: space-between;
-    padding: 1.5rem;
-    border-radius: var(--artifact-drawer-radius-lg) var(--artifact-drawer-radius-lg) 0 0;
-    border-bottom: 1px solid white;
-    backdrop-filter: blur(20px);
-    /* margin-bottom: 1.5rem; */
-    background: white;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding-top: 1rem;
 }
 
 
@@ -83,7 +77,7 @@
 
 .memori-artifact-panel--title {
     overflow: hidden;
-    max-width: 90%;
+    /* max-width: 90%; */
     margin: 0 0 0.75rem;
     background: white;
     background-clip: text;
@@ -134,6 +128,7 @@
 
 .memori-artifact-panel--header-actions {
     position: absolute;
+    z-index: 1000;
     right: 65px;
     display: flex;
     flex-shrink: 0;
@@ -159,14 +154,15 @@
 .memori-artifact-panel--close-icon {
     width: 18px;
     height: 18px;
+    fill: #000 !important;
 }
 
 /* Web Split Panel Content */
 .memori-artifact-panel--content {
     position: relative;
     display: flex;
-    overflow: hidden;
-    height: 72vh;
+    overflow: visible;
+    height: 88vh;
     min-height: 0;
     flex: 1;
     /* padding: 1.5rem 1.5rem; */
@@ -176,15 +172,10 @@
 .memori-artifact-panel--main {
     position: relative;
     display: flex;
-    overflow: hidden;
+    overflow: visible;
     min-width: 0;
     flex: 1;
     flex-direction: column;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: var(--artifact-drawer-radius-lg);
-    backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.6);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .memori-artifact-panel--main::before {
@@ -336,7 +327,6 @@
 
 
 
-
 .memori-artifact-drawer--header-actions {
     z-index: 100;
     display: flex;
@@ -364,6 +354,19 @@
     margin-left: 0.5rem;
 }
 
+.memori-artifact-drawer-fullscreen {
+    display: flex;
+    margin-left: 0.5rem;
+}
+
+.memori-artifact-drawer-container-actions{
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    margin-top: 1rem;
+    /* justify-content: space-between; */
+    gap: 0.75rem;
+}
 
 .memori-artifact-drawer--close-icon {
     width: 18px;
@@ -385,7 +388,7 @@
 .memori-artifact-drawer--main {
     position: relative;
     display: flex;
-    overflow: hidden;
+    overflow: visible;
     min-width: 0;
     flex: 1;
     flex-direction: column;
@@ -436,11 +439,17 @@
     font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
 }
 
+
 @media (max-width: 1024px) {
     .memori-artifact-panel-drawer > div > div > div {
+        z-index: 0;
         width: 100% !important;
         max-width: 100% !important;
         box-shadow: none !important;
+    }
+
+    .memori-artifact-drawer-fullscreen {
+        display: none;
     }
 }
 
@@ -525,7 +534,7 @@
     }
 
     .memori-artifact-drawer--main {
-        overflow: auto;
+        overflow: visible;
         min-height: 0;
         flex: 1;
         border: 1px solid rgba(255, 255, 255, 0.3) !important;

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useCallback, useMemo } from 'react';
 import { ArtifactData, ArtifactSystemState } from '../types/artifact.types';
 
 interface ArtifactContextType {
@@ -17,31 +17,48 @@ export const ArtifactProvider = ({ children }: { children: ReactNode }) => {
     isFullscreen: false,
   });
 
-  const openArtifact = (artifact: ArtifactData) => {
-    setState({
-      currentArtifact: artifact,
-      isDrawerOpen: true,
-      isFullscreen: false,
+  const openArtifact = useCallback((artifact: ArtifactData) => {
+    setState(prev => {
+      // Only update if the artifact is different
+      if (prev.currentArtifact?.id === artifact.id && prev.isDrawerOpen) {
+        return prev;
+      }
+      return {
+        currentArtifact: artifact,
+        isDrawerOpen: true,
+        isFullscreen: false,
+      };
     });
-  };
+  }, []);
 
-  const closeArtifact = () => {
-    setState(prev => ({
-      ...prev,
-      isDrawerOpen: false,
-      isFullscreen: false,
-    }));
-  };
+  const closeArtifact = useCallback(() => {
+    setState(prev => {
+      // if (!prev.isDrawerOpen) return prev;
+      return {
+        ...prev,
+        currentArtifact: null,
+        isDrawerOpen: false,
+        isFullscreen: false,
+      };
+    });
+  }, []);
 
-  const toggleFullscreen = () => {
+  const toggleFullscreen = useCallback(() => {
     setState(prev => ({
       ...prev,
       isFullscreen: !prev.isFullscreen,
     }));
-  };
+  }, []);
+
+  const contextValue = useMemo(() => ({
+    state,
+    openArtifact,
+    closeArtifact,
+    toggleFullscreen,
+  }), [state, openArtifact, closeArtifact, toggleFullscreen]);
 
   return (
-    <ArtifactContext.Provider value={{ state, openArtifact, closeArtifact, toggleFullscreen }}>
+    <ArtifactContext.Provider value={contextValue}>
       {children}
     </ArtifactContext.Provider>
   );
