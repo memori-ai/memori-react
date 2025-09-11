@@ -56,10 +56,16 @@ const fetchProviderStatus = async (config: ProviderConfig): Promise<Status> => {
     
     // Check for active incidents first
     if (data.incidents && Array.isArray(data.incidents) && data.incidents.length > 0) {
-      const activeIncidents = data.incidents.filter(
-        (incident: { status: string }) => 
-          !['resolved', 'completed', 'postmortem'].includes(incident.status.toLowerCase())
-      );
+      const activeIncidents = data.incidents.filter((incident: any) => {
+        // Check if incident is truly active by looking at the latest update
+        if (incident.incident_updates && incident.incident_updates.length > 0) {
+          const latestUpdate = incident.incident_updates[incident.incident_updates.length - 1];
+          const isResolved = ['resolved', 'completed', 'postmortem'].includes(latestUpdate.status.toLowerCase());
+          return !isResolved;
+        }
+        // Fallback to incident status if no updates available
+        return !['resolved', 'completed', 'postmortem'].includes(incident.status.toLowerCase());
+      });
       
       if (activeIncidents.length > 0) {
         // If there are active incidents, determine the severity
@@ -69,9 +75,15 @@ const fetchProviderStatus = async (config: ProviderConfig): Promise<Status> => {
         const major = activeIncidents.some((i: { impact: string }) => 
           i.impact === 'moderate'
         );
-        
+
+        const investigating = activeIncidents.some((i: { status: string }) => 
+          i.status === 'investigating'
+        );
+
+        if (investigating) return 'partial_outage';
         if (critical) return 'major_outage';
         if (major) return 'partial_outage';
+        // Return degraded_performance for investigating status or any other active incident
         return 'degraded_performance';
       }
     }
