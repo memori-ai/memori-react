@@ -54,6 +54,7 @@ const LoginDrawer = ({
 
   // OTP-related state
   const [otpCode, setOtpCode] = useState<string>('');
+  const [otpUserName, setOtpUserName] = useState<string>('');
   const [otpError, setOtpError] = useState<string | null>(null);
   const [showOtpForm, setShowOtpForm] = useState(false);
   const [otpTimer, setOtpTimer] = useState<number | null>(null);
@@ -104,6 +105,11 @@ const LoginDrawer = ({
       return;
     }
 
+    if (!otpUserName || otpUserName.trim().length === 0) {
+      setOtpError(t('login.userNameRequired'));
+      return;
+    }
+
     setLoading(true);
     setOtpError(null);
 
@@ -113,9 +119,9 @@ const LoginDrawer = ({
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include',
         body: JSON.stringify({
           otp: otp,
+          userName: otpUserName.trim(),
         }),
       });
 
@@ -123,14 +129,19 @@ const LoginDrawer = ({
 
       if (response.status == 200 && data.user && data.loginToken) {
         toast.success(t('login.otpSuccess'));
-        onLogin(data.user as User, data.loginToken);
         setShowOtpForm(false);
         setOtpCode('');
-      } else if (response.status == 401) {
-        // User doesn't exist, show signup form
-        setShowSignup(true);
-        setShowOtpForm(false);
-        setOtpCode('');
+        setOtpUserName('');
+
+        if (!data.user?.tnCAndPPAccepted || !data.user?.birthDate) {
+          setNeedsMissingData({
+            token: data.loginToken,
+            birthDate: !data.user.birthDate,
+            tnCAndPPAccepted: !data.user.tnCAndPPAccepted,
+          });
+        } else {
+          onLogin(data.user as User, data.loginToken);
+        }
       } else {
         setOtpError(data.resultMessage || t('login.otpInvalid'));
       }
@@ -148,9 +159,15 @@ const LoginDrawer = ({
     setOtpCode(numericValue);
     setOtpError(null);
 
-    if (numericValue.length === 4) {
+    if (numericValue.length === 4 && otpUserName.trim().length > 0) {
       validateOtp(numericValue);
     }
+  };
+
+  // Handle username input change
+  const handleUserNameChange = (value: string) => {
+    setOtpUserName(value);
+    setOtpError(null);
   };
 
   // Start OTP timer
@@ -561,7 +578,15 @@ const LoginDrawer = ({
         <SignupForm
           tenant={tenant}
           apiClient={apiClient}
-          onLogin={onLogin}
+          onLogin={(_user: User, token: string) => {
+            // Force all signup users to go through missing data flow
+            // This ensures consistent user experience and data collection
+            setNeedsMissingData({
+              token: token,
+              birthDate: true, // Always require birth date for new users
+              tnCAndPPAccepted: true, // Always require terms acceptance for new users
+            });
+          }}
           goToLogin={() => setShowSignup(false)}
           __TEST__waitingForOtp={__TEST__waitingForOtp}
         />
@@ -572,18 +597,40 @@ const LoginDrawer = ({
             <p className="memori--login-drawer--otp-description">
               {t('login.otpDescription')}
             </p>
-            
-            <div className="memori--login-drawer--otp-input-container">
-              <input
-                type="text"
-                className="memori--login-drawer--otp-input"
-                value={otpCode}
-                onChange={(e) => handleOtpChange(e.target.value)}
-                placeholder="0000"
-                maxLength={4}
-                autoComplete="one-time-code"
-                autoFocus
-              />
+
+            <div className={cx('memori--login-drawer--otp-form', { loading })}>
+              <label htmlFor="otp-username">
+                <span>{t('login.userName')}</span>
+                <input
+                  id="otp-username"
+                  type="text"
+                  className="memori--login-drawer--otp-username-input"
+                  value={otpUserName}
+                  onChange={e => handleUserNameChange(e.target.value)}
+                  placeholder={t('login.userName') || 'Username'}
+                  required
+                  autoComplete="username"
+                  disabled={loading}
+                />
+              </label>
+
+              <label htmlFor="otp-code">
+                <span>{t('login.otpCode')}</span>
+                <input
+                  id="otp-code"
+                  type="text"
+                  className={cx('memori--login-drawer--otp-input', {
+                    success: otpCode.length === 4 && !otpError,
+                  })}
+                  value={otpCode}
+                  onChange={e => handleOtpChange(e.target.value)}
+                  placeholder="0000"
+                  maxLength={4}
+                  autoComplete="one-time-code"
+                  required
+                  disabled={loading}
+                />
+              </label>
             </div>
 
             {otpTimer && otpTimer > 0 && (
@@ -598,16 +645,20 @@ const LoginDrawer = ({
                 onClick={() => {
                   setShowOtpForm(false);
                   setOtpCode('');
+                  setOtpUserName('');
                   setOtpError(null);
                 }}
               >
                 {t('login.backToLogin')}
               </Button>
-              
+
               <Button
                 primary
                 onClick={() => {
-                  window.open('http://localhost:3000/it/account?t=account', '_blank');
+                  window.open(
+                    'http://localhost:3000/it/account?t=account',
+                    '_blank'
+                  );
                   startOtpTimer();
                 }}
               >
@@ -629,7 +680,7 @@ const LoginDrawer = ({
             <p className="memori--login-drawer--welcome-description">
               {t('login.welcomeDescription')}
             </p>
-            
+
             <div className="memori--login-drawer--otp-info">
               <div className="memori--login-drawer--otp-info-item">
                 <span className="memori--login-drawer--otp-info-number">1</span>
@@ -655,25 +706,6 @@ const LoginDrawer = ({
             >
               {t('login.startOtpLogin')}
             </Button>
-
-            {!tenant?.disableRegistration ? (
-              <p className="memori--login-drawer--signup">
-                {t('login.newUserSignUp')}{' '}
-                <Button outlined onClick={() => setShowSignup(true)}>
-                  {t('login.signUp')}
-                </Button>
-              </p>
-            ) : tenant.adminEmail ? (
-              <div className="memori--login-drawer--signup">
-                <p>{t('login.registrationDisabled')}</p>
-                <p>
-                  {t('login.contactAdmin')}:{' '}
-                  <a href={`mailto:${tenant.adminEmail}`}>
-                    {tenant.adminEmail}
-                  </a>
-                </p>
-              </div>
-            ) : null}
           </div>
 
           {error && (

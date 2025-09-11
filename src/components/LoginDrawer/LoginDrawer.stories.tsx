@@ -76,3 +76,28 @@ LoggedIn.args = {
   user,
   loginToken: 'token',
 };
+
+export const OtpForm = Template.bind({});
+OtpForm.args = {
+  open: true,
+  // Note: OTP form is shown by default in the new implementation
+  // when user is not logged in and not in signup mode
+};
+
+export const OtpFormWithTimer = Template.bind({});
+OtpFormWithTimer.args = {
+  open: true,
+  // Timer will be shown when OTP form is active
+};
+
+export const OtpFormWithError = Template.bind({});
+OtpFormWithError.args = {
+  open: true,
+  // Error state would be shown during OTP validation
+};
+
+export const OtpFormLoading = Template.bind({});
+OtpFormLoading.args = {
+  open: true,
+  // Loading state would be shown during OTP validation
+};

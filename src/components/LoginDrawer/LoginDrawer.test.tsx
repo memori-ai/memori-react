@@ -131,3 +131,59 @@ it('renders LoginDrawer on change password unchanged', () => {
   );
   expect(container).toMatchSnapshot();
 });
+
+it('renders LoginDrawer with OTP form unchanged', () => {
+  const { container } = render(
+    <LoginDrawer
+      onClose={jest.fn()}
+      apiClient={memoriApiClient()}
+      tenant={tenant}
+      onLogin={jest.fn()}
+      onLogout={jest.fn()}
+      open
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders LoginDrawer with OTP form and timer unchanged', () => {
+  const { container } = render(
+    <LoginDrawer
+      onClose={jest.fn()}
+      apiClient={memoriApiClient()}
+      tenant={tenant}
+      onLogin={jest.fn()}
+      onLogout={jest.fn()}
+      open
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders LoginDrawer with OTP form and error unchanged', () => {
+  const { container } = render(
+    <LoginDrawer
+      onClose={jest.fn()}
+      apiClient={memoriApiClient()}
+      tenant={tenant}
+      onLogin={jest.fn()}
+      onLogout={jest.fn()}
+      open
+    />
+  );
+  expect(container).toMatchSnapshot();
+});
+
+it('renders LoginDrawer with OTP form loading unchanged', () => {
+  const { container } = render(
+    <LoginDrawer
+      onClose={jest.fn()}
+      apiClient={memoriApiClient()}
+      tenant={tenant}
+      onLogin={jest.fn()}
+      onLogout={jest.fn()}
+      open
+    />
+  );
+  expect(container).toMatchSnapshot();
+});

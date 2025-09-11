@@ -40,6 +40,22 @@ p.memori--login-drawer--inline-error {
     text-align: center;
 }
 
+.memori--login-drawer--otp-form {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1rem;
+    margin: 0 0 2rem;
+    gap: 1.5rem;
+}
+
+.memori--login-drawer--otp-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: left;
+}
+
+
 .memori--login-drawer--form label:not(.memori-checkbox) {
     display: flex;
     flex-direction: column;
@@ -218,9 +234,37 @@ h3.memori--login-drawer--edit-account-title {
     font-size: 1rem;
     line-height: 1.5;
 }
+.memori--login-drawer--otp-form label span {
+    color: var(--memori-text-color, #333);
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
 
-.memori--login-drawer--otp-input-container {
-    margin: 0 0 1.5rem;
+.memori--login-drawer--otp-username-input {
+    width: 95%;
+    height: 50px;
+    padding: 0 1rem;
+    border: 2px solid var(--memori-border-color, #e9ecef);
+    border-radius: 8px;
+    background: var(--memori-background, #fff);
+    font-size: 1rem;
+    font-weight: 500;
+    outline: none;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.memori--login-drawer--otp-username-input:focus {
+    border-color: var(--memori-primary);
+    box-shadow: 0 0 0 3px rgba(var(--memori-primary-rgb, 0, 123, 255), 0.1);
+    transform: translateY(-1px);
+}
+
+.memori--login-drawer--otp-username-input::placeholder {
+    color: var(--memori-text-muted, #999);
+    font-weight: 400;
 }
 
 .memori--login-drawer--otp-input {
@@ -228,6 +272,7 @@ h3.memori--login-drawer--edit-account-title {
     height: 60px;
     border: 2px solid var(--memori-border-color, #e9ecef);
     border-radius: 12px;
+    margin: 0 auto;
     background: var(--memori-background, #fff);
     font-size: 2rem;
     font-weight: 600;
@@ -240,6 +285,7 @@ h3.memori--login-drawer--edit-account-title {
 .memori--login-drawer--otp-input:focus {
     border-color: var(--memori-primary);
     box-shadow: 0 0 0 3px rgba(var(--memori-primary-rgb, 0, 123, 255), 0.1);
+    transform: scale(1.02);
 }
 
 .memori--login-drawer--otp-input::placeholder {
@@ -247,11 +293,40 @@ h3.memori--login-drawer--edit-account-title {
     letter-spacing: 0.5rem;
 }
 
+.memori--login-drawer--otp-input:invalid {
+    border-color: var(--memori-error-color);
+    animation: shake 0.5s ease-in-out;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.memori--login-drawer--otp-username-input:invalid {
+    border-color: var(--memori-error-color);
+    animation: shake 0.5s ease-in-out;
+}
+
 .memori--login-drawer--otp-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--memori-warning-color, #ffc107);
+    border-radius: 8px;
     margin: 0 0 1.5rem;
+    background: rgba(var(--memori-warning-color-rgb, 255, 193, 7), 0.1);
     color: var(--memori-warning-color, #ffc107);
     font-size: 0.875rem;
     font-weight: 600;
+    gap: 0.5rem;
+}
+
+.memori--login-drawer--otp-timer::before {
+    content: "⏱️";
+    font-size: 1rem;
 }
 
 .memori--login-drawer--otp-actions {
@@ -266,13 +341,79 @@ h3.memori--login-drawer--edit-account-title {
 }
 
 .memori--login-drawer--otp-error {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--memori-error-color);
+    border-radius: 8px;
     margin: 1rem 0 0;
+    animation: slideIn 0.3s ease-out;
+    background: rgba(var(--memori-error-color-rgb, 220, 53, 69), 0.1);
     color: var(--memori-error-color);
     font-size: 0.875rem;
+    font-weight: 500;
+    gap: 0.5rem;
     text-align: center;
 }
 
+.memori--login-drawer--otp-error::before {
+    content: "⚠️";
+    font-size: 1rem;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Loading state for OTP form */
+.memori--login-drawer--otp-form.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.memori--login-drawer--otp-form.loading .memori--login-drawer--otp-username-input,
+.memori--login-drawer--otp-form.loading .memori--login-drawer--otp-input {
+    background: var(--memori-background-light, #f8f9fa);
+    cursor: not-allowed;
+}
+
+/* Success state animation */
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.memori--login-drawer--otp-input.success {
+    border-color: var(--memori-success-color, #28a745);
+    animation: successPulse 0.6s ease-in-out;
+    background: rgba(var(--memori-success-color-rgb, 40, 167, 69), 0.1);
+}
+
 /* Responsive adjustments */
+@media (max-width: 768px) {
+    .memori--login-drawer--otp-form {
+        padding: 0 0.5rem;
+        gap: 1rem;
+    }
+    
+    .memori--login-drawer--otp-info {
+        gap: 0.75rem;
+    }
+    
+    .memori--login-drawer--otp-info-item {
+        padding: 0.75rem;
+    }
+}
+
 @media (max-width: 480px) {
     .memori--login-drawer--otp-input {
         width: 160px;
@@ -281,13 +422,25 @@ h3.memori--login-drawer--edit-account-title {
         letter-spacing: 0.3rem;
     }
     
+    .memori--login-drawer--otp-username-input {
+        height: 45px;
+        font-size: 0.9rem;
+    }
+    
     .memori--login-drawer--otp-actions {
         flex-direction: column;
         align-items: center;
+        gap: 0.75rem;
     }
     
     .memori--login-drawer--otp-actions .memori-button {
         width: 100%;
         max-width: 200px;
+    }
+    
+    .memori--login-drawer--otp-timer,
+    .memori--login-drawer--otp-error {
+        padding: 0.5rem 0.75rem;
+        font-size: 0.8rem;
     }
 }

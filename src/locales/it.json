@@ -260,6 +260,9 @@
   "login": {
     "login": "Accedi",
     "logout": "Esci",
+    "userNameRequired": "Il nome utente è obbligatorio",
+    "userName": "Nome utente",
+    "userNamePlaceholder": "Inserisci il nome utente",
     "user": "Utente",
     "loggedDrawerTitle": "Ciao, {{name}}!",
     "loginDrawerTitle": "Accedi",
