@@ -106,6 +106,23 @@ WithArtifacts.args = {
   memori,
   tenant,
   sessionID,
+  isChatlogPanel: false,
+  history: historyWithArtifacts,
+  dialogState,
+  layout: 'CHAT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
+
+export const WithArtifactsInChatlogPanel = Template.bind({});
+WithArtifactsInChatlogPanel.args = {
+  memori,
+  tenant,
+  sessionID,
   isChatlogPanel: true,
   history: historyWithArtifacts,
   dialogState,

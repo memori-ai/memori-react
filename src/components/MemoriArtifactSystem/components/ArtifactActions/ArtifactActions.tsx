@@ -14,7 +14,9 @@ import Link from '../../../icons/Link';
 import Fullscreen from '../../../icons/Fullscreen';
 import FullscreenExit from '../../../icons/FullscreenExit';
 import PrintIcon from '../../../icons/Print';
-import Copy from '../../../icons/Copy';
+import { CopyButtonWithDropdown } from './';
+import { Menu, Transition } from '@headlessui/react';
+import MenuHorizontal from '../../../icons/MenuHorizontal';
 
 const ArtifactActions: React.FC<{
   artifact: ArtifactData;
@@ -22,37 +24,16 @@ const ArtifactActions: React.FC<{
   onDownload: () => void;
   onPrint: () => void;
   onOpenExternal: () => void;
-  onToggleFullscreen: () => void;
-  isFullscreen: boolean;
   loading: boolean;
-  isChatLogPanel?: boolean;
 }> = ({
   artifact,
   onCopy,
   onDownload,
   onPrint,
   onOpenExternal,
-  onToggleFullscreen,
-  isFullscreen,
   loading = false,
-  isChatLogPanel = false,
 }) => {
   const { t } = useTranslation();
-  const [copyFeedback, setCopyFeedback] = useState<string | null>(null);
-
-  /**
-   * Handle copy action with feedback
-   */
-  const handleCopy = useCallback(async () => {
-    try {
-      await onCopy();
-      setCopyFeedback('✅ Copied!');
-      setTimeout(() => setCopyFeedback(null), 2000);
-    } catch (error) {
-      setCopyFeedback('❌ Error');
-      setTimeout(() => setCopyFeedback(null), 2000);
-    }
-  }, [onCopy]);
 
   /**
    * Get file extension for download
@@ -109,32 +90,6 @@ const ArtifactActions: React.FC<{
     };
     return mimeTypes[mimeType] || 'text/plain';
   }, []);
-
-  /**
-   * Handle download action
-   */
-  const handleDownload = useCallback(() => {
-    try {
-      const extension = getFileExtension(artifact.mimeType);
-      const filename = `artifact-${Date.now()}.${extension}`;
-      const mimeType = getMimeTypeString(artifact.mimeType);
-
-      const blob = new Blob([artifact.content], { type: mimeType });
-      const url = URL.createObjectURL(blob);
-
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = filename;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-
-      onDownload();
-    } catch (error) {
-      console.error('Download failed:', error);
-    }
-  }, [artifact, getFileExtension, getMimeTypeString, onDownload]);
 
   /**
    * Handle print action
@@ -220,86 +175,71 @@ const ArtifactActions: React.FC<{
   return (
     <div className="memori-artifact-actions">
       <div className="memori-artifact-actions-row">
-        <Button
-          onClick={handleCopy}
-          disabled={loading}
+        <CopyButtonWithDropdown
+          artifact={artifact}
+          onCopy={onCopy}
+          onDownload={onDownload}
+          onPrint={onPrint}
+          loading={loading}
           className="memori-artifact-action-btn"
-          ghost
-          icon={<Copy className="memori-artifact-action-icon" />}
-          title={copyFeedback || t('artifact.copy') || 'Copy'}
-        >
-          <span className="memori-artifact-action-text">
-            {copyFeedback || t('artifact.copy') || 'Copy'}
-          </span>
-        </Button>
+        />
+        <Menu as="div" className="memori-copy-menu-wrapper">
+          <Menu.Button as="div" className="memori-copy-button-trigger">
+            <Button
+              disabled={loading}
+              className={cx(
+                'memori-button',
+                'memori-button--circle',
+                'memori-button--icon-only'
+              )}
+              ghost
+              title="More copy options"
+            >
+              <MenuHorizontal className="memori-artifact-action-icon" />
+            </Button>
+          </Menu.Button>
 
-        <Button
-          onClick={handleDownload}
-          disabled={loading}
-          className="memori-artifact-action-btn"
-          ghost
-          icon={<Download className="memori-artifact-action-icon" />}
-          title={t('artifact.download') || 'Download'}
-        >
-          <span className="memori-artifact-action-text">
-            {t('artifact.download') || 'Download'}
-          </span>
-        </Button>
-
-        <Button
-          onClick={handlePrint}
-          disabled={loading}
-          className="memori-artifact-action-btn"
-          ghost
-          icon={<PrintIcon className="memori-artifact-action-icon" />}
-          title={t('artifact.print') || 'Print'}
-        >
-          <span className="memori-artifact-action-text">
-            {t('artifact.print') || 'Print'}
-          </span>
-        </Button>
-
-        <Button
-          onClick={handleOpenExternal}
-          disabled={loading}
-          className="memori-artifact-action-btn"
-          ghost
-          icon={<Link className="memori-artifact-action-icon" />}
-          title={t('artifact.external') || 'External'}
-        >
-          <span className="memori-artifact-action-text">
-            {t('artifact.external') || 'External'}
-          </span>
-        </Button>
-
-        {!isChatLogPanel && (
-          <Button
-            onClick={onToggleFullscreen}
-            disabled={loading}
-            className={cx('memori-artifact-action-btn', 'memori-artifact-fullscreen-btn', {
-              'memori-artifact-fullscreen-btn--active': isFullscreen,
-            })}
-            ghost
-            icon={
-              isFullscreen ? (
-                <Fullscreen className="memori-artifact-action-icon-fullscreen" />
-              ) : (
-                <FullscreenExit className="memori-artifact-action-icon-fullscreen" />
-              )
-            }
-            title={
-              isFullscreen
-                ? t('artifact.exitFullscreen') || 'Exit Fullscreen'
-                : t('artifact.fullscreen') || 'Fullscreen'
-            }
+          <Transition
+            as={React.Fragment}
+            enter="memori-copy-dropdown-enter"
+            enterFrom="memori-copy-dropdown-enter-from"
+            enterTo="memori-copy-dropdown-enter-to"
+            leave="memori-copy-dropdown-leave"
+            leaveFrom="memori-copy-dropdown-leave-from"
+            leaveTo="memori-copy-dropdown-leave-to"
           >
-            <span className="memori-artifact-action-text">
-              {isFullscreen
-                ? t('artifact.exitFullscreen') || 'Exit'
-                : t('artifact.fullscreen') || 'Fullscreen'}
-            </span>
-          </Button>
-        )}
+            <Menu.Items className="memori-copy-dropdown" style={{minWidth: '200px'}}>
+              <div className="memori-copy-dropdown-list">
+                <Button
+                  onClick={handlePrint}
+                  disabled={loading}
+                  className="memori-artifact-action-btn"
+                  ghost
+                  icon={<PrintIcon className="memori-artifact-action-icon" />}
+                  title={t('artifact.print') || 'Print'}
+                >
+                  <span className="memori-artifact-action-text">
+                    {t('artifact.print') || 'Print'}
+                  </span>
+                </Button>
+
+                <Button
+                  onClick={handleOpenExternal}
+                  disabled={loading}
+                  className="memori-artifact-action-btn"
+                  ghost
+                  icon={<Link className="memori-artifact-action-icon" />}
+                  title={t('artifact.external') || 'External'}
+                >
+                  <span className="memori-artifact-action-text">
+                    {t('artifact.external') || 'External'}
+                  </span>
+                </Button>
+
+              </div>
+            </Menu.Items>
+          </Transition>
+        </Menu>
       </div>
     </div>
   );
