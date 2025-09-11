@@ -1,5 +1,20 @@
 
 
+## [8.4.0](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.9...v8.4.0) (2025-09-11)
+
+
+### Maintenance
+
+* fallback for translations ([997ad7a](https://github.com/memori-ai/memori-react/commit/997ad7ad0b39e7f55bf030ad8db1010661f4afb8))
+
+
+### Changes
+
+* enhance artifact copy functionality ([b78acb3](https://github.com/memori-ai/memori-react/commit/b78acb3a664e5be7c5ebb76995599096beedec3f))
+* improve incident status checking logic in CompletionProviderStatus ([730c68f](https://github.com/memori-ai/memori-react/commit/730c68f58b33eff1536ffcdc3f5f3bd3714faf26))
+* update ArtifactDrawer and ArtifactPreview for improved layout and functionality ([e20a1a1](https://github.com/memori-ai/memori-react/commit/e20a1a1e88c2dddc7e61fc61bef8da57b9cbbcad))
+* update MediaItemWidget styles for improved layout and responsiveness ([9f3520d](https://github.com/memori-ai/memori-react/commit/9f3520dd13dd8b3d0f49a7b015a9f4407e3ce884))
+
 ## [8.4.0-rc.9](https://github.com/memori-ai/memori-react/compare/v8.4.0-rc.8...v8.4.0-rc.9) (2025-09-10)
 
 
