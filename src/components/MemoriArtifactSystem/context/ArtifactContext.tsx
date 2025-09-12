@@ -18,11 +18,7 @@ export const ArtifactProvider = ({ children }: { children: ReactNode }) => {
   });
 
   const openArtifact = useCallback((artifact: ArtifactData) => {
-    setState(prev => {
-      // Only update if the artifact is different
-      if (prev.currentArtifact?.id === artifact.id && prev.isDrawerOpen) {
-        return prev;
-      }
+    setState(() => {
       return {
         currentArtifact: artifact,
         isDrawerOpen: true,

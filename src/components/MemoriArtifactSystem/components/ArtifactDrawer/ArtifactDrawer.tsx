@@ -192,6 +192,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
             closable={false}
             animated={true}
             showBackdrop={false}
+            preventBackdropClose={true}
             confirmDialogTitle={
               t('artifact.confirmDialogTitle') ||
               'Are you sure you want to close this artifact?'

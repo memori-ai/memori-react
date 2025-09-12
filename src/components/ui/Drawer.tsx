@@ -39,6 +39,7 @@ export interface Props {
   confirmDialogTitle?: string;
   confirmDialogMessage?: string;
   showBackdrop?: boolean;
+  preventBackdropClose?: boolean;
 }
 
 const Drawer: FC<Props> = ({
@@ -61,6 +62,7 @@ const Drawer: FC<Props> = ({
   widthLg = '60%',
   confirmDialogTitle,
   confirmDialogMessage,
+  preventBackdropClose = false,
 }: Props) => {
   const [originalData, setOriginalData] = useState<any>(null);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
@@ -118,7 +120,7 @@ const Drawer: FC<Props> = ({
       <Transition appear show={open} as={React.Fragment}>
         <Dialog
           open={open}
-          onClose={handleClose}
+          onClose={preventBackdropClose ? () => {} : handleClose}
           className={cx('memori-drawer', className)}
         >
           {showBackdrop && (

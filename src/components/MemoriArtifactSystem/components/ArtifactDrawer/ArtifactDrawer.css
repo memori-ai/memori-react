@@ -20,6 +20,8 @@
 /* Override drawer width for ArtifactDrawer */
 .memori-artifact-panel-drawer {
     --memori-drawer--width-lg: 46%;
+    /* Ensure drawer doesn't block left side chat interaction */
+    pointer-events: none;
 }
 
 /* Main Drawer Container (Mobile Only) */
@@ -31,6 +33,7 @@
 
 .memori-artifact-panel-drawer > div > div > div {
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    pointer-events: auto;
 }
 /* Web Split Panel Container */
 .memori-artifact-panel {
