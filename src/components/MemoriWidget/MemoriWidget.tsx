@@ -3379,7 +3379,6 @@ const MemoriWidget = ({
           tenant={tenant}
           apiClient={client}
           open={!!showLoginDrawer}
-          baseURL={baseUrl}
           user={user}
           loginToken={loginToken}
           onClose={() => setShowLoginDrawer(false)}
