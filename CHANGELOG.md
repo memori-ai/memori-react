@@ -1,5 +1,13 @@
 
 
+## [8.4.2](https://github.com/memori-ai/memori-react/compare/v8.4.1...v8.4.2) (2025-09-12)
+
+
+### Changes
+
+* adjust chat layout styles for improved responsiveness and height calculations ([1e71c3b](https://github.com/memori-ai/memori-react/commit/1e71c3bc0e8aab5e448d28c9f9e1887c3a25769b))
+* remove OTP-related functionality from LoginDrawer ([880f51d](https://github.com/memori-ai/memori-react/commit/880f51d1f989821c263738709625dd58daf719c3))
+
 ## [8.4.1](https://github.com/memori-ai/memori-react/compare/v8.4.0...v8.4.1) (2025-09-11)
 
 
