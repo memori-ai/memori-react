@@ -12,9 +12,6 @@
     flex-direction: column;
 }
 
-.memori-chat-layout--main, .memori-chat-layout--controls{
-    min-height: calc(100% - 25px);
-}
 
 .memori-chat-layout--header {
     text-align: right;
@@ -62,6 +59,8 @@
     z-index: 5;
     overflow: hidden;
     min-width: 0;
+    height: calc(100% - 50px);
+    max-height: calc(100% - 50px);
     flex: 1;
     transition: all 0.05s ease-in-out;
 }
@@ -134,6 +133,10 @@
     bottom: auto;
 }
 
+.memori-chat-layout--controls .memori-chat--wrapper {
+    height: calc(100% - 1rem);
+}
+
 @media (max-width: 870px) {
     .memori-chat-layout .memori--powered-by {
         top: 3.5rem;
@@ -149,9 +152,7 @@
 }
 
 
-.memori-chat-layout--controls .memori-chat--wrapper {
-    height: calc(75vh - 1rem);
-}
+
 
 .memori-chat-layout .memori-chat--content {
     padding: 0;
