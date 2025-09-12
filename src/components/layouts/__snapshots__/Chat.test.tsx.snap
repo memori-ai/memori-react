@@ -61,7 +61,7 @@ exports[`renders Chat layout unchanged 1`] = `
         </p>
       </div>
       <div
-        class="memori-chat-layout--header"
+        class="memori-chat-layout--header "
       >
         <div
           class="memori-header"
