@@ -154,7 +154,7 @@
 .memori-artifact-panel--close-icon {
     width: 18px;
     height: 18px;
-    fill: #000 !important;
+    color: #000 !important;
 }
 
 /* Web Split Panel Content */
@@ -346,19 +346,263 @@
     margin-right: 0.5rem;
 }
 
-.memori-artifact-drawer--close {
-    position: absolute;
-    z-index: 10;
-    top: 1.5rem;
-    right: 1.5rem;
-    margin-left: 0.5rem;
-}
 
 .memori-artifact-drawer-fullscreen {
     display: flex;
     margin-left: 0.5rem;
 }
 
+/* New Header Actions Layout */
+.memori-artifact-drawer-header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--artifact-drawer-border);
+    background: var(--artifact-drawer-bg);
+    gap: 1rem;
+}
+
+/* View Mode Toggle */
+.memori-artifact-view-toggle {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    border: 1px solid var(--artifact-drawer-border);
+    border-radius: 8px;
+    background: var(--artifact-drawer-bg);
+}
+
+.memori-artifact-toggle-button {
+    display: flex;
+    min-width: 40px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: var(--artifact-drawer-text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.memori-artifact-toggle-button:hover {
+    background: rgba(0, 123, 255, 0.1);
+    color: var(--artifact-drawer-accent);
+}
+
+.memori-artifact-toggle-button--active {
+    border: 1px solid var(--artifact-drawer-border);
+    background: var(--artifact-drawer-bg);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    color: var(--artifact-drawer-text);
+}
+
+.memori-artifact-toggle-icon {
+    width: 16px;
+    height: 16px;
+    fill: currentColor;
+}
+
+/* Refresh Button */
+.memori-artifact-refresh-button {
+    display: flex;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--artifact-drawer-border);
+    border-radius: 6px;
+    background: var(--artifact-drawer-bg);
+    color: var(--artifact-drawer-text-muted);
+    transition: all 0.2s ease;
+}
+
+.memori-artifact-refresh-button:hover {
+    border-color: var(--artifact-drawer-accent);
+    background: rgba(0, 123, 255, 0.05);
+    color: var(--artifact-drawer-accent);
+}
+
+/* Copy Group */
+.memori-artifact-copy-group {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    border: 1px solid var(--artifact-drawer-border);
+    border-radius: 6px;
+    background: var(--artifact-drawer-bg);
+}
+
+.memori-artifact-copy-button {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    border: none;
+    border-right: 1px solid var(--artifact-drawer-border);
+    background: transparent;
+    color: var(--artifact-drawer-text);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.memori-artifact-copy-button:hover {
+    background: rgba(0, 123, 255, 0.05);
+    color: var(--artifact-drawer-accent);
+}
+
+.memori-artifact-copy-button--success {
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+.memori-artifact-copy-button--error {
+    background: #fef2f2;
+    color: #dc2626;
+}
+
+.memori-artifact-copy-button--loading {
+    cursor: wait;
+}
+
+.memori-artifact-copy-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.memori-artifact-copy-dropdown-wrapper {
+    position: relative;
+}
+
+.memori-artifact-copy-dropdown-trigger {
+    display: flex;
+}
+
+.memori-artifact-copy-dropdown-button {
+    display: flex;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 12px;
+    border: none;
+    background: transparent;
+    color: var(--artifact-drawer-text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.memori-artifact-copy-dropdown-button:hover {
+    background: rgba(0, 123, 255, 0.05);
+    color: var(--artifact-drawer-accent);
+}
+
+.memori-artifact-copy-chevron {
+    width: 12px;
+    height: 12px;
+    fill: currentColor;
+}
+
+.memori-artifact-copy-dropdown {
+    position: absolute;
+    z-index: 1000;
+    top: 100%;
+    right: 0;
+    min-width: 200px;
+    border: 1px solid var(--artifact-drawer-border);
+    border-radius: 6px;
+    margin-top: 4px;
+    background: var(--artifact-drawer-bg);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+.memori-artifact-copy-dropdown-list {
+    padding: 4px 0;
+}
+
+.memori-artifact-copy-dropdown-item {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    color: var(--artifact-drawer-text);
+    cursor: pointer;
+    font-size: 14px;
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.memori-artifact-copy-dropdown-item:hover,
+.memori-artifact-copy-dropdown-item--active {
+    background: rgba(0, 123, 255, 0.05);
+    color: var(--artifact-drawer-accent);
+}
+
+.memori-artifact-copy-dropdown-text {
+    margin-left: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Share Button */
+.memori-artifact-share-button {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    border: 1px solid var(--artifact-drawer-border);
+    border-radius: 6px;
+    background: var(--artifact-drawer-bg);
+    color: var(--artifact-drawer-text);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.memori-artifact-share-button:hover {
+    border-color: var(--artifact-drawer-accent);
+    background: var(--artifact-drawer-accent);
+    color: white;
+}
+
+.memori-artifact-share-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Close Button */
+.memori-artifact-close-button {
+    display: flex;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--artifact-drawer-border);
+    border-radius: 6px;
+    background: var(--artifact-drawer-bg);
+    color: var(--artifact-drawer-text-muted);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.memori-artifact-close-button:hover {
+    border-color: #ef4444;
+    background: #fef2f2;
+    color: #ef4444;
+}
+
+/* Mobile Actions */
+.memori-artifact-mobile-actions {
+    display: none;
+}
+
+/* Legacy container for backward compatibility */
 .memori-artifact-drawer-container-actions{
     display: flex;
     flex-flow: row;
@@ -409,6 +653,18 @@
     content: '';
 }
 
+.memori-button--more-options{
+    padding: 8px 16px;
+    border: 1px solid #e1e5e9;
+  border-radius: 6px;
+    border-top-color: rgb(225, 229, 233);
+    border-right-color: rgb(225, 229, 233);
+    border-bottom-color: rgb(225, 229, 233);
+    border-left-color: rgb(225, 229, 233);
+    border-bottom-right-radius: 6px;
+    border-top-right-radius: 6px;
+}
+
 .memori-artifact-drawer--sidebar {
     width: 300px;
     flex-shrink: 0;
@@ -439,6 +695,14 @@
     font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
 }
 
+.memori-artifact-drawer--close {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    /* background: var(--artifact-drawer-bg); */
+    margin-left: auto;
+}
 
 @media (max-width: 1024px) {
     .memori-artifact-panel-drawer > div > div > div {
@@ -459,6 +723,19 @@
     /* Hide web panel on mobile */
     .memori-artifact-panel {
         display: none !important;
+    }
+
+    /* Mobile header actions */
+    .memori-artifact-drawer-header-actions {
+        display: none;
+    }
+
+    .memori-artifact-mobile-actions {
+        position: absolute;
+        z-index: 1001;
+        top: 1rem;
+        right: 1rem;
+        display: block;
     }
 
     /* Mobile drawer styles */
@@ -516,13 +793,6 @@
         background: rgba(255, 255, 255, 0.5) !important;
         opacity: 1;
         transform: none;
-    }
-
-    .memori-artifact-drawer--close {
-        position: absolute !important;
-        top: 1.5rem !important;
-        right: 1.5rem !important;
-        margin: 0 !important;
     }
 
     .memori-artifact-drawer--content {
@@ -619,6 +889,146 @@
 
 .memori-artifact-drawer--mobile .memori-artifact-drawer--backdrop {
     background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Top Right Header Section */
+.memori-artifact-drawer-top-right {
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Mobile Actions Dropdown */
+.memori-mobile-actions-menu {
+    position: relative;
+    display: inline-block;
+    margin-left: auto;
+}
+
+.memori-mobile-actions-trigger {
+    display: inline-block;
+}
+
+.memori-mobile-dropdown {
+    position: absolute;
+    z-index: 1000;
+    top: 100%;
+    right: 0;
+    min-width: 200px;
+    border: 1px solid var(--artifact-drawer-border);
+    border-radius: var(--artifact-drawer-radius);
+    margin-top: 0.5rem;
+    backdrop-filter: blur(10px);
+    background: var(--artifact-drawer-bg);
+    box-shadow: var(--artifact-drawer-shadow);
+}
+
+/* Mobile-specific dropdown positioning */
+@media (max-width: 768px) {
+
+    .memori-artifact-drawer--close{
+        margin-left: 0;
+    }
+
+    .memori-artifact-panel--header{
+        margin-bottom: 0.5rem;
+    }
+    
+    .memori-mobile-dropdown {
+        right: 0;
+        left: auto;
+        min-width: 180px;
+        max-width: calc(100vw - 2rem);
+    }
+    
+    .memori-mobile-dropdown-list {
+        padding: 0.25rem;
+        gap: 0.125rem;
+    }
+    
+    .memori-mobile-dropdown .memori-artifact-action-btn {
+        min-height: 44px; /* Ensure touch-friendly size */
+        padding: 0.625rem 0.75rem;
+        font-size: 0.875rem;
+    }
+    
+    .memori-mobile-dropdown .memori-artifact-action-text {
+        color: var(--artifact-drawer-text);
+        font-size: 0.8125rem;
+        font-weight: 600;
+    }
+    
+    .memori-mobile-dropdown .memori-artifact-action-icon {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+    }
+}
+
+.memori-mobile-dropdown-list {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    gap: 0.25rem;
+}
+
+.memori-mobile-dropdown .memori-artifact-action-btn {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0.75rem 1rem;
+    border: 1px solid transparent;
+    border-radius: var(--artifact-drawer-radius);
+    background: transparent;
+    color: var(--artifact-drawer-text);
+    text-align: left;
+    transition: all 0.2s ease;
+}
+
+.memori-mobile-dropdown .memori-artifact-action-btn:hover {
+    border-color: var(--memori-primary);
+    background: var(--memori-button-hover-bg, rgba(0, 123, 255, 0.1));
+    color: var(--memori-primary);
+}
+
+.memori-mobile-dropdown .memori-artifact-action-text {
+    overflow: visible;
+    margin-left: 0.5rem;
+    color: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Mobile Dropdown Animations */
+.memori-mobile-dropdown-enter {
+    transition: all 0.2s ease-out;
+}
+
+.memori-mobile-dropdown-enter-from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+}
+
+.memori-mobile-dropdown-enter-to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.memori-mobile-dropdown-leave {
+    transition: all 0.15s ease-in;
+}
+
+.memori-mobile-dropdown-leave-from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+.memori-mobile-dropdown-leave-to {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
 }
 
 /* Focus and Accessibility */

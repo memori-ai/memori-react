@@ -16,19 +16,9 @@ import { Medium } from '@memori.ai/memori-api-client/dist/types';
 
 const ArtifactPreview: React.FC<{
   artifact: ArtifactData;
-}> = ({ artifact }) => {
+  activeTab: ArtifactTab;
+}> = ({ artifact, activeTab }) => {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState<ArtifactTab>('preview');
-
-  /**
-   * Handle tab switching
-   */
-  const handleTabChange = useCallback(
-    (tab: ArtifactTab) => {
-      setActiveTab(tab);
-    },
-    [activeTab]
-  );
 
   /**
    * Render preview content based on MIME type
@@ -124,35 +114,6 @@ const ArtifactPreview: React.FC<{
 
   return (
     <div className="memori-artifact-preview">
-      {/* Tabs */}
-      <div className="memori-artifact-tabs">
-        <Button
-          onClick={() => handleTabChange('code' as ArtifactTab)}
-          className={cx('memori-artifact-tab', {
-            'memori-artifact-tab--active': activeTab === 'code',
-          })}
-          ghost
-        >
-          <Code className="memori-artifact-tab-icon" />
-          <span className="memori-artifact-tab-text">
-            {t('artifact.code') || 'Code'}
-          </span>
-        </Button>
-        {hasPreview && (
-          <Button
-            onClick={() => handleTabChange('preview' as ArtifactTab)}
-            className={cx('memori-artifact-tab', {
-              'memori-artifact-tab--active': activeTab === 'preview',
-            })}
-            ghost
-          >
-            <PreviewIcon className="memori-artifact-tab-icon" />
-            <span className="memori-artifact-tab-text">
-              {t('artifact.preview') || 'Preview'}
-            </span>
-          </Button>
-        )}
-      </div>
 
       {/* Content */}
       <div className="memori-artifact-content">

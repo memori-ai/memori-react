@@ -10,7 +10,7 @@ export interface CopyFormat {
   description?: string;
   icon?: React.ReactNode | undefined;
   mimeType: string;
-  action: 'copy' | 'pdf' | 'print' | 'download';
+  action: 'copy' | 'pdf' | 'print' | 'download' | 'link';
   isAsync?: boolean;
 }
 
@@ -32,6 +32,7 @@ export interface CopyButtonWithDropdownProps {
   onCopy?: () => void;
   onDownload?: () => void;
   onPrint?: () => void;
+  onOpenExternal?: () => void;
   loading?: boolean;
   className?: string;
   disabled?: boolean;

@@ -29,7 +29,9 @@ const ChatLayout: React.FC<LayoutProps> = ({
       <Spin spinning={loading} className="memori-chat-layout">
         {poweredBy}
 
-        <div className="memori-chat-layout--header">
+        <div className={`memori-chat-layout--header ${
+          state.isDrawerOpen ? 'memori-chat-layout--header-with-artifact' : ''
+        }`}>
           {Header && headerProps && <Header {...headerProps} />}
         </div>
 

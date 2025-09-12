@@ -101,7 +101,7 @@
 /* Preview Content */
 .memori-artifact-preview-content {
   position: relative;
-  overflow: auto;
+  overflow: hidden;
   flex: 1;
   /* border: 1px solid var(--memori-button-border-color, #e9ecef); */
   border-radius: var(--memori-border-radius, 6px);

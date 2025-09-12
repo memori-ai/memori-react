@@ -28,7 +28,13 @@ const FullPageLayout: React.FC<LayoutProps> = ({
       {integrationBackground}
 
       <Spin spinning={loading}>
-        {Header && headerProps && <Header {...headerProps} />}
+        <div
+          className={`memori-chat-layout--header ${
+            state.isDrawerOpen ? 'memori-chat-layout--header-with-artifact' : ''
+          }`}
+        >
+          {Header && headerProps && <Header {...headerProps} />}
+        </div>
 
         <div className="memori--grid">
           {!state.isDrawerOpen && (
@@ -62,7 +68,6 @@ const FullPageLayout: React.FC<LayoutProps> = ({
                 <StartPanel {...startPanelProps} />
               ) : null}
             </div>
-
           </div>
 
           {poweredBy}

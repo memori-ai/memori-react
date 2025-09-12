@@ -16,7 +16,7 @@ import FullscreenExit from '../../../icons/FullscreenExit';
 import PrintIcon from '../../../icons/Print';
 import { CopyButtonWithDropdown } from './';
 import { Menu, Transition } from '@headlessui/react';
-import MenuHorizontal from '../../../icons/MenuHorizontal';
+import MenuVertical from '../../../icons/MenuVertical';
 
 const ArtifactActions: React.FC<{
   artifact: ArtifactData;
@@ -25,6 +25,7 @@ const ArtifactActions: React.FC<{
   onPrint: () => void;
   onOpenExternal: () => void;
   loading: boolean;
+  isMobile?: boolean;
 }> = ({
   artifact,
   onCopy,
@@ -32,6 +33,7 @@ const ArtifactActions: React.FC<{
   onPrint,
   onOpenExternal,
   loading = false,
+  isMobile = false,
 }) => {
   const { t } = useTranslation();
 
@@ -183,19 +185,19 @@ const ArtifactActions: React.FC<{
           loading={loading}
           className="memori-artifact-action-btn"
         />
-        <Menu as="div" className="memori-copy-menu-wrapper">
+       {isMobile && <Menu as="div" className="memori-copy-menu-wrapper">
           <Menu.Button as="div" className="memori-copy-button-trigger">
             <Button
               disabled={loading}
               className={cx(
                 'memori-button',
-                'memori-button--circle',
+                'memori-button--more-options',
                 'memori-button--icon-only'
               )}
               ghost
               title="More copy options"
             >
-              <MenuHorizontal className="memori-artifact-action-icon" />
+              <MenuVertical className="memori-artifact-action-icon" />
             </Button>
           </Menu.Button>
 
@@ -239,7 +241,7 @@ const ArtifactActions: React.FC<{
               </div>
             </Menu.Items>
           </Transition>
-        </Menu>
+        </Menu>}
       </div>
     </div>
   );

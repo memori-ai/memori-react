@@ -4,6 +4,7 @@
  */
 
 import { useState, useCallback, useMemo } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   CopyFormat,
   UseCopyArtifactReturn,
@@ -18,6 +19,7 @@ export const useCopyArtifact = (
   onDownload?: () => void,
   onPrint?: () => void
 ): UseCopyArtifactReturn => {
+  const { t } = useTranslation();
   const [copyState, setCopyState] = useState<CopyState>({
     isOpen: false,
     loading: false,
@@ -37,15 +39,15 @@ export const useCopyArtifact = (
         baseFormats.push(
           {
             id: 'markdown',
-            label: 'Download as Markdown',
-            description: 'Download raw markdown text',
+            label: t('artifact.downloadAsMarkdown') || 'Download as Markdown',
+            description: t('artifact.downloadRawMarkdownText') || 'Download raw markdown text',
             mimeType: 'text/markdown',
             action: 'download',
           },
           {
             id: 'pdf',
-            label: 'Download as PDF',
-            description: 'Export as PDF document',
+            label: t('artifact.downloadAsPdf') || 'Download as PDF',
+            description: t('artifact.exportAsPdfDocument') || 'Export as PDF document',
             mimeType: 'application/pdf',
             action: 'pdf',
             isAsync: true,
@@ -56,8 +58,8 @@ export const useCopyArtifact = (
       case 'html':
         baseFormats.push({
           id: 'html',
-          label: 'Download as HTML',
-          description: 'Download formatted HTML',
+          label: t('artifact.downloadAsHtml') || 'Download as HTML',
+          description: t('artifact.downloadFormattedHtml') || 'Download formatted HTML',
           mimeType: 'text/html',
           action: 'download',
         });
@@ -66,8 +68,8 @@ export const useCopyArtifact = (
       case 'json':
         baseFormats.push({
           id: 'json',
-          label: 'Download as JSON',
-          description: 'Download JSON data',
+          label: t('artifact.downloadAsJson') || 'Download as JSON',
+          description: t('artifact.downloadJsonData') || 'Download JSON data',
           mimeType: 'application/json',
           action: 'download',
         });
@@ -76,8 +78,8 @@ export const useCopyArtifact = (
       case 'image/png':
         baseFormats.push({
           id: 'png',
-          label: 'Download as PNG',
-          description: 'Download PNG image',
+          label: t('artifact.downloadAsPng') || 'Download as PNG',
+          description: t('artifact.downloadPngImage') || 'Download PNG image',
           mimeType: 'image/png',
           action: 'download',
         });
@@ -86,8 +88,8 @@ export const useCopyArtifact = (
       case 'image/jpeg':
         baseFormats.push({
           id: 'jpeg',
-          label: 'Download as JPEG',
-          description: 'Download JPEG image',
+          label: t('artifact.downloadAsJpeg') || 'Download as JPEG',
+          description: t('artifact.downloadJpegImage') || 'Download JPEG image',
           mimeType: 'image/jpeg',
           action: 'download',
         });
@@ -96,8 +98,8 @@ export const useCopyArtifact = (
       case 'image/gif':
         baseFormats.push({
           id: 'gif',
-          label: 'Download as GIF',
-          description: 'Download GIF image',
+          label: t('artifact.downloadAsGif') || 'Download as GIF',
+          description: t('artifact.downloadGifImage') || 'Download GIF image',
           mimeType: 'image/gif',
           action: 'download',
         });
@@ -106,8 +108,8 @@ export const useCopyArtifact = (
       case 'image/webp':
         baseFormats.push({
           id: 'webp',
-          label: 'Download as WebP',
-          description: 'Download WebP image',
+          label: t('artifact.downloadAsWebp') || 'Download as WebP',
+          description: t('artifact.downloadWebpImage') || 'Download WebP image',
           mimeType: 'image/webp',
           action: 'download',
         });
@@ -117,15 +119,15 @@ export const useCopyArtifact = (
         baseFormats.push(
           {
             id: 'svg',
-            label: 'Copy as SVG',
-            description: 'Copy SVG source code',
+            label: t('artifact.copyAsSvg') || 'Copy as SVG',
+            description: t('artifact.copySvgSourceCode') || 'Copy SVG source code',
             mimeType: 'image/svg+xml',
             action: 'copy',
           },
           {
             id: 'plain',
-            label: 'Copy as Plain Text',
-            description: 'Copy as text',
+            label: t('artifact.copyAsPlainText') || 'Copy as Plain Text',
+            description: t('artifact.copyAsText') || 'Copy as text',
             mimeType: 'text/plain',
             action: 'copy',
           }
@@ -139,17 +141,15 @@ export const useCopyArtifact = (
           baseFormats.push(
             {
               id: 'code',
-              label: `Copy as ${
-                language.charAt(0).toUpperCase() + language.slice(1)
-              }`,
-              description: `Copy ${language} code`,
+              label: t('artifact.copyAsLanguage', { language: language.charAt(0).toUpperCase() + language.slice(1) }) || `Copy as ${language.charAt(0).toUpperCase() + language.slice(1)}`,
+              description: t('artifact.copyLanguageCode', { language }) || `Copy ${language} code`,
               mimeType: artifact.mimeType,
               action: 'copy',
             },
             {
               id: 'plain',
-              label: 'Copy as Plain Text',
-              description: 'Copy without syntax highlighting',
+              label: t('artifact.copyAsPlainText') || 'Copy as Plain Text',
+              description: t('artifact.copyWithoutSyntaxHighlighting') || 'Copy without syntax highlighting',
               mimeType: 'text/plain',
               action: 'copy',
             }
@@ -158,8 +158,8 @@ export const useCopyArtifact = (
           // Generic text content
           baseFormats.push({
             id: 'text',
-            label: 'Copy as Text',
-            description: 'Copy text content',
+            label: t('artifact.copyAsText') || 'Copy as Text',
+            description: t('artifact.copyTextContent') || 'Copy text content',
             mimeType: 'text/plain',
             action: 'copy',
           });
@@ -168,7 +168,7 @@ export const useCopyArtifact = (
     }
 
     return baseFormats;
-  }, [artifact.mimeType]);
+  }, [artifact.mimeType, t]);
 
   /**
    * Convert content based on format
@@ -253,25 +253,30 @@ export const useCopyArtifact = (
       try {
         if (format.action === 'pdf') {
           // Handle PDF generation
+          // First check if PDF export is supported in this browser
+          // If not, throw a translated error message
           if (!pdfExporter.isSupported()) {
-            throw new Error('PDF export is not supported in this browser');
+            throw new Error(t('artifact.pdfExportNotSupported') || 'PDF export is not supported in this browser');
           }
 
+          // Configure PDF export options with sensible defaults
           const pdfOptions: PDFExportOptions = {
-            title: artifact.title || 'Artifact',
-            fontSize: '12pt',
-            fontFamily: 'system-ui, -apple-system, sans-serif',
-            lineHeight: '1.6',
-            color: '#333',
-            backgroundColor: '#fff',
+            title: artifact.title || 'Artifact', // Use artifact title or fallback
+            fontSize: '12pt', // Standard readable font size
+            fontFamily: 'system-ui, -apple-system, sans-serif', // System fonts
+            lineHeight: '1.6', // Comfortable line height for reading
+            color: '#333', // Dark gray text for good contrast
+            backgroundColor: '#fff', // White background
           };
 
+          // Export the artifact content to PDF using the configured options
           await pdfExporter.exportAsPDF(
             artifact.content,
             artifact.title || 'Artifact',
             pdfOptions
           );
 
+          // Call the optional onPrint callback if provided
           onPrint?.();
         } else if (format.action === 'print') {
           // Handle print operation
@@ -279,7 +284,7 @@ export const useCopyArtifact = (
           const printWindow = window.open('', '_blank');
 
           if (!printWindow) {
-            throw new Error('Popup blocked! Please enable popups to print.');
+            throw new Error(t('artifact.popupBlocked') || 'Popup blocked! Please enable popups to print.');
           }
 
           const htmlContent = `
@@ -327,7 +332,7 @@ export const useCopyArtifact = (
           a.click();
           URL.revokeObjectURL(url);
           onDownload?.();
-        } else {
+        } else if (format.action === 'copy') {
           // Handle regular copy operation
           const contentToCopy = convertContent(format);
           await copyToClipboard(contentToCopy);
@@ -337,17 +342,19 @@ export const useCopyArtifact = (
         setCopyState(prev => ({
           ...prev,
           loading: false,
-          success: true,
+          success: format.action === 'copy',
           error: null,
         }));
 
-        // Reset success state after delay
-        setTimeout(() => {
-          setCopyState(prev => ({
-            ...prev,
-            success: false,
-          }));
-        }, 2000);
+        // Reset success state after delay (only for copy actions)
+        if (format.action === 'copy') {
+          setTimeout(() => {
+            setCopyState(prev => ({
+              ...prev,
+              success: false,
+            }));
+          }, 2000);
+        }
       } catch (error) {
         console.error('Copy operation failed:', error);
         setCopyState(prev => ({
@@ -367,7 +374,7 @@ export const useCopyArtifact = (
         }, 3000);
       }
     },
-    [artifact, convertContent, copyToClipboard, onCopy, onPrint]
+    [artifact, convertContent, copyToClipboard, onCopy, onPrint, t]
   );
 
   /**

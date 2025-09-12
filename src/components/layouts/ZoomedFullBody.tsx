@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
-import 
-  ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
+import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
 
 const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
@@ -30,7 +29,13 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
       {integrationBackground}
 
       <Spin className="memori-spin--zoomed-full-body" spinning={loading}>
-        {Header && headerProps && <Header {...headerProps} />}
+        <div
+          className={`memori-chat-layout--header ${
+            state.isDrawerOpen ? 'memori-chat-layout--header-with-artifact' : ''
+          }`}
+        >
+          {Header && headerProps && <Header {...headerProps} />}
+        </div>
 
         <div className="memori--grid">
           {!state.isDrawerOpen && (

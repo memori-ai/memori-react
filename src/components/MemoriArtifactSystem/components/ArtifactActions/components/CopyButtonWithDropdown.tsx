@@ -14,12 +14,16 @@ import Copy from '../../../../icons/Copy';
 import ChevronDown from '../../../../icons/ChevronDown';
 import ThumbUp from '../../../../icons/ThumbUp';
 import Alert from '../../../../icons/Alert';
+import { useTranslation } from 'react-i18next';
+import Link from '../../../../icons/Link';
+import PrintIcon from '../../../../icons/Print';
 
 const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
   artifact,
   onCopy,
   onDownload,
   onPrint,
+  onOpenExternal,
   loading = false,
   className,
   disabled = false,
@@ -30,6 +34,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
     onDownload,
     onPrint
   );
+  const { t } = useTranslation();
 
   /**
    * Handle format selection from dropdown
@@ -39,6 +44,34 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
   };
 
   /**
+   * Get MIME type string for downloads
+   */
+  const getMimeTypeString = useCallback((mimeType: string): string => {
+    const mimeTypes: Record<string, string> = {
+      html: 'text/html',
+      json: 'application/json',
+      markdown: 'text/markdown',
+      css: 'text/css',
+      javascript: 'text/javascript',
+      typescript: 'text/typescript',
+      svg: 'image/svg+xml',
+      xml: 'text/xml',
+      text: 'text/plain',
+      python: 'text/x-python',
+      java: 'text/x-java',
+      cpp: 'text/x-c++',
+      csharp: 'text/x-csharp',
+      php: 'text/x-php',
+      ruby: 'text/x-ruby',
+      go: 'text/x-go',
+      rust: 'text/x-rust',
+      yaml: 'text/yaml',
+      sql: 'text/x-sql',
+    };
+    return mimeTypes[mimeType] || 'text/plain';
+  }, []);
+
+  /**
    * Get button content based on state
    */
   const getButtonContent = () => {
@@ -46,7 +79,9 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
       return (
         <>
           <ThumbUp className="memori-copy-button-icon memori-copy-button-icon--success" />
-          <span className="memori-copy-button-text">Copied!</span>
+          <span className="memori-copy-button-text">
+            {t('artifact.copied') || 'Copied!'}
+          </span>
         </>
       );
     }
@@ -55,7 +90,9 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
       return (
         <>
           <Alert className="memori-copy-button-icon memori-copy-button-icon--error" />
-          <span className="memori-copy-button-text">Error</span>
+          <span className="memori-copy-button-text">
+            {t('artifact.error') || 'Error'}
+          </span>
         </>
       );
     }
@@ -68,8 +105,8 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
           </div>
           <span className="memori-copy-button-text">
             {copyState.activeFormat === 'pdf'
-              ? 'Generating PDF...'
-              : 'Copying...'}
+              ? t('artifact.generatingPdf') || 'Generating PDF...'
+              : t('artifact.copying') || 'Copying...'}
           </span>
         </>
       );
@@ -78,10 +115,93 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
     return (
       <>
         <Copy className="memori-copy-button-icon" />
-        <span className="memori-copy-button-text">Copy</span>
+        <span className="memori-copy-button-text">
+          {t('artifact.copy') || 'Copy'}
+        </span>
       </>
     );
   };
+
+  /**
+   * Handle print action
+   */
+  const handlePrint = useCallback(() => {
+    try {
+      const printWindow = window.open('', '_blank');
+      if (!printWindow) {
+        alert('Popup blocked! Please enable popups to print the artifact.');
+        return;
+      }
+
+      let printContent: string;
+      if (artifact.mimeType === 'html') {
+        printContent = artifact.content;
+      } else {
+        printContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <title>Artifact - ${artifact.mimeType.toUpperCase()}</title>
+              <style>
+                body { 
+                  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; 
+                  white-space: pre-wrap; 
+                  margin: 20px; 
+                  line-height: 1.4;
+                }
+                @media print { 
+                  body { margin: 0; } 
+                }
+              </style>
+            </head>
+            <body>${artifact.content
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')}</body>
+            </html>
+          `;
+      }
+
+      printWindow.document.write(printContent);
+      printWindow.document.close();
+
+      setTimeout(() => {
+        printWindow.print();
+        printWindow.close();
+      }, 500);
+
+      onPrint?.();
+    } catch (error) {
+      console.error('Print failed:', error);
+    }
+  }, [artifact, onPrint]);
+
+  /**
+   * Handle external open action
+   */
+  const handleOpenExternal = useCallback(() => {
+    try {
+      const mimeType = getMimeTypeString(artifact.mimeType);
+      const blob = new Blob([artifact.content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+
+      const externalWindow = window.open(url, '_blank');
+      if (!externalWindow) {
+        alert(
+          'Popup blocked! Please enable popups to open the artifact in a new window.'
+        );
+        return;
+      }
+
+      // Cleanup URL after a delay
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 60000);
+
+      onOpenExternal?.();
+    } catch (error) {
+      console.error('External open failed:', error);
+    }
+  }, [artifact, getMimeTypeString, onOpenExternal]);
 
   /**
    * Get button title/tooltip
@@ -157,12 +277,6 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
                 >
                   <Menu.Items className="memori-copy-dropdown">
                     <div className="memori-copy-dropdown-content">
-                      <div className="memori-copy-dropdown-header">
-                        <span className="memori-copy-dropdown-title">
-                          Copy as
-                        </span>
-                      </div>
-
                       <div className="memori-copy-dropdown-list">
                         {formats.map(format => (
                           <Menu.Item key={format.id}>
@@ -176,6 +290,29 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
                             )}
                           </Menu.Item>
                         ))}
+                        <CopyMenuItem
+                          format={{
+                            id: 'external',
+                            label: t('artifact.external') || 'External',
+                            action: 'link',
+                            mimeType: artifact.mimeType,
+                          }}
+                          onClick={handleOpenExternal}
+                          loading={copyState.loading}
+                          active={false}
+                        />
+                        <CopyMenuItem
+                          format={{
+                            id: 'print',
+                            label: t('artifact.print') || 'Print',
+                            action: 'print',
+                            mimeType: artifact.mimeType,
+                          }}
+                          onClick={handlePrint}
+                          loading={copyState.loading}
+                          active={false}
+                        />
+
                       </div>
                     </div>
                   </Menu.Items>
@@ -185,7 +322,6 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
           </Menu>
         )}
       </div>
-
     </div>
   );
 };
