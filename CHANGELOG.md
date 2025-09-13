@@ -1,5 +1,18 @@
 
 
+## [8.5.0](https://github.com/memori-ai/memori-react/compare/v8.4.2...v8.5.0) (2025-09-13)
+
+
+### Features
+
+* add preventBackdropClose prop to Drawer and adjust ArtifactDrawer styles ([89969f8](https://github.com/memori-ai/memori-react/commit/89969f8ef3679b5289a303dc55f3da99a45ecbd0))
+* enhance ArtifactActions and ArtifactDrawer with mobile support ([541d979](https://github.com/memori-ai/memori-react/commit/541d979f4569c4b5cac8b00481d486dc41a3c72e))
+
+
+### Changes
+
+* update snapshots for layout components ([efa70f4](https://github.com/memori-ai/memori-react/commit/efa70f44d84905b164a344d18ba37a748cad797a))
+
 ## [8.4.2](https://github.com/memori-ai/memori-react/compare/v8.4.1...v8.4.2) (2025-09-12)
 
 
