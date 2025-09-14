@@ -57,6 +57,7 @@
 @import url('./components/MemoriArtifactSystem/components/ArtifactPreview/ArtifactPreview.css');
 @import url('./components/MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler.css');
 @import url('./components/MemoriArtifactSystem/components/ArtifactActions/styles.css');
+@import url('./components/MemoriArtifactSystem/components/ArtifactDrawer/components/TabSwitch.css');
 
 @import url('./components/layouts/hidden-chat.css');
 @import url('./components/layouts/totem.css');

@@ -23,7 +23,6 @@ import Link from '../../../icons/Link';
 import PrintIcon from '../../../icons/Print';
 import { useCopyArtifact } from '../ArtifactActions/hooks/useCopyArtifact';
 import TabSwitch from './components/TabSwitch';
-import './components/TabSwitch.css';
 
 const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
   isChatLogPanel = false,
