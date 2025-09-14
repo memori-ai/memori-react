@@ -1,5 +1,7 @@
 
 
+## [8.5.1](https://github.com/memori-ai/memori-react/compare/v8.5.0...v8.5.1) (2025-09-14)
+
 ## [8.5.0](https://github.com/memori-ai/memori-react/compare/v8.4.2...v8.5.0) (2025-09-13)
 
 
