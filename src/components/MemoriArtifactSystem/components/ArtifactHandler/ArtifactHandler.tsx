@@ -25,7 +25,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
   // Auto-open artifacts when detected in new messages
   useEffect(() => {
     const messageText = message.translatedText || message.text || '';
-    if (!state.isDrawerOpen && messageText.length > 0) {
+    if (messageText.length > 0) {
       const artifacts = detectArtifacts(messageText);
 
       if (artifacts.length > 0) {

@@ -65,6 +65,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
       setIsMobile(window.innerWidth <= 768);
     };
 
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
 
@@ -166,8 +167,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
       if (isChatLogPanel) {
         return (
           <div
-            style={
-              isChatLogPanel ? { minHeight: '75vh', maxHeight: '75vh' } : {}
+            style={{ minHeight: '75vh', maxHeight: '75vh' }
             }
             className="memori-artifact-panel"
           >
@@ -214,39 +214,18 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
   return (
     <ContentContainer>
       {/* Header */}
-      <div className="memori-artifact-drawer-container-actions">
+      <div className={cx("memori-artifact-drawer-container-actions", {
+        "memori-artifact-drawer-container-actions--no-preview": !hasPreview
+      })}>
         {/* Desktop Actions */}
         {!isMobile && (
           <>
-            {/* {!isChatLogPanel && (
-              <Button
-                onClick={handleToggleFullscreen}
-                className={cx(
-                  'memori-artifact-drawer-fullscreen',
-                  'memori-button--circle',
-                  'memori-button--icon-only'
-                )}
-                ghost
-                icon={
-                  state.isFullscreen ? (
-                    <Fullscreen className="memori-artifact-panel--close-icon" />
-                  ) : (
-                    <FullscreenExit className="memori-artifact-panel--close-icon" />
-                  )
-                }
-                title={
-                  state.isFullscreen
-                    ? t('artifact.exitFullscreen') || 'Exit Fullscreen'
-                    : t('artifact.fullscreen') || 'Fullscreen'
-                }
-              />
-            )} */}
             {/* Modern Tab Switch */}
-            <TabSwitch
+            {hasPreview && <TabSwitch
               activeTab={activeTab}
               onTabChange={handleTabChange}
               hasPreview={hasPreview}
-            />
+            /> }
             <ArtifactActions
               artifact={state.currentArtifact}
               onCopy={handleCopy}
@@ -272,15 +251,17 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
       </div>
 
       {/* Top Right Header Section */}
-      <div className="memori-artifact-drawer-top-right">
+      <div className={cx("memori-artifact-drawer-top-right", {
+        "memori-artifact-drawer-top-right--no-preview": !hasPreview
+      })}>
         {/* Mobile Dropdown Menu */}
         {isMobile && (
           <>
-          <TabSwitch
+         {hasPreview && <TabSwitch
               activeTab={activeTab}
               onTabChange={handleTabChange}
               hasPreview={hasPreview}
-            />
+            /> }
           <Menu as="div" className="memori-mobile-actions-menu">
             <Menu.Button as="div" className="memori-mobile-actions-trigger">
               <Button

@@ -723,10 +723,6 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    /* Hide web panel on mobile */
-    .memori-artifact-panel {
-        display: none !important;
-    }
 
     /* Mobile header actions */
     .memori-artifact-drawer-header-actions {
@@ -894,12 +890,17 @@
     background-color: rgba(0, 0, 0, 0.5) !important;
 }
 
+.memori-artifact-drawer-container-actions--no-preview {
+    justify-content: flex-end;
+}
+
 /* Top Right Header Section */
 .memori-artifact-drawer-top-right {
     z-index: 1001;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    padding: 0rem 1rem;
 }
 
 /* Mobile Actions Dropdown */
