@@ -29,10 +29,15 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
       const artifacts = detectArtifacts(messageText);
 
       if (artifacts.length > 0) {
-        setTimeout(() => {
-          openArtifact(artifacts[0]);
+        if(isChatlogPanel){
+          // openArtifact(artifacts[0]);
           setCurrentArtifact(artifacts[0]);
-        }, 100);
+        } else {
+          setTimeout(() => {
+            openArtifact(artifacts[0]);
+            setCurrentArtifact(artifacts[0]);
+          }, 100);
+        }
       }
     }
   }, [message]);
