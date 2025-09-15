@@ -21,9 +21,9 @@ import MenuVertical from '../../../icons/MenuVertical';
 const ArtifactActions: React.FC<{
   artifact: ArtifactData;
   onCopy: () => void;
-  onDownload: () => void;
-  onPrint: () => void;
-  onOpenExternal: () => void;
+  onDownload?: () => void;
+  onPrint?: () => void;
+  onOpenExternal?: () => void;
   loading: boolean;
   isMobile?: boolean;
 }> = ({
@@ -140,7 +140,7 @@ const ArtifactActions: React.FC<{
         printWindow.close();
       }, 500);
 
-      onPrint();
+      onPrint?.();
     } catch (error) {
       console.error('Print failed:', error);
     }
@@ -168,7 +168,7 @@ const ArtifactActions: React.FC<{
         URL.revokeObjectURL(url);
       }, 60000);
 
-      onOpenExternal();
+      onOpenExternal?.();
     } catch (error) {
       console.error('External open failed:', error);
     }

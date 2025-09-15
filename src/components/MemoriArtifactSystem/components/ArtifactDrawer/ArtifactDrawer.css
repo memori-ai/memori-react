@@ -894,6 +894,18 @@
     justify-content: flex-end;
 }
 
+.memori-artifact-drawer--close-desktop {
+    margin-left: 0 !important;
+}
+
+.memori-artifact-drawer-container-actions--chatlog {
+    padding: 0rem 1rem;
+}
+
+.memori-artifact-drawer-top-right--mobile {
+    justify-content: space-between;
+}
+
 /* Top Right Header Section */
 .memori-artifact-drawer-top-right {
     z-index: 1001;
