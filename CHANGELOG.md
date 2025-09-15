@@ -1,5 +1,22 @@
 
 
+## [8.6.0](https://github.com/memori-ai/memori-react/compare/v8.5.2...v8.6.0) (2025-09-15)
+
+
+### Features
+
+* implement markdown rendering and PDF export enhancements for Safari compatibility ([6bf1990](https://github.com/memori-ai/memori-react/commit/6bf19907083fb2b4a593ced9cb215412f052d846))
+
+
+### Bug Fixes
+
+* adjust artifact opening logic based on chat log panel state ([c76f35b](https://github.com/memori-ai/memori-react/commit/c76f35b983fa24cbf59f866c2a63a06c74bc305e))
+
+
+### Changes
+
+* update ArtifactActions and ArtifactDrawer for optional action handlers ([424807c](https://github.com/memori-ai/memori-react/commit/424807c07c9ef5a863ff73922036dc216b2beba6))
+
 ## [8.5.2](https://github.com/memori-ai/memori-react/compare/v8.5.1...v8.5.2) (2025-09-15)
 
 
