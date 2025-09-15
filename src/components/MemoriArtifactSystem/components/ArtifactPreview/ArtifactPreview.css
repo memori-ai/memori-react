@@ -112,10 +112,12 @@
 
 /* Markdown Preview */
 .memori-artifact-preview-markdown {
+  height: 100%;
   padding: 1rem;
   color: var(--memori-text-color, #333);
   font-family: var(--memori-font-family);
   line-height: 1.6;
+  overflow-y: scroll;
 }
 
 .memori-artifact-preview-markdown h1,
