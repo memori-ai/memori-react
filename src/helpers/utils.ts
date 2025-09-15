@@ -68,6 +68,27 @@ export const isAndroid = (): boolean => {
   return isAndroid;
 };
 
+export const isSafari = (): boolean => {
+  if (typeof navigator === 'undefined') return false;
+  
+  const userAgent = navigator.userAgent;
+  const isSafariUA = userAgent.includes('Safari') && !userAgent.includes('Chrome');
+  const isWebKit = 'WebKit' in window && !('Chrome' in window);
+  
+  return isSafariUA || isWebKit;
+};
+
+export const isSafariIOS = (): boolean => {
+  if (typeof navigator === 'undefined') return false;
+  
+  const userAgent = navigator.userAgent;
+  return (
+    userAgent.includes('Safari') &&
+    !userAgent.includes('Chrome') &&
+    /iPad|iPhone|iPod/.test(userAgent)
+  );
+};
+
 export const pwdRegEx =
   // eslint-disable-next-line no-useless-escape
   /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$_:;|,~+=\{\}\[\]%^&*-]).{8,}$/;

@@ -233,7 +233,8 @@
     "copyWithoutSyntaxHighlighting": "Copier sans coloration syntaxique",
     "copyTextContent": "Copier le contenu texte",
     "pdfExportNotSupported": "L'exportation PDF n'est pas prise en charge dans ce navigateur",
-    "popupBlocked": "Popup bloqué ! Veuillez activer les popups pour imprimer."
+    "popupBlocked": "Popup bloqué ! Veuillez activer les popups pour imprimer.",
+    "safariPdfInstructions": "Export PDF ouvert dans une nouvelle fenêtre. Veuillez utiliser Cmd+P (Mac) ou Ctrl+P (Windows) pour imprimer et sauvegarder en PDF."
   },
   "upload": {
     "loginRequired": "Connexion requise",

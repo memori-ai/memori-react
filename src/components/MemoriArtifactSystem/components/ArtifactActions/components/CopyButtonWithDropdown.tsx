@@ -17,6 +17,8 @@ import Alert from '../../../../icons/Alert';
 import { useTranslation } from 'react-i18next';
 import Link from '../../../../icons/Link';
 import PrintIcon from '../../../../icons/Print';
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 
 const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
   artifact,
@@ -42,6 +44,53 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
   const handleFormatSelect = async (format: typeof formats[0]) => {
     await handleCopy(format);
   };
+
+  /**
+   * Render markdown content to HTML
+   */
+  const renderMarkdownToHtml = useCallback((markdown: string): string => {
+    try {
+      // Configure marked for basic markdown rendering
+      marked.use({
+        async: false,
+        gfm: true,
+        pedantic: false,
+        renderer: {
+          link: ({ href, title, text }: { href: string | null; title?: string | null; text: string }) => {
+            if (!href) return text;
+            const cleanHref = href.startsWith('http') ? href : `https://${href}`;
+            return `<a href="${cleanHref}" target="_blank" rel="noopener noreferrer"${title ? ` title="${title}"` : ''}>${text}</a>`;
+          },
+        },
+      });
+
+      // Parse markdown to HTML
+      const htmlContent = marked.parse(markdown).toString().trim();
+
+      // Sanitize HTML for security
+      const sanitizedHtml = DOMPurify.sanitize(htmlContent, {
+        ADD_ATTR: ['target', 'rel'],
+        ALLOWED_TAGS: [
+          'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+          'p', 'br', 'strong', 'em', 'u', 's',
+          'ul', 'ol', 'li', 'blockquote', 'pre', 'code',
+          'a', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td',
+          'div', 'span'
+        ],
+        ALLOWED_ATTR: ['href', 'title', 'target', 'rel', 'src', 'alt', 'class', 'id']
+      });
+
+      return sanitizedHtml;
+    } catch (error) {
+      console.error('Error rendering markdown:', error);
+      // Fallback to basic HTML escaping
+      return markdown
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\n/g, '<br>');
+    }
+  }, []);
 
   /**
    * Get MIME type string for downloads
@@ -180,8 +229,97 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
    */
   const handleOpenExternal = useCallback(() => {
     try {
-      const mimeType = getMimeTypeString(artifact.mimeType);
-      const blob = new Blob([artifact.content], { type: mimeType });
+      let content = artifact.content;
+      let mimeType = getMimeTypeString(artifact.mimeType);
+
+      // For markdown files, render as HTML
+      if (artifact.mimeType === 'markdown') {
+        const renderedHtml = renderMarkdownToHtml(artifact.content);
+        content = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${artifact.title || 'Artifact'}</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      color: #2c3e50;
+      margin-top: 1.5em;
+      margin-bottom: 0.5em;
+    }
+    h1 { border-bottom: 2px solid #eee; padding-bottom: 10px; }
+    h2 { border-bottom: 1px solid #eee; padding-bottom: 5px; }
+    code {
+      background-color: #f4f4f4;
+      padding: 2px 4px;
+      border-radius: 3px;
+      font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    }
+    pre {
+      background-color: #f8f8f8;
+      padding: 15px;
+      border-radius: 5px;
+      overflow-x: auto;
+      border: 1px solid #e1e1e1;
+    }
+    pre code {
+      background-color: transparent;
+      padding: 0;
+    }
+    blockquote {
+      border-left: 4px solid #ddd;
+      margin: 0;
+      padding-left: 20px;
+      color: #666;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin: 1em 0;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px 12px;
+      text-align: left;
+    }
+    th {
+      background-color: #f5f5f5;
+      font-weight: 600;
+    }
+    a {
+      color: #007acc;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    ul, ol {
+      padding-left: 20px;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  ${renderedHtml}
+</body>
+</html>`;
+        mimeType = 'text/html';
+      }
+
+      const blob = new Blob([content], { type: mimeType });
       const url = URL.createObjectURL(blob);
 
       const externalWindow = window.open(url, '_blank');
@@ -201,7 +339,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
     } catch (error) {
       console.error('External open failed:', error);
     }
-  }, [artifact, getMimeTypeString, onOpenExternal]);
+  }, [artifact, getMimeTypeString, renderMarkdownToHtml, onOpenExternal]);
 
   /**
    * Get button title/tooltip

@@ -1,10 +1,12 @@
 /**
  * PDFExporter utility for converting markdown content to PDF
  * Uses browser's print functionality with optimized CSS for PDF output
+ * Includes Safari-specific workarounds for better compatibility
  */
 
 import { PDFExportOptions } from '../types';
 import { marked } from 'marked';
+import { isSafari, isSafariIOS } from '../../../../../helpers/utils';
 
 export class PDFExporter {
   private static instance: PDFExporter;
@@ -210,6 +212,115 @@ export class PDFExporter {
   }
 
   /**
+   * Safari-specific PDF export using improved approach
+   */
+  async exportAsPDFSafari(
+    content: string,
+    title: string = 'Artifact',
+    options: PDFExportOptions = {}
+  ): Promise<void> {
+    return new Promise((resolve, reject) => {
+      try {
+        // Generate HTML content
+        const htmlContent = this.createPDFDocument(content, title, options);
+        
+        // For Safari, we'll use a more reliable approach with a new window
+        // that opens the content and then triggers print
+        const printWindow = window.open('', '_blank', 'width=800,height=600,scrollbars=yes,resizable=yes');
+        
+        if (!printWindow) {
+          // Fallback: try data URL approach
+          const dataUrl = `data:text/html;charset=utf-8,${encodeURIComponent(htmlContent)}`;
+          const link = document.createElement('a');
+          link.href = dataUrl;
+          link.download = `${title}.html`; // Safari might not support PDF download directly
+          link.target = '_blank';
+          link.style.display = 'none';
+          
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          
+          resolve();
+          return;
+        }
+
+        // Write content to the new window
+        printWindow.document.open('text/html', 'replace');
+        printWindow.document.write(htmlContent);
+        printWindow.document.close();
+        
+        // Set title
+        printWindow.document.title = title;
+        
+        // Wait for content to load, then trigger print
+        setTimeout(() => {
+          try {
+            // Focus the window first (important for Safari)
+            printWindow.focus();
+            
+            // Trigger print dialog
+            printWindow.print();
+            
+            // Close window after a delay
+            setTimeout(() => {
+              if (printWindow && !printWindow.closed) {
+                printWindow.close();
+              }
+              resolve();
+            }, 3000); // Give user time to interact with print dialog
+            
+          } catch (printError) {
+            console.warn('Print failed, trying alternative:', printError);
+            
+            // Alternative: show instructions to user
+            if (printWindow && !printWindow.closed) {
+              const instructionDiv = printWindow.document.createElement('div');
+              instructionDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                right: 20px;
+                background: #f0f8ff;
+                border: 2px solid #0066cc;
+                padding: 20px;
+                border-radius: 8px;
+                font-family: system-ui, sans-serif;
+                z-index: 10000;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+              `;
+              instructionDiv.innerHTML = `
+                <h3 style="margin: 0 0 10px 0; color: #0066cc;">📄 PDF Export Instructions</h3>
+                <p style="margin: 0 0 10px 0;">To save as PDF:</p>
+                <ol style="margin: 0 0 15px 0; padding-left: 20px;">
+                  <li>Press <strong>Cmd+P</strong> (Mac) or <strong>Ctrl+P</strong> (Windows)</li>
+                  <li>In the print dialog, click the "PDF" dropdown</li>
+                  <li>Select "Save as PDF"</li>
+                  <li>Choose your save location and click "Save"</li>
+                </ol>
+                <button onclick="this.parentElement.remove()" style="
+                  background: #0066cc;
+                  color: white;
+                  border: none;
+                  padding: 8px 16px;
+                  border-radius: 4px;
+                  cursor: pointer;
+                ">Got it!</button>
+              `;
+              printWindow.document.body.appendChild(instructionDiv);
+            }
+            
+            resolve();
+          }
+        }, 1000); // Wait for content to fully load
+        
+      } catch (error) {
+        reject(new Error(`Safari PDF export failed: ${error}`));
+      }
+    });
+  }
+
+  /**
    * Export content as PDF using browser save functionality
    */
   async exportAsPDF(
@@ -217,6 +328,11 @@ export class PDFExporter {
     title: string = 'Artifact', 
     options: PDFExportOptions = {}
   ): Promise<void> {
+    // Use Safari-specific method if Safari is detected
+    if (isSafari()) {
+      return this.exportAsPDFSafari(content, title, options);
+    }
+
     return new Promise((resolve, reject) => {
       try {
         // Close any existing window
@@ -224,8 +340,12 @@ export class PDFExporter {
           this.printWindow.close();
         }
 
-        // Create new window
-        this.printWindow = window.open('', '_blank', 'width=800,height=600');
+        // Create new window with Safari-friendly parameters
+        const windowFeatures = isSafariIOS() 
+          ? 'width=800,height=600,scrollbars=yes,resizable=yes'
+          : 'width=800,height=600,scrollbars=yes,resizable=yes,toolbar=no,menubar=no,location=no,status=no';
+        
+        this.printWindow = window.open('', '_blank', windowFeatures);
         if (!this.printWindow) {
           reject(new Error('Popup blocked! Please enable popups to export PDF.'));
           return;
@@ -234,33 +354,70 @@ export class PDFExporter {
         // Generate HTML content
         const htmlContent = this.createPDFDocument(content, title, options);
 
-        // Write content to window
-        this.printWindow.document.write(htmlContent);
-        this.printWindow.document.close();
-
-        // Wait for content to load
-        this.printWindow.onload = () => {
+        // Safari-specific content writing approach
+        if (isSafari()) {
+          // For Safari, use a more reliable approach
+          this.printWindow.document.open('text/html', 'replace');
+          this.printWindow.document.write(htmlContent);
+          this.printWindow.document.close();
+          
+          // Wait for content to load with longer timeout for Safari
           setTimeout(() => {
-            if (this.printWindow) {
-              // Trigger print dialog with PDF save option
-              this.printWindow.document.title = title;
-              this.printWindow.print();
-              
-              // Close window after print dialog closes
-              setTimeout(() => {
-                if (this.printWindow) {
-                  this.printWindow.close();
+            if (this.printWindow && !this.printWindow.closed) {
+              try {
+                this.printWindow.document.title = title;
+                this.printWindow.focus();
+                this.printWindow.print();
+                
+                // Close window after print dialog closes
+                setTimeout(() => {
+                  if (this.printWindow && !this.printWindow.closed) {
+                    this.printWindow.close();
+                  }
                   resolve();
-                }
-              }, 1000);
+                }, 2000); // Longer timeout for Safari
+              } catch (printError) {
+                console.warn('Print dialog failed, trying alternative method:', printError);
+                // Fallback: try to trigger print without focus
+                this.printWindow.print();
+                setTimeout(() => {
+                  if (this.printWindow && !this.printWindow.closed) {
+                    this.printWindow.close();
+                  }
+                  resolve();
+                }, 2000);
+              }
             }
-          }, 500);
-        };
+          }, 1000); // Longer delay for Safari
+        } else {
+          // Standard approach for other browsers
+          this.printWindow.document.write(htmlContent);
+          this.printWindow.document.close();
 
-        // Handle errors
-        this.printWindow.onerror = (error) => {
-          reject(new Error(`PDF export failed: ${error}`));
-        };
+          // Wait for content to load
+          this.printWindow.onload = () => {
+            setTimeout(() => {
+              if (this.printWindow) {
+                // Trigger print dialog with PDF save option
+                this.printWindow.document.title = title;
+                this.printWindow.print();
+                
+                // Close window after print dialog closes
+                setTimeout(() => {
+                  if (this.printWindow) {
+                    this.printWindow.close();
+                    resolve();
+                  }
+                }, 1000);
+              }
+            }, 500);
+          };
+
+          // Handle errors
+          this.printWindow.onerror = (error) => {
+            reject(new Error(`PDF export failed: ${error}`));
+          };
+        }
 
       } catch (error) {
         reject(new Error(`PDF export failed: ${error}`));
@@ -273,6 +430,13 @@ export class PDFExporter {
    */
   isSupported(): boolean {
     return typeof window !== 'undefined' && typeof window.open === 'function';
+  }
+
+  /**
+   * Check if Safari-specific PDF export is supported
+   */
+  isSafariSupported(): boolean {
+    return isSafari() && typeof window !== 'undefined' && typeof window.open === 'function';
   }
 
   /**

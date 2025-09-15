@@ -238,7 +238,8 @@
     "copyWithoutSyntaxHighlighting": "Copia senza evidenziazione sintassi",
     "copyTextContent": "Copia contenuto testo",
     "pdfExportNotSupported": "L'esportazione PDF non è supportata in questo browser",
-    "popupBlocked": "Popup bloccato! Abilita i popup per stampare."
+    "popupBlocked": "Popup bloccato! Abilita i popup per stampare.",
+    "safariPdfInstructions": "Esportazione PDF aperta in una nuova finestra. Usa Cmd+P (Mac) o Ctrl+P (Windows) per stampare e salvare come PDF."
 
   },
   "media": {

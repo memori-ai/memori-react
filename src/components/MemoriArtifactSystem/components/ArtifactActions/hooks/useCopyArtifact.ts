@@ -12,6 +12,9 @@ import {
   PDFExportOptions,
 } from '../types';
 import { pdfExporter } from '../utils/PDFExporter';
+import { isSafari } from '../../../../../helpers/utils';
+import { marked } from 'marked';
+import DOMPurify from 'dompurify';
 
 export const useCopyArtifact = (
   artifact: { content: string; mimeType: string; title?: string },
@@ -27,6 +30,53 @@ export const useCopyArtifact = (
     error: null,
     activeFormat: null,
   });
+
+  /**
+   * Render markdown content to HTML
+   */
+  const renderMarkdownToHtml = useCallback((markdown: string): string => {
+    try {
+      // Configure marked for basic markdown rendering
+      marked.use({
+        async: false,
+        gfm: true,
+        pedantic: false,
+        renderer: {
+          link: ({ href, title, text }: { href: string | null; title?: string | null; text: string }) => {
+            if (!href) return text;
+            const cleanHref = href.startsWith('http') ? href : `https://${href}`;
+            return `<a href="${cleanHref}" target="_blank" rel="noopener noreferrer"${title ? ` title="${title}"` : ''}>${text}</a>`;
+          },
+        },
+      });
+
+      // Parse markdown to HTML
+      const htmlContent = marked.parse(markdown).toString().trim();
+
+      // Sanitize HTML for security
+      const sanitizedHtml = DOMPurify.sanitize(htmlContent, {
+        ADD_ATTR: ['target', 'rel'],
+        ALLOWED_TAGS: [
+          'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
+          'p', 'br', 'strong', 'em', 'u', 's',
+          'ul', 'ol', 'li', 'blockquote', 'pre', 'code',
+          'a', 'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td',
+          'div', 'span'
+        ],
+        ALLOWED_ATTR: ['href', 'title', 'target', 'rel', 'src', 'alt', 'class', 'id']
+      });
+
+      return sanitizedHtml;
+    } catch (error) {
+      console.error('Error rendering markdown:', error);
+      // Fallback to basic HTML escaping
+      return markdown
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\n/g, '<br>');
+    }
+  }, []);
 
   /**
    * Get available copy formats based on artifact mimeType
@@ -269,15 +319,42 @@ export const useCopyArtifact = (
             backgroundColor: '#fff', // White background
           };
 
-          // Export the artifact content to PDF using the configured options
-          await pdfExporter.exportAsPDF(
-            artifact.content,
-            artifact.title || 'Artifact',
-            pdfOptions
-          );
+          try {
+            // Export the artifact content to PDF using the configured options
+            await pdfExporter.exportAsPDF(
+              artifact.content,
+              artifact.title || 'Artifact',
+              pdfOptions
+            );
 
-          // Call the optional onPrint callback if provided
-          onPrint?.();
+            // Call the optional onPrint callback if provided
+            onPrint?.();
+          } catch (pdfError) {
+            // If PDF export fails on Safari, provide helpful error message
+            if (isSafari()) {
+              // For Safari, we consider this a "success" since the window opened
+              // but we show a helpful message to the user
+              setCopyState(prev => ({
+                ...prev,
+                loading: false,
+                success: true,
+                error: null,
+              }));
+
+              // Show success message briefly, then reset
+              setTimeout(() => {
+                setCopyState(prev => ({
+                  ...prev,
+                  success: false,
+                }));
+              }, 3000);
+
+              // Call the optional onPrint callback if provided
+              onPrint?.();
+              return; // Don't throw error for Safari
+            }
+            throw pdfError;
+          }
         } else if (format.action === 'print') {
           // Handle print operation
           const printContent = convertContent(format);
@@ -287,28 +364,117 @@ export const useCopyArtifact = (
             throw new Error(t('artifact.popupBlocked') || 'Popup blocked! Please enable popups to print.');
           }
 
-          const htmlContent = `
-          <!DOCTYPE html>
-          <html>
-          <head>
-            <title>${artifact.title || 'Artifact'}</title>
-            <style>
-              body { 
-                font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; 
-                white-space: pre-wrap; 
-                margin: 20px; 
-                line-height: 1.4;
-              }
-              @media print { 
-                body { margin: 0; } 
-              }
-            </style>
-          </head>
-          <body>${printContent
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')}</body>
-          </html>
-        `;
+          let htmlContent: string;
+
+          // For markdown files, render as HTML with proper styling
+          if (artifact.mimeType === 'markdown') {
+            const renderedHtml = renderMarkdownToHtml(artifact.content);
+            htmlContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <title>${artifact.title || 'Artifact'}</title>
+              <style>
+                body {
+                  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+                  line-height: 1.6;
+                  color: #333;
+                  max-width: 800px;
+                  margin: 0 auto;
+                  padding: 20px;
+                  background-color: #fff;
+                }
+                h1, h2, h3, h4, h5, h6 {
+                  color: #2c3e50;
+                  margin-top: 1.5em;
+                  margin-bottom: 0.5em;
+                }
+                h1 { border-bottom: 2px solid #eee; padding-bottom: 10px; }
+                h2 { border-bottom: 1px solid #eee; padding-bottom: 5px; }
+                code {
+                  background-color: #f4f4f4;
+                  padding: 2px 4px;
+                  border-radius: 3px;
+                  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+                }
+                pre {
+                  background-color: #f8f8f8;
+                  padding: 15px;
+                  border-radius: 5px;
+                  overflow-x: auto;
+                  border: 1px solid #e1e1e1;
+                }
+                pre code {
+                  background-color: transparent;
+                  padding: 0;
+                }
+                blockquote {
+                  border-left: 4px solid #ddd;
+                  margin: 0;
+                  padding-left: 20px;
+                  color: #666;
+                }
+                table {
+                  border-collapse: collapse;
+                  width: 100%;
+                  margin: 1em 0;
+                }
+                th, td {
+                  border: 1px solid #ddd;
+                  padding: 8px 12px;
+                  text-align: left;
+                }
+                th {
+                  background-color: #f5f5f5;
+                  font-weight: 600;
+                }
+                a {
+                  color: #007acc;
+                  text-decoration: none;
+                }
+                a:hover {
+                  text-decoration: underline;
+                }
+                ul, ol {
+                  padding-left: 20px;
+                }
+                img {
+                  max-width: 100%;
+                  height: auto;
+                }
+                @media print { 
+                  body { margin: 0; } 
+                }
+              </style>
+            </head>
+            <body>${renderedHtml}</body>
+            </html>
+          `;
+          } else {
+            // For other file types, use the original formatting
+            htmlContent = `
+            <!DOCTYPE html>
+            <html>
+            <head>
+              <title>${artifact.title || 'Artifact'}</title>
+              <style>
+                body { 
+                  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace; 
+                  white-space: pre-wrap; 
+                  margin: 20px; 
+                  line-height: 1.4;
+                }
+                @media print { 
+                  body { margin: 0; } 
+                }
+              </style>
+            </head>
+            <body>${printContent
+              .replace(/</g, '&lt;')
+              .replace(/>/g, '&gt;')}</body>
+            </html>
+          `;
+          }
 
           printWindow.document.write(htmlContent);
           printWindow.document.close();
@@ -325,9 +491,21 @@ export const useCopyArtifact = (
           const blob = new Blob([contentToDownload], { type: format.mimeType });
           const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
+          let mimeType = format.mimeType.split('/')[1];
+
+          if (mimeType === 'x-python') {
+            mimeType = 'py';
+          } else if (mimeType === 'x-java') {
+            mimeType = 'java';
+          } else if (mimeType === 'x-c++'){
+            mimeType = 'cpp';
+          } else if (mimeType === 'markdown') {
+            mimeType = 'md';
+          }
+          
           a.href = url;
           a.download = `${artifact.title || 'Artifact'}.${
-            format.mimeType.split('/')[1]
+            mimeType
           }`;
           a.click();
           URL.revokeObjectURL(url);
@@ -374,7 +552,7 @@ export const useCopyArtifact = (
         }, 3000);
       }
     },
-    [artifact, convertContent, copyToClipboard, onCopy, onPrint, t]
+    [artifact, convertContent, copyToClipboard, onCopy, onPrint, t, renderMarkdownToHtml]
   );
 
   /**

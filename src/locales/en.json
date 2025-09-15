@@ -235,7 +235,8 @@
     "copyWithoutSyntaxHighlighting": "Copy without syntax highlighting",
     "copyTextContent": "Copy text content",
     "pdfExportNotSupported": "PDF export is not supported in this browser",
-    "popupBlocked": "Popup blocked! Please enable popups to print."
+    "popupBlocked": "Popup blocked! Please enable popups to print.",
+    "safariPdfInstructions": "PDF export opened in new window. Please use Cmd+P (Mac) or Ctrl+P (Windows) to print and save as PDF."
   },
   "upload": {
     "loginRequired": "Login required",
