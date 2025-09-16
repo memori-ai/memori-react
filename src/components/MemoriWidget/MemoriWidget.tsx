@@ -16,6 +16,7 @@ import {
   ResponseSpec,
   ChatLog,
 } from '@memori.ai/memori-api-client/src/types';
+import { ArtifactData } from '../MemoriArtifactSystem/types/artifact.types';
 
 // Libraries
 import React, {
@@ -290,11 +291,17 @@ const typeBatchMessages = (
 
 type MemoriNewDialogStateEvent = CustomEvent<DialogState>;
 
+type ArtifactCreatedEvent = CustomEvent<{
+  artifact: ArtifactData;
+  message: Message;
+}>;
+
 interface CustomEventMap {
   MemoriTextEntered: MemoriTextEnteredEvent;
   MemoriEndSpeak: CustomEvent;
   MemoriResetUIEffects: CustomEvent;
   MemoriNewDialogState: MemoriNewDialogStateEvent;
+  artifactCreated: ArtifactCreatedEvent;
 }
 declare global {
   interface Document {

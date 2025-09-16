@@ -8,6 +8,12 @@ import ChevronLeft from '../../../icons/ChevronLeft';
 import ChevronUp from '../../../icons/ChevronUp';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
 
+// Event type for artifact creation
+type ArtifactCreatedEvent = CustomEvent<{
+  artifact: ArtifactData;
+  message: Message;
+}>;
+
 interface ArtifactHandlerProps {
   isChatlogPanel?: boolean;
   message: Message;
@@ -22,6 +28,17 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     null
   );
 
+  // Function to dispatch artifact created event
+  const dispatchArtifactCreatedEvent = useCallback((artifact: ArtifactData) => {
+    const event: ArtifactCreatedEvent = new CustomEvent('artifactCreated', {
+      detail: {
+        artifact,
+        message,
+      },
+    });
+    document.dispatchEvent(event);
+  }, [message]);
+
   // Auto-open artifacts when detected in new messages
   useEffect(() => {
     const messageText = message.translatedText || message.text || '';
@@ -29,6 +46,11 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
       const artifacts = detectArtifacts(messageText);
 
       if (artifacts.length > 0) {
+        // Dispatch event for each artifact created
+        artifacts.forEach(artifact => {
+          dispatchArtifactCreatedEvent(artifact);
+        });
+
         if(isChatlogPanel){
           // openArtifact(artifacts[0]);
           setCurrentArtifact(artifacts[0]);
@@ -40,7 +62,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
         }
       }
     }
-  }, [message]);
+  }, [message, dispatchArtifactCreatedEvent]);
 
   // Simple artifact detection - look for <output class="memori-artifact"> tags
   const detectArtifacts = (text: string): ArtifactData[] => {
