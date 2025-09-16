@@ -54,39 +54,7 @@ const fetchProviderStatus = async (config: ProviderConfig): Promise<Status> => {
     
     const data = await response.json();
     
-    // Check for active incidents first
-    if (data.incidents && Array.isArray(data.incidents) && data.incidents.length > 0) {
-      const activeIncidents = data.incidents.filter((incident: any) => {
-        // Check if incident is truly active by looking at the latest update
-        if (incident.incident_updates && incident.incident_updates.length > 0) {
-          const latestUpdate = incident.incident_updates[incident.incident_updates.length - 1];
-          const isResolved = ['resolved', 'completed', 'postmortem'].includes(latestUpdate.status.toLowerCase());
-          return !isResolved;
-        }
-        // Fallback to incident status if no updates available
-        return !['resolved', 'completed', 'postmortem'].includes(incident.status.toLowerCase());
-      });
-      
-      if (activeIncidents.length > 0) {
-        // If there are active incidents, determine the severity
-        const critical = activeIncidents.some((i: { impact: string }) => 
-          i.impact === 'critical' || i.impact === 'major'
-        );
-        const major = activeIncidents.some((i: { impact: string }) => 
-          i.impact === 'moderate'
-        );
-
-        const investigating = activeIncidents.some((i: { status: string }) => 
-          i.status === 'investigating'
-        );
-
-        if (investigating) return 'partial_outage';
-        if (critical) return 'major_outage';
-        if (major) return 'partial_outage';
-        // Return degraded_performance for investigating status or any other active incident
-        return 'degraded_performance';
-      }
-    }
+    // Skip incident checking - just rely on component status which is more reliable
     
     // If no incidents or they're all resolved, check specific API components
     if (data.components) {
