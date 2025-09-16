@@ -64,7 +64,7 @@ export const renderMsg = (
   text: string,
   useMathFormatting = false,
   reasoningText = 'Reasoning...',
-  showReasoning = false
+  showReasoning: boolean
 ): {
   text: string;
 } => {
@@ -77,7 +77,7 @@ export const renderMsg = (
         '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
       )
       .replaceAll(
-        /<think>([\s\S]*?)<\/think>/g,
+        /<think.*?>(.*?)<\/think>/gs,
         showReasoning
           ? `<details class="memori-think"><summary>${reasoningText}</summary>$1</details>`
           : ''
