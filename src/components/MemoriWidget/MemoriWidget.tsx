@@ -861,7 +861,7 @@ const MemoriWidget = ({
 
           translateDialogState(currentState, userLang, msg).then(ts => {
             let text = ts.translatedEmission || ts.emission;
-            if (text) {
+            if (text && text.trim() && !speakerMuted) {
               handleSpeak(text);
             }
           });
@@ -888,7 +888,9 @@ const MemoriWidget = ({
               tag: currentState.currentTag,
               memoryTags: currentState.memoryTags,
             });
-            handleSpeak(emission);
+            if (emission && emission.trim()) {
+              handleSpeak(emission);
+            }
           }
         }
       } else if (response.resultCode === 404) {
@@ -1976,7 +1978,7 @@ const MemoriWidget = ({
             userLang
           ).then(ts => {
             let text = ts.translatedEmission || ts.emission;
-            if (text) {
+            if (text && text.trim() && !speakerMuted) {
               handleSpeak(text);
             }
           });
@@ -1996,7 +1998,9 @@ const MemoriWidget = ({
             tag: currentState.currentTag,
             memoryTags: currentState.memoryTags,
           });
-          handleSpeak(emission);
+          if (emission && emission.trim() && !speakerMuted) {
+            handleSpeak(emission);
+          }
           setCurrentDialogState({
             ...currentState,
             hints:
@@ -2059,7 +2063,7 @@ const MemoriWidget = ({
    * Uses promise-based approach for better reliability
    */
   const handleSpeak = async (text: string) => {
-    if (!text || preview || speakerMuted || !defaultEnableAudio) {
+    if (!text || !text.trim() || preview || speakerMuted || !defaultEnableAudio) {
       const e = new CustomEvent('MemoriEndSpeak');
       document.dispatchEvent(e);
 
@@ -2070,18 +2074,9 @@ const MemoriWidget = ({
       stopRecording();
     }
 
-    setMemoriTyping(true);
-
     const processedText = sanitizeText(text);
 
     return ttsSpeak(processedText)
-      .then(() => {
-        setMemoriTyping(false);
-      })
-      .catch(error => {
-        setMemoriTyping(false);
-        throw error;
-      });
   };
   /**
    * Integrated solution for translating dialog state and speaking
@@ -2113,7 +2108,7 @@ const MemoriWidget = ({
         const textToSpeak =
           translatedState.translatedEmission || translatedState.emission;
 
-        if (textToSpeak && !skipEmission) {
+        if (textToSpeak && textToSpeak.trim() && !skipEmission && !speakerMuted) {
           // Update activation state before speaking for better browser interaction
           if (!hasUserActivatedSpeak) {
             setHasUserActivatedSpeak(true);
