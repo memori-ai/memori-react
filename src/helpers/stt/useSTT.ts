@@ -172,8 +172,10 @@ export function useSTT(
   const audioContextRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const dataArrayRef = useRef<Uint8Array | null>(null);
+  const backgroundNoiseRef = useRef<number>(0);
+  const audioActivityHistoryRef = useRef<number[]>([]);
   const apiUrl = options.apiUrl || '/api/stt';
-  const silenceTimeout = options.silenceTimeout || 2; // Default 2 seconds
+  const silenceTimeout = options.silenceTimeout || 3; // Increased default to 3 seconds
 
   const initializeRecording = useCallback(async (): Promise<boolean> => {
     try {
@@ -198,21 +200,36 @@ export function useSTT(
           // Safari compatibility: check for AudioContext support
           const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
           if (AudioContextClass) {
-            audioContextRef.current = new AudioContextClass();
+            audioContextRef.current = new AudioContextClass({
+              sampleRate: 16000, // Match the audio input sample rate
+              latencyHint: 'interactive' // Better for real-time analysis
+            });
             
             // Resume context if suspended (required for Safari)
             if (audioContextRef.current.state === 'suspended') {
               await audioContextRef.current.resume();
             }
             
+            // Wait a bit for Safari to stabilize the AudioContext
+            await new Promise(resolve => setTimeout(resolve, 100));
+            
             analyserRef.current = audioContextRef.current.createAnalyser();
-            analyserRef.current.fftSize = 256;
-            analyserRef.current.smoothingTimeConstant = 0.8; // Add smoothing for better detection
+            analyserRef.current.fftSize = 512; // Increased for better frequency resolution
+            analyserRef.current.smoothingTimeConstant = 0.3; // Reduced for more responsive detection
+            analyserRef.current.minDecibels = -90;
+            analyserRef.current.maxDecibels = -10;
+            
             const bufferLength = analyserRef.current.frequencyBinCount;
             dataArrayRef.current = new Uint8Array(bufferLength);
             
             const source = audioContextRef.current.createMediaStreamSource(stream);
             source.connect(analyserRef.current);
+            
+            // Initialize background noise detection
+            backgroundNoiseRef.current = 0;
+            audioActivityHistoryRef.current = [];
+            
+            console.log('AudioContext initialized for silence detection');
           }
         } catch (err) {
           console.warn('Silence detection initialization failed:', err);
@@ -361,15 +378,52 @@ export function useSTT(
       return false;
     }
 
-    analyserRef.current.getByteFrequencyData(dataArrayRef.current);
-    
-    // Calculate average volume level
-    const average = dataArrayRef.current.reduce((sum, value) => sum + value, 0) / dataArrayRef.current.length;
-    
-    // Consider audio active if average volume is above threshold
-    // Increased threshold to reduce false positives and allow longer speech
-    const threshold = 25; // Increased from 10 to reduce premature stops
-    return average > threshold;
+    try {
+      analyserRef.current.getByteFrequencyData(dataArrayRef.current);
+      
+      // Calculate RMS (Root Mean Square) for better audio level detection
+      let sum = 0;
+      for (let i = 0; i < dataArrayRef.current.length; i++) {
+        sum += dataArrayRef.current[i] * dataArrayRef.current[i];
+      }
+      const rms = Math.sqrt(sum / dataArrayRef.current.length);
+      
+      // Update background noise level (adaptive threshold)
+      if (backgroundNoiseRef.current === 0) {
+        // First measurement - use as initial background noise
+        backgroundNoiseRef.current = rms;
+      } else {
+        // Gradually adapt background noise level (exponential moving average)
+        backgroundNoiseRef.current = backgroundNoiseRef.current * 0.95 + rms * 0.05;
+      }
+      
+      // Store recent audio activity for trend analysis
+      audioActivityHistoryRef.current.push(rms);
+      if (audioActivityHistoryRef.current.length > 20) { // Keep last 2 seconds (20 * 100ms)
+        audioActivityHistoryRef.current.shift();
+      }
+      
+      // Calculate dynamic threshold based on background noise
+      const dynamicThreshold = Math.max(
+        backgroundNoiseRef.current * 2.5, // 2.5x background noise
+        15 // Minimum threshold
+      );
+      
+      // Check for audio activity
+      const hasActivity = rms > dynamicThreshold;
+      
+      // Additional check: look for sustained activity over recent history
+      if (hasActivity) {
+        const recentActivity = audioActivityHistoryRef.current.slice(-5); // Last 500ms
+        const recentAverage = recentActivity.reduce((a, b) => a + b, 0) / recentActivity.length;
+        return recentAverage > dynamicThreshold * 0.8; // More lenient for recent activity
+      }
+      
+      return hasActivity;
+    } catch (error) {
+      console.warn('Error in audio activity detection:', error);
+      return false;
+    }
   }, [options.continuousRecording]);
 
   /**
@@ -381,50 +435,79 @@ export function useSTT(
       return;
     }
     
+    let lastActivityTime = Date.now();
+    let silenceStartTime: number | null = null;
     let consecutiveSilenceCount = 0;
-    const requiredSilenceFrames = 10; // Require 10 consecutive silent frames (1 second at 100ms intervals)
+    const requiredSilenceFrames = 15; // Require 15 consecutive silent frames (1.5 seconds at 100ms intervals)
+    const maxSilenceDuration = silenceTimeout * 1000; // Maximum silence duration in milliseconds
     
     const checkAudioActivity = () => {
       if (!isRecordingRef.current || !isMountedRef.current) {
         return;
       }
 
+      const currentTime = Date.now();
       const hasActivity = detectAudioActivity();
       
       if (hasActivity) {
-        // Reset silence counter when audio activity is detected
+        // Reset all silence tracking when audio activity is detected
+        lastActivityTime = currentTime;
+        silenceStartTime = null;
         consecutiveSilenceCount = 0;
         
-        // Reset silence timeout when audio activity is detected
+        // Clear any existing timeout
         if (silenceTimeoutRef.current) {
           clearTimeout(silenceTimeoutRef.current);
+          silenceTimeoutRef.current = null;
         }
         
-        // Set new timeout for when user stops speaking
-        silenceTimeoutRef.current = setTimeout(() => {
-          if (isRecordingRef.current && isMountedRef.current) {
-            stopRecording();
-          }
-        }, silenceTimeout * 1000);
+        console.log('Audio activity detected, continuing recording');
       } else {
-        // Increment silence counter
+        // No activity detected
         consecutiveSilenceCount++;
         
-        // Only stop if we've had consistent silence for the required duration
-        if (consecutiveSilenceCount >= requiredSilenceFrames) {
-          if (isRecordingRef.current && isMountedRef.current) {
-            console.log('Stopping recording due to sustained silence');
-            stopRecording();
+        // Start tracking silence duration
+        if (silenceStartTime === null) {
+          silenceStartTime = currentTime;
+        }
+        
+        const silenceDuration = currentTime - silenceStartTime;
+        
+        // Check if we should stop recording based on multiple criteria
+        const shouldStop = 
+          consecutiveSilenceCount >= requiredSilenceFrames && // Consistent silence for required frames
+          silenceDuration >= maxSilenceDuration; // AND silence duration exceeds maximum
+        
+        if (shouldStop && isRecordingRef.current && isMountedRef.current) {
+          console.log(`Stopping recording due to sustained silence: ${consecutiveSilenceCount} frames, ${silenceDuration}ms`);
+          // Stop recording by setting state and stopping MediaRecorder
+          isRecordingRef.current = false;
+          if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+            mediaRecorderRef.current.stop();
           }
+          return;
+        }
+        
+        // Additional safety check: if we've been silent for too long, stop regardless
+        if (silenceDuration >= maxSilenceDuration * 1.5) {
+          console.log('Stopping recording due to excessive silence duration');
+          // Stop recording by setting state and stopping MediaRecorder
+          isRecordingRef.current = false;
+          if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+            mediaRecorderRef.current.stop();
+          }
+          return;
         }
       }
     };
 
-    // Check audio activity every 100ms for less aggressive detection
+    // Check audio activity every 100ms for responsive detection
     const intervalId = setInterval(checkAudioActivity, 100);
     
     // Store interval ID for cleanup
     (window as any).memoriSilenceDetectionInterval = intervalId;
+    
+    console.log('Silence detection started with improved algorithm');
   }, [options.continuousRecording, detectAudioActivity, silenceTimeout]);
 
   /**
@@ -536,15 +619,24 @@ export function useSTT(
       // Reset chunks and start recording
       chunksRef.current = [];
       isRecordingRef.current = true;
+      
+      // Reset audio analysis state for new recording
+      if (options.continuousRecording) {
+        backgroundNoiseRef.current = 0;
+        audioActivityHistoryRef.current = [];
+      }
 
       if (
         mediaRecorderRef.current &&
         mediaRecorderRef.current.state === 'inactive'
       ) {
-        // Use different timeslice based on recording mode
-        // For continuous recording, use 100ms for real-time analysis
-        // For non-continuous recording, use longer timeslice to avoid browser limitations
-        const timeslice = options.continuousRecording ? 100 : 1000;
+        // Use different timeslice based on recording mode and browser
+        // For Safari, use longer timeslice to avoid issues with short recordings
+        // For other browsers, use shorter timeslice for real-time analysis
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        const timeslice = isSafari ? 500 : 100; // 500ms for Safari, 100ms for others
+        
+        console.log(`Starting MediaRecorder with ${timeslice}ms timeslice (Safari: ${isSafari})`);
         mediaRecorderRef.current.start(timeslice);
         setIsListening(true);
         
@@ -656,7 +748,14 @@ export function useSTT(
 
     // Clean up audio context only if continuous recording was enabled
     if (options.continuousRecording && audioContextRef.current) {
-      audioContextRef.current.close();
+      try {
+        // Check if AudioContext is still valid before closing
+        if (audioContextRef.current.state !== 'closed') {
+          audioContextRef.current.close();
+        }
+      } catch (error) {
+        console.warn('Error closing AudioContext:', error);
+      }
       audioContextRef.current = null;
     }
 
@@ -664,6 +763,12 @@ export function useSTT(
     if (options.continuousRecording) {
       stopSilenceDetection();
     }
+
+    // Reset audio analysis state
+    backgroundNoiseRef.current = 0;
+    audioActivityHistoryRef.current = [];
+    analyserRef.current = null;
+    dataArrayRef.current = null;
 
     chunksRef.current = [];
     setIsListening(false);
