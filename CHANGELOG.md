@@ -1,5 +1,13 @@
 
 
+## [8.6.5](https://github.com/memori-ai/memori-react/compare/v8.6.4...v8.6.5) (2025-09-16)
+
+
+### Bug Fixes
+
+* enhance location handling in preview detection logic ([c53b1ff](https://github.com/memori-ai/memori-react/commit/c53b1ffc64a63f9a25b7d5567b940874e5147a2e))
+* update preview detection logic to improve whitelist bypass handling ([a9c3457](https://github.com/memori-ai/memori-react/commit/a9c34572e75e006e1070f705c2e6681e074da72b))
+
 ## [8.6.4](https://github.com/memori-ai/memori-react/compare/v6.8.4...v8.6.4) (2025-09-16)
 
 ## [6.8.4](https://github.com/memori-ai/memori-react/compare/v8.6.3...v6.8.4) (2025-09-16)
