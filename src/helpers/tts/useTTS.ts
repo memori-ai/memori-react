@@ -199,6 +199,10 @@ export function useTTS(
     
     // Only reset speaking flag after cleanup
     isSpeakingRef.current = false;
+    
+    // Dispatch custom event to notify MemoriWidget that audio has ended
+    const e = new CustomEvent('MemoriAudioEnded');
+    document.dispatchEvent(e);
   }, [cleanup]);
 
   /**
@@ -223,7 +227,14 @@ export function useTTS(
       }
 
       // Early exit conditions before setting speaking flag
-      if (!text || options.preview || speakerMuted) {
+      if (!text || !text.trim() || options.preview) {
+        emitEndSpeakEvent();
+        return;
+      }
+
+      // If speaker is muted, completely disable TTS functionality
+      if (speakerMuted) {
+        console.log('[useTTS] TTS disabled - speaker is muted');
         emitEndSpeakEvent();
         return;
       }
@@ -320,6 +331,10 @@ export function useTTS(
             cleanup();
             isSpeakingRef.current = false;
             emitEndSpeakEvent();
+            
+            // Dispatch custom event to notify MemoriWidget that audio has ended
+            const event = new CustomEvent('MemoriAudioEnded');
+            document.dispatchEvent(event);
           }
         };
         
@@ -327,6 +342,10 @@ export function useTTS(
           setIsPlaying(false);
           isSpeakingRef.current = false;
           emitEndSpeakEvent();
+          
+          // Dispatch custom event to notify MemoriWidget that audio has ended
+          const e = new CustomEvent('MemoriAudioEnded');
+          document.dispatchEvent(e);
         };
 
         audioRef.current.onerror = (e) => {
@@ -338,6 +357,10 @@ export function useTTS(
           const errorMsg = new Error(`Audio playback failed. This may be due to a network issue or audio format problem.`);
           setError(errorMsg);
           emitEndSpeakEvent();
+          
+          // Dispatch custom event to notify MemoriWidget that audio has ended
+          const event = new CustomEvent('MemoriAudioEnded');
+          document.dispatchEvent(event);
         };
         
         audioRef.current.load();
@@ -357,6 +380,10 @@ export function useTTS(
         setError(errorMsg);
 
         emitEndSpeakEvent();
+        
+        // Dispatch custom event to notify MemoriWidget that audio has ended
+        const e = new CustomEvent('MemoriAudioEnded');
+        document.dispatchEvent(e);
       }
     },
     [

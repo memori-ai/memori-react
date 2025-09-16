@@ -49,28 +49,50 @@ export interface UseSTTOptions {
  */
 export type RecordingState = 'idle' | 'recording' | 'processing' | 'error';
 
-/**
- * Convert audio blob to WAV format
- */
+  /**
+   * Convert audio blob to WAV format
+   */
 async function convertToWav(audioBlob: Blob): Promise<Blob> {
   return new Promise((resolve, reject) => {
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
+    // Safari compatibility: check for AudioContext support
+    const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+    if (!AudioContextClass) {
+      reject(new Error('AudioContext not supported in this browser'));
+      return;
+    }
+
+    const audioContext = new AudioContextClass();
     const fileReader = new FileReader();
     
     fileReader.onload = async () => {
       try {
         const arrayBuffer = fileReader.result as ArrayBuffer;
+        
+        // Resume context if suspended (required for Safari)
+        if (audioContext.state === 'suspended') {
+          await audioContext.resume();
+        }
+        
         const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
         
         // Convert to WAV format
         const wavBlob = audioBufferToWav(audioBuffer);
+        
+        // Close the audio context to free resources
+        await audioContext.close();
+        
         resolve(wavBlob);
       } catch (error) {
+        console.error('Error converting audio to WAV:', error);
         reject(error);
       }
     };
     
-    fileReader.onerror = () => reject(new Error('Failed to read audio file'));
+    fileReader.onerror = () => {
+      console.error('Failed to read audio file');
+      reject(new Error('Failed to read audio file'));
+    };
+    
     fileReader.readAsArrayBuffer(audioBlob);
   });
 }
@@ -170,48 +192,55 @@ export function useSTT(
 
       audioStreamRef.current = stream;
 
-      // Initialize audio context for silence detection if continuous recording is enabled
+      // Initialize audio context for silence detection only if continuous recording is enabled
       if (options.continuousRecording) {
         try {
-          audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
-          analyserRef.current = audioContextRef.current.createAnalyser();
-          analyserRef.current.fftSize = 256;
-          const bufferLength = analyserRef.current.frequencyBinCount;
-          dataArrayRef.current = new Uint8Array(bufferLength);
-          
-          const source = audioContextRef.current.createMediaStreamSource(stream);
-          source.connect(analyserRef.current);
+          // Safari compatibility: check for AudioContext support
+          const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+          if (AudioContextClass) {
+            audioContextRef.current = new AudioContextClass();
+            
+            // Resume context if suspended (required for Safari)
+            if (audioContextRef.current.state === 'suspended') {
+              await audioContextRef.current.resume();
+            }
+            
+            analyserRef.current = audioContextRef.current.createAnalyser();
+            analyserRef.current.fftSize = 256;
+            analyserRef.current.smoothingTimeConstant = 0.8; // Add smoothing for better detection
+            const bufferLength = analyserRef.current.frequencyBinCount;
+            dataArrayRef.current = new Uint8Array(bufferLength);
+            
+            const source = audioContextRef.current.createMediaStreamSource(stream);
+            source.connect(analyserRef.current);
+          }
         } catch (err) {
+          console.warn('Silence detection initialization failed:', err);
           // Silence detection initialization failed but we can continue
         }
       }
 
-      // Format selection based on provider
+      // Format selection based on provider with Safari compatibility
       let mimeType = '';
 
-      if (config.provider === 'azure') {
-        // For Azure, we'll record in a supported format and convert to WAV
-        if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
-          mimeType = 'audio/webm;codecs=opus';
-        } else if (MediaRecorder.isTypeSupported('audio/webm')) {
-          mimeType = 'audio/webm';
-        } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
-          mimeType = 'audio/mp4';
-        } else if (MediaRecorder.isTypeSupported('audio/ogg;codecs=opus')) {
-          mimeType = 'audio/ogg;codecs=opus';
-        }
-      } else {
-        // For OpenAI, use the best available format
-        if (MediaRecorder.isTypeSupported('audio/webm;codecs=opus')) {
-          mimeType = 'audio/webm;codecs=opus';
-        } else if (MediaRecorder.isTypeSupported('audio/webm')) {
-          mimeType = 'audio/webm';
-        } else if (MediaRecorder.isTypeSupported('audio/mp4')) {
-          mimeType = 'audio/mp4';
-        } else if (MediaRecorder.isTypeSupported('audio/ogg;codecs=opus')) {
-          mimeType = 'audio/ogg;codecs=opus';
+      // Safari compatibility: prefer formats that work well on Safari
+      const supportedFormats = [
+        'audio/mp4', // Best Safari support
+        'audio/webm;codecs=opus',
+        'audio/webm',
+        'audio/ogg;codecs=opus',
+        'audio/wav' // Fallback
+      ];
+
+      for (const format of supportedFormats) {
+        if (MediaRecorder.isTypeSupported(format)) {
+          mimeType = format;
+          break;
         }
       }
+
+      // Log the selected format for debugging
+      console.log('Selected audio format:', mimeType || 'default');
 
       const mediaRecorder = new MediaRecorder(
         stream,
@@ -225,11 +254,15 @@ export function useSTT(
       };
 
       mediaRecorder.onstop = async () => {
+        console.log('MediaRecorder stopped, isRecordingRef:', isRecordingRef.current, 'isMountedRef:', isMountedRef.current);
         if (!isRecordingRef.current || !isMountedRef.current) {
+          console.log('Recording stopped early, not processing audio');
           return;
         }
 
+        // Immediately set processing state to prevent ghost messages
         setRecordingState('processing');
+        setIsListening(false);
 
         try {
           if (chunksRef.current.length === 0) {
@@ -244,12 +277,14 @@ export function useSTT(
             throw new Error('Recorded audio is empty');
           }
 
+          console.log(`Audio blob size: ${audioBlob.size} bytes, type: ${audioBlob.type}`);
+
           // Convert to WAV if using Azure
           if (config.provider === 'azure') {
             try {
               console.log('Converting audio to WAV format for Azure');
               audioBlob = await convertToWav(audioBlob);
-              console.log('Audio converted to WAV successfully');
+              console.log('Audio converted to WAV successfully, new size:', audioBlob.size);
             } catch (conversionError) {
               console.error('Failed to convert audio to WAV:', conversionError);
               throw new Error('Failed to convert audio to WAV format for Azure');
@@ -257,20 +292,27 @@ export function useSTT(
           }
 
           const result = await transcribeAudio(audioBlob);
+          console.log('Transcription result:', result);
 
-          if (processSpeechAndSendMessage) {
-            processSpeechAndSendMessage(result.text);
-          }
+          // Only process if we have meaningful text
+          if (result.text && result.text.trim().length > 0) {
+            if (processSpeechAndSendMessage) {
+              processSpeechAndSendMessage(result.text);
+            }
 
-          setLastTranscription(result);
+            setLastTranscription(result);
 
-          if (options.onTranscriptionComplete) {
-            options.onTranscriptionComplete(result);
+            if (options.onTranscriptionComplete) {
+              options.onTranscriptionComplete(result);
+            }
+          } else {
+            console.log('No meaningful text transcribed, skipping message processing');
           }
 
           setRecordingState('idle');
         } catch (err) {
           const errorMsg = err instanceof Error ? err : new Error(String(err));
+          console.error('Transcription error:', errorMsg);
           setError(errorMsg);
           setRecordingState('error');
 
@@ -312,9 +354,10 @@ export function useSTT(
 
   /**
    * Detect if there's audio activity (not silence)
+   * Only works when continuous recording is enabled
    */
   const detectAudioActivity = useCallback((): boolean => {
-    if (!analyserRef.current || !dataArrayRef.current) {
+    if (!options.continuousRecording || !analyserRef.current || !dataArrayRef.current) {
       return false;
     }
 
@@ -324,17 +367,22 @@ export function useSTT(
     const average = dataArrayRef.current.reduce((sum, value) => sum + value, 0) / dataArrayRef.current.length;
     
     // Consider audio active if average volume is above threshold
-    const threshold = 10; // Adjust this value as needed
+    // Increased threshold to reduce false positives and allow longer speech
+    const threshold = 25; // Increased from 10 to reduce premature stops
     return average > threshold;
-  }, []);
+  }, [options.continuousRecording]);
 
   /**
    * Start silence detection monitoring
+   * Only works when continuous recording is enabled
    */
   const startSilenceDetection = useCallback(() => {
     if (!options.continuousRecording || !analyserRef.current) {
       return;
     }
+    
+    let consecutiveSilenceCount = 0;
+    const requiredSilenceFrames = 10; // Require 10 consecutive silent frames (1 second at 100ms intervals)
     
     const checkAudioActivity = () => {
       if (!isRecordingRef.current || !isMountedRef.current) {
@@ -344,6 +392,9 @@ export function useSTT(
       const hasActivity = detectAudioActivity();
       
       if (hasActivity) {
+        // Reset silence counter when audio activity is detected
+        consecutiveSilenceCount = 0;
+        
         // Reset silence timeout when audio activity is detected
         if (silenceTimeoutRef.current) {
           clearTimeout(silenceTimeoutRef.current);
@@ -355,11 +406,22 @@ export function useSTT(
             stopRecording();
           }
         }, silenceTimeout * 1000);
+      } else {
+        // Increment silence counter
+        consecutiveSilenceCount++;
+        
+        // Only stop if we've had consistent silence for the required duration
+        if (consecutiveSilenceCount >= requiredSilenceFrames) {
+          if (isRecordingRef.current && isMountedRef.current) {
+            console.log('Stopping recording due to sustained silence');
+            stopRecording();
+          }
+        }
       }
     };
 
-    // Check audio activity every 50ms for responsive detection
-    const intervalId = setInterval(checkAudioActivity, 50);
+    // Check audio activity every 100ms for less aggressive detection
+    const intervalId = setInterval(checkAudioActivity, 100);
     
     // Store interval ID for cleanup
     (window as any).memoriSilenceDetectionInterval = intervalId;
@@ -367,8 +429,13 @@ export function useSTT(
 
   /**
    * Stop silence detection monitoring
+   * Only works when continuous recording is enabled
    */
   const stopSilenceDetection = useCallback(() => {
+    if (!options.continuousRecording) {
+      return;
+    }
+    
     if (silenceTimeoutRef.current) {
       clearTimeout(silenceTimeoutRef.current);
       silenceTimeoutRef.current = null;
@@ -378,7 +445,7 @@ export function useSTT(
       clearInterval((window as any).memoriSilenceDetectionInterval);
       (window as any).memoriSilenceDetectionInterval = null;
     }
-  }, []);
+  }, [options.continuousRecording]);
 
   /**
    * Transcribe audio blob using the API
@@ -474,7 +541,11 @@ export function useSTT(
         mediaRecorderRef.current &&
         mediaRecorderRef.current.state === 'inactive'
       ) {
-        mediaRecorderRef.current.start(100); // Collect data every 100ms
+        // Use different timeslice based on recording mode
+        // For continuous recording, use 100ms for real-time analysis
+        // For non-continuous recording, use longer timeslice to avoid browser limitations
+        const timeslice = options.continuousRecording ? 100 : 1000;
+        mediaRecorderRef.current.start(timeslice);
         setIsListening(true);
         
         // Start silence detection if continuous recording is enabled
@@ -506,15 +577,19 @@ export function useSTT(
    * Stop recording audio
    */
   const stopRecording = useCallback((): void => {
+    console.log('stopRecording called, isRecordingRef:', isRecordingRef.current, 'continuousRecording:', options.continuousRecording);
     if (!isRecordingRef.current) {
+      console.log('Not currently recording, ignoring stop request');
       return;
     }
 
     try {
       setIsListening(false);
       
-      // Stop silence detection
-      stopSilenceDetection();
+      // Stop silence detection only if continuous recording was enabled
+      if (options.continuousRecording) {
+        stopSilenceDetection();
+      }
 
       if (
         mediaRecorderRef.current &&
@@ -579,19 +654,21 @@ export function useSTT(
       audioStreamRef.current = null;
     }
 
-    // Clean up audio context
-    if (audioContextRef.current) {
+    // Clean up audio context only if continuous recording was enabled
+    if (options.continuousRecording && audioContextRef.current) {
       audioContextRef.current.close();
       audioContextRef.current = null;
     }
 
-    // Stop silence detection
-    stopSilenceDetection();
+    // Stop silence detection only if continuous recording was enabled
+    if (options.continuousRecording) {
+      stopSilenceDetection();
+    }
 
     chunksRef.current = [];
     setIsListening(false);
     setRecordingState('idle');
-  }, [stopSilenceDetection]);
+  }, [options.continuousRecording, stopSilenceDetection]);
 
   /**
    * Cleanup on unmount
