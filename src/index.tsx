@@ -180,7 +180,7 @@ const Memori: React.FC<Props> = ({
       if (data.provider) {
         setProvider(data.provider);
       } else {
-          console.warn('Provider not found in speech key response');
+        console.warn('Provider not found in speech key response');
       }
     } catch (error) {
       console.error('Error fetching speech key:', error);
@@ -273,13 +273,31 @@ const Memori: React.FC<Props> = ({
   if (whiteListedDomains) {
     // check if we are client side
     if (typeof window !== 'undefined') {
-      // check if the current domain is in the whiteListedDomains with Regex
-      if (
-        !whiteListedDomains.some((domain: string) =>
-          new RegExp(domain).test(window.location.hostname)
-        )
-      ) {
-        return null;
+      const referrer = document.referrer;
+      const currentHostname = window.location.hostname;
+      const referrerHostname = referrer ? new URL(referrer).hostname : null;
+      
+      // Check if this is a preview context
+      const isInIframe = window.parent !== window;
+      const hasReferrerFromParent = referrer && referrer.length > 0;
+      const isSrcDocIframe = !currentHostname || currentHostname === '';
+      
+      // Preview detection: iframe with referrer from parent (especially srcDoc)
+      const isPreview = isInIframe && hasReferrerFromParent && (
+        referrerHostname === currentHostname ||  // Normal same-origin
+        isSrcDocIframe ||  // srcDoc iframe case
+        window.location.search.includes('_preview=')  // Preview token
+      );
+      // Skip whitelist check for preview
+      if (!isPreview) {
+        // check if the current domain is in the whiteListedDomains with Regex
+        if (
+          !whiteListedDomains.some((domain: string) =>
+            new RegExp(domain).test(window.location.hostname)
+          )
+        ) {
+          return null;
+        }
       }
     }
   }
