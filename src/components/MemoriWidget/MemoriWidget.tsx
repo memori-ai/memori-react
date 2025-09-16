@@ -728,7 +728,7 @@ const MemoriWidget = ({
   const onChangeUserMessage = (value: string) => {
     if (!value || value === '\n' || value.trim() === '') {
       setUserMessage('');
-      resetInteractionTimeout();
+      // resetInteractionTimeout();
       return;
     }
     setUserMessage(value);
@@ -1950,120 +1950,6 @@ const MemoriWidget = ({
     },
     defaultEnableAudio
   );
-
-  const resetInteractionTimeout = () => {
-    clearInteractionTimeout();
-    if (!isPlayingAudio && !userMessage.length && !memoriTyping && !listening)
-      setInteractionTimeout();
-  };
-  const handleTimeout = async () => {
-    if (
-      !hasUserActivatedSpeak ||
-      isPlayingAudio ||
-      !!userMessage.length ||
-      !!memoriTyping ||
-      listening
-    ) {
-      resetInteractionTimeout();
-      return;
-    } else if (
-      sessionId &&
-      hasUserActivatedSpeak &&
-      currentDialogState?.acceptsTimeout
-    ) {
-      const { currentState, ...response } = await postTimeoutEvent(sessionId);
-      if (response.resultCode === 0 && currentState) {
-        const emission = currentState.emission;
-        if (
-          isMultilanguageEnabled &&
-          userLang !== i18n?.language &&
-          emission &&
-          emission.length > 0
-        ) {
-          translateDialogState(
-            { ...currentState, emission: emission },
-            userLang
-          ).then(ts => {
-            let text = ts.translatedEmission || ts.emission;
-            if (text && text.trim() && !speakerMuted) {
-              handleSpeak(text);
-            }
-          });
-        } else if (emission && emission.length > 0) {
-          pushMessage({
-            text: emission,
-            emitter: currentState.emitter,
-            media: currentState.emittedMedia ?? currentState.media,
-            fromUser: false,
-            generatedByAI: !!currentState.completion,
-            contextVars: currentState.contextVars,
-            date: currentState.currentDate,
-            placeName: currentState.currentPlaceName,
-            placeLatitude: currentState.currentLatitude,
-            placeLongitude: currentState.currentLongitude,
-            placeUncertaintyKm: currentState.currentUncertaintyKm,
-            tag: currentState.currentTag,
-            memoryTags: currentState.memoryTags,
-          });
-          if (emission && emission.trim() && !speakerMuted) {
-            handleSpeak(emission);
-          }
-          setCurrentDialogState({
-            ...currentState,
-            hints:
-              currentState.hints ??
-              (currentState.state === 'G1' ? currentDialogState?.hints : []),
-          });
-        } else {
-          resetInteractionTimeout();
-          return;
-        }
-      }
-    }
-  };
-  const setInteractionTimeout = () => {
-    let timeout = currentDialogState?.timeout;
-    if (!timeout) {
-      let timeoutLimit = 40;
-      let timeoutMinLimit = 25;
-      timeout =
-        Math.floor(Math.random() * (timeoutLimit - timeoutMinLimit)) +
-        timeoutMinLimit;
-
-      if (currentDialogState?.emission) {
-        let readTime = currentDialogState.emission.length / 26.5;
-        timeout = timeout + readTime;
-      }
-    }
-    if (forcedTimeout) {
-      timeout = forcedTimeout;
-
-      if (currentDialogState?.emission) {
-        let readTime = currentDialogState.emission.length / 26.5;
-        timeout = timeout + readTime;
-      }
-    }
-
-    let uiTimeout = setTimeout(handleTimeout, timeout * 1000);
-    setUserInteractionTimeout(uiTimeout);
-    timeoutRef.current = uiTimeout;
-  };
-  useEffect(() => {
-    if (!!userMessage.length || isPlayingAudio || !!memoriTyping)
-      clearInteractionTimeout();
-    if (sessionId && !!!userMessage.length) resetInteractionTimeout();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    currentDialogState?.acceptsTimeout,
-    currentDialogState?.timeout,
-    currentDialogState?.state,
-    isPlayingAudio,
-    sessionId,
-    history,
-    userMessage,
-    memoriTyping,
-    hasUserActivatedSpeak,
-  ]);
 
   /**
    * Enhanced handleSpeak that integrates with the improved useTTS hook
