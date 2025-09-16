@@ -1,5 +1,12 @@
 
 
+## [6.8.4](https://github.com/memori-ai/memori-react/compare/v8.6.3...v6.8.4) (2025-09-16)
+
+
+### Features
+
+* add preview context detection to whitelist domain check ([9fce89c](https://github.com/memori-ai/memori-react/commit/9fce89c7fd4691d0611b68949ad300fa2ca15d5b))
+
 ## [8.6.3](https://github.com/memori-ai/memori-react/compare/v8.6.2...v8.6.3) (2025-09-16)
 
 
