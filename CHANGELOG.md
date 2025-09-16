@@ -1,5 +1,26 @@
 
 
+## [8.6.2](https://github.com/memori-ai/memori-react/compare/v8.6.1...v8.6.2) (2025-09-16)
+
+
+### Features
+
+* add artifact creation event dispatching in ArtifactHandler ([1fb558b](https://github.com/memori-ai/memori-react/commit/1fb558bdf530d2feabb33f29689c27223ed126a1))
+* enhance audio processing with Safari compatibility and silence detection ([fab7b50](https://github.com/memori-ai/memori-react/commit/fab7b5035af09fa09173b11057ad98578161c5ac))
+* improve silence detection and audio activity analysis in useSTT ([50260a9](https://github.com/memori-ai/memori-react/commit/50260a98f7457b0a86e4155932e9f9b007285f93))
+* refine message rendering and translation handling with improved tag processing ([848d491](https://github.com/memori-ai/memori-react/commit/848d4916620a86e930bfc74c8a24cfd45560186c))
+
+
+### Bug Fixes
+
+* improve text handling to prevent empty or muted speech ([f1083bc](https://github.com/memori-ai/memori-react/commit/f1083bc0c3287fafa68bb869232a72fc1f0c77f2))
+
+
+### Changes
+
+* remove interaction timeout logic from MemoriWidget for cleaner state management ([31d477b](https://github.com/memori-ai/memori-react/commit/31d477bbd934db288333952c2c0c2a2c46ba5f08))
+* simplify incident status checking logic in CompletionProviderStatus component ([44a70d9](https://github.com/memori-ai/memori-react/commit/44a70d9cdd9bc56d6db120b8882d79628dbb1102))
+
 ## [8.6.1](https://github.com/memori-ai/memori-react/compare/v8.6.0...v8.6.1) (2025-09-15)
 
 ## [8.6.0](https://github.com/memori-ai/memori-react/compare/v8.5.2...v8.6.0) (2025-09-15)
