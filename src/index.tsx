@@ -275,7 +275,7 @@ const Memori: React.FC<Props> = ({
     if (typeof window !== 'undefined') {
       // In whitelist bypass logic
       const isPreview = (window as any).MEMORI_PREVIEW_MODE || 
-      window.location.href.startsWith('data:text/html') ||
+      (window.location.href && window.location.href.startsWith('data:text/html')) ||
       (window !== window.parent && !window.location.hostname);
       // Skip whitelist check for preview
       if (!isPreview) {

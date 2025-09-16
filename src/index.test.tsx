@@ -21,6 +21,7 @@ Object.defineProperty(window, 'matchMedia', {
 // Mock window.location
 const mockLocation = {
   hostname: 'localhost',
+  href: 'http://localhost:3000',
 };
 
 Object.defineProperty(window, 'location', {
