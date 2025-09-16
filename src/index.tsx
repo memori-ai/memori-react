@@ -274,10 +274,9 @@ const Memori: React.FC<Props> = ({
     // check if we are client side
     if (typeof window !== 'undefined') {
       // In whitelist bypass logic
-      const isPreview =
-        window.parent !== window &&
-        document.referrer &&
-        (document.referrer.includes(window.location.hostname)); 
+      const isPreview = (window as any).MEMORI_PREVIEW_MODE || 
+      window.location.href.startsWith('data:text/html') ||
+      (window !== window.parent && !window.location.hostname);
       // Skip whitelist check for preview
       if (!isPreview) {
         // check if the current domain is in the whiteListedDomains with Regex
