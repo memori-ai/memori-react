@@ -273,21 +273,11 @@ const Memori: React.FC<Props> = ({
   if (whiteListedDomains) {
     // check if we are client side
     if (typeof window !== 'undefined') {
-      const referrer = document.referrer;
-      const currentHostname = window.location.hostname;
-      const referrerHostname = referrer ? new URL(referrer).hostname : null;
-      
-      // Check if this is a preview context
-      const isInIframe = window.parent !== window;
-      const hasReferrerFromParent = referrer && referrer.length > 0;
-      const isSrcDocIframe = !currentHostname || currentHostname === '';
-      
-      // Preview detection: iframe with referrer from parent (especially srcDoc)
-      const isPreview = isInIframe && hasReferrerFromParent && (
-        referrerHostname === currentHostname ||  // Normal same-origin
-        isSrcDocIframe ||  // srcDoc iframe case
-        window.location.search.includes('_preview=')  // Preview token
-      );
+      // In whitelist bypass logic
+      const isPreview =
+        window.parent !== window &&
+        document.referrer &&
+        (document.referrer.includes(window.location.hostname)); 
       // Skip whitelist check for preview
       if (!isPreview) {
         // check if the current domain is in the whiteListedDomains with Regex
