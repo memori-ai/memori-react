@@ -586,6 +586,7 @@ const MemoriWidget = ({
 
   const [hasUserActivatedListening, setHasUserActivatedListening] =
     useState(false);
+  const [hasUserTypedMessage, setHasUserTypedMessage] = useState(false);
   const [showPositionDrawer, setShowPositionDrawer] = useState(false);
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
   const [showChatHistoryDrawer, setShowChatHistoryDrawer] = useState(false);
@@ -1967,6 +1968,9 @@ const MemoriWidget = ({
       stopRecording();
     }
 
+    // Reset the typing flag when Memori starts speaking
+    setHasUserTypedMessage(false);
+
     const processedText = sanitizeText(text);
 
     return ttsSpeak(processedText)
@@ -2081,14 +2085,15 @@ const MemoriWidget = ({
       !isPlayingAudio &&
       continuousSpeech &&
       (hasUserActivatedListening || !requestedListening) &&
-      sessionId
+      sessionId &&
+      !hasUserTypedMessage // Don't start recording if user has typed a message
     ) {
       startRecording();
     } else if (isPlayingAudio && isListening) {
       stopRecording();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isPlayingAudio, hasUserActivatedListening]);
+  }, [isPlayingAudio, hasUserActivatedListening, hasUserTypedMessage]);
 
   useEffect(() => {
     stopRecording();
@@ -2317,6 +2322,7 @@ const MemoriWidget = ({
         ? undefined
         : session?.dialogState || currentDialogState;
       setClickedStart(true);
+      setHasUserTypedMessage(false); // Reset typing flag when starting a new session
 
       let translatedMessages: Message[] = [];
 
@@ -2967,11 +2973,15 @@ const MemoriWidget = ({
     sendMessage: (msg: string, media?: (Medium & { type: string })[]) => {
       ttsStop();
       stopRecording();
+      setHasUserTypedMessage(true); // Mark that user has typed a message
       sendMessage(msg, media);
       setUserMessage('');
     },
     stopListening: stopRecording,
-    startListening: startRecording,
+    startListening: () => {
+      setHasUserTypedMessage(false); // Reset typing flag when user starts listening
+      startRecording();
+    },
     stopAudio: ttsStop,
     listening: isListening,
     setEnableFocusChatInput,
