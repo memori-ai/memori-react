@@ -49,7 +49,7 @@ export function useTTS(
   options: UseTTSOptions = {},
   autoStart: boolean = false,
   defaultEnableAudio: boolean = true,
-  defaultSpeakerActive: boolean = true,
+  defaultSpeakerActive: boolean = true
 ) {
   // Stato locale
   const [isPlaying, setIsPlaying] = useState(false);
@@ -60,15 +60,11 @@ export function useTTS(
     )
   );
   // Get viseme methods from your context
-  const {
-    addViseme,
-    resetVisemeQueue,
-    startProcessing,
-    stopProcessing,
-  } = useViseme();
+  const { addViseme, resetVisemeQueue, startProcessing, stopProcessing } =
+    useViseme();
   const [hasUserActivatedSpeak, setHasUserActivatedSpeak] = useState(false);
   const [error, setError] = useState<Error | null>(null);
-  
+
   // Riferimenti
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const audioWrapperRef = useRef<SimpleAudioWrapper | null>(null);
@@ -102,7 +98,9 @@ export function useTTS(
   // Create audio wrapper for viseme processing
   const createAudioWrapper = useCallback(() => {
     if (!audioRef.current) {
-      console.warn('[useTTS] Cannot create audio wrapper: audio element is null');
+      console.warn(
+        '[useTTS] Cannot create audio wrapper: audio element is null'
+      );
       return null;
     }
 
@@ -112,7 +110,7 @@ export function useTTS(
       onstatechange: null,
       get currentTime() {
         return audioRef.current ? audioRef.current.currentTime : 0;
-      }
+      },
     };
 
     // Add event listeners to update the state
@@ -166,19 +164,19 @@ export function useTTS(
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
     }
-    
+
     if (audioWrapperRef.current && (audioWrapperRef.current as any).cleanup) {
       (audioWrapperRef.current as any).cleanup();
     }
     audioWrapperRef.current = null;
-    
+
     stopProcessing();
-    
+
     if (audioRef.current?.src) {
       URL.revokeObjectURL(audioRef.current.src);
       audioRef.current = null;
     }
-    
+
     visemeLoadedRef.current = false;
     // Don't reset isSpeakingRef here - let the speak function manage it
   }, [stopProcessing]);
@@ -188,18 +186,18 @@ export function useTTS(
    */
   const stop = useCallback((): void => {
     console.log('[useTTS] Stopping audio playback');
-    
+
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
-    
+
     setIsPlaying(false);
     cleanup();
-    
+
     // Only reset speaking flag after cleanup
     isSpeakingRef.current = false;
-    
+
     // Dispatch custom event to notify MemoriWidget that audio has ended
     const e = new CustomEvent('MemoriAudioEnded');
     document.dispatchEvent(e);
@@ -217,190 +215,199 @@ export function useTTS(
     }
   }, [options.continuousSpeech, options.onEndSpeakStartListen]);
 
-  /**
-   * Sintetizza il testo in audio e lo riproduce
-   */
-  const speak = useCallback(
-    async (text: string): Promise<void> => {
-      if (!isMountedRef.current) {
-        return;
-      }
+// Helper per creare i chunk
+const createChunks = useCallback((text: string, maxLength: number = 800): string[] => {
+  if (text.length <= maxLength) {
+    return [text];
+  }
+  
+  const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+  const chunks: string[] = [];
+  let currentChunk = '';
+  
+  for (const sentence of sentences) {
+    const sentenceWithPunct = sentence.trim() + '.';
+    if ((currentChunk + sentenceWithPunct).length > maxLength && currentChunk.length > 0) {
+      chunks.push(currentChunk.trim());
+      currentChunk = sentenceWithPunct;
+    } else {
+      currentChunk += sentenceWithPunct + ' ';
+    }
+  }
+  
+  if (currentChunk.trim().length > 0) {
+    chunks.push(currentChunk.trim());
+  }
+  
+  return chunks;
+}, []);
 
-      // Early exit conditions before setting speaking flag
-      if (!text || !text.trim() || options.preview) {
-        emitEndSpeakEvent();
-        return;
-      }
+// Helper per riprodurre un singolo chunk
+const speakChunk = useCallback(async (chunkText: string): Promise<void> => {
+    const response = await fetch(options.apiUrl || '/api/tts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        text: chunkText,
+        tenant: config.tenant || 'www.aisuru.com',
+        voice: config.voice,
+        model: config.model || 'tts-1',
+        region: config.region,
+        provider: config.provider,
+        includeVisemes: config.layout === 'ZOOMED_FULL_BODY' || config.layout === 'FULLPAGE' || config.layout === 'DEFAULT',
+      }),
+    });
 
-      // If speaker is muted, completely disable TTS functionality
-      if (speakerMuted) {
-        console.log('[useTTS] TTS disabled - speaker is muted');
-        emitEndSpeakEvent();
-        return;
-      }
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `API error: ${response.status}`);
+    }
 
-      // Stop any existing playback first (before checking/setting speaking flag)
-      if (isPlaying) {
-        stop();
-      }
+    const audioBlob = await response.blob();
+    const audioUrl = URL.createObjectURL(audioBlob);
 
-      // Now check if we're already processing a request
-      if (isSpeakingRef.current) {
-        return;
-      }
+    if (!isSpeakingRef.current || !isMountedRef.current) {
+      URL.revokeObjectURL(audioUrl);
+      return;
+    }
 
-      // Set the flag after all the early exits and cleanup
-      isSpeakingRef.current = true;
-
-      if (!hasUserActivatedSpeak) {
-        setHasUserActivatedSpeak(true);
-      }
-
-      try {
-        setIsPlaying(true);
-        setError(null);
-
-        const response = await fetch(options.apiUrl || '/api/tts', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            text: text,
-            tenant: config.tenant || 'www.aisuru.com',
-            voice: config.voice,
-            model: config.model || 'tts-1',
-            region: config.region,
-            provider: config.provider,
-            includeVisemes: config.layout === 'ZOOMED_FULL_BODY' || config.layout === 'FULLPAGE' || config.layout === 'DEFAULT',
-          }),
-        });
-
-        if (!response.ok) {
-          const errorData = await response.json().catch(() => ({}));
-          throw new Error(errorData.error || `API error: ${response.status}`);
-        }
-        
-        const visemeDataHeader = response.headers.get('X-Viseme-Data');
-        
-        let hasVisemeData = false;
-        if (visemeDataHeader) {
-          try {
-            const visemeData: VisemeData[] = JSON.parse(visemeDataHeader);
-            hasVisemeData = loadVisemeData(visemeData);
-          } catch (err) {
-            console.error('[useTTS] Error parsing viseme data:', err);
+    const audio = new Audio(audioUrl);
+    
+    return new Promise<void>((resolve, reject) => {
+      audio.oncanplaythrough = async () => {
+        try {
+          if (!isSpeakingRef.current || !isMountedRef.current) {
+            URL.revokeObjectURL(audioUrl);
+            resolve();
+            return;
           }
-        }
-
-        const audioBlob = await response.blob();
-        const audioUrl = URL.createObjectURL(audioBlob);
-
-        if (!isSpeakingRef.current || !isMountedRef.current) {
+          await audio.play();
+        } catch (e) {
           URL.revokeObjectURL(audioUrl);
-          return;
+          reject(e);
         }
+      };
+      
+      audio.onended = () => {
+        URL.revokeObjectURL(audioUrl);
+        resolve();
+      };
 
-        audioRef.current = new Audio(audioUrl);
-        
-        if (hasVisemeData) {
-          audioWrapperRef.current = createAudioWrapper();
-        }
-        
-        audioRef.current.oncanplaythrough = async () => {
-          try {
-            if (!isSpeakingRef.current || !isMountedRef.current) {
-              return;
-            }
+      audio.onerror = () => {
+        URL.revokeObjectURL(audioUrl);
+        reject(new Error('Audio playback failed'));
+      };
+      
+      audio.load();
+    });
+}, [config, options]);
 
-            if (hasVisemeData && audioWrapperRef.current) {
-              startProcessing(audioWrapperRef.current as unknown as IAudioContext);
-            }
-            
-            await audioRef.current?.play();
-            
-            if (timeoutRef.current) {
-              clearTimeout(timeoutRef.current);
-              timeoutRef.current = null;
-            }
-            
-            if (audioRef.current) {
-              audioRef.current.oncanplaythrough = null;
-            }
-          } catch (e: any) {
-            cleanup();
-            isSpeakingRef.current = false;
-            emitEndSpeakEvent();
-            
-            // Dispatch custom event to notify MemoriWidget that audio has ended
-            const event = new CustomEvent('MemoriAudioEnded');
-            document.dispatchEvent(event);
-          }
-        };
-        
-        audioRef.current.onended = () => {
-          setIsPlaying(false);
-          isSpeakingRef.current = false;
-          emitEndSpeakEvent();
-          
-          // Dispatch custom event to notify MemoriWidget that audio has ended
-          const e = new CustomEvent('MemoriAudioEnded');
-          document.dispatchEvent(e);
-        };
+/**
+ * Sintetizza il testo in audio e lo riproduce
+ */
+const speak = useCallback(
+  async (text: string): Promise<void> => {
+    if (!isMountedRef.current) {
+      return;
+    }
 
-        audioRef.current.onerror = (e) => {
-          console.error('[useTTS] Audio playback error:', e);
-          setIsPlaying(false);
-          isSpeakingRef.current = false;
-          cleanup();
-          
-          const errorMsg = new Error(`Audio playback failed. This may be due to a network issue or audio format problem.`);
-          setError(errorMsg);
-          emitEndSpeakEvent();
-          
-          // Dispatch custom event to notify MemoriWidget that audio has ended
-          const event = new CustomEvent('MemoriAudioEnded');
-          document.dispatchEvent(event);
-        };
-        
-        audioRef.current.load();
-        
-      } catch (err) {
-        console.error('[useTTS] Error during speech synthesis:', err);
-        setIsPlaying(false);
-        isSpeakingRef.current = false;
-        
-        if (timeoutRef.current) {
-          clearTimeout(timeoutRef.current);
-          timeoutRef.current = null;
+    // Early exit conditions before setting speaking flag
+    if (!text || !text.trim() || options.preview) {
+      emitEndSpeakEvent();
+      return;
+    }
+
+    // If speaker is muted, completely disable TTS functionality
+    if (speakerMuted) {
+      console.log('[useTTS] TTS disabled - speaker is muted');
+      emitEndSpeakEvent();
+      return;
+    }
+
+    // Stop any existing playback first (before checking/setting speaking flag)
+    if (isPlaying) {
+      stop();
+    }
+
+    // Now check if we're already processing a request
+    if (isSpeakingRef.current) {
+      return;
+    }
+
+    // Set the flag after all the early exits and cleanup
+    isSpeakingRef.current = true;
+
+    if (!hasUserActivatedSpeak) {
+      setHasUserActivatedSpeak(true);
+    }
+
+    try {
+      setIsPlaying(true);
+      setError(null);
+
+      // CHUNKING LOGIC: Dividi il testo in chunk se necessario
+      const chunks = createChunks(text, 800);
+      console.log(`[useTTS] Processing ${chunks.length} chunks for text length: ${text.length}`);
+
+      // Riproduci tutti i chunk in sequenza
+      for (let i = 0; i < chunks.length; i++) {
+        if (!isSpeakingRef.current || !isMountedRef.current) {
+          break;
         }
         
-        cleanup();
-        const errorMsg = err instanceof Error ? err : new Error(String(err));
-        setError(errorMsg);
-
-        emitEndSpeakEvent();
+        console.log(`[useTTS] Playing chunk ${i + 1}/${chunks.length}`);
+        await speakChunk(chunks[i]);
         
-        // Dispatch custom event to notify MemoriWidget that audio has ended
-        const e = new CustomEvent('MemoriAudioEnded');
-        document.dispatchEvent(e);
+        // Pausa breve tra i chunk (solo se ce ne sono altri)
+        if (i < chunks.length - 1 && isSpeakingRef.current && isMountedRef.current) {
+          await new Promise(resolve => setTimeout(resolve, 300));
+        }
       }
-    },
-    [
-      config,
-      speakerMuted,
-      options.preview,
-      hasUserActivatedSpeak,
-      stop,
-      cleanup,
-      loadVisemeData,
-      createAudioWrapper,
-      startProcessing,
-      emitEndSpeakEvent,
-      isPlaying,
-    ]
-  );
 
+      setIsPlaying(false);
+      isSpeakingRef.current = false;
+      emitEndSpeakEvent();
+      
+      // Dispatch custom event to notify MemoriWidget that audio has ended
+      const e = new CustomEvent('MemoriAudioEnded');
+      document.dispatchEvent(e);
+      
+    } catch (err) {
+      console.error('[useTTS] Error during speech synthesis:', err);
+      setIsPlaying(false);
+      isSpeakingRef.current = false;
+      
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+      
+      cleanup();
+      const errorMsg = err instanceof Error ? err : new Error(String(err));
+      setError(errorMsg);
+
+      emitEndSpeakEvent();
+      
+      // Dispatch custom event to notify MemoriWidget that audio has ended
+      const e = new CustomEvent('MemoriAudioEnded');
+      document.dispatchEvent(e);
+    }
+  },
+  [
+    config,
+    speakerMuted,
+    options.preview,
+    hasUserActivatedSpeak,
+    stop,
+    cleanup,
+    createChunks,
+    speakChunk,
+    emitEndSpeakEvent,
+    isPlaying,
+  ]
+);
   /**
    * Imposta lo stato del muto
    */
