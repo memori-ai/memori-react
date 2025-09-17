@@ -1,5 +1,17 @@
 
 
+## [8.6.7](https://github.com/memori-ai/memori-react/compare/v8.6.6...v8.6.7) (2025-09-17)
+
+
+### Features
+
+* add user typing state management to MemoriWidget ([0a0b1da](https://github.com/memori-ai/memori-react/commit/0a0b1daab1cab1266d2d7eb997918f833273e4b4))
+
+
+### Changes
+
+* clean up audio references ([31a4cf5](https://github.com/memori-ai/memori-react/commit/31a4cf5437a4f05b7e1631e45568832515b44daf))
+
 ## [8.6.6](https://github.com/memori-ai/memori-react/compare/v8.6.5...v8.6.6) (2025-09-17)
 
 
