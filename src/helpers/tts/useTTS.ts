@@ -73,6 +73,7 @@ export function useTTS(
   const isSpeakingRef = useRef<boolean>(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isMountedRef = useRef<boolean>(true);
+  const currentChunkAudioRef = useRef<HTMLAudioElement | null>(null);
   const apiUrl = options.apiUrl || '/api/tts';
 
   // Load viseme data into the queue
@@ -88,7 +89,6 @@ export function useTTS(
         visemeLoadedRef.current = true;
         return true;
       } else {
-        console.warn('[useTTS] No viseme data available');
         return false;
       }
     },
@@ -98,9 +98,6 @@ export function useTTS(
   // Create audio wrapper for viseme processing
   const createAudioWrapper = useCallback(() => {
     if (!audioRef.current) {
-      console.warn(
-        '[useTTS] Cannot create audio wrapper: audio element is null'
-      );
       return null;
     }
 
@@ -159,7 +156,6 @@ export function useTTS(
    * Performs a complete cleanup of audio and viseme resources
    */
   const cleanup = useCallback(() => {
-    console.log('[useTTS] Cleaning up');
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
@@ -177,6 +173,11 @@ export function useTTS(
       audioRef.current = null;
     }
 
+    // Clear chunk audio reference
+    if (currentChunkAudioRef.current) {
+      currentChunkAudioRef.current = null;
+    }
+
     visemeLoadedRef.current = false;
     // Don't reset isSpeakingRef here - let the speak function manage it
   }, [stopProcessing]);
@@ -185,20 +186,23 @@ export function useTTS(
    * Stops audio playback and cleans up
    */
   const stop = useCallback((): void => {
-    console.log('[useTTS] Stopping audio playback');
-
+    // Stop the main audio element
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
     }
 
+    // Stop the current chunk audio element if it exists
+    if (currentChunkAudioRef.current) {
+      currentChunkAudioRef.current.pause();
+      currentChunkAudioRef.current.currentTime = 0;
+      currentChunkAudioRef.current = null;
+    }
+
     setIsPlaying(false);
     cleanup();
-
-    // Only reset speaking flag after cleanup
     isSpeakingRef.current = false;
 
-    // Dispatch custom event to notify MemoriWidget that audio has ended
     const e = new CustomEvent('MemoriAudioEnded');
     document.dispatchEvent(e);
   }, [cleanup]);
@@ -276,6 +280,9 @@ const speakChunk = useCallback(async (chunkText: string): Promise<void> => {
     // Crea un nuovo Audio element per riprodurre il chunk corrente
     const audio = new Audio(audioUrl);
     
+    // Track the current chunk audio element
+    currentChunkAudioRef.current = audio;
+    
     return new Promise<void>((resolve, reject) => {
       // Quando l'audio è pronto per essere riprodotto
       audio.oncanplaythrough = async () => {
@@ -297,12 +304,20 @@ const speakChunk = useCallback(async (chunkText: string): Promise<void> => {
       // Quando l'audio termina di riprodurre
       audio.onended = () => {
         URL.revokeObjectURL(audioUrl);
+        // Clear the current chunk audio reference
+        if (currentChunkAudioRef.current === audio) {
+          currentChunkAudioRef.current = null;
+        }
         // Risolve la Promise quando l'audio termina di riprodurre
         resolve();
       };
 
       audio.onerror = () => {
         URL.revokeObjectURL(audioUrl);
+        // Clear the current chunk audio reference
+        if (currentChunkAudioRef.current === audio) {
+          currentChunkAudioRef.current = null;
+        }
         // Rifiuta la Promise se l'audio fallisce
         reject(new Error('Audio playback failed'));
       };
@@ -328,7 +343,6 @@ const speak = useCallback(
 
     // If speaker is muted, completely disable TTS functionality
     if (speakerMuted) {
-      console.log('[useTTS] TTS disabled - speaker is muted');
       emitEndSpeakEvent();
       return;
     }
@@ -356,7 +370,6 @@ const speak = useCallback(
 
       // CHUNKING LOGIC: Dividi il testo in chunk se necessario
       const chunks = createChunks(text, 800);
-      console.log(`[useTTS] Processing ${chunks.length} chunks for text length: ${text.length}`);
 
       // Riproduci tutti i chunk in sequenza
       // Il loop itera su ogni chunk di testo che deve essere riprodotto
@@ -366,7 +379,6 @@ const speak = useCallback(
           break; // Interrompe il loop se il componente viene smontato
         }
         
-        console.log(`[useTTS] Playing chunk ${i + 1}/${chunks.length}`);
         // Attende che il chunk corrente venga riprodotto prima di passare al successivo
         await speakChunk(chunks[i]);
         
@@ -388,7 +400,6 @@ const speak = useCallback(
       document.dispatchEvent(e);
       
     } catch (err) {
-      console.error('[useTTS] Error during speech synthesis:', err);
       setIsPlaying(false);
       isSpeakingRef.current = false;
       

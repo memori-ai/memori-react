@@ -2029,13 +2029,6 @@ const MemoriWidget = ({
     ]
   );
 
-  /**
-   * Funzione stopAudio che sostituisce quella originale
-   */
-  const stopAudio = useCallback(async () => {
-    ttsStop();
-  }, [ttsStop]);
-
   const focusChatInput = () => {
     let textarea = document.querySelector(
       '#chat-fieldset textarea'
@@ -2063,7 +2056,7 @@ const MemoriWidget = ({
       clearInteractionTimeout();
       setClickedStart(false);
       timeoutRef.current = undefined;
-      stopAudio();
+      ttsStop();
     } catch (e) {
       console.log('Error: resetUIEffects', e);
     }
@@ -2237,7 +2230,7 @@ const MemoriWidget = ({
   }, [integrationConfig, memori.avatarURL, ogImage]);
 
   const simulateUserPrompt = (text: string, translatedText?: string) => {
-    stopAudio();
+    ttsStop();
     sendMessage(text, undefined, undefined, false, translatedText);
   };
 
@@ -2267,7 +2260,7 @@ const MemoriWidget = ({
             memoriTextEnteredHandler(e);
           }, 1000);
         } else {
-          stopAudio();
+          ttsStop();
           sendMessage(
             text,
             undefined,
@@ -2853,7 +2846,7 @@ const MemoriWidget = ({
       }
       setLocalConfig('muteSpeaker', !!mute);
       if (mute) {
-        stopAudio();
+        ttsStop();
       } else {
         audioContext = new AudioContext();
         let buffer = audioContext.createBuffer(1, 10000, 22050);
@@ -2972,14 +2965,14 @@ const MemoriWidget = ({
     userMessage,
     onChangeUserMessage,
     sendMessage: (msg: string, media?: (Medium & { type: string })[]) => {
-      stopAudio();
+      ttsStop();
       stopRecording();
       sendMessage(msg, media);
       setUserMessage('');
     },
     stopListening: stopRecording,
     startListening: startRecording,
-    stopAudio,
+    stopAudio: ttsStop,
     listening: isListening,
     setEnableFocusChatInput,
     isPlayingAudio,
