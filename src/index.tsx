@@ -269,24 +269,21 @@ const Memori: React.FC<Props> = ({
     layoutIntegration?.customData ?? '{}'
   );
 
-  const whiteListedDomains = layoutIntegrationConfig.whiteListedDomains;
+  const whiteListedDomains = [
+    tenant?.name,
+    ...(tenant?.aliases || []),
+    ...(layoutIntegrationConfig.whiteListedDomains || []),
+  ];
   if (whiteListedDomains) {
     // check if we are client side
     if (typeof window !== 'undefined') {
-      // In whitelist bypass logic
-      const isPreview = (window as any).MEMORI_PREVIEW_MODE || 
-      (window.location.href && window.location.href.startsWith('data:text/html')) ||
-      (window !== window.parent && !window.location.hostname);
-      // Skip whitelist check for preview
-      if (!isPreview) {
-        // check if the current domain is in the whiteListedDomains with Regex
-        if (
-          !whiteListedDomains.some((domain: string) =>
-            new RegExp(domain).test(window.location.hostname)
-          )
-        ) {
-          return null;
-        }
+      // check if the current domain is in the whiteListedDomains with Regex
+      if (
+        !whiteListedDomains.some((domain: string) =>
+          new RegExp(domain).test(window.location.hostname)
+        )
+      ) {
+        return null;
       }
     }
   }
