@@ -274,7 +274,7 @@ const Memori: React.FC<Props> = ({
     ...(tenant?.aliases || []),
     ...(layoutIntegrationConfig.whiteListedDomains || []),
   ];
-  if (whiteListedDomains) {
+  if (layoutIntegrationConfig?.whiteListedDomains?.length) {
     // check if we are client side
     if (typeof window !== 'undefined') {
       // check if the current domain is in the whiteListedDomains with Regex
