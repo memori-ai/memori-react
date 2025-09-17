@@ -273,16 +273,20 @@ const speakChunk = useCallback(async (chunkText: string): Promise<void> => {
       return;
     }
 
+    // Crea un nuovo Audio element per riprodurre il chunk corrente
     const audio = new Audio(audioUrl);
     
     return new Promise<void>((resolve, reject) => {
+      // Quando l'audio è pronto per essere riprodotto
       audio.oncanplaythrough = async () => {
         try {
+          // Controlla se il componente è ancora montato e se non è stato interrotto
           if (!isSpeakingRef.current || !isMountedRef.current) {
             URL.revokeObjectURL(audioUrl);
             resolve();
             return;
           }
+          // Riproduce l'audio
           await audio.play();
         } catch (e) {
           URL.revokeObjectURL(audioUrl);
@@ -290,13 +294,16 @@ const speakChunk = useCallback(async (chunkText: string): Promise<void> => {
         }
       };
       
+      // Quando l'audio termina di riprodurre
       audio.onended = () => {
         URL.revokeObjectURL(audioUrl);
+        // Risolve la Promise quando l'audio termina di riprodurre
         resolve();
       };
 
       audio.onerror = () => {
         URL.revokeObjectURL(audioUrl);
+        // Rifiuta la Promise se l'audio fallisce
         reject(new Error('Audio playback failed'));
       };
       
@@ -352,16 +359,22 @@ const speak = useCallback(
       console.log(`[useTTS] Processing ${chunks.length} chunks for text length: ${text.length}`);
 
       // Riproduci tutti i chunk in sequenza
+      // Il loop itera su ogni chunk di testo che deve essere riprodotto
       for (let i = 0; i < chunks.length; i++) {
+        // Controlla se il componente è ancora montato e se non è stato interrotto
         if (!isSpeakingRef.current || !isMountedRef.current) {
-          break;
+          break; // Interrompe il loop se il componente viene smontato
         }
         
         console.log(`[useTTS] Playing chunk ${i + 1}/${chunks.length}`);
+        // Attende che il chunk corrente venga riprodotto prima di passare al successivo
         await speakChunk(chunks[i]);
         
-        // Pausa breve tra i chunk (solo se ce ne sono altri)
+        // Se ci sono altri chunk da riprodurre, aggiunge una piccola pausa
         if (i < chunks.length - 1 && isSpeakingRef.current && isMountedRef.current) {
+          // Crea una Promise che si risolve dopo 300ms
+          // Questo crea una pausa tra un chunk e l'altro
+          // setTimeout viene wrappato in una Promise per poter usare await
           await new Promise(resolve => setTimeout(resolve, 300));
         }
       }
