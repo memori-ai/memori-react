@@ -1,5 +1,19 @@
 
 
+## [8.6.6](https://github.com/memori-ai/memori-react/compare/v8.6.5...v8.6.6) (2025-09-17)
+
+
+### Bug Fixes
+
+* whitelisted domain check to include own tenant ([2270987](https://github.com/memori-ai/memori-react/commit/2270987194cce04cf78de2af707568f6c521e4a7))
+* whitelisted domain check to include own tenant ([fe2ba28](https://github.com/memori-ai/memori-react/commit/fe2ba280e20592854469918c66d0c5227a312d12))
+
+
+### Changes
+
+* added comments to the chunk TTS implementation ([c539602](https://github.com/memori-ai/memori-react/commit/c53960235ffc4560ada59fb619b572d8c0653146))
+* improve text-to-speech chunking and playback logic ([f06dd91](https://github.com/memori-ai/memori-react/commit/f06dd917b157bc8032b197f051c1c7647273e507))
+
 ## [8.6.5](https://github.com/memori-ai/memori-react/compare/v8.6.4...v8.6.5) (2025-09-16)
 
 
