@@ -145,9 +145,6 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--welcome h3 {
     margin: 0 0 1rem;
-    background: linear-gradient(to right, #8246af, #00aec7);
-    background-clip: border-box;
-    background-clip: text;
     font-size: 2rem;
     font-weight: 700;
     -webkit-text-fill-color: #0000;
@@ -480,7 +477,7 @@ p.memori--login-drawer--inline-error {
 }
 
 .memori--login-drawer--otp-input:focus {
-    border-color: #8246af;
+    border-color: var(--memori-primary);
     background: white;
     box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
     transform: scale(1.02);
@@ -513,7 +510,7 @@ p.memori--login-drawer--inline-error {
 }
 
 .memori--login-drawer--otp-email-input:focus {
-    border-color: #8246af;
+    border-color: var(--memori-primary);
     background: white;
     box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
     transform: translateY(-1px);
@@ -1166,7 +1163,7 @@ p.memori--login-drawer--inline-error {
 }
 
 .memori--login-drawer--action-card:hover {
-    border-color: #8246af;
+    border-color: var(--memori-primary);
     box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
     transform: translateY(-4px);
 }
@@ -1394,7 +1391,7 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--account-form input[type='email']:focus,
 .memori--login-drawer--account-form input[type='file']:focus {
-    border-color: #8246af;
+    border-color: var(--memori-primary);
     box-shadow: 0 0 0 3px rgba(130, 70, 175, 0.1);
     outline: none;
 }

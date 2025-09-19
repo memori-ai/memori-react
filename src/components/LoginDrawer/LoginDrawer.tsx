@@ -58,7 +58,7 @@ const LoginDrawer = ({
   const [otpCode, setOtpCode] = useState<string>('');
   const [otpEmail, setOtpEmail] = useState<string>('');
   const [otpError, setOtpError] = useState<string | null>(null);
-  const [showOtpForm, setShowOtpForm] = useState(false);
+  const [showOtpForm, setShowOtpForm] = useState(true);
   const [showOtpCodeForm, setShowOtpCodeForm] = useState(false);
   const [otpTimer, setOtpTimer] = useState<number | null>(null);
   const [otpSent, setOtpSent] = useState(false);
@@ -615,61 +615,7 @@ const LoginDrawer = ({
             )}
           </div>
         </>
-      ) : (
-        <>
-          <div className="memori--login-drawer--welcome">
-            <div className="memori--login-drawer--welcome-header">
-              <h3>{t('login.welcomeTitle')}</h3>
-              <p className="memori--login-drawer--welcome-description">
-                {t('login.welcomeDescription')}
-              </p>
-            </div>
-
-            <div className="memori--login-drawer--otp-info">
-              <div className="memori--login-drawer--otp-info-item">
-                <div className="memori--login-drawer--otp-info-number">1</div>
-                <div className="memori--login-drawer--otp-info-content">
-                  <h4>{t('login.otpStep1Title')}</h4>
-                  <p>{t('login.otpStep1')}</p>
-                </div>
-              </div>
-              <div className="memori--login-drawer--otp-info-item">
-                <div className="memori--login-drawer--otp-info-number">2</div>
-                <div className="memori--login-drawer--otp-info-content">
-                  <h4>{t('login.otpStep2Title')}</h4>
-                  <p>{t('login.otpStep2')}</p>
-                </div>
-              </div>
-              <div className="memori--login-drawer--otp-info-item">
-                <div className="memori--login-drawer--otp-info-number">3</div>
-                <div className="memori--login-drawer--otp-info-content">
-                  <h4>{t('login.otpStep3Title')}</h4>
-                  <p>{t('login.otpStep3')}</p>
-                </div>
-              </div>
-            </div>
-
-            <Button
-              primary
-              onClick={() => {
-                setShowOtpForm(true);
-              }}
-              className="memori--login-drawer--start-otp-button"
-            >
-              <span className="memori--login-drawer--button-content">
-                <span>{t('login.startOtpLogin')}</span>
-              </span>
-            </Button>
-          </div>
-
-          {error && (
-            <div role="alert" className="memori--login-drawer--error">
-              <span className="memori--login-drawer--error-icon">⚠️</span>
-              <span>{error}</span>
-            </div>
-          )}
-        </>
-      )}
+      ) : null}
     </Drawer>
   );
 };
