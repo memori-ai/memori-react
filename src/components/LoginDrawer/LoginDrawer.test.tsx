@@ -21,6 +21,7 @@ it('renders LoginDrawer closed unchanged', () => {
       apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
+      setUser={jest.fn()}
       onLogout={jest.fn()}
     />
   );
@@ -34,6 +35,7 @@ it('renders LoginDrawer open unchanged', () => {
       apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
+      setUser={jest.fn()}
       onLogout={jest.fn()}
       open
     />
@@ -48,6 +50,7 @@ it('renders LoginDrawer unlogged unchanged', () => {
       apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
+      setUser={jest.fn()}
       onLogout={jest.fn()}
       open
     />
@@ -62,6 +65,7 @@ it('renders LoginDrawer logged with missing data unchanged', () => {
       apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
+      setUser={jest.fn()}
       onLogout={jest.fn()}
       open
       __TEST__needMissingData
@@ -77,6 +81,7 @@ it('renders LoginDrawer logged in unchanged', () => {
       apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
+      setUser={jest.fn()}
       onLogout={jest.fn()}
       open
       user={user}
@@ -93,6 +98,7 @@ it('renders LoginDrawer on signup unchanged', () => {
       apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
+      setUser={jest.fn()}
       onLogout={jest.fn()}
       __TEST__signup
       open
@@ -108,6 +114,7 @@ it('renders LoginDrawer on signup waiting for otp unchanged', () => {
       apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
+      setUser={jest.fn()}
       onLogout={jest.fn()}
       __TEST__signup
       __TEST__waitingForOtp
@@ -125,7 +132,7 @@ it('renders LoginDrawer on change password unchanged', () => {
       tenant={tenant}
       onLogin={jest.fn()}
       onLogout={jest.fn()}
-      __TEST__changePwd
+      setUser={jest.fn()}
       open
     />
   );
@@ -139,6 +146,7 @@ it('renders LoginDrawer with OTP form unchanged', () => {
       apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
+      setUser={jest.fn()}
       onLogout={jest.fn()}
       open
     />
@@ -153,6 +161,7 @@ it('renders LoginDrawer with OTP form and timer unchanged', () => {
       apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
+      setUser={jest.fn()}
       onLogout={jest.fn()}
       open
     />
@@ -167,6 +176,7 @@ it('renders LoginDrawer with OTP form and error unchanged', () => {
       apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
+      setUser={jest.fn()}
       onLogout={jest.fn()}
       open
     />
@@ -181,6 +191,7 @@ it('renders LoginDrawer with OTP form loading unchanged', () => {
       apiClient={memoriApiClient()}
       tenant={tenant}
       onLogin={jest.fn()}
+      setUser={jest.fn()}
       onLogout={jest.fn()}
       open
     />
