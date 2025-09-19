@@ -8,6 +8,7 @@ import {
   User,
 } from '@memori.ai/memori-api-client/dist/types';
 import Button from '../ui/Button';
+import Dropdown from '../ui/Dropdown';
 import MapMarker from '../icons/MapMarker';
 import SoundDeactivated from '../icons/SoundDeactivated';
 import Sound from '../icons/Sound';
@@ -22,6 +23,13 @@ import DeepThought from '../icons/DeepThought';
 import Group from '../icons/Group';
 import UserIcon from '../icons/User';
 import MessageIcon from '../icons/Message';
+import Logout from '../icons/Logout';
+import '../ui/Dropdown.css';
+import { getErrori18nKey } from '../../helpers/error';
+import toast from 'react-hot-toast';
+import memoriApiClient from '@memori.ai/memori-api-client';
+
+const imgMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
 
 export interface Props {
   className?: string;
@@ -51,6 +59,8 @@ export interface Props {
   sessionID?: string;
   baseUrl?: string;
   fullScreenHandler?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onLogout?: () => void;
+  apiClient: ReturnType<typeof memoriApiClient>;
 }
 
 const Header: React.FC<Props> = ({
@@ -81,8 +91,14 @@ const Header: React.FC<Props> = ({
   showChatHistory = true,
   fullScreenHandler,
   baseUrl,
+  onLogout,
+  apiClient,
 }) => {
   const { t } = useTranslation();
+  const {
+    uploadAsset,
+    pwlUpdateUser,
+  } = apiClient.backend;
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
   useEffect(() => {
@@ -90,6 +106,52 @@ const Header: React.FC<Props> = ({
       setFullScreenAvailable(true);
     }
   }, []);
+
+  const updateAvatar = async (avatar: Blob) => {
+    console.log('[updateAvatar] Starting avatar update', { avatar });
+    if (avatar && loginToken) {
+      const reader = new FileReader();
+      reader.onload = async e => {
+        console.log('[updateAvatar] FileReader loaded', { result: e.target?.result });
+        try {
+          console.log('[updateAvatar] Uploading asset...');
+          const { asset: avatarAsset, ...resp } = await uploadAsset(
+            avatar.name ?? 'avatar',
+            e.target?.result as string,
+            loginToken ?? ''
+          );
+          console.log('[updateAvatar] Upload response:', { avatarAsset, resp });
+
+          if (resp.resultCode !== 0) {
+            console.error('[updateAvatar] Upload failed:', resp);
+            toast.error(t(getErrori18nKey(resp.resultCode)));
+          } else if (avatarAsset) {
+            console.log('[updateAvatar] Upload successful, updating user...');
+            let newUser: Partial<User> = {
+              userID: user?.userID,
+              avatarURL: avatarAsset.assetURL,
+            };
+
+            const { user: patchedUser, ...resp } = await pwlUpdateUser(
+              loginToken ?? '',
+              user?.userID ?? '',
+              newUser
+            );
+            console.log('[updateAvatar] User update complete', { patchedUser, resp });
+          }
+        } catch (e) {
+          let err = e as Error;
+          console.error('[updateAvatar] Error:', err);
+
+          if (err?.message) toast.error(err.message);
+        }
+      };
+      reader.readAsDataURL(avatar as Blob);
+    } else {
+      console.error('[updateAvatar] Missing avatar or login token', { avatar, loginToken });
+      toast.error(t('login.avatarUploadError'));
+    }
+  };
 
   return (
     <div className={cx('memori-header', className)}>
@@ -244,16 +306,91 @@ const Header: React.FC<Props> = ({
         />
       )}
       {showLogin && (
-        <Button
-          primary
-          shape="circle"
-          className="memori-header--button memori-header--button-login"
-          icon={<UserIcon />}
-          onClick={() => setShowLoginDrawer(true)}
-          title={
-            loginToken ? t('login.user') || 'User' : t('login.login') || 'Login'
-          }
-        />
+        <>
+          {loginToken && user ? (
+            <Dropdown
+              placement="bottom-right"
+              trigger={
+                <Button
+                  primary
+                  shape="circle"
+                  className="memori-header--button memori-header--button-login"
+                  icon={<UserIcon />}
+                  title={t('login.user') || 'User'}
+                />
+              }
+            >
+              <div className="memori-dropdown--user-profile">
+                <div className="memori-dropdown--user-info">
+                  {user.avatarURL ? (
+                    <>
+                    <img
+                      src={user.avatarURL}
+                      alt={user.userName || user.eMail}
+                      className="memori-dropdown--avatar"
+                    />
+                    <input
+                      type="file"
+                      name="avatar"
+                      id="avatar"
+                      className="memori-dropdown--avatar-input"
+                      onChange={e => updateAvatar(e.target.files?.[0] ?? null as unknown as Blob)}
+                      accept={imgMimeTypes.join(', ')}
+                    />
+                    </>
+                  ) : (
+                    <div className="memori-dropdown--avatar-placeholder">
+                      <span>
+                        {(user.userName || user.eMail || 'U')
+                          .charAt(0)
+                          .toUpperCase()}
+                      </span>
+                      <input
+                        type="file"
+                        name="avatar"
+                        id="avatar"
+                        className="memori-dropdown--avatar-input"
+                        onChange={e => updateAvatar(e.target.files?.[0] ?? null as unknown as Blob)}
+                        accept={imgMimeTypes.join(', ')}
+                      />
+                    </div>
+                  )}
+
+                  <div className="memori-dropdown--user-details">
+                    <h3 className="memori-dropdown--user-name">
+                      {user.userName || t('login.welcomeUser')}
+                    </h3>
+                    <p className="memori-dropdown--user-email">{user.eMail}</p>
+                    <div className="memori-dropdown--user-badge">
+                      {user.birthDate
+                        ? new Date(user.birthDate).toLocaleDateString()
+                        : t('login.notSet')}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="memori-dropdown--actions">
+                <button
+                  className="memori-dropdown--action-button memori-dropdown--action-button--logout"
+                  onClick={onLogout}
+                >
+                  <Logout className="memori-dropdown--action-icon" />
+                  {t('login.logout') || 'Logout'}
+                </button>
+              </div>
+            </Dropdown>
+          ) : (
+            <Button
+              primary
+              shape="circle"
+              className="memori-header--button memori-header--button-login"
+              icon={<UserIcon />}
+              onClick={() => setShowLoginDrawer(true)}
+              title={t('login.login') || 'Login'}
+            />
+          )}
+        </>
       )}
     </div>
   );

@@ -83,3 +83,27 @@
 .memori-header .memori-header--button--position {
     margin-right: 0.25rem;
 }
+
+
+.memori-dropdown--avatar-input{
+    position: absolute;
+    top: 20px;
+    left: 15px;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    opacity: 0;
+}
+
+
+
+.memori-dropdown--avatar:hover, .memori-dropdown--avatar-initial:hover, .memori-dropdown--avatar-input:hover{
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    pointer-events: cursor;
+    transform: scale(1.05);
+}
+
+.memori-dropdown--avatar-initial:hover + .memori-dropdown--avatar-input,.memori-dropdown--avatar:hover + .memori-dropdown--avatar-input{
+    display: block;
+}
