@@ -2825,6 +2825,7 @@ const MemoriWidget = ({
       ...memori,
       ownerUserID: memori.ownerUserID ?? ownerUserID ?? undefined,
     },
+    apiClient: client,
     tenant,
     history,
     showShare: showShare ?? integrationConfig?.showShare ?? true,
@@ -2875,6 +2876,17 @@ const MemoriWidget = ({
     user,
     sessionID: sessionId,
     baseUrl,
+    onLogout: () => {
+      if (!loginToken) return;
+
+      client.backend.userLogout(loginToken).then(() => {
+        setShowLoginDrawer(false);
+        setUser(undefined);
+        setLoginToken(undefined);
+        userToken = undefined;
+        removeLocalConfig('loginToken');
+      });
+    },
   };
 
   const avatarProps: AvatarProps = {
@@ -3280,6 +3292,7 @@ const MemoriWidget = ({
             setShowLoginDrawer(false);
             setLocalConfig('loginToken', token);
           }}
+          setUser={setUser}
           onLogout={() => {
             if (!loginToken) return;
 
