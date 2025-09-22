@@ -129,3 +129,20 @@ it('renders client with whiteListedDomains on not allowed domains', () => {
   );
   expect(container).toMatchSnapshot();
 });
+
+it('renders client with audio disabled', () => {
+  const { container } = render(
+    <Memori
+      memoriID={memori.memoriID}
+      ownerUserID={memori.ownerUserID}
+      tenantID={tenant.tenantID}
+      integration={{
+        ...integration,
+        customData: JSON.stringify({}),
+      }}
+      enableAudio={false}
+      autoStart={true}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});

@@ -341,11 +341,16 @@ const speak = useCallback(
       return;
     }
 
-    // If speaker is muted, completely disable TTS functionality
-    if (speakerMuted) {
-      emitEndSpeakEvent();
-      return;
+  // If speaker is muted, completely disable TTS functionality
+  if (speakerMuted) {
+    // Still set hasUserActivatedSpeak to true when audio is disabled
+    // so the chat can start properly
+    if (!hasUserActivatedSpeak) {
+      setHasUserActivatedSpeak(true);
     }
+    emitEndSpeakEvent();
+    return;
+  }
 
     // Stop any existing playback first (before checking/setting speaking flag)
     if (isPlaying) {
