@@ -12,6 +12,7 @@
 @import url('./components/ui/Expandable.css');
 @import url('./components/ui/Slider.css');
 @import url('./components/ui/Alert.css');
+@import url('./components/ui/Dropdown.css');
 
 @import url('./components/CompletionProviderStatus/CompletionProviderStatus.css');
 @import url('./components/PoweredBy/PoweredBy.css');

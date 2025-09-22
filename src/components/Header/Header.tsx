@@ -24,7 +24,6 @@ import Group from '../icons/Group';
 import UserIcon from '../icons/User';
 import MessageIcon from '../icons/Message';
 import Logout from '../icons/Logout';
-import '../ui/Dropdown.css';
 import { getErrori18nKey } from '../../helpers/error';
 import toast from 'react-hot-toast';
 import memoriApiClient from '@memori.ai/memori-api-client';
