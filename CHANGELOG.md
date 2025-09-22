@@ -1,5 +1,26 @@
 
 
+## [8.7.0](https://github.com/memori-ai/memori-react/compare/v8.6.7...v8.7.0) (2025-09-22)
+
+
+### Features
+
+* enhance LoginDrawer with OTP functionality and user data handling ([88abe88](https://github.com/memori-ai/memori-react/commit/88abe883f7dde4cb596d2215940d38d2dfae0fd7))
+* implement Dropdown component with styles and Logout icon ([68f09ec](https://github.com/memori-ai/memori-react/commit/68f09ec09c6cafabf56b29ca5bef597d7dca1249))
+* implement user avatar upload functionality in Header component ([e936f14](https://github.com/memori-ai/memori-react/commit/e936f1434d8ccb9c333c46efd9ad24b0b2be020f))
+* integrate artifact context into HiddenChat and adjust sidebar toggle styles ([8f27bec](https://github.com/memori-ai/memori-react/commit/8f27bec47128cb217c805c6833a6637ba4629c7e))
+* reintegrated AccountForm component for user account management ([d3f3284](https://github.com/memori-ai/memori-react/commit/d3f3284856877d24a326e8702ede473ca7fbacb2))
+
+
+### Bug Fixes
+
+* chat not starting when enableAudio is false ([26f87bf](https://github.com/memori-ai/memori-react/commit/26f87bfa43de68c6cd06a34e203d2259724653b4))
+
+
+### Changes
+
+* update LoginDrawer styles and initial OTP form visibility ([b23629a](https://github.com/memori-ai/memori-react/commit/b23629a6e71ce2af292d6b356d9e7bce1eee24cf))
+
 ## [8.6.7](https://github.com/memori-ai/memori-react/compare/v8.6.6...v8.6.7) (2025-09-17)
 
 
