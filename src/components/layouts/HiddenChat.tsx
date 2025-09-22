@@ -4,6 +4,7 @@ import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { useTranslation } from 'react-i18next';
 import QuestionHelp from '../icons/QuestionHelp';
 import Close from '../icons/Close';
+import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
 
 const HiddenChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -23,6 +24,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   const [fullScreen, setFullScreen] = useState(false);
   const [hasTriggeredAutostart, setHasTriggeredAutostart] = useState(false);
 
+  const { state } = useArtifact();
   const { onClickStart, hasInitialSession } = startPanelProps || {};
 
   // Use refs to store original sidebar properties to restore them later
@@ -189,7 +191,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
       <input
         type="checkbox"
         id="memori-sidebar-toggle"
-        className="memori-sidebar-toggle"
+        className={`memori-sidebar-toggle ${state.isDrawerOpen ? 'memori-sidebar-toggle-artifact' : ''}`}
         checked={isOpen}
         onChange={handleSidebarToggle}
       />

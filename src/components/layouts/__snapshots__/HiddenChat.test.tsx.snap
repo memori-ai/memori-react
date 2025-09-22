@@ -12,7 +12,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
     style="height: 100vh;"
   >
     <input
-      class="memori-sidebar-toggle"
+      class="memori-sidebar-toggle "
       id="memori-sidebar-toggle"
       type="checkbox"
     />

@@ -146,6 +146,10 @@
   right: 0;
 }
 
+.memori-sidebar-toggle-artifact:checked ~ .memori-sidebar-container .memori-sidebar {
+  right: 46%;
+}
+
 .memori-sidebar-toggle:checked ~ .memori-sidebar-container .memori-open-label {
   opacity: 0;
   pointer-events: none;
