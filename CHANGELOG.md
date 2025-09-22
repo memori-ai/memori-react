@@ -1,5 +1,12 @@
 
 
+## [8.7.1](https://github.com/memori-ai/memori-react/compare/v8.7.0...v8.7.1) (2025-09-22)
+
+
+### Features
+
+* add Dropdown component styles and remove unused import from Header ([43cfcd6](https://github.com/memori-ai/memori-react/commit/43cfcd6cf94616c3276af1a692ab5b874a232124))
+
 ## [8.7.0](https://github.com/memori-ai/memori-react/compare/v8.6.7...v8.7.0) (2025-09-22)
 
 
