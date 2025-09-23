@@ -3318,7 +3318,7 @@ const MemoriWidget = ({
             setShowLoginDrawer(false);
             setLocalConfig('loginToken', token);
           }}
-          // setUser={setUser}
+          setUser={setUser}
           onLogout={() => {
             if (!loginToken) return;
 
