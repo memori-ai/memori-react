@@ -1,5 +1,12 @@
 
 
+## [8.7.3](https://github.com/memori-ai/memori-react/compare/v8.7.2...v8.7.3) (2025-09-25)
+
+
+### Bug Fixes
+
+* simplify attribute mutation check in Memori component ([e9758b8](https://github.com/memori-ai/memori-react/commit/e9758b836b38e0212bcb66ef5225770573071e82))
+
 ## [8.7.2](https://github.com/memori-ai/memori-react/compare/v8.7.1...v8.7.2) (2025-09-25)
 
 
