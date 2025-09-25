@@ -258,8 +258,7 @@ const Memori: React.FC<Props> = ({
     const callback: MutationCallback = (mutationList, _observer) => {
       for (const mutation of mutationList) {
         if (
-          mutation.type === 'attributes' &&
-          mutation.attributeName?.toLowerCase() === 'authtoken'
+          mutation.type === 'attributes'
         ) {
           const target =
             mutation.target.nodeName === 'MEMORI-CLIENT'
