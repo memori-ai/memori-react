@@ -417,6 +417,7 @@ export interface Props {
   applyVarsToRoot?: boolean;
   showFunctionCache?: boolean;
   authToken?: string;
+  __WEBCOMPONENT__?: boolean;
 }
 
 const MemoriWidget = ({
@@ -467,6 +468,7 @@ const MemoriWidget = ({
   additionalSettings,
   customMediaRenderer,
   userAvatar,
+  __WEBCOMPONENT__ = false,
   useMathFormatting = false,
   autoStart = false,
   applyVarsToRoot = false,
@@ -1195,6 +1197,13 @@ const MemoriWidget = ({
       }
     });
   };
+
+  useEffect(() => {
+    if (initialSessionID) {
+      setSessionId(initialSessionID);
+      onClickStart(undefined, false, undefined, initialSessionID);
+    }
+  }, [initialSessionID]);
 
   /**
    * Opening Session
@@ -2322,12 +2331,17 @@ const MemoriWidget = ({
    * Handles clicking the start button to begin or resume a session
    * @param session Optional existing session with dialog state and ID
    * @param initialSessionExpired Whether the initial session has expired
-   */
+   /**
+    * Handles clicking the start button to begin or resume a session
+    * @param session Optional existing session with dialog state and ID
+    * @param initialSessionExpired Whether the initial session has expired
+    */
   const onClickStart = useCallback(
     async (
       session?: { dialogState: DialogState; sessionID: string },
       initialSessionExpired = false,
-      chatLog?: ChatLog
+      chatLog?: ChatLog,
+      targetSessionID?: string
     ) => {
       // console.log('[onClickStart] Starting with params:', {
       //   session,
@@ -2350,7 +2364,7 @@ const MemoriWidget = ({
         undefined
       );
       let birth = birthDate || storageBirthDate || user?.birthDate;
-      if (!birth && autoStart && initialSessionID)
+      if (!birth && autoStart && (initialSessionID || targetSessionID))
         birth = '1970-01-01T10:24:03.845Z';
 
       const localPosition = getLocalConfig<Venue | undefined>(
@@ -2416,7 +2430,6 @@ const MemoriWidget = ({
         if (session?.dialogState) {
           // reset history
           if (!chatLog) {
-            // console.log('[onClickStart] No chat log, resetting history');
             setHistory([]);
 
             // Use translateAndSpeak which already handles the speaking
@@ -2470,7 +2483,7 @@ const MemoriWidget = ({
                   })
                 );
               } catch (e) {
-                console.error('[CLICK_START] Error translating messages:', e);
+                console.error('[onClickStart] Error translating messages:', e);
               }
             }
 
@@ -2488,16 +2501,16 @@ const MemoriWidget = ({
         } else if (session?.resultCode === 0) {
           await onClickStart((session as any) || undefined);
         } else {
-          // console.log('[onClickStart] Session creation failed');
           setLoading(false);
         }
 
         return;
       }
       // Handle initial session
-      else if (initialSessionID) {
+      else if (initialSessionID || targetSessionID) {
+        const sessionID = targetSessionID ?? initialSessionID;
         // check if session is valid and not expired
-        const { currentState, ...response } = await getSession(sessionID);
+        const { currentState, ...response } = await getSession(sessionID!);
 
         if (response.resultCode !== 0 || !currentState) {
           setGotErrorInOpening(true);
@@ -2525,11 +2538,11 @@ const MemoriWidget = ({
         ) {
           try {
             // reset tag
-            await changeTag(memori.engineMemoriID!, sessionID, '-');
+            await changeTag(memori.engineMemoriID!, sessionID!, '-');
             // change tag to receiver
             const session = await changeTag(
               memori.engineMemoriID!,
-              sessionID,
+              sessionID!,
               personification.tag,
               personification.pin
             );
@@ -2570,11 +2583,11 @@ const MemoriWidget = ({
         ) {
           try {
             // reset tag
-            await changeTag(memori.engineMemoriID!, sessionID, '-');
+            await changeTag(memori.engineMemoriID!, sessionID!, '-');
             // change tag to anonymous
             const session = await changeTag(
               memori.engineMemoriID!,
-              sessionID,
+              sessionID!,
               anonTag
             );
 
@@ -2607,7 +2620,7 @@ const MemoriWidget = ({
         // No tag changes needed
         else {
           try {
-            const { chatLogs } = await getSessionChatLogs(sessionID, sessionID);
+            const { chatLogs } = await getSessionChatLogs(sessionID!, sessionID!);
 
             const messages = chatLogs?.[0]?.lines.map(
               (l, i) =>
@@ -2643,13 +2656,13 @@ const MemoriWidget = ({
                   }))
                 );
               } catch (e) {
-                console.error('[CLICK_START] Error translating messages:', e);
+                console.error('[onClickStart] Error translating messages:', e);
               }
             }
 
             setHistory(translatedMessages);
           } catch (e) {
-            console.error('[CLICK_START] Error retrieving chat logs:', e);
+            console.error('[onClickStart] Error retrieving chat logs:', e);
           }
 
           if (
@@ -2657,6 +2670,7 @@ const MemoriWidget = ({
             !initialQuestion
           ) {
             // we have a history, don't push message
+            setHasUserActivatedSpeak(true);
             await translateAndSpeak(
               currentState,
               userLang,
@@ -2666,6 +2680,7 @@ const MemoriWidget = ({
               !!translatedMessages?.length
             );
           } else {
+            console.log('[onClickStart] Starting with initial question');
             // remove default initial message
             translatedMessages = [];
             setHistory([]);
@@ -2674,7 +2689,7 @@ const MemoriWidget = ({
 
             // we have no chat history, we start by initial question
             const response = await postTextEnteredEvent({
-              sessionId: sessionID,
+              sessionId: sessionID!,
               text: initialQuestion,
             });
 
@@ -2708,10 +2723,6 @@ const MemoriWidget = ({
   );
 
   useEffect(() => {
-    // Don't auto-start for HIDDEN_CHAT layout - let the layout handle it
-    // console.log('clickedStart', clickedStart);
-    // console.log('autoStart', autoStart);
-    // console.log('selectedLayout', selectedLayout);
     if (!clickedStart && autoStart && selectedLayout !== 'HIDDEN_CHAT') {
       onClickStart();
     }
@@ -2824,6 +2835,8 @@ const MemoriWidget = ({
   }, [tenant?.billingDelegation, deepThoughtEnabled]);
 
   useEffect(() => {
+    if (__WEBCOMPONENT__) return;
+
     const closeSession = () => {
       if (sessionId) {
         deleteSession(sessionId);

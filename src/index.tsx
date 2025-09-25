@@ -43,6 +43,7 @@ export interface Props {
   showDates?: boolean;
   showContextPerLine?: boolean;
   showSettings?: boolean;
+  __WEBCOMPONENT__?: boolean;
   showClear?: boolean;
   showOnlyLastMessages?: boolean;
   showTypingText?: boolean;
@@ -149,10 +150,13 @@ const Memori: React.FC<Props> = ({
   useMathFormatting = false,
   autoStart,
   applyVarsToRoot = false,
+  __WEBCOMPONENT__ = false,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
   const [tenant, setTenant] = useState<Tenant>();
   const [provider, setProvider] = useState<string | undefined>();
+  const [sessionId, setSessionId] = useState<string | undefined>();
+
   const { t } = useTranslation();
 
   if (!((memoriID && ownerUserID) || (memoriName && ownerUserName))) {
@@ -240,6 +244,42 @@ const Memori: React.FC<Props> = ({
   useEffect(() => {
     fetchTenant();
   }, [fetchTenant]);
+
+  useEffect(() => {
+    const targetNode =
+      document.querySelector(`memori-client[memoriname="${memori?.name}"]`) ||
+      document.querySelector(`memori-client[memoriid="${memori?.memoriID}"]`) ||
+      document.querySelector('memori-client');
+    if (!targetNode) {
+      return;
+    }
+
+    const config = { attributes: true, childList: false, subtree: false };
+    const callback: MutationCallback = (mutationList, _observer) => {
+      for (const mutation of mutationList) {
+        if (
+          mutation.type === 'attributes' &&
+          mutation.attributeName?.toLowerCase() === 'authtoken'
+        ) {
+          const target =
+            mutation.target.nodeName === 'MEMORI-CLIENT'
+              ? mutation.target
+              : mutation.target.parentElement;
+          // @ts-ignore
+          const targetSessionId = target.getAttribute('sessionid') || undefined;
+          if (target && targetSessionId) {
+            setSessionId(targetSessionId);
+          }
+        }
+      }
+    };
+    const observer = new MutationObserver(callback);
+    observer.observe(targetNode, config);
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
 
   /**
    * Sets the language in the i18n instance
@@ -338,67 +378,71 @@ const Memori: React.FC<Props> = ({
     <I18nWrapper>
       <VisemeProvider>
         <ArtifactProvider>
-        <Toaster position="top-center" reverseOrder={true} />
-        {memori ? (
-          <MemoriWidget
-            // General props
-            layout={layout}
-            customLayout={customLayout}
-            height={height}
-            baseUrl={
-              baseURL ||
-              (tenantID.startsWith('https://') || tenantID.startsWith('http://')
-                ? tenantID
-                : `https://${tenantID}`)
-            }
-            apiURL={apiURL}
-            engineURL={engineURL}
-            memori={{
-              ...memori,
-              secretToken,
-            }}
-            ownerUserName={ownerUserName ?? memori.ownerUserName}
-            ownerUserID={ownerUserID ?? memori.ownerUserID}
-            tenant={tenant}
-            tenantID={tenantID}
-            sessionID={sessionID}
-            secret={secretToken}
-            ttsProvider={provider ? (provider as 'azure' | 'openai') : 'azure'}
-            integration={layoutIntegration}
-            authToken={authToken}
-            onStateChange={onStateChange}
-            additionalInfo={additionalInfo}
-            customMediaRenderer={customMediaRenderer}
-            additionalSettings={additionalSettings}
-            userAvatar={userAvatar}
-            applyVarsToRoot={applyVarsToRoot}
-            disableTextEnteredEvents={disableTextEnteredEvents}
-            // From layout, from client if allowed
-            {...clientAttributes}
-            // Client only
-            showOnlyLastMessages={showOnlyLastMessages}
-            showInputs={showInputs}
-            showDates={showDates}
-          />
-        ) : (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}
-          >
-            <p
+          <Toaster position="top-center" reverseOrder={true} />
+          {memori ? (
+            <MemoriWidget
+              // General props
+              layout={layout}
+              customLayout={customLayout}
+              height={height}
+              baseUrl={
+                baseURL ||
+                (tenantID.startsWith('https://') ||
+                tenantID.startsWith('http://')
+                  ? tenantID
+                  : `https://${tenantID}`)
+              }
+              apiURL={apiURL}
+              engineURL={engineURL}
+              memori={{
+                ...memori,
+                secretToken,
+              }}
+              __WEBCOMPONENT__={__WEBCOMPONENT__}
+              ownerUserName={ownerUserName ?? memori.ownerUserName}
+              ownerUserID={ownerUserID ?? memori.ownerUserID}
+              tenant={tenant}
+              tenantID={tenantID}
+              sessionID={sessionID ?? sessionId}
+              secret={secretToken}
+              ttsProvider={
+                provider ? (provider as 'azure' | 'openai') : 'azure'
+              }
+              integration={layoutIntegration}
+              authToken={authToken}
+              onStateChange={onStateChange}
+              additionalInfo={additionalInfo}
+              customMediaRenderer={customMediaRenderer}
+              additionalSettings={additionalSettings}
+              userAvatar={userAvatar}
+              applyVarsToRoot={applyVarsToRoot}
+              disableTextEnteredEvents={disableTextEnteredEvents}
+              // From layout, from client if allowed
+              {...clientAttributes}
+              // Client only
+              showOnlyLastMessages={showOnlyLastMessages}
+              showInputs={showInputs}
+              showDates={showDates}
+            />
+          ) : (
+            <div
               style={{
-                textAlign: 'center',
-                margin: '2rem auto',
-                textTransform: 'capitalize',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
               }}
             >
-              {t('loading') || 'Loading'}...
-            </p>
-          </div>
-        )}
+              <p
+                style={{
+                  textAlign: 'center',
+                  margin: '2rem auto',
+                  textTransform: 'capitalize',
+                }}
+              >
+                {t('loading') || 'Loading'}...
+              </p>
+            </div>
+          )}
         </ArtifactProvider>
       </VisemeProvider>
     </I18nWrapper>
