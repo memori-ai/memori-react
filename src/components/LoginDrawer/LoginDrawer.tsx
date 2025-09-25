@@ -572,17 +572,11 @@ const LoginDrawer = ({
                     </div>
                   )}
                 </div>
-                <small
-                  id="email-help"
-                  className="memori--login-drawer--otp-help"
-                >
-                  {t('login.emailHelp')}
-                </small>
               </label>
             </div>
 
             <div className="memori--login-drawer--otp-actions">
-              <Button
+             {showOtpCodeForm && <Button
                 outlined
                 onClick={() => {
                   setShowOtpForm(false);
@@ -593,7 +587,7 @@ const LoginDrawer = ({
                 disabled={loading}
               >
                 {t('login.backToLogin')}
-              </Button>
+              </Button>}
 
               <Button
                 primary

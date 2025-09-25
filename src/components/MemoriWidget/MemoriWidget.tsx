@@ -1244,7 +1244,7 @@ const MemoriWidget = ({
       //     (i: Invitation) => i.type === 'GIVER' && i.state === 'ACCEPTED'
       //   );
 
-      //   if (giverInvitation) {
+      //   if (giverInvitation) {x
       //     memori.giverTag = giverInvitation.tag;
       //     memori.giverPIN = giverInvitation.pin;
       //   }
