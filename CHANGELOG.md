@@ -1,5 +1,12 @@
 
 
+## [8.7.2](https://github.com/memori-ai/memori-react/compare/v8.7.1...v8.7.2) (2025-09-25)
+
+
+### Features
+
+* add dynamic sessionId handling ([c80f0f5](https://github.com/memori-ai/memori-react/commit/c80f0f5a2ad497999218e6b401c8aeef1b9db02b))
+
 ## [8.7.1](https://github.com/memori-ai/memori-react/compare/v8.7.0...v8.7.1) (2025-09-22)
 
 
