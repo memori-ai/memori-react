@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import Spin from '../ui/Spin';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { useTranslation } from 'react-i18next';
+import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
 import QuestionHelp from '../icons/QuestionHelp';
 import Close from '../icons/Close';
-import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
 
 const HiddenChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -196,6 +196,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
         >
           <QuestionHelp className="memori-icon" aria-label={t('expand')} />
         </label>
+        
         <aside
           className={`memori-sidebar ${
             fullScreen ? 'memori-sidebar-fullscreen' : ''

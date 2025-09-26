@@ -82,7 +82,7 @@
   flex: 1;
   /* border: 1px solid var(--memori-button-border-color, #e9ecef); */
   border-radius: var(--memori-border-radius, 6px);
-  margin: 1rem;
+  /* margin: 1rem; */
   background: var(--memori-chat-bubble-bg, #fff);
 }
 

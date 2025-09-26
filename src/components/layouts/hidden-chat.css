@@ -9,7 +9,19 @@
 .memori-sidebar-toggle {
   display: none;
 }
+.memori-chat--content{
+  padding: 0;
+}
 
+.memori-chat-inputs{
+  padding: 8px 24px;
+}
+
+.memori-chat-history{
+  height: calc(100% - 75px);
+  margin: 0;
+}
+/* Modern floating toggle button */
 .memori-sidebar-toggle-label {
   position: absolute;
   top: 50%;
@@ -19,7 +31,7 @@
   height: 80px;
   align-items: center;
   justify-content: center;
-  padding: 10px 5px;
+  padding: 12px 8px;
   background-color: var(--memori-primary);
   color: white;
   cursor: pointer;
@@ -37,10 +49,9 @@
 
 .memori-close-label {
   right: 350px;
-  border-radius: 0 5px 5px 0;
+  border-radius: 5px 0 0 5px;
   opacity: 0;
   pointer-events: none;
-  transform: rotate(180deg);
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, right 0.3s ease-in-out;
 }
 

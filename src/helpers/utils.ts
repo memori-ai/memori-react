@@ -232,7 +232,7 @@ export const stripReasoningTags = (text: string) => {
   const strippedText = text.replace(reasoningTagRegex, '');
 
   // Recursively strip nested reasoning tags
-  return stripOutputTags(strippedText);
+  return strippedText;
 };
 
 export const stripHTML = (text: string) => {
