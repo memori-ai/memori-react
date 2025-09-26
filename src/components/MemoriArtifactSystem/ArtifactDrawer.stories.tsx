@@ -10,6 +10,7 @@ import {
   Memori,
   Tenant,
 } from '@memori.ai/memori-api-client/dist/types';
+import { sanitizeText } from '../../helpers/sanitizer';
 
 // Mock data for Chat component
 const mockMemori: Memori = {
@@ -68,7 +69,7 @@ const mockSetAttachmentsMenuOpen = (attachmentsMenuOpen: 'link' | 'media') => {
 // Story decorator to provide context
 const withArtifactProvider = (Story: any) => (
   <ArtifactProvider>
-      <Story />
+    <Story />
   </ArtifactProvider>
 );
 
@@ -85,27 +86,90 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 // Sample artifacts for different mime types
-const htmlArtifact = `<output class="memori-artifact" data-mimetype="html">
+const htmlArtifact = `<think>L'utente mi chiede di generare una semplice pagina HTML. Userò il sistema Artifact per creare una pagina HTML pulita e semplice, seguendo le linee guida fornite.
+
+Devo:
+1. Usare il formato corretto: <output class="memori-artifact" data-mimetype="html">
+2. Creare una pagina HTML completa con DOCTYPE
+3. Il tag </output> deve essere DOPO </html>
+4. Mantenerla semplice come richiesto
+5. Includere un po' di stile per renderla gradevole ma non eccessiva</think>Ciao! Ti creo subito una pagina HTML semplice e pulita:
+
+<output class="memori-artifact" data-mimetype="html">
 <!DOCTYPE html>
-<html>
+<html lang="it">
 <head>
-    <title>Sample Page</title>
-    <style>
-        body { font-family: Arial, sans-serif; padding: 20px; }
-        .header { color: #333; border-bottom: 2px solid #007bff; }
-        .content { margin-top: 20px; }
-        .button { background: #007bff; color: white; padding: 10px 20px; border: none; border-radius: 5px; }
-    </style>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>La mia pagina semplice</title>
+ <style>
+ body {
+ font-family: Arial, sans-serif;
+ max-width: 800px;
+ margin: 0 auto;
+ padding: 20px;
+ line-height: 1.6;
+ background-color: #f4f4f4;
+ }
+ 
+ .container {
+ background: white;
+ padding: 30px;
+ border-radius: 8px;
+ box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+ }
+ 
+ h1 {
+ color: #333;
+ text-align: center;
+ }
+ 
+ p {
+ color: #666;
+ margin-bottom: 15px;
+ }
+ 
+ .highlight {
+ background-color: #e8f5e8;
+ padding: 15px;
+ border-left: 4px solid #4CAF50;
+ margin: 20px 0;
+ }
+ </style>
 </head>
 <body>
-    <h1 class="header">Welcome to My Page</h1>
-    <div class="content">
-        <p>This is a sample HTML page created as an artifact.</p>
-        <button class="button" onclick="alert('Hello!')">Click me</button>
-    </div>
+ <div class="container">
+ <h1>Benvenuto nella mia pagina!</h1>
+ 
+ <p>Questa è una pagina HTML semplice e pulita.</p>
+ 
+ <p>Contiene alcuni elementi di base:</p>
+ 
+ <ul>
+ <li>Un titolo principale</li>
+ <li>Paragrafi di testo</li>
+ <li>Una lista</li>
+ <li>Un po' di stile CSS</li>
+ </ul>
+ 
+ <div class="highlight">
+ <strong>Nota:</strong> Puoi modificare liberamente questo codice per personalizzare la tua pagina!
+ </div>
+ 
+ <p>Grazie per aver visitato la pagina! 😊</p>
+ </div>
 </body>
 </html>
-</output>`;
+</output>
+
+Ecco una pagina HTML semplice con:
+- Struttura pulita e ben organizzata
+- CSS inline per uno styling leggero
+- Layout responsive centrato
+- Elementi di base: titoli, paragrafi, lista
+- Un tocco di colore con la sezione evidenziata
+
+Puoi vedere l'anteprima nel drawer che si è aperto e modificare il codice come preferisci!`;
 
 const markdownArtifact = `<output class="memori-artifact" data-mimetype="markdown">
 # Project Documentation
@@ -314,6 +378,16 @@ This page includes modern styling and an interactive button. You can customize t
           fromUser: false,
           timestamp: new Date().toISOString(),
         },
+        {
+          text: 'Try the sanitizeText function',
+          fromUser: false,
+          timestamp: new Date().toISOString(),
+        },
+        {
+          text: sanitizeText(htmlArtifact),
+          fromUser: false,
+          timestamp: new Date().toISOString(),
+        }
       ]}
       pushMessage={mockPushMessage}
       simulateUserPrompt={mockSimulateUserPrompt}
@@ -327,6 +401,7 @@ This page includes modern styling and an interactive button. You can customize t
       setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
       showInputs={false}
       isChatlogPanel={true}
+      showReasoning={true}
     />
   ),
 };
@@ -374,11 +449,11 @@ export const CSSStyles: Story = {
       sessionID="test-session"
       history={[
         {
-          text: `I've created comprehensive project documentation for you:
+          text: `I've created modern CSS styles for your project:
 
 ${cssArtifact}
 
-This includes all the essential sections for a project README with proper formatting and structure.`,
+This includes responsive grid layouts, smooth animations, and contemporary styling.`,
           fromUser: false,
           timestamp: new Date().toISOString(),
         },
@@ -466,6 +541,7 @@ This includes all necessary dependencies, scripts, and metadata for a production
     />
   ),
 };
+
 export const MultipleArtifacts: Story = {
   args: {},
   render: () => (
@@ -501,7 +577,6 @@ This combination gives you a complete, styled web page ready for deployment.`,
     />
   ),
 };
-
 
 export const ConversationFlow: Story = {
   args: {},
@@ -550,8 +625,8 @@ This adds responsive grid layouts, smooth animations, and contemporary styling.`
       stopListening={mockStopListening}
       setSendOnEnter={mockSetSendOnEnter}
       setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
-        showInputs={false}
-        isChatlogPanel={false}
+      showInputs={false}
+      isChatlogPanel={false}
     />
   ),
 };
@@ -595,161 +670,3 @@ export const NoArtifacts: Story = {
     />
   ),
 };
-
-// CSS for the storybook stories
-const styles = `
-<style>
-.artifact-handlers {
-  margin: 10px 0;
-}
-
-.artifact-handler {
-  display: flex;
-  align-items: center;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background: white;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin: 8px 0;
-}
-
-.artifact-handler:hover {
-  background: #f8f9fa;
-  border-color: #007bff;
-  transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(0,123,255,0.15);
-}
-
-.artifact-handler-icon {
-  font-size: 24px;
-  margin-right: 12px;
-}
-
-.artifact-handler-info {
-  flex: 1;
-}
-
-.artifact-handler-title {
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 4px;
-}
-
-.artifact-handler-meta {
-  font-size: 12px;
-  color: #666;
-}
-
-.artifact-handler-action {
-  font-size: 18px;
-  color: #007bff;
-}
-
-.artifact-drawer {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 50%;
-  height: 100vh;
-  background: white;
-  border-left: 1px solid #ddd;
-  display: flex;
-  flex-direction: column;
-  z-index: 1000;
-}
-
-.artifact-drawer.fullscreen {
-  width: 100%;
-  left: 0;
-}
-
-.artifact-drawer-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px;
-  border-bottom: 1px solid #ddd;
-  background: #f8f9fa;
-}
-
-.artifact-drawer-header h3 {
-  margin: 0;
-  color: #333;
-}
-
-.artifact-drawer-actions button {
-  background: none;
-  border: 1px solid #ddd;
-  padding: 8px;
-  margin-left: 8px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.artifact-drawer-actions button:hover {
-  background: #e9ecef;
-}
-
-.artifact-drawer-tabs {
-  display: flex;
-  background: #f8f9fa;
-  border-bottom: 1px solid #ddd;
-}
-
-.artifact-drawer-tabs button {
-  padding: 12px 24px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  border-bottom: 2px solid transparent;
-}
-
-.artifact-drawer-tabs button.active {
-  border-bottom-color: #007bff;
-  color: #007bff;
-}
-
-.artifact-drawer-content {
-  flex: 1;
-  overflow: auto;
-  padding: 16px;
-}
-
-.artifact-code {
-  background: #f8f9fa;
-  padding: 16px;
-  border-radius: 4px;
-  font-family: 'Monaco', 'Menlo', monospace;
-  font-size: 14px;
-  line-height: 1.5;
-  margin: 0;
-  overflow-x: auto;
-}
-
-.artifact-preview {
-  height: 100%;
-}
-
-.artifact-preview iframe {
-  width: 100%;
-  height: 500px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-@media (max-width: 768px) {
-  .artifact-drawer {
-    width: 100%;
-    left: 0;
-  }
-}
-</style>`;
-
-// Add styles to document head
-if (typeof document !== 'undefined') {
-  const styleElement = document.createElement('style');
-  styleElement.innerHTML = styles.replace(/<\/?style>/g, '');
-  document.head.appendChild(styleElement);
-}

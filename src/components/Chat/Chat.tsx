@@ -354,7 +354,7 @@ const Chat: React.FC<Props> = ({
                 fromUser={message.fromUser}
               />
 
-              {!isHistoryView && (
+              {!isHistoryView && !message.fromUser && (
                 <ArtifactHandler
                   isChatlogPanel={isChatlogPanel}
                   message={message}

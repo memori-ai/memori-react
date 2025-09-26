@@ -29,6 +29,16 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     null
   );
 
+  // Memoize the message text to prevent unnecessary recalculations
+  const messageText = useMemo(() => {
+    return message.translatedText || message.text || '';
+  }, [message.translatedText, message.text]);
+
+  // Memoize the message ID to track when the actual message changes
+  const messageId = useMemo(() => {
+    return `${message.timestamp}-${message.fromUser}`;
+  }, [message.timestamp, message.fromUser]);
+
   // Function to dispatch artifact created event
   const dispatchArtifactCreatedEvent = useCallback((artifact: ArtifactData) => {
     const event: ArtifactCreatedEvent = new CustomEvent('artifactCreated', {
@@ -40,36 +50,12 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     document.dispatchEvent(event);
   }, [message]);
 
-  // Auto-open artifacts when detected in new messages
-  useEffect(() => {
-    const messageText = message.translatedText || message.text || '';
-    if (messageText.length > 0) {
-      const artifacts = detectArtifacts(messageText);
-
-      if (artifacts.length > 0) {
-        // Dispatch event for each artifact created
-        artifacts.forEach(artifact => {
-          dispatchArtifactCreatedEvent(artifact);
-        });
-
-        if(isChatlogPanel){
-          // openArtifact(artifacts[0]);
-          setCurrentArtifact(artifacts[0]);
-        } else {
-          setTimeout(() => {
-            openArtifact(artifacts[0]);
-            setCurrentArtifact(artifacts[0]);
-          }, 100);
-        }
-      }
-    }
-  }, [message, dispatchArtifactCreatedEvent]);
-
   // Simple artifact detection - look for <output class="memori-artifact"> tags
-  const detectArtifacts = (text: string): ArtifactData[] => {
+  // Remove message dependency to prevent recreation on every message change
+  const detectArtifacts = useCallback((text: string, isFromUser: boolean): ArtifactData[] => {
     console.log('Detecting artifacts from text:', text?.substring(0, 100) + '...');
     
-    if (!text || message.fromUser) {
+    if (!text || isFromUser) {
       console.log('No text or message is from user, returning empty array');
       return [];
     }
@@ -125,10 +111,33 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
 
     console.log('Detected artifacts:', artifacts.length);
     return artifacts;
-  };
+  }, []); // Remove message dependency
 
-  const messageText = message.translatedText || message.text || '';
-  const artifacts = detectArtifacts(messageText);
+  // Memoize artifacts detection to prevent recalculation on every render
+  const artifacts = useMemo(() => {
+    return detectArtifacts(messageText, message.fromUser || false);
+  }, [messageText, message.fromUser, detectArtifacts]);
+
+  // Auto-open artifacts when detected in new messages
+  // Only run when messageId changes (actual new message), not on every render
+  useEffect(() => {
+    if (messageText.length > 0 && artifacts.length > 0) {
+      // Dispatch event for each artifact created
+      artifacts.forEach(artifact => {
+        dispatchArtifactCreatedEvent(artifact);
+      });
+
+      if(isChatlogPanel){
+        // openArtifact(artifacts[0]);
+        setCurrentArtifact(artifacts[0]);
+      } else {
+        setTimeout(() => {
+          openArtifact(artifacts[0]);
+          setCurrentArtifact(artifacts[0]);
+        }, 100);
+      }
+    }
+  }, [messageId, artifacts, dispatchArtifactCreatedEvent, isChatlogPanel, openArtifact]);
 
   if (artifacts.length === 0) return null;
 
@@ -192,4 +201,18 @@ const formatBytes = (bytes: number): string => {
   return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
 };
 
-export default ArtifactHandler;
+// Memoize the component to prevent re-renders when props haven't changed
+const MemoizedArtifactHandler = memo(ArtifactHandler, (prevProps, nextProps) => {
+  // Only re-render if the message content or isChatlogPanel changes
+  const prevMessageText = prevProps.message.translatedText || prevProps.message.text || '';
+  const nextMessageText = nextProps.message.translatedText || nextProps.message.text || '';
+  
+  return (
+    prevProps.isChatlogPanel === nextProps.isChatlogPanel &&
+    prevMessageText === nextMessageText &&
+    prevProps.message.fromUser === nextProps.message.fromUser &&
+    prevProps.message.timestamp === nextProps.message.timestamp
+  );
+});
+
+export default MemoizedArtifactHandler;
