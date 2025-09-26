@@ -2726,8 +2726,7 @@ const MemoriWidget = ({
   const showFullHistory =
     showOnlyLastMessages === undefined
       ? selectedLayout !== 'TOTEM' &&
-        selectedLayout !== 'WEBSITE_ASSISTANT' &&
-        selectedLayout !== 'HIDDEN_CHAT'
+        selectedLayout !== 'WEBSITE_ASSISTANT'
       : !showOnlyLastMessages;
 
   const headerProps: HeaderProps = {
