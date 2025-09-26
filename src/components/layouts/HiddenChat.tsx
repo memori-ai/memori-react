@@ -24,7 +24,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   const [fullScreen, setFullScreen] = useState(false);
   const [hasTriggeredAutostart, setHasTriggeredAutostart] = useState(false);
 
-  const { state } = useArtifact();
+  const { state, closeArtifact } = useArtifact();
   const { onClickStart, hasInitialSession } = startPanelProps || {};
 
   // Use refs to store original sidebar properties to restore them later
@@ -72,17 +72,11 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
       mainDiv.style.width = '100%';
       mainDiv.style.marginRight = '0';
       mainDiv.style.marginLeft = '0';
+      closeArtifact();
     }
   }, [isOpen, fullScreen]);
 
   const handleSidebarToggle = () => {
-    console.log('[HiddenChatLayout] Sidebar toggle clicked:', {
-      currentState: isOpen,
-      autoStart,
-      sessionId,
-      hasInitialSession,
-      hasTriggeredAutostart
-    });
 
     // Only trigger autostart when opening the sidebar for the first time
     // and when we haven't already triggered it
