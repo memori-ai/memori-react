@@ -7,6 +7,7 @@ import ChevronDown from '../../../icons/ChevronDown';
 import ChevronLeft from '../../../icons/ChevronLeft';
 import ChevronUp from '../../../icons/ChevronUp';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
+import { stripOutputTags, stripReasoningTags } from '../../../../helpers/utils';
 
 // Event type for artifact creation
 type ArtifactCreatedEvent = CustomEvent<{
@@ -66,38 +67,63 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
 
   // Simple artifact detection - look for <output class="memori-artifact"> tags
   const detectArtifacts = (text: string): ArtifactData[] => {
-    if (!text || message.fromUser) return [];
+    console.log('Detecting artifacts from text:', text?.substring(0, 100) + '...');
+    
+    if (!text || message.fromUser) {
+      console.log('No text or message is from user, returning empty array');
+      return [];
+    }
 
-    const artifactRegex =
-      /<output\s+class="memori-artifact"[^>]*data-mimetype="([^"]+)"[^>]*>([\s\S]*?)<\/output>/gi;
+    //first strip the output tag isnide the think tag, if there is one
+    text = stripReasoningTags(text);
+
     const artifacts: ArtifactData[] = [];
-    let match;
+    
+    // Find complete opening and closing tags
+    const artifactRegex = /<output\s+class="memori-artifact"[^>]*data-mimetype="([^"]+)"[^>]*>([\s\S]*?)<\/output>/gi;
     const titleRegex = {
       dataTitle: /data-title\s*=\s*["\']([^"']+)["\']/i,
       htmlTitle: /<title>([^<]+)<\/title>/gi
     };
+
     const findTitle = (mimeType: string, content: string) => {
+      console.log('Finding title for mimetype:', mimeType);
       return titleRegex.dataTitle.exec(content)?.[1] || titleRegex.htmlTitle.exec(content)?.[1] || `${mimeType.toUpperCase()} Artifact`;
     };
+
+    let match;
     while ((match = artifactRegex.exec(text)) !== null) {
+      console.log('Found complete artifact match', match);
       const mimeType = match[1];
       const content = match[2].trim();
 
+      console.log('Artifact mimetype:', mimeType);
+      console.log('Content length:', content.length);
+
       if (content.length > 50) {
-        // Basic validation
-        artifacts.push({
-          id: `artifact-${Date.now()}-${Math.random()
-            .toString(36)
-            .substr(2, 9)}`,
+        const artifact = {
+          id: `artifact-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
           content,
           mimeType,
-          title: findTitle(mimeType, text),          
+          title: findTitle(mimeType, text),
           timestamp: new Date(),
           size: content.length,
+        };
+
+        console.log('Created artifact:', {
+          id: artifact.id,
+          mimeType: artifact.mimeType,
+          title: artifact.title,
+          size: artifact.size
         });
+
+        artifacts.push(artifact);
+      } else {
+        console.log('Skipping artifact - content too short');
       }
     }
 
+    console.log('Detected artifacts:', artifacts.length);
     return artifacts;
   };
 
