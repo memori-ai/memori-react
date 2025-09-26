@@ -1,5 +1,17 @@
 
 
+## [8.7.4](https://github.com/memori-ai/memori-react/compare/v8.7.3...v8.7.4) (2025-09-26)
+
+
+### Bug Fixes
+
+* update snapshot to replace id with data attribute for toaster component ([574585d](https://github.com/memori-ai/memori-react/commit/574585d0dce7d676de98414a3c00f7129f835375))
+
+
+### Changes
+
+* get the expired session chat logs and set it in the new session ([ce46369](https://github.com/memori-ai/memori-react/commit/ce46369b1c3a0c9a179ce5ceae24aefb42faf75e))
+
 ## [8.7.3](https://github.com/memori-ai/memori-react/compare/v8.7.2...v8.7.3) (2025-09-25)
 
 
