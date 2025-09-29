@@ -1,5 +1,22 @@
 
 
+## [8.7.5](https://github.com/memori-ai/memori-react/compare/v8.7.4...v8.7.5) (2025-09-29)
+
+
+### Bug Fixes
+
+* close artifact when we are closing the HIDDEN CHAT ([207d40e](https://github.com/memori-ai/memori-react/commit/207d40e51c34ee16a6d77f0b49b4bb9216ec8ca1))
+* exclude HIDDEN_CHAT layout to showFullHistory condition ([4e98c38](https://github.com/memori-ai/memori-react/commit/4e98c38d589bc6358c6bb194ffb822837c913fed))
+* stripped out reasoning tag inside the detect artifact function ([4b1865c](https://github.com/memori-ai/memori-react/commit/4b1865c83b5416b078bfd8de708a0437d9d0bb6c))
+* update snapshot to replace data attribute with id for toaster component ([5b757b4](https://github.com/memori-ai/memori-react/commit/5b757b49cd74b30b9c6eb31aee2ab0e8de04b67f))
+
+
+### Changes
+
+* clean up LoginDrawer by removing unused email help text ([ffb767e](https://github.com/memori-ai/memori-react/commit/ffb767e6a308a32a4f2adc93361beed9f6aa4886))
+* optimize artifact detection and rendering in ArtifactHandler component ([aa92733](https://github.com/memori-ai/memori-react/commit/aa92733f9a8f62ead33a03552c1a9560ed0b0f43))
+* update LoginDrawer to handle OTP login ([b2b5d9d](https://github.com/memori-ai/memori-react/commit/b2b5d9dd27e69efc31a3aadfcbd35137fbf1d335))
+
 ## [8.7.4](https://github.com/memori-ai/memori-react/compare/v8.7.3...v8.7.4) (2025-09-26)
 
 
