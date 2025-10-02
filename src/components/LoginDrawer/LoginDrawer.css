@@ -843,6 +843,10 @@ p.memori--login-drawer--inline-error {
         width: 100%;
         max-width: 200px;
     }
+
+    .memori--login-drawer--otp-label{
+        min-width: auto;
+    }
 }
 
 @media (max-width: 480px) {
