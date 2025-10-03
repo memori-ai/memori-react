@@ -1,5 +1,17 @@
 
 
+## [8.7.7](https://github.com/memori-ai/memori-react/compare/v8.7.6...v8.7.7) (2025-10-03)
+
+
+### Bug Fixes
+
+* initialize user birth date and acceptance states in LoginDrawer ([397fe1e](https://github.com/memori-ai/memori-react/commit/397fe1e73c4b88d21648ce1594f647f509336fd6))
+
+
+### Changes
+
+* update MemoriWidget to use pwl methods for user authentication and logout ([a27a302](https://github.com/memori-ai/memori-react/commit/a27a30232287e4c1c6c832d406e51879efe92725))
+
 ## [8.7.6](https://github.com/memori-ai/memori-react/compare/v8.7.5...v8.7.6) (2025-10-03)
 
 
