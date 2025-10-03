@@ -174,6 +174,9 @@ const LoginDrawer = ({
 
             if (!user.age || !user.pAndCUAccepted) {
               setUser(user);
+              setBirthDate(user?.birthDate ?? '');
+              setTnCAndPPAccepted(user?.tnCAndPPAccepted ?? false);
+              setPAndCUAccepted(user?.pAndCUAccepted ?? false);
               setNeedsMissingData({
                 token: response.newSessionToken,
                 birthDate: !user.age,
@@ -249,15 +252,12 @@ const LoginDrawer = ({
 
   const updateMissingData = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.currentTarget as HTMLFormElement;
-    console.log('updateMissingData', form);
 
     if (!user?.userID || !needsMissingData?.token) {
       setError(t('login.userNotFound'));
       return;
     }
-
-    if (!birthDate || !tnCAndPPAccepted) {
+   if (!birthDate || !tnCAndPPAccepted) {
       setError(t('missingData'));
       return;
     }
@@ -369,7 +369,6 @@ const LoginDrawer = ({
                       name="pAndCUAccepted"
                       onChange={e => setPAndCUAccepted(e.target.checked)}
                       checked={pAndCUAccepted}
-                      defaultChecked={user?.pAndCUAccepted}
                       className="memori-checkbox--input"
                     />
                     <span className="memori-checkbox--inner" />
