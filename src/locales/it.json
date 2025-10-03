@@ -54,6 +54,7 @@
   "whyThisAnswer": "Perché questa risposta?",
   "whyThisAnswerHelper": "Questa risposta è stata generata automaticamente da un'intelligenza artificiale sulla base di questi contenuti verificati.",
   "receiverLabel": "Assegnato a",
+  "missingData": "Informazioni mancanti",
   "completionsEnabled": "IA evoluta, può rispondere con risposte generate automaticamente che talvolta potrebbero contenere informazioni non corrette",
   "completionProviderDown": "Questo agente è integrato con una IA generativa di {{provider}}, ma al momento non è disponibile. Riprova più tardi.",
   "completionProviderMajorOutage": "Questo agente è integrato con una IA generativa di {{provider}}, ma al momento non è disponibile. Non sarà possibile utilizzare questa funzionalità finché il servizio non viene ripristinato.",

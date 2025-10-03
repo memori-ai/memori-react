@@ -172,7 +172,7 @@ const LoginDrawer = ({
               response.newSessionToken
             );
 
-            if (!user.age || !user.pAndCUAccepted) {
+            if (!user.age || !user.tnCAndPPAccepted) {
               setUser(user);
               setBirthDate(user?.birthDate ?? '');
               setTnCAndPPAccepted(user?.tnCAndPPAccepted ?? false);
@@ -180,7 +180,7 @@ const LoginDrawer = ({
               setNeedsMissingData({
                 token: response.newSessionToken,
                 birthDate: !user.age,
-                tnCAndPPAccepted: !user.pAndCUAccepted,
+                tnCAndPPAccepted: !user.tnCAndPPAccepted,
               });
             } else {
               onLogin(user, response.newSessionToken);
