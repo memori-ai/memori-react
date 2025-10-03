@@ -1,5 +1,12 @@
 
 
+## [8.7.6](https://github.com/memori-ai/memori-react/compare/v8.7.5...v8.7.6) (2025-10-03)
+
+
+### Changes
+
+* update document upload limits to allow larger payloads ([115f52c](https://github.com/memori-ai/memori-react/commit/115f52cc583093e6013155a15c12522d331d4b20))
+
 ## [8.7.5](https://github.com/memori-ai/memori-react/compare/v8.7.4...v8.7.5) (2025-09-29)
 
 
