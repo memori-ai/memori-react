@@ -511,7 +511,7 @@ const MemoriWidget = ({
       !user?.userID &&
       (showLogin || memori.requireLoginToken)
     ) {
-      client.backend.getCurrentUser(loginToken).then(({ user, resultCode }) => {
+      client.backend.pwlGetCurrentUser(loginToken).then(({ user, resultCode }) => {
         if (user && resultCode === 0) {
           setUser(user);
           setLocalConfig('loginToken', loginToken);
@@ -2788,7 +2788,7 @@ const MemoriWidget = ({
     onLogout: () => {
       if (!loginToken) return;
 
-      client.backend.userLogout(loginToken).then(() => {
+      client.backend.pwlUserLogout(loginToken).then(() => {
         setShowLoginDrawer(false);
         setUser(undefined);
         setLoginToken(undefined);
@@ -3205,7 +3205,7 @@ const MemoriWidget = ({
           onLogout={() => {
             if (!loginToken) return;
 
-            client.backend.userLogout(loginToken).then(() => {
+            client.backend.pwlUserLogout(loginToken).then(() => {
               setShowLoginDrawer(false);
               setUser(undefined);
               setLoginToken(undefined);
