@@ -1,5 +1,12 @@
 
 
+## [8.7.8](https://github.com/memori-ai/memori-react/compare/v8.7.7...v8.7.8) (2025-10-03)
+
+
+### Bug Fixes
+
+* correct user acceptance state variable in LoginDrawer ([675b642](https://github.com/memori-ai/memori-react/commit/675b6426986da8d2a82b4f6fdd4b8314c8a01392))
+
 ## [8.7.7](https://github.com/memori-ai/memori-react/compare/v8.7.6...v8.7.7) (2025-10-03)
 
 
