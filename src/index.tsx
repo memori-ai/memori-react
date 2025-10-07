@@ -15,13 +15,14 @@ import MemoriWidget, {
 import { VisemeProvider } from './context/visemeContext';
 
 import { Toaster } from 'react-hot-toast';
-import toast from 'react-hot-toast';
 import { safeParseJSON } from './helpers/utils';
 
 import i18n from './i18n';
 import { useTranslation } from 'react-i18next';
 import I18nWrapper from './I18nWrapper';
 import { ArtifactProvider } from './components/MemoriArtifactSystem/context/ArtifactContext';
+
+import { version } from './version';
 
 export interface Props {
   memoriName?: string | null;
@@ -257,9 +258,7 @@ const Memori: React.FC<Props> = ({
     const config = { attributes: true, childList: false, subtree: false };
     const callback: MutationCallback = (mutationList, _observer) => {
       for (const mutation of mutationList) {
-        if (
-          mutation.type === 'attributes'
-        ) {
+        if (mutation.type === 'attributes') {
           const target =
             mutation.target.nodeName === 'MEMORI-CLIENT'
               ? mutation.target
@@ -372,6 +371,25 @@ const Memori: React.FC<Props> = ({
         useMathFormatting,
         memoriLang: spokenLang ?? memori?.culture?.split('-')?.[0],
       };
+
+  useEffect(() => {
+    fetch('https://pulse.aisuru.com/post', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        clientType: __WEBCOMPONENT__ ? 'memori-webcomponent' : 'memori-react',
+        clientVersion: `v${version}`,
+        userAgent: navigator.userAgent,
+        language: navigator.language,
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        memoriID: memori?.memoriID || memoriID,
+        tenant: tenantID,
+        referrer: window.location.href,
+      }),
+    });
+  }, []);
 
   return (
     <I18nWrapper>
