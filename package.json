@@ -53,7 +53,7 @@
     "build:cjs": "tsc --module commonjs --outDir dist",
     "build:esm": "tsc --module esnext --outDir esm",
     "update-version": "node -e \"const pkg = require('./package.json'); require('fs').writeFileSync('./src/version.ts', \\\"// This file is auto-generated. Do not edit manually.\\\\nexport const version = '\\\" + pkg.version + \\\"';\\\\n\\\")\"",
-    "prebuild": "yarn update-version && yarn clean",
+    "prebuild": "yarn clean",
     "build": "yarn build:cjs && yarn build:esm && yarn copy-files && yarn cleanup",
     "postbuild": "yarn copy-files",
     "test:ci": "TZ=UTC NODE_ENV=test jest --passWithNoTests --ci src",
@@ -173,11 +173,12 @@
   },
   "release-it": {
     "hooks": {
-      "after:bump": "yarn build"
+      "after:bump": "yarn update-version && yarn build"
     },
     "git": {
       "tagName": "v${version}",
-      "commitMessage": "chore: release v${version}"
+      "commitMessage": "chore: release v${version}",
+      "addUntrackedFiles": true
     },
     "npm": {
       "publish": true

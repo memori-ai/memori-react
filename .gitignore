@@ -8,7 +8,6 @@ esm
 storybook-static
 tsconfig.tsbuildinfo
 coverage
-src/version.ts
 /.pnp
 .pnp.*
 .yarn/*
