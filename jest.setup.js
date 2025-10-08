@@ -86,3 +86,15 @@ Object.defineProperty(window, 'MathJax', {
 
 jest.spyOn(window, 'MathJax', 'typesetPromise').mockResolvedValue();
 jest.spyOn(global.MathJax, 'typesetPromise').mockResolvedValue();
+
+// Mock fetch for API calls
+global.fetch = jest.fn(() =>
+  Promise.resolve({
+    ok: true,
+    json: () => Promise.resolve({}),
+  })
+);
+Object.defineProperty(window, 'fetch', {
+  writable: true,
+  value: global.fetch,
+});
