@@ -376,6 +376,13 @@ const Memori: React.FC<Props> = ({
 
   const sendPulse = useCallback(() => {
     if ((memori?.memoriID || memoriID) && !pulseSent) {
+      let origin = window?.location.origin;
+
+      if (!origin || origin.includes('localhost')) {
+        setPulseSent(true);
+        return;
+      }
+
       setPulseSent(true);
       fetch('https://pulse.aisuru.com/post', {
         method: 'POST',
@@ -393,7 +400,7 @@ const Memori: React.FC<Props> = ({
             timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
             memoriID: memori?.memoriID ?? memoriID,
             tenant: tenantID,
-            referrer: window.location.href,
+            referrer: origin,
           },
         }),
       });
