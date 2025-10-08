@@ -379,14 +379,16 @@ const Memori: React.FC<Props> = ({
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        clientType: __WEBCOMPONENT__ ? 'memori-webcomponent' : 'memori-react',
-        clientVersion: `v${version}`,
-        userAgent: navigator.userAgent,
-        language: navigator.language,
-        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        memoriID: memori?.memoriID || memoriID,
-        tenant: tenantID,
-        referrer: window.location.href,
+        pulse: {
+          clientType: __WEBCOMPONENT__ ? 'memori-webcomponent' : 'memori-react',
+          clientVersion: `v${version}`,
+          userAgent: navigator.userAgent,
+          language: navigator.language,
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          memoriID: memori?.memoriID || memoriID,
+          tenant: tenantID,
+          referrer: window.location.href,
+        },
       }),
     });
   }, []);
