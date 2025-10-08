@@ -915,6 +915,7 @@ const MemoriWidget = ({
           undefined,
           undefined,
           {
+            LANG: userLang,
             PATHNAME: window.location.pathname,
             ROUTE: window.location.pathname?.split('/')?.pop() || '',
             ...(initialContextVars || {}),
@@ -1438,6 +1439,7 @@ const MemoriWidget = ({
         tag: tag ?? personification?.tag,
         pin: pin ?? personification?.pin,
         initialContextVars: {
+          LANG: userLang,
           PATHNAME: window.location.pathname,
           ROUTE: window.location.pathname?.split('/')?.pop() || '',
           ...(initialContextVars || {}),
@@ -1611,6 +1613,7 @@ const MemoriWidget = ({
             tag: tag ?? personification?.tag,
             pin: pin ?? personification?.pin,
             initialContextVars: {
+              LANG: userLang,
               PATHNAME: window.location.pathname,
               ROUTE: window.location.pathname?.split('/')?.pop() || '',
               ...(initialContextVars || {}),
@@ -2276,6 +2279,7 @@ const MemoriWidget = ({
           pin: personification?.pin,
           continueFromChatLogID: chatLog?.chatLogID,
           initialContextVars: {
+            LANG: userLang,
             PATHNAME: window.location.pathname?.toUpperCase(),
             ROUTE:
               window.location.pathname?.split('/')?.pop()?.toUpperCase() || '',
@@ -2432,6 +2436,7 @@ const MemoriWidget = ({
               personification.tag,
               personification.pin,
               {
+                LANG: userLang,
                 PATHNAME: window.location.pathname?.toUpperCase(),
                 ROUTE:
                   window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
@@ -2475,6 +2480,7 @@ const MemoriWidget = ({
               undefined,
               undefined,
               {
+                LANG: userLang,
                 PATHNAME: window.location.pathname?.toUpperCase(),
                 ROUTE:
                   window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
@@ -2491,7 +2497,10 @@ const MemoriWidget = ({
         // No tag changes needed
         else {
           try {
-            const { chatLogs } = await getSessionChatLogs(sessionID!, sessionID!);
+            const { chatLogs } = await getSessionChatLogs(
+              sessionID!,
+              sessionID!
+            );
 
             const messages = chatLogs?.[0]?.lines.map(
               (l, i) =>
@@ -3028,6 +3037,7 @@ const MemoriWidget = ({
               personification?.tag,
               personification?.pin,
               {
+                LANG: userLang,
                 PATHNAME: window.location.pathname?.toUpperCase(),
                 ROUTE:
                   window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
@@ -3076,6 +3086,7 @@ const MemoriWidget = ({
                 personification?.tag,
                 personification?.pin,
                 {
+                  LANG: userLang,
                   PATHNAME: window.location.pathname?.toUpperCase(),
                   ROUTE:
                     window.location.pathname
