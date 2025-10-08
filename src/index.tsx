@@ -372,26 +372,37 @@ const Memori: React.FC<Props> = ({
         memoriLang: spokenLang ?? memori?.culture?.split('-')?.[0],
       };
 
-  useEffect(() => {
-    fetch('https://pulse.aisuru.com/post', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        pulse: {
-          clientType: __WEBCOMPONENT__ ? 'memori-webcomponent' : 'memori-react',
-          clientVersion: `v${version}`,
-          userAgent: navigator.userAgent,
-          language: navigator.language,
-          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-          memoriID: memori?.memoriID || memoriID,
-          tenant: tenantID,
-          referrer: window.location.href,
+  const [pulseSent, setPulseSent] = useState(false);
+
+  const sendPulse = useCallback(() => {
+    if ((memori?.memoriID || memoriID) && !pulseSent) {
+      setPulseSent(true);
+      fetch('https://pulse.aisuru.com/post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      }),
-    });
-  }, []);
+        body: JSON.stringify({
+          pulse: {
+            clientType: __WEBCOMPONENT__
+              ? 'memori-webcomponent'
+              : 'memori-react',
+            clientVersion: `v${version}`,
+            userAgent: navigator.userAgent,
+            language: navigator.language,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            memoriID: memori?.memoriID ?? memoriID,
+            tenant: tenantID,
+            referrer: window.location.href,
+          },
+        }),
+      });
+    }
+  }, [memori?.memoriID, memoriID, tenantID, __WEBCOMPONENT__, pulseSent]);
+
+  useEffect(() => {
+    sendPulse();
+  }, [sendPulse]);
 
   return (
     <I18nWrapper>
