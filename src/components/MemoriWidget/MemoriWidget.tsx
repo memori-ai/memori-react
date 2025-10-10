@@ -1695,14 +1695,59 @@ const MemoriWidget = ({
     if (sessionId && memori.needsDateTime) {
       sendDateChangedEvent({ sessionID: sessionId, state: currentDialogState });
 
-      let datePolling = setInterval(() => {
-        sendDateChangedEvent({
-          sessionID: sessionId,
-        });
-      }, 60 * 1000); // 1 minute
+      let datePolling: NodeJS.Timeout | null = null;
+      let isTabVisible = !document.hidden;
+
+      const startDatePolling = () => {
+        // stop the polling if it is already running
+        if (datePolling) {
+          clearInterval(datePolling);
+        }
+        // start the polling
+        datePolling = setInterval(() => {
+          if (!document.hidden) {
+            sendDateChangedEvent({
+              sessionID: sessionId,
+            });
+          }
+        }, 60 * 1000); // 1 minute
+      };
+
+      const stopDatePolling = () => {
+        if (datePolling) {
+          clearInterval(datePolling);
+          datePolling = null;
+        }
+      };
+
+      const handleVisibilityChange = () => {
+        const isVisible = !document.hidden;
+        
+        if (isVisible && !isTabVisible) {
+          // Tab became visible - start polling and send immediate date event
+          console.log('Tab is now active/visible - starting date polling');
+          sendDateChangedEvent({ sessionID: sessionId, state: currentDialogState });
+          startDatePolling();
+        } else if (!isVisible && isTabVisible) {
+          // Tab became hidden - stop polling
+          console.log('Tab is now hidden - stopping date polling');
+          stopDatePolling();
+        }
+        
+        isTabVisible = isVisible;
+      };
+
+      // Start polling if tab is initially visible
+      if (isTabVisible) {
+        startDatePolling();
+      }
+
+      // Add visibility change listener
+      document.addEventListener('visibilitychange', handleVisibilityChange);
 
       return () => {
-        clearInterval(datePolling);
+        stopDatePolling();
+        document.removeEventListener('visibilitychange', handleVisibilityChange);
       };
     }
   }, [memori.needsDateTime, sessionId]);
