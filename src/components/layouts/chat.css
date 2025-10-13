@@ -241,26 +241,6 @@
     }
 }
 
-/* Enhanced micro-interactions */
-
-.memori-chat-layout--main:hover {
-    transform: translateY(-2px);
-    /* box-shadow: 0 12px 48px rgba(0, 0, 0, 0.15); */
-}
-
-/* 
-.memori-chat-layout--controls:hover {
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
-    transform: translateY(-1px);
-}
-
-
-
-.memori-chat-layout--artifact-panel:hover {
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    transform: translateY(-1px) scale(1.01);
-} */
-
 /* Loading states */
 .memori-chat-layout--loading {
     position: relative;

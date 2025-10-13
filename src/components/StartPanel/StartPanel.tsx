@@ -22,6 +22,7 @@ import CompletionProviderStatus, {
 import MapMarker from '../icons/MapMarker';
 import UserIcon from '../icons/User';
 import QuestionHelp from '../icons/QuestionHelp';
+import Expandable from '../ui/Expandable';
 
 interface Memori extends MemoriOriginal {
   requireLoginToken?: boolean;
@@ -80,7 +81,7 @@ const StartPanel: React.FC<Props> = ({
   const [translatedDescription, setTranslatedDescription] = useState(
     memori.description
   );
-  
+
   const [showTranslation, setShowTranslation] = useState(true);
   const toggleTranslations = () => {
     setShowTranslation(show => !show);
@@ -222,11 +223,11 @@ const StartPanel: React.FC<Props> = ({
           (memori.requireLoginToken && isUserLoggedIn)) && (
           <div className="memori--description">
             <p>
-              <span className="memori--description-text">
+              <Expandable className="memori--description-text" rows={3}>
                 {translatedDescription && showTranslation
                   ? translatedDescription
                   : memori.description}
-              </span>
+              </Expandable>
 
               {translatedDescription !== memori.description && (
                 <Button
@@ -286,19 +287,19 @@ const StartPanel: React.FC<Props> = ({
                       )}
                     </p>
                     <ul className="memori--privacy-tooltip-content-list">
-                                          {isUserLoggedIn ? (
-                      <li>
-                        {t(
-                          'write_and_speak.pagePrivacyExplanationList.contentAndUsername'
-                        )}
-                      </li>
-                    ) : (
-                      <li>
-                        {t(
-                          'write_and_speak.pagePrivacyExplanationList.contentAndIpAddress'
-                        )}
-                      </li>
-                    )}
+                      {isUserLoggedIn ? (
+                        <li>
+                          {t(
+                            'write_and_speak.pagePrivacyExplanationList.contentAndUsername'
+                          )}
+                        </li>
+                      ) : (
+                        <li>
+                          {t(
+                            'write_and_speak.pagePrivacyExplanationList.contentAndIpAddress'
+                          )}
+                        </li>
+                      )}
                     </ul>
                     <p>
                       {t(
@@ -307,7 +308,10 @@ const StartPanel: React.FC<Props> = ({
                     </p>
 
                     <a
-                      href={tenant?.privacyPolicyURL ?? 'https://memori.ai/en/privacy-policy'}
+                      href={
+                        tenant?.privacyPolicyURL ??
+                        'https://memori.ai/en/privacy-policy'
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
                     >

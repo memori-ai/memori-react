@@ -27,6 +27,7 @@
     backdrop-filter: blur(10px);
     background-color: var(--memori-inner-bg, transparent);
     color: var(--memori-text-color, rgba(0, 0, 0, 0.85)) !important;
+    overflow-y: auto;
 }
 
 .memori--start-panel .memori--start-panel-title {
@@ -94,6 +95,7 @@
 
 .memori--description-text {
     display: block;
+    line-height: 1.6;
 }
 
 .memori--start-privacy-explanation {

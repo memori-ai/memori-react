@@ -268,11 +268,16 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
                 class="memori--description"
               >
                 <p>
-                  <span
-                    class="memori--description-text"
+                  <div
+                    class="memori-expandable memori--description-text"
                   >
-                    Lorem ipsum.
-                  </span>
+                    <div
+                      class="memori-expandable--inner"
+                      style="max-height: 9999px;"
+                    >
+                      Lorem ipsum.
+                    </div>
+                  </div>
                 </p>
                 <div
                   class="memori--language-chooser"

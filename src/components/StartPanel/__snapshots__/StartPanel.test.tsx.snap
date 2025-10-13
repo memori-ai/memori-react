@@ -68,11 +68,16 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
       class="memori--description"
     >
       <p>
-        <span
-          class="memori--description-text"
+        <div
+          class="memori-expandable memori--description-text"
         >
-          Lorem ipsum.
-        </span>
+          <div
+            class="memori-expandable--inner"
+            style="max-height: 9999px;"
+          >
+            Lorem ipsum.
+          </div>
+        </div>
       </p>
       <div
         class="memori--start-privacy-explanation-container"
@@ -264,11 +269,16 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
       class="memori--description"
     >
       <p>
-        <span
-          class="memori--description-text"
+        <div
+          class="memori-expandable memori--description-text"
         >
-          Lorem ipsum.
-        </span>
+          <div
+            class="memori-expandable--inner"
+            style="max-height: 9999px;"
+          >
+            Lorem ipsum.
+          </div>
+        </div>
       </p>
       <div
         class="memori--start-privacy-explanation-container"
@@ -460,11 +470,16 @@ exports[`renders StartPanel unchanged 1`] = `
       class="memori--description"
     >
       <p>
-        <span
-          class="memori--description-text"
+        <div
+          class="memori-expandable memori--description-text"
         >
-          Lorem ipsum.
-        </span>
+          <div
+            class="memori-expandable--inner"
+            style="max-height: 9999px;"
+          >
+            Lorem ipsum.
+          </div>
+        </div>
       </p>
       <div
         class="memori--start-privacy-explanation-container"
@@ -656,11 +671,16 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
       class="memori--description"
     >
       <p>
-        <span
-          class="memori--description-text"
+        <div
+          class="memori-expandable memori--description-text"
         >
-          Lorem ipsum.
-        </span>
+          <div
+            class="memori-expandable--inner"
+            style="max-height: 9999px;"
+          >
+            Lorem ipsum.
+          </div>
+        </div>
       </p>
       <div
         class="memori--start-privacy-explanation-container"
@@ -872,11 +892,16 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
       class="memori--description"
     >
       <p>
-        <span
-          class="memori--description-text"
+        <div
+          class="memori-expandable memori--description-text"
         >
-          Lorem ipsum.
-        </span>
+          <div
+            class="memori-expandable--inner"
+            style="max-height: 9999px;"
+          >
+            Lorem ipsum.
+          </div>
+        </div>
       </p>
       <div
         class="memori--start-privacy-explanation-container"
@@ -1068,11 +1093,16 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
       class="memori--description"
     >
       <p>
-        <span
-          class="memori--description-text"
+        <div
+          class="memori-expandable memori--description-text"
         >
-          Lorem ipsum.
-        </span>
+          <div
+            class="memori-expandable--inner"
+            style="max-height: 9999px;"
+          >
+            Lorem ipsum.
+          </div>
+        </div>
       </p>
       <div
         class="memori--start-privacy-explanation-container"
@@ -1333,11 +1363,16 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
       class="memori--description"
     >
       <p>
-        <span
-          class="memori--description-text"
+        <div
+          class="memori-expandable memori--description-text"
         >
-          Lorem ipsum.
-        </span>
+          <div
+            class="memori-expandable--inner"
+            style="max-height: 9999px;"
+          >
+            Lorem ipsum.
+          </div>
+        </div>
       </p>
       <div
         class="memori--start-privacy-explanation-container"
@@ -1591,11 +1626,16 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
       class="memori--description"
     >
       <p>
-        <span
-          class="memori--description-text"
+        <div
+          class="memori-expandable memori--description-text"
         >
-          Lorem ipsum.
-        </span>
+          <div
+            class="memori-expandable--inner"
+            style="max-height: 9999px;"
+          >
+            Lorem ipsum.
+          </div>
+        </div>
       </p>
       <div
         class="memori--start-privacy-explanation-container"
@@ -1846,11 +1886,16 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
       class="memori--description"
     >
       <p>
-        <span
-          class="memori--description-text"
+        <div
+          class="memori-expandable memori--description-text"
         >
-          Lorem ipsum.
-        </span>
+          <div
+            class="memori-expandable--inner"
+            style="max-height: 9999px;"
+          >
+            Lorem ipsum.
+          </div>
+        </div>
       </p>
       <div
         class="memori--start-privacy-explanation-container"
@@ -2042,11 +2087,16 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
       class="memori--description"
     >
       <p>
-        <span
-          class="memori--description-text"
+        <div
+          class="memori-expandable memori--description-text"
         >
-          Lorem ipsum.
-        </span>
+          <div
+            class="memori-expandable--inner"
+            style="max-height: 9999px;"
+          >
+            Lorem ipsum.
+          </div>
+        </div>
       </p>
       <div
         class="memori--start-privacy-explanation-container"
@@ -2345,11 +2395,16 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
       class="memori--description"
     >
       <p>
-        <span
-          class="memori--description-text"
+        <div
+          class="memori-expandable memori--description-text"
         >
-          Lorem ipsum.
-        </span>
+          <div
+            class="memori-expandable--inner"
+            style="max-height: 9999px;"
+          >
+            Lorem ipsum.
+          </div>
+        </div>
       </p>
       <div
         class="memori--language-chooser"
