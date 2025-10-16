@@ -67,6 +67,31 @@ Default.args = {
   },
 };
 
+export const Test = Template.bind({});
+Test.args = {
+  memori,
+  tenant,
+  message: {
+    memoryID: 'a8fa7fc4-8e1d-41bb-824f-b78e647cac7e',
+    text: '<think>L\'utente vuole che io elenchi i parametri dell\'ALBERO ESISTENTE. Devo fare una Rails Query per recuperare tutti i parametri specifici di questo oggetto dal project snapshot.</think>\n\n<output class="rails-query" style="display:none">\nproject = Project.find("68d99b05783713e16737d32b")\nsnapshot = project.project_snapshots.where(:total_objects.gt => 0).order(snapshot_date: :desc).first\n\noggetto = snapshot.technical_objects_data.find { |obj| obj["object_definition"] == "ALBERO ESISTENTE" }\nparametri = snapshot.parameters_data.select { |p| p["technical_object_id"] == oggetto["id"] }\n\nrisultato = parametri.map do |p|\n {\n categoria: p["category"],\n parametro: p["parameter_name"],\n nome_ifc: p["ifc_parameter_name"],\n unita_misura: p["measurement_unit"],\n tipo: p["parameter_type"],\n descrizione: p["description"],\n esempio: p["example"],\n loi_b: p["loi_b"],\n loi_c: p["loi_c"],\n loi_d: p["loi_d"],\n loi_e: p["loi_e"],\n loi_f: p["loi_f"],\n loi_g: p["loi_g"],\n pset: p["pset"]\n }\nend\n\n{ status: \'success\', data: { oggetto: oggetto, parametri: risultato }, count: risultato.size }\n</output>\n\nRecupero tutti i 7 parametri dell\'ALBERO ESISTENTE...',
+    media: [],
+    fromUser: false,
+    timestamp: '2025-10-13T07:08:11.871262Z',
+    initial: false,
+    contextVars: {
+      BIM: 'PARAMETRI LOI',
+      ENV: 'LOCALE',
+      ROUTE: 'YBU6W9QGUREN5JVL',
+      PATHNAME: '/BIM-AI/YBU6W9QGUREN5JVL',
+      PROJECT_ID: '68d99b05783713e16737d32b',
+      CLIENT_NAME: 'Cliente Test',
+    },
+    generatedByAI: true,
+    acceptsFeedback: false,
+  },
+  showReasoning: true,
+};
+
 export const FromUser = Template.bind({});
 FromUser.args = {
   memori,

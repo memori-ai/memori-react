@@ -87,7 +87,10 @@ export const renderMsg = (
         /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g,
         ''
       )
-      .replaceAll(/<output\s+class\s*=\s*["\']memori-artifact["\'][^>]*data-mimetype\s*=\s*["\']([^"']+)["\'][^>]*>([\s\S]*?)(?:<\/output>|$)/gi, '')
+      .replaceAll(
+        /<output\s+class\s*=\s*["\']memori-artifact["\'][^>]*data-mimetype\s*=\s*["\']([^"']+)["\'][^>]*>([\s\S]*?)(?:<\/output>|$)/gi,
+        ''
+      )
       .replaceAll(/```markdown([^```]+)```/g, '$1')
       .replaceAll('($', '( $')
       .replaceAll(':$', ': $')
@@ -126,8 +129,36 @@ export const renderMsg = (
       );
     }
 
+    // Extract output tags before markdown processing to preserve their content as raw text
+    const outputTags: string[] = [];
+    let outputPlaceholder = 0;
+
+    // Replace output tags with placeholders to prevent markdown parsing inside them
+    preprocessedText = preprocessedText.replace(
+      /(<output[^>]*>)([\s\S]*?)(<\/output>)/g,
+      (_, openTag, content, closeTag) => {
+        const placeholder = `<!--OUTPUT_PLACEHOLDER_${outputPlaceholder++}-->`;
+        outputTags.push(`${openTag}${content}${closeTag}`);
+        return placeholder;
+      }
+    );
+
+    // Ensure proper separation after placeholders
+    preprocessedText = preprocessedText.replace(
+      /(<!--OUTPUT_PLACEHOLDER_\d+-->)\s*([^\s<\n-])/g,
+      '$1\n\n$2'
+    );
+
     // Ora procedi con il parsing markdown
     let parsedText = marked.parse(preprocessedText).toString().trim();
+
+    // Restore output tags from placeholders (after markdown processing)
+    outputTags.forEach((tag, index) => {
+      parsedText = parsedText.replace(
+        `<!--OUTPUT_PLACEHOLDER_${index}-->`,
+        tag
+      );
+    });
 
     // Sanitize HTML
     parsedText = DOMPurify.sanitize(parsedText, {

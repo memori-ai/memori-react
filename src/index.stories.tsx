@@ -39,6 +39,21 @@ Anonymous.args = {
   showChatHistory: true,
 };
 
+export const Vaccaboia = Template.bind({});
+Vaccaboia.args = {
+  ownerUserName: 'francesco.timo',
+  memoriName: 'AI-ssistantSafe',
+  tenantID: 'tecne.aclambda.online',
+  engineURL: 'https://engine.memori.ai',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://www.aisuru.com',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  enableAudio: true,
+  autoStart: false,
+  showChatHistory: true,
+};
+
 export const WithInitialContextAndQuestion = Template.bind({});
 WithInitialContextAndQuestion.args = {
   ownerUserName: 'nzambello',

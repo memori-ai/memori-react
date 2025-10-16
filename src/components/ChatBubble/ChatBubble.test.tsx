@@ -445,3 +445,20 @@ it('renders ChatBubble with complex markdown and math 5 unchanged', () => {
   );
   expect(container).toMatchSnapshot();
 });
+
+it('renders ChatBubble with reasoning and output and markdown unchanged', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      useMathFormatting
+      message={{
+        fromUser: false,
+        initial: false,
+        text: '<think>L\'utente vuole che io elenchi i parametri dell\'ALBERO ESISTENTE. Devo fare una Rails Query per recuperare tutti i parametri specifici di questo oggetto dal project snapshot.</think>\n\n<output class="rails-query" style="display:none">\nproject = Project.find("68d99b05783713e16737d32b")\nsnapshot = project.project_snapshots.where(:total_objects.gt => 0).order(snapshot_date: :desc).first\n\noggetto = snapshot.technical_objects_data.find { |obj| obj["object_definition"] == "ALBERO ESISTENTE" }\nparametri = snapshot.parameters_data.select { |p| p["technical_object_id"] == oggetto["id"] }\n\nrisultato = parametri.map do |p|\n {\n categoria: p["category"],\n parametro: p["parameter_name"],\n nome_ifc: p["ifc_parameter_name"],\n unita_misura: p["measurement_unit"],\n tipo: p["parameter_type"],\n descrizione: p["description"],\n esempio: p["example"],\n loi_b: p["loi_b"],\n loi_c: p["loi_c"],\n loi_d: p["loi_d"],\n loi_e: p["loi_e"],\n loi_f: p["loi_f"],\n loi_g: p["loi_g"],\n pset: p["pset"]\n }\nend\n\n{ status: \'success\', data: { oggetto: oggetto, parametri: risultato }, count: risultato.size }\n</output>\n\nRecupero tutti i 7 parametri dell\'ALBERO ESISTENTE...',
+      }}
+    />
+  );
+  expect(container).toMatchSnapshot();
+});

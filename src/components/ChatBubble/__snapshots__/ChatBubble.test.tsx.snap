@@ -7859,12 +7859,149 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
         </p>
         
 
-        <p>
-          <output
-            class="memori-output"
+        <output
+          class="memori-output"
+        >
+          { "data": [ 0, 1, 2 ] }
+        </output>
+      </div>
+      <div
+        class="memori-chat--bubble-addon"
+      >
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copy"
+        >
+          <span
+            class="memori-button--icon"
           >
-            { "data": [ 0, 1, 2 ] }
-          </output>
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+          title="copyRawCode"
+        >
+          <span
+            class="memori-button--icon"
+          >
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10 9.5 8 12l2 2.5"
+              />
+              <path
+                d="m14 9.5 2 2.5-2 2.5"
+              />
+              <rect
+                height="18"
+                rx="2"
+                width="18"
+                x="3"
+                y="3"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders ChatBubble with reasoning and output and markdown unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--bubble-container"
+  >
+    <picture
+      class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+      title="Memori"
+    >
+      <img
+        alt="Memori"
+        class="memori-chat--bubble-avatar-img"
+        src="https://aisuru.com/images/aisuru/square_logo.png"
+      />
+    </picture>
+    <div
+      class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+    >
+      <div
+        class="memori-chat--bubble-content"
+        dir="auto"
+      >
+        <output
+          class="rails-query"
+          style="display:none"
+        >
+          
+project = Project.find("68d99b05783713e16737d32b")
+snapshot = project.project_snapshots.where(:total_objects.gt =&gt; 0).order(snapshot_date: :desc).first
+
+oggetto = snapshot.technical_objects_data.find { |obj| obj$"object_definition"$ == "ALBERO ESISTENTE" }
+parametri = snapshot.parameters_data.select { |p| p$"technical_object_id"$ == oggetto$"id"$ }
+
+risultato = parametri.map do |p|
+ {
+ categoria: p$"category"$,
+ parametro: p$"parameter_name"$,
+ nome_ifc: p$"ifc_parameter_name"$,
+ unita_misura: p$"measurement_unit"$,
+ tipo: p$"parameter_type"$,
+ descrizione: p$"description"$,
+ esempio: p$"example"$,
+ loi_b: p$"loi_b"$,
+ loi_c: p$"loi_c"$,
+ loi_d: p$"loi_d"$,
+ loi_e: p$"loi_e"$,
+ loi_f: p$"loi_f"$,
+ loi_g: p$"loi_g"$,
+ pset: p$"pset"$
+ }
+end
+
+{ status: 'success', data: { oggetto: oggetto, parametri: risultato }, count: risultato.size }
+
+        </output>
+        
+
+
+        <p>
+          Recupero tutti i 7 parametri dell'ALBERO ESISTENTE...
         </p>
       </div>
       <div
