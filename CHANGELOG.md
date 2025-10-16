@@ -1,5 +1,19 @@
 
 
+## [8.7.9](https://github.com/memori-ai/memori-react/compare/v8.7.8...v8.7.9) (2025-10-16)
+
+
+### Bug Fixes
+
+* start panel scroll + expandable + hover bg ([21f0351](https://github.com/memori-ai/memori-react/commit/21f0351ffe4120499b81f898fa8921bd6e8013ce))
+* update ChatBubble snapshot to reflect changes in output structure and parameter retrieval ([7697ecd](https://github.com/memori-ai/memori-react/commit/7697ecd0889101f12e0f5ef23b8851becb8217c2))
+
+
+### Changes
+
+* add LANG context var opening session ([cbcbb4e](https://github.com/memori-ai/memori-react/commit/cbcbb4e250fd615bed2cf53303c83f860bcbf33b))
+* enhance date polling in MemoriWidget to respect tab visibility ([64e6a6f](https://github.com/memori-ai/memori-react/commit/64e6a6f531adc4bfe7f91d75b5f64e382fa5bf3e))
+
 ## [8.7.8](https://github.com/memori-ai/memori-react/compare/v8.7.7...v8.7.8) (2025-10-03)
 
 
