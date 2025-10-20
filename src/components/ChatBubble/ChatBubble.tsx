@@ -315,7 +315,14 @@ const ChatBubble: React.FC<Props> = ({
                     icon={
                       <Code aria-label={t('copyRawCode') || 'Copy raw code'} />
                     }
-                    onClick={() => navigator.clipboard.writeText(message.text)}
+                    onClick={() => {
+                      const text = message.text  .replaceAll(
+                        /<think.*?>(.*?)<\/think>/gs,
+                        ''
+                      )
+                      console.log(text);
+                      navigator.clipboard.writeText(text);
+                    }}
                   />
                 )}
 
