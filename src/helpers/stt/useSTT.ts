@@ -49,13 +49,14 @@ export interface UseSTTOptions {
  */
 export type RecordingState = 'idle' | 'recording' | 'processing' | 'error';
 
-  /**
-   * Convert audio blob to WAV format
-   */
+/**
+ * Convert audio blob to WAV format
+ */
 async function convertToWav(audioBlob: Blob): Promise<Blob> {
   return new Promise((resolve, reject) => {
     // Safari compatibility: check for AudioContext support
-    const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+    const AudioContextClass =
+      window.AudioContext || (window as any).webkitAudioContext;
     if (!AudioContextClass) {
       reject(new Error('AudioContext not supported in this browser'));
       return;
@@ -63,34 +64,34 @@ async function convertToWav(audioBlob: Blob): Promise<Blob> {
 
     const audioContext = new AudioContextClass();
     const fileReader = new FileReader();
-    
+
     fileReader.onload = async () => {
       try {
         const arrayBuffer = fileReader.result as ArrayBuffer;
-        
+
         // Resume context if suspended (required for Safari)
         if (audioContext.state === 'suspended') {
           await audioContext.resume();
         }
-        
+
         const audioBuffer = await audioContext.decodeAudioData(arrayBuffer);
-        
+
         // Convert to WAV format
         const wavBlob = audioBufferToWav(audioBuffer);
-        
+
         // Close the audio context to free resources
         await audioContext.close();
-        
+
         resolve(wavBlob);
       } catch (error) {
         reject(error);
       }
     };
-    
+
     fileReader.onerror = () => {
       reject(new Error('Failed to read audio file'));
     };
-    
+
     fileReader.readAsArrayBuffer(audioBlob);
   });
 }
@@ -104,14 +105,14 @@ function audioBufferToWav(buffer: AudioBuffer): Blob {
   const numberOfChannels = buffer.numberOfChannels;
   const arrayBuffer = new ArrayBuffer(44 + length * numberOfChannels * 2);
   const view = new DataView(arrayBuffer);
-  
+
   // WAV header
   const writeString = (offset: number, string: string) => {
     for (let i = 0; i < string.length; i++) {
       view.setUint8(offset + i, string.charCodeAt(i));
     }
   };
-  
+
   writeString(0, 'RIFF');
   view.setUint32(4, 36 + length * numberOfChannels * 2, true);
   writeString(8, 'WAVE');
@@ -125,17 +126,24 @@ function audioBufferToWav(buffer: AudioBuffer): Blob {
   view.setUint16(34, 16, true);
   writeString(36, 'data');
   view.setUint32(40, length * numberOfChannels * 2, true);
-  
+
   // Convert audio data
   let offset = 44;
   for (let i = 0; i < length; i++) {
     for (let channel = 0; channel < numberOfChannels; channel++) {
-      const sample = Math.max(-1, Math.min(1, buffer.getChannelData(channel)[i]));
-      view.setInt16(offset, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
+      const sample = Math.max(
+        -1,
+        Math.min(1, buffer.getChannelData(channel)[i])
+      );
+      view.setInt16(
+        offset,
+        sample < 0 ? sample * 0x8000 : sample * 0x7fff,
+        true
+      );
       offset += 2;
     }
   }
-  
+
   return new Blob([arrayBuffer], { type: 'audio/wav' });
 }
 
@@ -154,7 +162,6 @@ export function useSTT(
     getLocalConfig('muteMicrophone', !defaultEnableAudio)
   );
   const [hasUserActivatedRecord, setHasUserActivatedRecord] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
   const [lastTranscription, setLastTranscription] = useState<STTResult | null>(
     null
   );
@@ -178,7 +185,6 @@ export function useSTT(
 
   const initializeRecording = useCallback(async (): Promise<boolean> => {
     try {
-      
       if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         throw new Error('Media recording is not supported in this browser');
       }
@@ -198,38 +204,38 @@ export function useSTT(
       if (options.continuousRecording) {
         try {
           // Safari compatibility: check for AudioContext support
-          const AudioContextClass = window.AudioContext || (window as any).webkitAudioContext;
+          const AudioContextClass =
+            window.AudioContext || (window as any).webkitAudioContext;
           if (AudioContextClass) {
             audioContextRef.current = new AudioContextClass({
               sampleRate: 16000, // Match the audio input sample rate
-              latencyHint: 'interactive' // Better for real-time analysis
+              latencyHint: 'interactive', // Better for real-time analysis
             });
-            
-            
+
             // Resume context if suspended (required for Safari)
             if (audioContextRef.current.state === 'suspended') {
               await audioContextRef.current.resume();
             }
-            
+
             // Wait a bit for Safari to stabilize the AudioContext
             await new Promise(resolve => setTimeout(resolve, 100));
-            
+
             analyserRef.current = audioContextRef.current.createAnalyser();
             analyserRef.current.fftSize = 512; // Increased for better frequency resolution
             analyserRef.current.smoothingTimeConstant = 0.3; // Reduced for more responsive detection
             analyserRef.current.minDecibels = -90;
             analyserRef.current.maxDecibels = -10;
-            
+
             const bufferLength = analyserRef.current.frequencyBinCount;
             dataArrayRef.current = new Uint8Array(bufferLength);
-            
-            const source = audioContextRef.current.createMediaStreamSource(stream);
+
+            const source =
+              audioContextRef.current.createMediaStreamSource(stream);
             source.connect(analyserRef.current);
-            
+
             // Initialize audio analysis state
             backgroundNoiseRef.current = 0;
             audioActivityHistoryRef.current = [];
-            
           }
         } catch (err) {
           // Silence detection initialization failed but we can continue
@@ -245,7 +251,7 @@ export function useSTT(
         'audio/webm;codecs=opus',
         'audio/webm',
         'audio/ogg;codecs=opus',
-        'audio/wav' // Fallback
+        'audio/wav', // Fallback
       ];
 
       for (const format of supportedFormats) {
@@ -254,7 +260,6 @@ export function useSTT(
           break;
         }
       }
-
 
       const mediaRecorder = new MediaRecorder(
         stream,
@@ -268,7 +273,6 @@ export function useSTT(
       };
 
       mediaRecorder.onstop = async () => {
-
         // Immediately set processing state to prevent ghost messages
         setRecordingState('processing');
         setIsListening(false);
@@ -286,13 +290,14 @@ export function useSTT(
             throw new Error('Recorded audio is empty');
           }
 
-
           // Convert to WAV if using Azure
           if (config.provider === 'azure') {
             try {
               audioBlob = await convertToWav(audioBlob);
             } catch (conversionError) {
-              throw new Error('Failed to convert audio to WAV format for Azure');
+              throw new Error(
+                'Failed to convert audio to WAV format for Azure'
+              );
             }
           }
 
@@ -314,7 +319,7 @@ export function useSTT(
           setRecordingState('idle');
         } catch (err) {
           const errorMsg = err instanceof Error ? err : new Error(String(err));
-          setError(errorMsg);
+          console.error('STT Error:', errorMsg);
           setRecordingState('error');
 
           if (options.onError) {
@@ -328,7 +333,7 @@ export function useSTT(
 
       mediaRecorder.onerror = () => {
         const errorMsg = new Error('Recording failed');
-        setError(errorMsg);
+        console.error('STT Error:', errorMsg);
         setRecordingState('error');
         isRecordingRef.current = false;
 
@@ -342,7 +347,7 @@ export function useSTT(
     } catch (err) {
       const errorMsg =
         err instanceof Error ? err : new Error('Failed to access microphone');
-      setError(errorMsg);
+      console.error('STT Error:', errorMsg);
       setRecordingState('error');
 
       if (options.onError) {
@@ -361,25 +366,25 @@ export function useSTT(
     if (!options.continuousRecording) {
       return false;
     }
-    
+
     if (!analyserRef.current || !dataArrayRef.current) {
       return false;
     }
 
     try {
+      // @ts-ignore
       analyserRef.current.getByteFrequencyData(dataArrayRef.current);
-      
+
       // Calculate simple average volume
       let sum = 0;
       for (let i = 0; i < dataArrayRef.current.length; i++) {
         sum += dataArrayRef.current[i];
       }
       const averageVolume = sum / dataArrayRef.current.length;
-      
+
       // Simple threshold - if volume is above 20, consider it activity
       const hasActivity = averageVolume > 20;
-      
-      
+
       return hasActivity;
     } catch (error) {
       return false;
@@ -394,28 +399,31 @@ export function useSTT(
     if (!options.continuousRecording || !analyserRef.current) {
       return;
     }
-    
+
     let silenceCount = 0;
     const maxSilenceCount = 30; // 3 seconds of silence (30 * 100ms)
-    
+
     const checkAudioActivity = () => {
       if (!isRecordingRef.current || !isMountedRef.current) {
         return;
       }
 
       const hasActivity = detectAudioActivity();
-      
+
       if (hasActivity) {
         // Reset silence counter when activity is detected
         silenceCount = 0;
       } else {
         // Increment silence counter
         silenceCount++;
-        
+
         // Stop recording after 3 seconds of silence
         if (silenceCount >= maxSilenceCount) {
           isRecordingRef.current = false;
-          if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+          if (
+            mediaRecorderRef.current &&
+            mediaRecorderRef.current.state === 'recording'
+          ) {
             mediaRecorderRef.current.stop();
           }
           return;
@@ -501,17 +509,14 @@ export function useSTT(
    * Start recording audio
    */
   const startRecording = useCallback(async (): Promise<void> => {
-    
     // Prevent immediate restart after stopping (cooldown period)
     const timeSinceLastStop = Date.now() - lastStopTimeRef.current;
-    if (timeSinceLastStop < 1000) { // 1 second cooldown
+    if (timeSinceLastStop < 1000) {
+      // 1 second cooldown
       return;
     }
-    
-    if (
-      microphoneMuted ||
-      recordingState === 'recording'
-    ) {
+
+    if (microphoneMuted || recordingState === 'recording') {
       return;
     }
 
@@ -520,7 +525,6 @@ export function useSTT(
     }
 
     try {
-      setError(null);
       setRecordingState('recording');
 
       // Initialize recording if needed
@@ -542,12 +546,14 @@ export function useSTT(
         // Use different timeslice based on recording mode and browser
         // For Safari, use longer timeslice to avoid issues with short recordings
         // For other browsers, use shorter timeslice for real-time analysis
-        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        const isSafari = /^((?!chrome|android).)*safari/i.test(
+          navigator.userAgent
+        );
         const timeslice = isSafari ? 500 : 100; // 500ms for Safari, 100ms for others
-        
+
         mediaRecorderRef.current.start(timeslice);
         setIsListening(true);
-        
+
         // Start silence detection if continuous recording is enabled
         if (options.continuousRecording) {
           startSilenceDetection();
@@ -556,7 +562,7 @@ export function useSTT(
     } catch (err) {
       const errorMsg =
         err instanceof Error ? err : new Error('Failed to start recording');
-      setError(errorMsg);
+      console.error('STT Error:', errorMsg);
       setRecordingState('error');
       isRecordingRef.current = false;
 
@@ -583,10 +589,10 @@ export function useSTT(
 
     try {
       setIsListening(false);
-      
+
       // Record the stop time for cooldown
       lastStopTimeRef.current = Date.now();
-      
+
       // Stop silence detection only if continuous recording was enabled
       if (options.continuousRecording) {
         stopSilenceDetection();
@@ -601,7 +607,7 @@ export function useSTT(
     } catch (err) {
       const errorMsg =
         err instanceof Error ? err : new Error('Failed to stop recording');
-      setError(errorMsg);
+      console.error('STT Error:', errorMsg);
       setRecordingState('error');
       isRecordingRef.current = false;
 
@@ -706,7 +712,6 @@ export function useSTT(
     recordingState,
     microphoneMuted,
     hasUserActivatedRecord,
-    error,
     lastTranscription,
     isListening,
 
@@ -717,7 +722,6 @@ export function useSTT(
     toggleMute,
     transcribeAudio,
     setHasUserActivatedRecord,
-    setError,
 
     // Utils
     cleanup,

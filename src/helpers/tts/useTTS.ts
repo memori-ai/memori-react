@@ -2,7 +2,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { sanitizeText } from '../sanitizer';
 import { getLocalConfig } from '../configuration';
-import Alert from '../../components/ui/Alert';
 import { useViseme } from '../../context/visemeContext';
 import { IAudioContext } from 'standardized-audio-context';
 
@@ -63,7 +62,6 @@ export function useTTS(
   const { addViseme, resetVisemeQueue, startProcessing, stopProcessing } =
     useViseme();
   const [hasUserActivatedSpeak, setHasUserActivatedSpeak] = useState(false);
-  const [error, setError] = useState<Error | null>(null);
 
   // Riferimenti
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -371,10 +369,9 @@ const speak = useCallback(
 
     try {
       setIsPlaying(true);
-      setError(null);
 
       // CHUNKING LOGIC: Dividi il testo in chunk se necessario
-      const chunks = createChunks(text, 800);
+      const chunks = createChunks(text, 500);
 
       // Riproduci tutti i chunk in sequenza
       // Il loop itera su ogni chunk di testo che deve essere riprodotto
@@ -415,7 +412,7 @@ const speak = useCallback(
       
       cleanup();
       const errorMsg = err instanceof Error ? err : new Error(String(err));
-      setError(errorMsg);
+      console.error('TTS Error:', errorMsg);
 
       emitEndSpeakEvent();
       
@@ -494,7 +491,5 @@ const speak = useCallback(
     toggleMute,
     hasUserActivatedSpeak,
     setHasUserActivatedSpeak,
-    error,
-    setError,
   };
 }
