@@ -1,5 +1,27 @@
 
 
+## [8.8.0](https://github.com/memori-ai/memori-react/compare/v8.7.9...v8.8.0) (2025-10-22)
+
+
+### Features
+
+* add 'TOTEM' layout option and refactor TTS chunk handling in useTTS ([9019764](https://github.com/memori-ai/memori-react/commit/901976416813643a7f195c4779ee4fefdbe9cb83))
+
+
+### Bug Fixes
+
+* improve fullscreen handling in Header component ([f92385d](https://github.com/memori-ai/memori-react/commit/f92385dd607c415fbff69441bc2d057ed5d9497d))
+* remove <think> tag in ChatBubble before copying to clipboard ([cd11c30](https://github.com/memori-ai/memori-react/commit/cd11c30bed6779bfb47c9fb60df45223e5581332))
+
+
+### Changes
+
+* optimize audio handling in useTTS for Android compatibility and adjust viseme preloading time ([40caf7a](https://github.com/memori-ai/memori-react/commit/40caf7a8ec70f015c0754d84a8b09a8e05227eee))
+* replaced error handling state for useTTS and useSTT with console error ([9db04c8](https://github.com/memori-ai/memori-react/commit/9db04c8b4c1b1b8b73cf6f9498a1016681f3a2fd))
+* simplify useSTT hook by removing continious speech ([43af26b](https://github.com/memori-ai/memori-react/commit/43af26b40059f49ea4ac69e9415cc42c80351d89))
+* update ChatInputs snapshots and enhance MicrophoneButton functionality with touch event handling ([5625773](https://github.com/memori-ai/memori-react/commit/562577304809eba8ce2b0cc6962771a4f3b26e3e))
+* update Test story with new parameters and localization settings ([96714b0](https://github.com/memori-ai/memori-react/commit/96714b0684fcea57c73a48d965b5afbbf9f949d7))
+
 ## [8.7.9](https://github.com/memori-ai/memori-react/compare/v8.7.8...v8.7.9) (2025-10-16)
 
 
