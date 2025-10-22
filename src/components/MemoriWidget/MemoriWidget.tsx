@@ -82,7 +82,6 @@ import { getCredits } from '../../helpers/credits';
 import { useViseme } from '../../context/visemeContext';
 import { sanitizeText } from '../../helpers/sanitizer';
 import { TTSConfig, useTTS } from '../../helpers/tts/useTTS';
-import Alert from '../ui/Alert';
 import ChatHistoryDrawer from '../ChatHistoryDrawer/ChatHistory';
 import { STTConfig, useSTT } from '../../helpers/stt/useSTT';
 
@@ -1821,8 +1820,6 @@ const MemoriWidget = ({
     toggleMute,
     hasUserActivatedSpeak,
     setHasUserActivatedSpeak,
-    error,
-    setError,
   } = useTTS(
     ttsConfig as TTSConfig,
     {
@@ -1871,9 +1868,9 @@ const MemoriWidget = ({
     processSpeechAndSendMessage,
     {
       apiUrl: `${baseUrl}/api/stt`,
-      continuousRecording: continuousSpeech,
-      silenceTimeout: continuousSpeechTimeout,
-      autoStart: autoStart,
+      // continuousRecording: continuousSpeech,
+      // silenceTimeout: continuousSpeechTimeout,
+      // autoStart: autoStart,
     },
     defaultEnableAudio
   );
@@ -3272,19 +3269,6 @@ const MemoriWidget = ({
         />
       )}
 
-      {error && (
-        <Alert
-          open={!!error}
-          onClose={() => {
-            setError(null);
-            //opens up the allow media of the browser
-            window.open('chrome://settings/content/autoplay', '_blank');
-          }}
-          title="Error"
-          description={error.message}
-          type="error"
-        />
-      )}
     </div>
   );
 };

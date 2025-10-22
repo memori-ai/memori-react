@@ -94,10 +94,7 @@ const Header: React.FC<Props> = ({
   apiClient,
 }) => {
   const { t } = useTranslation();
-  const {
-    uploadAsset,
-    pwlUpdateUser,
-  } = apiClient.backend;
+  const { uploadAsset, pwlUpdateUser } = apiClient.backend;
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
   useEffect(() => {
@@ -111,7 +108,9 @@ const Header: React.FC<Props> = ({
     if (avatar && loginToken) {
       const reader = new FileReader();
       reader.onload = async e => {
-        console.log('[updateAvatar] FileReader loaded', { result: e.target?.result });
+        console.log('[updateAvatar] FileReader loaded', {
+          result: e.target?.result,
+        });
         try {
           console.log('[updateAvatar] Uploading asset...');
           const { asset: avatarAsset, ...resp } = await uploadAsset(
@@ -136,7 +135,10 @@ const Header: React.FC<Props> = ({
               user?.userID ?? '',
               newUser
             );
-            console.log('[updateAvatar] User update complete', { patchedUser, resp });
+            console.log('[updateAvatar] User update complete', {
+              patchedUser,
+              resp,
+            });
           }
         } catch (e) {
           let err = e as Error;
@@ -147,7 +149,10 @@ const Header: React.FC<Props> = ({
       };
       reader.readAsDataURL(avatar as Blob);
     } else {
-      console.error('[updateAvatar] Missing avatar or login token', { avatar, loginToken });
+      console.error('[updateAvatar] Missing avatar or login token', {
+        avatar,
+        loginToken,
+      });
       toast.error(t('login.avatarUploadError'));
     }
   };
@@ -219,22 +224,22 @@ const Header: React.FC<Props> = ({
             fullScreenHandler ||
             (() => {
               if (!document.fullscreenElement) {
+                const mainContent =
+                  document.querySelector('main#content') ||
+                  document.querySelector('body');
                 const memoriWidget = document.querySelector('.memori-widget');
-                if (memoriWidget) {
+                if (mainContent) {
                   // Set white background before entering fullscreen
-                  (memoriWidget as HTMLElement).style.backgroundColor =
-                    '#FFFFFF';
-                  memoriWidget.requestFullscreen().catch(err => {
+                  if (memoriWidget) {
+                    (memoriWidget as HTMLElement).style.backgroundColor =
+                      '#FFFFFF';
+                  }
+                  mainContent.requestFullscreen().catch(err => {
                     console.warn('Error attempting to enable fullscreen:', err);
                   });
                 }
                 setFullScreen(true);
               } else if (document.exitFullscreen) {
-                const memoriWidget = document.querySelector('.memori-widget');
-                if (memoriWidget) {
-                  // Reset background on exit
-                  (memoriWidget as HTMLElement).style.backgroundColor = '';
-                }
                 document.exitFullscreen().catch(err => {
                   console.warn('Error attempting to exit fullscreen:', err);
                 });
@@ -323,19 +328,23 @@ const Header: React.FC<Props> = ({
                 <div className="memori-dropdown--user-info">
                   {user.avatarURL ? (
                     <>
-                    <img
-                      src={user.avatarURL}
-                      alt={user.userName || user.eMail}
-                      className="memori-dropdown--avatar"
-                    />
-                    <input
-                      type="file"
-                      name="avatar"
-                      id="avatar"
-                      className="memori-dropdown--avatar-input"
-                      onChange={e => updateAvatar(e.target.files?.[0] ?? null as unknown as Blob)}
-                      accept={imgMimeTypes.join(', ')}
-                    />
+                      <img
+                        src={user.avatarURL}
+                        alt={user.userName || user.eMail}
+                        className="memori-dropdown--avatar"
+                      />
+                      <input
+                        type="file"
+                        name="avatar"
+                        id="avatar"
+                        className="memori-dropdown--avatar-input"
+                        onChange={e =>
+                          updateAvatar(
+                            e.target.files?.[0] ?? (null as unknown as Blob)
+                          )
+                        }
+                        accept={imgMimeTypes.join(', ')}
+                      />
                     </>
                   ) : (
                     <div className="memori-dropdown--avatar-placeholder">
@@ -349,7 +358,11 @@ const Header: React.FC<Props> = ({
                         name="avatar"
                         id="avatar"
                         className="memori-dropdown--avatar-input"
-                        onChange={e => updateAvatar(e.target.files?.[0] ?? null as unknown as Blob)}
+                        onChange={e =>
+                          updateAvatar(
+                            e.target.files?.[0] ?? (null as unknown as Blob)
+                          )
+                        }
                         accept={imgMimeTypes.join(', ')}
                       />
                     </div>
