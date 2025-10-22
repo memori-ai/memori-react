@@ -1,5 +1,12 @@
 
 
+## [8.8.1](https://github.com/memori-ai/memori-react/compare/v8.8.0...v8.8.1) (2025-10-22)
+
+
+### Changes
+
+* adjust viseme preloading time and clean up audio handling in useTTS ([8bfd5fe](https://github.com/memori-ai/memori-react/commit/8bfd5fed4cee8dbad7ee68f3dbff43547de17430))
+
 ## [8.8.0](https://github.com/memori-ai/memori-react/compare/v8.7.9...v8.8.0) (2025-10-22)
 
 
