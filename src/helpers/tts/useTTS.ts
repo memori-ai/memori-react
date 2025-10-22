@@ -4,6 +4,7 @@ import { sanitizeText } from '../sanitizer';
 import { getLocalConfig } from '../configuration';
 import { useViseme } from '../../context/visemeContext';
 import { IAudioContext } from 'standardized-audio-context';
+import { isAndroid } from '../utils';
 
 /**
  * Configurazione per il TTS
@@ -310,8 +311,10 @@ export function useTTS(
         return;
       }
 
-      // Create audio element and set refs
-      const audio = new Audio(audioUrl);
+      // Create audio element with Android optimizations
+      const audio = new Audio();
+      audio.preload = 'auto'; // Force preloading for Android compatibility
+      audio.src = audioUrl;
       audioRef.current = audio;
       currentChunkAudioRef.current = audio;
 
@@ -326,8 +329,11 @@ export function useTTS(
           reject(new Error('Audio element not found'));
           return;
         }
-        // When audio is loaded and ready to play
-        audioRef.current.oncanplaythrough = async () => {
+        // Use Android-optimized event listener
+        const isAndroidDevice = isAndroid();
+        const audioEvent = isAndroidDevice ? 'canplay' : 'canplaythrough';
+        
+        const handleCanPlay = async () => {
           try {
             // Check if playback was cancelled
             if (!isSpeakingRef.current || !isMountedRef.current) {
@@ -336,20 +342,35 @@ export function useTTS(
               return;
             }
 
-            // Start viseme processing if available
-            if (hasVisemeData && audioWrapperRef.current) {
-              startProcessing(
-                audioWrapperRef.current as unknown as IAudioContext
-              );
+            // Play audio first, then start viseme processing
+            try {
+              await audioRef.current?.play();
+              
+              // Start viseme processing AFTER audio starts playing
+              if (hasVisemeData && audioWrapperRef.current) {
+                startProcessing(
+                  audioWrapperRef.current as unknown as IAudioContext
+                );
+              }
+            } catch (playError) {
+              // Retry once for Android compatibility
+              await new Promise(r => setTimeout(r, 100));
+              await audioRef.current?.play();
+              
+              if (hasVisemeData && audioWrapperRef.current) {
+                startProcessing(
+                  audioWrapperRef.current as unknown as IAudioContext
+                );
+              }
             }
-            // Play the audio
-            await audioRef.current?.play();
           } catch (e) {
             // Clean up on error
             URL.revokeObjectURL(audioUrl);
             reject(e);
           }
         };
+        
+        audioRef.current.addEventListener(audioEvent, handleCanPlay, { once: true });
 
         // When audio finishes playing
         audioRef.current.onended = () => {
