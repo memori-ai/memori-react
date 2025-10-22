@@ -1868,9 +1868,9 @@ const MemoriWidget = ({
     processSpeechAndSendMessage,
     {
       apiUrl: `${baseUrl}/api/stt`,
-      continuousRecording: continuousSpeech,
-      silenceTimeout: continuousSpeechTimeout,
-      autoStart: autoStart,
+      // continuousRecording: continuousSpeech,
+      // silenceTimeout: continuousSpeechTimeout,
+      // autoStart: autoStart,
     },
     defaultEnableAudio
   );

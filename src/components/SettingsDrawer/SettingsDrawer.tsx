@@ -92,24 +92,18 @@ const SettingsDrawer = ({
           </RadioGroup.Option>
 
           <Tooltip
-            content={
-              speakerMuted ? t('write_and_speak.continuousSpeechDisabled') : ''
-            }
-            disabled={!speakerMuted}
+            content={t('write_and_speak.continuousSpeechDisabled') || 'Continuous speech is currently disabled'}
+            disabled={false}
           >
             <RadioGroup.Option
               value="CONTINUOUS"
-              className={`memori-settings-drawer--microphoneMode-radio-button ${
-                speakerMuted
-                  ? 'memori-settings-drawer--microphoneMode-radio-button-disabled'
-                  : ''
-              }`}
+              className="memori-settings-drawer--microphoneMode-radio-button memori-settings-drawer--microphoneMode-radio-button-disabled"
             >
               {({ checked }) => (
                 <Button
                   primary={checked}
                   outlined={!checked}
-                  disabled={speakerMuted}
+                  disabled={true}
                 >
                   {t('write_and_speak.continuousSpeechLabel') ||
                     'Continuous speech'}
