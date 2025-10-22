@@ -30,6 +30,7 @@ const MicrophoneButton = ({
       | React.MouseEvent<Element, MouseEvent>
   ) => {
     e.preventDefault();
+    e.stopPropagation();
 
     setMicBtnTooltip(t('write_and_speak.holdToSpeak') || 'Hold to record');
 
@@ -43,7 +44,12 @@ const MicrophoneButton = ({
     }, 300);
   };
 
-  const stopHold = () => {
+  const stopHold = (e?: React.MouseEvent | React.TouchEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
     if (intervalRef.current) {
       clearTimeout(intervalRef.current);
       intervalRef.current = null;
@@ -51,6 +57,23 @@ const MicrophoneButton = ({
 
     stopListening();
     setMicBtnTooltip(undefined);
+  };
+
+  const handleContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const handleTouchStart = (e: React.TouchEvent<HTMLButtonElement> | React.MouseEvent<Element, MouseEvent>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    startHold(e);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent<HTMLButtonElement> | React.MouseEvent<Element, MouseEvent>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    stopHold(e);
   };
 
   useEffect(() => {
@@ -70,23 +93,26 @@ const MicrophoneButton = ({
       align="topLeft"
       className="memori-mic-btn-tooltip"
     >
-      <Button
-        primary
-        className={cx('memori-chat-inputs--mic', {
-          'memori-chat-inputs--mic--listening': listening,
-        })}
-        title={
-          listening
-            ? t('write_and_speak.micButtonPopoverListening') || 'Listening'
-            : t('write_and_speak.micButtonPopover') || 'Start listening'
-        }
-        onMouseDown={startHold}
-        onTouchStart={startHold}
-        onMouseUp={stopHold}
-        onTouchEnd={stopHold}
-        shape="circle"
-        icon={<Microphone />}
-      />
+      <div onContextMenu={handleContextMenu}>
+        <Button
+          primary
+          className={cx('memori-chat-inputs--mic', {
+            'memori-chat-inputs--mic--listening': listening,
+          })}
+          title={
+            listening
+              ? t('write_and_speak.micButtonPopoverListening') || 'Listening'
+              : t('write_and_speak.micButtonPopover') || 'Start listening'
+          }
+          onMouseDown={startHold}
+          onTouchStart={handleTouchStart}
+          onMouseUp={stopHold}
+          onTouchEnd={handleTouchEnd}
+          onMouseLeave={stopHold}
+          shape="circle"
+          icon={<Microphone />}
+        />
+      </div>
     </Tooltip>
   );
 };

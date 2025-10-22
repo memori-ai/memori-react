@@ -36,7 +36,6 @@ const SettingsDrawer = ({
   open,
   layout = 'DEFAULT',
   onClose,
-  speakerMuted,
   microphoneMode = 'HOLD_TO_TALK',
   continuousSpeechTimeout,
   setMicrophoneMode,
