@@ -82,7 +82,7 @@ export function useTTS(
       visemeLoadedRef.current = false;
 
       if (visemeData && visemeData.length > 0) {
-        visemeData.forEach((viseme) => {
+        visemeData.forEach(viseme => {
           addViseme(viseme.visemeId, viseme.audioOffset);
         });
         visemeLoadedRef.current = true;
@@ -332,7 +332,7 @@ export function useTTS(
         // Use Android-optimized event listener
         const isAndroidDevice = isAndroid();
         const audioEvent = isAndroidDevice ? 'canplay' : 'canplaythrough';
-        
+
         const handleCanPlay = async () => {
           try {
             // Check if playback was cancelled
@@ -344,24 +344,23 @@ export function useTTS(
 
             // Play audio first, then start viseme processing
             try {
-              await audioRef.current?.play();
-              
               // Start viseme processing AFTER audio starts playing
               if (hasVisemeData && audioWrapperRef.current) {
                 startProcessing(
                   audioWrapperRef.current as unknown as IAudioContext
                 );
               }
+              await audioRef.current?.play();
             } catch (playError) {
               // Retry once for Android compatibility
               await new Promise(r => setTimeout(r, 100));
-              await audioRef.current?.play();
-              
               if (hasVisemeData && audioWrapperRef.current) {
                 startProcessing(
                   audioWrapperRef.current as unknown as IAudioContext
                 );
               }
+              
+              await audioRef.current?.play();
             }
           } catch (e) {
             // Clean up on error
@@ -369,8 +368,10 @@ export function useTTS(
             reject(e);
           }
         };
-        
-        audioRef.current.addEventListener(audioEvent, handleCanPlay, { once: true });
+
+        audioRef.current.addEventListener(audioEvent, handleCanPlay, {
+          once: true,
+        });
 
         // When audio finishes playing
         audioRef.current.onended = () => {
@@ -396,7 +397,15 @@ export function useTTS(
         audioRef.current?.load();
       });
     },
-    [config, options, loadVisemeData, createAudioWrapper, startProcessing, isSpeakingRef, isMountedRef]
+    [
+      config,
+      options,
+      loadVisemeData,
+      createAudioWrapper,
+      startProcessing,
+      isSpeakingRef,
+      isMountedRef,
+    ]
   );
 
   /**

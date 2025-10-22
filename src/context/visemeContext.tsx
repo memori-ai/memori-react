@@ -87,7 +87,7 @@ const CONSTANTS = {
   // Time to preload/buffer visemes (in seconds)
   // Reduced from 1s to 0.5s as we don't need such a large buffer
   // Half a second is enough to prepare upcoming visemes
-  PRELOAD: 0.1,
+  PRELOAD: 0.2,
 
   // Weight multiplication factor for emphasis
   // Can be adjusted to make lip movements more or less pronounced
