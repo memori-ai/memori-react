@@ -14,7 +14,7 @@ export interface TTSConfig {
   model?: string;
   region?: string; // richiesto per Azure
   tenant?: string; // Tenant identifier for multi-tenant applications
-  layout?: 'DEFAULT' | 'ZOOMED_FULL_BODY' | 'FULLPAGE';
+  layout?: 'DEFAULT' | 'ZOOMED_FULL_BODY' | 'FULLPAGE' | 'TOTEM';
 }
 
 type VisemeData = {
@@ -81,7 +81,7 @@ export function useTTS(
       visemeLoadedRef.current = false;
 
       if (visemeData && visemeData.length > 0) {
-        visemeData.forEach(viseme => {
+        visemeData.forEach((viseme) => {
           addViseme(viseme.visemeId, viseme.audioOffset);
         });
         visemeLoadedRef.current = true;
@@ -217,223 +217,278 @@ export function useTTS(
     }
   }, [options.continuousSpeech, options.onEndSpeakStartListen]);
 
-// Helper per creare i chunk
-const createChunks = useCallback((text: string, maxLength: number = 800): string[] => {
-  if (text.length <= maxLength) {
-    return [text];
-  }
-  
-  const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
-  const chunks: string[] = [];
-  let currentChunk = '';
-  
-  for (const sentence of sentences) {
-    const sentenceWithPunct = sentence.trim() + '.';
-    if ((currentChunk + sentenceWithPunct).length > maxLength && currentChunk.length > 0) {
-      chunks.push(currentChunk.trim());
-      currentChunk = sentenceWithPunct;
-    } else {
-      currentChunk += sentenceWithPunct + ' ';
-    }
-  }
-  
-  if (currentChunk.trim().length > 0) {
-    chunks.push(currentChunk.trim());
-  }
-  
-  return chunks;
-}, []);
+  // Helper per creare i chunk
+  const createChunks = useCallback(
+    (text: string, maxLength: number = 800): string[] => {
+      if (text.length <= maxLength) {
+        return [text];
+      }
 
-// Helper per riprodurre un singolo chunk
-const speakChunk = useCallback(async (chunkText: string): Promise<void> => {
-    const response = await fetch(options.apiUrl || '/api/tts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        text: chunkText,
-        tenant: config.tenant || 'www.aisuru.com',
-        voice: config.voice,
-        model: config.model || 'tts-1',
-        region: config.region,
-        provider: config.provider,
-        includeVisemes: config.layout === 'ZOOMED_FULL_BODY' || config.layout === 'FULLPAGE' || config.layout === 'DEFAULT',
-      }),
-    });
+      const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+      const chunks: string[] = [];
+      let currentChunk = '';
 
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}));
-      throw new Error(errorData.error || `API error: ${response.status}`);
-    }
+      for (const sentence of sentences) {
+        const sentenceWithPunct = sentence.trim() + '.';
+        if (
+          (currentChunk + sentenceWithPunct).length > maxLength &&
+          currentChunk.length > 0
+        ) {
+          chunks.push(currentChunk.trim());
+          currentChunk = sentenceWithPunct;
+        } else {
+          currentChunk += sentenceWithPunct + ' ';
+        }
+      }
 
-    const audioBlob = await response.blob();
-    const audioUrl = URL.createObjectURL(audioBlob);
+      if (currentChunk.trim().length > 0) {
+        chunks.push(currentChunk.trim());
+      }
 
-    if (!isSpeakingRef.current || !isMountedRef.current) {
-      URL.revokeObjectURL(audioUrl);
-      return;
-    }
+      return chunks;
+    },
+    []
+  );
 
-    // Crea un nuovo Audio element per riprodurre il chunk corrente
-    const audio = new Audio(audioUrl);
-    
-    // Track the current chunk audio element
-    currentChunkAudioRef.current = audio;
-    
-    return new Promise<void>((resolve, reject) => {
-      // Quando l'audio è pronto per essere riprodotto
-      audio.oncanplaythrough = async () => {
+  // Helper per riprodurre un singolo chunk
+  // Helper function to handle text-to-speech for a single chunk of text
+  const speakChunk = useCallback(
+    async (chunkText: string): Promise<void> => {
+      // Make API request to TTS endpoint
+      const response = await fetch(options.apiUrl || '/api/tts', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          text: chunkText,
+          tenant: config.tenant || 'www.aisuru.com',
+          voice: config.voice,
+          model: config.model || 'tts-1',
+          region: config.region,
+          provider: config.provider,
+          // Include viseme data for certain layout types that need lip sync
+          includeVisemes:
+            config.layout === 'ZOOMED_FULL_BODY' ||
+            config.layout === 'FULLPAGE' ||
+            config.layout === 'DEFAULT' ||
+            config.layout === 'TOTEM',
+        }),
+      });
+
+      // Handle API errors
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || `API error: ${response.status}`);
+      }
+
+      // Get audio blob from response and create URL
+      const audioBlob = await response.blob();
+      const audioUrl = URL.createObjectURL(audioBlob);
+
+      // Clean up if speaking was cancelled
+      if (!isSpeakingRef.current || !isMountedRef.current) {
+        URL.revokeObjectURL(audioUrl);
+        return;
+      }
+
+      // Parse viseme data from response headers if available
+      let hasVisemeData = false;
+      const visemeDataHeader = response.headers.get('X-Viseme-Data');
+      if (visemeDataHeader) {
         try {
+          const visemeData: VisemeData[] = JSON.parse(visemeDataHeader);
+          hasVisemeData = loadVisemeData(visemeData);
+        } catch (err) {
+          // Silently handle error
+        }
+      }
+
+      // Clean up if speaking was cancelled
+      if (!isSpeakingRef.current || !isMountedRef.current) {
+        URL.revokeObjectURL(audioUrl);
+        return;
+      }
+
+      // Create audio element and set refs
+      const audio = new Audio(audioUrl);
+      audioRef.current = audio;
+      currentChunkAudioRef.current = audio;
+
+      // Create audio wrapper for viseme processing if needed
+      if (hasVisemeData) {
+        audioWrapperRef.current = createAudioWrapper();
+      }
+
+      // Return promise that resolves when audio finishes playing
+      return new Promise<void>((resolve, reject) => {
+        if (!audioRef.current) {
+          reject(new Error('Audio element not found'));
+          return;
+        }
+        // When audio is loaded and ready to play
+        audioRef.current.oncanplaythrough = async () => {
+          try {
+            // Check if playback was cancelled
+            if (!isSpeakingRef.current || !isMountedRef.current) {
+              URL.revokeObjectURL(audioUrl);
+              resolve();
+              return;
+            }
+
+            // Start viseme processing if available
+            if (hasVisemeData && audioWrapperRef.current) {
+              startProcessing(
+                audioWrapperRef.current as unknown as IAudioContext
+              );
+            }
+            // Play the audio
+            await audioRef.current?.play();
+          } catch (e) {
+            // Clean up on error
+            URL.revokeObjectURL(audioUrl);
+            reject(e);
+          }
+        };
+
+        // When audio finishes playing
+        audioRef.current.onended = () => {
+          // Clean up resources
+          URL.revokeObjectURL(audioUrl);
+          if (currentChunkAudioRef.current === audio) {
+            currentChunkAudioRef.current = null;
+          }
+          resolve();
+        };
+
+        // Handle audio errors
+        audioRef.current.onerror = () => {
+          // Clean up resources
+          URL.revokeObjectURL(audioUrl);
+          if (currentChunkAudioRef.current === audio) {
+            currentChunkAudioRef.current = null;
+          }
+          reject(new Error('Audio playback failed'));
+        };
+
+        // Start loading the audio
+        audioRef.current?.load();
+      });
+    },
+    [config, options, loadVisemeData, createAudioWrapper, startProcessing, isSpeakingRef, isMountedRef]
+  );
+
+  /**
+   * Sintetizza il testo in audio e lo riproduce
+   */
+  const speak = useCallback(
+    async (text: string): Promise<void> => {
+      if (!isMountedRef.current) {
+        return;
+      }
+
+      // Early exit conditions before setting speaking flag
+      if (!text || !text.trim() || options.preview) {
+        emitEndSpeakEvent();
+        return;
+      }
+
+      // If speaker is muted, completely disable TTS functionality
+      if (speakerMuted) {
+        // Still set hasUserActivatedSpeak to true when audio is disabled
+        // so the chat can start properly
+        if (!hasUserActivatedSpeak) {
+          setHasUserActivatedSpeak(true);
+        }
+        emitEndSpeakEvent();
+        return;
+      }
+
+      // Stop any existing playback first (before checking/setting speaking flag)
+      if (isPlaying) {
+        stop();
+      }
+
+      // Now check if we're already processing a request
+      if (isSpeakingRef.current) {
+        return;
+      }
+
+      // Set the flag after all the early exits and cleanup
+      isSpeakingRef.current = true;
+
+      if (!hasUserActivatedSpeak) {
+        setHasUserActivatedSpeak(true);
+      }
+
+      try {
+        setIsPlaying(true);
+
+        // CHUNKING LOGIC: Dividi il testo in chunk se necessario
+        const chunks = createChunks(text, 500);
+
+        // Riproduci tutti i chunk in sequenza
+        // Il loop itera su ogni chunk di testo che deve essere riprodotto
+        for (let i = 0; i < chunks.length; i++) {
           // Controlla se il componente è ancora montato e se non è stato interrotto
           if (!isSpeakingRef.current || !isMountedRef.current) {
-            URL.revokeObjectURL(audioUrl);
-            resolve();
-            return;
+            break; // Interrompe il loop se il componente viene smontato
           }
-          // Riproduce l'audio
-          await audio.play();
-        } catch (e) {
-          URL.revokeObjectURL(audioUrl);
-          reject(e);
+
+          // Attende che il chunk corrente venga riprodotto prima di passare al successivo
+          await speakChunk(chunks[i]);
+
+          // Se ci sono altri chunk da riprodurre, aggiunge una piccola pausa
+          if (
+            i < chunks.length - 1 &&
+            isSpeakingRef.current &&
+            isMountedRef.current
+          ) {
+            // Crea una Promise che si risolve dopo 300ms
+            // Questo crea una pausa tra un chunk e l'altro
+            // setTimeout viene wrappato in una Promise per poter usare await
+            await new Promise(resolve => setTimeout(resolve, 300));
+          }
         }
-      };
-      
-      // Quando l'audio termina di riprodurre
-      audio.onended = () => {
-        URL.revokeObjectURL(audioUrl);
-        // Clear the current chunk audio reference
-        if (currentChunkAudioRef.current === audio) {
-          currentChunkAudioRef.current = null;
+
+        setIsPlaying(false);
+        isSpeakingRef.current = false;
+        emitEndSpeakEvent();
+
+        // Dispatch custom event to notify MemoriWidget that audio has ended
+        const e = new CustomEvent('MemoriAudioEnded');
+        document.dispatchEvent(e);
+      } catch (err) {
+        setIsPlaying(false);
+        isSpeakingRef.current = false;
+
+        if (timeoutRef.current) {
+          clearTimeout(timeoutRef.current);
+          timeoutRef.current = null;
         }
-        // Risolve la Promise quando l'audio termina di riprodurre
-        resolve();
-      };
 
-      audio.onerror = () => {
-        URL.revokeObjectURL(audioUrl);
-        // Clear the current chunk audio reference
-        if (currentChunkAudioRef.current === audio) {
-          currentChunkAudioRef.current = null;
-        }
-        // Rifiuta la Promise se l'audio fallisce
-        reject(new Error('Audio playback failed'));
-      };
-      
-      audio.load();
-    });
-}, [config, options]);
+        cleanup();
 
-/**
- * Sintetizza il testo in audio e lo riproduce
- */
-const speak = useCallback(
-  async (text: string): Promise<void> => {
-    if (!isMountedRef.current) {
-      return;
-    }
+        emitEndSpeakEvent();
 
-    // Early exit conditions before setting speaking flag
-    if (!text || !text.trim() || options.preview) {
-      emitEndSpeakEvent();
-      return;
-    }
-
-  // If speaker is muted, completely disable TTS functionality
-  if (speakerMuted) {
-    // Still set hasUserActivatedSpeak to true when audio is disabled
-    // so the chat can start properly
-    if (!hasUserActivatedSpeak) {
-      setHasUserActivatedSpeak(true);
-    }
-    emitEndSpeakEvent();
-    return;
-  }
-
-    // Stop any existing playback first (before checking/setting speaking flag)
-    if (isPlaying) {
-      stop();
-    }
-
-    // Now check if we're already processing a request
-    if (isSpeakingRef.current) {
-      return;
-    }
-
-    // Set the flag after all the early exits and cleanup
-    isSpeakingRef.current = true;
-
-    if (!hasUserActivatedSpeak) {
-      setHasUserActivatedSpeak(true);
-    }
-
-    try {
-      setIsPlaying(true);
-
-      // CHUNKING LOGIC: Dividi il testo in chunk se necessario
-      const chunks = createChunks(text, 500);
-
-      // Riproduci tutti i chunk in sequenza
-      // Il loop itera su ogni chunk di testo che deve essere riprodotto
-      for (let i = 0; i < chunks.length; i++) {
-        // Controlla se il componente è ancora montato e se non è stato interrotto
-        if (!isSpeakingRef.current || !isMountedRef.current) {
-          break; // Interrompe il loop se il componente viene smontato
-        }
-        
-        // Attende che il chunk corrente venga riprodotto prima di passare al successivo
-        await speakChunk(chunks[i]);
-        
-        // Se ci sono altri chunk da riprodurre, aggiunge una piccola pausa
-        if (i < chunks.length - 1 && isSpeakingRef.current && isMountedRef.current) {
-          // Crea una Promise che si risolve dopo 300ms
-          // Questo crea una pausa tra un chunk e l'altro
-          // setTimeout viene wrappato in una Promise per poter usare await
-          await new Promise(resolve => setTimeout(resolve, 300));
-        }
+        // Dispatch custom event to notify MemoriWidget that audio has ended
+        const e = new CustomEvent('MemoriAudioEnded');
+        document.dispatchEvent(e);
       }
-
-      setIsPlaying(false);
-      isSpeakingRef.current = false;
-      emitEndSpeakEvent();
-      
-      // Dispatch custom event to notify MemoriWidget that audio has ended
-      const e = new CustomEvent('MemoriAudioEnded');
-      document.dispatchEvent(e);
-      
-    } catch (err) {
-      setIsPlaying(false);
-      isSpeakingRef.current = false;
-      
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
-      }
-      
-      cleanup();
-      const errorMsg = err instanceof Error ? err : new Error(String(err));
-      console.error('TTS Error:', errorMsg);
-
-      emitEndSpeakEvent();
-      
-      // Dispatch custom event to notify MemoriWidget that audio has ended
-      const e = new CustomEvent('MemoriAudioEnded');
-      document.dispatchEvent(e);
-    }
-  },
-  [
-    config,
-    speakerMuted,
-    options.preview,
-    hasUserActivatedSpeak,
-    stop,
-    cleanup,
-    createChunks,
-    speakChunk,
-    emitEndSpeakEvent,
-    isPlaying,
-  ]
-);
+    },
+    [
+      config,
+      speakerMuted,
+      options.preview,
+      hasUserActivatedSpeak,
+      stop,
+      cleanup,
+      createChunks,
+      speakChunk,
+      emitEndSpeakEvent,
+      isPlaying,
+    ]
+  );
   /**
    * Imposta lo stato del muto
    */
