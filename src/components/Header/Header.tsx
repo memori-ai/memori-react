@@ -224,17 +224,18 @@ const Header: React.FC<Props> = ({
             fullScreenHandler ||
             (() => {
               if (!document.fullscreenElement) {
-                const mainContent =
-                  document.querySelector('main#content') ||
-                  document.querySelector('body');
                 const memoriWidget = document.querySelector('.memori-widget');
-                if (mainContent) {
+                if (memoriWidget) {
                   // Set white background before entering fullscreen
-                  if (memoriWidget) {
-                    (memoriWidget as HTMLElement).style.backgroundColor =
-                      '#FFFFFF';
-                  }
-                  mainContent.requestFullscreen().catch(err => {
+                  (memoriWidget as HTMLElement).style.backgroundColor = '#FFFFFF';
+                  
+                  memoriWidget.requestFullscreen().then(() => {
+                    // Move portals inside fullscreen element
+                    const portals = document.querySelectorAll('[data-headlessui-portal]');
+                    portals.forEach(portal => {
+                      memoriWidget.appendChild(portal);
+                    });
+                  }).catch(err => {
                     console.warn('Error attempting to enable fullscreen:', err);
                   });
                 }
