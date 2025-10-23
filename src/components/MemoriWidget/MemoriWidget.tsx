@@ -2802,7 +2802,13 @@ const MemoriWidget = ({
         mute = true;
       }
 
+      // Use the toggleMute function from useTTS hook which properly manages state
       toggleMute(mute);
+      
+      // Update local config for persistence
+      setLocalConfig('muteSpeaker', !!mute);
+      
+      // Handle microphone mode changes
       let microphoneMode = getLocalConfig<string>(
         'microphoneMode',
         'HOLD_TO_TALK'
@@ -2811,15 +2817,21 @@ const MemoriWidget = ({
         setContinuousSpeech(false);
         setLocalConfig('microphoneMode', 'HOLD_TO_TALK');
       }
-      setLocalConfig('muteSpeaker', !!mute);
+      
+      // Stop audio if muting
       if (mute) {
         ttsStop();
       } else {
-        audioContext = new AudioContext();
-        let buffer = audioContext.createBuffer(1, 10000, 22050);
-        let source = audioContext.createBufferSource();
-        source.buffer = buffer;
-        source.connect(audioContext.destination);
+        // Initialize audio context when unmuting
+        try {
+          audioContext = new AudioContext();
+          let buffer = audioContext.createBuffer(1, 10000, 22050);
+          let source = audioContext.createBufferSource();
+          source.buffer = buffer;
+          source.connect(audioContext.destination);
+        } catch (error) {
+          console.warn('Failed to initialize audio context:', error);
+        }
       }
     },
     setShowChatHistoryDrawer,
