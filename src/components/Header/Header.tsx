@@ -27,8 +27,28 @@ import Logout from '../icons/Logout';
 import { getErrori18nKey } from '../../helpers/error';
 import toast from 'react-hot-toast';
 import memoriApiClient from '@memori.ai/memori-api-client';
+import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 
 const imgMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+
+// Helper function to determine if settings drawer has content
+const hasSettingsContent = (
+  layout?: WidgetProps['layout'],
+  additionalSettings?: WidgetProps['additionalSettings']
+): boolean => {
+  // Has content if layout is TOTEM (always has controls position and hide emissions)
+  if (layout === 'TOTEM') {
+    return true;
+  }
+
+  // Has content if additional settings are provided
+  if (additionalSettings) {
+    return true;
+  }
+
+  // No content otherwise
+  return false;
+};
 
 export interface Props {
   className?: string;
@@ -60,6 +80,8 @@ export interface Props {
   fullScreenHandler?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onLogout?: () => void;
   apiClient: ReturnType<typeof memoriApiClient>;
+  layout?: WidgetProps['layout'];
+  additionalSettings?: WidgetProps['additionalSettings'];
 }
 
 const Header: React.FC<Props> = ({
@@ -92,6 +114,8 @@ const Header: React.FC<Props> = ({
   baseUrl,
   onLogout,
   apiClient,
+  layout,
+  additionalSettings,
 }) => {
   const { t } = useTranslation();
   const { uploadAsset, pwlUpdateUser } = apiClient.backend;
@@ -224,27 +248,32 @@ const Header: React.FC<Props> = ({
             fullScreenHandler ||
             (() => {
               if (!document.fullscreenElement) {
-                const memoriWidget = document.querySelector('.memori-widget');
-                if (memoriWidget) {
-                  // Set white background before entering fullscreen
-                  (memoriWidget as HTMLElement).style.backgroundColor = '#FFFFFF';
-                  
-                  memoriWidget.requestFullscreen().then(() => {
-                    // Move portals inside fullscreen element
-                    const portals = document.querySelectorAll('[data-headlessui-portal]');
-                    portals.forEach(portal => {
-                      memoriWidget.appendChild(portal);
+                const body = layout !== 'HIDDEN_CHAT' && layout !== 'WEBSITE_ASSISTANT' ? document.body : document.querySelector('.memori-widget');
+                if (body) {
+                  //set the .memori-react div to white backg
+                  const memoriReact = document.querySelector('.memori-widget');
+                  if (memoriReact) {
+                    (memoriReact as HTMLElement).style.backgroundColor = '#FFFFFF';
+                  }
+                  body
+                    .requestFullscreen()
+                    .then(() => setFullScreen(true))
+                    .catch(err => {
+                      console.warn(
+                        'Error attempting to enable fullscreen:',
+                        err
+                      );
                     });
-                  }).catch(err => {
-                    console.warn('Error attempting to enable fullscreen:', err);
-                  });
                 }
-                setFullScreen(true);
-              } else if (document.exitFullscreen) {
-                document.exitFullscreen().catch(err => {
-                  console.warn('Error attempting to exit fullscreen:', err);
-                });
-                setFullScreen(false);
+              } else {
+                if (document.exitFullscreen) {
+                  document
+                    .exitFullscreen()
+                    .then(() => setFullScreen(false))
+                    .catch(err => {
+                      console.warn('Error attempting to exit fullscreen:', err);
+                    });
+                }
               }
             })
           }
@@ -288,7 +317,7 @@ const Header: React.FC<Props> = ({
         className="memori-header--button memori-header--button--export"
         disabled={!hasUserActivatedSpeak || history.length === 0}
       /> */}
-      {showSettings && (
+      {showSettings && hasSettingsContent(layout, additionalSettings) && (
         <Button
           primary
           shape="circle"
