@@ -20,66 +20,79 @@ exports[`renders MediaItemWidget unchanged with css snippet to show 1`] = `
     class="memori-media-items"
   >
     <div
-      class="memori-media-item--snippet ease-out duration-500 opacity-0 translate-y-1"
+      class="memori-media-items--grid memori-media-items--agent"
     >
       <div
-        class="memori-snippet"
+        class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
       >
-        <div
-          class="memori-snippet--content"
+        <a
+          class="memori-media-item--link"
+          href="#"
+          title="Snippet"
         >
-          <pre
-            aria-labelledby="#snippet-65ca4a6d-f20b-402e-9d79-5e470f247927"
-            class="line-numbers"
+          <div
+            class="memori-card memori-media-item--card memori-media-item--snippet memori-card--hoverable"
           >
-            <code
-              class="language-scss"
+            <div
+              class="memori-spin"
             >
-              body{
+              <div
+                class="memori-card--content"
+              >
+                <div
+                  class="memori-card--children"
+                >
+                  <div
+                    class="memori-media-item--snippet-preview"
+                  >
+                    <div
+                      class="memori-snippet"
+                    >
+                      <div
+                        class="memori-snippet--content"
+                      >
+                        <pre
+                          aria-labelledby="#snippet-65ca4a6d-f20b-402e-9d79-5e470f247927"
+                          class="line-numbers"
+                        >
+                          <code
+                            class="language-scss"
+                          >
+                            body{
   background-color: #f00;
 }
-            </code>
-          </pre>
-          <button
-            class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
-            title="copy"
-          >
-            <span
-              class="memori-button--icon"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                focusable="false"
-                role="img"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+                          </code>
+                        </pre>
+                      </div>
+                      <p
+                        class="memori-snippet--caption"
+                        id="snippet-65ca4a6d-f20b-402e-9d79-5e470f247927"
+                      >
+                        Snippet
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="memori-spin--spinner"
               >
-                <rect
-                  height="14"
-                  rx="2"
-                  ry="2"
-                  width="14"
-                  x="8"
-                  y="8"
-                />
-                <path
-                  d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                />
-              </svg>
-            </span>
-          </button>
-        </div>
-        <p
-          class="memori-snippet--caption"
-          id="snippet-65ca4a6d-f20b-402e-9d79-5e470f247927"
-        >
-          Snippet
-        </p>
+                <svg
+                  aria-hidden="true"
+                  class="memori-loading-icon"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </div>
@@ -262,64 +275,77 @@ exports[`renders MediaItemWidget unchanged with js snippet to show 1`] = `
     class="memori-media-items"
   >
     <div
-      class="memori-media-item--snippet ease-out duration-500 opacity-0 translate-y-1"
+      class="memori-media-items--grid memori-media-items--agent"
     >
       <div
-        class="memori-snippet"
+        class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
       >
-        <div
-          class="memori-snippet--content"
+        <a
+          class="memori-media-item--link"
+          href="#"
+          title="Snippet"
         >
-          <pre
-            aria-labelledby="#snippet-a669fadb-12c0-469b-9b6c-34db22d371ca"
-            class="line-numbers"
+          <div
+            class="memori-card memori-media-item--card memori-media-item--snippet memori-card--hoverable"
           >
-            <code
-              class="language-jsx"
+            <div
+              class="memori-spin"
             >
-              console.log("Hello World!");
-            </code>
-          </pre>
-          <button
-            class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
-            title="copy"
-          >
-            <span
-              class="memori-button--icon"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                focusable="false"
-                role="img"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="1.5"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
+              <div
+                class="memori-card--content"
               >
-                <rect
-                  height="14"
-                  rx="2"
-                  ry="2"
-                  width="14"
-                  x="8"
-                  y="8"
-                />
-                <path
-                  d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                />
-              </svg>
-            </span>
-          </button>
-        </div>
-        <p
-          class="memori-snippet--caption"
-          id="snippet-a669fadb-12c0-469b-9b6c-34db22d371ca"
-        >
-          Snippet
-        </p>
+                <div
+                  class="memori-card--children"
+                >
+                  <div
+                    class="memori-media-item--snippet-preview"
+                  >
+                    <div
+                      class="memori-snippet"
+                    >
+                      <div
+                        class="memori-snippet--content"
+                      >
+                        <pre
+                          aria-labelledby="#snippet-a669fadb-12c0-469b-9b6c-34db22d371ca"
+                          class="line-numbers"
+                        >
+                          <code
+                            class="language-jsx"
+                          >
+                            console.log("Hello World!");
+                          </code>
+                        </pre>
+                      </div>
+                      <p
+                        class="memori-snippet--caption"
+                        id="snippet-a669fadb-12c0-469b-9b6c-34db22d371ca"
+                      >
+                        Snippet
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="memori-spin--spinner"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="memori-loading-icon"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </a>
       </div>
     </div>
   </div>

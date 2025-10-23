@@ -165,8 +165,8 @@ a.memori-media-item--link {
 }
 
 .memori-media-item-preview--content {
-  max-height: 50vh;
   min-height: 50vh;
+  max-height: 50vh;
   padding: 1rem;
   border: 1px solid var(--memori-border);
   border-radius: 0.5rem;
