@@ -65,6 +65,8 @@ export const RenderMediaItem = ({
     return customRenderer;
   }
 
+  const isCodeSnippet = prismSyntaxLangs.map(l => l.mimeType).includes(item.mimeType);
+
   const renderMediaContent = (item: Medium) => {
     switch (item.mimeType) {
       case 'image/jpeg':
@@ -160,6 +162,38 @@ export const RenderMediaItem = ({
     }
   };
 
+  // Handle code snippets with modal
+  if (isCodeSnippet && item.content) {
+    return (
+      <>
+        <a
+          className="memori-media-item--link"
+          href="#"
+          onClick={e => {
+            e.preventDefault();
+            setModalOpen(true);
+          }}
+          title={item.title}
+        >
+          <Card hoverable cover={renderMediaContent(item)} title={item.title} />
+        </a>
+
+        <Modal
+          open={modalOpen}
+          onClose={() => setModalOpen(false)}
+          title={item.title}
+          className="memori-media-item-preview--modal"
+          width="80%"
+          widthMd="90%"
+        >
+          <div className="memori-media-item-preview--content">
+            <Snippet medium={item} showCopyButton={true} />
+          </div>
+        </Modal>
+      </>
+    );
+  }
+
   if (!item.url && item?.type === 'document' && item.content) {
     return (
       <>
@@ -183,7 +217,13 @@ export const RenderMediaItem = ({
           width="60%"
           widthMd="70%"
           footer={
-            <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
+            <div
+              style={{
+                display: 'flex',
+                justifyContent: 'flex-end',
+                gap: '0.5rem',
+              }}
+            >
               <Button
                 onClick={async () => {
                   try {
@@ -328,6 +368,50 @@ export const RenderMediaItem = ({
   }
 };
 
+export const RenderSnippetItem = ({
+  item,
+  sessionID: _sessionID,
+  tenantID: _tenantID,
+  baseURL: _baseURL,
+  apiURL: _apiURL,
+  onClick,
+}: {
+  item: Medium & { type: string };
+  sessionID?: string;
+  tenantID?: string;
+  baseURL?: string;
+  apiURL?: string;
+  onClick?: (mediumID: string) => void;
+}) => {
+  return (
+    <>
+      <a
+        href="#"
+        onClick={e => {
+          e.preventDefault();
+          if (onClick) {
+            console.log('Snippet item.mediumID:', item.mediumID);
+            onClick(item.mediumID);
+            console.log('clicked snippet');
+          }
+        }}
+        className="memori-media-item--link"
+        title={item.title}
+      >
+        <Card
+          hoverable
+          // onClick={() => setModalOpen(true)}
+          className="memori-media-item--card memori-media-item--snippet"
+        >
+          <div className="memori-media-item--snippet-preview">
+            <Snippet showCopyButton={false} preview={true} medium={item} />
+          </div>
+        </Card>
+      </a>
+    </>
+  );
+};
+
 const MediaItemWidget: React.FC<Props> = ({
   items,
   sessionID,
@@ -391,13 +475,19 @@ const MediaItemWidget: React.FC<Props> = ({
     m => m.mimeType === 'text/css' && !!m.properties?.executable
   );
 
+  console.log('openModalMedium', openModalMedium);
+  console.log('codeSnippets', codeSnippets);
+  console.log('nonCodeDisplayMedia', nonCodeDisplayMedia);
+
   return (
     <Transition appear show as="div" className="memori-media-items">
       {!!nonCodeDisplayMedia.length && (
-        <div className={cx('memori-media-items--grid', {
-          'memori-media-items--user': fromUser,
-          'memori-media-items--agent': !fromUser,
-        })}>
+        <div
+          className={cx('memori-media-items--grid', {
+            'memori-media-items--user': fromUser,
+            'memori-media-items--agent': !fromUser,
+          })}
+        >
           {nonCodeDisplayMedia.map((item: Medium, index: number) => (
             <Transition.Child
               as="div"
@@ -417,7 +507,7 @@ const MediaItemWidget: React.FC<Props> = ({
                 baseURL={baseURL}
                 apiURL={apiURL}
                 onClick={mediumID => {
-                  setOpenModalMedium(media.find(m => m.mediumID === mediumID));
+                  setOpenModalMedium(nonCodeDisplayMedia.find(m => m.mediumID === mediumID));
                 }}
                 item={{
                   ...item,
@@ -432,21 +522,48 @@ const MediaItemWidget: React.FC<Props> = ({
           ))}
         </div>
       )}
-      {codeSnippets.map(medium => (
-        <Transition.Child
-          as="div"
-          className="memori-media-item--snippet"
-          key={medium.mediumID}
-          enter="ease-out duration-500"
-          enterFrom="opacity-0 translate-y-1"
-          enterTo="opacity-1 translate-y-0"
-          leave="ease-in duration-300"
-          leaveFrom="opacity-1"
-          leaveTo="opacity-0"
+      {!!codeSnippets.length && (
+        <div
+          className={cx('memori-media-items--grid', {
+            'memori-media-items--user': fromUser,
+            'memori-media-items--agent': !fromUser,
+          })}
         >
-          <Snippet key={medium.mediumID} medium={medium} />
-        </Transition.Child>
-      ))}
+          {codeSnippets.map((item: Medium, index: number) => (
+            <Transition.Child
+              as="div"
+              className="memori-media-item"
+              key={item.mediumID + '&index=' + index}
+              enter={`ease-out duration-500 delay-${index * 100}`}
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-1 scale-100"
+              leave="ease-in duration-300"
+              leaveFrom="opacity-1 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+              <RenderSnippetItem
+                sessionID={sessionID}
+                tenantID={tenantID}
+                baseURL={baseURL}
+                apiURL={apiURL}
+                onClick={mediumID => {
+                  console.log('Snippet clicked, mediumID:', mediumID);
+                  const foundMedium = codeSnippets.find(m => m.mediumID === mediumID);
+                  console.log('Found medium:', foundMedium);
+                  setOpenModalMedium(foundMedium);
+                }}
+                item={{
+                  ...item,
+                  title: item.title,
+                  url: item.url,
+                  content: item.content,
+                  type: 'document',
+                }}
+              />
+            </Transition.Child>
+          ))}
+        </div>
+      )}
       {cssExecutableCode.map(medium => (
         <style
           key={medium.mediumID}
@@ -454,7 +571,7 @@ const MediaItemWidget: React.FC<Props> = ({
         ></style>
       ))}
 
-      {openModalMedium?.mediumID && (
+      {openModalMedium && (
         <Modal
           width="100%"
           widthMd="100%"
@@ -463,21 +580,34 @@ const MediaItemWidget: React.FC<Props> = ({
           onClose={() => setOpenModalMedium(undefined)}
           footer={null}
         >
-          <RenderMediaItem
-            isChild
-            sessionID={sessionID}
-            tenantID={tenantID}
-            baseURL={baseURL}
-            apiURL={apiURL}
-            item={{
-              ...openModalMedium,
-              title: openModalMedium.title,
-              url: openModalMedium.url,
-              content: openModalMedium.content,
-              type: 'document',
+          {prismSyntaxLangs
+            .map(l => l.mimeType)
+            .includes(openModalMedium.mimeType) ? (
+            <div 
+            style={{
+              minHeight: '100%',
+              background: 'none',
             }}
-            customMediaRenderer={customMediaRenderer}
-          />
+            className="memori-media-item-preview--content">
+              <Snippet preview={false} medium={openModalMedium} />
+            </div>
+          ) : (
+            <RenderMediaItem
+              isChild
+              sessionID={sessionID}
+              tenantID={tenantID}
+              baseURL={baseURL}
+              apiURL={apiURL}
+              item={{
+                ...openModalMedium,
+                title: openModalMedium.title,
+                url: openModalMedium.url,
+                content: openModalMedium.content,
+                type: 'document',
+              }}
+              customMediaRenderer={customMediaRenderer}
+            />
+          )}
         </Modal>
       )}
     </Transition>

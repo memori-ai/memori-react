@@ -106,6 +106,84 @@ ImagesGrid.args = {
   })),
 };
 
+export const JavaScript = Template.bind({});
+JavaScript.args = {
+  items: [
+    {
+      mediumID: '65ca4a6d-f20b-402e-9d79-5e470f247928',
+      mimeType: 'text/javascript',
+      title: 'JavaScript',
+      content: `[
+  {
+    "name": "France",
+    "capital": "Paris",
+    "population": 67364357,
+    "area": 551695,
+    "currency": "Euro",
+    "languages": [
+      "French"
+    ],
+    "region": "Europe",
+    "subregion": "Western Europe",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg"
+  },
+  {
+    "name": "Germany",
+    "capital": "Berlin",
+    "population": 83240525,
+    "area": 357022,
+    "currency": "Euro",
+    "languages": [
+      "German"
+    ],
+    "region": "Europe",
+    "subregion": "Western Europe",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg"
+  },
+  {
+    "name": "United States",
+    "capital": "Washington, D.C.",
+    "population": 331893745,
+    "area": 9833517,
+    "currency": "USD",
+    "languages": [
+      "English"
+    ],
+    "region": "Americas",
+    "subregion": "Northern America",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg"
+  },
+  {
+    "name": "Belgium",
+    "capital": "Brussels",
+    "population": 11589623,
+    "area": 30528,
+    "currency": "Euro",
+    "languages": [
+      "Flemish",
+      "French",
+      "German"
+    ],
+    "region": "Europe",
+    "subregion": "Western Europe",
+    "flag": "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Belgium.svg"
+    ]`,
+    },
+  ],
+};
+
+export const longTXT = Template.bind({});
+longTXT.args = {
+  items: [
+    {
+      mediumID: '65ca4a6d-f20b-402e-9d79-5e470f247928',
+      mimeType: 'text/plain',
+      title: 'Long Text',
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.',
+    },
+  ],
+};
+
 export const WithCustomMediaRenderer = Template.bind({});
 WithCustomMediaRenderer.args = {
   items: [
