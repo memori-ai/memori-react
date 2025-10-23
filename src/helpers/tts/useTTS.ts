@@ -51,6 +51,9 @@ export function useTTS(
   defaultEnableAudio: boolean = true,
   defaultSpeakerActive: boolean = true
 ) {
+  console.log('[useTTS] Initializing with config:', config);
+  console.log('[useTTS] Options:', options);
+
   // Stato locale
   const [isPlaying, setIsPlaying] = useState(false);
   const [speakerMuted, setSpeakerMuted] = useState(
@@ -78,6 +81,7 @@ export function useTTS(
   // Load viseme data into the queue
   const loadVisemeData = useCallback(
     (visemeData: VisemeData[]) => {
+      console.log('[useTTS] Loading viseme data:', visemeData);
       resetVisemeQueue();
       visemeLoadedRef.current = false;
 
@@ -86,8 +90,10 @@ export function useTTS(
           addViseme(viseme.visemeId, viseme.audioOffset);
         });
         visemeLoadedRef.current = true;
+        console.log('[useTTS] Viseme data loaded successfully');
         return true;
       } else {
+        console.log('[useTTS] No viseme data to load');
         return false;
       }
     },
@@ -96,7 +102,9 @@ export function useTTS(
 
   // Create audio wrapper for viseme processing
   const createAudioWrapper = useCallback(() => {
+    console.log('[useTTS] Creating audio wrapper');
     if (!audioRef.current) {
+      console.log('[useTTS] No audio ref available');
       return null;
     }
 
@@ -111,6 +119,7 @@ export function useTTS(
 
     // Add event listeners to update the state
     const handlePause = () => {
+      console.log('[useTTS] Audio paused');
       wrapper.state = 'suspended';
       if (wrapper.onstatechange) {
         wrapper.onstatechange.call(null as any, new Event('statechange'));
@@ -118,6 +127,7 @@ export function useTTS(
     };
 
     const handlePlay = () => {
+      console.log('[useTTS] Audio playing');
       wrapper.state = 'running';
       if (wrapper.onstatechange) {
         wrapper.onstatechange.call(null as any, new Event('statechange'));
@@ -125,6 +135,7 @@ export function useTTS(
     };
 
     const handleEnded = () => {
+      console.log('[useTTS] Audio ended');
       wrapper.state = 'closed';
       if (wrapper.onstatechange) {
         wrapper.onstatechange.call(null as any, new Event('statechange'));
@@ -138,6 +149,7 @@ export function useTTS(
 
     // Store cleanup function
     const cleanupEventListeners = () => {
+      console.log('[useTTS] Cleaning up audio wrapper event listeners');
       if (audioRef.current) {
         audioRef.current.removeEventListener('pause', handlePause);
         audioRef.current.removeEventListener('play', handlePlay);
@@ -155,6 +167,7 @@ export function useTTS(
    * Performs a complete cleanup of audio and viseme resources
    */
   const cleanup = useCallback(() => {
+    console.log('[useTTS] Performing cleanup');
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
       timeoutRef.current = null;
@@ -185,6 +198,7 @@ export function useTTS(
    * Stops audio playback and cleans up
    */
   const stop = useCallback((): void => {
+    console.log('[useTTS] Stopping audio playback');
     // Stop the main audio element
     if (audioRef.current) {
       audioRef.current.pause();
@@ -210,6 +224,7 @@ export function useTTS(
    * Emette l'evento di fine riproduzione
    */
   const emitEndSpeakEvent = useCallback(() => {
+    console.log('[useTTS] Emitting end speak event');
     const e = new CustomEvent('MemoriEndSpeak');
     document.dispatchEvent(e);
 
@@ -221,6 +236,7 @@ export function useTTS(
   // Helper per creare i chunk
   const createChunks = useCallback(
     (text: string, maxLength: number = 800): string[] => {
+      console.log('[useTTS] Creating chunks for text:', text.substring(0, 50) + '...');
       if (text.length <= maxLength) {
         return [text];
       }
@@ -246,6 +262,7 @@ export function useTTS(
         chunks.push(currentChunk.trim());
       }
 
+      console.log('[useTTS] Created chunks:', chunks.length);
       return chunks;
     },
     []
@@ -255,6 +272,7 @@ export function useTTS(
   // Helper function to handle text-to-speech for a single chunk of text
   const speakChunk = useCallback(
     async (chunkText: string): Promise<void> => {
+      console.log('[useTTS] Speaking chunk:', chunkText.substring(0, 50) + '...');
       // Make API request to TTS endpoint
       const response = await fetch(options.apiUrl || '/api/tts', {
         method: 'POST',
@@ -286,9 +304,11 @@ export function useTTS(
       // Get audio blob from response and create URL
       const audioBlob = await response.blob();
       const audioUrl = URL.createObjectURL(audioBlob);
+      console.log('[useTTS] Created audio URL for chunk');
 
       // Clean up if speaking was cancelled
       if (!isSpeakingRef.current || !isMountedRef.current) {
+        console.log('[useTTS] Speaking cancelled, cleaning up');
         URL.revokeObjectURL(audioUrl);
         return;
       }
@@ -300,13 +320,15 @@ export function useTTS(
         try {
           const visemeData: VisemeData[] = JSON.parse(visemeDataHeader);
           hasVisemeData = loadVisemeData(visemeData);
+          console.log('[useTTS] Loaded viseme data:', hasVisemeData);
         } catch (err) {
-          // Silently handle error
+          console.error('[useTTS] Error parsing viseme data:', err);
         }
       }
 
       // Clean up if speaking was cancelled
       if (!isSpeakingRef.current || !isMountedRef.current) {
+        console.log('[useTTS] Speaking cancelled after viseme load, cleaning up');
         URL.revokeObjectURL(audioUrl);
         return;
       }
@@ -326,17 +348,16 @@ export function useTTS(
       // Return promise that resolves when audio finishes playing
       return new Promise<void>((resolve, reject) => {
         if (!audioRef.current) {
+          console.error('[useTTS] Audio element not found');
           reject(new Error('Audio element not found'));
           return;
         }
-        // Use Android-optimized event listener
-        const isAndroidDevice = isAndroid();
-        const audioEvent = isAndroidDevice ? 'canplay' : 'canplaythrough';
 
         const handleCanPlay = async () => {
           try {
             // Check if playback was cancelled
             if (!isSpeakingRef.current || !isMountedRef.current) {
+              console.log('[useTTS] Playback cancelled before starting');
               URL.revokeObjectURL(audioUrl);
               resolve();
               return;
@@ -344,6 +365,7 @@ export function useTTS(
 
             // Play audio first, then start viseme processing
             try {
+              console.log('[useTTS] Starting audio playback');
               // Start viseme processing AFTER audio starts playing
               if (hasVisemeData && audioWrapperRef.current) {
                 startProcessing(
@@ -352,6 +374,7 @@ export function useTTS(
               }
               await audioRef.current?.play();
             } catch (playError) {
+              console.log('[useTTS] First playback attempt failed, retrying:', playError);
               // Retry once for Android compatibility
               await new Promise(r => setTimeout(r, 100));
               if (hasVisemeData && audioWrapperRef.current) {
@@ -363,18 +386,20 @@ export function useTTS(
               await audioRef.current?.play();
             }
           } catch (e) {
+            console.error('[useTTS] Error during playback:', e);
             // Clean up on error
             URL.revokeObjectURL(audioUrl);
             reject(e);
           }
         };
 
-        audioRef.current.addEventListener(audioEvent, handleCanPlay, {
+        audioRef.current.addEventListener('canplaythrough', handleCanPlay, {
           once: true,
         });
 
         // When audio finishes playing
         audioRef.current.onended = () => {
+          console.log('[useTTS] Audio chunk finished playing');
           // Clean up resources
           URL.revokeObjectURL(audioUrl);
           if (currentChunkAudioRef.current === audio) {
@@ -385,6 +410,7 @@ export function useTTS(
 
         // Handle audio errors
         audioRef.current.onerror = () => {
+          console.error('[useTTS] Audio playback error');
           // Clean up resources
           URL.revokeObjectURL(audioUrl);
           if (currentChunkAudioRef.current === audio) {
@@ -413,18 +439,23 @@ export function useTTS(
    */
   const speak = useCallback(
     async (text: string): Promise<void> => {
+      console.log('[useTTS] Speak called with text:', text.substring(0, 50) + '...');
+      
       if (!isMountedRef.current) {
+        console.log('[useTTS] Component not mounted, exiting');
         return;
       }
 
       // Early exit conditions before setting speaking flag
       if (!text || !text.trim() || options.preview) {
+        console.log('[useTTS] Early exit - empty text or preview mode');
         emitEndSpeakEvent();
         return;
       }
 
       // If speaker is muted, completely disable TTS functionality
       if (speakerMuted) {
+        console.log('[useTTS] Speaker is muted');
         // Still set hasUserActivatedSpeak to true when audio is disabled
         // so the chat can start properly
         if (!hasUserActivatedSpeak) {
@@ -436,11 +467,13 @@ export function useTTS(
 
       // Stop any existing playback first (before checking/setting speaking flag)
       if (isPlaying) {
+        console.log('[useTTS] Stopping existing playback');
         stop();
       }
 
       // Now check if we're already processing a request
       if (isSpeakingRef.current) {
+        console.log('[useTTS] Already speaking, exiting');
         return;
       }
 
@@ -456,12 +489,16 @@ export function useTTS(
 
         // CHUNKING LOGIC: Dividi il testo in chunk se necessario
         const chunks = createChunks(text, 500);
+        console.log('[useTTS] Created chunks:', chunks.length);
 
         // Riproduci tutti i chunk in sequenza
         // Il loop itera su ogni chunk di testo che deve essere riprodotto
         for (let i = 0; i < chunks.length; i++) {
+          console.log('[useTTS] Processing chunk', i + 1, 'of', chunks.length);
+          
           // Controlla se il componente è ancora montato e se non è stato interrotto
           if (!isSpeakingRef.current || !isMountedRef.current) {
+            console.log('[useTTS] Playback interrupted');
             break; // Interrompe il loop se il componente viene smontato
           }
 
@@ -474,6 +511,7 @@ export function useTTS(
             isSpeakingRef.current &&
             isMountedRef.current
           ) {
+            console.log('[useTTS] Adding pause between chunks');
             // Crea una Promise che si risolve dopo 300ms
             // Questo crea una pausa tra un chunk e l'altro
             // setTimeout viene wrappato in una Promise per poter usare await
@@ -481,6 +519,7 @@ export function useTTS(
           }
         }
 
+        console.log('[useTTS] Finished speaking all chunks');
         setIsPlaying(false);
         isSpeakingRef.current = false;
         emitEndSpeakEvent();
@@ -489,6 +528,7 @@ export function useTTS(
         const e = new CustomEvent('MemoriAudioEnded');
         document.dispatchEvent(e);
       } catch (err) {
+        console.error('[useTTS] Error during speech:', err);
         setIsPlaying(false);
         isSpeakingRef.current = false;
 
@@ -525,6 +565,7 @@ export function useTTS(
   const toggleMute = useCallback(
     (mute?: boolean) => {
       const newMuteState = mute !== undefined ? mute : !speakerMuted;
+      console.log('[useTTS] Toggling mute state to:', newMuteState);
       setSpeakerMuted(newMuteState);
 
       if (newMuteState && isPlaying) {
@@ -539,6 +580,7 @@ export function useTTS(
    */
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      console.log('[useTTS] Updating global speaking state:', isPlaying);
       (window as any).memoriSpeaking = isPlaying;
     }
   }, [isPlaying]);
@@ -548,6 +590,7 @@ export function useTTS(
    */
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      console.log('[useTTS] Setting up global speak function');
       globalSpeakRef.current = (window as any).speak;
       (window as any).speak = speak;
 
@@ -562,6 +605,7 @@ export function useTTS(
    */
   useEffect(() => {
     return () => {
+      console.log('[useTTS] Cleaning up on unmount');
       isSpeakingRef.current = false;
       isMountedRef.current = false;
       stop();

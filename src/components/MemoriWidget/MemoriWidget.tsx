@@ -1799,7 +1799,7 @@ const MemoriWidget = ({
       voiceType: memori.voiceType,
       layout: selectedLayout,
     }),
-    [ttsProvider, userLang, memori.culture, memori.voiceType]
+    [ttsProvider, userLang, memori.culture, memori.voiceType, selectedLayout]
   );
 
   const sttConfig = useMemo(
