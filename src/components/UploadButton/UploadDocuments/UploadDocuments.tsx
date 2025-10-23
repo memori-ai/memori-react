@@ -359,6 +359,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         ref={documentInputRef}
         type="file"
         accept=".pdf,.txt,.md,.json,.xlsx,.csv"
+        multiple
         className="memori--upload-file-input"
         onChange={handleDocumentUpload}
       />
