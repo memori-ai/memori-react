@@ -179,6 +179,7 @@ export function useTTS(
     audioWrapperRef.current = null;
 
     stopProcessing();
+    resetVisemeQueue(); // ADD THIS LINE - ensure viseme queue is cleared
 
     if (audioRef.current?.src) {
       URL.revokeObjectURL(audioRef.current.src);
@@ -192,7 +193,7 @@ export function useTTS(
 
     visemeLoadedRef.current = false;
     // Don't reset isSpeakingRef here - let the speak function manage it
-  }, [stopProcessing]);
+  }, [stopProcessing, resetVisemeQueue]);
 
   /**
    * Stops audio playback and cleans up
@@ -339,6 +340,12 @@ export function useTTS(
       audio.src = audioUrl;
       audioRef.current = audio;
       currentChunkAudioRef.current = audio;
+
+      // Clean up previous wrapper before creating a new one
+      if (audioWrapperRef.current && (audioWrapperRef.current as any).cleanup) {
+        (audioWrapperRef.current as any).cleanup();
+        audioWrapperRef.current = null;
+      }
 
       // Create audio wrapper for viseme processing if needed
       if (hasVisemeData) {
@@ -571,8 +578,15 @@ export function useTTS(
       if (newMuteState && isPlaying) {
         stop();
       }
+      
+      // ADD: Always clean up viseme state when toggling mute
+      // This ensures fresh start when unmuting
+      if (newMuteState) {
+        resetVisemeQueue();
+        stopProcessing();
+      }
     },
-    [speakerMuted, isPlaying, stop]
+    [speakerMuted, isPlaying, stop, resetVisemeQueue, stopProcessing]
   );
 
   /**

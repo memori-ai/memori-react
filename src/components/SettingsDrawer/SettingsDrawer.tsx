@@ -61,7 +61,7 @@ const SettingsDrawer = ({
       title={t('widget.settings') || 'Settings'}
       description={t('write_and_speak.settingsHeaderLabel')}
     >
-      <div className="memori-settings-drawer--field controls">
+      {/* <div className="memori-settings-drawer--field controls">
         <label htmlFor="#microphoneMode">
           {t('write_and_speak.microphoneMode') || 'Microphone mode'}:
         </label>
@@ -126,7 +126,7 @@ const SettingsDrawer = ({
             }}
           />
         </div>
-      )}
+      )} */}
 
       {layout === 'TOTEM' && (
         <>
