@@ -59,10 +59,23 @@ export function useTTS(
       !defaultEnableAudio || !defaultSpeakerActive || autoStart
     )
   );
+
   // Get viseme methods from your context
   const { addViseme, resetVisemeQueue, startProcessing, stopProcessing } =
     useViseme();
   const [hasUserActivatedSpeak, setHasUserActivatedSpeak] = useState(false);
+
+  // Helper function to check if audio should be played
+  const shouldPlayAudio = (text?: string) => {
+    const currentSpeakerMuted = getLocalConfig('muteSpeaker', false);
+    return (
+      text &&
+      text.trim() &&
+      !options.preview &&
+      !currentSpeakerMuted &&
+      defaultEnableAudio
+    );
+  };
 
   // Riferimenti
   const audioRef = useRef<HTMLAudioElement | null>(null);
@@ -289,7 +302,7 @@ export function useTTS(
       const audioUrl = URL.createObjectURL(audioBlob);
 
       // Check if speaker is muted after receiving TTS result
-      if (speakerMuted) {
+      if (!shouldPlayAudio(chunkText)) {
         URL.revokeObjectURL(audioUrl);
         return;
       }
@@ -429,13 +442,7 @@ export function useTTS(
       }
 
       // Early exit conditions before setting speaking flag
-      if (!text || !text.trim() || options.preview) {
-        emitEndSpeakEvent();
-        return;
-      }
-
-      // If speaker is muted, completely disable TTS functionality
-      if (speakerMuted) {
+      if (!shouldPlayAudio(text)) {
         // Still set hasUserActivatedSpeak to true when audio is disabled
         // so the chat can start properly
         if (!hasUserActivatedSpeak) {
@@ -500,6 +507,7 @@ export function useTTS(
         const e = new CustomEvent('MemoriAudioEnded');
         document.dispatchEvent(e);
       } catch (err) {
+        console.error('[speak] Error during playback:', err);
         setIsPlaying(false);
         isSpeakingRef.current = false;
 
@@ -545,7 +553,7 @@ export function useTTS(
         stop();
       }
       
-      // ADD: Always clean up viseme state when toggling mute
+      // Always clean up viseme state when toggling mute
       // This ensures fresh start when unmuting
       if (newMuteState) {
         resetVisemeQueue();

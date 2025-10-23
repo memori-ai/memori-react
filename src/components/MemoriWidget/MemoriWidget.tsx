@@ -871,7 +871,7 @@ const MemoriWidget = ({
 
           translateDialogState(currentState, userLang, msg).then(ts => {
             let text = ts.translatedEmission || ts.emission;
-            if (text && text.trim() && !speakerMuted) {
+            if (text && shouldPlayAudio(text)) {
               handleSpeak(text);
             }
           });
@@ -898,7 +898,7 @@ const MemoriWidget = ({
               tag: currentState.currentTag,
               memoryTags: currentState.memoryTags,
             });
-            if (emission && emission.trim()) {
+            if (emission && shouldPlayAudio(emission)) {
               handleSpeak(emission);
             }
           }
@@ -1839,6 +1839,19 @@ const MemoriWidget = ({
     defaultSpeakerActive
   );
 
+  // Helper function to check if audio should be played
+  const shouldPlayAudio = (text?: string) => {
+    const currentSpeakerMuted = getLocalConfig('muteSpeaker', false);
+    console.log('[MemoriWidget] shouldPlayAudio', currentSpeakerMuted);
+    return (
+      text &&
+      text.trim() &&
+      !preview &&
+      !currentSpeakerMuted &&
+      defaultEnableAudio
+    );
+  };
+
   // Create a single, centralized function to process and send messages
   const processSpeechAndSendMessage = (text: string) => {
     // console.log('processSpeechAndSendMessage', text);
@@ -1887,16 +1900,9 @@ const MemoriWidget = ({
    * Uses promise-based approach for better reliability
    */
   const handleSpeak = async (text: string) => {
-    if (
-      !text ||
-      !text.trim() ||
-      preview ||
-      speakerMuted ||
-      !defaultEnableAudio
-    ) {
+    if (!shouldPlayAudio(text)) {
       const e = new CustomEvent('MemoriEndSpeak');
       document.dispatchEvent(e);
-
       return Promise.resolve();
     }
 
@@ -1908,7 +1914,6 @@ const MemoriWidget = ({
     setHasUserTypedMessage(false);
 
     const processedText = sanitizeText(text);
-
     return ttsSpeak(processedText);
   };
   /**
@@ -1925,7 +1930,6 @@ const MemoriWidget = ({
       try {
         // First ensure we have a valid dialog state
         if (!dialogState) {
-          console.warn('translateAndSpeak called with empty dialog state');
           return null;
         }
 
@@ -1941,20 +1945,13 @@ const MemoriWidget = ({
         const textToSpeak =
           translatedState.translatedEmission || translatedState.emission;
 
-        // Always set
-        //  to true when we have a valid dialog state,
+        // Always set hasUserActivatedSpeak to true when we have a valid dialog state,
         // regardless of audio settings, so the chat can start properly
         if (!hasUserActivatedSpeak) {
           setHasUserActivatedSpeak(true);
         }
 
-        if (
-          textToSpeak &&
-          textToSpeak.trim() &&
-          !skipEmission &&
-          !speakerMuted
-        ) {
-          // Note: now using the Promise-based speak function to ensure proper sequencing
+        if (textToSpeak && !skipEmission && shouldPlayAudio(textToSpeak)) {
           await handleSpeak(textToSpeak);
         }
 
@@ -1973,8 +1970,10 @@ const MemoriWidget = ({
       handleSpeak,
       hasUserActivatedSpeak,
       setHasUserActivatedSpeak,
+      speakerMuted,
     ]
   );
+
 
   const focusChatInput = () => {
     let textarea = document.querySelector(
@@ -2186,7 +2185,9 @@ const MemoriWidget = ({
   // to use in integrations or snippets
   const memoriTextEnteredHandler = useCallback(
     (e: MemoriTextEnteredEvent) => {
-      if (disableTextEnteredEvents) return;
+      if (disableTextEnteredEvents) {
+        return;
+      }
 
       const {
         text,
@@ -2229,6 +2230,7 @@ const MemoriWidget = ({
       memoriTyping,
       userLang,
       disableTextEnteredEvents,
+      speakerMuted,
     ]
   );
   useEffect(() => {
