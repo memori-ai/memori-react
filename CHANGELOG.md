@@ -1,5 +1,25 @@
 
 
+## [8.8.2](https://github.com/memori-ai/memori-react/compare/v8.8.1...v8.8.2) (2025-10-23)
+
+
+### Features
+
+* add support for code snippets in MediaItemWidget with modal display ([3bd2c6b](https://github.com/memori-ai/memori-react/commit/3bd2c6b2c1fbf97fe9c146452b3d0cd76d7da880))
+
+
+### Bug Fixes
+
+* restore max-height property in MediaItemWidget CSS ([869cb41](https://github.com/memori-ai/memori-react/commit/869cb41465dcad9c693e6a5f544b7bcaa4dcfdc6))
+
+
+### Changes
+
+* enhance MemoriWidget audio handling and state management for mute functionality ([457ed1a](https://github.com/memori-ai/memori-react/commit/457ed1a7754c64a2b3f753cd4562761010badbfd))
+* enhance useTTS with detailed logging for debugging ([1bc8b9f](https://github.com/memori-ai/memori-react/commit/1bc8b9ffa53ba6d59f206f0999bc9d8dc3c92dc4))
+* improve viseme queue management and clean up audio handling in useTTS ([c07b14e](https://github.com/memori-ai/memori-react/commit/c07b14ecc1fab4fc72be77a609d08b5d4929395c))
+* streamline fullscreen handling for MemoriWidget and improve portal management ([2edb6df](https://github.com/memori-ai/memori-react/commit/2edb6df9adae125cadd2b1327bc702ba0403ca48))
+
 ## [8.8.1](https://github.com/memori-ai/memori-react/compare/v8.8.0...v8.8.1) (2025-10-22)
 
 
