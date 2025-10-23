@@ -288,6 +288,12 @@ export function useTTS(
       const audioBlob = await response.blob();
       const audioUrl = URL.createObjectURL(audioBlob);
 
+      // Check if speaker is muted after receiving TTS result
+      if (speakerMuted) {
+        URL.revokeObjectURL(audioUrl);
+        return;
+      }
+
       // Clean up if speaking was cancelled
       if (!isSpeakingRef.current || !isMountedRef.current) {
         URL.revokeObjectURL(audioUrl);
@@ -409,6 +415,7 @@ export function useTTS(
       startProcessing,
       isSpeakingRef,
       isMountedRef,
+      speakerMuted,
     ]
   );
 

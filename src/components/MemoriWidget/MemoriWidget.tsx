@@ -330,7 +330,6 @@ window.typeBatchMessages = typeBatchMessages;
 let audioContext: IAudioContext;
 
 let memoriPassword: string | undefined;
-let speakerMuted: boolean = false;
 let userToken: string | undefined;
 
 export interface LayoutProps {
@@ -510,19 +509,21 @@ const MemoriWidget = ({
       !user?.userID &&
       (showLogin || memori.requireLoginToken)
     ) {
-      client.backend.pwlGetCurrentUser(loginToken).then(({ user, resultCode }) => {
-        if (user && resultCode === 0) {
-          setUser(user);
-          setLocalConfig('loginToken', loginToken);
+      client.backend
+        .pwlGetCurrentUser(loginToken)
+        .then(({ user, resultCode }) => {
+          if (user && resultCode === 0) {
+            setUser(user);
+            setLocalConfig('loginToken', loginToken);
 
-          if (!birthDate && user.birthDate) {
-            setBirthDate(user.birthDate);
-            setLocalConfig('birthDate', user.birthDate);
+            if (!birthDate && user.birthDate) {
+              setBirthDate(user.birthDate);
+              setLocalConfig('birthDate', user.birthDate);
+            }
+          } else {
+            removeLocalConfig('loginToken');
           }
-        } else {
-          removeLocalConfig('loginToken');
-        }
-      });
+        });
     }
   }, [loginToken, user?.userID]);
   const [showLoginDrawer, setShowLoginDrawer] = useState(false);
@@ -1721,18 +1722,21 @@ const MemoriWidget = ({
 
       const handleVisibilityChange = () => {
         const isVisible = !document.hidden;
-        
+
         if (isVisible && !isTabVisible) {
           // Tab became visible - start polling and send immediate date event
           console.log('Tab is now active/visible - starting date polling');
-          sendDateChangedEvent({ sessionID: sessionId, state: currentDialogState });
+          sendDateChangedEvent({
+            sessionID: sessionId,
+            state: currentDialogState,
+          });
           startDatePolling();
         } else if (!isVisible && isTabVisible) {
           // Tab became hidden - stop polling
           console.log('Tab is now hidden - stopping date polling');
           stopDatePolling();
         }
-        
+
         isTabVisible = isVisible;
       };
 
@@ -1746,7 +1750,10 @@ const MemoriWidget = ({
 
       return () => {
         stopDatePolling();
-        document.removeEventListener('visibilitychange', handleVisibilityChange);
+        document.removeEventListener(
+          'visibilitychange',
+          handleVisibilityChange
+        );
       };
     }
   }, [memori.needsDateTime, sessionId]);
@@ -2776,8 +2783,7 @@ const MemoriWidget = ({
 
   const showFullHistory =
     showOnlyLastMessages === undefined
-      ? selectedLayout !== 'TOTEM' &&
-        selectedLayout !== 'WEBSITE_ASSISTANT'
+      ? selectedLayout !== 'TOTEM' && selectedLayout !== 'WEBSITE_ASSISTANT'
       : !showOnlyLastMessages;
 
   const headerProps: HeaderProps = {
@@ -2796,43 +2802,8 @@ const MemoriWidget = ({
     setShowExpertsDrawer,
     enableAudio: defaultEnableAudio,
     speakerMuted: speakerMuted ?? false,
-    setSpeakerMuted: mute => {
-      // If audio is disabled, force mute and don't allow unmuting
-      if (!(enableAudio ?? integrationConfig?.enableAudio ?? true)) {
-        mute = true;
-      }
-
-      // Use the toggleMute function from useTTS hook which properly manages state
+    setSpeakerMuted: (mute: boolean) => {
       toggleMute(mute);
-      
-      // Update local config for persistence
-      setLocalConfig('muteSpeaker', !!mute);
-      
-      // Handle microphone mode changes
-      let microphoneMode = getLocalConfig<string>(
-        'microphoneMode',
-        'HOLD_TO_TALK'
-      );
-      if (microphoneMode === 'CONTINUOUS' && mute) {
-        setContinuousSpeech(false);
-        setLocalConfig('microphoneMode', 'HOLD_TO_TALK');
-      }
-      
-      // Stop audio if muting
-      if (mute) {
-        ttsStop();
-      } else {
-        // Initialize audio context when unmuting
-        try {
-          audioContext = new AudioContext();
-          let buffer = audioContext.createBuffer(1, 10000, 22050);
-          let source = audioContext.createBufferSource();
-          source.buffer = buffer;
-          source.connect(audioContext.destination);
-        } catch (error) {
-          console.warn('Failed to initialize audio context:', error);
-        }
-      }
     },
     setShowChatHistoryDrawer,
     showSettings: showSettings ?? integrationConfig?.showSettings ?? true,
@@ -3280,7 +3251,6 @@ const MemoriWidget = ({
           }}
         />
       )}
-
     </div>
   );
 };
