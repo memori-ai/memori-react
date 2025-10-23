@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
 import {
   Memori,
@@ -30,25 +30,6 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 
 const imgMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
-
-// Helper function to determine if settings drawer has content
-const hasSettingsContent = (
-  layout?: WidgetProps['layout'],
-  additionalSettings?: WidgetProps['additionalSettings']
-): boolean => {
-  // Has content if layout is TOTEM (always has controls position and hide emissions)
-  if (layout === 'TOTEM') {
-    return true;
-  }
-
-  // Has content if additional settings are provided
-  if (additionalSettings) {
-    return true;
-  }
-
-  // No content otherwise
-  return false;
-};
 
 export interface Props {
   className?: string;
@@ -126,6 +107,19 @@ const Header: React.FC<Props> = ({
       setFullScreenAvailable(true);
     }
   }, []);
+
+  // Helper function to determine if settings drawer has content
+  const hasSettingsContent = useCallback((
+    layout?: WidgetProps['layout'],
+    additionalSettings?: WidgetProps['additionalSettings']
+  ): boolean => {
+    console.log('[hasSettingsContent] Layout:', layout);
+    console.log('[hasSettingsContent] Additional settings:', additionalSettings);
+    return (
+      layout === 'TOTEM' ||
+      (additionalSettings && Object.keys(additionalSettings).length > 0) || false
+    );
+  }, [layout, additionalSettings]);
 
   const updateAvatar = async (avatar: Blob) => {
     console.log('[updateAvatar] Starting avatar update', { avatar });
@@ -248,12 +242,16 @@ const Header: React.FC<Props> = ({
             fullScreenHandler ||
             (() => {
               if (!document.fullscreenElement) {
-                const body = layout !== 'HIDDEN_CHAT' && layout !== 'WEBSITE_ASSISTANT' ? document.body : document.querySelector('.memori-widget');
+                const body =
+                  layout !== 'HIDDEN_CHAT' && layout !== 'WEBSITE_ASSISTANT'
+                    ? document.body
+                    : document.querySelector('.memori-widget');
                 if (body) {
                   //set the .memori-react div to white backg
                   const memoriReact = document.querySelector('.memori-widget');
                   if (memoriReact) {
-                    (memoriReact as HTMLElement).style.backgroundColor = '#FFFFFF';
+                    (memoriReact as HTMLElement).style.backgroundColor =
+                      '#FFFFFF';
                   }
                   body
                     .requestFullscreen()
@@ -317,16 +315,17 @@ const Header: React.FC<Props> = ({
         className="memori-header--button memori-header--button--export"
         disabled={!hasUserActivatedSpeak || history.length === 0}
       /> */}
-      {showSettings && hasSettingsContent(layout, additionalSettings) && (
-        <Button
-          primary
-          shape="circle"
-          className="memori-header--button memori-header--button-settings"
-          icon={<Setting />}
-          onClick={() => setShowSettingsDrawer(true)}
-          title={t('widget.settings') || 'Settings'}
-        />
-      )}
+      {showSettings &&
+        hasSettingsContent(layout, additionalSettings) && (
+          <Button
+            primary
+            shape="circle"
+            className="memori-header--button memori-header--button-settings"
+            icon={<Setting />}
+            onClick={() => setShowSettingsDrawer(true)}
+            title={t('widget.settings') || 'Settings'}
+          />
+        )}
       {showShare && (
         <ShareButton
           className="memori-header--button memori-header--button-share"

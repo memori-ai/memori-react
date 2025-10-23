@@ -2798,6 +2798,8 @@ const MemoriWidget = ({
     history,
     showShare: showShare ?? integrationConfig?.showShare ?? true,
     position,
+    layout: selectedLayout,
+    additionalSettings,
     setShowPositionDrawer,
     setShowSettingsDrawer,
     setShowKnownFactsDrawer,
