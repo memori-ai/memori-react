@@ -1,5 +1,20 @@
 
 
+## [8.8.3](https://github.com/memori-ai/memori-react/compare/v8.8.2...v8.8.3) (2025-10-24)
+
+
+### Features
+
+* add settings button to Totem layout for enhanced user configuration ([31f4d1f](https://github.com/memori-ai/memori-react/commit/31f4d1fe2837fbf5ec433fa9307210e6fc7f8bfc))
+
+
+### Changes
+
+* add settings content check and improve fullscreen handling in Header component ([b87f3f4](https://github.com/memori-ai/memori-react/commit/b87f3f4468b07ac0d26cef6217edb4c31b898c59))
+* clean up MemoriWidget and useTTS for improved audio handling and state management ([ad69071](https://github.com/memori-ai/memori-react/commit/ad690719c8c28d1401a0d5743e365b44bc03448f))
+* implement centralized audio playback logic in MemoriWidget ([a31463b](https://github.com/memori-ai/memori-react/commit/a31463b928517c13a74184925ed7433d97ada5dc))
+* optimize settings content check and enhance Header component structure ([320b16e](https://github.com/memori-ai/memori-react/commit/320b16e3d0c6af531d48c17c48c8b3ec3d881655))
+
 ## [8.8.2](https://github.com/memori-ai/memori-react/compare/v8.8.1...v8.8.2) (2025-10-23)
 
 
