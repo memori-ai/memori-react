@@ -1,5 +1,14 @@
 
 
+## [8.8.4](https://github.com/memori-ai/memori-react/compare/v8.8.3...v8.8.4) (2025-10-24)
+
+
+### Changes
+
+* enhance MediaItemWidget and Snippet styles for improved layout and responsiveness ([7121bcc](https://github.com/memori-ai/memori-react/commit/7121bcc360169511b9986f823469da91ec072a4b))
+* enhance Prism script loading and code highlighting in Snippet component ([8a87e4e](https://github.com/memori-ai/memori-react/commit/8a87e4e101090085c45ac9cbc85b6b2682c6d646))
+* update MediaItemWidget CSS to increase minimum column width for better layout ([2df373d](https://github.com/memori-ai/memori-react/commit/2df373dab4bea6e1b4c4ce032e214026bf1a5331))
+
 ## [8.8.3](https://github.com/memori-ai/memori-react/compare/v8.8.2...v8.8.3) (2025-10-24)
 
 
