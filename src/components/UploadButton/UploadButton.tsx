@@ -378,20 +378,20 @@ ${file.content}
               'memori--upload-menu-item--disabled': hasReachedDocumentLimit,
             })}
             onClick={handleDocumentClick}
-            title={
-              hasReachedDocumentLimit
-                ? t('upload.maxDocumentsReached', { max: MAX_DOCUMENTS }) ??
-                  `Maximum ${MAX_DOCUMENTS} documents already uploaded`
-                : remainingDocumentSlots === 1
-                ? t('upload.lastDocumentSlot') ?? 'Upload last document'
-                : t('upload.uploadDocument', {
-                    remaining: remainingDocumentSlots,
-                  }) ?? `Upload document (${remainingDocumentSlots} remaining)`
-            }
+        title={
+          hasReachedDocumentLimit
+            ? t('upload.maxDocumentsReached', { max: MAX_DOCUMENTS }) ??
+              `Maximum ${MAX_DOCUMENTS} documents already uploaded`
+            : remainingDocumentSlots === 1
+            ? t('upload.lastDocumentSlot') ?? 'Upload last document'
+            : t('upload.uploadDocuments', {
+                remaining: remainingDocumentSlots,
+              }) ?? `Upload documents (${remainingDocumentSlots} remaining)`
+        }
           >
             <DocumentIcon className="memori--upload-menu-icon" />
             <span>
-              {t('upload.uploadDocument') ?? 'Upload document'}
+              {t('upload.uploadDocuments') ?? 'Upload documents'}
               {/* {currentDocumentCount > 0 && (
                 <span className="memori--upload-slots-info">
                   {hasReachedDocumentLimit
@@ -410,21 +410,21 @@ ${file.content}
                 !isMediaAccepted || hasReachedImageLimit,
             })}
             onClick={handleImageClick}
-            title={
-              !isMediaAccepted
-                ? t('upload.mediaNotAccepted') ?? 'Media uploads not accepted'
-                : hasReachedImageLimit
-                ? t('upload.maxImagesReached', { max: MAX_IMAGES }) ??
-                  `Maximum ${MAX_IMAGES} images already uploaded`
-                : remainingSlots === 1
-                ? t('upload.lastImageSlot') ?? 'Upload last image'
-                : t('upload.uploadImage', { remaining: remainingSlots }) ??
-                  `Upload image (${remainingSlots} remaining)`
-            }
+        title={
+          !isMediaAccepted
+            ? t('upload.mediaNotAccepted') ?? 'Media uploads not accepted'
+            : hasReachedImageLimit
+            ? t('upload.maxImagesReached', { max: MAX_IMAGES }) ??
+              `Maximum ${MAX_IMAGES} images already uploaded`
+            : remainingSlots === 1
+            ? t('upload.lastImageSlot') ?? 'Upload last image'
+            : t('upload.uploadImages', { remaining: remainingSlots }) ??
+              `Upload images (${remainingSlots} remaining)`
+        }
           >
             <ImageIcon className="memori--upload-menu-icon-image" />
             <span>
-              {t('upload.uploadImage') ?? 'Upload image'}
+              {t('upload.uploadImages') ?? 'Upload images'}
               {/* {currentImageCount > 0 && (
                 <span className="memori--upload-slots-info">
                   {hasReachedImageLimit

@@ -91,39 +91,180 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
 
-    // Check if adding this file would exceed the limit
-    if (currentImageCount >= maxImages) {
+    // Check if adding these files would exceed the limit
+    if (currentImageCount + files.length > maxImages) {
       onImageError?.({
         message:
           t('upload.maxImagesReached') ??
-          `Maximum ${maxImages} images allowed.`,
+          `Maximum ${maxImages} images allowed. You can upload ${maxImages - currentImageCount} more images.`,
         severity: 'error',
       });
       return;
     }
 
-    const file = files[0]; // Only handle the first file
+    // Validate all files first
+    const validFiles = files.filter(file => {
+      if (!validateImageFile(file)) {
+        return false;
+      }
+      return true;
+    });
 
-    if (!validateImageFile(file)) {
+    if (validFiles.length === 0) {
       if (imageInputRef.current) {
         imageInputRef.current.value = '';
       }
       return;
     }
 
-    // Set file and create preview
-    setSelectedFile(file);
-    setFilePreview(URL.createObjectURL(file));
-
-    // Set initial title as filename without extension
-    const fileName = file.name.split('.').slice(0, -1).join('.');
-    setImageTitle(fileName);
-
-    // Show upload modal with preview
-    setShowUploadModal(true);
+    // If only one file, show modal for title input
+    if (validFiles.length === 1) {
+      const file = validFiles[0];
+      setSelectedFile(file);
+      setFilePreview(URL.createObjectURL(file));
+      
+      // Set initial title as filename without extension
+      const fileName = file.name.split('.').slice(0, -1).join('.');
+      setImageTitle(fileName);
+      
+      // Show upload modal with preview
+      setShowUploadModal(true);
+    } else {
+      // For multiple files, upload them directly with default titles
+      await uploadMultipleImages(validFiles);
+    }
 
     if (imageInputRef.current) {
       imageInputRef.current.value = '';
+    }
+  };
+
+  const uploadMultipleImages = async (files: File[]) => {
+    setIsLoading(true);
+
+    try {
+      const uploadPromises = files.map(async (file) => {
+        return new Promise<{
+          name: string;
+          id: string;
+          content: string;
+          type: string;
+          mediumID: string | undefined;
+          url: string;
+          mimeType: string;
+        } | null>((resolve) => {
+          const reader = new FileReader();
+          
+          reader.onload = async (e) => {
+            const fileDataUrl = e.target?.result as string;
+            const fileId = Math.random().toString(36).substr(2, 9);
+            const fileName = file.name.split('.').slice(0, -1).join('.');
+
+            if (client) {
+              try {
+                let asset: Asset;
+                let response;
+
+                if (authToken && backend?.uploadAsset) {
+                  response = await backend.uploadAsset(
+                    file.name,
+                    fileDataUrl,
+                    authToken
+                  );
+                } else if (memoriID && sessionID && backend?.uploadAssetUnlogged) {
+                  response = await backend.uploadAssetUnlogged(
+                    file.name,
+                    fileDataUrl,
+                    memoriID,
+                    sessionID
+                  );
+
+                  if (!response) {
+                    throw new Error('Upload failed');
+                  }
+                } else {
+                  throw new Error('Missing required parameters for upload');
+                }
+
+                asset = response.asset;
+                if (response.resultCode !== 0) {
+                  throw new Error(response.resultMessage || 'Upload failed');
+                }
+
+                let medium: any = null;
+                if (dialog?.postMediumSelectedEvent && sessionID) {
+                  medium = await dialog.postMediumSelectedEvent(sessionID, {
+                    url: asset.assetURL,
+                    mimeType: asset.mimeType,
+                  } as Medium);
+                }
+
+                let finalMediumID: string | undefined = undefined;
+                if (medium?.currentState?.currentMedia) {
+                  const existingMediumIDs = new Set(
+                    documentPreviewFiles.map((file: any) => file.mediumID)
+                  );
+
+                  finalMediumID = medium.currentState.currentMedia.find(
+                    (media: any) => !existingMediumIDs.has(media.mediumID)
+                  )?.mediumID;
+                }
+
+                resolve({
+                  name: fileName,
+                  id: fileId,
+                  url: asset.assetURL,
+                  content: asset.assetURL,
+                  type: 'image',
+                  mediumID: finalMediumID,
+                  mimeType: asset.mimeType,
+                });
+              } catch (error) {
+                onImageError?.({
+                  message: t('upload.uploadFailed') ?? 'Upload failed',
+                  severity: 'error',
+                });
+                resolve(null);
+              }
+            } else {
+              onImageError?.({
+                message:
+                  t('upload.apiClientNotConfigured') ??
+                  'API client not configured properly for media upload',
+                severity: 'warning',
+              });
+              resolve(null);
+            }
+          };
+
+          reader.onerror = () => {
+            onImageError?.({
+              message: t('upload.fileReadingFailed') ?? 'File reading failed',
+              severity: 'error',
+            });
+            resolve(null);
+          };
+
+          reader.readAsDataURL(file);
+        });
+      });
+
+      const results = await Promise.all(uploadPromises);
+      const successfulUploads = results.filter(result => result !== null);
+
+      if (successfulUploads.length > 0) {
+        setDocumentPreviewFiles((prevFiles: any[]) => [
+          ...prevFiles,
+          ...successfulUploads,
+        ]);
+      }
+    } catch (error) {
+      onImageError?.({
+        message: t('upload.uploadFailed') ?? 'Upload failed',
+        severity: 'error',
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -264,6 +405,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
         ref={imageInputRef}
         type="file"
         accept=".jpg,.jpeg,.png"
+        multiple
         className="memori--upload-file-input"
         onChange={handleImageUpload}
         disabled={
