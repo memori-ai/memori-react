@@ -13,32 +13,47 @@ export interface Props {
   showCopyButton?: boolean;
 }
 
-const loadPrismScripts = () => {
-  const existingScript = document.getElementById('memori-prism-script');
-  if (existingScript) {
-    return;
-  }
+const loadPrismScripts = (): Promise<void> => {
+  return new Promise((resolve) => {
+    const existingScript = document.getElementById('memori-prism-script');
+    if (existingScript) {
+      resolve();
+      return;
+    }
 
-  const script = document.createElement('script');
-  script.src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js';
-  script.async = true;
-  script.id = 'memori-prism-script';
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js';
+    script.async = true;
+    script.id = 'memori-prism-script';
+    script.onload = () => {
+      // Load autoloader after main Prism script is loaded
+      const autoloaderScript = document.createElement('script');
+      autoloaderScript.src =
+        'https://cdn.jsdelivr.net/npm/prismjs@v1.29.0/plugins/autoloader/prism-autoloader.min.js';
+      autoloaderScript.async = true;
+      autoloaderScript.id = 'memori-prism-autoloader-script';
+      autoloaderScript.onload = () => {
+        // Configure autoloader to use the same CDN
+        // @ts-ignore
+        // eslint-disable-next-line no-undef
+        if (window.Prism && window.Prism.plugins && window.Prism.plugins.autoloader) {
+          // @ts-ignore
+          // eslint-disable-next-line no-undef
+          window.Prism.plugins.autoloader.languages_path = 'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/';
+        }
+        resolve();
+      };
+      document.head.appendChild(autoloaderScript);
+    };
 
-  const autoloaderScript = document.createElement('script');
-  autoloaderScript.src =
-    'https://cdn.jsdelivr.net/npm/prismjs@v1.29.0/plugins/autoloader/prism-autoloader.min.js';
-  autoloaderScript.async = true;
-  autoloaderScript.id = 'memori-prism-autoloader-script';
+    const prismCss = document.createElement('link');
+    prismCss.rel = 'stylesheet';
+    prismCss.href =
+      'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css';
 
-  const prismCss = document.createElement('link');
-  prismCss.rel = 'stylesheet';
-  prismCss.href =
-    'https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.min.css';
-
-  document.head.appendChild(prismCss);
-
-  document.head.appendChild(script);
-  document.head.appendChild(autoloaderScript);
+    document.head.appendChild(prismCss);
+    document.head.appendChild(script);
+  });
 };
 
 const Snippet = ({
@@ -49,15 +64,28 @@ const Snippet = ({
 }: Props) => {
   const { t } = useTranslation();
 
+  const highlightCode = () => {
+    // @ts-ignore
+    // eslint-disable-next-line no-undef
+    if ('Prism' in window && window.Prism.highlightAll) {
+      // Small delay to ensure DOM is updated
+      setTimeout(() => {
+        // @ts-ignore
+        // eslint-disable-next-line no-undef
+        Prism.highlightAll();
+      }, 100);
+    }
+  };
+
   useEffect(() => {
-    loadPrismScripts();
+    loadPrismScripts().then(() => {
+      highlightCode();
+    });
   }, []);
 
   useEffect(() => {
-    // @ts-ignore
-    // eslint-disable-next-line no-undef
-    if ('Prism' in window && window.Prism.highlightAll) Prism.highlightAll();
-  }, [medium.content]);
+    highlightCode();
+  }, [medium.content, medium.mimeType]);
 
   return (
     <div className="memori-snippet">
@@ -73,6 +101,10 @@ const Snippet = ({
               prismSyntaxLangs.find(l => medium.mimeType === l.mimeType)
                 ?.lang ?? 'text'
             }`}
+            data-language={
+              prismSyntaxLangs.find(l => medium.mimeType === l.mimeType)
+                ?.lang ?? 'text'
+            }
           >
             {medium.content?.length && medium.content.length > 200 && preview
               ? `${medium.content.slice(0, 200)}\n...`
