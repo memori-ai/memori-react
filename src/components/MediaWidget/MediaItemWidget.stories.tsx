@@ -113,73 +113,160 @@ JavaScript.args = {
       mediumID: '65ca4a6d-f20b-402e-9d79-5e470f247928',
       mimeType: 'text/javascript',
       title: 'JavaScript',
-      content: `[
-  {
-    "name": "France",
-    "capital": "Paris",
-    "population": 67364357,
-    "area": 551695,
-    "currency": "Euro",
-    "languages": [
-      "French"
-    ],
-    "region": "Europe",
-    "subregion": "Western Europe",
-    "flag": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Flag_of_France.svg"
-  },
-  {
-    "name": "Germany",
-    "capital": "Berlin",
-    "population": 83240525,
-    "area": 357022,
-    "currency": "Euro",
-    "languages": [
-      "German"
-    ],
-    "region": "Europe",
-    "subregion": "Western Europe",
-    "flag": "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg"
-  },
-  {
-    "name": "United States",
-    "capital": "Washington, D.C.",
-    "population": 331893745,
-    "area": 9833517,
-    "currency": "USD",
-    "languages": [
-      "English"
-    ],
-    "region": "Americas",
-    "subregion": "Northern America",
-    "flag": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Flag_of_the_United_States.svg"
-  },
-  {
-    "name": "Belgium",
-    "capital": "Brussels",
-    "population": 11589623,
-    "area": 30528,
-    "currency": "Euro",
-    "languages": [
-      "Flemish",
-      "French",
-      "German"
-    ],
-    "region": "Europe",
-    "subregion": "Western Europe",
-    "flag": "https://upload.wikimedia.org/wikipedia/commons/6/65/Flag_of_Belgium.svg"
-    ]`,
+      content: `{
+        "name": "John Doe",
+        "age": 43,
+        "city": "New York",
+        "items": [
+          {
+            "name": "Item 1",
+            "price": 10
+          },
+          {
+            "name": "Item 2",
+            "price": 20
+          }
+        ]
+      }
+        `,
     },
   ],
 };
 
-export const longTXT = Template.bind({});
-longTXT.args = {
+export const ShortCodeSnippets = Template.bind({});
+ShortCodeSnippets.args = {
+  items: [
+    {
+      mediumID: 'short-js-1',
+      mimeType: 'text/javascript',
+      title: 'Short JS Function',
+      content: 'function greet() {\n  return "Hello World!";\n}',
+    },
+    {
+      mediumID: 'short-python-1',
+      mimeType: 'text/python',
+      title: 'Python Print',
+      content: 'print("Hello, World!")',
+    },
+    {
+      mediumID: 'short-css-1',
+      mimeType: 'text/css',
+      title: 'CSS Rule',
+      content: 'body {\n  background: #f0f0f0;\n  color: #333;\n}',
+    },
+  ],
+};
+
+export const LongCodeSnippets = Template.bind({});
+LongCodeSnippets.args = {
+  items: [
+    {
+      mediumID: 'long-js-1',
+      mimeType: 'text/javascript',
+      title: 'Long JavaScript Function',
+      content: `function processData(data) {
+  // Validate input
+  if (!data || typeof data !== 'object') {
+    throw new Error('Invalid data provided');
+  }
+  
+  // Process each item
+  return data.map(item => {
+    const processed = {
+      id: item.id,
+      name: item.name.toUpperCase(),
+      value: item.value * 2,
+      timestamp: new Date().toISOString()
+    };
+    
+    return processed;
+  });
+}`,
+    },
+    {
+      mediumID: 'long-python-1',
+      mimeType: 'text/python',
+      title: 'Python Class',
+      content: `class DataProcessor:
+    def __init__(self, config):
+        self.config = config
+        self.cache = {}
+    
+    def process(self, data):
+        if data in self.cache:
+            return self.cache[data]
+        
+        result = self._transform(data)
+        self.cache[data] = result
+        return result
+    
+    def _transform(self, data):
+        # Complex transformation logic
+        return data.upper()`,
+    },
+  ],
+};
+
+export const MixedSnippets = Template.bind({});
+MixedSnippets.args = {
+  items: [
+    {
+      mediumID: 'short-1',
+      mimeType: 'text/javascript',
+      title: 'Quick Function',
+      content: 'const add = (a, b) => a + b;',
+    },
+    {
+      mediumID: 'long-1',
+      mimeType: 'text/javascript',
+      title: 'Complex Component',
+      content: `import React, { useState, useEffect } from 'react';
+
+const MyComponent = ({ data, onUpdate }) => {
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  
+  useEffect(() => {
+    if (data) {
+      setLoading(true);
+      processData(data)
+        .then(result => {
+          onUpdate(result);
+          setLoading(false);
+        })
+        .catch(err => {
+          setError(err.message);
+          setLoading(false);
+        });
+    }
+  }, [data, onUpdate]);
+  
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
+  
+  return <div>Data processed successfully</div>;
+};
+
+export default MyComponent;`,
+    },
+    {
+      mediumID: 'short-2',
+      mimeType: 'text/css',
+      title: 'Simple Style',
+      content: '.button {\n  padding: 10px;\n  background: blue;\n}',
+    },
+  ],
+};
+
+export const LongTXT = Template.bind({});
+LongTXT.args = {
   items: [
     {
       mediumID: '65ca4a6d-f20b-402e-9d79-5e470f247928',
       mimeType: 'text/plain',
       title: 'Long Text',
-      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.',
+      content:
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.',
     },
   ],
 };

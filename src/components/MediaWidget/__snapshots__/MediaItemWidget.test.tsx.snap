@@ -25,13 +25,11 @@ exports[`renders MediaItemWidget unchanged with css snippet to show 1`] = `
       <div
         class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
       >
-        <a
-          class="memori-media-item--link"
-          href="#"
-          title="Snippet"
+        <div
+          class="memori-media-item--snippet-direct"
         >
           <div
-            class="memori-card memori-media-item--card memori-media-item--snippet memori-card--hoverable"
+            class="memori-card memori-media-item--card memori-media-item--snippet"
           >
             <div
               class="memori-spin"
@@ -57,12 +55,46 @@ exports[`renders MediaItemWidget unchanged with css snippet to show 1`] = `
                         >
                           <code
                             class="language-scss"
+                            data-language="scss"
                           >
                             body{
   background-color: #f00;
 }
                           </code>
                         </pre>
+                        <button
+                          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+                          title="copy"
+                        >
+                          <span
+                            class="memori-button--icon"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              fill="none"
+                              focusable="false"
+                              role="img"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="1.5"
+                              viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <rect
+                                height="14"
+                                rx="2"
+                                ry="2"
+                                width="14"
+                                x="8"
+                                y="8"
+                              />
+                              <path
+                                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                              />
+                            </svg>
+                          </span>
+                        </button>
                       </div>
                       <p
                         class="memori-snippet--caption"
@@ -92,7 +124,7 @@ exports[`renders MediaItemWidget unchanged with css snippet to show 1`] = `
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </div>
@@ -280,13 +312,11 @@ exports[`renders MediaItemWidget unchanged with js snippet to show 1`] = `
       <div
         class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
       >
-        <a
-          class="memori-media-item--link"
-          href="#"
-          title="Snippet"
+        <div
+          class="memori-media-item--snippet-direct"
         >
           <div
-            class="memori-card memori-media-item--card memori-media-item--snippet memori-card--hoverable"
+            class="memori-card memori-media-item--card memori-media-item--snippet"
           >
             <div
               class="memori-spin"
@@ -312,10 +342,44 @@ exports[`renders MediaItemWidget unchanged with js snippet to show 1`] = `
                         >
                           <code
                             class="language-jsx"
+                            data-language="jsx"
                           >
                             console.log("Hello World!");
                           </code>
                         </pre>
+                        <button
+                          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+                          title="copy"
+                        >
+                          <span
+                            class="memori-button--icon"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              fill="none"
+                              focusable="false"
+                              role="img"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="1.5"
+                              viewBox="0 0 24 24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <rect
+                                height="14"
+                                rx="2"
+                                ry="2"
+                                width="14"
+                                x="8"
+                                y="8"
+                              />
+                              <path
+                                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                              />
+                            </svg>
+                          </span>
+                        </button>
                       </div>
                       <p
                         class="memori-snippet--caption"
@@ -345,7 +409,7 @@ exports[`renders MediaItemWidget unchanged with js snippet to show 1`] = `
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </div>

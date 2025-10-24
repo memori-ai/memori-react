@@ -119,8 +119,8 @@ a.memori-media-item--link {
 }
 
 .memori-media-item--modal .memori-modal--panel {
-    width: 75vw;
-    height: 85vh;
+    max-width: 75vw;
+    max-height: 85vh;
     -webkit-backdrop-filter: blur(var(--memori-blur-background, 10px));
     backdrop-filter: blur(var(--memori-blur-background, 10px));
     background: rgba(0, 0, 0, 0.25);
@@ -165,18 +165,16 @@ a.memori-media-item--link {
 }
 
 .memori-media-item-preview--content {
-  min-height: 50vh;
-  max-height: 50vh;
-  padding: 1rem;
-  border: 1px solid var(--memori-border);
-  border-radius: 0.5rem;
-  background-color: var(--memori-background-color, #fff);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  overflow-y: auto;
-}
-
-.memori-media-item--snippet{
-    min-width: 450px;
+    display: flex;
+    overflow: hidden;
+    min-height: 60vh;
+    max-height: 80vh;
+    flex-direction: column;
+    padding: 0;
+    border: none;
+    border-radius: 0.75rem;
+    background-color: var(--memori-background-color, #fff);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
 }
 
 .memori-media-item-preview--text {
@@ -266,29 +264,208 @@ a.memori-media-item--link {
     text-decoration: none;
 }
 
+.memori-media-item--snippet {
+    min-width: 450px;
+    max-width: 100%;
+}
+
+.memori-media-item--snippet-direct {
+    display: flex;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+/* Enhanced snippet grid layout */
+.memori-media-items--grid .memori-media-item--snippet-direct {
+    max-width: none;
+    grid-column: 1 / -1;
+}
+
+.memori-media-items--grid .memori-media-item--snippet {
+    min-width: 100%;
+    max-width: 100%;
+}
+
+.memori-media-item--snippet-direct .memori-media-item--snippet {
+    overflow: hidden;
+    width: 100%;
+    min-width: auto;
+    border: 1px solid var(--memori-border, #e5e7eb);
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+}
+
+.memori-media-item--snippet-direct .memori-media-item--snippet:hover {
+    box-shadow: 0 4px 8px -2px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
+}
+
+.memori-media-item--snippet-direct .memori-snippet {
+    border-radius: 0.75rem;
+    background: #f8fafc;
+}
+
+.memori-media-item--snippet-direct .memori-snippet pre {
+    padding: 1rem;
+    border: none;
+    margin: 0;
+    background: #f8fafc;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    overflow-x: auto;
+}
+
+.memori-media-item--snippet-direct .memori-snippet code {
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #374151;
+    font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.memori-media-item--snippet-direct .memori-snippet--copy-button {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+
+.memori-media-item--snippet-direct .memori-snippet--copy-button svg {
+    width: 14px;
+    height: 14px;
+    color: #6b7280;
+}
+
+.memori-media-item--snippet-direct .memori-snippet--caption {
+    padding: 0.75rem 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.02);
+    color: #6b7280;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Enhanced snippet styles for modal */
+.memori-media-item-preview--content .memori-snippet {
+    display: flex;
+    overflow: hidden;
+    height: 100%;
+    flex-direction: column;
+    border-radius: 0.75rem;
+    background: #1e1e1e;
+}
+
+.memori-media-item-preview--content .memori-snippet--content {
+    display: flex;
+    overflow: hidden;
+    flex: 1;
+    flex-direction: column;
+}
+
+.memori-media-item-preview--content .memori-snippet pre {
+    overflow: auto;
+    flex: 1;
+    padding: 1.5rem;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    background: #1e1e1e;
+    font-size: 0.875rem;
+    line-height: 1.6;
+}
+
+.memori-media-item-preview--content .memori-snippet code {
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+.memori-media-item-preview--content .memori-snippet--copy-button {
+    position: absolute;
+    z-index: 10;
+    top: 1rem;
+    right: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+    transition: all 0.2s ease;
+}
+
+
+.memori-media-item-preview--content .memori-snippet--copy-button:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+}
+
+.memori-media-item-preview--content .memori-snippet--copy-button svg {
+    width: 16px;
+    height: 16px;
+    color: #fff;
+}
+
+.memori-media-item-preview--content .memori-snippet--caption {
+    padding: 1rem 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(0, 0, 0, 0.1);
+    color: #ccc;
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
-  .memori-media-items--grid {
-    padding: 0.75rem;
-    grid-gap: 0.75rem;
-    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  }
-  
-  .memori-media-item--figure-caption {
-    padding: 0.375rem 0.5rem;
-    font-size: 0.65rem;
-    line-height: 1.2;
-  }
-  
-  .memori-media-item-preview--text {
-    font-size: 0.8rem;
-  }
-  
-  .memori-media-item-preview--text pre {
-    padding: 0.75rem;
-  }
-  
-  .memori-media-item-preview--content {
-    max-height: 40vh;
-  }
+    .memori-media-items--grid {
+        padding: 0.75rem;
+        grid-gap: 0.75rem;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    }
+
+    .memori-media-item--figure-caption {
+        padding: 0.375rem 0.5rem;
+        font-size: 0.65rem;
+        line-height: 1.2;
+    }
+
+    .memori-media-item-preview--text {
+        font-size: 0.8rem;
+    }
+
+    .memori-media-item-preview--text pre {
+        padding: 0.75rem;
+    }
+
+    .memori-media-item-preview--content {
+        min-height: 40vh;
+        max-height: 50vh;
+    }
+
+    /* Mobile snippet improvements */
+    .memori-media-item--snippet-direct {
+        margin-bottom: 0.75rem;
+    }
+
+    .memori-media-item--snippet-direct .memori-snippet pre {
+        padding: 0.75rem;
+        font-size: 0.8rem;
+    }
+
+    .memori-media-item--snippet-direct .memori-snippet--copy-button {
+        top: 0.5rem;
+        right: 0.5rem;
+        width: 28px !important;
+        height: 28px !important;
+    }
+
+    .memori-media-item--snippet-direct .memori-snippet--copy-button svg {
+        width: 12px;
+        height: 12px;
+    }
+
+    .memori-media-item-preview--content .memori-snippet pre {
+        padding: 1rem;
+        font-size: 0.8rem;
+    }
 }

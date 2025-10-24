@@ -187,7 +187,7 @@ export const RenderMediaItem = ({
           widthMd="90%"
         >
           <div className="memori-media-item-preview--content">
-            <Snippet medium={item} showCopyButton={true} />
+            <Snippet  medium={item} showCopyButton={true} />
           </div>
         </Modal>
       </>
@@ -368,6 +368,12 @@ export const RenderMediaItem = ({
   }
 };
 
+// Helper function to count lines in content
+const countLines = (content: string | undefined): number => {
+  if (!content) return 0;
+  return content.split('\n').length;
+};
+
 export const RenderSnippetItem = ({
   item,
   sessionID: _sessionID,
@@ -383,6 +389,23 @@ export const RenderSnippetItem = ({
   apiURL?: string;
   onClick?: (mediumID: string) => void;
 }) => {
+  const lineCount = countLines(item.content);
+  const isShortSnippet = lineCount <= 5;
+
+  // For short snippets, show them directly without the clickable link
+  if (isShortSnippet) {
+    return (
+      <div className="memori-media-item--snippet-direct">
+        <Card className="memori-media-item--card memori-media-item--snippet">
+          <div className="memori-media-item--snippet-preview">
+            <Snippet showCopyButton={true} preview={false} medium={item} />
+          </div>
+        </Card>
+      </div>
+    );
+  }
+
+  // For longer snippets, show preview with click to open modal
   return (
     <>
       <a
