@@ -319,10 +319,14 @@ export function useTTS(
       if (visemeDataHeader) {
         try {
           const visemeData: VisemeData[] = JSON.parse(visemeDataHeader);
+          console.log('[useTTS] Received viseme data:', { count: visemeData.length, data: visemeData });
           hasVisemeData = loadVisemeData(visemeData);
+          console.log('[useTTS] Viseme data loaded:', hasVisemeData);
         } catch (err) {
           console.error('[useTTS] Error parsing viseme data:', err);
         }
+      } else {
+        console.log('[useTTS] No viseme data in response header');
       }
 
       // Clean up if speaking was cancelled
@@ -544,21 +548,34 @@ export function useTTS(
   const toggleMute = useCallback(
     (mute?: boolean) => {
       const newMuteState = mute !== undefined ? mute : !speakerMuted;
+      console.log('[useTTS] toggleMute called:', {
+        previousState: speakerMuted,
+        newState: newMuteState,
+        isPlaying,
+        visemeLoaded: visemeLoadedRef.current
+      });
+      
       setSpeakerMuted(newMuteState);
 
       // Update local config for persistence
       setLocalConfig('muteSpeaker', newMuteState);
 
       if (newMuteState && isPlaying) {
+        console.log('[useTTS] Muting - stopping audio and cleaning up visemes');
         stop();
       }
       
       // Always clean up viseme state when toggling mute
       // This ensures fresh start when unmuting
-      if (newMuteState) {
-        resetVisemeQueue();
-        stopProcessing();
-      }
+      // if (newMuteState) {
+      //   console.log('[useTTS] Muting - resetting viseme queue and stopping processing');
+      //   resetVisemeQueue();
+      //   stopProcessing();
+      // } else {
+      //   console.log('[useTTS] Unmuting - visemes will restart on next speak call');
+      //   // When unmuting, ensure viseme processing can restart properly
+      //   // The visemes will be loaded fresh on the next speak call
+      // }
     },
     [speakerMuted, isPlaying, stop, resetVisemeQueue, stopProcessing]
   );

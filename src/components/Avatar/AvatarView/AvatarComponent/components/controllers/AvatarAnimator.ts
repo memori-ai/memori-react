@@ -171,60 +171,6 @@ export class AvatarAnimator {
   }
 
   /**
-   * Register animations with basic metadata inference
-   * This version has been modified to avoid duplications and prioritize model animations
-   */
-  private registerAnimations(
-    actions: Record<string, AnimationAction>,
-    clips: AnimationClip[] = []
-  ): void {
-    // console.log('[AvatarAnimator] Registering animations:');
-    // console.log(
-    //   `- Actions from preloaded sources: ${Object.keys(actions).length}`
-    // );
-    // console.log(`- Clips directly from model: ${clips.length}`);
-
-    // First identify all animation names to check for duplicates
-    const allAnimationNames = new Set<string>();
-
-    // Add clip names first (higher priority)
-    clips.forEach(clip => allAnimationNames.add(clip.name));
-
-    // Add action names second (lower priority)
-    Object.keys(actions).forEach(name => allAnimationNames.add(name));
-
-    // console.log(`- Total unique animation names: ${allAnimationNames.size}`);
-
-    // Process the clips first (they have priority)
-    clips.forEach(clip => {
-      if (this.mixer) {
-        // Create action from clip
-        const action = this.mixer.clipAction(clip);
-        // Store and register
-        this.actions[clip.name] = action;
-        this.registerAnimation(clip.name, action);
-      }
-    });
-
-    // Then process any remaining actions that don't conflict with clip names
-    Object.entries(actions).forEach(([name, action]) => {
-      if (!this.actions[name]) {
-        this.actions[name] = action;
-        this.registerAnimation(name, action);
-      }
-    });
-
-    // console.log(
-    //   `- Final registered animations: ${Object.keys(this.actions).length}`
-    // );
-
-    // Log all registered animations by category
-    const idleAnimations = this.getAnimationsByCategory('IDLE');
-    const loadingAnimations = this.getAnimationsByCategory('LOADING');
-    const actionAnimations = this.getAnimationsByCategory('ACTION');
-  }
-
-  /**
    * Register a single animation with inferred metadata
    */
   private registerAnimation(name: string, action: AnimationAction): void {
@@ -982,14 +928,6 @@ export class AvatarAnimator {
     }
   }
 
-  // Add this helper method to check if an animation is actually playing
-  private isAnimationPlaying(animationName: string): boolean {
-    if (!this.actions[animationName]) return false;
-
-    const action = this.actions[animationName];
-    return action.isRunning() && action.getEffectiveWeight() > 0.1;
-  }
-
   /**
    * Set up event listeners for the animation mixer with improved transition handling
    */
@@ -1063,83 +1001,6 @@ export class AvatarAnimator {
       }
     });
   }
-
-  /**
-   * Handle sequence progression if needed
-   */
-  private handleSequenceProgressionIfNeeded(): void {
-    if (
-      !this.currentSequence ||
-      !this.currentAnimation ||
-      this.sequenceIndex >= this.currentSequence.length - 1
-    ) {
-      return;
-    }
-
-    const currentAction = this.actions[this.currentAnimation];
-    if (!currentAction) return;
-
-    const clipDuration = currentAction.getClip().duration;
-    const progress = currentAction.time / clipDuration;
-
-    // If animation is near completion and not already transitioning
-    if (progress > 0.9 && !this.isTransitioning) {
-      this.sequenceIndex++;
-
-      if (this.sequenceIndex < this.currentSequence.length) {
-        // Move to next animation in sequence
-        const nextAnimation = this.currentSequence[this.sequenceIndex];
-        this.play(nextAnimation, {
-          fadeInDuration: 0.3, // Use consistent short fade times for sequences
-          fadeOutDuration: 0.3,
-          loopCount: 1,
-        });
-      } else {
-        // End of sequence
-        this.currentSequence = null;
-        this.sequenceIndex = 0;
-        this.idle();
-      }
-    }
-  }
-
-  /**
-   * Handle idle rotation if needed
-   */
-  private handleIdleRotationIfNeeded(): void {
-    // Only apply to idle animations
-    if (
-      !this.currentAnimation ||
-      !this.currentIdleAnimation ||
-      this.getAnimationCategory() !== 'IDLE'
-    ) {
-      return;
-    }
-
-    const currentAction = this.actions[this.currentAnimation];
-    if (!currentAction) return;
-
-    // Detect loops in idle animations
-    const clipDuration = currentAction.getClip().duration;
-    const currentTime = currentAction.time % clipDuration;
-    const previousTime = this.lastAnimationTime || 0;
-
-    // Loop detected if time resets (goes from high to low)
-    if (previousTime > currentTime + 0.1) {
-      // Add small buffer to handle precision issues
-      this.idleRotationCount++;
-
-      // Change idle animation after certain number of loops
-      if (this.idleRotationCount >= this.idleRotationLimit) {
-        this.idleRotationCount = 0;
-        this.idle();
-      }
-    }
-
-    // Store time for next comparison
-    this.lastAnimationTime = currentTime;
-  }
-
   /**
    * Set the animation time scale
    */
