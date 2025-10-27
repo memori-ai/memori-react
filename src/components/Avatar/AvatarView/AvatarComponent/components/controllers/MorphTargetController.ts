@@ -128,7 +128,6 @@ export class MorphTargetController {
       }
     }
 
-    console.log('[MorphTargetController] No emotion found:', emotionName);
     return defaultEmotions;
   }
 

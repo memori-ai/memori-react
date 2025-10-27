@@ -319,9 +319,7 @@ export function useTTS(
       if (visemeDataHeader) {
         try {
           const visemeData: VisemeData[] = JSON.parse(visemeDataHeader);
-          console.log('[useTTS] Received viseme data:', { count: visemeData.length, data: visemeData });
           hasVisemeData = loadVisemeData(visemeData);
-          console.log('[useTTS] Viseme data loaded:', hasVisemeData);
         } catch (err) {
           console.error('[useTTS] Error parsing viseme data:', err);
         }
@@ -548,12 +546,6 @@ export function useTTS(
   const toggleMute = useCallback(
     (mute?: boolean) => {
       const newMuteState = mute !== undefined ? mute : !speakerMuted;
-      console.log('[useTTS] toggleMute called:', {
-        previousState: speakerMuted,
-        newState: newMuteState,
-        isPlaying,
-        visemeLoaded: visemeLoadedRef.current
-      });
       
       setSpeakerMuted(newMuteState);
 
@@ -561,7 +553,6 @@ export function useTTS(
       setLocalConfig('muteSpeaker', newMuteState);
 
       if (newMuteState && isPlaying) {
-        console.log('[useTTS] Muting - stopping audio and cleaning up visemes');
         stop();
       }
       
