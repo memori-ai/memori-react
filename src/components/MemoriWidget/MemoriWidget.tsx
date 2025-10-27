@@ -1836,7 +1836,7 @@ const MemoriWidget = ({
     },
     autoStart,
     defaultEnableAudio,
-    defaultSpeakerActive
+    defaultSpeakerActive ?? integrationConfig?.defaultSpeakerActive ?? true
   );
 
   // Helper function to check if audio should be played
@@ -2815,9 +2815,10 @@ const MemoriWidget = ({
       showChatHistory ?? integrationConfig?.showChatHistory ?? true,
     hasUserActivatedSpeak,
     showReload: selectedLayout === 'TOTEM',
-    showClear,
+    showClear: showClear ?? integrationConfig?.showClear ?? false,
     clearHistory: () => setHistory(h => h.slice(-1)),
-    showLogin: showLogin ?? memori.requireLoginToken,
+    showLogin:
+      showLogin ?? integrationConfig?.showLogin ?? memori.requireLoginToken,
     setShowLoginDrawer,
     loginToken,
     user,
@@ -2900,7 +2901,7 @@ const MemoriWidget = ({
     layout,
     memoriTyping,
     typingText,
-    showTypingText,
+    showTypingText: showTypingText ?? integrationConfig?.showTypingText ?? false,
     history: showFullHistory ? history : history.slice(-2),
     authToken:
       loginToken ?? userToken ?? additionalInfo?.loginToken ?? authToken,
@@ -2913,8 +2914,11 @@ const MemoriWidget = ({
     showUpload: enableUpload,
     showReasoning: enableReasoning,
     showWhyThisAnswer,
-    showCopyButton,
-    showTranslationOriginal,
+    showCopyButton: showCopyButton ?? integrationConfig?.showCopyButton ?? true,
+    showTranslationOriginal:
+      showTranslationOriginal ??
+      integrationConfig?.showTranslationOriginal ??
+      false,
     client,
     instruct,
     preview,
