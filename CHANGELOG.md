@@ -1,5 +1,14 @@
 
 
+## [8.8.5](https://github.com/memori-ai/memori-react/compare/v8.8.4...v8.8.5) (2025-10-27)
+
+
+### Changes
+
+* remove unnecessary console logs ([49f9fb2](https://github.com/memori-ai/memori-react/commit/49f9fb2f515a3c970d1b6245dafd2a7358e93cea))
+* streamline default prop handling in MemoriWidget for better integration configuration ([f50e0d0](https://github.com/memori-ai/memori-react/commit/f50e0d080ec6a98157b169c079cb54d1b0fd0c6d))
+* update AvatarComponent for improved animation handling ([72e6b5c](https://github.com/memori-ai/memori-react/commit/72e6b5c40b66ea664e9d34d646fb4a6ffc415569))
+
 ## [8.8.4](https://github.com/memori-ai/memori-react/compare/v8.8.3...v8.8.4) (2025-10-24)
 
 
