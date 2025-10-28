@@ -301,7 +301,7 @@ const Chat: React.FC<Props> = ({
                   // Filter out HTML and plain text media items from the message
                   ...(message?.media?.filter(
                     m =>
-                      m.mimeType !== 'text/html' && m.mimeType !== 'text/plain'
+                      m.mimeType !== 'text/html'
                   ) || []),
 
                   // Extract document attachments that are embedded in the message text
@@ -316,6 +316,7 @@ const Chat: React.FC<Props> = ({
 
                     const attachments: (Medium & { type?: string })[] = [];
                     let match;
+                    let attachmentIndex = 0;
 
                     // Find all document attachments in the text
                     while (
@@ -330,7 +331,7 @@ const Chat: React.FC<Props> = ({
                       // - Trimmed content from the attachment
                       // - Properties to mark it as a document attachment
                       attachments.push({
-                        mediumID: `doc_${Date.now()}_${Math.random()
+                        mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
                           .toString(36)
                           .substr(2, 9)}`,
                         url: '',
@@ -340,6 +341,8 @@ const Chat: React.FC<Props> = ({
                         properties: { isDocumentAttachment: true },
                         type: 'document',
                       });
+                      
+                      attachmentIndex++;
                     }
 
                     return attachments;

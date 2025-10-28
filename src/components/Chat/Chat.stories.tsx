@@ -39,9 +39,9 @@ const Template: Story<Props> = args => {
   return (
     <I18nWrapper>
       <ArtifactProvider>
-      <Chat
-        {...args}
-        userMessage={userMessage}
+        <Chat
+          {...args}
+          userMessage={userMessage}
           onChangeUserMessage={setUserMessage}
         />
       </ArtifactProvider>
@@ -99,7 +99,6 @@ WithHints.args = {
   setAttachmentsMenuOpen: () => {},
   setSendOnEnter: () => {},
 };
-
 
 export const WithArtifacts = Template.bind({});
 WithArtifacts.args = {
@@ -327,7 +326,6 @@ WithCustomUserAvatarAsElement.args = {
   setSendOnEnter: () => {},
 };
 
-
 export const WithExpandable = Template.bind({});
 WithExpandable.args = {
   memori,
@@ -341,7 +339,6 @@ WithExpandable.args = {
   stopListening: () => {},
   resetTranscript: () => {},
 };
-
 
 export const WithLongHTMLTable = Template.bind({});
 WithLongHTMLTable.args = {
@@ -360,7 +357,7 @@ WithUploads.args = {
   sessionID,
   history: [
     {
-      text: "Ciao! Sono qui per aiutarti. Puoi condividere con me documenti, immagini o link che vorresti che analizzi.",
+      text: 'Ciao! Sono qui per aiutarti. Puoi condividere con me documenti, immagini o link che vorresti che analizzi.',
       timestamp: '2021-03-01T12:00:00.000Z',
     },
     {
@@ -513,7 +510,7 @@ WithAllMediaTypes.args = {
   sessionID,
   history: [
     {
-      text: "Ciao! Sono qui per aiutarti. Posso gestire molti tipi di file e contenuti multimediali. Dimmi cosa ti serve!",
+      text: 'Ciao! Sono qui per aiutarti. Posso gestire molti tipi di file e contenuti multimediali. Dimmi cosa ti serve!',
       timestamp: '2021-03-01T12:00:00.000Z',
     },
     {
@@ -753,9 +750,44 @@ build-storybook = "build-storybook"`,
       fromUser: true,
       timestamp: '2021-03-01T12:04:00.000Z',
       text: 'E anche file di configurazione e dati strutturati:\n\n<document_attachment filename="database.sql" type="text/sql">-- Schema del database\nCREATE TABLE users (\n  id SERIAL PRIMARY KEY,\n  username VARCHAR(50) UNIQUE NOT NULL,\n  email VARCHAR(100) UNIQUE NOT NULL,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,\n  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\n\nCREATE TABLE posts (\n  id SERIAL PRIMARY KEY,\n  user_id INTEGER REFERENCES users(id),\n  title VARCHAR(200) NOT NULL,\n  content TEXT,\n  published BOOLEAN DEFAULT FALSE,\n  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP\n);\n\n-- Indici per performance\nCREATE INDEX idx_posts_user_id ON posts(user_id);\nCREATE INDEX idx_posts_published ON posts(published);</document_attachment>\n\n<document_attachment filename="data.xml" type="text/xml"><?xml version="1.0" encoding="UTF-8"?>\n<root>\n  <users>\n    <user id="1">\n      <name>Mario Rossi</name>\n      <email>mario@example.com</email>\n      <role>admin</role>\n    </user>\n    <user id="2">\n      <name>Giulia Bianchi</name>\n      <email>giulia@example.com</email>\n      <role>user</role>\n    </user>\n  </users>\n  <settings>\n    <theme>dark</theme>\n    <language>it</language>\n    <notifications>true</notifications>\n  </settings>\n</root></document_attachment>',
+      media: [
+        {
+          mediumID: 'long-2',
+          mimeType: 'text/javascript',
+          title: 'Long JSON',
+          content: `{
+      "id": 1,
+      "title": "Ciao",
+      "description": "I'm a test!",
+      "refs": [
+        {
+          "id": 1,
+          "tag": "TEST"
+        }
+      ]
+    }
+    `,
+        },
+        {
+          mediumID: 'long-3',
+          mimeType: 'text/plain',
+          title: 'Long Text',
+          content: `{
+      "id": 1,
+      "title": "Ciao",
+      "description": "I'm a test!",
+      "refs": [
+        {
+          "id": 1,
+          "tag": "TEST"
+        }
+      ]
+    }`,
+        },
+      ],
     },
     {
-      text: 'Perfetto! Come puoi vedere, posso gestire molti tipi di contenuti:\n\n• **Immagini**: JPEG, PNG, GIF\n• **Documenti**: PDF, Word, Excel\n• **Link**: Siti web con preview\n• **Video**: MP4, AVI, QuickTime\n• **Audio**: MP3, WAV\n• **Modelli 3D**: GLB, GLTF\n• **Codice**: JavaScript, Python, CSS, SQL\n• **Dati**: JSON, XML, Markdown\n\nTutti questi contenuti vengono visualizzati in modo appropriato e possono essere interagiti dall\'utente!',
+      text: "Perfetto! Come puoi vedere, posso gestire molti tipi di contenuti:\n\n• **Immagini**: JPEG, PNG, GIF\n• **Documenti**: PDF, Word, Excel\n• **Link**: Siti web con preview\n• **Video**: MP4, AVI, QuickTime\n• **Audio**: MP3, WAV\n• **Modelli 3D**: GLB, GLTF\n• **Codice**: JavaScript, Python, CSS, SQL\n• **Dati**: JSON, XML, Markdown\n\nTutti questi contenuti vengono visualizzati in modo appropriato e possono essere interagiti dall'utente!",
       timestamp: '2021-03-01T12:05:00.000Z',
       media: [
         {
@@ -769,6 +801,39 @@ build-storybook = "build-storybook"`,
           url: 'https://github.com/memori-ai/memori-react/blob/main/README.md',
           mimeType: 'text/html',
           title: 'Documentazione completa',
+        },
+        {
+          mediumID: 'long-2',
+          mimeType: 'text/javascript',
+          title: 'Long JSON',
+          content: `{
+      "id": 1,
+      "title": "Ciao",
+      "description": "I'm a test!",
+      "refs": [
+        {
+          "id": 1,
+          "tag": "TEST"
+        }
+      ]
+    }
+    `,
+        },
+        {
+          mediumID: 'long-3',
+          mimeType: 'text/plain',
+          title: 'Long Text',
+          content: `{
+      "id": 1,
+      "title": "Ciao",
+      "description": "I'm a test!",
+      "refs": [
+        {
+          "id": 1,
+          "tag": "TEST"
+        }
+      ]
+    }`,
         },
       ],
     },

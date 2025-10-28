@@ -217,6 +217,39 @@ MixedSnippets.args = {
       content: 'const add = (a, b) => a + b;',
     },
     {
+      mediumID: 'long-2',
+      mimeType: 'text/javascript',
+      title: 'Long JSON',
+      content: `{
+  "id": 1,
+  "title": "Ciao",
+  "description": "I'm a test!",
+  "refs": [
+    {
+      "id": 1,
+      "tag": "TEST"
+    }
+  ]
+}
+`,
+    },
+    {
+      mediumID: 'long-3',
+      mimeType: 'text/plain',
+      title: 'Long Text',
+      content: `{
+  "id": 1,
+  "title": "Ciao",
+  "description": "I'm a test!",
+  "refs": [
+    {
+      "id": 1,
+      "tag": "TEST"
+    }
+  ]
+}`,
+    },
+    {
       mediumID: 'long-1',
       mimeType: 'text/javascript',
       title: 'Complex Component',

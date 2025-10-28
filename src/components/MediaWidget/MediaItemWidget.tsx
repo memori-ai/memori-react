@@ -413,9 +413,7 @@ export const RenderSnippetItem = ({
         onClick={e => {
           e.preventDefault();
           if (onClick) {
-            console.log('Snippet item.mediumID:', item.mediumID);
             onClick(item.mediumID);
-            console.log('clicked snippet');
           }
         }}
         className="memori-media-item--link"
@@ -447,6 +445,11 @@ const MediaItemWidget: React.FC<Props> = ({
 }: Props) => {
   const [media, setMedia] = useState(items);
   const [openModalMedium, setOpenModalMedium] = useState<Medium>();
+
+  // Sync items prop with media state
+  useEffect(() => {
+    setMedia(items);
+  }, [items]);
 
   const translateMediaCaptions = useCallback(async () => {
     if (!translateTo) return;
@@ -497,10 +500,6 @@ const MediaItemWidget: React.FC<Props> = ({
   const cssExecutableCode = media.filter(
     m => m.mimeType === 'text/css' && !!m.properties?.executable
   );
-
-  console.log('openModalMedium', openModalMedium);
-  console.log('codeSnippets', codeSnippets);
-  console.log('nonCodeDisplayMedia', nonCodeDisplayMedia);
 
   return (
     <Transition appear show as="div" className="memori-media-items">

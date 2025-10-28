@@ -90,18 +90,21 @@ const ChatInputs: React.FC<Props> = ({
       url?: string;
     }[]
   ) => {
-    sendMessage(
-      userMessage,
-      files.map(file => ({
-        mediumID: file.mediumID || '',
+    
+    const mediaWithIds = files.map((file, index) => {
+      const generatedMediumID = file.mediumID || `file_${Date.now()}_${index}_${Math.random().toString(36).substr(2, 9)}`;
+      return {
+        mediumID: generatedMediumID,
         mimeType: file.mimeType,
         content: file.content,
         title: file.name,
         properties: { isAttachedFile: true },
         type: file.type,
         url: file.url,
-      }))
-    );
+      };
+    });
+    
+    sendMessage(userMessage, mediaWithIds);
 
     // Reset states after sending
     setDocumentPreviewFiles([]);
@@ -115,18 +118,21 @@ const ChatInputs: React.FC<Props> = ({
   const onTextareaPressEnter = () => {
     if (sendOnEnter === 'keypress' && userMessage?.length > 0) {
       stopListening();
-      sendMessage(
-        userMessage,
-        documentPreviewFiles.map(file => ({
-          mediumID: file.mediumID || '',
+      const mediaWithIds = documentPreviewFiles.map((file, index) => {
+        const generatedMediumID = file.mediumID || `file_${Date.now()}_${index}_${Math.random().toString(36).substr(2, 9)}`;
+        console.log('[ChatInputs] File:', file.name, 'mediumID:', generatedMediumID);
+        return {
+          mediumID: generatedMediumID,
           mimeType: file.mimeType,
           content: file.content,
           title: file.name,
           properties: { isAttachedFile: true },
           type: file.type,
           url: file.url,
-        }))
-      );
+        };
+      });
+      
+      sendMessage(userMessage, mediaWithIds);
 
       setDocumentPreviewFiles([]);
       onChangeUserMessage('');
