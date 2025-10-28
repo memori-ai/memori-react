@@ -209,6 +209,11 @@ export const stripMarkdown = (text: string) => {
   return text;
 };
 
+export const stripDocumentAttachmentTags = (text: string): string => {
+  const documentAttachmentTagRegex = /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
+  return text.replace(documentAttachmentTagRegex, '$3');
+};
+
 export const stripOutputTags = (text: string): string => {
   const outputTagRegex = /<output.*?<\/output>/gs;
 

@@ -5,6 +5,7 @@ import Copy from '../icons/Copy';
 import { prismSyntaxLangs } from '../../helpers/constants';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
+import { stripDocumentAttachmentTags, stripOutputTags } from '../../helpers/utils';
 
 export interface Props {
   medium: Medium;
@@ -107,8 +108,8 @@ const Snippet = ({
             }
           >
             {medium.content?.length && medium.content.length > 200 && preview
-              ? `${medium.content.slice(0, 200)}\n...`
-              : `${medium.content}`}
+              ? `${stripDocumentAttachmentTags(medium.content)?.slice(0, 200)}\n...`
+              : stripDocumentAttachmentTags(medium.content ?? '')}
           </code>
         </pre>
 
