@@ -124,6 +124,8 @@ const Chat: React.FC<Props> = ({
   isChatlogPanel = false,
   showFunctionCache = false,
 }) => {
+  const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
+
   const scrollToBottom = () => {
     if (isHistoryView) return;
     setTimeout(() => {
@@ -136,6 +138,15 @@ const Chat: React.FC<Props> = ({
   useEffect(() => {
     !preview && !isHistoryView && scrollToBottom();
   }, [history, preview, isHistoryView]);
+
+  // Scroll to bottom when textarea is expanded
+  useEffect(() => {
+    if (isTextareaExpanded && !isHistoryView) {
+      setTimeout(() => {
+        scrollToBottom();
+      }, 250);
+    }
+  }, [isTextareaExpanded, isHistoryView]);
 
   const onTextareaFocus = () => {
     stopListening();
@@ -168,10 +179,15 @@ const Chat: React.FC<Props> = ({
     }
   };
 
+  const onTextareaExpanded = (expanded: boolean) => {
+    setIsTextareaExpanded(expanded);
+  };
+
   return (
     <div
       className={cx('memori-chat--wrapper', {
         'memori-chat-wrapper--translate': translateTo,
+        'memori-chat-wrapper--expanded': isTextareaExpanded,
       })}
       id="chat-wrapper"
       lang={translateTo?.toUpperCase()}
@@ -425,6 +441,7 @@ const Chat: React.FC<Props> = ({
           setAttachmentsMenuOpen={setAttachmentsMenuOpen}
           onTextareaFocus={onTextareaFocus}
           onTextareaBlur={onTextareaBlur}
+          onTextareaExpanded={onTextareaExpanded}
           startListening={startListening}
           stopListening={stopListening}
           stopAudio={stopAudio}
