@@ -9,6 +9,29 @@
     padding: 0;
     border: none;
     margin: 0;
+    transition: all 0.2s ease-in-out;
+}
+
+.memori-chat-inputs--expanded {
+    /* Additional padding when expanded to prevent overlap with file preview */
+    padding-top: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .memori-chat-inputs {
+        padding: 0 0.25rem;
+    }
+
+    .memori-chat-inputs--expanded {
+        padding-top: 0.25rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .memori-chat-inputs {
+        flex-wrap: wrap;
+    }
 }
 
 .memori-chat-inputs .memori-upload-menu+.memori-send-on-enter-menu {

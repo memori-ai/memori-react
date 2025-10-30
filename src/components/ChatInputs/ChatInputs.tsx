@@ -34,6 +34,7 @@ export interface Props {
   sessionID?: string;
   memoriID?: string;
   client?: ReturnType<typeof memoriApiClient>;
+  onTextareaExpanded?: (expanded: boolean) => void;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -55,8 +56,12 @@ const ChatInputs: React.FC<Props> = ({
   authToken,
   memoriID,
   client,
+  onTextareaExpanded,
 }) => {
   const { t } = useTranslation();
+
+  // State for textarea expansion
+  const [isExpanded, setIsExpanded] = useState(false);
 
   // State for document preview files
   const [documentPreviewFiles, setDocumentPreviewFiles] = useState<
@@ -161,10 +166,22 @@ const ChatInputs: React.FC<Props> = ({
     );
   };
 
+  /**
+   * Handles textarea expansion change
+   */
+  const handleTextareaExpanded = (expanded: boolean) => {
+    setIsExpanded(expanded);
+    if (onTextareaExpanded) {
+      onTextareaExpanded(expanded);
+    }
+  };
+
   return (
     <fieldset
       id="chat-fieldset"
-      className="memori-chat-inputs"
+      className={cx('memori-chat-inputs', {
+        'memori-chat-inputs--expanded': isExpanded,
+      })}
       disabled={dialogState?.state === 'X2a' || dialogState?.state === 'X3'}
     >
       <ChatTextArea
@@ -173,6 +190,7 @@ const ChatInputs: React.FC<Props> = ({
         onPressEnter={onTextareaPressEnter}
         onFocus={onTextareaFocus}
         onBlur={onTextareaBlur}
+        onExpandedChange={handleTextareaExpanded}
         disabled={['R2', 'R3', 'R4', 'R5', 'G3', 'X3'].includes(
           dialogState?.state || ''
         )}

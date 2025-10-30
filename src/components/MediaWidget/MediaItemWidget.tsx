@@ -505,7 +505,7 @@ const MediaItemWidget: React.FC<Props> = ({
     <Transition appear show as="div" className="memori-media-items">
       {!!nonCodeDisplayMedia.length && (
         <div
-          className={cx('memori-media-items--grid', {
+          className={cx('memori-media-items--grid memori-chat-scroll-item', {
             'memori-media-items--user': fromUser,
             'memori-media-items--agent': !fromUser,
           })}
@@ -546,7 +546,7 @@ const MediaItemWidget: React.FC<Props> = ({
       )}
       {!!codeSnippets.length && (
         <div
-          className={cx('memori-media-items--grid', {
+          className={cx('memori-media-items--grid memori-chat-scroll-item', {
             'memori-media-items--user': fromUser,
             'memori-media-items--agent': !fromUser,
           })}
@@ -569,9 +569,7 @@ const MediaItemWidget: React.FC<Props> = ({
                 baseURL={baseURL}
                 apiURL={apiURL}
                 onClick={mediumID => {
-                  console.log('Snippet clicked, mediumID:', mediumID);
                   const foundMedium = codeSnippets.find(m => m.mediumID === mediumID);
-                  console.log('Found medium:', foundMedium);
                   setOpenModalMedium(foundMedium);
                 }}
                 item={{

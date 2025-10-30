@@ -166,7 +166,7 @@ const ChatBubble: React.FC<Props> = ({
         show
         appear
         as="div"
-        className={cx('memori-chat--bubble-container', {
+        className={cx('memori-chat--bubble-container memori-chat-scroll-item', {
           'memori-chat--bubble-from-user': !!message.fromUser,
           'memori-chat--with-addon':
             (message.generatedByAI && showAIicon) ||
