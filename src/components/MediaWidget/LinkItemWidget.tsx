@@ -172,7 +172,7 @@ const LinkItemWidget: React.FC<Props> = ({
 }: Props) => {
   return (
     <Transition appear show as="div" className="memori-link-items">
-      <div className={cx('memori-link-items--grid', {
+      <div className={cx('memori-link-items--grid memori-chat-scroll-item', {
         'memori-link-items--user': fromUser,
         'memori-link-items--agent': !fromUser,
       })}>

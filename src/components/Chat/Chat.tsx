@@ -130,7 +130,7 @@ const Chat: React.FC<Props> = ({
     if (isHistoryView) return;
     setTimeout(() => {
       let userMsgs = document.querySelectorAll(
-        '.memori-chat--bubble-container.memori-chat--bubble-from-user'
+        '.memori-chat-scroll-item'
       );
       userMsgs[userMsgs.length - 1]?.scrollIntoView?.();
     }, 200);
