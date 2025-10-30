@@ -323,8 +323,6 @@ export function useTTS(
         } catch (err) {
           console.error('[useTTS] Error parsing viseme data:', err);
         }
-      } else {
-        console.log('[useTTS] No viseme data in response header');
       }
 
       // Clean up if speaking was cancelled

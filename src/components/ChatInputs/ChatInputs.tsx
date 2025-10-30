@@ -120,7 +120,6 @@ const ChatInputs: React.FC<Props> = ({
       stopListening();
       const mediaWithIds = documentPreviewFiles.map((file, index) => {
         const generatedMediumID = file.mediumID || `file_${Date.now()}_${index}_${Math.random().toString(36).substr(2, 9)}`;
-        console.log('[ChatInputs] File:', file.name, 'mediumID:', generatedMediumID);
         return {
           mediumID: generatedMediumID,
           mimeType: file.mimeType,
@@ -143,7 +142,6 @@ const ChatInputs: React.FC<Props> = ({
    * Removes a file from the preview list
    */
   const removeFile = async (fileId: string, mediumID: string | undefined) => {
-    console.log('removeFile', fileId);
     // Call the MediumDeselected event if dialog API is available
     if (dialog.postMediumDeselectedEvent && sessionID && mediumID) {
       await dialog.postMediumDeselectedEvent(sessionID, mediumID);

@@ -320,7 +320,6 @@ const ChatBubble: React.FC<Props> = ({
                         /<think.*?>(.*?)<\/think>/gs,
                         ''
                       )
-                      console.log(text);
                       navigator.clipboard.writeText(text);
                     }}
                   />

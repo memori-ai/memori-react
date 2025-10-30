@@ -53,10 +53,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
   // Simple artifact detection - look for <output class="memori-artifact"> tags
   // Remove message dependency to prevent recreation on every message change
   const detectArtifacts = useCallback((text: string, isFromUser: boolean): ArtifactData[] => {
-    console.log('Detecting artifacts from text:', text?.substring(0, 100) + '...');
-    
     if (!text || isFromUser) {
-      console.log('No text or message is from user, returning empty array');
       return [];
     }
 
@@ -73,18 +70,13 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     };
 
     const findTitle = (mimeType: string, content: string) => {
-      console.log('Finding title for mimetype:', mimeType);
       return titleRegex.dataTitle.exec(content)?.[1] || titleRegex.htmlTitle.exec(content)?.[1] || `${mimeType.toUpperCase()} Artifact`;
     };
 
     let match;
     while ((match = artifactRegex.exec(text)) !== null) {
-      console.log('Found complete artifact match', match);
       const mimeType = match[1];
       const content = match[2].trim();
-
-      console.log('Artifact mimetype:', mimeType);
-      console.log('Content length:', content.length);
 
       if (content.length > 50) {
         const artifact = {
@@ -96,20 +88,10 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
           size: content.length,
         };
 
-        console.log('Created artifact:', {
-          id: artifact.id,
-          mimeType: artifact.mimeType,
-          title: artifact.title,
-          size: artifact.size
-        });
-
         artifacts.push(artifact);
-      } else {
-        console.log('Skipping artifact - content too short');
       }
     }
 
-    console.log('Detected artifacts:', artifacts.length);
     return artifacts;
   }, []); // Remove message dependency
 

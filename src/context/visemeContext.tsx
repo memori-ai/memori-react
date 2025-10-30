@@ -195,10 +195,6 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
       setIsProcessing(true);
       setVisemeState('active');
 
-      console.log('[VisemeContext] Started processing visemes', {
-        audioTime: audioCtx.currentTime,
-        queueLength: visemeQueueRef.current.length,
-      });
     },
     []
   );
@@ -247,7 +243,6 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Make resetVisemeQueue more robust
   const resetVisemeQueue = useCallback(() => {
-    console.log('[VisemeContext] Resetting viseme queue');
 
     // Clear all queued visemes
     visemeQueueRef.current = [];
@@ -264,8 +259,6 @@ export const VisemeProvider: React.FC<{ children: React.ReactNode }> = ({
 
   // Make stopProcessing more robust
   const stopProcessing = useCallback(() => {
-    console.log('[VisemeContext] Stopping viseme processing');
-
     // Update processing state first
     setIsProcessing(false);
     setVisemeState('finished');

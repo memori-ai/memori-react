@@ -113,8 +113,6 @@ const Header: React.FC<Props> = ({
     layout?: WidgetProps['layout'],
     additionalSettings?: WidgetProps['additionalSettings']
   ): boolean => {
-    console.log('[hasSettingsContent] Layout:', layout);
-    console.log('[hasSettingsContent] Additional settings:', additionalSettings);
     return (
       layout === 'TOTEM' ||
       (additionalSettings && Object.keys(additionalSettings).length > 0) || false
@@ -122,27 +120,20 @@ const Header: React.FC<Props> = ({
   }, [layout, additionalSettings]);
 
   const updateAvatar = async (avatar: Blob) => {
-    console.log('[updateAvatar] Starting avatar update', { avatar });
     if (avatar && loginToken) {
       const reader = new FileReader();
       reader.onload = async e => {
-        console.log('[updateAvatar] FileReader loaded', {
-          result: e.target?.result,
-        });
         try {
-          console.log('[updateAvatar] Uploading asset...');
           const { asset: avatarAsset, ...resp } = await uploadAsset(
             avatar.name ?? 'avatar',
             e.target?.result as string,
             loginToken ?? ''
           );
-          console.log('[updateAvatar] Upload response:', { avatarAsset, resp });
 
           if (resp.resultCode !== 0) {
             console.error('[updateAvatar] Upload failed:', resp);
             toast.error(t(getErrori18nKey(resp.resultCode)));
           } else if (avatarAsset) {
-            console.log('[updateAvatar] Upload successful, updating user...');
             let newUser: Partial<User> = {
               userID: user?.userID,
               avatarURL: avatarAsset.assetURL,
@@ -153,10 +144,6 @@ const Header: React.FC<Props> = ({
               user?.userID ?? '',
               newUser
             );
-            console.log('[updateAvatar] User update complete', {
-              patchedUser,
-              resp,
-            });
           }
         } catch (e) {
           let err = e as Error;
