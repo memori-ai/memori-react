@@ -45,6 +45,8 @@
   "venue": "Veranstaltungsort",
   "searchVenue": "Veranstaltungsort suchen...",
   "privacyPolicy": "Datenschutzbestimmungen",
+  "popularLanguages": "Beliebt",
+  "allLanguages": "Alle Sprachen",
   "memoriBlockedTitle": "Blockiert",
   "memoriBlockedUntil": "Agent blockiert bis {{date}}",
   "memoriBlockedAnon": "Momentan \"{{name}}„Kann nicht antworten, komm hierher zurück {{date}}",

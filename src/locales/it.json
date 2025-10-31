@@ -44,6 +44,8 @@
   "venue": "Luogo",
   "searchVenue": "Cerca luogo...",
   "privacyPolicy": "Informativa sulla privacy",
+  "popularLanguages": "Popolari",
+  "allLanguages": "Tutte le lingue",
   "memoriBlockedTitle": "Bloccato",
   "memoriBlockedUntil": "Agente bloccato fino al {{date}}",
   "memoriBlockedAnon": "Attualmente \"{{name}}\" non può rispondere, torna qui il {{date}}",

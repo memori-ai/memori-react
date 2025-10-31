@@ -44,6 +44,8 @@
   "nothingFound": "Rien trouvé",
   "venue": "Lieu",
   "searchVenue": "Rechercher un lieu...",
+  "popularLanguages": "Populaires",
+  "allLanguages": "Toutes les langues",
   "memoriBlockedTitle": "Bloqué",
   "memoriBlockedUntil": "Agent bloqué jusqu'à {{date}}",
   "memoriBlockedAnon": "Actuellement \"{{name}}\"Je ne peux pas répondre, reviens ici {{date}}",

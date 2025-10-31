@@ -11,7 +11,7 @@ import Tooltip from '../ui/Tooltip';
 import { getTranslation } from '../../helpers/translations';
 import Button from '../ui/Button';
 import Translation from '../icons/Translation';
-import { chatLanguages } from '../../helpers/constants';
+import { getGroupedChatLanguages } from '../../helpers/constants';
 import BlockedMemoriBadge from '../BlockedMemoriBadge/BlockedMemoriBadge';
 import AI from '../icons/AI';
 import Group from '../icons/Group';
@@ -259,15 +259,28 @@ const StartPanel: React.FC<Props> = ({
                     setUserLang(e.target.value);
                   }}
                 >
-                  {chatLanguages.map(lang => (
-                    <option
-                      key={lang.value}
-                      value={lang.value}
-                      aria-label={lang.label}
-                    >
-                      {lang.label}
-                    </option>
-                  ))}
+                  <optgroup label={t('popularLanguages') || 'Popular'}>
+                    {getGroupedChatLanguages().popular.map(lang => (
+                      <option
+                        key={`popular-${lang.value}`}
+                        value={lang.value}
+                        aria-label={lang.label}
+                      >
+                        {lang.label}
+                      </option>
+                    ))}
+                  </optgroup>
+                  <optgroup label={t('allLanguages') || 'All Languages'}>
+                    {getGroupedChatLanguages().all.map(lang => (
+                      <option
+                        key={`all-${lang.value}`}
+                        value={lang.value}
+                        aria-label={lang.label}
+                      >
+                        {lang.label}
+                      </option>
+                    ))}
+                  </optgroup>
                 </select>
               </div>
             )}
