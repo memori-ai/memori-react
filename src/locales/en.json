@@ -44,6 +44,8 @@
   "venue": "Venue",
   "searchVenue": "Search venue...",
   "privacyPolicy": "Privacy policy",
+  "popularLanguages": "Popular",
+  "allLanguages": "All Languages",
   "memoriBlockedTitle": "Blocked",
   "memoriBlockedUntil": "Agent blocked until {{date}}",
   "memoriBlockedAnon": "Currently \"{{name}}\" can't answer, come back here on {{date}}",
