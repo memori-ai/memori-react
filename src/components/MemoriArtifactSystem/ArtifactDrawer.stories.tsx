@@ -1,9 +1,10 @@
 // ArtifactSystem.stories.tsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
-import { ArtifactProvider } from './context/ArtifactContext';
+import { ArtifactProvider, useArtifact } from './context/ArtifactContext';
 import ArtifactHandler from './components/ArtifactHandler/ArtifactHandler';
 import ArtifactDrawer from './components/ArtifactDrawer/ArtifactDrawer';
+import { ArtifactAPIBridge } from './utils/ArtifactAPI';
 import Chat from '../Chat/Chat';
 import {
   Message,
@@ -11,6 +12,13 @@ import {
   Tenant,
 } from '@memori.ai/memori-api-client/dist/types';
 import { sanitizeText } from '../../helpers/sanitizer';
+
+// Extend Window interface for TypeScript in stories
+declare global {
+  interface Window {
+    MemoriArtifactAPI?: any;
+  }
+}
 
 // Mock data for Chat component
 const mockMemori: Memori = {
@@ -69,6 +77,7 @@ const mockSetAttachmentsMenuOpen = (attachmentsMenuOpen: 'link' | 'media') => {
 // Story decorator to provide context
 const withArtifactProvider = (Story: any) => (
   <ArtifactProvider>
+    <ArtifactAPIBridge />
     <Story />
   </ArtifactProvider>
 );
@@ -669,4 +678,451 @@ export const NoArtifacts: Story = {
       isChatlogPanel={false}
     />
   ),
+};
+
+// ========================================
+// ArtifactAPI Bridge Stories
+// ========================================
+
+export const APIBridge_CreateSimpleArtifact: Story = {
+  args: {},
+  render: () => {
+    const TestComponent = () => {
+      const { state } = useArtifact();
+
+      useEffect(() => {
+        // Wait a bit for the API to be available
+        setTimeout(() => {
+          console.log('MemoriArtifactAPI available:', !!window.MemoriArtifactAPI);
+        }, 100);
+      }, []);
+
+      const createHTMLArtifact = () => {
+        window.MemoriArtifactAPI?.createAndOpenArtifact(
+          '<h1>🎉 Created from API!</h1><p>This artifact was created using <code>window.MemoriArtifactAPI.createAndOpenArtifact()</code></p><p>You can use this API to create artifacts programmatically from any JavaScript code.</p>',
+          'html',
+          'API Test Artifact'
+        );
+      };
+
+      const createMarkdownArtifact = () => {
+        window.MemoriArtifactAPI?.createAndOpenArtifact(
+          `# Artifact Created via API
+
+## This is a test
+
+This artifact was created using the global API:
+
+\`\`\`javascript
+window.MemoriArtifactAPI.createAndOpenArtifact(content, 'markdown', 'Title');
+\`\`\`
+
+### Features:
+- ✅ Programmatic control
+- ✅ Multiple MIME types
+- ✅ Easy integration`,
+          'markdown',
+          'API Markdown Example'
+        );
+      };
+
+      const createJavaScriptArtifact = () => {
+        window.MemoriArtifactAPI?.createAndOpenArtifact(
+          `// Example function created via API
+function greet(name) {
+  console.log(\`Hello, \${name}!\`);
+  return \`Welcome, \${name}\`;
+}
+
+// Call it
+const message = greet('Developer');
+console.log(message);`,
+          'javascript',
+          'JavaScript via API'
+        );
+      };
+
+      const checkState = () => {
+        const state = window.MemoriArtifactAPI?.getState();
+        console.log('Current artifact state:', state);
+        alert(JSON.stringify(state, null, 2));
+      };
+
+      return (
+        <>
+          {/* Conditionally render ArtifactDrawer to avoid hooks error */}
+          {state.isDrawerOpen && <ArtifactDrawer />}
+          
+          <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
+            <h1>🧪 Artifact API Test Lab</h1>
+            <p>
+              Test the global <code>window.MemoriArtifactAPI</code> by clicking the buttons below.
+              Open the browser console to see the API in action.
+            </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '20px' }}>
+            <button
+              onClick={createHTMLArtifact}
+              style={{
+                padding: '12px 20px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                backgroundColor: '#9333ea',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+              }}
+            >
+              📄 Create HTML Artifact
+            </button>
+
+            <button
+              onClick={createMarkdownArtifact}
+              style={{
+                padding: '12px 20px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                backgroundColor: '#7c3aed',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+              }}
+            >
+              📝 Create Markdown Artifact
+            </button>
+
+            <button
+              onClick={createJavaScriptArtifact}
+              style={{
+                padding: '12px 20px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                backgroundColor: '#6d28d9',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+              }}
+            >
+              💻 Create JavaScript Artifact
+            </button>
+
+            <button
+              onClick={checkState}
+              style={{
+                padding: '12px 20px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                backgroundColor: '#5b21b6',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+              }}
+            >
+              📊 Check Current State
+            </button>
+
+            <button
+              onClick={() => window.MemoriArtifactAPI?.closeArtifact()}
+              style={{
+                padding: '12px 20px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                backgroundColor: '#ef4444',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+              }}
+            >
+              ❌ Close Artifact
+            </button>
+
+            <button
+              onClick={() => window.MemoriArtifactAPI?.toggleFullscreen()}
+              style={{
+                padding: '12px 20px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                backgroundColor: '#3b82f6',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+              }}
+            >
+              ⛶ Toggle Fullscreen
+            </button>
+          </div>
+
+          <div style={{ marginTop: '30px', padding: '15px', backgroundColor: '#f3f4f6', borderRadius: '8px' }}>
+            <h3>💡 Console Commands</h3>
+            <p>Try these in the browser console:</p>
+            <pre style={{ backgroundColor: 'white', padding: '10px', borderRadius: '4px', overflow: 'auto' }}>
+{`// Create an artifact
+window.MemoriArtifactAPI.createAndOpenArtifact(
+  '<h1>Test</h1>',
+  'html',
+  'My Title'
+);
+
+// Check state
+window.MemoriArtifactAPI.getState();
+
+// Close
+window.MemoriArtifactAPI.closeArtifact();`}
+            </pre>
+          </div>
+          </div>
+        </>
+      );
+    };
+
+    return <TestComponent />;
+  },
+};
+
+export const APIBridge_ProcessOutputElements: Story = {
+  args: {},
+  render: () => {
+    const TestComponent = () => {
+      const { state } = useArtifact();
+
+      const processAllArtifacts = () => {
+        const processed = window.MemoriArtifactAPI?.processAllArtifacts();
+        console.log('Processed artifacts:', processed);
+        alert(`Processed ${processed?.length || 0} artifacts. Check console for IDs.`);
+      };
+
+      const addDynamicOutput = () => {
+        const container = document.getElementById('dynamic-container');
+        if (container) {
+          const output = document.createElement('output');
+          output.className = 'memori-artifact';
+          output.setAttribute('data-mimetype', 'html');
+          output.setAttribute('data-title', 'Dynamic Artifact');
+          output.innerHTML = `
+            <div style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px;">
+              <h2>🚀 Dynamically Added!</h2>
+              <p>This artifact was added to the DOM dynamically and then processed.</p>
+              <p>Timestamp: ${new Date().toLocaleTimeString()}</p>
+            </div>
+          `;
+          container.appendChild(output);
+        }
+      };
+
+      return (
+        <>
+          {/* Conditionally render ArtifactDrawer to avoid hooks error */}
+          {state.isDrawerOpen && <ArtifactDrawer />}
+          
+          <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
+            <h1>🔄 Process Output Elements</h1>
+            <p>
+              This story demonstrates processing <code>&lt;output class=&quot;memori-artifact&quot;&gt;</code> elements
+              that are already in the DOM or dynamically added.
+            </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '20px' }}>
+            <button
+              onClick={processAllArtifacts}
+              style={{
+                padding: '12px 20px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                backgroundColor: '#9333ea',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+              }}
+            >
+              🔍 Process All Artifacts
+            </button>
+
+            <button
+              onClick={addDynamicOutput}
+              style={{
+                padding: '12px 20px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                backgroundColor: '#7c3aed',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+              }}
+            >
+              ➕ Add Dynamic Output
+            </button>
+          </div>
+
+          <div id="dynamic-container" style={{ marginTop: '30px' }}>
+            <h3>Existing Output Elements:</h3>
+            
+            <output className="memori-artifact" data-mimetype="html" data-title="Sample HTML">
+              <div style={{ padding: '15px', border: '2px solid #9333ea', borderRadius: '8px' }}>
+                <h3>Sample Artifact 1</h3>
+                <p>This is a static output element in the DOM.</p>
+              </div>
+            </output>
+
+            <output className="memori-artifact" data-mimetype="markdown" data-title="Sample Markdown">
+              {`# Sample Markdown
+              
+This is **another** static output element.
+
+- Item 1
+- Item 2
+- Item 3`}
+            </output>
+          </div>
+
+          <div style={{ marginTop: '30px', padding: '15px', backgroundColor: '#f3f4f6', borderRadius: '8px' }}>
+            <h3>💡 How it works</h3>
+            <ol>
+              <li>Click &quot;Process All Artifacts&quot; to scan for <code>&lt;output&gt;</code> elements</li>
+              <li>Each unprocessed element gets converted to a clickable card</li>
+              <li>Click &quot;Add Dynamic Output&quot; to inject a new element</li>
+              <li>Process again to handle the new element</li>
+              <li>Click on any card to open the artifact</li>
+            </ol>
+          </div>
+          </div>
+        </>
+      );
+    };
+
+    return <TestComponent />;
+  },
+};
+
+export const APIBridge_WebSocketSimulation: Story = {
+  args: {},
+  render: () => {
+    const TestComponent = () => {
+      const { state } = useArtifact();
+
+      const simulateWebSocket = () => {
+        // Simulate receiving HTML from WebSocket
+        const chatContainer = document.getElementById('chat-simulation');
+        if (!chatContainer) return;
+
+        const messageHTML = `
+          <div style="padding: 10px; margin: 10px 0; background: #f9fafb; border-radius: 8px;">
+            <p><strong>Bot:</strong> I've created a visualization for you:</p>
+            <output class="memori-artifact" data-mimetype="html" data-title="Data Visualization">
+              <div style="padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                <h2>📊 Sales Report Q4 2024</h2>
+                <div style="display: flex; gap: 20px; margin-top: 20px;">
+                  <div style="flex: 1; padding: 15px; background: #ecfdf5; border-radius: 8px;">
+                    <h3>Revenue</h3>
+                    <p style="font-size: 24px; font-weight: bold; color: #059669;">$124,500</p>
+                  </div>
+                  <div style="flex: 1; padding: 15px; background: #fef3c7; border-radius: 8px;">
+                    <h3>Customers</h3>
+                    <p style="font-size: 24px; font-weight: bold; color: #d97706;">1,234</p>
+                  </div>
+                  <div style="flex: 1; padding: 15px; background: #dbeafe; border-radius: 8px;">
+                    <h3>Growth</h3>
+                    <p style="font-size: 24px; font-weight: bold; color: #2563eb;">+23%</p>
+                  </div>
+                </div>
+              </div>
+            </output>
+          </div>
+        `;
+
+        chatContainer.innerHTML += messageHTML;
+
+        // Process the newly added artifact
+        const processed = window.MemoriArtifactAPI?.processAllArtifacts(chatContainer);
+        console.log('Processed WebSocket artifacts:', processed);
+      };
+
+      const clearChat = () => {
+        const chatContainer = document.getElementById('chat-simulation');
+        if (chatContainer) {
+          chatContainer.innerHTML = '<p style="color: #6b7280;">Chat cleared. Click "Simulate WebSocket Message" to add new content.</p>';
+        }
+      };
+
+      return (
+        <>
+          {/* Conditionally render ArtifactDrawer to avoid hooks error */}
+          {state.isDrawerOpen && <ArtifactDrawer />}
+          
+          <div style={{ padding: '20px', maxWidth: '900px', margin: '0 auto' }}>
+            <h1>🌐 WebSocket Integration Simulation</h1>
+            <p>
+              This demonstrates how the API can be used with WebSocket or Action Cable
+              to process artifacts that are injected into the DOM dynamically.
+            </p>
+
+          <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
+            <button
+              onClick={simulateWebSocket}
+              style={{
+                padding: '12px 20px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                backgroundColor: '#9333ea',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+              }}
+            >
+              📡 Simulate WebSocket Message
+            </button>
+
+            <button
+              onClick={clearChat}
+              style={{
+                padding: '12px 20px',
+                fontSize: '16px',
+                cursor: 'pointer',
+                backgroundColor: '#64748b',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+              }}
+            >
+              🗑️ Clear Chat
+            </button>
+          </div>
+
+          <div
+            id="chat-simulation"
+            style={{
+              marginTop: '30px',
+              padding: '20px',
+              backgroundColor: 'white',
+              border: '1px solid #e5e7eb',
+              borderRadius: '12px',
+              minHeight: '200px',
+            }}
+          >
+            <p style={{ color: '#6b7280' }}>Click &quot;Simulate WebSocket Message&quot; to receive a message with an artifact...</p>
+          </div>
+
+          <div style={{ marginTop: '30px', padding: '15px', backgroundColor: '#f3f4f6', borderRadius: '8px' }}>
+            <h3>💡 Implementation Example</h3>
+            <pre style={{ backgroundColor: 'white', padding: '10px', borderRadius: '4px', overflow: 'auto', fontSize: '13px' }}>
+{`// Rails Action Cable
+consumer.subscriptions.create("ChatChannel", {
+  received(data) {
+    if (data.html) {
+      const chatContainer = document.querySelector('.chat');
+      chatContainer.innerHTML += data.html;
+      
+      // Process any new artifacts
+      window.MemoriArtifactAPI?.processAllArtifacts(chatContainer);
+    }
+  }
+});`}
+            </pre>
+          </div>
+          </div>
+        </>
+      );
+    };
+
+    return <TestComponent />;
+  },
 };
