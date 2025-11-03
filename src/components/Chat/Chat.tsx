@@ -317,7 +317,7 @@ const Chat: React.FC<Props> = ({
                   // Filter out HTML and plain text media items from the message
                   ...(message?.media?.filter(
                     m =>
-                      m.mimeType !== 'text/html'
+                      m.mimeType !== 'text/html' && m.mimeType !== 'text/plain'
                   ) || []),
 
                   // Extract document attachments that are embedded in the message text
