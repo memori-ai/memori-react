@@ -1,5 +1,28 @@
 
 
+## [8.9.0](https://github.com/memori-ai/memori-react/compare/v8.8.5...v8.9.0) (2025-11-03)
+
+
+### Features
+
+* add support for multiple artifacts in chat messages ([47081e9](https://github.com/memori-ai/memori-react/commit/47081e9c2c6f20d6d8ab90b481347e7b356f6c32))
+* enhance language selection by grouping popular and all languages in StartPanel ([98a8db8](https://github.com/memori-ai/memori-react/commit/98a8db8501967a16c007e3a1c65f3fa9f38287e4))
+* enhance MemoriArtifactAPI with new global JavaScript methods for artifact management ([b94ebaa](https://github.com/memori-ai/memori-react/commit/b94ebaa123dd784be4507475d07d3a7421b9b811))
+* introduce ArtifactAPIBridge for global access to artifact management functions ([baa0175](https://github.com/memori-ai/memori-react/commit/baa0175e347764873764e58276be6d7e6e4545fb))
+
+
+### Changes
+
+* adjust chat component CSS for full height and improved layout ([3296d08](https://github.com/memori-ai/memori-react/commit/3296d084e1f7f07449ebe37831559d95239a1d45))
+* enhance chat components with responsive design and textarea expansion handling ([b3186c8](https://github.com/memori-ai/memori-react/commit/b3186c8c22c8815535761c3c08e888a7b24f6912))
+* implement document attachment tag stripping in Snippet ([852edd2](https://github.com/memori-ai/memori-react/commit/852edd2078d1be6e88f245a95485b27518d4c4b9))
+* improve media handling in ChatInputs component ([71944c5](https://github.com/memori-ai/memori-react/commit/71944c56cc4dac218adcb64a55946aa675bdd01c))
+* remove console logs across various components for cleaner code ([df21f71](https://github.com/memori-ai/memori-react/commit/df21f718e87ab1527b7f985f1af9e0cec76deda1))
+* remove unnecessary console log for unmatched animations in AvatarAnimator ([ecbea22](https://github.com/memori-ai/memori-react/commit/ecbea22a74aaacfa4de254ad166624c6cf06948d))
+* streamline artifact handling and enhance API integration in MemoriWidget ([1c7dc48](https://github.com/memori-ai/memori-react/commit/1c7dc4874b082e20ce33821543c099ecf0ea9871))
+* unify chat and media components with consistent scroll item class ([20e6203](https://github.com/memori-ai/memori-react/commit/20e6203c2bc3981314bdc4841969551a3fd093d8))
+* update snapshot tests to include consistent scroll item class ([e54257a](https://github.com/memori-ai/memori-react/commit/e54257a354a8e4564725124288c55e7eeaea6da7))
+
 ## [Unreleased]
 
 ### Features
