@@ -1,5 +1,20 @@
 
 
+## [Unreleased]
+
+### Features
+
+* **MemoriArtifactAPI**: Add global JavaScript API for programmatic artifact control
+  * Expose `window.MemoriArtifactAPI` for external integrations
+  * Add `createAndOpenArtifact()` for simple artifact creation
+  * Add `createFromOutputElement()` to process existing DOM elements
+  * Add `processAllArtifacts()` for batch processing of `<output>` tags
+  * Add `getState()` to query current artifact system state
+  * Support for WebSocket and Action Cable integrations
+  * Full TypeScript type definitions exported
+  * Non-invasive implementation using existing React Context
+  * Automatic cleanup on component unmount
+
 ## [8.8.5](https://github.com/memori-ai/memori-react/compare/v8.8.4...v8.8.5) (2025-10-27)
 
 
