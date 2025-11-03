@@ -523,11 +523,6 @@ export class AvatarAnimator {
         // Play with enhanced transition options
         this.play(animationToPlay, transitionOptions);
         return;
-      } else {
-        console.log(
-          '[AvatarAnimator] No matching animations found for emotion:',
-          emotion
-        );
       }
     }
 
