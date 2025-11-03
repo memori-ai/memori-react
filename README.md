@@ -330,6 +330,44 @@ typeMessageHidden('Hello World!', waitForPrevious);
 typeMessage('Hello World!', waitForPrevious, true);
 ```
 
+## Artifact API
+
+The Memori widget exposes a global `window.MemoriArtifactAPI` that allows you to programmatically create and control artifacts from external JavaScript code. This is particularly useful for integrating with WebSockets, Action Cable, or any scenario where you need to inject and display artifacts dynamically.
+
+### Quick Example
+
+```javascript
+// Create and open a simple artifact
+window.MemoriArtifactAPI.createAndOpenArtifact(
+  '<h1>Hello!</h1><p>This is my artifact</p>',
+  'html',
+  'My Artifact'
+);
+
+// Process all <output class="memori-artifact"> elements in the page
+window.MemoriArtifactAPI.processAllArtifacts();
+
+// Check current state
+const state = window.MemoriArtifactAPI.getState();
+console.log('Drawer open?', state.isDrawerOpen);
+```
+
+### Available Methods
+
+- `createAndOpenArtifact(content, mimeType?, title?)` - Create and open an artifact with simple parameters
+- `openArtifact(artifact)` - Open an artifact with a complete ArtifactData object
+- `createFromOutputElement(outputElement)` - Process a single `<output>` element from DOM
+- `processAllArtifacts(rootElement?)` - Process all unprocessed `<output>` elements
+- `closeArtifact()` - Close the current artifact drawer
+- `toggleFullscreen()` - Toggle fullscreen mode
+- `getState()` - Get the current state of the artifact system
+
+### Full Documentation
+
+For complete API reference, usage examples, and integration guides, see:
+
+📖 **[Artifact API Documentation](./docs/ARTIFACT_API.md)**
+
 ## Conversation state change event
 
 The `onStateChange` prop allows you to listen to state changes in the Memori widget.
