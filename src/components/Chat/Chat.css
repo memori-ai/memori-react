@@ -1,11 +1,29 @@
 .memori-chat--wrapper {
+    position: relative;
     display: flex;
     width: 100%;
     height: 100%;
     flex-direction: column;
 }
 
+.memori-chat-wrapper--expanded {
+    /* Ensure proper spacing when textarea is expanded */
+}
+
+/* Handle the focused chat state on mobile */
+.memori-chat--wrapper.chat-focused {
+    /* Mobile keyboard adjustment */
+}
+
+@media (max-width: 768px) {
+    .memori-chat--wrapper.chat-focused {
+        padding-bottom: 0;
+    }
+}
+
 .memori-chat--history {
+    position: relative;
+    overflow: hidden;
     width: 100%;
     height: calc(100% - 50px);
     flex: 1;
@@ -22,6 +40,11 @@
     padding: 0;
 }
 
+/* Adjust chat history when textarea is expanded */
+.memori-chat-wrapper--expanded .memori-chat--history {
+    margin-bottom: 0.5rem;
+}
+
 .memori-chat--content {
     position: relative;
     display: flex;
@@ -31,10 +54,18 @@
     padding: 2rem 10px;
     mask-image: linear-gradient(transparent, black 5%, black 95%, transparent 100%);
     overflow-y: auto;
+    scroll-behavior: smooth;
 }
 
 .memori-chat--content.memori-chat--content-touch {
     padding: 0;
+}
+
+/* Ensure smooth scrolling on mobile */
+@media (max-width: 768px) {
+    .memori-chat--content {
+        padding: 1rem 5px;
+    }
 }
 
 .memori-chat--cover {

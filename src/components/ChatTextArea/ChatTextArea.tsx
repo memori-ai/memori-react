@@ -12,6 +12,7 @@ export interface Props {
   onPressEnter?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   onFocus?: (e: React.FocusEvent) => void;
   onBlur?: (e: React.FocusEvent) => void;
+  onExpandedChange?: (expanded: boolean) => void;
 }
 
 const ChatTextArea: React.FC<Props> = ({
@@ -21,9 +22,18 @@ const ChatTextArea: React.FC<Props> = ({
   onPressEnter,
   onFocus,
   onBlur,
+  onExpandedChange,
 }) => {
   const { t } = useTranslation();
   const [expanded, setExpanded] = useState(false);
+
+  const handleExpandToggle = () => {
+    const newExpanded = !expanded;
+    setExpanded(newExpanded);
+    if (onExpandedChange) {
+      onExpandedChange(newExpanded);
+    }
+  };
 
   return (
     <div
@@ -53,7 +63,7 @@ const ChatTextArea: React.FC<Props> = ({
         <div className="memori-chat-textarea--expand">
           <Button
             className={cx('memori-chat-textarea--expand-button')}
-            onClick={() => setExpanded(!expanded)}
+            onClick={handleExpandToggle}
             padded={false}
             ghost
             title={

@@ -1,6 +1,7 @@
 /* Updated FilePreview Styles */
 
 .memori--preview-container {
+  z-index: 10;
   min-width: 100%;
   padding: 12px;
   border-radius: 8px;
@@ -17,7 +18,45 @@
 
 .memori--absolute-preview {
   position: absolute;
+  z-index: 10;
+  right: 0;
   bottom: 100%;
+  left: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Responsive adjustments for file preview */
+@media (max-width: 768px) {
+  .memori--absolute-preview {
+    max-height: 150px;
+  }
+
+  .memori--preview-container {
+    padding: 8px;
+    margin-bottom: 8px;
+  }
+
+  .memori--preview-filename {
+    max-width: 150px;
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .memori--absolute-preview {
+    max-height: 120px;
+  }
+
+  .memori--preview-container {
+    padding: 6px;
+    margin-bottom: 6px;
+  }
+
+  .memori--preview-filename {
+    max-width: 100px;
+    font-size: 11px;
+  }
 }
 
 .memori--message-preview {

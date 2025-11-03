@@ -20,7 +20,7 @@ exports[`renders MediaItemWidget unchanged with css snippet to show 1`] = `
     class="memori-media-items"
   >
     <div
-      class="memori-media-items--grid memori-media-items--agent"
+      class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
     >
       <div
         class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -145,7 +145,7 @@ exports[`renders MediaItemWidget unchanged with img 1`] = `
     class="memori-media-items"
   >
     <div
-      class="memori-media-items--grid memori-media-items--agent"
+      class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
     >
       <div
         class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -222,7 +222,7 @@ exports[`renders MediaItemWidget unchanged with img and sessionID 1`] = `
     class="memori-media-items"
   >
     <div
-      class="memori-media-items--grid memori-media-items--agent"
+      class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
     >
       <div
         class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -307,7 +307,7 @@ exports[`renders MediaItemWidget unchanged with js snippet to show 1`] = `
     class="memori-media-items"
   >
     <div
-      class="memori-media-items--grid memori-media-items--agent"
+      class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
     >
       <div
         class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -430,7 +430,7 @@ exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
     class="memori-media-items"
   >
     <div
-      class="memori-media-items--grid memori-media-items--agent"
+      class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
     >
       <div
         class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -599,7 +599,7 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
     class="memori-media-items"
   >
     <div
-      class="memori-media-items--grid memori-media-items--agent"
+      class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
     >
       <div
         class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"

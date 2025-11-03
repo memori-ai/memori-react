@@ -20,7 +20,7 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-chat--bubble-initial"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -86,7 +86,7 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -129,7 +129,7 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -195,7 +195,7 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -238,7 +238,7 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -307,7 +307,7 @@ exports[`renders Chat unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid memori-link-items--agent"
+              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -380,7 +380,7 @@ exports[`renders Chat unchanged 1`] = `
           </div>
         </div>
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -423,7 +423,7 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -580,7 +580,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-chat--bubble-initial"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -646,7 +646,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -689,7 +689,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -755,7 +755,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -798,7 +798,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -882,7 +882,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid memori-link-items--agent"
+              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -955,7 +955,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
           </div>
         </div>
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -998,7 +998,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -1170,7 +1170,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-chat--bubble-initial"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -1236,7 +1236,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -1271,7 +1271,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -1337,7 +1337,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -1372,7 +1372,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -1441,7 +1441,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid memori-link-items--agent"
+              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -1514,7 +1514,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           </div>
         </div>
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -1549,7 +1549,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -1706,7 +1706,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-chat--bubble-initial"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -1772,7 +1772,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -1809,7 +1809,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -1875,7 +1875,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -1912,7 +1912,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -1981,7 +1981,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid memori-link-items--agent"
+              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -2054,7 +2054,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           </div>
         </div>
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -2091,7 +2091,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -2248,7 +2248,7 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-chat--bubble-initial"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -2319,7 +2319,7 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -2367,7 +2367,7 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -2438,7 +2438,7 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -2486,7 +2486,7 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -2560,7 +2560,7 @@ exports[`renders Chat with dates unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid memori-link-items--agent"
+              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -2633,7 +2633,7 @@ exports[`renders Chat with dates unchanged 1`] = `
           </div>
         </div>
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -2681,7 +2681,7 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -2843,7 +2843,7 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-chat--bubble-initial"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -2909,7 +2909,7 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -2952,7 +2952,7 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -3018,7 +3018,7 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -3061,7 +3061,7 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -3130,7 +3130,7 @@ exports[`renders Chat with hints unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid memori-link-items--agent"
+              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -3203,7 +3203,7 @@ exports[`renders Chat with hints unchanged 1`] = `
           </div>
         </div>
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -3246,7 +3246,7 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -3429,7 +3429,7 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-chat--bubble-initial"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -3495,7 +3495,7 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -3538,7 +3538,7 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -3604,7 +3604,7 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -3647,7 +3647,7 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -3716,7 +3716,7 @@ exports[`renders Chat with media unchanged 1`] = `
             class="memori-media-items"
           >
             <div
-              class="memori-media-items--grid memori-media-items--agent"
+              class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
                 class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -3916,7 +3916,7 @@ exports[`renders Chat with media unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid memori-link-items--agent"
+              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -4190,7 +4190,7 @@ exports[`renders Chat with media unchanged 1`] = `
           </div>
         </div>
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -4233,7 +4233,7 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -4390,7 +4390,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-chat--bubble-initial"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -4456,7 +4456,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -4499,7 +4499,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -4565,7 +4565,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -4608,7 +4608,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -4677,7 +4677,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid memori-link-items--agent"
+              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -4750,7 +4750,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           </div>
         </div>
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -4793,7 +4793,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -4971,7 +4971,7 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-chat--bubble-initial"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -5037,7 +5037,7 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -5074,7 +5074,7 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -5140,7 +5140,7 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -5177,7 +5177,7 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -5246,7 +5246,7 @@ exports[`renders Chat with user unchanged 1`] = `
             class="memori-link-items"
           >
             <div
-              class="memori-link-items--grid memori-link-items--agent"
+              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
             >
               <div
                 class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -5319,7 +5319,7 @@ exports[`renders Chat with user unchanged 1`] = `
           </div>
         </div>
         <div
-          class="memori-chat--bubble-container memori-chat--bubble-from-user"
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
             class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -5356,7 +5356,7 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
-          class="memori-chat--bubble-container"
+          class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
             class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"

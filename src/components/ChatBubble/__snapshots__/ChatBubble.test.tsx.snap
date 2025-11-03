@@ -3,7 +3,7 @@
 exports[`renders ChatBubble from user with avatar as react element unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container memori-chat--bubble-from-user"
+    class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
   >
     <div
       class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -40,7 +40,7 @@ exports[`renders ChatBubble from user with avatar as react element unchanged 1`]
 exports[`renders ChatBubble from user with avatar unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container memori-chat--bubble-from-user"
+    class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
   >
     <div
       class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -79,7 +79,7 @@ exports[`renders ChatBubble from user with avatar unchanged 1`] = `
 exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container memori-chat--bubble-from-user"
+    class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
   >
     <div
       class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -118,7 +118,7 @@ exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
 exports[`renders ChatBubble unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -186,7 +186,7 @@ exports[`renders ChatBubble unchanged 1`] = `
 exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -2773,7 +2773,7 @@ M834 80h400000v40h-400000z"
 exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -4024,7 +4024,7 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
 exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -5009,7 +5009,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
 exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -5533,7 +5533,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
 exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -6319,7 +6319,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
 exports[`renders ChatBubble with complex markdown and math but disabled unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -6583,7 +6583,7 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
 exports[`renders ChatBubble with copy disabled unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -6614,7 +6614,7 @@ exports[`renders ChatBubble with copy disabled unchanged 1`] = `
 exports[`renders ChatBubble with debug button unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container memori-chat--with-addon"
+    class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -6812,7 +6812,7 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
     class="memori-chat--bubble-initial"
   />
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -6880,7 +6880,7 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
 exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -7019,7 +7019,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
 exports[`renders ChatBubble with markdown code unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -7132,7 +7132,7 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
 exports[`renders ChatBubble with markdown table unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -7303,7 +7303,7 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
 exports[`renders ChatBubble with markdown unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -7637,7 +7637,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
 exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container memori-chat--bubble-from-user memori-chat--with-addon"
+    class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user memori-chat--with-addon"
   >
     <div
       class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon memori-chat--ai-generated transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -7731,7 +7731,7 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
 exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container memori-chat--bubble-from-user memori-chat--with-addon"
+    class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user memori-chat--with-addon"
   >
     <div
       class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon memori-chat--ai-generated transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
@@ -7825,7 +7825,7 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
 exports[`renders ChatBubble with output code unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -7945,7 +7945,7 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
 exports[`renders ChatBubble with reasoning and output and markdown unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -8084,7 +8084,7 @@ end
 exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -8194,7 +8194,7 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
 exports[`renders ChatBubble with reasoning unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -8297,7 +8297,7 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
 exports[`renders ChatBubble with translation and original unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <picture
       class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
@@ -8429,7 +8429,7 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
 exports[`renders ChatBubble with user msg unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble-container memori-chat--bubble-from-user"
+    class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
   >
     <div
       class="memori-chat--bubble memori-chat--user-bubble transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
