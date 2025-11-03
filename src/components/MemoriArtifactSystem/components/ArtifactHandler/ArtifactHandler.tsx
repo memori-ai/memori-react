@@ -25,9 +25,6 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
   message,
 }) => {
   const { openArtifact, state, closeArtifact } = useArtifact();
-  const [currentArtifact, setCurrentArtifact] = useState<ArtifactData | null>(
-    null
-  );
 
   // Memoize the message text to prevent unnecessary recalculations
   const messageText = useMemo(() => {
@@ -57,39 +54,50 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
       return [];
     }
 
-    //first strip the output tag isnide the think tag, if there is one
     text = stripReasoningTags(text);
 
     const artifacts: ArtifactData[] = [];
     
-    // Find complete opening and closing tags
     const artifactRegex = /<output\s+class="memori-artifact"[^>]*data-mimetype="([^"]+)"[^>]*>([\s\S]*?)<\/output>/gi;
     const titleRegex = {
       dataTitle: /data-title\s*=\s*["\']([^"']+)["\']/i,
       htmlTitle: /<title>([^<]+)<\/title>/gi
     };
 
-    const findTitle = (mimeType: string, content: string) => {
-      return titleRegex.dataTitle.exec(content)?.[1] || titleRegex.htmlTitle.exec(content)?.[1] || `${mimeType.toUpperCase()} Artifact`;
+    const findTitle = (mimeType: string, content: string, outputTag: string) => {
+      // First try to find data-title in the output tag
+      const dataTitleMatch = outputTag.match(/data-title\s*=\s*["\']([^"']+)["\']/i);
+      if (dataTitleMatch) {
+        return dataTitleMatch[1];
+      }
+      
+      // Then try to find title in the content
+      const htmlTitleMatch = content.match(/<title>([^<]+)<\/title>/i);
+      if (htmlTitleMatch) {
+        return htmlTitleMatch[1];
+      }
+      
+      // Default title based on mimeType
+      return `${mimeType.toUpperCase()} Artifact`;
     };
 
     let match;
+    let artifactNum = 0;
     while ((match = artifactRegex.exec(text)) !== null) {
+      artifactNum++;
       const mimeType = match[1];
       const content = match[2].trim();
-
-      if (content.length > 50) {
-        const artifact = {
-          id: `artifact-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-          content,
-          mimeType,
-          title: findTitle(mimeType, text),
-          timestamp: new Date(),
-          size: content.length,
-        };
-
-        artifacts.push(artifact);
-      }
+      const outputTag = match[0]; // Full output tag for title extraction
+      
+      const artifact = {
+        id: `artifact-${Date.now()}-${artifactNum}-${Math.random().toString(36).substr(2, 9)}`,
+        content,
+        mimeType,
+        title: findTitle(mimeType, content, outputTag),
+        timestamp: new Date(),
+        size: content.length,
+      };
+      artifacts.push(artifact);
     }
 
     return artifacts;
@@ -100,7 +108,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     return detectArtifacts(messageText, message.fromUser || false);
   }, [messageText, message.fromUser, detectArtifacts]);
 
-  // Auto-open artifacts when detected in new messages
+  // Auto-open first artifact when detected in new messages
   // Only run when messageId changes (actual new message), not on every render
   useEffect(() => {
     if (messageText.length > 0 && artifacts.length > 0) {
@@ -109,68 +117,92 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
         dispatchArtifactCreatedEvent(artifact);
       });
 
-      if(isChatlogPanel){
-        // openArtifact(artifacts[0]);
-        setCurrentArtifact(artifacts[0]);
-      } else {
+      // Only auto-open the first artifact
+      if (!isChatlogPanel) {
         setTimeout(() => {
           openArtifact(artifacts[0]);
-          setCurrentArtifact(artifacts[0]);
         }, 100);
       }
     }
   }, [messageId, artifacts, dispatchArtifactCreatedEvent, isChatlogPanel, openArtifact]);
 
+  const handleArtifactClick = useCallback((artifact: ArtifactData) => {
+    if (
+      state.isDrawerOpen &&
+      state.currentArtifact?.id === artifact.id
+    ) {
+      closeArtifact();
+    } else {
+      openArtifact(artifact);
+    }
+  }, [state.isDrawerOpen, state.currentArtifact?.id, closeArtifact, openArtifact]);
+
+  const getIconForMimeType = useCallback((mimeType: string): string => {
+    if (mimeType.includes('html')) return '🌐';
+    if (mimeType.includes('markdown')) return '📝';
+    if (mimeType.includes('javascript') || mimeType.includes('typescript')) return '📜';
+    if (mimeType.includes('python')) return '🐍';
+    if (mimeType.includes('json')) return '📊';
+    if (mimeType.includes('css')) return '🎨';
+    if (mimeType.includes('xml')) return '📋';
+    if (mimeType.includes('svg')) return '🖼️';
+    return '📄';
+  }, []);
+
   if (artifacts.length === 0) return null;
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-      <div
-        key={currentArtifact?.id}
-        className="memori-artifact-handler"
-        onClick={() => {
-          if (
-            state.isDrawerOpen &&
-            state.currentArtifact?.id === currentArtifact?.id
-          ) {
-            closeArtifact();
-          } else {
-            openArtifact(currentArtifact as ArtifactData);
-          }
-        }}
-      >
-        <div className="memori-artifact-handler-icon">📄</div>
-        <div className="memori-artifact-handler-info">
-          <div className="memori-artifact-handler-title">
-            {currentArtifact?.title}
+      {artifacts.map((artifact) => {
+        const isSelected = state.isDrawerOpen && state.currentArtifact?.id === artifact.id;
+        
+        return (
+          <React.Fragment key={artifact.id}>
+            <div
+              className={`memori-artifact-handler${isSelected ? ' memori-artifact-handler--selected' : ''}`}
+              onClick={() => handleArtifactClick(artifact)}
+              style={isSelected ? {
+                border: '2px solid var(--memori-primary, #3b82f6)',
+                boxShadow: '0 0 0 3px rgba(59, 130, 246, 0.1)',
+              } : undefined}
+            >
+            <div className="memori-artifact-handler-icon">
+              {getIconForMimeType(artifact.mimeType)}
+            </div>
+            <div className="memori-artifact-handler-info">
+              <div className="memori-artifact-handler-title">
+                {artifact.title}
+              </div>
+              <div className="memori-artifact-handler-meta">
+                {artifact.mimeType} •{' '}
+                {formatBytes(artifact.size || 0)}
+              </div>
+            </div>
+            <div className="memori-artifact-handler-action">
+              {isChatlogPanel ? (
+                state.isDrawerOpen &&
+                state.currentArtifact?.id === artifact.id ? (
+                  <ChevronUp className="memori-artifact-handler-action-icon" />
+                ) : (
+                  <ChevronDown className="memori-artifact-handler-action-icon" />
+                )
+              ) : state.isDrawerOpen &&
+                state.currentArtifact?.id === artifact.id ? (
+                <ChevronLeft className="memori-artifact-handler-action-icon" />
+              ) : (
+                <ChevronRight className="memori-artifact-handler-action-icon" />
+              )}
+            </div>
           </div>
-          <div className="memori-artifact-handler-meta">
-            {currentArtifact?.mimeType} •{' '}
-            {formatBytes(currentArtifact?.size || 0)}
-          </div>
-        </div>
-        <div className="memori-artifact-handler-action">
-          {isChatlogPanel ? (
-            state.isDrawerOpen &&
-            state.currentArtifact?.id === currentArtifact?.id ? (
-              <ChevronUp className="memori-artifact-handler-action-icon" />
-            ) : (
-              <ChevronDown className="memori-artifact-handler-action-icon" />
-            )
-          ) : state.isDrawerOpen &&
-            state.currentArtifact?.id === currentArtifact?.id ? (
-            <ChevronLeft className="memori-artifact-handler-action-icon" />
-          ) : (
-            <ChevronRight className="memori-artifact-handler-action-icon" />
-          )}
-        </div>
-      </div>
 
-      {/* Render ArtifactDrawer inline when in chatlog panel */}
-      {state.isDrawerOpen &&
-        state.currentArtifact?.id === currentArtifact?.id && (
-          <ArtifactDrawer isChatLogPanel={isChatlogPanel} />
-        )}
+          {/* Render ArtifactDrawer inline when in chatlog panel */}
+          {state.isDrawerOpen &&
+            state.currentArtifact?.id === artifact.id && (
+              <ArtifactDrawer isChatLogPanel={isChatlogPanel} />
+            )}
+        </React.Fragment>
+      );
+      })}
     </div>
   );
 };
