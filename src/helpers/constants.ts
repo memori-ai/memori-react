@@ -5,15 +5,40 @@ export const chatLanguages = [
   { value: 'ES', label: 'Español' },
   { value: 'FR', label: 'Français' },
   { value: 'PT', label: 'Português' },
-  { value: 'UK', label: 'Українська' },
-  { value: 'RU', label: 'Русский' },
+  { value: 'NL', label: 'Nederlands' },        // Dutch
+  { value: 'SV', label: 'Svenska' },           // Swedish
+  { value: 'DA', label: 'Dansk' },             // Danish
+  { value: 'FI', label: 'Suomi' },             // Finnish
+  { value: 'ET', label: 'Eesti keel' },        // Estonian
+  { value: 'LT', label: 'Lietuvių kalba' },    // Lithuanian
+  { value: 'HU', label: 'Magyar' },            // Hungarian
+  { value: 'RO', label: 'Română' },            // Romanian
+  { value: 'BG', label: 'български' },         // Bulgarian
+  { value: 'HR', label: 'Hrvatski' },          // Croatian
+  { value: 'CS', label: 'Čeština / český jazyk' }, // Czech
+  { value: 'SK', label: 'Slovenčina' },        // Slovak
+  { value: 'SL', label: 'Slovenščina' },       // Slovenian
+  { value: 'LV', label: 'Latvian' },           // Lettonian
+  { value: 'UK', label: 'Українська' },        // Ukrainian
+  { value: 'RU', label: 'Русский' },           // Russian
   { value: 'PL', label: 'Polski' },
-  { value: 'FI', label: 'Suomi' },
   { value: 'EL', label: 'Ελληνικά' },
   { value: 'AR', label: 'العربية' },
   { value: 'ZH', label: '中文' },
   { value: 'JA', label: '日本語' },
 ];
+
+export const popularLanguageCodes = ['IT', 'EN', 'FR', 'DE', 'ES', 'PT'];
+
+export const getGroupedChatLanguages = () => {
+  const popular = chatLanguages.filter(lang =>
+    popularLanguageCodes.includes(lang.value)
+  );
+  return {
+    popular,
+    all: chatLanguages,
+  };
+};
 
 export const uiLanguages = ['en', 'it', 'fr', 'es', 'de'];
 
