@@ -17,6 +17,7 @@ import {
   ChatLog,
 } from '@memori.ai/memori-api-client/src/types';
 import { ArtifactData } from '../MemoriArtifactSystem/types/artifact.types';
+import { ArtifactAPIBridge } from '../MemoriArtifactSystem/utils/ArtifactAPI';
 
 // Libraries
 import React, {
@@ -320,6 +321,18 @@ declare global {
     typeMessage: typeof typeMessage;
     typeMessageHidden: typeof typeMessageHidden;
     typeBatchMessages: typeof typeBatchMessages;
+    MemoriArtifactAPI?: {
+      openArtifact: (artifact: ArtifactData) => void;
+      createAndOpenArtifact: (content: string, mimeType?: string, title?: string) => void;
+      createFromOutputElement: (outputElement: HTMLOutputElement) => string;
+      closeArtifact: () => void;
+      toggleFullscreen: () => void;
+      getState: () => { 
+        currentArtifact: ArtifactData | null; 
+        isDrawerOpen: boolean; 
+        isFullscreen: boolean 
+      };
+    };
   }
 }
 window.getMemoriState = getMemoriState;
@@ -1725,7 +1738,6 @@ const MemoriWidget = ({
 
         if (isVisible && !isTabVisible) {
           // Tab became visible - start polling and send immediate date event
-          console.log('Tab is now active/visible - starting date polling');
           sendDateChangedEvent({
             sessionID: sessionId,
             state: currentDialogState,
@@ -1733,7 +1745,6 @@ const MemoriWidget = ({
           startDatePolling();
         } else if (!isVisible && isTabVisible) {
           // Tab became hidden - stop polling
-          console.log('Tab is now hidden - stopping date polling');
           stopDatePolling();
         }
 
@@ -1973,7 +1984,6 @@ const MemoriWidget = ({
       speakerMuted,
     ]
   );
-
 
   const focusChatInput = () => {
     let textarea = document.querySelector(
@@ -2901,7 +2911,8 @@ const MemoriWidget = ({
     layout,
     memoriTyping,
     typingText,
-    showTypingText: showTypingText ?? integrationConfig?.showTypingText ?? false,
+    showTypingText:
+      showTypingText ?? integrationConfig?.showTypingText ?? false,
     history: showFullHistory ? history : history.slice(-2),
     authToken:
       loginToken ?? userToken ?? additionalInfo?.loginToken ?? authToken,
@@ -3044,6 +3055,17 @@ const MemoriWidget = ({
         hasUserActivatedSpeak={hasUserActivatedSpeak}
         loading={loading}
       />
+
+      <ArtifactAPIBridge pushMessage={(message: Message) => {
+        setHistory(history => {
+          if (!history.length) return history;
+          const lastMessage = history[history.length - 1];
+          if (!lastMessage || lastMessage.fromUser) return history;
+          // Create a new message object with the updated text
+          const updatedLastMessage = { ...lastMessage, text: lastMessage.text + message.text };
+          return [...history.slice(0, -1), updatedLastMessage];
+        });
+      }} />
 
       <audio
         id="memori-audio"

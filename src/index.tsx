@@ -22,7 +22,6 @@ import i18n from './i18n';
 import { useTranslation } from 'react-i18next';
 import I18nWrapper from './I18nWrapper';
 import { ArtifactProvider } from './components/MemoriArtifactSystem/context/ArtifactContext';
-import { ArtifactAPIBridge } from './components/MemoriArtifactSystem/utils/ArtifactAPI';
 
 export interface Props {
   memoriName?: string | null;
@@ -378,7 +377,6 @@ const Memori: React.FC<Props> = ({
     <I18nWrapper>
       <VisemeProvider>
         <ArtifactProvider>
-          <ArtifactAPIBridge />
           <Toaster position="top-center" reverseOrder={true} />
           {memori ? (
             <MemoriWidget
@@ -518,27 +516,4 @@ Memori.propTypes = {
   autoStart: PropTypes.bool,
   applyVarsToRoot: PropTypes.bool,
 };
-
-// Export types for external TypeScript users
-export type { ArtifactData } from './components/MemoriArtifactSystem/types/artifact.types';
-
-// TypeScript global type declarations for MemoriArtifactAPI
-declare global {
-  interface Window {
-    MemoriArtifactAPI?: {
-      openArtifact: (artifact: import('./components/MemoriArtifactSystem/types/artifact.types').ArtifactData) => void;
-      createAndOpenArtifact: (content: string, mimeType?: string, title?: string) => void;
-      createFromOutputElement: (outputElement: HTMLOutputElement) => string;
-      closeArtifact: () => void;
-      toggleFullscreen: () => void;
-      getState: () => { 
-        currentArtifact: import('./components/MemoriArtifactSystem/types/artifact.types').ArtifactData | null; 
-        isDrawerOpen: boolean; 
-        isFullscreen: boolean 
-      };
-      processAllArtifacts: (rootElement?: Document | HTMLElement) => string[];
-    };
-  }
-}
-
 export default Memori;

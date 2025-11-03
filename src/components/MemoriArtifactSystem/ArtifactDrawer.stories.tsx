@@ -12,13 +12,9 @@ import {
   Tenant,
 } from '@memori.ai/memori-api-client/dist/types';
 import { sanitizeText } from '../../helpers/sanitizer';
+import { ArtifactData } from './types/artifact.types';
 
-// Extend Window interface for TypeScript in stories
-declare global {
-  interface Window {
-    MemoriArtifactAPI?: any;
-  }
-}
+// Note: Window.MemoriArtifactAPI types are defined in MemoriWidget.tsx
 
 // Mock data for Chat component
 const mockMemori: Memori = {
@@ -77,7 +73,7 @@ const mockSetAttachmentsMenuOpen = (attachmentsMenuOpen: 'link' | 'media') => {
 // Story decorator to provide context
 const withArtifactProvider = (Story: any) => (
   <ArtifactProvider>
-    <ArtifactAPIBridge />
+    <ArtifactAPIBridge pushMessage={mockPushMessage} />
     <Story />
   </ArtifactProvider>
 );
@@ -587,6 +583,304 @@ This combination gives you a complete, styled web page ready for deployment.`,
   ),
 };
 
+export const ThreeArtifactsInOneMessage: Story = {
+  args: {},
+  render: () => (
+    <Chat
+      memori={mockMemori}
+      tenant={mockTenant}
+      sessionID="test-session"
+      history={[
+        {
+          text: `I'll create a complete web component for you with HTML, CSS, and JavaScript:
+
+<output class="memori-artifact" data-mimetype="html" data-title="Dashboard Component">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+</head>
+<body>
+  <div id="dashboard" class="dashboard-container">
+    <h1>Sales Dashboard</h1>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <h3>Revenue</h3>
+        <p id="revenue">$0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Customers</h3>
+        <p id="customers">0</p>
+      </div>
+      <div class="stat-card">
+        <h3>Growth</h3>
+        <p id="growth">0%</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
+</output>
+
+<output class="memori-artifact" data-mimetype="css" data-title="Dashboard Styles">
+/* Dashboard Styles */
+.dashboard-container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+h1 {
+  color: white;
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.stat-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.stat-card h3 {
+  color: #667eea;
+  font-size: 1.2rem;
+  margin-bottom: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.stat-card p {
+  color: #333;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin: 0;
+}
+</output>
+
+<output class="memori-artifact" data-mimetype="javascript" data-title="Dashboard Logic">
+// Dashboard Data Management
+class Dashboard {
+  constructor() {
+    this.data = {
+      revenue: 0,
+      customers: 0,
+      growth: 0
+    };
+    this.init();
+  }
+
+  init() {
+    // Simulate loading data
+    this.loadData();
+    
+    // Update every 5 seconds
+    setInterval(() => this.updateData(), 5000);
+  }
+
+  loadData() {
+    // Simulate API call
+    this.data = {
+      revenue: 124500,
+      customers: 1234,
+      growth: 23.5
+    };
+    this.render();
+  }
+
+  updateData() {
+    // Simulate real-time updates
+    this.data.revenue += Math.floor(Math.random() * 1000);
+    this.data.customers += Math.floor(Math.random() * 10);
+    this.data.growth += (Math.random() - 0.5) * 2;
+    this.render();
+  }
+
+  render() {
+    const revenueEl = document.getElementById('revenue');
+    const customersEl = document.getElementById('customers');
+    const growthEl = document.getElementById('growth');
+
+    if (revenueEl) {
+      revenueEl.textContent = '$' + this.data.revenue.toLocaleString();
+    }
+    
+    if (customersEl) {
+      customersEl.textContent = this.data.customers.toLocaleString();
+    }
+    
+    if (growthEl) {
+      growthEl.textContent = '+' + this.data.growth.toFixed(1) + '%';
+    }
+  }
+}
+
+// Initialize when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => {
+    new Dashboard();
+  });
+} else {
+  new Dashboard();
+}
+</output>
+
+Each artifact serves a specific purpose:
+- **HTML**: The structure and content
+- **CSS**: Beautiful styling with gradients and animations
+- **JavaScript**: Interactive data management and updates
+
+You can click on each card to view and modify the code!`,
+          fromUser: false,
+          timestamp: new Date().toISOString(),
+        },
+      ]}
+      pushMessage={mockPushMessage}
+      simulateUserPrompt={mockSimulateUserPrompt}
+      onChangeUserMessage={mockOnChangeUserMessage}
+      sendMessage={mockSendMessage}
+      setEnableFocusChatInput={mockSetEnableFocusChatInput}
+      stopAudio={mockStopAudio}
+      startListening={mockStartListening}
+      stopListening={mockStopListening}
+      setSendOnEnter={mockSetSendOnEnter}
+      setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
+      showInputs={false}
+      isChatlogPanel={false}
+    />
+  ),
+};
+
+export const FiveArtifactsMixedTypes: Story = {
+  args: {},
+  render: () => (
+    <Chat
+      memori={mockMemori}
+      tenant={mockTenant}
+      sessionID="test-session"
+      history={[
+        {
+          text: `Here's a complete project setup with multiple files:
+
+<output class="memori-artifact" data-mimetype="html" data-title="index.html">
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Project</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script src="app.js"></script>
+</body>
+</html>
+</output>
+
+<output class="memori-artifact" data-mimetype="css" data-title="styles.css">
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+}
+
+#app {
+  max-width: 800px;
+  margin: 0 auto;
+  background: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+</output>
+
+<output class="memori-artifact" data-mimetype="javascript" data-title="app.js">
+const app = document.getElementById('app');
+app.innerHTML = '<h1>Hello World!</h1>';
+console.log('App initialized');
+</output>
+
+<output class="memori-artifact" data-mimetype="json" data-title="package.json">
+{
+  "name": "my-project",
+  "version": "1.0.0",
+  "description": "A simple web project",
+  "main": "app.js",
+  "scripts": {
+    "start": "serve .",
+    "build": "webpack"
+  },
+  "dependencies": {
+    "serve": "^14.0.0"
+  }
+}
+</output>
+
+<output class="memori-artifact" data-mimetype="markdown" data-title="README.md">
+# My Project
+
+## Overview
+A simple web application starter template.
+
+## Getting Started
+1. Install dependencies: \`npm install\`
+2. Start the server: \`npm start\`
+3. Open http://localhost:3000
+
+## Features
+- Clean HTML structure
+- Modern CSS styling
+- JavaScript functionality
+- Package management with npm
+
+## License
+MIT
+</output>
+
+All files are ready! You now have a complete project structure with HTML, CSS, JavaScript, configuration, and documentation.`,
+          fromUser: false,
+          timestamp: new Date().toISOString(),
+        },
+      ]}
+      pushMessage={mockPushMessage}
+      simulateUserPrompt={mockSimulateUserPrompt}
+      onChangeUserMessage={mockOnChangeUserMessage}
+      sendMessage={mockSendMessage}
+      setEnableFocusChatInput={mockSetEnableFocusChatInput}
+      stopAudio={mockStopAudio}
+      startListening={mockStartListening}
+      stopListening={mockStopListening}
+      setSendOnEnter={mockSetSendOnEnter}
+      setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
+      showInputs={false}
+      isChatlogPanel={false}
+    />
+  ),
+};
+
 export const ConversationFlow: Story = {
   args: {},
   render: () => (
@@ -885,10 +1179,13 @@ export const APIBridge_ProcessOutputElements: Story = {
     const TestComponent = () => {
       const { state } = useArtifact();
 
-      const processAllArtifacts = () => {
-        const processed = window.MemoriArtifactAPI?.processAllArtifacts();
-        console.log('Processed artifacts:', processed);
-        alert(`Processed ${processed?.length || 0} artifacts. Check console for IDs.`);
+      const createFromOutput = () => {
+        const outputs = document.querySelectorAll('.memori-artifact[data-sample="true"]');
+        outputs.forEach((output) => {
+          const artifactId = window.MemoriArtifactAPI?.createFromOutputElement(output as HTMLOutputElement);
+          console.log('Created artifact:', artifactId);
+        });
+        alert(`Processed ${outputs.length} artifacts. Check console for IDs.`);
       };
 
       const addDynamicOutput = () => {
@@ -898,6 +1195,7 @@ export const APIBridge_ProcessOutputElements: Story = {
           output.className = 'memori-artifact';
           output.setAttribute('data-mimetype', 'html');
           output.setAttribute('data-title', 'Dynamic Artifact');
+          output.setAttribute('data-sample', 'true');
           output.innerHTML = `
             <div style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px;">
               <h2>🚀 Dynamically Added!</h2>
@@ -918,12 +1216,12 @@ export const APIBridge_ProcessOutputElements: Story = {
             <h1>🔄 Process Output Elements</h1>
             <p>
               This story demonstrates processing <code>&lt;output class=&quot;memori-artifact&quot;&gt;</code> elements
-              that are already in the DOM or dynamically added.
+              using <code>createFromOutputElement</code>.
             </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '20px' }}>
             <button
-              onClick={processAllArtifacts}
+              onClick={createFromOutput}
               style={{
                 padding: '12px 20px',
                 fontSize: '16px',
@@ -934,7 +1232,7 @@ export const APIBridge_ProcessOutputElements: Story = {
                 borderRadius: '8px',
               }}
             >
-              🔍 Process All Artifacts
+              🔍 Create From Output Elements
             </button>
 
             <button
@@ -956,14 +1254,14 @@ export const APIBridge_ProcessOutputElements: Story = {
           <div id="dynamic-container" style={{ marginTop: '30px' }}>
             <h3>Existing Output Elements:</h3>
             
-            <output className="memori-artifact" data-mimetype="html" data-title="Sample HTML">
+            <output className="memori-artifact" data-mimetype="html" data-title="Sample HTML" data-sample="true">
               <div style={{ padding: '15px', border: '2px solid #9333ea', borderRadius: '8px' }}>
                 <h3>Sample Artifact 1</h3>
                 <p>This is a static output element in the DOM.</p>
               </div>
             </output>
 
-            <output className="memori-artifact" data-mimetype="markdown" data-title="Sample Markdown">
+            <output className="memori-artifact" data-mimetype="markdown" data-title="Sample Markdown" data-sample="true">
               {`# Sample Markdown
               
 This is **another** static output element.
@@ -977,11 +1275,11 @@ This is **another** static output element.
           <div style={{ marginTop: '30px', padding: '15px', backgroundColor: '#f3f4f6', borderRadius: '8px' }}>
             <h3>💡 How it works</h3>
             <ol>
-              <li>Click &quot;Process All Artifacts&quot; to scan for <code>&lt;output&gt;</code> elements</li>
-              <li>Each unprocessed element gets converted to a clickable card</li>
+              <li>Click &quot;Create From Output Elements&quot; to process <code>&lt;output&gt;</code> elements</li>
+              <li>Each element gets converted to an artifact and added to history</li>
               <li>Click &quot;Add Dynamic Output&quot; to inject a new element</li>
               <li>Process again to handle the new element</li>
-              <li>Click on any card to open the artifact</li>
+              <li>The artifacts will appear in the chat history</li>
             </ol>
           </div>
           </div>
@@ -1000,40 +1298,49 @@ export const APIBridge_WebSocketSimulation: Story = {
       const { state } = useArtifact();
 
       const simulateWebSocket = () => {
-        // Simulate receiving HTML from WebSocket
-        const chatContainer = document.getElementById('chat-simulation');
-        if (!chatContainer) return;
-
-        const messageHTML = `
-          <div style="padding: 10px; margin: 10px 0; background: #f9fafb; border-radius: 8px;">
-            <p><strong>Bot:</strong> I've created a visualization for you:</p>
-            <output class="memori-artifact" data-mimetype="html" data-title="Data Visualization">
-              <div style="padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                <h2>📊 Sales Report Q4 2024</h2>
-                <div style="display: flex; gap: 20px; margin-top: 20px;">
-                  <div style="flex: 1; padding: 15px; background: #ecfdf5; border-radius: 8px;">
-                    <h3>Revenue</h3>
-                    <p style="font-size: 24px; font-weight: bold; color: #059669;">$124,500</p>
-                  </div>
-                  <div style="flex: 1; padding: 15px; background: #fef3c7; border-radius: 8px;">
-                    <h3>Customers</h3>
-                    <p style="font-size: 24px; font-weight: bold; color: #d97706;">1,234</p>
-                  </div>
-                  <div style="flex: 1; padding: 15px; background: #dbeafe; border-radius: 8px;">
-                    <h3>Growth</h3>
-                    <p style="font-size: 24px; font-weight: bold; color: #2563eb;">+23%</p>
-                  </div>
-                </div>
+        // Simulate receiving a message with artifacts from WebSocket
+        const artifactContent = `
+          <div style="padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+            <h2>📊 Sales Report Q4 2024</h2>
+            <div style="display: flex; gap: 20px; margin-top: 20px;">
+              <div style="flex: 1; padding: 15px; background: #ecfdf5; border-radius: 8px;">
+                <h3>Revenue</h3>
+                <p style="font-size: 24px; font-weight: bold; color: #059669;">$124,500</p>
               </div>
-            </output>
+              <div style="flex: 1; padding: 15px; background: #fef3c7; border-radius: 8px;">
+                <h3>Customers</h3>
+                <p style="font-size: 24px; font-weight: bold; color: #d97706;">1,234</p>
+              </div>
+              <div style="flex: 1; padding: 15px; background: #dbeafe; border-radius: 8px;">
+                <h3>Growth</h3>
+                <p style="font-size: 24px; font-weight: bold; color: #2563eb;">+23%</p>
+              </div>
+            </div>
           </div>
         `;
 
-        chatContainer.innerHTML += messageHTML;
+        // Use the API to create and open the artifact
+        window.MemoriArtifactAPI?.createAndOpenArtifact(
+          artifactContent,
+          'html',
+          'Data Visualization'
+        );
 
-        // Process the newly added artifact
-        const processed = window.MemoriArtifactAPI?.processAllArtifacts(chatContainer);
-        console.log('Processed WebSocket artifacts:', processed);
+        // Update chat display
+        const chatContainer = document.getElementById('chat-simulation');
+        if (chatContainer) {
+          const messageHTML = `
+            <div style="padding: 10px; margin: 10px 0; background: #f9fafb; border-radius: 8px;">
+              <p><strong>Bot:</strong> I've created a visualization for you. Click the artifact card to view it.</p>
+              <div style="padding: 10px; margin-top: 10px; background: #e0e7ff; border-radius: 4px; cursor: pointer;" onclick="window.MemoriArtifactAPI?.createAndOpenArtifact(\`${artifactContent.replace(/`/g, '\\`')}\`, 'html', 'Data Visualization')">
+                📊 Data Visualization
+              </div>
+            </div>
+          `;
+          chatContainer.innerHTML += messageHTML;
+        }
+
+        console.log('WebSocket artifact created via API');
       };
 
       const clearChat = () => {
@@ -1051,8 +1358,8 @@ export const APIBridge_WebSocketSimulation: Story = {
           <div style={{ padding: '20px', maxWidth: '900px', margin: '0 auto' }}>
             <h1>🌐 WebSocket Integration Simulation</h1>
             <p>
-              This demonstrates how the API can be used with WebSocket or Action Cable
-              to process artifacts that are injected into the DOM dynamically.
+              This demonstrates how <code>createAndOpenArtifact</code> can be used with WebSocket or Action Cable
+              to create artifacts from messages received dynamically.
             </p>
 
           <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
@@ -1107,12 +1414,13 @@ export const APIBridge_WebSocketSimulation: Story = {
 {`// Rails Action Cable
 consumer.subscriptions.create("ChatChannel", {
   received(data) {
-    if (data.html) {
-      const chatContainer = document.querySelector('.chat');
-      chatContainer.innerHTML += data.html;
-      
-      // Process any new artifacts
-      window.MemoriArtifactAPI?.processAllArtifacts(chatContainer);
+    if (data.artifact) {
+      // Create artifact directly from received data
+      window.MemoriArtifactAPI?.createAndOpenArtifact(
+        data.artifact.content,
+        data.artifact.mimeType,
+        data.artifact.title
+      );
     }
   }
 });`}
