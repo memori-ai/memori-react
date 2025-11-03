@@ -344,9 +344,6 @@ window.MemoriArtifactAPI.createAndOpenArtifact(
   'My Artifact'
 );
 
-// Process all <output class="memori-artifact"> elements in the page
-window.MemoriArtifactAPI.processAllArtifacts();
-
 // Check current state
 const state = window.MemoriArtifactAPI.getState();
 console.log('Drawer open?', state.isDrawerOpen);
@@ -357,16 +354,9 @@ console.log('Drawer open?', state.isDrawerOpen);
 - `createAndOpenArtifact(content, mimeType?, title?)` - Create and open an artifact with simple parameters
 - `openArtifact(artifact)` - Open an artifact with a complete ArtifactData object
 - `createFromOutputElement(outputElement)` - Process a single `<output>` element from DOM
-- `processAllArtifacts(rootElement?)` - Process all unprocessed `<output>` elements
 - `closeArtifact()` - Close the current artifact drawer
 - `toggleFullscreen()` - Toggle fullscreen mode
 - `getState()` - Get the current state of the artifact system
-
-### Full Documentation
-
-For complete API reference, usage examples, and integration guides, see:
-
-📖 **[Artifact API Documentation](./docs/ARTIFACT_API.md)**
 
 ## Conversation state change event
 
