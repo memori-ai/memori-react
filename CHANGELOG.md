@@ -1,5 +1,12 @@
 
 
+## [8.9.1](https://github.com/memori-ai/memori-react/compare/v8.9.0...v8.9.1) (2025-11-03)
+
+
+### Bug Fixes
+
+* exclude plain text media items from chat message filtering ([02e6213](https://github.com/memori-ai/memori-react/commit/02e621358ce99e5271d5a347b4b9c7a38ec19923))
+
 ## [8.9.0](https://github.com/memori-ai/memori-react/compare/v8.8.5...v8.9.0) (2025-11-03)
 
 
