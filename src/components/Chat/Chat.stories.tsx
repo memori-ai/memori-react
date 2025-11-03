@@ -340,6 +340,435 @@ WithExpandable.args = {
   resetTranscript: () => {},
 };
 
+export const WithMultipleArtifactsInOneMessage = Template.bind({});
+WithMultipleArtifactsInOneMessage.args = {
+  memori,
+  tenant,
+  sessionID,
+  history: [
+    {
+      text: 'Can you help me build a landing page?',
+      fromUser: true,
+      timestamp: '2021-03-01T12:00:00.000Z',
+    },
+    {
+      text: `I'll create a complete landing page with HTML, CSS, and JavaScript for you:
+
+<output class="memori-artifact" data-mimetype="html" data-title="Landing Page HTML">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Landing Page</title>
+</head>
+<body>
+  <header class="hero">
+    <h1>Welcome to Our Amazing Product</h1>
+    <p>The solution you've been waiting for</p>
+    <button id="ctaButton" class="cta-button">Get Started</button>
+  </header>
+  
+  <section class="features">
+    <div class="feature">
+      <h3>⚡ Fast</h3>
+      <p>Lightning-quick performance</p>
+    </div>
+    <div class="feature">
+      <h3>🔒 Secure</h3>
+      <p>Enterprise-grade security</p>
+    </div>
+    <div class="feature">
+      <h3>📱 Responsive</h3>
+      <p>Works on all devices</p>
+    </div>
+  </section>
+</body>
+</html>
+</output>
+
+<output class="memori-artifact" data-mimetype="css" data-title="Landing Page Styles">
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+.hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.hero h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.hero p {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  opacity: 0.9;
+}
+
+.cta-button {
+  background: white;
+  color: #667eea;
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  padding: 80px 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.feature {
+  text-align: center;
+  padding: 30px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.feature:hover {
+  transform: translateY(-5px);
+}
+
+.feature h3 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</output>
+
+<output class="memori-artifact" data-mimetype="javascript" data-title="Landing Page Script">
+// Add interactivity to the landing page
+document.addEventListener('DOMContentLoaded', () => {
+  const ctaButton = document.getElementById('ctaButton');
+  
+  if (ctaButton) {
+    ctaButton.addEventListener('click', () => {
+      // Smooth scroll animation
+      const features = document.querySelector('.features');
+      if (features) {
+        features.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+      
+      // Show a welcome message
+      setTimeout(() => {
+        alert('Welcome! Explore our amazing features below 🚀');
+      }, 500);
+    });
+    
+    // Add pulse animation on hover
+    ctaButton.addEventListener('mouseenter', () => {
+      ctaButton.style.animation = 'pulse 0.5s ease';
+    });
+    
+    ctaButton.addEventListener('animationend', () => {
+      ctaButton.style.animation = '';
+    });
+  }
+  
+  // Add scroll reveal effect to features
+  const features = document.querySelectorAll('.feature');
+  const observerOptions = {
+    threshold: 0.2,
+    rootMargin: '0px 0px -50px 0px'
+  };
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, index * 100);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+  
+  features.forEach(feature => {
+    feature.style.opacity = '0';
+    feature.style.transform = 'translateY(20px)';
+    feature.style.transition = 'all 0.6s ease';
+    observer.observe(feature);
+  });
+});
+
+// Add dynamic CSS for pulse animation
+const style = document.createElement('style');
+style.textContent = \`
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+\`;
+document.head.appendChild(style);
+</output>
+
+I've created three artifacts for you:
+1. **HTML** - The page structure with a hero section and feature cards
+2. **CSS** - Beautiful styling with gradients, animations, and responsive design
+3. **JavaScript** - Interactive features including smooth scrolling and scroll animations
+
+Click on each card to view and customize the code!`,
+      timestamp: '2021-03-01T12:01:00.000Z',
+    },
+  ],
+  dialogState,
+  layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
+
+export const WithMultipleArtifactsInChatlogPanel = Template.bind({});
+WithMultipleArtifactsInChatlogPanel.args = {
+  memori,
+  tenant,
+  sessionID,
+  isChatlogPanel: true,
+  history: [
+    {
+      text: 'Show me a React component with its styles and tests',
+      fromUser: true,
+      timestamp: '2021-03-01T12:00:00.000Z',
+    },
+    {
+      text: `Here's a complete React component setup with TypeScript, styles, and tests:
+
+<output class="memori-artifact" data-mimetype="typescript" data-title="Button.tsx">
+import React from 'react';
+import './Button.css';
+
+interface ButtonProps {
+  label: string;
+  onClick?: () => void;
+  variant?: 'primary' | 'secondary' | 'danger';
+  disabled?: boolean;
+}
+
+export const Button: React.FC<ButtonProps> = ({
+  label,
+  onClick,
+  variant = 'primary',
+  disabled = false,
+}) => {
+  return (
+    <button
+      className={\`btn btn-\${variant}\`}
+      onClick={onClick}
+      disabled={disabled}
+      aria-label={label}
+    >
+      {label}
+    </button>
+  );
+};
+</output>
+
+<output class="memori-artifact" data-mimetype="css" data-title="Button.css">
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #5a6268;
+}
+
+.btn-danger {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background: #c82333;
+}
+</output>
+
+<output class="memori-artifact" data-mimetype="typescript" data-title="Button.test.tsx">
+import { render, screen, fireEvent } from '@testing-library/react';
+import { Button } from './Button';
+
+describe('Button Component', () => {
+  it('renders with correct label', () => {
+    render(<Button label="Click me" />);
+    expect(screen.getByText('Click me')).toBeInTheDocument();
+  });
+
+  it('calls onClick handler when clicked', () => {
+    const handleClick = jest.fn();
+    render(<Button label="Click me" onClick={handleClick} />);
+    
+    fireEvent.click(screen.getByText('Click me'));
+    expect(handleClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('applies correct variant class', () => {
+    const { rerender } = render(<Button label="Test" variant="primary" />);
+    expect(screen.getByRole('button')).toHaveClass('btn-primary');
+
+    rerender(<Button label="Test" variant="secondary" />);
+    expect(screen.getByRole('button')).toHaveClass('btn-secondary');
+
+    rerender(<Button label="Test" variant="danger" />);
+    expect(screen.getByRole('button')).toHaveClass('btn-danger');
+  });
+
+  it('is disabled when disabled prop is true', () => {
+    const handleClick = jest.fn();
+    render(<Button label="Click me" onClick={handleClick} disabled />);
+    
+    const button = screen.getByRole('button');
+    expect(button).toBeDisabled();
+    
+    fireEvent.click(button);
+    expect(handleClick).not.toHaveBeenCalled();
+  });
+
+  it('has correct accessibility attributes', () => {
+    render(<Button label="Submit Form" />);
+    const button = screen.getByRole('button');
+    expect(button).toHaveAttribute('aria-label', 'Submit Form');
+  });
+});
+</output>
+
+<output class="memori-artifact" data-mimetype="markdown" data-title="Button Documentation">
+# Button Component
+
+A reusable button component with multiple variants and full TypeScript support.
+
+## Usage
+
+\`\`\`tsx
+import { Button } from './Button';
+
+function App() {
+  return (
+    <Button 
+      label="Click me" 
+      variant="primary"
+      onClick={() => console.log('Clicked!')}
+    />
+  );
+}
+\`\`\`
+
+## Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| label | string | required | Button text content |
+| onClick | function | - | Click handler function |
+| variant | 'primary' \\| 'secondary' \\| 'danger' | 'primary' | Button style variant |
+| disabled | boolean | false | Disabled state |
+
+## Variants
+
+- **primary**: Main action button with gradient background
+- **secondary**: Secondary actions with gray background
+- **danger**: Destructive actions with red background
+
+## Accessibility
+
+- Uses semantic \`<button>\` element
+- Includes \`aria-label\` attribute
+- Keyboard accessible
+- Proper disabled state handling
+
+## Testing
+
+Run tests with:
+\`\`\`bash
+npm test Button.test.tsx
+\`\`\`
+</output>
+
+You now have a complete component with implementation, styles, tests, and documentation! Each artifact can be clicked to view and modify.`,
+      timestamp: '2021-03-01T12:01:00.000Z',
+    },
+  ],
+  dialogState,
+  layout: 'CHAT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
+
 export const WithLongHTMLTable = Template.bind({});
 WithLongHTMLTable.args = {
   memori,

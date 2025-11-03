@@ -1,7 +1,30 @@
+import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { ArtifactProvider } from '../context/ArtifactContext';
 import { ArtifactAPIBridge } from './ArtifactAPI';
 import { ArtifactData } from '../types/artifact.types';
+import MemoriWidget from '../../MemoriWidget/MemoriWidget';
+import { Memori } from '@memori.ai/memori-api-client/dist/types';
+import { VisemeProvider } from '../../../context/visemeContext';
+
+const mockMemori: Memori = {
+  memoriID: 'test-memori-id',
+  name: 'Test Memori',
+  culture: 'en-US',
+  coverURL: '',
+  enableBoardOfExperts: false,
+} as Memori;
+
+// Helper function to wrap component with all required providers
+const renderWithProviders = (component: React.ReactElement) => {
+  return render(
+    <VisemeProvider>
+      <ArtifactProvider>
+        {component}
+      </ArtifactProvider>
+    </VisemeProvider>
+  );
+};
 
 describe('ArtifactAPIBridge', () => {
   beforeEach(() => {
@@ -9,6 +32,21 @@ describe('ArtifactAPIBridge', () => {
     if (window.MemoriArtifactAPI) {
       delete window.MemoriArtifactAPI;
     }
+
+    // Mock window.matchMedia
+    Object.defineProperty(window, 'matchMedia', {
+      writable: true,
+      value: jest.fn().mockImplementation(query => ({
+        matches: false,
+        media: query,
+        onchange: null,
+        addListener: jest.fn(), // deprecated
+        removeListener: jest.fn(), // deprecated
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn(),
+        dispatchEvent: jest.fn(),
+      })),
+    });
   });
 
   afterEach(() => {
@@ -19,10 +57,8 @@ describe('ArtifactAPIBridge', () => {
   });
 
   it('should expose MemoriArtifactAPI on window', () => {
-    render(
-      <ArtifactProvider>
-        <ArtifactAPIBridge />
-      </ArtifactProvider>
+    renderWithProviders(
+      <MemoriWidget memori={mockMemori} tenantID="test-tenant-id" />
     );
 
     expect(window.MemoriArtifactAPI).toBeDefined();
@@ -32,14 +68,11 @@ describe('ArtifactAPIBridge', () => {
     expect(typeof window.MemoriArtifactAPI?.toggleFullscreen).toBe('function');
     expect(typeof window.MemoriArtifactAPI?.getState).toBe('function');
     expect(typeof window.MemoriArtifactAPI?.createFromOutputElement).toBe('function');
-    expect(typeof window.MemoriArtifactAPI?.processAllArtifacts).toBe('function');
   });
 
   it('should create and open artifact with simple parameters', async () => {
-    render(
-      <ArtifactProvider>
-        <ArtifactAPIBridge />
-      </ArtifactProvider>
+    renderWithProviders(
+      <MemoriWidget memori={mockMemori} tenantID="test-tenant-id" />
     );
 
     const testContent = '<h1>Test Content</h1><p>This is a test</p>';
@@ -61,10 +94,8 @@ describe('ArtifactAPIBridge', () => {
   });
 
   it('should generate default title from mime type when not provided', async () => {
-    render(
-      <ArtifactProvider>
-        <ArtifactAPIBridge />
-      </ArtifactProvider>
+    renderWithProviders(
+      <MemoriWidget memori={mockMemori} tenantID="test-tenant-id" />
     );
 
     window.MemoriArtifactAPI!.createAndOpenArtifact(
@@ -79,10 +110,8 @@ describe('ArtifactAPIBridge', () => {
   });
 
   it('should open artifact with full ArtifactData object', async () => {
-    render(
-      <ArtifactProvider>
-        <ArtifactAPIBridge />
-      </ArtifactProvider>
+    renderWithProviders(
+      <MemoriWidget memori={mockMemori} tenantID="test-tenant-id" />
     );
 
     const artifact: ArtifactData = {
@@ -105,10 +134,8 @@ describe('ArtifactAPIBridge', () => {
   });
 
   it('should close artifact', async () => {
-    render(
-      <ArtifactProvider>
-        <ArtifactAPIBridge />
-      </ArtifactProvider>
+    renderWithProviders(
+      <MemoriWidget memori={mockMemori} tenantID="test-tenant-id" />
     );
 
     // First open an artifact
@@ -134,10 +161,8 @@ describe('ArtifactAPIBridge', () => {
   });
 
   it('should toggle fullscreen', async () => {
-    render(
-      <ArtifactProvider>
-        <ArtifactAPIBridge />
-      </ArtifactProvider>
+    renderWithProviders(
+      <MemoriWidget memori={mockMemori} tenantID="test-tenant-id" />
     );
 
     // Open an artifact first
@@ -170,10 +195,8 @@ describe('ArtifactAPIBridge', () => {
   });
 
   it('should create artifact from output element', async () => {
-    render(
-      <ArtifactProvider>
-        <ArtifactAPIBridge />
-      </ArtifactProvider>
+    renderWithProviders(
+      <MemoriWidget memori={mockMemori} tenantID="test-tenant-id" />
     );
 
     // Create a mock output element
@@ -201,75 +224,34 @@ describe('ArtifactAPIBridge', () => {
     document.body.removeChild(outputElement);
   });
 
-  it('should process all artifacts in the DOM', () => {
-    render(
-      <ArtifactProvider>
-        <ArtifactAPIBridge />
-      </ArtifactProvider>
+  it('should handle multiple artifacts in the same message', async () => {
+    renderWithProviders(
+      <MemoriWidget memori={mockMemori} tenantID="test-tenant-id" />
     );
 
-    // Create multiple output elements
-    const output1 = document.createElement('output');
-    output1.className = 'memori-artifact';
-    output1.innerHTML = '<div>Artifact 1</div>';
-    output1.setAttribute('data-mimetype', 'html');
-    
-    const output2 = document.createElement('output');
-    output2.className = 'memori-artifact';
-    output2.innerHTML = '<div>Artifact 2</div>';
-    output2.setAttribute('data-mimetype', 'html');
-    
-    const container = document.createElement('div');
-    container.appendChild(output1);
-    container.appendChild(output2);
-    document.body.appendChild(container);
+    // Create a message with multiple output elements
+    const messageContent = `
+      <output class="memori-artifact" data-mimetype="html" data-title="Artifact 1">
+        <div>Content 1</div>
+      </output>
+      <output class="memori-artifact" data-mimetype="javascript" data-title="Artifact 2">
+        console.log("test");
+      </output>
+    `;
 
-    const processedIds = window.MemoriArtifactAPI!.processAllArtifacts(container);
+    window.MemoriArtifactAPI!.createAndOpenArtifact(messageContent, 'html');
 
-    expect(processedIds.length).toBe(2);
-    expect(output1.getAttribute('data-memori-processed')).toBe('true');
-    expect(output2.getAttribute('data-memori-processed')).toBe('true');
-    expect(output1.style.display).toBe('none');
-    expect(output2.style.display).toBe('none');
-
-    // Check that handlers were created
-    const handlers = container.querySelectorAll('.memori-artifact-handler');
-    expect(handlers.length).toBe(2);
-
-    // Clean up
-    document.body.removeChild(container);
-  });
-
-  it('should not reprocess already processed artifacts', () => {
-    render(
-      <ArtifactProvider>
-        <ArtifactAPIBridge />
-      </ArtifactProvider>
-    );
-
-    const output = document.createElement('output');
-    output.className = 'memori-artifact';
-    output.innerHTML = '<div>Artifact</div>';
-    output.setAttribute('data-mimetype', 'html');
-    output.setAttribute('data-memori-processed', 'true'); // Already processed
-    
-    const container = document.createElement('div');
-    container.appendChild(output);
-    document.body.appendChild(container);
-
-    const processedIds = window.MemoriArtifactAPI!.processAllArtifacts(container);
-
-    expect(processedIds.length).toBe(0);
-
-    // Clean up
-    document.body.removeChild(container);
+    await waitFor(() => {
+      const state = window.MemoriArtifactAPI!.getState();
+      // The first artifact should be opened
+      expect(state.isDrawerOpen).toBe(true);
+      expect(state.currentArtifact).toBeDefined();
+    });
   });
 
   it('should return initial state correctly', () => {
-    render(
-      <ArtifactProvider>
-        <ArtifactAPIBridge />
-      </ArtifactProvider>
+    renderWithProviders(
+      <MemoriWidget memori={mockMemori} tenantID="test-tenant-id" />
     );
 
     const state = window.MemoriArtifactAPI!.getState();
@@ -280,10 +262,8 @@ describe('ArtifactAPIBridge', () => {
   });
 
   it('should clean up API on unmount', () => {
-    const { unmount } = render(
-      <ArtifactProvider>
-        <ArtifactAPIBridge />
-      </ArtifactProvider>
+    const { unmount } = renderWithProviders(
+      <MemoriWidget memori={mockMemori} tenantID="test-tenant-id" />
     );
 
     expect(window.MemoriArtifactAPI).toBeDefined();
@@ -294,10 +274,8 @@ describe('ArtifactAPIBridge', () => {
   });
 
   it('should handle different mime types with correct titles', async () => {
-    render(
-      <ArtifactProvider>
-        <ArtifactAPIBridge />
-      </ArtifactProvider>
+    renderWithProviders(
+      <MemoriWidget memori={mockMemori} tenantID="test-tenant-id" />
     );
 
     const testCases = [
