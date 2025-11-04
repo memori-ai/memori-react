@@ -1,5 +1,12 @@
 
 
+## [8.9.2](https://github.com/memori-ai/memori-react/compare/v8.9.1...v8.9.2) (2025-11-04)
+
+
+### Bug Fixes
+
+* ensure message is sent only when listening is active ([f2fc193](https://github.com/memori-ai/memori-react/commit/f2fc193a7ce5709e407098d65b03baaf8ea274bc))
+
 ## [8.9.1](https://github.com/memori-ai/memori-react/compare/v8.9.0...v8.9.1) (2025-11-03)
 
 
