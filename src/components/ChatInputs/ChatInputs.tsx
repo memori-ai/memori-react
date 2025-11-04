@@ -232,7 +232,7 @@ const ChatInputs: React.FC<Props> = ({
           startListening={startListening}
           stopListening={() => {
             stopListening();
-            if (!!userMessage?.length) {
+            if (listening && !!userMessage?.length) {
               sendMessage(userMessage);
             }
           }}
