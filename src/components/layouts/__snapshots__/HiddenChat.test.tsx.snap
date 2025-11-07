@@ -263,46 +263,10 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                       >
                         English
                       </option>
-                      <option
-                        aria-label="Deutsch"
-                        value="DE"
-                      >
-                        Deutsch
-                      </option>
-                      <option
-                        aria-label="Español"
-                        value="ES"
-                      >
-                        Español
-                      </option>
-                      <option
-                        aria-label="Français"
-                        value="FR"
-                      >
-                        Français
-                      </option>
-                      <option
-                        aria-label="Português"
-                        value="PT"
-                      >
-                        Português
-                      </option>
                     </optgroup>
                     <optgroup
                       label="Tutte le lingue"
                     >
-                      <option
-                        aria-label="Italiano"
-                        value="IT"
-                      >
-                        Italiano
-                      </option>
-                      <option
-                        aria-label="English"
-                        value="EN"
-                      >
-                        English
-                      </option>
                       <option
                         aria-label="Deutsch"
                         value="DE"

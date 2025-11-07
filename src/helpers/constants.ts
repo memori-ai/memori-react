@@ -28,15 +28,16 @@ export const chatLanguages = [
   { value: 'JA', label: '日本語' },
 ];
 
-export const popularLanguageCodes = ['IT', 'EN', 'FR', 'DE', 'ES', 'PT'];
+export const popularLanguageCodes = ['IT', 'EN'];
 
 export const getGroupedChatLanguages = () => {
   const popular = chatLanguages.filter(lang =>
     popularLanguageCodes.includes(lang.value)
   );
-  return {
+  const all = chatLanguages.filter(lang => !popularLanguageCodes.includes(lang.value));
+  return {  
     popular,
-    all: chatLanguages,
+    all,
   };
 };
 
