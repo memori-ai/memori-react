@@ -1,5 +1,18 @@
 
 
+## [8.10.0](https://github.com/memori-ai/memori-react/compare/v8.9.2...v8.10.0) (2025-11-10)
+
+
+### Features
+
+*  chat languages sorted alphabetically ([8dc7c05](https://github.com/memori-ai/memori-react/commit/8dc7c0523be6cac778e5462dba3de9331e9a8b39))
+* enhance image handling in MediaItemWidget with error handling and URL validation ([bfaab83](https://github.com/memori-ai/memori-react/commit/bfaab83f3edddef72e777e5eab5ecd0ebc0c91ae))
+
+
+### Changes
+
+* update popular language codes and improve language grouping logic ([d8a2374](https://github.com/memori-ai/memori-react/commit/d8a23740aa7d93f5daa1e5536543ef4b3fadae3d))
+
 ## [8.9.2](https://github.com/memori-ai/memori-react/compare/v8.9.1...v8.9.2) (2025-11-04)
 
 
