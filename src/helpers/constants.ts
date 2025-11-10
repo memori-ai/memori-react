@@ -1,31 +1,31 @@
 export const chatLanguages = [
-  { value: 'IT', label: 'Italiano' },
-  { value: 'EN', label: 'English' },
-  { value: 'DE', label: 'Deutsch' },
-  { value: 'ES', label: 'Español' },
-  { value: 'FR', label: 'Français' },
-  { value: 'PT', label: 'Português' },
-  { value: 'NL', label: 'Nederlands' },        // Dutch
-  { value: 'SV', label: 'Svenska' },           // Swedish
-  { value: 'DA', label: 'Dansk' },             // Danish
-  { value: 'FI', label: 'Suomi' },             // Finnish
-  { value: 'ET', label: 'Eesti keel' },        // Estonian
-  { value: 'LT', label: 'Lietuvių kalba' },    // Lithuanian
-  { value: 'HU', label: 'Magyar' },            // Hungarian
-  { value: 'RO', label: 'Română' },            // Romanian
+  { value: 'AR', label: 'العربية' },           // Arabic
   { value: 'BG', label: 'български' },         // Bulgarian
-  { value: 'HR', label: 'Hrvatski' },          // Croatian
   { value: 'CS', label: 'Čeština / český jazyk' }, // Czech
+  { value: 'DA', label: 'Dansk' },             // Danish
+  { value: 'DE', label: 'Deutsch' },           // German
+  { value: 'EL', label: 'Ελληνικά' },          // Greek
+  { value: 'EN', label: 'English' },           // English
+  { value: 'ES', label: 'Español' },           // Spanish
+  { value: 'ET', label: 'Eesti keel' },        // Estonian
+  { value: 'FI', label: 'Suomi' },             // Finnish
+  { value: 'FR', label: 'Français' },          // French
+  { value: 'HR', label: 'Hrvatski' },          // Croatian
+  { value: 'HU', label: 'Magyar' },            // Hungarian
+  { value: 'IT', label: 'Italiano' },          // Italian
+  { value: 'JA', label: '日本語' },             // Japanese
+  { value: 'LT', label: 'Lietuvių kalba' },    // Lithuanian
+  { value: 'LV', label: 'Latvian' },           // Latvian / Lettonian
+  { value: 'NL', label: 'Nederlands' },        // Dutch
+  { value: 'PL', label: 'Polski' },            // Polish
+  { value: 'PT', label: 'Português' },         // Portuguese
+  { value: 'RO', label: 'Română' },            // Romanian
+  { value: 'RU', label: 'Русский' },           // Russian
   { value: 'SK', label: 'Slovenčina' },        // Slovak
   { value: 'SL', label: 'Slovenščina' },       // Slovenian
-  { value: 'LV', label: 'Latvian' },           // Lettonian
+  { value: 'SV', label: 'Svenska' },           // Swedish
   { value: 'UK', label: 'Українська' },        // Ukrainian
-  { value: 'RU', label: 'Русский' },           // Russian
-  { value: 'PL', label: 'Polski' },
-  { value: 'EL', label: 'Ελληνικά' },
-  { value: 'AR', label: 'العربية' },
-  { value: 'ZH', label: '中文' },
-  { value: 'JA', label: '日本語' },
+  { value: 'ZH', label: '中文' },              // Chinese
 ];
 
 export const popularLanguageCodes = ['IT', 'EN'];
