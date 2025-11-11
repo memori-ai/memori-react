@@ -1,5 +1,13 @@
 
 
+## [8.10.1](https://github.com/memori-ai/memori-react/compare/v8.10.0...v8.10.1) (2025-11-11)
+
+
+### Changes
+
+* simplify MediaItemWidget by removing unused state and optimizing image source handling ([87f931c](https://github.com/memori-ai/memori-react/commit/87f931c4f303bbeb72093d00caf61a8d5328ed77))
+* streamline image source handling in stories and snapshots for consistency ([71d1108](https://github.com/memori-ai/memori-react/commit/71d1108b214f93c9f3b06e42e9950839d83eabde))
+
 ## [8.10.0](https://github.com/memori-ai/memori-react/compare/v8.9.2...v8.10.0) (2025-11-10)
 
 
