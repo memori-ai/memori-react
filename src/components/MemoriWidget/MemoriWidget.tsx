@@ -834,16 +834,9 @@ const MemoriWidget = ({
         msg = translation.text;
       }
 
-      const findMediaDocument = media?.find(
-        m => !m.mediumID && m.properties?.isAttachedFile
-      );
-      if (findMediaDocument) {
-        msg = msg + ' ' + findMediaDocument.content;
-      }
-
-      // Handle multiple documents
+      // Handle document attachments
       const mediaDocuments = media?.filter(
-        m => !m.mediumID && m.properties?.isAttachedFile
+        m => (m as any).type === 'document' && m.properties?.isAttachedFile
       );
       if (mediaDocuments && mediaDocuments.length > 0) {
         const documentContents = mediaDocuments

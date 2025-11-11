@@ -95,7 +95,6 @@ const ChatInputs: React.FC<Props> = ({
       url?: string;
     }[]
   ) => {
-    
     const mediaWithIds = files.map((file, index) => {
       const generatedMediumID = file.mediumID || `file_${Date.now()}_${index}_${Math.random().toString(36).substr(2, 9)}`;
       return {
