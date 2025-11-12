@@ -46,21 +46,8 @@ DefaultLayout.args = {
   uiLang: 'IT',
   spokenLang: 'IT',
   integrationID: '0b1256c1-530c-4e67-aef8-36667c8887bb',
-  enableAudio: false,
-  showUpload: false,
-  showShare: false,
   autoStart: false,
-  showSettings: false,
-  showCopyButton: false,
-  showTranslationOriginal: false,
-  showInputs: false,
-  showDates: false,
-  showContextPerLine: false,
-  showClear: false,
-  showOnlyLastMessages: false,
-  showTypingText: false,
-  showLogin: false,
-  showReasoning: false,
+  sessionID: '' as string | undefined,
 
 };
 
