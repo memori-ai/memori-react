@@ -1,0 +1,9 @@
+This is a test document for upload testing.
+This file simulates a document that would be uploaded to the Memori widget.
+
+Content:
+- Multiple lines of text
+- Used for testing document upload functionality
+- Should be processed and displayed correctly in the chat
+
+For actual testing with PDFs, replace this with a real PDF file.

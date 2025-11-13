@@ -1,0 +1,92 @@
+name: E2E Tests
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox]
+        # webkit disabled due to crashes on macOS runners
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'yarn'
+      
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps ${{ matrix.browser }}
+      
+      - name: Create test environment file
+        run: |
+          cat > .env.test << EOF
+          TEST_BASE_URL=${{ secrets.TEST_BASE_URL || 'http://localhost:3000' }}
+          TEST_API_URL=${{ secrets.TEST_API_URL || 'https://backend-staging.memori.ai' }}
+          TEST_ENGINE_URL=${{ secrets.TEST_ENGINE_URL || 'https://engine-staging.memori.ai' }}
+          TEST_BASE_MEMORI_URL=${{ secrets.TEST_BASE_MEMORI_URL || 'https://aisuru-staging.aclambda.online' }}
+          TEST_MEMORI_ID=${{ secrets.TEST_MEMORI_ID }}
+          TEST_MEMORI_NAME=${{ secrets.TEST_MEMORI_NAME || 'TestMemori' }}
+          TEST_OWNER_USER_ID=${{ secrets.TEST_OWNER_USER_ID }}
+          TEST_OWNER_USER_NAME=${{ secrets.TEST_OWNER_USER_NAME || 'testuser' }}
+          TEST_TENANT_ID=${{ secrets.TEST_TENANT_ID || 'www.aisuru.com' }}
+          TEST_INTEGRATION_ID=${{ secrets.TEST_INTEGRATION_ID }}
+          EOF
+      
+      - name: Run Playwright tests
+        run: yarn test:e2e --project=${{ matrix.browser }}
+        env:
+          CI: true
+      
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-${{ matrix.browser }}
+          path: e2e/test-results/
+          retention-days: 30
+      
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-html-report-${{ matrix.browser }}
+          path: e2e/test-results/html/
+          retention-days: 30
+
+  test-results:
+    name: Publish Test Results
+    needs: test
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: all-reports
+      
+      - name: Publish test results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: 'all-reports/**/results.json'
+          check_name: 'E2E Test Results'
+          comment_mode: off
+
