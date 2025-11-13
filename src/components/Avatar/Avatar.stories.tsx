@@ -5,6 +5,7 @@ import I18nWrapper from '../../I18nWrapper';
 import Avatar, { Props } from './Avatar';
 
 import './Avatar.css';
+import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 
 const meta: Meta = {
   title: 'Widget/Avatar',
@@ -32,6 +33,7 @@ const Template: Story<Props> = args => {
 
   return (
     <I18nWrapper>
+      <ArtifactProvider>
       <div
         style={
           args.integrationConfig?.avatar === 'customglb' ||
@@ -58,6 +60,7 @@ const Template: Story<Props> = args => {
           key={Date.now()}
         />
       </div>
+      </ArtifactProvider>
     </I18nWrapper>
   );
 };
