@@ -352,3 +352,72 @@ WithRGBColors.args = {
     },
   ],
 };
+
+export const AllImageTypes = Template.bind({});
+AllImageTypes.args = {
+  items: [
+    {
+      mediumID: 'img-png-1',
+      mimeType: 'image/png',
+      title: 'PNG Image',
+      url: 'https://picsum.photos/300/200?random=1',
+      content: 'https://picsum.photos/300/200?random=1',
+    },
+    {
+      mediumID: 'img-jpeg-1',
+      mimeType: 'image/jpeg',
+      title: 'JPEG Image',
+      url: 'https://picsum.photos/300/200?random=2',
+      content: 'https://picsum.photos/300/200?random=2',
+    },
+    {
+      mediumID: 'img-jpg-1',
+      mimeType: 'image/jpg',
+      title: 'JPG Image',
+      url: 'https://picsum.photos/300/200?random=3',
+      content: 'https://picsum.photos/300/200?random=3',
+    },
+    {
+      mediumID: 'img-gif-1',
+      mimeType: 'image/gif',
+      title: 'GIF Image',
+      url: 'https://picsum.photos/300/200?random=4',
+      content: 'https://picsum.photos/300/200?random=4',
+    },
+    {
+      mediumID: 'img-webp-1',
+      mimeType: 'image/webp',
+      title: 'WebP Image',
+      url: 'https://picsum.photos/300/200?random=5',
+      content: 'https://picsum.photos/300/200?random=5',
+    },
+    {
+      mediumID: 'img-svg-1',
+      mimeType: 'image/svg+xml',
+      title: 'SVG Image',
+      url: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="200"%3E%3Crect width="300" height="200" fill="%234CAF50"/%3E%3Ctext x="150" y="100" font-family="Arial" font-size="24" fill="white" text-anchor="middle"%3ESVG Image%3C/text%3E%3C/svg%3E',
+      content: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="200"%3E%3Crect width="300" height="200" fill="%234CAF50"/%3E%3Ctext x="150" y="100" font-family="Arial" font-size="24" fill="white" text-anchor="middle"%3ESVG Image%3C/text%3E%3C/svg%3E',
+    },
+    {
+      mediumID: 'img-bmp-1',
+      mimeType: 'image/bmp',
+      title: 'BMP Image',
+      url: 'https://picsum.photos/300/200?random=6',
+      content: 'https://picsum.photos/300/200?random=6',
+    },
+    {
+      mediumID: 'img-tiff-1',
+      mimeType: 'image/tiff',
+      title: 'TIFF Image',
+      url: 'https://picsum.photos/300/200?random=7',
+      content: 'https://picsum.photos/300/200?random=7',
+    },
+    {
+      mediumID: 'img-ico-1',
+      mimeType: 'image/x-icon',
+      title: 'ICO Image',
+      url: 'https://picsum.photos/300/200?random=8',
+      content: 'https://picsum.photos/300/200?random=8',
+    },
+  ],
+};
