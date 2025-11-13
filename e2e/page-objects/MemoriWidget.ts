@@ -2,7 +2,6 @@ import { Page, Locator } from '@playwright/test';
 import { selectors } from '../fixtures/test-data';
 import { StartPanel } from './StartPanel';
 import { ChatPanel } from './ChatPanel';
-import { SettingsDrawer } from './SettingsDrawer';
 
 /**
  * Page Object Model for the main Memori Widget
@@ -13,14 +12,12 @@ export class MemoriWidget {
   readonly widget: Locator;
   readonly startPanel: StartPanel;
   readonly chatPanel: ChatPanel;
-  readonly settingsDrawer: SettingsDrawer;
 
   constructor(page: Page) {
     this.page = page;
     this.widget = page.locator(selectors.widget);
     this.startPanel = new StartPanel(page);
     this.chatPanel = new ChatPanel(page);
-    this.settingsDrawer = new SettingsDrawer(page);
   }
 
   /**

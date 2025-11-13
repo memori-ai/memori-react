@@ -23,14 +23,6 @@ yarn install
 npx playwright install --with-deps
 ```
 
-### Configure Environment
-
-Copy the example environment file and fill in your test data:
-
-```bash
-cp .env.test.example .env.test
-```
-
 ## Running Tests
 
 ### Run all tests
@@ -91,32 +83,6 @@ TEST_USE_MOCK=true yarn test:e2e
 Or configure it in `.env.test`:
 
 ```env
-TEST_USE_MOCK=true
-```
-
-## API Mocking
-
-The test suite supports two modes:
-
-### 1. Real API Mode (Default)
-- Tests call actual staging APIs
-- Tests real integration and backend behavior
-- Slower (8-10s per API call)
-- Dependent on network and backend availability
-
-### 2. Mock API Mode
-- Tests use mocked API responses
-- Faster execution (instant responses)
-- More reliable and deterministic
-- Useful for UI and interaction testing
-
-**Enable mock mode:**
-
-```bash
-# Via environment variable
-TEST_USE_MOCK=true yarn test:e2e
-
-# Or in .env.test
 TEST_USE_MOCK=true
 ```
 
@@ -361,43 +327,12 @@ Tests run automatically on:
 - Pull requests
 - Manual workflow dispatch
 
-### Configure GitHub Secrets
-
-Add these secrets to your GitHub repository:
-
-```
-TEST_BASE_URL
-TEST_API_URL
-TEST_MEMORI_ID
-TEST_OWNER_USER_ID
-TEST_AUTH_TOKEN
-... (see .github/workflows/e2e-tests.yml)
-```
-
 ### View Results
 
 Test results and artifacts are uploaded to GitHub Actions:
 - HTML reports: `playwright-html-report-{browser}`
 - Test results: `playwright-report-{browser}`
 
-## Troubleshooting
-
-### Tests failing locally
-
-1. **Check environment variables**
-   ```bash
-   cat .env.test
-   ```
-
-2. **Verify staging environment is accessible**
-   ```bash
-   curl https://backend-staging.memori.ai/health
-   ```
-
-3. **Update Playwright browsers**
-   ```bash
-   npx playwright install --with-deps
-   ```
 
 ### Tests passing locally but failing in CI
 

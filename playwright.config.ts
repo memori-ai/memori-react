@@ -43,10 +43,10 @@ export default defineConfig({
     // video: 'retain-on-failure',
     
     // Maximum time for each action (click, fill, etc.)
-    actionTimeout: 15000,
+    // actionTimeout: 15000,
     
-    // Navigation timeout
-    navigationTimeout: 30000,
+    // // Navigation timeout
+    // navigationTimeout: 30000,
   },
   
   // Configure projects for major browsers

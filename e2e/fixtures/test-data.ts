@@ -6,30 +6,7 @@ import { env } from 'process';
 
 export const testConfig = {
   // Base URLs
-  baseURL: env.TEST_BASE_URL || 'http://localhost:3000',
-  apiURL: env.TEST_API_URL || 'https://backend-staging.memori.ai',
-  engineURL: env.TEST_ENGINE_URL || 'https://engine-staging.memori.ai',
-  baseMemoriURL:
-    env.TEST_BASE_MEMORI_URL ||
-    'https://aisuru-staging.aclambda.online',
-
-  // Test Memori configuration
-  memori: {
-    id: env.TEST_MEMORI_ID || '',
-    name: env.TEST_MEMORI_NAME || 'TestMemori',
-    ownerUserID: env.TEST_OWNER_USER_ID || '',
-    ownerUserName: env.TEST_OWNER_USER_NAME || 'testuser',
-  },
-
-  // Tenant configuration
-  tenant: {
-    id: env.TEST_TENANT_ID || 'www.aisuru.com',
-  },
-
-  // Integration configuration
-  integration: {
-    id: env.TEST_INTEGRATION_ID || '',
-  },
+  baseURL: 'https://memori-ai.github.io/memori-react/iframe.html?id=general-layouts--default&viewMode=story',
 
   // Upload configuration
   upload: {

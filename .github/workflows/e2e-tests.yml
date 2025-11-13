@@ -37,16 +37,7 @@ jobs:
       - name: Create test environment file
         run: |
           cat > .env.test << EOF
-          TEST_BASE_URL=${{ secrets.TEST_BASE_URL || 'http://localhost:3000' }}
-          TEST_API_URL=${{ secrets.TEST_API_URL || 'https://backend-staging.memori.ai' }}
-          TEST_ENGINE_URL=${{ secrets.TEST_ENGINE_URL || 'https://engine-staging.memori.ai' }}
-          TEST_BASE_MEMORI_URL=${{ secrets.TEST_BASE_MEMORI_URL || 'https://aisuru-staging.aclambda.online' }}
-          TEST_MEMORI_ID=${{ secrets.TEST_MEMORI_ID }}
-          TEST_MEMORI_NAME=${{ secrets.TEST_MEMORI_NAME || 'TestMemori' }}
-          TEST_OWNER_USER_ID=${{ secrets.TEST_OWNER_USER_ID }}
-          TEST_OWNER_USER_NAME=${{ secrets.TEST_OWNER_USER_NAME || 'testuser' }}
-          TEST_TENANT_ID=${{ secrets.TEST_TENANT_ID || 'www.aisuru.com' }}
-          TEST_INTEGRATION_ID=${{ secrets.TEST_INTEGRATION_ID }}
+          TEST_BASE_URL=${{ secrets.TEST_BASE_URL || 'https://memori-ai.github.io/memori-react/iframe.html?id=general-layouts--default&viewMode=story' }}
           EOF
       
       - name: Run Playwright tests
