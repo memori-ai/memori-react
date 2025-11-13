@@ -381,6 +381,32 @@ document.addEventListener('MemoriNewDialogState', e => {
 
 where `e.details` is the new state of the Memori. This is useful to use when working with [memori-webcomponent](https://github.com/memori-ai/memori-webcomponent).
 
+## Testing
+
+### Unit Tests
+
+```bash
+yarn test
+```
+
+### Integration Tests
+
+End-to-end tests using Playwright:
+
+```bash
+# Install dependencies
+yarn install
+npx playwright install --with-deps
+
+# Run integration tests
+yarn test:e2e
+
+# Run with UI
+yarn test:e2e:ui
+```
+
+See [e2e/README.md](e2e/README.md) for detailed testing documentation.
+
 ## See also
 
 - [memori-api-client](https://github.com/memori-ai/memori-api-client) - API client for Memori

@@ -2657,6 +2657,7 @@ __metadata:
     "@commitlint/config-conventional": 17.3.0
     "@headlessui/react": 1.7.4
     "@memori.ai/memori-api-client": 6.13.3
+    "@playwright/test": ^1.56.1
     "@react-three/drei": 8.20.2
     "@react-three/fiber": 7.0.25
     "@release-it/conventional-changelog": 5.1.1
@@ -2686,6 +2687,7 @@ __metadata:
     copyfiles: 2.4.1
     cssnano: 5.1.14
     dompurify: ^3.2.1
+    dotenv: ^17.2.3
     ellipsed: 1.6.0
     eslint: 8.29.0
     eslint-config-prettier: 8.5.0
@@ -2965,6 +2967,17 @@ __metadata:
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
   checksum: 6ad6a00fc4f2f2cfc6bff76fb1d88b8ee20bc0601e18ebb01b6d4be583733a860239a521a7fbca73b612e66705078809483549d2b18f370eb346c5155c8e4a0f
+  languageName: node
+  linkType: hard
+
+"@playwright/test@npm:^1.56.1":
+  version: 1.56.1
+  resolution: "@playwright/test@npm:1.56.1"
+  dependencies:
+    playwright: 1.56.1
+  bin:
+    playwright: cli.js
+  checksum: 109544665800de973987893adffa17d1e563fb99d3485d6399784e8c8a9269081cae9a00e09ca308aa140e932a4e862dca0b3de07a21e2dfbf8cfcc3b2b6b4f3
   languageName: node
   linkType: hard
 
@@ -9506,6 +9519,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dotenv@npm:^17.2.3":
+  version: 17.2.3
+  resolution: "dotenv@npm:17.2.3"
+  checksum: fde23eb88649041ec7a0f6a47bbe59cac3c454fc2007cf2e40b9c984aaf0636347218c56cfbbf067034b0a73f530a2698a19b4058695787eb650ec69fe234624
+  languageName: node
+  linkType: hard
+
 "draco3d@npm:^1.4.1":
   version: 1.5.7
   resolution: "draco3d@npm:1.5.7"
@@ -11305,12 +11325,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fsevents@npm:2.3.2":
+  version: 2.3.2
+  resolution: "fsevents@npm:2.3.2"
+  dependencies:
+    node-gyp: latest
+  checksum: 97ade64e75091afee5265e6956cb72ba34db7819b4c3e94c431d4be2b19b8bb7a2d4116da417950c3425f17c8fe693d25e20212cac583ac1521ad066b77ae31f
+  conditions: os=darwin
+  languageName: node
+  linkType: hard
+
 "fsevents@npm:^2.3.2, fsevents@npm:~2.3.2":
   version: 2.3.3
   resolution: "fsevents@npm:2.3.3"
   dependencies:
     node-gyp: latest
   checksum: 11e6ea6fea15e42461fc55b4b0e4a0a3c654faa567f1877dbd353f39156f69def97a69936d1746619d656c4b93de2238bf731f6085a03a50cabf287c9d024317
+  conditions: os=darwin
+  languageName: node
+  linkType: hard
+
+"fsevents@patch:fsevents@2.3.2#~builtin<compat/fsevents>":
+  version: 2.3.2
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=18f3a7"
+  dependencies:
+    node-gyp: latest
   conditions: os=darwin
   languageName: node
   linkType: hard
@@ -16515,6 +16554,30 @@ __metadata:
     mlly: ^1.7.4
     pathe: ^2.0.1
   checksum: 4fa4edb2bb845646cdbd04c5c6bc43cdbc8f02ed4d1c28bfcafb6e65928aece789bcf1335e4cac5f65dfdc376e4bd7435bd509a35e9ec73ef2c076a1b88e289c
+  languageName: node
+  linkType: hard
+
+"playwright-core@npm:1.56.1":
+  version: 1.56.1
+  resolution: "playwright-core@npm:1.56.1"
+  bin:
+    playwright-core: cli.js
+  checksum: 170dff398b47da140182631ae025190248dabde7a5264335f54e238546a478f522ac9a620b31462e6e31c883273223bff8e883b502a699da490abe9741fb3b71
+  languageName: node
+  linkType: hard
+
+"playwright@npm:1.56.1":
+  version: 1.56.1
+  resolution: "playwright@npm:1.56.1"
+  dependencies:
+    fsevents: 2.3.2
+    playwright-core: 1.56.1
+  dependenciesMeta:
+    fsevents:
+      optional: true
+  bin:
+    playwright: cli.js
+  checksum: e7537e7d5048a1a8544d7675b005196ba9db919edc3b6d46b92273ee6f20e37ada8991774c5df9ef5123ea4610978d582feb141c8a02f4cf256a6c0b224b8793
   languageName: node
   linkType: hard
 
