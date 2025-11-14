@@ -374,7 +374,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
           onClick={handleCopyClick}
           disabled={disabled || loading || copyState.loading}
           className={cx(
-            'memori-copy-button memori-copy-button--main',
+            'memori-copy-button memori-copy-button--main ',
             {
               'memori-copy-button--success': copyState.success,
               'memori-copy-button--error': copyState.error,
