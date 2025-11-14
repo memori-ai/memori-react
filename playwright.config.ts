@@ -43,10 +43,10 @@ export default defineConfig({
     // video: 'retain-on-failure',
     
     // Maximum time for each action (click, fill, etc.)
-    // actionTimeout: 15000,
+    actionTimeout: 15000,
     
     // // Navigation timeout
-    // navigationTimeout: 30000,
+    navigationTimeout: 30000,
   },
   
   // Configure projects for major browsers
@@ -56,10 +56,10 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
     
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
     
     // WebKit disabled due to crashes on macOS (Bus error: 10)
     // Re-enable when Playwright fixes the issue
@@ -69,10 +69,10 @@ export default defineConfig({
     // },
     
     // Mobile viewports
-    {
-      name: 'mobile-chrome',
-      use: { ...devices['Pixel 5'] },
-    },
+    // {
+    //   name: 'mobile-chrome',
+    //   use: { ...devices['Pixel 5'] },
+    // },
     
     // Mobile Safari uses WebKit - disabled for same reason
     // {

@@ -1,3 +1,0 @@
-This is a placeholder for test image file.
-For actual testing, replace this with a real image file (e.g., test-image.png or test-image.jpg)
-You can use any small image file (< 5MB) for testing.

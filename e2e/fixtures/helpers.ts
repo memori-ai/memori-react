@@ -269,3 +269,27 @@ export async function setupNetworkErrorListener(page: Page) {
   return errors;
 }
 
+/**
+ * Check if element has reasoning (think tags)
+ */
+export async function hasReasoning(page: Page): Promise<boolean> {
+  const reasoning = page.locator(selectors.reasoningDetails);
+  return await reasoning.isVisible().catch(() => false);
+}
+
+/**
+ * Get number of artifacts in messages
+ */
+export async function getArtifacts(page: Page): Promise<number> {
+  const artifacts = page.locator(selectors.artifactButton);
+  return await artifacts.count();
+}
+
+/**
+ * Check if uploaded media exists in chat
+ */
+export async function hasUploadedMedia(page: Page): Promise<boolean> {
+  const media = page.locator(selectors.uploadedMedia);
+  return await media.isVisible().catch(() => false);
+}
+

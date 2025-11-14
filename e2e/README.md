@@ -4,13 +4,15 @@ Integration tests for the Memori React widget using Playwright.
 
 ## Overview
 
-These tests verify critical user flows against a staging environment with **18 focused tests** covering main features:
+These tests verify critical user flows against a staging environment with **30+ comprehensive tests** covering main features:
 
 1. **Session Initialization** (4 tests) - Widget loading and session creation
 2. **Chat Messaging** (4 tests) - Core conversation functionality
-3. **File Upload** (2 tests) - File upload functionality
+3. **File Upload** (5 tests) - File upload functionality including PDF and images
 4. **TTS Audio** (3 tests) - Text-to-speech controls
 5. **Layouts** (5 tests) - Multiple layout configurations
+6. **Reasoning Display** (3 tests) - showReasoning prop with think tags
+7. **Artifact System** (5 tests) - Artifact detection and display
 
 > **Note:** Authentication tests are excluded because this project uses magic link authentication, which requires email interaction and is not suitable for automated testing.
 
@@ -123,15 +125,20 @@ e2e/
 │   ├── 02-chat-messaging.spec.ts
 │   ├── 03-file-upload.spec.ts
 │   ├── 04-tts-audio.spec.ts
-│   └── 05-layouts.spec.ts
+│   ├── 05-layouts.spec.ts
+│   ├── 06-reasoning.spec.ts
+│   └── 07-artifacts.spec.ts
 ├── page-objects/              # Page object models
 │   ├── MemoriWidget.ts
 │   ├── StartPanel.ts
-│   ├── ChatPanel.ts
+│   └── ChatPanel.ts
 ├── fixtures/                  # Test data and helpers
 │   ├── test-data.ts
 │   ├── helpers.ts
 │   └── test-files/
+│       ├── test-document.pdf
+│       ├── test-image.jpg
+│       └── test-document.txt
 └── test-results/              # Generated reports
 ```
 
@@ -238,6 +245,33 @@ import { selectors } from '../fixtures/test-data';
 // Use predefined selectors
 const chatInput = page.locator(selectors.chatInput);
 ```
+
+## Test Coverage
+
+### File Upload Tests (03-file-upload.spec.ts)
+
+Tests comprehensive file upload functionality:
+- Upload button visibility and menu opening
+- **PDF document upload flow**: Full workflow from button click to document display in chat
+- **JPG image upload flow**: Complete image upload with chat verification
+- **Multiple image formats**: Testing various image types (JPG, PNG, GIF)
+- Uploaded media verification in chat bubbles
+
+### Reasoning Tests (06-reasoning.spec.ts)
+
+Tests `showReasoning` prop functionality:
+- **Show reasoning**: When `showReasoning={true}`, `<think>` tags display as expandable details
+- **Hide reasoning**: When `showReasoning={false}`, `<think>` content is hidden
+- **Expand reasoning**: Interactive expansion of reasoning details element
+
+### Artifact Tests (07-artifacts.spec.ts)
+
+Tests artifact detection and display system:
+- **HTML artifacts**: Detection and rendering of `text/html` artifacts
+- **Markdown artifacts**: Detection and rendering of `text/markdown` artifacts
+- **JavaScript artifacts**: Detection and rendering of `text/javascript` code artifacts
+- **Artifact isolation**: Verifies artifacts only appear in memori responses, not user messages
+- **Multiple artifacts**: Handling multiple artifacts in a single response
 
 ## Best Practices
 

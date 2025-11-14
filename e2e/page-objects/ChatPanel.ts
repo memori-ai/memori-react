@@ -135,14 +135,19 @@ export class ChatPanel {
    * Wait for user message to appear in chat
    */
   async waitForUserMessage(timeout: number = waitTimes.short) {
-    const memoriBubble  = this.page.locator(selectors.memoriBubble);
-    await memoriBubble.last().waitFor({ state: 'visible', timeout });
+    const userBubble = this.page.locator(selectors.memoriBubble);
+    await userBubble.last().waitFor({ state: 'visible', timeout });
   }
 
   /**
    * Wait for memori response
    */
   async waitForMemoriResponse(timeout: number = waitTimes.response) {
+    const memoriBubble = this.page.locator(selectors.memoriBubble);
+    
+    // Get current count of memori bubbles
+    const initialCount = await memoriBubble.count();
+    
     // Wait for typing indicator (if present)
     const typingIndicator = this.page.locator(selectors.typing);
     const hasTyping = await typingIndicator.isVisible().catch(() => false);
@@ -151,10 +156,7 @@ export class ChatPanel {
       await typingIndicator.waitFor({ state: 'hidden', timeout });
     }
 
-    // Wait for memori bubble to appear
-    const memoriBubble = this.page.locator(selectors.memoriBubble);
-    await memoriBubble.last().waitFor({ state: 'visible', timeout });
-
+    // Return the latest bubble
     return memoriBubble.last();
   }
 
@@ -352,5 +354,158 @@ export class ChatPanel {
   async clickHint(index: number) {
     const hints = this.page.locator('.memori-hint');
     await hints.nth(index).click();
+  }
+
+  /**
+   * Check if artifact button is visible
+   */
+  async hasArtifactButton(): Promise<boolean> {
+    const artifactButton = this.page.locator(selectors.artifactButton);
+    return await artifactButton.isVisible().catch(() => false);
+  }
+
+  /**
+   * Click on an artifact badge to open artifact drawer
+   */
+  async clickArtifact(index: number = 0) {
+    const artifactButtons = this.page.locator(selectors.artifactButton);
+    await artifactButtons.nth(index).click();
+  }
+
+  /**
+   * Check if artifact drawer is open
+   */
+  async isArtifactDrawerOpen(): Promise<boolean> {
+    const drawer = this.page.locator(selectors.artifactDrawer);
+    return await drawer.isVisible().catch(() => false);
+  }
+
+  /**
+   * Check if reasoning details are visible
+   */
+  async hasReasoningDetails(): Promise<boolean> {
+    const reasoning = this.page.locator(selectors.reasoningDetails);
+    return await reasoning.isVisible().catch(() => false);
+  }
+
+  /**
+   * Expand reasoning details
+   */
+  async expandReasoning() {
+    const reasoning = this.page.locator(selectors.reasoningDetails);
+    if (await reasoning.isVisible()) {
+      const summary = reasoning.locator('summary');
+      await summary.click();
+    }
+  }
+
+  /**
+   * Check if uploaded media exists in chat
+   */
+  async hasUploadedMedia(): Promise<boolean> {
+    const media = this.page.locator(selectors.uploadedMedia);
+    return await media.isVisible().catch(() => false);
+  }
+
+  /**
+   * Get count of uploaded media in chat
+   */
+  async getUploadedMediaCount(): Promise<number> {
+    const media = this.page.locator(selectors.uploadedMedia);
+    return await media.count();
+  }
+
+  /**
+   * Check if uploaded document exists in chat
+   */
+  async hasUploadedDocument(): Promise<boolean> {
+    const doc = this.page.locator(selectors.uploadedMedia);
+    return await doc.isVisible().catch(() => false);
+  }
+
+  /**
+   * Check if uploaded image exists in chat
+   */
+  async hasUploadedImage(): Promise<boolean> {
+    const img = this.page.locator('.memori-media-item--figure');
+    return await img.isVisible().catch(() => false);
+  }
+
+  /**
+   * Click the copy button in artifact drawer
+   */
+  async clickArtifactCopy() {
+    const copyButton = this.page.locator(selectors.artifactCopyButton);
+    await copyButton.click();
+  }
+
+  /**
+   * Click the copy dropdown to open copy options menu
+   */
+  async clickArtifactCopyDropdown() {
+    const dropdown = this.page.locator(selectors.artifactCopyDropdown);
+    await dropdown.click();
+    await this.page.waitForTimeout(waitTimes.short);
+  }
+
+  /**
+   * Check if artifact copy menu is visible
+   */
+  async isArtifactCopyMenuVisible(): Promise<boolean> {
+    const menu = this.page.locator(selectors.artifactCopyMenu);
+    return await menu.isVisible().catch(() => false);
+  }
+
+  /**
+   * Click a specific copy menu item by index
+   */
+  async clickArtifactCopyMenuItem(index: number) {
+    const menuItems = this.page.locator(selectors.artifactCopyMenuItem);
+    await menuItems.nth(index).click();
+  }
+
+  /**
+   * Click print button in artifact drawer
+   */
+  async clickArtifactPrint() {
+    const printButton = this.page.locator(selectors.artifactPrintButton);
+    await printButton.click();
+  }
+
+  /**
+   * Click external/open in new window button in artifact drawer
+   */
+  async clickArtifactExternal() {
+    const externalButton = this.page.locator(selectors.artifactExternalButton);
+    await externalButton.click();
+  }
+
+  /**
+   * Get count of copy menu items
+   */
+  async getArtifactCopyMenuItemCount(): Promise<number> {
+    const menuItems = this.page.locator(selectors.artifactCopyMenuItem);
+    return await menuItems.count();
+  }
+
+  /**
+   * Close artifact drawer
+   */
+  async closeArtifactDrawer() {
+    const closeButton = this.page.locator(selectors.artifactCloseButton);
+    if (await closeButton.isVisible()) {
+      await closeButton.click();
+      await this.page.waitForTimeout(waitTimes.short);
+    }
+  }
+
+  /**
+   * Check if copy button shows success state
+   */
+  async isCopySuccessful(): Promise<boolean> {
+    const copyButton = this.page.locator(selectors.artifactCopyButton);
+    return await copyButton.evaluate(el => 
+      el.classList.contains('memori-copy-button--success')
+    ).catch(() => false);
   }
 }

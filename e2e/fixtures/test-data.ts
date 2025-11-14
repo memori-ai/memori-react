@@ -19,6 +19,13 @@ export const testConfig = {
 
   // Test configuration
   useMockApi: env.TEST_USE_MOCK === 'true',
+  
+  // Test files paths
+  testFiles: {
+    pdf: 'e2e/fixtures/test-files/test-document.pdf',
+    jpg: 'e2e/fixtures/test-files/test-image.jpg',
+    txt: 'e2e/fixtures/test-files/test-document.txt',
+  },
 };
 
 /**
@@ -30,6 +37,8 @@ export const testMessages = {
   followUp: 'Can you tell me more about that?',
   withContext: 'Tell me about the weather',
   long: 'This is a longer test message that contains multiple sentences. It is used to test how the system handles longer inputs. The message should be processed correctly and receive an appropriate response from the memori.',
+  withDocument: 'I uploaded a document, can you read it?',
+  withImage: 'What do you see in this image?',
 };
 
 /**
@@ -75,9 +84,13 @@ export const selectors = {
   // Media & Uploads
   uploadButton: '.memori--unified-upload-button',
   uploadMenu: '.memori--upload-menu',
-  imageUploadInput: 'input[type="file"][accept*="image"]',
+  imageUploadInput: 'input[type="file"][accept*="jpg"]',
   documentUploadInput: 'input[type="file"][accept*="pdf"]',
   mediaPreview: '.memori-media-preview',
+  documentPreview: '.memori-document-preview',
+  uploadedMedia: '.memori-media-item',
+  uploadedDocument: '.memori-media-item--document',
+  uploadedImage: '.memori-media-item--image',
   
   // Audio/TTS
   speakerButton: '.memori-header--button--speaker',
@@ -114,6 +127,23 @@ export const selectors = {
   // State attributes
   sessionIDAttr: '[data-memori-session-id]',
   engineStateAttr: '[data-memori-engine-state]',
+  
+  // Reasoning
+  reasoningDetails: '.memori-think',
+  reasoningSummary: '.memori-think summary',
+  
+  // Artifacts
+  artifactButton: '.memori-artifact-handler',
+  artifactDrawer: '.memori-artifact-panel-drawer',
+  artifactPreview: '.memori-artifact-preview',
+  artifactOutput: 'output.memori-artifact',
+  artifactCopyButton: '.memori-copy-button--main',
+  artifactCopyDropdown: '.memori-copy-button--dropdown',
+  artifactCopyMenu: '.memori-copy-dropdown',
+  artifactCopyMenuItem: '.memori-copy-menu-item',
+  artifactPrintButton: '.memori-copy-menu-item--print',
+  artifactExternalButton: '.memori-copy-menu-item--external',
+  artifactCloseButton: '.memori-artifact-drawer--close',
 };
 
 /**
