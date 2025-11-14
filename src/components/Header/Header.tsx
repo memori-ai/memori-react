@@ -290,7 +290,7 @@ const Header: React.FC<Props> = ({
         <Button
           primary
           shape="circle"
-          className="memori-header--button memori-header--button--speaker"
+          className={cx('memori-header--button memori-header--button--speaker', { 'memori-header--button--speaker-muted': speakerMuted })}
           icon={speakerMuted ? <SoundDeactivated /> : <Sound />}
           onClick={() => setSpeakerMuted(!speakerMuted)}
           title={t('widget.sound') || 'Sound'}

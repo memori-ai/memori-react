@@ -1,5 +1,21 @@
 
 
+## [8.11.0](https://github.com/memori-ai/memori-react/compare/v8.10.1...v8.11.0) (2025-11-13)
+
+
+### Features
+
+* add additional layout props for enhanced customization in DefaultLayout story ([be0a03f](https://github.com/memori-ai/memori-react/commit/be0a03fa66bdebdf65f5189df27efc88a61f33c8))
+* add support for multiple image types in MediaItemWidget stories ([dccf8d1](https://github.com/memori-ai/memori-react/commit/dccf8d1d7556b5eff0d8248e662bac13f03d7b98))
+* enhance image handling in MediaItemWidget with improved error handling and URL validation ([68ac439](https://github.com/memori-ai/memori-react/commit/68ac4392654ef2e92661475238f78beb06d9a4a1))
+
+
+### Changes
+
+* remove unused props from DefaultLayout story ([2d3586c](https://github.com/memori-ai/memori-react/commit/2d3586c4f64532ccf550eb06d834201e7d4f3ff5))
+* update layout stories to use new Memori component structure and streamline props handling ([dcd098e](https://github.com/memori-ai/memori-react/commit/dcd098ec420d5bc54bd8b0fd5b0931948a6c5de4))
+* update storybook layouts and remove unused story exports for improved organization ([deec85d](https://github.com/memori-ai/memori-react/commit/deec85d45e7917416288783ff70ee1936bf10715))
+
 ## [8.10.1](https://github.com/memori-ai/memori-react/compare/v8.10.0...v8.10.1) (2025-11-11)
 
 

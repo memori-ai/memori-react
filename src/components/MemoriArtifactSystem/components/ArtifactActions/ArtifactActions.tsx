@@ -215,7 +215,7 @@ const ArtifactActions: React.FC<{
                 <Button
                   onClick={handlePrint}
                   disabled={loading}
-                  className="memori-artifact-action-btn"
+                  className="memori-artifact-action-btn memori-artifact-action-btn--print"
                   ghost
                   icon={<PrintIcon className="memori-artifact-action-icon" />}
                   title={t('artifact.print') || 'Print'}
@@ -228,7 +228,7 @@ const ArtifactActions: React.FC<{
                 <Button
                   onClick={handleOpenExternal}
                   disabled={loading}
-                  className="memori-artifact-action-btn"
+                  className="memori-artifact-action-btn memori-artifact-action-btn--external"
                   ghost
                   icon={<Link className="memori-artifact-action-icon" />}
                   title={t('artifact.external') || 'External'}

@@ -869,7 +869,7 @@ exports[`renders Header with speaker muted unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
+      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker memori-header--button--speaker-muted"
       title="widget.sound"
     >
       <span
