@@ -49,6 +49,7 @@ DefaultLayout.args = {
   autoStart: false,
   sessionID: '' as string | undefined,
   showUpload: true,
+  showReasoning: false,
 };
 
 
