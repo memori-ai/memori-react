@@ -4926,22 +4926,23 @@ exports[`renders Chat with memori typing unchanged 1`] = `
         </div>
       </div>
       <button
-        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
+        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-button--loading memori-chat-inputs--send"
         disabled=""
         title="send"
       >
         <span
-          class="memori-button--icon"
+          class="memori-button--icon loading-icon"
         >
           <svg
             aria-hidden="true"
+            class="memori-loading-icon"
             focusable="false"
             role="img"
             viewBox="0 0 1024 1024"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+              d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
             />
           </svg>
         </span>

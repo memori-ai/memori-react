@@ -431,6 +431,7 @@ const Chat: React.FC<Props> = ({
           instruct={instruct}
           authToken={authToken}
           sendMessage={sendMessage}
+          isTyping={memoriTyping}
           microphoneMode={microphoneMode}
           sendOnEnter={sendOnEnter}
           setSendOnEnter={setSendOnEnter}

@@ -980,6 +980,20 @@ def process_data(df):
   setSendOnEnter: () => {},
 };
 
+export const WithTyping = Template.bind({});
+WithTyping.args = {
+  memori,
+  tenant,
+  sessionID,
+  history,
+  dialogState: {
+    state: 'X2a',
+  },
+  layout: 'DEFAULT',
+  memoriTyping: true,
+  typingText: 'Sto pensando...',
+};
+
 export const WithAllMediaTypes = Template.bind({});
 WithAllMediaTypes.args = {
   memori,

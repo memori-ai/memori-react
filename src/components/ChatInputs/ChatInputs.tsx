@@ -31,6 +31,7 @@ export interface Props {
   microphoneMode?: 'CONTINUOUS' | 'HOLD_TO_TALK';
   authToken?: string;
   showUpload?: boolean;
+  isTyping?: boolean;
   sessionID?: string;
   memoriID?: string;
   client?: ReturnType<typeof memoriApiClient>;
@@ -52,6 +53,7 @@ const ChatInputs: React.FC<Props> = ({
   startListening,
   stopListening,
   showUpload = false,
+  isTyping = false,
   sessionID,
   authToken,
   memoriID,
@@ -95,6 +97,8 @@ const ChatInputs: React.FC<Props> = ({
       url?: string;
     }[]
   ) => {
+    if (isTyping) return;
+    
     const mediaWithIds = files.map((file, index) => {
       const generatedMediumID = file.mediumID || `file_${Date.now()}_${index}_${Math.random().toString(36).substr(2, 9)}`;
       return {
@@ -119,7 +123,15 @@ const ChatInputs: React.FC<Props> = ({
   /**
    * Handles enter key press in textarea
    */
-  const onTextareaPressEnter = () => {
+  const onTextareaPressEnter = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
+    // Prevent default newline on Enter to keep behavior consistent
+    e.preventDefault();
+
+    // While the agent is typing, ignore Enter (no send, no newline)
+    if (isTyping) return;
+
     if (sendOnEnter === 'keypress' && userMessage?.length > 0) {
       stopListening();
       const mediaWithIds = documentPreviewFiles.map((file, index) => {
@@ -217,6 +229,7 @@ const ChatInputs: React.FC<Props> = ({
       <Button
         shape="circle"
         primary={!!userMessage?.length}
+        loading={isTyping}
         disabled={!userMessage || userMessage.length === 0}
         className="memori-chat-inputs--send"
         onClick={() => {
