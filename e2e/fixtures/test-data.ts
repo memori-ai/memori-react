@@ -18,7 +18,7 @@ export const testConfig = {
   },
 
   // Test configuration
-  useMockApi: env.TEST_USE_MOCK === 'true',
+  useMockApi: env.TEST_USE_MOCK !== 'false', // Default to true, set TEST_USE_MOCK=false to disable
   
   // Test files paths
   testFiles: {
@@ -77,6 +77,7 @@ export const selectors = {
   memoriBubble: '.memori-chat--bubble:not(.memori-chat--user-bubble)',
   chatInput: '.memori-chat-textarea--input',
   sendButton: '.memori-chat-inputs--send',
+  imageConfirmButton: '.memori-button--image-confirm',
   
   // Typing indicator
   typing: '.memori--typing',
@@ -136,13 +137,14 @@ export const selectors = {
   artifactButton: '.memori-artifact-handler',
   artifactDrawer: '.memori-artifact-panel-drawer',
   artifactPreview: '.memori-artifact-preview',
-  artifactOutput: 'output.memori-artifact',
+  artifactOutput: '.memori-artifact-preview-content',
   artifactCopyButton: '.memori-copy-button--main',
   artifactCopyDropdown: '.memori-copy-button--dropdown',
   artifactCopyMenu: '.memori-copy-dropdown',
   artifactCopyMenuItem: '.memori-copy-menu-item',
   artifactPrintButton: '.memori-copy-menu-item--print',
   artifactExternalButton: '.memori-copy-menu-item--external',
+  artifactDownloadButton: '.memori-copy-menu-item--download',
   artifactCloseButton: '.memori-artifact-drawer--close',
 };
 

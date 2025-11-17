@@ -54,12 +54,13 @@ export class ChatPanel {
 
   /**
    * Mock the API response for faster/more reliable tests
+   * Matches: https://engine-staging.memori.ai/memori/v2/TextEnteredEvent/{sessionID}
    */
   async mockApiResponse(options?: {
     message?: string;
     media?: Array<{ url: string; mimeType: string; title?: string }>;
   }) {
-    await this.page.route('**/postTextEnteredEvent', async (route) => {
+    await this.page.route('**/memori/v2/TextEnteredEvent/**', async (route) => {
       const emission = options?.message || "Test response";
       const emittedMedia = options?.media || [];
       
@@ -111,16 +112,16 @@ export class ChatPanel {
    * Disable API mocking
    */
   async unmockApiResponse() {
-    await this.page.unroute('**/postTextEnteredEvent');
+    await this.page.unroute('**/memori/v2/TextEnteredEvent/**');
   }
 
   /**
    * Send a message and wait for it to be sent
    */
-  async sendMessage(message: string, useMock: boolean = false) {
+  async sendMessage(agentMessage: string, message: string, useMock: boolean = false) {
     // Setup mock if requested (must be before sending)
     if (useMock) {
-      await this.mockApiResponse({ message: `Response to: ${message}` });
+      await this.mockApiResponse({ message: agentMessage });
     }
 
     // Always type and send the message (mock only intercepts the API response)
@@ -465,6 +466,14 @@ export class ChatPanel {
   }
 
   /**
+   * Click download button in artifact drawer
+   */
+  async clickArtifactDownload() {
+    const downloadButton = this.page.locator(selectors.artifactDownloadButton);
+    await downloadButton.click();
+  }
+
+  /**
    * Click print button in artifact drawer
    */
   async clickArtifactPrint() {
@@ -507,5 +516,14 @@ export class ChatPanel {
     return await copyButton.evaluate(el => 
       el.classList.contains('memori-copy-button--success')
     ).catch(() => false);
+  }
+
+  /**
+   * Get the data-language attribute from the Snippet code element in the artifact drawer
+   * This verifies the artifact is properly displayed with the correct syntax highlighting
+   */
+  async getArtifactSnippetLanguage(): Promise<string | null> {
+    const snippetCode = this.page.locator('.memori-snippet code[data-language]');
+    return await snippetCode.getAttribute('data-language');
   }
 }

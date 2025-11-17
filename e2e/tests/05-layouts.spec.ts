@@ -26,7 +26,7 @@ test.describe('Layouts', () => {
     expect(hasLayout).toBe(true);
 
     await widget.startPanel.startSession();
-    await widget.chatPanel.sendMessage(testMessages.simple);
+    await widget.chatPanel.sendMessage('response to: ' + testMessages.simple, testMessages.simple, true);
     await widget.chatPanel.waitForMemoriResponse();
 
     const messageCount = await widget.chatPanel.getMessageCount();
@@ -43,7 +43,7 @@ test.describe('Layouts', () => {
     expect(hasLayout).toBe(true);
 
     await widget.startPanel.startSession();
-    await widget.chatPanel.sendMessage(testMessages.simple);
+    await widget.chatPanel.sendMessage('response to: ' + testMessages.simple, testMessages.simple, true);
     await widget.chatPanel.waitForMemoriResponse();
 
     const messageCount = await widget.chatPanel.getMessageCount();

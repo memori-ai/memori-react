@@ -10,7 +10,6 @@ import { testConfig, testMessages } from '../fixtures/test-data';
 
 test.describe('Chat Messaging', () => {
   let widget: MemoriWidget;
-  const useMock = testConfig.useMockApi;
 
   test.beforeEach(async ({ page }) => {
     widget = new MemoriWidget(page);
@@ -22,7 +21,7 @@ test.describe('Chat Messaging', () => {
   test('should send a text message and receive response', async () => {
     const initialCount = await widget.chatPanel.getMessageCount();
     
-    await widget.chatPanel.sendMessage(testMessages.question, useMock);
+    await widget.chatPanel.sendMessage('response to: ' + testMessages.question, testMessages.question, true);
     
     const newCount = await widget.chatPanel.getMessageCount();
     expect(newCount).toBeGreaterThan(initialCount);
@@ -35,17 +34,13 @@ test.describe('Chat Messaging', () => {
   });
 
   test('should clear input after sending message', async () => {
-    if (useMock) {
-      await widget.chatPanel.mockApiResponse({ message: 'Mock response' });
-    }
-    
     await widget.chatPanel.typeMessage(testMessages.simple);
     
     const inputValue = await widget.chatPanel.chatInput.inputValue();
     expect(inputValue).toBe(testMessages.simple);
     
-    await widget.chatPanel.clickSend();
-    await widget.chatPanel.waitForUserMessage();
+    await widget.chatPanel.sendMessage('Mock response', testMessages.simple, true);
+    
     await widget.page.waitForTimeout(500);
     
     const clearedValue = await widget.chatPanel.chatInput.inputValue();
@@ -53,7 +48,7 @@ test.describe('Chat Messaging', () => {
   });
 
   test('should display chat bubbles with correct styling', async () => {
-    await widget.chatPanel.sendMessage(testMessages.simple, useMock);
+    await widget.chatPanel.sendMessage('response to: ' + testMessages.simple, testMessages.simple, true);
     
     const userBubbles = widget.page.locator(selectors.userBubble);
     expect(await userBubbles.count()).toBeGreaterThan(0);
@@ -66,7 +61,7 @@ test.describe('Chat Messaging', () => {
 
   test('should scroll to show latest messages', async () => {
     for (let i = 0; i < 5; i++) {
-      await widget.chatPanel.sendMessage(`Test message ${i + 1}`, useMock);
+      await widget.chatPanel.sendMessage(`response to: Test message ${i + 1}`, `Test message ${i + 1}`, true);
       await widget.chatPanel.waitForMemoriResponse();
     }
     

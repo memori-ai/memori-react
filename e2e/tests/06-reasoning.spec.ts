@@ -21,13 +21,8 @@ test.describe('Reasoning Display', () => {
     await widget.startPanel.startSession();
     await widget.chatPanel.waitForVisible();
     
-    // Mock API response with <think> tags
-    await widget.chatPanel.mockApiResponse({
-      message: '<think>This is my reasoning process step by step</think>Here is my final answer',
-    });
-    
-    // Send a message
-    await widget.chatPanel.sendMessage('Test question', true);
+    // Send a message with mock API response containing <think> tags
+    await widget.chatPanel.sendMessage('<think>This is my reasoning process step by step</think>Here is my final answer', 'Test question', true);
     
     // Wait for response
     await widget.chatPanel.waitForMemoriResponse();
@@ -56,13 +51,8 @@ test.describe('Reasoning Display', () => {
     await widget.startPanel.startSession();
     await widget.chatPanel.waitForVisible();
     
-    // Mock API response with <think> tags
-    await widget.chatPanel.mockApiResponse({
-      message: '<think>This is my reasoning process that should be hidden</think>Here is my final answer',
-    });
-    
-    // Send a message
-    await widget.chatPanel.sendMessage('Test question', true);
+    // Send a message with mock API response containing <think> tags
+    await widget.chatPanel.sendMessage('<think>This is my reasoning process that should be hidden</think>Here is my final answer', 'Test question', true);
     
     // Wait for response
     await widget.chatPanel.waitForMemoriResponse();
@@ -88,13 +78,8 @@ test.describe('Reasoning Display', () => {
     await widget.startPanel.startSession();
     await widget.chatPanel.waitForVisible();
     
-    // Mock API response with <think> tags
-    await widget.chatPanel.mockApiResponse({
-      message: '<think>Step 1: Analyze the question\nStep 2: Consider options\nStep 3: Provide answer</think>Final response',
-    });
-    
-    // Send a message
-    await widget.chatPanel.sendMessage('Complex question', true);
+    // Send a message with mock API response containing <think> tags
+    await widget.chatPanel.sendMessage('<think>Step 1: Analyze the question\nStep 2: Consider options\nStep 3: Provide answer</think>Final response', 'Complex question', true);
     
     // Wait for response
     await widget.chatPanel.waitForMemoriResponse();

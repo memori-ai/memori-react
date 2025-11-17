@@ -52,7 +52,7 @@ test.describe('File Upload', () => {
     await widget.page.waitForTimeout(waitTimes.medium);
     
     // Send a message with the uploaded document
-    await widget.chatPanel.sendMessage(testMessages.withDocument, true);
+    await widget.chatPanel.sendMessage('response to: ' + testMessages.withDocument, testMessages.withDocument, true);
     
     // Verify message was sent
     await widget.chatPanel.waitForUserMessage();
@@ -95,9 +95,13 @@ test.describe('File Upload', () => {
     
     // Wait for upload to process
     await widget.page.waitForTimeout(waitTimes.medium);
+
+    //confirm the image upload
+    const imageConfirmButton = widget.page.locator(selectors.imageConfirmButton);
+    await imageConfirmButton.click();
     
     // Send a message with the uploaded image
-    await widget.chatPanel.sendMessage(testMessages.withImage, true);
+    await widget.chatPanel.sendMessage('response to: ' + testMessages.withImage, testMessages.withImage, true);
     
     // Verify message was sent
     await widget.chatPanel.waitForUserMessage();

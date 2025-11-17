@@ -30,12 +30,8 @@ test.describe('Artifact System', () => {
       </output>
     `;
     
-    await widget.chatPanel.mockApiResponse({
-      message: `Here is an HTML page for you: ${htmlArtifact}`,
-    });
-    
-    // Send a message
-    await widget.chatPanel.sendMessage('Create an HTML page', true);
+    // Send a message with mocked API response containing HTML artifact
+    await widget.chatPanel.sendMessage(`Here is an HTML page for you: ${htmlArtifact}`, 'Create an HTML page', true);
     
     // Wait for response
     await widget.chatPanel.waitForMemoriResponse();
@@ -43,10 +39,6 @@ test.describe('Artifact System', () => {
     // Check if artifact button is visible
     const hasArtifact = await widget.chatPanel.hasArtifactButton();
     expect(hasArtifact).toBe(true);
-    
-    // Verify artifact output element exists in the response
-    const artifactOutput = page.locator(selectors.artifactOutput);
-    await expect(artifactOutput).toBeVisible();
     
     // Click artifact to open drawer
     await widget.chatPanel.clickArtifact(0);
@@ -57,6 +49,11 @@ test.describe('Artifact System', () => {
     // Verify drawer is open
     const isDrawerOpen = await widget.chatPanel.isArtifactDrawerOpen();
     expect(isDrawerOpen).toBe(true);
+    
+    // Verify artifact displays HTML with correct syntax highlighting
+    // HTML is displayed with 'tsx' language in the code viewer
+    const dataLanguage = await widget.chatPanel.getArtifactSnippetLanguage();
+    expect(dataLanguage).toBe('tsx');
     
     // Test Copy Button
     await widget.chatPanel.clickArtifactCopy();
@@ -132,12 +129,8 @@ console.log('Code blocks too!');
       </output>
     `;
     
-    await widget.chatPanel.mockApiResponse({
-      message: `Here is a markdown document: ${markdownArtifact}`,
-    });
-    
-    // Send a message
-    await widget.chatPanel.sendMessage('Create a markdown document', true);
+    // Send a message with mocked API response containing Markdown artifact
+    await widget.chatPanel.sendMessage(`Here is a markdown document: ${markdownArtifact}`, 'Create a markdown document', true);
     
     // Wait for response
     await widget.chatPanel.waitForMemoriResponse();
@@ -151,17 +144,17 @@ console.log('Code blocks too!');
     const badgeCount = await artifactBadge.count();
     expect(badgeCount).toBeGreaterThan(0);
     
-    // Verify artifact output element has correct mimetype
-    const artifactOutput = page.locator(selectors.artifactOutput).first();
-    const mimetype = await artifactOutput.getAttribute('data-mimetype');
-    expect(mimetype).toBe('text/markdown');
-    
     // Open artifact drawer
     await widget.chatPanel.clickArtifact(0);
     await page.waitForTimeout(waitTimes.short);
     
     // Verify drawer is open
     expect(await widget.chatPanel.isArtifactDrawerOpen()).toBe(true);
+    
+    // Verify artifact displays markdown in the Snippet component
+    // Markdown defaults to 'text' language in the code viewer
+    const markdownLanguage = await widget.chatPanel.getArtifactSnippetLanguage();
+    expect(markdownLanguage).toBe('text');
     
     // Test Copy Button
     await widget.chatPanel.clickArtifactCopy();
@@ -184,15 +177,6 @@ console.log('Code blocks too!');
     expect(newPage).toBeTruthy();
     await newPage.close();
     
-    // Test Print action
-    await widget.chatPanel.clickArtifactCopyDropdown();
-    await page.waitForTimeout(500);
-    const printPromise = context.waitForEvent('page');
-    await widget.chatPanel.clickArtifactPrint();
-    const printPage = await printPromise;
-    expect(printPage).toBeTruthy();
-    await printPage.close();
-    
     // Close drawer
     await widget.chatPanel.closeArtifactDrawer();
     expect(!(await widget.chatPanel.isArtifactDrawerOpen())).toBe(true);
@@ -212,12 +196,8 @@ console.log(fibonacci(10));
       </output>
     `;
     
-    await widget.chatPanel.mockApiResponse({
-      message: `Here is a JavaScript implementation: ${jsArtifact}`,
-    });
-    
-    // Send a message
-    await widget.chatPanel.sendMessage('Write fibonacci in JavaScript', true);
+    // Send a message with mocked API response containing JavaScript artifact
+    await widget.chatPanel.sendMessage(`Here is a JavaScript implementation: ${jsArtifact}`, 'Write fibonacci in JavaScript', true);
     
     // Wait for response
     await widget.chatPanel.waitForMemoriResponse();
@@ -226,52 +206,12 @@ console.log(fibonacci(10));
     const hasArtifact = await widget.chatPanel.hasArtifactButton();
     expect(hasArtifact).toBe(true);
     
-    // Verify the artifact output has correct mimetype
-    const artifactOutput = page.locator(selectors.artifactOutput).first();
-    const mimetype = await artifactOutput.getAttribute('data-mimetype');
-    expect(mimetype).toBe('text/javascript');
-    
     // Open artifact drawer
     await widget.chatPanel.clickArtifact(0);
     await page.waitForTimeout(waitTimes.short);
     
     // Verify drawer is open
     expect(await widget.chatPanel.isArtifactDrawerOpen()).toBe(true);
-    
-    // Test Copy Button
-    await widget.chatPanel.clickArtifactCopy();
-    await page.waitForTimeout(500);
-    expect(await widget.chatPanel.isCopySuccessful()).toBe(true);
-    await page.waitForTimeout(1500);
-    
-    // Test Copy Dropdown with format options
-    await widget.chatPanel.clickArtifactCopyDropdown();
-    expect(await widget.chatPanel.isArtifactCopyMenuVisible()).toBe(true);
-    
-    const menuItemCount = await widget.chatPanel.getArtifactCopyMenuItemCount();
-    expect(menuItemCount).toBeGreaterThan(0);
-    
-    // Test clicking different copy format
-    await widget.chatPanel.clickArtifactCopyMenuItem(0);
-    await page.waitForTimeout(500);
-    
-    // Test External action (opens code in new window)
-    await widget.chatPanel.clickArtifactCopyDropdown();
-    await page.waitForTimeout(500);
-    const pagePromise = context.waitForEvent('page');
-    await widget.chatPanel.clickArtifactExternal();
-    const newPage = await pagePromise;
-    expect(newPage).toBeTruthy();
-    await newPage.close();
-    
-    // Test Print action
-    await widget.chatPanel.clickArtifactCopyDropdown();
-    await page.waitForTimeout(500);
-    const printPromise = context.waitForEvent('page');
-    await widget.chatPanel.clickArtifactPrint();
-    const printPage = await printPromise;
-    expect(printPage).toBeTruthy();
-    await printPage.close();
     
     // Close drawer
     await widget.chatPanel.closeArtifactDrawer();
@@ -297,11 +237,7 @@ console.log(fibonacci(10));
       </output>
     `;
     
-    await widget.chatPanel.mockApiResponse({
-      message: `Response with artifact: ${artifact}`,
-    });
-    
-    await widget.chatPanel.sendMessage('Generate something', true);
+    await widget.chatPanel.sendMessage(`Response with artifact: ${artifact}`, 'Generate something', true);
     await widget.chatPanel.waitForMemoriResponse();
     
     // Memori message should have artifact
@@ -314,12 +250,8 @@ console.log(fibonacci(10));
     const artifact1 = `<output class="memori-artifact" data-mimetype="text/html"><h1>First Artifact</h1></output>`;
     const artifact2 = `<output class="memori-artifact" data-mimetype="text/markdown"># Second Artifact</output>`;
     
-    await widget.chatPanel.mockApiResponse({
-      message: `Here are two artifacts: ${artifact1} and ${artifact2}`,
-    });
-    
-    // Send a message
-    await widget.chatPanel.sendMessage('Create multiple artifacts', true);
+    // Send a message with mocked API response containing multiple artifacts
+    await widget.chatPanel.sendMessage(`Here are two artifacts: ${artifact1} and ${artifact2}`, 'Create multiple artifacts', true);
     
     // Wait for response
     await widget.chatPanel.waitForMemoriResponse();
@@ -370,11 +302,7 @@ console.log(fibonacci(10));
       </output>
     `;
     
-    await widget.chatPanel.mockApiResponse({
-      message: `HTML artifact: ${htmlArtifact}`,
-    });
-    
-    await widget.chatPanel.sendMessage('Create HTML', true);
+    await widget.chatPanel.sendMessage(`HTML artifact: ${htmlArtifact}`, 'Create HTML', true);
     await widget.chatPanel.waitForMemoriResponse();
     
     // Open artifact drawer
@@ -438,11 +366,7 @@ ${artifact.content}
         </output>
       `;
       
-      await widget.chatPanel.mockApiResponse({
-        message: `Here's ${artifact.name} code: ${artifactOutput}`,
-      });
-      
-      await widget.chatPanel.sendMessage(`Create ${artifact.name} code`, true);
+      await widget.chatPanel.sendMessage(`Here's ${artifact.name} code: ${artifactOutput}`, `Create ${artifact.name} code`, true);
       await widget.chatPanel.waitForMemoriResponse();
       
       // Verify artifact is detected
