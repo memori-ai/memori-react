@@ -43,6 +43,7 @@ DefaultLayout.args = {
   apiURL: 'https://backend-staging.memori.ai/api/v2',
   baseURL: 'https://www.aisuru.com',
   layout: 'FULL_CHAT',
+  showLogin: true,
   uiLang: 'IT',
   spokenLang: 'IT',
   integrationID: '0b1256c1-530c-4e67-aef8-36667c8887bb',
