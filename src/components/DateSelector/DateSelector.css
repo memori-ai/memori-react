@@ -20,6 +20,7 @@
 /* Native date input styled to match the design language */
 .memori--date-selector__input {
     width: 100%;
+    min-height: 38px;
     box-sizing: border-box;
     padding-top: 0.5rem;
     padding-right: 0.75rem;
@@ -34,7 +35,6 @@
     color: #1f2933;
     font-size: 1rem;
     line-height: 1.5rem;
-    min-height: 38px;
 }
 
 .memori--date-selector__input:focus {
