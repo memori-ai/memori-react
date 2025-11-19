@@ -28,6 +28,7 @@ const ArtifactPreview: React.FC<{
       case 'html':
         return (
           <iframe
+            className="memori-artifact-preview-iframe"
             srcDoc={artifact.content}
             style={{
               width: '100%',
@@ -36,6 +37,7 @@ const ArtifactPreview: React.FC<{
               borderRadius: '6px',
             }}
             title={`${artifact.title} Preview`}
+            scrolling="auto"
           />
         );
 
