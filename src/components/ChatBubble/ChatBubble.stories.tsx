@@ -314,6 +314,20 @@ FromUserWithCustomAvatarElement.args = {
   },
 };
 
+export const FromUserWithCopyButtons = Template.bind({});
+FromUserWithCopyButtons.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: true,
+    text: '<p>Questo messaggio mostra i pulsanti di copia anche per gli utenti finali.</p>',
+    initial: false,
+    translatedText:
+      'Questo messaggio mostra i pulsanti di copia anche per gli utenti finali.',
+  },
+  showCopyButton: true,
+};
+
 export const FromUserWithAvatarAndCustomAvatar = Template.bind({});
 FromUserWithAvatarAndCustomAvatar.args = {
   memori,
