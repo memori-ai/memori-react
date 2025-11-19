@@ -671,6 +671,98 @@ const htmlArtifactScrollTest = `<output class="memori-artifact" data-mimetype="h
   </body>
 </html>
 </output>`;
+
+const svgArtifact = `<output class="memori-artifact" data-mimetype="svg">
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+ <!-- Gradiente per il quadrato -->
+ <linearGradient id="squareGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+ <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+ <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+ </linearGradient>
+ 
+ <!-- Ombra -->
+ <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+ <feDropShadow dx="3" dy="3" stdDeviation="3" flood-opacity="0.3"/>
+ </filter>
+ 
+ <!-- Effetto glow -->
+ <filter id="glow">
+ <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+ <feMerge> 
+ <feMergeNode in="coloredBlur"/>
+ <feMergeNode in="SourceGraphic"/>
+ </feMerge>
+ </filter>
+ </defs>
+ 
+ <!-- Sfondo -->
+ <rect width="200" height="200" fill="#f8f9fa"/>
+ 
+ <!-- Quadrato principale -->
+ <rect x="50" y="50" width="100" height="100" 
+ fill="url(#squareGradient)" 
+ stroke="rgba(255,255,255,0.3)" 
+ stroke-width="2"
+ rx="8" 
+ filter="url(#shadow)"
+ opacity="0">
+ 
+ <!-- Animazione fade in -->
+ <animate attributeName="opacity" 
+ values="0;1" 
+ dur="1s" 
+ fill="freeze"/>
+ 
+ <!-- Animazione rotazione -->
+ <animateTransform 
+ attributeName="transform"
+ attributeType="XML"
+ type="rotate"
+ values="0 100 100;5 100 100;-5 100 100;0 100 100"
+ dur="3s"
+ repeatCount="indefinite"/>
+ </rect>
+ 
+ <!-- Quadrato interno decorativo -->
+ <rect x="75" y="75" width="50" height="50" 
+ fill="rgba(255,255,255,0.2)" 
+ rx="4"
+ opacity="0">
+ 
+ <animate attributeName="opacity" 
+ values="0;0.6;0" 
+ dur="2s" 
+ repeatCount="indefinite"/>
+ </rect>
+ 
+ <!-- Particelle decorative -->
+ <circle cx="60" cy="60" r="2" fill="#FFD700" opacity="0">
+ <animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite"/>
+ </circle>
+ 
+ <circle cx="140" cy="140" r="1.5" fill="#FF6B6B" opacity="0">
+ <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+ </circle>
+ 
+ <circle cx="140" cy="60" r="1" fill="#4ECDC4" opacity="0">
+ <animate attributeName="opacity" values="0;1;0" dur="1.8s" repeatCount="indefinite" begin="1s"/>
+ </circle>
+ 
+ <!-- Testo centrale -->
+ <text x="100" y="105" 
+ text-anchor="middle" 
+ fill="white" 
+ font-family="system-ui, sans-serif" 
+ font-size="14" 
+ font-weight="bold"
+ opacity="0">
+ SVG
+ <animate attributeName="opacity" values="0;1" dur="1.5s" fill="freeze" begin="0.5s"/>
+ </text>
+</svg>
+</output>`;
+
 const markdownArtifact = `<output class="memori-artifact" data-mimetype="markdown">
 # Project Documentation
 
@@ -1436,6 +1528,40 @@ MIT
 </output>
 
 All files are ready! You now have a complete project structure with HTML, CSS, JavaScript, configuration, and documentation.`,
+          fromUser: false,
+          timestamp: new Date().toISOString(),
+        },
+      ]}
+      pushMessage={mockPushMessage}
+      simulateUserPrompt={mockSimulateUserPrompt}
+      onChangeUserMessage={mockOnChangeUserMessage}
+      sendMessage={mockSendMessage}
+      setEnableFocusChatInput={mockSetEnableFocusChatInput}
+      stopAudio={mockStopAudio}
+      startListening={mockStartListening}
+      stopListening={mockStopListening}
+      setSendOnEnter={mockSetSendOnEnter}
+      setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
+      showInputs={false}
+      isChatlogPanel={false}
+    />
+  ),
+};
+
+export const SVGArtifact: Story = {
+  args: {},
+  render: () => (
+    <Chat
+      memori={mockMemori}
+      tenant={mockTenant}
+      sessionID="test-session"
+      history={[
+        {
+          text: `Here's a complete SVG artifact:
+
+${svgArtifact}
+
+This SVG includes a simple circle with a red fill.`,
           fromUser: false,
           timestamp: new Date().toISOString(),
         },
