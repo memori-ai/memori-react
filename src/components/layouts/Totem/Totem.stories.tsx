@@ -32,14 +32,13 @@ const Template: Story<Props> = args => (
 
 const DefaultLayout = Template.bind({});
 DefaultLayout.args = {
-  memoriName: 'Layout Storybook',
+  emoriName: 'Layout Storybook',
   ownerUserName: 'andrea.patini',
-  memoriID: '157860e8-f014-43b3-a7c5-fb4a08c87025',
-  ownerUserID: '95753bbe-9e88-4799-ae35-dc060bc11c48',
-  tenantID: 'www.aisuru.com',
-  engineURL: 'https://engine.memori.ai/memori/v2',
-  apiURL: 'https://backend.memori.ai/api/v2',
-  baseURL: 'https://www.aisuru.com',
+  memoriID: 'ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e',
+  ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
+  tenantID: 'aisuru-staging.aclambda.online',
+  engineURL: 'https://engine-staging.memori.ai/memori/v2',
+  apiURL: 'https://backend-staging.memori.ai/api/v2',
   layout: 'FULL_CHAT',
   uiLang: 'IT',
   spokenLang: 'IT',
@@ -63,7 +62,7 @@ export const TotemWithFullBodyAvatar = Template.bind({});
 TotemWithFullBodyAvatar.args = {
     ...DefaultLayout.args,
     avatar3DURL:
-      'https://assets.memori.ai/api/v2/asset/692580d6-7b25-4ed0-84ce-82d5f4ac4270.glb#1762875775270',
+      'https://assets-staging.memori.ai/api/v2/asset/c0bb0d40-aebf-4e58-bfa0-45a4d7935153.glb#1763646903757',
   integration: {
     ...baseIntegration,
     customData: JSON.stringify({
@@ -75,7 +74,7 @@ TotemWithFullBodyAvatar.args = {
       multilanguage: true,
       avatar: 'readyplayerme-full',
       avatarURL:
-        'https://assets.memori.ai/api/v2/asset/692580d6-7b25-4ed0-84ce-82d5f4ac4270.glb#1762875775270',
+        'https://assets-staging.memori.ai/api/v2/asset/c0bb0d40-aebf-4e58-bfa0-45a4d7935153.glb#1763646903757',
       name: 'Layout Storybook',
       showShare: true,
     }),

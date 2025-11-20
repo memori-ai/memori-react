@@ -11,7 +11,7 @@ import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContex
 
 const meta: Meta = {
   title: 'General/Layouts',
-  component: (args: Props) => <Memori {...args} engineURL="https://engine.memori.ai" apiURL="https://backend.memori.ai" baseURL="https://www.aisuru.com"    />,
+  component: (args: Props) => <Memori {...args}    />,
   argTypes: {},
   parameters: {
     controls: { expanded: true },
@@ -41,7 +41,6 @@ DefaultLayout.args = {
   tenantID: 'aisuru-staging.aclambda.online',
   engineURL: 'https://engine-staging.memori.ai/memori/v2',
   apiURL: 'https://backend-staging.memori.ai/api/v2',
-  baseURL: 'https://www.aisuru.com',
   layout: 'FULL_CHAT',
   uiLang: 'IT',
   spokenLang: 'IT',
