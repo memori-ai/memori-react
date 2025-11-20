@@ -47,6 +47,7 @@ DefaultLayout.args = {
   spokenLang: 'IT',
   integrationID: '0b1256c1-530c-4e67-aef8-36667c8887bb',
   autoStart: false,
+  multilingual: true,
   sessionID: '' as string | undefined,
   showUpload: true,
   showReasoning: false,

@@ -106,6 +106,8 @@
     "tokens": "Fichas",
     "addToken": "Agregar token",
     "usePassword": "Usar contraseña",
+    "passwordRequired": "Contraseña obligatoria",
+    "invalidCredentials": "Credenciales no válidas",
     "atLeast": "Al menos"
   },
   "widget": {

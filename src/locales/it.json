@@ -106,6 +106,7 @@
     "tokens": "Token",
     "addToken": "Aggiungi token",
     "usePassword": "Utilizza la password",
+    "invalidCredentials": "Credenziali non valide",
     "atLeast": "Almeno"
   },
   "widget": {

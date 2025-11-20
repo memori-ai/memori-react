@@ -105,6 +105,8 @@
     "tokens": "Tokens",
     "addToken": "Add token",
     "usePassword": "Use password",
+    "passwordRequired": "Password required",
+    "invalidCredentials": "Invalid credentials",
     "atLeast": "At least"
   },
   "widget": {

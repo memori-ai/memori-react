@@ -104,6 +104,7 @@
     "useRecoveryTokens": "Utiliser des jetons de récupération",
     "tokens": "Jetons",
     "addToken": "Ajouter un jeton",
+    "invalidCredentials": "Identifiants invalides",
     "usePassword": "Utiliser le mot de passe",
     "atLeast": "Au moins"
   },
