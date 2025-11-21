@@ -201,10 +201,10 @@ WithAllAddonsContents.args = {
   tenant,
   message: {
     fromUser: false,
-    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    text: 'Proin libero ante.',
     initial: false,
     translatedText:
-      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+      'Proin libero ter.',
     generatedByAI: true,
   },
   showFeedback: true,

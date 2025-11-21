@@ -474,7 +474,8 @@ export const historyWithAIGeneratedMessages: Message[] = [
     timestamp: '2021-03-01T12:00:00.000Z',
   },
   {
-    text: 'Sa. Sa. Prova',
+    text: 'Sa. Sa. Prova. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+    generatedByAI: true,
     timestamp: '2021-03-01T12:00:00.000Z',
   },
   {
@@ -504,8 +505,9 @@ export const historyWithAIGeneratedMessages: Message[] = [
     timestamp: '2021-03-01T12:00:00.000Z',
   },
   {
-    text: 'Arrivederci.',
+    text: 'Arrivederci. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
     timestamp: '2021-03-01T12:00:00.000Z',
+    generatedByAI: true,
     contextVars: {
       TEST: 'test',
     },
