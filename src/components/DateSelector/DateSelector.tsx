@@ -103,6 +103,13 @@ const DateSelector = memo(
       const val = e.target.value;
       // Allow empty or numbers only
       if (val === '' || /^\d+$/.test(val)) {
+        // Limit length to 2
+        if (val.length > 2) return;
+
+        // Limit value to 31
+        const numVal = parseInt(val);
+        if (numVal > 31) return;
+
         setDay(val);
         if (val.length >= 2) {
           monthRef.current?.focus();
@@ -113,6 +120,13 @@ const DateSelector = memo(
     const handleMonthChange = (e: ChangeEvent<HTMLInputElement>) => {
       const val = e.target.value;
       if (val === '' || /^\d+$/.test(val)) {
+        // Limit length to 2
+        if (val.length > 2) return;
+
+        // Limit value to 12
+        const numVal = parseInt(val);
+        if (numVal > 12) return;
+
         setMonth(val);
         if (val.length >= 2) {
           yearRef.current?.focus();
@@ -123,6 +137,9 @@ const DateSelector = memo(
     const handleYearChange = (e: ChangeEvent<HTMLInputElement>) => {
       const val = e.target.value;
       if (val === '' || /^\d+$/.test(val)) {
+        // Limit length to 4
+        if (val.length > 4) return;
+
         setYear(val);
       }
     };
