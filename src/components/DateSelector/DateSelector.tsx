@@ -110,7 +110,7 @@ const DateSelector = memo(
       }
     };
 
-    const handleMonthChange = (e:   ChangeEvent<HTMLInputElement>) => {
+    const handleMonthChange = (e: ChangeEvent<HTMLInputElement>) => {
       const val = e.target.value;
       if (val === '' || /^\d+$/.test(val)) {
         setMonth(val);
@@ -165,7 +165,7 @@ const DateSelector = memo(
             className="memori--date-selector__input"
             value={day}
             onChange={handleDayChange}
-            placeholder="DD"
+            placeholder={t('dayPlaceholder') || 'DD'}
             min={1}
             max={31}
             disabled={disabled}
@@ -182,7 +182,7 @@ const DateSelector = memo(
             className="memori--date-selector__input"
             value={month}
             onChange={handleMonthChange}
-            placeholder="MM"
+            placeholder={t('monthPlaceholder') || 'MM'}
             min={1}
             max={12}
             disabled={disabled}
@@ -199,7 +199,7 @@ const DateSelector = memo(
             className="memori--date-selector__input"
             value={year}
             onChange={handleYearChange}
-            placeholder="YYYY"
+            placeholder={t('yearPlaceholder') || 'YYYY'}
             min={minDate.year}
             max={maxDate.year}
             disabled={disabled}

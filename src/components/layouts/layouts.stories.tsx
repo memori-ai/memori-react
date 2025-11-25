@@ -42,14 +42,16 @@ DefaultLayout.args = {
   engineURL: 'https://engine-staging.memori.ai/memori/v2',
   apiURL: 'https://backend-staging.memori.ai/api/v2',
   baseURL: 'https://www.aisuru.com',
-  layout: 'FULL_CHAT',
+  layout: 'FULLPAGE',
   uiLang: 'IT',
+  multilingual: true,
   spokenLang: 'IT',
   integrationID: '0b1256c1-530c-4e67-aef8-36667c8887bb',
   autoStart: false,
   sessionID: '' as string | undefined,
   showUpload: true,
   showReasoning: false,
+  showLogin: true
 };
 
 
