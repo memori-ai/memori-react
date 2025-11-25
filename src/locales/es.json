@@ -26,6 +26,7 @@
   "last_30_days": "Últimos 30 días",
   "date": "Fecha de nacimiento",
   "month": "Mes",
+  "copied": "¡Copiado!",
   "missingData": "Información faltante",
   "year": "Año",
   "createdAt": "Fecha de creación",
@@ -107,6 +108,8 @@
     "tokens": "Fichas",
     "addToken": "Agregar token",
     "usePassword": "Usar contraseña",
+    "passwordRequired": "Contraseña obligatoria",
+    "invalidCredentials": "Credenciales no válidas",
     "atLeast": "Al menos"
   },
   "widget": {

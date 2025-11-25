@@ -2,12 +2,13 @@
 
 .memori-tooltip {
     position: relative;
+    z-index: 1000;
     display: inline-block;
 }
 
 .memori-tooltip--content {
     position: absolute;
-    z-index: 100;
+    z-index: 1000;
     top: 50%;
     left: 100%;
     display: none;
@@ -46,6 +47,7 @@
     transform: translateY(-50%);
     transition: 0.3s;
 }
+
 
 .memori-tooltip.memori-tooltip--align-left .memori-tooltip--content::before {
     right: -15px;
@@ -112,4 +114,50 @@
 
 .memori-tooltip.memori-tooltip--disabled {
     cursor: not-allowed;
+}
+
+.memori-tooltip.memori-tooltip--align-bottomLeft .memori-tooltip--content,
+.memori-tooltip.memori-tooltip--align-bottomRight .memori-tooltip--content {
+    top: 100%;
+    right: initial;
+    left: 50%;
+    margin: initial;
+    margin-top: 15px;
+}
+
+.memori-tooltip.memori-tooltip--align-bottomLeft .memori-tooltip--content::before {
+    z-index: 1001;
+    top: -15px;
+    bottom: initial;
+    left: 66%;
+    border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+    margin-top: 0px;
+    margin-bottom: initial;
+    margin-left: 5px;
+}
+
+.memori-tooltip.memori-tooltip--align-bottomRight .memori-tooltip--content::before {
+    z-index: 1001;
+    top: -15px;
+    right: 10px;
+    bottom: initial;
+    left: auto;
+    border-color: transparent transparent rgba(0, 0, 0, 0.8) transparent;
+    margin-top: -5px;
+    margin-right: 5px;
+    margin-bottom: initial;
+}
+
+.memori-tooltip.memori-tooltip--align-bottomLeft:not(.memori-tooltip--disabled).memori-tooltip--visible
+    .memori-tooltip--content,
+.memori-tooltip.memori-tooltip--align-bottomLeft:not(.memori-tooltip--disabled):not(.memori-tooltip--visible):hover
+    .memori-tooltip--content {
+    transform: translateX(-73%);
+}
+
+.memori-tooltip.memori-tooltip--align-bottomRight:not(.memori-tooltip--disabled).memori-tooltip--visible
+    .memori-tooltip--content,
+.memori-tooltip.memori-tooltip--align-bottomRight:not(.memori-tooltip--disabled):not(.memori-tooltip--visible):hover
+    .memori-tooltip--content {
+    transform: translateX(33%);
 }

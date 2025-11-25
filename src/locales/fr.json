@@ -27,6 +27,7 @@
   "date": "Date de naissance",
   "yesterday": "Hier",
   "last_7_days": "7 derniers jours",
+  "copied": "Copié !",
   "missingData": "Informations manquantes",
   "last_30_days": "30 derniers jours",
   "selected": "Choisi",
@@ -105,6 +106,7 @@
     "useRecoveryTokens": "Utiliser des jetons de récupération",
     "tokens": "Jetons",
     "addToken": "Ajouter un jeton",
+    "invalidCredentials": "Identifiants invalides",
     "usePassword": "Utiliser le mot de passe",
     "atLeast": "Au moins"
   },

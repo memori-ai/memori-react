@@ -201,10 +201,10 @@ WithAllAddonsContents.args = {
   tenant,
   message: {
     fromUser: false,
-    text: 'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+    text: 'Proin libero ante.',
     initial: false,
     translatedText:
-      'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
+      'Proin libero ter.',
     generatedByAI: true,
   },
   showFeedback: true,
@@ -312,6 +312,20 @@ FromUserWithCustomAvatarElement.args = {
     translatedText:
       'Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.',
   },
+};
+
+export const FromUserWithCopyButtons = Template.bind({});
+FromUserWithCopyButtons.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: true,
+    text: '<p>Questo messaggio mostra i pulsanti di copia anche per gli utenti finali.</p>',
+    initial: false,
+    translatedText:
+      'Questo messaggio mostra i pulsanti di copia anche per gli utenti finali.',
+  },
+  showCopyButton: true,
 };
 
 export const FromUserWithAvatarAndCustomAvatar = Template.bind({});

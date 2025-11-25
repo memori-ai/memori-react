@@ -129,3 +129,7 @@ button.memori-hints--show-more-button {
     background: #fff;
     color: #333;
 }
+
+.memori-media-widget {
+    z-index: -1;
+}

@@ -26,6 +26,7 @@
   "missingData": "Fehlende Informationen",
   "date": "Geburtsdatum",
   "day": "Tag",
+  "copied": "Kopiert!",
   "month": "Monat",
   "year": "Jahr",
   "createdAt": "Erstellungsdatum",
@@ -107,6 +108,8 @@
     "tokens": "Token",
     "addToken": "Token hinzufügen",
     "usePassword": "Passwort verwenden",
+    "passwordRequired": "Passwort erforderlich",
+    "invalidCredentials": "Ungültige Zugangsdaten",
     "atLeast": "Mindestens"
   },
   "widget": {

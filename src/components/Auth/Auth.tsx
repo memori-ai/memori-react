@@ -46,15 +46,24 @@ export const AuthWidget = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit: SubmitHandler<AuthInputs> = data => {
-    if (
-      (pwdOrTokens === 'password' && !data.password?.length) ||
-      (pwdOrTokens === 'tokens' &&
-        ((data?.tokens?.length || 0) < minimumNumberOfRecoveryTokens ||
-          !data?.tokens?.every(t => t.length)))
-    ) {
+    const missingPassword = pwdOrTokens === 'password' && !data.password?.length;
+    const invalidTokens =
+      pwdOrTokens === 'tokens' &&
+      ((data?.tokens?.length || 0) < minimumNumberOfRecoveryTokens ||
+        !data?.tokens?.every(t => t.length));
+
+    if (missingPassword) {
+      setError('password', {
+        type: 'required',
+        message: t('auth.passwordRequired') || 'Password required',
+      });
+      return;
+    }
+
+    if (invalidTokens) {
       setError('tokens', {
         type: 'minLength',
-        message: 'Tokens',
+        message: t('auth.tokens') || 'Tokens',
       });
       return;
     }

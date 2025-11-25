@@ -30,8 +30,31 @@
     line-height: 1.33;
 }
 
+
+.memori-chat--bubble-from-user {
+    z-index: -1;
+}
+
 .memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble {
     min-width: 9rem;
+}
+
+
+.memori-chat--bubble-avatar svg {
+    width: 40px;
+    height: 40px;
+    padding: 0.33rem;
+    fill: #666;
+    font-size: 1.5rem;
+}
+
+
+.memori-chat--bubble-action-icon--from-user > span > svg {
+    color: #fff !important;
+}
+
+.memori-chat--bubble-action-icon--from-user:focus {
+    border-color: #fff !important;
 }
 
 .memori-chat--bubble #wave {
@@ -145,14 +168,6 @@
     object-fit: cover;
 }
 
-.memori-chat--bubble-avatar svg {
-    width: 40px;
-    height: 40px;
-    padding: 0.33rem;
-    fill: #666;
-    font-size: 1.5rem;
-}
-
 .memori-chat--bubble-addon {
     display: flex;
     align-items: center;
@@ -164,12 +179,8 @@
 .memori-chat--bubble .memori-chat--bubble-action-icon {
     display: flex;
     justify-content: flex-end;
-    padding: 0;
+    padding: 2px;
     text-align: right;
-}
-
-.memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--ai {
-    padding: 3px;
 }
 
 .memori-chat--bubble .memori-chat--bubble-action-icon svg {
@@ -178,6 +189,21 @@
     height: 1rem;
     color: #000;
 }
+
+.memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--copied {
+    border-color: var(--memori-primary, #4c6fff) !important;
+    background-color: rgba(76, 111, 255, 0.08);
+}
+
+.memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--copied svg {
+    color: var(--memori-primary, #4c6fff);
+}
+
+.memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--ai {
+    padding: 3px;
+}
+
+
 
 .memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--debug {
     color: var(--memori-error-color);
@@ -210,6 +236,19 @@
 
 .memori-chat--bubble-addon button.memori-chat--bubble-action-icon {
     padding: 2.5px;
+}
+
+.memori-chat--bubble-action-feedback {
+    margin-left: 0.35rem;
+    color: var(--memori-primary, #4c6fff);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.memori-chat--bubble-action-feedback--from-user {
+    color: var(--memori-primary-text, #fff);
 }
 
 .memori-chat--bubble-addon .memori-chat--feedback button .memori-button--icon svg {

@@ -7,8 +7,8 @@
   display: flex;
   width: 380px; /* Fixed width */
   max-width: 100%; /* Maximum width relative to screen */
-  height: 320px;
-  max-height: 320px;
+  height: 340px;
+  max-height: 340px;
   flex-direction: column;
   padding: 16px;
   border-radius: 16px;
