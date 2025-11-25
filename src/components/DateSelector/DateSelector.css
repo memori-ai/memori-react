@@ -1,68 +1,138 @@
-/* Container */
+/* Screen reader only - visually hidden but accessible */
+.sr-only {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    border-width: 0;
+    margin: -1px;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+/* Base Container */
 .memori--date-selector {
     width: 100%;
     /* margin-top: 1.5rem; */
 }
 
-/* Label wrapper for better tap target on mobile */
-.memori--date-selector__label {
-    display: flex;
+/* Mobile Styles */
+.memori--date-selector--mobile {
     width: 100%;
+    max-width: 100%;
+    flex-direction: column;
+    margin: 1rem 0;
+}
+
+.memori--date-selector__mobile-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #374151;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.memori--date-selector__mobile-input {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.875rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    background: #ffffff;
+    /* Touch-friendly */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    color: #1f2937;
+    font-size: 1rem;
+    transition: all 0.2s ease;
+}
+
+.memori--date-selector__mobile-input:focus {
+    border-color: var(--memori-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1),
+        0 4px 6px rgba(0, 0, 0, 0.05);
+    outline: none;
+    transform: translateY(-1px);
+}
+
+.memori--date-selector__mobile-input:disabled {
+    background-color: #f9fafb;
+    color: #9ca3af;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Desktop Styles */
+.memori--date-selector--desktop {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.memori--date-selector__input-group {
+    display: flex;
+    min-width: 80px;
+    flex: 1;
     flex-direction: column;
 }
 
-.memori--date-selector__label-text {
-    margin-bottom: 0.25rem;
-    font-size: 0.875rem;
-    line-height: 1.25rem;
+.memori--date-selector__input-group--year {
+    min-width: 100px;
 }
 
-/* Native date input styled to match the design language */
+.memori--date-selector__label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    color: #4b5563;
+    font-size: 0.875rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
 .memori--date-selector__input {
     width: 100%;
-    min-height: 38px;
-    box-sizing: border-box;
-    padding-top: 0.5rem;
-    padding-right: 0.75rem;
-    padding-bottom: 0.5rem;
-    padding-left: 0.75rem;
-    border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
-    background-color: #fff;
-    box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px,
-        rgba(0, 0, 0, 0.1) 0px 4px 6px -1px,
-        rgba(0, 0, 0, 0.1) 0px 2px 4px -2px;
-    color: #1f2933;
-    font-size: 1rem;
-    line-height: 1.5rem;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    -moz-appearance: textfield;
+    appearance: textfield;
+    /* Remove spinner buttons */
+    background: #ffffff;
+    color: #1f2937;
+    font-size: 0.95rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.memori--date-selector__input::-webkit-outer-spin-button,
+.memori--date-selector__input::-webkit-inner-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
 }
 
 .memori--date-selector__input:focus {
-    border-color: #cbd5e0;
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+    border-color: var(--memori-primary);
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1),
+        0 4px 6px rgba(0, 0, 0, 0.05);
     outline: none;
-}
-
-.memori--date-selector__input:focus-visible {
-    border-color: #63b3ed;
-    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
-    outline: none;
-}
-
-.memori--date-selector__input:hover {
-    border-color: #e2e8f0;
+    transform: translateY(-1px);
 }
 
 .memori--date-selector__input:disabled {
-    border-color: #e2e8f0;
-    background-color: #f7fafc;
-    color: #a0aec0;
+    border-color: #e5e7eb;
+    background: #f9fafb;
+    color: #9ca3af;
     cursor: not-allowed;
+    opacity: 0.6;
 }
 
-@media (min-width: 640px) {
-    .memori--date-selector__input {
-        font-size: 0.875rem;
-        line-height: 1.25rem;
+.memori--date-selector__input::placeholder {
+    color: #9ca3af;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    .memori--date-selector--desktop {
+        display: none;
+        /* Hide desktop version on mobile if both are rendered for some reason */
     }
 }

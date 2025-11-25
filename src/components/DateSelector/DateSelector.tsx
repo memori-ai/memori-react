@@ -1,58 +1,210 @@
-import React, { useEffect, useState, memo } from 'react';
+import { useEffect, useState, memo, useMemo, useRef, ChangeEvent } from 'react';
 import { DateTime } from 'luxon';
 import { useTranslation } from 'react-i18next';
 
 export interface Props {
   defaultDate?: string | Date;
   disabled?: boolean;
-  onChange: (date: DateTime) => void;
+  onChange: (date: DateTime | undefined) => void;
 }
 
 const DateSelector = memo(
   ({ defaultDate, onChange, disabled = false }: Props) => {
     const { t } = useTranslation();
 
-    const [date, setDate] = useState(
-      !defaultDate
-        ? DateTime.now()
-        : typeof defaultDate === 'string'
-        ? DateTime.fromISO(defaultDate)
-        : DateTime.fromJSDate(defaultDate)
-    );
-    useEffect(() => {
-      onChange(date);
-    }, [date, onChange]);
+    // Calculate constraints for birth date (18 years ago to 1900)
+    const maxDate = useMemo(() => DateTime.now().minus({ years: 18 }), []);
+    const minDate = useMemo(() => DateTime.fromObject({ year: 1900, month: 1, day: 1 }), []);
 
-    const handleNativeChange = (
-      event: React.ChangeEvent<HTMLInputElement>
-    ) => {
-      const { value } = event.target;
-      if (!value) {
+    // State for individual fields as strings to allow empty values
+    const [day, setDay] = useState<string>('');
+    const [month, setMonth] = useState<string>('');
+    const [year, setYear] = useState<string>('');
+
+    // Initialize from defaultDate if provided
+    useEffect(() => {
+      if (defaultDate) {
+        const dt = typeof defaultDate === 'string'
+          ? DateTime.fromISO(defaultDate)
+          : DateTime.fromJSDate(defaultDate);
+
+        if (dt.isValid) {
+          setDay(dt.day.toString());
+          setMonth(dt.month.toString());
+          setYear(dt.year.toString());
+        }
+      }
+    }, [defaultDate]);
+
+    const [isMobile, setIsMobile] = useState(false);
+
+    // Refs for auto-focus
+    const dayRef = useRef<HTMLInputElement>(null);
+    const monthRef = useRef<HTMLInputElement>(null);
+    const yearRef = useRef<HTMLInputElement>(null);
+
+    // Detect mobile viewport
+    useEffect(() => {
+      const checkMobile = () => {
+        setIsMobile(window.innerWidth < 768);
+      };
+
+      checkMobile();
+      window.addEventListener('resize', checkMobile);
+      return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    // Validate and propagate changes
+    useEffect(() => {
+      if (!day || !month || !year) {
+        onChange(undefined);
         return;
       }
 
-      // value is in format yyyy-MM-dd
-      const nextDate = DateTime.fromISO(value);
-      if (nextDate.isValid) {
-        setDate(nextDate);
+      const d = parseInt(day);
+      const m = parseInt(month);
+      const y = parseInt(year);
+
+      if (isNaN(d) || isNaN(m) || isNaN(y)) {
+        onChange(undefined);
+        return;
+      }
+
+      const newDate = DateTime.fromObject({ year: y, month: m, day: d });
+
+      // Basic validation: check if it's a valid date (e.g. not Feb 30)
+      // and within range.
+      if (newDate.isValid && newDate >= minDate && newDate <= maxDate) {
+        onChange(newDate);
+      } else {
+        onChange(undefined);
+      }
+    }, [day, month, year, onChange, minDate, maxDate]);
+
+    // Handle mobile native input change
+    const handleMobileChange = (e: ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value;
+      if (value) {
+        const newDate = DateTime.fromISO(value);
+        if (newDate.isValid) {
+          setDay(newDate.day.toString());
+          setMonth(newDate.month.toString());
+          setYear(newDate.year.toString());
+          // The useEffect will handle calling onChange
+        }
+      } else {
+        setDay('');
+        setMonth('');
+        setYear('');
       }
     };
 
-    const value = date.toISODate() ?? '';
+    const handleDayChange = (e: ChangeEvent<HTMLInputElement>) => {
+      const val = e.target.value;
+      // Allow empty or numbers only
+      if (val === '' || /^\d+$/.test(val)) {
+        setDay(val);
+        if (val.length >= 2) {
+          monthRef.current?.focus();
+        }
+      }
+    };
 
-    return (
-      <div className="memori--date-selector">
-        <label className="memori--date-selector__label">
-          <span className="memori--date-selector__label-text">{t('date')}</span>
+    const handleMonthChange = (e:   ChangeEvent<HTMLInputElement>) => {
+      const val = e.target.value;
+      if (val === '' || /^\d+$/.test(val)) {
+        setMonth(val);
+        if (val.length >= 2) {
+          yearRef.current?.focus();
+        }
+      }
+    };
+
+    const handleYearChange = (e: ChangeEvent<HTMLInputElement>) => {
+      const val = e.target.value;
+      if (val === '' || /^\d+$/.test(val)) {
+        setYear(val);
+      }
+    };
+
+    // Mobile native input
+    if (isMobile) {
+      const currentDate = (day && month && year)
+        ? DateTime.fromObject({ year: parseInt(year), month: parseInt(month), day: parseInt(day) })
+        : null;
+
+      return (
+        <div className="memori--date-selector memori--date-selector--mobile">
+          <label className="memori--date-selector__mobile-label">
+            {t('birthDate') || 'Birth Date'}:
+          </label>
           <input
             type="date"
-            className="memori--date-selector__input"
-            value={value}
-            onChange={handleNativeChange}
+            className="memori--date-selector__mobile-input"
+            value={currentDate?.isValid ? currentDate.toISODate() || '' : ''}
+            onChange={handleMobileChange}
             disabled={disabled}
-            aria-label={t('date') || undefined}
+            min={minDate.toISODate() || '1900-01-01'}
+            max={maxDate.toISODate() || ''}
+            aria-label={String(t('dateOfBirth') || t('date'))}
           />
-        </label>
+        </div>
+      );
+    }
+
+    // Desktop simple inputs
+    return (
+      <div className="memori--date-selector memori--date-selector--desktop">
+        <div className="memori--date-selector__input-group">
+          <label className="memori--date-selector__label">
+            {t('day') || 'Day'}
+          </label>
+          <input
+            ref={dayRef}
+            type="number"
+            className="memori--date-selector__input"
+            value={day}
+            onChange={handleDayChange}
+            placeholder="DD"
+            min={1}
+            max={31}
+            disabled={disabled}
+          />
+        </div>
+
+        <div className="memori--date-selector__input-group">
+          <label className="memori--date-selector__label">
+            {t('month') || 'Month'}
+          </label>
+          <input
+            ref={monthRef}
+            type="number"
+            className="memori--date-selector__input"
+            value={month}
+            onChange={handleMonthChange}
+            placeholder="MM"
+            min={1}
+            max={12}
+            disabled={disabled}
+          />
+        </div>
+
+        <div className="memori--date-selector__input-group memori--date-selector__input-group--year">
+          <label className="memori--date-selector__label">
+            {t('year') || 'Year'}
+          </label>
+          <input
+            ref={yearRef}
+            type="number"
+            className="memori--date-selector__input"
+            value={year}
+            onChange={handleYearChange}
+            placeholder="YYYY"
+            min={minDate.year}
+            max={maxDate.year}
+            disabled={disabled}
+          />
+        </div>
       </div>
     );
   }
