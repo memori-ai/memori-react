@@ -65,7 +65,7 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
             <legend className="sr-only">{t('birthDate')}</legend>
 
             <DateSelector
-              defaultDate={new Date(Date.now())}
+              //defaultDate={new Date(Date.now())}
               onChange={date => {
                 setBirthDate(date);
               }}

@@ -53,15 +53,42 @@
     color: var(--memori-error-color);
 }
 
-button.age-verisfication-submit {
-    display: inline-flex;
-    height: auto;
-    align-items: center;
-    justify-content: center;
-    padding: 4px 15px;
-    margin-right: auto;
-    margin-left: auto;
-    font-weight: 700;
-    text-transform: uppercase;
-    white-space: normal;
+button.age-verification-submit {
+   position: relative;
+    overflow: hidden;
+    width: 100%;
+    min-width: 220px;
+    max-width: 220px;
+    min-height: 42px;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 12px;
+    border-radius: 8px;
+    margin-top: 1rem;
+    background: var(--memori-primary);
+    color: white;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button.age-verification-submit::before {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    content: '';
+    transition: left 0.5s ease;
+}
+
+button.age-verification-submit:hover::before {
+    left: 100%;
+}
+
+
+button.age-verification-submit:active {
+    transform: translateY(0);
 }

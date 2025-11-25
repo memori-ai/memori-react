@@ -49,8 +49,7 @@
 
 .memori--date-selector__mobile-input:focus {
     border-color: var(--memori-primary);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1),
-        0 4px 6px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 0 0 4px rgba(var(--memori-primary-rgb), 0.1);
     outline: none;
     transform: translateY(-1px);
 }
@@ -111,8 +110,7 @@
 
 .memori--date-selector__input:focus {
     border-color: var(--memori-primary);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1),
-        0 4px 6px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 0 0 4px rgba(var(--memori-primary-rgb), 0.1);
     outline: none;
     transform: translateY(-1px);
 }

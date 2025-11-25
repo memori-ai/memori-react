@@ -134,10 +134,12 @@ p.memori--login-drawer--inline-error {
 }
 
 @keyframes float {
+
     0%,
     100% {
         transform: translateY(0px);
     }
+
     50% {
         transform: translateY(-10px);
     }
@@ -219,10 +221,12 @@ p.memori--login-drawer--inline-error {
 }
 
 @keyframes pulse {
+
     0%,
     100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.05);
     }
@@ -336,10 +340,12 @@ p.memori--login-drawer--inline-error {
 }
 
 @keyframes rocket {
+
     0%,
     100% {
         transform: translateY(0) rotate(0deg);
     }
+
     50% {
         transform: translateY(-3px) rotate(5deg);
     }
@@ -372,9 +378,11 @@ p.memori--login-drawer--inline-error {
     0% {
         background-position: 0% 50%;
     }
+
     50% {
         background-position: 100% 50%;
     }
+
     100% {
         background-position: 0% 50%;
     }
@@ -393,6 +401,7 @@ p.memori--login-drawer--inline-error {
 }
 
 @keyframes bounce {
+
     0%,
     20%,
     50%,
@@ -400,9 +409,11 @@ p.memori--login-drawer--inline-error {
     100% {
         transform: translateY(0);
     }
+
     40% {
         transform: translateY(-10px);
     }
+
     60% {
         transform: translateY(-5px);
     }
@@ -479,7 +490,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--otp-input:focus {
     border-color: var(--memori-primary);
     background: white;
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 0 4px rgba(var(--memori-primary-rgb), 0.1);
     transform: scale(1.02);
 }
 
@@ -512,7 +523,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--otp-email-input:focus {
     border-color: var(--memori-primary);
     background: white;
-    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 0 4px rgba(var(--memori-primary-rgb), 0.1);
     transform: translateY(-1px);
 }
 
@@ -540,9 +551,11 @@ p.memori--login-drawer--inline-error {
     0% {
         transform: scale(0) rotate(0deg);
     }
+
     50% {
         transform: scale(1.2) rotate(180deg);
     }
+
     100% {
         transform: scale(1) rotate(360deg);
     }
@@ -569,6 +582,7 @@ p.memori--login-drawer--inline-error {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -597,6 +611,7 @@ p.memori--login-drawer--inline-error {
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -611,13 +626,16 @@ p.memori--login-drawer--inline-error {
 }
 
 @keyframes celebration {
+
     0%,
     100% {
         transform: scale(1) rotate(0deg);
     }
+
     25% {
         transform: scale(1.1) rotate(-5deg);
     }
+
     75% {
         transform: scale(1.1) rotate(5deg);
     }
@@ -648,10 +666,12 @@ p.memori--login-drawer--inline-error {
 }
 
 @keyframes timerPulse {
+
     0%,
     100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.02);
     }
@@ -663,13 +683,16 @@ p.memori--login-drawer--inline-error {
 }
 
 @keyframes tick {
+
     0%,
     100% {
         transform: rotate(0deg);
     }
+
     25% {
         transform: rotate(-10deg);
     }
+
     75% {
         transform: rotate(10deg);
     }
@@ -721,6 +744,7 @@ p.memori--login-drawer--inline-error {
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -733,10 +757,12 @@ p.memori--login-drawer--inline-error {
 }
 
 @keyframes warning {
+
     0%,
     100% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.1);
     }
@@ -768,22 +794,27 @@ p.memori--login-drawer--inline-error {
     0% {
         transform: scale(1);
     }
+
     50% {
         transform: scale(1.05);
     }
+
     100% {
         transform: scale(1);
     }
 }
 
 @keyframes shake {
+
     0%,
     100% {
         transform: translateX(0);
     }
+
     25% {
         transform: translateX(-5px);
     }
+
     75% {
         transform: translateX(5px);
     }
@@ -844,7 +875,7 @@ p.memori--login-drawer--inline-error {
         max-width: 200px;
     }
 
-    .memori--login-drawer--otp-label{
+    .memori--login-drawer--otp-label {
         min-width: auto;
     }
 }
@@ -1257,6 +1288,7 @@ p.memori--login-drawer--inline-error {
     width: 1.5rem;
     height: 1.5rem;
 }
+
 /* .memori--login-drawer--stat-card:hover::before {
     transform: scaleX(1);
 } */
@@ -1372,7 +1404,7 @@ p.memori--login-drawer--inline-error {
     transform: translateY(-50%) rotate(180deg);
 }
 
-.memori--login-drawer--account-form .memori--details > *:not(summary) {
+.memori--login-drawer--account-form .memori--details>*:not(summary) {
     padding: 1.5rem;
 }
 
