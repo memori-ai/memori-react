@@ -40,13 +40,15 @@ export interface Props {
   confirmDialogMessage?: string;
   showBackdrop?: boolean;
   preventBackdropClose?: boolean;
+  enterDuration?: string;
+  leaveDuration?: string;
 }
 
 const Drawer: FC<Props> = ({
   title,
   open = false,
   data,
-  onClose = () => {},
+  onClose = () => { },
   children,
   width = '80%',
   footer,
@@ -63,6 +65,8 @@ const Drawer: FC<Props> = ({
   confirmDialogTitle,
   confirmDialogMessage,
   preventBackdropClose = false,
+  enterDuration = 'duration-300',
+  leaveDuration = 'duration-200',
 }: Props) => {
   const [originalData, setOriginalData] = useState<any>(null);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
@@ -120,19 +124,19 @@ const Drawer: FC<Props> = ({
       <Transition appear show={open} as={React.Fragment}>
         <Dialog
           open={open}
-          onClose={preventBackdropClose ? () => {} : handleClose}
+          onClose={preventBackdropClose ? () => { } : handleClose}
           className={cx('memori-drawer', className)}
         >
           {showBackdrop && (
             <Transition.Child
-            as={React.Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
+              as={React.Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
               <div className="memori-drawer--backdrop" />
             </Transition.Child>
           )}
@@ -141,10 +145,10 @@ const Drawer: FC<Props> = ({
               <Transition.Child
                 static
                 as={React.Fragment}
-                enter="ease-out duration-300"
+                enter={`ease-out ${enterDuration}`}
                 enterFrom={animated ? 'max-w-0 opacity-0' : 'opacity-0'}
                 enterTo="max-w-80 opacity-100"
-                leave="ease-in duration-200"
+                leave={`ease-in ${leaveDuration}`}
                 leaveFrom="max-w-80 opacity-100"
                 leaveTo={animated ? 'max-w-0 opacity-0' : 'opacity-0'}
               >

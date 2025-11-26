@@ -188,6 +188,14 @@ h2.memori-drawer--title {
   transition-duration: 200ms;
 }
 
+.duration-400 {
+  transition-duration: 400ms;
+}
+
+.duration-500 {
+  transition-duration: 500ms;
+}
+
 .opacity-0 {
   opacity: 0;
 }
