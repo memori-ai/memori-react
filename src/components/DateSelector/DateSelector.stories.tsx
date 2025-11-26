@@ -34,5 +34,5 @@ export const Disabled = Template.bind({});
 Disabled.args = {
   defaultDate: new Date(Date.now()),
   onChange: () => {},
-  disabled: false,
+  disabled: true,
 };
