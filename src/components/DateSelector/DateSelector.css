@@ -65,13 +65,14 @@
 .memori--date-selector--desktop {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 1rem;
 }
 
 .memori--date-selector__input-group {
     display: flex;
     min-width: 80px;
-    flex: 1;
+    /* flex: 1; */
     flex-direction: column;
 }
 

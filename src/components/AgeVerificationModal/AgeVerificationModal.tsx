@@ -46,6 +46,8 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
   return (
     <Modal
       open={visible}
+      width="600px"
+      widthMd="600px"
       title={t('ageVerification')}
       className="age-verification-modal"
       closable
