@@ -1339,8 +1339,8 @@ build-storybook = "build-storybook"`,
   setSendOnEnter: () => {},
 };
 
-export const withBase64Image = Template.bind({});
-withBase64Image.args = {
+export const WithBase64Image = Template.bind({});
+WithBase64Image.args = {
   memori,
   tenant,
   sessionID,

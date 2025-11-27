@@ -3093,12 +3093,12 @@ const MemoriWidget = ({
           openModal={!!authModalState}
           setPwdOrTokens={setAuthModalState}
           showTokens={memori.privacyType === 'SECRET'}
-          onFinish={async (values: any) => {
+          onFinish={(values: any) => {
             if (values['password']) setMemoriPwd(values['password']);
             if (values['password']) memoriPassword = values['password'];
             if (values['tokens']) setMemoriTokens(values['tokens']);
 
-            reopenSession(
+            return reopenSession(
               !sessionId,
               values['password'],
               values['tokens'],
@@ -3116,6 +3116,10 @@ const MemoriWidget = ({
               birthDate
             )
               .then(state => {
+                if (!state?.sessionID) {
+                  throw new Error('AUTH_FAILED');
+                }
+
                 setAuthModalState(null);
                 // If we got a valid state from reopenSession, don't call onClickStart again
                 // to avoid duplicate snippet execution
@@ -3123,12 +3127,14 @@ const MemoriWidget = ({
                   setHasUserActivatedSpeak(true);
                 } else {
                   // Only call onClickStart if reopenSession didn't return a valid state
-                  onClickStart(state || undefined);
+                  onClickStart(state);
                 }
               })
-              .catch(() => {
-                setAuthModalState(null);
-                setGotErrorInOpening(true);
+              .catch(error => {
+                if (!(error instanceof Error) || error.message !== 'AUTH_FAILED') {
+                  setGotErrorInOpening(true);
+                }
+                throw error;
               });
           }}
           minimumNumberOfRecoveryTokens={

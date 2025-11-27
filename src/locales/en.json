@@ -25,8 +25,13 @@
   "last_7_days": "Last 7 days",
   "last_30_days": "Last 30 days",
   "month": "Month",
+  "copied": "Copied!",
   "year": "Year",
+  "dayPlaceholder": "DD",
+  "monthPlaceholder": "MM",
+  "yearPlaceholder": "YYYY",
   "createdAt": "Creation date",
+  "date": "Birth date",
   "selected": "Selected",
   "page": "page",
   "actions": "Actions",
@@ -105,6 +110,8 @@
     "tokens": "Tokens",
     "addToken": "Add token",
     "usePassword": "Use password",
+    "passwordRequired": "Password required",
+    "invalidCredentials": "Invalid credentials",
     "atLeast": "At least"
   },
   "widget": {

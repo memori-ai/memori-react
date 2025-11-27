@@ -99,7 +99,7 @@ Devo:
 3. Il tag </output> deve essere DOPO </html>
 4. Mantenerla semplice come richiesto
 5. Includere un po' di stile per renderla gradevole ma non eccessiva</think>Ciao! Ti creo subito una pagina HTML semplice e pulita:
-
+</think>
 <output class="memori-artifact" data-mimetype="html">
 <!DOCTYPE html>
 <html lang="it">
@@ -175,6 +175,593 @@ Ecco una pagina HTML semplice con:
 - Un tocco di colore con la sezione evidenziata
 
 Puoi vedere l'anteprima nel drawer che si è aperto e modificare il codice come preferisci!`;
+
+const htmlArtifactWithScrolling = `<output class="memori-artifact" data-mimetype="html">
+<!DOCTYPE html>
+<html lang="it">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Memori & AIsuru</title>
+ <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100;300;400;500;600;900&display=swap" rel="stylesheet">
+ <style>
+ * {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ }
+ 
+ :root {
+ /* Brand Colors dalla palette */
+ --color-light-teal: #9CDCD9; /* PMS 324 C */
+ --color-bright-cyan: #00AEC7; /* PMS 3125 C */
+ --color-purple: #8246AF; /* PMS 2587 C */
+ --color-dark-purple: #653165; /* PMS 2622 C */
+ --color-navy: #005587; /* PMS 7692 C */
+ 
+ /* Typography - Lexend Variable */
+ --font-family: 'Lexend', sans-serif;
+ }
+ 
+ body {
+ font-family: var(--font-family);
+ font-weight: 400;
+ line-height: 1.6;
+ color: #333;
+ overflow-x: hidden;
+ }
+ 
+ /* Hero Section con gradiente brand */
+ .hero {
+ background: linear-gradient(135deg, var(--color-bright-cyan) 0%, var(--color-purple) 50%, var(--color-dark-purple) 100%);
+ min-height: 100vh;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+ color: white;
+ position: relative;
+ overflow: hidden;
+ }
+ 
+ .hero::before {
+ content: '';
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ background: radial-gradient(circle at 30% 20%, rgba(156, 220, 217, 0.3) 0%, transparent 50%),
+ radial-gradient(circle at 80% 80%, rgba(130, 70, 175, 0.3) 0%, transparent 50%);
+ }
+ 
+ .hero-content {
+ position: relative;
+ z-index: 1;
+ max-width: 800px;
+ padding: 2rem;
+ }
+ 
+ .brand-title {
+ font-size: clamp(3rem, 10vw, 6rem);
+ font-weight: 900; /* Black weight come da brandbook */
+ margin-bottom: 1rem;
+ text-shadow: 2px 2px 20px rgba(0, 0, 0, 0.3);
+ animation: fadeInUp 1s ease-out;
+ }
+ 
+ .brand-subtitle {
+ font-size: clamp(1.2rem, 4vw, 2rem);
+ font-weight: 300; /* Light weight */
+ margin-bottom: 2rem;
+ opacity: 0.95;
+ animation: fadeInUp 1s ease-out 0.3s both;
+ }
+ 
+ .cta-button {
+ display: inline-block;
+ padding: 1.2rem 2.5rem;
+ background: var(--color-light-teal);
+ color: var(--color-navy);
+ text-decoration: none;
+ border-radius: 50px;
+ font-weight: 600; /* Semibold */
+ font-size: 1.1rem;
+ transition: all 0.3s ease;
+ animation: fadeInUp 1s ease-out 0.6s both;
+ text-transform: uppercase;
+ letter-spacing: 0.5px;
+ }
+ 
+ .cta-button:hover {
+ background: white;
+ transform: translateY(-3px);
+ box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+ }
+ 
+ /* Features Section con colori del brand */
+ .features {
+ padding: 5rem 2rem;
+ background: linear-gradient(45deg, rgba(156, 220, 217, 0.1) 0%, rgba(0, 174, 199, 0.1) 100%);
+ }
+ 
+ .container {
+ max-width: 1200px;
+ margin: 0 auto;
+ }
+ 
+ .section-title {
+ text-align: center;
+ font-size: 3rem;
+ font-weight: 900;
+ margin-bottom: 3rem;
+ color: var(--color-navy);
+ }
+ 
+ .features-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+ gap: 2.5rem;
+ }
+ 
+ .feature-card {
+ background: white;
+ padding: 2.5rem;
+ border-radius: 20px;
+ box-shadow: 0 10px 40px rgba(0, 85, 135, 0.1);
+ text-align: center;
+ transition: all 0.3s ease;
+ border: 1px solid rgba(0, 174, 199, 0.1);
+ position: relative;
+ overflow: hidden;
+ }
+ 
+ .feature-card::before {
+ content: '';
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ height: 4px;
+ background: linear-gradient(90deg, var(--color-bright-cyan), var(--color-purple));
+ }
+ 
+ .feature-card:hover {
+ transform: translateY(-10px);
+ box-shadow: 0 25px 60px rgba(0, 85, 135, 0.2);
+ }
+ 
+ .feature-icon {
+ font-size: 4rem;
+ margin-bottom: 1.5rem;
+ background: linear-gradient(135deg, var(--color-bright-cyan), var(--color-purple));
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ background-clip: text;
+ font-weight: 900;
+ }
+ 
+ .feature-card h3 {
+ font-size: 1.5rem;
+ font-weight: 600;
+ margin-bottom: 1rem;
+ color: var(--color-navy);
+ }
+ 
+ .feature-card p {
+ color: #666;
+ line-height: 1.8;
+ font-weight: 400;
+ }
+ 
+ /* Brand Colors Section */
+ .brand-colors {
+ padding: 5rem 2rem;
+ background: var(--color-navy);
+ color: white;
+ }
+ 
+ .colors-grid {
+ display: grid;
+ grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+ gap: 2rem;
+ margin-top: 3rem;
+ }
+ 
+ .color-swatch {
+ text-align: center;
+ padding: 1.5rem;
+ border-radius: 15px;
+ background: rgba(255, 255, 255, 0.1);
+ backdrop-filter: blur(10px);
+ }
+ 
+ .color-circle {
+ width: 100px;
+ height: 100px;
+ border-radius: 50%;
+ margin: 0 auto 1rem;
+ border: 3px solid rgba(255, 255, 255, 0.3);
+ }
+ 
+ .color-1 { background: var(--color-light-teal); }
+ .color-2 { background: var(--color-bright-cyan); }
+ .color-3 { background: var(--color-purple); }
+ .color-4 { background: var(--color-dark-purple); }
+ .color-5 { background: var(--color-navy); }
+ 
+ .color-name {
+ font-weight: 600;
+ margin-bottom: 0.5rem;
+ }
+ 
+ .color-hex {
+ font-family: 'Courier New', monospace;
+ font-size: 0.9rem;
+ opacity: 0.8;
+ }
+ 
+ /* Typography Section */
+ .typography {
+ padding: 5rem 2rem;
+ background: linear-gradient(135deg, rgba(130, 70, 175, 0.05), rgba(101, 49, 101, 0.05));
+ }
+ 
+ .type-example {
+ margin: 2rem 0;
+ padding: 2rem;
+ background: white;
+ border-radius: 15px;
+ box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+ }
+ 
+ .lexend-thin { font-weight: 100; font-size: 2rem; color: var(--color-purple); }
+ .lexend-light { font-weight: 300; font-size: 1.8rem; color: var(--color-bright-cyan); }
+ .lexend-regular { font-weight: 400; font-size: 1.5rem; color: var(--color-navy); }
+ .lexend-medium { font-weight: 500; font-size: 1.3rem; color: var(--color-dark-purple); }
+ .lexend-semibold { font-weight: 600; font-size: 1.2rem; color: var(--color-purple); }
+ .lexend-black { font-weight: 900; font-size: 2.5rem; color: var(--color-navy); }
+ 
+ /* Footer */
+ footer {
+ background: var(--color-dark-purple);
+ color: white;
+ text-align: center;
+ padding: 3rem 2rem;
+ }
+ 
+ .footer-content {
+ max-width: 800px;
+ margin: 0 auto;
+ }
+ 
+ .footer-title {
+ font-size: 2rem;
+ font-weight: 900;
+ margin-bottom: 1rem;
+ background: linear-gradient(135deg, var(--color-light-teal), var(--color-bright-cyan));
+ -webkit-background-clip: text;
+ -webkit-text-fill-color: transparent;
+ background-clip: text;
+ }
+ 
+ /* Animations */
+ @keyframes fadeInUp {
+ from {
+ opacity: 0;
+ transform: translateY(30px);
+ }
+ to {
+ opacity: 1;
+ transform: translateY(0);
+ }
+ }
+ 
+ /* Responsive */
+ @media (max-width: 768px) {
+ .features-grid {
+ grid-template-columns: 1fr;
+ }
+ 
+ .colors-grid {
+ grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+ }
+ }
+ </style>
+</head>
+<body>
+ <section class="hero">
+ <div class="hero-content">
+ <h1 class="brand-title">Memori & AIsuru</h1>
+ <p class="brand-subtitle">Dove l'intelligenza artificiale incontra la memoria del futuro</p>
+ <a href="#features" class="cta-button">Scopri di più</a>
+ </div>
+ </section>
+ 
+ <section id="features" class="features">
+ <div class="container">
+ <h2 class="section-title">Caratteristiche Innovative</h2>
+ <div class="features-grid">
+ <div class="feature-card">
+ <div class="feature-icon">🧠</div>
+ <h3>Intelligenza Avanzata</h3>
+ <p>Sistema di AI all'avanguardia che apprende e si adatta alle tue esigenze specifiche, offrendo soluzioni personalizzate e intelligenti.</p>
+ </div>
+ 
+ <div class="feature-card">
+ <div class="feature-icon">💾</div>
+ <h3>Memoria Infinita</h3>
+ <p>Capacità di archiviazione e recupero dati senza limiti, con algoritmi ottimizzati per prestazioni eccezionali.</p>
+ </div>
+ 
+ <div class="feature-card">
+ <div class="feature-icon">⚡</div>
+ <h3>Velocità Estrema</h3>
+ <p>Elaborazione in tempo reale con latenza minimale, garantendo risposte immediate e fluide in ogni situazione.</p>
+ </div>
+ </div>
+ </div>
+ </section>
+ 
+ <section class="brand-colors">
+ <div class="container">
+ <h2 class="section-title">Brand Palette</h2>
+ <div class="colors-grid">
+ <div class="color-swatch">
+ <div class="color-circle color-1"></div>
+ <div class="color-name">Light Teal</div>
+ <div class="color-hex">#9CDCD9</div>
+ </div>
+ <div class="color-swatch">
+ <div class="color-circle color-2"></div>
+ <div class="color-name">Bright Cyan</div>
+ <div class="color-hex">#00AEC7</div>
+ </div>
+ <div class="color-swatch">
+ <div class="color-circle color-3"></div>
+ <div class="color-name">Purple</div>
+ <div class="color-hex">#8246AF</div>
+ </div>
+ <div class="color-swatch">
+ <div class="color-circle color-4"></div>
+ <div class="color-name">Dark Purple</div>
+ <div class="color-hex">#653165</div>
+ </div>
+ <div class="color-swatch">
+ <div class="color-circle color-5"></div>
+ <div class="color-name">Navy</div>
+ <div class="color-hex">#005587</div>
+ </div>
+ </div>
+ </div>
+ </section>
+ 
+ <section class="typography">
+ <div class="container">
+ <h2 class="section-title">Tipografia Lexend</h2>
+ <div class="type-example">
+ <div class="lexend-thin">Lexend Thin - Eleganza e leggerezza</div>
+ </div>
+ <div class="type-example">
+ <div class="lexend-light">Lexend Light - Chiarezza ottimale</div>
+ </div>
+ <div class="type-example">
+ <div class="lexend-regular">Lexend Regular - Testo standard leggibile</div>
+ </div>
+ <div class="type-example">
+ <div class="lexend-medium">Lexend Medium - Enfasi equilibrata</div>
+ </div>
+ <div class="type-example">
+ <div class="lexend-semibold">Lexend Semibold - Importanza marcata</div>
+ </div>
+ <div class="type-example">
+ <div class="lexend-black">Lexend Black - Impatto Massimo</div>
+ </div>
+ </div>
+ </section>
+ 
+ <footer>
+ <div class="footer-content">
+ <h3 class="footer-title">Memori & AIsuru</h3>
+ <p>Innovazione, design e tecnologia in perfetta armonia secondo le linee guida del brand.</p>
+ <p style="margin-top: 2rem; opacity: 0.7; font-size: 0.9rem;">
+ Rispettando le dimensioni minime (12mm), palette colori PMS, tipografia Lexend e area di rispetto del brandbook.
+ </p>
+ </div>
+ </footer>
+</body>
+</html>
+</output>
+`;
+const htmlArtifactScrollTest = `<output class="memori-artifact" data-mimetype="html" data-title="Tall Content Scroll Test">
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Scroll Test</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #f0f4f8;
+        color: #1f2933;
+        line-height: 1.6;
+      }
+
+      .hero {
+        padding: 32px;
+        text-align: center;
+        background: linear-gradient(135deg, #2563eb, #7c3aed);
+        color: #fff;
+      }
+
+      .hero h1 {
+        margin: 0 0 12px;
+        font-size: 2.5rem;
+      }
+
+      .section {
+        padding: 32px;
+        background: #fff;
+        margin: 16px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+      }
+
+      .section h2 {
+        margin-top: 0;
+        color: #2563eb;
+      }
+
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .card {
+        padding: 16px;
+        border-radius: 10px;
+        background: #eef2ff;
+        border: 1px solid #c7d2fe;
+      }
+
+      footer {
+        text-align: center;
+        padding: 32px;
+        color: #94a3b8;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero">
+      <h1>Scroll Test Page</h1>
+      <p>Before the fix this iframe overflow forced the container to scroll.</p>
+    </div>
+    ${Array.from({ length: 6 })
+      .map(
+        (_, idx) => `
+    <section class="section">
+      <h2>Section ${idx + 1}</h2>
+      <p>
+        This is tall content block ${idx + 1}. It exists purely to make the page taller than the
+        drawer viewport so we can ensure the iframe owns the scrollable area.
+      </p>
+      <div class="cards">
+        <div class="card">
+          <strong>Metric A</strong>
+          <p>${(idx + 1) * 120} units</p>
+        </div>
+        <div class="card">
+          <strong>Metric B</strong>
+          <p>${(idx + 1) * 45}%</p>
+        </div>
+        <div class="card">
+          <strong>Metric C</strong>
+          <p>${(idx + 1) * 300} pts</p>
+        </div>
+      </div>
+    </section>`
+      )
+      .join('')}
+    <footer>End of scroll test content</footer>
+  </body>
+</html>
+</output>`;
+
+const svgArtifact = `<output class="memori-artifact" data-mimetype="svg">
+<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+ <!-- Gradiente per il quadrato -->
+ <linearGradient id="squareGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+ <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+ <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+ </linearGradient>
+ 
+ <!-- Ombra -->
+ <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+ <feDropShadow dx="3" dy="3" stdDeviation="3" flood-opacity="0.3"/>
+ </filter>
+ 
+ <!-- Effetto glow -->
+ <filter id="glow">
+ <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+ <feMerge> 
+ <feMergeNode in="coloredBlur"/>
+ <feMergeNode in="SourceGraphic"/>
+ </feMerge>
+ </filter>
+ </defs>
+ 
+ <!-- Sfondo -->
+ <rect width="200" height="200" fill="#f8f9fa"/>
+ 
+ <!-- Quadrato principale -->
+ <rect x="50" y="50" width="100" height="100" 
+ fill="url(#squareGradient)" 
+ stroke="rgba(255,255,255,0.3)" 
+ stroke-width="2"
+ rx="8" 
+ filter="url(#shadow)"
+ opacity="0">
+ 
+ <!-- Animazione fade in -->
+ <animate attributeName="opacity" 
+ values="0;1" 
+ dur="1s" 
+ fill="freeze"/>
+ 
+ <!-- Animazione rotazione -->
+ <animateTransform 
+ attributeName="transform"
+ attributeType="XML"
+ type="rotate"
+ values="0 100 100;5 100 100;-5 100 100;0 100 100"
+ dur="3s"
+ repeatCount="indefinite"/>
+ </rect>
+ 
+ <!-- Quadrato interno decorativo -->
+ <rect x="75" y="75" width="50" height="50" 
+ fill="rgba(255,255,255,0.2)" 
+ rx="4"
+ opacity="0">
+ 
+ <animate attributeName="opacity" 
+ values="0;0.6;0" 
+ dur="2s" 
+ repeatCount="indefinite"/>
+ </rect>
+ 
+ <!-- Particelle decorative -->
+ <circle cx="60" cy="60" r="2" fill="#FFD700" opacity="0">
+ <animate attributeName="opacity" values="0;1;0" dur="1.5s" repeatCount="indefinite"/>
+ </circle>
+ 
+ <circle cx="140" cy="140" r="1.5" fill="#FF6B6B" opacity="0">
+ <animate attributeName="opacity" values="0;1;0" dur="2s" repeatCount="indefinite" begin="0.5s"/>
+ </circle>
+ 
+ <circle cx="140" cy="60" r="1" fill="#4ECDC4" opacity="0">
+ <animate attributeName="opacity" values="0;1;0" dur="1.8s" repeatCount="indefinite" begin="1s"/>
+ </circle>
+ 
+ <!-- Testo centrale -->
+ <text x="100" y="105" 
+ text-anchor="middle" 
+ fill="white" 
+ font-family="system-ui, sans-serif" 
+ font-size="14" 
+ font-weight="bold"
+ opacity="0">
+ SVG
+ <animate attributeName="opacity" values="0;1" dur="1.5s" fill="freeze" begin="0.5s"/>
+ </text>
+</svg>
+</output>`;
 
 const markdownArtifact = `<output class="memori-artifact" data-mimetype="markdown">
 # Project Documentation
@@ -392,7 +979,7 @@ This page includes modern styling and an interactive button. You can customize t
           text: sanitizeText(htmlArtifact),
           fromUser: false,
           timestamp: new Date().toISOString(),
-        }
+        },
       ]}
       pushMessage={mockPushMessage}
       simulateUserPrompt={mockSimulateUserPrompt}
@@ -407,6 +994,86 @@ This page includes modern styling and an interactive button. You can customize t
       showInputs={false}
       isChatlogPanel={true}
       showReasoning={true}
+    />
+  ),
+};
+
+export const HTMLArtifactWithScrolling: Story = {
+  args: {},
+  render: () => (
+    <Chat
+      memori={mockMemori}
+      tenant={mockTenant}
+      sessionID="test-session"
+      history={[
+        {
+          text: `Here's a complete HTML page for your landing page:
+
+${htmlArtifactWithScrolling}
+
+This page includes modern styling and an interactive button. You can customize the colors and layout as needed.`,
+          fromUser: false,
+          timestamp: new Date().toISOString(),
+        },
+        {
+          text: 'Try the sanitizeText function',
+          fromUser: false,
+          timestamp: new Date().toISOString(),
+        },
+        {
+          text: sanitizeText(htmlArtifactWithScrolling),
+          fromUser: false,
+          timestamp: new Date().toISOString(),
+        },
+      ]}
+      pushMessage={mockPushMessage}
+      simulateUserPrompt={mockSimulateUserPrompt}
+      onChangeUserMessage={mockOnChangeUserMessage}
+      sendMessage={mockSendMessage}
+      setEnableFocusChatInput={mockSetEnableFocusChatInput}
+      stopAudio={mockStopAudio}
+      startListening={mockStartListening}
+      stopListening={mockStopListening}
+      setSendOnEnter={mockSetSendOnEnter}
+      setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
+      showInputs={false}
+      isChatlogPanel={false}
+      showReasoning={true}
+    />
+  ),
+};
+
+export const HTMLScrollTest: Story = {
+  args: {},
+  render: () => (
+    <Chat
+      memori={mockMemori}
+      tenant={mockTenant}
+      sessionID="test-session"
+      history={[
+        {
+          text: `Here's a deliberately tall HTML artifact to validate iframe scrolling:
+
+${htmlArtifactScrollTest}
+
+Scroll inside the preview to confirm only the iframe scrolls.`,
+          fromUser: false,
+          timestamp: new Date().toISOString(),
+        },
+      ]}
+      pushMessage={mockPushMessage}
+      simulateUserPrompt={mockSimulateUserPrompt}
+      onChangeUserMessage={mockOnChangeUserMessage}
+      sendMessage={mockSendMessage}
+      setEnableFocusChatInput={mockSetEnableFocusChatInput}
+      stopAudio={mockStopAudio}
+      startListening={mockStartListening}
+      stopListening={mockStopListening}
+      setSendOnEnter={mockSetSendOnEnter}
+      setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
+      showInputs={false}
+      isChatlogPanel={false}
+      showReasoning={false}
     />
   ),
 };
@@ -881,6 +1548,40 @@ All files are ready! You now have a complete project structure with HTML, CSS, J
   ),
 };
 
+export const SVGArtifact: Story = {
+  args: {},
+  render: () => (
+    <Chat
+      memori={mockMemori}
+      tenant={mockTenant}
+      sessionID="test-session"
+      history={[
+        {
+          text: `Here's a complete SVG artifact:
+
+${svgArtifact}
+
+This SVG includes a simple circle with a red fill.`,
+          fromUser: false,
+          timestamp: new Date().toISOString(),
+        },
+      ]}
+      pushMessage={mockPushMessage}
+      simulateUserPrompt={mockSimulateUserPrompt}
+      onChangeUserMessage={mockOnChangeUserMessage}
+      sendMessage={mockSendMessage}
+      setEnableFocusChatInput={mockSetEnableFocusChatInput}
+      stopAudio={mockStopAudio}
+      startListening={mockStartListening}
+      stopListening={mockStopListening}
+      setSendOnEnter={mockSetSendOnEnter}
+      setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
+      showInputs={false}
+      isChatlogPanel={false}
+    />
+  ),
+};
+
 export const ConversationFlow: Story = {
   args: {},
   render: () => (
@@ -987,7 +1688,10 @@ export const APIBridge_CreateSimpleArtifact: Story = {
       useEffect(() => {
         // Wait a bit for the API to be available
         setTimeout(() => {
-          console.log('MemoriArtifactAPI available:', !!window.MemoriArtifactAPI);
+          console.log(
+            'MemoriArtifactAPI available:',
+            !!window.MemoriArtifactAPI
+          );
         }, 100);
       }, []);
 
@@ -1046,111 +1750,133 @@ console.log(message);`,
         <>
           {/* Conditionally render ArtifactDrawer to avoid hooks error */}
           {state.isDrawerOpen && <ArtifactDrawer />}
-          
+
           <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
             <h1>🧪 Artifact API Test Lab</h1>
             <p>
-              Test the global <code>window.MemoriArtifactAPI</code> by clicking the buttons below.
-              Open the browser console to see the API in action.
+              Test the global <code>window.MemoriArtifactAPI</code> by clicking
+              the buttons below. Open the browser console to see the API in
+              action.
             </p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '20px' }}>
-            <button
-              onClick={createHTMLArtifact}
+            <div
               style={{
-                padding: '12px 20px',
-                fontSize: '16px',
-                cursor: 'pointer',
-                backgroundColor: '#9333ea',
-                color: 'white',
-                border: 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px',
+                marginTop: '20px',
+              }}
+            >
+              <button
+                onClick={createHTMLArtifact}
+                style={{
+                  padding: '12px 20px',
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                  backgroundColor: '#9333ea',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                }}
+              >
+                📄 Create HTML Artifact
+              </button>
+
+              <button
+                onClick={createMarkdownArtifact}
+                style={{
+                  padding: '12px 20px',
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                  backgroundColor: '#7c3aed',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                }}
+              >
+                📝 Create Markdown Artifact
+              </button>
+
+              <button
+                onClick={createJavaScriptArtifact}
+                style={{
+                  padding: '12px 20px',
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                  backgroundColor: '#6d28d9',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                }}
+              >
+                💻 Create JavaScript Artifact
+              </button>
+
+              <button
+                onClick={checkState}
+                style={{
+                  padding: '12px 20px',
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                  backgroundColor: '#5b21b6',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                }}
+              >
+                📊 Check Current State
+              </button>
+
+              <button
+                onClick={() => window.MemoriArtifactAPI?.closeArtifact()}
+                style={{
+                  padding: '12px 20px',
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                  backgroundColor: '#ef4444',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                }}
+              >
+                ❌ Close Artifact
+              </button>
+
+              <button
+                onClick={() => window.MemoriArtifactAPI?.toggleFullscreen()}
+                style={{
+                  padding: '12px 20px',
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                  backgroundColor: '#3b82f6',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                }}
+              >
+                ⛶ Toggle Fullscreen
+              </button>
+            </div>
+
+            <div
+              style={{
+                marginTop: '30px',
+                padding: '15px',
+                backgroundColor: '#f3f4f6',
                 borderRadius: '8px',
               }}
             >
-              📄 Create HTML Artifact
-            </button>
-
-            <button
-              onClick={createMarkdownArtifact}
-              style={{
-                padding: '12px 20px',
-                fontSize: '16px',
-                cursor: 'pointer',
-                backgroundColor: '#7c3aed',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-              }}
-            >
-              📝 Create Markdown Artifact
-            </button>
-
-            <button
-              onClick={createJavaScriptArtifact}
-              style={{
-                padding: '12px 20px',
-                fontSize: '16px',
-                cursor: 'pointer',
-                backgroundColor: '#6d28d9',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-              }}
-            >
-              💻 Create JavaScript Artifact
-            </button>
-
-            <button
-              onClick={checkState}
-              style={{
-                padding: '12px 20px',
-                fontSize: '16px',
-                cursor: 'pointer',
-                backgroundColor: '#5b21b6',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-              }}
-            >
-              📊 Check Current State
-            </button>
-
-            <button
-              onClick={() => window.MemoriArtifactAPI?.closeArtifact()}
-              style={{
-                padding: '12px 20px',
-                fontSize: '16px',
-                cursor: 'pointer',
-                backgroundColor: '#ef4444',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-              }}
-            >
-              ❌ Close Artifact
-            </button>
-
-            <button
-              onClick={() => window.MemoriArtifactAPI?.toggleFullscreen()}
-              style={{
-                padding: '12px 20px',
-                fontSize: '16px',
-                cursor: 'pointer',
-                backgroundColor: '#3b82f6',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-              }}
-            >
-              ⛶ Toggle Fullscreen
-            </button>
-          </div>
-
-          <div style={{ marginTop: '30px', padding: '15px', backgroundColor: '#f3f4f6', borderRadius: '8px' }}>
-            <h3>💡 Console Commands</h3>
-            <p>Try these in the browser console:</p>
-            <pre style={{ backgroundColor: 'white', padding: '10px', borderRadius: '4px', overflow: 'auto' }}>
-{`// Create an artifact
+              <h3>💡 Console Commands</h3>
+              <p>Try these in the browser console:</p>
+              <pre
+                style={{
+                  backgroundColor: 'white',
+                  padding: '10px',
+                  borderRadius: '4px',
+                  overflow: 'auto',
+                }}
+              >
+                {`// Create an artifact
 window.MemoriArtifactAPI.createAndOpenArtifact(
   '<h1>Test</h1>',
   'html',
@@ -1162,8 +1888,8 @@ window.MemoriArtifactAPI.getState();
 
 // Close
 window.MemoriArtifactAPI.closeArtifact();`}
-            </pre>
-          </div>
+              </pre>
+            </div>
           </div>
         </>
       );
@@ -1180,9 +1906,13 @@ export const APIBridge_ProcessOutputElements: Story = {
       const { state } = useArtifact();
 
       const createFromOutput = () => {
-        const outputs = document.querySelectorAll('.memori-artifact[data-sample="true"]');
-        outputs.forEach((output) => {
-          const artifactId = window.MemoriArtifactAPI?.createFromOutputElement(output as HTMLOutputElement);
+        const outputs = document.querySelectorAll(
+          '.memori-artifact[data-sample="true"]'
+        );
+        outputs.forEach(output => {
+          const artifactId = window.MemoriArtifactAPI?.createFromOutputElement(
+            output as HTMLOutputElement
+          );
           console.log('Created artifact:', artifactId);
         });
         alert(`Processed ${outputs.length} artifacts. Check console for IDs.`);
@@ -1211,77 +1941,116 @@ export const APIBridge_ProcessOutputElements: Story = {
         <>
           {/* Conditionally render ArtifactDrawer to avoid hooks error */}
           {state.isDrawerOpen && <ArtifactDrawer />}
-          
+
           <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
             <h1>🔄 Process Output Elements</h1>
             <p>
-              This story demonstrates processing <code>&lt;output class=&quot;memori-artifact&quot;&gt;</code> elements
-              using <code>createFromOutputElement</code>.
+              This story demonstrates processing{' '}
+              <code>&lt;output class=&quot;memori-artifact&quot;&gt;</code>{' '}
+              elements using <code>createFromOutputElement</code>.
             </p>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '20px' }}>
-            <button
-              onClick={createFromOutput}
+            <div
               style={{
-                padding: '12px 20px',
-                fontSize: '16px',
-                cursor: 'pointer',
-                backgroundColor: '#9333ea',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '12px',
+                marginTop: '20px',
               }}
             >
-              🔍 Create From Output Elements
-            </button>
+              <button
+                onClick={createFromOutput}
+                style={{
+                  padding: '12px 20px',
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                  backgroundColor: '#9333ea',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                }}
+              >
+                🔍 Create From Output Elements
+              </button>
 
-            <button
-              onClick={addDynamicOutput}
-              style={{
-                padding: '12px 20px',
-                fontSize: '16px',
-                cursor: 'pointer',
-                backgroundColor: '#7c3aed',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-              }}
-            >
-              ➕ Add Dynamic Output
-            </button>
-          </div>
+              <button
+                onClick={addDynamicOutput}
+                style={{
+                  padding: '12px 20px',
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                  backgroundColor: '#7c3aed',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                }}
+              >
+                ➕ Add Dynamic Output
+              </button>
+            </div>
 
-          <div id="dynamic-container" style={{ marginTop: '30px' }}>
-            <h3>Existing Output Elements:</h3>
-            
-            <output className="memori-artifact" data-mimetype="html" data-title="Sample HTML" data-sample="true">
-              <div style={{ padding: '15px', border: '2px solid #9333ea', borderRadius: '8px' }}>
-                <h3>Sample Artifact 1</h3>
-                <p>This is a static output element in the DOM.</p>
-              </div>
-            </output>
+            <div id="dynamic-container" style={{ marginTop: '30px' }}>
+              <h3>Existing Output Elements:</h3>
 
-            <output className="memori-artifact" data-mimetype="markdown" data-title="Sample Markdown" data-sample="true">
-              {`# Sample Markdown
+              <output
+                className="memori-artifact"
+                data-mimetype="html"
+                data-title="Sample HTML"
+                data-sample="true"
+              >
+                <div
+                  style={{
+                    padding: '15px',
+                    border: '2px solid #9333ea',
+                    borderRadius: '8px',
+                  }}
+                >
+                  <h3>Sample Artifact 1</h3>
+                  <p>This is a static output element in the DOM.</p>
+                </div>
+              </output>
+
+              <output
+                className="memori-artifact"
+                data-mimetype="markdown"
+                data-title="Sample Markdown"
+                data-sample="true"
+              >
+                {`# Sample Markdown
               
 This is **another** static output element.
 
 - Item 1
 - Item 2
 - Item 3`}
-            </output>
-          </div>
+              </output>
+            </div>
 
-          <div style={{ marginTop: '30px', padding: '15px', backgroundColor: '#f3f4f6', borderRadius: '8px' }}>
-            <h3>💡 How it works</h3>
-            <ol>
-              <li>Click &quot;Create From Output Elements&quot; to process <code>&lt;output&gt;</code> elements</li>
-              <li>Each element gets converted to an artifact and added to history</li>
-              <li>Click &quot;Add Dynamic Output&quot; to inject a new element</li>
-              <li>Process again to handle the new element</li>
-              <li>The artifacts will appear in the chat history</li>
-            </ol>
-          </div>
+            <div
+              style={{
+                marginTop: '30px',
+                padding: '15px',
+                backgroundColor: '#f3f4f6',
+                borderRadius: '8px',
+              }}
+            >
+              <h3>💡 How it works</h3>
+              <ol>
+                <li>
+                  Click &quot;Create From Output Elements&quot; to process{' '}
+                  <code>&lt;output&gt;</code> elements
+                </li>
+                <li>
+                  Each element gets converted to an artifact and added to
+                  history
+                </li>
+                <li>
+                  Click &quot;Add Dynamic Output&quot; to inject a new element
+                </li>
+                <li>Process again to handle the new element</li>
+                <li>The artifacts will appear in the chat history</li>
+              </ol>
+            </div>
           </div>
         </>
       );
@@ -1332,7 +2101,10 @@ export const APIBridge_WebSocketSimulation: Story = {
           const messageHTML = `
             <div style="padding: 10px; margin: 10px 0; background: #f9fafb; border-radius: 8px;">
               <p><strong>Bot:</strong> I've created a visualization for you. Click the artifact card to view it.</p>
-              <div style="padding: 10px; margin-top: 10px; background: #e0e7ff; border-radius: 4px; cursor: pointer;" onclick="window.MemoriArtifactAPI?.createAndOpenArtifact(\`${artifactContent.replace(/`/g, '\\`')}\`, 'html', 'Data Visualization')">
+              <div style="padding: 10px; margin-top: 10px; background: #e0e7ff; border-radius: 4px; cursor: pointer;" onclick="window.MemoriArtifactAPI?.createAndOpenArtifact(\`${artifactContent.replace(
+                /`/g,
+                '\\`'
+              )}\`, 'html', 'Data Visualization')">
                 📊 Data Visualization
               </div>
             </div>
@@ -1346,7 +2118,8 @@ export const APIBridge_WebSocketSimulation: Story = {
       const clearChat = () => {
         const chatContainer = document.getElementById('chat-simulation');
         if (chatContainer) {
-          chatContainer.innerHTML = '<p style="color: #6b7280;">Chat cleared. Click "Simulate WebSocket Message" to add new content.</p>';
+          chatContainer.innerHTML =
+            '<p style="color: #6b7280;">Chat cleared. Click "Simulate WebSocket Message" to add new content.</p>';
         }
       };
 
@@ -1354,64 +2127,83 @@ export const APIBridge_WebSocketSimulation: Story = {
         <>
           {/* Conditionally render ArtifactDrawer to avoid hooks error */}
           {state.isDrawerOpen && <ArtifactDrawer />}
-          
+
           <div style={{ padding: '20px', maxWidth: '900px', margin: '0 auto' }}>
             <h1>🌐 WebSocket Integration Simulation</h1>
             <p>
-              This demonstrates how <code>createAndOpenArtifact</code> can be used with WebSocket or Action Cable
-              to create artifacts from messages received dynamically.
+              This demonstrates how <code>createAndOpenArtifact</code> can be
+              used with WebSocket or Action Cable to create artifacts from
+              messages received dynamically.
             </p>
 
-          <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
-            <button
-              onClick={simulateWebSocket}
+            <div style={{ display: 'flex', gap: '12px', marginTop: '20px' }}>
+              <button
+                onClick={simulateWebSocket}
+                style={{
+                  padding: '12px 20px',
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                  backgroundColor: '#9333ea',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                }}
+              >
+                📡 Simulate WebSocket Message
+              </button>
+
+              <button
+                onClick={clearChat}
+                style={{
+                  padding: '12px 20px',
+                  fontSize: '16px',
+                  cursor: 'pointer',
+                  backgroundColor: '#64748b',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '8px',
+                }}
+              >
+                🗑️ Clear Chat
+              </button>
+            </div>
+
+            <div
+              id="chat-simulation"
               style={{
-                padding: '12px 20px',
-                fontSize: '16px',
-                cursor: 'pointer',
-                backgroundColor: '#9333ea',
-                color: 'white',
-                border: 'none',
+                marginTop: '30px',
+                padding: '20px',
+                backgroundColor: 'white',
+                border: '1px solid #e5e7eb',
+                borderRadius: '12px',
+                minHeight: '200px',
+              }}
+            >
+              <p style={{ color: '#6b7280' }}>
+                Click &quot;Simulate WebSocket Message&quot; to receive a
+                message with an artifact...
+              </p>
+            </div>
+
+            <div
+              style={{
+                marginTop: '30px',
+                padding: '15px',
+                backgroundColor: '#f3f4f6',
                 borderRadius: '8px',
               }}
             >
-              📡 Simulate WebSocket Message
-            </button>
-
-            <button
-              onClick={clearChat}
-              style={{
-                padding: '12px 20px',
-                fontSize: '16px',
-                cursor: 'pointer',
-                backgroundColor: '#64748b',
-                color: 'white',
-                border: 'none',
-                borderRadius: '8px',
-              }}
-            >
-              🗑️ Clear Chat
-            </button>
-          </div>
-
-          <div
-            id="chat-simulation"
-            style={{
-              marginTop: '30px',
-              padding: '20px',
-              backgroundColor: 'white',
-              border: '1px solid #e5e7eb',
-              borderRadius: '12px',
-              minHeight: '200px',
-            }}
-          >
-            <p style={{ color: '#6b7280' }}>Click &quot;Simulate WebSocket Message&quot; to receive a message with an artifact...</p>
-          </div>
-
-          <div style={{ marginTop: '30px', padding: '15px', backgroundColor: '#f3f4f6', borderRadius: '8px' }}>
-            <h3>💡 Implementation Example</h3>
-            <pre style={{ backgroundColor: 'white', padding: '10px', borderRadius: '4px', overflow: 'auto', fontSize: '13px' }}>
-{`// Rails Action Cable
+              <h3>💡 Implementation Example</h3>
+              <pre
+                style={{
+                  backgroundColor: 'white',
+                  padding: '10px',
+                  borderRadius: '4px',
+                  overflow: 'auto',
+                  fontSize: '13px',
+                }}
+              >
+                {`// Rails Action Cable
 consumer.subscriptions.create("ChatChannel", {
   received(data) {
     if (data.artifact) {
@@ -1424,8 +2216,8 @@ consumer.subscriptions.create("ChatChannel", {
     }
   }
 });`}
-            </pre>
-          </div>
+              </pre>
+            </div>
           </div>
         </>
       );
