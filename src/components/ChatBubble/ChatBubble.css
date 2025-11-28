@@ -14,6 +14,35 @@
     background: #c5c6d1;
 }
 
+.memori-chat--bubble-status-message {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+    margin: 1.5rem auto;
+}
+
+.memori-chat--bubble-status-message-content {
+    display: inline-flex;
+    max-width: 90%;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(76, 111, 255, 0.2);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, rgba(76, 111, 255, 0.1) 0%, rgba(76, 111, 255, 0.05) 100%);
+    box-shadow: 0 2px 8px rgba(76, 111, 255, 0.1);
+    color: var(--memori-primary, #4c6fff);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+    text-align: center;
+    word-wrap: break-word;
+}
+
 .memori-chat--bubble {
     display: inline-flex;
     max-width: 90%;

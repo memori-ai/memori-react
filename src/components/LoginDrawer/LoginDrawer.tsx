@@ -8,7 +8,6 @@ import cx from 'classnames';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { getErrori18nKey } from '../../helpers/error';
 import { mailRegEx, pwdRegEx } from '../../helpers/utils';
-import SignupForm from '../SignupForm/SignupForm';
 
 export interface Props {
   open?: boolean;
@@ -21,7 +20,6 @@ export interface Props {
   apiClient: ReturnType<typeof memoriApiClient>;
   __TEST__signup?: boolean;
   __TEST__needMissingData?: boolean;
-  __TEST__waitingForOtp?: boolean;
   setUser: (user: User) => void;
 }
 
@@ -36,7 +34,6 @@ const LoginDrawer = ({
   apiClient,
   __TEST__signup = false,
   __TEST__needMissingData = false,
-  __TEST__waitingForOtp = false,
 }: Props) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === 'it' ? 'it' : 'en';
@@ -398,22 +395,6 @@ const LoginDrawer = ({
             </Button>
           </form>
         </>
-      ) : showSignup ? (
-        <SignupForm
-          tenant={tenant}
-          apiClient={apiClient}
-          onLogin={(_user: User, token: string) => {
-            // Force all signup users to go through missing data flow
-            // This ensures consistent user experience and data collection
-            setNeedsMissingData({
-              token: token,
-              birthDate: true, // Always require birth date for new users
-              tnCAndPPAccepted: true, // Always require terms acceptance for new users
-            });
-          }}
-          goToLogin={() => setShowSignup(false)}
-          __TEST__waitingForOtp={__TEST__waitingForOtp}
-        />
       ) : showOtpCodeForm ? (
         <>
           <div className="memori--login-drawer--otp-container">

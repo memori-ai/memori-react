@@ -323,14 +323,18 @@ declare global {
     typeBatchMessages: typeof typeBatchMessages;
     MemoriArtifactAPI?: {
       openArtifact: (artifact: ArtifactData) => void;
-      createAndOpenArtifact: (content: string, mimeType?: string, title?: string) => void;
+      createAndOpenArtifact: (
+        content: string,
+        mimeType?: string,
+        title?: string
+      ) => void;
       createFromOutputElement: (outputElement: HTMLOutputElement) => string;
       closeArtifact: () => void;
       toggleFullscreen: () => void;
-      getState: () => { 
-        currentArtifact: ArtifactData | null; 
-        isDrawerOpen: boolean; 
-        isFullscreen: boolean 
+      getState: () => {
+        currentArtifact: ArtifactData | null;
+        isDrawerOpen: boolean;
+        isFullscreen: boolean;
       };
     };
   }
@@ -915,7 +919,7 @@ const MemoriWidget = ({
         setHistory(h => [...h.slice(0, h.length - 1)]);
 
         reopenSession(
-          false,
+          true,
           memoriPwd || memori.secretToken,
           memoriTokens,
           undefined,
@@ -926,7 +930,12 @@ const MemoriWidget = ({
             ROUTE: window.location.pathname?.split('/')?.pop() || '',
             ...(initialContextVars || {}),
           },
-          initialQuestion
+          initialQuestion,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          true // isSessionExpired
         ).then(state => {
           console.info('session timeout');
           if (state?.sessionID) {
@@ -1283,9 +1292,13 @@ const MemoriWidget = ({
         tag: params.tag ?? personification?.tag,
         pin: params.pin ?? personification?.pin,
         additionalInfo: {
-          ...(additionalInfo || {}),
+          ...(params.additionalInfo || additionalInfo || {}),
           loginToken:
-            userToken ?? loginToken ?? additionalInfo?.loginToken ?? authToken,
+            userToken ??
+            loginToken ??
+            params.additionalInfo?.loginToken ??
+            additionalInfo?.loginToken ??
+            authToken,
           language: getCultureCodeByLanguage(userLang),
           referral: referral,
           timeZoneOffset: new Date().getTimezoneOffset().toString(),
@@ -1379,18 +1392,12 @@ const MemoriWidget = ({
     pin?: string,
     initialContextVars?: { [key: string]: string },
     initialQuestion?: string,
-    birthDate?: string
+    birthDate?: string,
+    additionalInfoProp?: { [key: string]: string | undefined },
+    continueFromChatLogID?: string,
+    continueFromSessionID?: string,
+    isSessionExpired?: boolean
   ) => {
-    // console.log('[REOPEN_SESSION] Starting reopenSession with params:', {
-    //   updateDialogState,
-    //   hasPassword: !!password,
-    //   hasRecoveryTokens: !!recoveryTokens,
-    //   tag,
-    //   hasPin: !!pin,
-    //   initialContextVars,
-    //   initialQuestion,
-    //   hasBirthDate: !!birthDate
-    // });
 
     // Set loading state while reopening session
     setLoading(true);
@@ -1444,6 +1451,8 @@ const MemoriWidget = ({
         recoveryTokens: recoveryTokens || memoriTokens,
         tag: tag ?? personification?.tag,
         pin: pin ?? personification?.pin,
+        continueFromChatLogID: continueFromChatLogID,
+        continueFromSessionID: continueFromSessionID,
         initialContextVars: {
           LANG: userLang,
           PATHNAME: window.location.pathname,
@@ -1453,9 +1462,13 @@ const MemoriWidget = ({
         initialQuestion,
         birthDate: userBirthDate,
         additionalInfo: {
-          ...(additionalInfo || {}),
+          ...(additionalInfoProp || additionalInfo || {}),
           loginToken:
-            userToken ?? loginToken ?? additionalInfo?.loginToken ?? authToken,
+            userToken ??
+            loginToken ??
+            additionalInfoProp?.loginToken ??
+            additionalInfo?.loginToken ??
+            authToken,
           language: getCultureCodeByLanguage(userLang),
           referral: referral,
           timeZoneOffset: new Date().getTimezoneOffset().toString(),
@@ -1464,7 +1477,7 @@ const MemoriWidget = ({
 
       // Handle successful session initialization
       if (sessionID && currentState && response.resultCode === 0) {
-        // console.log('[REOPEN_SESSION] Session initialized successfully:', sessionID);
+        console.log('[REOPEN_SESSION] Session initialized successfully:', sessionID);
         setSessionId(sessionID);
 
         // Update dialog state and history if requested
@@ -1473,7 +1486,13 @@ const MemoriWidget = ({
           setCurrentDialogState(currentState);
 
           if (currentState.emission) {
-            // console.log('[REOPEN_SESSION] Processing emission:', currentState.emission);
+            console.log('[REOPEN_SESSION] Processing emission:', currentState.emission);
+            // Determine initial status message based on context
+            // Show status message only if session expired and there's existing history
+            const initialStatus = isSessionExpired && history.length > 1
+              ? 'Session Expired, reopening session'
+              : (history.length <= 1 ? true : undefined);
+            
             // Set initial message or append to existing history
             history.length <= 1
               ? setHistory([
@@ -1482,7 +1501,7 @@ const MemoriWidget = ({
                     emitter: currentState.emitter,
                     media: currentState.emittedMedia ?? currentState.media,
                     fromUser: false,
-                    initial: true,
+                    initial: (initialStatus === true ? true : (initialStatus || undefined)) as any,
                     contextVars: currentState.contextVars,
                     date: currentState.currentDate,
                     placeName: currentState.currentPlaceName,
@@ -1498,7 +1517,7 @@ const MemoriWidget = ({
                   emitter: currentState.emitter,
                   media: currentState.emittedMedia ?? currentState.media,
                   fromUser: false,
-                  initial: true,
+                  initial: (initialStatus === true ? true : (initialStatus || undefined)) as any,
                   contextVars: currentState.contextVars,
                   date: currentState.currentDate,
                   placeName: currentState.currentPlaceName,
@@ -2551,6 +2570,7 @@ const MemoriWidget = ({
         // No tag changes needed
         else {
           try {
+            //This is the session id of the session that was opened before the current session
             const { chatLogs } = await getSessionChatLogs(
               sessionID!,
               sessionID!
@@ -3049,16 +3069,21 @@ const MemoriWidget = ({
         loading={loading}
       />
 
-      <ArtifactAPIBridge pushMessage={(message: Message) => {
-        setHistory(history => {
-          if (!history.length) return history;
-          const lastMessage = history[history.length - 1];
-          if (!lastMessage || lastMessage.fromUser) return history;
-          // Create a new message object with the updated text
-          const updatedLastMessage = { ...lastMessage, text: lastMessage.text + message.text };
-          return [...history.slice(0, -1), updatedLastMessage];
-        });
-      }} />
+      <ArtifactAPIBridge
+        pushMessage={(message: Message) => {
+          setHistory(history => {
+            if (!history.length) return history;
+            const lastMessage = history[history.length - 1];
+            if (!lastMessage || lastMessage.fromUser) return history;
+            // Create a new message object with the updated text
+            const updatedLastMessage = {
+              ...lastMessage,
+              text: lastMessage.text + message.text,
+            };
+            return [...history.slice(0, -1), updatedLastMessage];
+          });
+        }}
+      />
 
       <audio
         id="memori-audio"
@@ -3260,16 +3285,60 @@ const MemoriWidget = ({
           loginToken={loginToken}
           onClose={() => setShowLoginDrawer(false)}
           onLogin={(user, token) => {
-            setUser(user);
-            setLoginToken(token);
-            userToken = token;
-            setShowLoginDrawer(false);
-            setLocalConfig('loginToken', token);
+            console.log('current session id', sessionId);
+            //The user is logged in, so we need to set open a new session with the new token
+            reopenSession(
+              false,
+              memoriPassword || memoriPwd || memori?.secretToken,
+              [],
+              personification?.tag,
+              personification?.pin,
+              {
+                LANG: userLang,
+                PATHNAME: window.location.pathname?.toUpperCase(),
+                ROUTE:
+                  window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
+                  '',
+                ...(initialContextVars || {}),
+              },
+              initialQuestion,
+              birthDate,
+              { loginToken: token } as any,
+              undefined,
+              sessionId
+            ).then(state => {
+              setShowLoginDrawer(false);
+              setUser(user);
+              setLoginToken(token);
+              userToken = token;
+              setLocalConfig('loginToken', token);
+              // Push a message with initial status to show status message when a new session is created after login
+              if (state?.sessionID && state.sessionID !== sessionId && state?.dialogState) {
+                // Push a message with initial status message showing successful login
+                const username = user?.userName || 'User';
+                pushMessage({
+                  text: state.dialogState.emission || '',
+                  emitter: state.dialogState.emitter,
+                  media: state.dialogState.emittedMedia ?? state.dialogState.media ?? [],
+                  fromUser: false,
+                  initial: `${username} has successfully logged in` as any,
+                  contextVars: state.dialogState.contextVars,
+                  date: state.dialogState.currentDate,
+                  placeName: state.dialogState.currentPlaceName,
+                  placeLatitude: state.dialogState.currentLatitude,
+                  placeLongitude: state.dialogState.currentLongitude,
+                  placeUncertaintyKm: state.dialogState.currentUncertaintyKm,
+                  tag: state.dialogState.currentTag,
+                  memoryTags: state.dialogState.memoryTags,
+                });
+                // Update the dialog state so the UI reflects the new session
+                setCurrentDialogState(state.dialogState);
+              }
+            });
           }}
           setUser={setUser}
           onLogout={() => {
             if (!loginToken) return;
-
             client.backend.pwlUserLogout(loginToken).then(() => {
               setShowLoginDrawer(false);
               setUser(undefined);
