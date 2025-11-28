@@ -117,7 +117,6 @@ it('renders LoginDrawer on signup waiting for otp unchanged', () => {
       setUser={jest.fn()}
       onLogout={jest.fn()}
       __TEST__signup
-      __TEST__waitingForOtp
       open
     />
   );

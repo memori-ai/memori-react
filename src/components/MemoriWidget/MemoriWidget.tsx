@@ -919,7 +919,7 @@ const MemoriWidget = ({
         setHistory(h => [...h.slice(0, h.length - 1)]);
 
         reopenSession(
-          false,
+          true,
           memoriPwd || memori.secretToken,
           memoriTokens,
           undefined,
@@ -930,7 +930,12 @@ const MemoriWidget = ({
             ROUTE: window.location.pathname?.split('/')?.pop() || '',
             ...(initialContextVars || {}),
           },
-          initialQuestion
+          initialQuestion,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          true // isSessionExpired
         ).then(state => {
           console.info('session timeout');
           if (state?.sessionID) {
@@ -1389,18 +1394,10 @@ const MemoriWidget = ({
     initialQuestion?: string,
     birthDate?: string,
     additionalInfoProp?: { [key: string]: string | undefined },
-    continueFromChatLogID?: string
+    continueFromChatLogID?: string,
+    continueFromSessionID?: string,
+    isSessionExpired?: boolean
   ) => {
-    // console.log('[REOPEN_SESSION] Starting reopenSession with params:', {
-    //   updateDialogState,
-    //   hasPassword: !!password,
-    //   hasRecoveryTokens: !!recoveryTokens,
-    //   tag,
-    //   hasPin: !!pin,
-    //   initialContextVars,
-    //   initialQuestion,
-    //   hasBirthDate: !!birthDate
-    // });
 
     // Set loading state while reopening session
     setLoading(true);
@@ -1455,6 +1452,7 @@ const MemoriWidget = ({
         tag: tag ?? personification?.tag,
         pin: pin ?? personification?.pin,
         continueFromChatLogID: continueFromChatLogID,
+        continueFromSessionID: continueFromSessionID,
         initialContextVars: {
           LANG: userLang,
           PATHNAME: window.location.pathname,
@@ -1489,6 +1487,12 @@ const MemoriWidget = ({
 
           if (currentState.emission) {
             console.log('[REOPEN_SESSION] Processing emission:', currentState.emission);
+            // Determine initial status message based on context
+            // Show status message only if session expired and there's existing history
+            const initialStatus = isSessionExpired && history.length > 1
+              ? 'Session Expired, reopening session'
+              : (history.length <= 1 ? true : undefined);
+            
             // Set initial message or append to existing history
             history.length <= 1
               ? setHistory([
@@ -1497,7 +1501,7 @@ const MemoriWidget = ({
                     emitter: currentState.emitter,
                     media: currentState.emittedMedia ?? currentState.media,
                     fromUser: false,
-                    initial: true,
+                    initial: (initialStatus === true ? true : (initialStatus || undefined)) as any,
                     contextVars: currentState.contextVars,
                     date: currentState.currentDate,
                     placeName: currentState.currentPlaceName,
@@ -1513,7 +1517,7 @@ const MemoriWidget = ({
                   emitter: currentState.emitter,
                   media: currentState.emittedMedia ?? currentState.media,
                   fromUser: false,
-                  initial: true,
+                  initial: (initialStatus === true ? true : (initialStatus || undefined)) as any,
                   contextVars: currentState.contextVars,
                   date: currentState.currentDate,
                   placeName: currentState.currentPlaceName,
@@ -2566,6 +2570,7 @@ const MemoriWidget = ({
         // No tag changes needed
         else {
           try {
+            //This is the session id of the session that was opened before the current session
             const { chatLogs } = await getSessionChatLogs(
               sessionID!,
               sessionID!
@@ -3280,9 +3285,10 @@ const MemoriWidget = ({
           loginToken={loginToken}
           onClose={() => setShowLoginDrawer(false)}
           onLogin={(user, token) => {
+            console.log('current session id', sessionId);
             //The user is logged in, so we need to set open a new session with the new token
             reopenSession(
-              true,
+              false,
               memoriPassword || memoriPwd || memori?.secretToken,
               [],
               personification?.tag,
@@ -3298,12 +3304,36 @@ const MemoriWidget = ({
               initialQuestion,
               birthDate,
               { loginToken: token } as any,
-            ).then(() => {
+              undefined,
+              sessionId
+            ).then(state => {
               setShowLoginDrawer(false);
               setUser(user);
               setLoginToken(token);
               userToken = token;
               setLocalConfig('loginToken', token);
+              // Push a message with initial status to show status message when a new session is created after login
+              if (state?.sessionID && state.sessionID !== sessionId && state?.dialogState) {
+                // Push a message with initial status message showing successful login
+                const username = user?.userName || 'User';
+                pushMessage({
+                  text: state.dialogState.emission || '',
+                  emitter: state.dialogState.emitter,
+                  media: state.dialogState.emittedMedia ?? state.dialogState.media ?? [],
+                  fromUser: false,
+                  initial: `${username} has successfully logged in` as any,
+                  contextVars: state.dialogState.contextVars,
+                  date: state.dialogState.currentDate,
+                  placeName: state.dialogState.currentPlaceName,
+                  placeLatitude: state.dialogState.currentLatitude,
+                  placeLongitude: state.dialogState.currentLongitude,
+                  placeUncertaintyKm: state.dialogState.currentUncertaintyKm,
+                  tag: state.dialogState.currentTag,
+                  memoryTags: state.dialogState.memoryTags,
+                });
+                // Update the dialog state so the UI reflects the new session
+                setCurrentDialogState(state.dialogState);
+              }
             });
           }}
           setUser={setUser}
