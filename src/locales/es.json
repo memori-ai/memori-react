@@ -373,7 +373,8 @@
     "termsOfService": "Términos de servicio",
     "pAndCUAccepted": "Acepto los términos de servicio sobre Deep Thought",
     "editAccount": "Editar cuenta",
-    "save": "Ahorrar"
+    "save": "Ahorrar",
+    "successfullyLoggedIn": "{{username}} ha iniciado sesión correctamente"
   },
   "chatLogs": {
     "anyMessage": "Cualquier mensaje",

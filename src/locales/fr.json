@@ -381,7 +381,8 @@
     "termsOfService": "Conditions d'utilisation",
     "pAndCUAccepted": "J'accepte les conditions d'utilisation de Deep Thought",
     "editAccount": "Modifier le compte",
-    "save": "Sauvegarder"
+    "save": "Sauvegarder",
+    "successfullyLoggedIn": "{{username}} s'est connecté avec succès"
   },
   "chatLogs": {
     "anyMessage": "Tout message",

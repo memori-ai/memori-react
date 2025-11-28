@@ -413,7 +413,8 @@
     "termsStatus": "Terms Status",
     "enabled": "Enabled",
     "disabled": "Disabled",
-    "advancedFeatures": "Advanced Features"
+    "advancedFeatures": "Advanced Features",
+    "successfullyLoggedIn": "{{username}} has successfully logged in"
   },
   "chatLogs": {
     "anyMessage": "Any message",

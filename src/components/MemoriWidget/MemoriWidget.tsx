@@ -3285,7 +3285,6 @@ const MemoriWidget = ({
           loginToken={loginToken}
           onClose={() => setShowLoginDrawer(false)}
           onLogin={(user, token) => {
-            console.log('current session id', sessionId);
             //The user is logged in, so we need to set open a new session with the new token
             reopenSession(
               false,
@@ -3301,7 +3300,7 @@ const MemoriWidget = ({
                   '',
                 ...(initialContextVars || {}),
               },
-              initialQuestion,
+              undefined, // Don't send initialQuestion after login, only show the login status chip
               birthDate,
               { loginToken: token } as any,
               undefined,
@@ -3315,13 +3314,14 @@ const MemoriWidget = ({
               // Push a message with initial status to show status message when a new session is created after login
               if (state?.sessionID && state.sessionID !== sessionId && state?.dialogState) {
                 // Push a message with initial status message showing successful login
-                const username = user?.userName || 'User';
+                // Only show the chip component, not the emission text
+                const username = user?.userName || t('login.user');
                 pushMessage({
-                  text: state.dialogState.emission || '',
+                  text: '', // Empty text so only the chip is visible
                   emitter: state.dialogState.emitter,
                   media: state.dialogState.emittedMedia ?? state.dialogState.media ?? [],
                   fromUser: false,
-                  initial: `${username} has successfully logged in` as any,
+                  initial: t('login.successfullyLoggedIn', { username }) as any,
                   contextVars: state.dialogState.contextVars,
                   date: state.dialogState.currentDate,
                   placeName: state.dialogState.currentPlaceName,

@@ -346,7 +346,8 @@
     "termsOfService": "Nutzungsbedingungen",
     "pAndCUAccepted": "Ich akzeptiere die Nutzungsbedingungen von Deep Thought",
     "editAccount": "Konto bearbeiten",
-    "save": "Speichern"
+    "save": "Speichern",
+    "successfullyLoggedIn": "{{username}} hat sich erfolgreich angemeldet"
   },
   "chatLogs": {
     "anyMessage": "Jede Nachricht",

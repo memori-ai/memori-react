@@ -221,15 +221,19 @@ const ChatBubble: React.FC<Props> = ({
   const initialStatus = typeof message.initial === 'string' ? message.initial : null;
   const showInitialDivider = (message.initial === true || isFirst) && !initialStatus;
 
+
+  if(initialStatus) {
+    return (
+      <div className="memori-chat--bubble-status-message">
+        <div className="memori-chat--bubble-status-message-content">
+          {initialStatus}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
-      {initialStatus && (
-        <div className="memori-chat--bubble-status-message">
-          <div className="memori-chat--bubble-status-message-content">
-            {initialStatus}
-          </div>
-        </div>
-      )}
       {showInitialDivider && (
         <div className="memori-chat--bubble-initial" />
       )}

@@ -412,7 +412,8 @@
     "termsOfService": "i termini del servizio",
     "pAndCUAccepted": "Accetto le condizioni di utilizzo relative a Pensiero Profondo",
     "editAccount": "Modifica account",
-    "save": "Salva"
+    "save": "Salva",
+    "successfullyLoggedIn": "{{username}} ha effettuato l'accesso con successo"
   },
   "chatLogs": {
     "atLeast": "Almeno {{count}} messaggi",
