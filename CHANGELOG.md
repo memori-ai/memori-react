@@ -1,5 +1,55 @@
 
 
+## [8.12.0](https://github.com/memori-ai/memori-react/compare/v8.11.0...v8.12.0) (2025-12-01)
+
+
+### Features
+
+* add document and image class to upload menu items ([78c8afa](https://github.com/memori-ai/memori-react/commit/78c8afa5f4b6e9289dbcb0a5b98b06b9eb9a7c78))
+* add enter and leave animation for Artifact Drawer in mobile layout ([42531e0](https://github.com/memori-ai/memori-react/commit/42531e0c0b77976e44181ff32221d2790e107fe6))
+* add input length and value validation for day, month, and year ([7d443c2](https://github.com/memori-ai/memori-react/commit/7d443c23f0c9b9877d845a27bc4a4fc6303064d7))
+* add isTyping prop to Chat and ChatInputs components to avoid multiple user messages ([b2a1a59](https://github.com/memori-ai/memori-react/commit/b2a1a592fb1c8df292297bba5ca61874aa1a910c))
+* add memoriID parameter to uploadAsset function for enhanced asset management ([60d55e4](https://github.com/memori-ai/memori-react/commit/60d55e4313e2dd9a0e66923ab4c73a7da4299cbe))
+* add status message display in ChatBubble and update session handling in MemoriWidget ([c2af0f6](https://github.com/memori-ai/memori-react/commit/c2af0f634fd106804a45cdb89967eef245312627))
+* add SVG artifact support to ArtifactDrawer and ArtifactPreview components ([d8af976](https://github.com/memori-ai/memori-react/commit/d8af976fc4274d3eb2dac010214202a3db02d4f0))
+* add WithPrivateAgent story to showcase private agent configuration in Storybook ([9b191dd](https://github.com/memori-ai/memori-react/commit/9b191dddee454bd2d212c300073a078365050b77))
+* enhance ArtifactPreview component with improved iframe scrolling ([8e2f9b7](https://github.com/memori-ai/memori-react/commit/8e2f9b713bff452b9217663c46af8ea11eceecb4))
+* enhance AuthWidget with loading state and error handling for authentication ([fbb5882](https://github.com/memori-ai/memori-react/commit/fbb58829673a9f78fd04a98ec0e2c41466db0d7c))
+* enhance button and input focus styles ([3ba82f6](https://github.com/memori-ai/memori-react/commit/3ba82f6f9ff6d5ef1777de754c9ac288e3e8dbe1))
+* enhance login feedback by updating status message display and localizations ([5351527](https://github.com/memori-ai/memori-react/commit/53515270d53debaf4ebe513bbc96e3fcfbbe97ae))
+* implement copy buttons for user messages in ChatBubble component with feedback ([1af6569](https://github.com/memori-ai/memori-react/commit/1af6569ebb7b197562f5f842ec19fd3f94007433))
+* Implement localized placeholders for date inputs ([5fa4176](https://github.com/memori-ai/memori-react/commit/5fa417638d36feded39da37d7dae7725eca716dd))
+* improve AuthWidget validation and error handling ([607fb5d](https://github.com/memori-ai/memori-react/commit/607fb5d685eeba054fafbe55ceb2df771e8463ec))
+* integrate ArtifactProvider into Avatar, Header, and MemoriWidget stories ([1724b72](https://github.com/memori-ai/memori-react/commit/1724b72abc10ea772ed82f5fb14ec4485aa38642))
+* refactor DateSelector for mobile/desktop inputs ([1199989](https://github.com/memori-ai/memori-react/commit/1199989ebc729f368a58abd0a6028d9bcc1b6727))
+* update Tooltip alignment options and enhance z-index for better layering ([b1e8810](https://github.com/memori-ai/memori-react/commit/b1e8810721daf030f586eee0019ed47797455ba8))
+
+
+### Bug Fixes
+
+* chat history drawer z-index ([07619cf](https://github.com/memori-ai/memori-react/commit/07619cf6ba993eb6e793922aa63d255f5edcdcdd))
+* enable showUpload in DefaultLayout story ([77efcfe](https://github.com/memori-ai/memori-react/commit/77efcfea06cabcf2de6440b703c67de615f2c18a))
+* update button class in Header component to conditionally apply muted style ([bf35726](https://github.com/memori-ai/memori-react/commit/bf35726ecea7c5f2e1a8c2974fca18057be6bb83))
+* update DefaultLayout story ([27623d2](https://github.com/memori-ai/memori-react/commit/27623d23f235d527c908f27bb2c24326c8df335b))
+* update Header component snapshot to reflect muted button class change ([41c4758](https://github.com/memori-ai/memori-react/commit/41c475875510e9139e4cd502e21f013e9a6d7251))
+* update media filtering in Chat component to avoid excluding all the .txt files ([2e22963](https://github.com/memori-ai/memori-react/commit/2e2296358f0c28af7771ecb2f7e561e2d68e7d4b))
+
+
+### Maintenance
+
+* update [@memori](https://github.com/memori).ai/memori-api-client to version 6.17.0 ([1a46821](https://github.com/memori-ai/memori-react/commit/1a4682100f951aa3e4b7a08cb176868ee513a042))
+* update storybook layout prop ([1b096ab](https://github.com/memori-ai/memori-react/commit/1b096abf7c5b9394e7d5a928a70bee783019f32c))
+
+
+### Changes
+
+* add reloading session after user has logged in ([968fdfa](https://github.com/memori-ai/memori-react/commit/968fdfa93229a6fb0aba61df427b9ff3b8d5a6b7))
+* increase position controls height in CSS ([b2fae15](https://github.com/memori-ai/memori-react/commit/b2fae15fe49c0edbe4c24e2cb6716b363f69744e))
+* remove SignupForm component and its associated tests and snapshots ([3e1229d](https://github.com/memori-ai/memori-react/commit/3e1229d7af96ecc9fa72b38a5a13842336b7bd3a))
+* simplify DateSelector component by replacing Listbox with native date input ([2520a44](https://github.com/memori-ai/memori-react/commit/2520a446166a1f1c862392d7780ebe8c48ec5670))
+* simplify Memori component usage in layout stories ([c9e77c3](https://github.com/memori-ai/memori-react/commit/c9e77c3d007d2ca6a9b4f981be5aa34ec6c86bdb))
+* update button classes in ArtifactActions for improved styling and functionality ([8c557f5](https://github.com/memori-ai/memori-react/commit/8c557f51bbf18658d09e0dc1a57b171eebbb0e2a))
+
 ## [8.11.0](https://github.com/memori-ai/memori-react/compare/v8.10.1...v8.11.0) (2025-11-13)
 
 
