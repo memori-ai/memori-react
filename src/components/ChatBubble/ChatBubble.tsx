@@ -468,7 +468,7 @@ const ChatBubble: React.FC<Props> = ({
 
               {message.generatedByAI && showAIicon && (
                 <Tooltip
-                  align="bottomLeft"
+                  align="right"
                   content={
                     t('generatedByAI') ||
                     (lang === 'it'
@@ -494,7 +494,7 @@ const ChatBubble: React.FC<Props> = ({
                 message.translatedText &&
                 message.translatedText !== message.text && (
                   <Tooltip
-                    align="bottomLeft"
+                    align="right"
                     content={`${
                       lang === 'it' ? 'Testo originale' : 'Original text'
                     }: ${message.text}`}

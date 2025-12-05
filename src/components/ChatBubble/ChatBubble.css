@@ -60,9 +60,6 @@
 }
 
 
-.memori-chat--bubble-from-user {
-    z-index: -1;
-}
 
 .memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble {
     min-width: 9rem;
