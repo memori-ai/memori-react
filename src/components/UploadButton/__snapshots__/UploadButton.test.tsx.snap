@@ -5,9 +5,16 @@ exports[`renders UploadButton unchanged 1`] = `
   <div
     class="memori--unified-upload-wrapper"
   >
+    <input
+      accept=".jpg,.jpeg,.png,.pdf,.txt,.json,.xlsx,.csv,.md"
+      class="memori--upload-file-input"
+      multiple=""
+      style="display: none;"
+      type="file"
+    />
     <button
       class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button memori--unified-upload-button"
-      title="upload.uploadFiles"
+      title="upload.uploadFilesWithShortcut"
     >
       <svg
         class="memori--upload-icon"

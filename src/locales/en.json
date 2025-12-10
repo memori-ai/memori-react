@@ -251,13 +251,14 @@
     "loginRequired": "Login required",
     "loginRequiredDescription": "Please login to upload images",
     "uploadFiles": "Upload files",
-    "uploadImage": "Upload image",
+    "uploadFilesWithShortcut": "Upload files (drag & drop, or {{shortcut}}+V to open file chooser)",
+    "uploadImages": "Upload images",
     "replace": "Replace",
     "maxImagesReached": "You can upload up to {{max}} images",
     "maxDocumentsReached": "You can upload up to {{max}} documents",
     "remaining": "remaining",
     "lastDocumentSlot": "Upload last document",
-    "uploadDocument": "Upload document",
+    "uploadDocuments": "Upload documents",
     "maxReached": "Max limit reached",
     "imageTitle": "Image title: {{title}}",
     "titleHelp": "Adding a descriptive title helps the AI provide more context and appropriate responses.",
@@ -271,7 +272,8 @@
     "titleImageUpload": "Upload images",
     "partialUpload": "Only {{uploaded}} images on {{total}} will be uploaded. Maximum {{max}} images allowed.",
     "maxImages": "Maximum {{max}} images allowed.",
-    "upload": "Upload"
+    "upload": "Upload",
+    "dragAndDropFiles": "Drag and drop files here to add them to the chat"
   },
   "media": {
     "title": "Title",

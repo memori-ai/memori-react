@@ -238,8 +238,9 @@
     "loginRequired": "Connexion requise",
     "loginRequiredDescription": "Veuillez vous connecter pour télécharger des images",
     "uploadFiles": "Télécharger des fichiers",
-    "uploadImage": "Télécharger une image",
-    "uploadDocument": "Télécharger un document",
+    "uploadFilesWithShortcut": "Télécharger des fichiers (arrastrar y soltar, o {{shortcut}}+V para abrir el selector de archivos)",
+    "uploadImages": "Télécharger des images",
+    "uploadDocuments": "Télécharger des documents",
     "apiClientNotConfigured": "API client non configuré correctement pour le téléchargement de médias",
     "fileReadingFailed": "Échec de la lecture du fichier",
     "uploadFailed": "Échec du téléchargement",
@@ -248,7 +249,8 @@
     "replace": "Remplacer",
     "maxImagesReached": "Vous pouvez télécharger jusqu'à {{max}} images",
     "remaining": "restant",
-    "maxReached": "Limite atteinte"
+    "maxReached": "Limite atteinte",
+    "dragAndDropFiles": "Arrastre y suelte los archivos aquí para agregarlos a la chat"
   },
   "media": {
     "title": "Título",

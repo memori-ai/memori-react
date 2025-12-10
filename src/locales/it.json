@@ -275,9 +275,10 @@
     "loginRequired": "Login richiesto",
     "loginRequiredDescription": "Per caricare immagini, devi prima accedere",
     "uploadFiles": "Carica file",
-    "uploadImage": "Carica immagine",
+    "uploadFilesWithShortcut": "{{shortcut}}+V per aprire il selettore file",
+    "uploadImages": "Carica immagini",
     "lastDocumentSlot": "Carica ultimo documento",
-    "uploadDocument": "Carica documento",
+    "uploadDocuments": "Carica documenti",
     "maxDocumentsReached": "Puoi caricare fino a {{max}} documenti",
     "replace": "Sostituisci documento",
     "maxImagesReached": "Puoi caricare fino a {{max}} immagini",
@@ -293,7 +294,8 @@
     "titlePlaceholder": "Inserisci il titolo dell'immagine",
     "uploadSuccessDescription": "Il file è stato caricato con successo",
     "partialUpload": "Solo {{uploaded}} immagini su {{total}} immagini saranno caricate. Massimo {{max}} immagini consentite.",
-    "cancel": "Annulla"
+    "cancel": "Annulla",
+    "dragAndDropFiles": "Trascina qui i file per aggiungerli alla chat"
   },
   "gamification": {
     "level": "Livello",

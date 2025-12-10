@@ -238,8 +238,9 @@
     "loginRequired": "Login erforderlich",
     "loginRequiredDescription": "Bitte melden Sie sich an, um Bilder hochzuladen",
     "uploadFiles": "Dateien hochladen",
-    "uploadImage": "Bild hochladen",
-    "uploadDocument": "Dokument hochladen",
+    "uploadFilesWithShortcut": "Dateien hochladen (ziehen und ablegen, oder {{shortcut}}+V zum Öffnen des Datei-Selektors)",
+    "uploadImages": "Bilder hochladen",
+    "uploadDocuments": "Dokumente hochladen",
     "replace": "Ersetzen",
     "remaining": "verbleibend",
     "maxReached": "Maximal erreicht",
@@ -248,7 +249,8 @@
     "uploadFailed": "Hochladen fehlgeschlagen",
     "uploadSuccess": "Hochladen erfolgreich",
     "uploadSuccessDescription": "Die Datei wurde erfolgreich hochgeladen",
-    "maxImagesReached": "Sie können bis zu {{max}} Bilder hochladen"
+    "maxImagesReached": "Sie können bis zu {{max}} Bilder hochladen",
+    "dragAndDropFiles": "Ziehen Sie Dateien hierher, um sie zur Chat hinzuzufügen"
   },
   "media": {
     "title": "Titel",

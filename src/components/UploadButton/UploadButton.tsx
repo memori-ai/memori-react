@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { DocumentIcon } from '../icons/Document';
 import { ImageIcon } from '../icons/Image';
 import { UploadIcon } from '../icons/Upload';
@@ -42,26 +42,25 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 }) => {
   // State
   const [isLoading, setIsLoading] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [errors, setErrors] = useState<
     { message: string; severity: 'error' | 'warning' | 'info' }[]
   >([]);
+  const [isDragging, setIsDragging] = useState(false);
   const { t, i18n } = useTranslation();
 
   // Refs
-  const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const documentRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
+  const unifiedInputRef = useRef<HTMLInputElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
 
   // Calculate image count and remaining slots
   const currentImageCount = documentPreviewFiles.filter(
     file => file.type === 'image'
   ).length;
   const remainingSlots = MAX_IMAGES - currentImageCount;
-  const currentDocumentCount = documentPreviewFiles.filter(
-    file => file.type === 'document'
-  ).length;
+  const currentDocumentCount = documentPreviewFiles.length;
   const remainingDocumentSlots = MAX_DOCUMENTS - currentDocumentCount;
   const hasReachedImageLimit = remainingSlots <= 0;
   const hasReachedDocumentLimit = remainingDocumentSlots <= 0;
@@ -79,33 +78,239 @@ const UploadButton: React.FC<UploadManagerProps> = ({
     setTimeout(() => removeError(error.message), 5000);
   };
 
-  // Menu handling
-  const toggleMenu = () => {
-    setMenuOpen(prev => !prev);
+  // Check if file is an image
+  const isImageFile = (file: File): boolean => {
+    const imageTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+    const imageExtensions = ['.jpg', '.jpeg', '.png'];
+    const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
+    return imageTypes.includes(file.type) || imageExtensions.includes(fileExt);
   };
 
-  const closeMenu = () => {
-    setMenuOpen(false);
+  // Check if file is a document
+  const isDocumentFile = (file: File): boolean => {
+    const documentExtensions = ['.pdf', '.txt', '.json', '.xlsx', '.csv', '.md'];
+    const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
+    return documentExtensions.includes(fileExt);
   };
 
-  // Click outside handler
+  // Use refs to access latest values in event handlers
+  const isMediaAcceptedRef = useRef(isMediaAccepted);
+  const currentImageCountRef = useRef(currentImageCount);
+  const currentDocumentCountRef = useRef(currentDocumentCount);
+  const addErrorRef = useRef(addError);
+
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        menuRef.current &&
-        buttonRef.current &&
-        !menuRef.current.contains(event.target as Node) &&
-        !buttonRef.current.contains(event.target as Node)
-      ) {
-        closeMenu();
+    isMediaAcceptedRef.current = isMediaAccepted;
+    currentImageCountRef.current = currentImageCount;
+    currentDocumentCountRef.current = currentDocumentCount;
+    addErrorRef.current = addError;
+  }, [isMediaAccepted, currentImageCount, currentDocumentCount, addError]);
+
+  // Handle unified file selection
+  const handleUnifiedFileSelection = useCallback((files: FileList | File[]) => {
+    const fileArray = Array.from(files);
+    if (fileArray.length === 0) return;
+
+    const imageFiles: File[] = [];
+    const documentFiles: File[] = [];
+
+    // Separate files by type
+    fileArray.forEach(file => {
+      if (isImageFile(file)) {
+        imageFiles.push(file);
+      } else if (isDocumentFile(file)) {
+        documentFiles.push(file);
+      } else {
+        addErrorRef.current({
+          message: `File "${file.name}" is not a supported image or document type`,
+          severity: 'error',
+        });
+      }
+    });
+
+    // Process images
+    if (imageFiles.length > 0) {
+      if (!isMediaAcceptedRef.current) {
+        addErrorRef.current({
+          message:
+            t('upload.mediaNotAccepted') ?? 'Media uploads are not accepted',
+          severity: 'info',
+        });
+      } else if (currentImageCountRef.current + imageFiles.length > MAX_IMAGES) {
+        addErrorRef.current({
+          message:
+            t('upload.maxImagesReached', { max: MAX_IMAGES }) ??
+            `Maximum ${MAX_IMAGES} images allowed. You can upload ${MAX_IMAGES - currentImageCountRef.current} more images.`,
+          severity: 'error',
+        });
+      } else {
+        // Trigger image upload by creating a synthetic event
+        const imageInput = imageRef.current?.querySelector('input[type="file"]') as HTMLInputElement;
+        if (imageInput) {
+          const dataTransfer = new DataTransfer();
+          imageFiles.forEach(file => dataTransfer.items.add(file));
+          imageInput.files = dataTransfer.files;
+          imageInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+    }
+
+    // Process documents
+    if (documentFiles.length > 0) {
+      if (currentDocumentCountRef.current + documentFiles.length > MAX_DOCUMENTS) {
+        addErrorRef.current({
+          message: `Maximum ${MAX_DOCUMENTS} documents allowed. You can upload ${MAX_DOCUMENTS - currentDocumentCountRef.current} more documents.`,
+          severity: 'error',
+        });
+      } else {
+        // Trigger document upload by creating a synthetic event
+        const documentInput = documentRef.current?.querySelector('input[type="file"]') as HTMLInputElement;
+        if (documentInput) {
+          const dataTransfer = new DataTransfer();
+          documentFiles.forEach(file => dataTransfer.items.add(file));
+          documentInput.files = dataTransfer.files;
+          documentInput.dispatchEvent(new Event('change', { bubbles: true }));
+        }
+      }
+    }
+  }, [t]);
+
+  // Handle button click - open file chooser directly
+  const handleButtonClick = () => {
+    if (unifiedInputRef.current) {
+      unifiedInputRef.current.click();
+    }
+  };
+
+  // Handle file input change
+  const handleFileInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files && files.length > 0) {
+      handleUnifiedFileSelection(files);
+    }
+    // Reset input value to allow selecting the same file again
+    if (unifiedInputRef.current) {
+      unifiedInputRef.current.value = '';
+    }
+  };
+
+  // Paste handler for files
+  useEffect(() => {
+    const handlePaste = (e: ClipboardEvent) => {
+      const items = e.clipboardData?.items;
+      if (!items) return;
+
+      const files: File[] = [];
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        if (item.kind === 'file') {
+          const file = item.getAsFile();
+          if (file) {
+            files.push(file);
+          }
+        }
+      }
+
+      if (files.length > 0) {
+        e.preventDefault();
+        handleUnifiedFileSelection(files);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    // Add paste listener to document
+    document.addEventListener('paste', handlePaste);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener('paste', handlePaste);
     };
-  }, []);
+  }, [handleUnifiedFileSelection]);
+
+  // Keyboard shortcut handler for CMD+V / Ctrl+V to open file chooser
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      // Check for CMD+V (Mac) or Ctrl+V (Windows/Linux)
+      const isModifierPressed = e.metaKey || e.ctrlKey;
+      const isVPressed = e.key === 'v' || e.key === 'V';
+
+      if (isModifierPressed && isVPressed) {
+        // Don't trigger if user is typing in an input/textarea
+        const target = e.target as HTMLElement;
+        const isInputElement =
+          target.tagName === 'INPUT' ||
+          target.tagName === 'TEXTAREA' ||
+          target.isContentEditable;
+
+        // Only open file chooser if not in an input field and button is not disabled
+        if (
+          !isInputElement &&
+          !isLoading &&
+          !(currentDocumentCountRef.current === MAX_DOCUMENTS && !isMediaAcceptedRef.current)
+        ) {
+          e.preventDefault();
+          if (unifiedInputRef.current) {
+            unifiedInputRef.current.click();
+          }
+        }
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isLoading]);
+
+  // Drag and drop handlers
+  useEffect(() => {
+    let dragCounter = 0;
+
+    const handleDragEnter = (e: DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dragCounter++;
+      if (dragCounter === 1) {
+        setIsDragging(true);
+      }
+    };
+
+    const handleDragLeave = (e: DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dragCounter--;
+      if (dragCounter === 0) {
+        setIsDragging(false);
+      }
+    };
+
+    const handleDragOver = (e: DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+    };
+
+    const handleDrop = (e: DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      dragCounter = 0;
+      setIsDragging(false);
+
+      const files = e.dataTransfer?.files;
+      if (files && files.length > 0) {
+        handleUnifiedFileSelection(files);
+      }
+    };
+
+    // Add drag and drop listeners to document
+    document.addEventListener('dragenter', handleDragEnter);
+    document.addEventListener('dragleave', handleDragLeave);
+    document.addEventListener('dragover', handleDragOver);
+    document.addEventListener('drop', handleDrop);
+
+    return () => {
+      document.removeEventListener('dragenter', handleDragEnter);
+      document.removeEventListener('dragleave', handleDragLeave);
+      document.removeEventListener('dragover', handleDragOver);
+      document.removeEventListener('drop', handleDrop);
+    };
+  }, [handleUnifiedFileSelection]);
 
   // Handler for document files - now supports multiple documents
   const handleDocumentFiles = (
@@ -267,56 +472,6 @@ ${file.content}
     addError(error);
   };
 
-  // When document option is clicked
-  const handleDocumentClick = () => {
-    // Check if document limit has been reached
-    if (hasReachedDocumentLimit) {
-      addError({
-        message: `Maximum ${MAX_DOCUMENTS} documents allowed.`,
-        severity: 'error',
-      });
-      closeMenu();
-      return;
-    }
-
-    // Find the actual button in the UploadDocuments component and click it
-    const documentButtonElement = documentRef.current?.querySelector('button');
-    if (documentButtonElement) {
-      documentButtonElement.click();
-    }
-    closeMenu();
-  };
-
-  // When image option is clicked
-  const handleImageClick = () => {
-    if (!isMediaAccepted) {
-      addError({
-        message:
-          t('upload.mediaNotAccepted') ?? 'Media uploads are not accepted',
-        severity: 'info',
-      });
-      closeMenu();
-      return;
-    }
-
-    if (hasReachedImageLimit) {
-      addError({
-        message:
-          t('upload.maxImagesReached', { max: MAX_IMAGES }) ??
-          `Maximum ${MAX_IMAGES} images already uploaded`,
-        severity: 'warning',
-      });
-      closeMenu();
-      return;
-    }
-
-    // If all checks pass, click the button in UploadImages component
-    const imageButtonElement = imageRef.current?.querySelector('button');
-    if (imageButtonElement) {
-      imageButtonElement.click();
-    }
-    closeMenu();
-  };
 
   // Set loading state for child components
   const handleLoadingChange = (loading: boolean) => {
@@ -324,7 +479,23 @@ ${file.content}
   };
 
   return (
-    <div className="memori--unified-upload-wrapper">
+    <div 
+      className={cx('memori--unified-upload-wrapper', {
+        'memori--dragging': isDragging,
+      })}
+      ref={wrapperRef}
+    >
+      {/* Unified file input - accepts both images and documents */}
+      <input
+        ref={unifiedInputRef}
+        type="file"
+        accept=".jpg,.jpeg,.png,.pdf,.txt,.json,.xlsx,.csv,.md"
+        multiple
+        className="memori--upload-file-input"
+        onChange={handleFileInputChange}
+        style={{ display: 'none' }}
+      />
+
       {/* Main upload button */}
       <button
         ref={buttonRef}
@@ -337,9 +508,9 @@ ${file.content}
           'memori--unified-upload-button',
           { 'memori--error': errors.length > 0 }
         )}
-        onClick={toggleMenu}
-        disabled={isLoading}
-        title={t('upload.uploadFiles') ?? 'Upload files'}
+        onClick={handleButtonClick}
+        disabled={isLoading || (currentDocumentCount === MAX_DOCUMENTS && !isMediaAccepted)}
+        title={t('upload.uploadFilesWithShortcut', { shortcut: /Mac|iPhone|iPod|iPad/i.test(navigator.platform) || navigator.userAgent.includes('Mac') ? 'Cmd' : 'Ctrl' }) ?? 'Upload files (drag & drop, or Cmd+V to open file chooser)'}
       >
         {isLoading ? (
           <Spin spinning className="memori--upload-icon" />
@@ -347,17 +518,6 @@ ${file.content}
           <UploadIcon className="memori--upload-icon" />
         )}
       </button>
-
-      {/* Image count indicator - moved here from UploadImages */}
-      {currentImageCount > 0 && (
-        <div
-          className={cx('memori--image-count', {
-            'memori--image-count-full': hasReachedImageLimit,
-          })}
-        >
-          {currentImageCount}/{MAX_IMAGES}
-        </div>
-      )}
 
       {/* Document count indicator */}
       {currentDocumentCount > 0 && (
@@ -367,77 +527,6 @@ ${file.content}
           })}
         >
           {currentDocumentCount}/{MAX_DOCUMENTS}
-        </div>
-      )}
-
-      {/* Floating menu */}
-      {menuOpen && (
-        <div className="memori--upload-menu" ref={menuRef}>
-          <div
-            className={cx('memori--upload-menu-item', {
-              'memori--upload-menu-item--disabled': hasReachedDocumentLimit,
-              'memori--upload-menu-item--document': true,
-            })}
-            onClick={handleDocumentClick}
-        title={
-          hasReachedDocumentLimit
-            ? t('upload.maxDocumentsReached', { max: MAX_DOCUMENTS }) ??
-              `Maximum ${MAX_DOCUMENTS} documents already uploaded`
-            : remainingDocumentSlots === 1
-            ? t('upload.lastDocumentSlot') ?? 'Upload last document'
-            : t('upload.uploadDocuments', {
-                remaining: remainingDocumentSlots,
-              }) ?? `Upload documents (${remainingDocumentSlots} remaining)`
-        }
-          >
-            <DocumentIcon className="memori--upload-menu-icon" />
-            <span>
-              {t('upload.uploadDocuments') ?? 'Upload documents'}
-              {/* {currentDocumentCount > 0 && (
-                <span className="memori--upload-slots-info">
-                  {hasReachedDocumentLimit
-                    ? ` (${t('upload.maxReached') ?? 'Max reached'})`
-                    : ` (${remainingDocumentSlots} ${
-                        t('upload.remaining') ?? 'remaining'
-                      })`}
-                </span>
-              )} */}
-            </span>
-          </div>
-
-          <div
-            className={cx('memori--upload-menu-item', {
-              'memori--upload-menu-item--disabled':
-                !isMediaAccepted || hasReachedImageLimit,
-              'memori--upload-menu-item--image': true,
-            })}
-            onClick={handleImageClick}
-        title={
-          !isMediaAccepted
-            ? t('upload.mediaNotAccepted') ?? 'Media uploads not accepted'
-            : hasReachedImageLimit
-            ? t('upload.maxImagesReached', { max: MAX_IMAGES }) ??
-              `Maximum ${MAX_IMAGES} images already uploaded`
-            : remainingSlots === 1
-            ? t('upload.lastImageSlot') ?? 'Upload last image'
-            : t('upload.uploadImages', { remaining: remainingSlots }) ??
-              `Upload images (${remainingSlots} remaining)`
-        }
-          >
-            <ImageIcon className="memori--upload-menu-icon-image" />
-            <span>
-              {t('upload.uploadImages') ?? 'Upload images'}
-              {/* {currentImageCount > 0 && (
-                <span className="memori--upload-slots-info">
-                  {hasReachedImageLimit
-                    ? ` (${t('upload.maxReached') ?? 'Max reached'})`
-                    : ` (${remainingSlots} ${
-                        t('upload.remaining') ?? 'remaining'
-                      })`}
-                </span>
-              )} */}
-            </span>
-          </div>
         </div>
       )}
 
