@@ -124,11 +124,13 @@ const Chat: React.FC<Props> = ({
   isChatlogPanel = false,
   showFunctionCache = false,
 }) => {
+  const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
+
   const scrollToBottom = () => {
     if (isHistoryView) return;
     setTimeout(() => {
       let userMsgs = document.querySelectorAll(
-        '.memori-chat--bubble-container.memori-chat--bubble-from-user'
+        '.memori-chat-scroll-item'
       );
       userMsgs[userMsgs.length - 1]?.scrollIntoView?.();
     }, 200);
@@ -136,6 +138,15 @@ const Chat: React.FC<Props> = ({
   useEffect(() => {
     !preview && !isHistoryView && scrollToBottom();
   }, [history, preview, isHistoryView]);
+
+  // Scroll to bottom when textarea is expanded
+  useEffect(() => {
+    if (isTextareaExpanded && !isHistoryView) {
+      setTimeout(() => {
+        scrollToBottom();
+      }, 250);
+    }
+  }, [isTextareaExpanded, isHistoryView]);
 
   const onTextareaFocus = () => {
     stopListening();
@@ -168,10 +179,15 @@ const Chat: React.FC<Props> = ({
     }
   };
 
+  const onTextareaExpanded = (expanded: boolean) => {
+    setIsTextareaExpanded(expanded);
+  };
+
   return (
     <div
       className={cx('memori-chat--wrapper', {
         'memori-chat-wrapper--translate': translateTo,
+        'memori-chat-wrapper--expanded': isTextareaExpanded,
       })}
       id="chat-wrapper"
       lang={translateTo?.toUpperCase()}
@@ -301,7 +317,7 @@ const Chat: React.FC<Props> = ({
                   // Filter out HTML and plain text media items from the message
                   ...(message?.media?.filter(
                     m =>
-                      m.mimeType !== 'text/html' && m.mimeType !== 'text/plain'
+                      m.mimeType !== 'text/html' && !m.properties?.functionSignature
                   ) || []),
 
                   // Extract document attachments that are embedded in the message text
@@ -316,6 +332,7 @@ const Chat: React.FC<Props> = ({
 
                     const attachments: (Medium & { type?: string })[] = [];
                     let match;
+                    let attachmentIndex = 0;
 
                     // Find all document attachments in the text
                     while (
@@ -330,7 +347,7 @@ const Chat: React.FC<Props> = ({
                       // - Trimmed content from the attachment
                       // - Properties to mark it as a document attachment
                       attachments.push({
-                        mediumID: `doc_${Date.now()}_${Math.random()
+                        mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
                           .toString(36)
                           .substr(2, 9)}`,
                         url: '',
@@ -340,6 +357,8 @@ const Chat: React.FC<Props> = ({
                         properties: { isDocumentAttachment: true },
                         type: 'document',
                       });
+                      
+                      attachmentIndex++;
                     }
 
                     return attachments;
@@ -412,6 +431,7 @@ const Chat: React.FC<Props> = ({
           instruct={instruct}
           authToken={authToken}
           sendMessage={sendMessage}
+          isTyping={memoriTyping}
           microphoneMode={microphoneMode}
           sendOnEnter={sendOnEnter}
           setSendOnEnter={setSendOnEnter}
@@ -422,6 +442,7 @@ const Chat: React.FC<Props> = ({
           setAttachmentsMenuOpen={setAttachmentsMenuOpen}
           onTextareaFocus={onTextareaFocus}
           onTextareaBlur={onTextareaBlur}
+          onTextareaExpanded={onTextareaExpanded}
           startListening={startListening}
           stopListening={stopListening}
           stopAudio={stopAudio}

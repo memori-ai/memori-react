@@ -1,5 +1,197 @@
 
 
+## [8.12.0](https://github.com/memori-ai/memori-react/compare/v8.11.0...v8.12.0) (2025-12-01)
+
+
+### Features
+
+* add document and image class to upload menu items ([78c8afa](https://github.com/memori-ai/memori-react/commit/78c8afa5f4b6e9289dbcb0a5b98b06b9eb9a7c78))
+* add enter and leave animation for Artifact Drawer in mobile layout ([42531e0](https://github.com/memori-ai/memori-react/commit/42531e0c0b77976e44181ff32221d2790e107fe6))
+* add input length and value validation for day, month, and year ([7d443c2](https://github.com/memori-ai/memori-react/commit/7d443c23f0c9b9877d845a27bc4a4fc6303064d7))
+* add isTyping prop to Chat and ChatInputs components to avoid multiple user messages ([b2a1a59](https://github.com/memori-ai/memori-react/commit/b2a1a592fb1c8df292297bba5ca61874aa1a910c))
+* add memoriID parameter to uploadAsset function for enhanced asset management ([60d55e4](https://github.com/memori-ai/memori-react/commit/60d55e4313e2dd9a0e66923ab4c73a7da4299cbe))
+* add status message display in ChatBubble and update session handling in MemoriWidget ([c2af0f6](https://github.com/memori-ai/memori-react/commit/c2af0f634fd106804a45cdb89967eef245312627))
+* add SVG artifact support to ArtifactDrawer and ArtifactPreview components ([d8af976](https://github.com/memori-ai/memori-react/commit/d8af976fc4274d3eb2dac010214202a3db02d4f0))
+* add WithPrivateAgent story to showcase private agent configuration in Storybook ([9b191dd](https://github.com/memori-ai/memori-react/commit/9b191dddee454bd2d212c300073a078365050b77))
+* enhance ArtifactPreview component with improved iframe scrolling ([8e2f9b7](https://github.com/memori-ai/memori-react/commit/8e2f9b713bff452b9217663c46af8ea11eceecb4))
+* enhance AuthWidget with loading state and error handling for authentication ([fbb5882](https://github.com/memori-ai/memori-react/commit/fbb58829673a9f78fd04a98ec0e2c41466db0d7c))
+* enhance button and input focus styles ([3ba82f6](https://github.com/memori-ai/memori-react/commit/3ba82f6f9ff6d5ef1777de754c9ac288e3e8dbe1))
+* enhance login feedback by updating status message display and localizations ([5351527](https://github.com/memori-ai/memori-react/commit/53515270d53debaf4ebe513bbc96e3fcfbbe97ae))
+* implement copy buttons for user messages in ChatBubble component with feedback ([1af6569](https://github.com/memori-ai/memori-react/commit/1af6569ebb7b197562f5f842ec19fd3f94007433))
+* Implement localized placeholders for date inputs ([5fa4176](https://github.com/memori-ai/memori-react/commit/5fa417638d36feded39da37d7dae7725eca716dd))
+* improve AuthWidget validation and error handling ([607fb5d](https://github.com/memori-ai/memori-react/commit/607fb5d685eeba054fafbe55ceb2df771e8463ec))
+* integrate ArtifactProvider into Avatar, Header, and MemoriWidget stories ([1724b72](https://github.com/memori-ai/memori-react/commit/1724b72abc10ea772ed82f5fb14ec4485aa38642))
+* refactor DateSelector for mobile/desktop inputs ([1199989](https://github.com/memori-ai/memori-react/commit/1199989ebc729f368a58abd0a6028d9bcc1b6727))
+* update Tooltip alignment options and enhance z-index for better layering ([b1e8810](https://github.com/memori-ai/memori-react/commit/b1e8810721daf030f586eee0019ed47797455ba8))
+
+
+### Bug Fixes
+
+* chat history drawer z-index ([07619cf](https://github.com/memori-ai/memori-react/commit/07619cf6ba993eb6e793922aa63d255f5edcdcdd))
+* enable showUpload in DefaultLayout story ([77efcfe](https://github.com/memori-ai/memori-react/commit/77efcfea06cabcf2de6440b703c67de615f2c18a))
+* update button class in Header component to conditionally apply muted style ([bf35726](https://github.com/memori-ai/memori-react/commit/bf35726ecea7c5f2e1a8c2974fca18057be6bb83))
+* update DefaultLayout story ([27623d2](https://github.com/memori-ai/memori-react/commit/27623d23f235d527c908f27bb2c24326c8df335b))
+* update Header component snapshot to reflect muted button class change ([41c4758](https://github.com/memori-ai/memori-react/commit/41c475875510e9139e4cd502e21f013e9a6d7251))
+* update media filtering in Chat component to avoid excluding all the .txt files ([2e22963](https://github.com/memori-ai/memori-react/commit/2e2296358f0c28af7771ecb2f7e561e2d68e7d4b))
+
+
+### Maintenance
+
+* update [@memori](https://github.com/memori).ai/memori-api-client to version 6.17.0 ([1a46821](https://github.com/memori-ai/memori-react/commit/1a4682100f951aa3e4b7a08cb176868ee513a042))
+* update storybook layout prop ([1b096ab](https://github.com/memori-ai/memori-react/commit/1b096abf7c5b9394e7d5a928a70bee783019f32c))
+
+
+### Changes
+
+* add reloading session after user has logged in ([968fdfa](https://github.com/memori-ai/memori-react/commit/968fdfa93229a6fb0aba61df427b9ff3b8d5a6b7))
+* increase position controls height in CSS ([b2fae15](https://github.com/memori-ai/memori-react/commit/b2fae15fe49c0edbe4c24e2cb6716b363f69744e))
+* remove SignupForm component and its associated tests and snapshots ([3e1229d](https://github.com/memori-ai/memori-react/commit/3e1229d7af96ecc9fa72b38a5a13842336b7bd3a))
+* simplify DateSelector component by replacing Listbox with native date input ([2520a44](https://github.com/memori-ai/memori-react/commit/2520a446166a1f1c862392d7780ebe8c48ec5670))
+* simplify Memori component usage in layout stories ([c9e77c3](https://github.com/memori-ai/memori-react/commit/c9e77c3d007d2ca6a9b4f981be5aa34ec6c86bdb))
+* update button classes in ArtifactActions for improved styling and functionality ([8c557f5](https://github.com/memori-ai/memori-react/commit/8c557f51bbf18658d09e0dc1a57b171eebbb0e2a))
+
+## [8.11.0](https://github.com/memori-ai/memori-react/compare/v8.10.1...v8.11.0) (2025-11-13)
+
+
+### Features
+
+* add additional layout props for enhanced customization in DefaultLayout story ([be0a03f](https://github.com/memori-ai/memori-react/commit/be0a03fa66bdebdf65f5189df27efc88a61f33c8))
+* add support for multiple image types in MediaItemWidget stories ([dccf8d1](https://github.com/memori-ai/memori-react/commit/dccf8d1d7556b5eff0d8248e662bac13f03d7b98))
+* enhance image handling in MediaItemWidget with improved error handling and URL validation ([68ac439](https://github.com/memori-ai/memori-react/commit/68ac4392654ef2e92661475238f78beb06d9a4a1))
+
+
+### Changes
+
+* remove unused props from DefaultLayout story ([2d3586c](https://github.com/memori-ai/memori-react/commit/2d3586c4f64532ccf550eb06d834201e7d4f3ff5))
+* update layout stories to use new Memori component structure and streamline props handling ([dcd098e](https://github.com/memori-ai/memori-react/commit/dcd098ec420d5bc54bd8b0fd5b0931948a6c5de4))
+* update storybook layouts and remove unused story exports for improved organization ([deec85d](https://github.com/memori-ai/memori-react/commit/deec85d45e7917416288783ff70ee1936bf10715))
+
+## [8.10.1](https://github.com/memori-ai/memori-react/compare/v8.10.0...v8.10.1) (2025-11-11)
+
+
+### Changes
+
+* simplify MediaItemWidget by removing unused state and optimizing image source handling ([87f931c](https://github.com/memori-ai/memori-react/commit/87f931c4f303bbeb72093d00caf61a8d5328ed77))
+* streamline image source handling in stories and snapshots for consistency ([71d1108](https://github.com/memori-ai/memori-react/commit/71d1108b214f93c9f3b06e42e9950839d83eabde))
+
+## [8.10.0](https://github.com/memori-ai/memori-react/compare/v8.9.2...v8.10.0) (2025-11-10)
+
+
+### Features
+
+*  chat languages sorted alphabetically ([8dc7c05](https://github.com/memori-ai/memori-react/commit/8dc7c0523be6cac778e5462dba3de9331e9a8b39))
+* enhance image handling in MediaItemWidget with error handling and URL validation ([bfaab83](https://github.com/memori-ai/memori-react/commit/bfaab83f3edddef72e777e5eab5ecd0ebc0c91ae))
+
+
+### Changes
+
+* update popular language codes and improve language grouping logic ([d8a2374](https://github.com/memori-ai/memori-react/commit/d8a23740aa7d93f5daa1e5536543ef4b3fadae3d))
+
+## [8.9.2](https://github.com/memori-ai/memori-react/compare/v8.9.1...v8.9.2) (2025-11-04)
+
+
+### Bug Fixes
+
+* ensure message is sent only when listening is active ([f2fc193](https://github.com/memori-ai/memori-react/commit/f2fc193a7ce5709e407098d65b03baaf8ea274bc))
+
+## [8.9.1](https://github.com/memori-ai/memori-react/compare/v8.9.0...v8.9.1) (2025-11-03)
+
+
+### Bug Fixes
+
+* exclude plain text media items from chat message filtering ([02e6213](https://github.com/memori-ai/memori-react/commit/02e621358ce99e5271d5a347b4b9c7a38ec19923))
+
+## [8.9.0](https://github.com/memori-ai/memori-react/compare/v8.8.5...v8.9.0) (2025-11-03)
+
+
+### Features
+
+* add support for multiple artifacts in chat messages ([47081e9](https://github.com/memori-ai/memori-react/commit/47081e9c2c6f20d6d8ab90b481347e7b356f6c32))
+* enhance language selection by grouping popular and all languages in StartPanel ([98a8db8](https://github.com/memori-ai/memori-react/commit/98a8db8501967a16c007e3a1c65f3fa9f38287e4))
+* enhance MemoriArtifactAPI with new global JavaScript methods for artifact management ([b94ebaa](https://github.com/memori-ai/memori-react/commit/b94ebaa123dd784be4507475d07d3a7421b9b811))
+* introduce ArtifactAPIBridge for global access to artifact management functions ([baa0175](https://github.com/memori-ai/memori-react/commit/baa0175e347764873764e58276be6d7e6e4545fb))
+
+
+### Changes
+
+* adjust chat component CSS for full height and improved layout ([3296d08](https://github.com/memori-ai/memori-react/commit/3296d084e1f7f07449ebe37831559d95239a1d45))
+* enhance chat components with responsive design and textarea expansion handling ([b3186c8](https://github.com/memori-ai/memori-react/commit/b3186c8c22c8815535761c3c08e888a7b24f6912))
+* implement document attachment tag stripping in Snippet ([852edd2](https://github.com/memori-ai/memori-react/commit/852edd2078d1be6e88f245a95485b27518d4c4b9))
+* improve media handling in ChatInputs component ([71944c5](https://github.com/memori-ai/memori-react/commit/71944c56cc4dac218adcb64a55946aa675bdd01c))
+* remove console logs across various components for cleaner code ([df21f71](https://github.com/memori-ai/memori-react/commit/df21f718e87ab1527b7f985f1af9e0cec76deda1))
+* remove unnecessary console log for unmatched animations in AvatarAnimator ([ecbea22](https://github.com/memori-ai/memori-react/commit/ecbea22a74aaacfa4de254ad166624c6cf06948d))
+* streamline artifact handling and enhance API integration in MemoriWidget ([1c7dc48](https://github.com/memori-ai/memori-react/commit/1c7dc4874b082e20ce33821543c099ecf0ea9871))
+* unify chat and media components with consistent scroll item class ([20e6203](https://github.com/memori-ai/memori-react/commit/20e6203c2bc3981314bdc4841969551a3fd093d8))
+* update snapshot tests to include consistent scroll item class ([e54257a](https://github.com/memori-ai/memori-react/commit/e54257a354a8e4564725124288c55e7eeaea6da7))
+
+## [Unreleased]
+
+### Features
+
+* **MemoriArtifactAPI**: Add global JavaScript API for programmatic artifact control
+  * Expose `window.MemoriArtifactAPI` for external integrations
+  * Add `createAndOpenArtifact()` for simple artifact creation
+  * Add `createFromOutputElement()` to process existing DOM elements
+  * Add `processAllArtifacts()` for batch processing of `<output>` tags
+  * Add `getState()` to query current artifact system state
+  * Support for WebSocket and Action Cable integrations
+  * Full TypeScript type definitions exported
+  * Non-invasive implementation using existing React Context
+  * Automatic cleanup on component unmount
+
+## [8.8.5](https://github.com/memori-ai/memori-react/compare/v8.8.4...v8.8.5) (2025-10-27)
+
+
+### Changes
+
+* remove unnecessary console logs ([49f9fb2](https://github.com/memori-ai/memori-react/commit/49f9fb2f515a3c970d1b6245dafd2a7358e93cea))
+* streamline default prop handling in MemoriWidget for better integration configuration ([f50e0d0](https://github.com/memori-ai/memori-react/commit/f50e0d080ec6a98157b169c079cb54d1b0fd0c6d))
+* update AvatarComponent for improved animation handling ([72e6b5c](https://github.com/memori-ai/memori-react/commit/72e6b5c40b66ea664e9d34d646fb4a6ffc415569))
+
+## [8.8.4](https://github.com/memori-ai/memori-react/compare/v8.8.3...v8.8.4) (2025-10-24)
+
+
+### Changes
+
+* enhance MediaItemWidget and Snippet styles for improved layout and responsiveness ([7121bcc](https://github.com/memori-ai/memori-react/commit/7121bcc360169511b9986f823469da91ec072a4b))
+* enhance Prism script loading and code highlighting in Snippet component ([8a87e4e](https://github.com/memori-ai/memori-react/commit/8a87e4e101090085c45ac9cbc85b6b2682c6d646))
+* update MediaItemWidget CSS to increase minimum column width for better layout ([2df373d](https://github.com/memori-ai/memori-react/commit/2df373dab4bea6e1b4c4ce032e214026bf1a5331))
+
+## [8.8.3](https://github.com/memori-ai/memori-react/compare/v8.8.2...v8.8.3) (2025-10-24)
+
+
+### Features
+
+* add settings button to Totem layout for enhanced user configuration ([31f4d1f](https://github.com/memori-ai/memori-react/commit/31f4d1fe2837fbf5ec433fa9307210e6fc7f8bfc))
+
+
+### Changes
+
+* add settings content check and improve fullscreen handling in Header component ([b87f3f4](https://github.com/memori-ai/memori-react/commit/b87f3f4468b07ac0d26cef6217edb4c31b898c59))
+* clean up MemoriWidget and useTTS for improved audio handling and state management ([ad69071](https://github.com/memori-ai/memori-react/commit/ad690719c8c28d1401a0d5743e365b44bc03448f))
+* implement centralized audio playback logic in MemoriWidget ([a31463b](https://github.com/memori-ai/memori-react/commit/a31463b928517c13a74184925ed7433d97ada5dc))
+* optimize settings content check and enhance Header component structure ([320b16e](https://github.com/memori-ai/memori-react/commit/320b16e3d0c6af531d48c17c48c8b3ec3d881655))
+
+## [8.8.2](https://github.com/memori-ai/memori-react/compare/v8.8.1...v8.8.2) (2025-10-23)
+
+
+### Features
+
+* add support for code snippets in MediaItemWidget with modal display ([3bd2c6b](https://github.com/memori-ai/memori-react/commit/3bd2c6b2c1fbf97fe9c146452b3d0cd76d7da880))
+
+
+### Bug Fixes
+
+* restore max-height property in MediaItemWidget CSS ([869cb41](https://github.com/memori-ai/memori-react/commit/869cb41465dcad9c693e6a5f544b7bcaa4dcfdc6))
+
+
+### Changes
+
+* enhance MemoriWidget audio handling and state management for mute functionality ([457ed1a](https://github.com/memori-ai/memori-react/commit/457ed1a7754c64a2b3f753cd4562761010badbfd))
+* enhance useTTS with detailed logging for debugging ([1bc8b9f](https://github.com/memori-ai/memori-react/commit/1bc8b9ffa53ba6d59f206f0999bc9d8dc3c92dc4))
+* improve viseme queue management and clean up audio handling in useTTS ([c07b14e](https://github.com/memori-ai/memori-react/commit/c07b14ecc1fab4fc72be77a609d08b5d4929395c))
+* streamline fullscreen handling for MemoriWidget and improve portal management ([2edb6df](https://github.com/memori-ai/memori-react/commit/2edb6df9adae125cadd2b1327bc702ba0403ca48))
+
 ## [8.8.1](https://github.com/memori-ai/memori-react/compare/v8.8.0...v8.8.1) (2025-10-22)
 
 

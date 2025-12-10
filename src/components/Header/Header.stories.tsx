@@ -4,7 +4,8 @@ import { memori, tenant, history } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Header, { Props } from './Header';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
-import LoginDrawer from '../LoginDrawer/LoginDrawer';
+import LoginDrawer from '../LoginDrawer/LoginDrawer'; 
+import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 
 import './Header.css';
 
@@ -37,6 +38,7 @@ const Template: Story<Props> = args => {
 
   return (
     <I18nWrapper>
+      <ArtifactProvider>
       <Header
         {...args}
         speakerMuted={speakerMuted}
@@ -62,6 +64,7 @@ const Template: Story<Props> = args => {
         setEnablePositionControls={() => {}}
       />
       <LoginDrawer
+        setUser={() => {}}
         tenant={tenant}
         open={!!showLoginDrawer}
         onClose={() => setShowLoginDrawer(false)}
@@ -76,6 +79,7 @@ const Template: Story<Props> = args => {
           } as any
         }
       />
+      </ArtifactProvider>
     </I18nWrapper>
   );
 };

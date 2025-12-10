@@ -1,22 +1,18 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { memori, tenant, integration } from '../../mocks/data';
-import Memori, { LayoutProps, Props } from '../MemoriWidget/MemoriWidget';
+import { LayoutProps, Props } from '../MemoriWidget/MemoriWidget';
+import Memori from '../../index';
 import I18nWrapper from '../../I18nWrapper';
 import Spin from '../ui/Spin';
 import { VisemeProvider } from '../../context/visemeContext';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 
+
 const meta: Meta = {
   title: 'General/Layouts',
-  component: Memori,
-  argTypes: {
-    AZURE_COGNITIVE_SERVICES_TTS_KEY: {
-      control: {
-        type: 'text',
-      },
-    },
-  },
+  component: (args: Props) => <Memori {...args}    />,
+  argTypes: {},
   parameters: {
     controls: { expanded: true },
     layout: 'fullscreen',
@@ -25,241 +21,72 @@ const meta: Meta = {
 
 export default meta;
 
+
 const Template: Story<Props> = args => (
   <I18nWrapper>
-    <ArtifactProvider >
-    <VisemeProvider>
-      <Memori {...args} />
-    </VisemeProvider>
+    <ArtifactProvider>
+      <VisemeProvider>
+        <Memori {...args} />
+      </VisemeProvider>
     </ArtifactProvider>
   </I18nWrapper>
 );
-// By passing using the Args format for exported stories, you can control the props for a component for reuse in a test
-// https://storybook.js.org/docs/react/workflows/unit-testing
-export const Default = Template.bind({});
-Default.args = {
-  uiLang: 'it',
-  showShare: true,
-  showSettings: true,
-  memori,
-  tenant,
+
+const DefaultLayout = Template.bind({});
+DefaultLayout.args = {
+  memoriName: 'Layout Storybook',
+  ownerUserName: 'andrea.patini',
+  memoriID: 'ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e',
+  ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
+  tenantID: 'aisuru-staging.aclambda.online',
+  engineURL: 'https://engine-staging.memori.ai/memori/v2',
+  apiURL: 'https://backend-staging.memori.ai/api/v2',
   layout: 'FULLPAGE',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  integrationID: '0b1256c1-530c-4e67-aef8-36667c8887bb',
+  autoStart: false,
+  sessionID: '' as string | undefined,
+  showUpload: true,
+  showReasoning: false,
+  showLogin: true
 };
 
-export const FullPage = Template.bind({});
-FullPage.args = {
-  uiLang: 'it',
-  showShare: true,
-  showSettings: true,
-  memori,
-  tenant,
-  layout: 'FULLPAGE',
+
+export const Default = Template.bind({});
+Default.args = {
+  ...DefaultLayout.args,
 };
+
+
 
 export const Totem = Template.bind({});
 Totem.args = {
+  ...DefaultLayout.args,
   uiLang: 'it',
   showShare: true,
   showSettings: true,
-  // memori,
-  // tenant,
-  memori: {
-    memoriID: '6573844d-a7cd-47ef-9e78-840d82020c21',
-    name: 'Nicola',
-    password: null,
-    recoveryTokens: null,
-    newPassword: null,
-    ownerUserID: null,
-    ownerUserName: 'nzambello',
-    ownerTenantName: 'aisuru.com',
-    memoriConfigurationID: 'fd10bb42-98d9-4c08-8e02-2b08bd4e4975',
-    description:
-      'Sono Nicola Zambello, sviluppatore e attivista per un web etico e sostenibile',
-    completionDescription: null,
-    engineMemoriID: '9b0a2913-d3d8-4e98-a49d-6e1c99479e1b',
-    isOwner: false,
-    isGiver: false,
-    isReceiver: false,
-    giverTag: null,
-    giverPIN: null,
-    privacyType: 'PUBLIC',
-    secretToken: null,
-    minimumNumberOfRecoveryTokens: null,
-    totalNumberOfRecoveryTokens: null,
-    sentInvitations: [],
-    receivedInvitations: [],
-    integrations: [
-      {
-        integrationID: '62de8c99-0ac2-4cbe-bd95-a39ad7dc6b32',
-        memoriID: '6573844d-a7cd-47ef-9e78-840d82020c21',
-        type: 'LANDING_EXPERIENCE',
-        state: 'NEW',
-        deviceEmails: null,
-        invocationText: null,
-        jobID: null,
-        customData:
-          '{"textColor":"#000000","buttonBgColor":"#007eb6","buttonTextColor":"#ffffff","globalBackground":"https://assets.memori.ai/api/v2/asset/cade3b9c-0437-4342-b2bd-8db9c2a3a20e.png","blurBackground":true,"innerBgColor":"light","multilanguage":true,"avatar":"readyplayerme","avatarURL":"https://assets.memori.ai/api/v2/asset/893c41df-7619-436d-9e86-fe1d406fc933.glb#1681736752156","name":"Pagina pubblica","contextVars":"ANIMALE:CANE","personTag":"☠️","personPIN":"666666","personName":"Pirata","showShare":true,"avatarFullBodyURL":"https://models.readyplayer.me/63b55751f17e295642bf07a2.glb"}',
-        resources: [],
-        publish: true,
-        creationTimestamp: '2022-06-13T14:44:52.833573Z',
-        lastChangeTimestamp: '2022-06-13T14:44:52.833573Z',
-      },
-    ],
-    avatarURL:
-      'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
-    coverURL:
-      'https://assets.memori.ai/api/v2/asset/e9bb9f6d-8f34-45ab-af9e-6d630d9a51a8.png',
-    avatar3DURL:
-      'https://assets.memori.ai/api/v2/asset/893c41df-7619-436d-9e86-fe1d406fc933.glb',
-    avatarOriginal3DURL:
-      'https://d1a370nemizbjq.cloudfront.net/c7c80a1d-deda-4fe1-96c6-fabad0771aa2.glb',
-    needsPosition: false,
-    voiceType: 'MALE',
-    culture: 'it-IT',
-    categories: [
-      'biografico',
-      'tecnologia',
-      'web',
-      'open-source',
-      'green',
-      'privacy',
-    ],
-    exposed: true,
-    disableR2R3Loop: null,
-    disableR4Loop: null,
-    disableR5Loop: null,
-    enableCompletions: true,
-    completionModel: null,
-    chainingMemoriID: null,
-    chainingBaseURL: null,
-    chainingPassword: null,
-    contentQualityIndex: 210.8,
-    contentQualityIndexTimestamp: '2023-04-17T00:01:32.194744Z',
-    publishedInTheMetaverse: true,
-    metaverseEnvironment: 'apartment',
-    blockedUntil: null,
-    creationTimestamp: '2022-06-13T14:21:55.793034Z',
-    lastChangeTimestamp: '2023-04-15T08:15:36.403546Z',
-  },
+  memori: memori,
   integration: {
-    integrationID: '62de8c99-0ac2-4cbe-bd95-a39ad7dc6b32',
-    memoriID: '6573844d-a7cd-47ef-9e78-840d82020c21',
-    type: 'LANDING_EXPERIENCE',
-    state: 'NEW',
-    deviceEmails: null,
-    invocationText: null,
-    jobID: null,
-    publish: true,
-    creationTimestamp: '2022-06-13T14:44:52.833573Z',
-    lastChangeTimestamp: '2022-06-13T14:44:52.833573Z',
-    customData: JSON.stringify({
-      ...JSON.parse(
-        '{"textColor":"#000000","buttonBgColor":"#007eb6","buttonTextColor":"#ffffff","globalBackground":"https://assets.memori.ai/api/v2/asset/cade3b9c-0437-4342-b2bd-8db9c2a3a20e.png","blurBackground":true,"innerBgColor":"light","multilanguage":true,"avatar":"readyplayerme","avatarURL":"https://assets.memori.ai/api/v2/asset/893c41df-7619-436d-9e86-fe1d406fc933.glb#1681736752156","name":"Pagina pubblica","contextVars":"ANIMALE:CANE","personTag":"☠️","personPIN":"666666","personName":"Pirata","showShare":true,"avatarFullBodyURL":"https://models.readyplayer.me/63b55751f17e295642bf07a2.glb"}'
-      ),
-      avatar: 'readyplayerme-full',
-      avatarURL:
-        'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb#' +
-        // 'https://models.readyplayer.me/63b558263858282637c54115.glb#' +
-        new Date(Date.now()).getTime(),
-    }),
+    ...integration,
   },
+  tenant,
   layout: 'TOTEM',
 };
 
 export const ChatOnly = Template.bind({});
 ChatOnly.args = {
+  ...DefaultLayout.args,
   uiLang: 'it',
   showShare: true,
   showSettings: true,
   showUpload: true,
-  // memori,
-  // tenant,
-
-  memori: {
-    memoriName: 'CreaRiassunti',
-    ownerUserName: 'patini929',
-    memoriID: '514dd043-ec26-4c57-a014-a512c9014822',
-    ownerUserID: '1941d326-6986-4fa1-872b-458d09fb654c',
-    tenantID: 'www.aisuru.com',
-    engineURL: 'https://engine.memori.ai',
-    apiURL: 'https://backend.memori.ai',
-    baseURL: 'https://www.aisuru.com',
-    uiLang: 'IT',
-    spokenLang: 'FR',
-    layout: 'FULLPAGE',
-    showSettings: true,
-    showClear: false,
-    showAIicon: true,
-    showWhyThisAnswer: true,
-    showTypingText: false,
-    showOnlyLastMessages: false,
-    showTranslationOriginal: false,
-    showCopyButton: false,
-    showShare: true,
-    showLogin: false,
-    enableAudio: true,
-    name: 'CreaRiassunti',
-    password: null,
-    recoveryTokens: null,
-    newPassword: null,
-    ownerTenantName: 'aisuru.com',
-    memoriConfigurationID: 'fd10bb42-98d9-4c08-8e02-2b08bd4e4975',
-    description: '',
-    completionDescription: null,
-    engineMemoriID: '9b0a2913-d3d8-4e98-a49d-6e1c99479e1b',
-    isOwner: false,
-    isGiver: false,
-    isReceiver: false,
-    giverTag: null,
-    giverPIN: null,
-    privacyType: 'PUBLIC',
-    secretToken: null,
-    minimumNumberOfRecoveryTokens: null,
-    totalNumberOfRecoveryTokens: null,
-    sentInvitations: [],
-    receivedInvitations: [],
-    integrations: [
-      {
-        integrationID: '37d368cf-6241-4cc8-a1f3-742786f22431',
-        memoriID: '514dd043-ec26-4c57-a014-a512c9014822',
-        type: 'LANDING_EXPERIENCE',
-        state: 'NEW',
-        deviceEmails: null,
-        invocationText: null,
-        jobID: null,
-        customData:
-          '{"textColor":"#000000","buttonBgColor":"#007eb6","buttonTextColor":"#ffffff","globalBackground":"https://assets.memori.ai/api/v2/asset/cade3b9c-0437-4342-b2bd-8db9c2a3a20e.png","blurBackground":true,"innerBgColor":"light","multilanguage":true,"avatar":"readyplayerme","avatarURL":"https://assets.memori.ai/api/v2/asset/893c41df-7619-436d-9e86-fe1d406fc933.glb#1681736752156","name":"Pagina pubblica","contextVars":"ANIMALE:CANE","personTag":"☠️","personPIN":"666666","personName":"Pirata","showShare":true,"avatarFullBodyURL":"https://models.readyplayer.me/63b55751f17e295642bf07a2.glb"}',
-        resources: [],
-        publish: true,
-        creationTimestamp: '2022-06-13T14:44:52.833573Z',
-        lastChangeTimestamp: '2022-06-13T14:44:52.833573Z',
-      },
-    ],
-    needsPosition: false,
-    voiceType: 'MALE',
-    culture: 'it-IT',
-    categories: ['demo'],
-    exposed: true,
-    disableR2R3Loop: null,
-    disableR4Loop: null,
-    disableR5Loop: null,
-    enableCompletions: true,
-    completionModel: null,
-    chainingMemoriID: null,
-    chainingBaseURL: null,
-    chainingPassword: null,
-    contentQualityIndex: 210.8,
-    contentQualityIndexTimestamp: '2023-04-17T00:01:32.194744Z',
-    publishedInTheMetaverse: true,
-    metaverseEnvironment: 'apartment',
-    blockedUntil: null,
-    creationTimestamp: '2022-06-13T14:21:55.793034Z',
-    lastChangeTimestamp: '2023-04-15T08:15:36.403546Z',
-  },
+  memori: memori,
+  tenant,
   layout: 'CHAT',
 };
 
-export const CustomLayout: React.FC<LayoutProps> = ({
+const CustomLayout: React.FC<LayoutProps> = ({
   Header,
   headerProps,
   Avatar,
@@ -295,10 +122,11 @@ export const CustomLayout: React.FC<LayoutProps> = ({
 
 export const Custom = Template.bind({});
 Custom.args = {
+  ...DefaultLayout.args,
   uiLang: 'it',
   showShare: true,
   showSettings: true,
-  memori,
+  memori: memori,
   tenant,
   layout: 'FULLPAGE',
   customLayout: CustomLayout,
@@ -306,322 +134,41 @@ Custom.args = {
 
 export const WebsiteAssistant = Template.bind({});
 WebsiteAssistant.args = {
+  ...DefaultLayout.args,
   uiLang: 'it',
   showShare: true,
   showSettings: true,
-  memori: {
-    memoriID: '6573844d-a7cd-47ef-9e78-840d82020c21',
-    name: 'Nicola',
-    password: null,
-    recoveryTokens: null,
-    newPassword: null,
-    ownerUserID: null,
-    ownerUserName: 'nzambello',
-    ownerTenantName: 'aisuru.com',
-    memoriConfigurationID: 'fd10bb42-98d9-4c08-8e02-2b08bd4e4975',
-    description:
-      'Sono Nicola Zambello, sviluppatore e attivista per un web etico e sostenibile',
-    completionDescription: null,
-    engineMemoriID: '9b0a2913-d3d8-4e98-a49d-6e1c99479e1b',
-    isOwner: false,
-    isGiver: false,
-    isReceiver: false,
-    giverTag: null,
-    giverPIN: null,
-    privacyType: 'PUBLIC',
-    secretToken: null,
-    minimumNumberOfRecoveryTokens: null,
-    totalNumberOfRecoveryTokens: null,
-    sentInvitations: [],
-    receivedInvitations: [],
-    integrations: [
-      {
-        integrationID: '62de8c99-0ac2-4cbe-bd95-a39ad7dc6b32',
-        memoriID: '6573844d-a7cd-47ef-9e78-840d82020c21',
-        type: 'LANDING_EXPERIENCE',
-        state: 'NEW',
-        deviceEmails: null,
-        invocationText: null,
-        jobID: null,
-        customData:
-          '{"textColor":"#000000","buttonBgColor":"#007eb6","buttonTextColor":"#ffffff","globalBackground":"https://assets.memori.ai/api/v2/asset/cade3b9c-0437-4342-b2bd-8db9c2a3a20e.png","blurBackground":true,"innerBgColor":"light","multilanguage":true,"avatar":"readyplayerme","avatarURL":"https://assets.memori.ai/api/v2/asset/893c41df-7619-436d-9e86-fe1d406fc933.glb#1681736752156","name":"Pagina pubblica","contextVars":"ANIMALE:CANE","personTag":"☠️","personPIN":"666666","personName":"Pirata","showShare":true,"avatarFullBodyURL":"https://models.readyplayer.me/63b55751f17e295642bf07a2.glb"}',
-        resources: [],
-        publish: true,
-        creationTimestamp: '2022-06-13T14:44:52.833573Z',
-        lastChangeTimestamp: '2022-06-13T14:44:52.833573Z',
-      },
-    ],
-    avatarURL:
-      'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
-    coverURL:
-      'https://assets.memori.ai/api/v2/asset/e9bb9f6d-8f34-45ab-af9e-6d630d9a51a8.png',
-    avatar3DURL:
-      'https://assets.memori.ai/api/v2/asset/893c41df-7619-436d-9e86-fe1d406fc933.glb',
-    avatarOriginal3DURL:
-      'https://d1a370nemizbjq.cloudfront.net/c7c80a1d-deda-4fe1-96c6-fabad0771aa2.glb',
-    needsPosition: false,
-    voiceType: 'MALE',
-    culture: 'it-IT',
-    categories: [
-      'biografico',
-      'tecnologia',
-      'web',
-      'open-source',
-      'green',
-      'privacy',
-    ],
-    exposed: true,
-    disableR2R3Loop: null,
-    disableR4Loop: null,
-    disableR5Loop: null,
-    enableCompletions: true,
-    completionModel: null,
-    chainingMemoriID: null,
-    chainingBaseURL: null,
-    chainingPassword: null,
-    contentQualityIndex: 210.8,
-    contentQualityIndexTimestamp: '2023-04-17T00:01:32.194744Z',
-    publishedInTheMetaverse: true,
-    metaverseEnvironment: 'apartment',
-    blockedUntil: null,
-    creationTimestamp: '2022-06-13T14:21:55.793034Z',
-    lastChangeTimestamp: '2023-04-15T08:15:36.403546Z',
-  },
-  integration: {
-    integrationID: '62de8c99-0ac2-4cbe-bd95-a39ad7dc6b32',
-    memoriID: '6573844d-a7cd-47ef-9e78-840d82020c21',
-    type: 'LANDING_EXPERIENCE',
-    state: 'NEW',
-    deviceEmails: null,
-    invocationText: null,
-    jobID: null,
-    publish: true,
-    creationTimestamp: '2022-06-13T14:44:52.833573Z',
-    lastChangeTimestamp: '2022-06-13T14:44:52.833573Z',
-    customData: JSON.stringify({
-      ...JSON.parse(
-        '{"textColor":"#000000","buttonBgColor":"#007eb6","buttonTextColor":"#ffffff","globalBackground":"https://assets.memori.ai/api/v2/asset/cade3b9c-0437-4342-b2bd-8db9c2a3a20e.png","blurBackground":true,"innerBgColor":"light","multilanguage":true,"avatar":"readyplayerme","avatarURL":"https://assets.memori.ai/api/v2/asset/893c41df-7619-436d-9e86-fe1d406fc933.glb#1681736752156","name":"Pagina pubblica","contextVars":"ANIMALE:CANE","personTag":"☠️","personPIN":"666666","personName":"Pirata","showShare":true,"avatarFullBodyURL":"https://models.readyplayer.me/63b55751f17e295642bf07a2.glb"}'
-      ),
-      avatar: 'readyplayerme-full',
-      avatarURL:
-        'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb#' +
-        // 'https://models.readyplayer.me/63b558263858282637c54115.glb#' +
-        new Date(Date.now()).getTime(),
-    }),
-  },
+  memori: memori,
   tenant,
   layout: 'WEBSITE_ASSISTANT',
 };
 
 export const HiddenChat = Template.bind({});
 HiddenChat.args = {
+  ...DefaultLayout.args,
   uiLang: 'it',
   showShare: true,
   showSettings: true,
-  // autoStart: true,
-  // memori,
-  // tenant,
-  memori: {
-    memoriID: '6573844d-a7cd-47ef-9e78-840d82020c21',
-    name: 'Nicola',
-    password: null,
-    recoveryTokens: null,
-    newPassword: null,
-    ownerUserID: null,
-    ownerUserName: 'nzambello',
-    ownerTenantName: 'aisuru.com',
-    memoriConfigurationID: 'fd10bb42-98d9-4c08-8e02-2b08bd4e4975',
-    description:
-      'Sono Nicola Zambello, sviluppatore e attivista per un web etico e sostenibile',
-    completionDescription: null,
-    engineMemoriID: '9b0a2913-d3d8-4e98-a49d-6e1c99479e1b',
-    isOwner: false,
-    isGiver: false,
-    isReceiver: false,
-    giverTag: null,
-    giverPIN: null,
-    privacyType: 'PUBLIC',
-    secretToken: null,
-    minimumNumberOfRecoveryTokens: null,
-    totalNumberOfRecoveryTokens: null,
-    sentInvitations: [],
-    receivedInvitations: [],
-    integrations: [
-      {
-        integrationID: '62de8c99-0ac2-4cbe-bd95-a39ad7dc6b32',
-        memoriID: '6573844d-a7cd-47ef-9e78-840d82020c21',
-        type: 'LANDING_EXPERIENCE',
-        state: 'NEW',
-        deviceEmails: null,
-        invocationText: null,
-        jobID: null,
-        customData:
-          '{"textColor":"#000000","buttonBgColor":"#007eb6","buttonTextColor":"#ffffff","globalBackground":"https://assets.memori.ai/api/v2/asset/cade3b9c-0437-4342-b2bd-8db9c2a3a20e.png","blurBackground":true,"innerBgColor":"light","multilanguage":true,"avatar":"readyplayerme","avatarURL":"https://assets.memori.ai/api/v2/asset/893c41df-7619-436d-9e86-fe1d406fc933.glb#1681736752156","name":"Pagina pubblica","contextVars":"ANIMALE:CANE","personTag":"☠️","personPIN":"666666","personName":"Pirata","showShare":true,"avatarFullBodyURL":"https://models.readyplayer.me/63b55751f17e295642bf07a2.glb"}',
-        resources: [],
-        publish: true,
-        creationTimestamp: '2022-06-13T14:44:52.833573Z',
-        lastChangeTimestamp: '2022-06-13T14:44:52.833573Z',
-      },
-    ],
-    avatarURL:
-      'https://assets.memori.ai/api/v2/asset/3049582f-db5f-452c-913d-e4340d4afd0a.png',
-    coverURL:
-      'https://assets.memori.ai/api/v2/asset/e9bb9f6d-8f34-45ab-af9e-6d630d9a51a8.png',
-    avatar3DURL:
-      'https://assets.memori.ai/api/v2/asset/893c41df-7619-436d-9e86-fe1d406fc933.glb',
-    avatarOriginal3DURL:
-      'https://d1a370nemizbjq.cloudfront.net/c7c80a1d-deda-4fe1-96c6-fabad0771aa2.glb',
-    needsPosition: false,
-    voiceType: 'MALE',
-    culture: 'it-IT',
-    categories: [
-      'biografico',
-      'tecnologia',
-      'web',
-      'open-source',
-      'green',
-      'privacy',
-    ],
-    exposed: true,
-    disableR2R3Loop: null,
-    disableR4Loop: null,
-    disableR5Loop: null,
-    enableCompletions: true,
-    completionModel: null,
-    chainingMemoriID: null,
-    chainingBaseURL: null,
-    chainingPassword: null,
-    contentQualityIndex: 210.8,
-    contentQualityIndexTimestamp: '2023-04-17T00:01:32.194744Z',
-    publishedInTheMetaverse: true,
-    metaverseEnvironment: 'apartment',
-    blockedUntil: null,
-    creationTimestamp: '2022-06-13T14:21:55.793034Z',
-    lastChangeTimestamp: '2023-04-15T08:15:36.403546Z',
-  },
-  integration: {
-    integrationID: '62de8c99-0ac2-4cbe-bd95-a39ad7dc6b32',
-    memoriID: '6573844d-a7cd-47ef-9e78-840d82020c21',
-    type: 'LANDING_EXPERIENCE',
-    state: 'NEW',
-    deviceEmails: null,
-    invocationText: null,
-    jobID: null,
-    publish: true,
-    creationTimestamp: '2022-06-13T14:44:52.833573Z',
-    lastChangeTimestamp: '2022-06-13T14:44:52.833573Z',
-    customData: JSON.stringify({
-      ...JSON.parse(
-        '{"textColor":"#000000","buttonBgColor":"#007eb6","buttonTextColor":"#ffffff","globalBackground":"https://assets.memori.ai/api/v2/asset/cade3b9c-0437-4342-b2bd-8db9c2a3a20e.png","blurBackground":true,"innerBgColor":"light","multilanguage":true,"avatar":"readyplayerme","avatarURL":"https://assets.memori.ai/api/v2/asset/893c41df-7619-436d-9e86-fe1d406fc933.glb#1681736752156","name":"Pagina pubblica","contextVars":"ANIMALE:CANE","personTag":"☠️","personPIN":"666666","personName":"Pirata","showShare":true,"avatarFullBodyURL":"https://models.readyplayer.me/63b55751f17e295642bf07a2.glb"}'
-      ),
-      avatar: 'readyplayerme-full',
-      avatarURL:
-        'https://models.readyplayer.me/63b55751f17e295642bf07a2.glb#' +
-        // 'https://models.readyplayer.me/63b558263858282637c54115.glb#' +
-        new Date(Date.now()).getTime(),
-    }),
-  },
+  memori: memori,
+  tenant,
   layout: 'HIDDEN_CHAT',
 };
 
 export const ZoomedFullBody = Template.bind({});
 ZoomedFullBody.args = {
+  ...DefaultLayout.args,
   uiLang: 'it',
   showShare: true,
   showSettings: true,
   showAudio: true,
   enableAudio: true,
-  memori: {
-    memoriID: '6573844d-a7cd-47ef-9e78-840d82020c21',
-    name: 'Nicola',
-    password: null,
-    recoveryTokens: null,
-    newPassword: null,
-    ownerUserID: null,
-    ownerUserName: 'nzambello',
-    ownerTenantName: 'aisuru.com',
-    memoriConfigurationID: 'fd10bb42-98d9-4c08-8e02-2b08bd4e4975',
-    description:
-      'Sono Nicola Zambello, sviluppatore e attivista per un web etico e sostenibile',
-    completionDescription: null,
-    engineMemoriID: '9b0a2913-d3d8-4e98-a49d-6e1c99479e1b',
-    isOwner: false,
-    isGiver: false,
-    isReceiver: false,
-    giverTag: null,
-    giverPIN: null,
-    privacyType: 'PUBLIC',
-    enableAudio: true,
-    secretToken: null,
-    minimumNumberOfRecoveryTokens: null,
-    totalNumberOfRecoveryTokens: null,
-    sentInvitations: [],
-    receivedInvitations: [],
-    integrations: [
-      {
-        integrationID: '62de8c99-0ac2-4cbe-bd95-a39ad7dc6b32',
-        memoriID: '6573844d-a7cd-47ef-9e78-840d82020c21',
-        type: 'LANDING_EXPERIENCE',
-        state: 'NEW',
-        deviceEmails: null,
-        invocationText: null,
-        jobID: null,
-        customData:
-          '{"textColor":"#000000","buttonBgColor":"#007eb6","buttonTextColor":"#ffffff","globalBackground":"https://assets.memori.ai/api/v2/asset/cade3b9c-0437-4342-b2bd-8db9c2a3a20e.png","blurBackground":true,"innerBgColor":"light","multilanguage":true,"avatar":"readyplayerme","avatarURL":"https://assets.memori.ai/api/v2/asset/893c41df-7619-436d-9e86-fe1d406fc933.glb#1681736752156","name":"Pagina pubblica","contextVars":"ANIMALE:CANE","personTag":"☠️","personPIN":"666666","personName":"Pirata","showShare":true,"avatarFullBodyURL":"https://models.readyplayer.me/63b55751f17e295642bf07a2.glb"}',
-        resources: [],
-        publish: true,
-        creationTimestamp: '2022-06-13T14:44:52.833573Z',
-        lastChangeTimestamp: '2022-06-13T14:44:52.833573Z',
-      },
-    ],
-    needsPosition: false,
-    voiceType: 'FEMALE',
-    culture: 'it-IT',
-    categories: [
-      'biografico',
-      'tecnologia',
-      'web',
-      'open-source',
-      'green',
-      'privacy',
-    ],
-    exposed: true,
-    disableR2R3Loop: null,
-    disableR4Loop: null,
-    disableR5Loop: null,
-    enableCompletions: true,
-    completionModel: null,
-    chainingMemoriID: null,
-    chainingBaseURL: null,
-    chainingPassword: null,
-    contentQualityIndex: 210.8,
-    contentQualityIndexTimestamp: '2023-04-17T00:01:32.194744Z',
-    publishedInTheMetaverse: true,
-    metaverseEnvironment: 'apartment',
-    blockedUntil: null,
-    creationTimestamp: '2022-06-13T14:21:55.793034Z',
-    lastChangeTimestamp: '2023-04-15T08:15:36.403546Z',
-  },
   integration: {
-    integrationID: '62de8c99-0ac2-4cbe-bd95-a39ad7dc6b32',
-    memoriID: '6573844d-a7cd-47ef-9e78-840d82020c21',
-    type: 'LANDING_EXPERIENCE',
-    state: 'NEW',
-    deviceEmails: null,
-    invocationText: null,
-    jobID: null,
-    publish: true,
-    creationTimestamp: '2022-06-13T14:44:52.833573Z',
-    lastChangeTimestamp: '2022-06-13T14:44:52.833573Z',
-    customData: JSON.stringify({
-      ...JSON.parse(
-        '{"textColor":"#000000","buttonBgColor":"#007eb6","buttonTextColor":"#ffffff","globalBackground":"https://assets.memori.ai/api/v2/asset/cade3b9c-0437-4342-b2bd-8db9c2a3a20e.png","blurBackground":true,"innerBgColor":"light","multilanguage":true,"avatar":"readyplayerme","avatarURL":"https://assets.memori.ai/api/v2/asset/893c41df-7619-436d-9e86-fe1d406fc933.glb#1681736752156","name":"Pagina pubblica","contextVars":"ANIMALE:CANE","personTag":"☠️","personPIN":"666666","personName":"Pirata","showShare":true,"avatarFullBodyURL":"https://models.readyplayer.me/63b55751f17e295642bf07a2.glb"}'
-      ),
-      avatar: 'readyplayerme-full',
-      avatarURL:
-        'https://assets.memori.ai/api/v2/asset/3932bf70-e953-4e8a-b63a-f316544c283e.glb' +
-        new Date(Date.now()).getTime(),
-    }),
+    
   },
+  memori: {
+    ...memori,
+    voiceType: 'FEMALE',
+  },
+  tenant,
   layout: 'ZOOMED_FULL_BODY',
 };

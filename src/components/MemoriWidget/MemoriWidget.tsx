@@ -17,6 +17,7 @@ import {
   ChatLog,
 } from '@memori.ai/memori-api-client/src/types';
 import { ArtifactData } from '../MemoriArtifactSystem/types/artifact.types';
+import { ArtifactAPIBridge } from '../MemoriArtifactSystem/utils/ArtifactAPI';
 
 // Libraries
 import React, {
@@ -320,6 +321,22 @@ declare global {
     typeMessage: typeof typeMessage;
     typeMessageHidden: typeof typeMessageHidden;
     typeBatchMessages: typeof typeBatchMessages;
+    MemoriArtifactAPI?: {
+      openArtifact: (artifact: ArtifactData) => void;
+      createAndOpenArtifact: (
+        content: string,
+        mimeType?: string,
+        title?: string
+      ) => void;
+      createFromOutputElement: (outputElement: HTMLOutputElement) => string;
+      closeArtifact: () => void;
+      toggleFullscreen: () => void;
+      getState: () => {
+        currentArtifact: ArtifactData | null;
+        isDrawerOpen: boolean;
+        isFullscreen: boolean;
+      };
+    };
   }
 }
 window.getMemoriState = getMemoriState;
@@ -330,7 +347,6 @@ window.typeBatchMessages = typeBatchMessages;
 let audioContext: IAudioContext;
 
 let memoriPassword: string | undefined;
-let speakerMuted: boolean = false;
 let userToken: string | undefined;
 
 export interface LayoutProps {
@@ -510,19 +526,21 @@ const MemoriWidget = ({
       !user?.userID &&
       (showLogin || memori.requireLoginToken)
     ) {
-      client.backend.pwlGetCurrentUser(loginToken).then(({ user, resultCode }) => {
-        if (user && resultCode === 0) {
-          setUser(user);
-          setLocalConfig('loginToken', loginToken);
+      client.backend
+        .pwlGetCurrentUser(loginToken)
+        .then(({ user, resultCode }) => {
+          if (user && resultCode === 0) {
+            setUser(user);
+            setLocalConfig('loginToken', loginToken);
 
-          if (!birthDate && user.birthDate) {
-            setBirthDate(user.birthDate);
-            setLocalConfig('birthDate', user.birthDate);
+            if (!birthDate && user.birthDate) {
+              setBirthDate(user.birthDate);
+              setLocalConfig('birthDate', user.birthDate);
+            }
+          } else {
+            removeLocalConfig('loginToken');
           }
-        } else {
-          removeLocalConfig('loginToken');
-        }
-      });
+        });
     }
   }, [loginToken, user?.userID]);
   const [showLoginDrawer, setShowLoginDrawer] = useState(false);
@@ -820,16 +838,9 @@ const MemoriWidget = ({
         msg = translation.text;
       }
 
-      const findMediaDocument = media?.find(
-        m => !m.mediumID && m.properties?.isAttachedFile
-      );
-      if (findMediaDocument) {
-        msg = msg + ' ' + findMediaDocument.content;
-      }
-
-      // Handle multiple documents
+      // Handle document attachments
       const mediaDocuments = media?.filter(
-        m => !m.mediumID && m.properties?.isAttachedFile
+        m => (m as any).type === 'document' && m.properties?.isAttachedFile
       );
       if (mediaDocuments && mediaDocuments.length > 0) {
         const documentContents = mediaDocuments
@@ -870,7 +881,7 @@ const MemoriWidget = ({
 
           translateDialogState(currentState, userLang, msg).then(ts => {
             let text = ts.translatedEmission || ts.emission;
-            if (text && text.trim() && !speakerMuted) {
+            if (text && shouldPlayAudio(text)) {
               handleSpeak(text);
             }
           });
@@ -897,7 +908,7 @@ const MemoriWidget = ({
               tag: currentState.currentTag,
               memoryTags: currentState.memoryTags,
             });
-            if (emission && emission.trim()) {
+            if (emission && shouldPlayAudio(emission)) {
               handleSpeak(emission);
             }
           }
@@ -908,7 +919,7 @@ const MemoriWidget = ({
         setHistory(h => [...h.slice(0, h.length - 1)]);
 
         reopenSession(
-          false,
+          true,
           memoriPwd || memori.secretToken,
           memoriTokens,
           undefined,
@@ -919,7 +930,12 @@ const MemoriWidget = ({
             ROUTE: window.location.pathname?.split('/')?.pop() || '',
             ...(initialContextVars || {}),
           },
-          initialQuestion
+          initialQuestion,
+          undefined,
+          undefined,
+          undefined,
+          undefined,
+          true // isSessionExpired
         ).then(state => {
           console.info('session timeout');
           if (state?.sessionID) {
@@ -1276,9 +1292,13 @@ const MemoriWidget = ({
         tag: params.tag ?? personification?.tag,
         pin: params.pin ?? personification?.pin,
         additionalInfo: {
-          ...(additionalInfo || {}),
+          ...(params.additionalInfo || additionalInfo || {}),
           loginToken:
-            userToken ?? loginToken ?? additionalInfo?.loginToken ?? authToken,
+            userToken ??
+            loginToken ??
+            params.additionalInfo?.loginToken ??
+            additionalInfo?.loginToken ??
+            authToken,
           language: getCultureCodeByLanguage(userLang),
           referral: referral,
           timeZoneOffset: new Date().getTimezoneOffset().toString(),
@@ -1372,18 +1392,12 @@ const MemoriWidget = ({
     pin?: string,
     initialContextVars?: { [key: string]: string },
     initialQuestion?: string,
-    birthDate?: string
+    birthDate?: string,
+    additionalInfoProp?: { [key: string]: string | undefined },
+    continueFromChatLogID?: string,
+    continueFromSessionID?: string,
+    isSessionExpired?: boolean
   ) => {
-    // console.log('[REOPEN_SESSION] Starting reopenSession with params:', {
-    //   updateDialogState,
-    //   hasPassword: !!password,
-    //   hasRecoveryTokens: !!recoveryTokens,
-    //   tag,
-    //   hasPin: !!pin,
-    //   initialContextVars,
-    //   initialQuestion,
-    //   hasBirthDate: !!birthDate
-    // });
 
     // Set loading state while reopening session
     setLoading(true);
@@ -1437,6 +1451,8 @@ const MemoriWidget = ({
         recoveryTokens: recoveryTokens || memoriTokens,
         tag: tag ?? personification?.tag,
         pin: pin ?? personification?.pin,
+        continueFromChatLogID: continueFromChatLogID,
+        continueFromSessionID: continueFromSessionID,
         initialContextVars: {
           LANG: userLang,
           PATHNAME: window.location.pathname,
@@ -1446,9 +1462,13 @@ const MemoriWidget = ({
         initialQuestion,
         birthDate: userBirthDate,
         additionalInfo: {
-          ...(additionalInfo || {}),
+          ...(additionalInfoProp || additionalInfo || {}),
           loginToken:
-            userToken ?? loginToken ?? additionalInfo?.loginToken ?? authToken,
+            userToken ??
+            loginToken ??
+            additionalInfoProp?.loginToken ??
+            additionalInfo?.loginToken ??
+            authToken,
           language: getCultureCodeByLanguage(userLang),
           referral: referral,
           timeZoneOffset: new Date().getTimezoneOffset().toString(),
@@ -1457,7 +1477,7 @@ const MemoriWidget = ({
 
       // Handle successful session initialization
       if (sessionID && currentState && response.resultCode === 0) {
-        // console.log('[REOPEN_SESSION] Session initialized successfully:', sessionID);
+        console.log('[REOPEN_SESSION] Session initialized successfully:', sessionID);
         setSessionId(sessionID);
 
         // Update dialog state and history if requested
@@ -1466,7 +1486,13 @@ const MemoriWidget = ({
           setCurrentDialogState(currentState);
 
           if (currentState.emission) {
-            // console.log('[REOPEN_SESSION] Processing emission:', currentState.emission);
+            console.log('[REOPEN_SESSION] Processing emission:', currentState.emission);
+            // Determine initial status message based on context
+            // Show status message only if session expired and there's existing history
+            const initialStatus = isSessionExpired && history.length > 1
+              ? 'Session Expired, reopening session'
+              : (history.length <= 1 ? true : undefined);
+            
             // Set initial message or append to existing history
             history.length <= 1
               ? setHistory([
@@ -1475,7 +1501,7 @@ const MemoriWidget = ({
                     emitter: currentState.emitter,
                     media: currentState.emittedMedia ?? currentState.media,
                     fromUser: false,
-                    initial: true,
+                    initial: (initialStatus === true ? true : (initialStatus || undefined)) as any,
                     contextVars: currentState.contextVars,
                     date: currentState.currentDate,
                     placeName: currentState.currentPlaceName,
@@ -1491,7 +1517,7 @@ const MemoriWidget = ({
                   emitter: currentState.emitter,
                   media: currentState.emittedMedia ?? currentState.media,
                   fromUser: false,
-                  initial: true,
+                  initial: (initialStatus === true ? true : (initialStatus || undefined)) as any,
                   contextVars: currentState.contextVars,
                   date: currentState.currentDate,
                   placeName: currentState.currentPlaceName,
@@ -1721,18 +1747,19 @@ const MemoriWidget = ({
 
       const handleVisibilityChange = () => {
         const isVisible = !document.hidden;
-        
+
         if (isVisible && !isTabVisible) {
           // Tab became visible - start polling and send immediate date event
-          console.log('Tab is now active/visible - starting date polling');
-          sendDateChangedEvent({ sessionID: sessionId, state: currentDialogState });
+          sendDateChangedEvent({
+            sessionID: sessionId,
+            state: currentDialogState,
+          });
           startDatePolling();
         } else if (!isVisible && isTabVisible) {
           // Tab became hidden - stop polling
-          console.log('Tab is now hidden - stopping date polling');
           stopDatePolling();
         }
-        
+
         isTabVisible = isVisible;
       };
 
@@ -1746,7 +1773,10 @@ const MemoriWidget = ({
 
       return () => {
         stopDatePolling();
-        document.removeEventListener('visibilitychange', handleVisibilityChange);
+        document.removeEventListener(
+          'visibilitychange',
+          handleVisibilityChange
+        );
       };
     }
   }, [memori.needsDateTime, sessionId]);
@@ -1829,8 +1859,21 @@ const MemoriWidget = ({
     },
     autoStart,
     defaultEnableAudio,
-    defaultSpeakerActive
+    defaultSpeakerActive ?? integrationConfig?.defaultSpeakerActive ?? true
   );
+
+  // Helper function to check if audio should be played
+  const shouldPlayAudio = (text?: string) => {
+    const currentSpeakerMuted = getLocalConfig('muteSpeaker', false);
+    console.log('[MemoriWidget] shouldPlayAudio', currentSpeakerMuted);
+    return (
+      text &&
+      text.trim() &&
+      !preview &&
+      !currentSpeakerMuted &&
+      defaultEnableAudio
+    );
+  };
 
   // Create a single, centralized function to process and send messages
   const processSpeechAndSendMessage = (text: string) => {
@@ -1880,16 +1923,9 @@ const MemoriWidget = ({
    * Uses promise-based approach for better reliability
    */
   const handleSpeak = async (text: string) => {
-    if (
-      !text ||
-      !text.trim() ||
-      preview ||
-      speakerMuted ||
-      !defaultEnableAudio
-    ) {
+    if (!shouldPlayAudio(text)) {
       const e = new CustomEvent('MemoriEndSpeak');
       document.dispatchEvent(e);
-
       return Promise.resolve();
     }
 
@@ -1901,7 +1937,6 @@ const MemoriWidget = ({
     setHasUserTypedMessage(false);
 
     const processedText = sanitizeText(text);
-
     return ttsSpeak(processedText);
   };
   /**
@@ -1918,7 +1953,6 @@ const MemoriWidget = ({
       try {
         // First ensure we have a valid dialog state
         if (!dialogState) {
-          console.warn('translateAndSpeak called with empty dialog state');
           return null;
         }
 
@@ -1934,20 +1968,13 @@ const MemoriWidget = ({
         const textToSpeak =
           translatedState.translatedEmission || translatedState.emission;
 
-        // Always set
-        //  to true when we have a valid dialog state,
+        // Always set hasUserActivatedSpeak to true when we have a valid dialog state,
         // regardless of audio settings, so the chat can start properly
         if (!hasUserActivatedSpeak) {
           setHasUserActivatedSpeak(true);
         }
 
-        if (
-          textToSpeak &&
-          textToSpeak.trim() &&
-          !skipEmission &&
-          !speakerMuted
-        ) {
-          // Note: now using the Promise-based speak function to ensure proper sequencing
+        if (textToSpeak && !skipEmission && shouldPlayAudio(textToSpeak)) {
           await handleSpeak(textToSpeak);
         }
 
@@ -1966,6 +1993,7 @@ const MemoriWidget = ({
       handleSpeak,
       hasUserActivatedSpeak,
       setHasUserActivatedSpeak,
+      speakerMuted,
     ]
   );
 
@@ -2179,7 +2207,9 @@ const MemoriWidget = ({
   // to use in integrations or snippets
   const memoriTextEnteredHandler = useCallback(
     (e: MemoriTextEnteredEvent) => {
-      if (disableTextEnteredEvents) return;
+      if (disableTextEnteredEvents) {
+        return;
+      }
 
       const {
         text,
@@ -2222,6 +2252,7 @@ const MemoriWidget = ({
       memoriTyping,
       userLang,
       disableTextEnteredEvents,
+      speakerMuted,
     ]
   );
   useEffect(() => {
@@ -2539,6 +2570,7 @@ const MemoriWidget = ({
         // No tag changes needed
         else {
           try {
+            //This is the session id of the session that was opened before the current session
             const { chatLogs } = await getSessionChatLogs(
               sessionID!,
               sessionID!
@@ -2776,8 +2808,7 @@ const MemoriWidget = ({
 
   const showFullHistory =
     showOnlyLastMessages === undefined
-      ? selectedLayout !== 'TOTEM' &&
-        selectedLayout !== 'WEBSITE_ASSISTANT'
+      ? selectedLayout !== 'TOTEM' && selectedLayout !== 'WEBSITE_ASSISTANT'
       : !showOnlyLastMessages;
 
   const headerProps: HeaderProps = {
@@ -2790,49 +2821,16 @@ const MemoriWidget = ({
     history,
     showShare: showShare ?? integrationConfig?.showShare ?? true,
     position,
+    layout: selectedLayout,
+    additionalSettings,
     setShowPositionDrawer,
     setShowSettingsDrawer,
     setShowKnownFactsDrawer,
     setShowExpertsDrawer,
     enableAudio: defaultEnableAudio,
     speakerMuted: speakerMuted ?? false,
-    setSpeakerMuted: mute => {
-      // If audio is disabled, force mute and don't allow unmuting
-      if (!(enableAudio ?? integrationConfig?.enableAudio ?? true)) {
-        mute = true;
-      }
-
-      // Use the toggleMute function from useTTS hook which properly manages state
+    setSpeakerMuted: (mute: boolean) => {
       toggleMute(mute);
-      
-      // Update local config for persistence
-      setLocalConfig('muteSpeaker', !!mute);
-      
-      // Handle microphone mode changes
-      let microphoneMode = getLocalConfig<string>(
-        'microphoneMode',
-        'HOLD_TO_TALK'
-      );
-      if (microphoneMode === 'CONTINUOUS' && mute) {
-        setContinuousSpeech(false);
-        setLocalConfig('microphoneMode', 'HOLD_TO_TALK');
-      }
-      
-      // Stop audio if muting
-      if (mute) {
-        ttsStop();
-      } else {
-        // Initialize audio context when unmuting
-        try {
-          audioContext = new AudioContext();
-          let buffer = audioContext.createBuffer(1, 10000, 22050);
-          let source = audioContext.createBufferSource();
-          source.buffer = buffer;
-          source.connect(audioContext.destination);
-        } catch (error) {
-          console.warn('Failed to initialize audio context:', error);
-        }
-      }
     },
     setShowChatHistoryDrawer,
     showSettings: showSettings ?? integrationConfig?.showSettings ?? true,
@@ -2840,9 +2838,10 @@ const MemoriWidget = ({
       showChatHistory ?? integrationConfig?.showChatHistory ?? true,
     hasUserActivatedSpeak,
     showReload: selectedLayout === 'TOTEM',
-    showClear,
+    showClear: showClear ?? integrationConfig?.showClear ?? false,
     clearHistory: () => setHistory(h => h.slice(-1)),
-    showLogin: showLogin ?? memori.requireLoginToken,
+    showLogin:
+      showLogin ?? integrationConfig?.showLogin ?? memori.requireLoginToken,
     setShowLoginDrawer,
     loginToken,
     user,
@@ -2925,7 +2924,8 @@ const MemoriWidget = ({
     layout,
     memoriTyping,
     typingText,
-    showTypingText,
+    showTypingText:
+      showTypingText ?? integrationConfig?.showTypingText ?? false,
     history: showFullHistory ? history : history.slice(-2),
     authToken:
       loginToken ?? userToken ?? additionalInfo?.loginToken ?? authToken,
@@ -2938,8 +2938,11 @@ const MemoriWidget = ({
     showUpload: enableUpload,
     showReasoning: enableReasoning,
     showWhyThisAnswer,
-    showCopyButton,
-    showTranslationOriginal,
+    showCopyButton: showCopyButton ?? integrationConfig?.showCopyButton ?? true,
+    showTranslationOriginal:
+      showTranslationOriginal ??
+      integrationConfig?.showTranslationOriginal ??
+      false,
     client,
     instruct,
     preview,
@@ -3066,6 +3069,22 @@ const MemoriWidget = ({
         loading={loading}
       />
 
+      <ArtifactAPIBridge
+        pushMessage={(message: Message) => {
+          setHistory(history => {
+            if (!history.length) return history;
+            const lastMessage = history[history.length - 1];
+            if (!lastMessage || lastMessage.fromUser) return history;
+            // Create a new message object with the updated text
+            const updatedLastMessage = {
+              ...lastMessage,
+              text: lastMessage.text + message.text,
+            };
+            return [...history.slice(0, -1), updatedLastMessage];
+          });
+        }}
+      />
+
       <audio
         id="memori-audio"
         style={{ display: 'none' }}
@@ -3079,12 +3098,12 @@ const MemoriWidget = ({
           openModal={!!authModalState}
           setPwdOrTokens={setAuthModalState}
           showTokens={memori.privacyType === 'SECRET'}
-          onFinish={async (values: any) => {
+          onFinish={(values: any) => {
             if (values['password']) setMemoriPwd(values['password']);
             if (values['password']) memoriPassword = values['password'];
             if (values['tokens']) setMemoriTokens(values['tokens']);
 
-            reopenSession(
+            return reopenSession(
               !sessionId,
               values['password'],
               values['tokens'],
@@ -3102,6 +3121,10 @@ const MemoriWidget = ({
               birthDate
             )
               .then(state => {
+                if (!state?.sessionID) {
+                  throw new Error('AUTH_FAILED');
+                }
+
                 setAuthModalState(null);
                 // If we got a valid state from reopenSession, don't call onClickStart again
                 // to avoid duplicate snippet execution
@@ -3109,12 +3132,14 @@ const MemoriWidget = ({
                   setHasUserActivatedSpeak(true);
                 } else {
                   // Only call onClickStart if reopenSession didn't return a valid state
-                  onClickStart(state || undefined);
+                  onClickStart(state);
                 }
               })
-              .catch(() => {
-                setAuthModalState(null);
-                setGotErrorInOpening(true);
+              .catch(error => {
+                if (!(error instanceof Error) || error.message !== 'AUTH_FAILED') {
+                  setGotErrorInOpening(true);
+                }
+                throw error;
               });
           }}
           minimumNumberOfRecoveryTokens={
@@ -3260,16 +3285,60 @@ const MemoriWidget = ({
           loginToken={loginToken}
           onClose={() => setShowLoginDrawer(false)}
           onLogin={(user, token) => {
-            setUser(user);
-            setLoginToken(token);
-            userToken = token;
-            setShowLoginDrawer(false);
-            setLocalConfig('loginToken', token);
+            //The user is logged in, so we need to set open a new session with the new token
+            reopenSession(
+              false,
+              memoriPassword || memoriPwd || memori?.secretToken,
+              [],
+              personification?.tag,
+              personification?.pin,
+              {
+                LANG: userLang,
+                PATHNAME: window.location.pathname?.toUpperCase(),
+                ROUTE:
+                  window.location.pathname?.split('/')?.pop()?.toUpperCase() ||
+                  '',
+                ...(initialContextVars || {}),
+              },
+              undefined, // Don't send initialQuestion after login, only show the login status chip
+              birthDate,
+              { loginToken: token } as any,
+              undefined,
+              sessionId
+            ).then(state => {
+              setShowLoginDrawer(false);
+              setUser(user);
+              setLoginToken(token);
+              userToken = token;
+              setLocalConfig('loginToken', token);
+              // Push a message with initial status to show status message when a new session is created after login
+              if (state?.sessionID && state.sessionID !== sessionId && state?.dialogState) {
+                // Push a message with initial status message showing successful login
+                // Only show the chip component, not the emission text
+                const username = user?.userName || t('login.user');
+                pushMessage({
+                  text: '', // Empty text so only the chip is visible
+                  emitter: state.dialogState.emitter,
+                  media: state.dialogState.emittedMedia ?? state.dialogState.media ?? [],
+                  fromUser: false,
+                  initial: t('login.successfullyLoggedIn', { username }) as any,
+                  contextVars: state.dialogState.contextVars,
+                  date: state.dialogState.currentDate,
+                  placeName: state.dialogState.currentPlaceName,
+                  placeLatitude: state.dialogState.currentLatitude,
+                  placeLongitude: state.dialogState.currentLongitude,
+                  placeUncertaintyKm: state.dialogState.currentUncertaintyKm,
+                  tag: state.dialogState.currentTag,
+                  memoryTags: state.dialogState.memoryTags,
+                });
+                // Update the dialog state so the UI reflects the new session
+                setCurrentDialogState(state.dialogState);
+              }
+            });
           }}
           setUser={setUser}
           onLogout={() => {
             if (!loginToken) return;
-
             client.backend.pwlUserLogout(loginToken).then(() => {
               setShowLoginDrawer(false);
               setUser(undefined);
@@ -3280,7 +3349,6 @@ const MemoriWidget = ({
           }}
         />
       )}
-
     </div>
   );
 };

@@ -21,14 +21,19 @@
   "day": "Giorno",
   "month": "Mese",
   "year": "Anno",
+  "dayPlaceholder": "GG",
+  "monthPlaceholder": "MM",
+  "yearPlaceholder": "AAAA",
   "createdAt": "Data creazione",
   "selected": "Selezionati",
   "page": "pagina",
   "actions": "Azioni",
   "next": "Successivo",
   "all": "Tutti",
+  "copied": "Copiato!",
   "today": "Oggi",
   "yesterday": "Ieri",
+  "date": "Data di nascita",
   "last_7_days": "Ultimi 7 giorni",
   "last_30_days": "Ultimi 30 giorni",
   "previous": "Precedente",
@@ -44,6 +49,8 @@
   "venue": "Luogo",
   "searchVenue": "Cerca luogo...",
   "privacyPolicy": "Informativa sulla privacy",
+  "popularLanguages": "Popolari",
+  "allLanguages": "Tutte le lingue",
   "memoriBlockedTitle": "Bloccato",
   "memoriBlockedUntil": "Agente bloccato fino al {{date}}",
   "memoriBlockedAnon": "Attualmente \"{{name}}\" non può rispondere, torna qui il {{date}}",
@@ -104,6 +111,7 @@
     "tokens": "Token",
     "addToken": "Aggiungi token",
     "usePassword": "Utilizza la password",
+    "invalidCredentials": "Credenziali non valide",
     "atLeast": "Almeno"
   },
   "widget": {
@@ -404,7 +412,8 @@
     "termsOfService": "i termini del servizio",
     "pAndCUAccepted": "Accetto le condizioni di utilizzo relative a Pensiero Profondo",
     "editAccount": "Modifica account",
-    "save": "Salva"
+    "save": "Salva",
+    "successfullyLoggedIn": "{{username}} ha effettuato l'accesso con successo"
   },
   "chatLogs": {
     "atLeast": "Almeno {{count}} messaggi",

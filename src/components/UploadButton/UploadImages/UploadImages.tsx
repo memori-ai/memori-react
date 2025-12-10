@@ -290,7 +290,8 @@ const UploadImages: React.FC<UploadImagesProps> = ({
               response = await backend.uploadAsset(
                 selectedFile.name,
                 fileDataUrl,
-                authToken
+                authToken,
+                memoriID
               );
             } else if (memoriID && sessionID && backend?.uploadAssetUnlogged) {
               response = await backend.uploadAssetUnlogged(
@@ -483,7 +484,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
               <Button
                 onClick={handleTitleSubmit}
                 disabled={!selectedFile || !imageTitle.trim()}
-                className="memori-button memori-button--primary"
+                className="memori-button memori-button--primary memori-button--image-confirm"
               >
                 {t('confirm') ?? 'Confirm'}
               </Button>

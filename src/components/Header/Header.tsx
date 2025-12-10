@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
 import {
   Memori,
@@ -27,6 +27,7 @@ import Logout from '../icons/Logout';
 import { getErrori18nKey } from '../../helpers/error';
 import toast from 'react-hot-toast';
 import memoriApiClient from '@memori.ai/memori-api-client';
+import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 
 const imgMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
 
@@ -60,6 +61,8 @@ export interface Props {
   fullScreenHandler?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   onLogout?: () => void;
   apiClient: ReturnType<typeof memoriApiClient>;
+  layout?: WidgetProps['layout'];
+  additionalSettings?: WidgetProps['additionalSettings'];
 }
 
 const Header: React.FC<Props> = ({
@@ -92,6 +95,8 @@ const Header: React.FC<Props> = ({
   baseUrl,
   onLogout,
   apiClient,
+  layout,
+  additionalSettings,
 }) => {
   const { t } = useTranslation();
   const { uploadAsset, pwlUpdateUser } = apiClient.backend;
@@ -103,28 +108,32 @@ const Header: React.FC<Props> = ({
     }
   }, []);
 
+  // Helper function to determine if settings drawer has content
+  const hasSettingsContent = useCallback((
+    layout?: WidgetProps['layout'],
+    additionalSettings?: WidgetProps['additionalSettings']
+  ): boolean => {
+    return (
+      layout === 'TOTEM' ||
+      (additionalSettings && Object.keys(additionalSettings).length > 0) || false
+    );
+  }, [layout, additionalSettings]);
+
   const updateAvatar = async (avatar: Blob) => {
-    console.log('[updateAvatar] Starting avatar update', { avatar });
     if (avatar && loginToken) {
       const reader = new FileReader();
       reader.onload = async e => {
-        console.log('[updateAvatar] FileReader loaded', {
-          result: e.target?.result,
-        });
         try {
-          console.log('[updateAvatar] Uploading asset...');
           const { asset: avatarAsset, ...resp } = await uploadAsset(
             avatar.name ?? 'avatar',
             e.target?.result as string,
             loginToken ?? ''
           );
-          console.log('[updateAvatar] Upload response:', { avatarAsset, resp });
 
           if (resp.resultCode !== 0) {
             console.error('[updateAvatar] Upload failed:', resp);
             toast.error(t(getErrori18nKey(resp.resultCode)));
           } else if (avatarAsset) {
-            console.log('[updateAvatar] Upload successful, updating user...');
             let newUser: Partial<User> = {
               userID: user?.userID,
               avatarURL: avatarAsset.assetURL,
@@ -135,10 +144,6 @@ const Header: React.FC<Props> = ({
               user?.userID ?? '',
               newUser
             );
-            console.log('[updateAvatar] User update complete', {
-              patchedUser,
-              resp,
-            });
           }
         } catch (e) {
           let err = e as Error;
@@ -224,27 +229,36 @@ const Header: React.FC<Props> = ({
             fullScreenHandler ||
             (() => {
               if (!document.fullscreenElement) {
-                const memoriWidget = document.querySelector('.memori-widget');
-                if (memoriWidget) {
-                  // Set white background before entering fullscreen
-                  (memoriWidget as HTMLElement).style.backgroundColor = '#FFFFFF';
-                  
-                  memoriWidget.requestFullscreen().then(() => {
-                    // Move portals inside fullscreen element
-                    const portals = document.querySelectorAll('[data-headlessui-portal]');
-                    portals.forEach(portal => {
-                      memoriWidget.appendChild(portal);
+                const body =
+                  layout !== 'HIDDEN_CHAT' && layout !== 'WEBSITE_ASSISTANT'
+                    ? document.body
+                    : document.querySelector('.memori-widget');
+                if (body) {
+                  //set the .memori-react div to white backg
+                  const memoriReact = document.querySelector('.memori-widget');
+                  if (memoriReact) {
+                    (memoriReact as HTMLElement).style.backgroundColor =
+                      '#FFFFFF';
+                  }
+                  body
+                    .requestFullscreen()
+                    .then(() => setFullScreen(true))
+                    .catch(err => {
+                      console.warn(
+                        'Error attempting to enable fullscreen:',
+                        err
+                      );
                     });
-                  }).catch(err => {
-                    console.warn('Error attempting to enable fullscreen:', err);
-                  });
                 }
-                setFullScreen(true);
-              } else if (document.exitFullscreen) {
-                document.exitFullscreen().catch(err => {
-                  console.warn('Error attempting to exit fullscreen:', err);
-                });
-                setFullScreen(false);
+              } else {
+                if (document.exitFullscreen) {
+                  document
+                    .exitFullscreen()
+                    .then(() => setFullScreen(false))
+                    .catch(err => {
+                      console.warn('Error attempting to exit fullscreen:', err);
+                    });
+                }
               }
             })
           }
@@ -276,7 +290,7 @@ const Header: React.FC<Props> = ({
         <Button
           primary
           shape="circle"
-          className="memori-header--button memori-header--button--speaker"
+          className={cx('memori-header--button memori-header--button--speaker', { 'memori-header--button--speaker-muted': speakerMuted })}
           icon={speakerMuted ? <SoundDeactivated /> : <Sound />}
           onClick={() => setSpeakerMuted(!speakerMuted)}
           title={t('widget.sound') || 'Sound'}
@@ -288,16 +302,17 @@ const Header: React.FC<Props> = ({
         className="memori-header--button memori-header--button--export"
         disabled={!hasUserActivatedSpeak || history.length === 0}
       /> */}
-      {showSettings && (
-        <Button
-          primary
-          shape="circle"
-          className="memori-header--button memori-header--button-settings"
-          icon={<Setting />}
-          onClick={() => setShowSettingsDrawer(true)}
-          title={t('widget.settings') || 'Settings'}
-        />
-      )}
+      {showSettings &&
+        hasSettingsContent(layout, additionalSettings) && (
+          <Button
+            primary
+            shape="circle"
+            className="memori-header--button memori-header--button-settings"
+            icon={<Setting />}
+            onClick={() => setShowSettingsDrawer(true)}
+            title={t('widget.settings') || 'Settings'}
+          />
+        )}
       {showShare && (
         <ShareButton
           className="memori-header--button memori-header--button-share"

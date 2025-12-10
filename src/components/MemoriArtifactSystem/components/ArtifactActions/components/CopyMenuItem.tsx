@@ -54,6 +54,9 @@ const CopyMenuItem: React.FC<CopyMenuItemProps & { active?: boolean }> = ({
         'memori-copy-menu-item--pdf': format.action === 'pdf',
         'memori-copy-menu-item--print': format.action === 'print',
         'memori-copy-menu-item--active': active,
+        'memori-copy-menu-item--external': format.action === 'link',
+        'memori-copy-menu-item--copy': format.action === 'copy',
+        'memori-copy-menu-item--download': format.action === 'download',
       })}
       onClick={handleClick}
       disabled={disabled || loading}

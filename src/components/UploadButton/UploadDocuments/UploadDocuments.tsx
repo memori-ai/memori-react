@@ -101,17 +101,14 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   };
 
   const extractTextFromPDF = async (file: File): Promise<string> => {
-    console.log('Extracting text from PDF:', file.name);
     try {
       // Load PDF.js if not already loaded
       if (!window.pdfjsLib) {
-        console.log('Loading PDF.js library...');
         await new Promise((resolve, reject) => {
           const script = document.createElement('script');
           script.src = PDF_JS_URL;
           script.onload = () => {
             window.pdfjsLib.GlobalWorkerOptions.workerSrc = WORKER_URL;
-            console.log('PDF.js loaded successfully');
             resolve(true);
           };
           script.onerror = reject;
@@ -123,12 +120,10 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       const arrayBuffer = await file.arrayBuffer();
       const pdf = await window.pdfjsLib.getDocument({ data: arrayBuffer })
         .promise;
-      console.log('PDF loaded, pages:', pdf.numPages);
       let text = '';
 
       // Iterate through each page and extract text
       for (let i = 1; i <= pdf.numPages; i++) {
-        console.log('Processing page', i);
         const page = await pdf.getPage(i);
         const content = await page.getTextContent();
         const pageText = content.items
@@ -138,7 +133,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         text += pageText + '\n';
       }
 
-      console.log('PDF text extraction complete');
       return text;
     } catch (error) {
       console.error('PDF extraction failed:', error);
@@ -151,10 +145,8 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   };
 
   const extractTextFromXLSX = async (file: File): Promise<string> => {
-    console.log('Extracting text from XLSX:', file.name);
     try {
       if (!window.XLSX) {
-        console.log('Loading XLSX library...');
         await new Promise((resolve, reject) => {
           const script = document.createElement('script');
           script.src = XLSX_URL;
@@ -162,7 +154,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           script.onerror = reject;
           document.head.appendChild(script);
         });
-        console.log('XLSX library loaded successfully');
       }
 
       const arrayBuffer = await file.arrayBuffer();
@@ -173,11 +164,9 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         cellText: true,
         cellDates: true,
       });
-      console.log('XLSX workbook loaded, sheets:', workbook.SheetNames);
 
       let text = '';
       for (const sheetName of workbook.SheetNames) {
-        console.log('Processing sheet:', sheetName);
         const worksheet = workbook.Sheets[sheetName];
         const data = window.XLSX.utils.sheet_to_json(worksheet, {
           header: 1,
@@ -212,7 +201,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         text += `Sheet: ${sheetName}\n${formattedText.join('\n')}\n\n`;
       }
 
-      console.log('XLSX text extraction complete');
       return text;
     } catch (error) {
       console.error('XLSX extraction failed:', error);
@@ -225,7 +213,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   };
 
   const processDocumentFile = async (file: File): Promise<string | null> => {
-    console.log('Processing document file:', file.name);
     const fileExt = file.name.split('.').pop()?.toLowerCase() || '';
 
     try {
@@ -254,8 +241,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           text.substring(0, MAX_DOCUMENT_CONTENT_LENGTH) +
           '\n\n[Content truncated due to size limits]';
       }
-
-      console.log('Document processing complete');
       return text;
     } catch (error) {
       console.error('Document processing failed:', error);
@@ -270,7 +255,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   const handleDocumentUpload = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log('Document upload started');
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
 
@@ -285,7 +269,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
     }[] = [];
 
     for (const file of files) {
-      console.log('Processing file:', file.name);
       if (!validateDocumentFile(file)) {
         continue;
       }
@@ -316,7 +299,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
     // Add new documents to existing ones
     if (processedFiles.length > 0) {
-      console.log('Successfully processed files:', processedFiles.length);
       // Validate total payload size
       if (!validatePayloadSize(processedFiles)) {
         setIsLoading(false);
@@ -333,9 +315,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         (file: any) => file.type === 'image'
       );
 
-      console.log('existingDocuments', existingDocuments);
-      console.log('processedFiles', processedFiles);
-      console.log('existingImages', existingImages);
       setDocumentPreviewFiles([
         ...existingDocuments,
         ...processedFiles.map(file => ({
@@ -344,8 +323,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         })),
       ]);
     }
-
-    console.log('Document upload complete');
     setIsLoading(false);
     if (documentInputRef.current) {
       documentInputRef.current.value = '';

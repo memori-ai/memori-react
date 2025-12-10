@@ -48,7 +48,6 @@ export const AvatarView = ({
   // Memoize the setAnimatorRef callback to ensure it doesn't change on re-renders
   const setAnimatorRef = useCallback((animator: AvatarAnimator | null) => {
     if (animator !== animatorRef.current) {
-      console.log('[AvatarView] Animator reference updated');
       animatorRef.current = animator;
     }
   }, []); // Empty dependency array ensures this function never changes

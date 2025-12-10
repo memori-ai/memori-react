@@ -14,6 +14,7 @@ exports[`renders SnippetUpload with css code 1`] = `
       >
         <code
           class="language-scss"
+          data-language="scss"
         >
           body {
   background-color: #f00;
@@ -78,6 +79,7 @@ exports[`renders SnippetUpload with html code 1`] = `
       >
         <code
           class="language-tsx"
+          data-language="tsx"
         >
           &lt;p&gt;ciao&lt;/p&gt;
         </code>
@@ -140,6 +142,7 @@ exports[`renders SnippetUpload with js code 1`] = `
       >
         <code
           class="language-jsx"
+          data-language="jsx"
         >
           console.log("Hello World!");
         </code>
@@ -202,6 +205,7 @@ exports[`renders SnippetUpload with js code without copy button 1`] = `
       >
         <code
           class="language-jsx"
+          data-language="jsx"
         >
           console.log("Hello World!");
         </code>
@@ -231,6 +235,7 @@ exports[`renders SnippetUpload with js code without line numbers 1`] = `
       >
         <code
           class="language-jsx"
+          data-language="jsx"
         >
           console.log("Hello World!");
         </code>
@@ -293,6 +298,7 @@ exports[`renders SnippetUpload with preview mode (clamping) 1`] = `
       >
         <code
           class="language-jsx"
+          data-language="jsx"
         >
           
 import type { Medium } from 'types';
@@ -360,6 +366,7 @@ exports[`renders SnippetUpload with react/tsx code 1`] = `
       >
         <code
           class="language-jsx"
+          data-language="jsx"
         >
           
 import type { Medium } from 'types';
@@ -466,6 +473,7 @@ exports[`renders SnippetUpload with text 1`] = `
       >
         <code
           class="language-text"
+          data-language="text"
         >
           &lt;p&gt;ciao&lt;/p&gt;
         </code>
@@ -528,6 +536,7 @@ exports[`renders SnippetUpload with text as fallback 1`] = `
       >
         <code
           class="language-text"
+          data-language="text"
         >
           &lt;p&gt;ciao&lt;/p&gt;
         </code>

@@ -50,6 +50,7 @@ export const RenderMediaItem = ({
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   const [copyNotification, setCopyNotification] = useState(false);
+  const [imageError, setImageError] = useState(false);
 
   const url = getResourceUrl({
     resourceURI: item.url,
@@ -65,7 +66,41 @@ export const RenderMediaItem = ({
     return customRenderer;
   }
 
-  const isCodeSnippet = prismSyntaxLangs.map(l => l.mimeType).includes(item.mimeType);
+  const isCodeSnippet = prismSyntaxLangs
+    .map(l => l.mimeType)
+    .includes(item.mimeType);
+  const isImageRGB =
+    item.url?.startsWith('rgb(') || item.url?.startsWith('rgba(');
+
+  // Helper to validate if a string is a valid URL
+  const isValidUrl = (urlString: string | undefined): boolean => {
+    if (!urlString) return false;
+    try {
+      new URL(urlString);
+      return true;
+    } catch {
+      return false;
+    }
+  };
+
+  // Helper to get valid image src
+  const getImageSrc = (): string | undefined => {
+    // If url is valid, use it
+    if (isValidUrl(url) || isValidUrl(item.url)) {
+      return url || item.url;
+    } else if (item.url?.startsWith('rgb(') || item.url?.startsWith('rgba(')) {
+      return item.url;
+    } else if (item.content) { 
+      return `data:${item.mimeType};base64,${item.content}`;
+    }
+
+    // Return undefined if no valid source
+    return undefined;
+  };
+
+  const imageSrc = getImageSrc();
+  const fallbackImage =
+    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2YwZjBmMCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5OTk5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSBub3QgYXZhaWxhYmxlPC90ZXh0Pjwvc3ZnPg==';
 
   const renderMediaContent = (item: Medium) => {
     switch (item.mimeType) {
@@ -89,15 +124,16 @@ export const RenderMediaItem = ({
           </picture>
         ) : (
           <picture className="memori-media-item--figure">
-            {!preview && (
+            {!preview && imageSrc && (
               <source
-                srcSet={[url, item.url, item.content].join(', ')}
+                srcSet={imageSrc}
                 type={item.mimeType}
               />
             )}
             <img
               alt={item.title}
-              src="data:image/png;base64,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"
+              src={imageError || !imageSrc ? fallbackImage : imageSrc}
+              onError={() => setImageError(true)}
             />
             {item.title && (
               <figcaption className="memori-media-item--figure-caption">
@@ -194,7 +230,14 @@ export const RenderMediaItem = ({
     );
   }
 
-  if (!item.url && item?.type === 'document' && item.content) {
+  if (
+    !item.url &&
+    item?.type === 'document' &&
+    item.content &&
+    !['image/jpeg', 'image/png', 'image/jpg', 'image/gif'].includes(
+      item.mimeType
+    )
+  ) {
     return (
       <>
         <a
@@ -254,9 +297,6 @@ export const RenderMediaItem = ({
     );
   }
 
-  const isImageRGB =
-    item.url?.startsWith('rgb(') || item.url?.startsWith('rgba(');
-
   switch (item.mimeType) {
     case 'image/jpeg':
     case 'image/png':
@@ -271,7 +311,7 @@ export const RenderMediaItem = ({
       ) : (
         <a
           className="memori-media-item--link"
-          href={item.url}
+          href={imageSrc || '#'}
           onClick={e => {
             if (isChild) {
               e.preventDefault();
@@ -279,6 +319,9 @@ export const RenderMediaItem = ({
             if (onClick) {
               e.preventDefault();
               onClick(item.mediumID);
+            }
+            if (!imageSrc || imageError) {
+              e.preventDefault();
             }
           }}
           target="_blank"
@@ -368,6 +411,12 @@ export const RenderMediaItem = ({
   }
 };
 
+// Helper function to count lines in content
+const countLines = (content: string | undefined): number => {
+  if (!content) return 0;
+  return content.split('\n').length;
+};
+
 export const RenderSnippetItem = ({
   item,
   sessionID: _sessionID,
@@ -383,6 +432,23 @@ export const RenderSnippetItem = ({
   apiURL?: string;
   onClick?: (mediumID: string) => void;
 }) => {
+  const lineCount = countLines(item.content);
+  const isShortSnippet = lineCount <= 5;
+
+  // For short snippets, show them directly without the clickable link
+  if (isShortSnippet) {
+    return (
+      <div className="memori-media-item--snippet-direct">
+        <Card className="memori-media-item--card memori-media-item--snippet">
+          <div className="memori-media-item--snippet-preview">
+            <Snippet showCopyButton={true} preview={false} medium={item} />
+          </div>
+        </Card>
+      </div>
+    );
+  }
+
+  // For longer snippets, show preview with click to open modal
   return (
     <>
       <a
@@ -390,9 +456,7 @@ export const RenderSnippetItem = ({
         onClick={e => {
           e.preventDefault();
           if (onClick) {
-            console.log('Snippet item.mediumID:', item.mediumID);
             onClick(item.mediumID);
-            console.log('clicked snippet');
           }
         }}
         className="memori-media-item--link"
@@ -424,6 +488,11 @@ const MediaItemWidget: React.FC<Props> = ({
 }: Props) => {
   const [media, setMedia] = useState(items);
   const [openModalMedium, setOpenModalMedium] = useState<Medium>();
+
+  // Sync items prop with media state
+  useEffect(() => {
+    setMedia(items);
+  }, [items]);
 
   const translateMediaCaptions = useCallback(async () => {
     if (!translateTo) return;
@@ -475,15 +544,11 @@ const MediaItemWidget: React.FC<Props> = ({
     m => m.mimeType === 'text/css' && !!m.properties?.executable
   );
 
-  console.log('openModalMedium', openModalMedium);
-  console.log('codeSnippets', codeSnippets);
-  console.log('nonCodeDisplayMedia', nonCodeDisplayMedia);
-
   return (
     <Transition appear show as="div" className="memori-media-items">
       {!!nonCodeDisplayMedia.length && (
         <div
-          className={cx('memori-media-items--grid', {
+          className={cx('memori-media-items--grid memori-chat-scroll-item', {
             'memori-media-items--user': fromUser,
             'memori-media-items--agent': !fromUser,
           })}
@@ -507,7 +572,9 @@ const MediaItemWidget: React.FC<Props> = ({
                 baseURL={baseURL}
                 apiURL={apiURL}
                 onClick={mediumID => {
-                  setOpenModalMedium(nonCodeDisplayMedia.find(m => m.mediumID === mediumID));
+                  setOpenModalMedium(
+                    nonCodeDisplayMedia.find(m => m.mediumID === mediumID)
+                  );
                 }}
                 item={{
                   ...item,
@@ -524,7 +591,7 @@ const MediaItemWidget: React.FC<Props> = ({
       )}
       {!!codeSnippets.length && (
         <div
-          className={cx('memori-media-items--grid', {
+          className={cx('memori-media-items--grid memori-chat-scroll-item', {
             'memori-media-items--user': fromUser,
             'memori-media-items--agent': !fromUser,
           })}
@@ -547,9 +614,9 @@ const MediaItemWidget: React.FC<Props> = ({
                 baseURL={baseURL}
                 apiURL={apiURL}
                 onClick={mediumID => {
-                  console.log('Snippet clicked, mediumID:', mediumID);
-                  const foundMedium = codeSnippets.find(m => m.mediumID === mediumID);
-                  console.log('Found medium:', foundMedium);
+                  const foundMedium = codeSnippets.find(
+                    m => m.mediumID === mediumID
+                  );
                   setOpenModalMedium(foundMedium);
                 }}
                 item={{
@@ -583,12 +650,13 @@ const MediaItemWidget: React.FC<Props> = ({
           {prismSyntaxLangs
             .map(l => l.mimeType)
             .includes(openModalMedium.mimeType) ? (
-            <div 
-            style={{
-              minHeight: '100%',
-              background: 'none',
-            }}
-            className="memori-media-item-preview--content">
+            <div
+              style={{
+                minHeight: '100%',
+                background: 'none',
+              }}
+              className="memori-media-item-preview--content"
+            >
               <Snippet preview={false} medium={openModalMedium} />
             </div>
           ) : (

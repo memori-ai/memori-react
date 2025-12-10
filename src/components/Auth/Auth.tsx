@@ -43,25 +43,53 @@ export const AuthWidget = ({
   const [numTokens, setNumTokens] = useState(1);
 
   const [showModal, setShowModal] = useState(!!pwdOrTokens);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit: SubmitHandler<AuthInputs> = data => {
-    if (
-      (pwdOrTokens === 'password' && !data.password?.length) ||
-      (pwdOrTokens === 'tokens' &&
-        ((data?.tokens?.length || 0) < minimumNumberOfRecoveryTokens ||
-          !data?.tokens?.every(t => t.length)))
-    ) {
+    const missingPassword = pwdOrTokens === 'password' && !data.password?.length;
+    const invalidTokens =
+      pwdOrTokens === 'tokens' &&
+      ((data?.tokens?.length || 0) < minimumNumberOfRecoveryTokens ||
+        !data?.tokens?.every(t => t.length));
+
+    if (missingPassword) {
+      setError('password', {
+        type: 'required',
+        message: t('auth.passwordRequired') || 'Password required',
+      });
+      return;
+    }
+
+    if (invalidTokens) {
       setError('tokens', {
         type: 'minLength',
-        message: 'Tokens',
+        message: t('auth.tokens') || 'Tokens',
       });
       return;
     }
 
     if (onFinish) {
-      onFinish(data).then(() => {
-        setShowModal(false);
-      });
+      setIsSubmitting(true);
+      onFinish(data)
+        .then(() => {
+          setShowModal(false);
+        })
+        .catch(() => {
+          if (pwdOrTokens === 'password') {
+            setError('password', {
+              type: 'auth',
+              message: t('auth.invalidCredentials') || 'Invalid credentials',
+            });
+          } else if (pwdOrTokens === 'tokens') {
+            setError('tokens', {
+              type: 'auth',
+              message: t('auth.invalidCredentials') || 'Invalid credentials',
+            });
+          }
+        })
+        .finally(() => {
+          setIsSubmitting(false);
+        });
     }
   };
 
@@ -134,7 +162,23 @@ export const AuthWidget = ({
         </div>
       )}
 
-      <Button htmlType="submit" primary className="memori-auth-widget--submit">
+      {errors.password?.type === 'auth' && (
+        <div className="memori-auth-widget--error">
+          {errors.password.message}
+        </div>
+      )}
+      {errors.tokens?.type === 'auth' && (
+        <div className="memori-auth-widget--error">
+          {errors.tokens.message}
+        </div>
+      )}
+
+      <Button
+        htmlType="submit"
+        primary
+        className="memori-auth-widget--submit"
+        loading={isSubmitting}
+      >
         {t('confirm') || 'Submit'}
       </Button>
     </form>

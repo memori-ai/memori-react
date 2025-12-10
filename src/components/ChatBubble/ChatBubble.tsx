@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import {
   ExpertReference,
@@ -89,6 +89,17 @@ const ChatBubble: React.FC<Props> = ({
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
   const [openFunctionCache, setOpenFunctionCache] = useState(false);
+  const [copyFeedback, setCopyFeedback] = useState({
+    plain: false,
+    raw: false,
+  });
+  const copyFeedbackTimers = useRef<{
+    plain: ReturnType<typeof setTimeout> | null;
+    raw: ReturnType<typeof setTimeout> | null;
+  }>({
+    plain: null,
+    raw: null,
+  });
   // Initialize MathJax on component mount
   useEffect(() => {
     if (typeof window !== 'undefined' && !window.MathJax) {
@@ -110,6 +121,16 @@ const ChatBubble: React.FC<Props> = ({
   const plainText = message.fromUser
     ? truncateMessage(cleanText)
     : stripHTML(stripOutputTags(renderedText));
+  const copyText = message.fromUser ? cleanText : plainText;
+  const shouldShowCopyButtons =
+    showCopyButton && (!!plainText?.length || !!message.text?.length);
+  const shouldShowCopyRawButton =
+    shouldShowCopyButtons &&
+    !!message.text?.length && plainText !== message.text;
+  const rawMessageText = message.fromUser
+    ? message.text || ''
+    : (message.text || '').replaceAll(/<think.*?>(.*?)<\/think>/gs, '');
+  const copiedLabel = t('copied') || 'Copied';
 
   // Format function cache content
   const functionCacheData = message.media?.filter(
@@ -157,16 +178,70 @@ const ChatBubble: React.FC<Props> = ({
     }
   }, [cleanText, message.fromUser, renderedText]);
 
+  useEffect(() => {
+    return () => {
+      (Object.keys(copyFeedbackTimers.current) as Array<'plain' | 'raw'>).forEach(
+        key => {
+          const timer = copyFeedbackTimers.current[key];
+          if (timer) {
+            clearTimeout(timer);
+            copyFeedbackTimers.current[key] = null;
+          }
+        }
+      );
+    };
+  }, []);
+
+  const triggerCopyFeedback = (type: 'plain' | 'raw') => {
+    setCopyFeedback(prev => ({ ...prev, [type]: true }));
+    if (copyFeedbackTimers.current[type]) {
+      clearTimeout(copyFeedbackTimers.current[type]!);
+    }
+    copyFeedbackTimers.current[type] = setTimeout(() => {
+      setCopyFeedback(prev => ({ ...prev, [type]: false }));
+      copyFeedbackTimers.current[type] = null;
+    }, 1500);
+  };
+
+  const handleCopyClick = (type: 'plain' | 'raw', text: string) => {
+    if (!text?.length) return;
+    if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+      navigator.clipboard
+        .writeText(text)
+        .then(() => triggerCopyFeedback(type))
+        .catch(err => {
+          console.error('Copy failed', err);
+        });
+    } else {
+      triggerCopyFeedback(type);
+    }
+  };
+
+  // Check if initial is a string (status message) or boolean (legacy)
+  const initialStatus = typeof message.initial === 'string' ? message.initial : null;
+  const showInitialDivider = (message.initial === true || isFirst) && !initialStatus;
+
+
+  if(initialStatus) {
+    return (
+      <div className="memori-chat--bubble-status-message">
+        <div className="memori-chat--bubble-status-message-content">
+          {initialStatus}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <>
-      {(message.initial || isFirst) && (
+      {showInitialDivider && (
         <div className="memori-chat--bubble-initial" />
       )}
       <Transition
         show
         appear
         as="div"
-        className={cx('memori-chat--bubble-container', {
+        className={cx('memori-chat--bubble-container memori-chat-scroll-item', {
           'memori-chat--bubble-from-user': !!message.fromUser,
           'memori-chat--with-addon':
             (message.generatedByAI && showAIicon) ||
@@ -252,7 +327,7 @@ const ChatBubble: React.FC<Props> = ({
           className={cx('memori-chat--bubble', {
             'memori-chat--user-bubble': !!message.fromUser,
             'memori-chat--with-addon':
-              (!message.fromUser && showCopyButton) ||
+              shouldShowCopyButtons ||
               (message.generatedByAI && showAIicon) ||
               (showFeedback && simulateUserPrompt),
             'memori-chat--ai-generated': message.generatedByAI && showAIicon,
@@ -288,43 +363,80 @@ const ChatBubble: React.FC<Props> = ({
             />
           )}
 
-          {((!message.fromUser && showCopyButton) ||
+          {(shouldShowCopyButtons ||
             (message.generatedByAI && showAIicon) ||
             (message.generatedByAI && showFunctionCache) ||
             (showFeedback && simulateUserPrompt)) && (
             <div className="memori-chat--bubble-addon">
-              {!message.fromUser && showCopyButton && (
+              {shouldShowCopyButtons && (
                 <Button
                   ghost
                   shape="circle"
-                  title={t('copy') || 'Copy'}
-                  className="memori-chat--bubble-action-icon"
-                  icon={<Copy aria-label={t('copy') || 'Copy'} />}
-                  onClick={() => navigator.clipboard.writeText(plainText)}
+                  title={copyFeedback.plain ? copiedLabel : t('copy') || 'Copy'}
+                  className={cx('memori-chat--bubble-action-icon', {
+                    'memori-chat--bubble-action-icon--from-user': message.fromUser,
+                    'memori-chat--bubble-action-icon--copied': copyFeedback.plain,
+                  })}
+                  icon={
+                    <Copy
+                      aria-label={
+                        copyFeedback.plain ? copiedLabel : t('copy') || 'Copy'
+                      }
+                    />
+                  }
+                  onClick={() => handleCopyClick('plain', copyText)}
                 />
               )}
+              {copyFeedback.plain && (
+                <span
+                  role="status"
+                  aria-live="polite"
+                  className={cx('memori-chat--bubble-action-feedback', {
+                    'memori-chat--bubble-action-feedback--from-user':
+                      message.fromUser,
+                  })}
+                >
+                  {copiedLabel}
+                </span>
+              )}
 
-              {!message.fromUser &&
-                showCopyButton &&
-                plainText !== message.text && (
-                  <Button
-                    ghost
-                    shape="circle"
-                    title={t('copyRawCode') || 'Copy raw code'}
-                    className="memori-chat--bubble-action-icon"
-                    icon={
-                      <Code aria-label={t('copyRawCode') || 'Copy raw code'} />
-                    }
-                    onClick={() => {
-                      const text = message.text  .replaceAll(
-                        /<think.*?>(.*?)<\/think>/gs,
-                        ''
-                      )
-                      console.log(text);
-                      navigator.clipboard.writeText(text);
-                    }}
-                  />
-                )}
+              {shouldShowCopyRawButton && (
+                <Button
+                  ghost
+                  shape="circle"
+                  title={
+                    copyFeedback.raw
+                      ? copiedLabel
+                      : t('copyRawCode') || 'Copy raw code'
+                  }
+                  className={cx('memori-chat--bubble-action-icon', {
+                    'memori-chat--bubble-action-icon--from-user': message.fromUser,
+                    'memori-chat--bubble-action-icon--copied': copyFeedback.raw,
+                  })}
+                  icon={
+                    <Code
+                      aria-label={
+                        copyFeedback.raw
+                          ? copiedLabel
+                          : t('copyRawCode') || 'Copy raw code'
+                      }
+                    />
+                  }
+                  onClick={() => handleCopyClick('raw', rawMessageText)}
+                />
+              )}
+              {copyFeedback.raw && (
+                <span
+                  role="status"
+                  aria-live="polite"
+                  className={cx('memori-chat--bubble-action-feedback', {
+                    'memori-chat--bubble-action-feedback--from-user':
+                      message.fromUser,
+                  })}
+                >
+                  {copiedLabel}
+                </span>
+              )}
 
               {!message.fromUser &&
                 showFunctionCache &&
@@ -356,7 +468,7 @@ const ChatBubble: React.FC<Props> = ({
 
               {message.generatedByAI && showAIicon && (
                 <Tooltip
-                  align="left"
+                  align="right"
                   content={
                     t('generatedByAI') ||
                     (lang === 'it'
@@ -382,7 +494,7 @@ const ChatBubble: React.FC<Props> = ({
                 message.translatedText &&
                 message.translatedText !== message.text && (
                   <Tooltip
-                    align="left"
+                    align="right"
                     content={`${
                       lang === 'it' ? 'Testo originale' : 'Original text'
                     }: ${message.text}`}

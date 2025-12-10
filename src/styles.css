@@ -89,7 +89,8 @@ body.sb-show-main #root,
 #storybook-docs,
 .memori-widget {
     --memori-font-family: 'Lexend Deca Variable', 'Lexend Deca', sans-serif;
-    --memori-primary: rgb(130, 70, 175);
+    --memori-primary-rgb: 130, 70, 175;
+    --memori-primary: rgb(var(--memori-primary-rgb));
     --memori-primary-text: #fff;
     --memori-inner-content-pad: 1rem;
     --memori-inner-bg: transparent;

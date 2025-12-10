@@ -1,35 +1,111 @@
+.memori-snippet {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    background: #f8fafc;
+}
+
 .memori-snippet--content {
     position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.memori-snippet pre {
+    padding: 1rem;
+    border: none;
+    border-radius: 0;
+    margin: 0;
+    background: transparent;
+    font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    overflow-x: auto;
+}
+
+.memori-snippet code {
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #374151;
+    font-family: inherit;
 }
 
 button.memori-snippet--copy-button {
     position: absolute;
-    top: 5px;
-    right: 2px;
-    bottom: 5px;
-    width: 30px !important;
-    height: calc(100% - 10px) !important;
+    z-index: 10;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 32px !important;
+    height: 32px !important;
     padding: 0;
-    border-radius: 5px !important;
-    background: #333;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px !important;
+    background: rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
 }
 
 button.memori-snippet--copy-button:hover,
 button.memori-snippet--copy-button:focus {
-    background: #444;
+    border-color: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
 }
 
 button.memori-snippet--copy-button:active {
-    background: #666;
+    background: rgba(0, 0, 0, 0.15);
+    transform: scale(0.95);
 }
 
 button.memori-snippet--copy-button svg {
-    color: #fff;
+    width: 14px;
+    height: 14px;
+    color: #6b7280;
 }
 
 .memori-snippet--caption {
     width: 100%;
-    margin-bottom: 1rem;
-    font-style: italic;
-    text-align: center;
+    padding: 0.75rem 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    margin: 0;
+    background: rgba(0, 0, 0, 0.02);
+    color: #6b7280;
+    font-size: 0.8rem;
+    font-style: normal;
+    font-weight: 500;
+    text-align: left;
+}
+
+/* Dark theme support */
+@media (prefers-color-scheme: dark) {
+    .memori-snippet {
+        border-color: #374151;
+        background: #1e1e1e;
+    }
+    
+    .memori-snippet code {
+        color: #e5e7eb;
+    }
+    
+    .memori-snippet--copy-button {
+        border-color: rgba(255, 255, 255, 0.2);
+        background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .memori-snippet--copy-button:hover,
+    .memori-snippet--copy-button:focus {
+        border-color: rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.2);
+    }
+    
+    .memori-snippet--copy-button svg {
+        color: #fff;
+    }
+    
+    .memori-snippet--caption {
+        border-top-color: rgba(255, 255, 255, 0.1);
+        background: rgba(0, 0, 0, 0.1);
+        color: #ccc;
+    }
 }

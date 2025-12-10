@@ -1,19 +1,45 @@
 export const chatLanguages = [
-  { value: 'IT', label: 'Italiano' },
-  { value: 'EN', label: 'English' },
-  { value: 'DE', label: 'Deutsch' },
-  { value: 'ES', label: 'Español' },
-  { value: 'FR', label: 'Français' },
-  { value: 'PT', label: 'Português' },
-  { value: 'UK', label: 'Українська' },
-  { value: 'RU', label: 'Русский' },
-  { value: 'PL', label: 'Polski' },
-  { value: 'FI', label: 'Suomi' },
-  { value: 'EL', label: 'Ελληνικά' },
-  { value: 'AR', label: 'العربية' },
-  { value: 'ZH', label: '中文' },
-  { value: 'JA', label: '日本語' },
+  { value: 'AR', label: 'العربية' },           // Arabic
+  { value: 'BG', label: 'български' },         // Bulgarian
+  { value: 'CS', label: 'Čeština / český jazyk' }, // Czech
+  { value: 'DA', label: 'Dansk' },             // Danish
+  { value: 'DE', label: 'Deutsch' },           // German
+  { value: 'EL', label: 'Ελληνικά' },          // Greek
+  { value: 'EN', label: 'English' },           // English
+  { value: 'ES', label: 'Español' },           // Spanish
+  { value: 'ET', label: 'Eesti keel' },        // Estonian
+  { value: 'FI', label: 'Suomi' },             // Finnish
+  { value: 'FR', label: 'Français' },          // French
+  { value: 'HR', label: 'Hrvatski' },          // Croatian
+  { value: 'HU', label: 'Magyar' },            // Hungarian
+  { value: 'IT', label: 'Italiano' },          // Italian
+  { value: 'JA', label: '日本語' },             // Japanese
+  { value: 'LT', label: 'Lietuvių kalba' },    // Lithuanian
+  { value: 'LV', label: 'Latvian' },           // Latvian / Lettonian
+  { value: 'NL', label: 'Nederlands' },        // Dutch
+  { value: 'PL', label: 'Polski' },            // Polish
+  { value: 'PT', label: 'Português' },         // Portuguese
+  { value: 'RO', label: 'Română' },            // Romanian
+  { value: 'RU', label: 'Русский' },           // Russian
+  { value: 'SK', label: 'Slovenčina' },        // Slovak
+  { value: 'SL', label: 'Slovenščina' },       // Slovenian
+  { value: 'SV', label: 'Svenska' },           // Swedish
+  { value: 'UK', label: 'Українська' },        // Ukrainian
+  { value: 'ZH', label: '中文' },              // Chinese
 ];
+
+export const popularLanguageCodes = ['IT', 'EN'];
+
+export const getGroupedChatLanguages = () => {
+  const popular = chatLanguages.filter(lang =>
+    popularLanguageCodes.includes(lang.value)
+  );
+  const all = chatLanguages.filter(lang => !popularLanguageCodes.includes(lang.value));
+  return {  
+    popular,
+    all,
+  };
+};
 
 export const uiLanguages = ['en', 'it', 'fr', 'es', 'de'];
 

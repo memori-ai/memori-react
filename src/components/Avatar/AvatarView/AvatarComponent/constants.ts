@@ -88,6 +88,7 @@ export const MAPPING_BLEND_SHAPE_TO_EMOTION_RPM: BlendShapeMap = [
       'browOuterUpRight': 0.5,
       'eyeWideLeft': 0.5,
       'eyeWideRight': 0.5,
+      'mouthSmile': 0.5,
     },
   },
   {
@@ -96,7 +97,7 @@ export const MAPPING_BLEND_SHAPE_TO_EMOTION_RPM: BlendShapeMap = [
       'browDownLeft': 0.5,
       'browDownRight': 0.5,
       'browInnerUp': 0.5,
-      'mouthSmile': 0.8,
+      'mouthSmile': 0.5,
     },
   },
 ];

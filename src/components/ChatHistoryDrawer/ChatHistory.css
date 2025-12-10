@@ -1,3 +1,7 @@
+.memori-drawer.memori-chat-history-drawer {
+    z-index: 10000;
+}
+
 .memori-chat-history-drawer--card {
     max-height: 60vh;
     border: 1px solid var(--memori-border);

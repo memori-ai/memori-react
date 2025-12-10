@@ -57,6 +57,23 @@ it('renders ChatBubble with user msg unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('shows copy button for user messages', () => {
+  const { container } = render(
+    <ChatBubble
+      memori={memori}
+      tenant={tenant}
+      sessionID={sessionID}
+      message={{
+        fromUser: true,
+        text: 'Mostra i pulsanti copia sul messaggio utente.',
+        initial: false,
+      }}
+    />
+  );
+
+  expect(container).toMatchSnapshot();
+});
+
 it('renders ChatBubble with copy disabled unchanged', () => {
   const { container } = render(
     <ChatBubble

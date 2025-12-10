@@ -148,6 +148,8 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
             widthLg="50%"
             closable={false}
             animated={true}
+            enterDuration={isMobile ? 'duration-500' : 'duration-300'}
+            leaveDuration={isMobile ? 'duration-400' : 'duration-200'}
             showBackdrop={false}
             preventBackdropClose={true}
             confirmDialogTitle={
@@ -158,70 +160,70 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
               t('artifact.confirmDialogMessage') ||
               'This action cannot be undone.'
             }
-            // className="memori-artifact-panel"
+          // className="memori-artifact-panel"
           >
             {children}
           </Drawer>
         );
       }
     },
-    [isChatLogPanel, handleClose, state.isDrawerOpen, state.isFullscreen]
+    [isChatLogPanel, handleClose, state.isDrawerOpen, state.isFullscreen, isMobile]
   );
 
-    /**
-   * Get MIME type string for downloads
+  /**
+ * Get MIME type string for downloads
+ */
+  const getMimeTypeString = useCallback((mimeType: string): string => {
+    const mimeTypes: Record<string, string> = {
+      html: 'text/html',
+      json: 'application/json',
+      markdown: 'text/markdown',
+      css: 'text/css',
+      javascript: 'text/javascript',
+      typescript: 'text/typescript',
+      svg: 'image/svg+xml',
+      xml: 'text/xml',
+      text: 'text/plain',
+      python: 'text/x-python',
+      java: 'text/x-java',
+      cpp: 'text/x-c++',
+      csharp: 'text/x-csharp',
+      php: 'text/x-php',
+      ruby: 'text/x-ruby',
+      go: 'text/x-go',
+      rust: 'text/x-rust',
+      yaml: 'text/yaml',
+      sql: 'text/x-sql',
+    };
+    return mimeTypes[mimeType] || 'text/plain';
+  }, []);
+
+  /**
+   * Handle external open action
    */
-    const getMimeTypeString = useCallback((mimeType: string): string => {
-      const mimeTypes: Record<string, string> = {
-        html: 'text/html',
-        json: 'application/json',
-        markdown: 'text/markdown',
-        css: 'text/css',
-        javascript: 'text/javascript',
-        typescript: 'text/typescript',
-        svg: 'image/svg+xml',
-        xml: 'text/xml',
-        text: 'text/plain',
-        python: 'text/x-python',
-        java: 'text/x-java',
-        cpp: 'text/x-c++',
-        csharp: 'text/x-csharp',
-        php: 'text/x-php',
-        ruby: 'text/x-ruby',
-        go: 'text/x-go',
-        rust: 'text/x-rust',
-        yaml: 'text/yaml',
-        sql: 'text/x-sql',
-      };
-      return mimeTypes[mimeType] || 'text/plain';
-    }, []);
-  
-    /**
-     * Handle external open action
-     */
-    const handleOpenExternal = useCallback((artifact: ArtifactData) => {
-      try {
-        const mimeType = getMimeTypeString(artifact.mimeType);
-        const blob = new Blob([artifact.content], { type: mimeType });
-        const url = URL.createObjectURL(blob);
-  
-        const externalWindow = window.open(url, '_blank');
-        if (!externalWindow) {
-          alert(
-            'Popup blocked! Please enable popups to open the artifact in a new window.'
-          );
-          return;
-        }
-  
-        // Cleanup URL after a delay
-        setTimeout(() => {
-          URL.revokeObjectURL(url);
-        }, 60000);
-  
-      } catch (error) {
-        console.error('External open failed:', error);
+  const handleOpenExternal = useCallback((artifact: ArtifactData) => {
+    try {
+      const mimeType = getMimeTypeString(artifact.mimeType);
+      const blob = new Blob([artifact.content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+
+      const externalWindow = window.open(url, '_blank');
+      if (!externalWindow) {
+        alert(
+          'Popup blocked! Please enable popups to open the artifact in a new window.'
+        );
+        return;
       }
-    }, []);
+
+      // Cleanup URL after a delay
+      setTimeout(() => {
+        URL.revokeObjectURL(url);
+      }, 60000);
+
+    } catch (error) {
+      console.error('External open failed:', error);
+    }
+  }, []);
 
   // Render web split panel
   return (

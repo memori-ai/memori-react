@@ -109,7 +109,6 @@ export function FullbodyAvatar({
         // Keep existing RPM check
         if (object.name === 'Wolf3D_Avatar' || object.name === 'Wolf3D_Avatar006_1') {
           setIsRpm(true);
-          console.log('RPM avatar detected');
           headMesh = object;
           return; // Stop here if RPM found
         }
@@ -141,13 +140,6 @@ export function FullbodyAvatar({
             });
   
             if (hasVisemes || hasFaceBlendShapes) {
-              console.log('🎭 Custom avatar detected:', {
-                name: object.name,
-                morphTargets: morphTargetNames,
-                visemeCount: morphTargetNames.filter(name => 
-                  name.toLowerCase().includes('viseme')).length
-              });
-              
               headMesh = object;
             }
           }
@@ -205,7 +197,6 @@ export function FullbodyAvatar({
       return;
     }
 
-    console.log('Initializing animator');
 
     // Create the animator only once
     if (!animatorRef.current) {
@@ -218,7 +209,6 @@ export function FullbodyAvatar({
       try {
         // Prevent multiple initializations
         if (animator.isInitialized()) {
-          console.log('Animator already initialized, skipping initialization');
           return;
         }
 
@@ -228,12 +218,6 @@ export function FullbodyAvatar({
           actions as Record<string, AnimationAction>,
           mergedAnimations,
           isRpm ? 'RPM' : 'CUSTOM_GLB'
-        );
-
-        console.log(
-          'AvatarAnimator initialized with',
-          Object.keys(actions).length,
-          'animations'
         );
 
         // Expose animator to parent component if callback provided
@@ -257,7 +241,6 @@ export function FullbodyAvatar({
     return () => {
       // Only clean up if we created it in this component
       if (animatorRef.current && isInitializedRef.current) {
-        console.log('Cleaning up animator');
 
         // Dispose mixer if needed
         if ('mixer' in animatorRef.current && animatorRef.current['mixer']) {

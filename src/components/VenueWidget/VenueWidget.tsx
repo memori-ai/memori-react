@@ -212,7 +212,6 @@ const VenueWidget = ({
   }, 1000);
 
   const handleChange = (value: NominatimItem) => {
-    console.log(value);
     const placeName = getPlaceName(value);
 
     setVenue({

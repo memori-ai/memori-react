@@ -28,6 +28,7 @@ const ArtifactPreview: React.FC<{
       case 'html':
         return (
           <iframe
+            className="memori-artifact-preview-iframe"
             srcDoc={artifact.content}
             style={{
               width: '100%',
@@ -36,6 +37,7 @@ const ArtifactPreview: React.FC<{
               borderRadius: '6px',
             }}
             title={`${artifact.title} Preview`}
+            scrolling="auto"
           />
         );
 
@@ -48,9 +50,16 @@ const ArtifactPreview: React.FC<{
             }}
           />
         );
-
+        
       default:
-        return null;
+        return (
+          <div
+            className="memori-artifact-preview-text"
+            dangerouslySetInnerHTML={{
+              __html: artifact.content,
+            }}
+          />
+        );
     }
   }, [artifact]);
 
@@ -110,7 +119,7 @@ const ArtifactPreview: React.FC<{
   );
 
   const hasPreview =
-    artifact.mimeType === 'html' || artifact.mimeType === 'markdown';
+    artifact.mimeType === 'html' || artifact.mimeType === 'markdown' || artifact.mimeType === 'svg';
 
   return (
     <div className="memori-artifact-preview">

@@ -24,8 +24,10 @@
   "createdAt": "Date de création",
   "all": "Tous",
   "today": "Aujourd'hui",
+  "date": "Date de naissance",
   "yesterday": "Hier",
   "last_7_days": "7 derniers jours",
+  "copied": "Copié !",
   "missingData": "Informations manquantes",
   "last_30_days": "30 derniers jours",
   "selected": "Choisi",
@@ -44,6 +46,8 @@
   "nothingFound": "Rien trouvé",
   "venue": "Lieu",
   "searchVenue": "Rechercher un lieu...",
+  "popularLanguages": "Populaires",
+  "allLanguages": "Toutes les langues",
   "memoriBlockedTitle": "Bloqué",
   "memoriBlockedUntil": "Agent bloqué jusqu'à {{date}}",
   "memoriBlockedAnon": "Actuellement \"{{name}}\"Je ne peux pas répondre, reviens ici {{date}}",
@@ -102,6 +106,7 @@
     "useRecoveryTokens": "Utiliser des jetons de récupération",
     "tokens": "Jetons",
     "addToken": "Ajouter un jeton",
+    "invalidCredentials": "Identifiants invalides",
     "usePassword": "Utiliser le mot de passe",
     "atLeast": "Au moins"
   },
@@ -376,7 +381,8 @@
     "termsOfService": "Conditions d'utilisation",
     "pAndCUAccepted": "J'accepte les conditions d'utilisation de Deep Thought",
     "editAccount": "Modifier le compte",
-    "save": "Sauvegarder"
+    "save": "Sauvegarder",
+    "successfullyLoggedIn": "{{username}} s'est connecté avec succès"
   },
   "chatLogs": {
     "anyMessage": "Tout message",

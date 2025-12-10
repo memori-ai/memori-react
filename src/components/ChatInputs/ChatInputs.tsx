@@ -31,9 +31,11 @@ export interface Props {
   microphoneMode?: 'CONTINUOUS' | 'HOLD_TO_TALK';
   authToken?: string;
   showUpload?: boolean;
+  isTyping?: boolean;
   sessionID?: string;
   memoriID?: string;
   client?: ReturnType<typeof memoriApiClient>;
+  onTextareaExpanded?: (expanded: boolean) => void;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -51,12 +53,17 @@ const ChatInputs: React.FC<Props> = ({
   startListening,
   stopListening,
   showUpload = false,
+  isTyping = false,
   sessionID,
   authToken,
   memoriID,
   client,
+  onTextareaExpanded,
 }) => {
   const { t } = useTranslation();
+
+  // State for textarea expansion
+  const [isExpanded, setIsExpanded] = useState(false);
 
   // State for document preview files
   const [documentPreviewFiles, setDocumentPreviewFiles] = useState<
@@ -90,18 +97,22 @@ const ChatInputs: React.FC<Props> = ({
       url?: string;
     }[]
   ) => {
-    sendMessage(
-      userMessage,
-      files.map(file => ({
-        mediumID: file.mediumID || '',
+    if (isTyping) return;
+    
+    const mediaWithIds = files.map((file, index) => {
+      const generatedMediumID = file.mediumID || `file_${Date.now()}_${index}_${Math.random().toString(36).substr(2, 9)}`;
+      return {
+        mediumID: generatedMediumID,
         mimeType: file.mimeType,
         content: file.content,
         title: file.name,
         properties: { isAttachedFile: true },
         type: file.type,
         url: file.url,
-      }))
-    );
+      };
+    });
+    
+    sendMessage(userMessage, mediaWithIds);
 
     // Reset states after sending
     setDocumentPreviewFiles([]);
@@ -112,21 +123,31 @@ const ChatInputs: React.FC<Props> = ({
   /**
    * Handles enter key press in textarea
    */
-  const onTextareaPressEnter = () => {
+  const onTextareaPressEnter = (
+    e: React.KeyboardEvent<HTMLTextAreaElement>
+  ) => {
+    // Prevent default newline on Enter to keep behavior consistent
+    e.preventDefault();
+
+    // While the agent is typing, ignore Enter (no send, no newline)
+    if (isTyping) return;
+
     if (sendOnEnter === 'keypress' && userMessage?.length > 0) {
       stopListening();
-      sendMessage(
-        userMessage,
-        documentPreviewFiles.map(file => ({
-          mediumID: file.mediumID || '',
+      const mediaWithIds = documentPreviewFiles.map((file, index) => {
+        const generatedMediumID = file.mediumID || `file_${Date.now()}_${index}_${Math.random().toString(36).substr(2, 9)}`;
+        return {
+          mediumID: generatedMediumID,
           mimeType: file.mimeType,
           content: file.content,
           title: file.name,
           properties: { isAttachedFile: true },
           type: file.type,
           url: file.url,
-        }))
-      );
+        };
+      });
+      
+      sendMessage(userMessage, mediaWithIds);
 
       setDocumentPreviewFiles([]);
       onChangeUserMessage('');
@@ -137,7 +158,6 @@ const ChatInputs: React.FC<Props> = ({
    * Removes a file from the preview list
    */
   const removeFile = async (fileId: string, mediumID: string | undefined) => {
-    console.log('removeFile', fileId);
     // Call the MediumDeselected event if dialog API is available
     if (dialog.postMediumDeselectedEvent && sessionID && mediumID) {
       await dialog.postMediumDeselectedEvent(sessionID, mediumID);
@@ -157,10 +177,22 @@ const ChatInputs: React.FC<Props> = ({
     );
   };
 
+  /**
+   * Handles textarea expansion change
+   */
+  const handleTextareaExpanded = (expanded: boolean) => {
+    setIsExpanded(expanded);
+    if (onTextareaExpanded) {
+      onTextareaExpanded(expanded);
+    }
+  };
+
   return (
     <fieldset
       id="chat-fieldset"
-      className="memori-chat-inputs"
+      className={cx('memori-chat-inputs', {
+        'memori-chat-inputs--expanded': isExpanded,
+      })}
       disabled={dialogState?.state === 'X2a' || dialogState?.state === 'X3'}
     >
       <ChatTextArea
@@ -169,6 +201,7 @@ const ChatInputs: React.FC<Props> = ({
         onPressEnter={onTextareaPressEnter}
         onFocus={onTextareaFocus}
         onBlur={onTextareaBlur}
+        onExpandedChange={handleTextareaExpanded}
         disabled={['R2', 'R3', 'R4', 'R5', 'G3', 'X3'].includes(
           dialogState?.state || ''
         )}
@@ -196,6 +229,7 @@ const ChatInputs: React.FC<Props> = ({
       <Button
         shape="circle"
         primary={!!userMessage?.length}
+        loading={isTyping}
         disabled={!userMessage || userMessage.length === 0}
         className="memori-chat-inputs--send"
         onClick={() => {
@@ -210,7 +244,7 @@ const ChatInputs: React.FC<Props> = ({
           startListening={startListening}
           stopListening={() => {
             stopListening();
-            if (!!userMessage?.length) {
+            if (listening && !!userMessage?.length) {
               sendMessage(userMessage);
             }
           }}

@@ -14,6 +14,35 @@
     background: #c5c6d1;
 }
 
+.memori-chat--bubble-status-message {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0 1rem;
+    margin: 1.5rem auto;
+}
+
+.memori-chat--bubble-status-message-content {
+    display: inline-flex;
+    max-width: 90%;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem 1rem;
+    border: 1px solid rgba(76, 111, 255, 0.2);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    background: linear-gradient(135deg, rgba(76, 111, 255, 0.1) 0%, rgba(76, 111, 255, 0.05) 100%);
+    box-shadow: 0 2px 8px rgba(76, 111, 255, 0.1);
+    color: var(--memori-primary, #4c6fff);
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    line-height: 1.4;
+    text-align: center;
+    word-wrap: break-word;
+}
+
 .memori-chat--bubble {
     display: inline-flex;
     max-width: 90%;
@@ -30,8 +59,28 @@
     line-height: 1.33;
 }
 
+
+
 .memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble {
     min-width: 9rem;
+}
+
+
+.memori-chat--bubble-avatar svg {
+    width: 40px;
+    height: 40px;
+    padding: 0.33rem;
+    fill: #666;
+    font-size: 1.5rem;
+}
+
+
+.memori-chat--bubble-action-icon--from-user > span > svg {
+    color: #fff !important;
+}
+
+.memori-chat--bubble-action-icon--from-user:focus {
+    border-color: #fff !important;
 }
 
 .memori-chat--bubble #wave {
@@ -145,14 +194,6 @@
     object-fit: cover;
 }
 
-.memori-chat--bubble-avatar svg {
-    width: 40px;
-    height: 40px;
-    padding: 0.33rem;
-    fill: #666;
-    font-size: 1.5rem;
-}
-
 .memori-chat--bubble-addon {
     display: flex;
     align-items: center;
@@ -164,12 +205,8 @@
 .memori-chat--bubble .memori-chat--bubble-action-icon {
     display: flex;
     justify-content: flex-end;
-    padding: 0;
+    padding: 2px;
     text-align: right;
-}
-
-.memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--ai {
-    padding: 3px;
 }
 
 .memori-chat--bubble .memori-chat--bubble-action-icon svg {
@@ -178,6 +215,21 @@
     height: 1rem;
     color: #000;
 }
+
+.memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--copied {
+    border-color: var(--memori-primary, #4c6fff) !important;
+    background-color: rgba(76, 111, 255, 0.08);
+}
+
+.memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--copied svg {
+    color: var(--memori-primary, #4c6fff);
+}
+
+.memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--ai {
+    padding: 3px;
+}
+
+
 
 .memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--debug {
     color: var(--memori-error-color);
@@ -210,6 +262,19 @@
 
 .memori-chat--bubble-addon button.memori-chat--bubble-action-icon {
     padding: 2.5px;
+}
+
+.memori-chat--bubble-action-feedback {
+    margin-left: 0.35rem;
+    color: var(--memori-primary, #4c6fff);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.memori-chat--bubble-action-feedback--from-user {
+    color: var(--memori-primary-text, #fff);
 }
 
 .memori-chat--bubble-addon .memori-chat--feedback button .memori-button--icon svg {

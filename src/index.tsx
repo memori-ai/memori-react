@@ -516,5 +516,4 @@ Memori.propTypes = {
   autoStart: PropTypes.bool,
   applyVarsToRoot: PropTypes.bool,
 };
-
 export default Memori;
