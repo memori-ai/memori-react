@@ -1,6 +1,5 @@
 .memori-header {
     position: relative;
-    z-index: 999;
     width: calc(50% - 1rem);
     height: 50px;
     padding: calc(var(--memori-inner-content-pad) / 4) calc(var(--memori-inner-content-pad) / 2);
