@@ -215,5 +215,5 @@ export const MAX_MSG_WORDS = 300;
 
 // Document upload limits
 export const MAX_DOCUMENTS_PER_MESSAGE = 5;
-// export const MAX_TOTAL_MESSAGE_PAYLOAD = 200000; // 200KB total payload limit
+export const MAX_TOTAL_MESSAGE_PAYLOAD = 200000; // 200KB total payload limit
 export const MAX_DOCUMENT_CONTENT_LENGTH = 200000; // 200KB per document content

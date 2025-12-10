@@ -74,10 +74,8 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     }
   }, [isLoading, onLoadingChange]);
 
-  // Check current image count
-  const currentImageCount = documentPreviewFiles.filter(
-    (file: any) => file.type === 'image'
-  ).length;
+  // Check current total media count (images + documents)
+  const currentMediaCount = documentPreviewFiles.length;
 
   // Image upload
   const validateImageFile = (file: File): boolean => {
@@ -91,12 +89,11 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
 
-    // Check if adding these files would exceed the limit
-    if (currentImageCount + files.length > maxImages) {
+    // Check if adding these files would exceed the total media limit
+    if (currentMediaCount + files.length > maxImages) {
       onImageError?.({
         message:
-          t('upload.maxImagesReached') ??
-          `Maximum ${maxImages} images allowed. You can upload ${maxImages - currentImageCount} more images.`,
+          `Maximum ${maxImages} media files allowed. You can upload ${Math.max(0, maxImages - currentMediaCount)} more file${maxImages - currentMediaCount !== 1 ? 's' : ''}.`,
         severity: 'error',
       });
       return;
@@ -410,7 +407,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
         className="memori--upload-file-input"
         onChange={handleImageUpload}
         disabled={
-          isLoading || !isMediaAccepted || currentImageCount >= maxImages
+          isLoading || !isMediaAccepted || currentMediaCount >= maxImages
         }
       />
 
@@ -426,7 +423,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
         )}
         onClick={() => imageInputRef.current?.click()}
         disabled={
-          isLoading || !isMediaAccepted || currentImageCount >= maxImages
+          isLoading || !isMediaAccepted || currentMediaCount >= maxImages
         }
       >
         {isLoading ? (

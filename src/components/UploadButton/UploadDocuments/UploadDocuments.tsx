@@ -258,6 +258,21 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
 
+    // Check current total media count (images + documents)
+    const currentMediaCount = documentPreviewFiles.length;
+
+    // Check if adding these files would exceed the total media limit
+    if (maxDocuments && currentMediaCount + files.length > maxDocuments) {
+      onDocumentError?.({
+        message: `Maximum ${maxDocuments} media files allowed. You can upload ${Math.max(0, maxDocuments - currentMediaCount)} more file${maxDocuments - currentMediaCount !== 1 ? 's' : ''}.`,
+        severity: 'error',
+      });
+      if (documentInputRef.current) {
+        documentInputRef.current.value = '';
+      }
+      return;
+    }
+
     setIsLoading(true);
 
     // Process each file
@@ -356,8 +371,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         disabled={
           isLoading ||
           (maxDocuments &&
-            documentPreviewFiles.filter((file: any) => file.type !== 'image')
-              .length >= maxDocuments) ||
+            documentPreviewFiles.length >= maxDocuments) ||
           false
         }
         title="Upload documents"

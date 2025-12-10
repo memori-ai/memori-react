@@ -11,8 +11,7 @@ import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
 
 // Constants
-const MAX_IMAGES = 5;
-const MAX_DOCUMENTS = 5;
+const MAX_MEDIA = 10;
 
 // Props interface
 interface UploadManagerProps {
@@ -55,15 +54,10 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   const unifiedInputRef = useRef<HTMLInputElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
-  // Calculate image count and remaining slots
-  const currentImageCount = documentPreviewFiles.filter(
-    file => file.type === 'image'
-  ).length;
-  const remainingSlots = MAX_IMAGES - currentImageCount;
-  const currentDocumentCount = documentPreviewFiles.length;
-  const remainingDocumentSlots = MAX_DOCUMENTS - currentDocumentCount;
-  const hasReachedImageLimit = remainingSlots <= 0;
-  const hasReachedDocumentLimit = remainingDocumentSlots <= 0;
+  // Calculate total media count
+  const currentMediaCount = documentPreviewFiles.length;
+  const remainingSlots = MAX_MEDIA - currentMediaCount;
+  const hasReachedMediaLimit = remainingSlots <= 0;
 
   // Error handling
   const removeError = (errorMessage: string) => {
@@ -95,16 +89,14 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 
   // Use refs to access latest values in event handlers
   const isMediaAcceptedRef = useRef(isMediaAccepted);
-  const currentImageCountRef = useRef(currentImageCount);
-  const currentDocumentCountRef = useRef(currentDocumentCount);
+  const currentMediaCountRef = useRef(currentMediaCount);
   const addErrorRef = useRef(addError);
 
   useEffect(() => {
     isMediaAcceptedRef.current = isMediaAccepted;
-    currentImageCountRef.current = currentImageCount;
-    currentDocumentCountRef.current = currentDocumentCount;
+    currentMediaCountRef.current = currentMediaCount;
     addErrorRef.current = addError;
-  }, [isMediaAccepted, currentImageCount, currentDocumentCount, addError]);
+  }, [isMediaAccepted, currentMediaCount, addError]);
 
   // Handle unified file selection
   const handleUnifiedFileSelection = useCallback((files: FileList | File[]) => {
@@ -128,6 +120,19 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       }
     });
 
+    // Calculate total files to be added
+    const totalFilesToAdd = imageFiles.length + documentFiles.length;
+    const newTotalCount = currentMediaCountRef.current + totalFilesToAdd;
+
+    // Check if adding these files would exceed the limit
+    if (newTotalCount > MAX_MEDIA) {
+      addErrorRef.current({
+        message: `Maximum ${MAX_MEDIA} media files allowed.`,
+        severity: 'error',
+      });
+      return;
+    }
+
     // Process images
     if (imageFiles.length > 0) {
       if (!isMediaAcceptedRef.current) {
@@ -135,13 +140,6 @@ const UploadButton: React.FC<UploadManagerProps> = ({
           message:
             t('upload.mediaNotAccepted') ?? 'Media uploads are not accepted',
           severity: 'info',
-        });
-      } else if (currentImageCountRef.current + imageFiles.length > MAX_IMAGES) {
-        addErrorRef.current({
-          message:
-            t('upload.maxImagesReached', { max: MAX_IMAGES }) ??
-            `Maximum ${MAX_IMAGES} images allowed. You can upload ${MAX_IMAGES - currentImageCountRef.current} more images.`,
-          severity: 'error',
         });
       } else {
         // Trigger image upload by creating a synthetic event
@@ -157,20 +155,13 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 
     // Process documents
     if (documentFiles.length > 0) {
-      if (currentDocumentCountRef.current + documentFiles.length > MAX_DOCUMENTS) {
-        addErrorRef.current({
-          message: `Maximum ${MAX_DOCUMENTS} documents allowed. You can upload ${MAX_DOCUMENTS - currentDocumentCountRef.current} more documents.`,
-          severity: 'error',
-        });
-      } else {
-        // Trigger document upload by creating a synthetic event
-        const documentInput = documentRef.current?.querySelector('input[type="file"]') as HTMLInputElement;
-        if (documentInput) {
-          const dataTransfer = new DataTransfer();
-          documentFiles.forEach(file => dataTransfer.items.add(file));
-          documentInput.files = dataTransfer.files;
-          documentInput.dispatchEvent(new Event('change', { bubbles: true }));
-        }
+      // Trigger document upload by creating a synthetic event
+      const documentInput = documentRef.current?.querySelector('input[type="file"]') as HTMLInputElement;
+      if (documentInput) {
+        const dataTransfer = new DataTransfer();
+        documentFiles.forEach(file => dataTransfer.items.add(file));
+        documentInput.files = dataTransfer.files;
+        documentInput.dispatchEvent(new Event('change', { bubbles: true }));
       }
     }
   }, [t]);
@@ -243,7 +234,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
         if (
           !isInputElement &&
           !isLoading &&
-          !(currentDocumentCountRef.current === MAX_DOCUMENTS && !isMediaAcceptedRef.current)
+          !(currentMediaCountRef.current >= MAX_MEDIA)
         ) {
           e.preventDefault();
           if (unifiedInputRef.current) {
@@ -509,7 +500,7 @@ ${file.content}
           { 'memori--error': errors.length > 0 }
         )}
         onClick={handleButtonClick}
-        disabled={isLoading || (currentDocumentCount === MAX_DOCUMENTS && !isMediaAccepted)}
+        disabled={isLoading || hasReachedMediaLimit}
         title={t('upload.uploadFilesWithShortcut', { shortcut: /Mac|iPhone|iPod|iPad/i.test(navigator.platform) || navigator.userAgent.includes('Mac') ? 'Cmd' : 'Ctrl' }) ?? 'Upload files (drag & drop, or Cmd+V to open file chooser)'}
       >
         {isLoading ? (
@@ -519,14 +510,14 @@ ${file.content}
         )}
       </button>
 
-      {/* Document count indicator */}
-      {currentDocumentCount > 0 && (
+      {/* Media count indicator */}
+      {currentMediaCount > 0 && (
         <div
           className={cx('memori--document-count', {
-            'memori--document-count-full': hasReachedDocumentLimit,
+            'memori--document-count-full': hasReachedMediaLimit,
           })}
         >
-          {currentDocumentCount}/{MAX_DOCUMENTS}
+          {currentMediaCount}/{MAX_MEDIA}
         </div>
       )}
 
@@ -534,7 +525,7 @@ ${file.content}
       <div className="memori--hidden-uploader" ref={documentRef}>
         <UploadDocuments
           setDocumentPreviewFiles={handleDocumentFiles}
-          maxDocuments={MAX_DOCUMENTS}
+          maxDocuments={MAX_MEDIA}
           documentPreviewFiles={documentPreviewFiles}
           onLoadingChange={handleLoadingChange}
           onDocumentError={handleDocumentError}
@@ -552,7 +543,7 @@ ${file.content}
           documentPreviewFiles={documentPreviewFiles}
           isMediaAccepted={isMediaAccepted}
           onLoadingChange={handleLoadingChange}
-          maxImages={MAX_IMAGES}
+          maxImages={MAX_MEDIA}
           memoriID={memoriID}
           onImageError={handleImageError}
           onValidateImageFile={validateImageFile}
