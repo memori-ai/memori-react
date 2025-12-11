@@ -25,7 +25,6 @@ const ChatTextArea: React.FC<Props> = ({
   onExpandedChange,
 }) => {
   const { t } = useTranslation();
-  const [manuallyExpanded, setManuallyExpanded] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const MIN_HEIGHT = 40;
@@ -50,9 +49,19 @@ const ChatTextArea: React.FC<Props> = ({
         textarea.style.height = `${newHeight}px`;
         inner.style.height = `${newHeight}px`;
 
-        const isAutoExpanded = scrollHeight > MIN_HEIGHT;
-        if (onExpandedChange) {
-          onExpandedChange(isAutoExpanded);
+        //set the padding bottom to the chat in order to keep the whole chat visible
+        // take last child of chat wrapper and set the padding bottom to the height of the textarea
+        const chat = document.getElementsByClassName('memori-chat--content');
+        if (chat) {
+        const lastChild = chat[chat.length - 1];
+          if (lastChild) {
+            (lastChild as HTMLElement).style.paddingBottom = `${newHeight}px`;
+            //then scroll to the bottom of the chat
+            (chat[0] as HTMLElement).scrollTo({
+              top: (chat[0] as HTMLElement).scrollHeight,
+              behavior: 'smooth'
+            });
+          }
         }
       }
     }

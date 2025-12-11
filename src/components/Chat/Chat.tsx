@@ -140,13 +140,13 @@ const Chat: React.FC<Props> = ({
   }, [history, preview, isHistoryView]);
 
   // Scroll to bottom when textarea is expanded
-  useEffect(() => {
-    if (isTextareaExpanded && !isHistoryView) {
-      setTimeout(() => {
-        scrollToBottom();
-      }, 250);
-    }
-  }, [isTextareaExpanded, isHistoryView]);
+  // useEffect(() => {
+  //   if (isTextareaExpanded && !isHistoryView) {
+  //     setTimeout(() => {
+  //       scrollToBottom();
+  //     }, 250);
+  //   }
+  // }, [isTextareaExpanded, isHistoryView]);
 
   const onTextareaFocus = () => {
     stopListening();
