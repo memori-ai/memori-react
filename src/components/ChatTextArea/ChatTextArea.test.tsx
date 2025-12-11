@@ -26,18 +26,3 @@ it('renders ChatTextArea with long text unchanged', () => {
   );
   expect(container).toMatchSnapshot();
 });
-
-it('renders ChatTextArea expanded unchanged', () => {
-  render(
-    <ChatTextArea
-      value="Suspendisse sit amet volutpat velit. Nunc at commodo tortor, id rutrum nunc. Vivamus condimentum vel nunc et congue. Ut laoreet imperdiet nisi ac finibus. Suspendisse molestie risus a justo sagittis efficitur. Suspendisse sit amet volutpat velit. Nunc at commodo tortor, id rutrum nunc. Vivamus condimentum vel nunc et congue. Ut laoreet imperdiet nisi ac finibus. Suspendisse molestie risus a justo sagittis efficitur."
-      onChange={jest.fn()}
-    />
-  );
-
-  fireEvent.click(screen.getByRole('button'));
-
-  expect(screen.getByTestId('chat-textarea').classList).toContain(
-    'memori-chat-textarea--expanded'
-  );
-});

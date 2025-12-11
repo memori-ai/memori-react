@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
 import Button from '../ui/Button';
 import Expand from '../icons/Expand';
@@ -25,26 +25,49 @@ const ChatTextArea: React.FC<Props> = ({
   onExpandedChange,
 }) => {
   const { t } = useTranslation();
-  const [expanded, setExpanded] = useState(false);
+  const [manuallyExpanded, setManuallyExpanded] = useState(false);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const MIN_HEIGHT = 40;
+  const MAX_HEIGHT = 300;
 
-  const handleExpandToggle = () => {
-    const newExpanded = !expanded;
-    setExpanded(newExpanded);
-    if (onExpandedChange) {
-      onExpandedChange(newExpanded);
+  // Auto-expand textarea based on content (only when not manually expanded)
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    const inner = innerRef.current;
+
+    if (textarea && inner) {
+      if (value.length === 0) {
+        textarea.style.height = '30px';
+        inner.style.height = '30px';
+        if (onExpandedChange) {
+          onExpandedChange(false);
+        }
+      } else {
+        textarea.style.height = 'auto';
+        const scrollHeight = textarea.scrollHeight;
+        const newHeight = Math.min(Math.max(scrollHeight, MIN_HEIGHT), MAX_HEIGHT);
+        textarea.style.height = `${newHeight}px`;
+        inner.style.height = `${newHeight}px`;
+
+        const isAutoExpanded = scrollHeight > MIN_HEIGHT;
+        if (onExpandedChange) {
+          onExpandedChange(isAutoExpanded);
+        }
+      }
     }
-  };
+  }, [value]);
 
   return (
     <div
       data-testid="chat-textarea"
       className={cx('memori-chat-textarea', {
-        'memori-chat-textarea--expanded': expanded,
         'memori-chat-textarea--disabled': disabled,
       })}
     >
-      <div className="memori-chat-textarea--inner">
+      <div ref={innerRef} className="memori-chat-textarea--inner">
         <textarea
+          ref={textareaRef}
           className="memori-chat-textarea--input"
           disabled={disabled}
           value={value}
@@ -60,18 +83,6 @@ const ChatTextArea: React.FC<Props> = ({
           onBlur={onBlur}
           maxLength={100000}
         />
-        <div className="memori-chat-textarea--expand">
-          <Button
-            className={cx('memori-chat-textarea--expand-button')}
-            onClick={handleExpandToggle}
-            padded={false}
-            ghost
-            title={
-              expanded ? t('collapse') || 'Collapse' : t('expand') || 'Expand'
-            }
-            icon={expanded ? <FullscreenExit /> : <Expand />}
-          />
-        </div>
       </div>
     </div>
   );
