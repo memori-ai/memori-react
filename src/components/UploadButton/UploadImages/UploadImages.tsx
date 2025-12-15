@@ -477,19 +477,19 @@ const UploadImages: React.FC<UploadImagesProps> = ({
               style={{ width: '90%', marginBottom: '20px' }}
               className="memori--upload-title-input"
             />
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', alignItems: 'center' }}>
+            <Button
+                onClick={handleCancelUpload}
+                className="memori-button memori-button--outline"
+              >
+                {t('cancel') ?? 'Cancel'}
+              </Button>
               <Button
                 onClick={handleTitleSubmit}
                 disabled={!selectedFile || !imageTitle.trim()}
                 className="memori-button memori-button--primary memori-button--image-confirm"
               >
                 {t('confirm') ?? 'Confirm'}
-              </Button>
-              <Button
-                onClick={handleCancelUpload}
-                className="memori-button memori-button--primary"
-              >
-                {t('cancel') ?? 'Cancel'}
               </Button>
             </div>
           </div>

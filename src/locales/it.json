@@ -288,7 +288,7 @@
     "uploadSuccess": "Caricamento riuscito",
     "remaining": "rimanenti",
     "maxReached": "Limite raggiunto",
-    "titleImage": "Immagine: {{title}}",
+    "titleImage": "Titolo immagine: {{title}}",
     "titleImageUpload": "Carica immagini",
     "titleHelp": "Aggiungi un titolo descrittivo per aiutare l'AI a fornire risposte più appropriate.",
     "titlePlaceholder": "Inserisci il titolo dell'immagine",

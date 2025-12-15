@@ -352,7 +352,7 @@
   padding: 16px;
   border-radius: 8px;
   margin: 0;
-  background-color: #f8f9fa;
+  /* background-color: #f8f9fa; */
   font-family: monospace;
   line-height: 1.5;
 }
@@ -362,7 +362,7 @@
   border: 1px solid #b2f2bb;
   border-radius: 8px;
   margin-top: 16px;
-  background-color: #ebfbee;
+  /* background-color: #ebfbee; */
   text-align: left;
 }
 
