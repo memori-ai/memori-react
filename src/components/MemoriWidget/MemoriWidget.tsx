@@ -944,8 +944,21 @@ const MemoriWidget = ({
             }, 500);
           }
         });
+      } else if (response.resultCode === 500 && response.resultMessage) {
+        setHistory(h => [...h, {
+          text: 'Error: ' + response.resultMessage,
+          emitter: 'system',
+          fromUser: false,
+          initial: false,
+          contextVars: {},
+          date: new Date().toISOString(),
+        }]);
+      } else {
+        console.warn('[SEND_MESSAGE]', response);
+        return Promise.reject(response);
       }
     } catch (error) {
+      console.log('error', error);
       console.error(error);
       gotError = true;
 
@@ -1398,7 +1411,6 @@ const MemoriWidget = ({
     continueFromSessionID?: string,
     isSessionExpired?: boolean
   ) => {
-
     // Set loading state while reopening session
     setLoading(true);
 
@@ -1477,7 +1489,10 @@ const MemoriWidget = ({
 
       // Handle successful session initialization
       if (sessionID && currentState && response.resultCode === 0) {
-        console.log('[REOPEN_SESSION] Session initialized successfully:', sessionID);
+        console.log(
+          '[REOPEN_SESSION] Session initialized successfully:',
+          sessionID
+        );
         setSessionId(sessionID);
 
         // Update dialog state and history if requested
@@ -1486,13 +1501,19 @@ const MemoriWidget = ({
           setCurrentDialogState(currentState);
 
           if (currentState.emission) {
-            console.log('[REOPEN_SESSION] Processing emission:', currentState.emission);
+            console.log(
+              '[REOPEN_SESSION] Processing emission:',
+              currentState.emission
+            );
             // Determine initial status message based on context
             // Show status message only if session expired and there's existing history
-            const initialStatus = isSessionExpired && history.length > 1
-              ? 'Session Expired, reopening session'
-              : (history.length <= 1 ? true : undefined);
-            
+            const initialStatus =
+              isSessionExpired && history.length > 1
+                ? 'Session Expired, reopening session'
+                : history.length <= 1
+                ? true
+                : undefined;
+
             // Set initial message or append to existing history
             history.length <= 1
               ? setHistory([
@@ -1501,7 +1522,9 @@ const MemoriWidget = ({
                     emitter: currentState.emitter,
                     media: currentState.emittedMedia ?? currentState.media,
                     fromUser: false,
-                    initial: (initialStatus === true ? true : (initialStatus || undefined)) as any,
+                    initial: (initialStatus === true
+                      ? true
+                      : initialStatus || undefined) as any,
                     contextVars: currentState.contextVars,
                     date: currentState.currentDate,
                     placeName: currentState.currentPlaceName,
@@ -1517,7 +1540,9 @@ const MemoriWidget = ({
                   emitter: currentState.emitter,
                   media: currentState.emittedMedia ?? currentState.media,
                   fromUser: false,
-                  initial: (initialStatus === true ? true : (initialStatus || undefined)) as any,
+                  initial: (initialStatus === true
+                    ? true
+                    : initialStatus || undefined) as any,
                   contextVars: currentState.contextVars,
                   date: currentState.currentDate,
                   placeName: currentState.currentPlaceName,
@@ -2647,6 +2672,20 @@ const MemoriWidget = ({
               text: initialQuestion,
             });
 
+            // Handle 500 error from TextEnteredEvent
+            if (response.resultCode === 500 && response.resultMessage) {
+              setHistory(h => [...h, {
+                text: 'Error: ' + response.resultMessage,
+                emitter: 'system',
+                fromUser: false,
+                initial: false,
+                contextVars: {},
+                date: new Date().toISOString(),
+              }]);
+              setMemoriTyping(false);
+              return;
+            }
+
             await translateAndSpeak(
               response.currentState ?? currentState,
               userLang,
@@ -3136,7 +3175,10 @@ const MemoriWidget = ({
                 }
               })
               .catch(error => {
-                if (!(error instanceof Error) || error.message !== 'AUTH_FAILED') {
+                if (
+                  !(error instanceof Error) ||
+                  error.message !== 'AUTH_FAILED'
+                ) {
                   setGotErrorInOpening(true);
                 }
                 throw error;
@@ -3312,14 +3354,21 @@ const MemoriWidget = ({
               userToken = token;
               setLocalConfig('loginToken', token);
               // Push a message with initial status to show status message when a new session is created after login
-              if (state?.sessionID && state.sessionID !== sessionId && state?.dialogState) {
+              if (
+                state?.sessionID &&
+                state.sessionID !== sessionId &&
+                state?.dialogState
+              ) {
                 // Push a message with initial status message showing successful login
                 // Only show the chip component, not the emission text
                 const username = user?.userName || t('login.user');
                 pushMessage({
                   text: '', // Empty text so only the chip is visible
                   emitter: state.dialogState.emitter,
-                  media: state.dialogState.emittedMedia ?? state.dialogState.media ?? [],
+                  media:
+                    state.dialogState.emittedMedia ??
+                    state.dialogState.media ??
+                    [],
                   fromUser: false,
                   initial: t('login.successfullyLoggedIn', { username }) as any,
                   contextVars: state.dialogState.contextVars,

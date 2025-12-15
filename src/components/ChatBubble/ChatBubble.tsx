@@ -126,7 +126,8 @@ const ChatBubble: React.FC<Props> = ({
     showCopyButton && (!!plainText?.length || !!message.text?.length);
   const shouldShowCopyRawButton =
     shouldShowCopyButtons &&
-    !!message.text?.length && plainText !== message.text;
+    !!message.text?.length &&
+    plainText !== message.text;
   const rawMessageText = message.fromUser
     ? message.text || ''
     : (message.text || '').replaceAll(/<think.*?>(.*?)<\/think>/gs, '');
@@ -180,15 +181,15 @@ const ChatBubble: React.FC<Props> = ({
 
   useEffect(() => {
     return () => {
-      (Object.keys(copyFeedbackTimers.current) as Array<'plain' | 'raw'>).forEach(
-        key => {
-          const timer = copyFeedbackTimers.current[key];
-          if (timer) {
-            clearTimeout(timer);
-            copyFeedbackTimers.current[key] = null;
-          }
+      (
+        Object.keys(copyFeedbackTimers.current) as Array<'plain' | 'raw'>
+      ).forEach(key => {
+        const timer = copyFeedbackTimers.current[key];
+        if (timer) {
+          clearTimeout(timer);
+          copyFeedbackTimers.current[key] = null;
         }
-      );
+      });
     };
   }, []);
 
@@ -218,11 +219,15 @@ const ChatBubble: React.FC<Props> = ({
   };
 
   // Check if initial is a string (status message) or boolean (legacy)
-  const initialStatus = typeof message.initial === 'string' ? message.initial : null;
-  const showInitialDivider = (message.initial === true || isFirst) && !initialStatus;
+  const initialStatus =
+    typeof message.initial === 'string' ? message.initial : null;
+  const showInitialDivider =
+    (message.initial === true || isFirst) && !initialStatus;
 
+  // Check if this is a system error message
+  const isSystemError = message.emitter === 'system';
 
-  if(initialStatus) {
+  if (initialStatus) {
     return (
       <div className="memori-chat--bubble-status-message">
         <div className="memori-chat--bubble-status-message-content">
@@ -232,11 +237,94 @@ const ChatBubble: React.FC<Props> = ({
     );
   }
 
+  // Render system error messages as red warning messages
+  if (isSystemError) {
+    return (
+      <Transition
+        show
+        appear
+        as="div"
+        className={cx('memori-chat--bubble-container memori-chat-scroll-item', {
+          'memori-chat--bubble-from-user': false,
+        })}
+      >
+        <Transition.Child
+          as="picture"
+          className="memori-chat--bubble-avatar"
+          enter="transition ease-in-out duration-300"
+          enterFrom={`opacity-0 scale-075 translate-x--15`}
+          enterTo="opacity-1 scale-1 translate-x-0"
+          leave="transition ease-in-out duration-300"
+          leaveFrom="opacity-1 scale-1 translate-x-0"
+          leaveTo={`opacity-0 scale-075 translate-x--15`}
+          title={
+            !!message.emitter?.length && !!memori.enableBoardOfExperts
+              ? message.emitter
+              : memori.name
+          }
+        >
+          <img
+            className="memori-chat--bubble-avatar-img"
+            alt={
+              !!message.emitter?.length && !!memori.enableBoardOfExperts
+                ? message.emitter
+                : memori.name
+            }
+            src={
+              !!message.emitter?.length &&
+              !!memori.enableBoardOfExperts &&
+              experts?.find(e => e.name === message.emitter)
+                ? `${
+                    new URL(apiUrl ?? '/').origin
+                  }/api/v1/memoriai/memori/avatar/${
+                    experts.find(e => e.name === message.emitter)
+                      ?.expertMemoriID
+                  }`
+                : memori.avatarURL && memori.avatarURL.length > 0
+                ? getResourceUrl({
+                    type: 'avatar',
+                    tenantID: tenant?.name,
+                    resourceURI: memori.avatarURL,
+                    baseURL: baseUrl,
+                    apiURL: apiUrl,
+                  })
+                : getResourceUrl({
+                    tenantID: tenant?.name,
+                    type: 'avatar',
+                    baseURL: baseUrl || 'https://www.aisuru.com',
+                    apiURL: apiUrl,
+                  })
+            }
+            onError={e => {
+              // Fallback image handling if primary source fails
+              e.currentTarget.src =
+                memori.avatarURL && memori.avatarURL.length > 0
+                  ? getResourceUrl({
+                      type: 'avatar',
+                      tenantID: tenant?.name,
+                      resourceURI: memori.avatarURL,
+                      baseURL: baseUrl,
+                    })
+                  : getResourceUrl({
+                      tenantID: tenant?.name,
+                      type: 'avatar',
+                      baseURL: baseUrl,
+                    });
+
+              e.currentTarget.onerror = null;
+            }}
+          />
+        </Transition.Child>
+        <div className="memori-chat--bubble memori-chat--bubble-status-message-error">
+          <div className="memori-chat--bubble-message ">{cleanText}</div>
+        </div>
+      </Transition>
+    );
+  }
+
   return (
     <>
-      {showInitialDivider && (
-        <div className="memori-chat--bubble-initial" />
-      )}
+      {showInitialDivider && <div className="memori-chat--bubble-initial" />}
       <Transition
         show
         appear
@@ -374,8 +462,10 @@ const ChatBubble: React.FC<Props> = ({
                   shape="circle"
                   title={copyFeedback.plain ? copiedLabel : t('copy') || 'Copy'}
                   className={cx('memori-chat--bubble-action-icon', {
-                    'memori-chat--bubble-action-icon--from-user': message.fromUser,
-                    'memori-chat--bubble-action-icon--copied': copyFeedback.plain,
+                    'memori-chat--bubble-action-icon--from-user':
+                      message.fromUser,
+                    'memori-chat--bubble-action-icon--copied':
+                      copyFeedback.plain,
                   })}
                   icon={
                     <Copy
@@ -410,7 +500,8 @@ const ChatBubble: React.FC<Props> = ({
                       : t('copyRawCode') || 'Copy raw code'
                   }
                   className={cx('memori-chat--bubble-action-icon', {
-                    'memori-chat--bubble-action-icon--from-user': message.fromUser,
+                    'memori-chat--bubble-action-icon--from-user':
+                      message.fromUser,
                     'memori-chat--bubble-action-icon--copied': copyFeedback.raw,
                   })}
                   icon={

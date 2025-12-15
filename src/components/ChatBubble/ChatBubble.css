@@ -43,6 +43,13 @@
     word-wrap: break-word;
 }
 
+.memori-chat--bubble-status-message-error {
+    border: 1px solid rgba(239, 68, 68, 0.3) !important;
+    background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(239, 68, 68, 0.05) 100%) !important;
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.15) !important;
+    color: rgb(239, 68, 68) !important;
+}
+
 .memori-chat--bubble {
     display: inline-flex;
     max-width: 90%;
