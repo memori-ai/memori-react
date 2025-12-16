@@ -1,5 +1,6 @@
 .memori-header {
     position: relative;
+    z-index: 1000;
     width: calc(50% - 1rem);
     height: 50px;
     padding: calc(var(--memori-inner-content-pad) / 4) calc(var(--memori-inner-content-pad) / 2);
@@ -9,7 +10,6 @@
     backdrop-filter: blur(10px);
     background-color: var(--memori-inner-bg, #fff);
     text-align: right;
-    z-index: 1000;
 }
 
 @media (max-width: 870px) {
