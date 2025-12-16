@@ -381,8 +381,8 @@
 .memori--error-message-container,
 .memori--login-tip {
   position: fixed;
-  z-index: 1001;
-  top: 120px;
+  z-index: 10001;
+  top: 80px;
   right: 20px;
 }
 
@@ -507,6 +507,13 @@ input.memori--upload-title-input {
   padding-inline-start: 1rem;
   transition-duration: 0.2s;
   transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+}
+
+.memori--error-message-alert{
+  position: relative;
+  z-index: 10002;
+  top: 0;
+  right: 0;
 }
 
 /* Animation Keyframes */
