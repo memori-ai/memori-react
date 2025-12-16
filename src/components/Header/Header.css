@@ -9,6 +9,7 @@
     backdrop-filter: blur(10px);
     background-color: var(--memori-inner-bg, #fff);
     text-align: right;
+    z-index: 1000;
 }
 
 @media (max-width: 870px) {

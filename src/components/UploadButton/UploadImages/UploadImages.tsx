@@ -288,7 +288,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
                 selectedFile.name,
                 fileDataUrl,
                 authToken,
-                memoriID
+                // memoriID
               );
             } else if (memoriID && sessionID && backend?.uploadAssetUnlogged) {
               response = await backend.uploadAssetUnlogged(
