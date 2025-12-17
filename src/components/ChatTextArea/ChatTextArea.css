@@ -1,27 +1,27 @@
 .memori-chat-textarea {
     position: relative;
-    height: 40px;
+    min-height: 40px;
     box-sizing: border-box;
     flex: 1 0 auto;
     margin-right: 0.5rem;
-    transition: height 0.2s ease-in-out;
+    transition: min-height 0.2s ease-in-out;
     /* margin-left: 0.5rem; */
 }
 
 .memori-chat-textarea--expanded {
-    height: 300px;
+    min-height: 40px;
 }
 
 /* Responsive adjustments for small screens */
 @media (max-width: 768px) {
     .memori-chat-textarea--expanded {
-        height: 200px;
+        min-height: 40px;
     }
 }
 
 @media (max-width: 480px) {
     .memori-chat-textarea--expanded {
-        height: 150px;
+        min-height: 40px;
     }
 }
 
@@ -32,13 +32,13 @@
     left: 0;
     display: flex;
     overflow: hidden;
-    height: 1000px;
-    max-height: 40px;
+    min-height: 40px;
+    max-height: 300px;
     box-sizing: border-box;
     border: 1px solid lightgray;
     border-radius: 10px;
     background: #fff;
-    transition: max-height 0.2s ease-in-out;
+    transition: height 0.2s ease-in-out;
 }
 
 .memori-chat-textarea--expanded .memori-chat-textarea--inner {
@@ -47,12 +47,20 @@
 
 /* Responsive adjustments for textarea inner */
 @media (max-width: 768px) {
+    .memori-chat-textarea--inner {
+        max-height: 200px;
+    }
+    
     .memori-chat-textarea--expanded .memori-chat-textarea--inner {
         max-height: 200px;
     }
 }
 
 @media (max-width: 480px) {
+    .memori-chat-textarea--inner {
+        max-height: 150px;
+    }
+    
     .memori-chat-textarea--expanded .memori-chat-textarea--inner {
         max-height: 150px;
     }
@@ -65,14 +73,31 @@
 
 textarea.memori-chat-textarea--input {
     width: 100%;
-    height: 100%;
+    min-height: 40px;
+    max-height: 300px;
     box-sizing: border-box;
     padding: 6.5px 11px;
     border: none;
     background: #fff;
     color: #000;
     font-family: var(--memori-font-family);
+    line-height: 1.5;
+    overflow-y: auto;
     resize: none;
+    transition: height 0.2s ease-in-out;
+}
+
+/* Responsive adjustments for textarea input */
+@media (max-width: 768px) {
+    textarea.memori-chat-textarea--input {
+        max-height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    textarea.memori-chat-textarea--input {
+        max-height: 150px;
+    }
 }
 
 textarea.memori-chat-textarea--input:focus {
