@@ -12,6 +12,7 @@ exports[`renders Chat unchanged 1`] = `
     >
       <div
         class="memori-chat--content"
+        style="padding-bottom: 0px;"
       >
         <div
           class="memori-chat--cover"
@@ -661,6 +662,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
     >
       <div
         class="memori-chat--content"
+        style="padding-bottom: 0px;"
       >
         <div
           class="memori-chat--cover"
@@ -1340,6 +1342,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
     >
       <div
         class="memori-chat--content"
+        style="padding-bottom: 0px;"
       >
         <div
           class="memori-chat--cover"
@@ -1965,6 +1968,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
     >
       <div
         class="memori-chat--content"
+        style="padding-bottom: 0px;"
       >
         <div
           class="memori-chat--cover"
@@ -2596,6 +2600,7 @@ exports[`renders Chat with dates unchanged 1`] = `
     >
       <div
         class="memori-chat--content"
+        style="padding-bottom: 0px;"
       >
         <div
           class="memori-chat--cover"
@@ -3280,6 +3285,7 @@ exports[`renders Chat with hints unchanged 1`] = `
     >
       <div
         class="memori-chat--content"
+        style="padding-bottom: 0px;"
       >
         <div
           class="memori-chat--cover"
@@ -3955,6 +3961,7 @@ exports[`renders Chat with media unchanged 1`] = `
     >
       <div
         class="memori-chat--content"
+        style="padding-bottom: 0px;"
       >
         <div
           class="memori-chat--cover"
@@ -5005,6 +5012,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
     >
       <div
         class="memori-chat--content"
+        style="padding-bottom: 0px;"
       >
         <div
           class="memori-chat--cover"
@@ -5676,6 +5684,7 @@ exports[`renders Chat with user unchanged 1`] = `
     >
       <div
         class="memori-chat--content"
+        style="padding-bottom: 0px;"
       >
         <div
           class="memori-chat--cover"

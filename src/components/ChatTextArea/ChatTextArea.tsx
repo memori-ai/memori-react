@@ -42,6 +42,14 @@ const ChatTextArea: React.FC<Props> = ({
         if (onExpandedChange) {
           onExpandedChange(false);
         }
+        //reset the padding bottom of the chat
+        const chat = document.getElementsByClassName('memori-chat--content');
+        if (chat) {
+          const lastChild = chat[chat.length - 1];
+          if (lastChild) {
+            (lastChild as HTMLElement).style.paddingBottom = '0px';
+          }
+        }
       } else {
         textarea.style.height = 'auto';
         const scrollHeight = textarea.scrollHeight;
