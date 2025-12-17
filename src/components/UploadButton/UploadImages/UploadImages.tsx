@@ -8,6 +8,7 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import { Asset, Medium } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
 import Button from '../../ui/Button';
+import { compressImage } from '../../../helpers/imageCompression';
 
 // Types
 type PreviewFile = {
@@ -141,6 +142,16 @@ const UploadImages: React.FC<UploadImagesProps> = ({
 
     try {
       const uploadPromises = files.map(async (file) => {
+        // Compress image before upload
+        let fileToUpload = file;
+        try {
+          fileToUpload = await compressImage(file);
+        } catch (error) {
+          // If compression fails, use original file
+          console.warn('Image compression failed, using original file', error);
+          fileToUpload = file;
+        }
+
         return new Promise<{
           name: string;
           id: string;
@@ -155,7 +166,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
           reader.onload = async (e) => {
             const fileDataUrl = e.target?.result as string;
             const fileId = Math.random().toString(36).substr(2, 9);
-            const fileName = file.name.split('.').slice(0, -1).join('.');
+            const fileName = fileToUpload.name.split('.').slice(0, -1).join('.');
 
             if (client) {
               try {
@@ -164,13 +175,13 @@ const UploadImages: React.FC<UploadImagesProps> = ({
 
                 if (authToken && backend?.uploadAsset) {
                   response = await backend.uploadAsset(
-                    file.name,
+                    fileToUpload.name,
                     fileDataUrl,
                     authToken
                   );
                 } else if (memoriID && sessionID && backend?.uploadAssetUnlogged) {
                   response = await backend.uploadAssetUnlogged(
-                    file.name,
+                    fileToUpload.name,
                     fileDataUrl,
                     memoriID,
                     sessionID
@@ -242,7 +253,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
             resolve(null);
           };
 
-          reader.readAsDataURL(file);
+          reader.readAsDataURL(fileToUpload);
         });
       });
 
@@ -272,6 +283,16 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     setShowUploadModal(false);
 
     try {
+      // Compress image before upload
+      let fileToUpload = selectedFile;
+      try {
+        fileToUpload = await compressImage(selectedFile);
+      } catch (error) {
+        // If compression fails, use original file
+        console.warn('Image compression failed, using original file', error);
+        fileToUpload = selectedFile;
+      }
+
       const reader = new FileReader();
 
       reader.onload = async e => {
@@ -285,14 +306,14 @@ const UploadImages: React.FC<UploadImagesProps> = ({
 
             if (authToken && backend?.uploadAsset) {
               response = await backend.uploadAsset(
-                selectedFile.name,
+                fileToUpload.name,
                 fileDataUrl,
                 authToken,
                 // memoriID
               );
             } else if (memoriID && sessionID && backend?.uploadAssetUnlogged) {
               response = await backend.uploadAssetUnlogged(
-                selectedFile.name,
+                fileToUpload.name,
                 fileDataUrl,
                 memoriID,
                 sessionID
@@ -379,7 +400,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
         setIsLoading(false);
       };
 
-      reader.readAsDataURL(selectedFile);
+      reader.readAsDataURL(fileToUpload);
     } catch (error) {
       onImageError?.({
         message: t('upload.uploadFailed') ?? 'Upload failed',
