@@ -21,6 +21,8 @@ import ChatInputs from '../ChatInputs/ChatInputs';
 import Typing from '../Typing/Typing';
 import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
 import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler';
+import { DocumentIcon } from '../icons/Document';
+import { useTranslation } from 'react-i18next';
 export interface Props {
   memori: Memori;
   tenant?: Tenant;
@@ -125,7 +127,8 @@ const Chat: React.FC<Props> = ({
   showFunctionCache = false,
 }) => {
   const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
-
+  const [isDragging, setIsDragging] = useState(false);
+  const { t } = useTranslation();
   const scrollToBottom = () => {
     if (isHistoryView) return;
     setTimeout(() => {
@@ -183,16 +186,82 @@ const Chat: React.FC<Props> = ({
     setIsTextareaExpanded(expanded);
   };
 
+  // Drag and drop handlers for overlay
+  useEffect(() => {
+    let dragCounter = 0;
+    const chatWrapper = document.getElementById('chat-wrapper');
+
+    const handleDragEnter = (e: DragEvent) => {
+      // Only show overlay if dragging files (not text/links)
+      if (e.dataTransfer?.types.includes('Files')) {
+        dragCounter++;
+        if (dragCounter === 1) {
+          setIsDragging(true);
+        }
+      }
+    };
+
+    const handleDragLeave = (e: DragEvent) => {
+      if (e.dataTransfer?.types.includes('Files')) {
+        dragCounter--;
+        if (dragCounter === 0) {
+          setIsDragging(false);
+        }
+      }
+    };
+
+    const handleDragOver = (e: DragEvent) => {
+      // Prevent default to allow drop, but don't stop propagation
+      if (e.dataTransfer?.types.includes('Files')) {
+        e.preventDefault();
+      }
+    };
+
+    const handleDrop = (e: DragEvent) => {
+      // Reset dragging state, but let UploadButton handle the actual drop
+      if (e.dataTransfer?.types.includes('Files')) {
+        dragCounter = 0;
+        setIsDragging(false);
+      }
+    };
+
+    if (chatWrapper) {
+      chatWrapper.addEventListener('dragenter', handleDragEnter);
+      chatWrapper.addEventListener('dragleave', handleDragLeave);
+      chatWrapper.addEventListener('dragover', handleDragOver);
+      chatWrapper.addEventListener('drop', handleDrop);
+    }
+
+    return () => {
+      if (chatWrapper) {
+        chatWrapper.removeEventListener('dragenter', handleDragEnter);
+        chatWrapper.removeEventListener('dragleave', handleDragLeave);
+        chatWrapper.removeEventListener('dragover', handleDragOver);
+        chatWrapper.removeEventListener('drop', handleDrop);
+      }
+    };
+  }, []);
+
   return (
     <div
       className={cx('memori-chat--wrapper', {
         'memori-chat-wrapper--translate': translateTo,
         'memori-chat-wrapper--expanded': isTextareaExpanded,
+        'memori-chat-wrapper--dragging': isDragging,
       })}
       id="chat-wrapper"
       lang={translateTo?.toUpperCase()}
       data-memori-lang={memori.culture?.split('-')?.[0]?.toUpperCase() ?? 'EN'}
     >
+      {/* Drag and drop overlay */}
+      {isDragging && (
+        <div className="memori-chat--drag-overlay">
+          <DocumentIcon className="memori-chat--drag-overlay-icon" />
+          <span className="memori-chat--drag-overlay-text">
+            {t('upload.dragAndDropFiles') ?? 'Drag and drop files here to add them to the chat'}
+          </span>
+        </div>
+      )}
       <div
         className={cx('memori-chat--history', {
           'memori-chat--history-touch': hasTouchscreen(),

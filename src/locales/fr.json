@@ -245,9 +245,10 @@
   "upload": {
     "loginRequired": "Connexion requise",
     "loginRequiredDescription": "Veuillez vous connecter pour télécharger des images",
-    "uploadFiles": "Télécharger des fichiers",
-    "uploadImage": "Télécharger une image",
-    "uploadDocument": "Télécharger un document",
+    "uploadFiles": "Télécharger des fichiers ({{shortcut}}+O pour ouvrir le sélecteur de fichiers)",
+    "uploadFilesWithShortcut": "{{shortcut}}+O pour ouvrir le sélecteur de fichiers",
+    "uploadImages": "Télécharger des images",
+    "uploadDocuments": "Télécharger des documents",
     "replace": "Remplacer",
     "remaining": "restant",
     "maxReached": "Limite atteinte",
@@ -256,7 +257,8 @@
     "fileReadingFailed": "Échec de la lecture du fichier",
     "uploadFailed": "Échec du téléchargement",
     "uploadSuccess": "Téléchargement réussi",
-    "uploadSuccessDescription": "Le fichier a été téléchargé avec succès"
+    "uploadSuccessDescription": "Le fichier a été téléchargé avec succès",
+    "dragAndDropFiles": "Glissez et déposez les fichiers ici pour les ajouter à la chat"
   },
   "media": {
     "title": "Titre",
