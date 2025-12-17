@@ -1,5 +1,6 @@
 .memori-chat-textarea {
     position: relative;
+    z-index: 1000;
     min-height: 40px;
     box-sizing: border-box;
     flex: 1 0 auto;
