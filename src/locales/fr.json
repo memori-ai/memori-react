@@ -245,8 +245,8 @@
   "upload": {
     "loginRequired": "Connexion requise",
     "loginRequiredDescription": "Veuillez vous connecter pour télécharger des images",
-    "uploadFiles": "Télécharger des fichiers",
-    "uploadFilesWithShortcut": "{{shortcut}}+V pour ouvrir le sélecteur de fichiers",
+    "uploadFiles": "Télécharger des fichiers ({{shortcut}}+O pour ouvrir le sélecteur de fichiers)",
+    "uploadFilesWithShortcut": "{{shortcut}}+O pour ouvrir le sélecteur de fichiers",
     "uploadImages": "Télécharger des images",
     "uploadDocuments": "Télécharger des documents",
     "replace": "Remplacer",

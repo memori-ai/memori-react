@@ -250,8 +250,8 @@
   "upload": {
     "loginRequired": "Login required",
     "loginRequiredDescription": "Please login to upload images",
-    "uploadFiles": "Upload files",
-    "uploadFilesWithShortcut": "Upload files (drag & drop, or {{shortcut}}+V to open file chooser)",
+    "uploadFiles": "Upload files ({{shortcut}}+O to open file chooser)",
+    "uploadFilesWithShortcut": "{{shortcut}}+O to open file chooser",
     "uploadImages": "Upload images",
     "replace": "Replace",
     "maxImagesReached": "You can upload up to {{max}} images",

@@ -274,8 +274,8 @@
   "upload": {
     "loginRequired": "Login richiesto",
     "loginRequiredDescription": "Per caricare immagini, devi prima accedere",
-    "uploadFiles": "Carica file",
-    "uploadFilesWithShortcut": "{{shortcut}}+V per aprire il selettore file",
+    "uploadFiles": "Carica file ({{shortcut}}+O per aprire il selettore file)",
+    "uploadFilesWithShortcut": "{{shortcut}}+O per aprire il selettore file",
     "uploadImages": "Carica immagini",
     "lastDocumentSlot": "Carica ultimo documento",
     "uploadDocuments": "Carica documenti",

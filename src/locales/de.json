@@ -237,8 +237,8 @@
   "upload": {
     "loginRequired": "Login erforderlich",
     "loginRequiredDescription": "Bitte melden Sie sich an, um Bilder hochzuladen",
-    "uploadFiles": "Dateien hochladen",
-    "uploadFilesWithShortcut": "Dateien hochladen (ziehen und ablegen, oder {{shortcut}}+V zum Öffnen des Datei-Selektors)",
+    "uploadFiles": "Dateien hochladen ({{shortcut}}+O zum Öffnen des Datei-Selektors)",
+    "uploadFilesWithShortcut": "{{shortcut}}+O zum Öffnen des Datei-Selektors",
     "uploadImages": "Bilder hochladen",
     "uploadDocuments": "Dokumente hochladen",
     "replace": "Ersetzen",

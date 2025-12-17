@@ -237,8 +237,8 @@
   "upload": {
     "loginRequired": "Connexion requise",
     "loginRequiredDescription": "Veuillez vous connecter pour télécharger des images",
-    "uploadFiles": "Télécharger des fichiers",
-    "uploadFilesWithShortcut": "Télécharger des fichiers (arrastrar y soltar, o {{shortcut}}+V para abrir el selector de archivos)",
+    "uploadFiles": "Télécharger des fichiers ({{shortcut}}+O para abrir el selector de archivos)",
+    "uploadFilesWithShortcut": "{{shortcut}}+O para abrir el selector de archivos",
     "uploadImages": "Télécharger des images",
     "uploadDocuments": "Télécharger des documents",
     "apiClientNotConfigured": "API client non configuré correctement pour le téléchargement de médias",

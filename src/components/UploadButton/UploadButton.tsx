@@ -9,6 +9,7 @@ import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
+import Tooltip from '../ui/Tooltip';
 
 // Constants
 const MAX_MEDIA = 10;
@@ -214,41 +215,6 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       document.removeEventListener('paste', handlePaste);
     };
   }, [handleUnifiedFileSelection]);
-
-  // Keyboard shortcut handler for CMD+V / Ctrl+V to open file chooser
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      // Check for CMD+V (Mac) or Ctrl+V (Windows/Linux)
-      const isModifierPressed = e.metaKey || e.ctrlKey;
-      const isVPressed = e.key === 'v' || e.key === 'V';
-
-      if (isModifierPressed && isVPressed) {
-        // Don't trigger if user is typing in an input/textarea
-        const target = e.target as HTMLElement;
-        const isInputElement =
-          target.tagName === 'INPUT' ||
-          target.tagName === 'TEXTAREA' ||
-          target.isContentEditable;
-
-        // Only open file chooser if not in an input field and button is not disabled
-        if (
-          !isInputElement &&
-          !isLoading &&
-          !(currentMediaCountRef.current >= MAX_MEDIA)
-        ) {
-          e.preventDefault();
-          if (unifiedInputRef.current) {
-            unifiedInputRef.current.click();
-          }
-        }
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isLoading]);
 
   // Drag and drop handlers
   useEffect(() => {
@@ -501,7 +467,7 @@ ${file.content}
         )}
         onClick={handleButtonClick}
         disabled={isLoading || hasReachedMediaLimit}
-        title={t('upload.uploadFilesWithShortcut', { shortcut: /Mac|iPhone|iPod|iPad/i.test(navigator.platform) || navigator.userAgent.includes('Mac') ? 'Cmd' : 'Ctrl' }) ?? 'Upload files (drag & drop, or Cmd+V to open file chooser)'}
+        title={t('upload.uploadFiles', { shortcut: /Mac|iPhone|iPod|iPad/i.test(navigator.platform) || navigator.userAgent.includes('Mac') ? 'Cmd' : 'Ctrl' }) ?? 'Upload files (drag & drop)'}
       >
         {isLoading ? (
           <Spin spinning className="memori--upload-icon" />
