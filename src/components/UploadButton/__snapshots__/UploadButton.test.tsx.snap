@@ -14,7 +14,7 @@ exports[`renders UploadButton unchanged 1`] = `
     />
     <button
       class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button memori--unified-upload-button"
-      title="upload.uploadFilesWithShortcut"
+      title="upload.uploadFiles"
     >
       <svg
         class="memori--upload-icon"
