@@ -105,13 +105,6 @@ exports[`renders ChatInputs disabled unchanged 1`] = `
         </div>
       </div>
     </fieldset>
-    <div
-      class="memori-chat-inputs--disclaimer"
-    >
-      <div>
-        chat.disclaimer
-      </div>
-    </div>
   </div>
 </div>
 `;
@@ -219,13 +212,6 @@ exports[`renders ChatInputs listening unchanged 1`] = `
         </div>
       </div>
     </fieldset>
-    <div
-      class="memori-chat-inputs--disclaimer"
-    >
-      <div>
-        chat.disclaimer
-      </div>
-    </div>
   </div>
 </div>
 `;
@@ -333,13 +319,6 @@ exports[`renders ChatInputs on instruct unchanged 1`] = `
         </div>
       </div>
     </fieldset>
-    <div
-      class="memori-chat-inputs--disclaimer"
-    >
-      <div>
-        chat.disclaimer
-      </div>
-    </div>
   </div>
 </div>
 `;
@@ -446,13 +425,6 @@ exports[`renders ChatInputs unchanged 1`] = `
         </div>
       </div>
     </fieldset>
-    <div
-      class="memori-chat-inputs--disclaimer"
-    >
-      <div>
-        chat.disclaimer
-      </div>
-    </div>
   </div>
 </div>
 `;
@@ -560,13 +532,6 @@ exports[`renders ChatInputs with user message unchanged 1`] = `
         </div>
       </div>
     </fieldset>
-    <div
-      class="memori-chat-inputs--disclaimer"
-    >
-      <div>
-        chat.disclaimer
-      </div>
-    </div>
   </div>
 </div>
 `;
@@ -637,13 +602,6 @@ exports[`renders ChatInputs without microphone button unchanged 1`] = `
         </div>
       </div>
     </fieldset>
-    <div
-      class="memori-chat-inputs--disclaimer"
-    >
-      <div>
-        chat.disclaimer
-      </div>
-    </div>
   </div>
 </div>
 `;

@@ -323,14 +323,14 @@ const ChatInputs: React.FC<Props> = ({
         </div>
       </fieldset>
       {/* Disclaimer */}
-      <div className="memori-chat-inputs--disclaimer">
+      {/* <div className="memori-chat-inputs--disclaimer">
         <div>
           {t(
             'chat.disclaimer',
             'AIsuru può commettere errori. Assicurati di verificare le informazioni importanti.'
           )}
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
