@@ -6,7 +6,7 @@ exports[`renders UploadButton unchanged 1`] = `
     class="memori--unified-upload-wrapper"
   >
     <input
-      accept=".jpg,.jpeg,.png,.pdf,.txt,.json,.xlsx,.csv,.md"
+      accept=".jpg,.jpeg,.png,.pdf,.txt,.json,.xlsx,.csv,.md,.html"
       class="memori--upload-file-input"
       multiple=""
       style="display: none;"
@@ -52,7 +52,7 @@ exports[`renders UploadButton unchanged 1`] = `
         class="memori--document-upload-wrapper"
       >
         <input
-          accept=".pdf,.txt,.md,.json,.xlsx,.csv"
+          accept=".pdf,.txt,.md,.json,.xlsx,.csv,.html"
           class="memori--upload-file-input"
           multiple=""
           type="file"

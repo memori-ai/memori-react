@@ -220,7 +220,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
       if (fileExt === 'pdf') {
         text = await extractTextFromPDF(file);
-      } else if (['txt', 'md', 'json', 'csv'].includes(fileExt)) {
+      } else if (['txt', 'md', 'json', 'csv', 'html'].includes(fileExt)) {
         text = await file.text();
       } else if (fileExt === 'xlsx') {
         text = await extractTextFromXLSX(file);
@@ -350,7 +350,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       <input
         ref={documentInputRef}
         type="file"
-        accept=".pdf,.txt,.md,.json,.xlsx,.csv"
+        accept=".pdf,.txt,.md,.json,.xlsx,.csv,.html"
         multiple
         className="memori--upload-file-input"
         onChange={handleDocumentUpload}

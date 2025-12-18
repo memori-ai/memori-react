@@ -192,7 +192,7 @@
 
 .memori--conversation-button:active,
 .memori--conversation-button:focus {
-    box-shadow: 0 0.2rem 0.33rem #b5b6c4 !important;
+    /* box-shadow: 0 0.2rem 0.33rem #b5b6c4 !important; */
     color: var(--memori-primary) !important;
 }
 

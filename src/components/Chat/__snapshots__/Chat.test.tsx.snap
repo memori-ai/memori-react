@@ -379,22 +379,21 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-media-widget"
         >
           <div
-            class="memori-link-items"
+            class="memori-media-items"
           >
             <div
-              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
+              class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
               >
                 <a
-                  class="memori-link-item--link"
-                  href="https://memori.ai"
-                  rel="noopener noreferrer"
-                  target="_blank"
+                  class="memori-media-item--link"
+                  href="#"
+                  title="Link"
                 >
                   <div
-                    class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
+                    class="memori-card memori-card--with-cover memori-card--hoverable"
                   >
                     <div
                       class="memori-spin"
@@ -402,22 +401,18 @@ exports[`renders Chat unchanged 1`] = `
                       <div
                         class="memori-card--cover"
                       >
-                        <div
-                          class="memori-link-item--card-cover-icon"
+                        <svg
+                          aria-hidden="true"
+                          class="memori-media-item--icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <svg
-                            aria-hidden="true"
-                            class="memori-link-item--icon"
-                            focusable="false"
-                            role="img"
-                            viewBox="0 0 1024 1024"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
-                            />
-                          </svg>
-                        </div>
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z"
+                          />
+                        </svg>
                       </div>
                       <div
                         class="memori-card--content"
@@ -605,47 +600,77 @@ exports[`renders Chat unchanged 1`] = `
         />
       </div>
     </div>
-    <fieldset
-      class="memori-chat-inputs"
-      id="chat-fieldset"
+    <div
+      class="memori-chat-inputs-wrapper"
     >
-      <div
-        class="memori-chat-textarea"
-        data-testid="chat-textarea"
+      <fieldset
+        class="memori-chat-inputs"
+        id="chat-fieldset"
       >
         <div
-          class="memori-chat-textarea--inner"
-          style="height: 30px;"
+          class="memori-chat-inputs--container"
         >
-          <textarea
-            class="memori-chat-textarea--input"
-            maxlength="100000"
-            style="height: 30px;"
+          <div
+            class="memori-chat-inputs--leading"
           />
+          <div
+            class="memori-chat-inputs--primary"
+          >
+            <div
+              class="memori-chat-textarea"
+              data-testid="chat-textarea"
+            >
+              <div
+                class="memori-chat-textarea--inner"
+                style="height: 36px;"
+              >
+                <textarea
+                  class="memori-chat-textarea--input"
+                  maxlength="100000"
+                  placeholder="chat.placeholder"
+                  style="height: 36px;"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="memori-chat-inputs--trailing"
+          >
+            <div
+              class="memori-chat-inputs--trailing-inner"
+            >
+              <button
+                aria-label="send"
+                class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
+                disabled=""
+                title="send"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="icon"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div
+        class="memori-chat-inputs--disclaimer"
+      >
+        <div>
+          chat.disclaimer
         </div>
       </div>
-      <button
-        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
-        disabled=""
-        title="send"
-      >
-        <span
-          class="memori-button--icon"
-        >
-          <svg
-            aria-hidden="true"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
-            />
-          </svg>
-        </span>
-      </button>
-    </fieldset>
+    </div>
   </div>
 </div>
 `;
@@ -1044,22 +1069,21 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-media-widget"
         >
           <div
-            class="memori-link-items"
+            class="memori-media-items"
           >
             <div
-              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
+              class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
               >
                 <a
-                  class="memori-link-item--link"
-                  href="https://memori.ai"
-                  rel="noopener noreferrer"
-                  target="_blank"
+                  class="memori-media-item--link"
+                  href="#"
+                  title="Link"
                 >
                   <div
-                    class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
+                    class="memori-card memori-card--with-cover memori-card--hoverable"
                   >
                     <div
                       class="memori-spin"
@@ -1067,22 +1091,18 @@ exports[`renders Chat with context vars unchanged 1`] = `
                       <div
                         class="memori-card--cover"
                       >
-                        <div
-                          class="memori-link-item--card-cover-icon"
+                        <svg
+                          aria-hidden="true"
+                          class="memori-media-item--icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <svg
-                            aria-hidden="true"
-                            class="memori-link-item--icon"
-                            focusable="false"
-                            role="img"
-                            viewBox="0 0 1024 1024"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
-                            />
-                          </svg>
-                        </div>
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z"
+                          />
+                        </svg>
                       </div>
                       <div
                         class="memori-card--content"
@@ -1285,47 +1305,77 @@ exports[`renders Chat with context vars unchanged 1`] = `
         />
       </div>
     </div>
-    <fieldset
-      class="memori-chat-inputs"
-      id="chat-fieldset"
+    <div
+      class="memori-chat-inputs-wrapper"
     >
-      <div
-        class="memori-chat-textarea"
-        data-testid="chat-textarea"
+      <fieldset
+        class="memori-chat-inputs"
+        id="chat-fieldset"
       >
         <div
-          class="memori-chat-textarea--inner"
-          style="height: 30px;"
+          class="memori-chat-inputs--container"
         >
-          <textarea
-            class="memori-chat-textarea--input"
-            maxlength="100000"
-            style="height: 30px;"
+          <div
+            class="memori-chat-inputs--leading"
           />
+          <div
+            class="memori-chat-inputs--primary"
+          >
+            <div
+              class="memori-chat-textarea"
+              data-testid="chat-textarea"
+            >
+              <div
+                class="memori-chat-textarea--inner"
+                style="height: 36px;"
+              >
+                <textarea
+                  class="memori-chat-textarea--input"
+                  maxlength="100000"
+                  placeholder="chat.placeholder"
+                  style="height: 36px;"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="memori-chat-inputs--trailing"
+          >
+            <div
+              class="memori-chat-inputs--trailing-inner"
+            >
+              <button
+                aria-label="send"
+                class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
+                disabled=""
+                title="send"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="icon"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div
+        class="memori-chat-inputs--disclaimer"
+      >
+        <div>
+          chat.disclaimer
         </div>
       </div>
-      <button
-        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
-        disabled=""
-        title="send"
-      >
-        <span
-          class="memori-button--icon"
-        >
-          <svg
-            aria-hidden="true"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
-            />
-          </svg>
-        </span>
-      </button>
-    </fieldset>
+    </div>
   </div>
 </div>
 `;
@@ -1693,22 +1743,21 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-media-widget"
         >
           <div
-            class="memori-link-items"
+            class="memori-media-items"
           >
             <div
-              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
+              class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
               >
                 <a
-                  class="memori-link-item--link"
-                  href="https://memori.ai"
-                  rel="noopener noreferrer"
-                  target="_blank"
+                  class="memori-media-item--link"
+                  href="#"
+                  title="Link"
                 >
                   <div
-                    class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
+                    class="memori-card memori-card--with-cover memori-card--hoverable"
                   >
                     <div
                       class="memori-spin"
@@ -1716,22 +1765,18 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                       <div
                         class="memori-card--cover"
                       >
-                        <div
-                          class="memori-link-item--card-cover-icon"
+                        <svg
+                          aria-hidden="true"
+                          class="memori-media-item--icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <svg
-                            aria-hidden="true"
-                            class="memori-link-item--icon"
-                            focusable="false"
-                            role="img"
-                            viewBox="0 0 1024 1024"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
-                            />
-                          </svg>
-                        </div>
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z"
+                          />
+                        </svg>
                       </div>
                       <div
                         class="memori-card--content"
@@ -1911,47 +1956,77 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
         />
       </div>
     </div>
-    <fieldset
-      class="memori-chat-inputs"
-      id="chat-fieldset"
+    <div
+      class="memori-chat-inputs-wrapper"
     >
-      <div
-        class="memori-chat-textarea"
-        data-testid="chat-textarea"
+      <fieldset
+        class="memori-chat-inputs"
+        id="chat-fieldset"
       >
         <div
-          class="memori-chat-textarea--inner"
-          style="height: 30px;"
+          class="memori-chat-inputs--container"
         >
-          <textarea
-            class="memori-chat-textarea--input"
-            maxlength="100000"
-            style="height: 30px;"
+          <div
+            class="memori-chat-inputs--leading"
           />
+          <div
+            class="memori-chat-inputs--primary"
+          >
+            <div
+              class="memori-chat-textarea"
+              data-testid="chat-textarea"
+            >
+              <div
+                class="memori-chat-textarea--inner"
+                style="height: 36px;"
+              >
+                <textarea
+                  class="memori-chat-textarea--input"
+                  maxlength="100000"
+                  placeholder="chat.placeholder"
+                  style="height: 36px;"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="memori-chat-inputs--trailing"
+          >
+            <div
+              class="memori-chat-inputs--trailing-inner"
+            >
+              <button
+                aria-label="send"
+                class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
+                disabled=""
+                title="send"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="icon"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div
+        class="memori-chat-inputs--disclaimer"
+      >
+        <div>
+          chat.disclaimer
         </div>
       </div>
-      <button
-        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
-        disabled=""
-        title="send"
-      >
-        <span
-          class="memori-button--icon"
-        >
-          <svg
-            aria-hidden="true"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
-            />
-          </svg>
-        </span>
-      </button>
-    </fieldset>
+    </div>
   </div>
 </div>
 `;
@@ -2323,22 +2398,21 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-media-widget"
         >
           <div
-            class="memori-link-items"
+            class="memori-media-items"
           >
             <div
-              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
+              class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
               >
                 <a
-                  class="memori-link-item--link"
-                  href="https://memori.ai"
-                  rel="noopener noreferrer"
-                  target="_blank"
+                  class="memori-media-item--link"
+                  href="#"
+                  title="Link"
                 >
                   <div
-                    class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
+                    class="memori-card memori-card--with-cover memori-card--hoverable"
                   >
                     <div
                       class="memori-spin"
@@ -2346,22 +2420,18 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                       <div
                         class="memori-card--cover"
                       >
-                        <div
-                          class="memori-link-item--card-cover-icon"
+                        <svg
+                          aria-hidden="true"
+                          class="memori-media-item--icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <svg
-                            aria-hidden="true"
-                            class="memori-link-item--icon"
-                            focusable="false"
-                            role="img"
-                            viewBox="0 0 1024 1024"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
-                            />
-                          </svg>
-                        </div>
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z"
+                          />
+                        </svg>
                       </div>
                       <div
                         class="memori-card--content"
@@ -2543,47 +2613,77 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
         />
       </div>
     </div>
-    <fieldset
-      class="memori-chat-inputs"
-      id="chat-fieldset"
+    <div
+      class="memori-chat-inputs-wrapper"
     >
-      <div
-        class="memori-chat-textarea"
-        data-testid="chat-textarea"
+      <fieldset
+        class="memori-chat-inputs"
+        id="chat-fieldset"
       >
         <div
-          class="memori-chat-textarea--inner"
-          style="height: 30px;"
+          class="memori-chat-inputs--container"
         >
-          <textarea
-            class="memori-chat-textarea--input"
-            maxlength="100000"
-            style="height: 30px;"
+          <div
+            class="memori-chat-inputs--leading"
           />
+          <div
+            class="memori-chat-inputs--primary"
+          >
+            <div
+              class="memori-chat-textarea"
+              data-testid="chat-textarea"
+            >
+              <div
+                class="memori-chat-textarea--inner"
+                style="height: 36px;"
+              >
+                <textarea
+                  class="memori-chat-textarea--input"
+                  maxlength="100000"
+                  placeholder="chat.placeholder"
+                  style="height: 36px;"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="memori-chat-inputs--trailing"
+          >
+            <div
+              class="memori-chat-inputs--trailing-inner"
+            >
+              <button
+                aria-label="send"
+                class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
+                disabled=""
+                title="send"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="icon"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div
+        class="memori-chat-inputs--disclaimer"
+      >
+        <div>
+          chat.disclaimer
         </div>
       </div>
-      <button
-        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
-        disabled=""
-        title="send"
-      >
-        <span
-          class="memori-button--icon"
-        >
-          <svg
-            aria-hidden="true"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
-            />
-          </svg>
-        </span>
-      </button>
-    </fieldset>
+    </div>
   </div>
 </div>
 `;
@@ -2992,22 +3092,21 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-media-widget"
         >
           <div
-            class="memori-link-items"
+            class="memori-media-items"
           >
             <div
-              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
+              class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
               >
                 <a
-                  class="memori-link-item--link"
-                  href="https://memori.ai"
-                  rel="noopener noreferrer"
-                  target="_blank"
+                  class="memori-media-item--link"
+                  href="#"
+                  title="Link"
                 >
                   <div
-                    class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
+                    class="memori-card memori-card--with-cover memori-card--hoverable"
                   >
                     <div
                       class="memori-spin"
@@ -3015,22 +3114,18 @@ exports[`renders Chat with dates unchanged 1`] = `
                       <div
                         class="memori-card--cover"
                       >
-                        <div
-                          class="memori-link-item--card-cover-icon"
+                        <svg
+                          aria-hidden="true"
+                          class="memori-media-item--icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <svg
-                            aria-hidden="true"
-                            class="memori-link-item--icon"
-                            focusable="false"
-                            role="img"
-                            viewBox="0 0 1024 1024"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
-                            />
-                          </svg>
-                        </div>
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z"
+                          />
+                        </svg>
                       </div>
                       <div
                         class="memori-card--content"
@@ -3228,47 +3323,77 @@ exports[`renders Chat with dates unchanged 1`] = `
         />
       </div>
     </div>
-    <fieldset
-      class="memori-chat-inputs"
-      id="chat-fieldset"
+    <div
+      class="memori-chat-inputs-wrapper"
     >
-      <div
-        class="memori-chat-textarea"
-        data-testid="chat-textarea"
+      <fieldset
+        class="memori-chat-inputs"
+        id="chat-fieldset"
       >
         <div
-          class="memori-chat-textarea--inner"
-          style="height: 30px;"
+          class="memori-chat-inputs--container"
         >
-          <textarea
-            class="memori-chat-textarea--input"
-            maxlength="100000"
-            style="height: 30px;"
+          <div
+            class="memori-chat-inputs--leading"
           />
+          <div
+            class="memori-chat-inputs--primary"
+          >
+            <div
+              class="memori-chat-textarea"
+              data-testid="chat-textarea"
+            >
+              <div
+                class="memori-chat-textarea--inner"
+                style="height: 36px;"
+              >
+                <textarea
+                  class="memori-chat-textarea--input"
+                  maxlength="100000"
+                  placeholder="chat.placeholder"
+                  style="height: 36px;"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="memori-chat-inputs--trailing"
+          >
+            <div
+              class="memori-chat-inputs--trailing-inner"
+            >
+              <button
+                aria-label="send"
+                class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
+                disabled=""
+                title="send"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="icon"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div
+        class="memori-chat-inputs--disclaimer"
+      >
+        <div>
+          chat.disclaimer
         </div>
       </div>
-      <button
-        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
-        disabled=""
-        title="send"
-      >
-        <span
-          class="memori-button--icon"
-        >
-          <svg
-            aria-hidden="true"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
-            />
-          </svg>
-        </span>
-      </button>
-    </fieldset>
+    </div>
   </div>
 </div>
 `;
@@ -3652,22 +3777,21 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-media-widget"
         >
           <div
-            class="memori-link-items"
+            class="memori-media-items"
           >
             <div
-              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
+              class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
               >
                 <a
-                  class="memori-link-item--link"
-                  href="https://memori.ai"
-                  rel="noopener noreferrer"
-                  target="_blank"
+                  class="memori-media-item--link"
+                  href="#"
+                  title="Link"
                 >
                   <div
-                    class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
+                    class="memori-card memori-card--with-cover memori-card--hoverable"
                   >
                     <div
                       class="memori-spin"
@@ -3675,22 +3799,18 @@ exports[`renders Chat with hints unchanged 1`] = `
                       <div
                         class="memori-card--cover"
                       >
-                        <div
-                          class="memori-link-item--card-cover-icon"
+                        <svg
+                          aria-hidden="true"
+                          class="memori-media-item--icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <svg
-                            aria-hidden="true"
-                            class="memori-link-item--icon"
-                            focusable="false"
-                            role="img"
-                            viewBox="0 0 1024 1024"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
-                            />
-                          </svg>
-                        </div>
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z"
+                          />
+                        </svg>
                       </div>
                       <div
                         class="memori-card--content"
@@ -3904,47 +4024,77 @@ exports[`renders Chat with hints unchanged 1`] = `
         />
       </div>
     </div>
-    <fieldset
-      class="memori-chat-inputs"
-      id="chat-fieldset"
+    <div
+      class="memori-chat-inputs-wrapper"
     >
-      <div
-        class="memori-chat-textarea"
-        data-testid="chat-textarea"
+      <fieldset
+        class="memori-chat-inputs"
+        id="chat-fieldset"
       >
         <div
-          class="memori-chat-textarea--inner"
-          style="height: 30px;"
+          class="memori-chat-inputs--container"
         >
-          <textarea
-            class="memori-chat-textarea--input"
-            maxlength="100000"
-            style="height: 30px;"
+          <div
+            class="memori-chat-inputs--leading"
           />
+          <div
+            class="memori-chat-inputs--primary"
+          >
+            <div
+              class="memori-chat-textarea"
+              data-testid="chat-textarea"
+            >
+              <div
+                class="memori-chat-textarea--inner"
+                style="height: 36px;"
+              >
+                <textarea
+                  class="memori-chat-textarea--input"
+                  maxlength="100000"
+                  placeholder="chat.placeholder"
+                  style="height: 36px;"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="memori-chat-inputs--trailing"
+          >
+            <div
+              class="memori-chat-inputs--trailing-inner"
+            >
+              <button
+                aria-label="send"
+                class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
+                disabled=""
+                title="send"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="icon"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div
+        class="memori-chat-inputs--disclaimer"
+      >
+        <div>
+          chat.disclaimer
         </div>
       </div>
-      <button
-        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
-        disabled=""
-        title="send"
-      >
-        <span
-          class="memori-button--icon"
-        >
-          <svg
-            aria-hidden="true"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
-            />
-          </svg>
-        </span>
-      </button>
-    </fieldset>
+    </div>
   </div>
 </div>
 `;
@@ -4338,6 +4488,254 @@ exports[`renders Chat with media unchanged 1`] = `
               >
                 <a
                   class="memori-media-item--link"
+                  href="#"
+                  title="Link Memori Srl"
+                >
+                  <div
+                    class="memori-card memori-card--with-cover memori-card--hoverable"
+                  >
+                    <div
+                      class="memori-spin"
+                    >
+                      <div
+                        class="memori-card--cover"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="memori-media-item--icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="memori-card--content"
+                      >
+                        <h3
+                          class="memori-card--title"
+                        >
+                          Link Memori Srl
+                        </h3>
+                        <div
+                          class="memori-card--children"
+                        />
+                      </div>
+                      <div
+                        class="memori-spin--spinner"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="memori-loading-icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div
+                class="memori-media-item ease-out duration-500 delay-100 opacity-0 scale-95"
+              >
+                <a
+                  class="memori-media-item--link"
+                  href="#"
+                  title="Link RawMaterial"
+                >
+                  <div
+                    class="memori-card memori-card--with-cover memori-card--hoverable"
+                  >
+                    <div
+                      class="memori-spin"
+                    >
+                      <div
+                        class="memori-card--cover"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="memori-media-item--icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="memori-card--content"
+                      >
+                        <h3
+                          class="memori-card--title"
+                        >
+                          Link RawMaterial
+                        </h3>
+                        <div
+                          class="memori-card--children"
+                        />
+                      </div>
+                      <div
+                        class="memori-spin--spinner"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="memori-loading-icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div
+                class="memori-media-item ease-out duration-500 delay-200 opacity-0 scale-95"
+              >
+                <a
+                  class="memori-media-item--link"
+                  href="#"
+                  title="Introducing Plone Remix | Vimeo"
+                >
+                  <div
+                    class="memori-card memori-card--with-cover memori-card--hoverable"
+                  >
+                    <div
+                      class="memori-spin"
+                    >
+                      <div
+                        class="memori-card--cover"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="memori-media-item--icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="memori-card--content"
+                      >
+                        <h3
+                          class="memori-card--title"
+                        >
+                          Introducing Plone Remix | Vimeo
+                        </h3>
+                        <div
+                          class="memori-card--children"
+                        />
+                      </div>
+                      <div
+                        class="memori-spin--spinner"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="memori-loading-icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div
+                class="memori-media-item ease-out duration-500 delay-300 opacity-0 scale-95"
+              >
+                <a
+                  class="memori-media-item--link"
+                  href="#"
+                  title="A sustainable web: is it possible? - Nicola Zambello | YouTube"
+                >
+                  <div
+                    class="memori-card memori-card--with-cover memori-card--hoverable"
+                  >
+                    <div
+                      class="memori-spin"
+                    >
+                      <div
+                        class="memori-card--cover"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="memori-media-item--icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z"
+                          />
+                        </svg>
+                      </div>
+                      <div
+                        class="memori-card--content"
+                      >
+                        <h3
+                          class="memori-card--title"
+                        >
+                          A sustainable web: is it possible? - Nicola Zambello | YouTube
+                        </h3>
+                        <div
+                          class="memori-card--children"
+                        />
+                      </div>
+                      <div
+                        class="memori-spin--spinner"
+                      >
+                        <svg
+                          aria-hidden="true"
+                          class="memori-loading-icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div
+                class="memori-media-item ease-out duration-500 delay-400 opacity-0 scale-95"
+              >
+                <a
+                  class="memori-media-item--link"
                   href="https://picsum.photos/300/200?random=0"
                   rel="noopener noreferrer"
                   target="_blank"
@@ -4398,7 +4796,7 @@ exports[`renders Chat with media unchanged 1`] = `
                 </a>
               </div>
               <div
-                class="memori-media-item ease-out duration-500 delay-100 opacity-0 scale-95"
+                class="memori-media-item ease-out duration-500 delay-500 opacity-0 scale-95"
               >
                 <a
                   class="memori-media-item--link"
@@ -4462,7 +4860,7 @@ exports[`renders Chat with media unchanged 1`] = `
                 </a>
               </div>
               <div
-                class="memori-media-item ease-out duration-500 delay-200 opacity-0 scale-95"
+                class="memori-media-item ease-out duration-500 delay-600 opacity-0 scale-95"
               >
                 <a
                   class="memori-media-item--link"
@@ -4501,282 +4899,6 @@ exports[`renders Chat with media unchanged 1`] = `
                       <div
                         class="memori-card--content"
                       >
-                        <div
-                          class="memori-card--children"
-                        />
-                      </div>
-                      <div
-                        class="memori-spin--spinner"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="memori-loading-icon"
-                          focusable="false"
-                          role="img"
-                          viewBox="0 0 1024 1024"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-          <div
-            class="memori-link-items"
-          >
-            <div
-              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
-            >
-              <div
-                class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
-              >
-                <a
-                  class="memori-link-item--link"
-                  href="https://memori.ai/en"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <div
-                    class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
-                  >
-                    <div
-                      class="memori-spin"
-                    >
-                      <div
-                        class="memori-card--cover"
-                      >
-                        <div
-                          class="memori-link-item--card-cover-icon"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="memori-link-item--icon"
-                            focusable="false"
-                            role="img"
-                            viewBox="0 0 1024 1024"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                      <div
-                        class="memori-card--content"
-                      >
-                        <h3
-                          class="memori-card--title"
-                        >
-                          Link Memori Srl
-                        </h3>
-                        <div
-                          class="memori-card--children"
-                        />
-                      </div>
-                      <div
-                        class="memori-spin--spinner"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="memori-loading-icon"
-                          focusable="false"
-                          role="img"
-                          viewBox="0 0 1024 1024"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div
-                class="memori-link-item ease-out duration-500 delay-100 opacity-0 scale-95"
-              >
-                <a
-                  class="memori-link-item--link"
-                  href="https://rawmaterial.it/en"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <div
-                    class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
-                  >
-                    <div
-                      class="memori-spin"
-                    >
-                      <div
-                        class="memori-card--cover"
-                      >
-                        <div
-                          class="memori-link-item--card-cover-icon"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="memori-link-item--icon"
-                            focusable="false"
-                            role="img"
-                            viewBox="0 0 1024 1024"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                      <div
-                        class="memori-card--content"
-                      >
-                        <h3
-                          class="memori-card--title"
-                        >
-                          Link RawMaterial
-                        </h3>
-                        <div
-                          class="memori-card--children"
-                        />
-                      </div>
-                      <div
-                        class="memori-spin--spinner"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="memori-loading-icon"
-                          focusable="false"
-                          role="img"
-                          viewBox="0 0 1024 1024"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div
-                class="memori-link-item ease-out duration-500 delay-200 opacity-0 scale-95"
-              >
-                <a
-                  class="memori-link-item--link"
-                  href="https://vimeo.com/766468314"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <div
-                    class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
-                  >
-                    <div
-                      class="memori-spin"
-                    >
-                      <div
-                        class="memori-card--cover"
-                      >
-                        <div
-                          class="memori-link-item--card-cover-icon"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="memori-link-item--icon"
-                            focusable="false"
-                            role="img"
-                            viewBox="0 0 1024 1024"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                      <div
-                        class="memori-card--content"
-                      >
-                        <h3
-                          class="memori-card--title"
-                        >
-                          Introducing Plone Remix | Vimeo
-                        </h3>
-                        <div
-                          class="memori-card--children"
-                        />
-                      </div>
-                      <div
-                        class="memori-spin--spinner"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="memori-loading-icon"
-                          focusable="false"
-                          role="img"
-                          viewBox="0 0 1024 1024"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                          />
-                        </svg>
-                      </div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div
-                class="memori-link-item ease-out duration-500 delay-300 opacity-0 scale-95"
-              >
-                <a
-                  class="memori-link-item--link"
-                  href="https://www.youtube.com/watch?v=feH26j3rBz8"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >
-                  <div
-                    class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
-                  >
-                    <div
-                      class="memori-spin"
-                    >
-                      <div
-                        class="memori-card--cover"
-                      >
-                        <div
-                          class="memori-link-item--card-cover-icon"
-                        >
-                          <svg
-                            aria-hidden="true"
-                            class="memori-link-item--icon"
-                            focusable="false"
-                            role="img"
-                            viewBox="0 0 1024 1024"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
-                            />
-                          </svg>
-                        </div>
-                      </div>
-                      <div
-                        class="memori-card--content"
-                      >
-                        <h3
-                          class="memori-card--title"
-                        >
-                          A sustainable web: is it possible? - Nicola Zambello | YouTube
-                        </h3>
                         <div
                           class="memori-card--children"
                         />
@@ -4955,47 +5077,77 @@ exports[`renders Chat with media unchanged 1`] = `
         />
       </div>
     </div>
-    <fieldset
-      class="memori-chat-inputs"
-      id="chat-fieldset"
+    <div
+      class="memori-chat-inputs-wrapper"
     >
-      <div
-        class="memori-chat-textarea"
-        data-testid="chat-textarea"
+      <fieldset
+        class="memori-chat-inputs"
+        id="chat-fieldset"
       >
         <div
-          class="memori-chat-textarea--inner"
-          style="height: 30px;"
+          class="memori-chat-inputs--container"
         >
-          <textarea
-            class="memori-chat-textarea--input"
-            maxlength="100000"
-            style="height: 30px;"
+          <div
+            class="memori-chat-inputs--leading"
           />
+          <div
+            class="memori-chat-inputs--primary"
+          >
+            <div
+              class="memori-chat-textarea"
+              data-testid="chat-textarea"
+            >
+              <div
+                class="memori-chat-textarea--inner"
+                style="height: 36px;"
+              >
+                <textarea
+                  class="memori-chat-textarea--input"
+                  maxlength="100000"
+                  placeholder="chat.placeholder"
+                  style="height: 36px;"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="memori-chat-inputs--trailing"
+          >
+            <div
+              class="memori-chat-inputs--trailing-inner"
+            >
+              <button
+                aria-label="send"
+                class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
+                disabled=""
+                title="send"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="icon"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div
+        class="memori-chat-inputs--disclaimer"
+      >
+        <div>
+          chat.disclaimer
         </div>
       </div>
-      <button
-        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
-        disabled=""
-        title="send"
-      >
-        <span
-          class="memori-button--icon"
-        >
-          <svg
-            aria-hidden="true"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
-            />
-          </svg>
-        </span>
-      </button>
-    </fieldset>
+    </div>
   </div>
 </div>
 `;
@@ -5379,22 +5531,21 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-media-widget"
         >
           <div
-            class="memori-link-items"
+            class="memori-media-items"
           >
             <div
-              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
+              class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
               >
                 <a
-                  class="memori-link-item--link"
-                  href="https://memori.ai"
-                  rel="noopener noreferrer"
-                  target="_blank"
+                  class="memori-media-item--link"
+                  href="#"
+                  title="Link"
                 >
                   <div
-                    class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
+                    class="memori-card memori-card--with-cover memori-card--hoverable"
                   >
                     <div
                       class="memori-spin"
@@ -5402,22 +5553,18 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                       <div
                         class="memori-card--cover"
                       >
-                        <div
-                          class="memori-link-item--card-cover-icon"
+                        <svg
+                          aria-hidden="true"
+                          class="memori-media-item--icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <svg
-                            aria-hidden="true"
-                            class="memori-link-item--icon"
-                            focusable="false"
-                            role="img"
-                            viewBox="0 0 1024 1024"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
-                            />
-                          </svg>
-                        </div>
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z"
+                          />
+                        </svg>
                       </div>
                       <div
                         class="memori-card--content"
@@ -5626,48 +5773,68 @@ exports[`renders Chat with memori typing unchanged 1`] = `
         />
       </div>
     </div>
-    <fieldset
-      class="memori-chat-inputs"
-      id="chat-fieldset"
+    <div
+      class="memori-chat-inputs-wrapper"
     >
-      <div
-        class="memori-chat-textarea"
-        data-testid="chat-textarea"
+      <fieldset
+        class="memori-chat-inputs"
+        id="chat-fieldset"
       >
         <div
-          class="memori-chat-textarea--inner"
-          style="height: 30px;"
+          class="memori-chat-inputs--container"
         >
-          <textarea
-            class="memori-chat-textarea--input"
-            maxlength="100000"
-            style="height: 30px;"
+          <div
+            class="memori-chat-inputs--leading"
           />
+          <div
+            class="memori-chat-inputs--primary"
+          >
+            <div
+              class="memori-chat-textarea"
+              data-testid="chat-textarea"
+            >
+              <div
+                class="memori-chat-textarea--inner"
+                style="height: 36px;"
+              >
+                <textarea
+                  class="memori-chat-textarea--input"
+                  maxlength="100000"
+                  placeholder="chat.placeholder"
+                  style="height: 36px;"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="memori-chat-inputs--trailing"
+          >
+            <div
+              class="memori-chat-inputs--trailing-inner"
+            >
+              <button
+                aria-label="send"
+                class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
+                disabled=""
+                title="send"
+                type="button"
+              >
+                <div
+                  class="memori-chat-inputs--send-btn--loading"
+                />
+              </button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div
+        class="memori-chat-inputs--disclaimer"
+      >
+        <div>
+          chat.disclaimer
         </div>
       </div>
-      <button
-        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-button--loading memori-chat-inputs--send"
-        disabled=""
-        title="send"
-      >
-        <span
-          class="memori-button--icon loading-icon"
-        >
-          <svg
-            aria-hidden="true"
-            class="memori-loading-icon"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-            />
-          </svg>
-        </span>
-      </button>
-    </fieldset>
+    </div>
   </div>
 </div>
 `;
@@ -6039,22 +6206,21 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-media-widget"
         >
           <div
-            class="memori-link-items"
+            class="memori-media-items"
           >
             <div
-              class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
+              class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
               >
                 <a
-                  class="memori-link-item--link"
-                  href="https://memori.ai"
-                  rel="noopener noreferrer"
-                  target="_blank"
+                  class="memori-media-item--link"
+                  href="#"
+                  title="Link"
                 >
                   <div
-                    class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
+                    class="memori-card memori-card--with-cover memori-card--hoverable"
                   >
                     <div
                       class="memori-spin"
@@ -6062,22 +6228,18 @@ exports[`renders Chat with user unchanged 1`] = `
                       <div
                         class="memori-card--cover"
                       >
-                        <div
-                          class="memori-link-item--card-cover-icon"
+                        <svg
+                          aria-hidden="true"
+                          class="memori-media-item--icon"
+                          focusable="false"
+                          role="img"
+                          viewBox="0 0 1024 1024"
+                          xmlns="http://www.w3.org/2000/svg"
                         >
-                          <svg
-                            aria-hidden="true"
-                            class="memori-link-item--icon"
-                            focusable="false"
-                            role="img"
-                            viewBox="0 0 1024 1024"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
-                            />
-                          </svg>
-                        </div>
+                          <path
+                            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z"
+                          />
+                        </svg>
                       </div>
                       <div
                         class="memori-card--content"
@@ -6259,47 +6421,77 @@ exports[`renders Chat with user unchanged 1`] = `
         />
       </div>
     </div>
-    <fieldset
-      class="memori-chat-inputs"
-      id="chat-fieldset"
+    <div
+      class="memori-chat-inputs-wrapper"
     >
-      <div
-        class="memori-chat-textarea"
-        data-testid="chat-textarea"
+      <fieldset
+        class="memori-chat-inputs"
+        id="chat-fieldset"
       >
         <div
-          class="memori-chat-textarea--inner"
-          style="height: 30px;"
+          class="memori-chat-inputs--container"
         >
-          <textarea
-            class="memori-chat-textarea--input"
-            maxlength="100000"
-            style="height: 30px;"
+          <div
+            class="memori-chat-inputs--leading"
           />
+          <div
+            class="memori-chat-inputs--primary"
+          >
+            <div
+              class="memori-chat-textarea"
+              data-testid="chat-textarea"
+            >
+              <div
+                class="memori-chat-textarea--inner"
+                style="height: 36px;"
+              >
+                <textarea
+                  class="memori-chat-textarea--input"
+                  maxlength="100000"
+                  placeholder="chat.placeholder"
+                  style="height: 36px;"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="memori-chat-inputs--trailing"
+          >
+            <div
+              class="memori-chat-inputs--trailing-inner"
+            >
+              <button
+                aria-label="send"
+                class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
+                disabled=""
+                title="send"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="icon"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      <div
+        class="memori-chat-inputs--disclaimer"
+      >
+        <div>
+          chat.disclaimer
         </div>
       </div>
-      <button
-        class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
-        disabled=""
-        title="send"
-      >
-        <span
-          class="memori-button--icon"
-        >
-          <svg
-            aria-hidden="true"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
-            />
-          </svg>
-        </span>
-      </button>
-    </fieldset>
+    </div>
   </div>
 </div>
 `;

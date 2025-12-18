@@ -385,8 +385,7 @@ const Chat: React.FC<Props> = ({
                 media={[
                   // Filter out HTML and plain text media items from the message
                   ...(message?.media?.filter(
-                    m =>
-                      m.mimeType !== 'text/html' && !m.properties?.functionSignature
+                    m => !m.properties?.functionSignature
                   ) || []),
 
                   // Extract document attachments that are embedded in the message text
@@ -433,7 +432,7 @@ const Chat: React.FC<Props> = ({
                     return attachments;
                   })(),
                 ]}
-                links={message?.media?.filter(m => m.mimeType === 'text/html')}
+                // links={message?.media?.filter(m => m.mimeType === 'text/html')}
                 sessionID={sessionID}
                 baseUrl={baseUrl}
                 apiUrl={apiUrl}

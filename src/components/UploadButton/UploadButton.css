@@ -200,17 +200,6 @@
   height: 20px;
 }
 
-/* Preview Container */
-.memori--preview-container {
-  min-width: 200px;
-  padding: 12px;
-  border-radius: 8px;
-  margin-bottom: 12px;
-  animation: slide-in 0.3s ease;
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
 
 .memori--absolute-preview {
   position: absolute;
@@ -439,8 +428,8 @@
 .memori--document-count {
   position: absolute;
   z-index: 5;
-  top: -8px;
-  right: -8px;
+  top: -20px;
+  right: -10px;
   padding: 1px 6px;
   border-radius: 10px;
   background-color: #51cf66;

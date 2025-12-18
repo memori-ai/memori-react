@@ -83,7 +83,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 
   // Check if file is a document
   const isDocumentFile = (file: File): boolean => {
-    const documentExtensions = ['.pdf', '.txt', '.json', '.xlsx', '.csv', '.md'];
+    const documentExtensions = ['.pdf', '.txt', '.json', '.xlsx', '.csv', '.md', '.html'];
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
     return documentExtensions.includes(fileExt);
   };
@@ -147,9 +147,20 @@ const UploadButton: React.FC<UploadManagerProps> = ({
         const imageInput = imageRef.current?.querySelector('input[type="file"]') as HTMLInputElement;
         if (imageInput) {
           const dataTransfer = new DataTransfer();
-          imageFiles.forEach(file => dataTransfer.items.add(file));
-          imageInput.files = dataTransfer.files;
-          imageInput.dispatchEvent(new Event('change', { bubbles: true }));
+          imageFiles.forEach(file => {
+            try {
+              dataTransfer.items.add(file);
+            } catch (err) {
+              console.warn('Failed to add image file to DataTransfer:', err);
+            }
+          });
+          
+          // Only proceed if we successfully added files
+          if (dataTransfer.files.length > 0) {
+            imageInput.files = dataTransfer.files;
+            const changeEvent = new Event('change', { bubbles: true });
+            imageInput.dispatchEvent(changeEvent);
+          }
         }
       }
     }
@@ -160,9 +171,20 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       const documentInput = documentRef.current?.querySelector('input[type="file"]') as HTMLInputElement;
       if (documentInput) {
         const dataTransfer = new DataTransfer();
-        documentFiles.forEach(file => dataTransfer.items.add(file));
-        documentInput.files = dataTransfer.files;
-        documentInput.dispatchEvent(new Event('change', { bubbles: true }));
+        documentFiles.forEach(file => {
+          try {
+            dataTransfer.items.add(file);
+          } catch (err) {
+            console.warn('Failed to add document file to DataTransfer:', err);
+          }
+        });
+        
+        // Only proceed if we successfully added files
+        if (dataTransfer.files.length > 0) {
+          documentInput.files = dataTransfer.files;
+          const changeEvent = new Event('change', { bubbles: true });
+          documentInput.dispatchEvent(changeEvent);
+        }
       }
     }
   }, [t]);
@@ -189,23 +211,59 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   // Paste handler for files
   useEffect(() => {
     const handlePaste = (e: ClipboardEvent) => {
-      const items = e.clipboardData?.items;
-      if (!items) return;
+      const clipboardData = e.clipboardData;
+      if (!clipboardData) {
+        console.log('[UploadButton] handlePaste: No clipboardData available.');
+        return;
+      }
 
       const files: File[] = [];
-      for (let i = 0; i < items.length; i++) {
-        const item = items[i];
-        if (item.kind === 'file') {
-          const file = item.getAsFile();
-          if (file) {
+      
+      // Helper to check if a file is already in the array
+      const isDuplicate = (file: File) => {
+        return files.some(f => 
+          f.name === file.name && 
+          f.size === file.size && 
+          f.lastModified === file.lastModified
+        );
+      };
+      
+      // First, try to get files directly from clipboardData.files (most reliable for multiple files)
+      if (clipboardData.files && clipboardData.files.length > 0) {
+        const clipboardFiles = Array.from(clipboardData.files);
+        console.log(`[UploadButton] handlePaste: clipboardData.files found`, clipboardFiles);
+        clipboardFiles.forEach(file => {
+          if (!isDuplicate(file)) {
             files.push(file);
+          } else {
+            console.log(`[UploadButton] handlePaste: Duplicate file skipped from clipboardData.files:`, file);
+          }
+        });
+      }
+      
+      // Also check items array (some browsers populate this instead of or in addition to files)
+      const items = clipboardData.items;
+      if (items) {
+        for (let i = 0; i < items.length; i++) {
+          const item = items[i];
+          if (item.kind === 'file') {
+            const file = item.getAsFile();
+            if (file && !isDuplicate(file)) {
+              console.log(`[UploadButton] handlePaste: Adding file from items array:`, file);
+              files.push(file);
+            } else if (file) {
+              console.log(`[UploadButton] handlePaste: Duplicate file skipped from items array:`, file);
+            }
           }
         }
       }
 
       if (files.length > 0) {
+        console.log(`[UploadButton] handlePaste: ${files.length} file(s) to process from paste`, files);
         e.preventDefault();
         handleUnifiedFileSelection(files);
+      } else {
+        console.log('[UploadButton] handlePaste: No files found in paste event.');
       }
     };
 
@@ -323,6 +381,7 @@ ${file.content}
       '.xlsx',
       '.csv',
       '.md',
+      '.html',
     ];
     const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
@@ -446,7 +505,7 @@ ${file.content}
       <input
         ref={unifiedInputRef}
         type="file"
-        accept=".jpg,.jpeg,.png,.pdf,.txt,.json,.xlsx,.csv,.md"
+        accept=".jpg,.jpeg,.png,.pdf,.txt,.json,.xlsx,.csv,.md,.html"
         multiple
         className="memori--upload-file-input"
         onChange={handleFileInputChange}

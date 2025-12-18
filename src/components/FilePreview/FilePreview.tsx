@@ -11,14 +11,14 @@ type FilePreviewProps = {
   previewFiles: any;
   removeFile: (id: string, mediumID: string | undefined) => void;
   allowRemove?: boolean;
-  isMessagePreview?: boolean;
+  // isMessagePreview?: boolean;
 };
 
 const FilePreview = ({
   previewFiles,
   removeFile,
   allowRemove = true,
-  isMessagePreview = false,
+  // isMessagePreview = false,
 }: FilePreviewProps) => {
   const [selectedFile, setSelectedFile] = useState<{
     name: string;
@@ -26,7 +26,7 @@ const FilePreview = ({
     content: string;
     type?: string;
   } | null>(null);
-  
+
   const [hoveredId, setHoveredId] = useState<string | null>(null);
 
   const getFileType = (filename: string, type?: string) => {
@@ -43,7 +43,7 @@ const FilePreview = ({
           return 'Image';
       }
     }
-    
+
     // Otherwise use extension
     const extension = filename.split('.').pop()?.toLowerCase();
     switch (extension) {
@@ -70,34 +70,29 @@ const FilePreview = ({
   // Detect if the content is an image URL
   const isImageContent = (content: string, type?: string): boolean => {
     if (type === 'image') return true;
-    
+
     // Check if the content has image file extension or is an image URL
     const hasImageExtension = /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(content);
-    const isImageUrl = content.startsWith('http') && 
-                       (content.includes('/image/') || 
-                        content.includes('/img/') || 
-                        hasImageExtension);
-    
+    const isImageUrl =
+      content.startsWith('http') &&
+      (content.includes('/image/') ||
+        content.includes('/img/') ||
+        hasImageExtension);
+
     return isImageUrl || hasImageExtension;
   };
 
   return (
     <>
       {previewFiles.length > 0 && (
-        <div
-          className={`memori--preview-container  ${
-            isMessagePreview
-              ? 'memori--message-preview'
-              : 'memori--absolute-preview'
-          }`}
-        >
+        <div className="memori--preview-container">
           <div className="memori--preview-list">
             {previewFiles.map((file: any) => (
               <div
                 key={file.id}
                 className={`memori--preview-item ${
-                  isImageContent(file.content, file.type) 
-                    ? 'memori--preview-item--image' 
+                  isImageContent(file.content, file.type)
+                    ? 'memori--preview-item--image'
                     : 'memori--preview-item--document'
                 }`}
                 onMouseEnter={() => setHoveredId(file.id)}
@@ -111,14 +106,14 @@ const FilePreview = ({
                 ) : (
                   <DocumentIcon className="memori--preview-icon" />
                 )}
-                
+
                 <div className="memori--preview-file-info">
                   <span className="memori--preview-filename">{file.name}</span>
                   <span className="memori--preview-filetype">
                     {getFileType(file.name, file.type)}
                   </span>
                 </div>
-                
+
                 {allowRemove && (
                   <Button
                     shape="rounded"
@@ -138,7 +133,7 @@ const FilePreview = ({
           </div>
         </div>
       )}
-      
+
       <Modal
         width="80%"
         widthMd="80%"
@@ -148,22 +143,27 @@ const FilePreview = ({
         closable
         title={selectedFile?.name}
       >
-        <div 
-          className="memori--preview-content" 
-          style={{ 
-            maxHeight: '70vh', 
+        <div
+          className="memori--preview-content"
+          style={{
+            maxHeight: '70vh',
             overflowY: 'auto',
             textAlign: 'center',
-            whiteSpace: selectedFile && !isImageContent(selectedFile.content, selectedFile.type) ? 'pre-wrap' : 'normal'
+            whiteSpace:
+              selectedFile &&
+              !isImageContent(selectedFile.content, selectedFile.type)
+                ? 'pre-wrap'
+                : 'normal',
           }}
         >
-          {selectedFile && isImageContent(selectedFile.content, selectedFile.type) ? (
+          {selectedFile &&
+          isImageContent(selectedFile.content, selectedFile.type) ? (
             <>
-              <img 
-                src={selectedFile.content} 
-                alt={selectedFile.name} 
-                style={{ maxWidth: '100%', maxHeight: '60vh' }} 
-            />
+              <img
+                src={selectedFile.content}
+                alt={selectedFile.name}
+                style={{ maxWidth: '100%', maxHeight: '60vh' }}
+              />
             </>
           ) : (
             stripHTML(selectedFile?.content || '')

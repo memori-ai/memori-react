@@ -10,6 +10,7 @@ import Microphone from '../icons/Microphone';
 import UploadButton from '../UploadButton/UploadButton';
 import FilePreview from '../FilePreview/FilePreview';
 import memoriApiClient from '@memori.ai/memori-api-client';
+import Plus from '../icons/Plus';
 export interface Props {
   dialogState?: DialogState;
   instruct?: boolean;
@@ -98,9 +99,13 @@ const ChatInputs: React.FC<Props> = ({
     }[]
   ) => {
     if (isTyping) return;
-    
+
     const mediaWithIds = files.map((file, index) => {
-      const generatedMediumID = file.mediumID || `file_${Date.now()}_${index}_${Math.random().toString(36).substr(2, 9)}`;
+      const generatedMediumID =
+        file.mediumID ||
+        `file_${Date.now()}_${index}_${Math.random()
+          .toString(36)
+          .substr(2, 9)}`;
       return {
         mediumID: generatedMediumID,
         mimeType: file.mimeType,
@@ -111,7 +116,7 @@ const ChatInputs: React.FC<Props> = ({
         url: file.url,
       };
     });
-    
+
     sendMessage(userMessage, mediaWithIds);
 
     // Reset states after sending
@@ -135,7 +140,11 @@ const ChatInputs: React.FC<Props> = ({
     if (sendOnEnter === 'keypress' && userMessage?.length > 0) {
       stopListening();
       const mediaWithIds = documentPreviewFiles.map((file, index) => {
-        const generatedMediumID = file.mediumID || `file_${Date.now()}_${index}_${Math.random().toString(36).substr(2, 9)}`;
+        const generatedMediumID =
+          file.mediumID ||
+          `file_${Date.now()}_${index}_${Math.random()
+            .toString(36)
+            .substr(2, 9)}`;
         return {
           mediumID: generatedMediumID,
           mimeType: file.mimeType,
@@ -146,7 +155,7 @@ const ChatInputs: React.FC<Props> = ({
           url: file.url,
         };
       });
-      
+
       sendMessage(userMessage, mediaWithIds);
 
       setDocumentPreviewFiles([]);
@@ -187,94 +196,142 @@ const ChatInputs: React.FC<Props> = ({
     }
   };
 
+  const isDisabled =
+    dialogState?.state === 'X2a' || dialogState?.state === 'X3';
+  const textareaDisabled = ['R2', 'R3', 'R4', 'R5', 'G3', 'X3'].includes(
+    dialogState?.state || ''
+  );
+
   return (
-    <fieldset
-      id="chat-fieldset"
-      className={cx('memori-chat-inputs', {
-        'memori-chat-inputs--expanded': isExpanded,
-      })}
-      disabled={dialogState?.state === 'X2a' || dialogState?.state === 'X3'}
-    >
-      <ChatTextArea
-        value={userMessage}
-        onChange={onChangeUserMessage}
-        onPressEnter={onTextareaPressEnter}
-        onFocus={onTextareaFocus}
-        onBlur={onTextareaBlur}
-        onExpandedChange={handleTextareaExpanded}
-        disabled={['R2', 'R3', 'R4', 'R5', 'G3', 'X3'].includes(
-          dialogState?.state || ''
-        )}
-      />
-      {/* Preview for document files */}
-      {showUpload && (
-        <>
+    <div className="memori-chat-inputs-wrapper">
+      <fieldset
+        id="chat-fieldset"
+        className={cx('memori-chat-inputs', {
+          'memori-chat-inputs--expanded': isExpanded,
+        })}
+        disabled={isDisabled}
+      >
+        {/* Preview for document files */}
+        {showUpload && (
           <FilePreview
             previewFiles={documentPreviewFiles}
             removeFile={removeFile}
           />
+        )}
+        <div className="memori-chat-inputs--container">
+          {/* Leading area - Plus button */}
+          <div className="memori-chat-inputs--leading">
+            {showUpload && (
+              <div className="memori-chat-inputs--upload-wrapper">
+                <UploadButton
+                  authToken={authToken}
+                  client={client}
+                  sessionID={sessionID}
+                  isMediaAccepted={dialogState?.acceptsMedia || false}
+                  setDocumentPreviewFiles={setDocumentPreviewFiles}
+                  documentPreviewFiles={documentPreviewFiles}
+                  memoriID={memoriID}
+                />
+              </div>
+            )}
+          </div>
 
-          {/* Replace the individual buttons with our unified upload component */}
-          <UploadButton
-            authToken={authToken}
-            client={client}
-            sessionID={sessionID}
-            isMediaAccepted={dialogState?.acceptsMedia || false}
-            setDocumentPreviewFiles={setDocumentPreviewFiles}
-            documentPreviewFiles={documentPreviewFiles}
-            memoriID={memoriID}
-          />
-        </>
-      )}
-      <Button
-        shape="circle"
-        primary={!!userMessage?.length}
-        loading={isTyping}
-        disabled={!userMessage || userMessage.length === 0}
-        className="memori-chat-inputs--send"
-        onClick={() => {
-          onSendMessage(documentPreviewFiles);
-        }}
-        title={t('send') || 'Send'}
-        icon={<Send />}
-      />
-      {showMicrophone && microphoneMode === 'HOLD_TO_TALK' && (
-        <MicrophoneButton
-          listening={listening}
-          startListening={startListening}
-          stopListening={() => {
-            stopListening();
-            if (listening && !!userMessage?.length) {
-              sendMessage(userMessage);
-            }
-          }}
-          stopAudio={stopAudio}
-        />
-      )}
-      {showMicrophone && microphoneMode === 'CONTINUOUS' && (
-        <Button
-          primary
-          className={cx('memori-chat-inputs--mic', {
-            'memori-chat-inputs--mic--listening': listening,
-          })}
-          title={
-            listening
-              ? t('write_and_speak.micButtonPopoverListening') || 'Listening'
-              : t('write_and_speak.micButtonPopover') || 'Start listening'
-          }
-          onClick={() => {
-            if (listening) {
-              stopListening();
-            } else {
-              stopAudio();
-              startListening();
-            }
-          }}
-          shape="circle"
-          icon={<Microphone />}
-        />
-      )}
-    </fieldset>
+          {/* Primary area - Textarea */}
+          <div className="memori-chat-inputs--primary">
+            <ChatTextArea
+              value={userMessage}
+              onChange={onChangeUserMessage}
+              onPressEnter={onTextareaPressEnter}
+              onFocus={onTextareaFocus}
+              onBlur={onTextareaBlur}
+              onExpandedChange={handleTextareaExpanded}
+              disabled={textareaDisabled}
+            />
+          </div>
+
+          {/* Trailing area - Microphone and Send button */}
+          <div className="memori-chat-inputs--trailing">
+            <div className="memori-chat-inputs--trailing-inner">
+              {showMicrophone && microphoneMode === 'CONTINUOUS' && (
+                <button
+                  type="button"
+                  className={cx('memori-chat-inputs--mic-btn', {
+                    'memori-chat-inputs--mic-btn--listening': listening,
+                  })}
+                  title={
+                    listening
+                      ? t('write_and_speak.micButtonPopoverListening') ||
+                        'Listening'
+                      : t('write_and_speak.micButtonPopover') ||
+                        'Start listening'
+                  }
+                  onClick={() => {
+                    if (listening) {
+                      stopListening();
+                    } else {
+                      stopAudio();
+                      startListening();
+                    }
+                  }}
+                  disabled={isDisabled}
+                  aria-label={
+                    listening
+                      ? t('write_and_speak.micButtonPopoverListening') ||
+                        'Listening'
+                      : t('write_and_speak.micButtonPopover') ||
+                        'Start listening'
+                  }
+                >
+                  <Microphone className="icon" />
+                </button>
+              )}
+              {showMicrophone && microphoneMode === 'HOLD_TO_TALK' && (
+                <MicrophoneButton
+                  listening={listening}
+                  startListening={startListening}
+                  stopListening={() => {
+                    stopListening();
+                    if (listening && !!userMessage?.length) {
+                      sendMessage(userMessage);
+                    }
+                  }}
+                  stopAudio={stopAudio}
+                />
+              )}
+              <button
+                type="button"
+                className={cx('memori-chat-inputs--send-btn', {
+                  'memori-chat-inputs--send-btn--active': !!userMessage?.length,
+                  'memori-chat-inputs--send-btn--disabled':
+                    !userMessage || userMessage.length === 0,
+                })}
+                onClick={() => {
+                  onSendMessage(documentPreviewFiles);
+                }}
+                disabled={!userMessage || userMessage.length === 0 || isTyping}
+                title={t('send') || 'Send'}
+                aria-label={t('send') || 'Send'}
+              >
+                {isTyping ? (
+                  <div className="memori-chat-inputs--send-btn--loading" />
+                ) : (
+                  <Send className="icon" />
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+      {/* Disclaimer */}
+      <div className="memori-chat-inputs--disclaimer">
+        <div>
+          {t(
+            'chat.disclaimer',
+            'AIsuru può commettere errori. Assicurati di verificare le informazioni importanti.'
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 

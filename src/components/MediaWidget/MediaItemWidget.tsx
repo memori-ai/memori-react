@@ -69,6 +69,7 @@ export const RenderMediaItem = ({
   const isCodeSnippet = prismSyntaxLangs
     .map(l => l.mimeType)
     .includes(item.mimeType);
+  const isHTML = item.mimeType === 'text/html';
   const isImageRGB =
     item.url?.startsWith('rgb(') || item.url?.startsWith('rgba(');
 
@@ -199,7 +200,7 @@ export const RenderMediaItem = ({
   };
 
   // Handle code snippets with modal
-  if (isCodeSnippet && item.content) {
+  if ((isCodeSnippet && item.content) || isHTML) {
     return (
       <>
         <a

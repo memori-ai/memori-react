@@ -3,27 +3,17 @@
 .memori--preview-container {
   z-index: 10;
   min-width: 100%;
-  padding: 12px;
+  /* padding: 12px; */
   border-radius: 8px;
-  margin-bottom: 12px;
+  /* margin-bottom: 12px; */
   animation: slide-in 0.3s ease;
   background: white;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
   transition: all 0.3s ease;
 }
 
 .memori--preview-container.slide-down {
   animation: slide-down 0.3s ease;
-}
-
-.memori--absolute-preview {
-  position: absolute;
-  z-index: 10;
-  right: 0;
-  bottom: 100%;
-  left: 0;
-  max-height: 200px;
-  overflow-y: auto;
 }
 
 /* Responsive adjustments for file preview */
@@ -67,8 +57,12 @@
 .memori--preview-list {
   display: flex;
   flex-direction: row;
+  padding: .875rem;
+  padding-bottom: .625rem;
   gap: 8px;
   overflow-x: auto;
+  scrollbar-color: hsla(var(--border-300)/35%) transparent;
+  scrollbar-width: thin;
 }
 
 .memori--preview-item {
@@ -106,7 +100,7 @@
 
 .memori--preview-filename {
   overflow: hidden;
-  max-width: 200px;
+  max-width: 100px;
   color: #495057;
   font-size: 14px;
   font-weight: 500;

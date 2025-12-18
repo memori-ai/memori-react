@@ -27,8 +27,8 @@ const ChatTextArea: React.FC<Props> = ({
   const { t } = useTranslation();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
-  const MIN_HEIGHT = 40;
-  const MAX_HEIGHT = 300;
+  const MIN_HEIGHT = 36;
+  const MAX_HEIGHT = 208;
 
   // Auto-expand textarea based on content (only when not manually expanded)
   useEffect(() => {
@@ -37,8 +37,8 @@ const ChatTextArea: React.FC<Props> = ({
 
     if (textarea && inner) {
       if (value.length === 0) {
-        textarea.style.height = '30px';
-        inner.style.height = '30px';
+        textarea.style.height = `${MIN_HEIGHT}px`;
+        inner.style.height = `${MIN_HEIGHT}px`;
         if (onExpandedChange) {
           onExpandedChange(false);
         }
@@ -88,6 +88,7 @@ const ChatTextArea: React.FC<Props> = ({
           className="memori-chat-textarea--input"
           disabled={disabled}
           value={value}
+          placeholder={t('chat.placeholder', 'Fai una domanda') || 'Fai una domanda'}
           onChange={e => {
             onChange(e.target.value);
           }}

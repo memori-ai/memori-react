@@ -2,468 +2,648 @@
 
 exports[`renders ChatInputs disabled unchanged 1`] = `
 <div>
-  <fieldset
-    class="memori-chat-inputs"
-    disabled=""
-    id="chat-fieldset"
+  <div
+    class="memori-chat-inputs-wrapper"
   >
-    <div
-      class="memori-chat-textarea memori-chat-textarea--disabled"
-      data-testid="chat-textarea"
+    <fieldset
+      class="memori-chat-inputs"
+      disabled=""
+      id="chat-fieldset"
     >
       <div
-        class="memori-chat-textarea--inner"
-        style="height: 40px;"
+        class="memori-chat-inputs--container"
       >
-        <textarea
-          class="memori-chat-textarea--input"
-          disabled=""
-          maxlength="100000"
-          style="height: 40px;"
+        <div
+          class="memori-chat-inputs--leading"
+        />
+        <div
+          class="memori-chat-inputs--primary"
         >
-          Lorem ipsum
-        </textarea>
-      </div>
-    </div>
-    <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
-      title="send"
-    >
-      <span
-        class="memori-button--icon"
-      >
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          role="img"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
-          />
-        </svg>
-      </span>
-    </button>
-    <div
-      class="memori-tooltip memori-tooltip--align-topLeft memori-mic-btn-tooltip"
-    >
-      <div
-        class="memori-tooltip--content"
-      >
-        <span>
-          write_and_speak.pressAndHoldToSpeak
-        </span>
-      </div>
-      <div
-        class="memori-tooltip--trigger"
-      >
-        <div>
-          <button
-            class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
-            title="write_and_speak.micButtonPopover"
+          <div
+            class="memori-chat-textarea memori-chat-textarea--disabled"
+            data-testid="chat-textarea"
           >
-            <span
-              class="memori-button--icon"
+            <div
+              class="memori-chat-textarea--inner"
+              style="height: 36px;"
+            >
+              <textarea
+                class="memori-chat-textarea--input"
+                disabled=""
+                maxlength="100000"
+                placeholder="chat.placeholder"
+                style="height: 36px;"
+              >
+                Lorem ipsum
+              </textarea>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-chat-inputs--trailing"
+        >
+          <div
+            class="memori-chat-inputs--trailing-inner"
+          >
+            <div
+              class="memori-tooltip memori-tooltip--align-topLeft memori-mic-btn-tooltip"
+            >
+              <div
+                class="memori-tooltip--content"
+              >
+                <span>
+                  write_and_speak.pressAndHoldToSpeak
+                </span>
+              </div>
+              <div
+                class="memori-tooltip--trigger"
+              >
+                <div>
+                  <button
+                    class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
+                    title="write_and_speak.micButtonPopover"
+                  >
+                    <span
+                      class="memori-button--icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        focusable="false"
+                        role="img"
+                        viewBox="0 0 1024 1024"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M842 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 140.3-113.7 254-254 254S258 594.3 258 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 168.7 126.6 307.9 290 327.6V884H326.7c-13.7 0-24.7 14.3-24.7 32v36c0 4.4 2.8 8 6.2 8h407.6c3.4 0 6.2-3.6 6.2-8v-36c0-17.7-11-32-24.7-32H548V782.1c165.3-18 294-158 294-328.1zM512 624c93.9 0 170-75.2 170-168V232c0-92.8-76.1-168-170-168s-170 75.2-170 168v224c0 92.8 76.1 168 170 168zm-94-392c0-50.6 41.9-92 94-92s94 41.4 94 92v224c0 50.6-41.9 92-94 92s-94-41.4-94-92V232z"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button
+              aria-label="send"
+              class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--active"
+              title="send"
+              type="button"
             >
               <svg
                 aria-hidden="true"
+                class="icon"
                 focusable="false"
                 role="img"
                 viewBox="0 0 1024 1024"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M842 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 140.3-113.7 254-254 254S258 594.3 258 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 168.7 126.6 307.9 290 327.6V884H326.7c-13.7 0-24.7 14.3-24.7 32v36c0 4.4 2.8 8 6.2 8h407.6c3.4 0 6.2-3.6 6.2-8v-36c0-17.7-11-32-24.7-32H548V782.1c165.3-18 294-158 294-328.1zM512 624c93.9 0 170-75.2 170-168V232c0-92.8-76.1-168-170-168s-170 75.2-170 168v224c0 92.8 76.1 168 170 168zm-94-392c0-50.6 41.9-92 94-92s94 41.4 94 92v224c0 50.6-41.9 92-94 92s-94-41.4-94-92V232z"
+                  d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
                 />
               </svg>
-            </span>
-          </button>
+            </button>
+          </div>
         </div>
       </div>
+    </fieldset>
+    <div
+      class="memori-chat-inputs--disclaimer"
+    >
+      <div>
+        chat.disclaimer
+      </div>
     </div>
-  </fieldset>
+  </div>
 </div>
 `;
 
 exports[`renders ChatInputs listening unchanged 1`] = `
 <div>
-  <fieldset
-    class="memori-chat-inputs"
-    id="chat-fieldset"
+  <div
+    class="memori-chat-inputs-wrapper"
   >
-    <div
-      class="memori-chat-textarea"
-      data-testid="chat-textarea"
+    <fieldset
+      class="memori-chat-inputs"
+      id="chat-fieldset"
     >
       <div
-        class="memori-chat-textarea--inner"
-        style="height: 40px;"
+        class="memori-chat-inputs--container"
       >
-        <textarea
-          class="memori-chat-textarea--input"
-          maxlength="100000"
-          style="height: 40px;"
+        <div
+          class="memori-chat-inputs--leading"
+        />
+        <div
+          class="memori-chat-inputs--primary"
         >
-          Lorem ipsum
-        </textarea>
-      </div>
-    </div>
-    <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
-      title="send"
-    >
-      <span
-        class="memori-button--icon"
-      >
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          role="img"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
-          />
-        </svg>
-      </span>
-    </button>
-    <div
-      class="memori-tooltip memori-tooltip--align-topLeft memori-mic-btn-tooltip"
-    >
-      <div
-        class="memori-tooltip--content"
-      >
-        <span>
-          write_and_speak.pressAndHoldToSpeak
-        </span>
-      </div>
-      <div
-        class="memori-tooltip--trigger"
-      >
-        <div>
-          <button
-            class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic memori-chat-inputs--mic--listening"
-            title="write_and_speak.micButtonPopoverListening"
+          <div
+            class="memori-chat-textarea"
+            data-testid="chat-textarea"
           >
-            <span
-              class="memori-button--icon"
+            <div
+              class="memori-chat-textarea--inner"
+              style="height: 36px;"
+            >
+              <textarea
+                class="memori-chat-textarea--input"
+                maxlength="100000"
+                placeholder="chat.placeholder"
+                style="height: 36px;"
+              >
+                Lorem ipsum
+              </textarea>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-chat-inputs--trailing"
+        >
+          <div
+            class="memori-chat-inputs--trailing-inner"
+          >
+            <div
+              class="memori-tooltip memori-tooltip--align-topLeft memori-mic-btn-tooltip"
+            >
+              <div
+                class="memori-tooltip--content"
+              >
+                <span>
+                  write_and_speak.pressAndHoldToSpeak
+                </span>
+              </div>
+              <div
+                class="memori-tooltip--trigger"
+              >
+                <div>
+                  <button
+                    class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic memori-chat-inputs--mic--listening"
+                    title="write_and_speak.micButtonPopoverListening"
+                  >
+                    <span
+                      class="memori-button--icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        focusable="false"
+                        role="img"
+                        viewBox="0 0 1024 1024"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M842 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 140.3-113.7 254-254 254S258 594.3 258 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 168.7 126.6 307.9 290 327.6V884H326.7c-13.7 0-24.7 14.3-24.7 32v36c0 4.4 2.8 8 6.2 8h407.6c3.4 0 6.2-3.6 6.2-8v-36c0-17.7-11-32-24.7-32H548V782.1c165.3-18 294-158 294-328.1zM512 624c93.9 0 170-75.2 170-168V232c0-92.8-76.1-168-170-168s-170 75.2-170 168v224c0 92.8 76.1 168 170 168zm-94-392c0-50.6 41.9-92 94-92s94 41.4 94 92v224c0 50.6-41.9 92-94 92s-94-41.4-94-92V232z"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button
+              aria-label="send"
+              class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--active"
+              title="send"
+              type="button"
             >
               <svg
                 aria-hidden="true"
+                class="icon"
                 focusable="false"
                 role="img"
                 viewBox="0 0 1024 1024"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M842 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 140.3-113.7 254-254 254S258 594.3 258 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 168.7 126.6 307.9 290 327.6V884H326.7c-13.7 0-24.7 14.3-24.7 32v36c0 4.4 2.8 8 6.2 8h407.6c3.4 0 6.2-3.6 6.2-8v-36c0-17.7-11-32-24.7-32H548V782.1c165.3-18 294-158 294-328.1zM512 624c93.9 0 170-75.2 170-168V232c0-92.8-76.1-168-170-168s-170 75.2-170 168v224c0 92.8 76.1 168 170 168zm-94-392c0-50.6 41.9-92 94-92s94 41.4 94 92v224c0 50.6-41.9 92-94 92s-94-41.4-94-92V232z"
+                  d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
                 />
               </svg>
-            </span>
-          </button>
+            </button>
+          </div>
         </div>
       </div>
+    </fieldset>
+    <div
+      class="memori-chat-inputs--disclaimer"
+    >
+      <div>
+        chat.disclaimer
+      </div>
     </div>
-  </fieldset>
+  </div>
 </div>
 `;
 
 exports[`renders ChatInputs on instruct unchanged 1`] = `
 <div>
-  <fieldset
-    class="memori-chat-inputs"
-    id="chat-fieldset"
+  <div
+    class="memori-chat-inputs-wrapper"
   >
-    <div
-      class="memori-chat-textarea"
-      data-testid="chat-textarea"
+    <fieldset
+      class="memori-chat-inputs"
+      id="chat-fieldset"
     >
       <div
-        class="memori-chat-textarea--inner"
-        style="height: 40px;"
+        class="memori-chat-inputs--container"
       >
-        <textarea
-          class="memori-chat-textarea--input"
-          maxlength="100000"
-          style="height: 40px;"
+        <div
+          class="memori-chat-inputs--leading"
+        />
+        <div
+          class="memori-chat-inputs--primary"
         >
-          Lorem ipsum
-        </textarea>
-      </div>
-    </div>
-    <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
-      title="send"
-    >
-      <span
-        class="memori-button--icon"
-      >
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          role="img"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
-          />
-        </svg>
-      </span>
-    </button>
-    <div
-      class="memori-tooltip memori-tooltip--align-topLeft memori-mic-btn-tooltip"
-    >
-      <div
-        class="memori-tooltip--content"
-      >
-        <span>
-          write_and_speak.pressAndHoldToSpeak
-        </span>
-      </div>
-      <div
-        class="memori-tooltip--trigger"
-      >
-        <div>
-          <button
-            class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
-            title="write_and_speak.micButtonPopover"
+          <div
+            class="memori-chat-textarea"
+            data-testid="chat-textarea"
           >
-            <span
-              class="memori-button--icon"
+            <div
+              class="memori-chat-textarea--inner"
+              style="height: 36px;"
+            >
+              <textarea
+                class="memori-chat-textarea--input"
+                maxlength="100000"
+                placeholder="chat.placeholder"
+                style="height: 36px;"
+              >
+                Lorem ipsum
+              </textarea>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-chat-inputs--trailing"
+        >
+          <div
+            class="memori-chat-inputs--trailing-inner"
+          >
+            <div
+              class="memori-tooltip memori-tooltip--align-topLeft memori-mic-btn-tooltip"
+            >
+              <div
+                class="memori-tooltip--content"
+              >
+                <span>
+                  write_and_speak.pressAndHoldToSpeak
+                </span>
+              </div>
+              <div
+                class="memori-tooltip--trigger"
+              >
+                <div>
+                  <button
+                    class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
+                    title="write_and_speak.micButtonPopover"
+                  >
+                    <span
+                      class="memori-button--icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        focusable="false"
+                        role="img"
+                        viewBox="0 0 1024 1024"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M842 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 140.3-113.7 254-254 254S258 594.3 258 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 168.7 126.6 307.9 290 327.6V884H326.7c-13.7 0-24.7 14.3-24.7 32v36c0 4.4 2.8 8 6.2 8h407.6c3.4 0 6.2-3.6 6.2-8v-36c0-17.7-11-32-24.7-32H548V782.1c165.3-18 294-158 294-328.1zM512 624c93.9 0 170-75.2 170-168V232c0-92.8-76.1-168-170-168s-170 75.2-170 168v224c0 92.8 76.1 168 170 168zm-94-392c0-50.6 41.9-92 94-92s94 41.4 94 92v224c0 50.6-41.9 92-94 92s-94-41.4-94-92V232z"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button
+              aria-label="send"
+              class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--active"
+              title="send"
+              type="button"
             >
               <svg
                 aria-hidden="true"
+                class="icon"
                 focusable="false"
                 role="img"
                 viewBox="0 0 1024 1024"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M842 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 140.3-113.7 254-254 254S258 594.3 258 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 168.7 126.6 307.9 290 327.6V884H326.7c-13.7 0-24.7 14.3-24.7 32v36c0 4.4 2.8 8 6.2 8h407.6c3.4 0 6.2-3.6 6.2-8v-36c0-17.7-11-32-24.7-32H548V782.1c165.3-18 294-158 294-328.1zM512 624c93.9 0 170-75.2 170-168V232c0-92.8-76.1-168-170-168s-170 75.2-170 168v224c0 92.8 76.1 168 170 168zm-94-392c0-50.6 41.9-92 94-92s94 41.4 94 92v224c0 50.6-41.9 92-94 92s-94-41.4-94-92V232z"
+                  d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
                 />
               </svg>
-            </span>
-          </button>
+            </button>
+          </div>
         </div>
       </div>
+    </fieldset>
+    <div
+      class="memori-chat-inputs--disclaimer"
+    >
+      <div>
+        chat.disclaimer
+      </div>
     </div>
-  </fieldset>
+  </div>
 </div>
 `;
 
 exports[`renders ChatInputs unchanged 1`] = `
 <div>
-  <fieldset
-    class="memori-chat-inputs"
-    id="chat-fieldset"
+  <div
+    class="memori-chat-inputs-wrapper"
   >
-    <div
-      class="memori-chat-textarea"
-      data-testid="chat-textarea"
+    <fieldset
+      class="memori-chat-inputs"
+      id="chat-fieldset"
     >
       <div
-        class="memori-chat-textarea--inner"
-        style="height: 30px;"
+        class="memori-chat-inputs--container"
       >
-        <textarea
-          class="memori-chat-textarea--input"
-          maxlength="100000"
-          style="height: 30px;"
+        <div
+          class="memori-chat-inputs--leading"
         />
-      </div>
-    </div>
-    <button
-      class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
-      disabled=""
-      title="send"
-    >
-      <span
-        class="memori-button--icon"
-      >
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          role="img"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
+        <div
+          class="memori-chat-inputs--primary"
         >
-          <path
-            d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
-          />
-        </svg>
-      </span>
-    </button>
-    <div
-      class="memori-tooltip memori-tooltip--align-topLeft memori-mic-btn-tooltip"
-    >
-      <div
-        class="memori-tooltip--content"
-      >
-        <span>
-          write_and_speak.pressAndHoldToSpeak
-        </span>
-      </div>
-      <div
-        class="memori-tooltip--trigger"
-      >
-        <div>
-          <button
-            class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
-            title="write_and_speak.micButtonPopover"
+          <div
+            class="memori-chat-textarea"
+            data-testid="chat-textarea"
           >
-            <span
-              class="memori-button--icon"
+            <div
+              class="memori-chat-textarea--inner"
+              style="height: 36px;"
+            >
+              <textarea
+                class="memori-chat-textarea--input"
+                maxlength="100000"
+                placeholder="chat.placeholder"
+                style="height: 36px;"
+              />
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-chat-inputs--trailing"
+        >
+          <div
+            class="memori-chat-inputs--trailing-inner"
+          >
+            <div
+              class="memori-tooltip memori-tooltip--align-topLeft memori-mic-btn-tooltip"
+            >
+              <div
+                class="memori-tooltip--content"
+              >
+                <span>
+                  write_and_speak.pressAndHoldToSpeak
+                </span>
+              </div>
+              <div
+                class="memori-tooltip--trigger"
+              >
+                <div>
+                  <button
+                    class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
+                    title="write_and_speak.micButtonPopover"
+                  >
+                    <span
+                      class="memori-button--icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        focusable="false"
+                        role="img"
+                        viewBox="0 0 1024 1024"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M842 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 140.3-113.7 254-254 254S258 594.3 258 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 168.7 126.6 307.9 290 327.6V884H326.7c-13.7 0-24.7 14.3-24.7 32v36c0 4.4 2.8 8 6.2 8h407.6c3.4 0 6.2-3.6 6.2-8v-36c0-17.7-11-32-24.7-32H548V782.1c165.3-18 294-158 294-328.1zM512 624c93.9 0 170-75.2 170-168V232c0-92.8-76.1-168-170-168s-170 75.2-170 168v224c0 92.8 76.1 168 170 168zm-94-392c0-50.6 41.9-92 94-92s94 41.4 94 92v224c0 50.6-41.9 92-94 92s-94-41.4-94-92V232z"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button
+              aria-label="send"
+              class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
+              disabled=""
+              title="send"
+              type="button"
             >
               <svg
                 aria-hidden="true"
+                class="icon"
                 focusable="false"
                 role="img"
                 viewBox="0 0 1024 1024"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M842 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 140.3-113.7 254-254 254S258 594.3 258 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 168.7 126.6 307.9 290 327.6V884H326.7c-13.7 0-24.7 14.3-24.7 32v36c0 4.4 2.8 8 6.2 8h407.6c3.4 0 6.2-3.6 6.2-8v-36c0-17.7-11-32-24.7-32H548V782.1c165.3-18 294-158 294-328.1zM512 624c93.9 0 170-75.2 170-168V232c0-92.8-76.1-168-170-168s-170 75.2-170 168v224c0 92.8 76.1 168 170 168zm-94-392c0-50.6 41.9-92 94-92s94 41.4 94 92v224c0 50.6-41.9 92-94 92s-94-41.4-94-92V232z"
+                  d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
                 />
               </svg>
-            </span>
-          </button>
+            </button>
+          </div>
         </div>
       </div>
+    </fieldset>
+    <div
+      class="memori-chat-inputs--disclaimer"
+    >
+      <div>
+        chat.disclaimer
+      </div>
     </div>
-  </fieldset>
+  </div>
 </div>
 `;
 
 exports[`renders ChatInputs with user message unchanged 1`] = `
 <div>
-  <fieldset
-    class="memori-chat-inputs"
-    id="chat-fieldset"
+  <div
+    class="memori-chat-inputs-wrapper"
   >
-    <div
-      class="memori-chat-textarea"
-      data-testid="chat-textarea"
+    <fieldset
+      class="memori-chat-inputs"
+      id="chat-fieldset"
     >
       <div
-        class="memori-chat-textarea--inner"
-        style="height: 40px;"
+        class="memori-chat-inputs--container"
       >
-        <textarea
-          class="memori-chat-textarea--input"
-          maxlength="100000"
-          style="height: 40px;"
+        <div
+          class="memori-chat-inputs--leading"
+        />
+        <div
+          class="memori-chat-inputs--primary"
         >
-          Lorem ipsum
-        </textarea>
-      </div>
-    </div>
-    <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
-      title="send"
-    >
-      <span
-        class="memori-button--icon"
-      >
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          role="img"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
-          />
-        </svg>
-      </span>
-    </button>
-    <div
-      class="memori-tooltip memori-tooltip--align-topLeft memori-mic-btn-tooltip"
-    >
-      <div
-        class="memori-tooltip--content"
-      >
-        <span>
-          write_and_speak.pressAndHoldToSpeak
-        </span>
-      </div>
-      <div
-        class="memori-tooltip--trigger"
-      >
-        <div>
-          <button
-            class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
-            title="write_and_speak.micButtonPopover"
+          <div
+            class="memori-chat-textarea"
+            data-testid="chat-textarea"
           >
-            <span
-              class="memori-button--icon"
+            <div
+              class="memori-chat-textarea--inner"
+              style="height: 36px;"
+            >
+              <textarea
+                class="memori-chat-textarea--input"
+                maxlength="100000"
+                placeholder="chat.placeholder"
+                style="height: 36px;"
+              >
+                Lorem ipsum
+              </textarea>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-chat-inputs--trailing"
+        >
+          <div
+            class="memori-chat-inputs--trailing-inner"
+          >
+            <div
+              class="memori-tooltip memori-tooltip--align-topLeft memori-mic-btn-tooltip"
+            >
+              <div
+                class="memori-tooltip--content"
+              >
+                <span>
+                  write_and_speak.pressAndHoldToSpeak
+                </span>
+              </div>
+              <div
+                class="memori-tooltip--trigger"
+              >
+                <div>
+                  <button
+                    class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
+                    title="write_and_speak.micButtonPopover"
+                  >
+                    <span
+                      class="memori-button--icon"
+                    >
+                      <svg
+                        aria-hidden="true"
+                        focusable="false"
+                        role="img"
+                        viewBox="0 0 1024 1024"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M842 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 140.3-113.7 254-254 254S258 594.3 258 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 168.7 126.6 307.9 290 327.6V884H326.7c-13.7 0-24.7 14.3-24.7 32v36c0 4.4 2.8 8 6.2 8h407.6c3.4 0 6.2-3.6 6.2-8v-36c0-17.7-11-32-24.7-32H548V782.1c165.3-18 294-158 294-328.1zM512 624c93.9 0 170-75.2 170-168V232c0-92.8-76.1-168-170-168s-170 75.2-170 168v224c0 92.8 76.1 168 170 168zm-94-392c0-50.6 41.9-92 94-92s94 41.4 94 92v224c0 50.6-41.9 92-94 92s-94-41.4-94-92V232z"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <button
+              aria-label="send"
+              class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--active"
+              title="send"
+              type="button"
             >
               <svg
                 aria-hidden="true"
+                class="icon"
                 focusable="false"
                 role="img"
                 viewBox="0 0 1024 1024"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M842 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 140.3-113.7 254-254 254S258 594.3 258 454c0-4.4-3.6-8-8-8h-60c-4.4 0-8 3.6-8 8 0 168.7 126.6 307.9 290 327.6V884H326.7c-13.7 0-24.7 14.3-24.7 32v36c0 4.4 2.8 8 6.2 8h407.6c3.4 0 6.2-3.6 6.2-8v-36c0-17.7-11-32-24.7-32H548V782.1c165.3-18 294-158 294-328.1zM512 624c93.9 0 170-75.2 170-168V232c0-92.8-76.1-168-170-168s-170 75.2-170 168v224c0 92.8 76.1 168 170 168zm-94-392c0-50.6 41.9-92 94-92s94 41.4 94 92v224c0 50.6-41.9 92-94 92s-94-41.4-94-92V232z"
+                  d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
                 />
               </svg>
-            </span>
-          </button>
+            </button>
+          </div>
         </div>
       </div>
+    </fieldset>
+    <div
+      class="memori-chat-inputs--disclaimer"
+    >
+      <div>
+        chat.disclaimer
+      </div>
     </div>
-  </fieldset>
+  </div>
 </div>
 `;
 
 exports[`renders ChatInputs without microphone button unchanged 1`] = `
 <div>
-  <fieldset
-    class="memori-chat-inputs"
-    id="chat-fieldset"
+  <div
+    class="memori-chat-inputs-wrapper"
   >
-    <div
-      class="memori-chat-textarea"
-      data-testid="chat-textarea"
+    <fieldset
+      class="memori-chat-inputs"
+      id="chat-fieldset"
     >
       <div
-        class="memori-chat-textarea--inner"
-        style="height: 40px;"
+        class="memori-chat-inputs--container"
       >
-        <textarea
-          class="memori-chat-textarea--input"
-          maxlength="100000"
-          style="height: 40px;"
+        <div
+          class="memori-chat-inputs--leading"
+        />
+        <div
+          class="memori-chat-inputs--primary"
         >
-          Lorem ipsum
-        </textarea>
+          <div
+            class="memori-chat-textarea"
+            data-testid="chat-textarea"
+          >
+            <div
+              class="memori-chat-textarea--inner"
+              style="height: 36px;"
+            >
+              <textarea
+                class="memori-chat-textarea--input"
+                maxlength="100000"
+                placeholder="chat.placeholder"
+                style="height: 36px;"
+              >
+                Lorem ipsum
+              </textarea>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-chat-inputs--trailing"
+        >
+          <div
+            class="memori-chat-inputs--trailing-inner"
+          >
+            <button
+              aria-label="send"
+              class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--active"
+              title="send"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="icon"
+                focusable="false"
+                role="img"
+                viewBox="0 0 1024 1024"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    <div
+      class="memori-chat-inputs--disclaimer"
+    >
+      <div>
+        chat.disclaimer
       </div>
     </div>
-    <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--send"
-      title="send"
-    >
-      <span
-        class="memori-button--icon"
-      >
-        <svg
-          aria-hidden="true"
-          focusable="false"
-          role="img"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
-          />
-        </svg>
-      </span>
-    </button>
-  </fieldset>
+  </div>
 </div>
 `;

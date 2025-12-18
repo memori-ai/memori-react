@@ -1,49 +1,47 @@
 .memori-chat-textarea {
     position: relative;
-    z-index: 1000;
-    min-height: 40px;
+    display: flex;
+    width: 100%;
+    min-height: 36px;
     box-sizing: border-box;
-    flex: 1 0 auto;
-    margin-right: 0.5rem;
-    transition: min-height 0.2s ease-in-out;
-    /* margin-left: 0.5rem; */
+    flex: 1;
+    align-items: center;
+    transition: height 0.2s ease-in-out;
 }
 
 .memori-chat-textarea--expanded {
-    min-height: 40px;
+    min-height: 36px;
 }
 
 /* Responsive adjustments for small screens */
 @media (max-width: 768px) {
     .memori-chat-textarea--expanded {
-        min-height: 40px;
+        min-height: 36px;
     }
 }
 
 @media (max-width: 480px) {
     .memori-chat-textarea--expanded {
-        min-height: 40px;
+        min-height: 36px;
     }
 }
 
 .memori-chat-textarea--inner {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    position: relative;
     display: flex;
     overflow: hidden;
-    min-height: 40px;
-    max-height: 300px;
+    width: 100%;
+    min-height: 36px;
+    max-height: 208px;
     box-sizing: border-box;
-    border: 1px solid lightgray;
-    border-radius: 10px;
-    background: #fff;
+    border: none;
+    border-radius: 0;
+    background: transparent;
     transition: height 0.2s ease-in-out;
 }
 
 .memori-chat-textarea--expanded .memori-chat-textarea--inner {
-    max-height: 300px;
+    max-height: 208px;
 }
 
 /* Responsive adjustments for textarea inner */
@@ -68,36 +66,62 @@
 }
 
 .memori-chat-textarea--disabled .memori-chat-textarea--inner {
-    background: #e3e3e3;
-    opacity: 0.8;
+    opacity: 0.5;
 }
 
 textarea.memori-chat-textarea--input {
     width: 100%;
-    min-height: 40px;
-    max-height: 300px;
+    min-height: 36px;
+    max-height: 208px;
     box-sizing: border-box;
-    padding: 6.5px 11px;
+    /* padding: 8px 0; */
     border: none;
-    background: #fff;
+    background: transparent;
     color: #000;
-    font-family: var(--memori-font-family);
+    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif);
+    font-size: 16px;
     line-height: 1.5;
     overflow-y: auto;
     resize: none;
+    scrollbar-width: thin;
     transition: height 0.2s ease-in-out;
+}
+
+/* Placeholder styling */
+textarea.memori-chat-textarea--input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+/* Scrollbar styling */
+textarea.memori-chat-textarea--input::-webkit-scrollbar {
+    width: 6px;
+}
+
+textarea.memori-chat-textarea--input::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+textarea.memori-chat-textarea--input::-webkit-scrollbar-thumb {
+    border-radius: 3px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+textarea.memori-chat-textarea--input::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.3);
 }
 
 /* Responsive adjustments for textarea input */
 @media (max-width: 768px) {
     textarea.memori-chat-textarea--input {
         max-height: 200px;
+        font-size: 16px; /* Prevent zoom on iOS */
     }
 }
 
 @media (max-width: 480px) {
     textarea.memori-chat-textarea--input {
         max-height: 150px;
+        font-size: 16px; /* Prevent zoom on iOS */
     }
 }
 
@@ -107,6 +131,7 @@ textarea.memori-chat-textarea--input:focus {
 
 .memori-chat-textarea--disabled textarea.memori-chat-textarea--input {
     cursor: not-allowed;
+    opacity: 0.5;
 }
 
 .memori-chat-textarea--expand {
@@ -123,15 +148,12 @@ button.memori-chat-textarea--expand-button {
 
 button.memori-chat-textarea--expand-button:hover,
 button.memori-chat-textarea--expand-button:focus {
-    color: #000;
     opacity: 1;
 }
 
 .memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:hover,
 .memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:focus,
 .memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea--inner:focus-within {
-    border-color: var(--memori-primary);
-    box-shadow: none;
     outline: none;
 }
 
@@ -142,8 +164,4 @@ button.memori-chat-textarea--expand-button:focus {
     .memori-chat-textarea--inner:focus-within
     .memori-chat-textarea--expand-button {
     opacity: 1;
-}
-
-.memori-chat-textarea:not(.memori-chat-textarea--disabled) .memori-chat-textarea-inner:focus-within {
-    box-shadow: 0 0.2rem 0.33rem #b5b6c4;
 }

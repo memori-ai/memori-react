@@ -5,7 +5,7 @@ exports[`renders FilePreview unchanged 1`] = `<div />`;
 exports[`renders FilePreview with one file 1`] = `
 <div>
   <div
-    class="memori--preview-container  memori--absolute-preview"
+    class="memori--preview-container"
   >
     <div
       class="memori--preview-list"
@@ -100,7 +100,7 @@ exports[`renders FilePreview with one file 1`] = `
 exports[`renders FilePreview with two files 1`] = `
 <div>
   <div
-    class="memori--preview-container  memori--absolute-preview"
+    class="memori--preview-container"
   >
     <div
       class="memori--preview-list"
