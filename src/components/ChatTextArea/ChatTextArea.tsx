@@ -63,7 +63,7 @@ const ChatTextArea: React.FC<Props> = ({
         if (chat) {
         const lastChild = chat[chat.length - 1];
           if (lastChild) {
-            (lastChild as HTMLElement).style.paddingBottom = `${newHeight}px`;
+            // (lastChild as HTMLElement).style.paddingBottom = `${newHeight}px`;
             //then scroll to the bottom of the chat
             (chat[0] as HTMLElement).scrollTo({
               top: (chat[0] as HTMLElement).scrollHeight,

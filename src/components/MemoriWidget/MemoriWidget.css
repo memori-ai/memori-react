@@ -13,6 +13,12 @@
     height: calc(100vh - 50px);
 }
 
+@media (max-width: 425px) {
+    .memori-widget > .memori-spin {
+        height: calc(100vh - 100px);
+    }
+}
+
 .memori--grid {
     display: flex;
     height: calc(100% - 50px);
