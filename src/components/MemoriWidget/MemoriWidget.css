@@ -14,6 +14,9 @@
 }
 
 @media (max-width: 425px) {
+    .memori-widget {
+        overflow-y: hidden;
+    }
     .memori-widget > .memori-spin {
         height: calc(100vh - 100px);
     }
