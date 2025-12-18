@@ -157,16 +157,16 @@ const Chat: React.FC<Props> = ({
 
     if (hasTouch) setEnableFocusChatInput(true);
     // if the user is on mobile and had not recorded audio, add the chat-focused class to the chat wrapper
-    if (hasTouch && window.innerWidth <= 768) {
-      document.getElementById('chat-wrapper')?.classList?.add('chat-focused');
-      // add the chat-focused class to the memori widget
-      document
-        .querySelector('.memori.memori-widget')
-        ?.classList?.add('chat-focused');
-      setTimeout(() => {
-        scrollToBottom();
-      }, 300);
-    }
+    // if (hasTouch && window.innerWidth <= 768) {
+    //   document.getElementById('chat-wrapper')?.classList?.add('chat-focused');
+    //   // add the chat-focused class to the memori widget
+    //   document
+    //     .querySelector('.memori.memori-widget')
+    //     ?.classList?.add('chat-focused');
+    //   setTimeout(() => {
+    //     scrollToBottom();
+    //   }, 300);
+    // }
   };
   const onTextareaBlur = () => {
     if (
