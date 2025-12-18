@@ -22,6 +22,7 @@
   "all": "All",
   "today": "Today",
   "yesterday": "Yesterday",
+  "placeholder": "Ask a question",
   "last_7_days": "Last 7 days",
   "last_30_days": "Last 30 days",
   "month": "Month",

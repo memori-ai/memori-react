@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PreviewIcon } from '../icons/Preview';
 import { DocumentIcon } from '../icons/Document';
 import { ImageIcon } from '../icons/Image';
@@ -18,8 +18,8 @@ const FilePreview = ({
   previewFiles,
   removeFile,
   allowRemove = true,
-  // isMessagePreview = false,
-}: FilePreviewProps) => {
+}: // isMessagePreview = false,
+FilePreviewProps) => {
   const [selectedFile, setSelectedFile] = useState<{
     name: string;
     id: string;
@@ -67,6 +67,19 @@ const FilePreview = ({
     }
   };
 
+  useEffect(() => {
+    const chat = document.getElementsByClassName('memori-chat--content');
+    if (chat) {
+      const lastChild = chat[chat.length - 1];
+      if (lastChild) {
+        //then scroll to the bottom of the chat
+        (chat[0] as HTMLElement).scrollTo({
+          top: (chat[0] as HTMLElement).scrollHeight,
+          behavior: 'smooth',
+        });
+      }
+    }
+  }, [previewFiles]);
   // Detect if the content is an image URL
   const isImageContent = (content: string, type?: string): boolean => {
     if (type === 'image') return true;

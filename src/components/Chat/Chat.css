@@ -76,8 +76,8 @@
     margin-bottom: 10px;
     background-position: center;
     background-size: cover;
-    border-top-left-radius: 3px;
-    border-top-right-radius: 3px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
 }
 
 .memori-chat--cover+.memori-chat--bubble-initial {

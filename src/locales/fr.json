@@ -21,6 +21,7 @@
   "day": "Jour",
   "month": "Mois",
   "year": "Année",
+  "placeholder": "Faites une question",
   "createdAt": "Date de création",
   "all": "Tous",
   "today": "Aujourd'hui",

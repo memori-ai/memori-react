@@ -56,7 +56,7 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 10px 16px;
-    border-radius: 16px 16px 16px 0;
+    border-radius: 12px 12px 12px 0;
     margin: 10px auto 5px 10px;
     margin-bottom: 5px;
     background: var(--memori-chat-bubble-bg, #ffffff60);
@@ -175,7 +175,7 @@
 }
 
 .memori-chat--bubble.memori-chat--user-bubble {
-    border-radius: 16px 16px 0 16px;
+    border-radius: 12px 12px 0 12px;
     margin: 10px 10px 5px auto;
     background: var(--memori-chat-user-bubble-bg);
     box-shadow: 0 1px 6px 0 #d1d3de, 0 1px 3px 0 #c5c6d1;

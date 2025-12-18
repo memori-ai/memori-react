@@ -88,7 +88,7 @@ const ChatTextArea: React.FC<Props> = ({
           className="memori-chat-textarea--input"
           disabled={disabled}
           value={value}
-          placeholder={t('chat.placeholder', 'Fai una domanda') || 'Fai una domanda'}
+          placeholder={t('placeholder', 'Ask a question') || 'Ask a question'}
           onChange={e => {
             onChange(e.target.value);
           }}
