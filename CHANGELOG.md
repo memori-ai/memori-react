@@ -1,5 +1,29 @@
 
 
+## [8.13.0](https://github.com/memori-ai/memori-react/compare/v8.12.0...v8.13.0) (2025-12-19)
+
+
+### Features
+
+* add error message handling in ChatBubble for system errors ([380f83d](https://github.com/memori-ai/memori-react/commit/380f83d0521e67e4b67c6eb6d16671a70c087104))
+* add image compression functionality to UploadImages ([f9497be](https://github.com/memori-ai/memori-react/commit/f9497be057181240fcb858a236ac0e746833a4c7))
+* enhance UploadButton component with unified media upload limits ([cc9c564](https://github.com/memori-ai/memori-react/commit/cc9c56468afdfc62b3b944790273fda24b62f469))
+* implement drag-and-drop file upload functionality in Chat component ([e7b3a21](https://github.com/memori-ai/memori-react/commit/e7b3a212bbeadc3ecb40a4dbeda39faf9cd22463))
+
+
+### Bug Fixes
+
+* reset padding bottom of chat content in ChatTextArea on collapse ([d1b969b](https://github.com/memori-ai/memori-react/commit/d1b969bebc309ac28a125ebf49bd297edbfef75b))
+* update UploadButton title for improved clarity in file upload functionality ([24978ef](https://github.com/memori-ai/memori-react/commit/24978ef10ed0d5c34f63ab9d81140d74d89b26cd))
+
+
+### Changes
+
+* comment out unused scroll effect in Chat component ([dc3a6d6](https://github.com/memori-ai/memori-react/commit/dc3a6d64b81b89f48c4b3139d5f3fa499059b586))
+* improve UploadButton functionality for multiple file uploads ([b9f4d80](https://github.com/memori-ai/memori-react/commit/b9f4d8029b6930214cab03984983c65c8df94d7e))
+* remove UploadMenu component and associated styles, tests, and stories ([a6ab2de](https://github.com/memori-ai/memori-react/commit/a6ab2debe9fcef65d926de10778a7f9b30e4857f))
+* removed UploadButton file upload shortcut ([41b32ec](https://github.com/memori-ai/memori-react/commit/41b32ec0720c2652bba8ac8a7e6c131c9c3e7014))
+
 ## [8.12.0](https://github.com/memori-ai/memori-react/compare/v8.11.0...v8.12.0) (2025-12-01)
 
 
