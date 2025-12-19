@@ -462,7 +462,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
         className="memori--modal-preview-file"
         onClose={handleCancelUpload}
         closable
-        title={t('upload.titleImage', { title: imageTitle })}
+        // title={t('upload.titleImage', { title: imageTitle })}
         // description={t('upload.imageTitleDescription')}
       >
         <div
@@ -501,14 +501,14 @@ const UploadImages: React.FC<UploadImagesProps> = ({
             <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', alignItems: 'center' }}>
             <Button
                 onClick={handleCancelUpload}
-                className="memori-button memori-button--outline"
+                className="memori-button memori-button--outline memori--upload-image"
               >
                 {t('cancel') ?? 'Cancel'}
               </Button>
               <Button
                 onClick={handleTitleSubmit}
                 disabled={!selectedFile || !imageTitle.trim()}
-                className="memori-button memori-button--primary memori-button--image-confirm"
+                className="memori-button memori-button--primary memori-button--image-confirm memori--upload-image"
               >
                 {t('confirm') ?? 'Confirm'}
               </Button>

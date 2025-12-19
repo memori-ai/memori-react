@@ -161,7 +161,7 @@
 .memori--preview-content {
   padding: 16px;
   border-radius: 8px;
-  background-color: #f8f9fa;
+  /* background-color: #f8f9fa; */
   font-family: monospace;
   font-size: 14px;
   line-height: 1.5;
