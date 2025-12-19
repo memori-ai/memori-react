@@ -96,7 +96,7 @@ body.sb-show-main #root,
     --memori-chat-bubble-bg: #fff;
     --memori-chat-user-bubble-bg: var(--memori-primary);
     --memori-text-color: #000;
-    --memori-border-radius: 12px;
+    --memori-border-radius: 8px;
     --memori-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
     --memori-button-bg: #fff;
     --memori-button-text: #000;

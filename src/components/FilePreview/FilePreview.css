@@ -1,217 +1,302 @@
 /* Updated FilePreview Styles */
 
 .memori--preview-container {
-  z-index: 10;
-  min-width: 100%;
-  /* padding: 12px; */
-  border-radius: 8px;
-  /* margin-bottom: 12px; */
-  animation: slide-in 0.3s ease;
-  background: white;
-  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
-  transition: all 0.3s ease;
+    z-index: 10;
+    min-width: 100%;
+    /* padding: 12px; */
+    border-radius: 8px;
+    /* margin-bottom: 12px; */
+    animation: slide-in 0.3s ease;
+    background: white;
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); */
+    transition: all 0.3s ease;
 }
 
 .memori--preview-container.slide-down {
-  animation: slide-down 0.3s ease;
+    animation: slide-down 0.3s ease;
 }
 
 /* Responsive adjustments for file preview */
 @media (max-width: 768px) {
-  .memori--absolute-preview {
-    max-height: 150px;
-  }
+    .memori--absolute-preview {
+        max-height: 150px;
+    }
 
-  .memori--preview-container {
-    padding: 8px;
-    margin-bottom: 8px;
-  }
+    .memori--preview-container {
+        padding: 8px;
+        margin-bottom: 8px;
+    }
 
-  .memori--preview-filename {
-    max-width: 150px;
-    font-size: 12px;
-  }
+    .memori--preview-filename {
+        max-width: 150px;
+        font-size: 12px;
+    }
+
+    /* Make remove button always visible on mobile */
+    .memori--remove-button {
+        opacity: 1 !important;
+        transform: scale(1) !important;
+    }
+
+    /* Increase card size for easier interaction */
+    .memori--preview-item {
+        min-width: 140px;
+        min-height: 60px;
+        padding: 12px;
+    }
+
+    .memori--preview-icon {
+        width: 24px;
+        height: 24px;
+    }
+
+    .memori--preview-thumbnail {
+        min-width: 50px;
+        min-height: 50px;
+    }
+
+    .memori--preview-thumbnail img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+    }
 }
 
 @media (max-width: 480px) {
-  .memori--absolute-preview {
-    max-height: 120px;
-  }
+    .memori--absolute-preview {
+        max-height: 120px;
+    }
 
-  .memori--preview-container {
-    padding: 6px;
-    margin-bottom: 6px;
-  }
+    .memori--preview-container {
+        padding: 6px;
+        margin-bottom: 6px;
+    }
 
-  .memori--preview-filename {
-    max-width: 100px;
-    font-size: 11px;
-  }
+    .memori--preview-filename {
+        max-width: 100px;
+        font-size: 11px;
+    }
+
+    /* Make remove button always visible on mobile */
+    .memori--remove-button {
+        opacity: 1 !important;
+        transform: scale(1) !important;
+    }
+
+    /* Increase card size for easier interaction on small screens */
+    .memori--preview-item {
+        min-width: 160px;
+        min-height: 70px;
+        padding: 14px;
+    }
+
+    .memori--preview-icon {
+        width: 28px;
+        height: 28px;
+    }
+
+    .memori--preview-thumbnail {
+        min-width: 60px;
+        min-height: 60px;
+    }
+
+    .memori--preview-thumbnail img {
+        width: 60px;
+        height: 60px;
+        object-fit: cover;
+    }
 }
 
 .memori--message-preview {
-  max-width: 100%;
-  margin: 12px 0;
+    max-width: 100%;
+    margin: 12px 0;
 }
 
 .memori--preview-list {
-  display: flex;
-  flex-direction: row;
-  padding: .875rem;
-  padding-bottom: .625rem;
-  gap: 8px;
-  overflow-x: auto;
-  scrollbar-color: hsla(var(--border-300)/35%) transparent;
-  scrollbar-width: thin;
+    display: flex;
+    flex-direction: row;
+    padding: 0.875rem;
+    padding-bottom: 0.625rem;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-color: hsla(var(--border-300) / 35%) transparent;
+    scrollbar-width: thin;
 }
 
 .memori--preview-item {
-  position: relative;
-  display: flex;
-  max-width: fit-content;
-  align-items: center;
-  padding: 8px;
-  border-radius: 8px;
-  animation: slide-in 0.3s ease;
-  background-color: #f8f9fa;
-  cursor: pointer;
-  gap: 8px;
-  transition: all 0.2s ease;
+    position: relative;
+    display: flex;
+    max-width: fit-content;
+    align-items: center;
+    padding: 8px;
+    border-radius: 8px;
+    animation: slide-in 0.3s ease;
+    background-color: #f8f9fa;
+    cursor: pointer;
+    gap: 8px;
+    transition: all 0.2s ease;
 }
 
 .memori--preview-item:hover {
-  background-color: #f1f3f5;
-  transform: translateX(4px);
+    background-color: #f1f3f5;
+    transform: translateX(4px);
 }
 
 .memori--preview-icon {
-  width: 20px;
-  height: 20px;
-  flex-shrink: 0;
-  color: #fff;
-  fill: var(--memori-primary);
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    color: #fff;
+    fill: var(--memori-primary);
+}
+
+.memori--preview-thumbnail {
+    display: flex;
+    overflow: hidden;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.memori--preview-thumbnail img {
+    width: 40px;
+    height: 40px;
+    border-radius: 4px;
+    object-fit: cover;
 }
 
 .memori--preview-file-info {
-  display: flex;
-  overflow: hidden;
-  flex-direction: column;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+.memori-modal--title {
+    overflow: hidden;
+    max-width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .memori--preview-filename {
-  overflow: hidden;
-  max-width: 100px;
-  color: #495057;
-  font-size: 14px;
-  font-weight: 500;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    overflow: hidden;
+    max-width: 100px;
+    color: #495057;
+    font-size: 14px;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .memori--preview-filetype {
-  margin-top: 2px;
-  color: #868e96;
-  font-size: 12px;
+    margin-top: 2px;
+    color: #868e96;
+    font-size: 12px;
 }
 
 .memori--modal-title-preview {
-  margin-top: 12px;
-  margin-bottom: 12px;
-  font-size: 20px;
-  font-weight: 600;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .memori--remove-button {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  padding: 4px;
-  border: none;
-  border-radius: 50%;
-  background-color: #e03131;
-  color: white;
-  cursor: pointer;
-  opacity: 0;
-  transform: scale(0.75);
-  transition: all 0.2s ease;
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    padding: 4px;
+    border: none;
+    border-radius: 50%;
+    background-color: #e03131;
+    color: white;
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0.75);
+    transition: all 0.2s ease;
 }
 
 .memori--remove-button.visible {
-  opacity: 1;
-  transform: scale(1);
+    opacity: 1;
+    transform: scale(1);
 }
 
 .memori--remove-button:hover {
-  background-color: #c92a2a;
-  transform: scale(1.1);
+    background-color: #c92a2a;
+    transform: scale(1.1);
 }
 
 .memori--remove-icon {
-  width: 12px;
-  height: 12px;
+    width: 12px;
+    height: 12px;
 }
 
 .memori--modal-preview-file {
-  width: 100%;
-  max-width: 800px;
-  height: 100%;
-  padding: 12px;
+    width: 100%;
+    max-width: 800px;
+    height: 100%;
+    padding: 12px;
 }
 
 .memori--preview-content {
-  padding: 16px;
-  border-radius: 8px;
-  /* background-color: #f8f9fa; */
-  font-family: monospace;
-  font-size: 14px;
-  line-height: 1.5;
+    padding: 16px;
+    border-radius: 8px;
+    /* background-color: #f8f9fa; */
+    font-family: monospace;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes scaleIn {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 @keyframes slide-up {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes slide-in {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes slide-down {
-  from {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  to {
-    opacity: 0;
-    transform: translateY(10px);
-  }
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(10px);
+    }
 }
