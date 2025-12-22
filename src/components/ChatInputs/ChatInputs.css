@@ -227,6 +227,10 @@
     color: #000;
 }
 
+.memori-chat-inputs--send{
+    max-width: 45px;
+}
+
 /* Send button styling - ChatGPT style */
 .memori-chat-inputs--send-btn {
     display: flex;
