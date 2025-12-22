@@ -119,7 +119,7 @@ const Header: React.FC<Props> = ({
     );
   }, [layout, additionalSettings]);
 
-  const updateAvatar = async (avatar: Blob) => {
+  const updateAvatar = async (avatar: File) => {
     if (avatar && loginToken) {
       const reader = new FileReader();
       reader.onload = async e => {
