@@ -1,5 +1,13 @@
 
 
+## [8.13.2](https://github.com/memori-ai/memori-react/compare/v8.13.0...v8.13.2) (2025-12-22)
+
+
+### Bug Fixes
+
+* change avatar parameter type from Blob to File in updateAvatar function ([1911c15](https://github.com/memori-ai/memori-react/commit/1911c15dce2b0513e8003b6e029f7f3f4780e240))
+* change avatar parameter type from File to any in updateAvatar function ([e2b2f9b](https://github.com/memori-ai/memori-react/commit/e2b2f9b312fd335f3e1db011a3326f33cbbb0949))
+
 ## [8.13.0](https://github.com/memori-ai/memori-react/compare/v8.12.0...v8.13.0) (2025-12-19)
 
 
