@@ -13,7 +13,7 @@ export interface CompressionOptions {
 const DEFAULT_OPTIONS: Required<CompressionOptions> = {
   maxWidth: 1920,
   maxHeight: 1920,
-  quality: 0.85,
+  quality: 0.75,
   maxSizeMB: 2,
 };
 
