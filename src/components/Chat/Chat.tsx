@@ -188,6 +188,9 @@ const Chat: React.FC<Props> = ({
 
   // Drag and drop handlers for overlay
   useEffect(() => {
+    // Only enable drag and drop when showUpload is true
+    if (!showUpload) return;
+
     let dragCounter = 0;
     const chatWrapper = document.getElementById('chat-wrapper');
 
@@ -240,7 +243,7 @@ const Chat: React.FC<Props> = ({
         chatWrapper.removeEventListener('drop', handleDrop);
       }
     };
-  }, []);
+  }, [showUpload]);
 
   return (
     <div
