@@ -69,6 +69,15 @@
     }
 }
 
+@media (max-width: 425px) {
+    .memori-header--button {
+        padding: 0.785rem;
+    }
+    .memori-chat-layout--header {
+        margin-bottom: 0;
+    }
+}
+
 .memori-header--position .memori-header--button {
     margin-right: 0.5rem;
     margin-left: 0.5rem;
