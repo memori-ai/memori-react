@@ -1,5 +1,14 @@
 
 
+## [8.13.5](https://github.com/memori-ai/memori-react/compare/v8.13.4...v8.13.5) (2025-12-24)
+
+
+### Bug Fixes
+
+* adjust image compression quality and add HEIC handling ([0b64fc2](https://github.com/memori-ai/memori-react/commit/0b64fc2c748a87f67cdddcd0586c93a2f5dd2b69))
+* enable drag and drop functionality in Chat component based on showUpload state ([346da51](https://github.com/memori-ai/memori-react/commit/346da514896df335d39ee7f3e9fc50c9fab0b8ab))
+* on mobile, allow Enter to create a new line instead of sending ([86be6be](https://github.com/memori-ai/memori-react/commit/86be6be7ad507884300a29d37daadb1e2bc1b0d6))
+
 ## [8.13.4](https://github.com/memori-ai/memori-react/compare/v8.13.3...v8.13.4) (2025-12-22)
 
 ## [8.13.3](https://github.com/memori-ai/memori-react/compare/v8.13.2...v8.13.3) (2025-12-22)
