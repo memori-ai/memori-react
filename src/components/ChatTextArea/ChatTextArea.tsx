@@ -4,6 +4,7 @@ import Button from '../ui/Button';
 import Expand from '../icons/Expand';
 import FullscreenExit from '../icons/FullscreenExit';
 import { useTranslation } from 'react-i18next';
+import { hasTouchscreen } from '../../helpers/utils';
 
 export interface Props {
   disabled?: boolean;
@@ -93,7 +94,9 @@ const ChatTextArea: React.FC<Props> = ({
             onChange(e.target.value);
           }}
           onKeyDownCapture={e => {
-            if (e.key === 'Enter' && !e.shiftKey && onPressEnter) {
+            // On mobile, allow Enter to create a new line instead of sending
+            const isMobile = hasTouchscreen();
+            if (e.key === 'Enter' && !e.shiftKey && onPressEnter && !isMobile) {
               onPressEnter(e);
             }
           }}

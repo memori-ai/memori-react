@@ -28,9 +28,6 @@
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.memori-chat-inputs--send, .memori-chat-inputs > .memori-button{
-    max-width: 45px;
-}
 
 .memori-chat-inputs:disabled {
     opacity: 0.5;
