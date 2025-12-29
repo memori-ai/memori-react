@@ -28,8 +28,10 @@ import Download from '../icons/Download';
 import MessageIcon from '../icons/Message';
 import ArrowUpIcon from '../icons/ArrowUp';
 import Select from '../ui/Select';
+import ChevronLeft from '../icons/ChevronLeft';
 // Helpers / Utils
 import { getTranslation } from '../../helpers/translations';
+import Close from '../icons/Close';
 
 export interface Props {
   open: boolean;
@@ -459,6 +461,8 @@ const ChatHistoryDrawer = ({
   >('all');
   const [totalItems, setTotalItems] = useState(0);
   const [totalPages, setTotalPages] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isViewingChatDetail, setIsViewingChatDetail] = useState(false);
 
   // New filter for minimum messages per chat
   const [minimumMessagesPerChat, setMinimumMessagesPerChat] =
@@ -630,10 +634,24 @@ const ChatHistoryDrawer = ({
     ]
   );
 
+  // Mobile detection
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   useEffect(() => {
     if (open) {
       setCurrentPage(1); // Reset to first page when opening
       setIndexPage(0); // Reset index to 0
+      setIsViewingChatDetail(false); // Reset detail view when opening
+      setSelectedChatLog(null); // Reset selected chat when opening
     }
   }, [open]);
 
@@ -766,6 +784,9 @@ const ChatHistoryDrawer = ({
                   }
                   if (selectedChatLog?.chatLogID === chatLog.chatLogID) {
                     setSelectedChatLog(null);
+                    if (isMobile) {
+                      setIsViewingChatDetail(false);
+                    }
                     return;
                   }
                   // Check for chat-reference tag in the first line
@@ -791,6 +812,9 @@ const ChatHistoryDrawer = ({
                   //   }
                   // }
                   setSelectedChatLog(chatLog);
+                  if (isMobile) {
+                    setIsViewingChatDetail(true);
+                  }
                 }}
                 key={chatLog.chatLogID}
                 className={`memori-chat-history-drawer--card ${
@@ -806,9 +830,6 @@ const ChatHistoryDrawer = ({
                 <>
                   <div className="memori-chat-history-drawer--card--header">
                     <div className="memori-chat-history-drawer--card--header--content">
-                      <div className="memori-chat-history-drawer--card--header--icon-wrapper">
-                        <MessageIcon className="memori-chat-history-drawer--card--header--icon" />
-                      </div>
                       <div className="memori-chat-history-drawer--card--header--info">
                         <div className="memori-chat-history-drawer--card--header--title-wrapper">
                           <Dialog.Title
@@ -898,7 +919,7 @@ const ChatHistoryDrawer = ({
                       </svg>
                       {chatLog.lines.length}
                     </span>
-                    <div className="memori-chat-history-drawer--card--content--header">
+                    {!isMobile && <div className="memori-chat-history-drawer--card--content--header">
                       <Button
                         className="memori-chat-history-drawer--card--content--export-button"
                         onClick={e => handleExportChat(chatLog, e)}
@@ -911,66 +932,67 @@ const ChatHistoryDrawer = ({
                           </span> */}
                         </div>
                       </Button>
-                    </div>
+                    </div>}
                   </div>
 
-                  {selectedChatLog?.chatLogID === chatLog.chatLogID && (
-                    <div className="memori-chat-history-drawer--card--content">
-                      <div className="memori-chat-history-drawer--card--content--messages">
-                        <Chat
-                          key={`${chatLog.chatLogID}-${chatLog.lines.length}`}
-                          baseUrl={baseUrl}
-                          apiUrl={apiUrl}
-                          memoriTyping={false}
-                          showTypingText={false}
-                          showAIicon={true}
-                          showTranslationOriginal={false}
-                          showWhyThisAnswer={false}
-                          showCopyButton={false}
-                          isChatlogPanel={true}
-                          showInputs={false}
-                          history={chatLog.lines.map(line => ({
-                            text: line.text, // Don't truncate to preserve document_attachment tags
-                            contextVars: line.contextVars,
-                            media: line.media as Medium[],
-                            fromUser: line.inbound,
-                            timestamp: line.timestamp,
-                          }))}
-                          memori={memori}
-                          sessionID={sessionId}
-                          pushMessage={() => {}}
-                          simulateUserPrompt={() => {}}
-                          setSendOnEnter={() => {}}
-                          attachmentsMenuOpen={undefined}
-                          setAttachmentsMenuOpen={() => {}}
-                          userMessage={''}
-                          onChangeUserMessage={() => {}}
-                          sendMessage={() => {}}
-                          startListening={() => {}}
-                          stopListening={() => {}}
-                          listening={false}
-                          setEnableFocusChatInput={() => {}}
-                          stopAudio={() => {}}
-                          isHistoryView={true}
-                        />
+                  {selectedChatLog?.chatLogID === chatLog.chatLogID &&
+                    !isMobile && (
+                      <div className="memori-chat-history-drawer--card--content">
+                        <div className="memori-chat-history-drawer--card--content--messages">
+                          <Chat
+                            key={`${chatLog.chatLogID}-${chatLog.lines.length}`}
+                            baseUrl={baseUrl}
+                            apiUrl={apiUrl}
+                            memoriTyping={false}
+                            showTypingText={false}
+                            showAIicon={true}
+                            showTranslationOriginal={false}
+                            showWhyThisAnswer={false}
+                            showCopyButton={false}
+                            isChatlogPanel={true}
+                            showInputs={false}
+                            history={chatLog.lines.map(line => ({
+                              text: line.text, // Don't truncate to preserve document_attachment tags
+                              contextVars: line.contextVars,
+                              media: line.media as Medium[],
+                              fromUser: line.inbound,
+                              timestamp: line.timestamp,
+                            }))}
+                            memori={memori}
+                            sessionID={sessionId}
+                            pushMessage={() => {}}
+                            simulateUserPrompt={() => {}}
+                            setSendOnEnter={() => {}}
+                            attachmentsMenuOpen={undefined}
+                            setAttachmentsMenuOpen={() => {}}
+                            userMessage={''}
+                            onChangeUserMessage={() => {}}
+                            sendMessage={() => {}}
+                            startListening={() => {}}
+                            stopListening={() => {}}
+                            listening={false}
+                            setEnableFocusChatInput={() => {}}
+                            stopAudio={() => {}}
+                            isHistoryView={true}
+                          />
+                        </div>
+                        <div className="memori-chat-history-drawer--card--content--actions">
+                          <Button
+                            className="memori-chat-history-drawer--card--content--resume-button"
+                            primary
+                            onClick={handleResumeChat}
+                          >
+                            <div className="memori-chat-history-drawer--card--content--resume-button--content">
+                              <ChatRound className="memori-chat-history-drawer--card--content--resume-button--icon" />
+                              <span className="memori-chat-history-drawer--card--content--resume-button--text">
+                                {t('write_and_speak.resumeButton') ||
+                                  'Resume chat'}
+                              </span>
+                            </div>
+                          </Button>
+                        </div>
                       </div>
-                      <div className="memori-chat-history-drawer--card--content--actions">
-                        <Button
-                          className="memori-chat-history-drawer--card--content--resume-button"
-                          primary
-                          onClick={handleResumeChat}
-                        >
-                          <div className="memori-chat-history-drawer--card--content--resume-button--content">
-                            <ChatRound className="memori-chat-history-drawer--card--content--resume-button--icon" />
-                            <span className="memori-chat-history-drawer--card--content--resume-button--text">
-                              {t('write_and_speak.resumeButton') ||
-                                'Resume chat'}
-                            </span>
-                          </div>
-                        </Button>
-                      </div>
-                    </div>
-                  )}
+                    )}
                 </>
               </Card>
             );
@@ -1013,6 +1035,83 @@ const ChatHistoryDrawer = ({
     );
   };
 
+  const renderChatDetailView = () => {
+    if (!selectedChatLog) return null;
+
+    return (
+      <div className="memori-chat-history-drawer--detail-view">
+        <div className="memori-chat-history-drawer--detail-view--header">
+          <Button
+            className="memori-chat-history-drawer--detail-view--back-button"
+            onClick={() => {
+              setIsViewingChatDetail(false);
+              setSelectedChatLog(null);
+            }}
+            icon={<ChevronLeft />}
+          />
+          <div className="memori-chat-history-drawer--detail-view--header--title">
+            {calculateTitle(selectedChatLog.lines) ||
+              'Chat-' + selectedChatLog.chatLogID.substring(0, 4)}
+          </div>
+        </div>
+        <div className="memori-chat-history-drawer--detail-view--content">
+          <div className="memori-chat-history-drawer--detail-view--messages">
+            <Chat
+              key={`${selectedChatLog.chatLogID}-${selectedChatLog.lines.length}`}
+              baseUrl={baseUrl}
+              apiUrl={apiUrl}
+              memoriTyping={false}
+              showTypingText={false}
+              showAIicon={true}
+              showTranslationOriginal={false}
+              showWhyThisAnswer={false}
+              showCopyButton={false}
+              isChatlogPanel={true}
+              showInputs={false}
+              history={selectedChatLog.lines.map(line => ({
+                text: line.text,
+                contextVars: line.contextVars,
+                media: line.media as Medium[],
+                fromUser: line.inbound,
+                timestamp: line.timestamp,
+              }))}
+              memori={memori}
+              sessionID={sessionId}
+              pushMessage={() => {}}
+              simulateUserPrompt={() => {}}
+              setSendOnEnter={() => {}}
+              attachmentsMenuOpen={undefined}
+              setAttachmentsMenuOpen={() => {}}
+              userMessage={''}
+              onChangeUserMessage={() => {}}
+              sendMessage={() => {}}
+              startListening={() => {}}
+              stopListening={() => {}}
+              listening={false}
+              setEnableFocusChatInput={() => {}}
+              stopAudio={() => {}}
+              isHistoryView={true}
+            />
+          </div>
+          <div className="memori-chat-history-drawer--detail-view--actions">
+            <Button
+              className="memori-chat-history-drawer--detail-view--resume-button"
+              primary
+              onClick={handleResumeChat}
+            >
+              <div className="memori-chat-history-drawer--detail-view--resume-button--content">
+                <ChatRound className="memori-chat-history-drawer--detail-view--resume-button--icon" />
+                <span className="memori-chat-history-drawer--detail-view--resume-button--text">
+                  {t('write_and_speak.resumeButton') || 'Resume chat'}
+                </span>
+              </div>
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <Drawer
       className="memori-chat-history-drawer"
@@ -1030,32 +1129,44 @@ const ChatHistoryDrawer = ({
         >
           <span>{t('write_and_speak.chatHistory') || 'Chat History'}</span>
 
-          <div className="memori-chat-history-drawer--download-button-wrapper">
-            <span className="memori-chat-history-drawer--download-button-wrapper--text">
-              {t('write_and_speak.downloadChat') || 'Download chat'}
-            </span>
-            <Button
-              primary
-              shape="circle"
-              className="memori-chat-history-drawer--download-button"
-              title={t('download') || 'Download chat'}
-              icon={<Download />}
-              // disabled={!selectedChatLog}
-              onClick={() => {
-                //download the chat already opened
-                const fileName = `${memori.name.replace(/\W+/g, '-')}-chat-${
-                  new Date().toISOString().split('T')[0]
-                }.txt`;
-                downloadFile(textCurrentChat, fileName);
-              }}
-            />
-          </div>
+          {!isViewingChatDetail && (
+            <div className="memori-chat-history-drawer--download-button-wrapper">
+              <span className="memori-chat-history-drawer--download-button-wrapper--text">
+                {t('write_and_speak.downloadChat') || 'Download chat'}
+              </span>
+              <Button
+                primary
+                shape="circle"
+                className="memori-chat-history-drawer--download-button"
+                title={t('download') || 'Download chat'}
+                icon={<Download />}
+                // disabled={!selectedChatLog}
+                onClick={() => {
+                  //download the chat already opened
+                  const fileName = `${memori.name.replace(/\W+/g, '-')}-chat-${
+                    new Date().toISOString().split('T')[0]
+                  }.txt`;
+                  downloadFile(textCurrentChat, fileName);
+                }}
+              />
+              {/* <Button ghost onClick={() => {
+                onClose();
+              }} icon={<Close />} shape="circle" /> */}
+            </div>
+          )}
         </div>
       }
-      description={t('write_and_speak.chatHistoryDescription')}
+      description={
+        !isViewingChatDetail
+          ? t('write_and_speak.chatHistoryDescription')
+          : undefined
+      }
     >
-      <div className="memori-chat-history-drawer--content">
-        <div className="memori-chat-history-drawer--toolbar">
+      {isMobile && isViewingChatDetail ? (
+        renderChatDetailView()
+      ) : (
+        <div className="memori-chat-history-drawer--content">
+          <div className="memori-chat-history-drawer--toolbar">
           {/* New minimum messages filter */}
           <div className="memori-chat-history-drawer--toolbar--min-messages-filter">
             {/* <label className={styles.filterLabel}>
@@ -1183,7 +1294,8 @@ const ChatHistoryDrawer = ({
           </div>
         </div>
         {renderContent()}
-      </div>
+        </div>
+      )}
     </Drawer>
   );
 };
