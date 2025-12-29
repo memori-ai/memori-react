@@ -144,9 +144,9 @@
 .memori-chat-history-drawer--card--header--meta--time {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
     font-size: 12px;
     font-style: italic;
+    gap: 0.25rem;
 }
 
 .memori-chat-history-drawer--card--content {
@@ -431,9 +431,9 @@
     display: flex;
     overflow: hidden;
     height: 100%;
-    flex-direction: column;
     min-height: 90vh;
     max-height: 90vh;
+    flex-direction: column;
 }
 
 .memori-chat-history-drawer--detail-view--header {
@@ -492,8 +492,8 @@
 .memori-chat-history-drawer--detail-view--messages {
     flex: 1;
     padding: 16px;
-    overflow-y: auto;
     padding-bottom: 64px;
+    overflow-y: auto;
 }
 
 .memori-chat-history-drawer--detail-view--messages .memori-chat--cover {
@@ -508,13 +508,13 @@
 .memori-chat-history-drawer--detail-view--actions {
     position: relative;
     bottom: 0;
+    left: 0;
     display: flex;
+    width: 100%;
     justify-content: center;
     /* padding: 16px; */
     border-top: 1px solid var(--memori-border, #e5e7eb);
     background: linear-gradient(to top, var(--memori-background-color, #fff) 80%, transparent);
-    width: 100%;
-    left: 0;
 }
 
 .memori-chat-history-drawer--detail-view--resume-button {
@@ -524,15 +524,15 @@
     justify-content: center;
     padding: 12px 24px;
     border-radius: 12px;
+    margin: 24px;
     gap: 8px;
     transition: transform 0.2s ease;
-    margin: 24px;
 }
 
 .memori-chat-history-drawer--list{
-    padding: 0px;
-    max-width: 97%;
     min-width: 97%;
+    max-width: 97%;
+    padding: 0px;
     margin: auto;
 }
 
