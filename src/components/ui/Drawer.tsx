@@ -42,6 +42,19 @@ export interface Props {
   preventBackdropClose?: boolean;
   enterDuration?: string;
   leaveDuration?: string;
+  titleWithClosable?: {
+    title: string;
+    actions?: Array<{
+      icon?: React.ReactNode;
+      onClick?: () => void;
+      title?: string;
+      disabled?: boolean;
+      loading?: boolean;
+      className?: string;
+      [key: string]: any;
+    }>;
+    showClosable?: boolean;
+  };
 }
 
 const Drawer: FC<Props> = ({
@@ -67,6 +80,7 @@ const Drawer: FC<Props> = ({
   preventBackdropClose = false,
   enterDuration = 'duration-300',
   leaveDuration = 'duration-200',
+  titleWithClosable,
 }: Props) => {
   const [originalData, setOriginalData] = useState<any>(null);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
@@ -147,15 +161,16 @@ const Drawer: FC<Props> = ({
                 as={React.Fragment}
                 enter={`ease-out ${enterDuration}`}
                 enterFrom={animated ? 'max-w-0 opacity-0' : 'opacity-0'}
-                enterTo="max-w-80 opacity-100"
+                enterTo="max-w-100 opacity-100"
                 leave={`ease-in ${leaveDuration}`}
-                leaveFrom="max-w-80 opacity-100"
+                leaveFrom="max-w-100 opacity-100"
                 leaveTo={animated ? 'max-w-0 opacity-0' : 'opacity-0'}
               >
                 <Dialog.Panel
                   className={cx('memori-drawer--panel', {
                     'memori-drawer--panel-left': placement === 'left',
                     'memori-drawer--with-footer': !!footer,
+                    'memori-drawer--with-title-closable': !!titleWithClosable,
                   })}
                   style={
                     {
@@ -165,19 +180,56 @@ const Drawer: FC<Props> = ({
                     } as React.CSSProperties
                   }
                 >
-                  {closable && (
-                    <div className="memori-drawer--close">
-                      <Button
-                        shape="circle"
-                        outlined
-                        icon={<Close />}
-                        onClick={handleClose}
-                      />
+                  {titleWithClosable ? (
+                    <div className="memori-drawer--title-with-closable">
+                      <Dialog.Title className="memori-drawer--title-with-closable-title">
+                        {titleWithClosable.title}
+                      </Dialog.Title>
+                      <div className="memori-drawer--title-with-closable-actions">
+                        {titleWithClosable.actions?.map((action, index) => {
+                          const { icon, onClick, title, disabled, loading, className, ...restProps } = action;
+                          return (
+                            <Button
+                              key={index}
+                              shape="circle"
+                              outlined
+                              icon={icon}
+                              onClick={onClick}
+                              title={title}
+                              disabled={disabled}
+                              loading={loading}
+                              className={className}
+                              {...restProps}
+                            />
+                          );
+                        })}
+                        {titleWithClosable.showClosable && (
+                          <Button
+                            shape="circle"
+                            outlined
+                            icon={<Close />}
+                            onClick={handleClose}
+                          />
+                        )}
+                      </div>
                     </div>
+                  ) : (
+                    <>
+                      {closable && (
+                        <div className="memori-drawer--close">
+                          <Button
+                            shape="circle"
+                            outlined
+                            icon={<Close />}
+                            onClick={handleClose}
+                          />
+                        </div>
+                      )}
+                    </>
                   )}
                   <Spin spinning={loading}>
                     <div className="memori-drawer--content">
-                      {title && (
+                      {!titleWithClosable && title && (
                         <Dialog.Title className="memori-drawer--title">
                           {title}
                         </Dialog.Title>

@@ -46,19 +46,16 @@
   font-family: var(--memori-font-family);
 }
 
-@media (min-width: 768px) {
+@media (max-width: 767px) {
   .memori-drawer--panel {
-    width: var(--memori-drawer--width-md, 80%);
-    max-width: none;
-    padding-top: 1.5rem;
-    padding-right: 2rem;
-    padding-left: 2rem;
+    width: 100%;
+    max-width: 100%;
   }
 }
 
 @media (min-width: 1024px) {
   .memori-drawer--panel {
-    width: var(--memori-drawer--width-lg, 60%);
+    width: var(--memori-drawer--width--lg, 60%);
   }
 }
 
@@ -89,6 +86,28 @@ h2.memori-drawer--title {
   font-weight: 700;
 }
 
+.memori-drawer--title-with-closable {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  margin-bottom: 1rem;
+}
+
+.memori-drawer--title-with-closable-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  flex: 1;
+}
+
+.memori-drawer--title-with-closable-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 1rem;
+}
+
 .memori-drawer--panel-left {
   margin-right: auto;
   margin-left: 0;
@@ -106,7 +125,14 @@ h2.memori-drawer--title {
 
 @media (max-width: 767px) {
   .memori-drawer--close {
-    left: 0.5rem;
+    /* position: absolute; */
+    position: relative;
+    top: 0;
+    right: 0.5rem;
+    left: auto;
+    margin-top: 0;
+    margin-left: 0;
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -166,6 +192,15 @@ h2.memori-drawer--title {
     overflow-y: auto;
 }
 
+.memori-drawer--content--header{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 12px;
+}
+
+
 .memori-drawer--content--scrollable{
     flex: 1;
     overflow-y: auto;
@@ -210,4 +245,8 @@ h2.memori-drawer--title {
 
 .max-w-80 {
   max-width: 80%;
+}
+
+.max-w-100 {
+  max-width: 100%;
 }
