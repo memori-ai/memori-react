@@ -123,6 +123,24 @@ h2.memori-drawer--title {
   margin-left: -5.5rem;
 }
 
+.memori-drawer--title-with-closable-actions-close{
+  position: absolute;
+  z-index: 70;
+  top: 1.5rem;
+  left: -3.5rem;
+  background: var(--memori-primary);
+  color: #fff;
+}
+
+@media (max-width: 767px) {
+  .memori-drawer--title-with-closable-actions-close{
+    position: relative;
+    top: 0;
+    left: 0;
+    margin-top: 0;
+  }
+}
+
 @media (max-width: 767px) {
   .memori-drawer--close {
     /* position: absolute; */

@@ -209,6 +209,7 @@ const Drawer: FC<Props> = ({
                             outlined
                             icon={<Close />}
                             onClick={handleClose}
+                            className="memori-drawer--title-with-closable-actions-close"
                           />
                         )}
                       </div>

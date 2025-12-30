@@ -93,8 +93,6 @@ ul.memori-select--options {
     position: absolute;
     z-index: 1;
     overflow: auto;
-    width: 100%;
-    max-width: min(18rem, 30%);
     max-height: 15rem;
     padding-top: 0.25rem;
     padding-right: 0;
