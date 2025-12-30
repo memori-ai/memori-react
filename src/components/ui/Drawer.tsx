@@ -48,6 +48,7 @@ export interface Props {
       icon?: React.ReactNode;
       onClick?: () => void;
       title?: string;
+      visible?: boolean;
       disabled?: boolean;
       loading?: boolean;
       className?: string;
@@ -186,7 +187,7 @@ const Drawer: FC<Props> = ({
                         {titleWithClosable.title}
                       </Dialog.Title>
                       <div className="memori-drawer--title-with-closable-actions">
-                        {titleWithClosable.actions?.map((action, index) => {
+                        {titleWithClosable.actions?.filter((action) => action.visible).map((action, index) => {
                           const { icon, onClick, title, disabled, loading, className, ...restProps } = action;
                           return (
                             <Button

@@ -568,7 +568,7 @@ const ChatHistoryDrawer = ({
         from: calculatedIndex,
         howMany: ITEMS_PER_PAGE,
         minimumMessagesPerChat:
-          customMinimumMessages > 0
+          minimumMessagesPerChat === 0
             ? customMinimumMessages
             : minimumMessagesPerChat,
       };
@@ -655,20 +655,20 @@ const ChatHistoryDrawer = ({
     }
   }, [open]);
 
-  // Reset to first page when changing sort order or date range
+  // Reset to first page when changing sort order, date range, or minimum messages filter
   useEffect(() => {
     if (open) {
       setCurrentPage(1);
       setIndexPage(0);
     }
-  }, [sortOrder, dateRange, open]);
+  }, [sortOrder, dateRange, minimumMessagesPerChat, customMinimumMessages, open]);
 
-  // Fetch chat logs when current page or date range changes
+  // Fetch chat logs when current page, date range, or minimum messages filter changes
   useEffect(() => {
     if (open && currentPage > 0) {
       fetchChatLogs(dateRange);
     }
-  }, [currentPage, dateRange, fetchChatLogs, open]);
+  }, [currentPage, dateRange, minimumMessagesPerChat, customMinimumMessages, fetchChatLogs, open]);
 
   const debouncedSearch = useMemo(
     () => debounce((value: string) => setSearchText(value), DEBOUNCE_DELAY),
@@ -789,28 +789,6 @@ const ChatHistoryDrawer = ({
                     }
                     return;
                   }
-                  // Check for chat-reference tag in the first line
-                  // const firstMessage = chatLog.lines[1]?.text;
-                  // const chatReferenceMatch = firstMessage?.match(/<chat-reference session-id="([^"]+)" event-log-id="([^"]+)"><\/chat-reference>/);
-                  // if (chatReferenceMatch) {
-                  //   const [_, refSessionId, refChatLogId] = chatReferenceMatch;
-                  //   try {
-                  //     const res = await getSessionChatLogs(refSessionId, refSessionId);
-                  //     const prevChatLog = res.chatLogs.find((c: ChatLog) => c.chatLogID === refChatLogId);
-                  //     if (prevChatLog) {
-                  //       setSelectedChatLog({
-                  //         ...chatLog,
-                  //         lines: [
-                  //           ...prevChatLog.lines,
-                  //           ...chatLog.lines
-                  //         ]
-                  //       });
-                  //       return;
-                  //     }
-                  //   } catch (e) {
-                  //     console.error('Error fetching referenced chat log:', e);
-                  //   }
-                  // }
                   setSelectedChatLog(chatLog);
                   // if (isMobile) {
                   setIsViewingChatDetail(true);
@@ -1124,12 +1102,36 @@ const ChatHistoryDrawer = ({
         actions: [
           {
             icon: <Download />,
+            visible: isViewingChatDetail,
             onClick: () => {
               //download the chat already opened
               const fileName = `${memori.name.replace(/\W+/g, '-')}-chat-${
                 new Date().toISOString().split('T')[0]
               }.txt`;
-              downloadFile(textCurrentChat, fileName);
+              const text =
+                selectedChatLog?.lines
+                  .map(
+                    line =>
+                      `${line.inbound ? 'YOU' : memori.name}: ${line.text}`
+                  )
+                  .join('\n')
+                  .replaceAll(/<think.*?>(.*?)<\/think>/gs, '')
+                  // Remove document_attachment tags from text - they will be handled as media
+                  .replaceAll(
+                    /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g,
+                    ''
+                  )
+                  .replaceAll(
+                    /<output.*?<\/output>/gsi,
+                    ''
+                  )
+                  .replaceAll(/```markdown([^```]+)```/g, '$1')
+                  .replaceAll('($', '( $')
+                  .replaceAll(':$', ': $')
+                  .replaceAll('\frac', '\\frac')
+                  .replaceAll('\beta', '\\beta')
+                  .replaceAll('cdot', '\\cdot') || 'No chat history available';
+              downloadFile(text, fileName);
             },
           },
         ],
@@ -1146,32 +1148,6 @@ const ChatHistoryDrawer = ({
           }}
         >
           <span>{t('write_and_speak.chatHistory') || 'Chat History'}</span>
-
-          {!isViewingChatDetail && (
-            <div className="memori-chat-history-drawer--download-button-wrapper">
-              <span className="memori-chat-history-drawer--download-button-wrapper--text">
-                {t('write_and_speak.downloadChat') || 'Download chat'}
-              </span>
-              <Button
-                primary
-                shape="circle"
-                className="memori-chat-history-drawer--download-button"
-                title={t('download') || 'Download chat'}
-                icon={<Download />}
-                // disabled={!selectedChatLog}
-                onClick={() => {
-                  //download the chat already opened
-                  const fileName = `${memori.name.replace(/\W+/g, '-')}-chat-${
-                    new Date().toISOString().split('T')[0]
-                  }.txt`;
-                  downloadFile(textCurrentChat, fileName);
-                }}
-              />
-              {/* <Button ghost onClick={() => {
-                onClose();
-              }} icon={<Close />} shape="circle" /> */}
-            </div>
-          )}
         </div>
       }
       description={
@@ -1211,10 +1187,6 @@ const ChatHistoryDrawer = ({
                 value={minimumMessagesPerChat}
                 onChange={value => {
                   setMinimumMessagesPerChat(value);
-                  window.localStorage.setItem(
-                    'minimumMessagesPerChat',
-                    value.toString()
-                  );
                 }}
                 className="memori-chat-history-drawer--toolbar--min-messages-filter--select"
                 options={[
@@ -1262,10 +1234,6 @@ const ChatHistoryDrawer = ({
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                     const value = parseInt(e.target.value, 10);
                     setCustomMinimumMessages(value);
-                    window.localStorage.setItem(
-                      'customMinimumMessages',
-                      value.toString()
-                    );
                   }}
                   style={{ minWidth: 50 }}
                   className="memori-chat-history-drawer--toolbar--min-messages-filter--input-number"
