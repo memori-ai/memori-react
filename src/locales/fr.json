@@ -124,16 +124,25 @@
     "boardOfExperts": "Conseil d'experts",
     "showExpertsInTheBoard": "Afficher les experts dans ce conseil",
     "expertsInTheBoard": "Experts dans ce conseil",
-    "goToIntegrationsToCustomizeAvatar": "Pour personnaliser l'avatar, allez dans Partager et personnalisez la page publique",
-    "chatHistory": "Historique des discussions",
-    "chatHistoryDescription": "Afficher l'historique des discussions avec cet agent",
+    "goToIntegrationsToCustomizeAvatar": "Pour personnaliser l'avatar, allez dans Partager et personnalisez la page publique"
+  },
+  "exportChatHistory": {
+    "exportPDF": "Exporter le chat en PDF",
+    "exporting": "Exportation en cours...",
+    "empty": "Aucun historique de chat à exporter",
+    "pdfNotSupported": "L'exportation PDF n'est pas prise en charge dans ce navigateur",
+    "success": "Chat exporté en PDF avec succès",
+    "error": "Échec de l'exportation du chat en PDF. Veuillez réessayer."
+  },
+  "write_and_speak": {
     "loadingChatHistory": "Chargement de l'historique des discussions...",
     "noChatHistoryAvailable": "Aucun historique des discussions disponible",
     "noResultsFound": "Aucun résultat trouvé pour \"{{searchText}}\"",
     "searchInChatHistory": "Rechercher dans l'historique des chats...",
     "latestFirst": "Plus récents d'abord",
     "oldestFirst": "Plus anciens d'abord",
-    "exportChat": "Exporter le Chat"
+    "exportChat": "Exporter le Chat",
+    "conversationStartedLabel": "Conversation démarrée"
   },
   "write_and_speak": {
     "micButtonPopover": "Cliquez sur le bouton pour parler",
