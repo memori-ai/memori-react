@@ -130,6 +130,14 @@
     "expertsInTheBoard": "Experts in this board",
     "goToIntegrationsToCustomizeAvatar": "To customize the avatar, go to Share and customize the public page"
   },
+  "exportChatHistory": {
+    "exportPDF": "Export chat as PDF",
+    "exporting": "Exporting...",
+    "empty": "No chat history to export",
+    "pdfNotSupported": "PDF export is not supported in this browser",
+    "success": "Chat exported to PDF successfully",
+    "error": "Failed to export chat to PDF. Please try again."
+  },
   "write_and_speak": {
     "micButtonPopover": "Click the button to speak",
     "micButtonPopoverListening": "Click the button to stop speak",
@@ -157,6 +165,7 @@
     "latestFirst": "Latest first",
     "oldestFirst": "Oldest first",
     "exportChat": "Export Chat",
+    "conversationStartedLabel": "Conversation started",
     "settingsHeaderLabel": "Setup here if you want to set the continuous speech, and change the silence seconds if you want to customize them.",
     "continuousSpeechLabel": "Continuous speech",
     "continuousSpeechDisabled": "Continuous speech disabled because the agent is in mute mode",

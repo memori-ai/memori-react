@@ -69,7 +69,7 @@ const Header: React.FC<Props> = ({
   className,
   memori,
   tenant,
-  // history,
+  history,
   position,
   setShowPositionDrawer,
   setShowSettingsDrawer,
@@ -323,6 +323,7 @@ const Header: React.FC<Props> = ({
           showQrCode
           align="left"
           baseUrl={baseUrl}
+          history={history}
         />
       )}
       {showLogin && (

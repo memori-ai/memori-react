@@ -128,6 +128,14 @@
     "expertsInTheBoard": "Experten in diesem Rat",
     "goToIntegrationsToCustomizeAvatar": "Um den Avatar anzupassen, gehen Sie zu \"Teilen\" und passen Sie die öffentliche Seite an"
   },
+  "exportChatHistory": {
+    "exportPDF": "Chat als PDF exportieren",
+    "exporting": "Exportiere...",
+    "empty": "Kein Chatverlauf zum Exportieren",
+    "pdfNotSupported": "PDF-Export wird in diesem Browser nicht unterstützt",
+    "success": "Chat erfolgreich als PDF exportiert",
+    "error": "Fehler beim Exportieren des Chats als PDF. Bitte versuchen Sie es erneut."
+  },
   "write_and_speak": {
     "micButtonPopover": "Klicken Sie auf die Schaltfläche, um zu sprechen",
     "micButtonPopoverListening": "Klicken Sie auf die Schaltfläche, um das Sprechen zu stoppen",
@@ -155,6 +163,7 @@
     "latestFirst": "Neueste zuerst",
     "oldestFirst": "Älteste zuerst",
     "exportChat": "Chat exportieren",
+    "conversationStartedLabel": "Unterhaltung gestartet",
     "settingsHeaderLabel": "Richten Sie hier ein, wenn Sie die Agent als Dauerrede einstellen möchten, und ändern Sie die Stillesekunden, wenn Sie sie anpassen möchten.",
     "continuousSpeechLabel": "Kontinuierliche Rede",
     "continuousSpeechDisabled": "Kontinuierliche Rede deaktiviert, da der Agent im Stummschaltmodus ist",

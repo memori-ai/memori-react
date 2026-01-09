@@ -130,6 +130,14 @@
     "expertsInTheBoard": "Esperti in questa board",
     "goToIntegrationsToCustomizeAvatar": "Per personalizzare l'avatar, vai a Condividimi e configura la pagina pubblica"
   },
+  "exportChatHistory": {
+    "exportPDF": "Esporta chat come PDF",
+    "exporting": "Esportazione in corso...",
+    "empty": "Nessuna cronologia chat da esportare",
+    "pdfNotSupported": "L'esportazione PDF non è supportata in questo browser",
+    "success": "Chat esportata in PDF con successo",
+    "error": "Impossibile esportare la chat in PDF. Riprova."
+  },
   "write_and_speak": {
     "micButtonPopover": "Premi il pulsante per parlare",
     "micButtonPopoverListening": "Premi il pulsante per smettere di parlare",

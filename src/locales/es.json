@@ -128,6 +128,14 @@
     "expertsInTheBoard": "Expertos en este panel",
     "goToIntegrationsToCustomizeAvatar": "Para personalizar el avatar, ve a Compartir y personaliza la página pública"
   },
+  "exportChatHistory": {
+    "exportPDF": "Exportar chat como PDF",
+    "exporting": "Exportando...",
+    "empty": "No hay historial de chat para exportar",
+    "pdfNotSupported": "La exportación PDF no es compatible con este navegador",
+    "success": "Chat exportado a PDF exitosamente",
+    "error": "Error al exportar el chat a PDF. Por favor, inténtalo de nuevo."
+  },
   "write_and_speak": {
     "micButtonPopover": "Haga clic en el botón para hablar",
     "micButtonPopoverListening": "Haga clic en el botón para dejar de hablar.",
@@ -155,6 +163,7 @@
     "latestFirst": "Más recientes primero",
     "oldestFirst": "Más antiguos primero",
     "exportChat": "Exportar Chat",
+    "conversationStartedLabel": "Conversación iniciada",
     "settingsHeaderLabel": "Configure aquí si desea configurar la memoria como voz continua y cambie los segundos de silencio si desea personalizarlos.",
     "continuousSpeechLabel": "discurso continuo",
     "continuousSpeechDisabled": "Discurso continuo deshabilitado porque el agente está en modo silencioso",
