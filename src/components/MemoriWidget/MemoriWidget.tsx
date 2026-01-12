@@ -2866,7 +2866,7 @@ const MemoriWidget = ({
     setShowSettingsDrawer,
     setShowKnownFactsDrawer,
     setShowExpertsDrawer,
-    enableAudio: defaultEnableAudio,
+    enableAudio: enableAudio ?? integrationConfig?.enableAudio ?? true,
     speakerMuted: speakerMuted ?? false,
     setSpeakerMuted: (mute: boolean) => {
       toggleMute(mute);
