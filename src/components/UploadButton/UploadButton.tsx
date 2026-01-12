@@ -228,7 +228,8 @@ const UploadButton: React.FC<UploadManagerProps> = ({
         );
       };
       
-      // First, try to get files directly from clipboardData.files (most reliable for multiple files)
+      // Prefer clipboardData.files if available (most reliable and prevents duplicates)
+      // Only fall back to items if files is empty (some browsers only populate items)
       if (clipboardData.files && clipboardData.files.length > 0) {
         const clipboardFiles = Array.from(clipboardData.files);
         console.log(`[UploadButton] handlePaste: clipboardData.files found`, clipboardFiles);
@@ -239,20 +240,21 @@ const UploadButton: React.FC<UploadManagerProps> = ({
             console.log(`[UploadButton] handlePaste: Duplicate file skipped from clipboardData.files:`, file);
           }
         });
-      }
-      
-      // Also check items array (some browsers populate this instead of or in addition to files)
-      const items = clipboardData.items;
-      if (items) {
-        for (let i = 0; i < items.length; i++) {
-          const item = items[i];
-          if (item.kind === 'file') {
-            const file = item.getAsFile();
-            if (file && !isDuplicate(file)) {
-              console.log(`[UploadButton] handlePaste: Adding file from items array:`, file);
-              files.push(file);
-            } else if (file) {
-              console.log(`[UploadButton] handlePaste: Duplicate file skipped from items array:`, file);
+      } else {
+        // Fall back to items array only if files is empty
+        // This prevents processing the same file twice when both are populated
+        const items = clipboardData.items;
+        if (items) {
+          for (let i = 0; i < items.length; i++) {
+            const item = items[i];
+            if (item.kind === 'file') {
+              const file = item.getAsFile();
+              if (file && !isDuplicate(file)) {
+                console.log(`[UploadButton] handlePaste: Adding file from items array:`, file);
+                files.push(file);
+              } else if (file) {
+                console.log(`[UploadButton] handlePaste: Duplicate file skipped from items array:`, file);
+              }
             }
           }
         }
