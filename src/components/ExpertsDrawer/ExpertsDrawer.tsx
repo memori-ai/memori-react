@@ -58,9 +58,6 @@ const ExpertsDrawer = ({
             </figure>
             <div className="memori--experts-drawer--content">
               <h3 className="memori--experts-drawer--name">{expert.name}</h3>
-              <p className="memori--experts-drawer--description">
-                {expert.description}
-              </p>
             </div>
           </li>
         ))}
