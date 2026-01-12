@@ -1,5 +1,17 @@
 
 
+* fix: duplicate uploaded image when copy/paste from local files (dab3c3f8)
+* refactor: remove expert description from drawer (fc3181de)
+* fix: enableAudio prop in MemoriWidget (501d48ec)
+* Merge pull request #89 from memori-ai/feat_export_chat_pdf (11814474)
+* feat: add PDF export functionality for chat history with localization support (3e84e62f)
+* refactor: update ChatHistoryDrawer to include minimum messages filter (7f93ee22)
+* style: add closable actions to Drawer title and refine Select options layout (cee42155)
+* style: refine layout and spacing in ChatHistoryDrawer (0c5f4d18)
+* style: improve ChatHistoryDrawer layout and responsiveness (993a13da)
+* style: enhance mobile responsiveness of ChatHistoryDrawer (995e9e2b)
+* style: update chat artifact layout by adjusting flex properties and removing padding (c8f1be56)
+
 ## [8.13.5](https://github.com/memori-ai/memori-react/compare/v8.13.4...v8.13.5) (2025-12-24)
 
 
