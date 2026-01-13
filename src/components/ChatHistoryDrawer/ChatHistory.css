@@ -471,14 +471,27 @@
     height: 24px;
 }
 
-.memori-chat-history-drawer--detail-view--header--title {
+.memori-chat-history-drawer--detail-view--header--title-wrapper {
+    display: flex;
     overflow: hidden;
     flex: 1;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.memori-chat-history-drawer--detail-view--header--title {
+    overflow: hidden;
     color: var(--memori-color-text);
     font-size: 1.125rem;
     font-weight: 600;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.memori-chat-history-drawer--detail-view--header--date {
+    color: var(--memori-color-text-secondary);
+    font-size: 0.875rem;
+    font-style: italic;
 }
 
 .memori-chat-history-drawer--detail-view--content {

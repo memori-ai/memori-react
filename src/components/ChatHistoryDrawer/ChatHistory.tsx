@@ -1018,6 +1018,12 @@ const ChatHistoryDrawer = ({
   const renderChatDetailView = () => {
     if (!selectedChatLog) return null;
 
+    // Calculate the date of the chat (using the last message timestamp)
+    const lastMessageDate = Math.max(
+      ...selectedChatLog.lines.map(line => new Date(line.timestamp).getTime())
+    );
+    const chatDate = formatDate(new Date(lastMessageDate).toISOString());
+
     return (
       <div className="memori-chat-history-drawer--detail-view">
         <div className="memori-chat-history-drawer--detail-view--header">
@@ -1029,9 +1035,14 @@ const ChatHistoryDrawer = ({
             }}
             icon={<ChevronLeft />}
           />
-          <div className="memori-chat-history-drawer--detail-view--header--title">
-            {calculateTitle(selectedChatLog.lines) ||
-              'Chat-' + selectedChatLog.chatLogID.substring(0, 4)}
+          <div className="memori-chat-history-drawer--detail-view--header--title-wrapper">
+            <div className="memori-chat-history-drawer--detail-view--header--title">
+              {calculateTitle(selectedChatLog.lines) ||
+                'Chat-' + selectedChatLog.chatLogID.substring(0, 4)}
+            </div>
+            <div className="memori-chat-history-drawer--detail-view--header--date">
+              {chatDate}
+            </div>
           </div>
         </div>
         <div className="memori-chat-history-drawer--detail-view--content">
