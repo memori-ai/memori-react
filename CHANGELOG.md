@@ -1,5 +1,13 @@
 
 
+## [8.14.0](https://github.com/memori-ai/memori-react/compare/v8.14.0-rc.0...v8.14.0) (2026-01-13)
+
+
+### Features
+
+* enhance ChatHistoryDrawer with date display and layout adjustments ([5d6acb1](https://github.com/memori-ai/memori-react/commit/5d6acb174519d91cf1188fc768f38f88e4d3ae65))
+* refactor ShareButton for HTML-based export ([1a8bb55](https://github.com/memori-ai/memori-react/commit/1a8bb55fec9e6d7a36da486ec26f7160c484977d))
+
 * fix: duplicate uploaded image when copy/paste from local files (dab3c3f8)
 * refactor: remove expert description from drawer (fc3181de)
 * fix: enableAudio prop in MemoriWidget (501d48ec)
