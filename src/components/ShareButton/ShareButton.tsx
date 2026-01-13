@@ -17,7 +17,11 @@ import cx from 'classnames';
 import { Tenant, Memori, Message } from '@memori.ai/memori-api-client/dist/types';
 import { pdfExporter } from '../MemoriArtifactSystem/components/ArtifactActions/utils/PDFExporter';
 import toast from 'react-hot-toast';
-import { stripOutputTags, stripReasoningTags, stripHTML } from '../../helpers/utils';
+import {
+  formatChatHistoryForPDF,
+  createChatPDFDocument,
+  ChatPDFOptions,
+} from '../../helpers/chatPdfExport';
 
 export interface Props {
   tenant?: Tenant;
@@ -119,88 +123,6 @@ const ShareButton: React.FC<Props> = ({
   };
 
   /**
-   * Format chat history into markdown for PDF export
-   */
-  const formatChatHistoryForPDF = (messages: Message[]): string => {
-    if (!messages || messages.length === 0) {
-      return '';
-    }
-
-    const memoriName = memori?.name || 'Assistant';
-    const conversationTitle = `${memoriName} - Chat Export`;
-    const exportDate = new Intl.DateTimeFormat(navigator.language, {
-      dateStyle: 'long',
-      timeStyle: 'short',
-    }).format(new Date());
-
-    let markdown = `# ${conversationTitle}\n\n`;
-    markdown += `**${t('write_and_speak.conversationStartedLabel') || 'Conversation started'}**: ${exportDate}\n\n`;
-    markdown += `---\n\n`;
-
-    messages.forEach((message, index) => {
-      const timestamp = message.timestamp
-        ? new Intl.DateTimeFormat(navigator.language, {
-            dateStyle: 'short',
-            timeStyle: 'short',
-          }).format(
-            new Date(
-              message.timestamp.endsWith('Z')
-                ? message.timestamp
-                : `${message.timestamp}Z`
-            )
-          )
-        : '';
-
-      const sender = message.fromUser ? 'You' : memoriName;
-      
-      // Clean message text by removing tags (same as when copying)
-      let messageText = message.text || '';
-      
-      // Remove document_attachment tags
-      messageText = messageText.replace(
-        /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g,
-        ''
-      );
-      
-      // For non-user messages, remove output tags, reasoning tags, and HTML tags
-      if (!message.fromUser) {
-        messageText = stripHTML(stripOutputTags(stripReasoningTags(messageText)));
-      } else {
-        // For user messages, just remove document_attachment tags (already done above)
-        // and remove think tags
-        messageText = messageText.replaceAll(/<think.*?>(.*?)<\/think>/gs, '');
-      }
-      
-      // Format message with sender and timestamp
-      markdown += `## ${sender}${timestamp ? ` - ${timestamp}` : ''}\n\n`;
-      
-      // Add message text (preserve markdown if present)
-      if (messageText.trim()) {
-        markdown += `${messageText}\n\n`;
-      }
-
-      // Add media attachments if present
-      if (message.media && message.media.length > 0) {
-        message.media.forEach(media => {
-          if (media.title) {
-            markdown += `- [${media.title}](${media.url || '#'})\n`;
-          } else if (media.url) {
-            markdown += `- ${media.url}\n`;
-          }
-        });
-        markdown += '\n';
-      }
-
-      // Add separator between messages (except last)
-      if (index < messages.length - 1) {
-        markdown += '---\n\n';
-      }
-    });
-
-    return markdown;
-  };
-
-  /**
    * Export chat history as PDF
    */
   const handleExportPDF = async () => {
@@ -222,18 +144,85 @@ const ShareButton: React.FC<Props> = ({
     try {
       const memoriName = memori?.name || 'Chat';
       const pdfTitle = `${memoriName} - Chat Export`;
-      const markdownContent = formatChatHistoryForPDF(history);
 
-      const pdfOptions = {
-        title: pdfTitle,
+      // Format chat history as HTML using modular utility
+      if (!memori) {
+        throw new Error('Memori is required for PDF export');
+      }
+
+      const htmlContent = formatChatHistoryForPDF({
+        messages: history,
+        memori: memori,
+        conversationStartedLabel:
+          t('write_and_speak.conversationStartedLabel') ||
+          'Conversation started',
+        language: navigator.language,
+      });
+
+      // Get the primary color RGB value from CSS variable
+      let primaryColorRgb: string | undefined;
+      try {
+        const rootElement =
+          document.querySelector('.memori-widget') ||
+          document.querySelector('memori-client') ||
+          document.documentElement;
+        const computedStyle = getComputedStyle(rootElement);
+        primaryColorRgb = computedStyle.getPropertyValue('--memori-primary-rgb').trim();
+        // If empty, try to get it from :root
+        if (!primaryColorRgb) {
+          primaryColorRgb = getComputedStyle(document.documentElement)
+            .getPropertyValue('--memori-primary-rgb')
+            .trim();
+        }
+      } catch (error) {
+        console.warn('Could not read --memori-primary-rgb CSS variable:', error);
+      }
+
+      const pdfOptions: ChatPDFOptions = {
         fontSize: '12pt',
         fontFamily: 'system-ui, -apple-system, sans-serif',
         lineHeight: '1.6',
         color: '#333',
         backgroundColor: '#fff',
+        primaryColorRgb: primaryColorRgb || undefined,
       };
 
-      await pdfExporter.exportAsPDF(markdownContent, pdfTitle, pdfOptions);
+      // Create the full HTML document with structure like artifacts
+      const htmlDocument = createChatPDFDocument(
+        htmlContent,
+        pdfTitle,
+        pdfOptions
+      );
+
+      // Create print window and export PDF directly (not through pdfExporter which expects markdown)
+      const printWindow = window.open(
+        '',
+        '_blank',
+        'width=800,height=600,scrollbars=yes,resizable=yes'
+      );
+      if (!printWindow) {
+        throw new Error('Popup blocked! Please enable popups to export PDF.');
+      }
+
+      printWindow.document.write(htmlDocument);
+      printWindow.document.close();
+      printWindow.document.title = pdfTitle;
+
+      // Wait for content to load, then trigger print
+      setTimeout(() => {
+        if (printWindow && !printWindow.closed) {
+          printWindow.focus();
+          printWindow.print();
+
+          // Close window after print dialog closes
+          setTimeout(() => {
+            if (printWindow && !printWindow.closed) {
+              printWindow.close();
+            }
+          }, 1000);
+        }
+      }, 500);
+
       toast.success(
         t('exportChatHistory.success') || 'Chat exported to PDF successfully'
       );
