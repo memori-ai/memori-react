@@ -4,14 +4,15 @@
     bottom: 1rem;
     left: 0;
     display: inline-flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
-    padding: 0.25rem 0.5rem;
+    padding: 0.25rem 1rem;
     border-radius: 10px;
     background-color: var(--memori-inner-bg, transparent);
     box-shadow: var(--memori-button-box-shadow);
     color: var(--memori-text-color, rgba(0, 0, 0, 0.85)) !important;
     font-size: 0.7em;
+    white-space: nowrap;
 }
 
 @media (max-width: 768px) {

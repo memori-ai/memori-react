@@ -114,6 +114,7 @@
     top: calc(100% + 10px);
     right: auto;
     left: 0;
+    background-color: transparent !important;
 }
 
 .memori-widget.memori-layout-website_assistant {

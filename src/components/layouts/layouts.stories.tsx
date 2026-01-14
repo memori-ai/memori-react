@@ -134,13 +134,39 @@ Custom.args = {
 
 export const WebsiteAssistant = Template.bind({});
 WebsiteAssistant.args = {
-  ...DefaultLayout.args,
-  uiLang: 'it',
-  showShare: true,
+  uiLang: 'EN',
+  showShare: false,
   showSettings: true,
   memori: memori,
   tenant,
   layout: 'WEBSITE_ASSISTANT',
+  memoriName: 'Memori',
+  memoriID: '25ced51c-3520-41af-8bbe-222d861b8e32',
+  ownerUserName: 'memoridev',
+  tenantID: 'www.aisuru.com',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://www.aisuru.com',
+  spokenLang: 'EN',
+  context: {
+    SOURCE: 'WEBSITE',
+    PATH: '/en/',
+  },
+  multilingual: true,
+  integrationID: 'cb3c4776-7f0b-4f97-a773-c32a5d7a3bf1',
+  integration: {
+    ...integration,
+    customData: JSON.stringify({
+      textColor: '#2a2a2a',
+      buttonBgColor: '#653165',
+      buttonTextColor: '#ffffff',
+      blurBackground: true,
+      innerBgColor: 'light',
+      innerBgAlpha: 0.8,
+      multilanguage: true,
+      avatar: 'readyplayerme',
+      avatarURL: 'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
+    }),
+  },
 };
 
 export const HiddenChat = Template.bind({});
