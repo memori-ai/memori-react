@@ -3,6 +3,14 @@ import { render } from '@testing-library/react';
 import { memori, tenant, integration } from './mocks/data';
 import Memori from './index';
 
+// Mock fetch for API calls
+globalThis.fetch = jest.fn(() =>
+  Promise.resolve({
+    ok: true,
+    json: () => Promise.resolve({}),
+  })
+) as jest.Mock;
+
 // Mock matchMedia for tests
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
