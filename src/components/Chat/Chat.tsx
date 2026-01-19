@@ -399,11 +399,18 @@ const Chat: React.FC<Props> = ({
 
               <MediaWidget
                 simulateUserPrompt={simulateUserPrompt}
+                links={
+                  (message?.media
+                    ?.filter(m => !m.properties?.functionSignature)
+                    ?.filter(m => m.mimeType === 'text/html' && !!m.url) ||
+                    []) as Medium[]
+                }
                 media={[
-                  // Filter out HTML and plain text media items from the message
-                  ...(message?.media?.filter(
-                    m => !m.properties?.functionSignature
-                  ) || []),
+                  // Non-function-cache media items (exclude HTML links; those go into `links`)
+                  ...(message?.media
+                    ?.filter(m => !m.properties?.functionSignature)
+                    ?.filter(m => !(m.mimeType === 'text/html' && !!m.url)) ||
+                    []),
 
                   // Extract document attachments that are embedded in the message text
                   ...(() => {
@@ -449,7 +456,6 @@ const Chat: React.FC<Props> = ({
                     return attachments;
                   })(),
                 ]}
-                // links={message?.media?.filter(m => m.mimeType === 'text/html')}
                 sessionID={sessionID}
                 baseUrl={baseUrl}
                 apiUrl={apiUrl}
