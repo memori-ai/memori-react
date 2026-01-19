@@ -1,5 +1,18 @@
 
 
+## [8.14.1](https://github.com/memori-ai/memori-react/compare/v8.14.0...v8.14.1) (2026-01-19)
+
+
+### Bug Fixes
+
+* improve line counting in MediaItemWidget to support multiple newline conventions ([ebde6ba](https://github.com/memori-ai/memori-react/commit/ebde6bad2776f177192208d687c4b86d9d76b404))
+
+
+### Changes
+
+* optimize scroll behavior in Chat component to prevent unnecessary re-scrolling ([b285c79](https://github.com/memori-ai/memori-react/commit/b285c79eb6150c1155d898e6d105bb3a1633ff78))
+* separate HTML links from media items in Chat component ([f4cb53f](https://github.com/memori-ai/memori-react/commit/f4cb53f336e52aca32fdfe38eb25702949838057))
+
 ## [8.14.0](https://github.com/memori-ai/memori-react/compare/v8.14.0-rc.0...v8.14.0) (2026-01-13)
 
 
