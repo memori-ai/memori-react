@@ -131,6 +131,9 @@ const ChatInputs: React.FC<Props> = ({
   const onTextareaPressEnter = (
     e: React.KeyboardEvent<HTMLTextAreaElement>
   ) => {
+    // Alt/Option+Enter should create a newline (do not send)
+    if (e.altKey) return;
+
     // Prevent default newline on Enter to keep behavior consistent
     e.preventDefault();
 

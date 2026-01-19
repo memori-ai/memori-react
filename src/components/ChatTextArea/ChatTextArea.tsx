@@ -96,6 +96,30 @@ const ChatTextArea: React.FC<Props> = ({
           onKeyDownCapture={e => {
             // On mobile, allow Enter to create a new line instead of sending
             const isMobile = hasTouchscreen();
+            // Alt/Option+Enter should always create a newline (do not send).
+            // We insert it manually because this is a controlled textarea and
+            // some browser/keyboard combos won't trigger an input event as expected.
+            if (e.key === 'Enter' && e.altKey && !e.shiftKey && !isMobile) {
+              e.preventDefault();
+
+              const el = textareaRef.current;
+              const start = el?.selectionStart ?? value.length;
+              const end = el?.selectionEnd ?? value.length;
+              const nextValue = `${value.slice(0, start)}\n${value.slice(end)}`;
+
+              onChange(nextValue);
+
+              // Restore caret right after the inserted newline
+              requestAnimationFrame(() => {
+                if (!el) return;
+                const caret = start + 1;
+                el.selectionStart = caret;
+                el.selectionEnd = caret;
+              });
+
+              return;
+            }
+
             if (e.key === 'Enter' && !e.shiftKey && onPressEnter && !isMobile) {
               onPressEnter(e);
             }
