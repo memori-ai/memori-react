@@ -1,4 +1,4 @@
-import React, { useEffect, memo, useState } from 'react';
+import React, { useCallback, useEffect, memo, useRef, useState } from 'react';
 import cx from 'classnames';
 import {
   DialogState,
@@ -129,18 +129,32 @@ const Chat: React.FC<Props> = ({
   const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const { t } = useTranslation();
-  const scrollToBottom = () => {
+  const scrollToBottom = useCallback(() => {
     if (isHistoryView) return;
     setTimeout(() => {
-      let userMsgs = document.querySelectorAll(
-        '.memori-chat-scroll-item'
-      );
+      let userMsgs = document.querySelectorAll('.memori-chat-scroll-item');
       userMsgs[userMsgs.length - 1]?.scrollIntoView?.();
     }, 200);
-  };
+  }, [isHistoryView]);
+
+  // Avoid re-scrolling when `history` is recreated with same content (e.g. on every keystroke).
+  const lastAutoscrollSignatureRef = useRef<string | null>(null);
+  const lastMessage = history?.[history.length - 1];
+  const lastMessageSignature = `${history?.length ?? 0}|${
+    lastMessage?.timestamp ?? ''
+  }|${lastMessage?.fromUser ? 'u' : 'm'}|${
+    lastMessage?.text?.length ?? 0
+  }|${lastMessage?.translatedText?.length ?? 0}`;
   useEffect(() => {
-    !preview && !isHistoryView && scrollToBottom();
-  }, [history, preview, isHistoryView]);
+    // if we are in preview mode or in history view, don't scroll to the bottom
+    if (preview || isHistoryView) return;
+    // if the last message signature is the same as the previous one, don't scroll to the bottom
+    if (lastAutoscrollSignatureRef.current === lastMessageSignature) return;
+    // set the last autoscroll signature to the current one
+    lastAutoscrollSignatureRef.current = lastMessageSignature;
+    // scroll to the bottom
+    scrollToBottom();
+  }, [preview, isHistoryView, lastMessageSignature, scrollToBottom]);
 
   // Scroll to bottom when textarea is expanded
   // useEffect(() => {
