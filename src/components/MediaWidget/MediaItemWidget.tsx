@@ -415,7 +415,11 @@ export const RenderMediaItem = ({
 // Helper function to count lines in content
 const countLines = (content: string | undefined): number => {
   if (!content) return 0;
-  return content.split('\n').length;
+  // Support all common newline conventions:
+  // - Unix: \n
+  // - Windows: \r\n
+  // - Classic Mac: \r
+  return content.split(/\r\n|\r|\n/).length;
 };
 
 export const RenderSnippetItem = ({
@@ -434,7 +438,10 @@ export const RenderSnippetItem = ({
   onClick?: (mediumID: string) => void;
 }) => {
   const lineCount = countLines(item.content);
-  const isShortSnippet = lineCount <= 5;
+  const contentLength = item.content?.length ?? 0;
+  // Treat very long single-line snippets as "long" so we show a preview,
+  // otherwise plain-text uploads with only '\r' (or no '\n') would render full.
+  const isShortSnippet = lineCount <= 5 && contentLength <= 200;
 
   // For short snippets, show them directly without the clickable link
   if (isShortSnippet) {
