@@ -1,5 +1,17 @@
 
 
+## [8.15.0](https://github.com/memori-ai/memori-react/compare/v8.14.2...v8.15.0) (2026-01-23)
+
+
+### Features
+
+* allow Alt/Option+Enter to insert a newline ([7f20e8b](https://github.com/memori-ai/memori-react/commit/7f20e8b6199591a8d9bf66fc8506bb9779d14899))
+
+
+### Bug Fixes
+
+* change language formatting in MemoriWidget to lowercase ([28903d2](https://github.com/memori-ai/memori-react/commit/28903d2980747dced6669b09dd505c4bea0f2f9d))
+
 ## [8.14.2](https://github.com/memori-ai/memori-react/compare/v8.14.1...v8.14.2) (2026-01-23)
 
 
