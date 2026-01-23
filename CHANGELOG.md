@@ -1,5 +1,12 @@
 
 
+## [8.14.2](https://github.com/memori-ai/memori-react/compare/v8.14.1...v8.14.2) (2026-01-23)
+
+
+### Changes
+
+* remove translations api ([8e4fc3a](https://github.com/memori-ai/memori-react/commit/8e4fc3a16abd37a586c02429b4ace5b71f1dba52))
+
 ## [8.14.1](https://github.com/memori-ai/memori-react/compare/v8.14.0...v8.14.1) (2026-01-19)
 
 
