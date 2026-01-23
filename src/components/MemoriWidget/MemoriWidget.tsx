@@ -1312,7 +1312,7 @@ const MemoriWidget = ({
             params.additionalInfo?.loginToken ??
             additionalInfo?.loginToken ??
             authToken,
-          language: getCultureCodeByLanguage(userLang),
+          language: (userLang ?? memori.culture?.split('-')?.[0] ?? 'IT').toUpperCase(),
           referral: referral,
           timeZoneOffset: new Date().getTimezoneOffset().toString(),
         },
@@ -1481,7 +1481,7 @@ const MemoriWidget = ({
             additionalInfoProp?.loginToken ??
             additionalInfo?.loginToken ??
             authToken,
-          language: getCultureCodeByLanguage(userLang),
+          language: (userLang ?? memori.culture?.split('-')?.[0] ?? 'IT').toUpperCase(),
           referral: referral,
           timeZoneOffset: new Date().getTimezoneOffset().toString(),
         },
@@ -1677,7 +1677,7 @@ const MemoriWidget = ({
                 loginToken ??
                 additionalInfo?.loginToken ??
                 authToken,
-              language: getCultureCodeByLanguage(userLang),
+              language: (userLang ?? memori.culture?.split('-')?.[0] ?? 'IT').toUpperCase(),
               referral: referral,
               timeZoneOffset: new Date().getTimezoneOffset().toString(),
             },
@@ -2394,7 +2394,7 @@ const MemoriWidget = ({
               loginToken ??
               additionalInfo?.loginToken ??
               authToken,
-            language: getCultureCodeByLanguage(userLang),
+            language: (userLang ?? memori.culture?.split('-')?.[0] ?? 'IT').toUpperCase(),
             timeZoneOffset: new Date().getTimezoneOffset().toString(),
           },
         });
