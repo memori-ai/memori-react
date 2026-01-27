@@ -126,15 +126,6 @@ const StartPanel: React.FC<Props> = ({
           })}")`,
         }}
       >
-        {!!memori.enableCompletions && !memori.enableBoardOfExperts && (
-          <div className="memori--completions-enabled">
-            <Tooltip align="left" content={t('completionsEnabled')}>
-              <span aria-label={t('completionsEnabled') || 'Completions'}>
-                <AI />
-              </span>
-            </Tooltip>
-          </div>
-        )}
         {!!memori.enableBoardOfExperts && (
           <div className="memori--board-of-experts">
             <Tooltip align="left" content={t('boardOfExperts')}>

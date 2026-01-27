@@ -196,59 +196,7 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
   >
     <div
       class="memori--cover"
-    >
-      <div
-        class="memori--completions-enabled"
-      >
-        <div
-          class="memori-tooltip memori-tooltip--align-left"
-        >
-          <div
-            class="memori-tooltip--content"
-          >
-            completionsEnabled
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <span
-              aria-label="completionsEnabled"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                focusable="false"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  clip-rule="evenodd"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 4a4 4 0 014-4h16a4 4 0 014 4v16a4 4 0 01-4 4H4a4 4 0 01-4-4zm4-2.4A2.4 2.4 0 001.6 4v16A2.4 2.4 0 004 22.4h16a2.4 2.4 0 002.4-2.4V4A2.4 2.4 0 0020 1.6z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M9.715 8.442a.798.798 0 00-1.43 0l-3.2 6.4a.799.799 0 101.431.716l.579-1.158h3.811l.578 1.158a.8.8 0 001.431-.716zm.391 4.358L9 10.589 7.894 12.8z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M17 8c.552 0 1 .358 1 .8v6.4c0 .442-.448.8-1 .8s-1-.358-1-.8V8.8c0-.442.448-.8 1-.8z"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+    />
     <picture
       class="memori--avatar"
     >
@@ -397,59 +345,7 @@ exports[`renders StartPanel unchanged 1`] = `
   >
     <div
       class="memori--cover"
-    >
-      <div
-        class="memori--completions-enabled"
-      >
-        <div
-          class="memori-tooltip memori-tooltip--align-left"
-        >
-          <div
-            class="memori-tooltip--content"
-          >
-            completionsEnabled
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <span
-              aria-label="completionsEnabled"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                focusable="false"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  clip-rule="evenodd"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 4a4 4 0 014-4h16a4 4 0 014 4v16a4 4 0 01-4 4H4a4 4 0 01-4-4zm4-2.4A2.4 2.4 0 001.6 4v16A2.4 2.4 0 004 22.4h16a2.4 2.4 0 002.4-2.4V4A2.4 2.4 0 0020 1.6z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M9.715 8.442a.798.798 0 00-1.43 0l-3.2 6.4a.799.799 0 101.431.716l.579-1.158h3.811l.578 1.158a.8.8 0 001.431-.716zm.391 4.358L9 10.589 7.894 12.8z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M17 8c.552 0 1 .358 1 .8v6.4c0 .442-.448.8-1 .8s-1-.358-1-.8V8.8c0-.442.448-.8 1-.8z"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+    />
     <picture
       class="memori--avatar"
     >
@@ -598,59 +494,7 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
   >
     <div
       class="memori--cover"
-    >
-      <div
-        class="memori--completions-enabled"
-      >
-        <div
-          class="memori-tooltip memori-tooltip--align-left"
-        >
-          <div
-            class="memori-tooltip--content"
-          >
-            completionsEnabled
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <span
-              aria-label="completionsEnabled"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                focusable="false"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  clip-rule="evenodd"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 4a4 4 0 014-4h16a4 4 0 014 4v16a4 4 0 01-4 4H4a4 4 0 01-4-4zm4-2.4A2.4 2.4 0 001.6 4v16A2.4 2.4 0 004 22.4h16a2.4 2.4 0 002.4-2.4V4A2.4 2.4 0 0020 1.6z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M9.715 8.442a.798.798 0 00-1.43 0l-3.2 6.4a.799.799 0 101.431.716l.579-1.158h3.811l.578 1.158a.8.8 0 001.431-.716zm.391 4.358L9 10.589 7.894 12.8z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M17 8c.552 0 1 .358 1 .8v6.4c0 .442-.448.8-1 .8s-1-.358-1-.8V8.8c0-.442.448-.8 1-.8z"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+    />
     <picture
       class="memori--avatar"
     >
@@ -819,59 +663,7 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
   >
     <div
       class="memori--cover"
-    >
-      <div
-        class="memori--completions-enabled"
-      >
-        <div
-          class="memori-tooltip memori-tooltip--align-left"
-        >
-          <div
-            class="memori-tooltip--content"
-          >
-            completionsEnabled
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <span
-              aria-label="completionsEnabled"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                focusable="false"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  clip-rule="evenodd"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 4a4 4 0 014-4h16a4 4 0 014 4v16a4 4 0 01-4 4H4a4 4 0 01-4-4zm4-2.4A2.4 2.4 0 001.6 4v16A2.4 2.4 0 004 22.4h16a2.4 2.4 0 002.4-2.4V4A2.4 2.4 0 0020 1.6z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M9.715 8.442a.798.798 0 00-1.43 0l-3.2 6.4a.799.799 0 101.431.716l.579-1.158h3.811l.578 1.158a.8.8 0 001.431-.716zm.391 4.358L9 10.589 7.894 12.8z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M17 8c.552 0 1 .358 1 .8v6.4c0 .442-.448.8-1 .8s-1-.358-1-.8V8.8c0-.442.448-.8 1-.8z"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+    />
     <picture
       class="memori--avatar"
     >
@@ -1020,59 +812,7 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
   >
     <div
       class="memori--cover"
-    >
-      <div
-        class="memori--completions-enabled"
-      >
-        <div
-          class="memori-tooltip memori-tooltip--align-left"
-        >
-          <div
-            class="memori-tooltip--content"
-          >
-            completionsEnabled
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <span
-              aria-label="completionsEnabled"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                focusable="false"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  clip-rule="evenodd"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 4a4 4 0 014-4h16a4 4 0 014 4v16a4 4 0 01-4 4H4a4 4 0 01-4-4zm4-2.4A2.4 2.4 0 001.6 4v16A2.4 2.4 0 004 22.4h16a2.4 2.4 0 002.4-2.4V4A2.4 2.4 0 0020 1.6z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M9.715 8.442a.798.798 0 00-1.43 0l-3.2 6.4a.799.799 0 101.431.716l.579-1.158h3.811l.578 1.158a.8.8 0 001.431-.716zm.391 4.358L9 10.589 7.894 12.8z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M17 8c.552 0 1 .358 1 .8v6.4c0 .442-.448.8-1 .8s-1-.358-1-.8V8.8c0-.442.448-.8 1-.8z"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+    />
     <picture
       class="memori--avatar"
     >
@@ -1290,59 +1030,7 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
   >
     <div
       class="memori--cover"
-    >
-      <div
-        class="memori--completions-enabled"
-      >
-        <div
-          class="memori-tooltip memori-tooltip--align-left"
-        >
-          <div
-            class="memori-tooltip--content"
-          >
-            completionsEnabled
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <span
-              aria-label="completionsEnabled"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                focusable="false"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  clip-rule="evenodd"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 4a4 4 0 014-4h16a4 4 0 014 4v16a4 4 0 01-4 4H4a4 4 0 01-4-4zm4-2.4A2.4 2.4 0 001.6 4v16A2.4 2.4 0 004 22.4h16a2.4 2.4 0 002.4-2.4V4A2.4 2.4 0 0020 1.6z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M9.715 8.442a.798.798 0 00-1.43 0l-3.2 6.4a.799.799 0 101.431.716l.579-1.158h3.811l.578 1.158a.8.8 0 001.431-.716zm.391 4.358L9 10.589 7.894 12.8z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M17 8c.552 0 1 .358 1 .8v6.4c0 .442-.448.8-1 .8s-1-.358-1-.8V8.8c0-.442.448-.8 1-.8z"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+    />
     <picture
       class="memori--avatar"
     >
@@ -1553,59 +1241,7 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
   >
     <div
       class="memori--cover"
-    >
-      <div
-        class="memori--completions-enabled"
-      >
-        <div
-          class="memori-tooltip memori-tooltip--align-left"
-        >
-          <div
-            class="memori-tooltip--content"
-          >
-            completionsEnabled
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <span
-              aria-label="completionsEnabled"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                focusable="false"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  clip-rule="evenodd"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 4a4 4 0 014-4h16a4 4 0 014 4v16a4 4 0 01-4 4H4a4 4 0 01-4-4zm4-2.4A2.4 2.4 0 001.6 4v16A2.4 2.4 0 004 22.4h16a2.4 2.4 0 002.4-2.4V4A2.4 2.4 0 0020 1.6z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M9.715 8.442a.798.798 0 00-1.43 0l-3.2 6.4a.799.799 0 101.431.716l.579-1.158h3.811l.578 1.158a.8.8 0 001.431-.716zm.391 4.358L9 10.589 7.894 12.8z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M17 8c.552 0 1 .358 1 .8v6.4c0 .442-.448.8-1 .8s-1-.358-1-.8V8.8c0-.442.448-.8 1-.8z"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+    />
     <picture
       class="memori--avatar"
     >
@@ -1813,59 +1449,7 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
   >
     <div
       class="memori--cover"
-    >
-      <div
-        class="memori--completions-enabled"
-      >
-        <div
-          class="memori-tooltip memori-tooltip--align-left"
-        >
-          <div
-            class="memori-tooltip--content"
-          >
-            completionsEnabled
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <span
-              aria-label="completionsEnabled"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                focusable="false"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  clip-rule="evenodd"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 4a4 4 0 014-4h16a4 4 0 014 4v16a4 4 0 01-4 4H4a4 4 0 01-4-4zm4-2.4A2.4 2.4 0 001.6 4v16A2.4 2.4 0 004 22.4h16a2.4 2.4 0 002.4-2.4V4A2.4 2.4 0 0020 1.6z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M9.715 8.442a.798.798 0 00-1.43 0l-3.2 6.4a.799.799 0 101.431.716l.579-1.158h3.811l.578 1.158a.8.8 0 001.431-.716zm.391 4.358L9 10.589 7.894 12.8z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M17 8c.552 0 1 .358 1 .8v6.4c0 .442-.448.8-1 .8s-1-.358-1-.8V8.8c0-.442.448-.8 1-.8z"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+    />
     <picture
       class="memori--avatar"
     >
@@ -2014,59 +1598,7 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
   >
     <div
       class="memori--cover"
-    >
-      <div
-        class="memori--completions-enabled"
-      >
-        <div
-          class="memori-tooltip memori-tooltip--align-left"
-        >
-          <div
-            class="memori-tooltip--content"
-          >
-            completionsEnabled
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <span
-              aria-label="completionsEnabled"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                focusable="false"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  clip-rule="evenodd"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 4a4 4 0 014-4h16a4 4 0 014 4v16a4 4 0 01-4 4H4a4 4 0 01-4-4zm4-2.4A2.4 2.4 0 001.6 4v16A2.4 2.4 0 004 22.4h16a2.4 2.4 0 002.4-2.4V4A2.4 2.4 0 0020 1.6z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M9.715 8.442a.798.798 0 00-1.43 0l-3.2 6.4a.799.799 0 101.431.716l.579-1.158h3.811l.578 1.158a.8.8 0 001.431-.716zm.391 4.358L9 10.589 7.894 12.8z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M17 8c.552 0 1 .358 1 .8v6.4c0 .442-.448.8-1 .8s-1-.358-1-.8V8.8c0-.442.448-.8 1-.8z"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+    />
     <picture
       class="memori--avatar"
     >
@@ -2215,59 +1747,7 @@ exports[`renders StartPanel with login required unchanged 1`] = `
   >
     <div
       class="memori--cover"
-    >
-      <div
-        class="memori--completions-enabled"
-      >
-        <div
-          class="memori-tooltip memori-tooltip--align-left"
-        >
-          <div
-            class="memori-tooltip--content"
-          >
-            completionsEnabled
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <span
-              aria-label="completionsEnabled"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                focusable="false"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  clip-rule="evenodd"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 4a4 4 0 014-4h16a4 4 0 014 4v16a4 4 0 01-4 4H4a4 4 0 01-4-4zm4-2.4A2.4 2.4 0 001.6 4v16A2.4 2.4 0 004 22.4h16a2.4 2.4 0 002.4-2.4V4A2.4 2.4 0 0020 1.6z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M9.715 8.442a.798.798 0 00-1.43 0l-3.2 6.4a.799.799 0 101.431.716l.579-1.158h3.811l.578 1.158a.8.8 0 001.431-.716zm.391 4.358L9 10.589 7.894 12.8z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M17 8c.552 0 1 .358 1 .8v6.4c0 .442-.448.8-1 .8s-1-.358-1-.8V8.8c0-.442.448-.8 1-.8z"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+    />
     <picture
       class="memori--avatar"
     >
@@ -2322,59 +1802,7 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
   >
     <div
       class="memori--cover"
-    >
-      <div
-        class="memori--completions-enabled"
-      >
-        <div
-          class="memori-tooltip memori-tooltip--align-left"
-        >
-          <div
-            class="memori-tooltip--content"
-          >
-            completionsEnabled
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <span
-              aria-label="completionsEnabled"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                focusable="false"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  clip-rule="evenodd"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 4a4 4 0 014-4h16a4 4 0 014 4v16a4 4 0 01-4 4H4a4 4 0 01-4-4zm4-2.4A2.4 2.4 0 001.6 4v16A2.4 2.4 0 004 22.4h16a2.4 2.4 0 002.4-2.4V4A2.4 2.4 0 0020 1.6z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M9.715 8.442a.798.798 0 00-1.43 0l-3.2 6.4a.799.799 0 101.431.716l.579-1.158h3.811l.578 1.158a.8.8 0 001.431-.716zm.391 4.358L9 10.589 7.894 12.8z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M17 8c.552 0 1 .358 1 .8v6.4c0 .442-.448.8-1 .8s-1-.358-1-.8V8.8c0-.442.448-.8 1-.8z"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+    />
     <picture
       class="memori--avatar"
     >
@@ -2709,59 +2137,7 @@ exports[`renders StartPanel with position required unchanged 1`] = `
   >
     <div
       class="memori--cover"
-    >
-      <div
-        class="memori--completions-enabled"
-      >
-        <div
-          class="memori-tooltip memori-tooltip--align-left"
-        >
-          <div
-            class="memori-tooltip--content"
-          >
-            completionsEnabled
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <span
-              aria-label="completionsEnabled"
-            >
-              <svg
-                aria-hidden="true"
-                fill="none"
-                focusable="false"
-                role="img"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <g
-                  clip-rule="evenodd"
-                  fill="currentColor"
-                  fill-rule="evenodd"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M0 4a4 4 0 014-4h16a4 4 0 014 4v16a4 4 0 01-4 4H4a4 4 0 01-4-4zm4-2.4A2.4 2.4 0 001.6 4v16A2.4 2.4 0 004 22.4h16a2.4 2.4 0 002.4-2.4V4A2.4 2.4 0 0020 1.6z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M9.715 8.442a.798.798 0 00-1.43 0l-3.2 6.4a.799.799 0 101.431.716l.579-1.158h3.811l.578 1.158a.8.8 0 001.431-.716zm.391 4.358L9 10.589 7.894 12.8z"
-                    fill-rule="evenodd"
-                  />
-                  <path
-                    clip-rule="evenodd"
-                    d="M17 8c.552 0 1 .358 1 .8v6.4c0 .442-.448.8-1 .8s-1-.358-1-.8V8.8c0-.442.448-.8 1-.8z"
-                    fill-rule="evenodd"
-                  />
-                </g>
-              </svg>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
+    />
     <picture
       class="memori--avatar"
     >
