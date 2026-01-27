@@ -1,5 +1,12 @@
 
 
+## [8.15.1](https://github.com/memori-ai/memori-react/compare/v8.15.0...v8.15.1) (2026-01-27)
+
+
+### Bug Fixes
+
+* website assistant layout not compatible with autostart ([7753f57](https://github.com/memori-ai/memori-react/commit/7753f57ea2480d25c551b15cfbe0008162e188fb))
+
 ## [8.15.0](https://github.com/memori-ai/memori-react/compare/v8.14.2...v8.15.0) (2026-01-23)
 
 
