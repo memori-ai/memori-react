@@ -257,9 +257,7 @@ const Memori: React.FC<Props> = ({
     const config = { attributes: true, childList: false, subtree: false };
     const callback: MutationCallback = (mutationList, _observer) => {
       for (const mutation of mutationList) {
-        if (
-          mutation.type === 'attributes'
-        ) {
+        if (mutation.type === 'attributes') {
           const target =
             mutation.target.nodeName === 'MEMORI-CLIENT'
               ? mutation.target
@@ -340,7 +338,7 @@ const Memori: React.FC<Props> = ({
           | undefined,
         showLogin: memori?.enableDeepThought,
         memoriLang: memori?.culture?.split('-')?.[0],
-        autoStart: layout === 'HIDDEN_CHAT',
+        autoStart: layout === 'HIDDEN_CHAT' ? true : layout === 'WEBSITE_ASSISTANT' ? false : autoStart,
       }
     : {
         ...(tag && pin ? { personification: { tag, pin } } : {}),
@@ -362,7 +360,9 @@ const Memori: React.FC<Props> = ({
           initialQuestion ??
           (layoutIntegrationConfig.initialQuestion as string | undefined),
         autoStart:
-          autoStart !== undefined
+          layout === 'WEBSITE_ASSISTANT'
+            ? false
+            : autoStart !== undefined
             ? autoStart
             : layout === 'HIDDEN_CHAT'
             ? true
