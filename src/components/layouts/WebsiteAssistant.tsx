@@ -38,87 +38,91 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   };
 
   return (
-    <div
-      className={`memori-website_assistant--${
-        collapsed ? 'collapsed' : 'expanded'
-      }`}
-    >
-      {collapsed ? (
-        <div className="memori-website_assistant--trigger">
-          <Button
-            className="memori-website_assistant--trigger-button"
-            ghost
-            shape="circle"
-            onClick={() => setCollapsed(false)}
-            title={t('expand') || 'Expand'}
-          >
-            <Blob avatar={avatarProps?.memori.avatarURL} />
-          </Button>
-        </div>
-      ) : (
-        <>
-          {integrationStyle}
+    <>
+     {collapsed && <div className="memori-website_assistant--trigger">
+        <Button
+          className="memori-website_assistant--trigger-button"
+          ghost
+          shape="circle"
+          onClick={() => setCollapsed(false)}
+          title={t('expand') || 'Expand'}
+        >
+          <Blob avatar={avatarProps?.memori.avatarURL} />
+        </Button>
+      </div>}
+      <div
+        className={`memori-website_assistant--${
+          collapsed ? 'collapsed' : 'expanded'
+        }`}
+      >
+        {!collapsed && (
+          <>
+            {integrationStyle}
 
-          <Spin spinning={loading} className="memori-website_assistant-layout">
-            {poweredBy}
+            <Spin
+              spinning={loading}
+              className="memori-website_assistant-layout"
+            >
+              {poweredBy}
 
-            <div className="memori-website_assistant--close-button-wrapper">
-              <Button
-                className="memori-website_assistant--close-button"
-                primary
-                shape="circle"
-                onClick={() => setCollapsed(true)}
-                icon={<Close />}
-                title={t('close') || 'Close'}
-              />
-            </div>
-
-            <div className="memori-website_assistant-layout--header">
-              {Header && headerProps && (
-                <Header
-                  {...headerProps}
-                  showSettings={false}
-                  showReload={false}
+              <div className="memori-website_assistant--close-button-wrapper">
+                <Button
+                  className="memori-website_assistant--close-button"
+                  primary
+                  shape="circle"
+                  onClick={() => setCollapsed(true)}
+                  icon={<Close />}
+                  title={t('close') || 'Close'}
                 />
-              )}
-            </div>
+              </div>
 
-            <div className="memori-website_assistant-layout--avatar">
-              {Avatar && avatarProps && (
-                <Avatar
-                  {...avatarProps}
-                  integrationConfig={
-                    avatarProps.integrationConfig
-                      ? {
-                          ...avatarProps.integrationConfig,
-                          avatarURL: avatarProps.integrationConfig?.avatarURL
-                            ? `${
-                                avatarProps.integrationConfig?.avatarURL.split(
-                                  '#'
-                                )[0]
-                              }#${expandedKey}`
-                            : undefined,
-                        }
-                      : {}
-                  }
-                  key={expandedKey}
-                />
-              )}
-            </div>
+              <div className="memori-website_assistant-layout--header">
+                {Header && headerProps && (
+                  <Header
+                    {...headerProps}
+                    showSettings={false}
+                    showReload={false}
+                  />
+                )}
+              </div>
 
-            <div id="extension" />
+              <div className="memori-website_assistant-layout--avatar">
+                {Avatar && avatarProps && (
+                  <Avatar
+                    {...avatarProps}
+                    integrationConfig={
+                      avatarProps.integrationConfig
+                        ? {
+                            ...avatarProps.integrationConfig,
+                            avatarURL: avatarProps.integrationConfig?.avatarURL
+                              ? `${
+                                  avatarProps.integrationConfig?.avatarURL.split(
+                                    '#'
+                                  )[0]
+                                }#${expandedKey}`
+                              : undefined,
+                          }
+                        : {}
+                    }
+                    key={expandedKey}
+                  />
+                )}
+              </div>
 
-            <div className="memori-website_assistant-layout--controls">
-              {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
-                <Chat {...chatProps} />
-              ) : startPanelProps ? (
-                <StartPanel {...startPanelProps} />
-              ) : null}
-            </div>
-          </Spin>
-        </>
-      )}
-    </div>
+              <div id="extension" />
+
+              <div className="memori-website_assistant-layout--controls">
+                {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+                  <Chat {...chatProps} />
+                ) : startPanelProps ? (
+                  <StartPanel {...startPanelProps} />
+                ) : null}
+              </div>
+            </Spin>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 
