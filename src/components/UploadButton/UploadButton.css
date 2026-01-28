@@ -234,18 +234,13 @@
 
 /* Preview item variants */
 .memori--preview-item--document {
-  border-left-color: #fd7e14;
   background-color: #fff9db;
 }
 
 .memori--preview-item--image {
-  border-left-color: #4dabf7;
   background-color: #e7f5ff;
 }
 
-.memori--preview-item--uploaded {
-  border-left-color: #40c057;
-}
 
 .memori--preview-item--error {
   border-left-color: #fa5252;
