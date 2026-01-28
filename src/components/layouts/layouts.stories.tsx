@@ -53,6 +53,37 @@ DefaultLayout.args = {
 };
 
 
+const EnglishLayout = Template.bind({});
+EnglishLayout.args = {
+    memoriName: 'Prova34',
+    ownerUserName: 'andrea.patini',
+    memoriID: 'a37fd990-e159-421e-888d-38a1bb5df294',
+    tenantID: 'aisuru-staging.aclambda.online',
+    ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
+    engineURL: 'https://engine-staging.memori.ai/memori/v2',
+    apiURL: 'https://backend-staging.memori.ai/api/v2',
+    layout: 'FULLPAGE',
+    uiLang: 'EN',
+    spokenLang: 'EN',
+    integrationID: '658fe9ac-136d-401f-bc57-f5af4d8d7012',
+};
+
+export const EnglishLayoutStory = Template.bind({});
+EnglishLayoutStory.args = {
+  memoriName: 'Prova34',
+  ownerUserName: 'andrea.patini',
+  memoriID: 'a37fd990-e159-421e-888d-38a1bb5df294',
+  tenantID: 'aisuru-staging.aclambda.online',
+  ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
+  engineURL: 'https://engine-staging.memori.ai/memori/v2',
+  apiURL: 'https://backend-staging.memori.ai/api/v2',
+  layout: 'FULLPAGE',
+  uiLang: 'EN',
+  spokenLang: 'EN',
+  integrationID: '658fe9ac-136d-401f-bc57-f5af4d8d7012',
+};
+
+
 export const Default = Template.bind({});
 Default.args = {
   ...DefaultLayout.args,

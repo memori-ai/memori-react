@@ -57,6 +57,8 @@ FilePreviewProps) => {
         return 'Excel';
       case 'csv':
         return 'CSV';
+      case 'html':
+        return 'HTML';
       case 'jpg':
       case 'jpeg':
         return 'JPEG';

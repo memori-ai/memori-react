@@ -66,13 +66,6 @@ export const anonTag = '👤';
 
 export const prismSyntaxLangs = [
   {
-    name: 'text',
-    lang: 'text',
-    mimeType: 'text/plain',
-    monacoLang: 'plaintext',
-    executable: true,
-  },
-  {
     name: 'javascript/jsx',
     lang: 'jsx',
     mimeType: 'text/javascript',
