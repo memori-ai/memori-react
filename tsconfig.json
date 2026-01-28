@@ -1,6 +1,6 @@
 {
   "include": ["src", "types"],
-  "exclude": ["**/*.stories.tsx"],
+  "exclude": ["**/*.stories.tsx", "scripts/*.(ts|tsx|js)"],
   "compilerOptions": {
     "module": "esnext",
     "target": "ES2018",

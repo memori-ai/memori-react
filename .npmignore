@@ -1,0 +1,14 @@
+.husky
+.github
+.storybook
+.yarn
+__mocks__
+coverage
+docs
+example
+scripts
+node_modules
+.editorConfig
+commitlint.config.js
+jest.config.js
+jest.setup.js
