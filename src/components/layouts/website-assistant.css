@@ -572,6 +572,10 @@
         padding: 1rem;
         margin: 0.5rem;
     }
+
+    .memori-website_assistant--trigger-button .memori-blob{
+        transform: translate(-50%, -40%);
+    }
 }
 
 /* ============================================
@@ -594,8 +598,8 @@
 /* Touch device optimizations */
 @media (hover: none) and (pointer: coarse) {
     .memori-website_assistant--trigger-button {
-        width: 72px;
-        height: 72px;
+        width: 80px;
+        height: 80px;
     }
 
     .memori-website_assistant--trigger-button .memori-blob .mainDiv {
