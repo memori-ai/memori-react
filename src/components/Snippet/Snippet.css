@@ -77,35 +77,3 @@ button.memori-snippet--copy-button svg {
     text-align: left;
 }
 
-/* Dark theme support */
-@media (prefers-color-scheme: dark) {
-    .memori-snippet {
-        border-color: #374151;
-        background: #1e1e1e;
-    }
-    
-    .memori-snippet code {
-        color: #e5e7eb;
-    }
-    
-    .memori-snippet--copy-button {
-        border-color: rgba(255, 255, 255, 0.2);
-        background: rgba(255, 255, 255, 0.1);
-    }
-    
-    .memori-snippet--copy-button:hover,
-    .memori-snippet--copy-button:focus {
-        border-color: rgba(255, 255, 255, 0.3);
-        background: rgba(255, 255, 255, 0.2);
-    }
-    
-    .memori-snippet--copy-button svg {
-        color: #fff;
-    }
-    
-    .memori-snippet--caption {
-        border-top-color: rgba(255, 255, 255, 0.1);
-        background: rgba(0, 0, 0, 0.1);
-        color: #ccc;
-    }
-}

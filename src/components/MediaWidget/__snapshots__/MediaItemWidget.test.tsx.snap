@@ -190,11 +190,6 @@ exports[`renders MediaItemWidget unchanged with img 1`] = `
                     alt="Game Cover"
                     src="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
                   />
-                  <figcaption
-                    class="memori-media-item--figure-caption"
-                  >
-                    Game Cover
-                  </figcaption>
                 </picture>
               </div>
               <div
@@ -267,11 +262,6 @@ exports[`renders MediaItemWidget unchanged with img and sessionID 1`] = `
                     alt="Game Cover"
                     src="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
                   />
-                  <figcaption
-                    class="memori-media-item--figure-caption"
-                  >
-                    Game Cover
-                  </figcaption>
                 </picture>
               </div>
               <div
@@ -477,11 +467,6 @@ exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
                   class="memori-media-item--rgb-item"
                   style="background-color: rgb(255, 0, 0);"
                 />
-                <figcaption
-                  class="memori-media-item--figure-caption"
-                >
-                  Rosso
-                </figcaption>
               </picture>
             </div>
             <div
@@ -529,11 +514,6 @@ exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
                   class="memori-media-item--rgb-item"
                   style="background-color: rgb(0, 255, 0);"
                 />
-                <figcaption
-                  class="memori-media-item--figure-caption"
-                >
-                  Verde
-                </figcaption>
               </picture>
             </div>
             <div
@@ -581,11 +561,6 @@ exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
                   class="memori-media-item--rgb-item"
                   style="background-color: rgb(0, 0, 255);"
                 />
-                <figcaption
-                  class="memori-media-item--figure-caption"
-                >
-                  Blu
-                </figcaption>
               </picture>
             </div>
             <div
@@ -657,11 +632,6 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
                     alt="Game Cover"
                     src="https://memori.ai/past"
                   />
-                  <figcaption
-                    class="memori-media-item--figure-caption"
-                  >
-                    Game Cover
-                  </figcaption>
                 </picture>
               </div>
               <div
@@ -721,11 +691,6 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
                     alt="Game Cover"
                     src="https://memori.ai/medium"
                   />
-                  <figcaption
-                    class="memori-media-item--figure-caption"
-                  >
-                    Game Cover
-                  </figcaption>
                 </picture>
               </div>
               <div
@@ -785,11 +750,6 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
                     alt="Game Cover"
                     src="https://memori.ai/now"
                   />
-                  <figcaption
-                    class="memori-media-item--figure-caption"
-                  >
-                    Game Cover
-                  </figcaption>
                 </picture>
               </div>
               <div
