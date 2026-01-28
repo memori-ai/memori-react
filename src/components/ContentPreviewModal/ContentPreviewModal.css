@@ -1,0 +1,103 @@
+/* ContentPreviewModal – modern preview modal for files and media */
+
+.memori-content-preview-modal.memori-modal .memori-modal--panel {
+  overflow: hidden;
+  border-radius: 16px;
+  background: var(--memori-content-preview-bg, #fafafa);
+  box-shadow:
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+/* Image variant: modal at least 600px wide (capped by viewport on small screens) */
+.memori-content-preview-modal--image.memori-modal .memori-modal--panel {
+  min-width: min(600px, 100vw);
+}
+
+.memori-content-preview-modal .memori-modal--title {
+  padding: 1rem 1.25rem 0.75rem;
+  border-bottom: 1px solid var(--memori-content-preview-border, rgba(0, 0, 0, 0.06));
+  color: var(--memori-content-preview-title, #1f2937);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.memori-content-preview-modal .memori-modal--close {
+  top: 0.75rem;
+  right: 0.75rem;
+}
+
+.memori-content-preview-modal .memori-modal--close button {
+  border-radius: 10px;
+  background: var(--memori-content-preview-close-bg, rgba(0, 0, 0, 0.05));
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.memori-content-preview-modal .memori-modal--close button:hover {
+  background: var(--memori-content-preview-close-hover, rgba(0, 0, 0, 0.1));
+  transform: scale(1.05);
+}
+
+/* Body area */
+.memori-content-preview-modal--body {
+  overflow: auto;
+  max-height: 70vh;
+  padding: 1.25rem;
+}
+
+.memori-content-preview-modal--body--image {
+  display: flex;
+  min-height: 400px;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: var(--memori-content-preview-image-bg, #f3f4f6);
+}
+
+.memori-content-preview-modal--body--content {
+  padding: 1rem 1.25rem;
+}
+
+/* Image */
+.memori-content-preview-modal--image-wrap {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  justify-content: center;
+}
+
+.memori-content-preview-modal--image {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+/* Snippet / text content area */
+.memori-content-preview-modal--snippet-wrap {
+  min-height: 120px;
+  border: 1px solid var(--memori-content-preview-snippet-border, #e2e8f0);
+  border-radius: 12px;
+  background: var(--memori-content-preview-snippet-bg, #f8fafc);
+  color: var(--memori-content-preview-snippet-text, #334155);
+  font-family: 'SF Mono', 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+/* When Snippet component is used inside, give it consistent spacing */
+.memori-content-preview-modal--snippet-wrap .memori-snippet {
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  box-shadow: none;
+}
+
+.memori-content-preview-modal--snippet-wrap .memori-snippet--content pre {
+  padding: 1rem 1.25rem;
+}

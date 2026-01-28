@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { PreviewIcon } from '../icons/Preview';
-import { DocumentIcon } from '../icons/Document';
-import { ImageIcon } from '../icons/Image';
+import File from '../icons/File';
 import CloseIcon from '../icons/Close';
 import Button from '../ui/Button';
-import Modal from '../ui/Modal';
-import { stripHTML } from '../../helpers/utils';
+import ContentPreviewModal from '../ContentPreviewModal';
+import Snippet from '../Snippet/Snippet';
+import { stripHTML, stripDocumentAttachmentTags } from '../../helpers/utils';
 
 type FilePreviewProps = {
   previewFiles: any;
@@ -82,6 +81,33 @@ FilePreviewProps) => {
       }
     }
   }, [previewFiles]);
+  // Detect if the file is HTML (by type or filename)
+  const isHtmlFile = (file: { name?: string; type?: string; mimeType?: string } | null): boolean => {
+    if (!file) return false;
+    const ext = file.name?.split('.').pop()?.toLowerCase();
+    return (
+      file.type === 'document' && (ext === 'html' || file.mimeType === 'text/html')
+    ) || ext === 'html' || file.mimeType === 'text/html';
+  };
+
+  // Get display content for non-image files (strip document_attachment for HTML, stripHTML for others)
+  const getDisplayContent = (file: { content?: string; name?: string; type?: string; mimeType?: string } | null): string => {
+    if (!file?.content) return '';
+    const content = file.content;
+    if (isHtmlFile(file)) {
+      let htmlContent = content;
+      if (htmlContent.includes('&lt;') || htmlContent.includes('&quot;')) {
+        const div = document.createElement('div');
+        div.innerHTML = htmlContent;
+        htmlContent = div.textContent || div.innerText || htmlContent;
+      } else {
+        htmlContent = stripDocumentAttachmentTags(htmlContent);
+      }
+      return htmlContent;
+    }
+    return stripHTML(content);
+  };
+
   // Detect if the content is an image URL
   const isImageContent = (content: string, type?: string): boolean => {
     if (type === 'image') return true;
@@ -119,7 +145,7 @@ FilePreviewProps) => {
                     <img src={file.content} alt={file.name} />
                   </div>
                 ) : (
-                  <DocumentIcon className="memori--preview-icon" />
+                  <File className="memori--preview-icon" />
                 )}
 
                 <div className="memori--preview-file-info">
@@ -149,42 +175,37 @@ FilePreviewProps) => {
         </div>
       )}
 
-      <Modal
-        width="80%"
-        widthMd="80%"
+      <ContentPreviewModal
         open={!!selectedFile}
-        className="memori--modal-preview-file"
         onClose={() => setSelectedFile(null)}
-        closable
         title={selectedFile?.name}
+        isImage={
+          !!selectedFile &&
+          isImageContent(selectedFile.content, selectedFile.type)
+        }
+        imageSrc={
+          selectedFile && isImageContent(selectedFile.content, selectedFile.type)
+            ? selectedFile.content
+            : undefined
+        }
+        imageAlt={selectedFile?.name ?? ''}
       >
-        <div
-          className="memori--preview-content"
-          style={{
-            maxHeight: '70vh',
-            overflowY: 'auto',
-            textAlign: 'center',
-            whiteSpace:
-              selectedFile &&
-              !isImageContent(selectedFile.content, selectedFile.type)
-                ? 'pre-wrap'
-                : 'normal',
-          }}
-        >
-          {selectedFile &&
-          isImageContent(selectedFile.content, selectedFile.type) ? (
-            <>
-              <img
-                src={selectedFile.content}
-                alt={selectedFile.name}
-                style={{ maxWidth: '100%', maxHeight: '60vh' }}
-              />
-            </>
+        {selectedFile &&
+          !isImageContent(selectedFile.content, selectedFile.type) &&
+          (isHtmlFile(selectedFile) ? (
+            <Snippet
+              preview={false}
+              medium={{
+                mediumID: selectedFile.id,
+                mimeType: 'application/xml',
+                content: getDisplayContent(selectedFile),
+                title: selectedFile.name,
+              }}
+            />
           ) : (
-            stripHTML(selectedFile?.content || '')
-          )}
-        </div>
-      </Modal>
+            getDisplayContent(selectedFile)
+          ))}
+      </ContentPreviewModal>
     </>
   );
 };
