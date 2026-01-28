@@ -52,6 +52,7 @@
     "copy-files": "yarn copy-files:cjs && yarn copy-files:esm",
     "build:cjs": "tsc --module commonjs --outDir dist",
     "build:esm": "tsc --module esnext --outDir esm",
+    "update-version": "node ./scripts/update-version.js",
     "prebuild": "yarn clean",
     "build": "yarn build:cjs && yarn build:esm && yarn copy-files && yarn cleanup",
     "postbuild": "yarn copy-files",
@@ -172,11 +173,12 @@
   },
   "release-it": {
     "hooks": {
-      "after:bump": "yarn build"
+      "after:bump": "yarn update-version && yarn build"
     },
     "git": {
       "tagName": "v${version}",
-      "commitMessage": "chore: release v${version}"
+      "commitMessage": "chore: release v${version}",
+      "addUntrackedFiles": true
     },
     "npm": {
       "publish": true

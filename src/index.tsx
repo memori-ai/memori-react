@@ -23,6 +23,8 @@ import { useTranslation } from 'react-i18next';
 import I18nWrapper from './I18nWrapper';
 import { ArtifactProvider } from './components/MemoriArtifactSystem/context/ArtifactContext';
 
+import { version } from './version';
+
 export interface Props {
   memoriName?: string | null;
   memoriID?: string | null;
@@ -338,7 +340,12 @@ const Memori: React.FC<Props> = ({
           | undefined,
         showLogin: memori?.enableDeepThought,
         memoriLang: memori?.culture?.split('-')?.[0],
-        autoStart: layout === 'HIDDEN_CHAT' ? true : layout === 'WEBSITE_ASSISTANT' ? false : autoStart,
+        autoStart:
+          layout === 'HIDDEN_CHAT'
+            ? true
+            : layout === 'WEBSITE_ASSISTANT'
+            ? false
+            : autoStart,
       }
     : {
         ...(tag && pin ? { personification: { tag, pin } } : {}),
@@ -372,6 +379,49 @@ const Memori: React.FC<Props> = ({
         useMathFormatting,
         memoriLang: spokenLang ?? memori?.culture?.split('-')?.[0],
       };
+
+  const [pulseSent, setPulseSent] = useState(false);
+
+  const sendPulse = useCallback(() => {
+    if ((memori?.memoriID || memoriID) && !pulseSent) {
+      let origin = window?.location.origin;
+
+      if (
+        !origin ||
+        origin.includes('localhost') ||
+        origin.includes('memori-ai.github.io')
+      ) {
+        setPulseSent(true);
+        return;
+      }
+
+      setPulseSent(true);
+      fetch('https://pulse.aisuru.com/post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          pulse: {
+            clientType: __WEBCOMPONENT__
+              ? 'memori-webcomponent'
+              : 'memori-react',
+            clientVersion: `v${version}`,
+            userAgent: navigator.userAgent,
+            language: navigator.language,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+            memoriID: memori?.memoriID ?? memoriID,
+            tenant: tenantID,
+            referrer: origin,
+          },
+        }),
+      });
+    }
+  }, [memori?.memoriID, memoriID, tenantID, __WEBCOMPONENT__, pulseSent]);
+
+  useEffect(() => {
+    sendPulse();
+  }, [sendPulse]);
 
   return (
     <I18nWrapper>
