@@ -386,7 +386,11 @@ const Memori: React.FC<Props> = ({
     if ((memori?.memoriID || memoriID) && !pulseSent) {
       let origin = window?.location.origin;
 
-      if (!origin || origin.includes('localhost')) {
+      if (
+        !origin ||
+        origin.includes('localhost') ||
+        origin.includes('memori-ai.github.io')
+      ) {
         setPulseSent(true);
         return;
       }
