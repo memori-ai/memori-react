@@ -12,44 +12,43 @@ exports[`renders WEBSITE_ASSISTANT layout unchanged 1`] = `
     style="height: 100vh;"
   >
     <div
-      class="memori-website_assistant--collapsed"
+      class="memori-website_assistant--trigger"
     >
-      <div
-        class="memori-website_assistant--trigger"
+      <button
+        class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-website_assistant--trigger-button"
+        title="Espandi"
       >
-        <button
-          class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-website_assistant--trigger-button"
-          title="Espandi"
+        <div
+          class="memori-blob"
         >
+          <figure>
+            <img
+              alt=""
+              role="presentation"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </figure>
           <div
-            class="memori-blob"
-          >
-            <figure>
-              <img
-                alt=""
-                role="presentation"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </figure>
-            <div
-              class="mainDiv"
-            />
-            <div
-              class="mainDiv"
-            />
-            <div
-              class="mainDiv"
-            />
-            <div
-              class="mainDiv"
-            />
-            <div
-              class="mainDiv"
-            />
-          </div>
-        </button>
-      </div>
+            class="mainDiv"
+          />
+          <div
+            class="mainDiv"
+          />
+          <div
+            class="mainDiv"
+          />
+          <div
+            class="mainDiv"
+          />
+          <div
+            class="mainDiv"
+          />
+        </div>
+      </button>
     </div>
+    <div
+      class="memori-website_assistant--collapsed"
+    />
     <audio
       id="memori-audio"
       src="https://aisuru.com/intro.mp3"
