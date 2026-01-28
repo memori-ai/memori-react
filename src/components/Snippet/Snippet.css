@@ -22,6 +22,9 @@
     font-size: 0.875rem;
     line-height: 1.6;
     overflow-x: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+    word-wrap: break-word;
 }
 
 .memori-snippet code {
@@ -32,11 +35,17 @@
     font-family: inherit;
 }
 
-button.memori-snippet--copy-button {
+.memori-snippet--copy-wrapper {
     position: absolute;
     z-index: 10;
     top: 0.5rem;
     right: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+button.memori-snippet--copy-button {
     width: 32px !important;
     height: 32px !important;
     padding: 0;
@@ -62,6 +71,26 @@ button.memori-snippet--copy-button svg {
     width: 14px;
     height: 14px;
     color: #6b7280;
+}
+
+.memori-snippet--copied-text {
+    animation: fadeInOut 0.3s ease;
+    color: #10b981;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+@keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateX(-4px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .memori-snippet--caption {

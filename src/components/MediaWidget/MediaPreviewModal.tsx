@@ -62,6 +62,7 @@ const MIME_EXCEL_XLSX =
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 const MIME_HTML = 'text/html';
 const MIME_PLAIN = 'text/plain';
+const MIME_CSV = 'text/csv';
 const MIME_MARKDOWN = 'text/markdown';
 const MIME_WORD_DOC = 'application/msword';
 const MIME_WORD_DOCX =
@@ -151,8 +152,10 @@ export function MediaPreviewModal({
 
   // Check if this is a document attachment (extracted text, not binary file)
   // Document attachments can be PDF, XLSX, TXT, CSV, HTML, JSON, MD - all converted to text
+  // Also check for attached files uploaded by the user
   const isDocumentAttachment =
     medium.properties?.isDocumentAttachment === true ||
+    medium.properties?.isAttachedFile === true ||
     isDocumentAttachmentContent(medium.content);
 
   // Detect the type of the medium for custom rendering logic
@@ -168,7 +171,9 @@ export function MediaPreviewModal({
   const isVideoType = isVideo(medium.mimeType);
   const isAudioType = isAudio(medium.mimeType);
   const is3D = medium.mimeType === MIME_3D_GLB;
-  const isPlainText = medium.mimeType === MIME_PLAIN || isDocumentAttachment;
+  // CSV files are converted to text and should be rendered as plain text
+  const isCsv = medium.mimeType === MIME_CSV;
+  const isPlainText = medium.mimeType === MIME_PLAIN || isDocumentAttachment || isCsv;
   const isMarkdown = medium.mimeType === MIME_MARKDOWN;
   const isWordType = isWordDoc(medium.mimeType);
 
@@ -268,6 +273,14 @@ export function MediaPreviewModal({
             } else {
               displayContent = stripDocumentAttachmentTags(displayContent);
             }
+            
+            // Improve formatting for PDF text: normalize whitespace and ensure proper line breaks
+            // Replace multiple spaces with single space, but preserve line breaks
+            displayContent = displayContent
+              .replace(/[ \t]+/g, ' ') // Replace multiple spaces/tabs with single space
+              .replace(/\n{3,}/g, '\n\n') // Replace 3+ newlines with double newline
+              .trim();
+            
             return (
               <Snippet
                 preview={false}

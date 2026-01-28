@@ -21,39 +21,43 @@ exports[`renders SnippetUpload with css code 1`] = `
 }
         </code>
       </pre>
-      <button
-        class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
-        title="copy"
+      <div
+        class="memori-snippet--copy-wrapper"
       >
-        <span
-          class="memori-button--icon"
+        <button
+          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          title="copy"
         >
-          <svg
-            aria-hidden="true"
-            fill="none"
-            focusable="false"
-            role="img"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            class="memori-button--icon"
           >
-            <rect
-              height="14"
-              rx="2"
-              ry="2"
-              width="14"
-              x="8"
-              y="8"
-            />
-            <path
-              d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-            />
-          </svg>
-        </span>
-      </button>
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
     <p
       class="memori-snippet--caption"
@@ -84,39 +88,43 @@ exports[`renders SnippetUpload with html code 1`] = `
           &lt;p&gt;ciao&lt;/p&gt;
         </code>
       </pre>
-      <button
-        class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
-        title="copy"
+      <div
+        class="memori-snippet--copy-wrapper"
       >
-        <span
-          class="memori-button--icon"
+        <button
+          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          title="copy"
         >
-          <svg
-            aria-hidden="true"
-            fill="none"
-            focusable="false"
-            role="img"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            class="memori-button--icon"
           >
-            <rect
-              height="14"
-              rx="2"
-              ry="2"
-              width="14"
-              x="8"
-              y="8"
-            />
-            <path
-              d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-            />
-          </svg>
-        </span>
-      </button>
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
     <p
       class="memori-snippet--caption"
@@ -147,39 +155,43 @@ exports[`renders SnippetUpload with js code 1`] = `
           console.log("Hello World!");
         </code>
       </pre>
-      <button
-        class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
-        title="copy"
+      <div
+        class="memori-snippet--copy-wrapper"
       >
-        <span
-          class="memori-button--icon"
+        <button
+          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          title="copy"
         >
-          <svg
-            aria-hidden="true"
-            fill="none"
-            focusable="false"
-            role="img"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            class="memori-button--icon"
           >
-            <rect
-              height="14"
-              rx="2"
-              ry="2"
-              width="14"
-              x="8"
-              y="8"
-            />
-            <path
-              d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-            />
-          </svg>
-        </span>
-      </button>
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
     <p
       class="memori-snippet--caption"
@@ -240,39 +252,43 @@ exports[`renders SnippetUpload with js code without line numbers 1`] = `
           console.log("Hello World!");
         </code>
       </pre>
-      <button
-        class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
-        title="copy"
+      <div
+        class="memori-snippet--copy-wrapper"
       >
-        <span
-          class="memori-button--icon"
+        <button
+          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          title="copy"
         >
-          <svg
-            aria-hidden="true"
-            fill="none"
-            focusable="false"
-            role="img"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            class="memori-button--icon"
           >
-            <rect
-              height="14"
-              rx="2"
-              ry="2"
-              width="14"
-              x="8"
-              y="8"
-            />
-            <path
-              d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-            />
-          </svg>
-        </span>
-      </button>
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
     <p
       class="memori-snippet--caption"
@@ -308,39 +324,43 @@ import { atomDark } from 'r
 ...
         </code>
       </pre>
-      <button
-        class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
-        title="copy"
+      <div
+        class="memori-snippet--copy-wrapper"
       >
-        <span
-          class="memori-button--icon"
+        <button
+          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          title="copy"
         >
-          <svg
-            aria-hidden="true"
-            fill="none"
-            focusable="false"
-            role="img"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            class="memori-button--icon"
           >
-            <rect
-              height="14"
-              rx="2"
-              ry="2"
-              width="14"
-              x="8"
-              y="8"
-            />
-            <path
-              d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-            />
-          </svg>
-        </span>
-      </button>
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
     <p
       class="memori-snippet--caption"
@@ -415,39 +435,43 @@ export default Snippet;
 
         </code>
       </pre>
-      <button
-        class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
-        title="copy"
+      <div
+        class="memori-snippet--copy-wrapper"
       >
-        <span
-          class="memori-button--icon"
+        <button
+          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          title="copy"
         >
-          <svg
-            aria-hidden="true"
-            fill="none"
-            focusable="false"
-            role="img"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            class="memori-button--icon"
           >
-            <rect
-              height="14"
-              rx="2"
-              ry="2"
-              width="14"
-              x="8"
-              y="8"
-            />
-            <path
-              d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-            />
-          </svg>
-        </span>
-      </button>
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
     <p
       class="memori-snippet--caption"
@@ -478,39 +502,43 @@ exports[`renders SnippetUpload with text 1`] = `
           &lt;p&gt;ciao&lt;/p&gt;
         </code>
       </pre>
-      <button
-        class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
-        title="copy"
+      <div
+        class="memori-snippet--copy-wrapper"
       >
-        <span
-          class="memori-button--icon"
+        <button
+          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          title="copy"
         >
-          <svg
-            aria-hidden="true"
-            fill="none"
-            focusable="false"
-            role="img"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            class="memori-button--icon"
           >
-            <rect
-              height="14"
-              rx="2"
-              ry="2"
-              width="14"
-              x="8"
-              y="8"
-            />
-            <path
-              d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-            />
-          </svg>
-        </span>
-      </button>
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
     <p
       class="memori-snippet--caption"
@@ -541,39 +569,43 @@ exports[`renders SnippetUpload with text as fallback 1`] = `
           &lt;p&gt;ciao&lt;/p&gt;
         </code>
       </pre>
-      <button
-        class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
-        title="copy"
+      <div
+        class="memori-snippet--copy-wrapper"
       >
-        <span
-          class="memori-button--icon"
+        <button
+          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          title="copy"
         >
-          <svg
-            aria-hidden="true"
-            fill="none"
-            focusable="false"
-            role="img"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-            viewBox="0 0 24 24"
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            class="memori-button--icon"
           >
-            <rect
-              height="14"
-              rx="2"
-              ry="2"
-              width="14"
-              x="8"
-              y="8"
-            />
-            <path
-              d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-            />
-          </svg>
-        </span>
-      </button>
+            <svg
+              aria-hidden="true"
+              fill="none"
+              focusable="false"
+              role="img"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="1.5"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect
+                height="14"
+                rx="2"
+                ry="2"
+                width="14"
+                x="8"
+                y="8"
+              />
+              <path
+                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
     </div>
     <p
       class="memori-snippet--caption"

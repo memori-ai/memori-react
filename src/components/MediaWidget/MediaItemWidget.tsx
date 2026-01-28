@@ -136,6 +136,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
   const isCodeSnippet = CODE_MIME_TYPES.includes(item.mimeType);
   const isHTML = item.mimeType === 'text/html';
   const isDocumentAttachment = item.properties?.isDocumentAttachment === true;
+  const isAttachedFile = item.properties?.isAttachedFile === true;
   const isImageRGB =
     item.url?.startsWith('rgb(') || item.url?.startsWith('rgba(');
 
@@ -338,6 +339,37 @@ export const RenderMediaItem = memo(function RenderMediaItem({
     const displayName = item.title || linkTitle || 'File';
     const metaParts = [lineText, sizeText].filter(Boolean);
     const metaLine = metaParts.length > 0 ? metaParts.join(' · ') : null;
+
+    // Document attachments and attached files should open in modal, not as links
+    if ((isDocumentAttachment || isAttachedFile) && item.mediumID && _onClick) {
+      return (
+        <div
+          onClick={() => {
+            _onClick(item.mediumID!);
+          }}
+          className="memori-media-item--link memori-media-item--document-link"
+          style={{ cursor: 'pointer' }}
+          title={displayName}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              _onClick(item.mediumID!);
+            }
+          }}
+        >
+          <DocumentCard
+            title={displayName}
+            badge={
+              item.mimeType === 'text/html' && !!item.url ? 'Link' : fileExtension
+            }
+            meta={metaLine}
+            icon={item.mimeType === 'text/html' ? <Link className="memori-media-item--document-icon-svg" /> : <File className="memori-media-item--document-icon-svg" />}
+          />
+        </div>
+      );
+    }
 
     // Build href: open in new tab (never modal). Use URL, or blob for content-only items.
     const getFileCardHref = (): string => {

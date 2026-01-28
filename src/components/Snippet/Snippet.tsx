@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Medium } from '@memori.ai/memori-api-client/dist/types';
 import Button from '../ui/Button';
 import Copy from '../icons/Copy';
@@ -64,6 +64,7 @@ const Snippet = ({
   showCopyButton = true,
 }: Props) => {
   const { t } = useTranslation();
+  const [copied, setCopied] = useState(false);
 
   const highlightCode = () => {
     // @ts-ignore
@@ -87,6 +88,19 @@ const Snippet = ({
   useEffect(() => {
     highlightCode();
   }, [medium.content, medium.mimeType]);
+
+  const handleCopy = async () => {
+    const contentToCopy = stripDocumentAttachmentTags(medium.content ?? '');
+    try {
+      await navigator.clipboard.writeText(contentToCopy);
+      setCopied(true);
+      setTimeout(() => {
+        setCopied(false);
+      }, 2000);
+    } catch (error) {
+      console.error('Failed to copy text:', error);
+    }
+  };
 
   return (
     <div className="memori-snippet">
@@ -114,14 +128,19 @@ const Snippet = ({
         </pre>
 
         {showCopyButton && (
-          <Button
-            padded={false}
-            ghost
-            className="memori-snippet--copy-button"
-            title={t('copy') || 'Copy'}
-            icon={<Copy />}
-            onClick={() => navigator.clipboard.writeText(medium.content ?? '')}
-          />
+          <div className="memori-snippet--copy-wrapper">
+            {copied && (
+              <span className="memori-snippet--copied-text">COPIED</span>
+            )}
+            <Button
+              padded={false}
+              ghost
+              className="memori-snippet--copy-button"
+              title={t('copy') || 'Copy'}
+              icon={<Copy />}
+              onClick={handleCopy}
+            />
+          </div>
         )}
       </div>
       {!!medium.title?.length && (
