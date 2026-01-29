@@ -4189,11 +4189,11 @@ exports[`renders Chat with media unchanged 1`] = `
               <div
                 class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
               >
-                <a
-                  class="memori-media-item--link"
-                  href="https://picsum.photos/300/200?random=0"
-                  rel="noopener noreferrer"
-                  target="_blank"
+                <div
+                  class="memori-media-item--link memori-media-item--image-link"
+                  role="button"
+                  style="cursor: pointer;"
+                  tabindex="0"
                   title="Image 0"
                 >
                   <div
@@ -4243,16 +4243,16 @@ exports[`renders Chat with media unchanged 1`] = `
                       </div>
                     </div>
                   </div>
-                </a>
+                </div>
               </div>
               <div
                 class="memori-media-item ease-out duration-500 delay-100 opacity-0 scale-95"
               >
-                <a
-                  class="memori-media-item--link"
-                  href="https://picsum.photos/200/300?random=1"
-                  rel="noopener noreferrer"
-                  target="_blank"
+                <div
+                  class="memori-media-item--link memori-media-item--image-link"
+                  role="button"
+                  style="cursor: pointer;"
+                  tabindex="0"
                   title="Image 1"
                 >
                   <div
@@ -4302,16 +4302,16 @@ exports[`renders Chat with media unchanged 1`] = `
                       </div>
                     </div>
                   </div>
-                </a>
+                </div>
               </div>
               <div
                 class="memori-media-item ease-out duration-500 delay-200 opacity-0 scale-95"
               >
-                <a
-                  class="memori-media-item--link"
-                  href="https://picsum.photos/300/300?random=2"
-                  rel="noopener noreferrer"
-                  target="_blank"
+                <div
+                  class="memori-media-item--link memori-media-item--image-link"
+                  role="button"
+                  style="cursor: pointer;"
+                  tabindex="0"
                   title="Image 2"
                 >
                   <div
@@ -4361,7 +4361,7 @@ exports[`renders Chat with media unchanged 1`] = `
                       </div>
                     </div>
                   </div>
-                </a>
+                </div>
               </div>
               <div
                 class="memori-media-item ease-out duration-500 delay-300 opacity-0 scale-95"

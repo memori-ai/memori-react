@@ -91,11 +91,11 @@ exports[`renders MediaWidget with media unchanged 1`] = `
         <div
           class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
         >
-          <a
-            class="memori-media-item--link"
-            href="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
-            rel="noopener noreferrer"
-            target="_blank"
+          <div
+            class="memori-media-item--link memori-media-item--image-link"
+            role="button"
+            style="cursor: pointer;"
+            tabindex="0"
             title="Game Cover"
           >
             <div
@@ -145,7 +145,7 @@ exports[`renders MediaWidget with media unchanged 1`] = `
                 </div>
               </div>
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </div>

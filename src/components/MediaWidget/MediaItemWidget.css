@@ -17,7 +17,7 @@
 }
 
 .memori-media-items--grid.memori-media-items--single .memori-media-item,
-.a.memori-media-item--link .memori-media-item--image {
+.memori-media-item--link .memori-media-item--image {
     width: 100%;
     width: 120px;
     max-width: 100%;
@@ -122,6 +122,7 @@
 
 /* Single image: max-height 400px */
 .memori-media-items--single .memori-media-item--figure {
+    min-height: 120px;
     max-height: 120px;
 }
 
@@ -163,7 +164,8 @@
     word-break: break-word;
 }
 
-a.memori-media-item--link {
+a.memori-media-item--link,
+div.memori-media-item--link.memori-media-item--image-link {
     display: block;
     overflow: hidden;
     width: 100%;

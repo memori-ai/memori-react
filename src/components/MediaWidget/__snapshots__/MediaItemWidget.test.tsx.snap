@@ -167,11 +167,11 @@ exports[`renders MediaItemWidget unchanged with img 1`] = `
       <div
         class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
       >
-        <a
-          class="memori-media-item--link"
-          href="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
-          rel="noopener noreferrer"
-          target="_blank"
+        <div
+          class="memori-media-item--link memori-media-item--image-link"
+          role="button"
+          style="cursor: pointer;"
+          tabindex="0"
           title="Game Cover"
         >
           <div
@@ -221,7 +221,7 @@ exports[`renders MediaItemWidget unchanged with img 1`] = `
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </div>
@@ -239,11 +239,11 @@ exports[`renders MediaItemWidget unchanged with img and sessionID 1`] = `
       <div
         class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
       >
-        <a
-          class="memori-media-item--link"
-          href="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
-          rel="noopener noreferrer"
-          target="_blank"
+        <div
+          class="memori-media-item--link memori-media-item--image-link"
+          role="button"
+          style="cursor: pointer;"
+          tabindex="0"
           title="Game Cover"
         >
           <div
@@ -293,7 +293,7 @@ exports[`renders MediaItemWidget unchanged with img and sessionID 1`] = `
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </div>
@@ -613,11 +613,11 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
       <div
         class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
       >
-        <a
-          class="memori-media-item--link"
-          href="https://memori.ai/past"
-          rel="noopener noreferrer"
-          target="_blank"
+        <div
+          class="memori-media-item--link memori-media-item--image-link"
+          role="button"
+          style="cursor: pointer;"
+          tabindex="0"
           title="Game Cover"
         >
           <div
@@ -667,16 +667,16 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
       <div
         class="memori-media-item ease-out duration-500 delay-100 opacity-0 scale-95"
       >
-        <a
-          class="memori-media-item--link"
-          href="https://memori.ai/medium"
-          rel="noopener noreferrer"
-          target="_blank"
+        <div
+          class="memori-media-item--link memori-media-item--image-link"
+          role="button"
+          style="cursor: pointer;"
+          tabindex="0"
           title="Game Cover"
         >
           <div
@@ -726,16 +726,16 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
       <div
         class="memori-media-item ease-out duration-500 delay-200 opacity-0 scale-95"
       >
-        <a
-          class="memori-media-item--link"
-          href="https://memori.ai/now"
-          rel="noopener noreferrer"
-          target="_blank"
+        <div
+          class="memori-media-item--link memori-media-item--image-link"
+          role="button"
+          style="cursor: pointer;"
+          tabindex="0"
           title="Game Cover"
         >
           <div
@@ -785,7 +785,7 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </div>

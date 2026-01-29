@@ -520,34 +520,50 @@ export const RenderMediaItem = memo(function RenderMediaItem({
 
   // Fallback: Image, video, model, or unknown file types
   switch (item.mimeType) {
-    // Image file types
+    // Image file types: open in modal when onClick/mediumID available, otherwise no link
     case 'image/jpeg':
     case 'image/png':
     case 'image/jpg':
     case 'image/gif':
-      return isImageRGB ? (
-        <Card
-          hoverable
-          className="memori-media-item--card memori-media-item--image"
-          cover={renderMediaContent(item)}
-        />
-      ) : (
-        <a
-          className="memori-media-item--link"
-          href={imageSrc && !imageError ? imageSrc : '#'}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => {
-            if (!imageSrc || imageError) e.preventDefault();
-          }}
-          title={item.title}
-        >
+      if (isImageRGB) {
+        return (
           <Card
             hoverable
             className="memori-media-item--card memori-media-item--image"
             cover={renderMediaContent(item)}
           />
-        </a>
+        );
+      }
+      if (item.mediumID && _onClick) {
+        return (
+          <div
+            onClick={() => _onClick(item.mediumID!)}
+            className="memori-media-item--link memori-media-item--image-link"
+            style={{ cursor: 'pointer' }}
+            title={item.title}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                _onClick(item.mediumID!);
+              }
+            }}
+          >
+            <Card
+              hoverable
+              className="memori-media-item--card memori-media-item--image"
+              cover={renderMediaContent(item)}
+            />
+          </div>
+        );
+      }
+      return (
+        <Card
+          hoverable
+          className="memori-media-item--card memori-media-item--image"
+          cover={renderMediaContent(item)}
+        />
       );
 
     // Video files: open URL in new tab when available
