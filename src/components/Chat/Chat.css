@@ -80,7 +80,8 @@
     border-top-right-radius: 12px;
 }
 
-.memori-chat--cover+.memori-chat--bubble-initial {
+/* Hide the initial divider when there is a cover (works even with MediaWidget before first ChatBubble) */
+.memori-chat--cover ~ .memori-chat--bubble-initial {
     display: none;
 }
 

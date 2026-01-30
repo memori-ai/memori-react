@@ -4,7 +4,6 @@ import {
 } from '@memori.ai/memori-api-client/dist/types';
 import React, { useEffect, useState, memo } from 'react';
 import Button from '../ui/Button';
-import LinkItemWidget from './LinkItemWidget';
 import MediaItemWidget, { Props as MediaItemProps } from './MediaItemWidget';
 import { Transition } from '@headlessui/react';
 import cx from 'classnames';
@@ -45,9 +44,9 @@ const MediaWidget: React.FC<Props> = ({
 
   return (
     <div className="memori-media-widget">
-      {media?.length > 0 && (
+      {(media?.length > 0 || links?.length > 0) && (
         <MediaItemWidget
-          items={media}
+          items={[...(media || []), ...(links || [])]}
           sessionID={sessionID}
           translateTo={translateTo}
           baseURL={baseUrl}
@@ -56,7 +55,6 @@ const MediaWidget: React.FC<Props> = ({
           fromUser={fromUser}
         />
       )}
-      {links?.length > 0 && <LinkItemWidget items={links} baseUrl={baseUrl} fromUser={fromUser} />}
       {hints?.length > 0 && showHints && (
         <>
           <Transition appear show as="ul" className="memori-media--hints">

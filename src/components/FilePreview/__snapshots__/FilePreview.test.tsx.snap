@@ -14,45 +14,15 @@ exports[`renders FilePreview with one file 1`] = `
         class="memori--preview-item memori--preview-item--document"
       >
         <svg
+          aria-hidden="true"
           class="memori--preview-icon"
-          fill="none"
-          viewBox="0 0 24 24"
+          focusable="false"
+          role="img"
+          viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M14 2.5H6C5.60218 2.5 5.22064 2.65804 4.93934 2.93934C4.65804 3.22064 4.5 3.60218 4.5 4V20C4.5 20.3978 4.65804 20.7794 4.93934 21.0607C5.22064 21.342 5.60218 21.5 6 21.5H18C18.3978 21.5 18.7794 21.342 19.0607 21.0607C19.342 20.7794 19.5 20.3978 19.5 20V8L14 2.5Z"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-          />
-          <path
-            d="M14 2.5V8H19.5"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-          />
-          <path
-            d="M16 13H8"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-          />
-          <path
-            d="M16 17H8"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-          />
-          <path
-            d="M10 9H8"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
+            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z"
           />
         </svg>
         <div
@@ -109,45 +79,15 @@ exports[`renders FilePreview with two files 1`] = `
         class="memori--preview-item memori--preview-item--document"
       >
         <svg
+          aria-hidden="true"
           class="memori--preview-icon"
-          fill="none"
-          viewBox="0 0 24 24"
+          focusable="false"
+          role="img"
+          viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M14 2.5H6C5.60218 2.5 5.22064 2.65804 4.93934 2.93934C4.65804 3.22064 4.5 3.60218 4.5 4V20C4.5 20.3978 4.65804 20.7794 4.93934 21.0607C5.22064 21.342 5.60218 21.5 6 21.5H18C18.3978 21.5 18.7794 21.342 19.0607 21.0607C19.342 20.7794 19.5 20.3978 19.5 20V8L14 2.5Z"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-          />
-          <path
-            d="M14 2.5V8H19.5"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-          />
-          <path
-            d="M16 13H8"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-          />
-          <path
-            d="M16 17H8"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-          />
-          <path
-            d="M10 9H8"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
+            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z"
           />
         </svg>
         <div
@@ -191,45 +131,15 @@ exports[`renders FilePreview with two files 1`] = `
         class="memori--preview-item memori--preview-item--document"
       >
         <svg
+          aria-hidden="true"
           class="memori--preview-icon"
-          fill="none"
-          viewBox="0 0 24 24"
+          focusable="false"
+          role="img"
+          viewBox="0 0 1024 1024"
           xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M14 2.5H6C5.60218 2.5 5.22064 2.65804 4.93934 2.93934C4.65804 3.22064 4.5 3.60218 4.5 4V20C4.5 20.3978 4.65804 20.7794 4.93934 21.0607C5.22064 21.342 5.60218 21.5 6 21.5H18C18.3978 21.5 18.7794 21.342 19.0607 21.0607C19.342 20.7794 19.5 20.3978 19.5 20V8L14 2.5Z"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-          />
-          <path
-            d="M14 2.5V8H19.5"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-          />
-          <path
-            d="M16 13H8"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-          />
-          <path
-            d="M16 17H8"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
-          />
-          <path
-            d="M10 9H8"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="1.5"
+            d="M854.6 288.6L639.4 73.4c-6-6-14.1-9.4-22.6-9.4H192c-17.7 0-32 14.3-32 32v832c0 17.7 14.3 32 32 32h640c17.7 0 32-14.3 32-32V311.3c0-8.5-3.4-16.7-9.4-22.7zM790.2 326H602V137.8L790.2 326zm1.8 562H232V136h302v216a42 42 0 0 0 42 42h216v494z"
           />
         </svg>
         <div

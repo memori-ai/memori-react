@@ -41,67 +41,84 @@ exports[`renders MediaItemWidget unchanged with css snippet to show 1`] = `
                   class="memori-card--children"
                 >
                   <div
-                    class="memori-media-item--snippet-preview"
+                    class="memori-media-item--snippet-body"
                   >
                     <div
-                      class="memori-snippet"
+                      class="memori-media-item--snippet-header"
+                    >
+                      <span
+                        class="memori-media-item--snippet-meta"
+                      >
+                        3 righe
+                      </span>
+                    </div>
+                    <div
+                      class="memori-media-item--snippet-preview"
                     >
                       <div
-                        class="memori-snippet--content"
+                        class="memori-snippet"
                       >
-                        <pre
-                          aria-labelledby="#snippet-65ca4a6d-f20b-402e-9d79-5e470f247927"
-                          class="line-numbers"
+                        <div
+                          class="memori-snippet--content"
                         >
-                          <code
-                            class="language-scss"
-                            data-language="scss"
+                          <pre
+                            aria-labelledby="#snippet-65ca4a6d-f20b-402e-9d79-5e470f247927"
+                            class="line-numbers"
                           >
-                            body{
+                            <code
+                              class="language-scss"
+                              data-language="scss"
+                            >
+                              body{
   background-color: #f00;
 }
-                          </code>
-                        </pre>
-                        <button
-                          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
-                          title="copy"
-                        >
-                          <span
-                            class="memori-button--icon"
+                            </code>
+                          </pre>
+                          <div
+                            class="memori-snippet--copy-wrapper"
                           >
-                            <svg
-                              aria-hidden="true"
-                              fill="none"
-                              focusable="false"
-                              role="img"
-                              stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <button
+                              class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+                              title="copy"
                             >
-                              <rect
-                                height="14"
-                                rx="2"
-                                ry="2"
-                                width="14"
-                                x="8"
-                                y="8"
-                              />
-                              <path
-                                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                              <span
+                                class="memori-button--icon"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  fill="none"
+                                  focusable="false"
+                                  role="img"
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="1.5"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <rect
+                                    height="14"
+                                    rx="2"
+                                    ry="2"
+                                    width="14"
+                                    x="8"
+                                    y="8"
+                                  />
+                                  <path
+                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                        <p
+                          class="memori-snippet--caption"
+                          id="snippet-65ca4a6d-f20b-402e-9d79-5e470f247927"
+                        >
+                          Snippet
+                        </p>
                       </div>
-                      <p
-                        class="memori-snippet--caption"
-                        id="snippet-65ca4a6d-f20b-402e-9d79-5e470f247927"
-                      >
-                        Snippet
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -145,16 +162,16 @@ exports[`renders MediaItemWidget unchanged with img 1`] = `
     class="memori-media-items"
   >
     <div
-      class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
+      class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
     >
       <div
         class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
       >
-        <a
-          class="memori-media-item--link"
-          href="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
-          rel="noopener noreferrer"
-          target="_blank"
+        <div
+          class="memori-media-item--link memori-media-item--image-link"
+          role="button"
+          style="cursor: pointer;"
+          tabindex="0"
           title="Game Cover"
         >
           <div
@@ -177,11 +194,6 @@ exports[`renders MediaItemWidget unchanged with img 1`] = `
                     alt="Game Cover"
                     src="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
                   />
-                  <figcaption
-                    class="memori-media-item--figure-caption"
-                  >
-                    Game Cover
-                  </figcaption>
                 </picture>
               </div>
               <div
@@ -209,7 +221,7 @@ exports[`renders MediaItemWidget unchanged with img 1`] = `
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </div>
@@ -222,16 +234,16 @@ exports[`renders MediaItemWidget unchanged with img and sessionID 1`] = `
     class="memori-media-items"
   >
     <div
-      class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
+      class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
     >
       <div
         class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
       >
-        <a
-          class="memori-media-item--link"
-          href="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
-          rel="noopener noreferrer"
-          target="_blank"
+        <div
+          class="memori-media-item--link memori-media-item--image-link"
+          role="button"
+          style="cursor: pointer;"
+          tabindex="0"
           title="Game Cover"
         >
           <div
@@ -254,11 +266,6 @@ exports[`renders MediaItemWidget unchanged with img and sessionID 1`] = `
                     alt="Game Cover"
                     src="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
                   />
-                  <figcaption
-                    class="memori-media-item--figure-caption"
-                  >
-                    Game Cover
-                  </figcaption>
                 </picture>
               </div>
               <div
@@ -286,7 +293,7 @@ exports[`renders MediaItemWidget unchanged with img and sessionID 1`] = `
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </div>
@@ -328,65 +335,82 @@ exports[`renders MediaItemWidget unchanged with js snippet to show 1`] = `
                   class="memori-card--children"
                 >
                   <div
-                    class="memori-media-item--snippet-preview"
+                    class="memori-media-item--snippet-body"
                   >
                     <div
-                      class="memori-snippet"
+                      class="memori-media-item--snippet-header"
+                    >
+                      <span
+                        class="memori-media-item--snippet-meta"
+                      >
+                        1 riga
+                      </span>
+                    </div>
+                    <div
+                      class="memori-media-item--snippet-preview"
                     >
                       <div
-                        class="memori-snippet--content"
+                        class="memori-snippet"
                       >
-                        <pre
-                          aria-labelledby="#snippet-a669fadb-12c0-469b-9b6c-34db22d371ca"
-                          class="line-numbers"
+                        <div
+                          class="memori-snippet--content"
                         >
-                          <code
-                            class="language-jsx"
-                            data-language="jsx"
+                          <pre
+                            aria-labelledby="#snippet-a669fadb-12c0-469b-9b6c-34db22d371ca"
+                            class="line-numbers"
                           >
-                            console.log("Hello World!");
-                          </code>
-                        </pre>
-                        <button
-                          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
-                          title="copy"
-                        >
-                          <span
-                            class="memori-button--icon"
-                          >
-                            <svg
-                              aria-hidden="true"
-                              fill="none"
-                              focusable="false"
-                              role="img"
-                              stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="1.5"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <code
+                              class="language-jsx"
+                              data-language="jsx"
                             >
-                              <rect
-                                height="14"
-                                rx="2"
-                                ry="2"
-                                width="14"
-                                x="8"
-                                y="8"
-                              />
-                              <path
-                                d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                              />
-                            </svg>
-                          </span>
-                        </button>
+                              console.log("Hello World!");
+                            </code>
+                          </pre>
+                          <div
+                            class="memori-snippet--copy-wrapper"
+                          >
+                            <button
+                              class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+                              title="copy"
+                            >
+                              <span
+                                class="memori-button--icon"
+                              >
+                                <svg
+                                  aria-hidden="true"
+                                  fill="none"
+                                  focusable="false"
+                                  role="img"
+                                  stroke="currentColor"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="1.5"
+                                  viewBox="0 0 24 24"
+                                  xmlns="http://www.w3.org/2000/svg"
+                                >
+                                  <rect
+                                    height="14"
+                                    rx="2"
+                                    ry="2"
+                                    width="14"
+                                    x="8"
+                                    y="8"
+                                  />
+                                  <path
+                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                                  />
+                                </svg>
+                              </span>
+                            </button>
+                          </div>
+                        </div>
+                        <p
+                          class="memori-snippet--caption"
+                          id="snippet-a669fadb-12c0-469b-9b6c-34db22d371ca"
+                        >
+                          Snippet
+                        </p>
                       </div>
-                      <p
-                        class="memori-snippet--caption"
-                        id="snippet-a669fadb-12c0-469b-9b6c-34db22d371ca"
-                      >
-                        Snippet
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -430,7 +454,7 @@ exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
     class="memori-media-items"
   >
     <div
-      class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
+      class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--few"
     >
       <div
         class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
@@ -451,11 +475,6 @@ exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
                   class="memori-media-item--rgb-item"
                   style="background-color: rgb(255, 0, 0);"
                 />
-                <figcaption
-                  class="memori-media-item--figure-caption"
-                >
-                  Rosso
-                </figcaption>
               </picture>
             </div>
             <div
@@ -503,11 +522,6 @@ exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
                   class="memori-media-item--rgb-item"
                   style="background-color: rgb(0, 255, 0);"
                 />
-                <figcaption
-                  class="memori-media-item--figure-caption"
-                >
-                  Verde
-                </figcaption>
               </picture>
             </div>
             <div
@@ -555,11 +569,6 @@ exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
                   class="memori-media-item--rgb-item"
                   style="background-color: rgb(0, 0, 255);"
                 />
-                <figcaption
-                  class="memori-media-item--figure-caption"
-                >
-                  Blu
-                </figcaption>
               </picture>
             </div>
             <div
@@ -599,16 +608,16 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
     class="memori-media-items"
   >
     <div
-      class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
+      class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--few"
     >
       <div
         class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
       >
-        <a
-          class="memori-media-item--link"
-          href="https://memori.ai/past"
-          rel="noopener noreferrer"
-          target="_blank"
+        <div
+          class="memori-media-item--link memori-media-item--image-link"
+          role="button"
+          style="cursor: pointer;"
+          tabindex="0"
           title="Game Cover"
         >
           <div
@@ -631,11 +640,6 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
                     alt="Game Cover"
                     src="https://memori.ai/past"
                   />
-                  <figcaption
-                    class="memori-media-item--figure-caption"
-                  >
-                    Game Cover
-                  </figcaption>
                 </picture>
               </div>
               <div
@@ -663,16 +667,16 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
       <div
         class="memori-media-item ease-out duration-500 delay-100 opacity-0 scale-95"
       >
-        <a
-          class="memori-media-item--link"
-          href="https://memori.ai/medium"
-          rel="noopener noreferrer"
-          target="_blank"
+        <div
+          class="memori-media-item--link memori-media-item--image-link"
+          role="button"
+          style="cursor: pointer;"
+          tabindex="0"
           title="Game Cover"
         >
           <div
@@ -695,11 +699,6 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
                     alt="Game Cover"
                     src="https://memori.ai/medium"
                   />
-                  <figcaption
-                    class="memori-media-item--figure-caption"
-                  >
-                    Game Cover
-                  </figcaption>
                 </picture>
               </div>
               <div
@@ -727,16 +726,16 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
       <div
         class="memori-media-item ease-out duration-500 delay-200 opacity-0 scale-95"
       >
-        <a
-          class="memori-media-item--link"
-          href="https://memori.ai/now"
-          rel="noopener noreferrer"
-          target="_blank"
+        <div
+          class="memori-media-item--link memori-media-item--image-link"
+          role="button"
+          style="cursor: pointer;"
+          tabindex="0"
           title="Game Cover"
         >
           <div
@@ -759,11 +758,6 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
                     alt="Game Cover"
                     src="https://memori.ai/now"
                   />
-                  <figcaption
-                    class="memori-media-item--figure-caption"
-                  >
-                    Game Cover
-                  </figcaption>
                 </picture>
               </div>
               <div
@@ -791,7 +785,7 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
               </div>
             </div>
           </div>
-        </a>
+        </div>
       </div>
     </div>
   </div>

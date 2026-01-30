@@ -36,75 +36,38 @@ exports[`renders MediaWidget with links unchanged 1`] = `
     class="memori-media-widget"
   >
     <div
-      class="memori-link-items"
+      class="memori-media-items"
     >
       <div
-        class="memori-link-items--grid memori-chat-scroll-item memori-link-items--agent"
+        class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
       >
         <div
-          class="memori-link-item ease-out duration-500 delay-0 opacity-0 scale-95"
+          class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
         >
           <a
-            class="memori-link-item--link"
+            class="memori-media-item--link memori-media-item--document-link"
             href="https://memori.ai/en"
             rel="noopener noreferrer"
             target="_blank"
+            title="Memori Srl"
           >
             <div
-              class="memori-card memori-link-item--card memori-card--with-cover memori-card--hoverable"
+              class="memori-media-item--document"
             >
               <div
-                class="memori-spin"
+                class="memori-media-item--document-header"
               >
                 <div
-                  class="memori-card--cover"
+                  class="memori-media-item--document-title"
                 >
-                  <div
-                    class="memori-link-item--card-cover-icon"
-                  >
-                    <svg
-                      aria-hidden="true"
-                      class="memori-link-item--icon"
-                      focusable="false"
-                      role="img"
-                      viewBox="0 0 1024 1024"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M574 665.4a8.03 8.03 0 0 0-11.3 0L446.5 781.6c-53.8 53.8-144.6 59.5-204 0-59.5-59.5-53.8-150.2 0-204l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3l-39.8-39.8a8.03 8.03 0 0 0-11.3 0L191.4 526.5c-84.6 84.6-84.6 221.5 0 306s221.5 84.6 306 0l116.2-116.2c3.1-3.1 3.1-8.2 0-11.3L574 665.4zm258.6-474c-84.6-84.6-221.5-84.6-306 0L410.3 307.6a8.03 8.03 0 0 0 0 11.3l39.7 39.7c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c53.8-53.8 144.6-59.5 204 0 59.5 59.5 53.8 150.2 0 204L665.3 562.6a8.03 8.03 0 0 0 0 11.3l39.8 39.8c3.1 3.1 8.2 3.1 11.3 0l116.2-116.2c84.5-84.6 84.5-221.5 0-306.1zM610.1 372.3a8.03 8.03 0 0 0-11.3 0L372.3 598.7a8.03 8.03 0 0 0 0 11.3l39.6 39.6c3.1 3.1 8.2 3.1 11.3 0l226.4-226.4c3.1-3.1 3.1-8.2 0-11.3l-39.5-39.6z"
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <div
-                  class="memori-card--content"
-                >
-                  <h3
-                    class="memori-card--title"
-                  >
-                    Memori Srl
-                  </h3>
-                  <div
-                    class="memori-card--children"
-                  />
-                </div>
-                <div
-                  class="memori-spin--spinner"
-                >
-                  <svg
-                    aria-hidden="true"
-                    class="memori-loading-icon"
-                    focusable="false"
-                    role="img"
-                    viewBox="0 0 1024 1024"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                    />
-                  </svg>
+                  Memori Srl
                 </div>
               </div>
+              <span
+                class="memori-media-item--document-badge"
+              >
+                Link
+              </span>
             </div>
           </a>
         </div>
@@ -123,16 +86,16 @@ exports[`renders MediaWidget with media unchanged 1`] = `
       class="memori-media-items"
     >
       <div
-        class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
+        class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
       >
         <div
           class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
         >
-          <a
-            class="memori-media-item--link"
-            href="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
-            rel="noopener noreferrer"
-            target="_blank"
+          <div
+            class="memori-media-item--link memori-media-item--image-link"
+            role="button"
+            style="cursor: pointer;"
+            tabindex="0"
             title="Game Cover"
           >
             <div
@@ -155,11 +118,6 @@ exports[`renders MediaWidget with media unchanged 1`] = `
                       alt="Game Cover"
                       src="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
                     />
-                    <figcaption
-                      class="memori-media-item--figure-caption"
-                    >
-                      Game Cover
-                    </figcaption>
                   </picture>
                 </div>
                 <div
@@ -187,7 +145,7 @@ exports[`renders MediaWidget with media unchanged 1`] = `
                 </div>
               </div>
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </div>

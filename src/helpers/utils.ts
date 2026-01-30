@@ -246,6 +246,10 @@ export const stripHTML = (text: string) => {
   return el.textContent || '';
 };
 
+/** Ensures all <a> tags in HTML open in a new tab (target="_blank" rel="noopener noreferrer"). */
+export const withLinksOpenInNewTab = (html: string): string =>
+  html.replace(/<a\s+/gi, '<a target="_blank" rel="noopener noreferrer" ');
+
 export const escapeHTML = (text: string) => {
   const el = document.createElement('textarea');
   el.textContent = text;

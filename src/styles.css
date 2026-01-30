@@ -16,7 +16,6 @@
 
 @import url('./components/CompletionProviderStatus/CompletionProviderStatus.css');
 @import url('./components/PoweredBy/PoweredBy.css');
-@import url('./components/AttachmentLinkModal/AttachmentLinkModal.css');
 @import url('./components/Auth/Auth.css');
 @import url('./components/Avatar/Avatar.css');
 @import url('./components/Avatar/AvatarView/AvatarComponent/positionControls/positionControls.css');
@@ -36,7 +35,6 @@
 @import url('./components/FeedbackButtons/FeedbackButtons.css');
 @import url('./components/Header/Header.css');
 @import url('./components/icons/loading.css');
-@import url('./components/MediaWidget/LinkItemWidget.css');
 @import url('./components/MediaWidget/MediaItemWidget.css');
 @import url('./components/MediaWidget/MediaWidget.css');
 @import url('./components/SendOnEnterMenu/SendOnEnterMenu.css');

@@ -142,9 +142,9 @@ const Chat: React.FC<Props> = ({
   const lastMessage = history?.[history.length - 1];
   const lastMessageSignature = `${history?.length ?? 0}|${
     lastMessage?.timestamp ?? ''
-  }|${lastMessage?.fromUser ? 'u' : 'm'}|${
-    lastMessage?.text?.length ?? 0
-  }|${lastMessage?.translatedText?.length ?? 0}`;
+  }|${lastMessage?.fromUser ? 'u' : 'm'}|${lastMessage?.text?.length ?? 0}|${
+    lastMessage?.translatedText?.length ?? 0
+  }`;
   useEffect(() => {
     // if we are in preview mode or in history view, don't scroll to the bottom
     if (preview || isHistoryView) return;
@@ -275,7 +275,8 @@ const Chat: React.FC<Props> = ({
         <div className="memori-chat--drag-overlay">
           <DocumentIcon className="memori-chat--drag-overlay-icon" />
           <span className="memori-chat--drag-overlay-text">
-            {t('upload.dragAndDropFiles') ?? 'Drag and drop files here to add them to the chat'}
+            {t('upload.dragAndDropFiles') ??
+              'Drag and drop files here to add them to the chat'}
           </span>
         </div>
       )}
@@ -315,6 +316,73 @@ const Chat: React.FC<Props> = ({
                   : 'no-attachments'
               }-${message.timestamp}`}
             >
+              <MediaWidget
+                simulateUserPrompt={simulateUserPrompt}
+                links={
+                  (message?.media
+                    ?.filter(m => !m.properties?.functionSignature)
+                    ?.filter(m => m.mimeType === 'text/html' && !!m.url) ||
+                    []) as Medium[]
+                }
+                media={[
+                  // Non-function-cache media items (exclude HTML links; those go into `links`)
+                  ...(message?.media
+                    ?.filter(m => !m.properties?.functionSignature)
+                    ?.filter(m => !(m.mimeType === 'text/html' && !!m.url)) ||
+                    []),
+
+                  // Extract document attachments that are embedded in the message text
+                  ...(() => {
+                    // Get the translated or original message text
+                    const text = message.translatedText || message.text;
+
+                    // Regex to match document attachments in format:
+                    // <document_attachment filename="name.ext" type="mime/type">content</document_attachment>
+                    const documentAttachmentRegex =
+                      /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
+
+                    const attachments: (Medium & { type?: string })[] = [];
+                    let match;
+                    let attachmentIndex = 0;
+
+                    // Find all document attachments in the text
+                    while (
+                      (match = documentAttachmentRegex.exec(text)) !== null
+                    ) {
+                      const [, filename, type, content] = match;
+
+                      // Create a Medium object for each attachment with:
+                      // - Unique ID using timestamp and random string
+                      // - Empty URL since content is embedded
+                      // - Original mime type and filename
+                      // - Trimmed content from the attachment
+                      // - Properties to mark it as a document attachment
+                      attachments.push({
+                        mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
+                          .toString(36)
+                          .substr(2, 9)}`,
+                        url: '',
+                        mimeType: type,
+                        title: filename,
+                        content: content.trim(),
+                        properties: { isDocumentAttachment: true },
+                        type: 'document',
+                      });
+
+                      attachmentIndex++;
+                    }
+
+                    return attachments;
+                  })(),
+                ]}
+                sessionID={sessionID}
+                baseUrl={baseUrl}
+                apiUrl={apiUrl}
+                translateTo={translateTo}
+                customMediaRenderer={customMediaRenderer}
+                fromUser={message.fromUser}
+              />
+              
               <ChatBubble
                 key={`chatbubble-${index}-${
                   message.text?.includes('<document_attachment')
@@ -396,73 +464,6 @@ const Chat: React.FC<Props> = ({
                     )}
                   </div>
                 )}
-
-              <MediaWidget
-                simulateUserPrompt={simulateUserPrompt}
-                links={
-                  (message?.media
-                    ?.filter(m => !m.properties?.functionSignature)
-                    ?.filter(m => m.mimeType === 'text/html' && !!m.url) ||
-                    []) as Medium[]
-                }
-                media={[
-                  // Non-function-cache media items (exclude HTML links; those go into `links`)
-                  ...(message?.media
-                    ?.filter(m => !m.properties?.functionSignature)
-                    ?.filter(m => !(m.mimeType === 'text/html' && !!m.url)) ||
-                    []),
-
-                  // Extract document attachments that are embedded in the message text
-                  ...(() => {
-                    // Get the translated or original message text
-                    const text = message.translatedText || message.text;
-
-                    // Regex to match document attachments in format:
-                    // <document_attachment filename="name.ext" type="mime/type">content</document_attachment>
-                    const documentAttachmentRegex =
-                      /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
-
-                    const attachments: (Medium & { type?: string })[] = [];
-                    let match;
-                    let attachmentIndex = 0;
-
-                    // Find all document attachments in the text
-                    while (
-                      (match = documentAttachmentRegex.exec(text)) !== null
-                    ) {
-                      const [, filename, type, content] = match;
-
-                      // Create a Medium object for each attachment with:
-                      // - Unique ID using timestamp and random string
-                      // - Empty URL since content is embedded
-                      // - Original mime type and filename
-                      // - Trimmed content from the attachment
-                      // - Properties to mark it as a document attachment
-                      attachments.push({
-                        mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
-                          .toString(36)
-                          .substr(2, 9)}`,
-                        url: '',
-                        mimeType: type,
-                        title: filename,
-                        content: content.trim(),
-                        properties: { isDocumentAttachment: true },
-                        type: 'document',
-                      });
-                      
-                      attachmentIndex++;
-                    }
-
-                    return attachments;
-                  })(),
-                ]}
-                sessionID={sessionID}
-                baseUrl={baseUrl}
-                apiUrl={apiUrl}
-                translateTo={translateTo}
-                customMediaRenderer={customMediaRenderer}
-                fromUser={message.fromUser}
-              />
 
               {!isHistoryView && !message.fromUser && (
                 <ArtifactHandler

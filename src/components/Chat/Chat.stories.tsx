@@ -150,6 +150,130 @@ WithMedia.args = {
   setSendOnEnter: () => {},
 };
 
+/** All media types in chat: one message from user, one from agent. Use for manual QA of previews and layout. */
+const historyAllMediaExamples = [
+  {
+    text: "Here's a message with every media type I can send.",
+    fromUser: true,
+    timestamp: '2021-03-01T12:00:00.000Z',
+    media: [
+      {
+        mediumID: 'user-img-1',
+        mimeType: 'image/png',
+        title: 'Image',
+        url: 'https://picsum.photos/200/300',
+      },
+      {
+        mediumID: 'user-link-1',
+        mimeType: 'text/html',
+        title: 'Memori',
+        url: 'https://memori.ai/en',
+      },
+      {
+        mediumID: 'user-code-1',
+        mimeType: 'text/javascript',
+        title: 'Code snippet',
+        content: "console.log('Hello World!');",
+      },
+      {
+        mediumID: 'user-pdf-1',
+        mimeType: 'application/pdf',
+        title: 'PDF',
+        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      },
+      {
+        mediumID: 'user-video-1',
+        mimeType: 'video/mp4',
+        title: 'Video',
+        url: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      },
+      {
+        mediumID: 'user-audio-1',
+        mimeType: 'audio/mpeg',
+        title: 'Audio',
+        url: 'https://www.w3schools.com/html/horse.mp3',
+      },
+      {
+        mediumID: 'user-doc-1',
+        mimeType: 'application/msword',
+        title: 'Word doc',
+        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      },
+    ],
+  },
+  {
+    text: "And here's the same set of media from the agent.",
+    fromUser: false,
+    timestamp: '2021-03-01T12:00:01.000Z',
+    media: [
+      {
+        mediumID: 'agent-img-1',
+        mimeType: 'image/png',
+        title: 'Image',
+        url: 'https://picsum.photos/300/200',
+      },
+      {
+        mediumID: 'agent-link-1',
+        mimeType: 'text/html',
+        title: 'YouTube',
+        url: 'https://www.youtube.com/watch?v=feH26j3rBz8',
+      },
+      {
+        mediumID: 'agent-code-1',
+        mimeType: 'application/json',
+        title: 'JSON',
+        content: '{"name": "Test", "value": 42}',
+      },
+      {
+        mediumID: 'agent-pdf-1',
+        mimeType: 'application/pdf',
+        title: 'PDF',
+        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      },
+      {
+        mediumID: 'agent-video-1',
+        mimeType: 'video/mp4',
+        title: 'Video',
+        url: 'https://www.w3schools.com/html/mov_bbb.mp4',
+      },
+      {
+        mediumID: 'agent-audio-1',
+        mimeType: 'audio/mpeg',
+        title: 'Audio',
+        url: 'https://www.w3schools.com/html/horse.mp3',
+      },
+      {
+        mediumID: 'agent-doc-1',
+        mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        title: 'Excel',
+        url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      },
+    ],
+  },
+  {
+    text: 'This message has an inline document attachment: <document_attachment filename="note.txt" type="text/plain">Hello from inline attachment.</document_attachment>',
+    fromUser: true,
+    timestamp: '2021-03-01T12:00:02.000Z',
+  },
+];
+
+export const AllMediaExamples = Template.bind({});
+AllMediaExamples.args = {
+  memori,
+  tenant,
+  sessionID,
+  history: historyAllMediaExamples,
+  dialogState,
+  layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
+AllMediaExamples.storyName = 'All media examples (user + agent)';
+
 export const WithInvalidImages = Template.bind({});
 WithInvalidImages.args = {
   memori,

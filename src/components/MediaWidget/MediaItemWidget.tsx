@@ -1,58 +1,94 @@
-import { Medium } from '@memori.ai/memori-api-client/dist/types';
-import React, { useCallback, useEffect, useState, memo } from 'react';
+// MediaItemWidget.tsx — Main Media Item Widget file for rendering various types of media inside Memori
+import type { Medium } from '@memori.ai/memori-api-client/dist/types';
+import React, { useCallback, useEffect, useMemo, useState, memo, useRef } from 'react';
 import { getResourceUrl } from '../../helpers/media';
+import { withLinksOpenInNewTab, stripDocumentAttachmentTags } from '../../helpers/utils';
 import { getTranslation } from '../../helpers/translations';
 import { prismSyntaxLangs } from '../../helpers/constants';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
 import Snippet from '../Snippet/Snippet';
 import Card from '../ui/Card';
 import Modal from '../ui/Modal';
-import Button from '../ui/Button';
 import File from '../icons/File';
-import FilePdf from '../icons/FilePdf';
-import FileExcel from '../icons/FileExcel';
-import FileWord from '../icons/FileWord';
-import Copy from '../icons/Copy';
 import { Transition } from '@headlessui/react';
-import { stripHTML } from '../../helpers/utils';
 import cx from 'classnames';
-export interface Props {
-  items: (Medium & { type?: string })[];
-  sessionID?: string;
-  tenantID?: string;
-  translateTo?: string;
-  baseURL?: string;
-  apiURL?: string;
-  customMediaRenderer?: (mimeType: string) => JSX.Element | null;
-  fromUser?: boolean;
+import Sound from '../icons/Sound';
+import Link from '../icons/Link';
+import { ellipsis } from 'ellipsed';
+
+import type {
+  MediaItemWidgetProps as Props,
+  RenderMediaItemProps,
+  RenderSnippetItemProps,
+  LinkPreviewInfo,
+} from './MediaItemWidget.types';
+import {
+  formatBytes,
+  getFileExtensionFromUrl,
+  getFileExtensionFromMime,
+  countLines,
+  shouldUseDarkFileCard,
+  fetchLinkPreview,
+  getContentSize,
+  isValidUrl,
+  normalizeUrl,
+  FALLBACK_IMAGE_BASE64,
+  TEXT_FILE_EXTENSIONS,
+  IMAGE_MIME_TYPES,
+} from './MediaItemWidget.utils';
+import { DocumentCard } from './DocumentCard';
+import { MediaPreviewModal } from './MediaPreviewModal';
+
+export type { LinkPreviewInfo, ILinkPreviewInfo } from './MediaItemWidget.types';
+export type { Props };
+
+// List of code mime types from Prism's available languages
+const CODE_MIME_TYPES = prismSyntaxLangs.map((l) => l.mimeType);
+
+// Helper: Get image src handling legacy, RGB, data, and resourceUrl
+function getImageSrc(
+  item: Medium & { type?: string },
+  resourceUrl: string,
+  isValidResourceUrl: boolean
+): string | undefined {
+  if (isValidResourceUrl || isValidUrl(item.url)) {
+    return resourceUrl || item.url;
+  }
+  if (item.url?.startsWith('rgb(') || item.url?.startsWith('rgba(')) {
+    return item.url;
+  }
+  if (item.content) {
+    return `data:${item.mimeType};base64,${item.content}`;
+  }
+  return undefined;
 }
 
-export const RenderMediaItem = ({
-  isChild = false,
+// RenderMediaItem — Renders the suitable content for a Medium (images, files, html, code, audio, video…)
+export const RenderMediaItem = memo(function RenderMediaItem({
+  isChild: _isChild = false,
   item,
   sessionID,
   tenantID,
   preview = false,
   baseURL,
   apiURL,
-  onClick,
+  onClick: _onClick,
   customMediaRenderer,
-}: {
-  isChild?: boolean;
-  item: Medium & { type: string };
-  sessionID?: string;
-  tenantID?: string;
-  preview?: boolean;
-  baseURL?: string;
-  apiURL?: string;
-  onClick?: (mediumID: string) => void;
-  customMediaRenderer?: (mimeType: string) => JSX.Element | null;
-}) => {
-  const [modalOpen, setModalOpen] = useState(false);
+  descriptionOneLine = false,
+  onLinkPreviewInfo,
+}: RenderMediaItemProps): React.ReactElement | null {
+  // State for "copy to clipboard" notification for snippets
   const [copyNotification, setCopyNotification] = useState(false);
+  // State for fallback image
   const [imageError, setImageError] = useState(false);
+  // Link preview info (site title, description, image, etc)
+  const [link, setLink] = useState<(LinkPreviewInfo & { urlKey: string }) | null>(null);
+  // Persistent ref for onLinkPreviewInfo callback
+  const onLinkPreviewInfoRef = useRef(onLinkPreviewInfo);
+  onLinkPreviewInfoRef.current = onLinkPreviewInfo;
 
-  const url = getResourceUrl({
+  // Get URL with possible session/tenant/base/api
+  const resourceUrl = getResourceUrl({
     resourceURI: item.url,
     sessionID,
     tenantID,
@@ -60,300 +96,477 @@ export const RenderMediaItem = ({
     apiURL,
   });
 
-  const customRenderer = customMediaRenderer?.(item.mimeType);
+  // Normalize URL (strip protocol, etc)
+  const normURL = normalizeUrl(item.url);
 
+  // Fetch link preview info for HTML links, only if relevant and not already loaded
+  useEffect(() => {
+    if (
+      item.mimeType !== 'text/html' ||
+      !normURL ||
+      normURL === link?.urlKey ||
+      !baseURL
+    ) {
+      return;
+    }
+    let cancelled = false;
+    fetchLinkPreview(normURL, baseURL).then((siteInfo) => {
+      if (cancelled) return;
+      setLink(
+        siteInfo
+          ? ({ ...siteInfo, urlKey: normURL } as LinkPreviewInfo & { urlKey: string })
+          : null
+      );
+      if (siteInfo && onLinkPreviewInfoRef.current) {
+        onLinkPreviewInfoRef.current(siteInfo);
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [item?.url, baseURL, item.mimeType, normURL, link?.urlKey]);
+
+  // Custom renderer for media type, overrides our logic
+  const customRenderer = customMediaRenderer?.(item.mimeType);
   if (customRenderer) {
     return customRenderer;
   }
 
-  const isCodeSnippet = prismSyntaxLangs
-    .map(l => l.mimeType)
-    .includes(item.mimeType);
+  // Media type detection flags
+  const isCodeSnippet = CODE_MIME_TYPES.includes(item.mimeType);
   const isHTML = item.mimeType === 'text/html';
+  const isDocumentAttachment = item.properties?.isDocumentAttachment === true;
+  const isAttachedFile = item.properties?.isAttachedFile === true;
   const isImageRGB =
     item.url?.startsWith('rgb(') || item.url?.startsWith('rgba(');
 
-  // Helper to validate if a string is a valid URL
-  const isValidUrl = (urlString: string | undefined): boolean => {
-    if (!urlString) return false;
-    try {
-      new URL(urlString);
-      return true;
-    } catch {
-      return false;
-    }
-  };
+  // Get resolved image src
+  const imageSrc = getImageSrc(
+    item,
+    resourceUrl,
+    isValidUrl(resourceUrl) || isValidUrl(item.url)
+  );
 
-  // Helper to get valid image src
-  const getImageSrc = (): string | undefined => {
-    // If url is valid, use it
-    if (isValidUrl(url) || isValidUrl(item.url)) {
-      return url || item.url;
-    } else if (item.url?.startsWith('rgb(') || item.url?.startsWith('rgba(')) {
-      return item.url;
-    } else if (item.content) { 
-      return `data:${item.mimeType};base64,${item.content}`;
-    }
+  // Link preview fields (title, description, video, image)
+  const linkTitle =
+    item.title && item.title.length > 0 ? item.title : link?.title;
+  const linkDescription = link?.description;
+  const linkVideo = link?.video;
+  const linkImage = link?.image ?? link?.images?.[0];
 
-    // Return undefined if no valid source
-    return undefined;
-  };
+  /**
+   * Render the actual content for a media item based on its MIME type
+   */
+  const renderMediaContent = useCallback(
+    (medium: Medium & { type?: string }) => {
+      // Get resource url for this medium
+      const url = getResourceUrl({
+        resourceURI: medium.url,
+        sessionID,
+        tenantID,
+        baseURL,
+        apiURL,
+      });
 
-  const imageSrc = getImageSrc();
-  const fallbackImage =
-    'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgZmlsbD0iI2YwZjBmMCIvPjx0ZXh0IHg9IjUwJSIgeT0iNTAlIiBmb250LWZhbWlseT0iQXJpYWwsIHNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiM5OTk5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSBub3QgYXZhaWxhYmxlPC90ZXh0Pjwvc3ZnPg==';
-
-  const renderMediaContent = (item: Medium) => {
-    switch (item.mimeType) {
-      case 'image/jpeg':
-      case 'image/png':
-      case 'image/jpg':
-      case 'image/gif':
-        return isImageRGB ? (
-          <picture className="memori-media-item--figure">
-            <div
-              className="memori-media-item--rgb-item"
-              style={{
-                backgroundColor: item.url,
-              }}
-            />
-            {item.title && (
-              <figcaption className="memori-media-item--figure-caption">
-                {item.title}
-              </figcaption>
-            )}
-          </picture>
-        ) : (
-          <picture className="memori-media-item--figure">
-            {!preview && imageSrc && (
-              <source
-                srcSet={imageSrc}
-                type={item.mimeType}
+      switch (medium.mimeType) {
+        // Render images (RGB images as colored swatches)
+        case 'image/jpeg':
+        case 'image/png':
+        case 'image/jpg':
+        case 'image/gif':
+          return isImageRGB ? (
+            <picture className="memori-media-item--figure">
+              <div
+                className="memori-media-item--rgb-item"
+                style={{ backgroundColor: medium.url }}
               />
-            )}
-            <img
-              alt={item.title}
-              src={imageError || !imageSrc ? fallbackImage : imageSrc}
-              onError={() => setImageError(true)}
-            />
-            {item.title && (
-              <figcaption className="memori-media-item--figure-caption">
-                {item.title}
-              </figcaption>
-            )}
-          </picture>
-        );
+            </picture>
+          ) : (
+            <picture className="memori-media-item--figure">
+              {!preview && imageSrc && (
+                <source srcSet={imageSrc} type={medium.mimeType} />
+              )}
+              <img
+                alt={medium.title}
+                src={imageError || !imageSrc ? FALLBACK_IMAGE_BASE64 : imageSrc}
+                onError={() => setImageError(true)}
+              />
+            </picture>
+          );
 
-      case 'application/msword':
-      case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-        return <FileWord className="memori-media-item--icon" />;
-
-      case 'application/vnd.ms-excel':
-      case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-        return <FileExcel className="memori-media-item--icon" />;
-
-      case 'application/pdf':
-        return <FilePdf className="memori-media-item--icon" />;
-
-      case 'video/mp4':
-      case 'video/quicktime':
-      case 'video/avi':
-      case 'video/mpeg':
-        return (
-          <video
-            style={{ width: '100%', height: '100%' }}
-            controls
-            src={url}
-            title={item.title}
-          >
-            {item.mimeType === 'video/quicktime' && (
-              <source src={item.url} type="video/mp4" />
-            )}
-            <source src={item.url} type={item.mimeType} />
-            Your browser does not support this video format.
-            <br />
-            <a href={item.url} target="_blank" rel="noopener noreferrer">
-              Download the video
-            </a>
-          </video>
-        );
-
-      case 'audio/mpeg3':
-      case 'audio/wav':
-      case 'audio/mpeg':
-        return (
-          <audio style={{ width: '100%', height: '100%' }} controls src={url} />
-        );
-
-      case 'model/gltf-binary':
-        return (
-          <ModelViewer
-            src={url}
-            alt=""
-            poster="data:image/png;base64,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"
-          />
-        );
-
-      default:
-        return <File className="memori-media-item--icon" />;
-    }
-  };
-
-  // Handle code snippets with modal
-  if ((isCodeSnippet && item.content) || isHTML) {
-    return (
-      <>
-        <a
-          className="memori-media-item--link"
-          href="#"
-          onClick={e => {
-            e.preventDefault();
-            setModalOpen(true);
-          }}
-          title={item.title}
-        >
-          <Card hoverable cover={renderMediaContent(item)} title={item.title} />
-        </a>
-
-        <Modal
-          open={modalOpen}
-          onClose={() => setModalOpen(false)}
-          title={item.title}
-          className="memori-media-item-preview--modal"
-          width="80%"
-          widthMd="90%"
-        >
-          <div className="memori-media-item-preview--content">
-            <Snippet medium={item} showCopyButton={true} />
-          </div>
-        </Modal>
-      </>
-    );
-  }
-
-  if (
-    !item.url &&
-    item?.type === 'document' &&
-    item.content &&
-    !['image/jpeg', 'image/png', 'image/jpg', 'image/gif'].includes(
-      item.mimeType
-    )
-  ) {
-    return (
-      <>
-        <a
-          className="memori-media-item--link"
-          href="#"
-          onClick={e => {
-            e.preventDefault();
-            setModalOpen(true);
-          }}
-          title={item.title}
-        >
-          <Card hoverable cover={renderMediaContent(item)} title={item.title} />
-        </a>
-
-        <Modal
-          open={modalOpen}
-          onClose={() => setModalOpen(false)}
-          title={item.title}
-          className="memori-media-item-preview--modal"
-          width="60%"
-          widthMd="70%"
-          footer={
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'flex-end',
-                gap: '0.5rem',
-              }}
-            >
-              <Button
-                onClick={async () => {
-                  try {
-                    await navigator.clipboard.writeText(item.content || '');
-                    setCopyNotification(true);
-                    setTimeout(() => setCopyNotification(false), 2000);
-                  } catch (err) {
-                    console.error('Failed to copy content:', err);
-                  }
-                }}
-                icon={<Copy />}
+        // Render video types
+        case 'video/mp4':
+        case 'video/quicktime':
+        case 'video/avi':
+        case 'video/mpeg':
+          return (
+            <div className="memori-media-item--video-container">
+              <video
+                className="memori-media-item--video-player"
+                controls
+                src={url}
+                title={medium.title}
               >
-                {copyNotification ? 'Copied!' : 'Copy Content'}
-              </Button>
+                {/* Quicktime special fallback for .mp4 */}
+                {medium.mimeType === 'video/quicktime' && (
+                  <source src={medium.url} type="video/mp4" />
+                )}
+                <source src={medium.url} type={medium.mimeType} />
+                Your browser does not support this video format.
+              </video>
+              {/* Play overlay icon (hidden by default) */}
+              <div className="memori-media-item--video-overlay hidden">
+                <svg
+                  className="memori-media-item--play-icon"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </div>
             </div>
-          }
-        >
-          <div className="memori-media-item-preview--content">
-            <div
-              className="memori-media-item-preview--text"
-              dangerouslySetInnerHTML={{
-                __html: stripHTML(item.content || ''),
-              }}
+          );
+
+        // Render audio types (shows a sound icon + audio controls)
+        case 'audio/mpeg3':
+        case 'audio/wav':
+        case 'audio/mpeg':
+          return (
+            <div className="memori-media-item--audio-container">
+              <div className="memori-media-item--audio-icon">
+                <Sound />
+              </div>
+              <audio
+                className="memori-media-item--audio-player"
+                controls
+                src={url}
+              />
+            </div>
+          );
+
+        // Render 3D models (GLB only)
+        case 'model/gltf-binary':
+          return (
+            <div className="memori-media-item--model-container">
+              <div className="memori-media-item--model-viewer">
+                <ModelViewer
+                  src={url}
+                  alt=""
+                  poster="data:image/png;base64,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"
+                />
+              </div>
+            </div>
+          );
+
+        // HTML files are now handled as file cards (rendered above in the isFile check)
+        // This case is kept for backwards compatibility but should not be reached
+        case 'text/html':
+          // Fallback to file card - HTML files are handled in the file card section above
+          return (
+            <DocumentCard
+              title={medium.title || 'File'}
+              badge={getFileExtensionFromMime(medium.mimeType)}
+              meta={
+                (() => {
+                  const size = getContentSize(medium);
+                  return size != null && size > 0 ? formatBytes(size) : null;
+                })()
+              }
+              icon={<Link className="memori-media-item--document-icon-svg" />}
             />
-          </div>
-        </Modal>
-      </>
+          );
+
+        // Generic fallback: Render a document card for unknown types
+        default:
+          return (
+            <DocumentCard
+              title={medium.title || 'File'}
+              badge={getFileExtensionFromMime(medium.mimeType)}
+              meta={
+                (() => {
+                  const size = getContentSize(medium);
+                  return size != null && size > 0 ? formatBytes(size) : null;
+                })()
+              }
+              icon={<File className="memori-media-item--document-icon-svg" />}
+            />
+          );
+      }
+    },
+    [
+      sessionID,
+      tenantID,
+      baseURL,
+      apiURL,
+      preview,
+      imageSrc,
+      imageError,
+      isImageRGB,
+      linkImage,
+      linkVideo,
+    ]
+  );
+
+  // Extension and file detection helpers
+  const fileExtensionFromUrl = getFileExtensionFromUrl(normURL || item.url);
+  const fileExtensionFromMime = getFileExtensionFromMime(item.mimeType);
+  const fileExtension = fileExtensionFromUrl || fileExtensionFromMime;
+  const isFile = shouldUseDarkFileCard(
+    item,
+    fileExtensionFromUrl,
+    item.mimeType
+  );
+  // Text file detection for line counting
+  const isTextFile = (TEXT_FILE_EXTENSIONS as readonly string[]).includes(
+    fileExtension || ''
+  );
+
+  // Derive line count and line label for text files
+  const lineCount =
+    isTextFile && item.content ? countLines(item.content) : null;
+  const lineText =
+    lineCount !== null
+      ? lineCount === 1
+        ? '1 line'
+        : `${lineCount} lines`
+      : null;
+
+  // File-like cards that are NOT code: render as clickable file cards
+  if (isFile && !isCodeSnippet) {
+    const contentSize = getContentSize(item);
+    const sizeText =
+      contentSize != null && contentSize > 0 ? formatBytes(contentSize) : null;
+    const displayName = item.title || linkTitle || 'File';
+    const metaParts = [lineText, sizeText].filter(Boolean);
+    const metaLine = metaParts.length > 0 ? metaParts.join(' · ') : null;
+
+    // Document attachments and attached files should open in modal, not as links
+    if ((isDocumentAttachment || isAttachedFile) && item.mediumID && _onClick) {
+      return (
+        <div
+          onClick={() => {
+            _onClick(item.mediumID!);
+          }}
+          className="memori-media-item--link memori-media-item--document-link"
+          style={{ cursor: 'pointer' }}
+          title={displayName}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              _onClick(item.mediumID!);
+            }
+          }}
+        >
+          <DocumentCard
+            title={displayName}
+            badge={
+              item.mimeType === 'text/html' && !!item.url ? 'Link' : fileExtension
+            }
+            meta={metaLine}
+            icon={item.mimeType === 'text/html' ? <Link className="memori-media-item--document-icon-svg" /> : <File className="memori-media-item--document-icon-svg" />}
+          />
+        </div>
+      );
+    }
+
+    // Build href: open in new tab (never modal). Use URL, or blob for content-only items.
+    const getFileCardHref = (): string => {
+      if (item.url) {
+        return getResourceUrl({
+          resourceURI: item.url,
+          sessionID,
+          tenantID,
+          baseURL,
+          apiURL,
+        }) || item.url || '#';
+      }
+      if (isHTML && item.content) {
+        let htmlContent = item.content;
+        if (item.properties?.isDocumentAttachment ||
+            htmlContent.includes('document_attachment') ||
+            htmlContent.includes('<document_attachment')) {
+          if (htmlContent.includes('&lt;') || htmlContent.includes('&quot;')) {
+            const div = document.createElement('div');
+            div.innerHTML = htmlContent;
+            htmlContent = div.textContent || div.innerText || htmlContent;
+          }
+          htmlContent = stripDocumentAttachmentTags(htmlContent);
+        }
+        const blob = new Blob([htmlContent], { type: 'text/html' });
+        return URL.createObjectURL(blob);
+      }
+      if (item.content) {
+        const blob = new Blob([item.content], { type: item.mimeType || 'text/plain' });
+        return URL.createObjectURL(blob);
+      }
+      return '#';
+    };
+
+    const hrefUrl = getFileCardHref();
+
+    return (
+      <a
+        href={hrefUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="memori-media-item--link memori-media-item--document-link"
+        title={displayName}
+      >
+        <DocumentCard
+          title={displayName}
+          badge={
+            item.mimeType === 'text/html' && !!item.url ? 'Link' : fileExtension
+          }
+          meta={metaLine}
+          icon={item.mimeType === 'text/html' ? <Link className="memori-media-item--document-icon-svg" /> : <File className="memori-media-item--document-icon-svg" />}
+        />
+      </a>
     );
   }
 
+  // Inline previews for code snippets: open in new tab (blob URL if no resource URL)
+  if (isCodeSnippet && item.content && item.mediumID && _onClick) {
+    return (
+      <div
+        className="memori-media-item--link"
+        style={{ cursor: 'pointer' }}
+        onClick={() => {
+          _onClick(item.mediumID!);
+        }}
+        title={item.title}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            _onClick(item.mediumID!);
+          }
+        }}
+      >
+        <Card hoverable cover={renderMediaContent(item)} title={item.title} />
+      </div>
+    );
+  }
+
+  // HTML file with link info / preview or video/image: render card with link preview (image, video, description)
+  if (isHTML && (linkImage || linkVideo || linkDescription)) {
+    // Compute card cover image/video src
+    const coverSrc =
+      linkImage?.includes('data:image') === true
+        ? undefined
+        : linkImage?.startsWith('https')
+          ? linkImage
+          : linkImage
+            ? `https://${linkImage.replace('http://', '')}`
+            : undefined;
+
+    return (
+      <a
+        href={item.url || '#'}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="memori-media-item--link"
+        title={linkTitle}
+      >
+        <Card
+          hoverable
+          className={cx('memori-media-item--card', {
+            'memori-media-item--card-description-oneline': descriptionOneLine,
+            'memori-media-item--card-has-image': !!linkImage,
+            'memori-media-item--card-has-video': !!linkVideo,
+          })}
+          cover={
+            linkVideo ? (
+              <iframe
+                width="100%"
+                height="100%"
+                src={linkVideo}
+                title="Video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            ) : linkImage ? (
+              <img
+                className="memori-media-item--card-cover-img"
+                src={coverSrc}
+                alt={linkTitle}
+              />
+            ) : (
+              <div className="memori-media-item--card-cover-icon">
+                <Link className="memori-media-item--icon" />
+              </div>
+            )
+          }
+          title={linkTitle}
+          description={linkDescription}
+        />
+      </a>
+    );
+  }
+
+  // Run ellipsed.js to clamp link card description, only when a linkDescription is present
+  useEffect(() => {
+    if (!linkDescription) return;
+    const t = setTimeout(() => {
+      ellipsis('.memori-media-item--card .memori-card--description', 3, {
+        responsive: true,
+      });
+    }, 300);
+    return () => clearTimeout(t);
+  }, [linkDescription, item.mediumID]);
+
+  // Fallback: Image, video, model, or unknown file types
   switch (item.mimeType) {
+    // Image file types: open in modal when onClick/mediumID available, otherwise no link
     case 'image/jpeg':
     case 'image/png':
     case 'image/jpg':
     case 'image/gif':
-      return isImageRGB ? (
-        <Card
-          hoverable
-          className="memori-media-item--card memori-media-item--image"
-          cover={renderMediaContent(item)}
-        />
-      ) : (
-        <a
-          className="memori-media-item--link"
-          href={imageSrc || '#'}
-          onClick={e => {
-            if (isChild) {
-              e.preventDefault();
-            }
-            if (onClick) {
-              e.preventDefault();
-              onClick(item.mediumID);
-            }
-            if (!imageSrc || imageError) {
-              e.preventDefault();
-            }
-          }}
-          target="_blank"
-          rel="noopener noreferrer"
-          title={item.title}
-        >
+      if (isImageRGB) {
+        return (
           <Card
             hoverable
             className="memori-media-item--card memori-media-item--image"
             cover={renderMediaContent(item)}
           />
-        </a>
-      );
-
-    case 'application/msword':
-    case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
-    case 'application/vnd.ms-excel':
-    case 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':
-    case 'application/pdf':
+        );
+      }
+      if (item.mediumID && _onClick) {
+        return (
+          <div
+            onClick={() => _onClick(item.mediumID!)}
+            className="memori-media-item--link memori-media-item--image-link"
+            style={{ cursor: 'pointer' }}
+            title={item.title}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                _onClick(item.mediumID!);
+              }
+            }}
+          >
+            <Card
+              hoverable
+              className="memori-media-item--card memori-media-item--image"
+              cover={renderMediaContent(item)}
+            />
+          </div>
+        );
+      }
       return (
-        <a
-          className="memori-media-item--link"
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          title={item.title}
-        >
-          <Card hoverable cover={renderMediaContent(item)} title={item.title} />
-        </a>
+        <Card
+          hoverable
+          className="memori-media-item--card memori-media-item--image"
+          cover={renderMediaContent(item)}
+        />
       );
 
+    // Video files: open URL in new tab when available
     case 'video/mp4':
     case 'video/quicktime':
     case 'video/avi':
@@ -361,129 +574,145 @@ export const RenderMediaItem = ({
       return (
         <a
           className="memori-media-item--link"
-          href={url}
-          onClick={e => {
-            if (isChild) {
-              e.preventDefault();
-            }
-            if (onClick) {
-              e.preventDefault();
-              onClick(item.mediumID);
-            }
-          }}
+          href={resourceUrl || '#'}
           target="_blank"
           rel="noopener noreferrer"
           title={item.title}
         >
-          <Card hoverable cover={renderMediaContent(item)} title={item.title} />
+          {renderMediaContent(item)}
         </a>
       );
 
+    // Audio and 3D models: open URL in new tab when available
     case 'audio/mpeg3':
     case 'audio/wav':
     case 'audio/mpeg':
-      return (
-        <a
-          className="memori-media-item--link"
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-          title={item.title}
-        >
-          <Card hoverable cover={renderMediaContent(item)} title={item.title} />
-        </a>
-      );
-
     case 'model/gltf-binary':
-      return <Card hoverable cover={renderMediaContent(item)} />;
+      if (resourceUrl) {
+        return (
+          <a
+            className="memori-media-item--link"
+            href={resourceUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={item.title}
+          >
+            {renderMediaContent(item)}
+          </a>
+        );
+      }
+      return renderMediaContent(item);
 
+    // All other files: open URL in new tab (never modal)
     default:
       return (
         <a
           className="memori-media-item--link"
-          href={url}
+          href={resourceUrl || '#'}
           target="_blank"
           rel="noopener noreferrer"
           title={item.title}
         >
-          <Card hoverable cover={renderMediaContent(item)} title={item.title} />
+          {renderMediaContent(item)}
         </a>
       );
   }
-};
+});
 
-// Helper function to count lines in content
-const countLines = (content: string | undefined): number => {
-  if (!content) return 0;
-  // Support all common newline conventions:
-  // - Unix: \n
-  // - Windows: \r\n
-  // - Classic Mac: \r
-  return content.split(/\r\n|\r|\n/).length;
-};
-
-export const RenderSnippetItem = ({
+// RenderSnippetItem: Renders a single code snippet (opens in new tab via href)
+export const RenderSnippetItem = memo(function RenderSnippetItem({
   item,
-  sessionID: _sessionID,
-  tenantID: _tenantID,
-  baseURL: _baseURL,
-  apiURL: _apiURL,
-  onClick,
-}: {
-  item: Medium & { type: string };
-  sessionID?: string;
-  tenantID?: string;
-  baseURL?: string;
-  apiURL?: string;
-  onClick?: (mediumID: string) => void;
-}) => {
+  onClick: _onClick, // kept for API compatibility; links open in new tab, not modal
+  sessionID,
+  tenantID,
+  baseURL,
+  apiURL,
+}: RenderSnippetItemProps): React.ReactElement {
+  void _onClick;
+  const resourceUrl = getResourceUrl({
+    resourceURI: item.url,
+    sessionID,
+    tenantID,
+    baseURL,
+    apiURL,
+  });
+  const hasUrl = !!(resourceUrl && resourceUrl !== '#');
+
+  // Count lines, chars, determine "short" snippet
   const lineCount = countLines(item.content);
   const contentLength = item.content?.length ?? 0;
-  // Treat very long single-line snippets as "long" so we show a preview,
-  // otherwise plain-text uploads with only '\r' (or no '\n') would render full.
   const isShortSnippet = lineCount <= 5 && contentLength <= 200;
+  const lineText = lineCount === 1 ? '1 riga' : `${lineCount} righe`;
 
-  // For short snippets, show them directly without the clickable link
   if (isShortSnippet) {
     return (
       <div className="memori-media-item--snippet-direct">
         <Card className="memori-media-item--card memori-media-item--snippet">
-          <div className="memori-media-item--snippet-preview">
-            <Snippet showCopyButton={true} preview={false} medium={item} />
+          <div className="memori-media-item--snippet-body">
+            <div className="memori-media-item--snippet-header">
+              <span className="memori-media-item--snippet-meta">{lineText}</span>
+            </div>
+            <div className="memori-media-item--snippet-preview">
+              <Snippet showCopyButton preview={false} medium={item} />
+            </div>
           </div>
         </Card>
       </div>
     );
   }
 
-  // For longer snippets, show preview with click to open modal
-  return (
-    <>
-      <a
-        href="#"
-        onClick={e => {
-          e.preventDefault();
-          if (onClick) {
-            onClick(item.mediumID);
-          }
-        }}
-        className="memori-media-item--link"
-        title={item.title}
-      >
-        <Card
-          hoverable
-          // onClick={() => setModalOpen(true)}
-          className="memori-media-item--card memori-media-item--snippet"
-        >
-          <div className="memori-media-item--snippet-preview">
-            <Snippet showCopyButton={false} preview={true} medium={item} />
-          </div>
-        </Card>
-      </a>
-    </>
-  );
-};
+  // Long snippet: open in new tab (resource URL or blob URL from content)
+  const snippetHref =
+    hasUrl
+      ? resourceUrl
+      : item.content
+        ? (() => {
+            const blob = new Blob([item.content], {
+              type: item.mimeType || 'text/plain',
+            });
+            return URL.createObjectURL(blob);
+          })()
+        : '#';
 
+  return (
+    <div
+      onClick={() => {
+        if (item.mediumID && _onClick) {
+          _onClick(item.mediumID);
+        }
+      }}
+      style={{ cursor: 'pointer' }}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (item.mediumID && _onClick) {
+            _onClick(item.mediumID);
+          }
+        }
+      }}
+      className="memori-media-item--link"
+      title={item.title}
+    >
+      <Card
+        hoverable
+        className="memori-media-item--card memori-media-item--snippet"
+      >
+        <div className="memori-media-item--snippet-body">
+          <div className="memori-media-item--snippet-header">
+            <span className="memori-media-item--snippet-meta">{lineText}</span>
+          </div>
+          <div className="memori-media-item--snippet-preview">
+            <Snippet showCopyButton={false} preview medium={item} />
+          </div>
+        </div>
+      </Card>
+    </div>
+  );
+});
+
+// Main MediaItemWidget component: renders all media, overlays, and preview modals
 const MediaItemWidget: React.FC<Props> = ({
   items,
   sessionID,
@@ -493,79 +722,139 @@ const MediaItemWidget: React.FC<Props> = ({
   apiURL,
   customMediaRenderer,
   fromUser = false,
-}: Props) => {
+  descriptionOneLine = false,
+  onLinkPreviewInfo,
+}) => {
+  // Internal tracked media set (may be translated versions)
   const [media, setMedia] = useState(items);
-  const [openModalMedium, setOpenModalMedium] = useState<Medium>();
+  // Modal state (holds currently open medium)
+  const [openModalMedium, setOpenModalMedium] = useState<Medium | undefined>();
 
-  // Sync items prop with media state
+  // Update component-local media when prop changes (reset modal to current items)
   useEffect(() => {
     setMedia(items);
   }, [items]);
 
+  // Optional: Translate all media captions/titles if translateTo provided
   const translateMediaCaptions = useCallback(async () => {
     if (!translateTo) return;
-
-    const translatedMedia = await Promise.all(
-      (items ?? []).map(async media => {
-        if (media.title) {
-          try {
-            const tTitle = await getTranslation(media.title, translateTo);
-
-            return { ...media, title: tTitle.text ?? media.title };
-          } catch (e) {
-            console.error(e);
-            return media;
-          }
-        } else {
-          return media;
+    const translated = await Promise.all(
+      (items ?? []).map(async (m) => {
+        if (!m.title) return m;
+        try {
+          const t = await getTranslation(m.title, translateTo);
+          return { ...m, title: t.text ?? m.title };
+        } catch (e) {
+          console.error(e);
+          return m;
         }
       })
     );
-
-    setMedia(translatedMedia);
+    setMedia(translated);
   }, [translateTo, items]);
+
   useEffect(() => {
     if (translateTo) translateMediaCaptions();
   }, [translateTo, translateMediaCaptions]);
 
-  const nonCodeDisplayMedia = media
-    .filter(
-      m =>
-        !m.properties?.executable &&
-        !prismSyntaxLangs.map(l => l.mimeType).includes(m.mimeType)
-    )
-    .sort((a, b) => {
-      return a.creationTimestamp! > b.creationTimestamp!
-        ? 1
-        : a.creationTimestamp! < b.creationTimestamp!
-        ? -1
-        : 0;
-    });
-
-  const codeSnippets = media.filter(
-    m =>
-      !m.properties?.executable &&
-      prismSyntaxLangs.map(l => l.mimeType).includes(m.mimeType)
+  // Derive top-level "display" lists:
+  // 1. All non-code, non-executable media sorted by timestamp (displayed as document, images, video, etc)
+  const nonCodeDisplayMedia = useMemo(
+    () =>
+      media
+        .filter(
+          (m) =>
+            !m.properties?.executable &&
+            !CODE_MIME_TYPES.includes(m.mimeType)
+        )
+        .sort((a, b) => {
+          const at = a.creationTimestamp ?? 0;
+          const bt = b.creationTimestamp ?? 0;
+          return at > bt ? 1 : at < bt ? -1 : 0;
+        }),
+    [media]
   );
 
-  const cssExecutableCode = media.filter(
-    m => m.mimeType === 'text/css' && !!m.properties?.executable
+  // 2. Only code snippets (unless marked as executable)
+  const codeSnippets = useMemo(
+    () =>
+      media.filter(
+        (m) =>
+          !m.properties?.executable && CODE_MIME_TYPES.includes(m.mimeType)
+      ),
+    [media]
   );
 
+  // 3. Only CSS code marked as executable (to inject as <style>)
+  const cssExecutableCode = useMemo(
+    () =>
+      media.filter(
+        (m) => m.mimeType === 'text/css' && !!m.properties?.executable
+      ),
+    [media]
+  );
+
+  // How many images are present for determining layout
+  const imageCount = useMemo(
+    () =>
+      nonCodeDisplayMedia.filter((m) =>
+        (IMAGE_MIME_TYPES as readonly string[]).includes(m.mimeType)
+      ).length,
+    [nonCodeDisplayMedia]
+  );
+
+  // Media "card open"/preview modal logic for non-code
+  const handleMediaItemClick = useCallback(
+    (mediumID: string) => {
+      setOpenModalMedium(
+        nonCodeDisplayMedia.find((m) => m.mediumID === mediumID)
+      );
+    },
+    [nonCodeDisplayMedia]
+  );
+
+  // Modal for code snippets
+  const handleSnippetClick = useCallback(
+    (mediumID: string) => {
+      setOpenModalMedium(
+        codeSnippets.find((m) => m.mediumID === mediumID)
+      );
+    },
+    [codeSnippets]
+  );
+
+  // Simple close modal action callback
+  const handleCloseModal = useCallback(() => {
+    setOpenModalMedium(undefined);
+  }, []);
+
+  // Navigate to another media in modal (by mediumID) — used by modal carousel/nav
+  const handleModalNavigate = useCallback(
+    (mediumID: string) => {
+      setOpenModalMedium(media.find((m) => m.mediumID === mediumID));
+    },
+    [media]
+  );
+
+  // Render transitions and the main grid layouts for media
   return (
     <Transition appear show as="div" className="memori-media-items">
-      {!!nonCodeDisplayMedia.length && (
+      {/* Main media grid: non-code media (images, files, html, video, etc) */}
+      {nonCodeDisplayMedia.length > 0 && (
         <div
           className={cx('memori-media-items--grid memori-chat-scroll-item', {
             'memori-media-items--user': fromUser,
             'memori-media-items--agent': !fromUser,
+            'memori-media-items--single': imageCount === 1,
+            'memori-media-items--few': imageCount >= 2 && imageCount <= 4,
+            'memori-media-items--many': imageCount >= 5,
           })}
         >
-          {nonCodeDisplayMedia.map((item: Medium, index: number) => (
+          {nonCodeDisplayMedia.map((item, index) => (
             <Transition.Child
+              key={item.mediumID ?? `${item.url}&index=${index}`}
               as="div"
               className="memori-media-item"
-              key={item.url + '&index=' + index}
               enter={`ease-out duration-500 delay-${index * 100}`}
               enterFrom="opacity-0 scale-95"
               enterTo="opacity-1 scale-100"
@@ -579,11 +868,7 @@ const MediaItemWidget: React.FC<Props> = ({
                 tenantID={tenantID}
                 baseURL={baseURL}
                 apiURL={apiURL}
-                onClick={mediumID => {
-                  setOpenModalMedium(
-                    nonCodeDisplayMedia.find(m => m.mediumID === mediumID)
-                  );
-                }}
+                onClick={handleMediaItemClick}
                 item={{
                   ...item,
                   title: item.title,
@@ -592,23 +877,27 @@ const MediaItemWidget: React.FC<Props> = ({
                   type: 'document',
                 }}
                 customMediaRenderer={customMediaRenderer}
+                descriptionOneLine={descriptionOneLine}
+                onLinkPreviewInfo={onLinkPreviewInfo}
               />
             </Transition.Child>
           ))}
         </div>
       )}
-      {!!codeSnippets.length && (
+
+      {/* Grid of pure code snippets, shown as cards or compact snippets */}
+      {codeSnippets.length > 0 && (
         <div
           className={cx('memori-media-items--grid memori-chat-scroll-item', {
             'memori-media-items--user': fromUser,
             'memori-media-items--agent': !fromUser,
           })}
         >
-          {codeSnippets.map((item: Medium, index: number) => (
+          {codeSnippets.map((item, index) => (
             <Transition.Child
+              key={item.mediumID ?? `${item.url}&index=${index}`}
               as="div"
               className="memori-media-item"
-              key={item.mediumID + '&index=' + index}
               enter={`ease-out duration-500 delay-${index * 100}`}
               enterFrom="opacity-0 scale-95"
               enterTo="opacity-1 scale-100"
@@ -621,12 +910,7 @@ const MediaItemWidget: React.FC<Props> = ({
                 tenantID={tenantID}
                 baseURL={baseURL}
                 apiURL={apiURL}
-                onClick={mediumID => {
-                  const foundMedium = codeSnippets.find(
-                    m => m.mediumID === mediumID
-                  );
-                  setOpenModalMedium(foundMedium);
-                }}
+                onClick={handleSnippetClick}
                 item={{
                   ...item,
                   title: item.title,
@@ -639,52 +923,29 @@ const MediaItemWidget: React.FC<Props> = ({
           ))}
         </div>
       )}
-      {cssExecutableCode.map(medium => (
+
+      {/* CSS executables: Inject as <style> (only shared to DOM, not shown visually) */}
+      {cssExecutableCode.map((m) => (
         <style
-          key={medium.mediumID}
-          dangerouslySetInnerHTML={{ __html: medium.content || '' }}
-        ></style>
+          key={m.mediumID}
+          dangerouslySetInnerHTML={{ __html: m.content || '' }}
+        />
       ))}
 
+      {/* Modal preview: shows when openModalMedium set */}
       {openModalMedium && (
-        <Modal
-          width="100%"
-          widthMd="100%"
-          className="memori-media-item--modal"
-          open={!!openModalMedium}
-          onClose={() => setOpenModalMedium(undefined)}
-          footer={null}
-        >
-          {prismSyntaxLangs
-            .map(l => l.mimeType)
-            .includes(openModalMedium.mimeType) ? (
-            <div
-              style={{
-                minHeight: '100%',
-                background: 'none',
-              }}
-              className="memori-media-item-preview--content"
-            >
-              <Snippet preview={false} medium={openModalMedium} />
-            </div>
-          ) : (
-            <RenderMediaItem
-              isChild
-              sessionID={sessionID}
-              tenantID={tenantID}
-              baseURL={baseURL}
-              apiURL={apiURL}
-              item={{
-                ...openModalMedium,
-                title: openModalMedium.title,
-                url: openModalMedium.url,
-                content: openModalMedium.content,
-                type: 'document',
-              }}
-              customMediaRenderer={customMediaRenderer}
-            />
-          )}
-        </Modal>
+        <MediaPreviewModal
+          medium={openModalMedium}
+          onClose={handleCloseModal}
+          sessionID={sessionID}
+          tenantID={tenantID}
+          baseURL={baseURL}
+          apiURL={apiURL}
+          customMediaRenderer={customMediaRenderer}
+          descriptionOneLine={descriptionOneLine}
+          onLinkPreviewInfo={onLinkPreviewInfo}
+          onMediumClick={handleModalNavigate}
+        />
       )}
     </Transition>
   );
