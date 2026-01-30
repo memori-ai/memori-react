@@ -2,8 +2,6 @@ import React, { FC } from 'react';
 import Modal from '../ui/Modal';
 import cx from 'classnames';
 
-import './ContentPreviewModal.css';
-
 export interface ContentPreviewModalProps {
   open: boolean;
   onClose: () => void;
