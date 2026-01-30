@@ -1,8 +1,18 @@
 // MediaItemWidget.tsx — Main Media Item Widget file for rendering various types of media inside Memori
 import type { Medium } from '@memori.ai/memori-api-client/dist/types';
-import React, { useCallback, useEffect, useMemo, useState, memo, useRef } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+  memo,
+  useRef,
+} from 'react';
 import { getResourceUrl } from '../../helpers/media';
-import { withLinksOpenInNewTab, stripDocumentAttachmentTags } from '../../helpers/utils';
+import {
+  withLinksOpenInNewTab,
+  stripDocumentAttachmentTags,
+} from '../../helpers/utils';
 import { getTranslation } from '../../helpers/translations';
 import { prismSyntaxLangs } from '../../helpers/constants';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
@@ -40,11 +50,14 @@ import {
 import { DocumentCard } from './DocumentCard';
 import { MediaPreviewModal } from './MediaPreviewModal';
 
-export type { LinkPreviewInfo, ILinkPreviewInfo } from './MediaItemWidget.types';
+export type {
+  LinkPreviewInfo,
+  ILinkPreviewInfo,
+} from './MediaItemWidget.types';
 export type { Props };
 
 // List of code mime types from Prism's available languages
-const CODE_MIME_TYPES = prismSyntaxLangs.map((l) => l.mimeType);
+const CODE_MIME_TYPES = prismSyntaxLangs.map(l => l.mimeType);
 
 /** Image MIME types that open in the preview modal on click (when mediumID + onClick are set) */
 const IMAGE_MODAL_MIME_TYPES = [
@@ -77,7 +90,9 @@ export const RenderMediaItem = memo(function RenderMediaItem({
   // State for fallback image
   const [imageError, setImageError] = useState(false);
   // Link preview info (site title, description, image, etc)
-  const [link, setLink] = useState<(LinkPreviewInfo & { urlKey: string }) | null>(null);
+  const [link, setLink] = useState<
+    (LinkPreviewInfo & { urlKey: string }) | null
+  >(null);
   // Persistent ref for onLinkPreviewInfo callback
   const onLinkPreviewInfoRef = useRef(onLinkPreviewInfo);
   onLinkPreviewInfoRef.current = onLinkPreviewInfo;
@@ -105,11 +120,13 @@ export const RenderMediaItem = memo(function RenderMediaItem({
       return;
     }
     let cancelled = false;
-    fetchLinkPreview(normURL, baseURL).then((siteInfo) => {
+    fetchLinkPreview(normURL, baseURL).then(siteInfo => {
       if (cancelled) return;
       setLink(
         siteInfo
-          ? ({ ...siteInfo, urlKey: normURL } as LinkPreviewInfo & { urlKey: string })
+          ? ({ ...siteInfo, urlKey: normURL } as LinkPreviewInfo & {
+              urlKey: string;
+            })
           : null
       );
       if (siteInfo && onLinkPreviewInfoRef.current) {
@@ -256,12 +273,10 @@ export const RenderMediaItem = memo(function RenderMediaItem({
             <DocumentCard
               title={medium.title || 'File'}
               badge={getFileExtensionFromMime(medium.mimeType)}
-              meta={
-                (() => {
-                  const size = getContentSize(medium);
-                  return size != null && size > 0 ? formatBytes(size) : null;
-                })()
-              }
+              meta={(() => {
+                const size = getContentSize(medium);
+                return size != null && size > 0 ? formatBytes(size) : null;
+              })()}
               icon={<Link className="memori-media-item--document-icon-svg" />}
             />
           );
@@ -272,12 +287,10 @@ export const RenderMediaItem = memo(function RenderMediaItem({
             <DocumentCard
               title={medium.title || 'File'}
               badge={getFileExtensionFromMime(medium.mimeType)}
-              meta={
-                (() => {
-                  const size = getContentSize(medium);
-                  return size != null && size > 0 ? formatBytes(size) : null;
-                })()
-              }
+              meta={(() => {
+                const size = getContentSize(medium);
+                return size != null && size > 0 ? formatBytes(size) : null;
+              })()}
               icon={<File className="memori-media-item--document-icon-svg" />}
             />
           );
@@ -340,7 +353,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           title={displayName}
           role="button"
           tabIndex={0}
-          onKeyDown={(e) => {
+          onKeyDown={e => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
               _onClick(item);
@@ -350,10 +363,18 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           <DocumentCard
             title={displayName}
             badge={
-              item.mimeType === 'text/html' && !!item.url ? 'Link' : fileExtension
+              item.mimeType === 'text/html' && !!item.url
+                ? 'Link'
+                : fileExtension
             }
             meta={metaLine}
-            icon={item.mimeType === 'text/html' ? <Link className="memori-media-item--document-icon-svg" /> : <File className="memori-media-item--document-icon-svg" />}
+            icon={
+              item.mimeType === 'text/html' ? (
+                <Link className="memori-media-item--document-icon-svg" />
+              ) : (
+                <File className="memori-media-item--document-icon-svg" />
+              )
+            }
           />
         </div>
       );
@@ -362,19 +383,25 @@ export const RenderMediaItem = memo(function RenderMediaItem({
     // Build href: open in new tab (never modal). Use URL, or blob for content-only items.
     const getFileCardHref = (): string => {
       if (item.url) {
-        return getResourceUrl({
-          resourceURI: item.url,
-          sessionID,
-          tenantID,
-          baseURL,
-          apiURL,
-        }) || item.url || '#';
+        return (
+          getResourceUrl({
+            resourceURI: item.url,
+            sessionID,
+            tenantID,
+            baseURL,
+            apiURL,
+          }) ||
+          item.url ||
+          '#'
+        );
       }
       if (isHTML && item.content) {
         let htmlContent = item.content;
-        if (item.properties?.isDocumentAttachment ||
-            htmlContent.includes('document_attachment') ||
-            htmlContent.includes('<document_attachment')) {
+        if (
+          item.properties?.isDocumentAttachment ||
+          htmlContent.includes('document_attachment') ||
+          htmlContent.includes('<document_attachment')
+        ) {
           if (htmlContent.includes('&lt;') || htmlContent.includes('&quot;')) {
             const div = document.createElement('div');
             div.innerHTML = htmlContent;
@@ -386,7 +413,9 @@ export const RenderMediaItem = memo(function RenderMediaItem({
         return URL.createObjectURL(blob);
       }
       if (item.content) {
-        const blob = new Blob([item.content], { type: item.mimeType || 'text/plain' });
+        const blob = new Blob([item.content], {
+          type: item.mimeType || 'text/plain',
+        });
         return URL.createObjectURL(blob);
       }
       return '#';
@@ -408,7 +437,13 @@ export const RenderMediaItem = memo(function RenderMediaItem({
             item.mimeType === 'text/html' && !!item.url ? 'Link' : fileExtension
           }
           meta={metaLine}
-          icon={item.mimeType === 'text/html' ? <Link className="memori-media-item--document-icon-svg" /> : <File className="memori-media-item--document-icon-svg" />}
+          icon={
+            item.mimeType === 'text/html' ? (
+              <Link className="memori-media-item--document-icon-svg" />
+            ) : (
+              <File className="memori-media-item--document-icon-svg" />
+            )
+          }
         />
       </a>
     );
@@ -424,7 +459,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
         title={item.title}
         role="button"
         tabIndex={0}
-        onKeyDown={(e) => {
+        onKeyDown={e => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             _onClick(item);
@@ -443,10 +478,10 @@ export const RenderMediaItem = memo(function RenderMediaItem({
       linkImage?.includes('data:image') === true
         ? undefined
         : linkImage?.startsWith('https')
-          ? linkImage
-          : linkImage
-            ? `https://${linkImage.replace('http://', '')}`
-            : undefined;
+        ? linkImage
+        : linkImage
+        ? `https://${linkImage.replace('http://', '')}`
+        : undefined;
 
     return (
       <a
@@ -508,39 +543,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
   // Image link flow: images with mediumID open in preview modal on click
   // -------------------------------------------------------------------------
   if (isImageMime(item.mimeType)) {
-      if (isImageRGB) {
-        return (
-          <Card
-            hoverable
-            className="memori-media-item--card memori-media-item--image"
-            cover={renderMediaContent(item)}
-          />
-        );
-      }
-      if (item.mediumID && _onClick) {
-        return (
-          <div
-            onClick={() => _onClick(item)}
-            className="memori-media-item--link memori-media-item--image-link"
-            style={{ cursor: 'pointer' }}
-            title={item.title}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                _onClick(item);
-              }
-            }}
-          >
-            <Card
-              hoverable
-              className="memori-media-item--card memori-media-item--image"
-              cover={renderMediaContent(item)}
-            />
-          </div>
-        );
-      }
+    if (isImageRGB) {
       return (
         <Card
           hoverable
@@ -548,6 +551,38 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           cover={renderMediaContent(item)}
         />
       );
+    }
+    if (item.mediumID && _onClick) {
+      return (
+        <div
+          onClick={() => _onClick(item)}
+          className="memori-media-item--link memori-media-item--image-link"
+          style={{ cursor: 'pointer' }}
+          title={item.title}
+          role="button"
+          tabIndex={0}
+          onKeyDown={e => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              _onClick(item);
+            }
+          }}
+        >
+          <Card
+            hoverable
+            className="memori-media-item--card memori-media-item--image"
+            cover={renderMediaContent(item)}
+          />
+        </div>
+      );
+    }
+    return (
+      <Card
+        hoverable
+        className="memori-media-item--card memori-media-item--image"
+        cover={renderMediaContent(item)}
+      />
+    );
   }
 
   // Video, audio, 3D, and other types: open in new tab (never modal)
@@ -634,11 +669,14 @@ export const RenderSnippetItem = memo(function RenderSnippetItem({
       <div className="memori-media-item--snippet-direct">
         <Card className="memori-media-item--card memori-media-item--snippet">
           <div className="memori-media-item--snippet-body">
-            <div className="memori-media-item--snippet-header">
-              <span className="memori-media-item--snippet-meta">{lineText}</span>
-            </div>
+            <div className="memori-media-item--snippet-title">{item.title}</div>
             <div className="memori-media-item--snippet-preview">
               <Snippet showCopyButton preview={false} medium={item} />
+            </div>
+            <div className="memori-media-item--snippet-header">
+              <span className="memori-media-item--snippet-meta">
+                {lineText}
+              </span>
             </div>
           </div>
         </Card>
@@ -647,17 +685,16 @@ export const RenderSnippetItem = memo(function RenderSnippetItem({
   }
 
   // Long snippet: open in new tab (resource URL or blob URL from content)
-  const snippetHref =
-    hasUrl
-      ? resourceUrl
-      : item.content
-        ? (() => {
-            const blob = new Blob([item.content], {
-              type: item.mimeType || 'text/plain',
-            });
-            return URL.createObjectURL(blob);
-          })()
-        : '#';
+  const snippetHref = hasUrl
+    ? resourceUrl
+    : item.content
+    ? (() => {
+        const blob = new Blob([item.content], {
+          type: item.mimeType || 'text/plain',
+        });
+        return URL.createObjectURL(blob);
+      })()
+    : '#';
 
   return (
     <div
@@ -669,7 +706,7 @@ export const RenderSnippetItem = memo(function RenderSnippetItem({
       style={{ cursor: 'pointer' }}
       role="button"
       tabIndex={0}
-      onKeyDown={(e) => {
+      onKeyDown={e => {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           if (item.mediumID && _onClick) {
@@ -685,11 +722,12 @@ export const RenderSnippetItem = memo(function RenderSnippetItem({
         className="memori-media-item--card memori-media-item--snippet"
       >
         <div className="memori-media-item--snippet-body">
-          <div className="memori-media-item--snippet-header">
-            <span className="memori-media-item--snippet-meta">{lineText}</span>
-          </div>
+          <div className="memori-media-item--snippet-title">{item.title}</div>
           <div className="memori-media-item--snippet-preview">
             <Snippet showCopyButton={false} preview medium={item} />
+          </div>
+          <div className="memori-media-item--snippet-header">
+            <span className="memori-media-item--snippet-meta">{lineText}</span>
           </div>
         </div>
       </Card>
@@ -724,7 +762,7 @@ const MediaItemWidget: React.FC<Props> = ({
   const translateMediaCaptions = useCallback(async () => {
     if (!translateTo) return;
     const translated = await Promise.all(
-      (items ?? []).map(async (m) => {
+      (items ?? []).map(async m => {
         if (!m.title) return m;
         try {
           const t = await getTranslation(m.title, translateTo);
@@ -748,9 +786,8 @@ const MediaItemWidget: React.FC<Props> = ({
     () =>
       media
         .filter(
-          (m) =>
-            !m.properties?.executable &&
-            !CODE_MIME_TYPES.includes(m.mimeType)
+          m =>
+            !m.properties?.executable && !CODE_MIME_TYPES.includes(m.mimeType)
         )
         .sort((a, b) => {
           const at = a.creationTimestamp ?? 0;
@@ -764,8 +801,7 @@ const MediaItemWidget: React.FC<Props> = ({
   const codeSnippets = useMemo(
     () =>
       media.filter(
-        (m) =>
-          !m.properties?.executable && CODE_MIME_TYPES.includes(m.mimeType)
+        m => !m.properties?.executable && CODE_MIME_TYPES.includes(m.mimeType)
       ),
     [media]
   );
@@ -774,7 +810,7 @@ const MediaItemWidget: React.FC<Props> = ({
   const cssExecutableCode = useMemo(
     () =>
       media.filter(
-        (m) => m.mimeType === 'text/css' && !!m.properties?.executable
+        m => m.mimeType === 'text/css' && !!m.properties?.executable
       ),
     [media]
   );
@@ -782,7 +818,7 @@ const MediaItemWidget: React.FC<Props> = ({
   // How many images are present for determining layout
   const imageCount = useMemo(
     () =>
-      nonCodeDisplayMedia.filter((m) =>
+      nonCodeDisplayMedia.filter(m =>
         (IMAGE_MIME_TYPES as readonly string[]).includes(m.mimeType)
       ).length,
     [nonCodeDisplayMedia]
@@ -807,7 +843,7 @@ const MediaItemWidget: React.FC<Props> = ({
   // Navigate to another media in modal (by mediumID) — used by modal carousel/nav
   const handleModalNavigate = useCallback(
     (mediumID: string) => {
-      setOpenModalMedium(media.find((m) => m.mediumID === mediumID));
+      setOpenModalMedium(media.find(m => m.mediumID === mediumID));
     },
     [media]
   );
@@ -901,7 +937,7 @@ const MediaItemWidget: React.FC<Props> = ({
       )}
 
       {/* CSS executables: Inject as <style> (only shared to DOM, not shown visually) */}
-      {cssExecutableCode.map((m) => (
+      {cssExecutableCode.map(m => (
         <style
           key={m.mediumID}
           dangerouslySetInnerHTML={{ __html: m.content || '' }}

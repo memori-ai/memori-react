@@ -101,4 +101,14 @@
 
 .memori-content-preview-modal--snippet-wrap .memori-snippet--content pre {
   padding: 1rem 1.25rem;
+  overflow-wrap: break-word;
+  /* Override Prism theme so PDF/text content wraps instead of one long line */
+  white-space: pre-wrap !important;
+  word-break: break-word;
+}
+
+.memori-content-preview-modal--snippet-wrap .memori-snippet--content pre code {
+  overflow-wrap: break-word;
+  white-space: pre-wrap !important;
+  word-break: break-word;
 }

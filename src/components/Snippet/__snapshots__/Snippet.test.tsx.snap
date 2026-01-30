@@ -59,12 +59,6 @@ exports[`renders SnippetUpload with css code 1`] = `
         </button>
       </div>
     </div>
-    <p
-      class="memori-snippet--caption"
-      id="snippet-a669fadb-12c0-469b-9b6c-34db22d371ca"
-    >
-      Snippet
-    </p>
   </div>
 </div>
 `;
@@ -126,12 +120,6 @@ exports[`renders SnippetUpload with html code 1`] = `
         </button>
       </div>
     </div>
-    <p
-      class="memori-snippet--caption"
-      id="snippet-65ca4a6d-f20b-402e-9d79-5e470f247927"
-    >
-      Snippet
-    </p>
   </div>
 </div>
 `;
@@ -193,12 +181,6 @@ exports[`renders SnippetUpload with js code 1`] = `
         </button>
       </div>
     </div>
-    <p
-      class="memori-snippet--caption"
-      id="snippet-95226d7e-7bae-465e-8b80-995587bb5971"
-    >
-      Snippet
-    </p>
   </div>
 </div>
 `;
@@ -223,12 +205,6 @@ exports[`renders SnippetUpload with js code without copy button 1`] = `
         </code>
       </pre>
     </div>
-    <p
-      class="memori-snippet--caption"
-      id="snippet-95226d7e-7bae-465e-8b80-995587bb5971"
-    >
-      Snippet
-    </p>
   </div>
 </div>
 `;
@@ -290,12 +266,6 @@ exports[`renders SnippetUpload with js code without line numbers 1`] = `
         </button>
       </div>
     </div>
-    <p
-      class="memori-snippet--caption"
-      id="snippet-95226d7e-7bae-465e-8b80-995587bb5971"
-    >
-      Snippet
-    </p>
   </div>
 </div>
 `;
@@ -401,12 +371,6 @@ export default Snippet;
         </button>
       </div>
     </div>
-    <p
-      class="memori-snippet--caption"
-      id="snippet-38dd29a5-cdf6-40f6-963a-8e42a7caaac1"
-    >
-      Snippet
-    </p>
   </div>
 </div>
 `;
@@ -512,12 +476,6 @@ export default Snippet;
         </button>
       </div>
     </div>
-    <p
-      class="memori-snippet--caption"
-      id="snippet-4946dca4-7103-4400-b80d-94b77f9a4f0a"
-    >
-      Snippet
-    </p>
   </div>
 </div>
 `;
@@ -579,12 +537,6 @@ exports[`renders SnippetUpload with text 1`] = `
         </button>
       </div>
     </div>
-    <p
-      class="memori-snippet--caption"
-      id="snippet-43ac43b8-e220-4111-b89d-c5bfe8b031e2"
-    >
-      Snippet
-    </p>
   </div>
 </div>
 `;
@@ -646,12 +598,6 @@ exports[`renders SnippetUpload with text as fallback 1`] = `
         </button>
       </div>
     </div>
-    <p
-      class="memori-snippet--caption"
-      id="snippet-cc8882fa-d7d5-435a-90a1-5c9f2a1bc918"
-    >
-      Snippet
-    </p>
   </div>
 </div>
 `;

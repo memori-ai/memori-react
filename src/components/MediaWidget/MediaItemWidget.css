@@ -475,9 +475,21 @@ div.memori-media-item--link.memori-media-item--image-link {
     text-decoration: none;
 }
 
+.memori-media-item--snippet-title {
+    flex: 1;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    -webkit-box-orient: vertical;
+    color: #111827;
+    direction: ltr;
+    font-size: 14px;
+    font-weight: 500;
+}
+
 .memori-media-item--snippet-header {
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     padding: 0.5rem 0.75rem;
 }
 

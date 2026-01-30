@@ -141,14 +141,6 @@ const Snippet = ({
           </div>
         )}
       </div>
-      {!!medium.title?.length && (
-        <p
-          id={`snippet-${medium.mediumID}`}
-          className="memori-snippet--caption"
-        >
-          {medium.title}
-        </p>
-      )}
     </div>
   );
 };

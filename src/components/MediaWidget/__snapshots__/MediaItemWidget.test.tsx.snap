@@ -44,13 +44,9 @@ exports[`renders MediaItemWidget unchanged with css snippet to show 1`] = `
                     class="memori-media-item--snippet-body"
                   >
                     <div
-                      class="memori-media-item--snippet-header"
+                      class="memori-media-item--snippet-title"
                     >
-                      <span
-                        class="memori-media-item--snippet-meta"
-                      >
-                        3 righe
-                      </span>
+                      Snippet
                     </div>
                     <div
                       class="memori-media-item--snippet-preview"
@@ -112,13 +108,16 @@ exports[`renders MediaItemWidget unchanged with css snippet to show 1`] = `
                             </button>
                           </div>
                         </div>
-                        <p
-                          class="memori-snippet--caption"
-                          id="snippet-65ca4a6d-f20b-402e-9d79-5e470f247927"
-                        >
-                          Snippet
-                        </p>
                       </div>
+                    </div>
+                    <div
+                      class="memori-media-item--snippet-header"
+                    >
+                      <span
+                        class="memori-media-item--snippet-meta"
+                      >
+                        3 righe
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -338,13 +337,9 @@ exports[`renders MediaItemWidget unchanged with js snippet to show 1`] = `
                     class="memori-media-item--snippet-body"
                   >
                     <div
-                      class="memori-media-item--snippet-header"
+                      class="memori-media-item--snippet-title"
                     >
-                      <span
-                        class="memori-media-item--snippet-meta"
-                      >
-                        1 riga
-                      </span>
+                      Snippet
                     </div>
                     <div
                       class="memori-media-item--snippet-preview"
@@ -404,13 +399,16 @@ exports[`renders MediaItemWidget unchanged with js snippet to show 1`] = `
                             </button>
                           </div>
                         </div>
-                        <p
-                          class="memori-snippet--caption"
-                          id="snippet-a669fadb-12c0-469b-9b6c-34db22d371ca"
-                        >
-                          Snippet
-                        </p>
                       </div>
+                    </div>
+                    <div
+                      class="memori-media-item--snippet-header"
+                    >
+                      <span
+                        class="memori-media-item--snippet-meta"
+                      >
+                        1 riga
+                      </span>
                     </div>
                   </div>
                 </div>
