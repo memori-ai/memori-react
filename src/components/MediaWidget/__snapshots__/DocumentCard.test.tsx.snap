@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentCard renders unchanged snapshot 1`] = `
+<div>
+  <div
+    class="memori-media-item--document"
+  >
+    <div
+      class="memori-media-item--document-header"
+    >
+      <div
+        class="memori-media-item--document-title"
+      >
+        Spreadsheet
+      </div>
+    </div>
+    <span
+      class="memori-media-item--document-badge"
+    >
+      XLSX
+    </span>
+  </div>
+</div>
+`;

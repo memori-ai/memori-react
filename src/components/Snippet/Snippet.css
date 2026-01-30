@@ -11,17 +11,17 @@
 .memori-snippet--content {
     position: relative;
     display: flex;
-    flex-direction: column;
     width: 100%;
     min-width: 0;
+    flex-direction: column;
 }
 
 .memori-snippet pre {
+    min-width: 0;
     padding: 1rem;
     border: none;
     border-radius: 0;
     margin: 0;
-    min-width: 0;
     background: transparent;
     font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     font-size: 0.875rem;
@@ -44,10 +44,10 @@ pre[class*="language-"] {
 }
 
 .memori-snippet--preview .memori-snippet--content pre {
-    overflow-y: auto;
-    overflow-x: hidden;
     min-height: 0;
     flex: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 

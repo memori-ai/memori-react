@@ -6,7 +6,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    padding: 1rem;
+    padding: 0.5rem;
     gap: 8px;
 }
 
@@ -22,6 +22,10 @@
     width: 120px;
     max-width: 100%;
     height: 120px;
+}
+
+.memori-media-item--link .memori-media-item--image > div {
+    height: 100%;
 }
 
 /* 2-4 images: Maximum 2 columns, responsive */
@@ -52,11 +56,13 @@
 
 /* Allineamento media per messaggi dell'utente */
 .memori-media-items--grid.memori-media-items--user {
+    margin-right: 3rem;
     direction: rtl;
 }
 
 /* Allineamento media per messaggi dell'agente */
 .memori-media-items--grid.memori-media-items--agent {
+    margin-left: 3rem;
     direction: ltr;
 }
 
@@ -101,7 +107,7 @@
 
 .memori-media-item--image .memori-card--cover {
     overflow: hidden;
-    height: auto;
+    height: 100%;
     padding: 0;
     border: none;
     border-radius: 0;
@@ -124,12 +130,6 @@
 .memori-media-items--single .memori-media-item--figure {
     min-height: 120px;
     max-height: 120px;
-}
-
-/* Multiple images: max-height 300px */
-.memori-media-items--few .memori-media-item--figure,
-.memori-media-items--many .memori-media-item--figure {
-    max-height: 300px;
 }
 
 .memori-media-item--rgb-item {
@@ -174,7 +174,6 @@ div.memori-media-item--link.memori-media-item--image-link {
     text-decoration: none;
     transition: box-shadow 0.2s ease;
 }
-
 
 .memori-media-item--icon {
     width: 50%;
@@ -488,27 +487,32 @@ div.memori-media-item--link.memori-media-item--image-link {
 }
 
 .memori-media-item--snippet {
-    min-width: 450px;
+    width: 100%;
+    min-width: 0;
     max-width: 100%;
 }
 
 .memori-media-item--snippet-direct {
     display: flex;
     width: 100%;
+    min-width: 0;
     margin-bottom: 1rem;
 }
 
-/* Enhanced snippet grid layout */
+/* Snippet card: full width of parent so it resizes with container */
+.memori-media-items--grid .memori-media-item:has(.memori-media-item--snippet) {
+    width: 100%;
+    min-width: 0;
+}
+
 .memori-media-items--grid .memori-media-item--snippet-direct {
     max-width: none;
-    grid-column: 1 / -1;
 }
 
 .memori-media-items--grid .memori-media-item--snippet {
-    min-width: 100%;
+    width: 100%;
+    min-width: 0;
     max-width: 100%;
-    min-height: 315px;
-    max-height: 315px;
 }
 
 .memori-media-item--snippet-direct .memori-media-item--snippet {

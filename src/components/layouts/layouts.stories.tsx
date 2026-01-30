@@ -163,6 +163,43 @@ Custom.args = {
   customLayout: CustomLayout,
 };
 
+export const WebsiteAssistant2 = Template.bind({});
+WebsiteAssistant2.args = {
+  memoriName: 'Marconi Express',
+  ownerUserName: 'exmita',
+  memoriID: '1755979f-28f1-45d1-8f41-bb34e1f7756b',
+  ownerUserID: '3194fcd3-040b-4d5e-a925-691911fb1177',
+  tenantID: 'exmachina.aclambda.online',
+  engineURL: 'https://engine.memori.ai',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://exmachina.aclambda.online',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  layout: 'WEBSITE_ASSISTANT',
+};
+
+export const WebsiteAssistant3 = Template.bind({});
+WebsiteAssistant3.args = {
+  memoriName: 'FestinaLente',
+  memoriID: 'c0ab75e2-4c56-41dc-9df6-58fa7959cda3',
+  ownerUserID: 'cca0733c-9f24-4f1c-a3e3-99675cbb729f',
+  tenantID: 'firenzesmart.aclambda.online',
+  engineURL: 'https://engine.memori.ai',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://firenzesmart.aclambda.online',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  integrationID: '35a9e856-0333-4543-a428-bfe4d8025027',
+  layout: 'WEBSITE_ASSISTANT',
+  showSettings: false,
+  showClear: false,
+  showTypingText: false,
+  showOnlyLastMessages: false,
+  showTranslationOriginal: false,
+  showCopyButton: false,
+};
+
+
 export const WebsiteAssistant = Template.bind({});
 WebsiteAssistant.args = {
   uiLang: 'EN',
