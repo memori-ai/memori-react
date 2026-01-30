@@ -1,5 +1,31 @@
 
 
+## [8.16.0](https://github.com/memori-ai/memori-react/compare/v8.15.1...v8.16.0) (2026-01-30)
+
+
+### Features
+
+* add pulse integration ([07ebd60](https://github.com/memori-ai/memori-react/commit/07ebd601cee1ddb36330ba3f88e21cfcdb3ef17e))
+* add support for additional programming languages in Snippet ([39e0906](https://github.com/memori-ai/memori-react/commit/39e0906365c6ee80bd53ae50d44a7a02a21e1ac6))
+* enhance MediaItemWidget interaction and styling for image links ([67c3d27](https://github.com/memori-ai/memori-react/commit/67c3d279e7cbc662b4b42338da69aa7eb935f8aa))
+* enhance MediaItemWidget with improved media handling ([e2d5032](https://github.com/memori-ai/memori-react/commit/e2d503210bfc5384ed7e39ccf7d22ac406eaee6d))
+* enhance MediaItemWidget with improved media handling and preview capabilities ([a7011e4](https://github.com/memori-ai/memori-react/commit/a7011e4cd59c7f808c491a1fcae526d5a7e973a5))
+* enhance snippet preview capabilities ([de3624f](https://github.com/memori-ai/memori-react/commit/de3624fa7610a07a1c89a2ebaaf0c67a8cca072f))
+* improve media handling and user interaction in MediaWidget ([64f5a23](https://github.com/memori-ai/memori-react/commit/64f5a23f0036351d3cb0375ac354664407dee5f1))
+* standardizing image source resolution ([cd57bf2](https://github.com/memori-ai/memori-react/commit/cd57bf2b16837358eb6eb4342ce966d6fe6cd357))
+
+
+### Bug Fixes
+
+* skip pulse for sb on gh pages ([b8496dd](https://github.com/memori-ai/memori-react/commit/b8496dd98b4aa810706afcaede9d17eab6a1f930))
+* update version script to resolve package path dynamically ([4930253](https://github.com/memori-ai/memori-react/commit/4930253ff50c23b5daa7065b576929f715bffc4e))
+
+
+### Changes
+
+* remove AttachmentLinkModal and LinkItemWidget components ([4058548](https://github.com/memori-ai/memori-react/commit/405854859a8aa6e6e7ea46adc27c5b3ac1c684ec))
+* remove completions-enabled tooltip from StartPanel and related snapshots ([032f984](https://github.com/memori-ai/memori-react/commit/032f98499ae2850a9fb48fc81b3ab08000d78066))
+
 ## [8.15.1](https://github.com/memori-ai/memori-react/compare/v8.15.0...v8.15.1) (2026-01-27)
 
 
