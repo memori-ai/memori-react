@@ -1,6 +1,8 @@
 .memori-snippet {
     position: relative;
     overflow: hidden;
+    width: 100%;
+    min-width: 0;
     border: 1px solid #e5e7eb;
     border-radius: 0.5rem;
     background: #f8fafc;
@@ -10,6 +12,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    min-width: 0;
 }
 
 .memori-snippet pre {
@@ -17,6 +21,7 @@
     border: none;
     border-radius: 0;
     margin: 0;
+    min-width: 0;
     background: transparent;
     font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     font-size: 0.875rem;
@@ -27,16 +32,20 @@
     word-wrap: break-word;
 }
 
+pre[class*="language-"] {
+    margin: 0 !important;
+}
 /* Preview mode: full content with max height and scroll */
 .memori-snippet--preview .memori-snippet--content {
     display: flex;
     overflow: hidden;
-    max-height: 280px;
+    max-height: 200px;
     flex-direction: column;
 }
 
 .memori-snippet--preview .memori-snippet--content pre {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
     min-height: 0;
     flex: 1;
 }

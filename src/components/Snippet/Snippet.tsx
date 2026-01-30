@@ -128,7 +128,7 @@ const Snippet = ({
         {showCopyButton && (
           <div className="memori-snippet--copy-wrapper">
             {copied && (
-              <span className="memori-snippet--copied-text">COPIED</span>
+              <span className="memori-snippet--copied-text">{t('copied') || 'Copied!'}</span>
             )}
             <Button
               padded={false}
