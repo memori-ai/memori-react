@@ -303,7 +303,7 @@ exports[`renders SnippetUpload with js code without line numbers 1`] = `
 exports[`renders SnippetUpload with preview mode (clamping) 1`] = `
 <div>
   <div
-    class="memori-snippet"
+    class="memori-snippet memori-snippet--preview"
   >
     <div
       class="memori-snippet--content"
@@ -320,8 +320,47 @@ exports[`renders SnippetUpload with preview mode (clamping) 1`] = `
 import type { Medium } from 'types';
 import { prismSyntaxLangs } from 'helpers/constants';
 import { PrismAsyncLight as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'r
-...
+import { atomDark } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import tsx from 'react-syntax-highlighter/dist/cjs/languages/prism/tsx';
+import scss from 'react-syntax-highlighter/dist/cjs/languages/prism/scss';
+import bash from 'react-syntax-highlighter/dist/cjs/languages/prism/bash';
+import python from 'react-syntax-highlighter/dist/cjs/languages/prism/python';
+import cpp from 'react-syntax-highlighter/dist/cjs/languages/prism/cpp';
+
+interface Props {
+  medium: Medium;
+  preview?: boolean;
+}
+
+// These have to match prismSyntaxLangs
+SyntaxHighlighter.registerLanguage('tsx', tsx);
+SyntaxHighlighter.registerLanguage('scss', scss);
+SyntaxHighlighter.registerLanguage('bash', bash);
+SyntaxHighlighter.registerLanguage('python', python);
+SyntaxHighlighter.registerLanguage('cpp', cpp);
+
+const Snippet = ({ medium, preview = false }: Props) =&gt; {
+  return (
+    &lt;SyntaxHighlighter
+      style={atomDark}
+      showLineNumbers
+      language={
+        prismSyntaxLangs.find(
+          (l) =&gt;
+            medium.mimeType === l.mimeType,
+        )?.lang ?? 'text'
+      }
+    &gt;
+      {medium.content?.length && medium.content.length &gt; 200 && preview
+        ? \`\${medium.content.slice(0, 200)}
+...\`
+        : \`\${medium.content}\`}
+    &lt;/SyntaxHighlighter&gt;
+  );
+};
+
+export default Snippet;
+
         </code>
       </pre>
       <div
