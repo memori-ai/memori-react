@@ -1,8 +1,9 @@
-const pkg = require('../package.json');
-const { writeFileSync } = require('node:fs');
 const path = require('node:path');
+const { writeFileSync } = require('node:fs');
 
-const versionPath = path.join(path.dirname(), '../src/version.ts');
+const pkgPath = require.resolve('../package.json');
+const pkg = require(pkgPath);
+const versionPath = path.join(path.dirname(pkgPath), 'src', 'version.ts');
 writeFileSync(
   versionPath,
   `// This file is auto-generated. Do not edit manually.
