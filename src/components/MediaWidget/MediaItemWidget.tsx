@@ -18,6 +18,7 @@ import { ellipsis } from 'ellipsed';
 
 import type {
   MediaItemWidgetProps as Props,
+  MediaItem,
   RenderMediaItemProps,
   RenderSnippetItemProps,
   LinkPreviewInfo,
@@ -30,8 +31,8 @@ import {
   shouldUseDarkFileCard,
   fetchLinkPreview,
   getContentSize,
-  isValidUrl,
   normalizeUrl,
+  getImageDisplaySource,
   FALLBACK_IMAGE_BASE64,
   TEXT_FILE_EXTENSIONS,
   IMAGE_MIME_TYPES,
@@ -45,22 +46,16 @@ export type { Props };
 // List of code mime types from Prism's available languages
 const CODE_MIME_TYPES = prismSyntaxLangs.map((l) => l.mimeType);
 
-// Helper: Get image src handling legacy, RGB, data, and resourceUrl
-function getImageSrc(
-  item: Medium & { type?: string },
-  resourceUrl: string,
-  isValidResourceUrl: boolean
-): string | undefined {
-  if (isValidResourceUrl || isValidUrl(item.url)) {
-    return resourceUrl || item.url;
-  }
-  if (item.url?.startsWith('rgb(') || item.url?.startsWith('rgba(')) {
-    return item.url;
-  }
-  if (item.content) {
-    return `data:${item.mimeType};base64,${item.content}`;
-  }
-  return undefined;
+/** Image MIME types that open in the preview modal on click (when mediumID + onClick are set) */
+const IMAGE_MODAL_MIME_TYPES = [
+  'image/jpeg',
+  'image/png',
+  'image/jpg',
+  'image/gif',
+] as const;
+
+function isImageMime(mimeType: string): boolean {
+  return (IMAGE_MODAL_MIME_TYPES as readonly string[]).includes(mimeType);
 }
 
 // RenderMediaItem — Renders the suitable content for a Medium (images, files, html, code, audio, video…)
@@ -137,15 +132,10 @@ export const RenderMediaItem = memo(function RenderMediaItem({
   const isHTML = item.mimeType === 'text/html';
   const isDocumentAttachment = item.properties?.isDocumentAttachment === true;
   const isAttachedFile = item.properties?.isAttachedFile === true;
-  const isImageRGB =
-    item.url?.startsWith('rgb(') || item.url?.startsWith('rgba(');
 
-  // Get resolved image src
-  const imageSrc = getImageSrc(
-    item,
-    resourceUrl,
-    isValidUrl(resourceUrl) || isValidUrl(item.url)
-  );
+  // Single source of truth for image display (resource URL, base64, or rgb/rgba)
+  const imageDisplay = getImageDisplaySource(item, resourceUrl);
+  const { src: imageSrc, isRgb: isImageRGB } = imageDisplay;
 
   // Link preview fields (title, description, video, image)
   const linkTitle =
@@ -344,9 +334,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
     if ((isDocumentAttachment || isAttachedFile) && item.mediumID && _onClick) {
       return (
         <div
-          onClick={() => {
-            _onClick(item.mediumID!);
-          }}
+          onClick={() => _onClick(item)}
           className="memori-media-item--link memori-media-item--document-link"
           style={{ cursor: 'pointer' }}
           title={displayName}
@@ -355,7 +343,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
               e.preventDefault();
-              _onClick(item.mediumID!);
+              _onClick(item);
             }
           }}
         >
@@ -432,16 +420,14 @@ export const RenderMediaItem = memo(function RenderMediaItem({
       <div
         className="memori-media-item--link"
         style={{ cursor: 'pointer' }}
-        onClick={() => {
-          _onClick(item.mediumID!);
-        }}
+        onClick={() => _onClick(item)}
         title={item.title}
         role="button"
         tabIndex={0}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            _onClick(item.mediumID!);
+            _onClick(item);
           }
         }}
       >
@@ -518,13 +504,10 @@ export const RenderMediaItem = memo(function RenderMediaItem({
     return () => clearTimeout(t);
   }, [linkDescription, item.mediumID]);
 
-  // Fallback: Image, video, model, or unknown file types
-  switch (item.mimeType) {
-    // Image file types: open in modal when onClick/mediumID available, otherwise no link
-    case 'image/jpeg':
-    case 'image/png':
-    case 'image/jpg':
-    case 'image/gif':
+  // -------------------------------------------------------------------------
+  // Image link flow: images with mediumID open in preview modal on click
+  // -------------------------------------------------------------------------
+  if (isImageMime(item.mimeType)) {
       if (isImageRGB) {
         return (
           <Card
@@ -537,7 +520,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
       if (item.mediumID && _onClick) {
         return (
           <div
-            onClick={() => _onClick(item.mediumID!)}
+            onClick={() => _onClick(item)}
             className="memori-media-item--link memori-media-item--image-link"
             style={{ cursor: 'pointer' }}
             title={item.title}
@@ -546,7 +529,7 @@ export const RenderMediaItem = memo(function RenderMediaItem({
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                _onClick(item.mediumID!);
+                _onClick(item);
               }
             }}
           >
@@ -565,8 +548,10 @@ export const RenderMediaItem = memo(function RenderMediaItem({
           cover={renderMediaContent(item)}
         />
       );
+  }
 
-    // Video files: open URL in new tab when available
+  // Video, audio, 3D, and other types: open in new tab (never modal)
+  switch (item.mimeType) {
     case 'video/mp4':
     case 'video/quicktime':
     case 'video/avi':
@@ -678,7 +663,7 @@ export const RenderSnippetItem = memo(function RenderSnippetItem({
     <div
       onClick={() => {
         if (item.mediumID && _onClick) {
-          _onClick(item.mediumID);
+          _onClick(item);
         }
       }}
       style={{ cursor: 'pointer' }}
@@ -688,7 +673,7 @@ export const RenderSnippetItem = memo(function RenderSnippetItem({
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
           if (item.mediumID && _onClick) {
-            _onClick(item.mediumID);
+            _onClick(item);
           }
         }
       }}
@@ -803,25 +788,16 @@ const MediaItemWidget: React.FC<Props> = ({
     [nonCodeDisplayMedia]
   );
 
-  // Media "card open"/preview modal logic for non-code
-  const handleMediaItemClick = useCallback(
-    (mediumID: string) => {
-      setOpenModalMedium(
-        nonCodeDisplayMedia.find((m) => m.mediumID === mediumID)
-      );
-    },
-    [nonCodeDisplayMedia]
-  );
+  // Media "card open"/preview modal: pass the clicked item so the correct one opens
+  // (avoids wrong image when multiple items share the same mediumID)
+  const handleMediaItemClick = useCallback((item: MediaItem) => {
+    setOpenModalMedium(item);
+  }, []);
 
   // Modal for code snippets
-  const handleSnippetClick = useCallback(
-    (mediumID: string) => {
-      setOpenModalMedium(
-        codeSnippets.find((m) => m.mediumID === mediumID)
-      );
-    },
-    [codeSnippets]
-  );
+  const handleSnippetClick = useCallback((item: Medium & { type?: string }) => {
+    setOpenModalMedium(item);
+  }, []);
 
   // Simple close modal action callback
   const handleCloseModal = useCallback(() => {
@@ -852,7 +828,7 @@ const MediaItemWidget: React.FC<Props> = ({
         >
           {nonCodeDisplayMedia.map((item, index) => (
             <Transition.Child
-              key={item.mediumID ?? `${item.url}&index=${index}`}
+              key={`media-${index}-${item.mediumID ?? item.url ?? 'n'}`}
               as="div"
               className="memori-media-item"
               enter={`ease-out duration-500 delay-${index * 100}`}
@@ -895,7 +871,7 @@ const MediaItemWidget: React.FC<Props> = ({
         >
           {codeSnippets.map((item, index) => (
             <Transition.Child
-              key={item.mediumID ?? `${item.url}&index=${index}`}
+              key={`snippet-${index}-${item.mediumID ?? item.url ?? 'n'}`}
               as="div"
               className="memori-media-item"
               enter={`ease-out duration-500 delay-${index * 100}`}

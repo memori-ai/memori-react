@@ -153,3 +153,42 @@ export function normalizeUrl(url: string | undefined): string | undefined {
   if (!url || url.length === 0) return url;
   return url.startsWith('http') ? url : `https://${url}`;
 }
+
+// ---------------------------------------------------------------------------
+// Image source resolution (single source of truth for widget + modal)
+// ---------------------------------------------------------------------------
+
+export type ImageDisplaySource = {
+  /** Resolved URL or data URL for <img src>; undefined if no displayable source */
+  src: string | undefined;
+  /** True when item.url is a CSS color (rgb/rgba) — render as colored swatch, not <img> */
+  isRgb: boolean;
+};
+
+/**
+ * Resolves the display source for an image medium. Used by both the grid thumbnail
+ * and the preview modal so they stay in sync (resource URL, base64 content, or rgb/rgba).
+ */
+export function getImageDisplaySource(
+  item: Medium & { type?: string },
+  resourceUrl: string
+): ImageDisplaySource {
+  const hasValidUrl =
+    isValidUrl(resourceUrl) || isValidUrl(item.url);
+  const isRgb =
+    !!item.url &&
+    (item.url.startsWith('rgb(') || item.url.startsWith('rgba('));
+
+  let src: string | undefined;
+  if (hasValidUrl) {
+    src = resourceUrl || item.url;
+  } else if (isRgb) {
+    src = item.url;
+  } else if (item.content) {
+    src = `data:${item.mimeType};base64,${item.content}`;
+  } else {
+    src = undefined;
+  }
+
+  return { src, isRgb };
+}

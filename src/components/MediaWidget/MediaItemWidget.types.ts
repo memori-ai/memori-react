@@ -40,7 +40,8 @@ export interface RenderMediaItemProps {
   preview?: boolean;
   baseURL?: string;
   apiURL?: string;
-  onClick?: (mediumID: string) => void;
+  /** Called when user opens a media item (e.g. image) in the preview modal. Receives the clicked item so the correct one opens even when mediumIDs duplicate. */
+  onClick?: (item: MediaItem) => void;
   customMediaRenderer?: (mimeType: string) => JSX.Element | null;
   descriptionOneLine?: boolean;
   onLinkPreviewInfo?: (linkPreviewInfo: LinkPreviewInfo) => void;
@@ -52,7 +53,8 @@ export interface RenderSnippetItemProps {
   tenantID?: string;
   baseURL?: string;
   apiURL?: string;
-  onClick?: (mediumID: string) => void;
+  /** Called when user opens a snippet in the preview modal. Receives the clicked item. */
+  onClick?: (item: Medium & { type: string }) => void;
 }
 
 export interface DocumentCardProps {

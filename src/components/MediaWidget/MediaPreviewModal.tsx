@@ -2,11 +2,14 @@ import type { Medium } from '@memori.ai/memori-api-client/dist/types';
 import React from 'react';
 import { getResourceUrl } from '../../helpers/media';
 import { prismSyntaxLangs } from '../../helpers/constants';
-import { stripHTML, stripDocumentAttachmentTags, withLinksOpenInNewTab } from '../../helpers/utils';
+import { stripHTML, stripDocumentAttachmentTags } from '../../helpers/utils';
 import Snippet from '../Snippet/Snippet';
 import ContentPreviewModal from '../ContentPreviewModal';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
-import { IMAGE_MIME_TYPES } from './MediaItemWidget.utils';
+import {
+  IMAGE_MIME_TYPES,
+  getImageDisplaySource,
+} from './MediaItemWidget.utils';
 
 /*
  * Media types handled in MediaPreviewModal and recommended UX:
@@ -188,12 +191,11 @@ export function MediaPreviewModal({
       ? `data:model/gltf-binary;base64,${medium.content}`
       : previewUrl;
 
-  // Image src: resource URL or data URL
-  const imageSrc = isImage
-    ? medium.content
-      ? `data:${medium.mimeType};base64,${medium.content}`
-      : previewUrl
-    : undefined;
+  // Image: use shared resolution (resource URL, base64, or rgb) so modal matches grid
+  const imageDisplay = isImage
+    ? getImageDisplaySource(medium, previewUrl)
+    : { src: undefined as string | undefined, isRgb: false };
+  const { src: imageSrc, isRgb: isImageRgb } = imageDisplay;
 
   // For Excel and similar types, prepare an iframe src using either content (data URL) or preview url
   const iframeSrcFromContent = medium.content
@@ -213,17 +215,38 @@ export function MediaPreviewModal({
     content: stripHTML(medium.content || ''),
   };
 
-  if (isImage && imageSrc) {
-    return (
-      <ContentPreviewModal
-        open
-        onClose={onClose}
-        title={medium.title ?? undefined}
-        isImage
-        imageSrc={imageSrc}
-        imageAlt={medium.title ?? ''}
-      />
-    );
+  // Image preview: same source as grid (URL, base64, or rgb swatch)
+  if (isImage) {
+    if (isImageRgb && medium.url) {
+      return (
+        <ContentPreviewModal
+          open
+          onClose={onClose}
+          title={medium.title ?? undefined}
+        >
+          <div
+            className="memori-media-item-preview--content memori-media-item--modal-rgb"
+            style={{
+              width: '100%',
+              minHeight: 200,
+              backgroundColor: medium.url,
+            }}
+          />
+        </ContentPreviewModal>
+      );
+    }
+    if (imageSrc) {
+      return (
+        <ContentPreviewModal
+          open
+          onClose={onClose}
+          title={medium.title ?? undefined}
+          isImage
+          imageSrc={imageSrc}
+          imageAlt={medium.title ?? ''}
+        />
+      );
+    }
   }
 
   return (
