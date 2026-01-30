@@ -39,17 +39,19 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
 
   return (
     <>
-     {collapsed && <div className="memori-website_assistant--trigger">
-        <Button
-          className="memori-website_assistant--trigger-button"
-          ghost
-          shape="circle"
-          onClick={() => setCollapsed(false)}
-          title={t('expand') || 'Expand'}
-        >
-          <Blob avatar={avatarProps?.memori.avatarURL} />
-        </Button>
-      </div>}
+      {collapsed && (
+        <div className="memori-website_assistant--trigger">
+          <Button
+            className="memori-website_assistant--trigger-button"
+            ghost
+            shape="circle"
+            onClick={() => setCollapsed(false)}
+            title={t('expand') || 'Expand'}
+          >
+            <Blob avatar={avatarProps?.memori.avatarURL} />
+          </Button>
+        </div>
+      )}
       <div
         className={`memori-website_assistant--${
           collapsed ? 'collapsed' : 'expanded'
@@ -76,15 +78,15 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                 />
               </div>
 
-              <div className="memori-website_assistant-layout--header">
-                {Header && headerProps && (
+              {Header && headerProps && (
+                <div className="memori-website_assistant-layout--header">
                   <Header
                     {...headerProps}
                     showSettings={false}
                     showReload={false}
                   />
-                )}
-              </div>
+                </div>
+              )}
 
               <div className="memori-website_assistant-layout--avatar">
                 {Avatar && avatarProps && (
