@@ -103,7 +103,7 @@ const Snippet = ({
   };
 
   return (
-    <div className="memori-snippet">
+    <div className={cx('memori-snippet', { 'memori-snippet--preview': preview })}>
       <div className="memori-snippet--content">
         <pre
           className={cx('line-numbers', className)}
@@ -121,9 +121,7 @@ const Snippet = ({
                 ?.lang ?? 'text'
             }
           >
-            {medium.content?.length && medium.content.length > 200 && preview
-              ? `${stripDocumentAttachmentTags(medium.content)?.slice(0, 200)}\n...`
-              : stripDocumentAttachmentTags(medium.content ?? '')}
+            {stripDocumentAttachmentTags(medium.content ?? '')}
           </code>
         </pre>
 

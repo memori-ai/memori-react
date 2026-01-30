@@ -427,26 +427,26 @@ export const RenderMediaItem = memo(function RenderMediaItem({
   }
 
   // Inline previews for code snippets: open in new tab (blob URL if no resource URL)
-  if (isCodeSnippet && item.content) {
-    const snippetHref =
-      resourceUrl && resourceUrl !== '#'
-        ? resourceUrl
-        : (() => {
-            const blob = new Blob([item.content || ''], {
-              type: item.mimeType || 'text/plain',
-            });
-            return URL.createObjectURL(blob);
-          })();
+  if (isCodeSnippet && item.content && item.mediumID && _onClick) {
     return (
-      <a
+      <div
         className="memori-media-item--link"
-        href={snippetHref}
-        target="_blank"
-        rel="noopener noreferrer"
+        style={{ cursor: 'pointer' }}
+        onClick={() => {
+          _onClick(item.mediumID!);
+        }}
         title={item.title}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            _onClick(item.mediumID!);
+          }
+        }}
       >
         <Card hoverable cover={renderMediaContent(item)} title={item.title} />
-      </a>
+      </div>
     );
   }
 
@@ -675,10 +675,23 @@ export const RenderSnippetItem = memo(function RenderSnippetItem({
         : '#';
 
   return (
-    <a
-      href={snippetHref}
-      target="_blank"
-      rel="noopener noreferrer"
+    <div
+      onClick={() => {
+        if (item.mediumID && _onClick) {
+          _onClick(item.mediumID);
+        }
+      }}
+      style={{ cursor: 'pointer' }}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          if (item.mediumID && _onClick) {
+            _onClick(item.mediumID);
+          }
+        }
+      }}
       className="memori-media-item--link"
       title={item.title}
     >
@@ -695,7 +708,7 @@ export const RenderSnippetItem = memo(function RenderSnippetItem({
           </div>
         </div>
       </Card>
-    </a>
+    </div>
   );
 });
 

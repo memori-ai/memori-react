@@ -27,6 +27,22 @@
     word-wrap: break-word;
 }
 
+/* Preview mode: full content with max height and scroll */
+.memori-snippet--preview .memori-snippet--content {
+    display: flex;
+    overflow: hidden;
+    max-height: 280px;
+    flex-direction: column;
+}
+
+.memori-snippet--preview .memori-snippet--content pre {
+    overflow: auto;
+    min-height: 0;
+    flex: 1;
+}
+
+
+
 .memori-snippet code {
     padding: 0;
     border-radius: 0;

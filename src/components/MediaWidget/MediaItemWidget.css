@@ -880,6 +880,7 @@ a.memori-media-item--document-link {
     display: block;
     width: 100%;
     height: auto;
+    min-height: 120px;
     max-height: 400px;
     border-radius: 8px;
 }
@@ -921,6 +922,7 @@ a.memori-media-item--document-link {
 .memori-media-item--audio-container {
     display: flex;
     width: 100%;
+    min-height: 120px;
     box-sizing: border-box;
     align-items: center;
     padding: 16px;
