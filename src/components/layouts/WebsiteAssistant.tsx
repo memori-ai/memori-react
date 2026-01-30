@@ -79,13 +79,11 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
               </div>
 
               {Header && headerProps && (
-                <div className="memori-website_assistant-layout--header">
-                  <Header
+                              <Header
                     {...headerProps}
                     showSettings={false}
                     showReload={false}
                   />
-                </div>
               )}
 
               <div className="memori-website_assistant-layout--avatar">

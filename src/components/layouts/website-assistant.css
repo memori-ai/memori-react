@@ -287,6 +287,10 @@
     text-align: right;
 }
 
+.memori-website_assistant-layout--header-hidden {
+    display: none;
+}
+
 .memori-website_assistant-layout .memori-header {
     position: relative;
     z-index: 1000;
@@ -294,6 +298,7 @@
     width: auto;
     height: auto;
     flex-direction: column;
+    padding: 0.5rem;
     gap: 0.5rem;
 }
 
