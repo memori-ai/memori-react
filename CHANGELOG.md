@@ -1,5 +1,12 @@
 
 
+## [8.17.0](https://github.com/memori-ai/memori-react/compare/v8.16.1...v8.17.0) (2026-01-31)
+
+
+### Features
+
+* add Website Assistant overlay on Memori website with improved z-index ([7cfb9e5](https://github.com/memori-ai/memori-react/commit/7cfb9e5071bb0279ceeaa99732eaabf2502215c6))
+
 ## [8.16.1](https://github.com/memori-ai/memori-react/compare/v8.16.0...v8.16.1) (2026-01-30)
 
 ## [8.16.0](https://github.com/memori-ai/memori-react/compare/v8.15.1...v8.16.0) (2026-01-30)
