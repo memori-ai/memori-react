@@ -56,7 +56,6 @@
     border-radius: 50%;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    background: transparent !important;
     box-shadow: none !important;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -446,12 +445,22 @@
     margin: 0 auto;
 }
 
+.memori-wesite_assistant-layout--controls .memori--start-panel {
+    flex: 1;
+    align-self: center;
+    align-content: center;
+    border: 0px;
+    box-shadow: none !important;
+}
+
 .memori-website_assistant-layout--controls .memori-chat--wrapper {
     display: flex;
     min-height: 0;
     flex: 1;
     flex-direction: column;
     padding: 0.75rem;
+    box-shadow: none !important;
+    border: 0px !important;
 }
 
 .memori-website_assistant-layout--controls .memori--start-panel {
@@ -580,7 +589,7 @@
 }
 
 @media (max-width: 870px) {
-    .memori-website_assistant-layout .memori-header{ 
+    .memori-website_assistant-layout .memori-header {
         max-width: 64px;
         margin-right: 1rem;
         margin-left: auto;
