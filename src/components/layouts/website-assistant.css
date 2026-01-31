@@ -9,7 +9,7 @@
 
 .memori-website_assistant--trigger {
     position: fixed;
-    z-index: 10000;
+    z-index: 2147483647;
     right: 0px;
     bottom: 0px;
     display: flex;
@@ -145,13 +145,14 @@
 
 .memori-widget.memori-layout-website_assistant {
     position: relative;
-    z-index: 10;
+    z-index: 2147483647;
     font-size: 14px;
 }
 
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--collapsed,
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {
     position: fixed;
+    z-index: 2147483647;
     right: 0;
     bottom: 0;
     overflow: hidden;
@@ -575,6 +576,14 @@
     .memori-website_assistant--trigger-button {
         width: 80px !important;
         height: 80px !important;
+    }
+}
+
+@media (max-width: 870px) {
+    .memori-website_assistant-layout .memori-header{ 
+        max-width: 64px;
+        margin-right: 1rem;
+        margin-left: auto;
     }
 }
 
