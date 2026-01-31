@@ -447,8 +447,8 @@
 
 .memori-wesite_assistant-layout--controls .memori--start-panel {
     flex: 1;
-    align-self: center;
     align-content: center;
+    align-self: center;
     border: 0px;
     box-shadow: none !important;
 }
@@ -459,8 +459,8 @@
     flex: 1;
     flex-direction: column;
     padding: 0.75rem;
-    box-shadow: none !important;
     border: 0px !important;
+    box-shadow: none !important;
 }
 
 .memori-website_assistant-layout--controls .memori--start-panel {
