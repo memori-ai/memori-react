@@ -1,5 +1,6 @@
+/* Above website assistant and other fixed UI (same max z-index so modal stacks on top by DOM order) */
 .age-verification-modal {
-    z-index: 9999;
+    z-index: 2147483647;
 }
 
 .age-verification-modal,
