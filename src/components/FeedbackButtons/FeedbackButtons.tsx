@@ -1,8 +1,8 @@
 import { Memori } from '@memori.ai/memori-api-client/dist/types';
 import React, { useState } from 'react';
 import { Tooltip, Button, Dropdown } from '@memori.ai/ui';
-import Feedback from '../icons/Feedback';
-
+import { MessageSquare } from 'lucide-react';
+import cx from 'classnames';
 const feedbackMsgs = {
   'it-IT': 'Non è quello che ti ho chiesto',
   'fr-FR': "Ce n'est pas ce que je t'ai demandé",
@@ -51,15 +51,15 @@ const FeedbackButtons = ({
     <div className={`memori-chat--feedback${className ? ` ${className}` : ''}`}>
       {dropdown ? (
         <Dropdown className="memori-chat--feedback-menu">
-          <Dropdown.Trigger showChevron={false} className="memori-chat--feedback-menu-button">
+          <Dropdown.Trigger showChevron={false}>
             <Button
-              variant="ghost"
+              variant="primary"
               shape="circle"
+              className="memori-header--button"
               title="Feedback"
-              className="memori-chat--feedback-menu-button"
               disabled={!!clicked}
               icon={
-                <Feedback
+                <MessageSquare
                   className={
                     clicked ? 'memori-chat--feedback-clicked' : undefined
                   }
@@ -67,7 +67,11 @@ const FeedbackButtons = ({
               }
             />
           </Dropdown.Trigger>
-          <Dropdown.Menu className="memori-chat--feedback-menu-items">
+          <Dropdown.Menu
+            className="memori-chat--feedback-menu-items"
+            placement="bottom"
+            align="end"
+          >
             <div className="memori-chat--feedback-menu-items-container">
               <Dropdown.Item
                 key="ok"
@@ -114,7 +118,7 @@ const FeedbackButtons = ({
             variant="ghost"
             shape="circle"
             icon={
-              <Feedback
+              <MessageSquare
                 className={
                   clicked ? 'memori-chat--feedback-clicked' : undefined
                 }

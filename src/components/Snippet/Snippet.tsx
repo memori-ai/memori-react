@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Medium } from '@memori.ai/memori-api-client/dist/types';
 import { Button } from '@memori.ai/ui';
-import Copy from '../icons/Copy';
+import { Copy } from 'lucide-react';
 import { prismSyntaxLangs } from '../../helpers/constants';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';

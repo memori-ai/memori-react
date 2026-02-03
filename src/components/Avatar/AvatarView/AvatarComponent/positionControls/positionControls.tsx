@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { setLocalConfig } from '../../../../../helpers/configuration';
 import { useTranslation } from 'react-i18next';
 import { Slider, Button } from '@memori.ai/ui';
-import Close from '../../../../icons/Close';
+import { X } from 'lucide-react';
 
 interface PositionControlsProps {
   avatarHeight: number;
@@ -104,7 +104,7 @@ const PositionControls: React.FC<PositionControlsProps> = ({
       <div className="memori--position-controls-close">
         <Button
           variant="ghost"
-          icon={<Close />}
+          icon={<X />}
           danger
           shape="circle"
           className="memori--position-controls-close-button"

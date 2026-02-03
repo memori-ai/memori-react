@@ -20,17 +20,25 @@ exports[`renders BlockedMemoriBadge for not enough credits unchanged 1`] = `
           class="blocked-memori-badge "
         >
           <svg
-            aria-hidden="true"
-            class="blocked-memori-badge--icon"
-            color="currentColor"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
+            class="lucide lucide-triangle-alert blocked-memori-badge--icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M464 720a48 48 0 1096 0 48 48 0 10-96 0zm16-304v184c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V416c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8zm475.7 440l-416-720c-6.2-10.7-16.9-16-27.7-16s-21.6 5.3-27.7 16l-416 720C56 877.4 71.4 904 96 904h832c24.6 0 40-26.6 27.7-48zm-783.5-27.9L512 239.9l339.8 588.2H172.2z"
-              fill="currentColor"
+              d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
+            />
+            <path
+              d="M12 9v4"
+            />
+            <path
+              d="M12 17h.01"
             />
           </svg>
         </div>
@@ -60,17 +68,25 @@ exports[`renders BlockedMemoriBadge unchanged 1`] = `
           class="blocked-memori-badge "
         >
           <svg
-            aria-hidden="true"
-            class="blocked-memori-badge--icon"
-            color="currentColor"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
+            class="lucide lucide-triangle-alert blocked-memori-badge--icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M464 720a48 48 0 1096 0 48 48 0 10-96 0zm16-304v184c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V416c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8zm475.7 440l-416-720c-6.2-10.7-16.9-16-27.7-16s-21.6 5.3-27.7 16l-416 720C56 877.4 71.4 904 96 904h832c24.6 0 40-26.6 27.7-48zm-783.5-27.9L512 239.9l339.8 588.2H172.2z"
-              fill="currentColor"
+              d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
+            />
+            <path
+              d="M12 9v4"
+            />
+            <path
+              d="M12 17h.01"
             />
           </svg>
         </div>
@@ -104,17 +120,25 @@ memoriBlockedGiverHelper
           class="blocked-memori-badge "
         >
           <svg
-            aria-hidden="true"
-            class="blocked-memori-badge--icon"
-            color="currentColor"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
+            class="lucide lucide-triangle-alert blocked-memori-badge--icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M464 720a48 48 0 1096 0 48 48 0 10-96 0zm16-304v184c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V416c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8zm475.7 440l-416-720c-6.2-10.7-16.9-16-27.7-16s-21.6 5.3-27.7 16l-416 720C56 877.4 71.4 904 96 904h832c24.6 0 40-26.6 27.7-48zm-783.5-27.9L512 239.9l339.8 588.2H172.2z"
-              fill="currentColor"
+              d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
+            />
+            <path
+              d="M12 9v4"
+            />
+            <path
+              d="M12 17h.01"
             />
           </svg>
         </div>
@@ -144,17 +168,25 @@ exports[`renders BlockedMemoriBadge with margin left unchanged 1`] = `
           class="blocked-memori-badge  margin-left"
         >
           <svg
-            aria-hidden="true"
-            class="blocked-memori-badge--icon"
-            color="currentColor"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
+            class="lucide lucide-triangle-alert blocked-memori-badge--icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M464 720a48 48 0 1096 0 48 48 0 10-96 0zm16-304v184c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V416c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8zm475.7 440l-416-720c-6.2-10.7-16.9-16-27.7-16s-21.6 5.3-27.7 16l-416 720C56 877.4 71.4 904 96 904h832c24.6 0 40-26.6 27.7-48zm-783.5-27.9L512 239.9l339.8 588.2H172.2z"
-              fill="currentColor"
+              d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
+            />
+            <path
+              d="M12 9v4"
+            />
+            <path
+              d="M12 17h.01"
             />
           </svg>
         </div>
@@ -184,17 +216,25 @@ exports[`renders BlockedMemoriBadge with title unchanged 1`] = `
           class="blocked-memori-badge "
         >
           <svg
-            aria-hidden="true"
-            class="blocked-memori-badge--icon"
-            color="currentColor"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
+            class="lucide lucide-triangle-alert blocked-memori-badge--icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M464 720a48 48 0 1096 0 48 48 0 10-96 0zm16-304v184c0 4.4 3.6 8 8 8h48c4.4 0 8-3.6 8-8V416c0-4.4-3.6-8-8-8h-48c-4.4 0-8 3.6-8 8zm475.7 440l-416-720c-6.2-10.7-16.9-16-27.7-16s-21.6 5.3-27.7 16l-416 720C56 877.4 71.4 904 96 904h832c24.6 0 40-26.6 27.7-48zm-783.5-27.9L512 239.9l339.8 588.2H172.2z"
-              fill="currentColor"
+              d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
+            />
+            <path
+              d="M12 9v4"
+            />
+            <path
+              d="M12 17h.01"
             />
           </svg>
         </div>

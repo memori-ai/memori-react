@@ -1,11 +1,8 @@
 import React, { useEffect, useState, useMemo, useCallback, memo } from 'react';
 import { useArtifact } from '../../context/ArtifactContext';
 import { ArtifactData } from '../../types/artifact.types';
-import ChevronRight from '../../../icons/ChevronRight';
+import { ChevronRight, ChevronDown, ChevronLeft, ChevronUp } from 'lucide-react';
 import ArtifactDrawer from '../ArtifactDrawer/ArtifactDrawer';
-import ChevronDown from '../../../icons/ChevronDown';
-import ChevronLeft from '../../../icons/ChevronLeft';
-import ChevronUp from '../../../icons/ChevronUp';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
 import { stripOutputTags, stripReasoningTags } from '../../../../helpers/utils';
 

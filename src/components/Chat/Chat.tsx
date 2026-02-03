@@ -21,7 +21,7 @@ import ChatInputs from '../ChatInputs/ChatInputs';
 import Typing from '../Typing/Typing';
 import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
 import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler';
-import { DocumentIcon } from '../icons/Document';
+import { FileText as DocumentIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 export interface Props {
   memori: Memori;

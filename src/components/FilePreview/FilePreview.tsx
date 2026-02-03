@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import File from '../icons/File';
-import CloseIcon from '../icons/Close';
+import { File, X } from 'lucide-react';
 import { Button } from '@memori.ai/ui';
 import ContentPreviewModal from '../ContentPreviewModal';
 import Snippet from '../Snippet/Snippet';
@@ -158,7 +157,7 @@ FilePreviewProps) => {
                 {allowRemove && (
                   <Button
                     shape="circle"
-                    icon={<CloseIcon />}
+                    icon={<X />}
                     danger
                     className={`memori--remove-button ${
                       hoveredId === file.id ? 'visible' : ''

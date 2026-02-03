@@ -49,7 +49,7 @@ import KnownFacts from '../KnownFacts/KnownFacts';
 import ExpertsDrawer from '../ExpertsDrawer/ExpertsDrawer';
 import LoginDrawer from '../LoginDrawer/LoginDrawer';
 import { Button } from '@memori.ai/ui';
-import CloseIcon from '../icons/Close';
+import { X } from 'lucide-react';
 
 // Layout
 import FullPageLayout from '../layouts/FullPage';
@@ -1366,7 +1366,7 @@ const MemoriWidget = ({
               <Button
                 variant="outline"
                 onClick={() => toast.dismiss(tst.id)}
-                icon={<CloseIcon />}
+                icon={<X />}
               />
             </div>
           ),

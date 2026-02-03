@@ -3,7 +3,7 @@ import { Spin } from '@memori.ai/ui';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { Button } from '@memori.ai/ui';
 import Blob from '../Blob/Blob';
-import Close from '../icons/Close';
+import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
@@ -73,7 +73,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                   variant="primary"
                   shape="circle"
                   onClick={() => setCollapsed(true)}
-                  icon={<Close />}
+                  icon={<X />}
                   title={t('close') || 'Close'}
                 />
               </div>

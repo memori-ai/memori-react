@@ -7,18 +7,20 @@
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Dropdown, Drawer } from '@memori.ai/ui';
-import Close from '../../../icons/Close';
+import {
+  X,
+  Maximize,
+  Minimize,
+  MoreVertical,
+  Download,
+  Link as LinkIcon,
+  Printer,
+} from 'lucide-react';
 import ArtifactActions from '../ArtifactActions/ArtifactActions';
 import { useArtifact } from '../../context/ArtifactContext';
 import ArtifactPreview from '../ArtifactPreview/ArtifactPreview';
 import { ArtifactData, ArtifactTab } from '../../types/artifact.types';
 import cx from 'classnames';
-import Fullscreen from '../../../icons/Fullscreen';
-import FullscreenExit from '../../../icons/FullscreenExit';
-import MenuVertical from '../../../icons/MenuVertical';
-import Download from '../../../icons/Download';
-import Link from '../../../icons/Link';
-import PrintIcon from '../../../icons/Print';
 import { useCopyArtifact } from '../ArtifactActions/hooks/useCopyArtifact';
 import TabSwitch from './components/TabSwitch';
 
@@ -245,7 +247,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
               variant="ghost"
               title={t('artifact.close') || 'Close'}
             >
-              <Close className="memori-artifact-panel--close-icon" />
+              <X className="memori-artifact-panel--close-icon" />
             </Button>
           </>
         )}
@@ -279,7 +281,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
                   variant="ghost"
                   title={t('artifact.actions') || 'Actions'}
                 >
-                  <MenuVertical className="memori-artifact-action-icon" />
+                  <MoreVertical className="memori-artifact-action-icon" />
                 </Button>
               </Dropdown.Trigger>
               <Dropdown.Menu className="memori-mobile-dropdown">
@@ -302,7 +304,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
                         switch (format.action) {
                           case 'copy':
                             return (
-                              <Link className="memori-artifact-action-icon" />
+                              <LinkIcon className="memori-artifact-action-icon" />
                             );
                           case 'download':
                             return (
@@ -311,11 +313,11 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
                           case 'print':
                           case 'pdf':
                             return (
-                              <PrintIcon className="memori-artifact-action-icon" />
+                              <Printer className="memori-artifact-action-icon" />
                             );
                           default:
                             return (
-                              <Link className="memori-artifact-action-icon" />
+                              <LinkIcon className="memori-artifact-action-icon" />
                             );
                         }
                       };
@@ -353,7 +355,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
                       disabled={false}
                       className="memori-artifact-action-btn"
                       variant="ghost"
-                      icon={<Link className="memori-artifact-action-icon" />}
+                      icon={<LinkIcon className="memori-artifact-action-icon" />}
                       title={t('artifact.external') || 'External'}
                     >
                       <span className="memori-artifact-action-text">
@@ -377,7 +379,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
             variant="ghost"
             title={t('artifact.close') || 'Close'}
           >
-            <Close className="memori-artifact-panel--close-icon" />
+            <X className="memori-artifact-panel--close-icon" />
           </Button>
         )}
       </div>

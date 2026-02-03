@@ -3,14 +3,12 @@ import { DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
 import { Button } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
-import Send from '../icons/Send';
+import { Send, Mic, Plus } from 'lucide-react';
 import MicrophoneButton from '../MicrophoneButton/MicrophoneButton';
 import cx from 'classnames';
-import Microphone from '../icons/Microphone';
 import UploadButton from '../UploadButton/UploadButton';
 import FilePreview from '../FilePreview/FilePreview';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import Plus from '../icons/Plus';
 export interface Props {
   dialogState?: DialogState;
   instruct?: boolean;
@@ -285,7 +283,7 @@ const ChatInputs: React.FC<Props> = ({
                         'Start listening'
                   }
                 >
-                  <Microphone className="icon" />
+                  <Mic className="icon" />
                 </button>
               )}
               {showMicrophone && microphoneMode === 'HOLD_TO_TALK' && (

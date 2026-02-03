@@ -8,21 +8,24 @@ import {
   User,
 } from '@memori.ai/memori-api-client/dist/types';
 import { Button, Dropdown } from '@memori.ai/ui';
-import MapMarker from '../icons/MapMarker';
-import SoundDeactivated from '../icons/SoundDeactivated';
-import Sound from '../icons/Sound';
+import {
+  MapPin,
+  VolumeX,
+  Volume2,
+  Settings,
+  Minimize,
+  Maximize,
+  RefreshCw,
+  X,
+  Brain,
+  Users,
+  User as UserIcon,
+  MessageCircle,
+  LogOut,
+  Trash2,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import Setting from '../icons/Setting';
 import ShareButton from '../ShareButton/ShareButton';
-import FullscreenExit from '../icons/FullscreenExit';
-import Fullscreen from '../icons/Fullscreen';
-import Refresh from '../icons/Refresh';
-import Clear from '../icons/Clear';
-import DeepThought from '../icons/DeepThought';
-import Group from '../icons/Group';
-import UserIcon from '../icons/User';
-import MessageIcon from '../icons/Message';
-import Logout from '../icons/Logout';
 import { getErrori18nKey } from '../../helpers/error';
 import toast from 'react-hot-toast';
 import memoriApiClient from '@memori.ai/memori-api-client';
@@ -175,7 +178,7 @@ const Header: React.FC<Props> = ({
             shape="circle"
             className="memori-header--button memori-header--button--position"
             title={t('widget.position') || 'Position'}
-            icon={<MapMarker />}
+            icon={<MapPin />}
             onClick={() => setShowPositionDrawer(true)}
           />
         </div>
@@ -185,7 +188,7 @@ const Header: React.FC<Props> = ({
           variant="primary"
           shape="circle"
           title={t('reload') || 'Reload'}
-          icon={<Refresh />}
+          icon={<RefreshCw />}
           onClick={() => {
             window.location.reload();
           }}
@@ -196,7 +199,7 @@ const Header: React.FC<Props> = ({
           variant="primary"
           shape="circle"
           title={t('clearHistory') || 'Clear chat'}
-          icon={<Clear />}
+          icon={<Trash2 />}
           onClick={clearHistory}
         />
       )}
@@ -206,7 +209,7 @@ const Header: React.FC<Props> = ({
           disabled={!loginToken}
           shape="circle"
           title={t('write_and_speak.chatHistory') || 'Chat history'}
-          icon={<MessageIcon />}
+          icon={<MessageCircle />}
           onClick={() => setShowChatHistoryDrawer(true)}
         />
       )}
@@ -219,7 +222,7 @@ const Header: React.FC<Props> = ({
               ? t('fullscreenExit') || 'Exit fullscreen'
               : t('fullscreenEnter') || 'Enter fullscreen'
           }
-          icon={fullScreen ? <FullscreenExit /> : <Fullscreen />}
+          icon={fullScreen ? <Maximize /> : <Minimize />}
           onClick={
             fullScreenHandler ||
             (() => {
@@ -263,7 +266,7 @@ const Header: React.FC<Props> = ({
         <Button
           variant={!!sessionID && !!hasUserActivatedSpeak ? 'primary' : 'outline'}
           shape="circle"
-          icon={<DeepThought />}
+          icon={<Brain />}
           disabled={!hasUserActivatedSpeak || !sessionID}
           onClick={() => setShowKnownFactsDrawer(true)}
           title={t('knownFacts.title') || 'Known facts'}
@@ -273,7 +276,7 @@ const Header: React.FC<Props> = ({
         <Button
           variant="primary"
           shape="circle"
-          icon={<Group />}
+          icon={<Users />}
           disabled={!hasUserActivatedSpeak || !sessionID}
           onClick={() => setShowExpertsDrawer(true)}
           title={t('widget.showExpertsInTheBoard') || 'Experts in this board'}
@@ -283,7 +286,7 @@ const Header: React.FC<Props> = ({
         <Button
           variant="primary"
           shape="circle"
-          icon={speakerMuted ? <SoundDeactivated /> : <Sound />}
+          icon={speakerMuted ? <VolumeX /> : <Volume2 />}
           onClick={() => setSpeakerMuted(!speakerMuted)}
           title={t('widget.sound') || 'Sound'}
         />
@@ -299,7 +302,7 @@ const Header: React.FC<Props> = ({
           <Button
             variant="primary"
             shape="circle"
-            icon={<Setting />}
+            icon={<Settings />}
             onClick={() => setShowSettingsDrawer(true)}
             title={t('widget.settings') || 'Settings'}
           />
@@ -392,7 +395,7 @@ const Header: React.FC<Props> = ({
                       className="memori-dropdown--action-button memori-dropdown--action-button--logout"
                       onClick={onLogout}
                     >
-                      <Logout className="memori-dropdown--action-icon" />
+                      <LogOut className="memori-dropdown--action-icon" />
                       {t('login.logout') || 'Logout'}
                     </button>
                   </div>

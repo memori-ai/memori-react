@@ -26,21 +26,30 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
               aria-label="boardOfExperts"
             >
               <svg
-                aria-hidden="true"
+                class="lucide lucide-users"
                 fill="none"
-                focusable="false"
-                height="16"
-                role="img"
+                height="24"
                 stroke="currentColor"
                 stroke-linecap="round"
                 stroke-linejoin="round"
                 stroke-width="2"
-                viewBox="0 0 640 512"
-                width="20"
+                viewBox="0 0 24 24"
+                width="24"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M211.2 96a64 64 0 10-128 0 64 64 0 10128 0zM32 256c0 17.7 14.3 32 32 32h85.6c10.1-39.4 38.6-71.5 75.8-86.6-9.7-6-21.2-9.4-33.4-9.4H96c-35.3 0-64 28.7-64 64zm461.6 32H576c17.7 0 32-14.3 32-32 0-35.3-28.7-64-64-64h-96c-11.7 0-22.7 3.1-32.1 8.6 38.1 14.8 67.4 47.3 77.7 87.4zm-102.4-61.6c-6.9-1.6-14.2-2.4-21.6-2.4h-96c-8.5 0-16.7 1.1-24.5 3.1-30.8 8.1-55.6 31.1-66.1 60.9-3.5 10-5.5 20.8-5.5 32 0 17.7 14.3 32 32 32h224c17.7 0 32-14.3 32-32 0-11.2-1.9-22-5.5-32-10.8-30.7-36.8-54.2-68.9-61.6zM563.2 96a64 64 0 10-128 0 64 64 0 10128 0zm-241.6 96a80 80 0 100-160 80 80 0 100 160zM32 416c-17.7 0-32 14.3-32 32s14.3 32 32 32h576c17.7 0 32-14.3 32-32s-14.3-32-32-32H32z"
+                  d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                />
+                <path
+                  d="M22 21v-2a4 4 0 0 0-3-3.87"
+                />
+                <path
+                  d="M16 3.13a4 4 0 0 1 0 7.75"
                 />
               </svg>
             </span>
@@ -123,16 +132,15 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
             class="memori-tooltip--trigger"
           >
             <svg
-              aria-hidden="true"
-              class="memori--start-privacy-explanation-icon"
+              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <circle
@@ -141,10 +149,10 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
                 r="10"
               />
               <path
-                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
               />
               <path
-                d="M12 17L12.01 17"
+                d="M12 17h.01"
               />
             </svg>
           </div>
@@ -290,16 +298,15 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
             class="memori-tooltip--trigger"
           >
             <svg
-              aria-hidden="true"
-              class="memori--start-privacy-explanation-icon"
+              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <circle
@@ -308,10 +315,10 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
                 r="10"
               />
               <path
-                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
               />
               <path
-                d="M12 17L12.01 17"
+                d="M12 17h.01"
               />
             </svg>
           </div>
@@ -457,16 +464,15 @@ exports[`renders StartPanel unchanged 1`] = `
             class="memori-tooltip--trigger"
           >
             <svg
-              aria-hidden="true"
-              class="memori--start-privacy-explanation-icon"
+              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <circle
@@ -475,10 +481,10 @@ exports[`renders StartPanel unchanged 1`] = `
                 r="10"
               />
               <path
-                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
               />
               <path
-                d="M12 17L12.01 17"
+                d="M12 17h.01"
               />
             </svg>
           </div>
@@ -624,16 +630,15 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
             class="memori-tooltip--trigger"
           >
             <svg
-              aria-hidden="true"
-              class="memori--start-privacy-explanation-icon"
+              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <circle
@@ -642,10 +647,10 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
                 r="10"
               />
               <path
-                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
               />
               <path
-                d="M12 17L12.01 17"
+                d="M12 17h.01"
               />
             </svg>
           </div>
@@ -687,21 +692,25 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
           class="memori-tooltip--trigger"
         >
           <svg
-            aria-hidden="true"
-            class="memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
-            color="currentColor"
+            class="lucide lucide-triangle-alert memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
             fill="none"
-            height="800px"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
             viewBox="0 0 24 24"
-            width="800px"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M12 16H12.01M12 8V12M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
+              d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
+            />
+            <path
+              d="M12 9v4"
+            />
+            <path
+              d="M12 17h.01"
             />
           </svg>
         </div>
@@ -799,16 +808,15 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
             class="memori-tooltip--trigger"
           >
             <svg
-              aria-hidden="true"
-              class="memori--start-privacy-explanation-icon"
+              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <circle
@@ -817,10 +825,10 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
                 r="10"
               />
               <path
-                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
               />
               <path
-                d="M12 17L12.01 17"
+                d="M12 17h.01"
               />
             </svg>
           </div>
@@ -966,16 +974,15 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
             class="memori-tooltip--trigger"
           >
             <svg
-              aria-hidden="true"
-              class="memori--start-privacy-explanation-icon"
+              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <circle
@@ -984,10 +991,10 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
                 r="10"
               />
               <path
-                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
               />
               <path
-                d="M12 17L12.01 17"
+                d="M12 17h.01"
               />
             </svg>
           </div>
@@ -1060,37 +1067,43 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
             class="memori-tooltip--trigger"
           >
             <svg
-              aria-hidden="true"
+              class="lucide lucide-brain"
               fill="none"
-              focusable="false"
-              height="20"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="3"
-              viewBox="0 0 48 48"
-              width="20"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M30.106 48v-2.745a2.213 2.213 0 012.213-2.212h6.11a2.392 2.392 0 002.326-2.466v-3.223a1.834 1.834 0 01.459-1.145 2.912 2.912 0 00.712-1.926l-.007-.667a1.016 1.016 0 01.651-.952h1.067a1.363 1.363 0 001.051-.456 1.304 1.304 0 00.19-1.395 67.032 67.032 0 01-3.037-7.51 4.767 4.767 0 01-.217-1.507l-.002-4.994a14.513 14.513 0 00-.552-3.963l-.006-.022a13.959 13.959 0 00-3.137-5.702q-.479-.516-1.006-1.003a17.67 17.67 0 00-.677-.623A18.303 18.303 0 0024.194 1a19.617 19.617 0 00-12.539 4.489 17.555 17.555 0 00-3.945 21.69C9.945 31.507 11.694 38.622 12.14 46v2"
-                stroke-miterlimit="10"
+                d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"
               />
               <path
-                d="M27.917 12L31.417 12"
+                d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"
               />
               <path
-                d="M27.917 26L31.417 26"
+                d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"
               />
               <path
-                d="M29.667 12L29.667 26"
+                d="M17.599 6.5a3 3 0 0 0 .399-1.375"
               />
               <path
-                d="M23.992 26L19.904 12 19.226 12 15.159 26"
+                d="M6.003 5.125A3 3 0 0 0 6.401 6.5"
               />
               <path
-                d="M16.854 21.133L22.276 21.133"
+                d="M3.477 10.896a4 4 0 0 1 .585-.396"
+              />
+              <path
+                d="M19.938 10.5a4 4 0 0 1 .585.396"
+              />
+              <path
+                d="M6 18a4 4 0 0 1-1.967-.516"
+              />
+              <path
+                d="M19.967 17.484A4 4 0 0 1 18 18"
               />
             </svg>
           </div>
@@ -1208,16 +1221,15 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
             class="memori-tooltip--trigger"
           >
             <svg
-              aria-hidden="true"
-              class="memori--start-privacy-explanation-icon"
+              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <circle
@@ -1226,10 +1238,10 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
                 r="10"
               />
               <path
-                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
               />
               <path
-                d="M12 17L12.01 17"
+                d="M12 17h.01"
               />
             </svg>
           </div>
@@ -1302,37 +1314,43 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
             class="memori-tooltip--trigger"
           >
             <svg
-              aria-hidden="true"
+              class="lucide lucide-brain"
               fill="none"
-              focusable="false"
-              height="20"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="3"
-              viewBox="0 0 48 48"
-              width="20"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M30.106 48v-2.745a2.213 2.213 0 012.213-2.212h6.11a2.392 2.392 0 002.326-2.466v-3.223a1.834 1.834 0 01.459-1.145 2.912 2.912 0 00.712-1.926l-.007-.667a1.016 1.016 0 01.651-.952h1.067a1.363 1.363 0 001.051-.456 1.304 1.304 0 00.19-1.395 67.032 67.032 0 01-3.037-7.51 4.767 4.767 0 01-.217-1.507l-.002-4.994a14.513 14.513 0 00-.552-3.963l-.006-.022a13.959 13.959 0 00-3.137-5.702q-.479-.516-1.006-1.003a17.67 17.67 0 00-.677-.623A18.303 18.303 0 0024.194 1a19.617 19.617 0 00-12.539 4.489 17.555 17.555 0 00-3.945 21.69C9.945 31.507 11.694 38.622 12.14 46v2"
-                stroke-miterlimit="10"
+                d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"
               />
               <path
-                d="M27.917 12L31.417 12"
+                d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"
               />
               <path
-                d="M27.917 26L31.417 26"
+                d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"
               />
               <path
-                d="M29.667 12L29.667 26"
+                d="M17.599 6.5a3 3 0 0 0 .399-1.375"
               />
               <path
-                d="M23.992 26L19.904 12 19.226 12 15.159 26"
+                d="M6.003 5.125A3 3 0 0 0 6.401 6.5"
               />
               <path
-                d="M16.854 21.133L22.276 21.133"
+                d="M3.477 10.896a4 4 0 0 1 .585-.396"
+              />
+              <path
+                d="M19.938 10.5a4 4 0 0 1 .585.396"
+              />
+              <path
+                d="M6 18a4 4 0 0 1-1.967-.516"
+              />
+              <path
+                d="M19.967 17.484A4 4 0 0 1 18 18"
               />
             </svg>
           </div>
@@ -1437,16 +1455,15 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
             class="memori-tooltip--trigger"
           >
             <svg
-              aria-hidden="true"
-              class="memori--start-privacy-explanation-icon"
+              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <circle
@@ -1455,10 +1472,10 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
                 r="10"
               />
               <path
-                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
               />
               <path
-                d="M12 17L12.01 17"
+                d="M12 17h.01"
               />
             </svg>
           </div>
@@ -1531,37 +1548,43 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
             class="memori-tooltip--trigger"
           >
             <svg
-              aria-hidden="true"
+              class="lucide lucide-brain"
               fill="none"
-              focusable="false"
-              height="20"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="3"
-              viewBox="0 0 48 48"
-              width="20"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M30.106 48v-2.745a2.213 2.213 0 012.213-2.212h6.11a2.392 2.392 0 002.326-2.466v-3.223a1.834 1.834 0 01.459-1.145 2.912 2.912 0 00.712-1.926l-.007-.667a1.016 1.016 0 01.651-.952h1.067a1.363 1.363 0 001.051-.456 1.304 1.304 0 00.19-1.395 67.032 67.032 0 01-3.037-7.51 4.767 4.767 0 01-.217-1.507l-.002-4.994a14.513 14.513 0 00-.552-3.963l-.006-.022a13.959 13.959 0 00-3.137-5.702q-.479-.516-1.006-1.003a17.67 17.67 0 00-.677-.623A18.303 18.303 0 0024.194 1a19.617 19.617 0 00-12.539 4.489 17.555 17.555 0 00-3.945 21.69C9.945 31.507 11.694 38.622 12.14 46v2"
-                stroke-miterlimit="10"
+                d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"
               />
               <path
-                d="M27.917 12L31.417 12"
+                d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"
               />
               <path
-                d="M27.917 26L31.417 26"
+                d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"
               />
               <path
-                d="M29.667 12L29.667 26"
+                d="M17.599 6.5a3 3 0 0 0 .399-1.375"
               />
               <path
-                d="M23.992 26L19.904 12 19.226 12 15.159 26"
+                d="M6.003 5.125A3 3 0 0 0 6.401 6.5"
               />
               <path
-                d="M16.854 21.133L22.276 21.133"
+                d="M3.477 10.896a4 4 0 0 1 .585-.396"
+              />
+              <path
+                d="M19.938 10.5a4 4 0 0 1 .585.396"
+              />
+              <path
+                d="M6 18a4 4 0 0 1-1.967-.516"
+              />
+              <path
+                d="M19.967 17.484A4 4 0 0 1 18 18"
               />
             </svg>
           </div>
@@ -1663,16 +1686,15 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
             class="memori-tooltip--trigger"
           >
             <svg
-              aria-hidden="true"
-              class="memori--start-privacy-explanation-icon"
+              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <circle
@@ -1681,10 +1703,10 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
                 r="10"
               />
               <path
-                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
               />
               <path
-                d="M12 17L12.01 17"
+                d="M12 17h.01"
               />
             </svg>
           </div>
@@ -1830,16 +1852,15 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
             class="memori-tooltip--trigger"
           >
             <svg
-              aria-hidden="true"
-              class="memori--start-privacy-explanation-icon"
+              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <circle
@@ -1848,10 +1869,10 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
                 r="10"
               />
               <path
-                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
               />
               <path
-                d="M12 17L12.01 17"
+                d="M12 17h.01"
               />
             </svg>
           </div>
@@ -1953,14 +1974,24 @@ exports[`renders StartPanel with login required unchanged 1`] = `
           class="memori-button__icon"
         >
           <svg
-            aria-hidden="true"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
+            class="lucide lucide-user"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M858.5 763.6a374 374 0 0 0-80.6-119.5 375.63 375.63 0 0 0-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 0 0-80.6 119.5A371.7 371.7 0 0 0 136 901.8a8 8 0 0 0 8 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 0 0 8-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z"
+              d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+            />
+            <circle
+              cx="12"
+              cy="7"
+              r="4"
             />
           </svg>
         </span>
@@ -2117,16 +2148,15 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
             class="memori-tooltip--trigger"
           >
             <svg
-              aria-hidden="true"
-              class="memori--start-privacy-explanation-icon"
+              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
               fill="none"
-              focusable="false"
-              role="img"
+              height="24"
               stroke="currentColor"
               stroke-linecap="round"
               stroke-linejoin="round"
-              stroke-width="1.5"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <circle
@@ -2135,10 +2165,10 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
                 r="10"
               />
               <path
-                d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
               />
               <path
-                d="M12 17L12.01 17"
+                d="M12 17h.01"
               />
             </svg>
           </div>
@@ -2240,15 +2270,24 @@ exports[`renders StartPanel with position required unchanged 1`] = `
           class="memori-button__icon"
         >
           <svg
-            aria-hidden="true"
-            focusable="false"
-            role="img"
-            viewBox="0 0 384 512"
+            class="lucide lucide-map-pin"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z"
-              fill="currentColor"
+              d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+            />
+            <circle
+              cx="12"
+              cy="10"
+              r="3"
             />
           </svg>
         </span>

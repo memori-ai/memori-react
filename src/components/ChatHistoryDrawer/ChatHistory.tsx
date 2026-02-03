@@ -17,19 +17,20 @@ import {
   ChatLogFilters,
 } from '@memori.ai/memori-api-client/dist/types';
 import { Card, Button } from '@memori.ai/ui';
-import ChatRound from '../icons/Chat';
+import {
+  MessageCircle,
+  Download,
+  ArrowUp,
+  ChevronLeft,
+  X,
+} from 'lucide-react';
 import { stripHTML } from '../../helpers/utils';
 import debounce from 'lodash/debounce';
 import { Spin } from '@memori.ai/ui';
 import Chat from '../Chat/Chat';
-import Download from '../icons/Download';
-import MessageIcon from '../icons/Message';
-import ArrowUpIcon from '../icons/ArrowUp';
 import { SelectBox } from '@memori.ai/ui';
-import ChevronLeft from '../icons/ChevronLeft';
 // Helpers / Utils
 import { getTranslation } from '../../helpers/translations';
-import Close from '../icons/Close';
 
 export interface Props {
   open: boolean;
@@ -743,7 +744,7 @@ const ChatHistoryDrawer = ({
     if (!chatLogs.length) {
       return (
         <div className="memori-chat-history-drawer--empty">
-          <ChatRound className="memori-chat-history-drawer--empty--icon" />
+          <MessageCircle className="memori-chat-history-drawer--empty--icon" />
           <p className="memori-chat-history-drawer--empty--text">
             {t('write_and_speak.noChatHistoryAvailable') ||
               'No chat history available'}
@@ -960,7 +961,7 @@ const ChatHistoryDrawer = ({
                             onClick={handleResumeChat}
                           >
                             <div className="memori-chat-history-drawer--card--content--resume-button--content">
-                              <ChatRound className="memori-chat-history-drawer--card--content--resume-button--icon" />
+                              <MessageCircle className="memori-chat-history-drawer--card--content--resume-button--icon" />
                               <span className="memori-chat-history-drawer--card--content--resume-button--text">
                                 {t('write_and_speak.resumeButton') ||
                                   'Resume chat'}

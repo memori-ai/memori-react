@@ -26,18 +26,19 @@ exports[`renders FeedbackButtons unchanged 1`] = `
             class="memori-button__icon"
           >
             <svg
-              aria-hidden="true"
-              focusable="false"
-              role="img"
+              class="lucide lucide-message-square"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
               viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M0 0h24v24H0V0z"
-                fill="none"
-              />
-              <path
-                d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H5.17l-.59.59-.58.58V4h16v12zm-9-4h2v2h-2zm0-6h2v4h-2z"
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
               />
             </svg>
           </span>

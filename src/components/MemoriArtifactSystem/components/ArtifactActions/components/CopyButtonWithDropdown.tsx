@@ -9,13 +9,15 @@ import { CopyButtonWithDropdownProps, CopyFormat } from '../types';
 import { useCopyArtifact } from '../hooks/useCopyArtifact';
 import CopyMenuItem from './CopyMenuItem';
 import { Button, Dropdown } from '@memori.ai/ui';
-import Copy from '../../../../icons/Copy';
-import ChevronDown from '../../../../icons/ChevronDown';
-import ThumbUp from '../../../../icons/ThumbUp';
-import Alert from '../../../../icons/Alert';
+import {
+  Copy,
+  ChevronDown,
+  ThumbsUp,
+  AlertTriangle,
+  Link as LinkIcon,
+  Printer,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import Link from '../../../../icons/Link';
-import PrintIcon from '../../../../icons/Print';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 
@@ -126,7 +128,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
     if (copyState.success) {
       return (
         <>
-          <ThumbUp className="memori-copy-button-icon memori-copy-button-icon--success" />
+          <ThumbsUp className="memori-copy-button-icon memori-copy-button-icon--success" />
           <span className="memori-copy-button-text">
             {t('artifact.copied') || 'Copied!'}
           </span>
@@ -137,7 +139,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
     if (copyState.error) {
       return (
         <>
-          <Alert className="memori-copy-button-icon memori-copy-button-icon--error" />
+          <AlertTriangle className="memori-copy-button-icon memori-copy-button-icon--error" />
           <span className="memori-copy-button-text">
             {t('artifact.error') || 'Error'}
           </span>

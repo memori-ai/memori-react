@@ -10,18 +10,19 @@ import { useTranslation } from 'react-i18next';
 import { SelectBox, Tooltip } from '@memori.ai/ui';
 import { getTranslation } from '../../helpers/translations';
 import { Button } from '@memori.ai/ui';
-import Translation from '../icons/Translation';
+import {
+  Languages,
+  Users,
+  Brain,
+  MapPin,
+  User as UserIconLucide,
+  HelpCircle,
+} from 'lucide-react';
 import { getGroupedChatLanguages } from '../../helpers/constants';
 import BlockedMemoriBadge from '../BlockedMemoriBadge/BlockedMemoriBadge';
-import AI from '../icons/AI';
-import Group from '../icons/Group';
-import DeepThought from '../icons/DeepThought';
 import CompletionProviderStatus, {
   Props as CPSProps,
 } from '../CompletionProviderStatus/CompletionProviderStatus';
-import MapMarker from '../icons/MapMarker';
-import UserIcon from '../icons/User';
-import QuestionHelp from '../icons/QuestionHelp';
 import { Expandable } from '@memori.ai/ui';
 
 interface Memori extends MemoriOriginal {
@@ -130,7 +131,7 @@ const StartPanel: React.FC<Props> = ({
           <div className="memori--board-of-experts">
             <Tooltip align="left" content={t('boardOfExperts')}>
               <span aria-label={t('boardOfExperts') || 'Board of Experts'}>
-                <Group />
+                <Users />
               </span>
             </Tooltip>
           </div>
@@ -185,7 +186,7 @@ const StartPanel: React.FC<Props> = ({
           <Button
             variant="primary"
             onClick={() => openPositionDrawer()}
-            icon={<MapMarker />}
+            icon={<MapPin />}
           >
             {t('widget.position')}
           </Button>
@@ -201,7 +202,7 @@ const StartPanel: React.FC<Props> = ({
             <Button
               variant="primary"
               onClick={() => setShowLoginDrawer(true)}
-              icon={<UserIcon />}
+              icon={<UserIconLucide />}
             >
               {t('login.login') || 'Login'}
             </Button>
@@ -221,7 +222,7 @@ const StartPanel: React.FC<Props> = ({
               {translatedDescription !== memori.description && (
                 <Button
                   variant="ghost"
-                  icon={<Translation />}
+                  icon={<Languages />}
                   onClick={() => toggleTranslations()}
                 >
                   {showTranslation
@@ -304,7 +305,7 @@ const StartPanel: React.FC<Props> = ({
                   </div>
                 }
               >
-                <QuestionHelp className="memori--start-privacy-explanation-icon" />
+                <HelpCircle className="memori--start-privacy-explanation-icon" />
               </Tooltip>
             </div>
 
@@ -364,7 +365,7 @@ const StartPanel: React.FC<Props> = ({
             {!!memori.enableDeepThought && !instruct && (
               <div className="memori--deep-thought-disclaimer">
                 <Tooltip align="left" content={t('deepThoughtHelper')}>
-                  <DeepThought />
+                  <Brain />
                 </Tooltip>
                 <h2>
                   {isUserLoggedIn && !!user?.pAndCUAccepted

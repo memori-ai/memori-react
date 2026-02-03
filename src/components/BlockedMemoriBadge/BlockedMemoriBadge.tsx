@@ -1,6 +1,6 @@
 import React from 'react';
 import { Tooltip } from '@memori.ai/ui';
-import Warning from '../icons/Warning';
+import { AlertTriangle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 export interface Props {
@@ -59,7 +59,7 @@ const BlockedMemoriBadge = ({
         <div
           className={`blocked-memori-badge ${marginLeft ? ` margin-left` : ''}`}
         >
-          <Warning className="blocked-memori-badge--icon" />
+          <AlertTriangle className="blocked-memori-badge--icon" />
         </div>
         {showTitle && (
           <span className="blocked-memori-badge--title">

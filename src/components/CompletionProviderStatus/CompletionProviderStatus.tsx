@@ -1,8 +1,6 @@
 import { useEffect, useState, useCallback } from 'react';
 import { Tooltip } from '@memori.ai/ui';
-import Warning from '../icons/Warning';
-import Alert from '../icons/Alert';
-import Info from '../icons/Info';
+import { AlertTriangle, Info } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Spin } from '@memori.ai/ui';
 
@@ -162,7 +160,7 @@ const CompletionProviderStatus = ({
     switch (status) {
       case 'major_outage':
         return {
-          Icon: Alert,
+          Icon: AlertTriangle,
           message: t('completionProviderMajorOutage', {
             provider: provider ?? t('completionProviderFallbackName'),
             fallback: t('completionProviderDown', {
@@ -173,7 +171,7 @@ const CompletionProviderStatus = ({
         };
       case 'partial_outage':
         return {
-          Icon: Warning,
+          Icon: AlertTriangle,
           message: t('completionProviderPartialOutage', {
             provider: provider ?? t('completionProviderFallbackName'),
             fallback: t('completionProviderDown', {

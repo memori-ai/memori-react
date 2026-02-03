@@ -5,9 +5,7 @@ import { Button, Drawer, Spin, Modal, Checkbox, SelectBox } from '@memori.ai/ui'
 import toast from 'react-hot-toast';
 import { getErrori18nKey } from '../../helpers/error';
 import { useTranslation } from 'react-i18next';
-import Delete from '../icons/Delete';
-import ChevronLeft from '../icons/ChevronLeft';
-import ChevronRight from '../icons/ChevronRight';
+import { Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export interface Props {
   apiClient: ReturnType<typeof memoriApiClient>;
@@ -102,7 +100,7 @@ const KnownFacts = ({
             }}
             className="memori-known-facts-delete-selected"
             disabled={selectedRowKeys?.length === 0}
-            icon={<Delete />}
+            icon={<Trash2 />}
             loading={loading}
           >
             {t('selected')} ({selectedRowKeys?.length})
@@ -294,7 +292,7 @@ const KnownFacts = ({
                   <div className="memori--table--action-column">
                     <Button
                       variant="danger"
-                      icon={<Delete />}
+                      icon={<Trash2 />}
                       disabled={selectedRowKeys?.length > 0}
                       title={t('delete') || 'Delete'}
                       onClick={() => setDeleteModalVisibleFor(kf.knownFactID)}

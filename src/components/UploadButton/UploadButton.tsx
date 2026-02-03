@@ -1,7 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { DocumentIcon } from '../icons/Document';
-import { ImageIcon } from '../icons/Image';
-import { UploadIcon } from '../icons/Upload';
+import { FileText as DocumentIcon, Image as ImageIcon, Upload as UploadIcon } from 'lucide-react';
 import { Spin, useAlertManager } from '@memori.ai/ui';
 import cx from 'classnames';
 import UploadDocuments from './UploadDocuments/UploadDocuments';

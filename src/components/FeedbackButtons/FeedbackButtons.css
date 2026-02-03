@@ -4,6 +4,10 @@
     transition: all 0.3s ease-in-out;
 }
 
+.memori-chat--feedback button.memori-header--button {
+    color: inherit;
+}
+
 .memori-chat--feedback button:hover,
 .memori-chat--feedback button:focus {
     opacity: 1;

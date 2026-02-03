@@ -23,7 +23,7 @@
 }
 
 .memori-chat-layout .memori-header {
-    display: inline-block;
+    display: inline-flex;
     width: auto;
 }
 

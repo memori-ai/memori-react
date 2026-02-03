@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
 import { Spin } from '@memori.ai/ui';
-import { DocumentIcon } from '../../icons/Document';
+import { FileText as DocumentIcon } from 'lucide-react';
 import { Modal } from '@memori.ai/ui';
 import { MAX_DOCUMENT_CONTENT_LENGTH } from '../../../helpers/constants';
 

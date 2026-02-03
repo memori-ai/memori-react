@@ -35,17 +35,22 @@ exports[`renders Auth on tokens unchanged 1`] = `
           class="memori-button__icon"
         >
           <svg
-            aria-hidden="true"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
+            class="lucide lucide-plus"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
+              d="M5 12h14"
             />
             <path
-              d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"
+              d="M12 5v14"
             />
           </svg>
         </span>

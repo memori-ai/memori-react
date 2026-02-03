@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Modal } from '@memori.ai/ui';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import Plus from '../icons/Plus';
+import { Plus } from 'lucide-react';
 
 export interface Props {
   pwdOrTokens: null | 'password' | 'tokens';

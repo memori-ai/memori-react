@@ -3,8 +3,7 @@ import { Spin } from '@memori.ai/ui';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { useTranslation } from 'react-i18next';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
-import QuestionHelp from '../icons/QuestionHelp';
-import Close from '../icons/Close';
+import { HelpCircle, X } from 'lucide-react';
 
 const HiddenChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -178,7 +177,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
           htmlFor="memori-sidebar-toggle"
           className="memori-sidebar-toggle-label memori-open-label"
         >
-          <QuestionHelp className="memori-icon" aria-label={t('expand')} />
+          <HelpCircle className="memori-icon" aria-label={t('expand') ?? undefined} />
         </label>
         
         <aside
@@ -191,7 +190,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
             className="memori-sidebar-toggle-label memori-close-label"
           >
             <span>
-              <Close className="memori-icon-close" aria-label={t('collapse')} />
+              <X className="memori-icon-close" aria-label={t('collapse') ?? undefined} />
             </span>
           </label>
           <div className="memori-sidebar-content">

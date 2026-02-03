@@ -24,16 +24,16 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
         for="memori-sidebar-toggle"
       >
         <svg
-          aria-hidden="true"
-          class="memori-icon"
+          aria-label="Espandi"
+          class="lucide lucide-circle-help memori-icon"
           fill="none"
-          focusable="false"
-          role="img"
+          height="24"
           stroke="currentColor"
           stroke-linecap="round"
           stroke-linejoin="round"
-          stroke-width="1.5"
+          stroke-width="2"
           viewBox="0 0 24 24"
+          width="24"
           xmlns="http://www.w3.org/2000/svg"
         >
           <circle
@@ -42,10 +42,10 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
             r="10"
           />
           <path
-            d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+            d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
           />
           <path
-            d="M12 17L12.01 17"
+            d="M12 17h.01"
           />
         </svg>
       </label>
@@ -58,18 +58,23 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
         >
           <span>
             <svg
-              aria-hidden="true"
-              class="memori-icon-close"
-              focusable="false"
-              role="img"
-              viewBox="0 0 1024 1024"
+              aria-label="Riduci"
+              class="lucide lucide-x memori-icon-close"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
-                d="M563.8 512l262.5-312.9c4.4-5.2.7-13.1-6.1-13.1h-79.8c-4.7 0-9.2 2.1-12.3 5.7L511.6 449.8 295.1 191.7c-3-3.6-7.5-5.7-12.3-5.7H203c-6.8 0-10.5 7.9-6.1 13.1L459.4 512 196.9 824.9A7.95 7.95 0 0 0 203 838h79.8c4.7 0 9.2-2.1 12.3-5.7l216.5-258.1 216.5 258.1c3 3.6 7.5 5.7 12.3 5.7h79.8c6.8 0 10.5-7.9 6.1-13.1L563.8 512z"
-                fill="currentColor"
-                stroke="none"
-                stroke-width="0"
+                d="M18 6 6 18"
+              />
+              <path
+                d="m6 6 12 12"
               />
             </svg>
           </span>
@@ -93,14 +98,25 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-hidden="true"
-                    focusable="false"
-                    role="img"
-                    viewBox="0 0 1024 1024"
+                    class="lucide lucide-volume2"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
-                      d="M625.9 115c-5.9 0-11.9 1.6-17.4 5.3L254 352H90c-8.8 0-16 7.2-16 16v288c0 8.8 7.2 16 16 16h164l354.5 231.7c5.5 3.6 11.6 5.3 17.4 5.3 16.7 0 32.1-13.3 32.1-32.1V147.1c0-18.8-15.4-32.1-32.1-32.1zM586 803L293.4 611.7l-18-11.7H146V424h129.4l17.9-11.7L586 221v582zm348-327H806c-8.8 0-16 7.2-16 16v40c0 8.8 7.2 16 16 16h128c8.8 0 16-7.2 16-16v-40c0-8.8-7.2-16-16-16zm-41.9 261.8l-110.3-63.7a15.9 15.9 0 00-21.7 5.9l-19.9 34.5c-4.4 7.6-1.8 17.4 5.8 21.8L856.3 800a15.9 15.9 0 0021.7-5.9l19.9-34.5c4.4-7.6 1.7-17.4-5.8-21.8zM760 344a15.9 15.9 0 0021.7 5.9L892 286.2c7.6-4.4 10.2-14.2 5.8-21.8L878 230a15.9 15.9 0 00-21.7-5.9L746 287.8a15.99 15.99 0 00-5.8 21.8L760 344z"
+                      d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                    />
+                    <path
+                      d="M16 9a5 5 0 0 1 0 6"
+                    />
+                    <path
+                      d="M19.364 18.364a9 9 0 0 0 0-12.728"
                     />
                   </svg>
                 </span>
@@ -121,14 +137,43 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                     class="memori-button--icon"
                   >
                     <svg
-                      aria-hidden="true"
-                      focusable="false"
-                      role="img"
-                      viewBox="0 0 1024 1024"
+                      class="lucide lucide-share2"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
                       xmlns="http://www.w3.org/2000/svg"
                     >
-                      <path
-                        d="M752 664c-28.5 0-54.8 10-75.4 26.7L469.4 540.8a160.68 160.68 0 0 0 0-57.6l207.2-149.9C697.2 350 723.5 360 752 360c66.2 0 120-53.8 120-120s-53.8-120-120-120-120 53.8-120 120c0 11.6 1.6 22.7 4.7 33.3L439.9 415.8C410.7 377.1 364.3 352 312 352c-88.4 0-160 71.6-160 160s71.6 160 160 160c52.3 0 98.7-25.1 127.9-63.8l196.8 142.5c-3.1 10.6-4.7 21.8-4.7 33.3 0 66.2 53.8 120 120 120s120-53.8 120-120-53.8-120-120-120zm0-476c28.7 0 52 23.3 52 52s-23.3 52-52 52-52-23.3-52-52 23.3-52 52-52zM312 600c-48.5 0-88-39.5-88-88s39.5-88 88-88 88 39.5 88 88-39.5 88-88 88zm440 236c-28.7 0-52-23.3-52-52s23.3-52 52-52 52 23.3 52 52-23.3 52-52 52z"
+                      <circle
+                        cx="18"
+                        cy="5"
+                        r="3"
+                      />
+                      <circle
+                        cx="6"
+                        cy="12"
+                        r="3"
+                      />
+                      <circle
+                        cx="18"
+                        cy="19"
+                        r="3"
+                      />
+                      <line
+                        x1="8.59"
+                        x2="15.42"
+                        y1="13.51"
+                        y2="17.49"
+                      />
+                      <line
+                        x1="15.41"
+                        x2="8.59"
+                        y1="6.51"
+                        y2="10.49"
                       />
                     </svg>
                   </div>
@@ -286,16 +331,15 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                       class="memori-tooltip--trigger"
                     >
                       <svg
-                        aria-hidden="true"
-                        class="memori--start-privacy-explanation-icon"
+                        class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
                         fill="none"
-                        focusable="false"
-                        role="img"
+                        height="24"
                         stroke="currentColor"
                         stroke-linecap="round"
                         stroke-linejoin="round"
-                        stroke-width="1.5"
+                        stroke-width="2"
                         viewBox="0 0 24 24"
+                        width="24"
                         xmlns="http://www.w3.org/2000/svg"
                       >
                         <circle
@@ -304,10 +348,10 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                           r="10"
                         />
                         <path
-                          d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"
+                          d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
                         />
                         <path
-                          d="M12 17L12.01 17"
+                          d="M12 17h.01"
                         />
                       </svg>
                     </div>

@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
 import { Spin } from '@memori.ai/ui';
-import { ImageIcon } from '../../icons/Image';
+import { Image as ImageIcon } from 'lucide-react';
 import { Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { Asset, Medium } from '@memori.ai/memori-api-client/dist/types';

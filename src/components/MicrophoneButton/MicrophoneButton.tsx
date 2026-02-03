@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Props as ChatInputProps } from '../ChatInputs/ChatInputs';
-import Microphone from '../icons/Microphone';
+import { Mic } from 'lucide-react';
 import { Button, Tooltip } from '@memori.ai/ui';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -109,7 +109,7 @@ const MicrophoneButton = ({
           onTouchEnd={handleTouchEnd}
           onMouseLeave={stopHold}
           shape="circle"
-          icon={<Microphone />}
+          icon={<Mic />}
         />
       </div>
     </Tooltip>

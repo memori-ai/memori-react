@@ -9,13 +9,15 @@ import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import { Button, Dropdown } from '@memori.ai/ui';
 import { ArtifactData } from '../../types/artifact.types';
-import Download from '../../../icons/Download';
-import Link from '../../../icons/Link';
-import Fullscreen from '../../../icons/Fullscreen';
-import FullscreenExit from '../../../icons/FullscreenExit';
-import PrintIcon from '../../../icons/Print';
+import {
+  Download,
+  Link as LinkIcon,
+  Maximize,
+  Minimize,
+  Printer,
+  MoreVertical,
+} from 'lucide-react';
 import { CopyButtonWithDropdown } from './';
-import MenuVertical from '../../../icons/MenuVertical';
 
 const ArtifactActions: React.FC<{
   artifact: ArtifactData;
@@ -197,7 +199,7 @@ const ArtifactActions: React.FC<{
                 variant="ghost"
                 title="More copy options"
               >
-                <MenuVertical className="memori-artifact-action-icon" />
+                <MoreVertical className="memori-artifact-action-icon" />
               </Button>
             </Dropdown.Trigger>
             <Dropdown.Menu className="memori-copy-dropdown" style={{ minWidth: '200px' }}>
@@ -207,7 +209,7 @@ const ArtifactActions: React.FC<{
                   disabled={loading}
                   className="memori-artifact-action-btn memori-artifact-action-btn--print"
                   variant="ghost"
-                  icon={<PrintIcon className="memori-artifact-action-icon" />}
+                  icon={<Printer className="memori-artifact-action-icon" />}
                   title={t('artifact.print') || 'Print'}
                 >
                   <span className="memori-artifact-action-text">
@@ -219,7 +221,7 @@ const ArtifactActions: React.FC<{
                   disabled={loading}
                   className="memori-artifact-action-btn memori-artifact-action-btn--external"
                   variant="ghost"
-                  icon={<Link className="memori-artifact-action-icon" />}
+                  icon={<LinkIcon className="memori-artifact-action-icon" />}
                   title={t('artifact.external') || 'External'}
                 >
                   <span className="memori-artifact-action-text">

@@ -1,15 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Facebook from '../icons/Facebook';
-import Twitter from '../icons/Twitter';
-import LinkedIn from '../icons/Linkedin';
-import WhatsApp from '../icons/WhatsApp';
-import Mail from '../icons/Mail';
-import Link from '../icons/Link';
-import Share from '../icons/Share';
-import Download from '../icons/Download';
-import Telegram from '../icons/Telegram';
-import FilePdf from '../icons/FilePdf';
+import {
+  Share2,
+  Mail,
+  Link as LinkIcon,
+  Download,
+  Send,
+  MessageCircle,
+  FileText,
+} from 'lucide-react';
 import { QRCodeCanvas } from 'qrcode.react';
 import { Button, Dropdown } from '@memori.ai/ui';
 import cx from 'classnames';
@@ -72,31 +71,31 @@ const ShareButton: React.FC<Props> = ({
       id: 'facebook',
       title: 'Facebook',
       url: `https://www.facebook.com/sharer/sharer.php?u=${targetUrl}`,
-      icon: Facebook,
+      icon: Share2,
     },
     {
       id: 'twitter',
       title: 'Twitter',
       url: `https://twitter.com/intent/tweet?url=${targetUrl}`,
-      icon: Twitter,
+      icon: Share2,
     },
     {
       id: 'linkedin',
       title: 'LinkedIn',
       url: `https://www.linkedin.com/shareArticle?mini=true&title=${title}&url=${targetUrl}`,
-      icon: LinkedIn,
+      icon: Share2,
     },
     {
       id: 'whatsapp',
       title: 'Whatsapp',
       url: `https://api.whatsapp.com/send?phone=&text=${targetUrl}`,
-      icon: WhatsApp,
+      icon: MessageCircle,
     },
     {
       id: 'telegram',
       title: 'Telegram',
       url: `https://t.me/share/url?text=${title}&url=${targetUrl}`,
-      icon: Telegram,
+      icon: Send,
     },
     {
       id: 'email',
@@ -275,7 +274,7 @@ const ShareButton: React.FC<Props> = ({
         title={t('widget.share') || undefined}
       >
         <div className="memori-button--icon">
-          <Share />
+          <Share2 />
         </div>
       </Dropdown.Trigger>
       <Dropdown.Menu className="memori-share-button--overlay">
@@ -304,7 +303,7 @@ const ShareButton: React.FC<Props> = ({
                 )}
               >
                 <div className="memori-button--icon">
-                  <Share />
+                  <Share2 />
                 </div>
                 {t('widget.shareChat') || 'Share chat'}
               </a>
@@ -316,7 +315,7 @@ const ShareButton: React.FC<Props> = ({
             <Dropdown.Item className="memori-share-button--link">
               <Button
                 variant="ghost"
-                icon={<FilePdf />}
+                icon={<FileText />}
                 onClick={handleExportPDF}
                 disabled={isExportingPDF}
                 className="memori-share-button--link"
@@ -337,7 +336,7 @@ const ShareButton: React.FC<Props> = ({
           >
             <Button
               variant="ghost"
-              icon={<Link />}
+              icon={<LinkIcon />}
               className="memori-share-button--link"
             >
               {t('copyToClipboard') || undefined}

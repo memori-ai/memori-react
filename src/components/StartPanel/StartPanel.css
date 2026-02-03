@@ -17,6 +17,11 @@
     font-size: 1.2rem;
 }
 
+.memori-select--button {
+    min-width: 7rem;
+    margin-left: 0.5rem;
+}
+
 .memori--start-panel {
     width: 100%;
     align-self: flex-start;

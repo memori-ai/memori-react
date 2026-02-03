@@ -17,31 +17,28 @@ exports[`renders UploadButton unchanged 1`] = `
       title="upload.uploadFiles"
     >
       <svg
-        class="memori--upload-icon"
+        class="lucide lucide-upload memori--upload-icon"
         fill="none"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
         viewBox="0 0 24 24"
+        width="24"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
+          d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
         />
-        <path
-          d="M17 8L12 3L7 8"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
+        <polyline
+          points="17 8 12 3 7 8"
         />
-        <path
-          d="M12 3V15"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="1.5"
+        <line
+          x1="12"
+          x2="12"
+          y1="3"
+          y2="15"
         />
       </svg>
     </button>
@@ -62,45 +59,31 @@ exports[`renders UploadButton unchanged 1`] = `
           title="Upload documents"
         >
           <svg
-            class="memori--upload-icon"
+            class="lucide lucide-file-text memori--upload-icon"
             fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
             viewBox="0 0 24 24"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M14 2.5H6C5.60218 2.5 5.22064 2.65804 4.93934 2.93934C4.65804 3.22064 4.5 3.60218 4.5 4V20C4.5 20.3978 4.65804 20.7794 4.93934 21.0607C5.22064 21.342 5.60218 21.5 6 21.5H18C18.3978 21.5 18.7794 21.342 19.0607 21.0607C19.342 20.7794 19.5 20.3978 19.5 20V8L14 2.5Z"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
+              d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
             />
             <path
-              d="M14 2.5V8H19.5"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-            />
-            <path
-              d="M16 13H8"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
-            />
-            <path
-              d="M16 17H8"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
+              d="M14 2v4a2 2 0 0 0 2 2h4"
             />
             <path
               d="M10 9H8"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
+            />
+            <path
+              d="M16 13H8"
+            />
+            <path
+              d="M16 17H8"
             />
           </svg>
         </button>
@@ -124,34 +107,32 @@ exports[`renders UploadButton unchanged 1`] = `
           disabled=""
         >
           <svg
-            class="memori--upload-icon"
+            class="lucide lucide-image memori--upload-icon"
             fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
             viewBox="0 0 24 24"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <rect
               height="18"
               rx="2"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
+              ry="2"
               width="18"
               x="3"
               y="3"
             />
             <circle
-              cx="8.5"
-              cy="8.5"
-              fill="currentColor"
-              r="1.5"
+              cx="9"
+              cy="9"
+              r="2"
             />
             <path
-              d="M21 15L16 10L5 21"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="1.5"
+              d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"
             />
           </svg>
         </button>
