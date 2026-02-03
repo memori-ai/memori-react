@@ -1,18 +1,4 @@
-@import url('./components/ui/Button.css');
-@import url('./components/ui/Card.css');
-@import url('./components/ui/Checkbox.css');
-@import url('./components/ui/ConfirmDialog.css');
-@import url('./components/ui/Drawer.css');
-@import url('./components/ui/Modal.css');
-@import url('./components/ui/Spin.css');
-@import url('./components/ui/Tooltip.css');
-@import url('./components/ui/Select.css');
-@import url('./components/ui/Table.css');
-@import url('./components/ui/Details.css');
-@import url('./components/ui/Expandable.css');
-@import url('./components/ui/Slider.css');
-@import url('./components/ui/Alert.css');
-@import url('./components/ui/Dropdown.css');
+@import url('@memori.ai/ui/dist/memori-ai-ui.css');
 
 @import url('./components/CompletionProviderStatus/CompletionProviderStatus.css');
 @import url('./components/PoweredBy/PoweredBy.css');

@@ -3,15 +3,14 @@
 exports[`renders ShareButton aligned left unchanged 1`] = `
 <div>
   <div
-    class="memori-share-button memori-share-button--align-left"
-    data-headlessui-state=""
+    class="memori-dropdown memori-share-button memori-share-button--align-left"
   >
     <button
       aria-expanded="false"
-      aria-haspopup="true"
-      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
-      data-headlessui-state=""
-      id="headlessui-menu-button-:ra:"
+      aria-haspopup="menu"
+      class="memori-dropdown__trigger memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
+      id="base-ui-:r12:"
+      tabindex="0"
       title="widget.share"
       type="button"
     >
@@ -38,15 +37,14 @@ exports[`renders ShareButton aligned left unchanged 1`] = `
 exports[`renders ShareButton unchanged 1`] = `
 <div>
   <div
-    class="memori-share-button"
-    data-headlessui-state=""
+    class="memori-dropdown memori-share-button"
   >
     <button
       aria-expanded="false"
-      aria-haspopup="true"
-      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
-      data-headlessui-state=""
-      id="headlessui-menu-button-:r0:"
+      aria-haspopup="menu"
+      class="memori-dropdown__trigger memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
+      id="base-ui-:r4:"
+      tabindex="0"
       title="widget.share"
       type="button"
     >
@@ -73,15 +71,14 @@ exports[`renders ShareButton unchanged 1`] = `
 exports[`renders ShareButton with button not primary unchanged 1`] = `
 <div>
   <div
-    class="memori-share-button"
-    data-headlessui-state=""
+    class="memori-dropdown memori-share-button"
   >
     <button
       aria-expanded="false"
-      aria-haspopup="true"
-      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button"
-      data-headlessui-state=""
-      id="headlessui-menu-button-:r6:"
+      aria-haspopup="menu"
+      class="memori-dropdown__trigger memori-button memori-button--circle memori-button--icon-only memori-share-button--button"
+      id="base-ui-:rm:"
+      tabindex="0"
       title="widget.share"
       type="button"
     >
@@ -108,15 +105,14 @@ exports[`renders ShareButton with button not primary unchanged 1`] = `
 exports[`renders ShareButton with other tenant img set unchanged 1`] = `
 <div>
   <div
-    class="memori-share-button"
-    data-headlessui-state=""
+    class="memori-dropdown memori-share-button"
   >
     <button
       aria-expanded="false"
-      aria-haspopup="true"
-      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
-      data-headlessui-state=""
-      id="headlessui-menu-button-:re:"
+      aria-haspopup="menu"
+      class="memori-dropdown__trigger memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
+      id="base-ui-:r1e:"
+      tabindex="0"
       title="widget.share"
       type="button"
     >
@@ -143,15 +139,14 @@ exports[`renders ShareButton with other tenant img set unchanged 1`] = `
 exports[`renders ShareButton with share chat unchanged 1`] = `
 <div>
   <div
-    class="memori-share-button"
-    data-headlessui-state=""
+    class="memori-dropdown memori-share-button"
   >
     <button
       aria-expanded="false"
-      aria-haspopup="true"
-      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
-      data-headlessui-state=""
-      id="headlessui-menu-button-:rg:"
+      aria-haspopup="menu"
+      class="memori-dropdown__trigger memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
+      id="base-ui-:r1k:"
+      tabindex="0"
       title="widget.share"
       type="button"
     >
@@ -178,15 +173,14 @@ exports[`renders ShareButton with share chat unchanged 1`] = `
 exports[`renders ShareButton with tenant img set unchanged 1`] = `
 <div>
   <div
-    class="memori-share-button"
-    data-headlessui-state=""
+    class="memori-dropdown memori-share-button"
   >
     <button
       aria-expanded="false"
-      aria-haspopup="true"
-      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
-      data-headlessui-state=""
-      id="headlessui-menu-button-:rc:"
+      aria-haspopup="menu"
+      class="memori-dropdown__trigger memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
+      id="base-ui-:r18:"
+      tabindex="0"
       title="widget.share"
       type="button"
     >
@@ -213,15 +207,14 @@ exports[`renders ShareButton with tenant img set unchanged 1`] = `
 exports[`renders ShareButton with title unchanged 1`] = `
 <div>
   <div
-    class="memori-share-button"
-    data-headlessui-state=""
+    class="memori-dropdown memori-share-button"
   >
     <button
       aria-expanded="false"
-      aria-haspopup="true"
-      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
-      data-headlessui-state=""
-      id="headlessui-menu-button-:r4:"
+      aria-haspopup="menu"
+      class="memori-dropdown__trigger memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
+      id="base-ui-:rg:"
+      tabindex="0"
       title="widget.share"
       type="button"
     >
@@ -248,15 +241,14 @@ exports[`renders ShareButton with title unchanged 1`] = `
 exports[`renders ShareButton with url unchanged 1`] = `
 <div>
   <div
-    class="memori-share-button"
-    data-headlessui-state=""
+    class="memori-dropdown memori-share-button"
   >
     <button
       aria-expanded="false"
-      aria-haspopup="true"
-      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
-      data-headlessui-state=""
-      id="headlessui-menu-button-:r2:"
+      aria-haspopup="menu"
+      class="memori-dropdown__trigger memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
+      id="base-ui-:ra:"
+      tabindex="0"
       title="widget.share"
       type="button"
     >
@@ -283,15 +275,14 @@ exports[`renders ShareButton with url unchanged 1`] = `
 exports[`renders ShareButton without qr code unchanged 1`] = `
 <div>
   <div
-    class="memori-share-button"
-    data-headlessui-state=""
+    class="memori-dropdown memori-share-button"
   >
     <button
       aria-expanded="false"
-      aria-haspopup="true"
-      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
-      data-headlessui-state=""
-      id="headlessui-menu-button-:r8:"
+      aria-haspopup="menu"
+      class="memori-dropdown__trigger memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
+      id="base-ui-:rs:"
+      tabindex="0"
       title="widget.share"
       type="button"
     >

@@ -6,11 +6,13 @@ exports[`renders Header for board of experts unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--chat-history"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="write_and_speak.chatHistory"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -26,12 +28,15 @@ exports[`renders Header for board of experts unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--experts"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--disabled memori-button--icon-only"
+      data-disabled=""
       disabled=""
+      tabindex="0"
       title="widget.showExpertsInTheBoard"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -54,11 +59,13 @@ exports[`renders Header for board of experts unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="widget.sound"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -74,11 +81,13 @@ exports[`renders Header for board of experts unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-login"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-header--button memori-header--button-login"
+      tabindex="0"
       title="login.login"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -103,11 +112,13 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--chat-history"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="write_and_speak.chatHistory"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -123,11 +134,13 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--experts"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="widget.showExpertsInTheBoard"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -150,11 +163,13 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="widget.sound"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -170,11 +185,13 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-login"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-header--button memori-header--button-login"
+      tabindex="0"
       title="login.login"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -199,11 +216,13 @@ exports[`renders Header unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="widget.sound"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -219,11 +238,13 @@ exports[`renders Header unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-login"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-header--button memori-header--button-login"
+      tabindex="0"
       title="login.login"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -248,11 +269,13 @@ exports[`renders Header with audio disabled unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-login"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-header--button memori-header--button-login"
+      tabindex="0"
       title="login.login"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -277,11 +300,13 @@ exports[`renders Header with clear button unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--clear"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="clearHistory"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -297,11 +322,13 @@ exports[`renders Header with clear button unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="widget.sound"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -317,11 +344,13 @@ exports[`renders Header with clear button unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-login"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-header--button memori-header--button-login"
+      tabindex="0"
       title="login.login"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -346,11 +375,13 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--chat-history"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="write_and_speak.chatHistory"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -366,11 +397,13 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="widget.sound"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -386,11 +419,13 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-login"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-header--button memori-header--button-login"
+      tabindex="0"
       title="login.login"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -415,11 +450,13 @@ exports[`renders Header with deep thought logged but without permission flag unc
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--chat-history"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="write_and_speak.chatHistory"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -435,11 +472,13 @@ exports[`renders Header with deep thought logged but without permission flag unc
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="widget.sound"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -455,17 +494,24 @@ exports[`renders Header with deep thought logged but without permission flag unc
       </span>
     </button>
     <div
-      class="memori-dropdown"
+      class="memori-dropdown memori-header--dropdown"
     >
-      <div
-        class="memori-dropdown--trigger"
+      <button
+        aria-expanded="false"
+        aria-haspopup="menu"
+        class="memori-dropdown__trigger"
+        id="base-ui-:ra:"
+        tabindex="0"
+        type="button"
       >
         <button
-          class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-login"
+          class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-header--button memori-header--button-login"
+          tabindex="0"
           title="login.user"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
               aria-hidden="true"
@@ -480,7 +526,7 @@ exports[`renders Header with deep thought logged but without permission flag unc
             </svg>
           </span>
         </button>
-      </div>
+      </button>
     </div>
   </div>
 </div>
@@ -492,11 +538,13 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--chat-history"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="write_and_speak.chatHistory"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -512,12 +560,15 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
       </span>
     </button>
     <button
-      class="memori-button memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--knownfacts"
+      class="memori-button memori-button--outline memori-button--md memori-button--circle memori-button--disabled memori-button--icon-only"
+      data-disabled=""
       disabled=""
+      tabindex="0"
       title="knownFacts.title"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -556,11 +607,13 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="widget.sound"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -576,17 +629,24 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
       </span>
     </button>
     <div
-      class="memori-dropdown"
+      class="memori-dropdown memori-header--dropdown"
     >
-      <div
-        class="memori-dropdown--trigger"
+      <button
+        aria-expanded="false"
+        aria-haspopup="menu"
+        class="memori-dropdown__trigger"
+        id="base-ui-:rg:"
+        tabindex="0"
+        type="button"
       >
         <button
-          class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-login"
+          class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-header--button memori-header--button-login"
+          tabindex="0"
           title="login.user"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
               aria-hidden="true"
@@ -601,7 +661,7 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
             </svg>
           </span>
         </button>
-      </div>
+      </button>
     </div>
   </div>
 </div>
@@ -613,11 +673,13 @@ exports[`renders Header with deep thought unlogged unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="widget.sound"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -633,11 +695,13 @@ exports[`renders Header with deep thought unlogged unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-login"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-header--button memori-header--button-login"
+      tabindex="0"
       title="login.login"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -670,11 +734,13 @@ exports[`renders Header with position unchanged 1`] = `
         Berlin
       </span>
       <button
-        class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--position"
+        class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-header--button memori-header--button--position"
+        tabindex="0"
         title="widget.position"
+        type="button"
       >
         <span
-          class="memori-button--icon"
+          class="memori-button__icon"
         >
           <svg
             aria-hidden="true"
@@ -692,11 +758,13 @@ exports[`renders Header with position unchanged 1`] = `
       </button>
     </div>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="widget.sound"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -712,11 +780,13 @@ exports[`renders Header with position unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-login"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-header--button memori-header--button-login"
+      tabindex="0"
       title="login.login"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -741,11 +811,13 @@ exports[`renders Header with settings button unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="widget.sound"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -761,11 +833,13 @@ exports[`renders Header with settings button unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-login"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-header--button memori-header--button-login"
+      tabindex="0"
       title="login.login"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -790,11 +864,13 @@ exports[`renders Header with share button unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="widget.sound"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -810,15 +886,14 @@ exports[`renders Header with share button unchanged 1`] = `
       </span>
     </button>
     <div
-      class="memori-share-button memori-share-button--align-left"
-      data-headlessui-state=""
+      class="memori-dropdown memori-share-button memori-share-button--align-left"
     >
       <button
         aria-expanded="false"
-        aria-haspopup="true"
-        class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-header--button memori-header--button-share memori-button--primary"
-        data-headlessui-state=""
-        id="headlessui-menu-button-:r0:"
+        aria-haspopup="menu"
+        class="memori-dropdown__trigger memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
+        id="base-ui-:r4:"
+        tabindex="0"
         title="widget.share"
         type="button"
       >
@@ -840,11 +915,13 @@ exports[`renders Header with share button unchanged 1`] = `
       </button>
     </div>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-login"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-header--button memori-header--button-login"
+      tabindex="0"
       title="login.login"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -869,11 +946,13 @@ exports[`renders Header with speaker muted unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker memori-header--button--speaker-muted"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="widget.sound"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -891,11 +970,13 @@ exports[`renders Header with speaker muted unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-login"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-header--button memori-header--button-login"
+      tabindex="0"
       title="login.login"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -920,11 +1001,13 @@ exports[`renders Header with user activated speak unchanged 1`] = `
     class="memori-header"
   >
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+      tabindex="0"
       title="widget.sound"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"
@@ -940,11 +1023,13 @@ exports[`renders Header with user activated speak unchanged 1`] = `
       </span>
     </button>
     <button
-      class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button-login"
+      class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-header--button memori-header--button-login"
+      tabindex="0"
       title="login.login"
+      type="button"
     >
       <span
-        class="memori-button--icon"
+        class="memori-button__icon"
       >
         <svg
           aria-hidden="true"

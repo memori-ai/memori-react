@@ -3,51 +3,32 @@
 exports[`renders ChangeMode in instruct mode unchanged 1`] = `
 <div>
   <div
+    aria-label="widget.instruct"
     class="memori--changeMode-instruct"
+    role="radiogroup"
   >
-    <input
-      checked=""
-      hidden=""
-      name="instruct"
-      readonly=""
-      style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
-      type="radio"
-      value="instruct"
-    />
-    <div
-      class="memori--changeMode-instruct-radio"
-      id="headlessui-radiogroup-:r3:"
-      role="radiogroup"
+    <button
+      class="memori-button memori-button--primary memori-button--md memori--changeMode-instruct-radio-button memori--changeMode-instruct-radio-button--selected"
+      tabindex="0"
+      type="button"
     >
-      <div
-        aria-checked="true"
-        class="memori--changeMode-instruct-radio-button"
-        data-headlessui-state="checked"
-        id="headlessui-radiogroup-option-:r4:"
-        role="radio"
-        tabindex="0"
+      <span
+        class="memori-button__content"
       >
-        <button
-          class="memori-button memori-button--primary memori-button--rounded memori-button--padded"
-        >
-          widget.instruct
-        </button>
-      </div>
-      <div
-        aria-checked="false"
-        class="memori--changeMode-instruct-radio-button"
-        data-headlessui-state=""
-        id="headlessui-radiogroup-option-:r5:"
-        role="radio"
-        tabindex="-1"
+        widget.instruct
+      </span>
+    </button>
+    <button
+      class="memori-button memori-button--outline memori-button--md memori--changeMode-instruct-radio-button"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="memori-button__content"
       >
-        <button
-          class="memori-button memori-button--rounded memori-button--padded"
-        >
-          widget.test
-        </button>
-      </div>
-    </div>
+        widget.test
+      </span>
+    </button>
   </div>
 </div>
 `;
@@ -55,51 +36,32 @@ exports[`renders ChangeMode in instruct mode unchanged 1`] = `
 exports[`renders ChangeMode in test mode unchanged 1`] = `
 <div>
   <div
+    aria-label="widget.instruct"
     class="memori--changeMode-instruct"
+    role="radiogroup"
   >
-    <input
-      checked=""
-      hidden=""
-      name="instruct"
-      readonly=""
-      style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
-      type="radio"
-      value="test"
-    />
-    <div
-      class="memori--changeMode-instruct-radio"
-      id="headlessui-radiogroup-:r0:"
-      role="radiogroup"
+    <button
+      class="memori-button memori-button--outline memori-button--md memori--changeMode-instruct-radio-button"
+      tabindex="0"
+      type="button"
     >
-      <div
-        aria-checked="false"
-        class="memori--changeMode-instruct-radio-button"
-        data-headlessui-state=""
-        id="headlessui-radiogroup-option-:r1:"
-        role="radio"
-        tabindex="-1"
+      <span
+        class="memori-button__content"
       >
-        <button
-          class="memori-button memori-button--rounded memori-button--padded"
-        >
-          widget.instruct
-        </button>
-      </div>
-      <div
-        aria-checked="true"
-        class="memori--changeMode-instruct-radio-button"
-        data-headlessui-state="checked"
-        id="headlessui-radiogroup-option-:r2:"
-        role="radio"
-        tabindex="0"
+        widget.instruct
+      </span>
+    </button>
+    <button
+      class="memori-button memori-button--primary memori-button--md memori--changeMode-instruct-radio-button memori--changeMode-instruct-radio-button--selected"
+      tabindex="0"
+      type="button"
+    >
+      <span
+        class="memori-button__content"
       >
-        <button
-          class="memori-button memori-button--primary memori-button--rounded memori-button--padded"
-        >
-          widget.test
-        </button>
-      </div>
-    </div>
+        widget.test
+      </span>
+    </button>
   </div>
 </div>
 `;

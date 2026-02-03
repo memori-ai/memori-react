@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import File from '../icons/File';
 import CloseIcon from '../icons/Close';
-import Button from '../ui/Button';
+import { Button } from '@memori.ai/ui';
 import ContentPreviewModal from '../ContentPreviewModal';
 import Snippet from '../Snippet/Snippet';
 import { stripHTML, stripDocumentAttachmentTags } from '../../helpers/utils';
@@ -157,13 +157,13 @@ FilePreviewProps) => {
 
                 {allowRemove && (
                   <Button
-                    shape="rounded"
+                    shape="circle"
                     icon={<CloseIcon />}
                     danger
                     className={`memori--remove-button ${
                       hoveredId === file.id ? 'visible' : ''
                     }`}
-                    onClick={e => {
+                    onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                       e.stopPropagation();
                       removeFile(file.id, file?.mediumID);
                     }}

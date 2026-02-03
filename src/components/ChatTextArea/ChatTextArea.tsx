@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
-import Button from '../ui/Button';
+import { Button } from '@memori.ai/ui';
 import Expand from '../icons/Expand';
 import FullscreenExit from '../icons/FullscreenExit';
 import { useTranslation } from 'react-i18next';

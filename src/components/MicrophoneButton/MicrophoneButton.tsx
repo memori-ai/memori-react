@@ -1,8 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Props as ChatInputProps } from '../ChatInputs/ChatInputs';
 import Microphone from '../icons/Microphone';
-import Button from '../ui/Button';
-import Tooltip from '../ui/Tooltip';
+import { Button, Tooltip } from '@memori.ai/ui';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 
@@ -95,7 +94,7 @@ const MicrophoneButton = ({
     >
       <div onContextMenu={handleContextMenu}>
         <Button
-          primary
+          variant="primary"
           className={cx('memori-chat-inputs--mic', {
             'memori-chat-inputs--mic--listening': listening,
           })}

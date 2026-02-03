@@ -1,7 +1,6 @@
 import { User, Tenant } from '@memori.ai/memori-api-client/dist/types';
 import React, { useEffect, useState } from 'react';
-import Button from '../ui/Button';
-import Drawer from '../ui/Drawer';
+import { Button, Drawer } from '@memori.ai/ui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
@@ -390,7 +389,7 @@ const LoginDrawer = ({
               <p className="memori--login-drawer--inline-error">{error}</p>
             )}
 
-            <Button htmlType="submit" primary loading={loading}>
+            <Button type="submit" variant="primary" loading={loading}>
               {t('login.save')}
             </Button>
           </form>
@@ -468,7 +467,7 @@ const LoginDrawer = ({
             {!otpSuccess && (
               <div className="memori--login-drawer--otp-actions">
                 <Button
-                  outlined
+                  variant="outline"
                   onClick={() => {
                     setShowOtpCodeForm(false);
                     setOtpCode('');
@@ -480,7 +479,7 @@ const LoginDrawer = ({
                 </Button>
 
                 <Button
-                  outlined
+                  variant="outline"
                   onClick={handleResendOtp}
                   disabled={
                     loading ||
@@ -557,7 +556,7 @@ const LoginDrawer = ({
 
             <div className="memori--login-drawer--otp-actions">
              {showOtpCodeForm && <Button
-                outlined
+                variant="outline"
                 onClick={() => {
                   setShowOtpForm(false);
                   setOtpEmail('');
@@ -570,7 +569,7 @@ const LoginDrawer = ({
               </Button>}
 
               <Button
-                primary
+                variant="primary"
                 onClick={() => {
                   sendOtpToEmail(otpEmail);
                 }}

@@ -157,9 +157,6 @@ exports[`renders UploadButton unchanged 1`] = `
         </button>
       </div>
     </div>
-    <div
-      class="memori--error-message-container"
-    />
   </div>
 </div>
 `;

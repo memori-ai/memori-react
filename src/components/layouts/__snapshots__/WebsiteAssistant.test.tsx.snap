@@ -15,35 +15,41 @@ exports[`renders WEBSITE_ASSISTANT layout unchanged 1`] = `
       class="memori-website_assistant--trigger"
     >
       <button
-        class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-website_assistant--trigger-button"
+        class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-website_assistant--trigger-button"
+        tabindex="0"
         title="Espandi"
+        type="button"
       >
-        <div
-          class="memori-blob"
+        <span
+          class="memori-button__content"
         >
-          <figure>
-            <img
-              alt=""
-              role="presentation"
-              src="https://aisuru.com/images/aisuru/square_logo.png"
+          <div
+            class="memori-blob"
+          >
+            <figure>
+              <img
+                alt=""
+                role="presentation"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </figure>
+            <div
+              class="mainDiv"
             />
-          </figure>
-          <div
-            class="mainDiv"
-          />
-          <div
-            class="mainDiv"
-          />
-          <div
-            class="mainDiv"
-          />
-          <div
-            class="mainDiv"
-          />
-          <div
-            class="mainDiv"
-          />
-        </div>
+            <div
+              class="mainDiv"
+            />
+            <div
+              class="mainDiv"
+            />
+            <div
+              class="mainDiv"
+            />
+            <div
+              class="mainDiv"
+            />
+          </div>
+        </span>
       </button>
     </div>
     <div

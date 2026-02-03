@@ -7,7 +7,7 @@
 import React, { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
-import Button from '../../../ui/Button';
+import { Button } from '@memori.ai/ui';
 import { ArtifactData, ArtifactTab } from '../../types/artifact.types';
 import Code from '../../../icons/Code';
 import { PreviewIcon } from '../../../icons/Preview';

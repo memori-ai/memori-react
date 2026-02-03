@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Spin from '../ui/Spin';
+import { Spin } from '@memori.ai/ui';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { useTranslation } from 'react-i18next';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
@@ -220,7 +220,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
               </div>
             ) : (
               <div className="memori-loading">
-                <Spin />
+                <Spin spinning />
               </div>
             )}
           </div>

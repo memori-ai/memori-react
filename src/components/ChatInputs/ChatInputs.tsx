@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
-import Button from '../ui/Button';
+import { Button } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import Send from '../icons/Send';
 import MicrophoneButton from '../MicrophoneButton/MicrophoneButton';

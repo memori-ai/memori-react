@@ -2,7 +2,7 @@ import {
   ExpertReference,
   Tenant,
 } from '@memori.ai/memori-api-client/dist/types';
-import Drawer from '../ui/Drawer';
+import { Drawer } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import { getResourceUrl } from '../../helpers/media';
 

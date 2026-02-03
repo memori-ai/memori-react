@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
-import Spin from '../../ui/Spin';
+import { Spin } from '@memori.ai/ui';
 import { DocumentIcon } from '../../icons/Document';
-import Modal from '../../ui/Modal';
+import { Modal } from '@memori.ai/ui';
 import { MAX_DOCUMENT_CONTENT_LENGTH } from '../../../helpers/constants';
 
 // Types

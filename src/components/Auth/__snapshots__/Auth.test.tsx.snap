@@ -27,10 +27,12 @@ exports[`renders Auth on tokens unchanged 1`] = `
         />
       </label>
       <button
-        class="memori-button memori-button--rounded memori-button--padded memori-button--with-icon memori-auth-widget--token-add"
+        class="memori-button memori-button--primary memori-button--md memori-auth-widget--token-add"
+        tabindex="0"
+        type="button"
       >
         <span
-          class="memori-button--icon"
+          class="memori-button__icon"
         >
           <svg
             aria-hidden="true"
@@ -47,20 +49,35 @@ exports[`renders Auth on tokens unchanged 1`] = `
             />
           </svg>
         </span>
-        auth.addToken
+        <span
+          class="memori-button__content"
+        >
+          auth.addToken
+        </span>
       </button>
       <hr />
       <button
-        class="memori-button memori-button--outlined memori-button--rounded memori-button--padded"
+        class="memori-button memori-button--outline memori-button--md"
+        tabindex="0"
+        type="button"
       >
-        auth.usePassword
+        <span
+          class="memori-button__content"
+        >
+          auth.usePassword
+        </span>
       </button>
     </fieldset>
     <button
-      class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori-auth-widget--submit"
+      class="memori-button memori-button--primary memori-button--md memori-auth-widget--submit"
+      tabindex="0"
       type="submit"
     >
-      confirm
+      <span
+        class="memori-button__content"
+      >
+        confirm
+      </span>
     </button>
   </form>
 </div>
@@ -88,21 +105,25 @@ exports[`renders Auth unchanged 1`] = `
       </label>
     </fieldset>
     <button
-      class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori-auth-widget--submit"
+      class="memori-button memori-button--primary memori-button--md memori-auth-widget--submit"
+      tabindex="0"
       type="submit"
     >
-      confirm
+      <span
+        class="memori-button__content"
+      >
+        confirm
+      </span>
     </button>
   </form>
 </div>
 `;
 
 exports[`renders Auth with modal unchanged 1`] = `
-<div>
-  <div
-    style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
-  />
-</div>
+<div
+  aria-hidden="true"
+  data-base-ui-inert=""
+/>
 `;
 
 exports[`renders Auth with tokens unchanged 1`] = `
@@ -127,16 +148,27 @@ exports[`renders Auth with tokens unchanged 1`] = `
       </label>
       <hr />
       <button
-        class="memori-button memori-button--outlined memori-button--rounded memori-button--padded"
+        class="memori-button memori-button--outline memori-button--md"
+        tabindex="0"
+        type="button"
       >
-        auth.useRecoveryTokens
+        <span
+          class="memori-button__content"
+        >
+          auth.useRecoveryTokens
+        </span>
       </button>
     </fieldset>
     <button
-      class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori-auth-widget--submit"
+      class="memori-button memori-button--primary memori-button--md memori-auth-widget--submit"
+      tabindex="0"
       type="submit"
     >
-      confirm
+      <span
+        class="memori-button__content"
+      >
+        confirm
+      </span>
     </button>
   </form>
 </div>

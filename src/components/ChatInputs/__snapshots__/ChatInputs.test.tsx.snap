@@ -60,11 +60,13 @@ exports[`renders ChatInputs disabled unchanged 1`] = `
               >
                 <div>
                   <button
-                    class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
+                    class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-chat-inputs--mic"
+                    tabindex="0"
                     title="write_and_speak.micButtonPopover"
+                    type="button"
                   >
                     <span
-                      class="memori-button--icon"
+                      class="memori-button__icon"
                     >
                       <svg
                         aria-hidden="true"
@@ -167,11 +169,13 @@ exports[`renders ChatInputs listening unchanged 1`] = `
               >
                 <div>
                   <button
-                    class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic memori-chat-inputs--mic--listening"
+                    class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-chat-inputs--mic memori-chat-inputs--mic--listening"
+                    tabindex="0"
                     title="write_and_speak.micButtonPopoverListening"
+                    type="button"
                   >
                     <span
-                      class="memori-button--icon"
+                      class="memori-button__icon"
                     >
                       <svg
                         aria-hidden="true"
@@ -274,11 +278,13 @@ exports[`renders ChatInputs on instruct unchanged 1`] = `
               >
                 <div>
                   <button
-                    class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
+                    class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-chat-inputs--mic"
+                    tabindex="0"
                     title="write_and_speak.micButtonPopover"
+                    type="button"
                   >
                     <span
-                      class="memori-button--icon"
+                      class="memori-button__icon"
                     >
                       <svg
                         aria-hidden="true"
@@ -379,11 +385,13 @@ exports[`renders ChatInputs unchanged 1`] = `
               >
                 <div>
                   <button
-                    class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
+                    class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-chat-inputs--mic"
+                    tabindex="0"
                     title="write_and_speak.micButtonPopover"
+                    type="button"
                   >
                     <span
-                      class="memori-button--icon"
+                      class="memori-button__icon"
                     >
                       <svg
                         aria-hidden="true"
@@ -487,11 +495,13 @@ exports[`renders ChatInputs with user message unchanged 1`] = `
               >
                 <div>
                   <button
-                    class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-chat-inputs--mic"
+                    class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-chat-inputs--mic"
+                    tabindex="0"
                     title="write_and_speak.micButtonPopover"
+                    type="button"
                   >
                     <span
-                      class="memori-button--icon"
+                      class="memori-button__icon"
                     >
                       <svg
                         aria-hidden="true"

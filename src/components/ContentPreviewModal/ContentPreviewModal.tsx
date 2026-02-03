@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import Modal from '../ui/Modal';
+import { Modal } from '@memori.ai/ui';
 import cx from 'classnames';
 
 export interface ContentPreviewModalProps {

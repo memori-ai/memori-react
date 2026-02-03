@@ -25,11 +25,13 @@ exports[`renders SnippetUpload with css code 1`] = `
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
               aria-hidden="true"
@@ -86,11 +88,13 @@ exports[`renders SnippetUpload with html code 1`] = `
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
               aria-hidden="true"
@@ -147,11 +151,13 @@ exports[`renders SnippetUpload with js code 1`] = `
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
               aria-hidden="true"
@@ -232,11 +238,13 @@ exports[`renders SnippetUpload with js code without line numbers 1`] = `
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
               aria-hidden="true"
@@ -337,11 +345,13 @@ export default Snippet;
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
               aria-hidden="true"
@@ -442,11 +452,13 @@ export default Snippet;
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
               aria-hidden="true"
@@ -503,11 +515,13 @@ exports[`renders SnippetUpload with text 1`] = `
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
               aria-hidden="true"
@@ -564,11 +578,13 @@ exports[`renders SnippetUpload with text as fallback 1`] = `
         class="memori-snippet--copy-wrapper"
       >
         <button
-          class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
+          class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+          tabindex="0"
           title="copy"
+          type="button"
         >
           <span
-            class="memori-button--icon"
+            class="memori-button__icon"
           >
             <svg
               aria-hidden="true"

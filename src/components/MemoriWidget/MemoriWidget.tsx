@@ -48,7 +48,7 @@ import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import KnownFacts from '../KnownFacts/KnownFacts';
 import ExpertsDrawer from '../ExpertsDrawer/ExpertsDrawer';
 import LoginDrawer from '../LoginDrawer/LoginDrawer';
-import Button from '../ui/Button';
+import { Button } from '@memori.ai/ui';
 import CloseIcon from '../icons/Close';
 
 // Layout
@@ -1364,18 +1364,13 @@ const MemoriWidget = ({
             <div>
               <p>{t(getErrori18nKey(session?.resultCode))}</p>
               <Button
-                outlined
-                padded={false}
+                variant="outline"
                 onClick={() => toast.dismiss(tst.id)}
                 icon={<CloseIcon />}
-              >
-                {t('close')}
-              </Button>
+              />
             </div>
           ),
-          {
-            duration: Infinity,
-          }
+          { duration: Infinity }
         );
         setGotErrorInOpening(true);
         return session;

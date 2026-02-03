@@ -17,10 +17,8 @@ import { getTranslation } from '../../helpers/translations';
 import { prismSyntaxLangs } from '../../helpers/constants';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
 import Snippet from '../Snippet/Snippet';
-import Card from '../ui/Card';
-import Modal from '../ui/Modal';
+import { Card, Modal } from '@memori.ai/ui';
 import File from '../icons/File';
-import { Transition } from '@headlessui/react';
 import cx from 'classnames';
 import Sound from '../icons/Sound';
 import Link from '../icons/Link';
@@ -850,7 +848,7 @@ const MediaItemWidget: React.FC<Props> = ({
 
   // Render transitions and the main grid layouts for media
   return (
-    <Transition appear show as="div" className="memori-media-items">
+    <div className="memori-media-items">
       {/* Main media grid: non-code media (images, files, html, video, etc) */}
       {nonCodeDisplayMedia.length > 0 && (
         <div
@@ -863,16 +861,9 @@ const MediaItemWidget: React.FC<Props> = ({
           })}
         >
           {nonCodeDisplayMedia.map((item, index) => (
-            <Transition.Child
+            <div
               key={`media-${index}-${item.mediumID ?? item.url ?? 'n'}`}
-              as="div"
               className="memori-media-item"
-              enter={`ease-out duration-500 delay-${index * 100}`}
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-1 scale-100"
-              leave="ease-in duration-300"
-              leaveFrom="opacity-1 scale-100"
-              leaveTo="opacity-0 scale-95"
             >
               <RenderMediaItem
                 isChild
@@ -892,7 +883,7 @@ const MediaItemWidget: React.FC<Props> = ({
                 descriptionOneLine={descriptionOneLine}
                 onLinkPreviewInfo={onLinkPreviewInfo}
               />
-            </Transition.Child>
+            </div>
           ))}
         </div>
       )}
@@ -906,16 +897,9 @@ const MediaItemWidget: React.FC<Props> = ({
           })}
         >
           {codeSnippets.map((item, index) => (
-            <Transition.Child
+            <div
               key={`snippet-${index}-${item.mediumID ?? item.url ?? 'n'}`}
-              as="div"
               className="memori-media-item"
-              enter={`ease-out duration-500 delay-${index * 100}`}
-              enterFrom="opacity-0 scale-95"
-              enterTo="opacity-1 scale-100"
-              leave="ease-in duration-300"
-              leaveFrom="opacity-1 scale-100"
-              leaveTo="opacity-0 scale-95"
             >
               <RenderSnippetItem
                 sessionID={sessionID}
@@ -931,7 +915,7 @@ const MediaItemWidget: React.FC<Props> = ({
                   type: 'document',
                 }}
               />
-            </Transition.Child>
+            </div>
           ))}
         </div>
       )}
@@ -959,7 +943,7 @@ const MediaItemWidget: React.FC<Props> = ({
           onMediumClick={handleModalNavigate}
         />
       )}
-    </Transition>
+    </div>
   );
 };
 

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '../ui/Button';
-import Modal from '../ui/Modal';
+import { Button, Modal } from '@memori.ai/ui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Plus from '../icons/Plus';
 
@@ -114,7 +113,7 @@ export const AuthWidget = ({
           {showTokens && (
             <>
               <hr />
-              <Button outlined onClick={() => setPwdOrTokens('tokens')}>
+              <Button variant="outline" onClick={() => setPwdOrTokens('tokens')}>
                 {t('auth.useRecoveryTokens') || 'Recovery tokens'}
               </Button>
             </>
@@ -150,7 +149,7 @@ export const AuthWidget = ({
           </Button>
 
           <hr />
-          <Button outlined onClick={() => setPwdOrTokens('password')}>
+          <Button variant="outline" onClick={() => setPwdOrTokens('password')}>
             {t('auth.usePassword') || 'Password'}
           </Button>
         </fieldset>
@@ -174,8 +173,8 @@ export const AuthWidget = ({
       )}
 
       <Button
-        htmlType="submit"
-        primary
+        type="submit"
+        variant="primary"
         className="memori-auth-widget--submit"
         loading={isSubmitting}
       >
@@ -188,8 +187,8 @@ export const AuthWidget = ({
     <Modal
       open={openModal || showModal}
       title={t('auth.title') || 'Authentication'}
-      onClose={() => setPwdOrTokens(null)}
-      closable={false}
+      closable={true}
+      onOpenChange={() => setPwdOrTokens(null)}
     >
       {form}
     </Modal>

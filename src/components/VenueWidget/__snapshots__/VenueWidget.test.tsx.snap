@@ -20,26 +20,35 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
           class="memori--venue-widget-search"
         >
           <input
-            aria-expanded="false"
             class="memori--venue-widget-search--input"
-            data-headlessui-state=""
-            id="headlessui-combobox-input-:r1:"
             placeholder="searchVenue"
-            role="combobox"
             type="text"
+            value="Altedo, Bologna, Italy"
           />
         </div>
         <button
-          class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
+          class="memori-button memori-button--primary memori-button--md memori--venue-widget__gps-button"
+          tabindex="0"
+          type="button"
         >
-          write_and_speak.useMyPosition
+          <span
+            class="memori-button__content"
+          >
+            write_and_speak.useMyPosition
+          </span>
         </button>
       </div>
       <div>
         <button
-          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__no-location-button"
+          class="memori-button memori-button--outline memori-button--md memori--venue-widget__no-location-button"
+          tabindex="0"
+          type="button"
         >
-          write_and_speak.dontWantToProvidePosition
+          <span
+            class="memori-button__content"
+          >
+            write_and_speak.dontWantToProvidePosition
+          </span>
         </button>
       </div>
     </div>
@@ -98,26 +107,35 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
           class="memori--venue-widget-search"
         >
           <input
-            aria-expanded="false"
             class="memori--venue-widget-search--input"
-            data-headlessui-state=""
-            id="headlessui-combobox-input-:r2:"
             placeholder="searchVenue"
-            role="combobox"
             type="text"
+            value="Altedo, Bologna, Italy"
           />
         </div>
         <button
-          class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
+          class="memori-button memori-button--primary memori-button--md memori--venue-widget__gps-button"
+          tabindex="0"
+          type="button"
         >
-          write_and_speak.useMyPosition
+          <span
+            class="memori-button__content"
+          >
+            write_and_speak.useMyPosition
+          </span>
         </button>
       </div>
       <div>
         <button
-          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__no-location-button"
+          class="memori-button memori-button--outline memori-button--md memori--venue-widget__no-location-button"
+          tabindex="0"
+          type="button"
         >
-          write_and_speak.dontWantToProvidePosition
+          <span
+            class="memori-button__content"
+          >
+            write_and_speak.dontWantToProvidePosition
+          </span>
         </button>
       </div>
     </div>
@@ -176,21 +194,24 @@ exports[`renders VenueWidget without gps button unchanged 1`] = `
           class="memori--venue-widget-search"
         >
           <input
-            aria-expanded="false"
             class="memori--venue-widget-search--input"
-            data-headlessui-state=""
-            id="headlessui-combobox-input-:r4:"
             placeholder="searchVenue"
-            role="combobox"
             type="text"
+            value="Altedo, Bologna, Italy"
           />
         </div>
       </div>
       <div>
         <button
-          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__no-location-button"
+          class="memori-button memori-button--outline memori-button--md memori--venue-widget__no-location-button"
+          tabindex="0"
+          type="button"
         >
-          write_and_speak.dontWantToProvidePosition
+          <span
+            class="memori-button__content"
+          >
+            write_and_speak.dontWantToProvidePosition
+          </span>
         </button>
       </div>
     </div>
@@ -249,26 +270,35 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
           class="memori--venue-widget-search"
         >
           <input
-            aria-expanded="false"
             class="memori--venue-widget-search--input"
-            data-headlessui-state=""
-            id="headlessui-combobox-input-:r3:"
             placeholder="searchVenue"
-            role="combobox"
             type="text"
+            value="Altedo, Bologna, Italy"
           />
         </div>
         <button
-          class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
+          class="memori-button memori-button--primary memori-button--md memori--venue-widget__gps-button"
+          tabindex="0"
+          type="button"
         >
-          write_and_speak.useMyPosition
+          <span
+            class="memori-button__content"
+          >
+            write_and_speak.useMyPosition
+          </span>
         </button>
       </div>
       <div>
         <button
-          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__no-location-button"
+          class="memori-button memori-button--outline memori-button--md memori--venue-widget__no-location-button"
+          tabindex="0"
+          type="button"
         >
-          write_and_speak.dontWantToProvidePosition
+          <span
+            class="memori-button__content"
+          >
+            write_and_speak.dontWantToProvidePosition
+          </span>
         </button>
       </div>
     </div>
@@ -327,26 +357,35 @@ exports[`renders empty VenueWidget unchanged 1`] = `
           class="memori--venue-widget-search"
         >
           <input
-            aria-expanded="false"
             class="memori--venue-widget-search--input"
-            data-headlessui-state=""
-            id="headlessui-combobox-input-:r0:"
             placeholder="searchVenue"
-            role="combobox"
             type="text"
+            value=""
           />
         </div>
         <button
-          class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--venue-widget__gps-button"
+          class="memori-button memori-button--primary memori-button--md memori--venue-widget__gps-button"
+          tabindex="0"
+          type="button"
         >
-          write_and_speak.useMyPosition
+          <span
+            class="memori-button__content"
+          >
+            write_and_speak.useMyPosition
+          </span>
         </button>
       </div>
       <div>
         <button
-          class="memori-button memori-button--outlined memori-button--rounded memori-button--padded memori--venue-widget__no-location-button"
+          class="memori-button memori-button--outline memori-button--md memori--venue-widget__no-location-button"
+          tabindex="0"
+          type="button"
         >
-          write_and_speak.dontWantToProvidePosition
+          <span
+            class="memori-button__content"
+          >
+            write_and_speak.dontWantToProvidePosition
+          </span>
         </button>
       </div>
     </div>

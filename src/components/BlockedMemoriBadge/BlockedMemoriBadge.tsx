@@ -1,5 +1,5 @@
 import React from 'react';
-import Tooltip from '../ui/Tooltip';
+import { Tooltip } from '@memori.ai/ui';
 import Warning from '../icons/Warning';
 import { useTranslation } from 'react-i18next';
 

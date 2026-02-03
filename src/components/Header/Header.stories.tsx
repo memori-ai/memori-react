@@ -6,7 +6,7 @@ import Header, { Props } from './Header';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import LoginDrawer from '../LoginDrawer/LoginDrawer'; 
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
-
+import memoriApiClient from '@memori.ai/memori-api-client';
 import './Header.css';
 
 const meta: Meta = {
@@ -73,11 +73,7 @@ const Template: Story<Props> = args => {
           setShowLoginDrawer(false);
         }}
         onLogout={() => setShowLoginDrawer(false)}
-        apiClient={
-          {
-            backend: {},
-          } as any
-        }
+        apiClient={memoriApiClient()}
       />
       </ArtifactProvider>
     </I18nWrapper>

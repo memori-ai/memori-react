@@ -1,5 +1,5 @@
 import React from 'react';
-import Spin from '../ui/Spin';
+import { Spin } from '@memori.ai/ui';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 
 const TotemLayout: React.FC<LayoutProps> = ({

@@ -96,6 +96,10 @@
       }
     ]
   },
+  "resolutions": {
+    "eslint-scope": "5.1.1",
+    "esbuild": "^0.24.0"
+  },
   "eslintIgnore": [
     "/node_modules",
     "/build"
@@ -286,15 +290,16 @@
     "stylelint-config-recommended": "9.0.0",
     "ts-jest": "29.0.3",
     "tslib": "2.4.1",
-    "typescript": "4.9.3"
+    "typescript": "^5.0.0"
   },
   "peerDependencies": {
     "react": ">=16",
     "typescript": ">=4.8"
   },
   "dependencies": {
-    "@headlessui/react": "1.7.4",
+    "@base-ui/react": "^1.0.0",
     "@memori.ai/memori-api-client": "6.17.0",
+    "@memori.ai/ui": "^1.2.0",
     "@react-three/drei": "8.20.2",
     "@react-three/fiber": "7.0.25",
     "classnames": "2.5.1",

@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
-import Button from '../ui/Button';
-import Modal from '../ui/Modal';
+import { Button, Modal } from '@memori.ai/ui';
 import { DateTime } from 'luxon';
 import DateSelector from '../DateSelector/DateSelector';
 import { useCallback, useState } from 'react';
@@ -50,8 +49,7 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
       widthMd="600px"
       title={t('ageVerification')}
       className="age-verification-modal"
-      closable
-      onClose={() => onClose()}
+      closable={false}
     >
       <p>{t('ageVerificationText', { minAge })}</p>
 
@@ -80,8 +78,8 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
         </div>
         <div className="form-item form-submit">
           <Button
-            primary
-            htmlType="submit"
+            variant="primary"
+            type="submit"
             className="age-verification-submit"
             loading={submitting}
             disabled={!birthDate}

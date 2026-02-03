@@ -3,15 +3,14 @@
 exports[`renders SendOnEnterMenu on click unchanged 1`] = `
 <div>
   <div
-    class="memori-send-on-enter-menu"
-    data-headlessui-state=""
+    class="memori-dropdown memori-send-on-enter-menu"
   >
     <button
       aria-expanded="false"
-      aria-haspopup="true"
-      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
-      data-headlessui-state=""
-      id="headlessui-menu-button-:r0:"
+      aria-haspopup="menu"
+      class="memori-dropdown__trigger memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
+      id="base-ui-:r4:"
+      tabindex="0"
       type="button"
     >
       <div
@@ -31,15 +30,14 @@ exports[`renders SendOnEnterMenu on click unchanged 1`] = `
 exports[`renders SendOnEnterMenu on keypress unchanged 1`] = `
 <div>
   <div
-    class="memori-send-on-enter-menu"
-    data-headlessui-state=""
+    class="memori-dropdown memori-send-on-enter-menu"
   >
     <button
       aria-expanded="false"
-      aria-haspopup="true"
-      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
-      data-headlessui-state=""
-      id="headlessui-menu-button-:r2:"
+      aria-haspopup="menu"
+      class="memori-dropdown__trigger memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
+      id="base-ui-:ra:"
+      tabindex="0"
       type="button"
     >
       <div

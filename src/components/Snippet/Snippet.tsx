@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Medium } from '@memori.ai/memori-api-client/dist/types';
-import Button from '../ui/Button';
+import { Button } from '@memori.ai/ui';
 import Copy from '../icons/Copy';
 import { prismSyntaxLangs } from '../../helpers/constants';
 import { useTranslation } from 'react-i18next';
@@ -131,12 +131,12 @@ const Snippet = ({
               <span className="memori-snippet--copied-text">{t('copied') || 'Copied!'}</span>
             )}
             <Button
-              padded={false}
-              ghost
+              variant="ghost"
+              shape="circle"
               className="memori-snippet--copy-button"
               title={t('copy') || 'Copy'}
               icon={<Copy />}
-              onClick={handleCopy}
+              onMouseDown={handleCopy}
             />
           </div>
         )}

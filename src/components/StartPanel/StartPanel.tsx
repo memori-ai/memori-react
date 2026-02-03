@@ -7,9 +7,9 @@ import {
 import React, { useState, useEffect } from 'react';
 import { getResourceUrl } from '../../helpers/media';
 import { useTranslation } from 'react-i18next';
-import Tooltip from '../ui/Tooltip';
+import { SelectBox, Tooltip } from '@memori.ai/ui';
 import { getTranslation } from '../../helpers/translations';
-import Button from '../ui/Button';
+import { Button } from '@memori.ai/ui';
 import Translation from '../icons/Translation';
 import { getGroupedChatLanguages } from '../../helpers/constants';
 import BlockedMemoriBadge from '../BlockedMemoriBadge/BlockedMemoriBadge';
@@ -22,7 +22,7 @@ import CompletionProviderStatus, {
 import MapMarker from '../icons/MapMarker';
 import UserIcon from '../icons/User';
 import QuestionHelp from '../icons/QuestionHelp';
-import Expandable from '../ui/Expandable';
+import { Expandable } from '@memori.ai/ui';
 
 interface Memori extends MemoriOriginal {
   requireLoginToken?: boolean;
@@ -183,9 +183,8 @@ const StartPanel: React.FC<Props> = ({
             {t('write_and_speak.requirePositionHelp', { name: memori.name })}
           </p>
           <Button
-            primary
+            variant="primary"
             onClick={() => openPositionDrawer()}
-            className="memori--start-button"
             icon={<MapMarker />}
           >
             {t('widget.position')}
@@ -200,9 +199,8 @@ const StartPanel: React.FC<Props> = ({
               {t('write_and_speak.requirePositionHelp', { name: memori.name })}
             </p>
             <Button
-              primary
+              variant="primary"
               onClick={() => setShowLoginDrawer(true)}
-              className="memori--start-button"
               icon={<UserIcon />}
             >
               {t('login.login') || 'Login'}
@@ -222,8 +220,7 @@ const StartPanel: React.FC<Props> = ({
 
               {translatedDescription !== memori.description && (
                 <Button
-                  ghost
-                  className="memori--translation-toggle"
+                  variant="ghost"
                   icon={<Translation />}
                   onClick={() => toggleTranslations()}
                 >
@@ -234,45 +231,28 @@ const StartPanel: React.FC<Props> = ({
               )}
             </p>
 
-            {isMultilanguageEnabled && !instruct && (
+          {isMultilanguageEnabled && !instruct && (
               <div className="memori--language-chooser">
                 <label id="user-lang-pref-label" htmlFor="user-lang-pref">
                   {t('write_and_speak.iWantToTalkToIn', {
                     name: memori.name,
                   })}
                 </label>
-                <select
-                  id="user-lang-pref"
+                <SelectBox
+                  name="user-lang-pref"
                   className="memori-select--button"
-                  value={(userLang ?? i18n.language).toUpperCase()}
-                  aria-labelledby="user-lang-pref-label"
-                  onChange={e => {
-                    setUserLang(e.target.value);
+                  value={userLang ?? i18n.language}
+                  onChange={(value: string | null) => {
+                    if (value) {
+                      setUserLang(value);
+                    }
                   }}
-                >
-                  <optgroup label={t('popularLanguages') || 'Popular'}>
-                    {getGroupedChatLanguages().popular.map(lang => (
-                      <option
-                        key={`popular-${lang.value}`}
-                        value={lang.value}
-                        aria-label={lang.label}
-                      >
-                        {lang.label}
-                      </option>
-                    ))}
-                  </optgroup>
-                  <optgroup label={t('allLanguages') || 'All Languages'}>
-                    {getGroupedChatLanguages().all.map(lang => (
-                      <option
-                        key={`all-${lang.value}`}
-                        value={lang.value}
-                        aria-label={lang.label}
-                      >
-                        {lang.label}
-                      </option>
-                    ))}
-                  </optgroup>
-                </select>
+                  placeholder={t('write_and_speak.iWantToTalkToIn') || 'I want to talk to Memori in'}
+                  options={getGroupedChatLanguages().popular.map(lang => ({
+                    label: lang.label,
+                    value: lang.value,
+                  }))}
+                />
               </div>
             )}
 
@@ -329,12 +309,12 @@ const StartPanel: React.FC<Props> = ({
             </div>
 
             <Button
-              primary
+              variant="primary"
               disabled={
                 (!!memori.blockedUntil && !memori.isGiver) || notEnoughCredits
               }
               loading={clickedStart}
-              onClick={_e => {
+              onClick={(_e: React.MouseEvent<HTMLButtonElement>) => {
                 try {
                   window.speechSynthesis.speak(
                     new SpeechSynthesisUtterance('') // This is needed to enable the speech synthesis on iOS
@@ -400,8 +380,7 @@ const StartPanel: React.FC<Props> = ({
                 {!isUserLoggedIn && showLogin && (
                   <p>
                     <Button
-                      outlined
-                      padded={false}
+                      variant="outline"
                       onClick={() => setShowLoginDrawer(true)}
                     >
                       {t('login.login') || 'Login'}

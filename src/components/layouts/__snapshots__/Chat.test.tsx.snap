@@ -67,11 +67,13 @@ exports[`renders Chat layout unchanged 1`] = `
           class="memori-header"
         >
           <button
-            class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
+            class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+            tabindex="0"
             title="Suono"
+            type="button"
           >
             <span
-              class="memori-button--icon"
+              class="memori-button__icon"
             >
               <svg
                 aria-hidden="true"
@@ -87,15 +89,14 @@ exports[`renders Chat layout unchanged 1`] = `
             </span>
           </button>
           <div
-            class="memori-share-button memori-share-button--align-left"
-            data-headlessui-state=""
+            class="memori-dropdown memori-share-button memori-share-button--align-left"
           >
             <button
               aria-expanded="false"
-              aria-haspopup="true"
-              class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-header--button memori-header--button-share memori-button--primary"
-              data-headlessui-state=""
-              id="headlessui-menu-button-:r0:"
+              aria-haspopup="menu"
+              class="memori-dropdown__trigger memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-button--primary"
+              id="base-ui-:r4:"
+              tabindex="0"
               title="Condividi"
               type="button"
             >
@@ -157,7 +158,7 @@ exports[`renders Chat layout unchanged 1`] = `
                   class="memori-expandable memori--description-text"
                 >
                   <div
-                    class="memori-expandable--inner"
+                    class="memori-expandable__inner"
                     style="max-height: 9999px;"
                   >
                     Lorem ipsum.
@@ -173,182 +174,55 @@ exports[`renders Chat layout unchanged 1`] = `
                 >
                   Voglio parlare con Memori in
                 </label>
-                <select
-                  aria-labelledby="user-lang-pref-label"
-                  class="memori-select--button"
-                  id="user-lang-pref"
+                <div
+                  class="memori-select memori-select--button"
                 >
-                  <optgroup
-                    label="Popolari"
+                  <button
+                    aria-expanded="false"
+                    aria-haspopup="listbox"
+                    class="memori-select__trigger"
+                    id="base-ui-:r6:"
+                    role="combobox"
+                    tabindex="0"
+                    type="button"
                   >
-                    <option
-                      aria-label="English"
-                      value="EN"
+                    <span
+                      class="memori-select__value"
+                      data-placeholder="Voglio parlare con {{name}} in"
                     >
-                      English
-                    </option>
-                    <option
-                      aria-label="Italiano"
-                      value="IT"
+                      IT
+                    </span>
+                    <span
+                      aria-hidden="true"
+                      class="memori-select__icon"
                     >
-                      Italiano
-                    </option>
-                  </optgroup>
-                  <optgroup
-                    label="Tutte le lingue"
-                  >
-                    <option
-                      aria-label="العربية"
-                      value="AR"
-                    >
-                      العربية
-                    </option>
-                    <option
-                      aria-label="български"
-                      value="BG"
-                    >
-                      български
-                    </option>
-                    <option
-                      aria-label="Čeština / český jazyk"
-                      value="CS"
-                    >
-                      Čeština / český jazyk
-                    </option>
-                    <option
-                      aria-label="Dansk"
-                      value="DA"
-                    >
-                      Dansk
-                    </option>
-                    <option
-                      aria-label="Deutsch"
-                      value="DE"
-                    >
-                      Deutsch
-                    </option>
-                    <option
-                      aria-label="Ελληνικά"
-                      value="EL"
-                    >
-                      Ελληνικά
-                    </option>
-                    <option
-                      aria-label="Español"
-                      value="ES"
-                    >
-                      Español
-                    </option>
-                    <option
-                      aria-label="Eesti keel"
-                      value="ET"
-                    >
-                      Eesti keel
-                    </option>
-                    <option
-                      aria-label="Suomi"
-                      value="FI"
-                    >
-                      Suomi
-                    </option>
-                    <option
-                      aria-label="Français"
-                      value="FR"
-                    >
-                      Français
-                    </option>
-                    <option
-                      aria-label="Hrvatski"
-                      value="HR"
-                    >
-                      Hrvatski
-                    </option>
-                    <option
-                      aria-label="Magyar"
-                      value="HU"
-                    >
-                      Magyar
-                    </option>
-                    <option
-                      aria-label="日本語"
-                      value="JA"
-                    >
-                      日本語
-                    </option>
-                    <option
-                      aria-label="Lietuvių kalba"
-                      value="LT"
-                    >
-                      Lietuvių kalba
-                    </option>
-                    <option
-                      aria-label="Latvian"
-                      value="LV"
-                    >
-                      Latvian
-                    </option>
-                    <option
-                      aria-label="Nederlands"
-                      value="NL"
-                    >
-                      Nederlands
-                    </option>
-                    <option
-                      aria-label="Polski"
-                      value="PL"
-                    >
-                      Polski
-                    </option>
-                    <option
-                      aria-label="Português"
-                      value="PT"
-                    >
-                      Português
-                    </option>
-                    <option
-                      aria-label="Română"
-                      value="RO"
-                    >
-                      Română
-                    </option>
-                    <option
-                      aria-label="Русский"
-                      value="RU"
-                    >
-                      Русский
-                    </option>
-                    <option
-                      aria-label="Slovenčina"
-                      value="SK"
-                    >
-                      Slovenčina
-                    </option>
-                    <option
-                      aria-label="Slovenščina"
-                      value="SL"
-                    >
-                      Slovenščina
-                    </option>
-                    <option
-                      aria-label="Svenska"
-                      value="SV"
-                    >
-                      Svenska
-                    </option>
-                    <option
-                      aria-label="Українська"
-                      value="UK"
-                    >
-                      Українська
-                    </option>
-                    <option
-                      aria-label="中文"
-                      value="ZH"
-                    >
-                      中文
-                    </option>
-                  </optgroup>
-                </select>
+                      <svg
+                        aria-hidden="true"
+                        class="lucide lucide-chevron-down"
+                        fill="none"
+                        height="16"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="m6 9 6 6 6-6"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                  <input
+                    aria-hidden="true"
+                    name="user-lang-pref"
+                    style="clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px; position: absolute;"
+                    tabindex="-1"
+                    value="IT"
+                  />
+                </div>
               </div>
               <div
                 class="memori--start-privacy-explanation-container"
@@ -422,9 +296,15 @@ exports[`renders Chat layout unchanged 1`] = `
                 </div>
               </div>
               <button
-                class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori--start-button"
+                class="memori-button memori-button--primary memori-button--md memori--start-button"
+                tabindex="0"
+                type="button"
               >
-                INIZIAMO
+                <span
+                  class="memori-button__content"
+                >
+                  INIZIAMO
+                </span>
               </button>
               <div
                 class="memori--completion-provider-status--loading"
@@ -433,20 +313,32 @@ exports[`renders Chat layout unchanged 1`] = `
                   class="memori-spin memori-spin--spinning"
                 >
                   <div
-                    class="memori-spin--spinner"
+                    aria-label="Loading"
+                    aria-live="polite"
+                    class="memori-spin__overlay"
+                    role="status"
                   >
-                    <svg
-                      aria-hidden="true"
-                      class="memori-loading-icon"
-                      focusable="false"
-                      role="img"
-                      viewBox="0 0 1024 1024"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <div
+                      class="memori-spin__container"
                     >
-                      <path
-                        d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                      />
-                    </svg>
+                      <svg
+                        aria-hidden="true"
+                        class="lucide lucide-loader-circle memori-spin__icon"
+                        fill="none"
+                        height="24"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M21 12a9 9 0 1 1-6.219-8.56"
+                        />
+                      </svg>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -458,22 +350,6 @@ exports[`renders Chat layout unchanged 1`] = `
             </div>
           </div>
         </div>
-      </div>
-      <div
-        class="memori-spin--spinner"
-      >
-        <svg
-          aria-hidden="true"
-          class="memori-loading-icon"
-          focusable="false"
-          role="img"
-          viewBox="0 0 1024 1024"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-          />
-        </svg>
       </div>
     </div>
     <audio

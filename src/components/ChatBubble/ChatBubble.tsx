@@ -8,15 +8,14 @@ import {
   User,
 } from '@memori.ai/memori-api-client/dist/types';
 import { Props as MemoriProps } from '../MemoriWidget/MemoriWidget';
-import { Transition } from '@headlessui/react';
 import { getResourceUrl } from '../../helpers/media';
 import UserIcon from '../icons/User';
 import AI from '../icons/AI';
 import Translation from '../icons/Translation';
-import Tooltip from '../ui/Tooltip';
+import { Tooltip } from '@memori.ai/ui';
 import FeedbackButtons from '../FeedbackButtons/FeedbackButtons';
 import { useTranslation } from 'react-i18next';
-import Button from '../ui/Button';
+import { Button } from '@memori.ai/ui';
 import QuestionHelp from '../icons/QuestionHelp';
 import Copy from '../icons/Copy';
 import Code from '../icons/Code';
@@ -24,8 +23,7 @@ import Bug from '../icons/Bug';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
 import { stripHTML, stripOutputTags } from '../../helpers/utils';
 import { renderMsg, truncateMessage } from '../../helpers/message';
-import Expandable from '../ui/Expandable';
-import Modal from '../ui/Modal';
+import { Expandable, Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
 
 // Always import and load MathJax
@@ -240,23 +238,13 @@ const ChatBubble: React.FC<Props> = ({
   // Render system error messages as red warning messages
   if (isSystemError) {
     return (
-      <Transition
-        show
-        appear
-        as="div"
+      <div
         className={cx('memori-chat--bubble-container memori-chat-scroll-item', {
           'memori-chat--bubble-from-user': false,
         })}
       >
-        <Transition.Child
-          as="picture"
+        <picture
           className="memori-chat--bubble-avatar"
-          enter="transition ease-in-out duration-300"
-          enterFrom={`opacity-0 scale-075 translate-x--15`}
-          enterTo="opacity-1 scale-1 translate-x-0"
-          leave="transition ease-in-out duration-300"
-          leaveFrom="opacity-1 scale-1 translate-x-0"
-          leaveTo={`opacity-0 scale-075 translate-x--15`}
           title={
             !!message.emitter?.length && !!memori.enableBoardOfExperts
               ? message.emitter
@@ -314,21 +302,18 @@ const ChatBubble: React.FC<Props> = ({
               e.currentTarget.onerror = null;
             }}
           />
-        </Transition.Child>
+        </picture>
         <div className="memori-chat--bubble memori-chat--bubble-status-message-error">
           <div className="memori-chat--bubble-message ">{cleanText}</div>
         </div>
-      </Transition>
+      </div>
     );
   }
 
   return (
     <>
       {showInitialDivider && <div className="memori-chat--bubble-initial" />}
-      <Transition
-        show
-        appear
-        as="div"
+      <div
         className={cx('memori-chat--bubble-container memori-chat-scroll-item', {
           'memori-chat--bubble-from-user': !!message.fromUser,
           'memori-chat--with-addon':
@@ -337,19 +322,8 @@ const ChatBubble: React.FC<Props> = ({
         })}
       >
         {!message.fromUser && (
-          <Transition.Child
-            as="picture"
+          <picture
             className="memori-chat--bubble-avatar"
-            enter="transition ease-in-out duration-300"
-            enterFrom={`opacity-0 scale-075 ${
-              message.fromUser ? 'translate-x-15' : 'translate-x--15'
-            }`}
-            enterTo="opacity-1 scale-1 translate-x-0"
-            leave="transition ease-in-out duration-300"
-            leaveFrom="opacity-1 scale-1 translate-x-0"
-            leaveTo={`opacity-0 scale-075 ${
-              message.fromUser ? 'translate-x-15' : 'translate-x--15'
-            }`}
             title={
               !!message.emitter?.length && !!memori.enableBoardOfExperts
                 ? message.emitter
@@ -407,11 +381,10 @@ const ChatBubble: React.FC<Props> = ({
                 e.currentTarget.onerror = null;
               }}
             />
-          </Transition.Child>
+          </picture>
         )}
 
-        <Transition.Child
-          as="div"
+        <div
           className={cx('memori-chat--bubble', {
             'memori-chat--user-bubble': !!message.fromUser,
             'memori-chat--with-addon':
@@ -421,16 +394,6 @@ const ChatBubble: React.FC<Props> = ({
             'memori-chat--ai-generated': message.generatedByAI && showAIicon,
             'memori-chat--with-feedback': showFeedback,
           })}
-          enter="transition ease-in-out duration-300"
-          enterFrom={`opacity-0 scale-09 translate-x-${
-            message.fromUser ? '30' : '-30'
-          }`}
-          enterTo="opacity-1 scale-1 translate-x-0"
-          leave="transition ease-in-out duration-300"
-          leaveFrom="opacity-1 scale-1 translate-x-0"
-          leaveTo={`opacity-0 scale-09  translate-x-${
-            message.fromUser ? '30' : '-30'
-          }`}
         >
           {message.fromUser ? (
             <Expandable
@@ -458,15 +421,9 @@ const ChatBubble: React.FC<Props> = ({
             <div className="memori-chat--bubble-addon">
               {shouldShowCopyButtons && (
                 <Button
-                  ghost
+                  variant="ghost"
                   shape="circle"
                   title={copyFeedback.plain ? copiedLabel : t('copy') || 'Copy'}
-                  className={cx('memori-chat--bubble-action-icon', {
-                    'memori-chat--bubble-action-icon--from-user':
-                      message.fromUser,
-                    'memori-chat--bubble-action-icon--copied':
-                      copyFeedback.plain,
-                  })}
                   icon={
                     <Copy
                       aria-label={
@@ -492,18 +449,13 @@ const ChatBubble: React.FC<Props> = ({
 
               {shouldShowCopyRawButton && (
                 <Button
-                  ghost
+                  variant="ghost"
                   shape="circle"
                   title={
                     copyFeedback.raw
                       ? copiedLabel
                       : t('copyRawCode') || 'Copy raw code'
                   }
-                  className={cx('memori-chat--bubble-action-icon', {
-                    'memori-chat--bubble-action-icon--from-user':
-                      message.fromUser,
-                    'memori-chat--bubble-action-icon--copied': copyFeedback.raw,
-                  })}
                   icon={
                     <Code
                       aria-label={
@@ -537,10 +489,9 @@ const ChatBubble: React.FC<Props> = ({
                     m.properties?.functionCache === 'true'
                 ) && (
                   <Button
-                    ghost
+                    variant="ghost"
                     shape="circle"
                     title="Debug"
-                    className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--debug"
                     icon={<Bug aria-label="Debug" />}
                     onClick={() => setOpenFunctionCache(true)}
                   />
@@ -606,10 +557,9 @@ const ChatBubble: React.FC<Props> = ({
                 apiUrl &&
                 showWhyThisAnswer && (
                   <Button
-                    ghost
+                    variant="ghost"
                     shape="circle"
                     title={t('whyThisAnswer') || undefined}
-                    className="memori-chat--bubble-action-icon"
                     onClick={() => setShowingWhyThisAnswer(true)}
                     disabled={showingWhyThisAnswer}
                     icon={
@@ -619,70 +569,31 @@ const ChatBubble: React.FC<Props> = ({
                 )}
             </div>
           )}
-        </Transition.Child>
+        </div>
 
         {message.fromUser && (
           <>
             {(!!userAvatar && typeof userAvatar === 'string') ||
             (!userAvatar && !!user?.avatarURL?.length) ? (
-              <Transition.Child
-                as="picture"
-                className="memori-chat--bubble-avatar"
-                enter="transition ease-in-out duration-300"
-                enterFrom={`opacity-0 scale-075 ${
-                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
-                }`}
-                enterTo="opacity-1 scale-1 translate-x-0"
-                leave="transition ease-in-out duration-300"
-                leaveFrom="opacity-1 scale-1 translate-x-0"
-                leaveTo={`opacity-0 scale-075 ${
-                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
-                }`}
-              >
+              <picture className="memori-chat--bubble-avatar">
                 <img
                   className="memori-chat--bubble-avatar-img"
                   alt={user?.userName ?? 'User'}
                   src={userAvatar ?? user?.avatarURL}
                 />
-              </Transition.Child>
+              </picture>
             ) : !!userAvatar ? (
-              <Transition.Child
-                as="div"
-                className="memori-chat--bubble-avatar"
-                enter="transition ease-in-out duration-300"
-                enterFrom={`opacity-0 scale-075 ${
-                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
-                }`}
-                enterTo="opacity-1 scale-1 translate-x-0"
-                leave="transition ease-in-out duration-300"
-                leaveFrom="opacity-1 scale-1 translate-x-0"
-                leaveTo={`opacity-0 scale-075 ${
-                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
-                }`}
-              >
+              <div className="memori-chat--bubble-avatar">
                 {userAvatar}
-              </Transition.Child>
+              </div>
             ) : (
-              <Transition.Child
-                as="div"
-                className="memori-chat--bubble-avatar"
-                enter="transition ease-in-out duration-300"
-                enterFrom={`opacity-0 scale-075 ${
-                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
-                }`}
-                enterTo="opacity-1 scale-1 translate-x-0"
-                leave="transition ease-in-out duration-300"
-                leaveFrom="opacity-1 scale-1 translate-x-0"
-                leaveTo={`opacity-0 scale-075 ${
-                  message.fromUser ? 'translate-x-15' : 'translate-x--15'
-                }`}
-              >
+              <div className="memori-chat--bubble-avatar">
                 <UserIcon />
-              </Transition.Child>
+              </div>
             )}
           </>
         )}
-      </Transition>
+      </div>
 
       {/* Document attachments are extracted and passed to Chat.tsx for rendering */}
 
@@ -698,8 +609,9 @@ const ChatBubble: React.FC<Props> = ({
 
       <Modal
         open={openFunctionCache}
-        onClose={() => setOpenFunctionCache(false)}
         className="memori-chat--function-cache-modal"
+        title={t('functionCache') || 'Function Cache'}
+        closable={true}
       >
         {functionCacheData?.map((f, i) => (
           <div

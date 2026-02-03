@@ -23,120 +23,102 @@ exports[`renders MediaItemWidget unchanged with css snippet to show 1`] = `
       class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
     >
       <div
-        class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+        class="memori-media-item"
       >
         <div
           class="memori-media-item--snippet-direct"
         >
           <div
-            class="memori-card memori-media-item--card memori-media-item--snippet"
+            class="memori-card memori-card--elevated memori-media-item--card memori-media-item--snippet"
           >
             <div
-              class="memori-spin"
+              class="memori-card__body memori-card__body--padding-md"
             >
               <div
-                class="memori-card--content"
+                class="memori-spin"
               >
                 <div
-                  class="memori-card--children"
+                  class="memori-media-item--snippet-body"
                 >
                   <div
-                    class="memori-media-item--snippet-body"
+                    class="memori-media-item--snippet-title"
+                  >
+                    Snippet
+                  </div>
+                  <div
+                    class="memori-media-item--snippet-preview"
                   >
                     <div
-                      class="memori-media-item--snippet-title"
-                    >
-                      Snippet
-                    </div>
-                    <div
-                      class="memori-media-item--snippet-preview"
+                      class="memori-snippet"
                     >
                       <div
-                        class="memori-snippet"
+                        class="memori-snippet--content"
                       >
-                        <div
-                          class="memori-snippet--content"
+                        <pre
+                          aria-labelledby="#snippet-65ca4a6d-f20b-402e-9d79-5e470f247927"
+                          class="line-numbers"
                         >
-                          <pre
-                            aria-labelledby="#snippet-65ca4a6d-f20b-402e-9d79-5e470f247927"
-                            class="line-numbers"
+                          <code
+                            class="language-scss"
+                            data-language="scss"
                           >
-                            <code
-                              class="language-scss"
-                              data-language="scss"
-                            >
-                              body{
+                            body{
   background-color: #f00;
 }
-                            </code>
-                          </pre>
-                          <div
-                            class="memori-snippet--copy-wrapper"
+                          </code>
+                        </pre>
+                        <div
+                          class="memori-snippet--copy-wrapper"
+                        >
+                          <button
+                            class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+                            tabindex="0"
+                            title="copy"
+                            type="button"
                           >
-                            <button
-                              class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
-                              title="copy"
+                            <span
+                              class="memori-button__icon"
                             >
-                              <span
-                                class="memori-button--icon"
+                              <svg
+                                aria-hidden="true"
+                                fill="none"
+                                focusable="false"
+                                role="img"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <svg
-                                  aria-hidden="true"
-                                  fill="none"
-                                  focusable="false"
-                                  role="img"
-                                  stroke="currentColor"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="1.5"
-                                  viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <rect
-                                    height="14"
-                                    rx="2"
-                                    ry="2"
-                                    width="14"
-                                    x="8"
-                                    y="8"
-                                  />
-                                  <path
-                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          </div>
+                                <rect
+                                  height="14"
+                                  rx="2"
+                                  ry="2"
+                                  width="14"
+                                  x="8"
+                                  y="8"
+                                />
+                                <path
+                                  d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                                />
+                              </svg>
+                            </span>
+                          </button>
                         </div>
                       </div>
                     </div>
-                    <div
-                      class="memori-media-item--snippet-header"
+                  </div>
+                  <div
+                    class="memori-media-item--snippet-header"
+                  >
+                    <span
+                      class="memori-media-item--snippet-meta"
                     >
-                      <span
-                        class="memori-media-item--snippet-meta"
-                      >
-                        3 righe
-                      </span>
-                    </div>
+                      3 righe
+                    </span>
                   </div>
                 </div>
-              </div>
-              <div
-                class="memori-spin--spinner"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="memori-loading-icon"
-                  focusable="false"
-                  role="img"
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                  />
-                </svg>
               </div>
             </div>
           </div>
@@ -164,7 +146,7 @@ exports[`renders MediaItemWidget unchanged with img 1`] = `
       class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
     >
       <div
-        class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+        class="memori-media-item"
       >
         <div
           class="memori-media-item--link memori-media-item--image-link"
@@ -174,50 +156,31 @@ exports[`renders MediaItemWidget unchanged with img 1`] = `
           title="Game Cover"
         >
           <div
-            class="memori-card memori-media-item--card memori-media-item--image memori-card--with-cover memori-card--hoverable"
+            class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+            tabindex="0"
           >
             <div
-              class="memori-spin"
+              class="memori-card__cover"
+            >
+              <picture
+                class="memori-media-item--figure"
+              >
+                <source
+                  srcset="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
+                  type="image/jpeg"
+                />
+                <img
+                  alt="Game Cover"
+                  src="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
+                />
+              </picture>
+            </div>
+            <div
+              class="memori-card__body memori-card__body--padding-md"
             >
               <div
-                class="memori-card--cover"
-              >
-                <picture
-                  class="memori-media-item--figure"
-                >
-                  <source
-                    srcset="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
-                    type="image/jpeg"
-                  />
-                  <img
-                    alt="Game Cover"
-                    src="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
-                  />
-                </picture>
-              </div>
-              <div
-                class="memori-card--content"
-              >
-                <div
-                  class="memori-card--children"
-                />
-              </div>
-              <div
-                class="memori-spin--spinner"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="memori-loading-icon"
-                  focusable="false"
-                  role="img"
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                  />
-                </svg>
-              </div>
+                class="memori-spin"
+              />
             </div>
           </div>
         </div>
@@ -236,7 +199,7 @@ exports[`renders MediaItemWidget unchanged with img and sessionID 1`] = `
       class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--single"
     >
       <div
-        class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+        class="memori-media-item"
       >
         <div
           class="memori-media-item--link memori-media-item--image-link"
@@ -246,50 +209,31 @@ exports[`renders MediaItemWidget unchanged with img and sessionID 1`] = `
           title="Game Cover"
         >
           <div
-            class="memori-card memori-media-item--card memori-media-item--image memori-card--with-cover memori-card--hoverable"
+            class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+            tabindex="0"
           >
             <div
-              class="memori-spin"
+              class="memori-card__cover"
+            >
+              <picture
+                class="memori-media-item--figure"
+              >
+                <source
+                  srcset="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
+                  type="image/jpeg"
+                />
+                <img
+                  alt="Game Cover"
+                  src="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
+                />
+              </picture>
+            </div>
+            <div
+              class="memori-card__body memori-card__body--padding-md"
             >
               <div
-                class="memori-card--cover"
-              >
-                <picture
-                  class="memori-media-item--figure"
-                >
-                  <source
-                    srcset="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
-                    type="image/jpeg"
-                  />
-                  <img
-                    alt="Game Cover"
-                    src="https://api.lorem.space/image/game?w=150&h=220&hash=8B7BCDC2"
-                  />
-                </picture>
-              </div>
-              <div
-                class="memori-card--content"
-              >
-                <div
-                  class="memori-card--children"
-                />
-              </div>
-              <div
-                class="memori-spin--spinner"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="memori-loading-icon"
-                  focusable="false"
-                  role="img"
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                  />
-                </svg>
-              </div>
+                class="memori-spin"
+              />
             </div>
           </div>
         </div>
@@ -316,118 +260,100 @@ exports[`renders MediaItemWidget unchanged with js snippet to show 1`] = `
       class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
     >
       <div
-        class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+        class="memori-media-item"
       >
         <div
           class="memori-media-item--snippet-direct"
         >
           <div
-            class="memori-card memori-media-item--card memori-media-item--snippet"
+            class="memori-card memori-card--elevated memori-media-item--card memori-media-item--snippet"
           >
             <div
-              class="memori-spin"
+              class="memori-card__body memori-card__body--padding-md"
             >
               <div
-                class="memori-card--content"
+                class="memori-spin"
               >
                 <div
-                  class="memori-card--children"
+                  class="memori-media-item--snippet-body"
                 >
                   <div
-                    class="memori-media-item--snippet-body"
+                    class="memori-media-item--snippet-title"
+                  >
+                    Snippet
+                  </div>
+                  <div
+                    class="memori-media-item--snippet-preview"
                   >
                     <div
-                      class="memori-media-item--snippet-title"
-                    >
-                      Snippet
-                    </div>
-                    <div
-                      class="memori-media-item--snippet-preview"
+                      class="memori-snippet"
                     >
                       <div
-                        class="memori-snippet"
+                        class="memori-snippet--content"
                       >
-                        <div
-                          class="memori-snippet--content"
+                        <pre
+                          aria-labelledby="#snippet-a669fadb-12c0-469b-9b6c-34db22d371ca"
+                          class="line-numbers"
                         >
-                          <pre
-                            aria-labelledby="#snippet-a669fadb-12c0-469b-9b6c-34db22d371ca"
-                            class="line-numbers"
+                          <code
+                            class="language-jsx"
+                            data-language="jsx"
                           >
-                            <code
-                              class="language-jsx"
-                              data-language="jsx"
-                            >
-                              console.log("Hello World!");
-                            </code>
-                          </pre>
-                          <div
-                            class="memori-snippet--copy-wrapper"
+                            console.log("Hello World!");
+                          </code>
+                        </pre>
+                        <div
+                          class="memori-snippet--copy-wrapper"
+                        >
+                          <button
+                            class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-snippet--copy-button"
+                            tabindex="0"
+                            title="copy"
+                            type="button"
                           >
-                            <button
-                              class="memori-button memori-button--ghost memori-button--rounded memori-button--icon-only memori-snippet--copy-button"
-                              title="copy"
+                            <span
+                              class="memori-button__icon"
                             >
-                              <span
-                                class="memori-button--icon"
+                              <svg
+                                aria-hidden="true"
+                                fill="none"
+                                focusable="false"
+                                role="img"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="1.5"
+                                viewBox="0 0 24 24"
+                                xmlns="http://www.w3.org/2000/svg"
                               >
-                                <svg
-                                  aria-hidden="true"
-                                  fill="none"
-                                  focusable="false"
-                                  role="img"
-                                  stroke="currentColor"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="1.5"
-                                  viewBox="0 0 24 24"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <rect
-                                    height="14"
-                                    rx="2"
-                                    ry="2"
-                                    width="14"
-                                    x="8"
-                                    y="8"
-                                  />
-                                  <path
-                                    d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-                          </div>
+                                <rect
+                                  height="14"
+                                  rx="2"
+                                  ry="2"
+                                  width="14"
+                                  x="8"
+                                  y="8"
+                                />
+                                <path
+                                  d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                                />
+                              </svg>
+                            </span>
+                          </button>
                         </div>
                       </div>
                     </div>
-                    <div
-                      class="memori-media-item--snippet-header"
+                  </div>
+                  <div
+                    class="memori-media-item--snippet-header"
+                  >
+                    <span
+                      class="memori-media-item--snippet-meta"
                     >
-                      <span
-                        class="memori-media-item--snippet-meta"
-                      >
-                        1 riga
-                      </span>
-                    </div>
+                      1 riga
+                    </span>
                   </div>
                 </div>
-              </div>
-              <div
-                class="memori-spin--spinner"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="memori-loading-icon"
-                  focusable="false"
-                  role="img"
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                  />
-                </svg>
               </div>
             </div>
           </div>
@@ -455,143 +381,86 @@ exports[`renders MediaItemWidget unchanged with rgb color 1`] = `
       class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--few"
     >
       <div
-        class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+        class="memori-media-item"
       >
         <div
-          class="memori-card memori-media-item--card memori-media-item--image memori-card--with-cover memori-card--hoverable"
+          class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+          tabindex="0"
         >
           <div
-            class="memori-spin"
+            class="memori-card__cover"
           >
-            <div
-              class="memori-card--cover"
-            >
-              <picture
-                class="memori-media-item--figure"
-              >
-                <div
-                  class="memori-media-item--rgb-item"
-                  style="background-color: rgb(255, 0, 0);"
-                />
-              </picture>
-            </div>
-            <div
-              class="memori-card--content"
+            <picture
+              class="memori-media-item--figure"
             >
               <div
-                class="memori-card--children"
+                class="memori-media-item--rgb-item"
+                style="background-color: rgb(255, 0, 0);"
               />
-            </div>
+            </picture>
+          </div>
+          <div
+            class="memori-card__body memori-card__body--padding-md"
+          >
             <div
-              class="memori-spin--spinner"
-            >
-              <svg
-                aria-hidden="true"
-                class="memori-loading-icon"
-                focusable="false"
-                role="img"
-                viewBox="0 0 1024 1024"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                />
-              </svg>
-            </div>
+              class="memori-spin"
+            />
           </div>
         </div>
       </div>
       <div
-        class="memori-media-item ease-out duration-500 delay-100 opacity-0 scale-95"
+        class="memori-media-item"
       >
         <div
-          class="memori-card memori-media-item--card memori-media-item--image memori-card--with-cover memori-card--hoverable"
+          class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+          tabindex="0"
         >
           <div
-            class="memori-spin"
+            class="memori-card__cover"
           >
-            <div
-              class="memori-card--cover"
-            >
-              <picture
-                class="memori-media-item--figure"
-              >
-                <div
-                  class="memori-media-item--rgb-item"
-                  style="background-color: rgb(0, 255, 0);"
-                />
-              </picture>
-            </div>
-            <div
-              class="memori-card--content"
+            <picture
+              class="memori-media-item--figure"
             >
               <div
-                class="memori-card--children"
+                class="memori-media-item--rgb-item"
+                style="background-color: rgb(0, 255, 0);"
               />
-            </div>
+            </picture>
+          </div>
+          <div
+            class="memori-card__body memori-card__body--padding-md"
+          >
             <div
-              class="memori-spin--spinner"
-            >
-              <svg
-                aria-hidden="true"
-                class="memori-loading-icon"
-                focusable="false"
-                role="img"
-                viewBox="0 0 1024 1024"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                />
-              </svg>
-            </div>
+              class="memori-spin"
+            />
           </div>
         </div>
       </div>
       <div
-        class="memori-media-item ease-out duration-500 delay-200 opacity-0 scale-95"
+        class="memori-media-item"
       >
         <div
-          class="memori-card memori-media-item--card memori-media-item--image memori-card--with-cover memori-card--hoverable"
+          class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+          tabindex="0"
         >
           <div
-            class="memori-spin"
+            class="memori-card__cover"
           >
-            <div
-              class="memori-card--cover"
-            >
-              <picture
-                class="memori-media-item--figure"
-              >
-                <div
-                  class="memori-media-item--rgb-item"
-                  style="background-color: rgb(0, 0, 255);"
-                />
-              </picture>
-            </div>
-            <div
-              class="memori-card--content"
+            <picture
+              class="memori-media-item--figure"
             >
               <div
-                class="memori-card--children"
+                class="memori-media-item--rgb-item"
+                style="background-color: rgb(0, 0, 255);"
               />
-            </div>
+            </picture>
+          </div>
+          <div
+            class="memori-card__body memori-card__body--padding-md"
+          >
             <div
-              class="memori-spin--spinner"
-            >
-              <svg
-                aria-hidden="true"
-                class="memori-loading-icon"
-                focusable="false"
-                role="img"
-                viewBox="0 0 1024 1024"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                />
-              </svg>
-            </div>
+              class="memori-spin"
+            />
           </div>
         </div>
       </div>
@@ -609,7 +478,7 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
       class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--few"
     >
       <div
-        class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+        class="memori-media-item"
       >
         <div
           class="memori-media-item--link memori-media-item--image-link"
@@ -619,56 +488,37 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
           title="Game Cover"
         >
           <div
-            class="memori-card memori-media-item--card memori-media-item--image memori-card--with-cover memori-card--hoverable"
+            class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+            tabindex="0"
           >
             <div
-              class="memori-spin"
+              class="memori-card__cover"
+            >
+              <picture
+                class="memori-media-item--figure"
+              >
+                <source
+                  srcset="https://memori.ai/past"
+                  type="image/jpeg"
+                />
+                <img
+                  alt="Game Cover"
+                  src="https://memori.ai/past"
+                />
+              </picture>
+            </div>
+            <div
+              class="memori-card__body memori-card__body--padding-md"
             >
               <div
-                class="memori-card--cover"
-              >
-                <picture
-                  class="memori-media-item--figure"
-                >
-                  <source
-                    srcset="https://memori.ai/past"
-                    type="image/jpeg"
-                  />
-                  <img
-                    alt="Game Cover"
-                    src="https://memori.ai/past"
-                  />
-                </picture>
-              </div>
-              <div
-                class="memori-card--content"
-              >
-                <div
-                  class="memori-card--children"
-                />
-              </div>
-              <div
-                class="memori-spin--spinner"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="memori-loading-icon"
-                  focusable="false"
-                  role="img"
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                  />
-                </svg>
-              </div>
+                class="memori-spin"
+              />
             </div>
           </div>
         </div>
       </div>
       <div
-        class="memori-media-item ease-out duration-500 delay-100 opacity-0 scale-95"
+        class="memori-media-item"
       >
         <div
           class="memori-media-item--link memori-media-item--image-link"
@@ -678,56 +528,37 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
           title="Game Cover"
         >
           <div
-            class="memori-card memori-media-item--card memori-media-item--image memori-card--with-cover memori-card--hoverable"
+            class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+            tabindex="0"
           >
             <div
-              class="memori-spin"
+              class="memori-card__cover"
+            >
+              <picture
+                class="memori-media-item--figure"
+              >
+                <source
+                  srcset="https://memori.ai/medium"
+                  type="image/jpeg"
+                />
+                <img
+                  alt="Game Cover"
+                  src="https://memori.ai/medium"
+                />
+              </picture>
+            </div>
+            <div
+              class="memori-card__body memori-card__body--padding-md"
             >
               <div
-                class="memori-card--cover"
-              >
-                <picture
-                  class="memori-media-item--figure"
-                >
-                  <source
-                    srcset="https://memori.ai/medium"
-                    type="image/jpeg"
-                  />
-                  <img
-                    alt="Game Cover"
-                    src="https://memori.ai/medium"
-                  />
-                </picture>
-              </div>
-              <div
-                class="memori-card--content"
-              >
-                <div
-                  class="memori-card--children"
-                />
-              </div>
-              <div
-                class="memori-spin--spinner"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="memori-loading-icon"
-                  focusable="false"
-                  role="img"
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                  />
-                </svg>
-              </div>
+                class="memori-spin"
+              />
             </div>
           </div>
         </div>
       </div>
       <div
-        class="memori-media-item ease-out duration-500 delay-200 opacity-0 scale-95"
+        class="memori-media-item"
       >
         <div
           class="memori-media-item--link memori-media-item--image-link"
@@ -737,50 +568,31 @@ exports[`renders MediaItemWidget with imgs in correct order (creation date) 1`] 
           title="Game Cover"
         >
           <div
-            class="memori-card memori-media-item--card memori-media-item--image memori-card--with-cover memori-card--hoverable"
+            class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+            tabindex="0"
           >
             <div
-              class="memori-spin"
+              class="memori-card__cover"
+            >
+              <picture
+                class="memori-media-item--figure"
+              >
+                <source
+                  srcset="https://memori.ai/now"
+                  type="image/jpeg"
+                />
+                <img
+                  alt="Game Cover"
+                  src="https://memori.ai/now"
+                />
+              </picture>
+            </div>
+            <div
+              class="memori-card__body memori-card__body--padding-md"
             >
               <div
-                class="memori-card--cover"
-              >
-                <picture
-                  class="memori-media-item--figure"
-                >
-                  <source
-                    srcset="https://memori.ai/now"
-                    type="image/jpeg"
-                  />
-                  <img
-                    alt="Game Cover"
-                    src="https://memori.ai/now"
-                  />
-                </picture>
-              </div>
-              <div
-                class="memori-card--content"
-              >
-                <div
-                  class="memori-card--children"
-                />
-              </div>
-              <div
-                class="memori-spin--spinner"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="memori-loading-icon"
-                  focusable="false"
-                  role="img"
-                  viewBox="0 0 1024 1024"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                  />
-                </svg>
-              </div>
+                class="memori-spin"
+              />
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Spin from '../ui/Spin';
+import { Spin } from '@memori.ai/ui';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';

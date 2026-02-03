@@ -5,11 +5,11 @@ import {
   Tenant,
 } from '@memori.ai/memori-api-client/dist/types';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
-import Tooltip from '../ui/Tooltip';
+import { Tooltip } from '@memori.ai/ui';
 import { getResourceUrl } from '../../helpers/media';
 import Blob from '../Blob/Blob';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
-import Button from '../ui/Button';
+import { Button } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import Eye from '../icons/Eye';
 import EyeInvisible from '../icons/EyeInvisible';
@@ -180,7 +180,7 @@ const Avatar: React.FC<Props> = ({
   const renderAvatarToggle = () => (
     <div className="memori--avatar-toggle">
       <Button
-        ghost
+        variant="ghost"
         onClick={() => setAvatar3dVisible(!avatar3dVisible)}
         icon={avatar3dVisible ? <EyeInvisible /> : <Eye />}
       >

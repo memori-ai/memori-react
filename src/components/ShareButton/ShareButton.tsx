@@ -11,8 +11,7 @@ import Download from '../icons/Download';
 import Telegram from '../icons/Telegram';
 import FilePdf from '../icons/FilePdf';
 import { QRCodeCanvas } from 'qrcode.react';
-import { Menu } from '@headlessui/react';
-import Button from '../ui/Button';
+import { Button, Dropdown } from '@memori.ai/ui';
 import cx from 'classnames';
 import { Tenant, Memori, Message } from '@memori.ai/memori-api-client/dist/types';
 import { pdfExporter } from '../MemoriArtifactSystem/components/ArtifactActions/utils/PDFExporter';
@@ -256,13 +255,13 @@ const ShareButton: React.FC<Props> = ({
   }, [memori, sessionID, baseUrl, i18n.language]);
 
   return (
-    <Menu
-      as="div"
+    <Dropdown
       className={cx('memori-share-button', {
         'memori-share-button--align-left': align === 'left',
       })}
     >
-      <Menu.Button
+      <Dropdown.Trigger
+        showChevron={false}
         className={cx(
           'memori-button',
           'memori-button--circle',
@@ -278,15 +277,12 @@ const ShareButton: React.FC<Props> = ({
         <div className="memori-button--icon">
           <Share />
         </div>
-      </Menu.Button>
-      <Menu.Items className="memori-share-button--overlay" as="ul">
+      </Dropdown.Trigger>
+      <Dropdown.Menu className="memori-share-button--overlay">
+        <ul>
         {memori && sessionID && sharedUrl && (
-          <Menu.Item
-            key="shared"
-            as="li"
-            className="memori-share-button--li memori-share-button--li-shared"
-          >
-            <a
+          <li key="shared" className="memori-share-button--li memori-share-button--li-shared">
+            <Dropdown.Item
               className={cx(
                 'memori-button',
                 'memori-button--with-icon',
@@ -294,47 +290,63 @@ const ShareButton: React.FC<Props> = ({
                 'memori-button--padded',
                 'memori-share-button--link'
               )}
-              href={sharedUrl}
-              target="_blank"
-              rel="noopener noreferrer"
             >
-              <div className="memori-button--icon">
-                <Share />
-              </div>
-              {t('widget.shareChat') || 'Share chat'}
-            </a>
-          </Menu.Item>
+              <a
+                href={sharedUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cx(
+                  'memori-button',
+                  'memori-button--with-icon',
+                  'memori-button--ghost',
+                  'memori-button--padded',
+                  'memori-share-button--link'
+                )}
+              >
+                <div className="memori-button--icon">
+                  <Share />
+                </div>
+                {t('widget.shareChat') || 'Share chat'}
+              </a>
+            </Dropdown.Item>
+          </li>
         )}
         {history && history.length > 0 && (
-          <Menu.Item key="export-pdf" as="li" className="memori-share-button--li">
-            <Button
-              className="memori-share-button--link"
-              ghost
-              icon={<FilePdf />}
-              onClick={handleExportPDF}
-              disabled={isExportingPDF}
-            >
-              {isExportingPDF
-                ? t('exportChatHistory.exporting') || 'Exporting...'
-                : t('exportChatHistory.exportPDF') || 'Export chat as PDF'}
-            </Button>
-          </Menu.Item>
+          <li key="export-pdf" className="memori-share-button--li">
+            <Dropdown.Item className="memori-share-button--link">
+              <Button
+                variant="ghost"
+                icon={<FilePdf />}
+                onClick={handleExportPDF}
+                disabled={isExportingPDF}
+                className="memori-share-button--link"
+              >
+                {isExportingPDF
+                  ? t('exportChatHistory.exporting') || 'Exporting...'
+                  : t('exportChatHistory.exportPDF') || 'Export chat as PDF'}
+              </Button>
+            </Dropdown.Item>
+          </li>
         )}
-        <Menu.Item key="copy" as="li" className="memori-share-button--li">
-          <Button
+        <li key="copy" className="memori-share-button--li">
+          <Dropdown.Item
             className="memori-share-button--link"
-            ghost
-            icon={<Link />}
             onClick={() => {
               targetUrl && navigator.clipboard.writeText(targetUrl);
             }}
           >
-            {t('copyToClipboard') || undefined}
-          </Button>
-        </Menu.Item>
+            <Button
+              variant="ghost"
+              icon={<Link />}
+              className="memori-share-button--link"
+            >
+              {t('copyToClipboard') || undefined}
+            </Button>
+          </Dropdown.Item>
+        </li>
         {socialShare.map(item => (
-          <Menu.Item key={item.id} as="li" className="memori-share-button--li">
-            <a
+          <li key={item.id} className="memori-share-button--li">
+            <Dropdown.Item
               className={cx(
                 'memori-button',
                 'memori-button--with-icon',
@@ -342,23 +354,29 @@ const ShareButton: React.FC<Props> = ({
                 'memori-button--padded',
                 'memori-share-button--link'
               )}
-              href={item.url ?? ''}
-              target="_blank"
-              rel="noopener noreferrer"
             >
-              <div className="memori-button--icon">
-                <item.icon />
-              </div>
-              {item.title}
-            </a>
-          </Menu.Item>
+              <a
+                href={item.url ?? ''}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cx(
+                  'memori-button',
+                  'memori-button--with-icon',
+                  'memori-button--ghost',
+                  'memori-button--padded',
+                  'memori-share-button--link'
+                )}
+              >
+                <div className="memori-button--icon">
+                  <item.icon />
+                </div>
+                {item.title}
+              </a>
+            </Dropdown.Item>
+          </li>
         ))}
         {showQrCode && (
-          <Menu.Item
-            key="qrcode"
-            as="li"
-            className="memori-share-button--li-qr-code"
-          >
+          <li key="qrcode" className="memori-share-button--li-qr-code">
             <QRCodeCanvas
               id="qr-canvas"
               value={targetUrl ?? ''}
@@ -385,10 +403,11 @@ const ShareButton: React.FC<Props> = ({
                 Download
               </Button>
             </div>
-          </Menu.Item>
+          </li>
         )}
-      </Menu.Items>
-    </Menu>
+        </ul>
+      </Dropdown.Menu>
+    </Dropdown>
   );
 };
 

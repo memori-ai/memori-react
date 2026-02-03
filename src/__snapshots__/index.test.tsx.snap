@@ -7,6 +7,15 @@ exports[`renders client 1`] = `
     style="position: fixed; z-index: 9999; top: 16px; left: 16px; right: 16px; bottom: 16px; pointer-events: none;"
   />
   <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+  <div
     style="display: flex; align-items: center; justify-content: center;"
   >
     <p
@@ -24,6 +33,15 @@ exports[`renders client with all the props 1`] = `
   <div
     id="_rht_toaster"
     style="position: fixed; z-index: 9999; top: 16px; left: 16px; right: 16px; bottom: 16px; pointer-events: none;"
+  />
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
   />
   <div
     style="display: flex; align-items: center; justify-content: center;"
@@ -45,6 +63,15 @@ exports[`renders client with audio disabled 1`] = `
     style="position: fixed; z-index: 9999; top: 16px; left: 16px; right: 16px; bottom: 16px; pointer-events: none;"
   />
   <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+  <div
     style="display: flex; align-items: center; justify-content: center;"
   >
     <p
@@ -64,6 +91,15 @@ exports[`renders client with whiteListedDomains on allowed domains 1`] = `
     style="position: fixed; z-index: 9999; top: 16px; left: 16px; right: 16px; bottom: 16px; pointer-events: none;"
   />
   <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+  <div
     style="display: flex; align-items: center; justify-content: center;"
   >
     <p
@@ -81,6 +117,15 @@ exports[`renders client with whiteListedDomains on not allowed domains 1`] = `
   <div
     id="_rht_toaster"
     style="position: fixed; z-index: 9999; top: 16px; left: 16px; right: 16px; bottom: 16px; pointer-events: none;"
+  />
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
   />
   <div
     style="display: flex; align-items: center; justify-content: center;"

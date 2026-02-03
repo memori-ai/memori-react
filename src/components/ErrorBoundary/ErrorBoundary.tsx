@@ -1,6 +1,6 @@
 import React from 'react';
 import { Component, ErrorInfo, ReactNode } from 'react';
-import Button from '../ui/Button';
+import { Button } from '@memori.ai/ui';
 import { withTranslation, WithTranslation } from 'react-i18next';
 
 interface Props extends WithTranslation {
@@ -40,7 +40,7 @@ class ErrorBoundary extends Component<Props, State> {
           }}
         >
           <h2>{this.props.t('error.generic')}</h2>
-          <Button primary onClick={() => this.setState({ hasError: false })}>
+          <Button variant="primary" onClick={() => this.setState({ hasError: false })}>
             {this.props.t('error.tryAgain') || 'Try again'}
           </Button>
         </div>

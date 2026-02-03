@@ -4,12 +4,11 @@
  */
 
 import React, { useRef, useEffect, useCallback } from 'react';
-import { Menu, Transition } from '@headlessui/react';
 import cx from 'classnames';
 import { CopyButtonWithDropdownProps, CopyFormat } from '../types';
 import { useCopyArtifact } from '../hooks/useCopyArtifact';
 import CopyMenuItem from './CopyMenuItem';
-import Button from '../../../../ui/Button';
+import { Button, Dropdown } from '@memori.ai/ui';
 import Copy from '../../../../icons/Copy';
 import ChevronDown from '../../../../icons/ChevronDown';
 import ThumbUp from '../../../../icons/ThumbUp';
@@ -382,7 +381,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
             },
             className
           )}
-          ghost
+          variant="ghost"
           title={getButtonTitle()}
         >
           {getButtonContent()}
@@ -390,74 +389,60 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
 
         {/* Dropdown button (only show if multiple formats) */}
         {formats.length > 0 && (
-          <Menu as="div" className="memori-copy-menu-wrapper">
-            {() => (
-              <>
-                <Menu.Button as="div" className="memori-copy-button-trigger">
-                  <Button
-                    disabled={disabled || loading || copyState.loading}
-                    className="memori-copy-button--dropdown"
-                    ghost
-                    title="More copy options"
-                  >
-                    <ChevronDown className="memori-copy-button-chevron" />
-                  </Button>
-                </Menu.Button>
-
-                <Transition
-                  as={React.Fragment}
-                  enter="memori-copy-dropdown-enter"
-                  enterFrom="memori-copy-dropdown-enter-from"
-                  enterTo="memori-copy-dropdown-enter-to"
-                  leave="memori-copy-dropdown-leave"
-                  leaveFrom="memori-copy-dropdown-leave-from"
-                  leaveTo="memori-copy-dropdown-leave-to"
-                >
-                  <Menu.Items className="memori-copy-dropdown">
-                    <div className="memori-copy-dropdown-content">
-                      <div className="memori-copy-dropdown-list">
-                        {formats.map(format => (
-                          <Menu.Item key={format.id}>
-                            {({ active }) => (
-                              <CopyMenuItem
-                                format={format}
-                                onClick={handleFormatSelect}
-                                loading={copyState.loading}
-                                active={active}
-                              />
-                            )}
-                          </Menu.Item>
-                        ))}
-                        <CopyMenuItem
-                          format={{
-                            id: 'external',
-                            label: t('artifact.external') || 'External',
-                            action: 'link',
-                            mimeType: artifact.mimeType,
-                          }}
-                          onClick={handleOpenExternal}
-                          loading={copyState.loading}
-                          active={false}
-                        />
-                        <CopyMenuItem
-                          format={{
-                            id: 'print',
-                            label: t('artifact.print') || 'Print',
-                            action: 'print',
-                            mimeType: artifact.mimeType,
-                          }}
-                          onClick={handlePrint}
-                          loading={copyState.loading}
-                          active={false}
-                        />
-
-                      </div>
-                    </div>
-                  </Menu.Items>
-                </Transition>
-              </>
-            )}
-          </Menu>
+          <Dropdown className="memori-copy-menu-wrapper">
+            <Dropdown.Trigger showChevron={false} className="memori-copy-button-trigger">
+              <Button
+                disabled={disabled || loading || copyState.loading}
+                className="memori-copy-button--dropdown"
+                variant="ghost"
+                title="More copy options"
+              >
+                <ChevronDown className="memori-copy-button-chevron" />
+              </Button>
+            </Dropdown.Trigger>
+            <Dropdown.Menu className="memori-copy-dropdown">
+              <div className="memori-copy-dropdown-content">
+                <div className="memori-copy-dropdown-list">
+                  {formats.map(format => (
+                    <Dropdown.Item key={format.id}>
+                      <CopyMenuItem
+                        format={format}
+                        onClick={handleFormatSelect}
+                        loading={copyState.loading}
+                        active={false}
+                      />
+                    </Dropdown.Item>
+                  ))}
+                  <Dropdown.Item>
+                    <CopyMenuItem
+                      format={{
+                        id: 'external',
+                        label: t('artifact.external') || 'External',
+                        action: 'link',
+                        mimeType: artifact.mimeType,
+                      }}
+                      onClick={handleOpenExternal}
+                      loading={copyState.loading}
+                      active={false}
+                    />
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <CopyMenuItem
+                      format={{
+                        id: 'print',
+                        label: t('artifact.print') || 'Print',
+                        action: 'print',
+                        mimeType: artifact.mimeType,
+                      }}
+                      onClick={handlePrint}
+                      loading={copyState.loading}
+                      active={false}
+                    />
+                  </Dropdown.Item>
+                </div>
+              </div>
+            </Dropdown.Menu>
+          </Dropdown>
         )}
       </div>
     </div>

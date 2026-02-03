@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { setLocalConfig } from '../../../../../helpers/configuration';
 import { useTranslation } from 'react-i18next';
-import Slider from '../../../../../components/ui/Slider';
-import Button from '../../../../ui/Button';
+import { Slider, Button } from '@memori.ai/ui';
 import Close from '../../../../icons/Close';
 
 interface PositionControlsProps {
@@ -104,9 +103,8 @@ const PositionControls: React.FC<PositionControlsProps> = ({
     <div className="memori--position-controls">
       <div className="memori--position-controls-close">
         <Button
-          ghost
+          variant="ghost"
           icon={<Close />}
-          outlined
           danger
           shape="circle"
           className="memori--position-controls-close-button"
@@ -117,7 +115,7 @@ const PositionControls: React.FC<PositionControlsProps> = ({
       </div>
       {/* <div className="memori--slider-container"> */}
         <Slider
-          defaultValue={settingsRef.current.height}
+          value={avatarHeight}
           min={0.5}
           max={100}
           label={t('write_and_speak.height')}
@@ -130,7 +128,7 @@ const PositionControls: React.FC<PositionControlsProps> = ({
       {/* </div> */}
       {/* <div className="memori--slider-container"> */}
         <Slider
-          defaultValue={settingsRef.current.depth}
+          value={avatarDepth}
           min={0.5}
           max={100}
           step={5}
@@ -143,8 +141,8 @@ const PositionControls: React.FC<PositionControlsProps> = ({
       {/* </div> */}
       <div className="memori--preset-buttons">
         <Button
-          outlined
-          isActive={
+          variant="outline"
+          active={
             avatarHeight ===
               (halfBody ? zoomedPosition.height : normalPosition.height) &&
             avatarDepth ===
@@ -160,8 +158,8 @@ const PositionControls: React.FC<PositionControlsProps> = ({
           {t('write_and_speak.zoomed')}
         </Button>
         <Button
-          outlined
-          isActive={
+          variant="outline"
+          active={
             avatarHeight ===
               (halfBody ? normalPosition.height : zoomedPosition.height) &&
             avatarDepth ===
@@ -177,8 +175,8 @@ const PositionControls: React.FC<PositionControlsProps> = ({
           {t('write_and_speak.normal')}
         </Button>
         <Button
-          outlined
-          isActive={
+          variant="outline"
+          active={
             avatarHeight ===
               (halfBody ? farPosition.height : normalPosition.height) &&
             avatarDepth ===

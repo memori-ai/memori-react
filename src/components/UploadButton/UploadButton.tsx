@@ -2,14 +2,13 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { DocumentIcon } from '../icons/Document';
 import { ImageIcon } from '../icons/Image';
 import { UploadIcon } from '../icons/Upload';
-import Spin from '../ui/Spin';
-import Alert from '../ui/Alert';
+import { Spin, useAlertManager } from '@memori.ai/ui';
 import cx from 'classnames';
 import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import Tooltip from '../ui/Tooltip';
+import { Tooltip } from '@memori.ai/ui';
 
 // Constants
 const MAX_MEDIA = 10;
@@ -42,11 +41,9 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 }) => {
   // State
   const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState<
-    { message: string; severity: 'error' | 'warning' | 'info' }[]
-  >([]);
   const [isDragging, setIsDragging] = useState(false);
   const { t, i18n } = useTranslation();
+  const alertManager = useAlertManager();
 
   // Refs
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -60,18 +57,17 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   const remainingSlots = MAX_MEDIA - currentMediaCount;
   const hasReachedMediaLimit = remainingSlots <= 0;
 
-  // Error handling
-  const removeError = (errorMessage: string) => {
-    setErrors(prev => prev.filter(e => e.message !== errorMessage));
-  };
-
-  const addError = (error: {
-    message: string;
-    severity: 'error' | 'warning' | 'info';
-  }) => {
-    setErrors(prev => [...prev, error]);
-    setTimeout(() => removeError(error.message), 5000);
-  };
+  // Error handling - show alerts via toast manager
+  const addError = useCallback(
+    (error: { message: string; severity: 'error' | 'warning' | 'info' }) => {
+      alertManager.add({
+        title: 'Upload notification',
+        description: error.message,
+        data: { severity: error.severity, closable: true },
+      });
+    },
+    [alertManager]
+  );
 
   // Check if file is an image
   const isImageFile = (file: File): boolean => {
@@ -523,8 +519,7 @@ ${file.content}
           'memori-button--icon-only',
           'memori-share-button--button',
           'memori--conversation-button',
-          'memori--unified-upload-button',
-          { 'memori--error': errors.length > 0 }
+          'memori--unified-upload-button'
         )}
         onClick={handleButtonClick}
         disabled={isLoading || hasReachedMediaLimit}
@@ -577,21 +572,6 @@ ${file.content}
         />
       </div>
 
-      {/* Error messages container */}
-      <div className="memori--error-message-container">
-        {errors.map((error, index) => (
-          <Alert
-            className="memori--error-message-alert"
-            key={`${error.message}-${index}`}
-            open={true}
-            type={error.severity}
-            title={'Upload notification'}
-            description={error.message}
-            onClose={() => removeError(error.message)}
-            width="350px"
-          />
-        ))}
-      </div>
     </div>
   );
 };

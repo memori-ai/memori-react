@@ -7,8 +7,7 @@ import {
   Venue,
   User,
 } from '@memori.ai/memori-api-client/dist/types';
-import Button from '../ui/Button';
-import Dropdown from '../ui/Dropdown';
+import { Button, Dropdown } from '@memori.ai/ui';
 import MapMarker from '../icons/MapMarker';
 import SoundDeactivated from '../icons/SoundDeactivated';
 import Sound from '../icons/Sound';
@@ -172,7 +171,7 @@ const Header: React.FC<Props> = ({
             </span>
           )}
           <Button
-            primary
+            variant="primary"
             shape="circle"
             className="memori-header--button memori-header--button--position"
             title={t('widget.position') || 'Position'}
@@ -183,9 +182,8 @@ const Header: React.FC<Props> = ({
       )}
       {showReload && (
         <Button
-          primary
+          variant="primary"
           shape="circle"
-          className="memori-header--button memori-header--button--reload"
           title={t('reload') || 'Reload'}
           icon={<Refresh />}
           onClick={() => {
@@ -195,9 +193,8 @@ const Header: React.FC<Props> = ({
       )}
       {showClear && (
         <Button
-          primary
+          variant="primary"
           shape="circle"
-          className="memori-header--button memori-header--button--clear"
           title={t('clearHistory') || 'Clear chat'}
           icon={<Clear />}
           onClick={clearHistory}
@@ -205,10 +202,9 @@ const Header: React.FC<Props> = ({
       )}
       {showChatHistory && !!loginToken && (
         <Button
-          primary
+          variant="primary"
           disabled={!loginToken}
           shape="circle"
-          className="memori-header--button memori-header--button--chat-history"
           title={t('write_and_speak.chatHistory') || 'Chat history'}
           icon={<MessageIcon />}
           onClick={() => setShowChatHistoryDrawer(true)}
@@ -216,9 +212,8 @@ const Header: React.FC<Props> = ({
       )}
       {fullScreenAvailable && (
         <Button
-          primary
+          variant="primary"
           shape="circle"
-          className="memori-header--button memori-header--button--fullscreen"
           title={
             fullScreen
               ? t('fullscreenExit') || 'Exit fullscreen'
@@ -266,10 +261,9 @@ const Header: React.FC<Props> = ({
       )}
       {memori.enableDeepThought && !!loginToken && user?.pAndCUAccepted && (
         <Button
-          primary={!!sessionID && !!hasUserActivatedSpeak}
+          variant={!!sessionID && !!hasUserActivatedSpeak ? 'primary' : 'outline'}
           shape="circle"
           icon={<DeepThought />}
-          className="memori-header--button memori-header--button--knownfacts"
           disabled={!hasUserActivatedSpeak || !sessionID}
           onClick={() => setShowKnownFactsDrawer(true)}
           title={t('knownFacts.title') || 'Known facts'}
@@ -277,10 +271,9 @@ const Header: React.FC<Props> = ({
       )}
       {memori.enableBoardOfExperts && (
         <Button
-          primary
+          variant="primary"
           shape="circle"
           icon={<Group />}
-          className="memori-header--button memori-header--button--experts"
           disabled={!hasUserActivatedSpeak || !sessionID}
           onClick={() => setShowExpertsDrawer(true)}
           title={t('widget.showExpertsInTheBoard') || 'Experts in this board'}
@@ -288,9 +281,8 @@ const Header: React.FC<Props> = ({
       )}
       {enableAudio && (
         <Button
-          primary
+          variant="primary"
           shape="circle"
-          className={cx('memori-header--button memori-header--button--speaker', { 'memori-header--button--speaker-muted': speakerMuted })}
           icon={speakerMuted ? <SoundDeactivated /> : <Sound />}
           onClick={() => setSpeakerMuted(!speakerMuted)}
           title={t('widget.sound') || 'Sound'}
@@ -305,9 +297,8 @@ const Header: React.FC<Props> = ({
       {showSettings &&
         hasSettingsContent(layout, additionalSettings) && (
           <Button
-            primary
+            variant="primary"
             shape="circle"
-            className="memori-header--button memori-header--button-settings"
             icon={<Setting />}
             onClick={() => setShowSettingsDrawer(true)}
             title={t('widget.settings') || 'Settings'}
@@ -315,7 +306,6 @@ const Header: React.FC<Props> = ({
         )}
       {showShare && (
         <ShareButton
-          className="memori-header--button memori-header--button-share"
           title={memori.name}
           memori={memori}
           sessionID={sessionID}
@@ -329,19 +319,18 @@ const Header: React.FC<Props> = ({
       {showLogin && (
         <>
           {loginToken && user ? (
-            <Dropdown
-              placement="bottom-right"
-              trigger={
+            <Dropdown className="memori-header--dropdown">
+              <Dropdown.Trigger showChevron={false}>
                 <Button
-                  primary
+                  variant="primary"
                   shape="circle"
                   className="memori-header--button memori-header--button-login"
                   icon={<UserIcon />}
                   title={t('login.user') || 'User'}
                 />
-              }
-            >
-              <div className="memori-dropdown--user-profile">
+              </Dropdown.Trigger>
+              <Dropdown.Menu>
+                <div className="memori-dropdown--user-profile">
                 <div className="memori-dropdown--user-info">
                   {user.avatarURL ? (
                     <>
@@ -398,20 +387,20 @@ const Header: React.FC<Props> = ({
                   </div>
                 </div>
               </div>
-
-              <div className="memori-dropdown--actions">
-                <button
-                  className="memori-dropdown--action-button memori-dropdown--action-button--logout"
-                  onClick={onLogout}
-                >
-                  <Logout className="memori-dropdown--action-icon" />
-                  {t('login.logout') || 'Logout'}
-                </button>
-              </div>
+                  <div className="memori-dropdown--actions">
+                    <button
+                      className="memori-dropdown--action-button memori-dropdown--action-button--logout"
+                      onClick={onLogout}
+                    >
+                      <Logout className="memori-dropdown--action-icon" />
+                      {t('login.logout') || 'Logout'}
+                    </button>
+                  </div>
+                </Dropdown.Menu>
             </Dropdown>
           ) : (
             <Button
-              primary
+              variant="primary"
               shape="circle"
               className="memori-header--button memori-header--button-login"
               icon={<UserIcon />}

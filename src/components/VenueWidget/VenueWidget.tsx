@@ -1,16 +1,14 @@
 import { Venue } from '@memori.ai/memori-api-client/dist/types';
-import { useEffect, useState, useCallback, Fragment } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getUncertaintyByViewport } from '../../helpers/venue';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { useLeafletContext } from '@react-leaflet/core';
 import L from 'leaflet';
 import toast from 'react-hot-toast';
-import Button from '../ui/Button';
+import { Button, Spin } from '@memori.ai/ui';
 import { useDebounceFn } from '../../helpers/utils';
-import { Combobox, Transition } from '@headlessui/react';
 import cx from 'classnames';
-import Spin from '../ui/Spin';
 
 export type NominatimItem = {
   place_id: number;
@@ -132,6 +130,105 @@ const getPlaceName = (venue?: NominatimItem) => {
   }
 
   return placeName;
+};
+
+const VenueCombobox = ({
+  venue,
+  query,
+  fetching,
+  suggestions,
+  onQueryChange,
+  onChange,
+  getPlaceName,
+  t,
+}: {
+  venue?: Venue;
+  query: string;
+  fetching: boolean;
+  suggestions: NominatimItem[];
+  onQueryChange: (value: string) => void;
+  onChange: (value: NominatimItem) => void;
+  getPlaceName: (v?: NominatimItem) => string;
+  t: (key: string) => string;
+}) => {
+  const [open, setOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const selectedItem: NominatimItem | undefined =
+    venue?.latitude != null
+      ? {
+          place_id: 0,
+          lat: venue.latitude,
+          lon: venue.longitude,
+          display_name: venue.placeName ?? '',
+          type: '',
+          category: '',
+          importance: 0,
+          place_rank: 0,
+          boundingbox: [0, 0, 0, 0],
+        }
+      : undefined;
+  const displayValue = open ? query : (selectedItem ? getPlaceName(selectedItem) : '');
+
+  useEffect(() => {
+    if (!open) return;
+    const handleClickOutside = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [open]);
+
+  return (
+    <div className="memori--venue-widget-search" ref={containerRef}>
+      <input
+        type="text"
+        className="memori--venue-widget-search--input"
+        value={displayValue}
+        onChange={e => {
+          onQueryChange(e.target.value);
+          setOpen(true);
+        }}
+        onFocus={() => setOpen(true)}
+        placeholder={t('searchVenue')}
+      />
+      {(fetching ||
+        suggestions.length > 0 ||
+        (suggestions.length === 0 && query !== '')) &&
+        open && (
+          <ul className="memori--venue-widget-search--options">
+            {fetching ? (
+              <Spin spinning>
+                <div className="memori--venue-widget-search--option memori--venue-widget-search--option-centered">
+                  {t('loading')}...
+                </div>
+              </Spin>
+            ) : suggestions.length === 0 && query !== '' ? (
+              <div className="memori--venue-widget-search--option memori--venue-widget-search--option-centered">
+                {t('nothingFound')}
+              </div>
+            ) : (
+              suggestions?.map(s => (
+                <li
+                  key={s.place_id}
+                  className={cx('memori--venue-widget-search--option', {
+                    'memori--venue-widget-search--option-selected':
+                      selectedItem?.lat === s.lat && selectedItem?.lon === s.lon,
+                  })}
+                  onClick={() => {
+                    onChange(s);
+                    setOpen(false);
+                  }}
+                >
+                  {s.display_name}
+                </li>
+              ))
+            )}
+          </ul>
+        )}
+    </div>
+  );
 };
 
 const VenueWidget = ({
@@ -257,83 +354,21 @@ const VenueWidget = ({
             <p>{t('write_and_speak.updatingPosition')}</p>
           ) : (
             <>
-              <div className="memori--venue-widget-search">
-                <Combobox
-                  value={
-                    (venue?.latitude && venue?.longitude
-                      ? {
-                          place_id: 0,
-                          lat: venue?.latitude,
-                          lon: venue?.longitude,
-                          display_name: venue?.placeName,
-                        }
-                      : undefined) as NominatimItem | undefined
-                  }
-                  onChange={handleChange}
-                >
-                  <Combobox.Input
-                    className="memori--venue-widget-search--input"
-                    displayValue={(i: NominatimItem) =>
-                      i ? getPlaceName(i) : ''
-                    }
-                    placeholder={t('searchVenue')}
-                    onChange={e => onQueryChange(e.target.value)}
-                  />
-                  {(fetching ||
-                    suggestions.length > 0 ||
-                    (suggestions.length === 0 && query !== '')) && (
-                    <Transition
-                      as={Fragment}
-                      leave="transition ease-in duration-100"
-                      leaveFrom="opacity-100"
-                      leaveTo="opacity-0"
-                    >
-                      <Combobox.Options className="memori--venue-widget-search--options">
-                        {fetching ? (
-                          <Spin spinning>
-                            <div className="memori--venue-widget-search--option memori--venue-widget-search--option-centered">
-                              {t('loading')}...
-                            </div>
-                          </Spin>
-                        ) : suggestions.length === 0 && query !== '' ? (
-                          <div className="memori--venue-widget-search--option memori--venue-widget-search--option-centered">
-                            {t('nothingFound')}
-                          </div>
-                        ) : (
-                          suggestions?.map(s => (
-                            <Combobox.Option
-                              as={Fragment}
-                              key={s.place_id}
-                              value={s}
-                            >
-                              {({ active, selected }) => (
-                                <li
-                                  className={cx(
-                                    'memori--venue-widget-search--option',
-                                    {
-                                      'memori--venue-widget-search--option-active':
-                                        active,
-                                      'memori--venue-widget-search--option-selected':
-                                        selected,
-                                    }
-                                  )}
-                                >
-                                  {s.display_name}
-                                </li>
-                              )}
-                            </Combobox.Option>
-                          ))
-                        )}
-                      </Combobox.Options>
-                    </Transition>
-                  )}
-                </Combobox>
-              </div>
+              <VenueCombobox
+                venue={venue}
+                query={query}
+                fetching={fetching}
+                suggestions={suggestions}
+                onQueryChange={onQueryChange}
+                onChange={handleChange}
+                getPlaceName={getPlaceName}
+                t={t}
+              />
 
               {showGpsButton && (
                 <Button
                   className="memori--venue-widget__gps-button"
-                  primary
+                  variant="primary"
                   loading={updatingPosition}
                   onClick={() => {
                     setUpdatingPosition(true);
@@ -348,7 +383,7 @@ const VenueWidget = ({
         </div>
         <div>
           <Button
-            outlined
+            variant="outline"
             className="memori--venue-widget__no-location-button"
             onClick={() => {
               let venue: Venue = {

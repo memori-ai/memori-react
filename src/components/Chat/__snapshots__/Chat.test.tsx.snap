@@ -27,7 +27,7 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -37,7 +37,7 @@ exports[`renders Chat unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -51,11 +51,13 @@ exports[`renders Chat unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -93,13 +95,13 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -116,11 +118,13 @@ exports[`renders Chat unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -151,7 +155,7 @@ exports[`renders Chat unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -173,7 +177,7 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -183,7 +187,7 @@ exports[`renders Chat unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -197,11 +201,13 @@ exports[`renders Chat unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -239,13 +245,13 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -262,11 +268,13 @@ exports[`renders Chat unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -297,7 +305,7 @@ exports[`renders Chat unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -322,7 +330,7 @@ exports[`renders Chat unchanged 1`] = `
               class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item"
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
@@ -358,7 +366,7 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -368,7 +376,7 @@ exports[`renders Chat unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -382,11 +390,13 @@ exports[`renders Chat unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -424,13 +434,13 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -447,11 +457,13 @@ exports[`renders Chat unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -482,7 +494,7 @@ exports[`renders Chat unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -504,7 +516,7 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -514,7 +526,7 @@ exports[`renders Chat unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -528,11 +540,13 @@ exports[`renders Chat unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -663,7 +677,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -673,7 +687,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -687,11 +701,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -729,13 +745,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -752,11 +768,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -787,7 +805,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -809,7 +827,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -819,7 +837,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -833,11 +851,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -875,13 +895,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -898,11 +918,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -933,7 +955,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -958,7 +980,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
               class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item"
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
@@ -994,7 +1016,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -1004,7 +1026,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1018,11 +1040,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -1075,13 +1099,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -1098,11 +1122,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -1133,7 +1159,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -1155,7 +1181,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -1165,7 +1191,7 @@ exports[`renders Chat with context vars unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1179,11 +1205,13 @@ exports[`renders Chat with context vars unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -1329,7 +1357,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -1339,7 +1367,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1353,11 +1381,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -1395,13 +1425,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -1418,11 +1448,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -1453,7 +1485,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <span>
               USER
@@ -1467,7 +1499,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -1477,7 +1509,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1491,11 +1523,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -1533,13 +1567,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -1556,11 +1590,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -1591,7 +1627,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <span>
               USER
@@ -1608,7 +1644,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item"
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
@@ -1644,7 +1680,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -1654,7 +1690,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1668,11 +1704,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -1710,13 +1748,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -1733,11 +1771,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -1768,7 +1808,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <span>
               USER
@@ -1782,7 +1822,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -1792,7 +1832,7 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1806,11 +1846,13 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -1941,7 +1983,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -1951,7 +1993,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -1965,11 +2007,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -2007,13 +2051,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -2030,11 +2074,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -2065,7 +2111,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             </div>
           </div>
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <img
               alt="User"
@@ -2081,7 +2127,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -2091,7 +2137,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2105,11 +2151,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -2147,13 +2195,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -2170,11 +2218,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -2205,7 +2255,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             </div>
           </div>
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <img
               alt="User"
@@ -2224,7 +2274,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item"
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
@@ -2260,7 +2310,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -2270,7 +2320,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2284,11 +2334,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -2326,13 +2378,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -2349,11 +2401,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -2384,7 +2438,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             </div>
           </div>
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <img
               alt="User"
@@ -2400,7 +2454,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -2410,7 +2464,7 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2424,11 +2478,13 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -2559,7 +2615,7 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -2569,7 +2625,7 @@ exports[`renders Chat with dates unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2583,11 +2639,13 @@ exports[`renders Chat with dates unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -2630,13 +2688,13 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -2653,11 +2711,13 @@ exports[`renders Chat with dates unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -2688,7 +2748,7 @@ exports[`renders Chat with dates unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -2715,7 +2775,7 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -2725,7 +2785,7 @@ exports[`renders Chat with dates unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2739,11 +2799,13 @@ exports[`renders Chat with dates unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -2786,13 +2848,13 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -2809,11 +2871,13 @@ exports[`renders Chat with dates unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -2844,7 +2908,7 @@ exports[`renders Chat with dates unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -2874,7 +2938,7 @@ exports[`renders Chat with dates unchanged 1`] = `
               class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item"
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
@@ -2910,7 +2974,7 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -2920,7 +2984,7 @@ exports[`renders Chat with dates unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -2934,11 +2998,13 @@ exports[`renders Chat with dates unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -2981,13 +3047,13 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -3004,11 +3070,13 @@ exports[`renders Chat with dates unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -3039,7 +3107,7 @@ exports[`renders Chat with dates unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -3066,7 +3134,7 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -3076,7 +3144,7 @@ exports[`renders Chat with dates unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -3090,11 +3158,13 @@ exports[`renders Chat with dates unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -3230,7 +3300,7 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -3240,7 +3310,7 @@ exports[`renders Chat with hints unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -3254,11 +3324,13 @@ exports[`renders Chat with hints unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -3296,13 +3368,13 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -3319,11 +3391,13 @@ exports[`renders Chat with hints unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -3354,7 +3428,7 @@ exports[`renders Chat with hints unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -3376,7 +3450,7 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -3386,7 +3460,7 @@ exports[`renders Chat with hints unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -3400,11 +3474,13 @@ exports[`renders Chat with hints unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -3442,13 +3518,13 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -3465,11 +3541,13 @@ exports[`renders Chat with hints unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -3500,7 +3578,7 @@ exports[`renders Chat with hints unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -3525,7 +3603,7 @@ exports[`renders Chat with hints unchanged 1`] = `
               class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item"
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
@@ -3561,7 +3639,7 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -3571,7 +3649,7 @@ exports[`renders Chat with hints unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -3585,11 +3663,13 @@ exports[`renders Chat with hints unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -3627,13 +3707,13 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -3650,11 +3730,13 @@ exports[`renders Chat with hints unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -3685,7 +3767,7 @@ exports[`renders Chat with hints unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -3707,7 +3789,7 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -3717,7 +3799,7 @@ exports[`renders Chat with hints unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -3731,11 +3813,13 @@ exports[`renders Chat with hints unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -3772,22 +3856,30 @@ exports[`renders Chat with hints unchanged 1`] = `
           <ul
             class="memori-media--hints"
           >
-            <li
-              class="ease-out duration-500 opacity-0 translate-y-1"
-            >
+            <li>
               <button
-                class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori-media--hint"
+                class="memori-button memori-button--primary memori-button--md memori-media--hint"
+                tabindex="0"
+                type="button"
               >
-                Va bene
+                <span
+                  class="memori-button__content"
+                >
+                  Va bene
+                </span>
               </button>
             </li>
-            <li
-              class="ease-out duration-500 opacity-0 translate-y-1"
-            >
+            <li>
               <button
-                class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori-media--hint"
+                class="memori-button memori-button--primary memori-button--md memori-media--hint"
+                tabindex="0"
+                type="button"
               >
-                No grazie
+                <span
+                  class="memori-button__content"
+                >
+                  No grazie
+                </span>
               </button>
             </li>
           </ul>
@@ -3892,7 +3984,7 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -3902,7 +3994,7 @@ exports[`renders Chat with media unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -3916,11 +4008,13 @@ exports[`renders Chat with media unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -3958,13 +4052,13 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -3981,11 +4075,13 @@ exports[`renders Chat with media unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -4016,7 +4112,7 @@ exports[`renders Chat with media unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -4038,7 +4134,7 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -4048,7 +4144,7 @@ exports[`renders Chat with media unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -4062,11 +4158,13 @@ exports[`renders Chat with media unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -4104,13 +4202,13 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -4127,11 +4225,13 @@ exports[`renders Chat with media unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -4162,7 +4262,7 @@ exports[`renders Chat with media unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -4187,7 +4287,7 @@ exports[`renders Chat with media unchanged 1`] = `
               class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent memori-media-items--few"
             >
               <div
-                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item"
               >
                 <div
                   class="memori-media-item--link memori-media-item--image-link"
@@ -4197,56 +4297,37 @@ exports[`renders Chat with media unchanged 1`] = `
                   title="Image 0"
                 >
                   <div
-                    class="memori-card memori-media-item--card memori-media-item--image memori-card--with-cover memori-card--hoverable"
+                    class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+                    tabindex="0"
                   >
                     <div
-                      class="memori-spin"
+                      class="memori-card__cover"
+                    >
+                      <picture
+                        class="memori-media-item--figure"
+                      >
+                        <source
+                          srcset="https://picsum.photos/300/200?random=0"
+                          type="image/png"
+                        />
+                        <img
+                          alt="Image 0"
+                          src="https://picsum.photos/300/200?random=0"
+                        />
+                      </picture>
+                    </div>
+                    <div
+                      class="memori-card__body memori-card__body--padding-md"
                     >
                       <div
-                        class="memori-card--cover"
-                      >
-                        <picture
-                          class="memori-media-item--figure"
-                        >
-                          <source
-                            srcset="https://picsum.photos/300/200?random=0"
-                            type="image/png"
-                          />
-                          <img
-                            alt="Image 0"
-                            src="https://picsum.photos/300/200?random=0"
-                          />
-                        </picture>
-                      </div>
-                      <div
-                        class="memori-card--content"
-                      >
-                        <div
-                          class="memori-card--children"
-                        />
-                      </div>
-                      <div
-                        class="memori-spin--spinner"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="memori-loading-icon"
-                          focusable="false"
-                          role="img"
-                          viewBox="0 0 1024 1024"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                          />
-                        </svg>
-                      </div>
+                        class="memori-spin"
+                      />
                     </div>
                   </div>
                 </div>
               </div>
               <div
-                class="memori-media-item ease-out duration-500 delay-100 opacity-0 scale-95"
+                class="memori-media-item"
               >
                 <div
                   class="memori-media-item--link memori-media-item--image-link"
@@ -4256,56 +4337,37 @@ exports[`renders Chat with media unchanged 1`] = `
                   title="Image 1"
                 >
                   <div
-                    class="memori-card memori-media-item--card memori-media-item--image memori-card--with-cover memori-card--hoverable"
+                    class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+                    tabindex="0"
                   >
                     <div
-                      class="memori-spin"
+                      class="memori-card__cover"
+                    >
+                      <picture
+                        class="memori-media-item--figure"
+                      >
+                        <source
+                          srcset="https://picsum.photos/200/300?random=1"
+                          type="image/png"
+                        />
+                        <img
+                          alt="Image 1"
+                          src="https://picsum.photos/200/300?random=1"
+                        />
+                      </picture>
+                    </div>
+                    <div
+                      class="memori-card__body memori-card__body--padding-md"
                     >
                       <div
-                        class="memori-card--cover"
-                      >
-                        <picture
-                          class="memori-media-item--figure"
-                        >
-                          <source
-                            srcset="https://picsum.photos/200/300?random=1"
-                            type="image/png"
-                          />
-                          <img
-                            alt="Image 1"
-                            src="https://picsum.photos/200/300?random=1"
-                          />
-                        </picture>
-                      </div>
-                      <div
-                        class="memori-card--content"
-                      >
-                        <div
-                          class="memori-card--children"
-                        />
-                      </div>
-                      <div
-                        class="memori-spin--spinner"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="memori-loading-icon"
-                          focusable="false"
-                          role="img"
-                          viewBox="0 0 1024 1024"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                          />
-                        </svg>
-                      </div>
+                        class="memori-spin"
+                      />
                     </div>
                   </div>
                 </div>
               </div>
               <div
-                class="memori-media-item ease-out duration-500 delay-200 opacity-0 scale-95"
+                class="memori-media-item"
               >
                 <div
                   class="memori-media-item--link memori-media-item--image-link"
@@ -4315,56 +4377,37 @@ exports[`renders Chat with media unchanged 1`] = `
                   title="Image 2"
                 >
                   <div
-                    class="memori-card memori-media-item--card memori-media-item--image memori-card--with-cover memori-card--hoverable"
+                    class="memori-card memori-card--elevated memori-card--interactive memori-media-item--card memori-media-item--image"
+                    tabindex="0"
                   >
                     <div
-                      class="memori-spin"
+                      class="memori-card__cover"
+                    >
+                      <picture
+                        class="memori-media-item--figure"
+                      >
+                        <source
+                          srcset="https://picsum.photos/300/300?random=2"
+                          type="image/png"
+                        />
+                        <img
+                          alt="Image 2"
+                          src="https://picsum.photos/300/300?random=2"
+                        />
+                      </picture>
+                    </div>
+                    <div
+                      class="memori-card__body memori-card__body--padding-md"
                     >
                       <div
-                        class="memori-card--cover"
-                      >
-                        <picture
-                          class="memori-media-item--figure"
-                        >
-                          <source
-                            srcset="https://picsum.photos/300/300?random=2"
-                            type="image/png"
-                          />
-                          <img
-                            alt="Image 2"
-                            src="https://picsum.photos/300/300?random=2"
-                          />
-                        </picture>
-                      </div>
-                      <div
-                        class="memori-card--content"
-                      >
-                        <div
-                          class="memori-card--children"
-                        />
-                      </div>
-                      <div
-                        class="memori-spin--spinner"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="memori-loading-icon"
-                          focusable="false"
-                          role="img"
-                          viewBox="0 0 1024 1024"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M988 548c-19.9 0-36-16.1-36-36 0-59.4-11.6-117-34.6-171.3a440.45 440.45 0 00-94.3-139.9 437.71 437.71 0 00-139.9-94.3C629 83.6 571.4 72 512 72c-19.9 0-36-16.1-36-36s16.1-36 36-36c69.1 0 136.2 13.5 199.3 40.3C772.3 66 827 103 874 150c47 47 83.9 101.8 109.7 162.7 26.7 63.1 40.2 130.2 40.2 199.3.1 19.9-16 36-35.9 36z"
-                          />
-                        </svg>
-                      </div>
+                        class="memori-spin"
+                      />
                     </div>
                   </div>
                 </div>
               </div>
               <div
-                class="memori-media-item ease-out duration-500 delay-300 opacity-0 scale-95"
+                class="memori-media-item"
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
@@ -4394,7 +4437,7 @@ exports[`renders Chat with media unchanged 1`] = `
                 </a>
               </div>
               <div
-                class="memori-media-item ease-out duration-500 delay-400 opacity-0 scale-95"
+                class="memori-media-item"
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
@@ -4424,7 +4467,7 @@ exports[`renders Chat with media unchanged 1`] = `
                 </a>
               </div>
               <div
-                class="memori-media-item ease-out duration-500 delay-500 opacity-0 scale-95"
+                class="memori-media-item"
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
@@ -4454,7 +4497,7 @@ exports[`renders Chat with media unchanged 1`] = `
                 </a>
               </div>
               <div
-                class="memori-media-item ease-out duration-500 delay-600 opacity-0 scale-95"
+                class="memori-media-item"
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
@@ -4490,7 +4533,7 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -4500,7 +4543,7 @@ exports[`renders Chat with media unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -4514,11 +4557,13 @@ exports[`renders Chat with media unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -4556,13 +4601,13 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -4579,11 +4624,13 @@ exports[`renders Chat with media unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -4614,7 +4661,7 @@ exports[`renders Chat with media unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -4636,7 +4683,7 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -4646,7 +4693,7 @@ exports[`renders Chat with media unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -4660,11 +4707,13 @@ exports[`renders Chat with media unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -4795,7 +4844,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -4805,7 +4854,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -4819,11 +4868,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -4861,13 +4912,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -4884,11 +4935,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -4919,7 +4972,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -4941,7 +4994,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -4951,7 +5004,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -4965,11 +5018,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -5007,13 +5062,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -5030,11 +5085,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -5065,7 +5122,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -5090,7 +5147,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item"
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
@@ -5126,7 +5183,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -5136,7 +5193,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -5150,11 +5207,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -5192,13 +5251,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -5215,11 +5274,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -5250,7 +5311,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             </div>
           </div>
           <div
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <svg
               aria-hidden="true"
@@ -5272,7 +5333,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -5282,7 +5343,7 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -5296,11 +5357,13 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -5443,7 +5506,7 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -5453,7 +5516,7 @@ exports[`renders Chat with user unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -5467,11 +5530,13 @@ exports[`renders Chat with user unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -5509,13 +5574,13 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -5532,11 +5597,13 @@ exports[`renders Chat with user unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -5567,7 +5634,7 @@ exports[`renders Chat with user unchanged 1`] = `
             </div>
           </div>
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <img
               alt="User"
@@ -5583,7 +5650,7 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -5593,7 +5660,7 @@ exports[`renders Chat with user unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -5607,11 +5674,13 @@ exports[`renders Chat with user unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -5649,13 +5718,13 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -5672,11 +5741,13 @@ exports[`renders Chat with user unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -5707,7 +5778,7 @@ exports[`renders Chat with user unchanged 1`] = `
             </div>
           </div>
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <img
               alt="User"
@@ -5726,7 +5797,7 @@ exports[`renders Chat with user unchanged 1`] = `
               class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
             >
               <div
-                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+                class="memori-media-item"
               >
                 <a
                   class="memori-media-item--link memori-media-item--document-link"
@@ -5762,7 +5833,7 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -5772,7 +5843,7 @@ exports[`renders Chat with user unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -5786,11 +5857,13 @@ exports[`renders Chat with user unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -5828,13 +5901,13 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
         >
           <div
-            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
           >
             <div
               class="memori-expandable memori-chat--bubble-content"
             >
               <div
-                class="memori-expandable--inner"
+                class="memori-expandable__inner"
                 style="max-height: 9999px;"
               >
                 <div
@@ -5851,11 +5924,13 @@ exports[`renders Chat with user unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"
@@ -5886,7 +5961,7 @@ exports[`renders Chat with user unchanged 1`] = `
             </div>
           </div>
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+            class="memori-chat--bubble-avatar"
           >
             <img
               alt="User"
@@ -5902,7 +5977,7 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
           <picture
-            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            class="memori-chat--bubble-avatar"
             title="Memori"
           >
             <img
@@ -5912,7 +5987,7 @@ exports[`renders Chat with user unchanged 1`] = `
             />
           </picture>
           <div
-            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+            class="memori-chat--bubble memori-chat--with-addon"
           >
             <div
               class="memori-chat--bubble-content"
@@ -5926,11 +6001,13 @@ exports[`renders Chat with user unchanged 1`] = `
               class="memori-chat--bubble-addon"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                tabindex="0"
                 title="copy"
+                type="button"
               >
                 <span
-                  class="memori-button--icon"
+                  class="memori-button__icon"
                 >
                   <svg
                     aria-hidden="true"

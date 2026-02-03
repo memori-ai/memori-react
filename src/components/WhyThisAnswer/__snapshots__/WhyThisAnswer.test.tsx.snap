@@ -3,25 +3,22 @@
 exports[`renders WhyThisAnswer hidden unchanged 1`] = `<div />`;
 
 exports[`renders WhyThisAnswer loading unchanged 1`] = `
-<div>
-  <div
-    style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
-  />
-</div>
+<div
+  aria-hidden="true"
+  data-base-ui-inert=""
+/>
 `;
 
 exports[`renders WhyThisAnswer visible unchanged 1`] = `
-<div>
-  <div
-    style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
-  />
-</div>
+<div
+  aria-hidden="true"
+  data-base-ui-inert=""
+/>
 `;
 
 exports[`renders WhyThisAnswer with data unchanged 1`] = `
-<div>
-  <div
-    style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
-  />
-</div>
+<div
+  aria-hidden="true"
+  data-base-ui-inert=""
+/>
 `;

@@ -12,6 +12,10 @@
     text-align: right;
 }
 
+.memori-totem-layout .memori-header{
+    gap: 6px;
+}
+
 @media (max-width: 870px) {
     .memori-header {
         width: 100%;

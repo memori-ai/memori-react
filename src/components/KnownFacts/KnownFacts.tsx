@@ -1,16 +1,11 @@
 import { KnownFact, Memori } from '@memori.ai/memori-api-client/dist/types';
 import { useEffect, useState } from 'react';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import Button from '../ui/Button';
-import Drawer from '../ui/Drawer';
-import Spin from '../ui/Spin';
-import Modal from '../ui/Modal';
+import { Button, Drawer, Spin, Modal, Checkbox, SelectBox } from '@memori.ai/ui';
 import toast from 'react-hot-toast';
 import { getErrori18nKey } from '../../helpers/error';
 import { useTranslation } from 'react-i18next';
 import Delete from '../icons/Delete';
-import Checkbox from '../ui/Checkbox';
-import Select from '../ui/Select';
 import ChevronLeft from '../icons/ChevronLeft';
 import ChevronRight from '../icons/ChevronRight';
 
@@ -90,22 +85,18 @@ const KnownFacts = ({
   return (
     <Drawer
       open={visible}
-      width="80%"
+      anchor="right"
       className="memori-known-facts-drawer"
-      onClose={() => closeDrawer()}
+      onOpenChange={() => closeDrawer()}
       title={t('knownFacts.title')}
+      description={t('knownFacts.description', {
+        memoriName: memori.name,
+      })}
     >
-      <p>
-        {t('knownFacts.description', {
-          memoriName: memori.name,
-        })}
-      </p>
-
       <Spin spinning={loading}>
         <div className="memori-known-facts-actions">
           <Button
-            primary
-            danger
+            variant="danger"
             onClick={() => {
               setBulkDeleteModalVisible(true);
             }}
@@ -132,13 +123,15 @@ const KnownFacts = ({
                   })
                 : t('knownFacts.deleteConfirmMessage')
             }
-            onClose={() => {
-              setBulkDeleteModalVisible(false);
+            onOpenChange={(open: boolean) => {
+              if (!open) {
+                setBulkDeleteModalVisible(false);
+              }
             }}
             footer={
               <>
                 <Button
-                  ghost
+                  variant="ghost"
                   onClick={() => {
                     setBulkDeleteModalVisible(false);
                   }}
@@ -146,8 +139,7 @@ const KnownFacts = ({
                   {t('cancel')}
                 </Button>
                 <Button
-                  primary
-                  danger
+                  variant="danger"
                   onClick={async () => {
                     try {
                       const mutations = selectedRowKeys.map(key => {
@@ -189,7 +181,6 @@ const KnownFacts = ({
                 <Button
                   shape="circle"
                   disabled={pageIndex === 0 || pageIndex < numberOfResults}
-                  padded={false}
                   title={t('previous') || 'Previous'}
                   icon={<ChevronLeft />}
                   onClick={() => {
@@ -205,7 +196,6 @@ const KnownFacts = ({
                 </span>
                 <Button
                   shape="circle"
-                  padded={false}
                   title={t('next') || 'Next'}
                   icon={<ChevronRight />}
                   disabled={
@@ -222,18 +212,19 @@ const KnownFacts = ({
               </div>
             )}
 
-            <Select
+            <SelectBox
               options={[
-                { label: `25 / ${t('page') || 'page'}`, value: 25 },
-                { label: `50 / ${t('page') || 'page'}`, value: 50 },
-                { label: `100 / ${t('page') || 'page'}`, value: 100 },
+                { label: `25 / ${t('page') || 'page'}`, value: '25' },
+                { label: `50 / ${t('page') || 'page'}`, value: '50' },
+                { label: `100 / ${t('page') || 'page'}`, value: '100' },
               ]}
-              value={numberOfResults}
-              displayValue={`${numberOfResults} / ${t('page') || 'page'}`}
-              onChange={value => {
-                setNumberOfResults(value);
-                setPageIndex(0);
-                fetchKnownFacts(undefined, 0, value);
+              value={numberOfResults.toString()}
+              onChange={(value: string | null) => {
+                if (value) {
+                  setNumberOfResults(parseInt(value));
+                  setPageIndex(0);
+                  fetchKnownFacts(undefined, 0, parseInt(value));
+                }
               }}
             />
           </nav>
@@ -252,8 +243,8 @@ const KnownFacts = ({
                     !!selectedRowKeys?.length &&
                     selectedRowKeys?.length !== knownFacts?.length
                   }
-                  onChange={e => {
-                    if (e.target.checked) {
+                  onChange={(checked: boolean) => {
+                    if (checked) {
                       setSelectedRowKeys(knownFacts.map(kf => kf.knownFactID));
                     } else {
                       setSelectedRowKeys([]);
@@ -272,8 +263,8 @@ const KnownFacts = ({
                 <th className="memori--table--column-centered">
                   <Checkbox
                     checked={selectedRowKeys?.includes(kf.knownFactID)}
-                    onChange={e => {
-                      if (e.target.checked) {
+                    onChange={(checked: boolean) => {
+                      if (checked) {
                         setSelectedRowKeys(srk => [
                           ...new Set([...srk, kf.knownFactID]),
                         ]);
@@ -302,9 +293,7 @@ const KnownFacts = ({
                 <td className="memori--table--column-right">
                   <div className="memori--table--action-column">
                     <Button
-                      danger
-                      ghost
-                      shape="circle"
+                      variant="danger"
                       icon={<Delete />}
                       disabled={selectedRowKeys?.length > 0}
                       title={t('delete') || 'Delete'}
@@ -316,13 +305,15 @@ const KnownFacts = ({
                       closable
                       title={t('knownFacts.deleteConfirmTitle')}
                       description={t('knownFacts.deleteConfirmMessage')}
-                      onClose={() => {
-                        setDeleteModalVisibleFor(undefined);
+                      onOpenChange={(open: boolean) => {
+                        if (!open) {
+                          setDeleteModalVisibleFor(undefined);
+                        }
                       }}
                       footer={
                         <>
                           <Button
-                            ghost
+                            variant="ghost"
                             onClick={() => {
                               setDeleteModalVisibleFor(undefined);
                             }}
@@ -330,8 +321,7 @@ const KnownFacts = ({
                             {t('cancel')}
                           </Button>
                           <Button
-                            primary
-                            danger
+                            variant="danger"
                             onClick={async () => {
                               try {
                                 const response = await deleteKnownFact(

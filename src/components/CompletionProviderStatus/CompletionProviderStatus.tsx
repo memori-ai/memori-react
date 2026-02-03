@@ -1,10 +1,10 @@
 import { useEffect, useState, useCallback } from 'react';
-import Tooltip from '../ui/Tooltip';
+import { Tooltip } from '@memori.ai/ui';
 import Warning from '../icons/Warning';
 import Alert from '../icons/Alert';
 import Info from '../icons/Info';
 import { useTranslation } from 'react-i18next';
-import Spin from '../ui/Spin';
+import { Spin } from '@memori.ai/ui';
 
 type Status =
   | 'operational'
