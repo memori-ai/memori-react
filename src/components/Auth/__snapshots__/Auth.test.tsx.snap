@@ -19,11 +19,13 @@ exports[`renders Auth on tokens unchanged 1`] = `
       >
         <input
           autocomplete="off"
-          class="memori-auth-widget--input"
+          class="memori-input memori-input--default memori-input--md memori-auth-widget--input"
+          id="base-ui-:r2:"
           name="tokens.0"
           placeholder="Recovery token"
           required=""
           type="password"
+          value=""
         />
       </label>
       <button
@@ -101,11 +103,13 @@ exports[`renders Auth unchanged 1`] = `
         Password:
          
         <input
-          class="memori-auth-widget--input"
+          class="memori-input memori-input--default memori-input--md memori-auth-widget--input"
+          id="base-ui-:r0:"
           name="password"
           placeholder="Password"
           required=""
           type="password"
+          value=""
         />
       </label>
     </fieldset>
@@ -144,11 +148,13 @@ exports[`renders Auth with tokens unchanged 1`] = `
         Password:
          
         <input
-          class="memori-auth-widget--input"
+          class="memori-input memori-input--default memori-input--md memori-auth-widget--input"
+          id="base-ui-:r1:"
           name="password"
           placeholder="Password"
           required=""
           type="password"
+          value=""
         />
       </label>
       <hr />

@@ -6,7 +6,7 @@ import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { useLeafletContext } from '@react-leaflet/core';
 import L from 'leaflet';
 import toast from 'react-hot-toast';
-import { Button, Spin } from '@memori.ai/ui';
+import { Button, Input, Spin } from '@memori.ai/ui';
 import { useDebounceFn } from '../../helpers/utils';
 import cx from 'classnames';
 
@@ -182,12 +182,11 @@ const VenueCombobox = ({
 
   return (
     <div className="memori--venue-widget-search" ref={containerRef}>
-      <input
-        type="text"
-        className="memori--venue-widget-search--input"
-        value={displayValue}
+      <Input
+          value={displayValue}
         onChange={e => {
-          onQueryChange(e.target.value);
+          const value = e.target.value;
+          onQueryChange(value);
           setOpen(true);
         }}
         onFocus={() => setOpen(true)}

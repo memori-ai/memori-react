@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Modal } from '@memori.ai/ui';
+import { Button, Input, Modal } from '@memori.ai/ui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Plus } from 'lucide-react';
 
@@ -102,7 +102,7 @@ export const AuthWidget = ({
         <fieldset className="memori-auth-widget--password-fieldset">
           <label>
             Password:{' '}
-            <input
+            <Input
               className="memori-auth-widget--input"
               required
               type="password"
@@ -126,7 +126,7 @@ export const AuthWidget = ({
           {createArrayWithNumbers(numTokens).map(idx => {
             return (
               <label className="memori-auth-widget--token" key={idx}>
-                <input
+                <Input
                   type="password"
                   className="memori-auth-widget--input"
                   placeholder="Recovery token"

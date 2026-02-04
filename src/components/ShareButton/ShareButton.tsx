@@ -41,9 +41,7 @@ const ShareButton: React.FC<Props> = ({
   sessionID,
   url,
   title = '',
-  className,
   baseUrl,
-  primary = true,
   showQrCode = true,
   align = 'right',
   history = [],
@@ -261,121 +259,59 @@ const ShareButton: React.FC<Props> = ({
     >
       <Dropdown.Trigger
         showChevron={false}
-        className={cx(
-          'memori-button',
-          'memori-button--circle',
-          'memori-button--icon-only',
-          'memori-share-button--button',
-          className,
-          {
-            'memori-button--primary': primary,
-          }
-        )}
+        className="memori-share-button--trigger"
         title={t('widget.share') || undefined}
       >
-        <div className="memori-button--icon">
-          <Share2 />
-        </div>
+        <Button
+          variant="primary"
+          shape="circle"
+          icon={<Share2 />}
+          title={t('widget.share') || undefined}
+        />
       </Dropdown.Trigger>
       <Dropdown.Menu className="memori-share-button--overlay">
-        <ul>
         {memori && sessionID && sharedUrl && (
-          <li key="shared" className="memori-share-button--li memori-share-button--li-shared">
-            <Dropdown.Item
-              className={cx(
-                'memori-button',
-                'memori-button--with-icon',
-                'memori-button--ghost',
-                'memori-button--padded',
-                'memori-share-button--link'
-              )}
-            >
-              <a
-                href={sharedUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cx(
-                  'memori-button',
-                  'memori-button--with-icon',
-                  'memori-button--ghost',
-                  'memori-button--padded',
-                  'memori-share-button--link'
-                )}
-              >
-                <div className="memori-button--icon">
-                  <Share2 />
-                </div>
-                {t('widget.shareChat') || 'Share chat'}
-              </a>
-            </Dropdown.Item>
-          </li>
+          <Dropdown.Item key="shared" onClick={() => window.open(sharedUrl, '_blank')}>
+            <span className="memori-share-button--dropdown-item-content">
+              <Share2 style={{ marginRight: 8 }} />
+              {t('widget.shareChat') || 'Share chat'}
+            </span>
+          </Dropdown.Item>
         )}
         {history && history.length > 0 && (
-          <li key="export-pdf" className="memori-share-button--li">
-            <Dropdown.Item className="memori-share-button--link">
-              <Button
-                variant="ghost"
-                icon={<FileText />}
-                onClick={handleExportPDF}
-                disabled={isExportingPDF}
-                className="memori-share-button--link"
-              >
-                {isExportingPDF
-                  ? t('exportChatHistory.exporting') || 'Exporting...'
-                  : t('exportChatHistory.exportPDF') || 'Export chat as PDF'}
-              </Button>
-            </Dropdown.Item>
-          </li>
-        )}
-        <li key="copy" className="memori-share-button--li">
           <Dropdown.Item
-            className="memori-share-button--link"
-            onClick={() => {
-              targetUrl && navigator.clipboard.writeText(targetUrl);
-            }}
+            key="export-pdf"
+            onClick={handleExportPDF}
+            disabled={isExportingPDF}
           >
-            <Button
-              variant="ghost"
-              icon={<LinkIcon />}
-              className="memori-share-button--link"
-            >
-              {t('copyToClipboard') || undefined}
-            </Button>
+            <span className="memori-share-button--dropdown-item-content">
+              {isExportingPDF
+                ? t('exportChatHistory.exporting') || 'Exporting...'
+                : t('exportChatHistory.exportPDF') || 'Export chat as PDF'}
+              <FileText style={{ marginLeft: 8 }} />
+            </span>
           </Dropdown.Item>
-        </li>
+        )}
+        <Dropdown.Item
+          onClick={() => {
+            targetUrl && navigator.clipboard.writeText(targetUrl);
+          }}
+        >
+          <span className="memori-share-button--dropdown-item-content">
+            <LinkIcon style={{ marginRight: 8 }} />
+            {t('copyToClipboard') || undefined}
+          </span>
+        </Dropdown.Item>
         {socialShare.map(item => (
-          <li key={item.id} className="memori-share-button--li">
-            <Dropdown.Item
-              className={cx(
-                'memori-button',
-                'memori-button--with-icon',
-                'memori-button--ghost',
-                'memori-button--padded',
-                'memori-share-button--link'
-              )}
-            >
-              <a
-                href={item.url ?? ''}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cx(
-                  'memori-button',
-                  'memori-button--with-icon',
-                  'memori-button--ghost',
-                  'memori-button--padded',
-                  'memori-share-button--link'
-                )}
-              >
-                <div className="memori-button--icon">
-                  <item.icon />
-                </div>
-                {item.title}
-              </a>
-            </Dropdown.Item>
-          </li>
+          <Dropdown.Item key={item.id} >
+            <span className="memori-share-button--dropdown-item-content">
+              <item.icon style={{ marginRight: 8 }} />
+              {item.title}
+            </span>
+          </Dropdown.Item>
         ))}
         {showQrCode && (
-          <li key="qrcode" className="memori-share-button--li-qr-code">
+          <Dropdown.Item>
             <QRCodeCanvas
               id="qr-canvas"
               value={targetUrl ?? ''}
@@ -394,17 +330,22 @@ const ShareButton: React.FC<Props> = ({
               }}
             />
             <div>
-              <Button
+              <span
+                className="memori-share-button--dropdown-item-content"
                 onClick={downloadQRCode}
-                icon={<Download />}
-                title="Download QR"
+                style={{ display: 'inline-flex', alignItems: 'center', cursor: 'pointer', marginTop: 8 }}
+                role="button"
+                tabIndex={0}
+                onKeyPress={e => {
+                  if (e.key === 'Enter' || e.key === ' ') downloadQRCode();
+                }}
               >
+                <Download style={{ marginRight: 8 }} />
                 Download
-              </Button>
+              </span>
             </div>
-          </li>
+          </Dropdown.Item>
         )}
-        </ul>
       </Dropdown.Menu>
     </Dropdown>
   );

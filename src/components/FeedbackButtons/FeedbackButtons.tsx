@@ -51,11 +51,9 @@ const FeedbackButtons = ({
     <div className={`memori-chat--feedback${className ? ` ${className}` : ''}`}>
       {dropdown ? (
         <Dropdown className="memori-chat--feedback-menu">
-          <Dropdown.Trigger showChevron={false}>
+          <Dropdown.Trigger className="memori-chat--feedback-button" showChevron={false}>
             <Button
-              variant="primary"
-              shape="circle"
-              className="memori-header--button"
+              variant="ghost"
               title="Feedback"
               disabled={!!clicked}
               icon={

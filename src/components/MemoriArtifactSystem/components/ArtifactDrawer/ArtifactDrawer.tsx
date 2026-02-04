@@ -138,6 +138,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
             open={state.isDrawerOpen}
             onClose={handleClose}
             anchor="right"
+            size="md"
             className={
               state.isFullscreen
                 ? 'memori-artifact-panel-drawer-fullscreen'
@@ -237,18 +238,10 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
             />
             <Button
               onClick={closeArtifact}
-              className={cx(
-                'memori-artifact-drawer--close',
-                'memori-button--icon-only',
-                {
-                  'memori-artifact-drawer--close-desktop': !hasPreview,
-                }
-              )}
               variant="ghost"
+              icon={<X className="memori-artifact-panel--close-icon" />}
               title={t('artifact.close') || 'Close'}
-            >
-              <X className="memori-artifact-panel--close-icon" />
-            </Button>
+            />
           </>
         )}
       </div>

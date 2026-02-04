@@ -11,6 +11,8 @@
 
 .memori-copy-button-trigger {
   position: relative;
+  padding: 0px;
+  border: none;
 }
 
 /* Copy Button */
@@ -151,6 +153,7 @@
 /* Copy Menu Wrapper */
 .memori-copy-menu-wrapper {
   position: relative;
+  z-index: 10001;
   display: inline-block;
 }
 

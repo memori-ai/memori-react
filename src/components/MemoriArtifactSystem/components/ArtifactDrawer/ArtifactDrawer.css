@@ -20,6 +20,7 @@
 /* Override drawer width for ArtifactDrawer */
 .memori-artifact-panel-drawer {
     --memori-drawer--width-lg: 46%;
+    background-color: #fff;
     /* Ensure drawer doesn't block left side chat interaction */
     pointer-events: none;
 }
@@ -707,11 +708,13 @@
     margin-left: auto;
 }
 
+.memori-artifact-actions{
+    flex: 1;
+}
+
 @media (max-width: 1024px) {
     .memori-artifact-panel-drawer > div > div > div {
         z-index: 0;
-        width: 100% !important;
-        max-width: 100% !important;
         box-shadow: none !important;
     }
 

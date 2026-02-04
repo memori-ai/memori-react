@@ -1,6 +1,6 @@
 import { User, Tenant } from '@memori.ai/memori-api-client/dist/types';
 import React, { useEffect, useState } from 'react';
-import { Button, Drawer } from '@memori.ai/ui';
+import { Button, Checkbox, Drawer, Input } from '@memori.ai/ui';
 import toast from 'react-hot-toast';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
@@ -295,6 +295,7 @@ const LoginDrawer = ({
         'memori--login-drawer--logged': isUserLoggedIn,
         'memori--login-drawer--signup': showSignup,
       })}
+      size="lg"
     >
       {needsMissingData?.token?.length ? (
         <>
@@ -329,14 +330,11 @@ const LoginDrawer = ({
               <>
                 <label className="memori-checkbox">
                   <span className="memori-checkbox--input-wrapper">
-                    <input
-                      type="checkbox"
+                    <Checkbox
                       name="tnCAndPPAccepted"
-                      className="memori-checkbox--input"
-                      onChange={e => setTnCAndPPAccepted(e.target.checked)}
                       checked={tnCAndPPAccepted}
+                      onChange={checked => setTnCAndPPAccepted(checked)}
                     />
-                    <span className="memori-checkbox--inner" />
                   </span>
                   <span className="memori-checkbox--text">
                     {t('login.privacyLabel')}{' '}
@@ -360,14 +358,11 @@ const LoginDrawer = ({
 
                 <label className="memori-checkbox">
                   <span className="memori-checkbox--input-wrapper">
-                    <input
-                      type="checkbox"
+                    <Checkbox
                       name="pAndCUAccepted"
-                      onChange={e => setPAndCUAccepted(e.target.checked)}
                       checked={pAndCUAccepted}
-                      className="memori-checkbox--input"
+                      onChange={checked => setPAndCUAccepted(checked)}
                     />
-                    <span className="memori-checkbox--inner" />
                   </span>
                   <span className="memori-checkbox--text">
                     {t('login.pAndCUAccepted')}{' '}
@@ -522,7 +517,7 @@ const LoginDrawer = ({
                   {t('login.email')}
                 </span>
                 <div className="memori--login-drawer--otp-input-container">
-                  <input
+                  <Input
                     id="otp-email"
                     type="email"
                     className={cx('memori--login-drawer--otp-email-input', {

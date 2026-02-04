@@ -66,12 +66,9 @@
     line-height: 1.33;
 }
 
-
-
 .memori-chat--bubble-container.memori-chat--with-addon .memori-chat--bubble {
     min-width: 9rem;
 }
-
 
 .memori-chat--bubble-avatar svg {
     width: 40px;
@@ -80,7 +77,6 @@
     fill: #666;
     font-size: 1.5rem;
 }
-
 
 .memori-chat--bubble-action-icon--from-user > span > svg {
     color: #fff !important;
@@ -236,8 +232,6 @@
     padding: 3px;
 }
 
-
-
 .memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--debug {
     color: var(--memori-error-color);
 }
@@ -259,6 +253,9 @@
     height: auto;
     min-height: 0;
     padding: 0;
+    padding: 0.5rem;
+    border: 0;
+    border-radius: 50%;
     color: #333;
 }
 

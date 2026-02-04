@@ -898,17 +898,11 @@ const ChatHistoryDrawer = ({
                     {!isMobile && (
                       <div className="memori-chat-history-drawer--card--content--header">
                         <Button
-                          className="memori-chat-history-drawer--card--content--export-button"
+                          variant="ghost"
                           onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleExportChat(chatLog, e)}
                           disabled={chatLog?.sessionID === sessionId}
-                        >
-                          <div className="memori-chat-history-drawer--card--content--export-button--content">
-                            <Download className="memori-chat-history-drawer--card--content--export-button--icon" />
-                            {/* <span className="memori-chat-history-drawer--card--content--export-button--text">
-                            {t('write_and_speak.exportChat') || 'Export Chat'}
-                          </span> */}
-                          </div>
-                        </Button>
+                          icon={<Download />}
+                        />
                       </div>
                     )}
                   </div>

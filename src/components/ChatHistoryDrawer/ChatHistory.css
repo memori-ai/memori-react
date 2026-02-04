@@ -172,6 +172,7 @@
     cursor: pointer;
     gap: 8px;
     transition: color 0.2s ease;
+    
 }
 
 .memori-chat-history-drawer--card--content--export-button:hover {
@@ -542,10 +543,13 @@
 }
 
 .memori-chat-history-drawer--list{
+    display: flex;
     min-width: 97%;
     max-width: 97%;
+    flex-flow: column;
     padding: 0px;
     margin: auto;
+    gap: 0.5rem;
 }
 
 .memori-chat-history-drawer--detail-view--resume-button:hover {

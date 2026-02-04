@@ -20,9 +20,9 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
           class="memori--venue-widget-search"
         >
           <input
-            class="memori--venue-widget-search--input"
+            class="memori-input memori-input--default memori-input--md"
+            id="base-ui-:r1:"
             placeholder="searchVenue"
-            type="text"
             value="Altedo, Bologna, Italy"
           />
         </div>
@@ -107,9 +107,9 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
           class="memori--venue-widget-search"
         >
           <input
-            class="memori--venue-widget-search--input"
+            class="memori-input memori-input--default memori-input--md"
+            id="base-ui-:r2:"
             placeholder="searchVenue"
-            type="text"
             value="Altedo, Bologna, Italy"
           />
         </div>
@@ -194,9 +194,9 @@ exports[`renders VenueWidget without gps button unchanged 1`] = `
           class="memori--venue-widget-search"
         >
           <input
-            class="memori--venue-widget-search--input"
+            class="memori-input memori-input--default memori-input--md"
+            id="base-ui-:r4:"
             placeholder="searchVenue"
-            type="text"
             value="Altedo, Bologna, Italy"
           />
         </div>
@@ -270,9 +270,9 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
           class="memori--venue-widget-search"
         >
           <input
-            class="memori--venue-widget-search--input"
+            class="memori-input memori-input--default memori-input--md"
+            id="base-ui-:r3:"
             placeholder="searchVenue"
-            type="text"
             value="Altedo, Bologna, Italy"
           />
         </div>
@@ -357,9 +357,9 @@ exports[`renders empty VenueWidget unchanged 1`] = `
           class="memori--venue-widget-search"
         >
           <input
-            class="memori--venue-widget-search--input"
+            class="memori-input memori-input--default memori-input--md"
+            id="base-ui-:r0:"
             placeholder="searchVenue"
-            type="text"
             value=""
           />
         </div>

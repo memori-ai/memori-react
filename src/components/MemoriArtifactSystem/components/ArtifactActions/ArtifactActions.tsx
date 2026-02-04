@@ -191,11 +191,6 @@ const ArtifactActions: React.FC<{
             <Dropdown.Trigger showChevron={false} className="memori-copy-button-trigger">
               <Button
                 disabled={loading}
-                className={cx(
-                  'memori-button',
-                  'memori-button--more-options',
-                  'memori-button--icon-only'
-                )}
                 variant="ghost"
                 title="More copy options"
               >

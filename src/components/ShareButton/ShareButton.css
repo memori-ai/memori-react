@@ -3,7 +3,23 @@
     display: inline-block;
 }
 
-.memori-share-button--button {
+.memori-share-button--trigger {
+    display: flex;
+    max-width: 2rem;
+    max-height: 2rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.memori-share-button--dropdown-item-content{
+    display: inline-flex;
+    align-items: center;
+    margin-top: 8px;
     cursor: pointer;
 }
 
