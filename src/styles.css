@@ -75,7 +75,9 @@ body.sb-show-main #root,
     --memori-font-family: 'Lexend Deca Variable', 'Lexend Deca', sans-serif;
     --memori-primary-rgb: 130, 70, 175;
     --memori-primary: rgb(var(--memori-primary-rgb));
+    --memori-primary-color: var(--memori-primary);
     --memori-primary-text: #fff;
+    --memori-secondary-color: var(--memori-secondary);
     --memori-inner-content-pad: 1rem;
     --memori-inner-bg: transparent;
     --memori-chat-bubble-bg: #fff;
