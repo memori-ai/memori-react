@@ -82,7 +82,7 @@ export const generateChatPDFCSS = (options: ChatPDFOptions = {}): string => {
         font-size: 0.9em;
         background-color: #f5f5f5;
         border: 1px solid #ddd;
-        border-radius: 3px;
+        border-radius: .5rem;
         padding: 0.2em 0.4em;
         page-break-inside: avoid;
       }
@@ -222,7 +222,7 @@ const generateChatBubbleStyles = (primaryColorRgb?: string): string => {
       max-width: 75%;
       flex-direction: column;
       padding: 10px 16px;
-      border-radius: 12px;
+      border-radius: .5rem;
       margin-bottom: 5px;
       box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
       font-size: 0.9em;
@@ -232,7 +232,7 @@ const generateChatBubbleStyles = (primaryColorRgb?: string): string => {
     }
 
     .chat-bubble-assistant {
-      border-radius: 12px 12px 12px 0;
+      border-radius: .5rem .5rem .5rem 0;
       margin-left: 0;
       margin-right: auto;
       background: #ffffff;
@@ -241,7 +241,7 @@ const generateChatBubbleStyles = (primaryColorRgb?: string): string => {
     }
 
     .chat-bubble-user {
-      border-radius: 12px 12px 0 12px;
+      border-radius: .5rem .5rem 0 .5rem;
       margin-left: auto;
       margin-right: 0;
       background: rgb(var(--memori-primary-rgb));
@@ -305,7 +305,7 @@ const generateChatBubbleStyles = (primaryColorRgb?: string): string => {
     .chat-bubble-content code {
       background-color: rgba(0, 0, 0, 0.1);
       padding: 0.2em 0.4em;
-      border-radius: 3px;
+      border-radius: .5rem;
       font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
       font-size: 0.9em;
     }
@@ -317,7 +317,7 @@ const generateChatBubbleStyles = (primaryColorRgb?: string): string => {
     .chat-bubble-content pre {
       background-color: rgba(0, 0, 0, 0.05);
       padding: 1em;
-      border-radius: 5px;
+      border-radius: .5rem;
       overflow-x: auto;
       margin: 0.5em 0;
       border: 1px solid rgba(0, 0, 0, 0.1);
@@ -374,7 +374,7 @@ const generateChatBubbleStyles = (primaryColorRgb?: string): string => {
     .chat-bubble-content img {
       max-width: 100%;
       height: auto;
-      border-radius: 5px;
+      border-radius: .5rem;
       margin: 0.5em 0;
     }
 
