@@ -90,6 +90,7 @@ const KnownFacts = ({
       description={t('knownFacts.description', {
         memoriName: memori.name,
       })}
+      size="md"
     >
       <Spin spinning={loading}>
         <div className="memori-known-facts-actions">

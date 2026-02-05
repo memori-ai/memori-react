@@ -263,13 +263,13 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
     code {
       background-color: #f4f4f4;
       padding: 2px 4px;
-      border-radius: 3px;
+      border-radius: .5rem;
       font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     }
     pre {
       background-color: #f8f8f8;
       padding: 15px;
-      border-radius: 5px;
+      border-radius: .5rem;
       overflow-x: auto;
       border: 1px solid #e1e1e1;
     }

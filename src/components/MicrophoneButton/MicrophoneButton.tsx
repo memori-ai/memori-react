@@ -94,10 +94,13 @@ const MicrophoneButton = ({
     >
       <div onContextMenu={handleContextMenu}>
         <Button
-          variant="primary"
-          className={cx('memori-chat-inputs--mic', {
-            'memori-chat-inputs--mic--listening': listening,
-          })}
+          variant="ghost"
+          className={
+            listening ? 'memori-chat-inputs--mic--listening' : ''
+          }
+          style={{
+            color: 'var(--memori-primary)'
+          }}
           title={
             listening
               ? t('write_and_speak.micButtonPopoverListening') || 'Listening'

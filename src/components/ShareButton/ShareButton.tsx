@@ -12,7 +12,11 @@ import {
 import { QRCodeCanvas } from 'qrcode.react';
 import { Button, Dropdown } from '@memori.ai/ui';
 import cx from 'classnames';
-import { Tenant, Memori, Message } from '@memori.ai/memori-api-client/dist/types';
+import {
+  Tenant,
+  Memori,
+  Message,
+} from '@memori.ai/memori-api-client/dist/types';
 import { pdfExporter } from '../MemoriArtifactSystem/components/ArtifactActions/utils/PDFExporter';
 import toast from 'react-hot-toast';
 import {
@@ -163,7 +167,9 @@ const ShareButton: React.FC<Props> = ({
           document.querySelector('memori-client') ||
           document.documentElement;
         const computedStyle = getComputedStyle(rootElement);
-        primaryColorRgb = computedStyle.getPropertyValue('--memori-primary-rgb').trim();
+        primaryColorRgb = computedStyle
+          .getPropertyValue('--memori-primary-rgb')
+          .trim();
         // If empty, try to get it from :root
         if (!primaryColorRgb) {
           primaryColorRgb = getComputedStyle(document.documentElement)
@@ -171,7 +177,10 @@ const ShareButton: React.FC<Props> = ({
             .trim();
         }
       } catch (error) {
-        console.warn('Could not read --memori-primary-rgb CSS variable:', error);
+        console.warn(
+          'Could not read --memori-primary-rgb CSS variable:',
+          error
+        );
       }
 
       const pdfOptions: ChatPDFOptions = {
@@ -264,14 +273,16 @@ const ShareButton: React.FC<Props> = ({
       >
         <Button
           variant="primary"
-          shape="circle"
           icon={<Share2 />}
           title={t('widget.share') || undefined}
         />
       </Dropdown.Trigger>
-      <Dropdown.Menu className="memori-share-button--overlay">
+      <Dropdown.Menu>
         {memori && sessionID && sharedUrl && (
-          <Dropdown.Item key="shared" onClick={() => window.open(sharedUrl, '_blank')}>
+          <Dropdown.Item
+            key="shared"
+            onClick={() => window.open(sharedUrl, '_blank')}
+          >
             <span className="memori-share-button--dropdown-item-content">
               <Share2 style={{ marginRight: 8 }} />
               {t('widget.shareChat') || 'Share chat'}
@@ -303,7 +314,7 @@ const ShareButton: React.FC<Props> = ({
           </span>
         </Dropdown.Item>
         {socialShare.map(item => (
-          <Dropdown.Item key={item.id} >
+          <Dropdown.Item key={item.id}>
             <span className="memori-share-button--dropdown-item-content">
               <item.icon style={{ marginRight: 8 }} />
               {item.title}
@@ -333,7 +344,12 @@ const ShareButton: React.FC<Props> = ({
               <span
                 className="memori-share-button--dropdown-item-content"
                 onClick={downloadQRCode}
-                style={{ display: 'inline-flex', alignItems: 'center', cursor: 'pointer', marginTop: 8 }}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  marginTop: 8,
+                }}
                 role="button"
                 tabIndex={0}
                 onKeyPress={e => {

@@ -232,7 +232,7 @@ const StartPanel: React.FC<Props> = ({
               )}
             </p>
 
-          {isMultilanguageEnabled && !instruct && (
+            {isMultilanguageEnabled && !instruct && (
               <div className="memori--language-chooser">
                 <label id="user-lang-pref-label" htmlFor="user-lang-pref">
                   {t('write_and_speak.iWantToTalkToIn', {
@@ -241,14 +241,20 @@ const StartPanel: React.FC<Props> = ({
                 </label>
                 <SelectBox
                   name="user-lang-pref"
-                  className="memori-select--button"
+                  className="memori-select--language-chooser"
                   value={userLang ?? i18n.language}
+                  displayValue={<span>{`${getGroupedChatLanguages().popular.find(
+                      lang => lang.value === (userLang ?? i18n.language ?? 'EN')
+                    )?.label ?? (i18n.language ?? 'EN')}`}</span>}
                   onChange={(value: string | null) => {
                     if (value) {
                       setUserLang(value);
                     }
                   }}
-                  placeholder={t('write_and_speak.iWantToTalkToIn') || 'I want to talk to Memori in'}
+                  placeholder={
+                    t('write_and_speak.iWantToTalkToIn') ||
+                    'I want to talk to Memori in'
+                  }
                   options={getGroupedChatLanguages().popular.map(lang => ({
                     label: lang.label,
                     value: lang.value,

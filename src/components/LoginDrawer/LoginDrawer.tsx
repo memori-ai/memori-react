@@ -296,6 +296,7 @@ const LoginDrawer = ({
         'memori--login-drawer--signup': showSignup,
       })}
       size="lg"
+      title={t('login.title')}
     >
       {needsMissingData?.token?.length ? (
         <>

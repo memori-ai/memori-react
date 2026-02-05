@@ -81,16 +81,28 @@ FilePreviewProps) => {
     }
   }, [previewFiles]);
   // Detect if the file is HTML (by type or filename)
-  const isHtmlFile = (file: { name?: string; type?: string; mimeType?: string } | null): boolean => {
+  const isHtmlFile = (
+    file: { name?: string; type?: string; mimeType?: string } | null
+  ): boolean => {
     if (!file) return false;
     const ext = file.name?.split('.').pop()?.toLowerCase();
     return (
-      file.type === 'document' && (ext === 'html' || file.mimeType === 'text/html')
-    ) || ext === 'html' || file.mimeType === 'text/html';
+      (file.type === 'document' &&
+        (ext === 'html' || file.mimeType === 'text/html')) ||
+      ext === 'html' ||
+      file.mimeType === 'text/html'
+    );
   };
 
   // Get display content for non-image files (strip document_attachment for HTML, stripHTML for others)
-  const getDisplayContent = (file: { content?: string; name?: string; type?: string; mimeType?: string } | null): string => {
+  const getDisplayContent = (
+    file: {
+      content?: string;
+      name?: string;
+      type?: string;
+      mimeType?: string;
+    } | null
+  ): string => {
     if (!file?.content) return '';
     const content = file.content;
     if (isHtmlFile(file)) {
@@ -159,9 +171,8 @@ FilePreviewProps) => {
                     shape="circle"
                     icon={<X />}
                     danger
-                    className={`memori--remove-button ${
-                      hoveredId === file.id ? 'visible' : ''
-                    }`}
+                    style={hoveredId === file.id ? { display: 'block', position: 'absolute', right: '-4px', top: '-4px', padding: '4px' } : { display: 'none' }}
+                    size="sm"
                     onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
                       e.stopPropagation();
                       removeFile(file.id, file?.mediumID);
@@ -183,7 +194,8 @@ FilePreviewProps) => {
           isImageContent(selectedFile.content, selectedFile.type)
         }
         imageSrc={
-          selectedFile && isImageContent(selectedFile.content, selectedFile.type)
+          selectedFile &&
+          isImageContent(selectedFile.content, selectedFile.type)
             ? selectedFile.content
             : undefined
         }

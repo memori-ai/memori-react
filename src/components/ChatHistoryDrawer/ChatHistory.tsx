@@ -1102,6 +1102,7 @@ const ChatHistoryDrawer = ({
       onClose={onClose}
       title={t('write_and_speak.chatHistory') || 'Chat History'}
       closable={true}
+      size="md"
       description={
         !isViewingChatDetail
           ? t('write_and_speak.chatHistoryDescription')
@@ -1128,6 +1129,11 @@ const ChatHistoryDrawer = ({
                 onChange={value => {
                   setMinimumMessagesPerChat(value ? Number(value) : 0);
                 }}
+                displayValue={
+                  minimumMessagesPerChat === 0 ?
+                    (t('chatLogs.customMinimumMessages') || 'Customize the number of messages') :
+                    (t('chatLogs.atLeast' + minimumMessagesPerChat) || 'At least ' + minimumMessagesPerChat + ' messages')
+                }
                 className="memori-chat-history-drawer--toolbar--min-messages-filter--select"
                 options={[
                   { value: '1', label: t('chatLogs.anyMessage') || 'Any message' },
@@ -1169,6 +1175,11 @@ const ChatHistoryDrawer = ({
                   { label: t('last_30_days') || 'Last 30 days', value: 'last_30_days' },
                 ]}
                 value={dateRange}
+                displayValue={
+                  dateRange === 'all' ?
+                    (t('all') || 'All') :
+                    (t(dateRange) || dateRange)
+                }
                 className="memori-chat-history-drawer--toolbar--actions--select"
                 onChange={value => {
                   if (value) {

@@ -111,15 +111,19 @@ const Header: React.FC<Props> = ({
   }, []);
 
   // Helper function to determine if settings drawer has content
-  const hasSettingsContent = useCallback((
-    layout?: WidgetProps['layout'],
-    additionalSettings?: WidgetProps['additionalSettings']
-  ): boolean => {
-    return (
-      layout === 'TOTEM' ||
-      (additionalSettings && Object.keys(additionalSettings).length > 0) || false
-    );
-  }, [layout, additionalSettings]);
+  const hasSettingsContent = useCallback(
+    (
+      layout?: WidgetProps['layout'],
+      additionalSettings?: WidgetProps['additionalSettings']
+    ): boolean => {
+      return (
+        layout === 'TOTEM' ||
+        (additionalSettings && Object.keys(additionalSettings).length > 0) ||
+        false
+      );
+    },
+    [layout, additionalSettings]
+  );
 
   const updateAvatar = async (avatar: any) => {
     if (avatar && loginToken) {
@@ -175,7 +179,6 @@ const Header: React.FC<Props> = ({
           )}
           <Button
             variant="primary"
-            shape="circle"
             className="memori-header--button memori-header--button--position"
             title={t('widget.position') || 'Position'}
             icon={<MapPin />}
@@ -186,7 +189,6 @@ const Header: React.FC<Props> = ({
       {showReload && (
         <Button
           variant="primary"
-          shape="circle"
           title={t('reload') || 'Reload'}
           icon={<RefreshCw />}
           onClick={() => {
@@ -197,7 +199,6 @@ const Header: React.FC<Props> = ({
       {showClear && (
         <Button
           variant="primary"
-          shape="circle"
           title={t('clearHistory') || 'Clear chat'}
           icon={<Trash2 />}
           onClick={clearHistory}
@@ -207,7 +208,6 @@ const Header: React.FC<Props> = ({
         <Button
           variant="primary"
           disabled={!loginToken}
-          shape="circle"
           title={t('write_and_speak.chatHistory') || 'Chat history'}
           icon={<MessageCircle />}
           onClick={() => setShowChatHistoryDrawer(true)}
@@ -216,7 +216,6 @@ const Header: React.FC<Props> = ({
       {fullScreenAvailable && (
         <Button
           variant="primary"
-          shape="circle"
           title={
             fullScreen
               ? t('fullscreenExit') || 'Exit fullscreen'
@@ -264,8 +263,9 @@ const Header: React.FC<Props> = ({
       )}
       {memori.enableDeepThought && !!loginToken && user?.pAndCUAccepted && (
         <Button
-          variant={!!sessionID && !!hasUserActivatedSpeak ? 'primary' : 'outline'}
-          shape="circle"
+          variant={
+            !!sessionID && !!hasUserActivatedSpeak ? 'primary' : 'outline'
+          }
           icon={<Brain />}
           disabled={!hasUserActivatedSpeak || !sessionID}
           onClick={() => setShowKnownFactsDrawer(true)}
@@ -275,7 +275,6 @@ const Header: React.FC<Props> = ({
       {memori.enableBoardOfExperts && (
         <Button
           variant="primary"
-          shape="circle"
           icon={<Users />}
           disabled={!hasUserActivatedSpeak || !sessionID}
           onClick={() => setShowExpertsDrawer(true)}
@@ -285,7 +284,6 @@ const Header: React.FC<Props> = ({
       {enableAudio && (
         <Button
           variant="primary"
-          shape="circle"
           icon={speakerMuted ? <VolumeX /> : <Volume2 />}
           onClick={() => setSpeakerMuted(!speakerMuted)}
           title={t('widget.sound') || 'Sound'}
@@ -297,16 +295,14 @@ const Header: React.FC<Props> = ({
         className="memori-header--button memori-header--button--export"
         disabled={!hasUserActivatedSpeak || history.length === 0}
       /> */}
-      {showSettings &&
-        hasSettingsContent(layout, additionalSettings) && (
-          <Button
-            variant="primary"
-            shape="circle"
-            icon={<Settings />}
-            onClick={() => setShowSettingsDrawer(true)}
-            title={t('widget.settings') || 'Settings'}
-          />
-        )}
+      {showSettings && hasSettingsContent(layout, additionalSettings) && (
+        <Button
+          variant="primary"
+          icon={<Settings />}
+          onClick={() => setShowSettingsDrawer(true)}
+          title={t('widget.settings') || 'Settings'}
+        />
+      )}
       {showShare && (
         <ShareButton
           title={memori.name}
@@ -323,88 +319,93 @@ const Header: React.FC<Props> = ({
         <>
           {loginToken && user ? (
             <Dropdown className="memori-header--dropdown">
-              <Dropdown.Trigger showChevron={false}>
+              <Dropdown.Trigger
+                showChevron={false}
+                className="memori-dropdown--user-trigger"
+              >
                 <Button
                   variant="primary"
-                  shape="circle"
-                  className="memori-header--button memori-header--button-login"
                   icon={<UserIcon />}
                   title={t('login.user') || 'User'}
                 />
               </Dropdown.Trigger>
               <Dropdown.Menu>
-                <div className="memori-dropdown--user-profile">
-                <div className="memori-dropdown--user-info">
-                  {user.avatarURL ? (
-                    <>
-                      <img
-                        src={user.avatarURL}
-                        alt={user.userName || user.eMail}
-                        className="memori-dropdown--avatar"
-                      />
-                      <input
-                        type="file"
-                        name="avatar"
-                        id="avatar"
-                        className="memori-dropdown--avatar-input"
-                        onChange={e =>
-                          updateAvatar(
-                            e.target.files?.[0] ?? (null as unknown as Blob)
-                          )
-                        }
-                        accept={imgMimeTypes.join(', ')}
-                      />
-                    </>
-                  ) : (
-                    <div className="memori-dropdown--avatar-placeholder">
-                      <span>
-                        {(user.userName || user.eMail || 'U')
-                          .charAt(0)
-                          .toUpperCase()}
-                      </span>
-                      <input
-                        type="file"
-                        name="avatar"
-                        id="avatar"
-                        className="memori-dropdown--avatar-input"
-                        onChange={e =>
-                          updateAvatar(
-                            e.target.files?.[0] ?? (null as unknown as Blob)
-                          )
-                        }
-                        accept={imgMimeTypes.join(', ')}
-                      />
-                    </div>
-                  )}
+                <Dropdown.Item>
+                  <div className="memori-dropdown--user-info">
+                    {user.avatarURL ? (
+                      <>
+                        <img
+                          src={user.avatarURL}
+                          alt={user.userName || user.eMail}
+                          className="memori-dropdown--avatar"
+                        />
+                        <input
+                          type="file"
+                          name="avatar"
+                          id="avatar"
+                          className="memori-dropdown--avatar-input"
+                          onChange={e =>
+                            updateAvatar(
+                              e.target.files?.[0] ?? (null as unknown as Blob)
+                            )
+                          }
+                          accept={imgMimeTypes.join(', ')}
+                        />
+                      </>
+                    ) : (
+                      <div className="memori-dropdown--avatar-placeholder">
+                        <span>
+                          {(user.userName || user.eMail || 'U')
+                            .charAt(0)
+                            .toUpperCase()}
+                        </span>
+                        <input
+                          type="file"
+                          name="avatar"
+                          id="avatar"
+                          className="memori-dropdown--avatar-input"
+                          onChange={e =>
+                            updateAvatar(
+                              e.target.files?.[0] ?? (null as unknown as Blob)
+                            )
+                          }
+                          accept={imgMimeTypes.join(', ')}
+                        />
+                      </div>
+                    )}
 
-                  <div className="memori-dropdown--user-details">
-                    <h3 className="memori-dropdown--user-name">
-                      {user.userName || t('login.welcomeUser')}
-                    </h3>
-                    <p className="memori-dropdown--user-email">{user.eMail}</p>
-                    <div className="memori-dropdown--user-badge">
-                      {user.birthDate
-                        ? new Date(user.birthDate).toLocaleDateString()
-                        : t('login.notSet')}
+                    <div className="memori-dropdown--user-details">
+                      <h3 className="memori-dropdown--user-name">
+                        {user.userName || t('login.welcomeUser')}
+                      </h3>
+                      <p className="memori-dropdown--user-email">
+                        {user.eMail}
+                      </p>
+                      <div className="memori-dropdown--user-badge">
+                        {user.birthDate
+                          ? new Date(user.birthDate).toLocaleDateString()
+                          : t('login.notSet')}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-                  <div className="memori-dropdown--actions">
-                    <button
-                      className="memori-dropdown--action-button memori-dropdown--action-button--logout"
-                      onClick={onLogout}
-                    >
-                      <LogOut className="memori-dropdown--action-icon" />
-                      {t('login.logout') || 'Logout'}
-                    </button>
-                  </div>
-                </Dropdown.Menu>
+                </Dropdown.Item>
+                <Dropdown.Separator />
+                <Dropdown.Item>
+                  <Button
+                    className="memori-dropdown--action-button memori-dropdown--action-button--logout"
+                    onClick={onLogout}
+                    variant="ghost"
+                    icon={<LogOut />}
+                    title={t('login.logout') || 'Logout'}
+                  >
+                    {t('login.logout') || 'Logout'}
+                  </Button>
+                </Dropdown.Item>
+              </Dropdown.Menu>
             </Dropdown>
           ) : (
             <Button
               variant="primary"
-              shape="circle"
               className="memori-header--button memori-header--button-login"
               icon={<UserIcon />}
               onClick={() => setShowLoginDrawer(true)}
