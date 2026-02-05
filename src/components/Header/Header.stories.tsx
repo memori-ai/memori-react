@@ -41,6 +41,7 @@ const Template: Story<Props> = args => {
       <ArtifactProvider>
       <Header
         {...args}
+        apiClient={memoriApiClient()}
         speakerMuted={speakerMuted}
         setSpeakerMuted={setSpeakerMuted}
         showSettings

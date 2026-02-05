@@ -598,7 +598,7 @@ body {
   padding: 15px 40px;
   font-size: 1.1rem;
   font-weight: 600;
-  border-radius: 50px;
+  border-radius: .5rem;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
@@ -622,7 +622,7 @@ body {
   text-align: center;
   padding: 30px;
   background: white;
-  border-radius: 10px;
+  border-radius: .5rem;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease;
 }
@@ -788,7 +788,7 @@ export const Button: React.FC<ButtonProps> = ({
   font-size: 16px;
   font-weight: 600;
   border: none;
-  border-radius: 8px;
+  border-radius: .5rem;
   cursor: pointer;
   transition: all 0.3s ease;
   font-family: inherit;
@@ -1300,13 +1300,13 @@ if __name__ == "__main__":
   gap: 1rem;
   padding: 1rem;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  border-radius: 8px;
+  border-radius: .5rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .media-item {
   background: white;
-  border-radius: 6px;
+  border-radius: .5rem;
   overflow: hidden;
   transition: transform 0.2s ease;
 }
