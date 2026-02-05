@@ -14,7 +14,7 @@
     display: inline-flex;
     overflow: hidden;
     border: 1px solid #e9ecef;
-    border-radius: 6px;
+    border-radius: var(--memori-radius-box);
     background: #f8f9fa;
     box-shadow: none;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -24,7 +24,7 @@
     position: relative;
     display: flex;
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: var(--memori-radius-box);
     background: transparent;
 }
 
@@ -35,7 +35,7 @@
     bottom: 2px;
     left: 2px;
     width: calc((100% - 4px) / var(--tab-count, 2));
-    border-radius: 6px;
+    border-radius: var(--memori-radius-box);
     animation: tab-switch-slide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     background: #ffffff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
@@ -49,7 +49,7 @@
     right: 0;
     bottom: 0;
     left: 0;
-    border-radius: 6px;
+    border-radius: var(--memori-radius-box);
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0) 100%);
     content: '';
     pointer-events: none;
@@ -63,15 +63,15 @@
     height: 36px;
     align-items: center;
     justify-content: center;
-    padding: 6px 12px;
+    padding: calc(var(--memori-spacing-xs) + 2px) calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
     border: none;
-    border-radius: 6px;
+    border-radius: var(--memori-radius-box);
     background: transparent;
     color: #6b7280;
     cursor: pointer;
-    font-size: 0.875rem;
-    font-weight: 500;
-    gap: 6px;
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
+    gap: calc(var(--memori-spacing-xs) + 2px);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     white-space: nowrap;
 }
@@ -83,7 +83,7 @@
 
 .memori-tab-switch__button--active {
     /* color: #1´ç11827; */
-    font-weight: 600;
+    font-weight: var(--memori-text-weight-semibold);
 }
 
 .memori-tab-switch__button:focus {
@@ -106,8 +106,8 @@
 }
 
 .memori-tab-switch__label {
-    font-size: 0.875rem;
-    font-weight: 500;
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
     letter-spacing: 0.01em;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }

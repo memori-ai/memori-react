@@ -2,7 +2,7 @@
 
 .memori-content-preview-modal.memori-modal .memori-modal--panel {
   overflow: hidden;
-  border-radius: 16px;
+  border-radius: var(--memori-radius-box);
   background: var(--memori-content-preview-bg, #fafafa);
   box-shadow:
     0 25px 50px -12px rgba(0, 0, 0, 0.25),
@@ -18,8 +18,8 @@
   padding: 1rem 1.25rem 0.75rem;
   border-bottom: 1px solid var(--memori-content-preview-border, rgba(0, 0, 0, 0.06));
   color: var(--memori-content-preview-title, #1f2937);
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: var(--memori-text-size-base);
+  font-weight: var(--memori-text-weight-semibold);
   letter-spacing: -0.01em;
 }
 
@@ -29,7 +29,7 @@
 }
 
 .memori-content-preview-modal .memori-modal--close button {
-  border-radius: 10px;
+  border-radius: var(--memori-radius-box);
   background: var(--memori-content-preview-close-bg, rgba(0, 0, 0, 0.05));
   transition: background 0.2s ease, transform 0.15s ease;
 }
@@ -72,7 +72,7 @@
   width: 100%;
   height: 100%;
   max-height: 70vh;
-  border-radius: 8px;
+  border-radius: var(--memori-radius-box);
   object-fit: contain;
 }
 
@@ -80,12 +80,12 @@
 .memori-content-preview-modal--snippet-wrap {
   min-height: 120px;
   border: 1px solid var(--memori-content-preview-snippet-border, #e2e8f0);
-  border-radius: 12px;
+  border-radius: var(--memori-radius-box);
   background: var(--memori-content-preview-snippet-bg, #f8fafc);
   color: var(--memori-content-preview-snippet-text, #334155);
   font-family: 'SF Mono', 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 0.875rem;
-  line-height: 1.6;
+  font-size: var(--memori-text-size-small);
+  line-height: var(--memori-text-line-relaxed);
   overflow-x: auto;
   white-space: pre-wrap;
   word-break: break-word;
@@ -94,7 +94,7 @@
 /* When Snippet component is used inside, give it consistent spacing */
 .memori-content-preview-modal--snippet-wrap .memori-snippet {
   border: none;
-  border-radius: 12px;
+  border-radius: var(--memori-radius-box);
   background: transparent;
   box-shadow: none;
 }

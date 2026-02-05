@@ -14,33 +14,34 @@
 }
 
 .memori--gamification-badge span {
-    font-size: 1.2rem;
+    font-size: var(--memori-text-size-large);
 }
 
-.memori-select--button {
+.memori-select--button,
+.memori-select--language-chooser {
     min-width: 7rem;
-    margin-left: 0.5rem;
+    background: transparent;
 }
 
 .memori--start-panel {
     width: 100%;
     align-self: flex-start;
-    padding: var(--memori-inner-content-pad, 0);
-    border-radius: 10px;
+    padding: var(--memori-spacing-md, 0);
+    border-radius: var(--memori-radius-box);
     margin-top: 2rem;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    background-color: var(--memori-inner-bg, transparent);
-    color: var(--memori-text-color, rgba(0, 0, 0, 0.85)) !important;
+    background-color: transparent;
+    color: var(--memori-text-color) !important;
     overflow-y: auto;
 }
 
 .memori--start-panel .memori--start-panel-title {
-    color: var(--memori-text-color, var(--memori-primary)) !important;
+    color: var(--memori-primary) !important;
 }
 
 .memori--start-panel .memori--start-panel-description {
-    color: var(--memori-text-color, rgba(0, 0, 0, 0.85)) !important;
+    color: var(--memori-text-color) !important;
 }
 
 @media (max-width: 870px) {
@@ -53,7 +54,7 @@
     position: relative;
     width: 100%;
     padding-top: 31.25%;
-    border-radius: 3px;
+    border-radius: var(--memori-radius-box);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -85,26 +86,26 @@
     display: inline-block;
     margin: 0;
     color: var(--memori-primary);
-    font-size: 24px;
-    font-weight: 600;
+    font-size: var(--memori-text-size-heading-large);
+    font-weight: var(--memori-text-weight-semibold);
     line-height: 1.8;
 }
 
 .memori--description,
 .memori--needsLogin,
 .memori--needsPosition {
-    color: var(--memori-text-color, rgba(0, 0, 0, 0.85));
-    font-size: 14px;
-    line-height: 1.6;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-small);
+    line-height: var(--memori-text-line-relaxed);
 }
 
 .memori--description-text {
     display: block;
-    line-height: 1.6;
+    line-height: var(--memori-text-line-relaxed);
 }
 
 .memori--start-privacy-explanation {
-    color: var(--memori-text-color, rgba(0, 0, 0, 0.85));
+    color: var(--memori-text-color);
     font-size: 0.85em;
     font-style: italic;
     opacity: 0.85;
@@ -142,9 +143,9 @@
     overflow: hidden;
     min-width: 140px;
     min-height: 42px;
-    border-radius: 8px;
+    border-radius: var(--memori-radius-box);
     margin-right: 1em;
-    font-weight: 600;
+    font-weight: var(--memori-text-weight-semibold);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -172,13 +173,13 @@
     color: #666;
     font-size: 0.9em;
     font-style: normal;
-    font-weight: 700;
+    font-weight: var(--memori-text-weight-bold);
 }
 
 .memori--language-chooser select optgroup option {
     padding-left: 0.5rem;
     color: #000;
-    font-weight: 400;
+    font-weight: var(--memori-text-weight-normal);
 }
 
 .memori--completions-enabled,
@@ -200,7 +201,7 @@
 }
 
 .memori--completions-enabled span {
-    font-size: 1.2rem;
+    font-size: var(--memori-text-size-large);
 }
 
 .memori--completions-enabled svg {
@@ -224,8 +225,8 @@
 .memori--deep-thought-disclaimer {
     position: relative;
     padding: 1em 1.5em;
-    border: 2px solid var(--memori-warning-color, #faad14);
-    border-radius: var(--memori-border-radius, 10px);
+    border: 2px solid var(--memori-warning);
+    border-radius: var(--memori-radius-box);
     margin-top: 1rem;
     font-size: 0.8em;
 }
@@ -237,7 +238,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: var(--memori-warning-color, #faad14);
+    background: var(--memori-warning);
     content: '';
     opacity: 0.2;
 }
@@ -245,7 +246,7 @@
 .memori--deep-thought-disclaimer h2 {
     margin-top: 0;
     margin-bottom: 0.5em;
-    color: var(--memori-text-color, rgba(0, 0, 0, 0.85));
+    color: var(--memori-text-color);
 }
 
 .memori--deep-thought-disclaimer .memori-tooltip {
@@ -258,7 +259,7 @@
 .memori--deep-thought-disclaimer .memori-tooltip .memori-tooltip--trigger svg {
     width: 1.5rem;
     height: 1.5rem;
-    padding: 5px;
+    padding: var(--memori-spacing-xs);
     border: 1px solid #666;
     border-radius: 50%;
 }

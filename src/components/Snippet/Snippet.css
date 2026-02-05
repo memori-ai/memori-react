@@ -24,8 +24,8 @@
     margin: 0;
     background: transparent;
     font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    font-size: 0.875rem;
-    line-height: 1.6;
+    font-size: var(--memori-text-size-small);
+    line-height: var(--memori-text-line-relaxed);
     overflow-x: auto;
     white-space: pre-wrap;
     word-break: break-word;
@@ -70,7 +70,7 @@ pre[class*="language-"] {
     padding: 0.5rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
-    border-radius: 6px;
+    border-radius: var(--memori-radius-box);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     background: rgba(0, 0, 0, 0.05);
@@ -84,7 +84,7 @@ button.memori-snippet--copy-button {
     height: 32px !important;
     padding: 0;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 6px !important;
+    border-radius: .5rem !important;
     background: rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
 }
@@ -111,7 +111,7 @@ button.memori-snippet--copy-button svg {
     animation: fadeInOut 0.3s ease;
     color: #10b981;
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: var(--memori-text-weight-semibold);
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
@@ -136,7 +136,7 @@ button.memori-snippet--copy-button svg {
     color: #6b7280;
     font-size: 0.8rem;
     font-style: normal;
-    font-weight: 500;
+    font-weight: var(--memori-text-weight-medium);
     text-align: left;
 }
 

@@ -51,7 +51,7 @@
 .age-verification-form .form-item-error {
     padding-bottom: 0.25rem;
     margin: 1.5rem 0 1rem;
-    color: var(--memori-error-color);
+    color: var(--memori-error);
 }
 
 button.age-verification-submit {
@@ -63,14 +63,13 @@ button.age-verification-submit {
     min-height: 42px;
     padding: 1rem 2rem;
     border: none;
-    border-radius: 12px;
-    border-radius: 8px;
+    border-radius: var(--memori-radius-box);
     margin-top: 1rem;
     background: var(--memori-primary);
     color: white;
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: var(--memori-text-size-base);
+    font-weight: var(--memori-text-weight-semibold);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 

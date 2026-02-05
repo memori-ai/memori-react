@@ -1,17 +1,17 @@
 p.memori--whythisanswer-no-results {
     padding: 0.5rem 1rem;
-    border: 1px solid var(--memori-warning-color);
-    border-radius: var(--memori-border-radius);
+    border: var(--memori-border) solid var(--memori-warning);
+    border-radius: var(--memori-radius-box);
     margin: 0.5rem 0;
     background: #fff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: var(--memori-warning-color);
+    color: var(--memori-warning);
     text-align: center;
 }
 
 .memori--whythisanswer-question-answered {
     padding: 1rem;
-    border-radius: var(--memori-border-radius);
+    border-radius: var(--memori-radius-box);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 }
 
@@ -35,7 +35,7 @@ ul.memori--whythisanswer-list li:last-child {
     display: inline-block;
     padding: 0.25rem 0.5rem;
     border: 1px solid var(--memori-primary);
-    border-radius: var(--memori-border-radius);
+    border-radius: var(--memori-radius-box);
     margin-right: 1em;
     background: #fff;
     color: var(--memori-primary);
@@ -78,7 +78,7 @@ ul.memori--whythisanswer-list li:last-child {
 
 .memori-whythisanswer-drawer .memori-card--title {
     margin-bottom: 0;
-    font-size: 1rem;
+    font-size: var(--memori-text-size-base);
 }
 
 .memori--whythisanswer-snippet-expandable {
@@ -96,7 +96,7 @@ ul.memori--whythisanswer-list li:last-child {
 
 .memori--whythisanswer-skeleton-text {
     padding: 0.5rem;
-    border-radius: var(--memori-border-radius);
+    border-radius: var(--memori-radius-box);
     margin-bottom: 0.5rem;
     background: #ccc;
 }
@@ -122,7 +122,7 @@ div.memori--whythisanswer-skeleton-text {
 .memori--whythisanswer-skeleton-block {
     height: 3rem;
     padding: 0.5rem;
-    border-radius: var(--memori-border-radius);
+    border-radius: var(--memori-radius-box);
     margin-bottom: 0.5rem;
     background: #ccc;
 }

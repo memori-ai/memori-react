@@ -11,7 +11,7 @@
 h2.memori--experts-drawer--title {
     margin: 0;
     font-size: inherit;
-    font-weight: 400;
+    font-weight: var(--memori-text-weight-normal);
     line-height: inherit;
 }
 
@@ -54,14 +54,14 @@ figure.memori--experts-drawer--avatar img {
 
 h3.memori--experts-drawer--name {
     margin: 0;
-    font-size: 0.875rem;
-    font-weight: 400;
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-normal);
     line-height: 1.25rem;
 }
 
 p.memori--experts-drawer--description {
     margin: 0;
     font-size: 0.75rem;
-    font-weight: 400;
+    font-weight: var(--memori-text-weight-normal);
     line-height: 1rem;
 }

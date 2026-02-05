@@ -6,18 +6,50 @@
     height: 50px;
     align-items: center;
     justify-content: flex-end;
-    padding: calc(var(--memori-inner-content-pad) / 4) calc(var(--memori-inner-content-pad) / 2);
-    border-radius: 10px;
+    padding: calc(var(--memori-spacing-md) / 4) calc(var(--memori-spacing-md) / 2);
+    border-radius: var(--memori-radius-box);
     margin-left: auto;
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    background-color: var(--memori-inner-bg, #fff);
     gap: 0.25rem;
     text-align: right;
 }
 
-.memori-totem-layout .memori-header{
-    gap: 6px;
+.memori-totem-layout .memori-header {
+    gap: calc(var(--memori-spacing-xs) + 2px);
+}
+
+.memori-dropdown--user-info {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    gap: 0.5rem;
+}
+
+.memori-dropdown--user-trigger {
+    display: flex;
+    max-width: 2rem;
+    max-height: 2rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.memori-dropdown--avatar {
+    width: 48px;
+    height: 48px;
+    border: 2px solid var(--memori-primary-color, #000);
+    border-radius: 50%;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    object-fit: cover;
+    object-position: center;
 }
 
 @media (max-width: 870px) {
@@ -93,7 +125,8 @@
 
 .memori-header .memori-header--button--position,
 .memori-header .memori-share-button,
-.memori-header .memori-header--button-login {
+.memori-header .memori-header--button-login,
+.memori-header--dropdown {
     margin-left: 0.25rem;
 }
 
@@ -101,8 +134,7 @@
     margin-right: 0.25rem;
 }
 
-
-.memori-dropdown--avatar-input{
+.memori-dropdown--avatar-input {
     position: absolute;
     top: 20px;
     left: 15px;
@@ -112,15 +144,16 @@
     opacity: 0;
 }
 
-
-
-.memori-dropdown--avatar:hover, .memori-dropdown--avatar-initial:hover, .memori-dropdown--avatar-input:hover{
+.memori-dropdown--avatar:hover,
+.memori-dropdown--avatar-initial:hover,
+.memori-dropdown--avatar-input:hover {
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
     cursor: pointer;
     pointer-events: cursor;
     transform: scale(1.05);
 }
 
-.memori-dropdown--avatar-initial:hover + .memori-dropdown--avatar-input,.memori-dropdown--avatar:hover + .memori-dropdown--avatar-input{
+.memori-dropdown--avatar-initial:hover + .memori-dropdown--avatar-input,
+.memori-dropdown--avatar:hover + .memori-dropdown--avatar-input {
     display: block;
 }

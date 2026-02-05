@@ -3,8 +3,8 @@
     z-index: 10;
     right: 0.5rem;
     padding: var(--memori-button-padding);
-    border: 1px solid var(--memori-button-border-color);
-    border-radius: var(--memori-button-radius);
+    border: var(--memori-border) solid var(--memori-border-color);
+    border-radius: var(--memori-radius-box);
     margin-top: 0.5rem;
     background: #fff;
     box-shadow: var(--memori-button-box-shadow);

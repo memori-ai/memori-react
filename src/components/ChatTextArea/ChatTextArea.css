@@ -78,9 +78,9 @@ textarea.memori-chat-textarea--input {
     border: none;
     background: transparent;
     color: #000;
-    font-family: var(--memori-font-family, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif);
-    font-size: 16px;
-    line-height: 1.5;
+    font-family: var(--memori-font-family);
+    font-size: var(--memori-text-size-base);
+    line-height: var(--memori-text-line-normal);
     overflow-y: auto;
     resize: none;
     scrollbar-width: thin;
@@ -102,7 +102,7 @@ textarea.memori-chat-textarea--input::-webkit-scrollbar-track {
 }
 
 textarea.memori-chat-textarea--input::-webkit-scrollbar-thumb {
-    border-radius: 3px;
+    border-radius: var(--memori-radius-box);
     background: rgba(0, 0, 0, 0.2);
 }
 
@@ -114,14 +114,14 @@ textarea.memori-chat-textarea--input::-webkit-scrollbar-thumb:hover {
 @media (max-width: 768px) {
     textarea.memori-chat-textarea--input {
         max-height: 200px;
-        font-size: 16px; /* Prevent zoom on iOS */
+        font-size: var(--memori-text-size-base); /* Prevent zoom on iOS */
     }
 }
 
 @media (max-width: 480px) {
     textarea.memori-chat-textarea--input {
         max-height: 150px;
-        font-size: 16px; /* Prevent zoom on iOS */
+        font-size: var(--memori-text-size-base); /* Prevent zoom on iOS */
     }
 }
 

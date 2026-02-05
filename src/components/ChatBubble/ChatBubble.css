@@ -30,13 +30,13 @@
     justify-content: center;
     padding: 0.5rem 1rem;
     border: 1px solid rgba(76, 111, 255, 0.2);
-    border-radius: 20px;
+    border-radius: var(--memori-radius-box);
     backdrop-filter: blur(10px);
     background: linear-gradient(135deg, rgba(76, 111, 255, 0.1) 0%, rgba(76, 111, 255, 0.05) 100%);
     box-shadow: 0 2px 8px rgba(76, 111, 255, 0.1);
     color: var(--memori-primary, #4c6fff);
     font-size: 0.75rem;
-    font-weight: 500;
+    font-weight: var(--memori-text-weight-medium);
     letter-spacing: 0.02em;
     line-height: 1.4;
     text-align: center;
@@ -55,11 +55,11 @@
     max-width: 90%;
     flex-direction: column;
     align-items: flex-start;
-    padding: 10px 16px;
-    border-radius: 12px 12px 12px 0;
-    margin: 10px auto 5px 10px;
+    padding: calc(var(--memori-spacing-sm) + 2px) var(--memori-spacing-md);
+    border-radius: var(--memori-radius-box) var(--memori-radius-box) var(--memori-radius-box) 0;
+    margin: calc(var(--memori-spacing-sm) + 2px) auto var(--memori-spacing-xs) var(--memori-spacing-sm);
     margin-bottom: 5px;
-    background: var(--memori-chat-bubble-bg, #ffffff60);
+    background: color-mix(in oklch, var(--memori-main-background) 38%, transparent);
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
     color: #141515;
     font-size: 0.85em;
@@ -75,7 +75,7 @@
     height: 40px;
     padding: 0.33rem;
     fill: #666;
-    font-size: 1.5rem;
+    font-size: var(--memori-text-size-heading-large);
 }
 
 .memori-chat--bubble-action-icon--from-user > span > svg {
@@ -147,7 +147,7 @@
 }
 
 .memori-chat--bubble.memori-chat--user-bubble a {
-    color: var(--memori-primary-text);
+    color: var(--memori-text-color);
 }
 
 .memori-chat--bubble h1,
@@ -171,11 +171,11 @@
 }
 
 .memori-chat--bubble.memori-chat--user-bubble {
-    border-radius: 12px 12px 0 12px;
-    margin: 10px 10px 5px auto;
+    border-radius: .5rem .5rem 0 .5rem;
+    margin: calc(var(--memori-spacing-sm) + 2px) var(--memori-spacing-sm) var(--memori-spacing-xs) auto;
     background: var(--memori-chat-user-bubble-bg);
     box-shadow: 0 1px 6px 0 #d1d3de, 0 1px 3px 0 #c5c6d1;
-    color: var(--memori-primary-text);
+    color: var(--memori-text-color);
 }
 
 .memori-chat--bubble-avatar {
@@ -208,7 +208,7 @@
 .memori-chat--bubble .memori-chat--bubble-action-icon {
     display: flex;
     justify-content: flex-end;
-    padding: 2px;
+    padding: calc(var(--memori-spacing-xs) / 2);
     text-align: right;
 }
 
@@ -220,7 +220,7 @@
 }
 
 .memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--copied {
-    border-color: var(--memori-primary, #4c6fff) !important;
+    border-color: var(--memori-primary) !important;
     background-color: rgba(76, 111, 255, 0.08);
 }
 
@@ -229,11 +229,11 @@
 }
 
 .memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--ai {
-    padding: 3px;
+    padding: calc(var(--memori-spacing-xs) * 0.75);
 }
 
 .memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--debug {
-    color: var(--memori-error-color);
+    color: var(--memori-error);
 }
 
 .memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--debug svg {
@@ -272,13 +272,13 @@
     margin-left: 0.35rem;
     color: var(--memori-primary, #4c6fff);
     font-size: 0.65rem;
-    font-weight: 600;
+    font-weight: var(--memori-text-weight-semibold);
     letter-spacing: 0.03em;
     text-transform: uppercase;
 }
 
 .memori-chat--bubble-action-feedback--from-user {
-    color: var(--memori-primary-text, #fff);
+    color: var(--memori-primary-content);
 }
 
 .memori-chat--bubble-addon .memori-chat--feedback button .memori-button--icon svg {
@@ -302,7 +302,7 @@
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding: 3px;
+    padding: calc(var(--memori-spacing-xs) * 0.75);
     line-height: 0;
     text-align: right;
 }
@@ -380,7 +380,7 @@
 }
 
 .memori-chat--bubble.memori-chat--user-bubble .memori-expandable > button {
-    color: var(--memori-primary-text);
+    color: var(--memori-text-color);
 }
 
 .memori-chat--function-cache-modal .memori-modal--panel {
@@ -388,7 +388,7 @@
     height: 100%;
     /* padding: 20px; */
     max-height: 80vh;
-    border-radius: 10px;
+    border-radius: var(--memori-radius-box);
     background-color: #fff;
     overflow-y: auto;
 }
@@ -398,7 +398,7 @@ details.memori-think {
     width: calc(100% - 1.5rem);
     max-width: 500px;
     padding: 0.75rem;
-    border-radius: var(--memori-border-radius);
+    border-radius: var(--memori-radius-box);
     margin-bottom: 0.75rem;
     background-color: #f6f6f6;
     font-size: 0.85em;

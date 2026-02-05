@@ -89,7 +89,7 @@
     flex: 0 0 50%;
     flex-direction: column;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
+    border-radius: var(--memori-radius-box);
     backdrop-filter: blur(20px);
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.8) 100%);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -306,7 +306,7 @@
 
 /* Focus states for accessibility */
 .memori-chat-layout--controls:focus-within {
-    border-radius: 12px;
+    border-radius: var(--memori-radius-box);
     outline-offset: 2px;
 }
 

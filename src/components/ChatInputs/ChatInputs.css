@@ -19,9 +19,9 @@
     flex-flow: column;
     flex-shrink: 0;
     padding: 0;
-    padding: 8px 12px !important;
+    padding: var(--memori-spacing-sm) calc(var(--memori-spacing-sm) + var(--memori-spacing-xs)) !important;
     border: none;
-    border-radius: 12px;
+    border-radius: var(--memori-radius-box);
     margin: 0;
     margin: auto;
     background: white;
@@ -43,8 +43,8 @@
     box-sizing: border-box;
     align-items: center;
     padding: 0 1rem;
-    padding: 12px;
-    border-radius: var(--memori-border-radius);
+    padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
+    border-radius: var(--memori-radius-form);
     /* max-width: 48rem; */
     margin: 0 auto;
     background: #fff;
@@ -91,7 +91,7 @@
 .memori-chat-inputs--trailing-inner {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: calc(var(--memori-spacing-xs) + 2px);
 }
 
 /* Plus button styling */
@@ -240,9 +240,9 @@
     justify-content: center;
     padding: 0;
     border: none;
-    border-radius: var(--memori-border-radius);
+    border-radius: var(--memori-radius-form);
     background: #000;
-    background: var(--memori-chat-user-bubble-bg);
+    background: var(--memori-primary);
     color: #fff;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -273,7 +273,7 @@
     width: 16px;
     height: 16px;
     border: 2px solid currentColor;
-    border-radius: var(--memori-border-radius);
+    border-radius: var(--memori-radius-form);
     border-top-color: transparent;
     animation: spin 0.8s linear infinite;
 }
@@ -290,11 +290,11 @@
     min-height: 32px;
     align-items: center;
     justify-content: center;
-    padding: 8px 60px;
+    padding: var(--memori-spacing-sm) calc(var(--memori-spacing-3xl) + var(--memori-spacing-sm) + var(--memori-spacing-xs));
     margin-top: -4px;
     color: rgba(0, 0, 0, 0.6);
-    font-size: 12px;
-    line-height: 1.5;
+    font-size: 0.75rem;
+    line-height: var(--memori-text-line-normal);
     text-align: center;
 }
 
@@ -310,7 +310,7 @@
 
 @media (max-width: 768px) {
     .memori-chat-inputs--disclaimer {
-        padding: 8px 16px;
+        padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     }
 }
 

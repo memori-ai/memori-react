@@ -1,10 +1,10 @@
 .actionButton {
     display: flex;
     align-items: center;
-    padding: 10px 30px;
-    border-radius: 5px;
+    padding: calc(var(--memori-spacing-sm) + 2px) var(--memori-spacing-xl);
+    border-radius: var(--memori-radius-box);
     background-color: var(--memori-primary);
-    color: var(--memori-primary-text);
+    color: var(--memori-primary-content);
     transition: all 0.5s ease;
 }
 
@@ -125,7 +125,7 @@
 }
 
 button.memori-hints--show-more-button {
-    border-radius: 5px;
+    border-radius: var(--memori-radius-box);
     background: #fff;
     color: #333;
 }

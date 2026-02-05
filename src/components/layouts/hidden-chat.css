@@ -14,7 +14,7 @@
 }
 
 .memori-chat-inputs{
-  padding: 8px 24px;
+  padding: var(--memori-spacing-sm) var(--memori-spacing-lg);
 }
 
 .memori-chat-history{
@@ -31,11 +31,11 @@
   height: 80px;
   align-items: center;
   justify-content: center;
-  padding: 12px 8px;
+  padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs)) var(--memori-spacing-sm);
   background-color: var(--memori-primary);
   color: white;
   cursor: pointer;
-  font-size: 18px;
+  font-size: var(--memori-text-size-large);
   font-weight: bold;
   text-orientation: mixed;
   transform: translateY(-50%);
@@ -44,12 +44,12 @@
 }
 
 .memori-open-label {
-  border-radius: 5px 0 0 5px;
+  border-radius: var(--memori-radius-box) 0 0 var(--memori-radius-box);
 }
 
 .memori-close-label {
   right: 350px;
-  border-radius: 5px 0 0 5px;
+  border-radius: var(--memori-radius-box) 0 0 var(--memori-radius-box);
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, right 0.3s ease-in-out;
@@ -94,7 +94,7 @@
 .memori-hidden-chat-layout--controls {
   display: flex;
   height: 90%;
-  padding: 10px;
+  padding: calc(var(--memori-spacing-sm) + 2px);
   margin-top: 50px;
 }
 
@@ -122,7 +122,7 @@
 .memori-sidebar-content h2 {
   margin-bottom: 20px;
   color: var(--memori-primary);
-  font-size: 24px;
+  font-size: var(--memori-text-size-heading-large);
   font-weight: bold;
 }
 
@@ -178,7 +178,7 @@
   position: absolute;
   top: -10px;
   width: 100%;
-  padding: 20px;
+  padding: var(--memori-spacing-lg);
 }
 
 .memori-sidebar-toggle:checked ~ .memori-sidebar-container .memori-close-label {
@@ -191,7 +191,7 @@
   width: 100%;
   align-items: center;
   justify-content: flex-end;
-  padding: 10px;
+  padding: calc(var(--memori-spacing-sm) + 2px);
   margin: 0;
   background-color: white;
   color: white;
@@ -202,7 +202,7 @@
   width: 100%;
   align-items: center;
   justify-content: flex-end;
-  padding: 10px;
+  padding: calc(var(--memori-spacing-sm) + 2px);
   margin: 0;
   background-color: white;
   color: white;

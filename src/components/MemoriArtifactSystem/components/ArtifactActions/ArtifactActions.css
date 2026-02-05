@@ -11,12 +11,12 @@
   width: 100%;
   align-items: center;
   justify-content: flex-start;
-  padding: 12px 16px;
+  padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs)) var(--memori-spacing-md);
   border: none;
   background: none;
   color: #374151;
   cursor: pointer;
-  font-size: 14px;
+  font-size: var(--memori-text-size-small);
   text-align: left;
   transition: background-color 0.15s ease;
 }
@@ -61,14 +61,14 @@
 
 
 .memori-artifact-action-btn--active {
-  background: var(--memori-chat-bubble-bg, #fff);
+  background: var(--memori-main-background);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   color: var(--memori-primary);
 }
 
 .memori-artifact-action-text {
   font-size: 0.75rem;
-  font-weight: 500;
+  font-weight: var(--memori-text-weight-medium);
 }
 
 /* Fullscreen Button Special Styling */
@@ -79,7 +79,7 @@
 .memori-artifact-fullscreen-btn--active {
   border-color: var(--memori-primary) !important;
   background: var(--memori-primary) !important;
-  color: var(--memori-primary-text) !important;
+  color: var(--memori-primary-content) !important;
 }
 
 
@@ -118,7 +118,7 @@
 
 /* Icon Sizing */
 .memori-artifact-action-btn .memori-button--icon, .memori-artifact-action-icon-fullscreen {
-  font-size: 1rem;
+  font-size: var(--memori-text-size-base);
   line-height: 1;
 }
 

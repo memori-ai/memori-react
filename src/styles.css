@@ -1,5 +1,6 @@
 @import url('@memori.ai/ui/dist/memori-ai-ui.css');
 
+
 @import url('./components/CompletionProviderStatus/CompletionProviderStatus.css');
 @import url('./components/PoweredBy/PoweredBy.css');
 @import url('./components/Auth/Auth.css');
@@ -55,7 +56,7 @@
 
 .sr-only {
     position: absolute;
-    overflow: hidden;
+    overflow: hidden; 
     width: 1px;
     height: 1px;
     padding: 0;
@@ -65,6 +66,10 @@
     white-space: nowrap;
 }
 
+/*
+ * AISURU Memori – brand overrides only.
+ * All other design tokens come from @memori.ai/ui (see memori-ai-ui.css).
+ */
 memori-client,
 memori-client #root,
 #headlessui-portal-root,
@@ -72,38 +77,12 @@ body.sb-show-main #root,
 #storybook-root,
 #storybook-docs,
 .memori-widget {
-    --memori-font-family: 'Lexend Deca Variable', 'Lexend Deca', sans-serif;
-    --memori-primary-rgb: 130, 70, 175;
-    --memori-primary: rgb(var(--memori-primary-rgb));
-    --memori-primary-color: var(--memori-primary);
-    --memori-primary-text: #fff;
-    --memori-secondary-color: var(--memori-secondary);
-    --memori-inner-content-pad: 1rem;
-    --memori-inner-bg: transparent;
-    --memori-chat-bubble-bg: #fff;
-    --memori-chat-user-bubble-bg: var(--memori-primary);
-    --memori-text-color: #000;
-    --memori-border-radius: 8px;
-    --memori-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
-    --memori-button-bg: #fff;
-    --memori-button-text: #000;
-    --memori-button-padding: 0.5rem 1.5rem;
-    --memori-button-border-color: #d9d9d9;
-    --memori-button-radius: var(--memori-border-radius);
-    --memori-button-box-shadow: var(--memori-box-shadow);
-    --memori-button-disabled-bg: #ccc;
-    --memori-button-disabled-color: #000;
-    --memori-blur-background: 0px;
-    --memori-drawer--width: 80%;
-    --memori-drawer--width--md: 80%;
-    --memori-drawer--width--lg: 60%;
-    --memori-modal--width: 80%;
-    --memori-modal--width--md: 80%;
-    --memori-error-color: #ff4d4f;
-    --memori-warning-color: #faad14;
+    /* Brand colors – override library defaults */
+    --memori-primary-color:rgb(130, 70, 175);
+    /* --memori-secondary-color: oklch(70% 0.15 200deg); */
 
-    font-family: var(--memori-font-family, 'Lexend Deca Variable', 'Lexend Deca', sans-serif);
-    font-size: 16px;
+    font-family: var(--memori-font-family);
+    font-size: var(--memori-text-size-base);
 }
 
 @media (max-width: 768px) {

@@ -15,9 +15,9 @@
   display: flex;
   justify-content: flex-end;
   padding: 0.5rem;
-  /* border-bottom: 1px solid var(--memori-button-border-color, #e9ecef); */
-  border-radius: var(--memori-border-radius, 6px) var(--memori-border-radius, 6px) 0 0;
-  background: var(--memori-inner-bg, #f8f9fa);
+  /* border-bottom: 1px solid var(--memori-border-color); */
+  border-radius: var(--memori-radius-box) var(--memori-radius-box) 0 0;
+  background: var(--memori-primary-subtle);
   gap: 0.25rem;
 }
 
@@ -31,20 +31,20 @@
   align-items: center;
   padding: 0.75rem 1rem;
   border: none;
-  border-radius: var(--memori-border-radius, 4px);
+  border-radius: var(--memori-radius-box);
   background: transparent;
-  color: var(--memori-text-color, #666);
+  color: var(--memori-text-color);
   cursor: pointer;
-  font-size: 0.875rem;
-  font-weight: 500;
+  font-size: var(--memori-text-size-small);
+  font-weight: var(--memori-text-weight-medium);
   gap: 0.5rem;
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .memori-artifact-tab--active, .memori-artifact-tab:hover, .memori-artifact-tab:active, .memori-artifact-tab:focus {
-  background: var(--memori-chat-bubble-bg, #fff);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background: var(--memori-main-background);
+  box-shadow: var(--memori-shadow-sm);
   color: var(--memori-primary);
 }
 
@@ -55,8 +55,8 @@
   min-height: 0;
   flex: 1;
   flex-direction: column;
-  border-radius: 0 0 var(--memori-border-radius, 6px) var(--memori-border-radius, 6px);
-  background: var(--memori-chat-bubble-bg, #fff);
+  border-radius: 0 0 var(--memori-radius-box) var(--memori-radius-box);
+  background: var(--memori-main-background);
 }
 
 .memori-artifact-tab-content {
@@ -73,21 +73,22 @@
 
 /* Code Content */
 .memori-artifact-code {
-  overflow: auto;
   flex: 1;
-  /* border: 1px solid var(--memori-button-border-color, #e9ecef); */
-  border-radius: var(--memori-border-radius, 6px);
+  border-radius: var(--memori-radius-box);
+  background: var(--memori-main-background);
+  overflow-x: hidden;
+  overflow-y: auto;
+  /* border: 1px solid var(--memori-border-color); */
   /* margin: 1rem; */
-  background: var(--memori-chat-bubble-bg, #fff);
 }
 
 .memori-artifact-code-content {
   padding: 1rem;
   margin: 0;
-  color: var(--memori-text-color, #333);
+  color: var(--memori-text-color);
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', monospace;
-  font-size: 0.875rem;
-  line-height: 1.5;
+  font-size: var(--memori-text-size-small);
+  line-height: var(--memori-text-line-normal);
   overflow-wrap: break-word;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -101,11 +102,11 @@
   min-height: 0;
   flex: 1;
   flex-direction: column;
-  /* border: 1px solid var(--memori-button-border-color, #e9ecef); */
-  border-radius: var(--memori-border-radius, 6px);
+  /* border: 1px solid var(--memori-border-color); */
+  border-radius: var(--memori-radius-box);
   /* margin: 1rem; */
   margin-top: 1rem;
-  background: var(--memori-chat-bubble-bg, #fff);
+  background: var(--memori-main-background);
 }
 
 .memori-artifact-preview-iframe {
@@ -115,7 +116,7 @@
   min-height: 0;
   flex: 1;
   border: none;
-  border-radius: var(--memori-border-radius, 6px);
+  border-radius: var(--memori-radius-box);
 }
 
 /* Markdown Preview */
@@ -123,7 +124,7 @@
   min-height: 0;
   flex: 1;
   padding: 1rem;
-  color: var(--memori-text-color, #333);
+  color: var(--memori-text-color);
   font-family: var(--memori-font-family);
   line-height: 1.6;
   overflow-y: auto;
@@ -136,14 +137,14 @@
 .memori-artifact-preview-markdown h5,
 .memori-artifact-preview-markdown h6 {
   margin: 1.5rem 0 0.5rem;
-  font-weight: 600;
+  font-weight: var(--memori-text-weight-semibold);
   line-height: 1.3;
 }
 
 .memori-artifact-preview-css-content h3 {
   margin: 0 0 1rem;
-  font-size: 1.125rem;
-  font-weight: 600;
+  font-size: var(--memori-text-size-large);
+  font-weight: var(--memori-text-weight-semibold);
 }
 
 .memori-artifact-preview-markdown h1:first-child,
@@ -158,17 +159,17 @@
 
 .memori-artifact-preview-markdown code {
   padding: 0.125rem 0.25rem;
-  border-radius: 3px;
-  background: var(--memori-inner-bg, #f1f3f4);
+  border-radius: var(--memori-radius-box);
+  background: var(--memori-primary-subtle);
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
   font-size: 0.875em;
 }
 
 .memori-artifact-preview-markdown pre {
   padding: 1rem;
-  border-radius: var(--memori-border-radius, 6px);
+  border-radius: var(--memori-radius-box);
   margin: 1rem 0;
-  background: var(--memori-inner-bg, #f1f3f4);
+  background: var(--memori-primary-subtle);
   overflow-x: auto;
 }
 
@@ -198,8 +199,8 @@
 .memori-artifact-preview-svg svg {
   max-width: 100%;
   max-height: 100%;
-  /* border: 1px solid var(--memori-buttonr-border-color, #e9ecef); */
-  border-radius: var(--memori-border-radius, 6px);
+  /* border: 1px solid var(--memori-border-color); */
+  border-radius: var(--memori-radius-box);
 }
 
 /* CSS Preview */
@@ -209,13 +210,13 @@
 
 .memori-artifact-preview-css-demo {
   overflow: hidden;
-  /* border: 1px solid var(--memori-button-border-color, #e9ecef); */
-  border-radius: var(--memori-border-radius, 6px);
+  /* border: 1px solid var(--memori-border-color); */
+  border-radius: var(--memori-radius-box);
 }
 
 .memori-artifact-preview-css-content {
   padding: 1rem;
-  color: var(--memori-text-color, #333);
+  color: var(--memori-text-color);
   font-family: var(--memori-font-family);
   line-height: 1.6;
 }
@@ -227,27 +228,27 @@
 .memori-artifact-preview-css-content button {
   padding: 0.5rem 1rem;
   border: none;
-  border-radius: var(--memori-border-radius, 4px);
+  border-radius: var(--memori-radius-form);
   margin: 0.5rem 0;
   background: var(--memori-primary);
-  color: var(--memori-primary-text);
+  color: var(--memori-primary-content);
   cursor: pointer;
 }
 
 .memori-artifact-preview-css-container {
   padding: 1rem;
-  border-radius: var(--memori-border-radius, 4px);
+  border-radius: var(--memori-radius-box);
   margin: 1rem 0;
-  background: var(--memori-inner-bg, #f1f3f4);
+  background: var(--memori-primary-subtle);
 }
 
 /* Text Preview */
 .memori-artifact-preview-text {
   padding: 1rem;
-  color: var(--memori-text-color, #333);
+  color: var(--memori-text-color);
   font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 0.875rem;
-  line-height: 1.5;
+  font-size: var(--memori-text-size-small);
+  line-height: var(--memori-text-line-normal);
   white-space: pre-wrap;
   word-wrap: break-word;
 }
@@ -260,7 +261,7 @@
 
 .memori-artifact--keyword {
   color: #d73a49;
-  font-weight: 600;
+  font-weight: var(--memori-text-weight-semibold);
 }
 
 .memori-artifact--string {
@@ -269,12 +270,12 @@
 
 .memori-artifact--number {
   color: #005cc5;
-  font-weight: 500;
+  font-weight: var(--memori-text-weight-medium);
 }
 
 .memori-artifact--function {
   color: #6f42c1;
-  font-weight: 600;
+  font-weight: var(--memori-text-weight-semibold);
 }
 
 .memori-artifact--operator {
@@ -287,12 +288,12 @@
 
 .memori-artifact--selector {
   color: #6f42c1;
-  font-weight: 600;
+  font-weight: var(--memori-text-weight-semibold);
 }
 
 .memori-artifact--tag {
   color: #22863a;
-  font-weight: 600;
+  font-weight: var(--memori-text-weight-semibold);
 }
 
 .memori-artifact--line-number {
@@ -330,26 +331,22 @@
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
   .memori-artifact-tabs {
-    border-bottom-color: var(--memori-button-border-color, #404040);
+    border-bottom-color: var(--memori-border-color);
     background: rgba(255, 255, 255, 0.86);
   }
 
-  /* .memori-artifact-tab--active {
-    background: var(--memori-chat-bubble-bg, #1a1a1a);
-  } */
-
   .memori-artifact-code,
   .memori-artifact-preview-content {
-    border-color: var(--memori-button-border-color, #404040);
+    border-color: var(--memori-border-color);
   }
 
   .memori-artifact-preview-markdown code,
   .memori-artifact-preview-css-demo {
-    border-color: var(--memori-button-border-color, #404040);
-    background: var(--memori-inner-bg, #2a2a2a);
+    border-color: var(--memori-border-color);
+    background: var(--memori-primary-subtle);
   }
 
   .memori-artifact-preview-css-container {
-    background: var(--memori-inner-bg, #2a2a2a);
+    background: var(--memori-primary-subtle);
   }
 }
