@@ -299,7 +299,7 @@
   "dependencies": {
     "@base-ui/react": "^1.0.0",
     "@memori.ai/memori-api-client": "6.17.0",
-    "@memori.ai/ui": "^1.2.0",
+    "@memori.ai/ui": "^1.4.0",
     "@react-three/drei": "8.20.2",
     "@react-three/fiber": "7.0.25",
     "classnames": "2.5.1",
