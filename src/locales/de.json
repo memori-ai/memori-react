@@ -293,6 +293,7 @@
   },
   "login": {
     "login": "Login",
+    "title": "Login zu Ihrem Konto",
     "logout": "Abmelden",
     "user": "Benutzer",
     "loggedDrawerTitle": "Hallo, {{name}}!",

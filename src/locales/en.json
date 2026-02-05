@@ -316,6 +316,7 @@
   },
   "login": {
     "login": "Login",
+    "title": "Login to your account",
     "logout": "Logout",
     "user": "User",
     "loggedDrawerTitle": "Hi, {{name}}!",

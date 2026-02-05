@@ -24,7 +24,7 @@
   "dayPlaceholder": "GG",
   "monthPlaceholder": "MM",
   "yearPlaceholder": "AAAA",
-  "createdAt": "Data creazione",
+  "createdAt": "Data creaz.memori-copy-menu-item:hover:not(:disabled), .memori-copy-menu-item--activeloione",
   "selected": "Selezionati",
   "page": "pagina",
   "actions": "Azioni",
@@ -317,6 +317,7 @@
   },
   "login": {
     "login": "Accedi",
+    "title": "Accedi al tuo account",
     "logout": "Esci",
     "userNameRequired": "Il nome utente è obbligatorio",
     "userName": "Nome utente",

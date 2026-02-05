@@ -301,6 +301,7 @@
   },
   "login": {
     "login": "Se connecter",
+    "title": "Se connecter à votre compte",
     "logout": "Déconnexion",
     "user": "Utilisateur",
     "loggedDrawerTitle": "Salut, {{name}}!",

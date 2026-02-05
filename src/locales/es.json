@@ -293,6 +293,7 @@
   },
   "login": {
     "login": "Acceso",
+    "title": "Iniciar sesión en tu cuenta",
     "logout": "Cerrar sesión",
     "user": "Usuario",
     "loggedDrawerTitle": "Hola, {{name}}!",
