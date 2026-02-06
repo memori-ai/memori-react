@@ -19,8 +19,13 @@
 .memori-share-button--dropdown-item-content{
     display: inline-flex;
     align-items: center;
-    margin-top: 8px;
+    margin-top: var(--memori-spacing-sm);
     cursor: pointer;
+}
+
+.memori-share-button--dropdown-menu > .memori-dropdown__item{
+    flex-flow: column;
+    align-items: flex-start;
 }
 
 .memori-share-button--overlay {
@@ -34,7 +39,7 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: var(--memori-radius-box);
     margin: 0;
-    margin-top: 0.5rem;
+    margin-top: var(--memori-spacing-sm);
     background-color: #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
     color: #000;
@@ -66,7 +71,7 @@ a.memori-share-button--link {
 }
 
 .memori-share-button--li-qr-code {
-    margin-top: 0.5rem;
+    margin-top: var(--memori-spacing-sm);
     text-align: center;
 }
 
@@ -85,5 +90,5 @@ a.memori-share-button--link {
 .memori-share-button--li-shared {
     padding-bottom: 0.25rem;
     border-bottom: 1px solid var(--memori-primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--memori-spacing-sm);
 }

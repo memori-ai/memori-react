@@ -18,7 +18,7 @@
   /* border-bottom: 1px solid var(--memori-border-color); */
   border-radius: var(--memori-radius-box) var(--memori-radius-box) 0 0;
   background: var(--memori-primary-subtle);
-  gap: 0.25rem;
+  gap: var(--memori-spacing-xs);
 }
 
 .memori-artifact-tab-icon{
@@ -37,7 +37,7 @@
   cursor: pointer;
   font-size: var(--memori-text-size-small);
   font-weight: var(--memori-text-weight-medium);
-  gap: 0.5rem;
+  gap: var(--memori-spacing-sm);
   transition: all 0.2s ease;
   white-space: nowrap;
 }
@@ -105,7 +105,7 @@
   /* border: 1px solid var(--memori-border-color); */
   border-radius: var(--memori-radius-box);
   /* margin: 1rem; */
-  margin-top: 1rem;
+  margin-top: var(--memori-spacing-lg);
   background: var(--memori-main-background);
 }
 
@@ -297,7 +297,7 @@
 }
 
 .memori-artifact--line-number {
-  margin-right: 1rem;
+  margin-right: var(--memori-spacing-lg);
   color: #6a737d;
   user-select: none;
 }

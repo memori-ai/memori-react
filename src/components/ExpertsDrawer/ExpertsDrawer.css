@@ -1,6 +1,3 @@
-.memori--experts-drawer {
-    z-index: 1000;
-}
 
 .memori--experts-drawer .memori-drawer--panel {
     --memori-drawer--width: 100%;
@@ -25,8 +22,8 @@ li.memori--experts-drawer--item {
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: var(--memori-spacing-lg);
+    margin-bottom: var(--memori-spacing-lg);
 }
 
 figure.memori--experts-drawer--avatar {

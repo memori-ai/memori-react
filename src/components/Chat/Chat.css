@@ -42,7 +42,7 @@
 
 /* Adjust chat history when textarea is expanded */
 .memori-chat-wrapper--expanded .memori-chat--history {
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--memori-spacing-sm);
 }
 
 .memori-chat--content {
@@ -51,7 +51,7 @@
     height: 100%;
     flex: 1;
     flex-direction: column;
-    padding: 2rem 10px;
+    padding: 2rem var(--memori-spacing-sm);
     /* mask-image: linear-gradient(transparent, black 5%, black 95%, transparent 100%); */
     overflow-y: auto;
     scroll-behavior: smooth;
@@ -64,7 +64,7 @@
 /* Ensure smooth scrolling on mobile */
 @media (max-width: 768px) {
     .memori-chat--content {
-        padding: 1rem 5px;
+        padding: 1rem var(--memori-spacing-xs);
     }
 }
 
@@ -72,8 +72,8 @@
     position: relative;
     width: 100%;
     padding-top: 31.25%;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs) / 2);
+    margin-bottom: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs) / 2);
     background-position: center;
     background-size: cover;
     border-top-left-radius: 12px;
@@ -88,7 +88,7 @@
 .memori-chat--timestamp {
     display: inline-block;
     padding: 0 3.5rem;
-    margin-bottom: 0.5em;
+    margin-bottom: var(--memori-spacing-sm);
     color: #969696;
     font-size: 0.8em;
 }
@@ -102,8 +102,8 @@
 }
 
 .memori-chat--context-vars {
-    padding: 0 3.5rem;
-    margin-bottom: 0.5em;
+    padding: 0 calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
+    margin-bottom: var(--memori-spacing-sm);
 }
 
 .memori-chat--context-tag {
@@ -111,7 +111,7 @@
     align-items: center;
     padding: 0.25rem 0.75rem;
     border-radius: var(--memori-radius-box);
-    margin-right: 0.5rem;
+    margin-right: var(--memori-spacing-sm);
     box-shadow: 0 0 0.25rem var(--memori-primary);
     color: var(--text-color, #333);
     font-size: 0.75rem;
@@ -136,17 +136,17 @@
 }
 
 .memori-chat--context-tag+.memori-chat--context-tag {
-    margin-top: 0.5rem;
+    margin-top: var(--memori-spacing-sm);
 }
 
 .memori-chat--known-tags {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--memori-spacing-lg);
 }
 
 .memori-chat--known-tag {
-    margin-right: 0.5rem;
+    margin-right: var(--memori-spacing-sm);
 }
 
 /* Drag and drop overlay */

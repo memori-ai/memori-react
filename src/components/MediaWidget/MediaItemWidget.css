@@ -1,5 +1,5 @@
 .memori-media-items {
-    margin-top: 1.5rem;
+    margin-top: var(--memori-spacing-lg);
 }
 
 .memori-media-items--grid {
@@ -56,13 +56,13 @@
 
 /* Allineamento media per messaggi dell'utente */
 .memori-media-items--grid.memori-media-items--user {
-    margin-right: 3rem;
+    margin-right: var(--memori-spacing-lg);
     direction: rtl;
 }
 
 /* Allineamento media per messaggi dell'agente */
 .memori-media-items--grid.memori-media-items--agent {
-    margin-left: 3rem;
+    margin-left: var(--memori-spacing-lg);
     direction: ltr;
 }
 
@@ -292,8 +292,8 @@ div.memori-media-item--link.memori-media-item--image-link {
     display: flex;
     width: 100%;
     flex-direction: column;
-    padding: 1rem 0;
-    gap: 1rem;
+    padding: var(--memori-spacing-lg) 0;
+    gap: var(--memori-spacing-lg);
 }
 
 .memori-media-item--modal-audio-title {
@@ -327,8 +327,8 @@ div.memori-media-item--link.memori-media-item--image-link {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
-    gap: 1rem;
+    padding: var(--memori-spacing-lg);
+    gap: var(--memori-spacing-lg);
     text-align: center;
 }
 
@@ -349,11 +349,11 @@ div.memori-media-item--link.memori-media-item--image-link {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
+    gap: var(--memori-spacing-lg);
 }
 
 .memori-media-item--modal-fallback-link {
-    padding: 0.5rem 1rem;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: var(--memori-border) solid var(--memori-border-color);
     border-radius: var(--memori-radius-box);
     background: var(--memori-main-background);
@@ -403,24 +403,24 @@ div.memori-media-item--link.memori-media-item--image-link {
 .memori-media-item-preview--text h4,
 .memori-media-item-preview--text h5,
 .memori-media-item-preview--text h6 {
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
+    margin-top: var(--memori-spacing-lg);
+    margin-bottom: var(--memori-spacing-sm);
     color: var(--memori-text-color);
     font-weight: var(--memori-text-weight-semibold);
 }
 
 .memori-media-item-preview--text p {
-    margin-bottom: 1rem;
+    margin-bottom: var(--memori-spacing-lg);
 }
 
 .memori-media-item-preview--text ul,
 .memori-media-item-preview--text ol {
-    padding-left: 1.5rem;
-    margin-bottom: 1rem;
+    padding-left: var(--memori-spacing-lg);
+    margin-bottom: var(--memori-spacing-lg);
 }
 
 .memori-media-item-preview--text li {
-    margin-bottom: 0.25rem;
+    margin-bottom: var(--memori-spacing-xs);
 }
 
 .memori-media-item-preview--text code {
@@ -442,7 +442,7 @@ div.memori-media-item--link.memori-media-item--image-link {
 
 .memori-media-item-preview--text blockquote {
     padding-left: 1rem;
-    border-left: 4px solid var(--memori-primary);
+    border-left: var(--memori-spacing-xs) solid var(--memori-primary);
     margin: 1rem 0;
     color: color-mix(in oklch, var(--memori-text-color) 70%, transparent);
     font-style: italic;
@@ -478,7 +478,7 @@ div.memori-media-item--link.memori-media-item--image-link {
 .memori-media-item--snippet-title {
     flex: 1;
     margin: 0;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--memori-spacing-sm);
     -webkit-box-orient: vertical;
     color: #111827;
     direction: ltr;
@@ -508,7 +508,7 @@ div.memori-media-item--link.memori-media-item--image-link {
     display: flex;
     width: 100%;
     min-width: 0;
-    margin-bottom: 1rem;
+    margin-bottom: var(--memori-spacing-lg);
 }
 
 /* Snippet card: full width of parent so it resizes with container */
@@ -1052,7 +1052,7 @@ a.memori-media-item--document-link {
 
 .memori-media-item--code-language-badge {
     flex-shrink: 0;
-    padding: 2px var(--memori-spacing-sm);
+    padding: calc(var(--memori-spacing-xs) / 2) var(--memori-spacing-sm);
     border-radius: var(--memori-radius-box);
     background: #3b82f6;
     color: white;
@@ -1179,9 +1179,9 @@ a.memori-media-item--document-link {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-bottom: 8px;
+    padding-bottom: var(--memori-spacing-sm);
     border-bottom: 1px solid #e5e7eb;
-    margin-bottom: 12px;
+    margin-bottom: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
 }
 
 .memori-media-item--html-preview-title {
@@ -1250,7 +1250,7 @@ a.memori-media-item--document-link {
 
 .memori-media-item--generic-file-meta {
     margin: 0;
-    margin-top: 4px;
+    margin-top: var(--memori-spacing-xs);
     color: #6b7280;
     font-size: 12px;
 }
@@ -1340,7 +1340,7 @@ a.memori-media-item--document-link {
 .memori-media-item--file-title {
     overflow: hidden;
     flex: 1;
-    margin-bottom: 8px;
+    margin-bottom: var(--memori-spacing-sm);
     color: #ffffff;
     font-size: var(--memori-text-size-small);
     font-weight: var(--memori-text-weight-medium);

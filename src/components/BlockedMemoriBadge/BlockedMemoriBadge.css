@@ -17,7 +17,7 @@
 }
 
 .blocked-memori-badge.margin-left {
-    margin-left: 0.5rem;
+    margin-left: var(--memori-spacing-sm);
 }
 
 .blocked-memori-badge--icon {
@@ -36,5 +36,5 @@
 }
 
 .blocked-memori-badge--title {
-    margin-left: 0.5rem;
+    margin-left: var(--memori-spacing-sm);
 }

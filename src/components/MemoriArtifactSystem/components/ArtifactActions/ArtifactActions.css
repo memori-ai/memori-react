@@ -98,13 +98,13 @@
   }
   
   .memori-artifact-actions-row {
-    gap: 0.25rem;
+    gap: 0 var(--memori-spacing-xs);
   }
 }
 
 @media (max-width: 480px) {
   .memori-artifact-actions-row {
-    gap: 0.125rem;
+    gap: 0 var(--memori-spacing-xs);
   }
   
   .memori-artifact-action-btn {
@@ -159,5 +159,5 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--memori-spacing-sm);
 }

@@ -28,7 +28,7 @@
     align-self: flex-start;
     padding: var(--memori-spacing-md, 0);
     border-radius: var(--memori-radius-box);
-    margin-top: 2rem;
+    margin-top: var(--memori-spacing-2xl);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     background-color: transparent;
@@ -46,7 +46,7 @@
 
 @media (max-width: 870px) {
     .memori--start-panel {
-        margin-top: 1rem;
+        margin-top: var(--memori-spacing-lg);
     }
 }
 
@@ -71,7 +71,7 @@
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs) / 2);
     background: #fff;
     box-shadow: 0 0 5px rgba(50, 50, 50, 0.3);
 }
@@ -133,7 +133,7 @@
 }
 
 .memori--start-description {
-    margin-top: 0.5rem;
+    margin-top: var(--memori-spacing-sm);
     font-size: 0.85em;
     opacity: 0.85;
 }
@@ -144,23 +144,23 @@
     min-width: 140px;
     min-height: 42px;
     border-radius: var(--memori-radius-box);
-    margin-right: 1em;
+    margin-right: var(--memori-spacing-sm);
     font-weight: var(--memori-text-weight-semibold);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .memori--language-chooser {
-    margin-bottom: 1rem;
+    margin-bottom: var(--memori-spacing-lg);
 }
 
 .memori--language-chooser svg {
-    margin-right: 0.5rem;
+    margin-right: var(--memori-spacing-sm);
 }
 
 .memori--language-chooser select,
 .memori--language-chooser .memori--select {
     min-width: 7rem;
-    margin-left: 0.5rem;
+    margin-left: var(--memori-spacing-sm);
 }
 
 .memori--language-chooser select option {
@@ -245,14 +245,14 @@
 
 .memori--deep-thought-disclaimer h2 {
     margin-top: 0;
-    margin-bottom: 0.5em;
+    margin-bottom: var(--memori-spacing-sm);
     color: var(--memori-text-color);
 }
 
 .memori--deep-thought-disclaimer .memori-tooltip {
     position: relative;
-    margin-bottom: 1rem;
-    margin-left: 1rem;
+    margin-bottom: var(--memori-spacing-lg);
+    margin-left: var(--memori-spacing-sm);
     float: right;
 }
 

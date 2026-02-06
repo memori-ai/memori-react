@@ -74,7 +74,7 @@ textarea.memori-chat-textarea--input {
     min-height: 36px;
     max-height: 208px;
     box-sizing: border-box;
-    /* padding: 8px 0; */
+    /* padding: var(--memori-spacing-sm) 0; */
     border: none;
     background: transparent;
     color: #000;

@@ -78,7 +78,8 @@ body.sb-show-main #root,
 #storybook-docs,
 .memori-widget {
     /* Brand colors – override library defaults */
-    --memori-primary-color:rgb(130, 70, 175);
+    --memori-primary-color:rgb(var(--memori-primary-rgb), (130, 70, 175));
+    --memori-primary: rgb(130, 70, 175);
     /* --memori-secondary-color: oklch(70% 0.15 200deg); */
 
     font-family: var(--memori-font-family);

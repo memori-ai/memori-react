@@ -31,7 +31,7 @@
 .memori--date-selector__mobile-label {
     display: block;
     width: 100%;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--memori-spacing-sm);
     color: #374151;
     font-size: 0.95rem;
     font-weight: var(--memori-text-weight-medium);
@@ -41,9 +41,9 @@
 .memori--date-selector__mobile-input {
     width: 100%;
     max-width: 100%;
-    min-height: 48px;
+    min-height: var(--memori-spacing-3xl);
     box-sizing: border-box;
-    padding: 0.875rem 1rem;
+    padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs)) var(--memori-spacing-lg);
     border: 1px solid #e5e7eb;
     border-radius: var(--memori-radius-box);
     -webkit-appearance: none;
@@ -78,12 +78,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: var(--memori-spacing-2xl);
+    gap: var(--memori-spacing-md);
 }
 
 .memori--date-selector__input-group {
     display: flex;
-    min-width: 80px;
+    min-width: var(--memori-spacing-5xl);
     /* flex: 1; */
     flex-direction: column;
 }

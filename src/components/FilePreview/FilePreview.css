@@ -24,7 +24,7 @@
 
     .memori--preview-container {
         padding: var(--memori-spacing-sm);
-        margin-bottom: 8px;
+        margin-bottom: var(--memori-spacing-sm);
     }
 
     .memori--preview-filename {
@@ -63,7 +63,7 @@
 
     .memori--preview-container {
         padding: calc(var(--memori-spacing-xs) + 2px);
-        margin-bottom: 6px;
+        margin-bottom: var(--memori-spacing-sm);
     }
 
     .memori--preview-filename {
@@ -184,14 +184,14 @@
 }
 
 .memori--preview-filetype {
-    margin-top: 2px;
+    margin-top: calc(var(--memori-spacing-xs) / 2);
     color: #868e96;
     font-size: 12px;
 }
 
 .memori--modal-title-preview {
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
+    margin-bottom: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
     font-size: var(--memori-text-size-heading);
     font-weight: var(--memori-text-weight-semibold);
 }

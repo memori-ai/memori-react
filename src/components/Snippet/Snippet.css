@@ -76,7 +76,7 @@ pre[class*="language-"] {
     background: rgba(0, 0, 0, 0.05);
     background-color: #f8fafc;
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
-    gap: 0.5rem;
+    gap: var(--memori-spacing-sm);
 }
 
 button.memori-snippet--copy-button {

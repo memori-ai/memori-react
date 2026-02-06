@@ -34,7 +34,7 @@
     top: 2px;
     bottom: 2px;
     left: 2px;
-    width: calc((100% - 4px) / var(--tab-count, 2));
+    width: calc((100% - var(--memori-spacing-xs)) / var(--tab-count, 2));
     border-radius: var(--memori-radius-box);
     animation: tab-switch-slide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     background: #ffffff;

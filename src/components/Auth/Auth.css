@@ -43,15 +43,15 @@ input.memori-auth-widget--input:focus {
 
 .memori-auth-widget--token {
     display: block;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--memori-spacing-sm);
 }
 
 .memori-auth-widget--error {
-    padding: 1rem 1.5rem;
+    padding: var(--memori-spacing-lg) var(--memori-spacing-xl);
     border: 1px solid currentColor;
-    border-radius: .5rem;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
+        border-radius: var(--memori-radius-box);
+        margin-top: var(--memori-spacing-sm);
+    margin-bottom: var(--memori-spacing-lg);
     background-color: rgba(255, 235, 238, 0.5);
     color: #f44336;
 }

@@ -69,7 +69,7 @@
     width: 14rem;
     border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: var(--memori-radius-box);
-    margin-top: 0.5rem;
+    margin-top: var(--memori-spacing-sm);
     background-color: #fff;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     outline: none;
@@ -81,14 +81,14 @@
 }
 
 .memori-chat--feedback-menu-items-container {
-    padding: 0.25rem;
+    padding: var(--memori-spacing-xs);
 }
 
 .memori-chat--feedback-menu-items button.memori-chat--feedback-menu-item {
     display: flex;
     width: 100%;
     align-items: center;
-    padding: 0.5rem;
+    padding: var(--memori-spacing-sm);
     border: none;
     border-radius: var(--memori-radius-box);
     margin: 0;
@@ -97,7 +97,7 @@
     color: #333;
     cursor: pointer;
     font-family: inherit;
-    font-size: 0.75em;
+    font-size: var(--memori-text-size-small);
     font-weight: inherit;
     line-height: inherit;
 }

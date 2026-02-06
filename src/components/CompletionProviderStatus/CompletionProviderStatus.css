@@ -28,7 +28,7 @@
   }
   
   .memori--completion-provider-status--tooltip p {
-    margin-bottom: 8px;
+    margin-bottom: var(--memori-spacing-sm);
   }
   
   .memori--completion-provider-status--tooltip p:last-child {

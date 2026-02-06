@@ -15,7 +15,7 @@
     flex-wrap: wrap;
     align-items: center;
     margin: 0.5rem 0;
-    gap: 0.2rem;
+    gap: var(--memori-spacing-xs);
 }
 
 .memori-settings-drawer--microphoneMode-radio-button-disabled {

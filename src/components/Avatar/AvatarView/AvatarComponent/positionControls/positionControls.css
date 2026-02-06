@@ -16,7 +16,7 @@
   backdrop-filter: blur(10px);
   background-color: var(--memori-main-background);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-  gap: 0.5rem;
+  gap: var(--memori-spacing-sm);
   text-align: left;
   transform: none; /* Remove transform */
 }
@@ -26,12 +26,12 @@
   display: flex;
   flex-direction: column;
   padding: var(--memori-spacing-sm) 0;
-  gap: 0.75rem;
+  gap: var(--memori-spacing-md);
 }
 
 .memori--slider-label {
   color: var(--memori-text-color);
-  /* margin-bottom: 8px; */
+  /* margin-bottom: var(--memori-spacing-sm); */
   font-size: var(--memori-text-size-large);
 }
 
@@ -40,7 +40,7 @@
   display: flex;
   flex-direction: row;
   margin-top: 0px;
-  margin-bottom: 12px;
+  margin-bottom: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
   /* justify-content: space-between; */
   /* margin-top: 36px; */
   gap: var(--memori-spacing-sm);
@@ -72,12 +72,12 @@
 @media screen and (max-width: 480px) {
   .memori--position-controls {
     right: 10px;
-    bottom: 80px;
+    bottom: var(--memori-spacing-5xl);
     width: 280px;
   }
 
   .memori--preset-buttons {
-    margin-top: 32px;
+    margin-top: var(--memori-spacing-xl);
   }
   
   .memori--preset-buttons button {
@@ -97,7 +97,7 @@
   }
 
   /* .memori--preset-buttons {
-    margin-top: 32px;
+    margin-top: var(--memori-spacing-xl);
   } */
   
   .memori--slider-label {

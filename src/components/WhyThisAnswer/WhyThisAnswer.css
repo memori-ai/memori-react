@@ -36,7 +36,7 @@ ul.memori--whythisanswer-list li:last-child {
     padding: 0.25rem 0.5rem;
     border: 1px solid var(--memori-primary);
     border-radius: var(--memori-radius-box);
-    margin-right: 1em;
+    margin-right: var(--memori-spacing-sm);
     background: #fff;
     color: var(--memori-primary);
     font-size: 0.75rem;
@@ -45,7 +45,7 @@ ul.memori--whythisanswer-list li:last-child {
 .memori--whythisanswer-title {
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: var(--memori-spacing-lg);
 }
 
 @media (max-width: 768px) {
@@ -95,9 +95,9 @@ ul.memori--whythisanswer-list li:last-child {
 }
 
 .memori--whythisanswer-skeleton-text {
-    padding: 0.5rem;
+    padding: var(--memori-spacing-sm);
     border-radius: var(--memori-radius-box);
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--memori-spacing-sm);
     background: #ccc;
 }
 
@@ -111,7 +111,7 @@ p.memori--whythisanswer-skeleton-text {
     display: block;
     width: 100%;
     min-width: 6rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--memori-spacing-sm);
 }
 
 div.memori--whythisanswer-skeleton-text {
@@ -123,7 +123,7 @@ div.memori--whythisanswer-skeleton-text {
     height: 3rem;
     padding: 0.5rem;
     border-radius: var(--memori-radius-box);
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--memori-spacing-sm);
     background: #ccc;
 }
 
@@ -134,7 +134,7 @@ div.memori--whythisanswer-skeleton-text {
 .memori--whythisanswer-title-text-top {
     display: flex;
     align-items: space-between;
-    gap: 0.5rem;
+    gap: var(--memori-spacing-sm);
 }
 
 .memori--whythisanswer-title-text-top p {
@@ -145,18 +145,18 @@ div.memori--whythisanswer-skeleton-text {
 .memori--whythisanswer-contextvars {
     display: flex;
     flex-wrap: wrap;
-    margin-top: 0.5rem;
+    margin-top: var(--memori-spacing-sm);
 }
 
 .memori--whythisanswer-contextvars-card {
     max-width: max-content;
-    padding: 0.5rem;
+    padding: var(--memori-spacing-sm);
     box-shadow: 0 0 0.25rem var(--memori-primary);
     font-size: 0.75rem;
 }
 
 .memori--whythisanswer-contextvars-card + .memori--whythisanswer-contextvars-card {
-    margin-left: 0.5rem;
+    margin-left: var(--memori-spacing-sm);
 }
 
 .memori--whythisanswer-contextvars-card > div > div {
@@ -166,6 +166,6 @@ div.memori--whythisanswer-skeleton-text {
 .memori--whythisanswer-title-text-top-container {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 8px;
-    gap: 0.5rem;
+    margin-bottom: var(--memori-spacing-sm);
+    gap: var(--memori-spacing-sm);
 }
