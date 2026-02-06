@@ -2110,16 +2110,30 @@ const MemoriWidget = ({
   const integrationProperties = (
     integration
       ? {
-          '--memori-chat-bubble-bg': '#fff',
-          ...(integrationConfig && !instruct
-            ? { '--memori-text-color': integrationConfig.textColor ?? '#000' }
-            : {}),
-          ...(integrationConfig?.buttonBgColor
-            ? {
-                '--memori-button-bg': integrationConfig.buttonBgColor,
-                '--memori-primary': integrationConfig.buttonBgColor,
-              }
-            : {}),
+        '--memori-chat-bubble-bg': '#fff',
+        ...(integrationConfig && !instruct
+          ? { '--memori-text-color': integrationConfig.textColor ?? '#000' }
+          : {}),
+        ...(integrationConfig?.buttonBgColor
+          ? {
+              '--memori-button-bg': integrationConfig.buttonBgColor,
+              '--memori-primary': integrationConfig.buttonBgColor,
+              '--memori-primary-color': integrationConfig.buttonBgColor,
+              // Force derived tokens to use this primary (same scope)
+              '--memori-primary-hover': 'color-mix(in oklch, var(--memori-primary), black 15%)',
+              '--memori-primary-active': 'color-mix(in oklch, var(--memori-primary), black 25%)',
+              '--memori-primary-disabled': 'color-mix(in oklch, var(--memori-primary), transparent 60%)',
+              '--memori-primary-subtle': 'color-mix(in oklch, var(--memori-primary), white 60%)',
+              '--memori-primary-subtle-hover': 'color-mix(in oklch, var(--memori-primary), white 50%)',
+              '--memori-border-primary': 'color-mix(in oklch, var(--memori-primary), transparent 70%)',
+              '--memori-border-primary-hover': 'color-mix(in oklch, var(--memori-primary), transparent 50%)',
+              '--memori-focus-ring-color': 'color-mix(in oklch, var(--memori-primary), transparent 80%)',
+              '--memori-focus-ring': '0 0 0 3px var(--memori-focus-ring-color)',
+              '--memori-shadow-primary': '0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%)',
+              '--memori-skeleton-base': 'color-mix(in oklch, var(--memori-primary), white 85%)',
+              '--memori-skeleton-highlight': 'color-mix(in oklch, var(--memori-primary), white 75%)',
+            }
+          : {}),
           ...(integrationConfig?.buttonTextColor
             ? {
                 '--memori-button-text': integrationConfig.buttonTextColor,
@@ -2157,7 +2171,7 @@ const MemoriWidget = ({
   const integrationStylesheet = `
     ${
       preview ? '#preview, ' : applyVarsToRoot ? ':root, ' : ''
-    }memori-client, .memori-widget, .memori-drawer, .memori-modal {
+    } .memori-client, .memori-widget, .memori-drawer, .memori-modal, .memori-header, .memori-dropdown, .memori-select {
       ${Object.entries(integrationProperties)
         .map(([key, value]) => `${key}: ${value};`)
         .join('\n')}

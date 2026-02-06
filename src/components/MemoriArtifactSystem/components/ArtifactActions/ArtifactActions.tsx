@@ -188,15 +188,20 @@ const ArtifactActions: React.FC<{
         />
        {isMobile && (
           <Dropdown className="memori-copy-menu-wrapper">
-            <Dropdown.Trigger showChevron={false} className="memori-copy-button-trigger">
-              <Button
-                disabled={loading}
-                variant="ghost"
-                title="More copy options"
-              >
-                <MoreVertical className="memori-artifact-action-icon" />
-              </Button>
-            </Dropdown.Trigger>
+            <Dropdown.Trigger
+              showChevron={false}
+              className="memori-copy-button-trigger"
+              render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+                <Button
+                  {...props}
+                  disabled={loading}
+                  variant="ghost"
+                  title="More copy options"
+                >
+                  <MoreVertical className="memori-artifact-action-icon" />
+                </Button>
+              )}
+            />
             <Dropdown.Menu className="memori-copy-dropdown" style={{ minWidth: '200px' }}>
               <div className="memori-copy-dropdown-list">
                 <Button

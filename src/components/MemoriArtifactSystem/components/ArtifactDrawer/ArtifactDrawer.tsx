@@ -264,19 +264,24 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
               />
             )}
             <Dropdown className="memori-mobile-actions-menu">
-              <Dropdown.Trigger showChevron={false} className="memori-mobile-actions-trigger">
-                <Button
-                  className={cx(
-                    'memori-button',
-                    'memori-button--more-options',
-                    'memori-button--icon-only'
-                  )}
-                  variant="ghost"
-                  title={t('artifact.actions') || 'Actions'}
-                >
-                  <MoreVertical className="memori-artifact-action-icon" />
-                </Button>
-              </Dropdown.Trigger>
+              <Dropdown.Trigger
+                showChevron={false}
+                className="memori-mobile-actions-trigger"
+                render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+                  <Button
+                    {...props}
+                    className={cx(
+                      'memori-button',
+                      'memori-button--more-options',
+                      'memori-button--icon-only'
+                    )}
+                    variant="ghost"
+                    title={t('artifact.actions') || 'Actions'}
+                  >
+                    <MoreVertical className="memori-artifact-action-icon" />
+                  </Button>
+                )}
+              />
               <Dropdown.Menu className="memori-mobile-dropdown">
                   <div className="memori-mobile-dropdown-list">
                     <Button

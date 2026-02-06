@@ -16,6 +16,7 @@ import {
   AlertTriangle,
   Link as LinkIcon,
   Printer,
+  Download,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { marked } from 'marked';
@@ -392,16 +393,21 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
         {/* Dropdown button (only show if multiple formats) */}
         {formats.length > 0 && (
           <Dropdown className="memori-copy-menu-wrapper">
-            <Dropdown.Trigger showChevron={false} className="memori-copy-button-trigger">
-              <Button
-                disabled={disabled || loading || copyState.loading}
-                className="memori-copy-button--dropdown"
-                variant="ghost"
-                title="More copy options"
-              >
-                <ChevronDown className="memori-copy-button-chevron" />
-              </Button>
-            </Dropdown.Trigger>
+            <Dropdown.Trigger
+              showChevron={false}
+              className="memori-copy-button-trigger"
+              render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+                <Button
+                  {...props}
+                  disabled={disabled || loading || copyState.loading}
+                  className="memori-copy-button--dropdown"
+                  variant="ghost"
+                  title="More copy options"
+                >
+                  <ChevronDown className="memori-copy-button-chevron" />
+                </Button>
+              )}
+            />
             <Dropdown.Menu className="memori-copy-dropdown">
               <div className="memori-copy-dropdown-content">
                 <div className="memori-copy-dropdown-list">

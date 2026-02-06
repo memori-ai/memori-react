@@ -322,13 +322,15 @@ const Header: React.FC<Props> = ({
               <Dropdown.Trigger
                 showChevron={false}
                 className="memori-dropdown--user-trigger"
-              >
-                <Button
-                  variant="primary"
-                  icon={<UserIcon />}
-                  title={t('login.user') || 'User'}
-                />
-              </Dropdown.Trigger>
+                render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+                  <Button
+                    {...props}
+                    variant="primary"
+                    icon={<UserIcon />}
+                    title={t('login.user') || 'User'}
+                  />
+                )}
+              />
               <Dropdown.Menu>
                 <Dropdown.Item>
                   <div className="memori-dropdown--user-info">
@@ -390,16 +392,12 @@ const Header: React.FC<Props> = ({
                   </div>
                 </Dropdown.Item>
                 <Dropdown.Separator />
-                <Dropdown.Item>
-                  <Button
-                    className="memori-dropdown--action-button memori-dropdown--action-button--logout"
-                    onClick={onLogout}
-                    variant="ghost"
-                    icon={<LogOut />}
-                    title={t('login.logout') || 'Logout'}
-                  >
-                    {t('login.logout') || 'Logout'}
-                  </Button>
+                <Dropdown.Item
+                  onClick={onLogout}
+                  className="memori-dropdown--action-button memori-dropdown--action-button--logout"
+                  {...({ icon: <LogOut /> } as React.ComponentProps<typeof Dropdown.Item>)}
+                >
+                  {t('login.logout') || 'Logout'}
                 </Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>

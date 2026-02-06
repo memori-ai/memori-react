@@ -466,10 +466,16 @@ const Chat: React.FC<Props> = ({
                 )}
 
               {!isHistoryView && !message.fromUser && (
-                <ArtifactHandler
-                  isChatlogPanel={isChatlogPanel}
-                  message={message}
-                />
+                <div className="memori-chat--bubble-container memori-artifact-handler-wrapper">
+                  <div
+                    className="memori-artifact-handler-spacer"
+                    aria-hidden
+                  />
+                  <ArtifactHandler
+                    isChatlogPanel={isChatlogPanel}
+                    message={message}
+                  />
+                </div>
               )}
             </React.Fragment>
           ))}

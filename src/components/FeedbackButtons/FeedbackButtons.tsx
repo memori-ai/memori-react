@@ -51,20 +51,25 @@ const FeedbackButtons = ({
     <div className={`memori-chat--feedback${className ? ` ${className}` : ''}`}>
       {dropdown ? (
         <Dropdown className="memori-chat--feedback-menu">
-          <Dropdown.Trigger className="memori-chat--feedback-button" showChevron={false}>
-            <Button
-              variant="ghost"
-              title="Feedback"
-              disabled={!!clicked}
-              icon={
-                <MessageSquare
-                  className={
-                    clicked ? 'memori-chat--feedback-clicked' : undefined
-                  }
-                />
-              }
-            />
-          </Dropdown.Trigger>
+          <Dropdown.Trigger
+            className="memori-chat--feedback-button"
+            showChevron={false}
+            render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+              <Button
+                {...props}
+                variant="ghost"
+                title="Feedback"
+                disabled={!!clicked}
+                icon={
+                  <MessageSquare
+                    className={
+                      clicked ? 'memori-chat--feedback-clicked' : undefined
+                    }
+                  />
+                }
+              />
+            )}
+          />
           <Dropdown.Menu
             className="memori-chat--feedback-menu-items"
             placement="bottom"

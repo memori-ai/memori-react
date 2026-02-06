@@ -17,13 +17,7 @@ import {
   ChatLogFilters,
 } from '@memori.ai/memori-api-client/dist/types';
 import { Card, Button } from '@memori.ai/ui';
-import {
-  MessageCircle,
-  Download,
-  ArrowUp,
-  ChevronLeft,
-  X,
-} from 'lucide-react';
+import { MessageCircle, Download, ArrowUp, ChevronLeft, X } from 'lucide-react';
 import { stripHTML } from '../../helpers/utils';
 import debounce from 'lodash/debounce';
 import { Spin } from '@memori.ai/ui';
@@ -660,14 +654,27 @@ const ChatHistoryDrawer = ({
       setCurrentPage(1);
       setIndexPage(0);
     }
-  }, [sortOrder, dateRange, minimumMessagesPerChat, customMinimumMessages, open]);
+  }, [
+    sortOrder,
+    dateRange,
+    minimumMessagesPerChat,
+    customMinimumMessages,
+    open,
+  ]);
 
   // Fetch chat logs when current page, date range, or minimum messages filter changes
   useEffect(() => {
     if (open && currentPage > 0) {
       fetchChatLogs(dateRange);
     }
-  }, [currentPage, dateRange, minimumMessagesPerChat, customMinimumMessages, fetchChatLogs, open]);
+  }, [
+    currentPage,
+    dateRange,
+    minimumMessagesPerChat,
+    customMinimumMessages,
+    fetchChatLogs,
+    open,
+  ]);
 
   const debouncedSearch = useMemo(
     () => debounce((value: string) => setSearchText(value), DEBOUNCE_DELAY),
@@ -809,9 +816,7 @@ const ChatHistoryDrawer = ({
                     <div className="memori-chat-history-drawer--card--header--content">
                       <div className="memori-chat-history-drawer--card--header--info">
                         <div className="memori-chat-history-drawer--card--header--title-wrapper">
-                          <h3
-                            className="memori-chat-history-drawer--card--header--title"
-                          >
+                          <h3 className="memori-chat-history-drawer--card--header--title">
                             {calculateTitle(chatLog.lines) ||
                               'Chat-' + chatLog.chatLogID.substring(0, 4)}
                           </h3>
@@ -899,7 +904,9 @@ const ChatHistoryDrawer = ({
                       <div className="memori-chat-history-drawer--card--content--header">
                         <Button
                           variant="ghost"
-                          onClick={(e: React.MouseEvent<HTMLButtonElement>) => handleExportChat(chatLog, e)}
+                          onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                            handleExportChat(chatLog, e)
+                          }
                           disabled={chatLog?.sessionID === sessionId}
                           icon={<Download />}
                         />
@@ -1018,15 +1025,16 @@ const ChatHistoryDrawer = ({
 
     return (
       <div className="memori-chat-history-drawer--detail-view">
+        {' '}
+        <Button
+          variant="ghost"
+          onClick={() => {
+            setIsViewingChatDetail(false);
+            setSelectedChatLog(null);
+          }}
+          icon={<ChevronLeft />}
+        />
         <div className="memori-chat-history-drawer--detail-view--header">
-          <Button
-            className="memori-chat-history-drawer--detail-view--back-button"
-            onClick={() => {
-              setIsViewingChatDetail(false);
-              setSelectedChatLog(null);
-            }}
-            icon={<ChevronLeft />}
-          />
           <div className="memori-chat-history-drawer--detail-view--header--title-wrapper">
             <div className="memori-chat-history-drawer--detail-view--header--title">
               {calculateTitle(selectedChatLog.lines) ||
@@ -1130,19 +1138,42 @@ const ChatHistoryDrawer = ({
                   setMinimumMessagesPerChat(value ? Number(value) : 0);
                 }}
                 displayValue={
-                  minimumMessagesPerChat === 0 ?
-                    (t('chatLogs.customMinimumMessages') || 'Customize the number of messages') :
-                    (t('chatLogs.atLeast' + minimumMessagesPerChat) || 'At least ' + minimumMessagesPerChat + ' messages')
+                  minimumMessagesPerChat === 0
+                    ? t('chatLogs.customMinimumMessages') ||
+                      'Customize the number of messages'
+                    : t('chatLogs.atLeast' + minimumMessagesPerChat) ||
+                      'At least ' + minimumMessagesPerChat + ' messages'
                 }
                 className="memori-chat-history-drawer--toolbar--min-messages-filter--select"
                 options={[
-                  { value: '1', label: t('chatLogs.anyMessage') || 'Any message' },
-                  { value: '2', label: t('chatLogs.atLeast2') || 'At least 2 messages' },
-                  { value: '3', label: t('chatLogs.atLeast3') || 'At least 3 messages' },
-                  { value: '5', label: t('chatLogs.atLeast5') || 'At least 5 messages' },
-                  { value: '10', label: t('chatLogs.atLeast10') || 'At least 10 messages' },
-                  { value: '15', label: t('chatLogs.atLeast15') || 'At least 15 messages' },
-                  { value: '20', label: t('chatLogs.atLeast20') || 'At least 20 messages' },
+                  {
+                    value: '1',
+                    label: t('chatLogs.anyMessage') || 'Any message',
+                  },
+                  {
+                    value: '2',
+                    label: t('chatLogs.atLeast2') || 'At least 2 messages',
+                  },
+                  {
+                    value: '3',
+                    label: t('chatLogs.atLeast3') || 'At least 3 messages',
+                  },
+                  {
+                    value: '5',
+                    label: t('chatLogs.atLeast5') || 'At least 5 messages',
+                  },
+                  {
+                    value: '10',
+                    label: t('chatLogs.atLeast10') || 'At least 10 messages',
+                  },
+                  {
+                    value: '15',
+                    label: t('chatLogs.atLeast15') || 'At least 15 messages',
+                  },
+                  {
+                    value: '20',
+                    label: t('chatLogs.atLeast20') || 'At least 20 messages',
+                  },
                   {
                     value: '0',
                     label:
@@ -1171,14 +1202,20 @@ const ChatHistoryDrawer = ({
                   { label: t('all') || 'All', value: 'all' },
                   { label: t('today') || 'Today', value: 'today' },
                   { label: t('yesterday') || 'Yesterday', value: 'yesterday' },
-                  { label: t('last_7_days') || 'Last 7 days', value: 'last_7_days' },
-                  { label: t('last_30_days') || 'Last 30 days', value: 'last_30_days' },
+                  {
+                    label: t('last_7_days') || 'Last 7 days',
+                    value: 'last_7_days',
+                  },
+                  {
+                    label: t('last_30_days') || 'Last 30 days',
+                    value: 'last_30_days',
+                  },
                 ]}
                 value={dateRange}
                 displayValue={
-                  dateRange === 'all' ?
-                    (t('all') || 'All') :
-                    (t(dateRange) || dateRange)
+                  dateRange === 'all'
+                    ? t('all') || 'All'
+                    : t(dateRange) || dateRange
                 }
                 className="memori-chat-history-drawer--toolbar--actions--select"
                 onChange={value => {

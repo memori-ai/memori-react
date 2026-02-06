@@ -270,21 +270,23 @@ const ShareButton: React.FC<Props> = ({
         showChevron={false}
         className="memori-share-button--trigger"
         title={t('widget.share') || undefined}
-      >
-        <Button
-          variant="primary"
-          icon={<Share2 />}
-          title={t('widget.share') || undefined}
-        />
-      </Dropdown.Trigger>
-      <Dropdown.Menu>
+        render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+          <Button
+            {...props}
+            variant="primary"
+            icon={<Share2 />}
+            title={t('widget.share') || undefined}
+          />
+        )}
+      />
+      <Dropdown.Menu className="memori-share-button--dropdown-menu">
         {memori && sessionID && sharedUrl && (
           <Dropdown.Item
             key="shared"
             onClick={() => window.open(sharedUrl, '_blank')}
+            {...({ icon: <Share2 /> } as React.ComponentProps<typeof Dropdown.Item>)}
           >
             <span className="memori-share-button--dropdown-item-content">
-              <Share2 style={{ marginRight: 8 }} />
               {t('widget.shareChat') || 'Share chat'}
             </span>
           </Dropdown.Item>
@@ -294,12 +296,12 @@ const ShareButton: React.FC<Props> = ({
             key="export-pdf"
             onClick={handleExportPDF}
             disabled={isExportingPDF}
+            {...({ icon: <FileText /> } as React.ComponentProps<typeof Dropdown.Item>)}
           >
             <span className="memori-share-button--dropdown-item-content">
               {isExportingPDF
                 ? t('exportChatHistory.exporting') || 'Exporting...'
                 : t('exportChatHistory.exportPDF') || 'Export chat as PDF'}
-              <FileText style={{ marginLeft: 8 }} />
             </span>
           </Dropdown.Item>
         )}
@@ -307,20 +309,25 @@ const ShareButton: React.FC<Props> = ({
           onClick={() => {
             targetUrl && navigator.clipboard.writeText(targetUrl);
           }}
+          {...({ icon: <LinkIcon /> } as React.ComponentProps<typeof Dropdown.Item>)}
         >
           <span className="memori-share-button--dropdown-item-content">
-            <LinkIcon style={{ marginRight: 8 }} />
             {t('copyToClipboard') || undefined}
           </span>
         </Dropdown.Item>
-        {socialShare.map(item => (
-          <Dropdown.Item key={item.id}>
-            <span className="memori-share-button--dropdown-item-content">
-              <item.icon style={{ marginRight: 8 }} />
-              {item.title}
-            </span>
-          </Dropdown.Item>
-        ))}
+        {socialShare.map(item => {
+          const IconComponent = item.icon;
+          return (
+            <Dropdown.Item
+              key={item.id}
+              {...({ icon: <IconComponent /> } as React.ComponentProps<typeof Dropdown.Item>)}
+            >
+              <span className="memori-share-button--dropdown-item-content">
+                {item.title}
+              </span>
+            </Dropdown.Item>
+          );
+        })}
         {showQrCode && (
           <Dropdown.Item>
             <QRCodeCanvas
