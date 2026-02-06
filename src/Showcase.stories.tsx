@@ -74,16 +74,16 @@ import './components/MediaWidget/MediaItemWidget.css';
 const sectionStyle: React.CSSProperties = {
   marginBottom: '3rem',
   padding: '1.5rem',
-  border: '1px solid #e0e0e0',
+  border: '1px solid var(--showcase-section-border)',
   borderRadius: '8px',
-  backgroundColor: '#fafafa',
+  backgroundColor: 'var(--showcase-section-bg)',
 };
 
 const titleStyle: React.CSSProperties = {
   marginBottom: '1rem',
   fontSize: '1.25rem',
   fontWeight: 600,
-  color: '#333',
+  color: 'var(--showcase-title-color)',
 };
 
 const meta: Meta = {
@@ -115,8 +115,8 @@ export const AllComponentsWithAllPropsEnabled: Story = () => {
   return (
     <I18nWrapper>
       <ArtifactProvider>
-        <div style={{ padding: '2rem', maxWidth: '900px', margin: '0 auto' }}>
-          <h1 style={{ marginBottom: '2rem' }}>Component Showcase — All Props Enabled</h1>
+        <div style={{ padding: '2rem', maxWidth: '900px', margin: '0 auto', color: 'var(--memori-label-color)' }}>
+          <h1 style={{ marginBottom: '2rem', color: 'var(--showcase-title-color)' }}>Component Showcase — All Props Enabled</h1>
 
           {/* Header - all props */}
           <section style={sectionStyle}>

@@ -37,6 +37,7 @@ const integrationProperties = {
     ? {
         '--memori-button-bg': integrationConfig.buttonBgColor,
         '--memori-primary': integrationConfig.buttonBgColor,
+        '--memori-primary-color': integrationConfig.buttonBgColor,
       }
     : {}),
   ...(integrationConfig?.buttonTextColor
