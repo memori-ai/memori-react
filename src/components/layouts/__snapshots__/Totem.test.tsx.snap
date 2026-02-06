@@ -13,11 +13,24 @@ exports[`renders Totem layout unchanged 1`] = `
   >
     <style>
       
-    memori-client, .memori-widget, .memori-drawer, .memori-modal {
+     .memori-client, .memori-widget, .memori-drawer, .memori-modal, .memori-header, .memori-dropdown, .memori-select {
       --memori-chat-bubble-bg: #fff;
 --memori-text-color: #2a2a2a;
 --memori-button-bg: #823ce1;
 --memori-primary: #823ce1;
+--memori-primary-color: #823ce1;
+--memori-primary-hover: color-mix(in oklch, var(--memori-primary), black 15%);
+--memori-primary-active: color-mix(in oklch, var(--memori-primary), black 25%);
+--memori-primary-disabled: color-mix(in oklch, var(--memori-primary), transparent 60%);
+--memori-primary-subtle: color-mix(in oklch, var(--memori-primary), white 60%);
+--memori-primary-subtle-hover: color-mix(in oklch, var(--memori-primary), white 50%);
+--memori-border-primary: color-mix(in oklch, var(--memori-primary), transparent 70%);
+--memori-border-primary-hover: color-mix(in oklch, var(--memori-primary), transparent 50%);
+--memori-focus-ring-color: color-mix(in oklch, var(--memori-primary), transparent 80%);
+--memori-focus-ring: 0 0 0 3px var(--memori-focus-ring-color);
+--memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
+--memori-skeleton-base: color-mix(in oklch, var(--memori-primary), white 85%);
+--memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), white 75%);
 --memori-button-text: #ffffff;
 --memori-blur-background: 5px;
 --memori-inner-bg: rgba(255, 255, 255, 0.8);
@@ -67,7 +80,7 @@ exports[`renders Totem layout unchanged 1`] = `
           class="memori-header"
         >
           <button
-            class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
             tabindex="0"
             title="reload"
             type="button"
@@ -103,7 +116,7 @@ exports[`renders Totem layout unchanged 1`] = `
             </span>
           </button>
           <button
-            class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
             tabindex="0"
             title="Suono"
             type="button"
@@ -136,7 +149,7 @@ exports[`renders Totem layout unchanged 1`] = `
             </span>
           </button>
           <button
-            class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
             tabindex="0"
             title="Impostazioni"
             type="button"
@@ -173,63 +186,56 @@ exports[`renders Totem layout unchanged 1`] = `
             <button
               aria-expanded="false"
               aria-haspopup="menu"
-              class="memori-dropdown__trigger memori-share-button--trigger"
+              class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
               id="base-ui-:r4:"
               tabindex="0"
               title="Condividi"
               type="button"
             >
-              <button
-                class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only"
-                tabindex="0"
-                title="Condividi"
-                type="button"
+              <span
+                class="memori-button__icon"
               >
-                <span
-                  class="memori-button__icon"
+                <svg
+                  class="lucide lucide-share2"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <svg
-                    class="lucide lucide-share2"
-                    fill="none"
-                    height="24"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <circle
-                      cx="18"
-                      cy="5"
-                      r="3"
-                    />
-                    <circle
-                      cx="6"
-                      cy="12"
-                      r="3"
-                    />
-                    <circle
-                      cx="18"
-                      cy="19"
-                      r="3"
-                    />
-                    <line
-                      x1="8.59"
-                      x2="15.42"
-                      y1="13.51"
-                      y2="17.49"
-                    />
-                    <line
-                      x1="15.41"
-                      x2="8.59"
-                      y1="6.51"
-                      y2="10.49"
-                    />
-                  </svg>
-                </span>
-              </button>
+                  <circle
+                    cx="18"
+                    cy="5"
+                    r="3"
+                  />
+                  <circle
+                    cx="6"
+                    cy="12"
+                    r="3"
+                  />
+                  <circle
+                    cx="18"
+                    cy="19"
+                    r="3"
+                  />
+                  <line
+                    x1="8.59"
+                    x2="15.42"
+                    y1="13.51"
+                    y2="17.49"
+                  />
+                  <line
+                    x1="15.41"
+                    x2="8.59"
+                    y1="6.51"
+                    y2="10.49"
+                  />
+                </svg>
+              </span>
             </button>
           </div>
         </div>
@@ -366,7 +372,7 @@ exports[`renders Totem layout unchanged 1`] = `
                 Voglio parlare con Memori in
               </label>
               <div
-                class="memori-select memori-select--button"
+                class="memori-select memori-select--language-chooser"
               >
                 <button
                   aria-expanded="false"
@@ -381,7 +387,9 @@ exports[`renders Totem layout unchanged 1`] = `
                     class="memori-select__value"
                     data-placeholder="Voglio parlare con {{name}} in"
                   >
-                    IT
+                    <span>
+                      Italiano
+                    </span>
                   </span>
                   <span
                     aria-hidden="true"

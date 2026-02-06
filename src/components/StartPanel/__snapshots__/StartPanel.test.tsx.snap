@@ -2055,7 +2055,7 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
           write_and_speak.iWantToTalkToIn
         </label>
         <div
-          class="memori-select memori-select--button"
+          class="memori-select memori-select--language-chooser"
         >
           <button
             aria-expanded="false"
@@ -2070,7 +2070,9 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
               class="memori-select__value"
               data-placeholder="write_and_speak.iWantToTalkToIn"
             >
-              en
+              <span>
+                EN
+              </span>
             </span>
             <span
               aria-hidden="true"

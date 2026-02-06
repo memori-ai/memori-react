@@ -47,7 +47,8 @@ exports[`renders FilePreview with one file 1`] = `
           </span>
         </div>
         <button
-          class="memori-button memori-button--danger memori-button--md memori-button--circle memori-button--icon-only memori--remove-button "
+          class="memori-button memori-button--danger memori-button--sm memori-button--circle memori-button--icon-only"
+          style="display: none;"
           tabindex="0"
           type="button"
         >
@@ -126,7 +127,8 @@ exports[`renders FilePreview with two files 1`] = `
           </span>
         </div>
         <button
-          class="memori-button memori-button--danger memori-button--md memori-button--circle memori-button--icon-only memori--remove-button "
+          class="memori-button memori-button--danger memori-button--sm memori-button--circle memori-button--icon-only"
+          style="display: none;"
           tabindex="0"
           type="button"
         >
@@ -192,7 +194,8 @@ exports[`renders FilePreview with two files 1`] = `
           </span>
         </div>
         <button
-          class="memori-button memori-button--danger memori-button--md memori-button--circle memori-button--icon-only memori--remove-button "
+          class="memori-button memori-button--danger memori-button--sm memori-button--circle memori-button--icon-only"
+          style="display: none;"
           tabindex="0"
           type="button"
         >

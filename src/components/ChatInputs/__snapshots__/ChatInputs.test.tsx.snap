@@ -60,7 +60,7 @@ exports[`renders ChatInputs disabled unchanged 1`] = `
               >
                 <div>
                   <button
-                    class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-chat-inputs--mic"
+                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
                     tabindex="0"
                     title="write_and_speak.micButtonPopover"
                     type="button"
@@ -190,7 +190,7 @@ exports[`renders ChatInputs listening unchanged 1`] = `
               >
                 <div>
                   <button
-                    class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-chat-inputs--mic memori-chat-inputs--mic--listening"
+                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat-inputs--mic--listening"
                     tabindex="0"
                     title="write_and_speak.micButtonPopoverListening"
                     type="button"
@@ -320,7 +320,7 @@ exports[`renders ChatInputs on instruct unchanged 1`] = `
               >
                 <div>
                   <button
-                    class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-chat-inputs--mic"
+                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
                     tabindex="0"
                     title="write_and_speak.micButtonPopover"
                     type="button"
@@ -448,7 +448,7 @@ exports[`renders ChatInputs unchanged 1`] = `
               >
                 <div>
                   <button
-                    class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-chat-inputs--mic"
+                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
                     tabindex="0"
                     title="write_and_speak.micButtonPopover"
                     type="button"
@@ -579,7 +579,7 @@ exports[`renders ChatInputs with user message unchanged 1`] = `
               >
                 <div>
                   <button
-                    class="memori-button memori-button--primary memori-button--md memori-button--circle memori-button--icon-only memori-chat-inputs--mic"
+                    class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
                     tabindex="0"
                     title="write_and_speak.micButtonPopover"
                     type="button"

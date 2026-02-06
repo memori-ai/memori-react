@@ -2,6 +2,7 @@
  * CopyButtonWithDropdown - Main component with dropdown menu
  * Similar to Claude's copy system with format-specific options using headless-ui
  */
+/* eslint-disable react/prop-types -- props validated by CopyButtonWithDropdownProps (TypeScript) */
 
 import React, { useRef, useEffect, useCallback } from 'react';
 import cx from 'classnames';
@@ -21,6 +22,8 @@ import {
 import { useTranslation } from 'react-i18next';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
+import { ArtifactData } from '../../../types/artifact.types';
+
 
 const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
   artifact,

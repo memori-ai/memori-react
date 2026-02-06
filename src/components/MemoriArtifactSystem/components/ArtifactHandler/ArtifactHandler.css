@@ -5,261 +5,261 @@
 
 /* Align width with ChatBubble when rendered in chat (same container + max-width) */
 .memori-artifact-handler-spacer {
-  width: 40px;
-  min-width: 40px;
-  flex-shrink: 0;
-  margin-right: var(--memori-spacing-sm);
-}
-
-.memori-artifact-handler-wrapper > .memori-artifact-handler {
-  max-width: 90%;
+    width: 40px;
+    min-width: 40px;
+    flex-shrink: 0;
+    margin-right: var(--memori-spacing-sm);
 }
 
 .memori-artifact-handler {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
-  padding: 1.5rem;
-  border: var(--memori-border) solid var(--memori-border-color);
-  border-radius: var(--memori-radius-box);
-  margin: 0.75rem 0;
-  margin: 0.5rem;
-  animation: fadeInUp 0.5s ease forwards;
-  backdrop-filter: blur(4px);
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-  cursor: pointer;
-  gap: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
-  opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
+    padding: 1.5rem;
+    border: var(--memori-border) solid var(--memori-border-color);
+    border-radius: var(--memori-radius-box);
+    margin: 0.75rem 0;
+    margin: 0.5rem;
+    animation: fadeInUp 0.5s ease forwards;
+    backdrop-filter: blur(4px);
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    gap: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.memori-artifact-handler-wrapper > .memori-artifact-handler {
+    max-width: 90%;
 }
 
 .memori-artifact-handler:hover {
-  border-color: var(--memori-primary);
-  background: rgba(130, 70, 175, 0.05);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
-  transform: translateY(-2px);
+    border-color: var(--memori-primary);
+    background: rgba(130, 70, 175, 0.05);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
 }
 
 .memori-artifact-handler--active {
-  border-color: var(--memori-primary);
-  background: linear-gradient(135deg, var(--memori-primary) 0%, #764ba2 100%);
-  box-shadow: 0 4px 16px rgba(130, 70, 175, 0.3);
-  color: var(--memori-primary-content);
+    border-color: var(--memori-primary);
+    background: linear-gradient(135deg, var(--memori-primary) 0%, #764ba2 100%);
+    box-shadow: 0 4px 16px rgba(130, 70, 175, 0.3);
+    color: var(--memori-primary-content);
 }
 
 .memori-artifact-handler--active:hover {
-  box-shadow: 0 6px 20px rgba(130, 70, 175, 0.4);
-  transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(130, 70, 175, 0.4);
+    transform: translateY(-2px);
 }
 
 .memori-artifact-handler-content {
-  display: flex;
-  align-items: center;
-  padding: var(--memori-spacing-lg);
-  gap: var(--memori-spacing-sm);
+    display: flex;
+    align-items: center;
+    padding: var(--memori-spacing-lg);
+    gap: var(--memori-spacing-sm);
 }
 
 .memori-artifact-handler-icon {
-  flex-shrink: 0;
-  font-size: var(--memori-text-size-heading-large);
-  line-height: 1;
+    flex-shrink: 0;
+    font-size: var(--memori-text-size-heading-large);
+    line-height: 1;
 }
 
 .memori-artifact-handler-info {
-  min-width: 0;
-  flex: 1;
+    min-width: 0;
+    flex: 1;
 }
 
 .memori-artifact-handler-action-icon {
-  width: 24px;
-  height: 24px;
-  flex-shrink: 0;
-  font-size: var(--memori-text-size-heading-large);
-  line-height: 1;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    font-size: var(--memori-text-size-heading-large);
+    line-height: 1;
 }
 
 .memori-artifact-handler-title {
-  overflow: hidden;
-  margin-bottom: var(--memori-spacing-xs);
-  color: inherit;
-  font-size: var(--memori-text-size-small);
-  font-weight: var(--memori-text-weight-semibold);
-  line-height: 1.3;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: var(--memori-spacing-xs);
+    color: inherit;
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-semibold);
+    line-height: 1.3;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .memori-artifact-handler-subtitle {
-  overflow: hidden;
-  margin-bottom: var(--memori-spacing-xs);
-  color: inherit;
-  font-size: 0.75rem;
-  opacity: 0.7;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    overflow: hidden;
+    margin-bottom: var(--memori-spacing-xs);
+    color: inherit;
+    font-size: 0.75rem;
+    opacity: 0.7;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .memori-artifact-handler-meta {
-  display: flex;
-  flex-wrap: wrap;
-  font-size: 0.625rem;
-  gap: var(--memori-spacing-sm);
-  opacity: 0.6;
+    display: flex;
+    flex-wrap: wrap;
+    font-size: 0.625rem;
+    gap: var(--memori-spacing-sm);
+    opacity: 0.6;
 }
 
 .memori-artifact-handler-type {
-  padding: 0.125rem 0.375rem;
-  border-radius: var(--memori-radius-box);
-  background: rgba(0, 0, 0, 0.1);
-  color: inherit;
-  font-weight: var(--memori-text-weight-medium);
-  letter-spacing: 0.025em;
-  text-transform: uppercase;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--memori-radius-box);
+    background: rgba(0, 0, 0, 0.1);
+    color: inherit;
+    font-weight: var(--memori-text-weight-medium);
+    letter-spacing: 0.025em;
+    text-transform: uppercase;
 }
 
 .memori-artifact-handler-custom-title {
-  overflow: hidden;
-  max-width: 120px;
-  padding: 0.125rem 0.375rem;
-  border-radius: var(--memori-radius-box);
-  background: rgba(0, 0, 0, 0.1);
-  color: inherit;
-  font-style: italic;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+    overflow: hidden;
+    max-width: 120px;
+    padding: 0.125rem 0.375rem;
+    border-radius: var(--memori-radius-box);
+    background: rgba(0, 0, 0, 0.1);
+    color: inherit;
+    font-style: italic;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .memori-artifact-handler--active .memori-artifact-handler-type,
 .memori-artifact-handler--active .memori-artifact-handler-custom-title {
-  background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .memori-artifact-handler-actions {
-  flex-shrink: 0;
+    flex-shrink: 0;
 }
 
 .memori-artifact-handler-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.375rem;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-radius: var(--memori-radius-box);
-  background: rgba(0, 0, 0, 0.05);
-  color: inherit;
-  cursor: pointer;
-  transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.375rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--memori-radius-box);
+    background: rgba(0, 0, 0, 0.05);
+    color: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .memori-artifact-handler-toggle:hover {
-  background: rgba(0, 0, 0, 0.1);
-  transform: scale(1.05);
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
 }
 
 .memori-artifact-handler--active .memori-artifact-handler-toggle {
-  border-color: rgba(255, 255, 255, 0.3);
-  background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.2);
 }
 
 .memori-artifact-handler-toggle:focus {
-  outline: 2px solid var(--memori-primary);
-  outline-offset: 2px;
+    outline: 2px solid var(--memori-primary);
+    outline-offset: 2px;
 }
 
 .memori-artifact-handler-toggle:focus:not(:focus-visible) {
-  outline: none;
+    outline: none;
 }
 
 .memori-artifact-handler--active .memori-artifact-handler-toggle:hover {
-  background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.3);
 }
 
 .memori-artifact-handler-toggle svg {
-  width: 16px;
-  height: 16px;
-  stroke-width: 2;
+    width: 16px;
+    height: 16px;
+    stroke-width: 2;
 }
 
 /* Animation */
 @keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
-  .memori-artifact-handler {
-    margin: 0.5rem 0;
-  }
+    .memori-artifact-handler {
+        margin: 0.5rem 0;
+    }
 
-  .memori-artifact-handler-content {
-    padding: 0.75rem;
-    gap: var(--memori-spacing-sm);
-  }
+    .memori-artifact-handler-content {
+        padding: 0.75rem;
+        gap: var(--memori-spacing-sm);
+    }
 
-  .memori-artifact-handler-icon {
-    font-size: var(--memori-text-size-heading);
-  }
+    .memori-artifact-handler-icon {
+        font-size: var(--memori-text-size-heading);
+    }
 
-  .memori-artifact-handler-title {
-    font-size: 0.8125rem;
-  }
+    .memori-artifact-handler-title {
+        font-size: 0.8125rem;
+    }
 
-  .memori-artifact-handler-subtitle {
-    font-size: 0.6875rem;
-  }
+    .memori-artifact-handler-subtitle {
+        font-size: 0.6875rem;
+    }
 
-  .memori-artifact-handler-meta {
-    font-size: 0.5625rem;
-  }
+    .memori-artifact-handler-meta {
+        font-size: 0.5625rem;
+    }
 
-  .memori-artifact-handler-custom-title {
-    max-width: 80px;
-  }
+    .memori-artifact-handler-custom-title {
+        max-width: 80px;
+    }
 }
 
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
-  .memori-artifact-handler {
-    /* background: rgba(26, 26, 26, 0.95); */
-    border-color: var(--memori-border-color);
-  }
+    .memori-artifact-handler {
+        /* background: rgba(26, 26, 26, 0.95); */
+        border-color: var(--memori-border-color);
+    }
 
-  .memori-artifact-handler:hover {
-    background: rgba(130, 70, 175, 0.1);
-    box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
-  }
+    .memori-artifact-handler:hover {
+        background: rgba(130, 70, 175, 0.1);
+        box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
+    }
 
-  .memori-artifact-handler-type,
-  .memori-artifact-handler-custom-title {
-    background: rgba(255, 255, 255, 0.1);
-  }
+    .memori-artifact-handler-type,
+    .memori-artifact-handler-custom-title {
+        background: rgba(255, 255, 255, 0.1);
+    }
 
-  .memori-artifact-handler-toggle {
-    border-color: rgba(255, 255, 255, 0.1);
-    background: rgba(255, 255, 255, 0.05);
-  }
+    .memori-artifact-handler-toggle {
+        border-color: rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.05);
+    }
 
-  .memori-artifact-handler-toggle:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
+    .memori-artifact-handler-toggle:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
 }
 
 /* Focus States for Accessibility */
 .memori-artifact-handler:focus {
-  outline: 2px solid var(--memori-primary);
-  outline-offset: 2px;
+    outline: 2px solid var(--memori-primary);
+    outline-offset: 2px;
 }
 
 .memori-artifact-handler:focus:not(:focus-visible) {
-  outline: none;
+    outline: none;
 }

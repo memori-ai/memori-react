@@ -3,25 +3,48 @@
 exports[`renders SendOnEnterMenu on click unchanged 1`] = `
 <div>
   <div
-    class="memori-dropdown memori-send-on-enter-menu"
+    class="memori-dropdown"
   >
     <button
       aria-expanded="false"
       aria-haspopup="menu"
-      class="memori-dropdown__trigger memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
+      class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
       id="base-ui-:r4:"
       tabindex="0"
       type="button"
     >
-      <div
-        class="memori-button--icon"
+      <span
+        class="memori-button__icon"
       >
-        <span
-          style="display: block; width: 1rem; height: 1rem;"
+        <svg
+          class="lucide lucide-ellipsis-vertical"
+          fill="none"
+          height="24"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          …
-        </span>
-      </div>
+          <circle
+            cx="12"
+            cy="12"
+            r="1"
+          />
+          <circle
+            cx="12"
+            cy="5"
+            r="1"
+          />
+          <circle
+            cx="12"
+            cy="19"
+            r="1"
+          />
+        </svg>
+      </span>
     </button>
   </div>
 </div>
@@ -30,25 +53,48 @@ exports[`renders SendOnEnterMenu on click unchanged 1`] = `
 exports[`renders SendOnEnterMenu on keypress unchanged 1`] = `
 <div>
   <div
-    class="memori-dropdown memori-send-on-enter-menu"
+    class="memori-dropdown"
   >
     <button
       aria-expanded="false"
       aria-haspopup="menu"
-      class="memori-dropdown__trigger memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button"
+      class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
       id="base-ui-:ra:"
       tabindex="0"
       type="button"
     >
-      <div
-        class="memori-button--icon"
+      <span
+        class="memori-button__icon"
       >
-        <span
-          style="display: block; width: 1rem; height: 1rem;"
+        <svg
+          class="lucide lucide-ellipsis-vertical"
+          fill="none"
+          height="24"
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          viewBox="0 0 24 24"
+          width="24"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          …
-        </span>
-      </div>
+          <circle
+            cx="12"
+            cy="12"
+            r="1"
+          />
+          <circle
+            cx="12"
+            cy="5"
+            r="1"
+          />
+          <circle
+            cx="12"
+            cy="19"
+            r="1"
+          />
+        </svg>
+      </span>
     </button>
   </div>
 </div>
