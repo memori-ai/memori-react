@@ -33,6 +33,34 @@ export const hasTouchscreen = (): boolean => {
   return hasTouchScreen;
 };
 
+/** Breakpoint below which we consider the device a mobile/tablet for input behavior (px). */
+const MOBILE_TABLET_VIEWPORT_MAX = 1024;
+
+/**
+ * True when the device should use mobile/tablet input behavior (e.g. Enter = new line).
+ * Returns false for touch-capable desktops/laptops (e.g. Microsoft Surface) so they
+ * keep desktop behavior (Enter = send, Alt+Enter / Shift+Enter = new line).
+ */
+export const isMobileOrTablet = (): boolean => {
+  if (typeof window === 'undefined' || typeof navigator === 'undefined') {
+    return false;
+  }
+  if (!hasTouchscreen()) {
+    return false;
+  }
+  // Known mobile/tablet user agents → always treat as mobile/tablet
+  const ua = (navigator as any)?.userAgent || '';
+  if (
+    /\b(Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini)\b/i.test(
+      ua
+    )
+  ) {
+    return true;
+  }
+  // Touch device with desktop UA (e.g. Surface): only treat as mobile/tablet when viewport is small
+  return window.innerWidth <= MOBILE_TABLET_VIEWPORT_MAX;
+};
+
 export const isiOS = (): boolean => {
   let platform =
     (navigator as any)?.userAgentData?.platform ||

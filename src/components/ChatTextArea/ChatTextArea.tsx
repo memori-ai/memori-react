@@ -3,7 +3,7 @@ import cx from 'classnames';
 import { Button } from '@memori.ai/ui';
 import { Maximize2, Minimize } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { hasTouchscreen } from '../../helpers/utils';
+import { isMobileOrTablet } from '../../helpers/utils';
 
 export interface Props {
   disabled?: boolean;
@@ -93,8 +93,9 @@ const ChatTextArea: React.FC<Props> = ({
             onChange(e.target.value);
           }}
           onKeyDownCapture={e => {
-            // On mobile, allow Enter to create a new line instead of sending
-            const isMobile = hasTouchscreen();
+            // On mobile/tablet only: Enter creates a new line instead of sending.
+            // Touch laptops (e.g. Surface) keep desktop behavior: Enter = send, Alt/Shift+Enter = new line.
+            const isMobile = isMobileOrTablet();
             // Alt/Option+Enter should always create a newline (do not send).
             // We insert it manually because this is a controlled textarea and
             // some browser/keyboard combos won't trigger an input event as expected.
