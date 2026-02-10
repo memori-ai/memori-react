@@ -578,6 +578,10 @@
         transform: translate(-50%, -40%);
     }
 
+    .memori-website_assistant--trigger-button .memori-blob .mainDiv {
+        display: none;
+    }
+
     .memori-website_assistant--trigger-button {
         width: 80px !important;
         height: 80px !important;
