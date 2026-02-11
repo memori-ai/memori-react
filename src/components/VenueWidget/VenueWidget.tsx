@@ -347,23 +347,27 @@ const VenueWidget = ({
   return (
     <fieldset className="memori--venue-widget">
       <legend className="sr-only">Venue</legend>
-      <div className="memori--venue-widget__form-item">
+
+      <div className="memori--venue-widget__form-item memori--venue-widget__controls">
         <div className="memori--venue-widget__geosuggest">
           {updatingPosition ? (
-            <p>{t('write_and_speak.updatingPosition')}</p>
+            <p className="memori--venue-widget__updating-message">
+              {t('write_and_speak.updatingPosition')}
+            </p>
           ) : (
             <>
-              <VenueCombobox
-                venue={venue}
-                query={query}
-                fetching={fetching}
-                suggestions={suggestions}
-                onQueryChange={onQueryChange}
-                onChange={handleChange}
-                getPlaceName={getPlaceName}
-                t={t}
-              />
-
+              <div className="memori--venue-widget__search-wrap">
+                <VenueCombobox
+                  venue={venue}
+                  query={query}
+                  fetching={fetching}
+                  suggestions={suggestions}
+                  onQueryChange={onQueryChange}
+                  onChange={handleChange}
+                  getPlaceName={getPlaceName}
+                  t={t}
+                />
+              </div>
               {showGpsButton && (
                 <Button
                   className="memori--venue-widget__gps-button"
@@ -380,7 +384,8 @@ const VenueWidget = ({
             </>
           )}
         </div>
-        <div>
+
+        <div className="memori--venue-widget__actions">
           <Button
             variant="outline"
             className="memori--venue-widget__no-location-button"
@@ -398,50 +403,54 @@ const VenueWidget = ({
             {t('write_and_speak.dontWantToProvidePosition')}
           </Button>
         </div>
+
         {showUncertainty && (
-          <label className="memori--venue-widget__select-label">
-            <span>{t('uncertain')}: </span>
-            <select
-              className="memori-select--button memori--venue-widget__uncertainty"
-              value={parseFloat((venue?.uncertainty ?? 0).toFixed(2))}
-              disabled={
-                !venue ||
-                !venue.placeName ||
-                !venue.latitude ||
-                !venue.longitude
-              }
-              onChange={e => {
-                setVenue({
-                  ...venue,
-                  uncertainty: parseFloat(e.target.value),
-                } as Venue);
-              }}
-            >
-              {venue?.uncertainty &&
-                ![0, 1, 2, 5, 10, 20, 50, 100].includes(venue.uncertainty) && (
-                  <option value={venue.uncertainty}>
-                    {venue.uncertainty} Km
-                  </option>
-                )}
-              <option value={0}>{t('exactPosition')}</option>
-              <option value={1}>1 km</option>
-              <option value={2}>2 km</option>
-              <option value={5}>5 km</option>
-              <option value={10}>10 km</option>
-              <option value={20}>20 km</option>
-              <option value={50}>50 km</option>
-              <option value={100}>100 km</option>
-            </select>
-          </label>
+          <div className="memori--venue-widget__uncertainty-wrap">
+            <label className="memori--venue-widget__select-label">
+              <span>{t('uncertain')}: </span>
+              <select
+                className="memori-select--button memori--venue-widget__uncertainty"
+                value={parseFloat((venue?.uncertainty ?? 0).toFixed(2))}
+                disabled={
+                  !venue ||
+                  !venue.placeName ||
+                  !venue.latitude ||
+                  !venue.longitude
+                }
+                onChange={e => {
+                  setVenue({
+                    ...venue,
+                    uncertainty: parseFloat(e.target.value),
+                  } as Venue);
+                }}
+              >
+                {venue?.uncertainty &&
+                  ![0, 1, 2, 5, 10, 20, 50, 100].includes(venue.uncertainty) && (
+                    <option value={venue.uncertainty}>
+                      {venue.uncertainty} Km
+                    </option>
+                  )}
+                <option value={0}>{t('exactPosition')}</option>
+                <option value={1}>1 km</option>
+                <option value={2}>2 km</option>
+                <option value={5}>5 km</option>
+                <option value={10}>10 km</option>
+                <option value={20}>20 km</option>
+                <option value={50}>50 km</option>
+                <option value={100}>100 km</option>
+              </select>
+            </label>
+          </div>
         )}
       </div>
-      <div className="memori--venue-widget__form-item">
+
+      <div className="memori--venue-widget__form-item memori--venue-widget__map-section">
         {venue?.placeName && venue.placeName !== 'Position' && (
-          <p className="memori--venue--widget__place-name">
+          <p className="memori--venue-widget__place-name">
             <strong>{t('venue')}</strong>: {venue.placeName}
           </p>
         )}
-        <div className="memori--venue-widget__map">
+        <div className="memori--venue-widget__map-container">
           {isClient && (
             <MapContainer
               className="memori--venue-widget__map"

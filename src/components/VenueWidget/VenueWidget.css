@@ -2,38 +2,114 @@
     padding: 0;
     border: 0;
     margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    max-width: 100%;
 }
 
-.memori--venue-widget__uncertainty {
-    margin-inline: var(--memori-spacing-sm);
-}
-
-.memori--venue-widget__map {
-    width: 100%;
-    height: 250px;
-}
-
+/* Form sections: consistent vertical rhythm */
 .memori--venue-widget__form-item {
-    margin-bottom: var(--memori-spacing-lg);
+    margin-bottom: var(--memori-spacing-xl);
 }
 
-.memori--venue-widget__select-label {
-    display: inline-flex;
-    align-items: center;
+.memori--venue-widget__form-item:last-child {
+    margin-bottom: 0;
+}
+
+/* Controls block: search + actions + uncertainty */
+.memori--venue-widget__controls {
+    display: flex;
+    flex-direction: column;
+    gap: var(--memori-spacing-lg);
 }
 
 .memori--venue-widget__geosuggest {
     position: relative;
     display: flex;
     align-items: center;
-    margin-bottom: var(--memori-spacing-lg);
+    gap: var(--memori-spacing-md);
+    flex-wrap: wrap;
+}
+
+.memori--venue-widget__search-wrap {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+.memori--venue-widget__gps-button {
+    flex-shrink: 0;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-lg);
+}
+
+.memori--venue-widget__updating-message {
+    margin: 0;
+    padding: var(--memori-spacing-sm) 0;
+}
+
+.memori--venue-widget__actions {
+    margin-top: 0;
+}
+
+.memori--venue-widget__no-location-button {
+    width: 100%;
+    max-width: 20rem;
+}
+
+.memori--venue-widget__uncertainty-wrap {
+    margin-top: 0;
+}
+
+.memori--venue-widget__select-label {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--memori-spacing-xs);
+}
+
+.memori--venue-widget__uncertainty {
+    margin-inline: 0;
 }
 
 @media (max-width: 640px) {
     .memori--venue-widget__geosuggest {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: stretch;
+        gap: var(--memori-spacing-sm);
     }
+
+    .memori--venue-widget__gps-button {
+        width: 100%;
+    }
+
+    .memori--venue-widget__no-location-button {
+        max-width: none;
+    }
+}
+
+/* Map section */
+.memori--venue-widget__map-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--memori-spacing-md);
+}
+
+.memori--venue-widget__place-name {
+    margin: 0;
+    padding: var(--memori-spacing-sm) 0;
+    font-size: var(--memori-text-size-base);
+    line-height: var(--memori-text-line-normal);
+}
+
+.memori--venue-widget__map-container {
+    width: 100%;
+    border-radius: var(--memori-radius-box);
+    overflow: hidden;
+    min-height: 200px;
+}
+
+.memori--venue-widget__map {
+    width: 100%;
+    height: 280px;
 }
 
 .memori--venue-widget-search {
@@ -144,20 +220,4 @@ li.memori--venue-widget-search--option--active {
     align-items: center;
     justify-content: center;
     text-align: center;
-}
-
-.memori--venue--widget__place-name {
-    margin: 0 0 var(--memori-spacing-lg);
-}
-
-.memori--venue-widget__gps-button {
-    padding: var(--memori-spacing-sm) var(--memori-spacing-lg);
-    margin-left: var(--memori-spacing-sm);          
-}
-
-@media (max-width: 640px) {
-    .memori--venue-widget__gps-button {
-        margin-top: var(--memori-spacing-sm);
-        margin-left: 0;
-    }
 }
