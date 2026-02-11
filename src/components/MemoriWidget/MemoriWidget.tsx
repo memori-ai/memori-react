@@ -1887,9 +1887,13 @@ const MemoriWidget = ({
     defaultSpeakerActive ?? integrationConfig?.defaultSpeakerActive ?? true
   );
 
-  // Helper function to check if audio should be played
+  // Helper function to check if audio should be played.
+  // When defaultEnableAudio is false, default to muted so we never play before the sync effect runs (avoids audio on first conversation start when audio is disabled).
   const shouldPlayAudio = (text?: string) => {
-    const currentSpeakerMuted = getLocalConfig('muteSpeaker', false);
+    const currentSpeakerMuted = getLocalConfig(
+      'muteSpeaker',
+      !defaultEnableAudio
+    );
     console.log('[MemoriWidget] shouldPlayAudio', currentSpeakerMuted);
     return (
       text &&
