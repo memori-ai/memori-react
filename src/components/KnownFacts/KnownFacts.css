@@ -1,19 +1,135 @@
-.memori-known-facts-modal {
-    z-index: 10000;
+/* Drawer content layout */
+.memori-known-facts-body {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  padding: 0.25rem 0;
+  gap: 1.25rem;
 }
 
+/* Actions bar */
 .memori-known-facts-actions {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: flex-end;
-    margin: 1rem 0;
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0.5rem 0;
+  gap: 0.75rem;
 }
 
 .memori-known-facts-actions .memori-button[disabled] {
-    opacity: 0.4;
+  opacity: 0.4;
 }
 
 .memori-known-facts-delete-selected {
-    margin-left: auto;
+  margin-left: auto;
+}
+
+/* Pagination */
+.memori-known-facts-pagination {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  gap: 1rem;
+}
+
+.memori-known-facts-pagination .memori--table--pagination--pages {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.memori-known-facts-pagination .memori--table--pagination--pages--current {
+  min-width: 4ch;
+  color: var(--memori-color-text-secondary, #64748b);
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* Table wrapper: scroll + spacing */
+.memori-known-facts-table-wrapper {
+  overflow: auto;
+  min-height: 0;
+  flex: 1 1 auto;
+  border: 1px solid var(--memori-color-border, #e2e8f0);
+  border-radius: 8px;
+  background: var(--memori-color-surface, #fff);
+}
+
+/* Table spacing and layout */
+.memori-known-facts-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.memori-known-facts-table thead {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  background: var(--memori-color-surface-elevated, #f8fafc);
+  box-shadow: 0 1px 0 var(--memori-color-border, #e2e8f0);
+}
+
+.memori-known-facts-table th,
+.memori-known-facts-table td {
+  padding: 0.75rem 1rem;
+  vertical-align: middle;
+}
+
+.memori-known-facts-table th {
+  color: var(--memori-color-text-secondary, #64748b);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-align: left;
+}
+
+.memori-known-facts-table tbody tr {
+  border-bottom: 1px solid var(--memori-color-border, #e2e8f0);
+  transition: background-color 0.15s ease;
+}
+
+.memori-known-facts-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.memori-known-facts-table tbody tr:hover {
+  background: var(--memori-color-surface-hover, #f1f5f9);
+}
+
+.memori-known-facts-table td {
+  font-size: 0.875rem;
+}
+
+.memori-known-facts-table .memori--table--column-centered {
+  width: 2.5rem;
+  padding-right: 0.75rem;
+  padding-left: 0.75rem;
+  text-align: center;
+}
+
+.memori-known-facts-table .memori--table--column-right {
+  width: 5rem;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.memori-known-facts-table .memori--table--action-column {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}
+
+.memori-known-facts-table .memori--table--date {
+  color: var(--memori-color-text-secondary, #64748b);
+  font-size: 0.8125rem;
+}
+
+/* Modal overlay */
+.memori-known-facts-modal {
+  z-index: 10000;
 }

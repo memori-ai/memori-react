@@ -49,6 +49,7 @@
 @import url('./components/layouts/totem.css');
 @import url('./components/layouts/website-assistant.css');
 @import url('./components/layouts/chat.css');
+@import url('./components/layouts/fullpage.css');
 @import url('./components/layouts/zoomed-full-body.css');
 
 @import url('https://fonts.bunny.net/css?family=lexend-deca:200,400,700');
@@ -81,6 +82,10 @@ body.sb-show-main #root,
     --memori-primary-color:rgb(var(--memori-primary-rgb), (130, 70, 175));
     --memori-primary: rgb(130, 70, 175);
     /* --memori-secondary-color: oklch(70% 0.15 200deg); */
+
+    /* Layout */
+    --memori-layout-max-width: 1280px;
+    --memori-sidebar-width: 350px;
 
     font-family: var(--memori-font-family);
     font-size: var(--memori-text-size-base);

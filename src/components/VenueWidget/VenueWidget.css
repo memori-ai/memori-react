@@ -1,11 +1,11 @@
 .memori--venue-widget {
+    display: flex;
+    max-width: 100%;
+    flex-direction: column;
     padding: 0;
     border: 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
     gap: 0;
-    max-width: 100%;
 }
 
 /* Form sections: consistent vertical rhythm */
@@ -27,14 +27,14 @@
 .memori--venue-widget__geosuggest {
     position: relative;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     gap: var(--memori-spacing-md);
-    flex-wrap: wrap;
 }
 
 .memori--venue-widget__search-wrap {
-    flex: 1 1 auto;
     min-width: 0;
+    flex: 1 1 auto;
 }
 
 .memori--venue-widget__gps-button {
@@ -43,8 +43,8 @@
 }
 
 .memori--venue-widget__updating-message {
-    margin: 0;
     padding: var(--memori-spacing-sm) 0;
+    margin: 0;
 }
 
 .memori--venue-widget__actions {
@@ -94,17 +94,17 @@
 }
 
 .memori--venue-widget__place-name {
-    margin: 0;
     padding: var(--memori-spacing-sm) 0;
+    margin: 0;
     font-size: var(--memori-text-size-base);
     line-height: var(--memori-text-line-normal);
 }
 
 .memori--venue-widget__map-container {
-    width: 100%;
-    border-radius: var(--memori-radius-box);
     overflow: hidden;
+    width: 100%;
     min-height: 200px;
+    border-radius: var(--memori-radius-box);
 }
 
 .memori--venue-widget__map {

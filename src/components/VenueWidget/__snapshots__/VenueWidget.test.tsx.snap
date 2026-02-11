@@ -11,20 +11,24 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
       Venue
     </legend>
     <div
-      class="memori--venue-widget__form-item"
+      class="memori--venue-widget__form-item memori--venue-widget__controls"
     >
       <div
         class="memori--venue-widget__geosuggest"
       >
         <div
-          class="memori--venue-widget-search"
+          class="memori--venue-widget__search-wrap"
         >
-          <input
-            class="memori-input memori-input--default memori-input--md"
-            id="base-ui-:r1:"
-            placeholder="searchVenue"
-            value="Altedo, Bologna, Italy"
-          />
+          <div
+            class="memori--venue-widget-search"
+          >
+            <input
+              class="memori-input memori-input--default memori-input--md"
+              id="base-ui-:r1:"
+              placeholder="searchVenue"
+              value="Altedo, Bologna, Italy"
+            />
+          </div>
         </div>
         <button
           class="memori-button memori-button--primary memori-button--md memori--venue-widget__gps-button"
@@ -38,7 +42,9 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
           </span>
         </button>
       </div>
-      <div>
+      <div
+        class="memori--venue-widget__actions"
+      >
         <button
           class="memori-button memori-button--outline memori-button--md memori--venue-widget__no-location-button"
           tabindex="0"
@@ -53,7 +59,7 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
       </div>
     </div>
     <div
-      class="memori--venue-widget__form-item"
+      class="memori--venue-widget__form-item memori--venue-widget__map-section"
     >
       <p
         class="memori--venue-widget__place-name"
@@ -65,7 +71,7 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
         Altedo, Bologna, Italy
       </p>
       <div
-        class="memori--venue-widget__map"
+        class="memori--venue-widget__map-container"
       >
         <div
           data-testid="MapContainer"
@@ -98,20 +104,24 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
       Venue
     </legend>
     <div
-      class="memori--venue-widget__form-item"
+      class="memori--venue-widget__form-item memori--venue-widget__controls"
     >
       <div
         class="memori--venue-widget__geosuggest"
       >
         <div
-          class="memori--venue-widget-search"
+          class="memori--venue-widget__search-wrap"
         >
-          <input
-            class="memori-input memori-input--default memori-input--md"
-            id="base-ui-:r2:"
-            placeholder="searchVenue"
-            value="Altedo, Bologna, Italy"
-          />
+          <div
+            class="memori--venue-widget-search"
+          >
+            <input
+              class="memori-input memori-input--default memori-input--md"
+              id="base-ui-:r2:"
+              placeholder="searchVenue"
+              value="Altedo, Bologna, Italy"
+            />
+          </div>
         </div>
         <button
           class="memori-button memori-button--primary memori-button--md memori--venue-widget__gps-button"
@@ -125,7 +135,9 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
           </span>
         </button>
       </div>
-      <div>
+      <div
+        class="memori--venue-widget__actions"
+      >
         <button
           class="memori-button memori-button--outline memori-button--md memori--venue-widget__no-location-button"
           tabindex="0"
@@ -140,7 +152,7 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
       </div>
     </div>
     <div
-      class="memori--venue-widget__form-item"
+      class="memori--venue-widget__form-item memori--venue-widget__map-section"
     >
       <p
         class="memori--venue-widget__place-name"
@@ -152,7 +164,7 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
         Altedo, Bologna, Italy
       </p>
       <div
-        class="memori--venue-widget__map"
+        class="memori--venue-widget__map-container"
       >
         <div
           data-testid="MapContainer"
@@ -185,23 +197,29 @@ exports[`renders VenueWidget without gps button unchanged 1`] = `
       Venue
     </legend>
     <div
-      class="memori--venue-widget__form-item"
+      class="memori--venue-widget__form-item memori--venue-widget__controls"
     >
       <div
         class="memori--venue-widget__geosuggest"
       >
         <div
-          class="memori--venue-widget-search"
+          class="memori--venue-widget__search-wrap"
         >
-          <input
-            class="memori-input memori-input--default memori-input--md"
-            id="base-ui-:r4:"
-            placeholder="searchVenue"
-            value="Altedo, Bologna, Italy"
-          />
+          <div
+            class="memori--venue-widget-search"
+          >
+            <input
+              class="memori-input memori-input--default memori-input--md"
+              id="base-ui-:r4:"
+              placeholder="searchVenue"
+              value="Altedo, Bologna, Italy"
+            />
+          </div>
         </div>
       </div>
-      <div>
+      <div
+        class="memori--venue-widget__actions"
+      >
         <button
           class="memori-button memori-button--outline memori-button--md memori--venue-widget__no-location-button"
           tabindex="0"
@@ -216,7 +234,7 @@ exports[`renders VenueWidget without gps button unchanged 1`] = `
       </div>
     </div>
     <div
-      class="memori--venue-widget__form-item"
+      class="memori--venue-widget__form-item memori--venue-widget__map-section"
     >
       <p
         class="memori--venue-widget__place-name"
@@ -228,7 +246,7 @@ exports[`renders VenueWidget without gps button unchanged 1`] = `
         Altedo, Bologna, Italy
       </p>
       <div
-        class="memori--venue-widget__map"
+        class="memori--venue-widget__map-container"
       >
         <div
           data-testid="MapContainer"
@@ -261,20 +279,24 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
       Venue
     </legend>
     <div
-      class="memori--venue-widget__form-item"
+      class="memori--venue-widget__form-item memori--venue-widget__controls"
     >
       <div
         class="memori--venue-widget__geosuggest"
       >
         <div
-          class="memori--venue-widget-search"
+          class="memori--venue-widget__search-wrap"
         >
-          <input
-            class="memori-input memori-input--default memori-input--md"
-            id="base-ui-:r3:"
-            placeholder="searchVenue"
-            value="Altedo, Bologna, Italy"
-          />
+          <div
+            class="memori--venue-widget-search"
+          >
+            <input
+              class="memori-input memori-input--default memori-input--md"
+              id="base-ui-:r3:"
+              placeholder="searchVenue"
+              value="Altedo, Bologna, Italy"
+            />
+          </div>
         </div>
         <button
           class="memori-button memori-button--primary memori-button--md memori--venue-widget__gps-button"
@@ -288,7 +310,9 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
           </span>
         </button>
       </div>
-      <div>
+      <div
+        class="memori--venue-widget__actions"
+      >
         <button
           class="memori-button memori-button--outline memori-button--md memori--venue-widget__no-location-button"
           tabindex="0"
@@ -303,7 +327,7 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
       </div>
     </div>
     <div
-      class="memori--venue-widget__form-item"
+      class="memori--venue-widget__form-item memori--venue-widget__map-section"
     >
       <p
         class="memori--venue-widget__place-name"
@@ -315,7 +339,7 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
         Altedo, Bologna, Italy
       </p>
       <div
-        class="memori--venue-widget__map"
+        class="memori--venue-widget__map-container"
       >
         <div
           data-testid="MapContainer"
@@ -348,20 +372,24 @@ exports[`renders empty VenueWidget unchanged 1`] = `
       Venue
     </legend>
     <div
-      class="memori--venue-widget__form-item"
+      class="memori--venue-widget__form-item memori--venue-widget__controls"
     >
       <div
         class="memori--venue-widget__geosuggest"
       >
         <div
-          class="memori--venue-widget-search"
+          class="memori--venue-widget__search-wrap"
         >
-          <input
-            class="memori-input memori-input--default memori-input--md"
-            id="base-ui-:r0:"
-            placeholder="searchVenue"
-            value=""
-          />
+          <div
+            class="memori--venue-widget-search"
+          >
+            <input
+              class="memori-input memori-input--default memori-input--md"
+              id="base-ui-:r0:"
+              placeholder="searchVenue"
+              value=""
+            />
+          </div>
         </div>
         <button
           class="memori-button memori-button--primary memori-button--md memori--venue-widget__gps-button"
@@ -375,7 +403,9 @@ exports[`renders empty VenueWidget unchanged 1`] = `
           </span>
         </button>
       </div>
-      <div>
+      <div
+        class="memori--venue-widget__actions"
+      >
         <button
           class="memori-button memori-button--outline memori-button--md memori--venue-widget__no-location-button"
           tabindex="0"
@@ -390,10 +420,10 @@ exports[`renders empty VenueWidget unchanged 1`] = `
       </div>
     </div>
     <div
-      class="memori--venue-widget__form-item"
+      class="memori--venue-widget__form-item memori--venue-widget__map-section"
     >
       <div
-        class="memori--venue-widget__map"
+        class="memori--venue-widget__map-container"
       >
         <div
           data-testid="MapContainer"

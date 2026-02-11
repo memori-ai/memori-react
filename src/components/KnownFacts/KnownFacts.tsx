@@ -93,88 +93,89 @@ const KnownFacts = ({
       size="md"
     >
       <Spin spinning={loading}>
-        <div className="memori-known-facts-actions">
-          <Button
-            variant="danger"
-            onClick={() => {
-              setBulkDeleteModalVisible(true);
-            }}
-            className="memori-known-facts-delete-selected"
-            disabled={selectedRowKeys?.length === 0}
-            icon={<Trash2 />}
-            loading={loading}
-          >
-            {t('selected')} ({selectedRowKeys?.length})
-          </Button>
-          <Modal
-            className="memori-known-facts-modal"
-            open={bulkDeleteModalVisible}
-            closable
-            title={
-              selectedRowKeys.length > 1
-                ? t('knownFacts.deleteSelectedConfirmTitle')
-                : t('knownFacts.deleteConfirmTitle')
-            }
-            description={
-              selectedRowKeys.length > 1
-                ? t('knownFacts.deleteSelectedConfirmMessage', {
-                    number: selectedRowKeys.length,
-                  })
-                : t('knownFacts.deleteConfirmMessage')
-            }
-            onOpenChange={(open: boolean) => {
-              if (!open) {
-                setBulkDeleteModalVisible(false);
+        <div className="memori-known-facts-body">
+          <div className="memori-known-facts-actions">
+            <Button
+              variant="danger"
+              onClick={() => {
+                setBulkDeleteModalVisible(true);
+              }}
+              className="memori-known-facts-delete-selected"
+              disabled={selectedRowKeys?.length === 0}
+              icon={<Trash2 />}
+              loading={loading}
+            >
+              {t('selected')} ({selectedRowKeys?.length})
+            </Button>
+            <Modal
+              className="memori-known-facts-modal"
+              open={bulkDeleteModalVisible}
+              closable
+              title={
+                selectedRowKeys.length > 1
+                  ? t('knownFacts.deleteSelectedConfirmTitle')
+                  : t('knownFacts.deleteConfirmTitle')
               }
-            }}
-            footer={
-              <>
-                <Button
-                  variant="ghost"
-                  onClick={() => {
-                    setBulkDeleteModalVisible(false);
-                  }}
-                >
-                  {t('cancel')}
-                </Button>
-                <Button
-                  variant="danger"
-                  onClick={async () => {
-                    try {
-                      const mutations = selectedRowKeys.map(key => {
-                        let knownFactID = key as string;
-                        return deleteKnownFact(sessionID, knownFactID);
-                      });
-                      Promise.all(mutations).then(responses => {
-                        if (responses.every(r => r.resultCode === 0)) {
-                          toast.success(t('knownFacts.deleteSuccess'));
-                          setSelectedRowKeys([]);
-                          fetchKnownFacts();
-                          setBulkDeleteModalVisible(false);
-                        } else {
-                          let errored = responses.find(r => r.resultCode !== 0);
-                          console.error(errored);
-                          if (errored?.resultCode !== undefined)
-                            toast.error(
-                              t(getErrori18nKey(errored?.resultCode))
-                            );
-                        }
-                      });
-                    } catch (_e) {
-                      let error = _e as Error;
-                      toast.error(t('Error') + error.message);
-                    }
-                  }}
-                >
-                  {t('confirm')}
-                </Button>
-              </>
-            }
-          />
-        </div>
+              description={
+                selectedRowKeys.length > 1
+                  ? t('knownFacts.deleteSelectedConfirmMessage', {
+                      number: selectedRowKeys.length,
+                    })
+                  : t('knownFacts.deleteConfirmMessage')
+              }
+              onOpenChange={(open: boolean) => {
+                if (!open) {
+                  setBulkDeleteModalVisible(false);
+                }
+              }}
+              footer={
+                <>
+                  <Button
+                    variant="ghost"
+                    onClick={() => {
+                      setBulkDeleteModalVisible(false);
+                    }}
+                  >
+                    {t('cancel')}
+                  </Button>
+                  <Button
+                    variant="danger"
+                    onClick={async () => {
+                      try {
+                        const mutations = selectedRowKeys.map(key => {
+                          let knownFactID = key as string;
+                          return deleteKnownFact(sessionID, knownFactID);
+                        });
+                        Promise.all(mutations).then(responses => {
+                          if (responses.every(r => r.resultCode === 0)) {
+                            toast.success(t('knownFacts.deleteSuccess'));
+                            setSelectedRowKeys([]);
+                            fetchKnownFacts();
+                            setBulkDeleteModalVisible(false);
+                          } else {
+                            let errored = responses.find(r => r.resultCode !== 0);
+                            console.error(errored);
+                            if (errored?.resultCode !== undefined)
+                              toast.error(
+                                t(getErrori18nKey(errored?.resultCode))
+                              );
+                          }
+                        });
+                      } catch (_e) {
+                        let error = _e as Error;
+                        toast.error(t('Error') + error.message);
+                      }
+                    }}
+                  >
+                    {t('confirm')}
+                  </Button>
+                </>
+              }
+            />
+          </div>
 
-        {knownFactsCount > 25 && (
-          <nav className="memori--table--pagination">
+          {knownFactsCount > 25 && (
+            <nav className="memori-known-facts-pagination memori--table--pagination">
             {knownFactsCount > numberOfResults && (
               <div className="memori--table--pagination--pages">
                 <Button
@@ -226,9 +227,10 @@ const KnownFacts = ({
                 }
               }}
             />
-          </nav>
-        )}
-        <table className="memori--table">
+            </nav>
+          )}
+          <div className="memori-known-facts-table-wrapper">
+            <table className="memori--table memori-known-facts-table">
           <thead>
             <tr>
               <th className="memori--table--column-centered">
@@ -356,7 +358,9 @@ const KnownFacts = ({
               </tr>
             ))}
           </tbody>
-        </table>
+            </table>
+          </div>
+        </div>
       </Spin>
     </Drawer>
   );
