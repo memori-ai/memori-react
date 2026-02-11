@@ -65,9 +65,13 @@ export function useTTS(
     useViseme();
   const [hasUserActivatedSpeak, setHasUserActivatedSpeak] = useState(false);
 
-  // Helper function to check if audio should be played
+  // Helper function to check if audio should be played.
+  // When defaultEnableAudio is false, default to muted so we never play before the sync effect runs.
   const shouldPlayAudio = (text?: string) => {
-    const currentSpeakerMuted = getLocalConfig('muteSpeaker', false);
+    const currentSpeakerMuted = getLocalConfig(
+      'muteSpeaker',
+      !defaultEnableAudio
+    );
     return (
       text &&
       text.trim() &&
@@ -429,6 +433,7 @@ export function useTTS(
       isSpeakingRef,
       isMountedRef,
       speakerMuted,
+      defaultEnableAudio,
     ]
   );
 
@@ -536,6 +541,7 @@ export function useTTS(
       speakChunk,
       emitEndSpeakEvent,
       isPlaying,
+      defaultEnableAudio,
     ]
   );
   /**
