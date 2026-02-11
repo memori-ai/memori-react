@@ -1,7 +1,7 @@
 .memori-widget {
     position: relative;
     width: 100%;
-    padding: 1em;
+    padding: var(--memori-spacing-md);
 }
 
 .memori-widget,
@@ -94,9 +94,10 @@
 }
 
 .memori--select label {
-    margin: 0.5rem 0 0.25rem;
-    color: var(--dark-gray);
-    font-size: 0.8em;
+    margin: var(--memori-spacing-sm) 0 var(--memori-spacing-xs);
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-small);
+    line-height: var(--memori-text-line-normal);
 }
 
 .memori--select select {
@@ -144,11 +145,12 @@
     display: inline-flex;
     flex-wrap: nowrap;
     align-items: center;
-    padding: 0.25rem 1rem;
-    border-radius: .5rem;
+    padding: var(--memori-spacing-xs) var(--memori-spacing-md);
+    border-radius: var(--memori-radius-box);
     background-color: transparent;
     color: var(--memori-text-color) !important;
-    font-size: 0.7em;
+    font-size: var(--memori-text-size-small);
+    line-height: var(--memori-text-line-normal);
     white-space: nowrap;
 }
 
@@ -193,7 +195,7 @@
 }
 
 .memori--conversation-button + .memori--conversation-button {
-    margin-left: 0.33rem;
+    margin-left: var(--memori-spacing-xs);
 }
 
 .memori--conversation-button:hover,

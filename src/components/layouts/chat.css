@@ -1,5 +1,8 @@
 .memori-widget.memori-layout-chat {
+    max-width: 1200px;
     height: 100vh !important;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .memori-widget.memori-layout-chat .memori--global-background.no-background-image {
@@ -13,7 +16,7 @@
 }
 
 .memori-chat-layout--header {
-    margin-bottom: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
+    margin-bottom: var(--memori-spacing-md);
     text-align: right;
     transition: all 0.05s ease-in-out;
 }
@@ -56,8 +59,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    /* padding: 1rem; */
-    gap: 1rem;
+    gap: var(--memori-spacing-lg);
 }
 
 .memori-chat-layout--controls {
@@ -68,14 +70,14 @@
     height: 100%;
     max-height: 100%;
     flex: 1;
-    /* padding-bottom: 1.5rem; */
+    padding: var(--memori-spacing-sm) 0;
     transition: all 0.05s ease-in-out;
 }
 
 .memori-chat-layout--controls-with-artifact {
     max-height: 100%;
     flex: 0 0 49%;
-    /* padding-bottom: 2.5rem; */
+    padding-bottom: var(--memori-spacing-lg);
     margin: 0;
 }
 
@@ -119,17 +121,12 @@
     top: 0;
 }
 
-.memori-chat-layout .memori--title {
-    position: relative;
-    top: 10px;
-}
-
 .memori-chat-layout .memori-chat--cover {
     display: none;
 }
 
 .memori-chat-layout .memori--cover {
-    top: 10px;
+    top: var(--memori-spacing-sm);
     padding: 0;
     background-image: none !important;
 }
@@ -140,7 +137,7 @@
 }
 
 .memori-chat-layout--controls .memori-chat--wrapper {
-    height: calc(100% - 1rem);
+    height: calc(100% - var(--memori-spacing-md));
 }
 
 @media (max-width: 870px) {
@@ -152,8 +149,10 @@
 
 .memori-chat-layout--controls .memori--start-panel,
 .memori-chat-layout--controls .memori-chat--wrapper {
-    max-width: 1200px;
+    max-width: min(1200px, var(--memori-layout-max-width));
     height: 100%;
+    padding-right: var(--memori-spacing-sm);
+    padding-left: var(--memori-spacing-sm);
     margin: 0 auto;
 }
 
@@ -210,6 +209,18 @@
 .memori-chat-layout .memori--description,
 .memori-chat-layout .memori--needsPosition {
     color: var(--memori-text-color);
+}
+
+.memori-chat-layout .memori--title {
+    font-size: var(--memori-text-size-heading-large);
+    font-weight: var(--memori-text-weight-semibold);
+    line-height: var(--memori-text-line-tight);
+}
+
+.memori-chat-layout .memori--description,
+.memori-chat-layout .memori--needsPosition {
+    font-size: var(--memori-text-size-base);
+    line-height: var(--memori-text-line-relaxed);
 }
 
 .memori-chat-layout .memori--global-background-image {

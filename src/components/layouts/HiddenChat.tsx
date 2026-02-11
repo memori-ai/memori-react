@@ -50,10 +50,13 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
 
   useEffect(() => {
     const mainDiv = document.body;
+    const widgetEl = document.querySelector('.memori-widget');
+    const sidebarWidth =
+      (widgetEl && getComputedStyle(widgetEl).getPropertyValue('--memori-sidebar-width')?.trim()) || '350px';
     if (isOpen) {
       if (!fullScreen) {
-        mainDiv.style.width = 'calc(100% - 350px)';
-        mainDiv.style.marginRight = '300px';
+        mainDiv.style.width = `calc(100% - ${sidebarWidth})`;
+        mainDiv.style.marginRight = sidebarWidth;
         mainDiv.style.transition = 'all 0.5s';
       } else {
         mainDiv.style.width = '100%';

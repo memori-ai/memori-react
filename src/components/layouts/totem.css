@@ -1,22 +1,30 @@
 .memori-widget.memori-layout-totem {
+    max-width: var(--memori-layout-max-width);
     height: 95vh !important;
+    padding: var(--memori-spacing-md);
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .memori-widget.memori-layout-totem .memori--global-background.no-background-image {
     background: linear-gradient(#333, #eee);
 }
 
-.memori-widget>.memori-spin.memori-totem-layout {
+.memori-widget > .memori-spin.memori-totem-layout {
     display: flex;
     height: 100%;
     flex-direction: column;
+    gap: var(--memori-spacing-lg);
 }
 
 .memori-totem-layout--header {
+    flex-shrink: 0;
+    margin-bottom: var(--memori-spacing-sm);
     text-align: right;
 }
 
 .memori-totem-layout--avatar {
+    min-height: 0;
     flex: 1;
 }
 
@@ -59,8 +67,10 @@
 
 .memori-totem-layout .memori-header .memori-header--button,
 .memori-totem-layout .memori-header .memori-header--button button {
-    width: 38px;
-    height: 38px;
+    width: var(--memori-spacing-2xl);
+    min-width: var(--memori-spacing-2xl);
+    height: var(--memori-spacing-2xl);
+    min-height: var(--memori-spacing-2xl);
     aspect-ratio: 1;
 }
 
@@ -93,6 +103,9 @@
 .memori-totem-layout .memori--powered-by {
     top: 0;
     bottom: auto;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
+    border-radius: var(--memori-radius-box);
+    font-size: var(--memori-text-size-small);
 }
 
 /* .memori-totem-layout--avatar .memori--avatar-wrapper>div {
@@ -131,34 +144,40 @@
 
 .memori-totem-layout--controls {
     z-index: 100;
+    flex-shrink: 0;
+    padding: var(--memori-spacing-sm) 0;
 }
 
 .memori-totem-layout--controls .memori--start-panel,
 .memori-totem-layout--controls .memori-chat--wrapper {
     width: 80vw;
-    max-width: 800px;
-    padding: 1rem;
+    max-width: min(800px, var(--memori-layout-max-width));
+    padding: var(--memori-spacing-md);
     margin: 0 auto;
 }
 
 @media (max-width: 870px) {
-
     .memori-totem-layout--controls .memori--start-panel,
     .memori-totem-layout--controls .memori-chat--wrapper {
         width: 100%;
+        padding: var(--memori-spacing-sm);
     }
 
     .memori-totem-layout--controls .memori-chat--wrapper {
-        padding: 0;
+        padding: var(--memori-spacing-sm);
     }
 }
 
 @media (max-width: 480px) {
-    .memori-totem-layou .memori-send-on-enter-menu {
+    .memori-widget.memori-layout-totem {
+        padding: var(--memori-spacing-sm);
+    }
+
+    .memori-totem-layout .memori-send-on-enter-menu {
         display: none;
     }
 
-    .memori-totem-layou .memori-header--button-settings {
+    .memori-totem-layout .memori-header--button-settings {
         display: none;
     }
 }
@@ -173,6 +192,18 @@
 .memori-totem-layout .memori--description,
 .memori-totem-layout .memori--needsPosition {
     color: var(--memori-text-color);
+}
+
+.memori-totem-layout .memori--title {
+    font-size: var(--memori-text-size-heading-large);
+    font-weight: var(--memori-text-weight-semibold);
+    line-height: var(--memori-text-line-tight);
+}
+
+.memori-totem-layout .memori--description,
+.memori-totem-layout .memori--needsPosition {
+    font-size: var(--memori-text-size-base);
+    line-height: var(--memori-text-line-relaxed);
 }
 
 .memori-totem-layout .memori--global-background-image {

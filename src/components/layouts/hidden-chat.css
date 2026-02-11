@@ -9,18 +9,20 @@
 .memori-sidebar-toggle {
   display: none;
 }
-.memori-chat--content{
+
+.memori-chat--content {
   padding: 0;
 }
 
-.memori-chat-inputs{
+.memori-chat-inputs {
   padding: var(--memori-spacing-sm) var(--memori-spacing-lg);
 }
 
-.memori-chat-history{
-  height: calc(100% - 75px);
+.memori-chat-history {
+  height: calc(100% - var(--memori-spacing-5xl));
   margin: 0;
 }
+
 /* Modern floating toggle button */
 .memori-sidebar-toggle-label {
   position: absolute;
@@ -31,12 +33,14 @@
   height: var(--memori-spacing-5xl);
   align-items: center;
   justify-content: center;
-  padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs)) var(--memori-spacing-sm);
+  padding: var(--memori-spacing-sm) var(--memori-spacing-md);
+  border-radius: var(--memori-radius-box) 0 0 var(--memori-radius-box);
   background-color: var(--memori-primary);
-  color: white;
+  color: var(--memori-main-background, #fff);
   cursor: pointer;
   font-size: var(--memori-text-size-large);
-  font-weight: bold;
+  font-weight: var(--memori-text-weight-semibold);
+  line-height: var(--memori-text-line-normal);
   text-orientation: mixed;
   transform: translateY(-50%);
   transition: all 0.3s ease-in-out;
@@ -48,7 +52,7 @@
 }
 
 .memori-close-label {
-  right: 350px;
+  right: var(--memori-sidebar-width);
   border-radius: var(--memori-radius-box) 0 0 var(--memori-radius-box);
   opacity: 0;
   pointer-events: none;
@@ -59,11 +63,11 @@
   position: fixed;
   z-index: 1000;
   top: 0;
-  right: -350px;
-  width: 350px;
+  right: calc(-1 * var(--memori-sidebar-width));
+  width: var(--memori-sidebar-width);
   height: 100%;
-  background-color: white;
-  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+  background-color: var(--memori-main-background, #fff);
+  box-shadow: -2px 0 var(--memori-spacing-sm) rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease-in-out;
 }
 
@@ -78,10 +82,12 @@
 
 .memori-sidebar-fullscreen .memori-close-label {
   z-index: 1100;
-  top: 10px;
-  right: 10px;
-  width: 38px;
-  height: 38px;
+  top: var(--memori-spacing-sm);
+  right: var(--memori-spacing-sm);
+  width: var(--memori-spacing-2xl);
+  min-width: var(--memori-spacing-2xl);
+  height: var(--memori-spacing-2xl);
+  min-height: var(--memori-spacing-2xl);
   border-radius: 50%;
   background-color: var(--memori-primary);
   opacity: 1;
@@ -94,7 +100,7 @@
 .memori-hidden-chat-layout--controls {
   display: flex;
   height: 90%;
-  padding: calc(var(--memori-spacing-sm) + 2px);
+  padding: var(--memori-spacing-md);
   margin-top: var(--memori-spacing-5xl);
 }
 
@@ -105,16 +111,18 @@
 
 .memori-fullscreen-button {
   display: flex;
-  width: 38px;
-  height: 38px;
+  width: var(--memori-spacing-2xl);
+  min-width: var(--memori-spacing-2xl);
+  height: var(--memori-spacing-2xl);
+  min-height: var(--memori-spacing-2xl);
   align-items: center;
   justify-content: center;
   border: none;
   border-radius: 50%;
-  margin-left: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs) / 2);
+  margin-left: var(--memori-spacing-sm);
   aspect-ratio: 1;
   background-color: var(--memori-primary);
-  color: white;
+  color: var(--memori-main-background, #fff);
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 }
@@ -123,7 +131,8 @@
   margin-bottom: var(--memori-spacing-lg);
   color: var(--memori-primary);
   font-size: var(--memori-text-size-heading-large);
-  font-weight: bold;
+  font-weight: var(--memori-text-weight-semibold);
+  line-height: var(--memori-text-line-tight);
 }
 
 .memori-sidebar-content ul {
@@ -132,13 +141,15 @@
 }
 
 .memori-sidebar-content li {
-  margin-bottom: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs) / 2);
+  margin-bottom: var(--memori-spacing-sm);
 }
 
 .memori-sidebar-content a {
   display: flex;
   align-items: center;
-  color: #4b5563;
+  color: var(--memori-text-color);
+  font-size: var(--memori-text-size-base);
+  line-height: var(--memori-text-line-normal);
   text-decoration: none;
   transition: color 0.2s ease-in-out;
 }
@@ -158,7 +169,7 @@
 .memori-sidebar-toggle:checked ~ .memori-sidebar-container .memori-open-label {
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-50%) translateX(350px);
+  transform: translateY(-50%) translateX(var(--memori-sidebar-width));
 }
 
 .memori-loading {
@@ -170,7 +181,7 @@
 
 .memori-sidebar-content {
   position: absolute;
-  top: -10px;
+  top: calc(-1 * var(--memori-spacing-sm));
   width: 100%;
   padding: var(--memori-spacing-md);
 }
@@ -185,10 +196,10 @@
   width: 100%;
   align-items: center;
   justify-content: flex-end;
-  padding: calc(var(--memori-spacing-sm) + 2px);
+  padding: var(--memori-spacing-sm);
   margin: 0;
-  background-color: white;
-  color: white;
+  background-color: var(--memori-main-background, #fff);
+  color: var(--memori-text-color);
 }
 
 .memori-hidden-chat-layout-header--layout {
@@ -196,22 +207,25 @@
   width: 100%;
   align-items: center;
   justify-content: flex-end;
-  padding: calc(var(--memori-spacing-sm) + 2px);
+  padding: var(--memori-spacing-sm);
   margin: 0;
-  background-color: white;
-  color: white;
+  background-color: var(--memori-main-background, #fff);
+  color: var(--memori-text-color);
 }
 
-.memori-hidden-chat-layout-header--layout > button, 
+.memori-hidden-chat-layout-header--layout > button,
 .memori-hidden-chat-layout-header--layout > div > button {
   display: flex;
-  width: 38px;
-  height: 38px;
+  width: var(--memori-spacing-2xl);
+  min-width: var(--memori-spacing-2xl);
+  height: var(--memori-spacing-2xl);
+  min-height: var(--memori-spacing-2xl);
   align-items: center;
   justify-content: center;
   border-radius: var(--memori-radius-box);
   aspect-ratio: 1;
   background-color: var(--memori-primary);
+  color: var(--memori-main-background, #fff);
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 }
@@ -220,13 +234,14 @@
   margin: 0;
 }
 
-.memori-icon, .memori-icon-close {
-  width: 25px;
-  height: 25px;
+.memori-icon,
+.memori-icon-close {
+  width: var(--memori-spacing-xl);
+  height: var(--memori-spacing-xl);
 }
 
 .memori-icon-close {
-  fill: white;
+  fill: var(--memori-main-background, #fff);
 }
 
 @media (max-width: 768px) {
