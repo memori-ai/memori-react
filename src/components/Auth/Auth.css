@@ -1,3 +1,7 @@
+.memori-auth-widget--form {
+    padding: var(--memori-spacing-md);
+}
+
 .memori-auth-widget--form fieldset {
     padding: 0;
     border: 0;
