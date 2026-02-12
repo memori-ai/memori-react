@@ -1,5 +1,17 @@
 
 
+## [8.17.3](https://github.com/memori-ai/memori-react/compare/v8.17.2...v8.17.3) (2026-02-12)
+
+
+### Bug Fixes
+
+* ensure audio playback respects defaultEnableAudio ([a0c9ffb](https://github.com/memori-ai/memori-react/commit/a0c9ffb3ef9dde733355cd0f12461b470e92b575))
+
+
+### Changes
+
+* replace hasTouchscreen with isMobileOrTablet ([6652160](https://github.com/memori-ai/memori-react/commit/6652160d7c99b873fe05a222d22b9e4fd8775374))
+
 ## [8.17.2](https://github.com/memori-ai/memori-react/compare/v8.17.1...v8.17.2) (2026-02-01)
 
 ## [8.17.1](https://github.com/memori-ai/memori-react/compare/v8.17.0...v8.17.1) (2026-01-31)
