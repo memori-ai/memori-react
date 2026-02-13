@@ -28,7 +28,7 @@
     background: #ffffff;
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
-    color: #374151;
+    color: var(--memori-text-color);
     cursor: pointer;
     font-size: var(--memori-text-size-small);
     font-weight: var(--memori-text-weight-medium);
@@ -60,13 +60,13 @@
 .memori-copy-button--success {
     border-color: #22c55e;
     background: #f0fdf4;
-    color: #15803d;
+    color: var(--memori-text-color);
 }
 
 .memori-copy-button--error {
     border-color: #ef4444;
     background: #fef2f2;
-    color: #dc2626;
+    color: var(--memori-text-color);
 }
 
 .memori-copy-button--loading {
@@ -91,7 +91,7 @@
     background: #ffffff;
     border-bottom-left-radius: 0px !important;
     border-top-left-radius: 0px !important;
-    color: #374151;
+    color: var(--memori-text-color);
     cursor: pointer;
     font-size: var(--memori-text-size-small);
     font-weight: var(--memori-text-weight-medium);
@@ -112,7 +112,7 @@
 }
 
 .memori-copy-button-icon--error {
-    color: #ef4444;
+    color: var(--memori-text-color);
 }
 
 .memori-copy-button-chevron {
@@ -231,7 +231,7 @@
 }
 
 .memori-copy-dropdown-title {
-    color: #6b7280;
+    color: var(--memori-text-color);
     font-size: 0.75rem;
     font-weight: var(--memori-text-weight-semibold);
     letter-spacing: 0.05em;
@@ -249,7 +249,7 @@
 }
 
 .memori-copy-dropdown-empty-text {
-    color: #9ca3af;
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-small);
 }
 
@@ -262,7 +262,7 @@
     padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs)) var(--memori-spacing-md);
     border: none;
     background: none;
-    color: #374151;
+    color: var(--memori-text-color);
     cursor: pointer;
     font-size: var(--memori-text-size-small);
     text-align: left;
@@ -314,7 +314,7 @@
 .memori-copy-menu-item-icon {
     width: 16px;
     height: 16px;
-    color: #6b7280;
+    color: var(--memori-text-color);
 }
 
 .memori-copy-menu-item-loading {
@@ -346,7 +346,7 @@
 }
 
 .memori-copy-menu-item-description {
-    color: #6b7280;
+    color: var(--memori-text-color);
     font-size: 0.75rem;
     line-height: 1.3;
 }
@@ -360,7 +360,7 @@
     padding: calc(var(--memori-spacing-xs) / 2) calc(var(--memori-spacing-xs) + 2px);
     border-radius: 0.5rem;
     background: #dbeafe;
-    color: #1e40af;
+    color: var(--memori-text-color);
     font-size: 10px;
     font-weight: var(--memori-text-weight-semibold);
     letter-spacing: 0.05em;
@@ -399,13 +399,13 @@
 .memori-copy-toast--success {
     border: 1px solid #22c55e;
     background: #f0fdf4;
-    color: #15803d;
+    color: var(--memori-text-color);
 }
 
 .memori-copy-toast--error {
     border: 1px solid #ef4444;
     background: #fef2f2;
-    color: #dc2626;
+    color: var(--memori-text-color);
 }
 
 .memori-copy-toast-icon {
@@ -464,7 +464,7 @@
 
     .memori-copy-menu-item:hover:not(:disabled) {
         background: #000000;
-        color: #ffffff;
+        color: var(--memori-text-color);
     }
 }
 

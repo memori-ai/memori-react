@@ -135,7 +135,7 @@
 
 .memori--venue-widget-search .memori--venue-widget-search--input.memori--venue-widget-search--input-disabled {
     background-color: #f7fafc;
-    color: #a0aec0;
+    color: var(--memori-text-color);
     cursor: not-allowed;
 }
 
@@ -187,7 +187,7 @@ ul.memori--venue-widget-search--options {
     padding-right: 1rem;
     padding-bottom: 0.5rem;
     padding-left: 1rem;
-    color: rgb(17 24 39/1);
+    color: var(--memori-text-color);
     touch-action: none;
     user-select: none;
 }

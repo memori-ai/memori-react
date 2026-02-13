@@ -127,5 +127,5 @@
 button.memori-hints--show-more-button {
     border-radius: var(--memori-radius-box);
     background: #fff;
-    color: #333;
+    color: var(--memori-text-color);
 }

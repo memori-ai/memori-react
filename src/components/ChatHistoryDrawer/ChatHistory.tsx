@@ -783,6 +783,7 @@ const ChatHistoryDrawer = ({
             return (
               <Card
                 hoverable={chatLog?.sessionID !== sessionId}
+                variant="outlined"
                 onClick={async () => {
                   // the active chat
                   if (chatLog?.sessionID === sessionId) {

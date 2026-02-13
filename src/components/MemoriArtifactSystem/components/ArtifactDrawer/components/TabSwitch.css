@@ -67,7 +67,7 @@
     border: none;
     border-radius: var(--memori-radius-box);
     background: transparent;
-    color: #6b7280;
+    color: var(--memori-text-color);
     cursor: pointer;
     font-size: var(--memori-text-size-small);
     font-weight: var(--memori-text-weight-medium);
@@ -77,7 +77,7 @@
 }
 
 .memori-tab-switch__button:hover {
-    color: #374151;
+    color: var(--memori-text-color);
     transform: none;
 }
 

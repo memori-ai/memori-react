@@ -32,7 +32,7 @@
     display: block;
     width: 100%;
     margin-bottom: var(--memori-spacing-sm);
-    color: #374151;
+    color: var(--memori-text-color);
     font-size: 0.95rem;
     font-weight: var(--memori-text-weight-medium);
     text-align: left;
@@ -51,7 +51,7 @@
     background: #ffffff;
     /* Touch-friendly */
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    color: #1f2937;
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-base);
     transition: all 0.2s ease;
 }
@@ -68,7 +68,7 @@
 
 .memori--date-selector__mobile-input:disabled {
     background-color: #f9fafb;
-    color: #9ca3af;
+    color: var(--memori-text-color);
     cursor: not-allowed;
     opacity: 0.6;
 }
@@ -95,7 +95,7 @@
 .memori--date-selector__label {
     display: inline-block;
     margin-bottom: 0.5rem;
-    color: #4b5563;
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-small);
     font-weight: var(--memori-text-weight-medium);
     letter-spacing: 0.01em;
@@ -110,7 +110,7 @@
     appearance: textfield;
     /* Remove spinner buttons */
     background: #ffffff;
-    color: #1f2937;
+    color: var(--memori-text-color);
     font-size: 0.95rem;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -131,13 +131,13 @@
 .memori--date-selector__input:disabled {
     border-color: #e5e7eb;
     background: #f9fafb;
-    color: #9ca3af;
+    color: var(--memori-text-color);
     cursor: not-allowed;
     opacity: 0.6;
 }
 
 .memori--date-selector__input::placeholder {
-    color: #9ca3af;
+    color: var(--memori-text-color);
 }
 
 /* Responsive adjustments */

@@ -22,7 +22,7 @@
     margin-top: var(--memori-spacing-sm);
     background-color: #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
-    color: #000;
+    color: var(--memori-text-color);
     list-style: none;
     outline: none;
     transform-origin: top right;

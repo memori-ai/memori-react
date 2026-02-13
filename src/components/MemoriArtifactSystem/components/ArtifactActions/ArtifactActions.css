@@ -14,7 +14,7 @@
   padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs)) var(--memori-spacing-md);
   border: none;
   background: none;
-  color: #374151;
+  color: var(--memori-text-color);
   cursor: pointer;
   font-size: var(--memori-text-size-small);
   text-align: left;

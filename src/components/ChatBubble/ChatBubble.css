@@ -61,7 +61,7 @@
     margin-bottom: var(--memori-spacing-xs);
     background: color-mix(in oklch, var(--memori-main-background) 38%, transparent);
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
-    color: #141515;
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-small);
     line-height: 1.33;
 }
@@ -74,12 +74,12 @@
     width: 40px;
     height: 40px;
     padding: 0.33rem;
-    fill: #666;
+    fill: var(--memori-text-color);
     font-size: var(--memori-text-size-heading-large);
 }
 
 .memori-chat--bubble-action-icon--from-user > span > svg {
-    color: #fff !important;
+    color: var(--memori-text-color) !important;
 }
 
 .memori-chat--bubble-action-icon--from-user:focus {
@@ -173,9 +173,15 @@
 .memori-chat--bubble.memori-chat--user-bubble {
     border-radius: .5rem .5rem 0 .5rem;
     margin: calc(var(--memori-spacing-sm) + 2px) var(--memori-spacing-sm) var(--memori-spacing-xs) auto;
-    background: var(--memori-chat-user-bubble-bg);
-    box-shadow: 0 1px 6px 0 #d1d3de, 0 1px 3px 0 #c5c6d1;
-    color: var(--memori-text-color);
+    background: var(--memori-primary);
+    color: #fff;
+    
+}
+
+[data-theme='dark'] {
+    .memori-chat--bubble.memori-chat--user-bubble {
+        background: var(--memori-primary-hover);
+    }
 }
 
 .memori-chat--bubble-avatar {
@@ -216,7 +222,7 @@
     overflow: visible;
     width: 1rem;
     height: 1rem;
-    color: #000;
+    color: var(--memori-text-color);
 }
 
 .memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--copied {
@@ -256,7 +262,7 @@
     padding: var(--memori-spacing-sm);
     border: 0;
     border-radius: 50%;
-    color: #333;
+    color: var(--memori-text-color);
 }
 
 .memori-chat--bubble .memori-chat--bubble-action-icon.memori-chat--bubble-action-icon--ai svg {
@@ -418,10 +424,10 @@ details.memori-think summary:hover {
 }
 
 details.memori-think[open] {
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--memori-text-color);
 }
 
 details.memori-think[open] summary {
     margin-bottom: var(--memori-spacing-sm);
-    color: #000;
+    color: var(--memori-text-color);
 }

@@ -187,7 +187,7 @@ const ShareButton: React.FC<Props> = ({
         fontSize: '12pt',
         fontFamily: 'system-ui, -apple-system, sans-serif',
         lineHeight: '1.6',
-        color: '#333',
+        color: 'var(--memori-text-color)',
         backgroundColor: '#fff',
         primaryColorRgb: primaryColorRgb || undefined,
       };

@@ -34,7 +34,7 @@ class ErrorBoundary extends Component<Props, State> {
         <div
           style={{
             background: 'rgba(255, 255, 255, 0.4)',
-            color: '#000',
+            color: 'var(--memori-text-color)',
             padding: '2rem',
             borderRadius: '10px',
           }}

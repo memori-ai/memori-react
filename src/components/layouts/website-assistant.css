@@ -160,7 +160,6 @@
     border-radius: var(--memori-radius-box) var(--memori-radius-box) 0 0;
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.98);
     box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.12), 0 -2px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -408,9 +407,6 @@
     flex: 1;
     flex-direction: column;
     padding: 1rem;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    background: linear-gradient(to top, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 50%, transparent 100%);
 }
 
 .memori-website_assistant-layout--controls .memori-chat--history,

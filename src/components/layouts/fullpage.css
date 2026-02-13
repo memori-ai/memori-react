@@ -24,6 +24,7 @@
 .memori-widget.memori-layout-fullpage .memori--grid {
     display: flex;
     height: auto;
+    height: 85vh;
     min-height: 0;
     flex: 1 1 auto;
     align-items: stretch;

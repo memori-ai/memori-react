@@ -248,17 +248,18 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${artifact.title || 'Artifact'}</title>
   <style>
+    :root { --memori-text-color: #333; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
       line-height: 1.6;
-      color: #333;
+      color: var(--memori-text-color);
       max-width: 800px;
       margin: 0 auto;
       padding: 20px;
       background-color: #fff;
     }
     h1, h2, h3, h4, h5, h6 {
-      color: #2c3e50;
+      color: var(--memori-text-color);
       margin-top: 1.5em;
       margin-bottom: 0.5em;
     }
@@ -285,7 +286,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
       border-left: 4px solid #ddd;
       margin: 0;
       padding-left: 20px;
-      color: #666;
+      color: var(--memori-text-color);
     }
     table {
       border-collapse: collapse;
@@ -302,7 +303,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
       font-weight: 600;
     }
     a {
-      color: #007acc;
+      color: var(--memori-text-color);
       text-decoration: none;
     }
     a:hover {

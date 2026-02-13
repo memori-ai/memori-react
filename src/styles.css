@@ -91,6 +91,15 @@ body.sb-show-main #root,
     font-size: var(--memori-text-size-base);
 }
 
+[data-theme='dark'] memori-client,
+[data-theme='dark'] memori-client #root,
+[data-theme='dark'] #headlessui-portal-root,
+[data-theme='dark'] .memori-widget,
+memori-client[data-theme='dark'],
+.memori-widget[data-theme='dark'] {
+    --memori-primary: var(--memori-primary-hover);
+}
+
 @media (max-width: 768px) {
     .mobile-hidden {
         display: none;

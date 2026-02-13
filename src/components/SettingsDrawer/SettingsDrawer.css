@@ -5,7 +5,7 @@
 }
 
 .memori-settings-drawer .memori-settings-drawer--field .memori-select--value {
-    color: #000;
+    color: var(--memori-text-color);
 }
 
 .memori-settings-drawer--controlsposition-radio,

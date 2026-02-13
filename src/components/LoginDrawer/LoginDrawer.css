@@ -80,7 +80,7 @@ form.memori--login-drawer--form {
 
 .memori--login-drawer--form small {
     margin-top: var(--memori-spacing-xs);
-    color: #64748b;
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-small);
 }
 
@@ -151,7 +151,7 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--welcome-description {
     margin: 0 0 2rem;
-    color: #374151;
+    color: var(--memori-text-color);
     font-size: 1.1rem;
     line-height: var(--memori-text-line-relaxed);
     opacity: 0.9;
@@ -211,7 +211,7 @@ p.memori--login-drawer--inline-error {
     justify-content: center;
     border-radius: 50%;
     background: var(--memori-primary);
-    color: white;
+    color: var(--memori-text-color);
     font-size: 1.1rem;
     font-weight: var(--memori-text-weight-bold);
 }
@@ -233,14 +233,14 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--otp-info-content h4 {
     margin: 0 0 0.5rem;
-    color: #374151;
+    color: var(--memori-text-color);
     font-size: 1.1rem;
     font-weight: var(--memori-text-weight-semibold);
 }
 
 .memori--login-drawer--otp-info-content p {
     margin: 0;
-    color: #374151;
+    color: var(--memori-text-color);
     font-size: 0.95rem;
     line-height: 1.5;
     opacity: 0.9;
@@ -297,7 +297,7 @@ p.memori--login-drawer--inline-error {
     border-radius: var(--memori-radius-box);
     margin-top: var(--memori-spacing-2xl);
     background: var(--memori-primary);
-    color: white;
+    color: var(--memori-text-color);
     font-size: 1.1rem;
     font-weight: var(--memori-text-weight-semibold);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -352,7 +352,7 @@ p.memori--login-drawer--inline-error {
     padding: 2rem 1.5rem;
     border-radius: var(--memori-radius-box);
     margin: 1rem;
-    background: white;
+    background: var(--memori-main-background);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 }
 
@@ -414,7 +414,7 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--otp-container h3 {
     margin: 0 0 1rem;
-    color: #1e293b;
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-heading-xlarge);
     font-weight: var(--memori-text-weight-bold);
     text-align: center;
@@ -422,7 +422,7 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--otp-description {
     margin: 0 0 2rem;
-    color: #64748b;
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-base);
     line-height: var(--memori-text-line-relaxed);
     text-align: center;
@@ -450,7 +450,7 @@ p.memori--login-drawer--inline-error {
 }
 
 .memori--login-drawer--otp-label-text {
-    color: #374151;
+    color: var(--memori-text-color);
     font-size: 0.95rem;
     font-weight: var(--memori-text-weight-semibold);
     letter-spacing: 0.05em;
@@ -470,7 +470,7 @@ p.memori--login-drawer--inline-error {
     border: 3px solid #e2e8f0;
     border-radius: var(--memori-radius-box);
     margin: 0 auto;
-    background: #f8fafc;
+    background: transparent;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     font-size: 2rem;
     font-weight: var(--memori-text-weight-bold);
@@ -482,7 +482,7 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--otp-input:focus {
     border-color: var(--memori-primary);
-    background: white;
+    background: transparent;
     box-shadow: 0 0 0 4px color-mix(in oklch, var(--memori-primary), transparent 90%);
     transform: scale(1.02);
 }
@@ -490,7 +490,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--otp-input.success {
     border-color: #10b981;
     animation: successPulse 0.6s ease-in-out;
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    background: transparent;
 }
 
 .memori--login-drawer--otp-input.error {
@@ -522,7 +522,7 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--otp-email-input.valid {
     border-color: #10b981;
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    background: transparent;
 }
 
 .memori--login-drawer--otp-email-input.error {
@@ -535,7 +535,7 @@ p.memori--login-drawer--inline-error {
     position: absolute;
     right: 1rem;
     animation: checkmark 0.5s ease-in-out;
-    color: #10b981;
+    color: var(--memori-text-color);
     font-size: 1.2rem;
     font-weight: bold;
 }
@@ -583,7 +583,7 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--otp-help {
     margin-top: var(--memori-spacing-sm);
-    color: #64748b;
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-small);
     text-align: center;
 }
@@ -635,7 +635,7 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--otp-success p {
     margin: 0;
-    color: #065f46;
+    color: var(--memori-text-color);
     font-size: 1.1rem;
     font-weight: var(--memori-text-weight-semibold);
 }
@@ -650,7 +650,7 @@ p.memori--login-drawer--inline-error {
     border-radius: var(--memori-radius-box);
     margin: 1rem 0;
     background: linear-gradient(135deg, #fef3c7, #fde68a);
-    color: #92400e;
+    color: var(--memori-text-color);
     font-size: 0.95rem;
     font-weight: var(--memori-text-weight-semibold);
     gap: var(--memori-spacing-sm);
@@ -723,7 +723,7 @@ p.memori--login-drawer--inline-error {
     margin: var(--memori-spacing-lg) 0;
     animation: errorSlide 0.3s ease-out;
     background: linear-gradient(135deg, #fee2e2, #fecaca);
-    color: #dc2626;
+    color: var(--memori-text-color);
     font-size: 0.95rem;
     font-weight: var(--memori-text-weight-medium);
     gap: var(--memori-spacing-sm);
@@ -767,7 +767,7 @@ p.memori--login-drawer--inline-error {
     margin: 1rem;
     animation: errorSlide 0.3s ease-out;
     background: linear-gradient(135deg, #fee2e2, #fecaca);
-    color: #dc2626;
+    color: var(--memori-text-color);
     font-size: 0.95rem;
     font-weight: var(--memori-text-weight-medium);
     gap: var(--memori-spacing-sm);
@@ -956,7 +956,7 @@ p.memori--login-drawer--inline-error {
     overflow: hidden;
     padding: 2rem 1.5rem;
     background: var(--memori-primary);
-    color: white;
+    color: var(--memori-text-color);
 }
 
 .memori--login-drawer--user-header::before {
@@ -1017,7 +1017,7 @@ p.memori--login-drawer--inline-error {
 }
 
 .memori--login-drawer--avatar-initial {
-    color: white;
+    color: var(--memori-text-color);
     font-size: 2rem;
     font-weight: var(--memori-text-weight-bold);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
@@ -1071,13 +1071,13 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--badge--verified {
     border-color: rgba(16, 185, 129, 0.3);
     background: rgba(16, 185, 129, 0.2);
-    color: #d1fae5;
+    color: var(--memori-text-color);
 }
 
 .memori--login-drawer--badge--premium {
     border-color: rgba(245, 158, 11, 0.3);
     background: rgba(245, 158, 11, 0.2);
-    color: #fef3c7;
+    color: var(--memori-text-color);
 }
 
 .memori--login-drawer--badge:hover {
@@ -1095,7 +1095,7 @@ p.memori--login-drawer--inline-error {
     display: flex;
     align-items: center;
     margin: 0 0 1.5rem;
-    color: #374151;
+    color: var(--memori-text-color);
     font-size: 1.1rem;
     font-weight: var(--memori-text-weight-semibold);
     gap: var(--memori-spacing-sm);
@@ -1138,13 +1138,13 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--deep-thought-details {
     margin: 0;
-    color: #6b7280;
+    color: var(--memori-text-color);
     font-size: 0.8rem;
 }
 
 .memori--login-drawer--deep-thought-details p {
     margin: 0;
-    color: #6b7280;
+    color: var(--memori-text-color);
     font-size: 0.8rem;
 }
 
@@ -1214,7 +1214,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--action-text {
     position: relative;
     z-index: 1;
-    color: #374151;
+    color: var(--memori-text-color);
     font-size: 0.9rem;
     font-weight: var(--memori-text-weight-semibold);
     text-align: center;
@@ -1222,11 +1222,11 @@ p.memori--login-drawer--inline-error {
 }
 
 .memori--login-drawer--action-card:hover .memori--login-drawer--action-text {
-    color: #1f2937;
+    color: var(--memori-text-color);
 }
 
 .memori--login-drawer--action-card--logout:hover .memori--login-drawer--action-text {
-    color: #dc2626;
+    color: var(--memori-text-color);
 }
 
 /* ===== USER STATISTICS DASHBOARD ===== */
@@ -1296,7 +1296,7 @@ p.memori--login-drawer--inline-error {
     justify-content: center;
     /* background: var(--memori-primary); */
     border-radius: var(--memori-radius-box);
-    color: white;
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-heading-large);
 }
 
@@ -1309,7 +1309,7 @@ p.memori--login-drawer--inline-error {
     display: block;
     overflow: hidden;
     margin-bottom: var(--memori-spacing-xs);
-    color: #1f2937;
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-base);
     font-weight: var(--memori-text-weight-bold);
     text-overflow: ellipsis;
@@ -1318,7 +1318,7 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--stat-label {
     display: block;
-    color: #6b7280;
+    color: var(--memori-text-color);
     font-size: 0.8rem;
     font-weight: var(--memori-text-weight-medium);
     letter-spacing: 0.025em;
@@ -1336,7 +1336,7 @@ p.memori--login-drawer--inline-error {
     display: flex;
     align-items: center;
     margin: 0 0 1.5rem;
-    color: #1f2937;
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-heading);
     font-weight: var(--memori-text-weight-bold);
     gap: var(--memori-spacing-sm);
@@ -1367,7 +1367,7 @@ p.memori--login-drawer--inline-error {
     padding: 1rem 1.5rem;
     border-bottom: 1px solid #e5e7eb;
     background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-    color: #374151;
+    color: var(--memori-text-color);
     cursor: pointer;
     font-weight: var(--memori-text-weight-semibold);
     transition: all 0.3s ease;
@@ -1375,14 +1375,14 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--account-form .memori--details summary:hover {
     background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
-    color: #1f2937;
+    color: var(--memori-text-color);
 }
 
 .memori--login-drawer--account-form .memori--details summary::after {
     position: absolute;
     top: 50%;
     right: 1.5rem;
-    color: #6b7280;
+    color: var(--memori-text-color);
     content: '▼';
     transform: translateY(-50%);
     transition: transform 0.3s ease;
@@ -1447,7 +1447,7 @@ p.memori--login-drawer--inline-error {
     border-radius: var(--memori-radius-box);
     margin-top: var(--memori-spacing-lg);
     background: var(--memori-primary);
-    color: white;
+    color: var(--memori-text-color);
     cursor: pointer;
     font-size: var(--memori-text-size-base);
     font-weight: var(--memori-text-weight-semibold);

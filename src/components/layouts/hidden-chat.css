@@ -33,10 +33,9 @@
   height: var(--memori-spacing-5xl);
   align-items: center;
   justify-content: center;
-  padding: var(--memori-spacing-sm) var(--memori-spacing-md);
+  padding: var(--memori-spacing-sm);
   border-radius: var(--memori-radius-box) 0 0 var(--memori-radius-box);
   background-color: var(--memori-primary);
-  color: var(--memori-main-background, #fff);
   cursor: pointer;
   font-size: var(--memori-text-size-large);
   font-weight: var(--memori-text-weight-semibold);
@@ -225,7 +224,6 @@
   border-radius: var(--memori-radius-box);
   aspect-ratio: 1;
   background-color: var(--memori-primary);
-  color: var(--memori-main-background, #fff);
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 }

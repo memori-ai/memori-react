@@ -487,7 +487,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
           <div
             style={{ maxWidth: '400px', margin: '0 auto', textAlign: 'left' }}
           >
-            <p style={{ marginBottom: '10px', color: '#666' }}>
+            <p style={{ marginBottom: '10px', color: 'var(--memori-text-color)' }}>
               {t('upload.titleHelp')}
             </p>
             <input

@@ -140,7 +140,7 @@
     width: 20px;
     height: 20px;
     flex-shrink: 0;
-    color: #fff;
+    color: var(--memori-text-color);
     fill: #868e96;
 }
 
@@ -176,7 +176,7 @@
 .memori--preview-filename {
     overflow: hidden;
     max-width: 100px;
-    color: #495057;
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-small);
     font-weight: var(--memori-text-weight-medium);
     text-overflow: ellipsis;
@@ -185,7 +185,7 @@
 
 .memori--preview-filetype {
     margin-top: calc(var(--memori-spacing-xs) / 2);
-    color: #868e96;
+    color: var(--memori-text-color);
     font-size: 12px;
 }
 

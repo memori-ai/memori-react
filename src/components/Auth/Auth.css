@@ -34,7 +34,7 @@ input.memori-auth-widget--input {
 }
 
 input.memori-auth-widget--input::placeholder {
-    color: #bdbdbd;
+    color: var(--memori-text-color);
 }
 
 input.memori-auth-widget--input:hover {
@@ -57,5 +57,5 @@ input.memori-auth-widget--input:focus {
         margin-top: var(--memori-spacing-sm);
     margin-bottom: var(--memori-spacing-lg);
     background-color: rgba(255, 235, 238, 0.5);
-    color: #f44336;
+    color: var(--memori-text-color);
 }

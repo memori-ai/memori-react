@@ -36,6 +36,9 @@ export const generateChatPDFCSS = (options: ChatPDFOptions = {}): string => {
   } = options;
 
   const baseStyles = `
+    :root {
+      --memori-text-color: ${color};
+    }
     @page {
       margin: 1in;
       size: A4;
@@ -137,7 +140,7 @@ export const generateChatPDFCSS = (options: ChatPDFOptions = {}): string => {
       }
 
       a {
-        color: #0066cc;
+        color: var(--memori-text-color);
         text-decoration: none;
       }
 
@@ -206,7 +209,7 @@ const generateChatBubbleStyles = (primaryColorRgb?: string): string => {
 
     .chat-export-date {
       margin-top: 0.5em;
-      color: #6b7280;
+      color: var(--memori-text-color);
       font-size: 0.9em;
     }
 
@@ -236,7 +239,7 @@ const generateChatBubbleStyles = (primaryColorRgb?: string): string => {
       margin-left: 0;
       margin-right: auto;
       background: #ffffff;
-      color: #141515;
+      color: var(--memori-text-color);
       border: 1px solid #e5e7eb;
     }
 
@@ -245,7 +248,7 @@ const generateChatBubbleStyles = (primaryColorRgb?: string): string => {
       margin-left: auto;
       margin-right: 0;
       background: rgb(var(--memori-primary-rgb));
-      color: #ffffff;
+      color: var(--memori-text-color);
     }
 
     .chat-bubble-content {
@@ -272,7 +275,7 @@ const generateChatBubbleStyles = (primaryColorRgb?: string): string => {
     }
 
     .chat-bubble-user .chat-bubble-content a {
-      color: #ffffff;
+      color: var(--memori-text-color);
       text-decoration: underline;
     }
 

@@ -116,7 +116,7 @@
     border: none !important;
     background: transparent !important;
     box-shadow: none !important;
-    color: #000 !important;
+    color: var(--memori-text-color) !important;
     cursor: pointer;
     transition: opacity 0.2s ease;
 }
@@ -150,7 +150,7 @@
     padding: 0;
     border: none;
     background: transparent;
-    color: #000;
+    color: var(--memori-text-color);
     cursor: pointer;
     transition: opacity 0.2s ease;
 }
@@ -200,7 +200,7 @@
 }
 
 .memori-chat-inputs--mic-btn--listening {
-    color: #10a37f;
+    color: var(--memori-text-color);
 }
 
 .memori-chat-inputs--mic {
@@ -215,7 +215,7 @@
     padding: 0;
     border: none;
     background: transparent;
-    color: #000;
+    color: var(--memori-text-color);
 }
 
 .memori-chat-inputs--trailing .memori-chat-inputs--mic .memori-button {
@@ -225,7 +225,7 @@
     padding: 0;
     border: none;
     background: transparent;
-    color: #000;
+    color: var(--memori-text-color);
 }
 
 
@@ -243,14 +243,14 @@
     border-radius: var(--memori-radius-form);
     background: #000;
     background: var(--memori-primary);
-    color: #fff;
+    color: var(--memori-text-color);
     cursor: pointer;
     transition: all 0.2s ease;
 }
 
 .memori-chat-inputs--send-btn:disabled {
     /* background: #f4f4f4; */
-    color: #f4f4f4;
+    color: #fff;
     cursor: not-allowed;
     opacity: 0.3;
 }
@@ -266,7 +266,7 @@
 
 .memori-chat-inputs--send-btn--active {
     /* background: #000; */
-    color: #fff;
+    color: var(--memori-text-color);
 }
 
 .memori-chat-inputs--send-btn--loading {
@@ -292,14 +292,14 @@
     justify-content: center;
     padding: var(--memori-spacing-sm) calc(var(--memori-spacing-3xl) + var(--memori-spacing-sm) + var(--memori-spacing-xs));
     margin-top: calc(-1 * var(--memori-spacing-xs));
-    color: rgba(0, 0, 0, 0.6);
+    color: var(--memori-text-color);
     font-size: 0.75rem;
     line-height: var(--memori-text-line-normal);
     text-align: center;
 }
 
 .memori-chat-inputs--disclaimer a {
-    color: rgba(0, 0, 0, 0.8);
+    color: var(--memori-text-color);
     cursor: pointer;
     text-decoration: underline;
 }
@@ -321,5 +321,5 @@
 
 .memori-chat-inputs .memori--conversation-button {
     background: #fff;
-    color: #000;
+    color: var(--memori-text-color);
 }

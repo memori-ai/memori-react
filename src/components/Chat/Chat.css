@@ -89,7 +89,7 @@
     display: inline-block;
     padding: 0 3.5rem;
     margin-bottom: var(--memori-spacing-sm);
-    color: #969696;
+    color: var(--memori-text-color);
     font-size: 0.8em;
 }
 
@@ -113,7 +113,7 @@
     border-radius: var(--memori-radius-box);
     margin-right: var(--memori-spacing-sm);
     box-shadow: 0 0 0.25rem var(--memori-primary);
-    color: var(--text-color, #333);
+    color: var(--memori-text-color);
     font-size: 0.75rem;
 }
 
@@ -171,13 +171,13 @@
     width: 64px;
     height: 64px;
     margin-bottom: 1rem;
-    color: #fff;
+    color: var(--memori-text-color);
     opacity: 0.9;
 }
 
 .memori-chat--drag-overlay-text {
     padding: 0 2rem;
-    color: #ffffff;
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-large);
     font-weight: var(--memori-text-weight-medium);
     text-align: center;

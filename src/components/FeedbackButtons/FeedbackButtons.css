@@ -1,6 +1,6 @@
 .memori-chat--feedback button {
     padding: 0.5em;
-    color: #333;
+    color: var(--memori-text-color);
     transition: all 0.3s ease-in-out;
 }
 
@@ -94,7 +94,7 @@
     margin: 0;
     background: none;
     box-shadow: none;
-    color: #333;
+    color: var(--memori-text-color);
     cursor: pointer;
     font-family: inherit;
     font-size: var(--memori-text-size-small);

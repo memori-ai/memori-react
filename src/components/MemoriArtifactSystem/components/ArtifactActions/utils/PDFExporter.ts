@@ -142,7 +142,7 @@ export class PDFExporter {
           }
 
           a {
-            color: #0066cc;
+            color: var(--memori-text-color);
             text-decoration: none;
           }
 
@@ -290,7 +290,7 @@ export class PDFExporter {
                 box-shadow: 0 4px 12px rgba(0,0,0,0.15);
               `;
               instructionDiv.innerHTML = `
-                <h3 style="margin: 0 0 10px 0; color: #0066cc;">📄 PDF Export Instructions</h3>
+                <h3 style="margin: 0 0 10px 0; color: var(--memori-text-color);">📄 PDF Export Instructions</h3>
                 <p style="margin: 0 0 10px 0;">To save as PDF:</p>
                 <ol style="margin: 0 0 15px 0; padding-left: 20px;">
                   <li>Press <strong>Cmd+P</strong> (Mac) or <strong>Ctrl+P</strong> (Windows)</li>

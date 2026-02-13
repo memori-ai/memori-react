@@ -255,50 +255,50 @@
 
 /* Syntax Highlighting */
 .memori-artifact--comment {
-  color: #6a737d;
+  color: var(--memori-text-color);
   font-style: italic;
 }
 
 .memori-artifact--keyword {
-  color: #d73a49;
+  color: var(--memori-text-color);
   font-weight: var(--memori-text-weight-semibold);
 }
 
 .memori-artifact--string {
-  color: #032f62;
+  color: var(--memori-text-color);
 }
 
 .memori-artifact--number {
-  color: #005cc5;
+  color: var(--memori-text-color);
   font-weight: var(--memori-text-weight-medium);
 }
 
 .memori-artifact--function {
-  color: #6f42c1;
+  color: var(--memori-text-color);
   font-weight: var(--memori-text-weight-semibold);
 }
 
 .memori-artifact--operator {
-  color: #d73a49;
+  color: var(--memori-text-color);
 }
 
 .memori-artifact--property {
-  color: #005cc5;
+  color: var(--memori-text-color);
 }
 
 .memori-artifact--selector {
-  color: #6f42c1;
+  color: var(--memori-text-color);
   font-weight: var(--memori-text-weight-semibold);
 }
 
 .memori-artifact--tag {
-  color: #22863a;
+  color: var(--memori-text-color);
   font-weight: var(--memori-text-weight-semibold);
 }
 
 .memori-artifact--line-number {
   margin-right: var(--memori-spacing-lg);
-  color: #6a737d;
+  color: var(--memori-text-color);
   user-select: none;
 }
 

@@ -331,7 +331,7 @@ function createArtifactHandler(
       <div style="font-weight: 600; margin-bottom: 4px;">${escapeHtml(
         title
       )}</div>
-      <div style="font-size: 13px; color: #6b7280;">${mimeType} • ${size}</div>
+      <div style="font-size: 13px; color: var(--memori-text-color);">${mimeType} • ${size}</div>
     </div>
     <div>
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

@@ -89,7 +89,7 @@ textarea.memori-chat-textarea--input {
 
 /* Placeholder styling */
 textarea.memori-chat-textarea--input::placeholder {
-    color: rgba(0, 0, 0, 0.5);
+    color: var(--memori-text-color);
 }
 
 /* Scrollbar styling */
@@ -141,7 +141,7 @@ textarea.memori-chat-textarea--input:focus {
 
 button.memori-chat-textarea--expand-button {
     padding: 0.25rem 0.5rem;
-    color: #000;
+    color: var(--memori-text-color);
     opacity: 0.6;
     transition: all 0.2s ease-in-out;
 }

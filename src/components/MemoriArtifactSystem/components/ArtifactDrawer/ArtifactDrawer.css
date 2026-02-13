@@ -157,7 +157,7 @@
 .memori-artifact-panel--close-icon {
     width: 18px;
     height: 18px;
-    color: #000 !important;
+    color: var(--memori-text-color) !important;
 }
 
 /* Web Split Panel Content */
@@ -460,12 +460,12 @@
 
 .memori-artifact-copy-button--success {
     background: #f0fdf4;
-    color: #15803d;
+    color: var(--memori-text-color);
 }
 
 .memori-artifact-copy-button--error {
     background: #fef2f2;
-    color: #dc2626;
+    color: var(--memori-text-color);
 }
 
 .memori-artifact-copy-button--loading {
@@ -572,7 +572,7 @@
 .memori-artifact-share-button:hover {
     border-color: var(--artifact-drawer-accent);
     background: var(--artifact-drawer-accent);
-    color: white;
+    color: var(--memori-text-color);
 }
 
 .memori-artifact-share-text {
@@ -598,7 +598,7 @@
 .memori-artifact-close-button:hover {
     border-color: #ef4444;
     background: #fef2f2;
-    color: #ef4444;
+    color: var(--memori-text-color);
 }
 
 /* Mobile Actions */
