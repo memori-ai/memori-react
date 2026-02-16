@@ -259,6 +259,7 @@
   },
   "upload": {
     "loginRequired": "Login required",
+    "pastedText": "pasted-text",
     "loginRequiredDescription": "Please login to upload images",
     "uploadFiles": "Upload files ({{shortcut}}+O to open file chooser)",
     "uploadFilesWithShortcut": "{{shortcut}}+O to open file chooser",
@@ -283,7 +284,10 @@
     "partialUpload": "Only {{uploaded}} images on {{total}} will be uploaded. Maximum {{max}} images allowed.",
     "maxImages": "Maximum {{max}} images allowed.",
     "upload": "Upload",
-    "dragAndDropFiles": "Drag and drop files here to add them to the chat"
+    "dragAndDropFiles": "Drag and drop files here to add them to the chat",
+    "pasteMaxAttachmentsReached": "Maximum {{max}} attachments. Remove one to add this as a file.",
+    "pasteContentTooLong": "Pasted content is too long (max {{size}}KB). Shorten or split it.",
+    "pasteAddedAsAttachment": "Pasted content added as attachment"
   },
   "media": {
     "title": "Title",

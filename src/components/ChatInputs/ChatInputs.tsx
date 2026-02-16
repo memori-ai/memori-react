@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
+import { useTranslation } from 'react-i18next';
+import toast from 'react-hot-toast';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
 import Button from '../ui/Button';
-import { useTranslation } from 'react-i18next';
 import Send from '../icons/Send';
 import MicrophoneButton from '../MicrophoneButton/MicrophoneButton';
 import cx from 'classnames';
@@ -11,6 +12,12 @@ import UploadButton from '../UploadButton/UploadButton';
 import FilePreview from '../FilePreview/FilePreview';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import Plus from '../icons/Plus';
+import {
+  PASTE_AS_CARD_LINE_THRESHOLD,
+  PASTE_AS_CARD_CHAR_THRESHOLD,
+  MAX_DOCUMENTS_PER_MESSAGE,
+  MAX_DOCUMENT_CONTENT_LENGTH,
+} from '../../helpers/constants';
 export interface Props {
   dialogState?: DialogState;
   instruct?: boolean;
@@ -199,6 +206,72 @@ const ChatInputs: React.FC<Props> = ({
     }
   };
 
+  /**
+   * When pasted text is long (many lines or many characters, e.g. CSV/table on one line),
+   * add it as a document card instead of inserting into the textarea (same UX as other media).
+   */
+  const handleTextareaPaste = useCallback(
+    (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+      if (e.clipboardData.files?.length) return;
+      // Use 'text/plain' only so rich/HTML pastes don't get treated as many lines
+      const text = e.clipboardData.getData('text/plain');
+      if (!text?.trim()) return;
+      const lineCount = text.split(/\r\n|\r|\n/).length;
+      const isLongByLines = lineCount > PASTE_AS_CARD_LINE_THRESHOLD;
+      const isLongByChars = text.length > PASTE_AS_CARD_CHAR_THRESHOLD;
+      // Create a card when pasted content has many lines OR is one/few very long lines (e.g. CSV/table)
+      if (!isLongByLines && !isLongByChars) return;
+
+      // Critical: max attachments reached – prevent dumping long text into textarea, show feedback
+      if (documentPreviewFiles.length >= MAX_DOCUMENTS_PER_MESSAGE) {
+        e.preventDefault();
+        toast.error(
+          t('upload.pasteMaxAttachmentsReached', {
+            max: MAX_DOCUMENTS_PER_MESSAGE,
+            defaultValue: `Maximum ${MAX_DOCUMENTS_PER_MESSAGE} attachments. Remove one to add this as a file.`,
+          })
+        );
+        return;
+      }
+
+      // Critical: pasted content exceeds single-document size limit – reject and inform
+      if (text.length > MAX_DOCUMENT_CONTENT_LENGTH) {
+        e.preventDefault();
+        toast.error(
+          t('upload.pasteContentTooLong', {
+            size: Math.round(MAX_DOCUMENT_CONTENT_LENGTH / 1024),
+            defaultValue: `Pasted content is too long (max ${Math.round(MAX_DOCUMENT_CONTENT_LENGTH / 1024)}KB). Shorten or split it.`,
+          })
+        );
+        return;
+      }
+
+      e.preventDefault();
+      const newFile = {
+        name: 'pasted-text.txt',  
+        id: `paste_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
+        content: text,
+        mediumID: undefined as string | undefined,
+        mimeType: 'text/plain',
+        type: 'document',
+      };
+      setDocumentPreviewFiles(
+        (
+          prev: {
+            name: string;
+            id: string;
+            content: string;
+            mediumID: string | undefined;
+            mimeType: string;
+            type: string;
+            url?: string;
+          }[]
+        ) => [...prev, newFile]
+      );
+    },
+    [documentPreviewFiles, setDocumentPreviewFiles, t]
+  );
+
   const isDisabled =
     dialogState?.state === 'X2a' || dialogState?.state === 'X3';
   const textareaDisabled = ['R2', 'R3', 'R4', 'R5', 'G3', 'X3'].includes(
@@ -214,8 +287,8 @@ const ChatInputs: React.FC<Props> = ({
         })}
         disabled={isDisabled}
       >
-        {/* Preview for document files */}
-        {showUpload && (
+        {/* Preview for document files (show when upload enabled or when paste added cards) */}
+        {(showUpload || documentPreviewFiles.length > 0) && (
           <FilePreview
             previewFiles={documentPreviewFiles}
             removeFile={removeFile}
@@ -245,6 +318,7 @@ const ChatInputs: React.FC<Props> = ({
               value={userMessage}
               onChange={onChangeUserMessage}
               onPressEnter={onTextareaPressEnter}
+              onPaste={handleTextareaPaste}
               onFocus={onTextareaFocus}
               onBlur={onTextareaBlur}
               onExpandedChange={handleTextareaExpanded}

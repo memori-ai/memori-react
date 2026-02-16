@@ -265,6 +265,22 @@ export const RenderMediaItem = memo(function RenderMediaItem({
             </div>
           );
 
+        // Plain text: snippet preview (same UX as other media / code)
+        case 'text/plain':
+          return medium.content ? (
+            <Snippet preview medium={medium} />
+          ) : (
+            <DocumentCard
+              title={medium.title || 'File'}
+              badge={getFileExtensionFromMime(medium.mimeType)}
+              meta={(() => {
+                const size = getContentSize(medium);
+                return size != null && size > 0 ? formatBytes(size) : null;
+              })()}
+              icon={<File className="memori-media-item--document-icon-svg" />}
+            />
+          );
+
         // HTML files are now handled as file cards (rendered above in the isFile check)
         // This case is kept for backwards compatibility but should not be reached
         case 'text/html':
@@ -449,8 +465,10 @@ export const RenderMediaItem = memo(function RenderMediaItem({
     );
   }
 
-  // Inline previews for code snippets: open in new tab (blob URL if no resource URL)
-  if (isCodeSnippet && item.content && item.mediumID && _onClick) {
+  // Inline previews for code snippets and plain text: Card with preview, click opens modal (same as other media)
+  const isPreviewableText =
+    (isCodeSnippet || item.mimeType === 'text/plain') && !!item.content;
+  if (isPreviewableText && item.mediumID && _onClick) {
     return (
       <div
         className="memori-media-item--link"
