@@ -113,7 +113,7 @@ const ChatBubble: React.FC<Props> = ({
     ''
   );
   const { text: renderedText } = renderMsg(
-    cleanText,
+    message.fromUser ? truncateMessage(cleanText) : cleanText,
     useMathFormatting,
     t('reasoning') || 'Reasoning...',
     showReasoning
@@ -405,7 +405,7 @@ const ChatBubble: React.FC<Props> = ({
               <div
                 dir="auto"
                 className="memori-chat--bubble-content"
-                dangerouslySetInnerHTML={{ __html: renderedText }}
+                dangerouslySetInnerHTML={{ __html: cleanText }}
               />
             </Expandable>
           ) : (
