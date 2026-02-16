@@ -10,6 +10,7 @@ export interface Props {
   value: string;
   onChange: (value: string) => void;
   onPressEnter?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+  onPaste?: (e: React.ClipboardEvent<HTMLTextAreaElement>) => void;
   onFocus?: (e: React.FocusEvent) => void;
   onBlur?: (e: React.FocusEvent) => void;
   onExpandedChange?: (expanded: boolean) => void;
@@ -20,6 +21,7 @@ const ChatTextArea: React.FC<Props> = ({
   value,
   onChange,
   onPressEnter,
+  onPaste,
   onFocus,
   onBlur,
   onExpandedChange,
@@ -124,6 +126,7 @@ const ChatTextArea: React.FC<Props> = ({
               onPressEnter(e);
             }
           }}
+          onPaste={onPaste}
           onFocus={onFocus}
           onBlur={onBlur}
           maxLength={100000}

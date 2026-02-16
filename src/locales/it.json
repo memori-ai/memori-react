@@ -282,6 +282,7 @@
   },
   "upload": {
     "loginRequired": "Login richiesto",
+    "pastedText": "testo-copiato",
     "loginRequiredDescription": "Per caricare immagini, devi prima accedere",
     "uploadFiles": "Carica file ({{shortcut}}+O per aprire il selettore file)",
     "uploadFilesWithShortcut": "{{shortcut}}+O per aprire il selettore file",
@@ -304,7 +305,10 @@
     "uploadSuccessDescription": "Il file è stato caricato con successo",
     "partialUpload": "Solo {{uploaded}} immagini su {{total}} immagini saranno caricate. Massimo {{max}} immagini consentite.",
     "cancel": "Annulla",
-    "dragAndDropFiles": "Trascina qui i file per aggiungerli alla chat"
+    "dragAndDropFiles": "Trascina qui i file per aggiungerli alla chat",
+    "pasteMaxAttachmentsReached": "Massimo {{max}} allegati. Rimuovine uno per aggiungere questo come file.",
+    "pasteContentTooLong": "Il testo incollato è troppo lungo (max {{size}}KB). Accorcialo o dividilo.",
+    "pasteAddedAsAttachment": "Testo incollato aggiunto come allegato"
   },
   "gamification": {
     "level": "Livello",
