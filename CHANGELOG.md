@@ -1,5 +1,12 @@
 
 
+## [8.18.1](https://github.com/memori-ai/memori-react/compare/v8.18.0...v8.18.1) (2026-02-17)
+
+
+### Changes
+
+* remove unused CSS import ([d8823f5](https://github.com/memori-ai/memori-react/commit/d8823f511885428fde73326254b556adbd453b3c))
+
 ## [8.18.0](https://github.com/memori-ai/memori-react/compare/v8.17.3...v8.18.0) (2026-02-17)
 
 
