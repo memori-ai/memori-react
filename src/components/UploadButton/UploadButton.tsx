@@ -29,6 +29,8 @@ interface UploadManagerProps {
     type?: string;
   }[];
   memoriID?: string;
+  /** Override total document payload limit (character count). */
+  maxTotalMessagePayload?: number;
 }
 
 const UploadButton: React.FC<UploadManagerProps> = ({
@@ -39,6 +41,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   setDocumentPreviewFiles,
   documentPreviewFiles,
   memoriID = '',
+  maxTotalMessagePayload,
 }) => {
   // State
   const [isLoading, setIsLoading] = useState(false);
@@ -55,7 +58,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 
   // Calculate total media count
   const currentMediaCount = documentPreviewFiles.length;
-  const remainingSlots = MAX_MEDIA - currentMediaCount;
+  const remainingSlots = MAX_DOCUMENTS_PER_MESSAGE - currentMediaCount;
   const hasReachedMediaLimit = remainingSlots <= 0;
 
   // Error handling - show alerts via toast manager
@@ -101,15 +104,12 @@ const UploadButton: React.FC<UploadManagerProps> = ({
     const fileArray = Array.from(files);
     if (fileArray.length === 0) return;
 
-    const imageFiles: File[] = [];
-    const documentFiles: File[] = [];
-
-    // Separate files by type
+    const supportedFiles: File[] = [];
     fileArray.forEach(file => {
       if (isImageFile(file)) {
-        imageFiles.push(file);
+        supportedFiles.push(file);
       } else if (isDocumentFile(file)) {
-        documentFiles.push(file);
+        supportedFiles.push(file);
       } else {
         addErrorRef.current({
           message: `File "${file.name}" is not a supported image or document type`,
@@ -118,17 +118,33 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       }
     });
 
-    // Calculate total files to be added
-    const totalFilesToAdd = imageFiles.length + documentFiles.length;
-    const newTotalCount = currentMediaCountRef.current + totalFilesToAdd;
+    const totalSupported = supportedFiles.length;
+    if (totalSupported === 0) return;
 
-    // Check if adding these files would exceed the limit
-    if (newTotalCount > MAX_MEDIA) {
+    const remainingSlots = MAX_DOCUMENTS_PER_MESSAGE - currentMediaCountRef.current;
+    if (remainingSlots <= 0) {
       addErrorRef.current({
-        message: `Maximum ${MAX_MEDIA} media files allowed.`,
+        message: `Maximum ${MAX_DOCUMENTS_PER_MESSAGE} media files allowed.`,
         severity: 'error',
       });
       return;
+    }
+
+    const toProcess = supportedFiles.slice(0, remainingSlots);
+    const imageFiles = toProcess.filter(f => isImageFile(f));
+    const documentFiles = toProcess.filter(f => isDocumentFile(f));
+
+    if (totalSupported > remainingSlots) {
+      const skipped = totalSupported - remainingSlots;
+      addErrorRef.current({
+        message:
+          t('upload.filesNotAddedMaxAllowed', {
+            count: skipped,
+            max: MAX_DOCUMENTS_PER_MESSAGE,
+            defaultValue: `${skipped} file(s) not added (maximum ${MAX_DOCUMENTS_PER_MESSAGE} files allowed).`,
+          }) ?? `${skipped} file(s) not added (maximum ${MAX_DOCUMENTS_PER_MESSAGE} files allowed).`,
+        severity: 'info',
+      });
     }
 
     // Process images
@@ -425,6 +441,7 @@ ${file.content}
     }[]
   ): { valid: boolean; message?: string } => {
     const { MAX_TOTAL_MESSAGE_PAYLOAD } = require('../../helpers/constants');
+    const limit = maxTotalMessagePayload ?? MAX_TOTAL_MESSAGE_PAYLOAD;
 
     const existingDocuments = documentPreviewFiles.filter(
       (file: any) => file.type === 'document'
@@ -436,7 +453,7 @@ ${file.content}
       0
     );
 
-    if (totalPayloadSize > MAX_TOTAL_MESSAGE_PAYLOAD) {
+    if (totalPayloadSize > limit) {
       const msg = t('upload.contextSizeExceedsLimit', {
         defaultValue:
           'Context size exceeds the limit. Try reducing the number of files or content in the conversation.',
@@ -548,7 +565,7 @@ ${file.content}
             'memori--document-count-full': hasReachedMediaLimit,
           })}
         >
-          {currentMediaCount}/{MAX_MEDIA}
+          {currentMediaCount}/{MAX_DOCUMENTS_PER_MESSAGE}
         </div>
       )}
 
@@ -556,12 +573,13 @@ ${file.content}
       <div className="memori--hidden-uploader" ref={documentRef}>
         <UploadDocuments
           setDocumentPreviewFiles={handleDocumentFiles}
-          maxDocuments={MAX_MEDIA}
+          maxDocuments={MAX_DOCUMENTS_PER_MESSAGE}
           documentPreviewFiles={documentPreviewFiles}
           onLoadingChange={handleLoadingChange}
           onDocumentError={handleDocumentError}
           onValidateFile={validateDocumentFile}
           onValidatePayloadSize={validatePayloadSize}
+          maxTotalMessagePayload={maxTotalMessagePayload}
         />
       </div>
 
@@ -574,7 +592,7 @@ ${file.content}
           documentPreviewFiles={documentPreviewFiles}
           isMediaAccepted={isMediaAccepted}
           onLoadingChange={handleLoadingChange}
-          maxImages={MAX_MEDIA}
+          maxImages={MAX_DOCUMENTS_PER_MESSAGE}
           memoriID={memoriID}
           onImageError={handleImageError}
           onValidateImageFile={validateImageFile}

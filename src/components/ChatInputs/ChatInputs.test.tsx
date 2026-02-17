@@ -249,7 +249,7 @@ describe('paste as card (long text becomes attachment)', () => {
     });
   });
 
-  it('does not add card for short paste', () => {
+  it('adds card for short paste (all paste treated as document)', async () => {
     const shortText = 'hello';
     render(
       <ChatInputs
@@ -262,7 +262,9 @@ describe('paste as card (long text becomes attachment)', () => {
     const paste = createPasteEvent(shortText);
     fireEvent.paste(textarea!, paste);
 
-    expect(screen.queryByText('upload.pastedText')).toBeNull();
+    await waitFor(() => {
+      expect(screen.getByText('upload.pastedText')).toBeTruthy();
+    });
   });
 
   it('adds card even when showUpload is false (paste-as-card always enabled)', async () => {
@@ -331,8 +333,8 @@ describe('paste as card (long text becomes attachment)', () => {
     expect(screen.queryByText('upload.pastedText')).toBeNull();
   });
 
-  it('does not add card when paste has exactly 150 lines (boundary exclusive)', () => {
-    const exactly150Lines = Array(100).fill('line').join('\n');
+  it('adds card when paste has few lines', async () => {
+    const fewLines = Array(5).fill('line').join('\n');
     render(
       <ChatInputs
         {...defaultProps}
@@ -341,12 +343,14 @@ describe('paste as card (long text becomes attachment)', () => {
       />
     );
     const textarea = document.querySelector('textarea');
-    fireEvent.paste(textarea!, createPasteEvent(exactly150Lines));
-    expect(screen.queryByText('upload.pastedText')).toBeNull();
+    fireEvent.paste(textarea!, createPasteEvent(fewLines));
+    await waitFor(() => {
+      expect(screen.getByText('upload.pastedText')).toBeTruthy();
+    });
   });
 
-  it('does not add card when paste has exactly 8000 chars (boundary exclusive)', () => {
-    const exactly8000Chars = 'x'.repeat(PASTE_AS_CARD_CHAR_THRESHOLD);
+  it('adds card when paste has few chars', async () => {
+    const fewChars = 'hi';
     render(
       <ChatInputs
         {...defaultProps}
@@ -355,8 +359,10 @@ describe('paste as card (long text becomes attachment)', () => {
       />
     );
     const textarea = document.querySelector('textarea');
-    fireEvent.paste(textarea!, createPasteEvent(exactly8000Chars));
-    expect(screen.queryByText('upload.pastedText')).toBeNull();
+    fireEvent.paste(textarea!, createPasteEvent(fewChars));
+    await waitFor(() => {
+      expect(screen.getByText('upload.pastedText')).toBeTruthy();
+    });
   });
 
   it('does not add card when clipboard has files (handler returns early)', () => {
@@ -428,7 +434,7 @@ describe('paste as card (long text becomes attachment)', () => {
 
   it('calls sendMessage with pasted card in media when user sends', async () => {
     const sendMessageMock = jest.fn();
-    const longText = 'x'.repeat(PASTE_AS_CARD_CHAR_THRESHOLD + 1);
+    const pastedText = 'pasted content here';
     const { container } = render(
       <ChatInputs
         {...defaultProps}
@@ -439,7 +445,7 @@ describe('paste as card (long text becomes attachment)', () => {
       />
     );
     const textarea = document.querySelector('textarea');
-    fireEvent.paste(textarea!, createPasteEvent(longText));
+    fireEvent.paste(textarea!, createPasteEvent(pastedText));
     await waitFor(() => {
       expect(screen.getByText('upload.pastedText')).toBeTruthy();
     });
@@ -448,18 +454,17 @@ describe('paste as card (long text becomes attachment)', () => {
     fireEvent.click(sendButton!);
 
     expect(sendMessageMock).toHaveBeenCalledTimes(1);
-    expect(sendMessageMock).toHaveBeenCalledWith(
-      'hello',
-      expect.arrayContaining([
-        expect.objectContaining({
-          mimeType: 'text/plain',
-          title: 'upload.pastedText',
-          content: longText,
-          type: 'document',
-          properties: expect.objectContaining({ isAttachedFile: true }),
-          mediumID: expect.any(String),
-        }),
-      ])
-    );
+    const [, media] = sendMessageMock.mock.calls[0];
+    expect(media).toHaveLength(1);
+    expect(media![0]).toMatchObject({
+      mimeType: 'text/plain',
+      title: 'upload.pastedText',
+      type: 'document',
+      properties: expect.objectContaining({ isAttachedFile: true }),
+    });
+    expect(media![0].mediumID).toBeDefined();
+    expect(media![0].content).toContain('<document_attachment');
+    expect(media![0].content).toContain('</document_attachment>');
+    expect(media![0].content).toContain(pastedText);
   });
 });

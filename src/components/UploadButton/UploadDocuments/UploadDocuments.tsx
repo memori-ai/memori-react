@@ -3,7 +3,10 @@ import cx from 'classnames';
 import { Spin } from '@memori.ai/ui';
 import { FileText as DocumentIcon } from 'lucide-react';
 import { Modal } from '@memori.ai/ui';
-import { MAX_DOCUMENT_CONTENT_LENGTH } from '../../../helpers/constants';
+import {
+  MAX_DOCUMENT_CONTENT_LENGTH,
+  MAX_TOTAL_MESSAGE_PAYLOAD,
+} from '../../../helpers/constants';
 
 // Types
 type PreviewFile = {
@@ -52,6 +55,8 @@ interface UploadDocumentsProps {
       mimeType: string;
     }[]
   ) => boolean | { valid: boolean; message?: string };
+  /** Same as total payload: overrides per-document content limit (character count). */
+  maxTotalMessagePayload?: number;
 }
 
 const UploadDocuments: React.FC<UploadDocumentsProps> = ({
@@ -62,6 +67,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   onDocumentError,
   onValidateFile,
   onValidatePayloadSize,
+  maxTotalMessagePayload,
 }) => {
   const { t } = useTranslation();
 
@@ -234,13 +240,14 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         text = await extractTextFromXLSX(file);
       }
 
+      const perDocumentLimit = maxTotalMessagePayload ?? MAX_DOCUMENT_CONTENT_LENGTH;
       let wasTruncated = false;
-      if (text && text.length > MAX_DOCUMENT_CONTENT_LENGTH) {
+      if (text && text.length > perDocumentLimit) {
         console.warn(
           'Document content exceeds length limit:',
           text.length,
           '>',
-          MAX_DOCUMENT_CONTENT_LENGTH
+          perDocumentLimit
         );
         onDocumentError?.({
           message: t('upload.contextSizeExceedsLimit', {
@@ -251,7 +258,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         });
         wasTruncated = true;
         text =
-          text.substring(0, MAX_DOCUMENT_CONTENT_LENGTH) +
+          text.substring(0, perDocumentLimit) +
           '\n\n[Content truncated due to size limits]';
       }
       return { text, wasTruncated };
@@ -273,13 +280,25 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
     // Check current total media count (images + documents)
     const currentMediaCount = documentPreviewFiles.length;
+    const remainingSlots = maxDocuments
+      ? Math.max(0, maxDocuments - currentMediaCount)
+      : files.length;
+    const filesToProcess = files.slice(0, remainingSlots);
 
-    // Check if adding these files would exceed the total media limit
-    if (maxDocuments && currentMediaCount + files.length > maxDocuments) {
+    if (files.length > filesToProcess.length) {
+      const skipped = files.length - filesToProcess.length;
       onDocumentError?.({
-        message: `Maximum ${maxDocuments} media files allowed. You can upload ${Math.max(0, maxDocuments - currentMediaCount)} more file${maxDocuments - currentMediaCount !== 1 ? 's' : ''}.`,
-        severity: 'error',
+        message:
+          t('upload.documentsNotAddedMaxAllowed', {
+            count: skipped,
+            max: maxDocuments ?? 10,
+            defaultValue: `${skipped} document(s) not added (maximum ${maxDocuments ?? 10} files allowed).`,
+          }) ?? `${skipped} document(s) not added (maximum ${maxDocuments ?? 10} files allowed).`,
+        severity: 'info',
       });
+    }
+
+    if (filesToProcess.length === 0) {
       if (documentInputRef.current) {
         documentInputRef.current.value = '';
       }
@@ -296,8 +315,14 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       mimeType: string;
     }[] = [];
     let hadTruncation = false;
+    let skippedDueToPayload = 0;
+    const payloadLimit =
+      maxTotalMessagePayload ?? MAX_TOTAL_MESSAGE_PAYLOAD;
+    const existingTotal = documentPreviewFiles
+      .filter((f: any) => f.type === 'document')
+      .reduce((sum: number, f: any) => sum + (f.content?.length ?? 0), 0);
 
-    for (const file of files) {
+    for (const file of filesToProcess) {
       if (!validateDocumentFile(file)) {
         continue;
       }
@@ -309,6 +334,14 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         if (wasTruncated) hadTruncation = true;
 
         if (text) {
+          const processedSum = processedFiles.reduce(
+            (s, d) => s + d.content.length,
+            0
+          );
+          if (existingTotal + processedSum + text.length > payloadLimit) {
+            skippedDueToPayload += 1;
+            continue;
+          }
           processedFiles.push({
             name: file.name,
             id: fileId,
@@ -327,23 +360,18 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       }
     }
 
-    // Add new documents to existing ones
-    if (processedFiles.length > 0) {
-      const payloadResult = validatePayloadSize(processedFiles);
-      if (!payloadResult.valid) {
-        if (!hadTruncation && payloadResult.message) {
-          onDocumentError?.({
-            message: payloadResult.message,
-            severity: 'error',
-          });
-        }
-        setIsLoading(false);
-        if (documentInputRef.current) {
-          documentInputRef.current.value = '';
-        }
-        return;
-      }
+    if (skippedDueToPayload > 0) {
+      onDocumentError?.({
+        message: t('upload.documentsNotAddedContextSize', {
+          count: skippedDueToPayload,
+          defaultValue: `${skippedDueToPayload} document(s) not added (context size limit).`,
+        }),
+        severity: 'info',
+      });
+    }
 
+    // Add new documents to existing ones (only those that fit within payload)
+    if (processedFiles.length > 0) {
       const existingDocuments = documentPreviewFiles.filter(
         (file: any) => file.type === 'document'
       );

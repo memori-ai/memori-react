@@ -310,7 +310,11 @@
     "pasteMaxAttachmentsReached": "Massimo {{max}} allegati. Rimuovine uno per aggiungere questo come file.",
     "pasteContentTooLong": "Il testo incollato è troppo lungo (max {{size}}KB). Accorcialo o dividilo.",
     "pasteAddedAsAttachment": "Testo incollato aggiunto come allegato",
-    "contextSizeExceedsLimit": "La dimensione del contesto supera il limite. Prova a ridurre il numero di file o il contenuto della conversazione."
+    "contextSizeExceedsLimit": "La dimensione del contesto supera il limite. Prova a ridurre il numero di file o il contenuto della conversazione.",
+    "filesNotAddedMaxAllowed": "{{count}} file non aggiunto/i (massimo {{max}} file consentiti).",
+    "documentsNotAddedMaxAllowed": "{{count}} documento/i non aggiunto/i (massimo {{max}} file consentiti).",
+    "imagesNotAddedMaxAllowed": "{{count}} immagine/i non aggiunta/e (massimo {{max}} file consentiti).",
+    "documentsNotAddedContextSize": "{{count}} documento/i non aggiunto/i (limite dimensione contesto)."
   },
   "gamification": {
     "level": "Livello",
