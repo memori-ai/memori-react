@@ -1,5 +1,23 @@
 
 
+## [8.18.0](https://github.com/memori-ai/memori-react/compare/v8.17.3...v8.18.0) (2026-02-17)
+
+
+### Features
+
+* enhance paste handling with boundary checks ([1950778](https://github.com/memori-ai/memori-react/commit/19507788e15f0ebb8ea94ed884421a0ebda6ffe7))
+* implement paste handling for text input ([36836f6](https://github.com/memori-ai/memori-react/commit/36836f652dc6af54f943b842667175ad95368c45))
+* improve file preview interactions ([cd4bbb4](https://github.com/memori-ai/memori-react/commit/cd4bbb44722d2c1858e16e339b1e384505ddfdbf))
+* localize pasted text label ([df8d637](https://github.com/memori-ai/memori-react/commit/df8d63768d1e10743dbb87ca301b0df737b39a31))
+* **upload:** enhance error handling and user feedback ([7f71b30](https://github.com/memori-ai/memori-react/commit/7f71b303b7bc4df00a1a6a5a785d8536b44ce071))
+* **upload:** smart upload — partial upload when over file or payload limits ([b70767e](https://github.com/memori-ai/memori-react/commit/b70767e98cb0cb30a4be0503d887267cbd210277))
+
+
+### Bug Fixes
+
+* update ChatBubble to conditionally truncate messages ([4930971](https://github.com/memori-ai/memori-react/commit/4930971a9c8253643f10837a32c24c5d1d3c2b69))
+* update snapshot ([8c763aa](https://github.com/memori-ai/memori-react/commit/8c763aaac1a4fdb30adad24f96682ab7cc4ff3f0))
+
 ## [8.17.3](https://github.com/memori-ai/memori-react/compare/v8.17.2...v8.17.3) (2026-02-12)
 
 
