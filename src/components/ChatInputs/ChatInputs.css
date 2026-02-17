@@ -35,9 +35,9 @@
 
 /* Wrapper so FilePreview horizontal scroll is constrained */
 .memori-chat-inputs--preview-wrapper {
+    overflow: hidden;
     width: 100%;
     min-width: 0;
-    overflow: hidden;
 }
 
 .memori-chat-inputs--container {

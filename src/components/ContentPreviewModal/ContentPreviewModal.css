@@ -11,16 +11,16 @@
 }
 
 .memori-content-preview-modal.memori-modal .memori-modal--panel {
+  z-index: 10001;
   overflow: hidden;
+  min-width: 500px;
+  min-height: 500px;
+  max-height: 80vh;
   border-radius: 16px;
   background: var(--memori-content-preview-bg, #fafafa);
   box-shadow:
     0 25px 50px -12px rgba(0, 0, 0, 0.25),
     0 0 0 1px rgba(0, 0, 0, 0.05);
-  z-index: 10001;
-  min-height: 500px;
-  max-height: 80vh;
-  min-width: 500px;
   overflow-y: auto;
 }
 
