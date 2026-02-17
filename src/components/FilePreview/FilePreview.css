@@ -195,10 +195,36 @@
 }
 
 .memori--modal-title-preview {
-    margin-top: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
-    margin-bottom: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
-    font-size: var(--memori-text-size-heading);
-    font-weight: var(--memori-text-weight-semibold);
+    margin-top: 12px;
+    margin-bottom: 12px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.memori--remove-button {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    padding: 4px;
+    border: none;
+    border-radius: 50%;
+    background-color: #e03131;
+    color: white;
+    cursor: pointer;
+    opacity: 0;
+    transform: scale(0.75);
+    transition: all 0.2s ease;
+}
+
+/* Show remove button only when user hovers the preview item */
+.memori--preview-item:hover .memori--remove-button {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.memori--remove-button:hover {
+    background-color: #c92a2a;
+    transform: scale(1.1);
 }
 
 .memori--remove-icon {
