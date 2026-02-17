@@ -283,6 +283,7 @@
   "upload": {
     "loginRequired": "Login richiesto",
     "pastedText": "testo-copiato",
+    "uploadNotification": "Upload Fallito",
     "loginRequiredDescription": "Per caricare immagini, devi prima accedere",
     "uploadFiles": "Carica file ({{shortcut}}+O per aprire il selettore file)",
     "uploadFilesWithShortcut": "{{shortcut}}+O per aprire il selettore file",
@@ -308,7 +309,8 @@
     "dragAndDropFiles": "Trascina qui i file per aggiungerli alla chat",
     "pasteMaxAttachmentsReached": "Massimo {{max}} allegati. Rimuovine uno per aggiungere questo come file.",
     "pasteContentTooLong": "Il testo incollato è troppo lungo (max {{size}}KB). Accorcialo o dividilo.",
-    "pasteAddedAsAttachment": "Testo incollato aggiunto come allegato"
+    "pasteAddedAsAttachment": "Testo incollato aggiunto come allegato",
+    "contextSizeExceedsLimit": "La dimensione del contesto supera il limite. Prova a ridurre il numero di file o il contenuto della conversazione."
   },
   "gamification": {
     "level": "Livello",

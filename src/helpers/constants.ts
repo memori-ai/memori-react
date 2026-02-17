@@ -212,7 +212,7 @@ export const MAX_TOTAL_MESSAGE_PAYLOAD = 200000; // 200KB total payload limit
 export const MAX_DOCUMENT_CONTENT_LENGTH = 200000; // 200KB per document content
 
 /** When pasted text has more than this many lines, it is added as a document card instead of inline. */
-export const PASTE_AS_CARD_LINE_THRESHOLD = 150;
+export const PASTE_AS_CARD_LINE_THRESHOLD = 100;
 
 /** When pasted text exceeds this length (e.g. one long line from CSV/table), it is added as a document card. */
-export const PASTE_AS_CARD_CHAR_THRESHOLD = 8000;
+export const PASTE_AS_CARD_CHAR_THRESHOLD = 4200;
