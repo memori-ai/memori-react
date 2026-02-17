@@ -26,8 +26,6 @@ FilePreviewProps) => {
     type?: string;
   } | null>(null);
 
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
-
   const getFileType = (filename: string, type?: string) => {
     // If type is explicitly provided, use it first
     if (type === 'image') {
@@ -136,8 +134,6 @@ FilePreviewProps) => {
                     ? 'memori--preview-item--image'
                     : 'memori--preview-item--document'
                 }`}
-                onMouseEnter={() => setHoveredId(file.id)}
-                onMouseLeave={() => setHoveredId(null)}
                 onClick={() => setSelectedFile(file)}
               >
                 {isImageContent(file.content, file.type) ? (
@@ -160,9 +156,7 @@ FilePreviewProps) => {
                     shape="rounded"
                     icon={<CloseIcon />}
                     danger
-                    className={`memori--remove-button ${
-                      hoveredId === file.id ? 'visible' : ''
-                    }`}
+                    className="memori--remove-button"
                     onClick={e => {
                       e.stopPropagation();
                       removeFile(file.id, file?.mediumID);

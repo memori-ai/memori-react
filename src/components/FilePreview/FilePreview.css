@@ -223,7 +223,8 @@
     transition: all 0.2s ease;
 }
 
-.memori--remove-button.visible {
+/* Show remove button only when user hovers the preview item */
+.memori--preview-item:hover .memori--remove-button {
     opacity: 1;
     transform: scale(1);
 }
