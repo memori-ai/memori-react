@@ -1,6 +1,9 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { FileText as DocumentIcon, Image as ImageIcon, Upload as UploadIcon } from 'lucide-react';
-import { Spin, useAlertManager } from '@memori.ai/ui';
+import { FileText as DocumentIcon } from 'lucide-react';
+import { Image as ImageIcon } from 'lucide-react';
+import { Upload as UploadIcon } from 'lucide-react';
+import { Spin, useAlertManager } from '@memori.ai/ui'; 
+import { Alert } from '@memori.ai/ui';
 import cx from 'classnames';
 import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
@@ -151,7 +154,11 @@ const UploadButton: React.FC<UploadManagerProps> = ({
           
           // Only proceed if we successfully added files
           if (dataTransfer.files.length > 0) {
-            imageInput.files = dataTransfer.files;
+            try {
+              imageInput.files = dataTransfer.files;
+            } catch {
+              // JSDOM and some environments do not allow assigning to input.files
+            }
             const changeEvent = new Event('change', { bubbles: true });
             imageInput.dispatchEvent(changeEvent);
           }
@@ -175,7 +182,11 @@ const UploadButton: React.FC<UploadManagerProps> = ({
         
         // Only proceed if we successfully added files
         if (dataTransfer.files.length > 0) {
-          documentInput.files = dataTransfer.files;
+          try {
+            documentInput.files = dataTransfer.files;
+          } catch {
+            // JSDOM and some environments do not allow assigning to input.files
+          }
           const changeEvent = new Event('change', { bubbles: true });
           documentInput.dispatchEvent(changeEvent);
         }
@@ -404,7 +415,7 @@ ${file.content}
     return true;
   };
 
-  // Validate total payload size
+  // Validate total payload size. Returns result so caller can avoid showing this error when truncation was already shown.
   const validatePayloadSize = (
     newDocuments: {
       name: string;
@@ -412,7 +423,7 @@ ${file.content}
       content: string;
       mimeType: string;
     }[]
-  ): boolean => {
+  ): { valid: boolean; message?: string } => {
     const { MAX_TOTAL_MESSAGE_PAYLOAD } = require('../../helpers/constants');
 
     const existingDocuments = documentPreviewFiles.filter(
@@ -426,14 +437,14 @@ ${file.content}
     );
 
     if (totalPayloadSize > MAX_TOTAL_MESSAGE_PAYLOAD) {
-      addError({
-        message: `Total document content exceeds ${MAX_TOTAL_MESSAGE_PAYLOAD} characters limit. Please remove some documents.`,
-        severity: 'error',
+      const msg = t('upload.contextSizeExceedsLimit', {
+        defaultValue:
+          'Context size exceeds the limit. Try reducing the number of files or content in the conversation.',
       });
-      return false;
+      return { valid: false, message: typeof msg === 'string' ? msg : String(msg) };
     }
 
-    return true;
+    return { valid: true };
   };
 
   // Handle document upload errors
@@ -570,6 +581,21 @@ ${file.content}
         />
       </div>
 
+      {/* Error messages container */}
+      <div className="memori--error-message-container">
+        {errors.map((error, index) => (
+          <Alert
+            className="memori--error-message-alert"
+            key={`${error.message}-${index}`}
+            open={true}
+            type={error.severity}
+            title={t('upload.uploadNotification', { defaultValue: 'Upload notification' })}
+            description={error.message}
+            onClose={() => removeError(error.message)}
+            width="350px"
+          />
+        ))}
+      </div>
     </div>
   );
 };

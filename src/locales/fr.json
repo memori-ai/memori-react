@@ -254,6 +254,7 @@
   },
   "upload": {
     "loginRequired": "Connexion requise",
+    "uploadNotification": "Échec du téléchargement",
     "loginRequiredDescription": "Veuillez vous connecter pour télécharger des images",
     "uploadFiles": "Télécharger des fichiers ({{shortcut}}+O pour ouvrir le sélecteur de fichiers)",
     "uploadFilesWithShortcut": "{{shortcut}}+O pour ouvrir le sélecteur de fichiers",
@@ -268,7 +269,8 @@
     "uploadFailed": "Échec du téléchargement",
     "uploadSuccess": "Téléchargement réussi",
     "uploadSuccessDescription": "Le fichier a été téléchargé avec succès",
-    "dragAndDropFiles": "Glissez et déposez les fichiers ici pour les ajouter à la chat"
+    "dragAndDropFiles": "Glissez et déposez les fichiers ici pour les ajouter à la chat",
+    "contextSizeExceedsLimit": "La taille du contexte dépasse la limite. Essayez de réduire le nombre de fichiers ou le contenu de la conversation."
   },
   "media": {
     "title": "Titre",

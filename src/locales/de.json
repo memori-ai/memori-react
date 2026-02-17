@@ -246,6 +246,7 @@
   },
   "upload": {
     "loginRequired": "Login erforderlich",
+    "uploadNotification": "Hochladen fehlgeschlagen",
     "loginRequiredDescription": "Bitte melden Sie sich an, um Bilder hochzuladen",
     "uploadFiles": "Dateien hochladen ({{shortcut}}+O zum Öffnen des Datei-Selektors)",
     "uploadFilesWithShortcut": "{{shortcut}}+O zum Öffnen des Datei-Selektors",

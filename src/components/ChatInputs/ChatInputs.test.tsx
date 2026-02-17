@@ -15,6 +15,29 @@ jest.mock('react-hot-toast', () => ({
   },
 }));
 
+// jsdom does not define DataTransfer; UploadButton's paste handler uses it when clipboard has files
+if (typeof globalThis.DataTransfer === 'undefined') {
+  (globalThis as any).DataTransfer = class DataTransfer {
+    _files: File[] = [];
+    get files(): File[] {
+      return this._files;
+    }
+    items = {
+      add: (file: File) => {
+        this._files.push(file);
+      },
+    };
+  };
+}
+
+// jsdom does not define speechSynthesis/SpeechSynthesisUtterance; ChatInputs uses them in onSendMessage
+if (typeof (globalThis as any).speechSynthesis === 'undefined') {
+  (globalThis as any).speechSynthesis = { speak: jest.fn() };
+}
+if (typeof (globalThis as any).SpeechSynthesisUtterance === 'undefined') {
+  (globalThis as any).SpeechSynthesisUtterance = function () {};
+}
+
 const defaultProps = {
   dialogState,
   userMessage: '',
@@ -202,7 +225,7 @@ describe('paste as card (long text becomes attachment)', () => {
     fireEvent.paste(textarea!, paste);
 
     await waitFor(() => {
-      expect(screen.getByText(/upload\.pastedText\.txt|pasted-text\.txt/)).toBeTruthy();
+      expect(screen.getByText(/pasted-text/)).toBeTruthy();
     });
   });
 
@@ -222,7 +245,7 @@ describe('paste as card (long text becomes attachment)', () => {
     fireEvent.paste(textarea!, paste);
 
     await waitFor(() => {
-      expect(screen.getByText(/upload\.pastedText\.txt|pasted-text\.txt/)).toBeTruthy();
+      expect(screen.getByText(/pasted-text/)).toBeTruthy();
     });
   });
 
@@ -239,7 +262,7 @@ describe('paste as card (long text becomes attachment)', () => {
     const paste = createPasteEvent(shortText);
     fireEvent.paste(textarea!, paste);
 
-    expect(screen.queryByText(/pasted-text\.txt|upload\.pastedText\.txt/)).toBeNull();
+    expect(screen.queryByText(/pasted-text/)).toBeNull();
   });
 
   it('adds card even when showUpload is false (paste-as-card always enabled)', async () => {
@@ -254,7 +277,7 @@ describe('paste as card (long text becomes attachment)', () => {
     fireEvent.paste(textarea!, createPasteEvent(longText));
 
     await waitFor(() => {
-      expect(screen.getByText(/upload\.pastedText\.txt|pasted-text\.txt/)).toBeTruthy();
+      expect(screen.getByText(/pasted-text/)).toBeTruthy();
     });
   });
 
@@ -305,6 +328,138 @@ describe('paste as card (long text becomes attachment)', () => {
       const toast = require('react-hot-toast').default;
       expect(toast.error).toHaveBeenCalled();
     });
-    expect(screen.queryByText(/pasted-text\.txt|upload\.pastedText\.txt/)).toBeNull();
+    expect(screen.queryByText(/pasted-text/)).toBeNull();
+  });
+
+  it('does not add card when paste has exactly 100 lines (boundary exclusive)', () => {
+    const exactly150Lines = Array(100).fill('line').join('\n');
+    render(
+      <ChatInputs
+        {...defaultProps}
+        showUpload={true}
+        dialogState={{ ...dialogState, acceptsMedia: true }}
+      />
+    );
+    const textarea = document.querySelector('textarea');
+    fireEvent.paste(textarea!, createPasteEvent(exactly150Lines));
+    expect(screen.queryByText(/pasted-text/)).toBeNull();
+  });
+
+  it('does not add card when paste has exactly 8000 chars (boundary exclusive)', () => {
+    const exactly8000Chars = 'x'.repeat(PASTE_AS_CARD_CHAR_THRESHOLD);
+    render(
+      <ChatInputs
+        {...defaultProps}
+        showUpload={true}
+        dialogState={{ ...dialogState, acceptsMedia: true }}
+      />
+    );
+    const textarea = document.querySelector('textarea');
+    fireEvent.paste(textarea!, createPasteEvent(exactly8000Chars));
+    expect(screen.queryByText(/pasted-text/)).toBeNull();
+  });
+
+  it('does not add card when clipboard has files (handler returns early)', () => {
+    const longText = 'x'.repeat(PASTE_AS_CARD_CHAR_THRESHOLD + 1);
+    const file = new File(['a'], 'a.txt', { type: 'text/plain' });
+    const paste = createPasteEvent(longText, [file]);
+    render(
+      <ChatInputs
+        {...defaultProps}
+        showUpload={true}
+        dialogState={{ ...dialogState, acceptsMedia: true }}
+      />
+    );
+    const textarea = document.querySelector('textarea');
+    fireEvent.paste(textarea!, paste);
+    expect(screen.queryByText(/pasted-text/)).toBeNull();
+  });
+
+  it('does not add card for empty or whitespace-only paste', () => {
+    render(
+      <ChatInputs
+        {...defaultProps}
+        showUpload={true}
+        dialogState={{ ...dialogState, acceptsMedia: true }}
+      />
+    );
+    const textarea = document.querySelector('textarea');
+    fireEvent.paste(textarea!, createPasteEvent(''));
+    fireEvent.paste(textarea!, createPasteEvent('   \n\t  '));
+    expect(screen.queryByText(/pasted-text/)).toBeNull();
+  });
+
+  it('adds two cards when same long text is pasted twice (duplicate paste)', async () => {
+    const longText = 'x'.repeat(PASTE_AS_CARD_CHAR_THRESHOLD + 1);
+    render(
+      <ChatInputs
+        {...defaultProps}
+        showUpload={true}
+        dialogState={{ ...dialogState, acceptsMedia: true }}
+      />
+    );
+    const textarea = document.querySelector('textarea');
+    fireEvent.paste(textarea!, createPasteEvent(longText));
+    await waitFor(() => {
+      expect(screen.getByText(/pasted-text/)).toBeTruthy();
+    });
+    fireEvent.paste(textarea!, createPasteEvent(longText));
+    await waitFor(() => {
+      expect(document.querySelectorAll('.memori--preview-filename').length).toBe(2);
+    });
+  });
+
+  it('shows FilePreview when showUpload is false but pasted card was added', async () => {
+    const longText = 'x'.repeat(PASTE_AS_CARD_CHAR_THRESHOLD + 1);
+    render(
+      <ChatInputs
+        {...defaultProps}
+        showUpload={false}
+      />
+    );
+    expect(document.querySelector('.memori--preview-container')).toBeNull();
+    const textarea = document.querySelector('textarea');
+    fireEvent.paste(textarea!, createPasteEvent(longText));
+    await waitFor(() => {
+      expect(screen.getByText(/pasted-text/)).toBeTruthy();
+    });
+    expect(document.querySelector('.memori--preview-container')).toBeTruthy();
+  });
+
+  it('calls sendMessage with pasted card in media when user sends', async () => {
+    const sendMessageMock = jest.fn();
+    const longText = 'x'.repeat(PASTE_AS_CARD_CHAR_THRESHOLD + 1);
+    const { container } = render(
+      <ChatInputs
+        {...defaultProps}
+        showUpload={true}
+        userMessage="hello"
+        sendMessage={sendMessageMock}
+        dialogState={{ ...dialogState, acceptsMedia: true }}
+      />
+    );
+    const textarea = document.querySelector('textarea');
+    fireEvent.paste(textarea!, createPasteEvent(longText));
+    await waitFor(() => {
+      expect(screen.getByText(/pasted-text/)).toBeTruthy();
+    });
+    const sendButton = container.querySelector('.memori-chat-inputs--send-btn');
+    expect(sendButton).toBeTruthy();
+    fireEvent.click(sendButton!);
+
+    expect(sendMessageMock).toHaveBeenCalledTimes(1);
+    expect(sendMessageMock).toHaveBeenCalledWith(
+      'hello',
+      expect.arrayContaining([
+        expect.objectContaining({
+          mimeType: 'text/plain',
+          title: 'pasted-text',
+          content: longText,
+          type: 'document',
+          properties: expect.objectContaining({ isAttachedFile: true }),
+          mediumID: expect.any(String),
+        }),
+      ])
+    );
   });
 });

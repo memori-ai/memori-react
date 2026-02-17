@@ -246,6 +246,7 @@
   },
   "upload": {
     "loginRequired": "Connexion requise",
+    "uploadNotification": "Échec del téléchargement",
     "loginRequiredDescription": "Veuillez vous connecter pour télécharger des images",
     "uploadFiles": "Télécharger des fichiers ({{shortcut}}+O para abrir el selector de archivos)",
     "uploadFilesWithShortcut": "{{shortcut}}+O para abrir el selector de archivos",

@@ -231,9 +231,9 @@ const ChatInputs: React.FC<Props> = ({
       if (text.length > MAX_DOCUMENT_CONTENT_LENGTH) {
         e.preventDefault();
         toast.error(
-          t('upload.pasteContentTooLong', {
-            size: Math.round(MAX_DOCUMENT_CONTENT_LENGTH / 1024),
-            defaultValue: `Pasted content is too long (max ${Math.round(MAX_DOCUMENT_CONTENT_LENGTH / 1024)}KB). Shorten or split it.`,
+          t('upload.contextSizeExceedsLimit', {
+            defaultValue:
+              'Context size exceeds the limit. Try reducing the number of files or content in the conversation.',
           })
         );
         return;
@@ -241,7 +241,7 @@ const ChatInputs: React.FC<Props> = ({
 
       e.preventDefault();
       const newFile = {
-        name: 'pasted-text.txt',  
+        name: 'pasted-text',  
         id: `paste_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
         content: text,
         mediumID: undefined as string | undefined,

@@ -51,7 +51,7 @@ interface UploadDocumentsProps {
       content: string;
       mimeType: string;
     }[]
-  ) => boolean;
+  ) => boolean | { valid: boolean; message?: string };
 }
 
 const UploadDocuments: React.FC<UploadDocumentsProps> = ({
@@ -63,6 +63,8 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   onValidateFile,
   onValidatePayloadSize,
 }) => {
+  const { t } = useTranslation();
+
   // State
   const [isLoading, setIsLoading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<PreviewFile | null>(null);
@@ -85,7 +87,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
     return true;
   };
 
-  // Validate total payload size
+  // Validate total payload size (returns result object for conditional error display)
   const validatePayloadSize = (
     newDocuments: {
       name: string;
@@ -93,11 +95,15 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       content: string;
       mimeType: string;
     }[]
-  ): boolean => {
+  ): { valid: boolean; message?: string } => {
     if (onValidatePayloadSize) {
-      return onValidatePayloadSize(newDocuments);
+      const result = onValidatePayloadSize(newDocuments);
+      if (typeof result === 'boolean') {
+        return result ? { valid: true } : { valid: false, message: '' };
+      }
+      return result;
     }
-    return true;
+    return { valid: true };
   };
 
   const extractTextFromPDF = async (file: File): Promise<string> => {
@@ -212,7 +218,9 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
     }
   };
 
-  const processDocumentFile = async (file: File): Promise<string | null> => {
+  const processDocumentFile = async (
+    file: File
+  ): Promise<{ text: string | null; wasTruncated: boolean }> => {
     const fileExt = file.name.split('.').pop()?.toLowerCase() || '';
 
     try {
@@ -226,6 +234,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         text = await extractTextFromXLSX(file);
       }
 
+      let wasTruncated = false;
       if (text && text.length > MAX_DOCUMENT_CONTENT_LENGTH) {
         console.warn(
           'Document content exceeds length limit:',
@@ -234,14 +243,18 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           MAX_DOCUMENT_CONTENT_LENGTH
         );
         onDocumentError?.({
-          message: `File "${file.name}" content exceeds ${MAX_DOCUMENT_CONTENT_LENGTH} characters and was truncated`,
-          severity: 'warning',
+          message: t('upload.contextSizeExceedsLimit', {
+            defaultValue:
+              'Context size exceeds the limit. Try reducing the number of files or content in the conversation.',
+          }),
+          severity: 'error',
         });
+        wasTruncated = true;
         text =
           text.substring(0, MAX_DOCUMENT_CONTENT_LENGTH) +
           '\n\n[Content truncated due to size limits]';
       }
-      return text;
+      return { text, wasTruncated };
     } catch (error) {
       console.error('Document processing failed:', error);
       throw new Error(
@@ -282,6 +295,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       content: string;
       mimeType: string;
     }[] = [];
+    let hadTruncation = false;
 
     for (const file of files) {
       if (!validateDocumentFile(file)) {
@@ -291,7 +305,8 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       const fileId = Math.random().toString(36).substr(2, 9);
 
       try {
-        const text = await processDocumentFile(file);
+        const { text, wasTruncated } = await processDocumentFile(file);
+        if (wasTruncated) hadTruncation = true;
 
         if (text) {
           processedFiles.push({
@@ -314,8 +329,14 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
     // Add new documents to existing ones
     if (processedFiles.length > 0) {
-      // Validate total payload size
-      if (!validatePayloadSize(processedFiles)) {
+      const payloadResult = validatePayloadSize(processedFiles);
+      if (!payloadResult.valid) {
+        if (!hadTruncation && payloadResult.message) {
+          onDocumentError?.({
+            message: payloadResult.message,
+            severity: 'error',
+          });
+        }
         setIsLoading(false);
         if (documentInputRef.current) {
           documentInputRef.current.value = '';
