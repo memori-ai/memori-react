@@ -248,7 +248,7 @@ const ChatInputs: React.FC<Props> = ({
 
       e.preventDefault();
       const newFile = {
-        name: 'pasted-text',  
+        name: t('upload.pastedText') || 'pasted-text',  
         id: `paste_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
         content: text,
         mediumID: undefined as string | undefined,
