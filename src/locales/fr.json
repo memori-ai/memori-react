@@ -275,7 +275,11 @@
     "filesNotAddedMaxAllowed": "{{count}} fichier(s) non ajouté(s) (maximum {{max}} fichiers autorisés).",
     "documentsNotAddedMaxAllowed": "{{count}} document(s) non ajouté(s) (maximum {{max}} fichiers autorisés).",
     "imagesNotAddedMaxAllowed": "{{count}} image(s) non ajoutée(s) (maximum {{max}} fichiers autorisés).",
-    "documentsNotAddedContextSize": "{{count}} document(s) non ajouté(s) (limite de taille du contexte)."
+    "documentsNotAddedContextSize": "{{count}} document(s) non ajouté(s) (limite de taille du contexte).",
+    "documentNotReadable": "Le document \"{{name}}\" n'a pas pu être lu ou était vide.",
+    "noDocumentsAdded": "Aucun document n'a pu être ajouté. Vérifiez le type, la taille (max. 10 Mo) et que le fichier est lisible.",
+    "noImagesAdded": "Aucune image n'a pu être ajoutée. Vérifiez le type (.jpg, .jpeg, .png) et la taille (max. 10 Mo).",
+    "imagesNotAddedMediaNotAccepted": "{{count}} image(s) non ajoutée(s) (téléchargement de médias non accepté)."
   },
   "media": {
     "title": "Titre",

@@ -121,6 +121,14 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     });
 
     if (validFiles.length === 0) {
+      onImageError?.({
+        message:
+          t('upload.noImagesAdded', {
+            defaultValue:
+              'No images could be added. Check file type (.jpg, .jpeg, .png) and size (max 10MB).',
+          }) ?? 'No images could be added. Check file type (.jpg, .jpeg, .png) and size (max 10MB).',
+        severity: 'info',
+      });
       if (imageInputRef.current) {
         imageInputRef.current.value = '';
       }

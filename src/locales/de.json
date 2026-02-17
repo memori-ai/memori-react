@@ -267,7 +267,11 @@
     "filesNotAddedMaxAllowed": "{{count}} Datei(en) nicht hinzugefügt (maximal {{max}} Dateien erlaubt).",
     "documentsNotAddedMaxAllowed": "{{count}} Dokument(e) nicht hinzugefügt (maximal {{max}} Dateien erlaubt).",
     "imagesNotAddedMaxAllowed": "{{count}} Bild(er) nicht hinzugefügt (maximal {{max}} Dateien erlaubt).",
-    "documentsNotAddedContextSize": "{{count}} Dokument(e) nicht hinzugefügt (Kontextgrößen-Limit)."
+    "documentsNotAddedContextSize": "{{count}} Dokument(e) nicht hinzugefügt (Kontextgrößen-Limit).",
+    "documentNotReadable": "Dokument \"{{name}}\" konnte nicht gelesen werden oder war leer.",
+    "noDocumentsAdded": "Keine Dokumente konnten hinzugefügt werden. Prüfen Sie Dateityp, Größe (max. 10MB) und Lesbarkeit.",
+    "noImagesAdded": "Keine Bilder konnten hinzugefügt werden. Prüfen Sie Dateityp (.jpg, .jpeg, .png) und Größe (max. 10MB).",
+    "imagesNotAddedMediaNotAccepted": "{{count}} Bild(er) nicht hinzugefügt (Medien-Uploads nicht erlaubt)."
   },
   "media": {
     "title": "Titel",
