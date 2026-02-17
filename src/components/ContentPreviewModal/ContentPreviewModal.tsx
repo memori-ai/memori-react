@@ -2,8 +2,6 @@ import React, { FC } from 'react';
 import { Modal } from '@memori.ai/ui';
 import cx from 'classnames';
 
-import './ContentPreviewModal.css';
-
 export interface ContentPreviewModalProps {
   open: boolean;
   onClose: () => void;
