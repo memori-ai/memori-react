@@ -293,7 +293,11 @@
     "filesNotAddedMaxAllowed": "{{count}} file(s) not added (maximum {{max}} files allowed).",
     "documentsNotAddedMaxAllowed": "{{count}} document(s) not added (maximum {{max}} files allowed).",
     "imagesNotAddedMaxAllowed": "{{count}} image(s) not added (maximum {{max}} files allowed).",
-    "documentsNotAddedContextSize": "{{count}} document(s) not added (context size limit)."
+    "documentsNotAddedContextSize": "{{count}} document(s) not added (context size limit).",
+    "documentNotReadable": "Document \"{{name}}\" could not be read or was empty.",
+    "noDocumentsAdded": "No documents could be added. Check file type, size (max 10MB), and that the file is readable.",
+    "noImagesAdded": "No images could be added. Check file type (.jpg, .jpeg, .png) and size (max 10MB).",
+    "imagesNotAddedMediaNotAccepted": "{{count}} image(s) not added (media uploads not accepted)."
   },
   "media": {
     "title": "Title",

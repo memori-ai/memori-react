@@ -349,6 +349,14 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
             content: text,
             mimeType: file.type,
           });
+        } else {
+          onDocumentError?.({
+            message: t('upload.documentNotReadable', {
+              name: file.name,
+              defaultValue: `Document "${file.name}" could not be read or was empty.`,
+            }),
+            severity: 'info',
+          });
         }
       } catch (error) {
         console.error('File processing error:', error);
@@ -366,6 +374,16 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         message: t('upload.documentsNotAddedContextSize', {
           count: skippedDueToPayload,
           defaultValue: `${skippedDueToPayload} document(s) not added (context size limit).`,
+        }),
+        severity: 'info',
+      });
+    }
+
+    if (processedFiles.length === 0 && filesToProcess.length > 0) {
+      onDocumentError?.({
+        message: t('upload.noDocumentsAdded', {
+          defaultValue:
+            'No documents could be added. Check file type, size (max 10MB), and that the file is readable.',
         }),
         severity: 'info',
       });

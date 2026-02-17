@@ -153,7 +153,10 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       if (!isMediaAcceptedRef.current) {
         addErrorRef.current({
           message:
-            t('upload.mediaNotAccepted') ?? 'Media uploads are not accepted',
+            t('upload.imagesNotAddedMediaNotAccepted', {
+              count: imageFiles.length,
+              defaultValue: `${imageFiles.length} image(s) not added (media uploads not accepted).`,
+            }) ?? `${imageFiles.length} image(s) not added (media uploads not accepted).`,
           severity: 'info',
         });
       } else {
