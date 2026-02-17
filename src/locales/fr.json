@@ -254,6 +254,7 @@
   },
   "upload": {
     "loginRequired": "Connexion requise",
+    "pastedText": "texte-collé",
     "uploadNotification": "Échec du téléchargement",
     "loginRequiredDescription": "Veuillez vous connecter pour télécharger des images",
     "uploadFiles": "Télécharger des fichiers ({{shortcut}}+O pour ouvrir le sélecteur de fichiers)",

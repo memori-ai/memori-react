@@ -225,7 +225,7 @@ describe('paste as card (long text becomes attachment)', () => {
     fireEvent.paste(textarea!, paste);
 
     await waitFor(() => {
-      expect(screen.getByText(/pasted-text/)).toBeTruthy();
+      expect(screen.getByText('upload.pastedText')).toBeTruthy();
     });
   });
 
@@ -245,7 +245,7 @@ describe('paste as card (long text becomes attachment)', () => {
     fireEvent.paste(textarea!, paste);
 
     await waitFor(() => {
-      expect(screen.getByText(/pasted-text/)).toBeTruthy();
+      expect(screen.getByText('upload.pastedText')).toBeTruthy();
     });
   });
 
@@ -262,7 +262,7 @@ describe('paste as card (long text becomes attachment)', () => {
     const paste = createPasteEvent(shortText);
     fireEvent.paste(textarea!, paste);
 
-    expect(screen.queryByText(/pasted-text/)).toBeNull();
+    expect(screen.queryByText('upload.pastedText')).toBeNull();
   });
 
   it('adds card even when showUpload is false (paste-as-card always enabled)', async () => {
@@ -277,7 +277,7 @@ describe('paste as card (long text becomes attachment)', () => {
     fireEvent.paste(textarea!, createPasteEvent(longText));
 
     await waitFor(() => {
-      expect(screen.getByText(/pasted-text/)).toBeTruthy();
+      expect(screen.getByText('upload.pastedText')).toBeTruthy();
     });
   });
 
@@ -328,10 +328,10 @@ describe('paste as card (long text becomes attachment)', () => {
       const toast = require('react-hot-toast').default;
       expect(toast.error).toHaveBeenCalled();
     });
-    expect(screen.queryByText(/pasted-text/)).toBeNull();
+    expect(screen.queryByText('upload.pastedText')).toBeNull();
   });
 
-  it('does not add card when paste has exactly 100 lines (boundary exclusive)', () => {
+  it('does not add card when paste has exactly 150 lines (boundary exclusive)', () => {
     const exactly150Lines = Array(100).fill('line').join('\n');
     render(
       <ChatInputs
@@ -342,7 +342,7 @@ describe('paste as card (long text becomes attachment)', () => {
     );
     const textarea = document.querySelector('textarea');
     fireEvent.paste(textarea!, createPasteEvent(exactly150Lines));
-    expect(screen.queryByText(/pasted-text/)).toBeNull();
+    expect(screen.queryByText('upload.pastedText')).toBeNull();
   });
 
   it('does not add card when paste has exactly 8000 chars (boundary exclusive)', () => {
@@ -356,7 +356,7 @@ describe('paste as card (long text becomes attachment)', () => {
     );
     const textarea = document.querySelector('textarea');
     fireEvent.paste(textarea!, createPasteEvent(exactly8000Chars));
-    expect(screen.queryByText(/pasted-text/)).toBeNull();
+    expect(screen.queryByText('upload.pastedText')).toBeNull();
   });
 
   it('does not add card when clipboard has files (handler returns early)', () => {
@@ -372,7 +372,7 @@ describe('paste as card (long text becomes attachment)', () => {
     );
     const textarea = document.querySelector('textarea');
     fireEvent.paste(textarea!, paste);
-    expect(screen.queryByText(/pasted-text/)).toBeNull();
+    expect(screen.queryByText('upload.pastedText')).toBeNull();
   });
 
   it('does not add card for empty or whitespace-only paste', () => {
@@ -386,7 +386,7 @@ describe('paste as card (long text becomes attachment)', () => {
     const textarea = document.querySelector('textarea');
     fireEvent.paste(textarea!, createPasteEvent(''));
     fireEvent.paste(textarea!, createPasteEvent('   \n\t  '));
-    expect(screen.queryByText(/pasted-text/)).toBeNull();
+    expect(screen.queryByText('upload.pastedText')).toBeNull();
   });
 
   it('adds two cards when same long text is pasted twice (duplicate paste)', async () => {
@@ -401,7 +401,7 @@ describe('paste as card (long text becomes attachment)', () => {
     const textarea = document.querySelector('textarea');
     fireEvent.paste(textarea!, createPasteEvent(longText));
     await waitFor(() => {
-      expect(screen.getByText(/pasted-text/)).toBeTruthy();
+      expect(screen.getByText('upload.pastedText')).toBeTruthy();
     });
     fireEvent.paste(textarea!, createPasteEvent(longText));
     await waitFor(() => {
@@ -421,7 +421,7 @@ describe('paste as card (long text becomes attachment)', () => {
     const textarea = document.querySelector('textarea');
     fireEvent.paste(textarea!, createPasteEvent(longText));
     await waitFor(() => {
-      expect(screen.getByText(/pasted-text/)).toBeTruthy();
+      expect(screen.getByText('upload.pastedText')).toBeTruthy();
     });
     expect(document.querySelector('.memori--preview-container')).toBeTruthy();
   });
@@ -441,7 +441,7 @@ describe('paste as card (long text becomes attachment)', () => {
     const textarea = document.querySelector('textarea');
     fireEvent.paste(textarea!, createPasteEvent(longText));
     await waitFor(() => {
-      expect(screen.getByText(/pasted-text/)).toBeTruthy();
+      expect(screen.getByText('upload.pastedText')).toBeTruthy();
     });
     const sendButton = container.querySelector('.memori-chat-inputs--send-btn');
     expect(sendButton).toBeTruthy();
@@ -453,7 +453,7 @@ describe('paste as card (long text becomes attachment)', () => {
       expect.arrayContaining([
         expect.objectContaining({
           mimeType: 'text/plain',
-          title: 'pasted-text',
+          title: 'upload.pastedText',
           content: longText,
           type: 'document',
           properties: expect.objectContaining({ isAttachedFile: true }),
