@@ -271,7 +271,11 @@
     "uploadSuccess": "Téléchargement réussi",
     "uploadSuccessDescription": "Le fichier a été téléchargé avec succès",
     "dragAndDropFiles": "Glissez et déposez les fichiers ici pour les ajouter à la chat",
-    "contextSizeExceedsLimit": "La taille du contexte dépasse la limite. Essayez de réduire le nombre de fichiers ou le contenu de la conversation."
+    "contextSizeExceedsLimit": "La taille du contexte dépasse la limite. Essayez de réduire le nombre de fichiers ou le contenu de la conversation.",
+    "filesNotAddedMaxAllowed": "{{count}} fichier(s) non ajouté(s) (maximum {{max}} fichiers autorisés).",
+    "documentsNotAddedMaxAllowed": "{{count}} document(s) non ajouté(s) (maximum {{max}} fichiers autorisés).",
+    "imagesNotAddedMaxAllowed": "{{count}} image(s) non ajoutée(s) (maximum {{max}} fichiers autorisés).",
+    "documentsNotAddedContextSize": "{{count}} document(s) non ajouté(s) (limite de taille du contexte)."
   },
   "media": {
     "title": "Titre",

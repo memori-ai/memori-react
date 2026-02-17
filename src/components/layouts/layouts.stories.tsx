@@ -49,7 +49,7 @@ DefaultLayout.args = {
   sessionID: '' as string | undefined,
   showUpload: true,
   showReasoning: false,
-  showLogin: true
+  showLogin: true,
 };
 
 

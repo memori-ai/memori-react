@@ -262,7 +262,12 @@
     "uploadSuccess": "Hochladen erfolgreich",
     "uploadSuccessDescription": "Die Datei wurde erfolgreich hochgeladen",
     "maxImagesReached": "Sie können bis zu {{max}} Bilder hochladen",
-    "dragAndDropFiles": "Ziehen Sie Dateien hierher, um sie zur Chat hinzuzufügen"
+    "dragAndDropFiles": "Ziehen Sie Dateien hierher, um sie zur Chat hinzuzufügen",
+    "contextSizeExceedsLimit": "Die Kontextgröße überschreitet das Limit. Reduzieren Sie die Anzahl der Dateien oder den Inhalt der Konversation.",
+    "filesNotAddedMaxAllowed": "{{count}} Datei(en) nicht hinzugefügt (maximal {{max}} Dateien erlaubt).",
+    "documentsNotAddedMaxAllowed": "{{count}} Dokument(e) nicht hinzugefügt (maximal {{max}} Dateien erlaubt).",
+    "imagesNotAddedMaxAllowed": "{{count}} Bild(er) nicht hinzugefügt (maximal {{max}} Dateien erlaubt).",
+    "documentsNotAddedContextSize": "{{count}} Dokument(e) nicht hinzugefügt (Kontextgrößen-Limit)."
   },
   "media": {
     "title": "Titel",

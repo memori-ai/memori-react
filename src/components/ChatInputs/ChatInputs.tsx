@@ -13,10 +13,9 @@ import FilePreview from '../FilePreview/FilePreview';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import Plus from '../icons/Plus';
 import {
-  PASTE_AS_CARD_LINE_THRESHOLD,
-  PASTE_AS_CARD_CHAR_THRESHOLD,
   MAX_DOCUMENTS_PER_MESSAGE,
   MAX_DOCUMENT_CONTENT_LENGTH,
+  MAX_TOTAL_MESSAGE_PAYLOAD,
 } from '../../helpers/constants';
 export interface Props {
   dialogState?: DialogState;
@@ -44,6 +43,8 @@ export interface Props {
   memoriID?: string;
   client?: ReturnType<typeof memoriApiClient>;
   onTextareaExpanded?: (expanded: boolean) => void;
+  /** Override total document payload limit (character count). */
+  maxTotalMessagePayload?: number;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -67,6 +68,7 @@ const ChatInputs: React.FC<Props> = ({
   memoriID,
   client,
   onTextareaExpanded,
+  maxTotalMessagePayload,
 }) => {
   const { t } = useTranslation();
 
@@ -91,6 +93,8 @@ const ChatInputs: React.FC<Props> = ({
     dialog: { postMediumDeselectedEvent: null },
   };
 
+  const totalPayloadLimit = maxTotalMessagePayload ?? MAX_TOTAL_MESSAGE_PAYLOAD;
+
   /**
    * Handles sending a message, including any attached files
    */
@@ -106,6 +110,17 @@ const ChatInputs: React.FC<Props> = ({
     }[]
   ) => {
     if (isTyping) return;
+
+    const totalContentLength = files.reduce((sum, f) => sum + f.content.length, 0);
+    if (totalContentLength > totalPayloadLimit) {
+      toast.error(
+        t('upload.contextSizeExceedsLimit', {
+          defaultValue:
+            'Context size exceeds the limit. Try reducing the number of files or content in the conversation.',
+        })
+      );
+      return;
+    }
 
     const mediaWithIds = files.map((file, index) => {
       const generatedMediumID =
@@ -149,6 +164,19 @@ const ChatInputs: React.FC<Props> = ({
 
     if (sendOnEnter === 'keypress' && userMessage?.length > 0) {
       stopListening();
+      const totalContentLength = documentPreviewFiles.reduce(
+        (sum, f) => sum + f.content.length,
+        0
+      );
+      if (totalContentLength > totalPayloadLimit) {
+        toast.error(
+          t('upload.contextSizeExceedsLimit', {
+            defaultValue:
+              'Context size exceeds the limit. Try reducing the number of files or content in the conversation.',
+          })
+        );
+        return;
+      }
       const mediaWithIds = documentPreviewFiles.map((file, index) => {
         const generatedMediumID =
           file.mediumID ||
@@ -207,20 +235,14 @@ const ChatInputs: React.FC<Props> = ({
   };
 
   /**
-   * When pasted text is long (many lines or many characters, e.g. CSV/table on one line),
-   * add it as a document card instead of inserting into the textarea (same UX as other media).
+   * All pasted text is treated as a document attachment: wrapped in <document_attachment>
+   * and added to the document preview, then sent as media via sendMessage (same as other media).
    */
   const handleTextareaPaste = useCallback(
     (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
       if (e.clipboardData.files?.length) return;
-      // Use 'text/plain' only so rich/HTML pastes don't get treated as many lines
       const text = e.clipboardData.getData('text/plain');
       if (!text?.trim()) return;
-      const lineCount = text.split(/\r\n|\r|\n/).length;
-      const isLongByLines = lineCount > PASTE_AS_CARD_LINE_THRESHOLD;
-      const isLongByChars = text.length > PASTE_AS_CARD_CHAR_THRESHOLD;
-      // Create a card when pasted content has many lines OR is one/few very long lines (e.g. CSV/table)
-      if (!isLongByLines && !isLongByChars) return;
 
       // Critical: max attachments reached – prevent dumping long text into textarea, show feedback
       if (documentPreviewFiles.length >= MAX_DOCUMENTS_PER_MESSAGE) {
@@ -234,8 +256,25 @@ const ChatInputs: React.FC<Props> = ({
         return;
       }
 
-      // Critical: pasted content exceeds single-document size limit – reject and inform
-      if (text.length > MAX_DOCUMENT_CONTENT_LENGTH) {
+      // Critical: pasted content exceeds single-document size limit – reject and inform (same prop as total limit)
+      const perDocumentLimit = maxTotalMessagePayload ?? MAX_DOCUMENT_CONTENT_LENGTH;
+      if (text.length > perDocumentLimit) {
+        e.preventDefault();
+        toast.error(
+          t('upload.contextSizeExceedsLimit', {
+            defaultValue:
+              'Context size exceeds the limit. Try reducing the number of files or content in the conversation.',
+          })
+        );
+        return;
+      }
+
+      const totalPayloadLimit = maxTotalMessagePayload ?? MAX_TOTAL_MESSAGE_PAYLOAD;
+      const currentTotal = documentPreviewFiles.reduce(
+        (sum, f) => sum + f.content.length,
+        0
+      );
+      if (currentTotal + text.length > totalPayloadLimit) {
         e.preventDefault();
         toast.error(
           t('upload.contextSizeExceedsLimit', {
@@ -247,10 +286,16 @@ const ChatInputs: React.FC<Props> = ({
       }
 
       e.preventDefault();
+      const displayName = t('upload.pastedText') || 'pasted-text';
+      const wrappedContent = `<document_attachment filename="pasted-text.txt" type="text/plain">
+
+${text}
+
+</document_attachment>`;
       const newFile = {
-        name: t('upload.pastedText') || 'pasted-text',  
+        name: displayName,
         id: `paste_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`,
-        content: text,
+        content: wrappedContent,
         mediumID: undefined as string | undefined,
         mimeType: 'text/plain',
         type: 'document',
@@ -269,7 +314,7 @@ const ChatInputs: React.FC<Props> = ({
         ) => [...prev, newFile]
       );
     },
-    [documentPreviewFiles, setDocumentPreviewFiles, t]
+    [documentPreviewFiles, maxTotalMessagePayload, t]
   );
 
   const isDisabled =
@@ -289,10 +334,12 @@ const ChatInputs: React.FC<Props> = ({
       >
         {/* Preview for document files (show when upload enabled or when paste added cards) */}
         {(showUpload || documentPreviewFiles.length > 0) && (
-          <FilePreview
-            previewFiles={documentPreviewFiles}
-            removeFile={removeFile}
-          />
+          <div className="memori-chat-inputs--preview-wrapper">
+            <FilePreview
+              previewFiles={documentPreviewFiles}
+              removeFile={removeFile}
+            />
+          </div>
         )}
         <div className="memori-chat-inputs--container">
           {/* Leading area - Plus button */}
@@ -307,6 +354,7 @@ const ChatInputs: React.FC<Props> = ({
                   setDocumentPreviewFiles={setDocumentPreviewFiles}
                   documentPreviewFiles={documentPreviewFiles}
                   memoriID={memoriID}
+                  maxTotalMessagePayload={maxTotalMessagePayload}
                 />
               </div>
             )}

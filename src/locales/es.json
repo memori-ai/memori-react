@@ -262,7 +262,12 @@
     "maxImagesReached": "Vous pouvez télécharger jusqu'à {{max}} images",
     "remaining": "restant",
     "maxReached": "Limite atteinte",
-    "dragAndDropFiles": "Arrastre y suelte los archivos aquí para agregarlos a la chat"
+    "dragAndDropFiles": "Arrastre y suelte los archivos aquí para agregarlos a la chat",
+    "contextSizeExceedsLimit": "El tamaño del contexto supera el límite. Intenta reducir el número de archivos o el contenido de la conversación.",
+    "filesNotAddedMaxAllowed": "{{count}} archivo(s) no añadido(s) (máximo {{max}} archivos permitidos).",
+    "documentsNotAddedMaxAllowed": "{{count}} documento(s) no añadido(s) (máximo {{max}} archivos permitidos).",
+    "imagesNotAddedMaxAllowed": "{{count}} imagen(es) no añadida(s) (máximo {{max}} archivos permitidos).",
+    "documentsNotAddedContextSize": "{{count}} documento(s) no añadido(s) (límite de tamaño de contexto)."
   },
   "media": {
     "title": "Título",

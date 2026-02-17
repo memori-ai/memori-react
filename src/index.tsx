@@ -75,6 +75,8 @@ export interface Props {
   useMathFormatting?: boolean;
   autoStart?: boolean;
   applyVarsToRoot?: boolean;
+  /** Override total document payload and per-document content limit (character count). Default from constants (200000). */
+  maxTotalMessagePayload?: number;
 }
 
 const getPreferredLanguages = () => {
@@ -153,6 +155,7 @@ const Memori: React.FC<Props> = ({
   autoStart,
   applyVarsToRoot = false,
   __WEBCOMPONENT__ = false,
+  maxTotalMessagePayload,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
   const [tenant, setTenant] = useState<Tenant>();
@@ -465,6 +468,7 @@ const Memori: React.FC<Props> = ({
               additionalSettings={additionalSettings}
               userAvatar={userAvatar}
               applyVarsToRoot={applyVarsToRoot}
+              maxTotalMessagePayload={maxTotalMessagePayload}
               disableTextEnteredEvents={disableTextEnteredEvents}
               // From layout, from client if allowed
               {...clientAttributes}
@@ -565,5 +569,6 @@ Memori.propTypes = {
   useMathFormatting: PropTypes.bool,
   autoStart: PropTypes.bool,
   applyVarsToRoot: PropTypes.bool,
+  maxTotalMessagePayload: PropTypes.number,
 };
 export default Memori;

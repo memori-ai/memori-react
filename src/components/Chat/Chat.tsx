@@ -74,6 +74,8 @@ export interface Props {
   isHistoryView?: boolean;
   isChatlogPanel?: boolean;
   showFunctionCache?: boolean;
+  /** Override total document payload and per-document content limit (character count). */
+  maxTotalMessagePayload?: number;
 }
 
 const Chat: React.FC<Props> = ({
@@ -125,6 +127,7 @@ const Chat: React.FC<Props> = ({
   isHistoryView = false,
   isChatlogPanel = false,
   showFunctionCache = false,
+  maxTotalMessagePayload,
 }) => {
   const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -542,6 +545,7 @@ const Chat: React.FC<Props> = ({
           isPlayingAudio={isPlayingAudio}
           showMicrophone={showMicrophone}
           memoriID={memori?.memoriID}
+          maxTotalMessagePayload={maxTotalMessagePayload}
         />
       )}
     </div>

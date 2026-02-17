@@ -13,8 +13,7 @@
     position: relative;
     display: flex;
     width: 100%;
-    min-width: 97%;
-    max-width: 97%;
+    max-width: 98%;
     box-sizing: border-box;
     flex-flow: column;
     flex-shrink: 0;
@@ -32,6 +31,13 @@
 .memori-chat-inputs:disabled {
     opacity: 0.5;
     pointer-events: none;
+}
+
+/* Wrapper so FilePreview horizontal scroll is constrained */
+.memori-chat-inputs--preview-wrapper {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
 }
 
 .memori-chat-inputs--container {

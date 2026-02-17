@@ -433,6 +433,8 @@ export interface Props {
   showFunctionCache?: boolean;
   authToken?: string;
   __WEBCOMPONENT__?: boolean;
+  /** Override total document payload and per-document content limit (character count). Default from constants. */
+  maxTotalMessagePayload?: number;
 }
 
 const MemoriWidget = ({
@@ -488,6 +490,7 @@ const MemoriWidget = ({
   autoStart = false,
   applyVarsToRoot = false,
   showFunctionCache = false,
+  maxTotalMessagePayload,
 }: Props) => {
   const { t, i18n } = useTranslation();
 
@@ -3021,6 +3024,7 @@ const MemoriWidget = ({
     userAvatar,
     experts,
     useMathFormatting: applyMathFormatting,
+    maxTotalMessagePayload,
   };
 
   const integrationBackground =

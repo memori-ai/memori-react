@@ -90,18 +90,31 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     const files = Array.from(e.target.files || []);
     if (files.length === 0) return;
 
-    // Check if adding these files would exceed the total media limit
-    if (currentMediaCount + files.length > maxImages) {
+    const remainingSlots = Math.max(0, maxImages - currentMediaCount);
+    const filesToProcess = files.slice(0, remainingSlots);
+
+    if (files.length > filesToProcess.length) {
+      const skipped = files.length - filesToProcess.length;
       onImageError?.({
         message:
-          `Maximum ${maxImages} media files allowed. You can upload ${Math.max(0, maxImages - currentMediaCount)} more file${maxImages - currentMediaCount !== 1 ? 's' : ''}.`,
-        severity: 'error',
+          t('upload.imagesNotAddedMaxAllowed', {
+            count: skipped,
+            max: maxImages,
+            defaultValue: `${skipped} image(s) not added (maximum ${maxImages} files allowed).`,
+          }) ?? `${skipped} image(s) not added (maximum ${maxImages} files allowed).`,
+        severity: 'info',
       });
+    }
+
+    if (filesToProcess.length === 0) {
+      if (imageInputRef.current) {
+        imageInputRef.current.value = '';
+      }
       return;
     }
 
     // Validate all files first
-    const validFiles = files.filter(file => {
+    const validFiles = filesToProcess.filter(file => {
       if (!validateImageFile(file)) {
         return false;
       }
