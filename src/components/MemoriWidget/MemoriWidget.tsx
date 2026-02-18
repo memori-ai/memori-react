@@ -435,6 +435,8 @@ export interface Props {
   __WEBCOMPONENT__?: boolean;
   /** Override total document payload and per-document content limit (character count). Default from constants. */
   maxTotalMessagePayload?: number;
+  /** When true, pasted text is not added as a document attachment (normal paste only). Default false. */
+  disablePastedText?: boolean;
 }
 
 const MemoriWidget = ({
@@ -491,6 +493,7 @@ const MemoriWidget = ({
   applyVarsToRoot = false,
   showFunctionCache = false,
   maxTotalMessagePayload,
+  disablePastedText = false,
 }: Props) => {
   const { t, i18n } = useTranslation();
 
@@ -3025,6 +3028,7 @@ const MemoriWidget = ({
     experts,
     useMathFormatting: applyMathFormatting,
     maxTotalMessagePayload,
+    disablePastedText,
   };
 
   const integrationBackground =

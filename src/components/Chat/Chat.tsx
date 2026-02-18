@@ -76,6 +76,8 @@ export interface Props {
   showFunctionCache?: boolean;
   /** Override total document payload and per-document content limit (character count). */
   maxTotalMessagePayload?: number;
+  /** When true, pasted text is not added as a document attachment. Default false. */
+  disablePastedText?: boolean;
 }
 
 const Chat: React.FC<Props> = ({
@@ -128,6 +130,7 @@ const Chat: React.FC<Props> = ({
   isChatlogPanel = false,
   showFunctionCache = false,
   maxTotalMessagePayload,
+  disablePastedText = false,
 }) => {
   const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -546,6 +549,7 @@ const Chat: React.FC<Props> = ({
           showMicrophone={showMicrophone}
           memoriID={memori?.memoriID}
           maxTotalMessagePayload={maxTotalMessagePayload}
+          disablePastedText={disablePastedText}
         />
       )}
     </div>

@@ -77,6 +77,8 @@ export interface Props {
   applyVarsToRoot?: boolean;
   /** Override total document payload and per-document content limit (character count). Default from constants (200000). */
   maxTotalMessagePayload?: number;
+  /** When true, pasted text is not added as a document attachment (normal paste only). Default false. */
+  disablePastedText?: boolean;
 }
 
 const getPreferredLanguages = () => {
@@ -156,6 +158,7 @@ const Memori: React.FC<Props> = ({
   applyVarsToRoot = false,
   __WEBCOMPONENT__ = false,
   maxTotalMessagePayload,
+  disablePastedText = false,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
   const [tenant, setTenant] = useState<Tenant>();
@@ -469,6 +472,7 @@ const Memori: React.FC<Props> = ({
               userAvatar={userAvatar}
               applyVarsToRoot={applyVarsToRoot}
               maxTotalMessagePayload={maxTotalMessagePayload}
+              disablePastedText={disablePastedText}
               disableTextEnteredEvents={disableTextEnteredEvents}
               // From layout, from client if allowed
               {...clientAttributes}
@@ -570,5 +574,6 @@ Memori.propTypes = {
   autoStart: PropTypes.bool,
   applyVarsToRoot: PropTypes.bool,
   maxTotalMessagePayload: PropTypes.number,
+  disablePastedText: PropTypes.bool,
 };
 export default Memori;
