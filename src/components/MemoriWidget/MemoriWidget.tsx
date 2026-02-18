@@ -437,6 +437,8 @@ export interface Props {
   maxTotalMessagePayload?: number;
   /** When true, pasted text is not added as a document attachment (normal paste only). Default false. */
   disablePastedText?: boolean;
+  /** Max characters in chat textarea; shows counter and disables paste-as-attachment when set. */
+  maxTextareaCharacters?: number;
 }
 
 const MemoriWidget = ({
@@ -494,6 +496,7 @@ const MemoriWidget = ({
   showFunctionCache = false,
   maxTotalMessagePayload,
   disablePastedText = false,
+  maxTextareaCharacters,
 }: Props) => {
   const { t, i18n } = useTranslation();
 
@@ -3038,6 +3041,7 @@ const MemoriWidget = ({
     useMathFormatting: applyMathFormatting,
     maxTotalMessagePayload,
     disablePastedText,
+    maxTextareaCharacters,
   };
 
   const integrationBackground =

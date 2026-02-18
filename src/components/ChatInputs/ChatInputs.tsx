@@ -46,6 +46,8 @@ export interface Props {
   maxTotalMessagePayload?: number;
   /** When true, pasted text is not added as a document attachment (normal paste only). Default false. */
   disablePastedText?: boolean;
+  /** Max characters in textarea; shows counter (e.g. "0 / 500") when set. */
+  maxTextareaCharacters?: number;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -71,6 +73,7 @@ const ChatInputs: React.FC<Props> = ({
   onTextareaExpanded,
   maxTotalMessagePayload,
   disablePastedText = false,
+  maxTextareaCharacters,
 }) => {
   const { t } = useTranslation();
 
@@ -344,6 +347,7 @@ ${text}
               onBlur={onTextareaBlur}
               onExpandedChange={handleTextareaExpanded}
               disabled={textareaDisabled}
+              maxTextareaCharacters={maxTextareaCharacters}
             />
           </div>
 

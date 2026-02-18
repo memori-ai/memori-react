@@ -5,8 +5,21 @@
     min-height: 36px;
     box-sizing: border-box;
     flex: 1;
-    align-items: center;
+    flex-direction: column;
     transition: height 0.2s ease-in-out;
+}
+
+.memori-chat-textarea--with-counter {
+    align-items: stretch;
+}
+
+.memori-chat-textarea--counter {
+    min-height: 18px;
+    flex-shrink: 0;
+    padding: 2px 0 4px 0;
+    color: var(--memori-text-color, #666);
+    font-size: 12px;
+    line-height: 1.2;
 }
 
 .memori-chat-textarea--expanded {
@@ -38,6 +51,11 @@
     border-radius: 0;
     background: transparent;
     transition: height 0.2s ease-in-out;
+}
+
+.memori-chat-textarea--with-counter .memori-chat-textarea--inner {
+    min-height: 36px;
+    flex: 1;
 }
 
 .memori-chat-textarea--expanded .memori-chat-textarea--inner {
