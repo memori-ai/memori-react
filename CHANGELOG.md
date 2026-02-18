@@ -1,5 +1,13 @@
 
 
+## [8.19.0](https://github.com/memori-ai/memori-react/compare/v8.18.2...v8.19.0) (2026-02-18)
+
+
+### Features
+
+* add disablePastedText prop to control pasted text ([b694915](https://github.com/memori-ai/memori-react/commit/b694915f8d4d2dd24d36183f36de749842ffeb78))
+* add maxTextareaCharacters prop to limit chat input ([dbb4778](https://github.com/memori-ai/memori-react/commit/dbb47786e8cc9030040fdce42c6a10733225755c))
+
 ## [8.18.2](https://github.com/memori-ai/memori-react/compare/v8.18.1...v8.18.2) (2026-02-18)
 
 
