@@ -1,5 +1,12 @@
 
 
+## [8.19.1](https://github.com/memori-ai/memori-react/compare/v8.19.0...v8.19.1) (2026-02-18)
+
+
+### Features
+
+* update paste handling to allow inline pastes ([8bc1f53](https://github.com/memori-ai/memori-react/commit/8bc1f53655062ad2b5a95f2680fac68f10fbebb1))
+
 ## [8.19.0](https://github.com/memori-ai/memori-react/compare/v8.18.2...v8.19.0) (2026-02-18)
 
 
