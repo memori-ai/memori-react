@@ -15,6 +15,8 @@ export interface Props {
   onFocus?: (e: React.FocusEvent) => void;
   onBlur?: (e: React.FocusEvent) => void;
   onExpandedChange?: (expanded: boolean) => void;
+  /** When set, shows a character counter (e.g. "0 / 500") above the textarea and enforces the max length. */
+  maxTextareaCharacters?: number;
 }
 
 const ChatTextArea: React.FC<Props> = ({
@@ -26,6 +28,7 @@ const ChatTextArea: React.FC<Props> = ({
   onFocus,
   onBlur,
   onExpandedChange,
+  maxTextareaCharacters,
 }) => {
   const { t } = useTranslation();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -78,22 +81,48 @@ const ChatTextArea: React.FC<Props> = ({
     }
   }, [value]);
 
+  const displayValue =
+    maxTextareaCharacters != null
+      ? value.slice(0, maxTextareaCharacters)
+      : value;
+
+  // Keep parent state in sync when value exceeds limit (e.g. paste or prop change)
+  useEffect(() => {
+    if (
+      maxTextareaCharacters != null &&
+      value.length > maxTextareaCharacters
+    ) {
+      onChange(value.slice(0, maxTextareaCharacters));
+    }
+  }, [maxTextareaCharacters, value, onChange]);
+
   return (
     <div
       data-testid="chat-textarea"
       className={cx('memori-chat-textarea', {
         'memori-chat-textarea--disabled': disabled,
+        'memori-chat-textarea--with-counter': maxTextareaCharacters != null,
       })}
     >
+      {maxTextareaCharacters != null && (
+        <div className="memori-chat-textarea--counter" aria-live="polite">
+          {displayValue.length} / {maxTextareaCharacters}
+        </div>
+      )}
       <div ref={innerRef} className="memori-chat-textarea--inner">
         <textarea
           ref={textareaRef}
           className="memori-chat-textarea--input"
           disabled={disabled}
-          value={value}
+          value={displayValue}
           placeholder={t('placeholder', 'Ask a question') || 'Ask a question'}
           onChange={e => {
-            onChange(e.target.value);
+            const next = e.target.value;
+            if (maxTextareaCharacters != null) {
+              onChange(next.slice(0, maxTextareaCharacters));
+            } else {
+              onChange(next);
+            }
           }}
           onKeyDownCapture={e => {
             // On mobile/tablet only: Enter creates a new line instead of sending.
@@ -106,10 +135,12 @@ const ChatTextArea: React.FC<Props> = ({
               e.preventDefault();
 
               const el = textareaRef.current;
-              const start = el?.selectionStart ?? value.length;
-              const end = el?.selectionEnd ?? value.length;
-              const nextValue = `${value.slice(0, start)}\n${value.slice(end)}`;
-
+              const start = el?.selectionStart ?? displayValue.length;
+              const end = el?.selectionEnd ?? displayValue.length;
+              let nextValue = `${displayValue.slice(0, start)}\n${displayValue.slice(end)}`;
+              if (maxTextareaCharacters != null) {
+                nextValue = nextValue.slice(0, maxTextareaCharacters);
+              }
               onChange(nextValue);
 
               // Restore caret right after the inserted newline
@@ -130,7 +161,7 @@ const ChatTextArea: React.FC<Props> = ({
           onPaste={onPaste}
           onFocus={onFocus}
           onBlur={onBlur}
-          maxLength={100000}
+          maxLength={maxTextareaCharacters ?? 100000}
         />
       </div>
     </div>

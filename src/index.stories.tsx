@@ -101,6 +101,21 @@ WithUploadWithMaxTotalMessagePayload.args = {
   maxTotalMessagePayload: 300000,
 };
 
+export const WithMaxTextareaCharacters = Template.bind({});
+WithMaxTextareaCharacters.args = {
+  ownerUserName: 'nzambello',
+  memoriName: 'Nicola',
+  tenantID: 'www.aisuru.com',
+  engineURL: 'https://engine.memori.ai',
+  apiURL: 'https://backend.memori.ai',
+  baseURL: 'https://www.aisuru.com',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  enableAudio: true,
+  showUpload: true,
+  maxTextareaCharacters: 500,
+};
+
 export const WithPrivateAgent = Template.bind({});
 WithPrivateAgent.args = {
   memoriName: 'Test Private',

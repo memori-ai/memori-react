@@ -78,6 +78,8 @@ export interface Props {
   maxTotalMessagePayload?: number;
   /** When true, pasted text is not added as a document attachment. Default false. */
   disablePastedText?: boolean;
+  /** Max characters in chat textarea; shows counter when set. */
+  maxTextareaCharacters?: number;
 }
 
 const Chat: React.FC<Props> = ({
@@ -131,6 +133,7 @@ const Chat: React.FC<Props> = ({
   showFunctionCache = false,
   maxTotalMessagePayload,
   disablePastedText = false,
+  maxTextareaCharacters,
 }) => {
   const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -550,6 +553,7 @@ const Chat: React.FC<Props> = ({
           memoriID={memori?.memoriID}
           maxTotalMessagePayload={maxTotalMessagePayload}
           disablePastedText={disablePastedText}
+          maxTextareaCharacters={maxTextareaCharacters}
         />
       )}
     </div>

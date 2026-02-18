@@ -48,7 +48,7 @@ export interface Props {
   __WEBCOMPONENT__?: boolean;
   showClear?: boolean;
   showOnlyLastMessages?: boolean;
-  showTypingText?: boolean;
+  showTypingText?: boolean; 
   showLogin?: boolean;
   showUpload?: boolean;
   showReasoning?: boolean;
@@ -79,6 +79,8 @@ export interface Props {
   maxTotalMessagePayload?: number;
   /** When true, pasted text is not added as a document attachment (normal paste only). Default false. */
   disablePastedText?: boolean;
+  /** Max characters allowed in the chat textarea. When set, shows a counter (e.g. "0 / 500") and disables paste-as-attachment by default. */
+  maxTextareaCharacters?: number;
 }
 
 const getPreferredLanguages = () => {
@@ -159,6 +161,7 @@ const Memori: React.FC<Props> = ({
   __WEBCOMPONENT__ = false,
   maxTotalMessagePayload,
   disablePastedText = false,
+  maxTextareaCharacters,
 }) => {
   const [memori, setMemori] = useState<IMemori>();
   const [tenant, setTenant] = useState<Tenant>();
@@ -472,7 +475,8 @@ const Memori: React.FC<Props> = ({
               userAvatar={userAvatar}
               applyVarsToRoot={applyVarsToRoot}
               maxTotalMessagePayload={maxTotalMessagePayload}
-              disablePastedText={disablePastedText}
+              disablePastedText={disablePastedText ?? (maxTextareaCharacters != null)}
+              maxTextareaCharacters={maxTextareaCharacters}
               disableTextEnteredEvents={disableTextEnteredEvents}
               // From layout, from client if allowed
               {...clientAttributes}
@@ -575,5 +579,6 @@ Memori.propTypes = {
   applyVarsToRoot: PropTypes.bool,
   maxTotalMessagePayload: PropTypes.number,
   disablePastedText: PropTypes.bool,
+  maxTextareaCharacters: PropTypes.number,
 };
 export default Memori;
