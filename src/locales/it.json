@@ -309,16 +309,12 @@
     "dragAndDropFiles": "Trascina qui i file per aggiungerli alla chat",
     "pasteMaxAttachmentsReached": "Massimo {{max}} allegati. Rimuovine uno per aggiungere questo come file.",
     "pasteContentTooLong": "Il testo incollato è troppo lungo (max {{size}}KB). Accorcialo o dividilo.",
+    "pasteContentExceedsLimit": "Il contenuto incollato supera il limite di dimensione. Prova ad accorciare il testo o a dividerlo in parti più piccole.",
     "pasteAddedAsAttachment": "Testo incollato aggiunto come allegato",
-    "contextSizeExceedsLimit": "La dimensione del contesto supera il limite. Prova a ridurre il numero di file o il contenuto della conversazione.",
     "filesNotAddedMaxAllowed": "{{count}} file non aggiunto/i (massimo {{max}} file consentiti).",
     "documentsNotAddedMaxAllowed": "{{count}} documento/i non aggiunto/i (massimo {{max}} file consentiti).",
     "imagesNotAddedMaxAllowed": "{{count}} immagine/i non aggiunta/e (massimo {{max}} file consentiti).",
-    "documentsNotAddedContextSize": "{{count}} documento/i non aggiunto/i (limite dimensione contesto).",
-    "documentNotReadable": "Il documento \"{{name}}\" non è stato letto o era vuoto.",
-    "noDocumentsAdded": "Nessun documento aggiunto. Controlla tipo, dimensione (max 10MB) e che il file sia leggibile.",
-    "noImagesAdded": "Nessuna immagine aggiunta. Controlla tipo (.jpg, .jpeg, .png) e dimensione (max 10MB).",
-    "imagesNotAddedMediaNotAccepted": "{{count}} immagine/i non aggiunta/e (caricamento media non consentito)."
+    "documentsNotAddedContextSize": "{{count}} documento/i non aggiunto/i (limite dimensione contesto)."
   },
   "gamification": {
     "level": "Livello",

@@ -92,8 +92,6 @@ const ChatInputs: React.FC<Props> = ({
     dialog: { postMediumDeselectedEvent: null },
   };
 
-  const totalPayloadLimit = maxTotalMessagePayload ?? MAX_TOTAL_MESSAGE_PAYLOAD;
-
   /**
    * Handles sending a message, including any attached files
    */
@@ -109,17 +107,6 @@ const ChatInputs: React.FC<Props> = ({
     }[]
   ) => {
     if (isTyping) return;
-
-    const totalContentLength = files.reduce((sum, f) => sum + f.content.length, 0);
-    if (totalContentLength > totalPayloadLimit) {
-      toast.error(
-        t('upload.contextSizeExceedsLimit', {
-          defaultValue:
-            'Context size exceeds the limit. Try reducing the number of files or content in the conversation.',
-        })
-      );
-      return;
-    }
 
     const mediaWithIds = files.map((file, index) => {
       const generatedMediumID =
@@ -163,19 +150,6 @@ const ChatInputs: React.FC<Props> = ({
 
     if (sendOnEnter === 'keypress' && userMessage?.length > 0) {
       stopListening();
-      const totalContentLength = documentPreviewFiles.reduce(
-        (sum, f) => sum + f.content.length,
-        0
-      );
-      if (totalContentLength > totalPayloadLimit) {
-        toast.error(
-          t('upload.contextSizeExceedsLimit', {
-            defaultValue:
-              'Context size exceeds the limit. Try reducing the number of files or content in the conversation.',
-          })
-        );
-        return;
-      }
       const mediaWithIds = documentPreviewFiles.map((file, index) => {
         const generatedMediumID =
           file.mediumID ||
@@ -255,32 +229,28 @@ const ChatInputs: React.FC<Props> = ({
         return;
       }
 
-      // Critical: pasted content exceeds single-document size limit – reject and inform (same prop as total limit)
+      const totalPayloadLimit = maxTotalMessagePayload ?? MAX_TOTAL_MESSAGE_PAYLOAD;
       const perDocumentLimit = maxTotalMessagePayload ?? MAX_DOCUMENT_CONTENT_LENGTH;
+
       if (text.length > perDocumentLimit) {
         e.preventDefault();
-        toast.error(
-          t('upload.contextSizeExceedsLimit', {
-            defaultValue:
-              'Context size exceeds the limit. Try reducing the number of files or content in the conversation.',
-          })
-        );
+        toast(t('upload.pasteContentExceedsLimit', {
+          defaultValue:
+            'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
+        }), { icon: '⚠️' });
         return;
       }
 
-      const totalPayloadLimit = maxTotalMessagePayload ?? MAX_TOTAL_MESSAGE_PAYLOAD;
       const currentTotal = documentPreviewFiles.reduce(
         (sum, f) => sum + f.content.length,
         0
       );
       if (currentTotal + text.length > totalPayloadLimit) {
         e.preventDefault();
-        toast.error(
-          t('upload.contextSizeExceedsLimit', {
-            defaultValue:
-              'Context size exceeds the limit. Try reducing the number of files or content in the conversation.',
-          })
-        );
+        toast(t('upload.pasteContentExceedsLimit', {
+          defaultValue:
+            'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
+        }), { icon: '⚠️' });
         return;
       }
 

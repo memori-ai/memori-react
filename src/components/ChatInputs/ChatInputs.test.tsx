@@ -9,10 +9,10 @@ import {
 
 jest.mock('react-hot-toast', () => ({
   __esModule: true,
-  default: {
+  default: Object.assign(jest.fn(), {
     success: jest.fn(),
     error: jest.fn(),
-  },
+  }),
 }));
 
 // jsdom does not define DataTransfer; UploadButton's paste handler uses it when clipboard has files
@@ -312,7 +312,7 @@ describe('paste as card (long text becomes attachment)', () => {
     );
   });
 
-  it('calls toast.error when pasted content exceeds size limit', async () => {
+  it('shows warning toast and prevents paste when content exceeds size limit', async () => {
     const { MAX_DOCUMENT_CONTENT_LENGTH } = require('../../helpers/constants');
     const tooLongText = 'x'.repeat(MAX_DOCUMENT_CONTENT_LENGTH + 1);
     render(
@@ -328,7 +328,7 @@ describe('paste as card (long text becomes attachment)', () => {
 
     await waitFor(() => {
       const toast = require('react-hot-toast').default;
-      expect(toast.error).toHaveBeenCalled();
+      expect(toast).toHaveBeenCalled();
     });
     expect(screen.queryByText('upload.pastedText')).toBeNull();
   });

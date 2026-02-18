@@ -221,7 +221,6 @@
     transform: scale(1.1);
 }
 
-
 /* Show remove button only when user hovers the preview item */
 .memori--preview-item:hover .memori--remove-button {
     opacity: 1;

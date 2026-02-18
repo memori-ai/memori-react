@@ -101,7 +101,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
             max: maxImages,
             defaultValue: `${skipped} image(s) not added (maximum ${maxImages} files allowed).`,
           }) ?? `${skipped} image(s) not added (maximum ${maxImages} files allowed).`,
-        severity: 'info',
+        severity: 'warning',
       });
     }
 
@@ -121,14 +121,6 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     });
 
     if (validFiles.length === 0) {
-      onImageError?.({
-        message:
-          t('upload.noImagesAdded', {
-            defaultValue:
-              'No images could be added. Check file type (.jpg, .jpeg, .png) and size (max 10MB).',
-          }) ?? 'No images could be added. Check file type (.jpg, .jpeg, .png) and size (max 10MB).',
-        severity: 'info',
-      });
       if (imageInputRef.current) {
         imageInputRef.current.value = '';
       }
@@ -250,7 +242,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
               } catch (error) {
                 onImageError?.({
                   message: t('upload.uploadFailed') ?? 'Upload failed',
-                  severity: 'error',
+                  severity: 'warning',
                 });
                 resolve(null);
               }
@@ -268,7 +260,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
           reader.onerror = () => {
             onImageError?.({
               message: t('upload.fileReadingFailed') ?? 'File reading failed',
-              severity: 'error',
+              severity: 'warning',
             });
             resolve(null);
           };
@@ -289,7 +281,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     } catch (error) {
       onImageError?.({
         message: t('upload.uploadFailed') ?? 'Upload failed',
-        severity: 'error',
+        severity: 'warning',
       });
     } finally {
       setIsLoading(false);
@@ -397,7 +389,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
           } catch (error) {
             onImageError?.({
               message: t('upload.uploadFailed') ?? 'Upload failed',
-              severity: 'error',
+              severity: 'warning',
             });
           }
         } else {
@@ -415,7 +407,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
       reader.onerror = () => {
         onImageError?.({
           message: t('upload.fileReadingFailed') ?? 'File reading failed',
-          severity: 'error',
+          severity: 'warning',
         });
         setIsLoading(false);
       };
@@ -424,7 +416,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
     } catch (error) {
       onImageError?.({
         message: t('upload.uploadFailed') ?? 'Upload failed',
-        severity: 'error',
+        severity: 'warning',
       });
       setIsLoading(false);
     }
