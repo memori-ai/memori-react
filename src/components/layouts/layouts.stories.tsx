@@ -167,6 +167,7 @@ WebsiteAssistant3.args = {
   showOnlyLastMessages: false,
   showTranslationOriginal: false,
   showCopyButton: false,
+  disablePastedText: true,
 };
 
 

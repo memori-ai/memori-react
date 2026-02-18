@@ -44,6 +44,8 @@ export interface Props {
   onTextareaExpanded?: (expanded: boolean) => void;
   /** Override total document payload limit (character count). */
   maxTotalMessagePayload?: number;
+  /** When true, pasted text is not added as a document attachment (normal paste only). Default false. */
+  disablePastedText?: boolean;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -68,6 +70,7 @@ const ChatInputs: React.FC<Props> = ({
   client,
   onTextareaExpanded,
   maxTotalMessagePayload,
+  disablePastedText = false,
 }) => {
   const { t } = useTranslation();
 
@@ -213,6 +216,7 @@ const ChatInputs: React.FC<Props> = ({
    */
   const handleTextareaPaste = useCallback(
     (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
+      if (disablePastedText) return;
       if (e.clipboardData.files?.length) return;
       const text = e.clipboardData.getData('text/plain');
       if (!text?.trim()) return;
@@ -283,7 +287,7 @@ ${text}
         ) => [...prev, newFile]
       );
     },
-    [documentPreviewFiles, maxTotalMessagePayload, t]
+    [documentPreviewFiles, disablePastedText, maxTotalMessagePayload, t]
   );
 
   const isDisabled =
