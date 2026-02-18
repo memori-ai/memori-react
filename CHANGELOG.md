@@ -1,5 +1,12 @@
 
 
+## [8.18.2](https://github.com/memori-ai/memori-react/compare/v8.18.1...v8.18.2) (2026-02-18)
+
+
+### Changes
+
+* streamline error handling ([a35b82b](https://github.com/memori-ai/memori-react/commit/a35b82bc4aa92036bb67bd7cbc453aa05f7d1965))
+
 ## [8.18.1](https://github.com/memori-ai/memori-react/compare/v8.18.0...v8.18.1) (2026-02-17)
 
 
