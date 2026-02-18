@@ -15,6 +15,8 @@ import {
   MAX_DOCUMENTS_PER_MESSAGE,
   MAX_DOCUMENT_CONTENT_LENGTH,
   MAX_TOTAL_MESSAGE_PAYLOAD,
+  PASTE_AS_CARD_CHAR_THRESHOLD,
+  PASTE_AS_CARD_LINE_THRESHOLD,
 } from '../../helpers/constants';
 export interface Props {
   dialogState?: DialogState;
@@ -214,8 +216,8 @@ const ChatInputs: React.FC<Props> = ({
   };
 
   /**
-   * All pasted text is treated as a document attachment: wrapped in <document_attachment>
-   * and added to the document preview, then sent as media via sendMessage (same as other media).
+   * Pasted text is added as a document attachment only when it exceeds the char or line threshold.
+   * Otherwise the default paste (inline into textarea) is allowed.
    */
   const handleTextareaPaste = useCallback(
     (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
@@ -223,6 +225,13 @@ const ChatInputs: React.FC<Props> = ({
       if (e.clipboardData.files?.length) return;
       const text = e.clipboardData.getData('text/plain');
       if (!text?.trim()) return;
+
+      const lineCount = text.split(/\r?\n/).length;
+      const exceedsCharThreshold = text.length > PASTE_AS_CARD_CHAR_THRESHOLD;
+      const exceedsLineThreshold = lineCount > PASTE_AS_CARD_LINE_THRESHOLD;
+      if (!exceedsCharThreshold && !exceedsLineThreshold) {
+        return; // allow default paste (inline)
+      }
 
       // Critical: max attachments reached – prevent dumping long text into textarea, show feedback
       if (documentPreviewFiles.length >= MAX_DOCUMENTS_PER_MESSAGE) {
