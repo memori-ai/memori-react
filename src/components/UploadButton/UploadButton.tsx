@@ -114,7 +114,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       } else {
         addErrorRef.current({
           message: `File "${file.name}" is not a supported image or document type`,
-          severity: 'error',
+          severity: 'warning',
         });
       }
     });
@@ -126,7 +126,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
     if (remainingSlots <= 0) {
       addErrorRef.current({
         message: `Maximum ${MAX_DOCUMENTS_PER_MESSAGE} media files allowed.`,
-        severity: 'error',
+        severity: 'warning',
       });
       return;
     }
@@ -144,7 +144,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
             max: MAX_DOCUMENTS_PER_MESSAGE,
             defaultValue: `${skipped} file(s) not added (maximum ${MAX_DOCUMENTS_PER_MESSAGE} files allowed).`,
           }) ?? `${skipped} file(s) not added (maximum ${MAX_DOCUMENTS_PER_MESSAGE} files allowed).`,
-        severity: 'info',
+        severity: 'warning',
       });
     }
 
@@ -153,11 +153,8 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       if (!isMediaAcceptedRef.current) {
         addErrorRef.current({
           message:
-            t('upload.imagesNotAddedMediaNotAccepted', {
-              count: imageFiles.length,
-              defaultValue: `${imageFiles.length} image(s) not added (media uploads not accepted).`,
-            }) ?? `${imageFiles.length} image(s) not added (media uploads not accepted).`,
-          severity: 'info',
+            t('upload.mediaNotAccepted') ?? 'Media uploads are not accepted',
+          severity: 'warning',
         });
       } else {
         // Trigger image upload by creating a synthetic event
@@ -417,7 +414,7 @@ ${file.content}
         message: `File type "${fileExt}" is not supported. Please use: ${ALLOWED_FILE_TYPES.join(
           ', '
         )}`,
-        severity: 'error',
+        severity: 'warning',
       });
       return false;
     }
@@ -427,7 +424,7 @@ ${file.content}
         message: `File "${file.name}" exceeds ${
           MAX_FILE_SIZE / 1024 / 1024
         }MB limit`,
-        severity: 'error',
+        severity: 'warning',
       });
       return false;
     }
@@ -458,11 +455,7 @@ ${file.content}
     );
 
     if (totalPayloadSize > limit) {
-      const msg = t('upload.contextSizeExceedsLimit', {
-        defaultValue:
-          'Context size exceeds the limit. Try reducing the number of files or content in the conversation.',
-      });
-      return { valid: false, message: typeof msg === 'string' ? msg : String(msg) };
+      return { valid: false, message: '' };
     }
 
     return { valid: true };
@@ -490,7 +483,7 @@ ${file.content}
         message: `File type "${fileExt}" is not supported. Please use: ${ALLOWED_FILE_TYPES.join(
           ', '
         )}`,
-        severity: 'error',
+        severity: 'warning',
       });
       return false;
     }
@@ -500,7 +493,7 @@ ${file.content}
         message: `File "${file.name}" exceeds ${
           MAX_FILE_SIZE / 1024 / 1024
         }MB limit`,
-        severity: 'error',
+        severity: 'warning',
       });
       return false;
     }

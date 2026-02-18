@@ -250,13 +250,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           '>',
           perDocumentLimit
         );
-        onDocumentError?.({
-          message: t('upload.contextSizeExceedsLimit', {
-            defaultValue:
-              'Context size exceeds the limit. Try reducing the number of files or content in the conversation.',
-          }),
-          severity: 'error',
-        });
         wasTruncated = true;
         text =
           text.substring(0, perDocumentLimit) +
@@ -295,7 +288,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
             max: maxDocuments ?? 10,
             defaultValue: `${skipped} document(s) not added (maximum ${maxDocuments ?? 10} files allowed).`,
           }) ?? `${skipped} document(s) not added (maximum ${maxDocuments ?? 10} files allowed).`,
-        severity: 'info',
+        severity: 'warning',
       });
     }
 
@@ -349,14 +342,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
             content: text,
             mimeType: file.type,
           });
-        } else {
-          onDocumentError?.({
-            message: t('upload.documentNotReadable', {
-              name: file.name,
-              defaultValue: `Document "${file.name}" could not be read or was empty.`,
-            }),
-            severity: 'info',
-          });
         }
       } catch (error) {
         console.error('File processing error:', error);
@@ -364,7 +349,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           message: `${
             error instanceof Error ? error.message : 'Unknown error'
           }`,
-          severity: 'error',
+          severity: 'warning',
         });
       }
     }
@@ -375,17 +360,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           count: skippedDueToPayload,
           defaultValue: `${skippedDueToPayload} document(s) not added (context size limit).`,
         }),
-        severity: 'info',
-      });
-    }
-
-    if (processedFiles.length === 0 && filesToProcess.length > 0) {
-      onDocumentError?.({
-        message: t('upload.noDocumentsAdded', {
-          defaultValue:
-            'No documents could be added. Check file type, size (max 10MB), and that the file is readable.',
-        }),
-        severity: 'info',
+        severity: 'warning',
       });
     }
 

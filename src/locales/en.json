@@ -288,16 +288,13 @@
     "dragAndDropFiles": "Drag and drop files here to add them to the chat",
     "pasteMaxAttachmentsReached": "Maximum {{max}} attachments. Remove one to add this as a file.",
     "pasteContentTooLong": "Pasted content is too long (max {{size}}KB). Shorten or split it.",
+    "pasteContentExceedsLimit": "Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.",
     "pasteAddedAsAttachment": "Pasted content added as attachment",
     "contextSizeExceedsLimit": "Context size exceeds the limit. Try reducing the number of files or content in the conversation.",
     "filesNotAddedMaxAllowed": "{{count}} file(s) not added (maximum {{max}} files allowed).",
     "documentsNotAddedMaxAllowed": "{{count}} document(s) not added (maximum {{max}} files allowed).",
     "imagesNotAddedMaxAllowed": "{{count}} image(s) not added (maximum {{max}} files allowed).",
-    "documentsNotAddedContextSize": "{{count}} document(s) not added (context size limit).",
-    "documentNotReadable": "Document \"{{name}}\" could not be read or was empty.",
-    "noDocumentsAdded": "No documents could be added. Check file type, size (max 10MB), and that the file is readable.",
-    "noImagesAdded": "No images could be added. Check file type (.jpg, .jpeg, .png) and size (max 10MB).",
-    "imagesNotAddedMediaNotAccepted": "{{count}} image(s) not added (media uploads not accepted)."
+    "documentsNotAddedContextSize": "{{count}} document(s) not added (context size limit)."
   },
   "media": {
     "title": "Title",
