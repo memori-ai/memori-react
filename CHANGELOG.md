@@ -1,5 +1,12 @@
 
 
+## [8.19.2](https://github.com/memori-ai/memori-react/compare/v8.19.1...v8.19.2) (2026-02-19)
+
+
+### Changes
+
+* remove disablePastedText prop ([177881b](https://github.com/memori-ai/memori-react/commit/177881bc13fc9901f7126bf4b4aee40cb1081334))
+
 ## [8.19.1](https://github.com/memori-ai/memori-react/compare/v8.19.0...v8.19.1) (2026-02-18)
 
 
