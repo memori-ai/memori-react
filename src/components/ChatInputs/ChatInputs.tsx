@@ -46,9 +46,7 @@ export interface Props {
   onTextareaExpanded?: (expanded: boolean) => void;
   /** Override total document payload limit (character count). */
   maxTotalMessagePayload?: number;
-  /** When true, pasted text is not added as a document attachment (normal paste only). Default false. */
-  disablePastedText?: boolean;
-  /** Max characters in textarea; shows counter (e.g. "0 / 500") when set. */
+  /** Max characters in textarea; shows counter and enforces pasted content + existing text does not exceed this limit. */
   maxTextareaCharacters?: number;
 }
 
@@ -74,7 +72,6 @@ const ChatInputs: React.FC<Props> = ({
   client,
   onTextareaExpanded,
   maxTotalMessagePayload,
-  disablePastedText = false,
   maxTextareaCharacters,
 }) => {
   const { t } = useTranslation();
@@ -218,13 +215,29 @@ const ChatInputs: React.FC<Props> = ({
   /**
    * Pasted text is added as a document attachment only when it exceeds the char or line threshold.
    * Otherwise the default paste (inline into textarea) is allowed.
+   * When maxTextareaCharacters is set, pasted content + existing text must not exceed it.
    */
   const handleTextareaPaste = useCallback(
     (e: React.ClipboardEvent<HTMLTextAreaElement>) => {
-      if (disablePastedText) return;
       if (e.clipboardData.files?.length) return;
       const text = e.clipboardData.getData('text/plain');
       if (!text?.trim()) return;
+
+      const target = e.target as HTMLTextAreaElement;
+      const selectionLength = target.selectionEnd - target.selectionStart;
+      const lengthAfterPaste = userMessage.length - selectionLength + text.length;
+
+      if (
+        maxTextareaCharacters != null &&
+        lengthAfterPaste > maxTextareaCharacters
+      ) {
+        e.preventDefault();
+        toast(t('upload.pasteContentExceedsLimit', {
+          defaultValue:
+            'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
+        }), { icon: '⚠️' });
+        return;
+      }
 
       const lineCount = text.split(/\r?\n/).length;
       const exceedsCharThreshold = text.length > PASTE_AS_CARD_CHAR_THRESHOLD;
@@ -299,7 +312,13 @@ ${text}
         ) => [...prev, newFile]
       );
     },
-    [documentPreviewFiles, disablePastedText, maxTotalMessagePayload, t]
+    [
+      documentPreviewFiles,
+      maxTextareaCharacters,
+      maxTotalMessagePayload,
+      userMessage.length,
+      t,
+    ]
   );
 
   const isDisabled =

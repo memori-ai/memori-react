@@ -349,6 +349,24 @@ describe('paste as card (long text becomes attachment)', () => {
     });
   });
 
+  it('prevents paste when pasted content + existing text would exceed maxTextareaCharacters', async () => {
+    const toast = require('react-hot-toast').default;
+    render(
+      <ChatInputs
+        {...defaultProps}
+        userMessage="ab"
+        showUpload={true}
+        maxTextareaCharacters={5}
+        dialogState={{ ...dialogState, acceptsMedia: true }}
+      />
+    );
+    const textarea = document.querySelector('textarea');
+    fireEvent.paste(textarea!, createPasteEvent('wxyz')); // 2 + 4 = 6 > 5
+    await waitFor(() => {
+      expect(toast).toHaveBeenCalled();
+    });
+  });
+
   it('does not add card when paste has few chars (pastes inline)', () => {
     const fewChars = 'hi';
     render(
