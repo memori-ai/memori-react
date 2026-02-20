@@ -57,6 +57,8 @@ interface UploadDocumentsProps {
   ) => boolean | { valid: boolean; message?: string };
   /** Same as total payload: overrides per-document content limit (character count). */
   maxTotalMessagePayload?: number;
+  /** Per-document content character limit. */
+  maxDocumentContentLength?: number;
 }
 
 const UploadDocuments: React.FC<UploadDocumentsProps> = ({
@@ -68,6 +70,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   onValidateFile,
   onValidatePayloadSize,
   maxTotalMessagePayload,
+  maxDocumentContentLength = 200000,
 }) => {
   const { t } = useTranslation();
 
@@ -240,7 +243,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         text = await extractTextFromXLSX(file);
       }
 
-      const perDocumentLimit = maxTotalMessagePayload ?? MAX_DOCUMENT_CONTENT_LENGTH;
+      const perDocumentLimit = maxDocumentContentLength;
       let wasTruncated = false;
       if (text && text.length > perDocumentLimit) {
         console.warn(
@@ -309,8 +312,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
     }[] = [];
     let hadTruncation = false;
     let skippedDueToPayload = 0;
-    const payloadLimit =
-      maxTotalMessagePayload ?? MAX_TOTAL_MESSAGE_PAYLOAD;
+    const payloadLimit = maxTotalMessagePayload ?? 200000;
     const existingTotal = documentPreviewFiles
       .filter((f: any) => f.type === 'document')
       .reduce((sum: number, f: any) => sum + (f.content?.length ?? 0), 0);

@@ -206,19 +206,8 @@ export const boardOfExpertsLoadingSentences: {
 export const MAX_MSG_CHARS = 4000;
 export const MAX_MSG_WORDS = 300;
 
-// Document / attachment limits (index prop maxTotalMessagePayload overrides BOTH total payload and per-document limit)
-// • MAX_DOCUMENTS_PER_MESSAGE: max attachments (docs + images) per message
-// • MAX_TOTAL_MESSAGE_PAYLOAD: max combined content length (chars) for all documents
-// • MAX_DOCUMENT_CONTENT_LENGTH: max content length (chars) per single document
-// • File size (bytes): 10MB per file, enforced in UploadButton
-export const MAX_DOCUMENTS_PER_MESSAGE = 10;
-/** Total document payload limit (character count of all document contents combined). Default 200000 ≈ 200k chars. */
-export const MAX_TOTAL_MESSAGE_PAYLOAD = 200000;
-/** Per-document content character limit (default 200k chars). */
-export const MAX_DOCUMENT_CONTENT_LENGTH = 200000;
-
-/** When pasted text has more than this many lines, it is added as a document card instead of inline. */
-export const PASTE_AS_CARD_LINE_THRESHOLD = 100;
-
-/** When pasted text exceeds this length (e.g. one long line from CSV/table), it is added as a document card. */
-export const PASTE_AS_CARD_CHAR_THRESHOLD = 4200;
+export const maxDocumentsPerMessage = 10;
+export const maxTotalMessagePayloadDefault = 200000;
+export const maxDocumentContentLength = 200000;
+export const pasteAsCardLineThreshold = 100;
+export const pasteAsCardCharThreshold = 4200;

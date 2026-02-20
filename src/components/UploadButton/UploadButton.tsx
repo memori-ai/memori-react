@@ -31,6 +31,10 @@ interface UploadManagerProps {
   memoriID?: string;
   /** Override total document payload limit (character count). */
   maxTotalMessagePayload?: number;
+  /** Max attachments (docs + images) per message. */
+  maxDocumentsPerMessage?: number;
+  /** Per-document content character limit. */
+  maxDocumentContentLength?: number;
 }
 
 const UploadButton: React.FC<UploadManagerProps> = ({
@@ -42,6 +46,8 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   documentPreviewFiles,
   memoriID = '',
   maxTotalMessagePayload,
+  maxDocumentsPerMessage = 10,
+  maxDocumentContentLength = 200000,
 }) => {
   // State
   const [isLoading, setIsLoading] = useState(false);
@@ -58,7 +64,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 
   // Calculate total media count
   const currentMediaCount = documentPreviewFiles.length;
-  const remainingSlots = MAX_DOCUMENTS_PER_MESSAGE - currentMediaCount;
+  const remainingSlots = maxDocumentsPerMessage - currentMediaCount;
   const hasReachedMediaLimit = remainingSlots <= 0;
 
   // Error handling - show alerts via toast manager
@@ -121,10 +127,10 @@ const UploadButton: React.FC<UploadManagerProps> = ({
     const totalSupported = supportedFiles.length;
     if (totalSupported === 0) return;
 
-    const remainingSlots = MAX_DOCUMENTS_PER_MESSAGE - currentMediaCountRef.current;
+    const remainingSlots = maxDocumentsPerMessage - currentMediaCountRef.current;
     if (remainingSlots <= 0) {
       addErrorRef.current({
-        message: `Maximum ${MAX_DOCUMENTS_PER_MESSAGE} media files allowed.`,
+        message: `Maximum ${maxDocumentsPerMessage} media files allowed.`,
         severity: 'warning',
       });
       return;
@@ -140,9 +146,9 @@ const UploadButton: React.FC<UploadManagerProps> = ({
         message:
           t('upload.filesNotAddedMaxAllowed', {
             count: skipped,
-            max: MAX_DOCUMENTS_PER_MESSAGE,
-            defaultValue: `${skipped} file(s) not added (maximum ${MAX_DOCUMENTS_PER_MESSAGE} files allowed).`,
-          }) ?? `${skipped} file(s) not added (maximum ${MAX_DOCUMENTS_PER_MESSAGE} files allowed).`,
+            max: maxDocumentsPerMessage,
+            defaultValue: `${skipped} file(s) not added (maximum ${maxDocumentsPerMessage} files allowed).`,
+          }) ?? `${skipped} file(s) not added (maximum ${maxDocumentsPerMessage} files allowed).`,
         severity: 'warning',
       });
     }
@@ -440,8 +446,7 @@ ${file.content}
       mimeType: string;
     }[]
   ): { valid: boolean; message?: string } => {
-    const { MAX_TOTAL_MESSAGE_PAYLOAD } = require('../../helpers/constants');
-    const limit = maxTotalMessagePayload ?? MAX_TOTAL_MESSAGE_PAYLOAD;
+    const limit = maxTotalMessagePayload ?? 200000;
 
     const existingDocuments = documentPreviewFiles.filter(
       (file: any) => file.type === 'document'
@@ -561,7 +566,7 @@ ${file.content}
             'memori--document-count-full': hasReachedMediaLimit,
           })}
         >
-          {currentMediaCount}/{MAX_DOCUMENTS_PER_MESSAGE}
+          {currentMediaCount}/{maxDocumentsPerMessage}
         </div>
       )}
 
@@ -569,13 +574,14 @@ ${file.content}
       <div className="memori--hidden-uploader" ref={documentRef}>
         <UploadDocuments
           setDocumentPreviewFiles={handleDocumentFiles}
-          maxDocuments={MAX_DOCUMENTS_PER_MESSAGE}
+          maxDocuments={maxDocumentsPerMessage}
           documentPreviewFiles={documentPreviewFiles}
           onLoadingChange={handleLoadingChange}
           onDocumentError={handleDocumentError}
           onValidateFile={validateDocumentFile}
           onValidatePayloadSize={validatePayloadSize}
           maxTotalMessagePayload={maxTotalMessagePayload}
+          maxDocumentContentLength={maxDocumentContentLength}
         />
       </div>
 
@@ -588,7 +594,7 @@ ${file.content}
           documentPreviewFiles={documentPreviewFiles}
           isMediaAccepted={isMediaAccepted}
           onLoadingChange={handleLoadingChange}
-          maxImages={MAX_DOCUMENTS_PER_MESSAGE}
+          maxImages={maxDocumentsPerMessage}
           memoriID={memoriID}
           onImageError={handleImageError}
           onValidateImageFile={validateImageFile}

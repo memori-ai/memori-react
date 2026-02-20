@@ -23,6 +23,7 @@ import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
 import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler';
 import { FileText as DocumentIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { maxDocumentsPerMessage, maxTotalMessagePayloadDefault, maxDocumentContentLength, pasteAsCardLineThreshold, pasteAsCardCharThreshold } from '../../helpers/constants';
 export interface Props {
   memori: Memori;
   tenant?: Tenant;
@@ -78,6 +79,8 @@ export interface Props {
   maxTotalMessagePayload?: number;
   /** Max characters in chat textarea; shows counter and enforces paste + existing text does not exceed this limit. */
   maxTextareaCharacters?: number;
+  /** Max attachments (docs + images) per message. */
+
 }
 
 const Chat: React.FC<Props> = ({
@@ -132,6 +135,7 @@ const Chat: React.FC<Props> = ({
   maxTotalMessagePayload,
   maxTextareaCharacters,
 }) => {
+
   const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const { t } = useTranslation();
@@ -388,7 +392,7 @@ const Chat: React.FC<Props> = ({
                 customMediaRenderer={customMediaRenderer}
                 fromUser={message.fromUser}
               />
-              
+
               <ChatBubble
                 key={`chatbubble-${index}-${
                   message.text?.includes('<document_attachment')
@@ -554,8 +558,14 @@ const Chat: React.FC<Props> = ({
           isPlayingAudio={isPlayingAudio}
           showMicrophone={showMicrophone}
           memoriID={memori?.memoriID}
-          maxTotalMessagePayload={maxTotalMessagePayload}
+          maxTotalMessagePayload={
+            maxTotalMessagePayload ?? maxTotalMessagePayloadDefault
+          }
           maxTextareaCharacters={maxTextareaCharacters}
+          maxDocumentsPerMessage={maxDocumentsPerMessage}
+          maxDocumentContentLength={maxDocumentContentLength}
+          pasteAsCardLineThreshold={pasteAsCardLineThreshold}
+          pasteAsCardCharThreshold={pasteAsCardCharThreshold}
         />
       )}
     </div>
