@@ -1,5 +1,12 @@
 
 
+## [8.19.3](https://github.com/memori-ai/memori-react/compare/v8.19.2...v8.19.3) (2026-02-20)
+
+
+### Bug Fixes
+
+* reference error on MAX_DOCUMENTS_PER_MESSAGE ([8f32d13](https://github.com/memori-ai/memori-react/commit/8f32d1391c9541bf36f59d7a40f497d597ad2287))
+
 ## [8.19.2](https://github.com/memori-ai/memori-react/compare/v8.19.1...v8.19.2) (2026-02-19)
 
 
