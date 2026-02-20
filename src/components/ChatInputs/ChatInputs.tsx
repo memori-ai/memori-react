@@ -12,13 +12,6 @@ import UploadButton from '../UploadButton/UploadButton';
 import FilePreview from '../FilePreview/FilePreview';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import Plus from '../icons/Plus';
-import {
-  MAX_DOCUMENTS_PER_MESSAGE,
-  MAX_DOCUMENT_CONTENT_LENGTH,
-  MAX_TOTAL_MESSAGE_PAYLOAD,
-  PASTE_AS_CARD_CHAR_THRESHOLD,
-  PASTE_AS_CARD_LINE_THRESHOLD,
-} from '../../helpers/constants';
 export interface Props {
   dialogState?: DialogState;
   instruct?: boolean;
@@ -49,6 +42,14 @@ export interface Props {
   maxTotalMessagePayload?: number;
   /** Max characters in textarea; shows counter and enforces pasted content + existing text does not exceed this limit. */
   maxTextareaCharacters?: number;
+  /** Max attachments (docs + images) per message. */
+  maxDocumentsPerMessage?: number;
+  /** Per-document content character limit. */
+  maxDocumentContentLength?: number;
+  /** When pasted text has more than this many lines, it is added as a document card. */
+  pasteAsCardLineThreshold?: number;
+  /** When pasted text exceeds this length, it is added as a document card. */
+  pasteAsCardCharThreshold?: number;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -74,6 +75,10 @@ const ChatInputs: React.FC<Props> = ({
   onTextareaExpanded,
   maxTotalMessagePayload,
   maxTextareaCharacters,
+  maxDocumentsPerMessage,
+  maxDocumentContentLength,
+  pasteAsCardLineThreshold,
+  pasteAsCardCharThreshold,
 }) => {
   const { t } = useTranslation();
 
@@ -130,6 +135,8 @@ const ChatInputs: React.FC<Props> = ({
         url: file.url,
       };
     });
+
+    
 
     sendMessage(userMessage, mediaWithIds);
 
@@ -241,26 +248,29 @@ const ChatInputs: React.FC<Props> = ({
       }
 
       const lineCount = text.split(/\r?\n/).length;
-      const exceedsCharThreshold = text.length > PASTE_AS_CARD_CHAR_THRESHOLD;
-      const exceedsLineThreshold = lineCount > PASTE_AS_CARD_LINE_THRESHOLD;
+      const charThreshold = pasteAsCardCharThreshold ?? 4200;
+      const lineThreshold = pasteAsCardLineThreshold ?? 100;
+      const exceedsCharThreshold = text.length > charThreshold;
+      const exceedsLineThreshold = lineCount > lineThreshold;
       if (!exceedsCharThreshold && !exceedsLineThreshold) {
         return; // allow default paste (inline)
       }
 
       // Critical: max attachments reached – prevent dumping long text into textarea, show feedback
-      if (documentPreviewFiles.length >= MAX_DOCUMENTS_PER_MESSAGE) {
+      const maxDocs = maxDocumentsPerMessage ?? 10;
+      if (documentPreviewFiles.length >= maxDocs) {
         e.preventDefault();
         toast.error(
           t('upload.pasteMaxAttachmentsReached', {
-            max: MAX_DOCUMENTS_PER_MESSAGE,
-            defaultValue: `Maximum ${MAX_DOCUMENTS_PER_MESSAGE} attachments. Remove one to add this as a file.`,
+            max: maxDocs,
+            defaultValue: `Maximum ${maxDocs} attachments. Remove one to add this as a file.`,
           })
         );
         return;
       }
 
-      const totalPayloadLimit = maxTotalMessagePayload ?? MAX_TOTAL_MESSAGE_PAYLOAD;
-      const perDocumentLimit = maxTotalMessagePayload ?? MAX_DOCUMENT_CONTENT_LENGTH;
+      const totalPayloadLimit = maxTotalMessagePayload ?? 200000;
+      const perDocumentLimit = maxDocumentContentLength ?? 200000;
 
       if (text.length > perDocumentLimit) {
         e.preventDefault();
@@ -360,6 +370,8 @@ ${text}
                   documentPreviewFiles={documentPreviewFiles}
                   memoriID={memoriID}
                   maxTotalMessagePayload={maxTotalMessagePayload}
+                  maxDocumentsPerMessage={maxDocumentsPerMessage}
+                  maxDocumentContentLength={maxDocumentContentLength}
                 />
               </div>
             )}
