@@ -90,6 +90,15 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
       </div>
     </div>
   </fieldset>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -183,6 +192,15 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
       </div>
     </div>
   </fieldset>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -265,6 +283,15 @@ exports[`renders VenueWidget without gps button unchanged 1`] = `
       </div>
     </div>
   </fieldset>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -358,6 +385,15 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
       </div>
     </div>
   </fieldset>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -435,5 +471,14 @@ exports[`renders empty VenueWidget unchanged 1`] = `
       </div>
     </div>
   </fieldset>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;

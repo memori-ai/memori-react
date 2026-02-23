@@ -717,6 +717,15 @@ exports[`renders Chat unchanged 1`] = `
       </fieldset>
     </div>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -1467,6 +1476,15 @@ exports[`renders Chat with context vars unchanged 1`] = `
       </fieldset>
     </div>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -2133,6 +2151,15 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
       </fieldset>
     </div>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -2805,6 +2832,15 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
       </fieldset>
     </div>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -3560,6 +3596,15 @@ exports[`renders Chat with dates unchanged 1`] = `
       </fieldset>
     </div>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -4314,6 +4359,15 @@ exports[`renders Chat with hints unchanged 1`] = `
       </fieldset>
     </div>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -5244,6 +5298,15 @@ exports[`renders Chat with media unchanged 1`] = `
       </fieldset>
     </div>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -5969,6 +6032,15 @@ exports[`renders Chat with memori typing unchanged 1`] = `
       </fieldset>
     </div>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -6641,5 +6713,14 @@ exports[`renders Chat with user unchanged 1`] = `
       </fieldset>
     </div>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;

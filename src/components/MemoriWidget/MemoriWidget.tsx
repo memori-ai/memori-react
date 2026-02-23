@@ -33,7 +33,7 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import { AudioContext, IAudioContext } from 'standardized-audio-context';
 import cx from 'classnames';
 import { DateTime } from 'luxon';
-import toast from 'react-hot-toast';
+import { useAlertManager, createAlertOptions } from '@memori.ai/ui';
 
 // Components
 import PositionDrawer from '../PositionDrawer/PositionDrawer';
@@ -496,7 +496,7 @@ const MemoriWidget = ({
   maxTextareaCharacters,
 }: Props) => {
   const { t, i18n } = useTranslation();
-
+  const { add, close } = useAlertManager();
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
@@ -1353,7 +1353,7 @@ const MemoriWidget = ({
         session?.resultMessage.startsWith('This Memori is aged restricted')
       ) {
         console.warn(session);
-        toast.error(t('underageTwinSession', { age: minAge }));
+        add(createAlertOptions({ description: t('underageTwinSession', { age: minAge }), severity: 'error' }));
         setGotErrorInOpening(true);
       }
       // Handle authentication error
@@ -1365,18 +1365,21 @@ const MemoriWidget = ({
       // Handle other errors
       else {
         console.warn(session);
-        toast.error(
-          tst => (
-            <div>
-              <p>{t(getErrori18nKey(session?.resultCode))}</p>
-              <Button
-                variant="outline"
-                onClick={() => toast.dismiss(tst.id)}
-                icon={<X />}
-              />
-            </div>
-          ),
-          { duration: Infinity }
+        const toastId = add(
+          createAlertOptions({
+            description: (
+              <div>
+                <p>{t(getErrori18nKey(session?.resultCode))}</p>
+                <Button
+                  variant="outline"
+                  onClick={() => close(toastId)}
+                  icon={<X />}
+                />
+              </div>
+            ),
+            severity: 'error',
+            duration: 0,
+          })
         );
         setGotErrorInOpening(true);
         return session;
@@ -1577,7 +1580,7 @@ const MemoriWidget = ({
         response?.resultMessage.startsWith('This Memori is aged restricted')
       ) {
         console.error('[REOPEN_SESSION] Age restriction error:', response);
-        toast.error(t('underageTwinSession', { age: minAge }));
+        add(createAlertOptions({ description: t('underageTwinSession', { age: minAge }), severity: 'error' }));
         setGotErrorInOpening(true);
       }
       // Handle authentication error
@@ -1589,7 +1592,7 @@ const MemoriWidget = ({
       // Handle other errors
       else {
         console.error('[REOPEN_SESSION] Other error:', response);
-        toast.error(t(getErrori18nKey(response.resultCode)));
+        add(createAlertOptions({ description: t(getErrori18nKey(response.resultCode)), severity: 'error' }));
         setGotErrorInOpening(true);
       }
     } catch (err) {

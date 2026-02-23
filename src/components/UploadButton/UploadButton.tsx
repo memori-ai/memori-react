@@ -71,9 +71,10 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   const addError = useCallback(
     (error: { message: string; severity: 'error' | 'warning' | 'info' }) => {
       alertManager.add({
+        id: `upload-notification-${Date.now()}`,
         title: 'Upload notification',
         description: error.message,
-        data: { severity: error.severity, closable: true },
+        data: { severity: error.severity, closable: true, style: { zIndex: 10002, top: 30, right: 30, position: 'fixed' } },
       });
     },
     [alertManager]
@@ -643,12 +644,6 @@ ${file.content}
         />
       </div>
 
-      {/* Error messages container */}
-      <div className="memori--error-message-container">
-        {alertManager.toasts.map((error, index) => (
-          <Alert key={`${error.id}-${index}`} toast={error} />
-        ))}
-      </div>
     </div>
   );
 };

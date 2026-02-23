@@ -10,7 +10,7 @@ import {
   FileText,
 } from 'lucide-react';
 import { QRCodeCanvas } from 'qrcode.react';
-import { Button, Dropdown } from '@memori.ai/ui';
+import { Button, Dropdown, useAlertManager, createAlertOptions } from '@memori.ai/ui';
 import cx from 'classnames';
 import {
   Tenant,
@@ -18,7 +18,6 @@ import {
   Message,
 } from '@memori.ai/memori-api-client/dist/types';
 import { pdfExporter } from '../MemoriArtifactSystem/components/ArtifactActions/utils/PDFExporter';
-import toast from 'react-hot-toast';
 import {
   formatChatHistoryForPDF,
   createChatPDFDocument,
@@ -51,6 +50,7 @@ const ShareButton: React.FC<Props> = ({
   history = [],
 }: Props) => {
   const { t, i18n } = useTranslation();
+  const { add } = useAlertManager();
   const [targetUrl, setTargetUrl] = useState(url);
   const [isExportingPDF, setIsExportingPDF] = useState(false);
 
@@ -127,15 +127,12 @@ const ShareButton: React.FC<Props> = ({
    */
   const handleExportPDF = async () => {
     if (!history || history.length === 0) {
-      toast.error(t('exportChatHistory.empty') || 'No chat history to export');
+      add(createAlertOptions({ description: t('exportChatHistory.empty') || 'No chat history to export', severity: 'error' }));
       return;
     }
 
     if (!pdfExporter.isSupported()) {
-      toast.error(
-        t('exportChatHistory.pdfNotSupported') ||
-          'PDF export is not supported in this browser'
-      );
+      add(createAlertOptions({ description: t('exportChatHistory.pdfNotSupported') || 'PDF export is not supported in this browser', severity: 'error' }));
       return;
     }
 
@@ -228,15 +225,10 @@ const ShareButton: React.FC<Props> = ({
         }
       }, 500);
 
-      toast.success(
-        t('exportChatHistory.success') || 'Chat exported to PDF successfully'
-      );
+      add(createAlertOptions({ description: t('exportChatHistory.success') || 'Chat exported to PDF successfully', severity: 'success' }));
     } catch (error) {
       console.error('PDF export error:', error);
-      toast.error(
-        t('exportChatHistory.error') ||
-          'Failed to export chat to PDF. Please try again.'
-      );
+      add(createAlertOptions({ description: t('exportChatHistory.error') || 'Failed to export chat to PDF. Please try again.', severity: 'error' }));
     } finally {
       setIsExportingPDF(false);
     }

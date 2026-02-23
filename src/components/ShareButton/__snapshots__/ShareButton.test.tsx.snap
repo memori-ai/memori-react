@@ -60,6 +60,15 @@ exports[`renders ShareButton aligned left unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -123,6 +132,15 @@ exports[`renders ShareButton unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -186,6 +204,15 @@ exports[`renders ShareButton with button not primary unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -249,6 +276,15 @@ exports[`renders ShareButton with other tenant img set unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -312,6 +348,15 @@ exports[`renders ShareButton with share chat unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -375,6 +420,15 @@ exports[`renders ShareButton with tenant img set unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -438,6 +492,15 @@ exports[`renders ShareButton with title unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -501,6 +564,15 @@ exports[`renders ShareButton with url unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -564,5 +636,14 @@ exports[`renders ShareButton without qr code unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;

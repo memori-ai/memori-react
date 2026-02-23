@@ -4,8 +4,7 @@ import {
 } from '@memori.ai/memori-api-client/dist/types';
 import { useCallback, useEffect, useState } from 'react';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { Drawer, Spin, Expandable } from '@memori.ai/ui';
-import toast from 'react-hot-toast';
+import { Drawer, Spin, Expandable, useAlertManager, createAlertOptions } from '@memori.ai/ui';
 import { getErrori18nKey } from '../../helpers/error';
 import { useTranslation } from 'react-i18next';
 import Snippet from '../Snippet/Snippet';
@@ -35,7 +34,7 @@ const WhyThisAnswer = ({
   _TEST_loading = false,
 }: Props) => {
   const { t } = useTranslation();
-
+  const { add } = useAlertManager();
   const searchMemory = client?.search.searchMemory;
 
   const [matches, setMatches] = useState<SearchMatches[]>(initialMatches);
@@ -66,7 +65,7 @@ const WhyThisAnswer = ({
 
       if (response.resultCode !== 0) {
         console.error(response);
-        toast.error(t(getErrori18nKey(response.resultCode)));
+        add(createAlertOptions({ description: t(getErrori18nKey(response.resultCode)), severity: 'error' }));
       } else {
         setMatches(matches ?? []);
       }

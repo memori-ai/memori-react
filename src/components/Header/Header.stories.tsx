@@ -4,10 +4,11 @@ import { memori, tenant, history } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Header, { Props } from './Header';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
-import LoginDrawer from '../LoginDrawer/LoginDrawer'; 
+import LoginDrawer from '../LoginDrawer/LoginDrawer';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import './Header.css';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
   title: 'Widget/Header',
@@ -38,45 +39,47 @@ const Template: Story<Props> = args => {
 
   return (
     <I18nWrapper>
-      <ArtifactProvider>
-      <Header
-        {...args}
-        apiClient={memoriApiClient()}
-        speakerMuted={speakerMuted}
-        setSpeakerMuted={setSpeakerMuted}
-        showSettings
-        setShowSettingsDrawer={() => setShowSettingsDrawer(true)}
-        setShowKnownFactsDrawer={() => setShowKnownFactsDrawer(true)}
-        setShowExpertsDrawer={() => setShowExpertsDrawer(true)}
-        setShowLoginDrawer={() => setShowLoginDrawer(true)}
-      />
-      <SettingsDrawer
-        open={!!showSettingsDrawer}
-        onClose={() => setShowSettingsDrawer(false)}
-        microphoneMode="HOLD_TO_TALK"
-        setMicrophoneMode={() => {}}
-        continuousSpeechTimeout={2}
-        setContinuousSpeechTimeout={() => {}}
-        controlsPosition="bottom"
-        setControlsPosition={() => {}}
-        hideEmissions={false}
-        setHideEmissions={() => {}}
-        setAvatarType={() => {}}
-        setEnablePositionControls={() => {}}
-      />
-      <LoginDrawer
-        setUser={() => {}}
-        tenant={tenant}
-        open={!!showLoginDrawer}
-        onClose={() => setShowLoginDrawer(false)}
-        onLogin={(user, token) => {
-          console.log(user, token);
-          setShowLoginDrawer(false);
-        }}
-        onLogout={() => setShowLoginDrawer(false)}
-        apiClient={memoriApiClient()}
-      />
-      </ArtifactProvider>
+      <AlertProvider defaultDuration={5000}>
+        <ArtifactProvider>
+          <Header
+            {...args}
+            apiClient={memoriApiClient()}
+            speakerMuted={speakerMuted}
+            setSpeakerMuted={setSpeakerMuted}
+            showSettings
+            setShowSettingsDrawer={() => setShowSettingsDrawer(true)}
+            setShowKnownFactsDrawer={() => setShowKnownFactsDrawer(true)}
+            setShowExpertsDrawer={() => setShowExpertsDrawer(true)}
+            setShowLoginDrawer={() => setShowLoginDrawer(true)}
+          />
+          <SettingsDrawer
+            open={!!showSettingsDrawer}
+            onClose={() => setShowSettingsDrawer(false)}
+            microphoneMode="HOLD_TO_TALK"
+            setMicrophoneMode={() => {}}
+            continuousSpeechTimeout={2}
+            setContinuousSpeechTimeout={() => {}}
+            controlsPosition="bottom"
+            setControlsPosition={() => {}}
+            hideEmissions={false}
+            setHideEmissions={() => {}}
+            setAvatarType={() => {}}
+            setEnablePositionControls={() => {}}
+          />
+          <LoginDrawer
+            setUser={() => {}}
+            tenant={tenant}
+            open={!!showLoginDrawer}
+            onClose={() => setShowLoginDrawer(false)}
+            onLogin={(user, token) => {
+              console.log(user, token);
+              setShowLoginDrawer(false);
+            }}
+            onLogout={() => setShowLoginDrawer(false)}
+            apiClient={memoriApiClient()}
+          />
+        </ArtifactProvider>
+      </AlertProvider>
     </I18nWrapper>
   );
 };

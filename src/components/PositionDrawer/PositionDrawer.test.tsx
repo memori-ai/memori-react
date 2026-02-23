@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render } from '../../testUtils';
 import PositionDrawer from './PositionDrawer';
 import { venue, memori } from '../../mocks/data';
 

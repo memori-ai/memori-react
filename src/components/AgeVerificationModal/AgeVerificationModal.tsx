@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import toast from 'react-hot-toast';
-import { Button, Modal } from '@memori.ai/ui';
+import { Button, Modal, useAlertManager } from '@memori.ai/ui';
 import { DateTime } from 'luxon';
 import DateSelector from '../DateSelector/DateSelector';
 import { useCallback, useState } from 'react';
@@ -13,7 +12,7 @@ export interface Props {
 
 const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
   const { t } = useTranslation();
-
+  const alertManager = useAlertManager();
   const [birthDate, setBirthDate] = useState<DateTime>();
   const [error, setError] = useState<string>();
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -22,7 +21,12 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
     setSubmitting(true);
 
     if (!birthDate) {
-      toast.error(t('requiredField'));
+      alertManager.add({
+        id: `age-verification-error-${Date.now()}`,
+        title: t('requiredField'),
+        description: t('requiredField'),
+        data: { severity: 'error', closable: true, style: { zIndex: 10002, top: 30, right: 30, position: 'fixed' } },
+      });
       setError(t('requiredField') || 'Required field');
       setSubmitting(false);
       return;
@@ -30,7 +34,12 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
 
     let age = DateTime.now().diff(birthDate, 'years').years;
     if (age < minAge) {
-      toast.error(t('underageTwinSession', { age: minAge }));
+      alertManager.add({
+        id: `age-verification-error-${Date.now()}`,
+        title: t('underageTwinSession', { age: minAge }),
+        description: t('underageTwinSession', { age: minAge }),
+        data: { severity: 'error', closable: true, style: { zIndex: 10002, top: 30, right: 30, position: 'fixed' } },
+      });
       setError(
         t('underageTwinSession', { age: minAge }) ||
           `You must be at least ${minAge} years old to interact with this Agent`

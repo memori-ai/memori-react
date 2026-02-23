@@ -7,6 +7,7 @@ import MemoriWidget, { Props } from './MemoriWidget';
 import './MemoriWidget.css';
 import { VisemeProvider } from '../../context/visemeContext';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
   title: 'Widget/Default',
@@ -38,11 +39,13 @@ export default meta;
 
 const Template: Story<Props> = args => (
   <I18nWrapper>
-    <ArtifactProvider>
-      <VisemeProvider>
-        <MemoriWidget {...args} />
-      </VisemeProvider>
-    </ArtifactProvider>
+    <AlertProvider defaultDuration={5000}>
+      <ArtifactProvider>
+        <VisemeProvider>
+          <MemoriWidget {...args} />
+        </VisemeProvider>
+      </ArtifactProvider>
+    </AlertProvider>
   </I18nWrapper>
 );
 // By passing using the Args format for exported stories, you can control the props for a component for reuse in a test

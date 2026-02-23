@@ -1,8 +1,7 @@
 import { KnownFact, Memori } from '@memori.ai/memori-api-client/dist/types';
 import { useEffect, useState } from 'react';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { Button, Drawer, Spin, Modal, Checkbox, SelectBox } from '@memori.ai/ui';
-import toast from 'react-hot-toast';
+import { Button, Drawer, Spin, Modal, Checkbox, SelectBox, useAlertManager, createAlertOptions } from '@memori.ai/ui';
 import { getErrori18nKey } from '../../helpers/error';
 import { useTranslation } from 'react-i18next';
 import { Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
@@ -25,7 +24,7 @@ const KnownFacts = ({
   closeDrawer,
 }: Props) => {
   const { t } = useTranslation();
-
+  const { add } = useAlertManager();
   const { getKnownFactsPaginated, deleteKnownFact } = apiClient.knownFacts;
 
   const [knownFacts, setKnownFacts] = useState<KnownFact[]>(initialKnownFacts);
@@ -58,7 +57,7 @@ const KnownFacts = ({
 
       if (response.resultCode !== 0) {
         console.error(response);
-        toast.error(t(getErrori18nKey(response.resultCode)));
+        add(createAlertOptions({ description: t(getErrori18nKey(response.resultCode)), severity: 'error' }));
       }
     } catch (err) {
       console.error('KNOWN_FACTS/FETCH', err);
@@ -148,7 +147,7 @@ const KnownFacts = ({
                         });
                         Promise.all(mutations).then(responses => {
                           if (responses.every(r => r.resultCode === 0)) {
-                            toast.success(t('knownFacts.deleteSuccess'));
+                            add(createAlertOptions({ description: t('knownFacts.deleteSuccess'), severity: 'success' }));
                             setSelectedRowKeys([]);
                             fetchKnownFacts();
                             setBulkDeleteModalVisible(false);
@@ -156,14 +155,12 @@ const KnownFacts = ({
                             let errored = responses.find(r => r.resultCode !== 0);
                             console.error(errored);
                             if (errored?.resultCode !== undefined)
-                              toast.error(
-                                t(getErrori18nKey(errored?.resultCode))
-                              );
+                              add(createAlertOptions({ description: t(getErrori18nKey(errored?.resultCode)), severity: 'error' }));
                           }
                         });
                       } catch (_e) {
                         let error = _e as Error;
-                        toast.error(t('Error') + error.message);
+                        add(createAlertOptions({ description: t('Error') + error.message, severity: 'error' }));
                       }
                     }}
                   >
@@ -330,21 +327,17 @@ const KnownFacts = ({
                                   kf.knownFactID
                                 );
                                 if (response.resultCode === 0) {
-                                  toast.success(t('knownFacts.deleteSuccess'));
+                                  add(createAlertOptions({ description: t('knownFacts.deleteSuccess'), severity: 'success' }));
                                   setSelectedRowKeys([]);
                                   fetchKnownFacts();
                                   setDeleteModalVisibleFor(undefined);
                                 } else {
                                   console.error(response);
-                                  toast.error(
-                                    t(getErrori18nKey(response.resultCode), {
-                                      ns: 'common',
-                                    })
-                                  );
+                                  add(createAlertOptions({ description: t(getErrori18nKey(response.resultCode), { ns: 'common' }), severity: 'error' }));
                                 }
                               } catch (_e) {
                                 let error = _e as Error;
-                                toast.error(t('Error') + error.message);
+                                add(createAlertOptions({ description: t('Error') + error.message, severity: 'error' }));
                               }
                             }}
                           >

@@ -1,80 +1,169 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders LoginDrawer closed unchanged 1`] = `<div />`;
+exports[`renders LoginDrawer closed unchanged 1`] = `
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
 
 exports[`renders LoginDrawer logged in unchanged 1`] = `
-<div
-  aria-hidden="true"
-  data-base-ui-inert=""
-/>
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
 `;
 
 exports[`renders LoginDrawer logged with missing data unchanged 1`] = `
-<div
-  aria-hidden="true"
-  data-base-ui-inert=""
-/>
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
 `;
 
 exports[`renders LoginDrawer on change password unchanged 1`] = `
-<div
-  aria-hidden="true"
-  data-base-ui-inert=""
-/>
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
 `;
 
 exports[`renders LoginDrawer on signup unchanged 1`] = `
-<div
-  aria-hidden="true"
-  data-base-ui-inert=""
-/>
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
 `;
 
 exports[`renders LoginDrawer on signup waiting for otp unchanged 1`] = `
-<div
-  aria-hidden="true"
-  data-base-ui-inert=""
-/>
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
 `;
 
 exports[`renders LoginDrawer open unchanged 1`] = `
-<div
-  aria-hidden="true"
-  data-base-ui-inert=""
-/>
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
 `;
 
 exports[`renders LoginDrawer unlogged unchanged 1`] = `
-<div
-  aria-hidden="true"
-  data-base-ui-inert=""
-/>
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
 `;
 
 exports[`renders LoginDrawer with OTP form and error unchanged 1`] = `
-<div
-  aria-hidden="true"
-  data-base-ui-inert=""
-/>
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
 `;
 
 exports[`renders LoginDrawer with OTP form and timer unchanged 1`] = `
-<div
-  aria-hidden="true"
-  data-base-ui-inert=""
-/>
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
 `;
 
 exports[`renders LoginDrawer with OTP form loading unchanged 1`] = `
-<div
-  aria-hidden="true"
-  data-base-ui-inert=""
-/>
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
 `;
 
 exports[`renders LoginDrawer with OTP form unchanged 1`] = `
-<div
-  aria-hidden="true"
-  data-base-ui-inert=""
-/>
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
 `;

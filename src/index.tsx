@@ -13,9 +13,6 @@ import MemoriWidget, {
   Props as WidgetProps,
 } from './components/MemoriWidget/MemoriWidget';
 import { VisemeProvider } from './context/visemeContext';
-
-import { Toaster } from 'react-hot-toast';
-import toast from 'react-hot-toast';
 import { AlertProvider, AlertViewport } from '@memori.ai/ui';
 import { safeParseJSON } from './helpers/utils';
 
@@ -435,8 +432,7 @@ const Memori: React.FC<Props> = ({
       <AlertProvider defaultDuration={5000}>
         <VisemeProvider>
           <ArtifactProvider>
-            <Toaster position="top-center" reverseOrder={true} />
-            <AlertViewport placement="top-end" />
+            <AlertViewport placement="top-end" style={{ zIndex: 10002, top: 30, right: 30, position: 'fixed' }} />
             {memori ? (
             <MemoriWidget
               // General props

@@ -1,4 +1,5 @@
-import { render } from '@testing-library/react';
+import React from 'react';
+import { render } from '../../testUtils';
 import Memori from '../MemoriWidget/MemoriWidget';
 import { integration, memori, tenant } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';

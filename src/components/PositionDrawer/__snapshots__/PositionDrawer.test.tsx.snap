@@ -1,15 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders PositionDrawer unchanged 1`] = `
-<div
-  aria-hidden="true"
-  data-base-ui-inert=""
-/>
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
 `;
 
 exports[`renders VenueWidget with venue set 1`] = `
-<div
-  aria-hidden="true"
-  data-base-ui-inert=""
-/>
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
 `;

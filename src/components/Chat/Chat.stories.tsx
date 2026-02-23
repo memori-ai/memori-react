@@ -16,6 +16,7 @@ import Chat, { Props } from './Chat';
 
 import './Chat.css';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
   title: 'Widget/Chat',
@@ -38,13 +39,15 @@ const Template: Story<Props> = args => {
 
   return (
     <I18nWrapper>
-      <ArtifactProvider>
-        <Chat
-          {...args}
-          userMessage={userMessage}
-          onChangeUserMessage={setUserMessage}
-        />
-      </ArtifactProvider>
+      <AlertProvider defaultDuration={5000}>
+        <ArtifactProvider>
+          <Chat
+            {...args}
+            userMessage={userMessage}
+            onChangeUserMessage={setUserMessage}
+          />
+        </ArtifactProvider>
+      </AlertProvider>
     </I18nWrapper>
   );
 };
@@ -244,7 +247,8 @@ const historyAllMediaExamples = [
       },
       {
         mediumID: 'agent-doc-1',
-        mimeType: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        mimeType:
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         title: 'Excel',
         url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
       },

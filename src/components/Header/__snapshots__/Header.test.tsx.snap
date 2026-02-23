@@ -138,6 +138,15 @@ exports[`renders Header for board of experts unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -277,6 +286,15 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -351,6 +369,15 @@ exports[`renders Header unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -392,6 +419,15 @@ exports[`renders Header with audio disabled unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -511,6 +547,15 @@ exports[`renders Header with clear button unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -612,6 +657,15 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -720,6 +774,15 @@ exports[`renders Header with deep thought logged but without permission flag unc
       </button>
     </div>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -881,6 +944,15 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
       </button>
     </div>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -955,6 +1027,15 @@ exports[`renders Header with deep thought unlogged unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -1070,6 +1151,15 @@ exports[`renders Header with position unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -1144,6 +1234,15 @@ exports[`renders Header with settings button unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -1276,6 +1375,15 @@ exports[`renders Header with share button unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -1356,6 +1464,15 @@ exports[`renders Header with speaker muted unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;
 
@@ -1430,5 +1547,14 @@ exports[`renders Header with user activated speak unchanged 1`] = `
       </span>
     </button>
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;

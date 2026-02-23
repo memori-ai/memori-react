@@ -555,5 +555,14 @@ exports[`renders Totem layout unchanged 1`] = `
       style="display: none;"
     />
   </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
 </div>
 `;

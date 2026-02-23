@@ -5,8 +5,7 @@ import { getUncertaintyByViewport } from '../../helpers/venue';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { useLeafletContext } from '@react-leaflet/core';
 import L from 'leaflet';
-import toast from 'react-hot-toast';
-import { Button, Input, Spin } from '@memori.ai/ui';
+import { Button, Input, Spin, useAlertManager, createAlertOptions } from '@memori.ai/ui';
 import { useDebounceFn } from '../../helpers/utils';
 import cx from 'classnames';
 
@@ -238,6 +237,7 @@ const VenueWidget = ({
   saveAndClose,
 }: Props) => {
   const { t } = useTranslation();
+  const { add } = useAlertManager();
   const [isClient, setIsClient] = useState(false);
   const [updatingPosition, setUpdatingPosition] = useState(false);
 
@@ -274,7 +274,7 @@ const VenueWidget = ({
         } catch (e) {
           let err = e as Error;
           console.error('[POSITION ERROR]', err);
-          if (err?.message) toast.error(err.message);
+          if (err?.message) add(createAlertOptions({ description: err.message, severity: 'error' }));
 
           setVenue(venue);
         } finally {
@@ -285,7 +285,7 @@ const VenueWidget = ({
       },
       err => {
         console.error('[POSITION ERROR]', err);
-        toast.error(err.message);
+        add(createAlertOptions({ description: err.message, severity: 'error' }));
         setUpdatingPosition(false);
       }
     );

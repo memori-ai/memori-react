@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor } from '../../../testUtils';
 import { ArtifactProvider } from '../context/ArtifactContext';
 import { ArtifactAPIBridge } from './ArtifactAPI';
 import { ArtifactData } from '../types/artifact.types';

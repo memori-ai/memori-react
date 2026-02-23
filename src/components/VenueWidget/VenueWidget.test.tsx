@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render } from '../../testUtils';
 import VenueWidget from './VenueWidget';
 import { venue } from '../../mocks/data';
 

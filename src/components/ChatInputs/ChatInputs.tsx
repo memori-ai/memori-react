@@ -1,9 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
-import toast from 'react-hot-toast';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
-import { Button } from '@memori.ai/ui';
+import { Button, useAlertManager } from '@memori.ai/ui';
 import { Send, Mic, Plus } from 'lucide-react';
 import MicrophoneButton from '../MicrophoneButton/MicrophoneButton';
 import cx from 'classnames';
@@ -80,7 +79,7 @@ const ChatInputs: React.FC<Props> = ({
   pasteAsCardCharThreshold,
 }) => {
   const { t } = useTranslation();
-
+  const alertManager = useAlertManager();
   // State for textarea expansion
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -134,8 +133,6 @@ const ChatInputs: React.FC<Props> = ({
         url: file.url,
       };
     });
-
-    
 
     sendMessage(userMessage, mediaWithIds);
 
@@ -232,17 +229,22 @@ const ChatInputs: React.FC<Props> = ({
 
       const target = e.target as HTMLTextAreaElement;
       const selectionLength = target.selectionEnd - target.selectionStart;
-      const lengthAfterPaste = userMessage.length - selectionLength + text.length;
+      const lengthAfterPaste =
+        userMessage.length - selectionLength + text.length;
 
       if (
         maxTextareaCharacters != null &&
         lengthAfterPaste > maxTextareaCharacters
       ) {
         e.preventDefault();
-        toast(t('upload.pasteContentExceedsLimit', {
-          defaultValue:
-            'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
-        }), { icon: '⚠️' });
+        alertManager.add({
+          id: `paste-content-exceeds-limit-${Date.now()}`,
+          title: t('upload.pasteContentExceedsLimit', {
+            defaultValue:
+              'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
+          }),
+          data: { severity: 'error', closable: true },
+        });
         return;
       }
 
@@ -259,12 +261,14 @@ const ChatInputs: React.FC<Props> = ({
       const maxDocs = maxDocumentsPerMessage ?? 10;
       if (documentPreviewFiles.length >= maxDocs) {
         e.preventDefault();
-        toast.error(
-          t('upload.pasteMaxAttachmentsReached', {
+        alertManager.add({
+          id: `paste-max-attachments-reached-${Date.now()}`,
+          title: t('upload.pasteMaxAttachmentsReached', {
             max: maxDocs,
             defaultValue: `Maximum ${maxDocs} attachments. Remove one to add this as a file.`,
-          })
-        );
+          }),
+          data: { severity: 'error', closable: true },
+        });
         return;
       }
 
@@ -273,10 +277,14 @@ const ChatInputs: React.FC<Props> = ({
 
       if (text.length > perDocumentLimit) {
         e.preventDefault();
-        toast(t('upload.pasteContentExceedsLimit', {
-          defaultValue:
-            'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
-        }), { icon: '⚠️' });
+        alertManager.add({
+          id: `paste-content-exceeds-per-document-limit-${Date.now()}`,
+          title: t('upload.pasteContentExceedsLimit', {
+            defaultValue:
+              'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
+          }),
+          data: { severity: 'error', closable: true },
+        });
         return;
       }
 
@@ -286,10 +294,14 @@ const ChatInputs: React.FC<Props> = ({
       );
       if (currentTotal + text.length > totalPayloadLimit) {
         e.preventDefault();
-        toast(t('upload.pasteContentExceedsLimit', {
-          defaultValue:
-            'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
-        }), { icon: '⚠️' });
+        alertManager.add({
+          id: `paste-content-exceeds-total-payload-limit-${Date.now()}`,
+          title: t('upload.pasteContentExceedsLimit', {
+           defaultValue:
+              'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
+          }),
+          data: { severity: 'error', closable: true },
+        });
         return;
       }
 

@@ -7,7 +7,7 @@ import {
   Venue,
   User,
 } from '@memori.ai/memori-api-client/dist/types';
-import { Button, Dropdown } from '@memori.ai/ui';
+import { Button, Dropdown, useAlertManager, createAlertOptions } from '@memori.ai/ui';
 import {
   MapPin,
   VolumeX,
@@ -27,7 +27,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import ShareButton from '../ShareButton/ShareButton';
 import { getErrori18nKey } from '../../helpers/error';
-import toast from 'react-hot-toast';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 
@@ -101,6 +100,7 @@ const Header: React.FC<Props> = ({
   additionalSettings,
 }) => {
   const { t } = useTranslation();
+  const { add } = useAlertManager();
   const { uploadAsset, pwlUpdateUser } = apiClient.backend;
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
@@ -138,7 +138,7 @@ const Header: React.FC<Props> = ({
 
           if (resp.resultCode !== 0) {
             console.error('[updateAvatar] Upload failed:', resp);
-            toast.error(t(getErrori18nKey(resp.resultCode)));
+            add(createAlertOptions({ description: t(getErrori18nKey(resp.resultCode)), severity: 'error' }));
           } else if (avatarAsset) {
             let newUser: Partial<User> = {
               userID: user?.userID,
@@ -155,7 +155,7 @@ const Header: React.FC<Props> = ({
           let err = e as Error;
           console.error('[updateAvatar] Error:', err);
 
-          if (err?.message) toast.error(err.message);
+          if (err?.message) add(createAlertOptions({ description: err.message, severity: 'error' }));
         }
       };
       reader.readAsDataURL(avatar as Blob);
@@ -164,7 +164,7 @@ const Header: React.FC<Props> = ({
         avatar,
         loginToken,
       });
-      toast.error(t('login.avatarUploadError'));
+      add(createAlertOptions({ description: t('login.avatarUploadError'), severity: 'error' }));
     }
   };
 

@@ -7,6 +7,7 @@ import { SearchMatches } from '@memori.ai/memori-api-client/dist/types';
 import memoriApiClient from '@memori.ai/memori-api-client';
 
 import './WhyThisAnswer.css';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
   title: 'Why This Answer',
@@ -27,24 +28,26 @@ export default meta;
 
 const Template: Story<Props> = args => (
   <I18nWrapper>
-    <WhyThisAnswer
-      {...args}
-      client={memoriApiClient()}
-      sessionID={sessionID}
-      message={{
-        questionAnswered: 'Test message',
-        text: 'This is a test content',
-        date: '2021-01-01',
-        placeName: 'Test Place',
-        placeLatitude: 0,
-        placeLongitude: 0,
-        placeUncertaintyKm: 0,
-        contextVars: {
-          KEY: 'value',
-        },
-      }}
-      closeDrawer={() => {}}
-    />
+    <AlertProvider defaultDuration={5000}>
+      <WhyThisAnswer
+        {...args}
+        client={memoriApiClient()}
+        sessionID={sessionID}
+        message={{
+          questionAnswered: 'Test message',
+          text: 'This is a test content',
+          date: '2021-01-01',
+          placeName: 'Test Place',
+          placeLatitude: 0,
+          placeLongitude: 0,
+          placeUncertaintyKm: 0,
+          contextVars: {
+            KEY: 'value',
+          },
+        }}
+        closeDrawer={() => {}}
+      />
+    </AlertProvider>
   </I18nWrapper>
 );
 
