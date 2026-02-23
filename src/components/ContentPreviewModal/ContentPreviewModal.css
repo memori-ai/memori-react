@@ -15,7 +15,6 @@
   overflow: hidden;
   min-width: 500px;
   min-height: 500px;
-  max-height: 80vh;
   border-radius: 16px;
   background: var(--memori-content-preview-bg, #fafafa);
   box-shadow:
