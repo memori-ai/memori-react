@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { FileText as DocumentIcon } from 'lucide-react';
 import { Image as ImageIcon } from 'lucide-react';
 import { Upload as UploadIcon } from 'lucide-react';
-import { Spin, useAlertManager } from '@memori.ai/ui'; 
+import { AlertData, AlertSeverity, Spin, useAlertManager } from '@memori.ai/ui';
 import { Alert } from '@memori.ai/ui';
 import cx from 'classnames';
 import UploadDocuments from './UploadDocuments/UploadDocuments';
@@ -89,7 +89,15 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 
   // Check if file is a document
   const isDocumentFile = (file: File): boolean => {
-    const documentExtensions = ['.pdf', '.txt', '.json', '.xlsx', '.csv', '.md', '.html'];
+    const documentExtensions = [
+      '.pdf',
+      '.txt',
+      '.json',
+      '.xlsx',
+      '.csv',
+      '.md',
+      '.html',
+    ];
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
     return documentExtensions.includes(fileExt);
   };
@@ -106,115 +114,124 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   }, [isMediaAccepted, currentMediaCount, addError]);
 
   // Handle unified file selection
-  const handleUnifiedFileSelection = useCallback((files: FileList | File[]) => {
-    const fileArray = Array.from(files);
-    if (fileArray.length === 0) return;
+  const handleUnifiedFileSelection = useCallback(
+    (files: FileList | File[]) => {
+      const fileArray = Array.from(files);
+      if (fileArray.length === 0) return;
 
-    const supportedFiles: File[] = [];
-    fileArray.forEach(file => {
-      if (isImageFile(file)) {
-        supportedFiles.push(file);
-      } else if (isDocumentFile(file)) {
-        supportedFiles.push(file);
-      } else {
+      const supportedFiles: File[] = [];
+      fileArray.forEach(file => {
+        if (isImageFile(file)) {
+          supportedFiles.push(file);
+        } else if (isDocumentFile(file)) {
+          supportedFiles.push(file);
+        } else {
+          addErrorRef.current({
+            message: `File "${file.name}" is not a supported image or document type`,
+            severity: 'warning',
+          });
+        }
+      });
+
+      const totalSupported = supportedFiles.length;
+      if (totalSupported === 0) return;
+
+      const remainingSlots =
+        maxDocumentsPerMessage - currentMediaCountRef.current;
+      if (remainingSlots <= 0) {
         addErrorRef.current({
-          message: `File "${file.name}" is not a supported image or document type`,
+          message: `Maximum ${maxDocumentsPerMessage} media files allowed.`,
+          severity: 'warning',
+        });
+        return;
+      }
+
+      const toProcess = supportedFiles.slice(0, remainingSlots);
+      const imageFiles = toProcess.filter(f => isImageFile(f));
+      const documentFiles = toProcess.filter(f => isDocumentFile(f));
+
+      if (totalSupported > remainingSlots) {
+        const skipped = totalSupported - remainingSlots;
+        addErrorRef.current({
+          message:
+            t('upload.filesNotAddedMaxAllowed', {
+              count: skipped,
+              max: maxDocumentsPerMessage,
+              defaultValue: `${skipped} file(s) not added (maximum ${maxDocumentsPerMessage} files allowed).`,
+            }) ??
+            `${skipped} file(s) not added (maximum ${maxDocumentsPerMessage} files allowed).`,
           severity: 'warning',
         });
       }
-    });
 
-    const totalSupported = supportedFiles.length;
-    if (totalSupported === 0) return;
+      // Process images
+      if (imageFiles.length > 0) {
+        if (!isMediaAcceptedRef.current) {
+          addErrorRef.current({
+            message:
+              t('upload.mediaNotAccepted') ?? 'Media uploads are not accepted',
+            severity: 'warning',
+          });
+        } else {
+          // Trigger image upload by creating a synthetic event
+          const imageInput = imageRef.current?.querySelector(
+            'input[type="file"]'
+          ) as HTMLInputElement;
+          if (imageInput) {
+            const dataTransfer = new DataTransfer();
+            imageFiles.forEach(file => {
+              try {
+                dataTransfer.items.add(file);
+              } catch (err) {
+                console.warn('Failed to add image file to DataTransfer:', err);
+              }
+            });
 
-    const remainingSlots = maxDocumentsPerMessage - currentMediaCountRef.current;
-    if (remainingSlots <= 0) {
-      addErrorRef.current({
-        message: `Maximum ${maxDocumentsPerMessage} media files allowed.`,
-        severity: 'warning',
-      });
-      return;
-    }
+            // Only proceed if we successfully added files
+            if (dataTransfer.files.length > 0) {
+              try {
+                imageInput.files = dataTransfer.files;
+              } catch {
+                // JSDOM and some environments do not allow assigning to input.files
+              }
+              const changeEvent = new Event('change', { bubbles: true });
+              imageInput.dispatchEvent(changeEvent);
+            }
+          }
+        }
+      }
 
-    const toProcess = supportedFiles.slice(0, remainingSlots);
-    const imageFiles = toProcess.filter(f => isImageFile(f));
-    const documentFiles = toProcess.filter(f => isDocumentFile(f));
-
-    if (totalSupported > remainingSlots) {
-      const skipped = totalSupported - remainingSlots;
-      addErrorRef.current({
-        message:
-          t('upload.filesNotAddedMaxAllowed', {
-            count: skipped,
-            max: maxDocumentsPerMessage,
-            defaultValue: `${skipped} file(s) not added (maximum ${maxDocumentsPerMessage} files allowed).`,
-          }) ?? `${skipped} file(s) not added (maximum ${maxDocumentsPerMessage} files allowed).`,
-        severity: 'warning',
-      });
-    }
-
-    // Process images
-    if (imageFiles.length > 0) {
-      if (!isMediaAcceptedRef.current) {
-        addErrorRef.current({
-          message:
-            t('upload.mediaNotAccepted') ?? 'Media uploads are not accepted',
-          severity: 'warning',
-        });
-      } else {
-        // Trigger image upload by creating a synthetic event
-        const imageInput = imageRef.current?.querySelector('input[type="file"]') as HTMLInputElement;
-        if (imageInput) {
+      // Process documents
+      if (documentFiles.length > 0) {
+        // Trigger document upload by creating a synthetic event
+        const documentInput = documentRef.current?.querySelector(
+          'input[type="file"]'
+        ) as HTMLInputElement;
+        if (documentInput) {
           const dataTransfer = new DataTransfer();
-          imageFiles.forEach(file => {
+          documentFiles.forEach(file => {
             try {
               dataTransfer.items.add(file);
             } catch (err) {
-              console.warn('Failed to add image file to DataTransfer:', err);
+              console.warn('Failed to add document file to DataTransfer:', err);
             }
           });
-          
+
           // Only proceed if we successfully added files
           if (dataTransfer.files.length > 0) {
             try {
-              imageInput.files = dataTransfer.files;
+              documentInput.files = dataTransfer.files;
             } catch {
               // JSDOM and some environments do not allow assigning to input.files
             }
             const changeEvent = new Event('change', { bubbles: true });
-            imageInput.dispatchEvent(changeEvent);
+            documentInput.dispatchEvent(changeEvent);
           }
         }
       }
-    }
-
-    // Process documents
-    if (documentFiles.length > 0) {
-      // Trigger document upload by creating a synthetic event
-      const documentInput = documentRef.current?.querySelector('input[type="file"]') as HTMLInputElement;
-      if (documentInput) {
-        const dataTransfer = new DataTransfer();
-        documentFiles.forEach(file => {
-          try {
-            dataTransfer.items.add(file);
-          } catch (err) {
-            console.warn('Failed to add document file to DataTransfer:', err);
-          }
-        });
-        
-        // Only proceed if we successfully added files
-        if (dataTransfer.files.length > 0) {
-          try {
-            documentInput.files = dataTransfer.files;
-          } catch {
-            // JSDOM and some environments do not allow assigning to input.files
-          }
-          const changeEvent = new Event('change', { bubbles: true });
-          documentInput.dispatchEvent(changeEvent);
-        }
-      }
-    }
-  }, [t]);
+    },
+    [t]
+  );
 
   // Handle button click - open file chooser directly
   const handleButtonClick = () => {
@@ -245,26 +262,33 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       }
 
       const files: File[] = [];
-      
+
       // Helper to check if a file is already in the array
       const isDuplicate = (file: File) => {
-        return files.some(f => 
-          f.name === file.name && 
-          f.size === file.size && 
-          f.lastModified === file.lastModified
+        return files.some(
+          f =>
+            f.name === file.name &&
+            f.size === file.size &&
+            f.lastModified === file.lastModified
         );
       };
-      
+
       // Prefer clipboardData.files if available (most reliable and prevents duplicates)
       // Only fall back to items if files is empty (some browsers only populate items)
       if (clipboardData.files && clipboardData.files.length > 0) {
         const clipboardFiles = Array.from(clipboardData.files);
-        console.log(`[UploadButton] handlePaste: clipboardData.files found`, clipboardFiles);
+        console.log(
+          `[UploadButton] handlePaste: clipboardData.files found`,
+          clipboardFiles
+        );
         clipboardFiles.forEach(file => {
           if (!isDuplicate(file)) {
             files.push(file);
           } else {
-            console.log(`[UploadButton] handlePaste: Duplicate file skipped from clipboardData.files:`, file);
+            console.log(
+              `[UploadButton] handlePaste: Duplicate file skipped from clipboardData.files:`,
+              file
+            );
           }
         });
       } else {
@@ -277,10 +301,16 @@ const UploadButton: React.FC<UploadManagerProps> = ({
             if (item.kind === 'file') {
               const file = item.getAsFile();
               if (file && !isDuplicate(file)) {
-                console.log(`[UploadButton] handlePaste: Adding file from items array:`, file);
+                console.log(
+                  `[UploadButton] handlePaste: Adding file from items array:`,
+                  file
+                );
                 files.push(file);
               } else if (file) {
-                console.log(`[UploadButton] handlePaste: Duplicate file skipped from items array:`, file);
+                console.log(
+                  `[UploadButton] handlePaste: Duplicate file skipped from items array:`,
+                  file
+                );
               }
             }
           }
@@ -288,11 +318,16 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       }
 
       if (files.length > 0) {
-        console.log(`[UploadButton] handlePaste: ${files.length} file(s) to process from paste`, files);
+        console.log(
+          `[UploadButton] handlePaste: ${files.length} file(s) to process from paste`,
+          files
+        );
         e.preventDefault();
         handleUnifiedFileSelection(files);
       } else {
-        console.log('[UploadButton] handlePaste: No files found in paste event.');
+        console.log(
+          '[UploadButton] handlePaste: No files found in paste event.'
+        );
       }
     };
 
@@ -513,14 +548,13 @@ ${file.content}
     addError(error);
   };
 
-
   // Set loading state for child components
   const handleLoadingChange = (loading: boolean) => {
     setIsLoading(loading);
   };
 
   return (
-    <div 
+    <div
       className={cx('memori--unified-upload-wrapper', {
         'memori--dragging': isDragging,
       })}
@@ -550,7 +584,15 @@ ${file.content}
         )}
         onClick={handleButtonClick}
         disabled={isLoading || hasReachedMediaLimit}
-        title={t('upload.uploadFiles', { shortcut: /Mac|iPhone|iPod|iPad/i.test(navigator.platform) || navigator.userAgent.includes('Mac') ? 'Cmd' : 'Ctrl' }) ?? 'Upload files (drag & drop)'}
+        title={
+          t('upload.uploadFiles', {
+            shortcut:
+              /Mac|iPhone|iPod|iPad/i.test(navigator.platform) ||
+              navigator.userAgent.includes('Mac')
+                ? 'Cmd'
+                : 'Ctrl',
+          }) ?? 'Upload files (drag & drop)'
+        }
       >
         {isLoading ? (
           <Spin spinning className="memori--upload-icon" />
@@ -603,17 +645,8 @@ ${file.content}
 
       {/* Error messages container */}
       <div className="memori--error-message-container">
-        {errors.map((error, index) => (
-          <Alert
-            className="memori--error-message-alert"
-            key={`${error.message}-${index}`}
-            open={true}
-            type={error.severity}
-            title={t('upload.uploadNotification', { defaultValue: 'Upload notification' })}
-            description={error.message}
-            onClose={() => removeError(error.message)}
-            width="350px"
-          />
+        {alertManager.toasts.map((error, index) => (
+          <Alert key={`${error.id}-${index}`} toast={error} />
         ))}
       </div>
     </div>

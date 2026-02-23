@@ -3,10 +3,7 @@ import cx from 'classnames';
 import { Spin } from '@memori.ai/ui';
 import { FileText as DocumentIcon } from 'lucide-react';
 import { Modal } from '@memori.ai/ui';
-import {
-  MAX_DOCUMENT_CONTENT_LENGTH,
-  MAX_TOTAL_MESSAGE_PAYLOAD,
-} from '../../../helpers/constants';
+import { useTranslation } from 'react-i18next';
 
 // Types
 type PreviewFile = {
