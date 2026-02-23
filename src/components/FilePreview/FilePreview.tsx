@@ -4,6 +4,7 @@ import { Button } from '@memori.ai/ui';
 import ContentPreviewModal from '../ContentPreviewModal';
 import Snippet from '../Snippet/Snippet';
 import { stripHTML, stripDocumentAttachmentTags } from '../../helpers/utils';
+import { getFileExtensionFromMime } from '../MediaWidget/MediaItemWidget.utils';
 
 type FilePreviewProps = {
   previewFiles: any;
@@ -158,7 +159,9 @@ FilePreviewProps) => {
                 <div className="memori--preview-file-info">
                   <span className="memori--preview-filename">{file.name}</span>
                   <span className="memori--preview-filetype">
-                    {getFileType(file.name, file.type)}
+                    {file.mimeType
+                      ? getFileExtensionFromMime(file.mimeType)
+                      : getFileType(file.name, file.type)}
                   </span>
                 </div>
 
