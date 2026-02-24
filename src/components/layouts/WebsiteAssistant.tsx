@@ -71,7 +71,6 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                 <Button
                   className="memori-website_assistant--close-button"
                   variant="primary"
-                  shape="circle"
                   onClick={() => setCollapsed(true)}
                   icon={<X />}
                   title={t('close') || 'Close'}

@@ -236,10 +236,12 @@
 .memori-icon-close {
   width: var(--memori-spacing-xl);
   height: var(--memori-spacing-xl);
+  stroke: #fff;
 }
 
 .memori-icon-close {
   fill: var(--memori-main-background, #fff);
+
 }
 
 @media (max-width: 768px) {
