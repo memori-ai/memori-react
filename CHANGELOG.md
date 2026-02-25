@@ -1,5 +1,18 @@
 
 
+## [8.20.0](https://github.com/memori-ai/memori-react/compare/v8.19.3...v8.20.0) (2026-02-25)
+
+
+### Features
+
+* enhance PII detection with tests ([3edd59e](https://github.com/memori-ai/memori-react/commit/3edd59e93ed796a1562c2595c1e770904f32e187))
+* implement PII detection configuration ([02be73c](https://github.com/memori-ai/memori-react/commit/02be73cc1f62247a331143c1cad60009dc7c24d4))
+
+
+### Bug Fixes
+
+* update file type display logic in FilePreview ([b7f2935](https://github.com/memori-ai/memori-react/commit/b7f293503bae947fa4a0e9d1e3c00848509b1a85))
+
 ## [8.19.3](https://github.com/memori-ai/memori-react/compare/v8.19.2...v8.19.3) (2026-02-20)
 
 
