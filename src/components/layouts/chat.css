@@ -13,7 +13,7 @@
 }
 
 .memori-chat-layout--header {
-    margin-bottom: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
+    width: 100%;
     text-align: right;
     transition: all 0.05s ease-in-out;
 }

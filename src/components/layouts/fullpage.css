@@ -17,14 +17,14 @@
 /* Header spacing */
 .memori-widget.memori-layout-fullpage .memori-chat-layout--header {
     flex-shrink: 0;
-    margin-bottom: 0;
+    margin-bottom: var(--memori-spacing-md);
 }
 
 /* Grid: main + left column (avatar) */
 .memori-widget.memori-layout-fullpage .memori--grid {
     display: flex;
     height: auto;
-    height: 85vh;
+    height: 95vh;
     min-height: 0;
     flex: 1 1 auto;
     align-items: stretch;
