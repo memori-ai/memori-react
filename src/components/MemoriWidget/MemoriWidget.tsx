@@ -19,7 +19,7 @@ import {
 import { ArtifactData } from '../MemoriArtifactSystem/types/artifact.types';
 import { ArtifactAPIBridge } from '../MemoriArtifactSystem/utils/ArtifactAPI';
 import type { LayoutProp, PiiDetectionConfig } from '../../types/layout';
-import { checkPii } from '../../helpers/piiDetection';
+import { checkPii } from '../../helpers/piiDetection'; // PII check when layout has piiDetection.enabled
 
 // Libraries
 import React, {
@@ -599,6 +599,7 @@ const MemoriWidget = ({
   const [memoriTyping, setMemoriTyping] = useState<boolean>(false);
   const [typingText, setTypingText] = useState<string>();
 
+  // Resolve layout: prop can be a string (e.g. 'FULLPAGE') or { name, piiDetection } for PII checks.
   const layoutName =
     typeof layout === 'string'
       ? layout
@@ -813,7 +814,8 @@ const MemoriWidget = ({
       (window.getMemoriState() as MemoriSession)?.sessionID;
     if (!sessionID || !text?.length) return;
 
-    // Build full message text (same as what will be sent) for translation and PII check
+    // Build full message text (same as what will be sent) so we can run PII check on it.
+    // Order: user text -> optional translation -> appended document attachment content.
     let msg = text;
     if (
       !hidden &&
@@ -839,7 +841,8 @@ const MemoriWidget = ({
       msg = msg + ' ' + documentContents;
     }
 
-    // PII check: if enabled and any rule matches, show error and do not send
+    // PII check: when layout has piiDetection.enabled, run regex rules on the full msg.
+    // If any rule matches, push a single system error bubble and return without sending.
     if (piiDetection?.enabled) {
       const piiResult = checkPii(
         msg,

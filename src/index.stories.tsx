@@ -135,6 +135,7 @@ WithPrivateAgent.args = {
   integrationID: '19f95abe-3493-4568-971d-14471480e5bc',
 };
 
+// PII detection story: layout as object with name + piiDetection. Try sending an email or IBAN to see the error bubble.
 const piiDetectionConfig = {
   enabled: true,
   rules: [
@@ -162,6 +163,8 @@ const piiDetectionConfig = {
     en: 'The message contains personal or sensitive data.',
   },
 };
+
+/** Story: layout with piiDetection enabled. Send a message containing an email (e.g. test@example.com) or IBAN to see the red error bubble. */
 export const WithPiiDetection = Template.bind({});
 WithPiiDetection.args = {
   memoriName: 'Layout Storybook',

@@ -1,6 +1,9 @@
 /**
- * Layout name (string union used for layout selection).
+ * Layout types and PII (Personally Identifiable Information) detection config.
+ * Used when the widget accepts layout as either a string or an object with optional PII rules.
  */
+
+/** Layout name (string union used for layout selection across the app). */
 export type LayoutName =
   | 'DEFAULT'
   | 'FULLPAGE'
@@ -11,7 +14,11 @@ export type LayoutName =
   | 'ZOOMED_FULL_BODY';
 
 /**
- * Single PII detection rule: id, label, regex pattern, and localized messages.
+ * Single PII detection rule: one regex pattern and its localized violation message.
+ * - id: unique key (used to deduplicate when multiple rules share the same id).
+ * - label: human-readable name (e.g. "Email", "IBAN").
+ * - pattern: regex string (e.g. "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b").
+ * - message: { [lang]: string } for the chat-selected language when multilingual is on (e.g. { it: "...", en: "..." }).
  */
 export interface PiiDetectionRule {
   id: string;
@@ -21,7 +28,10 @@ export interface PiiDetectionRule {
 }
 
 /**
- * PII detection config: enabled flag, rules array, and localized error message.
+ * PII detection config attached to the layout when enabled.
+ * - enabled: when true, messages are checked before sending.
+ * - rules: list of regex rules; if any matches, the message is blocked and an error is shown.
+ * - errorMessage: localized main line shown in the error bubble (e.g. "The message contains personal or sensitive data.").
  */
 export interface PiiDetectionConfig {
   enabled: boolean;
@@ -30,7 +40,9 @@ export interface PiiDetectionConfig {
 }
 
 /**
- * Layout prop: either a layout name string or an object with name + optional piiDetection.
+ * Layout prop: either a layout name string (backward compatible) or an object with
+ * name + optional piiDetection. When piiDetection.enabled is true, sendMessage runs
+ * the rules and blocks send + shows error bubble if any rule matches.
  */
 export type LayoutProp =
   | LayoutName
