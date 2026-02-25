@@ -259,3 +259,5 @@ WithUserAvatarAsElement.args = {
   tenant,
   userAvatar: <span>USER</span>,
 };
+
+

@@ -18,6 +18,8 @@ import {
 } from '@memori.ai/memori-api-client/src/types';
 import { ArtifactData } from '../MemoriArtifactSystem/types/artifact.types';
 import { ArtifactAPIBridge } from '../MemoriArtifactSystem/utils/ArtifactAPI';
+import type { LayoutProp, PiiDetectionConfig } from '../../types/layout';
+import { checkPii } from '../../helpers/piiDetection';
 
 // Libraries
 import React, {
@@ -378,14 +380,7 @@ export interface Props {
   memoriLang?: string;
   multilingual?: boolean;
   integration?: Integration;
-  layout?:
-    | 'DEFAULT'
-    | 'FULLPAGE'
-    | 'TOTEM'
-    | 'CHAT'
-    | 'WEBSITE_ASSISTANT'
-    | 'HIDDEN_CHAT'
-    | 'ZOOMED_FULL_BODY';
+  layout?: LayoutProp;
   customLayout?: React.FC<LayoutProps>;
   showShare?: boolean;
   showCopyButton?: boolean;
@@ -604,7 +599,17 @@ const MemoriWidget = ({
   const [memoriTyping, setMemoriTyping] = useState<boolean>(false);
   const [typingText, setTypingText] = useState<string>();
 
-  const selectedLayout = layout || integrationConfig?.layout || 'DEFAULT';
+  const layoutName =
+    typeof layout === 'string'
+      ? layout
+      : layout?.name;
+  const selectedLayout = layoutName || integrationConfig?.layout || 'DEFAULT';
+  const piiDetection: PiiDetectionConfig | undefined =
+    typeof layout === 'object' &&
+    layout !== null &&
+    layout.piiDetection?.enabled
+      ? layout.piiDetection
+      : undefined;
 
   const defaultEnableAudio =
     enableAudio ?? integrationConfig?.enableAudio ?? true;
@@ -808,6 +813,52 @@ const MemoriWidget = ({
       (window.getMemoriState() as MemoriSession)?.sessionID;
     if (!sessionID || !text?.length) return;
 
+    // Build full message text (same as what will be sent) for translation and PII check
+    let msg = text;
+    if (
+      !hidden &&
+      translate &&
+      isMultilanguageEnabled &&
+      userLang.toUpperCase() !== language.toUpperCase()
+    ) {
+      const translation = await getTranslation(
+        text,
+        language,
+        userLang,
+        baseUrl
+      );
+      msg = translation.text;
+    }
+    const mediaDocuments = media?.filter(
+      m => (m as any).type === 'document' && m.properties?.isAttachedFile
+    );
+    if (mediaDocuments && mediaDocuments.length > 0) {
+      const documentContents = mediaDocuments
+        .map(doc => doc.content)
+        .join(' ');
+      msg = msg + ' ' + documentContents;
+    }
+
+    // PII check: if enabled and any rule matches, show error and do not send
+    if (piiDetection?.enabled) {
+      const piiResult = checkPii(
+        msg,
+        piiDetection,
+        userLang?.toLowerCase() || 'en'
+      );
+      if (piiResult.matched && piiResult.errorText) {
+        pushMessage({
+          text: piiResult.errorText,
+          emitter: 'system',
+          fromUser: false,
+          initial: false,
+          contextVars: {},
+          date: new Date().toISOString(),
+        });
+        return;
+      }
+    }
+
     // Add user message to chat history if not hidden
     if (!hidden)
       pushMessage({
@@ -824,37 +875,9 @@ const MemoriWidget = ({
     setMemoriTyping(true);
     setTypingText(typingText);
 
-    let msg = text;
     let gotError = false;
 
     try {
-      // Translate message if needed
-      if (
-        !hidden &&
-        translate &&
-        isMultilanguageEnabled &&
-        userLang.toUpperCase() !== language.toUpperCase()
-      ) {
-        const translation = await getTranslation(
-          text,
-          language,
-          userLang,
-          baseUrl
-        );
-        msg = translation.text;
-      }
-
-      // Handle document attachments
-      const mediaDocuments = media?.filter(
-        m => (m as any).type === 'document' && m.properties?.isAttachedFile
-      );
-      if (mediaDocuments && mediaDocuments.length > 0) {
-        const documentContents = mediaDocuments
-          .map(doc => doc.content)
-          .join(' ');
-        msg = msg + ' ' + documentContents;
-      }
-
       // Add chat reference link to the message if it exists
       // if (chatLogID) {
       //   msg =

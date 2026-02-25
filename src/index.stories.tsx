@@ -134,3 +134,47 @@ WithPrivateAgent.args = {
   showShare: true,
   integrationID: '19f95abe-3493-4568-971d-14471480e5bc',
 };
+
+const piiDetectionConfig = {
+  enabled: true,
+  rules: [
+    {
+      id: 'email',
+      label: 'Email',
+      pattern: '\\b[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}\\b',
+      message: {
+        it: 'Il messaggio contiene un indirizzo email.',
+        en: 'The message contains an email address.',
+      },
+    },
+    {
+      id: 'iban',
+      label: 'IBAN',
+      pattern: '\\b[A-Z]{2}\\d{2}(?:[ ]?[A-Z0-9]{4}){3,7}(?:[ ]?[A-Z0-9]{1,4})?\\b',
+      message: {
+        it: 'Il messaggio contiene un codice IBAN.',
+        en: 'The message contains an IBAN code.',
+      },
+    },
+  ],
+  errorMessage: {
+    it: 'Il messaggio contiene dati personali o sensibili.',
+    en: 'The message contains personal or sensitive data.',
+  },
+};
+export const WithPiiDetection = Template.bind({});
+WithPiiDetection.args = {
+  memoriName: 'Layout Storybook',
+  ownerUserName: 'andrea.patini',
+  memoriID: 'ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e',
+  ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
+  tenantID: 'aisuru-staging.aclambda.online',
+  engineURL: 'https://engine-staging.memori.ai/memori/v2',
+  apiURL: 'https://backend-staging.memori.ai/api/v2',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  layout: {
+    name: 'DEFAULT',
+    piiDetection: piiDetectionConfig,
+  },
+};
