@@ -1,6 +1,7 @@
 /**
  * Layout types and PII (Personally Identifiable Information) detection config.
- * Used when the widget accepts layout as either a string or an object with optional PII rules.
+ * The widget's `layout` prop is always a string (LayoutName). PII is only configured
+ * via integration: integration.customData (JSON) can have layout as an object (LayoutProp).
  */
 
 /** Layout name (string union used for layout selection across the app). */
@@ -40,9 +41,9 @@ export interface PiiDetectionConfig {
 }
 
 /**
- * Layout prop: either a layout name string (backward compatible) or an object with
- * name + optional piiDetection. When piiDetection.enabled is true, sendMessage runs
- * the rules and blocks send + shows error bubble if any rule matches.
+ * Layout as object: only used inside integration customData (not as the layout prop).
+ * When customData.layout is this shape and piiDetection.enabled is true, the widget
+ * runs PII checks before sending and shows an error bubble if any rule matches.
  */
 export type LayoutProp =
   | LayoutName

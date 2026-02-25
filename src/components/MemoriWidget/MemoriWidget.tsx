@@ -18,8 +18,8 @@ import {
 } from '@memori.ai/memori-api-client/src/types';
 import { ArtifactData } from '../MemoriArtifactSystem/types/artifact.types';
 import { ArtifactAPIBridge } from '../MemoriArtifactSystem/utils/ArtifactAPI';
-import type { LayoutProp, PiiDetectionConfig } from '../../types/layout';
-import { checkPii } from '../../helpers/piiDetection'; // PII check when layout has piiDetection.enabled
+import type { LayoutName, PiiDetectionConfig } from '../../types/layout';
+import { checkPii } from '../../helpers/piiDetection'; // PII check when integrationConfig.layout has piiDetection.enabled
 
 // Libraries
 import React, {
@@ -380,7 +380,7 @@ export interface Props {
   memoriLang?: string;
   multilingual?: boolean;
   integration?: Integration;
-  layout?: LayoutProp;
+  layout?: LayoutName;
   customLayout?: React.FC<LayoutProps>;
   showShare?: boolean;
   showCopyButton?: boolean;
@@ -599,17 +599,19 @@ const MemoriWidget = ({
   const [memoriTyping, setMemoriTyping] = useState<boolean>(false);
   const [typingText, setTypingText] = useState<string>();
 
-  // Resolve layout: prop can be a string (e.g. 'FULLPAGE') or { name, piiDetection } for PII checks.
+  // Layout: from prop (string only) or integrationConfig. PII detection is only from integrationConfig (customData.layout as object with piiDetection).
   const layoutName =
     typeof layout === 'string'
       ? layout
-      : layout?.name;
-  const selectedLayout = layoutName || integrationConfig?.layout || 'DEFAULT';
+      : typeof integrationConfig?.layout === 'string'
+        ? integrationConfig.layout
+        : integrationConfig?.layout?.name;
+  const selectedLayout = layoutName || 'DEFAULT';
   const piiDetection: PiiDetectionConfig | undefined =
-    typeof layout === 'object' &&
-    layout !== null &&
-    layout.piiDetection?.enabled
-      ? layout.piiDetection
+    typeof integrationConfig?.layout === 'object' &&
+    integrationConfig?.layout !== null &&
+    integrationConfig?.layout?.piiDetection?.enabled
+      ? integrationConfig.layout.piiDetection
       : undefined;
 
   const defaultEnableAudio =
@@ -842,7 +844,7 @@ const MemoriWidget = ({
     }
 
     // PII check: when layout has piiDetection.enabled, run regex rules on the full msg.
-    // If any rule matches, push a single system error bubble and return without sending.
+    // If any rule matches, add the user message to history, then push the system error bubble and return without sending.
     if (piiDetection?.enabled) {
       const piiResult = checkPii(
         msg,
@@ -850,6 +852,17 @@ const MemoriWidget = ({
         userLang?.toLowerCase() || 'en'
       );
       if (piiResult.matched && piiResult.errorText) {
+        if (!hidden) {
+          pushMessage({
+            text: text,
+            translatedText,
+            fromUser: true,
+            media: media ?? [],
+            initial: sessionId
+              ? !!newSessionId && newSessionId !== sessionId
+              : !!newSessionId,
+          });
+        }
         pushMessage({
           text: piiResult.errorText,
           emitter: 'system',

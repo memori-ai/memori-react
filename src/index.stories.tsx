@@ -135,7 +135,7 @@ WithPrivateAgent.args = {
   integrationID: '19f95abe-3493-4568-971d-14471480e5bc',
 };
 
-// PII detection story: layout as object with name + piiDetection. Try sending an email or IBAN to see the error bubble.
+// PII detection: only via integration customData (layout as object with piiDetection). Try sending an email or IBAN to see the error bubble.
 const piiDetectionConfig = {
   enabled: true,
   rules: [
@@ -164,7 +164,7 @@ const piiDetectionConfig = {
   },
 };
 
-/** Story: layout with piiDetection enabled. Send a message containing an email (e.g. test@example.com) or IBAN to see the red error bubble. */
+/** Story: PII detection via integration config only. Send a message containing an email (e.g. test@example.com) or IBAN to see the red error bubble. */
 export const WithPiiDetection = Template.bind({});
 WithPiiDetection.args = {
   memoriName: 'Layout Storybook',
@@ -176,8 +176,14 @@ WithPiiDetection.args = {
   apiURL: 'https://backend-staging.memori.ai/api/v2',
   uiLang: 'IT',
   spokenLang: 'IT',
-  layout: {
-    name: 'DEFAULT',
-    piiDetection: piiDetectionConfig,
+  integration: {
+    integrationID: 'pii-demo',
+    customData: JSON.stringify({
+      layout: {
+        name: 'DEFAULT',
+        piiDetection: piiDetectionConfig,
+      },
+      lang: 'it',
+    }),
   },
 };
