@@ -3,6 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { Button } from '@memori.ai/ui';
 import I18nWrapper from './I18nWrapper';
 import { ArtifactProvider } from './components/MemoriArtifactSystem/context/ArtifactContext';
+import { AlertProvider } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
 
 import {
@@ -114,6 +115,7 @@ export const AllComponentsWithAllPropsEnabled: Story = () => {
 
   return (
     <I18nWrapper>
+      <AlertProvider>
       <ArtifactProvider>
         <div style={{ padding: '2rem', maxWidth: '900px', margin: '0 auto', color: 'var(--memori-label-color)' }}>
           <h1 style={{ marginBottom: '2rem', color: 'var(--showcase-title-color)' }}>Component Showcase — All Props Enabled</h1>
@@ -554,6 +556,7 @@ export const AllComponentsWithAllPropsEnabled: Story = () => {
           </section>
         </div>
       </ArtifactProvider>
+      </AlertProvider>
     </I18nWrapper>
   );
 };
