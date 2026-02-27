@@ -378,6 +378,10 @@ export interface Props {
   tenantID: string;
   memoriConfigs?: MemoriConfig[];
   memoriLang?: string;
+  /** UI language: labels, buttons, page translation (i18n) */
+  uiLang?: string;
+  /** Spoken/chat language: select box in StartPanel and conversation language */
+  spokenLang?: string;
   multilingual?: boolean;
   integration?: Integration;
   layout?: LayoutName;
@@ -441,6 +445,8 @@ const MemoriWidget = ({
   ownerUserName,
   tenantID,
   memoriLang,
+  uiLang,
+  spokenLang,
   multilingual,
   integration,
   layout,
@@ -565,13 +571,21 @@ const MemoriWidget = ({
       : !!integrationConfig?.multilanguage;
   const forcedTimeout = integrationConfig?.forcedTimeout as number | undefined;
   const [userLang, setUserLang] = useState(
-    memoriLang ??
+    spokenLang ??
+      memoriLang ??
       integrationConfig?.lang ??
       language ??
       integrationConfig?.uiLang ??
       i18n.language ??
       'IT'
   );
+
+  // Sync userLang when parent passes spokenLang (select box in StartPanel)
+  useEffect(() => {
+    if (spokenLang != null) {
+      setUserLang(spokenLang);
+    }
+  }, [spokenLang]);
 
   const applyMathFormatting =
     useMathFormatting !== undefined
@@ -582,18 +596,20 @@ const MemoriWidget = ({
   }, [applyMathFormatting]);
 
   /**
-   * Sets the language in the i18n instance
+   * Sets the UI language in the i18n instance (page translation). uiLang takes precedence.
    */
   useEffect(() => {
-    if (
-      isMultilanguageEnabled &&
-      userLang &&
-      uiLanguages.includes(userLang.toLowerCase())
-    ) {
+    const langToApply =
+      uiLang && uiLanguages.includes(uiLang.toLowerCase())
+        ? uiLang.toLowerCase()
+        : userLang && uiLanguages.includes(userLang.toLowerCase())
+          ? userLang.toLowerCase()
+          : null;
+    if (langToApply && typeof i18n?.changeLanguage === 'function') {
       // @ts-ignore
-      i18n.changeLanguage(userLang.toLowerCase());
+      i18n.changeLanguage(langToApply);
     }
-  }, [userLang]);
+  }, [uiLang, userLang]);
 
   const [loading, setLoading] = useState(false);
   const [memoriTyping, setMemoriTyping] = useState<boolean>(false);

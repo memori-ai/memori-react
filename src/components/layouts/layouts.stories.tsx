@@ -50,6 +50,7 @@ DefaultLayout.args = {
   showUpload: true,
   showReasoning: false,
   showLogin: true,
+  multilingual: true,
 };
 
 
