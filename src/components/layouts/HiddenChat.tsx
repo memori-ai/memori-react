@@ -52,7 +52,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     const mainDiv = document.body;
     const widgetEl = document.querySelector('.memori-widget');
     const sidebarWidth =
-      (widgetEl && getComputedStyle(widgetEl).getPropertyValue('--memori-sidebar-width')?.trim()) || '350px';
+      (widgetEl && getComputedStyle(widgetEl).getPropertyValue('--memori-modal-size-sm')?.trim()) || '350px';
     if (isOpen) {
       if (!fullScreen) {
         mainDiv.style.width = `calc(100% - ${sidebarWidth})`;

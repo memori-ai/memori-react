@@ -85,7 +85,6 @@ body.sb-show-main #root,
 
     /* Layout */
     --memori-layout-max-width: 1280px;
-    --memori-sidebar-width: 350px;
 
     font-family: var(--memori-font-family);
     font-size: var(--memori-text-size-base);

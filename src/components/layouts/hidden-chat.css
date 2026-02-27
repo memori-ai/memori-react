@@ -51,7 +51,7 @@
 }
 
 .memori-close-label {
-  right: var(--memori-sidebar-width);
+  right: var(--memori-modal-size-sm);
   border-radius: var(--memori-radius-box) 0 0 var(--memori-radius-box);
   opacity: 0;
   pointer-events: none;
@@ -62,8 +62,8 @@
   position: fixed;
   z-index: 1000;
   top: 0;
-  right: calc(-1 * var(--memori-sidebar-width));
-  width: var(--memori-sidebar-width);
+  right: calc(-1 * var(--memori-modal-size-sm));
+  width: var(--memori-modal-size-sm);
   height: 100%;
   background-color: var(--memori-main-background, #fff);
   box-shadow: -2px 0 var(--memori-spacing-sm) rgba(0, 0, 0, 0.1);
@@ -168,7 +168,7 @@
 .memori-sidebar-toggle:checked ~ .memori-sidebar-container .memori-open-label {
   opacity: 0;
   pointer-events: none;
-  transform: translateY(-50%) translateX(var(--memori-sidebar-width));
+  transform: translateY(-50%) translateX(var(--memori-modal-size-sm));
 }
 
 .memori-loading {

@@ -69,6 +69,7 @@
 /* Typography: title and description in fullpage left column */
 .memori-widget.memori-layout-fullpage .memori--title {
     margin-bottom: var(--memori-spacing-xs);
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-heading-large);
     font-weight: var(--memori-text-weight-semibold);
     line-height: var(--memori-text-line-tight);
