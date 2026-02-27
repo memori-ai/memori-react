@@ -60,9 +60,7 @@ export interface Props {
   pin?: string;
   context?: { [key: string]: string };
   initialQuestion?: string;
-  /** Language for the UI and default conversation (labels, buttons, and initial chat/spoken language). */
   uiLang?: 'en' | 'it' | 'fr' | 'es' | 'de' | 'IT' | 'EN' | 'FR' | 'ES' | 'DE';
-  /** @deprecated Use uiLang for both UI and default conversation language. */
   spokenLang?: string;
   multilingual?: boolean;
   authToken?: string;
@@ -289,15 +287,12 @@ const Memori: React.FC<Props> = ({
   }, []);
 
   /**
-   * Sets the language in the i18n instance (UI strings).
-   * Uses the same source as conversation language (uiLang ?? spokenLang) so that
-   * when only spokenLang is passed (e.g. from web component), UI still follows.
+   * Sets the language in the i18n instance
    */
-  const effectiveLang = uiLang ?? spokenLang;
   useEffect(() => {
-    if (effectiveLang) {
+    if (uiLang) {
       // @ts-ignore
-      i18n.changeLanguage(effectiveLang.toLowerCase());
+      i18n.changeLanguage(uiLang.toLowerCase());
     } else {
       const { lng, fallbackLng } = getPreferredLanguages();
       // @ts-ignore
@@ -306,7 +301,7 @@ const Memori: React.FC<Props> = ({
         i18n.changeLanguage(fallbackLng);
       });
     }
-  }, [effectiveLang]);
+  }, [uiLang]);
 
   const layoutIntegration =
     integration ??

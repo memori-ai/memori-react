@@ -564,7 +564,6 @@ const MemoriWidget = ({
       ? multilingual
       : !!integrationConfig?.multilanguage;
   const forcedTimeout = integrationConfig?.forcedTimeout as number | undefined;
-  // Default conversation language: from client uiLang (memoriLang), then integration config, then memori culture
   const [userLang, setUserLang] = useState(
     memoriLang ??
       integrationConfig?.lang ??
