@@ -5,13 +5,13 @@ const baseConfig = {
   rules: [
     {
       id: 'email',
-      label: 'Email',
+      label: { it: 'Email', en: 'Email' },
       pattern: '\\b[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}\\b',
       message: { it: 'Contiene email.', en: 'Contains email.' },
     },
     {
       id: 'iban',
-      label: 'IBAN',
+      label: { it: 'IBAN', en: 'IBAN' },
       pattern: '\\b[A-Z]{2}\\d{2}(?:[ ]?[A-Z0-9]{4}){3,7}(?:[ ]?[A-Z0-9]{1,4})?\\b',
       message: { it: 'Contiene IBAN.', en: 'Contains IBAN.' },
     },
@@ -62,10 +62,10 @@ describe('checkPii', () => {
       const configWithEmptyPattern = {
         ...baseConfig,
         rules: [
-          { id: 'empty', label: 'Empty', pattern: '', message: { en: 'Empty' } },
+          { id: 'empty', label: { it: 'Empty', en: 'Empty' }, pattern: '', message: { en: 'Empty' } },
           {
             id: 'space',
-            label: 'Space',
+            label: { it: 'Space', en: 'Space' },
             pattern: '   ',
             message: { en: 'Space' },
           },
@@ -83,7 +83,7 @@ describe('checkPii', () => {
         rules: [
           {
             id: 'bad',
-            label: 'Bad',
+            label: { it: 'Bad', en: 'Bad' },
             pattern: '[unclosed',
             message: { en: 'Bad' },
           },
@@ -150,13 +150,13 @@ describe('checkPii', () => {
         rules: [
           {
             id: 'email',
-            label: 'Email 1',
+            label: { it: 'Email 1', en: 'Email 1' },
             pattern: '\\b[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}\\b',
             message: { en: 'Email 1' },
           },
           {
             id: 'email',
-            label: 'Email 2',
+            label: { it: 'Email 2', en: 'Email 2' },
             pattern: '@',
             message: { en: 'Email 2' },
           },

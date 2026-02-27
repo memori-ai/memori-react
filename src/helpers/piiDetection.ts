@@ -81,9 +81,10 @@ export function checkPii(
     normalizedLang,
     'The message contains personal or sensitive data.'
   );
-  const ruleMessages = Array.from(matchedRulesById.values()).map(rule =>
-    getLocalized(rule.message, normalizedLang, rule.label)
-  );
+  const ruleMessages = Array.from(matchedRulesById.values()).map(rule => {
+    const labelFallback = getLocalized(rule.label, normalizedLang, rule.id);
+    return getLocalized(rule.message, normalizedLang, labelFallback);
+  });
   const errorText = [mainMessage, ...ruleMessages].join('\n');
 
   return { matched: true, errorText };

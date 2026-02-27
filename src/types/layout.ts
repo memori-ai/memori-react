@@ -17,13 +17,13 @@ export type LayoutName =
 /**
  * Single PII detection rule: one regex pattern and its localized violation message.
  * - id: unique key (used to deduplicate when multiple rules share the same id).
- * - label: human-readable name (e.g. "Email", "IBAN").
+ * - label: localized human-readable name (e.g. { it: "Email", en: "Email" }).
  * - pattern: regex string (e.g. "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b").
  * - message: { [lang]: string } for the chat-selected language when multilingual is on (e.g. { it: "...", en: "..." }).
  */
 export interface PiiDetectionRule {
   id: string;
-  label: string;
+  label: Record<string, string>;
   pattern: string;
   message: Record<string, string>;
 }

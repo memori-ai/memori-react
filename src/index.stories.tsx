@@ -141,7 +141,7 @@ const piiDetectionConfig = {
   rules: [
     {
       id: 'email',
-      label: 'Email',
+      label: { it: 'Email', en: 'Email' },
       pattern: '\\b[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}\\b',
       message: {
         it: 'Il messaggio contiene un indirizzo email.',
@@ -150,7 +150,7 @@ const piiDetectionConfig = {
     },
     {
       id: 'iban',
-      label: 'IBAN',
+      label: { it: 'IBAN', en: 'IBAN' },
       pattern: '\\b[A-Z]{2}\\d{2}(?:[ ]?[A-Z0-9]{4}){3,7}(?:[ ]?[A-Z0-9]{1,4})?\\b',
       message: {
         it: 'Il messaggio contiene un codice IBAN.',
