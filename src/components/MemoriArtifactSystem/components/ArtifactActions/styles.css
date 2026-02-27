@@ -25,7 +25,6 @@
     padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: 1px solid #e1e5e9;
     border-radius: 0.5rem;
-    background: #ffffff;
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
     color: var(--memori-text-color);
@@ -88,7 +87,6 @@
     padding-right: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
     border: 1px solid #e1e5e9;
     border-radius: 0.5rem;
-    background: #ffffff;
     border-bottom-left-radius: 0px !important;
     border-top-left-radius: 0px !important;
     color: var(--memori-text-color);
@@ -177,7 +175,6 @@
     border: 1px solid #e1e5e9;
     border-radius: 0.5rem;
     margin-top: var(--memori-spacing-xs);
-    background: #ffffff;
     box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
 }
 

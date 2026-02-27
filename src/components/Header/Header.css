@@ -119,14 +119,9 @@
 }
 
 .memori-header--position .memori-header--button {
-    margin-right: var(--memori-spacing-sm);
     margin-left: var(--memori-spacing-sm);
 }
 
-
-.memori-header .memori-header--button--position {
-    margin-right: var(--memori-spacing-xs);
-}
 
 .memori-dropdown--avatar-input {
     position: absolute;
