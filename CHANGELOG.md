@@ -1,5 +1,22 @@
 
 
+## [8.21.0](https://github.com/memori-ai/memori-react/compare/v8.20.0...v8.21.0) (2026-02-27)
+
+
+### Features
+
+* update PII detection rules to support localized labels ([1629c74](https://github.com/memori-ai/memori-react/commit/1629c7406d559a1b7e478270fba3aec08e5418ef))
+
+
+### Bug Fixes
+
+* restored old uiLang prop behavior ([c08f0ed](https://github.com/memori-ai/memori-react/commit/c08f0ed13e5c27314d2edb45198f110fb5529234))
+
+
+### Changes
+
+* relies on uiLang for both interface and chat language ([ef6ac43](https://github.com/memori-ai/memori-react/commit/ef6ac437151dbbfc16a5edcce671275b8f1ef038))
+
 ## [8.20.0](https://github.com/memori-ai/memori-react/compare/v8.19.3...v8.20.0) (2026-02-25)
 
 
