@@ -1,5 +1,12 @@
 
 
+## [8.22.0](https://github.com/memori-ai/memori-react/compare/v8.21.0...v8.22.0) (2026-03-02)
+
+
+### Features
+
+* add uiLang and spokenLang props to MemoriWidget ([f066cd6](https://github.com/memori-ai/memori-react/commit/f066cd6a930bbcd6201801c8d96e20c5be454646))
+
 ## [8.21.0](https://github.com/memori-ai/memori-react/compare/v8.20.0...v8.21.0) (2026-02-27)
 
 
