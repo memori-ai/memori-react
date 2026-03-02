@@ -115,6 +115,7 @@
     padding: 0.875rem;
     padding-bottom: 0.625rem;
     gap: 8px;
+    -webkit-overflow-scrolling: touch;
     overflow-x: auto;
     overflow-y: hidden;
     scrollbar-color: hsla(var(--border-300) / 35%) transparent;

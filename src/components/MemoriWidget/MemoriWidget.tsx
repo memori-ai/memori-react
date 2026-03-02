@@ -18,6 +18,8 @@ import {
 } from '@memori.ai/memori-api-client/src/types';
 import { ArtifactData } from '../MemoriArtifactSystem/types/artifact.types';
 import { ArtifactAPIBridge } from '../MemoriArtifactSystem/utils/ArtifactAPI';
+import type { LayoutName, PiiDetectionConfig } from '../../types/layout';
+import { checkPii } from '../../helpers/piiDetection'; // PII check when integrationConfig.layout has piiDetection.enabled
 
 // Libraries
 import React, {
@@ -376,16 +378,13 @@ export interface Props {
   tenantID: string;
   memoriConfigs?: MemoriConfig[];
   memoriLang?: string;
+  /** UI language: labels, buttons, page translation (i18n) */
+  uiLang?: string;
+  /** Spoken/chat language: select box in StartPanel and conversation language */
+  spokenLang?: string;
   multilingual?: boolean;
   integration?: Integration;
-  layout?:
-    | 'DEFAULT'
-    | 'FULLPAGE'
-    | 'TOTEM'
-    | 'CHAT'
-    | 'WEBSITE_ASSISTANT'
-    | 'HIDDEN_CHAT'
-    | 'ZOOMED_FULL_BODY';
+  layout?: LayoutName;
   customLayout?: React.FC<LayoutProps>;
   showShare?: boolean;
   showCopyButton?: boolean;
@@ -446,6 +445,8 @@ const MemoriWidget = ({
   ownerUserName,
   tenantID,
   memoriLang,
+  uiLang,
+  spokenLang,
   multilingual,
   integration,
   layout,
@@ -570,13 +571,21 @@ const MemoriWidget = ({
       : !!integrationConfig?.multilanguage;
   const forcedTimeout = integrationConfig?.forcedTimeout as number | undefined;
   const [userLang, setUserLang] = useState(
-    memoriLang ??
+    spokenLang ??
+      memoriLang ??
       integrationConfig?.lang ??
       language ??
       integrationConfig?.uiLang ??
       i18n.language ??
       'IT'
   );
+
+  // Sync userLang when parent passes spokenLang (select box in StartPanel)
+  useEffect(() => {
+    if (spokenLang != null) {
+      setUserLang(spokenLang);
+    }
+  }, [spokenLang]);
 
   const applyMathFormatting =
     useMathFormatting !== undefined
@@ -587,24 +596,39 @@ const MemoriWidget = ({
   }, [applyMathFormatting]);
 
   /**
-   * Sets the language in the i18n instance
+   * Sets the UI language in the i18n instance (page translation). uiLang takes precedence.
    */
   useEffect(() => {
-    if (
-      isMultilanguageEnabled &&
-      userLang &&
-      uiLanguages.includes(userLang.toLowerCase())
-    ) {
+    const langToApply =
+      uiLang && uiLanguages.includes(uiLang.toLowerCase())
+        ? uiLang.toLowerCase()
+        : userLang && uiLanguages.includes(userLang.toLowerCase())
+          ? userLang.toLowerCase()
+          : null;
+    if (langToApply && typeof i18n?.changeLanguage === 'function') {
       // @ts-ignore
-      i18n.changeLanguage(userLang.toLowerCase());
+      i18n.changeLanguage(langToApply);
     }
-  }, [userLang]);
+  }, [uiLang, userLang]);
 
   const [loading, setLoading] = useState(false);
   const [memoriTyping, setMemoriTyping] = useState<boolean>(false);
   const [typingText, setTypingText] = useState<string>();
 
-  const selectedLayout = layout || integrationConfig?.layout || 'DEFAULT';
+  // Layout: from prop (string only) or integrationConfig. PII detection is only from integrationConfig (customData.layout as object with piiDetection).
+  const layoutName =
+    typeof layout === 'string'
+      ? layout
+      : typeof integrationConfig?.layout === 'string'
+        ? integrationConfig.layout
+        : integrationConfig?.layout?.name;
+  const selectedLayout = layoutName || 'DEFAULT';
+  const piiDetection: PiiDetectionConfig | undefined =
+    typeof integrationConfig?.layout === 'object' &&
+    integrationConfig?.layout !== null &&
+    integrationConfig?.layout?.piiDetection?.enabled
+      ? integrationConfig.layout.piiDetection
+      : undefined;
 
   const defaultEnableAudio =
     enableAudio ?? integrationConfig?.enableAudio ?? true;
@@ -808,6 +832,65 @@ const MemoriWidget = ({
       (window.getMemoriState() as MemoriSession)?.sessionID;
     if (!sessionID || !text?.length) return;
 
+    // Build full message text (same as what will be sent) so we can run PII check on it.
+    // Order: user text -> optional translation -> appended document attachment content.
+    let msg = text;
+    if (
+      !hidden &&
+      translate &&
+      isMultilanguageEnabled &&
+      userLang.toUpperCase() !== language.toUpperCase()
+    ) {
+      const translation = await getTranslation(
+        text,
+        language,
+        userLang,
+        baseUrl
+      );
+      msg = translation.text;
+    }
+    const mediaDocuments = media?.filter(
+      m => (m as any).type === 'document' && m.properties?.isAttachedFile
+    );
+    if (mediaDocuments && mediaDocuments.length > 0) {
+      const documentContents = mediaDocuments
+        .map(doc => doc.content)
+        .join(' ');
+      msg = msg + ' ' + documentContents;
+    }
+
+    // PII check: when layout has piiDetection.enabled, run regex rules on the full msg.
+    // If any rule matches, add the user message to history, then push the system error bubble and return without sending.
+    if (piiDetection?.enabled) {
+      const piiResult = checkPii(
+        msg,
+        piiDetection,
+        userLang?.toLowerCase() || 'en'
+      );
+      if (piiResult.matched && piiResult.errorText) {
+        if (!hidden) {
+          pushMessage({
+            text: text,
+            translatedText,
+            fromUser: true,
+            media: media ?? [],
+            initial: sessionId
+              ? !!newSessionId && newSessionId !== sessionId
+              : !!newSessionId,
+          });
+        }
+        pushMessage({
+          text: piiResult.errorText,
+          emitter: 'system',
+          fromUser: false,
+          initial: false,
+          contextVars: {},
+          date: new Date().toISOString(),
+        });
+        return;
+      }
+    }
+
     // Add user message to chat history if not hidden
     if (!hidden)
       pushMessage({
@@ -824,37 +907,9 @@ const MemoriWidget = ({
     setMemoriTyping(true);
     setTypingText(typingText);
 
-    let msg = text;
     let gotError = false;
 
     try {
-      // Translate message if needed
-      if (
-        !hidden &&
-        translate &&
-        isMultilanguageEnabled &&
-        userLang.toUpperCase() !== language.toUpperCase()
-      ) {
-        const translation = await getTranslation(
-          text,
-          language,
-          userLang,
-          baseUrl
-        );
-        msg = translation.text;
-      }
-
-      // Handle document attachments
-      const mediaDocuments = media?.filter(
-        m => (m as any).type === 'document' && m.properties?.isAttachedFile
-      );
-      if (mediaDocuments && mediaDocuments.length > 0) {
-        const documentContents = mediaDocuments
-          .map(doc => doc.content)
-          .join(' ');
-        msg = msg + ' ' + documentContents;
-      }
-
       // Add chat reference link to the message if it exists
       // if (chatLogID) {
       //   msg =

@@ -1,5 +1,42 @@
 
 
+## [8.22.0](https://github.com/memori-ai/memori-react/compare/v8.21.0...v8.22.0) (2026-03-02)
+
+
+### Features
+
+* add uiLang and spokenLang props to MemoriWidget ([f066cd6](https://github.com/memori-ai/memori-react/commit/f066cd6a930bbcd6201801c8d96e20c5be454646))
+
+## [8.21.0](https://github.com/memori-ai/memori-react/compare/v8.20.0...v8.21.0) (2026-02-27)
+
+
+### Features
+
+* update PII detection rules to support localized labels ([1629c74](https://github.com/memori-ai/memori-react/commit/1629c7406d559a1b7e478270fba3aec08e5418ef))
+
+
+### Bug Fixes
+
+* restored old uiLang prop behavior ([c08f0ed](https://github.com/memori-ai/memori-react/commit/c08f0ed13e5c27314d2edb45198f110fb5529234))
+
+
+### Changes
+
+* relies on uiLang for both interface and chat language ([ef6ac43](https://github.com/memori-ai/memori-react/commit/ef6ac437151dbbfc16a5edcce671275b8f1ef038))
+
+## [8.20.0](https://github.com/memori-ai/memori-react/compare/v8.19.3...v8.20.0) (2026-02-25)
+
+
+### Features
+
+* enhance PII detection with tests ([3edd59e](https://github.com/memori-ai/memori-react/commit/3edd59e93ed796a1562c2595c1e770904f32e187))
+* implement PII detection configuration ([02be73c](https://github.com/memori-ai/memori-react/commit/02be73cc1f62247a331143c1cad60009dc7c24d4))
+
+
+### Bug Fixes
+
+* update file type display logic in FilePreview ([b7f2935](https://github.com/memori-ai/memori-react/commit/b7f293503bae947fa4a0e9d1e3c00848509b1a85))
+
 ## [8.19.3](https://github.com/memori-ai/memori-react/compare/v8.19.2...v8.19.3) (2026-02-20)
 
 

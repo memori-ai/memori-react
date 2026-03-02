@@ -344,6 +344,8 @@ const Memori: React.FC<Props> = ({
           | undefined,
         showLogin: memori?.enableDeepThought,
         memoriLang: memori?.culture?.split('-')?.[0],
+        uiLang,
+        spokenLang,
         autoStart:
           layout === 'HIDDEN_CHAT'
             ? true
@@ -381,7 +383,9 @@ const Memori: React.FC<Props> = ({
         enableAudio,
         defaultSpeakerActive,
         useMathFormatting,
-        memoriLang: spokenLang ?? memori?.culture?.split('-')?.[0],
+        memoriLang: memori?.culture?.split('-')?.[0],
+        uiLang,
+        spokenLang,
       };
 
   const [pulseSent, setPulseSent] = useState(false);

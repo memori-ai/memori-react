@@ -3,7 +3,6 @@ import { FileText as DocumentIcon } from 'lucide-react';
 import { Image as ImageIcon } from 'lucide-react';
 import { Upload as UploadIcon } from 'lucide-react';
 import { AlertData, AlertSeverity, Spin, useAlertManager } from '@memori.ai/ui';
-import { Alert } from '@memori.ai/ui';
 import cx from 'classnames';
 import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
@@ -610,6 +609,7 @@ ${file.content}
           })}
         >
           {currentMediaCount}/{maxDocumentsPerMessage}
+          {currentMediaCount}/{maxDocumentsPerMessage}
         </div>
       )}
 
@@ -643,7 +643,6 @@ ${file.content}
           onValidateImageFile={validateImageFile}
         />
       </div>
-
     </div>
   );
 };

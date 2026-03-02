@@ -1,9 +1,10 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
-import { Button, useAlertManager } from '@memori.ai/ui';
-import { Send, Mic, Plus } from 'lucide-react';
+import { Button } from '@memori.ai/ui';
+import { useAlertManager } from '@memori.ai/ui';
+import { Send, Mic } from 'lucide-react';
 import MicrophoneButton from '../MicrophoneButton/MicrophoneButton';
 import cx from 'classnames';
 import UploadButton from '../UploadButton/UploadButton';
@@ -133,6 +134,8 @@ const ChatInputs: React.FC<Props> = ({
         url: file.url,
       };
     });
+
+    
 
     sendMessage(userMessage, mediaWithIds);
 

@@ -94,7 +94,7 @@ const App = () => (
 | `defaultSpeakerActive`     |                | `boolean`                                   | `true`                      | Default value for the speaker activation                                                                                                                                                                                                                                                                                                                                                                                                |
 | `disableTextEnteredEvents` |                | `boolean`                                   | `false`                     | Disable MemoriTextEntered events listeners for `typeMessage` functions, useful to avoid issues with multiple widgets in page.                                                                                                                                                                                                                                                                                                           |
 | `useMathFormatting`        |                | `boolean`                                   | `false`                     | Apply math formatting to the messages, defaults to false if otherwise indicated by props or integration config.                                                                                                                                                                                                                                                                                                                         |
-| `layout`                   |                | `string`                                    |                             | Layout of the Memori, can be "FULLPAGE" (default), "CHAT", "WEBSITE_ASSISTANT", "TOTEM", "HIDDEN_CHAT" or "ZOOMED_FULL_BODY". see [below](#layouts)                                                                                                                                                                                                                                                                                     |
+| `layout`                   |                | `string`                                    |                             | Layout of the Memori: `"FULLPAGE"` (default), `"CHAT"`, `"WEBSITE_ASSISTANT"`, `"TOTEM"`, `"HIDDEN_CHAT"`, or `"ZOOMED_FULL_BODY"`. [PII detection](#pii-detection) is only available via integration config, not as a prop. See [Layouts](#layouts).                                                                                                                                                                 |
 | `customLayout`             |                | `React.FC<LayoutProps>`                     |                             | Custom layout component, see [below](#custom-layout)                                                                                                                                                                                                                                                                                                                                                                                    |
 | `customMediaRenderer`      |                | `(mimeType: string) => JSX.Element \| null` |                             | Custom media renderer, see [below](#custom-media-renderer)                                                                                                                                                                                                                                                                                                                                                                              |
 | `additionalSettings`       |                | `JSX.Element`                               |                             | Custom JSX or component to render within the settings drawer                                                                                                                                                                                                                                                                                                                                                                            |
@@ -105,8 +105,91 @@ const App = () => (
 
 ### Layouts
 
-The Memori can be displayed in five different layouts: `FULLPAGE`, `CHAT`, `WEBSITE_ASSISTANT`,`TOTEM`, `HIDDEN_CHAT` and `ZOOMED_FULL_BODY`.
-If you don't specify a layout, the default one is `FULLPAGE`.
+The Memori can be displayed in six layouts: `FULLPAGE`, `CHAT`, `WEBSITE_ASSISTANT`, `TOTEM`, `HIDDEN_CHAT`, and `ZOOMED_FULL_BODY`.
+If you don't specify a layout (via the `layout` prop or via integration config), the default is `FULLPAGE`.
+
+**As a prop** (string only, takes precedence over integration):
+
+```tsx
+<Memori layout="FULLPAGE" ... />
+```
+
+**Via the `integration` prop:** the integration object must have a `customData` string containing JSON. That JSON can include a `layout` field: either a **string** (layout name) or an **object** `{ name: LayoutName, piiDetection?: PiiDetectionConfig }` to enable [PII detection](#pii-detection). Used when you use a public page / landing experience from the backend.
+
+```tsx
+// Integration with layout name only
+const integration = {
+  integrationID: '...',
+  customData: JSON.stringify({
+    layout: 'FULLPAGE',
+    lang: 'it',
+    // ...other integration options
+  }),
+};
+<Memori integration={integration} ... />
+
+// Integration with layout + PII detection (PII is only configurable here, not as a layout prop)
+const integration = {
+  integrationID: '...',
+  customData: JSON.stringify({
+    layout: {
+      name: 'FULLPAGE',
+      piiDetection: {
+        enabled: true,
+        rules: [
+          {
+            id: 'email',
+            label: 'Email',
+            pattern: '\\b[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}\\b',
+            message: { it: 'Contiene email.', en: 'Contains email.' },
+          },
+        ],
+        errorMessage: { it: 'Dati sensibili.', en: 'Sensitive data.' },
+      },
+    },
+    lang: 'it',
+  }),
+};
+<Memori integration={integration} ... />
+```
+
+If both the `layout` prop and `integration.customData.layout` are provided, the **`layout` prop** (string) wins for the layout name. **PII detection is only read from integration config** (when `customData.layout` is an object with `piiDetection`).
+
+#### PII detection
+
+PII detection is **only available via integration config**: pass an integration whose `customData` JSON has `layout` as an object with `name` and `piiDetection` (see above). It is not configurable via the `layout` prop.
+
+When enabled, the widget checks each message (including attached document text) against the configured regex **rules** before sending. If any rule matches, the message is **not** sent and a single red error bubble is shown with the main `errorMessage` plus the matched rules’ messages, in the chat’s selected language (when `multilingual` is enabled).
+
+**Config shape** (inside `integration.customData.layout.piiDetection`):
+
+| Field | Type | Description |
+| ----- | ------ | ------------ |
+| `enabled` | `boolean` | When `true`, PII check runs before sending. |
+| `rules` | `array` | List of `{ id, label, pattern, message }`. `pattern` is a regex string; `message` is `{ [lang]: string }` (e.g. `{ it: "...", en: "..." }`). Rules with the same `id` are deduplicated in the error text. |
+| `errorMessage` | `object` | Main line shown in the bubble: `{ [lang]: string }`. |
+
+**Example** (inside `customData`):
+
+```ts
+layout: {
+  name: 'FULLPAGE',
+  piiDetection: {
+    enabled: true,
+    rules: [
+      {
+        id: 'email',
+        label: 'Email',
+        pattern: '\\b[A-Za-z0-9._%+\\-]+@[A-Za-z0-9.\\-]+\\.[A-Za-z]{2,}\\b',
+        message: { it: 'Contiene email.', en: 'Contains email.' },
+      },
+    ],
+    errorMessage: { it: 'Dati sensibili.', en: 'Sensitive data.' },
+  },
+}
+```
+
+Invalid or empty regex patterns are skipped; missing translations fall back to `en` then the first available value.
 
 #### FULLPAGE
 
