@@ -95,7 +95,7 @@ textarea.memori-chat-textarea--input {
     /* padding: var(--memori-spacing-sm) 0; */
     border: none;
     background: transparent;
-    color: #000;
+    color: var(--memori-text-color, #000);
     font-family: var(--memori-font-family);
     font-size: var(--memori-text-size-base);
     line-height: var(--memori-text-line-normal);
@@ -182,4 +182,30 @@ button.memori-chat-textarea--expand-button:focus {
     .memori-chat-textarea--inner:focus-within
     .memori-chat-textarea--expand-button {
     opacity: 1;
+}
+
+/* Dark theme */
+[data-theme='dark'] .memori-chat-textarea--counter {
+    color: var(--memori-text-color, rgba(255, 255, 255, 0.85));
+}
+
+[data-theme='dark'] textarea.memori-chat-textarea--input {
+    color: var(--memori-text-color, rgba(255, 255, 255, 0.92));
+    scrollbar-color: rgba(255, 255, 255, 0.25) transparent;
+}
+
+[data-theme='dark'] textarea.memori-chat-textarea--input::placeholder {
+    color: var(--memori-text-color-muted, rgba(255, 255, 255, 0.5));
+}
+
+[data-theme='dark'] textarea.memori-chat-textarea--input::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+[data-theme='dark'] textarea.memori-chat-textarea--input::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.4);
+}
+
+[data-theme='dark'] button.memori-chat-textarea--expand-button {
+    color: var(--memori-text-color, rgba(255, 255, 255, 0.85));
 }

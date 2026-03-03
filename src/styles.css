@@ -28,6 +28,7 @@
 @import url('./components/Snippet/Snippet.css');
 @import url('./components/StartPanel/StartPanel.css');
 @import url('./components/DateSelector/DateSelector.css');
+@import url('./components/DrawerFooter/DrawerFooter.css');
 @import url('./components/AgeVerificationModal/AgeVerificationModal.css');
 @import url('./components/KnownFacts/KnownFacts.css');
 @import url('./components/LoginDrawer/LoginDrawer.css');

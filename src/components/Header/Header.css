@@ -19,37 +19,190 @@
     gap: calc(var(--memori-spacing-xs) + 2px);
 }
 
+/* Dropdown menu container */
+.memori-header--dropdown .memori-dropdown--menu {
+    min-width: 320px;
+    padding: var(--memori-spacing-md);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 14px;
+    background: var(--memori-background, #fff);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.memori-dropdown--user-item {
+    padding: 0;
+    border-radius: 12px;
+    margin: calc(-1 * var(--memori-spacing-xs)) 0;
+}
+
 .memori-dropdown--user-info {
     display: flex;
     width: 100%;
-    height: 100%;
     align-items: center;
-    justify-content: center;
-    padding: var(--memori-spacing-sm);
-    gap: var(--memori-spacing-sm);
+    padding: var(--memori-spacing-sm) 0;
+    gap: var(--memori-spacing-md);
 }
 
 .memori-dropdown--user-trigger {
     display: flex;
-    max-width: 2rem;
-    max-height: 2rem;
+    max-width: 2.5rem;
+    max-height: 2.5rem;
     align-items: center;
     justify-content: center;
     padding: var(--memori-spacing-sm);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 2px solid rgba(0, 0, 0, 0.08);
     border-radius: 50%;
-    background-color: transparent;
+    background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(248,248,248,0.98));
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.memori-dropdown--user-trigger:hover {
+    border-color: var(--memori-primary-color, rgba(0, 0, 0, 0.15));
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transform: scale(1.05);
+}
+
+/* Avatar wrapper + overlay */
+.memori-dropdown--avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
     cursor: pointer;
 }
 
 .memori-dropdown--avatar {
-    width: 48px;
-    height: 48px;
-    border: 2px solid var(--memori-primary-color, #000);
+    display: block;
+    width: 64px;
+    height: 64px;
+    border: 3px solid var(--memori-primary-color, #000);
     border-radius: 50%;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.04);
     object-fit: cover;
     object-position: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.memori-dropdown--avatar-wrap:hover .memori-dropdown--avatar {
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.18), 0 0 0 1px rgba(0, 0, 0, 0.06);
+    transform: scale(1.02);
+}
+
+.memori-dropdown--avatar-overlay {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
+.memori-dropdown--avatar-placeholder .memori-dropdown--avatar-overlay {
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.memori-dropdown--avatar-wrap:hover .memori-dropdown--avatar-overlay {
+    opacity: 1;
+}
+
+.memori-dropdown--avatar-placeholder {
+    position: relative;
+    display: flex;
+    width: 64px;
+    height: 64px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(145deg, var(--memori-primary-color, #333) 0%, rgba(0, 0, 0, 0.75) 100%);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(0, 0, 0, 0.08);
+    color: #fff;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.memori-dropdown--avatar-placeholder .memori-dropdown--avatar-initial {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.memori-dropdown--avatar-wrap:hover .memori-dropdown--avatar-placeholder {
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.1);
+    transform: scale(1.02);
+}
+
+/* User details typography */
+.memori-dropdown--user-details {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.memori-dropdown--user-name {
+    margin: 0;
+    color: var(--memori-text-color, #111);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    line-height: 1.3;
+}
+
+.memori-dropdown--user-email {
+    overflow: hidden;
+    margin: 0;
+    color: var(--memori-text-muted, #666);
+    font-size: 0.875rem;
+    line-height: 1.35;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.memori-dropdown--user-badge {
+    display: inline-flex;
+    align-self: flex-start;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-top: 4px;
+    background: rgba(0, 0, 0, 0.06);
+    color: var(--memori-primary-color, #333);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+/* Separator */
+.memori-header--dropdown .memori-dropdown--separator {
+    margin: var(--memori-spacing-xs) 0;
+    opacity: 0.6;
+}
+
+/* Logout action */
+.memori-dropdown--action-button.memori-dropdown--action-button--logout {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 16px;
+    border-radius: 10px;
+    background: rgba(185, 28, 28, 0.08);
+    color: #b91c1c;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    gap: 8px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.memori-dropdown--action-button.memori-dropdown--action-button--logout:hover {
+    background: rgba(185, 28, 28, 0.14);
+    color: #991b1b;
 }
 
 @media (max-width: 870px) {
@@ -125,24 +278,10 @@
 
 .memori-dropdown--avatar-input {
     position: absolute;
-    top: 20px;
-    left: 15px;
-    width: 48px;
-    height: 48px;
+    width: 100%;
+    height: 100%;
     cursor: pointer;
+    font-size: 0;
+    inset: 0;
     opacity: 0;
-}
-
-.memori-dropdown--avatar:hover,
-.memori-dropdown--avatar-initial:hover,
-.memori-dropdown--avatar-input:hover {
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    pointer-events: cursor;
-    transform: scale(1.05);
-}
-
-.memori-dropdown--avatar-initial:hover + .memori-dropdown--avatar-input,
-.memori-dropdown--avatar:hover + .memori-dropdown--avatar-input {
-    display: block;
 }

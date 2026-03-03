@@ -152,7 +152,7 @@
 .memori--upload-icon {
   width: 18px;
   height: 18px;
-  color: #000;
+  color: var(--memori-text-color);
 }
 
 @keyframes fadeIn {

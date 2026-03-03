@@ -18,7 +18,11 @@ import {
 } from '@memori.ai/memori-api-client/src/types';
 import { ArtifactData } from '../MemoriArtifactSystem/types/artifact.types';
 import { ArtifactAPIBridge } from '../MemoriArtifactSystem/utils/ArtifactAPI';
-import type { LayoutName, PiiDetectionConfig } from '../../types/layout';
+import type {
+  LayoutName,
+  LayoutProp,
+  PiiDetectionConfig,
+} from '../../types/layout';
 import { checkPii } from '../../helpers/piiDetection'; // PII check when integrationConfig.layout has piiDetection.enabled
 
 // Libraries
@@ -384,7 +388,8 @@ export interface Props {
   spokenLang?: string;
   multilingual?: boolean;
   integration?: Integration;
-  layout?: LayoutName;
+  /** Layout name, or object when PII is configured (e.g. from integration customData). */
+  layout?: LayoutProp;
   customLayout?: React.FC<LayoutProps>;
   showShare?: boolean;
   showCopyButton?: boolean;
@@ -615,20 +620,49 @@ const MemoriWidget = ({
   const [memoriTyping, setMemoriTyping] = useState<boolean>(false);
   const [typingText, setTypingText] = useState<string>();
 
-  // Layout: from prop (string only) or integrationConfig. PII detection is only from integrationConfig (customData.layout as object with piiDetection).
+  // Layout: prop can be string or object { name, piiDetection } (e.g. from integration customData when PII is enabled).
   const layoutName =
     typeof layout === 'string'
       ? layout
-      : typeof integrationConfig?.layout === 'string'
-        ? integrationConfig.layout
-        : integrationConfig?.layout?.name;
-  const selectedLayout = layoutName || 'DEFAULT';
+      : layout &&
+          typeof layout === 'object' &&
+          layout !== null &&
+          'name' in layout &&
+          typeof (layout as { name: string }).name === 'string'
+        ? (layout as { name: string }).name
+        : typeof integrationConfig?.layout === 'string'
+          ? integrationConfig.layout
+          : integrationConfig?.layout?.name;
+  // Normalize to LayoutName: platform may pass number, "fullpage", "fullscreen", etc.
+  const selectedLayout = ((): LayoutName => {
+    if (typeof layoutName === 'string') {
+      const lower = layoutName.toLowerCase();
+      if (lower === 'fullpage' || lower === 'fullscreen' || lower === '2')
+        return 'FULLPAGE';
+      if (lower === 'totem') return 'TOTEM';
+      if (lower === 'chat') return 'CHAT';
+      if (lower === 'website_assistant') return 'WEBSITE_ASSISTANT';
+      if (lower === 'hidden_chat') return 'HIDDEN_CHAT';
+      if (lower === 'zoomed_full_body') return 'ZOOMED_FULL_BODY';
+      if (lower === 'default') return 'DEFAULT';
+      return layoutName as LayoutName;
+    }
+    if (layoutName === 2 || layoutName === '2') return 'FULLPAGE';
+    return 'DEFAULT';
+  })();
+  // PII: from layout prop when object with piiDetection, or from integrationConfig.layout
   const piiDetection: PiiDetectionConfig | undefined =
-    typeof integrationConfig?.layout === 'object' &&
-    integrationConfig?.layout !== null &&
-    integrationConfig?.layout?.piiDetection?.enabled
-      ? integrationConfig.layout.piiDetection
-      : undefined;
+    layout &&
+    typeof layout === 'object' &&
+    layout !== null &&
+    'piiDetection' in layout &&
+    layout.piiDetection?.enabled
+      ? layout.piiDetection
+      : typeof integrationConfig?.layout === 'object' &&
+          integrationConfig?.layout !== null &&
+          integrationConfig?.layout?.piiDetection?.enabled
+        ? integrationConfig.layout.piiDetection
+        : undefined;
 
   const defaultEnableAudio =
     enableAudio ?? integrationConfig?.enableAudio ?? true;
@@ -3144,8 +3178,8 @@ const MemoriWidget = ({
       className={cx(
         'memori',
         'memori-widget',
-        `memori-layout-${selectedLayout.toLowerCase()}`,
-        `memori-controls-${controlsPosition.toLowerCase()}`,
+        `memori-layout-${String(selectedLayout).toLowerCase()}`,
+        `memori-controls-${String(controlsPosition).toLowerCase()}`,
         `memori--avatar-${integrationConfig?.avatar || 'default'}`,
         {
           'memori--auto-start': autoStart,

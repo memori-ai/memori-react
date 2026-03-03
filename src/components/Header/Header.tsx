@@ -23,6 +23,7 @@ import {
   MessageCircle,
   LogOut,
   Trash2,
+  Camera,
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ShareButton from '../ShareButton/ShareButton';
@@ -331,51 +332,60 @@ const Header: React.FC<Props> = ({
                   />
                 )}
               />
-              <Dropdown.Menu>
-                <Dropdown.Item>
+              <Dropdown.Menu className="memori-dropdown--menu">
+                <Dropdown.Item className="memori-dropdown--user-item">
                   <div className="memori-dropdown--user-info">
-                    {user.avatarURL ? (
-                      <>
-                        <img
-                          src={user.avatarURL}
-                          alt={user.userName || user.eMail}
-                          className="memori-dropdown--avatar"
-                        />
-                        <input
-                          type="file"
-                          name="avatar"
-                          id="avatar"
-                          className="memori-dropdown--avatar-input"
-                          onChange={e =>
-                            updateAvatar(
-                              e.target.files?.[0] ?? (null as unknown as Blob)
-                            )
-                          }
-                          accept={imgMimeTypes.join(', ')}
-                        />
-                      </>
-                    ) : (
-                      <div className="memori-dropdown--avatar-placeholder">
-                        <span>
-                          {(user.userName || user.eMail || 'U')
-                            .charAt(0)
-                            .toUpperCase()}
-                        </span>
-                        <input
-                          type="file"
-                          name="avatar"
-                          id="avatar"
-                          className="memori-dropdown--avatar-input"
-                          onChange={e =>
-                            updateAvatar(
-                              e.target.files?.[0] ?? (null as unknown as Blob)
-                            )
-                          }
-                          accept={imgMimeTypes.join(', ')}
-                        />
-                      </div>
-                    )}
-
+                    <div className="memori-dropdown--avatar-wrap">
+                      {user.avatarURL ? (
+                        <>
+                          <img
+                            src={user.avatarURL}
+                            alt={user.userName || user.eMail}
+                            className="memori-dropdown--avatar"
+                          />
+                          <span className="memori-dropdown--avatar-overlay">
+                            <Camera size={20} strokeWidth={2} />
+                          </span>
+                          <input
+                            type="file"
+                            name="avatar"
+                            id="avatar"
+                            className="memori-dropdown--avatar-input"
+                            onChange={e =>
+                              updateAvatar(
+                                e.target.files?.[0] ?? (null as unknown as Blob)
+                              )
+                            }
+                            accept={imgMimeTypes.join(', ')}
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <div className="memori-dropdown--avatar-placeholder">
+                            <span className="memori-dropdown--avatar-initial">
+                              {(user.userName || user.eMail || 'U')
+                                .charAt(0)
+                                .toUpperCase()}
+                            </span>
+                            <span className="memori-dropdown--avatar-overlay">
+                              <Camera size={20} strokeWidth={2} />
+                            </span>
+                            <input
+                              type="file"
+                              name="avatar"
+                              id="avatar"
+                              className="memori-dropdown--avatar-input"
+                              onChange={e =>
+                                updateAvatar(
+                                  e.target.files?.[0] ?? (null as unknown as Blob)
+                                )
+                              }
+                              accept={imgMimeTypes.join(', ')}
+                            />
+                          </div>
+                        </>
+                      )}
+                    </div>
                     <div className="memori-dropdown--user-details">
                       <h3 className="memori-dropdown--user-name">
                         {user.userName || t('login.welcomeUser')}
@@ -391,11 +401,11 @@ const Header: React.FC<Props> = ({
                     </div>
                   </div>
                 </Dropdown.Item>
-                <Dropdown.Separator />
+                <Dropdown.Separator className="memori-dropdown--separator" />
                 <Dropdown.Item
                   onClick={onLogout}
                   className="memori-dropdown--action-button memori-dropdown--action-button--logout"
-                  {...({ icon: <LogOut /> } as React.ComponentProps<typeof Dropdown.Item>)}
+                  {...({ icon: <LogOut size={18} strokeWidth={2} /> } as React.ComponentProps<typeof Dropdown.Item>)}
                 >
                   {t('login.logout') || 'Logout'}
                 </Dropdown.Item>
