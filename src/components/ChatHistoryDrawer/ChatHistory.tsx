@@ -1,5 +1,6 @@
 import { Drawer } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
+import DrawerFooter from '../DrawerFooter/DrawerFooter';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import React, {
   useEffect,
@@ -17,7 +18,7 @@ import {
   ChatLogFilters,
 } from '@memori.ai/memori-api-client/dist/types';
 import { Card, Button } from '@memori.ai/ui';
-import { MessageCircle, Download, ArrowUp, ChevronLeft, X } from 'lucide-react';
+import { MessageCircle, Download, ArrowUp, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { stripHTML } from '../../helpers/utils';
 import debounce from 'lodash/debounce';
 import { Spin } from '@memori.ai/ui';
@@ -978,40 +979,40 @@ const ChatHistoryDrawer = ({
             );
           })}
         </ul>
-
-        {totalPages > 1 && (
-          <div className="memori-chat-history-drawer--pagination">
-            <Button
-              variant="primary"
-              onClick={() => {
-                setCurrentPage(p => Math.max(1, p - 1));
-                // fetchChatLogs will be triggered by the useEffect that depends on currentPage
-              }}
-              disabled={currentPage === 1}
-              className="memori-chat-history-drawer--pagination--button"
-            >
-              {t('previous') || 'Previous'}
-            </Button>
-            <span className="memori-chat-history-drawer--pagination--info">
-              {t('write_and_speak.page', {
-                current: currentPage,
-                total: totalPages,
-              })}
-            </span>
-            <Button
-              variant="primary"
-              onClick={() => {
-                setCurrentPage(p => Math.min(totalPages, p + 1));
-                // fetchChatLogs will be triggered by the useEffect that depends on currentPage
-              }}
-              disabled={currentPage === totalPages}
-              className="memori-chat-history-drawer--pagination--button"
-            >
-              {t('next') || 'Next'}
-            </Button>
-          </div>
-        )}
       </>
+    );
+  };
+
+  const renderListPagination = () => {
+    if (totalPages <= 1) return null;
+    return (
+      <nav
+        className="memori-chat-history-drawer--pagination"
+        aria-label={t('write_and_speak.chatHistory') || 'Chat history pagination'}
+      >
+        <Button
+          variant="outline"
+          onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+          disabled={currentPage === 1}
+          className="memori-chat-history-drawer--pagination--button memori-chat-history-drawer--pagination--prev"
+          icon={<ChevronLeft />}
+          title={t('previous') || 'Previous'}
+        />
+        <span className="memori-chat-history-drawer--pagination--info">
+          {t('write_and_speak.page', {
+            current: currentPage,
+            total: totalPages,
+          })}
+        </span>
+        <Button
+          variant="outline"
+          onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+          disabled={currentPage === totalPages}
+          className="memori-chat-history-drawer--pagination--button memori-chat-history-drawer--pagination--next"
+          icon={<ChevronRight />}
+          title={t('next') || 'Next'}
+        />
+      </nav>
     );
   };
 
@@ -1026,16 +1027,19 @@ const ChatHistoryDrawer = ({
 
     return (
       <div className="memori-chat-history-drawer--detail-view">
-        {' '}
-        <Button
-          variant="ghost"
-          onClick={() => {
-            setIsViewingChatDetail(false);
-            setSelectedChatLog(null);
-          }}
-          icon={<ChevronLeft />}
-        />
-        <div className="memori-chat-history-drawer--detail-view--header">
+        <header className="memori-chat-history-drawer--detail-view--header">
+          <Button
+            variant="ghost"
+            onClick={() => {
+              setIsViewingChatDetail(false);
+              setSelectedChatLog(null);
+            }}
+            className="memori-chat-history-drawer--detail-view--back-button"
+            icon={<ChevronLeft />}
+            title={t('back') || 'Back'}
+          >
+            {t('back') || 'Back'}
+          </Button>
           <div className="memori-chat-history-drawer--detail-view--header--title-wrapper">
             <div className="memori-chat-history-drawer--detail-view--header--title">
               {calculateTitle(selectedChatLog.lines) ||
@@ -1045,7 +1049,7 @@ const ChatHistoryDrawer = ({
               {chatDate}
             </div>
           </div>
-        </div>
+        </header>
         <div className="memori-chat-history-drawer--detail-view--content">
           <div className="memori-chat-history-drawer--detail-view--messages">
             <Chat
@@ -1085,20 +1089,20 @@ const ChatHistoryDrawer = ({
               isHistoryView={true}
             />
           </div>
-          <div className="memori-chat-history-drawer--detail-view--actions">
-            <Button
-              className="memori-chat-history-drawer--detail-view--resume-button"
-              variant="primary"
-              onClick={handleResumeChat}
-            >
-              <div className="memori-chat-history-drawer--detail-view--resume-button--content">
-                {/* <ChatRound className="memori-chat-history-drawer--detail-view--resume-button--icon" /> */}
+          <DrawerFooter
+            className="memori-chat-history-drawer--detail-view--footer"
+            center={
+              <Button
+                className="memori-chat-history-drawer--detail-view--resume-button"
+                variant="primary"
+                onClick={handleResumeChat}
+              >
                 <span className="memori-chat-history-drawer--detail-view--resume-button--text">
                   {t('write_and_speak.resumeButton') || 'Resume chat'}
                 </span>
-              </div>
-            </Button>
-          </div>
+              </Button>
+            }
+          />
         </div>
       </div>
     );
@@ -1121,7 +1125,8 @@ const ChatHistoryDrawer = ({
       {isViewingChatDetail ? (
         renderChatDetailView()
       ) : (
-        <div className="memori-chat-history-drawer--content">
+        <div className="memori-chat-history-drawer--content memori-chat-history-drawer--content-with-footer">
+          <div className="memori-chat-history-drawer--scrollable">
           <div className="memori-chat-history-drawer--toolbar">
             {/* New minimum messages filter */}
             <div className="memori-chat-history-drawer--toolbar--min-messages-filter">
@@ -1236,6 +1241,10 @@ const ChatHistoryDrawer = ({
             </div>
           </div>
           {renderContent()}
+          </div>
+          {totalPages > 1 && (
+            <DrawerFooter center={renderListPagination()} />
+          )}
         </div>
       )}
     </Drawer>

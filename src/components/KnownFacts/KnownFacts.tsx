@@ -1,10 +1,20 @@
 import { KnownFact, Memori } from '@memori.ai/memori-api-client/dist/types';
 import { useEffect, useState } from 'react';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { Button, Drawer, Spin, Modal, Checkbox, SelectBox, useAlertManager, createAlertOptions } from '@memori.ai/ui';
+import {
+  Button,
+  Drawer,
+  Spin,
+  Modal,
+  Checkbox,
+  SelectBox,
+  useAlertManager,
+  createAlertOptions,
+} from '@memori.ai/ui';
 import { getErrori18nKey } from '../../helpers/error';
 import { useTranslation } from 'react-i18next';
 import { Trash2, ChevronLeft, ChevronRight } from 'lucide-react';
+import DrawerFooter from '../DrawerFooter/DrawerFooter';
 
 export interface Props {
   apiClient: ReturnType<typeof memoriApiClient>;
@@ -57,7 +67,12 @@ const KnownFacts = ({
 
       if (response.resultCode !== 0) {
         console.error(response);
-        add(createAlertOptions({ description: t(getErrori18nKey(response.resultCode)), severity: 'error' }));
+        add(
+          createAlertOptions({
+            description: t(getErrori18nKey(response.resultCode)),
+            severity: 'error',
+          })
+        );
       }
     } catch (err) {
       console.error('KNOWN_FACTS/FETCH', err);
@@ -69,6 +84,54 @@ const KnownFacts = ({
   useEffect(() => {
     fetchKnownFacts();
   }, []);
+
+  const renderListPagination = () => {
+    if (knownFactsCount <= numberOfResults) return null;
+    return (
+      <nav
+        className="memori-chat-history-drawer--pagination"
+        aria-label={
+          t('write_and_speak.chatHistory') || 'Chat history pagination'
+        }
+      >
+        <Button
+          variant="outline"
+          onClick={() => {
+            let from =
+              (Math.floor(pageIndex / numberOfResults) - 1) * numberOfResults;
+            setPageIndex(from);
+            fetchKnownFacts(undefined, from, numberOfResults);
+          }}
+          disabled={Math.floor(pageIndex / numberOfResults) === 0}
+          className="memori-chat-history-drawer--pagination--button memori-chat-history-drawer--pagination--prev"
+          icon={<ChevronLeft />}
+          title={t('previous') || 'Previous'}
+        />
+        <span className="memori--table--pagination--pages--current">
+        {t('write_and_speak.page', {
+            current: Math.ceil(pageIndex / numberOfResults) + 1,
+            total: Math.ceil(knownFactsCount / numberOfResults),
+          })}
+        </span>
+        <Button
+          variant="outline"
+          onClick={() => {
+            let from =
+              (Math.floor(pageIndex / numberOfResults) + 1) * numberOfResults;
+            setPageIndex(from);
+            fetchKnownFacts(undefined, from, numberOfResults);
+          }}
+          disabled={
+            (pageIndex / numberOfResults + 1) * numberOfResults >=
+            knownFactsCount
+          }
+          className="memori-chat-history-drawer--pagination--button memori-chat-history-drawer--pagination--next"
+          icon={<ChevronRight />}
+          title={t('next') || 'Next'}
+        />
+      </nav>
+    );
+  };
 
   /**
    * Table selection
@@ -147,20 +210,39 @@ const KnownFacts = ({
                         });
                         Promise.all(mutations).then(responses => {
                           if (responses.every(r => r.resultCode === 0)) {
-                            add(createAlertOptions({ description: t('knownFacts.deleteSuccess'), severity: 'success' }));
+                            add(
+                              createAlertOptions({
+                                description: t('knownFacts.deleteSuccess'),
+                                severity: 'success',
+                              })
+                            );
                             setSelectedRowKeys([]);
                             fetchKnownFacts();
                             setBulkDeleteModalVisible(false);
                           } else {
-                            let errored = responses.find(r => r.resultCode !== 0);
+                            let errored = responses.find(
+                              r => r.resultCode !== 0
+                            );
                             console.error(errored);
                             if (errored?.resultCode !== undefined)
-                              add(createAlertOptions({ description: t(getErrori18nKey(errored?.resultCode)), severity: 'error' }));
+                              add(
+                                createAlertOptions({
+                                  description: t(
+                                    getErrori18nKey(errored?.resultCode)
+                                  ),
+                                  severity: 'error',
+                                })
+                              );
                           }
                         });
                       } catch (_e) {
                         let error = _e as Error;
-                        add(createAlertOptions({ description: t('Error') + error.message, severity: 'error' }));
+                        add(
+                          createAlertOptions({
+                            description: t('Error') + error.message,
+                            severity: 'error',
+                          })
+                        );
                       }
                     }}
                   >
@@ -171,188 +253,164 @@ const KnownFacts = ({
             />
           </div>
 
-          {knownFactsCount > 25 && (
-            <nav className="memori-known-facts-pagination memori--table--pagination">
-            {knownFactsCount > numberOfResults && (
-              <div className="memori--table--pagination--pages">
-                <Button
-                  shape="circle"
-                  disabled={pageIndex === 0 || pageIndex < numberOfResults}
-                  title={t('previous') || 'Previous'}
-                  icon={<ChevronLeft />}
-                  onClick={() => {
-                    let from =
-                      (pageIndex / numberOfResults - 1) * numberOfResults;
-                    setPageIndex(from);
-                    fetchKnownFacts(undefined, from, numberOfResults);
-                  }}
-                />
-                <span className="memori--table--pagination--pages--current">
-                  {Math.ceil(pageIndex / numberOfResults) + 1} /{' '}
-                  {Math.ceil(knownFactsCount / numberOfResults)}
-                </span>
-                <Button
-                  shape="circle"
-                  title={t('next') || 'Next'}
-                  icon={<ChevronRight />}
-                  disabled={
-                    (pageIndex / numberOfResults + 1) * numberOfResults >=
-                    knownFactsCount
-                  }
-                  onClick={() => {
-                    let from =
-                      (pageIndex / numberOfResults + 1) * numberOfResults;
-                    setPageIndex(from);
-                    fetchKnownFacts(undefined, from, numberOfResults);
-                  }}
-                />
-              </div>
-            )}
-
-            <SelectBox
-              options={[
-                { label: `25 / ${t('page') || 'page'}`, value: '25' },
-                { label: `50 / ${t('page') || 'page'}`, value: '50' },
-                { label: `100 / ${t('page') || 'page'}`, value: '100' },
-              ]}
-              value={numberOfResults.toString()}
-              onChange={(value: string | null) => {
-                if (value) {
-                  setNumberOfResults(parseInt(value));
-                  setPageIndex(0);
-                  fetchKnownFacts(undefined, 0, parseInt(value));
-                }
-              }}
-            />
-            </nav>
-          )}
           <div className="memori-known-facts-table-wrapper">
             <table className="memori--table memori-known-facts-table">
-          <thead>
-            <tr>
-              <th className="memori--table--column-centered">
-                <Checkbox
-                  checked={
-                    !!knownFacts?.length &&
-                    selectedRowKeys?.length === knownFacts.length
-                  }
-                  indeterminate={
-                    !!knownFacts?.length &&
-                    !!selectedRowKeys?.length &&
-                    selectedRowKeys?.length !== knownFacts?.length
-                  }
-                  onChange={(checked: boolean) => {
-                    if (checked) {
-                      setSelectedRowKeys(knownFacts.map(kf => kf.knownFactID));
-                    } else {
-                      setSelectedRowKeys([]);
-                    }
-                  }}
-                />
-              </th>
-              <th>{t('knownFacts.text')}</th>
-              <th className="mobile-hidden">{t('createdAt')}</th>
-              <th className="memori--table--column-right">{t('actions')}</th>
-            </tr>
-          </thead>
-          <tbody>
-            {knownFacts.map(kf => (
-              <tr key={kf.knownFactID}>
-                <th className="memori--table--column-centered">
-                  <Checkbox
-                    checked={selectedRowKeys?.includes(kf.knownFactID)}
-                    onChange={(checked: boolean) => {
-                      if (checked) {
-                        setSelectedRowKeys(srk => [
-                          ...new Set([...srk, kf.knownFactID]),
-                        ]);
-                      } else {
-                        setSelectedRowKeys(
-                          srk =>
-                            srk.filter(
-                              key => key !== kf.knownFactID
-                            ) as string[]
-                        );
+              <thead>
+                <tr>
+                  <th className="memori--table--column-centered">
+                    <Checkbox
+                      checked={
+                        !!knownFacts?.length &&
+                        selectedRowKeys?.length === knownFacts.length
                       }
-                    }}
-                  />
-                </th>
-                <td>{kf.text}</td>
-                <td className="mobile-hidden">
-                  <span className="memori--table--date">
-                    {kf.creationTimestamp
-                      ? new Intl.DateTimeFormat('it', {
-                          dateStyle: 'short',
-                          timeStyle: 'short',
-                        }).format(new Date(kf.creationTimestamp))
-                      : '-'}
-                  </span>
-                </td>
-                <td className="memori--table--column-right">
-                  <div className="memori--table--action-column">
-                    <Button
-                      variant="danger"
-                      icon={<Trash2 />}
-                      disabled={selectedRowKeys?.length > 0}
-                      title={t('delete') || 'Delete'}
-                      onClick={() => setDeleteModalVisibleFor(kf.knownFactID)}
-                    />
-                    <Modal
-                      className="memori-known-facts-modal"
-                      open={deleteModalVisibleFor === kf.knownFactID}
-                      closable
-                      title={t('knownFacts.deleteConfirmTitle')}
-                      description={t('knownFacts.deleteConfirmMessage')}
-                      onOpenChange={(open: boolean) => {
-                        if (!open) {
-                          setDeleteModalVisibleFor(undefined);
+                      indeterminate={
+                        !!knownFacts?.length &&
+                        !!selectedRowKeys?.length &&
+                        selectedRowKeys?.length !== knownFacts?.length
+                      }
+                      onChange={(checked: boolean) => {
+                        if (checked) {
+                          setSelectedRowKeys(
+                            knownFacts.map(kf => kf.knownFactID)
+                          );
+                        } else {
+                          setSelectedRowKeys([]);
                         }
                       }}
-                      footer={
-                        <>
-                          <Button
-                            variant="ghost"
-                            onClick={() => {
-                              setDeleteModalVisibleFor(undefined);
-                            }}
-                          >
-                            {t('cancel')}
-                          </Button>
-                          <Button
-                            variant="danger"
-                            onClick={async () => {
-                              try {
-                                const response = await deleteKnownFact(
-                                  sessionID,
-                                  kf.knownFactID
-                                );
-                                if (response.resultCode === 0) {
-                                  add(createAlertOptions({ description: t('knownFacts.deleteSuccess'), severity: 'success' }));
-                                  setSelectedRowKeys([]);
-                                  fetchKnownFacts();
-                                  setDeleteModalVisibleFor(undefined);
-                                } else {
-                                  console.error(response);
-                                  add(createAlertOptions({ description: t(getErrori18nKey(response.resultCode), { ns: 'common' }), severity: 'error' }));
-                                }
-                              } catch (_e) {
-                                let error = _e as Error;
-                                add(createAlertOptions({ description: t('Error') + error.message, severity: 'error' }));
-                              }
-                            }}
-                          >
-                            {t('confirm')}
-                          </Button>
-                        </>
-                      }
                     />
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
+                  </th>
+                  <th>{t('knownFacts.text')}</th>
+                  <th className="mobile-hidden">{t('createdAt')}</th>
+                  <th className="memori--table--column-right">
+                    {t('actions')}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {knownFacts.map(kf => (
+                  <tr key={kf.knownFactID}>
+                    <th className="memori--table--column-centered">
+                      <Checkbox
+                        checked={selectedRowKeys?.includes(kf.knownFactID)}
+                        onChange={(checked: boolean) => {
+                          if (checked) {
+                            setSelectedRowKeys(srk => [
+                              ...new Set([...srk, kf.knownFactID]),
+                            ]);
+                          } else {
+                            setSelectedRowKeys(
+                              srk =>
+                                srk.filter(
+                                  key => key !== kf.knownFactID
+                                ) as string[]
+                            );
+                          }
+                        }}
+                      />
+                    </th>
+                    <td>{kf.text}</td>
+                    <td className="mobile-hidden">
+                      <span className="memori--table--date">
+                        {kf.creationTimestamp
+                          ? new Intl.DateTimeFormat('it', {
+                              dateStyle: 'short',
+                              timeStyle: 'short',
+                            }).format(new Date(kf.creationTimestamp))
+                          : '-'}
+                      </span>
+                    </td>
+                    <td className="memori--table--column-right">
+                      <div className="memori--table--action-column">
+                        <Button
+                          variant="danger"
+                          icon={<Trash2 />}
+                          disabled={selectedRowKeys?.length > 0}
+                          title={t('delete') || 'Delete'}
+                          onClick={() =>
+                            setDeleteModalVisibleFor(kf.knownFactID)
+                          }
+                        />
+                        <Modal
+                          className="memori-known-facts-modal"
+                          open={deleteModalVisibleFor === kf.knownFactID}
+                          closable
+                          title={t('knownFacts.deleteConfirmTitle')}
+                          description={t('knownFacts.deleteConfirmMessage')}
+                          onOpenChange={(open: boolean) => {
+                            if (!open) {
+                              setDeleteModalVisibleFor(undefined);
+                            }
+                          }}
+                          footer={
+                            <>
+                              <Button
+                                variant="ghost"
+                                onClick={() => {
+                                  setDeleteModalVisibleFor(undefined);
+                                }}
+                              >
+                                {t('cancel')}
+                              </Button>
+                              <Button
+                                variant="danger"
+                                onClick={async () => {
+                                  try {
+                                    const response = await deleteKnownFact(
+                                      sessionID,
+                                      kf.knownFactID
+                                    );
+                                    if (response.resultCode === 0) {
+                                      add(
+                                        createAlertOptions({
+                                          description: t(
+                                            'knownFacts.deleteSuccess'
+                                          ),
+                                          severity: 'success',
+                                        })
+                                      );
+                                      setSelectedRowKeys([]);
+                                      fetchKnownFacts();
+                                      setDeleteModalVisibleFor(undefined);
+                                    } else {
+                                      console.error(response);
+                                      add(
+                                        createAlertOptions({
+                                          description: t(
+                                            getErrori18nKey(
+                                              response.resultCode
+                                            ),
+                                            { ns: 'common' }
+                                          ),
+                                          severity: 'error',
+                                        })
+                                      );
+                                    }
+                                  } catch (_e) {
+                                    let error = _e as Error;
+                                    add(
+                                      createAlertOptions({
+                                        description: t('Error') + error.message,
+                                        severity: 'error',
+                                      })
+                                    );
+                                  }
+                                }}
+                              >
+                                {t('confirm')}
+                              </Button>
+                            </>
+                          }
+                        />
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
+          {knownFactsCount > 25 && (
+            <DrawerFooter center={renderListPagination()} />
+          )}
         </div>
       </Spin>
     </Drawer>

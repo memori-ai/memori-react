@@ -54,6 +54,7 @@
 .memori-known-facts-table-wrapper {
   overflow: auto;
   min-height: 0;
+  max-height: 67vh;
   flex: 1 1 auto;
   border: 1px solid var(--memori-color-border, #e2e8f0);
   border-radius: 8px;
@@ -96,7 +97,7 @@
 }
 
 .memori-known-facts-table tbody tr:hover {
-  background: var(--memori-color-surface-hover, #f1f5f9);
+  background: var(--memori-border-color, #f1f5f9);
 }
 
 .memori-known-facts-table td {
