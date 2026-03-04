@@ -1,6 +1,8 @@
 /* ==========================================================================
    MEMORI REACT – FOGLIO DI STILE GLOBALE
    ========================================================================== */
+/* Layer order: theme (defaults) < integration (integrationConfig overrides) */
+@layer theme, integration;
 
 /* --- 1. Design system esterno (variabili, reset, token) --- */
 @import url('@memori.ai/ui/dist/memori-ai-ui.css');
@@ -83,22 +85,21 @@ memori-client #root,
     --memori-surface-contrast-inverse: black;
 }
 
-/* --- 6. Base: brand e tema di default ---
- * Selettori in ordine di specificità crescente.
- */
-memori-client,
-.memori-widget,
-#headlessui-portal-root,
-#storybook-root,
-#storybook-docs,
-memori-client #root,
-body.sb-show-main #root {
-    --memori-primary-color:rgb(var(--memori-primary-rgb), (130, 70, 175));
-    --memori-primary: rgb(130, 70, 175);
-    background-color: var(--memori-main-background);
-    --memori-layout-max-width: 1280px;
-    font-family: var(--memori-font-family);
-    font-size: var(--memori-text-size-base);
+/* --- 6. Base: brand e tema di default (in layer così integration può sovrascrivere --memori-primary) --- */
+@layer theme {
+    memori-client,
+    .memori-widget,
+    #headlessui-portal-root,
+    #storybook-root,
+    #storybook-docs,
+    memori-client #root,
+    body.sb-show-main #root {
+        --memori-primary-color: rgb(var(--memori-primary-rgb), (130, 70, 175));
+        --memori-primary: rgb(130, 70, 175);
+        --memori-layout-max-width: 1280px;
+        font-family: var(--memori-font-family);
+        font-size: var(--memori-text-size-base);
+    }
 }
 
 /* --- 7. Colore testo custom in light (prima del dark per specificità) --- */
@@ -106,16 +107,18 @@ body.sb-show-main #root {
     --memori-text-color: var(--memori-integration-text-color, var(--memori-text-color));
 }
 
-/* --- 8. Dark mode: override quando c’è data-theme="dark" --- */
-[data-theme='dark'] memori-client,
-[data-theme='dark'] memori-client #root,
-[data-theme='dark'] #headlessui-portal-root,
-[data-theme='dark'] .memori-widget,
-memori-client[data-theme='dark'],
-.memori-widget[data-theme='dark'] {
-    --memori-primary: var(--memori-primary-hover);
-    --memori-surface-contrast: black;
-    --memori-surface-contrast-inverse: white;
+/* --- 8. Dark mode: override quando c’è data-theme="dark" (in layer theme) --- */
+@layer theme {
+    [data-theme='dark'] memori-client,
+    [data-theme='dark'] memori-client #root,
+    [data-theme='dark'] #headlessui-portal-root,
+    [data-theme='dark'] .memori-widget,
+    memori-client[data-theme='dark'],
+    .memori-widget[data-theme='dark'] {
+        --memori-primary: var(--memori-primary-hover);
+        --memori-surface-contrast: black;
+        --memori-surface-contrast-inverse: white;
+    }
 }
 
 /* --- 9. Colore testo custom in dark (blend per contrasto) --- */
