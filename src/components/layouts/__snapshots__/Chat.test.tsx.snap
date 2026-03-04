@@ -14,11 +14,8 @@ exports[`renders Chat layout unchanged 1`] = `
     <style>
       @layer integration {
   .memori-client, .memori-widget, .memori-drawer, .memori-modal, .memori-header, .memori-dropdown, .memori-select {
-    --memori-chat-bubble-bg: #fff;
-    --memori-integration-text-color: #2a2a2a;
-    --memori-button-bg: #823ce1;
-    --memori-primary: #823ce1;
     --memori-primary-color: #823ce1;
+    --memori-primary: var(--memori-primary-color);
     --memori-primary-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 15%);
     --memori-primary-active: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 25%);
     --memori-primary-disabled: color-mix(in oklch, var(--memori-primary), transparent 60%);
@@ -31,12 +28,6 @@ exports[`renders Chat layout unchanged 1`] = `
     --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
     --memori-skeleton-base: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 85%);
     --memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 75%);
-    --memori-button-text: #ffffff;
-    --memori-blur-background: 5px;
-    --memori-inner-bg: oklch(99% 0 0 / 0.8);
-    --memori-inner-content-pad: 1.5rem;
-    --memori-nav-bg-image: none;
-    --memori-nav-bg: oklch(99% 0 0 / 0.8);
   }
 }
 

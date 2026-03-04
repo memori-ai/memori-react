@@ -2,6 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import I18nWrapper from '../../I18nWrapper';
 import { memori, sessionID, integration, tenant, user } from '../../mocks/data';
+import { getChatStyles } from '../MemoriWidget/MemoriWidget';
 import StartPanel, { Props } from './StartPanel';
 
 import '../../i18n';
@@ -32,74 +33,30 @@ const integrationConfig = {
     new Date(Date.now()).getTime(),
 };
 
-// Allineato a MemoriWidget: oklch innerBg, token derivati theme-aware, @layer integration
-const innerBgAlpha = integrationConfig?.innerBgAlpha ?? 0.4;
-const innerBgOklch =
-  integrationConfig?.innerBgColor === 'dark'
-    ? `oklch(27.4% 0.022 109.7 / ${innerBgAlpha})`
-    : integrationConfig?.innerBgColor === 'light'
-      ? `oklch(99% 0 0 / ${innerBgAlpha})`
-      : typeof integrationConfig?.innerBgColor === 'string' &&
-          integrationConfig.innerBgColor !== 'light' &&
-          integrationConfig.innerBgColor !== 'dark'
-        ? integrationConfig.innerBgColor.includes('/')
-          ? integrationConfig.innerBgColor
-          : `${integrationConfig.innerBgColor.replace(/\)\s*$/, '')} / ${innerBgAlpha})`
-        : null;
+// Allineato a MemoriWidget: design tokens (solo buttonBgColor → getChatStyles), data-theme light/dark
+const integrationProperties = getChatStyles(integrationConfig);
 
-const integrationProperties = {
-  '--memori-chat-bubble-bg': '#fff',
-  ...(integrationConfig?.textColor != null
-    ? { '--memori-integration-text-color': integrationConfig.textColor }
-    : {}),
-  ...(integrationConfig?.buttonBgColor
-    ? {
-        '--memori-button-bg': integrationConfig.buttonBgColor,
-        '--memori-primary': integrationConfig.buttonBgColor,
-        '--memori-primary-color': integrationConfig.buttonBgColor,
-        '--memori-primary-hover': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 15%)',
-        '--memori-primary-active': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 25%)',
-        '--memori-primary-disabled': 'color-mix(in oklch, var(--memori-primary), transparent 60%)',
-        '--memori-primary-subtle': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 60%)',
-        '--memori-primary-subtle-hover': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 50%)',
-        '--memori-border-primary': 'color-mix(in oklch, var(--memori-primary), transparent 70%)',
-        '--memori-border-primary-hover': 'color-mix(in oklch, var(--memori-primary), transparent 50%)',
-        '--memori-focus-ring-color': 'color-mix(in oklch, var(--memori-primary), transparent 80%)',
-        '--memori-focus-ring': '0 0 0 3px var(--memori-focus-ring-color)',
-        '--memori-shadow-primary': '0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%)',
-        '--memori-skeleton-base': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 85%)',
-        '--memori-skeleton-highlight': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 75%)',
-      }
-    : {}),
-  ...(integrationConfig?.buttonTextColor
-    ? { '--memori-button-text': integrationConfig.buttonTextColor }
-    : {}),
-  ...(integrationConfig?.blurBackground
-    ? { '--memori-blur-background': '5px' }
-    : { '--memori-blur-background': '0px' }),
-  ...(innerBgOklch != null
-    ? {
-        '--memori-inner-bg': innerBgOklch,
-        '--memori-inner-content-pad': '1.5rem',
-        '--memori-nav-bg-image': 'none',
-        '--memori-nav-bg': innerBgOklch,
-      }
-    : { '--memori-inner-content-pad': '0px' }),
-};
-
-const integrationStylesheet = `@layer integration {
+const integrationStylesheet =
+  Object.keys(integrationProperties).length > 0
+    ? `@layer integration {
   #root, .memori-widget {
     ${Object.entries(integrationProperties)
       .map(([key, value]) => `${key}: ${value};`)
       .join('\n    ')}
   }
 }
-`;
+`
+    : '';
+
+const dataTheme =
+  integrationConfig?.theme === 'light' || integrationConfig?.theme === 'dark'
+    ? integrationConfig.theme
+    : undefined;
 
 const Template: Story<Props> = args => (
   <I18nWrapper>
-    <div style={{ maxWidth: '600px', margin: 'auto' }}>
-      {args.integrationConfig && (
+    <div style={{ maxWidth: '600px', margin: 'auto' }} data-theme={dataTheme}>
+      {args.integrationConfig && integrationStylesheet && (
         <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
       )}
       <StartPanel {...args} setShowLoginDrawer={() => {}} />

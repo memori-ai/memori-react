@@ -443,6 +443,39 @@ export interface Props {
   maxTextareaCharacters?: number;
 }
 
+/** Config shape for chat styling (integration customData). */
+type ChatStylesConfig = {
+  buttonBgColor?: string;
+};
+
+/**
+ * Returns CSS custom properties for the chat container when a brand primary is set.
+ * Maps only buttonBgColor → --memori-primary-color and injects the dynamic primary
+ * override block so derived tokens (hover, active, borders, etc.) update in the same scope.
+ * If buttonBgColor is missing, returns {} so global CSS defaults are used.
+ */
+export function getChatStyles(config: ChatStylesConfig | null | undefined): CSSProperties {
+  const primary = config?.buttonBgColor;
+  if (!primary) return {};
+
+  return {
+    '--memori-primary-color': primary,
+    '--memori-primary': 'var(--memori-primary-color)',
+    '--memori-primary-hover': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 15%)',
+    '--memori-primary-active': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 25%)',
+    '--memori-primary-disabled': 'color-mix(in oklch, var(--memori-primary), transparent 60%)',
+    '--memori-primary-subtle': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 60%)',
+    '--memori-primary-subtle-hover': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 50%)',
+    '--memori-border-primary': 'color-mix(in oklch, var(--memori-primary), transparent 70%)',
+    '--memori-border-primary-hover': 'color-mix(in oklch, var(--memori-primary), transparent 50%)',
+    '--memori-focus-ring-color': 'color-mix(in oklch, var(--memori-primary), transparent 80%)',
+    '--memori-focus-ring': '0 0 0 3px var(--memori-focus-ring-color)',
+    '--memori-shadow-primary': '0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%)',
+    '--memori-skeleton-base': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 85%)',
+    '--memori-skeleton-highlight': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 75%)',
+  } as CSSProperties;
+}
+
 const MemoriWidget = ({
   memori,
   memoriConfigs,
@@ -2209,63 +2242,9 @@ const MemoriWidget = ({
     ? `url(${globalBackground})`
     : null;
 
-  // Theme-aware inner background: dark mode uses oklch to align with design system
-  const innerBgAlpha = integrationConfig?.innerBgAlpha ?? 0.4;
-  const innerBgOklch =
-    integrationConfig?.innerBgColor === 'dark'
-      ? `oklch(27.4% 0.022 109.7 / ${innerBgAlpha})`
-      : integrationConfig?.innerBgColor === 'light'
-        ? `oklch(99% 0 0 / ${innerBgAlpha})`
-        : typeof integrationConfig?.innerBgColor === 'string' && integrationConfig.innerBgColor !== 'light' && integrationConfig.innerBgColor !== 'dark'
-          ? integrationConfig.innerBgColor.includes('/')
-            ? integrationConfig.innerBgColor
-            : `${integrationConfig.innerBgColor.replace(/\)\s*$/, '')} / ${innerBgAlpha})`
-          : null;
-
-  const integrationProperties = (
-    integration
-      ? {
-          '--memori-chat-bubble-bg': '#fff',
-          ...(integrationConfig && !instruct && integrationConfig.textColor != null
-            ? { '--memori-integration-text-color': integrationConfig.textColor }
-            : {}),
-          ...(integrationConfig?.buttonBgColor
-            ? {
-                '--memori-button-bg': integrationConfig.buttonBgColor,
-                '--memori-primary': integrationConfig.buttonBgColor,
-                '--memori-primary-color': integrationConfig.buttonBgColor,
-                // Theme-aware derived tokens: use surface-contrast so they work on light and dark
-                '--memori-primary-hover': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 15%)',
-                '--memori-primary-active': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 25%)',
-                '--memori-primary-disabled': 'color-mix(in oklch, var(--memori-primary), transparent 60%)',
-                '--memori-primary-subtle': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 60%)',
-                '--memori-primary-subtle-hover': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 50%)',
-                '--memori-border-primary': 'color-mix(in oklch, var(--memori-primary), transparent 70%)',
-                '--memori-border-primary-hover': 'color-mix(in oklch, var(--memori-primary), transparent 50%)',
-                '--memori-focus-ring-color': 'color-mix(in oklch, var(--memori-primary), transparent 80%)',
-                '--memori-focus-ring': '0 0 0 3px var(--memori-focus-ring-color)',
-                '--memori-shadow-primary': '0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%)',
-                '--memori-skeleton-base': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 85%)',
-                '--memori-skeleton-highlight': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 75%)',
-              }
-            : {}),
-          ...(integrationConfig?.buttonTextColor
-            ? { '--memori-button-text': integrationConfig.buttonTextColor }
-            : {}),
-          ...(integrationConfig?.blurBackground
-            ? { '--memori-blur-background': '5px' }
-            : { '--memori-blur-background': '0px' }),
-          ...(innerBgOklch != null
-            ? {
-                '--memori-inner-bg': innerBgOklch,
-                '--memori-inner-content-pad': '1.5rem',
-                '--memori-nav-bg-image': 'none',
-                '--memori-nav-bg': innerBgOklch,
-              }
-            : { '--memori-inner-content-pad': '0px' }),
-        }
-      : {}
-  ) as CSSProperties;
+  const integrationProperties = (integration
+    ? getChatStyles(integrationConfig)
+    : {}) as CSSProperties;
 
   const integrationSelectors = [
     preview ? '#preview' : null,
@@ -3154,9 +3133,10 @@ const MemoriWidget = ({
       <div className="memori--global-background no-background-image" />
     );
 
-  const integrationStyle = integration ? (
-    <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
-  ) : null;
+  const integrationStyle =
+    integration && Object.keys(integrationProperties).length > 0 ? (
+      <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
+    ) : null;
 
   const poweredBy = (
     <PoweredBy
@@ -3202,6 +3182,11 @@ const MemoriWidget = ({
           'memori--has-active-session': !!sessionId,
         }
       )}
+      data-theme={
+        integrationConfig?.theme === 'light' || integrationConfig?.theme === 'dark'
+          ? integrationConfig.theme
+          : undefined
+      }
       data-memori-name={memori?.name}
       data-memori-id={memori?.engineMemoriID}
       data-memori-secondary-id={memori?.memoriID}
