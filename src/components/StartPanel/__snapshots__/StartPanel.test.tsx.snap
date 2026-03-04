@@ -2071,7 +2071,7 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
               data-placeholder="write_and_speak.iWantToTalkToIn"
             >
               <span>
-                EN
+                en
               </span>
             </span>
             <span

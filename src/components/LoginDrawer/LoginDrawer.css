@@ -350,10 +350,8 @@ p.memori--login-drawer--inline-error {
     position: relative;
     overflow: hidden;
     padding: 2rem 1.5rem;
-    border-radius: var(--memori-radius-box);
+
     margin: 1rem;
-    background: var(--memori-main-background);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 }
 
 .memori--login-drawer--otp-container::before {

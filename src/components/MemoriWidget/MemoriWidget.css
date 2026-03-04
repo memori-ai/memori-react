@@ -112,7 +112,6 @@
     width: 100%;
     height: auto;
     min-height: 100vh;
-    background-color: var(--memori-main-background);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;

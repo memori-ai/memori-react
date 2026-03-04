@@ -2209,76 +2209,86 @@ const MemoriWidget = ({
     ? `url(${globalBackground})`
     : null;
 
+  // Theme-aware inner background: dark mode uses oklch to align with design system
+  const innerBgAlpha = integrationConfig?.innerBgAlpha ?? 0.4;
+  const innerBgOklch =
+    integrationConfig?.innerBgColor === 'dark'
+      ? `oklch(27.4% 0.022 109.7 / ${innerBgAlpha})`
+      : integrationConfig?.innerBgColor === 'light'
+        ? `oklch(99% 0 0 / ${innerBgAlpha})`
+        : typeof integrationConfig?.innerBgColor === 'string' && integrationConfig.innerBgColor !== 'light' && integrationConfig.innerBgColor !== 'dark'
+          ? integrationConfig.innerBgColor.includes('/')
+            ? integrationConfig.innerBgColor
+            : `${integrationConfig.innerBgColor.replace(/\)\s*$/, '')} / ${innerBgAlpha})`
+          : null;
+
   const integrationProperties = (
     integration
       ? {
-        '--memori-chat-bubble-bg': '#fff',
-        ...(integrationConfig && !instruct
-          ? { '--memori-text-color': integrationConfig.textColor ?? '#000' }
-          : {}),
-        ...(integrationConfig?.buttonBgColor
-          ? {
-              '--memori-button-bg': integrationConfig.buttonBgColor,
-              '--memori-primary': integrationConfig.buttonBgColor,
-              '--memori-primary-color': integrationConfig.buttonBgColor,
-              // Force derived tokens to use this primary (same scope)
-              '--memori-primary-hover': 'color-mix(in oklch, var(--memori-primary), black 15%)',
-              '--memori-primary-active': 'color-mix(in oklch, var(--memori-primary), black 25%)',
-              '--memori-primary-disabled': 'color-mix(in oklch, var(--memori-primary), transparent 60%)',
-              '--memori-primary-subtle': 'color-mix(in oklch, var(--memori-primary), white 60%)',
-              '--memori-primary-subtle-hover': 'color-mix(in oklch, var(--memori-primary), white 50%)',
-              '--memori-border-primary': 'color-mix(in oklch, var(--memori-primary), transparent 70%)',
-              '--memori-border-primary-hover': 'color-mix(in oklch, var(--memori-primary), transparent 50%)',
-              '--memori-focus-ring-color': 'color-mix(in oklch, var(--memori-primary), transparent 80%)',
-              '--memori-focus-ring': '0 0 0 3px var(--memori-focus-ring-color)',
-              '--memori-shadow-primary': '0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%)',
-              '--memori-skeleton-base': 'color-mix(in oklch, var(--memori-primary), white 85%)',
-              '--memori-skeleton-highlight': 'color-mix(in oklch, var(--memori-primary), white 75%)',
-            }
-          : {}),
-          ...(integrationConfig?.buttonTextColor
+          '--memori-chat-bubble-bg': '#fff',
+          ...(integrationConfig && !instruct && integrationConfig.textColor != null
+            ? { '--memori-integration-text-color': integrationConfig.textColor }
+            : {}),
+          ...(integrationConfig?.buttonBgColor
             ? {
-                '--memori-button-text': integrationConfig.buttonTextColor,
+                '--memori-button-bg': integrationConfig.buttonBgColor,
+                '--memori-primary': integrationConfig.buttonBgColor,
+                '--memori-primary-color': integrationConfig.buttonBgColor,
+                // Theme-aware derived tokens: use surface-contrast so they work on light and dark
+                '--memori-primary-hover': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 15%)',
+                '--memori-primary-active': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 25%)',
+                '--memori-primary-disabled': 'color-mix(in oklch, var(--memori-primary), transparent 60%)',
+                '--memori-primary-subtle': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 60%)',
+                '--memori-primary-subtle-hover': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 50%)',
+                '--memori-border-primary': 'color-mix(in oklch, var(--memori-primary), transparent 70%)',
+                '--memori-border-primary-hover': 'color-mix(in oklch, var(--memori-primary), transparent 50%)',
+                '--memori-focus-ring-color': 'color-mix(in oklch, var(--memori-primary), transparent 80%)',
+                '--memori-focus-ring': '0 0 0 3px var(--memori-focus-ring-color)',
+                '--memori-shadow-primary': '0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%)',
+                '--memori-skeleton-base': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 85%)',
+                '--memori-skeleton-highlight': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 75%)',
               }
             : {}),
+          ...(integrationConfig?.buttonTextColor
+            ? { '--memori-button-text': integrationConfig.buttonTextColor }
+            : {}),
           ...(integrationConfig?.blurBackground
+            ? { '--memori-blur-background': '5px' }
+            : { '--memori-blur-background': '0px' }),
+          ...(innerBgOklch != null
             ? {
-                '--memori-blur-background': '5px',
-              }
-            : {
-                '--memori-blur-background': '0px',
-              }),
-          ...(integrationConfig?.innerBgColor
-            ? {
-                '--memori-inner-bg': `rgba(${
-                  integrationConfig.innerBgColor === 'dark'
-                    ? '0, 0, 0'
-                    : '255, 255, 255'
-                }, ${integrationConfig.innerBgAlpha ?? 0.4})`,
+                '--memori-inner-bg': innerBgOklch,
                 '--memori-inner-content-pad': '1.5rem',
                 '--memori-nav-bg-image': 'none',
-                '--memori-nav-bg': `rgba(${
-                  integrationConfig.innerBgColor === 'dark'
-                    ? '0, 0, 0'
-                    : '255, 255, 255'
-                }, ${integrationConfig?.innerBgAlpha ?? 0.4})`,
+                '--memori-nav-bg': innerBgOklch,
               }
-            : {
-                '--memori-inner-content-pad': '0px',
-              }),
+            : { '--memori-inner-content-pad': '0px' }),
         }
       : {}
   ) as CSSProperties;
 
-  const integrationStylesheet = `
-    ${
-      preview ? '#preview, ' : applyVarsToRoot ? ':root, ' : ''
-    } .memori-client, .memori-widget, .memori-drawer, .memori-modal, .memori-header, .memori-dropdown, .memori-select {
-      ${Object.entries(integrationProperties)
-        .map(([key, value]) => `${key}: ${value};`)
-        .join('\n')}
-    }
-  `;
+  const integrationSelectors = [
+    preview ? '#preview' : null,
+    applyVarsToRoot ? ':root' : null,
+    '.memori-client',
+    '.memori-widget',
+    '.memori-drawer',
+    '.memori-modal',
+    '.memori-header',
+    '.memori-dropdown',
+    '.memori-select',
+  ]
+    .filter(Boolean)
+    .join(', ');
+
+  const integrationStylesheet = `@layer integration {
+  ${integrationSelectors} {
+    ${Object.entries(integrationProperties)
+      .map(([key, value]) => `${key}: ${value};`)
+      .join('\n    ')}
+  }
+}
+`;
 
   const showAIicon =
     integrationConfig?.showAIicon === undefined

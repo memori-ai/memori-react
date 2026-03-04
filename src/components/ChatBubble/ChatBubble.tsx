@@ -432,7 +432,7 @@ const ChatBubble: React.FC<Props> = ({
                         copyFeedback.plain ? copiedLabel : t('copy') || 'Copy'
                       }
                       style={{
-                        color: message.fromUser ? '#fff' : '#000',
+                        color: message.fromUser ? '#fff' : 'var(--memori-text-color)',
                       }}
                     />
                   }

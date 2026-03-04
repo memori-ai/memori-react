@@ -4,7 +4,7 @@ import {
   Venue,
   User,
 } from '@memori.ai/memori-api-client/src/types';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { getResourceUrl } from '../../helpers/media';
 import { useTranslation } from 'react-i18next';
 import { SelectBox, Tooltip } from '@memori.ai/ui';
@@ -87,6 +87,11 @@ const StartPanel: React.FC<Props> = ({
   const toggleTranslations = () => {
     setShowTranslation(show => !show);
   };
+
+  const allChatLanguages = useMemo(() => {
+    const { popular, all } = getGroupedChatLanguages();
+    return [...popular, ...all];
+  }, []);
 
   useEffect(() => {
     if (
@@ -243,9 +248,9 @@ const StartPanel: React.FC<Props> = ({
                   name="user-lang-pref"
                   className="memori-select--language-chooser"
                   value={userLang ?? i18n.language}
-                  displayValue={<span>{`${getGroupedChatLanguages().popular.find(
+                  displayValue={<span>{`${allChatLanguages.find(
                       lang => lang.value === (userLang ?? i18n.language ?? 'EN')
-                    )?.label ?? (i18n.language ?? 'EN')}`}</span>}
+                    )?.label ?? (userLang ?? i18n.language ?? 'EN')}`}</span>}
                   onChange={(value: string | null) => {
                     if (value) {
                       setUserLang(value);
@@ -255,7 +260,7 @@ const StartPanel: React.FC<Props> = ({
                     t('write_and_speak.iWantToTalkToIn') ||
                     'I want to talk to Memori in'
                   }
-                  options={getGroupedChatLanguages().popular.map(lang => ({
+                  options={allChatLanguages.map(lang => ({
                     label: lang.label,
                     value: lang.value,
                   }))}

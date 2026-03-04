@@ -1,6 +1,11 @@
+/* ==========================================================================
+   MEMORI REACT – FOGLIO DI STILE GLOBALE
+   ========================================================================== */
+
+/* --- 1. Design system esterno (variabili, reset, token) --- */
 @import url('@memori.ai/ui/dist/memori-ai-ui.css');
 
-
+/* --- 2. Stili per componente (ordine: componenti UI, poi layout) --- */
 @import url('./components/CompletionProviderStatus/CompletionProviderStatus.css');
 @import url('./components/PoweredBy/PoweredBy.css');
 @import url('./components/Auth/Auth.css');
@@ -53,9 +58,11 @@
 @import url('./components/layouts/fullpage.css');
 @import url('./components/layouts/zoomed-full-body.css');
 
+/* --- 3. Risorse esterne: font e KaTeX (formule matematiche) --- */
 @import url('https://fonts.bunny.net/css?family=lexend-deca:200,400,700');
 @import url('https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css');
 
+/* --- 4. Utility: testo visibile solo agli screen reader (accessibilità) --- */
 .sr-only {
     position: absolute;
     overflow: hidden; 
@@ -68,29 +75,38 @@
     white-space: nowrap;
 }
 
-/*
- * AISURU Memori – brand overrides only.
- * All other design tokens come from @memori.ai/ui (see memori-ai-ui.css).
- */
+/* --- 5. Light mode: colori superficie (prima del base così memori-client #root < body.sb-show-main #root) --- */
 memori-client,
 memori-client #root,
+.memori-widget {
+    --memori-surface-contrast: white;
+    --memori-surface-contrast-inverse: black;
+}
+
+/* --- 6. Base: brand e tema di default ---
+ * Selettori in ordine di specificità crescente.
+ */
+memori-client,
+.memori-widget,
 #headlessui-portal-root,
-body.sb-show-main #root,
 #storybook-root,
 #storybook-docs,
-.memori-widget {
-    /* Brand colors – override library defaults */
+memori-client #root,
+body.sb-show-main #root {
     --memori-primary-color:rgb(var(--memori-primary-rgb), (130, 70, 175));
     --memori-primary: rgb(130, 70, 175);
-    /* --memori-secondary-color: oklch(70% 0.15 200deg); */
-
-    /* Layout */
+    background-color: var(--memori-main-background);
     --memori-layout-max-width: 1280px;
-
     font-family: var(--memori-font-family);
     font-size: var(--memori-text-size-base);
 }
 
+/* --- 7. Colore testo custom in light (prima del dark per specificità) --- */
+.memori-widget {
+    --memori-text-color: var(--memori-integration-text-color, var(--memori-text-color));
+}
+
+/* --- 8. Dark mode: override quando c’è data-theme="dark" --- */
 [data-theme='dark'] memori-client,
 [data-theme='dark'] memori-client #root,
 [data-theme='dark'] #headlessui-portal-root,
@@ -98,8 +114,24 @@ body.sb-show-main #root,
 memori-client[data-theme='dark'],
 .memori-widget[data-theme='dark'] {
     --memori-primary: var(--memori-primary-hover);
+    --memori-surface-contrast: black;
+    --memori-surface-contrast-inverse: white;
 }
 
+/* --- 9. Colore testo custom in dark (blend per contrasto) --- */
+[data-theme='dark'] .memori-widget,
+.memori-widget[data-theme='dark'],
+[data-theme='dark'] memori-client .memori-widget,
+[data-theme='dark'] memori-client #root .memori-widget {
+    /* Dark: 60% tema + 40% custom così un textColor da light resta leggibile su sfondo scuro */
+    --memori-text-color: color-mix(
+        in oklch,
+        var(--memori-integration-text-color, var(--memori-text-color)) 40%,
+        var(--memori-text-color) 60%
+    );
+}
+
+/* --- 10. Utility responsive --- */
 @media (max-width: 768px) {
     .mobile-hidden {
         display: none;

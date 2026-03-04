@@ -12,33 +12,34 @@ exports[`renders Chat layout unchanged 1`] = `
     style="height: 100vh;"
   >
     <style>
-      
-     .memori-client, .memori-widget, .memori-drawer, .memori-modal, .memori-header, .memori-dropdown, .memori-select {
-      --memori-chat-bubble-bg: #fff;
---memori-text-color: #2a2a2a;
---memori-button-bg: #823ce1;
---memori-primary: #823ce1;
---memori-primary-color: #823ce1;
---memori-primary-hover: color-mix(in oklch, var(--memori-primary), black 15%);
---memori-primary-active: color-mix(in oklch, var(--memori-primary), black 25%);
---memori-primary-disabled: color-mix(in oklch, var(--memori-primary), transparent 60%);
---memori-primary-subtle: color-mix(in oklch, var(--memori-primary), white 60%);
---memori-primary-subtle-hover: color-mix(in oklch, var(--memori-primary), white 50%);
---memori-border-primary: color-mix(in oklch, var(--memori-primary), transparent 70%);
---memori-border-primary-hover: color-mix(in oklch, var(--memori-primary), transparent 50%);
---memori-focus-ring-color: color-mix(in oklch, var(--memori-primary), transparent 80%);
---memori-focus-ring: 0 0 0 3px var(--memori-focus-ring-color);
---memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
---memori-skeleton-base: color-mix(in oklch, var(--memori-primary), white 85%);
---memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), white 75%);
---memori-button-text: #ffffff;
---memori-blur-background: 5px;
---memori-inner-bg: rgba(255, 255, 255, 0.8);
---memori-inner-content-pad: 1.5rem;
---memori-nav-bg-image: none;
---memori-nav-bg: rgba(255, 255, 255, 0.8);
-    }
-  
+      @layer integration {
+  .memori-client, .memori-widget, .memori-drawer, .memori-modal, .memori-header, .memori-dropdown, .memori-select {
+    --memori-chat-bubble-bg: #fff;
+    --memori-integration-text-color: #2a2a2a;
+    --memori-button-bg: #823ce1;
+    --memori-primary: #823ce1;
+    --memori-primary-color: #823ce1;
+    --memori-primary-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 15%);
+    --memori-primary-active: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 25%);
+    --memori-primary-disabled: color-mix(in oklch, var(--memori-primary), transparent 60%);
+    --memori-primary-subtle: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 60%);
+    --memori-primary-subtle-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 50%);
+    --memori-border-primary: color-mix(in oklch, var(--memori-primary), transparent 70%);
+    --memori-border-primary-hover: color-mix(in oklch, var(--memori-primary), transparent 50%);
+    --memori-focus-ring-color: color-mix(in oklch, var(--memori-primary), transparent 80%);
+    --memori-focus-ring: 0 0 0 3px var(--memori-focus-ring-color);
+    --memori-shadow-primary: 0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%);
+    --memori-skeleton-base: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 85%);
+    --memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 75%);
+    --memori-button-text: #ffffff;
+    --memori-blur-background: 5px;
+    --memori-inner-bg: oklch(99% 0 0 / 0.8);
+    --memori-inner-content-pad: 1.5rem;
+    --memori-nav-bg-image: none;
+    --memori-nav-bg: oklch(99% 0 0 / 0.8);
+  }
+}
+
     </style>
     <div
       class="memori--global-background"
