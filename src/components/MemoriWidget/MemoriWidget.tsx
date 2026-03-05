@@ -32,7 +32,7 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { AudioContext, IAudioContext } from 'standardized-audio-context';
+import { IAudioContext } from 'standardized-audio-context';
 import cx from 'classnames';
 import { DateTime } from 'luxon';
 import toast from 'react-hot-toast';
@@ -72,7 +72,6 @@ import {
   hasTouchscreen,
   stripDuplicates,
   installMathJax,
-  stripReasoningTags,
 } from '../../helpers/utils';
 import { getTTSVoice } from '../../helpers/tts/ttsVoiceUtility';
 import {
@@ -82,7 +81,6 @@ import {
 } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
 import { getCredits } from '../../helpers/credits';
-import { useViseme } from '../../context/visemeContext';
 import { sanitizeText } from '../../helpers/sanitizer';
 import { TTSConfig, useTTS } from '../../helpers/tts/useTTS';
 import ChatHistoryDrawer from '../ChatHistoryDrawer/ChatHistory';
@@ -511,7 +509,6 @@ const MemoriWidget = ({
     postTextEnteredEvent,
     postPlaceChangedEvent,
     postDateChangedEvent,
-    postTimeoutEvent,
     postTagChangedEvent,
     getSession,
     getExpertReferences,
@@ -603,8 +600,8 @@ const MemoriWidget = ({
       uiLang && uiLanguages.includes(uiLang.toLowerCase())
         ? uiLang.toLowerCase()
         : userLang && uiLanguages.includes(userLang.toLowerCase())
-          ? userLang.toLowerCase()
-          : null;
+        ? userLang.toLowerCase()
+        : null;
     if (langToApply && typeof i18n?.changeLanguage === 'function') {
       // @ts-ignore
       i18n.changeLanguage(langToApply);
@@ -620,8 +617,8 @@ const MemoriWidget = ({
     typeof layout === 'string'
       ? layout
       : typeof integrationConfig?.layout === 'string'
-        ? integrationConfig.layout
-        : integrationConfig?.layout?.name;
+      ? integrationConfig.layout
+      : integrationConfig?.layout?.name;
   const selectedLayout = layoutName || 'DEFAULT';
   const piiDetection: PiiDetectionConfig | undefined =
     typeof integrationConfig?.layout === 'object' &&
@@ -832,6 +829,10 @@ const MemoriWidget = ({
       (window.getMemoriState() as MemoriSession)?.sessionID;
     if (!sessionID || !text?.length) return;
 
+    if (memori.needsDateTime) {
+      await sendDateChangedEvent({ sessionID: sessionID });
+    }
+
     // Build full message text (same as what will be sent) so we can run PII check on it.
     // Order: user text -> optional translation -> appended document attachment content.
     let msg = text;
@@ -853,9 +854,7 @@ const MemoriWidget = ({
       m => (m as any).type === 'document' && m.properties?.isAttachedFile
     );
     if (mediaDocuments && mediaDocuments.length > 0) {
-      const documentContents = mediaDocuments
-        .map(doc => doc.content)
-        .join(' ');
+      const documentContents = mediaDocuments.map(doc => doc.content).join(' ');
       msg = msg + ' ' + documentContents;
     }
 
@@ -1006,14 +1005,17 @@ const MemoriWidget = ({
           }
         });
       } else if (response.resultCode === 500 && response.resultMessage) {
-        setHistory(h => [...h, {
-          text: 'Error: ' + response.resultMessage,
-          emitter: 'system',
-          fromUser: false,
-          initial: false,
-          contextVars: {},
-          date: new Date().toISOString(),
-        }]);
+        setHistory(h => [
+          ...h,
+          {
+            text: 'Error: ' + response.resultMessage,
+            emitter: 'system',
+            fromUser: false,
+            initial: false,
+            contextVars: {},
+            date: new Date().toISOString(),
+          },
+        ]);
       } else {
         console.warn('[SEND_MESSAGE]', response);
         return Promise.reject(response);
@@ -1373,7 +1375,11 @@ const MemoriWidget = ({
             params.additionalInfo?.loginToken ??
             additionalInfo?.loginToken ??
             authToken,
-          language: (userLang ?? memori.culture?.split('-')?.[0] ?? 'IT').toLowerCase(),
+          language: (
+            userLang ??
+            memori.culture?.split('-')?.[0] ??
+            'IT'
+          ).toLowerCase(),
           referral: referral,
           timeZoneOffset: new Date().getTimezoneOffset().toString(),
         },
@@ -1396,6 +1402,13 @@ const MemoriWidget = ({
 
         if (position && memori.needsPosition)
           applyPosition(position, session.sessionID);
+
+        if (memori.needsDateTime) {
+          await sendDateChangedEvent({
+            sessionID: session.sessionID,
+            state: session?.currentState,
+          });
+        }
 
         setLoading(false);
         return {
@@ -1542,7 +1555,11 @@ const MemoriWidget = ({
             additionalInfoProp?.loginToken ??
             additionalInfo?.loginToken ??
             authToken,
-          language: (userLang ?? memori.culture?.split('-')?.[0] ?? 'IT').toLowerCase(),
+          language: (
+            userLang ??
+            memori.culture?.split('-')?.[0] ??
+            'IT'
+          ).toLowerCase(),
           referral: referral,
           timeZoneOffset: new Date().getTimezoneOffset().toString(),
         },
@@ -1738,7 +1755,11 @@ const MemoriWidget = ({
                 loginToken ??
                 additionalInfo?.loginToken ??
                 authToken,
-              language: (userLang ?? memori.culture?.split('-')?.[0] ?? 'IT').toLowerCase(),
+              language: (
+                userLang ??
+                memori.culture?.split('-')?.[0] ??
+                'IT'
+              ).toLowerCase(),
               referral: referral,
               timeZoneOffset: new Date().getTimezoneOffset().toString(),
             },
@@ -1802,70 +1823,6 @@ const MemoriWidget = ({
     },
     [currentDialogState, memori.needsDateTime, sessionId]
   );
-  useEffect(() => {
-    if (sessionId && memori.needsDateTime) {
-      sendDateChangedEvent({ sessionID: sessionId, state: currentDialogState });
-
-      let datePolling: NodeJS.Timeout | null = null;
-      let isTabVisible = !document.hidden;
-
-      const startDatePolling = () => {
-        // stop the polling if it is already running
-        if (datePolling) {
-          clearInterval(datePolling);
-        }
-        // start the polling
-        datePolling = setInterval(() => {
-          if (!document.hidden) {
-            sendDateChangedEvent({
-              sessionID: sessionId,
-            });
-          }
-        }, 60 * 1000); // 1 minute
-      };
-
-      const stopDatePolling = () => {
-        if (datePolling) {
-          clearInterval(datePolling);
-          datePolling = null;
-        }
-      };
-
-      const handleVisibilityChange = () => {
-        const isVisible = !document.hidden;
-
-        if (isVisible && !isTabVisible) {
-          // Tab became visible - start polling and send immediate date event
-          sendDateChangedEvent({
-            sessionID: sessionId,
-            state: currentDialogState,
-          });
-          startDatePolling();
-        } else if (!isVisible && isTabVisible) {
-          // Tab became hidden - stop polling
-          stopDatePolling();
-        }
-
-        isTabVisible = isVisible;
-      };
-
-      // Start polling if tab is initially visible
-      if (isTabVisible) {
-        startDatePolling();
-      }
-
-      // Add visibility change listener
-      document.addEventListener('visibilitychange', handleVisibilityChange);
-
-      return () => {
-        stopDatePolling();
-        document.removeEventListener(
-          'visibilitychange',
-          handleVisibilityChange
-        );
-      };
-    }
-  }, [memori.needsDateTime, sessionId]);
 
   /**
    * Timeout conversazione
@@ -2459,7 +2416,11 @@ const MemoriWidget = ({
               loginToken ??
               additionalInfo?.loginToken ??
               authToken,
-            language: (userLang ?? memori.culture?.split('-')?.[0] ?? 'IT').toLowerCase(),
+            language: (
+              userLang ??
+              memori.culture?.split('-')?.[0] ??
+              'IT'
+            ).toLowerCase(),
             timeZoneOffset: new Date().getTimezoneOffset().toString(),
           },
         });
@@ -2739,14 +2700,17 @@ const MemoriWidget = ({
 
             // Handle 500 error from TextEnteredEvent
             if (response.resultCode === 500 && response.resultMessage) {
-              setHistory(h => [...h, {
-                text: 'Error: ' + response.resultMessage,
-                emitter: 'system',
-                fromUser: false,
-                initial: false,
-                contextVars: {},
-                date: new Date().toISOString(),
-              }]);
+              setHistory(h => [
+                ...h,
+                {
+                  text: 'Error: ' + response.resultMessage,
+                  emitter: 'system',
+                  fromUser: false,
+                  initial: false,
+                  contextVars: {},
+                  date: new Date().toISOString(),
+                },
+              ]);
               setMemoriTyping(false);
               return;
             }
