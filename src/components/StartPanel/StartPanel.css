@@ -26,12 +26,11 @@
 .memori--start-panel {
     width: 100%;
     align-self: flex-start;
-    padding: var(--memori-spacing-md, 0);
+    padding: var(--memori-spacing-lg) !important;
     border-radius: var(--memori-radius-box);
-    margin-top: var(--memori-spacing-2xl);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    background-color: transparent;
+    background: var(--memori-secondary-background);
     color: var(--memori-text-color) !important;
     overflow-y: auto;
 }
@@ -85,7 +84,7 @@
 .memori--title {
     display: inline-block;
     margin: 0;
-    color: var(--memori-primary);
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-heading-large);
     font-weight: var(--memori-text-weight-semibold);
     line-height: var(--memori-text-line-relaxed);
@@ -101,6 +100,7 @@
 
 .memori--description-text {
     display: block;
+    font-style: italic;
     line-height: var(--memori-text-line-relaxed);
 }
 
@@ -118,6 +118,7 @@
 }
 
 .memori--start-privacy-explanation-icon {
+    display: flex;
     width: var(--memori-text-size-large);
     height: var(--memori-text-size-large);
     align-self: center;
@@ -150,9 +151,6 @@
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.memori--language-chooser {
-    margin-bottom: var(--memori-spacing-lg);
-}
 
 .memori--language-chooser svg {
     margin-right: var(--memori-spacing-sm);

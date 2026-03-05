@@ -216,7 +216,9 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
               <div
                 class="memori--description"
               >
-                <p>
+                <p
+                  style="margin-top: 0px;"
+                >
                   <div
                     class="memori-expandable memori--description-text"
                   >

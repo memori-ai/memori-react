@@ -24,8 +24,9 @@
 }
 
 .memori-share-button--dropdown-menu > .memori-dropdown__item{
-    flex-flow: column;
+    flex-flow: row;
     align-items: flex-start;
+    align-items: center;
 }
 
 .memori-share-button--overlay {

@@ -1,8 +1,8 @@
 .memori-chat--bubble-container {
     display: flex;
     align-items: flex-end;
-    padding-right: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs) / 2);
-    padding-left: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs) / 2);
+    padding-right: var(--memori-spacing-md);
+    padding-left: var(--memori-spacing-md);
     margin-bottom: var(--memori-spacing-lg);
 }
 
@@ -60,6 +60,7 @@
     margin: calc(var(--memori-spacing-sm) + 2px) auto var(--memori-spacing-xs) var(--memori-spacing-sm);
     margin-bottom: var(--memori-spacing-xs);
     background: color-mix(in oklch, var(--memori-main-background) 38%, transparent);
+    background-color: var(--memori-main-background);
     box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
     color: var(--memori-text-color);
     font-size: var(--memori-text-size-small);
@@ -71,9 +72,6 @@
 }
 
 .memori-chat--bubble-avatar svg {
-    width: 40px;
-    height: 40px;
-    padding: 0.33rem;
     fill: var(--memori-text-color);
     font-size: var(--memori-text-size-heading-large);
 }
@@ -276,7 +274,7 @@
 
 .memori-chat--bubble-action-feedback {
     margin-left: var(--memori-spacing-xs);
-    color: var(--memori-primary, #4c6fff);
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-small);
     font-weight: var(--memori-text-weight-semibold);
     letter-spacing: 0.03em;

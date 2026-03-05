@@ -15,6 +15,7 @@
 .memori-chat-layout--header {
     width: 100%;
     flex-shrink: 0;
+    margin-bottom: var(--memori-spacing-sm);
     text-align: right;
     transition: all 0.05s ease-in-out;
 }

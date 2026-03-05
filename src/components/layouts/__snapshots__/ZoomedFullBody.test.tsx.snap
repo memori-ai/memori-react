@@ -13,7 +13,7 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
   >
     <style>
       @layer integration {
-  .memori-client, .memori-widget, .memori-drawer, .memori-modal, .memori-header, .memori-dropdown, .memori-select {
+  body, .memori-client, .memori-widget, .memori-drawer, .memori-modal, .memori-header, .memori-dropdown, .memori-select {
     --memori-primary-color: #823ce1;
     --memori-primary: var(--memori-primary-color);
     --memori-primary-hover: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 15%);
@@ -29,6 +29,7 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
     --memori-skeleton-base: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 85%);
     --memori-skeleton-highlight: color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 75%);
   }
+  .memori-widget .memori--global-background { filter: blur(5px); }
 }
 
     </style>
@@ -258,7 +259,9 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
               <div
                 class="memori--description"
               >
-                <p>
+                <p
+                  style="margin-top: 0px;"
+                >
                   <div
                     class="memori-expandable memori--description-text"
                   >

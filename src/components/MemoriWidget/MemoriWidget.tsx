@@ -2249,6 +2249,7 @@ const MemoriWidget = ({
   const integrationSelectors = [
     preview ? '#preview' : null,
     applyVarsToRoot ? ':root' : null,
+    integration ? 'body' : null,
     '.memori-client',
     '.memori-widget',
     '.memori-drawer',
@@ -2260,12 +2261,20 @@ const MemoriWidget = ({
     .filter(Boolean)
     .join(', ');
 
-  const integrationStylesheet = `@layer integration {
-  ${integrationSelectors} {
+  const integrationStylesheetParts = [
+    `${integrationSelectors} {
     ${Object.entries(integrationProperties)
       .map(([key, value]) => `${key}: ${value};`)
       .join('\n    ')}
+  }`,
+  ];
+  if (integrationConfig?.blurBackground) {
+    integrationStylesheetParts.push(
+      '.memori-widget .memori--global-background { filter: blur(5px); }',
+    );
   }
+  const integrationStylesheet = `@layer integration {
+  ${integrationStylesheetParts.join('\n  ')}
 }
 `;
 
@@ -3134,7 +3143,9 @@ const MemoriWidget = ({
     );
 
   const integrationStyle =
-    integration && Object.keys(integrationProperties).length > 0 ? (
+    integration &&
+    (Object.keys(integrationProperties).length > 0 ||
+      integrationConfig?.blurBackground) ? (
       <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
     ) : null;
 

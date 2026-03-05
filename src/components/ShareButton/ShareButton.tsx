@@ -23,6 +23,11 @@ import {
   createChatPDFDocument,
   ChatPDFOptions,
 } from '../../helpers/chatPdfExport';
+import FacebookIcon from '../../icons/FacebookIcon';
+import TwitterIcon from '../../icons/TwitterIcon';
+import LinkedinIcon from '../../icons/LinkedinIcon';
+import TelegramIcon from '../../icons/TelegramIcon';
+import WhatsappIcon from '../../icons/WhatsappIcon';
 
 export interface Props {
   tenant?: Tenant;
@@ -73,31 +78,31 @@ const ShareButton: React.FC<Props> = ({
       id: 'facebook',
       title: 'Facebook',
       url: `https://www.facebook.com/sharer/sharer.php?u=${targetUrl}`,
-      icon: Share2,
+      icon: FacebookIcon,
     },
     {
       id: 'twitter',
       title: 'Twitter',
       url: `https://twitter.com/intent/tweet?url=${targetUrl}`,
-      icon: Share2,
+      icon: TwitterIcon,
     },
     {
       id: 'linkedin',
       title: 'LinkedIn',
       url: `https://www.linkedin.com/shareArticle?mini=true&title=${title}&url=${targetUrl}`,
-      icon: Share2,
+      icon: LinkedinIcon,
     },
     {
       id: 'whatsapp',
       title: 'Whatsapp',
       url: `https://api.whatsapp.com/send?phone=&text=${targetUrl}`,
-      icon: MessageCircle,
+      icon: WhatsappIcon,
     },
     {
       id: 'telegram',
       title: 'Telegram',
       url: `https://t.me/share/url?text=${title}&url=${targetUrl}`,
-      icon: Send,
+      icon: TelegramIcon,
     },
     {
       id: 'email',

@@ -105,6 +105,9 @@ memori-client #root,
 /* --- 7. Colore testo custom in light (prima del dark per specificità) --- */
 .memori-widget {
     --memori-text-color: var(--memori-integration-text-color, var(--memori-text-color));
+    max-width: var(--memori-layout-max-width);
+    margin: 0 auto;
+    background-color: var(--memori-main-background);
 }
 
 /* --- 8. Dark mode: override quando c’è data-theme="dark" (in layer theme) --- */

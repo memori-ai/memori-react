@@ -217,7 +217,7 @@ const StartPanel: React.FC<Props> = ({
         (!memori.requireLoginToken ||
           (memori.requireLoginToken && isUserLoggedIn)) && (
           <div className="memori--description">
-            <p>
+            <p style={{marginTop: 0}}>
               <Expandable className="memori--description-text" rows={3}>
                 {translatedDescription && showTranslation
                   ? translatedDescription
