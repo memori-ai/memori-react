@@ -559,6 +559,25 @@ const MemoriWidget = ({
   const [instruct, setInstruct] = useState(false);
   const [enableFocusChatInput, setEnableFocusChatInput] = useState(true);
 
+  const widgetRootRef = useRef<HTMLDivElement>(null);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  useEffect(() => {
+    const el = widgetRootRef.current;
+    if (!el) return;
+    const check = () => {
+      setIsDarkTheme(!!el.closest('[data-theme="dark"]'));
+    };
+    check();
+    const observer = new MutationObserver(check);
+    const parent = el.parentElement ?? document.body;
+    observer.observe(parent, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+      subtree: true,
+    });
+    return () => observer.disconnect();
+  }, []);
+
   const [loginToken, setLoginToken] = useState<string | undefined>(
     additionalInfo?.loginToken ?? authToken
   );
@@ -3176,6 +3195,7 @@ const MemoriWidget = ({
 
   return (
     <div
+      ref={widgetRootRef}
       className={cx(
         'memori',
         'memori-widget',
