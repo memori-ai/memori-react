@@ -12,17 +12,22 @@
     justify-content: center;
     border-radius: 90% 95% 85% 105%;
     animation: wobble calc(150ms * var(--memori-blob-t)) linear infinite;
+    backface-visibility: hidden;
     background: #f0f;
     box-shadow: 0 0 0.5em 0.2em #000 inset, 0 0 0.15em 0 #fff;
     filter: hue-rotate(0deg);
     font-size: 20vmin;
     mix-blend-mode: screen;
-    transform: translate(var(--memori-blob-x, -50%), var(--memori-blob-y, -50%)) rotate(0deg);
+    transform: translate(var(--memori-blob-x, -50%), var(--memori-blob-y, -50%)) rotate(0deg) translateZ(0);
     transform-origin: 50% 50%;
+    will-change: transform;
 }
 
 .memori-blob.memori-blob--speaking {
     animation: blobspeaking 2s ease-in-out infinite;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: transform;
 }
 
 @media screen and (max-height: 1280px) {
@@ -84,37 +89,34 @@
 @keyframes wobble {
     to {
         filter: hue-rotate(360deg);
-        transform: translate(var(--memori-blob-x), var(--memori-blob-y)) rotate(360deg);
+        transform: translate(var(--memori-blob-x), var(--memori-blob-y)) rotate(360deg) translateZ(0);
     }
 }
 
 @keyframes blobspeaking {
-    0% {
+    0%, 100% {
         filter: brightness(1);
-        transform: scale(1);
+        transform: scale(1) translateZ(0);
     }
 
     15% {
         filter: brightness(1.1);
+        transform: scale(1) translateZ(0);
     }
 
     30% {
         filter: brightness(1);
-        transform: scale(0.99);
+        transform: scale(0.99) translateZ(0);
     }
 
     50% {
         filter: brightness(1.05);
-        transform: scale(1.01);
+        transform: scale(1.01) translateZ(0);
     }
 
     75% {
         filter: brightness(1.15);
-    }
-
-    100% {
-        filter: brightness(1.1);
-        transform: scale(0.99);
+        transform: scale(1) translateZ(0);
     }
 }
 

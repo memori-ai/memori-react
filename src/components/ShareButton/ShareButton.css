@@ -19,7 +19,6 @@
 .memori-share-button--dropdown-item-content{
     display: inline-flex;
     align-items: center;
-    margin-top: var(--memori-spacing-sm);
     cursor: pointer;
 }
 
@@ -27,6 +26,15 @@
     flex-flow: row;
     align-items: flex-start;
     align-items: center;
+    padding: var(--memori-spacing-sm);
+    border-radius: var(--memori-radius-box);
+    margin-bottom: var(--memori-spacing-sm);
+    background-color: var(--memori-surface-contrast);
+    color: var(--memori-text-color);
+    cursor: pointer;
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
+    text-align: left;
 }
 
 .memori-share-button--overlay {
