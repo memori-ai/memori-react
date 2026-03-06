@@ -1121,6 +1121,7 @@ const ChatHistoryDrawer = ({
           ? t('write_and_speak.chatHistoryDescription')
           : undefined
       }
+      
     >
       {isViewingChatDetail ? (
         renderChatDetailView()

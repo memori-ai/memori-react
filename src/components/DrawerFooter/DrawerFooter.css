@@ -1,6 +1,6 @@
 .memori-drawer-footer {
   flex-shrink: 0;
-  padding: var(--memori-spacing-lg) var(--memori-spacing-xl);
+  padding: var(--memori-spacing-md);
   border-top: 1px solid var(--memori-border-color, #e5e7eb);
   background: var(--memori-main-background);
   box-shadow: 0 -8px 24px -8px rgba(0, 0, 0, 0.06), 0 -2px 8px -2px rgba(0, 0, 0, 0.03);
