@@ -19,11 +19,9 @@
     padding: 1.5rem;
     border: var(--memori-border) solid var(--memori-border-color);
     border-radius: var(--memori-radius-box);
-    margin: 0.75rem 0;
-    margin: 0.5rem;
     animation: fadeInUp 0.5s ease forwards;
     backdrop-filter: blur(4px);
-    background: rgba(255, 255, 255, 0.95);
+    background: var(--memori-secondary-background);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     cursor: pointer;
     gap: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));

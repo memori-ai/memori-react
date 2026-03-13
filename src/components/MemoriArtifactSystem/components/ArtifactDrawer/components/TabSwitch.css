@@ -4,6 +4,13 @@
  */
 
 .memori-tab-switch {
+    --memori-tab-switch-border: color-mix(in oklch, var(--memori-border-color) 82%, transparent);
+    --memori-tab-switch-surface: color-mix(in oklch, var(--memori-main-background) 92%, var(--memori-text-color) 8%);
+    --memori-tab-switch-surface-hover: color-mix(in oklch, var(--memori-main-background) 88%, var(--memori-primary) 12%);
+    --memori-tab-switch-indicator: color-mix(in oklch, var(--memori-main-background) 96%, white 4%);
+    --memori-tab-switch-shadow: 0 1px 3px color-mix(in srgb, var(--memori-text-color) 12%, transparent);
+    --memori-tab-switch-shadow-hover: 0 2px 6px color-mix(in srgb, var(--memori-text-color) 16%, transparent);
+    --memori-tab-switch-text: color-mix(in oklch, var(--memori-text-color) 72%, transparent);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -13,9 +20,9 @@
     position: relative;
     display: inline-flex;
     overflow: hidden;
-    border: 1px solid #e9ecef;
+    border: 1px solid var(--memori-tab-switch-border);
     border-radius: var(--memori-radius-box);
-    background: #f8f9fa;
+    background: var(--memori-tab-switch-surface);
     box-shadow: none;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -37,8 +44,8 @@
     width: calc((100% - var(--memori-spacing-xs)) / var(--tab-count, 2));
     border-radius: var(--memori-radius-box);
     animation: tab-switch-slide 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    background: #ffffff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    background: var(--memori-tab-switch-indicator);
+    box-shadow: var(--memori-tab-switch-shadow);
     transform: translateX(calc(var(--active-index, 0) * 100%));
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -50,7 +57,11 @@
     bottom: 0;
     left: 0;
     border-radius: var(--memori-radius-box);
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0) 100%);
+    background: linear-gradient(
+        135deg,
+        color-mix(in srgb, var(--memori-text-color) 6%, transparent) 0%,
+        transparent 100%
+    );
     content: '';
     pointer-events: none;
 }
@@ -67,7 +78,7 @@
     border: none;
     border-radius: var(--memori-radius-box);
     background: transparent;
-    color: var(--memori-text-color);
+    color: var(--memori-tab-switch-text);
     cursor: pointer;
     font-size: var(--memori-text-size-small);
     font-weight: var(--memori-text-weight-medium);
@@ -87,7 +98,7 @@
 }
 
 .memori-tab-switch__button:focus {
-    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--memori-primary) 24%, transparent);
     outline: none;
 }
 
@@ -114,12 +125,13 @@
 
 /* Hover effects for the entire switch */
 .memori-tab-switch__container:hover {
-    border-color: #d1d5db;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-color: color-mix(in oklch, var(--memori-primary) 28%, var(--memori-border-color));
+    background: var(--memori-tab-switch-surface-hover);
+    box-shadow: var(--memori-tab-switch-shadow);
 }
 
 .memori-tab-switch__container:hover .memori-tab-switch__indicator {
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    box-shadow: var(--memori-tab-switch-shadow-hover);
 }
 
 /* Animation for tab switching */
@@ -141,7 +153,7 @@
     }
 
     .memori-tab-switch__indicator {
-        box-shadow: 0 0 0 2px white, 0 2px 8px var(--memori-primary);
+        box-shadow: 0 0 0 2px var(--memori-main-background), 0 2px 8px var(--memori-primary);
     }
 
     .memori-tab-switch__button:focus {
