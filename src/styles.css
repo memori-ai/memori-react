@@ -104,7 +104,7 @@ memori-client #root,
 
 /* --- 7. Colore testo custom in light (prima del dark per specificità) --- */
 .memori-widget {
-    --memori-text-color: var(--memori-integration-text-color, var(--memori-text-color));
+    /* --memori-text-color: var(--memori-integration-text-color, var(--memori-text-color)); */
     max-width: var(--memori-layout-max-width);
     margin: 0 auto;
     background-color: var(--memori-main-background);
@@ -125,17 +125,17 @@ memori-client #root,
 }
 
 /* --- 9. Colore testo custom in dark (blend per contrasto) --- */
-[data-theme='dark'] .memori-widget,
+/* [data-theme='dark'] .memori-widget,
 .memori-widget[data-theme='dark'],
 [data-theme='dark'] memori-client .memori-widget,
 [data-theme='dark'] memori-client #root .memori-widget {
     /* Dark: 60% tema + 40% custom così un textColor da light resta leggibile su sfondo scuro */
-    --memori-text-color: color-mix(
+    /* --memori-text-color: color-mix(
         in oklch,
         var(--memori-integration-text-color, var(--memori-text-color)) 40%,
         var(--memori-text-color) 60%
     );
-}
+} */
 
 /* --- 10. Utility responsive --- */
 @media (max-width: 768px) {

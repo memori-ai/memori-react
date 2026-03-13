@@ -184,7 +184,7 @@
     border: 1px solid var(--memori-copy-border);
     border-radius: 0.5rem;
     margin-top: var(--memori-spacing-xs);
-    background: var(--memori-copy-surface);
+    background: var(--memori-secondary-background);
     box-shadow: var(--memori-copy-shadow);
 }
 
@@ -284,11 +284,6 @@
 .memori-copy-menu-item:focus-visible {
     outline: 2px solid var(--memori-primary);
     outline-offset: -2px;
-}
-
-.memori-copy-menu-item:hover:not(:disabled),
-.memori-copy-menu-item--active {
-    background: color-mix(in oklch, var(--memori-main-background) 86%, var(--memori-primary) 14%);
 }
 
 .memori-copy-menu-item:active:not(:disabled) {
