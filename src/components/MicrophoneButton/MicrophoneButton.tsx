@@ -96,11 +96,8 @@ const MicrophoneButton = ({
         <Button
           variant="ghost"
           className={
-            listening ? 'memori-chat-inputs--mic--listening' : ''
+            listening ? 'memori-chat-inputs--mic--listening' : 'memori-chat-inputs--mic'
           }
-          style={{
-            color: 'var(--memori-primary)'
-          }}
           title={
             listening
               ? t('write_and_speak.micButtonPopoverListening') || 'Listening'

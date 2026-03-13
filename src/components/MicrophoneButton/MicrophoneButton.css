@@ -14,6 +14,7 @@
 .memori-chat-inputs--mic {
     z-index: 1;
     margin-left: 0.33rem;
+    color: var(--memori-primary);
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     -webkit-touch-callout: none;
@@ -50,7 +51,7 @@
         transform: scale(0.95);
         transition: transform 0.1s ease;
     }
-    
+
     .memori-chat-inputs--mic:not(.memori-chat-inputs--mic--listening):active {
         background-color: rgba(0, 0, 0, 0.1);
     }
@@ -132,9 +133,13 @@
     .memori-chat-inputs--mic.memori-chat-inputs--mic--listening {
         transform: scale(1.3);
     }
-    
+
     .memori-chat-inputs--mic.memori-chat-inputs--mic--listening::before,
     .memori-chat-inputs--mic.memori-chat-inputs--mic--listening::after {
         animation-duration: 1.5s;
     }
+}
+
+[data-theme='dark'] .memori-chat-inputs--mic .lucide-mic {
+    color: #fff;
 }

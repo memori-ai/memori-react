@@ -102,6 +102,10 @@
     background: var(--memori-primary);
 }
 
+[data-theme='dark'] .memori-chat--bubble #wave .dot {
+    background: #fff;
+}
+
 .memori-chat--bubble #wave .dot:nth-child(2) {
     animation-delay: -1.3s;
 }
@@ -113,6 +117,7 @@
 .memori-chat--bubble-typing {
     display: flex;
     align-items: center;
+    color: var(--memori-text-color);
 }
 
 .memori-chat--bubble p {
@@ -404,7 +409,7 @@ details.memori-think {
     padding: var(--memori-spacing-lg);
     border-radius: var(--memori-radius-box);
     margin-bottom: var(--memori-spacing-lg);
-    background-color: #f6f6f6;
+    background-color: var(--memori-secondary-background);
     font-size: 0.85em;
     font-style: italic;
     line-height: 1.33;

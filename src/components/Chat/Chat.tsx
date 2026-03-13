@@ -23,7 +23,13 @@ import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
 import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler';
 import { FileText as DocumentIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import { maxDocumentsPerMessage, maxTotalMessagePayloadDefault, maxDocumentContentLength, pasteAsCardLineThreshold, pasteAsCardCharThreshold } from '../../helpers/constants';
+import {
+  maxDocumentsPerMessage,
+  maxTotalMessagePayloadDefault,
+  maxDocumentContentLength,
+  pasteAsCardLineThreshold,
+  pasteAsCardCharThreshold,
+} from '../../helpers/constants';
 export interface Props {
   memori: Memori;
   tenant?: Tenant;
@@ -80,7 +86,6 @@ export interface Props {
   /** Max characters in chat textarea; shows counter and enforces paste + existing text does not exceed this limit. */
   maxTextareaCharacters?: number;
   /** Max attachments (docs + images) per message. */
-
 }
 
 const Chat: React.FC<Props> = ({
@@ -135,7 +140,6 @@ const Chat: React.FC<Props> = ({
   maxTotalMessagePayload,
   maxTextareaCharacters,
 }) => {
-
   const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const { t } = useTranslation();
@@ -326,6 +330,15 @@ const Chat: React.FC<Props> = ({
                   : 'no-attachments'
               }-${message.timestamp}`}
             >
+              {!isHistoryView && !message.fromUser && (
+                <div className="memori-chat--bubble-container memori-artifact-handler-wrapper">
+                  <div className="memori-artifact-handler-spacer" aria-hidden />
+                  <ArtifactHandler
+                    isChatlogPanel={isChatlogPanel}
+                    message={message}
+                  />
+                </div>
+              )}
               <MediaWidget
                 simulateUserPrompt={simulateUserPrompt}
                 links={
@@ -474,19 +487,6 @@ const Chat: React.FC<Props> = ({
                     )}
                   </div>
                 )}
-
-              {!isHistoryView && !message.fromUser && (
-                <div className="memori-chat--bubble-container memori-artifact-handler-wrapper">
-                  <div
-                    className="memori-artifact-handler-spacer"
-                    aria-hidden
-                  />
-                  <ArtifactHandler
-                    isChatlogPanel={isChatlogPanel}
-                    message={message}
-                  />
-                </div>
-              )}
             </React.Fragment>
           ))}
 
