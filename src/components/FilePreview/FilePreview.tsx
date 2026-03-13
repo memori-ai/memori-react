@@ -187,6 +187,7 @@ FilePreviewProps) => {
         open={!!selectedFile}
         onClose={() => setSelectedFile(null)}
         title={selectedFile?.name}
+        className="memori-file-preview-modal"
         isImage={
           !!selectedFile &&
           isImageContent(selectedFile.content, selectedFile.type)

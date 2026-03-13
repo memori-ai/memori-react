@@ -57,13 +57,20 @@
 
 /* Allineamento media per messaggi dell'utente */
 .memori-media-items--grid.memori-media-items--user {
+    max-width: 90%;
+    margin: 0 auto;
     margin-right: var(--memori-spacing-lg);
+    margin-left: calc(var(--memori-spacing-3xl) + var(--memori-spacing-sm));
     direction: rtl;
+    
 }
 
 /* Allineamento media per messaggi dell'agente */
 .memori-media-items--grid.memori-media-items--agent {
-    margin-left: var(--memori-spacing-lg);
+    max-width: 90%;
+    margin: 0 auto;
+    margin-right: var(--memori-spacing-lg);
+    margin-left: calc(var(--memori-spacing-3xl) + var(--memori-spacing-sm));
     direction: ltr;
 }
 
