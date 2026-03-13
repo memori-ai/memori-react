@@ -468,33 +468,23 @@ const UploadImages: React.FC<UploadImagesProps> = ({
 
       {/* Upload Modal with Title Input */}
       <Modal
-        width="80%"
-        widthMd="80%"
+      
         open={showUploadModal && !!selectedFile}
-        className="memori--modal-preview-file"
+        className="memori--modal-preview-file memori--upload-image-preview-modal"
         onClose={handleCancelUpload}
         closable
         // title={t('upload.titleImage', { title: imageTitle })}
         // description={t('upload.imageTitleDescription')}
       >
-        <div
-          className="memori--preview-content"
-          style={{
-            maxHeight: '70vh',
-            overflowY: 'auto',
-            textAlign: 'center',
-          }}
-        >
+        <div className="memori--preview-content memori--upload-image-preview-content">
           {filePreview && (
-            <img
-              src={filePreview}
-              alt={selectedFile?.name || 'Preview'}
-              style={{
-                maxWidth: '100%',
-                maxHeight: '40vh',
-                marginBottom: '20px',
-              }}
-            />
+            <div className="memori--upload-image-preview-frame">
+              <img
+                src={filePreview}
+                alt={selectedFile?.name || 'Preview'}
+                className="memori--upload-image-preview"
+              />
+            </div>
           )}
 
           <div

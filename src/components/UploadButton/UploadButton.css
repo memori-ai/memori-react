@@ -228,8 +228,7 @@
 }
 
 .memori--preview-item:hover {
-  background-color: #f1f3f5;
-  transform: translateX(4px);
+  background-color: var(--memori-secondary-background);
 }
 
 /* Preview item variants */
@@ -339,6 +338,34 @@
   /* background-color: #f8f9fa; */
   font-family: monospace;
   line-height: 1.5;
+}
+
+.memori--upload-image-preview-modal .memori-modal--panel {
+  overflow: hidden;
+}
+
+.memori--upload-image-preview-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  text-align: center;
+}
+
+.memori--upload-image-preview-frame {
+  display: flex;
+  overflow: hidden;
+  width: min(72vw, 640px);
+  max-width: 100%;
+  height: min(42vh, 320px);
+  align-items: center;
+  justify-content: center;
+}
+
+.memori--upload-image-preview {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .memori--modal-preview-file .memori--asset-info {
@@ -482,7 +509,6 @@
 /* Menu item hover effect */
 .memori--upload-menu-item:hover:not(.memori--upload-menu-item--disabled) {
   background-color: #f5f5f5;
-  transform: translateX(4px);
 }
 
 input.memori--upload-title-input {
@@ -538,5 +564,10 @@ input.memori--upload-title-input {
 
   .memori--upload-menu {
     width: 180px;
+  }
+
+  .memori--upload-image-preview-frame {
+    width: min(84vw, 520px);
+    height: min(36vh, 260px);
   }
 }

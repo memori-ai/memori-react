@@ -609,7 +609,6 @@ ${file.content}
           })}
         >
           {currentMediaCount}/{maxDocumentsPerMessage}
-          {currentMediaCount}/{maxDocumentsPerMessage}
         </div>
       )}
 
