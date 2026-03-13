@@ -355,6 +355,14 @@
     gap: var(--memori-spacing-sm);
 }
 
+.memori-chat-history-drawer--detail-view--header--title-wrapper-with-back-button{
+    display: flex;
+    flex-flow: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--memori-spacing-sm);
+}
+
 .memori-chat-history-drawer--toolbar--search {
     position: relative;
     flex: 1;
