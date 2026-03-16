@@ -211,21 +211,7 @@ WebsiteAssistant.args = {
 export const WebsiteAssistantWithout3DAvatar = Template.bind({});
 WebsiteAssistantWithout3DAvatar.args = {
   ...WebsiteAssistant.args,
-  integration: {
-    ...integration,
-    customData: JSON.stringify({
-      textColor: '#2a2a2a',
-      buttonBgColor: '#653165',
-      buttonTextColor: '#ffffff',
-      blurBackground: true,
-      innerBgColor: 'light',
-      innerBgAlpha: 0.8,
-      multilanguage: true,
-      avatar: 'readyplayerme',
-      avatarURL: 'https://assets.memori.ai/api/v2/asset/b791f77c-1a94-4272-829e-eca82fcc62b7.glb',
-      avatar_3d_hidden: true,
-    }),
-  },
+  avatar3dHidden: true,
 };
 
 export const HiddenChat = Template.bind({});

@@ -400,6 +400,8 @@ export interface Props {
   showUpload?: boolean;
   showChatHistory?: boolean;
   showReasoning?: boolean;
+  /** When true and layout is WEBSITE_ASSISTANT, hide the 3D avatar in the expanded panel. */
+  avatar3dHidden?: boolean;
   preview?: boolean;
   embed?: boolean;
   height?: number | string;
@@ -467,6 +469,7 @@ const MemoriWidget = ({
   showOnlyLastMessages,
   showChatHistory,
   showReasoning,
+  avatar3dHidden,
   height = '100vh',
   secret,
   baseUrl = 'https://aisuru-staging.aclambda.online',
@@ -628,21 +631,6 @@ const MemoriWidget = ({
     integrationConfig?.layout?.piiDetection?.enabled
       ? integrationConfig.layout.piiDetection
       : undefined;
-
-  // website_assistant: hide 3D avatar from layout when integrationConfig has avatar_3d_hidden
-  const layoutObj =
-    typeof layout === 'object' && layout !== null ? layout : null;
-  const integrationLayoutObj =
-    typeof integrationConfig?.layout === 'object' &&
-    integrationConfig?.layout !== null
-      ? (integrationConfig.layout as { avatar_3d_hidden?: boolean })
-      : null;
-  const avatar3dHidden =
-    selectedLayout === 'WEBSITE_ASSISTANT' &&
-    ((layoutObj as { avatar_3d_hidden?: boolean } | null)?.avatar_3d_hidden ===
-      true ||
-      integrationLayoutObj?.avatar_3d_hidden === true ||
-      integrationConfig?.avatar_3d_hidden === true);
 
   const defaultEnableAudio =
     enableAudio ?? integrationConfig?.enableAudio ?? true;
@@ -3154,7 +3142,11 @@ const MemoriWidget = ({
         sessionId={sessionId}
         hasUserActivatedSpeak={hasUserActivatedSpeak}
         loading={loading}
-        avatar3dHidden={avatar3dHidden}
+        avatar3dHidden={
+          selectedLayout === 'WEBSITE_ASSISTANT'
+            ? (avatar3dHidden ?? integrationConfig?.avatar_3d_hidden ?? false)
+            : false
+        }
       />
 
       <ArtifactAPIBridge
