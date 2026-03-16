@@ -310,7 +310,6 @@
     z-index: 1000;
     display: inline-flex;
     width: auto;
-    max-width: 60px;
     height: auto;
     flex-direction: column;
     padding: 0.5rem;
@@ -322,26 +321,14 @@
 .memori-website_assistant-layout .memori-header .memori-share-button {
     margin-top: 0;
     margin-right: 0;
-    margin-left: 0;
-}
-
-/* Constrain circle buttons so they don't grow with font-size or flex (fixes "exploding" in layout) */
-.memori-website_assistant-layout .memori-header .memori-header--button,
-.memori-website_assistant-layout .memori-header .memori-header--button button,
-.memori-website_assistant-layout .memori-header .memori-share-button button {
-    width: 44px;
-    min-width: 44px;
-    height: 44px;
-    min-height: 44px;
-    flex-shrink: 0;
-    padding: 0;
+    margin-left: auto;
 }
 
 /* More specific: adjacent sibling (must come after general .memori-header--button rules) */
 .memori-website_assistant-layout .memori-header .memori-header--button + .memori-header--button {
     margin-top: 0;
     margin-right: 0;
-    margin-left: 0;
+    margin-left: auto;
 }
 
 /* Position dropdown below the trigger so it does not cover the share button */

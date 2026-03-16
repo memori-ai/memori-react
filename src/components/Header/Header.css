@@ -28,6 +28,26 @@
     margin-left: 0;
 }
 
+.memori-header--position .memori-header--button {
+    margin-right: 0;
+    margin-left: 0;
+}
+
+/* Spaced layout: small space between header buttons (FULLPAGE, CHAT, ZOOMED_FULL_BODY) */
+.memori-header.memori-header--spaced,
+.memori-chat-layout .memori-header.memori-header--spaced {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+}
+
+.memori-header.memori-header--spaced .memori-header--button + .memori-header--button,
+.memori-chat-layout .memori-header.memori-header--spaced .memori-header--button + .memori-header--button {
+    margin-left: 0;
+}
+
 .memori-header--button[disabled]:not(.memori-header--button--knownfacts) {
     border: 0;
     cursor: not-allowed;
@@ -75,26 +95,6 @@
     .memori-chat-layout--header {
         margin-bottom: 0;
     }
-}
-
-.memori-header--position .memori-header--button {
-    margin-right: 0;
-    margin-left: 0;
-}
-
-.memori-header .memori-header--button--position,
-.memori-header .memori-share-button,
-.memori-header .memori-header--button-login,
-.memori-header .memori-header--button-settings,
-.memori-header .memori-header--button--fullscreen,
-.memori-header .memori-header--button--reload,
-.memori-header .memori-header--button--clear,
-.memori-header .memori-header--button--chat-history,
-.memori-header .memori-header--button--knownfacts,
-.memori-header .memori-header--button--experts,
-.memori-header .memori-header--button--speaker,
-.memori-header .memori-header--button--speaker-muted {
-    margin-left: 4px;
 }
 
 .memori-header .memori-header--button--position {

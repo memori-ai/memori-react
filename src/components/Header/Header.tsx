@@ -119,6 +119,11 @@ const Header: React.FC<Props> = ({
     );
   }, [layout, additionalSettings]);
 
+  const hasSpacedButtons =
+    layout === 'FULLPAGE' ||
+    layout === 'CHAT' ||
+    layout === 'ZOOMED_FULL_BODY';
+
   const updateAvatar = async (avatar: any) => {
     if (avatar && loginToken) {
       const reader = new FileReader();
@@ -163,7 +168,7 @@ const Header: React.FC<Props> = ({
   };
 
   return (
-    <div className={cx('memori-header', className)}>
+    <div className={cx('memori-header', hasSpacedButtons && 'memori-header--spaced', className)}>
       {memori.needsPosition && position && (
         <div className="memori-header--position">
           {position.latitude !== 0 && position.longitude !== 0 && (
@@ -174,7 +179,7 @@ const Header: React.FC<Props> = ({
           <Button
             primary
             shape="circle"
-            className="memori-header--button memori-header--button--position"
+            className={cx('memori-header--button', 'memori-header--button--position', hasSpacedButtons && 'memori-header--button-spaced')}
             title={t('widget.position') || 'Position'}
             icon={<MapMarker />}
             onClick={() => setShowPositionDrawer(true)}
@@ -185,7 +190,7 @@ const Header: React.FC<Props> = ({
         <Button
           primary
           shape="circle"
-          className="memori-header--button memori-header--button--reload"
+          className={cx('memori-header--button', 'memori-header--button--reload', hasSpacedButtons && 'memori-header--button-spaced')}
           title={t('reload') || 'Reload'}
           icon={<Refresh />}
           onClick={() => {
@@ -197,7 +202,7 @@ const Header: React.FC<Props> = ({
         <Button
           primary
           shape="circle"
-          className="memori-header--button memori-header--button--clear"
+          className={cx('memori-header--button', 'memori-header--button--clear', hasSpacedButtons && 'memori-header--button-spaced')}
           title={t('clearHistory') || 'Clear chat'}
           icon={<Clear />}
           onClick={clearHistory}
@@ -208,7 +213,7 @@ const Header: React.FC<Props> = ({
           primary
           disabled={!loginToken}
           shape="circle"
-          className="memori-header--button memori-header--button--chat-history"
+          className={cx('memori-header--button', 'memori-header--button--chat-history', hasSpacedButtons && 'memori-header--button-spaced')}
           title={t('write_and_speak.chatHistory') || 'Chat history'}
           icon={<MessageIcon />}
           onClick={() => setShowChatHistoryDrawer(true)}
@@ -218,7 +223,7 @@ const Header: React.FC<Props> = ({
         <Button
           primary
           shape="circle"
-          className="memori-header--button memori-header--button--fullscreen"
+          className={cx('memori-header--button', 'memori-header--button--fullscreen', hasSpacedButtons && 'memori-header--button-spaced')}
           title={
             fullScreen
               ? t('fullscreenExit') || 'Exit fullscreen'
@@ -269,7 +274,7 @@ const Header: React.FC<Props> = ({
           primary={!!sessionID && !!hasUserActivatedSpeak}
           shape="circle"
           icon={<DeepThought />}
-          className="memori-header--button memori-header--button--knownfacts"
+          className={cx('memori-header--button', 'memori-header--button--knownfacts', hasSpacedButtons && 'memori-header--button-spaced')}
           disabled={!hasUserActivatedSpeak || !sessionID}
           onClick={() => setShowKnownFactsDrawer(true)}
           title={t('knownFacts.title') || 'Known facts'}
@@ -280,7 +285,7 @@ const Header: React.FC<Props> = ({
           primary
           shape="circle"
           icon={<Group />}
-          className="memori-header--button memori-header--button--experts"
+          className={cx('memori-header--button', 'memori-header--button--experts', hasSpacedButtons && 'memori-header--button-spaced')}
           disabled={!hasUserActivatedSpeak || !sessionID}
           onClick={() => setShowExpertsDrawer(true)}
           title={t('widget.showExpertsInTheBoard') || 'Experts in this board'}
@@ -290,7 +295,7 @@ const Header: React.FC<Props> = ({
         <Button
           primary
           shape="circle"
-          className={cx('memori-header--button memori-header--button--speaker', { 'memori-header--button--speaker-muted': speakerMuted })}
+          className={cx('memori-header--button', 'memori-header--button--speaker', hasSpacedButtons && 'memori-header--button-spaced', { 'memori-header--button--speaker-muted': speakerMuted })}
           icon={speakerMuted ? <SoundDeactivated /> : <Sound />}
           onClick={() => setSpeakerMuted(!speakerMuted)}
           title={t('widget.sound') || 'Sound'}
@@ -307,7 +312,7 @@ const Header: React.FC<Props> = ({
           <Button
             primary
             shape="circle"
-            className="memori-header--button memori-header--button-settings"
+            className={cx('memori-header--button', 'memori-header--button-settings', hasSpacedButtons && 'memori-header--button-spaced')}
             icon={<Setting />}
             onClick={() => setShowSettingsDrawer(true)}
             title={t('widget.settings') || 'Settings'}
@@ -315,7 +320,7 @@ const Header: React.FC<Props> = ({
         )}
       {showShare && (
         <ShareButton
-          className="memori-header--button memori-header--button-share"
+          className={cx('memori-header--button', 'memori-header--button-share', hasSpacedButtons && 'memori-header--button-spaced')}
           title={memori.name}
           memori={memori}
           sessionID={sessionID}
@@ -335,7 +340,7 @@ const Header: React.FC<Props> = ({
                 <Button
                   primary
                   shape="circle"
-                  className="memori-header--button memori-header--button-login"
+                  className={cx('memori-header--button', 'memori-header--button-login', hasSpacedButtons && 'memori-header--button-spaced')}
                   icon={<UserIcon />}
                   title={t('login.user') || 'User'}
                 />
@@ -413,7 +418,7 @@ const Header: React.FC<Props> = ({
             <Button
               primary
               shape="circle"
-              className="memori-header--button memori-header--button-login"
+              className={cx('memori-header--button', 'memori-header--button-login', hasSpacedButtons && 'memori-header--button-spaced')}
               icon={<UserIcon />}
               onClick={() => setShowLoginDrawer(true)}
               title={t('login.login') || 'Login'}

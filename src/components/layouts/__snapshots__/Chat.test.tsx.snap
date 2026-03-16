@@ -64,10 +64,10 @@ exports[`renders Chat layout unchanged 1`] = `
         class="memori-chat-layout--header "
       >
         <div
-          class="memori-header"
+          class="memori-header memori-header--spaced"
         >
           <button
-            class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker"
+            class="memori-button memori-button--primary memori-button--circle memori-button--padded memori-button--icon-only memori-header--button memori-header--button--speaker memori-header--button-spaced"
             title="Suono"
           >
             <span
@@ -93,7 +93,7 @@ exports[`renders Chat layout unchanged 1`] = `
             <button
               aria-expanded="false"
               aria-haspopup="true"
-              class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-header--button memori-header--button-share memori-button--primary"
+              class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori-header--button memori-header--button-share memori-header--button-spaced memori-button--primary"
               data-headlessui-state=""
               id="headlessui-menu-button-:r0:"
               title="Condividi"
