@@ -1,5 +1,18 @@
 
 
+## [8.27.0](https://github.com/memori-ai/memori-react/compare/v8.26.0...v8.27.0) (2026-03-16)
+
+
+### Features
+
+* enhance MemoriWidget to support optional place data ([a486fda](https://github.com/memori-ai/memori-react/commit/a486fdab893da30020d317ace6d1981b637e115c))
+* remove 'postPlaceChangedEvent' and send position through 'postTextEnteredEvent' ([7c63f45](https://github.com/memori-ai/memori-react/commit/7c63f45156766a3552d12855a242172b36d0cbf5))
+
+
+### Maintenance
+
+* update [@memori](https://github.com/memori).ai/memori-api-client ([760dcf7](https://github.com/memori-ai/memori-react/commit/760dcf722658ede6418332e45dfd66a55216dc88))
+
 ## [8.26.0](https://github.com/memori-ai/memori-react/compare/v8.25.0...v8.26.0) (2026-03-16)
 
 
