@@ -152,6 +152,16 @@
     font-size: 14px;
 }
 
+/*
+ * Login and Position drawers are portaled to body by Headless UI.
+ * When layout is WEBSITE_ASSISTANT we pass drawerClassName so they sit above the fixed panel.
+ */
+.memori-drawer.memori-drawer--above-website-assistant,
+.memori-drawer.memori-drawer--above-website-assistant .memori-drawer--backdrop,
+.memori-drawer.memori-drawer--above-website-assistant .memori-drawer--container {
+    z-index: 2147483648;
+}
+
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--collapsed,
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {
     position: fixed;
@@ -333,9 +343,11 @@
     margin-left: 0;
 }
 
+/* Position dropdown below the trigger so it does not cover the share button */
 .memori-widget.memori-layout-website_assistant .memori-share-button .memori-share-button--overlay {
-    z-index: 1000;
-    top: -6rem;
+    z-index: 1002;
+    top: 100%;
+    margin-top: 0.5rem;
 }
 
 .memori-widget.memori-layout-website_assistant .memori-header--button--fullscreen {

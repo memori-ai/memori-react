@@ -21,6 +21,8 @@ export interface Props {
   __TEST__signup?: boolean;
   __TEST__needMissingData?: boolean;
   setUser: (user: User) => void;
+  /** Optional class for the drawer root (e.g. for z-index when layout is WEBSITE_ASSISTANT). */
+  drawerClassName?: string;
 }
 
 const LoginDrawer = ({
@@ -34,6 +36,7 @@ const LoginDrawer = ({
   apiClient,
   __TEST__signup = false,
   __TEST__needMissingData = false,
+  drawerClassName,
 }: Props) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language === 'it' ? 'it' : 'en';
@@ -295,7 +298,7 @@ const LoginDrawer = ({
       className={cx('memori--login-drawer', {
         'memori--login-drawer--logged': isUserLoggedIn,
         'memori--login-drawer--signup': showSignup,
-      })}
+      }, drawerClassName)}
     >
       {needsMissingData?.token?.length ? (
         <>

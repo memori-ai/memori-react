@@ -3335,6 +3335,11 @@ const MemoriWidget = ({
               onClickStart();
             }
           }}
+          drawerClassName={
+            selectedLayout === 'WEBSITE_ASSISTANT'
+              ? 'memori-drawer--above-website-assistant'
+              : undefined
+          }
         />
       )}
 
@@ -3367,6 +3372,11 @@ const MemoriWidget = ({
           user={user}
           loginToken={loginToken}
           onClose={() => setShowLoginDrawer(false)}
+          drawerClassName={
+            selectedLayout === 'WEBSITE_ASSISTANT'
+              ? 'memori-drawer--above-website-assistant'
+              : undefined
+          }
           onLogin={(user, token) => {
             //The user is logged in, so we need to set open a new session with the new token
             reopenSession(

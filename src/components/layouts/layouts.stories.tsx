@@ -145,6 +145,7 @@ WebsiteAssistant2.args = {
   apiURL: 'https://backend.memori.ai',
   baseURL: 'https://exmachina.aclambda.online',
   uiLang: 'IT',
+  avatar3dHidden: true,
   spokenLang: 'IT',
   layout: 'WEBSITE_ASSISTANT',
 };
