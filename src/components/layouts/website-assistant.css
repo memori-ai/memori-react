@@ -350,7 +350,6 @@
     position: relative;
     overflow: hidden;
     min-height: 0;
-    max-height: 35%;
     flex: 1;
     /* Prevent avatar/blob from growing unbounded and overlapping header/controls */
     contain: layout style;
