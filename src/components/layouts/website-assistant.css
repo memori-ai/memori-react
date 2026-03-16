@@ -119,6 +119,7 @@
     z-index: 1001;
     top: 0.75rem;
     left: 0.75rem;
+    flex-shrink: 0;
     transition: transform 0.2s ease;
 }
 
@@ -127,8 +128,10 @@
 }
 
 .memori-website_assistant--close-button-wrapper button.memori-website_assistant--close-button {
-    width: 44px;
-    height: 44px;
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
     padding: 0.75rem;
     border: 2px solid rgba(130, 70, 175, 0.1);
     border-radius: 50%;
@@ -303,9 +306,30 @@
     gap: 0.5rem;
 }
 
-.memori-website_assistant-layout .memori-header .memori-share-button,
+/* Less specific first (no-descending-specificity): single .memori-header--button */
+.memori-website_assistant-layout .memori-header .memori-header--button,
+.memori-website_assistant-layout .memori-header .memori-share-button {
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+/* Constrain circle buttons so they don't grow with font-size or flex (fixes "exploding" in layout) */
+.memori-website_assistant-layout .memori-header .memori-header--button,
+.memori-website_assistant-layout .memori-header .memori-header--button button,
+.memori-website_assistant-layout .memori-header .memori-share-button button {
+    width: 44px;
+    min-width: 44px;
+    height: 44px;
+    min-height: 44px;
+    flex-shrink: 0;
+    padding: 0;
+}
+
+/* More specific: adjacent sibling (must come after general .memori-header--button rules) */
 .memori-website_assistant-layout .memori-header .memori-header--button + .memori-header--button {
     margin-top: 0;
+    margin-right: 0;
     margin-left: 0;
 }
 
@@ -328,6 +352,8 @@
     min-height: 0;
     max-height: 35%;
     flex: 1;
+    /* Prevent avatar/blob from growing unbounded and overlapping header/controls */
+    contain: layout style;
 }
 
 .memori-website_assistant-layout--avatar .memori--avatar-wrapper {
