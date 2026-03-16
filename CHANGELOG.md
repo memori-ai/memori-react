@@ -1,5 +1,17 @@
 
 
+## [8.23.0](https://github.com/memori-ai/memori-react/compare/v8.22.0...v8.23.0) (2026-03-16)
+
+
+### Features
+
+* add avatar3dHidden prop to WebsiteAssistant layout ([8803b75](https://github.com/memori-ai/memori-react/commit/8803b751df3f34aff37af500a650b29ccb012218))
+
+
+### Changes
+
+* dont send date event every minute, but when opening session and sending TextEntered ([25f083e](https://github.com/memori-ai/memori-react/commit/25f083efadb8d07b311e371739711eabcdffdc1b))
+
 ## [8.22.0](https://github.com/memori-ai/memori-react/compare/v8.21.0...v8.22.0) (2026-03-02)
 
 
