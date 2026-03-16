@@ -1,5 +1,12 @@
 
 
+## [8.25.0](https://github.com/memori-ai/memori-react/compare/v8.24.0...v8.25.0) (2026-03-16)
+
+
+### Features
+
+* update layout styles and button margins for WebsiteAssistant ([73bdf4d](https://github.com/memori-ai/memori-react/commit/73bdf4ddf08edfe8994c8631c100684073e8a578))
+
 ## [8.24.0](https://github.com/memori-ai/memori-react/compare/v8.23.0...v8.24.0) (2026-03-16)
 
 
