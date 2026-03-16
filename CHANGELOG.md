@@ -1,5 +1,13 @@
 
 
+## [8.26.0](https://github.com/memori-ai/memori-react/compare/v8.25.0...v8.26.0) (2026-03-16)
+
+
+### Features
+
+* add drawerClassName prop to LoginDrawer and PositionDrawer ([8ec2646](https://github.com/memori-ai/memori-react/commit/8ec26467f82f90573dfc713b9001575fa6917930))
+* update MemoriWidget to conditionally send dateUTC ([81f5c50](https://github.com/memori-ai/memori-react/commit/81f5c504022b8c186b5369921bc42b40b672349d))
+
 ## [8.25.0](https://github.com/memori-ai/memori-react/compare/v8.24.0...v8.25.0) (2026-03-16)
 
 
