@@ -834,10 +834,6 @@ const MemoriWidget = ({
       (window.getMemoriState() as MemoriSession)?.sessionID;
     if (!sessionID || !text?.length) return;
 
-    if (memori.needsDateTime) {
-      await sendDateChangedEvent({ sessionID: sessionID });
-    }
-
     // Build full message text (same as what will be sent) so we can run PII check on it.
     // Order: user text -> optional translation -> appended document attachment content.
     let msg = text;
@@ -929,6 +925,9 @@ const MemoriWidget = ({
       const { currentState, ...response } = await postTextEnteredEvent({
         sessionId: sessionID,
         text: msg,
+        ...(memori.needsDateTime && {
+          dateUTC: DateTime.utc().toISO() ?? undefined,
+        }),
       });
       if (response.resultCode === 0 && currentState) {
         setChatLogID(undefined);
@@ -1710,6 +1709,9 @@ const MemoriWidget = ({
           const { resultCode: textResultCode } = await postTextEnteredEvent({
             sessionId,
             text: pin ?? '',
+            ...(memori.needsDateTime && {
+              dateUTC: DateTime.utc().toISO() ?? undefined,
+            }),
           });
           textResult = textResultCode;
         }
@@ -2701,6 +2703,9 @@ const MemoriWidget = ({
             const response = await postTextEnteredEvent({
               sessionId: sessionID!,
               text: initialQuestion,
+              ...(memori.needsDateTime && {
+                dateUTC: DateTime.utc().toISO() ?? undefined,
+              }),
             });
 
             // Handle 500 error from TextEnteredEvent
@@ -2732,9 +2737,6 @@ const MemoriWidget = ({
         // date and place events
         if (position && memori.needsPosition) {
           applyPosition(position, sessionID);
-        }
-        if (memori.needsDateTime) {
-          sendDateChangedEvent({ sessionID: sessionID, state: currentState });
         }
       }
       // Default case - just translate and activate

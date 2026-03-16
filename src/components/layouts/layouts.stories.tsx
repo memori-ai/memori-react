@@ -152,23 +152,20 @@ WebsiteAssistant2.args = {
 
 export const WebsiteAssistant3 = Template.bind({});
 WebsiteAssistant3.args = {
-  memoriName: 'FestinaLente',
-  memoriID: 'c0ab75e2-4c56-41dc-9df6-58fa7959cda3',
-  ownerUserID: 'cca0733c-9f24-4f1c-a3e3-99675cbb729f',
-  tenantID: 'firenzesmart.aclambda.online',
-  engineURL: 'https://engine.memori.ai',
-  apiURL: 'https://backend.memori.ai',
-  baseURL: 'https://firenzesmart.aclambda.online',
-  uiLang: 'IT',
-  spokenLang: 'IT',
-  integrationID: '35a9e856-0333-4543-a428-bfe4d8025027',
-  layout: 'WEBSITE_ASSISTANT',
-  showSettings: false,
-  showClear: false,
-  showTypingText: false,
-  showOnlyLastMessages: false,
-  showTranslationOriginal: false,
-  showCopyButton: false,
+  memoriName: "Layout Storybook",
+  ownerUserName: "Andrea-Patini",
+  memoriID: "ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e",
+  ownerUserID: "91dbc9ba-b684-4fbe-9828-b5980af6cda9",
+  tenantID: "aisuru-staging.aclambda.online",
+  engineURL: "https://engine-staging.memori.ai/memori/v2",
+  apiURL: "https://backend-staging.memori.ai/api/v2",
+  baseURL: "http://localhost:3000",
+  layout: "WEBSITE_ASSISTANT",
+  avatar3dHidden: true,
+  uiLang: "IT",
+  spokenLang: "IT",
+  showOnlyLastMessages: true,
+  integrationID: "716f4728-919c-4015-aae1-88998a081c6f",
 };
 
 
