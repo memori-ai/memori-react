@@ -751,6 +751,33 @@ const MemoriWidget = ({
     }
   };
 
+  /** Build optional place for EnterTextSpecs (placeName and/or lat/lon; lat/lon must be together). */
+  const buildEnterTextPlace = useCallback((venue: Venue | undefined) => {
+    if (!venue) return undefined;
+    const place: {
+      placeName?: string;
+      latitude?: number;
+      longitude?: number;
+      uncertaintyKm?: number;
+    } = {};
+    if (
+      venue.latitude != null &&
+      venue.longitude != null
+    ) {
+      place.latitude = venue.latitude;
+      place.longitude = venue.longitude;
+      if (venue.placeName) place.placeName = venue.placeName;
+      if (
+        venue.uncertainty != null &&
+        venue.uncertainty > 0
+      )
+        place.uncertaintyKm = venue.uncertainty;
+    } else if (venue.placeName) {
+      place.placeName = venue.placeName;
+    }
+    return Object.keys(place).length > 0 ? place : undefined;
+  }, []);
+
   const setPosition = (venue?: Venue) => {
     _setPosition(venue);
     applyPosition(venue);
@@ -922,12 +949,15 @@ const MemoriWidget = ({
       //     '"></chat-reference>';
       // }
 
+      const placeSpec =
+        memori.needsPosition ? buildEnterTextPlace(position) : undefined;
       const { currentState, ...response } = await postTextEnteredEvent({
         sessionId: sessionID,
         text: msg,
         ...(memori.needsDateTime && {
           dateUTC: DateTime.utc().toISO() ?? undefined,
         }),
+        ...(placeSpec && { place: placeSpec }),
       });
       if (response.resultCode === 0 && currentState) {
         setChatLogID(undefined);
@@ -1706,12 +1736,16 @@ const MemoriWidget = ({
           pin &&
           (currentState.state === 'X1a' || currentState.state === 'X1b')
         ) {
+          const placeSpec = memori.needsPosition
+            ? buildEnterTextPlace(position)
+            : undefined;
           const { resultCode: textResultCode } = await postTextEnteredEvent({
             sessionId,
             text: pin ?? '',
             ...(memori.needsDateTime && {
               dateUTC: DateTime.utc().toISO() ?? undefined,
             }),
+            ...(placeSpec && { place: placeSpec }),
           });
           textResult = textResultCode;
         }
@@ -2700,12 +2734,16 @@ const MemoriWidget = ({
             setMemoriTyping(true);
 
             // we have no chat history, we start by initial question
+            const placeSpec = memori.needsPosition
+              ? buildEnterTextPlace(position)
+              : undefined;
             const response = await postTextEnteredEvent({
               sessionId: sessionID!,
               text: initialQuestion,
               ...(memori.needsDateTime && {
                 dateUTC: DateTime.utc().toISO() ?? undefined,
               }),
+              ...(placeSpec && { place: placeSpec }),
             });
 
             // Handle 500 error from TextEnteredEvent

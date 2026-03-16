@@ -1,7 +1,6 @@
 .memori-header {
     position: relative;
     z-index: 1000;
-    width: calc(50% - 1rem);
     height: 50px;
     padding: calc(var(--memori-inner-content-pad) / 4) calc(var(--memori-inner-content-pad) / 2);
     border-radius: 10px;
@@ -85,8 +84,17 @@
 
 .memori-header .memori-header--button--position,
 .memori-header .memori-share-button,
-.memori-header .memori-header--button-login {
-    margin-left: 0;
+.memori-header .memori-header--button-login,
+.memori-header .memori-header--button-settings,
+.memori-header .memori-header--button--fullscreen,
+.memori-header .memori-header--button--reload,
+.memori-header .memori-header--button--clear,
+.memori-header .memori-header--button--chat-history,
+.memori-header .memori-header--button--knownfacts,
+.memori-header .memori-header--button--experts,
+.memori-header .memori-header--button--speaker,
+.memori-header .memori-header--button--speaker-muted {
+    margin-left: 4px;
 }
 
 .memori-header .memori-header--button--position {

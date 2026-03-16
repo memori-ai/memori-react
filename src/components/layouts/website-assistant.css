@@ -310,6 +310,7 @@
     z-index: 1000;
     display: inline-flex;
     width: auto;
+    max-width: 60px;
     height: auto;
     flex-direction: column;
     padding: 0.5rem;
