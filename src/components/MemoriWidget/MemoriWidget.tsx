@@ -115,6 +115,14 @@ const getMemoriState = (integrationId?: string): object | null => {
   };
 };
 
+/** Place spec with all nulls for postTextEnteredEvent when position is not set or user chose "I don't want to provide my position". */
+const NULL_PLACE_SPEC = {
+  placeName: null,
+  latitude: null,
+  longitude: null,
+  uncertaintyKm: null,
+} as const;
+
 type MemoriTextEnteredEvent = CustomEvent<{
   text: string;
   waitForPrevious?: boolean;
@@ -729,27 +737,19 @@ const MemoriWidget = ({
    * Position drawer
    */
   const [position, _setPosition] = useState<Venue>();
-  const applyPosition = async (venue?: Venue, sessionID?: string) => {
-    const session = sessionID ?? sessionId;
-    // Only apply position if memori.needsPosition is true
-    if (venue && session && memori.needsPosition) {
-      const { currentState, ...response } = await postPlaceChangedEvent({
-        sessionId: session,
-        placeName: venue.placeName,
-        latitude: venue.latitude,
-        longitude: venue.longitude,
-        uncertaintyKm: venue.uncertainty ?? 0,
-      });
 
-      if (currentState && response.resultCode === 0) {
-        _setCurrentDialogState(cds => ({
-          ...cds,
-          ...currentState,
-          hints: currentState.hints?.length ? currentState.hints : cds?.hints,
-        }));
-      }
+  /** True when the user has set a real position; false when position is missing or "I don't want to provide my position". */
+  const hasUserProvidedPosition = useCallback((venue: Venue | undefined) => {
+    if (!venue) return false;
+    if (
+      venue.placeName === 'Position' &&
+      venue.latitude === 0 &&
+      venue.longitude === 0
+    ) {
+      return false;
     }
-  };
+    return true;
+  }, []);
 
   /** Build optional place for EnterTextSpecs (placeName and/or lat/lon; lat/lon must be together). */
   const buildEnterTextPlace = useCallback((venue: Venue | undefined) => {
@@ -778,9 +778,19 @@ const MemoriWidget = ({
     return Object.keys(place).length > 0 ? place : undefined;
   }, []);
 
+  /** Place to send with postTextEnteredEvent: real place, nulls when no/declined position, or undefined when position not needed. */
+  const getPlaceSpecForEnterText = useCallback(
+    (venue: Venue | undefined) => {
+      if (!memori.needsPosition) return undefined;
+      return hasUserProvidedPosition(venue)
+        ? buildEnterTextPlace(venue)
+        : NULL_PLACE_SPEC;
+    },
+    [memori.needsPosition, hasUserProvidedPosition, buildEnterTextPlace]
+  );
+
   const setPosition = (venue?: Venue) => {
     _setPosition(venue);
-    applyPosition(venue);
 
     // Only save position to local config if memori.needsPosition is true
     if (venue && memori.needsPosition) {
@@ -949,15 +959,14 @@ const MemoriWidget = ({
       //     '"></chat-reference>';
       // }
 
-      const placeSpec =
-        memori.needsPosition ? buildEnterTextPlace(position) : undefined;
+      const placeSpec = getPlaceSpecForEnterText(position);
       const { currentState, ...response } = await postTextEnteredEvent({
         sessionId: sessionID,
         text: msg,
         ...(memori.needsDateTime && {
           dateUTC: DateTime.utc().toISO() ?? undefined,
         }),
-        ...(placeSpec && { place: placeSpec }),
+        ...(placeSpec !== undefined && { place: placeSpec }),
       });
       if (response.resultCode === 0 && currentState) {
         setChatLogID(undefined);
@@ -1434,16 +1443,6 @@ const MemoriWidget = ({
           setInstruct(false);
         }
 
-        if (position && memori.needsPosition)
-          applyPosition(position, session.sessionID);
-
-        if (memori.needsDateTime) {
-          await sendDateChangedEvent({
-            sessionID: session.sessionID,
-            state: session?.currentState,
-          });
-        }
-
         setLoading(false);
         return {
           dialogState: session.currentState,
@@ -1667,16 +1666,6 @@ const MemoriWidget = ({
           }
         }
 
-        // Apply position and date settings if needed
-        if (position && memori.needsPosition) {
-          // console.log('[REOPEN_SESSION] Applying position');
-          applyPosition(position, sessionID);
-        }
-        if (memori.needsDateTime) {
-          // console.log('[REOPEN_SESSION] Sending date changed event');
-          sendDateChangedEvent({ sessionID: sessionID, state: currentState });
-        }
-
         setLoading(false);
         return {
           dialogState: currentState,
@@ -1736,16 +1725,14 @@ const MemoriWidget = ({
           pin &&
           (currentState.state === 'X1a' || currentState.state === 'X1b')
         ) {
-          const placeSpec = memori.needsPosition
-            ? buildEnterTextPlace(position)
-            : undefined;
+          const placeSpec = getPlaceSpecForEnterText(position);
           const { resultCode: textResultCode } = await postTextEnteredEvent({
             sessionId,
             text: pin ?? '',
             ...(memori.needsDateTime && {
               dateUTC: DateTime.utc().toISO() ?? undefined,
             }),
-            ...(placeSpec && { place: placeSpec }),
+            ...(placeSpec !== undefined && { place: placeSpec }),
           });
           textResult = textResultCode;
         }
@@ -1821,49 +1808,6 @@ const MemoriWidget = ({
 
     return null;
   };
-
-  /**
-   * Polling dates
-   */
-  const sendDateChangedEvent = useCallback(
-    async ({
-      sessionID,
-      date,
-      state,
-    }: {
-      sessionID?: string;
-      date?: string;
-      state?: DialogState;
-    }) => {
-      const session = sessionID ?? sessionId;
-      const dialogState = state ?? currentDialogState;
-
-      if (!session || !memori.needsDateTime || dialogState?.hints?.length) {
-        return;
-      }
-
-      const now = (date ? DateTime.fromISO(date) : DateTime.now())
-        .toUTC()
-        .toFormat('yyyy/MM/dd HH:mm:ss ZZ')
-        .split(':')
-        .slice(0, -1)
-        .join(':');
-
-      const { currentState, ...response } = await postDateChangedEvent(
-        session,
-        now
-      );
-
-      if (response.resultCode === 0 && currentState) {
-        _setCurrentDialogState(cds => ({
-          ...cds,
-          ...currentState,
-          hints: currentState.hints?.length ? currentState.hints : cds?.hints,
-        }));
-      }
-    },
-    [currentDialogState, memori.needsDateTime, sessionId]
-  );
 
   /**
    * Timeout conversazione
@@ -2563,14 +2507,6 @@ const MemoriWidget = ({
         // reset history
         setHistory([]);
 
-        // date and place events
-        if (position && memori.needsPosition) {
-          applyPosition(position, sessionID);
-        }
-        if (memori.needsDateTime) {
-          sendDateChangedEvent({ sessionID: sessionID, state: currentState });
-        }
-
         // Handle personification tag changes
         if (
           personification &&
@@ -2734,16 +2670,14 @@ const MemoriWidget = ({
             setMemoriTyping(true);
 
             // we have no chat history, we start by initial question
-            const placeSpec = memori.needsPosition
-              ? buildEnterTextPlace(position)
-              : undefined;
+            const placeSpec = getPlaceSpecForEnterText(position);
             const response = await postTextEnteredEvent({
               sessionId: sessionID!,
               text: initialQuestion,
               ...(memori.needsDateTime && {
                 dateUTC: DateTime.utc().toISO() ?? undefined,
               }),
-              ...(placeSpec && { place: placeSpec }),
+              ...(placeSpec !== undefined && { place: placeSpec }),
             });
 
             // Handle 500 error from TextEnteredEvent
@@ -2772,10 +2706,6 @@ const MemoriWidget = ({
           }
         }
 
-        // date and place events
-        if (position && memori.needsPosition) {
-          applyPosition(position, sessionID);
-        }
       }
       // Default case - just translate and activate
       else {
@@ -3368,8 +3298,7 @@ const MemoriWidget = ({
           open={!!showPositionDrawer}
           venue={position}
           setVenue={setPosition}
-          onClose={position => {
-            if (position) applyPosition(position);
+          onClose={() => {
             setShowPositionDrawer(false);
             if (autoStart) {
               onClickStart();
