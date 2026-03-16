@@ -40,7 +40,7 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: flex-end;
-    gap: 0.5rem;
+    gap: 0.25rem;
 }
 
 .memori-header.memori-header--spaced .memori-header--button + .memori-header--button,

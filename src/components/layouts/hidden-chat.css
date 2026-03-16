@@ -206,6 +206,7 @@
   margin: 0;
   background-color: white;
   color: white;
+  gap: 4px;
 }
 
 .memori-hidden-chat-layout-header--layout > button, 
