@@ -612,14 +612,21 @@
         background: rgba(255, 255, 255, 0.25);
     }
 
-    .memori-website_assistant--trigger-button .memori-blob .mainDiv {
-        top: -15% !important;
-        left: 0;
-        display: none;
+    /* Keep blob container as positioning context and centered in button */
+    .memori-website_assistant--trigger-button .memori-blob {
+        position: relative !important;
+        top: 0 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .memori-blob{
-        top: 0px !important;
+    /* Center .mainDiv in button: use percentage translate so blob aligns with button (override Blob.css mobile pixel offsets) */
+    .memori-website_assistant--trigger-button .memori-blob .mainDiv {
+        top: 50% !important;
+        left: 50% !important;
+        --memori-blob-x: -50%;
+        --memori-blob-y: -50%;
     }
 }
 
