@@ -1,5 +1,12 @@
 
 
+## [8.28.0](https://github.com/memori-ai/memori-react/compare/v8.27.0...v8.28.0) (2026-03-17)
+
+
+### Features
+
+* implement spaced layout for header buttons in MemoriWidget ([f4604f0](https://github.com/memori-ai/memori-react/commit/f4604f0a3042fe6d62d651f44d969eaa04663d7c))
+
 ## [8.27.0](https://github.com/memori-ai/memori-react/compare/v8.26.0...v8.27.0) (2026-03-16)
 
 
