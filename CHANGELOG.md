@@ -1,5 +1,12 @@
 
 
+## [8.29.0](https://github.com/memori-ai/memori-react/compare/v8.28.0...v8.29.0) (2026-03-17)
+
+
+### Features
+
+* add avatar3dHidden prop to MemoriWidget ([359e88f](https://github.com/memori-ai/memori-react/commit/359e88fe48502b44b24ee9af03b6dad94198ac99))
+
 ## [8.28.0](https://github.com/memori-ai/memori-react/compare/v8.27.0...v8.28.0) (2026-03-17)
 
 
