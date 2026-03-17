@@ -547,6 +547,7 @@ Memori.propTypes = {
   showLogin: PropTypes.bool,
   showUpload: PropTypes.bool,
   showReasoning: PropTypes.bool,
+  avatar3dHidden: PropTypes.bool,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   baseURL: PropTypes.string,
   apiURL: PropTypes.string,

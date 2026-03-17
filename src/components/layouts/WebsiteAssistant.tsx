@@ -20,7 +20,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   hasUserActivatedSpeak,
   loading = false,
   poweredBy,
-  avatar3dHidden = false,
+  avatar3dHidden,
 }) => {
   const { t } = useTranslation();
   const [collapsed, _setCollapsed] = useState(true);
@@ -87,7 +87,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                   />
               )}
 
-              {!avatar3dHidden && (
+              {!(avatar3dHidden === true || avatar3dHidden === 'true') && (
                 <div className="memori-website_assistant-layout--avatar">
                   {Avatar && avatarProps && (
                     <Avatar

@@ -375,8 +375,8 @@ export interface LayoutProps {
   loading?: boolean;
   autoStart?: boolean;
   onSidebarToggle?: (isOpen: boolean) => void;
-  /** When true (e.g. from integrationConfig for website_assistant layout), hide the 3D avatar. */
-  avatar3dHidden?: boolean;
+  /** When true or "true" (e.g. from integrationConfig or web component attribute), hide the 3D avatar. */
+  avatar3dHidden?: boolean | string;
 }
 
 export interface Props {
@@ -3112,11 +3112,7 @@ const MemoriWidget = ({
         sessionId={sessionId}
         hasUserActivatedSpeak={hasUserActivatedSpeak}
         loading={loading}
-        avatar3dHidden={
-          selectedLayout === 'WEBSITE_ASSISTANT'
-            ? (avatar3dHidden ?? integrationConfig?.avatar_3d_hidden ?? false)
-            : false
-        }
+        avatar3dHidden={avatar3dHidden ?? integrationConfig?.avatar_3d_hidden}
       />
 
       <ArtifactAPIBridge

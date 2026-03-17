@@ -51,6 +51,7 @@ DefaultLayout.args = {
   showReasoning: false,
   showLogin: true,
   multilingual: true,
+  avatar3dHidden: true,
 };
 
 
