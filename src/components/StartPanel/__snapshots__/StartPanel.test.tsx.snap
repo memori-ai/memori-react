@@ -15,7 +15,7 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
           class="memori-tooltip memori-tooltip--align-left"
         >
           <div
-            class="memori-tooltip--content"
+            class="memori-tooltip--content memori-tooltip--content-inline"
           >
             boardOfExperts
           </div>
@@ -88,10 +88,10 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
           write_and_speak.pagePrivacyExplanation
         </p>
         <div
-          class="memori-tooltip memori-tooltip--align-right"
+          class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content"
+            class="memori-tooltip--content memori-tooltip--content-inline"
           >
             <div
               class="memori--privacy-tooltip-content"
@@ -237,10 +237,10 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
           write_and_speak.pagePrivacyExplanation
         </p>
         <div
-          class="memori-tooltip memori-tooltip--align-right"
+          class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content"
+            class="memori-tooltip--content memori-tooltip--content-inline"
           >
             <div
               class="memori--privacy-tooltip-content"
@@ -386,10 +386,10 @@ exports[`renders StartPanel unchanged 1`] = `
           write_and_speak.pagePrivacyExplanation
         </p>
         <div
-          class="memori-tooltip memori-tooltip--align-right"
+          class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content"
+            class="memori-tooltip--content memori-tooltip--content-inline"
           >
             <div
               class="memori--privacy-tooltip-content"
@@ -535,10 +535,10 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
           write_and_speak.pagePrivacyExplanation
         </p>
         <div
-          class="memori-tooltip memori-tooltip--align-right"
+          class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content"
+            class="memori-tooltip--content memori-tooltip--content-inline"
           >
             <div
               class="memori--privacy-tooltip-content"
@@ -606,7 +606,7 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
         class="memori-tooltip memori-tooltip--align-right memori--completion-provider-status--tooltip"
       >
         <div
-          class="memori-tooltip--content"
+          class="memori-tooltip--content memori-tooltip--content-inline"
         >
           <div>
             <p>
@@ -704,10 +704,10 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
           write_and_speak.pagePrivacyExplanation
         </p>
         <div
-          class="memori-tooltip memori-tooltip--align-right"
+          class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content"
+            class="memori-tooltip--content memori-tooltip--content-inline"
           >
             <div
               class="memori--privacy-tooltip-content"
@@ -853,10 +853,10 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
           write_and_speak.pagePrivacyExplanation
         </p>
         <div
-          class="memori-tooltip memori-tooltip--align-right"
+          class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content"
+            class="memori-tooltip--content memori-tooltip--content-inline"
           >
             <div
               class="memori--privacy-tooltip-content"
@@ -956,7 +956,7 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
           class="memori-tooltip memori-tooltip--align-left"
         >
           <div
-            class="memori-tooltip--content"
+            class="memori-tooltip--content memori-tooltip--content-inline"
           >
             deepThoughtHelper
           </div>
@@ -1071,10 +1071,10 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
           write_and_speak.pagePrivacyExplanation
         </p>
         <div
-          class="memori-tooltip memori-tooltip--align-right"
+          class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content"
+            class="memori-tooltip--content memori-tooltip--content-inline"
           >
             <div
               class="memori--privacy-tooltip-content"
@@ -1174,7 +1174,7 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
           class="memori-tooltip memori-tooltip--align-left"
         >
           <div
-            class="memori-tooltip--content"
+            class="memori-tooltip--content memori-tooltip--content-inline"
           >
             deepThoughtHelper
           </div>
@@ -1282,10 +1282,10 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
           write_and_speak.pagePrivacyExplanation
         </p>
         <div
-          class="memori-tooltip memori-tooltip--align-right"
+          class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content"
+            class="memori-tooltip--content memori-tooltip--content-inline"
           >
             <div
               class="memori--privacy-tooltip-content"
@@ -1385,7 +1385,7 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
           class="memori-tooltip memori-tooltip--align-left"
         >
           <div
-            class="memori-tooltip--content"
+            class="memori-tooltip--content memori-tooltip--content-inline"
           >
             deepThoughtHelper
           </div>
@@ -1490,10 +1490,10 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
           write_and_speak.pagePrivacyExplanation
         </p>
         <div
-          class="memori-tooltip memori-tooltip--align-right"
+          class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content"
+            class="memori-tooltip--content memori-tooltip--content-inline"
           >
             <div
               class="memori--privacy-tooltip-content"
@@ -1639,10 +1639,10 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
           write_and_speak.pagePrivacyExplanation
         </p>
         <div
-          class="memori-tooltip memori-tooltip--align-right"
+          class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content"
+            class="memori-tooltip--content memori-tooltip--content-inline"
           >
             <div
               class="memori--privacy-tooltip-content"
@@ -2029,10 +2029,10 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
           write_and_speak.pagePrivacyExplanation
         </p>
         <div
-          class="memori-tooltip memori-tooltip--align-right"
+          class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content"
+            class="memori-tooltip--content memori-tooltip--content-inline"
           >
             <div
               class="memori--privacy-tooltip-content"

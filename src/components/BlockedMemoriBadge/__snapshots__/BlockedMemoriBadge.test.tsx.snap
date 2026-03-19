@@ -6,7 +6,7 @@ exports[`renders BlockedMemoriBadge for not enough credits unchanged 1`] = `
     class="memori-tooltip memori-tooltip--align-right blocked-memori-badge--tooltip"
   >
     <div
-      class="memori-tooltip--content"
+      class="memori-tooltip--content memori-tooltip--content-inline"
     >
       notEnoughCredits
     </div>
@@ -46,7 +46,7 @@ exports[`renders BlockedMemoriBadge unchanged 1`] = `
     class="memori-tooltip memori-tooltip--align-right blocked-memori-badge--tooltip"
   >
     <div
-      class="memori-tooltip--content"
+      class="memori-tooltip--content memori-tooltip--content-inline"
     >
       memoriBlockedAnon
     </div>
@@ -86,7 +86,7 @@ exports[`renders BlockedMemoriBadge with giver info unchanged 1`] = `
     class="memori-tooltip memori-tooltip--align-right blocked-memori-badge--tooltip"
   >
     <div
-      class="memori-tooltip--content"
+      class="memori-tooltip--content memori-tooltip--content-inline"
     >
       memoriBlockedUntil
        memoriBlockedReasonExceedChats
@@ -130,7 +130,7 @@ exports[`renders BlockedMemoriBadge with margin left unchanged 1`] = `
     class="memori-tooltip memori-tooltip--align-right blocked-memori-badge--tooltip"
   >
     <div
-      class="memori-tooltip--content"
+      class="memori-tooltip--content memori-tooltip--content-inline"
     >
       memoriBlockedAnon
     </div>
@@ -170,7 +170,7 @@ exports[`renders BlockedMemoriBadge with title unchanged 1`] = `
     class="memori-tooltip memori-tooltip--align-right blocked-memori-badge--tooltip"
   >
     <div
-      class="memori-tooltip--content"
+      class="memori-tooltip--content memori-tooltip--content-inline"
     >
       memoriBlockedAnon
     </div>

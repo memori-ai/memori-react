@@ -9,7 +9,7 @@ exports[`renders FeedbackButtons unchanged 1`] = `
       class="memori-tooltip memori-tooltip--align-left"
     >
       <div
-        class="memori-tooltip--content"
+        class="memori-tooltip--content memori-tooltip--content-inline"
       >
         Feedback
       </div>

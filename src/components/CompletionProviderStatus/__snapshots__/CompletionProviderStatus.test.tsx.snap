@@ -6,7 +6,7 @@ exports[`renders CompletionProviderStatus errored unchanged 1`] = `
     class="memori-tooltip memori-tooltip--align-right memori--completion-provider-status--tooltip"
   >
     <div
-      class="memori-tooltip--content"
+      class="memori-tooltip--content memori-tooltip--content-inline"
     >
       <div>
         <p>
@@ -55,7 +55,7 @@ exports[`renders CompletionProviderStatus errored with provider specified unchan
     class="memori-tooltip memori-tooltip--align-right memori--completion-provider-status--tooltip"
   >
     <div
-      class="memori-tooltip--content"
+      class="memori-tooltip--content memori-tooltip--content-inline"
     >
       <div>
         <p>
@@ -104,7 +104,7 @@ exports[`renders CompletionProviderStatus unchanged 1`] = `
     class="memori-tooltip memori-tooltip--align-right memori--completion-provider-status--tooltip"
   >
     <div
-      class="memori-tooltip--content"
+      class="memori-tooltip--content memori-tooltip--content-inline"
     >
       <div>
         <p>

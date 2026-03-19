@@ -194,6 +194,7 @@
 }
 
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--expanded {
+    overflow: visible;
     height: min(85vh, calc(100vh - 80px));
     padding: 0.5rem 0rem;
     margin-bottom: 0;

@@ -281,7 +281,7 @@ const StartPanel: React.FC<Props> = ({
                 {t('write_and_speak.pagePrivacyExplanation')}
               </p>
               <Tooltip
-                align="right"
+                align="topLeft"
                 content={
                   <div className="memori--privacy-tooltip-content">
                     <p>

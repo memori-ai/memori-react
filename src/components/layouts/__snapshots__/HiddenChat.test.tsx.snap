@@ -377,10 +377,10 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                     Le conversazioni sono visibili all'autore dell'agente
                   </p>
                   <div
-                    class="memori-tooltip memori-tooltip--align-right"
+                    class="memori-tooltip memori-tooltip--align-topLeft"
                   >
                     <div
-                      class="memori-tooltip--content"
+                      class="memori-tooltip--content memori-tooltip--content-inline"
                     >
                       <div
                         class="memori--privacy-tooltip-content"
