@@ -15,11 +15,6 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
           class="memori-tooltip memori-tooltip--align-left"
         >
           <div
-            class="memori-tooltip--content memori-tooltip--content-inline"
-          >
-            boardOfExperts
-          </div>
-          <div
             class="memori-tooltip--trigger"
           >
             <span
@@ -90,35 +85,6 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
         <div
           class="memori-tooltip memori-tooltip--align-topLeft"
         >
-          <div
-            class="memori-tooltip--content memori-tooltip--content-inline"
-          >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
           <div
             class="memori-tooltip--trigger"
           >
@@ -240,35 +206,6 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
           class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content memori-tooltip--content-inline"
-          >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
-          <div
             class="memori-tooltip--trigger"
           >
             <svg
@@ -388,35 +325,6 @@ exports[`renders StartPanel unchanged 1`] = `
         <div
           class="memori-tooltip memori-tooltip--align-topLeft"
         >
-          <div
-            class="memori-tooltip--content memori-tooltip--content-inline"
-          >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
           <div
             class="memori-tooltip--trigger"
           >
@@ -538,35 +446,6 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
           class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content memori-tooltip--content-inline"
-          >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
-          <div
             class="memori-tooltip--trigger"
           >
             <svg
@@ -605,24 +484,6 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
       <div
         class="memori-tooltip memori-tooltip--align-right memori--completion-provider-status--tooltip"
       >
-        <div
-          class="memori-tooltip--content memori-tooltip--content-inline"
-        >
-          <div>
-            <p>
-              completionProviderMajorOutage
-            </p>
-            <p>
-              <a
-                href="https://status.openai.com/"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                completionProviderCheckStatusPage
-              </a>
-            </p>
-          </div>
-        </div>
         <div
           class="memori-tooltip--trigger"
         >
@@ -706,35 +567,6 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
         <div
           class="memori-tooltip memori-tooltip--align-topLeft"
         >
-          <div
-            class="memori-tooltip--content memori-tooltip--content-inline"
-          >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
           <div
             class="memori-tooltip--trigger"
           >
@@ -856,35 +688,6 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
           class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content memori-tooltip--content-inline"
-          >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
-          <div
             class="memori-tooltip--trigger"
           >
             <svg
@@ -955,11 +758,6 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
         <div
           class="memori-tooltip memori-tooltip--align-left"
         >
-          <div
-            class="memori-tooltip--content memori-tooltip--content-inline"
-          >
-            deepThoughtHelper
-          </div>
           <div
             class="memori-tooltip--trigger"
           >
@@ -1074,35 +872,6 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
           class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content memori-tooltip--content-inline"
-          >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndUsername
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
-          <div
             class="memori-tooltip--trigger"
           >
             <svg
@@ -1173,11 +942,6 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
         <div
           class="memori-tooltip memori-tooltip--align-left"
         >
-          <div
-            class="memori-tooltip--content memori-tooltip--content-inline"
-          >
-            deepThoughtHelper
-          </div>
           <div
             class="memori-tooltip--trigger"
           >
@@ -1285,35 +1049,6 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
           class="memori-tooltip memori-tooltip--align-topLeft"
         >
           <div
-            class="memori-tooltip--content memori-tooltip--content-inline"
-          >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndUsername
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
-          <div
             class="memori-tooltip--trigger"
           >
             <svg
@@ -1384,11 +1119,6 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
         <div
           class="memori-tooltip memori-tooltip--align-left"
         >
-          <div
-            class="memori-tooltip--content memori-tooltip--content-inline"
-          >
-            deepThoughtHelper
-          </div>
           <div
             class="memori-tooltip--trigger"
           >
@@ -1492,35 +1222,6 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
         <div
           class="memori-tooltip memori-tooltip--align-topLeft"
         >
-          <div
-            class="memori-tooltip--content memori-tooltip--content-inline"
-          >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
           <div
             class="memori-tooltip--trigger"
           >
@@ -1641,35 +1342,6 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
         <div
           class="memori-tooltip memori-tooltip--align-topLeft"
         >
-          <div
-            class="memori-tooltip--content memori-tooltip--content-inline"
-          >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
           <div
             class="memori-tooltip--trigger"
           >
@@ -2031,35 +1703,6 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
         <div
           class="memori-tooltip memori-tooltip--align-topLeft"
         >
-          <div
-            class="memori-tooltip--content memori-tooltip--content-inline"
-          >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
           <div
             class="memori-tooltip--trigger"
           >

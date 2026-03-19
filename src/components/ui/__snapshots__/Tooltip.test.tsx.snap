@@ -6,11 +6,6 @@ exports[`renders Tooltip aligned left unchanged 1`] = `
     class="memori-tooltip memori-tooltip--align-left memori-tooltip--visible memori-tooltip--portal-open"
   >
     <div
-      class="memori-tooltip--content memori-tooltip--content-inline"
-    >
-      Here is some tooltip content by default as I am controlled
-    </div>
-    <div
       class="memori-tooltip--trigger"
     >
       Hover me
@@ -24,11 +19,6 @@ exports[`renders Tooltip aligned right unchanged 1`] = `
   <div
     class="memori-tooltip memori-tooltip--align-right memori-tooltip--visible memori-tooltip--portal-open"
   >
-    <div
-      class="memori-tooltip--content memori-tooltip--content-inline"
-    >
-      Here is some tooltip content by default as I am controlled
-    </div>
     <div
       class="memori-tooltip--trigger"
     >
@@ -44,11 +34,6 @@ exports[`renders Tooltip aligned top left unchanged 1`] = `
     class="memori-tooltip memori-tooltip--align-topLeft memori-tooltip--visible memori-tooltip--portal-open"
   >
     <div
-      class="memori-tooltip--content memori-tooltip--content-inline"
-    >
-      Here is some tooltip content by default as I am controlled
-    </div>
-    <div
       class="memori-tooltip--trigger"
     >
       Hover me
@@ -62,11 +47,6 @@ exports[`renders Tooltip aligned top right unchanged 1`] = `
   <div
     class="memori-tooltip memori-tooltip--align-topRight memori-tooltip--visible memori-tooltip--portal-open"
   >
-    <div
-      class="memori-tooltip--content memori-tooltip--content-inline"
-    >
-      Here is some tooltip content by default as I am controlled
-    </div>
     <div
       class="memori-tooltip--trigger"
     >
@@ -82,11 +62,6 @@ exports[`renders Tooltip disabled unchanged 1`] = `
     class="memori-tooltip memori-tooltip--align-right memori-tooltip--disabled"
   >
     <div
-      class="memori-tooltip--content memori-tooltip--content-inline"
-    >
-      Here is some tooltip content but I am disabled
-    </div>
-    <div
       class="memori-tooltip--trigger"
     >
       Hover me
@@ -100,11 +75,6 @@ exports[`renders Tooltip unchanged 1`] = `
   <div
     class="memori-tooltip memori-tooltip--align-right"
   >
-    <div
-      class="memori-tooltip--content memori-tooltip--content-inline"
-    >
-      Here is some tooltip content
-    </div>
     <div
       class="memori-tooltip--trigger"
     >
@@ -120,11 +90,6 @@ exports[`renders Tooltip visible unchanged 1`] = `
     class="memori-tooltip memori-tooltip--align-right memori-tooltip--visible memori-tooltip--portal-open"
   >
     <div
-      class="memori-tooltip--content memori-tooltip--content-inline"
-    >
-      Here is some tooltip content by default as I am controlled
-    </div>
-    <div
       class="memori-tooltip--trigger"
     >
       Hover me
@@ -138,21 +103,6 @@ exports[`renders Tooltip with jsx content unchanged 1`] = `
   <div
     class="memori-tooltip memori-tooltip--align-right"
   >
-    <div
-      class="memori-tooltip--content memori-tooltip--content-inline"
-    >
-      <p>
-        Here we have some JSX, useful for
-        <a
-          href="https://memori.ai"
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          links
-        </a>
-        , for example.
-      </p>
-    </div>
     <div
       class="memori-tooltip--trigger"
     >

@@ -380,35 +380,6 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                     class="memori-tooltip memori-tooltip--align-topLeft"
                   >
                     <div
-                      class="memori-tooltip--content memori-tooltip--content-inline"
-                    >
-                      <div
-                        class="memori--privacy-tooltip-content"
-                      >
-                        <p>
-                           
-                          Tutte le conversazioni con questo agente sono visibili all'autore dell'agente
-                        </p>
-                        <ul
-                          class="memori--privacy-tooltip-content-list"
-                        >
-                          <li>
-                            L'autore può vedere il contenuto e il tuo indirizzo IP
-                          </li>
-                        </ul>
-                        <p>
-                          L'autore utilizza queste informazioni per migliorare le funzionalità dell'agente. Continuando, accetti queste condizioni.
-                        </p>
-                        <a
-                          href="https://memori.ai/en/privacy-policy"
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
-                          Informativa sulla privacy
-                        </a>
-                      </div>
-                    </div>
-                    <div
                       class="memori-tooltip--trigger"
                     >
                       <svg

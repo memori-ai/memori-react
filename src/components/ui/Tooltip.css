@@ -103,8 +103,8 @@
     .memori-tooltip--content,
 .memori-tooltip.memori-tooltip--align-topLeft:not(.memori-tooltip--disabled):not(.memori-tooltip--visible):hover
     .memori-tooltip--content {
-        transform: translateY(-110%) translateX(25%);
         z-index: 1000001;
+        transform: translateY(-110%) translateX(25%);
 }
 
 .memori-tooltip:not(.memori-tooltip--disabled).memori-tooltip--visible .memori-tooltip--content a,
