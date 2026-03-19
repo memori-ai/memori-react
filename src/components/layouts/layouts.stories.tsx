@@ -4,7 +4,7 @@ import { memori, tenant, integration } from '../../mocks/data';
 import { LayoutProps, Props } from '../MemoriWidget/MemoriWidget';
 import Memori from '../../index';
 import I18nWrapper from '../../I18nWrapper';
-import Spin from '../ui/Spin';
+import { Spin } from '@memori.ai/ui';
 import { VisemeProvider } from '../../context/visemeContext';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 

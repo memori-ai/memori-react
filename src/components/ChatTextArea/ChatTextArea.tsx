@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
-import Button from '../ui/Button';
-import Expand from '../icons/Expand';
-import FullscreenExit from '../icons/FullscreenExit';
+import { Button } from '@memori.ai/ui';
+import { Maximize2, Minimize } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { isMobileOrTablet } from '../../helpers/utils';
 

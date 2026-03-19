@@ -8,6 +8,7 @@
   "hide": "Cacher",
   "send": "Envoyer",
   "close": "Fermer",
+  "back": "Retour",
   "edit": "Modifier",
   "delete": "Supprimer",
   "loading": "Chargement",
@@ -308,6 +309,7 @@
   },
   "login": {
     "login": "Se connecter",
+    "title": "Se connecter à votre compte",
     "logout": "Déconnexion",
     "user": "Utilisateur",
     "loggedDrawerTitle": "Salut, {{name}}!",

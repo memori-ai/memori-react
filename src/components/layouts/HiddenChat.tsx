@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Spin from '../ui/Spin';
+import { Spin } from '@memori.ai/ui';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { useTranslation } from 'react-i18next';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
-import QuestionHelp from '../icons/QuestionHelp';
-import Close from '../icons/Close';
+import { HelpCircle, X } from 'lucide-react';
 
 const HiddenChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -51,10 +50,13 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
 
   useEffect(() => {
     const mainDiv = document.body;
+    const widgetEl = document.querySelector('.memori-widget');
+    const sidebarWidth =
+      (widgetEl && getComputedStyle(widgetEl).getPropertyValue('--memori-modal-size-sm')?.trim()) || '350px';
     if (isOpen) {
       if (!fullScreen) {
-        mainDiv.style.width = 'calc(100% - 350px)';
-        mainDiv.style.marginRight = '300px';
+        mainDiv.style.width = `calc(100% - ${sidebarWidth})`;
+        mainDiv.style.marginRight = sidebarWidth;
         mainDiv.style.transition = 'all 0.5s';
       } else {
         mainDiv.style.width = '100%';
@@ -178,7 +180,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
           htmlFor="memori-sidebar-toggle"
           className="memori-sidebar-toggle-label memori-open-label"
         >
-          <QuestionHelp className="memori-icon" aria-label={t('expand')} />
+          <HelpCircle className="memori-icon" aria-label={t('expand') ?? undefined} />
         </label>
         
         <aside
@@ -191,7 +193,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
             className="memori-sidebar-toggle-label memori-close-label"
           >
             <span>
-              <Close className="memori-icon-close" aria-label={t('collapse')} />
+              <X className="memori-icon-close" aria-label={t('collapse') ?? undefined} />
             </span>
           </label>
           <div className="memori-sidebar-content">
@@ -220,7 +222,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
               </div>
             ) : (
               <div className="memori-loading">
-                <Spin />
+                <Spin spinning />
               </div>
             )}
           </div>

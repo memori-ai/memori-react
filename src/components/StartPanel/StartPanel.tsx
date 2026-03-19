@@ -4,25 +4,26 @@ import {
   Venue,
   User,
 } from '@memori.ai/memori-api-client/src/types';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { getResourceUrl } from '../../helpers/media';
 import { useTranslation } from 'react-i18next';
-import Tooltip from '../ui/Tooltip';
+import { SelectBox, Tooltip } from '@memori.ai/ui';
 import { getTranslation } from '../../helpers/translations';
-import Button from '../ui/Button';
-import Translation from '../icons/Translation';
+import { Button } from '@memori.ai/ui';
+import {
+  Languages,
+  Users,
+  Brain,
+  MapPin,
+  User as UserIconLucide,
+  HelpCircle,
+} from 'lucide-react';
 import { getGroupedChatLanguages } from '../../helpers/constants';
 import BlockedMemoriBadge from '../BlockedMemoriBadge/BlockedMemoriBadge';
-import AI from '../icons/AI';
-import Group from '../icons/Group';
-import DeepThought from '../icons/DeepThought';
 import CompletionProviderStatus, {
   Props as CPSProps,
 } from '../CompletionProviderStatus/CompletionProviderStatus';
-import MapMarker from '../icons/MapMarker';
-import UserIcon from '../icons/User';
-import QuestionHelp from '../icons/QuestionHelp';
-import Expandable from '../ui/Expandable';
+import { Expandable } from '@memori.ai/ui';
 
 interface Memori extends MemoriOriginal {
   requireLoginToken?: boolean;
@@ -87,6 +88,11 @@ const StartPanel: React.FC<Props> = ({
     setShowTranslation(show => !show);
   };
 
+  const allChatLanguages = useMemo(() => {
+    const { popular, all } = getGroupedChatLanguages();
+    return [...popular, ...all];
+  }, []);
+
   useEffect(() => {
     if (
       ((i18n.language?.toUpperCase() ?? 'IT') !==
@@ -130,7 +136,7 @@ const StartPanel: React.FC<Props> = ({
           <div className="memori--board-of-experts">
             <Tooltip align="left" content={t('boardOfExperts')}>
               <span aria-label={t('boardOfExperts') || 'Board of Experts'}>
-                <Group />
+                <Users />
               </span>
             </Tooltip>
           </div>
@@ -183,10 +189,9 @@ const StartPanel: React.FC<Props> = ({
             {t('write_and_speak.requirePositionHelp', { name: memori.name })}
           </p>
           <Button
-            primary
+            variant="primary"
             onClick={() => openPositionDrawer()}
-            className="memori--start-button"
-            icon={<MapMarker />}
+            icon={<MapPin />}
           >
             {t('widget.position')}
           </Button>
@@ -200,10 +205,9 @@ const StartPanel: React.FC<Props> = ({
               {t('write_and_speak.requirePositionHelp', { name: memori.name })}
             </p>
             <Button
-              primary
+              variant="primary"
               onClick={() => setShowLoginDrawer(true)}
-              className="memori--start-button"
-              icon={<UserIcon />}
+              icon={<UserIconLucide />}
             >
               {t('login.login') || 'Login'}
             </Button>
@@ -213,7 +217,7 @@ const StartPanel: React.FC<Props> = ({
         (!memori.requireLoginToken ||
           (memori.requireLoginToken && isUserLoggedIn)) && (
           <div className="memori--description">
-            <p>
+            <p style={{marginTop: 0}}>
               <Expandable className="memori--description-text" rows={3}>
                 {translatedDescription && showTranslation
                   ? translatedDescription
@@ -222,9 +226,8 @@ const StartPanel: React.FC<Props> = ({
 
               {translatedDescription !== memori.description && (
                 <Button
-                  ghost
-                  className="memori--translation-toggle"
-                  icon={<Translation />}
+                  variant="ghost"
+                  icon={<Languages />}
                   onClick={() => toggleTranslations()}
                 >
                   {showTranslation
@@ -241,38 +244,27 @@ const StartPanel: React.FC<Props> = ({
                     name: memori.name,
                   })}
                 </label>
-                <select
-                  id="user-lang-pref"
-                  className="memori-select--button"
-                  value={(userLang ?? i18n.language).toUpperCase()}
-                  aria-labelledby="user-lang-pref-label"
-                  onChange={e => {
-                    setUserLang(e.target.value);
+                <SelectBox
+                  name="user-lang-pref"
+                  className="memori-select--language-chooser"
+                  value={userLang ?? i18n.language}
+                  displayValue={<span>{`${allChatLanguages.find(
+                      lang => lang.value === (userLang ?? i18n.language ?? 'EN')
+                    )?.label ?? (userLang ?? i18n.language ?? 'EN')}`}</span>}
+                  onChange={(value: string | null) => {
+                    if (value) {
+                      setUserLang(value);
+                    }
                   }}
-                >
-                  <optgroup label={t('popularLanguages') || 'Popular'}>
-                    {getGroupedChatLanguages().popular.map(lang => (
-                      <option
-                        key={`popular-${lang.value}`}
-                        value={lang.value}
-                        aria-label={lang.label}
-                      >
-                        {lang.label}
-                      </option>
-                    ))}
-                  </optgroup>
-                  <optgroup label={t('allLanguages') || 'All Languages'}>
-                    {getGroupedChatLanguages().all.map(lang => (
-                      <option
-                        key={`all-${lang.value}`}
-                        value={lang.value}
-                        aria-label={lang.label}
-                      >
-                        {lang.label}
-                      </option>
-                    ))}
-                  </optgroup>
-                </select>
+                  placeholder={
+                    t('write_and_speak.iWantToTalkToIn') ||
+                    'I want to talk to Memori in'
+                  }
+                  options={allChatLanguages.map(lang => ({
+                    label: lang.label,
+                    value: lang.value,
+                  }))}
+                />
               </div>
             )}
 
@@ -324,17 +316,17 @@ const StartPanel: React.FC<Props> = ({
                   </div>
                 }
               >
-                <QuestionHelp className="memori--start-privacy-explanation-icon" />
+                <HelpCircle className="memori--start-privacy-explanation-icon" />
               </Tooltip>
             </div>
 
             <Button
-              primary
+              variant="primary"
               disabled={
                 (!!memori.blockedUntil && !memori.isGiver) || notEnoughCredits
               }
               loading={clickedStart}
-              onClick={_e => {
+              onClick={(_e: React.MouseEvent<HTMLButtonElement>) => {
                 try {
                   window.speechSynthesis.speak(
                     new SpeechSynthesisUtterance('') // This is needed to enable the speech synthesis on iOS
@@ -384,7 +376,7 @@ const StartPanel: React.FC<Props> = ({
             {!!memori.enableDeepThought && !instruct && (
               <div className="memori--deep-thought-disclaimer">
                 <Tooltip align="left" content={t('deepThoughtHelper')}>
-                  <DeepThought />
+                  <Brain />
                 </Tooltip>
                 <h2>
                   {isUserLoggedIn && !!user?.pAndCUAccepted
@@ -400,8 +392,7 @@ const StartPanel: React.FC<Props> = ({
                 {!isUserLoggedIn && showLogin && (
                   <p>
                     <Button
-                      outlined
-                      padded={false}
+                      variant="outline"
                       onClick={() => setShowLoginDrawer(true)}
                     >
                       {t('login.login') || 'Login'}

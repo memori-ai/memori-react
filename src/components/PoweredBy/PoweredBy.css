@@ -7,10 +7,10 @@
     flex-wrap: nowrap;
     align-items: center;
     padding: 0.25rem 1rem;
-    border-radius: 10px;
-    background-color: var(--memori-inner-bg, transparent);
+    border-radius: var(--memori-radius-box);
+    background-color: transparent;
     box-shadow: var(--memori-button-box-shadow);
-    color: var(--memori-text-color, rgba(0, 0, 0, 0.85)) !important;
+    color: var(--memori-text-color) !important;
     font-size: 0.7em;
     white-space: nowrap;
 }
@@ -31,17 +31,17 @@
 .memori--powered-by p {
     margin-top: 0;
     margin-bottom: 0;
-    color: var(--memori-text-color, rgba(0, 0, 0, 0.85)) !important;
+    color: var(--memori-text-color) !important;
 }
 
 .memori--powered-by a {
-    color: var(--memori-text-color, rgba(0, 0, 0, 0.85)) !important;
+    color: var(--memori-text-color) !important;
     text-decoration: underline;
 }
 
 .memori--powered-by a:hover,
 .memori--powered-by a:focus {
-    color: var(--memori-text-color, rgba(0, 0, 0, 0.85)) !important;
+    color: var(--memori-text-color) !important;
     opacity: 0.8;
     text-decoration: underline;
 }

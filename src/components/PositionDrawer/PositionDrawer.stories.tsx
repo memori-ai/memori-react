@@ -4,6 +4,7 @@ import I18nWrapper from '../../I18nWrapper';
 import PositionDrawer, { Props } from './PositionDrawer';
 import { Venue } from '@memori.ai/memori-api-client/dist/types';
 import { venue, memori } from '../../mocks/data';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
   title: 'Widget/PositionDrawer',
@@ -27,12 +28,14 @@ const Template: Story<Props> = args => {
 
   return (
     <I18nWrapper>
+      <AlertProvider defaultDuration={5000}>
       <PositionDrawer
         {...args}
         memori={memori}
         venue={venue}
         setVenue={setVenue}
       />
+      </AlertProvider>
     </I18nWrapper>
   );
 };

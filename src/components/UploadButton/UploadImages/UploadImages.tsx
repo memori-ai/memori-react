@@ -1,13 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
-import Spin from '../../ui/Spin';
-import Alert from '../../ui/Alert';
-import { ImageIcon } from '../../icons/Image';
-import Modal from '../../ui/Modal';
+import { Spin } from '@memori.ai/ui';
+import { Image as ImageIcon } from 'lucide-react';
+import { Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { Asset, Medium } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
-import Button from '../../ui/Button';
+import { Button } from '@memori.ai/ui';
 import { compressImage } from '../../../helpers/imageCompression';
 
 // Types
@@ -469,39 +468,29 @@ const UploadImages: React.FC<UploadImagesProps> = ({
 
       {/* Upload Modal with Title Input */}
       <Modal
-        width="80%"
-        widthMd="80%"
+      
         open={showUploadModal && !!selectedFile}
-        className="memori--modal-preview-file"
+        className="memori--modal-preview-file memori--upload-image-preview-modal"
         onClose={handleCancelUpload}
         closable
         // title={t('upload.titleImage', { title: imageTitle })}
         // description={t('upload.imageTitleDescription')}
       >
-        <div
-          className="memori--preview-content"
-          style={{
-            maxHeight: '70vh',
-            overflowY: 'auto',
-            textAlign: 'center',
-          }}
-        >
+        <div className="memori--preview-content memori--upload-image-preview-content">
           {filePreview && (
-            <img
-              src={filePreview}
-              alt={selectedFile?.name || 'Preview'}
-              style={{
-                maxWidth: '100%',
-                maxHeight: '40vh',
-                marginBottom: '20px',
-              }}
-            />
+            <div className="memori--upload-image-preview-frame">
+              <img
+                src={filePreview}
+                alt={selectedFile?.name || 'Preview'}
+                className="memori--upload-image-preview"
+              />
+            </div>
           )}
 
           <div
             style={{ maxWidth: '400px', margin: '0 auto', textAlign: 'left' }}
           >
-            <p style={{ marginBottom: '10px', color: '#666' }}>
+            <p style={{ marginBottom: '10px', color: 'var(--memori-text-color)' }}>
               {t('upload.titleHelp')}
             </p>
             <input
@@ -511,7 +500,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
               style={{ width: '90%', marginBottom: '20px' }}
               className="memori--upload-title-input"
             />
-            <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', alignItems: 'center' }}>
+            <div style={{ display: 'flex', gap: 'var(--memori-spacing-sm)', justifyContent: 'center', alignItems: 'center' }}>
             <Button
                 onClick={handleCancelUpload}
                 className="memori-button memori-button--outline memori--upload-image"

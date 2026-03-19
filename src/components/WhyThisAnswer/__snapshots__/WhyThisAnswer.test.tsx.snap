@@ -1,11 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders WhyThisAnswer hidden unchanged 1`] = `<div />`;
+exports[`renders WhyThisAnswer hidden unchanged 1`] = `
+<div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
 
 exports[`renders WhyThisAnswer loading unchanged 1`] = `
 <div>
   <div
-    style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
   />
 </div>
 `;
@@ -13,7 +31,13 @@ exports[`renders WhyThisAnswer loading unchanged 1`] = `
 exports[`renders WhyThisAnswer visible unchanged 1`] = `
 <div>
   <div
-    style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
   />
 </div>
 `;
@@ -21,7 +45,13 @@ exports[`renders WhyThisAnswer visible unchanged 1`] = `
 exports[`renders WhyThisAnswer with data unchanged 1`] = `
 <div>
   <div
-    style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
   />
 </div>
 `;

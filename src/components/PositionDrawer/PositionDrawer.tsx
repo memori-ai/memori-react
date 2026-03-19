@@ -1,6 +1,6 @@
 import React from 'react';
 import { Memori, Venue } from '@memori.ai/memori-api-client/dist/types';
-import Drawer from '../ui/Drawer';
+import { Drawer } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import VenueWidget from '../VenueWidget/VenueWidget';
@@ -31,7 +31,7 @@ const PositionDrawer = ({
       open={open}
       onClose={() => onClose(venue)}
       title={t('widget.position') || 'Position'}
-      animated={false}
+      size="md"
     >
       <p>{t('write_and_speak.requirePositionHelp', { name: memori.name })}</p>
       <VenueWidget

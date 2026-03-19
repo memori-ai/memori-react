@@ -1,11 +1,8 @@
 import React, { useEffect, useState, useMemo, useCallback, memo } from 'react';
 import { useArtifact } from '../../context/ArtifactContext';
 import { ArtifactData } from '../../types/artifact.types';
-import ChevronRight from '../../../icons/ChevronRight';
+import { ChevronRight, ChevronDown, ChevronLeft, ChevronUp } from 'lucide-react';
 import ArtifactDrawer from '../ArtifactDrawer/ArtifactDrawer';
-import ChevronDown from '../../../icons/ChevronDown';
-import ChevronLeft from '../../../icons/ChevronLeft';
-import ChevronUp from '../../../icons/ChevronUp';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
 import { stripOutputTags, stripReasoningTags } from '../../../../helpers/utils';
 
@@ -152,7 +149,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
   if (artifacts.length === 0) return null;
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '90%', width: '90%', marginTop: 'var(--memori-spacing-xl)' }}>
       {artifacts.map((artifact) => {
         const isSelected = state.isDrawerOpen && state.currentArtifact?.id === artifact.id;
         
@@ -162,7 +159,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
               className={`memori-artifact-handler${isSelected ? ' memori-artifact-handler--selected' : ''}`}
               onClick={() => handleArtifactClick(artifact)}
               style={isSelected ? {
-                border: '2px solid var(--memori-primary, #3b82f6)',
+                border: '2px solid var(--memori-primary)',
                 boxShadow: '0 0 0 3px rgba(59, 130, 246, 0.1)',
               } : undefined}
             >

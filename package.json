@@ -43,10 +43,10 @@
     "clean": "rimraf dist esm",
     "copy-files:cjs": "copyfiles -u 1 src/**/*.css dist/",
     "copy-files:esm": "copyfiles -u 1 src/**/*.css esm/",
-    "cleanup-test:cjs": "find dist -name \\*.test.\\* -type f | xargs -n1 rm",
-    "cleanup-stories:cjs": "find dist -name \\*.stories.\\* -type f | xargs -n1 rm",
-    "cleanup-test:esm": "find esm -name \\*.test.\\* -type f | xargs -n1 rm",
-    "cleanup-stories:esm": "find esm -name \\*.stories.\\* -type f | xargs -n1 rm",
+    "cleanup-test:cjs": "find dist -name '*.test.*' -type f -delete",
+    "cleanup-stories:cjs": "find dist -name '*.stories.*' -type f -delete",
+    "cleanup-test:esm": "find esm -name '*.test.*' -type f -delete",
+    "cleanup-stories:esm": "find esm -name '*.stories.*' -type f -delete",
     "cleanup-mocks": "rimraf dist/mocks esm/mocks",
     "cleanup": "yarn cleanup-test:cjs && yarn cleanup-stories:cjs && yarn cleanup-test:esm && yarn cleanup-stories:esm && yarn cleanup-mocks",
     "copy-files": "yarn copy-files:cjs && yarn copy-files:esm",
@@ -95,6 +95,10 @@
         }
       }
     ]
+  },
+  "resolutions": {
+    "eslint-scope": "5.1.1",
+    "esbuild": "^0.24.0"
   },
   "eslintIgnore": [
     "/node_modules",
@@ -249,8 +253,8 @@
     "@types/react": "18.0.25",
     "@types/react-dom": "18.0.9",
     "@types/three": "0.144.0",
-    "@typescript-eslint/eslint-plugin": "5.45.1",
-    "@typescript-eslint/parser": "5.45.1",
+    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/parser": "^6.21.0",
     "autoprefixer": "10.4.13",
     "babel-jest": "29.3.1",
     "babel-loader": "9.1.0",
@@ -284,17 +288,18 @@
     "stylelint-config-idiomatic-order": "9.0.0",
     "stylelint-config-prettier": "9.0.4",
     "stylelint-config-recommended": "9.0.0",
-    "ts-jest": "29.0.3",
+    "ts-jest": "^29.2.0",
     "tslib": "2.4.1",
-    "typescript": "4.9.3"
+    "typescript": "^5.0.0"
   },
   "peerDependencies": {
     "react": ">=16",
     "typescript": ">=4.8"
   },
   "dependencies": {
-    "@headlessui/react": "1.7.4",
+    "@base-ui/react": "^1.0.0",
     "@memori.ai/memori-api-client": "6.20.0",
+    "@memori.ai/ui": "^1.6.2",
     "@react-three/drei": "8.20.2",
     "@react-three/fiber": "7.0.25",
     "classnames": "2.5.1",
@@ -304,13 +309,13 @@
     "katex": "^0.16.11",
     "leaflet": "^1.9.4",
     "lil-gui": "^0.19.2",
+    "lucide-react": "^0.460.0",
     "luxon": "^3.5.0",
     "marked": "^15.0.2",
     "marked-katex-extension": "^5.1.3",
     "marked-linkify-it": "^3.1.12",
     "qrcode.react": "3.1.0",
     "react-hook-form": "7.39.5",
-    "react-hot-toast": "^2.4.1",
     "react-i18next": "12.0.0",
     "react-leaflet": "^4.2.1",
     "standardized-audio-context": "25.3.34",

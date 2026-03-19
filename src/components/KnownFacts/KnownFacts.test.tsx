@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render } from '../../testUtils';
 import KnownFacts from './KnownFacts';
 import { knownFact, memori, sessionID } from '../../mocks/data';
 import memoriApiClient from '@memori.ai/memori-api-client';

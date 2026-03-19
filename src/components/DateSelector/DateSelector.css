@@ -31,44 +31,44 @@
 .memori--date-selector__mobile-label {
     display: block;
     width: 100%;
-    margin-bottom: 0.5rem;
-    color: #374151;
+    margin-bottom: var(--memori-spacing-sm);
+    color: var(--memori-text-color);
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: var(--memori-text-weight-medium);
     text-align: left;
 }
 
 .memori--date-selector__mobile-input {
     width: 100%;
     max-width: 100%;
-    min-height: 48px;
+    min-height: var(--memori-spacing-3xl);
     box-sizing: border-box;
-    padding: 0.875rem 1rem;
+    padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs)) var(--memori-spacing-lg);
     border: 1px solid #e5e7eb;
-    border-radius: 0.5rem;
+    border-radius: var(--memori-radius-box);
     -webkit-appearance: none;
     appearance: none;
     background: #ffffff;
     /* Touch-friendly */
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    color: #1f2937;
-    font-size: 1rem;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-base);
     transition: all 0.2s ease;
 }
 
 .memori--date-selector__mobile-input:focus {
-    border-color: var(--memori-primary, #9333ea);
+    border-color: var(--memori-primary);
     box-shadow: 0 0 0 3px rgba(147, 51, 234, 0.1);
     outline: none;
 }
 
 .memori--date-selector__mobile-input:active {
-    border-color: var(--memori-primary, #9333ea);
+    border-color: var(--memori-primary);
 }
 
 .memori--date-selector__mobile-input:disabled {
     background-color: #f9fafb;
-    color: #9ca3af;
+    color: var(--memori-text-color);
     cursor: not-allowed;
     opacity: 0.6;
 }
@@ -78,12 +78,12 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 1rem;
+    gap: var(--memori-spacing-md);
 }
 
 .memori--date-selector__input-group {
     display: flex;
-    min-width: 80px;
+    min-width: var(--memori-spacing-5xl);
     /* flex: 1; */
     flex-direction: column;
 }
@@ -95,9 +95,9 @@
 .memori--date-selector__label {
     display: inline-block;
     margin-bottom: 0.5rem;
-    color: #4b5563;
-    font-size: 0.875rem;
-    font-weight: 500;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-small);
+    font-weight: var(--memori-text-weight-medium);
     letter-spacing: 0.01em;
 }
 
@@ -105,12 +105,12 @@
     width: 100%;
     padding: 0.75rem 1rem;
     border: 2px solid #e5e7eb;
-    border-radius: 0.75rem;
+    border-radius: var(--memori-radius-box);
     -moz-appearance: textfield;
     appearance: textfield;
     /* Remove spinner buttons */
     background: #ffffff;
-    color: #1f2937;
+    color: var(--memori-text-color);
     font-size: 0.95rem;
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -123,7 +123,7 @@
 
 .memori--date-selector__input:focus {
     border-color: var(--memori-primary);
-  box-shadow: 0 0 0 4px rgba(var(--memori-primary-rgb), 0.1);
+  box-shadow: 0 0 0 4px color-mix(in oklch, var(--memori-primary), transparent 90%);
     outline: none;
     transform: translateY(-1px);
 }
@@ -131,13 +131,13 @@
 .memori--date-selector__input:disabled {
     border-color: #e5e7eb;
     background: #f9fafb;
-    color: #9ca3af;
+    color: var(--memori-text-color);
     cursor: not-allowed;
     opacity: 0.6;
 }
 
 .memori--date-selector__input::placeholder {
-    color: #9ca3af;
+    color: var(--memori-text-color);
 }
 
 /* Responsive adjustments */
@@ -153,6 +153,6 @@
 
     .memori--date-selector__mobile-input {
         min-height: 44px;
-        font-size: 16px; /* Prevents zoom on iOS */
+        font-size: var(--memori-text-size-base); /* Prevents zoom on iOS */
     }
 }

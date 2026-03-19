@@ -2,23 +2,28 @@
  * CopyButtonWithDropdown - Main component with dropdown menu
  * Similar to Claude's copy system with format-specific options using headless-ui
  */
+/* eslint-disable react/prop-types -- props validated by CopyButtonWithDropdownProps (TypeScript) */
 
 import React, { useRef, useEffect, useCallback } from 'react';
-import { Menu, Transition } from '@headlessui/react';
 import cx from 'classnames';
 import { CopyButtonWithDropdownProps, CopyFormat } from '../types';
 import { useCopyArtifact } from '../hooks/useCopyArtifact';
 import CopyMenuItem from './CopyMenuItem';
-import Button from '../../../../ui/Button';
-import Copy from '../../../../icons/Copy';
-import ChevronDown from '../../../../icons/ChevronDown';
-import ThumbUp from '../../../../icons/ThumbUp';
-import Alert from '../../../../icons/Alert';
+import { Button, Dropdown } from '@memori.ai/ui';
+import {
+  Copy,
+  ChevronDown,
+  ThumbsUp,
+  AlertTriangle,
+  Link as LinkIcon,
+  Printer,
+  Download,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import Link from '../../../../icons/Link';
-import PrintIcon from '../../../../icons/Print';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
+import { ArtifactData } from '../../../types/artifact.types';
+
 
 const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
   artifact,
@@ -127,7 +132,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
     if (copyState.success) {
       return (
         <>
-          <ThumbUp className="memori-copy-button-icon memori-copy-button-icon--success" />
+          <ThumbsUp className="memori-copy-button-icon memori-copy-button-icon--success" />
           <span className="memori-copy-button-text">
             {t('artifact.copied') || 'Copied!'}
           </span>
@@ -138,7 +143,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
     if (copyState.error) {
       return (
         <>
-          <Alert className="memori-copy-button-icon memori-copy-button-icon--error" />
+          <AlertTriangle className="memori-copy-button-icon memori-copy-button-icon--error" />
           <span className="memori-copy-button-text">
             {t('artifact.error') || 'Error'}
           </span>
@@ -243,17 +248,18 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${artifact.title || 'Artifact'}</title>
   <style>
+    :root { --memori-text-color: #333; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
       line-height: 1.6;
-      color: #333;
+      color: var(--memori-text-color);
       max-width: 800px;
       margin: 0 auto;
       padding: 20px;
       background-color: #fff;
     }
     h1, h2, h3, h4, h5, h6 {
-      color: #2c3e50;
+      color: var(--memori-text-color);
       margin-top: 1.5em;
       margin-bottom: 0.5em;
     }
@@ -262,13 +268,13 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
     code {
       background-color: #f4f4f4;
       padding: 2px 4px;
-      border-radius: 3px;
+      border-radius: .5rem;
       font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
     }
     pre {
       background-color: #f8f8f8;
       padding: 15px;
-      border-radius: 5px;
+      border-radius: .5rem;
       overflow-x: auto;
       border: 1px solid #e1e1e1;
     }
@@ -280,7 +286,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
       border-left: 4px solid #ddd;
       margin: 0;
       padding-left: 20px;
-      color: #666;
+      color: var(--memori-text-color);
     }
     table {
       border-collapse: collapse;
@@ -297,7 +303,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
       font-weight: 600;
     }
     a {
-      color: #007acc;
+      color: var(--memori-text-color);
       text-decoration: none;
     }
     a:hover {
@@ -382,7 +388,7 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
             },
             className
           )}
-          ghost
+          variant="ghost"
           title={getButtonTitle()}
         >
           {getButtonContent()}
@@ -390,74 +396,65 @@ const CopyButtonWithDropdown: React.FC<CopyButtonWithDropdownProps> = ({
 
         {/* Dropdown button (only show if multiple formats) */}
         {formats.length > 0 && (
-          <Menu as="div" className="memori-copy-menu-wrapper">
-            {() => (
-              <>
-                <Menu.Button as="div" className="memori-copy-button-trigger">
-                  <Button
-                    disabled={disabled || loading || copyState.loading}
-                    className="memori-copy-button--dropdown"
-                    ghost
-                    title="More copy options"
-                  >
-                    <ChevronDown className="memori-copy-button-chevron" />
-                  </Button>
-                </Menu.Button>
-
-                <Transition
-                  as={React.Fragment}
-                  enter="memori-copy-dropdown-enter"
-                  enterFrom="memori-copy-dropdown-enter-from"
-                  enterTo="memori-copy-dropdown-enter-to"
-                  leave="memori-copy-dropdown-leave"
-                  leaveFrom="memori-copy-dropdown-leave-from"
-                  leaveTo="memori-copy-dropdown-leave-to"
+          <Dropdown className="memori-copy-menu-wrapper">
+            <Dropdown.Trigger
+              showChevron={false}
+              className="memori-copy-button-trigger"
+              render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+                <Button
+                  {...props}
+                  disabled={disabled || loading || copyState.loading}
+                  className="memori-copy-button--dropdown"
+                  variant="ghost"
+                  title="More copy options"
                 >
-                  <Menu.Items className="memori-copy-dropdown">
-                    <div className="memori-copy-dropdown-content">
-                      <div className="memori-copy-dropdown-list">
-                        {formats.map(format => (
-                          <Menu.Item key={format.id}>
-                            {({ active }) => (
-                              <CopyMenuItem
-                                format={format}
-                                onClick={handleFormatSelect}
-                                loading={copyState.loading}
-                                active={active}
-                              />
-                            )}
-                          </Menu.Item>
-                        ))}
-                        <CopyMenuItem
-                          format={{
-                            id: 'external',
-                            label: t('artifact.external') || 'External',
-                            action: 'link',
-                            mimeType: artifact.mimeType,
-                          }}
-                          onClick={handleOpenExternal}
-                          loading={copyState.loading}
-                          active={false}
-                        />
-                        <CopyMenuItem
-                          format={{
-                            id: 'print',
-                            label: t('artifact.print') || 'Print',
-                            action: 'print',
-                            mimeType: artifact.mimeType,
-                          }}
-                          onClick={handlePrint}
-                          loading={copyState.loading}
-                          active={false}
-                        />
-
-                      </div>
-                    </div>
-                  </Menu.Items>
-                </Transition>
-              </>
-            )}
-          </Menu>
+                  <ChevronDown className="memori-copy-button-chevron" />
+                </Button>
+              )}
+            />
+            <Dropdown.Menu className="memori-copy-dropdown">
+              <div className="memori-copy-dropdown-content">
+                <div className="memori-copy-dropdown-list">
+                  {formats.map(format => (
+                    <Dropdown.Item key={format.id}>
+                      <CopyMenuItem
+                        format={format}
+                        onClick={handleFormatSelect}
+                        loading={copyState.loading}
+                        active={false}
+                      />
+                    </Dropdown.Item>
+                  ))}
+                  <Dropdown.Item>
+                    <CopyMenuItem
+                      format={{
+                        id: 'external',
+                        label: t('artifact.external') || 'External',
+                        action: 'link',
+                        mimeType: artifact.mimeType,
+                      }}
+                      onClick={handleOpenExternal}
+                      loading={copyState.loading}
+                      active={false}
+                    />
+                  </Dropdown.Item>
+                  <Dropdown.Item>
+                    <CopyMenuItem
+                      format={{
+                        id: 'print',
+                        label: t('artifact.print') || 'Print',
+                        action: 'print',
+                        mimeType: artifact.mimeType,
+                      }}
+                      onClick={handlePrint}
+                      loading={copyState.loading}
+                      active={false}
+                    />
+                  </Dropdown.Item>
+                </div>
+              </div>
+            </Dropdown.Menu>
+          </Dropdown>
         )}
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Spin from '../ui/Spin';
+import { Spin } from '@memori.ai/ui';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
@@ -20,7 +20,6 @@ const ChatLayout: React.FC<LayoutProps> = ({
 }) => {
   const { state } = useArtifact();
 
-
   return (
     <>
       {integrationStyle}
@@ -28,12 +27,6 @@ const ChatLayout: React.FC<LayoutProps> = ({
 
       <Spin spinning={loading} className="memori-chat-layout">
         {poweredBy}
-
-        <div className={`memori-chat-layout--header ${
-          state.isDrawerOpen ? 'memori-chat-layout--header-with-artifact' : ''
-        }`}>
-          {Header && headerProps && <Header {...headerProps} />}
-        </div>
 
         <div id="extension" />
 
@@ -53,6 +46,16 @@ const ChatLayout: React.FC<LayoutProps> = ({
                   }`
             }
           >
+            <div
+              className={`memori-chat-layout--header ${
+                state.isDrawerOpen
+                  ? 'memori-chat-layout--header-with-artifact'
+                  : ''
+              }`}
+            >
+              {Header && headerProps && <Header {...headerProps} />}
+            </div>
+
             {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
               <Chat {...chatProps} />
             ) : startPanelProps ? (
@@ -60,7 +63,6 @@ const ChatLayout: React.FC<LayoutProps> = ({
             ) : null}
           </div>
         </div>
-
       </Spin>
     </>
   );

@@ -6,8 +6,7 @@
 import React from 'react';
 import { ArtifactTab } from '../../../types/artifact.types';
 import cx from 'classnames';
-import Code from '../../../../icons/Code';
-import { PreviewIcon } from '../../../../icons/Preview';
+import { Code, Eye as PreviewIcon } from 'lucide-react';
 
 interface TabSwitchProps {
   activeTab: ArtifactTab;

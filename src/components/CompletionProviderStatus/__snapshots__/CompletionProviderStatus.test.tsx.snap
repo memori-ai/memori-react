@@ -6,24 +6,46 @@ exports[`renders CompletionProviderStatus errored unchanged 1`] = `
     class="memori-tooltip memori-tooltip--align-right memori--completion-provider-status--tooltip"
   >
     <div
+      class="memori-tooltip--content"
+    >
+      <div>
+        <p>
+          completionProviderMajorOutage
+        </p>
+        <p>
+          <a
+            href="https://status.anthropic.com/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            completionProviderCheckStatusPage
+          </a>
+        </p>
+      </div>
+    </div>
+    <div
       class="memori-tooltip--trigger"
     >
       <svg
-        aria-hidden="true"
-        class="memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
-        color="currentColor"
+        class="lucide lucide-triangle-alert memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
         fill="none"
-        height="800px"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
         viewBox="0 0 24 24"
-        width="800px"
+        width="24"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M12 16H12.01M12 8V12M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
+        />
+        <path
+          d="M12 9v4"
+        />
+        <path
+          d="M12 17h.01"
         />
       </svg>
     </div>
@@ -37,24 +59,46 @@ exports[`renders CompletionProviderStatus errored with provider specified unchan
     class="memori-tooltip memori-tooltip--align-right memori--completion-provider-status--tooltip"
   >
     <div
+      class="memori-tooltip--content"
+    >
+      <div>
+        <p>
+          completionProviderMajorOutage
+        </p>
+        <p>
+          <a
+            href="https://status.openai.com/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            completionProviderCheckStatusPage
+          </a>
+        </p>
+      </div>
+    </div>
+    <div
       class="memori-tooltip--trigger"
     >
       <svg
-        aria-hidden="true"
-        class="memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
-        color="currentColor"
+        class="lucide lucide-triangle-alert memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
         fill="none"
-        height="800px"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
         viewBox="0 0 24 24"
-        width="800px"
+        width="24"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M12 16H12.01M12 8V12M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
+        />
+        <path
+          d="M12 9v4"
+        />
+        <path
+          d="M12 17h.01"
         />
       </svg>
     </div>
@@ -68,24 +112,46 @@ exports[`renders CompletionProviderStatus unchanged 1`] = `
     class="memori-tooltip memori-tooltip--align-right memori--completion-provider-status--tooltip"
   >
     <div
+      class="memori-tooltip--content"
+    >
+      <div>
+        <p>
+          completionProviderMajorOutage
+        </p>
+        <p>
+          <a
+            href="https://status.anthropic.com/"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            completionProviderCheckStatusPage
+          </a>
+        </p>
+      </div>
+    </div>
+    <div
       class="memori-tooltip--trigger"
     >
       <svg
-        aria-hidden="true"
-        class="memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
-        color="currentColor"
+        class="lucide lucide-triangle-alert memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
         fill="none"
-        height="800px"
+        height="24"
+        stroke="currentColor"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
         viewBox="0 0 24 24"
-        width="800px"
+        width="24"
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
-          d="M12 16H12.01M12 8V12M12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3 16.9706 7.02944 21 12 21Z"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
+          d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
+        />
+        <path
+          d="M12 9v4"
+        />
+        <path
+          d="M12 17h.01"
         />
       </svg>
     </div>

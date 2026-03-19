@@ -13,7 +13,9 @@
 }
 
 .memori-chat-layout--header {
-    margin-bottom: 12px;
+    width: 100%;
+    flex-shrink: 0;
+    margin-bottom: var(--memori-spacing-sm);
     text-align: right;
     transition: all 0.05s ease-in-out;
 }
@@ -23,7 +25,7 @@
 }
 
 .memori-chat-layout .memori-header {
-    display: inline-block;
+    display: inline-flex;
     width: auto;
 }
 
@@ -63,11 +65,13 @@
 .memori-chat-layout--controls {
     position: relative;
     z-index: 5;
+    display: flex;
     overflow: hidden;
     min-width: 0;
     height: 100%;
     max-height: 100%;
     flex: 1;
+    flex-direction: column;
     /* padding-bottom: 1.5rem; */
     transition: all 0.05s ease-in-out;
 }
@@ -89,7 +93,7 @@
     flex: 0 0 50%;
     flex-direction: column;
     border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 12px;
+    border-radius: var(--memori-radius-box);
     backdrop-filter: blur(20px);
     background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(248, 250, 252, 0.8) 100%);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -140,7 +144,12 @@
 }
 
 .memori-chat-layout--controls .memori-chat--wrapper {
-    height: calc(100% - 1rem);
+    display: flex;
+    height: auto;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+    border-radius: 12px;
 }
 
 @media (max-width: 870px) {
@@ -152,8 +161,10 @@
 
 .memori-chat-layout--controls .memori--start-panel,
 .memori-chat-layout--controls .memori-chat--wrapper {
+    width: 100%;
     max-width: 1200px;
     height: 100%;
+    padding: 0 var(--memori-spacing-md, 1rem);
     margin: 0 auto;
 }
 
@@ -306,7 +317,7 @@
 
 /* Focus states for accessibility */
 .memori-chat-layout--controls:focus-within {
-    border-radius: 12px;
+    border-radius: var(--memori-radius-box);
     outline-offset: 2px;
 }
 

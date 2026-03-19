@@ -1,27 +1,33 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Facebook from '../icons/Facebook';
-import Twitter from '../icons/Twitter';
-import LinkedIn from '../icons/Linkedin';
-import WhatsApp from '../icons/WhatsApp';
-import Mail from '../icons/Mail';
-import Link from '../icons/Link';
-import Share from '../icons/Share';
-import Download from '../icons/Download';
-import Telegram from '../icons/Telegram';
-import FilePdf from '../icons/FilePdf';
+import {
+  Share2,
+  Mail,
+  Link as LinkIcon,
+  Download,
+  Send,
+  MessageCircle,
+  FileText,
+} from 'lucide-react';
 import { QRCodeCanvas } from 'qrcode.react';
-import { Menu } from '@headlessui/react';
-import Button from '../ui/Button';
+import { Button, Dropdown, useAlertManager, createAlertOptions } from '@memori.ai/ui';
 import cx from 'classnames';
-import { Tenant, Memori, Message } from '@memori.ai/memori-api-client/dist/types';
+import {
+  Tenant,
+  Memori,
+  Message,
+} from '@memori.ai/memori-api-client/dist/types';
 import { pdfExporter } from '../MemoriArtifactSystem/components/ArtifactActions/utils/PDFExporter';
-import toast from 'react-hot-toast';
 import {
   formatChatHistoryForPDF,
   createChatPDFDocument,
   ChatPDFOptions,
 } from '../../helpers/chatPdfExport';
+import FacebookIcon from '../../icons/FacebookIcon';
+import TwitterIcon from '../../icons/TwitterIcon';
+import LinkedinIcon from '../../icons/LinkedinIcon';
+import TelegramIcon from '../../icons/TelegramIcon';
+import WhatsappIcon from '../../icons/WhatsappIcon';
 
 export interface Props {
   tenant?: Tenant;
@@ -43,14 +49,13 @@ const ShareButton: React.FC<Props> = ({
   sessionID,
   url,
   title = '',
-  className,
   baseUrl,
-  primary = true,
   showQrCode = true,
   align = 'right',
   history = [],
 }: Props) => {
   const { t, i18n } = useTranslation();
+  const { add } = useAlertManager();
   const [targetUrl, setTargetUrl] = useState(url);
   const [isExportingPDF, setIsExportingPDF] = useState(false);
 
@@ -73,31 +78,31 @@ const ShareButton: React.FC<Props> = ({
       id: 'facebook',
       title: 'Facebook',
       url: `https://www.facebook.com/sharer/sharer.php?u=${targetUrl}`,
-      icon: Facebook,
+      icon: FacebookIcon,
     },
     {
       id: 'twitter',
       title: 'Twitter',
       url: `https://twitter.com/intent/tweet?url=${targetUrl}`,
-      icon: Twitter,
+      icon: TwitterIcon,
     },
     {
       id: 'linkedin',
       title: 'LinkedIn',
       url: `https://www.linkedin.com/shareArticle?mini=true&title=${title}&url=${targetUrl}`,
-      icon: LinkedIn,
+      icon: LinkedinIcon,
     },
     {
       id: 'whatsapp',
       title: 'Whatsapp',
       url: `https://api.whatsapp.com/send?phone=&text=${targetUrl}`,
-      icon: WhatsApp,
+      icon: WhatsappIcon,
     },
     {
       id: 'telegram',
       title: 'Telegram',
       url: `https://t.me/share/url?text=${title}&url=${targetUrl}`,
-      icon: Telegram,
+      icon: TelegramIcon,
     },
     {
       id: 'email',
@@ -127,15 +132,12 @@ const ShareButton: React.FC<Props> = ({
    */
   const handleExportPDF = async () => {
     if (!history || history.length === 0) {
-      toast.error(t('exportChatHistory.empty') || 'No chat history to export');
+      add(createAlertOptions({ description: t('exportChatHistory.empty') || 'No chat history to export', severity: 'error' }));
       return;
     }
 
     if (!pdfExporter.isSupported()) {
-      toast.error(
-        t('exportChatHistory.pdfNotSupported') ||
-          'PDF export is not supported in this browser'
-      );
+      add(createAlertOptions({ description: t('exportChatHistory.pdfNotSupported') || 'PDF export is not supported in this browser', severity: 'error' }));
       return;
     }
 
@@ -167,7 +169,9 @@ const ShareButton: React.FC<Props> = ({
           document.querySelector('memori-client') ||
           document.documentElement;
         const computedStyle = getComputedStyle(rootElement);
-        primaryColorRgb = computedStyle.getPropertyValue('--memori-primary-rgb').trim();
+        primaryColorRgb = computedStyle
+          .getPropertyValue('--memori-primary-rgb')
+          .trim();
         // If empty, try to get it from :root
         if (!primaryColorRgb) {
           primaryColorRgb = getComputedStyle(document.documentElement)
@@ -175,14 +179,17 @@ const ShareButton: React.FC<Props> = ({
             .trim();
         }
       } catch (error) {
-        console.warn('Could not read --memori-primary-rgb CSS variable:', error);
+        console.warn(
+          'Could not read --memori-primary-rgb CSS variable:',
+          error
+        );
       }
 
       const pdfOptions: ChatPDFOptions = {
         fontSize: '12pt',
         fontFamily: 'system-ui, -apple-system, sans-serif',
         lineHeight: '1.6',
-        color: '#333',
+        color: 'var(--memori-text-color)',
         backgroundColor: '#fff',
         primaryColorRgb: primaryColorRgb || undefined,
       };
@@ -223,15 +230,10 @@ const ShareButton: React.FC<Props> = ({
         }
       }, 500);
 
-      toast.success(
-        t('exportChatHistory.success') || 'Chat exported to PDF successfully'
-      );
+      add(createAlertOptions({ description: t('exportChatHistory.success') || 'Chat exported to PDF successfully', severity: 'success' }));
     } catch (error) {
       console.error('PDF export error:', error);
-      toast.error(
-        t('exportChatHistory.error') ||
-          'Failed to export chat to PDF. Please try again.'
-      );
+      add(createAlertOptions({ description: t('exportChatHistory.error') || 'Failed to export chat to PDF. Please try again.', severity: 'error' }));
     } finally {
       setIsExportingPDF(false);
     }
@@ -256,109 +258,75 @@ const ShareButton: React.FC<Props> = ({
   }, [memori, sessionID, baseUrl, i18n.language]);
 
   return (
-    <Menu
-      as="div"
+    <Dropdown
       className={cx('memori-share-button', {
         'memori-share-button--align-left': align === 'left',
       })}
     >
-      <Menu.Button
-        className={cx(
-          'memori-button',
-          'memori-button--circle',
-          'memori-button--icon-only',
-          'memori-share-button--button',
-          className,
-          {
-            'memori-button--primary': primary,
-          }
-        )}
+      <Dropdown.Trigger
+        showChevron={false}
+        className="memori-share-button--trigger"
         title={t('widget.share') || undefined}
-      >
-        <div className="memori-button--icon">
-          <Share />
-        </div>
-      </Menu.Button>
-      <Menu.Items className="memori-share-button--overlay" as="ul">
+        render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+          <Button
+            {...props}
+            variant="primary"
+            icon={<Share2 />}
+            title={t('widget.share') || undefined}
+          />
+        )}
+      />
+      <Dropdown.Menu className="memori-share-button--dropdown-menu">
         {memori && sessionID && sharedUrl && (
-          <Menu.Item
+          <Dropdown.Item
             key="shared"
-            as="li"
-            className="memori-share-button--li memori-share-button--li-shared"
+            onClick={() => window.open(sharedUrl, '_blank')}
+            {...({ icon: <Share2 /> } as React.ComponentProps<typeof Dropdown.Item>)}
           >
-            <a
-              className={cx(
-                'memori-button',
-                'memori-button--with-icon',
-                'memori-button--ghost',
-                'memori-button--padded',
-                'memori-share-button--link'
-              )}
-              href={sharedUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <div className="memori-button--icon">
-                <Share />
-              </div>
+            <span className="memori-share-button--dropdown-item-content">
               {t('widget.shareChat') || 'Share chat'}
-            </a>
-          </Menu.Item>
+            </span>
+          </Dropdown.Item>
         )}
         {history && history.length > 0 && (
-          <Menu.Item key="export-pdf" as="li" className="memori-share-button--li">
-            <Button
-              className="memori-share-button--link"
-              ghost
-              icon={<FilePdf />}
-              onClick={handleExportPDF}
-              disabled={isExportingPDF}
-            >
+          <Dropdown.Item
+            key="export-pdf"
+            onClick={handleExportPDF}
+            disabled={isExportingPDF}
+            {...({ icon: <FileText /> } as React.ComponentProps<typeof Dropdown.Item>)}
+          >
+            <span className="memori-share-button--dropdown-item-content">
               {isExportingPDF
                 ? t('exportChatHistory.exporting') || 'Exporting...'
                 : t('exportChatHistory.exportPDF') || 'Export chat as PDF'}
-            </Button>
-          </Menu.Item>
+            </span>
+          </Dropdown.Item>
         )}
-        <Menu.Item key="copy" as="li" className="memori-share-button--li">
-          <Button
-            className="memori-share-button--link"
-            ghost
-            icon={<Link />}
-            onClick={() => {
-              targetUrl && navigator.clipboard.writeText(targetUrl);
-            }}
-          >
+        <Dropdown.Item
+          onClick={() => {
+            targetUrl && navigator.clipboard.writeText(targetUrl);
+          }}
+          {...({ icon: <LinkIcon /> } as React.ComponentProps<typeof Dropdown.Item>)}
+        >
+          <span className="memori-share-button--dropdown-item-content">
             {t('copyToClipboard') || undefined}
-          </Button>
-        </Menu.Item>
-        {socialShare.map(item => (
-          <Menu.Item key={item.id} as="li" className="memori-share-button--li">
-            <a
-              className={cx(
-                'memori-button',
-                'memori-button--with-icon',
-                'memori-button--ghost',
-                'memori-button--padded',
-                'memori-share-button--link'
-              )}
-              href={item.url ?? ''}
-              target="_blank"
-              rel="noopener noreferrer"
+          </span>
+        </Dropdown.Item>
+        {socialShare.map(item => {
+          const IconComponent = item.icon;
+          return (
+            <Dropdown.Item
+              key={item.id}
+              {...({ icon: <IconComponent /> } as React.ComponentProps<typeof Dropdown.Item>)}
             >
-              <div className="memori-button--icon">
-                <item.icon />
-              </div>
-              {item.title}
-            </a>
-          </Menu.Item>
-        ))}
+              <span className="memori-share-button--dropdown-item-content">
+                {item.title}
+              </span>
+            </Dropdown.Item>
+          );
+        })}
         {showQrCode && (
-          <Menu.Item
-            key="qrcode"
-            as="li"
-            className="memori-share-button--li-qr-code"
-          >
+          <Dropdown.Item>
             <QRCodeCanvas
               id="qr-canvas"
               value={targetUrl ?? ''}
@@ -377,18 +345,29 @@ const ShareButton: React.FC<Props> = ({
               }}
             />
             <div>
-              <Button
+              <span
+                className="memori-share-button--dropdown-item-content"
                 onClick={downloadQRCode}
-                icon={<Download />}
-                title="Download QR"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  cursor: 'pointer',
+                  marginTop: 8,
+                }}
+                role="button"
+                tabIndex={0}
+                onKeyPress={e => {
+                  if (e.key === 'Enter' || e.key === ' ') downloadQRCode();
+                }}
               >
+                <Download style={{ marginRight: 8 }} />
                 Download
-              </Button>
+              </span>
             </div>
-          </Menu.Item>
+          </Dropdown.Item>
         )}
-      </Menu.Items>
-    </Menu>
+      </Dropdown.Menu>
+    </Dropdown>
   );
 };
 

@@ -4,6 +4,7 @@
 .memori-chat-inputs--mic {
     z-index: 1;
     margin-left: 0.33rem;
+    color: var(--memori-primary);
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     -webkit-touch-callout: none;
@@ -127,4 +128,8 @@
     .memori-chat-inputs--mic.memori-chat-inputs--mic--listening::after {
         animation-duration: 1.5s;
     }
+}
+
+[data-theme='dark'] .memori-chat-inputs--mic .lucide-mic {
+    color: #fff;
 }

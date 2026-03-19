@@ -1,9 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
-import Spin from '../../ui/Spin';
-import { DocumentIcon } from '../../icons/Document';
-import Modal from '../../ui/Modal';
+import { Spin } from '@memori.ai/ui';
+import { FileText as DocumentIcon } from 'lucide-react';
+import { Modal } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
+
 // Types
 type PreviewFile = {
   name: string;

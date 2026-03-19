@@ -7,25 +7,27 @@ import {
   Venue,
   User,
 } from '@memori.ai/memori-api-client/dist/types';
-import Button from '../ui/Button';
-import Dropdown from '../ui/Dropdown';
-import MapMarker from '../icons/MapMarker';
-import SoundDeactivated from '../icons/SoundDeactivated';
-import Sound from '../icons/Sound';
+import { Button, Dropdown, useAlertManager, createAlertOptions } from '@memori.ai/ui';
+import {
+  MapPin,
+  VolumeX,
+  Volume2,
+  Settings,
+  Minimize,
+  Maximize,
+  RefreshCw,
+  X,
+  Brain,
+  Users,
+  User as UserIcon,
+  MessageCircle,
+  LogOut,
+  Trash2,
+  Camera,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import Setting from '../icons/Setting';
 import ShareButton from '../ShareButton/ShareButton';
-import FullscreenExit from '../icons/FullscreenExit';
-import Fullscreen from '../icons/Fullscreen';
-import Refresh from '../icons/Refresh';
-import Clear from '../icons/Clear';
-import DeepThought from '../icons/DeepThought';
-import Group from '../icons/Group';
-import UserIcon from '../icons/User';
-import MessageIcon from '../icons/Message';
-import Logout from '../icons/Logout';
 import { getErrori18nKey } from '../../helpers/error';
-import toast from 'react-hot-toast';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 
@@ -99,6 +101,7 @@ const Header: React.FC<Props> = ({
   additionalSettings,
 }) => {
   const { t } = useTranslation();
+  const { add } = useAlertManager();
   const { uploadAsset, pwlUpdateUser } = apiClient.backend;
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
@@ -109,20 +112,19 @@ const Header: React.FC<Props> = ({
   }, []);
 
   // Helper function to determine if settings drawer has content
-  const hasSettingsContent = useCallback((
-    layout?: WidgetProps['layout'],
-    additionalSettings?: WidgetProps['additionalSettings']
-  ): boolean => {
-    return (
-      layout === 'TOTEM' ||
-      (additionalSettings && Object.keys(additionalSettings).length > 0) || false
-    );
-  }, [layout, additionalSettings]);
-
-  const hasSpacedButtons =
-    layout === 'FULLPAGE' ||
-    layout === 'CHAT' ||
-    layout === 'ZOOMED_FULL_BODY';
+  const hasSettingsContent = useCallback(
+    (
+      layout?: WidgetProps['layout'],
+      additionalSettings?: WidgetProps['additionalSettings']
+    ): boolean => {
+      return (
+        layout === 'TOTEM' ||
+        (additionalSettings && Object.keys(additionalSettings).length > 0) ||
+        false
+      );
+    },
+    [layout, additionalSettings]
+  );
 
   const updateAvatar = async (avatar: any) => {
     if (avatar && loginToken) {
@@ -137,7 +139,7 @@ const Header: React.FC<Props> = ({
 
           if (resp.resultCode !== 0) {
             console.error('[updateAvatar] Upload failed:', resp);
-            toast.error(t(getErrori18nKey(resp.resultCode)));
+            add(createAlertOptions({ description: t(getErrori18nKey(resp.resultCode)), severity: 'error' }));
           } else if (avatarAsset) {
             let newUser: Partial<User> = {
               userID: user?.userID,
@@ -154,7 +156,7 @@ const Header: React.FC<Props> = ({
           let err = e as Error;
           console.error('[updateAvatar] Error:', err);
 
-          if (err?.message) toast.error(err.message);
+          if (err?.message) add(createAlertOptions({ description: err.message, severity: 'error' }));
         }
       };
       reader.readAsDataURL(avatar as Blob);
@@ -163,12 +165,12 @@ const Header: React.FC<Props> = ({
         avatar,
         loginToken,
       });
-      toast.error(t('login.avatarUploadError'));
+      add(createAlertOptions({ description: t('login.avatarUploadError'), severity: 'error' }));
     }
   };
 
   return (
-    <div className={cx('memori-header', hasSpacedButtons && 'memori-header--spaced', className)}>
+    <div className={cx('memori-header', className)}>
       {memori.needsPosition && position && (
         <div className="memori-header--position">
           {position.latitude !== 0 && position.longitude !== 0 && (
@@ -177,22 +179,19 @@ const Header: React.FC<Props> = ({
             </span>
           )}
           <Button
-            primary
-            shape="circle"
-            className={cx('memori-header--button', 'memori-header--button--position', hasSpacedButtons && 'memori-header--button-spaced')}
+            variant="primary"
+            className="memori-header--button memori-header--button--position"
             title={t('widget.position') || 'Position'}
-            icon={<MapMarker />}
+            icon={<MapPin />}
             onClick={() => setShowPositionDrawer(true)}
           />
         </div>
       )}
       {showReload && (
         <Button
-          primary
-          shape="circle"
-          className={cx('memori-header--button', 'memori-header--button--reload', hasSpacedButtons && 'memori-header--button-spaced')}
+          variant="primary"
           title={t('reload') || 'Reload'}
-          icon={<Refresh />}
+          icon={<RefreshCw />}
           onClick={() => {
             window.location.reload();
           }}
@@ -200,36 +199,30 @@ const Header: React.FC<Props> = ({
       )}
       {showClear && (
         <Button
-          primary
-          shape="circle"
-          className={cx('memori-header--button', 'memori-header--button--clear', hasSpacedButtons && 'memori-header--button-spaced')}
+          variant="primary"
           title={t('clearHistory') || 'Clear chat'}
-          icon={<Clear />}
+          icon={<Trash2 />}
           onClick={clearHistory}
         />
       )}
       {showChatHistory && !!loginToken && (
         <Button
-          primary
+          variant="primary"
           disabled={!loginToken}
-          shape="circle"
-          className={cx('memori-header--button', 'memori-header--button--chat-history', hasSpacedButtons && 'memori-header--button-spaced')}
           title={t('write_and_speak.chatHistory') || 'Chat history'}
-          icon={<MessageIcon />}
+          icon={<MessageCircle />}
           onClick={() => setShowChatHistoryDrawer(true)}
         />
       )}
       {fullScreenAvailable && (
         <Button
-          primary
-          shape="circle"
-          className={cx('memori-header--button', 'memori-header--button--fullscreen', hasSpacedButtons && 'memori-header--button-spaced')}
+          variant="primary"
           title={
             fullScreen
               ? t('fullscreenExit') || 'Exit fullscreen'
               : t('fullscreenEnter') || 'Enter fullscreen'
           }
-          icon={fullScreen ? <FullscreenExit /> : <Fullscreen />}
+          icon={fullScreen ? <Maximize /> : <Minimize />}
           onClick={
             fullScreenHandler ||
             (() => {
@@ -271,10 +264,10 @@ const Header: React.FC<Props> = ({
       )}
       {memori.enableDeepThought && !!loginToken && user?.pAndCUAccepted && (
         <Button
-          primary={!!sessionID && !!hasUserActivatedSpeak}
-          shape="circle"
-          icon={<DeepThought />}
-          className={cx('memori-header--button', 'memori-header--button--knownfacts', hasSpacedButtons && 'memori-header--button-spaced')}
+          variant={
+            !!sessionID && !!hasUserActivatedSpeak ? 'primary' : 'outline'
+          }
+          icon={<Brain />}
           disabled={!hasUserActivatedSpeak || !sessionID}
           onClick={() => setShowKnownFactsDrawer(true)}
           title={t('knownFacts.title') || 'Known facts'}
@@ -282,10 +275,8 @@ const Header: React.FC<Props> = ({
       )}
       {memori.enableBoardOfExperts && (
         <Button
-          primary
-          shape="circle"
-          icon={<Group />}
-          className={cx('memori-header--button', 'memori-header--button--experts', hasSpacedButtons && 'memori-header--button-spaced')}
+          variant="primary"
+          icon={<Users />}
           disabled={!hasUserActivatedSpeak || !sessionID}
           onClick={() => setShowExpertsDrawer(true)}
           title={t('widget.showExpertsInTheBoard') || 'Experts in this board'}
@@ -293,10 +284,8 @@ const Header: React.FC<Props> = ({
       )}
       {enableAudio && (
         <Button
-          primary
-          shape="circle"
-          className={cx('memori-header--button', 'memori-header--button--speaker', hasSpacedButtons && 'memori-header--button-spaced', { 'memori-header--button--speaker-muted': speakerMuted })}
-          icon={speakerMuted ? <SoundDeactivated /> : <Sound />}
+          variant="primary"
+          icon={speakerMuted ? <VolumeX /> : <Volume2 />}
           onClick={() => setSpeakerMuted(!speakerMuted)}
           title={t('widget.sound') || 'Sound'}
         />
@@ -307,20 +296,16 @@ const Header: React.FC<Props> = ({
         className="memori-header--button memori-header--button--export"
         disabled={!hasUserActivatedSpeak || history.length === 0}
       /> */}
-      {showSettings &&
-        hasSettingsContent(layout, additionalSettings) && (
-          <Button
-            primary
-            shape="circle"
-            className={cx('memori-header--button', 'memori-header--button-settings', hasSpacedButtons && 'memori-header--button-spaced')}
-            icon={<Setting />}
-            onClick={() => setShowSettingsDrawer(true)}
-            title={t('widget.settings') || 'Settings'}
-          />
-        )}
+      {showSettings && hasSettingsContent(layout, additionalSettings) && (
+        <Button
+          variant="primary"
+          icon={<Settings />}
+          onClick={() => setShowSettingsDrawer(true)}
+          title={t('widget.settings') || 'Settings'}
+        />
+      )}
       {showShare && (
         <ShareButton
-          className={cx('memori-header--button', 'memori-header--button-share', hasSpacedButtons && 'memori-header--button-spaced')}
           title={memori.name}
           memori={memori}
           sessionID={sessionID}
@@ -334,91 +319,102 @@ const Header: React.FC<Props> = ({
       {showLogin && (
         <>
           {loginToken && user ? (
-            <Dropdown
-              placement="bottom-right"
-              trigger={
-                <Button
-                  primary
-                  shape="circle"
-                  className={cx('memori-header--button', 'memori-header--button-login', hasSpacedButtons && 'memori-header--button-spaced')}
-                  icon={<UserIcon />}
-                  title={t('login.user') || 'User'}
-                />
-              }
-            >
-              <div className="memori-dropdown--user-profile">
-                <div className="memori-dropdown--user-info">
-                  {user.avatarURL ? (
-                    <>
-                      <img
-                        src={user.avatarURL}
-                        alt={user.userName || user.eMail}
-                        className="memori-dropdown--avatar"
-                      />
-                      <input
-                        type="file"
-                        name="avatar"
-                        id="avatar"
-                        className="memori-dropdown--avatar-input"
-                        onChange={e =>
-                          updateAvatar(
-                            e.target.files?.[0] ?? (null as unknown as Blob)
-                          )
-                        }
-                        accept={imgMimeTypes.join(', ')}
-                      />
-                    </>
-                  ) : (
-                    <div className="memori-dropdown--avatar-placeholder">
-                      <span>
-                        {(user.userName || user.eMail || 'U')
-                          .charAt(0)
-                          .toUpperCase()}
-                      </span>
-                      <input
-                        type="file"
-                        name="avatar"
-                        id="avatar"
-                        className="memori-dropdown--avatar-input"
-                        onChange={e =>
-                          updateAvatar(
-                            e.target.files?.[0] ?? (null as unknown as Blob)
-                          )
-                        }
-                        accept={imgMimeTypes.join(', ')}
-                      />
+            <Dropdown className="memori-header--dropdown">
+              <Dropdown.Trigger
+                showChevron={false}
+                className="memori-dropdown--user-trigger"
+                render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+                  <Button
+                    {...props}
+                    variant="primary"
+                    icon={<UserIcon />}
+                    title={t('login.user') || 'User'}
+                  />
+                )}
+              />
+              <Dropdown.Menu className="memori-dropdown--menu">
+                <Dropdown.Item className="memori-dropdown--user-item">
+                  <div className="memori-dropdown--user-info">
+                    <div className="memori-dropdown--avatar-wrap">
+                      {user.avatarURL ? (
+                        <>
+                          <img
+                            src={user.avatarURL}
+                            alt={user.userName || user.eMail}
+                            className="memori-dropdown--avatar"
+                          />
+                          <span className="memori-dropdown--avatar-overlay">
+                            <Camera size={20} strokeWidth={2} />
+                          </span>
+                          <input
+                            type="file"
+                            name="avatar"
+                            id="avatar"
+                            className="memori-dropdown--avatar-input"
+                            onChange={e =>
+                              updateAvatar(
+                                e.target.files?.[0] ?? (null as unknown as Blob)
+                              )
+                            }
+                            accept={imgMimeTypes.join(', ')}
+                          />
+                        </>
+                      ) : (
+                        <>
+                          <div className="memori-dropdown--avatar-placeholder">
+                            <span className="memori-dropdown--avatar-initial">
+                              {(user.userName || user.eMail || 'U')
+                                .charAt(0)
+                                .toUpperCase()}
+                            </span>
+                            <span className="memori-dropdown--avatar-overlay">
+                              <Camera size={20} strokeWidth={2} />
+                            </span>
+                            <input
+                              type="file"
+                              name="avatar"
+                              id="avatar"
+                              className="memori-dropdown--avatar-input"
+                              onChange={e =>
+                                updateAvatar(
+                                  e.target.files?.[0] ?? (null as unknown as Blob)
+                                )
+                              }
+                              accept={imgMimeTypes.join(', ')}
+                            />
+                          </div>
+                        </>
+                      )}
                     </div>
-                  )}
-
-                  <div className="memori-dropdown--user-details">
-                    <h3 className="memori-dropdown--user-name">
-                      {user.userName || t('login.welcomeUser')}
-                    </h3>
-                    <p className="memori-dropdown--user-email">{user.eMail}</p>
-                    <div className="memori-dropdown--user-badge">
-                      {user.birthDate
-                        ? new Date(user.birthDate).toLocaleDateString()
-                        : t('login.notSet')}
+                    <div className="memori-dropdown--user-details">
+                      <h3 className="memori-dropdown--user-name">
+                        {user.userName || t('login.welcomeUser')}
+                      </h3>
+                      <p className="memori-dropdown--user-email">
+                        {user.eMail}
+                      </p>
+                      <div className="memori-dropdown--user-badge">
+                        {user.birthDate
+                          ? new Date(user.birthDate).toLocaleDateString()
+                          : t('login.notSet')}
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <div className="memori-dropdown--actions">
-                <button
-                  className="memori-dropdown--action-button memori-dropdown--action-button--logout"
+                </Dropdown.Item>
+                <Dropdown.Separator className="memori-dropdown--separator" />
+                <Dropdown.Item
                   onClick={onLogout}
+                  className="memori-dropdown--action-button memori-dropdown--action-button--logout"
+                  {...({ icon: <LogOut size={18} strokeWidth={2} /> } as React.ComponentProps<typeof Dropdown.Item>)}
                 >
-                  <Logout className="memori-dropdown--action-icon" />
                   {t('login.logout') || 'Logout'}
-                </button>
-              </div>
+                </Dropdown.Item>
+              </Dropdown.Menu>
             </Dropdown>
           ) : (
             <Button
-              primary
-              shape="circle"
-              className={cx('memori-header--button', 'memori-header--button-login', hasSpacedButtons && 'memori-header--button-spaced')}
+              variant="primary"
+              className="memori-header--button memori-header--button-login"
               icon={<UserIcon />}
               onClick={() => setShowLoginDrawer(true)}
               title={t('login.login') || 'Login'}

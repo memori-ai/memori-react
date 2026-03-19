@@ -1,9 +1,9 @@
 import React, { useState, useMemo } from 'react';
-import Spin from '../ui/Spin';
+import { Spin } from '@memori.ai/ui';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
-import Button from '../ui/Button';
+import { Button } from '@memori.ai/ui';
 import Blob from '../Blob/Blob';
-import Close from '../icons/Close';
+import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
@@ -44,7 +44,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
         <div className="memori-website_assistant--trigger">
           <Button
             className="memori-website_assistant--trigger-button"
-            ghost
+            variant="ghost"
             shape="circle"
             onClick={() => setCollapsed(false)}
             title={t('expand') || 'Expand'}
@@ -71,10 +71,9 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
               <div className="memori-website_assistant--close-button-wrapper">
                 <Button
                   className="memori-website_assistant--close-button"
-                  primary
-                  shape="circle"
+                  variant="primary"
                   onClick={() => setCollapsed(true)}
-                  icon={<Close />}
+                  icon={<X />}
                   title={t('close') || 'Close'}
                 />
               </div>

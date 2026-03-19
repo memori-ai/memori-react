@@ -1,8 +1,6 @@
 import { User, Tenant } from '@memori.ai/memori-api-client/dist/types';
 import React, { useEffect, useState } from 'react';
-import Button from '../ui/Button';
-import Drawer from '../ui/Drawer';
-import toast from 'react-hot-toast';
+import { Button, Checkbox, Drawer, Input, useAlertManager, createAlertOptions } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import memoriApiClient from '@memori.ai/memori-api-client';
@@ -36,9 +34,9 @@ const LoginDrawer = ({
   apiClient,
   __TEST__signup = false,
   __TEST__needMissingData = false,
-  drawerClassName,
 }: Props) => {
   const { t, i18n } = useTranslation();
+  const { add } = useAlertManager();
   const lang = i18n.language === 'it' ? 'it' : 'en';
 
   const {
@@ -119,7 +117,7 @@ const LoginDrawer = ({
       });
 
       if (response.resultCode === 0) {
-        toast.success(isResend ? t('login.otpResent') : t('login.otpSent'));
+        add(createAlertOptions({ description: isResend ? t('login.otpResent') : t('login.otpSent'), severity: 'success' }));
         setOtpEmail(email.trim());
         setOtpSent(true);
         setShowOtpCodeForm(true);
@@ -162,7 +160,7 @@ const LoginDrawer = ({
 
       if (response.resultCode === 0) {
         setOtpSuccess(true);
-        toast.success(t('login.otpSuccess'));
+        add(createAlertOptions({ description: t('login.otpSuccess'), severity: 'success' }));
 
         // Add a small delay for better UX
         setTimeout(async () => {
@@ -187,7 +185,7 @@ const LoginDrawer = ({
             }
           } catch (err) {
             console.error('[GET USER]', err);
-            toast.error(t('login.userFetchError'));
+            add(createAlertOptions({ description: t('login.userFetchError'), severity: 'error' }));
           }
         }, 1000);
 
@@ -283,10 +281,10 @@ const LoginDrawer = ({
     );
     if (resp.resultCode !== 0) {
       console.error(resp);
-      toast.error(t(getErrori18nKey(resp.resultCode)));
+      add(createAlertOptions({ description: t(getErrori18nKey(resp.resultCode)), severity: 'error' }));
       setError(resp.resultMessage);
     } else {
-      toast.success(t('success'));
+      add(createAlertOptions({ description: t('success'), severity: 'success' }));
       onLogin(patchedUser || newUser, needsMissingData.token);
     }
   };
@@ -298,7 +296,9 @@ const LoginDrawer = ({
       className={cx('memori--login-drawer', {
         'memori--login-drawer--logged': isUserLoggedIn,
         'memori--login-drawer--signup': showSignup,
-      }, drawerClassName)}
+      })}
+      size="lg"
+      title={t('login.title')}
     >
       {needsMissingData?.token?.length ? (
         <>
@@ -333,14 +333,11 @@ const LoginDrawer = ({
               <>
                 <label className="memori-checkbox">
                   <span className="memori-checkbox--input-wrapper">
-                    <input
-                      type="checkbox"
+                    <Checkbox
                       name="tnCAndPPAccepted"
-                      className="memori-checkbox--input"
-                      onChange={e => setTnCAndPPAccepted(e.target.checked)}
                       checked={tnCAndPPAccepted}
+                      onChange={checked => setTnCAndPPAccepted(checked)}
                     />
-                    <span className="memori-checkbox--inner" />
                   </span>
                   <span className="memori-checkbox--text">
                     {t('login.privacyLabel')}{' '}
@@ -364,14 +361,11 @@ const LoginDrawer = ({
 
                 <label className="memori-checkbox">
                   <span className="memori-checkbox--input-wrapper">
-                    <input
-                      type="checkbox"
+                    <Checkbox
                       name="pAndCUAccepted"
-                      onChange={e => setPAndCUAccepted(e.target.checked)}
                       checked={pAndCUAccepted}
-                      className="memori-checkbox--input"
+                      onChange={checked => setPAndCUAccepted(checked)}
                     />
-                    <span className="memori-checkbox--inner" />
                   </span>
                   <span className="memori-checkbox--text">
                     {t('login.pAndCUAccepted')}{' '}
@@ -393,7 +387,7 @@ const LoginDrawer = ({
               <p className="memori--login-drawer--inline-error">{error}</p>
             )}
 
-            <Button htmlType="submit" primary loading={loading}>
+            <Button type="submit" variant="primary" loading={loading}>
               {t('login.save')}
             </Button>
           </form>
@@ -471,7 +465,7 @@ const LoginDrawer = ({
             {!otpSuccess && (
               <div className="memori--login-drawer--otp-actions">
                 <Button
-                  outlined
+                  variant="outline"
                   onClick={() => {
                     setShowOtpCodeForm(false);
                     setOtpCode('');
@@ -483,7 +477,7 @@ const LoginDrawer = ({
                 </Button>
 
                 <Button
-                  outlined
+                  variant="outline"
                   onClick={handleResendOtp}
                   disabled={
                     loading ||
@@ -526,7 +520,7 @@ const LoginDrawer = ({
                   {t('login.email')}
                 </span>
                 <div className="memori--login-drawer--otp-input-container">
-                  <input
+                  <Input
                     id="otp-email"
                     type="email"
                     className={cx('memori--login-drawer--otp-email-input', {
@@ -560,7 +554,7 @@ const LoginDrawer = ({
 
             <div className="memori--login-drawer--otp-actions">
              {showOtpCodeForm && <Button
-                outlined
+                variant="outline"
                 onClick={() => {
                   setShowOtpForm(false);
                   setOtpEmail('');
@@ -573,7 +567,7 @@ const LoginDrawer = ({
               </Button>}
 
               <Button
-                primary
+                variant="primary"
                 onClick={() => {
                   sendOtpToEmail(otpEmail);
                 }}

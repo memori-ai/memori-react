@@ -68,13 +68,13 @@
 .memori-totem-layout .memori-header .memori-header--button-login,
 .memori-totem-layout .memori-header .memori-share-button,
 .memori-totem-layout .memori-header .memori-header--button+.memori-header--button {
-    margin-top: 0.25rem;
+    margin-top: var(--memori-spacing-xs);
     margin-right: 0;
     margin-left: 0;
 }
 
 .memori-totem-layout .memori-header .memori-header--button--position {
-    margin-bottom: 0.25rem;
+    margin-bottom: var(--memori-spacing-xs);
 }
 
 .memori-totem-layout .memori-header--position .memori-header--position-placeName {

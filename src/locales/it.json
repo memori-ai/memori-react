@@ -8,6 +8,7 @@
   "hide": "Nascondi",
   "send": "Invia",
   "close": "Chiudi",
+  "back": "Indietro",
   "edit": "Modifica",
   "delete": "Elimina",
   "loading": "Caricamento",
@@ -327,6 +328,7 @@
   },
   "login": {
     "login": "Accedi",
+    "title": "Accedi al tuo account",
     "logout": "Esci",
     "userNameRequired": "Il nome utente è obbligatorio",
     "userName": "Nome utente",

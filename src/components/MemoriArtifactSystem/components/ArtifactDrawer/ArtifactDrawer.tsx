@@ -6,21 +6,21 @@
 
 import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Dialog, Transition, Menu } from '@headlessui/react';
-import Button from '../../../ui/Button';
-import Close from '../../../icons/Close';
+import { Button, Dropdown, Drawer } from '@memori.ai/ui';
+import {
+  X,
+  Maximize,
+  Minimize,
+  MoreVertical,
+  Download,
+  Link as LinkIcon,
+  Printer,
+} from 'lucide-react';
 import ArtifactActions from '../ArtifactActions/ArtifactActions';
 import { useArtifact } from '../../context/ArtifactContext';
 import ArtifactPreview from '../ArtifactPreview/ArtifactPreview';
 import { ArtifactData, ArtifactTab } from '../../types/artifact.types';
 import cx from 'classnames';
-import Drawer from '../../../ui/Drawer';
-import Fullscreen from '../../../icons/Fullscreen';
-import FullscreenExit from '../../../icons/FullscreenExit';
-import MenuVertical from '../../../icons/MenuVertical';
-import Download from '../../../icons/Download';
-import Link from '../../../icons/Link';
-import PrintIcon from '../../../icons/Print';
 import { useCopyArtifact } from '../ArtifactActions/hooks/useCopyArtifact';
 import TabSwitch from './components/TabSwitch';
 
@@ -137,30 +137,14 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
           <Drawer
             open={state.isDrawerOpen}
             onClose={handleClose}
-            placement="right"
-            width="50%"
+            anchor="right"
+            size="md"
             className={
               state.isFullscreen
                 ? 'memori-artifact-panel-drawer-fullscreen'
                 : 'memori-artifact-panel-drawer'
             }
-            widthMd="100%"
-            widthLg="50%"
             closable={false}
-            animated={true}
-            enterDuration={isMobile ? 'duration-500' : 'duration-300'}
-            leaveDuration={isMobile ? 'duration-400' : 'duration-200'}
-            showBackdrop={false}
-            preventBackdropClose={true}
-            confirmDialogTitle={
-              t('artifact.confirmDialogTitle') ||
-              'Are you sure you want to close this artifact?'
-            }
-            confirmDialogMessage={
-              t('artifact.confirmDialogMessage') ||
-              'This action cannot be undone.'
-            }
-          // className="memori-artifact-panel"
           >
             {children}
           </Drawer>
@@ -254,18 +238,10 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
             />
             <Button
               onClick={closeArtifact}
-              className={cx(
-                'memori-artifact-drawer--close',
-                'memori-button--icon-only',
-                {
-                  'memori-artifact-drawer--close-desktop': !hasPreview,
-                }
-              )}
-              ghost
+              variant="ghost"
+              icon={<X className="memori-artifact-panel--close-icon" />}
               title={t('artifact.close') || 'Close'}
-            >
-              <Close className="memori-artifact-panel--close-icon" />
-            </Button>
+            />
           </>
         )}
       </div>
@@ -287,37 +263,32 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
                 hasPreview={hasPreview}
               />
             )}
-            <Menu as="div" className="memori-mobile-actions-menu">
-              <Menu.Button as="div" className="memori-mobile-actions-trigger">
-                <Button
-                  className={cx(
-                    'memori-button',
-                    'memori-button--more-options',
-                    'memori-button--icon-only'
-                  )}
-                  ghost
-                  title={t('artifact.actions') || 'Actions'}
-                >
-                  <MenuVertical className="memori-artifact-action-icon" />
-                </Button>
-              </Menu.Button>
-
-              <Transition
-                as={React.Fragment}
-                enter="memori-mobile-dropdown-enter"
-                enterFrom="memori-mobile-dropdown-enter-from"
-                enterTo="memori-mobile-dropdown-enter-to"
-                leave="memori-mobile-dropdown-leave"
-                leaveFrom="memori-mobile-dropdown-leave-from"
-                leaveTo="memori-mobile-dropdown-leave-to"
-              >
-                <Menu.Items className="memori-mobile-dropdown">
+            <Dropdown className="memori-mobile-actions-menu">
+              <Dropdown.Trigger
+                showChevron={false}
+                className="memori-mobile-actions-trigger"
+                render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+                  <Button
+                    {...props}
+                    className={cx(
+                      'memori-button',
+                      'memori-button--more-options',
+                      'memori-button--icon-only'
+                    )}
+                    variant="ghost"
+                    title={t('artifact.actions') || 'Actions'}
+                  >
+                    <MoreVertical className="memori-artifact-action-icon" />
+                  </Button>
+                )}
+              />
+              <Dropdown.Menu className="memori-mobile-dropdown">
                   <div className="memori-mobile-dropdown-list">
                     <Button
                       onClick={handleCopy}
                       disabled={false}
                       className="memori-artifact-action-btn"
-                      ghost
+                      variant="ghost"
                       title={t('artifact.copy') || 'Copy'}
                     >
                       <span className="memori-artifact-action-text">
@@ -331,7 +302,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
                         switch (format.action) {
                           case 'copy':
                             return (
-                              <Link className="memori-artifact-action-icon" />
+                              <LinkIcon className="memori-artifact-action-icon" />
                             );
                           case 'download':
                             return (
@@ -340,11 +311,11 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
                           case 'print':
                           case 'pdf':
                             return (
-                              <PrintIcon className="memori-artifact-action-icon" />
+                              <Printer className="memori-artifact-action-icon" />
                             );
                           default:
                             return (
-                              <Link className="memori-artifact-action-icon" />
+                              <LinkIcon className="memori-artifact-action-icon" />
                             );
                         }
                       };
@@ -358,7 +329,7 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
                             copyState.activeFormat === format.id
                           }
                           className="memori-artifact-action-btn"
-                          ghost
+                          variant="ghost"
                           icon={getIcon()}
                           title={format.label}
                         >
@@ -381,8 +352,8 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
                       })}
                       disabled={false}
                       className="memori-artifact-action-btn"
-                      ghost
-                      icon={<Link className="memori-artifact-action-icon" />}
+                      variant="ghost"
+                      icon={<LinkIcon className="memori-artifact-action-icon" />}
                       title={t('artifact.external') || 'External'}
                     >
                       <span className="memori-artifact-action-text">
@@ -390,9 +361,8 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
                       </span>
                     </Button>
                   </div>
-                </Menu.Items>
-              </Transition>
-            </Menu>
+              </Dropdown.Menu>
+            </Dropdown>
           </>
         )}
 
@@ -404,10 +374,10 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
               'memori-artifact-drawer--close',
               'memori-button--icon-only'
             )}
-            ghost
+            variant="ghost"
             title={t('artifact.close') || 'Close'}
           >
-            <Close className="memori-artifact-panel--close-icon" />
+            <X className="memori-artifact-panel--close-icon" />
           </Button>
         )}
       </div>
