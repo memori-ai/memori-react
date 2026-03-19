@@ -242,3 +242,26 @@ ZoomedFullBody.args = {
   tenant,
   layout: 'ZOOMED_FULL_BODY',
 };
+
+export const Test = Template.bind({});
+Test.args = {
+  ...DefaultLayout.args,
+  memoriName: "test34234",
+  ownerUserName: "andrea.patini",
+  memoriID: "6ef22a59-cac9-47f0-889a-4392c9d3c19b",
+  ownerUserID: "69fcc557-9cb6-4e5e-b8ab-140cff975492",
+  tenantID: "localhost:3000",
+  apiURL: "http://localhost:7778/api/v2",
+  engineURL: "http://localhost:7778/memori/v2",
+  baseURL: "http://localhost:3000",
+  uiLang: "IT",
+  spokenLang: "IT",
+  layout: "ZOOMED_FULL_BODY",
+  multilingual: true,
+  showSettings: true,
+  showShare: true,
+  enableAudio: true,
+  integrationID: "715468f4-18b8-4a73-beec-d2fbbda59c74",
+  ttsProvider: 'azure',
+  ttsMock: true,
+};

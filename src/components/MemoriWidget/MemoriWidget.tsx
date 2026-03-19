@@ -81,7 +81,7 @@ import {
 } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
 import { getCredits } from '../../helpers/credits';
-import { sanitizeText } from '../../helpers/sanitizer';
+import { sanitizeTextForTTS } from '../../helpers/sanitizer';
 import { TTSConfig, useTTS } from '../../helpers/tts/useTTS';
 import ChatHistoryDrawer from '../ChatHistoryDrawer/ChatHistory';
 import { STTConfig, useSTT } from '../../helpers/stt/useSTT';
@@ -1968,7 +1968,7 @@ const MemoriWidget = ({
     // Reset the typing flag when Memori starts speaking
     setHasUserTypedMessage(false);
 
-    const processedText = sanitizeText(text);
+    const processedText = sanitizeTextForTTS(text);
     return ttsSpeak(processedText);
   };
   /**

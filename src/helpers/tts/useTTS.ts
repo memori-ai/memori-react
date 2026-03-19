@@ -23,6 +23,7 @@ type VisemeData = {
   audioOffset: number;
 };
 
+
 /**
  * Opzioni per l'hook useTTS
  */
@@ -273,6 +274,8 @@ export function useTTS(
   // Helper function to handle text-to-speech for a single chunk of text
   const speakChunk = useCallback(
     async (chunkText: string): Promise<void> => {
+      const hasSSML = /<break/i.test(chunkText);
+
       // Make API request to TTS endpoint
       const response = await fetch(options.apiUrl || '/api/tts', {
         method: 'POST',
@@ -286,6 +289,8 @@ export function useTTS(
           model: config.model || 'tts-1',
           region: config.region,
           provider: config.provider,
+          // Segnala all'API che il testo contiene SSML (es. <break>) per usare speakSsmlAsync
+          isSSML: hasSSML,
           // Include viseme data for certain layout types that need lip sync
           includeVisemes:
             config.layout === 'ZOOMED_FULL_BODY' ||
