@@ -119,6 +119,7 @@
     z-index: 1001;
     top: 0.75rem;
     left: 0.75rem;
+    flex-shrink: 0;
     transition: transform 0.2s ease;
 }
 
@@ -127,8 +128,10 @@
 }
 
 .memori-website_assistant--close-button-wrapper button.memori-website_assistant--close-button {
-    width: 44px;
-    height: 44px;
+    width: 44px !important;
+    min-width: 44px !important;
+    height: 44px !important;
+    min-height: 44px !important;
     padding: 0.75rem;
     border: 2px solid rgba(130, 70, 175, 0.1);
     -webkit-backdrop-filter: blur(10px);
@@ -145,6 +148,16 @@
 .memori-widget.memori-layout-website_assistant {
     position: relative;
     font-size: var(--memori-text-size-small);
+}
+
+/*
+ * Login and Position drawers are portaled to body by Headless UI.
+ * When layout is WEBSITE_ASSISTANT we pass drawerClassName so they sit above the fixed panel.
+ */
+.memori-drawer.memori-drawer--above-website-assistant,
+.memori-drawer.memori-drawer--above-website-assistant .memori-drawer--backdrop,
+.memori-drawer.memori-drawer--above-website-assistant .memori-drawer--container {
+    z-index: 2147483648;
 }
 
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--collapsed,
@@ -299,15 +312,26 @@
     gap: 0.5rem;
 }
 
-.memori-website_assistant-layout .memori-header .memori-share-button,
-.memori-website_assistant-layout .memori-header .memori-header--button + .memori-header--button {
+/* Less specific first (no-descending-specificity): single .memori-header--button */
+.memori-website_assistant-layout .memori-header .memori-header--button,
+.memori-website_assistant-layout .memori-header .memori-share-button {
     margin-top: 0;
-    margin-left: 0;
+    margin-right: 0;
+    margin-left: auto;
 }
 
+/* More specific: adjacent sibling (must come after general .memori-header--button rules) */
+.memori-website_assistant-layout .memori-header .memori-header--button + .memori-header--button {
+    margin-top: 0;
+    margin-right: 0;
+    margin-left: auto;
+}
+
+/* Position dropdown below the trigger so it does not cover the share button */
 .memori-widget.memori-layout-website_assistant .memori-share-button .memori-share-button--overlay {
-    z-index: 1000;
-    top: -6rem;
+    z-index: 1002;
+    top: 100%;
+    margin-top: 0.5rem;
 }
 
 .memori-widget.memori-layout-website_assistant .memori-header--button--fullscreen {
@@ -322,8 +346,9 @@
     position: relative;
     overflow: hidden;
     min-height: 0;
-    max-height: 35%;
     flex: 1;
+    /* Prevent avatar/blob from growing unbounded and overlapping header/controls */
+    contain: layout style;
 }
 
 .memori-website_assistant-layout--avatar .memori--avatar-wrapper {
@@ -580,14 +605,21 @@
         background: rgba(255, 255, 255, 0.25);
     }
 
-    .memori-website_assistant--trigger-button .memori-blob .mainDiv {
-        top: -15% !important;
-        left: 0;
-        display: none;
+    /* Keep blob container as positioning context and centered in button */
+    .memori-website_assistant--trigger-button .memori-blob {
+        position: relative !important;
+        top: 0 !important;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .memori-blob{
-        top: 0px !important;
+    /* Center .mainDiv in button: use percentage translate so blob aligns with button (override Blob.css mobile pixel offsets) */
+    .memori-website_assistant--trigger-button .memori-blob .mainDiv {
+        top: 50% !important;
+        left: 50% !important;
+        --memori-blob-x: -50%;
+        --memori-blob-y: -50%;
     }
 }
 

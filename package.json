@@ -1,5 +1,5 @@
 {
-  "version": "8.22.0",
+  "version": "8.29.0",
   "name": "@memori.ai/memori-react",
   "author": "Memori Srl",
   "main": "dist/index.js",
@@ -298,7 +298,7 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",
-    "@memori.ai/memori-api-client": "6.17.0",
+    "@memori.ai/memori-api-client": "6.20.0",
     "@memori.ai/ui": "^1.6.2",
     "@react-three/drei": "8.20.2",
     "@react-three/fiber": "7.0.25",

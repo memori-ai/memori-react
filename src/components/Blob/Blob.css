@@ -280,4 +280,9 @@
     .memori-blob-container {
         display: none;
     }
+
+    .memori-blob figure img {
+        max-width: 48px;
+        max-height: 48px;
+    }
 }

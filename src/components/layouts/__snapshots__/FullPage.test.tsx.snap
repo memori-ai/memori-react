@@ -343,7 +343,7 @@ exports[`renders FullPage layout unchanged 1`] = `
                     Le conversazioni sono visibili all'autore dell'agente
                   </p>
                   <div
-                    class="memori-tooltip memori-tooltip--align-right"
+                    class="memori-tooltip memori-tooltip--align-topLeft"
                   >
                     <div
                       class="memori-tooltip--content"
@@ -845,7 +845,7 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                     Le conversazioni sono visibili all'autore dell'agente
                   </p>
                   <div
-                    class="memori-tooltip memori-tooltip--align-right"
+                    class="memori-tooltip memori-tooltip--align-topLeft"
                   >
                     <div
                       class="memori-tooltip--content"

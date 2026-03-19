@@ -1,5 +1,66 @@
 
 
+## [8.29.0](https://github.com/memori-ai/memori-react/compare/v8.28.0...v8.29.0) (2026-03-17)
+
+
+### Features
+
+* add avatar3dHidden prop to MemoriWidget ([359e88f](https://github.com/memori-ai/memori-react/commit/359e88fe48502b44b24ee9af03b6dad94198ac99))
+
+## [8.28.0](https://github.com/memori-ai/memori-react/compare/v8.27.0...v8.28.0) (2026-03-17)
+
+
+### Features
+
+* implement spaced layout for header buttons in MemoriWidget ([f4604f0](https://github.com/memori-ai/memori-react/commit/f4604f0a3042fe6d62d651f44d969eaa04663d7c))
+
+## [8.27.0](https://github.com/memori-ai/memori-react/compare/v8.26.0...v8.27.0) (2026-03-16)
+
+
+### Features
+
+* enhance MemoriWidget to support optional place data ([a486fda](https://github.com/memori-ai/memori-react/commit/a486fdab893da30020d317ace6d1981b637e115c))
+* remove 'postPlaceChangedEvent' and send position through 'postTextEnteredEvent' ([7c63f45](https://github.com/memori-ai/memori-react/commit/7c63f45156766a3552d12855a242172b36d0cbf5))
+
+
+### Maintenance
+
+* update [@memori](https://github.com/memori).ai/memori-api-client ([760dcf7](https://github.com/memori-ai/memori-react/commit/760dcf722658ede6418332e45dfd66a55216dc88))
+
+## [8.26.0](https://github.com/memori-ai/memori-react/compare/v8.25.0...v8.26.0) (2026-03-16)
+
+
+### Features
+
+* add drawerClassName prop to LoginDrawer and PositionDrawer ([8ec2646](https://github.com/memori-ai/memori-react/commit/8ec26467f82f90573dfc713b9001575fa6917930))
+* update MemoriWidget to conditionally send dateUTC ([81f5c50](https://github.com/memori-ai/memori-react/commit/81f5c504022b8c186b5369921bc42b40b672349d))
+
+## [8.25.0](https://github.com/memori-ai/memori-react/compare/v8.24.0...v8.25.0) (2026-03-16)
+
+
+### Features
+
+* update layout styles and button margins for WebsiteAssistant ([73bdf4d](https://github.com/memori-ai/memori-react/commit/73bdf4ddf08edfe8994c8631c100684073e8a578))
+
+## [8.24.0](https://github.com/memori-ai/memori-react/compare/v8.23.0...v8.24.0) (2026-03-16)
+
+
+### Features
+
+* implement logic for avatar3dHidden prop in MemoriWidget ([609ed74](https://github.com/memori-ai/memori-react/commit/609ed74978c1197159754fcf9357431a96e38b57))
+
+## [8.23.0](https://github.com/memori-ai/memori-react/compare/v8.22.0...v8.23.0) (2026-03-16)
+
+
+### Features
+
+* add avatar3dHidden prop to WebsiteAssistant layout ([8803b75](https://github.com/memori-ai/memori-react/commit/8803b751df3f34aff37af500a650b29ccb012218))
+
+
+### Changes
+
+* dont send date event every minute, but when opening session and sending TextEntered ([25f083e](https://github.com/memori-ai/memori-react/commit/25f083efadb8d07b311e371739711eabcdffdc1b))
+
 ## [8.22.0](https://github.com/memori-ai/memori-react/compare/v8.21.0...v8.22.0) (2026-03-02)
 
 

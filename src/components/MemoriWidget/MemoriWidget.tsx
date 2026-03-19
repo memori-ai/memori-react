@@ -36,7 +36,7 @@ import React, {
 } from 'react';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { AudioContext, IAudioContext } from 'standardized-audio-context';
+import { IAudioContext } from 'standardized-audio-context';
 import cx from 'classnames';
 import { DateTime } from 'luxon';
 import { useAlertManager, createAlertOptions } from '@memori.ai/ui';
@@ -76,7 +76,6 @@ import {
   hasTouchscreen,
   stripDuplicates,
   installMathJax,
-  stripReasoningTags,
 } from '../../helpers/utils';
 import { getTTSVoice } from '../../helpers/tts/ttsVoiceUtility';
 import {
@@ -86,7 +85,6 @@ import {
 } from '../../helpers/constants';
 import { getErrori18nKey } from '../../helpers/error';
 import { getCredits } from '../../helpers/credits';
-import { useViseme } from '../../context/visemeContext';
 import { sanitizeText } from '../../helpers/sanitizer';
 import { TTSConfig, useTTS } from '../../helpers/tts/useTTS';
 import ChatHistoryDrawer from '../ChatHistoryDrawer/ChatHistory';
@@ -120,6 +118,14 @@ const getMemoriState = (integrationId?: string): object | null => {
     loginToken,
   };
 };
+
+/** Place spec with all nulls for postTextEnteredEvent when position is not set or user chose "I don't want to provide my position". */
+const NULL_PLACE_SPEC = {
+  placeName: null,
+  latitude: null,
+  longitude: null,
+  uncertaintyKm: null,
+} as const;
 
 type MemoriTextEnteredEvent = CustomEvent<{
   text: string;
@@ -373,6 +379,8 @@ export interface LayoutProps {
   loading?: boolean;
   autoStart?: boolean;
   onSidebarToggle?: (isOpen: boolean) => void;
+  /** When true or "true" (e.g. from integrationConfig or web component attribute), hide the 3D avatar. */
+  avatar3dHidden?: boolean | string;
 }
 
 export interface Props {
@@ -405,6 +413,8 @@ export interface Props {
   showUpload?: boolean;
   showChatHistory?: boolean;
   showReasoning?: boolean;
+  /** When true and layout is WEBSITE_ASSISTANT, hide the 3D avatar in the expanded panel. */
+  avatar3dHidden?: boolean;
   preview?: boolean;
   embed?: boolean;
   height?: number | string;
@@ -505,6 +515,7 @@ const MemoriWidget = ({
   showOnlyLastMessages,
   showChatHistory,
   showReasoning,
+  avatar3dHidden,
   height = '100vh',
   secret,
   baseUrl = 'https://aisuru-staging.aclambda.online',
@@ -549,7 +560,6 @@ const MemoriWidget = ({
     postTextEnteredEvent,
     postPlaceChangedEvent,
     postDateChangedEvent,
-    postTimeoutEvent,
     postTagChangedEvent,
     getSession,
     getExpertReferences,
@@ -660,8 +670,8 @@ const MemoriWidget = ({
       uiLang && uiLanguages.includes(uiLang.toLowerCase())
         ? uiLang.toLowerCase()
         : userLang && uiLanguages.includes(userLang.toLowerCase())
-          ? userLang.toLowerCase()
-          : null;
+        ? userLang.toLowerCase()
+        : null;
     if (langToApply && typeof i18n?.changeLanguage === 'function') {
       // @ts-ignore
       i18n.changeLanguage(langToApply);
@@ -813,31 +823,60 @@ const MemoriWidget = ({
    * Position drawer
    */
   const [position, _setPosition] = useState<Venue>();
-  const applyPosition = async (venue?: Venue, sessionID?: string) => {
-    const session = sessionID ?? sessionId;
-    // Only apply position if memori.needsPosition is true
-    if (venue && session && memori.needsPosition) {
-      const { currentState, ...response } = await postPlaceChangedEvent({
-        sessionId: session,
-        placeName: venue.placeName,
-        latitude: venue.latitude,
-        longitude: venue.longitude,
-        uncertaintyKm: venue.uncertainty ?? 0,
-      });
 
-      if (currentState && response.resultCode === 0) {
-        _setCurrentDialogState(cds => ({
-          ...cds,
-          ...currentState,
-          hints: currentState.hints?.length ? currentState.hints : cds?.hints,
-        }));
-      }
+  /** True when the user has set a real position; false when position is missing or "I don't want to provide my position". */
+  const hasUserProvidedPosition = useCallback((venue: Venue | undefined) => {
+    if (!venue) return false;
+    if (
+      venue.placeName === 'Position' &&
+      venue.latitude === 0 &&
+      venue.longitude === 0
+    ) {
+      return false;
     }
-  };
+    return true;
+  }, []);
+
+  /** Build optional place for EnterTextSpecs (placeName and/or lat/lon; lat/lon must be together). */
+  const buildEnterTextPlace = useCallback((venue: Venue | undefined) => {
+    if (!venue) return undefined;
+    const place: {
+      placeName?: string;
+      latitude?: number;
+      longitude?: number;
+      uncertaintyKm?: number;
+    } = {};
+    if (
+      venue.latitude != null &&
+      venue.longitude != null
+    ) {
+      place.latitude = venue.latitude;
+      place.longitude = venue.longitude;
+      if (venue.placeName) place.placeName = venue.placeName;
+      if (
+        venue.uncertainty != null &&
+        venue.uncertainty > 0
+      )
+        place.uncertaintyKm = venue.uncertainty;
+    } else if (venue.placeName) {
+      place.placeName = venue.placeName;
+    }
+    return Object.keys(place).length > 0 ? place : undefined;
+  }, []);
+
+  /** Place to send with postTextEnteredEvent: real place, nulls when no/declined position, or undefined when position not needed. */
+  const getPlaceSpecForEnterText = useCallback(
+    (venue: Venue | undefined) => {
+      if (!memori.needsPosition) return undefined;
+      return hasUserProvidedPosition(venue)
+        ? buildEnterTextPlace(venue)
+        : NULL_PLACE_SPEC;
+    },
+    [memori.needsPosition, hasUserProvidedPosition, buildEnterTextPlace]
+  );
 
   const setPosition = (venue?: Venue) => {
     _setPosition(venue);
-    applyPosition(venue);
 
     // Only save position to local config if memori.needsPosition is true
     if (venue && memori.needsPosition) {
@@ -939,9 +978,7 @@ const MemoriWidget = ({
       m => (m as any).type === 'document' && m.properties?.isAttachedFile
     );
     if (mediaDocuments && mediaDocuments.length > 0) {
-      const documentContents = mediaDocuments
-        .map(doc => doc.content)
-        .join(' ');
+      const documentContents = mediaDocuments.map(doc => doc.content).join(' ');
       msg = msg + ' ' + documentContents;
     }
 
@@ -1008,9 +1045,14 @@ const MemoriWidget = ({
       //     '"></chat-reference>';
       // }
 
+      const placeSpec = getPlaceSpecForEnterText(position);
       const { currentState, ...response } = await postTextEnteredEvent({
         sessionId: sessionID,
         text: msg,
+        ...(memori.needsDateTime && {
+          dateUTC: DateTime.utc().toISO() ?? undefined,
+        }),
+        ...(placeSpec !== undefined && { place: placeSpec }),
       });
       if (response.resultCode === 0 && currentState) {
         setChatLogID(undefined);
@@ -1092,14 +1134,17 @@ const MemoriWidget = ({
           }
         });
       } else if (response.resultCode === 500 && response.resultMessage) {
-        setHistory(h => [...h, {
-          text: 'Error: ' + response.resultMessage,
-          emitter: 'system',
-          fromUser: false,
-          initial: false,
-          contextVars: {},
-          date: new Date().toISOString(),
-        }]);
+        setHistory(h => [
+          ...h,
+          {
+            text: 'Error: ' + response.resultMessage,
+            emitter: 'system',
+            fromUser: false,
+            initial: false,
+            contextVars: {},
+            date: new Date().toISOString(),
+          },
+        ]);
       } else {
         console.warn('[SEND_MESSAGE]', response);
         return Promise.reject(response);
@@ -1459,7 +1504,11 @@ const MemoriWidget = ({
             params.additionalInfo?.loginToken ??
             additionalInfo?.loginToken ??
             authToken,
-          language: (userLang ?? memori.culture?.split('-')?.[0] ?? 'IT').toLowerCase(),
+          language: (
+            userLang ??
+            memori.culture?.split('-')?.[0] ??
+            'IT'
+          ).toLowerCase(),
           referral: referral,
           timeZoneOffset: new Date().getTimezoneOffset().toString(),
         },
@@ -1479,9 +1528,6 @@ const MemoriWidget = ({
         } else {
           setInstruct(false);
         }
-
-        if (position && memori.needsPosition)
-          applyPosition(position, session.sessionID);
 
         setLoading(false);
         return {
@@ -1626,7 +1672,11 @@ const MemoriWidget = ({
             additionalInfoProp?.loginToken ??
             additionalInfo?.loginToken ??
             authToken,
-          language: (userLang ?? memori.culture?.split('-')?.[0] ?? 'IT').toLowerCase(),
+          language: (
+            userLang ??
+            memori.culture?.split('-')?.[0] ??
+            'IT'
+          ).toLowerCase(),
           referral: referral,
           timeZoneOffset: new Date().getTimezoneOffset().toString(),
         },
@@ -1700,16 +1750,6 @@ const MemoriWidget = ({
           }
         }
 
-        // Apply position and date settings if needed
-        if (position && memori.needsPosition) {
-          // console.log('[REOPEN_SESSION] Applying position');
-          applyPosition(position, sessionID);
-        }
-        if (memori.needsDateTime) {
-          // console.log('[REOPEN_SESSION] Sending date changed event');
-          sendDateChangedEvent({ sessionID: sessionID, state: currentState });
-        }
-
         setLoading(false);
         return {
           dialogState: currentState,
@@ -1769,9 +1809,14 @@ const MemoriWidget = ({
           pin &&
           (currentState.state === 'X1a' || currentState.state === 'X1b')
         ) {
+          const placeSpec = getPlaceSpecForEnterText(position);
           const { resultCode: textResultCode } = await postTextEnteredEvent({
             sessionId,
             text: pin ?? '',
+            ...(memori.needsDateTime && {
+              dateUTC: DateTime.utc().toISO() ?? undefined,
+            }),
+            ...(placeSpec !== undefined && { place: placeSpec }),
           });
           textResult = textResultCode;
         }
@@ -1822,7 +1867,11 @@ const MemoriWidget = ({
                 loginToken ??
                 additionalInfo?.loginToken ??
                 authToken,
-              language: (userLang ?? memori.culture?.split('-')?.[0] ?? 'IT').toLowerCase(),
+              language: (
+                userLang ??
+                memori.culture?.split('-')?.[0] ??
+                'IT'
+              ).toLowerCase(),
               referral: referral,
               timeZoneOffset: new Date().getTimezoneOffset().toString(),
             },
@@ -1843,113 +1892,6 @@ const MemoriWidget = ({
 
     return null;
   };
-
-  /**
-   * Polling dates
-   */
-  const sendDateChangedEvent = useCallback(
-    async ({
-      sessionID,
-      date,
-      state,
-    }: {
-      sessionID?: string;
-      date?: string;
-      state?: DialogState;
-    }) => {
-      const session = sessionID ?? sessionId;
-      const dialogState = state ?? currentDialogState;
-
-      if (!session || !memori.needsDateTime || dialogState?.hints?.length) {
-        return;
-      }
-
-      const now = (date ? DateTime.fromISO(date) : DateTime.now())
-        .toUTC()
-        .toFormat('yyyy/MM/dd HH:mm:ss ZZ')
-        .split(':')
-        .slice(0, -1)
-        .join(':');
-
-      const { currentState, ...response } = await postDateChangedEvent(
-        session,
-        now
-      );
-
-      if (response.resultCode === 0 && currentState) {
-        _setCurrentDialogState(cds => ({
-          ...cds,
-          ...currentState,
-          hints: currentState.hints?.length ? currentState.hints : cds?.hints,
-        }));
-      }
-    },
-    [currentDialogState, memori.needsDateTime, sessionId]
-  );
-  useEffect(() => {
-    if (sessionId && memori.needsDateTime) {
-      sendDateChangedEvent({ sessionID: sessionId, state: currentDialogState });
-
-      let datePolling: NodeJS.Timeout | null = null;
-      let isTabVisible = !document.hidden;
-
-      const startDatePolling = () => {
-        // stop the polling if it is already running
-        if (datePolling) {
-          clearInterval(datePolling);
-        }
-        // start the polling
-        datePolling = setInterval(() => {
-          if (!document.hidden) {
-            sendDateChangedEvent({
-              sessionID: sessionId,
-            });
-          }
-        }, 60 * 1000); // 1 minute
-      };
-
-      const stopDatePolling = () => {
-        if (datePolling) {
-          clearInterval(datePolling);
-          datePolling = null;
-        }
-      };
-
-      const handleVisibilityChange = () => {
-        const isVisible = !document.hidden;
-
-        if (isVisible && !isTabVisible) {
-          // Tab became visible - start polling and send immediate date event
-          sendDateChangedEvent({
-            sessionID: sessionId,
-            state: currentDialogState,
-          });
-          startDatePolling();
-        } else if (!isVisible && isTabVisible) {
-          // Tab became hidden - stop polling
-          stopDatePolling();
-        }
-
-        isTabVisible = isVisible;
-      };
-
-      // Start polling if tab is initially visible
-      if (isTabVisible) {
-        startDatePolling();
-      }
-
-      // Add visibility change listener
-      document.addEventListener('visibilitychange', handleVisibilityChange);
-
-      return () => {
-        stopDatePolling();
-        document.removeEventListener(
-          'visibilitychange',
-          handleVisibilityChange
-        );
-      };
-    }
-  }, [memori.needsDateTime, sessionId]);
 
   /**
    * Timeout conversazione
@@ -2522,7 +2464,11 @@ const MemoriWidget = ({
               loginToken ??
               additionalInfo?.loginToken ??
               authToken,
-            language: (userLang ?? memori.culture?.split('-')?.[0] ?? 'IT').toLowerCase(),
+            language: (
+              userLang ??
+              memori.culture?.split('-')?.[0] ??
+              'IT'
+            ).toLowerCase(),
             timeZoneOffset: new Date().getTimezoneOffset().toString(),
           },
         });
@@ -2623,14 +2569,6 @@ const MemoriWidget = ({
 
         // reset history
         setHistory([]);
-
-        // date and place events
-        if (position && memori.needsPosition) {
-          applyPosition(position, sessionID);
-        }
-        if (memori.needsDateTime) {
-          sendDateChangedEvent({ sessionID: sessionID, state: currentState });
-        }
 
         // Handle personification tag changes
         if (
@@ -2795,21 +2733,29 @@ const MemoriWidget = ({
             setMemoriTyping(true);
 
             // we have no chat history, we start by initial question
+            const placeSpec = getPlaceSpecForEnterText(position);
             const response = await postTextEnteredEvent({
               sessionId: sessionID!,
               text: initialQuestion,
+              ...(memori.needsDateTime && {
+                dateUTC: DateTime.utc().toISO() ?? undefined,
+              }),
+              ...(placeSpec !== undefined && { place: placeSpec }),
             });
 
             // Handle 500 error from TextEnteredEvent
             if (response.resultCode === 500 && response.resultMessage) {
-              setHistory(h => [...h, {
-                text: 'Error: ' + response.resultMessage,
-                emitter: 'system',
-                fromUser: false,
-                initial: false,
-                contextVars: {},
-                date: new Date().toISOString(),
-              }]);
+              setHistory(h => [
+                ...h,
+                {
+                  text: 'Error: ' + response.resultMessage,
+                  emitter: 'system',
+                  fromUser: false,
+                  initial: false,
+                  contextVars: {},
+                  date: new Date().toISOString(),
+                },
+              ]);
               setMemoriTyping(false);
               return;
             }
@@ -2823,13 +2769,6 @@ const MemoriWidget = ({
           }
         }
 
-        // date and place events
-        if (position && memori.needsPosition) {
-          applyPosition(position, sessionID);
-        }
-        if (memori.needsDateTime) {
-          sendDateChangedEvent({ sessionID: sessionID, state: currentState });
-        }
       }
       // Default case - just translate and activate
       else {
@@ -3245,6 +3184,7 @@ const MemoriWidget = ({
         sessionId={sessionId}
         hasUserActivatedSpeak={hasUserActivatedSpeak}
         loading={loading}
+        avatar3dHidden={avatar3dHidden ?? integrationConfig?.avatar_3d_hidden}
       />
 
       <ArtifactAPIBridge
@@ -3426,13 +3366,17 @@ const MemoriWidget = ({
           open={!!showPositionDrawer}
           venue={position}
           setVenue={setPosition}
-          onClose={position => {
-            if (position) applyPosition(position);
+          onClose={() => {
             setShowPositionDrawer(false);
             if (autoStart) {
               onClickStart();
             }
           }}
+          drawerClassName={
+            selectedLayout === 'WEBSITE_ASSISTANT'
+              ? 'memori-drawer--above-website-assistant'
+              : undefined
+          }
         />
       )}
 
@@ -3465,6 +3409,11 @@ const MemoriWidget = ({
           user={user}
           loginToken={loginToken}
           onClose={() => setShowLoginDrawer(false)}
+          drawerClassName={
+            selectedLayout === 'WEBSITE_ASSISTANT'
+              ? 'memori-drawer--above-website-assistant'
+              : undefined
+          }
           onLogin={(user, token) => {
             //The user is logged in, so we need to set open a new session with the new token
             reopenSession(

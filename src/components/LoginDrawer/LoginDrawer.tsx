@@ -19,6 +19,8 @@ export interface Props {
   __TEST__signup?: boolean;
   __TEST__needMissingData?: boolean;
   setUser: (user: User) => void;
+  /** Optional class for the drawer root (e.g. for z-index when layout is WEBSITE_ASSISTANT). */
+  drawerClassName?: string;
 }
 
 const LoginDrawer = ({

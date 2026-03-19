@@ -90,6 +90,17 @@ WithDates.args = {
   tenant,
 };
 
+/** To test dateUTC/place in Enter Text: open DevTools → Network, start chat, set position (header position icon) if testing place, then send a message. Inspect the request to your backend/engine for body.dateUTC (ISO) and body.place (placeName, latitude, longitude, uncertaintyKm). */
+export const WithDateAndPlaceForEnterText = Template.bind({});
+WithDateAndPlaceForEnterText.args = {
+  memori: {
+    ...memori,
+    needsDateTime: true,
+    needsPosition: true,
+  },
+  tenant,
+};
+
 export const WithPublicPageIntegration = Template.bind({});
 WithPublicPageIntegration.args = {
   memori,

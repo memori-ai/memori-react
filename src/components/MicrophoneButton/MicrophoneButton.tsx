@@ -90,7 +90,6 @@ const MicrophoneButton = ({
         </span>
       }
       align="topLeft"
-      className="memori-mic-btn-tooltip"
     >
       <div onContextMenu={handleContextMenu}>
         <Button

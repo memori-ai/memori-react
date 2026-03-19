@@ -20,6 +20,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
   hasUserActivatedSpeak,
   loading = false,
   poweredBy,
+  avatar3dHidden,
 }) => {
   const { t } = useTranslation();
   const [collapsed, _setCollapsed] = useState(true);
@@ -85,28 +86,30 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                   />
               )}
 
-              <div className="memori-website_assistant-layout--avatar">
-                {Avatar && avatarProps && (
-                  <Avatar
-                    {...avatarProps}
-                    integrationConfig={
-                      avatarProps.integrationConfig
-                        ? {
-                            ...avatarProps.integrationConfig,
-                            avatarURL: avatarProps.integrationConfig?.avatarURL
-                              ? `${
-                                  avatarProps.integrationConfig?.avatarURL.split(
-                                    '#'
-                                  )[0]
-                                }#${expandedKey}`
-                              : undefined,
-                          }
-                        : {}
-                    }
-                    key={expandedKey}
-                  />
-                )}
-              </div>
+              {!(avatar3dHidden === true || avatar3dHidden === 'true') && (
+                <div className="memori-website_assistant-layout--avatar">
+                  {Avatar && avatarProps && (
+                    <Avatar
+                      {...avatarProps}
+                      integrationConfig={
+                        avatarProps.integrationConfig
+                          ? {
+                              ...avatarProps.integrationConfig,
+                              avatarURL: avatarProps.integrationConfig?.avatarURL
+                                ? `${
+                                    avatarProps.integrationConfig?.avatarURL.split(
+                                      '#'
+                                    )[0]
+                                  }#${expandedKey}`
+                                : undefined,
+                            }
+                          : {}
+                      }
+                      key={expandedKey}
+                    />
+                  )}
+                </div>
+              )}
 
               <div id="extension" />
 

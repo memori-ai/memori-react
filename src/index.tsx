@@ -50,6 +50,8 @@ export interface Props {
   showLogin?: boolean;
   showUpload?: boolean;
   showReasoning?: boolean;
+  /** When true and layout is WEBSITE_ASSISTANT, hide the 3D avatar in the expanded panel. */
+  avatar3dHidden?: boolean;
   height?: number | string;
   baseURL?: string;
   apiURL?: string;
@@ -130,6 +132,7 @@ const Memori: React.FC<Props> = ({
   showUpload,
   showLogin,
   showReasoning,
+  avatar3dHidden,
   height = '100%',
   baseURL,
   apiURL = 'https://backend.memori.ai',
@@ -477,6 +480,7 @@ const Memori: React.FC<Props> = ({
               maxTotalMessagePayload={maxTotalMessagePayload}
               maxTextareaCharacters={maxTextareaCharacters}
               disableTextEnteredEvents={disableTextEnteredEvents}
+              avatar3dHidden={avatar3dHidden}
               // From layout, from client if allowed
               {...clientAttributes}
               // Client only
@@ -543,6 +547,7 @@ Memori.propTypes = {
   showLogin: PropTypes.bool,
   showUpload: PropTypes.bool,
   showReasoning: PropTypes.bool,
+  avatar3dHidden: PropTypes.bool,
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   baseURL: PropTypes.string,
   apiURL: PropTypes.string,
