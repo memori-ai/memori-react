@@ -225,6 +225,53 @@ it('renders Chat with context vars unchanged', () => {
   expect(container).toMatchSnapshot();
 });
 
+it('renders Chat with message consumption unchanged', () => {
+  const { container } = render(
+    <ArtifactProvider>
+      <Chat
+        memori={memori}
+        tenant={tenant}
+        dialogState={dialogState}
+        layout="DEFAULT"
+        client={client}
+        history={[
+          ...(history as any),
+          {
+            text: 'AI message with usage',
+            fromUser: false,
+            timestamp: new Date().toISOString(),
+            llmUsage: {
+              provider: 'openai',
+              model: 'gpt-4.1-mini',
+              totalInputTokens: 10,
+              outputTokens: 20,
+              durationMs: 1000,
+              energyImpact: { energy: 0.001, energyUnit: 'kWh' },
+            },
+          } as any,
+        ]}
+        pushMessage={jest.fn()}
+        sessionID={sessionID}
+        simulateUserPrompt={jest.fn()}
+        setAttachmentsMenuOpen={jest.fn()}
+        setSendOnEnter={jest.fn()}
+        userMessage=""
+        onChangeUserMessage={jest.fn()}
+        sendMessage={jest.fn()}
+        stopListening={jest.fn()}
+        isPlayingAudio={false}
+        stopAudio={jest.fn()}
+        showMicrophone={false}
+        listening={false}
+        startListening={jest.fn()}
+        setEnableFocusChatInput={jest.fn()}
+        showMessageConsumption
+      />
+    </ArtifactProvider>
+  );
+  expect(container).toMatchSnapshot();
+});
+
 it('renders Chat with user unchanged', () => {
   const { container } = render(
     <ArtifactProvider

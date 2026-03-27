@@ -5368,6 +5368,751 @@ exports[`renders Chat with memori typing unchanged 1`] = `
 </div>
 `;
 
+exports[`renders Chat with message consumption unchanged 1`] = `
+<div>
+  <div
+    class="memori-chat--wrapper"
+    data-memori-lang="IT"
+    id="chat-wrapper"
+  >
+    <div
+      class="memori-chat--history"
+    >
+      <div
+        class="memori-chat--content"
+        style="padding-bottom: 0px;"
+      >
+        <div
+          class="memori-chat--cover"
+        />
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-initial"
+        />
+        <div
+          class="memori-chat--bubble-container memori-chat-scroll-item"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <div
+              class="memori-chat--bubble-content"
+              dir="auto"
+            >
+              <p>
+                Ciao, io sono test, c'è qualcosa che vorresti chiedermi?
+              </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
+        >
+          <div
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+          >
+            <div
+              class="memori-expandable memori-chat--bubble-content"
+            >
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
+                <div
+                  class="memori-chat--bubble-content"
+                  dir="auto"
+                >
+                  Prova
+                </div>
+              </div>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              role="img"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M858.5 763.6a374 374 0 0 0-80.6-119.5 375.63 375.63 0 0 0-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 0 0-80.6 119.5A371.7 371.7 0 0 0 136 901.8a8 8 0 0 0 8 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 0 0 8-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container memori-chat-scroll-item"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <div
+              class="memori-chat--bubble-content"
+              dir="auto"
+            >
+              <p>
+                Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?
+              </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
+        >
+          <div
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+          >
+            <div
+              class="memori-expandable memori-chat--bubble-content"
+            >
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
+                <div
+                  class="memori-chat--bubble-content"
+                  dir="auto"
+                >
+                  Come faccio a fare delle cose con questa cosa?
+                </div>
+              </div>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              role="img"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M858.5 763.6a374 374 0 0 0-80.6-119.5 375.63 375.63 0 0 0-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 0 0-80.6 119.5A371.7 371.7 0 0 0 136 901.8a8 8 0 0 0 8 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 0 0 8-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        >
+          <div
+            class="memori-media-items"
+          >
+            <div
+              class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
+            >
+              <div
+                class="memori-media-item ease-out duration-500 delay-0 opacity-0 scale-95"
+              >
+                <a
+                  class="memori-media-item--link memori-media-item--document-link"
+                  href="https://memori.ai/131165be-9d1a-42fb-a3ce-e8f86d40c88f"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  title="Link"
+                >
+                  <div
+                    class="memori-media-item--document"
+                  >
+                    <div
+                      class="memori-media-item--document-header"
+                    >
+                      <div
+                        class="memori-media-item--document-title"
+                      >
+                        Link
+                      </div>
+                    </div>
+                    <span
+                      class="memori-media-item--document-badge"
+                    >
+                      Link
+                    </span>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-chat--bubble-container memori-chat-scroll-item"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <div
+              class="memori-chat--bubble-content"
+              dir="auto"
+            >
+              <p>
+                Ecco qui come.
+              </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--bubble-from-user"
+        >
+          <div
+            class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x-30"
+          >
+            <div
+              class="memori-expandable memori-chat--bubble-content"
+            >
+              <div
+                class="memori-expandable--inner"
+                style="max-height: 9999px;"
+              >
+                <div
+                  class="memori-chat--bubble-content"
+                  dir="auto"
+                >
+                  Ah, grazie! Ciao!
+                </div>
+              </div>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon memori-chat--bubble-action-icon--from-user"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+          <div
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x-15"
+          >
+            <svg
+              aria-hidden="true"
+              focusable="false"
+              role="img"
+              viewBox="0 0 1024 1024"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M858.5 763.6a374 374 0 0 0-80.6-119.5 375.63 375.63 0 0 0-119.5-80.6c-.4-.2-.8-.3-1.2-.5C719.5 518 760 444.7 760 362c0-137-111-248-248-248S264 225 264 362c0 82.7 40.5 156 102.8 201.1-.4.2-.8.3-1.2.5-44.8 18.9-85 46-119.5 80.6a375.63 375.63 0 0 0-80.6 119.5A371.7 371.7 0 0 0 136 901.8a8 8 0 0 0 8 8.2h60c4.4 0 7.9-3.5 8-7.8 2-77.2 33-149.5 87.8-204.3 56.7-56.7 132-87.9 212.2-87.9s155.5 31.2 212.2 87.9C779 752.7 810 825 812 902.2c.1 4.4 3.6 7.8 8 7.8h60a8 8 0 0 0 8-8.2c-1-47.8-10.9-94.3-29.5-138.2zM512 534c-45.9 0-89.1-17.9-121.6-50.4S340 407.9 340 362c0-45.9 17.9-89.1 50.4-121.6S466.1 190 512 190s89.1 17.9 121.6 50.4S684 316.1 684 362c0 45.9-17.9 89.1-50.4 121.6S557.9 534 512 534z"
+              />
+            </svg>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container memori-chat-scroll-item"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <div
+              class="memori-chat--bubble-content"
+              dir="auto"
+            >
+              <p>
+                Arrivederci.
+              </p>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori-media-widget"
+        />
+        <div
+          class="memori-chat--bubble-container memori-chat-scroll-item"
+        >
+          <picture
+            class="memori-chat--bubble-avatar transition ease-in-out duration-300 opacity-0 scale-075 translate-x--15"
+            title="Memori"
+          >
+            <img
+              alt="Memori"
+              class="memori-chat--bubble-avatar-img"
+              src="https://aisuru.com/images/aisuru/square_logo.png"
+            />
+          </picture>
+          <div
+            class="memori-chat--bubble memori-chat--with-addon transition ease-in-out duration-300 opacity-0 scale-09 translate-x--30"
+          >
+            <div
+              class="memori-chat--bubble-content"
+              dir="auto"
+            >
+              <p>
+                AI message with usage
+              </p>
+            </div>
+            <div
+              class="memori-chat--usage-inside-bubble"
+            >
+              <div
+                class="memori-chat--llm-usage"
+                data-llm-usage=""
+              >
+                <hr
+                  class="memori-chat--llm-usage-hr"
+                />
+                <p
+                  class="memori-chat--llm-usage-hint"
+                >
+                  chatLogs.usageBadgesHint
+                </p>
+                <div
+                  class="memori-chat--llm-usage-badges"
+                >
+                  <button
+                    aria-label="chatLogs.llm"
+                    class="memori-chat--usage-badge memori-chat--usage-badge-llm"
+                    data-line-index="7"
+                    data-llm-badge-type="llm"
+                    type="button"
+                  >
+                    🤖 
+                    <span
+                      class="memori-chat--usage-badge-label"
+                    >
+                      chatLogs.llm
+                    </span>
+                  </button>
+                  <button
+                    aria-label="chatLogs.energy 1 Wh"
+                    class="memori-chat--usage-badge memori-chat--usage-badge-energy"
+                    data-line-index="7"
+                    data-llm-badge-type="energy"
+                    type="button"
+                  >
+                    ⚡ 
+                    <span
+                      class="memori-chat--usage-badge-value"
+                    >
+                      1 Wh
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div
+              class="memori-chat--bubble-addon"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--circle memori-button--padded memori-button--icon-only memori-chat--bubble-action-icon"
+                title="copy"
+              >
+                <span
+                  class="memori-button--icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    fill="none"
+                    focusable="false"
+                    role="img"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="1.5"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <rect
+                      height="14"
+                      rx="2"
+                      ry="2"
+                      width="14"
+                      x="8"
+                      y="8"
+                    />
+                    <path
+                      d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div
+          id="end-messages-ref"
+        />
+      </div>
+    </div>
+    <div
+      class="memori-chat-inputs-wrapper"
+    >
+      <fieldset
+        class="memori-chat-inputs"
+        id="chat-fieldset"
+      >
+        <div
+          class="memori-chat-inputs--container"
+        >
+          <div
+            class="memori-chat-inputs--leading"
+          />
+          <div
+            class="memori-chat-inputs--primary"
+          >
+            <div
+              class="memori-chat-textarea"
+              data-testid="chat-textarea"
+            >
+              <div
+                class="memori-chat-textarea--inner"
+                style="height: 36px;"
+              >
+                <textarea
+                  class="memori-chat-textarea--input"
+                  maxlength="100000"
+                  placeholder="placeholder"
+                  style="height: 36px;"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="memori-chat-inputs--trailing"
+          >
+            <div
+              class="memori-chat-inputs--trailing-inner"
+            >
+              <button
+                aria-label="send"
+                class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
+                disabled=""
+                title="send"
+                type="button"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="icon"
+                  focusable="false"
+                  role="img"
+                  viewBox="0 0 1024 1024"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M931.4 498.9L94.9 79.5c-3.4-1.7-7.3-2.1-11-1.2-8.5 2.1-13.8 10.7-11.7 19.3l86.2 352.2c1.3 5.3 5.2 9.6 10.4 11.3l147.7 50.7-147.6 50.7c-5.2 1.8-9.1 6-10.3 11.3L72.2 926.5c-.9 3.7-.5 7.6 1.2 10.9 3.9 7.9 13.5 11.1 21.5 7.2l836.5-417c3.1-1.5 5.6-4.1 7.2-7.1 3.9-8 .7-17.6-7.2-21.6zM170.8 826.3l50.3-205.6 295.2-101.3c2.3-.8 4.2-2.6 5-5 1.4-4.2-.8-8.7-5-10.2L221.1 403 171 198.2l628 314.9-628.2 313.2z"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`renders Chat with user unchanged 1`] = `
 <div>
   <div

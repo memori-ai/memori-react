@@ -61,6 +61,7 @@ export interface Props {
   experts?: ExpertReference[];
   showFunctionCache?: boolean;
   showReasoning?: boolean;
+  usageHtml?: string;
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -84,6 +85,7 @@ const ChatBubble: React.FC<Props> = ({
   experts,
   showFunctionCache = false,
   showReasoning = false,
+  usageHtml = '',
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
@@ -452,6 +454,13 @@ const ChatBubble: React.FC<Props> = ({
               dir="auto"
               className="memori-chat--bubble-content"
               dangerouslySetInnerHTML={{ __html: renderedText }}
+            />
+          )}
+
+          {!!usageHtml && (
+            <div
+              className="memori-chat--usage-inside-bubble"
+              dangerouslySetInnerHTML={{ __html: usageHtml }}
             />
           )}
 

@@ -44,6 +44,7 @@ export interface Props {
   showInputs?: boolean;
   showDates?: boolean;
   showContextPerLine?: boolean;
+  showMessageConsumption?: boolean;
   showSettings?: boolean;
   __WEBCOMPONENT__?: boolean;
   showClear?: boolean;
@@ -131,6 +132,7 @@ const Memori: React.FC<Props> = ({
   showInputs = true,
   showDates = false,
   showContextPerLine = false,
+  showMessageConsumption = true,
   showUpload,
   showLogin,
   showReasoning,
@@ -372,6 +374,7 @@ const Memori: React.FC<Props> = ({
         showUpload,
         showReasoning,
         showContextPerLine,
+        showMessageConsumption,
         initialContextVars:
           context ?? getParsedContext(layoutIntegrationConfig.contextVars),
         initialQuestion:
@@ -540,6 +543,7 @@ Memori.propTypes = {
   showInputs: PropTypes.bool,
   showDates: PropTypes.bool,
   showContextPerLine: PropTypes.bool,
+  showMessageConsumption: PropTypes.bool,
   showSettings: PropTypes.bool,
   showClear: PropTypes.bool,
   showOnlyLastMessages: PropTypes.bool,
