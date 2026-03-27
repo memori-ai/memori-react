@@ -5,21 +5,17 @@ exports[`renders FeedbackButtons unchanged 1`] = `
   <div
     class="memori-chat--feedback"
   >
-    <div
-      class="memori-tooltip memori-tooltip--align-left"
+    <span
+      class="styles-module__root___-ALla"
     >
-      <div
-        class="memori-tooltip--content"
-      >
-        Feedback
-      </div>
-      <div
-        class="memori-tooltip--trigger"
+      <span
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r1:"
       >
         <button
+          aria-label="feedback"
           class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
           tabindex="0"
-          title="Feedback"
           type="button"
         >
           <span
@@ -43,8 +39,8 @@ exports[`renders FeedbackButtons unchanged 1`] = `
             </svg>
           </span>
         </button>
-      </div>
-    </div>
+      </span>
+    </span>
   </div>
 </div>
 `;

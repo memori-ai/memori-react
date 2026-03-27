@@ -422,22 +422,34 @@ const ChatBubble: React.FC<Props> = ({
             (showFeedback && simulateUserPrompt)) && (
             <div className="memori-chat--bubble-addon">
               {shouldShowCopyButtons && (
-                <Button
-                  variant="ghost"
-                  shape="circle"
-                  title={copyFeedback.plain ? copiedLabel : t('copy') || 'Copy'}
-                  icon={
-                    <Copy
-                      aria-label={
-                        copyFeedback.plain ? copiedLabel : t('copy') || 'Copy'
-                      }
-                      style={{
-                        color: message.fromUser ? '#fff' : 'var(--memori-text-color)',
-                      }}
-                    />
+                <Tooltip
+                  placement="bottom"
+                  content={
+                    copyFeedback.plain ? copiedLabel : t('copy') || 'Copy'
                   }
-                  onClick={() => handleCopyClick('plain', copyText)}
-                />
+                >
+                  <span className="memori-chat--bubble-addon-tooltip-trigger">
+                    <Button
+                      variant="ghost"
+                      shape="circle"
+                      icon={
+                        <Copy
+                          aria-label={
+                            copyFeedback.plain
+                              ? copiedLabel
+                              : t('copy') || 'Copy'
+                          }
+                          style={{
+                            color: message.fromUser
+                              ? '#fff'
+                              : 'var(--memori-text-color)',
+                          }}
+                        />
+                      }
+                      onClick={() => handleCopyClick('plain', copyText)}
+                    />
+                  </span>
+                </Tooltip>
               )}
               {copyFeedback.plain && (
                 <span
@@ -453,25 +465,31 @@ const ChatBubble: React.FC<Props> = ({
               )}
 
               {shouldShowCopyRawButton && (
-                <Button
-                  variant="ghost"
-                  shape="circle"
-                  title={
+                <Tooltip
+                  placement="bottom"
+                  content={
                     copyFeedback.raw
                       ? copiedLabel
                       : t('copyRawCode') || 'Copy raw code'
                   }
-                  icon={
-                    <Code
-                      aria-label={
-                        copyFeedback.raw
-                          ? copiedLabel
-                          : t('copyRawCode') || 'Copy raw code'
+                >
+                  <span className="memori-chat--bubble-addon-tooltip-trigger">
+                    <Button
+                      variant="ghost"
+                      shape="circle"
+                      icon={
+                        <Code
+                          aria-label={
+                            copyFeedback.raw
+                              ? copiedLabel
+                              : t('copyRawCode') || 'Copy raw code'
+                          }
+                        />
                       }
+                      onClick={() => handleCopyClick('raw', rawMessageText)}
                     />
-                  }
-                  onClick={() => handleCopyClick('raw', rawMessageText)}
-                />
+                  </span>
+                </Tooltip>
               )}
               {copyFeedback.raw && (
                 <span
@@ -493,13 +511,26 @@ const ChatBubble: React.FC<Props> = ({
                     Boolean(m.properties?.functionCache) ||
                     m.properties?.functionCache === 'true'
                 ) && (
-                  <Button
-                    variant="ghost"
-                    shape="circle"
-                    title="Debug"
-                    icon={<Bug aria-label="Debug" />}
-                    onClick={() => setOpenFunctionCache(true)}
-                  />
+                  <Tooltip
+                    placement="bottom"
+                    content={t('functionCache') || 'Function cache'}
+                    className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--debug"
+                  >
+                    <span className="memori-chat--bubble-addon-tooltip-trigger">
+                      <Button
+                        variant="ghost"
+                        shape="circle"
+                        icon={
+                          <Bug
+                            aria-label={
+                              t('functionCache') || 'Function cache'
+                            }
+                          />
+                        }
+                        onClick={() => setOpenFunctionCache(true)}
+                      />
+                    </span>
+                  </Tooltip>
                 )}
 
               {showFeedback && !!simulateUserPrompt && (
@@ -515,7 +546,7 @@ const ChatBubble: React.FC<Props> = ({
 
               {message.generatedByAI && showAIicon && (
                 <Tooltip
-                  align="right"
+                  placement="bottom"
                   content={
                     t('generatedByAI') ||
                     (lang === 'it'
@@ -539,7 +570,7 @@ const ChatBubble: React.FC<Props> = ({
                 message.translatedText &&
                 message.translatedText !== message.text && (
                   <Tooltip
-                    align="right"
+                    placement="bottom"
                     content={`${
                       lang === 'it' ? 'Testo originale' : 'Original text'
                     }: ${message.text}`}
@@ -559,18 +590,26 @@ const ChatBubble: React.FC<Props> = ({
                 message.questionAnswered &&
                 apiUrl &&
                 showWhyThisAnswer && (
-                  <Button
-                    variant="ghost"
-                    shape="circle"
-                    title={t('whyThisAnswer') || undefined}
-                    onClick={() => setShowingWhyThisAnswer(true)}
-                    disabled={showingWhyThisAnswer}
-                    icon={
-                      <HelpCircle
-                        aria-label={t('whyThisAnswer') || undefined}
+                  <Tooltip
+                    placement="bottom"
+                    content={t('whyThisAnswer') || 'Why this answer?'}
+                  >
+                    <span className="memori-chat--bubble-addon-tooltip-trigger">
+                      <Button
+                        variant="ghost"
+                        shape="circle"
+                        onClick={() => setShowingWhyThisAnswer(true)}
+                        disabled={showingWhyThisAnswer}
+                        icon={
+                          <HelpCircle
+                            aria-label={
+                              t('whyThisAnswer') || 'Why this answer?'
+                            }
+                          />
+                        }
                       />
-                    }
-                  />
+                    </span>
+                  </Tooltip>
                 )}
             </div>
           )}

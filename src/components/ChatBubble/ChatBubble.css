@@ -72,7 +72,7 @@
 }
 
 .memori-chat--bubble-avatar svg {
-    fill: var(--memori-text-color);
+    fill: #000;
     font-size: var(--memori-text-size-heading-large);
 }
 
@@ -212,6 +212,10 @@
     justify-content: flex-end;
     margin-top: var(--memori-spacing-sm);
     margin-left: auto;
+}
+
+.memori-chat--bubble-addon-tooltip-trigger {
+    display: inline-flex;
 }
 
 .memori-chat--bubble .memori-chat--bubble-action-icon {

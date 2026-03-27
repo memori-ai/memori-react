@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Tooltip, Button, Dropdown } from '@memori.ai/ui';
 import { MessageSquare } from 'lucide-react';
 import cx from 'classnames';
+import { useTranslation } from 'react-i18next';
 const feedbackMsgs = {
   'it-IT': 'Non è quello che ti ho chiesto',
   'fr-FR': "Ce n'est pas ce que je t'ai demandé",
@@ -36,7 +37,9 @@ const FeedbackButtons = ({
   toggle = false,
   dropdown = false,
 }: Props) => {
+  const { t } = useTranslation();
   const [clicked, setClicked] = useState<'up' | 'down'>();
+  const feedbackLabel = t('feedback') || 'Feedback';
   const culture =
     memori.culture === 'it-IT'
       ? 'it-IT'
@@ -50,66 +53,72 @@ const FeedbackButtons = ({
   return (
     <div className={`memori-chat--feedback${className ? ` ${className}` : ''}`}>
       {dropdown ? (
-        <Dropdown className="memori-chat--feedback-menu">
-          <Dropdown.Trigger
-            className="memori-chat--feedback-button"
-            showChevron={false}
-            render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
-              <Button
-                {...props}
-                variant="ghost"
-                title="Feedback"
-                disabled={!!clicked}
-                icon={
-                  <MessageSquare
-                    className={
-                      clicked ? 'memori-chat--feedback-clicked' : undefined
+        <Tooltip placement="bottom" content={feedbackLabel}>
+          <span className="memori-chat--feedback-tooltip-trigger">
+            <Dropdown className="memori-chat--feedback-menu">
+              <Dropdown.Trigger
+                className="memori-chat--feedback-button"
+                showChevron={false}
+                render={(
+                  props: React.ButtonHTMLAttributes<HTMLButtonElement>
+                ) => (
+                  <Button
+                    {...props}
+                    variant="ghost"
+                    aria-label={feedbackLabel}
+                    disabled={!!clicked}
+                    icon={
+                      <MessageSquare
+                        className={
+                          clicked ? 'memori-chat--feedback-clicked' : undefined
+                        }
+                      />
                     }
                   />
-                }
+                )}
               />
-            )}
-          />
-          <Dropdown.Menu
-            className="memori-chat--feedback-menu-items"
-            placement="bottom"
-            align="end"
-          >
-            <div className="memori-chat--feedback-menu-items-container">
-              <Dropdown.Item
-                key="ok"
-                className="memori-chat--feedback-menu-item"
-                onClick={() => {
-                  if (clicked === 'up' && !!toggle) {
-                    setClicked(undefined);
-                  } else {
-                    setClicked('up');
-                  }
-                }}
+              <Dropdown.Menu
+                className="memori-chat--feedback-menu-items"
+                placement="bottom"
+                align="end"
               >
-                {dislikeMsg}
-              </Dropdown.Item>
-              <Dropdown.Item
-                key="no"
-                className="memori-chat--feedback-menu-item"
-                onClick={() => {
-                  if (clicked === 'down' && !!toggle) {
-                    setClicked(undefined);
-                  } else {
-                    setClicked('down');
-                  }
-                  onNegativeClick(feedbackMsg);
-                }}
-              >
-                {feedbackMsgHelper}
-              </Dropdown.Item>
-            </div>
-          </Dropdown.Menu>
-        </Dropdown>
+                <div className="memori-chat--feedback-menu-items-container">
+                  <Dropdown.Item
+                    key="ok"
+                    className="memori-chat--feedback-menu-item"
+                    onClick={() => {
+                      if (clicked === 'up' && !!toggle) {
+                        setClicked(undefined);
+                      } else {
+                        setClicked('up');
+                      }
+                    }}
+                  >
+                    {dislikeMsg}
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    key="no"
+                    className="memori-chat--feedback-menu-item"
+                    onClick={() => {
+                      if (clicked === 'down' && !!toggle) {
+                        setClicked(undefined);
+                      } else {
+                        setClicked('down');
+                      }
+                      onNegativeClick(feedbackMsg);
+                    }}
+                  >
+                    {feedbackMsgHelper}
+                  </Dropdown.Item>
+                </div>
+              </Dropdown.Menu>
+            </Dropdown>
+          </span>
+        </Tooltip>
       ) : (
-        <Tooltip align="left" content="Feedback">
+        <Tooltip placement="bottom" content={feedbackLabel}>
           <Button
-            title="Feedback"
+            aria-label={feedbackLabel}
             onClick={() => {
               if (clicked === 'down' && !!toggle) {
                 setClicked(undefined);
