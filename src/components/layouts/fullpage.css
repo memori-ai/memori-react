@@ -61,7 +61,7 @@
 .memori-widget.memori-layout-fullpage .memori-chat-layout--controls .memori-chat--wrapper {
     width: 100%;
     max-width: 100%;
-    padding: 0;
+    padding: 0 !important;
     margin-right: 0;
     margin-left: 0;
 }
@@ -77,6 +77,8 @@
 
 .memori-widget.memori-layout-fullpage .memori--description,
 .memori-widget.memori-layout-fullpage .memori--needsPosition {
+    padding: var(--memori-spacing-lg);
+    padding-top: var(--memori-spacing-xs);
     color: var(--memori-text-color);
     font-size: var(--memori-text-size-base);
     line-height: var(--memori-text-line-relaxed);

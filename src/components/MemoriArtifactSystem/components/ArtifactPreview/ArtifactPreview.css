@@ -228,7 +228,7 @@
 .memori-artifact-preview-css-content button {
   padding: 0.5rem 1rem;
   border: none;
-  border-radius: var(--memori-radius-form);
+  border-radius: var(--memori-radius-box);
   margin: 0.5rem 0;
   background: var(--memori-primary);
   color: var(--memori-primary-content);

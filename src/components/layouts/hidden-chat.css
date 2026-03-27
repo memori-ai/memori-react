@@ -20,7 +20,9 @@
 
 .memori-chat-history {
   height: calc(100% - var(--memori-spacing-5xl));
+  padding: 0;
   margin: 0;
+  background: var(--memori-secondary-background);
 }
 
 /* Modern floating toggle button */

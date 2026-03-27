@@ -2,29 +2,12 @@
 
 exports[`renders CompletionProviderStatus errored unchanged 1`] = `
 <div>
-  <div
-    class="memori-tooltip memori-tooltip--align-right memori--completion-provider-status--tooltip"
+  <span
+    class="styles-module__root___-ALla memori--completion-provider-status--tooltip"
   >
-    <div
-      class="memori-tooltip--content"
-    >
-      <div>
-        <p>
-          completionProviderMajorOutage
-        </p>
-        <p>
-          <a
-            href="https://status.anthropic.com/"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            completionProviderCheckStatusPage
-          </a>
-        </p>
-      </div>
-    </div>
-    <div
-      class="memori-tooltip--trigger"
+    <span
+      class="styles-module__trigger___V2aIF"
+      id="base-ui-:r3:"
     >
       <svg
         class="lucide lucide-triangle-alert memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
@@ -48,36 +31,19 @@ exports[`renders CompletionProviderStatus errored unchanged 1`] = `
           d="M12 17h.01"
         />
       </svg>
-    </div>
-  </div>
+    </span>
+  </span>
 </div>
 `;
 
 exports[`renders CompletionProviderStatus errored with provider specified unchanged 1`] = `
 <div>
-  <div
-    class="memori-tooltip memori-tooltip--align-right memori--completion-provider-status--tooltip"
+  <span
+    class="styles-module__root___-ALla memori--completion-provider-status--tooltip"
   >
-    <div
-      class="memori-tooltip--content"
-    >
-      <div>
-        <p>
-          completionProviderMajorOutage
-        </p>
-        <p>
-          <a
-            href="https://status.openai.com/"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            completionProviderCheckStatusPage
-          </a>
-        </p>
-      </div>
-    </div>
-    <div
-      class="memori-tooltip--trigger"
+    <span
+      class="styles-module__trigger___V2aIF"
+      id="base-ui-:r5:"
     >
       <svg
         class="lucide lucide-triangle-alert memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
@@ -101,36 +67,19 @@ exports[`renders CompletionProviderStatus errored with provider specified unchan
           d="M12 17h.01"
         />
       </svg>
-    </div>
-  </div>
+    </span>
+  </span>
 </div>
 `;
 
 exports[`renders CompletionProviderStatus unchanged 1`] = `
 <div>
-  <div
-    class="memori-tooltip memori-tooltip--align-right memori--completion-provider-status--tooltip"
+  <span
+    class="styles-module__root___-ALla memori--completion-provider-status--tooltip"
   >
-    <div
-      class="memori-tooltip--content"
-    >
-      <div>
-        <p>
-          completionProviderMajorOutage
-        </p>
-        <p>
-          <a
-            href="https://status.anthropic.com/"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            completionProviderCheckStatusPage
-          </a>
-        </p>
-      </div>
-    </div>
-    <div
-      class="memori-tooltip--trigger"
+    <span
+      class="styles-module__trigger___V2aIF"
+      id="base-ui-:r1:"
     >
       <svg
         class="lucide lucide-triangle-alert memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
@@ -154,8 +103,8 @@ exports[`renders CompletionProviderStatus unchanged 1`] = `
           d="M12 17h.01"
         />
       </svg>
-    </div>
-  </div>
+    </span>
+  </span>
 </div>
 `;
 

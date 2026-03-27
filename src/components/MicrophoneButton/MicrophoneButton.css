@@ -1,8 +1,22 @@
 
+/* Hold-to-talk: tooltip uses align=topLeft so the bubble stays in view (mic sits on the trailing edge). */
+.memori-chat-inputs--mic-tooltip.memori-tooltip {
+    vertical-align: middle;
+}
 
+/* Library default is overflow: hidden auto + max-height — avoid scrollbars on short hint text */
+.memori-chat-inputs--mic-tooltip .memori-tooltip--content {
+    overflow: visible;
+    max-height: none;
+}
 
 .memori-chat-inputs--mic {
     z-index: 1;
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    padding: 0;
     margin-left: 0.33rem;
     color: var(--memori-primary);
     -webkit-tap-highlight-color: transparent;
@@ -17,6 +31,8 @@
 }
 
 .memori-chat-inputs--mic svg {
+    width: 20px;
+    height: 20px;
     color: var(--memori-primary, #fff);
     font-size: 1em;
     -webkit-user-select: none;

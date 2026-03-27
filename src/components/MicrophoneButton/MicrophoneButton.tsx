@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Props as ChatInputProps } from '../ChatInputs/ChatInputs';
 import { Mic } from 'lucide-react';
 import { Button, Tooltip } from '@memori.ai/ui';
-import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 
 export interface Props {
@@ -79,35 +78,42 @@ const MicrophoneButton = ({
     return () => stopHold();
   }, []);
 
+  const idleHint =
+    t('write_and_speak.pressAndHoldToSpeak') || 'Press and hold to speak';
+  const listeningHint =
+    t('write_and_speak.releaseToEndListening') || 'Release to stop listening';
+
+  const tooltipLabel =
+    micBtnTooltip ?? (listening ? listeningHint : idleHint);
+
   return (
     <Tooltip
-      visible={!!micBtnTooltip}
-      content={
-        <span>
-          {micBtnTooltip ||
-            t('write_and_speak.pressAndHoldToSpeak') ||
-            'Press and hold to speak'}
-        </span>
-      }
-      align="topLeft"
+      title={tooltipLabel}  
+      placement="top-end"
+      className="memori-chat-inputs--mic-tooltip"
+      slotProps={{
+        positioner: {
+          className: 'memori-chat-inputs--mic-tooltip-positioner',
+        },
+        popup: {
+          className: 'memori-chat-inputs--mic-tooltip-popup',
+        },
+      }}
     >
       <div onContextMenu={handleContextMenu}>
         <Button
           variant="ghost"
+          size="sm"
           className={
             listening ? 'memori-chat-inputs--mic--listening' : 'memori-chat-inputs--mic'
           }
-          title={
-            listening
-              ? t('write_and_speak.micButtonPopoverListening') || 'Listening'
-              : t('write_and_speak.micButtonPopover') || 'Start listening'
-          }
+          aria-label={listening ? listeningHint : idleHint}
           onMouseDown={startHold}
           onTouchStart={handleTouchStart}
           onMouseUp={stopHold}
           onTouchEnd={handleTouchEnd}
           onMouseLeave={stopHold}
-          shape="circle"
+          // shape="circle"
           icon={<Mic />}
         />
       </div>

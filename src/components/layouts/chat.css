@@ -125,7 +125,6 @@
 
 .memori-chat-layout .memori--title {
     position: relative;
-    top: 10px;
 }
 
 .memori-chat-layout .memori-chat--cover {
@@ -162,9 +161,8 @@
 .memori-chat-layout--controls .memori--start-panel,
 .memori-chat-layout--controls .memori-chat--wrapper {
     width: 100%;
-    max-width: 1200px;
+    min-width: 100%;
     height: 100%;
-    padding: 0 var(--memori-spacing-md, 1rem);
     margin: 0 auto;
 }
 
@@ -172,12 +170,6 @@
     padding: 0;
 }
 
-@media (max-width: 1200px) {
-    .memori-chat-layout--controls .memori--start-panel,
-    .memori-chat-layout--controls .memori-chat--wrapper {
-        max-width: 1000px;
-    }
-}
 
 @media (max-width: 991px) {
     .memori-chat-layout--controls .memori--start-panel,

@@ -434,7 +434,7 @@
 
 .memori-website_assistant-layout--controls .memori-chat--history,
 .memori-website_assistant-layout--controls .memori-chat--content {
-    background: transparent;
+    background:  var(--memori-secondary-background);
 }
 
 .memori-website_assistant-layout--controls .memori-chat--history {

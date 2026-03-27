@@ -24,7 +24,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
         for="memori-sidebar-toggle"
       >
         <svg
-          aria-label="Espandi"
+          aria-label="expand"
           class="lucide lucide-circle-help memori-icon"
           fill="none"
           height="24"
@@ -58,7 +58,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
         >
           <span>
             <svg
-              aria-label="Riduci"
+              aria-label="collapse"
               class="lucide lucide-x memori-icon-close"
               fill="none"
               height="24"
@@ -91,7 +91,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
               <button
                 class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
                 tabindex="0"
-                title="Suono"
+                title="widget.sound"
                 type="button"
               >
                 <span
@@ -130,7 +130,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                   class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
                   id="base-ui-:r4:"
                   tabindex="0"
-                  title="Condividi"
+                  title="widget.share"
                   type="button"
                 >
                   <span
@@ -197,222 +197,251 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
               <div
                 class="memori--cover"
               />
-              <picture
-                class="memori--avatar"
-              >
-                <source
-                  src="https://aisuru.com/images/aisuru/square_logo.png"
-                />
-                <img
-                  alt="Memori"
-                  src="https://aisuru.com/images/aisuru/square_logo.png"
-                />
-              </picture>
-              <h2
-                class="memori--title"
-              >
-                Memori
-              </h2>
               <div
-                class="memori--description"
+                class="memori--start-panel__body"
               >
-                <p
-                  style="margin-top: 0px;"
-                >
-                  <div
-                    class="memori-expandable memori--description-text"
-                  >
-                    <div
-                      class="memori-expandable__inner"
-                      style="max-height: 9999px;"
-                    >
-                      Lorem ipsum.
-                    </div>
-                  </div>
-                </p>
                 <div
-                  class="memori--language-chooser"
+                  class="memori--title-container"
                 >
-                  <label
-                    for="user-lang-pref"
-                    id="user-lang-pref-label"
+                  <picture
+                    class="memori--avatar"
                   >
-                    Voglio parlare con Memori in
-                  </label>
-                  <div
-                    class="memori-select memori-select--language-chooser"
-                  >
-                    <button
-                      aria-expanded="false"
-                      aria-haspopup="listbox"
-                      class="memori-select__trigger"
-                      id="base-ui-:r6:"
-                      role="combobox"
-                      tabindex="0"
-                      type="button"
-                    >
-                      <span
-                        class="memori-select__value"
-                        data-placeholder="Voglio parlare con {{name}} in"
-                      >
-                        <span>
-                          Italiano
-                        </span>
-                      </span>
-                      <span
-                        aria-hidden="true"
-                        class="memori-select__icon"
-                      >
-                        <svg
-                          aria-hidden="true"
-                          class="lucide lucide-chevron-down"
-                          fill="none"
-                          height="16"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="16"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="m6 9 6 6 6-6"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                    <input
-                      aria-hidden="true"
-                      name="user-lang-pref"
-                      style="clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px; position: absolute;"
-                      tabindex="-1"
-                      value="IT"
+                    <source
+                      src="https://aisuru.com/images/aisuru/square_logo.png"
                     />
-                  </div>
-                </div>
-                <div
-                  class="memori--start-privacy-explanation-container"
-                >
-                  <p
-                    class="memori--start-privacy-explanation"
-                  >
-                    Le conversazioni sono visibili all'autore dell'agente
-                  </p>
+                    <img
+                      alt="Memori"
+                      src="https://aisuru.com/images/aisuru/square_logo.png"
+                    />
+                  </picture>
                   <div
-                    class="memori-tooltip memori-tooltip--align-topLeft"
+                    class="memori--title-container__content"
                   >
+                    <h2
+                      class="memori--title"
+                    >
+                      Memori
+                    </h2>
                     <div
-                      class="memori-tooltip--content"
+                      class="memori-expandable memori--description-text"
                     >
                       <div
-                        class="memori--privacy-tooltip-content"
+                        class="memori-expandable__inner"
+                        style="max-height: 9999px;"
                       >
-                        <p>
-                           
-                          Tutte le conversazioni con questo agente sono visibili all'autore dell'agente
-                        </p>
-                        <ul
-                          class="memori--privacy-tooltip-content-list"
-                        >
-                          <li>
-                            L'autore può vedere il contenuto e il tuo indirizzo IP
-                          </li>
-                        </ul>
-                        <p>
-                          L'autore utilizza queste informazioni per migliorare le funzionalità dell'agente. Continuando, accetti queste condizioni.
-                        </p>
-                        <a
-                          href="https://memori.ai/en/privacy-policy"
-                          rel="noopener noreferrer"
-                          target="_blank"
-                        >
-                          Informativa sulla privacy
-                        </a>
+                        Lorem ipsum.
                       </div>
                     </div>
+                  </div>
+                  <div
+                    class="memori--completion-provider-status--loading"
+                  >
                     <div
-                      class="memori-tooltip--trigger"
+                      class="memori-spin memori-spin--spinning"
                     >
-                      <svg
-                        class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
-                        fill="none"
-                        height="24"
-                        stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        viewBox="0 0 24 24"
-                        width="24"
-                        xmlns="http://www.w3.org/2000/svg"
+                      <div
+                        aria-label="Loading"
+                        aria-live="polite"
+                        class="memori-spin__overlay"
+                        role="status"
                       >
-                        <circle
-                          cx="12"
-                          cy="12"
-                          r="10"
-                        />
-                        <path
-                          d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-                        />
-                        <path
-                          d="M12 17h.01"
-                        />
-                      </svg>
+                        <div
+                          class="memori-spin__container"
+                        >
+                          <svg
+                            aria-hidden="true"
+                            class="lucide lucide-loader-circle memori-spin__icon"
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M21 12a9 9 0 1 1-6.219-8.56"
+                            />
+                          </svg>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <button
-                  class="memori-button memori-button--primary memori-button--md memori--start-button"
-                  tabindex="0"
-                  type="button"
-                >
-                  <span
-                    class="memori-button__content"
-                  >
-                    INIZIAMO
-                  </span>
-                </button>
                 <div
-                  class="memori--completion-provider-status--loading"
+                  class="memori--description"
                 >
                   <div
-                    class="memori-spin memori-spin--spinning"
+                    class="memori--language-row"
                   >
+                    <span
+                      class="memori--language-row__label"
+                    >
+                      write_and_speak.chatLanguageLabel
+                    </span>
                     <div
-                      aria-label="Loading"
-                      aria-live="polite"
-                      class="memori-spin__overlay"
-                      role="status"
+                      class="memori--language-row__control"
                     >
                       <div
-                        class="memori-spin__container"
+                        class="memori-combobox memori-combobox--language-chooser memori--language-row__combobox"
                       >
-                        <svg
+                        <label
+                          class="memori-combobox__label"
+                          for=":r6:"
+                          id=":r6:-label"
+                        >
+                          write_and_speak.chatLanguageLabel
+                        </label>
+                        <button
+                          aria-expanded="false"
+                          aria-haspopup="dialog"
+                          aria-labelledby=":r6:-label"
+                          class="memori-combobox__trigger"
+                          id=":r6:"
+                          role="combobox"
+                          tabindex="0"
+                          type="button"
+                        >
+                          <span
+                            class="memori-combobox__value"
+                          >
+                            Italian
+                          </span>
+                          <span
+                            aria-hidden="true"
+                            class="memori-combobox__trigger-icon"
+                          >
+                            <svg
+                              aria-hidden="true"
+                              class="lucide lucide-chevron-down"
+                              fill="none"
+                              height="16"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="16"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <path
+                                d="m6 9 6 6 6-6"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                        <input
                           aria-hidden="true"
-                          class="lucide lucide-loader-circle memori-spin__icon"
-                          fill="none"
-                          height="24"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path
-                            d="M21 12a9 9 0 1 1-6.219-8.56"
-                          />
-                        </svg>
+                          id="base-ui-:r7:"
+                          name="user-lang-pref"
+                          style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
+                          tabindex="-1"
+                          value="IT"
+                        />
                       </div>
                     </div>
                   </div>
+                  <div
+                    class="memori--start-panel__divider"
+                    role="presentation"
+                  />
+                  <div
+                    class="memori--start-panel__notice"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="lucide lucide-circle-help memori--start-panel__notice-icon"
+                      fill="none"
+                      height="24"
+                      stroke="currentColor"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      viewBox="0 0 24 24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <circle
+                        cx="12"
+                        cy="12"
+                        r="10"
+                      />
+                      <path
+                        d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+                      />
+                      <path
+                        d="M12 17h.01"
+                      />
+                    </svg>
+                    <p
+                      class="memori--start-panel__notice-text"
+                    >
+                      write_and_speak.pagePrivacyExplanation
+                    </p>
+                    <span
+                      class="styles-module__root___-ALla"
+                    >
+                      <span
+                        class="styles-module__trigger___V2aIF"
+                        id="base-ui-:ra:"
+                      >
+                        <button
+                          aria-label="privacyPolicy"
+                          class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--start-panel__notice-more"
+                          tabindex="0"
+                          type="button"
+                        >
+                          <span
+                            class="memori-button__content"
+                          >
+                            <svg
+                              class="lucide lucide-info memori--start-privacy-explanation-icon"
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                              />
+                              <path
+                                d="M12 16v-4"
+                              />
+                              <path
+                                d="M12 8h.01"
+                              />
+                            </svg>
+                          </span>
+                        </button>
+                      </span>
+                    </span>
+                  </div>
+                  <p
+                    class="memori--start-description"
+                  >
+                    write_and_speak.pageTryMeExplanation
+                  </p>
+                  <button
+                    class="memori-button memori-button--primary memori-button--md memori--start-button"
+                    tabindex="0"
+                    type="button"
+                  >
+                    <span
+                      class="memori-button__content"
+                    >
+                      write_and_speak.tryMeButton
+                    </span>
+                  </button>
                 </div>
-                <p
-                  class="memori--start-description"
-                >
-                  Per parlare con me clicca sul pulsante INIZIAMO per cominciare
-                </p>
               </div>
             </div>
           </div>

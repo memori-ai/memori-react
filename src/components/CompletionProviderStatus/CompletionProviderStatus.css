@@ -12,15 +12,15 @@
   }
   
   .memori--completion-provider-status--icon-error {
-    color: var(--memori-text-color);
+    color: var(--memori-error);
   }
   
   .memori--completion-provider-status--icon-warning {
-    color: var(--memori-text-color);
+    color: var(--memori-warning);
   }
   
   .memori--completion-provider-status--icon-info {
-    color: var(--memori-text-color);
+    color: var(--memori-info);
   }
   
   .memori--completion-provider-status--tooltip {
