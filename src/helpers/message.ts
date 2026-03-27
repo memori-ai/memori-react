@@ -177,3 +177,6 @@ export const renderMsg = (
     return { text };
   }
 };
+
+export const sanitizeMsg = (msg: string) =>
+  DOMPurify.sanitize(msg, { ADD_ATTR: ['target'] });
