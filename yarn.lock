@@ -2745,11 +2745,10 @@ __metadata:
     "@babel/preset-env": ^7.21.4
     "@babel/preset-react": ^7.18.6
     "@babel/preset-typescript": ^7.21.4
-    "@base-ui/react": ^1.0.0
     "@commitlint/cli": 17.3.0
     "@commitlint/config-conventional": 17.3.0
     "@memori.ai/memori-api-client": 6.20.0
-    "@memori.ai/ui": ^1.6.2
+    "@memori.ai/ui": ^1.11.1
     "@react-three/drei": 8.20.2
     "@react-three/fiber": 7.0.25
     "@release-it/conventional-changelog": 5.1.1
@@ -2833,14 +2832,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@memori.ai/ui@npm:^1.6.2":
-  version: 1.6.2
-  resolution: "@memori.ai/ui@npm:1.6.2"
+"@memori.ai/ui@npm:^1.11.1":
+  version: 1.11.1
+  resolution: "@memori.ai/ui@npm:1.11.1"
   dependencies:
+    "@base-ui/react": ^1.0.0
+    "@tanstack/react-table": ^8.21.0
     classnames: ^2.5.1
     lucide-react: ^0.555.0
   peerDependencies:
-    "@base-ui/react": ^1.0.0
     "@types/react": ^18.2.0
     "@types/react-dom": ^18.2.0
     i18next: ^25.5.0
@@ -2855,7 +2855,7 @@ __metadata:
       optional: true
     typescript:
       optional: true
-  checksum: 4c0fea54a84fe13ace2bf307456e778875a80be45a85cd0b7a02b74a6895c601961d0401427b83a17c2c6545e89e2b93d9d1f37eb141809ebd42417ef1d6d20b
+  checksum: c6baa1673e3d7da284023da1383b24f4e4dc96f3c453c99f0962f91ced22eb01a107b5251e35af962fba0a0585b77352ff73d34845401c7d3f0cec0390da5771
   languageName: node
   linkType: hard
 
@@ -5401,6 +5401,25 @@ __metadata:
   dependencies:
     defer-to-connect: ^2.0.1
   checksum: fc9cb993e808806692e4a3337c90ece0ec00c89f4b67e3652a356b89730da98bc824273a6d67ca84d5f33cd85f317dcd5ce39d8cc0a2f060145a608a7cb8ce92
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-table@npm:^8.21.0":
+  version: 8.21.3
+  resolution: "@tanstack/react-table@npm:8.21.3"
+  dependencies:
+    "@tanstack/table-core": 8.21.3
+  peerDependencies:
+    react: ">=16.8"
+    react-dom: ">=16.8"
+  checksum: 1452e7bd1dd0febbfc37e656c61c2c426dc243136333a8688bfadfccfec233e87c9bbe83011d742b0e86ae52c9b3d436bdc5618be4ac675ab921f52317317780
+  languageName: node
+  linkType: hard
+
+"@tanstack/table-core@npm:8.21.3":
+  version: 8.21.3
+  resolution: "@tanstack/table-core@npm:8.21.3"
+  checksum: ce260ab981f334ba999240cf68ae942a524a28980f6853275da90d1864a8b56fa59b952bfd2266570f36ae11f66476d1c96dacc640ba5fd9d6d4e2a78cf05187
   languageName: node
   linkType: hard
 
