@@ -48,7 +48,7 @@
     align-items: center;
     padding: 0 1rem;
     padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
-    border-radius: var(--memori-radius-form);
+    border-radius: var(--memori-radius-box);
     /* max-width: 48rem; */
     margin: 0 auto;
     background-color: var(--memori-secondary-background);
@@ -209,14 +209,14 @@
 }
 
 .memori-chat-inputs--mic {
-    font-size: 125%;
+    font-size: 100%;
 }
 
 /* Style MicrophoneButton component when used in trailing area */
 .memori-chat-inputs--trailing .memori-chat-inputs--mic {
-    width: 20px;
-    min-width: 20px;
-    height: 20px;
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
     padding: 0;
     border: none;
     background: transparent;
@@ -224,9 +224,9 @@
 }
 
 .memori-chat-inputs--trailing .memori-chat-inputs--mic .memori-button {
-    width: 20px;
-    min-width: 20px;
-    height: 20px;
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
     padding: 0;
     border: none;
     background: transparent;
@@ -245,7 +245,7 @@
     justify-content: center;
     padding: 0;
     border: none;
-    border-radius: var(--memori-radius-form);
+    border-radius: var(--memori-radius-box);
     background: #000;
     background: var(--memori-primary);
     color: var(--memori-text-color);
@@ -265,9 +265,9 @@
 }
 
 .memori-chat-inputs--trailing .memori-chat-inputs--mic svg {
-    width: 18px;
-    height: 18px;
-    margin-right: var(--memori-spacing-xs);
+    width: 20px;
+    height: 20px;
+    margin-right: 0;
 }
 
 .memori-chat-inputs--send-btn--active {
@@ -279,7 +279,7 @@
     width: 16px;
     height: 16px;
     border: 2px solid currentColor;
-    border-radius: var(--memori-radius-form);
+    border-radius: var(--memori-radius-box);
     border-top-color: transparent;
     animation: spin 0.8s linear infinite;
 }

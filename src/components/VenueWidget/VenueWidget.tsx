@@ -1,13 +1,18 @@
 import { Venue } from '@memori.ai/memori-api-client/dist/types';
-import { useEffect, useState, useCallback, useRef } from 'react';
+import { useEffect, useLayoutEffect, useState, useCallback, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getUncertaintyByViewport } from '../../helpers/venue';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { useLeafletContext } from '@react-leaflet/core';
 import L from 'leaflet';
-import { Button, Input, Spin, useAlertManager, createAlertOptions } from '@memori.ai/ui';
+import {
+  Autocomplete,
+  Button,
+  createAlertOptions,
+  type AutocompleteOption,
+  useAlertManager,
+} from '@memori.ai/ui';
 import { useDebounceFn } from '../../helpers/utils';
-import cx from 'classnames';
 
 export type NominatimItem = {
   place_id: number;
@@ -131,6 +136,8 @@ const getPlaceName = (venue?: NominatimItem) => {
   return placeName;
 };
 
+const ITEM_PRESS_REASON = 'item-press' as const;
+
 const VenueCombobox = ({
   venue,
   query,
@@ -145,13 +152,15 @@ const VenueCombobox = ({
   query: string;
   fetching: boolean;
   suggestions: NominatimItem[];
-  onQueryChange: (value: string) => void;
+  onQueryChange: (value: string, options?: { skipSearch?: boolean }) => void;
   onChange: (value: NominatimItem) => void;
   getPlaceName: (v?: NominatimItem) => string;
   t: (key: string) => string;
 }) => {
   const [open, setOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
+  const [inputFocused, setInputFocused] = useState(false);
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const selectedItem: NominatimItem | undefined =
     venue?.latitude != null
       ? {
@@ -166,66 +175,65 @@ const VenueCombobox = ({
           boundingbox: [0, 0, 0, 0],
         }
       : undefined;
-  const displayValue = open ? query : (selectedItem ? getPlaceName(selectedItem) : '');
+  const closedLabel = selectedItem ? getPlaceName(selectedItem) : '';
 
-  useEffect(() => {
-    if (!open) return;
-    const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
-        setOpen(false);
+  useLayoutEffect(() => {
+    const el = inputRef.current;
+    if (!el) return;
+    const onFocus = () => {
+      setInputFocused(true);
+      // Blurred value came from `closedLabel` while `query` stayed "". Seed `query` so the
+      // controlled input matches what the user sees; otherwise select-all + delete cannot clear.
+      if (closedLabel && query === '') {
+        onQueryChange(closedLabel, { skipSearch: true });
       }
     };
-    document.addEventListener('click', handleClickOutside);
-    return () => document.removeEventListener('click', handleClickOutside);
-  }, [open]);
+    const onBlur = () => setInputFocused(false);
+    el.addEventListener('focus', onFocus);
+    el.addEventListener('blur', onBlur);
+    return () => {
+      el.removeEventListener('focus', onFocus);
+      el.removeEventListener('blur', onBlur);
+    };
+  }, [open, query, closedLabel, onQueryChange]);
+
+  /** While the list is open, the field is focused, or the user has typed something, show `query`. Otherwise show the saved venue label (avoids snapping back when the popup closes on an empty field while the input stays focused). */
+  const editing = inputFocused || open || query !== '';
+  const inputValue = editing ? query : closedLabel;
+
+  const options: AutocompleteOption[] = suggestions.map(s => ({
+    value: getPlaceName(s) || s.display_name,
+    label: s.display_name,
+  }));
 
   return (
-    <div className="memori--venue-widget-search" ref={containerRef}>
-      <Input
-          value={displayValue}
-        onChange={e => {
-          const value = e.target.value;
-          onQueryChange(value);
-          setOpen(true);
-        }}
-        onFocus={() => setOpen(true)}
-        placeholder={t('searchVenue')}
-      />
-      {(fetching ||
-        suggestions.length > 0 ||
-        (suggestions.length === 0 && query !== '')) &&
-        open && (
-          <ul className="memori--venue-widget-search--options">
-            {fetching ? (
-              <Spin spinning>
-                <div className="memori--venue-widget-search--option memori--venue-widget-search--option-centered">
-                  {t('loading')}...
-                </div>
-              </Spin>
-            ) : suggestions.length === 0 && query !== '' ? (
-              <div className="memori--venue-widget-search--option memori--venue-widget-search--option-centered">
-                {t('nothingFound')}
-              </div>
-            ) : (
-              suggestions?.map(s => (
-                <li
-                  key={s.place_id}
-                  className={cx('memori--venue-widget-search--option', {
-                    'memori--venue-widget-search--option-selected':
-                      selectedItem?.lat === s.lat && selectedItem?.lon === s.lon,
-                  })}
-                  onClick={() => {
-                    onChange(s);
-                    setOpen(false);
-                  }}
-                >
-                  {s.display_name}
-                </li>
-              ))
-            )}
-          </ul>
-        )}
-    </div>
+    <Autocomplete
+      id="venue-widget-search"
+      inputRef={inputRef}
+      className="memori--venue-widget-search"
+      options={options}
+      mode="none"
+      filter={null}
+      value={inputValue}
+      onChange={(value, details) => {
+        if (details.reason === ITEM_PRESS_REASON) {
+          const item = suggestions.find(
+            s => (getPlaceName(s) || s.display_name) === value
+          );
+          if (item) onChange(item);
+          return;
+        }
+        onQueryChange(value);
+      }}
+      open={open}
+      onOpenChange={nextOpen => setOpen(nextOpen)}
+      placeholder={t('searchVenue')}
+      loading={fetching}
+      loadingText={`${t('loading')}...`}
+      emptyText={query.trim() ? t('nothingFound') : '\u200b'}
+      autoHighlight
+      clearable={query.trim() !== ''}
+    />
   );
 };
 
@@ -253,7 +261,7 @@ const VenueWidget = ({
         let venue: Venue = {
           latitude: coords.coords.latitude,
           longitude: coords.coords.longitude,
-          placeName: 'Position',
+          placeName: '',
           uncertainty: coords.coords.accuracy / 1000,
         };
 
@@ -271,6 +279,14 @@ const VenueWidget = ({
             uncertainty: coords.coords.accuracy / 1000,
           };
           setVenue(venue);
+          add(
+            createAlertOptions({
+              description: placeName
+                ? t('write_and_speak.locationSavedWithPlace', { place: placeName })
+                : t('write_and_speak.locationSaved'),
+              severity: 'success',
+            })
+          );
         } catch (e) {
           let err = e as Error;
           console.error('[POSITION ERROR]', err);
@@ -285,7 +301,12 @@ const VenueWidget = ({
       },
       err => {
         console.error('[POSITION ERROR]', err);
-        add(createAlertOptions({ description: err.message, severity: 'error' }));
+        const geoErr = err as any;
+        let message = err.message || t('write_and_speak.locationErrorGeneric');
+        if (geoErr?.code === 1) message = t('write_and_speak.locationPermissionDenied');
+        else if (geoErr?.code === 2) message = t('write_and_speak.locationUnavailable');
+        else if (geoErr?.code === 3) message = t('write_and_speak.locationRequestTimedOut');
+        add(createAlertOptions({ description: message, severity: 'error' }));
         setUpdatingPosition(false);
       }
     );
@@ -318,12 +339,26 @@ const VenueWidget = ({
         ? getUncertaintyByViewport(value.boundingbox)
         : 2,
     } as Venue);
+    add(
+      createAlertOptions({
+        description: t('write_and_speak.placeSelected', { place: placeName }),
+        severity: 'success',
+      })
+    );
   };
 
-  const onQueryChange = (value: string) => {
-    setQuery(value);
-    handleSearch(value);
-  };
+  const onQueryChange = useCallback(
+    (value: string, opts?: { skipSearch?: boolean }) => {
+      setQuery(value);
+      if (opts?.skipSearch) return;
+      if (!value.trim()) {
+        setSuggestions([]);
+        return;
+      }
+      handleSearch(value);
+    },
+    [handleSearch]
+  );
 
   useEffect(() => {
     setIsClient(true);
@@ -389,14 +424,21 @@ const VenueWidget = ({
           <Button
             variant="outline"
             className="memori--venue-widget__no-location-button"
+            title={String(t('write_and_speak.skipLocationTitle'))}
             onClick={() => {
               let venue: Venue = {
                 latitude: 0,
                 longitude: 0,
-                placeName: 'Position',
+                placeName: '',
                 uncertainty: 0,
               };
               setVenue(venue);
+              add(
+                createAlertOptions({
+                  description: t('write_and_speak.locationSkippedConfirm'),
+                  severity: 'success',
+                })
+              );
               if (saveAndClose) saveAndClose(venue);
             }}
           >
@@ -445,7 +487,7 @@ const VenueWidget = ({
       </div>
 
       <div className="memori--venue-widget__form-item memori--venue-widget__map-section">
-        {venue?.placeName && venue.placeName !== 'Position' && (
+        {venue?.placeName && venue.placeName !== '' && (
           <p className="memori--venue-widget__place-name">
             <strong>{t('venue')}</strong>: {venue.placeName}
           </p>

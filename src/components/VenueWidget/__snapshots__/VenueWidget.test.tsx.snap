@@ -20,12 +20,55 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
           class="memori--venue-widget__search-wrap"
         >
           <div
-            class="memori--venue-widget-search"
+            class="memori-autocomplete memori--venue-widget-search"
           >
+            <div
+              class="memori-autocomplete__input-row"
+            >
+              <input
+                aria-autocomplete="none"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                autocapitalize="none"
+                autocomplete="off"
+                autocorrect="off"
+                class="memori-autocomplete__input"
+                data-list-empty=""
+                id="venue-widget-search-input"
+                placeholder="searchVenue"
+                role="combobox"
+                spellcheck="false"
+                type="text"
+                value="Altedo, Bologna, Italy"
+              />
+              <span
+                aria-hidden="true"
+                class="memori-autocomplete__input-chevron"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-chevron-down"
+                  fill="none"
+                  height="16"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </span>
+            </div>
             <input
-              class="memori-input memori-input--default memori-input--md"
-              id="base-ui-:r1:"
-              placeholder="searchVenue"
+              aria-hidden="true"
+              id="venue-widget-search"
+              style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
+              tabindex="-1"
               value="Altedo, Bologna, Italy"
             />
           </div>
@@ -48,6 +91,7 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
         <button
           class="memori-button memori-button--outline memori-button--md memori--venue-widget__no-location-button"
           tabindex="0"
+          title="write_and_speak.skipLocationTitle"
           type="button"
         >
           <span
@@ -122,12 +166,55 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
           class="memori--venue-widget__search-wrap"
         >
           <div
-            class="memori--venue-widget-search"
+            class="memori-autocomplete memori--venue-widget-search"
           >
+            <div
+              class="memori-autocomplete__input-row"
+            >
+              <input
+                aria-autocomplete="none"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                autocapitalize="none"
+                autocomplete="off"
+                autocorrect="off"
+                class="memori-autocomplete__input"
+                data-list-empty=""
+                id="venue-widget-search-input"
+                placeholder="searchVenue"
+                role="combobox"
+                spellcheck="false"
+                type="text"
+                value="Altedo, Bologna, Italy"
+              />
+              <span
+                aria-hidden="true"
+                class="memori-autocomplete__input-chevron"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-chevron-down"
+                  fill="none"
+                  height="16"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </span>
+            </div>
             <input
-              class="memori-input memori-input--default memori-input--md"
-              id="base-ui-:r2:"
-              placeholder="searchVenue"
+              aria-hidden="true"
+              id="venue-widget-search"
+              style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
+              tabindex="-1"
               value="Altedo, Bologna, Italy"
             />
           </div>
@@ -150,6 +237,7 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
         <button
           class="memori-button memori-button--outline memori-button--md memori--venue-widget__no-location-button"
           tabindex="0"
+          title="write_and_speak.skipLocationTitle"
           type="button"
         >
           <span
@@ -224,12 +312,55 @@ exports[`renders VenueWidget without gps button unchanged 1`] = `
           class="memori--venue-widget__search-wrap"
         >
           <div
-            class="memori--venue-widget-search"
+            class="memori-autocomplete memori--venue-widget-search"
           >
+            <div
+              class="memori-autocomplete__input-row"
+            >
+              <input
+                aria-autocomplete="none"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                autocapitalize="none"
+                autocomplete="off"
+                autocorrect="off"
+                class="memori-autocomplete__input"
+                data-list-empty=""
+                id="venue-widget-search-input"
+                placeholder="searchVenue"
+                role="combobox"
+                spellcheck="false"
+                type="text"
+                value="Altedo, Bologna, Italy"
+              />
+              <span
+                aria-hidden="true"
+                class="memori-autocomplete__input-chevron"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-chevron-down"
+                  fill="none"
+                  height="16"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </span>
+            </div>
             <input
-              class="memori-input memori-input--default memori-input--md"
-              id="base-ui-:r4:"
-              placeholder="searchVenue"
+              aria-hidden="true"
+              id="venue-widget-search"
+              style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
+              tabindex="-1"
               value="Altedo, Bologna, Italy"
             />
           </div>
@@ -241,6 +372,7 @@ exports[`renders VenueWidget without gps button unchanged 1`] = `
         <button
           class="memori-button memori-button--outline memori-button--md memori--venue-widget__no-location-button"
           tabindex="0"
+          title="write_and_speak.skipLocationTitle"
           type="button"
         >
           <span
@@ -315,12 +447,55 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
           class="memori--venue-widget__search-wrap"
         >
           <div
-            class="memori--venue-widget-search"
+            class="memori-autocomplete memori--venue-widget-search"
           >
+            <div
+              class="memori-autocomplete__input-row"
+            >
+              <input
+                aria-autocomplete="none"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                autocapitalize="none"
+                autocomplete="off"
+                autocorrect="off"
+                class="memori-autocomplete__input"
+                data-list-empty=""
+                id="venue-widget-search-input"
+                placeholder="searchVenue"
+                role="combobox"
+                spellcheck="false"
+                type="text"
+                value="Altedo, Bologna, Italy"
+              />
+              <span
+                aria-hidden="true"
+                class="memori-autocomplete__input-chevron"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-chevron-down"
+                  fill="none"
+                  height="16"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </span>
+            </div>
             <input
-              class="memori-input memori-input--default memori-input--md"
-              id="base-ui-:r3:"
-              placeholder="searchVenue"
+              aria-hidden="true"
+              id="venue-widget-search"
+              style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
+              tabindex="-1"
               value="Altedo, Bologna, Italy"
             />
           </div>
@@ -343,6 +518,7 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
         <button
           class="memori-button memori-button--outline memori-button--md memori--venue-widget__no-location-button"
           tabindex="0"
+          title="write_and_speak.skipLocationTitle"
           type="button"
         >
           <span
@@ -417,12 +593,55 @@ exports[`renders empty VenueWidget unchanged 1`] = `
           class="memori--venue-widget__search-wrap"
         >
           <div
-            class="memori--venue-widget-search"
+            class="memori-autocomplete memori--venue-widget-search"
           >
+            <div
+              class="memori-autocomplete__input-row"
+            >
+              <input
+                aria-autocomplete="none"
+                aria-expanded="false"
+                aria-haspopup="listbox"
+                autocapitalize="none"
+                autocomplete="off"
+                autocorrect="off"
+                class="memori-autocomplete__input"
+                data-list-empty=""
+                id="venue-widget-search-input"
+                placeholder="searchVenue"
+                role="combobox"
+                spellcheck="false"
+                type="text"
+                value=""
+              />
+              <span
+                aria-hidden="true"
+                class="memori-autocomplete__input-chevron"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-chevron-down"
+                  fill="none"
+                  height="16"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="16"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </span>
+            </div>
             <input
-              class="memori-input memori-input--default memori-input--md"
-              id="base-ui-:r0:"
-              placeholder="searchVenue"
+              aria-hidden="true"
+              id="venue-widget-search"
+              style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
+              tabindex="-1"
               value=""
             />
           </div>
@@ -445,6 +664,7 @@ exports[`renders empty VenueWidget unchanged 1`] = `
         <button
           class="memori-button memori-button--outline memori-button--md memori--venue-widget__no-location-button"
           tabindex="0"
+          title="write_and_speak.skipLocationTitle"
           type="button"
         >
           <span

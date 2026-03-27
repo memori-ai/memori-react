@@ -146,11 +146,27 @@ const Header: React.FC<Props> = ({
               avatarURL: avatarAsset.assetURL,
             };
 
-            const { user: patchedUser, ...resp } = await pwlUpdateUser(
+            const { user: patchedUser, ...updateResp } = await pwlUpdateUser(
               loginToken ?? '',
               user?.userID ?? '',
               newUser
             );
+
+            if (updateResp.resultCode !== 0) {
+              add(
+                createAlertOptions({
+                  description: t(getErrori18nKey(updateResp.resultCode)),
+                  severity: 'error',
+                })
+              );
+            } else {
+              add(
+                createAlertOptions({
+                  description: t('login.avatarUploadSuccess'),
+                  severity: 'success',
+                })
+              );
+            }
           }
         } catch (e) {
           let err = e as Error;
@@ -202,7 +218,15 @@ const Header: React.FC<Props> = ({
           variant="primary"
           title={t('clearHistory') || 'Clear chat'}
           icon={<Trash2 />}
-          onClick={clearHistory}
+          onClick={() => {
+            clearHistory();
+            add(
+              createAlertOptions({
+                description: t('clearHistoryDone'),
+                severity: 'success',
+              })
+            );
+          }}
         />
       )}
       {showChatHistory && !!loginToken && (
@@ -265,7 +289,7 @@ const Header: React.FC<Props> = ({
       {memori.enableDeepThought && !!loginToken && user?.pAndCUAccepted && (
         <Button
           variant={
-            !!sessionID && !!hasUserActivatedSpeak ? 'primary' : 'outline'
+            'primary'
           }
           icon={<Brain />}
           disabled={!hasUserActivatedSpeak || !sessionID}

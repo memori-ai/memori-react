@@ -819,7 +819,7 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
       </span>
     </button>
     <button
-      class="memori-button memori-button--outline memori-button--md memori-button--disabled memori-button--icon-only"
+      class="memori-button memori-button--primary memori-button--md memori-button--disabled memori-button--icon-only"
       data-disabled=""
       disabled=""
       tabindex="0"
