@@ -21,15 +21,34 @@
     }
 } */
 
-.age-verification-form fieldset {
+.age-verification-form fieldset,
+.age-verification-form .age-verification-birth-field {
     padding-right: 0;
     padding-left: 0;
     border: 0;
 }
 
-.age-verification-form .form-item {
+.age-verification-form .form-item,
+.age-verification-form .age-verification-birth-field {
     width: 100%;
     text-align: center;
+}
+
+.age-verification-form .memori-field__control-wrapper {
+    width: 100%;
+}
+
+.age-verification-form .memori-field__description {
+    padding-bottom: var(--memori-spacing-xs);
+    margin: var(--memori-spacing-lg) 0 var(--memori-spacing-md);
+    opacity: 0.5;
+    text-align: left;
+}
+
+.age-verification-form .memori-field__error {
+    padding-bottom: 0.25rem;
+    margin: 1.5rem 0 1rem;
+    color: var(--memori-error);
 }
 
 .age-verification-form .form-item.submit {
@@ -91,4 +110,9 @@ button.age-verification-submit:hover::before {
 
 button.age-verification-submit:active {
     transform: translateY(0);
+}
+
+.age-verification-text{
+    margin-top: 0;
+    margin-bottom: var(--memori-spacing-lg);
 }

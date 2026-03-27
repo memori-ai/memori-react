@@ -1,5 +1,12 @@
 import { useTranslation } from 'react-i18next';
-import { Button, Modal, useAlertManager } from '@memori.ai/ui';
+import {
+  Button,
+  FieldGroup,
+  Form,
+  Modal,
+  useAlertManager,
+  createAlertOptions,
+} from '@memori.ai/ui';
 import { DateTime } from 'luxon';
 import DateSelector from '../DateSelector/DateSelector';
 import { useCallback, useState } from 'react';
@@ -12,7 +19,7 @@ export interface Props {
 
 const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
   const { t } = useTranslation();
-  const alertManager = useAlertManager();
+  const { add } = useAlertManager();
   const [birthDate, setBirthDate] = useState<DateTime>();
   const [error, setError] = useState<string>();
   const [submitting, setSubmitting] = useState<boolean>(false);
@@ -21,12 +28,12 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
     setSubmitting(true);
 
     if (!birthDate) {
-      alertManager.add({
-        id: `age-verification-error-${Date.now()}`,
-        title: t('requiredField'),
-        description: t('requiredField'),
-        data: { severity: 'error', closable: true, style: { zIndex: 10002, top: 30, right: 30, position: 'fixed' } },
-      });
+      add(
+        createAlertOptions({
+          description: t('requiredField'),
+          severity: 'error',
+        })
+      );
       setError(t('requiredField') || 'Required field');
       setSubmitting(false);
       return;
@@ -34,12 +41,12 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
 
     let age = DateTime.now().diff(birthDate, 'years').years;
     if (age < minAge) {
-      alertManager.add({
-        id: `age-verification-error-${Date.now()}`,
-        title: t('underageTwinSession', { age: minAge }),
-        description: t('underageTwinSession', { age: minAge }),
-        data: { severity: 'error', closable: true, style: { zIndex: 10002, top: 30, right: 30, position: 'fixed' } },
-      });
+      add(
+        createAlertOptions({
+          description: t('underageTwinSession', { age: minAge }),
+          severity: 'error',
+        })
+      );
       setError(
         t('underageTwinSession', { age: minAge }) ||
           `You must be at least ${minAge} years old to interact with this Agent`
@@ -48,8 +55,16 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
       return;
     }
 
+    setError(undefined);
+    add(
+      createAlertOptions({
+        description: t('ageVerificationSuccess'),
+        severity: 'success',
+      })
+    );
     onClose(birthDate.toJSDate().toISOString());
-  }, [birthDate, minAge, onClose, t]);
+    setSubmitting(false);
+  }, [add, birthDate, minAge, onClose, t]);
 
   return (
     <Modal
@@ -60,43 +75,42 @@ const AgeVerificationModal = ({ visible = false, onClose, minAge }: Props) => {
       className="age-verification-modal"
       closable={false}
     >
-      <p>{t('ageVerificationText', { minAge })}</p>
+      <p className="age-verification-text">{t('ageVerificationText', { minAge })}</p>
 
-      <form
+      <Form
+        name="ageVerification"
         className="age-verification-form"
         onSubmit={e => {
           e.preventDefault();
           onSubmit();
         }}
       >
-        <div className="form-item">
-          <fieldset name="birthDate">
-            <legend className="sr-only">{t('birthDate')}</legend>
+        <FieldGroup
+          className="age-verification-birth-field"
 
-            <DateSelector
-              //defaultDate={new Date(Date.now())}
-              onChange={date => {
-                setBirthDate(date);
-              }}
-            />
-
-            <p className="form-item-help">{t('birthDateHelper')}</p>
-
-            {error && <p className="form-item-error">{error}</p>}
-          </fieldset>
-        </div>
-        <div className="form-item form-submit">
-          <Button
-            variant="primary"
-            type="submit"
-            className="age-verification-submit"
-            loading={submitting}
-            disabled={!birthDate}
-          >
-            {t('confirm')}
-          </Button>
-        </div>
-      </form>
+          helperText={t('birthDateHelper')}
+          error={error}
+          invalid={!!error}
+          required
+        >
+          <DateSelector
+            onChange={date => {
+              setBirthDate(date);
+              setError(undefined);
+            }}
+          />
+        </FieldGroup>
+        <Button
+          variant="primary"
+          type="submit"
+          size="lg"
+          loading={submitting}
+          disabled={!birthDate}
+          style={{ marginBottom: '0.25rem' }}
+        >
+          {t('confirm')}
+        </Button>
+      </Form>
     </Modal>
   );
 };
