@@ -217,8 +217,9 @@
 }
 
 .memori-chat--usage-badge:hover {
-    border-color: #9ca3af;
+    border-color: var(--memori-primary,#1890ff);
     background-color: #f8fafc;
+    color: var(--memori-primary,#1890ff);
 }
 
 .memori-chat--usage-badge:focus-visible {
