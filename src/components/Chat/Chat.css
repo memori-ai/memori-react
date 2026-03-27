@@ -6,15 +6,6 @@
     flex-direction: column;
 }
 
-.memori-chat-wrapper--expanded {
-    /* Ensure proper spacing when textarea is expanded */
-}
-
-/* Handle the focused chat state on mobile */
-.memori-chat--wrapper.chat-focused {
-    /* Mobile keyboard adjustment */
-}
-
 @media (max-width: 768px) {
     .memori-chat--wrapper.chat-focused {
         padding-bottom: 0;
@@ -269,18 +260,25 @@
 }
 
 .memori-chat--usage-educational-content {
+    display: flex;
+    flex-direction: column;
     padding-top: 0.25rem;
+    gap: 0.5rem;
 }
 
 .memori-chat--usage-metric-value {
-    display: inline-block;
-    margin-bottom: 0.25rem;
+    display: block;
+    margin: 0;
     color: #111827;
     font-size: 1.125rem;
 }
 
 .memori-chat--usage-comparable {
-    margin: 0 0 0.5rem;
+    margin: 0;
     color: #374151;
     font-size: 0.875rem;
+}
+
+.memori-chat--usage-educational-content p {
+    margin: 0;
 }
