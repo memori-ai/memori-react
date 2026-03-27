@@ -1,5 +1,18 @@
 
 
+## [8.29.1](https://github.com/memori-ai/memori-react/compare/v8.29.0...v8.29.1) (2026-03-27)
+
+
+### Bug Fixes
+
+* prevent xss in user messages ([ada915f](https://github.com/memori-ai/memori-react/commit/ada915f015651bd28a1490c65cb7b13c36081823))
+* update tooltip content classes for consistent styling across components ([b5121e4](https://github.com/memori-ai/memori-react/commit/b5121e433a77ac8cd3f251da966b02eb027d8ca9))
+
+
+### Changes
+
+* remove unused tooltip content from snapshots ([51ea7ab](https://github.com/memori-ai/memori-react/commit/51ea7abb5d270f185e965681d99fdbb7ed6bb22a))
+
 ## [8.29.0](https://github.com/memori-ai/memori-react/compare/v8.28.0...v8.29.0) (2026-03-17)
 
 
