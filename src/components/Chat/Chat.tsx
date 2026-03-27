@@ -1,4 +1,11 @@
-import React, { useCallback, useEffect, memo, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  memo,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import cx from 'classnames';
 import {
   DialogState,
@@ -26,7 +33,18 @@ import { useTranslation } from 'react-i18next';
 import { maxDocumentsPerMessage, maxDocumentContentLength, pasteAsCardLineThreshold, pasteAsCardCharThreshold } from '../../helpers/constants';
 import Modal from '../ui/Modal';
 import Tooltip from '../ui/Tooltip';
-
+import {
+  BADGE_EMOJI,
+  buildLlmUsageHtml,
+  formatDuration,
+  formatImpactWithApiUnit,
+  formatIntegerValue,
+  getImpactComparison,
+  getMetricValue,
+  LlmUsageLabels,
+  LlmUsageOnLine,
+  UsageBadgeType,
+} from '../../helpers/llmUsage';
 export interface Props {
   memori: Memori;
   tenant?: Tenant;
@@ -49,6 +67,7 @@ export interface Props {
   showTranslationOriginal?: boolean;
   showWhyThisAnswer?: boolean;
   showReasoning?: boolean;
+  showMessageConsumption?: boolean;
   client?: ReturnType<typeof memoriApiClient>;
   preview?: boolean;
   microphoneMode?: 'CONTINUOUS' | 'HOLD_TO_TALK';
@@ -86,6 +105,12 @@ export interface Props {
 
 }
 
+type MessageWithLlmUsage = Message & { llmUsage?: LlmUsageOnLine };
+interface UsageBadgeModalState {
+  type: UsageBadgeType;
+  usage: LlmUsageOnLine;
+}
+
 const Chat: React.FC<Props> = ({
   memori,
   tenant,
@@ -108,6 +133,7 @@ const Chat: React.FC<Props> = ({
   showCopyButton = true,
   showTranslationOriginal = false,
   showReasoning = false,
+  showMessageConsumption = false,
   preview = false,
   instruct = false,
   showInputs = true,
@@ -141,7 +167,50 @@ const Chat: React.FC<Props> = ({
 
   const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [activeUsageBadge, setActiveUsageBadge] =
+    useState<UsageBadgeModalState | null>(null);
+  const chatWrapperRef = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
+  const locale = (translateTo || memori.culture || 'it-IT').replace('_', '-');
+
+  const llmUsageLabels = useMemo<LlmUsageLabels>(
+    () => ({
+      llm: t('chatLogs.llm', { defaultValue: 'LLM' }),
+      model: t('chatLogs.model', { defaultValue: 'Model' }),
+      provider: t('chatLogs.provider', { defaultValue: 'Provider' }),
+      tokens: t('chatLogs.tokens', { defaultValue: 'Tokens' }),
+      input: t('chatLogs.input', { defaultValue: 'Input' }),
+      output: t('chatLogs.output', { defaultValue: 'Output' }),
+      cacheRead: t('chatLogs.cacheRead', { defaultValue: 'Cache read' }),
+      cacheWrite: t('chatLogs.cacheWrite', { defaultValue: 'Cache write' }),
+      duration: t('chatLogs.duration', { defaultValue: 'Duration' }),
+      energy: t('chatLogs.energy', { defaultValue: 'Energy' }),
+      co2: t('chatLogs.co2', { defaultValue: 'CO2' }),
+      water: t('chatLogs.water', { defaultValue: 'Water' }),
+      usageBadgesHint: t('chatLogs.usageBadgesHint', {
+        defaultValue: 'Click one of these buttons to show more information',
+      }),
+    }),
+    [t],
+  );
+
+  const usageHtmlByIndex = useMemo(
+    () =>
+      history.map((message, index) => {
+        const messageWithUsage = message as MessageWithLlmUsage;
+        return showMessageConsumption &&
+          !message.fromUser &&
+          messageWithUsage.llmUsage
+          ? buildLlmUsageHtml(
+              messageWithUsage.llmUsage,
+              llmUsageLabels,
+              index,
+              locale,
+            )
+          : '';
+      }),
+    [history, llmUsageLabels, locale, showMessageConsumption],
+  );
   const scrollToBottom = useCallback(() => {
     if (isHistoryView) return;
     setTimeout(() => {
@@ -272,8 +341,40 @@ const Chat: React.FC<Props> = ({
     };
   }, [showUpload]);
 
+  useEffect(() => {
+    const wrapper = chatWrapperRef.current;
+    if (!wrapper || !showMessageConsumption) return;
+
+    const handleUsageBadgeClick = (event: MouseEvent) => {
+      const target = event.target as HTMLElement | null;
+      const button = target?.closest<HTMLElement>(
+        '[data-llm-badge-type][data-line-index]',
+      );
+      if (!button) return;
+
+      const lineIndex = Number(button.dataset.lineIndex);
+      const badgeType = button.dataset.llmBadgeType as UsageBadgeType | undefined;
+      if (!Number.isInteger(lineIndex) || !badgeType) return;
+
+      const line = (history?.[lineIndex] as MessageWithLlmUsage) ?? null;
+      if (!line?.llmUsage) return;
+
+      event.preventDefault();
+      setActiveUsageBadge({
+        type: badgeType,
+        usage: line.llmUsage,
+      });
+    };
+
+    wrapper.addEventListener('click', handleUsageBadgeClick);
+    return () => {
+      wrapper.removeEventListener('click', handleUsageBadgeClick);
+    };
+  }, [history, showMessageConsumption]);
+
   return (
     <div
+      ref={chatWrapperRef}
       className={cx('memori-chat--wrapper', {
         'memori-chat-wrapper--translate': translateTo,
         'memori-chat-wrapper--expanded': isTextareaExpanded,
@@ -426,6 +527,7 @@ const Chat: React.FC<Props> = ({
                 useMathFormatting={useMathFormatting}
                 showFunctionCache={showFunctionCache}
                 showReasoning={showReasoning}
+                usageHtml={usageHtmlByIndex[index]}
               />
 
               {showDates && !!message.timestamp && (
@@ -563,6 +665,136 @@ const Chat: React.FC<Props> = ({
           pasteAsCardCharThreshold={pasteAsCardCharThreshold}
         />
       )}
+
+      <Modal
+        open={!!activeUsageBadge}
+        onClose={() => setActiveUsageBadge(null)}
+        title={
+          activeUsageBadge?.type
+            ? `${BADGE_EMOJI[activeUsageBadge.type]} ${
+                llmUsageLabels[activeUsageBadge.type]
+              }`
+            : undefined
+        }
+        className="memori-chat--usage-modal"
+      >
+        {activeUsageBadge?.type === 'llm' && (
+          <dl className="memori-chat--usage-details">
+            <div>
+              <dt>{llmUsageLabels.provider}</dt>
+              <dd>{activeUsageBadge.usage.provider ?? '—'}</dd>
+            </div>
+            <div>
+              <dt>{llmUsageLabels.model}</dt>
+              <dd>{activeUsageBadge.usage.model ?? '—'}</dd>
+            </div>
+            <div>
+              <dt>
+                {llmUsageLabels.tokens} {llmUsageLabels.input}
+              </dt>
+              <dd>
+                {formatIntegerValue(
+                  activeUsageBadge.usage.totalInputTokens ?? 0,
+                  locale,
+                )}
+              </dd>
+            </div>
+            <div>
+              <dt>
+                {llmUsageLabels.tokens} {llmUsageLabels.output}
+              </dt>
+              <dd>
+                {formatIntegerValue(activeUsageBadge.usage.outputTokens ?? 0, locale)}
+              </dd>
+            </div>
+          </dl>
+        )}
+
+        {activeUsageBadge?.type === 'energy' && (
+          <div className="memori-chat--usage-educational-content">
+            <strong className="memori-chat--usage-metric-value">
+              {formatImpactWithApiUnit(
+                getMetricValue(activeUsageBadge.usage.energyImpact?.energy) ?? 0,
+                activeUsageBadge.usage.energyImpact?.energyUnit,
+                'kWh',
+                'energy',
+                locale,
+              )}
+            </strong>
+            <Tooltip
+              content={t('chatLogs.approximateValuesTooltip', {
+                defaultValue: 'These values are approximate.',
+              })}
+            >
+              <p className="memori-chat--usage-comparable">
+                {getImpactComparison(
+                  getMetricValue(activeUsageBadge.usage.energyImpact?.energy) ?? 0,
+                  'energy',
+                  locale,
+                  t,
+                )}
+              </p>
+            </Tooltip>
+            <p>{t('chatLogs.energyImpactDescription')}</p>
+          </div>
+        )}
+        {activeUsageBadge?.type === 'co2' && (
+          <div className="memori-chat--usage-educational-content">
+            <strong className="memori-chat--usage-metric-value">
+              {formatImpactWithApiUnit(
+                getMetricValue(activeUsageBadge.usage.energyImpact?.gwp) ?? 0,
+                activeUsageBadge.usage.energyImpact?.gwpUnit,
+                'kgCO2eq',
+                'co2',
+                locale,
+              )}
+            </strong>
+            <Tooltip
+              content={t('chatLogs.approximateValuesTooltip', {
+                defaultValue: 'These values are approximate.',
+              })}
+            >
+              <p className="memori-chat--usage-comparable">
+                {getImpactComparison(
+                  getMetricValue(activeUsageBadge.usage.energyImpact?.gwp) ?? 0,
+                  'co2',
+                  locale,
+                  t,
+                )}
+              </p>
+            </Tooltip>
+            <p>{t('chatLogs.co2ImpactDescription')}</p>
+          </div>
+        )}
+        {activeUsageBadge?.type === 'water' && (
+          <div className="memori-chat--usage-educational-content">
+            <strong className="memori-chat--usage-metric-value">
+              {formatImpactWithApiUnit(
+                getMetricValue(activeUsageBadge.usage.energyImpact?.wcf) ?? 0,
+                activeUsageBadge.usage.energyImpact?.wcfUnit,
+                'L',
+                'water',
+                locale,
+              )}
+            </strong>
+            <Tooltip
+              content={t('chatLogs.approximateValuesTooltip', {
+                defaultValue: 'These values are approximate.',
+              })}
+            >
+              <p className="memori-chat--usage-comparable">
+                {getImpactComparison(
+                  getMetricValue(activeUsageBadge.usage.energyImpact?.wcf) ?? 0,
+                  'water',
+                  locale,
+                  t,
+                )}
+              </p>
+            </Tooltip>
+            <p>{t('chatLogs.waterImpactDescription')}</p>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };
