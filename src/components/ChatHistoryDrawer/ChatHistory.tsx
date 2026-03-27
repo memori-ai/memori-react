@@ -922,65 +922,6 @@ const ChatHistoryDrawer = ({
                       </div>
                     )}
                   </div>
-
-                  {/* {selectedChatLog?.chatLogID === chatLog.chatLogID &&
-                    !isMobile && (
-                      <div className="memori-chat-history-drawer--card--content">
-                        <div className="memori-chat-history-drawer--card--content--messages">
-                          <Chat
-                            key={`${chatLog.chatLogID}-${chatLog.lines.length}`}
-                            baseUrl={baseUrl}
-                            apiUrl={apiUrl}
-                            memoriTyping={false}
-                            showTypingText={false}
-                            showAIicon={true}
-                            showTranslationOriginal={false}
-                            showWhyThisAnswer={false}
-                            showCopyButton={false}
-                            isChatlogPanel={true}
-                            showInputs={false}
-                            history={chatLog.lines.map(line => ({
-                              text: line.text, // Don't truncate to preserve document_attachment tags
-                              contextVars: line.contextVars,
-                              media: line.media as Medium[],
-                              fromUser: line.inbound,
-                              timestamp: line.timestamp,
-                            }))}
-                            memori={memori}
-                            sessionID={sessionId}
-                            pushMessage={() => {}}
-                            simulateUserPrompt={() => {}}
-                            setSendOnEnter={() => {}}
-                            attachmentsMenuOpen={undefined}
-                            setAttachmentsMenuOpen={() => {}}
-                            userMessage={''}
-                            onChangeUserMessage={() => {}}
-                            sendMessage={() => {}}
-                            startListening={() => {}}
-                            stopListening={() => {}}
-                            listening={false}
-                            setEnableFocusChatInput={() => {}}
-                            stopAudio={() => {}}
-                            isHistoryView={true}
-                          />
-                        </div>
-                        <div className="memori-chat-history-drawer--card--content--actions">
-                          <Button
-                            className="memori-chat-history-drawer--card--content--resume-button"
-                            primary
-                            onClick={handleResumeChat}
-                          >
-                            <div className="memori-chat-history-drawer--card--content--resume-button--content">
-                              <MessageCircle className="memori-chat-history-drawer--card--content--resume-button--icon" />
-                              <span className="memori-chat-history-drawer--card--content--resume-button--text">
-                                {t('write_and_speak.resumeButton') ||
-                                  'Resume chat'}
-                              </span>
-                            </div>
-                          </Button>
-                        </div>
-                      </div>
-                    )} */}
                 </>
               </Card>
             );
@@ -1028,25 +969,8 @@ const ChatHistoryDrawer = ({
   const renderChatDetailView = () => {
     if (!selectedChatLog) return null;
 
-    // Calculate the date of the chat (using the last message timestamp)
-    const lastMessageDate = Math.max(
-      ...selectedChatLog.lines.map(line => new Date(line.timestamp).getTime())
-    );
-    const chatDate = formatDate(new Date(lastMessageDate).toISOString());
-
     return (
       <div className="memori-chat-history-drawer--detail-view">
-        <header className="memori-chat-history-drawer--detail-view--header">
-          <div className="memori-chat-history-drawer--detail-view--header--title-wrapper">
-            <div className="memori-chat-history-drawer--detail-view--header--title">
-              {calculateTitle(selectedChatLog.lines) ||
-                'Chat-' + selectedChatLog.chatLogID.substring(0, 4)}
-            </div>
-            <div className="memori-chat-history-drawer--detail-view--header--date">
-              {chatDate}
-            </div>
-          </div>
-        </header>
         <div className="memori-chat-history-drawer--detail-view--content">
           <div className="memori-chat-history-drawer--detail-view--messages">
             <Chat
@@ -1105,6 +1029,13 @@ const ChatHistoryDrawer = ({
     );
   };
 
+  // Calculate the date of the chat (using the last message timestamp)
+  const lastMessageDate = Math.max(
+    ...(selectedChatLog?.lines.map(line =>
+      new Date(line.timestamp).getTime()
+    ) || [])
+  );
+
   return (
     <Drawer
       className="memori-chat-history-drawer"
@@ -1114,7 +1045,7 @@ const ChatHistoryDrawer = ({
         !isViewingChatDetail ? (
           t('write_and_speak.chatHistory') || 'Chat History'
         ) : (
-          <div className="memori-chat-history-drawer--detail-view--header--title-wrapper-with-back-button">
+          <div className="memori-chat-history-drawer--detail-view--header--title-wrapper">
             <Button
               variant="ghost"
               onClick={() => {
@@ -1128,7 +1059,14 @@ const ChatHistoryDrawer = ({
               {t('back') || 'Back'}
             </Button>
             <div className="memori-chat-history-drawer--detail-view--header--title">
-              { t('write_and_speak.chatHistory') || 'Chat History'}
+              {calculateTitle(selectedChatLog?.lines || []) ||
+                'Chat-' +
+                  (selectedChatLog?.chatLogID?.substring(0, 4) || '0000')}
+            </div>
+            <div className="memori-chat-history-drawer--detail-view--header--date">
+              {lastMessageDate
+                ? formatDate(new Date(lastMessageDate).toISOString())
+                : ''}
             </div>
           </div>
         )
