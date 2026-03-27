@@ -1,5 +1,22 @@
 
 
+## [8.30.0](https://github.com/memori-ai/memori-react/compare/v8.29.1...v8.30.0) (2026-03-27)
+
+
+### Features
+
+* add message consumption feature with UI updates and localization support ([293c58f](https://github.com/memori-ai/memori-react/commit/293c58fcc9d57391679c1959dd22d1cc456528ea))
+
+
+### Bug Fixes
+
+* disable message consumption display in Memori component and update hover styles in Chat.css ([4bd10ce](https://github.com/memori-ai/memori-react/commit/4bd10cea051a35be1d48803b145ef30fe30fbe1f))
+
+
+### Changes
+
+* adjust uploaded document limits in chat components ([be74c2f](https://github.com/memori-ai/memori-react/commit/be74c2f2f4352378a58861a203278a19ecc2a230))
+
 ## [8.29.1](https://github.com/memori-ai/memori-react/compare/v8.29.0...v8.29.1) (2026-03-27)
 
 
