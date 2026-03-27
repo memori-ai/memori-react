@@ -51,8 +51,6 @@ interface UploadDocumentsProps {
       mimeType: string;
     }[]
   ) => boolean | { valid: boolean; message?: string };
-  /** Same as total payload: overrides per-document content limit (character count). */
-  maxTotalMessagePayload?: number;
   /** Per-document content character limit. */
   maxDocumentContentLength?: number;
 }
@@ -65,8 +63,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   onDocumentError,
   onValidateFile,
   onValidatePayloadSize,
-  maxTotalMessagePayload,
-  maxDocumentContentLength = 200000,
+  maxDocumentContentLength = 300000,
 }) => {
   const { t } = useTranslation();
 
@@ -307,11 +304,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       mimeType: string;
     }[] = [];
     let hadTruncation = false;
-    let skippedDueToPayload = 0;
-    const payloadLimit = maxTotalMessagePayload ?? 200000;
-    const existingTotal = documentPreviewFiles
-      .filter((f: any) => f.type === 'document')
-      .reduce((sum: number, f: any) => sum + (f.content?.length ?? 0), 0);
 
     for (const file of filesToProcess) {
       if (!validateDocumentFile(file)) {
@@ -325,14 +317,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         if (wasTruncated) hadTruncation = true;
 
         if (text) {
-          const processedSum = processedFiles.reduce(
-            (s, d) => s + d.content.length,
-            0
-          );
-          if (existingTotal + processedSum + text.length > payloadLimit) {
-            skippedDueToPayload += 1;
-            continue;
-          }
           processedFiles.push({
             name: file.name,
             id: fileId,
@@ -349,16 +333,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           severity: 'warning',
         });
       }
-    }
-
-    if (skippedDueToPayload > 0) {
-      onDocumentError?.({
-        message: t('upload.documentsNotAddedContextSize', {
-          count: skippedDueToPayload,
-          defaultValue: `${skippedDueToPayload} document(s) not added (context size limit).`,
-        }),
-        severity: 'warning',
-      });
     }
 
     // Add new documents to existing ones (only those that fit within payload)

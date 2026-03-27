@@ -23,7 +23,10 @@ import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
 import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler';
 import { DocumentIcon } from '../icons/Document';
 import { useTranslation } from 'react-i18next';
-import { maxDocumentsPerMessage, maxTotalMessagePayloadDefault, maxDocumentContentLength, pasteAsCardLineThreshold, pasteAsCardCharThreshold } from '../../helpers/constants';
+import { maxDocumentsPerMessage, maxDocumentContentLength, pasteAsCardLineThreshold, pasteAsCardCharThreshold } from '../../helpers/constants';
+import Modal from '../ui/Modal';
+import Tooltip from '../ui/Tooltip';
+
 export interface Props {
   memori: Memori;
   tenant?: Tenant;
@@ -552,9 +555,7 @@ const Chat: React.FC<Props> = ({
           isPlayingAudio={isPlayingAudio}
           showMicrophone={showMicrophone}
           memoriID={memori?.memoriID}
-          maxTotalMessagePayload={
-            maxTotalMessagePayload ?? maxTotalMessagePayloadDefault
-          }
+          maxTotalMessagePayload={maxTotalMessagePayload}
           maxTextareaCharacters={maxTextareaCharacters}
           maxDocumentsPerMessage={maxDocumentsPerMessage}
           maxDocumentContentLength={maxDocumentContentLength}

@@ -269,23 +269,12 @@ const ChatInputs: React.FC<Props> = ({
         return;
       }
 
-      const totalPayloadLimit = maxTotalMessagePayload ?? 200000;
-      const perDocumentLimit = maxDocumentContentLength ?? 200000;
+      // Only enforce a per-document limit. `maxTotalMessagePayload` is kept for backward compatibility
+      // and now acts as the per-document content length override.
+      const perDocumentLimit =
+        maxTotalMessagePayload ?? maxDocumentContentLength ?? 300000;
 
       if (text.length > perDocumentLimit) {
-        e.preventDefault();
-        toast(t('upload.pasteContentExceedsLimit', {
-          defaultValue:
-            'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
-        }), { icon: '⚠️' });
-        return;
-      }
-
-      const currentTotal = documentPreviewFiles.reduce(
-        (sum, f) => sum + f.content.length,
-        0
-      );
-      if (currentTotal + text.length > totalPayloadLimit) {
         e.preventDefault();
         toast(t('upload.pasteContentExceedsLimit', {
           defaultValue:

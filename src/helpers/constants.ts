@@ -207,7 +207,6 @@ export const MAX_MSG_CHARS = 4000;
 export const MAX_MSG_WORDS = 300;
 
 export const maxDocumentsPerMessage = 10;
-export const maxTotalMessagePayloadDefault = 200000;
-export const maxDocumentContentLength = 200000;
+export const maxDocumentContentLength = 300000;
 export const pasteAsCardLineThreshold = 100;
 export const pasteAsCardCharThreshold = 4200;

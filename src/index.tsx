@@ -77,7 +77,7 @@ export interface Props {
   useMathFormatting?: boolean;
   autoStart?: boolean;
   applyVarsToRoot?: boolean;
-  /** Override total document payload and per-document content limit (character count). Default from constants (200000). */
+  /** Max per-document content length (character count). Kept name for backward compatibility. Default: 300000. */
   maxTotalMessagePayload?: number;
   /** Max characters allowed in the chat textarea. When set, shows a counter (e.g. "0 / 500") and enforces that pasted content + existing text does not exceed this limit. */
   maxTextareaCharacters?: number;

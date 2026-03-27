@@ -25,7 +25,7 @@ interface UploadManagerProps {
     type?: string;
   }[];
   memoriID?: string;
-  /** Override total document payload limit (character count). */
+  /** Override per-document content length limit (character count). */
   maxTotalMessagePayload?: number;
   /** Max attachments (docs + images) per message. */
   maxDocumentsPerMessage?: number;
@@ -43,8 +43,10 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   memoriID = '',
   maxTotalMessagePayload,
   maxDocumentsPerMessage = 10,
-  maxDocumentContentLength = 200000,
+  maxDocumentContentLength = 300000,
 }) => {
+  const effectivePerDocumentLimit =
+    maxTotalMessagePayload ?? maxDocumentContentLength ?? 300000;
   // State
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<
@@ -411,7 +413,7 @@ ${file.content}
       '.md',
       '.html',
     ];
-    const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+    const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB
 
     if (!ALLOWED_FILE_TYPES.includes(fileExt)) {
       addError({
@@ -438,29 +440,13 @@ ${file.content}
 
   // Validate total payload size. Returns result so caller can avoid showing this error when truncation was already shown.
   const validatePayloadSize = (
-    newDocuments: {
+    _newDocuments: {
       name: string;
       id: string;
       content: string;
       mimeType: string;
     }[]
   ): { valid: boolean; message?: string } => {
-    const limit = maxTotalMessagePayload ?? 200000;
-
-    const existingDocuments = documentPreviewFiles.filter(
-      (file: any) => file.type === 'document'
-    );
-
-    const allDocuments = [...existingDocuments, ...newDocuments];
-    const totalPayloadSize = allDocuments.reduce(
-      (total, doc) => total + doc.content.length,
-      0
-    );
-
-    if (totalPayloadSize > limit) {
-      return { valid: false, message: '' };
-    }
-
     return { valid: true };
   };
 
@@ -476,7 +462,7 @@ ${file.content}
   const validateImageFile = (file: File): boolean => {
     const fileExt = `.${file.name.split('.').pop()?.toLowerCase()}`;
     const ALLOWED_FILE_TYPES = ['.jpg', '.jpeg', '.png'];
-    const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
+    const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB
 
     if (
       !ALLOWED_FILE_TYPES.includes(fileExt) &&
@@ -580,8 +566,7 @@ ${file.content}
           onDocumentError={handleDocumentError}
           onValidateFile={validateDocumentFile}
           onValidatePayloadSize={validatePayloadSize}
-          maxTotalMessagePayload={maxTotalMessagePayload}
-          maxDocumentContentLength={maxDocumentContentLength}
+          maxDocumentContentLength={effectivePerDocumentLimit}
         />
       </div>
 
