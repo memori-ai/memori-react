@@ -11,16 +11,12 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
       <div
         class="memori--board-of-experts"
       >
-        <div
-          class="memori-tooltip memori-tooltip--align-left"
+        <span
+          class="styles-module__root___-ALla"
         >
-          <div
-            class="memori-tooltip--content"
-          >
-            boardOfExperts
-          </div>
-          <div
-            class="memori-tooltip--trigger"
+          <span
+            class="styles-module__trigger___V2aIF"
+            id="base-ui-:r7:"
           >
             <span
               aria-label="boardOfExperts"
@@ -53,165 +49,185 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
                 />
               </svg>
             </span>
-          </div>
-        </div>
+          </span>
+        </span>
       </div>
     </div>
-    <picture
-      class="memori--avatar"
-    >
-      <source
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-      <img
-        alt="Memori"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
-    <h2
-      class="memori--title"
-    >
-      Memori
-    </h2>
     <div
-      class="memori--description"
+      class="memori--start-panel__body"
     >
-      <p
-        style="margin-top: 0px;"
+      <div
+        class="memori--title-container"
       >
-        <div
-          class="memori-expandable memori--description-text"
+        <picture
+          class="memori--avatar"
         >
-          <div
-            class="memori-expandable__inner"
-            style="max-height: 9999px;"
+          <source
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+          <img
+            alt="Memori"
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+        </picture>
+        <div
+          class="memori--title-container__content"
+        >
+          <h2
+            class="memori--title"
           >
-            Lorem ipsum.
+            Memori
+          </h2>
+          <div
+            class="memori-expandable memori--description-text"
+          >
+            <div
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
+            >
+              Lorem ipsum.
+            </div>
           </div>
         </div>
-      </p>
+        <div
+          class="memori--completion-provider-status--loading"
+        >
+          <div
+            class="memori-spin memori-spin--spinning"
+          >
+            <div
+              aria-label="Loading"
+              aria-live="polite"
+              class="memori-spin__overlay"
+              role="status"
+            >
+              <div
+                class="memori-spin__container"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-loader-circle memori-spin__icon"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 12a9 9 0 1 1-6.219-8.56"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
-        class="memori--start-privacy-explanation-container"
+        class="memori--description"
       >
+        <div
+          class="memori--start-panel__divider"
+          role="presentation"
+        />
+        <div
+          class="memori--start-panel__notice"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-circle-help memori--start-panel__notice-icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+            <path
+              d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+            />
+            <path
+              d="M12 17h.01"
+            />
+          </svg>
+          <p
+            class="memori--start-panel__notice-text"
+          >
+            write_and_speak.pagePrivacyExplanation
+          </p>
+          <span
+            class="styles-module__root___-ALla"
+          >
+            <span
+              class="styles-module__trigger___V2aIF"
+              id="base-ui-:r9:"
+            >
+              <button
+                aria-label="privacyPolicy"
+                class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--start-panel__notice-more"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="memori-button__content"
+                >
+                  <svg
+                    class="lucide lucide-info memori--start-privacy-explanation-icon"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                    <path
+                      d="M12 16v-4"
+                    />
+                    <path
+                      d="M12 8h.01"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
+        </div>
         <p
-          class="memori--start-privacy-explanation"
+          class="memori--start-description"
         >
-          write_and_speak.pagePrivacyExplanation
+          write_and_speak.pageTryMeExplanation
         </p>
-        <div
-          class="memori-tooltip memori-tooltip--align-topLeft"
+        <button
+          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          tabindex="0"
+          type="button"
         >
-          <div
-            class="memori-tooltip--content"
+          <span
+            class="memori-button__content"
           >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <svg
-              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-              <path
-                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-              />
-              <path
-                d="M12 17h.01"
-              />
-            </svg>
-          </div>
-        </div>
+            write_and_speak.tryMeButton
+          </span>
+        </button>
       </div>
-      <button
-        class="memori-button memori-button--primary memori-button--md memori--start-button"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="memori-button__content"
-        >
-          write_and_speak.tryMeButton
-        </span>
-      </button>
-      <div
-        class="memori--completion-provider-status--loading"
-      >
-        <div
-          class="memori-spin memori-spin--spinning"
-        >
-          <div
-            aria-label="Loading"
-            aria-live="polite"
-            class="memori-spin__overlay"
-            role="status"
-          >
-            <div
-              class="memori-spin__container"
-            >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-loader-circle memori-spin__icon"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M21 12a9 9 0 1 1-6.219-8.56"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p
-        class="memori--start-description"
-      >
-        write_and_speak.pageTryMeExplanation
-      </p>
     </div>
   </div>
 </div>
@@ -225,161 +241,181 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
     <div
       class="memori--cover"
     />
-    <picture
-      class="memori--avatar"
-    >
-      <source
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-      <img
-        alt="Memori"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
-    <h2
-      class="memori--title"
-    >
-      Memori
-    </h2>
     <div
-      class="memori--description"
+      class="memori--start-panel__body"
     >
-      <p
-        style="margin-top: 0px;"
+      <div
+        class="memori--title-container"
       >
-        <div
-          class="memori-expandable memori--description-text"
+        <picture
+          class="memori--avatar"
         >
-          <div
-            class="memori-expandable__inner"
-            style="max-height: 9999px;"
+          <source
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+          <img
+            alt="Memori"
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+        </picture>
+        <div
+          class="memori--title-container__content"
+        >
+          <h2
+            class="memori--title"
           >
-            Lorem ipsum.
+            Memori
+          </h2>
+          <div
+            class="memori-expandable memori--description-text"
+          >
+            <div
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
+            >
+              Lorem ipsum.
+            </div>
           </div>
         </div>
-      </p>
+        <div
+          class="memori--completion-provider-status--loading"
+        >
+          <div
+            class="memori-spin memori-spin--spinning"
+          >
+            <div
+              aria-label="Loading"
+              aria-live="polite"
+              class="memori-spin__overlay"
+              role="status"
+            >
+              <div
+                class="memori-spin__container"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-loader-circle memori-spin__icon"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 12a9 9 0 1 1-6.219-8.56"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
-        class="memori--start-privacy-explanation-container"
+        class="memori--description"
       >
+        <div
+          class="memori--start-panel__divider"
+          role="presentation"
+        />
+        <div
+          class="memori--start-panel__notice"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-circle-help memori--start-panel__notice-icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+            <path
+              d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+            />
+            <path
+              d="M12 17h.01"
+            />
+          </svg>
+          <p
+            class="memori--start-panel__notice-text"
+          >
+            write_and_speak.pagePrivacyExplanation
+          </p>
+          <span
+            class="styles-module__root___-ALla"
+          >
+            <span
+              class="styles-module__trigger___V2aIF"
+              id="base-ui-:rn:"
+            >
+              <button
+                aria-label="privacyPolicy"
+                class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--start-panel__notice-more"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="memori-button__content"
+                >
+                  <svg
+                    class="lucide lucide-info memori--start-privacy-explanation-icon"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                    <path
+                      d="M12 16v-4"
+                    />
+                    <path
+                      d="M12 8h.01"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
+        </div>
         <p
-          class="memori--start-privacy-explanation"
+          class="memori--start-description"
         >
-          write_and_speak.pagePrivacyExplanation
+          write_and_speak.pageInstructExplanation
         </p>
-        <div
-          class="memori-tooltip memori-tooltip--align-topLeft"
+        <button
+          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          tabindex="0"
+          type="button"
         >
-          <div
-            class="memori-tooltip--content"
+          <span
+            class="memori-button__content"
           >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <svg
-              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-              <path
-                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-              />
-              <path
-                d="M12 17h.01"
-              />
-            </svg>
-          </div>
-        </div>
+            write_and_speak.instructButton
+          </span>
+        </button>
       </div>
-      <button
-        class="memori-button memori-button--primary memori-button--md memori--start-button"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="memori-button__content"
-        >
-          write_and_speak.instructButton
-        </span>
-      </button>
-      <div
-        class="memori--completion-provider-status--loading"
-      >
-        <div
-          class="memori-spin memori-spin--spinning"
-        >
-          <div
-            aria-label="Loading"
-            aria-live="polite"
-            class="memori-spin__overlay"
-            role="status"
-          >
-            <div
-              class="memori-spin__container"
-            >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-loader-circle memori-spin__icon"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M21 12a9 9 0 1 1-6.219-8.56"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p
-        class="memori--start-description"
-      >
-        write_and_speak.pageInstructExplanation
-      </p>
     </div>
   </div>
 </div>
@@ -393,161 +429,181 @@ exports[`renders StartPanel unchanged 1`] = `
     <div
       class="memori--cover"
     />
-    <picture
-      class="memori--avatar"
-    >
-      <source
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-      <img
-        alt="Memori"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
-    <h2
-      class="memori--title"
-    >
-      Memori
-    </h2>
     <div
-      class="memori--description"
+      class="memori--start-panel__body"
     >
-      <p
-        style="margin-top: 0px;"
+      <div
+        class="memori--title-container"
       >
-        <div
-          class="memori-expandable memori--description-text"
+        <picture
+          class="memori--avatar"
         >
-          <div
-            class="memori-expandable__inner"
-            style="max-height: 9999px;"
+          <source
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+          <img
+            alt="Memori"
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+        </picture>
+        <div
+          class="memori--title-container__content"
+        >
+          <h2
+            class="memori--title"
           >
-            Lorem ipsum.
+            Memori
+          </h2>
+          <div
+            class="memori-expandable memori--description-text"
+          >
+            <div
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
+            >
+              Lorem ipsum.
+            </div>
           </div>
         </div>
-      </p>
+        <div
+          class="memori--completion-provider-status--loading"
+        >
+          <div
+            class="memori-spin memori-spin--spinning"
+          >
+            <div
+              aria-label="Loading"
+              aria-live="polite"
+              class="memori-spin__overlay"
+              role="status"
+            >
+              <div
+                class="memori-spin__container"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-loader-circle memori-spin__icon"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 12a9 9 0 1 1-6.219-8.56"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
-        class="memori--start-privacy-explanation-container"
+        class="memori--description"
       >
+        <div
+          class="memori--start-panel__divider"
+          role="presentation"
+        />
+        <div
+          class="memori--start-panel__notice"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-circle-help memori--start-panel__notice-icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+            <path
+              d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+            />
+            <path
+              d="M12 17h.01"
+            />
+          </svg>
+          <p
+            class="memori--start-panel__notice-text"
+          >
+            write_and_speak.pagePrivacyExplanation
+          </p>
+          <span
+            class="styles-module__root___-ALla"
+          >
+            <span
+              class="styles-module__trigger___V2aIF"
+              id="base-ui-:r1:"
+            >
+              <button
+                aria-label="privacyPolicy"
+                class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--start-panel__notice-more"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="memori-button__content"
+                >
+                  <svg
+                    class="lucide lucide-info memori--start-privacy-explanation-icon"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                    <path
+                      d="M12 16v-4"
+                    />
+                    <path
+                      d="M12 8h.01"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
+        </div>
         <p
-          class="memori--start-privacy-explanation"
+          class="memori--start-description"
         >
-          write_and_speak.pagePrivacyExplanation
+          write_and_speak.pageTryMeExplanation
         </p>
-        <div
-          class="memori-tooltip memori-tooltip--align-topLeft"
+        <button
+          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          tabindex="0"
+          type="button"
         >
-          <div
-            class="memori-tooltip--content"
+          <span
+            class="memori-button__content"
           >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <svg
-              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-              <path
-                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-              />
-              <path
-                d="M12 17h.01"
-              />
-            </svg>
-          </div>
-        </div>
+            write_and_speak.tryMeButton
+          </span>
+        </button>
       </div>
-      <button
-        class="memori-button memori-button--primary memori-button--md memori--start-button"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="memori-button__content"
-        >
-          write_and_speak.tryMeButton
-        </span>
-      </button>
-      <div
-        class="memori--completion-provider-status--loading"
-      >
-        <div
-          class="memori-spin memori-spin--spinning"
-        >
-          <div
-            aria-label="Loading"
-            aria-live="polite"
-            class="memori-spin__overlay"
-            role="status"
-          >
-            <div
-              class="memori-spin__container"
-            >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-loader-circle memori-spin__icon"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M21 12a9 9 0 1 1-6.219-8.56"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p
-        class="memori--start-description"
-      >
-        write_and_speak.pageTryMeExplanation
-      </p>
     </div>
   </div>
 </div>
@@ -561,84 +617,51 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
     <div
       class="memori--cover"
     />
-    <picture
-      class="memori--avatar"
-    >
-      <source
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-      <img
-        alt="Memori"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
-    <h2
-      class="memori--title"
-    >
-      Memori
-    </h2>
     <div
-      class="memori--description"
+      class="memori--start-panel__body"
     >
-      <p
-        style="margin-top: 0px;"
-      >
-        <div
-          class="memori-expandable memori--description-text"
-        >
-          <div
-            class="memori-expandable__inner"
-            style="max-height: 9999px;"
-          >
-            Lorem ipsum.
-          </div>
-        </div>
-      </p>
       <div
-        class="memori--start-privacy-explanation-container"
+        class="memori--title-container"
       >
-        <p
-          class="memori--start-privacy-explanation"
+        <picture
+          class="memori--avatar"
         >
-          write_and_speak.pagePrivacyExplanation
-        </p>
+          <source
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+          <img
+            alt="Memori"
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+        </picture>
         <div
-          class="memori-tooltip memori-tooltip--align-topLeft"
+          class="memori--title-container__content"
         >
+          <h2
+            class="memori--title"
+          >
+            Memori
+          </h2>
           <div
-            class="memori-tooltip--content"
+            class="memori-expandable memori--description-text"
           >
             <div
-              class="memori--privacy-tooltip-content"
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
             >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
+              Lorem ipsum.
             </div>
           </div>
-          <div
-            class="memori-tooltip--trigger"
+        </div>
+        <span
+          class="styles-module__root___-ALla memori--completion-provider-status--tooltip"
+        >
+          <span
+            class="styles-module__trigger___V2aIF"
+            id="base-ui-:r10:"
           >
             <svg
-              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
+              class="lucide lucide-triangle-alert memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
               fill="none"
               height="24"
               stroke="currentColor"
@@ -649,58 +672,32 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
               width="24"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
+              <path
+                d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
               />
               <path
-                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+                d="M12 9v4"
               />
               <path
                 d="M12 17h.01"
               />
             </svg>
-          </div>
-        </div>
-      </div>
-      <button
-        class="memori-button memori-button--primary memori-button--md memori--start-button"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="memori-button__content"
-        >
-          write_and_speak.tryMeButton
+          </span>
         </span>
-      </button>
+      </div>
       <div
-        class="memori-tooltip memori-tooltip--align-right memori--completion-provider-status--tooltip"
+        class="memori--description"
       >
         <div
-          class="memori-tooltip--content"
-        >
-          <div>
-            <p>
-              completionProviderMajorOutage
-            </p>
-            <p>
-              <a
-                href="https://status.openai.com/"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                completionProviderCheckStatusPage
-              </a>
-            </p>
-          </div>
-        </div>
+          class="memori--start-panel__divider"
+          role="presentation"
+        />
         <div
-          class="memori-tooltip--trigger"
+          class="memori--start-panel__notice"
         >
           <svg
-            class="lucide lucide-triangle-alert memori--completion-provider-status--icon memori--completion-provider-status--icon-error"
+            aria-hidden="true"
+            class="lucide lucide-circle-help memori--start-panel__notice-icon"
             fill="none"
             height="24"
             stroke="currentColor"
@@ -711,23 +708,85 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
             width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
-            <path
-              d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
             />
             <path
-              d="M12 9v4"
+              d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
             />
             <path
               d="M12 17h.01"
             />
           </svg>
+          <p
+            class="memori--start-panel__notice-text"
+          >
+            write_and_speak.pagePrivacyExplanation
+          </p>
+          <span
+            class="styles-module__root___-ALla"
+          >
+            <span
+              class="styles-module__trigger___V2aIF"
+              id="base-ui-:r12:"
+            >
+              <button
+                aria-label="privacyPolicy"
+                class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--start-panel__notice-more"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="memori-button__content"
+                >
+                  <svg
+                    class="lucide lucide-info memori--start-privacy-explanation-icon"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                    <path
+                      d="M12 16v-4"
+                    />
+                    <path
+                      d="M12 8h.01"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
         </div>
+        <p
+          class="memori--start-description"
+        >
+          write_and_speak.pageTryMeExplanation
+        </p>
+        <button
+          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="memori-button__content"
+          >
+            write_and_speak.tryMeButton
+          </span>
+        </button>
       </div>
-      <p
-        class="memori--start-description"
-      >
-        write_and_speak.pageTryMeExplanation
-      </p>
     </div>
   </div>
 </div>
@@ -741,161 +800,181 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
     <div
       class="memori--cover"
     />
-    <picture
-      class="memori--avatar"
-    >
-      <source
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-      <img
-        alt="Memori"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
-    <h2
-      class="memori--title"
-    >
-      Memori
-    </h2>
     <div
-      class="memori--description"
+      class="memori--start-panel__body"
     >
-      <p
-        style="margin-top: 0px;"
+      <div
+        class="memori--title-container"
       >
-        <div
-          class="memori-expandable memori--description-text"
+        <picture
+          class="memori--avatar"
         >
-          <div
-            class="memori-expandable__inner"
-            style="max-height: 9999px;"
+          <source
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+          <img
+            alt="Memori"
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+        </picture>
+        <div
+          class="memori--title-container__content"
+        >
+          <h2
+            class="memori--title"
           >
-            Lorem ipsum.
+            Memori
+          </h2>
+          <div
+            class="memori-expandable memori--description-text"
+          >
+            <div
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
+            >
+              Lorem ipsum.
+            </div>
           </div>
         </div>
-      </p>
+        <div
+          class="memori--completion-provider-status--loading"
+        >
+          <div
+            class="memori-spin memori-spin--spinning"
+          >
+            <div
+              aria-label="Loading"
+              aria-live="polite"
+              class="memori-spin__overlay"
+              role="status"
+            >
+              <div
+                class="memori-spin__container"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-loader-circle memori-spin__icon"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 12a9 9 0 1 1-6.219-8.56"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
-        class="memori--start-privacy-explanation-container"
+        class="memori--description"
       >
+        <div
+          class="memori--start-panel__divider"
+          role="presentation"
+        />
+        <div
+          class="memori--start-panel__notice"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-circle-help memori--start-panel__notice-icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+            <path
+              d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+            />
+            <path
+              d="M12 17h.01"
+            />
+          </svg>
+          <p
+            class="memori--start-panel__notice-text"
+          >
+            write_and_speak.pagePrivacyExplanation
+          </p>
+          <span
+            class="styles-module__root___-ALla"
+          >
+            <span
+              class="styles-module__trigger___V2aIF"
+              id="base-ui-:r5:"
+            >
+              <button
+                aria-label="privacyPolicy"
+                class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--start-panel__notice-more"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="memori-button__content"
+                >
+                  <svg
+                    class="lucide lucide-info memori--start-privacy-explanation-icon"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                    <path
+                      d="M12 16v-4"
+                    />
+                    <path
+                      d="M12 8h.01"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
+        </div>
         <p
-          class="memori--start-privacy-explanation"
+          class="memori--start-description"
         >
-          write_and_speak.pagePrivacyExplanation
+          write_and_speak.pageTryMeExplanation
         </p>
-        <div
-          class="memori-tooltip memori-tooltip--align-topLeft"
+        <button
+          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          tabindex="0"
+          type="button"
         >
-          <div
-            class="memori-tooltip--content"
+          <span
+            class="memori-button__content"
           >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <svg
-              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-              <path
-                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-              />
-              <path
-                d="M12 17h.01"
-              />
-            </svg>
-          </div>
-        </div>
+            write_and_speak.tryMeButton
+          </span>
+        </button>
       </div>
-      <button
-        class="memori-button memori-button--primary memori-button--md memori--start-button"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="memori-button__content"
-        >
-          write_and_speak.tryMeButton
-        </span>
-      </button>
-      <div
-        class="memori--completion-provider-status--loading"
-      >
-        <div
-          class="memori-spin memori-spin--spinning"
-        >
-          <div
-            aria-label="Loading"
-            aria-live="polite"
-            class="memori-spin__overlay"
-            role="status"
-          >
-            <div
-              class="memori-spin__container"
-            >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-loader-circle memori-spin__icon"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M21 12a9 9 0 1 1-6.219-8.56"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p
-        class="memori--start-description"
-      >
-        write_and_speak.pageTryMeExplanation
-      </p>
     </div>
   </div>
 </div>
@@ -909,241 +988,247 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
     <div
       class="memori--cover"
     />
-    <picture
-      class="memori--avatar"
-    >
-      <source
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-      <img
-        alt="Memori"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
-    <h2
-      class="memori--title"
-    >
-      Memori
-    </h2>
     <div
-      class="memori--description"
+      class="memori--start-panel__body"
     >
-      <p
-        style="margin-top: 0px;"
-      >
-        <div
-          class="memori-expandable memori--description-text"
-        >
-          <div
-            class="memori-expandable__inner"
-            style="max-height: 9999px;"
-          >
-            Lorem ipsum.
-          </div>
-        </div>
-      </p>
       <div
-        class="memori--start-privacy-explanation-container"
+        class="memori--title-container"
       >
-        <p
-          class="memori--start-privacy-explanation"
+        <picture
+          class="memori--avatar"
         >
-          write_and_speak.pagePrivacyExplanation
-        </p>
+          <source
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+          <img
+            alt="Memori"
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+        </picture>
         <div
-          class="memori-tooltip memori-tooltip--align-topLeft"
+          class="memori--title-container__content"
         >
+          <h2
+            class="memori--title"
+          >
+            Memori
+          </h2>
           <div
-            class="memori-tooltip--content"
+            class="memori-expandable memori--description-text"
           >
             <div
-              class="memori--privacy-tooltip-content"
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
             >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
+              Lorem ipsum.
             </div>
           </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <svg
-              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-              <path
-                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-              />
-              <path
-                d="M12 17h.01"
-              />
-            </svg>
-          </div>
         </div>
-      </div>
-      <button
-        class="memori-button memori-button--primary memori-button--md memori--start-button"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="memori-button__content"
-        >
-          write_and_speak.tryMeButton
-        </span>
-      </button>
-      <div
-        class="memori--completion-provider-status--loading"
-      >
         <div
-          class="memori-spin memori-spin--spinning"
+          class="memori--completion-provider-status--loading"
         >
           <div
-            aria-label="Loading"
-            aria-live="polite"
-            class="memori-spin__overlay"
-            role="status"
+            class="memori-spin memori-spin--spinning"
           >
             <div
-              class="memori-spin__container"
+              aria-label="Loading"
+              aria-live="polite"
+              class="memori-spin__overlay"
+              role="status"
             >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-loader-circle memori-spin__icon"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
+              <div
+                class="memori-spin__container"
               >
-                <path
-                  d="M21 12a9 9 0 1 1-6.219-8.56"
-                />
-              </svg>
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-loader-circle memori-spin__icon"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 12a9 9 0 1 1-6.219-8.56"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <p
-        class="memori--start-description"
-      >
-        write_and_speak.pageTryMeExplanation
-      </p>
       <div
-        class="memori--deep-thought-disclaimer"
+        class="memori--description"
       >
         <div
-          class="memori-tooltip memori-tooltip--align-left"
+          class="memori--start-panel__divider"
+          role="presentation"
+        />
+        <aside
+          aria-labelledby="deep-thought-disclaimer-heading"
+          class="memori--deep-thought-disclaimer"
         >
           <div
-            class="memori-tooltip--content"
+            aria-hidden="true"
+            class="memori--deep-thought-disclaimer__icon memori--deep-thought-disclaimer__icon--compact"
           >
-            deepThoughtHelper
+            <span>
+              i
+            </span>
           </div>
           <div
-            class="memori-tooltip--trigger"
+            class="memori--deep-thought-disclaimer__body"
           >
-            <svg
-              class="lucide lucide-brain"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="memori--deep-thought-disclaimer__title-row"
             >
-              <path
-                d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"
-              />
-              <path
-                d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"
-              />
-              <path
-                d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"
-              />
-              <path
-                d="M17.599 6.5a3 3 0 0 0 .399-1.375"
-              />
-              <path
-                d="M6.003 5.125A3 3 0 0 0 6.401 6.5"
-              />
-              <path
-                d="M3.477 10.896a4 4 0 0 1 .585-.396"
-              />
-              <path
-                d="M19.938 10.5a4 4 0 0 1 .585.396"
-              />
-              <path
-                d="M6 18a4 4 0 0 1-1.967-.516"
-              />
-              <path
-                d="M19.967 17.484A4 4 0 0 1 18 18"
-              />
-            </svg>
+              <h3
+                id="deep-thought-disclaimer-heading"
+              >
+                deepThought
+              </h3>
+            </div>
+            <p
+              class="memori--deep-thought-disclaimer__muted"
+            >
+              deepThoughtPreDisclaimerUnlogged
+            </p>
+            <p
+              class="memori--deep-thought-disclaimer__actions"
+            >
+              <button
+                class="memori-button memori-button--toolbar memori-button--sm"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="memori-button__content"
+                >
+                  login.login
+                </span>
+              </button>
+              <span
+                class="styles-module__root___-ALla"
+              >
+                <span
+                  class="styles-module__trigger___V2aIF"
+                  id="base-ui-:rf:"
+                >
+                  <button
+                    aria-label="deepThoughtWhatIs"
+                    class="memori-button memori-button--toolbar memori-button--sm memori--deep-thought-disclaimer__link"
+                    tabindex="0"
+                    type="button"
+                  >
+                    <span
+                      class="memori-button__content"
+                    >
+                      deepThoughtWhatIs
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </p>
           </div>
-        </div>
-        <h2>
-          deepThought
-        </h2>
-        <p>
-          deepThoughtPreDisclaimerUnlogged
-        </p>
-        <p>
-          <button
-            class="memori-button memori-button--outline memori-button--md"
-            tabindex="0"
-            type="button"
+        </aside>
+        <div
+          class="memori--start-panel__notice"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-circle-help memori--start-panel__notice-icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+            <path
+              d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+            />
+            <path
+              d="M12 17h.01"
+            />
+          </svg>
+          <p
+            class="memori--start-panel__notice-text"
+          >
+            write_and_speak.pagePrivacyExplanation
+          </p>
+          <span
+            class="styles-module__root___-ALla"
           >
             <span
-              class="memori-button__content"
+              class="styles-module__trigger___V2aIF"
+              id="base-ui-:rh:"
             >
-              login.login
+              <button
+                aria-label="privacyPolicy"
+                class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--start-panel__notice-more"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="memori-button__content"
+                >
+                  <svg
+                    class="lucide lucide-info memori--start-privacy-explanation-icon"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                    <path
+                      d="M12 16v-4"
+                    />
+                    <path
+                      d="M12 8h.01"
+                    />
+                  </svg>
+                </span>
+              </button>
             </span>
-          </button>
-        </p>
+          </span>
+        </div>
         <p
-          class="memori--deep-thought-disclaimer-text"
+          class="memori--start-description"
         >
-          deepThoughtDisclaimer
+          write_and_speak.pageTryMeExplanation
         </p>
+        <button
+          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="memori-button__content"
+          >
+            write_and_speak.tryMeButton
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -1158,228 +1243,236 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
     <div
       class="memori--cover"
     />
-    <picture
-      class="memori--avatar"
-    >
-      <source
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-      <img
-        alt="Memori"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
-    <h2
-      class="memori--title"
-    >
-      Memori
-    </h2>
     <div
-      class="memori--description"
+      class="memori--start-panel__body"
     >
-      <p
-        style="margin-top: 0px;"
-      >
-        <div
-          class="memori-expandable memori--description-text"
-        >
-          <div
-            class="memori-expandable__inner"
-            style="max-height: 9999px;"
-          >
-            Lorem ipsum.
-          </div>
-        </div>
-      </p>
       <div
-        class="memori--start-privacy-explanation-container"
+        class="memori--title-container"
       >
-        <p
-          class="memori--start-privacy-explanation"
+        <picture
+          class="memori--avatar"
         >
-          write_and_speak.pagePrivacyExplanation
-        </p>
+          <source
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+          <img
+            alt="Memori"
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+        </picture>
         <div
-          class="memori-tooltip memori-tooltip--align-topLeft"
+          class="memori--title-container__content"
         >
+          <h2
+            class="memori--title"
+          >
+            Memori
+          </h2>
           <div
-            class="memori-tooltip--content"
+            class="memori-expandable memori--description-text"
           >
             <div
-              class="memori--privacy-tooltip-content"
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
             >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndUsername
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
+              Lorem ipsum.
             </div>
           </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <svg
-              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-              <path
-                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-              />
-              <path
-                d="M12 17h.01"
-              />
-            </svg>
-          </div>
         </div>
-      </div>
-      <button
-        class="memori-button memori-button--primary memori-button--md memori--start-button"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="memori-button__content"
-        >
-          write_and_speak.tryMeButton
-        </span>
-      </button>
-      <div
-        class="memori--completion-provider-status--loading"
-      >
         <div
-          class="memori-spin memori-spin--spinning"
+          class="memori--completion-provider-status--loading"
         >
           <div
-            aria-label="Loading"
-            aria-live="polite"
-            class="memori-spin__overlay"
-            role="status"
+            class="memori-spin memori-spin--spinning"
           >
             <div
-              class="memori-spin__container"
+              aria-label="Loading"
+              aria-live="polite"
+              class="memori-spin__overlay"
+              role="status"
             >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-loader-circle memori-spin__icon"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
+              <div
+                class="memori-spin__container"
               >
-                <path
-                  d="M21 12a9 9 0 1 1-6.219-8.56"
-                />
-              </svg>
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-loader-circle memori-spin__icon"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 12a9 9 0 1 1-6.219-8.56"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <p
-        class="memori--start-description"
-      >
-        write_and_speak.pageTryMeExplanation
-      </p>
       <div
-        class="memori--deep-thought-disclaimer"
+        class="memori--description"
       >
         <div
-          class="memori-tooltip memori-tooltip--align-left"
+          class="memori--start-panel__divider"
+          role="presentation"
+        />
+        <aside
+          aria-labelledby="deep-thought-disclaimer-heading"
+          class="memori--deep-thought-disclaimer"
         >
           <div
-            class="memori-tooltip--content"
+            aria-hidden="true"
+            class="memori--deep-thought-disclaimer__icon memori--deep-thought-disclaimer__icon--compact"
           >
-            deepThoughtHelper
+            <span>
+              i
+            </span>
           </div>
           <div
-            class="memori-tooltip--trigger"
+            class="memori--deep-thought-disclaimer__body"
           >
-            <svg
-              class="lucide lucide-brain"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="memori--deep-thought-disclaimer__title-row"
             >
-              <path
-                d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"
-              />
-              <path
-                d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"
-              />
-              <path
-                d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"
-              />
-              <path
-                d="M17.599 6.5a3 3 0 0 0 .399-1.375"
-              />
-              <path
-                d="M6.003 5.125A3 3 0 0 0 6.401 6.5"
-              />
-              <path
-                d="M3.477 10.896a4 4 0 0 1 .585-.396"
-              />
-              <path
-                d="M19.938 10.5a4 4 0 0 1 .585.396"
-              />
-              <path
-                d="M6 18a4 4 0 0 1-1.967-.516"
-              />
-              <path
-                d="M19.967 17.484A4 4 0 0 1 18 18"
-              />
-            </svg>
+              <h3
+                id="deep-thought-disclaimer-heading"
+              >
+                deepThought
+              </h3>
+            </div>
+            <p
+              class="memori--deep-thought-disclaimer__muted"
+            >
+              deepThoughtPreDisclaimerNotAllowed
+            </p>
+            <p
+              class="memori--deep-thought-disclaimer__learn-more"
+            >
+              <span
+                class="styles-module__root___-ALla"
+              >
+                <span
+                  class="styles-module__trigger___V2aIF"
+                  id="base-ui-:rj:"
+                >
+                  <button
+                    aria-label="deepThoughtWhatIs"
+                    class="memori-button memori-button--toolbar memori-button--sm memori--deep-thought-disclaimer__link"
+                    tabindex="0"
+                    type="button"
+                  >
+                    <span
+                      class="memori-button__content"
+                    >
+                      deepThoughtWhatIs
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </p>
           </div>
-        </div>
-        <h2>
-          deepThought
-        </h2>
-        <p>
-          deepThoughtPreDisclaimerNotAllowed
-        </p>
-        <p
-          class="memori--deep-thought-disclaimer-text"
+        </aside>
+        <div
+          class="memori--start-panel__notice"
         >
-          deepThoughtDisclaimer
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-circle-help memori--start-panel__notice-icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+            <path
+              d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+            />
+            <path
+              d="M12 17h.01"
+            />
+          </svg>
+          <p
+            class="memori--start-panel__notice-text"
+          >
+            write_and_speak.pagePrivacyExplanation
+          </p>
+          <span
+            class="styles-module__root___-ALla"
+          >
+            <span
+              class="styles-module__trigger___V2aIF"
+              id="base-ui-:rl:"
+            >
+              <button
+                aria-label="privacyPolicy"
+                class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--start-panel__notice-more"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="memori-button__content"
+                >
+                  <svg
+                    class="lucide lucide-info memori--start-privacy-explanation-icon"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                    <path
+                      d="M12 16v-4"
+                    />
+                    <path
+                      d="M12 8h.01"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
+        </div>
+        <p
+          class="memori--start-description"
+        >
+          write_and_speak.pageTryMeExplanation
         </p>
+        <button
+          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="memori-button__content"
+          >
+            write_and_speak.tryMeButton
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -1394,225 +1487,231 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
     <div
       class="memori--cover"
     />
-    <picture
-      class="memori--avatar"
-    >
-      <source
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-      <img
-        alt="Memori"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
-    <h2
-      class="memori--title"
-    >
-      Memori
-    </h2>
     <div
-      class="memori--description"
+      class="memori--start-panel__body"
     >
-      <p
-        style="margin-top: 0px;"
-      >
-        <div
-          class="memori-expandable memori--description-text"
-        >
-          <div
-            class="memori-expandable__inner"
-            style="max-height: 9999px;"
-          >
-            Lorem ipsum.
-          </div>
-        </div>
-      </p>
       <div
-        class="memori--start-privacy-explanation-container"
+        class="memori--title-container"
       >
-        <p
-          class="memori--start-privacy-explanation"
+        <picture
+          class="memori--avatar"
         >
-          write_and_speak.pagePrivacyExplanation
-        </p>
+          <source
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+          <img
+            alt="Memori"
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+        </picture>
         <div
-          class="memori-tooltip memori-tooltip--align-topLeft"
+          class="memori--title-container__content"
         >
+          <h2
+            class="memori--title"
+          >
+            Memori
+          </h2>
           <div
-            class="memori-tooltip--content"
+            class="memori-expandable memori--description-text"
           >
             <div
-              class="memori--privacy-tooltip-content"
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
             >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndUsername
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
+              Lorem ipsum.
             </div>
           </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <svg
-              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-              <path
-                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-              />
-              <path
-                d="M12 17h.01"
-              />
-            </svg>
-          </div>
         </div>
-      </div>
-      <button
-        class="memori-button memori-button--primary memori-button--md memori--start-button"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="memori-button__content"
-        >
-          write_and_speak.tryMeButton
-        </span>
-      </button>
-      <div
-        class="memori--completion-provider-status--loading"
-      >
         <div
-          class="memori-spin memori-spin--spinning"
+          class="memori--completion-provider-status--loading"
         >
           <div
-            aria-label="Loading"
-            aria-live="polite"
-            class="memori-spin__overlay"
-            role="status"
+            class="memori-spin memori-spin--spinning"
           >
             <div
-              class="memori-spin__container"
+              aria-label="Loading"
+              aria-live="polite"
+              class="memori-spin__overlay"
+              role="status"
             >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-loader-circle memori-spin__icon"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
+              <div
+                class="memori-spin__container"
               >
-                <path
-                  d="M21 12a9 9 0 1 1-6.219-8.56"
-                />
-              </svg>
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-loader-circle memori-spin__icon"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 12a9 9 0 1 1-6.219-8.56"
+                  />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <p
-        class="memori--start-description"
-      >
-        write_and_speak.pageTryMeExplanation
-      </p>
       <div
-        class="memori--deep-thought-disclaimer"
+        class="memori--description"
       >
         <div
-          class="memori-tooltip memori-tooltip--align-left"
+          class="memori--start-panel__divider"
+          role="presentation"
+        />
+        <aside
+          aria-labelledby="deep-thought-disclaimer-heading"
+          class="memori--deep-thought-disclaimer"
         >
           <div
-            class="memori-tooltip--content"
+            aria-hidden="true"
+            class="memori--deep-thought-disclaimer__icon memori--deep-thought-disclaimer__icon--compact"
           >
-            deepThoughtHelper
+            <span>
+              i
+            </span>
           </div>
           <div
-            class="memori-tooltip--trigger"
+            class="memori--deep-thought-disclaimer__body"
           >
-            <svg
-              class="lucide lucide-brain"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              class="memori--deep-thought-disclaimer__title-row"
             >
-              <path
-                d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"
-              />
-              <path
-                d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"
-              />
-              <path
-                d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"
-              />
-              <path
-                d="M17.599 6.5a3 3 0 0 0 .399-1.375"
-              />
-              <path
-                d="M6.003 5.125A3 3 0 0 0 6.401 6.5"
-              />
-              <path
-                d="M3.477 10.896a4 4 0 0 1 .585-.396"
-              />
-              <path
-                d="M19.938 10.5a4 4 0 0 1 .585.396"
-              />
-              <path
-                d="M6 18a4 4 0 0 1-1.967-.516"
-              />
-              <path
-                d="M19.967 17.484A4 4 0 0 1 18 18"
-              />
-            </svg>
+              <h3
+                id="deep-thought-disclaimer-heading"
+              >
+                deepThoughtDisclaimerTitle
+              </h3>
+            </div>
+            <p
+              class="memori--deep-thought-disclaimer__learn-more"
+            >
+              <span
+                class="styles-module__root___-ALla"
+              >
+                <span
+                  class="styles-module__trigger___V2aIF"
+                  id="base-ui-:rb:"
+                >
+                  <button
+                    aria-label="deepThoughtWhatIs"
+                    class="memori-button memori-button--toolbar memori-button--sm memori--deep-thought-disclaimer__link"
+                    tabindex="0"
+                    type="button"
+                  >
+                    <span
+                      class="memori-button__content"
+                    >
+                      deepThoughtWhatIs
+                    </span>
+                  </button>
+                </span>
+              </span>
+            </p>
           </div>
-        </div>
-        <h2>
-          deepThoughtDisclaimerTitle
-        </h2>
-        <p
-          class="memori--deep-thought-disclaimer-text"
+        </aside>
+        <div
+          class="memori--start-panel__notice"
         >
-          deepThoughtDisclaimer
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-circle-help memori--start-panel__notice-icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+            <path
+              d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+            />
+            <path
+              d="M12 17h.01"
+            />
+          </svg>
+          <p
+            class="memori--start-panel__notice-text"
+          >
+            write_and_speak.pagePrivacyExplanation
+          </p>
+          <span
+            class="styles-module__root___-ALla"
+          >
+            <span
+              class="styles-module__trigger___V2aIF"
+              id="base-ui-:rd:"
+            >
+              <button
+                aria-label="privacyPolicy"
+                class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--start-panel__notice-more"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="memori-button__content"
+                >
+                  <svg
+                    class="lucide lucide-info memori--start-privacy-explanation-icon"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                    <path
+                      d="M12 16v-4"
+                    />
+                    <path
+                      d="M12 8h.01"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
+        </div>
+        <p
+          class="memori--start-description"
+        >
+          write_and_speak.pageTryMeExplanation
         </p>
+        <button
+          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="memori-button__content"
+          >
+            write_and_speak.tryMeButton
+          </span>
+        </button>
       </div>
     </div>
   </div>
@@ -1627,161 +1726,181 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
     <div
       class="memori--cover"
     />
-    <picture
-      class="memori--avatar"
-    >
-      <source
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-      <img
-        alt="Memori"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
-    <h2
-      class="memori--title"
-    >
-      Memori
-    </h2>
     <div
-      class="memori--description"
+      class="memori--start-panel__body"
     >
-      <p
-        style="margin-top: 0px;"
+      <div
+        class="memori--title-container"
       >
-        <div
-          class="memori-expandable memori--description-text"
+        <picture
+          class="memori--avatar"
         >
-          <div
-            class="memori-expandable__inner"
-            style="max-height: 9999px;"
+          <source
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+          <img
+            alt="Memori"
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+        </picture>
+        <div
+          class="memori--title-container__content"
+        >
+          <h2
+            class="memori--title"
           >
-            Lorem ipsum.
+            Memori
+          </h2>
+          <div
+            class="memori-expandable memori--description-text"
+          >
+            <div
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
+            >
+              Lorem ipsum.
+            </div>
           </div>
         </div>
-      </p>
+        <div
+          class="memori--completion-provider-status--loading"
+        >
+          <div
+            class="memori-spin memori-spin--spinning"
+          >
+            <div
+              aria-label="Loading"
+              aria-live="polite"
+              class="memori-spin__overlay"
+              role="status"
+            >
+              <div
+                class="memori-spin__container"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-loader-circle memori-spin__icon"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 12a9 9 0 1 1-6.219-8.56"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
-        class="memori--start-privacy-explanation-container"
+        class="memori--description"
       >
+        <div
+          class="memori--start-panel__divider"
+          role="presentation"
+        />
+        <div
+          class="memori--start-panel__notice"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-circle-help memori--start-panel__notice-icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+            <path
+              d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+            />
+            <path
+              d="M12 17h.01"
+            />
+          </svg>
+          <p
+            class="memori--start-panel__notice-text"
+          >
+            write_and_speak.pagePrivacyExplanation
+          </p>
+          <span
+            class="styles-module__root___-ALla"
+          >
+            <span
+              class="styles-module__trigger___V2aIF"
+              id="base-ui-:r3:"
+            >
+              <button
+                aria-label="privacyPolicy"
+                class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--start-panel__notice-more"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="memori-button__content"
+                >
+                  <svg
+                    class="lucide lucide-info memori--start-privacy-explanation-icon"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                    <path
+                      d="M12 16v-4"
+                    />
+                    <path
+                      d="M12 8h.01"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
+        </div>
         <p
-          class="memori--start-privacy-explanation"
+          class="memori--start-description"
         >
-          write_and_speak.pagePrivacyExplanation
+          write_and_speak.pageTryMeExplanation
         </p>
-        <div
-          class="memori-tooltip memori-tooltip--align-topLeft"
+        <button
+          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          tabindex="0"
+          type="button"
         >
-          <div
-            class="memori-tooltip--content"
+          <span
+            class="memori-button__content"
           >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <svg
-              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-              <path
-                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-              />
-              <path
-                d="M12 17h.01"
-              />
-            </svg>
-          </div>
-        </div>
+            write_and_speak.resumeButton
+          </span>
+        </button>
       </div>
-      <button
-        class="memori-button memori-button--primary memori-button--md memori--start-button"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="memori-button__content"
-        >
-          write_and_speak.resumeButton
-        </span>
-      </button>
-      <div
-        class="memori--completion-provider-status--loading"
-      >
-        <div
-          class="memori-spin memori-spin--spinning"
-        >
-          <div
-            aria-label="Loading"
-            aria-live="polite"
-            class="memori-spin__overlay"
-            role="status"
-          >
-            <div
-              class="memori-spin__container"
-            >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-loader-circle memori-spin__icon"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M21 12a9 9 0 1 1-6.219-8.56"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p
-        class="memori--start-description"
-      >
-        write_and_speak.pageTryMeExplanation
-      </p>
     </div>
   </div>
 </div>
@@ -1795,161 +1914,181 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
     <div
       class="memori--cover"
     />
-    <picture
-      class="memori--avatar"
-    >
-      <source
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-      <img
-        alt="Memori"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
-    <h2
-      class="memori--title"
-    >
-      Memori
-    </h2>
     <div
-      class="memori--description"
+      class="memori--start-panel__body"
     >
-      <p
-        style="margin-top: 0px;"
+      <div
+        class="memori--title-container"
       >
-        <div
-          class="memori-expandable memori--description-text"
+        <picture
+          class="memori--avatar"
         >
-          <div
-            class="memori-expandable__inner"
-            style="max-height: 9999px;"
+          <source
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+          <img
+            alt="Memori"
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+        </picture>
+        <div
+          class="memori--title-container__content"
+        >
+          <h2
+            class="memori--title"
           >
-            Lorem ipsum.
+            Memori
+          </h2>
+          <div
+            class="memori-expandable memori--description-text"
+          >
+            <div
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
+            >
+              Lorem ipsum.
+            </div>
           </div>
         </div>
-      </p>
+        <div
+          class="memori--completion-provider-status--loading"
+        >
+          <div
+            class="memori-spin memori-spin--spinning"
+          >
+            <div
+              aria-label="Loading"
+              aria-live="polite"
+              class="memori-spin__overlay"
+              role="status"
+            >
+              <div
+                class="memori-spin__container"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-loader-circle memori-spin__icon"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 12a9 9 0 1 1-6.219-8.56"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
-        class="memori--start-privacy-explanation-container"
+        class="memori--description"
       >
+        <div
+          class="memori--start-panel__divider"
+          role="presentation"
+        />
+        <div
+          class="memori--start-panel__notice"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-circle-help memori--start-panel__notice-icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+            <path
+              d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+            />
+            <path
+              d="M12 17h.01"
+            />
+          </svg>
+          <p
+            class="memori--start-panel__notice-text"
+          >
+            write_and_speak.pagePrivacyExplanation
+          </p>
+          <span
+            class="styles-module__root___-ALla"
+          >
+            <span
+              class="styles-module__trigger___V2aIF"
+              id="base-ui-:rp:"
+            >
+              <button
+                aria-label="privacyPolicy"
+                class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--start-panel__notice-more"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="memori-button__content"
+                >
+                  <svg
+                    class="lucide lucide-info memori--start-privacy-explanation-icon"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                    <path
+                      d="M12 16v-4"
+                    />
+                    <path
+                      d="M12 8h.01"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
+        </div>
         <p
-          class="memori--start-privacy-explanation"
+          class="memori--start-description"
         >
-          write_and_speak.pagePrivacyExplanation
+          write_and_speak.pageTryMeExplanation
         </p>
-        <div
-          class="memori-tooltip memori-tooltip--align-topLeft"
+        <button
+          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          tabindex="0"
+          type="button"
         >
-          <div
-            class="memori-tooltip--content"
+          <span
+            class="memori-button__content"
           >
-            <div
-              class="memori--privacy-tooltip-content"
-            >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
-            </div>
-          </div>
-          <div
-            class="memori-tooltip--trigger"
-          >
-            <svg
-              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-              <path
-                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-              />
-              <path
-                d="M12 17h.01"
-              />
-            </svg>
-          </div>
-        </div>
+            write_and_speak.tryMeButton
+          </span>
+        </button>
       </div>
-      <button
-        class="memori-button memori-button--primary memori-button--md memori--start-button"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="memori-button__content"
-        >
-          write_and_speak.tryMeButton
-        </span>
-      </button>
-      <div
-        class="memori--completion-provider-status--loading"
-      >
-        <div
-          class="memori-spin memori-spin--spinning"
-        >
-          <div
-            aria-label="Loading"
-            aria-live="polite"
-            class="memori-spin__overlay"
-            role="status"
-          >
-            <div
-              class="memori-spin__container"
-            >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-loader-circle memori-spin__icon"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M21 12a9 9 0 1 1-6.219-8.56"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p
-        class="memori--start-description"
-      >
-        write_and_speak.pageTryMeExplanation
-      </p>
     </div>
   </div>
 </div>
@@ -1963,64 +2102,122 @@ exports[`renders StartPanel with login required unchanged 1`] = `
     <div
       class="memori--cover"
     />
-    <picture
-      class="memori--avatar"
-    >
-      <source
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-      <img
-        alt="Memori"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
-    <h2
-      class="memori--title"
-    >
-      Memori
-    </h2>
     <div
-      class="memori--needsLogin"
+      class="memori--start-panel__body"
     >
-      <p>
-        write_and_speak.requirePositionHelp
-      </p>
-      <button
-        class="memori-button memori-button--primary memori-button--md"
-        tabindex="0"
-        type="button"
+      <div
+        class="memori--title-container"
       >
-        <span
-          class="memori-button__icon"
+        <picture
+          class="memori--avatar"
         >
-          <svg
-            class="lucide lucide-user"
-            fill="none"
-            height="24"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+          <source
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+          <img
+            alt="Memori"
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+        </picture>
+        <div
+          class="memori--title-container__content"
+        >
+          <h2
+            class="memori--title"
           >
-            <path
-              d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-            />
-            <circle
-              cx="12"
-              cy="7"
-              r="4"
-            />
-          </svg>
-        </span>
-        <span
-          class="memori-button__content"
+            Memori
+          </h2>
+          <div
+            class="memori-expandable memori--description-text"
+          >
+            <div
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
+            >
+              Lorem ipsum.
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori--completion-provider-status--loading"
         >
-          login.login
-        </span>
-      </button>
+          <div
+            class="memori-spin memori-spin--spinning"
+          >
+            <div
+              aria-label="Loading"
+              aria-live="polite"
+              class="memori-spin__overlay"
+              role="status"
+            >
+              <div
+                class="memori-spin__container"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-loader-circle memori-spin__icon"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 12a9 9 0 1 1-6.219-8.56"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="memori--needsLogin"
+      >
+        <p>
+          write_and_speak.requirePositionHelp
+        </p>
+        <button
+          class="memori-button memori-button--primary memori-button--md"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="memori-button__icon"
+          >
+            <svg
+              class="lucide lucide-user"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+              />
+              <circle
+                cx="12"
+                cy="7"
+                r="4"
+              />
+            </svg>
+          </span>
+          <span
+            class="memori-button__content"
+          >
+            login.login
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -2034,222 +2231,251 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
     <div
       class="memori--cover"
     />
-    <picture
-      class="memori--avatar"
-    >
-      <source
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-      <img
-        alt="Memori"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
-    <h2
-      class="memori--title"
-    >
-      Memori
-    </h2>
     <div
-      class="memori--description"
+      class="memori--start-panel__body"
     >
-      <p
-        style="margin-top: 0px;"
-      >
-        <div
-          class="memori-expandable memori--description-text"
-        >
-          <div
-            class="memori-expandable__inner"
-            style="max-height: 9999px;"
-          >
-            Lorem ipsum.
-          </div>
-        </div>
-      </p>
       <div
-        class="memori--language-chooser"
+        class="memori--title-container"
       >
-        <label
-          for="user-lang-pref"
-          id="user-lang-pref-label"
+        <picture
+          class="memori--avatar"
         >
-          write_and_speak.iWantToTalkToIn
-        </label>
-        <div
-          class="memori-select memori-select--language-chooser"
-        >
-          <button
-            aria-expanded="false"
-            aria-haspopup="listbox"
-            class="memori-select__trigger"
-            id="base-ui-:r0:"
-            role="combobox"
-            tabindex="0"
-            type="button"
-          >
-            <span
-              class="memori-select__value"
-              data-placeholder="write_and_speak.iWantToTalkToIn"
-            >
-              <span>
-                en
-              </span>
-            </span>
-            <span
-              aria-hidden="true"
-              class="memori-select__icon"
-            >
-              <svg
-                aria-hidden="true"
-                class="lucide lucide-chevron-down"
-                fill="none"
-                height="16"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="16"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="m6 9 6 6 6-6"
-                />
-              </svg>
-            </span>
-          </button>
-          <input
-            aria-hidden="true"
-            name="user-lang-pref"
-            style="clip-path: inset(50%); overflow: hidden; white-space: nowrap; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px; position: absolute;"
-            tabindex="-1"
-            value="en"
+          <source
+            src="https://aisuru.com/images/aisuru/square_logo.png"
           />
-        </div>
-      </div>
-      <div
-        class="memori--start-privacy-explanation-container"
-      >
-        <p
-          class="memori--start-privacy-explanation"
-        >
-          write_and_speak.pagePrivacyExplanation
-        </p>
+          <img
+            alt="Memori"
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+        </picture>
         <div
-          class="memori-tooltip memori-tooltip--align-topLeft"
+          class="memori--title-container__content"
         >
+          <h2
+            class="memori--title"
+          >
+            Memori
+          </h2>
           <div
-            class="memori-tooltip--content"
+            class="memori-expandable memori--description-text"
           >
             <div
-              class="memori--privacy-tooltip-content"
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
             >
-              <p>
-                 
-                write_and_speak.pagePrivacyExplanationList.allConversations
-              </p>
-              <ul
-                class="memori--privacy-tooltip-content-list"
-              >
-                <li>
-                  write_and_speak.pagePrivacyExplanationList.contentAndIpAddress
-                </li>
-              </ul>
-              <p>
-                write_and_speak.pagePrivacyExplanationList.authorUsesInfo
-              </p>
-              <a
-                href="https://memori.ai/en/privacy-policy"
-                rel="noopener noreferrer"
-                target="_blank"
-              >
-                privacyPolicy
-              </a>
+              Lorem ipsum.
             </div>
           </div>
+        </div>
+        <div
+          class="memori--completion-provider-status--loading"
+        >
           <div
-            class="memori-tooltip--trigger"
+            class="memori-spin memori-spin--spinning"
           >
-            <svg
-              class="lucide lucide-circle-help memori--start-privacy-explanation-icon"
-              fill="none"
-              height="24"
-              stroke="currentColor"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              viewBox="0 0 24 24"
-              width="24"
-              xmlns="http://www.w3.org/2000/svg"
+            <div
+              aria-label="Loading"
+              aria-live="polite"
+              class="memori-spin__overlay"
+              role="status"
             >
-              <circle
-                cx="12"
-                cy="12"
-                r="10"
-              />
-              <path
-                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-              />
-              <path
-                d="M12 17h.01"
-              />
-            </svg>
+              <div
+                class="memori-spin__container"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-loader-circle memori-spin__icon"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 12a9 9 0 1 1-6.219-8.56"
+                  />
+                </svg>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-      <button
-        class="memori-button memori-button--primary memori-button--md memori--start-button"
-        tabindex="0"
-        type="button"
-      >
-        <span
-          class="memori-button__content"
-        >
-          write_and_speak.tryMeButton
-        </span>
-      </button>
       <div
-        class="memori--completion-provider-status--loading"
+        class="memori--description"
       >
         <div
-          class="memori-spin memori-spin--spinning"
+          class="memori--language-row"
         >
+          <span
+            class="memori--language-row__label"
+          >
+            write_and_speak.chatLanguageLabel
+          </span>
           <div
-            aria-label="Loading"
-            aria-live="polite"
-            class="memori-spin__overlay"
-            role="status"
+            class="memori--language-row__control"
           >
             <div
-              class="memori-spin__container"
+              class="memori-combobox memori-combobox--language-chooser memori--language-row__combobox"
             >
-              <svg
+              <label
+                class="memori-combobox__label"
+                for=":rq:"
+                id=":rq:-label"
+              >
+                write_and_speak.chatLanguageLabel
+              </label>
+              <button
+                aria-expanded="false"
+                aria-haspopup="dialog"
+                aria-labelledby=":rq:-label"
+                class="memori-combobox__trigger"
+                id=":rq:"
+                role="combobox"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="memori-combobox__value"
+                >
+                  English
+                </span>
+                <span
+                  aria-hidden="true"
+                  class="memori-combobox__trigger-icon"
+                >
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-chevron-down"
+                    fill="none"
+                    height="16"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="m6 9 6 6 6-6"
+                    />
+                  </svg>
+                </span>
+              </button>
+              <input
                 aria-hidden="true"
-                class="lucide lucide-loader-circle memori-spin__icon"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M21 12a9 9 0 1 1-6.219-8.56"
-                />
-              </svg>
+                id="base-ui-:rr:"
+                name="user-lang-pref"
+                style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
+                tabindex="-1"
+                value="EN"
+              />
             </div>
           </div>
         </div>
+        <div
+          class="memori--start-panel__divider"
+          role="presentation"
+        />
+        <div
+          class="memori--start-panel__notice"
+        >
+          <svg
+            aria-hidden="true"
+            class="lucide lucide-circle-help memori--start-panel__notice-icon"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle
+              cx="12"
+              cy="12"
+              r="10"
+            />
+            <path
+              d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+            />
+            <path
+              d="M12 17h.01"
+            />
+          </svg>
+          <p
+            class="memori--start-panel__notice-text"
+          >
+            write_and_speak.pagePrivacyExplanation
+          </p>
+          <span
+            class="styles-module__root___-ALla"
+          >
+            <span
+              class="styles-module__trigger___V2aIF"
+              id="base-ui-:ru:"
+            >
+              <button
+                aria-label="privacyPolicy"
+                class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--start-panel__notice-more"
+                tabindex="0"
+                type="button"
+              >
+                <span
+                  class="memori-button__content"
+                >
+                  <svg
+                    class="lucide lucide-info memori--start-privacy-explanation-icon"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                    />
+                    <path
+                      d="M12 16v-4"
+                    />
+                    <path
+                      d="M12 8h.01"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
+          </span>
+        </div>
+        <p
+          class="memori--start-description"
+        >
+          write_and_speak.pageTryMeExplanation
+        </p>
+        <button
+          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="memori-button__content"
+          >
+            write_and_speak.tryMeButton
+          </span>
+        </button>
       </div>
-      <p
-        class="memori--start-description"
-      >
-        write_and_speak.pageTryMeExplanation
-      </p>
     </div>
   </div>
 </div>
@@ -2263,64 +2489,122 @@ exports[`renders StartPanel with position required unchanged 1`] = `
     <div
       class="memori--cover"
     />
-    <picture
-      class="memori--avatar"
-    >
-      <source
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-      <img
-        alt="Memori"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
-    <h2
-      class="memori--title"
-    >
-      Memori
-    </h2>
     <div
-      class="memori--needsPosition"
+      class="memori--start-panel__body"
     >
-      <p>
-        write_and_speak.requirePositionHelp
-      </p>
-      <button
-        class="memori-button memori-button--primary memori-button--md"
-        tabindex="0"
-        type="button"
+      <div
+        class="memori--title-container"
       >
-        <span
-          class="memori-button__icon"
+        <picture
+          class="memori--avatar"
         >
-          <svg
-            class="lucide lucide-map-pin"
-            fill="none"
-            height="24"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+          <source
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+          <img
+            alt="Memori"
+            src="https://aisuru.com/images/aisuru/square_logo.png"
+          />
+        </picture>
+        <div
+          class="memori--title-container__content"
+        >
+          <h2
+            class="memori--title"
           >
-            <path
-              d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
-            />
-            <circle
-              cx="12"
-              cy="10"
-              r="3"
-            />
-          </svg>
-        </span>
-        <span
-          class="memori-button__content"
+            Memori
+          </h2>
+          <div
+            class="memori-expandable memori--description-text"
+          >
+            <div
+              class="memori-expandable__inner"
+              style="max-height: 9999px;"
+            >
+              Lorem ipsum.
+            </div>
+          </div>
+        </div>
+        <div
+          class="memori--completion-provider-status--loading"
         >
-          widget.position
-        </span>
-      </button>
+          <div
+            class="memori-spin memori-spin--spinning"
+          >
+            <div
+              aria-label="Loading"
+              aria-live="polite"
+              class="memori-spin__overlay"
+              role="status"
+            >
+              <div
+                class="memori-spin__container"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="lucide lucide-loader-circle memori-spin__icon"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M21 12a9 9 0 1 1-6.219-8.56"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="memori--needsPosition"
+      >
+        <p>
+          write_and_speak.requirePositionHelp
+        </p>
+        <button
+          class="memori-button memori-button--primary memori-button--md"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="memori-button__icon"
+          >
+            <svg
+              class="lucide lucide-map-pin"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+              />
+              <circle
+                cx="12"
+                cy="10"
+                r="3"
+              />
+            </svg>
+          </span>
+          <span
+            class="memori-button__content"
+          >
+            widget.position
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </div>

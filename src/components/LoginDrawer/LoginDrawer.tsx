@@ -1,11 +1,12 @@
 import { User, Tenant } from '@memori.ai/memori-api-client/dist/types';
 import React, { useEffect, useState } from 'react';
-import { Button, Checkbox, Drawer, Input, useAlertManager, createAlertOptions } from '@memori.ai/ui';
+import { Button, Checkbox, Drawer, Input, useAlertManager, createAlertOptions, Card, Form } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import cx from 'classnames';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { getErrori18nKey } from '../../helpers/error';
 import { mailRegEx, pwdRegEx } from '../../helpers/utils';
+import { AlertTriangle, ArrowLeftIcon, Check, RefreshCcwIcon } from 'lucide-react';
 
 export interface Props {
   open?: boolean;
@@ -305,7 +306,8 @@ const LoginDrawer = ({
           <h3>{t('login.missingData')}</h3>
           <p>{t('login.missingDataHelper')}</p>
 
-          <form
+          <Form
+            name="updateMissingData"
             className="memori--login-drawer--form"
             onSubmit={updateMissingData}
           >
@@ -313,7 +315,7 @@ const LoginDrawer = ({
               <>
                 <label htmlFor="#birthDate">
                   {t('login.birthDate')}
-                  <input
+                  <Input
                     id="birthDate"
                     name="birthDate"
                     type="date"
@@ -390,23 +392,33 @@ const LoginDrawer = ({
             <Button type="submit" variant="primary" loading={loading}>
               {t('login.save')}
             </Button>
-          </form>
+          </Form>
         </>
       ) : showOtpCodeForm ? (
         <>
-          <div className="memori--login-drawer--otp-container">
-            <div className="memori--login-drawer--otp-header">
-              {otpSuccess && (
-                <div className="memori--login-drawer--otp-icon">✅</div>
-              )}
-              <h3>{t('login.otpTitle')}</h3>
-              <p className="memori--login-drawer--otp-description">
-                {otpSuccess
-                  ? t('login.otpSuccessMessage')
-                  : t('login.otpCodeDescription', { email: otpEmail })}
-              </p>
-            </div>
-
+          <Card
+            className="memori--login-drawer--otp-card"
+            variant="elevated"
+            padding="md"
+            loading={loading}
+            title={
+              otpSuccess ? (
+                <span className="memori--login-drawer--otp-card-title">
+                  <span className="memori--login-drawer--otp-icon" aria-hidden="true">
+                    <Check className="icon" />
+                  </span>
+                  {t('login.otpTitle')}
+                </span>
+              ) : (
+                t('login.otpTitle')
+              )
+            }
+            description={
+              otpSuccess
+                ? t('login.otpSuccessMessage')
+                : t('login.otpCodeDescription', { email: otpEmail })
+            }
+          >
             {!otpSuccess && (
               <div
                 className={cx('memori--login-drawer--otp-form', { loading })}
@@ -422,9 +434,13 @@ const LoginDrawer = ({
                     {t('login.otpCode')}
                   </span>
                   <div className="memori--login-drawer--otp-input-container">
-                    <input
+                    <Input
                       id="otp-code"
+                      name="otp-code"
                       type="text"
+                      inputMode="numeric"
+                      autoComplete="one-time-code"
+                      spellCheck={false}
                       className={cx('memori--login-drawer--otp-input', {
                         success: otpCode.length === 4 && !otpError,
                         error: otpError,
@@ -432,25 +448,13 @@ const LoginDrawer = ({
                       })}
                       value={otpCode}
                       onChange={e => handleOtpChange(e.target.value)}
-                      placeholder="0000"
+                      placeholder="0000…"
                       maxLength={4}
-                      autoComplete="one-time-code"
                       required
                       disabled={loading}
                       aria-describedby="otp-help"
                     />
-                    {loading && (
-                      <div className="memori--login-drawer--otp-loading">
-                        <div className="memori--login-drawer--otp-spinner"></div>
-                      </div>
-                    )}
                   </div>
-                  <small
-                    id="otp-help"
-                    className="memori--login-drawer--otp-help"
-                  >
-                    {t('login.otpHelp')}
-                  </small>
                 </label>
               </div>
             )}
@@ -465,19 +469,20 @@ const LoginDrawer = ({
             {!otpSuccess && (
               <div className="memori--login-drawer--otp-actions">
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   onClick={() => {
                     setShowOtpCodeForm(false);
                     setOtpCode('');
                     setOtpError(null);
                   }}
                   disabled={loading}
+                  icon={<ArrowLeftIcon className="icon" />}
                 >
                   {t('login.backToEmail')}
                 </Button>
 
                 <Button
-                  variant="outline"
+                  variant="ghost"
                   onClick={handleResendOtp}
                   disabled={
                     loading ||
@@ -486,6 +491,7 @@ const LoginDrawer = ({
                     !otpEmail
                   }
                   loading={isResending}
+                  icon={<RefreshCcwIcon className="icon" />}
                 >
                   {isResending ? t('login.resending') : t('login.resendOtp')}
                 </Button>
@@ -494,23 +500,31 @@ const LoginDrawer = ({
 
             {otpError && (
               <div role="alert" className="memori--login-drawer--otp-error">
-                <span className="memori--login-drawer--otp-error-icon">⚠️</span>
+                <span
+                  className="memori--login-drawer--otp-error-icon"
+                  aria-hidden="true"
+                >
+                  <AlertTriangle className="icon" />
+                </span>
                 <span>{otpError}</span>
               </div>
             )}
-          </div>
+          </Card>
         </>
       ) : showOtpForm ? (
         <>
-          <div className="memori--login-drawer--otp-container">
-            <div className="memori--login-drawer--otp-header">
-              {/* <div className="memori--login-drawer--otp-icon">📧</div> */}
-              <h3>{t('login.otpEmailTitle')}</h3>
-              <p className="memori--login-drawer--otp-description">
-                {t('login.otpEmailDescription')}
-              </p>
-            </div>
-
+          <Card
+            className="memori--login-drawer--otp-card"
+            variant="elevated"
+            padding="md"
+            loading={loading}
+            title={
+              <h3 className="memori--login-drawer--otp-card-heading">
+                {t('login.otpEmailTitle')}
+              </h3>
+            }
+            description={t('login.otpEmailDescription')}
+          >
             <div className={cx('memori--login-drawer--otp-form', { loading })}>
               <label
                 htmlFor="otp-email"
@@ -522,6 +536,7 @@ const LoginDrawer = ({
                 <div className="memori--login-drawer--otp-input-container">
                   <Input
                     id="otp-email"
+                    name="email"
                     type="email"
                     className={cx('memori--login-drawer--otp-email-input', {
                       error: otpError && !mailRegEx.test(otpEmail),
@@ -531,21 +546,20 @@ const LoginDrawer = ({
                     value={otpEmail}
                     onChange={e => handleEmailChange(e.target.value)}
                     placeholder={
-                      t('login.emailPlaceholder') || 'Enter your email'
+                      t('login.emailPlaceholder') || 'Enter your email…'
                     }
                     autoComplete="email"
+                    spellCheck={false}
                     required
                     disabled={loading}
                     aria-describedby="email-help"
                   />
                   {emailValid && !loading && (
-                    <div className="memori--login-drawer--otp-valid-icon">
-                      ✓
-                    </div>
-                  )}
-                  {loading && (
-                    <div className="memori--login-drawer--otp-loading">
-                      <div className="memori--login-drawer--otp-spinner"></div>
+                    <div
+                      className="memori--login-drawer--otp-valid-icon"
+                      aria-hidden="true"
+                    >
+                      <Check className="icon" />
                     </div>
                   )}
                 </div>
@@ -553,19 +567,20 @@ const LoginDrawer = ({
             </div>
 
             <div className="memori--login-drawer--otp-actions">
-             {showOtpCodeForm && <Button
-                variant="outline"
-                onClick={() => {
-                  setShowOtpForm(false);
-                  setOtpEmail('');
-                  setOtpError(null);
-                  setEmailValid(false);
-                }}
-                disabled={loading}
-              >
-                {t('login.backToLogin')}
-              </Button>}
-
+              {showOtpCodeForm && (
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setShowOtpForm(false);
+                    setOtpEmail('');
+                    setOtpError(null);
+                    setEmailValid(false);
+                  }}
+                  disabled={loading}
+                >
+                  {t('login.backToLogin')}
+                </Button>
+              )}
               <Button
                 variant="primary"
                 onClick={() => {
@@ -580,11 +595,16 @@ const LoginDrawer = ({
 
             {otpError && (
               <div role="alert" className="memori--login-drawer--otp-error">
-                <span className="memori--login-drawer--otp-error-icon">⚠️</span>
+                <span
+                  className="memori--login-drawer--otp-error-icon"
+                  aria-hidden="true"
+                >
+                  ⚠️
+                </span>
                 <span>{otpError}</span>
               </div>
             )}
-          </div>
+          </Card>
         </>
       ) : null}
     </Drawer>

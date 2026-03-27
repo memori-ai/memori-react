@@ -385,6 +385,48 @@ p.memori--login-drawer--inline-error {
     text-align: center;
 }
 
+/* Card title/description from @memori.ai/ui — align with drawer OTP header */
+.memori--login-drawer--otp-card .memori-card__header {
+    margin-bottom: var(--memori-spacing-2xl);
+    text-align: center;
+}
+
+.memori--login-drawer--otp-card .memori-card__title {
+    margin: 0;
+    text-align: center;
+}
+
+.memori--login-drawer--otp-card-heading {
+    margin: 0 0 1rem;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-heading-xlarge);
+    font-weight: var(--memori-text-weight-bold);
+    text-align: center;
+    text-wrap: balance;
+}
+
+.memori--login-drawer--otp-card .memori-card__description {
+    margin: 0 0 2rem;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-base);
+    line-height: var(--memori-text-line-relaxed);
+    overflow-wrap: anywhere;
+    text-align: center;
+    text-wrap: pretty;
+}
+
+.memori--login-drawer--otp-card-title {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--memori-spacing-lg);
+}
+
+.memori--login-drawer--otp-card-title .memori--login-drawer--otp-card-heading {
+    margin-bottom: 0;
+}
+
 .memori--login-drawer--otp-icon {
     display: block;
     margin-bottom: var(--memori-spacing-lg);
@@ -501,21 +543,10 @@ p.memori--login-drawer--inline-error {
     width: 100%;
     height: 56px;
     padding: 0 1rem;
-    border: 2px solid #e2e8f0;
-    border-radius: var(--memori-radius-box);
-    background: #f8fafc;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     font-size: var(--memori-text-size-base);
     font-weight: var(--memori-text-weight-medium);
     outline: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.memori--login-drawer--otp-email-input:focus {
-    border-color: var(--memori-primary);
-    background: white;
-    box-shadow: 0 0 0 4px color-mix(in oklch, var(--memori-primary), transparent 90%);
-    transform: translateY(-1px);
 }
 
 .memori--login-drawer--otp-email-input.valid {
@@ -532,6 +563,8 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--otp-valid-icon {
     position: absolute;
     right: 1rem;
+    display: flex;
+    align-self: center;
     animation: checkmark 0.5s ease-in-out;
     color: var(--memori-text-color);
     font-size: 1.2rem;
@@ -644,12 +677,12 @@ p.memori--login-drawer--inline-error {
     align-items: center;
     justify-content: center;
     padding: 1rem 1.5rem;
-    border: 2px solid #f59e0b;
+    border: 2px solid var(--memori-warning);
     border-radius: var(--memori-radius-box);
     margin: 1rem 0;
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
-    color: var(--memori-text-color);
+    color: var(--memori-warning);
     font-size: 0.95rem;
+    font-variant-numeric: tabular-nums;
     font-weight: var(--memori-text-weight-semibold);
     gap: var(--memori-spacing-sm);
     /* animation: timerPulse 2s ease-in-out infinite; */
