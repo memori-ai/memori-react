@@ -3,8 +3,9 @@
 exports[`renders Auth on tokens unchanged 1`] = `
 <div>
   <form
-    class="memori-auth-widget--form"
-    name="memoriAuth"
+    class="memori-form memori-auth-widget--form"
+    name="auth"
+    novalidate=""
   >
     <fieldset
       class="memori-auth-widget--tokens-fieldset"
@@ -93,8 +94,9 @@ exports[`renders Auth on tokens unchanged 1`] = `
 exports[`renders Auth unchanged 1`] = `
 <div>
   <form
-    class="memori-auth-widget--form"
-    name="memoriAuth"
+    class="memori-form memori-auth-widget--form"
+    name="auth"
+    novalidate=""
   >
     <fieldset
       class="memori-auth-widget--password-fieldset"
@@ -138,8 +140,9 @@ exports[`renders Auth with modal unchanged 1`] = `
 exports[`renders Auth with tokens unchanged 1`] = `
 <div>
   <form
-    class="memori-auth-widget--form"
-    name="memoriAuth"
+    class="memori-form memori-auth-widget--form"
+    name="auth"
+    novalidate=""
   >
     <fieldset
       class="memori-auth-widget--password-fieldset"

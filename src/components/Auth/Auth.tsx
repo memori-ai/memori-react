@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Input, Modal } from '@memori.ai/ui';
+import { Button, Input, Modal, Form } from '@memori.ai/ui';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Plus } from 'lucide-react';
 
@@ -93,8 +93,8 @@ export const AuthWidget = ({
   };
 
   const form = (
-    <form
-      name="memoriAuth"
+    <Form
+      name="auth"
       onSubmit={handleSubmit(onSubmit)}
       className="memori-auth-widget--form"
     >
@@ -180,7 +180,7 @@ export const AuthWidget = ({
       >
         {t('confirm') || 'Submit'}
       </Button>
-    </form>
+    </Form>
   );
 
   return withModal ? (

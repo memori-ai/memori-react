@@ -2,16 +2,12 @@
 
 exports[`renders BlockedMemoriBadge for not enough credits unchanged 1`] = `
 <div>
-  <div
-    class="memori-tooltip memori-tooltip--align-right blocked-memori-badge--tooltip"
+  <span
+    class="styles-module__root___-ALla blocked-memori-badge--tooltip"
   >
-    <div
-      class="memori-tooltip--content"
-    >
-      notEnoughCredits
-    </div>
-    <div
-      class="memori-tooltip--trigger"
+    <span
+      class="styles-module__trigger___V2aIF"
+      id="base-ui-:r9:"
     >
       <div
         class="blocked-memori-badge--wrapper"
@@ -43,23 +39,19 @@ exports[`renders BlockedMemoriBadge for not enough credits unchanged 1`] = `
           </svg>
         </div>
       </div>
-    </div>
-  </div>
+    </span>
+  </span>
 </div>
 `;
 
 exports[`renders BlockedMemoriBadge unchanged 1`] = `
 <div>
-  <div
-    class="memori-tooltip memori-tooltip--align-right blocked-memori-badge--tooltip"
+  <span
+    class="styles-module__root___-ALla blocked-memori-badge--tooltip"
   >
-    <div
-      class="memori-tooltip--content"
-    >
-      memoriBlockedAnon
-    </div>
-    <div
-      class="memori-tooltip--trigger"
+    <span
+      class="styles-module__trigger___V2aIF"
+      id="base-ui-:r1:"
     >
       <div
         class="blocked-memori-badge--wrapper"
@@ -91,27 +83,19 @@ exports[`renders BlockedMemoriBadge unchanged 1`] = `
           </svg>
         </div>
       </div>
-    </div>
-  </div>
+    </span>
+  </span>
 </div>
 `;
 
 exports[`renders BlockedMemoriBadge with giver info unchanged 1`] = `
 <div>
-  <div
-    class="memori-tooltip memori-tooltip--align-right blocked-memori-badge--tooltip"
+  <span
+    class="styles-module__root___-ALla blocked-memori-badge--tooltip"
   >
-    <div
-      class="memori-tooltip--content"
-    >
-      memoriBlockedUntil
-       memoriBlockedReasonExceedChats
-      <br />
-      
-memoriBlockedGiverHelper
-    </div>
-    <div
-      class="memori-tooltip--trigger"
+    <span
+      class="styles-module__trigger___V2aIF"
+      id="base-ui-:r3:"
     >
       <div
         class="blocked-memori-badge--wrapper"
@@ -143,23 +127,19 @@ memoriBlockedGiverHelper
           </svg>
         </div>
       </div>
-    </div>
-  </div>
+    </span>
+  </span>
 </div>
 `;
 
 exports[`renders BlockedMemoriBadge with margin left unchanged 1`] = `
 <div>
-  <div
-    class="memori-tooltip memori-tooltip--align-right blocked-memori-badge--tooltip"
+  <span
+    class="styles-module__root___-ALla blocked-memori-badge--tooltip"
   >
-    <div
-      class="memori-tooltip--content"
-    >
-      memoriBlockedAnon
-    </div>
-    <div
-      class="memori-tooltip--trigger"
+    <span
+      class="styles-module__trigger___V2aIF"
+      id="base-ui-:r7:"
     >
       <div
         class="blocked-memori-badge--wrapper"
@@ -191,23 +171,19 @@ exports[`renders BlockedMemoriBadge with margin left unchanged 1`] = `
           </svg>
         </div>
       </div>
-    </div>
-  </div>
+    </span>
+  </span>
 </div>
 `;
 
 exports[`renders BlockedMemoriBadge with title unchanged 1`] = `
 <div>
-  <div
-    class="memori-tooltip memori-tooltip--align-right blocked-memori-badge--tooltip"
+  <span
+    class="styles-module__root___-ALla blocked-memori-badge--tooltip"
   >
-    <div
-      class="memori-tooltip--content"
-    >
-      memoriBlockedAnon
-    </div>
-    <div
-      class="memori-tooltip--trigger"
+    <span
+      class="styles-module__trigger___V2aIF"
+      id="base-ui-:r5:"
     >
       <div
         class="blocked-memori-badge--wrapper"
@@ -244,7 +220,7 @@ exports[`renders BlockedMemoriBadge with title unchanged 1`] = `
           memoriBlockedTitle
         </span>
       </div>
-    </div>
-  </div>
+    </span>
+  </span>
 </div>
 `;

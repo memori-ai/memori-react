@@ -81,7 +81,7 @@
 .memori-chat--cover {
     position: relative;
     width: 100%;
-    padding-top: 31.25%;
+    padding-top: 24.25%;
     margin-top: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs) / 2);
     margin-top: 0;
     margin-bottom: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs) / 2);
