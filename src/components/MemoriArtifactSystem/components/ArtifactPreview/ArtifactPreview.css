@@ -56,7 +56,6 @@
   flex: 1;
   flex-direction: column;
   border-radius: 0 0 var(--memori-radius-box) var(--memori-radius-box);
-  background: var(--memori-main-background);
 }
 
 .memori-artifact-tab-content {

@@ -127,7 +127,9 @@ export const AllComponentsWithAllPropsEnabled: Story = () => {
               memori={{ ...memori, needsPosition: true, enableDeepThought: true, enableBoardOfExperts: true }}
               history={history}
               position={{ placeName: 'Berlin', latitude: 52.52, longitude: 13.405 }}
-              setShowPositionDrawer={() => {}}
+              setVenue={() => {}}
+              positionPopoverOpen={false}
+              setPositionPopoverOpen={() => {}}
               setShowSettingsDrawer={() => setShowSettingsDrawer(true)}
               setShowChatHistoryDrawer={() => {}}
               setShowKnownFactsDrawer={() => {}}
@@ -221,7 +223,8 @@ export const AllComponentsWithAllPropsEnabled: Story = () => {
                 language="it"
                 userLang="en"
                 setUserLang={() => {}}
-                openPositionDrawer={() => {}}
+                setVenue={() => {}}
+                openPositionPopover={() => {}}
                 instruct={false}
                 sessionId={sessionID}
                 hasInitialSession={true}

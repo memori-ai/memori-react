@@ -28,6 +28,7 @@
 @import url('./components/ExportHistoryButton/ExportHistoryButton.css');
 @import url('./components/FeedbackButtons/FeedbackButtons.css');
 @import url('./components/Header/Header.css');
+@import url('./components/PositionPopover/PositionPopover.css');
 @import url('./components/MediaWidget/MediaItemWidget.css');
 @import url('./components/MediaWidget/MediaWidget.css');
 @import url('./components/SendOnEnterMenu/SendOnEnterMenu.css');
@@ -105,7 +106,7 @@ memori-client #root,
 /* --- 7. Colore testo custom in light (prima del dark per specificità) --- */
 .memori-widget {
     /* --memori-text-color: var(--memori-integration-text-color, var(--memori-text-color)); */
-    max-width: var(--memori-layout-max-width);
+    /* max-width: var(--memori-layout-max-width); */
     margin: 0 auto;
     background-color: var(--memori-main-background);
 }

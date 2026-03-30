@@ -190,7 +190,6 @@
     height: min(85vh, calc(100vh - var(--memori-spacing-5xl)));
     padding: 0.5rem 0rem;
     margin-bottom: 0;
-    background: var(--memori-main-background);
     opacity: 1;
     pointer-events: all;
 }
@@ -464,11 +463,15 @@
     margin: auto;
 }
 
-.memori-wesite_assistant-layout--controls .memori--start-panel {
+.memori-website_assistant-layout--controls .memori--start-panel {
     flex: 1;
     align-content: center;
     align-self: center;
+    padding: 1rem;
     border: 0px;
+    border-radius: var(--memori-radius-box);
+    margin: 0.75rem;
+    margin-bottom: var(--memori-spacing-2xl) !important;
     box-shadow: none !important;
 }
 
@@ -480,14 +483,6 @@
     padding: 0.75rem;
     border: 0px !important;
     box-shadow: none !important;
-}
-
-.memori-website_assistant-layout--controls .memori--start-panel {
-    flex: 1;
-    padding: 1rem;
-    border-radius: var(--memori-radius-box);
-    margin: 0.75rem;
-    margin-bottom: var(--memori-spacing-2xl) !important;
 }
 
 /* Tablet and up */
@@ -596,6 +591,11 @@
         padding: 1rem;
         margin: 0.5rem;
     }
+}
+
+/* After controls .memori--start-panel rules (no-descending-specificity: 3-class selector wins over 2-class) */
+.memori-widget.memori-layout-website_assistant .memori--start-panel {
+    border: none;
 }
 
 @media (max-width: 768px) {

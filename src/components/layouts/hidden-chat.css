@@ -25,6 +25,13 @@
   background: var(--memori-secondary-background);
 }
 
+.memori-widget.memori-layout-hidden_chat .memori--start-description{
+  margin-top: auto;
+}
+
+.memori-widget.memori-layout-hidden_chat .memori--description{
+  min-height: 34rem;
+}
 /* Modern floating toggle button */
 .memori-sidebar-toggle-label {
   position: absolute;

@@ -10,7 +10,7 @@ exports[`renders Header for board of experts unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2f:"
+        id="base-ui-:r2i:"
       >
         <span
           style="display: inline-flex;"
@@ -50,7 +50,7 @@ exports[`renders Header for board of experts unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2h:"
+        id="base-ui-:r2k:"
       >
         <span
           style="display: inline-flex;"
@@ -103,7 +103,7 @@ exports[`renders Header for board of experts unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2j:"
+        id="base-ui-:r2m:"
       >
         <span
           style="display: inline-flex;"
@@ -149,7 +149,7 @@ exports[`renders Header for board of experts unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2l:"
+        id="base-ui-:r2o:"
       >
         <span
           style="display: inline-flex;"
@@ -212,7 +212,7 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2n:"
+        id="base-ui-:r2q:"
       >
         <span
           style="display: inline-flex;"
@@ -252,7 +252,7 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2p:"
+        id="base-ui-:r2s:"
       >
         <span
           style="display: inline-flex;"
@@ -303,7 +303,7 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2r:"
+        id="base-ui-:r2u:"
       >
         <span
           style="display: inline-flex;"
@@ -349,7 +349,7 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2t:"
+        id="base-ui-:r30:"
       >
         <span
           style="display: inline-flex;"
@@ -521,7 +521,7 @@ exports[`renders Header with audio disabled unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:rf:"
+        id="base-ui-:ri:"
       >
         <span
           style="display: inline-flex;"
@@ -584,7 +584,7 @@ exports[`renders Header with clear button unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r11:"
+        id="base-ui-:r14:"
       >
         <span
           style="display: inline-flex;"
@@ -642,7 +642,7 @@ exports[`renders Header with clear button unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r13:"
+        id="base-ui-:r16:"
       >
         <span
           style="display: inline-flex;"
@@ -688,7 +688,7 @@ exports[`renders Header with clear button unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r15:"
+        id="base-ui-:r18:"
       >
         <span
           style="display: inline-flex;"
@@ -751,7 +751,7 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r29:"
+        id="base-ui-:r2c:"
       >
         <span
           style="display: inline-flex;"
@@ -791,7 +791,7 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2b:"
+        id="base-ui-:r2e:"
       >
         <span
           style="display: inline-flex;"
@@ -837,7 +837,7 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2d:"
+        id="base-ui-:r2g:"
       >
         <span
           style="display: inline-flex;"
@@ -900,7 +900,7 @@ exports[`renders Header with deep thought logged but without permission flag unc
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r1f:"
+        id="base-ui-:r1i:"
       >
         <span
           style="display: inline-flex;"
@@ -940,7 +940,7 @@ exports[`renders Header with deep thought logged but without permission flag unc
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r1h:"
+        id="base-ui-:r1k:"
       >
         <span
           style="display: inline-flex;"
@@ -989,7 +989,7 @@ exports[`renders Header with deep thought logged but without permission flag unc
       >
         <span
           class="styles-module__trigger___V2aIF"
-          id="base-ui-:r1p:"
+          id="base-ui-:r1s:"
         >
           <span
             style="display: inline-flex;"
@@ -999,7 +999,7 @@ exports[`renders Header with deep thought logged but without permission flag unc
               aria-haspopup="menu"
               aria-label="login.user"
               class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-              id="base-ui-:r1m:"
+              id="base-ui-:r1p:"
               tabindex="0"
               type="button"
             >
@@ -1056,7 +1056,7 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r1r:"
+        id="base-ui-:r1u:"
       >
         <span
           style="display: inline-flex;"
@@ -1096,7 +1096,7 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r1t:"
+        id="base-ui-:r20:"
       >
         <span
           style="display: inline-flex;"
@@ -1162,7 +1162,7 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r1v:"
+        id="base-ui-:r22:"
       >
         <span
           style="display: inline-flex;"
@@ -1211,7 +1211,7 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
       >
         <span
           class="styles-module__trigger___V2aIF"
-          id="base-ui-:r27:"
+          id="base-ui-:r2a:"
         >
           <span
             style="display: inline-flex;"
@@ -1221,7 +1221,7 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
               aria-haspopup="menu"
               aria-label="login.user"
               class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-              id="base-ui-:r24:"
+              id="base-ui-:r27:"
               tabindex="0"
               type="button"
             >
@@ -1278,7 +1278,7 @@ exports[`renders Header with deep thought unlogged unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r1b:"
+        id="base-ui-:r1e:"
       >
         <span
           style="display: inline-flex;"
@@ -1324,7 +1324,7 @@ exports[`renders Header with deep thought unlogged unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r1d:"
+        id="base-ui-:r1g:"
       >
         <span
           style="display: inline-flex;"
@@ -1401,8 +1401,12 @@ exports[`renders Header with position unchanged 1`] = `
             style="display: inline-flex;"
           >
             <button
+              aria-expanded="false"
+              aria-haspopup="dialog"
               aria-label="widget.position"
               class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button--position"
+              data-base-ui-click-trigger=""
+              id="base-ui-:r8:"
               tabindex="0"
               type="button"
             >
@@ -1410,6 +1414,7 @@ exports[`renders Header with position unchanged 1`] = `
                 class="memori-button__icon"
               >
                 <svg
+                  aria-hidden="true"
                   class="lucide lucide-map-pin"
                   fill="none"
                   height="24"
@@ -1441,7 +1446,7 @@ exports[`renders Header with position unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r7:"
+        id="base-ui-:ra:"
       >
         <span
           style="display: inline-flex;"
@@ -1487,7 +1492,7 @@ exports[`renders Header with position unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r9:"
+        id="base-ui-:rc:"
       >
         <span
           style="display: inline-flex;"
@@ -1550,7 +1555,7 @@ exports[`renders Header with settings button unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:rt:"
+        id="base-ui-:r10:"
       >
         <span
           style="display: inline-flex;"
@@ -1596,7 +1601,7 @@ exports[`renders Header with settings button unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:rv:"
+        id="base-ui-:r12:"
       >
         <span
           style="display: inline-flex;"
@@ -1659,7 +1664,7 @@ exports[`renders Header with share button unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:rh:"
+        id="base-ui-:rk:"
       >
         <span
           style="display: inline-flex;"
@@ -1708,13 +1713,13 @@ exports[`renders Header with share button unchanged 1`] = `
       >
         <span
           class="styles-module__trigger___V2aIF"
-          id="base-ui-:rn:"
+          id="base-ui-:rq:"
         >
           <button
             aria-expanded="false"
             aria-haspopup="menu"
             class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-            id="base-ui-:ro:"
+            id="base-ui-:rr:"
             tabindex="0"
             type="button"
           >
@@ -1771,7 +1776,7 @@ exports[`renders Header with share button unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:rr:"
+        id="base-ui-:ru:"
       >
         <span
           style="display: inline-flex;"
@@ -1834,7 +1839,7 @@ exports[`renders Header with speaker muted unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:rb:"
+        id="base-ui-:re:"
       >
         <span
           style="display: inline-flex;"
@@ -1886,7 +1891,7 @@ exports[`renders Header with speaker muted unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:rd:"
+        id="base-ui-:rg:"
       >
         <span
           style="display: inline-flex;"
@@ -1949,7 +1954,7 @@ exports[`renders Header with user activated speak unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r17:"
+        id="base-ui-:r1a:"
       >
         <span
           style="display: inline-flex;"
@@ -1995,7 +2000,7 @@ exports[`renders Header with user activated speak unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r19:"
+        id="base-ui-:r1c:"
       >
         <span
           style="display: inline-flex;"

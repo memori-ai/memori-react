@@ -42,7 +42,6 @@ import { DateTime } from 'luxon';
 import { useAlertManager, createAlertOptions } from '@memori.ai/ui';
 
 // Components
-import PositionDrawer from '../PositionDrawer/PositionDrawer';
 import MemoriAuth from '../Auth/Auth';
 import Chat, { Props as ChatProps } from '../Chat/Chat';
 import StartPanel, { Props as StartPanelProps } from '../StartPanel/StartPanel';
@@ -732,7 +731,7 @@ const MemoriWidget = ({
   const [hasUserActivatedListening, setHasUserActivatedListening] =
     useState(false);
   const [hasUserTypedMessage, setHasUserTypedMessage] = useState(false);
-  const [showPositionDrawer, setShowPositionDrawer] = useState(false);
+  const [positionPopoverOpen, setPositionPopoverOpenState] = useState(false);
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
   const [showChatHistoryDrawer, setShowChatHistoryDrawer] = useState(false);
   const [showKnownFactsDrawer, setShowKnownFactsDrawer] = useState(false);
@@ -2414,7 +2413,7 @@ const MemoriWidget = ({
       );
       // Only check for position requirement if memori.needsPosition is true
       if (autoStart && !localPosition && memori.needsPosition) {
-        setShowPositionDrawer(true);
+        setPositionPopoverOpenState(true);
         return;
       }
 
@@ -2782,6 +2781,16 @@ const MemoriWidget = ({
     [memoriPwd, memori, memoriTokens, birthDate, sessionId, userLang, position]
   );
 
+  const setPositionPopoverOpen = useCallback(
+    (open: boolean) => {
+      setPositionPopoverOpenState(open);
+      if (!open && autoStart) {
+        onClickStart();
+      }
+    },
+    [autoStart, onClickStart]
+  );
+
   useEffect(() => {
     if (!clickedStart && autoStart && selectedLayout !== 'HIDDEN_CHAT') {
       onClickStart();
@@ -2929,7 +2938,9 @@ const MemoriWidget = ({
     position,
     layout: selectedLayout,
     additionalSettings,
-    setShowPositionDrawer,
+    setVenue: setPosition,
+    positionPopoverOpen,
+    setPositionPopoverOpen,
     setShowSettingsDrawer,
     setShowKnownFactsDrawer,
     setShowExpertsDrawer,
@@ -2996,7 +3007,8 @@ const MemoriWidget = ({
     baseUrl: baseUrl,
     apiUrl: client.constants.BACKEND_URL,
     position: position,
-    openPositionDrawer: () => setShowPositionDrawer(true),
+    setVenue: setPosition,
+    openPositionPopover: () => setPositionPopoverOpen(true),
     integrationConfig: integrationConfig,
     instruct: instruct,
     sessionId: sessionId,
@@ -3357,26 +3369,6 @@ const MemoriWidget = ({
           language={language}
           userLang={userLang}
           isMultilanguageEnabled={isMultilanguageEnabled}
-        />
-      )}
-
-      {showPositionDrawer && (
-        <PositionDrawer
-          memori={memori}
-          open={!!showPositionDrawer}
-          venue={position}
-          setVenue={setPosition}
-          onClose={() => {
-            setShowPositionDrawer(false);
-            if (autoStart) {
-              onClickStart();
-            }
-          }}
-          drawerClassName={
-            selectedLayout === 'WEBSITE_ASSISTANT'
-              ? 'memori-drawer--above-website-assistant'
-              : undefined
-          }
         />
       )}
 

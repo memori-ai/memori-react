@@ -15,7 +15,6 @@ import {
   createAlertOptions,
 } from '@memori.ai/ui';
 import {
-  MapPin,
   VolumeX,
   Volume2,
   Settings,
@@ -33,6 +32,7 @@ import {
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ShareButton from '../ShareButton/ShareButton';
+import PositionPopover from '../PositionPopover/PositionPopover';
 import { getErrori18nKey } from '../../helpers/error';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
@@ -47,7 +47,9 @@ export interface Props {
   tenant?: Tenant;
   history: Message[];
   position?: Venue;
-  setShowPositionDrawer: (show: boolean) => void;
+  setVenue: (venue?: Venue) => void;
+  positionPopoverOpen: boolean;
+  setPositionPopoverOpen: (open: boolean) => void;
   setShowSettingsDrawer: (show: boolean) => void;
   setShowChatHistoryDrawer: (show: boolean) => void;
   setShowKnownFactsDrawer: (show: boolean) => void;
@@ -82,7 +84,9 @@ const Header: React.FC<Props> = ({
   tenant,
   history,
   position,
-  setShowPositionDrawer,
+  setVenue,
+  positionPopoverOpen,
+  setPositionPopoverOpen,
   setShowSettingsDrawer,
   setShowChatHistoryDrawer,
   setShowKnownFactsDrawer,
@@ -196,21 +200,29 @@ const Header: React.FC<Props> = ({
 
   return (
     <div className={cx('memori-header', className)}>
-      {memori.needsPosition && position && (
+      {memori.needsPosition && (
         <div className="memori-header--position">
-          {position.latitude !== 0 && position.longitude !== 0 && (
-            <span className="memori-header--position-placeName">
-              {position.placeName}
-            </span>
-          )}
+          {position &&
+            position.latitude !== 0 &&
+            position.longitude !== 0 && (
+              <span className="memori-header--position-placeName">
+                {position.placeName}
+              </span>
+            )}
           <Tooltip title={t('widget.position') || 'Position'} placement="bottom">
             <span style={{ display: 'inline-flex' }}>
-              <Button
-                variant={buttonVariant}
-                className="memori-header--button memori-header--button--position"
-                aria-label={t('widget.position') || 'Position'}
-                icon={<MapPin />}
-                onClick={() => setShowPositionDrawer(true)}
+              <PositionPopover
+                venue={position}
+                setVenue={setVenue}
+                open={positionPopoverOpen}
+                onOpenChange={setPositionPopoverOpen}
+                triggerButtonVariant={buttonVariant}
+                triggerAriaLabel={t('widget.position') || 'Position'}
+                positionerClassName={
+                  layout === 'WEBSITE_ASSISTANT'
+                    ? 'memori-position-popover__positioner--website-assistant'
+                    : undefined
+                }
               />
             </span>
           </Tooltip>

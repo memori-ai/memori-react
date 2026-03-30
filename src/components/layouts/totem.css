@@ -6,7 +6,7 @@
     background: linear-gradient(#333, #eee);
 }
 
-.memori-widget>.memori-spin.memori-totem-layout {
+.memori-widget > .memori-spin.memori-totem-layout {
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -54,6 +54,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    backdrop-filter: blur(10px);
+    background: var(--memori-border-color);
     text-align: center;
 }
 
@@ -67,7 +69,7 @@
 .memori-totem-layout .memori-header .memori-header--button--position,
 .memori-totem-layout .memori-header .memori-header--button-login,
 .memori-totem-layout .memori-header .memori-share-button,
-.memori-totem-layout .memori-header .memori-header--button+.memori-header--button {
+.memori-totem-layout .memori-header .memori-header--button + .memori-header--button {
     margin-top: var(--memori-spacing-xs);
     margin-right: 0;
     margin-left: 0;
@@ -97,9 +99,9 @@
 
 /* .memori-totem-layout--avatar .memori--avatar-wrapper>div {
     overflow: visible !important; */
-    /* width: 100% !important;
+/* width: 100% !important;
     height: 100% !important; */
-    /* width: auto !important;
+/* width: auto !important;
     height: 90vh !important;
     max-height: 90vh;
     border-radius: 0;
@@ -143,7 +145,6 @@
 }
 
 @media (max-width: 870px) {
-
     .memori-totem-layout--controls .memori--start-panel,
     .memori-totem-layout--controls .memori-chat--wrapper {
         width: 100%;
@@ -188,8 +189,12 @@
     }
 }
 
-.memori-widget.memori-layout-totem.memori--hide-emissions .memori-totem-layout--controls .memori-chat--bubble-container:not(.memori-chat--bubble-from-user),
-.memori-widget.memori-layout-totem.memori--hide-emissions.memori--with-speechkey .memori-totem-layout--controls .memori-chat--bubble-container:not(.memori-chat--bubble-from-user) {
+.memori-widget.memori-layout-totem.memori--hide-emissions
+    .memori-totem-layout--controls
+    .memori-chat--bubble-container:not(.memori-chat--bubble-from-user),
+.memori-widget.memori-layout-totem.memori--hide-emissions.memori--with-speechkey
+    .memori-totem-layout--controls
+    .memori-chat--bubble-container:not(.memori-chat--bubble-from-user) {
     display: none;
 }
 
@@ -197,7 +202,7 @@
     z-index: 2;
 }
 
-.memori-totem-layout--avatar .memori--avatar-wrapper>div canvas+div {
+.memori-totem-layout--avatar .memori--avatar-wrapper > div canvas + div {
     position: absolute !important;
     width: 100%;
     height: 100%;

@@ -138,7 +138,13 @@
     "showExpertsInTheBoard": "Show experts in this board",
     "expertsInTheBoard": "Experts in this board",
     "goToIntegrationsToCustomizeAvatar": "To customize the avatar, go to Share and customize the public page",
-    "chatAssistantStatus": "Active • Replies in a few seconds"
+    "chatAssistantStatus": "Active • Replies in a few seconds",
+    "shareLocation": "Share location",
+    "shareLocationAria": "Share location with the assistant",
+    "editPositionAria": "Edit location",
+    "positionResolving": "Resolving address…",
+    "geocodingFailed": "Could not resolve the address. Try again or search manually.",
+    "positionUnavailableManual": "Location unavailable. Please enter it manually."
   },
   "exportChatHistory": {
     "exportPDF": "Export chat as PDF",

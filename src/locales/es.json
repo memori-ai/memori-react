@@ -136,7 +136,13 @@
     "showExpertsInTheBoard": "Mostrar expertos en este panel",
     "expertsInTheBoard": "Expertos en este panel",
     "goToIntegrationsToCustomizeAvatar": "Para personalizar el avatar, ve a Compartir y personaliza la página pública",
-    "chatAssistantStatus": "Activa • Responde en pocos segundos"
+    "chatAssistantStatus": "Activa • Responde en pocos segundos",
+    "shareLocation": "Compartir ubicación",
+    "shareLocationAria": "Compartir ubicación con el asistente",
+    "editPositionAria": "Editar ubicación",
+    "positionResolving": "Obteniendo dirección…",
+    "geocodingFailed": "No se pudo obtener la dirección. Inténtalo de nuevo o busca manualmente.",
+    "positionUnavailableManual": "Ubicación no disponible. Introdúcela manualmente."
   },
   "exportChatHistory": {
     "exportPDF": "Exportar chat como PDF",

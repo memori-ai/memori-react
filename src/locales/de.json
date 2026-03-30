@@ -136,7 +136,13 @@
     "showExpertsInTheBoard": "Experten in diesem Rat anzeigen",
     "expertsInTheBoard": "Experten in diesem Rat",
     "goToIntegrationsToCustomizeAvatar": "Um den Avatar anzupassen, gehen Sie zu \"Teilen\" und passen Sie die öffentliche Seite an",
-    "chatAssistantStatus": "Aktiv • Antwortet in wenigen Sekunden"
+    "chatAssistantStatus": "Aktiv • Antwortet in wenigen Sekunden",
+    "shareLocation": "Standort teilen",
+    "shareLocationAria": "Standort mit dem Assistenten teilen",
+    "editPositionAria": "Standort bearbeiten",
+    "positionResolving": "Adresse wird ermittelt…",
+    "geocodingFailed": "Adresse konnte nicht ermittelt werden. Bitte erneut versuchen oder manuell suchen.",
+    "positionUnavailableManual": "Standort nicht verfügbar. Bitte manuell eingeben."
   },
   "exportChatHistory": {
     "exportPDF": "Chat als PDF exportieren",

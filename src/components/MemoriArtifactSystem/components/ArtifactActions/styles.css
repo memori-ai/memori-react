@@ -32,7 +32,6 @@
     padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: 1px solid var(--memori-copy-border);
     border-radius: 0.5rem;
-    background: var(--memori-copy-surface);
     border-bottom-right-radius: 0px;
     border-top-right-radius: 0px;
     color: var(--memori-text-color);
@@ -56,7 +55,6 @@
 
 .memori-copy-button:hover:not(:disabled) {
     border-color: color-mix(in oklch, var(--memori-primary) 28%, var(--memori-border-color));
-    background: var(--memori-copy-surface-hover);
 }
 
 .memori-copy-button:active:not(:disabled) {
@@ -95,7 +93,6 @@
     padding-right: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
     border: 1px solid var(--memori-copy-border);
     border-radius: 0.5rem;
-    background: var(--memori-copy-surface);
     border-bottom-left-radius: 0px !important;
     border-top-left-radius: 0px !important;
     color: var(--memori-text-color);

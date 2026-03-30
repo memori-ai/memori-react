@@ -138,7 +138,13 @@
     "showExpertsInTheBoard": "Mostra esperti in questa board",
     "expertsInTheBoard": "Esperti in questa board",
     "goToIntegrationsToCustomizeAvatar": "Per personalizzare l'avatar, vai a Condividimi e configura la pagina pubblica",
-    "chatAssistantStatus": "Attiva • Risponde in pochi secondi"
+    "chatAssistantStatus": "Attiva • Risponde in pochi secondi",
+    "shareLocation": "Condividi posizione",
+    "shareLocationAria": "Condividi la posizione con l'assistente",
+    "editPositionAria": "Modifica posizione",
+    "positionResolving": "Ricerca indirizzo…",
+    "geocodingFailed": "Impossibile ottenere l'indirizzo. Riprova o cerca manualmente.",
+    "positionUnavailableManual": "Posizione non disponibile. Inseriscila manualmente."
   },
   "exportChatHistory": {
     "exportPDF": "Esporta chat come PDF",

@@ -15,6 +15,7 @@ import {
   Users,
   Info,
   MapPin,
+  MapPinOff,
   User as UserIconLucide,
   HelpCircle,
 } from 'lucide-react';
@@ -42,7 +43,8 @@ export interface Props {
   baseUrl?: string;
   apiUrl?: string;
   position?: Venue;
-  openPositionDrawer: () => void;
+  setVenue: (venue?: Venue) => void;
+  openPositionPopover: () => void;
   integrationConfig?: { [key: string]: any };
   instruct?: boolean;
   sessionId?: string;
@@ -68,7 +70,8 @@ const StartPanel: React.FC<Props> = ({
   baseUrl,
   apiUrl,
   position,
-  openPositionDrawer,
+  setVenue,
+  openPositionPopover,
   instruct = false,
   hasInitialSession = false,
   clickedStart,
@@ -244,13 +247,29 @@ const StartPanel: React.FC<Props> = ({
             <p>
               {t('write_and_speak.requirePositionHelp', { name: memori.name })}
             </p>
-            <Button
-              variant="primary"
-              onClick={() => openPositionDrawer()}
-              icon={<MapPin />}
-            >
-              {t('widget.position')}
-            </Button>
+            <div className="memori--needsPosition-actions">
+              <Button
+                variant="primary"
+                onClick={() => openPositionPopover()}
+                icon={<MapPin />}
+              >
+                {t('write_and_speak.useMyPosition')}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setVenue({
+                    latitude: 0,
+                    longitude: 0,
+                    placeName: '',
+                    uncertainty: 0,
+                  });
+                }}
+                icon={<MapPinOff />}
+              >
+                {t('write_and_speak.dontWantToProvidePosition')}
+              </Button>
+            </div>
           </div>
         )}
         {((memori.needsPosition && position) || !memori.needsPosition) &&
