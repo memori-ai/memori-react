@@ -1,5 +1,13 @@
 import { Venue } from '@memori.ai/memori-api-client/dist/types';
-import { useEffect, useLayoutEffect, useState, useCallback, useRef } from 'react';
+import {
+  useEffect,
+  useLayoutEffect,
+  useState,
+  useCallback,
+  useRef,
+  type RefObject,
+  type Ref,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { getUncertaintyByViewport } from '../../helpers/venue';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
@@ -112,7 +120,7 @@ let DefaultIcon = L.icon({
 
 L.Marker.prototype.options.icon = DefaultIcon;
 
-const getPlaceName = (venue?: NominatimItem) => {
+export function getPlaceName(venue?: NominatimItem) {
   let placeName = 'Position';
 
   if (venue?.address) {
@@ -134,11 +142,11 @@ const getPlaceName = (venue?: NominatimItem) => {
   }
 
   return placeName;
-};
+}
 
 const ITEM_PRESS_REASON = 'item-press' as const;
 
-const VenueCombobox = ({
+export const VenueCombobox = ({
   venue,
   query,
   fetching,
@@ -147,6 +155,8 @@ const VenueCombobox = ({
   onChange,
   getPlaceName,
   t,
+  autocompleteRootId = 'venue-widget-search',
+  inputRef: inputRefFromParent,
 }: {
   venue?: Venue;
   query: string;
@@ -156,10 +166,13 @@ const VenueCombobox = ({
   onChange: (value: NominatimItem) => void;
   getPlaceName: (v?: NominatimItem) => string;
   t: (key: string) => string;
+  autocompleteRootId?: string;
+  inputRef?: RefObject<HTMLInputElement | null>;
 }) => {
   const [open, setOpen] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const fallbackInputRef = useRef<HTMLInputElement>(null);
+  const inputRef = inputRefFromParent ?? fallbackInputRef;
 
   const selectedItem: NominatimItem | undefined =
     venue?.latitude != null
@@ -208,8 +221,8 @@ const VenueCombobox = ({
 
   return (
     <Autocomplete
-      id="venue-widget-search"
-      inputRef={inputRef}
+      id={autocompleteRootId}
+      inputRef={inputRef as Ref<HTMLInputElement>}
       className="memori--venue-widget-search"
       options={options}
       mode="none"
@@ -237,6 +250,75 @@ const VenueCombobox = ({
   );
 };
 
+export const VenueMapPreview = ({ venue }: { venue?: Venue }) => {
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    const leafletCSS = document.createElement('link');
+    leafletCSS.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+    leafletCSS.rel = 'stylesheet';
+    leafletCSS.integrity =
+      'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
+    leafletCSS.crossOrigin = '';
+
+    document.head.appendChild(leafletCSS);
+
+    return () => {
+      document.head.removeChild(leafletCSS);
+    };
+  }, []);
+
+  return (
+    <div className="memori--venue-widget__map-container">
+      {isClient && (
+        <MapContainer
+          className="memori--venue-widget__map"
+          center={
+            venue?.latitude && venue?.longitude
+              ? [venue.latitude, venue.longitude]
+              : [44.66579, 11.48823]
+          }
+          zoom={13}
+          scrollWheelZoom
+        >
+          <TileLayer
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          <CenterAndZoomUpdater
+            center={
+              venue?.latitude && venue?.longitude
+                ? [venue.latitude, venue.longitude]
+                : [44.66579, 11.48823]
+            }
+            uncertainty={(venue?.uncertainty ?? 0) * 1000}
+          />
+          {venue?.latitude && venue?.longitude && (
+            <Marker
+              position={[venue.latitude, venue.longitude]}
+              icon={DefaultIcon}
+            >
+              <Popup>{venue.placeName ?? ''}</Popup>
+            </Marker>
+          )}
+          {venue?.latitude &&
+            venue?.longitude &&
+            venue?.uncertainty !== undefined && (
+              <Circle
+                center={[venue.latitude, venue.longitude]}
+                size={venue.uncertainty * 1000}
+              />
+            )}
+        </MapContainer>
+      )}
+    </div>
+  );
+};
+
 const VenueWidget = ({
   venue,
   setVenue,
@@ -246,7 +328,6 @@ const VenueWidget = ({
 }: Props) => {
   const { t } = useTranslation();
   const { add } = useAlertManager();
-  const [isClient, setIsClient] = useState(false);
   const [updatingPosition, setUpdatingPosition] = useState(false);
 
   const [fetching, setFetching] = useState(false);
@@ -359,25 +440,6 @@ const VenueWidget = ({
     },
     [handleSearch]
   );
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
-
-  useEffect(() => {
-    const leafletCSS = document.createElement('link');
-    leafletCSS.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
-    leafletCSS.rel = 'stylesheet';
-    leafletCSS.integrity =
-      'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
-    leafletCSS.crossOrigin = '';
-
-    document.head.appendChild(leafletCSS);
-
-    return () => {
-      document.head.removeChild(leafletCSS);
-    };
-  }, []);
 
   return (
     <fieldset className="memori--venue-widget">
@@ -492,49 +554,7 @@ const VenueWidget = ({
             <strong>{t('venue')}</strong>: {venue.placeName}
           </p>
         )}
-        <div className="memori--venue-widget__map-container">
-          {isClient && (
-            <MapContainer
-              className="memori--venue-widget__map"
-              center={
-                venue?.latitude && venue?.longitude
-                  ? [venue.latitude, venue.longitude]
-                  : [44.66579, 11.48823]
-              }
-              zoom={13}
-              scrollWheelZoom
-            >
-              <TileLayer
-                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-              />
-              <CenterAndZoomUpdater
-                center={
-                  venue?.latitude && venue?.longitude
-                    ? [venue.latitude, venue.longitude]
-                    : [44.66579, 11.48823]
-                }
-                uncertainty={(venue?.uncertainty ?? 0) * 1000}
-              />
-              {venue?.latitude && venue?.longitude && (
-                <Marker
-                  position={[venue.latitude, venue.longitude]}
-                  icon={DefaultIcon}
-                >
-                  <Popup>{venue.placeName ?? ''}</Popup>
-                </Marker>
-              )}
-              {venue?.latitude &&
-                venue?.longitude &&
-                venue?.uncertainty !== undefined && (
-                  <Circle
-                    center={[venue.latitude, venue.longitude]}
-                    size={venue.uncertainty * 1000}
-                  />
-                )}
-            </MapContainer>
-          )}
-        </div>
+        <VenueMapPreview venue={venue} />
       </div>
     </fieldset>
   );
