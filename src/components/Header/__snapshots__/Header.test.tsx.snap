@@ -5,138 +5,190 @@ exports[`renders Header for board of experts unchanged 1`] = `
   <div
     class="memori-header"
   >
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="write_and_speak.chatHistory"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r2f:"
       >
-        <svg
-          class="lucide lucide-message-circle"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"
-          />
-        </svg>
+          <button
+            aria-label="write_and_speak.chatHistory"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-message-circle"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--disabled memori-button--icon-only"
-      data-disabled=""
-      disabled=""
-      tabindex="0"
-      title="widget.showExpertsInTheBoard"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r2h:"
       >
-        <svg
-          class="lucide lucide-users"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
-          />
-          <circle
-            cx="9"
-            cy="7"
-            r="4"
-          />
-          <path
-            d="M22 21v-2a4 4 0 0 0-3-3.87"
-          />
-          <path
-            d="M16 3.13a4 4 0 0 1 0 7.75"
-          />
-        </svg>
+          <button
+            aria-label="widget.showExpertsInTheBoard"
+            class="memori-button memori-button--primary memori-button--md memori-button--disabled memori-button--icon-only"
+            data-disabled=""
+            disabled=""
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-users"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                />
+                <path
+                  d="M22 21v-2a4 4 0 0 0-3-3.87"
+                />
+                <path
+                  d="M16 3.13a4 4 0 0 1 0 7.75"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="widget.sound"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r2j:"
       >
-        <svg
-          class="lucide lucide-volume2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-          />
-          <path
-            d="M16 9a5 5 0 0 1 0 6"
-          />
-          <path
-            d="M19.364 18.364a9 9 0 0 0 0-12.728"
-          />
-        </svg>
+          <button
+            aria-label="widget.sound"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-volume2"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                />
+                <path
+                  d="M16 9a5 5 0 0 1 0 6"
+                />
+                <path
+                  d="M19.364 18.364a9 9 0 0 0 0-12.728"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
-      tabindex="0"
-      title="login.login"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r2l:"
       >
-        <svg
-          class="lucide lucide-user"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-          />
-          <circle
-            cx="12"
-            cy="7"
-            r="4"
-          />
-        </svg>
+          <button
+            aria-label="login.login"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-user"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -155,136 +207,188 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
   <div
     class="memori-header"
   >
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="write_and_speak.chatHistory"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r2n:"
       >
-        <svg
-          class="lucide lucide-message-circle"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"
-          />
-        </svg>
+          <button
+            aria-label="write_and_speak.chatHistory"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-message-circle"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="widget.showExpertsInTheBoard"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r2p:"
       >
-        <svg
-          class="lucide lucide-users"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
-          />
-          <circle
-            cx="9"
-            cy="7"
-            r="4"
-          />
-          <path
-            d="M22 21v-2a4 4 0 0 0-3-3.87"
-          />
-          <path
-            d="M16 3.13a4 4 0 0 1 0 7.75"
-          />
-        </svg>
+          <button
+            aria-label="widget.showExpertsInTheBoard"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-users"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                />
+                <path
+                  d="M22 21v-2a4 4 0 0 0-3-3.87"
+                />
+                <path
+                  d="M16 3.13a4 4 0 0 1 0 7.75"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="widget.sound"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r2r:"
       >
-        <svg
-          class="lucide lucide-volume2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-          />
-          <path
-            d="M16 9a5 5 0 0 1 0 6"
-          />
-          <path
-            d="M19.364 18.364a9 9 0 0 0 0-12.728"
-          />
-        </svg>
+          <button
+            aria-label="widget.sound"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-volume2"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                />
+                <path
+                  d="M16 9a5 5 0 0 1 0 6"
+                />
+                <path
+                  d="M19.364 18.364a9 9 0 0 0 0-12.728"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
-      tabindex="0"
-      title="login.login"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r2t:"
       >
-        <svg
-          class="lucide lucide-user"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-          />
-          <circle
-            cx="12"
-            cy="7"
-            r="4"
-          />
-        </svg>
+          <button
+            aria-label="login.login"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-user"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -303,71 +407,97 @@ exports[`renders Header unchanged 1`] = `
   <div
     class="memori-header"
   >
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="widget.sound"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r1:"
       >
-        <svg
-          class="lucide lucide-volume2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-          />
-          <path
-            d="M16 9a5 5 0 0 1 0 6"
-          />
-          <path
-            d="M19.364 18.364a9 9 0 0 0 0-12.728"
-          />
-        </svg>
+          <button
+            aria-label="widget.sound"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-volume2"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                />
+                <path
+                  d="M16 9a5 5 0 0 1 0 6"
+                />
+                <path
+                  d="M19.364 18.364a9 9 0 0 0 0-12.728"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
-      tabindex="0"
-      title="login.login"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r3:"
       >
-        <svg
-          class="lucide lucide-user"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-          />
-          <circle
-            cx="12"
-            cy="7"
-            r="4"
-          />
-        </svg>
+          <button
+            aria-label="login.login"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-user"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -386,38 +516,51 @@ exports[`renders Header with audio disabled unchanged 1`] = `
   <div
     class="memori-header"
   >
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
-      tabindex="0"
-      title="login.login"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:rf:"
       >
-        <svg
-          class="lucide lucide-user"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-          />
-          <circle
-            cx="12"
-            cy="7"
-            r="4"
-          />
-        </svg>
+          <button
+            aria-label="login.login"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-user"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -436,116 +579,155 @@ exports[`renders Header with clear button unchanged 1`] = `
   <div
     class="memori-header"
   >
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="clearHistory"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r11:"
       >
-        <svg
-          class="lucide lucide-trash2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M3 6h18"
-          />
-          <path
-            d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"
-          />
-          <path
-            d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"
-          />
-          <line
-            x1="10"
-            x2="10"
-            y1="11"
-            y2="17"
-          />
-          <line
-            x1="14"
-            x2="14"
-            y1="11"
-            y2="17"
-          />
-        </svg>
+          <button
+            aria-label="clearHistory"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-trash2"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M3 6h18"
+                />
+                <path
+                  d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"
+                />
+                <path
+                  d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"
+                />
+                <line
+                  x1="10"
+                  x2="10"
+                  y1="11"
+                  y2="17"
+                />
+                <line
+                  x1="14"
+                  x2="14"
+                  y1="11"
+                  y2="17"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="widget.sound"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r13:"
       >
-        <svg
-          class="lucide lucide-volume2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-          />
-          <path
-            d="M16 9a5 5 0 0 1 0 6"
-          />
-          <path
-            d="M19.364 18.364a9 9 0 0 0 0-12.728"
-          />
-        </svg>
+          <button
+            aria-label="widget.sound"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-volume2"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                />
+                <path
+                  d="M16 9a5 5 0 0 1 0 6"
+                />
+                <path
+                  d="M19.364 18.364a9 9 0 0 0 0-12.728"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
-      tabindex="0"
-      title="login.login"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r15:"
       >
-        <svg
-          class="lucide lucide-user"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-          />
-          <circle
-            cx="12"
-            cy="7"
-            r="4"
-          />
-        </svg>
+          <button
+            aria-label="login.login"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-user"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -564,98 +746,137 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
   <div
     class="memori-header"
   >
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="write_and_speak.chatHistory"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r29:"
       >
-        <svg
-          class="lucide lucide-message-circle"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"
-          />
-        </svg>
+          <button
+            aria-label="write_and_speak.chatHistory"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-message-circle"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="widget.sound"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r2b:"
       >
-        <svg
-          class="lucide lucide-volume2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-          />
-          <path
-            d="M16 9a5 5 0 0 1 0 6"
-          />
-          <path
-            d="M19.364 18.364a9 9 0 0 0 0-12.728"
-          />
-        </svg>
+          <button
+            aria-label="widget.sound"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-volume2"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                />
+                <path
+                  d="M16 9a5 5 0 0 1 0 6"
+                />
+                <path
+                  d="M19.364 18.364a9 9 0 0 0 0-12.728"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
-      tabindex="0"
-      title="login.login"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r2d:"
       >
-        <svg
-          class="lucide lucide-user"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-          />
-          <circle
-            cx="12"
-            cy="7"
-            r="4"
-          />
-        </svg>
+          <button
+            aria-label="login.login"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-user"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -674,104 +895,143 @@ exports[`renders Header with deep thought logged but without permission flag unc
   <div
     class="memori-header"
   >
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="write_and_speak.chatHistory"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r1f:"
       >
-        <svg
-          class="lucide lucide-message-circle"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"
-          />
-        </svg>
+          <button
+            aria-label="write_and_speak.chatHistory"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-message-circle"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="widget.sound"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r1h:"
       >
-        <svg
-          class="lucide lucide-volume2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-          />
-          <path
-            d="M16 9a5 5 0 0 1 0 6"
-          />
-          <path
-            d="M19.364 18.364a9 9 0 0 0 0-12.728"
-          />
-        </svg>
+          <button
+            aria-label="widget.sound"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-volume2"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                />
+                <path
+                  d="M16 9a5 5 0 0 1 0 6"
+                />
+                <path
+                  d="M19.364 18.364a9 9 0 0 0 0-12.728"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
+    </span>
     <div
       class="memori-dropdown memori-header--dropdown"
     >
-      <button
-        aria-expanded="false"
-        aria-haspopup="menu"
-        class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-        id="base-ui-:ra:"
-        tabindex="0"
-        title="login.user"
-        type="button"
+      <span
+        class="styles-module__root___-ALla"
       >
         <span
-          class="memori-button__icon"
+          class="styles-module__trigger___V2aIF"
+          id="base-ui-:r1p:"
         >
-          <svg
-            class="lucide lucide-user"
-            fill="none"
-            height="24"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            style="display: inline-flex;"
           >
-            <path
-              d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-            />
-            <circle
-              cx="12"
-              cy="7"
-              r="4"
-            />
-          </svg>
+            <button
+              aria-expanded="false"
+              aria-haspopup="menu"
+              aria-label="login.user"
+              class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+              id="base-ui-:r1m:"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="memori-button__icon"
+              >
+                <svg
+                  class="lucide lucide-user"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                  />
+                  <circle
+                    cx="12"
+                    cy="7"
+                    r="4"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
         </span>
-      </button>
+      </span>
     </div>
   </div>
   <div
@@ -791,157 +1051,209 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
   <div
     class="memori-header"
   >
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="write_and_speak.chatHistory"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r1r:"
       >
-        <svg
-          class="lucide lucide-message-circle"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"
-          />
-        </svg>
+          <button
+            aria-label="write_and_speak.chatHistory"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-message-circle"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--disabled memori-button--icon-only"
-      data-disabled=""
-      disabled=""
-      tabindex="0"
-      title="knownFacts.title"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r1t:"
       >
-        <svg
-          class="lucide lucide-brain"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"
-          />
-          <path
-            d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"
-          />
-          <path
-            d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"
-          />
-          <path
-            d="M17.599 6.5a3 3 0 0 0 .399-1.375"
-          />
-          <path
-            d="M6.003 5.125A3 3 0 0 0 6.401 6.5"
-          />
-          <path
-            d="M3.477 10.896a4 4 0 0 1 .585-.396"
-          />
-          <path
-            d="M19.938 10.5a4 4 0 0 1 .585.396"
-          />
-          <path
-            d="M6 18a4 4 0 0 1-1.967-.516"
-          />
-          <path
-            d="M19.967 17.484A4 4 0 0 1 18 18"
-          />
-        </svg>
+          <button
+            aria-label="knownFacts.title"
+            class="memori-button memori-button--primary memori-button--md memori-button--disabled memori-button--icon-only"
+            data-disabled=""
+            disabled=""
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-brain"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"
+                />
+                <path
+                  d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"
+                />
+                <path
+                  d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"
+                />
+                <path
+                  d="M17.599 6.5a3 3 0 0 0 .399-1.375"
+                />
+                <path
+                  d="M6.003 5.125A3 3 0 0 0 6.401 6.5"
+                />
+                <path
+                  d="M3.477 10.896a4 4 0 0 1 .585-.396"
+                />
+                <path
+                  d="M19.938 10.5a4 4 0 0 1 .585.396"
+                />
+                <path
+                  d="M6 18a4 4 0 0 1-1.967-.516"
+                />
+                <path
+                  d="M19.967 17.484A4 4 0 0 1 18 18"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="widget.sound"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r1v:"
       >
-        <svg
-          class="lucide lucide-volume2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-          />
-          <path
-            d="M16 9a5 5 0 0 1 0 6"
-          />
-          <path
-            d="M19.364 18.364a9 9 0 0 0 0-12.728"
-          />
-        </svg>
+          <button
+            aria-label="widget.sound"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-volume2"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                />
+                <path
+                  d="M16 9a5 5 0 0 1 0 6"
+                />
+                <path
+                  d="M19.364 18.364a9 9 0 0 0 0-12.728"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
+    </span>
     <div
       class="memori-dropdown memori-header--dropdown"
     >
-      <button
-        aria-expanded="false"
-        aria-haspopup="menu"
-        class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-        id="base-ui-:rg:"
-        tabindex="0"
-        title="login.user"
-        type="button"
+      <span
+        class="styles-module__root___-ALla"
       >
         <span
-          class="memori-button__icon"
+          class="styles-module__trigger___V2aIF"
+          id="base-ui-:r27:"
         >
-          <svg
-            class="lucide lucide-user"
-            fill="none"
-            height="24"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            style="display: inline-flex;"
           >
-            <path
-              d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-            />
-            <circle
-              cx="12"
-              cy="7"
-              r="4"
-            />
-          </svg>
+            <button
+              aria-expanded="false"
+              aria-haspopup="menu"
+              aria-label="login.user"
+              class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+              id="base-ui-:r24:"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="memori-button__icon"
+              >
+                <svg
+                  class="lucide lucide-user"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                  />
+                  <circle
+                    cx="12"
+                    cy="7"
+                    r="4"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
         </span>
-      </button>
+      </span>
     </div>
   </div>
   <div
@@ -961,71 +1273,97 @@ exports[`renders Header with deep thought unlogged unchanged 1`] = `
   <div
     class="memori-header"
   >
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="widget.sound"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r1b:"
       >
-        <svg
-          class="lucide lucide-volume2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-          />
-          <path
-            d="M16 9a5 5 0 0 1 0 6"
-          />
-          <path
-            d="M19.364 18.364a9 9 0 0 0 0-12.728"
-          />
-        </svg>
+          <button
+            aria-label="widget.sound"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-volume2"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                />
+                <path
+                  d="M16 9a5 5 0 0 1 0 6"
+                />
+                <path
+                  d="M19.364 18.364a9 9 0 0 0 0-12.728"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
-      tabindex="0"
-      title="login.login"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r1d:"
       >
-        <svg
-          class="lucide lucide-user"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-          />
-          <circle
-            cx="12"
-            cy="7"
-            r="4"
-          />
-        </svg>
+          <button
+            aria-label="login.login"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-user"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -1052,104 +1390,143 @@ exports[`renders Header with position unchanged 1`] = `
       >
         Berlin
       </span>
-      <button
-        class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button--position"
-        tabindex="0"
-        title="widget.position"
-        type="button"
+      <span
+        class="styles-module__root___-ALla"
       >
         <span
-          class="memori-button__icon"
+          class="styles-module__trigger___V2aIF"
+          id="base-ui-:r5:"
         >
-          <svg
-            class="lucide lucide-map-pin"
-            fill="none"
-            height="24"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+          <span
+            style="display: inline-flex;"
           >
-            <path
-              d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
-            />
-            <circle
-              cx="12"
-              cy="10"
-              r="3"
-            />
-          </svg>
+            <button
+              aria-label="widget.position"
+              class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button--position"
+              tabindex="0"
+              type="button"
+            >
+              <span
+                class="memori-button__icon"
+              >
+                <svg
+                  class="lucide lucide-map-pin"
+                  fill="none"
+                  height="24"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                  />
+                  <circle
+                    cx="12"
+                    cy="10"
+                    r="3"
+                  />
+                </svg>
+              </span>
+            </button>
+          </span>
         </span>
-      </button>
+      </span>
     </div>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="widget.sound"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r7:"
       >
-        <svg
-          class="lucide lucide-volume2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-          />
-          <path
-            d="M16 9a5 5 0 0 1 0 6"
-          />
-          <path
-            d="M19.364 18.364a9 9 0 0 0 0-12.728"
-          />
-        </svg>
+          <button
+            aria-label="widget.sound"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-volume2"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                />
+                <path
+                  d="M16 9a5 5 0 0 1 0 6"
+                />
+                <path
+                  d="M19.364 18.364a9 9 0 0 0 0-12.728"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
-      tabindex="0"
-      title="login.login"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r9:"
       >
-        <svg
-          class="lucide lucide-user"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-          />
-          <circle
-            cx="12"
-            cy="7"
-            r="4"
-          />
-        </svg>
+          <button
+            aria-label="login.login"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-user"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -1168,71 +1545,97 @@ exports[`renders Header with settings button unchanged 1`] = `
   <div
     class="memori-header"
   >
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="widget.sound"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:rt:"
       >
-        <svg
-          class="lucide lucide-volume2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-          />
-          <path
-            d="M16 9a5 5 0 0 1 0 6"
-          />
-          <path
-            d="M19.364 18.364a9 9 0 0 0 0-12.728"
-          />
-        </svg>
+          <button
+            aria-label="widget.sound"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-volume2"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                />
+                <path
+                  d="M16 9a5 5 0 0 1 0 6"
+                />
+                <path
+                  d="M19.364 18.364a9 9 0 0 0 0-12.728"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
-      tabindex="0"
-      title="login.login"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:rv:"
       >
-        <svg
-          class="lucide lucide-user"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-          />
-          <circle
-            cx="12"
-            cy="7"
-            r="4"
-          />
-        </svg>
+          <button
+            aria-label="login.login"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-user"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -1251,129 +1654,163 @@ exports[`renders Header with share button unchanged 1`] = `
   <div
     class="memori-header"
   >
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="widget.sound"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:rh:"
       >
-        <svg
-          class="lucide lucide-volume2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-          />
-          <path
-            d="M16 9a5 5 0 0 1 0 6"
-          />
-          <path
-            d="M19.364 18.364a9 9 0 0 0 0-12.728"
-          />
-        </svg>
+          <button
+            aria-label="widget.sound"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-volume2"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                />
+                <path
+                  d="M16 9a5 5 0 0 1 0 6"
+                />
+                <path
+                  d="M19.364 18.364a9 9 0 0 0 0-12.728"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
+    </span>
     <div
       class="memori-dropdown memori-share-button memori-share-button--align-left"
     >
-      <button
-        aria-expanded="false"
-        aria-haspopup="menu"
-        class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-        id="base-ui-:r4:"
-        tabindex="0"
-        title="widget.share"
-        type="button"
+      <span
+        class="styles-module__root___-ALla"
       >
         <span
-          class="memori-button__icon"
+          class="styles-module__trigger___V2aIF"
+          id="base-ui-:rn:"
         >
-          <svg
-            class="lucide lucide-share2"
-            fill="none"
-            height="24"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
+          <button
+            aria-expanded="false"
+            aria-haspopup="menu"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            id="base-ui-:ro:"
+            tabindex="0"
+            type="button"
           >
-            <circle
-              cx="18"
-              cy="5"
-              r="3"
-            />
-            <circle
-              cx="6"
-              cy="12"
-              r="3"
-            />
-            <circle
-              cx="18"
-              cy="19"
-              r="3"
-            />
-            <line
-              x1="8.59"
-              x2="15.42"
-              y1="13.51"
-              y2="17.49"
-            />
-            <line
-              x1="15.41"
-              x2="8.59"
-              y1="6.51"
-              y2="10.49"
-            />
-          </svg>
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-share2"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="18"
+                  cy="5"
+                  r="3"
+                />
+                <circle
+                  cx="6"
+                  cy="12"
+                  r="3"
+                />
+                <circle
+                  cx="18"
+                  cy="19"
+                  r="3"
+                />
+                <line
+                  x1="8.59"
+                  x2="15.42"
+                  y1="13.51"
+                  y2="17.49"
+                />
+                <line
+                  x1="15.41"
+                  x2="8.59"
+                  y1="6.51"
+                  y2="10.49"
+                />
+              </svg>
+            </span>
+          </button>
         </span>
-      </button>
+      </span>
     </div>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
-      tabindex="0"
-      title="login.login"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:rr:"
       >
-        <svg
-          class="lucide lucide-user"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-          />
-          <circle
-            cx="12"
-            cy="7"
-            r="4"
-          />
-        </svg>
+          <button
+            aria-label="login.login"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-user"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -1392,77 +1829,103 @@ exports[`renders Header with speaker muted unchanged 1`] = `
   <div
     class="memori-header"
   >
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="widget.sound"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:rb:"
       >
-        <svg
-          class="lucide lucide-volume-x"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-          />
-          <line
-            x1="22"
-            x2="16"
-            y1="9"
-            y2="15"
-          />
-          <line
-            x1="16"
-            x2="22"
-            y1="9"
-            y2="15"
-          />
-        </svg>
+          <button
+            aria-label="widget.sound"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-volume-x"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                />
+                <line
+                  x1="22"
+                  x2="16"
+                  y1="9"
+                  y2="15"
+                />
+                <line
+                  x1="16"
+                  x2="22"
+                  y1="9"
+                  y2="15"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
-      tabindex="0"
-      title="login.login"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:rd:"
       >
-        <svg
-          class="lucide lucide-user"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-          />
-          <circle
-            cx="12"
-            cy="7"
-            r="4"
-          />
-        </svg>
+          <button
+            aria-label="login.login"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-user"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -1481,71 +1944,97 @@ exports[`renders Header with user activated speak unchanged 1`] = `
   <div
     class="memori-header"
   >
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      tabindex="0"
-      title="widget.sound"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r17:"
       >
-        <svg
-          class="lucide lucide-volume2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-          />
-          <path
-            d="M16 9a5 5 0 0 1 0 6"
-          />
-          <path
-            d="M19.364 18.364a9 9 0 0 0 0-12.728"
-          />
-        </svg>
+          <button
+            aria-label="widget.sound"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-volume2"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                />
+                <path
+                  d="M16 9a5 5 0 0 1 0 6"
+                />
+                <path
+                  d="M19.364 18.364a9 9 0 0 0 0-12.728"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
-    <button
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
-      tabindex="0"
-      title="login.login"
-      type="button"
+    </span>
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r19:"
       >
-        <svg
-          class="lucide lucide-user"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <span
+          style="display: inline-flex;"
         >
-          <path
-            d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-          />
-          <circle
-            cx="12"
-            cy="7"
-            r="4"
-          />
-        </svg>
+          <button
+            aria-label="login.login"
+            class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-user"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"

@@ -75,7 +75,9 @@ const KnownFacts = ({
           howManyParam
         );
 
-        setKnownFacts(knownFacts ?? initialKnownFactsRef.current);
+        // When the API returns no items (e.g. after bulk delete), we must clear the table,
+        // not fall back to the initial props which may be stale.
+        setKnownFacts(Array.isArray(knownFacts) ? knownFacts : []);
         setKnownFactsCount(count ?? 0);
 
         if (response.resultCode !== 0) {
@@ -89,7 +91,7 @@ const KnownFacts = ({
         }
       } catch (err) {
         console.error('KNOWN_FACTS/FETCH', err);
-        setKnownFacts(initialKnownFactsRef.current ?? []);
+        setKnownFacts([]);
       }
 
       setLoading(false);

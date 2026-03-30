@@ -7,7 +7,13 @@ import {
   Venue,
   User,
 } from '@memori.ai/memori-api-client/dist/types';
-import { Button, Dropdown, useAlertManager, createAlertOptions } from '@memori.ai/ui';
+import {
+  Button,
+  Dropdown,
+  Tooltip,
+  useAlertManager,
+  createAlertOptions,
+} from '@memori.ai/ui';
 import {
   MapPin,
   VolumeX,
@@ -35,6 +41,8 @@ const imgMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
 
 export interface Props {
   className?: string;
+  /** Variant applied to all header buttons (including share + user/login). */
+  buttonVariant?: React.ComponentProps<typeof Button>['variant'];
   memori: Memori;
   tenant?: Tenant;
   history: Message[];
@@ -69,6 +77,7 @@ export interface Props {
 
 const Header: React.FC<Props> = ({
   className,
+  buttonVariant = 'primary',
   memori,
   tenant,
   history,
@@ -194,125 +203,174 @@ const Header: React.FC<Props> = ({
               {position.placeName}
             </span>
           )}
-          <Button
-            variant="primary"
-            className="memori-header--button memori-header--button--position"
-            title={t('widget.position') || 'Position'}
-            icon={<MapPin />}
-            onClick={() => setShowPositionDrawer(true)}
-          />
+          <Tooltip title={t('widget.position') || 'Position'} placement="bottom">
+            <span style={{ display: 'inline-flex' }}>
+              <Button
+                variant={buttonVariant}
+                className="memori-header--button memori-header--button--position"
+                aria-label={t('widget.position') || 'Position'}
+                icon={<MapPin />}
+                onClick={() => setShowPositionDrawer(true)}
+              />
+            </span>
+          </Tooltip>
         </div>
       )}
       {showReload && (
-        <Button
-          variant="primary"
-          title={t('reload') || 'Reload'}
-          icon={<RefreshCw />}
-          onClick={() => {
-            window.location.reload();
-          }}
-        />
+        <Tooltip title={t('reload') || 'Reload'} placement="bottom">
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              aria-label={t('reload') || 'Reload'}
+              icon={<RefreshCw />}
+              onClick={() => {
+                window.location.reload();
+              }}
+            />
+          </span>
+        </Tooltip>
       )}
       {showClear && (
-        <Button
-          variant="primary"
-          title={t('clearHistory') || 'Clear chat'}
-          icon={<Trash2 />}
-          onClick={() => {
-            clearHistory();
-            add(
-              createAlertOptions({
-                description: t('clearHistoryDone'),
-                severity: 'success',
-              })
-            );
-          }}
-        />
+        <Tooltip title={t('clearHistory') || 'Clear chat'} placement="bottom">
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              aria-label={t('clearHistory') || 'Clear chat'}
+              icon={<Trash2 />}
+              onClick={() => {
+                clearHistory();
+                add(
+                  createAlertOptions({
+                    description: t('clearHistoryDone'),
+                    severity: 'success',
+                  })
+                );
+              }}
+            />
+          </span>
+        </Tooltip>
       )}
       {showChatHistory && !!loginToken && (
-        <Button
-          variant="primary"
-          disabled={!loginToken}
+        <Tooltip
           title={t('write_and_speak.chatHistory') || 'Chat history'}
-          icon={<MessageCircle />}
-          onClick={() => setShowChatHistoryDrawer(true)}
-        />
+          placement="bottom"
+        >
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              disabled={!loginToken}
+              aria-label={t('write_and_speak.chatHistory') || 'Chat history'}
+              icon={<MessageCircle />}
+              onClick={() => setShowChatHistoryDrawer(true)}
+            />
+          </span>
+        </Tooltip>
       )}
       {fullScreenAvailable && (
-        <Button
-          variant="primary"
+        <Tooltip
           title={
             fullScreen
               ? t('fullscreenExit') || 'Exit fullscreen'
               : t('fullscreenEnter') || 'Enter fullscreen'
           }
-          icon={fullScreen ? <Maximize /> : <Minimize />}
-          onClick={
-            fullScreenHandler ||
-            (() => {
-              if (!document.fullscreenElement) {
-                const body =
-                  layout !== 'HIDDEN_CHAT' && layout !== 'WEBSITE_ASSISTANT'
-                    ? document.body
-                    : document.querySelector('.memori-widget');
-                if (body) {
-                  //set the .memori-react div to white backg
-                  const memoriReact = document.querySelector('.memori-widget');
-                  if (memoriReact) {
-                    (memoriReact as HTMLElement).style.backgroundColor =
-                      '#FFFFFF';
-                  }
-                  body
-                    .requestFullscreen()
-                    .then(() => setFullScreen(true))
-                    .catch(err => {
-                      console.warn(
-                        'Error attempting to enable fullscreen:',
-                        err
-                      );
-                    });
-                }
-              } else {
-                if (document.exitFullscreen) {
-                  document
-                    .exitFullscreen()
-                    .then(() => setFullScreen(false))
-                    .catch(err => {
-                      console.warn('Error attempting to exit fullscreen:', err);
-                    });
-                }
+          placement="bottom"
+        >
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              aria-label={
+                fullScreen
+                  ? t('fullscreenExit') || 'Exit fullscreen'
+                  : t('fullscreenEnter') || 'Enter fullscreen'
               }
-            })
-          }
-        />
+              icon={fullScreen ? <Maximize /> : <Minimize />}
+              onClick={
+                fullScreenHandler ||
+                (() => {
+                  if (!document.fullscreenElement) {
+                    const body =
+                      layout !== 'HIDDEN_CHAT' && layout !== 'WEBSITE_ASSISTANT'
+                        ? document.body
+                        : document.querySelector('.memori-widget');
+                    if (body) {
+                      //set the .memori-react div to white backg
+                      const memoriReact =
+                        document.querySelector('.memori-widget');
+                      if (memoriReact) {
+                        (memoriReact as HTMLElement).style.backgroundColor =
+                          '#FFFFFF';
+                      }
+                      body
+                        .requestFullscreen()
+                        .then(() => setFullScreen(true))
+                        .catch(err => {
+                          console.warn(
+                            'Error attempting to enable fullscreen:',
+                            err
+                          );
+                        });
+                    }
+                  } else {
+                    if (document.exitFullscreen) {
+                      document
+                        .exitFullscreen()
+                        .then(() => setFullScreen(false))
+                        .catch(err => {
+                          console.warn(
+                            'Error attempting to exit fullscreen:',
+                            err
+                          );
+                        });
+                    }
+                  }
+                })
+              }
+            />
+          </span>
+        </Tooltip>
       )}
       {memori.enableDeepThought && !!loginToken && user?.pAndCUAccepted && (
-        <Button
-          variant={
-            'primary'
-          }
-          icon={<Brain />}
-          disabled={!hasUserActivatedSpeak || !sessionID}
-          onClick={() => setShowKnownFactsDrawer(true)}
-          title={t('knownFacts.title') || 'Known facts'}
-        />
+        <Tooltip title={t('knownFacts.title') || 'Known facts'} placement="bottom">
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              icon={<Brain />}
+              disabled={!hasUserActivatedSpeak || !sessionID}
+              aria-label={t('knownFacts.title') || 'Known facts'}
+              onClick={() => setShowKnownFactsDrawer(true)}
+            />
+          </span>
+        </Tooltip>
       )}
       {memori.enableBoardOfExperts && (
-        <Button
-          variant="primary"
-          icon={<Users />}
-          disabled={!hasUserActivatedSpeak || !sessionID}
-          onClick={() => setShowExpertsDrawer(true)}
+        <Tooltip
           title={t('widget.showExpertsInTheBoard') || 'Experts in this board'}
-        />
+          placement="bottom"
+        >
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              icon={<Users />}
+              disabled={!hasUserActivatedSpeak || !sessionID}
+              aria-label={
+                t('widget.showExpertsInTheBoard') || 'Experts in this board'
+              }
+              onClick={() => setShowExpertsDrawer(true)}
+            />
+          </span>
+        </Tooltip>
       )}
       {enableAudio && (
-        <Button
-          variant="primary"
-          icon={speakerMuted ? <VolumeX /> : <Volume2 />}
-          onClick={() => setSpeakerMuted(!speakerMuted)}
-          title={t('widget.sound') || 'Sound'}
-        />
+        <Tooltip title={t('widget.sound') || 'Sound'} placement="bottom">
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              icon={speakerMuted ? <VolumeX /> : <Volume2 />}
+              aria-label={t('widget.sound') || 'Sound'}
+              onClick={() => setSpeakerMuted(!speakerMuted)}
+            />
+          </span>
+        </Tooltip>
       )}
       {/* <ExportHistoryButton
         history={history}
@@ -321,12 +379,16 @@ const Header: React.FC<Props> = ({
         disabled={!hasUserActivatedSpeak || history.length === 0}
       /> */}
       {showSettings && hasSettingsContent(layout, additionalSettings) && (
-        <Button
-          variant="primary"
-          icon={<Settings />}
-          onClick={() => setShowSettingsDrawer(true)}
-          title={t('widget.settings') || 'Settings'}
-        />
+        <Tooltip title={t('widget.settings') || 'Settings'} placement="bottom">
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              icon={<Settings />}
+              aria-label={t('widget.settings') || 'Settings'}
+              onClick={() => setShowSettingsDrawer(true)}
+            />
+          </span>
+        </Tooltip>
       )}
       {showShare && (
         <ShareButton
@@ -338,6 +400,7 @@ const Header: React.FC<Props> = ({
           align="left"
           baseUrl={baseUrl}
           history={history}
+          primary={buttonVariant === 'primary'}
         />
       )}
       {showLogin && (
@@ -348,12 +411,16 @@ const Header: React.FC<Props> = ({
                 showChevron={false}
                 className="memori-dropdown--user-trigger"
                 render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
-                  <Button
-                    {...props}
-                    variant="primary"
-                    icon={<UserIcon />}
-                    title={t('login.user') || 'User'}
-                  />
+                  <Tooltip title={t('login.user') || 'User'} placement="bottom">
+                    <span style={{ display: 'inline-flex' }}>
+                      <Button
+                        {...props}
+                        variant={buttonVariant}
+                        aria-label={t('login.user') || 'User'}
+                        icon={<UserIcon />}
+                      />
+                    </span>
+                  </Tooltip>
                 )}
               />
               <Dropdown.Menu className="memori-dropdown--menu">
@@ -436,13 +503,17 @@ const Header: React.FC<Props> = ({
               </Dropdown.Menu>
             </Dropdown>
           ) : (
-            <Button
-              variant="primary"
-              className="memori-header--button memori-header--button-login"
-              icon={<UserIcon />}
-              onClick={() => setShowLoginDrawer(true)}
-              title={t('login.login') || 'Login'}
-            />
+            <Tooltip title={t('login.login') || 'Login'} placement="bottom">
+              <span style={{ display: 'inline-flex' }}>
+                <Button
+                  variant={buttonVariant}
+                  className="memori-header--button memori-header--button-login"
+                  icon={<UserIcon />}
+                  aria-label={t('login.login') || 'Login'}
+                  onClick={() => setShowLoginDrawer(true)}
+                />
+              </span>
+            </Tooltip>
           )}
         </>
       )}

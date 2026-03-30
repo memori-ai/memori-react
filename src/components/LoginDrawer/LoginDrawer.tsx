@@ -398,7 +398,7 @@ const LoginDrawer = ({
         <>
           <Card
             className="memori--login-drawer--otp-card"
-            variant="elevated"
+            variant="flat"
             padding="md"
             loading={loading}
             title={
@@ -515,7 +515,7 @@ const LoginDrawer = ({
         <>
           <Card
             className="memori--login-drawer--otp-card"
-            variant="elevated"
+            variant="flat"
             padding="md"
             loading={loading}
             title={
@@ -588,6 +588,7 @@ const LoginDrawer = ({
                 }}
                 disabled={loading || !emailValid}
                 loading={loading}
+                size="lg"
               >
                 {t('login.sendOtp')}
               </Button>

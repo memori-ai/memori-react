@@ -391,6 +391,12 @@ p.memori--login-drawer--inline-error {
     text-align: center;
 }
 
+.memori--login-drawer--otp-card > .memori-card__body {
+    padding: var(--memori-spacing-3xl);
+    border-radius: var(--memori-radius-box);
+    background: var(--memori-main-background);
+}
+
 .memori--login-drawer--otp-card .memori-card__title {
     margin: 0;
     text-align: center;
@@ -959,11 +965,6 @@ p.memori--login-drawer--inline-error {
         height: 45px;
         font-size: var(--memori-text-size-heading);
         letter-spacing: 0.2rem;
-    }
-
-    .memori--login-drawer--otp-email-input {
-        height: 48px;
-        font-size: 0.95rem;
     }
 
     .memori--login-drawer--otp-timer,

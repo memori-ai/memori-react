@@ -2,7 +2,7 @@
     position: relative;
     z-index: 1000;
     display: inline-flex;
-    width: calc(50% - 1rem);
+    width: 100%;
     height: 50px;
     align-items: center;
     justify-content: flex-end;
@@ -13,6 +13,7 @@
     backdrop-filter: blur(10px);
     gap: var(--memori-spacing-xs);
     text-align: right;
+
 }
 
 .memori-totem-layout .memori-header {
@@ -52,7 +53,7 @@
     padding: var(--memori-spacing-sm);
     border: 2px solid rgba(0, 0, 0, 0.08);
     border-radius: 50%;
-    background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(248,248,248,0.98));
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(248, 248, 248, 0.98));
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
     cursor: pointer;
     transition: transform 0.15s ease, box-shadow 0.2s ease, border-color 0.2s ease;
@@ -265,7 +266,7 @@
     .memori-header--button {
         padding: 0.785rem;
     }
-    .memori-chat-layout--header {
+    .memori-widget.memori-layout-chat .memori-chat-layout--header {
         margin-bottom: 0;
     }
 }
@@ -273,7 +274,6 @@
 .memori-header--position .memori-header--button {
     margin-left: var(--memori-spacing-sm);
 }
-
 
 .memori-dropdown--avatar-input {
     position: absolute;

@@ -240,7 +240,6 @@
 
 .memori--modal-preview-file {
     width: 100%;
-    max-width: 800px;
     height: 100%;
     padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
 }

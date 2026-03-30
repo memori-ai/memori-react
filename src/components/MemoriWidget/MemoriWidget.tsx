@@ -61,7 +61,7 @@ import { X } from 'lucide-react';
 import FullPageLayout from '../layouts/FullPage';
 import TotemLayout from '../layouts/Totem';
 import ChatLayout from '../layouts/Chat';
-import WebsiteAssistantLayout from '../layouts/WebsiteAssistant';
+import WebsiteAssistantLayout from '../layouts/WebsiteAssistant/WebsiteAssistant';
 import HiddenChatLayout from '../layouts/HiddenChat';
 import ZoomedFullBodyLayout from '../layouts/ZoomedFullBody';
 

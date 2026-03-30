@@ -1,6 +1,12 @@
 import { Memori } from '@memori.ai/memori-api-client/dist/types';
 import React, { useState } from 'react';
-import { Tooltip, Button, Dropdown } from '@memori.ai/ui';
+import {
+  Tooltip,
+  Button,
+  Dropdown,
+  useAlertManager,
+  createAlertOptions,
+} from '@memori.ai/ui';
 import { MessageSquare } from 'lucide-react';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
@@ -38,8 +44,20 @@ const FeedbackButtons = ({
   dropdown = false,
 }: Props) => {
   const { t } = useTranslation();
+  const { add } = useAlertManager();
   const [clicked, setClicked] = useState<'up' | 'down'>();
   const feedbackLabel = t('feedback') || 'Feedback';
+  const feedbackThankYou =
+    t('feedbackThankYou') || 'Thank you for your feedback.';
+
+  const showFeedbackSuccessAlert = () => {
+    add(
+      createAlertOptions({
+        description: feedbackThankYou,
+        severity: 'success',
+      })
+    );
+  };
   const culture =
     memori.culture === 'it-IT'
       ? 'it-IT'
@@ -91,6 +109,7 @@ const FeedbackButtons = ({
                         setClicked(undefined);
                       } else {
                         setClicked('up');
+                        showFeedbackSuccessAlert();
                       }
                     }}
                   >
@@ -104,8 +123,9 @@ const FeedbackButtons = ({
                         setClicked(undefined);
                       } else {
                         setClicked('down');
+                        onNegativeClick(feedbackMsg);
+                        showFeedbackSuccessAlert();
                       }
-                      onNegativeClick(feedbackMsg);
                     }}
                   >
                     {feedbackMsgHelper}
@@ -124,8 +144,9 @@ const FeedbackButtons = ({
                 setClicked(undefined);
               } else {
                 setClicked('down');
+                onNegativeClick(feedbackMsg);
+                showFeedbackSuccessAlert();
               }
-              onNegativeClick(feedbackMsg);
             }}
             variant="ghost"
             shape="circle"
