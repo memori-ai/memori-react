@@ -298,7 +298,7 @@
   },
   "dependencies": {
     "@memori.ai/memori-api-client": "6.20.0",
-    "@memori.ai/ui": "^1.11.1",
+    "@memori.ai/ui": "^1.12.0",
     "@react-three/drei": "8.20.2",
     "@react-three/fiber": "7.0.25",
     "classnames": "2.5.1",

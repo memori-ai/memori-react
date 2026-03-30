@@ -4,8 +4,8 @@ import '../src/styles.css';
 import "@memori.ai/ui/dist/memori-ai-ui.css";
 
 const THEME_BG = {
-  light: 'oklch(97.8% 0.017 110deg)',
-  dark: 'oklch(27.4% 0.022 109.7deg)',
+  light: '#f7f9f2',
+  dark: '#333333',
 };
 
 // Decorator: apply theme from the "Theme" toolbar (theme + canvas background)

@@ -236,28 +236,6 @@ export const AllComponentsWithAllPropsEnabled: Story = () => {
             </div>
           </section>
 
-          {/* BlockedMemoriBadge */}
-          <section style={sectionStyle}>
-            <h2 style={titleStyle}>BlockedMemoriBadge</h2>
-            <BlockedMemoriBadge
-              memoriName="Demo Memori"
-              blockedUntil="2026-01-01T00:00:00.000Z"
-              showGiverInfo={true}
-              showTitle={true}
-              marginLeft={true}
-            />
-          </section>
-
-          {/* PoweredBy */}
-          <section style={sectionStyle}>
-            <h2 style={titleStyle}>PoweredBy</h2>
-            <PoweredBy
-              userLang="en"
-              tenant={{ ...tenant, theme: 'aisuru' }}
-              integrationID="showcase"
-              memoriHash="tenant-owner-memori"
-            />
-          </section>
 
           {/* FeedbackButtons */}
           <section style={sectionStyle}>
@@ -365,15 +343,6 @@ export const AllComponentsWithAllPropsEnabled: Story = () => {
                 },
               ]}
             />
-          </section>
-
-          {/* Blob */}
-          <section style={sectionStyle}>
-            <h2 style={titleStyle}>Blob</h2>
-            <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
-              <Blob speaking={false} avatar="https://picsum.photos/100" />
-              <Blob speaking={true} avatar="https://picsum.photos/101" />
-            </div>
           </section>
 
           {/* MicrophoneButton */}
@@ -503,18 +472,6 @@ export const AllComponentsWithAllPropsEnabled: Story = () => {
               onLogout={() => setShowLoginDrawer(false)}
               apiClient={memoriApiClient()}
             />
-          </section>
-
-          {/* FilePreview */}
-          <section style={sectionStyle}>
-            <h2 style={titleStyle}>FilePreview</h2>
-            <div style={{ minHeight: '120px', display: 'flex', alignItems: 'flex-end' }}>
-              <FilePreview
-                previewFiles={previewFiles}
-                removeFile={(id, mediumID) => setPreviewFiles((prev) => prev.filter((f) => f.id !== id))}
-                allowRemove={true}
-              />
-            </div>
           </section>
 
           {/* MediaWidget */}
