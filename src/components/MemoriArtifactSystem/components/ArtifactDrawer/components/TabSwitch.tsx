@@ -1,11 +1,6 @@
-/**
- * TabSwitch Component
- * Modern animated switch for toggling between code and preview tabs
- */
-
 import React from 'react';
 import { ArtifactTab } from '../../../types/artifact.types';
-import cx from 'classnames';
+import { Tabs } from '@memori.ai/ui';
 import { Code, Eye as PreviewIcon } from 'lucide-react';
 
 interface TabSwitchProps {
@@ -23,55 +18,45 @@ const TabSwitch: React.FC<TabSwitchProps> = ({
     {
       id: 'code' as ArtifactTab,
       icon: Code,
-    //   label: 'Code',
+      label: 'Code',
     },
     ...(hasPreview
       ? [
           {
             id: 'preview' as ArtifactTab,
             icon: PreviewIcon,
-            // label: 'Preview',
+            label: 'Preview',
           },
         ]
       : []),
   ];
 
   return (
-    <div className="memori-tab-switch">
-      <div className="memori-tab-switch__container">
-        <div
-          className="memori-tab-switch__track"
-          style={{
-            '--tab-count': tabs.length,
-          } as React.CSSProperties}
-        >
-          <div
-            className="memori-tab-switch__indicator"
-            style={{
-              '--active-index': tabs.findIndex(tab => tab.id === activeTab),
-            } as React.CSSProperties}
-          />
-          {tabs.map((tab) => {
-            const IconComponent = tab.icon;
-            return (
-              <button
-                key={tab.id}
-                type="button"
-                className={cx('memori-tab-switch__button', {
-                  'memori-tab-switch__button--active': activeTab === tab.id,
-                })}
-                onClick={() => onTabChange(tab.id)}
-                aria-pressed={activeTab === tab.id}
-                // title={tab.label}
-              >
-                <IconComponent className="memori-tab-switch__icon" />
-                {/* <span className="memori-tab-switch__label">{tab.label}</span> */}
-              </button>
-            );
-          })}
-        </div>
-      </div>
-    </div>
+    <Tabs.Root
+      className="memori-tab-switch"
+      value={activeTab}
+      onValueChange={value => onTabChange(value as ArtifactTab)}
+      variant="segmented"
+    >
+      <Tabs.List
+        className="memori-tab-switch__list"
+        aria-label="Artifact content view"
+      >
+        {tabs.map(tab => {
+          const IconComponent = tab.icon;
+          return (
+            <Tabs.Tab
+              key={tab.id}
+              value={tab.id}
+              className="memori-tab-switch__tab"
+              aria-label={tab.label}
+            >
+              <IconComponent className="memori-tab-switch__icon" />
+            </Tabs.Tab>
+          );
+        })}
+      </Tabs.List>
+    </Tabs.Root>
   );
 };
 

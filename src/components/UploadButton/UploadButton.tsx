@@ -2,7 +2,13 @@ import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { FileText as DocumentIcon } from 'lucide-react';
 import { Image as ImageIcon } from 'lucide-react';
 import { Upload as UploadIcon } from 'lucide-react';
-import { AlertData, AlertSeverity, Spin, useAlertManager } from '@memori.ai/ui';
+import {
+  AlertData,
+  AlertSeverity,
+  Button,
+  Spin,
+  useAlertManager,
+} from '@memori.ai/ui';
 import cx from 'classnames';
 import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
@@ -34,6 +40,8 @@ interface UploadManagerProps {
   maxDocumentsPerMessage?: number;
   /** Per-document content character limit. */
   maxDocumentContentLength?: number;
+  /** When true, the control does not open the file picker and ignores paste/drop for uploads. */
+  disabled?: boolean;
 }
 
 const UploadButton: React.FC<UploadManagerProps> = ({
@@ -47,6 +55,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   maxTotalMessagePayload,
   maxDocumentsPerMessage = 10,
   maxDocumentContentLength = 200000,
+  disabled = false,
 }) => {
   // State
   const [isLoading, setIsLoading] = useState(false);
@@ -73,7 +82,11 @@ const UploadButton: React.FC<UploadManagerProps> = ({
         id: `upload-notification-${Date.now()}`,
         title: 'Upload notification',
         description: error.message,
-        data: { severity: error.severity, closable: true, style: { zIndex: 10002, top: 30, right: 30, position: 'fixed' } },
+        data: {
+          severity: error.severity,
+          closable: true,
+          style: { zIndex: 10002, top: 30, right: 30, position: 'fixed' },
+        },
       });
     },
     [alertManager]
@@ -235,6 +248,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 
   // Handle button click - open file chooser directly
   const handleButtonClick = () => {
+    if (disabled) return;
     if (unifiedInputRef.current) {
       unifiedInputRef.current.click();
     }
@@ -255,6 +269,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   // Paste handler for files
   useEffect(() => {
     const handlePaste = (e: ClipboardEvent) => {
+      if (disabled) return;
       const clipboardData = e.clipboardData;
       if (!clipboardData) {
         console.log('[UploadButton] handlePaste: No clipboardData available.');
@@ -336,7 +351,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
     return () => {
       document.removeEventListener('paste', handlePaste);
     };
-  }, [handleUnifiedFileSelection]);
+  }, [handleUnifiedFileSelection, disabled]);
 
   // Drag and drop handlers
   useEffect(() => {
@@ -345,6 +360,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
     const handleDragEnter = (e: DragEvent) => {
       e.preventDefault();
       e.stopPropagation();
+      if (disabled) return;
       dragCounter++;
       if (dragCounter === 1) {
         setIsDragging(true);
@@ -371,6 +387,8 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       dragCounter = 0;
       setIsDragging(false);
 
+      if (disabled) return;
+
       const files = e.dataTransfer?.files;
       if (files && files.length > 0) {
         handleUnifiedFileSelection(files);
@@ -389,7 +407,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       document.removeEventListener('dragover', handleDragOver);
       document.removeEventListener('drop', handleDrop);
     };
-  }, [handleUnifiedFileSelection]);
+  }, [handleUnifiedFileSelection, disabled]);
 
   // Handler for document files - now supports multiple documents
   const handleDocumentFiles = (
@@ -556,7 +574,8 @@ ${file.content}
   return (
     <div
       className={cx('memori--unified-upload-wrapper', {
-        'memori--dragging': isDragging,
+        'memori--dragging': isDragging && !disabled,
+        'memori--upload-disabled': disabled,
       })}
       ref={wrapperRef}
     >
@@ -572,34 +591,20 @@ ${file.content}
       />
 
       {/* Main upload button */}
-      <button
-        ref={buttonRef}
-        className={cx(
-          'memori-button',
-          'memori-button--circle',
-          'memori-button--icon-only',
-          'memori-share-button--button',
-          'memori--conversation-button',
-          'memori--unified-upload-button'
-        )}
-        onClick={handleButtonClick}
-        disabled={isLoading || hasReachedMediaLimit}
-        title={
-          t('upload.uploadFiles', {
-            shortcut:
-              /Mac|iPhone|iPod|iPad/i.test(navigator.platform) ||
-              navigator.userAgent.includes('Mac')
-                ? 'Cmd'
-                : 'Ctrl',
-          }) ?? 'Upload files (drag & drop)'
-        }
-      >
-        {isLoading ? (
-          <Spin spinning className="memori--upload-icon" />
-        ) : (
-          <UploadIcon className="memori--upload-icon" />
-        )}
-      </button>
+      <Tooltip title={t('upload.uploadFiles')} placement="top-end" className="memori--upload-button-tooltip">
+        <Button
+          variant="ghost"
+          ref={buttonRef}
+          onClick={handleButtonClick}
+          disabled={disabled || isLoading || hasReachedMediaLimit}
+        >
+          {isLoading ? (
+            <Spin spinning className="memori--upload-icon" />
+          ) : (
+            <UploadIcon className="memori--upload-icon" />
+          )}
+        </Button>
+      </Tooltip>
 
       {/* Media count indicator */}
       {currentMediaCount > 0 && (

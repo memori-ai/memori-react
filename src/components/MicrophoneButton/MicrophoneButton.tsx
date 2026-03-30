@@ -9,6 +9,8 @@ export interface Props {
   stopAudio: ChatInputProps['stopAudio'];
   startListening: ChatInputProps['startListening'];
   stopListening: ChatInputProps['stopListening'];
+  /** When true, recording cannot be started (e.g. no session yet — see ChatInputs). */
+  disabled?: boolean;
 }
 
 const MicrophoneButton = ({
@@ -16,6 +18,7 @@ const MicrophoneButton = ({
   stopAudio,
   startListening,
   stopListening,
+  disabled = false,
 }: Props) => {
   const { t } = useTranslation();
   const [micBtnTooltip, setMicBtnTooltip] = useState<string | undefined>();
@@ -27,6 +30,7 @@ const MicrophoneButton = ({
       | React.TouchEvent<HTMLButtonElement>
       | React.MouseEvent<Element, MouseEvent>
   ) => {
+    if (disabled) return;
     e.preventDefault();
     e.stopPropagation();
 
@@ -108,6 +112,7 @@ const MicrophoneButton = ({
             listening ? 'memori-chat-inputs--mic--listening' : 'memori-chat-inputs--mic'
           }
           aria-label={listening ? listeningHint : idleHint}
+          disabled={disabled}
           onMouseDown={startHold}
           onTouchStart={handleTouchStart}
           onMouseUp={stopHold}

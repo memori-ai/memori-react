@@ -42,6 +42,8 @@
   "copy": "Copiar",
   "copyRawCode": "Copiar código sin formato",
   "feedback": "Comentarios",
+  "feedbackThankYou": "Gracias por tus comentarios.",
+  "copyFailed": "No se pudo copiar",
   "functionCache": "Caché de funciones",
   "copyToClipboard": "Copiar al portapapeles",
   "showOriginalText": "Mostrar original",
@@ -133,7 +135,8 @@
     "boardOfExperts": "Panel de expertos",
     "showExpertsInTheBoard": "Mostrar expertos en este panel",
     "expertsInTheBoard": "Expertos en este panel",
-    "goToIntegrationsToCustomizeAvatar": "Para personalizar el avatar, ve a Compartir y personaliza la página pública"
+    "goToIntegrationsToCustomizeAvatar": "Para personalizar el avatar, ve a Compartir y personaliza la página pública",
+    "chatAssistantStatus": "Activa • Responde en pocos segundos"
   },
   "exportChatHistory": {
     "exportPDF": "Exportar chat como PDF",
@@ -147,7 +150,7 @@
     "micButtonPopover": "Haga clic en el botón para hablar",
     "micButtonPopoverListening": "Haga clic en el botón para dejar de hablar.",
     "pageInstructExplanation": "Para enseñarme cosas nuevas, haga clic en el botón INSTRUIRME para comenzar.",
-    "pageTryMeExplanation": "Para hablar conmigo haga clic en el botón INICIO para comenzar",
+    "pageTryMeExplanation": "Para empezar a conversar conmigo haga clic en el botón INICIO",
     "pagePrivacyExplanation": "Las conversaciones son visibles por el autor del agente",
     "pagePrivacyExplanationList": {
       "allConversations": "Todas las conversaciones con este agente son visibles por el autor del agente",
@@ -266,7 +269,7 @@
     "pastedText": "texto-pegado",
     "uploadNotification": "Échec del téléchargement",
     "loginRequiredDescription": "Veuillez vous connecter pour télécharger des images",
-    "uploadFiles": "Télécharger des fichiers ({{shortcut}}+O para abrir el selector de archivos)",
+    "uploadFiles": "Télécharger des fichiers (drag and drop)",
     "uploadFilesWithShortcut": "{{shortcut}}+O para abrir el selector de archivos",
     "uploadImages": "Télécharger des images",
     "uploadDocuments": "Télécharger des documents",

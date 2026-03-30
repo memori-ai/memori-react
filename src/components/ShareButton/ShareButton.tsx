@@ -9,7 +9,13 @@ import {
   FileText,
 } from 'lucide-react';
 import { QRCodeCanvas } from 'qrcode.react';
-import { Button, Dropdown, useAlertManager, createAlertOptions } from '@memori.ai/ui';
+import {
+  Button,
+  Dropdown,
+  useAlertManager,
+  createAlertOptions,
+  Tooltip,
+} from '@memori.ai/ui';
 import cx from 'classnames';
 import {
   Tenant,
@@ -53,6 +59,7 @@ const ShareButton: React.FC<Props> = ({
   sessionID,
   url,
   title = '',
+  primary = false,
   baseUrl,
   showQrCode = true,
   align = 'right',
@@ -211,12 +218,25 @@ const ShareButton: React.FC<Props> = ({
    */
   const handleExportPDF = async () => {
     if (!history || history.length === 0) {
-      add(createAlertOptions({ description: t('exportChatHistory.empty') || 'No chat history to export', severity: 'error' }));
+      add(
+        createAlertOptions({
+          description:
+            t('exportChatHistory.empty') || 'No chat history to export',
+          severity: 'error',
+        })
+      );
       return;
     }
 
     if (!pdfExporter.isSupported()) {
-      add(createAlertOptions({ description: t('exportChatHistory.pdfNotSupported') || 'PDF export is not supported in this browser', severity: 'error' }));
+      add(
+        createAlertOptions({
+          description:
+            t('exportChatHistory.pdfNotSupported') ||
+            'PDF export is not supported in this browser',
+          severity: 'error',
+        })
+      );
       return;
     }
 
@@ -309,11 +329,25 @@ const ShareButton: React.FC<Props> = ({
         }
       }, 500);
 
-      add(createAlertOptions({ description: t('exportChatHistory.success') || 'Chat exported to PDF successfully', severity: 'success' }));
+      add(
+        createAlertOptions({
+          description:
+            t('exportChatHistory.success') ||
+            'Chat exported to PDF successfully',
+          severity: 'success',
+        })
+      );
       flashMenuItem('export-pdf');
     } catch (error) {
       console.error('PDF export error:', error);
-      add(createAlertOptions({ description: t('exportChatHistory.error') || 'Failed to export chat to PDF. Please try again.', severity: 'error' }));
+      add(
+        createAlertOptions({
+          description:
+            t('exportChatHistory.error') ||
+            'Failed to export chat to PDF. Please try again.',
+          severity: 'error',
+        })
+      );
     } finally {
       setIsExportingPDF(false);
     }
@@ -332,7 +366,7 @@ const ShareButton: React.FC<Props> = ({
       return `${baseUrl ?? 'https://www.aisuru.com'}/${
         i18n.language === 'it' ? 'it' : 'en'
       }/shared/${memori.ownerUserName}/${memori.name}/${sessionID}`;
-    }
+    }``
 
     return undefined;
   }, [memori, sessionID, baseUrl, i18n.language]);
@@ -344,32 +378,35 @@ const ShareButton: React.FC<Props> = ({
         'memori-share-button--align-left': align === 'left',
       })}
     >
-      <Dropdown.Trigger
-        showChevron={false}
-        className="memori-share-button--trigger"
-        title={t('widget.share') || undefined}
-        render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
-          <Button
-            {...props}
-            variant="primary"
-            icon={<Share2 />}
-            title={t('widget.share') || undefined}
-          />
-        )}
-      />
+      <Tooltip content={t('widget.share') || undefined} placement="bottom">
+        <Dropdown.Trigger
+          showChevron={false}
+          className="memori-share-button--trigger"
+          render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+            <Button
+              {...props}
+              variant={primary ? 'primary' : 'outline'}
+              icon={<Share2 />}
+            />
+          )}
+        />
+      </Tooltip>
       <Dropdown.Menu className="memori-share-button--dropdown-menu">
         {memori && sessionID && sharedUrl && (
           <Dropdown.Item
             key="shared"
             closeOnClick={false}
             className={cx('memori-share-button--menu-item', {
-              'memori-share-button--menu-item--flash': menuFlashKey === 'share-chat',
+              'memori-share-button--menu-item--flash':
+                menuFlashKey === 'share-chat',
             })}
             onClick={() => {
               window.open(sharedUrl, '_blank');
               flashMenuItem('share-chat');
             }}
-            {...({ icon: <Share2 /> } as React.ComponentProps<typeof Dropdown.Item>)}
+            {...({ icon: <Share2 /> } as React.ComponentProps<
+              typeof Dropdown.Item
+            >)}
           >
             <span className="memori-share-button--dropdown-item-content">
               {t('widget.shareChat') || 'Share chat'}
@@ -381,11 +418,14 @@ const ShareButton: React.FC<Props> = ({
             key="export-pdf"
             closeOnClick={false}
             className={cx('memori-share-button--menu-item', {
-              'memori-share-button--menu-item--flash': menuFlashKey === 'export-pdf',
+              'memori-share-button--menu-item--flash':
+                menuFlashKey === 'export-pdf',
             })}
             onClick={handleExportPDF}
             disabled={isExportingPDF}
-            {...({ icon: <FileText /> } as React.ComponentProps<typeof Dropdown.Item>)}
+            {...({ icon: <FileText /> } as React.ComponentProps<
+              typeof Dropdown.Item
+            >)}
           >
             <span className="memori-share-button--dropdown-item-content">
               {isExportingPDF
@@ -400,7 +440,8 @@ const ShareButton: React.FC<Props> = ({
             'memori-share-button--menu-item',
             'memori-share-button--copy-item',
             {
-              'memori-share-button--copy-item--success': copyStatus === 'success',
+              'memori-share-button--copy-item--success':
+                copyStatus === 'success',
               'memori-share-button--copy-item--error': copyStatus === 'error',
             }
           )}
@@ -414,7 +455,10 @@ const ShareButton: React.FC<Props> = ({
                   strokeWidth={2.5}
                 />
               ) : (
-                <LinkIcon className="memori-share-button--copy-icon" aria-hidden />
+                <LinkIcon
+                  className="memori-share-button--copy-icon"
+                  aria-hidden
+                />
               ),
           } as React.ComponentProps<typeof Dropdown.Item>)}
         >
@@ -425,8 +469,8 @@ const ShareButton: React.FC<Props> = ({
             {copyStatus === 'success'
               ? t('copied')
               : copyStatus === 'error'
-                ? t('copyFailed', { defaultValue: 'Could not copy' })
-                : t('copyToClipboard') || undefined}
+              ? t('copyFailed', { defaultValue: 'Could not copy' })
+              : t('copyToClipboard') || undefined}
           </span>
         </Dropdown.Item>
         {socialShare.map(item => {
@@ -436,7 +480,8 @@ const ShareButton: React.FC<Props> = ({
               key={item.id}
               closeOnClick={false}
               className={cx('memori-share-button--menu-item', {
-                'memori-share-button--menu-item--flash': menuFlashKey === item.id,
+                'memori-share-button--menu-item--flash':
+                  menuFlashKey === item.id,
               })}
               onClick={() => {
                 if (item.id === 'email') {
@@ -446,7 +491,9 @@ const ShareButton: React.FC<Props> = ({
                 }
                 flashMenuItem(item.id);
               }}
-              {...({ icon: <IconComponent /> } as React.ComponentProps<typeof Dropdown.Item>)}
+              {...({ icon: <IconComponent /> } as React.ComponentProps<
+                typeof Dropdown.Item
+              >)}
             >
               <span className="memori-share-button--dropdown-item-content">
                 {item.title}
@@ -458,7 +505,8 @@ const ShareButton: React.FC<Props> = ({
           <Dropdown.Item
             closeOnClick={false}
             className={cx('memori-share-button--menu-item', {
-              'memori-share-button--menu-item--flash': menuFlashKey === 'qr-download',
+              'memori-share-button--menu-item--flash':
+                menuFlashKey === 'qr-download',
             })}
           >
             <QRCodeCanvas

@@ -55,7 +55,7 @@
 
 @import url('./components/layouts/hidden-chat.css');
 @import url('./components/layouts/totem.css');
-@import url('./components/layouts/website-assistant.css');
+@import url('./components/layouts/WebsiteAssistant/website-assistant.css');
 @import url('./components/layouts/chat.css');
 @import url('./components/layouts/fullpage.css');
 @import url('./components/layouts/zoomed-full-body.css');

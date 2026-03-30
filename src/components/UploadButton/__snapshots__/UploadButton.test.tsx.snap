@@ -12,36 +12,50 @@ exports[`renders UploadButton unchanged 1`] = `
       style="display: none;"
       type="file"
     />
-    <button
-      class="memori-button memori-button--circle memori-button--icon-only memori-share-button--button memori--conversation-button memori--unified-upload-button"
-      title="upload.uploadFiles"
+    <span
+      class="styles-module__root___-ALla memori--upload-button-tooltip"
     >
-      <svg
-        class="lucide lucide-upload memori--upload-icon"
-        fill="none"
-        height="24"
-        stroke="currentColor"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        viewBox="0 0 24 24"
-        width="24"
-        xmlns="http://www.w3.org/2000/svg"
+      <span
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r1:"
       >
-        <path
-          d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
-        />
-        <polyline
-          points="17 8 12 3 7 8"
-        />
-        <line
-          x1="12"
-          x2="12"
-          y1="3"
-          y2="15"
-        />
-      </svg>
-    </button>
+        <button
+          class="memori-button memori-button--ghost memori-button--md"
+          tabindex="0"
+          type="button"
+        >
+          <span
+            class="memori-button__content"
+          >
+            <svg
+              class="lucide lucide-upload memori--upload-icon"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+              />
+              <polyline
+                points="17 8 12 3 7 8"
+              />
+              <line
+                x1="12"
+                x2="12"
+                y1="3"
+                y2="15"
+              />
+            </svg>
+          </span>
+        </button>
+      </span>
+    </span>
     <div
       class="memori--hidden-uploader"
     >

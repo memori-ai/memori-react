@@ -2,7 +2,6 @@
 .memori--unified-upload-wrapper {
   position: relative;
   display: inline-block;
-  margin-right: var(--memori-spacing-sm);
 }
 
 /* Component Containers - Combined selectors for shared properties */

@@ -44,6 +44,8 @@
   "copy": "Copy",
   "copyRawCode": "Copy raw code",
   "feedback": "Feedback",
+  "feedbackThankYou": "Thank you for your feedback.",
+  "copyFailed": "Could not copy",
   "functionCache": "Function cache",
   "copyToClipboard": "Copy to clipboard",
   "showOriginalText": "Show original",
@@ -135,7 +137,8 @@
     "boardOfExperts": "Board of experts",
     "showExpertsInTheBoard": "Show experts in this board",
     "expertsInTheBoard": "Experts in this board",
-    "goToIntegrationsToCustomizeAvatar": "To customize the avatar, go to Share and customize the public page"
+    "goToIntegrationsToCustomizeAvatar": "To customize the avatar, go to Share and customize the public page",
+    "chatAssistantStatus": "Active • Replies in a few seconds"
   },
   "exportChatHistory": {
     "exportPDF": "Export chat as PDF",
@@ -149,7 +152,7 @@
     "micButtonPopover": "Click the button to speak",
     "micButtonPopoverListening": "Click the button to stop speak",
     "pageInstructExplanation": "To teach me new things click on the INSTRUCT ME button to get started",
-    "pageTryMeExplanation": "To talk to me click on the START button to get started",
+    "pageTryMeExplanation": "To start talking to me click on the START button",
     "pagePrivacyExplanation": "The conversations are visible by the author of the agent",
     "downloadChat": "Download chat",
     "pagePrivacyExplanationList": {
@@ -279,7 +282,7 @@
     "pastedText": "pasted-text",
     "uploadNotification": "Upload Failed",
     "loginRequiredDescription": "Please login to upload images",
-    "uploadFiles": "Upload files ({{shortcut}}+O to open file chooser)",
+    "uploadFiles": "Upload files (drag and drop)",
     "uploadFilesWithShortcut": "{{shortcut}}+O to open file chooser",
     "uploadImages": "Upload images",
     "replace": "Replace",

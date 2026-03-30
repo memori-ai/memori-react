@@ -20,7 +20,7 @@
 /* Override drawer width for ArtifactDrawer */
 .memori-artifact-panel-drawer {
     --memori-drawer--width-lg: 46%;
-    background-color: var(--memori-main-background);
+    /* background-color: var(--memori-main-background); */
     /* Ensure drawer doesn't block left side chat interaction */
     pointer-events: none;
 }
@@ -611,7 +611,6 @@
     display: flex;
     flex-flow: row;
     align-items: center;
-    margin-top: var(--memori-spacing-lg);
     /* justify-content: space-between; */
     gap: var(--memori-spacing-sm);
 }

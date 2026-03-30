@@ -44,6 +44,8 @@
   "copy": "Copia",
   "copyRawCode": "Copia codice sorgente",
   "feedback": "Feedback",
+  "feedbackThankYou": "Grazie per il feedback.",
+  "copyFailed": "Impossibile copiare",
   "functionCache": "Cache delle funzioni",
   "copyToClipboard": "Copia negli appunti",
   "showOriginalText": "Mostra originale",
@@ -135,7 +137,8 @@
     "boardOfExperts": "Board di esperti",
     "showExpertsInTheBoard": "Mostra esperti in questa board",
     "expertsInTheBoard": "Esperti in questa board",
-    "goToIntegrationsToCustomizeAvatar": "Per personalizzare l'avatar, vai a Condividimi e configura la pagina pubblica"
+    "goToIntegrationsToCustomizeAvatar": "Per personalizzare l'avatar, vai a Condividimi e configura la pagina pubblica",
+    "chatAssistantStatus": "Attiva • Risponde in pochi secondi"
   },
   "exportChatHistory": {
     "exportPDF": "Esporta chat come PDF",
@@ -149,7 +152,7 @@
     "micButtonPopover": "Premi il pulsante per parlare",
     "micButtonPopoverListening": "Premi il pulsante per smettere di parlare",
     "pageInstructExplanation": "Per insegnarmi nuove cose clicca sul pulsante ISTRUISCIMI per cominciare",
-    "pageTryMeExplanation": "Per parlare con me clicca sul pulsante INIZIAMO per cominciare",
+    "pageTryMeExplanation": "Per iniziare a conversare con me clicca sul pulsante INIZIAMO",
     "pagePrivacyExplanation": "Le conversazioni sono visibili all'autore dell'agente",
     "downloadChat": "Scarica chat",
     "pagePrivacyExplanationList": {
@@ -302,7 +305,7 @@
     "pastedText": "testo-copiato",
     "uploadNotification": "Upload Fallito",
     "loginRequiredDescription": "Per caricare immagini, devi prima accedere",
-    "uploadFiles": "Carica file ({{shortcut}}+O per aprire il selettore file)",
+    "uploadFiles": "Carica file (drag and drop)",
     "uploadFilesWithShortcut": "{{shortcut}}+O per aprire il selettore file",
     "uploadImages": "Carica immagini",
     "lastDocumentSlot": "Carica ultimo documento",

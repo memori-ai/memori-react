@@ -5,60 +5,68 @@ exports[`renders ShareButton aligned left unchanged 1`] = `
   <div
     class="memori-dropdown memori-share-button memori-share-button--align-left"
   >
-    <button
-      aria-expanded="false"
-      aria-haspopup="menu"
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      id="base-ui-:r12:"
-      tabindex="0"
-      title="widget.share"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r1d:"
       >
-        <svg
-          class="lucide lucide-share2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          aria-expanded="false"
+          aria-haspopup="menu"
+          class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
+          id="base-ui-:r1e:"
+          tabindex="0"
+          type="button"
         >
-          <circle
-            cx="18"
-            cy="5"
-            r="3"
-          />
-          <circle
-            cx="6"
-            cy="12"
-            r="3"
-          />
-          <circle
-            cx="18"
-            cy="19"
-            r="3"
-          />
-          <line
-            x1="8.59"
-            x2="15.42"
-            y1="13.51"
-            y2="17.49"
-          />
-          <line
-            x1="15.41"
-            x2="8.59"
-            y1="6.51"
-            y2="10.49"
-          />
-        </svg>
+          <span
+            class="memori-button__icon"
+          >
+            <svg
+              class="lucide lucide-share2"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="18"
+                cy="5"
+                r="3"
+              />
+              <circle
+                cx="6"
+                cy="12"
+                r="3"
+              />
+              <circle
+                cx="18"
+                cy="19"
+                r="3"
+              />
+              <line
+                x1="8.59"
+                x2="15.42"
+                y1="13.51"
+                y2="17.49"
+              />
+              <line
+                x1="15.41"
+                x2="8.59"
+                y1="6.51"
+                y2="10.49"
+              />
+            </svg>
+          </span>
+        </button>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -77,60 +85,68 @@ exports[`renders ShareButton unchanged 1`] = `
   <div
     class="memori-dropdown memori-share-button"
   >
-    <button
-      aria-expanded="false"
-      aria-haspopup="menu"
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      id="base-ui-:r4:"
-      tabindex="0"
-      title="widget.share"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r5:"
       >
-        <svg
-          class="lucide lucide-share2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          aria-expanded="false"
+          aria-haspopup="menu"
+          class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
+          id="base-ui-:r6:"
+          tabindex="0"
+          type="button"
         >
-          <circle
-            cx="18"
-            cy="5"
-            r="3"
-          />
-          <circle
-            cx="6"
-            cy="12"
-            r="3"
-          />
-          <circle
-            cx="18"
-            cy="19"
-            r="3"
-          />
-          <line
-            x1="8.59"
-            x2="15.42"
-            y1="13.51"
-            y2="17.49"
-          />
-          <line
-            x1="15.41"
-            x2="8.59"
-            y1="6.51"
-            y2="10.49"
-          />
-        </svg>
+          <span
+            class="memori-button__icon"
+          >
+            <svg
+              class="lucide lucide-share2"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="18"
+                cy="5"
+                r="3"
+              />
+              <circle
+                cx="6"
+                cy="12"
+                r="3"
+              />
+              <circle
+                cx="18"
+                cy="19"
+                r="3"
+              />
+              <line
+                x1="8.59"
+                x2="15.42"
+                y1="13.51"
+                y2="17.49"
+              />
+              <line
+                x1="15.41"
+                x2="8.59"
+                y1="6.51"
+                y2="10.49"
+              />
+            </svg>
+          </span>
+        </button>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -149,60 +165,68 @@ exports[`renders ShareButton with button not primary unchanged 1`] = `
   <div
     class="memori-dropdown memori-share-button"
   >
-    <button
-      aria-expanded="false"
-      aria-haspopup="menu"
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      id="base-ui-:rm:"
-      tabindex="0"
-      title="widget.share"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:rt:"
       >
-        <svg
-          class="lucide lucide-share2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          aria-expanded="false"
+          aria-haspopup="menu"
+          class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
+          id="base-ui-:ru:"
+          tabindex="0"
+          type="button"
         >
-          <circle
-            cx="18"
-            cy="5"
-            r="3"
-          />
-          <circle
-            cx="6"
-            cy="12"
-            r="3"
-          />
-          <circle
-            cx="18"
-            cy="19"
-            r="3"
-          />
-          <line
-            x1="8.59"
-            x2="15.42"
-            y1="13.51"
-            y2="17.49"
-          />
-          <line
-            x1="15.41"
-            x2="8.59"
-            y1="6.51"
-            y2="10.49"
-          />
-        </svg>
+          <span
+            class="memori-button__icon"
+          >
+            <svg
+              class="lucide lucide-share2"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="18"
+                cy="5"
+                r="3"
+              />
+              <circle
+                cx="6"
+                cy="12"
+                r="3"
+              />
+              <circle
+                cx="18"
+                cy="19"
+                r="3"
+              />
+              <line
+                x1="8.59"
+                x2="15.42"
+                y1="13.51"
+                y2="17.49"
+              />
+              <line
+                x1="15.41"
+                x2="8.59"
+                y1="6.51"
+                y2="10.49"
+              />
+            </svg>
+          </span>
+        </button>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -221,60 +245,68 @@ exports[`renders ShareButton with other tenant img set unchanged 1`] = `
   <div
     class="memori-dropdown memori-share-button"
   >
-    <button
-      aria-expanded="false"
-      aria-haspopup="menu"
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      id="base-ui-:r1e:"
-      tabindex="0"
-      title="widget.share"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r1t:"
       >
-        <svg
-          class="lucide lucide-share2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          aria-expanded="false"
+          aria-haspopup="menu"
+          class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
+          id="base-ui-:r1u:"
+          tabindex="0"
+          type="button"
         >
-          <circle
-            cx="18"
-            cy="5"
-            r="3"
-          />
-          <circle
-            cx="6"
-            cy="12"
-            r="3"
-          />
-          <circle
-            cx="18"
-            cy="19"
-            r="3"
-          />
-          <line
-            x1="8.59"
-            x2="15.42"
-            y1="13.51"
-            y2="17.49"
-          />
-          <line
-            x1="15.41"
-            x2="8.59"
-            y1="6.51"
-            y2="10.49"
-          />
-        </svg>
+          <span
+            class="memori-button__icon"
+          >
+            <svg
+              class="lucide lucide-share2"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="18"
+                cy="5"
+                r="3"
+              />
+              <circle
+                cx="6"
+                cy="12"
+                r="3"
+              />
+              <circle
+                cx="18"
+                cy="19"
+                r="3"
+              />
+              <line
+                x1="8.59"
+                x2="15.42"
+                y1="13.51"
+                y2="17.49"
+              />
+              <line
+                x1="15.41"
+                x2="8.59"
+                y1="6.51"
+                y2="10.49"
+              />
+            </svg>
+          </span>
+        </button>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -293,60 +325,68 @@ exports[`renders ShareButton with share chat unchanged 1`] = `
   <div
     class="memori-dropdown memori-share-button"
   >
-    <button
-      aria-expanded="false"
-      aria-haspopup="menu"
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      id="base-ui-:r1k:"
-      tabindex="0"
-      title="widget.share"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r25:"
       >
-        <svg
-          class="lucide lucide-share2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          aria-expanded="false"
+          aria-haspopup="menu"
+          class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
+          id="base-ui-:r26:"
+          tabindex="0"
+          type="button"
         >
-          <circle
-            cx="18"
-            cy="5"
-            r="3"
-          />
-          <circle
-            cx="6"
-            cy="12"
-            r="3"
-          />
-          <circle
-            cx="18"
-            cy="19"
-            r="3"
-          />
-          <line
-            x1="8.59"
-            x2="15.42"
-            y1="13.51"
-            y2="17.49"
-          />
-          <line
-            x1="15.41"
-            x2="8.59"
-            y1="6.51"
-            y2="10.49"
-          />
-        </svg>
+          <span
+            class="memori-button__icon"
+          >
+            <svg
+              class="lucide lucide-share2"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="18"
+                cy="5"
+                r="3"
+              />
+              <circle
+                cx="6"
+                cy="12"
+                r="3"
+              />
+              <circle
+                cx="18"
+                cy="19"
+                r="3"
+              />
+              <line
+                x1="8.59"
+                x2="15.42"
+                y1="13.51"
+                y2="17.49"
+              />
+              <line
+                x1="15.41"
+                x2="8.59"
+                y1="6.51"
+                y2="10.49"
+              />
+            </svg>
+          </span>
+        </button>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -365,60 +405,68 @@ exports[`renders ShareButton with tenant img set unchanged 1`] = `
   <div
     class="memori-dropdown memori-share-button"
   >
-    <button
-      aria-expanded="false"
-      aria-haspopup="menu"
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      id="base-ui-:r18:"
-      tabindex="0"
-      title="widget.share"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r1l:"
       >
-        <svg
-          class="lucide lucide-share2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          aria-expanded="false"
+          aria-haspopup="menu"
+          class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
+          id="base-ui-:r1m:"
+          tabindex="0"
+          type="button"
         >
-          <circle
-            cx="18"
-            cy="5"
-            r="3"
-          />
-          <circle
-            cx="6"
-            cy="12"
-            r="3"
-          />
-          <circle
-            cx="18"
-            cy="19"
-            r="3"
-          />
-          <line
-            x1="8.59"
-            x2="15.42"
-            y1="13.51"
-            y2="17.49"
-          />
-          <line
-            x1="15.41"
-            x2="8.59"
-            y1="6.51"
-            y2="10.49"
-          />
-        </svg>
+          <span
+            class="memori-button__icon"
+          >
+            <svg
+              class="lucide lucide-share2"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="18"
+                cy="5"
+                r="3"
+              />
+              <circle
+                cx="6"
+                cy="12"
+                r="3"
+              />
+              <circle
+                cx="18"
+                cy="19"
+                r="3"
+              />
+              <line
+                x1="8.59"
+                x2="15.42"
+                y1="13.51"
+                y2="17.49"
+              />
+              <line
+                x1="15.41"
+                x2="8.59"
+                y1="6.51"
+                y2="10.49"
+              />
+            </svg>
+          </span>
+        </button>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -437,60 +485,68 @@ exports[`renders ShareButton with title unchanged 1`] = `
   <div
     class="memori-dropdown memori-share-button"
   >
-    <button
-      aria-expanded="false"
-      aria-haspopup="menu"
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      id="base-ui-:rg:"
-      tabindex="0"
-      title="widget.share"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:rl:"
       >
-        <svg
-          class="lucide lucide-share2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          aria-expanded="false"
+          aria-haspopup="menu"
+          class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
+          id="base-ui-:rm:"
+          tabindex="0"
+          type="button"
         >
-          <circle
-            cx="18"
-            cy="5"
-            r="3"
-          />
-          <circle
-            cx="6"
-            cy="12"
-            r="3"
-          />
-          <circle
-            cx="18"
-            cy="19"
-            r="3"
-          />
-          <line
-            x1="8.59"
-            x2="15.42"
-            y1="13.51"
-            y2="17.49"
-          />
-          <line
-            x1="15.41"
-            x2="8.59"
-            y1="6.51"
-            y2="10.49"
-          />
-        </svg>
+          <span
+            class="memori-button__icon"
+          >
+            <svg
+              class="lucide lucide-share2"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="18"
+                cy="5"
+                r="3"
+              />
+              <circle
+                cx="6"
+                cy="12"
+                r="3"
+              />
+              <circle
+                cx="18"
+                cy="19"
+                r="3"
+              />
+              <line
+                x1="8.59"
+                x2="15.42"
+                y1="13.51"
+                y2="17.49"
+              />
+              <line
+                x1="15.41"
+                x2="8.59"
+                y1="6.51"
+                y2="10.49"
+              />
+            </svg>
+          </span>
+        </button>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -509,60 +565,68 @@ exports[`renders ShareButton with url unchanged 1`] = `
   <div
     class="memori-dropdown memori-share-button"
   >
-    <button
-      aria-expanded="false"
-      aria-haspopup="menu"
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      id="base-ui-:ra:"
-      tabindex="0"
-      title="widget.share"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:rd:"
       >
-        <svg
-          class="lucide lucide-share2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          aria-expanded="false"
+          aria-haspopup="menu"
+          class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
+          id="base-ui-:re:"
+          tabindex="0"
+          type="button"
         >
-          <circle
-            cx="18"
-            cy="5"
-            r="3"
-          />
-          <circle
-            cx="6"
-            cy="12"
-            r="3"
-          />
-          <circle
-            cx="18"
-            cy="19"
-            r="3"
-          />
-          <line
-            x1="8.59"
-            x2="15.42"
-            y1="13.51"
-            y2="17.49"
-          />
-          <line
-            x1="15.41"
-            x2="8.59"
-            y1="6.51"
-            y2="10.49"
-          />
-        </svg>
+          <span
+            class="memori-button__icon"
+          >
+            <svg
+              class="lucide lucide-share2"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="18"
+                cy="5"
+                r="3"
+              />
+              <circle
+                cx="6"
+                cy="12"
+                r="3"
+              />
+              <circle
+                cx="18"
+                cy="19"
+                r="3"
+              />
+              <line
+                x1="8.59"
+                x2="15.42"
+                y1="13.51"
+                y2="17.49"
+              />
+              <line
+                x1="15.41"
+                x2="8.59"
+                y1="6.51"
+                y2="10.49"
+              />
+            </svg>
+          </span>
+        </button>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -581,60 +645,68 @@ exports[`renders ShareButton without qr code unchanged 1`] = `
   <div
     class="memori-dropdown memori-share-button"
   >
-    <button
-      aria-expanded="false"
-      aria-haspopup="menu"
-      class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-      id="base-ui-:rs:"
-      tabindex="0"
-      title="widget.share"
-      type="button"
+    <span
+      class="styles-module__root___-ALla"
     >
       <span
-        class="memori-button__icon"
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r15:"
       >
-        <svg
-          class="lucide lucide-share2"
-          fill="none"
-          height="24"
-          stroke="currentColor"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          viewBox="0 0 24 24"
-          width="24"
-          xmlns="http://www.w3.org/2000/svg"
+        <button
+          aria-expanded="false"
+          aria-haspopup="menu"
+          class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
+          id="base-ui-:r16:"
+          tabindex="0"
+          type="button"
         >
-          <circle
-            cx="18"
-            cy="5"
-            r="3"
-          />
-          <circle
-            cx="6"
-            cy="12"
-            r="3"
-          />
-          <circle
-            cx="18"
-            cy="19"
-            r="3"
-          />
-          <line
-            x1="8.59"
-            x2="15.42"
-            y1="13.51"
-            y2="17.49"
-          />
-          <line
-            x1="15.41"
-            x2="8.59"
-            y1="6.51"
-            y2="10.49"
-          />
-        </svg>
+          <span
+            class="memori-button__icon"
+          >
+            <svg
+              class="lucide lucide-share2"
+              fill="none"
+              height="24"
+              stroke="currentColor"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+              width="24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <circle
+                cx="18"
+                cy="5"
+                r="3"
+              />
+              <circle
+                cx="6"
+                cy="12"
+                r="3"
+              />
+              <circle
+                cx="18"
+                cy="19"
+                r="3"
+              />
+              <line
+                x1="8.59"
+                x2="15.42"
+                y1="13.51"
+                y2="17.49"
+              />
+              <line
+                x1="15.41"
+                x2="8.59"
+                y1="6.51"
+                y2="10.49"
+              />
+            </svg>
+          </span>
+        </button>
       </span>
-    </button>
+    </span>
   </div>
   <div
     aria-atomic="false"

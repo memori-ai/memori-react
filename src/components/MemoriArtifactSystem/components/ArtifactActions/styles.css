@@ -13,6 +13,7 @@
         0 10px 10px -5px color-mix(in srgb, var(--memori-text-color) 8%, transparent);
     position: relative;
     display: inline-block;
+    margin-left: auto;
 }
 
 .memori-copy-button-trigger {
@@ -26,7 +27,7 @@
     position: relative;
     display: inline-flex;
     overflow: hidden;
-    min-height: 36px;
+    min-height: 48px;
     align-items: center;
     padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: 1px solid var(--memori-copy-border);
@@ -88,7 +89,7 @@
     position: relative;
     display: inline-flex;
     overflow: hidden;
-    min-height: 36px;
+    min-height: 48px;
     align-items: center;
     padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     padding-right: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
