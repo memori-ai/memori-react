@@ -1,8 +1,7 @@
 import React, { useState, useMemo } from 'react';
-import { Spin } from '@memori.ai/ui';
-import { LayoutProps } from '../MemoriWidget/MemoriWidget';
-import { Button } from '@memori.ai/ui';
-import Blob from '../Blob/Blob';
+import { Spin, Button } from '@memori.ai/ui';
+import { LayoutProps } from '../../MemoriWidget/MemoriWidget';
+import Blob from '../../Blob/Blob';
 import { X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
@@ -53,19 +52,12 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
           </Button>
         </div>
       )}
-      <div
-        className={`memori-website_assistant--${
-          collapsed ? 'collapsed' : 'expanded'
-        }`}
-      >
+      <div className={`memori-website_assistant--${collapsed ? 'collapsed' : 'expanded'}`}>
         {!collapsed && (
           <>
             {integrationStyle}
 
-            <Spin
-              spinning={loading}
-              className="memori-website_assistant-layout"
-            >
+            <Spin spinning={loading} className="memori-website_assistant-layout">
               {poweredBy}
 
               <div className="memori-website_assistant--close-button-wrapper">
@@ -79,11 +71,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
               </div>
 
               {Header && headerProps && (
-                              <Header
-                    {...headerProps}
-                    showSettings={false}
-                    showReload={false}
-                  />
+                <Header {...headerProps} showSettings={false} showReload={false} />
               )}
 
               {!(avatar3dHidden === true || avatar3dHidden === 'true') && (
@@ -97,9 +85,7 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                               ...avatarProps.integrationConfig,
                               avatarURL: avatarProps.integrationConfig?.avatarURL
                                 ? `${
-                                    avatarProps.integrationConfig?.avatarURL.split(
-                                      '#'
-                                    )[0]
+                                    avatarProps.integrationConfig?.avatarURL.split('#')[0]
                                   }#${expandedKey}`
                                 : undefined,
                             }

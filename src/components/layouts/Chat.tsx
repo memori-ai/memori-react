@@ -1,8 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Spin } from '@memori.ai/ui';
+import { useTranslation } from 'react-i18next';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
-import ArtifactDrawer from '../MemoriArtifactSystem/components/ArtifactDrawer/ArtifactDrawer';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
+import { getResourceUrl } from '../../helpers/media';
+import ChatInputs from '../ChatInputs/ChatInputs';
+import {
+  maxDocumentsPerMessage,
+  maxDocumentContentLength,
+  maxTotalMessagePayloadDefault,
+  pasteAsCardLineThreshold,
+  pasteAsCardCharThreshold,
+} from '../../helpers/constants';
 
 const ChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -18,7 +27,29 @@ const ChatLayout: React.FC<LayoutProps> = ({
   loading = false,
   poweredBy,
 }) => {
+  const { t } = useTranslation();
   const { state } = useArtifact();
+
+  const memori = headerProps?.memori;
+  const tenant = headerProps?.tenant;
+  const baseUrl = headerProps?.baseUrl;
+
+  const brandAvatarSrc = memori
+    ? memori.avatarURL && memori.avatarURL.length > 0
+      ? getResourceUrl({
+          type: 'avatar',
+          tenantID: tenant?.name,
+          resourceURI: memori.avatarURL,
+          baseURL: baseUrl,
+          apiURL: '',
+        })
+      : getResourceUrl({
+          type: 'avatar',
+          tenantID: tenant?.name,
+          baseURL: baseUrl,
+          apiURL: '',
+        })
+    : undefined;
 
   return (
     <>
@@ -53,14 +84,88 @@ const ChatLayout: React.FC<LayoutProps> = ({
                   : ''
               }`}
             >
-              {Header && headerProps && <Header {...headerProps} />}
+              {Header && headerProps && (
+                <div className="memori-chat-layout--header-row">
+                  {memori && brandAvatarSrc && (
+                    <div className="memori-chat-layout--brand">
+                      <img
+                        className="memori-chat-layout--brand-avatar"
+                        src={brandAvatarSrc}
+                        alt=""
+                        role="presentation"
+                      />
+                      <div className="memori-chat-layout--brand-text">
+                        <span className="memori-chat-layout--brand-name">
+                          {memori.name}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  <Header {...headerProps} buttonVariant="outline" />
+                </div>
+              )}
             </div>
 
-            {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
-              <Chat {...chatProps} />
-            ) : startPanelProps ? (
-              <StartPanel {...startPanelProps} />
-            ) : null}
+            <div className="memori-chat-layout--body">
+              {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+                <Chat {...chatProps} />
+              ) : startPanelProps ? (
+                <div
+                  className="memori-chat-layout--start-shell"
+                  id="chat-wrapper"
+                >
+                  <div className="memori-chat-layout--start-panel-wrap">
+                    <StartPanel {...startPanelProps} />
+                  </div>
+                  {Chat &&
+                    chatProps &&
+                    chatProps.showInputs !== false && (
+                      <div className="memori-chat-layout--prechat-inputs">
+                        <ChatInputs
+                          userMessage={chatProps.userMessage}
+                          onChangeUserMessage={chatProps.onChangeUserMessage}
+                          dialogState={chatProps.dialogState}
+                          instruct={chatProps.instruct}
+                          authToken={chatProps.authToken}
+                          sendMessage={chatProps.sendMessage}
+                          isTyping={chatProps.memoriTyping}
+                          microphoneMode={chatProps.microphoneMode}
+                          sendOnEnter={chatProps.sendOnEnter}
+                          setSendOnEnter={chatProps.setSendOnEnter}
+                          client={chatProps.client}
+                          sessionID={chatProps.sessionID}
+                          showUpload={chatProps.showUpload}
+                          attachmentsMenuOpen={chatProps.attachmentsMenuOpen}
+                          setAttachmentsMenuOpen={
+                            chatProps.setAttachmentsMenuOpen
+                          }
+                          onTextareaFocus={() => {
+                            chatProps.stopListening?.();
+                          }}
+                          onTextareaBlur={() => {}}
+                          onTextareaExpanded={() => {}}
+                          startListening={chatProps.startListening}
+                          stopListening={chatProps.stopListening}
+                          stopAudio={chatProps.stopAudio}
+                          listening={chatProps.listening}
+                          isPlayingAudio={chatProps.isPlayingAudio}
+                          showMicrophone={chatProps.showMicrophone}
+                          memoriID={chatProps.memori?.memoriID}
+                          maxTotalMessagePayload={
+                            chatProps.maxTotalMessagePayload ??
+                            maxTotalMessagePayloadDefault
+                          }
+                          maxTextareaCharacters={chatProps.maxTextareaCharacters}
+                          maxDocumentsPerMessage={maxDocumentsPerMessage}
+                          maxDocumentContentLength={maxDocumentContentLength}
+                          pasteAsCardLineThreshold={pasteAsCardLineThreshold}
+                          pasteAsCardCharThreshold={pasteAsCardCharThreshold}
+                        />
+                      </div>
+                    )}
+                </div>
+              ) : null}
+            </div>
           </div>
         </div>
       </Spin>

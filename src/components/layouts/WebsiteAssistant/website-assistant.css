@@ -101,9 +101,6 @@
         height: 96px !important;
     }
 
-
-
-
     .memori-website_assistant--trigger-button .memori-blob .mainDiv {
         width: 96px !important;
         height: 96px !important;
@@ -193,6 +190,7 @@
     height: min(85vh, calc(100vh - var(--memori-spacing-5xl)));
     padding: 0.5rem 0rem;
     margin-bottom: 0;
+    background: var(--memori-main-background);
     opacity: 1;
     pointer-events: all;
 }
@@ -302,8 +300,9 @@
 }
 
 .memori-website_assistant-layout .memori-header {
-    position: relative;
     z-index: 1000;
+    top: 0.75rem;
+    right: 0.75rem;
     display: inline-flex;
     width: auto;
     height: auto;
@@ -346,6 +345,7 @@
     position: relative;
     overflow: hidden;
     min-height: 0;
+    max-height: 35vh;
     flex: 1;
     /* Prevent avatar/blob from growing unbounded and overlapping header/controls */
     contain: layout style;
@@ -434,7 +434,7 @@
 
 .memori-website_assistant-layout--controls .memori-chat--history,
 .memori-website_assistant-layout--controls .memori-chat--content {
-    background:  var(--memori-secondary-background);
+    background: var(--memori-secondary-background);
 }
 
 .memori-website_assistant-layout--controls .memori-chat--history {
@@ -483,9 +483,11 @@
 }
 
 .memori-website_assistant-layout--controls .memori--start-panel {
+    flex: 1;
     padding: 1rem;
     border-radius: var(--memori-radius-box);
     margin: 0.75rem;
+    margin-bottom: var(--memori-spacing-2xl) !important;
 }
 
 /* Tablet and up */
@@ -666,3 +668,4 @@
         padding: 0.875rem;
     }
 }
+

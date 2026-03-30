@@ -225,7 +225,6 @@
   justify-content: center;
   border-radius: var(--memori-radius-box);
   aspect-ratio: 1;
-  background-color: var(--memori-primary);
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 }

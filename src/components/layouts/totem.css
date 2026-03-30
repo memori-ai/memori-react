@@ -122,6 +122,7 @@
 .memori-totem-layout--controls .memori-chat--history,
 .memori-totem-layout--controls .memori-chat--content {
     z-index: 100;
+    backdrop-filter: blur(10px);
     background: transparent;
 }
 
