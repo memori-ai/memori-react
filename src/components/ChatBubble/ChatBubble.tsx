@@ -17,6 +17,7 @@ import {
   Copy,
   Code,
   Bug,
+  Check,
 } from 'lucide-react';
 import { Tooltip } from '@memori.ai/ui';
 import FeedbackButtons from '../FeedbackButtons/FeedbackButtons';
@@ -27,6 +28,9 @@ import { stripHTML, stripOutputTags } from '../../helpers/utils';
 import { renderMsg, truncateMessage } from '../../helpers/message';
 import { Expandable, Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
+
+/** Same reset window as ShareButton copy feedback */
+const COPY_FEEDBACK_MS = 2500;
 
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
@@ -89,11 +93,11 @@ const ChatBubble: React.FC<Props> = ({
   const lang = i18n.language || 'en';
   const [showingWhyThisAnswer, setShowingWhyThisAnswer] = useState(false);
   const [openFunctionCache, setOpenFunctionCache] = useState(false);
-  const [copyFeedback, setCopyFeedback] = useState({
-    plain: false,
-    raw: false,
-  });
-  const copyFeedbackTimers = useRef<{
+  const [copyStatus, setCopyStatus] = useState<{
+    plain: 'idle' | 'success' | 'error';
+    raw: 'idle' | 'success' | 'error';
+  }>({ plain: 'idle', raw: 'idle' });
+  const copyResetTimers = useRef<{
     plain: ReturnType<typeof setTimeout> | null;
     raw: ReturnType<typeof setTimeout> | null;
   }>({
@@ -182,39 +186,46 @@ const ChatBubble: React.FC<Props> = ({
   useEffect(() => {
     return () => {
       (
-        Object.keys(copyFeedbackTimers.current) as Array<'plain' | 'raw'>
+        Object.keys(copyResetTimers.current) as Array<'plain' | 'raw'>
       ).forEach(key => {
-        const timer = copyFeedbackTimers.current[key];
+        const timer = copyResetTimers.current[key];
         if (timer) {
           clearTimeout(timer);
-          copyFeedbackTimers.current[key] = null;
+          copyResetTimers.current[key] = null;
         }
       });
     };
   }, []);
 
-  const triggerCopyFeedback = (type: 'plain' | 'raw') => {
-    setCopyFeedback(prev => ({ ...prev, [type]: true }));
-    if (copyFeedbackTimers.current[type]) {
-      clearTimeout(copyFeedbackTimers.current[type]!);
+  const clearCopyReset = (type: 'plain' | 'raw') => {
+    if (copyResetTimers.current[type]) {
+      clearTimeout(copyResetTimers.current[type]!);
+      copyResetTimers.current[type] = null;
     }
-    copyFeedbackTimers.current[type] = setTimeout(() => {
-      setCopyFeedback(prev => ({ ...prev, [type]: false }));
-      copyFeedbackTimers.current[type] = null;
-    }, 1500);
   };
 
-  const handleCopyClick = (type: 'plain' | 'raw', text: string) => {
+  const scheduleCopyReset = (type: 'plain' | 'raw') => {
+    clearCopyReset(type);
+    copyResetTimers.current[type] = setTimeout(() => {
+      setCopyStatus(prev => ({ ...prev, [type]: 'idle' }));
+      copyResetTimers.current[type] = null;
+    }, COPY_FEEDBACK_MS);
+  };
+
+  const handleCopyClick = async (type: 'plain' | 'raw', text: string) => {
     if (!text?.length) return;
-    if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
-      navigator.clipboard
-        .writeText(text)
-        .then(() => triggerCopyFeedback(type))
-        .catch(err => {
-          console.error('Copy failed', err);
-        });
-    } else {
-      triggerCopyFeedback(type);
+    try {
+      if (typeof navigator !== 'undefined' && navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(text);
+      } else {
+        throw new Error('Clipboard unavailable');
+      }
+      setCopyStatus(prev => ({ ...prev, [type]: 'success' }));
+      scheduleCopyReset(type);
+    } catch (err) {
+      console.error('Copy failed', err);
+      setCopyStatus(prev => ({ ...prev, [type]: 'error' }));
+      scheduleCopyReset(type);
     }
   };
 
@@ -425,83 +436,111 @@ const ChatBubble: React.FC<Props> = ({
                 <Tooltip
                   placement="bottom"
                   content={
-                    copyFeedback.plain ? copiedLabel : t('copy') || 'Copy'
+                    copyStatus.plain === 'success'
+                      ? copiedLabel
+                      : copyStatus.plain === 'error'
+                        ? t('copyFailed')
+                        : t('copy') || 'Copy'
                   }
                 >
                   <span className="memori-chat--bubble-addon-tooltip-trigger">
                     <Button
                       variant="ghost"
                       shape="circle"
+                      type="button"
+                      aria-label={
+                        copyStatus.plain === 'success'
+                          ? String(copiedLabel)
+                          : copyStatus.plain === 'error'
+                            ? String(t('copyFailed'))
+                            : String(t('copy') || 'Copy')
+                      }
+                      className={cx(
+                        'memori-chat--bubble-action-button',
+                        'memori-share-button--copy-item',
+                        {
+                          'memori-share-button--copy-item--success':
+                            copyStatus.plain === 'success',
+                          'memori-share-button--copy-item--error':
+                            copyStatus.plain === 'error',
+                        }
+                      )}
                       icon={
-                        <Copy
-                          aria-label={
-                            copyFeedback.plain
-                              ? copiedLabel
-                              : t('copy') || 'Copy'
-                          }
-                          style={{
-                            color: message.fromUser
-                              ? '#fff'
-                              : 'var(--memori-text-color)',
-                          }}
-                        />
+                        copyStatus.plain === 'success' ? (
+                          <Check
+                            className="memori-share-button--copy-icon"
+                            aria-hidden
+                            strokeWidth={2.5}
+                          />
+                        ) : (
+                          <Copy
+                            className="memori-share-button--copy-icon"
+                            aria-hidden
+                            style={
+                              copyStatus.plain === 'idle' && message.fromUser
+                                ? { color: '#fff' }
+                                : undefined
+                            }
+                          />
+                        )
                       }
                       onClick={() => handleCopyClick('plain', copyText)}
                     />
                   </span>
                 </Tooltip>
               )}
-              {copyFeedback.plain && (
-                <span
-                  role="status"
-                  aria-live="polite"
-                  className={cx('memori-chat--bubble-action-feedback', {
-                    'memori-chat--bubble-action-feedback--from-user':
-                      message.fromUser,
-                  })}
-                >
-                  {copiedLabel}
-                </span>
-              )}
 
               {shouldShowCopyRawButton && (
                 <Tooltip
                   placement="bottom"
                   content={
-                    copyFeedback.raw
+                    copyStatus.raw === 'success'
                       ? copiedLabel
-                      : t('copyRawCode') || 'Copy raw code'
+                      : copyStatus.raw === 'error'
+                        ? t('copyFailed')
+                        : t('copyRawCode') || 'Copy raw code'
                   }
                 >
                   <span className="memori-chat--bubble-addon-tooltip-trigger">
                     <Button
                       variant="ghost"
                       shape="circle"
+                      type="button"
+                      aria-label={
+                        copyStatus.raw === 'success'
+                          ? String(copiedLabel)
+                          : copyStatus.raw === 'error'
+                            ? String(t('copyFailed'))
+                            : String(t('copyRawCode') || 'Copy raw code')
+                      }
+                      className={cx(
+                        'memori-chat--bubble-action-button',
+                        'memori-share-button--copy-item',
+                        {
+                          'memori-share-button--copy-item--success':
+                            copyStatus.raw === 'success',
+                          'memori-share-button--copy-item--error':
+                            copyStatus.raw === 'error',
+                        }
+                      )}
                       icon={
-                        <Code
-                          aria-label={
-                            copyFeedback.raw
-                              ? copiedLabel
-                              : t('copyRawCode') || 'Copy raw code'
-                          }
-                        />
+                        copyStatus.raw === 'success' ? (
+                          <Check
+                            className="memori-share-button--copy-icon"
+                            aria-hidden
+                            strokeWidth={2.5}
+                          />
+                        ) : (
+                          <Code
+                            className="memori-share-button--copy-icon"
+                            aria-hidden
+                          />
+                        )
                       }
                       onClick={() => handleCopyClick('raw', rawMessageText)}
                     />
                   </span>
                 </Tooltip>
-              )}
-              {copyFeedback.raw && (
-                <span
-                  role="status"
-                  aria-live="polite"
-                  className={cx('memori-chat--bubble-action-feedback', {
-                    'memori-chat--bubble-action-feedback--from-user':
-                      message.fromUser,
-                  })}
-                >
-                  {copiedLabel}
-                </span>
               )}
 
               {!message.fromUser &&
@@ -520,6 +559,7 @@ const ChatBubble: React.FC<Props> = ({
                       <Button
                         variant="ghost"
                         shape="circle"
+                        className="memori-chat--bubble-action-button"
                         icon={
                           <Bug
                             aria-label={
@@ -555,11 +595,19 @@ const ChatBubble: React.FC<Props> = ({
                   }
                   className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
                 >
-                  <span>
-                    <Bot
-                      aria-label={
-                        t('generatedByAI') ||
-                        'Answer generated by AI, may occasionally generate incorrect informations'
+                  <span className="memori-chat--bubble-addon-tooltip-trigger">
+                    <Button
+                      variant="ghost"
+                      shape="circle"
+                      type="button"
+                      className="memori-chat--bubble-action-button"
+                      icon={
+                        <Bot
+                          aria-label={
+                            t('generatedByAI') ||
+                            'Answer generated by AI, may occasionally generate incorrect informations'
+                          }
+                        />
                       }
                     />
                   </span>
@@ -576,10 +624,20 @@ const ChatBubble: React.FC<Props> = ({
                     }: ${message.text}`}
                     className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
                   >
-                    <span>
-                      <Languages
-                        aria-label={
-                          lang === 'it' ? 'Testo originale' : 'Original text'
+                    <span className="memori-chat--bubble-addon-tooltip-trigger">
+                      <Button
+                        variant="ghost"
+                        shape="circle"
+                        type="button"
+                        className="memori-chat--bubble-action-button"
+                        icon={
+                          <Languages
+                            aria-label={
+                              lang === 'it'
+                                ? 'Testo originale'
+                                : 'Original text'
+                            }
+                          />
                         }
                       />
                     </span>
@@ -598,6 +656,7 @@ const ChatBubble: React.FC<Props> = ({
                       <Button
                         variant="ghost"
                         shape="circle"
+                        className="memori-chat--bubble-action-button"
                         onClick={() => setShowingWhyThisAnswer(true)}
                         disabled={showingWhyThisAnswer}
                         icon={

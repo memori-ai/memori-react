@@ -218,6 +218,30 @@
     display: inline-flex;
 }
 
+.memori-chat--bubble-addon button {
+    transition: all 0.3s ease-in-out;
+}
+
+/* ShareButton copy affordances on circular bubble actions (see ShareButton.css) */
+.memori-chat--bubble-addon button.memori-chat--bubble-action-button.memori-share-button--copy-item--success:hover {
+    background-color: color-mix(
+        in srgb,
+        var(--memori-primary, #3b82f6) 12%,
+        transparent
+    );
+}
+
+.memori-chat--bubble-addon button.memori-chat--bubble-action-button.memori-share-button--copy-item--error:hover {
+    background-color: color-mix(in srgb, #ef4444 10%, transparent);
+}
+
+.memori-chat--bubble-addon button.memori-share-button--copy-item--error .memori-share-button--copy-icon {
+    color: #b91c1c;
+}
+
+.memori-chat--bubble-action-button:hover {
+    background-color: var(--memori-secondary-background) !important;
+}
 .memori-chat--bubble .memori-chat--bubble-action-icon {
     display: flex;
     justify-content: flex-end;

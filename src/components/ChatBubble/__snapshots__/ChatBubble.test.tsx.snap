@@ -37,7 +37,8 @@ exports[`renders ChatBubble from user with avatar as react element unchanged 1`]
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -45,8 +46,8 @@ exports[`renders ChatBubble from user with avatar as react element unchanged 1`]
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -125,7 +126,8 @@ exports[`renders ChatBubble from user with avatar unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -133,8 +135,8 @@ exports[`renders ChatBubble from user with avatar unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -215,7 +217,8 @@ exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -223,8 +226,8 @@ exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -308,7 +311,8 @@ exports[`renders ChatBubble unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -316,8 +320,8 @@ exports[`renders ChatBubble unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -2875,7 +2879,8 @@ M834 80h400000v40h-400000z"
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -2883,8 +2888,8 @@ M834 80h400000v40h-400000z"
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -2923,7 +2928,8 @@ M834 80h400000v40h-400000z"
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copyRawCode"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -2931,8 +2937,8 @@ M834 80h400000v40h-400000z"
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copyRawCode"
-                    class="lucide lucide-code"
+                    aria-hidden="true"
+                    class="lucide lucide-code memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -4149,7 +4155,8 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -4157,8 +4164,8 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -4197,7 +4204,8 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copyRawCode"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -4205,8 +4213,8 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copyRawCode"
-                    class="lucide lucide-code"
+                    aria-hidden="true"
+                    class="lucide lucide-code memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -5157,7 +5165,8 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -5165,8 +5174,8 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -5205,7 +5214,8 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copyRawCode"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -5213,8 +5223,8 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copyRawCode"
-                    class="lucide lucide-code"
+                    aria-hidden="true"
+                    class="lucide lucide-code memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -5704,7 +5714,8 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -5712,8 +5723,8 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -5752,7 +5763,8 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copyRawCode"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -5760,8 +5772,8 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copyRawCode"
-                    class="lucide lucide-code"
+                    aria-hidden="true"
+                    class="lucide lucide-code memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -6513,7 +6525,8 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -6521,8 +6534,8 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -6561,7 +6574,8 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copyRawCode"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -6569,8 +6583,8 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copyRawCode"
-                    class="lucide lucide-code"
+                    aria-hidden="true"
+                    class="lucide lucide-code memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -6800,7 +6814,8 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -6808,8 +6823,8 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -6848,7 +6863,8 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copyRawCode"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -6856,8 +6872,8 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copyRawCode"
-                    class="lucide lucide-code"
+                    aria-hidden="true"
+                    class="lucide lucide-code memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -6957,7 +6973,8 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -6965,8 +6982,8 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -7005,7 +7022,7 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button"
                 tabindex="0"
                 type="button"
               >
@@ -7071,43 +7088,55 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
             class="styles-module__trigger___V2aIF"
             id="base-ui-:r1b:"
           >
-            <span>
-              <svg
-                aria-label="generatedByAI"
-                class="lucide lucide-bot"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
+            <span
+              class="memori-chat--bubble-addon-tooltip-trigger"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button"
+                tabindex="0"
+                type="button"
               >
-                <path
-                  d="M12 8V4H8"
-                />
-                <rect
-                  height="12"
-                  rx="2"
-                  width="16"
-                  x="4"
-                  y="8"
-                />
-                <path
-                  d="M2 14h2"
-                />
-                <path
-                  d="M20 14h2"
-                />
-                <path
-                  d="M15 13v2"
-                />
-                <path
-                  d="M9 13v2"
-                />
-              </svg>
+                <span
+                  class="memori-button__icon"
+                >
+                  <svg
+                    aria-label="generatedByAI"
+                    class="lucide lucide-bot"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 8V4H8"
+                    />
+                    <rect
+                      height="12"
+                      rx="2"
+                      width="16"
+                      x="4"
+                      y="8"
+                    />
+                    <path
+                      d="M2 14h2"
+                    />
+                    <path
+                      d="M20 14h2"
+                    />
+                    <path
+                      d="M15 13v2"
+                    />
+                    <path
+                      d="M9 13v2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </span>
           </span>
         </span>
@@ -7160,7 +7189,8 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -7168,8 +7198,8 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -7279,7 +7309,8 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -7287,8 +7318,8 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -7327,7 +7358,8 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copyRawCode"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -7335,8 +7367,8 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copyRawCode"
-                    class="lucide lucide-code"
+                    aria-hidden="true"
+                    class="lucide lucide-code memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -7415,7 +7447,8 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -7423,8 +7456,8 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -7463,7 +7496,8 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copyRawCode"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -7471,8 +7505,8 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copyRawCode"
-                    class="lucide lucide-code"
+                    aria-hidden="true"
+                    class="lucide lucide-code memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -7609,7 +7643,8 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -7617,8 +7652,8 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -7657,7 +7692,8 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copyRawCode"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -7665,8 +7701,8 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copyRawCode"
-                    class="lucide lucide-code"
+                    aria-hidden="true"
+                    class="lucide lucide-code memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -7966,7 +8002,8 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -7974,8 +8011,8 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -8014,7 +8051,8 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copyRawCode"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -8022,8 +8060,8 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copyRawCode"
-                    class="lucide lucide-code"
+                    aria-hidden="true"
+                    class="lucide lucide-code memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -8089,7 +8127,8 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -8097,8 +8136,8 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -8134,43 +8173,55 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
             class="styles-module__trigger___V2aIF"
             id="base-ui-:r13:"
           >
-            <span>
-              <svg
-                aria-label="generatedByAI"
-                class="lucide lucide-bot"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
+            <span
+              class="memori-chat--bubble-addon-tooltip-trigger"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button"
+                tabindex="0"
+                type="button"
               >
-                <path
-                  d="M12 8V4H8"
-                />
-                <rect
-                  height="12"
-                  rx="2"
-                  width="16"
-                  x="4"
-                  y="8"
-                />
-                <path
-                  d="M2 14h2"
-                />
-                <path
-                  d="M20 14h2"
-                />
-                <path
-                  d="M15 13v2"
-                />
-                <path
-                  d="M9 13v2"
-                />
-              </svg>
+                <span
+                  class="memori-button__icon"
+                >
+                  <svg
+                    aria-label="generatedByAI"
+                    class="lucide lucide-bot"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 8V4H8"
+                    />
+                    <rect
+                      height="12"
+                      rx="2"
+                      width="16"
+                      x="4"
+                      y="8"
+                    />
+                    <path
+                      d="M2 14h2"
+                    />
+                    <path
+                      d="M20 14h2"
+                    />
+                    <path
+                      d="M15 13v2"
+                    />
+                    <path
+                      d="M9 13v2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </span>
           </span>
         </span>
@@ -8242,7 +8293,8 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -8250,8 +8302,8 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -8287,43 +8339,55 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
             class="styles-module__trigger___V2aIF"
             id="base-ui-:rl:"
           >
-            <span>
-              <svg
-                aria-label="generatedByAI"
-                class="lucide lucide-bot"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
+            <span
+              class="memori-chat--bubble-addon-tooltip-trigger"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button"
+                tabindex="0"
+                type="button"
               >
-                <path
-                  d="M12 8V4H8"
-                />
-                <rect
-                  height="12"
-                  rx="2"
-                  width="16"
-                  x="4"
-                  y="8"
-                />
-                <path
-                  d="M2 14h2"
-                />
-                <path
-                  d="M20 14h2"
-                />
-                <path
-                  d="M15 13v2"
-                />
-                <path
-                  d="M9 13v2"
-                />
-              </svg>
+                <span
+                  class="memori-button__icon"
+                >
+                  <svg
+                    aria-label="generatedByAI"
+                    class="lucide lucide-bot"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M12 8V4H8"
+                    />
+                    <rect
+                      height="12"
+                      rx="2"
+                      width="16"
+                      x="4"
+                      y="8"
+                    />
+                    <path
+                      d="M2 14h2"
+                    />
+                    <path
+                      d="M20 14h2"
+                    />
+                    <path
+                      d="M15 13v2"
+                    />
+                    <path
+                      d="M9 13v2"
+                    />
+                  </svg>
+                </span>
+              </button>
             </span>
           </span>
         </span>
@@ -8415,7 +8479,8 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -8423,8 +8488,8 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -8463,7 +8528,8 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copyRawCode"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -8471,8 +8537,8 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copyRawCode"
-                    class="lucide lucide-code"
+                    aria-hidden="true"
+                    class="lucide lucide-code memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -8577,7 +8643,8 @@ end
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -8585,8 +8652,8 @@ end
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -8625,7 +8692,8 @@ end
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copyRawCode"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -8633,8 +8701,8 @@ end
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copyRawCode"
-                    class="lucide lucide-code"
+                    aria-hidden="true"
+                    class="lucide lucide-code memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -8710,7 +8778,8 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -8718,8 +8787,8 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -8758,7 +8827,8 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copyRawCode"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -8766,8 +8836,8 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copyRawCode"
-                    class="lucide lucide-code"
+                    aria-hidden="true"
+                    class="lucide lucide-code memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -8836,7 +8906,8 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -8844,8 +8915,8 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -8884,7 +8955,8 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copyRawCode"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -8892,8 +8964,8 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copyRawCode"
-                    class="lucide lucide-code"
+                    aria-hidden="true"
+                    class="lucide lucide-code memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -8962,7 +9034,8 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -8970,8 +9043,8 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -9010,7 +9083,8 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copyRawCode"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -9018,8 +9092,8 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copyRawCode"
-                    class="lucide lucide-code"
+                    aria-hidden="true"
+                    class="lucide lucide-code memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -9049,39 +9123,51 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
             class="styles-module__trigger___V2aIF"
             id="base-ui-:rt:"
           >
-            <span>
-              <svg
-                aria-label="Original text"
-                class="lucide lucide-languages"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
+            <span
+              class="memori-chat--bubble-addon-tooltip-trigger"
+            >
+              <button
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button"
+                tabindex="0"
+                type="button"
               >
-                <path
-                  d="m5 8 6 6"
-                />
-                <path
-                  d="m4 14 6-6 2-3"
-                />
-                <path
-                  d="M2 5h12"
-                />
-                <path
-                  d="M7 2h1"
-                />
-                <path
-                  d="m22 22-5-10-5 10"
-                />
-                <path
-                  d="M14 18h6"
-                />
-              </svg>
+                <span
+                  class="memori-button__icon"
+                >
+                  <svg
+                    aria-label="Original text"
+                    class="lucide lucide-languages"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="m5 8 6 6"
+                    />
+                    <path
+                      d="m4 14 6-6 2-3"
+                    />
+                    <path
+                      d="M2 5h12"
+                    />
+                    <path
+                      d="M7 2h1"
+                    />
+                    <path
+                      d="m22 22-5-10-5 10"
+                    />
+                    <path
+                      d="M14 18h6"
+                    />
+                  </svg>
+                </span>
+              </button>
             </span>
           </span>
         </span>
@@ -9128,7 +9214,8 @@ exports[`renders ChatBubble with user msg unchanged 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -9136,8 +9223,8 @@ exports[`renders ChatBubble with user msg unchanged 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"
@@ -9234,7 +9321,8 @@ exports[`shows copy button for user messages 1`] = `
               class="memori-chat--bubble-addon-tooltip-trigger"
             >
               <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                aria-label="copy"
+                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                 tabindex="0"
                 type="button"
               >
@@ -9242,8 +9330,8 @@ exports[`shows copy button for user messages 1`] = `
                   class="memori-button__icon"
                 >
                   <svg
-                    aria-label="copy"
-                    class="lucide lucide-copy"
+                    aria-hidden="true"
+                    class="lucide lucide-copy memori-share-button--copy-icon"
                     fill="none"
                     height="24"
                     stroke="currentColor"

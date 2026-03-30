@@ -348,9 +348,10 @@ ${text}
 
   const isDisabled =
     dialogState?.state === 'X2a' || dialogState?.state === 'X3';
-  const textareaDisabled = ['R2', 'R3', 'R4', 'R5', 'G3', 'X3'].includes(
-    dialogState?.state || ''
-  );
+  const hasActiveSession = Boolean(sessionID?.trim());
+  const textareaDisabled =
+    !hasActiveSession ||
+    ['R2', 'R3', 'R4', 'R5', 'G3', 'X3'].includes(dialogState?.state || '');
 
   return (
     <div className="memori-chat-inputs-wrapper">
@@ -386,6 +387,7 @@ ${text}
                   maxTotalMessagePayload={maxTotalMessagePayload}
                   maxDocumentsPerMessage={maxDocumentsPerMessage}
                   maxDocumentContentLength={maxDocumentContentLength}
+                  disabled={textareaDisabled || isDisabled}
                 />
               </div>
             )}
@@ -430,7 +432,7 @@ ${text}
                       startListening();
                     }
                   }}
-                  disabled={isDisabled}
+                  disabled={isDisabled || textareaDisabled}
                   aria-label={
                     listening
                       ? t('write_and_speak.micButtonPopoverListening') ||
@@ -453,6 +455,7 @@ ${text}
                     }
                   }}
                   stopAudio={stopAudio}
+                  disabled={textareaDisabled || isDisabled}
                 />
               )}
               <button

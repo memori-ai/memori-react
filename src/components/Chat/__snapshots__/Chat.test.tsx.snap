@@ -69,7 +69,8 @@ exports[`renders Chat unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -77,8 +78,8 @@ exports[`renders Chat unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -147,7 +148,8 @@ exports[`renders Chat unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -155,8 +157,8 @@ exports[`renders Chat unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -262,7 +264,8 @@ exports[`renders Chat unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -270,8 +273,8 @@ exports[`renders Chat unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -340,7 +343,8 @@ exports[`renders Chat unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -348,8 +352,8 @@ exports[`renders Chat unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -494,7 +498,8 @@ exports[`renders Chat unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -502,8 +507,8 @@ exports[`renders Chat unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -572,7 +577,8 @@ exports[`renders Chat unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -580,8 +586,8 @@ exports[`renders Chat unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -687,7 +693,8 @@ exports[`renders Chat unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -695,8 +702,8 @@ exports[`renders Chat unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -885,7 +892,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -893,8 +901,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -963,7 +971,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -971,8 +980,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -1078,7 +1087,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -1086,8 +1096,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -1156,7 +1166,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -1164,8 +1175,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -1310,7 +1321,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -1318,8 +1330,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -1403,7 +1415,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -1411,8 +1424,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -1518,7 +1531,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -1526,8 +1540,8 @@ exports[`renders Chat with context vars unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -1731,7 +1745,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -1739,8 +1754,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -1809,7 +1824,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -1817,8 +1833,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -1906,7 +1922,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -1914,8 +1931,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -1984,7 +2001,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -1992,8 +2010,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -2120,7 +2138,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -2128,8 +2147,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -2198,7 +2217,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -2206,8 +2226,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -2295,7 +2315,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -2303,8 +2324,8 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -2493,7 +2514,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -2501,8 +2523,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -2571,7 +2593,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -2579,8 +2602,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -2670,7 +2693,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -2678,8 +2702,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -2748,7 +2772,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -2756,8 +2781,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -2886,7 +2911,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -2894,8 +2920,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -2964,7 +2990,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -2972,8 +2999,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -3063,7 +3090,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -3071,8 +3099,8 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -3261,7 +3289,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -3269,8 +3298,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -3344,7 +3373,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -3352,8 +3382,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -3464,7 +3494,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -3472,8 +3503,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -3547,7 +3578,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -3555,8 +3587,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -3706,7 +3738,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -3714,8 +3747,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -3789,7 +3822,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -3797,8 +3831,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -3909,7 +3943,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -3917,8 +3952,8 @@ exports[`renders Chat with dates unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -4112,7 +4147,8 @@ exports[`renders Chat with hints unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -4120,8 +4156,8 @@ exports[`renders Chat with hints unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -4190,7 +4226,8 @@ exports[`renders Chat with hints unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -4198,8 +4235,8 @@ exports[`renders Chat with hints unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -4305,7 +4342,8 @@ exports[`renders Chat with hints unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -4313,8 +4351,8 @@ exports[`renders Chat with hints unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -4383,7 +4421,8 @@ exports[`renders Chat with hints unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -4391,8 +4430,8 @@ exports[`renders Chat with hints unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -4537,7 +4576,8 @@ exports[`renders Chat with hints unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -4545,8 +4585,8 @@ exports[`renders Chat with hints unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -4615,7 +4655,8 @@ exports[`renders Chat with hints unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -4623,8 +4664,8 @@ exports[`renders Chat with hints unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -4730,7 +4771,8 @@ exports[`renders Chat with hints unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -4738,8 +4780,8 @@ exports[`renders Chat with hints unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -4962,7 +5004,8 @@ exports[`renders Chat with media unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -4970,8 +5013,8 @@ exports[`renders Chat with media unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -5040,7 +5083,8 @@ exports[`renders Chat with media unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -5048,8 +5092,8 @@ exports[`renders Chat with media unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -5155,7 +5199,8 @@ exports[`renders Chat with media unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -5163,8 +5208,8 @@ exports[`renders Chat with media unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -5233,7 +5278,8 @@ exports[`renders Chat with media unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -5241,8 +5287,8 @@ exports[`renders Chat with media unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -5597,7 +5643,8 @@ exports[`renders Chat with media unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -5605,8 +5652,8 @@ exports[`renders Chat with media unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -5675,7 +5722,8 @@ exports[`renders Chat with media unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -5683,8 +5731,8 @@ exports[`renders Chat with media unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -5790,7 +5838,8 @@ exports[`renders Chat with media unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -5798,8 +5847,8 @@ exports[`renders Chat with media unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -5988,7 +6037,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -5996,8 +6046,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -6066,7 +6116,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -6074,8 +6125,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -6181,7 +6232,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -6189,8 +6241,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -6259,7 +6311,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -6267,8 +6320,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -6413,7 +6466,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -6421,8 +6475,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -6491,7 +6545,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -6499,8 +6554,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -6606,7 +6661,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -6614,8 +6670,8 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -6809,7 +6865,8 @@ exports[`renders Chat with user unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -6817,8 +6874,8 @@ exports[`renders Chat with user unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -6887,7 +6944,8 @@ exports[`renders Chat with user unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -6895,8 +6953,8 @@ exports[`renders Chat with user unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -6986,7 +7044,8 @@ exports[`renders Chat with user unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -6994,8 +7053,8 @@ exports[`renders Chat with user unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -7064,7 +7123,8 @@ exports[`renders Chat with user unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -7072,8 +7132,8 @@ exports[`renders Chat with user unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -7202,7 +7262,8 @@ exports[`renders Chat with user unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -7210,8 +7271,8 @@ exports[`renders Chat with user unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -7280,7 +7341,8 @@ exports[`renders Chat with user unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -7288,8 +7350,8 @@ exports[`renders Chat with user unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"
@@ -7379,7 +7441,8 @@ exports[`renders Chat with user unchanged 1`] = `
                     class="memori-chat--bubble-addon-tooltip-trigger"
                   >
                     <button
-                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only"
+                      aria-label="copy"
+                      class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button memori-share-button--copy-item"
                       tabindex="0"
                       type="button"
                     >
@@ -7387,8 +7450,8 @@ exports[`renders Chat with user unchanged 1`] = `
                         class="memori-button__icon"
                       >
                         <svg
-                          aria-label="copy"
-                          class="lucide lucide-copy"
+                          aria-hidden="true"
+                          class="lucide lucide-copy memori-share-button--copy-icon"
                           fill="none"
                           height="24"
                           stroke="currentColor"

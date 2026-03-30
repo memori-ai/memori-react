@@ -494,9 +494,6 @@
 }
 
 .memori-chat-history-drawer--detail-view--back-button {
-    position: absolute;
-    top: -14px;
-    left: -10px;
     min-width: 40px;
     height: 40px;
     min-height: auto;
@@ -506,7 +503,6 @@
     border-radius: 10px;
     margin: 0;
     margin-bottom: var(--memori-spacing-md);
-    color: var(--memori-primary);
     font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-medium, 500);
     transition: background-color 0.2s ease, color 0.2s ease;

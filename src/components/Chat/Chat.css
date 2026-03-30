@@ -27,16 +27,18 @@
     width: 100%;
     height: calc(100% - 50px);
     flex: 1;
-    padding: calc(var(--memori-spacing-md) / 4) calc(var(--memori-spacing-md) / 2);
     border-radius: var(--memori-radius-box);
     margin: 1rem 0;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    background-color: transparent;
+    background-color: var(--memori-secondary-background);
 }
 
-/* Chat layout: card-style container for conversation area */
-.memori-chat-layout--controls .memori-chat--history {
+/* Adjust chat history when textarea is expanded */
+.memori-chat-wrapper--expanded .memori-chat--history {
+    margin-bottom: var(--memori-spacing-sm);
+}
+
+/* Solo widget layout CHAT: area messaggi a card */
+.memori-widget.memori-layout-chat .memori-chat-layout--controls .memori-chat--history {
     min-height: 0;
     padding: 0;
     border-radius: 12px;
@@ -48,11 +50,6 @@
 .memori-chat--history.memori-chat--history-touch {
     height: 80% !important;
     padding: 0;
-}
-
-/* Adjust chat history when textarea is expanded */
-.memori-chat-wrapper--expanded .memori-chat--history {
-    margin-bottom: var(--memori-spacing-sm);
 }
 
 .memori-chat--content {
