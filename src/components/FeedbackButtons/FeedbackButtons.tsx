@@ -50,6 +50,15 @@ const FeedbackButtons = ({
   const feedbackThankYou =
     t('feedbackThankYou') || 'Thank you for your feedback.';
 
+  const showChoiceAlert = (message: string) => {
+    add(
+      createAlertOptions({
+        description: message,
+        severity: 'info',
+      })
+    );
+  };
+
   const showFeedbackSuccessAlert = () => {
     add(
       createAlertOptions({
@@ -109,6 +118,7 @@ const FeedbackButtons = ({
                         setClicked(undefined);
                       } else {
                         setClicked('up');
+                        showChoiceAlert(dislikeMsg);
                         showFeedbackSuccessAlert();
                       }
                     }}
@@ -124,6 +134,7 @@ const FeedbackButtons = ({
                       } else {
                         setClicked('down');
                         onNegativeClick(feedbackMsg);
+                        showChoiceAlert(feedbackMsgHelper);
                         showFeedbackSuccessAlert();
                       }
                     }}
@@ -145,6 +156,7 @@ const FeedbackButtons = ({
               } else {
                 setClicked('down');
                 onNegativeClick(feedbackMsg);
+                showChoiceAlert(feedbackMsg);
                 showFeedbackSuccessAlert();
               }
             }}

@@ -1,6 +1,5 @@
 .memori-header {
     position: relative;
-    z-index: 1000;
     display: inline-flex;
     width: 100%;
     height: 50px;

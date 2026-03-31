@@ -726,6 +726,7 @@ const ChatBubble: React.FC<Props> = ({
         className="memori-chat--function-cache-modal"
         title={t('functionCache') || 'Function Cache'}
         closable={true}
+        onOpenChange={setOpenFunctionCache}
       >
         {functionCacheData?.map((f, i) => (
           <div

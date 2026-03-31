@@ -30,6 +30,8 @@ export interface Props {
   sessionID: string;
   memori: Memori;
   initialKnownFacts?: KnownFact[];
+  /** When true, skips API fetching and only shows `initialKnownFacts` (useful for Storybook/mock UIs). */
+  disableFetch?: boolean;
   visible?: boolean;
   closeDrawer: () => void;
 }
@@ -38,6 +40,7 @@ const KnownFacts = ({
   apiClient,
   sessionID,
   memori,
+  disableFetch = false,
   visible = true,
   initialKnownFacts = [],
   closeDrawer,
@@ -107,8 +110,9 @@ const KnownFacts = ({
   );
 
   useEffect(() => {
+    if (disableFetch) return;
     void fetchKnownFacts();
-  }, [fetchKnownFacts]);
+  }, [fetchKnownFacts, disableFetch]);
 
   const [bulkDeleteModalVisible, setBulkDeleteModalVisible] = useState(false);
   const [bulkDeleteIds, setBulkDeleteIds] = useState<string[]>([]);
@@ -125,6 +129,7 @@ const KnownFacts = ({
           </span>
         ),
         meta: { disableHiding: true },
+        enableSorting: false
       },
       {
         id: 'createdAt',
@@ -141,6 +146,7 @@ const KnownFacts = ({
           </span>
         ),
         meta: { disableHiding: true },
+        enableSorting: false
       },
     ],
     [t, i18n.language]
@@ -251,6 +257,7 @@ const KnownFacts = ({
           columns={columns}
           getRowId={row => row.knownFactID}
           isLoading={loading}
+          rowActionsVariant='inline'
           maxBodyHeight="75vh"
           bulkActions={[
             {
@@ -265,6 +272,7 @@ const KnownFacts = ({
               },
             },
           ]}
+          
           rowActions={[
             {
               label: t('delete'),

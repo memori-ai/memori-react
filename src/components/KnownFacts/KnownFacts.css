@@ -1,45 +1,48 @@
 /* Drawer content layout */
 .memori-known-facts-body {
-  display: flex;
-  height: 100%;
-  min-height: 0;
-  flex-direction: column;
-  padding: 0.25rem 0;
-  gap: 1.25rem;
+    display: flex;
+    height: 100%;
+    min-height: 0;
+    flex-direction: column;
+    padding: 0.25rem 0;
+    gap: 1.25rem;
 }
 
-.memori-known-facts-drawer{
-  .memori-drawer__body{
-    overflow: hidden;
-  }
+.memori-known-facts-drawer {
+    .memori-drawer__body {
+        overflow: hidden;
+    }
+}
+
+.memori-known-facts-table-wrapper {
+    .memori-table-scroll {
+        height: 100%;
+    }
+    .memori-table-pagination__range {
+        display: none;
+    }
 }
 
 /* Table wrapper: scroll + spacing (@memori.ai/ui Table root) */
 .memori-known-facts-table-wrapper.memori-table-wrapper {
-  overflow: hidden;
-  min-height: 0;
-  flex: 1 1 auto;
-  border: 1px solid var(--memori-color-border, #e2e8f0);
-  border-radius: 8px;
+    overflow: hidden;
+    min-height: 0;
+    flex: 1 1 auto;
+    border: 1px solid var(--memori-color-border, #e2e8f0);
+    border-radius: 8px;
 }
 
 .memori-known-facts-text-cell {
-  display: block;
-  min-width: 0;
-  word-break: break-word;
+    display: block;
+    min-width: 0;
+    word-break: break-word;
 }
 
 .memori-known-facts-date-cell {
-  font-variant-numeric: tabular-nums;
+    font-variant-numeric: tabular-nums;
 }
 
 /* Modal overlay */
 .memori-known-facts-modal {
-  z-index: 10000;
-}
-
-.memori-known-facts-table-wrapper{
-  .memori-table-pagination__range {
-    display: none;
-  }
+    z-index: 10000;
 }
