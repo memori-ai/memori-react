@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom/extend-expect';
 import { Settings, DateTime } from 'luxon';
+import React from 'react';
 
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
@@ -15,7 +16,7 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
-let i18n = {
+let mockI18n = {
   language: 'en',
   lng: 'en',
   fallbackLng: 'en',
@@ -24,8 +25,9 @@ let i18n = {
   changeLanguage: jest.fn(),
 };
 jest.mock('react-i18next', () => ({
-  useTranslation: () => ({ t: key => key, i18n }),
-  i18n,
+  useTranslation: () => ({ t: key => key, i18n: mockI18n }),
+  i18n: mockI18n,
+  I18nextProvider: ({ children }) => <>{children}</>,
   withTranslation: () => Component => props => <Component {...props} />,
 }));
 
@@ -66,14 +68,6 @@ Settings.defaultLocale = 'en';
 Settings.defaultZone = 'UTC';
 Settings.now = () => DateTime.fromJSDate(now).toMillis();
 
-const DateTimeFormat = Intl.DateTimeFormat;
-jest
-  .spyOn(global.Intl, 'DateTimeFormat')
-  .mockImplementation(
-    (locale, options) =>
-      new DateTimeFormat(locale, { ...options, timeZone: 'Europe/Rome' })
-  );
-
 // mocks external MathJax as global object
 global.MathJax = {
   typesetPromise: jest.fn(),
@@ -84,5 +78,4 @@ Object.defineProperty(window, 'MathJax', {
   value: global.MathJax,
 });
 
-jest.spyOn(window, 'MathJax', 'typesetPromise').mockResolvedValue();
-jest.spyOn(global.MathJax, 'typesetPromise').mockResolvedValue();
+jest.spyOn(window.MathJax, 'typesetPromise').mockResolvedValue();

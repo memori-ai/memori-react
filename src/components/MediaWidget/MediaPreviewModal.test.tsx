@@ -259,7 +259,7 @@ describe('MediaPreviewModal', () => {
       render(
         <MediaPreviewModal medium={medium} onClose={onClose} />
       );
-      const closeWrapper = document.querySelector('.memori-modal--close');
+      const closeWrapper = document.querySelector('.memori-modal__close');
       expect(closeWrapper).toBeInTheDocument();
       const closeButton = closeWrapper?.querySelector('button');
       if (closeButton) {

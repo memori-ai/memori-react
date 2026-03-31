@@ -3,9 +3,120 @@
     display: inline-block;
 }
 
-.memori-share-button--button {
+.memori-share-button--trigger {
+    display: flex;
+    max-width: 2rem;
+    max-height: 2rem;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    background-color: transparent;
     cursor: pointer;
 }
+
+.memori-share-button--dropdown-item-content{
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+/* All actionable menu rows: press feedback */
+.memori-share-button--menu-item {
+    position: relative;
+    transition:
+        background-color 0.2s ease,
+        transform 0.12s ease;
+}
+
+.memori-share-button--menu-item:active:not(:disabled) {
+    transform: scale(0.985);
+}
+
+/* Same primary tint as copy success, brief feedback on share / export / social / QR */
+.memori-share-button--menu-item--flash {
+    background-color: color-mix(
+        in srgb,
+        var(--memori-primary, #3b82f6) 12%,
+        transparent
+    );
+}
+
+.memori-share-button--copy-item--success {
+    background-color: color-mix(
+        in srgb,
+        var(--memori-primary, #3b82f6) 12%,
+        transparent
+    );
+}
+
+.memori-share-button--copy-item--error {
+    background-color: color-mix(in srgb, #ef4444 10%, transparent);
+}
+
+.memori-share-button--copy-icon {
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.memori-share-button--copy-item--success .memori-share-button--copy-icon {
+    animation: memori-share-copy-check-pop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1)
+        both;
+    color: var(--memori-primary, #3b82f6);
+}
+
+.memori-share-button--copy-label {
+    transition: opacity 0.15s ease;
+}
+
+.memori-share-button--copy-item--success .memori-share-button--copy-label {
+    font-weight: 600;
+}
+
+.memori-share-button--copy-item--error .memori-share-button--copy-label {
+    color: #b91c1c;
+}
+
+@keyframes memori-share-copy-check-pop {
+    0% {
+        opacity: 0.85;
+        transform: scale(0.6) rotate(-12deg);
+    }
+
+    60% {
+        transform: scale(1.08) rotate(4deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+.memori-share-button--qr-download {
+    transition: transform 0.12s ease;
+}
+
+.memori-share-button--qr-download:active {
+    transform: scale(0.985);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .memori-share-button--menu-item,
+    .memori-share-button--copy-item,
+    .memori-share-button--copy-icon,
+    .memori-share-button--copy-label,
+    .memori-share-button--qr-download {
+        animation: none;
+        transition: none;
+    }
+
+    .memori-share-button--menu-item:active:not(:disabled),
+    .memori-share-button--qr-download:active {
+        transform: none;
+    }
+}
+
 
 .memori-share-button--overlay {
     position: absolute;
@@ -16,12 +127,12 @@
     flex-direction: column;
     padding: 0.5rem 0;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 0.375rem;
+    border-radius: var(--memori-radius-box);
     margin: 0;
-    margin-top: 0.5rem;
+    margin-top: var(--memori-spacing-sm);
     background-color: #fff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.12);
-    color: #000;
+    color: var(--memori-text-color);
     list-style: none;
     outline: none;
     transform-origin: top right;
@@ -50,24 +161,24 @@ a.memori-share-button--link {
 }
 
 .memori-share-button--li-qr-code {
-    margin-top: 0.5rem;
+    margin-top: var(--memori-spacing-sm);
     text-align: center;
 }
 
 .memori-share-button--li-qr-code button {
     background: #fff;
-    color: #333;
+    color: var(--memori-text-color);
     cursor: pointer;
 }
 
 .memori-share-button--li-qr-code button:hover,
 .memori-share-button--li-qr-code button:focus {
     background: #fff;
-    color: #000;
+    color: var(--memori-text-color);
 }
 
 .memori-share-button--li-shared {
     padding-bottom: 0.25rem;
     border-bottom: 1px solid var(--memori-primary);
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--memori-spacing-sm);
 }

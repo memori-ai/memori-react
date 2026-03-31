@@ -5,15 +5,13 @@ import {
   Tenant,
 } from '@memori.ai/memori-api-client/dist/types';
 import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
-import Tooltip from '../ui/Tooltip';
+import { Tooltip } from '@memori.ai/ui';
 import { getResourceUrl } from '../../helpers/media';
 import Blob from '../Blob/Blob';
 import ModelViewer from '../CustomGLBModelViewer/ModelViewer';
-import Button from '../ui/Button';
+import { Button } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
-import Eye from '../icons/Eye';
-import EyeInvisible from '../icons/EyeInvisible';
-import Edit from '../icons/Edit';
+import { Eye, EyeOff, Pencil } from 'lucide-react';
 import cx from 'classnames';
 import ContainerAvatarView from './AvatarView';
 import { useViseme } from '../../context/visemeContext';
@@ -180,9 +178,9 @@ const Avatar: React.FC<Props> = ({
   const renderAvatarToggle = () => (
     <div className="memori--avatar-toggle">
       <Button
-        ghost
+        variant="ghost"
         onClick={() => setAvatar3dVisible(!avatar3dVisible)}
-        icon={avatar3dVisible ? <EyeInvisible /> : <Eye />}
+        icon={avatar3dVisible ? <EyeOff /> : <Eye />}
       >
         <span className="memori--avatar-toggle-text">
           {avatar3dVisible ? t('hide') : t('show')}
@@ -228,7 +226,7 @@ const Avatar: React.FC<Props> = ({
         >
           <Tooltip content={t('widgetgoToIntegrationsToCustomizeAvatar')}>
             <span className="memori-button--icon">
-              <Edit />
+              <Pencil />
             </span>
           </Tooltip>
         </a>

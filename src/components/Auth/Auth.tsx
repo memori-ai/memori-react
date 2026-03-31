@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Button from '../ui/Button';
-import Modal from '../ui/Modal';
+import { Button, Input, Modal, Form } from '@memori.ai/ui';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import Plus from '../icons/Plus';
+import { Plus } from 'lucide-react';
 
 export interface Props {
   pwdOrTokens: null | 'password' | 'tokens';
@@ -94,8 +93,8 @@ export const AuthWidget = ({
   };
 
   const form = (
-    <form
-      name="memoriAuth"
+    <Form
+      name="auth"
       onSubmit={handleSubmit(onSubmit)}
       className="memori-auth-widget--form"
     >
@@ -103,7 +102,7 @@ export const AuthWidget = ({
         <fieldset className="memori-auth-widget--password-fieldset">
           <label>
             Password:{' '}
-            <input
+            <Input
               className="memori-auth-widget--input"
               required
               type="password"
@@ -114,7 +113,7 @@ export const AuthWidget = ({
           {showTokens && (
             <>
               <hr />
-              <Button outlined onClick={() => setPwdOrTokens('tokens')}>
+              <Button variant="outline" onClick={() => setPwdOrTokens('tokens')}>
                 {t('auth.useRecoveryTokens') || 'Recovery tokens'}
               </Button>
             </>
@@ -127,7 +126,7 @@ export const AuthWidget = ({
           {createArrayWithNumbers(numTokens).map(idx => {
             return (
               <label className="memori-auth-widget--token" key={idx}>
-                <input
+                <Input
                   type="password"
                   className="memori-auth-widget--input"
                   placeholder="Recovery token"
@@ -150,7 +149,7 @@ export const AuthWidget = ({
           </Button>
 
           <hr />
-          <Button outlined onClick={() => setPwdOrTokens('password')}>
+          <Button variant="outline" onClick={() => setPwdOrTokens('password')}>
             {t('auth.usePassword') || 'Password'}
           </Button>
         </fieldset>
@@ -174,22 +173,22 @@ export const AuthWidget = ({
       )}
 
       <Button
-        htmlType="submit"
-        primary
+        type="submit"
+        variant="primary"
         className="memori-auth-widget--submit"
         loading={isSubmitting}
       >
         {t('confirm') || 'Submit'}
       </Button>
-    </form>
+    </Form>
   );
 
   return withModal ? (
     <Modal
       open={openModal || showModal}
       title={t('auth.title') || 'Authentication'}
-      onClose={() => setPwdOrTokens(null)}
-      closable={false}
+      closable={true}
+      onOpenChange={() => setPwdOrTokens(null)}
     >
       {form}
     </Modal>

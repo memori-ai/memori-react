@@ -140,7 +140,7 @@ export const historyWithArtifacts: Message[] = [
  
  .container {
  background: rgba(255, 255, 255, 0.95);
- border-radius: 20px;
+ border-radius: .5rem;
  padding: 30px;
  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
  max-width: 800px;
@@ -159,7 +159,7 @@ export const historyWithArtifacts: Message[] = [
  
  .image-container {
  position: relative;
- border-radius: 15px;
+ border-radius: .5rem;
  overflow: hidden;
  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
  margin: 20px 0;
@@ -199,7 +199,7 @@ export const historyWithArtifacts: Message[] = [
  width: 100%;
  max-width: 100%;
  height: auto;
- border-radius: 15px;
+ border-radius: .5rem;
  opacity: 0;
  transition: opacity 0.5s ease-in-out;
  }
@@ -226,7 +226,7 @@ export const historyWithArtifacts: Message[] = [
  background: linear-gradient(135deg, #ff9a9e, #fecfef);
  color: white;
  padding: 15px;
- border-radius: 10px;
+ border-radius: .5rem;
  font-weight: 600;
  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
  }
@@ -237,7 +237,7 @@ export const historyWithArtifacts: Message[] = [
  background: linear-gradient(135deg, #ff6b9d, #c44569);
  color: white;
  border: none;
- border-radius: 25px;
+ border-radius: .5rem;
  font-size: 1rem;
  font-weight: 600;
  cursor: pointer;

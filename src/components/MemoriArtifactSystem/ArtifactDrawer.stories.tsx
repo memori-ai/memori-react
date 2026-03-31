@@ -120,7 +120,7 @@ Devo:
  .container {
  background: white;
  padding: 30px;
- border-radius: 8px;
+ border-radius: .5rem;
  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
  }
  
@@ -264,7 +264,7 @@ const htmlArtifactWithScrolling = `<output class="memori-artifact" data-mimetype
  background: var(--color-light-teal);
  color: var(--color-navy);
  text-decoration: none;
- border-radius: 50px;
+ border-radius: .5rem;
  font-weight: 600; /* Semibold */
  font-size: 1.1rem;
  transition: all 0.3s ease;
@@ -307,7 +307,7 @@ const htmlArtifactWithScrolling = `<output class="memori-artifact" data-mimetype
  .feature-card {
  background: white;
  padding: 2.5rem;
- border-radius: 20px;
+ border-radius: .5rem;
  box-shadow: 0 10px 40px rgba(0, 85, 135, 0.1);
  text-align: center;
  transition: all 0.3s ease;
@@ -371,7 +371,7 @@ const htmlArtifactWithScrolling = `<output class="memori-artifact" data-mimetype
  .color-swatch {
  text-align: center;
  padding: 1.5rem;
- border-radius: 15px;
+ border-radius: .5rem;
  background: rgba(255, 255, 255, 0.1);
  backdrop-filter: blur(10px);
  }
@@ -411,7 +411,7 @@ const htmlArtifactWithScrolling = `<output class="memori-artifact" data-mimetype
  margin: 2rem 0;
  padding: 2rem;
  background: white;
- border-radius: 15px;
+ border-radius: .5rem;
  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
  }
  
@@ -606,7 +606,7 @@ const htmlArtifactScrollTest = `<output class="memori-artifact" data-mimetype="h
         padding: 32px;
         background: #fff;
         margin: 16px;
-        border-radius: 12px;
+        border-radius: .5rem;
         box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
       }
 
@@ -624,7 +624,7 @@ const htmlArtifactScrollTest = `<output class="memori-artifact" data-mimetype="h
 
       .card {
         padding: 16px;
-        border-radius: 10px;
+        border-radius: .5rem;
         background: #eef2ff;
         border: 1px solid #c7d2fe;
       }
@@ -803,7 +803,7 @@ const cssArtifact = `<output class="memori-artifact" data-mimetype="css">
 
 .card {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    border-radius: 12px;
+    border-radius: .5rem;
     padding: 20px;
     color: white;
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
@@ -1319,7 +1319,7 @@ h1 {
 
 .stat-card {
   background: white;
-  border-radius: 16px;
+  border-radius: .5rem;
   padding: 32px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -1479,7 +1479,7 @@ body {
   margin: 0 auto;
   background: white;
   padding: 30px;
-  border-radius: 8px;
+  border-radius: .5rem;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 </output>
@@ -1927,7 +1927,7 @@ export const APIBridge_ProcessOutputElements: Story = {
           output.setAttribute('data-title', 'Dynamic Artifact');
           output.setAttribute('data-sample', 'true');
           output.innerHTML = `
-            <div style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: 8px;">
+            <div style="padding: 20px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border-radius: .5rem;">
               <h2>🚀 Dynamically Added!</h2>
               <p>This artifact was added to the DOM dynamically and then processed.</p>
               <p>Timestamp: ${new Date().toLocaleTimeString()}</p>
@@ -2069,18 +2069,18 @@ export const APIBridge_WebSocketSimulation: Story = {
       const simulateWebSocket = () => {
         // Simulate receiving a message with artifacts from WebSocket
         const artifactContent = `
-          <div style="padding: 20px; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+          <div style="padding: 20px; background: white; border-radius: .5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
             <h2>📊 Sales Report Q4 2024</h2>
             <div style="display: flex; gap: 20px; margin-top: 20px;">
-              <div style="flex: 1; padding: 15px; background: #ecfdf5; border-radius: 8px;">
+              <div style="flex: 1; padding: 15px; background: #ecfdf5; border-radius: .5rem;">
                 <h3>Revenue</h3>
                 <p style="font-size: 24px; font-weight: bold; color: #059669;">$124,500</p>
               </div>
-              <div style="flex: 1; padding: 15px; background: #fef3c7; border-radius: 8px;">
+              <div style="flex: 1; padding: 15px; background: #fef3c7; border-radius: .5rem;">
                 <h3>Customers</h3>
                 <p style="font-size: 24px; font-weight: bold; color: #d97706;">1,234</p>
               </div>
-              <div style="flex: 1; padding: 15px; background: #dbeafe; border-radius: 8px;">
+              <div style="flex: 1; padding: 15px; background: #dbeafe; border-radius: .5rem;">
                 <h3>Growth</h3>
                 <p style="font-size: 24px; font-weight: bold; color: #2563eb;">+23%</p>
               </div>
@@ -2099,9 +2099,9 @@ export const APIBridge_WebSocketSimulation: Story = {
         const chatContainer = document.getElementById('chat-simulation');
         if (chatContainer) {
           const messageHTML = `
-            <div style="padding: 10px; margin: 10px 0; background: #f9fafb; border-radius: 8px;">
+            <div style="padding: 10px; margin: 10px 0; background: #f9fafb; border-radius: .5rem;">
               <p><strong>Bot:</strong> I've created a visualization for you. Click the artifact card to view it.</p>
-              <div style="padding: 10px; margin-top: 10px; background: #e0e7ff; border-radius: 4px; cursor: pointer;" onclick="window.MemoriArtifactAPI?.createAndOpenArtifact(\`${artifactContent.replace(
+              <div style="padding: 10px; margin-top: 10px; background: #e0e7ff; border-radius: .5rem; cursor: pointer;" onclick="window.MemoriArtifactAPI?.createAndOpenArtifact(\`${artifactContent.replace(
                 /`/g,
                 '\\`'
               )}\`, 'html', 'Data Visualization')">

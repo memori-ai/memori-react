@@ -18,7 +18,11 @@ import {
 } from '@memori.ai/memori-api-client/src/types';
 import { ArtifactData } from '../MemoriArtifactSystem/types/artifact.types';
 import { ArtifactAPIBridge } from '../MemoriArtifactSystem/utils/ArtifactAPI';
-import type { LayoutName, PiiDetectionConfig } from '../../types/layout';
+import type {
+  LayoutName,
+  LayoutProp,
+  PiiDetectionConfig,
+} from '../../types/layout';
 import { checkPii } from '../../helpers/piiDetection'; // PII check when integrationConfig.layout has piiDetection.enabled
 
 // Libraries
@@ -35,10 +39,9 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import { IAudioContext } from 'standardized-audio-context';
 import cx from 'classnames';
 import { DateTime } from 'luxon';
-import toast from 'react-hot-toast';
+import { useAlertManager, createAlertOptions } from '@memori.ai/ui';
 
 // Components
-import PositionDrawer from '../PositionDrawer/PositionDrawer';
 import MemoriAuth from '../Auth/Auth';
 import Chat, { Props as ChatProps } from '../Chat/Chat';
 import StartPanel, { Props as StartPanelProps } from '../StartPanel/StartPanel';
@@ -50,14 +53,14 @@ import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
 import KnownFacts from '../KnownFacts/KnownFacts';
 import ExpertsDrawer from '../ExpertsDrawer/ExpertsDrawer';
 import LoginDrawer from '../LoginDrawer/LoginDrawer';
-import Button from '../ui/Button';
-import CloseIcon from '../icons/Close';
+import { Button } from '@memori.ai/ui';
+import { X } from 'lucide-react';
 
 // Layout
 import FullPageLayout from '../layouts/FullPage';
 import TotemLayout from '../layouts/Totem';
 import ChatLayout from '../layouts/Chat';
-import WebsiteAssistantLayout from '../layouts/WebsiteAssistant';
+import WebsiteAssistantLayout from '../layouts/WebsiteAssistant/WebsiteAssistant';
 import HiddenChatLayout from '../layouts/HiddenChat';
 import ZoomedFullBodyLayout from '../layouts/ZoomedFullBody';
 
@@ -392,7 +395,8 @@ export interface Props {
   spokenLang?: string;
   multilingual?: boolean;
   integration?: Integration;
-  layout?: LayoutName;
+  /** Layout name, or object when PII is configured (e.g. from integration customData). */
+  layout?: LayoutProp;
   customLayout?: React.FC<LayoutProps>;
   showShare?: boolean;
   showCopyButton?: boolean;
@@ -447,6 +451,39 @@ export interface Props {
   maxTotalMessagePayload?: number;
   /** Max characters in chat textarea; shows counter and enforces paste + existing text does not exceed this limit. */
   maxTextareaCharacters?: number;
+}
+
+/** Config shape for chat styling (integration customData). */
+type ChatStylesConfig = {
+  buttonBgColor?: string;
+};
+
+/**
+ * Returns CSS custom properties for the chat container when a brand primary is set.
+ * Maps only buttonBgColor → --memori-primary-color and injects the dynamic primary
+ * override block so derived tokens (hover, active, borders, etc.) update in the same scope.
+ * If buttonBgColor is missing, returns {} so global CSS defaults are used.
+ */
+export function getChatStyles(config: ChatStylesConfig | null | undefined): CSSProperties {
+  const primary = config?.buttonBgColor;
+  if (!primary) return {};
+
+  return {
+    '--memori-primary-color': primary,
+    '--memori-primary': 'var(--memori-primary-color)',
+    '--memori-primary-hover': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 15%)',
+    '--memori-primary-active': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 25%)',
+    '--memori-primary-disabled': 'color-mix(in oklch, var(--memori-primary), transparent 60%)',
+    '--memori-primary-subtle': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 60%)',
+    '--memori-primary-subtle-hover': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 50%)',
+    '--memori-border-primary': 'color-mix(in oklch, var(--memori-primary), transparent 70%)',
+    '--memori-border-primary-hover': 'color-mix(in oklch, var(--memori-primary), transparent 50%)',
+    '--memori-focus-ring-color': 'color-mix(in oklch, var(--memori-primary), transparent 80%)',
+    '--memori-focus-ring': '0 0 0 3px var(--memori-focus-ring-color)',
+    '--memori-shadow-primary': '0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%)',
+    '--memori-skeleton-base': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 85%)',
+    '--memori-skeleton-highlight': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 75%)',
+  } as CSSProperties;
 }
 
 const MemoriWidget = ({
@@ -510,7 +547,7 @@ const MemoriWidget = ({
   maxTextareaCharacters,
 }: Props) => {
   const { t, i18n } = useTranslation();
-
+  const { add, close } = useAlertManager();
   const [isClient, setIsClient] = useState(false);
   useEffect(() => {
     setIsClient(true);
@@ -532,6 +569,25 @@ const MemoriWidget = ({
 
   const [instruct, setInstruct] = useState(false);
   const [enableFocusChatInput, setEnableFocusChatInput] = useState(true);
+
+  const widgetRootRef = useRef<HTMLDivElement>(null);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+  useEffect(() => {
+    const el = widgetRootRef.current;
+    if (!el) return;
+    const check = () => {
+      setIsDarkTheme(!!el.closest('[data-theme="dark"]'));
+    };
+    check();
+    const observer = new MutationObserver(check);
+    const parent = el.parentElement ?? document.body;
+    observer.observe(parent, {
+      attributes: true,
+      attributeFilter: ['data-theme'],
+      subtree: true,
+    });
+    return () => observer.disconnect();
+  }, []);
 
   const [loginToken, setLoginToken] = useState<string | undefined>(
     additionalInfo?.loginToken ?? authToken
@@ -627,20 +683,49 @@ const MemoriWidget = ({
   const [memoriTyping, setMemoriTyping] = useState<boolean>(false);
   const [typingText, setTypingText] = useState<string>();
 
-  // Layout: from prop (string only) or integrationConfig. PII detection is only from integrationConfig (customData.layout as object with piiDetection).
+  // Layout: prop can be string or object { name, piiDetection } (e.g. from integration customData when PII is enabled).
   const layoutName =
     typeof layout === 'string'
       ? layout
-      : typeof integrationConfig?.layout === 'string'
-      ? integrationConfig.layout
-      : integrationConfig?.layout?.name;
-  const selectedLayout = layoutName || 'DEFAULT';
+      : layout &&
+          typeof layout === 'object' &&
+          layout !== null &&
+          'name' in layout &&
+          typeof (layout as { name: string }).name === 'string'
+        ? (layout as { name: string }).name
+        : typeof integrationConfig?.layout === 'string'
+          ? integrationConfig.layout
+          : integrationConfig?.layout?.name;
+  // Normalize to LayoutName: platform may pass number, "fullpage", "fullscreen", etc.
+  const selectedLayout = ((): LayoutName => {
+    if (typeof layoutName === 'string') {
+      const lower = layoutName.toLowerCase();
+      if (lower === 'fullpage' || lower === 'fullscreen' || lower === '2')
+        return 'FULLPAGE';
+      if (lower === 'totem') return 'TOTEM';
+      if (lower === 'chat') return 'CHAT';
+      if (lower === 'website_assistant') return 'WEBSITE_ASSISTANT';
+      if (lower === 'hidden_chat') return 'HIDDEN_CHAT';
+      if (lower === 'zoomed_full_body') return 'ZOOMED_FULL_BODY';
+      if (lower === 'default') return 'DEFAULT';
+      return layoutName as LayoutName;
+    }
+    if (layoutName === 2 || layoutName === '2') return 'FULLPAGE';
+    return 'DEFAULT';
+  })();
+  // PII: from layout prop when object with piiDetection, or from integrationConfig.layout
   const piiDetection: PiiDetectionConfig | undefined =
-    typeof integrationConfig?.layout === 'object' &&
-    integrationConfig?.layout !== null &&
-    integrationConfig?.layout?.piiDetection?.enabled
-      ? integrationConfig.layout.piiDetection
-      : undefined;
+    layout &&
+    typeof layout === 'object' &&
+    layout !== null &&
+    'piiDetection' in layout &&
+    layout.piiDetection?.enabled
+      ? layout.piiDetection
+      : typeof integrationConfig?.layout === 'object' &&
+          integrationConfig?.layout !== null &&
+          integrationConfig?.layout?.piiDetection?.enabled
+        ? integrationConfig.layout.piiDetection
+        : undefined;
 
   const defaultEnableAudio =
     enableAudio ?? integrationConfig?.enableAudio ?? true;
@@ -648,7 +733,7 @@ const MemoriWidget = ({
   const [hasUserActivatedListening, setHasUserActivatedListening] =
     useState(false);
   const [hasUserTypedMessage, setHasUserTypedMessage] = useState(false);
-  const [showPositionDrawer, setShowPositionDrawer] = useState(false);
+  const [positionPopoverOpen, setPositionPopoverOpenState] = useState(false);
   const [showSettingsDrawer, setShowSettingsDrawer] = useState(false);
   const [showChatHistoryDrawer, setShowChatHistoryDrawer] = useState(false);
   const [showKnownFactsDrawer, setShowKnownFactsDrawer] = useState(false);
@@ -1468,7 +1553,7 @@ const MemoriWidget = ({
         session?.resultMessage.startsWith('This Memori is aged restricted')
       ) {
         console.warn(session);
-        toast.error(t('underageTwinSession', { age: minAge }));
+        add(createAlertOptions({ description: t('underageTwinSession', { age: minAge }), severity: 'error' }));
         setGotErrorInOpening(true);
       }
       // Handle authentication error
@@ -1480,23 +1565,21 @@ const MemoriWidget = ({
       // Handle other errors
       else {
         console.warn(session);
-        toast.error(
-          tst => (
-            <div>
-              <p>{t(getErrori18nKey(session?.resultCode))}</p>
-              <Button
-                outlined
-                padded={false}
-                onClick={() => toast.dismiss(tst.id)}
-                icon={<CloseIcon />}
-              >
-                {t('close')}
-              </Button>
-            </div>
-          ),
-          {
-            duration: Infinity,
-          }
+        const toastId = add(
+          createAlertOptions({
+            description: (
+              <div>
+                <p>{t(getErrori18nKey(session?.resultCode))}</p>
+                <Button
+                  variant="outline"
+                  onClick={() => close(toastId)}
+                  icon={<X />}
+                />
+              </div>
+            ),
+            severity: 'error',
+            duration: 0,
+          })
         );
         setGotErrorInOpening(true);
         return session;
@@ -1691,7 +1774,7 @@ const MemoriWidget = ({
         response?.resultMessage.startsWith('This Memori is aged restricted')
       ) {
         console.error('[REOPEN_SESSION] Age restriction error:', response);
-        toast.error(t('underageTwinSession', { age: minAge }));
+        add(createAlertOptions({ description: t('underageTwinSession', { age: minAge }), severity: 'error' }));
         setGotErrorInOpening(true);
       }
       // Handle authentication error
@@ -1703,7 +1786,7 @@ const MemoriWidget = ({
       // Handle other errors
       else {
         console.error('[REOPEN_SESSION] Other error:', response);
-        toast.error(t(getErrori18nKey(response.resultCode)));
+        add(createAlertOptions({ description: t(getErrori18nKey(response.resultCode)), severity: 'error' }));
         setGotErrorInOpening(true);
       }
     } catch (err) {
@@ -2133,62 +2216,41 @@ const MemoriWidget = ({
     ? `url(${globalBackground})`
     : null;
 
-  const integrationProperties = (
-    integration
-      ? {
-          '--memori-chat-bubble-bg': '#fff',
-          ...(integrationConfig && !instruct
-            ? { '--memori-text-color': integrationConfig.textColor ?? '#000' }
-            : {}),
-          ...(integrationConfig?.buttonBgColor
-            ? {
-                '--memori-button-bg': integrationConfig.buttonBgColor,
-                '--memori-primary': integrationConfig.buttonBgColor,
-              }
-            : {}),
-          ...(integrationConfig?.buttonTextColor
-            ? {
-                '--memori-button-text': integrationConfig.buttonTextColor,
-              }
-            : {}),
-          ...(integrationConfig?.blurBackground
-            ? {
-                '--memori-blur-background': '5px',
-              }
-            : {
-                '--memori-blur-background': '0px',
-              }),
-          ...(integrationConfig?.innerBgColor
-            ? {
-                '--memori-inner-bg': `rgba(${
-                  integrationConfig.innerBgColor === 'dark'
-                    ? '0, 0, 0'
-                    : '255, 255, 255'
-                }, ${integrationConfig.innerBgAlpha ?? 0.4})`,
-                '--memori-inner-content-pad': '1.5rem',
-                '--memori-nav-bg-image': 'none',
-                '--memori-nav-bg': `rgba(${
-                  integrationConfig.innerBgColor === 'dark'
-                    ? '0, 0, 0'
-                    : '255, 255, 255'
-                }, ${integrationConfig?.innerBgAlpha ?? 0.4})`,
-              }
-            : {
-                '--memori-inner-content-pad': '0px',
-              }),
-        }
-      : {}
-  ) as CSSProperties;
+  const integrationProperties = (integration
+    ? getChatStyles(integrationConfig)
+    : {}) as CSSProperties;
 
-  const integrationStylesheet = `
-    ${
-      preview ? '#preview, ' : applyVarsToRoot ? ':root, ' : ''
-    }memori-client, .memori-widget, .memori-drawer, .memori-modal {
-      ${Object.entries(integrationProperties)
-        .map(([key, value]) => `${key}: ${value};`)
-        .join('\n')}
-    }
-  `;
+  const integrationSelectors = [
+    preview ? '#preview' : null,
+    applyVarsToRoot ? ':root' : null,
+    integration ? 'body' : null,
+    '.memori-client',
+    '.memori-widget',
+    '.memori-drawer',
+    '.memori-modal',
+    '.memori-header',
+    '.memori-dropdown',
+    '.memori-select',
+  ]
+    .filter(Boolean)
+    .join(', ');
+
+  const integrationStylesheetParts = [
+    `${integrationSelectors} {
+    ${Object.entries(integrationProperties)
+      .map(([key, value]) => `${key}: ${value};`)
+      .join('\n    ')}
+  }`,
+  ];
+  if (integrationConfig?.blurBackground) {
+    integrationStylesheetParts.push(
+      '.memori-widget .memori--global-background { filter: blur(5px); }',
+    );
+  }
+  const integrationStylesheet = `@layer integration {
+  ${integrationStylesheetParts.join('\n  ')}
+}
+`;
 
   const showAIicon =
     integrationConfig?.showAIicon === undefined
@@ -2366,7 +2428,7 @@ const MemoriWidget = ({
       );
       // Only check for position requirement if memori.needsPosition is true
       if (autoStart && !localPosition && memori.needsPosition) {
-        setShowPositionDrawer(true);
+        setPositionPopoverOpenState(true);
         return;
       }
 
@@ -2736,6 +2798,16 @@ const MemoriWidget = ({
     [memoriPwd, memori, memoriTokens, birthDate, sessionId, userLang, position]
   );
 
+  const setPositionPopoverOpen = useCallback(
+    (open: boolean) => {
+      setPositionPopoverOpenState(open);
+      if (!open && autoStart) {
+        onClickStart();
+      }
+    },
+    [autoStart, onClickStart]
+  );
+
   useEffect(() => {
     if (!clickedStart && autoStart && selectedLayout !== 'HIDDEN_CHAT') {
       onClickStart();
@@ -2883,7 +2955,9 @@ const MemoriWidget = ({
     position,
     layout: selectedLayout,
     additionalSettings,
-    setShowPositionDrawer,
+    setVenue: setPosition,
+    positionPopoverOpen,
+    setPositionPopoverOpen,
     setShowSettingsDrawer,
     setShowKnownFactsDrawer,
     setShowExpertsDrawer,
@@ -2950,7 +3024,8 @@ const MemoriWidget = ({
     baseUrl: baseUrl,
     apiUrl: client.constants.BACKEND_URL,
     position: position,
-    openPositionDrawer: () => setShowPositionDrawer(true),
+    setVenue: setPosition,
+    openPositionPopover: () => setPositionPopoverOpen(true),
     integrationConfig: integrationConfig,
     instruct: instruct,
     sessionId: sessionId,
@@ -3055,9 +3130,12 @@ const MemoriWidget = ({
       <div className="memori--global-background no-background-image" />
     );
 
-  const integrationStyle = integration ? (
-    <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
-  ) : null;
+  const integrationStyle =
+    integration &&
+    (Object.keys(integrationProperties).length > 0 ||
+      integrationConfig?.blurBackground) ? (
+      <style dangerouslySetInnerHTML={{ __html: integrationStylesheet }} />
+    ) : null;
 
   const poweredBy = (
     <PoweredBy
@@ -3086,11 +3164,12 @@ const MemoriWidget = ({
 
   return (
     <div
+      ref={widgetRootRef}
       className={cx(
         'memori',
         'memori-widget',
-        `memori-layout-${selectedLayout.toLowerCase()}`,
-        `memori-controls-${controlsPosition.toLowerCase()}`,
+        `memori-layout-${String(selectedLayout).toLowerCase()}`,
+        `memori-controls-${String(controlsPosition).toLowerCase()}`,
         `memori--avatar-${integrationConfig?.avatar || 'default'}`,
         {
           'memori--auto-start': autoStart,
@@ -3103,6 +3182,11 @@ const MemoriWidget = ({
           'memori--has-active-session': !!sessionId,
         }
       )}
+      data-theme={
+        integrationConfig?.theme === 'light' || integrationConfig?.theme === 'dark'
+          ? integrationConfig.theme
+          : undefined
+      }
       data-memori-name={memori?.name}
       data-memori-id={memori?.engineMemoriID}
       data-memori-secondary-id={memori?.memoriID}
@@ -3303,26 +3387,6 @@ const MemoriWidget = ({
           language={language}
           userLang={userLang}
           isMultilanguageEnabled={isMultilanguageEnabled}
-        />
-      )}
-
-      {showPositionDrawer && (
-        <PositionDrawer
-          memori={memori}
-          open={!!showPositionDrawer}
-          venue={position}
-          setVenue={setPosition}
-          onClose={() => {
-            setShowPositionDrawer(false);
-            if (autoStart) {
-              onClickStart();
-            }
-          }}
-          drawerClassName={
-            selectedLayout === 'WEBSITE_ASSISTANT'
-              ? 'memori-drawer--above-website-assistant'
-              : undefined
-          }
         />
       )}
 

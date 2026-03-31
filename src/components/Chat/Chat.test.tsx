@@ -1,5 +1,4 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import Chat from './Chat';
 import {
   memori,
@@ -11,6 +10,7 @@ import {
 } from '../../mocks/data';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
+import { render } from '../../testUtils';
 
 const client = memoriApiClient();
 

@@ -1,9 +1,24 @@
 
+/* Hold-to-talk: tooltip uses align=topLeft so the bubble stays in view (mic sits on the trailing edge). */
+.memori-chat-inputs--mic-tooltip.memori-tooltip {
+    vertical-align: middle;
+}
 
+/* Library default is overflow: hidden auto + max-height — avoid scrollbars on short hint text */
+.memori-chat-inputs--mic-tooltip .memori-tooltip--content {
+    overflow: visible;
+    max-height: none;
+}
 
 .memori-chat-inputs--mic {
     z-index: 1;
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+    box-sizing: border-box;
+    padding: 0;
     margin-left: 0.33rem;
+    color: var(--memori-primary);
     -webkit-tap-highlight-color: transparent;
     touch-action: manipulation;
     -webkit-touch-callout: none;
@@ -16,17 +31,16 @@
 }
 
 .memori-chat-inputs--mic svg {
+    width: 20px;
+    height: 20px;
     color: var(--memori-primary, #fff);
     font-size: 1em;
     -webkit-user-select: none;
     user-select: none;
 }
 
-.memori-chat-inputs--mic:hover,
-.memori-chat-inputs--mic:active,
-.memori-chat-inputs--mic:focus {
-    border-color: var(--memori-primary) !important;
-    color: var(--memori-primary, #fff);
+.memori-chat-inputs--mic:hover{
+    background-color: var(--memori-main-background) !important;
 }
 
 .memori-chat-inputs--mic:active,
@@ -127,4 +141,8 @@
     .memori-chat-inputs--mic.memori-chat-inputs--mic--listening::after {
         animation-duration: 1.5s;
     }
+}
+
+[data-theme='dark'] .memori-chat-inputs--mic .lucide-mic {
+    color: #fff;
 }

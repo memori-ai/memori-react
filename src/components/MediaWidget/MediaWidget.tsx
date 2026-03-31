@@ -3,9 +3,8 @@ import {
   TranslatedHint,
 } from '@memori.ai/memori-api-client/dist/types';
 import React, { useEffect, useState, memo } from 'react';
-import Button from '../ui/Button';
+import { Button } from '@memori.ai/ui';
 import MediaItemWidget, { Props as MediaItemProps } from './MediaItemWidget';
-import { Transition } from '@headlessui/react';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
 
@@ -57,22 +56,13 @@ const MediaWidget: React.FC<Props> = ({
       )}
       {hints?.length > 0 && showHints && (
         <>
-          <Transition appear show as="ul" className="memori-media--hints">
+          <ul className="memori-media--hints">
             {hints.slice(0, hintsPagination).map((item, index) => (
-              <Transition.Child
-                as="li"
-                key={item.text + index}
-                enter="ease-out duration-500"
-                enterFrom="opacity-0 translate-y-1"
-                enterTo="opacity-1 translate-y-0"
-                leave="ease-in duration-300"
-                leaveFrom="opacity-1"
-                leaveTo="opacity-0"
-              >
+              <li key={item.text + index}>
                 <Button
                   key={item.text + index}
                   className={cx('memori-media--hint')}
-                  primary
+                  variant="primary"
                   onClick={() => {
                     simulateUserPrompt(item.originalText, item.text);
                     setShowHints(false);
@@ -84,9 +74,9 @@ const MediaWidget: React.FC<Props> = ({
                 >
                   {item.text}
                 </Button>
-              </Transition.Child>
+              </li>
             ))}
-          </Transition>
+          </ul>
           {hints.length > hintsPagination && (
             <div className="memori-hints--show-more">
               <Button
