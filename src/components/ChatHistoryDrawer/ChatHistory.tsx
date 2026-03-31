@@ -1,4 +1,4 @@
-import { Drawer } from '@memori.ai/ui';
+import { Drawer, useAlertManager, createAlertOptions } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import DrawerFooter from '../DrawerFooter/DrawerFooter';
 import memoriApiClient from '@memori.ai/memori-api-client';
@@ -437,6 +437,7 @@ const ChatHistoryDrawer = ({
   isMultilanguageEnabled = false,
 }: Props) => {
   const { t } = useTranslation();
+  const { add } = useAlertManager();
   const { getUserChatLogsByTokenPaged } = apiClient.chatLogs;
 
   const textCurrentChat = `${t(
@@ -694,6 +695,13 @@ const ChatHistoryDrawer = ({
   const handleResumeChat = async () => {
     if (selectedChatLog) {
       resumeSession(selectedChatLog);
+      add(
+        createAlertOptions({
+          description:
+            t('write_and_speak.chatResumed') || 'Conversation resumed.',
+          severity: 'success',
+        })
+      );
       onClose();
     }
   };

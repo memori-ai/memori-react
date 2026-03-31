@@ -48,7 +48,6 @@
     border-radius: var(--memori-radius-box);
     -webkit-appearance: none;
     appearance: none;
-    background: #ffffff;
     /* Touch-friendly */
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     color: var(--memori-text-color);
