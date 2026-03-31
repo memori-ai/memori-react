@@ -8,7 +8,6 @@ import ChatInputs from '../ChatInputs/ChatInputs';
 import {
   maxDocumentsPerMessage,
   maxDocumentContentLength,
-  maxTotalMessagePayloadDefault,
   pasteAsCardLineThreshold,
   pasteAsCardCharThreshold,
 } from '../../helpers/constants';
@@ -151,10 +150,6 @@ const ChatLayout: React.FC<LayoutProps> = ({
                           isPlayingAudio={chatProps.isPlayingAudio}
                           showMicrophone={chatProps.showMicrophone}
                           memoriID={chatProps.memori?.memoriID}
-                          maxTotalMessagePayload={
-                            chatProps.maxTotalMessagePayload ??
-                            maxTotalMessagePayloadDefault
-                          }
                           maxTextareaCharacters={chatProps.maxTextareaCharacters}
                           maxDocumentsPerMessage={maxDocumentsPerMessage}
                           maxDocumentContentLength={maxDocumentContentLength}

@@ -275,8 +275,10 @@ const ChatInputs: React.FC<Props> = ({
         return;
       }
 
-      const totalPayloadLimit = maxTotalMessagePayload ?? 200000;
-      const perDocumentLimit = maxDocumentContentLength ?? 200000;
+      // Only enforce a per-document limit. `maxTotalMessagePayload` is kept for backward compatibility
+      // and now acts as the per-document content length override.
+      const perDocumentLimit =
+        maxTotalMessagePayload ?? maxDocumentContentLength ?? 300000;
 
       if (text.length > perDocumentLimit) {
         e.preventDefault();
@@ -284,23 +286,6 @@ const ChatInputs: React.FC<Props> = ({
           id: `paste-content-exceeds-per-document-limit-${Date.now()}`,
           title: t('upload.pasteContentExceedsLimit', {
             defaultValue:
-              'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
-          }),
-          data: { severity: 'error', closable: true },
-        });
-        return;
-      }
-
-      const currentTotal = documentPreviewFiles.reduce(
-        (sum, f) => sum + f.content.length,
-        0
-      );
-      if (currentTotal + text.length > totalPayloadLimit) {
-        e.preventDefault();
-        alertManager.add({
-          id: `paste-content-exceeds-total-payload-limit-${Date.now()}`,
-          title: t('upload.pasteContentExceedsLimit', {
-           defaultValue:
               'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
           }),
           data: { severity: 'error', closable: true },

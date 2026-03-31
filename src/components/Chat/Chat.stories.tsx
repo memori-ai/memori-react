@@ -103,6 +103,48 @@ WithHints.args = {
   setSendOnEnter: () => {},
 };
 
+export const WithMessageConsumption = Template.bind({});
+WithMessageConsumption.args = {
+  memori,
+  tenant,
+  sessionID,
+  dialogState,
+  layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+  showMessageConsumption: true,
+  history: [
+    ...history.slice(0, Math.max(0, history.length - 2)),
+    // Add one AI message with llmUsage for the badges
+    {
+      ...(history.find(m => !m.fromUser) ?? history[history.length - 1]),
+      fromUser: false,
+      text: 'Risposta di esempio con consumo LLM.',
+      llmUsage: {
+        provider: 'openai',
+        model: 'gpt-4.1-mini',
+        totalInputTokens: 123,
+        inputCacheReadTokens: 10,
+        inputCacheWriteTokens: 5,
+        outputTokens: 456,
+        durationMs: 2345,
+        energyImpact: {
+          energy: 0.00012,
+          energyUnit: 'kWh',
+          gwp: 0.00009,
+          gwpUnit: 'kgCO2eq',
+          wcf: 0.02,
+          wcfUnit: 'L',
+        },
+      },
+    } as any,
+  ],
+};
+
 export const WithArtifacts = Template.bind({});
 WithArtifacts.args = {
   memori,

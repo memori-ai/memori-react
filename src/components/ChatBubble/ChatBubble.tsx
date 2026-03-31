@@ -25,7 +25,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@memori.ai/ui';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
 import { stripHTML, stripOutputTags } from '../../helpers/utils';
-import { renderMsg, truncateMessage } from '../../helpers/message';
+import { renderMsg, sanitizeMsg, truncateMessage } from '../../helpers/message';
 import { Expandable, Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
 
@@ -65,6 +65,7 @@ export interface Props {
   experts?: ExpertReference[];
   showFunctionCache?: boolean;
   showReasoning?: boolean;
+  usageHtml?: string;
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -88,6 +89,7 @@ const ChatBubble: React.FC<Props> = ({
   experts,
   showFunctionCache = false,
   showReasoning = false,
+  usageHtml = '',
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
@@ -123,7 +125,7 @@ const ChatBubble: React.FC<Props> = ({
     showReasoning
   );
   const plainText = message.fromUser
-    ? truncateMessage(cleanText)
+    ? sanitizeMsg(truncateMessage(cleanText))
     : stripHTML(stripOutputTags(renderedText));
   const copyText = message.fromUser ? cleanText : plainText;
   const shouldShowCopyButtons =
@@ -132,9 +134,11 @@ const ChatBubble: React.FC<Props> = ({
     shouldShowCopyButtons &&
     !!message.text?.length &&
     plainText !== message.text;
-  const rawMessageText = message.fromUser
-    ? message.text || ''
-    : (message.text || '').replaceAll(/<think.*?>(.*?)<\/think>/gs, '');
+  const rawMessageText = sanitizeMsg(
+    message.fromUser
+      ? message.text || ''
+      : (message.text || '').replaceAll(/<think.*?>(.*?)<\/think>/gs, '')
+  );
   const copiedLabel = t('copied') || 'Copied';
 
   // Format function cache content
@@ -317,7 +321,9 @@ const ChatBubble: React.FC<Props> = ({
           />
         </picture>
         <div className="memori-chat--bubble memori-chat--bubble-status-message-error">
-          <div className="memori-chat--bubble-message ">{cleanText}</div>
+          <div className="memori-chat--bubble-message ">
+            {sanitizeMsg(cleanText)}
+          </div>
         </div>
       </div>
     );
@@ -416,7 +422,7 @@ const ChatBubble: React.FC<Props> = ({
               <div
                 dir="auto"
                 className="memori-chat--bubble-content"
-                dangerouslySetInnerHTML={{ __html: cleanText }}
+                dangerouslySetInnerHTML={{ __html: sanitizeMsg(cleanText) }}
               />
             </Expandable>
           ) : (
@@ -424,6 +430,13 @@ const ChatBubble: React.FC<Props> = ({
               dir="auto"
               className="memori-chat--bubble-content"
               dangerouslySetInnerHTML={{ __html: renderedText }}
+            />
+          )}
+
+          {!!usageHtml && (
+            <div
+              className="memori-chat--usage-inside-bubble"
+              dangerouslySetInnerHTML={{ __html: usageHtml }}
             />
           )}
 

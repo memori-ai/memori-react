@@ -404,6 +404,7 @@ export interface Props {
   showInputs?: boolean;
   showDates?: boolean;
   showContextPerLine?: boolean;
+  showMessageConsumption?: boolean;
   showSettings?: boolean;
   showClear?: boolean;
   showOnlyLastMessages?: boolean;
@@ -506,6 +507,7 @@ const MemoriWidget = ({
   showInputs = true,
   showDates = false,
   showContextPerLine = false,
+  showMessageConsumption = false,
   showSettings,
   showTypingText = false,
   showClear = false,
@@ -747,6 +749,8 @@ const MemoriWidget = ({
     null
   );
   const [hideEmissions, setHideEmissions] = useState(false);
+  const [runtimeShowMessageConsumption, setRuntimeShowMessageConsumption] =
+    useState(false);
 
   const speechSynthesizerRef = useRef<any | null>(null);
   const [memoriSpeaking, setMemoriSpeaking] = useState(false);
@@ -785,6 +789,12 @@ const MemoriWidget = ({
     );
     setAvatarType(getLocalConfig('avatarType', 'avatar3d'));
     setHideEmissions(getLocalConfig('hideEmissions', false));
+    setRuntimeShowMessageConsumption(
+      getLocalConfig(
+        'showMessageConsumption',
+        showMessageConsumption ?? integrationConfig?.showMessageConsumption ?? false
+      )
+    );
 
     if (!additionalInfo?.loginToken && !authToken) {
       setLoginToken(getLocalConfig<typeof loginToken>('loginToken', undefined));
@@ -1084,6 +1094,7 @@ const MemoriWidget = ({
               text: emission,
               emitter: currentState.emitter,
               media: currentState.emittedMedia ?? currentState.media,
+              llmUsage: (currentState as any).llmUsage,
               fromUser: false,
               questionAnswered: msg,
               generatedByAI: !!currentState.completion,
@@ -1095,7 +1106,7 @@ const MemoriWidget = ({
               placeUncertaintyKm: currentState.currentUncertaintyKm,
               tag: currentState.currentTag,
               memoryTags: currentState.memoryTags,
-            });
+            } as any);
             if (emission && shouldPlayAudio(emission)) {
               handleSpeak(emission);
             }
@@ -1182,7 +1193,7 @@ const MemoriWidget = ({
     const emission = state?.emission ?? currentDialogState?.emission;
 
     let translatedState = { ...state };
-    let translatedMsg = null;
+    let translatedMsg: any = null;
 
     // Skip translation if not needed
     if (
@@ -1198,6 +1209,7 @@ const MemoriWidget = ({
           text: emission,
           emitter: state.emitter,
           media: state.emittedMedia ?? state.media,
+          llmUsage: (state as any).llmUsage,
           fromUser: false,
           questionAnswered: msg,
           contextVars: state.contextVars,
@@ -1255,6 +1267,7 @@ const MemoriWidget = ({
             translatedText: t.text,
             emitter: state.emitter,
             media: state.emittedMedia ?? state.media,
+            llmUsage: (state as any).llmUsage,
             fromUser: false,
             questionAnswered: msg,
             generatedByAI: !!state.completion,
@@ -1275,6 +1288,7 @@ const MemoriWidget = ({
           text: emission,
           emitter: state.emitter,
           media: state.emittedMedia ?? state.media,
+          llmUsage: (state as any).llmUsage,
           fromUser: false,
           questionAnswered: msg,
           contextVars: state.contextVars,
@@ -2246,6 +2260,7 @@ const MemoriWidget = ({
   const enableUpload = !!(showUpload ?? integrationConfig?.showUpload);
 
   const enableReasoning = !!(showReasoning ?? integrationConfig?.showReasoning);
+  const enableMessageConsumption = !!runtimeShowMessageConsumption;
 
   const showWhyThisAnswer =
     integrationConfig?.showWhyThisAnswer === undefined
@@ -2493,6 +2508,7 @@ const MemoriWidget = ({
                       ...m,
                     })),
                   fromUser: l.inbound,
+                  llmUsage: (l as any).llmUsage,
                   timestamp: l.timestamp,
                   emitter: l.emitter,
                   initial: i === 0,
@@ -2677,6 +2693,7 @@ const MemoriWidget = ({
                       ...m,
                     })),
                   fromUser: l.inbound,
+                  llmUsage: (l as any).llmUsage,
                   timestamp: l.timestamp,
                   emitter: l.emitter,
                   initial: i === 0,
@@ -3052,6 +3069,7 @@ const MemoriWidget = ({
     simulateUserPrompt,
     showDates,
     showContextPerLine,
+    showMessageConsumption: enableMessageConsumption,
     showAIicon,
     showUpload: enableUpload,
     showReasoning: enableReasoning,

@@ -42,6 +42,7 @@ export interface Props {
   showInputs?: boolean;
   showDates?: boolean;
   showContextPerLine?: boolean;
+  showMessageConsumption?: boolean;
   showSettings?: boolean;
   __WEBCOMPONENT__?: boolean;
   showClear?: boolean;
@@ -75,7 +76,7 @@ export interface Props {
   useMathFormatting?: boolean;
   autoStart?: boolean;
   applyVarsToRoot?: boolean;
-  /** Override total document payload and per-document content limit (character count). Default from constants (200000). */
+  /** Max per-document content length (character count). Kept name for backward compatibility. Default: 300000. */
   maxTotalMessagePayload?: number;
   /** Max characters allowed in the chat textarea. When set, shows a counter (e.g. "0 / 500") and enforces that pasted content + existing text does not exceed this limit. */
   maxTextareaCharacters?: number;
@@ -129,6 +130,7 @@ const Memori: React.FC<Props> = ({
   showInputs = true,
   showDates = false,
   showContextPerLine = false,
+  showMessageConsumption = false,
   showUpload,
   showLogin,
   showReasoning,
@@ -370,6 +372,7 @@ const Memori: React.FC<Props> = ({
         showUpload,
         showReasoning,
         showContextPerLine,
+        showMessageConsumption,
         initialContextVars:
           context ?? getParsedContext(layoutIntegrationConfig.contextVars),
         initialQuestion:
@@ -540,6 +543,7 @@ Memori.propTypes = {
   showInputs: PropTypes.bool,
   showDates: PropTypes.bool,
   showContextPerLine: PropTypes.bool,
+  showMessageConsumption: PropTypes.bool,
   showSettings: PropTypes.bool,
   showClear: PropTypes.bool,
   showOnlyLastMessages: PropTypes.bool,

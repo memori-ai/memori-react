@@ -86,8 +86,8 @@ WithChatHistory.args = {
   showChatHistory: true,
 };
 
-export const WithUploadWithMaxTotalMessagePayload = Template.bind({});
-WithUploadWithMaxTotalMessagePayload.args = {
+export const WithUploadNoTotalPayloadLimit = Template.bind({});
+WithUploadNoTotalPayloadLimit.args = {
   ownerUserName: 'nzambello',
   memoriName: 'Nicola',
   tenantID: 'www.aisuru.com',
@@ -98,7 +98,6 @@ WithUploadWithMaxTotalMessagePayload.args = {
   spokenLang: 'IT',
   enableAudio: true,
   showUpload: true,
-  maxTotalMessagePayload: 300000,
 };
 
 export const WithMaxTextareaCharacters = Template.bind({});

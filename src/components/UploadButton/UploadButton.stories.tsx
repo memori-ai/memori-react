@@ -151,9 +151,9 @@ A unified upload button that supports both images and documents with the followi
 
 ## Limits
 
-- **Images**: Maximum 5 images, 10MB per file, formats: .jpg, .jpeg, .png
-- **Documents**: Maximum 5 documents, 10MB per file, formats: .pdf, .txt, .json, .xlsx, .csv, .md
-- **Content**: Document content is limited to 200,000 characters per document (truncated if exceeded)
+- **Images**: Maximum 5 images, 15MB per file, formats: .jpg, .jpeg, .png
+- **Documents**: Maximum 5 documents, 15MB per file, formats: .pdf, .txt, .json, .xlsx, .csv, .md
+- **Content**: Document content is limited to 300,000 characters per document (truncated if exceeded)
         `,
       },
     },
