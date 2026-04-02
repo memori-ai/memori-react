@@ -1,5 +1,12 @@
 
 
+## [8.30.1](https://github.com/memori-ai/memori-react/compare/v8.30.0...v8.30.1) (2026-04-02)
+
+
+### Maintenance
+
+* update deps following npm audit ([5f6c878](https://github.com/memori-ai/memori-react/commit/5f6c8787c8f986fbe4eff64dec766b31cad4dd5c))
+
 ## [8.30.0](https://github.com/memori-ai/memori-react/compare/v8.29.1...v8.30.0) (2026-03-27)
 
 
