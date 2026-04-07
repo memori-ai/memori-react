@@ -483,6 +483,7 @@
     "co2": "CO2",
     "water": "Water",
     "usageBadgesHint": "Click one of these buttons to show more information",
+    "totalChatConsumptionTitle": "Total Chat Consumption",
     "impactComparisonUnavailable": "Indicative comparison unavailable.",
     "impactComparisonEnergy": "Indicative comparison: roughly like keeping a 10 W LED bulb on for {{duration}}.",
     "impactComparisonCo2": "Indicative comparison: about {{distance}} traveled by an average gasoline car.",

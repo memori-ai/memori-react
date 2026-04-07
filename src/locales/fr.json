@@ -437,6 +437,7 @@
     "co2": "CO2",
     "water": "Eau",
     "usageBadgesHint": "Cliquez sur un de ces boutons pour afficher plus d'informations",
+    "totalChatConsumptionTitle": "Consommation Totale du Chat",
     "impactComparisonUnavailable": "Comparaison indicative non disponible.",
     "impactComparisonEnergy": "Comparaison indicative : environ comme laisser allumee une ampoule LED de 10 W pendant {{duration}}.",
     "impactComparisonCo2": "Comparaison indicative : environ {{distance}} parcourus en voiture essence moyenne.",
