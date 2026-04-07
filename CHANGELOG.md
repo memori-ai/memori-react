@@ -1,5 +1,13 @@
 
 
+## [8.32.0](https://github.com/memori-ai/memori-react/compare/v8.31.0...v8.32.0) (2026-04-07)
+
+
+### Features
+
+* add GasStation icon and update Header component for sustainability button ([434c61a](https://github.com/memori-ai/memori-react/commit/434c61a02eeb493261fe44d343b337a8727b83d1))
+* update Header component to use localized strings for total chat consumption ([6173c7e](https://github.com/memori-ai/memori-react/commit/6173c7e880aeed5947fa74f0abfa0854231f8e99))
+
 ## [8.31.0](https://github.com/memori-ai/memori-react/compare/v8.30.1...v8.31.0) (2026-04-07)
 
 
