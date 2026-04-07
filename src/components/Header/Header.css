@@ -12,7 +12,6 @@
     backdrop-filter: blur(10px);
     gap: var(--memori-spacing-xs);
     text-align: right;
-
 }
 
 .memori-totem-layout .memori-header {
@@ -293,10 +292,15 @@
 
 .memori-widget[data-theme='dark'] .memori-header .memori-button:hover:not(:disabled, .memori-button--disabled),
 .memori-widget[data-theme='dark'] .memori-header .memori-button:active:not(:disabled, .memori-button--disabled),
-.memori-widget[data-theme='dark'] .memori-header .memori-button.memori-button--active:not(:disabled, .memori-button--disabled),
+.memori-widget[data-theme='dark']
+    .memori-header
+    .memori-button.memori-button--active:not(:disabled, .memori-button--disabled),
 [data-theme='dark'] .memori-widget .memori-header .memori-button:hover:not(:disabled, .memori-button--disabled),
 [data-theme='dark'] .memori-widget .memori-header .memori-button:active:not(:disabled, .memori-button--disabled),
-[data-theme='dark'] .memori-widget .memori-header .memori-button.memori-button--active:not(:disabled, .memori-button--disabled) {
+[data-theme='dark']
+    .memori-widget
+    .memori-header
+    .memori-button.memori-button--active:not(:disabled, .memori-button--disabled) {
     border-color: #fff;
     color: #fff;
 }
