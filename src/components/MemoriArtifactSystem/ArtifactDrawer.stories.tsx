@@ -790,6 +790,43 @@ function hello() {
 This project helps you build amazing applications.
 </output>`;
 
+const markdownCustomArtifact = `<output class="memori-artifact" data-mimetype="markdown" data-title="CUSTOM_MARKDOWN_TEST.md">
+# Custom Markdown Rendering Test
+
+## Text formatting
+Use **bold**, *italic*, and \`inline code\` in the same sentence.
+
+## Checklist
+- [x] Parse headings
+- [x] Render lists
+- [ ] Verify custom table support
+
+## Table
+| Feature | Expected |
+| --- | --- |
+| Link rendering | Opens in a new tab |
+| Code block | Preserves indentation |
+| Blockquote | Styled correctly |
+
+## Blockquote
+> This is a quoted note to verify markdown styling in preview mode.
+
+## Code block
+\`\`\`ts
+type User = {
+  id: string;
+  name: string;
+  active: boolean;
+};
+
+const toLabel = (user: User) => \`\${user.name} (\${user.id})\`;
+\`\`\`
+
+## Links
+- [Memori website](https://memori.ai)
+- [Example docs](https://example.com/docs)
+</output>`;
+
 const cssArtifact = `<output class="memori-artifact" data-mimetype="css">
 /* Modern CSS Grid Layout */
 .container {
@@ -1092,6 +1129,40 @@ export const MarkdownDocumentation: Story = {
 ${markdownArtifact}
 
 This includes all the essential sections for a project README with proper formatting and structure.`,
+          fromUser: false,
+          timestamp: new Date().toISOString(),
+        },
+      ]}
+      pushMessage={mockPushMessage}
+      simulateUserPrompt={mockSimulateUserPrompt}
+      onChangeUserMessage={mockOnChangeUserMessage}
+      sendMessage={mockSendMessage}
+      setEnableFocusChatInput={mockSetEnableFocusChatInput}
+      stopAudio={mockStopAudio}
+      startListening={mockStartListening}
+      stopListening={mockStopListening}
+      setSendOnEnter={mockSetSendOnEnter}
+      setAttachmentsMenuOpen={mockSetAttachmentsMenuOpen}
+      showInputs={false}
+      isChatlogPanel={false}
+    />
+  ),
+};
+
+export const MarkdownCustomRendering: Story = {
+  args: {},
+  render: () => (
+    <Chat
+      memori={mockMemori}
+      tenant={mockTenant}
+      sessionID="test-session"
+      history={[
+        {
+          text: `I generated a custom markdown artifact to validate rendering behavior:
+
+${markdownCustomArtifact}
+
+Please check preview and code tabs to verify the output.`,
           fromUser: false,
           timestamp: new Date().toISOString(),
         },

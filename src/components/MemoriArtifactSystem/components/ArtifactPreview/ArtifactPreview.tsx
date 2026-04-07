@@ -13,6 +13,7 @@ import Code from '../../../icons/Code';
 import { PreviewIcon } from '../../../icons/Preview';
 import Snippet from '../../../Snippet/Snippet';
 import { Medium } from '@memori.ai/memori-api-client/dist/types';
+import { renderMsg } from '../../../../helpers/message';
 
 const ArtifactPreview: React.FC<{
   artifact: ArtifactData;
@@ -41,15 +42,22 @@ const ArtifactPreview: React.FC<{
           />
         );
 
-      case 'markdown':
+      case 'markdown': {
+        const { text: renderedMarkdown } = renderMsg(
+          artifact.content,
+          false,
+          'Reasoning...',
+          false
+        );
         return (
           <div
             className="memori-artifact-preview-markdown"
             dangerouslySetInnerHTML={{
-              __html: renderMarkdown(artifact.content),
+              __html: renderedMarkdown,
             }}
           />
         );
+      }
         
       default:
         return (
@@ -62,28 +70,6 @@ const ArtifactPreview: React.FC<{
         );
     }
   }, [artifact]);
-
-  /**
-   * Basic markdown rendering
-   */
-  const renderMarkdown = useCallback((markdown: string): string => {
-    return markdown
-      .replace(/^# (.*$)/gim, '<h1>$1</h1>')
-      .replace(/^## (.*$)/gim, '<h2>$1</h2>')
-      .replace(/^### (.*$)/gim, '<h3>$1</h3>')
-      .replace(/^#### (.*$)/gim, '<h4>$1</h4>')
-      .replace(/^##### (.*$)/gim, '<h5>$1</h5>')
-      .replace(/^###### (.*$)/gim, '<h6>$1</h6>')
-      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-      .replace(/\*(.*?)\*/g, '<em>$1</em>')
-      .replace(/`(.*?)`/g, '<code>$1</code>')
-      .replace(/```([\s\S]*?)```/g, '<pre><code>$1</code></pre>')
-      .replace(
-        /\[([^\]]+)\]\(([^)]+)\)/g,
-        '<a href="$2" target="_blank" rel="noopener noreferrer">$1</a>'
-      )
-      .replace(/\n/g, '<br>');
-  }, []);
 
   const mapArtifactMimeTypeToSnippetMimeType = useCallback(
     (mimeType: string) => {
