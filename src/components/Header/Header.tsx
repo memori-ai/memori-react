@@ -322,13 +322,13 @@ const Header: React.FC<Props> = ({
         >
           <div className="memori-dropdown--sustainability">
             <h4 className="memori-dropdown--sustainability-title">
-              Consumo Totale Chat
+              {t('chatLogs.totalChatConsumptionTitle') || 'Consumo Totale Chat'}
             </h4>
             <div className="memori-dropdown--sustainability-metrics">
               <div className="memori-dropdown--sustainability-row">
                 <span className="memori-dropdown--sustainability-label">
                   <span aria-hidden="true">{BADGE_EMOJI.energy}</span>{' '}
-                  {t('energy') || 'Energy'}
+                  {t('chatLogs.energy') || 'Energy'}
                 </span>
                 <strong className="memori-dropdown--sustainability-value">
                   {formatImpactInReadableUnit(
@@ -341,7 +341,7 @@ const Header: React.FC<Props> = ({
               <div className="memori-dropdown--sustainability-row">
                 <span className="memori-dropdown--sustainability-label">
                   <span aria-hidden="true">{BADGE_EMOJI.co2}</span>{' '}
-                  {t('co2') || 'CO2'}
+                  {t('chatLogs.co2') || 'CO2'}
                 </span>
                 <strong className="memori-dropdown--sustainability-value">
                   {formatImpactInReadableUnit(
@@ -354,7 +354,7 @@ const Header: React.FC<Props> = ({
               <div className="memori-dropdown--sustainability-row">
                 <span className="memori-dropdown--sustainability-label">
                   <span aria-hidden="true">{BADGE_EMOJI.water}</span>{' '}
-                  {t('water') || 'Water'}
+                  {t('chatLogs.water') || 'Water'}
                 </span>
                 <strong className="memori-dropdown--sustainability-value">
                   {formatImpactInReadableUnit(

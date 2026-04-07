@@ -451,6 +451,7 @@
     "co2": "CO2",
     "water": "Acqua",
     "usageBadgesHint": "Clicca uno di questi pulsanti per mostrare maggiori informazioni",
+    "totalChatConsumptionTitle": "Consumo Totale Chat",
     "impactComparisonUnavailable": "Confronto indicativo non disponibile.",
     "impactComparisonEnergy": "Confronto indicativo: circa quanto tenere accesa una lampadina LED da 10 W per {{duration}}.",
     "impactComparisonCo2": "Confronto indicativo: circa {{distance}} percorsi in auto a benzina media.",
