@@ -23,7 +23,7 @@ import DeepThought from '../icons/DeepThought';
 import Group from '../icons/Group';
 import UserIcon from '../icons/User';
 import MessageIcon from '../icons/Message';
-import Info from '../icons/Info';
+import GasStation from '../icons/GasStation';
 import Logout from '../icons/Logout';
 import { getErrori18nKey } from '../../helpers/error';
 import toast from 'react-hot-toast';
@@ -316,7 +316,7 @@ const Header: React.FC<Props> = ({
               shape="circle"
               className={cx('memori-header--button', 'memori-header--button--sustainability', hasSpacedButtons && 'memori-header--button-spaced')}
               title={t('write_and_speak.showMessageConsumptionLabel') || 'LLM consumption'}
-              icon={<Info />}
+              icon={<GasStation className="memori-header--button--sustainability-icon" />}
             />
           }
         >

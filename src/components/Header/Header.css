@@ -97,8 +97,16 @@
     }
 }
 
+.memori-header--button--sustainability-icon {
+    width: 1em;
+    color: currentColor;
+}
 .memori-header .memori-header--button--position {
     margin-right: 0;
+}
+
+.memori-header--button--sustainability{
+    max-height: 37px;
 }
 
 
