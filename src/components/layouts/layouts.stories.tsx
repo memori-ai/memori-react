@@ -50,6 +50,7 @@ DefaultLayout.args = {
   showLogin: true,
   multilingual: true,
   avatar3dHidden: true,
+  showMessageConsumption: true,
 };
 
 

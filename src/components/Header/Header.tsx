@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
 import {
   Memori,
@@ -36,6 +36,7 @@ import PositionPopover from '../PositionPopover/PositionPopover';
 import { getErrori18nKey } from '../../helpers/error';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
+import { BADGE_EMOJI } from '../../helpers/llmUsage';
 
 const imgMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
 
@@ -75,6 +76,7 @@ export interface Props {
   apiClient: ReturnType<typeof memoriApiClient>;
   layout?: WidgetProps['layout'];
   additionalSettings?: WidgetProps['additionalSettings'];
+  showMessageConsumption?: boolean;
 }
 
 const Header: React.FC<Props> = ({
@@ -112,12 +114,102 @@ const Header: React.FC<Props> = ({
   apiClient,
   layout,
   additionalSettings,
+  showMessageConsumption = false,
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { add } = useAlertManager();
   const { uploadAsset, pwlUpdateUser } = apiClient.backend;
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
+
+  type ImpactMetricType = 'energy' | 'co2' | 'water';
+
+  type LlmUsageEnergyImpact = {
+    energy?: number | { source?: string; parsedValue?: number };
+    gwp?: number | { source?: string; parsedValue?: number };
+    wcf?: number | { source?: string; parsedValue?: number };
+  };
+
+  const getMetricValue = (
+    metric?: number | { source?: string; parsedValue?: number }
+  ): number | undefined => {
+    if (typeof metric === 'number' && Number.isFinite(metric)) return metric;
+    if (!metric || typeof metric !== 'object') return undefined;
+    if (
+      typeof metric.parsedValue === 'number' &&
+      Number.isFinite(metric.parsedValue)
+    ) {
+      return metric.parsedValue;
+    }
+    if (typeof metric.source === 'string') {
+      const parsed = Number(metric.source);
+      if (Number.isFinite(parsed)) return parsed;
+    }
+    return undefined;
+  };
+
+  const formatMetricValue = (value: number, locale: string): string =>
+    new Intl.NumberFormat(locale, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: Math.abs(value) >= 1 ? 3 : 4,
+    }).format(value);
+
+  const formatImpactInReadableUnit = (
+    value: number,
+    metricType: ImpactMetricType,
+    locale: string
+  ): string => {
+    const absValue = Math.abs(value);
+
+    if (metricType === 'energy') {
+      if (absValue >= 1) return `${formatMetricValue(value, locale)} kWh`;
+      const wh = value * 1000;
+      if (Math.abs(wh) >= 1) return `${formatMetricValue(wh, locale)} Wh`;
+      return `${formatMetricValue(wh * 1000, locale)} mWh`;
+    }
+
+    if (metricType === 'co2') {
+      if (absValue >= 1) return `${formatMetricValue(value, locale)} kg`;
+      const g = value * 1000;
+      if (Math.abs(g) >= 1) return `${formatMetricValue(g, locale)} g`;
+      return `${formatMetricValue(g * 1000, locale)} mg`;
+    }
+
+    if (absValue >= 1) return `${formatMetricValue(value, locale)} L`;
+    const ml = value * 1000;
+    if (Math.abs(ml) >= 1) return `${formatMetricValue(ml, locale)} mL`;
+    return `${formatMetricValue(ml * 1000, locale)} μL`;
+  };
+
+  const currentLocale = i18n.language || navigator.language || 'en';
+  const chatLog = useMemo(() => ({ lines: history }), [history]);
+  const sustainabilityTotals = useMemo(() => {
+    const totals = { energy: 0, gwp: 0, wcf: 0 };
+    (chatLog?.lines ?? []).forEach(line => {
+      const energyImpact = (
+        line as Message & {
+          llmUsage?: { energyImpact?: LlmUsageEnergyImpact };
+        }
+      ).llmUsage?.energyImpact;
+      if (!energyImpact) return;
+      totals.energy += getMetricValue(energyImpact.energy) ?? 0;
+      totals.gwp += getMetricValue(energyImpact.gwp) ?? 0;
+      totals.wcf += getMetricValue(energyImpact.wcf) ?? 0;
+    });
+    return totals;
+  }, [chatLog]);
+  const hasSustainabilityData = useMemo(
+    () =>
+      (chatLog?.lines ?? []).some(
+        line =>
+          !!(
+            line as Message & {
+              llmUsage?: { energyImpact?: LlmUsageEnergyImpact };
+            }
+          ).llmUsage?.energyImpact
+      ),
+    [chatLog]
+  );
   useEffect(() => {
     if (document.fullscreenEnabled) {
       setFullScreenAvailable(true);

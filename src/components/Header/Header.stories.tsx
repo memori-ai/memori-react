@@ -27,6 +27,31 @@ const meta: Meta = {
 
 export default meta;
 
+const historyWithConsumption = [
+  ...history,
+  {
+    ...history[history.length - 1],
+    llmUsage: {
+      energyImpact: {
+        energy: { parsedValue: 0.0012 },
+        gwp: { parsedValue: 0.00045 },
+        wcf: { parsedValue: 0.0021 },
+      },
+    },
+  },
+  {
+    ...history[history.length - 1],
+    text: 'Second sustainability sample',
+    llmUsage: {
+      energyImpact: {
+        energy: 0.0008,
+        gwp: { source: '0.00035' },
+        wcf: { source: '0.0014' },
+      },
+    },
+  },
+] as any;
+
 const Template: Story<Props> = args => {
   const [speakerMuted, setSpeakerMuted] = React.useState(args.speakerMuted);
   const [showSettingsDrawer, setShowSettingsDrawer] = React.useState(false);
@@ -308,4 +333,25 @@ WithLogin.args = {
   speakerMuted: false,
   hasUserActivatedSpeak: false,
   showLogin: true,
+};
+
+export const WithSustainabilityPopover = Template.bind({});
+WithSustainabilityPopover.args = {
+  memori,
+  history: historyWithConsumption,
+  setShowPositionDrawer: () => {},
+  setShowSettingsDrawer: () => {},
+  setShowChatHistoryDrawer: () => {},
+  setShowKnownFactsDrawer: () => {},
+  setShowExpertsDrawer: () => {},
+  setShowLoginDrawer: () => {},
+  clearHistory: () => {},
+  speakerMuted: false,
+  hasUserActivatedSpeak: true,
+  showShare: false,
+  showSettings: false,
+  showMessageConsumption: true,
+  apiClient: {
+    backend: {},
+  } as any,
 };

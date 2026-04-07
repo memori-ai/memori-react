@@ -2970,6 +2970,7 @@ const MemoriWidget = ({
     showSettings: showSettings ?? integrationConfig?.showSettings ?? true,
     showChatHistory:
       showChatHistory ?? integrationConfig?.showChatHistory ?? true,
+    showMessageConsumption: enableMessageConsumption,
     hasUserActivatedSpeak,
     showReload: selectedLayout === 'TOTEM',
     showClear: showClear ?? integrationConfig?.showClear ?? false,
