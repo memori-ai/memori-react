@@ -228,18 +228,17 @@ HiddenChat.args = {
 export const ZoomedFullBody = Template.bind({});
 ZoomedFullBody.args = {
   ...DefaultLayout.args,
-  uiLang: 'it',
-  showShare: true,
-  showSettings: true,
-  showAudio: true,
-  enableAudio: true,
-  integration: {
-    
-  },
-  memori: {
-    ...memori,
-    voiceType: 'FEMALE',
-  },
-  tenant,
-  layout: 'ZOOMED_FULL_BODY',
+  memoriName: "Layout Storybook",
+  ownerUserName: "Andrea-Patini",
+  memoriID: "ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e",
+  ownerUserID: "91dbc9ba-b684-4fbe-9828-b5980af6cda9",
+  tenantID: "aisuru-staging.aclambda.online",
+  engineURL: "https://engine-staging.memori.ai/memori/v2",
+  apiURL: "https://backend-staging.memori.ai/api/v2",
+  baseURL: "http://localhost:3000",
+  layout: "FULLPAGE",
+  uiLang: "IT",
+  spokenLang: "IT",
+  integrationID: "32922e14-24d6-4f5f-a06b-d963da14a658",
+  showSettings: true
 };

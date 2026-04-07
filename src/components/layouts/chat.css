@@ -18,6 +18,16 @@
     transition: all 0.05s ease-in-out;
 }
 
+.memori-chat-layout--header .memori-header {
+    display: inline-flex;
+    width: calc(50% - 1rem);
+    max-width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.2rem;
+}
+
 .memori-chat-layout--header-with-artifact {
     display: none;
 }
@@ -144,6 +154,10 @@
 }
 
 @media (max-width: 870px) {
+    .memori-chat-layout--header .memori-header {
+        width: 100%;
+    }
+
     .memori-chat-layout .memori--powered-by {
         top: 3.5rem;
         bottom: auto;
