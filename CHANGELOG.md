@@ -1,5 +1,13 @@
 
 
+## [8.31.0](https://github.com/memori-ai/memori-react/compare/v8.30.1...v8.31.0) (2026-04-07)
+
+
+### Features
+
+* added total consumptin  as new popover button in the Header ([5d70a17](https://github.com/memori-ai/memori-react/commit/5d70a17f936f689de035ada54645a6d5dd02209e))
+* implement custom markdown rendering in ArtifactDrawer ([4677132](https://github.com/memori-ai/memori-react/commit/46771327d99302e5a02aa3fb4f2a8bc208a27919))
+
 ## [8.30.1](https://github.com/memori-ai/memori-react/compare/v8.30.0...v8.30.1) (2026-04-02)
 
 
