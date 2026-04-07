@@ -344,6 +344,10 @@
 }
 
 @media (max-width: 870px) {
+    .memori-chat-layout--header .memori-header {
+        width: 100%;
+    }
+
     .memori-chat-layout .memori--powered-by {
         top: 3.5rem;
         bottom: auto;
