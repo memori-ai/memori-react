@@ -2584,6 +2584,7 @@ exports[`renders StartPanel with position required unchanged 1`] = `
         >
           <button
             class="memori-button memori-button--primary memori-button--md"
+            style="width: 100%;"
             tabindex="0"
             type="button"
           >
@@ -2620,6 +2621,7 @@ exports[`renders StartPanel with position required unchanged 1`] = `
           </button>
           <button
             class="memori-button memori-button--outline memori-button--md"
+            style="width: 100%;"
             tabindex="0"
             type="button"
           >

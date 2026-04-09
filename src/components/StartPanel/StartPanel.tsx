@@ -252,6 +252,8 @@ const StartPanel: React.FC<Props> = ({
                 variant="primary"
                 onClick={() => openPositionPopover()}
                 icon={<MapPin />}
+                style={{ width: '100%' }}
+                size="md"
               >
                 {t('write_and_speak.useMyPosition')}
               </Button>
@@ -266,6 +268,8 @@ const StartPanel: React.FC<Props> = ({
                   });
                 }}
                 icon={<MapPinOff />}
+                style={{ width: '100%' }}
+                size="md"
               >
                 {t('write_and_speak.dontWantToProvidePosition')}
               </Button>

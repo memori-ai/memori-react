@@ -176,7 +176,7 @@
 .memori-chat--bubble.memori-chat--user-bubble {
     border-radius: .5rem .5rem 0 .5rem;
     margin: calc(var(--memori-spacing-sm) + 2px) var(--memori-spacing-sm) var(--memori-spacing-xs) auto;
-    background: var(--memori-primary);
+    background: var(--memori-primary) !important;
     color: #fff;
     
 }

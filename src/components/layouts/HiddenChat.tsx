@@ -4,6 +4,7 @@ import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { useTranslation } from 'react-i18next';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
 import { HelpCircle, X } from 'lucide-react';
+import { getResourceUrl } from '../../helpers/media';
 
 const HiddenChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -25,6 +26,26 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
 
   const { state, closeArtifact } = useArtifact();
   const { onClickStart, hasInitialSession } = startPanelProps || {};
+  const memori = headerProps?.memori;
+  const tenant = headerProps?.tenant;
+  const baseUrl = headerProps?.baseUrl;
+
+  const brandAvatarSrc = memori
+    ? memori.avatarURL && memori.avatarURL.length > 0
+      ? getResourceUrl({
+          type: 'avatar',
+          tenantID: tenant?.name,
+          resourceURI: memori.avatarURL,
+          baseURL: baseUrl,
+          apiURL: '',
+        })
+      : getResourceUrl({
+          type: 'avatar',
+          tenantID: tenant?.name,
+          baseURL: baseUrl,
+          apiURL: '',
+        })
+    : undefined;
 
   // Use refs to store original sidebar properties to restore them later
   const originalSidebarStyles = useRef({
@@ -52,7 +73,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     const mainDiv = document.body;
     const widgetEl = document.querySelector('.memori-widget');
     const sidebarWidth =
-      (widgetEl && getComputedStyle(widgetEl).getPropertyValue('--memori-modal-size-sm')?.trim()) || '350px';
+      (widgetEl && getComputedStyle(widgetEl).getPropertyValue('--memori-hidden-chat-width')?.trim()) || 'min(450px, 100vw)';
     if (isOpen) {
       if (!fullScreen) {
         mainDiv.style.width = `calc(100% - ${sidebarWidth})`;
@@ -184,7 +205,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
         </label>
         
         <aside
-          className={`memori-sidebar ${
+          className={`memori-sidebar memori-chat-layout ${
             fullScreen ? 'memori-sidebar-fullscreen' : ''
           }`}
         >
@@ -196,35 +217,58 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
               <X className="memori-icon-close" aria-label={t('collapse') ?? undefined} />
             </span>
           </label>
-          <div className="memori-sidebar-content">
-            <div className="memori-hidden-chat-layout--header">
+          <div className="memori-hidden-chat-layout--controls memori-chat-layout--controls">
+            <div
+              className={`memori-chat-layout--header ${
+                state.isDrawerOpen ? 'memori-chat-layout--header-with-artifact' : ''
+              }`}
+            >
               {Header && headerProps && (
-                <Header
-                  position={{
-                    latitude: 0,
-                    longitude: 0,
-                    placeName: '',
-                  }}
-                  {...headerProps}
-                  className="memori-hidden-chat-layout-header--layout"
-                  fullScreenHandler={handleFullscreenToggle}
-                />
+                <div className="memori-chat-layout--header-row">
+                  {memori && brandAvatarSrc && (
+                    <div className="memori-chat-layout--brand">
+                      <img
+                        className="memori-chat-layout--brand-avatar"
+                        src={brandAvatarSrc}
+                        alt=""
+                        role="presentation"
+                      />
+                      <div className="memori-chat-layout--brand-text">
+                        <span className="memori-chat-layout--brand-name">
+                          {memori.name}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+                  <Header
+                    position={{
+                      latitude: 0,
+                      longitude: 0,
+                      placeName: '',
+                    }}
+                    {...headerProps}
+                    buttonVariant="outline"
+                    fullScreenHandler={handleFullscreenToggle}
+                  />
+                </div>
               )}
             </div>
-          </div>
-          <div id="extension" />
-          <div className="memori-hidden-chat-layout--controls">
-            {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
-              <Chat {...chatProps} />
-            ) : !autoStart && startPanelProps ? (
-              <div className="memori-loading">
-                <StartPanel {...startPanelProps} />
-              </div>
-            ) : (
-              <div className="memori-loading">
-                <Spin spinning />
-              </div>
-            )}
+            <div className="memori-chat-layout--body">
+              {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
+                <Chat {...chatProps} />
+              ) : !autoStart && startPanelProps ? (
+                <div className="memori-chat-layout--start-shell">
+                  <div className="memori-chat-layout--start-panel-wrap">
+                    <StartPanel {...startPanelProps} />
+                  </div>
+                </div>
+              ) : (
+                <div className="memori-loading">
+                  <Spin spinning />
+                </div>
+              )}
+              <div id="extension" />
+            </div>
           </div>
         </aside>
       </div>
