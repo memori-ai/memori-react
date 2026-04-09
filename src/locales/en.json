@@ -144,7 +144,8 @@
     "editPositionAria": "Edit location",
     "positionResolving": "Resolving address…",
     "geocodingFailed": "Could not resolve the address. Try again or search manually.",
-    "positionUnavailableManual": "Location unavailable. Please enter it manually."
+    "positionUnavailableManual": "Location unavailable. Please enter it manually.",
+    "positionSharingEnabled": "Location shared."
   },
   "exportChatHistory": {
     "exportPDF": "Export chat as PDF",

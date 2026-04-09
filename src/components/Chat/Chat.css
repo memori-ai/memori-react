@@ -34,8 +34,16 @@
     padding: 0;
     border-radius: 12px;
     margin: 0.5rem 0 1rem;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.memori-widget.memori-layout-chat .memori-chat--bubble {
     background-color: var(--memori-secondary-background);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.memori-widget.memori-layout-chat .memori-media-item--document {
+    background-color: var(--memori-secondary-background);
 }
 
 .memori-chat--history.memori-chat--history-touch {

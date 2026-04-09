@@ -142,7 +142,8 @@
     "editPositionAria": "Standort bearbeiten",
     "positionResolving": "Adresse wird ermittelt…",
     "geocodingFailed": "Adresse konnte nicht ermittelt werden. Bitte erneut versuchen oder manuell suchen.",
-    "positionUnavailableManual": "Standort nicht verfügbar. Bitte manuell eingeben."
+    "positionUnavailableManual": "Standort nicht verfügbar. Bitte manuell eingeben.",
+    "positionSharingEnabled": "Standort geteilt."
   },
   "exportChatHistory": {
     "exportPDF": "Chat als PDF exportieren",

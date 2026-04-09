@@ -443,8 +443,8 @@ ${text}
                   disabled={textareaDisabled || isDisabled}
                 />
               )}
-              <button
-                type="button"
+              <Button
+                variant="primary"
                 className={cx('memori-chat-inputs--send-btn', {
                   'memori-chat-inputs--send-btn--active': !!userMessage?.length,
                   'memori-chat-inputs--send-btn--disabled':
@@ -455,6 +455,7 @@ ${text}
                 }}
                 disabled={!userMessage || userMessage.length === 0 || isTyping}
                 title={t('send') || 'Send'}
+                size="sm"
                 aria-label={t('send') || 'Send'}
               >
                 {isTyping ? (
@@ -462,7 +463,7 @@ ${text}
                 ) : (
                   <Send className="icon" />
                 )}
-              </button>
+              </Button>
             </div>
           </div>
         </div>

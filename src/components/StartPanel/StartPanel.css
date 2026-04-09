@@ -161,7 +161,6 @@
     width: var(--memori-text-size-large);
     height: var(--memori-text-size-large);
     align-self: center;
-    margin-left: var(--memori-spacing-sm);
 }
 
 .memori--translation-toggle {
@@ -186,24 +185,6 @@
     flex-direction: column;
 }
 
-.memori--start-button {
-    position: relative;
-    display: flex;
-    overflow: hidden;
-    width: 100%;
-    min-width: 0;
-    min-height: var(--memori-spacing-2xl);
-    align-items: center;
-    padding: 0.8125rem;
-    border-radius: var(--memori-radius-box);
-    margin-top: var(--memori-spacing-md);
-    margin-right: 0;
-    font-size: 0.9375rem;
-    font-weight: var(--memori-text-weight-bold);
-    gap: var(--memori-spacing-xs);
-    letter-spacing: 0.01em;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
 
 .memori--language-row {
     display: flex;

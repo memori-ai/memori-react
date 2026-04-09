@@ -495,7 +495,8 @@ exports[`renders FullPage layout unchanged 1`] = `
                     write_and_speak.pageTryMeExplanation
                   </p>
                   <button
-                    class="memori-button memori-button--primary memori-button--md memori--start-button"
+                    class="memori-button memori-button--primary memori-button--lg"
+                    style="font-weight: var(--memori-text-weight-bold);"
                     tabindex="0"
                     type="button"
                   >
@@ -1047,7 +1048,8 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                     write_and_speak.pageTryMeExplanation
                   </p>
                   <button
-                    class="memori-button memori-button--primary memori-button--md memori--start-button"
+                    class="memori-button memori-button--primary memori-button--lg"
+                    style="font-weight: var(--memori-text-weight-bold);"
                     tabindex="0"
                     type="button"
                   >

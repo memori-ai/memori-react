@@ -512,6 +512,7 @@ const StartPanel: React.FC<Props> = ({
 
               <Button
                 variant="primary"
+                size="lg"
                 disabled={
                   (!!memori.blockedUntil && !memori.isGiver) || notEnoughCredits
                 }
@@ -528,7 +529,7 @@ const StartPanel: React.FC<Props> = ({
                   if (initializeTTS) initializeTTS();
                   if (onClickStart) onClickStart();
                 }}
-                className="memori--start-button"
+                style={{ marginTop: 'var(--memori-spacing-md)', fontWeight: 'var(--memori-text-weight-bold)' }}
               >
                 {t(
                   `write_and_speak.${

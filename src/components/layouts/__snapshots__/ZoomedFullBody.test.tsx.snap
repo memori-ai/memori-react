@@ -495,7 +495,8 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
                     write_and_speak.pageTryMeExplanation
                   </p>
                   <button
-                    class="memori-button memori-button--primary memori-button--md memori--start-button"
+                    class="memori-button memori-button--primary memori-button--lg"
+                    style="font-weight: var(--memori-text-weight-bold);"
                     tabindex="0"
                     type="button"
                   >

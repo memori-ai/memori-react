@@ -468,7 +468,8 @@ exports[`renders Chat layout unchanged 1`] = `
                         write_and_speak.pageTryMeExplanation
                       </p>
                       <button
-                        class="memori-button memori-button--primary memori-button--md memori--start-button"
+                        class="memori-button memori-button--primary memori-button--lg"
+                        style="font-weight: var(--memori-text-weight-bold);"
                         tabindex="0"
                         type="button"
                       >
@@ -527,30 +528,36 @@ exports[`renders Chat layout unchanged 1`] = `
                         >
                           <button
                             aria-label="send"
-                            class="memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
+                            class="memori-button memori-button--primary memori-button--sm memori-button--disabled memori-chat-inputs--send-btn memori-chat-inputs--send-btn--disabled"
+                            data-disabled=""
                             disabled=""
+                            tabindex="0"
                             title="send"
                             type="button"
                           >
-                            <svg
-                              class="lucide lucide-send icon"
-                              fill="none"
-                              height="24"
-                              stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              viewBox="0 0 24 24"
-                              width="24"
-                              xmlns="http://www.w3.org/2000/svg"
+                            <span
+                              class="memori-button__content"
                             >
-                              <path
-                                d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"
-                              />
-                              <path
-                                d="m21.854 2.147-10.94 10.939"
-                              />
-                            </svg>
+                              <svg
+                                class="lucide lucide-send icon"
+                                fill="none"
+                                height="24"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                viewBox="0 0 24 24"
+                                width="24"
+                                xmlns="http://www.w3.org/2000/svg"
+                              >
+                                <path
+                                  d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"
+                                />
+                                <path
+                                  d="m21.854 2.147-10.94 10.939"
+                                />
+                              </svg>
+                            </span>
                           </button>
                         </div>
                       </div>

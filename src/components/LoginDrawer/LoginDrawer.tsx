@@ -600,7 +600,7 @@ const LoginDrawer = ({
                   className="memori--login-drawer--otp-error-icon"
                   aria-hidden="true"
                 >
-                  ⚠️
+                  <AlertTriangle className="icon" size={24} />
                 </span>
                 <span>{otpError}</span>
               </div>

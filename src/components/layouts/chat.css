@@ -78,11 +78,13 @@
     display: flex;
     overflow: hidden;
     width: 100%;
+    max-width: var(--memori-layout-max-width);
     min-height: 0;
     flex: 1;
     flex-direction: column;
     align-items: stretch;
     padding: 0.75rem 1rem 0.75rem;
+    margin: 0 auto;
     background: var(--memori-main-background);
 }
 
@@ -107,7 +109,6 @@
 
 .memori-widget.memori-layout-chat .memori-chat-layout--prechat-inputs {
     width: 100%;
-    max-width: 48rem;
     flex-shrink: 0;
     padding-top: 0.25rem;
     padding-bottom: env(safe-area-inset-bottom, 0);
@@ -199,7 +200,7 @@
 }
 
 .memori-widget.memori-layout-chat .memori-chat-layout--body .memori--start-panel__body {
-    padding: 0 1rem 1rem;
+    padding: var(--memori-spacing-lg) var(--memori-spacing-xl);
 }
 
 .memori-widget.memori-layout-chat .memori-chat-layout--body .memori--title-container {
@@ -245,10 +246,8 @@
     font-size: 0.8125rem;
 }
 
-
 .memori-widget.memori-layout-chat .memori-chat-layout--body .memori-chat--wrapper {
     width: 100%;
-    max-width: 48rem;
     border-radius: 0;
     margin: 0 auto;
     background: transparent;
@@ -366,12 +365,10 @@
     padding: 0;
 }
 
-
 @media (max-width: 991px) {
     .memori-widget:not(.memori-layout-chat) .memori-chat-layout--controls .memori-chat--wrapper {
         max-width: 800px;
     }
-
 }
 
 @media (max-width: 870px) {

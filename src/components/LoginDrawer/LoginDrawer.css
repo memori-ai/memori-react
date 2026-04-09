@@ -736,7 +736,7 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--otp-actions .memori-button {
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
     min-width: 140px;
     min-height: 42px;
     border-radius: var(--memori-radius-box);

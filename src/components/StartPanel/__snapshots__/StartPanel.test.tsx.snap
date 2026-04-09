@@ -217,7 +217,8 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
           write_and_speak.pageTryMeExplanation
         </p>
         <button
-          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          class="memori-button memori-button--primary memori-button--lg"
+          style="font-weight: var(--memori-text-weight-bold);"
           tabindex="0"
           type="button"
         >
@@ -405,7 +406,8 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
           write_and_speak.pageInstructExplanation
         </p>
         <button
-          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          class="memori-button memori-button--primary memori-button--lg"
+          style="font-weight: var(--memori-text-weight-bold);"
           tabindex="0"
           type="button"
         >
@@ -593,7 +595,8 @@ exports[`renders StartPanel unchanged 1`] = `
           write_and_speak.pageTryMeExplanation
         </p>
         <button
-          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          class="memori-button memori-button--primary memori-button--lg"
+          style="font-weight: var(--memori-text-weight-bold);"
           tabindex="0"
           type="button"
         >
@@ -776,7 +779,8 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
           write_and_speak.pageTryMeExplanation
         </p>
         <button
-          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          class="memori-button memori-button--primary memori-button--lg"
+          style="font-weight: var(--memori-text-weight-bold);"
           tabindex="0"
           type="button"
         >
@@ -964,7 +968,8 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
           write_and_speak.pageTryMeExplanation
         </p>
         <button
-          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          class="memori-button memori-button--primary memori-button--lg"
+          style="font-weight: var(--memori-text-weight-bold);"
           tabindex="0"
           type="button"
         >
@@ -1219,7 +1224,8 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
           write_and_speak.pageTryMeExplanation
         </p>
         <button
-          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          class="memori-button memori-button--primary memori-button--lg"
+          style="font-weight: var(--memori-text-weight-bold);"
           tabindex="0"
           type="button"
         >
@@ -1463,7 +1469,8 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
           write_and_speak.pageTryMeExplanation
         </p>
         <button
-          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          class="memori-button memori-button--primary memori-button--lg"
+          style="font-weight: var(--memori-text-weight-bold);"
           tabindex="0"
           type="button"
         >
@@ -1702,7 +1709,8 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
           write_and_speak.pageTryMeExplanation
         </p>
         <button
-          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          class="memori-button memori-button--primary memori-button--lg"
+          style="font-weight: var(--memori-text-weight-bold);"
           tabindex="0"
           type="button"
         >
@@ -1890,7 +1898,8 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
           write_and_speak.pageTryMeExplanation
         </p>
         <button
-          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          class="memori-button memori-button--primary memori-button--lg"
+          style="font-weight: var(--memori-text-weight-bold);"
           tabindex="0"
           type="button"
         >
@@ -2078,7 +2087,8 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
           write_and_speak.pageTryMeExplanation
         </p>
         <button
-          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          class="memori-button memori-button--primary memori-button--lg"
+          style="font-weight: var(--memori-text-weight-bold);"
           tabindex="0"
           type="button"
         >
@@ -2465,7 +2475,8 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
           write_and_speak.pageTryMeExplanation
         </p>
         <button
-          class="memori-button memori-button--primary memori-button--md memori--start-button"
+          class="memori-button memori-button--primary memori-button--lg"
+          style="font-weight: var(--memori-text-weight-bold);"
           tabindex="0"
           type="button"
         >

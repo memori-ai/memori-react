@@ -233,16 +233,11 @@
 /* Send button styling - ChatGPT style */
 .memori-chat-inputs--send-btn {
     display: flex;
-    width: 32px;
-    min-width: 32px;
-    height: 32px;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    padding: 0;
     border: none;
     border-radius: var(--memori-radius-box);
-    background: #000;
     background: var(--memori-primary);
     color: var(--memori-text-color);
     cursor: pointer;
