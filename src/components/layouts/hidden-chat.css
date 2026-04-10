@@ -232,6 +232,20 @@
     gap: 0.75rem;
 }
 
+/* .memori-header defaults to width:100%; in a narrow sidebar that steals space from the brand row. */
+.memori-widget.memori-layout-hidden_chat
+    .memori-sidebar
+    .memori-chat-layout--header-row
+    > .memori-header {
+    width: auto;
+    min-width: 0;
+    flex: 0 1 auto;
+}
+
+.memori-widget.memori-layout-hidden_chat .memori-header--position .memori-header--position-placeName {
+    display: none;
+}
+
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--brand {
     display: flex;
     min-width: 0;

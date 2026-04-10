@@ -4,7 +4,7 @@ import {
   Venue,
   User,
 } from '@memori.ai/memori-api-client/src/types';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { getResourceUrl } from '../../helpers/media';
 import { useTranslation } from 'react-i18next';
 import { Combobox, Tooltip } from '@memori.ai/ui';
@@ -123,6 +123,15 @@ const StartPanel: React.FC<Props> = ({
     const raw = userLang ?? i18n.language ?? 'EN';
     return String(raw).split('-')[0].toUpperCase();
   }, [userLang, i18n.language]);
+
+  const openDeepThoughtLearnMore = useCallback(() => {
+    const lang = i18n.language?.toLowerCase().startsWith('it') ? 'it' : 'en';
+    window.open(
+      `https://memori.ai/${lang}/features/deep-thought`,
+      '_blank',
+      'noopener,noreferrer'
+    );
+  }, [i18n.language]);
 
   useEffect(() => {
     if (
@@ -394,6 +403,7 @@ const StartPanel: React.FC<Props> = ({
                             aria-label={String(
                               t('deepThoughtWhatIs') ?? t('deepThought') ?? ''
                             )}
+                            onClick={openDeepThoughtLearnMore}
                           >
                             {t('deepThoughtWhatIs') || 'What is Deep Thought?'}
                           </Button>
@@ -424,6 +434,7 @@ const StartPanel: React.FC<Props> = ({
                             aria-label={String(
                               t('deepThoughtWhatIs') ?? t('deepThought') ?? ''
                             )}
+                            onClick={openDeepThoughtLearnMore}
                           >
                             {t('deepThoughtWhatIs') || 'What is Deep Thought?'}
                           </Button>

@@ -241,6 +241,7 @@ const PositionPopover: React.FC<PositionPopoverProps> = ({
             className={cx(
               'memori-header--button',
               'memori-header--button--position',
+              sharingActive && 'memori-header--button--position--active'
             )}
             aria-label={triggerAriaLabel}
             aria-expanded={open}

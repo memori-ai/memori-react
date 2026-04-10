@@ -273,6 +273,23 @@
     margin-left: var(--memori-spacing-sm);
 }
 
+.memori-header--button.memori-header--button--position {
+    position: relative;
+}
+
+.memori-header--button.memori-header--button--position.memori-header--button--position--active::after {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: #22c55e;
+    box-shadow: 0 0 0 2px var(--memori-secondary-background, var(--memori-background, #fff));
+    content: '';
+    pointer-events: none;
+}
+
 .memori-dropdown--avatar-input {
     position: absolute;
     width: 100%;
