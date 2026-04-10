@@ -201,6 +201,7 @@
 
 .memori-widget.memori-layout-chat .memori-chat-layout--body .memori--start-panel__body {
     padding: var(--memori-spacing-lg) var(--memori-spacing-xl);
+    padding-top: 0;
 }
 
 .memori-widget.memori-layout-chat .memori-chat-layout--body .memori--title-container {

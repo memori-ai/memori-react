@@ -369,3 +369,52 @@
         height: 100% !important;
     }
 }
+
+/* Dark theme: header controls — white outline and icon (incl. share + position popover) */
+.memori-widget.memori-layout-hidden_chat[data-theme='dark']
+    .memori-header
+    .memori-button:not(:disabled):not(.memori-button--disabled),
+[data-theme='dark']
+    .memori-widget.memori-layout-hidden_chat
+    .memori-header
+    .memori-button:not(:disabled):not(.memori-button--disabled) {
+    border-color: #fff;
+    color: #fff;
+}
+
+.memori-widget.memori-layout-hidden_chat[data-theme='dark']
+    .memori-header
+    .memori-button:hover:not(:disabled, .memori-button--disabled),
+.memori-widget.memori-layout-hidden_chat[data-theme='dark']
+    .memori-header
+    .memori-button:active:not(:disabled, .memori-button--disabled),
+.memori-widget.memori-layout-hidden_chat[data-theme='dark']
+    .memori-header
+    .memori-button.memori-button--active:not(:disabled, .memori-button--disabled),
+[data-theme='dark']
+    .memori-widget.memori-layout-hidden_chat
+    .memori-header
+    .memori-button:hover:not(:disabled, .memori-button--disabled),
+[data-theme='dark']
+    .memori-widget.memori-layout-chat
+    .memori-header
+    .memori-button:active:not(:disabled, .memori-button--disabled),
+[data-theme='dark']
+    .memori-widget.memori-layout-hidden_chat
+    .memori-header
+    .memori-button.memori-button--active:not(:disabled, .memori-button--disabled) {
+    border-color: #fff;
+    color: #fff;
+}
+
+.memori-widget.memori-layout-hidden_chat[data-theme='dark'] .memori-header .memori-dropdown--user-trigger,
+[data-theme='dark'] .memori-widget.memori-layout-hidden_chat .memori-header .memori-dropdown--user-trigger {
+    border-color: #fff;
+    color: #fff;
+}
+
+.memori-widget.memori-layout-hidden_chat[data-theme='dark'] .memori-header .memori-dropdown--user-trigger:hover,
+[data-theme='dark'] .memori-widget.memori-layout-hidden_chat .memori-header .memori-dropdown--user-trigger:hover {
+    border-color: #fff;
+    color: #fff;
+}

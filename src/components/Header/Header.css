@@ -283,45 +283,10 @@
     opacity: 0;
 }
 
-/* Dark theme: header controls — white outline and icon (incl. share + position popover) */
-.memori-widget[data-theme='dark'] .memori-header .memori-button:not(:disabled):not(.memori-button--disabled),
-[data-theme='dark'] .memori-widget .memori-header .memori-button:not(:disabled):not(.memori-button--disabled) {
-    border-color: #fff;
-    color: #fff;
-}
-
-.memori-widget[data-theme='dark'] .memori-header .memori-button:hover:not(:disabled, .memori-button--disabled),
-.memori-widget[data-theme='dark'] .memori-header .memori-button:active:not(:disabled, .memori-button--disabled),
-.memori-widget[data-theme='dark']
-    .memori-header
-    .memori-button.memori-button--active:not(:disabled, .memori-button--disabled),
-[data-theme='dark'] .memori-widget .memori-header .memori-button:hover:not(:disabled, .memori-button--disabled),
-[data-theme='dark'] .memori-widget .memori-header .memori-button:active:not(:disabled, .memori-button--disabled),
-[data-theme='dark']
-    .memori-widget
-    .memori-header
-    .memori-button.memori-button--active:not(:disabled, .memori-button--disabled) {
-    border-color: #fff;
-    color: #fff;
-}
-
-.memori-widget[data-theme='dark'] .memori-header .memori-dropdown--user-trigger,
-[data-theme='dark'] .memori-widget .memori-header .memori-dropdown--user-trigger {
-    border-color: #fff;
-    color: #fff;
-}
-
-.memori-widget[data-theme='dark'] .memori-header .memori-dropdown--user-trigger:hover,
-[data-theme='dark'] .memori-widget .memori-header .memori-dropdown--user-trigger:hover {
-    border-color: #fff;
-    color: #fff;
-}
-
 .memori-dropdown--sustainability {
     min-width: 260px;
     padding: 0.625rem 0.75rem;
     border-radius: 8px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(247, 249, 252, 0.96) 100%);
 }
 
 .memori-dropdown--sustainability-title {
@@ -344,7 +309,7 @@
     justify-content: space-between;
     padding: 0.4rem 0.5rem;
     border-radius: 6px;
-    background: rgba(255, 255, 255, 0.8);
+    background: var(--memori-main-background);
     gap: 1rem;
 }
 
