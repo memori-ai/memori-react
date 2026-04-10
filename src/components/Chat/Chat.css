@@ -270,7 +270,7 @@
 
 .memori-chat--usage-details dd {
     margin: 0;
-    color: #111827;
+    color: var(--memori-text-color);
     font-size: 0.875rem;
     font-weight: 600;
     text-align: right;
