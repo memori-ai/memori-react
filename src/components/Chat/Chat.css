@@ -57,7 +57,7 @@
     height: 100%;
     flex: 1;
     flex-direction: column;
-    padding: 2rem var(--memori-spacing-sm);
+    /* padding: 2rem var(--memori-spacing-sm); */
     /* mask-image: linear-gradient(transparent, black 5%, black 95%, transparent 100%); */
     overflow-y: auto;
     scroll-behavior: smooth;
@@ -142,7 +142,7 @@
     white-space: nowrap;
 }
 
-.memori-chat--context-tag+.memori-chat--context-tag {
+.memori-chat--context-tag + .memori-chat--context-tag {
     margin-top: var(--memori-spacing-sm);
 }
 
@@ -233,9 +233,9 @@
 }
 
 .memori-chat--usage-badge:hover {
-    border-color: var(--memori-primary,#1890ff);
+    border-color: var(--memori-primary, #1890ff);
     background-color: #f8fafc;
-    color: var(--memori-primary,#1890ff);
+    color: var(--memori-primary, #1890ff);
 }
 
 .memori-chat--usage-badge:focus-visible {

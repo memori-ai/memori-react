@@ -152,7 +152,12 @@ const Header: React.FC<Props> = ({
 
           if (resp.resultCode !== 0) {
             console.error('[updateAvatar] Upload failed:', resp);
-            add(createAlertOptions({ description: t(getErrori18nKey(resp.resultCode)), severity: 'error' }));
+            add(
+              createAlertOptions({
+                description: t(getErrori18nKey(resp.resultCode)),
+                severity: 'error',
+              })
+            );
           } else if (avatarAsset) {
             let newUser: Partial<User> = {
               userID: user?.userID,
@@ -185,7 +190,13 @@ const Header: React.FC<Props> = ({
           let err = e as Error;
           console.error('[updateAvatar] Error:', err);
 
-          if (err?.message) add(createAlertOptions({ description: err.message, severity: 'error' }));
+          if (err?.message)
+            add(
+              createAlertOptions({
+                description: err.message,
+                severity: 'error',
+              })
+            );
         }
       };
       reader.readAsDataURL(avatar as Blob);
@@ -194,7 +205,12 @@ const Header: React.FC<Props> = ({
         avatar,
         loginToken,
       });
-      add(createAlertOptions({ description: t('login.avatarUploadError'), severity: 'error' }));
+      add(
+        createAlertOptions({
+          description: t('login.avatarUploadError'),
+          severity: 'error',
+        })
+      );
     }
   };
 
@@ -202,14 +218,15 @@ const Header: React.FC<Props> = ({
     <div className={cx('memori-header', className)}>
       {memori.needsPosition && (
         <div className="memori-header--position">
-          {position &&
-            position.latitude !== 0 &&
-            position.longitude !== 0 && (
-              <span className="memori-header--position-placeName">
-                {position.placeName}
-              </span>
-            )}
-          <Tooltip title={t('widget.position') || 'Position'} placement="bottom">
+          {position && position.latitude !== 0 && position.longitude !== 0 && (
+            <span className="memori-header--position-placeName">
+              {position.placeName}
+            </span>
+          )}
+          <Tooltip
+            title={t('widget.position') || 'Position'}
+            placement="bottom"
+          >
             <span style={{ display: 'inline-flex' }}>
               <PositionPopover
                 venue={position}
@@ -342,7 +359,10 @@ const Header: React.FC<Props> = ({
         </Tooltip>
       )}
       {memori.enableDeepThought && !!loginToken && user?.pAndCUAccepted && (
-        <Tooltip title={t('knownFacts.title') || 'Known facts'} placement="bottom">
+        <Tooltip
+          title={t('knownFacts.title') || 'Known facts'}
+          placement="bottom"
+        >
           <span style={{ display: 'inline-flex' }}>
             <Button
               variant={buttonVariant}
@@ -422,7 +442,9 @@ const Header: React.FC<Props> = ({
               <Dropdown.Trigger
                 showChevron={false}
                 className="memori-dropdown--user-trigger"
-                render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+                render={(
+                  props: React.ButtonHTMLAttributes<HTMLButtonElement>
+                ) => (
                   <Tooltip title={t('login.user') || 'User'} placement="bottom">
                     <span style={{ display: 'inline-flex' }}>
                       <Button
@@ -480,7 +502,8 @@ const Header: React.FC<Props> = ({
                               className="memori-dropdown--avatar-input"
                               onChange={e =>
                                 updateAvatar(
-                                  e.target.files?.[0] ?? (null as unknown as Blob)
+                                  e.target.files?.[0] ??
+                                    (null as unknown as Blob)
                                 )
                               }
                               accept={imgMimeTypes.join(', ')}
@@ -508,7 +531,9 @@ const Header: React.FC<Props> = ({
                 <Dropdown.Item
                   onClick={onLogout}
                   className="memori-dropdown--action-button memori-dropdown--action-button--logout"
-                  {...({ icon: <LogOut size={18} strokeWidth={2} /> } as React.ComponentProps<typeof Dropdown.Item>)}
+                  {...({
+                    icon: <LogOut size={18} strokeWidth={2} />,
+                  } as React.ComponentProps<typeof Dropdown.Item>)}
                 >
                   {t('login.logout') || 'Logout'}
                 </Dropdown.Item>

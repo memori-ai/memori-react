@@ -5,6 +5,13 @@ import { useTranslation } from 'react-i18next';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
 import { HelpCircle, X } from 'lucide-react';
 import { getResourceUrl } from '../../helpers/media';
+import ChatInputs from '../ChatInputs/ChatInputs';
+import {
+  maxDocumentsPerMessage,
+  maxDocumentContentLength,
+  pasteAsCardLineThreshold,
+  pasteAsCardCharThreshold,
+} from '../../helpers/constants';
 
 const HiddenChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -18,7 +25,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   StartPanel,
   onSidebarToggle,
 }) => {
-
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
@@ -73,7 +79,11 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     const mainDiv = document.body;
     const widgetEl = document.querySelector('.memori-widget');
     const sidebarWidth =
-      (widgetEl && getComputedStyle(widgetEl).getPropertyValue('--memori-hidden-chat-width')?.trim()) || 'min(450px, 100vw)';
+      (widgetEl &&
+        getComputedStyle(widgetEl)
+          .getPropertyValue('--memori-hidden-chat-width')
+          ?.trim()) ||
+      'min(450px, 100vw)';
     if (isOpen) {
       if (!fullScreen) {
         mainDiv.style.width = `calc(100% - ${sidebarWidth})`;
@@ -93,14 +103,18 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   }, [isOpen, fullScreen]);
 
   const handleSidebarToggle = () => {
-
     // Only trigger autostart when opening the sidebar for the first time
     // and when we haven't already triggered it
-    if (!isOpen && !hasTriggeredAutostart && (autoStart || autoStart === undefined) && (!sessionId || hasInitialSession)) {
+    if (
+      !isOpen &&
+      !hasTriggeredAutostart &&
+      (autoStart || autoStart === undefined) &&
+      (!sessionId || hasInitialSession)
+    ) {
       setHasTriggeredAutostart(true);
       onClickStart?.();
     }
-    
+
     // If we're in fullscreen mode and trying to close the sidebar
     if (fullScreen && isOpen) {
       // Exit fullscreen first
@@ -111,16 +125,15 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
       }
       // Restore sidebar styles
       restoreFromFullscreen();
-    } 
+    }
 
     const newState = !isOpen;
     setIsOpen(newState);
-    
+
     // Notify parent component about sidebar state change
     if (onSidebarToggle) {
       onSidebarToggle(newState);
     }
-    
   };
 
   const restoreFromFullscreen = () => {
@@ -145,7 +158,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   };
 
   const handleFullscreenToggle = () => {
-    
     if (!document.fullscreenElement) {
       // Enter fullscreen
       const sidebarElement = document.querySelector('.memori-sidebar');
@@ -192,7 +204,9 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
       <input
         type="checkbox"
         id="memori-sidebar-toggle"
-        className={`memori-sidebar-toggle ${state.isDrawerOpen ? 'memori-sidebar-toggle-artifact' : ''}`}
+        className={`memori-sidebar-toggle ${
+          state.isDrawerOpen ? 'memori-sidebar-toggle-artifact' : ''
+        }`}
         checked={isOpen}
         onChange={handleSidebarToggle}
       />
@@ -201,9 +215,12 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
           htmlFor="memori-sidebar-toggle"
           className="memori-sidebar-toggle-label memori-open-label"
         >
-          <HelpCircle className="memori-icon" aria-label={t('expand') ?? undefined} />
+          <HelpCircle
+            className="memori-icon"
+            aria-label={t('expand') ?? undefined}
+          />
         </label>
-        
+
         <aside
           className={`memori-sidebar memori-chat-layout ${
             fullScreen ? 'memori-sidebar-fullscreen' : ''
@@ -214,13 +231,18 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
             className="memori-sidebar-toggle-label memori-close-label"
           >
             <span>
-              <X className="memori-icon-close" aria-label={t('collapse') ?? undefined} />
+              <X
+                className="memori-icon-close"
+                aria-label={t('collapse') ?? undefined}
+              />
             </span>
           </label>
           <div className="memori-hidden-chat-layout--controls memori-chat-layout--controls">
             <div
               className={`memori-chat-layout--header ${
-                state.isDrawerOpen ? 'memori-chat-layout--header-with-artifact' : ''
+                state.isDrawerOpen
+                  ? 'memori-chat-layout--header-with-artifact'
+                  : ''
               }`}
             >
               {Header && headerProps && (
@@ -261,6 +283,46 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                   <div className="memori-chat-layout--start-panel-wrap">
                     <StartPanel {...startPanelProps} />
                   </div>
+                  {Chat && chatProps && chatProps.showInputs !== false && (
+                    <div className="memori-chat-layout--prechat-inputs">
+                      <ChatInputs
+                        userMessage={chatProps.userMessage}
+                        onChangeUserMessage={chatProps.onChangeUserMessage}
+                        dialogState={chatProps.dialogState}
+                        instruct={chatProps.instruct}
+                        authToken={chatProps.authToken}
+                        sendMessage={chatProps.sendMessage}
+                        isTyping={chatProps.memoriTyping}
+                        microphoneMode={chatProps.microphoneMode}
+                        sendOnEnter={chatProps.sendOnEnter}
+                        setSendOnEnter={chatProps.setSendOnEnter}
+                        client={chatProps.client}
+                        sessionID={chatProps.sessionID}
+                        showUpload={chatProps.showUpload}
+                        attachmentsMenuOpen={chatProps.attachmentsMenuOpen}
+                        setAttachmentsMenuOpen={
+                          chatProps.setAttachmentsMenuOpen
+                        }
+                        onTextareaFocus={() => {
+                          chatProps.stopListening?.();
+                        }}
+                        onTextareaBlur={() => {}}
+                        onTextareaExpanded={() => {}}
+                        startListening={chatProps.startListening}
+                        stopListening={chatProps.stopListening}
+                        stopAudio={chatProps.stopAudio}
+                        listening={chatProps.listening}
+                        isPlayingAudio={chatProps.isPlayingAudio}
+                        showMicrophone={chatProps.showMicrophone}
+                        memoriID={chatProps.memori?.memoriID}
+                        maxTextareaCharacters={chatProps.maxTextareaCharacters}
+                        maxDocumentsPerMessage={maxDocumentsPerMessage}
+                        maxDocumentContentLength={maxDocumentContentLength}
+                        pasteAsCardLineThreshold={pasteAsCardLineThreshold}
+                        pasteAsCardCharThreshold={pasteAsCardCharThreshold}
+                      />
+                    </div>
+                  )}
                 </div>
               ) : (
                 <div className="memori-loading">

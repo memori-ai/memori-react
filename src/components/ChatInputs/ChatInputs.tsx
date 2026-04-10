@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
-import { Button } from '@memori.ai/ui';
+import { Button, Tooltip } from '@memori.ai/ui';
 import { useAlertManager } from '@memori.ai/ui';
 import { Send, Mic } from 'lucide-react';
 import MicrophoneButton from '../MicrophoneButton/MicrophoneButton';
@@ -134,8 +134,6 @@ const ChatInputs: React.FC<Props> = ({
         url: file.url,
       };
     });
-
-    
 
     sendMessage(userMessage, mediaWithIds);
 
@@ -443,27 +441,42 @@ ${text}
                   disabled={textareaDisabled || isDisabled}
                 />
               )}
-              <Button
-                variant="primary"
-                className={cx('memori-chat-inputs--send-btn', {
-                  'memori-chat-inputs--send-btn--active': !!userMessage?.length,
-                  'memori-chat-inputs--send-btn--disabled':
-                    !userMessage || userMessage.length === 0,
-                })}
-                onClick={() => {
-                  onSendMessage(documentPreviewFiles);
+              <Tooltip
+                placement="top"
+                className="memori-chat-inputs--send-btn-tooltip"
+                slotProps={{
+                  positioner: {
+                    className:
+                      'memori-chat-inputs--send-btn-tooltip-positioner',
+                  },
                 }}
-                disabled={!userMessage || userMessage.length === 0 || isTyping}
                 title={t('send') || 'Send'}
-                size="sm"
-                aria-label={t('send') || 'Send'}
               >
-                {isTyping ? (
-                  <div className="memori-chat-inputs--send-btn--loading" />
-                ) : (
-                  <Send className="icon" />
-                )}
-              </Button>
+                <Button
+                  variant="primary"
+                  className={cx('memori-chat-inputs--send-btn', {
+                    'memori-chat-inputs--send-btn--active':
+                      !!userMessage?.length,
+                    'memori-chat-inputs--send-btn--disabled':
+                      !userMessage || userMessage.length === 0,
+                  })}
+                  onClick={() => {
+                    onSendMessage(documentPreviewFiles);
+                  }}
+                  disabled={
+                    !userMessage || userMessage.length === 0 || isTyping
+                  }
+                  title={t('send') || 'Send'}
+                  size="sm"
+                  aria-label={t('send') || 'Send'}
+                >
+                  {isTyping ? (
+                    <div className="memori-chat-inputs--send-btn--loading" />
+                  ) : (
+                    <Send className="icon" />
+                  )}
+                </Button>
+              </Tooltip>
             </div>
           </div>
         </div>
