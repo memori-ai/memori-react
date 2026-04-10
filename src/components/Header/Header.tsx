@@ -460,6 +460,67 @@ const Header: React.FC<Props> = ({
           </Dropdown.Menu>
         </Dropdown>
       )}
+      {showMessageConsumption && hasSustainabilityData && (
+        <Dropdown
+          placement="bottom-right"
+          trigger={
+            <Button
+              primary
+              shape="circle"
+              className={cx('memori-header--button', 'memori-header--button--sustainability', hasSpacedButtons && 'memori-header--button-spaced')}
+              title={t('write_and_speak.showMessageConsumptionLabel') || 'LLM consumption'}
+              icon={<GasStation className="memori-header--button--sustainability-icon" />}
+            />
+          }
+        >
+          <div className="memori-dropdown--sustainability">
+            <h4 className="memori-dropdown--sustainability-title">
+              {t('chatLogs.totalChatConsumptionTitle') || 'Consumo Totale Chat'}
+            </h4>
+            <div className="memori-dropdown--sustainability-metrics">
+              <div className="memori-dropdown--sustainability-row">
+                <span className="memori-dropdown--sustainability-label">
+                  <span aria-hidden="true">{BADGE_EMOJI.energy}</span>{' '}
+                  {t('chatLogs.energy') || 'Energy'}
+                </span>
+                <strong className="memori-dropdown--sustainability-value">
+                  {formatImpactInReadableUnit(
+                    sustainabilityTotals.energy,
+                    'energy',
+                    currentLocale
+                  )}
+                </strong>
+              </div>
+              <div className="memori-dropdown--sustainability-row">
+                <span className="memori-dropdown--sustainability-label">
+                  <span aria-hidden="true">{BADGE_EMOJI.co2}</span>{' '}
+                  {t('chatLogs.co2') || 'CO2'}
+                </span>
+                <strong className="memori-dropdown--sustainability-value">
+                  {formatImpactInReadableUnit(
+                    sustainabilityTotals.gwp,
+                    'co2',
+                    currentLocale
+                  )}
+                </strong>
+              </div>
+              <div className="memori-dropdown--sustainability-row">
+                <span className="memori-dropdown--sustainability-label">
+                  <span aria-hidden="true">{BADGE_EMOJI.water}</span>{' '}
+                  {t('chatLogs.water') || 'Water'}
+                </span>
+                <strong className="memori-dropdown--sustainability-value">
+                  {formatImpactInReadableUnit(
+                    sustainabilityTotals.wcf,
+                    'water',
+                    currentLocale
+                  )}
+                </strong>
+              </div>
+            </div>
+          </div>
+        </Dropdown>
+      )}
       {fullScreenAvailable && (
         <Tooltip
           title={
