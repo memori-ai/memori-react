@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { memori, tenant, history } from '../../mocks/data';
+import { memori, tenant, history, user } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Header, { Props } from './Header';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
@@ -354,4 +354,44 @@ WithSustainabilityPopover.args = {
   apiClient: {
     backend: {},
   } as any,
+};
+
+export const AllButtonsShowcase = Template.bind({});
+AllButtonsShowcase.args = {
+  memori: {
+    ...memori,
+    needsPosition: true,
+    enableDeepThought: true,
+    enableBoardOfExperts: true,
+  },
+  history: historyWithConsumption,
+  position: {
+    placeName: 'Berlin',
+    latitude: 52.520008,
+    longitude: 13.404954,
+  },
+  setVenue: () => {},
+  positionPopoverOpen: false,
+  setPositionPopoverOpen: () => {},
+  setShowSettingsDrawer: () => {},
+  setShowChatHistoryDrawer: () => {},
+  setShowKnownFactsDrawer: () => {},
+  setShowExpertsDrawer: () => {},
+  setShowLoginDrawer: () => {},
+  clearHistory: () => {},
+  speakerMuted: false,
+  hasUserActivatedSpeak: true,
+  showReload: true,
+  showClear: true,
+  showShare: true,
+  showSettings: true,
+  showChatHistory: true,
+  showLogin: true,
+  showMessageConsumption: true,
+  sessionID: '1234',
+  loginToken: 'abcd',
+  user: {
+    ...user,
+    pAndCUAccepted: true,
+  },
 };

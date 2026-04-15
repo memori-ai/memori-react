@@ -6,10 +6,9 @@ import I18nWrapper from '../../I18nWrapper';
 import { VisemeProvider } from '../../context/visemeContext';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 
-
 const meta: Meta = {
   title: 'General/Layouts',
-  component: (args: Props) => <Memori {...args}    />,
+  component: (args: Props) => <Memori {...args} />,
   argTypes: {},
   parameters: {
     controls: { expanded: true },
@@ -18,7 +17,6 @@ const meta: Meta = {
 };
 
 export default meta;
-
 
 const Template: Story<Props> = args => (
   <I18nWrapper>
@@ -53,14 +51,10 @@ DefaultLayout.args = {
   showMessageConsumption: true,
 };
 
-
-
 export const Default = Template.bind({});
 Default.args = {
   ...DefaultLayout.args,
 };
-
-
 
 export const Totem = Template.bind({});
 Totem.args = {
@@ -102,17 +96,17 @@ HiddenChat.args = {
 export const ZoomedFullBody = Template.bind({});
 ZoomedFullBody.args = {
   ...DefaultLayout.args,
-  memoriName: "Layout Storybook",
-  ownerUserName: "Andrea-Patini",
-  memoriID: "ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e",
-  ownerUserID: "91dbc9ba-b684-4fbe-9828-b5980af6cda9",
-  tenantID: "aisuru-staging.aclambda.online",
-  engineURL: "https://engine-staging.memori.ai/memori/v2",
-  apiURL: "https://backend-staging.memori.ai/api/v2",
-  baseURL: "http://localhost:3000",
-  layout: "FULLPAGE",
-  uiLang: "IT",
-  spokenLang: "IT",
-  integrationID: "32922e14-24d6-4f5f-a06b-d963da14a658",
+  memoriName: 'Layout Storybook',
+  ownerUserName: 'Andrea-Patini',
+  memoriID: 'ae20fc5a-cc15-4db9-b7dd-2cd4a621b85e',
+  ownerUserID: '91dbc9ba-b684-4fbe-9828-b5980af6cda9',
+  tenantID: 'aisuru-staging.aclambda.online',
+  engineURL: 'https://engine-staging.memori.ai/memori/v2',
+  apiURL: 'https://backend-staging.memori.ai/api/v2',
+  baseURL: 'http://localhost:3000',
+  layout: 'FULLPAGE',
+  uiLang: 'IT',
+  spokenLang: 'IT',
+  integrationID: '32922e14-24d6-4f5f-a06b-d963da14a658',
   showSettings: true
 };

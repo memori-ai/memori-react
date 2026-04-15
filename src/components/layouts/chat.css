@@ -78,7 +78,6 @@
     display: flex;
     overflow: hidden;
     width: 100%;
-    max-width: var(--memori-layout-max-width);
     min-height: 0;
     flex: 1;
     flex-direction: column;
@@ -104,11 +103,12 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem 0 0.25rem;
+    /* padding: 0.5rem 0 0.25rem; */
 }
 
 .memori-widget.memori-layout-chat .memori-chat-layout--prechat-inputs {
     width: 100%;
+    max-width: 56rem;
     flex-shrink: 0;
     padding-top: 0.25rem;
     padding-bottom: env(safe-area-inset-bottom, 0);
@@ -363,6 +363,7 @@
 .memori-widget.memori-layout-chat .memori-chat-layout--controls .memori--start-panel,
 .memori-widget.memori-layout-chat .memori-chat-layout--controls .memori-chat--wrapper {
     min-width: 0;
+    max-width: 56rem;
     margin: 0 auto;
 }
 

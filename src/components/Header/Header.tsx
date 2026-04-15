@@ -78,6 +78,7 @@ export interface Props {
   layout?: WidgetProps['layout'];
   additionalSettings?: WidgetProps['additionalSettings'];
   showMessageConsumption?: boolean;
+  showFullscreen?: boolean;
 }
 
 const Header: React.FC<Props> = ({
@@ -116,6 +117,7 @@ const Header: React.FC<Props> = ({
   layout,
   additionalSettings,
   showMessageConsumption = false,
+  showFullscreen = true,
 }) => {
   const { t, i18n } = useTranslation();
   const { add } = useAlertManager();
@@ -460,7 +462,7 @@ const Header: React.FC<Props> = ({
           </Dropdown.Menu>
         </Dropdown>
       )}
-      {fullScreenAvailable && (
+      {showFullscreen && fullScreenAvailable && (
         <Tooltip
           title={
             fullScreen
