@@ -142,7 +142,8 @@
     "editPositionAria": "Editar ubicación",
     "positionResolving": "Obteniendo dirección…",
     "geocodingFailed": "No se pudo obtener la dirección. Inténtalo de nuevo o busca manualmente.",
-    "positionUnavailableManual": "Ubicación no disponible. Introdúcela manualmente."
+    "positionUnavailableManual": "Ubicación no disponible. Introdúcela manualmente.",
+    "positionSharingEnabled": "Ubicación compartida."
   },
   "exportChatHistory": {
     "exportPDF": "Exportar chat como PDF",

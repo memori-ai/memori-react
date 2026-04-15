@@ -171,6 +171,7 @@ export const VenueCombobox = ({
 }) => {
   const [open, setOpen] = useState(false);
   const [inputFocused, setInputFocused] = useState(false);
+  const [userCleared, setUserCleared] = useState(false);
   const fallbackInputRef = useRef<HTMLInputElement>(null);
   const inputRef = inputRefFromParent ?? fallbackInputRef;
 
@@ -197,7 +198,7 @@ export const VenueCombobox = ({
       setInputFocused(true);
       // Blurred value came from `closedLabel` while `query` stayed "". Seed `query` so the
       // controlled input matches what the user sees; otherwise select-all + delete cannot clear.
-      if (closedLabel && query === '') {
+      if (closedLabel && query === '' && !userCleared) {
         onQueryChange(closedLabel, { skipSearch: true });
       }
     };
@@ -208,10 +209,10 @@ export const VenueCombobox = ({
       el.removeEventListener('focus', onFocus);
       el.removeEventListener('blur', onBlur);
     };
-  }, [open, query, closedLabel, onQueryChange]);
+  }, [open, query, closedLabel, onQueryChange, userCleared]);
 
-  /** While the list is open, the field is focused, or the user has typed something, show `query`. Otherwise show the saved venue label (avoids snapping back when the popup closes on an empty field while the input stays focused). */
-  const editing = inputFocused || open || query !== '';
+  /** While editing (or after an explicit clear), show `query`; otherwise show the saved venue label. */
+  const editing = inputFocused || open || query !== '' || userCleared;
   const inputValue = editing ? query : closedLabel;
 
   const options: AutocompleteOption[] = suggestions.map(s => ({
@@ -233,9 +234,14 @@ export const VenueCombobox = ({
           const item = suggestions.find(
             s => (getPlaceName(s) || s.display_name) === value
           );
-          if (item) onChange(item);
+          if (item) {
+            setUserCleared(false);
+            onQueryChange(value, { skipSearch: true });
+            onChange(item);
+          }
           return;
         }
+        setUserCleared(value.trim() === '');
         onQueryChange(value);
       }}
       open={open}
@@ -245,7 +251,7 @@ export const VenueCombobox = ({
       loadingText={`${t('loading')}...`}
       emptyText={query.trim() ? t('nothingFound') : '\u200b'}
       autoHighlight
-      clearable={query.trim() !== ''}
+      clearable={inputValue.trim() !== ''}
     />
   );
 };

@@ -1,14 +1,13 @@
-import { Drawer, useAlertManager, createAlertOptions } from '@memori.ai/ui';
+import {
+  Drawer,
+  useAlertManager,
+  createAlertOptions,
+  Card,
+} from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import DrawerFooter from '../DrawerFooter/DrawerFooter';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import React, {
-  useEffect,
-  useMemo,
-  useState,
-  useCallback,
-  ChangeEvent,
-} from 'react';
+import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import {
   ChatLog,
   ChatLogLine,
@@ -17,7 +16,7 @@ import {
   Message,
   ChatLogFilters,
 } from '@memori.ai/memori-api-client/dist/types';
-import { Card, Button } from '@memori.ai/ui';
+import { Button } from '@memori.ai/ui';
 import {
   MessageCircle,
   Download,
@@ -52,6 +51,14 @@ export interface Props {
 
 const ITEMS_PER_PAGE = 8;
 const DEBOUNCE_DELAY = 300;
+const ICON_BACKGROUND_COLORS = [
+  'var(--chat-history-icon-purple, #EEEDFE)',
+  'var(--chat-history-icon-teal, #E1F5EE)',
+  'var(--chat-history-icon-amber, #FAEEDA)',
+  'var(--chat-history-icon-coral, #FAECE7)',
+] as const;
+
+type ContentTypeFilter = 'all' | 'with_images' | 'with_files';
 
 // This function calculates the title of the chat log based on the most meaningful user message
 const calculateTitle = (lines: ChatLogLine[]): string => {
@@ -471,6 +478,54 @@ const ChatHistoryDrawer = ({
     useState<number>(3);
 
   const [customMinimumMessages, setCustomMinimumMessages] = useState<number>(1);
+  const [contentTypeFilter, setContentTypeFilter] =
+    useState<ContentTypeFilter>('all');
+
+  const isSameDay = (dateA: Date, dateB: Date) =>
+    dateA.getFullYear() === dateB.getFullYear() &&
+    dateA.getMonth() === dateB.getMonth() &&
+    dateA.getDate() === dateB.getDate();
+
+  const getChatLogStats = (chatLog: ChatLog) => {
+    const imageCount = chatLog.lines.reduce((total, line) => {
+      const imagesInLine =
+        line.media?.filter(medium => medium.mimeType?.startsWith('image/'))
+          .length || 0;
+      return total + imagesInLine;
+    }, 0);
+
+    const hasFile = chatLog.lines.some(line =>
+      (line.media || []).some(
+        medium =>
+          !medium.mimeType?.startsWith('image/') &&
+          medium.mimeType !== 'text/html' &&
+          medium.mimeType !== 'text/plain'
+      )
+    );
+
+    const assistantReplies = chatLog.lines.filter(
+      line => !line.inbound && line.text?.trim()
+    );
+    const previewSource = assistantReplies[1] || assistantReplies[0];
+    const preview = stripHTML(previewSource?.text || '')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    const allText = chatLog.lines
+      .map(line => line.text || '')
+      .join(' ')
+      .toLowerCase();
+    const isTestConversation =
+      /\b(test|testing|experiment|esperimento|prova)\b/.test(allText);
+
+    return {
+      imageCount,
+      hasFile,
+      preview,
+      isTestConversation,
+      messageCount: chatLog.lines.length,
+    };
+  };
 
   const formatDateForAPI = (date: Date) => {
     const year = date.getFullYear();
@@ -690,7 +745,19 @@ const ChatHistoryDrawer = ({
     []
   );
   // Remove client-side pagination since we're now using server-side pagination
-  const paginatedChatLogs = chatLogs;
+  const paginatedChatLogs = useMemo(() => {
+    if (contentTypeFilter === 'all') {
+      return chatLogs;
+    }
+
+    return chatLogs.filter(chatLog => {
+      const stats = getChatLogStats(chatLog);
+      if (contentTypeFilter === 'with_images') {
+        return stats.imageCount > 0;
+      }
+      return stats.hasFile;
+    });
+  }, [chatLogs, contentTypeFilter]);
 
   const handleResumeChat = async () => {
     if (selectedChatLog) {
@@ -707,7 +774,7 @@ const ChatHistoryDrawer = ({
   };
 
   const handleExportChat = (chatLog: ChatLog, e: React.MouseEvent) => {
-    e.stopPropagation(); // Prevent the card from toggling
+    e.stopPropagation(); // Prevent the list item from toggling
     const text = `${t(
       'write_and_speak.conversationStartedLabel'
     )} ${new Intl.DateTimeFormat(navigator.language, {
@@ -776,7 +843,7 @@ const ChatHistoryDrawer = ({
       );
     }
 
-    if (chatLogs.length === 0) {
+    if (paginatedChatLogs.length === 0) {
       return (
         <div className="memori-chat-history-drawer--no-results">
           <p>
@@ -791,146 +858,129 @@ const ChatHistoryDrawer = ({
     return (
       <>
         <ul className="memori-chat-history-drawer--list">
-          {paginatedChatLogs.map((chatLog: ChatLog) => {
+          {paginatedChatLogs.map((chatLog: ChatLog, index: number) => {
             const lastMessageDate = Math.max(
               ...chatLog.lines.map(line => new Date(line.timestamp).getTime())
             );
+            const stats = getChatLogStats(chatLog);
+            const iconSymbol = stats.hasFile
+              ? '📄'
+              : stats.isTestConversation
+              ? '🧪'
+              : '💬';
+            const iconBackgroundColor =
+              ICON_BACKGROUND_COLORS[index % ICON_BACKGROUND_COLORS.length];
+            const isUpdatedToday = isSameDay(
+              new Date(lastMessageDate),
+              new Date()
+            );
+            const title =
+              calculateTitle(chatLog.lines) ||
+              'Chat-' + chatLog.chatLogID.substring(0, 4);
 
             return (
               <Card
-                hoverable={chatLog?.sessionID !== sessionId}
                 variant="outlined"
-                onClick={async () => {
-                  // the active chat
-                  if (chatLog?.sessionID === sessionId) {
-                    return;
-                  }
-                  if (selectedChatLog?.chatLogID === chatLog.chatLogID) {
-                    setSelectedChatLog(null);
-                    if (isMobile) {
-                      setIsViewingChatDetail(false);
-                    }
-                    return;
-                  }
-                  setSelectedChatLog(chatLog);
-                  // if (isMobile) {
-                  setIsViewingChatDetail(true);
-                  // }
-                }}
                 key={chatLog.chatLogID}
-                className={`memori-chat-history-drawer--card ${
+                className={`memori-chat-history-drawer--list-item ${
                   selectedChatLog?.chatLogID === chatLog.chatLogID
-                    ? 'memori-chat-history-drawer--card--selected'
+                    ? 'memori-chat-history-drawer--list-item--selected'
+                    : ''
+                } ${
+                  chatLog?.sessionID !== sessionId
+                    ? 'memori-chat-history-drawer--list-item--hoverable'
                     : ''
                 } ${
                   chatLog?.sessionID === sessionId
-                    ? 'memori-chat-history-drawer--card--disabled'
-                    : 'memori-chat-history-drawer--card--hoverable'
+                    ? 'memori-chat-history-drawer--list-item--disabled'
+                    : ''
                 }`}
               >
-                <>
-                  <div className="memori-chat-history-drawer--card--header">
-                    <div className="memori-chat-history-drawer--card--header--content">
-                      <div className="memori-chat-history-drawer--card--header--info">
-                        <div className="memori-chat-history-drawer--card--header--title-wrapper">
-                          <h3 className="memori-chat-history-drawer--card--header--title">
-                            {calculateTitle(chatLog.lines) ||
-                              'Chat-' + chatLog.chatLogID.substring(0, 4)}
-                          </h3>
-                          {chatLog.boardOfExperts && (
-                            <div className="memori-chat-history-drawer--card--header--badge">
-                              BOE
-                            </div>
-                          )}
-                        </div>
-                      </div>
+                <button
+                  type="button"
+                  className="memori-chat-history-drawer--list-item--button"
+                  disabled={chatLog?.sessionID === sessionId}
+                  onClick={async () => {
+                    // the active chat
+                    if (chatLog?.sessionID === sessionId) {
+                      return;
+                    }
+                    if (selectedChatLog?.chatLogID === chatLog.chatLogID) {
+                      setSelectedChatLog(null);
+                      if (isMobile) {
+                        setIsViewingChatDetail(false);
+                      }
+                      return;
+                    }
+                    setSelectedChatLog(chatLog);
+                    // if (isMobile) {
+                    setIsViewingChatDetail(true);
+                    // }
+                  }}
+                >
+                  {/* <div
+                    className="memori-chat-history-drawer--list-item--icon"
+                    style={{ backgroundColor: iconBackgroundColor }}
+                    aria-hidden="true"
+                  >
+                    {iconSymbol}
+                  </div> */}
+                  <div className="memori-chat-history-drawer--list-item--content">
+                    <div className="memori-chat-history-drawer--list-item--title-wrapper">
+                      <h3 className="memori-chat-history-drawer--list-item--title">
+                        {title}
+                      </h3>
+                      {isUpdatedToday && (
+                        <span className="memori-chat-history-drawer--list-item--today-pill">
+                          oggi
+                        </span>
+                      )}
+                    </div>
+                    {/* {stats.preview && (
+                      <p className="memori-chat-history-drawer--list-item--preview">
+                        {stats.preview}
+                      </p>
+                    )} */}
+                    <div className="memori-chat-history-drawer--list-item--meta">
+                      <time
+                        className="memori-chat-history-drawer--list-item--meta--time"
+                        dateTime={new Date(lastMessageDate).toISOString()}
+                      >
+                        {formatDate(new Date(lastMessageDate).toISOString())}
+                      </time>
+                      {stats.imageCount > 0 && (
+                        <span className="memori-chat-history-drawer--list-item--meta-badge memori-chat-history-drawer--list-item--meta-badge-images">
+                          {stats.imageCount} images
+                        </span>
+                      )}
+                      <span className="memori-chat-history-drawer--list-item--meta-badge memori-chat-history-drawer--list-item--meta-badge-messages">
+                        {stats.messageCount} messages
+                      </span>
+                      {stats.hasFile && (
+                        <span className="memori-chat-history-drawer--list-item--meta-badge memori-chat-history-drawer--list-item--meta-badge-files">
+                          file
+                        </span>
+                      )}
+                      {chatLog.boardOfExperts && (
+                        <span className="memori-chat-history-drawer--list-item--meta-badge memori-chat-history-drawer--list-item--meta-badge-boe">
+                          boe
+                        </span>
+                      )}
                     </div>
                   </div>
-                  <div className="memori-chat-history-drawer--card--header--meta">
-                    <time
-                      className="memori-chat-history-drawer--card--header--meta--time"
-                      dateTime={new Date(lastMessageDate).toISOString()}
-                    >
-                      {/* <svg
-                        className="memori-chat-history-drawer--card--header--meta--icon"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg> */}
-                      {formatDate(new Date(lastMessageDate).toISOString())}
-                    </time>
-                    {chatLog.lines.some(
-                      line =>
-                        line.media &&
-                        line.media.filter(
-                          m =>
-                            m.mimeType !== 'text/html' &&
-                            m.mimeType !== 'text/plain'
-                        ).length > 0
-                    ) && (
-                      <span className="memori-chat-history-drawer--card--header--meta--messages">
-                        <svg
-                          className="memori-chat-history-drawer--card--header--meta--icon"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                          />
-                        </svg>
-                        {chatLog.lines.reduce(
-                          (acc, line) =>
-                            acc +
-                            (line.media?.filter(
-                              m =>
-                                m.mimeType !== 'text/html' &&
-                                m.mimeType !== 'text/plain'
-                            ).length || 0),
-                          0
-                        )}
-                      </span>
-                    )}
-                    <span className="memori-chat-history-drawer--card--header--meta--messages">
-                      <svg
-                        className="memori-chat-history-drawer--card--header--meta--icon"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
-                        />
-                      </svg>
-                      {chatLog.lines.length}
-                    </span>
-                    {!isMobile && (
-                      <div className="memori-chat-history-drawer--card--content--header">
-                        <Button
-                          variant="ghost"
-                          onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
-                            handleExportChat(chatLog, e)
-                          }
-                          disabled={chatLog?.sessionID === sessionId}
-                          icon={<Download />}
-                        />
-                      </div>
-                    )}
+                </button>
+                {/* {!isMobile && (
+                  <div className="memori-chat-history-drawer--list-item--actions">
+                    <Button
+                      variant="ghost"
+                      onClick={(e: React.MouseEvent<HTMLButtonElement>) =>
+                        handleExportChat(chatLog, e)
+                      }
+                      disabled={chatLog?.sessionID === sessionId}
+                      icon={<Download />}
+                    />
                   </div>
-                </>
+                )} */}
               </Card>
             );
           })}

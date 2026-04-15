@@ -145,7 +145,8 @@
     "positionResolving": "Resolving address…",
     "geocodingFailed": "Could not resolve the address. Try again or search manually.",
     "positionUnavailableManual": "Location unavailable. Please enter it manually.",
-    "positionSharingEnabled": "Location shared."
+    "positionSharingEnabled": "Location shared.",
+    "downloadQrCode": "Download QR Code"
   },
   "exportChatHistory": {
     "exportPDF": "Export chat as PDF",

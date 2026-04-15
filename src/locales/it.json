@@ -145,7 +145,8 @@
     "positionResolving": "Ricerca indirizzo…",
     "geocodingFailed": "Impossibile ottenere l'indirizzo. Riprova o cerca manualmente.",
     "positionUnavailableManual": "Posizione non disponibile. Inseriscila manualmente.",
-    "positionSharingEnabled": "Posizione condivisa."
+    "positionSharingEnabled": "Posizione condivisa.",
+    "downloadQrCode": "Scarica QR Code"
   },
   "exportChatHistory": {
     "exportPDF": "Esporta chat come PDF",

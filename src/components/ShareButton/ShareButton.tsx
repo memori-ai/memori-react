@@ -46,6 +46,8 @@ export interface Props {
   showQrCode?: boolean;
   align?: 'left' | 'right';
   history?: Message[];
+  triggerMode?: 'icon' | 'menu-item';
+  triggerLabel?: string;
 }
 
 /** Copy success/error label reset */
@@ -64,6 +66,9 @@ const ShareButton: React.FC<Props> = ({
   showQrCode = true,
   align = 'right',
   history = [],
+  className,
+  triggerMode = 'icon',
+  triggerLabel,
 }: Props) => {
   const { t, i18n } = useTranslation();
   const { add } = useAlertManager();
@@ -366,7 +371,8 @@ const ShareButton: React.FC<Props> = ({
       return `${baseUrl ?? 'https://www.aisuru.com'}/${
         i18n.language === 'it' ? 'it' : 'en'
       }/shared/${memori.ownerUserName}/${memori.name}/${sessionID}`;
-    }``
+    }
+    ``;
 
     return undefined;
   }, [memori, sessionID, baseUrl, i18n.language]);
@@ -374,9 +380,13 @@ const ShareButton: React.FC<Props> = ({
   return (
     <Dropdown
       onOpenChange={handleShareMenuOpenChange}
-      className={cx('memori-share-button', {
-        'memori-share-button--align-left': align === 'left',
-      })}
+      className={cx(
+        'memori-share-button',
+        {
+          'memori-share-button--align-left': align === 'left',
+        },
+        className
+      )}
     >
       <Tooltip content={t('widget.share') || undefined} placement="bottom">
         <Dropdown.Trigger
@@ -385,171 +395,187 @@ const ShareButton: React.FC<Props> = ({
           render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
             <Button
               {...props}
-              variant={primary ? 'primary' : 'outline'}
+              variant={
+                triggerMode === 'menu-item'
+                  ? 'ghost'
+                  : primary
+                  ? 'primary'
+                  : 'outline'
+              }
               icon={<Share2 />}
-            />
+              className={cx({
+                'memori-share-button--trigger-menu-item':
+                  triggerMode === 'menu-item',
+              })}
+            >
+              {triggerMode === 'menu-item'
+                ? triggerLabel || t('widget.share')
+                : undefined}
+            </Button>
           )}
         />
       </Tooltip>
       <Dropdown.Menu className="memori-share-button--dropdown-menu">
-        {memori && sessionID && sharedUrl && (
-          <Dropdown.Item
-            key="shared"
-            closeOnClick={false}
-            className={cx('memori-share-button--menu-item', {
-              'memori-share-button--menu-item--flash':
-                menuFlashKey === 'share-chat',
-            })}
-            onClick={() => {
-              window.open(sharedUrl, '_blank');
-              flashMenuItem('share-chat');
-            }}
-            {...({ icon: <Share2 /> } as React.ComponentProps<
-              typeof Dropdown.Item
-            >)}
-          >
-            <span className="memori-share-button--dropdown-item-content">
-              {t('widget.shareChat') || 'Share chat'}
-            </span>
-          </Dropdown.Item>
-        )}
-        {history && history.length > 0 && (
-          <Dropdown.Item
-            key="export-pdf"
-            closeOnClick={false}
-            className={cx('memori-share-button--menu-item', {
-              'memori-share-button--menu-item--flash':
-                menuFlashKey === 'export-pdf',
-            })}
-            onClick={handleExportPDF}
-            disabled={isExportingPDF}
-            {...({ icon: <FileText /> } as React.ComponentProps<
-              typeof Dropdown.Item
-            >)}
-          >
-            <span className="memori-share-button--dropdown-item-content">
-              {isExportingPDF
-                ? t('exportChatHistory.exporting') || 'Exporting...'
-                : t('exportChatHistory.exportPDF') || 'Export chat as PDF'}
-            </span>
-          </Dropdown.Item>
-        )}
-        <Dropdown.Item
-          closeOnClick={false}
-          className={cx(
-            'memori-share-button--menu-item',
-            'memori-share-button--copy-item',
-            {
-              'memori-share-button--copy-item--success':
-                copyStatus === 'success',
-              'memori-share-button--copy-item--error': copyStatus === 'error',
-            }
-          )}
-          onClick={handleCopyLink}
-          {...({
-            icon:
-              copyStatus === 'success' ? (
-                <Check
-                  className="memori-share-button--copy-icon"
-                  aria-hidden
-                  strokeWidth={2.5}
-                />
-              ) : (
-                <LinkIcon
-                  className="memori-share-button--copy-icon"
-                  aria-hidden
-                />
-              ),
-          } as React.ComponentProps<typeof Dropdown.Item>)}
-        >
-          <span
-            className="memori-share-button--dropdown-item-content memori-share-button--copy-label"
-            aria-live="polite"
-          >
-            {copyStatus === 'success'
-              ? t('copied')
-              : copyStatus === 'error'
-              ? t('copyFailed', { defaultValue: 'Could not copy' })
-              : t('copyToClipboard') || undefined}
-          </span>
-        </Dropdown.Item>
-        {socialShare.map(item => {
-          const IconComponent = item.icon;
-          return (
+        <div className="memori-share-button--dropdown-section">
+          {memori && sessionID && sharedUrl && (
             <Dropdown.Item
-              key={item.id}
+              key="shared"
               closeOnClick={false}
               className={cx('memori-share-button--menu-item', {
                 'memori-share-button--menu-item--flash':
-                  menuFlashKey === item.id,
+                  menuFlashKey === 'share-chat',
               })}
               onClick={() => {
-                if (item.id === 'email') {
-                  window.location.href = item.url;
-                } else {
-                  window.open(item.url, '_blank');
-                }
-                flashMenuItem(item.id);
+                window.open(sharedUrl, '_blank');
+                flashMenuItem('share-chat');
               }}
-              {...({ icon: <IconComponent /> } as React.ComponentProps<
+              {...({ icon: <Share2 /> } as React.ComponentProps<
                 typeof Dropdown.Item
               >)}
             >
               <span className="memori-share-button--dropdown-item-content">
-                {item.title}
+                {t('widget.shareChat') || 'Share chat'}
               </span>
             </Dropdown.Item>
-          );
-        })}
-        {showQrCode && (
+          )}
+          {history && history.length > 0 && (
+            <Dropdown.Item
+              key="export-pdf"
+              closeOnClick={false}
+              className={cx('memori-share-button--menu-item', {
+                'memori-share-button--menu-item--flash':
+                  menuFlashKey === 'export-pdf',
+              })}
+              onClick={handleExportPDF}
+              disabled={isExportingPDF}
+              {...({ icon: <FileText /> } as React.ComponentProps<
+                typeof Dropdown.Item
+              >)}
+            >
+              <span className="memori-share-button--dropdown-item-content">
+                {isExportingPDF
+                  ? t('exportChatHistory.exporting') || 'Exporting...'
+                  : t('exportChatHistory.exportPDF') || 'Export chat as PDF'}
+              </span>
+            </Dropdown.Item>
+          )}
           <Dropdown.Item
             closeOnClick={false}
-            className={cx('memori-share-button--menu-item', {
-              'memori-share-button--menu-item--flash':
-                menuFlashKey === 'qr-download',
-            })}
+            className={cx(
+              'memori-share-button--menu-item',
+              'memori-share-button--copy-item',
+              {
+                'memori-share-button--copy-item--success':
+                  copyStatus === 'success',
+                'memori-share-button--copy-item--error': copyStatus === 'error',
+              }
+            )}
+            onClick={handleCopyLink}
+            {...({
+              icon:
+                copyStatus === 'success' ? (
+                  <Check
+                    className="memori-share-button--copy-icon"
+                    aria-hidden
+                    strokeWidth={2.5}
+                  />
+                ) : (
+                  <LinkIcon
+                    className="memori-share-button--copy-icon"
+                    aria-hidden
+                  />
+                ),
+            } as React.ComponentProps<typeof Dropdown.Item>)}
           >
-            <QRCodeCanvas
-              id="qr-canvas"
-              value={targetUrl ?? ''}
-              size={128}
-              bgColor={'#ffffff'}
-              fgColor={'#000000'}
-              level={'H'}
-              includeMargin={false}
-              imageSettings={{
-                src: qrImageURL,
-                x: undefined,
-                y: undefined,
-                height: 32,
-                width: 32,
-                excavate: true,
-              }}
-            />
-            <div>
-              <span
-                className="memori-share-button--dropdown-item-content memori-share-button--qr-download"
-                onClick={handleDownloadQR}
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  cursor: 'pointer',
-                  marginTop: 8,
-                }}
-                role="button"
-                tabIndex={0}
-                onKeyDown={e => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    handleDownloadQR();
-                  }
-                }}
-              >
-                <Download style={{ marginRight: 8 }} />
-                Download
-              </span>
-            </div>
+            <span
+              className="memori-share-button--dropdown-item-content memori-share-button--copy-label"
+              aria-live="polite"
+            >
+              {copyStatus === 'success'
+                ? t('copied')
+                : copyStatus === 'error'
+                ? t('copyFailed', { defaultValue: 'Could not copy' })
+                : t('copyToClipboard') || undefined}
+            </span>
           </Dropdown.Item>
+        </div>
+        <div className="memori-share-button--dropdown-divider" />
+        <div className="memori-share-button--dropdown-section">
+          {socialShare.map(item => {
+            const IconComponent = item.icon;
+            return (
+              <Dropdown.Item
+                key={item.id}
+                closeOnClick={false}
+                className={cx('memori-share-button--menu-item', {
+                  'memori-share-button--menu-item--flash':
+                    menuFlashKey === item.id,
+                })}
+                onClick={() => {
+                  if (item.id === 'email') {
+                    window.location.href = item.url;
+                  } else {
+                    window.open(item.url, '_blank');
+                  }
+                  flashMenuItem(item.id);
+                }}
+                {...({ icon: <IconComponent /> } as React.ComponentProps<
+                  typeof Dropdown.Item
+                >)}
+              >
+                <span className="memori-share-button--dropdown-item-content">
+                  {item.title}
+                </span>
+              </Dropdown.Item>
+            );
+          })}
+        </div>
+        {showQrCode && (
+          <>
+            <div className="memori-share-button--dropdown-divider" />
+            <Dropdown.Item
+              closeOnClick={false}
+              className={cx(
+                'memori-share-button--menu-item',
+                'memori-share-button--qr-item',
+                {
+                  'memori-share-button--menu-item--flash':
+                    menuFlashKey === 'qr-download',
+                }
+              )}
+            >
+              <div className="memori-share-button--qr-content">
+                <QRCodeCanvas
+                  id="qr-canvas"
+                  value={targetUrl ?? ''}
+                  size={128}
+                  bgColor={'#ffffff'}
+                  fgColor={'#000000'}
+                  level={'H'}
+                  includeMargin={false}
+                  imageSettings={{
+                    src: qrImageURL,
+                    x: undefined,
+                    y: undefined,
+                    height: 32,
+                    width: 32,
+                    excavate: true,
+                  }}
+                />
+                <button
+                  type="button"
+                  className="memori-share-button--qr-download"
+                  onClick={handleDownloadQR}
+                >
+                  <Download aria-hidden />
+                  <span>
+                    {t('widget.downloadQrCode') ||
+                      t('download', { defaultValue: 'Download' })}
+                  </span>
+                </button>
+              </div>
+            </Dropdown.Item>
+          </>
         )}
       </Dropdown.Menu>
     </Dropdown>

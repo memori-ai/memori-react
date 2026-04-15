@@ -143,7 +143,8 @@
     "positionResolving": "Adresse wird ermittelt…",
     "geocodingFailed": "Adresse konnte nicht ermittelt werden. Bitte erneut versuchen oder manuell suchen.",
     "positionUnavailableManual": "Standort nicht verfügbar. Bitte manuell eingeben.",
-    "positionSharingEnabled": "Standort geteilt."
+    "positionSharingEnabled": "Standort geteilt.",
+    "downloadQrCode": "QR-Code herunterladen"
   },
   "exportChatHistory": {
     "exportPDF": "Chat als PDF exportieren",
@@ -221,7 +222,7 @@
   },
   "artifact": {
     "close": "Schließen",
-    "size": "Größe", 
+    "size": "Größe",
     "generated": "Generiert",
     "download": "Herunterladen",
     "print": "Drucken",

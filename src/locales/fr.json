@@ -141,7 +141,8 @@
     "positionResolving": "Résolution de l'adresse…",
     "geocodingFailed": "Impossible de déterminer l'adresse. Réessayez ou recherchez manuellement.",
     "positionUnavailableManual": "Position indisponible. Saisissez-la manuellement.",
-    "positionSharingEnabled": "Position partagée."
+    "positionSharingEnabled": "Position partagée.",
+    "downloadQrCode": "Télécharger le QR Code"
   },
   "exportChatHistory": {
     "exportPDF": "Exporter le chat en PDF",

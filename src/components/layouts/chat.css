@@ -363,6 +363,9 @@
 .memori-widget.memori-layout-chat .memori-chat-layout--controls .memori--start-panel,
 .memori-widget.memori-layout-chat .memori-chat-layout--controls .memori-chat--wrapper {
     min-width: 0;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-layout--controls .memori-chat--wrapper {
     max-width: 56rem;
     margin: 0 auto;
 }

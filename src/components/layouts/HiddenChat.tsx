@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { getResourceUrl } from '../../helpers/media';
 import ChatInputs from '../ChatInputs/ChatInputs';
+import ShareButton from '../ShareButton/ShareButton';
 import type { Props as HeaderComponentProps } from '../Header/Header';
 import {
   maxDocumentsPerMessage,
@@ -95,158 +96,186 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
         };
       }
 
-    const actionVisibility: Array<{ key: HeaderActionKey; visible: boolean }> = [
-      { key: 'position', visible: !!headerProps.memori?.needsPosition },
-      { key: 'reload', visible: !!headerProps.showReload },
-      { key: 'clear', visible: !!headerProps.showClear },
-      {
-        key: 'chatHistory',
-        visible: (headerProps.showChatHistory ?? true) && !!headerProps.loginToken,
-      },
-      {
-        key: 'consumption',
-        visible: !!headerProps.showMessageConsumption && hasSustainabilityData,
-      },
-      { key: 'fullscreen', visible: true },
-      {
-        key: 'deepThought',
-        visible:
-          !!headerProps.memori?.enableDeepThought &&
-          !!headerProps.loginToken &&
-          !!headerProps.user?.pAndCUAccepted,
-      },
-      {
-        key: 'experts',
-        visible: !!headerProps.memori?.enableBoardOfExperts,
-      },
-      { key: 'audio', visible: headerProps.enableAudio ?? true },
-      // HiddenChat-specific requirement: never show Settings in header actions.
-      { key: 'settings', visible: false },
-      { key: 'share', visible: headerProps.showShare ?? true },
-      { key: 'login', visible: headerProps.showLogin ?? true },
-    ];
-
-    const visibleActions = actionVisibility.filter(action => action.visible);
-    const visibleActionKeys = visibleActions.map(action => action.key);
-    const knownFactsVisible = visibleActionKeys.includes('deepThought');
-    const loginVisible = visibleActionKeys.includes('login');
-    const shareEnabled = headerProps.showShare ?? true;
-    const totalActionCount = visibleActionKeys.length;
-    const hasOverflow = totalActionCount > 5;
-    const maxVisibleButtons = hasOverflow ? 4 : 5;
-    const primaryActionKeys: HeaderActionKey[] = hasOverflow
-      ? visibleActionKeys.slice(0, maxVisibleButtons)
-      : visibleActionKeys;
-    let normalizedPrimaryActionKeys: HeaderActionKey[] =
-      hasOverflow &&
-      visibleActionKeys.includes('audio') &&
-      !primaryActionKeys.includes('audio')
-        ? [...primaryActionKeys.slice(0, maxVisibleButtons - 1), 'audio' as HeaderActionKey]
-        : primaryActionKeys;
-    if (hasOverflow && normalizedPrimaryActionKeys.includes('share')) {
-      const replacementAction = visibleActionKeys.find(
-        action =>
-          action !== 'share' && !normalizedPrimaryActionKeys.includes(action)
-      );
-      normalizedPrimaryActionKeys = replacementAction
-        ? normalizedPrimaryActionKeys.map(action =>
-            action === 'share' ? replacementAction : action
-          )
-        : normalizedPrimaryActionKeys.filter(action => action !== 'share');
-    }
-    if (hasOverflow && normalizedPrimaryActionKeys.includes('deepThought')) {
-      const replacementAction = visibleActionKeys.find(
-        action =>
-          action !== 'deepThought' && !normalizedPrimaryActionKeys.includes(action)
-      );
-      normalizedPrimaryActionKeys = replacementAction
-        ? normalizedPrimaryActionKeys.map(action =>
-            action === 'deepThought' ? replacementAction : action
-          )
-        : normalizedPrimaryActionKeys.filter(action => action !== 'deepThought');
-    }
-    if (hasOverflow && normalizedPrimaryActionKeys.includes('login')) {
-      const replacementAction = visibleActionKeys.find(
-        action =>
-          action !== 'login' && !normalizedPrimaryActionKeys.includes(action)
-      );
-      normalizedPrimaryActionKeys = replacementAction
-        ? normalizedPrimaryActionKeys.map(action =>
-            action === 'login' ? replacementAction : action
-          )
-        : normalizedPrimaryActionKeys.filter(action => action !== 'login');
-    }
-    const overflowActionKeys: HeaderActionKey[] = (hasOverflow
-      ? [
-          ...visibleActionKeys.slice(5),
-          ...(shareEnabled ? (['share'] as HeaderActionKey[]) : []),
-          ...(knownFactsVisible ? (['deepThought'] as HeaderActionKey[]) : []),
-          ...(loginVisible ? (['login'] as HeaderActionKey[]) : []),
-        ]
-      : []
-    ).filter(
-      action =>
-        action === 'share' ||
-        action === 'deepThought' ||
-        action === 'login' ||
-        !normalizedPrimaryActionKeys.includes(action)
-    );
-    const dedupedOverflowActionKeys = Array.from(
-      new Set(overflowActionKeys)
-    ) as HeaderActionKey[];
-    const orderedOverflowActionKeys: HeaderActionKey[] = [
-      ...dedupedOverflowActionKeys.filter(action => action !== 'login'),
-      ...dedupedOverflowActionKeys.filter(action => action === 'login'),
-    ];
-
-    const mapHeaderPropsFromActions = (
-      actions: HeaderActionKey[]
-    ): HeaderComponentProps => {
-      const actionSet = new Set(actions);
-      return {
-        ...headerProps,
-        memori: {
-          ...headerProps.memori,
-          needsPosition: actionSet.has('position') && !!headerProps.memori?.needsPosition,
-          enableDeepThought:
-            actionSet.has('deepThought') && !!headerProps.memori?.enableDeepThought,
-          enableBoardOfExperts:
-            actionSet.has('experts') && !!headerProps.memori?.enableBoardOfExperts,
+      const actionVisibility: Array<{
+        key: HeaderActionKey;
+        visible: boolean;
+      }> = [
+        { key: 'position', visible: !!headerProps.memori?.needsPosition },
+        { key: 'reload', visible: !!headerProps.showReload },
+        { key: 'clear', visible: !!headerProps.showClear },
+        {
+          key: 'chatHistory',
+          visible:
+            (headerProps.showChatHistory ?? true) && !!headerProps.loginToken,
         },
-        showReload: actionSet.has('reload') && !!headerProps.showReload,
-        showClear: actionSet.has('clear') && !!headerProps.showClear,
-        showChatHistory:
-          actionSet.has('chatHistory') && (headerProps.showChatHistory ?? true),
-        showMessageConsumption:
-          actionSet.has('consumption') && !!headerProps.showMessageConsumption,
-        showFullscreen: actionSet.has('fullscreen'),
-        enableAudio: actionSet.has('audio') && (headerProps.enableAudio ?? true),
-        showSettings: actionSet.has('settings') && (headerProps.showSettings ?? true),
-        showShare: actionSet.has('share') && (headerProps.showShare ?? true),
-        showLogin: actionSet.has('login') && (headerProps.showLogin ?? true),
+        {
+          key: 'consumption',
+          visible:
+            !!headerProps.showMessageConsumption && hasSustainabilityData,
+        },
+        { key: 'fullscreen', visible: true },
+        {
+          key: 'deepThought',
+          visible:
+            !!headerProps.memori?.enableDeepThought &&
+            !!headerProps.loginToken &&
+            !!headerProps.user?.pAndCUAccepted,
+        },
+        {
+          key: 'experts',
+          visible: !!headerProps.memori?.enableBoardOfExperts,
+        },
+        { key: 'audio', visible: headerProps.enableAudio ?? true },
+        // HiddenChat-specific requirement: never show Settings in header actions.
+        { key: 'settings', visible: false },
+        { key: 'share', visible: headerProps.showShare ?? true },
+        { key: 'login', visible: headerProps.showLogin ?? true },
+      ];
+
+      const visibleActions = actionVisibility.filter(action => action.visible);
+      const visibleActionKeys = visibleActions.map(action => action.key);
+      const knownFactsVisible = visibleActionKeys.includes('deepThought');
+      const loginVisible = visibleActionKeys.includes('login');
+      const shareEnabled = headerProps.showShare ?? true;
+      const totalActionCount = visibleActionKeys.length;
+      const hasOverflow = totalActionCount > 5;
+      const maxVisibleButtons = hasOverflow ? 4 : 5;
+      const primaryActionKeys: HeaderActionKey[] = hasOverflow
+        ? visibleActionKeys.slice(0, maxVisibleButtons)
+        : visibleActionKeys;
+      let normalizedPrimaryActionKeys: HeaderActionKey[] =
+        hasOverflow &&
+        visibleActionKeys.includes('audio') &&
+        !primaryActionKeys.includes('audio')
+          ? [
+              ...primaryActionKeys.slice(0, maxVisibleButtons - 1),
+              'audio' as HeaderActionKey,
+            ]
+          : primaryActionKeys;
+      if (hasOverflow && normalizedPrimaryActionKeys.includes('share')) {
+        const replacementAction = visibleActionKeys.find(
+          action =>
+            action !== 'share' && !normalizedPrimaryActionKeys.includes(action)
+        );
+        normalizedPrimaryActionKeys = replacementAction
+          ? normalizedPrimaryActionKeys.map(action =>
+              action === 'share' ? replacementAction : action
+            )
+          : normalizedPrimaryActionKeys.filter(action => action !== 'share');
+      }
+      if (hasOverflow && normalizedPrimaryActionKeys.includes('deepThought')) {
+        const replacementAction = visibleActionKeys.find(
+          action =>
+            action !== 'deepThought' &&
+            !normalizedPrimaryActionKeys.includes(action)
+        );
+        normalizedPrimaryActionKeys = replacementAction
+          ? normalizedPrimaryActionKeys.map(action =>
+              action === 'deepThought' ? replacementAction : action
+            )
+          : normalizedPrimaryActionKeys.filter(
+              action => action !== 'deepThought'
+            );
+      }
+      if (hasOverflow && normalizedPrimaryActionKeys.includes('login')) {
+        const replacementAction = visibleActionKeys.find(
+          action =>
+            action !== 'login' && !normalizedPrimaryActionKeys.includes(action)
+        );
+        normalizedPrimaryActionKeys = replacementAction
+          ? normalizedPrimaryActionKeys.map(action =>
+              action === 'login' ? replacementAction : action
+            )
+          : normalizedPrimaryActionKeys.filter(action => action !== 'login');
+      }
+      const overflowActionKeys: HeaderActionKey[] = (
+        hasOverflow
+          ? [
+              ...visibleActionKeys.slice(5),
+              ...(shareEnabled ? (['share'] as HeaderActionKey[]) : []),
+              ...(knownFactsVisible
+                ? (['deepThought'] as HeaderActionKey[])
+                : []),
+              ...(loginVisible ? (['login'] as HeaderActionKey[]) : []),
+            ]
+          : []
+      ).filter(
+        action =>
+          action === 'share' ||
+          action === 'deepThought' ||
+          action === 'login' ||
+          !normalizedPrimaryActionKeys.includes(action)
+      );
+      const dedupedOverflowActionKeys = Array.from(
+        new Set(overflowActionKeys)
+      ) as HeaderActionKey[];
+      const orderedOverflowActionKeys: HeaderActionKey[] = [
+        ...dedupedOverflowActionKeys.filter(action => action !== 'login'),
+        ...dedupedOverflowActionKeys.filter(action => action === 'login'),
+      ];
+
+      const mapHeaderPropsFromActions = (
+        actions: HeaderActionKey[]
+      ): HeaderComponentProps => {
+        const actionSet = new Set(actions);
+        return {
+          ...headerProps,
+          memori: {
+            ...headerProps.memori,
+            needsPosition:
+              actionSet.has('position') && !!headerProps.memori?.needsPosition,
+            enableDeepThought:
+              actionSet.has('deepThought') &&
+              !!headerProps.memori?.enableDeepThought,
+            enableBoardOfExperts:
+              actionSet.has('experts') &&
+              !!headerProps.memori?.enableBoardOfExperts,
+          },
+          showReload: actionSet.has('reload') && !!headerProps.showReload,
+          showClear: actionSet.has('clear') && !!headerProps.showClear,
+          showChatHistory:
+            actionSet.has('chatHistory') &&
+            (headerProps.showChatHistory ?? true),
+          showMessageConsumption:
+            actionSet.has('consumption') &&
+            !!headerProps.showMessageConsumption,
+          showFullscreen: actionSet.has('fullscreen'),
+          enableAudio:
+            actionSet.has('audio') && (headerProps.enableAudio ?? true),
+          showSettings:
+            actionSet.has('settings') && (headerProps.showSettings ?? true),
+          showShare: actionSet.has('share') && (headerProps.showShare ?? true),
+          showLogin: actionSet.has('login') && (headerProps.showLogin ?? true),
+        };
       };
-    };
 
       return {
-        primaryHeaderProps: mapHeaderPropsFromActions(normalizedPrimaryActionKeys),
+        primaryHeaderProps: mapHeaderPropsFromActions(
+          normalizedPrimaryActionKeys
+        ),
         overflowActionKeys: orderedOverflowActionKeys,
         hasOverflowActions: orderedOverflowActionKeys.length > 0,
       };
     }, [headerProps, hasSustainabilityData]);
 
-  const loggedUser = headerProps?.loginToken && headerProps?.user ? headerProps.user : undefined;
+  const loggedUser =
+    headerProps?.loginToken && headerProps?.user ? headerProps.user : undefined;
   const sharedUrl = useMemo(() => {
     if (!headerProps?.memori || !headerProps?.sessionID) return undefined;
     const currentLanguage = i18n.language === 'it' ? 'it' : 'en';
     if (headerProps.memori.ownerUserID) {
-      return `${headerProps.baseUrl ?? 'https://www.aisuru.com'}/${currentLanguage}/shared/${
-        headerProps.memori.ownerUserID
-      }/${headerProps.memori.memoriID}/${headerProps.sessionID}`;
+      return `${
+        headerProps.baseUrl ?? 'https://www.aisuru.com'
+      }/${currentLanguage}/shared/${headerProps.memori.ownerUserID}/${
+        headerProps.memori.memoriID
+      }/${headerProps.sessionID}`;
     }
     if (headerProps.memori.exposed) {
-      return `${headerProps.baseUrl ?? 'https://www.aisuru.com'}/${currentLanguage}/shared/${
-        headerProps.memori.ownerUserName
-      }/${headerProps.memori.name}/${headerProps.sessionID}`;
+      return `${
+        headerProps.baseUrl ?? 'https://www.aisuru.com'
+      }/${currentLanguage}/shared/${headerProps.memori.ownerUserName}/${
+        headerProps.memori.name
+      }/${headerProps.sessionID}`;
     }
     return window.location.href;
   }, [headerProps, i18n.language]);
@@ -315,12 +344,10 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
           break;
         }
         if (navigator.clipboard?.writeText) {
-          navigator.clipboard
-            .writeText(targetUrl)
-            .catch(() => {
-              const opened = window.open(targetUrl, '_blank');
-              if (!opened) window.location.assign(targetUrl);
-            });
+          navigator.clipboard.writeText(targetUrl).catch(() => {
+            const opened = window.open(targetUrl, '_blank');
+            if (!opened) window.location.assign(targetUrl);
+          });
           break;
         }
         {
@@ -378,14 +405,16 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
             key: action,
             label: t('knownFacts.title') || 'Known facts',
             icon: <Brain />,
-            disabled: !headerProps?.hasUserActivatedSpeak || !headerProps?.sessionID,
+            disabled:
+              !headerProps?.hasUserActivatedSpeak || !headerProps?.sessionID,
           };
         if (action === 'experts')
           return {
             key: action,
             label: t('widget.showExpertsInTheBoard') || 'Experts in this board',
             icon: <Users />,
-            disabled: !headerProps?.hasUserActivatedSpeak || !headerProps?.sessionID,
+            disabled:
+              !headerProps?.hasUserActivatedSpeak || !headerProps?.sessionID,
           };
         if (action === 'audio')
           return {
@@ -678,7 +707,10 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                             <Button
                               {...props}
                               variant="outline"
-                              aria-label={t('widget.moreActions') || 'More actions'}
+                              className="memori-hidden-chat-layout--overflow-trigger"
+                              aria-label={
+                                t('widget.moreActions') || 'More actions'
+                              }
                               icon={<EllipsisVertical />}
                             />
                           )}
@@ -693,7 +725,10 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                                       <>
                                         <img
                                           src={loggedUser.avatarURL}
-                                          alt={loggedUser.userName || loggedUser.eMail}
+                                          alt={
+                                            loggedUser.userName ||
+                                            loggedUser.eMail
+                                          }
                                           className="memori-dropdown--avatar"
                                         />
                                         <span className="memori-dropdown--avatar-overlay">
@@ -713,7 +748,8 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                                   </div>
                                   <div className="memori-dropdown--user-details">
                                     <h3 className="memori-dropdown--user-name">
-                                      {loggedUserDisplayName || t('login.welcomeUser')}
+                                      {loggedUserDisplayName ||
+                                        t('login.welcomeUser')}
                                     </h3>
                                     <p className="memori-dropdown--user-email">
                                       {loggedUser.eMail}
@@ -731,16 +767,40 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                               <Dropdown.Separator className="memori-dropdown--separator" />
                             </>
                           )}
-                          {overflowItems.map(item => (
-                            <Dropdown.Item
-                              key={item.key}
-                              icon={item.icon}
-                              disabled={item.disabled}
-                              onClick={() => handleOverflowActionClick(item.key)}
-                            >
-                              {item.label}
-                            </Dropdown.Item>
-                          ))}
+                          {overflowItems.map(item =>
+                            item.key === 'share' ? (
+                              <Dropdown.Item
+                                closeOnClick={false}
+                                onClick={e => e.stopPropagation()}
+                                key={item.key}
+                              >
+                                <ShareButton
+                                  key={item.key}
+                                  tenant={headerProps?.tenant}
+                                  memori={headerProps?.memori}
+                                  sessionID={headerProps?.sessionID}
+                                  title={headerProps?.memori?.name}
+                                  baseUrl={headerProps?.baseUrl}
+                                  align="left"
+                                  history={headerProps?.history}
+                                  triggerMode="menu-item"
+                                  triggerLabel={item.label}
+                                  className="memori-hidden-chat-layout--share-submenu"
+                                />
+                              </Dropdown.Item>
+                            ) : (
+                              <Dropdown.Item
+                                key={item.key}
+                                icon={item.icon}
+                                disabled={item.disabled}
+                                onClick={() =>
+                                  handleOverflowActionClick(item.key)
+                                }
+                              >
+                                {item.label}
+                              </Dropdown.Item>
+                            )
+                          )}
                         </Dropdown.Menu>
                       </Dropdown>
                     )}

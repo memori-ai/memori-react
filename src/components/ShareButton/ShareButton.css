@@ -16,15 +16,46 @@
     cursor: pointer;
 }
 
+.memori-share-button--trigger-menu-item {
+    width: 100%;
+    max-width: none;
+    max-height: none;
+    justify-content: flex-start;
+}
+
 .memori-share-button--dropdown-item-content{
     display: inline-flex;
+    width: 100%;
+    min-height: 1.25rem;
     align-items: center;
     cursor: pointer;
+}
+
+.memori-share-button--dropdown-menu {
+    min-width: 15.5rem;
+    max-width: 19rem;
+    padding: 0.375rem;
+}
+
+.memori-share-button--dropdown-section {
+    display: grid;
+    gap: 0.125rem;
+}
+
+.memori-share-button--dropdown-divider {
+    height: 1px;
+    margin: 0.375rem 0.125rem;
+    background-color: color-mix(
+        in srgb,
+        var(--memori-text-color, #111827) 12%,
+        transparent
+    );
 }
 
 /* All actionable menu rows: press feedback */
 .memori-share-button--menu-item {
     position: relative;
+    border-radius: 0.5rem;
     transition:
         background-color 0.2s ease,
         transform 0.12s ease;
@@ -94,7 +125,52 @@
 }
 
 .memori-share-button--qr-download {
-    transition: transform 0.12s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 0.5rem;
+    margin-top: 0.25rem;
+    background: transparent;
+    color: var(--memori-primary, #3b82f6);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    gap: 0.5rem;
+    transition:
+        background-color 0.2s ease,
+        transform 0.12s ease;
+}
+
+.memori-share-button--qr-download:hover {
+    background-color: color-mix(
+        in srgb,
+        var(--memori-primary, #3b82f6) 10%,
+        transparent
+    );
+}
+
+.memori-share-button--qr-download:focus-visible {
+    outline: 2px solid color-mix(
+        in srgb,
+        var(--memori-primary, #3b82f6) 55%,
+        transparent
+    );
+    outline-offset: 2px;
+}
+
+.memori-share-button--qr-item {
+    display: flex;
+    justify-content: center;
+    padding: 0.625rem;
+}
+
+.memori-share-button--qr-content {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
 }
 
 .memori-share-button--qr-download:active {

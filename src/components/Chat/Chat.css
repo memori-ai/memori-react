@@ -308,7 +308,7 @@
     .memori-widget.memori-layout-chat
     .memori-header
     .memori-button:not(:disabled):not(.memori-button--disabled) {
-    border-color: #fff;
+    border: var(--memori-border) solid var(--memori-border-color);
     color: #fff;
 }
 
@@ -333,18 +333,18 @@
     .memori-widget.memori-layout-chat
     .memori-header
     .memori-button.memori-button--active:not(:disabled, .memori-button--disabled) {
-    border-color: #fff;
+    border: var(--memori-border) solid var(--memori-border-color);
     color: #fff;
 }
 
 .memori-widget.memori-layout-chat[data-theme='dark'] .memori-header .memori-dropdown--user-trigger,
 [data-theme='dark'] .memori-widget.memori-layout-chat .memori-header .memori-dropdown--user-trigger {
-    border-color: #fff;
+    border: var(--memori-border) solid var(--memori-border-color);
     color: #fff;
 }
 
 .memori-widget.memori-layout-chat[data-theme='dark'] .memori-header .memori-dropdown--user-trigger:hover,
 [data-theme='dark'] .memori-widget.memori-layout-chat .memori-header .memori-dropdown--user-trigger:hover {
-    border-color: #fff;
+    border: var(--memori-border) solid var(--memori-border-color);
     color: #fff;
 }

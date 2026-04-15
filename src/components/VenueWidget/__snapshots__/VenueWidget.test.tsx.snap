@@ -41,6 +41,14 @@ exports[`renders VenueWidget with venue set, exact location 1`] = `
                 type="text"
                 value="Altedo, Bologna, Italy"
               />
+              <button
+                aria-label="Clear"
+                class="memori-autocomplete__clear"
+                tabindex="-1"
+                type="button"
+              >
+                x
+              </button>
               <span
                 aria-hidden="true"
                 class="memori-autocomplete__input-chevron"
@@ -187,6 +195,14 @@ exports[`renders VenueWidget with venue set, with uncertainty radius 1`] = `
                 type="text"
                 value="Altedo, Bologna, Italy"
               />
+              <button
+                aria-label="Clear"
+                class="memori-autocomplete__clear"
+                tabindex="-1"
+                type="button"
+              >
+                x
+              </button>
               <span
                 aria-hidden="true"
                 class="memori-autocomplete__input-chevron"
@@ -333,6 +349,14 @@ exports[`renders VenueWidget without gps button unchanged 1`] = `
                 type="text"
                 value="Altedo, Bologna, Italy"
               />
+              <button
+                aria-label="Clear"
+                class="memori-autocomplete__clear"
+                tabindex="-1"
+                type="button"
+              >
+                x
+              </button>
               <span
                 aria-hidden="true"
                 class="memori-autocomplete__input-chevron"
@@ -468,6 +492,14 @@ exports[`renders VenueWidget without uncertainty unchanged 1`] = `
                 type="text"
                 value="Altedo, Bologna, Italy"
               />
+              <button
+                aria-label="Clear"
+                class="memori-autocomplete__clear"
+                tabindex="-1"
+                type="button"
+              >
+                x
+              </button>
               <span
                 aria-hidden="true"
                 class="memori-autocomplete__input-chevron"
