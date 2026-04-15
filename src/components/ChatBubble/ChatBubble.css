@@ -61,7 +61,7 @@
     margin-bottom: var(--memori-spacing-xs);
     background: color-mix(in oklch, var(--memori-main-background) 38%, transparent);
     background-color: var(--memori-main-background);
-    box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.1), 0 1px 3px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: var(--memori-shadow-sm);
     color: var(--memori-text-color);
     font-size: var(--memori-text-size-small);
     line-height: 1.33;
@@ -174,11 +174,10 @@
 }
 
 .memori-chat--bubble.memori-chat--user-bubble {
-    border-radius: .5rem .5rem 0 .5rem;
+    border-radius: 0.5rem 0.5rem 0 0.5rem;
     margin: calc(var(--memori-spacing-sm) + 2px) var(--memori-spacing-sm) var(--memori-spacing-xs) auto;
     background: var(--memori-primary) !important;
     color: #fff;
-    
 }
 
 [data-theme='dark'] {
@@ -224,11 +223,7 @@
 
 /* ShareButton copy affordances on circular bubble actions (see ShareButton.css) */
 .memori-chat--bubble-addon button.memori-chat--bubble-action-button.memori-share-button--copy-item--success:hover {
-    background-color: color-mix(
-        in srgb,
-        var(--memori-primary, #3b82f6) 12%,
-        transparent
-    );
+    background-color: color-mix(in srgb, var(--memori-primary, #3b82f6) 12%, transparent);
 }
 
 .memori-chat--bubble-addon button.memori-chat--bubble-action-button.memori-share-button--copy-item--error:hover {
