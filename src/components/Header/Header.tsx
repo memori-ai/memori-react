@@ -219,6 +219,30 @@ const Header: React.FC<Props> = ({
     }
   }, []);
 
+  // Keep local state in sync with ESC / external fullscreen exits,
+  // and restore any temporary inline background override.
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      const isFs = !!document.fullscreenElement;
+      setFullScreen(isFs);
+
+      if (!isFs) {
+        const memoriWidget = document.querySelector(
+          '.memori-widget'
+        ) as HTMLElement | null;
+        if (memoriWidget?.dataset?.memoriPrevBgColor !== undefined) {
+          memoriWidget.style.backgroundColor =
+            memoriWidget.dataset.memoriPrevBgColor;
+          delete memoriWidget.dataset.memoriPrevBgColor;
+        }
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () =>
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
   // Helper function to determine if settings drawer has content
   const hasSettingsContent = useCallback(
     (
@@ -489,12 +513,16 @@ const Header: React.FC<Props> = ({
                         ? document.body
                         : document.querySelector('.memori-widget');
                     if (body) {
-                      //set the .memori-react div to white backg
-                      const memoriReact =
-                        document.querySelector('.memori-widget');
-                      if (memoriReact) {
-                        (memoriReact as HTMLElement).style.backgroundColor =
-                          '#FFFFFF';
+                      // Don't force a white background in fullscreen; it breaks dark themes.
+                      // If an inline background was previously set, preserve & clear it.
+                      const memoriWidget = document.querySelector(
+                        '.memori-widget'
+                      ) as HTMLElement | null;
+                      if (memoriWidget) {
+                        if (memoriWidget.dataset.memoriPrevBgColor === undefined)
+                          memoriWidget.dataset.memoriPrevBgColor =
+                            memoriWidget.style.backgroundColor ?? '';
+                        memoriWidget.style.backgroundColor = '';
                       }
                       body
                         .requestFullscreen()
@@ -510,7 +538,20 @@ const Header: React.FC<Props> = ({
                     if (document.exitFullscreen) {
                       document
                         .exitFullscreen()
-                        .then(() => setFullScreen(false))
+                        .then(() => {
+                          setFullScreen(false);
+                          const memoriWidget = document.querySelector(
+                            '.memori-widget'
+                          ) as HTMLElement | null;
+                          if (
+                            memoriWidget?.dataset?.memoriPrevBgColor !==
+                            undefined
+                          ) {
+                            memoriWidget.style.backgroundColor =
+                              memoriWidget.dataset.memoriPrevBgColor;
+                            delete memoriWidget.dataset.memoriPrevBgColor;
+                          }
+                        })
                         .catch(err => {
                           console.warn(
                             'Error attempting to exit fullscreen:',
