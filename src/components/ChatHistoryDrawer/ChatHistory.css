@@ -447,6 +447,11 @@
     text-align: center;
 }
 
+.memori-chat-history-drawer--pagination-footer {
+    padding: var(--memori-spacing-md);
+    border-top: 0.5px solid var(--color-border-tertiary, var(--memori-border-color, #e5e7eb));
+}
+
 /* Card selected state */
 .memori-chat-history-drawer--card--selected {
     border-color: var(--memori-primary);
@@ -494,15 +499,15 @@
 }
 
 .memori-chat-history-drawer--detail-view--back-button {
-    min-width: 40px;
-    height: 40px;
+    width: 36px;
+    min-width: 36px;
+    height: 36px;
     min-height: auto;
     flex-shrink: 0;
     align-self: flex-start;
-    padding: 0 var(--memori-spacing-sm);
-    border-radius: 10px;
+    padding: 0 !important;
+    border-radius: 999px;
     margin: 0;
-    margin-bottom: var(--memori-spacing-md);
     font-size: var(--memori-text-size-sm);
     font-weight: var(--memori-text-weight-medium, 500);
     transition: background-color 0.2s ease, color 0.2s ease;
@@ -518,9 +523,12 @@
 }
 
 .memori-chat-history-drawer--detail-view--header--title {
+    overflow: hidden;
     color: var(--memori-text-color);
     font-size: var(--memori-text-size-large, 1.125rem);
     font-weight: var(--memori-text-weight-semibold, 600);
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .memori-chat-history-drawer--detail-view--header--date {
@@ -538,9 +546,34 @@
 
 .memori-chat-history-drawer--detail-view--messages {
     flex: 1;
-    padding: var(--memori-spacing-md);
+    padding: var(--memori-spacing-md) var(--memori-spacing-md)
+        var(--memori-spacing-2xl);
     background-color: var(--memori-secondary-background);
     overflow-y: auto;
+}
+
+.memori-chat-history-drawer--detail-view--session-banner {
+    padding: 12px 14px;
+    border: 1px solid var(--color-border-tertiary, var(--memori-border-color, #e5e7eb));
+    border-radius: 12px;
+    margin-bottom: var(--memori-spacing-md);
+    background: color-mix(in oklch, var(--memori-main-background) 92%, transparent);
+}
+
+.memori-chat-history-drawer--detail-view--session-banner--title {
+    display: inline-flex;
+    align-items: center;
+    margin-bottom: 6px;
+    color: var(--color-text-primary, var(--memori-text-color));
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.memori-chat-history-drawer--detail-view--session-banner--description {
+    margin: 0;
+    color: color-mix(in oklch, var(--memori-text-color) 75%, transparent);
+    font-size: 14px;
+    line-height: 1.35;
 }
 
 .memori-chat-history-drawer--detail-view--messages .memori-chat--cover {
@@ -552,6 +585,19 @@
     mask-image: none !important;
 }
 
+.memori-chat-history-drawer--detail-view--interrupted-chip {
+    display: inline-flex;
+    align-items: center;
+    padding: 6px 12px;
+    border: 1px solid color-mix(in oklch, var(--memori-text-color) 25%, transparent);
+    border-radius: 999px;
+    margin-top: var(--memori-spacing-md);
+    color: color-mix(in oklch, var(--memori-text-color) 75%, transparent);
+    font-size: 14px;
+    font-style: italic;
+    font-weight: 500;
+}
+
 .memori-chat-history-drawer--detail-view--footer {
     flex-shrink: 0;
 }
@@ -559,6 +605,27 @@
 .memori-chat-history-drawer--detail-view--footer .memori-drawer-footer__start,
 .memori-chat-history-drawer--detail-view--footer .memori-drawer-footer__end {
     gap: var(--memori-spacing-md);
+}
+
+.memori-chat-history-drawer--detail-view--footer-actions {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.memori-chat-history-drawer--detail-view--footer-actions-secondary {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.memori-chat-history-drawer--detail-view--secondary-action {
+    min-height: 36px;
+    padding: 0 16px;
+    border-radius: 999px;
+    font-size: 14px;
 }
 
 .memori-chat-history-drawer--detail-view--back-footer-button {
@@ -569,11 +636,13 @@
 
 .memori-chat-history-drawer--detail-view--resume-button {
     display: inline-flex;
+    width: 100%;
     min-width: 140px;
+    min-height: 46px;
     align-items: center;
     justify-content: center;
     padding: 12px var(--memori-spacing-xl);
-    border-radius: 10px;
+    border-radius: 12px;
     font-weight: var(--memori-text-weight-semibold, 600);
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
@@ -774,5 +843,9 @@
 
     .memori-chat-history-drawer--list-item--title {
         font-size: 14px;
+    }
+
+    .memori-chat-history-drawer--detail-view--footer-actions-secondary {
+        flex-wrap: wrap;
     }
 }

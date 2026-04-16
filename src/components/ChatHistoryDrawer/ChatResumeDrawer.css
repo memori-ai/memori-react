@@ -1,0 +1,351 @@
+.memori-chat-resume-drawer {
+    position: fixed;
+    z-index: 1200;
+    inset: 0;
+    pointer-events: none;
+}
+
+.memori-chat-resume-drawer--backdrop {
+    position: absolute;
+    border: 0;
+    background: rgba(0, 0, 0, 0);
+    cursor: default;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 280ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.memori-chat-resume-drawer--panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    display: flex;
+    width: min(100%, 430px);
+    height: 100%;
+    flex-direction: column;
+    background: var(--memori-main-background);
+    box-shadow: -10px 0 30px rgba(0, 0, 0, 0.16);
+    transform: translateX(100%);
+    transition: transform 280ms cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+.memori-chat-resume-drawer--embedded-shell {
+    display: flex;
+    height: 100%;
+    min-height: 0;
+    flex: 1;
+}
+
+.memori-chat-resume-drawer--panel-embedded {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    box-shadow: none;
+    transform: none;
+}
+
+.memori-chat-resume-drawer--open {
+    pointer-events: auto;
+}
+
+.memori-chat-resume-drawer--open .memori-chat-resume-drawer--backdrop {
+    opacity: 0.4;
+}
+
+.memori-chat-resume-drawer--open .memori-chat-resume-drawer--panel {
+    transform: translateX(0);
+}
+
+.memori-chat-resume-drawer--header {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px 12px;
+    border-bottom: 0.5px solid var(--color-border-tertiary, var(--memori-border-color, #e5e7eb));
+    gap: 8px;
+}
+
+.memori-chat-resume-drawer--header-icon-button {
+    display: inline-flex;
+    width: 28px;
+    min-width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: none;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--color-text-primary, var(--memori-text-color));
+    cursor: pointer;
+}
+
+.memori-chat-resume-drawer--header-main {
+    min-width: 0;
+    flex: 1;
+}
+
+.memori-chat-resume-drawer--title {
+    overflow: hidden;
+    margin: 0;
+    color: var(--color-text-primary, var(--memori-text-color));
+    font-size: 15px;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.memori-chat-resume-drawer--subtitle {
+    overflow: hidden;
+    margin: 2px 0 0;
+    color: color-mix(in oklch, var(--memori-text-color) 66%, transparent);
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.memori-chat-resume-drawer--summary-banner {
+    display: flex;
+    align-items: flex-start;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border-tertiary, var(--memori-border-color, #e5e7eb));
+    border-radius: 8px;
+    margin: 12px 16px 0;
+    background: var(--color-background-secondary, var(--memori-secondary-background));
+    gap: 8px;
+}
+
+.memori-chat-resume-drawer--summary-icon {
+    margin-top: 1px;
+    color: color-mix(in oklch, var(--memori-text-color) 68%, transparent);
+}
+
+.memori-chat-resume-drawer--summary-title {
+    margin: 0 0 2px;
+    color: var(--color-text-primary, var(--memori-text-color));
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.memori-chat-resume-drawer--summary-text {
+    margin: 0;
+    color: color-mix(in oklch, var(--memori-text-color) 72%, transparent);
+    font-size: 14px;
+    line-height: 1.35;
+}
+
+.memori-chat-resume-drawer--thread {
+    display: flex;
+    overflow: hidden;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+    padding: 16px;
+}
+
+.memori-chat-resume-drawer--embedded-chat {
+    min-height: 0;
+    flex: 1;
+}
+
+.memori-chat-resume-drawer--embedded-chat .memori-chat--wrapper {
+    height: 100%;
+}
+
+.memori-chat-resume-drawer--embedded-chat .memori-chat--history {
+    height: 100%;
+    border-radius: 0;
+    margin: 0;
+    background: transparent;
+}
+
+.memori-chat-resume-drawer--embedded-chat .memori-chat--content {
+    padding: 0;
+}
+
+.memori-chat-resume-drawer--embedded-chat .memori-chat--cover {
+    display: none;
+}
+
+.memori-chat-resume-drawer--embedded-chat .memori-chat--bubble-container,
+.memori-chat-resume-drawer--embedded-chat .memori-chat--timestamp,
+.memori-chat-resume-drawer--embedded-chat .memori-media-widget,
+.memori-chat-resume-drawer--embedded-chat .memori-chat--bubble-shell {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.memori-chat-resume-drawer--message-group {
+    display: flex;
+    width: 100%;
+    gap: 8px;
+}
+
+.memori-chat-resume-drawer--message-group-assistant {
+    justify-content: flex-start;
+}
+
+.memori-chat-resume-drawer--message-group-user {
+    justify-content: flex-end;
+}
+
+.memori-chat-resume-drawer--avatar {
+    display: inline-flex;
+    width: 28px;
+    min-width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #b5a2ff 0%, #8b72ff 100%);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.memori-chat-resume-drawer--message-content {
+    display: flex;
+    max-width: 82%;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.memori-chat-resume-drawer--message-group-user .memori-chat-resume-drawer--message-content {
+    align-items: flex-end;
+}
+
+.memori-chat-resume-drawer--timestamp {
+    color: color-mix(in oklch, var(--memori-text-color) 64%, transparent);
+    font-size: 12px;
+    line-height: 1;
+}
+
+.memori-chat-resume-drawer--attachment-pill {
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    border: 1px solid var(--color-border-tertiary, var(--memori-border-color, #e5e7eb));
+    border-radius: 8px;
+    background: var(--color-background-secondary, var(--memori-secondary-background));
+    gap: 8px;
+}
+
+.memori-chat-resume-drawer--attachment-ext {
+    display: inline-flex;
+    min-width: 34px;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: #d9e8ff;
+    color: #2f5fa8;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.memori-chat-resume-drawer--attachment-meta {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+}
+
+.memori-chat-resume-drawer--attachment-name {
+    overflow: hidden;
+    color: var(--color-text-primary, var(--memori-text-color));
+    font-size: 13px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.memori-chat-resume-drawer--attachment-info {
+    color: color-mix(in oklch, var(--memori-text-color) 70%, transparent);
+    font-size: 12px;
+}
+
+.memori-chat-resume-drawer--bubble {
+    padding: 10px 12px;
+    color: var(--color-text-primary, var(--memori-text-color));
+    font-size: 14px;
+    line-height: 1.4;
+    white-space: pre-wrap;
+}
+
+.memori-chat-resume-drawer--bubble-assistant {
+    border: 0.5px solid var(--color-border-tertiary, var(--memori-border-color, #e5e7eb));
+    border-radius: 4px 12px 12px 12px;
+    background: var(--color-background-secondary, var(--memori-secondary-background));
+}
+
+.memori-chat-resume-drawer--bubble-user {
+    border-radius: 12px 4px 12px 12px;
+    background: var(--memori-primary);
+    color: #fff;
+}
+
+.memori-chat-resume-drawer--interrupted {
+    display: inline-flex;
+    align-items: center;
+    color: color-mix(in oklch, var(--memori-text-color) 72%, transparent);
+    font-size: 14px;
+    gap: 6px;
+}
+
+.memori-chat-resume-drawer--actions {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    border-top: 0.5px solid var(--color-border-tertiary, var(--memori-border-color, #e5e7eb));
+    background: var(--memori-main-background);
+    gap: 12px;
+}
+
+.memori-chat-resume-drawer--chips-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.memori-chat-resume-drawer--chip {
+    min-height: 32px;
+    padding: 0 14px;
+    border: 0.5px solid color-mix(in oklch, var(--memori-text-color) 20%, transparent);
+    border-radius: 20px;
+    background: transparent;
+    color: color-mix(in oklch, var(--memori-text-color) 85%, transparent);
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.memori-chat-resume-drawer--resume-cta {
+    width: 100%;
+    min-height: 44px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.memori-chat-resume-drawer--skeletons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.memori-chat-resume-drawer--skeleton-bubble {
+    width: 72%;
+    height: 54px;
+    border-radius: 12px;
+    animation: memori-chat-resume-shimmer 1.2s infinite;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.04) 0%, rgba(0, 0, 0, 0.08) 50%, rgba(0, 0, 0, 0.04) 100%);
+    background-size: 200% 100%;
+}
+
+@keyframes memori-chat-resume-shimmer {
+    from {
+        background-position: 200% 0;
+    }
+
+    to {
+        background-position: -200% 0;
+    }
+}

@@ -5,33 +5,24 @@ import {
   Card,
 } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
-import DrawerFooter from '../DrawerFooter/DrawerFooter';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
 import {
   ChatLog,
   ChatLogLine,
   Memori,
-  Medium,
   Message,
   ChatLogFilters,
 } from '@memori.ai/memori-api-client/dist/types';
 import { Button } from '@memori.ai/ui';
-import {
-  MessageCircle,
-  Download,
-  ArrowUp,
-  ChevronLeft,
-  ChevronRight,
-  X,
-} from 'lucide-react';
+import { MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
 import { stripHTML } from '../../helpers/utils';
 import debounce from 'lodash/debounce';
 import { Spin } from '@memori.ai/ui';
-import Chat from '../Chat/Chat';
 import { SelectBox } from '@memori.ai/ui';
 // Helpers / Utils
 import { getTranslation } from '../../helpers/translations';
+import ChatResumeDrawer from './ChatResumeDrawer';
 
 export interface Props {
   open: boolean;
@@ -759,7 +750,7 @@ const ChatHistoryDrawer = ({
     });
   }, [chatLogs, contentTypeFilter]);
 
-  const handleResumeChat = async () => {
+  const handleResumeChat = async (_prompt?: string) => {
     if (selectedChatLog) {
       resumeSession(selectedChatLog);
       add(
@@ -771,6 +762,11 @@ const ChatHistoryDrawer = ({
       );
       onClose();
     }
+  };
+
+  const handleCloseResumeDrawer = () => {
+    setIsViewingChatDetail(false);
+    setSelectedChatLog(null);
   };
 
   const handleExportChat = (chatLog: ChatLog, e: React.MouseEvent) => {
@@ -801,6 +797,66 @@ const ChatHistoryDrawer = ({
       timeStyle: 'short',
     }).format(new Date(timestamp));
   };
+
+  const formatCountLabel = (count: number, singular: string, plural: string) =>
+    `${count} ${count === 1 ? singular : plural}`;
+
+  const selectedChatSession = useMemo(() => {
+    if (!selectedChatLog) return null;
+
+    const title =
+      calculateTitle(selectedChatLog.lines) ||
+      'Chat-' + selectedChatLog.chatLogID.substring(0, 4);
+
+    const hasInterruptedLine = selectedChatLog.lines.some(
+      line => !line.inbound && !line.text?.trim()
+    );
+    const lastMessageDate = Math.max(
+      ...selectedChatLog.lines.map(line => new Date(line.timestamp).getTime())
+    );
+
+    return {
+      title,
+      subtitle: `${formatDate(new Date(lastMessageDate).toISOString())} · ${
+        selectedChatLog.lines.length
+      } ${t('write_and_speak.messages') || 'messages'}`,
+      summary:
+        t('write_and_speak.sessionSummaryDescription') ||
+        'Hai caricato un file Markdown con la presentazione del gruppo. L’AI stava elaborando una risposta.',
+      messages: selectedChatLog.lines.map((line, index) => ({
+        id: `${selectedChatLog.chatLogID}-${index}`,
+        role: line.inbound ? ('user' as const) : ('assistant' as const),
+        content: line.text || '',
+        timestamp: line.timestamp,
+        status:
+          !line.inbound && !line.text?.trim() && hasInterruptedLine
+            ? ('interrupted' as const)
+            : ('completed' as const),
+        attachment:
+          line.inbound && Array.isArray(line.media) && line.media.length > 0
+            ? {
+                name:
+                  line.media[0].url?.split('/').pop() ||
+                  line.media[0].url ||
+                  'Attachment file',
+                type: 'Markdown',
+                size: '2.4 KB',
+                ext: 'MD',
+              }
+            : undefined,
+      })),
+      quickActions: [
+        {
+          label: t('write_and_speak.summarizeSession') || 'Riassumi la sessione',
+          prompt: 'Riassumi la sessione',
+        },
+        {
+          label: t('write_and_speak.retryRequest') || 'Riprova la richiesta',
+          prompt: 'Riprova la richiesta',
+        },
+      ],
+    };
+  }, [selectedChatLog, t]);
 
   const escapeUnderScore = (value: string) => {
     return value.replace(/_/g, ' ');
@@ -932,7 +988,7 @@ const ChatHistoryDrawer = ({
                       </h3>
                       {isUpdatedToday && (
                         <span className="memori-chat-history-drawer--list-item--today-pill">
-                          oggi
+                          {t('today') || 'Today'}
                         </span>
                       )}
                     </div>
@@ -950,15 +1006,23 @@ const ChatHistoryDrawer = ({
                       </time>
                       {stats.imageCount > 0 && (
                         <span className="memori-chat-history-drawer--list-item--meta-badge memori-chat-history-drawer--list-item--meta-badge-images">
-                          {stats.imageCount} images
+                          {formatCountLabel(
+                            stats.imageCount,
+                            t('write_and_speak.image') || 'image',
+                            t('write_and_speak.images') || 'images'
+                          )}
                         </span>
                       )}
                       <span className="memori-chat-history-drawer--list-item--meta-badge memori-chat-history-drawer--list-item--meta-badge-messages">
-                        {stats.messageCount} messages
+                        {formatCountLabel(
+                          stats.messageCount,
+                          t('write_and_speak.message') || 'message',
+                          t('write_and_speak.messages') || 'messages'
+                        )}
                       </span>
                       {stats.hasFile && (
                         <span className="memori-chat-history-drawer--list-item--meta-badge memori-chat-history-drawer--list-item--meta-badge-files">
-                          file
+                          {t('write_and_speak.file') || 'file'}
                         </span>
                       )}
                       {chatLog.boardOfExperts && (
@@ -1024,121 +1088,27 @@ const ChatHistoryDrawer = ({
     );
   };
 
-  const renderChatDetailView = () => {
-    if (!selectedChatLog) return null;
-
-    return (
-      <div className="memori-chat-history-drawer--detail-view">
-        <div className="memori-chat-history-drawer--detail-view--content">
-          <div className="memori-chat-history-drawer--detail-view--messages">
-            <Chat
-              key={`${selectedChatLog.chatLogID}-${selectedChatLog.lines.length}`}
-              baseUrl={baseUrl}
-              apiUrl={apiUrl}
-              memoriTyping={false}
-              showTypingText={false}
-              showAIicon={true}
-              showTranslationOriginal={false}
-              showWhyThisAnswer={false}
-              showCopyButton={false}
-              isChatlogPanel={true}
-              showInputs={false}
-              history={selectedChatLog.lines.map(line => ({
-                text: line.text,
-                contextVars: line.contextVars,
-                media: line.media as Medium[],
-                fromUser: line.inbound,
-                timestamp: line.timestamp,
-              }))}
-              memori={memori}
-              sessionID={sessionId}
-              pushMessage={() => {}}
-              simulateUserPrompt={() => {}}
-              setSendOnEnter={() => {}}
-              attachmentsMenuOpen={undefined}
-              setAttachmentsMenuOpen={() => {}}
-              userMessage={''}
-              onChangeUserMessage={() => {}}
-              sendMessage={() => {}}
-              startListening={() => {}}
-              stopListening={() => {}}
-              listening={false}
-              setEnableFocusChatInput={() => {}}
-              stopAudio={() => {}}
-              isHistoryView={true}
-            />
-          </div>
-          <DrawerFooter
-            className="memori-chat-history-drawer--detail-view--footer"
-            center={
-              <Button
-                className="memori-chat-history-drawer--detail-view--resume-button"
-                variant="primary"
-                onClick={handleResumeChat}
-              >
-                <span className="memori-chat-history-drawer--detail-view--resume-button--text">
-                  {t('write_and_speak.resumeButton') || 'Resume chat'}
-                </span>
-              </Button>
-            }
-          />
-        </div>
-      </div>
-    );
-  };
-
-  // Calculate the date of the chat (using the last message timestamp)
-  const lastMessageDate = Math.max(
-    ...(selectedChatLog?.lines.map(line =>
-      new Date(line.timestamp).getTime()
-    ) || [])
-  );
-
   return (
     <Drawer
       className="memori-chat-history-drawer"
       open={open}
       onClose={onClose}
-      title={
-        !isViewingChatDetail ? (
-          t('write_and_speak.chatHistory') || 'Chat History'
-        ) : (
-          <div className="memori-chat-history-drawer--detail-view--header--title-wrapper">
-            <Button
-              variant="ghost"
-              onClick={() => {
-                setIsViewingChatDetail(false);
-                setSelectedChatLog(null);
-              }}
-              className="memori-chat-history-drawer--detail-view--back-button"
-              icon={<ChevronLeft />}
-              title={t('back') || 'Back'}
-            >
-              {t('back') || 'Back'}
-            </Button>
-            <div className="memori-chat-history-drawer--detail-view--header--title">
-              {calculateTitle(selectedChatLog?.lines || []) ||
-                'Chat-' +
-                  (selectedChatLog?.chatLogID?.substring(0, 4) || '0000')}
-            </div>
-            <div className="memori-chat-history-drawer--detail-view--header--date">
-              {lastMessageDate
-                ? formatDate(new Date(lastMessageDate).toISOString())
-                : ''}
-            </div>
-          </div>
-        )
-      }
+      title={t('write_and_speak.chatHistory') || 'Chat History'}
       closable={true}
       size="md"
-      description={
-        !isViewingChatDetail
-          ? t('write_and_speak.chatHistoryDescription')
-          : undefined
-      }
+      description={t('write_and_speak.chatHistoryDescription')}
     >
-      {isViewingChatDetail ? (
-        renderChatDetailView()
+      {selectedChatSession && isViewingChatDetail ? (
+        <div className="memori-chat-history-drawer--content memori-chat-history-drawer--content-with-footer">
+          <ChatResumeDrawer
+            embedded={true}
+            isOpen={true}
+            session={selectedChatSession}
+            onResume={handleResumeChat}
+            onBack={handleCloseResumeDrawer}
+            onClose={handleCloseResumeDrawer}
+          />
+        </div>
       ) : (
         <div className="memori-chat-history-drawer--content memori-chat-history-drawer--content-with-footer">
           <div className="memori-chat-history-drawer--scrollable">
@@ -1260,7 +1230,11 @@ const ChatHistoryDrawer = ({
             </div>
             {renderContent()}
           </div>
-          {totalPages > 1 && <DrawerFooter center={renderListPagination()} />}
+          {totalPages > 1 && (
+            <div className="memori-chat-history-drawer--pagination-footer">
+              {renderListPagination()}
+            </div>
+          )}
         </div>
       )}
     </Drawer>
