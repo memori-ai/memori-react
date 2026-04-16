@@ -384,6 +384,8 @@
     "water": "Wasser",
     "usageBadgesHint": "Klicke auf einen dieser Buttons, um mehr Informationen zu sehen",
     "totalChatConsumptionTitle": "Gesamter Chat-Verbrauch",
+    "modelUsage": "Modellnutzung",
+    "environmentalImpact": "Umweltbelastung",
     "impactComparisonUnavailable": "Indikativer Vergleich nicht verfuegbar.",
     "impactComparisonEnergy": "Indikativer Vergleich: in etwa wie eine 10-W-LED-Lampe fuer {{duration}} eingeschaltet lassen.",
     "impactComparisonCo2": "Indikativer Vergleich: etwa {{distance}} mit einem durchschnittlichen Benzinauto gefahren.",

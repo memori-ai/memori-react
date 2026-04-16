@@ -419,6 +419,8 @@
     "water": "Eau",
     "usageBadgesHint": "Cliquez sur un de ces boutons pour afficher plus d'informations",
     "totalChatConsumptionTitle": "Consommation Totale du Chat",
+    "modelUsage": "Utilisation du modèle",
+    "environmentalImpact": "Impact environnemental",
     "impactComparisonUnavailable": "Comparaison indicative non disponible.",
     "impactComparisonEnergy": "Comparaison indicative : environ comme laisser allumee une ampoule LED de 10 W pendant {{duration}}.",
     "impactComparisonCo2": "Comparaison indicative : environ {{distance}} parcourus en voiture essence moyenne.",

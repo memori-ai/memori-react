@@ -4,7 +4,7 @@ import { memori, tenant, history } from '../../mocks/data';
 import I18nWrapper from '../../I18nWrapper';
 import Header, { Props } from './Header';
 import SettingsDrawer from '../SettingsDrawer/SettingsDrawer';
-import LoginDrawer from '../LoginDrawer/LoginDrawer'; 
+import LoginDrawer from '../LoginDrawer/LoginDrawer';
 import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 
 import './Header.css';
@@ -42,6 +42,13 @@ const historyWithConsumption = [
     ...history[history.length - 1],
     text: 'Second sustainability sample',
     llmUsage: {
+      provider: 'OpenAI',
+      model: 'gpt-5',
+      totalInputTokens: 19168,
+      inputCacheReadTokens: 0,
+      inputCacheWriteTokens: 0,
+      outputTokens: 588,
+      durationMs: 13697,
       energyImpact: {
         energy: 0.0008,
         gwp: { source: '0.00035' },
@@ -64,46 +71,46 @@ const Template: Story<Props> = args => {
   return (
     <I18nWrapper>
       <ArtifactProvider>
-      <Header
-        {...args}
-        speakerMuted={speakerMuted}
-        setSpeakerMuted={setSpeakerMuted}
-        showSettings
-        setShowSettingsDrawer={() => setShowSettingsDrawer(true)}
-        setShowKnownFactsDrawer={() => setShowKnownFactsDrawer(true)}
-        setShowExpertsDrawer={() => setShowExpertsDrawer(true)}
-        setShowLoginDrawer={() => setShowLoginDrawer(true)}
-      />
-      <SettingsDrawer
-        open={!!showSettingsDrawer}
-        onClose={() => setShowSettingsDrawer(false)}
-        microphoneMode="HOLD_TO_TALK"
-        setMicrophoneMode={() => {}}
-        continuousSpeechTimeout={2}
-        setContinuousSpeechTimeout={() => {}}
-        controlsPosition="bottom"
-        setControlsPosition={() => {}}
-        hideEmissions={false}
-        setHideEmissions={() => {}}
-        setAvatarType={() => {}}
-        setEnablePositionControls={() => {}}
-      />
-      <LoginDrawer
-        setUser={() => {}}
-        tenant={tenant}
-        open={!!showLoginDrawer}
-        onClose={() => setShowLoginDrawer(false)}
-        onLogin={(user, token) => {
-          console.log(user, token);
-          setShowLoginDrawer(false);
-        }}
-        onLogout={() => setShowLoginDrawer(false)}
-        apiClient={
-          {
-            backend: {},
-          } as any
-        }
-      />
+        <Header
+          {...args}
+          speakerMuted={speakerMuted}
+          setSpeakerMuted={setSpeakerMuted}
+          showSettings
+          setShowSettingsDrawer={() => setShowSettingsDrawer(true)}
+          setShowKnownFactsDrawer={() => setShowKnownFactsDrawer(true)}
+          setShowExpertsDrawer={() => setShowExpertsDrawer(true)}
+          setShowLoginDrawer={() => setShowLoginDrawer(true)}
+        />
+        <SettingsDrawer
+          open={!!showSettingsDrawer}
+          onClose={() => setShowSettingsDrawer(false)}
+          microphoneMode="HOLD_TO_TALK"
+          setMicrophoneMode={() => {}}
+          continuousSpeechTimeout={2}
+          setContinuousSpeechTimeout={() => {}}
+          controlsPosition="bottom"
+          setControlsPosition={() => {}}
+          hideEmissions={false}
+          setHideEmissions={() => {}}
+          setAvatarType={() => {}}
+          setEnablePositionControls={() => {}}
+        />
+        <LoginDrawer
+          setUser={() => {}}
+          tenant={tenant}
+          open={!!showLoginDrawer}
+          onClose={() => setShowLoginDrawer(false)}
+          onLogin={(user, token) => {
+            console.log(user, token);
+            setShowLoginDrawer(false);
+          }}
+          onLogout={() => setShowLoginDrawer(false)}
+          apiClient={
+            {
+              backend: {},
+            } as any
+          }
+        />
       </ArtifactProvider>
     </I18nWrapper>
   );

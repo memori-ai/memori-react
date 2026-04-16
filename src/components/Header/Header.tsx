@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
 import {
   Memori,
@@ -23,13 +23,12 @@ import DeepThought from '../icons/DeepThought';
 import Group from '../icons/Group';
 import UserIcon from '../icons/User';
 import MessageIcon from '../icons/Message';
-import GasStation from '../icons/GasStation';
 import Logout from '../icons/Logout';
 import { getErrori18nKey } from '../../helpers/error';
 import toast from 'react-hot-toast';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
-import { BADGE_EMOJI } from '../../helpers/llmUsage';
+import ChatConsumptionDropdown from './ChatConsumptionDropdown';
 
 const imgMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
 
@@ -106,90 +105,6 @@ const Header: React.FC<Props> = ({
   const { uploadAsset, pwlUpdateUser } = apiClient.backend;
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
-
-  type ImpactMetricType = 'energy' | 'co2' | 'water';
-
-  type LlmUsageEnergyImpact = {
-    energy?: number | { source?: string; parsedValue?: number };
-    gwp?: number | { source?: string; parsedValue?: number };
-    wcf?: number | { source?: string; parsedValue?: number };
-  };
-
-  const getMetricValue = (
-    metric?: number | { source?: string; parsedValue?: number },
-  ): number | undefined => {
-    if (typeof metric === 'number' && Number.isFinite(metric)) return metric;
-    if (!metric || typeof metric !== 'object') return undefined;
-    if (
-      typeof metric.parsedValue === 'number' &&
-      Number.isFinite(metric.parsedValue)
-    ) {
-      return metric.parsedValue;
-    }
-    if (typeof metric.source === 'string') {
-      const parsed = Number(metric.source);
-      if (Number.isFinite(parsed)) return parsed;
-    }
-    return undefined;
-  };
-
-  const formatMetricValue = (value: number, locale: string): string =>
-    new Intl.NumberFormat(locale, {
-      minimumFractionDigits: 0,
-      maximumFractionDigits: Math.abs(value) >= 1 ? 3 : 4,
-    }).format(value);
-
-  const formatImpactInReadableUnit = (
-    value: number,
-    metricType: ImpactMetricType,
-    locale: string,
-  ): string => {
-    const absValue = Math.abs(value);
-
-    if (metricType === 'energy') {
-      if (absValue >= 1) return `${formatMetricValue(value, locale)} kWh`;
-      const wh = value * 1000;
-      if (Math.abs(wh) >= 1) return `${formatMetricValue(wh, locale)} Wh`;
-      return `${formatMetricValue(wh * 1000, locale)} mWh`;
-    }
-
-    if (metricType === 'co2') {
-      if (absValue >= 1) return `${formatMetricValue(value, locale)} kg`;
-      const g = value * 1000;
-      if (Math.abs(g) >= 1) return `${formatMetricValue(g, locale)} g`;
-      return `${formatMetricValue(g * 1000, locale)} mg`;
-    }
-
-    if (absValue >= 1) return `${formatMetricValue(value, locale)} L`;
-    const ml = value * 1000;
-    if (Math.abs(ml) >= 1) return `${formatMetricValue(ml, locale)} mL`;
-    return `${formatMetricValue(ml * 1000, locale)} μL`;
-  };
-
-  const currentLocale = i18n.language || navigator.language || 'en';
-  const chatLog = useMemo(() => ({ lines: history }), [history]);
-  const sustainabilityTotals = useMemo(() => {
-    const totals = { energy: 0, gwp: 0, wcf: 0 };
-    (chatLog?.lines ?? []).forEach(line => {
-      const energyImpact = (line as Message & {
-        llmUsage?: { energyImpact?: LlmUsageEnergyImpact };
-      }).llmUsage?.energyImpact;
-      if (!energyImpact) return;
-      totals.energy += getMetricValue(energyImpact.energy) ?? 0;
-      totals.gwp += getMetricValue(energyImpact.gwp) ?? 0;
-      totals.wcf += getMetricValue(energyImpact.wcf) ?? 0;
-    });
-    return totals;
-  }, [chatLog]);
-  const hasSustainabilityData = useMemo(
-    () =>
-      (chatLog?.lines ?? []).some(
-        line =>
-          !!(line as Message & { llmUsage?: { energyImpact?: LlmUsageEnergyImpact } })
-            .llmUsage?.energyImpact
-      ),
-    [chatLog]
-  );
   useEffect(() => {
     if (document.fullscreenEnabled) {
       setFullScreenAvailable(true);
@@ -307,66 +222,11 @@ const Header: React.FC<Props> = ({
           onClick={() => setShowChatHistoryDrawer(true)}
         />
       )}
-      {showMessageConsumption && hasSustainabilityData && (
-        <Dropdown
-          placement="bottom-right"
-          trigger={
-            <Button
-              primary
-              shape="circle"
-              className={cx('memori-header--button', 'memori-header--button--sustainability', hasSpacedButtons && 'memori-header--button-spaced')}
-              title={t('write_and_speak.showMessageConsumptionLabel') || 'LLM consumption'}
-              icon={<GasStation className="memori-header--button--sustainability-icon" />}
-            />
-          }
-        >
-          <div className="memori-dropdown--sustainability">
-            <h4 className="memori-dropdown--sustainability-title">
-              {t('chatLogs.totalChatConsumptionTitle') || 'Consumo Totale Chat'}
-            </h4>
-            <div className="memori-dropdown--sustainability-metrics">
-              <div className="memori-dropdown--sustainability-row">
-                <span className="memori-dropdown--sustainability-label">
-                  <span aria-hidden="true">{BADGE_EMOJI.energy}</span>{' '}
-                  {t('chatLogs.energy') || 'Energy'}
-                </span>
-                <strong className="memori-dropdown--sustainability-value">
-                  {formatImpactInReadableUnit(
-                    sustainabilityTotals.energy,
-                    'energy',
-                    currentLocale
-                  )}
-                </strong>
-              </div>
-              <div className="memori-dropdown--sustainability-row">
-                <span className="memori-dropdown--sustainability-label">
-                  <span aria-hidden="true">{BADGE_EMOJI.co2}</span>{' '}
-                  {t('chatLogs.co2') || 'CO2'}
-                </span>
-                <strong className="memori-dropdown--sustainability-value">
-                  {formatImpactInReadableUnit(
-                    sustainabilityTotals.gwp,
-                    'co2',
-                    currentLocale
-                  )}
-                </strong>
-              </div>
-              <div className="memori-dropdown--sustainability-row">
-                <span className="memori-dropdown--sustainability-label">
-                  <span aria-hidden="true">{BADGE_EMOJI.water}</span>{' '}
-                  {t('chatLogs.water') || 'Water'}
-                </span>
-                <strong className="memori-dropdown--sustainability-value">
-                  {formatImpactInReadableUnit(
-                    sustainabilityTotals.wcf,
-                    'water',
-                    currentLocale
-                  )}
-                </strong>
-              </div>
-            </div>
-          </div>
-        </Dropdown>
+      {showMessageConsumption && (
+        <ChatConsumptionDropdown
+          history={history}
+          hasSpacedButtons={hasSpacedButtons}
+        />
       )}
       {fullScreenAvailable && (
         <Button
