@@ -1,9 +1,4 @@
-import {
-  Drawer,
-  useAlertManager,
-  createAlertOptions,
-  Card,
-} from '@memori.ai/ui';
+import { Drawer, useAlertManager, createAlertOptions } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import React, { useEffect, useMemo, useState, useCallback } from 'react';
@@ -847,7 +842,8 @@ const ChatHistoryDrawer = ({
       })),
       quickActions: [
         {
-          label: t('write_and_speak.summarizeSession') || 'Riassumi la sessione',
+          label:
+            t('write_and_speak.summarizeSession') || 'Riassumi la sessione',
           prompt: 'Riassumi la sessione',
         },
         {
@@ -935,27 +931,23 @@ const ChatHistoryDrawer = ({
               'Chat-' + chatLog.chatLogID.substring(0, 4);
 
             return (
-              <Card
-                variant="outlined"
-                key={chatLog.chatLogID}
-                className={`memori-chat-history-drawer--list-item ${
-                  selectedChatLog?.chatLogID === chatLog.chatLogID
-                    ? 'memori-chat-history-drawer--list-item--selected'
-                    : ''
-                } ${
-                  chatLog?.sessionID !== sessionId
-                    ? 'memori-chat-history-drawer--list-item--hoverable'
-                    : ''
-                } ${
-                  chatLog?.sessionID === sessionId
-                    ? 'memori-chat-history-drawer--list-item--disabled'
-                    : ''
-                }`}
-              >
+              <li key={chatLog.chatLogID}>
                 <button
                   type="button"
-                  className="memori-chat-history-drawer--list-item--button"
                   disabled={chatLog?.sessionID === sessionId}
+                  className={`memori-chat-history-drawer--list-item ${
+                    selectedChatLog?.chatLogID === chatLog.chatLogID
+                      ? 'memori-chat-history-drawer--list-item--selected'
+                      : ''
+                  } ${
+                    chatLog?.sessionID !== sessionId
+                      ? 'memori-chat-history-drawer--list-item--hoverable'
+                      : ''
+                  } ${
+                    chatLog?.sessionID === sessionId
+                      ? 'memori-chat-history-drawer--list-item--disabled'
+                      : ''
+                  }`}
                   onClick={async () => {
                     // the active chat
                     if (chatLog?.sessionID === sessionId) {
@@ -1045,7 +1037,7 @@ const ChatHistoryDrawer = ({
                     />
                   </div>
                 )} */}
-              </Card>
+              </li>
             );
           })}
         </ul>

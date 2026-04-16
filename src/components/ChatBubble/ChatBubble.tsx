@@ -505,11 +505,6 @@ const ChatBubble: React.FC<Props> = ({
                           <Copy
                             className="memori-share-button--copy-icon"
                             aria-hidden
-                            style={
-                              copyStatus.plain === 'idle' && message.fromUser
-                                ? { color: '#fff' }
-                                : undefined
-                            }
                           />
                         )
                       }
