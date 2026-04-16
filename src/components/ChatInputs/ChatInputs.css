@@ -22,9 +22,7 @@
     margin: 0;
     margin: auto;
     background-color: var(--memori-secondary-background);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
-
 
 .memori-chat-inputs:disabled {
     opacity: 0.5;
@@ -32,7 +30,7 @@
 }
 
 /* Wrapper so FilePreview horizontal scroll is constrained */
-.memori-chat-inputs--preview-wrapper { 
+.memori-chat-inputs--preview-wrapper {
     overflow: hidden;
     width: 100%;
     min-width: 0;
@@ -229,7 +227,6 @@
     color: var(--memori-text-color);
 }
 
-
 /* Send button styling - ChatGPT style */
 .memori-chat-inputs--send-btn {
     display: flex;
@@ -287,7 +284,8 @@
     min-height: 32px;
     align-items: center;
     justify-content: center;
-    padding: var(--memori-spacing-sm) calc(var(--memori-spacing-3xl) + var(--memori-spacing-sm) + var(--memori-spacing-xs));
+    padding: var(--memori-spacing-sm)
+        calc(var(--memori-spacing-3xl) + var(--memori-spacing-sm) + var(--memori-spacing-xs));
     margin-top: calc(-1 * var(--memori-spacing-xs));
     color: var(--memori-text-color);
     font-size: 0.75rem;

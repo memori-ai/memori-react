@@ -140,6 +140,18 @@ const ChatBubble: React.FC<Props> = ({
       : (message.text || '').replaceAll(/<think.*?>(.*?)<\/think>/gs, '')
   );
   const copiedLabel = t('copied') || 'Copied';
+  const formattedTimestamp = message.timestamp
+    ? new Intl.DateTimeFormat('it', {
+        hour: '2-digit',
+        minute: '2-digit',
+      }).format(
+        new Date(
+          message.timestamp.endsWith('Z')
+            ? message.timestamp
+            : `${message.timestamp}Z`
+        )
+      )
+    : null;
 
   // Format function cache content
   const functionCacheData = message.media?.filter(
@@ -189,15 +201,15 @@ const ChatBubble: React.FC<Props> = ({
 
   useEffect(() => {
     return () => {
-      (
-        Object.keys(copyResetTimers.current) as Array<'plain' | 'raw'>
-      ).forEach(key => {
-        const timer = copyResetTimers.current[key];
-        if (timer) {
-          clearTimeout(timer);
-          copyResetTimers.current[key] = null;
+      (Object.keys(copyResetTimers.current) as Array<'plain' | 'raw'>).forEach(
+        key => {
+          const timer = copyResetTimers.current[key];
+          if (timer) {
+            clearTimeout(timer);
+            copyResetTimers.current[key] = null;
+          }
         }
-      });
+      );
     };
   }, []);
 
@@ -242,6 +254,92 @@ const ChatBubble: React.FC<Props> = ({
   // Check if this is a system error message
   const isSystemError = message.emitter === 'system';
 
+  const renderAssistantAvatar = () => (
+    <picture
+      className="memori-chat--bubble-avatar"
+      title={
+        !!message.emitter?.length && !!memori.enableBoardOfExperts
+          ? message.emitter
+          : memori.name
+      }
+    >
+      <img
+        className="memori-chat--bubble-avatar-img"
+        alt={
+          !!message.emitter?.length && !!memori.enableBoardOfExperts
+            ? message.emitter
+            : memori.name
+        }
+        src={
+          !!message.emitter?.length &&
+          !!memori.enableBoardOfExperts &&
+          experts?.find(e => e.name === message.emitter)
+            ? `${new URL(apiUrl ?? '/').origin}/api/v1/memoriai/memori/avatar/${
+                experts.find(e => e.name === message.emitter)?.expertMemoriID
+              }`
+            : memori.avatarURL && memori.avatarURL.length > 0
+            ? getResourceUrl({
+                type: 'avatar',
+                tenantID: tenant?.name,
+                resourceURI: memori.avatarURL,
+                baseURL: baseUrl,
+                apiURL: apiUrl,
+              })
+            : getResourceUrl({
+                tenantID: tenant?.name,
+                type: 'avatar',
+                baseURL: baseUrl || 'https://www.aisuru.com',
+                apiURL: apiUrl,
+              })
+        }
+        onError={e => {
+          e.currentTarget.src =
+            memori.avatarURL && memori.avatarURL.length > 0
+              ? getResourceUrl({
+                  type: 'avatar',
+                  tenantID: tenant?.name,
+                  resourceURI: memori.avatarURL,
+                  baseURL: baseUrl,
+                })
+              : getResourceUrl({
+                  tenantID: tenant?.name,
+                  type: 'avatar',
+                  baseURL: baseUrl,
+                });
+
+          e.currentTarget.onerror = null;
+        }}
+      />
+    </picture>
+  );
+
+  const renderUserAvatar = () => {
+    if (
+      (!!userAvatar && typeof userAvatar === 'string') ||
+      (!userAvatar && !!user?.avatarURL?.length)
+    ) {
+      return (
+        <picture className="memori-chat--bubble-avatar">
+          <img
+            className="memori-chat--bubble-avatar-img"
+            alt={user?.userName ?? 'User'}
+            src={userAvatar ?? user?.avatarURL}
+          />
+        </picture>
+      );
+    }
+
+    if (userAvatar) {
+      return <div className="memori-chat--bubble-avatar">{userAvatar}</div>;
+    }
+
+    return (
+      <div className="memori-chat--bubble-avatar">
+        <UserIcon />
+      </div>
+    );
+  };
+
   if (initialStatus) {
     return (
       <div className="memori-chat--bubble-status-message">
@@ -260,66 +358,7 @@ const ChatBubble: React.FC<Props> = ({
           'memori-chat--bubble-from-user': false,
         })}
       >
-        <picture
-          className="memori-chat--bubble-avatar"
-          title={
-            !!message.emitter?.length && !!memori.enableBoardOfExperts
-              ? message.emitter
-              : memori.name
-          }
-        >
-          <img
-            className="memori-chat--bubble-avatar-img"
-            alt={
-              !!message.emitter?.length && !!memori.enableBoardOfExperts
-                ? message.emitter
-                : memori.name
-            }
-            src={
-              !!message.emitter?.length &&
-              !!memori.enableBoardOfExperts &&
-              experts?.find(e => e.name === message.emitter)
-                ? `${
-                    new URL(apiUrl ?? '/').origin
-                  }/api/v1/memoriai/memori/avatar/${
-                    experts.find(e => e.name === message.emitter)
-                      ?.expertMemoriID
-                  }`
-                : memori.avatarURL && memori.avatarURL.length > 0
-                ? getResourceUrl({
-                    type: 'avatar',
-                    tenantID: tenant?.name,
-                    resourceURI: memori.avatarURL,
-                    baseURL: baseUrl,
-                    apiURL: apiUrl,
-                  })
-                : getResourceUrl({
-                    tenantID: tenant?.name,
-                    type: 'avatar',
-                    baseURL: baseUrl || 'https://www.aisuru.com',
-                    apiURL: apiUrl,
-                  })
-            }
-            onError={e => {
-              // Fallback image handling if primary source fails
-              e.currentTarget.src =
-                memori.avatarURL && memori.avatarURL.length > 0
-                  ? getResourceUrl({
-                      type: 'avatar',
-                      tenantID: tenant?.name,
-                      resourceURI: memori.avatarURL,
-                      baseURL: baseUrl,
-                    })
-                  : getResourceUrl({
-                      tenantID: tenant?.name,
-                      type: 'avatar',
-                      baseURL: baseUrl,
-                    });
-
-              e.currentTarget.onerror = null;
-            }}
-          />
-        </picture>
+        {renderAssistantAvatar()}
         <div className="memori-chat--bubble memori-chat--bubble-status-message-error">
           <div className="memori-chat--bubble-message ">
             {sanitizeMsg(cleanText)}
@@ -336,114 +375,91 @@ const ChatBubble: React.FC<Props> = ({
         className={cx('memori-chat--bubble-container memori-chat-scroll-item', {
           'memori-chat--bubble-from-user': !!message.fromUser,
           'memori-chat--with-addon':
+            shouldShowCopyButtons ||
             (message.generatedByAI && showAIicon) ||
-            (showFeedback && simulateUserPrompt),
+            (message.generatedByAI && showFunctionCache) ||
+            (showFeedback && simulateUserPrompt) ||
+            (showTranslationOriginal &&
+              message.translatedText &&
+              message.translatedText !== message.text) ||
+            (!message.fromUser &&
+              message.questionAnswered &&
+              apiUrl &&
+              showWhyThisAnswer),
         })}
       >
-        {!message.fromUser && (
-          <picture
-            className="memori-chat--bubble-avatar"
-            title={
-              !!message.emitter?.length && !!memori.enableBoardOfExperts
-                ? message.emitter
-                : memori.name
-            }
-          >
-            <img
-              className="memori-chat--bubble-avatar-img"
-              alt={
-                !!message.emitter?.length && !!memori.enableBoardOfExperts
-                  ? message.emitter
-                  : memori.name
-              }
-              src={
-                !!message.emitter?.length &&
-                !!memori.enableBoardOfExperts &&
-                experts?.find(e => e.name === message.emitter)
-                  ? `${
-                      new URL(apiUrl ?? '/').origin
-                    }/api/v1/memoriai/memori/avatar/${
-                      experts.find(e => e.name === message.emitter)
-                        ?.expertMemoriID
-                    }`
-                  : memori.avatarURL && memori.avatarURL.length > 0
-                  ? getResourceUrl({
-                      type: 'avatar',
-                      tenantID: tenant?.name,
-                      resourceURI: memori.avatarURL,
-                      baseURL: baseUrl,
-                      apiURL: apiUrl,
-                    })
-                  : getResourceUrl({
-                      tenantID: tenant?.name,
-                      type: 'avatar',
-                      baseURL: baseUrl || 'https://www.aisuru.com',
-                      apiURL: apiUrl,
-                    })
-              }
-              onError={e => {
-                // Fallback image handling if primary source fails
-                e.currentTarget.src =
-                  memori.avatarURL && memori.avatarURL.length > 0
-                    ? getResourceUrl({
-                        type: 'avatar',
-                        tenantID: tenant?.name,
-                        resourceURI: memori.avatarURL,
-                        baseURL: baseUrl,
-                      })
-                    : getResourceUrl({
-                        tenantID: tenant?.name,
-                        type: 'avatar',
-                        baseURL: baseUrl,
-                      });
-
-                e.currentTarget.onerror = null;
-              }}
-            />
-          </picture>
-        )}
+        {!message.fromUser && renderAssistantAvatar()}
 
         <div
-          className={cx('memori-chat--bubble', {
-            'memori-chat--user-bubble': !!message.fromUser,
-            'memori-chat--with-addon':
+          className={cx('memori-chat--bubble-shell', {
+            'memori-chat--bubble-shell--from-user': !!message.fromUser,
+            'memori-chat--bubble-shell--has-addon':
               shouldShowCopyButtons ||
               (message.generatedByAI && showAIicon) ||
-              (showFeedback && simulateUserPrompt),
-            'memori-chat--ai-generated': message.generatedByAI && showAIicon,
-            'memori-chat--with-feedback': showFeedback,
+              (message.generatedByAI && showFunctionCache) ||
+              (showFeedback && simulateUserPrompt) ||
+              (showTranslationOriginal &&
+                message.translatedText &&
+                message.translatedText !== message.text) ||
+              (!message.fromUser &&
+                message.questionAnswered &&
+                apiUrl &&
+                showWhyThisAnswer),
           })}
         >
-          {message.fromUser ? (
-            <Expandable
-              className="memori-chat--bubble-content"
-              mode="characters"
-            >
+          {message.fromUser && formattedTimestamp && (
+            <p className="memori-chat--bubble-timestamp">{formattedTimestamp}</p>
+          )}
+
+          <div
+            className={cx('memori-chat--bubble', {
+              'memori-chat--user-bubble': !!message.fromUser,
+              'memori-chat--with-addon':
+                shouldShowCopyButtons ||
+                (message.generatedByAI && showAIicon) ||
+                (showFeedback && simulateUserPrompt),
+              'memori-chat--ai-generated': message.generatedByAI && showAIicon,
+              'memori-chat--with-feedback': showFeedback,
+            })}
+          >
+            {message.fromUser ? (
+              <Expandable
+                className="memori-chat--bubble-content"
+                mode="characters"
+              >
+                <div
+                  dir="auto"
+                  className="memori-chat--bubble-content"
+                  dangerouslySetInnerHTML={{ __html: sanitizeMsg(cleanText) }}
+                />
+              </Expandable>
+            ) : (
               <div
                 dir="auto"
                 className="memori-chat--bubble-content"
-                dangerouslySetInnerHTML={{ __html: sanitizeMsg(cleanText) }}
+                dangerouslySetInnerHTML={{ __html: renderedText }}
               />
-            </Expandable>
-          ) : (
-            <div
-              dir="auto"
-              className="memori-chat--bubble-content"
-              dangerouslySetInnerHTML={{ __html: renderedText }}
-            />
-          )}
+            )}
 
-          {!!usageHtml && (
-            <div
-              className="memori-chat--usage-inside-bubble"
-              dangerouslySetInnerHTML={{ __html: usageHtml }}
-            />
-          )}
+            {!!usageHtml && (
+              <div
+                className="memori-chat--usage-inside-bubble"
+                dangerouslySetInnerHTML={{ __html: usageHtml }}
+              />
+            )}
+          </div>
 
           {(shouldShowCopyButtons ||
             (message.generatedByAI && showAIicon) ||
             (message.generatedByAI && showFunctionCache) ||
-            (showFeedback && simulateUserPrompt)) && (
+            (showFeedback && simulateUserPrompt) ||
+            (showTranslationOriginal &&
+              message.translatedText &&
+              message.translatedText !== message.text) ||
+            (!message.fromUser &&
+              message.questionAnswered &&
+              apiUrl &&
+              showWhyThisAnswer)) && (
             <div className="memori-chat--bubble-addon">
               {shouldShowCopyButtons && (
                 <Tooltip
@@ -452,8 +468,8 @@ const ChatBubble: React.FC<Props> = ({
                     copyStatus.plain === 'success'
                       ? copiedLabel
                       : copyStatus.plain === 'error'
-                        ? t('copyFailed')
-                        : t('copy') || 'Copy'
+                      ? t('copyFailed')
+                      : t('copy') || 'Copy'
                   }
                 >
                   <span className="memori-chat--bubble-addon-tooltip-trigger">
@@ -465,8 +481,8 @@ const ChatBubble: React.FC<Props> = ({
                         copyStatus.plain === 'success'
                           ? String(copiedLabel)
                           : copyStatus.plain === 'error'
-                            ? String(t('copyFailed'))
-                            : String(t('copy') || 'Copy')
+                          ? String(t('copyFailed'))
+                          : String(t('copy') || 'Copy')
                       }
                       className={cx(
                         'memori-chat--bubble-action-button',
@@ -510,8 +526,8 @@ const ChatBubble: React.FC<Props> = ({
                     copyStatus.raw === 'success'
                       ? copiedLabel
                       : copyStatus.raw === 'error'
-                        ? t('copyFailed')
-                        : t('copyRawCode') || 'Copy raw code'
+                      ? t('copyFailed')
+                      : t('copyRawCode') || 'Copy raw code'
                   }
                 >
                   <span className="memori-chat--bubble-addon-tooltip-trigger">
@@ -523,8 +539,8 @@ const ChatBubble: React.FC<Props> = ({
                         copyStatus.raw === 'success'
                           ? String(copiedLabel)
                           : copyStatus.raw === 'error'
-                            ? String(t('copyFailed'))
-                            : String(t('copyRawCode') || 'Copy raw code')
+                          ? String(t('copyFailed'))
+                          : String(t('copyRawCode') || 'Copy raw code')
                       }
                       className={cx(
                         'memori-chat--bubble-action-button',
@@ -575,9 +591,7 @@ const ChatBubble: React.FC<Props> = ({
                         className="memori-chat--bubble-action-button"
                         icon={
                           <Bug
-                            aria-label={
-                              t('functionCache') || 'Function cache'
-                            }
+                            aria-label={t('functionCache') || 'Function cache'}
                           />
                         }
                         onClick={() => setOpenFunctionCache(true)}
@@ -687,26 +701,7 @@ const ChatBubble: React.FC<Props> = ({
           )}
         </div>
 
-        {message.fromUser && (
-          <>
-            {(!!userAvatar && typeof userAvatar === 'string') ||
-            (!userAvatar && !!user?.avatarURL?.length) ? (
-              <picture className="memori-chat--bubble-avatar">
-                <img
-                  className="memori-chat--bubble-avatar-img"
-                  alt={user?.userName ?? 'User'}
-                  src={userAvatar ?? user?.avatarURL}
-                />
-              </picture>
-            ) : !!userAvatar ? (
-              <div className="memori-chat--bubble-avatar">{userAvatar}</div>
-            ) : (
-              <div className="memori-chat--bubble-avatar">
-                <UserIcon />
-              </div>
-            )}
-          </>
-        )}
+        {message.fromUser && renderUserAvatar()}
       </div>
 
       {/* Document attachments are extracted and passed to Chat.tsx for rendering */}

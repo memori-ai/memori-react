@@ -62,14 +62,12 @@
     margin-right: var(--memori-spacing-lg);
     margin-left: calc(var(--memori-spacing-3xl) + var(--memori-spacing-sm));
     direction: rtl;
-    
 }
 
 /* Allineamento media per messaggi dell'agente */
 .memori-media-items--grid.memori-media-items--agent {
-    max-width: 90%;
     margin: 0 auto;
-    margin-right: var(--memori-spacing-lg);
+    margin-right: var(--memori-spacing-sm);
     margin-left: calc(var(--memori-spacing-3xl) + var(--memori-spacing-sm));
     direction: ltr;
 }
@@ -533,7 +531,7 @@ div.memori-media-item--link.memori-media-item--image-link {
     width: 100%;
     min-width: 0;
     max-width: 100%;
-    background: color-mix(in oklch, var(--memori-main-background) 38%, transparent);
+    background: var(--memori-secondary-background);
 }
 
 .memori-media-item--snippet-direct .memori-media-item--snippet {

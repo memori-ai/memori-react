@@ -536,7 +536,7 @@ const Chat: React.FC<Props> = ({
                 usageHtml={usageHtmlByIndex[index]}
               />
 
-              {showDates && !!message.timestamp && (
+              {showDates && !!message.timestamp && !message.fromUser && (
                 <small
                   className={`memori-chat--timestamp ${
                     message.fromUser ? 'text-right' : 'text-left'
