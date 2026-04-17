@@ -49,7 +49,7 @@ const MicrophoneButton = ({
       e.preventDefault();
       e.stopPropagation();
     }
-    
+
     if (intervalRef.current) {
       clearTimeout(intervalRef.current);
       intervalRef.current = null;
@@ -64,13 +64,21 @@ const MicrophoneButton = ({
     e.stopPropagation();
   };
 
-  const handleTouchStart = (e: React.TouchEvent<HTMLButtonElement> | React.MouseEvent<Element, MouseEvent>) => {
+  const handleTouchStart = (
+    e:
+      | React.TouchEvent<HTMLButtonElement>
+      | React.MouseEvent<Element, MouseEvent>
+  ) => {
     e.preventDefault();
     e.stopPropagation();
     startHold(e);
   };
 
-  const handleTouchEnd = (e: React.TouchEvent<HTMLButtonElement> | React.MouseEvent<Element, MouseEvent>) => {
+  const handleTouchEnd = (
+    e:
+      | React.TouchEvent<HTMLButtonElement>
+      | React.MouseEvent<Element, MouseEvent>
+  ) => {
     e.preventDefault();
     e.stopPropagation();
     stopHold(e);
@@ -83,6 +91,7 @@ const MicrophoneButton = ({
   return (
     <Tooltip
       visible={!!micBtnTooltip}
+      className="memori-chat-inputs--mic-tooltip"
       content={
         <span>
           {micBtnTooltip ||

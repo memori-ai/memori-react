@@ -1,6 +1,3 @@
-
-
-
 .memori-chat-inputs--mic {
     z-index: 1;
     margin-left: 0.33rem;
@@ -115,6 +112,20 @@
 
 .memori-chat-inputs--mic.memori-chat-inputs--mic--listening svg {
     color: red !important;
+}
+
+.memori-chat-inputs--mic-tooltip.memori-tooltip--align-topLeft .memori-tooltip--content {
+    top: -50%;
+    right: 115%;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 0.85em;
+    opacity: 0;
+    text-align: center;
+    /* left: 0; */
+    transform: translateY(-100%);
 }
 
 /* Mobile-specific improvements for listening state */

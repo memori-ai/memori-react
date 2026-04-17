@@ -5,7 +5,13 @@ import cx from 'classnames';
 export interface Props {
   content: string | JSX.Element | React.ReactNode;
   className?: string;
-  align?: 'left' | 'right' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+  align?:
+    | 'left'
+    | 'right'
+    | 'topLeft'
+    | 'topRight'
+    | 'bottomLeft'
+    | 'bottomRight';
   disabled?: boolean;
   children: React.ReactNode;
   visible?: boolean;
@@ -73,7 +79,10 @@ const Tooltip: FC<Props> = ({
     if (!isOpen) return;
     updatePosition();
     const onScrollOrResize = () => updatePosition();
-    window.addEventListener('scroll', onScrollOrResize, { passive: true, capture: true });
+    window.addEventListener('scroll', onScrollOrResize, {
+      passive: true,
+      capture: true,
+    });
     window.addEventListener('resize', onScrollOrResize);
     return () => {
       window.removeEventListener('scroll', onScrollOrResize, true);
@@ -100,6 +109,7 @@ const Tooltip: FC<Props> = ({
               'memori-tooltip',
               'memori-tooltip--portal',
               `memori-tooltip--align-${align}`,
+              className,
               { 'memori-tooltip--visible': true }
             )}
             style={{
@@ -114,7 +124,6 @@ const Tooltip: FC<Props> = ({
           >
             <div
               className="memori-tooltip--content memori-tooltip--content-portal"
-              style={{ pointerEvents: 'auto' }}
               onMouseEnter={handleContentEnter}
               onMouseLeave={handleContentLeave}
             >
