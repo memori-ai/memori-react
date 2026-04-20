@@ -307,17 +307,76 @@
 }
 
 .memori-dropdown--sustainability-title {
-    margin: 0 0 0.5rem 0;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    margin: 0.2rem 0.2rem 1rem;
+    color: color-mix(in srgb, var(--memori-text-color, #111827) 92%, #36506b);
     font-size: 0.95rem;
     font-weight: 700;
     line-height: 1.2;
-    text-align: center;
+    text-align: left;
 }
 
+.memori-dropdown--sustainability-section,
 .memori-dropdown--sustainability-metrics {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
+}
+
+.memori-dropdown--sustainability-section-title {
+    margin: 0 0 0.1rem;
+    color: color-mix(in srgb, var(--memori-text-color, #111827) 62%, #64748b);
+    font-size: 0.71rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    line-height: 1.2;
+    text-transform: uppercase;
+}
+
+.memori-dropdown--sustainability-section {
+    padding-bottom: 0.65rem;
+    margin-bottom: 0.65rem;
+    /* border-bottom: 1px solid rgba(15, 23, 42, 0.08); */
+}
+
+.memori-dropdown--sustainability-summary {
+    display: grid;
+    gap: 0.5rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.memori-dropdown--sustainability-stat {
+    display: flex;
+    flex-direction: column;
+    padding: 0.55rem 0.65rem;
+    border: 1px solid rgba(15, 23, 42, 0.07);
+    border-radius: 10px;
+    background: var(--memori-main-background);
+    gap: 0.15rem;
+}
+
+.memori-dropdown--sustainability-stat-label,
+.memori-dropdown--sustainability-stat-meta {
+    font-size: 0.72rem;
+    line-height: 1.2;
+}
+
+.memori-dropdown--sustainability-stat-label {
+    color: color-mix(in srgb, var(--memori-text-color, #111827) 68%, #6b7280);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.memori-dropdown--sustainability-stat-value {
+    color: color-mix(in srgb, var(--memori-text-color, #111827) 94%, #1d4ed8);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+.memori-dropdown--sustainability-stat-meta {
+    color: color-mix(in srgb, var(--memori-text-color, #111827) 55%, #64748b);
 }
 
 .memori-dropdown--sustainability-row {
@@ -330,16 +389,56 @@
     gap: 1rem;
 }
 
+.memori-dropdown--sustainability-row--stacked {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.45rem;
+}
+
 .memori-dropdown--sustainability-label {
     display: inline-flex;
     align-items: center;
+    color: color-mix(in srgb, var(--memori-text-color, #111827) 76%, #64748b);
     font-size: 0.82rem;
-    font-weight: 500;
+    font-weight: 600;
     gap: 0.35rem;
-    opacity: 0.9;
 }
 
 .memori-dropdown--sustainability-value {
-    font-size: 0.85rem;
+    color: color-mix(in srgb, var(--memori-text-color, #111827) 96%, black);
+    font-size: 0.88rem;
+    font-weight: 700;
     white-space: nowrap;
+}
+
+.memori-dropdown--sustainability-value--multiline {
+    width: 100%;
+    overflow-wrap: anywhere;
+    white-space: normal;
+}
+
+.memori-dropdown--sustainability-tags {
+    display: flex;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+}
+
+.memori-dropdown--sustainability-tag {
+    display: inline-flex;
+    min-height: 1.75rem;
+    align-items: center;
+    padding: 0.2rem 0.55rem;
+    /* border: 1px solid rgba(15, 23, 42, 0.08); */
+    border-radius: 999px;
+    color: var(--memori-text-color);
+    font-size: 0.76rem;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+@media (max-width: 480px) {
+    .memori-dropdown--sustainability {
+        min-width: min(300px, calc(100vw - 2rem));
+    }
 }

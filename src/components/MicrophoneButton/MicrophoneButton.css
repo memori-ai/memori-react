@@ -1,4 +1,3 @@
-
 /* Hold-to-talk: tooltip uses align=topLeft so the bubble stays in view (mic sits on the trailing edge). */
 .memori-chat-inputs--mic-tooltip.memori-tooltip {
     vertical-align: middle;
@@ -39,7 +38,7 @@
     user-select: none;
 }
 
-.memori-chat-inputs--mic:hover{
+.memori-chat-inputs--mic:hover {
     background-color: var(--memori-main-background) !important;
 }
 
@@ -129,6 +128,20 @@
 
 .memori-chat-inputs--mic.memori-chat-inputs--mic--listening svg {
     color: red !important;
+}
+
+.memori-chat-inputs--mic-tooltip.memori-tooltip--align-topLeft .memori-tooltip--content {
+    top: -50%;
+    right: 115%;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 0.85em;
+    opacity: 0;
+    text-align: center;
+    /* left: 0; */
+    transform: translateY(-100%);
 }
 
 /* Mobile-specific improvements for listening state */

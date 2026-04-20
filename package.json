@@ -1,5 +1,5 @@
 {
-  "version": "8.32.0",
+  "version": "8.33.0",
   "name": "@memori.ai/memori-react",
   "author": "Memori Srl",
   "main": "dist/index.js",
@@ -302,7 +302,7 @@
     "@react-three/drei": "8.20.2",
     "@react-three/fiber": "7.0.25",
     "classnames": "2.5.1",
-    "dompurify": "^3.3.3",
+    "dompurify": "^3.4.0",
     "ellipsed": "1.6.0",
     "i18next": "22.0.6",
     "katex": "^0.16.11",

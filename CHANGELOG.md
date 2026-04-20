@@ -1,5 +1,18 @@
 
 
+## [8.33.0](https://github.com/memori-ai/memori-react/compare/v8.32.0...v8.33.0) (2026-04-17)
+
+
+### Features
+
+* add tooltip styling and improve MicrophoneButton component functionality ([719b2b1](https://github.com/memori-ai/memori-react/commit/719b2b181e61c6eb0cc122222c6d9806995b969f))
+* enhance Header component with detailed chat consumption metrics and improved styling ([75d2809](https://github.com/memori-ai/memori-react/commit/75d2809e996d9c5af1ac147bc8acf01c54b3db8f))
+
+
+### Maintenance
+
+* update dompurify to version 3.4.0 ([50f2f48](https://github.com/memori-ai/memori-react/commit/50f2f48f826b5be3f81e34718167ce73b3715b40))
+
 ## [8.32.0](https://github.com/memori-ai/memori-react/compare/v8.31.0...v8.32.0) (2026-04-07)
 
 

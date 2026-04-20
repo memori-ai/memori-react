@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import cx from 'classnames';
 import {
   Memori,
@@ -38,6 +38,7 @@ import { getErrori18nKey } from '../../helpers/error';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 import { BADGE_EMOJI } from '../../helpers/llmUsage';
+import ChatConsumptionDropdown from './ChatConsumptionDropdown';
 
 const imgMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
 
@@ -414,78 +415,7 @@ const Header: React.FC<Props> = ({
           </span>
         </Tooltip>
       )}
-      {showMessageConsumption && hasSustainabilityData && (
-        <Dropdown className="memori-header--dropdown">
-          <Dropdown.Trigger
-            showChevron={false}
-            render={
-              <Button
-                variant={buttonVariant}
-                className={cx(
-                  'memori-header--button',
-                  'memori-header--button--sustainability'
-                )}
-                title={
-                  t('write_and_speak.showMessageConsumptionLabel') ||
-                  'LLM consumption'
-                }
-                icon={
-                  <GasStation className="memori-header--button--sustainability-icon" />
-                }
-              />
-            }
-          />
-          <Dropdown.Menu className="memori-dropdown--menu">
-            <div className="memori-dropdown--sustainability">
-              <h4 className="memori-dropdown--sustainability-title">
-                {t('chatLogs.totalChatConsumptionTitle') ||
-                  'Consumo Totale Chat'}
-              </h4>
-              <div className="memori-dropdown--sustainability-metrics">
-                <div className="memori-dropdown--sustainability-row">
-                  <span className="memori-dropdown--sustainability-label">
-                    <span aria-hidden="true">{BADGE_EMOJI.energy}</span>{' '}
-                    {t('chatLogs.energy') || 'Energy'}
-                  </span>
-                  <strong className="memori-dropdown--sustainability-value">
-                    {formatImpactInReadableUnit(
-                      sustainabilityTotals.energy,
-                      'energy',
-                      currentLocale
-                    )}
-                  </strong>
-                </div>
-                <div className="memori-dropdown--sustainability-row">
-                  <span className="memori-dropdown--sustainability-label">
-                    <span aria-hidden="true">{BADGE_EMOJI.co2}</span>{' '}
-                    {t('chatLogs.co2') || 'CO2'}
-                  </span>
-                  <strong className="memori-dropdown--sustainability-value">
-                    {formatImpactInReadableUnit(
-                      sustainabilityTotals.gwp,
-                      'co2',
-                      currentLocale
-                    )}
-                  </strong>
-                </div>
-                <div className="memori-dropdown--sustainability-row">
-                  <span className="memori-dropdown--sustainability-label">
-                    <span aria-hidden="true">{BADGE_EMOJI.water}</span>{' '}
-                    {t('chatLogs.water') || 'Water'}
-                  </span>
-                  <strong className="memori-dropdown--sustainability-value">
-                    {formatImpactInReadableUnit(
-                      sustainabilityTotals.wcf,
-                      'water',
-                      currentLocale
-                    )}
-                  </strong>
-                </div>
-              </div>
-            </div>
-          </Dropdown.Menu>
-        </Dropdown>
-      )}
+      {showMessageConsumption && <ChatConsumptionDropdown history={history} />}
       {showFullscreen && fullScreenAvailable && (
         <Tooltip
           title={
@@ -519,7 +449,9 @@ const Header: React.FC<Props> = ({
                         '.memori-widget'
                       ) as HTMLElement | null;
                       if (memoriWidget) {
-                        if (memoriWidget.dataset.memoriPrevBgColor === undefined)
+                        if (
+                          memoriWidget.dataset.memoriPrevBgColor === undefined
+                        )
                           memoriWidget.dataset.memoriPrevBgColor =
                             memoriWidget.style.backgroundColor ?? '';
                         memoriWidget.style.backgroundColor = '';

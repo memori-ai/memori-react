@@ -51,7 +51,7 @@ const MicrophoneButton = ({
       e.preventDefault();
       e.stopPropagation();
     }
-    
+
     if (intervalRef.current) {
       clearTimeout(intervalRef.current);
       intervalRef.current = null;
@@ -66,13 +66,21 @@ const MicrophoneButton = ({
     e.stopPropagation();
   };
 
-  const handleTouchStart = (e: React.TouchEvent<HTMLButtonElement> | React.MouseEvent<Element, MouseEvent>) => {
+  const handleTouchStart = (
+    e:
+      | React.TouchEvent<HTMLButtonElement>
+      | React.MouseEvent<Element, MouseEvent>
+  ) => {
     e.preventDefault();
     e.stopPropagation();
     startHold(e);
   };
 
-  const handleTouchEnd = (e: React.TouchEvent<HTMLButtonElement> | React.MouseEvent<Element, MouseEvent>) => {
+  const handleTouchEnd = (
+    e:
+      | React.TouchEvent<HTMLButtonElement>
+      | React.MouseEvent<Element, MouseEvent>
+  ) => {
     e.preventDefault();
     e.stopPropagation();
     stopHold(e);
@@ -87,12 +95,11 @@ const MicrophoneButton = ({
   const listeningHint =
     t('write_and_speak.releaseToEndListening') || 'Release to stop listening';
 
-  const tooltipLabel =
-    micBtnTooltip ?? (listening ? listeningHint : idleHint);
+  const tooltipLabel = micBtnTooltip ?? (listening ? listeningHint : idleHint);
 
   return (
     <Tooltip
-      title={tooltipLabel}  
+      title={tooltipLabel}
       placement="top-end"
       className="memori-chat-inputs--mic-tooltip"
       slotProps={{
@@ -109,7 +116,9 @@ const MicrophoneButton = ({
           variant="ghost"
           size="sm"
           className={
-            listening ? 'memori-chat-inputs--mic--listening' : 'memori-chat-inputs--mic'
+            listening
+              ? 'memori-chat-inputs--mic--listening'
+              : 'memori-chat-inputs--mic'
           }
           aria-label={listening ? listeningHint : idleHint}
           disabled={disabled}
