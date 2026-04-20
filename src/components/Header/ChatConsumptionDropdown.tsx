@@ -24,6 +24,8 @@ type MessageLlmUsage = {
 
 export interface ChatConsumptionDropdownProps {
   history: Message[];
+  hasSpacedButtons?: boolean;
+  trigger?: React.ReactNode;
 }
 
 const getMetricValue = (
@@ -84,6 +86,8 @@ const formatImpactInReadableUnit = (
 
 const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
   history,
+  hasSpacedButtons = false,
+  trigger,
 }) => {
   const { t, i18n } = useTranslation();
 

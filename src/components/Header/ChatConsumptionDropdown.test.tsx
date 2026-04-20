@@ -85,4 +85,35 @@ describe('ChatConsumptionDropdown', () => {
     //   screen.queryByTitle('write_and_speak.showMessageConsumptionLabel')
     // ).toBeNull();
   });
+
+  it('supports a custom trigger node', () => {
+    const history = [
+      {
+        text: 'First response',
+        timestamp: '2021-03-01T12:00:00.000Z',
+        llmUsage: {
+          provider: 'OpenAI',
+          model: 'gpt-5',
+          totalInputTokens: 1000,
+          outputTokens: 200,
+          energyImpact: {
+            energy: { parsedValue: 0.0012 },
+            gwp: { parsedValue: 0.00045 },
+            wcf: { parsedValue: 0.0021 },
+          },
+        },
+      },
+    ] as TestMessage[];
+
+    render(
+      <ChatConsumptionDropdown
+        history={history}
+        trigger={<button type="button">Open usage</button>}
+      />
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: 'Open usage' }));
+
+    expect(screen.getByText('chatLogs.totalChatConsumptionTitle')).toBeTruthy();
+  });
 });
