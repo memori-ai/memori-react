@@ -22,7 +22,7 @@
     animation: fadeInUp 0.5s ease forwards;
     backdrop-filter: blur(4px);
     background: var(--memori-secondary-background);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08); */
     cursor: pointer;
     gap: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
     opacity: 0;
