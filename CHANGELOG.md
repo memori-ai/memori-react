@@ -1,5 +1,12 @@
 
 
+## [8.34.0](https://github.com/memori-ai/memori-react/compare/v8.33.0...v8.34.0) (2026-04-20)
+
+
+### Features
+
+* add support for custom trigger node in ChatConsumptionDropdown component ([0563208](https://github.com/memori-ai/memori-react/commit/0563208cc661e130f322429545e9df84a58ee581))
+
 ## [8.33.0](https://github.com/memori-ai/memori-react/compare/v8.32.0...v8.33.0) (2026-04-17)
 
 
