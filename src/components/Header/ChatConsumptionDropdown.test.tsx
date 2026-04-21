@@ -86,20 +86,20 @@ describe('ChatConsumptionDropdown', () => {
     // ).toBeNull();
   });
 
-  it('supports a custom trigger node', () => {
+  it('supports a custom trigger component', () => {
     const history = [
       {
-        text: 'First response',
+        text: 'Response',
         timestamp: '2021-03-01T12:00:00.000Z',
         llmUsage: {
           provider: 'OpenAI',
           model: 'gpt-5',
-          totalInputTokens: 1000,
-          outputTokens: 200,
+          totalInputTokens: 10,
+          outputTokens: 5,
           energyImpact: {
-            energy: { parsedValue: 0.0012 },
-            gwp: { parsedValue: 0.00045 },
-            wcf: { parsedValue: 0.0021 },
+            energy: 0.0002,
+            gwp: 0.0001,
+            wcf: 0.0003,
           },
         },
       },
@@ -108,11 +108,15 @@ describe('ChatConsumptionDropdown', () => {
     render(
       <ChatConsumptionDropdown
         history={history}
-        trigger={<button type="button">Open usage</button>}
+        trigger={props => (
+          <button type="button" {...props}>
+            Custom Trigger
+          </button>
+        )}
       />
     );
 
-    fireEvent.click(screen.getByRole('button', { name: 'Open usage' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Custom Trigger' }));
 
     expect(screen.getByText('chatLogs.totalChatConsumptionTitle')).toBeTruthy();
   });

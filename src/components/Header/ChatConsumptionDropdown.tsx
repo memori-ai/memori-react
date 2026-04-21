@@ -24,8 +24,9 @@ type MessageLlmUsage = {
 
 export interface ChatConsumptionDropdownProps {
   history: Message[];
-  hasSpacedButtons?: boolean;
-  trigger?: React.ReactNode;
+  trigger?: (
+    props: React.ButtonHTMLAttributes<HTMLButtonElement>
+  ) => React.ReactElement;
 }
 
 const getMetricValue = (
@@ -86,7 +87,6 @@ const formatImpactInReadableUnit = (
 
 const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
   history,
-  hasSpacedButtons = false,
   trigger,
 }) => {
   const { t, i18n } = useTranslation();
@@ -150,24 +150,29 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
 
   const triggerLabel =
     t('write_and_speak.showMessageConsumptionLabel') || 'Show chat consumption';
+  const renderDefaultTrigger = (
+    props: React.ButtonHTMLAttributes<HTMLButtonElement>
+  ) => (
+    <Button
+      {...props}
+      variant="primary"
+      shape="default"
+      className="memori-header--button memori-header--button--sustainability"
+      aria-label={triggerLabel}
+      title={triggerLabel}
+      icon={
+        <GasStation className="memori-header--button--sustainability-icon" />
+      }
+    />
+  );
 
   return (
     <Dropdown className="memori-header--dropdown">
       <Dropdown.Trigger
         showChevron={false}
-        render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
-          <Button
-            {...props}
-            variant="primary"
-            shape="default"
-            className="memori-header--button memori-header--button--sustainability"
-            aria-label={triggerLabel}
-            title={triggerLabel}
-            icon={
-              <GasStation className="memori-header--button--sustainability-icon" />
-            }
-          />
-        )}
+        render={props =>
+          trigger ? trigger(props) : renderDefaultTrigger(props)
+        }
       />
       <Dropdown.Menu
         className="memori-dropdown--sustainability-menu"
