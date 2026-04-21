@@ -24,9 +24,11 @@ type MessageLlmUsage = {
 
 export interface ChatConsumptionDropdownProps {
   history: Message[];
-  trigger?: (
-    props: React.ButtonHTMLAttributes<HTMLButtonElement>
-  ) => React.ReactElement;
+  trigger?:
+    | ((
+        props: React.ButtonHTMLAttributes<HTMLButtonElement>
+      ) => React.ReactElement)
+    | React.ReactElement<React.ButtonHTMLAttributes<HTMLButtonElement>>;
 }
 
 const getMetricValue = (
@@ -151,10 +153,10 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
   const triggerLabel =
     t('write_and_speak.showMessageConsumptionLabel') || 'Show chat consumption';
   const renderDefaultTrigger = (
-    props: React.ButtonHTMLAttributes<HTMLButtonElement>
+    triggerButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement>
   ) => (
     <Button
-      {...props}
+      {...triggerButtonProps}
       variant="primary"
       shape="default"
       className="memori-header--button memori-header--button--sustainability"
@@ -165,15 +167,40 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
       }
     />
   );
+  const renderTrigger = (
+    triggerButtonProps: React.ButtonHTMLAttributes<HTMLButtonElement>
+  ) => {
+    if (!trigger) return renderDefaultTrigger(triggerButtonProps);
+    if (typeof trigger === 'function') return trigger(triggerButtonProps);
+    if (
+      !React.isValidElement<React.ButtonHTMLAttributes<HTMLButtonElement>>(
+        trigger
+      )
+    ) {
+      return renderDefaultTrigger(triggerButtonProps);
+    }
+
+    const triggerProps = trigger.props ?? {};
+    const mergedClassName = cx(
+      triggerButtonProps.className,
+      triggerProps.className
+    );
+    const mergedOnClick: React.MouseEventHandler<HTMLButtonElement> = event => {
+      triggerButtonProps.onClick?.(event);
+      triggerProps.onClick?.(event);
+    };
+
+    return React.cloneElement(trigger, {
+      ...triggerProps,
+      ...triggerButtonProps,
+      className: mergedClassName || undefined,
+      onClick: mergedOnClick,
+    });
+  };
 
   return (
     <Dropdown className="memori-header--dropdown">
-      <Dropdown.Trigger
-        showChevron={false}
-        render={props =>
-          trigger ? trigger(props) : renderDefaultTrigger(props)
-        }
-      />
+      <Dropdown.Trigger showChevron={false} render={props => renderTrigger(props)} />
       <Dropdown.Menu
         className="memori-dropdown--sustainability-menu"
         placement="bottom"
