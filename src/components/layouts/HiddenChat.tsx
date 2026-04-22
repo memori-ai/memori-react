@@ -239,7 +239,12 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   };
 
   const handleDisableLocation = () => {
-    headerProps?.setVenue(undefined);
+    headerProps?.setVenue({
+      latitude: 0,
+      longitude: 0,
+      placeName: '',
+      uncertainty: 0,
+    });
   };
 
   const sessionPanelActions = useMemo(

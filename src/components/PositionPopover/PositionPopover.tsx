@@ -175,7 +175,12 @@ const PositionPopover: React.FC<PositionPopoverProps> = ({
 
     if (sharingActive && !geolocationLoading) {
       geoGenRef.current += 1;
-      setVenue(undefined);
+      setVenue({
+        latitude: 0,
+        longitude: 0,
+        placeName: '',
+        uncertainty: 0,
+      });
       setEditingLocation(false);
       setQuery('');
       setSuggestions([]);

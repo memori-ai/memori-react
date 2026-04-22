@@ -63,7 +63,7 @@
     border: 1px solid rgba(0, 0, 0, 0.15);
     border-radius: 999px;
     margin-left: auto;
-    background: #fff;
+    background: var(--memori-main-background);
     color: var(--memori-text-color, #111);
     cursor: pointer;
     font-size: 0.82rem;

@@ -836,10 +836,16 @@ const MemoriWidget = ({
   /** True when the user has set a real position; false when position is missing or "I don't want to provide my position". */
   const hasUserProvidedPosition = useCallback((venue: Venue | undefined) => {
     if (!venue) return false;
+    const hasOptOutCoordinates =
+      Number(venue.latitude) === 0 && Number(venue.longitude) === 0;
+    const hasEmptyPlaceName = !venue.placeName?.trim();
+    const isLegacyOptOutPlaceName = venue.placeName === 'Position';
+    const hasNoUncertainty = Number(venue.uncertainty ?? 0) === 0;
+
     if (
-      venue.placeName === 'Position' &&
-      venue.latitude === 0 &&
-      venue.longitude === 0
+      hasOptOutCoordinates &&
+      (hasEmptyPlaceName || isLegacyOptOutPlaceName) &&
+      hasNoUncertainty
     ) {
       return false;
     }

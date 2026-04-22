@@ -337,13 +337,25 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
             <ul className="memori-mobile-session-panel--actions">
               {actions.map(action => (
                 <li key={action.key}>
+                  {(() => {
+                    const isKnownFactsAction = action.view === 'knownFacts';
+                    const isActionDisabled =
+                      action.disabled || (isKnownFactsAction && !isLoggedIn);
+
+                    return (
                   <Button
                     variant="toolbar"
                     size="sm"
                     className="memori-mobile-session-panel--action"
-                    disabled={action.disabled}
+                    disabled={isActionDisabled}
                     onClick={() => {
-                      if (action.disabled) return;
+                      if (isActionDisabled) return;
+                      if (action.view === 'knownFacts') {
+                        if (onKnownFactsOpen) {
+                          onKnownFactsOpen();
+                          return;
+                        }
+                      }
                       if (action.view) {
                         setActiveView(action.view);
                         return;
@@ -370,6 +382,8 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                       </span>
                     )}
                   </Button>
+                    );
+                  })()}
                 </li>
               ))}
             </ul>
