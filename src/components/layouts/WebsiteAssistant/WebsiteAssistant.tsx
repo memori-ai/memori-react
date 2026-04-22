@@ -59,20 +59,20 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
 
             <Spin spinning={loading} className="memori-website_assistant-layout">
               {poweredBy}
-
-              <div className="memori-website_assistant--close-button-wrapper">
-                <Button
-                  className="memori-website_assistant--close-button"
-                  variant="primary"
-                  onClick={() => setCollapsed(true)}
-                  icon={<X />}
-                  title={t('close') || 'Close'}
-                />
+              <div className="memori-website_assistant-layout--header-row">
+                {Header && headerProps && (
+                  <Header {...headerProps} showSettings={false} showReload={false} />
+                )}
+                <div className="memori-website_assistant--close-button-wrapper">
+                  <Button
+                    className="memori-website_assistant--close-button"
+                    variant="primary"
+                    onClick={() => setCollapsed(true)}
+                    icon={<X />}
+                    title={t('close') || 'Close'}
+                  />
+                </div>
               </div>
-
-              {Header && headerProps && (
-                <Header {...headerProps} showSettings={false} showReload={false} />
-              )}
 
               {!(avatar3dHidden === true || avatar3dHidden === 'true') && (
                 <div className="memori-website_assistant-layout--avatar">

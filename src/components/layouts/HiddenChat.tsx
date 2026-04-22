@@ -1,16 +1,16 @@
 /* eslint-disable react/prop-types */
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { Button, Dropdown, Spin } from '@memori.ai/ui';
+import { Button, Spin } from '@memori.ai/ui';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { useTranslation } from 'react-i18next';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
 import {
   Brain,
-  Camera,
   EllipsisVertical,
   HelpCircle,
   LogIn,
   LogOut,
+  MapPin,
   MessageCircle,
   RefreshCw,
   Settings,
@@ -26,7 +26,7 @@ import {
 import { getResourceUrl } from '../../helpers/media';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import ShareButton from '../ShareButton/ShareButton';
-import type { Props as HeaderComponentProps } from '../Header/Header';
+import MobileSessionPanel from '../MobileSessionPanel/MobileSessionPanel';
 import {
   maxDocumentsPerMessage,
   maxDocumentContentLength,
@@ -50,8 +50,10 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
   const [hasTriggeredAutostart, setHasTriggeredAutostart] = useState(false);
+  const [sessionPanelOpen, setSessionPanelOpen] = useState(false);
 
   const { state, closeArtifact } = useArtifact();
+
   const { onClickStart, hasInitialSession } = startPanelProps || {};
   const memori = headerProps?.memori;
   const tenant = headerProps?.tenant;
@@ -68,195 +70,26 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
       ),
     [headerProps?.history]
   );
-  type HeaderActionKey =
-    | 'position'
-    | 'reload'
-    | 'clear'
-    | 'chatHistory'
-    | 'consumption'
-    | 'fullscreen'
-    | 'deepThought'
-    | 'experts'
-    | 'audio'
-    | 'settings'
-    | 'share'
-    | 'login';
-
-  const { primaryHeaderProps, overflowActionKeys, hasOverflowActions } =
-    useMemo<{
-      primaryHeaderProps?: HeaderComponentProps;
-      overflowActionKeys: HeaderActionKey[];
-      hasOverflowActions: boolean;
-    }>(() => {
-      if (!headerProps) {
-        return {
-          primaryHeaderProps: undefined,
-          overflowActionKeys: [],
-          hasOverflowActions: false,
-        };
-      }
-
-      const actionVisibility: Array<{
-        key: HeaderActionKey;
-        visible: boolean;
-      }> = [
-        { key: 'position', visible: !!headerProps.memori?.needsPosition },
-        { key: 'reload', visible: !!headerProps.showReload },
-        { key: 'clear', visible: !!headerProps.showClear },
-        {
-          key: 'chatHistory',
-          visible:
-            (headerProps.showChatHistory ?? true) && !!headerProps.loginToken,
-        },
-        {
-          key: 'consumption',
-          visible:
-            !!headerProps.showMessageConsumption && hasSustainabilityData,
-        },
-        { key: 'fullscreen', visible: true },
-        {
-          key: 'deepThought',
-          visible:
-            !!headerProps.memori?.enableDeepThought &&
-            !!headerProps.loginToken &&
-            !!headerProps.user?.pAndCUAccepted,
-        },
-        {
-          key: 'experts',
-          visible: !!headerProps.memori?.enableBoardOfExperts,
-        },
-        { key: 'audio', visible: headerProps.enableAudio ?? true },
-        // HiddenChat-specific requirement: never show Settings in header actions.
-        { key: 'settings', visible: false },
-        { key: 'share', visible: headerProps.showShare ?? true },
-        { key: 'login', visible: headerProps.showLogin ?? true },
-      ];
-
-      const visibleActions = actionVisibility.filter(action => action.visible);
-      const visibleActionKeys = visibleActions.map(action => action.key);
-      const knownFactsVisible = visibleActionKeys.includes('deepThought');
-      const loginVisible = visibleActionKeys.includes('login');
-      const shareEnabled = headerProps.showShare ?? true;
-      const totalActionCount = visibleActionKeys.length;
-      const hasOverflow = totalActionCount > 5;
-      const maxVisibleButtons = hasOverflow ? 4 : 5;
-      const primaryActionKeys: HeaderActionKey[] = hasOverflow
-        ? visibleActionKeys.slice(0, maxVisibleButtons)
-        : visibleActionKeys;
-      let normalizedPrimaryActionKeys: HeaderActionKey[] =
-        hasOverflow &&
-        visibleActionKeys.includes('audio') &&
-        !primaryActionKeys.includes('audio')
-          ? [
-              ...primaryActionKeys.slice(0, maxVisibleButtons - 1),
-              'audio' as HeaderActionKey,
-            ]
-          : primaryActionKeys;
-      if (hasOverflow && normalizedPrimaryActionKeys.includes('share')) {
-        const replacementAction = visibleActionKeys.find(
-          action =>
-            action !== 'share' && !normalizedPrimaryActionKeys.includes(action)
-        );
-        normalizedPrimaryActionKeys = replacementAction
-          ? normalizedPrimaryActionKeys.map(action =>
-              action === 'share' ? replacementAction : action
-            )
-          : normalizedPrimaryActionKeys.filter(action => action !== 'share');
-      }
-      if (hasOverflow && normalizedPrimaryActionKeys.includes('deepThought')) {
-        const replacementAction = visibleActionKeys.find(
-          action =>
-            action !== 'deepThought' &&
-            !normalizedPrimaryActionKeys.includes(action)
-        );
-        normalizedPrimaryActionKeys = replacementAction
-          ? normalizedPrimaryActionKeys.map(action =>
-              action === 'deepThought' ? replacementAction : action
-            )
-          : normalizedPrimaryActionKeys.filter(
-              action => action !== 'deepThought'
-            );
-      }
-      if (hasOverflow && normalizedPrimaryActionKeys.includes('login')) {
-        const replacementAction = visibleActionKeys.find(
-          action =>
-            action !== 'login' && !normalizedPrimaryActionKeys.includes(action)
-        );
-        normalizedPrimaryActionKeys = replacementAction
-          ? normalizedPrimaryActionKeys.map(action =>
-              action === 'login' ? replacementAction : action
-            )
-          : normalizedPrimaryActionKeys.filter(action => action !== 'login');
-      }
-      const overflowActionKeys: HeaderActionKey[] = (
-        hasOverflow
-          ? [
-              ...visibleActionKeys.slice(5),
-              ...(shareEnabled ? (['share'] as HeaderActionKey[]) : []),
-              ...(knownFactsVisible
-                ? (['deepThought'] as HeaderActionKey[])
-                : []),
-              ...(loginVisible ? (['login'] as HeaderActionKey[]) : []),
-            ]
-          : []
-      ).filter(
-        action =>
-          action === 'share' ||
-          action === 'deepThought' ||
-          action === 'login' ||
-          !normalizedPrimaryActionKeys.includes(action)
-      );
-      const dedupedOverflowActionKeys = Array.from(
-        new Set(overflowActionKeys)
-      ) as HeaderActionKey[];
-      const orderedOverflowActionKeys: HeaderActionKey[] = [
-        ...dedupedOverflowActionKeys.filter(action => action !== 'login'),
-        ...dedupedOverflowActionKeys.filter(action => action === 'login'),
-      ];
-
-      const mapHeaderPropsFromActions = (
-        actions: HeaderActionKey[]
-      ): HeaderComponentProps => {
-        const actionSet = new Set(actions);
-        return {
-          ...headerProps,
-          memori: {
-            ...headerProps.memori,
-            needsPosition:
-              actionSet.has('position') && !!headerProps.memori?.needsPosition,
-            enableDeepThought:
-              actionSet.has('deepThought') &&
-              !!headerProps.memori?.enableDeepThought,
-            enableBoardOfExperts:
-              actionSet.has('experts') &&
-              !!headerProps.memori?.enableBoardOfExperts,
-          },
-          showReload: actionSet.has('reload') && !!headerProps.showReload,
-          showClear: actionSet.has('clear') && !!headerProps.showClear,
-          showChatHistory:
-            actionSet.has('chatHistory') &&
-            (headerProps.showChatHistory ?? true),
-          showMessageConsumption:
-            actionSet.has('consumption') &&
-            !!headerProps.showMessageConsumption,
-          showFullscreen: actionSet.has('fullscreen'),
-          enableAudio:
-            actionSet.has('audio') && (headerProps.enableAudio ?? true),
-          showSettings:
-            actionSet.has('settings') && (headerProps.showSettings ?? true),
-          showShare: actionSet.has('share') && (headerProps.showShare ?? true),
-          showLogin: actionSet.has('login') && (headerProps.showLogin ?? true),
-        };
-      };
-
-      return {
-        primaryHeaderProps: mapHeaderPropsFromActions(
-          normalizedPrimaryActionKeys
-        ),
-        overflowActionKeys: orderedOverflowActionKeys,
-        hasOverflowActions: orderedOverflowActionKeys.length > 0,
-      };
-    }, [headerProps, hasSustainabilityData]);
+  const hiddenChatHeaderProps = useMemo(() => {
+    if (!headerProps) return undefined;
+    return {
+      ...headerProps,
+      showReload: false,
+      showClear: false,
+      showSettings: false,
+      showShare: false,
+      showLogin: false,
+      showMessageConsumption: false,
+      showFullscreen: false,
+      memori: {
+        ...headerProps.memori,
+        needsPosition: false,
+        enableDeepThought: false,
+      },
+      showChatHistory: true,
+      enableAudio: true,
+    };
+  }, [headerProps]);
 
   const loggedUser =
     headerProps?.loginToken && headerProps?.user ? headerProps.user : undefined;
@@ -302,8 +135,21 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     () => (loggedUserDisplayName || 'U').charAt(0).toUpperCase(),
     [loggedUserDisplayName]
   );
+  const isSessionStarted = Boolean(sessionId && hasUserActivatedSpeak);
 
-  const handleOverflowActionClick = (action: HeaderActionKey) => {
+  const handleOverflowActionClick = (
+    action:
+      | 'reload'
+      | 'clear'
+      | 'chatHistory'
+      | 'fullscreen'
+      | 'deepThought'
+      | 'experts'
+      | 'audio'
+      | 'settings'
+      | 'share'
+      | 'login'
+  ) => {
     if (!headerProps) return;
     switch (action) {
       case 'reload':
@@ -368,94 +214,140 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
     }
   };
 
-  const overflowItems: Array<{
-    key: HeaderActionKey;
-    label: string;
-    icon: React.ReactNode;
-    disabled?: boolean;
-  }> = useMemo(
-    () =>
-      overflowActionKeys.map(action => {
-        if (action === 'reload')
-          return {
-            key: action,
-            label: t('reload') || 'Reload',
-            icon: <RefreshCw />,
-          };
-        if (action === 'clear')
-          return {
-            key: action,
-            label: t('clearHistory') || 'Clear chat',
-            icon: <Trash2 />,
-          };
-        if (action === 'chatHistory')
-          return {
-            key: action,
-            label: t('write_and_speak.chatHistory') || 'Chat history',
-            icon: <MessageCircle />,
-          };
-        if (action === 'fullscreen')
-          return {
-            key: action,
-            label: t('fullscreenEnter') || 'Fullscreen',
-            icon: <Maximize />,
-          };
-        if (action === 'deepThought')
-          return {
-            key: action,
-            label: t('knownFacts.title') || 'Known facts',
-            icon: <Brain />,
-            disabled:
-              !headerProps?.hasUserActivatedSpeak || !headerProps?.sessionID,
-          };
-        if (action === 'experts')
-          return {
-            key: action,
-            label: t('widget.showExpertsInTheBoard') || 'Experts in this board',
-            icon: <Users />,
-            disabled:
-              !headerProps?.hasUserActivatedSpeak || !headerProps?.sessionID,
-          };
-        if (action === 'audio')
-          return {
-            key: action,
-            label: t('widget.sound') || 'Sound',
-            icon: headerProps?.speakerMuted ? <VolumeX /> : <Volume2 />,
-          };
-        if (action === 'settings')
-          return {
-            key: action,
-            label: t('widget.settings') || 'Settings',
-            icon: <Settings />,
-          };
-        if (action === 'share')
-          return {
-            key: action,
-            label: t('widget.share') || 'Share',
-            icon: <Share2 />,
-          };
-        if (action === 'login')
-          return {
-            key: action,
-            label: loggedUser
-              ? t('login.logout') || 'Logout'
-              : t('login.login') || 'Login',
-            icon: loggedUser ? <LogOut /> : <LogIn />,
-          };
-        return {
-          key: action,
-          label: t('widget.moreActions') || 'Action',
-          icon: <User />,
-        };
-      }),
-    [
-      overflowActionKeys,
-      t,
-      headerProps?.hasUserActivatedSpeak,
-      headerProps?.sessionID,
-      headerProps?.speakerMuted,
-      loggedUser,
-    ]
+  const handleEnableLocation = () => {
+    if (!headerProps) return;
+    if (!navigator.geolocation) {
+      headerProps.setPositionPopoverOpen(true);
+      return;
+    }
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        headerProps.setVenue({
+          latitude,
+          longitude,
+          placeName: `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`,
+          uncertainty: position.coords.accuracy / 1000,
+        });
+      },
+      () => {
+        headerProps.setPositionPopoverOpen(true);
+      },
+      { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+    );
+  };
+
+  const handleDisableLocation = () => {
+    headerProps?.setVenue(undefined);
+  };
+
+  const sessionPanelActions = useMemo(
+    () => [
+      {
+        key: 'fullscreen',
+        icon: <Maximize size={18} />,
+        title: t('fullscreenEnter') || 'Full screen',
+        subtitle: t('widget.expandToImmersive') || 'Expand to immersive view',
+        onClick: () => {
+          handleFullscreenToggle();
+          setSessionPanelOpen(false);
+        },
+      },
+      {
+        key: 'share',
+        icon: <Share2 size={18} />,
+        title: t('widget.share') || 'Share chat',
+        subtitle:
+          t('widget.mobileSession.copyLinkOrDownload') ||
+          'Copy link or download',
+        view: 'share' as const,
+      },
+      {
+        key: 'location',
+        icon: <MapPin size={18} />,
+        title:
+          t('widget.mobileSession.locationTracking') || 'Location tracking',
+        subtitle:
+          headerProps?.position?.placeName ||
+          t('widget.mobileSession.currentlyOff') ||
+          'Currently off',
+        view: 'location' as const,
+        trailing: (
+          <span className="memori-mobile-session-panel--chevron">{'>'}</span>
+        ),
+      },
+      {
+        key: 'knownFacts',
+        icon: <Brain size={18} />,
+        title: t('knownFacts.title') || 'Known facts',
+        subtitle:
+          t('widget.mobileSession.whatIKnowAboutYou') ||
+          'What I know about you',
+        trailing: (
+          <span className="memori-mobile-session-panel--chevron">{'>'}</span>
+        ),
+        view: 'knownFacts' as const,
+        disabled: !isSessionStarted,
+      },
+      ...(headerProps?.showReload
+        ? [
+            {
+              key: 'reload',
+              icon: <RefreshCw size={18} />,
+              title: t('reload') || 'Reload',
+              onClick: () => handleOverflowActionClick('reload'),
+            },
+          ]
+        : []),
+      ...(headerProps?.showClear
+        ? [
+            {
+              key: 'clear',
+              icon: <Trash2 size={18} />,
+              title: t('clearHistory') || 'Clear chat',
+              onClick: () => handleOverflowActionClick('clear'),
+            },
+          ]
+        : []),
+      // ...(headerProps?.showChatHistory
+      //   ? [
+      //       {
+      //         key: 'chatHistory',
+      //         icon: <MessageCircle size={18} />,
+      //         title: t('write_and_speak.chatHistory') || 'Chat history',
+      //         onClick: () => handleOverflowActionClick('chatHistory'),
+      //       },
+      //     ]
+      //   : []),
+      // ...(headerProps?.memori?.enableBoardOfExperts
+      //   ? [
+      //       {
+      //         key: 'experts',
+      //         icon: <Users size={18} />,
+      //         title:
+      //           t('widget.showExpertsInTheBoard') || 'Experts in this board',
+      //         disabled: !isSessionStarted,
+      //         onClick: () => handleOverflowActionClick('experts'),
+      //       },
+      //     ]
+      //   : []),
+      // ...(headerProps?.enableAudio
+      //   ? [
+      //       {
+      //         key: 'audio',
+      //         icon: headerProps?.speakerMuted ? (
+      //           <VolumeX size={18} />
+      //         ) : (
+      //           <Volume2 size={18} />
+      //         ),
+      //         title: t('widget.sound') || 'Sound',
+      //         onClick: () => handleOverflowActionClick('audio'),
+      //       },
+      //     ]
+      //   : []),
+    ],
+    [t, headerProps, isSessionStarted]
   );
 
   const brandAvatarSrc = memori
@@ -685,130 +577,120 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                     </div>
                   )}
                   <div className="memori-hidden-chat-layout--header-actions">
-                    {primaryHeaderProps && (
+                    {hiddenChatHeaderProps && (
                       <Header
                         position={{
                           latitude: 0,
                           longitude: 0,
                           placeName: '',
                         }}
-                        {...primaryHeaderProps}
+                        {...hiddenChatHeaderProps}
                         buttonVariant="outline"
                         fullScreenHandler={handleFullscreenToggle}
+                        extraActions={
+                          <Button
+                            variant="outline"
+                            className="memori-hidden-chat-layout--overflow-trigger"
+                            aria-label={
+                              t('widget.moreActions') || 'More actions'
+                            }
+                            icon={<EllipsisVertical />}
+                            onClick={() =>
+                              setSessionPanelOpen(currentOpen => !currentOpen)
+                            }
+                          />
+                        }
                       />
-                    )}
-                    {hasOverflowActions && (
-                      <Dropdown>
-                        <Dropdown.Trigger
-                          showChevron={false}
-                          render={(
-                            props: React.ButtonHTMLAttributes<HTMLButtonElement>
-                          ) => (
-                            <Button
-                              {...props}
-                              variant="outline"
-                              className="memori-hidden-chat-layout--overflow-trigger"
-                              aria-label={
-                                t('widget.moreActions') || 'More actions'
-                              }
-                              icon={<EllipsisVertical />}
-                            />
-                          )}
-                        />
-                        <Dropdown.Menu className="memori-hidden-chat-layout--overflow-menu">
-                          {loggedUser && (
-                            <>
-                              <Dropdown.Item className="memori-dropdown--user-item">
-                                <div className="memori-dropdown--user-info">
-                                  <div className="memori-dropdown--avatar-wrap">
-                                    {loggedUser.avatarURL ? (
-                                      <>
-                                        <img
-                                          src={loggedUser.avatarURL}
-                                          alt={
-                                            loggedUser.userName ||
-                                            loggedUser.eMail
-                                          }
-                                          className="memori-dropdown--avatar"
-                                        />
-                                        <span className="memori-dropdown--avatar-overlay">
-                                          <Camera size={20} strokeWidth={2} />
-                                        </span>
-                                      </>
-                                    ) : (
-                                      <div className="memori-dropdown--avatar-placeholder">
-                                        <span className="memori-dropdown--avatar-initial">
-                                          {loggedUserInitial}
-                                        </span>
-                                        <span className="memori-dropdown--avatar-overlay">
-                                          <Camera size={20} strokeWidth={2} />
-                                        </span>
-                                      </div>
-                                    )}
-                                  </div>
-                                  <div className="memori-dropdown--user-details">
-                                    <h3 className="memori-dropdown--user-name">
-                                      {loggedUserDisplayName ||
-                                        t('login.welcomeUser')}
-                                    </h3>
-                                    <p className="memori-dropdown--user-email">
-                                      {loggedUser.eMail}
-                                    </p>
-                                    <div className="memori-dropdown--user-badge">
-                                      {loggedUser.birthDate
-                                        ? new Date(
-                                            loggedUser.birthDate
-                                          ).toLocaleDateString()
-                                        : t('login.notSet')}
-                                    </div>
-                                  </div>
-                                </div>
-                              </Dropdown.Item>
-                              <Dropdown.Separator className="memori-dropdown--separator" />
-                            </>
-                          )}
-                          {overflowItems.map(item =>
-                            item.key === 'share' ? (
-                              <Dropdown.Item
-                                closeOnClick={false}
-                                onClick={e => e.stopPropagation()}
-                                key={item.key}
-                              >
-                                <ShareButton
-                                  key={item.key}
-                                  tenant={headerProps?.tenant}
-                                  memori={headerProps?.memori}
-                                  sessionID={headerProps?.sessionID}
-                                  title={headerProps?.memori?.name}
-                                  baseUrl={headerProps?.baseUrl}
-                                  align="left"
-                                  history={headerProps?.history}
-                                  triggerMode="menu-item"
-                                  triggerLabel={item.label}
-                                  className="memori-hidden-chat-layout--share-submenu"
-                                />
-                              </Dropdown.Item>
-                            ) : (
-                              <Dropdown.Item
-                                key={item.key}
-                                icon={item.icon}
-                                disabled={item.disabled}
-                                onClick={() =>
-                                  handleOverflowActionClick(item.key)
-                                }
-                              >
-                                {item.label}
-                              </Dropdown.Item>
-                            )
-                          )}
-                        </Dropdown.Menu>
-                      </Dropdown>
                     )}
                   </div>
                 </div>
               )}
             </div>
             <div className="memori-chat-layout--body">
+              {headerProps && (
+                <MobileSessionPanel
+                  open={sessionPanelOpen}
+                  onClose={() => setSessionPanelOpen(false)}
+                  presentation="popover"
+                  title={t('widget.mobileSession.session') || 'Session'}
+                  loginToken={headerProps.loginToken}
+                  user={headerProps.user}
+                  apiClient={headerProps.apiClient}
+                  userName={loggedUserDisplayName || memori?.name || 'User'}
+                  userEmail={loggedUser?.eMail}
+                  userInitial={loggedUserInitial}
+                  avatarURL={loggedUser?.avatarURL}
+                  birthDate={loggedUser?.birthDate}
+                  actions={sessionPanelActions}
+                  knownFactsPageTitle={t('knownFacts.title') || 'Known facts'}
+                  sharePageTitle={t('widget.share') || 'Share'}
+                  locationPageTitle={
+                    t('widget.mobileSession.locationTracking') ||
+                    'Location tracking'
+                  }
+                  backLabel={t('back') || 'Back'}
+                  locationStatusLabel={
+                    t('widget.mobileSession.locationStatus') || 'Status'
+                  }
+                  locationPlace={headerProps.position?.placeName}
+                  locationUnknownLabel={
+                    t('write_and_speak.unknownPosition') || 'Unknown position'
+                  }
+                  locationEnableLabel={
+                    t('widget.mobileSession.useCurrentPosition') ||
+                    'Use current position'
+                  }
+                  locationDisableLabel={
+                    t('widget.mobileSession.disableLocationSharing') ||
+                    'Disable location sharing'
+                  }
+                  knownFactsDescription={
+                    t('knownFacts.description', {
+                      memoriName: memori?.name || '',
+                    }) || ''
+                  }
+                  knownFactsCtaLabel={
+                    t('widget.mobileSession.openKnownFacts') ||
+                    'Open full known facts'
+                  }
+                  knownFactsCountLabel={
+                    (t('widget.mobileSession.knownFactsMessages', {
+                      count: headerProps.history?.length || 0,
+                    }) as string) || ''
+                  }
+                  shareContent={
+                    <ShareButton
+                      tenant={headerProps?.tenant}
+                      memori={headerProps?.memori}
+                      sessionID={headerProps?.sessionID}
+                      title={headerProps?.memori?.name}
+                      baseUrl={headerProps?.baseUrl}
+                      align="left"
+                      history={headerProps?.history}
+                      renderMode="inline"
+                    />
+                  }
+                  knownFactsDisabled={!isSessionStarted}
+                  isLoggedIn={!!loggedUser}
+                  loginLabel={t('login.login') || 'Log in'}
+                  onLogin={() => {
+                    headerProps.setShowLoginDrawer(true);
+                    setSessionPanelOpen(false);
+                  }}
+                  onKnownFactsOpen={() => {
+                    if (!isSessionStarted) return;
+                    headerProps.setShowKnownFactsDrawer(true);
+                    setSessionPanelOpen(false);
+                  }}
+                  onLocationEnable={handleEnableLocation}
+                  onLocationDisable={handleDisableLocation}
+                  logoutLabel={t('login.logout') || 'Log out'}
+                  onLogout={() => {
+                    handleOverflowActionClick('login');
+                    setSessionPanelOpen(false);
+                  }}
+                />
+              )}
               {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
                 <Chat {...chatProps} />
               ) : !autoStart && startPanelProps ? (

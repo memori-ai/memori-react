@@ -3,8 +3,8 @@
     align-items: flex-start;
     padding-right: var(--memori-spacing-md);
     padding-left: var(--memori-spacing-md);
-    margin-bottom: 10px;
-    gap: 10px;
+    /* margin-bottom: 8px; */
+    gap: 8px;
 }
 
 .memori-chat--bubble-container.memori-chat--bubble-from-user {
@@ -63,11 +63,25 @@
     padding: 12px 14px;
     border: 0.5px solid var(--color-border-tertiary, var(--memori-border-color, #e5e7eb));
     border-radius: 4px 14px 14px 14px;
+    margin-top: 1.5rem;
     background: var(--color-background-secondary, var(--memori-secondary-background));
     color: var(--color-text-primary, var(--memori-text-color));
     font-size: 14px;
     line-height: 1.4;
     white-space: pre-wrap;
+}
+
+.memori-chat--bubble-timestamp-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.memori-chat--bubble-timestamp-separator {
+    color: color-mix(in oklch, var(--memori-text-color) 64%, transparent);
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1;
 }
 
 .memori-chat--bubble-shell {

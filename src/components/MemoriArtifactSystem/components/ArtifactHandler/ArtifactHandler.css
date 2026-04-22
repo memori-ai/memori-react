@@ -36,8 +36,8 @@
 
 .memori-artifact-handler:hover {
     border-color: var(--memori-primary);
-    background: rgba(130, 70, 175, 0.05);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    background: #f8fafc;
+    /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); */
     transform: translateY(-2px);
 }
 
@@ -230,11 +230,6 @@
     .memori-artifact-handler {
         /* background: rgba(26, 26, 26, 0.95); */
         border-color: var(--memori-border-color);
-    }
-
-    .memori-artifact-handler:hover {
-        background: rgba(130, 70, 175, 0.1);
-        box-shadow: 0 4px 16px rgba(255, 255, 255, 0.1);
     }
 
     .memori-artifact-handler-type,

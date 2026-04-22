@@ -39,8 +39,7 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 import { BADGE_EMOJI } from '../../helpers/llmUsage';
 import ChatConsumptionDropdown from './ChatConsumptionDropdown';
-
-const imgMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+import { imgMimeTypes } from '../../helpers/utils';
 
 export interface Props {
   className?: string;
@@ -80,6 +79,7 @@ export interface Props {
   additionalSettings?: WidgetProps['additionalSettings'];
   showMessageConsumption?: boolean;
   showFullscreen?: boolean;
+  extraActions?: React.ReactNode;
 }
 
 const Header: React.FC<Props> = ({
@@ -119,6 +119,7 @@ const Header: React.FC<Props> = ({
   additionalSettings,
   showMessageConsumption = false,
   showFullscreen = true,
+  extraActions,
 }) => {
   const { t, i18n } = useTranslation();
   const { add } = useAlertManager();
@@ -694,6 +695,7 @@ const Header: React.FC<Props> = ({
           )}
         </>
       )}
+      {extraActions}
     </div>
   );
 };

@@ -1,7 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Button } from '@memori.ai/ui';
-import { Message, Memori } from '@memori.ai/memori-api-client/dist/types';
-import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import {
+  Message,
+  Memori,
+  ChatLog,
+} from '@memori.ai/memori-api-client/dist/types';
+import { ArrowLeft, ArrowUpRight, Download } from 'lucide-react';
 import { stripHTML } from '../../helpers/utils';
 import Chat from '../Chat/Chat';
 import './ChatResumeDrawer.css';
@@ -24,6 +28,7 @@ export interface ChatResumeDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   onBack?: () => void;
+  onExportChat: (chatLog: ChatLog, e: React.MouseEvent) => void;
   embedded?: boolean;
   session: {
     title: string;
@@ -65,6 +70,7 @@ const ChatResumeDrawer = ({
   session,
   onResume,
   isLoading = false,
+  onExportChat,
 }: ChatResumeDrawerProps) => {
   const panelRef = useRef<HTMLDivElement>(null);
   const backButtonRef = useRef<HTMLButtonElement>(null);
@@ -132,7 +138,11 @@ const ChatResumeDrawer = ({
     () =>
       session.messages.map(message => {
         const attachmentTag = message.attachment
-          ? `<document_attachment filename="${escapeAttachmentAttr(message.attachment.name)}" type="${escapeAttachmentAttr(message.attachment.type)}"></document_attachment>`
+          ? `<document_attachment filename="${escapeAttachmentAttr(
+              message.attachment.name
+            )}" type="${escapeAttachmentAttr(
+              message.attachment.type
+            )}"></document_attachment>`
           : '';
         const interruptedText =
           message.role === 'assistant' && message.status === 'interrupted'
@@ -173,8 +183,24 @@ const ChatResumeDrawer = ({
           <h2 className="memori-chat-resume-drawer--title" title={safeTitle}>
             {safeTitle}
           </h2>
-          <p className="memori-chat-resume-drawer--subtitle">{session.subtitle}</p>
+          <p className="memori-chat-resume-drawer--subtitle">
+            {session.subtitle}
+          </p>
         </div>
+        <Button
+          variant="ghost"
+          size="sm"
+          className="memori-chat-history-drawer--header-download-button"
+          aria-label="Download"
+          title="Download"
+          icon={<Download />}
+          onClick={(e: React.MouseEvent) =>
+            onExportChat(
+              session as unknown as ChatLog,
+              e as React.MouseEvent<HTMLButtonElement>
+            )
+          }
+        />
       </header>
 
       <div className="memori-chat-resume-drawer--thread">
@@ -227,7 +253,9 @@ const ChatResumeDrawer = ({
   );
 
   if (embedded) {
-    return <div className="memori-chat-resume-drawer--embedded-shell">{content}</div>;
+    return (
+      <div className="memori-chat-resume-drawer--embedded-shell">{content}</div>
+    );
   }
 
   return (

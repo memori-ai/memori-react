@@ -10,6 +10,7 @@
   "close": "Chiudi",
   "clearHistory": "Cancella chat",
   "clearHistoryDone": "Chat cancellata.",
+  "moreInfo": "Ulteriori informazioni",
   "back": "Indietro",
   "edit": "Modifica",
   "delete": "Elimina",
@@ -146,7 +147,20 @@
     "geocodingFailed": "Impossibile ottenere l'indirizzo. Riprova o cerca manualmente.",
     "positionUnavailableManual": "Posizione non disponibile. Inseriscila manualmente.",
     "positionSharingEnabled": "Posizione condivisa.",
-    "downloadQrCode": "Scarica QR Code"
+    "downloadQrCode": "Scarica QR Code",
+    "expandToImmersive": "Espandi per vista immersiva",
+    "mobileSession": {
+      "session": "Sessione",
+      "copyLinkOrDownload": "Copia link o scarica",
+      "currentlyOff": "Attualmente disattivato",
+      "whatIKnowAboutYou": "Cosa so di te",
+      "locationTracking": "Tracciamento posizione",
+      "locationStatus": "Stato",
+      "useCurrentPosition": "Usa posizione attuale",
+      "disableLocationSharing": "Disattiva condivisione posizione",
+      "openKnownFacts": "Apri tutti i fatti noti",
+      "knownFactsMessages": "{{count}} messaggi nella sessione corrente"
+    }
   },
   "exportChatHistory": {
     "exportPDF": "Esporta chat come PDF",
@@ -290,7 +304,6 @@
     "pdfExportNotSupported": "L'esportazione PDF non è supportata in questo browser",
     "popupBlocked": "Popup bloccato! Abilita i popup per stampare.",
     "safariPdfInstructions": "Esportazione PDF aperta in una nuova finestra. Usa Cmd+P (Mac) o Ctrl+P (Windows) per stampare e salvare come PDF."
-
   },
   "media": {
     "title": "Titolo",

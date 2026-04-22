@@ -9,7 +9,7 @@
     padding: 0.25rem 1rem;
     border-radius: var(--memori-radius-box);
     background-color: transparent;
-    box-shadow: var(--memori-button-box-shadow);
+    /* box-shadow: var(--memori-button-box-shadow); */
     color: var(--memori-text-color) !important;
     font-size: 0.7em;
     white-space: nowrap;

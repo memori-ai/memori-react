@@ -10,6 +10,7 @@
   "close": "Schließen",
   "clearHistory": "Chat leeren",
   "clearHistoryDone": "Chat geleert.",
+  "moreInfo": "Mehr Informationen",
   "back": "Zurück",
   "edit": "Bearbeiten",
   "delete": "Löschen",
@@ -144,7 +145,20 @@
     "geocodingFailed": "Adresse konnte nicht ermittelt werden. Bitte erneut versuchen oder manuell suchen.",
     "positionUnavailableManual": "Standort nicht verfügbar. Bitte manuell eingeben.",
     "positionSharingEnabled": "Standort geteilt.",
-    "downloadQrCode": "QR-Code herunterladen"
+    "downloadQrCode": "QR-Code herunterladen",
+    "expandToImmersive": "Zum immersivem Ansichtsmodus erweitern",
+    "mobileSession": {
+      "session": "Session",
+      "copyLinkOrDownload": "Link kopieren oder herunterladen",
+      "currentlyOff": "Derzeit deaktiviert",
+      "whatIKnowAboutYou": "Was ich über dich weiß",
+      "locationTracking": "Standortverfolgung",
+      "locationStatus": "Status",
+      "useCurrentPosition": "Aktuelle Position verwenden",
+      "disableLocationSharing": "Standortfreigabe deaktivieren",
+      "openKnownFacts": "Alle bekannten Fakten öffnen",
+      "knownFactsMessages": "{{count}} Nachrichten in der aktuellen Session"
+    }
   },
   "exportChatHistory": {
     "exportPDF": "Chat als PDF exportieren",

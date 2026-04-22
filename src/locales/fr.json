@@ -10,6 +10,7 @@
   "close": "Fermer",
   "clearHistory": "Effacer la conversation",
   "clearHistoryDone": "Conversation effacée.",
+  "moreInfo": "Plus d'informations",
   "back": "Retour",
   "edit": "Modifier",
   "delete": "Supprimer",
@@ -142,7 +143,20 @@
     "geocodingFailed": "Impossible de déterminer l'adresse. Réessayez ou recherchez manuellement.",
     "positionUnavailableManual": "Position indisponible. Saisissez-la manuellement.",
     "positionSharingEnabled": "Position partagée.",
-    "downloadQrCode": "Télécharger le QR Code"
+    "downloadQrCode": "Télécharger le QR Code",
+    "expandToImmersive": "Agrandir pour une vue immersive",
+    "mobileSession": {
+      "session": "Session",
+      "copyLinkOrDownload": "Copier le lien ou télécharger",
+      "currentlyOff": "Actuellement désactivé",
+      "whatIKnowAboutYou": "Ce que je sais sur vous",
+      "locationTracking": "Suivi de position",
+      "locationStatus": "Statut",
+      "useCurrentPosition": "Utiliser la position actuelle",
+      "disableLocationSharing": "Désactiver le partage de position",
+      "openKnownFacts": "Ouvrir tous les faits connus",
+      "knownFactsMessages": "{{count}} messages dans la session en cours"
+    }
   },
   "exportChatHistory": {
     "exportPDF": "Exporter le chat en PDF",

@@ -39,7 +39,7 @@
 }
 
 .memori-chat-inputs--mic:hover {
-    background-color: var(--memori-main-background) !important;
+    background-color: var(--memori-secondary-background) !important;
 }
 
 .memori-chat-inputs--mic:active,

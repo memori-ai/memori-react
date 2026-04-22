@@ -19,7 +19,7 @@
     min-width: 100%;
     flex-shrink: 0;
     border-radius: var(--memori-radius-box);
-    margin-bottom: var(--memori-spacing-md);
+    margin-bottom: var(--memori-spacing-sm);
 }
 
 /* Grid: main + left column (avatar) */

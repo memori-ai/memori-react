@@ -68,12 +68,12 @@
 
 .memori-chat--feedback-menu-items {
     position: absolute;
-    top: calc(100% - 0.25rem);
+    top: calc(100% + 0.25rem);
     right: -2rem;
     width: 14rem;
     border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: var(--memori-radius-box);
-    margin-top: var(--memori-spacing-sm);
+    margin-top: var(--memori-spacing-md);
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
     outline: none;
     transform-origin: top right;

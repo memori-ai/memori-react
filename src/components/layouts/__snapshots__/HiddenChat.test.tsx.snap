@@ -159,72 +159,45 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                       </span>
                     </span>
                   </span>
-                  <div
-                    class="memori-dropdown memori-share-button memori-share-button--align-left"
+                  <button
+                    aria-label="widget.moreActions"
+                    class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-hidden-chat-layout--overflow-trigger"
+                    tabindex="0"
+                    type="button"
                   >
                     <span
-                      class="styles-module__root___-ALla"
+                      class="memori-button__icon"
                     >
-                      <span
-                        class="styles-module__trigger___V2aIF"
-                        id="base-ui-:r7:"
+                      <svg
+                        class="lucide lucide-ellipsis-vertical"
+                        fill="none"
+                        height="24"
+                        stroke="currentColor"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        viewBox="0 0 24 24"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
                       >
-                        <button
-                          aria-expanded="false"
-                          aria-haspopup="menu"
-                          class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
-                          id="base-ui-:r8:"
-                          tabindex="0"
-                          type="button"
-                        >
-                          <span
-                            class="memori-button__icon"
-                          >
-                            <svg
-                              class="lucide lucide-share2"
-                              fill="none"
-                              height="24"
-                              stroke="currentColor"
-                              stroke-linecap="round"
-                              stroke-linejoin="round"
-                              stroke-width="2"
-                              viewBox="0 0 24 24"
-                              width="24"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <circle
-                                cx="18"
-                                cy="5"
-                                r="3"
-                              />
-                              <circle
-                                cx="6"
-                                cy="12"
-                                r="3"
-                              />
-                              <circle
-                                cx="18"
-                                cy="19"
-                                r="3"
-                              />
-                              <line
-                                x1="8.59"
-                                x2="15.42"
-                                y1="13.51"
-                                y2="17.49"
-                              />
-                              <line
-                                x1="15.41"
-                                x2="8.59"
-                                y1="6.51"
-                                y2="10.49"
-                              />
-                            </svg>
-                          </span>
-                        </button>
-                      </span>
+                        <circle
+                          cx="12"
+                          cy="12"
+                          r="1"
+                        />
+                        <circle
+                          cx="12"
+                          cy="5"
+                          r="1"
+                        />
+                        <circle
+                          cx="12"
+                          cy="19"
+                          r="1"
+                        />
+                      </svg>
                     </span>
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>
@@ -336,17 +309,17 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                           >
                             <label
                               class="memori-combobox__label"
-                              for=":ra:"
-                              id=":ra:-label"
+                              for=":r2:"
+                              id=":r2:-label"
                             >
                               write_and_speak.chatLanguageLabel
                             </label>
                             <button
                               aria-expanded="false"
                               aria-haspopup="dialog"
-                              aria-labelledby=":ra:-label"
+                              aria-labelledby=":r2:-label"
                               class="memori-combobox__trigger"
-                              id=":ra:"
+                              id=":r2:"
                               role="combobox"
                               tabindex="0"
                               type="button"
@@ -381,7 +354,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                             </button>
                             <input
                               aria-hidden="true"
-                              id="base-ui-:rb:"
+                              id="base-ui-:r3:"
                               name="user-lang-pref"
                               style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
                               tabindex="-1"
@@ -394,84 +367,92 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                         class="memori--start-panel__divider"
                         role="presentation"
                       />
-                      <div
-                        class="memori--start-panel__notice"
+                      <section
+                        class="memori--start-panel__mobile-info"
                       >
-                        <svg
-                          aria-hidden="true"
-                          class="lucide lucide-circle-help memori--start-panel__notice-icon"
-                          fill="none"
-                          height="24"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="24"
-                          xmlns="http://www.w3.org/2000/svg"
+                        <div
+                          class="memori--start-panel__mobile-info-content"
                         >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="10"
-                          />
-                          <path
-                            d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
-                          />
-                          <path
-                            d="M12 17h.01"
-                          />
-                        </svg>
-                        <p
-                          class="memori--start-panel__notice-text"
-                        >
-                          write_and_speak.pagePrivacyExplanation
-                        </p>
-                        <span
-                          class="styles-module__root___-ALla"
-                        >
-                          <span
-                            class="styles-module__trigger___V2aIF"
-                            id="base-ui-:re:"
+                          <div
+                            class="memori--start-panel__notice"
                           >
-                            <button
-                              aria-label="privacyPolicy"
-                              class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--start-panel__notice-more"
-                              tabindex="0"
-                              type="button"
+                            <svg
+                              aria-hidden="true"
+                              class="lucide lucide-circle-help memori--start-panel__notice-icon"
+                              fill="none"
+                              height="24"
+                              stroke="currentColor"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                              stroke-width="2"
+                              viewBox="0 0 24 24"
+                              width="24"
+                              xmlns="http://www.w3.org/2000/svg"
+                            >
+                              <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                              />
+                              <path
+                                d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"
+                              />
+                              <path
+                                d="M12 17h.01"
+                              />
+                            </svg>
+                            <p
+                              class="memori--start-panel__notice-text"
+                            >
+                              write_and_speak.pagePrivacyExplanation
+                            </p>
+                            <span
+                              class="styles-module__root___-ALla"
                             >
                               <span
-                                class="memori-button__content"
+                                class="styles-module__trigger___V2aIF"
+                                id="base-ui-:r6:"
                               >
-                                <svg
-                                  class="lucide lucide-info memori--start-privacy-explanation-icon"
-                                  fill="none"
-                                  height="24"
-                                  stroke="currentColor"
-                                  stroke-linecap="round"
-                                  stroke-linejoin="round"
-                                  stroke-width="2"
-                                  viewBox="0 0 24 24"
-                                  width="24"
-                                  xmlns="http://www.w3.org/2000/svg"
+                                <button
+                                  aria-label="privacyPolicy"
+                                  class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--start-panel__notice-more"
+                                  tabindex="0"
+                                  type="button"
                                 >
-                                  <circle
-                                    cx="12"
-                                    cy="12"
-                                    r="10"
-                                  />
-                                  <path
-                                    d="M12 16v-4"
-                                  />
-                                  <path
-                                    d="M12 8h.01"
-                                  />
-                                </svg>
+                                  <span
+                                    class="memori-button__content"
+                                  >
+                                    <svg
+                                      class="lucide lucide-info memori--start-privacy-explanation-icon"
+                                      fill="none"
+                                      height="24"
+                                      stroke="currentColor"
+                                      stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      viewBox="0 0 24 24"
+                                      width="24"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <circle
+                                        cx="12"
+                                        cy="12"
+                                        r="10"
+                                      />
+                                      <path
+                                        d="M12 16v-4"
+                                      />
+                                      <path
+                                        d="M12 8h.01"
+                                      />
+                                    </svg>
+                                  </span>
+                                </button>
                               </span>
-                            </button>
-                          </span>
-                        </span>
-                      </div>
+                            </span>
+                          </div>
+                        </div>
+                      </section>
                       <p
                         class="memori--start-description"
                       >
@@ -541,7 +522,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                           >
                             <span
                               class="styles-module__trigger___V2aIF"
-                              id="base-ui-:rg:"
+                              id="base-ui-:r8:"
                             >
                               <button
                                 aria-label="send"

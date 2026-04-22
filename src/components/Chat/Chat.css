@@ -57,6 +57,7 @@
     height: 100%;
     flex: 1;
     flex-direction: column;
+    background-color: var(--memori-main-background);
     /* padding: 2rem var(--memori-spacing-sm); */
     /* mask-image: linear-gradient(transparent, black 5%, black 95%, transparent 100%); */
     overflow-y: auto;
@@ -80,7 +81,7 @@
     padding-top: 24.25%;
     margin-top: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs) / 2);
     margin-top: 0;
-    margin-bottom: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs) / 2);
+    margin-bottom: var(--memori-spacing-lg);
     background-position: center;
     background-size: cover;
     border-top-left-radius: 12px;

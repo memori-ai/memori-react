@@ -88,6 +88,10 @@
     background: var(--memori-secondary-background);
 }
 
+.memori-widget.memori-layout-hidden_chat .memori-chat-inputs {
+    background: var(--memori-secondary-background);
+}
+
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-inputs {
     padding: var(--memori-spacing-sm) var(--memori-spacing-lg);
 }
@@ -404,9 +408,9 @@
 }
 
 @media (max-width: 768px) {
-    .memori-sidebar-container {
+    /* .memori-sidebar-container {
         display: none;
-    }
+    } */
 
     .memori-sidebar {
         right: -100%;

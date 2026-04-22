@@ -112,10 +112,8 @@
    ============================================ */
 
 .memori-website_assistant--close-button-wrapper {
-    position: absolute;
+    position: relative;
     z-index: 1001;
-    top: 0.75rem;
-    left: 0.75rem;
     flex-shrink: 0;
     transition: transform 0.2s ease;
 }
@@ -130,11 +128,10 @@
     height: 44px !important;
     min-height: 44px !important;
     padding: 0.75rem;
-    border: 2px solid rgba(130, 70, 175, 0.1);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1);
-    font-size: var(--memori-text-size-large);
+    border: none;
+    background-color: var(--memori-main-background);
+    box-shadow: none;
+    color: var(--memori-text-color);
     transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -300,14 +297,12 @@
 
 .memori-website_assistant-layout .memori-header {
     z-index: 1000;
-    top: 0.75rem;
-    right: 0.75rem;
     display: inline-flex;
     width: auto;
     height: auto;
-    flex-direction: column;
-    padding: 0.5rem;
-    gap: 0.5rem;
+    flex-direction: row;
+    padding: 0;
+    gap: 0.35rem;
 }
 
 /* Less specific first (no-descending-specificity): single .memori-header--button */
@@ -315,14 +310,25 @@
 .memori-website_assistant-layout .memori-header .memori-share-button {
     margin-top: 0;
     margin-right: 0;
-    margin-left: auto;
+    margin-left: 0;
 }
 
 /* More specific: adjacent sibling (must come after general .memori-header--button rules) */
 .memori-website_assistant-layout .memori-header .memori-header--button + .memori-header--button {
     margin-top: 0;
     margin-right: 0;
-    margin-left: auto;
+    margin-left: 0;
+}
+
+.memori-website_assistant-layout--header-row {
+    position: absolute;
+    z-index: 1001;
+    top: 0.75rem;
+    right: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
 }
 
 /* Position dropdown below the trigger so it does not cover the share button */
@@ -438,7 +444,7 @@
 
 .memori-website_assistant-layout--controls .memori-chat--history {
     padding: 0;
-    margin-top: 0;
+    margin-top: var(--memori-spacing-3xl);
     -webkit-backdrop-filter: none;
     backdrop-filter: none;
 }
@@ -625,14 +631,6 @@
     }
 }
 
-@media (max-width: 870px) {
-    .memori-website_assistant-layout .memori-header {
-        max-width: 64px;
-        margin-right: var(--memori-spacing-lg);
-        margin-left: auto;
-    }
-}
-
 /* ============================================
    ACCESSIBILITY & PERFORMANCE
    ============================================ */
@@ -668,4 +666,3 @@
         padding: 0.875rem;
     }
 }
-

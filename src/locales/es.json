@@ -10,6 +10,7 @@
   "close": "Cerrar",
   "clearHistory": "Borrar chat",
   "clearHistoryDone": "Chat borrado.",
+  "moreInfo": "Más información",
   "back": "Volver",
   "edit": "Editar",
   "delete": "Borrar",
@@ -143,7 +144,20 @@
     "positionResolving": "Obteniendo dirección…",
     "geocodingFailed": "No se pudo obtener la dirección. Inténtalo de nuevo o busca manualmente.",
     "positionUnavailableManual": "Ubicación no disponible. Introdúcela manualmente.",
-    "positionSharingEnabled": "Ubicación compartida."
+    "positionSharingEnabled": "Ubicación compartida.",
+    "expandToImmersive": "Expandir para vista inmersiva",
+    "mobileSession": {
+      "session": "Sesión",
+      "copyLinkOrDownload": "Copiar enlace o descargar",
+      "currentlyOff": "Actualmente desactivado",
+      "whatIKnowAboutYou": "Lo que sé sobre ti",
+      "locationTracking": "Seguimiento de ubicación",
+      "locationStatus": "Estado",
+      "useCurrentPosition": "Usar ubicación actual",
+      "disableLocationSharing": "Desactivar uso compartido de ubicación",
+      "openKnownFacts": "Abrir todos los hechos conocidos",
+      "knownFactsMessages": "{{count}} mensajes en la sesión actual"
+    }
   },
   "exportChatHistory": {
     "exportPDF": "Exportar chat como PDF",

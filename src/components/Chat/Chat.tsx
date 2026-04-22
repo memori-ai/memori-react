@@ -27,7 +27,6 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import Typing from '../Typing/Typing';
 import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
-import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler';
 import { FileText as DocumentIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Tooltip, Modal } from '@memori.ai/ui';
@@ -427,15 +426,6 @@ const Chat: React.FC<Props> = ({
                   : 'no-attachments'
               }-${message.timestamp}`}
             >
-              {!isHistoryView && !message.fromUser && (
-                <div className="memori-chat--bubble-container memori-artifact-handler-wrapper">
-                  <div className="memori-artifact-handler-spacer" aria-hidden />
-                  <ArtifactHandler
-                    isChatlogPanel={isChatlogPanel}
-                    message={message}
-                  />
-                </div>
-              )}
               <MediaWidget
                 simulateUserPrompt={simulateUserPrompt}
                 links={
@@ -503,88 +493,95 @@ const Chat: React.FC<Props> = ({
                 fromUser={message.fromUser}
               />
 
-              <ChatBubble
-                key={`chatbubble-${index}-${
-                  message.text?.includes('<document_attachment')
-                    ? 'has-attachments'
-                    : 'no-attachments'
-                }-${message.timestamp}`}
-                isFirst={index === 0}
-                message={message}
-                memori={memori}
-                tenant={tenant}
-                client={client}
-                baseUrl={baseUrl}
-                apiUrl={apiUrl}
-                sessionID={sessionID}
-                simulateUserPrompt={simulateUserPrompt}
-                showAIicon={showAIicon}
-                showWhyThisAnswer={showWhyThisAnswer}
-                showTranslationOriginal={showTranslationOriginal}
-                showFeedback={
-                  index === history.length - 1 &&
-                  !message.fromUser &&
-                  dialogState?.acceptsFeedback
-                }
-                user={user}
-                userAvatar={userAvatar}
-                experts={experts}
-                showCopyButton={showCopyButton}
-                useMathFormatting={useMathFormatting}
-                showFunctionCache={showFunctionCache}
-                showReasoning={showReasoning}
-                usageHtml={usageHtmlByIndex[index]}
-              />
+              <div
+                style={{
+                  marginBottom: index === history.length - 1 ? '24px' : 0,
+                }}
+              >
+                <ChatBubble
+                  key={`chatbubble-${index}-${
+                    message.text?.includes('<document_attachment')
+                      ? 'has-attachments'
+                      : 'no-attachments'
+                  }-${message.timestamp}`}
+                  isFirst={index === 0}
+                  message={message}
+                  memori={memori}
+                  tenant={tenant}
+                  client={client}
+                  baseUrl={baseUrl}
+                  apiUrl={apiUrl}
+                  sessionID={sessionID}
+                  simulateUserPrompt={simulateUserPrompt}
+                  showAIicon={showAIicon}
+                  showWhyThisAnswer={showWhyThisAnswer}
+                  showTranslationOriginal={showTranslationOriginal}
+                  showFeedback={
+                    index === history.length - 1 &&
+                    !message.fromUser &&
+                    dialogState?.acceptsFeedback
+                  }
+                  user={user}
+                  userAvatar={userAvatar}
+                  experts={experts}
+                  showCopyButton={showCopyButton}
+                  useMathFormatting={useMathFormatting}
+                  showFunctionCache={showFunctionCache}
+                  showReasoning={showReasoning}
+                  usageHtml={usageHtmlByIndex[index]}
+                  isChatlogPanel={isChatlogPanel}
+                />
 
-              {showDates && !!message.timestamp && !message.fromUser && (
-                <small
-                  className={`memori-chat--timestamp ${
-                    message.fromUser ? 'text-right' : 'text-left'
-                  }`}
-                >
-                  {new Intl.DateTimeFormat('it', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                  }).format(
-                    new Date(
-                      message.timestamp.endsWith('Z')
-                        ? message.timestamp
-                        : `${message.timestamp}Z`
-                    )
-                  )}
-                </small>
-              )}
-
-              {showContextPerLine &&
-                !!Object.keys(message.contextVars ?? {}).length && (
-                  <div className="memori-chat--context-vars">
-                    {Object.keys(message.contextVars ?? {}).map(key =>
-                      message.contextVars?.[key] === '-' ? (
-                        <div
-                          className={`memori-chat--context-tag memori-chat--context-tag-canceled`}
-                          key={key}
-                        >
-                          <span className="memori-chat--context-tag-text">
-                            {key}
-                          </span>
-                        </div>
-                      ) : message.contextVars?.[key] === '✔️' ? (
-                        <div className="memori-chat--context-tag" key={key}>
-                          <span className="memori-chat--context-tag-text">
-                            {key}
-                          </span>
-                        </div>
-                      ) : (
-                        <div className="memori-chat--context-tag" key={key}>
-                          <span className="memori-chat--context-tag-text">
-                            {key}: {message.contextVars?.[key]}
-                          </span>
-                        </div>
+                {showDates && !!message.timestamp && !message.fromUser && (
+                  <small
+                    className={`memori-chat--timestamp ${
+                      message.fromUser ? 'text-right' : 'text-left'
+                    }`}
+                  >
+                    {new Intl.DateTimeFormat('it', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      second: '2-digit',
+                    }).format(
+                      new Date(
+                        message.timestamp.endsWith('Z')
+                          ? message.timestamp
+                          : `${message.timestamp}Z`
                       )
                     )}
-                  </div>
+                  </small>
                 )}
+
+                {showContextPerLine &&
+                  !!Object.keys(message.contextVars ?? {}).length && (
+                    <div className="memori-chat--context-vars">
+                      {Object.keys(message.contextVars ?? {}).map(key =>
+                        message.contextVars?.[key] === '-' ? (
+                          <div
+                            className={`memori-chat--context-tag memori-chat--context-tag-canceled`}
+                            key={key}
+                          >
+                            <span className="memori-chat--context-tag-text">
+                              {key}
+                            </span>
+                          </div>
+                        ) : message.contextVars?.[key] === '✔️' ? (
+                          <div className="memori-chat--context-tag" key={key}>
+                            <span className="memori-chat--context-tag-text">
+                              {key}
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="memori-chat--context-tag" key={key}>
+                            <span className="memori-chat--context-tag-text">
+                              {key}: {message.contextVars?.[key]}
+                            </span>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  )}
+              </div>
             </React.Fragment>
           ))}
 
@@ -617,6 +614,11 @@ const Chat: React.FC<Props> = ({
                   : 'en'
               }
               sentence={typingText}
+              memori={memori}
+              tenant={tenant}
+              baseUrl={baseUrl}
+              apiUrl={apiUrl}
+              experts={experts}
               sentences={
                 memori.enableBoardOfExperts
                   ? boardOfExpertsLoadingSentences

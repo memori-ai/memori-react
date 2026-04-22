@@ -3,23 +3,27 @@
 exports[`renders Typing unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <div
-      class="memori-chat--bubble-typing"
+      class="memori-chat--bubble"
     >
       <div
-        id="wave"
+        class="memori-chat--bubble-typing"
       >
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
+        <div
+          id="wave"
+        >
+          <span
+            class="dot"
+          />
+          <span
+            class="dot"
+          />
+          <span
+            class="dot"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -29,25 +33,29 @@ exports[`renders Typing unchanged 1`] = `
 exports[`renders Typing with custom loading text list unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <div
-      class="memori-chat--bubble-typing"
+      class="memori-chat--bubble"
     >
       <div
-        id="wave"
+        class="memori-chat--bubble-typing"
       >
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
+        <div
+          id="wave"
+        >
+          <span
+            class="dot"
+          />
+          <span
+            class="dot"
+          />
+          <span
+            class="dot"
+          />
+        </div>
+        <p />
       </div>
-      <p />
     </div>
   </div>
 </div>
@@ -56,25 +64,29 @@ exports[`renders Typing with custom loading text list unchanged 1`] = `
 exports[`renders Typing with custom loading text unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <div
-      class="memori-chat--bubble-typing"
+      class="memori-chat--bubble"
     >
       <div
-        id="wave"
+        class="memori-chat--bubble-typing"
       >
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
+        <div
+          id="wave"
+        >
+          <span
+            class="dot"
+          />
+          <span
+            class="dot"
+          />
+          <span
+            class="dot"
+          />
+        </div>
+        <p />
       </div>
-      <p />
     </div>
   </div>
 </div>
@@ -83,23 +95,27 @@ exports[`renders Typing with custom loading text unchanged 1`] = `
 exports[`renders Typing with default italian loading text unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <div
-      class="memori-chat--bubble-typing"
+      class="memori-chat--bubble"
     >
       <div
-        id="wave"
+        class="memori-chat--bubble-typing"
       >
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
+        <div
+          id="wave"
+        >
+          <span
+            class="dot"
+          />
+          <span
+            class="dot"
+          />
+          <span
+            class="dot"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -109,23 +125,27 @@ exports[`renders Typing with default italian loading text unchanged 1`] = `
 exports[`renders Typing with default loading text unchanged 1`] = `
 <div>
   <div
-    class="memori-chat--bubble"
+    class="memori-chat--bubble-container memori-chat-scroll-item"
   >
     <div
-      class="memori-chat--bubble-typing"
+      class="memori-chat--bubble"
     >
       <div
-        id="wave"
+        class="memori-chat--bubble-typing"
       >
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
-        <span
-          class="dot"
-        />
+        <div
+          id="wave"
+        >
+          <span
+            class="dot"
+          />
+          <span
+            class="dot"
+          />
+          <span
+            class="dot"
+          />
+        </div>
       </div>
     </div>
   </div>

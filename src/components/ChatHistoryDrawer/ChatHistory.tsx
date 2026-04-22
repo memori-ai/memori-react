@@ -10,7 +10,12 @@ import {
   ChatLogFilters,
 } from '@memori.ai/memori-api-client/dist/types';
 import { Button } from '@memori.ai/ui';
-import { MessageCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  MessageCircle,
+  ChevronLeft,
+  ChevronRight,
+  Download,
+} from 'lucide-react';
 import { stripHTML } from '../../helpers/utils';
 import debounce from 'lodash/debounce';
 import { Spin } from '@memori.ai/ui';
@@ -786,6 +791,28 @@ const ChatHistoryDrawer = ({
     );
   };
 
+  const handleExportSelectedChat = () => {
+    if (!selectedChatLog) return;
+    const text = `${t(
+      'write_and_speak.conversationStartedLabel'
+    )} ${new Intl.DateTimeFormat(navigator.language, {
+      dateStyle: 'short',
+      timeStyle: 'short',
+    }).format(new Date())}\n\n`.concat(
+      selectedChatLog.lines
+        .map(line => `${line.inbound ? 'YOU' : memori.name}: ${line.text}`)
+        .join('\n')
+    );
+
+    downloadFile(
+      text,
+      `${memori.name.replace(
+        /\W+/g,
+        '-'
+      )}-chat-${selectedChatLog.chatLogID.substring(0, 4)}.txt`
+    );
+  };
+
   const formatDate = (timestamp: string) => {
     return new Intl.DateTimeFormat(navigator.language, {
       dateStyle: 'medium',
@@ -1099,6 +1126,10 @@ const ChatHistoryDrawer = ({
             onResume={handleResumeChat}
             onBack={handleCloseResumeDrawer}
             onClose={handleCloseResumeDrawer}
+            onExportChat={(
+              chatLog: ChatLog,
+              e: React.MouseEvent<Element, MouseEvent>
+            ) => handleExportChat(chatLog, e)}
           />
         </div>
       ) : (

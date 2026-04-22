@@ -28,6 +28,7 @@ import { stripHTML, stripOutputTags } from '../../helpers/utils';
 import { renderMsg, sanitizeMsg, truncateMessage } from '../../helpers/message';
 import { Expandable, Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
+import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler';
 
 /** Same reset window as ShareButton copy feedback */
 const COPY_FEEDBACK_MS = 2500;
@@ -66,6 +67,7 @@ export interface Props {
   showFunctionCache?: boolean;
   showReasoning?: boolean;
   usageHtml?: string;
+  isChatlogPanel?: boolean;
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -82,7 +84,6 @@ const ChatBubble: React.FC<Props> = ({
   showTranslationOriginal = false,
   simulateUserPrompt,
   showAIicon = true,
-  isFirst = false,
   useMathFormatting = false,
   user,
   userAvatar,
@@ -90,6 +91,7 @@ const ChatBubble: React.FC<Props> = ({
   showFunctionCache = false,
   showReasoning = false,
   usageHtml = '',
+  isChatlogPanel = false,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
@@ -248,8 +250,7 @@ const ChatBubble: React.FC<Props> = ({
   // Check if initial is a string (status message) or boolean (legacy)
   const initialStatus =
     typeof message.initial === 'string' ? message.initial : null;
-  const showInitialDivider =
-    (message.initial === true || isFirst) && !initialStatus;
+  const showInitialDivider = message.initial === true && !initialStatus;
 
   // Check if this is a system error message
   const isSystemError = message.emitter === 'system';
@@ -368,24 +369,28 @@ const ChatBubble: React.FC<Props> = ({
     );
   }
 
+  const shouldShowTimestampInAddon = message.fromUser && !!formattedTimestamp;
+  const shouldShowBubbleAddon =
+    shouldShowTimestampInAddon ||
+    shouldShowCopyButtons ||
+    (message.generatedByAI && showAIicon) ||
+    (message.generatedByAI && showFunctionCache) ||
+    (showFeedback && simulateUserPrompt) ||
+    (showTranslationOriginal &&
+      message.translatedText &&
+      message.translatedText !== message.text) ||
+    (!message.fromUser &&
+      message.questionAnswered &&
+      apiUrl &&
+      showWhyThisAnswer);
+
   return (
     <>
       {showInitialDivider && <div className="memori-chat--bubble-initial" />}
       <div
         className={cx('memori-chat--bubble-container memori-chat-scroll-item', {
           'memori-chat--bubble-from-user': !!message.fromUser,
-          'memori-chat--with-addon':
-            shouldShowCopyButtons ||
-            (message.generatedByAI && showAIicon) ||
-            (message.generatedByAI && showFunctionCache) ||
-            (showFeedback && simulateUserPrompt) ||
-            (showTranslationOriginal &&
-              message.translatedText &&
-              message.translatedText !== message.text) ||
-            (!message.fromUser &&
-              message.questionAnswered &&
-              apiUrl &&
-              showWhyThisAnswer),
+          'memori-chat--with-addon': shouldShowBubbleAddon,
         })}
       >
         {!message.fromUser && renderAssistantAvatar()}
@@ -393,24 +398,9 @@ const ChatBubble: React.FC<Props> = ({
         <div
           className={cx('memori-chat--bubble-shell', {
             'memori-chat--bubble-shell--from-user': !!message.fromUser,
-            'memori-chat--bubble-shell--has-addon':
-              shouldShowCopyButtons ||
-              (message.generatedByAI && showAIicon) ||
-              (message.generatedByAI && showFunctionCache) ||
-              (showFeedback && simulateUserPrompt) ||
-              (showTranslationOriginal &&
-                message.translatedText &&
-                message.translatedText !== message.text) ||
-              (!message.fromUser &&
-                message.questionAnswered &&
-                apiUrl &&
-                showWhyThisAnswer),
+            'memori-chat--bubble-shell--has-addon': shouldShowBubbleAddon,
           })}
         >
-          {message.fromUser && formattedTimestamp && (
-            <p className="memori-chat--bubble-timestamp">{formattedTimestamp}</p>
-          )}
-
           <div
             className={cx('memori-chat--bubble', {
               'memori-chat--user-bubble': !!message.fromUser,
@@ -449,18 +439,25 @@ const ChatBubble: React.FC<Props> = ({
             )}
           </div>
 
-          {(shouldShowCopyButtons ||
-            (message.generatedByAI && showAIicon) ||
-            (message.generatedByAI && showFunctionCache) ||
-            (showFeedback && simulateUserPrompt) ||
-            (showTranslationOriginal &&
-              message.translatedText &&
-              message.translatedText !== message.text) ||
-            (!message.fromUser &&
-              message.questionAnswered &&
-              apiUrl &&
-              showWhyThisAnswer)) && (
+          {!message.fromUser && (
+            <ArtifactHandler
+              isChatlogPanel={isChatlogPanel}
+              message={message}
+            />
+          )}
+
+          {shouldShowBubbleAddon && (
             <div className="memori-chat--bubble-addon">
+              {shouldShowTimestampInAddon && (
+                <div className="memori-chat--bubble-timestamp-container">
+                  <p className="memori-chat--bubble-timestamp">
+                    {formattedTimestamp}
+                  </p>
+                  <span className="memori-chat--bubble-timestamp-separator">
+                    •
+                  </span>
+                </div>
+              )}
               {shouldShowCopyButtons && (
                 <Tooltip
                   placement="bottom"

@@ -16,6 +16,13 @@
     cursor: pointer;
 }
 
+.memori-share-button--trigger svg {
+    width: 100%;
+    max-width: 1rem;
+    height: 100%;
+    max-height: 1rem;
+}
+
 .memori-share-button--trigger-menu-item {
     width: 100%;
     max-width: none;
@@ -40,6 +47,46 @@
 .memori-share-button--dropdown-section {
     display: grid;
     gap: 0.125rem;
+}
+
+.memori-share-button--inline-list {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.memori-share-button--inline-item {
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+    padding: 0.55rem 0.65rem;
+    border: 0;
+    border-radius: 0.5rem;
+    background: transparent;
+    color: var(--memori-text-color, #111827);
+    cursor: pointer;
+    gap: 0.5rem;
+    text-align: left;
+}
+
+.memori-share-button--inline-item svg {
+    width: 1rem;
+    max-width: 1rem;
+    height: 1rem;
+    max-height: 1rem;
+    flex-shrink: 0;
+}
+
+.memori-share-button--inline-item:hover {
+    background-color: color-mix(
+        in srgb,
+        var(--memori-primary, #3b82f6) 10%,
+        transparent
+    );
+}
+
+.memori-share-button--inline-item:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
 }
 
 .memori-share-button--dropdown-divider {
@@ -140,6 +187,14 @@
     transition:
         background-color 0.2s ease,
         transform 0.12s ease;
+}
+
+.memori-share-button--qr-download svg {
+    width: 1rem;
+    max-width: 1rem;
+    height: 1rem;
+    max-height: 1rem;
+    flex-shrink: 0;
 }
 
 .memori-share-button--qr-download:hover {

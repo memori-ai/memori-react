@@ -1,18 +1,19 @@
 import React from 'react';
 import '../src/styles.css';
 
-import "@memori.ai/ui/dist/memori-ai-ui.css";
+import '@memori.ai/ui/dist/memori-ai-ui.css';
 
 const THEME_BG = {
-  light: '#f7f9f2',
-  dark: '#333333',
+  light: '#FFFFFF',
+  dark: '#191919',
 };
 
 // Decorator: apply theme from the "Theme" toolbar (theme + canvas background)
 /** @type { import('@storybook/react').Decorator } */
 const withTheme = (Story, context) => {
   const themeRaw = context.globals?.theme ?? 'light';
-  const theme = typeof themeRaw === 'string' ? themeRaw : themeRaw?.value ?? 'light';
+  const theme =
+    typeof themeRaw === 'string' ? themeRaw : themeRaw?.value ?? 'light';
   const isDark = theme === 'dark';
   const root = document.documentElement;
   const body = document.body;

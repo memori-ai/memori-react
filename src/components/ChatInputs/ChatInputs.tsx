@@ -332,9 +332,12 @@ ${text}
   const isDisabled =
     dialogState?.state === 'X2a' || dialogState?.state === 'X3';
   const hasActiveSession = Boolean(sessionID?.trim());
+  const hasChatStarted = Boolean(dialogState);
   const textareaDisabled =
     !hasActiveSession ||
     ['R2', 'R3', 'R4', 'R5', 'G3', 'X3'].includes(dialogState?.state || '');
+  const microphoneDisabled =
+    isDisabled || textareaDisabled || !hasActiveSession || !hasChatStarted;
 
   return (
     <div className="memori-chat-inputs-wrapper">
@@ -408,6 +411,7 @@ ${text}
                         'Start listening'
                   }
                   onClick={() => {
+                    if (microphoneDisabled) return;
                     if (listening) {
                       stopListening();
                     } else {
@@ -415,7 +419,7 @@ ${text}
                       startListening();
                     }
                   }}
-                  disabled={isDisabled || textareaDisabled}
+                  disabled={microphoneDisabled}
                   aria-label={
                     listening
                       ? t('write_and_speak.micButtonPopoverListening') ||
@@ -438,7 +442,7 @@ ${text}
                     }
                   }}
                   stopAudio={stopAudio}
-                  disabled={textareaDisabled || isDisabled}
+                  disabled={microphoneDisabled}
                 />
               )}
               <Tooltip

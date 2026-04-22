@@ -39,6 +39,12 @@
     gap: 0.75rem;
 }
 
+@media (max-width: 600px) {
+    .memori-widget.memori-layout-chat .memori--start-description {
+        display: none;
+    }
+}
+
 .memori-widget.memori-layout-chat .memori-chat-layout--brand {
     display: flex;
     min-width: 0;
@@ -66,6 +72,7 @@
 
 .memori-widget.memori-layout-chat .memori-chat-layout--brand-name {
     overflow: hidden;
+    max-width: 100%;
     color: var(--memori-text-color, #111);
     font-size: 1rem;
     font-weight: 600;
@@ -113,6 +120,10 @@
     padding-top: 0.25rem;
     padding-bottom: env(safe-area-inset-bottom, 0);
     margin: 0 auto;
+}
+
+.memori-widget.memori-layout-chat .memori-chat-inputs {
+    background: var(--memori-secondary-background);
 }
 
 .memori-chat-layout--header-with-artifact {
@@ -238,8 +249,10 @@
 }
 
 .memori-widget.memori-layout-chat .memori-chat-layout--body .memori--start-panel .memori--title {
+    margin-bottom: 0.5rem;
     color: var(--memori-text-color, #111) !important;
     font-size: var(--memori-text-size-heading-large);
+    line-height: var(--memori-text-line-tight);
 }
 
 .memori-widget.memori-layout-chat .memori-chat-layout--body .memori--start-panel .memori--description-text,

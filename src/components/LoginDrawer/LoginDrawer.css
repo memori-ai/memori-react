@@ -3,6 +3,11 @@
     z-index: 10000;
 }
 
+.memori--login-drawer .memori-drawer__body {
+    padding: 0;
+    background: var(--memori-main-background);
+}
+
 .memori--login-drawer .memori-drawer--panel {
     --memori-drawer--width: 100%;
     --memori-drawer--width--md: 60%;
@@ -386,6 +391,11 @@ p.memori--login-drawer--inline-error {
 }
 
 /* Card title/description from @memori.ai/ui — align with drawer OTP header */
+
+.memori--login-drawer--otp-card {
+    padding: 0;
+}
+
 .memori--login-drawer--otp-card .memori-card__header {
     margin-bottom: var(--memori-spacing-2xl);
     text-align: center;
@@ -901,7 +911,7 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--otp-label {
-        min-width: auto;
+        min-width: 100%;
     }
 }
 
