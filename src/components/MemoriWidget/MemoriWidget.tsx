@@ -464,25 +464,38 @@ type ChatStylesConfig = {
  * override block so derived tokens (hover, active, borders, etc.) update in the same scope.
  * If buttonBgColor is missing, returns {} so global CSS defaults are used.
  */
-export function getChatStyles(config: ChatStylesConfig | null | undefined): CSSProperties {
+export function getChatStyles(
+  config: ChatStylesConfig | null | undefined
+): CSSProperties {
   const primary = config?.buttonBgColor;
   if (!primary) return {};
 
   return {
     '--memori-primary-color': primary,
     '--memori-primary': 'var(--memori-primary-color)',
-    '--memori-primary-hover': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 15%)',
-    '--memori-primary-active': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 25%)',
-    '--memori-primary-disabled': 'color-mix(in oklch, var(--memori-primary), transparent 60%)',
-    '--memori-primary-subtle': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 60%)',
-    '--memori-primary-subtle-hover': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 50%)',
-    '--memori-border-primary': 'color-mix(in oklch, var(--memori-primary), transparent 70%)',
-    '--memori-border-primary-hover': 'color-mix(in oklch, var(--memori-primary), transparent 50%)',
-    '--memori-focus-ring-color': 'color-mix(in oklch, var(--memori-primary), transparent 80%)',
+    '--memori-primary-hover':
+      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 15%)',
+    '--memori-primary-active':
+      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 25%)',
+    '--memori-primary-disabled':
+      'color-mix(in oklch, var(--memori-primary), transparent 60%)',
+    '--memori-primary-subtle':
+      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 60%)',
+    '--memori-primary-subtle-hover':
+      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 50%)',
+    '--memori-border-primary':
+      'color-mix(in oklch, var(--memori-primary), transparent 70%)',
+    '--memori-border-primary-hover':
+      'color-mix(in oklch, var(--memori-primary), transparent 50%)',
+    '--memori-focus-ring-color':
+      'color-mix(in oklch, var(--memori-primary), transparent 80%)',
     '--memori-focus-ring': '0 0 0 3px var(--memori-focus-ring-color)',
-    '--memori-shadow-primary': '0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%)',
-    '--memori-skeleton-base': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 85%)',
-    '--memori-skeleton-highlight': 'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 75%)',
+    '--memori-shadow-primary':
+      '0 8px 16px -4px color-mix(in oklch, var(--memori-primary), transparent 70%)',
+    '--memori-skeleton-base':
+      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 85%)',
+    '--memori-skeleton-highlight':
+      'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast, white) 75%)',
   } as CSSProperties;
 }
 
@@ -688,14 +701,14 @@ const MemoriWidget = ({
     typeof layout === 'string'
       ? layout
       : layout &&
-          typeof layout === 'object' &&
-          layout !== null &&
-          'name' in layout &&
-          typeof (layout as { name: string }).name === 'string'
-        ? (layout as { name: string }).name
-        : typeof integrationConfig?.layout === 'string'
-          ? integrationConfig.layout
-          : integrationConfig?.layout?.name;
+        typeof layout === 'object' &&
+        layout !== null &&
+        'name' in layout &&
+        typeof (layout as { name: string }).name === 'string'
+      ? (layout as { name: string }).name
+      : typeof integrationConfig?.layout === 'string'
+      ? integrationConfig.layout
+      : integrationConfig?.layout?.name;
   // Normalize to LayoutName: platform may pass number, "fullpage", "fullscreen", etc.
   const selectedLayout = ((): LayoutName => {
     if (typeof layoutName === 'string') {
@@ -722,10 +735,10 @@ const MemoriWidget = ({
     layout.piiDetection?.enabled
       ? layout.piiDetection
       : typeof integrationConfig?.layout === 'object' &&
-          integrationConfig?.layout !== null &&
-          integrationConfig?.layout?.piiDetection?.enabled
-        ? integrationConfig.layout.piiDetection
-        : undefined;
+        integrationConfig?.layout !== null &&
+        integrationConfig?.layout?.piiDetection?.enabled
+      ? integrationConfig.layout.piiDetection
+      : undefined;
 
   const defaultEnableAudio =
     enableAudio ?? integrationConfig?.enableAudio ?? true;
@@ -792,7 +805,9 @@ const MemoriWidget = ({
     setRuntimeShowMessageConsumption(
       getLocalConfig(
         'showMessageConsumption',
-        showMessageConsumption ?? integrationConfig?.showMessageConsumption ?? false
+        showMessageConsumption ??
+          integrationConfig?.showMessageConsumption ??
+          false
       )
     );
 
@@ -861,17 +876,11 @@ const MemoriWidget = ({
       longitude?: number;
       uncertaintyKm?: number;
     } = {};
-    if (
-      venue.latitude != null &&
-      venue.longitude != null
-    ) {
+    if (venue.latitude != null && venue.longitude != null) {
       place.latitude = venue.latitude;
       place.longitude = venue.longitude;
       if (venue.placeName) place.placeName = venue.placeName;
-      if (
-        venue.uncertainty != null &&
-        venue.uncertainty > 0
-      )
+      if (venue.uncertainty != null && venue.uncertainty > 0)
         place.uncertaintyKm = venue.uncertainty;
     } else if (venue.placeName) {
       place.placeName = venue.placeName;
@@ -1559,7 +1568,12 @@ const MemoriWidget = ({
         session?.resultMessage.startsWith('This Memori is aged restricted')
       ) {
         console.warn(session);
-        add(createAlertOptions({ description: t('underageTwinSession', { age: minAge }), severity: 'error' }));
+        add(
+          createAlertOptions({
+            description: t('underageTwinSession', { age: minAge }),
+            severity: 'error',
+          })
+        );
         setGotErrorInOpening(true);
       }
       // Handle authentication error
@@ -1780,7 +1794,12 @@ const MemoriWidget = ({
         response?.resultMessage.startsWith('This Memori is aged restricted')
       ) {
         console.error('[REOPEN_SESSION] Age restriction error:', response);
-        add(createAlertOptions({ description: t('underageTwinSession', { age: minAge }), severity: 'error' }));
+        add(
+          createAlertOptions({
+            description: t('underageTwinSession', { age: minAge }),
+            severity: 'error',
+          })
+        );
         setGotErrorInOpening(true);
       }
       // Handle authentication error
@@ -1792,7 +1811,12 @@ const MemoriWidget = ({
       // Handle other errors
       else {
         console.error('[REOPEN_SESSION] Other error:', response);
-        add(createAlertOptions({ description: t(getErrori18nKey(response.resultCode)), severity: 'error' }));
+        add(
+          createAlertOptions({
+            description: t(getErrori18nKey(response.resultCode)),
+            severity: 'error',
+          })
+        );
         setGotErrorInOpening(true);
       }
     } catch (err) {
@@ -2046,16 +2070,6 @@ const MemoriWidget = ({
     processSpeechAndSendMessage,
     {
       apiUrl: `${baseUrl}/api/stt`,
-      onRealtimeTranscription: (text: string) => {
-        // Keep the textarea (and any dependent overlay texture) synced while speaking.
-        setUserMessage(text);
-        if (text) {
-          clearInteractionTimeout();
-        }
-      },
-      // continuousRecording: continuousSpeech,
-      // silenceTimeout: continuousSpeechTimeout,
-      // autoStart: autoStart,
     },
     defaultEnableAudio
   );
@@ -2229,9 +2243,9 @@ const MemoriWidget = ({
     ? `url(${globalBackground})`
     : null;
 
-  const integrationProperties = (integration
-    ? getChatStyles(integrationConfig)
-    : {}) as CSSProperties;
+  const integrationProperties = (
+    integration ? getChatStyles(integrationConfig) : {}
+  ) as CSSProperties;
 
   const integrationSelectors = [
     preview ? '#preview' : null,
@@ -2257,7 +2271,7 @@ const MemoriWidget = ({
   ];
   if (integrationConfig?.blurBackground) {
     integrationStylesheetParts.push(
-      '.memori-widget .memori--global-background { filter: blur(5px); }',
+      '.memori-widget .memori--global-background { filter: blur(5px); }'
     );
   }
   const integrationStylesheet = `@layer integration {
@@ -2797,7 +2811,6 @@ const MemoriWidget = ({
             );
           }
         }
-
       }
       // Default case - just translate and activate
       else {
@@ -3197,7 +3210,8 @@ const MemoriWidget = ({
         }
       )}
       data-theme={
-        integrationConfig?.theme === 'light' || integrationConfig?.theme === 'dark'
+        integrationConfig?.theme === 'light' ||
+        integrationConfig?.theme === 'dark'
           ? integrationConfig.theme
           : undefined
       }
