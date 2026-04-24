@@ -1,14 +1,28 @@
 /* ===== LOGIN DRAWER BASE STYLES ===== */
 .memori--login-drawer {
     z-index: 10000;
-    padding-top: 36px;
+}
+
+.memori--login-drawer .memori-drawer__body {
+    display: flex;
+    height: 100%;
+    padding: 0;
+    background: var(--memori-main-background);
+}
+
+.memori--login-drawer .memori-drawer__content {
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 .memori--login-drawer .memori-drawer--panel {
     --memori-drawer--width: 100%;
     --memori-drawer--width--md: 60%;
     --memori-drawer--width--lg: 40%;
-    border-radius: 16px 0 0 16px;
+    height: 100vh;
+    border-radius: var(--memori-radius-box) 0 0 var(--memori-radius-box);
     background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
     box-shadow: -8px 0 32px rgba(0, 0, 0, 0.1);
 }
@@ -22,25 +36,23 @@
 .memori--login-drawer--title {
     margin: 0;
     font-size: inherit;
-    font-weight: 400;
+    font-weight: var(--memori-text-weight-normal);
     line-height: inherit;
 }
-
-
 
 /* ===== FORM STYLES ===== */
 form.memori--login-drawer--form {
     display: flex;
     flex-direction: column;
-    padding: 1.5rem 1rem;
-    gap: 1rem;
+    padding: var(--memori-spacing-lg) var(--memori-spacing-md);
+    gap: var(--memori-spacing-xs);
 }
 
 .memori--login-drawer--form label:not(.memori-checkbox) {
     display: flex;
     flex-direction: column;
-    margin: 0.5rem 0;
-    gap: 0.5rem;
+    margin: var(--memori-spacing-sm) 0;
+    gap: var(--memori-spacing-sm);
 }
 
 .memori-checkbox--text {
@@ -54,50 +66,50 @@ form.memori--login-drawer--form {
 
 .memori--login-drawer--form input {
     flex: 1 1 auto;
-    padding: 12px 16px;
-    border: 2px solid var(--memori-border-color, #e2e8f0);
-    border-radius: 12px;
+    padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs)) var(--memori-spacing-md);
+    border: 2px solid var(--memori-border-color);
+    border-radius: var(--memori-radius-box);
     margin: 0.5rem 0;
     background: white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    font-size: 16px;
-    line-height: 1.5;
+    font-size: var(--memori-text-size-base);
+    line-height: var(--memori-text-line-normal);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .memori--login-drawer--form input:focus {
     border-color: var(--memori-primary);
-    box-shadow: 0 0 0 4px rgba(var(--memori-primary-rgb, 59, 130, 246), 0.1);
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--memori-primary), transparent 90%);
     outline: none;
     transform: translateY(-1px);
 }
 
 .memori--login-drawer--form input[aria-invalid='true'] {
-    border-color: var(--memori-error-color);
-    box-shadow: 0 0 0 4px rgba(var(--memori-error-color-rgb, 239, 68, 68), 0.1);
+    border-color: var(--memori-error);
+    box-shadow: 0 0 0 4px color-mix(in oklch, var(--memori-error), transparent 90%);
 }
 
 .memori--login-drawer--form button[type='submit'] {
-    margin-top: 1rem;
+    margin-top: var(--memori-spacing-lg);
 }
 
 .memori--login-drawer--form small {
-    margin-top: 0.25rem;
-    color: #64748b;
-    font-size: 0.875rem;
+    margin-top: var(--memori-spacing-xs);
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-small);
 }
 
 /* ===== ERROR STYLES ===== */
 p.memori--login-drawer--error {
     margin: 0.5rem 0;
-    color: var(--memori-error-color);
+    color: var(--memori-error);
     text-align: center;
 }
 
 p.memori--login-drawer--inline-error {
     margin: 0 0 0.5rem;
-    color: var(--memori-error-color);
-    font-size: 0.875rem;
+    color: var(--memori-error);
+    font-size: var(--memori-text-size-small);
     text-align: center;
 }
 
@@ -128,13 +140,12 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--welcome-icon {
     display: block;
-    margin-bottom: 1rem;
+    margin-bottom: var(--memori-spacing-lg);
     animation: float 3s ease-in-out infinite;
     font-size: 3rem;
 }
 
 @keyframes float {
-
     0%,
     100% {
         transform: translateY(0px);
@@ -148,16 +159,16 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--welcome h3 {
     margin: 0 0 1rem;
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: var(--memori-text-weight-bold);
     -webkit-text-fill-color: #0000;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .memori--login-drawer--welcome-description {
     margin: 0 0 2rem;
-    color: #374151;
+    color: var(--memori-text-color);
     font-size: 1.1rem;
-    line-height: 1.6;
+    line-height: var(--memori-text-line-relaxed);
     opacity: 0.9;
 }
 
@@ -167,8 +178,8 @@ p.memori--login-drawer--inline-error {
     z-index: 1;
     display: flex;
     flex-direction: column;
-    margin: 2rem 0;
-    gap: 1.5rem;
+    margin: var(--memori-spacing-2xl) 0;
+    gap: var(--memori-spacing-lg);
 }
 
 .memori--login-drawer--otp-info-item {
@@ -176,12 +187,12 @@ p.memori--login-drawer--inline-error {
     display: flex;
     overflow: hidden;
     align-items: flex-start;
-    padding: 1.5rem;
+    padding: var(--memori-spacing-lg);
     border: 1px solid var(--memori-border-color);
-    border-radius: 16px;
+    border-radius: var(--memori-radius-box);
     backdrop-filter: blur(10px);
     background: white;
-    gap: 1rem;
+    gap: var(--memori-spacing-lg);
     transition: all 0.3s ease;
 }
 
@@ -215,13 +226,12 @@ p.memori--login-drawer--inline-error {
     justify-content: center;
     border-radius: 50%;
     background: var(--memori-primary);
-    color: white;
+    color: var(--memori-text-color);
     font-size: 1.1rem;
-    font-weight: 700;
+    font-weight: var(--memori-text-weight-bold);
 }
 
 @keyframes pulse {
-
     0%,
     100% {
         transform: scale(1);
@@ -238,14 +248,14 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--otp-info-content h4 {
     margin: 0 0 0.5rem;
-    color: #374151;
+    color: var(--memori-text-color);
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: var(--memori-text-weight-semibold);
 }
 
 .memori--login-drawer--otp-info-content p {
     margin: 0;
-    color: #374151;
+    color: var(--memori-text-color);
     font-size: 0.95rem;
     line-height: 1.5;
     opacity: 0.9;
@@ -257,8 +267,8 @@ p.memori--login-drawer--inline-error {
     z-index: 1;
     display: flex;
     justify-content: center;
-    margin: 2rem 0;
-    gap: 2rem;
+    margin: var(--memori-spacing-2xl) 0;
+    gap: var(--memori-spacing-2xl);
 }
 
 .memori--login-drawer--feature {
@@ -268,10 +278,10 @@ p.memori--login-drawer--inline-error {
     align-items: center;
     padding: 1rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
+    border-radius: var(--memori-radius-box);
     backdrop-filter: blur(10px);
     background: rgba(255, 255, 255, 0.1);
-    gap: 0.5rem;
+    gap: var(--memori-spacing-sm);
     transition: all 0.3s ease;
 }
 
@@ -282,12 +292,12 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--feature-icon {
     display: block;
-    font-size: 1.5rem;
+    font-size: var(--memori-text-size-heading-large);
 }
 
 .memori--login-drawer--feature span:last-child {
     font-size: 0.85rem;
-    font-weight: 500;
+    font-weight: var(--memori-text-weight-medium);
     text-align: center;
 }
 
@@ -299,12 +309,12 @@ p.memori--login-drawer--inline-error {
     width: 100%;
     padding: 1rem 2rem;
     border: none;
-    border-radius: 16px;
-    margin-top: 2rem;
+    border-radius: var(--memori-radius-box);
+    margin-top: var(--memori-spacing-2xl);
     background: var(--memori-primary);
-    color: white;
+    color: var(--memori-text-color);
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: var(--memori-text-weight-semibold);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -331,7 +341,7 @@ p.memori--login-drawer--inline-error {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
+    gap: var(--memori-spacing-sm);
 }
 
 .memori--login-drawer--button-icon {
@@ -340,7 +350,6 @@ p.memori--login-drawer--inline-error {
 }
 
 @keyframes rocket {
-
     0%,
     100% {
         transform: translateY(0) rotate(0deg);
@@ -356,10 +365,8 @@ p.memori--login-drawer--inline-error {
     position: relative;
     overflow: hidden;
     padding: 2rem 1.5rem;
-    border-radius: 16px;
+
     margin: 1rem;
-    background: white;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 }
 
 .memori--login-drawer--otp-container::before {
@@ -389,19 +396,84 @@ p.memori--login-drawer--inline-error {
 }
 
 .memori--login-drawer--otp-header {
-    margin-bottom: 2rem;
+    margin-bottom: var(--memori-spacing-2xl);
     text-align: center;
+}
+
+/* Card title/description from @memori.ai/ui — align with drawer OTP header */
+
+.memori--login-drawer--otp-card {
+    width: min(100%, 34rem);
+    min-height: 100%;
+    padding: 0;
+    margin: 0 auto;
+    background-color: var(--memori-main-background);
+}
+
+.memori--login-drawer--otp-card .memori-card__header {
+    margin-bottom: var(--memori-spacing-2xl);
+    text-align: center;
+}
+
+.memori--login-drawer--otp-card > .memori-card__body {
+    display: flex;
+    min-height: min(38rem, calc(100vh - 8rem));
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(1.5rem, 4vw, 2.5rem);
+    border-radius: var(--memori-radius-box);
+    margin-bottom: 12rem;
+    background: var(--memori-main-background);
+    gap: 0.75rem;
+}
+
+.memori--login-drawer--otp-card--code .memori-card__description {
+    color: color-mix(in oklch, var(--memori-text-color), transparent 32%);
+    font-size: 0.9rem;
+}
+
+.memori--login-drawer--otp-card .memori-card__title {
+    margin: 0;
+    text-align: center;
+}
+
+.memori--login-drawer--otp-card-heading {
+    margin: 0 0 1rem;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-heading-xlarge);
+    font-weight: var(--memori-text-weight-bold);
+    text-align: center;
+}
+
+.memori--login-drawer--otp-card .memori-card__description {
+    margin: 0 0 2rem;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-base);
+    line-height: var(--memori-text-line-relaxed);
+    overflow-wrap: anywhere;
+    text-align: center;
+}
+
+.memori--login-drawer--otp-card-title {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--memori-spacing-lg);
+}
+
+.memori--login-drawer--otp-card-title .memori--login-drawer--otp-card-heading {
+    margin-bottom: 0;
 }
 
 .memori--login-drawer--otp-icon {
     display: block;
-    margin-bottom: 1rem;
+    margin-bottom: var(--memori-spacing-lg);
     animation: bounce 2s ease-in-out infinite;
     font-size: 3rem;
 }
 
 @keyframes bounce {
-
     0%,
     20%,
     50%,
@@ -421,26 +493,27 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--otp-container h3 {
     margin: 0 0 1rem;
-    color: #1e293b;
-    font-size: 1.75rem;
-    font-weight: 700;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-heading-xlarge);
+    font-weight: var(--memori-text-weight-bold);
     text-align: center;
 }
 
 .memori--login-drawer--otp-description {
     margin: 0 0 2rem;
-    color: #64748b;
-    font-size: 1rem;
-    line-height: 1.6;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-base);
+    line-height: var(--memori-text-line-relaxed);
     text-align: center;
 }
 
 /* ===== OTP FORM ===== */
 .memori--login-drawer--otp-form {
     display: flex;
+    width: 100%;
     flex-direction: column;
-    margin: 0 0 2rem;
-    gap: 1.5rem;
+    margin: 0 0 var(--memori-spacing-xl);
+    gap: var(--memori-spacing-lg);
 }
 
 .memori--login-drawer--otp-form.loading {
@@ -450,19 +523,20 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--otp-label {
     display: flex;
-    min-width: 500px;
+    width: 100%;
+    min-width: 0;
     flex-direction: column;
     align-self: center;
-    gap: 0.75rem;
+    gap: var(--memori-spacing-sm);
 }
 
 .memori--login-drawer--otp-label-text {
-    color: #374151;
-    font-size: 0.95rem;
-    font-weight: 600;
+    color: var(--memori-text-color);
+    font-size: 0.9rem;
+    font-weight: var(--memori-text-weight-semibold);
     letter-spacing: 0.05em;
+    text-align: left;
     text-transform: uppercase;
-    /* text-align: center; */
 }
 
 .memori--login-drawer--otp-input-container {
@@ -471,65 +545,58 @@ p.memori--login-drawer--inline-error {
     align-items: center;
 }
 
-.memori--login-drawer--otp-input {
-    width: 200px;
-    height: 60px;
-    border: 3px solid #e2e8f0;
-    border-radius: 16px;
+.memori--login-drawer--otp-segmented-inputs {
+    display: grid;
+    width: 100%;
+    max-width: 18rem;
     margin: 0 auto;
-    background: #f8fafc;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 0.5rem;
-    outline: none;
+    gap: 0.75rem;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.memori--login-drawer--otp-digit-input {
+    width: 100%;
+    height: 3.5rem;
+    border: 2px solid #d7e0ea;
+    border-radius: 12px;
+    margin: 0;
+    background: var(--memori-main-background);
+    box-shadow: none;
+    font-size: 1.5rem;
+    font-weight: var(--memori-text-weight-bold);
     text-align: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.memori--login-drawer--otp-input:focus {
+.memori--login-drawer--otp-digit-input.active,
+.memori--login-drawer--otp-digit-input:focus {
     border-color: var(--memori-primary);
-    background: white;
-    box-shadow: 0 0 0 4px rgba(var(--memori-primary-rgb), 0.1);
-    transform: scale(1.02);
+    box-shadow: 0 0 0 3px color-mix(in oklch, var(--memori-primary), transparent 84%);
+    outline: none;
 }
 
-.memori--login-drawer--otp-input.success {
+.memori--login-drawer--otp-digit-input.success {
     border-color: #10b981;
-    animation: successPulse 0.6s ease-in-out;
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
 }
 
-.memori--login-drawer--otp-input.error {
+.memori--login-drawer--otp-digit-input.error {
     border-color: #ef4444;
-    animation: shake 0.5s ease-in-out;
-    background: linear-gradient(135deg, #fee2e2, #fecaca);
+    background: #fff;
 }
 
 .memori--login-drawer--otp-email-input {
     width: 100%;
-    height: 56px;
-    padding: 0 1rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    background: #f8fafc;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    font-size: 1rem;
-    font-weight: 500;
+    height: 3.5rem;
+    padding: 0 2.75rem 0 1rem;
+    font-size: var(--memori-text-size-base);
+    font-weight: var(--memori-text-weight-medium);
     outline: none;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.memori--login-drawer--otp-email-input:focus {
-    border-color: var(--memori-primary);
-    background: white;
-    box-shadow: 0 0 0 4px rgba(var(--memori-primary-rgb), 0.1);
-    transform: translateY(-1px);
-}
-
 .memori--login-drawer--otp-email-input.valid {
     border-color: #10b981;
-    background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+    background: transparent;
 }
 
 .memori--login-drawer--otp-email-input.error {
@@ -540,9 +607,11 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--otp-valid-icon {
     position: absolute;
-    right: 1rem;
+    right: 0.875rem;
+    display: flex;
+    align-self: center;
     animation: checkmark 0.5s ease-in-out;
-    color: #10b981;
+    color: var(--memori-text-color);
     font-size: 1.2rem;
     font-weight: bold;
 }
@@ -589,9 +658,9 @@ p.memori--login-drawer--inline-error {
 }
 
 .memori--login-drawer--otp-help {
-    margin-top: 0.5rem;
-    color: #64748b;
-    font-size: 0.875rem;
+    margin-top: var(--memori-spacing-sm);
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-small);
     text-align: center;
 }
 
@@ -599,7 +668,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--otp-success {
     padding: 2rem;
     border: 2px solid #10b981;
-    border-radius: 16px;
+    border-radius: var(--memori-radius-box);
     margin: 1rem 0;
     animation: successSlide 0.5s ease-out;
     background: linear-gradient(135deg, #d1fae5, #a7f3d0);
@@ -626,7 +695,6 @@ p.memori--login-drawer--inline-error {
 }
 
 @keyframes celebration {
-
     0%,
     100% {
         transform: scale(1) rotate(0deg);
@@ -643,30 +711,22 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--otp-success p {
     margin: 0;
-    color: #065f46;
+    color: var(--memori-text-color);
     font-size: 1.1rem;
-    font-weight: 600;
+    font-weight: var(--memori-text-weight-semibold);
 }
 
 /* ===== TIMER ===== */
 .memori--login-drawer--otp-timer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 1.5rem;
-    border: 2px solid #f59e0b;
-    border-radius: 12px;
-    margin: 1rem 0;
-    background: linear-gradient(135deg, #fef3c7, #fde68a);
-    color: #92400e;
-    font-size: 0.95rem;
-    font-weight: 600;
-    gap: 0.75rem;
-    /* animation: timerPulse 2s ease-in-out infinite; */
+    margin: 0.25rem 0 0.75rem;
+    color: color-mix(in oklch, var(--memori-text-color), transparent 28%);
+    font-size: 0.8rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: var(--memori-text-weight-medium);
+    text-align: center;
 }
 
 @keyframes timerPulse {
-
     0%,
     100% {
         transform: scale(1);
@@ -683,7 +743,6 @@ p.memori--login-drawer--inline-error {
 }
 
 @keyframes tick {
-
     0%,
     100% {
         transform: rotate(0deg);
@@ -703,18 +762,42 @@ p.memori--login-drawer--inline-error {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin-top: 2rem;
-    gap: 1rem;
+    margin-top: var(--memori-spacing-xl);
+    gap: var(--memori-spacing-lg);
+}
+
+.memori--login-drawer--otp-actions-primary {
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: 0;
+}
+
+.memori--login-drawer--otp-actions-primary-fixed {
+    position: sticky;
+    bottom: 0;
+    padding-top: 0.75rem;
+    padding-bottom: calc(0.5rem + env(safe-area-inset-bottom, 0px));
+    margin-top: auto;
+    background: linear-gradient(
+        to top,
+        var(--memori-main-background) 60%,
+        color-mix(in oklch, var(--memori-main-background), transparent 100%)
+    );
 }
 
 .memori--login-drawer--otp-actions .memori-button {
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
     min-width: 140px;
     min-height: 42px;
-    border-radius: 8px;
-    font-weight: 600;
+    border-radius: var(--memori-radius-box);
+    font-weight: var(--memori-text-weight-semibold);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.memori--login-drawer--otp-actions-primary .memori-button {
+    width: 100%;
+    min-height: 3rem;
 }
 
 .memori--login-drawer--otp-actions .memori-button:hover {
@@ -729,14 +812,14 @@ p.memori--login-drawer--inline-error {
     justify-content: center;
     padding: 1rem 1.5rem;
     border: 2px solid #ef4444;
-    border-radius: 12px;
-    margin: 1rem 0;
+    border-radius: var(--memori-radius-box);
+    margin: var(--memori-spacing-lg) 0;
     animation: errorSlide 0.3s ease-out;
     background: linear-gradient(135deg, #fee2e2, #fecaca);
-    color: #dc2626;
+    color: var(--memori-text-color);
     font-size: 0.95rem;
-    font-weight: 500;
-    gap: 0.75rem;
+    font-weight: var(--memori-text-weight-medium);
+    gap: var(--memori-spacing-sm);
 }
 
 @keyframes errorSlide {
@@ -757,7 +840,6 @@ p.memori--login-drawer--inline-error {
 }
 
 @keyframes warning {
-
     0%,
     100% {
         transform: scale(1);
@@ -774,14 +856,14 @@ p.memori--login-drawer--inline-error {
     justify-content: center;
     padding: 1rem 1.5rem;
     border: 2px solid #ef4444;
-    border-radius: 12px;
+    border-radius: var(--memori-radius-box);
     margin: 1rem;
     animation: errorSlide 0.3s ease-out;
     background: linear-gradient(135deg, #fee2e2, #fecaca);
-    color: #dc2626;
+    color: var(--memori-text-color);
     font-size: 0.95rem;
-    font-weight: 500;
-    gap: 0.75rem;
+    font-weight: var(--memori-text-weight-medium);
+    gap: var(--memori-spacing-sm);
 }
 
 .memori--login-drawer--error-icon {
@@ -805,7 +887,6 @@ p.memori--login-drawer--inline-error {
 }
 
 @keyframes shake {
-
     0%,
     100% {
         transform: translateX(0);
@@ -822,30 +903,35 @@ p.memori--login-drawer--inline-error {
 
 /* ===== RESPONSIVE DESIGN ===== */
 @media (max-width: 768px) {
+    .memori--login-drawer .memori-drawer--panel {
+        --memori-drawer--width: 100%;
+        border-radius: 20px 20px 0 0;
+    }
+
     .memori--login-drawer--welcome {
         padding: 1.5rem 1rem;
         margin: 0.5rem;
     }
 
     .memori--login-drawer--welcome h3 {
-        font-size: 1.5rem;
+        font-size: var(--memori-text-size-heading-large);
     }
 
     .memori--login-drawer--welcome-description {
-        font-size: 1rem;
+        font-size: var(--memori-text-size-base);
     }
 
     .memori--login-drawer--otp-info {
-        gap: 1rem;
+        gap: var(--memori-spacing-lg);
     }
 
     .memori--login-drawer--otp-info-item {
-        padding: 1rem;
+        padding: var(--memori-spacing-lg);
     }
 
     .memori--login-drawer--welcome-features {
         flex-wrap: wrap;
-        gap: 1rem;
+        gap: var(--memori-spacing-lg);
     }
 
     .memori--login-drawer--feature {
@@ -859,10 +945,20 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--otp-input {
-        width: 160px;
-        height: 50px;
-        font-size: 1.5rem;
-        letter-spacing: 0.3rem;
+        width: min(13rem, 100%);
+        height: 3.5rem;
+        font-size: 1.7rem;
+        letter-spacing: 0.28rem;
+    }
+
+    .memori--login-drawer--otp-segmented-inputs {
+        max-width: 16rem;
+        gap: 0.625rem;
+    }
+
+    .memori--login-drawer--otp-digit-input {
+        height: 3.25rem;
+        font-size: 1.35rem;
     }
 
     .memori--login-drawer--otp-actions {
@@ -876,7 +972,18 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--otp-label {
-        min-width: auto;
+        width: 100%;
+    }
+
+    .memori--login-drawer--otp-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .memori--login-drawer--otp-card > .memori-card__body {
+        min-height: min(32rem, calc(100vh - 11rem));
+        padding: 1.25rem 1rem calc(1rem + env(safe-area-inset-bottom, 0px));
     }
 }
 
@@ -887,7 +994,7 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--welcome h3 {
-        font-size: 1.25rem;
+        font-size: var(--memori-text-size-heading);
     }
 
     .memori--login-drawer--welcome-description {
@@ -895,18 +1002,18 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--otp-info-item {
-        padding: 0.75rem;
-        gap: 0.75rem;
+        padding: var(--memori-spacing-sm);
+        gap: var(--memori-spacing-sm);
     }
 
     .memori--login-drawer--otp-info-number {
         width: 32px;
         height: 32px;
-        font-size: 1rem;
+        font-size: var(--memori-text-size-base);
     }
 
     .memori--login-drawer--otp-info-content h4 {
-        font-size: 1rem;
+        font-size: var(--memori-text-size-base);
     }
 
     .memori--login-drawer--otp-info-content p {
@@ -919,7 +1026,7 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--feature-icon {
-        font-size: 1.25rem;
+        font-size: var(--memori-text-size-heading);
     }
 
     .memori--login-drawer--feature span:last-child {
@@ -932,19 +1039,24 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--otp-container h3 {
-        font-size: 1.5rem;
+        font-size: var(--memori-text-size-heading-large);
     }
 
     .memori--login-drawer--otp-input {
         width: 140px;
-        height: 45px;
-        font-size: 1.25rem;
+        height: 64px;
+        font-size: var(--memori-text-size-heading);
         letter-spacing: 0.2rem;
     }
 
-    .memori--login-drawer--otp-email-input {
-        height: 48px;
-        font-size: 0.95rem;
+    .memori--login-drawer--otp-segmented-inputs {
+        max-width: 14rem;
+    }
+
+    .memori--login-drawer--otp-digit-input {
+        height: 3rem;
+        border-radius: 10px;
+        font-size: 1.25rem;
     }
 
     .memori--login-drawer--otp-timer,
@@ -968,7 +1080,7 @@ p.memori--login-drawer--inline-error {
     overflow: hidden;
     padding: 2rem 1.5rem;
     background: var(--memori-primary);
-    color: white;
+    color: var(--memori-text-color);
 }
 
 .memori--login-drawer--user-header::before {
@@ -987,7 +1099,7 @@ p.memori--login-drawer--inline-error {
     z-index: 1;
     display: flex;
     align-items: center;
-    gap: 1.5rem;
+    gap: var(--memori-spacing-lg);
 }
 
 .memori--login-drawer--avatar-container {
@@ -1029,9 +1141,9 @@ p.memori--login-drawer--inline-error {
 }
 
 .memori--login-drawer--avatar-initial {
-    color: white;
+    color: var(--memori-text-color);
     font-size: 2rem;
-    font-weight: 700;
+    font-weight: var(--memori-text-weight-bold);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -1043,8 +1155,8 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--user-name {
     overflow: hidden;
     margin: 0 0 0.5rem;
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: var(--memori-text-size-heading-large);
+    font-weight: var(--memori-text-weight-bold);
     text-overflow: ellipsis;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     white-space: nowrap;
@@ -1062,7 +1174,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--user-badges {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: var(--memori-spacing-sm);
 }
 
 .memori--login-drawer--badge {
@@ -1070,11 +1182,11 @@ p.memori--login-drawer--inline-error {
     align-items: center;
     padding: 0.25rem 0.75rem;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
+    border-radius: var(--memori-radius-box);
     backdrop-filter: blur(10px);
     font-size: 0.8rem;
-    font-weight: 600;
-    gap: 0.25rem;
+    font-weight: var(--memori-text-weight-semibold);
+    gap: var(--memori-spacing-xs);
     letter-spacing: 0.025em;
     text-transform: uppercase;
     transition: all 0.3s ease;
@@ -1083,13 +1195,13 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--badge--verified {
     border-color: rgba(16, 185, 129, 0.3);
     background: rgba(16, 185, 129, 0.2);
-    color: #d1fae5;
+    color: var(--memori-text-color);
 }
 
 .memori--login-drawer--badge--premium {
     border-color: rgba(245, 158, 11, 0.3);
     background: rgba(245, 158, 11, 0.2);
-    color: #fef3c7;
+    color: var(--memori-text-color);
 }
 
 .memori--login-drawer--badge:hover {
@@ -1107,10 +1219,10 @@ p.memori--login-drawer--inline-error {
     display: flex;
     align-items: center;
     margin: 0 0 1.5rem;
-    color: #374151;
+    color: var(--memori-text-color);
     font-size: 1.1rem;
-    font-weight: 600;
-    gap: 0.5rem;
+    font-weight: var(--memori-text-weight-semibold);
+    gap: var(--memori-spacing-sm);
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
@@ -1118,7 +1230,7 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--section-title::before {
     width: 4px;
     height: 20px;
-    border-radius: 2px;
+    border-radius: var(--memori-radius-box);
     background: var(--memori-primary);
     content: '';
 }
@@ -1145,24 +1257,24 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--checkbox-text {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--memori-spacing-sm);
 }
 
 .memori--login-drawer--deep-thought-details {
     margin: 0;
-    color: #6b7280;
+    color: var(--memori-text-color);
     font-size: 0.8rem;
 }
 
 .memori--login-drawer--deep-thought-details p {
     margin: 0;
-    color: #6b7280;
+    color: var(--memori-text-color);
     font-size: 0.8rem;
 }
 
 .memori--login-drawer--actions-grid {
     display: grid;
-    gap: 1rem;
+    gap: var(--memori-spacing-lg);
     grid-template-columns: repeat(2, 1fr);
 }
 
@@ -1174,10 +1286,10 @@ p.memori--login-drawer--inline-error {
     align-items: center;
     padding: 1.5rem 1rem;
     border: 2px solid transparent;
-    border-radius: 16px;
+    border-radius: var(--memori-radius-box);
     background: linear-gradient(135deg, #f8fafc, #e2e8f0);
     cursor: pointer;
-    gap: 0.75rem;
+    gap: var(--memori-spacing-sm);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1226,19 +1338,19 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--action-text {
     position: relative;
     z-index: 1;
-    color: #374151;
+    color: var(--memori-text-color);
     font-size: 0.9rem;
-    font-weight: 600;
+    font-weight: var(--memori-text-weight-semibold);
     text-align: center;
     transition: color 0.3s ease;
 }
 
 .memori--login-drawer--action-card:hover .memori--login-drawer--action-text {
-    color: #1f2937;
+    color: var(--memori-text-color);
 }
 
 .memori--login-drawer--action-card--logout:hover .memori--login-drawer--action-text {
-    color: #dc2626;
+    color: var(--memori-text-color);
 }
 
 /* ===== USER STATISTICS DASHBOARD ===== */
@@ -1250,7 +1362,7 @@ p.memori--login-drawer--inline-error {
 
 .memori--login-drawer--stats-grid {
     display: grid;
-    gap: 1rem;
+    gap: var(--memori-spacing-lg);
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
 }
 
@@ -1259,11 +1371,11 @@ p.memori--login-drawer--inline-error {
     display: flex;
     overflow: hidden;
     align-items: center;
-    padding: 1.25rem;
+    padding: var(--memori-spacing-lg);
     border: 1px solid #e5e7eb;
-    border-radius: 12px;
+    border-radius: var(--memori-radius-box);
     background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-    gap: 1rem;
+    gap: var(--memori-spacing-lg);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1307,9 +1419,9 @@ p.memori--login-drawer--inline-error {
     align-items: center;
     justify-content: center;
     /* background: var(--memori-primary); */
-    border-radius: 10px;
-    color: white;
-    font-size: 1.5rem;
+    border-radius: var(--memori-radius-box);
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-heading-large);
 }
 
 .memori--login-drawer--stat-content {
@@ -1320,19 +1432,19 @@ p.memori--login-drawer--inline-error {
 .memori--login-drawer--stat-value {
     display: block;
     overflow: hidden;
-    margin-bottom: 0.25rem;
-    color: #1f2937;
-    font-size: 1rem;
-    font-weight: 700;
+    margin-bottom: var(--memori-spacing-xs);
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-base);
+    font-weight: var(--memori-text-weight-bold);
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
 .memori--login-drawer--stat-label {
     display: block;
-    color: #6b7280;
+    color: var(--memori-text-color);
     font-size: 0.8rem;
-    font-weight: 500;
+    font-weight: var(--memori-text-weight-medium);
     letter-spacing: 0.025em;
     text-transform: uppercase;
 }
@@ -1348,24 +1460,24 @@ p.memori--login-drawer--inline-error {
     display: flex;
     align-items: center;
     margin: 0 0 1.5rem;
-    color: #1f2937;
-    font-size: 1.25rem;
-    font-weight: 700;
-    gap: 0.5rem;
+    color: var(--memori-text-color);
+    font-size: var(--memori-text-size-heading);
+    font-weight: var(--memori-text-weight-bold);
+    gap: var(--memori-spacing-sm);
 }
 
 .memori--login-drawer--account-form {
-    padding: 1.5rem;
+    padding: var(--memori-spacing-lg);
     border: 1px solid #e5e7eb;
-    border-radius: 16px;
+    border-radius: var(--memori-radius-box);
     background: linear-gradient(135deg, #f8fafc, #e2e8f0);
 }
 
 .memori--login-drawer--account-form .memori--details {
     overflow: hidden;
     border: 1px solid #e5e7eb;
-    border-radius: 12px;
-    margin-bottom: 1.5rem;
+    border-radius: var(--memori-radius-box);
+    margin-bottom: var(--memori-spacing-lg);
     background: white;
     transition: all 0.3s ease;
 }
@@ -1379,22 +1491,22 @@ p.memori--login-drawer--inline-error {
     padding: 1rem 1.5rem;
     border-bottom: 1px solid #e5e7eb;
     background: linear-gradient(135deg, #f8fafc, #e2e8f0);
-    color: #374151;
+    color: var(--memori-text-color);
     cursor: pointer;
-    font-weight: 600;
+    font-weight: var(--memori-text-weight-semibold);
     transition: all 0.3s ease;
 }
 
 .memori--login-drawer--account-form .memori--details summary:hover {
     background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
-    color: #1f2937;
+    color: var(--memori-text-color);
 }
 
 .memori--login-drawer--account-form .memori--details summary::after {
     position: absolute;
     top: 50%;
     right: 1.5rem;
-    color: #6b7280;
+    color: var(--memori-text-color);
     content: '▼';
     transform: translateY(-50%);
     transition: transform 0.3s ease;
@@ -1404,22 +1516,22 @@ p.memori--login-drawer--inline-error {
     transform: translateY(-50%) rotate(180deg);
 }
 
-.memori--login-drawer--account-form .memori--details>*:not(summary) {
-    padding: 1.5rem;
+.memori--login-drawer--account-form .memori--details > *:not(summary) {
+    padding: var(--memori-spacing-lg) var(--memori-spacing-2xl);
 }
 
 .memori--login-drawer--account-form label:not(.memori-checkbox) {
     display: flex;
     flex-direction: column;
-    margin-bottom: 1rem;
-    gap: 0.5rem;
+    margin-bottom: var(--memori-spacing-lg);
+    gap: var(--memori-spacing-sm);
 }
 
 .memori--login-drawer--account-form input[type='email'],
 .memori--login-drawer--account-form input[type='file'] {
-    padding: 0.75rem 1rem;
+    padding: var(--memori-spacing-sm) var(--memori-spacing-md);
     border: 2px solid #e5e7eb;
-    border-radius: 8px;
+    border-radius: var(--memori-radius-box);
     background: white;
     font-size: 0.95rem;
     transition: all 0.3s ease;
@@ -1433,10 +1545,10 @@ p.memori--login-drawer--inline-error {
 }
 
 .memori--login-drawer--account-form .memori-checkbox {
-    padding: 1rem;
+    padding: var(--memori-spacing-lg);
     border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    margin-bottom: 1rem;
+    border-radius: var(--memori-radius-box);
+    margin-bottom: var(--memori-spacing-lg);
     background: white;
     transition: all 0.3s ease;
 }
@@ -1454,15 +1566,15 @@ p.memori--login-drawer--inline-error {
     position: relative;
     overflow: hidden;
     width: 100%;
-    padding: 1rem 2rem;
+    padding: var(--memori-spacing-lg) var(--memori-spacing-2xl);
     border: none;
-    border-radius: 12px;
-    margin-top: 1rem;
+    border-radius: var(--memori-radius-box);
+    margin-top: var(--memori-spacing-lg);
     background: var(--memori-primary);
-    color: white;
+    color: var(--memori-text-color);
     cursor: pointer;
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: var(--memori-text-size-base);
+    font-weight: var(--memori-text-weight-semibold);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -1494,12 +1606,12 @@ p.memori--login-drawer--inline-error {
 @media (max-width: 768px) {
     .memori--login-drawer--user-profile {
         flex-direction: column;
-        gap: 1rem;
+        gap: var(--memori-spacing-lg);
         text-align: center;
     }
 
     .memori--login-drawer--user-header {
-        padding: 1.5rem 1rem;
+        padding: var(--memori-spacing-lg) var(--memori-spacing-md);
     }
 
     .memori--login-drawer--avatar,
@@ -1509,15 +1621,15 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--avatar-initial {
-        font-size: 1.5rem;
+        font-size: var(--memori-text-size-heading-large);
     }
 
     .memori--login-drawer--user-name {
-        font-size: 1.25rem;
+        font-size: var(--memori-text-size-heading);
     }
 
     .memori--login-drawer--actions-grid {
-        gap: 0.75rem;
+        gap: var(--memori-spacing-sm);
         grid-template-columns: 1fr;
     }
 
@@ -1528,7 +1640,7 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--action-icon {
-        font-size: 1.5rem;
+        font-size: var(--memori-text-size-heading-large);
     }
 
     .memori--login-drawer--stats-grid {
@@ -1558,7 +1670,7 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--avatar-initial {
-        font-size: 1.25rem;
+        font-size: var(--memori-text-size-heading);
     }
 
     .memori--login-drawer--user-name {
@@ -1575,26 +1687,26 @@ p.memori--login-drawer--inline-error {
     }
 
     .memori--login-drawer--action-card {
-        padding: 0.75rem;
+        padding: var(--memori-spacing-sm);
     }
 
     .memori--login-drawer--action-icon {
-        font-size: 1.25rem;
+        font-size: var(--memori-text-size-heading);
     }
 
     .memori--login-drawer--action-text {
-        font-size: 0.8rem;
+        font-size: var(--memori-text-size-small);
     }
 
     .memori--login-drawer--stat-card {
-        padding: 0.75rem;
-        gap: 0.75rem;
+        padding: var(--memori-spacing-sm);
+        gap: var(--memori-spacing-sm);
     }
 
     .memori--login-drawer--stat-icon {
         width: 32px;
         height: 32px;
-        font-size: 1.25rem;
+        font-size: var(--memori-text-size-heading);
     }
 
     .memori--login-drawer--stat-value {

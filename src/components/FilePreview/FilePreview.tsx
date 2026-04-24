@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import File from '../icons/File';
-import CloseIcon from '../icons/Close';
-import Button from '../ui/Button';
+import { File, X } from 'lucide-react';
+import { Button } from '@memori.ai/ui';
 import ContentPreviewModal from '../ContentPreviewModal';
 import Snippet from '../Snippet/Snippet';
 import { stripHTML, stripDocumentAttachmentTags } from '../../helpers/utils';
@@ -81,16 +80,28 @@ FilePreviewProps) => {
     }
   }, [previewFiles]);
   // Detect if the file is HTML (by type or filename)
-  const isHtmlFile = (file: { name?: string; type?: string; mimeType?: string } | null): boolean => {
+  const isHtmlFile = (
+    file: { name?: string; type?: string; mimeType?: string } | null
+  ): boolean => {
     if (!file) return false;
     const ext = file.name?.split('.').pop()?.toLowerCase();
     return (
-      file.type === 'document' && (ext === 'html' || file.mimeType === 'text/html')
-    ) || ext === 'html' || file.mimeType === 'text/html';
+      (file.type === 'document' &&
+        (ext === 'html' || file.mimeType === 'text/html')) ||
+      ext === 'html' ||
+      file.mimeType === 'text/html'
+    );
   };
 
   // Get display content for non-image files (strip document_attachment for HTML, stripHTML for others)
-  const getDisplayContent = (file: { content?: string; name?: string; type?: string; mimeType?: string } | null): string => {
+  const getDisplayContent = (
+    file: {
+      content?: string;
+      name?: string;
+      type?: string;
+      mimeType?: string;
+    } | null
+  ): string => {
     if (!file?.content) return '';
     const content = file.content;
     if (isHtmlFile(file)) {
@@ -156,8 +167,8 @@ FilePreviewProps) => {
 
                 {allowRemove && (
                   <Button
-                    shape="rounded"
-                    icon={<CloseIcon />}
+                    shape="circle"
+                    icon={<X />}
                     danger
                     className="memori--remove-button"
                     onClick={e => {
@@ -176,12 +187,14 @@ FilePreviewProps) => {
         open={!!selectedFile}
         onClose={() => setSelectedFile(null)}
         title={selectedFile?.name}
+        className="memori-file-preview-modal"
         isImage={
           !!selectedFile &&
           isImageContent(selectedFile.content, selectedFile.type)
         }
         imageSrc={
-          selectedFile && isImageContent(selectedFile.content, selectedFile.type)
+          selectedFile &&
+          isImageContent(selectedFile.content, selectedFile.type)
             ? selectedFile.content
             : undefined
         }

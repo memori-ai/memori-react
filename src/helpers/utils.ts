@@ -98,17 +98,17 @@ export const isAndroid = (): boolean => {
 
 export const isSafari = (): boolean => {
   if (typeof navigator === 'undefined') return false;
-  
+
   const userAgent = navigator.userAgent;
   const isSafariUA = userAgent.includes('Safari') && !userAgent.includes('Chrome');
   const isWebKit = 'WebKit' in window && !('Chrome' in window);
-  
+
   return isSafariUA || isWebKit;
 };
 
 export const isSafariIOS = (): boolean => {
   if (typeof navigator === 'undefined') return false;
-  
+
   const userAgent = navigator.userAgent;
   return (
     userAgent.includes('Safari') &&
@@ -476,3 +476,5 @@ export const safeParseJSON = (jsonString: string, fallbackString = false) => {
     return fallbackString ? jsonString : null;
   }
 };
+
+export const imgMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];

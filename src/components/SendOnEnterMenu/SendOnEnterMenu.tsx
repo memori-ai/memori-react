@@ -1,8 +1,8 @@
 import React from 'react';
-import { Menu, RadioGroup } from '@headlessui/react';
 import cx from 'classnames';
 import { useTranslation } from 'react-i18next';
-import Button from '../ui/Button';
+import { Button, Dropdown } from '@memori.ai/ui';
+import { Check, EllipsisVertical } from 'lucide-react';
 
 export interface Props {
   sendOnEnter: 'keypress' | 'click';
@@ -13,69 +13,28 @@ const SendOnEnterMenu: React.FC<Props> = ({ sendOnEnter, setSendOnEnter }) => {
   const { t } = useTranslation();
 
   return (
-    <Menu as="div" className="memori-send-on-enter-menu">
-      <Menu.Button
-        className={cx(
-          'memori-button',
-          'memori-button--circle',
-          'memori-button--icon-only',
-          'memori-share-button--button',
-          'memori--conversation-button'
+    <Dropdown>
+      <Dropdown.Trigger
+        showChevron={false}
+        render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+          <Button {...props} variant="ghost" icon={<EllipsisVertical />} />
         )}
-      >
-        <div className="memori-button--icon">
-          <span
-            style={{
-              display: 'block',
-              width: '1rem',
-              height: '1rem',
-            }}
-          >
-            …
-          </span>
-        </div>
-      </Menu.Button>
-      <Menu.Items className="memori-menu--overlay">
-        <RadioGroup value={sendOnEnter} onChange={setSendOnEnter}>
-          <RadioGroup.Option value="keypress" className="memori-menu--option">
-            {({ checked }) => (
-              <Menu.Item>
-                <Button
-                  className="memori-menu--button"
-                  ghost
-                  outlined={checked}
-                  icon={
-                    <span className="memori-menu--icon">
-                      {checked ? '✓' : ''}
-                    </span>
-                  }
-                >
-                  {t('widget.sendOnKeypress')}
-                </Button>
-              </Menu.Item>
-            )}
-          </RadioGroup.Option>
-          <RadioGroup.Option value="click" className="memori-menu--option">
-            {({ checked }) => (
-              <Menu.Item>
-                <Button
-                  className="memori-menu--button"
-                  ghost
-                  outlined={checked}
-                  icon={
-                    <span className="memori-menu--icon">
-                      {checked ? '✓' : ''}
-                    </span>
-                  }
-                >
-                  {t('widget.sendOnClick')}
-                </Button>
-              </Menu.Item>
-            )}
-          </RadioGroup.Option>
-        </RadioGroup>
-      </Menu.Items>
-    </Menu>
+      />
+      <Dropdown.Menu>
+        <Dropdown.Item
+          onClick={() => setSendOnEnter('keypress')}
+          {...({ icon: sendOnEnter === 'keypress' ? <Check /> : undefined } as React.ComponentProps<typeof Dropdown.Item>)}
+        >
+          {t('widget.sendOnKeypress')}
+        </Dropdown.Item>
+        <Dropdown.Item
+          onClick={() => setSendOnEnter('click')}
+          {...({ icon: sendOnEnter === 'click' ? <Check /> : undefined } as React.ComponentProps<typeof Dropdown.Item>)}
+        >
+          {t('widget.sendOnClick')}
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
   );
 };
 

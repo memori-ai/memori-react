@@ -17,16 +17,16 @@
 }
 
 .blocked-memori-badge.margin-left {
-    margin-left: 0.5rem;
+    margin-left: var(--memori-spacing-sm);
 }
 
 .blocked-memori-badge--icon {
     width: 1rem;
     height: 1rem;
-    color: #d48806;
+    color: var(--memori-text-color);
     cursor: pointer;
     fill: currentColor;
-    font-size: 1rem;
+    font-size: var(--memori-text-size-base);
 }
 
 .blocked-memori-badge--tooltip {
@@ -36,5 +36,5 @@
 }
 
 .blocked-memori-badge--title {
-    margin-left: 0.5rem;
+    margin-left: var(--memori-spacing-sm);
 }

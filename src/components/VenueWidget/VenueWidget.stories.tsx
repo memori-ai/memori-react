@@ -4,6 +4,7 @@ import I18nWrapper from '../../I18nWrapper';
 import VenueWidget, { Props } from './VenueWidget';
 import { venue } from '../../mocks/data';
 import './VenueWidget.css';
+import { AlertProvider } from '@memori.ai/ui';
 
 const meta: Meta = {
   title: 'Widget/VenueWidget',
@@ -19,7 +20,9 @@ const Template: Story<Props> = args => {
   const [venue, setVenue] = React.useState(args.venue);
   return (
     <I18nWrapper>
-      <VenueWidget {...args} venue={venue} setVenue={setVenue} />
+      <AlertProvider defaultDuration={5000}>
+        <VenueWidget {...args} venue={venue} setVenue={setVenue} />
+      </AlertProvider>
     </I18nWrapper>
   );
 };

@@ -24,8 +24,8 @@
     margin: 0;
     background: transparent;
     font-family: 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-    font-size: 0.875rem;
-    line-height: 1.6;
+    font-size: var(--memori-text-size-small);
+    line-height: var(--memori-text-line-relaxed);
     overflow-x: auto;
     white-space: pre-wrap;
     word-break: break-word;
@@ -56,7 +56,7 @@ pre[class*="language-"] {
     padding: 0;
     border-radius: 0;
     background: transparent;
-    color: #374151;
+    color: var(--memori-text-color);
     font-family: inherit;
 }
 
@@ -70,13 +70,13 @@ pre[class*="language-"] {
     padding: 0.5rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
-    border-radius: 6px;
+    border-radius: var(--memori-radius-box);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
     background: rgba(0, 0, 0, 0.05);
-    background-color: #f8fafc;
+    background-color: color-mix(in oklch, var(--memori-main-background) 38%, transparent);
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
-    gap: 0.5rem;
+    gap: var(--memori-spacing-sm);
 }
 
 button.memori-snippet--copy-button {
@@ -84,7 +84,7 @@ button.memori-snippet--copy-button {
     height: 32px !important;
     padding: 0;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 6px !important;
+    border-radius: .5rem !important;
     background: rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
 }
@@ -104,14 +104,14 @@ button.memori-snippet--copy-button:active {
 button.memori-snippet--copy-button svg {
     width: 14px;
     height: 14px;
-    color: #6b7280;
+    color: var(--memori-text-color);
 }
 
 .memori-snippet--copied-text {
     animation: fadeInOut 0.3s ease;
-    color: #10b981;
+    color: var(--memori-text-color);
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: var(--memori-text-weight-semibold);
     letter-spacing: 0.05em;
     text-transform: uppercase;
 }
@@ -133,10 +133,10 @@ button.memori-snippet--copy-button svg {
     border-top: 1px solid rgba(0, 0, 0, 0.05);
     margin: 0;
     background: rgba(0, 0, 0, 0.02);
-    color: #6b7280;
+    color: var(--memori-text-color);
     font-size: 0.8rem;
     font-style: normal;
-    font-weight: 500;
+    font-weight: var(--memori-text-weight-medium);
     text-align: left;
 }
 

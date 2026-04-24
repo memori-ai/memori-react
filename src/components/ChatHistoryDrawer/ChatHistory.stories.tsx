@@ -218,7 +218,7 @@ export const WithSelectedChat: Story = {
     // We need to use the play function to simulate clicking on a chat
     const canvas = canvasElement.ownerDocument.body;
     setTimeout(() => {
-      const chatCard = canvas.querySelector('.memori-chat-history-drawer--card');
+      const chatCard = canvas.querySelector('.memori-chat-history-drawer--list-item--button');
       if (chatCard) {
         (chatCard as HTMLElement).click();
       }

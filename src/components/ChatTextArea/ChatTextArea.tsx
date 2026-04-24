@@ -1,12 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import cx from 'classnames';
-import Button from '../ui/Button';
-import Expand from '../icons/Expand';
-import FullscreenExit from '../icons/FullscreenExit';
+import { Button } from '@memori.ai/ui';
+import { Maximize2, Minimize } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { isMobileOrTablet } from '../../helpers/utils';
 
 export interface Props {
+  /** When true, the field is not editable (e.g. dialog states R2–X3 or no session yet — see ChatInputs). */
   disabled?: boolean;
   value: string;
   onChange: (value: string) => void;
