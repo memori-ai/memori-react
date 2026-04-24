@@ -108,12 +108,12 @@
     .memori-widget.memori-layout-fullpage {
         padding: var(--memori-spacing-sm);
     }
-
+    /* 
     .memori-widget.memori-layout-fullpage > .memori-spin {
         height: calc(100vh - 100px);
         height: calc(100dvh - 100px);
         gap: var(--memori-spacing-md);
-    }
+    } */
 
     .memori-widget.memori-layout-fullpage .memori--grid-column-left {
         display: none;
