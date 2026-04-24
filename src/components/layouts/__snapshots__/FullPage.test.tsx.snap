@@ -725,7 +725,7 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                 >
                   <span
                     class="styles-module__trigger___V2aIF"
-                    id="base-ui-:ro:"
+                    id="base-ui-:rq:"
                   >
                     <span
                       style="display: inline-flex;"
@@ -774,13 +774,13 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                   >
                     <span
                       class="styles-module__trigger___V2aIF"
-                      id="base-ui-:ru:"
+                      id="base-ui-:r10:"
                     >
                       <button
                         aria-expanded="false"
                         aria-haspopup="menu"
                         class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
-                        id="base-ui-:rv:"
+                        id="base-ui-:r11:"
                         tabindex="0"
                         type="button"
                       >
@@ -932,17 +932,17 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                       >
                         <label
                           class="memori-combobox__label"
-                          for=":r11:"
-                          id=":r11:-label"
+                          for=":r13:"
+                          id=":r13:-label"
                         >
                           write_and_speak.chatLanguageLabel
                         </label>
                         <button
                           aria-expanded="false"
                           aria-haspopup="dialog"
-                          aria-labelledby=":r11:-label"
+                          aria-labelledby=":r13:-label"
                           class="memori-combobox__trigger"
-                          id=":r11:"
+                          id=":r13:"
                           role="combobox"
                           tabindex="0"
                           type="button"
@@ -977,7 +977,7 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                         </button>
                         <input
                           aria-hidden="true"
-                          id="base-ui-:r12:"
+                          id="base-ui-:r14:"
                           name="user-lang-pref"
                           style="overflow: hidden; white-space: nowrap; position: fixed; top: 0px; left: 0px; border: 0px; padding: 0px; width: 1px; height: 1px; margin: -1px;"
                           tabindex="-1"
@@ -1051,7 +1051,7 @@ exports[`renders FullPage layout with root css properties unchanged 1`] = `
                           >
                             <span
                               class="styles-module__trigger___V2aIF"
-                              id="base-ui-:r15:"
+                              id="base-ui-:r17:"
                             >
                               <button
                                 aria-label="privacyPolicy"

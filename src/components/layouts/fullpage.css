@@ -2,6 +2,8 @@
 
 .memori-widget.memori-layout-fullpage {
     max-width: var(--memori-layout-max-width);
+    min-height: 100vh;
+    min-height: 100dvh;
     padding: var(--memori-spacing-md);
     margin-right: auto;
     margin-left: auto;
@@ -9,7 +11,9 @@
 
 .memori-widget.memori-layout-fullpage > .memori-spin {
     display: flex;
-    height: 100%;
+    height: calc(100vh - 50px);
+    height: calc(100dvh - 50px);
+    min-height: 0;
     flex-direction: column;
     gap: var(--memori-spacing-lg);
 }
@@ -25,8 +29,7 @@
 /* Grid: main + left column (avatar) */
 .memori-widget.memori-layout-fullpage .memori--grid {
     display: flex;
-    height: auto;
-    height: 95vh;
+    height: 100%;
     min-height: 0;
     flex: 1 1 auto;
     align-items: stretch;
@@ -44,18 +47,23 @@
 .memori-widget.memori-layout-fullpage .memori-chat-layout--main {
     display: flex;
     min-width: 0;
+    min-height: 0;
     flex: 1;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: stretch;
+    justify-content: stretch;
 }
 
 .memori-widget.memori-layout-fullpage .memori-chat-layout--controls {
     display: flex;
     width: 100%;
     max-width: 720px;
+    height: 100%;
+    min-height: 0;
+    max-height: 100%;
+    flex: 1 1 auto;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     padding: var(--memori-spacing-md);
 }
 
@@ -63,6 +71,8 @@
 .memori-widget.memori-layout-fullpage .memori-chat-layout--controls .memori-chat--wrapper {
     width: 100%;
     max-width: 100%;
+    height: 100%;
+    min-height: 0;
     padding: 0 !important;
     margin-right: 0;
     margin-left: 0;
@@ -100,6 +110,8 @@
     }
 
     .memori-widget.memori-layout-fullpage > .memori-spin {
+        height: calc(100vh - 100px);
+        height: calc(100dvh - 100px);
         gap: var(--memori-spacing-md);
     }
 

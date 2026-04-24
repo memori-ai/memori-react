@@ -7,7 +7,7 @@ import {
 import React, { useState, useEffect, useMemo } from 'react';
 import { getResourceUrl } from '../../helpers/media';
 import { useTranslation } from 'react-i18next';
-import { Combobox, Tooltip } from '@memori.ai/ui';
+import { Combobox, Tooltip, Modal } from '@memori.ai/ui';
 import { getTranslation } from '../../helpers/translations';
 import { Button } from '@memori.ai/ui';
 import {
@@ -95,9 +95,9 @@ const StartPanel: React.FC<Props> = ({
   const [showTranslation, setShowTranslation] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   const [isInfoExpanded, setIsInfoExpanded] = useState(false);
-  const [isPrivacyDetailsOpen, setIsPrivacyDetailsOpen] = useState(false);
-  const [isDeepThoughtDetailsOpen, setIsDeepThoughtDetailsOpen] =
-    useState(false);
+  const [mobileInfoModal, setMobileInfoModal] = useState<
+    null | 'privacy' | 'deepThought'
+  >(null);
   const toggleTranslations = () => {
     setShowTranslation(show => !show);
   };
@@ -133,14 +133,12 @@ const StartPanel: React.FC<Props> = ({
 
   useEffect(() => {
     if (!isMobile) {
-      setIsPrivacyDetailsOpen(false);
-      setIsDeepThoughtDetailsOpen(false);
+      setMobileInfoModal(null);
       return;
     }
 
     if (!isInfoExpanded) {
-      setIsPrivacyDetailsOpen(false);
-      setIsDeepThoughtDetailsOpen(false);
+      setMobileInfoModal(null);
     }
   }, [isMobile, isInfoExpanded]);
 
@@ -434,10 +432,7 @@ const StartPanel: React.FC<Props> = ({
                               aria-label={String(
                                 t('deepThoughtHelper') ?? 'Deep Thought help'
                               )}
-                              aria-expanded={isDeepThoughtDetailsOpen}
-                              onClick={() =>
-                                setIsDeepThoughtDetailsOpen(value => !value)
-                              }
+                              onClick={() => setMobileInfoModal('deepThought')}
                             >
                               <Info className="memori--settings-section__inline-info-icon" />
                             </Button>
@@ -483,14 +478,6 @@ const StartPanel: React.FC<Props> = ({
                           )}
                         </div>
                       )}
-                      {isMobile && isDeepThoughtDetailsOpen && (
-                        <div className="memori--privacy-popover-popup memori--privacy-popover-popup--mobile">
-                          <div className="memori--privacy-popover-content">
-                            <p>{t('deepThoughtHelper')}</p>
-                          </div>
-                        </div>
-                      )}
-
                       <div className="memori--settings-section__row">
                         <div
                           className="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
@@ -518,10 +505,7 @@ const StartPanel: React.FC<Props> = ({
                             size="sm"
                             className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
                             aria-label={String(t('privacyPolicy') ?? '')}
-                            aria-expanded={isPrivacyDetailsOpen}
-                            onClick={() =>
-                              setIsPrivacyDetailsOpen(value => !value)
-                            }
+                            onClick={() => setMobileInfoModal('privacy')}
                           >
                             <Info className="memori--settings-section__inline-info-icon" />
                           </Button>
@@ -595,49 +579,6 @@ const StartPanel: React.FC<Props> = ({
                         )}
                       </div>
                     </section>
-                    {isMobile && isPrivacyDetailsOpen && (
-                      <div className="memori--privacy-popover-popup memori--privacy-popover-popup--mobile">
-                        <div className="memori--privacy-popover-content">
-                          <p>
-                            {t(
-                              'write_and_speak.pagePrivacyExplanationList.allConversations'
-                            )}
-                          </p>
-                          <ul className="memori--privacy-popover-content-list">
-                            {isUserLoggedIn ? (
-                              <li>
-                                {t(
-                                  'write_and_speak.pagePrivacyExplanationList.contentAndUsername'
-                                )}
-                              </li>
-                            ) : (
-                              <li>
-                                {t(
-                                  'write_and_speak.pagePrivacyExplanationList.contentAndIpAddress'
-                                )}
-                              </li>
-                            )}
-                          </ul>
-                          <p>
-                            {t(
-                              'write_and_speak.pagePrivacyExplanationList.authorUsesInfo'
-                            )}
-                          </p>
-
-                          <a
-                            href={
-                              tenant?.privacyPolicyURL ??
-                              'https://memori.ai/en/privacy-policy'
-                            }
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="memori--privacy-popover-content-link"
-                          >
-                            {tenant?.privacyPolicyURL ?? t('privacyPolicy')}
-                          </a>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 )}
               </section>
@@ -696,6 +637,50 @@ const StartPanel: React.FC<Props> = ({
             </div>
           )}
       </div>
+      <Modal
+        open={isMobile && mobileInfoModal !== null}
+        onClose={() => setMobileInfoModal(null)}
+        title={
+          mobileInfoModal === 'deepThought'
+            ? String(t('deepThoughtDisclaimerTitle') || 'Deep Thought')
+            : String(
+                t('write_and_speak.pagePrivacyExplanation') || 'Privacy policy'
+              )
+        }
+      >
+        {mobileInfoModal === 'deepThought' && (
+          <div className="memori--privacy-popover-content">
+            <p>{t('deepThoughtHelper')}</p>
+          </div>
+        )}
+        {mobileInfoModal === 'privacy' && (
+          <div className="memori--privacy-popover-content">
+            <p>
+              {t('write_and_speak.pagePrivacyExplanationList.allConversations')}
+            </p>
+            <ul className="memori--privacy-popover-content-list">
+              {isUserLoggedIn ? (
+                <li>
+                  {t('write_and_speak.pagePrivacyExplanationList.contentAndUsername')}
+                </li>
+              ) : (
+                <li>
+                  {t('write_and_speak.pagePrivacyExplanationList.contentAndIpAddress')}
+                </li>
+              )}
+            </ul>
+            <p>{t('write_and_speak.pagePrivacyExplanationList.authorUsesInfo')}</p>
+            <a
+              href={tenant?.privacyPolicyURL ?? 'https://memori.ai/en/privacy-policy'}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="memori--privacy-popover-content-link"
+            >
+              {tenant?.privacyPolicyURL ?? t('privacyPolicy')}
+            </a>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };

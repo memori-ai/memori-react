@@ -373,7 +373,8 @@
 
 @media (max-width: 870px) {
     .memori--start-panel {
-        overflow: visible;
+        overflow-x: visible;
+        overflow-y: auto;
     }
 
     .memori--start-panel__mobile-info {

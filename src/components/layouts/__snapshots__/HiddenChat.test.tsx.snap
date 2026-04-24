@@ -540,7 +540,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                           >
                             <span
                               class="styles-module__trigger___V2aIF"
-                              id="base-ui-:r8:"
+                              id="base-ui-:ra:"
                             >
                               <button
                                 aria-label="send"
