@@ -367,11 +367,11 @@
     .memori-widget.memori-layout-chat {
         overflow: hidden;
     }
-
+    /* 
     .memori-widget.memori-layout-chat > .memori-spin.memori-chat-layout {
         height: calc(100vh - 100px);
         height: calc(100dvh - 100px);
-    }
+    } */
 
     .memori-widget.memori-layout-chat .memori-chat-layout--main,
     .memori-widget.memori-layout-chat .memori-chat-layout--controls,
