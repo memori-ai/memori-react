@@ -2046,6 +2046,13 @@ const MemoriWidget = ({
     processSpeechAndSendMessage,
     {
       apiUrl: `${baseUrl}/api/stt`,
+      onRealtimeTranscription: (text: string) => {
+        // Keep the textarea (and any dependent overlay texture) synced while speaking.
+        setUserMessage(text);
+        if (text) {
+          clearInteractionTimeout();
+        }
+      },
       // continuousRecording: continuousSpeech,
       // silenceTimeout: continuousSpeechTimeout,
       // autoStart: autoStart,

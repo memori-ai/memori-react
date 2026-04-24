@@ -103,7 +103,10 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                 {sessionId && hasUserActivatedSpeak && Chat && chatProps ? (
                   <Chat {...chatProps} />
                 ) : startPanelProps ? (
-                  <StartPanel {...startPanelProps} />
+                  <StartPanel
+                    {...startPanelProps}
+                    showFullDescriptionOnMobile={true}
+                  />
                 ) : null}
               </div>
             </Spin>

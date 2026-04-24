@@ -736,8 +736,9 @@
 .memori-chat-history-drawer--list-item--today-pill {
     display: inline-flex;
     align-items: center;
-    padding: 1px 7px;
+    padding: 3px 7px;
     border-radius: 999px;
+    background-color: var(--memori-primary-subtle);
     /* background-color: var(--color-background-info, var(--memori-primary-subtle)); */
     color: var(--color-text-info, var(--memori-primary));
     font-size: 11px;

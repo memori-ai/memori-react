@@ -179,7 +179,7 @@
       "registeredUser": "Para usuarios registrados: el autor verá el contenido de la conversación y su nombre de usuario",
       "contentAndUsername": "El autor puede ver el contenido, tu nombre de usuario y tu dirección IP",
       "contentAndIpAddress": "El autor puede ver el contenido y tu dirección IP",
-      "authorUsesInfo": "El autor utiliza estas informaciones para mejorar las funciones del agente y para ofrecerte un mejor servicio. Continuando la conversación, acepta estas condiciones."
+      "authorUsesInfo": "El autor utiliza estas informaciones para mejorar las funciones del agente y para ofrecerte un mejor servicio."
     },
     "instructButton": "INSTRUÍME",
     "downloadChat": "Descargar chat",

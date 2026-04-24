@@ -65,7 +65,22 @@ const ChatLayout: React.FC<LayoutProps> = ({
   const loggedUserInitial = loggedUserDisplayName.charAt(0).toUpperCase();
   const isSessionStarted = Boolean(sessionId && hasUserActivatedSpeak);
 
+  const isFullscreenAllowedOnDevice = () => {
+    if (typeof document === 'undefined') return false;
+
+    if (document.fullscreenEnabled === true) return true;
+
+    const fullscreenMeta = document.querySelector(
+      'meta[name="memori-fullscreen-enabled"], meta[name="fullscreen-enabled"]'
+    );
+    const fullscreenMetaValue = fullscreenMeta?.getAttribute('content');
+
+    return fullscreenMetaValue === 'true';
+  };
+
   const handleMobileFullscreen = () => {
+    if (!isFullscreenAllowedOnDevice()) return;
+
     if (!document.fullscreenElement) {
       document.documentElement.requestFullscreen().catch(() => {});
       return;

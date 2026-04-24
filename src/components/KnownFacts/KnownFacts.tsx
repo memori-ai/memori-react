@@ -117,6 +117,17 @@ const KnownFacts = ({
   const [bulkDeleteModalVisible, setBulkDeleteModalVisible] = useState(false);
   const [bulkDeleteIds, setBulkDeleteIds] = useState<string[]>([]);
   const [deleteModalVisibleFor, setDeleteModalVisibleFor] = useState<string>();
+  const selectedRowsLabel = useMemo(
+    () =>
+      t('knownFacts.selectedRows', {
+        count: bulkDeleteIds.length,
+        defaultValue:
+          bulkDeleteIds.length === 1
+            ? '{{count}} row selected'
+            : '{{count}} rows selected',
+      }),
+    [bulkDeleteIds.length, t]
+  );
 
   const columns = useMemo<ColumnDef<KnownFact>[]>(
     () => [
@@ -178,10 +189,13 @@ const KnownFacts = ({
               : t('knownFacts.deleteConfirmTitle')
           }
           description={
-            bulkDeleteIds.length > 1
-              ? t('knownFacts.deleteSelectedConfirmMessage', {
-                  number: bulkDeleteIds.length,
-                })
+            bulkDeleteIds.length > 0
+              ? `${selectedRowsLabel}. ${t(
+                  'knownFacts.deleteSelectedConfirmMessage',
+                  {
+                    number: bulkDeleteIds.length,
+                  }
+                )}`
               : t('knownFacts.deleteConfirmMessage')
           }
           onOpenChange={(open: boolean) => {

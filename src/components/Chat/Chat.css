@@ -38,6 +38,10 @@
     box-shadow: none;
 }
 
+.memori-widget.memori-layout-chat .memori-widget {
+    padding: 0;
+}
+
 .memori-widget.memori-layout-chat .memori-chat--bubble {
     background-color: var(--memori-secondary-background);
 }

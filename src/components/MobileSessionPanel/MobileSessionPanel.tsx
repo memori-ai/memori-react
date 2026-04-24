@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Camera, LogOut } from 'lucide-react';
+import { Camera, ChevronLeft, LogIn, LogOut } from 'lucide-react';
 import { Button, createAlertOptions, useAlertManager } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import { User } from '@memori.ai/memori-api-client/dist/types';
@@ -213,6 +213,11 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   };
 
   const isPopover = presentation === 'popover';
+  const isLocationEnabled = Boolean(
+    locationPlace &&
+      locationPlace.trim().length > 0 &&
+      locationPlace !== locationUnknownLabel
+  );
 
   return (
     <div
@@ -261,37 +266,16 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
         {!isPopover && <div className="memori-mobile-session-panel--handle" />}
         {activeView === 'session' ? (
           <>
-            <div className="memori-mobile-session-panel--user">
-              <div className="memori-dropdown--avatar-wrap">
-                {avatarURL ? (
-                  <>
-                    <img
-                      src={avatarURL}
-                      alt={userName || userEmail}
-                      className="memori-dropdown--avatar"
-                    />
-                    <span className="memori-dropdown--avatar-overlay">
-                      <Camera size={20} strokeWidth={2} />
-                    </span>
-                    <input
-                      type="file"
-                      name="avatar"
-                      id="avatar"
-                      className="memori-dropdown--avatar-input"
-                      onChange={e =>
-                        updateAvatar(
-                          e.target.files?.[0] ?? (null as unknown as Blob)
-                        )
-                      }
-                      accept={imgMimeTypes.join(', ')}
-                    />
-                  </>
-                ) : (
-                  <>
-                    <div className="memori-dropdown--avatar-placeholder">
-                      <span className="memori-dropdown--avatar-initial">
-                        {(userName || userEmail || 'U').charAt(0).toUpperCase()}
-                      </span>
+            {isLoggedIn && (
+              <div className="memori-mobile-session-panel--user">
+                <div className="memori-dropdown--avatar-wrap">
+                  {avatarURL ? (
+                    <>
+                      <img
+                        src={avatarURL}
+                        alt={userName || userEmail}
+                        className="memori-dropdown--avatar"
+                      />
                       <span className="memori-dropdown--avatar-overlay">
                         <Camera size={20} strokeWidth={2} />
                       </span>
@@ -307,30 +291,43 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                         }
                         accept={imgMimeTypes.join(', ')}
                       />
-                    </div>
-                  </>
-                )}
-              </div>
-              <div className="memori-dropdown--user-details">
-                <h3 className="memori-dropdown--user-name">{userName}</h3>
-                <p className="memori-dropdown--user-email">{userEmail}</p>
-                <div className="memori-dropdown--user-badge">
-                  {birthDate
-                    ? new Date(birthDate).toLocaleDateString()
-                    : 'Not set'}
+                    </>
+                  ) : (
+                    <>
+                      <div className="memori-dropdown--avatar-placeholder">
+                        <span className="memori-dropdown--avatar-initial">
+                          {(userName || userEmail || 'U').charAt(0).toUpperCase()}
+                        </span>
+                        <span className="memori-dropdown--avatar-overlay">
+                          <Camera size={20} strokeWidth={2} />
+                        </span>
+                        <input
+                          type="file"
+                          name="avatar"
+                          id="avatar"
+                          className="memori-dropdown--avatar-input"
+                          onChange={e =>
+                            updateAvatar(
+                              e.target.files?.[0] ?? (null as unknown as Blob)
+                            )
+                          }
+                          accept={imgMimeTypes.join(', ')}
+                        />
+                      </div>
+                    </>
+                  )}
+                </div>
+                <div className="memori-dropdown--user-details">
+                  <h3 className="memori-dropdown--user-name">{userName}</h3>
+                  <p className="memori-dropdown--user-email">{userEmail}</p>
+                  <div className="memori-dropdown--user-badge">
+                    {birthDate
+                      ? new Date(birthDate).toLocaleDateString()
+                      : 'Not set'}
+                  </div>
                 </div>
               </div>
-              {!isLoggedIn && (
-                <Button
-                  variant="toolbar"
-                  size="sm"
-                  className="memori-mobile-session-panel--login"
-                  onClick={onLogin}
-                >
-                  {loginLabel}
-                </Button>
-              )}
-            </div>
+            )}
             <div className="memori-mobile-session-panel--section-title">
               {title}
             </div>
@@ -403,6 +400,21 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                 </span>
               </Button>
             )}
+            {!isLoggedIn && (
+              <div className="memori-mobile-session-panel--login-cta-wrap">
+                <Button
+                  variant="toolbar"
+                  size="sm"
+                  className="memori-mobile-session-panel--login-cta"
+                  onClick={onLogin}
+                >
+                  <span className="memori-mobile-session-panel--action-icon">
+                    <LogIn size={18} />
+                  </span>
+                  {loginLabel}
+                </Button>
+              </div>
+            )}
           </>
         ) : (
           <div className="memori-mobile-session-panel--page">
@@ -412,6 +424,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
               className="memori-mobile-session-panel--back"
               onClick={() => setActiveView('session')}
             >
+              <ChevronLeft size={16} />
               {backLabel}
             </Button>
             <h3 className="memori-mobile-session-panel--page-title">
@@ -433,7 +446,11 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                   <Button
                     variant="toolbar"
                     size="sm"
-                    className="memori-mobile-session-panel--page-btn"
+                    className={`memori-mobile-session-panel--page-btn ${
+                      isLocationEnabled
+                        ? 'memori-mobile-session-panel--page-btn-active'
+                        : ''
+                    }`}
                     onClick={onLocationEnable}
                   >
                     {locationEnableLabel}
@@ -449,7 +466,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                 </div>
               </div>
             ) : activeView === 'share' ? (
-              <div className="memori-mobile-session-panel--page-content">
+              <div className="memori-mobile-session-panel--page-content memori-mobile-session-panel--share-content">
                 {shareContent}
               </div>
             ) : (

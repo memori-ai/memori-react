@@ -435,6 +435,7 @@
     flex: 1;
     flex-direction: column;
     padding: 1rem;
+    background-color: var(--memori-secondary-background);
 }
 
 .memori-website_assistant-layout--controls .memori-chat--history,

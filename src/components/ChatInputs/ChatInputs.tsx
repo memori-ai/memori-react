@@ -435,12 +435,7 @@ ${text}
                 <MicrophoneButton
                   listening={listening}
                   startListening={startListening}
-                  stopListening={() => {
-                    stopListening();
-                    if (listening && !!userMessage?.length) {
-                      sendMessage(userMessage);
-                    }
-                  }}
+                  stopListening={stopListening}
                   stopAudio={stopAudio}
                   disabled={microphoneDisabled}
                 />
