@@ -7,7 +7,7 @@ import ChevronDown from '../../../icons/ChevronDown';
 import ChevronLeft from '../../../icons/ChevronLeft';
 import ChevronUp from '../../../icons/ChevronUp';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
-import { stripOutputTags, stripReasoningTags } from '../../../../helpers/utils';
+import { stripReasoningTags } from '../../../../helpers/utils';
 
 // Event type for artifact creation
 type ArtifactCreatedEvent = CustomEvent<{
@@ -26,10 +26,15 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
 }) => {
   const { openArtifact, state, closeArtifact } = useArtifact();
 
-  // Memoize the message text to prevent unnecessary recalculations
+  // Use raw text for artifact detection. translatedText may lose <output> tags.
   const messageText = useMemo(() => {
-    return message.translatedText || message.text || '';
-  }, [message.translatedText, message.text]);
+    return message.text || '';
+  }, [message.text]);
+
+  // Keep translated text as fallback only when raw text is missing.
+  const translatedMessageText = useMemo(() => {
+    return message.translatedText || '';
+  }, [message.translatedText]);
 
   // Memoize the message ID to track when the actual message changes
   const messageId = useMemo(() => {
@@ -58,7 +63,9 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
 
     const artifacts: ArtifactData[] = [];
     
-    const artifactRegex = /<output\s+class="memori-artifact"[^>]*data-mimetype="([^"]+)"[^>]*>([\s\S]*?)<\/output>/gi;
+    // Match artifact output blocks regardless of attribute order.
+    // We parse data-mimetype from the opening tag separately.
+    const artifactRegex = /(<output\b[^>]*class\s*=\s*["']memori-artifact["'][^>]*>)([\s\S]*?)(?:<\/output>|$)/gi;
     const titleRegex = {
       dataTitle: /data-title\s*=\s*["\']([^"']+)["\']/i,
       htmlTitle: /<title>([^<]+)<\/title>/gi
@@ -85,9 +92,10 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     let artifactNum = 0;
     while ((match = artifactRegex.exec(text)) !== null) {
       artifactNum++;
-      const mimeType = match[1];
+      const outputTag = match[1]; // Opening output tag for metadata extraction
       const content = match[2].trim();
-      const outputTag = match[0]; // Full output tag for title extraction
+      const mimeTypeMatch = outputTag.match(/data-mimetype\s*=\s*["']([^"']+)["']/i);
+      const mimeType = mimeTypeMatch?.[1]?.trim() || 'text/plain';
       
       const artifact = {
         id: `artifact-${Date.now()}-${artifactNum}-${Math.random().toString(36).substr(2, 9)}`,
@@ -105,8 +113,14 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
 
   // Memoize artifacts detection to prevent recalculation on every render
   const artifacts = useMemo(() => {
-    return detectArtifacts(messageText, message.fromUser || false);
-  }, [messageText, message.fromUser, detectArtifacts]);
+    const fromUser = message.fromUser || false;
+    const rawArtifacts = detectArtifacts(messageText, fromUser);
+    if (rawArtifacts.length > 0) {
+      return rawArtifacts;
+    }
+    // Fallback for legacy payloads where output tags might exist only in translated text.
+    return detectArtifacts(translatedMessageText, fromUser);
+  }, [messageText, translatedMessageText, message.fromUser, detectArtifacts]);
 
   // Auto-open first artifact when detected in new messages
   // Only run when messageId changes (actual new message), not on every render

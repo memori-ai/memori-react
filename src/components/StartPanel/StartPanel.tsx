@@ -194,6 +194,7 @@ const StartPanel: React.FC<Props> = ({
       )}
       {((memori.needsPosition && position) || !memori.needsPosition) &&
         !!memori.requireLoginToken &&
+        !tenant?.ssoLogin &&
         !isUserLoggedIn && (
           <div className="memori--needsLogin">
             <p>
