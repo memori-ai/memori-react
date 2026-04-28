@@ -66,15 +66,6 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
       }
 
       text = stripReasoningTags(text);
-
-      const artifacts: ArtifactData[] = [];
-
-      const artifactRegex =
-        /<output\s+class="memori-artifact"[^>]*data-mimetype="([^"]+)"[^>]*>([\s\S]*?)<\/output>/gi;
-      const titleRegex = {
-        dataTitle: /data-title\s*=\s*["\']([^"']+)["\']/i,
-        htmlTitle: /<title>([^<]+)<\/title>/gi,
-      };
       const artifacts: ArtifactData[] = [];
 
       // Match artifact output blocks regardless of attribute order.
