@@ -661,17 +661,26 @@ const StartPanel: React.FC<Props> = ({
             <ul className="memori--privacy-popover-content-list">
               {isUserLoggedIn ? (
                 <li>
-                  {t('write_and_speak.pagePrivacyExplanationList.contentAndUsername')}
+                  {t(
+                    'write_and_speak.pagePrivacyExplanationList.contentAndUsername'
+                  )}
                 </li>
               ) : (
                 <li>
-                  {t('write_and_speak.pagePrivacyExplanationList.contentAndIpAddress')}
+                  {t(
+                    'write_and_speak.pagePrivacyExplanationList.contentAndIpAddress'
+                  )}
                 </li>
               )}
             </ul>
-            <p>{t('write_and_speak.pagePrivacyExplanationList.authorUsesInfo')}</p>
+            <p>
+              {t('write_and_speak.pagePrivacyExplanationList.authorUsesInfo')}
+            </p>
             <a
-              href={tenant?.privacyPolicyURL ?? 'https://memori.ai/en/privacy-policy'}
+              href={
+                tenant?.privacyPolicyURL ??
+                'https://memori.ai/en/privacy-policy'
+              }
               target="_blank"
               rel="noopener noreferrer"
               className="memori--privacy-popover-content-link"

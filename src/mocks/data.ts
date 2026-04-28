@@ -89,6 +89,137 @@ export const memori: Memori = {
   coverURL: 'https://aisuru.com/images/aisuru/og-image.png',
 };
 
+export const historyWithArtifact: Message[] = [
+  {
+    text: "Ciao, io sono test, c'è qualcosa che vorresti chiedermi?",
+    timestamp: '2021-03-01T12:00:00.000Z',
+  },
+  {
+    text: `<output class="memori-artifact" data-mimetype="markdown">
+# Proposta Tecnica – LCS Group 
+**Risposta alla RDO Assolombarda – Aprile 2026**
+
+## 1. Sommario
+
+| Piano | Componenti | Costo (€) | Note |
+|-------|------------|-----------|------|
+| **A – On‑Premise + Cloud (ibrido)** | AISURU EXTENSION 15 000 €<br>SVILUPPO ABC 30 000 € (50 % coperto da ASSO)<br>MODELLI LOCALI SETUP 7 000 €<br>10 agenti aggiuntivi (7 440 €/anno) | **59 440 €** | 15 agenti disponibili, VPN attiva, modelli sia on‑premise che cloud |
+| **B – On‑Premise Only** | AISURU ON‑PREM 33 000 € (agenti illimitati)<br>SVILUPPO ABC 30 000 € (50 % coperto da ASSO)<br>MODELLI LOCALI SETUP 7 000 € | **70 000 €** | Nessuna dipendenza cloud, tutti i modelli in locale, formazione integrata |
+
+&gt; **Domanda di Camilla:** *"C'è una differenza di velocità tra on‑premise e cloud? Le risposte mi sembrano lente."*
+
+## 2. Velocità e Performance
+
+### 2.1 Cosa dice la documentazione ufficiale di AIsuru
+- **Docs AIsuru** (https://docs.aisuru.com) non fornisce SLA di latenza né benchmark numerici.
+- La documentazione è focalizzata su funzionalità, API e integrazioni, non su metriche di throughput.
+
+### 2.2 Confronto generico (fonti esterne)
+
+| Aspetto | On‑Premise (installazione locale) | Cloud (AIsuru SaaS) |
+|---------|-----------------------------------|----------------------|
+| **Latenza di rete** | µs‑ms (LAN interna) | 50‑100 ms tipici, dipende da distanza geografica |
+| **Variabilità** | Molto prevedibile (solo hardware locale) | Variabile (routing internet, multi‑tenant) |
+| **Scalabilità** | Limitata dalla capacità hardware (CPU/GPU/RAM) | Illimitata on‑demand (auto‑scaling) |
+| **Controllo configurazione** | Totale (rete, storage, GPU) | Limitato a opzioni offerte dal provider |
+| **Costi operativi** | CAPEX + OPEX (hardware, energia, manutenzione) | OPEX basato su consumo (token, richieste) |
+| **Sicurezza / privacy** | Dati sempre on‑premise, zero esposizione a internet | Dati transitano su rete pubblica, dipende dalle policy del provider |
+
+#### Conclusione pratica
+- **Carichi latency‑critical** (es. decisioni in tempo reale per il ri‑ordino ABC) → **On‑Premise** garantisce tempi più rapidi e stabili.
+- **Carichi elastici** (analisi periodiche, reporting) → **Cloud** è più semplice da gestire e scalare, ma introduce latenza di qualche decina di ms.
+
+### 2.3 Come migliorare le performance
+
+| Azione | On‑Premise | Cloud |
+|--------|------------|-------|
+| **Ottimizzare la rete** | Switch a bassa latenza, NIC con offloading (RSS, LRO) | Accelerated Networking (SR‑IOV) o Proximity Placement Groups |
+| **Ridurre payload** | Compressione JSON, protocolli binari (MessagePack) | Caching (Redis, Azure Cache) per risultati ricorrenti |
+| **Batching** | Inviare batch di richieste per ridurre overhead | Usare bulk API endpoints se disponibili |
+| **Monitorare** | Jaeger / OpenTelemetry per tracing locale | Azure Monitor / CloudWatch per RTT e p99 |
+| **Hardware** | GPU NVIDIA RTX PRO 6000 (96 GB) → inferenza &lt; 10 ms/token | GPU‑as‑a‑Service (NVIDIA AI Cloud) con NIM per ridurre tempi di avvio modello |
+
+## 3. Raccomandazioni per la tua scelta
+
+1. **Se scegli il piano A (ibrido)** 
+ - Mantieni la VPN per collegare i server on‑premise al cloud. 
+ - Configura una **LAN dedicata** per gli agenti AI (latency &lt; 5 ms). 
+ - Usa **Redis cache** in cloud per ridurre le chiamate ripetitive dei 10 agenti aggiuntivi. 
+
+2. **Se scegli il piano B (solo on‑premise)** 
+ - Sfrutta al massimo le **GPU RTX PRO 6000** e le **NVMe U.2** per I/O ultra‑rapido. 
+ - Implementa **monitoring locale** (Jaeger, Prometheus) per verificare che le risposte rimangano &lt; 10 ms. 
+ - La VPN resta attiva per eventuali integrazioni future (es. backup off‑site). 
+
+3. **Hybrid recommendation (best‑of‑both)** 
+ - **On‑premise** per tutti i processi critici (ri‑classificazione ABC, decision support in tempo reale). 
+ - **Cloud** per workload di training, aggiornamenti modello, e reporting non critico. 
+ - Bilancia il traffico tramite **API gateway** con routing basato su SLA (latency &lt; 20 ms → on‑premise, altrimenti cloud). 
+
+## 4. Prossimi passi
+
+1. **Conferma il modello di deployment** (A, B o ibrido). 
+2. **Definisci i requisiti di latenza** (es. &lt; 20 ms per operazioni critiche). 
+3. **Aggiorna il budget** includendo eventuali costi di rete (Accelerated Networking, Proximity Placement Groups). 
+4. **Programma la formazione** (moduli "Come è stato realizzato", "Operations &amp; Monitoring", "Replicazione su nuovi impianti"). 
+
+---
+
+*Per ulteriori dettagli o per inserire queste modifiche direttamente nel PDF originale, fammi sapere.*</output>`,
+  },
+  {
+    text: `<output class="memori-artifact" data-mimetype="markdown">
+# Cos'è **Memori.ai** e cosa fa
+
+** Memori.ai ** è una piattaforma italiana che fornisce ** un layer di memoria per applicazioni basate su LLM(Large Language Model) **, agenti conversazionali e copiloti. 
+Le sue funzioni principali sono:
+
+| Funzionalità | Descrizione |
+| --------------| -------------|
+| ** Cattura e memorizzazione ** | Registra ogni turno di conversazione e lo classifica in fatti, preferenze, regole e riassunti. |
+| ** Richiamo mirato ** | Recupera solo il contesto rilevante, riducendo il consumo di token. |
+| ** Ricerca semantica selettiva ** | Arricchisce le query con contesto semantico per risultati più precisi. |
+| ** Arricchimento intelligente ** | Aggiunge automaticamente fatti, attributi, eventi e relazioni senza latenza. |
+| ** Architettura SQL‑native ** | Si integra direttamente con database esistenti, indipendente dal modello LLM. |
+| ** Controllo dei dati ** | Permette di definire cosa viene memorizzato, per quanto tempo e dove. |
+| ** Offerte di deployment ** | Cloud pubblico, private cloud o on‑premise, conforme al ** EU AI Act **. |
+| ** Ecosistema ** | Include ** AIsuru ** (piattaforma per creare, istruire e distribuire agenti) e ** AI Academy ** (corsi di formazione). |
+
+& gt; Fonte: * Memori.ai – About, Docs, Blog, GitHub *【1†L1 - L4】【2†L1 - L4】【3†L1 - L4】
+
+---
+
+# Docs.aisuru.com – Documentazione di ** AIsuru **
+
+** AIsuru ** è la piattaforma europea di Memori per la creazione, l'istruzione e il deployment di **AI agent**. 
+Il sito ** docs.aisuru.com ** raccoglie tutta la documentazione tecnica.
+
+## Principali caratteristiche evidenziate nella documentazione
+
+  | Area | Cosa permette |
+| ------| ----------------|
+| ** Creazione agenti ** | Generazione rapida(≈2 min) di agenti personalizzati con nome, avatar e personalità; focus su domini aziendali. |
+| ** Metodi di istruzione ** | Upload di PDF, Word, Excel via drag‑and‑drop; apprendimento tramite conversazione per addestrare l'agente su documenti e conoscenza. |
+  | ** Deployment ** | Embedding su siti web, integrazione con CRM, email, database o altre app tramite API documentate. |
+| ** Accesso mobile ** | App Android ufficiale per interagire con gli agenti creati, condividere conversazioni e gestire attività. |
+| ** Conformità e privacy ** | Operato da Memori S.r.l. (Italia) con politiche di privacy EU‑compliant; gestione trasparente di IP e log. |
+| ** Risorse per integratori ** | Corso su GitHub per system integrator su come collegare AIsuru a workflow aziendali. |
+
+& gt; Fonte: * docs.aisuru.com, memori.ai – AIsuru page, GitHub *【1†L1 - L4】【2†L1 - L4】【8†L1 - L4】
+
+---
+
+## Sintesi
+
+  - ** Memori.ai **: infrastruttura di memoria per LLM / agent, ottimizza il contesto, riduce costi e garantisce controllo sui dati. 
+- ** AIsuru(docs.aisuru.com) **: piattaforma "no‑code/low‑code" per costruire, addestrare e distribuire agenti AI, con API, integrazioni e app mobile, tutto conforme al regolamento UE sull'AI. 
+
+Se ti servono esempi di codice o ulteriori dettagli su una specifica funzionalità, fammi sapere! </output>`,
+    timestamp: '2021-03-01T12:00:00.000Z',
+  }
+];
+
+
 export const historyWithArtifacts: Message[] = [
   {
     text: "Ciao, io sono test, c'è qualcosa che vorresti chiedermi?",
@@ -99,19 +230,19 @@ export const historyWithArtifacts: Message[] = [
     fromUser: true,
     timestamp: '2021-03-01T12:00:00.000Z',
   },
-  
+
   {
     text: "Mi dispiace, le mie risposte sono limitate. Devi farmi le domande giuste. C'è altro che vuoi sapere?",
     timestamp: '2021-03-01T12:00:00.000Z',
   },
-  
+
   {
     text: 'Come faccio a fare delle cose con questa cosa?',
     fromUser: true,
     timestamp: '2021-03-01T12:00:00.000Z',
   },
-  
-  
+
+
   {
     text: `Ecco qui come. <think>L'utente mi sta chiedendo di generare un'immagine di gattini. Per fare questo devo utilizzare il sistema di generazione immagini. Prima devo controllare quali strumenti sono disponibili per la generazione di immagini. Dovrei:1. Prima chiamare LISTA_TOOLS_FREE_IMAGE_GENERATOR_MCP_PROD per vedere gli strumenti disponibili2. Poi usare ESEGUI_TOOL_FREE_IMAGE_GENERATOR_MCP_PROD per generare l'immagine 2. Poi usare ESEGUI_TOOL_FREE_IMAGE_GENERATOR_MCP_PROD per generare l'immagine Dalle istruzioni so che devo provare i modelli in questo ordine: turbo, flux, kontext (iniziando sempre con turbo). Inoltre, dalle istruzioni specifiche, vedo che se ho ARTIFACT attivo posso usare JavaScript e ARTIFACT per effetti più avanzati, altrimenti devo avvisare che l'immagine ci può mettere un po' a caricarsi e predisporre il bordo width:100%. Dato che sto lavorando con il sistema Memori Artifact, dovrei avere ARTIFACT disponibile, quindi userò quello per una gestione più bella del loading.</think>Perfetto! Ho generato per te un'adorabile immagine di gattini! 🐱✨ <output class="memori-artifact" data-mimetype="html" data-title="Gattini Adorabili">
 <!DOCTYPE html>
@@ -329,21 +460,21 @@ L'immagine è visualizzata in una pagina web interattiva con:
 Se vuoi provare variazioni diverse, posso generare altre immagini con stili o pose differenti! 🎨`,
     timestamp: '2021-03-01T12:00:00.000Z',
   },
-  
-  
+
+
   {
     text: 'Ah, grazie! Ciao!',
     fromUser: true,
     timestamp: '2021-03-01T12:00:00.000Z',
   },
-  
-  
+
+
   {
     text: 'Arrivederci.',
     timestamp: '2021-03-01T12:00:00.000Z',
   },
-  
-  
+
+
 ];
 
 
@@ -445,9 +576,8 @@ export const historyWithMedia: Message[] = [
         mediumID: `95226d7e-7bae-465e-8b80-995587bb597${i}`,
         mimeType: 'image/png',
         title: `Image ${i}`,
-        url: `https://picsum.photos/${i % 2 ? '200' : '300'}/${
-          i % 3 ? '300' : '200'
-        }?random=${i}`,
+        url: `https://picsum.photos/${i % 2 ? '200' : '300'}/${i % 3 ? '300' : '200'
+          }?random=${i}`,
       })),
     ],
     timestamp: '2021-03-01T12:00:00.000Z',

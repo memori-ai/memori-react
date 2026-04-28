@@ -6,6 +6,7 @@ import {
   history,
   historyWithMedia,
   historyWithAIGeneratedMessages,
+  historyWithArtifact,
   sessionID,
   dialogState as dialogStateWithHints,
   historyWithExpandable,
@@ -80,6 +81,130 @@ MemoriTyping.args = {
   layout: 'DEFAULT',
   simulateUserPrompt: () => {},
   memoriTyping: true,
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
+
+export const WithArtifactBug = Template.bind({});
+WithArtifactBug.args = {
+  memori,
+  tenant,
+  sessionID,
+  history: historyWithArtifact,
+  dialogState,
+  layout: 'DEFAULT',
+};
+
+export const ArtifactTagOnlyInRawText = Template.bind({});
+ArtifactTagOnlyInRawText.args = {
+  memori,
+  tenant,
+  sessionID,
+  history: [
+    {
+      text: 'lo voglio in un artifact interattivo',
+      fromUser: true,
+      timestamp: '2026-04-27T14:22:12.068937Z',
+      media: [],
+    },
+    {
+      text: `<output class="memori-artifact" data-mimetype="html" data-title="Battaglia Navale">
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Battaglia Navale</title>
+</head>
+<body>
+  <h1>Battaglia Navale</h1>
+  <p>Artifact should be detected from raw text.</p>
+</body>
+</html>
+</output>`,
+      // Regression setup: translated text exists but does not contain the <output> tag.
+      translatedText:
+        'Interfaccia pronta! Inserisci le coordinate delle navi e premi Inizia.',
+      fromUser: false,
+      timestamp: '2026-04-27T14:22:36.740195Z',
+      media: [],
+    },
+  ],
+  dialogState,
+  layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
+
+export const ArtifactWithoutClosingTag = Template.bind({});
+ArtifactWithoutClosingTag.args = {
+  memori,
+  tenant,
+  sessionID,
+  history: [
+    {
+      text: 'Puoi prepararmi una proposta tecnica in artifact?',
+      fromUser: true,
+      timestamp: '2026-04-27T14:18:10.000000Z',
+      media: [],
+    },
+    {
+      text: `<output class="memori-artifact" data-mimetype="markdown">
+# Proposta Tecnica
+
+## Sommario
+- Piano A: On-premise + Cloud
+- Piano B: Solo on-premise
+
+## Raccomandazione
+Per workload critici, preferire on-premise.
+
+Questa risposta riproduce il caso reale in cui manca il tag di chiusura`,
+      fromUser: false,
+      timestamp: '2026-04-27T14:18:16.846760Z',
+      media: [],
+    },
+  ],
+  dialogState,
+  layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
+  sendMessage: (msg: string) => console.log(msg),
+  stopListening: () => {},
+  resetTranscript: () => {},
+  setAttachmentsMenuOpen: () => {},
+  setSendOnEnter: () => {},
+};
+
+export const ArtifactPlainTextMime = Template.bind({});
+ArtifactPlainTextMime.args = {
+  memori,
+  tenant,
+  sessionID,
+  history: [
+    {
+      text: 'mostramelo come artifact semplice',
+      fromUser: true,
+      timestamp: '2026-04-27T14:30:00.000000Z',
+      media: [],
+    },
+    {
+      text: `<output class="memori-artifact" data-mimetype="text">
+ciao
+</output>`,
+      fromUser: false,
+      timestamp: '2026-04-27T14:30:05.000000Z',
+      media: [],
+    },
+  ],
+  dialogState,
+  layout: 'DEFAULT',
+  simulateUserPrompt: () => {},
   sendMessage: (msg: string) => console.log(msg),
   stopListening: () => {},
   resetTranscript: () => {},
