@@ -296,7 +296,9 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                     <>
                       <div className="memori-dropdown--avatar-placeholder">
                         <span className="memori-dropdown--avatar-initial">
-                          {(userName || userEmail || 'U').charAt(0).toUpperCase()}
+                          {(userName || userEmail || 'U')
+                            .charAt(0)
+                            .toUpperCase()}
                         </span>
                         <span className="memori-dropdown--avatar-overlay">
                           <Camera size={20} strokeWidth={2} />
@@ -340,45 +342,45 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                       action.disabled || (isKnownFactsAction && !isLoggedIn);
 
                     return (
-                  <Button
-                    variant="toolbar"
-                    size="sm"
-                    className="memori-mobile-session-panel--action"
-                    disabled={isActionDisabled}
-                    onClick={() => {
-                      if (isActionDisabled) return;
-                      if (action.view === 'knownFacts') {
-                        if (onKnownFactsOpen) {
-                          onKnownFactsOpen();
-                          return;
-                        }
-                      }
-                      if (action.view) {
-                        setActiveView(action.view);
-                        return;
-                      }
-                      action.onClick?.();
-                    }}
-                  >
-                    <span className="memori-mobile-session-panel--action-icon">
-                      {action.icon}
-                    </span>
-                    <span className="memori-mobile-session-panel--action-copy">
-                      <span className="memori-mobile-session-panel--action-title">
-                        {action.title}
-                      </span>
-                      {action.subtitle && (
-                        <span className="memori-mobile-session-panel--action-subtitle">
-                          {action.subtitle}
+                      <Button
+                        variant="toolbar"
+                        size="sm"
+                        className="memori-mobile-session-panel--action"
+                        disabled={isActionDisabled}
+                        onClick={() => {
+                          if (isActionDisabled) return;
+                          if (action.view === 'knownFacts') {
+                            if (onKnownFactsOpen) {
+                              onKnownFactsOpen();
+                              return;
+                            }
+                          }
+                          if (action.view) {
+                            setActiveView(action.view);
+                            return;
+                          }
+                          action.onClick?.();
+                        }}
+                      >
+                        <span className="memori-mobile-session-panel--action-icon">
+                          {action.icon}
                         </span>
-                      )}
-                    </span>
-                    {action.trailing && (
-                      <span className="memori-mobile-session-panel--action-trailing">
-                        {action.trailing}
-                      </span>
-                    )}
-                  </Button>
+                        <span className="memori-mobile-session-panel--action-copy">
+                          <span className="memori-mobile-session-panel--action-title">
+                            {action.title}
+                          </span>
+                          {action.subtitle && (
+                            <span className="memori-mobile-session-panel--action-subtitle">
+                              {action.subtitle}
+                            </span>
+                          )}
+                        </span>
+                        {action.trailing && (
+                          <span className="memori-mobile-session-panel--action-trailing">
+                            {action.trailing}
+                          </span>
+                        )}
+                      </Button>
                     );
                   })()}
                 </li>

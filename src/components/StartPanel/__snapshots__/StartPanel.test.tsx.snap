@@ -79,7 +79,7 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
             Memori
           </h2>
           <div
-            class="memori-expandable memori--description-text"
+            class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
             <div
               class="memori-expandable__inner"
@@ -237,23 +237,27 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
             </section>
           </div>
         </section>
+        <div
+          class="memori--start-actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--lg memori--start-actions__start"
+            style="font-weight: var(--memori-text-weight-bold);"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              write_and_speak.tryMeButton
+            </span>
+          </button>
+        </div>
         <p
           class="memori--start-description"
         >
           write_and_speak.pageTryMeExplanation
         </p>
-        <button
-          class="memori-button memori-button--primary memori-button--lg"
-          style="font-weight: var(--memori-text-weight-bold);"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="memori-button__content"
-          >
-            write_and_speak.tryMeButton
-          </span>
-        </button>
       </div>
     </div>
   </div>
@@ -294,7 +298,7 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
             Memori
           </h2>
           <div
-            class="memori-expandable memori--description-text"
+            class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
             <div
               class="memori-expandable__inner"
@@ -452,23 +456,27 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
             </section>
           </div>
         </section>
+        <div
+          class="memori--start-actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--lg memori--start-actions__start"
+            style="font-weight: var(--memori-text-weight-bold);"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              write_and_speak.instructButton
+            </span>
+          </button>
+        </div>
         <p
           class="memori--start-description"
         >
           write_and_speak.pageInstructExplanation
         </p>
-        <button
-          class="memori-button memori-button--primary memori-button--lg"
-          style="font-weight: var(--memori-text-weight-bold);"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="memori-button__content"
-          >
-            write_and_speak.instructButton
-          </span>
-        </button>
       </div>
     </div>
   </div>
@@ -509,7 +517,7 @@ exports[`renders StartPanel unchanged 1`] = `
             Memori
           </h2>
           <div
-            class="memori-expandable memori--description-text"
+            class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
             <div
               class="memori-expandable__inner"
@@ -667,23 +675,27 @@ exports[`renders StartPanel unchanged 1`] = `
             </section>
           </div>
         </section>
+        <div
+          class="memori--start-actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--lg memori--start-actions__start"
+            style="font-weight: var(--memori-text-weight-bold);"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              write_and_speak.tryMeButton
+            </span>
+          </button>
+        </div>
         <p
           class="memori--start-description"
         >
           write_and_speak.pageTryMeExplanation
         </p>
-        <button
-          class="memori-button memori-button--primary memori-button--lg"
-          style="font-weight: var(--memori-text-weight-bold);"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="memori-button__content"
-          >
-            write_and_speak.tryMeButton
-          </span>
-        </button>
       </div>
     </div>
   </div>
@@ -724,7 +736,7 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
             Memori
           </h2>
           <div
-            class="memori-expandable memori--description-text"
+            class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
             <div
               class="memori-expandable__inner"
@@ -877,23 +889,27 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
             </section>
           </div>
         </section>
+        <div
+          class="memori--start-actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--lg memori--start-actions__start"
+            style="font-weight: var(--memori-text-weight-bold);"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              write_and_speak.tryMeButton
+            </span>
+          </button>
+        </div>
         <p
           class="memori--start-description"
         >
           write_and_speak.pageTryMeExplanation
         </p>
-        <button
-          class="memori-button memori-button--primary memori-button--lg"
-          style="font-weight: var(--memori-text-weight-bold);"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="memori-button__content"
-          >
-            write_and_speak.tryMeButton
-          </span>
-        </button>
       </div>
     </div>
   </div>
@@ -934,7 +950,7 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
             Memori
           </h2>
           <div
-            class="memori-expandable memori--description-text"
+            class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
             <div
               class="memori-expandable__inner"
@@ -1092,23 +1108,27 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
             </section>
           </div>
         </section>
+        <div
+          class="memori--start-actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--lg memori--start-actions__start"
+            style="font-weight: var(--memori-text-weight-bold);"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              write_and_speak.tryMeButton
+            </span>
+          </button>
+        </div>
         <p
           class="memori--start-description"
         >
           write_and_speak.pageTryMeExplanation
         </p>
-        <button
-          class="memori-button memori-button--primary memori-button--lg"
-          style="font-weight: var(--memori-text-weight-bold);"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="memori-button__content"
-          >
-            write_and_speak.tryMeButton
-          </span>
-        </button>
       </div>
     </div>
   </div>
@@ -1149,7 +1169,7 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
             Memori
           </h2>
           <div
-            class="memori-expandable memori--description-text"
+            class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
             <div
               class="memori-expandable__inner"
@@ -1262,61 +1282,65 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
                     </p>
                   </div>
                 </div>
-                <span
-                  class="styles-module__root___-ALla"
+                <div
+                  class="memori--settings-section__actions-right"
                 >
-                  <span
-                    class="styles-module__trigger___V2aIF"
-                    id="base-ui-:r18:"
+                  <button
+                    class="memori-button memori-button--toolbar memori-button--sm memori--settings-section__action"
+                    tabindex="0"
+                    type="button"
                   >
-                    <button
-                      aria-label="deepThoughtHelper"
-                      class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--settings-section__info-trigger"
-                      tabindex="0"
-                      type="button"
+                    <span
+                      class="memori-button__content"
                     >
-                      <span
-                        class="memori-button__content"
-                      >
-                        <svg
-                          class="lucide lucide-info memori--settings-section__inline-info-icon"
-                          fill="none"
-                          height="24"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="24"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="10"
-                          />
-                          <path
-                            d="M12 16v-4"
-                          />
-                          <path
-                            d="M12 8h.01"
-                          />
-                        </svg>
-                      </span>
-                    </button>
-                  </span>
-                </span>
-                <button
-                  class="memori-button memori-button--toolbar memori-button--sm memori--settings-section__action"
-                  tabindex="0"
-                  type="button"
-                >
+                      login.login
+                    </span>
+                  </button>
                   <span
-                    class="memori-button__content"
+                    class="styles-module__root___-ALla"
                   >
-                    login.login
+                    <span
+                      class="styles-module__trigger___V2aIF"
+                      id="base-ui-:r18:"
+                    >
+                      <button
+                        aria-label="deepThoughtHelper"
+                        class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--settings-section__info-trigger"
+                        tabindex="0"
+                        type="button"
+                      >
+                        <span
+                          class="memori-button__content"
+                        >
+                          <svg
+                            class="lucide lucide-info memori--settings-section__inline-info-icon"
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="10"
+                            />
+                            <path
+                              d="M12 16v-4"
+                            />
+                            <path
+                              d="M12 8h.01"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
                   </span>
-                </button>
+                </div>
               </div>
               <div
                 class="memori--settings-section__row"
@@ -1413,23 +1437,27 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
             </section>
           </div>
         </section>
+        <div
+          class="memori--start-actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--lg memori--start-actions__start"
+            style="font-weight: var(--memori-text-weight-bold);"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              write_and_speak.tryMeButton
+            </span>
+          </button>
+        </div>
         <p
           class="memori--start-description"
         >
           write_and_speak.pageTryMeExplanation
         </p>
-        <button
-          class="memori-button memori-button--primary memori-button--lg"
-          style="font-weight: var(--memori-text-weight-bold);"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="memori-button__content"
-          >
-            write_and_speak.tryMeButton
-          </span>
-        </button>
       </div>
     </div>
   </div>
@@ -1470,7 +1498,7 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
             Memori
           </h2>
           <div
-            class="memori-expandable memori--description-text"
+            class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
             <div
               class="memori-expandable__inner"
@@ -1578,55 +1606,57 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
                   >
                     <p
                       class="memori--settings-section__description"
-                    >
-                      deepThoughtPreDisclaimerUnlogged
-                    </p>
+                    />
                   </div>
                 </div>
-                <span
-                  class="styles-module__root___-ALla"
+                <div
+                  class="memori--settings-section__actions-right"
                 >
                   <span
-                    class="styles-module__trigger___V2aIF"
-                    id="base-ui-:r1h:"
+                    class="styles-module__root___-ALla"
                   >
-                    <button
-                      aria-label="deepThoughtHelper"
-                      class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--settings-section__info-trigger"
-                      tabindex="0"
-                      type="button"
+                    <span
+                      class="styles-module__trigger___V2aIF"
+                      id="base-ui-:r1h:"
                     >
-                      <span
-                        class="memori-button__content"
+                      <button
+                        aria-label="deepThoughtHelper"
+                        class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--settings-section__info-trigger"
+                        tabindex="0"
+                        type="button"
                       >
-                        <svg
-                          class="lucide lucide-info memori--settings-section__inline-info-icon"
-                          fill="none"
-                          height="24"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="24"
-                          xmlns="http://www.w3.org/2000/svg"
+                        <span
+                          class="memori-button__content"
                         >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="10"
-                          />
-                          <path
-                            d="M12 16v-4"
-                          />
-                          <path
-                            d="M12 8h.01"
-                          />
-                        </svg>
-                      </span>
-                    </button>
+                          <svg
+                            class="lucide lucide-info memori--settings-section__inline-info-icon"
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="10"
+                            />
+                            <path
+                              d="M12 16v-4"
+                            />
+                            <path
+                              d="M12 8h.01"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
                   </span>
-                </span>
+                </div>
               </div>
               <div
                 class="memori--settings-section__row"
@@ -1723,23 +1753,27 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
             </section>
           </div>
         </section>
+        <div
+          class="memori--start-actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--lg memori--start-actions__start"
+            style="font-weight: var(--memori-text-weight-bold);"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              write_and_speak.tryMeButton
+            </span>
+          </button>
+        </div>
         <p
           class="memori--start-description"
         >
           write_and_speak.pageTryMeExplanation
         </p>
-        <button
-          class="memori-button memori-button--primary memori-button--lg"
-          style="font-weight: var(--memori-text-weight-bold);"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="memori-button__content"
-          >
-            write_and_speak.tryMeButton
-          </span>
-        </button>
       </div>
     </div>
   </div>
@@ -1780,7 +1814,7 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
             Memori
           </h2>
           <div
-            class="memori-expandable memori--description-text"
+            class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
             <div
               class="memori-expandable__inner"
@@ -1888,55 +1922,57 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
                   >
                     <p
                       class="memori--settings-section__description"
-                    >
-                      deepThoughtPreDisclaimerUnlogged
-                    </p>
+                    />
                   </div>
                 </div>
-                <span
-                  class="styles-module__root___-ALla"
+                <div
+                  class="memori--settings-section__actions-right"
                 >
                   <span
-                    class="styles-module__trigger___V2aIF"
-                    id="base-ui-:rv:"
+                    class="styles-module__root___-ALla"
                   >
-                    <button
-                      aria-label="deepThoughtHelper"
-                      class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--settings-section__info-trigger"
-                      tabindex="0"
-                      type="button"
+                    <span
+                      class="styles-module__trigger___V2aIF"
+                      id="base-ui-:rv:"
                     >
-                      <span
-                        class="memori-button__content"
+                      <button
+                        aria-label="deepThoughtHelper"
+                        class="memori-button memori-button--toolbar memori-button--sm memori--privacy-popover-trigger memori--settings-section__info-trigger"
+                        tabindex="0"
+                        type="button"
                       >
-                        <svg
-                          class="lucide lucide-info memori--settings-section__inline-info-icon"
-                          fill="none"
-                          height="24"
-                          stroke="currentColor"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          stroke-width="2"
-                          viewBox="0 0 24 24"
-                          width="24"
-                          xmlns="http://www.w3.org/2000/svg"
+                        <span
+                          class="memori-button__content"
                         >
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="10"
-                          />
-                          <path
-                            d="M12 16v-4"
-                          />
-                          <path
-                            d="M12 8h.01"
-                          />
-                        </svg>
-                      </span>
-                    </button>
+                          <svg
+                            class="lucide lucide-info memori--settings-section__inline-info-icon"
+                            fill="none"
+                            height="24"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            viewBox="0 0 24 24"
+                            width="24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="10"
+                            />
+                            <path
+                              d="M12 16v-4"
+                            />
+                            <path
+                              d="M12 8h.01"
+                            />
+                          </svg>
+                        </span>
+                      </button>
+                    </span>
                   </span>
-                </span>
+                </div>
               </div>
               <div
                 class="memori--settings-section__row"
@@ -2033,23 +2069,27 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
             </section>
           </div>
         </section>
+        <div
+          class="memori--start-actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--lg memori--start-actions__start"
+            style="font-weight: var(--memori-text-weight-bold);"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              write_and_speak.tryMeButton
+            </span>
+          </button>
+        </div>
         <p
           class="memori--start-description"
         >
           write_and_speak.pageTryMeExplanation
         </p>
-        <button
-          class="memori-button memori-button--primary memori-button--lg"
-          style="font-weight: var(--memori-text-weight-bold);"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="memori-button__content"
-          >
-            write_and_speak.tryMeButton
-          </span>
-        </button>
       </div>
     </div>
   </div>
@@ -2090,7 +2130,7 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
             Memori
           </h2>
           <div
-            class="memori-expandable memori--description-text"
+            class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
             <div
               class="memori-expandable__inner"
@@ -2248,23 +2288,27 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
             </section>
           </div>
         </section>
+        <div
+          class="memori--start-actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--lg memori--start-actions__start"
+            style="font-weight: var(--memori-text-weight-bold);"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              write_and_speak.resumeButton
+            </span>
+          </button>
+        </div>
         <p
           class="memori--start-description"
         >
           write_and_speak.pageTryMeExplanation
         </p>
-        <button
-          class="memori-button memori-button--primary memori-button--lg"
-          style="font-weight: var(--memori-text-weight-bold);"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="memori-button__content"
-          >
-            write_and_speak.resumeButton
-          </span>
-        </button>
       </div>
     </div>
   </div>
@@ -2305,7 +2349,7 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
             Memori
           </h2>
           <div
-            class="memori-expandable memori--description-text"
+            class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
             <div
               class="memori-expandable__inner"
@@ -2463,23 +2507,27 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
             </section>
           </div>
         </section>
+        <div
+          class="memori--start-actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--lg memori--start-actions__start"
+            style="font-weight: var(--memori-text-weight-bold);"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              write_and_speak.tryMeButton
+            </span>
+          </button>
+        </div>
         <p
           class="memori--start-description"
         >
           write_and_speak.pageTryMeExplanation
         </p>
-        <button
-          class="memori-button memori-button--primary memori-button--lg"
-          style="font-weight: var(--memori-text-weight-bold);"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="memori-button__content"
-          >
-            write_and_speak.tryMeButton
-          </span>
-        </button>
       </div>
     </div>
   </div>
@@ -2520,7 +2568,7 @@ exports[`renders StartPanel with login required unchanged 1`] = `
             Memori
           </h2>
           <div
-            class="memori-expandable memori--description-text"
+            class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
             <div
               class="memori-expandable__inner"
@@ -2649,7 +2697,7 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
             Memori
           </h2>
           <div
-            class="memori-expandable memori--description-text"
+            class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
             <div
               class="memori-expandable__inner"
@@ -2877,23 +2925,27 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
             </section>
           </div>
         </section>
+        <div
+          class="memori--start-actions"
+        >
+          <button
+            class="memori-button memori-button--primary memori-button--lg memori--start-actions__start"
+            style="font-weight: var(--memori-text-weight-bold);"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__content"
+            >
+              write_and_speak.tryMeButton
+            </span>
+          </button>
+        </div>
         <p
           class="memori--start-description"
         >
           write_and_speak.pageTryMeExplanation
         </p>
-        <button
-          class="memori-button memori-button--primary memori-button--lg"
-          style="font-weight: var(--memori-text-weight-bold);"
-          tabindex="0"
-          type="button"
-        >
-          <span
-            class="memori-button__content"
-          >
-            write_and_speak.tryMeButton
-          </span>
-        </button>
       </div>
     </div>
   </div>
@@ -2934,7 +2986,7 @@ exports[`renders StartPanel with position required unchanged 1`] = `
             Memori
           </h2>
           <div
-            class="memori-expandable memori--description-text"
+            class="memori-expandable memori--description-text memori--description-text--collapsible"
           >
             <div
               class="memori-expandable__inner"

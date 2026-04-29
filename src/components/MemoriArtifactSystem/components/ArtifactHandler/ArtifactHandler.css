@@ -30,8 +30,13 @@
     transition: all 0.3s ease;
 }
 
+.memori-artifact-handler-wrapper {
+    width: 100%;
+}
+
 .memori-artifact-handler-wrapper > .memori-artifact-handler {
-    max-width: 90%;
+    width: 100%;
+    max-width: 100%;
 }
 
 .memori-artifact-handler:hover {

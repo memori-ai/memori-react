@@ -41,7 +41,6 @@ export interface Props {
   url?: string;
   title?: string;
   className?: string;
-  primary?: boolean;
   baseUrl?: string;
   showQrCode?: boolean;
   align?: 'left' | 'right';
@@ -62,7 +61,6 @@ const ShareButton: React.FC<Props> = ({
   sessionID,
   url,
   title = '',
-  primary = false,
   baseUrl,
   showQrCode = true,
   align = 'right',
@@ -218,6 +216,17 @@ const ShareButton: React.FC<Props> = ({
   const handleDownloadQR = () => {
     downloadQRCode();
     flashMenuItem('qr-download');
+  };
+
+  const openShareTarget = (item: { id: string; url: string }) => {
+    if (item.id === 'email') {
+      const opened = window.open(item.url, '_self');
+      if (!opened) {
+        window.location.href = item.url;
+      }
+      return;
+    }
+    window.open(item.url, '_blank', 'noopener,noreferrer');
   };
 
   /**
@@ -402,7 +411,8 @@ const ShareButton: React.FC<Props> = ({
           <button
             type="button"
             className={cx('memori-share-button--inline-item', {
-              'memori-share-button--menu-item--flash': menuFlashKey === 'export-pdf',
+              'memori-share-button--menu-item--flash':
+                menuFlashKey === 'export-pdf',
             })}
             onClick={handleExportPDF}
             disabled={isExportingPDF}
@@ -423,7 +433,11 @@ const ShareButton: React.FC<Props> = ({
           })}
           onClick={handleCopyLink}
         >
-          {copyStatus === 'success' ? <Check strokeWidth={2.5} /> : <LinkIcon />}
+          {copyStatus === 'success' ? (
+            <Check strokeWidth={2.5} />
+          ) : (
+            <LinkIcon />
+          )}
           <span>
             {copyStatus === 'success'
               ? t('copied')
@@ -442,14 +456,11 @@ const ShareButton: React.FC<Props> = ({
               type="button"
               key={item.id}
               className={cx('memori-share-button--inline-item', {
-                'memori-share-button--menu-item--flash': menuFlashKey === item.id,
+                'memori-share-button--menu-item--flash':
+                  menuFlashKey === item.id,
               })}
               onClick={() => {
-                if (item.id === 'email') {
-                  window.location.href = item.url;
-                } else {
-                  window.open(item.url, '_blank');
-                }
+                openShareTarget(item);
                 flashMenuItem(item.id);
               }}
             >
@@ -523,13 +534,7 @@ const ShareButton: React.FC<Props> = ({
           render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
             <Button
               {...props}
-              variant={
-                triggerMode === 'menu-item'
-                  ? 'ghost'
-                  : primary
-                  ? 'primary'
-                  : 'outline'
-              }
+              variant={triggerMode === 'menu-item' ? 'ghost' : 'ghost'}
               icon={<Share2 />}
               className={cx({
                 'memori-share-button--trigger-menu-item':
@@ -640,11 +645,7 @@ const ShareButton: React.FC<Props> = ({
                     menuFlashKey === item.id,
                 })}
                 onClick={() => {
-                  if (item.id === 'email') {
-                    window.location.href = item.url;
-                  } else {
-                    window.open(item.url, '_blank');
-                  }
+                  openShareTarget(item);
                   flashMenuItem(item.id);
                 }}
                 {...({ icon: <IconComponent /> } as React.ComponentProps<
@@ -671,6 +672,7 @@ const ShareButton: React.FC<Props> = ({
                     menuFlashKey === 'qr-download',
                 }
               )}
+              onClick={handleDownloadQR}
             >
               <div className="memori-share-button--qr-content">
                 <QRCodeCanvas
@@ -690,17 +692,28 @@ const ShareButton: React.FC<Props> = ({
                     excavate: true,
                   }}
                 />
-                <button
-                  type="button"
+                <div
+                  role="button"
+                  tabIndex={0}
                   className="memori-share-button--qr-download"
-                  onClick={handleDownloadQR}
+                  onClick={event => {
+                    event.stopPropagation();
+                    handleDownloadQR();
+                  }}
+                  onKeyDown={event => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      event.stopPropagation();
+                      handleDownloadQR();
+                    }
+                  }}
                 >
                   <Download aria-hidden />
                   <span>
                     {t('widget.downloadQrCode') ||
                       t('download', { defaultValue: 'Download' })}
                   </span>
-                </button>
+                </div>
               </div>
             </Dropdown.Item>
           </>

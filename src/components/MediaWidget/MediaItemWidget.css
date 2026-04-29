@@ -6,7 +6,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
-    padding: 0.5rem;
+    padding: 0.5rem 0;
     gap: var(--memori-spacing-sm);
 }
 
@@ -67,8 +67,8 @@
 /* Allineamento media per messaggi dell'agente */
 .memori-media-items--grid.memori-media-items--agent {
     margin: 0 auto;
-    margin-right: var(--memori-spacing-sm);
-    margin-left: calc(var(--memori-spacing-3xl) + var(--memori-spacing-sm));
+    /* margin-right: var(--memori-spacing-sm); */
+    /* margin-left: calc(var(--memori-spacing-3xl) + var(--memori-spacing-sm)); */
     direction: ltr;
 }
 

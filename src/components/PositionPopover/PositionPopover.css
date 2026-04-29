@@ -21,9 +21,10 @@
     gap: var(--memori-spacing-md);
 }
 
-/* .memori-position-popover__switch-row {
-  margin-bottom: var(--memori-spacing-md);
-} */
+.memori-position-popover__switch-row {
+    padding-top: var(--memori-spacing-xs);
+    padding-bottom: var(--memori-spacing-xs);
+}
 
 .memori-position-popover__switch-label {
     font-weight: 500;
@@ -69,7 +70,7 @@
 }
 
 .memori-position-popover__tag-block {
-    margin-top: var(--memori-spacing-md);
+    margin-top: var(--memori-spacing-sm);
     margin-bottom: var(--memori-spacing-sm);
 }
 

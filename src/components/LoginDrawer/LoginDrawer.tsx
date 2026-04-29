@@ -522,7 +522,6 @@ const LoginDrawer = ({
             className="memori--login-drawer--otp-card memori--login-drawer--otp-card--code"
             variant="flat"
             padding="md"
-            loading={loading}
             title={
               otpSuccess ? (
                 <span className="memori--login-drawer--otp-card-title">
@@ -656,7 +655,6 @@ const LoginDrawer = ({
             className="memori--login-drawer--otp-card"
             variant="flat"
             padding="md"
-            loading={loading}
             title={
               <h3 className="memori--login-drawer--otp-card-heading">
                 {t('login.otpEmailTitle')}

@@ -64,6 +64,7 @@
   "memoriBlockedReasonExceedChats": "porque ha superado el umbral mensual de chats permitidos.",
   "memoriBlockedGiverHelper": "Aún podrás administrarlo como administrador, pero otros usuarios no podrán interactuar con él.",
   "generatedByAI": "La respuesta generada por IA, ocasionalmente puede generar información incorrecta",
+  "aiGeneratedNote": "El agente puede hacer errores. Asegúrate de verificar información importante.",
   "reasoning": "Pensamiento...",
   "whyThisAnswer": "¿Por qué esta respuesta?",
   "whyThisAnswerHelper": "Esta respuesta fue generada automáticamente por una inteligencia artificial basada en estos contenidos verificados.",
@@ -231,7 +232,8 @@
     "images": "imagenes",
     "file": "archivo",
     "iWantToTalkToIn": "quiero hablar con {{name}} en",
-    "chatLanguageLabel": "Idioma",
+    "chatLanguageLabel": "Elige el idioma de la conversación",
+    "chatResumed": "Conversación reanudada correctamente.",
     "message": "mensaje",
     "messages": "mensajes",
     "page": "Página {{current}} de {{total}}"

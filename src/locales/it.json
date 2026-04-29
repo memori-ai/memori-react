@@ -66,6 +66,7 @@
   "memoriBlockedReasonExceedChats": "perchè ha superato la soglia mensile di chat ammesse.",
   "memoriBlockedGiverHelper": "Puoi sempre gestirlo in qualità di amministratore, ma altri utenti non potranno interrogarlo.",
   "generatedByAI": "Risposta generata da IA, può talvolta generare informazioni non corrette",
+  "aiGeneratedNote": "L'agente può commettere errori. Assicurati di verificare le informazioni importanti.",
   "reasoning": "Ragionamento...",
   "whyThisAnswer": "Perché questa risposta?",
   "whyThisAnswerHelper": "Questa risposta è stata generata automaticamente da un'intelligenza artificiale sulla base di questi contenuti verificati.",
@@ -174,7 +175,7 @@
     "micButtonPopover": "Premi il pulsante per parlare",
     "micButtonPopoverListening": "Premi il pulsante per smettere di parlare",
     "pageInstructExplanation": "Per insegnarmi nuove cose clicca sul pulsante ISTRUISCIMI per cominciare",
-    "pageTryMeExplanation": "Per iniziare a conversare con me clicca sul pulsante INIZIAMO",
+    "pageTryMeExplanation": "Per iniziare a conversare clicca sul pulsante INIZIAMO",
     "pagePrivacyExplanation": "Le conversazioni sono visibili all'autore dell'agente",
     "downloadChat": "Scarica chat",
     "pagePrivacyExplanationList": {
@@ -247,7 +248,8 @@
     "images": "immagini",
     "file": "file",
     "iWantToTalkToIn": "Voglio parlare con {{name}} in",
-    "chatLanguageLabel": "Lingua",
+    "chatLanguageLabel": "Scegli la lingua della conversazione",
+    "chatResumed": "Chat ripresa con successo.",
     "message": "messaggio",
     "messages": "messaggi",
     "page": "Pagina {{current}} di {{total}}"

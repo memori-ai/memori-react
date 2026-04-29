@@ -2,16 +2,16 @@
 
 /* Stack above Chat History Drawer (z-index: 10000) and other drawers */
 .memori-content-preview-modal.memori-modal {
-  z-index: 10001;
+  z-index: 2147483640;
 }
 
 .memori-content-preview-modal.memori-modal .memori-modal--backdrop,
 .memori-content-preview-modal.memori-modal .memori-modal--container {
-  z-index: 10001;
+  z-index: 2147483640;
 }
 
 .memori-content-preview-modal.memori-modal .memori-modal--panel {
-  z-index: 10001;
+  z-index: 2147483641;
   overflow: hidden;
   min-width: 500px;
   min-height: 500px;

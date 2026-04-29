@@ -137,28 +137,18 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     return detectArtifacts(translatedMessageText, fromUser);
   }, [messageText, translatedMessageText, message.fromUser, detectArtifacts]);
 
-  // Auto-open first artifact when detected in new messages
-  // Only run when messageId changes (actual new message), not on every render
+  // Broadcast artifact creation events, but do not auto-open artifacts.
+  // Auto-opening causes regressions when restoring past conversations.
   useEffect(() => {
     if (messageText.length > 0 && artifacts.length > 0) {
-      // Dispatch event for each artifact created
       artifacts.forEach(artifact => {
         dispatchArtifactCreatedEvent(artifact);
       });
-
-      // Only auto-open the first artifact
-      if (!isChatlogPanel) {
-        setTimeout(() => {
-          openArtifact(artifacts[0]);
-        }, 100);
-      }
     }
   }, [
     messageId,
     artifacts,
     dispatchArtifactCreatedEvent,
-    isChatlogPanel,
-    openArtifact,
   ]);
 
   const handleArtifactClick = useCallback(
@@ -189,6 +179,7 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
 
   return (
     <div
+      className="memori-artifact-handler-wrapper"
       style={{
         display: 'flex',
         flexDirection: 'column',

@@ -15,6 +15,7 @@ import {
   Users,
   Info,
   Eye,
+  MessageCircle,
   MapPin,
   MapPinOff,
   User as UserIconLucide,
@@ -27,7 +28,6 @@ import CompletionProviderStatus, {
 } from '../CompletionProviderStatus/CompletionProviderStatus';
 import { Expandable } from '@memori.ai/ui';
 
-/** Section rows in the language Combobox (flat list required for working search — grouped mode in @memori.ai/ui ignores filtered items). */
 const LANG_COMBO_GROUP_POPULAR = '__memori_lang_group_popular__';
 const LANG_COMBO_GROUP_ALL = '__memori_lang_group_all__';
 
@@ -58,6 +58,8 @@ export interface Props {
   user?: User;
   showLogin?: boolean;
   setShowLoginDrawer: (show: boolean) => void;
+  showChatHistory?: boolean;
+  setShowChatHistoryDrawer?: (show: boolean) => void;
   notEnoughCredits?: boolean;
   isMultilanguageEnabled?: boolean | undefined;
   showFullDescriptionOnMobile?: boolean;
@@ -83,6 +85,8 @@ const StartPanel: React.FC<Props> = ({
   isUserLoggedIn = false,
   showLogin = false,
   setShowLoginDrawer,
+  showChatHistory = true,
+  setShowChatHistoryDrawer,
   notEnoughCredits = false,
   isMultilanguageEnabled,
   showFullDescriptionOnMobile = false,
@@ -265,7 +269,20 @@ const StartPanel: React.FC<Props> = ({
                     : memori.description}
                 </p>
               ) : (
-                <Expandable className="memori--description-text" rows={3}>
+                <Expandable
+                  className="memori--description-text memori--description-text--collapsible"
+                  rows={3}
+                  expandSymbol={_lang => (
+                    <span className="memori--description-text--expand-symbol">
+                      {t('expand')}
+                    </span>
+                  )}
+                  collapseSymbol={_lang => (
+                    <span className="memori--description-text--collapse-symbol">
+                      {t('collapse')}
+                    </span>
+                  )}
+                >
                   {translatedDescription && showTranslation
                     ? translatedDescription
                     : memori.description}
@@ -419,41 +436,25 @@ const StartPanel: React.FC<Props> = ({
                             </p>
                             <div className="memori--settings-section__title-inline">
                               <p className="memori--settings-section__description">
-                                {t('deepThoughtPreDisclaimerUnlogged') ||
-                                  'Il modello ragiona prima di rispondere.'}
+                                {isUserLoggedIn
+                                  ? ''
+                                  : t('deepThoughtPreDisclaimerUnlogged') ||
+                                    'Accedi per abilitare Pensiero Profondo.'}
                               </p>
                             </div>
                           </div>
-                          {isMobile ? (
-                            <Button
-                              variant="toolbar"
-                              size="sm"
-                              className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
-                              aria-label={String(
-                                t('deepThoughtHelper') ?? 'Deep Thought help'
-                              )}
-                              onClick={() => setMobileInfoModal('deepThought')}
-                            >
-                              <Info className="memori--settings-section__inline-info-icon" />
-                            </Button>
-                          ) : (
-                            <Tooltip
-                              placement="top"
-                              enterDelay={300}
-                              leaveDelay={150}
-                              sideOffset={8}
-                              content={t('deepThoughtHelper')}
-                              slotProps={{
-                                positioner: {
-                                  className:
-                                    'memori--privacy-popover-positioner',
-                                },
-                                popup: {
-                                  className:
-                                    'memori--privacy-popover-popup memori--settings-section__tooltip-popup',
-                                },
-                              }}
-                            >
+                          <div className="memori--settings-section__actions-right">
+                            {!isUserLoggedIn && showLogin && (
+                              <Button
+                                variant="toolbar"
+                                size="sm"
+                                className="memori--settings-section__action"
+                                onClick={() => setShowLoginDrawer(true)}
+                              >
+                                {t('login.login') || 'Accedi'}
+                              </Button>
+                            )}
+                            {isMobile ? (
                               <Button
                                 variant="toolbar"
                                 size="sm"
@@ -461,21 +462,44 @@ const StartPanel: React.FC<Props> = ({
                                 aria-label={String(
                                   t('deepThoughtHelper') ?? 'Deep Thought help'
                                 )}
+                                onClick={() =>
+                                  setMobileInfoModal('deepThought')
+                                }
                               >
                                 <Info className="memori--settings-section__inline-info-icon" />
                               </Button>
-                            </Tooltip>
-                          )}
-                          {!isUserLoggedIn && showLogin && (
-                            <Button
-                              variant="toolbar"
-                              size="sm"
-                              className="memori--settings-section__action"
-                              onClick={() => setShowLoginDrawer(true)}
-                            >
-                              {t('login.login') || 'Accedi'}
-                            </Button>
-                          )}
+                            ) : (
+                              <Tooltip
+                                placement="top"
+                                enterDelay={300}
+                                leaveDelay={150}
+                                sideOffset={8}
+                                content={t('deepThoughtHelper')}
+                                slotProps={{
+                                  positioner: {
+                                    className:
+                                      'memori--privacy-popover-positioner',
+                                  },
+                                  popup: {
+                                    className:
+                                      'memori--privacy-popover-popup memori--settings-section__tooltip-popup',
+                                  },
+                                }}
+                              >
+                                <Button
+                                  variant="toolbar"
+                                  size="sm"
+                                  className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
+                                  aria-label={String(
+                                    t('deepThoughtHelper') ??
+                                      'Deep Thought help'
+                                  )}
+                                >
+                                  <Info className="memori--settings-section__inline-info-icon" />
+                                </Button>
+                              </Tooltip>
+                            )}
+                          </div>
                         </div>
                       )}
                       <div className="memori--settings-section__row">
@@ -583,46 +607,69 @@ const StartPanel: React.FC<Props> = ({
                 )}
               </section>
 
+              <div className="memori--start-actions">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="memori--start-actions__start"
+                  disabled={
+                    (!!memori.blockedUntil && !memori.isGiver) ||
+                    notEnoughCredits
+                  }
+                  loading={clickedStart}
+                  onClick={(_e: React.MouseEvent<HTMLButtonElement>) => {
+                    try {
+                      window.speechSynthesis.speak(
+                        new SpeechSynthesisUtterance('') // This is needed to enable the speech synthesis on iOS
+                      );
+                    } catch (e) {
+                      console.error(e);
+                    }
+
+                    if (initializeTTS) initializeTTS();
+                    if (onClickStart) onClickStart();
+                  }}
+                  style={{
+                    fontWeight: 'var(--memori-text-weight-bold)',
+                  }}
+                >
+                  {t(
+                    `write_and_speak.${
+                      instruct
+                        ? 'instructButton'
+                        : !hasInitialSession
+                        ? 'tryMeButton'
+                        : 'resumeButton'
+                    }`
+                  )}
+                </Button>
+                {showChatHistory &&
+                  isUserLoggedIn &&
+                  setShowChatHistoryDrawer && (
+                    <Tooltip
+                      content={
+                        t('write_and_speak.chatHistory') || 'Chat history'
+                      }
+                    >
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="memori--start-actions__history"
+                        aria-label={
+                          t('write_and_speak.chatHistory') || 'Chat history'
+                        }
+                        icon={<MessageCircle />}
+                        onClick={() => setShowChatHistoryDrawer(true)}
+                      />
+                    </Tooltip>
+                  )}
+              </div>
+
               <p className="memori--start-description">
                 {instruct
                   ? t('write_and_speak.pageInstructExplanation')
                   : t('write_and_speak.pageTryMeExplanation')}
               </p>
-
-              <Button
-                variant="primary"
-                size="lg"
-                disabled={
-                  (!!memori.blockedUntil && !memori.isGiver) || notEnoughCredits
-                }
-                loading={clickedStart}
-                onClick={(_e: React.MouseEvent<HTMLButtonElement>) => {
-                  try {
-                    window.speechSynthesis.speak(
-                      new SpeechSynthesisUtterance('') // This is needed to enable the speech synthesis on iOS
-                    );
-                  } catch (e) {
-                    console.error(e);
-                  }
-
-                  if (initializeTTS) initializeTTS();
-                  if (onClickStart) onClickStart();
-                }}
-                style={{
-                  marginTop: 'var(--memori-spacing-md)',
-                  fontWeight: 'var(--memori-text-weight-bold)',
-                }}
-              >
-                {t(
-                  `write_and_speak.${
-                    instruct
-                      ? 'instructButton'
-                      : !hasInitialSession
-                      ? 'tryMeButton'
-                      : 'resumeButton'
-                  }`
-                )}
-              </Button>
 
               {(memori.blockedUntil || notEnoughCredits) && (
                 <BlockedMemoriBadge
