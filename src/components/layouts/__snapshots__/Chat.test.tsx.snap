@@ -165,7 +165,7 @@ exports[`renders Chat layout unchanged 1`] = `
                         <button
                           aria-expanded="false"
                           aria-haspopup="menu"
-                          class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
+                          class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
                           id="base-ui-:r8:"
                           tabindex="0"
                           type="button"
@@ -264,7 +264,7 @@ exports[`renders Chat layout unchanged 1`] = `
                           Memori
                         </h2>
                         <div
-                          class="memori-expandable memori--description-text"
+                          class="memori-expandable memori--description-text memori--description-text--collapsible"
                         >
                           <div
                             class="memori-expandable__inner"
@@ -492,23 +492,27 @@ exports[`renders Chat layout unchanged 1`] = `
                           </section>
                         </div>
                       </section>
+                      <div
+                        class="memori--start-actions"
+                      >
+                        <button
+                          class="memori-button memori-button--primary memori-button--lg memori--start-actions__start"
+                          style="font-weight: var(--memori-text-weight-bold);"
+                          tabindex="0"
+                          type="button"
+                        >
+                          <span
+                            class="memori-button__content"
+                          >
+                            write_and_speak.tryMeButton
+                          </span>
+                        </button>
+                      </div>
                       <p
                         class="memori--start-description"
                       >
                         write_and_speak.pageTryMeExplanation
                       </p>
-                      <button
-                        class="memori-button memori-button--primary memori-button--lg"
-                        style="font-weight: var(--memori-text-weight-bold);"
-                        tabindex="0"
-                        type="button"
-                      >
-                        <span
-                          class="memori-button__content"
-                        >
-                          write_and_speak.tryMeButton
-                        </span>
-                      </button>
                     </div>
                   </div>
                 </div>
@@ -602,6 +606,11 @@ exports[`renders Chat layout unchanged 1`] = `
                       </div>
                     </div>
                   </fieldset>
+                  <p
+                    class="memori-chat-inputs--ai-note"
+                  >
+                    aiGeneratedNote
+                  </p>
                 </div>
               </div>
             </div>

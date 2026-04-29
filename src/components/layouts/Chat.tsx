@@ -325,8 +325,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
                     t('write_and_speak.unknownPosition') || 'Unknown position'
                   }
                   locationEnableLabel={
-                    t('widget.mobileSession.useCurrentPosition') ||
-                    'Use current position'
+                    t('widget.shareLocation') || 'Share location'
                   }
                   locationDisableLabel={
                     t('widget.mobileSession.disableLocationSharing') ||

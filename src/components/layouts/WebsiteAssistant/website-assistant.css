@@ -270,10 +270,13 @@
 
 .memori-website_assistant-layout .memori--powered-by {
     right: auto;
-    left: 0.75rem;
+    left: 50%;
+    justify-content: center;
     background-color: transparent !important;
     font-size: 0.75rem;
     opacity: 0.7;
+    text-align: center;
+    transform: translateX(-50%);
 }
 
 /* ============================================

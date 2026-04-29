@@ -150,3 +150,12 @@ memori-client #root,
 .memori-alert-viewport.memori-alert-viewport--top-end {
     top: 4.75rem !important;
 }
+
+@media (max-width: 768px) {
+    .memori-alert-viewport.memori-alert-viewport--top-end {
+        top: auto !important;
+        right: var(--memori-spacing-sm) !important;
+        bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px)) !important;
+        left: var(--memori-spacing-sm) !important;
+    }
+}

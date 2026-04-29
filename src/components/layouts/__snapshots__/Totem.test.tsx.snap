@@ -84,7 +84,7 @@ exports[`renders Totem layout unchanged 1`] = `
               >
                 <button
                   aria-label="reload"
-                  class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+                  class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
                   tabindex="0"
                   type="button"
                 >
@@ -133,7 +133,7 @@ exports[`renders Totem layout unchanged 1`] = `
               >
                 <button
                   aria-label="widget.sound"
-                  class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+                  class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
                   tabindex="0"
                   type="button"
                 >
@@ -179,7 +179,7 @@ exports[`renders Totem layout unchanged 1`] = `
               >
                 <button
                   aria-label="widget.settings"
-                  class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+                  class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
                   tabindex="0"
                   type="button"
                 >
@@ -225,7 +225,7 @@ exports[`renders Totem layout unchanged 1`] = `
                 <button
                   aria-expanded="false"
                   aria-haspopup="menu"
-                  class="memori-button memori-button--primary memori-button--md memori-button--icon-only"
+                  class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
                   id="base-ui-:rc:"
                   tabindex="0"
                   type="button"
@@ -397,7 +397,7 @@ exports[`renders Totem layout unchanged 1`] = `
                   Memori
                 </h2>
                 <div
-                  class="memori-expandable memori--description-text"
+                  class="memori-expandable memori--description-text memori--description-text--collapsible"
                 >
                   <div
                     class="memori-expandable__inner"
@@ -625,23 +625,27 @@ exports[`renders Totem layout unchanged 1`] = `
                   </section>
                 </div>
               </section>
+              <div
+                class="memori--start-actions"
+              >
+                <button
+                  class="memori-button memori-button--primary memori-button--lg memori--start-actions__start"
+                  style="font-weight: var(--memori-text-weight-bold);"
+                  tabindex="0"
+                  type="button"
+                >
+                  <span
+                    class="memori-button__content"
+                  >
+                    write_and_speak.tryMeButton
+                  </span>
+                </button>
+              </div>
               <p
                 class="memori--start-description"
               >
                 write_and_speak.pageTryMeExplanation
               </p>
-              <button
-                class="memori-button memori-button--primary memori-button--lg"
-                style="font-weight: var(--memori-text-weight-bold);"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="memori-button__content"
-                >
-                  write_and_speak.tryMeButton
-                </span>
-              </button>
             </div>
           </div>
         </div>

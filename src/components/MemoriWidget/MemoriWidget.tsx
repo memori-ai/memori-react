@@ -3064,6 +3064,9 @@ const MemoriWidget = ({
     notEnoughCredits: needsCredits && !hasEnoughCredits,
     showLogin: showLogin ?? memori.requireLoginToken,
     setShowLoginDrawer,
+    showChatHistory:
+      showChatHistory ?? integrationConfig?.showChatHistory ?? true,
+    setShowChatHistoryDrawer,
     user,
   };
 
