@@ -263,6 +263,11 @@
     align-self: flex-end;
 }
 
+.memori-chat--artifact-block {
+    width: 100%;
+    max-width: 90%;
+}
+
 .memori-chat--bubble-shell--has-addon:focus-within .memori-chat--bubble-addon,
 .memori-chat--bubble-container.memori-chat--with-addon:hover .memori-chat--bubble-addon,
 .memori-chat--bubble-container.memori-chat--with-addon:focus-within .memori-chat--bubble-addon {
@@ -480,7 +485,15 @@
 }
 
 .memori-chat--bubble.memori-chat--user-bubble .memori-expandable > button {
+    color: transparent;
+    font-size: 0;
+}
+
+.memori-chat--bubble.memori-chat--user-bubble .memori-expandable > button::after {
     color: var(--memori-text-color);
+    content: 'Espandi';
+    font-size: 0.8rem;
+    font-weight: var(--memori-text-weight-medium);
 }
 
 .memori-chat--function-cache-modal .memori-modal--panel {

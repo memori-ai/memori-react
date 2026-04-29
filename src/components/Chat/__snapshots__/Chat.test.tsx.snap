@@ -26,16 +26,6 @@ exports[`renders Chat unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -52,8 +42,25 @@ exports[`renders Chat unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -111,6 +118,9 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -141,20 +151,6 @@ exports[`renders Chat unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -237,21 +233,14 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -268,8 +257,25 @@ exports[`renders Chat unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -327,6 +333,9 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -357,20 +366,6 @@ exports[`renders Chat unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -451,6 +446,9 @@ exports[`renders Chat unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          class="memori-media-widget"
         >
           <div
             class="memori-media-items"
@@ -497,16 +495,6 @@ exports[`renders Chat unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -523,8 +511,25 @@ exports[`renders Chat unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -582,6 +587,9 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -612,20 +620,6 @@ exports[`renders Chat unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -708,21 +702,14 @@ exports[`renders Chat unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 24px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -739,8 +726,25 @@ exports[`renders Chat unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -794,6 +798,9 @@ exports[`renders Chat unchanged 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="memori-media-widget"
+        />
         <div
           id="end-messages-ref"
         />
@@ -884,6 +891,11 @@ exports[`renders Chat unchanged 1`] = `
           </div>
         </div>
       </fieldset>
+      <p
+        class="memori-chat-inputs--ai-note"
+      >
+        aiGeneratedNote
+      </p>
     </div>
   </div>
   <div
@@ -924,16 +936,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -950,8 +952,25 @@ exports[`renders Chat with context vars unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -1009,6 +1028,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -1039,20 +1061,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -1135,21 +1143,14 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -1166,8 +1167,25 @@ exports[`renders Chat with context vars unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -1225,6 +1243,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -1255,20 +1276,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -1349,6 +1356,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          class="memori-media-widget"
         >
           <div
             class="memori-media-items"
@@ -1395,16 +1405,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -1421,8 +1421,25 @@ exports[`renders Chat with context vars unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -1495,6 +1512,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -1525,20 +1545,6 @@ exports[`renders Chat with context vars unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -1621,21 +1627,14 @@ exports[`renders Chat with context vars unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 24px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -1652,8 +1651,25 @@ exports[`renders Chat with context vars unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -1722,6 +1738,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="memori-media-widget"
+        />
         <div
           id="end-messages-ref"
         />
@@ -1812,6 +1831,11 @@ exports[`renders Chat with context vars unchanged 1`] = `
           </div>
         </div>
       </fieldset>
+      <p
+        class="memori-chat-inputs--ai-note"
+      >
+        aiGeneratedNote
+      </p>
     </div>
   </div>
   <div
@@ -1852,16 +1876,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -1878,8 +1892,25 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -1937,6 +1968,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -1967,20 +2001,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -2045,21 +2065,14 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -2076,8 +2089,25 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -2135,6 +2165,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -2165,20 +2198,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -2241,6 +2260,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          class="memori-media-widget"
         >
           <div
             class="memori-media-items"
@@ -2287,16 +2309,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -2313,8 +2325,25 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -2372,6 +2401,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -2402,20 +2434,6 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -2480,21 +2498,14 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 24px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -2511,8 +2522,25 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -2566,6 +2594,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="memori-media-widget"
+        />
         <div
           id="end-messages-ref"
         />
@@ -2656,6 +2687,11 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           </div>
         </div>
       </fieldset>
+      <p
+        class="memori-chat-inputs--ai-note"
+      >
+        aiGeneratedNote
+      </p>
     </div>
   </div>
   <div
@@ -2696,16 +2732,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -2722,8 +2748,25 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -2781,6 +2824,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -2811,20 +2857,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -2891,21 +2923,14 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -2922,8 +2947,25 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -2981,6 +3023,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -3011,20 +3056,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -3089,6 +3120,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          class="memori-media-widget"
         >
           <div
             class="memori-media-items"
@@ -3135,16 +3169,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -3161,8 +3185,25 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -3220,6 +3261,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -3250,20 +3294,6 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -3330,21 +3360,14 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 24px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -3361,8 +3384,25 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -3416,6 +3456,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="memori-media-widget"
+        />
         <div
           id="end-messages-ref"
         />
@@ -3506,6 +3549,11 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           </div>
         </div>
       </fieldset>
+      <p
+        class="memori-chat-inputs--ai-note"
+      >
+        aiGeneratedNote
+      </p>
     </div>
   </div>
   <div
@@ -3546,16 +3594,6 @@ exports[`renders Chat with dates unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -3572,8 +3610,25 @@ exports[`renders Chat with dates unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -3636,6 +3691,9 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -3666,20 +3724,6 @@ exports[`renders Chat with dates unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -3762,21 +3806,14 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -3793,8 +3830,25 @@ exports[`renders Chat with dates unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -3857,6 +3911,9 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -3887,20 +3944,6 @@ exports[`renders Chat with dates unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -3981,6 +4024,9 @@ exports[`renders Chat with dates unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          class="memori-media-widget"
         >
           <div
             class="memori-media-items"
@@ -4027,16 +4073,6 @@ exports[`renders Chat with dates unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -4053,8 +4089,25 @@ exports[`renders Chat with dates unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -4117,6 +4170,9 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -4147,20 +4203,6 @@ exports[`renders Chat with dates unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -4243,21 +4285,14 @@ exports[`renders Chat with dates unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 24px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -4274,8 +4309,25 @@ exports[`renders Chat with dates unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -4334,6 +4386,9 @@ exports[`renders Chat with dates unchanged 1`] = `
             13:00:00
           </small>
         </div>
+        <div
+          class="memori-media-widget"
+        />
         <div
           id="end-messages-ref"
         />
@@ -4424,6 +4479,11 @@ exports[`renders Chat with dates unchanged 1`] = `
           </div>
         </div>
       </fieldset>
+      <p
+        class="memori-chat-inputs--ai-note"
+      >
+        aiGeneratedNote
+      </p>
     </div>
   </div>
   <div
@@ -4464,16 +4524,6 @@ exports[`renders Chat with hints unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -4490,8 +4540,25 @@ exports[`renders Chat with hints unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -4549,6 +4616,9 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -4579,20 +4649,6 @@ exports[`renders Chat with hints unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -4675,21 +4731,14 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -4706,8 +4755,25 @@ exports[`renders Chat with hints unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -4765,6 +4831,9 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -4795,20 +4864,6 @@ exports[`renders Chat with hints unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -4889,6 +4944,9 @@ exports[`renders Chat with hints unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          class="memori-media-widget"
         >
           <div
             class="memori-media-items"
@@ -4935,16 +4993,6 @@ exports[`renders Chat with hints unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -4961,8 +5009,25 @@ exports[`renders Chat with hints unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -5020,6 +5085,9 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -5050,20 +5118,6 @@ exports[`renders Chat with hints unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -5146,21 +5200,14 @@ exports[`renders Chat with hints unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 24px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -5177,8 +5224,25 @@ exports[`renders Chat with hints unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -5232,6 +5296,9 @@ exports[`renders Chat with hints unchanged 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="memori-media-widget"
+        />
         <div
           class="memori-media-widget"
         >
@@ -5356,6 +5423,11 @@ exports[`renders Chat with hints unchanged 1`] = `
           </div>
         </div>
       </fieldset>
+      <p
+        class="memori-chat-inputs--ai-note"
+      >
+        aiGeneratedNote
+      </p>
     </div>
   </div>
   <div
@@ -5396,16 +5468,6 @@ exports[`renders Chat with media unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -5422,8 +5484,25 @@ exports[`renders Chat with media unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -5481,6 +5560,9 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -5511,20 +5593,6 @@ exports[`renders Chat with media unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -5607,21 +5675,14 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -5638,8 +5699,25 @@ exports[`renders Chat with media unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -5697,6 +5775,9 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -5727,20 +5808,6 @@ exports[`renders Chat with media unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -5819,6 +5886,9 @@ exports[`renders Chat with media unchanged 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="memori-media-widget"
+        />
         <div
           class="memori-media-widget"
         >
@@ -6077,16 +6147,6 @@ exports[`renders Chat with media unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -6103,8 +6163,25 @@ exports[`renders Chat with media unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -6162,6 +6239,9 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -6192,20 +6272,6 @@ exports[`renders Chat with media unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -6288,21 +6354,14 @@ exports[`renders Chat with media unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 24px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -6319,8 +6378,25 @@ exports[`renders Chat with media unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -6374,6 +6450,9 @@ exports[`renders Chat with media unchanged 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="memori-media-widget"
+        />
         <div
           id="end-messages-ref"
         />
@@ -6464,6 +6543,11 @@ exports[`renders Chat with media unchanged 1`] = `
           </div>
         </div>
       </fieldset>
+      <p
+        class="memori-chat-inputs--ai-note"
+      >
+        aiGeneratedNote
+      </p>
     </div>
   </div>
   <div
@@ -6504,16 +6588,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -6530,8 +6604,25 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -6589,6 +6680,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -6619,20 +6713,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -6715,21 +6795,14 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -6746,8 +6819,25 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -6805,6 +6895,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -6835,20 +6928,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -6929,6 +7008,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          class="memori-media-widget"
         >
           <div
             class="memori-media-items"
@@ -6975,16 +7057,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -7001,8 +7073,25 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -7060,6 +7149,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -7090,20 +7182,6 @@ exports[`renders Chat with memori typing unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -7186,21 +7264,14 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 24px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -7217,8 +7288,25 @@ exports[`renders Chat with memori typing unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -7272,6 +7360,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="memori-media-widget"
+        />
         <div
           class="memori-chat--bubble-container memori-chat-scroll-item"
         >
@@ -7381,6 +7472,11 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           </div>
         </div>
       </fieldset>
+      <p
+        class="memori-chat-inputs--ai-note"
+      >
+        aiGeneratedNote
+      </p>
     </div>
   </div>
   <div
@@ -7421,16 +7517,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -7447,8 +7533,25 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -7506,6 +7609,9 @@ exports[`renders Chat with message consumption unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -7536,20 +7642,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -7632,21 +7724,14 @@ exports[`renders Chat with message consumption unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -7663,8 +7748,25 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -7722,6 +7824,9 @@ exports[`renders Chat with message consumption unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -7752,20 +7857,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -7846,6 +7937,9 @@ exports[`renders Chat with message consumption unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          class="memori-media-widget"
         >
           <div
             class="memori-media-items"
@@ -7892,16 +7986,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -7918,8 +8002,25 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -7977,6 +8078,9 @@ exports[`renders Chat with message consumption unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -8007,20 +8111,6 @@ exports[`renders Chat with message consumption unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -8103,21 +8193,14 @@ exports[`renders Chat with message consumption unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -8134,8 +8217,25 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -8193,21 +8293,14 @@ exports[`renders Chat with message consumption unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 24px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -8273,8 +8366,25 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    12:46 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -8328,6 +8438,9 @@ exports[`renders Chat with message consumption unchanged 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="memori-media-widget"
+        />
         <div
           id="end-messages-ref"
         />
@@ -8418,6 +8531,11 @@ exports[`renders Chat with message consumption unchanged 1`] = `
           </div>
         </div>
       </fieldset>
+      <p
+        class="memori-chat-inputs--ai-note"
+      >
+        aiGeneratedNote
+      </p>
     </div>
   </div>
   <div
@@ -8458,16 +8576,6 @@ exports[`renders Chat with user unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -8484,8 +8592,25 @@ exports[`renders Chat with user unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -8543,6 +8668,9 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -8573,20 +8701,6 @@ exports[`renders Chat with user unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -8653,21 +8767,14 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -8684,8 +8791,25 @@ exports[`renders Chat with user unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -8743,6 +8867,9 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -8773,20 +8900,6 @@ exports[`renders Chat with user unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -8851,6 +8964,9 @@ exports[`renders Chat with user unchanged 1`] = `
         </div>
         <div
           class="memori-media-widget"
+        />
+        <div
+          class="memori-media-widget"
         >
           <div
             class="memori-media-items"
@@ -8897,16 +9013,6 @@ exports[`renders Chat with user unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -8923,8 +9029,25 @@ exports[`renders Chat with user unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -8982,6 +9105,9 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 0px;"
         >
           <div
@@ -9012,20 +9138,6 @@ exports[`renders Chat with user unchanged 1`] = `
               <div
                 class="memori-chat--bubble-addon"
               >
-                <div
-                  class="memori-chat--bubble-timestamp-container"
-                >
-                  <p
-                    class="memori-chat--bubble-timestamp"
-                  >
-                    13:00
-                  </p>
-                  <span
-                    class="memori-chat--bubble-timestamp-separator"
-                  >
-                    •
-                  </span>
-                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -9092,21 +9204,14 @@ exports[`renders Chat with user unchanged 1`] = `
           class="memori-media-widget"
         />
         <div
+          class="memori-media-widget"
+        />
+        <div
           style="margin-bottom: 24px;"
         >
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
-            <picture
-              class="memori-chat--bubble-avatar"
-              title="Memori"
-            >
-              <img
-                alt="Memori"
-                class="memori-chat--bubble-avatar-img"
-                src="https://aisuru.com/images/aisuru/square_logo.png"
-              />
-            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -9123,8 +9228,25 @@ exports[`renders Chat with user unchanged 1`] = `
                 </div>
               </div>
               <div
+                class="memori-chat--artifact-block"
+              />
+              <div
                 class="memori-chat--bubble-addon"
               >
+                <div
+                  class="memori-chat--bubble-timestamp-container"
+                >
+                  <p
+                    class="memori-chat--bubble-timestamp"
+                  >
+                    03/01/2021, 01:00 PM
+                  </p>
+                  <span
+                    class="memori-chat--bubble-timestamp-separator"
+                  >
+                    •
+                  </span>
+                </div>
                 <span
                   class="styles-module__root___-ALla"
                 >
@@ -9178,6 +9300,9 @@ exports[`renders Chat with user unchanged 1`] = `
             </div>
           </div>
         </div>
+        <div
+          class="memori-media-widget"
+        />
         <div
           id="end-messages-ref"
         />
@@ -9268,6 +9393,11 @@ exports[`renders Chat with user unchanged 1`] = `
           </div>
         </div>
       </fieldset>
+      <p
+        class="memori-chat-inputs--ai-note"
+      >
+        aiGeneratedNote
+      </p>
     </div>
   </div>
   <div

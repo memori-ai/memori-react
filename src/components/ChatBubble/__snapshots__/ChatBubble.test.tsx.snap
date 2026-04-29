@@ -35,7 +35,7 @@ exports[`renders ChatBubble from user with avatar as react element unchanged 1`]
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r2o:"
+            id="base-ui-:r2i:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -127,7 +127,7 @@ exports[`renders ChatBubble from user with avatar unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r2a:"
+            id="base-ui-:r24:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -221,7 +221,7 @@ exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r2h:"
+            id="base-ui-:r2b:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -285,16 +285,6 @@ exports[`renders ChatBubble unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -310,6 +300,9 @@ exports[`renders ChatBubble unchanged 1`] = `
           </p>
         </div>
       </div>
+      <div
+        class="memori-chat--artifact-block"
+      />
       <div
         class="memori-chat--bubble-addon"
       >
@@ -373,16 +366,6 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -2883,6 +2866,9 @@ M834 80h400000v40h-400000z"
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -2890,7 +2876,7 @@ M834 80h400000v40h-400000z"
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r57:"
+            id="base-ui-:r51:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -2939,7 +2925,7 @@ M834 80h400000v40h-400000z"
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r59:"
+            id="base-ui-:r53:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -2989,16 +2975,6 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -4163,6 +4139,9 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -4170,7 +4149,7 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r5g:"
+            id="base-ui-:r5a:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4219,7 +4198,7 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r5i:"
+            id="base-ui-:r5c:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -4269,16 +4248,6 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -5177,6 +5146,9 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -5184,7 +5156,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r5p:"
+            id="base-ui-:r5j:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5233,7 +5205,7 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r5r:"
+            id="base-ui-:r5l:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5283,16 +5255,6 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -5730,6 +5692,9 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -5737,7 +5702,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r62:"
+            id="base-ui-:r5s:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5786,7 +5751,7 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r64:"
+            id="base-ui-:r5u:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -5836,16 +5801,6 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -6545,6 +6500,9 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -6552,7 +6510,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r6b:"
+            id="base-ui-:r65:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6601,7 +6559,7 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r6d:"
+            id="base-ui-:r67:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6651,16 +6609,6 @@ exports[`renders ChatBubble with complex markdown and math but disabled unchange
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -6838,6 +6786,9 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -6845,7 +6796,7 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r4u:"
+            id="base-ui-:r4o:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6894,7 +6845,7 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r50:"
+            id="base-ui-:r4q:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -6944,16 +6895,6 @@ exports[`renders ChatBubble with copy disabled unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell"
     >
@@ -6969,6 +6910,9 @@ exports[`renders ChatBubble with copy disabled unchanged 1`] = `
           </p>
         </div>
       </div>
+      <div
+        class="memori-chat--artifact-block"
+      />
     </div>
   </div>
 </div>
@@ -6979,16 +6923,6 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -7005,6 +6939,9 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -7012,7 +6949,7 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r1v:"
+            id="base-ui-:r1r:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7061,7 +6998,7 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r21:"
+            id="base-ui-:r1t:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7126,65 +7063,6 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
             </span>
           </span>
         </span>
-        <span
-          class="styles-module__root___-ALla memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
-        >
-          <span
-            class="styles-module__trigger___V2aIF"
-            id="base-ui-:r23:"
-          >
-            <span
-              class="memori-chat--bubble-addon-tooltip-trigger"
-            >
-              <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="memori-button__icon"
-                >
-                  <svg
-                    aria-label="generatedByAI"
-                    class="lucide lucide-bot"
-                    fill="none"
-                    height="24"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 8V4H8"
-                    />
-                    <rect
-                      height="12"
-                      rx="2"
-                      width="16"
-                      x="4"
-                      y="8"
-                    />
-                    <path
-                      d="M2 14h2"
-                    />
-                    <path
-                      d="M20 14h2"
-                    />
-                    <path
-                      d="M15 13v2"
-                    />
-                    <path
-                      d="M9 13v2"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </span>
-          </span>
-        </span>
       </div>
     </div>
   </div>
@@ -7199,16 +7077,6 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -7224,6 +7092,9 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
           </p>
         </div>
       </div>
+      <div
+        class="memori-chat--artifact-block"
+      />
       <div
         class="memori-chat--bubble-addon"
       >
@@ -7287,16 +7158,6 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -7349,6 +7210,9 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -7356,7 +7220,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r43:"
+            id="base-ui-:r3t:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7405,7 +7269,7 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r45:"
+            id="base-ui-:r3v:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7455,16 +7319,6 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -7491,6 +7345,9 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -7498,7 +7355,7 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r4c:"
+            id="base-ui-:r46:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7547,7 +7404,7 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r4e:"
+            id="base-ui-:r48:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7597,16 +7454,6 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -7691,6 +7538,9 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -7698,7 +7548,7 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r4l:"
+            id="base-ui-:r4f:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7747,7 +7597,7 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r4n:"
+            id="base-ui-:r4h:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -7797,16 +7647,6 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -8054,6 +7894,9 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -8061,7 +7904,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r3q:"
+            id="base-ui-:r3k:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8110,7 +7953,7 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r3s:"
+            id="base-ui-:r3m:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8190,7 +8033,7 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r1m:"
+            id="base-ui-:r1k:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8227,65 +8070,6 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
                     />
                     <path
                       d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </span>
-          </span>
-        </span>
-        <span
-          class="styles-module__root___-ALla memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
-        >
-          <span
-            class="styles-module__trigger___V2aIF"
-            id="base-ui-:r1o:"
-          >
-            <span
-              class="memori-chat--bubble-addon-tooltip-trigger"
-            >
-              <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="memori-button__icon"
-                >
-                  <svg
-                    aria-label="generatedByAI"
-                    class="lucide lucide-bot"
-                    fill="none"
-                    height="24"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 8V4H8"
-                    />
-                    <rect
-                      height="12"
-                      rx="2"
-                      width="16"
-                      x="4"
-                      y="8"
-                    />
-                    <path
-                      d="M2 14h2"
-                    />
-                    <path
-                      d="M20 14h2"
-                    />
-                    <path
-                      d="M15 13v2"
-                    />
-                    <path
-                      d="M9 13v2"
                     />
                   </svg>
                 </span>
@@ -8403,65 +8187,6 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
             </span>
           </span>
         </span>
-        <span
-          class="styles-module__root___-ALla memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
-        >
-          <span
-            class="styles-module__trigger___V2aIF"
-            id="base-ui-:r14:"
-          >
-            <span
-              class="memori-chat--bubble-addon-tooltip-trigger"
-            >
-              <button
-                class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-button--icon-only memori-chat--bubble-action-button"
-                tabindex="0"
-                type="button"
-              >
-                <span
-                  class="memori-button__icon"
-                >
-                  <svg
-                    aria-label="generatedByAI"
-                    class="lucide lucide-bot"
-                    fill="none"
-                    height="24"
-                    stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M12 8V4H8"
-                    />
-                    <rect
-                      height="12"
-                      rx="2"
-                      width="16"
-                      x="4"
-                      y="8"
-                    />
-                    <path
-                      d="M2 14h2"
-                    />
-                    <path
-                      d="M20 14h2"
-                    />
-                    <path
-                      d="M15 13v2"
-                    />
-                    <path
-                      d="M9 13v2"
-                    />
-                  </svg>
-                </span>
-              </button>
-            </span>
-          </span>
-        </span>
       </div>
     </div>
     <div
@@ -8498,16 +8223,6 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -8541,6 +8256,9 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -8548,7 +8266,7 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r2v:"
+            id="base-ui-:r2p:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8597,7 +8315,7 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r31:"
+            id="base-ui-:r2r:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8647,16 +8365,6 @@ exports[`renders ChatBubble with reasoning and output and markdown unchanged 1`]
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -8709,6 +8417,9 @@ end
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -8716,7 +8427,7 @@ end
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r6k:"
+            id="base-ui-:r6e:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8765,7 +8476,7 @@ end
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r6m:"
+            id="base-ui-:r6g:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8815,16 +8526,6 @@ exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -8848,6 +8549,9 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -8855,7 +8559,7 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r3h:"
+            id="base-ui-:r3b:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8904,7 +8608,7 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r3j:"
+            id="base-ui-:r3d:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -8954,16 +8658,6 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -8980,6 +8674,9 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -8987,7 +8684,7 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r38:"
+            id="base-ui-:r32:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9036,7 +8733,7 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r3a:"
+            id="base-ui-:r34:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9086,16 +8783,6 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
   <div
     class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
   >
-    <picture
-      class="memori-chat--bubble-avatar"
-      title="Memori"
-    >
-      <img
-        alt="Memori"
-        class="memori-chat--bubble-avatar-img"
-        src="https://aisuru.com/images/aisuru/square_logo.png"
-      />
-    </picture>
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
@@ -9112,6 +8799,9 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
         </div>
       </div>
       <div
+        class="memori-chat--artifact-block"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -9119,7 +8809,7 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r1b:"
+            id="base-ui-:r19:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9168,7 +8858,7 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r1d:"
+            id="base-ui-:r1b:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"
@@ -9212,7 +8902,7 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
         >
           <span
             class="styles-module__trigger___V2aIF"
-            id="base-ui-:r1f:"
+            id="base-ui-:r1d:"
           >
             <span
               class="memori-chat--bubble-addon-tooltip-trigger"

@@ -43,6 +43,20 @@ import {
   LlmUsageOnLine,
   UsageBadgeType,
 } from '../../helpers/llmUsage';
+
+const CODE_MIME_TYPES = [
+  'text/javascript',
+  'text/ecmascript',
+  'application/json',
+  'text/css',
+  'application/xml',
+  'application/x-sh',
+  'text/x-python',
+  'text/x-c++src',
+  'application/x-php',
+  'text/x-ruby',
+  'text/x-sql',
+];
 export interface Props {
   memori: Memori;
   tenant?: Tenant;
@@ -435,38 +449,27 @@ const Chat: React.FC<Props> = ({
                     []) as Medium[]
                 }
                 media={[
-                  // Non-function-cache media items (exclude HTML links; those go into `links`)
                   ...(message?.media
                     ?.filter(m => !m.properties?.functionSignature)
-                    ?.filter(m => !(m.mimeType === 'text/html' && !!m.url)) ||
-                    []),
-
-                  // Extract document attachments that are embedded in the message text
+                    ?.filter(
+                      m =>
+                        !(
+                          CODE_MIME_TYPES.includes(m.mimeType) ||
+                          (m.mimeType === 'text/html' && !!m.url)
+                        )
+                    ) || []),
                   ...(() => {
-                    // Get the translated or original message text
                     const text = message.translatedText || message.text;
-
-                    // Regex to match document attachments in format:
-                    // <document_attachment filename="name.ext" type="mime/type">content</document_attachment>
                     const documentAttachmentRegex =
                       /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
-
                     const attachments: (Medium & { type?: string })[] = [];
                     let match;
                     let attachmentIndex = 0;
 
-                    // Find all document attachments in the text
                     while (
                       (match = documentAttachmentRegex.exec(text)) !== null
                     ) {
                       const [, filename, type, content] = match;
-
-                      // Create a Medium object for each attachment with:
-                      // - Unique ID using timestamp and random string
-                      // - Empty URL since content is embedded
-                      // - Original mime type and filename
-                      // - Trimmed content from the attachment
-                      // - Properties to mark it as a document attachment
                       attachments.push({
                         mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
                           .toString(36)
@@ -478,7 +481,6 @@ const Chat: React.FC<Props> = ({
                         properties: { isDocumentAttachment: true },
                         type: 'document',
                       });
-
                       attachmentIndex++;
                     }
 
@@ -582,6 +584,20 @@ const Chat: React.FC<Props> = ({
                     </div>
                   )}
               </div>
+              <MediaWidget
+                simulateUserPrompt={simulateUserPrompt}
+                media={[
+                  ...(message?.media
+                    ?.filter(m => !m.properties?.functionSignature)
+                    ?.filter(m => CODE_MIME_TYPES.includes(m.mimeType)) || []),
+                ]}
+                sessionID={sessionID}
+                baseUrl={baseUrl}
+                apiUrl={apiUrl}
+                translateTo={translateTo}
+                customMediaRenderer={customMediaRenderer}
+                fromUser={message.fromUser}
+              />
             </React.Fragment>
           ))}
 
