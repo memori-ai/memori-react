@@ -2870,6 +2870,9 @@ const MemoriWidget = ({
     showOnlyLastMessages === undefined
       ? selectedLayout !== 'TOTEM' && selectedLayout !== 'WEBSITE_ASSISTANT'
       : !showOnlyLastMessages;
+  const canShowLoginButton =
+    !tenant?.ssoLogin &&
+    (showLogin ?? integrationConfig?.showLogin ?? memori.requireLoginToken);
 
   const headerProps: HeaderProps = {
     memori: {
@@ -2901,8 +2904,7 @@ const MemoriWidget = ({
     showReload: selectedLayout === 'TOTEM',
     showClear: showClear ?? integrationConfig?.showClear ?? false,
     clearHistory: () => setHistory(h => h.slice(-1)),
-    showLogin:
-      showLogin ?? integrationConfig?.showLogin ?? memori.requireLoginToken,
+    showLogin: canShowLoginButton,
     setShowLoginDrawer,
     loginToken,
     user,
@@ -2961,7 +2963,7 @@ const MemoriWidget = ({
     isUserLoggedIn: !!loginToken && !!user?.userID,
     hasInitialSession: !!initialSessionID,
     notEnoughCredits: needsCredits && !hasEnoughCredits,
-    showLogin: showLogin ?? memori.requireLoginToken,
+    showLogin: canShowLoginButton,
     setShowLoginDrawer,
     user,
   };
