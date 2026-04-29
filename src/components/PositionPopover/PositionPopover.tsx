@@ -1,6 +1,10 @@
-import { Popover } from '@base-ui/react/popover';
 import { Venue } from '@memori.ai/memori-api-client/dist/types';
-import { Button, useAlertManager, createAlertOptions } from '@memori.ai/ui';
+import {
+  Button,
+  Popover,
+  useAlertManager,
+  createAlertOptions,
+} from '@memori.ai/ui';
 import { MapPin, Pencil } from 'lucide-react';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -159,7 +163,9 @@ const PositionPopover: React.FC<PositionPopoverProps> = ({
         setVenue(undefined);
         const code = (err as { code?: number }).code;
         if (code === 1) {
-          setPermissionDeniedMessage(String(t('widget.positionUnavailableManual')));
+          setPermissionDeniedMessage(
+            String(t('widget.positionUnavailableManual'))
+          );
           setEditingLocation(true);
         } else {
           setGeocodingError(String(t('widget.geocodingFailed')));
@@ -195,12 +201,7 @@ const PositionPopover: React.FC<PositionPopoverProps> = ({
     }
 
     startGeolocation();
-  }, [
-    geolocationLoading,
-    setVenue,
-    sharingActive,
-    startGeolocation,
-  ]);
+  }, [geolocationLoading, setVenue, sharingActive, startGeolocation]);
 
   useEffect(() => {
     if (!editingLocation) return;
@@ -211,7 +212,10 @@ const PositionPopover: React.FC<PositionPopoverProps> = ({
   }, [editingLocation]);
 
   const handleRootOpenChange = useCallback(
-    (nextOpen: boolean, details?: { reason?: string; preventUnmountOnClose?: () => void }) => {
+    (
+      nextOpen: boolean,
+      details?: { reason?: string; preventUnmountOnClose?: () => void }
+    ) => {
       if (
         !nextOpen &&
         editingRef.current &&
@@ -231,129 +235,128 @@ const PositionPopover: React.FC<PositionPopoverProps> = ({
   const inlineError = permissionDeniedMessage || geocodingError;
 
   return (
-    <Popover.Root
+    <Popover
       open={open}
       onOpenChange={handleRootOpenChange}
       modal={false}
-    >
-      <Popover.Trigger
-        className={triggerClassName}
-        render={(props: React.ComponentProps<typeof Button>) => (
-          <Button
-            {...props}
-            type="button"
-            variant={triggerButtonVariant}
-            className={cx(
-              'memori-header--button',
-              'memori-header--button--position',
-              sharingActive && 'memori-header--button--position--active'
-            )}
-            aria-label={triggerAriaLabel}
-            aria-expanded={open}
-            icon={<MapPin aria-hidden />}
-          />
-        )}
-      />
+      placement="bottom-end"
+      sideOffset={8}
+      contentClassName="memori-position-popover__popup"
+      slotProps={{
+        trigger: {
+          className: triggerClassName,
+          render: (props: React.ComponentProps<typeof Button>) => (
+            <Button
+              {...props}
+              type="button"
+              variant={triggerButtonVariant}
+              className={cx(
+                'memori-header--button',
+                'memori-header--button--position',
+                sharingActive && 'memori-header--button--position--active'
+              )}
+              aria-label={triggerAriaLabel}
+              aria-expanded={open}
+              icon={<MapPin aria-hidden />}
+            />
+          ),
+        },
+        positioner: {
+          className: cx(
+            'memori-position-popover__positioner',
+            positionerClassName
+          ),
+        },
+      }}
+      content={
+        <>
+          <div className="memori-position-popover__row memori-position-popover__switch-row">
+            <span className="memori-position-popover__switch-label">
+              {t('widget.shareLocation')}
+            </span>
+            <button
+              type="button"
+              role="switch"
+              aria-checked={sharingActive}
+              aria-label={String(t('widget.shareLocationAria'))}
+              className={cx('memori-position-popover__switch', {
+                'memori-position-popover__switch--on': sharingActive,
+              })}
+              onClick={toggleSharing}
+            >
+              <span className="memori-position-popover__switch-thumb" />
+            </button>
+          </div>
 
-      <Popover.Portal>
-        <Popover.Positioner
-          className={cx('memori-position-popover__positioner', positionerClassName)}
-          sideOffset={8}
-          side="bottom"
-          align="end"
-        >
-          <Popover.Popup className="memori-position-popover__popup">
-            <div className="memori-position-popover__row memori-position-popover__switch-row">
-              <span className="memori-position-popover__switch-label">
-                {t('widget.shareLocation')}
-              </span>
-              <button
-                type="button"
-                role="switch"
-                aria-checked={sharingActive}
-                aria-label={String(t('widget.shareLocationAria'))}
-                className={cx('memori-position-popover__switch', {
-                  'memori-position-popover__switch--on': sharingActive,
-                })}
-                onClick={toggleSharing}
-              >
-                <span className="memori-position-popover__switch-thumb" />
-              </button>
+          {(sharingActive || geolocationLoading || editingLocation) && (
+            <div className="memori-position-popover__tag-block">
+              {geolocationLoading ? (
+                <div
+                  className="memori-position-popover__tag memori-position-popover__tag--loading"
+                  aria-busy="true"
+                  aria-live="polite"
+                >
+                  <span
+                    className="memori-position-popover__spinner"
+                    aria-hidden
+                  />
+                  <span className="memori-position-popover__tag-skeleton" />
+                </div>
+              ) : editingLocation ? (
+                <div className="memori-position-popover__autocomplete-wrap">
+                  <VenueCombobox
+                    venue={venue}
+                    query={query}
+                    fetching={fetching}
+                    suggestions={suggestions}
+                    onQueryChange={onQueryChange}
+                    onChange={handleAutocompletePick}
+                    getPlaceName={getPlaceName}
+                    t={t}
+                    autocompleteRootId="memori-position-popover-venue-search"
+                    inputRef={autocompleteInputRef}
+                  />
+                </div>
+              ) : (
+                <div className="memori-position-popover__tag">
+                  <span className="memori-position-popover__tag-text">
+                    {venue?.placeName?.trim()
+                      ? venue.placeName
+                      : t('widget.positionResolving')}
+                  </span>
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    icon={<Pencil size={16} strokeWidth={2} aria-hidden />}
+                    size="sm"
+                    className="memori-position-popover__tag-edit"
+                    aria-label={String(t('widget.editPositionAria'))}
+                    onClick={() => {
+                      setEditingLocation(true);
+                      setPermissionDeniedMessage(null);
+                    }}
+                  />
+                </div>
+              )}
             </div>
+          )}
 
-            {(sharingActive ||
-              geolocationLoading ||
-              editingLocation) && (
-              <div className="memori-position-popover__tag-block">
-                {geolocationLoading ? (
-                  <div
-                    className="memori-position-popover__tag memori-position-popover__tag--loading"
-                    aria-busy="true"
-                    aria-live="polite"
-                  >
-                    <span
-                      className="memori-position-popover__spinner"
-                      aria-hidden
-                    />
-                    <span className="memori-position-popover__tag-skeleton" />
-                  </div>
-                ) : editingLocation ? (
-                  <div className="memori-position-popover__autocomplete-wrap">
-                    <VenueCombobox
-                      venue={venue}
-                      query={query}
-                      fetching={fetching}
-                      suggestions={suggestions}
-                      onQueryChange={onQueryChange}
-                      onChange={handleAutocompletePick}
-                      getPlaceName={getPlaceName}
-                      t={t}
-                      autocompleteRootId="memori-position-popover-venue-search"
-                      inputRef={autocompleteInputRef}
-                    />
-                  </div>
-                ) : (
-                  <div className="memori-position-popover__tag">
-                    <span className="memori-position-popover__tag-text">
-                      {venue?.placeName?.trim()
-                        ? venue.placeName
-                        : t('widget.positionResolving')}
-                    </span>
-                    <Button
-                      type="button"
-                      variant='ghost'
-                      icon={<Pencil size={16} strokeWidth={2} aria-hidden />}
-                      size='sm'
-                      className="memori-position-popover__tag-edit"
-                      aria-label={String(t('widget.editPositionAria'))}
-                      onClick={() => {
-                        setEditingLocation(true);
-                        setPermissionDeniedMessage(null);
-                      }}
-                    />
-                  </div>
-                )}
-              </div>
-            )}
+          {inlineError && (
+            <p className="memori-position-popover__error" role="alert">
+              {inlineError}
+            </p>
+          )}
 
-            {inlineError && (
-              <p
-                className="memori-position-popover__error"
-                role="alert"
-              >
-                {inlineError}
-              </p>
-            )}
-
-            {hasShareableCoords(venue) && !geolocationLoading && (
-              <div className="memori-position-popover__map">
-                <VenueMapPreview venue={venue} />
-              </div>
-            )}
-          </Popover.Popup>
-        </Popover.Positioner>
-      </Popover.Portal>
-    </Popover.Root>
+          {hasShareableCoords(venue) && !geolocationLoading && (
+            <div className="memori-position-popover__map">
+              <VenueMapPreview venue={venue} />
+            </div>
+          )}
+        </>
+      }
+    >
+      {null}
+    </Popover>
   );
 };
 

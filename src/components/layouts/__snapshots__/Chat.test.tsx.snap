@@ -561,7 +561,7 @@ exports[`renders Chat layout unchanged 1`] = `
                           >
                             <span
                               class="styles-module__trigger___V2aIF"
-                              id="base-ui-:ri:"
+                              id="base-ui-:rl:"
                             >
                               <button
                                 aria-label="send"

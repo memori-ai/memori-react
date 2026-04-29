@@ -1400,43 +1400,47 @@ exports[`renders Header with position unchanged 1`] = `
           <span
             style="display: inline-flex;"
           >
-            <button
-              aria-expanded="false"
-              aria-haspopup="dialog"
-              aria-label="widget.position"
-              class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button--position memori-header--button--position--active"
-              data-base-ui-click-trigger=""
-              id="base-ui-:r8:"
-              tabindex="0"
-              type="button"
+            <span
+              class="styles-module__root___kBCdl"
             >
-              <span
-                class="memori-button__icon"
+              <button
+                aria-expanded="false"
+                aria-haspopup="dialog"
+                aria-label="widget.position"
+                class="memori-button memori-button--primary memori-button--md memori-button--icon-only memori-header--button memori-header--button--position memori-header--button--position--active"
+                data-base-ui-click-trigger=""
+                id="base-ui-:r8:"
+                tabindex="0"
+                type="button"
               >
-                <svg
-                  aria-hidden="true"
-                  class="lucide lucide-map-pin"
-                  fill="none"
-                  height="24"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
+                <span
+                  class="memori-button__icon"
                 >
-                  <path
-                    d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
-                  />
-                  <circle
-                    cx="12"
-                    cy="10"
-                    r="3"
-                  />
-                </svg>
-              </span>
-            </button>
+                  <svg
+                    aria-hidden="true"
+                    class="lucide lucide-map-pin"
+                    fill="none"
+                    height="24"
+                    stroke="currentColor"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                    />
+                    <circle
+                      cx="12"
+                      cy="10"
+                      r="3"
+                    />
+                  </svg>
+                </span>
+              </button>
+            </span>
           </span>
         </span>
       </span>
