@@ -850,6 +850,12 @@ const ChatHistoryDrawer = ({
         role: line.inbound ? ('user' as const) : ('assistant' as const),
         content: line.text || '',
         timestamp: line.timestamp,
+        media: (line.media || []).map((medium, mediumIndex) => ({
+          ...medium,
+          mediumID:
+            (medium as { mediumID?: string }).mediumID ||
+            `${selectedChatLog.chatLogID}-${index}-${mediumIndex}`,
+        })),
         status:
           !line.inbound && !line.text?.trim() && hasInterruptedLine
             ? ('interrupted' as const)
@@ -1023,6 +1029,13 @@ const ChatHistoryDrawer = ({
                       >
                         {formatDate(new Date(lastMessageDate).toISOString())}
                       </time>
+                      <span className="memori-chat-history-drawer--list-item--meta-badge memori-chat-history-drawer--list-item--meta-badge-messages">
+                        {formatCountLabel(
+                          stats.messageCount,
+                          t('write_and_speak.message') || 'message',
+                          t('write_and_speak.messages') || 'messages'
+                        )}
+                      </span>
                       {stats.imageCount > 0 && (
                         <span className="memori-chat-history-drawer--list-item--meta-badge memori-chat-history-drawer--list-item--meta-badge-images">
                           {formatCountLabel(
@@ -1032,13 +1045,6 @@ const ChatHistoryDrawer = ({
                           )}
                         </span>
                       )}
-                      <span className="memori-chat-history-drawer--list-item--meta-badge memori-chat-history-drawer--list-item--meta-badge-messages">
-                        {formatCountLabel(
-                          stats.messageCount,
-                          t('write_and_speak.message') || 'message',
-                          t('write_and_speak.messages') || 'messages'
-                        )}
-                      </span>
                       {stats.hasFile && (
                         <span className="memori-chat-history-drawer--list-item--meta-badge memori-chat-history-drawer--list-item--meta-badge-files">
                           {t('write_and_speak.file') || 'file'}
@@ -1126,10 +1132,7 @@ const ChatHistoryDrawer = ({
             onResume={handleResumeChat}
             onBack={handleCloseResumeDrawer}
             onClose={handleCloseResumeDrawer}
-            onExportChat={(
-              chatLog: ChatLog,
-              e: React.MouseEvent<Element, MouseEvent>
-            ) => handleExportChat(chatLog, e)}
+            onExportChat={handleExportSelectedChat}
           />
         </div>
       ) : (

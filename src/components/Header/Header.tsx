@@ -84,7 +84,7 @@ export interface Props {
 
 const Header: React.FC<Props> = ({
   className,
-  buttonVariant = 'primary',
+  buttonVariant = 'ghost',
   memori,
   tenant,
   history,

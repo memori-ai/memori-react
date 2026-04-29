@@ -3,7 +3,6 @@ import { Button } from '@memori.ai/ui';
 import {
   Message,
   Memori,
-  ChatLog,
 } from '@memori.ai/memori-api-client/dist/types';
 import { ArrowLeft, ArrowUpRight, Download } from 'lucide-react';
 import { stripHTML } from '../../helpers/utils';
@@ -16,6 +15,7 @@ export interface ResumeDrawerMessage {
   content: string;
   timestamp: string;
   status?: 'completed' | 'interrupted';
+  media?: Message['media'];
   attachment?: {
     name: string;
     type: string;
@@ -28,7 +28,7 @@ export interface ChatResumeDrawerProps {
   isOpen: boolean;
   onClose: () => void;
   onBack?: () => void;
-  onExportChat: (chatLog: ChatLog, e: React.MouseEvent) => void;
+  onExportChat: () => void;
   embedded?: boolean;
   session: {
     title: string;
@@ -153,6 +153,7 @@ const ChatResumeDrawer = ({
           fromUser: message.role === 'user',
           text: `${interruptedText}${attachmentTag}`,
           timestamp: message.timestamp,
+          media: message.media || [],
         } as Message;
       }),
     [session.messages]
@@ -194,12 +195,7 @@ const ChatResumeDrawer = ({
           aria-label="Download"
           title="Download"
           icon={<Download />}
-          onClick={(e: React.MouseEvent) =>
-            onExportChat(
-              session as unknown as ChatLog,
-              e as React.MouseEvent<HTMLButtonElement>
-            )
-          }
+          onClick={onExportChat}
         />
       </header>
 
@@ -235,6 +231,7 @@ const ChatResumeDrawer = ({
               showAIicon={true}
               showCopyButton={true}
               isHistoryView={true}
+              isChatlogPanel={true}
             />
           </div>
         )}

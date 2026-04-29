@@ -303,9 +303,22 @@
     opacity: 0.8;
 }
 
+.memori-chat-inputs--ai-note {
+    margin: var(--memori-spacing-xs) var(--memori-spacing-sm) 0;
+    color: color-mix(in oklch, var(--memori-text-color) 68%, transparent);
+    font-size: 0.75rem;
+    line-height: 1.3;
+    text-align: center;
+}
+
 @media (max-width: 768px) {
     .memori-chat-inputs--disclaimer {
         padding: var(--memori-spacing-sm) var(--memori-spacing-md);
+    }
+
+    .memori-chat-inputs--ai-note {
+        margin-right: var(--memori-spacing-xs);
+        margin-left: var(--memori-spacing-xs);
     }
 }
 

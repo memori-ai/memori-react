@@ -480,15 +480,9 @@ ${text}
           </div>
         </div>
       </fieldset>
-      {/* Disclaimer */}
-      {/* <div className="memori-chat-inputs--disclaimer">
-        <div>
-          {t(
-            'chat.disclaimer',
-            'AIsuru può commettere errori. Assicurati di verificare le informazioni importanti.'
-          )}
-        </div>
-      </div> */}
+      <p className="memori-chat-inputs--ai-note">
+        {t('aiGeneratedNote', { defaultValue: 'Generato da AI' })}
+      </p>
     </div>
   );
 };

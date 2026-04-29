@@ -157,7 +157,7 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
   ) => (
     <Button
       {...triggerButtonProps}
-      variant="primary"
+      variant="ghost"
       shape="default"
       className="memori-header--button memori-header--button--sustainability"
       aria-label={triggerLabel}
