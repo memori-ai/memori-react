@@ -1,5 +1,12 @@
 
 
+## [8.35.1](https://github.com/memori-ai/memori-react/compare/v8.35.0...v8.35.1) (2026-04-29)
+
+
+### Bug Fixes
+
+* update login button visibility logic in MemoriWidget component ([f80da5c](https://github.com/memori-ai/memori-react/commit/f80da5ca22075ad299d54c4808f94c709e850369))
+
 ## [8.35.0](https://github.com/memori-ai/memori-react/compare/v8.34.0...v8.35.0) (2026-04-28)
 
 
