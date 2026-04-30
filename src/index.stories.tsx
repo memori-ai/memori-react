@@ -22,7 +22,6 @@ export default meta;
 
 const Template: Story<Props> = args => <Memori {...args} />;
 
-
 export const WithInitialContextAndQuestion = Template.bind({});
 WithInitialContextAndQuestion.args = {
   ownerUserName: 'nzambello',
@@ -115,8 +114,8 @@ WithMaxTextareaCharacters.args = {
   maxTextareaCharacters: 500,
 };
 
-export const WithPrivateAgent = Template.bind({});
-WithPrivateAgent.args = {
+export const TestingAgent = Template.bind({});
+TestingAgent.args = {
   memoriName: 'Test Private',
   ownerUserName: 'Andrea-Patini',
   memoriID: 'c58cd5f9-43c4-4a3b-9fb6-56aedf58ff7a',
@@ -150,7 +149,8 @@ const piiDetectionConfig = {
     {
       id: 'iban',
       label: { it: 'IBAN', en: 'IBAN' },
-      pattern: '\\b[A-Z]{2}\\d{2}(?:[ ]?[A-Z0-9]{4}){3,7}(?:[ ]?[A-Z0-9]{1,4})?\\b',
+      pattern:
+        '\\b[A-Z]{2}\\d{2}(?:[ ]?[A-Z0-9]{4}){3,7}(?:[ ]?[A-Z0-9]{1,4})?\\b',
       message: {
         it: 'Il messaggio contiene un codice IBAN.',
         en: 'The message contains an IBAN code.',

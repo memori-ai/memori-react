@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useMemo, useCallback, memo } from 'react';
 import { useArtifact } from '../../context/ArtifactContext';
 import { ArtifactData } from '../../types/artifact.types';
-import ChevronRight from '../../../icons/ChevronRight';
+import {
+  ChevronRight,
+  ChevronDown,
+  ChevronLeft,
+  ChevronUp,
+} from 'lucide-react';
 import ArtifactDrawer from '../ArtifactDrawer/ArtifactDrawer';
-import ChevronDown from '../../../icons/ChevronDown';
-import ChevronLeft from '../../../icons/ChevronLeft';
-import ChevronUp from '../../../icons/ChevronUp';
 import { Message } from '@memori.ai/memori-api-client/dist/types';
 import { stripReasoningTags } from '../../../../helpers/utils';
 
@@ -216,10 +218,14 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
     [message.timestamp, message.fromUser]
   );
 
+  // Function to dispatch artifact created event
   const dispatchArtifactCreatedEvent = useCallback(
     (artifact: ArtifactData) => {
       const event: ArtifactCreatedEvent = new CustomEvent('artifactCreated', {
-        detail: { artifact, message },
+        detail: {
+          artifact,
+          message,
+        },
       });
       document.dispatchEvent(event);
     },
@@ -324,12 +330,14 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
               </div>
               <div className="memori-artifact-handler-action">
                 {isChatlogPanel ? (
-                  isSelected ? (
+                  state.isDrawerOpen &&
+                  state.currentArtifact?.id === artifact.id ? (
                     <ChevronUp className="memori-artifact-handler-action-icon" />
                   ) : (
                     <ChevronDown className="memori-artifact-handler-action-icon" />
                   )
-                ) : isSelected ? (
+                ) : state.isDrawerOpen &&
+                  state.currentArtifact?.id === artifact.id ? (
                   <ChevronLeft className="memori-artifact-handler-action-icon" />
                 ) : (
                   <ChevronRight className="memori-artifact-handler-action-icon" />
@@ -338,14 +346,16 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
             </div>
 
             {/* Render ArtifactDrawer inline when in chatlog panel */}
-            {isSelected && <ArtifactDrawer isChatLogPanel={isChatlogPanel} />}
+            {state.isDrawerOpen &&
+              state.currentArtifact?.id === artifact.id && (
+                <ArtifactDrawer isChatLogPanel={isChatlogPanel} />
+              )}
           </React.Fragment>
         );
       })}
     </div>
   );
 };
-
 // ---------------------------------------------------------------------------
 // Memoised export
 // ---------------------------------------------------------------------------

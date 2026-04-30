@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders WEBSITE_ASSISTANT layout unchanged 1`] = `
+<div>
+  <div
+    class="memori memori-widget memori-layout-website_assistant memori-controls-bottom memori--avatar-readyplayerme memori--with-integration"
+    data-memori-engine-state="{}"
+    data-memori-id="66b4e161-2431-4b21-9b70-d8c27de730ca"
+    data-memori-integration="cb3c4776-7f0b-4f97-a773-c32a5d7a3bf1"
+    data-memori-name="Memori"
+    data-memori-secondary-id="25ced51c-3520-41af-8bbe-222d861b8e32"
+    style="height: 100vh;"
+  >
+    <div
+      class="memori-website_assistant--trigger"
+    >
+      <button
+        class="memori-button memori-button--ghost memori-button--md memori-button--circle memori-website_assistant--trigger-button"
+        tabindex="0"
+        title="expand"
+        type="button"
+      >
+        <span
+          class="memori-button__content"
+        >
+          <div
+            class="memori-blob"
+          >
+            <figure>
+              <img
+                alt=""
+                role="presentation"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </figure>
+            <div
+              class="mainDiv"
+            />
+            <div
+              class="mainDiv"
+            />
+            <div
+              class="mainDiv"
+            />
+            <div
+              class="mainDiv"
+            />
+            <div
+              class="mainDiv"
+            />
+          </div>
+        </span>
+      </button>
+    </div>
+    <div
+      class="memori-website_assistant--collapsed"
+    />
+    <audio
+      id="memori-audio"
+      src="https://aisuru.com/intro.mp3"
+      style="display: none;"
+    />
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+

@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Props as ChatInputProps } from '../ChatInputs/ChatInputs';
-import Microphone from '../icons/Microphone';
-import Button from '../ui/Button';
-import Tooltip from '../ui/Tooltip';
-import cx from 'classnames';
+import { Mic } from 'lucide-react';
+import { Button, Tooltip } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 
 export interface Props {
@@ -11,6 +9,8 @@ export interface Props {
   stopAudio: ChatInputProps['stopAudio'];
   startListening: ChatInputProps['startListening'];
   stopListening: ChatInputProps['stopListening'];
+  /** When true, recording cannot be started (e.g. no session yet — see ChatInputs). */
+  disabled?: boolean;
 }
 
 const MicrophoneButton = ({
@@ -18,6 +18,7 @@ const MicrophoneButton = ({
   stopAudio,
   startListening,
   stopListening,
+  disabled = false,
 }: Props) => {
   const { t } = useTranslation();
   const [micBtnTooltip, setMicBtnTooltip] = useState<string | undefined>();
@@ -29,6 +30,7 @@ const MicrophoneButton = ({
       | React.TouchEvent<HTMLButtonElement>
       | React.MouseEvent<Element, MouseEvent>
   ) => {
+    if (disabled) return;
     e.preventDefault();
     e.stopPropagation();
 
@@ -88,37 +90,45 @@ const MicrophoneButton = ({
     return () => stopHold();
   }, []);
 
+  const idleHint =
+    t('write_and_speak.pressAndHoldToSpeak') || 'Press and hold to speak';
+  const listeningHint =
+    t('write_and_speak.releaseToEndListening') || 'Release to stop listening';
+
+  const tooltipLabel = micBtnTooltip ?? (listening ? listeningHint : idleHint);
+
   return (
     <Tooltip
-      visible={!!micBtnTooltip}
+      title={tooltipLabel}
+      placement="top-end"
       className="memori-chat-inputs--mic-tooltip"
-      content={
-        <span>
-          {micBtnTooltip ||
-            t('write_and_speak.pressAndHoldToSpeak') ||
-            'Press and hold to speak'}
-        </span>
-      }
-      align="topLeft"
+      slotProps={{
+        positioner: {
+          className: 'memori-chat-inputs--mic-tooltip-positioner',
+        },
+        popup: {
+          className: 'memori-chat-inputs--mic-tooltip-popup',
+        },
+      }}
     >
       <div onContextMenu={handleContextMenu}>
         <Button
-          primary
-          className={cx('memori-chat-inputs--mic', {
-            'memori-chat-inputs--mic--listening': listening,
-          })}
-          title={
+          variant="ghost"
+          size="sm"
+          className={
             listening
-              ? t('write_and_speak.micButtonPopoverListening') || 'Listening'
-              : t('write_and_speak.micButtonPopover') || 'Start listening'
+              ? 'memori-chat-inputs--mic--listening'
+              : 'memori-chat-inputs--mic'
           }
+          aria-label={listening ? listeningHint : idleHint}
+          disabled={disabled}
           onMouseDown={startHold}
           onTouchStart={handleTouchStart}
           onMouseUp={stopHold}
           onTouchEnd={handleTouchEnd}
           onMouseLeave={stopHold}
-          shape="circle"
-          icon={<Microphone />}
+          // shape="circle"
+          icon={<Mic />}
         />
       </div>
     </Tooltip>

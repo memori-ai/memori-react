@@ -27,12 +27,10 @@ import memoriApiClient from '@memori.ai/memori-api-client';
 import ChatInputs from '../ChatInputs/ChatInputs';
 import Typing from '../Typing/Typing';
 import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
-import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler';
-import { DocumentIcon } from '../icons/Document';
+import { FileText as DocumentIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { Tooltip, Modal } from '@memori.ai/ui';
 import { maxDocumentsPerMessage, maxDocumentContentLength, pasteAsCardLineThreshold, pasteAsCardCharThreshold } from '../../helpers/constants';
-import Modal from '../ui/Modal';
-import Tooltip from '../ui/Tooltip';
 import {
   BADGE_EMOJI,
   buildLlmUsageHtml,
@@ -45,6 +43,20 @@ import {
   LlmUsageOnLine,
   UsageBadgeType,
 } from '../../helpers/llmUsage';
+
+const CODE_MIME_TYPES = [
+  'text/javascript',
+  'text/ecmascript',
+  'application/json',
+  'text/css',
+  'application/xml',
+  'application/x-sh',
+  'text/x-python',
+  'text/x-c++src',
+  'application/x-php',
+  'text/x-ruby',
+  'text/x-sql',
+];
 export interface Props {
   memori: Memori;
   tenant?: Tenant;
@@ -102,7 +114,6 @@ export interface Props {
   /** Max characters in chat textarea; shows counter and enforces paste + existing text does not exceed this limit. */
   maxTextareaCharacters?: number;
   /** Max attachments (docs + images) per message. */
-
 }
 
 type MessageWithLlmUsage = Message & { llmUsage?: LlmUsageOnLine };
@@ -164,7 +175,6 @@ const Chat: React.FC<Props> = ({
   maxTotalMessagePayload,
   maxTextareaCharacters,
 }) => {
-
   const [isTextareaExpanded, setIsTextareaExpanded] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [activeUsageBadge, setActiveUsageBadge] =
@@ -439,38 +449,27 @@ const Chat: React.FC<Props> = ({
                     []) as Medium[]
                 }
                 media={[
-                  // Non-function-cache media items (exclude HTML links; those go into `links`)
                   ...(message?.media
                     ?.filter(m => !m.properties?.functionSignature)
-                    ?.filter(m => !(m.mimeType === 'text/html' && !!m.url)) ||
-                    []),
-
-                  // Extract document attachments that are embedded in the message text
+                    ?.filter(
+                      m =>
+                        !(
+                          CODE_MIME_TYPES.includes(m.mimeType) ||
+                          (m.mimeType === 'text/html' && !!m.url)
+                        )
+                    ) || []),
                   ...(() => {
-                    // Get the translated or original message text
                     const text = message.translatedText || message.text;
-
-                    // Regex to match document attachments in format:
-                    // <document_attachment filename="name.ext" type="mime/type">content</document_attachment>
                     const documentAttachmentRegex =
                       /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
-
                     const attachments: (Medium & { type?: string })[] = [];
                     let match;
                     let attachmentIndex = 0;
 
-                    // Find all document attachments in the text
                     while (
                       (match = documentAttachmentRegex.exec(text)) !== null
                     ) {
                       const [, filename, type, content] = match;
-
-                      // Create a Medium object for each attachment with:
-                      // - Unique ID using timestamp and random string
-                      // - Empty URL since content is embedded
-                      // - Original mime type and filename
-                      // - Trimmed content from the attachment
-                      // - Properties to mark it as a document attachment
                       attachments.push({
                         mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
                           .toString(36)
@@ -482,7 +481,6 @@ const Chat: React.FC<Props> = ({
                         properties: { isDocumentAttachment: true },
                         type: 'document',
                       });
-
                       attachmentIndex++;
                     }
 
@@ -497,95 +495,109 @@ const Chat: React.FC<Props> = ({
                 fromUser={message.fromUser}
               />
 
-              <ChatBubble
-                key={`chatbubble-${index}-${
-                  message.text?.includes('<document_attachment')
-                    ? 'has-attachments'
-                    : 'no-attachments'
-                }-${message.timestamp}`}
-                isFirst={index === 0}
-                message={message}
-                memori={memori}
-                tenant={tenant}
-                client={client}
-                baseUrl={baseUrl}
-                apiUrl={apiUrl}
-                sessionID={sessionID}
-                simulateUserPrompt={simulateUserPrompt}
-                showAIicon={showAIicon}
-                showWhyThisAnswer={showWhyThisAnswer}
-                showTranslationOriginal={showTranslationOriginal}
-                showFeedback={
-                  index === history.length - 1 &&
-                  !message.fromUser &&
-                  dialogState?.acceptsFeedback
-                }
-                user={user}
-                userAvatar={userAvatar}
-                experts={experts}
-                showCopyButton={showCopyButton}
-                useMathFormatting={useMathFormatting}
-                showFunctionCache={showFunctionCache}
-                showReasoning={showReasoning}
-                usageHtml={usageHtmlByIndex[index]}
-              />
+              <div
+                style={{
+                  marginBottom: index === history.length - 1 ? '24px' : 0,
+                }}
+              >
+                <ChatBubble
+                  key={`chatbubble-${index}-${
+                    message.text?.includes('<document_attachment')
+                      ? 'has-attachments'
+                      : 'no-attachments'
+                  }-${message.timestamp}`}
+                  isFirst={index === 0}
+                  message={message}
+                  memori={memori}
+                  tenant={tenant}
+                  client={client}
+                  baseUrl={baseUrl}
+                  apiUrl={apiUrl}
+                  sessionID={sessionID}
+                  simulateUserPrompt={simulateUserPrompt}
+                  showAIicon={showAIicon}
+                  showWhyThisAnswer={showWhyThisAnswer}
+                  showTranslationOriginal={showTranslationOriginal}
+                  showFeedback={
+                    index === history.length - 1 &&
+                    !message.fromUser &&
+                    dialogState?.acceptsFeedback
+                  }
+                  user={user}
+                  userAvatar={userAvatar}
+                  experts={experts}
+                  showCopyButton={showCopyButton}
+                  useMathFormatting={useMathFormatting}
+                  showFunctionCache={showFunctionCache}
+                  showReasoning={showReasoning}
+                  usageHtml={usageHtmlByIndex[index]}
+                  isChatlogPanel={isChatlogPanel}
+                />
 
-              {showDates && !!message.timestamp && (
-                <small
-                  className={`memori-chat--timestamp ${
-                    message.fromUser ? 'text-right' : 'text-left'
-                  }`}
-                >
-                  {new Intl.DateTimeFormat('it', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit',
-                  }).format(
-                    new Date(
-                      message.timestamp.endsWith('Z')
-                        ? message.timestamp
-                        : `${message.timestamp}Z`
-                    )
-                  )}
-                </small>
-              )}
-
-              {showContextPerLine &&
-                !!Object.keys(message.contextVars ?? {}).length && (
-                  <div className="memori-chat--context-vars">
-                    {Object.keys(message.contextVars ?? {}).map(key =>
-                      message.contextVars?.[key] === '-' ? (
-                        <div
-                          className={`memori-chat--context-tag memori-chat--context-tag-canceled`}
-                          key={key}
-                        >
-                          <span className="memori-chat--context-tag-text">
-                            {key}
-                          </span>
-                        </div>
-                      ) : message.contextVars?.[key] === '✔️' ? (
-                        <div className="memori-chat--context-tag" key={key}>
-                          <span className="memori-chat--context-tag-text">
-                            {key}
-                          </span>
-                        </div>
-                      ) : (
-                        <div className="memori-chat--context-tag" key={key}>
-                          <span className="memori-chat--context-tag-text">
-                            {key}: {message.contextVars?.[key]}
-                          </span>
-                        </div>
+                {showDates && !!message.timestamp && !message.fromUser && (
+                  <small
+                    className={`memori-chat--timestamp ${
+                      message.fromUser ? 'text-right' : 'text-left'
+                    }`}
+                  >
+                    {new Intl.DateTimeFormat('it', {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                      second: '2-digit',
+                    }).format(
+                      new Date(
+                        message.timestamp.endsWith('Z')
+                          ? message.timestamp
+                          : `${message.timestamp}Z`
                       )
                     )}
-                  </div>
+                  </small>
                 )}
 
-              {!isHistoryView && !message.fromUser && (
-                <ArtifactHandler
-                  isChatlogPanel={isChatlogPanel}
-                  message={message}
-                />
-              )}
+                {showContextPerLine &&
+                  !!Object.keys(message.contextVars ?? {}).length && (
+                    <div className="memori-chat--context-vars">
+                      {Object.keys(message.contextVars ?? {}).map(key =>
+                        message.contextVars?.[key] === '-' ? (
+                          <div
+                            className={`memori-chat--context-tag memori-chat--context-tag-canceled`}
+                            key={key}
+                          >
+                            <span className="memori-chat--context-tag-text">
+                              {key}
+                            </span>
+                          </div>
+                        ) : message.contextVars?.[key] === '✔️' ? (
+                          <div className="memori-chat--context-tag" key={key}>
+                            <span className="memori-chat--context-tag-text">
+                              {key}
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="memori-chat--context-tag" key={key}>
+                            <span className="memori-chat--context-tag-text">
+                              {key}: {message.contextVars?.[key]}
+                            </span>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  )}
+              </div>
+              <MediaWidget
+                simulateUserPrompt={simulateUserPrompt}
+                media={[
+                  ...(message?.media
+                    ?.filter(m => !m.properties?.functionSignature)
+                    ?.filter(m => CODE_MIME_TYPES.includes(m.mimeType)) || []),
+                ]}
+                sessionID={sessionID}
+                baseUrl={baseUrl}
+                apiUrl={apiUrl}
+                translateTo={translateTo}
+                customMediaRenderer={customMediaRenderer}
+                fromUser={message.fromUser}
+              />
             </React.Fragment>
           ))}
 
@@ -618,6 +630,11 @@ const Chat: React.FC<Props> = ({
                   : 'en'
               }
               sentence={typingText}
+              memori={memori}
+              tenant={tenant}
+              baseUrl={baseUrl}
+              apiUrl={apiUrl}
+              experts={experts}
               sentences={
                 memori.enableBoardOfExperts
                   ? boardOfExpertsLoadingSentences

@@ -4,25 +4,32 @@ import {
   Venue,
   User,
 } from '@memori.ai/memori-api-client/src/types';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { getResourceUrl } from '../../helpers/media';
 import { useTranslation } from 'react-i18next';
-import Tooltip from '../ui/Tooltip';
+import { Combobox, Tooltip, Modal } from '@memori.ai/ui';
 import { getTranslation } from '../../helpers/translations';
-import Button from '../ui/Button';
-import Translation from '../icons/Translation';
+import { Button } from '@memori.ai/ui';
+import {
+  Languages,
+  Users,
+  Info,
+  Eye,
+  MessageCircle,
+  MapPin,
+  MapPinOff,
+  User as UserIconLucide,
+  ChevronDown,
+} from 'lucide-react';
 import { getGroupedChatLanguages } from '../../helpers/constants';
 import BlockedMemoriBadge from '../BlockedMemoriBadge/BlockedMemoriBadge';
-import AI from '../icons/AI';
-import Group from '../icons/Group';
-import DeepThought from '../icons/DeepThought';
 import CompletionProviderStatus, {
   Props as CPSProps,
 } from '../CompletionProviderStatus/CompletionProviderStatus';
-import MapMarker from '../icons/MapMarker';
-import UserIcon from '../icons/User';
-import QuestionHelp from '../icons/QuestionHelp';
-import Expandable from '../ui/Expandable';
+import { Expandable } from '@memori.ai/ui';
+
+const LANG_COMBO_GROUP_POPULAR = '__memori_lang_group_popular__';
+const LANG_COMBO_GROUP_ALL = '__memori_lang_group_all__';
 
 interface Memori extends MemoriOriginal {
   requireLoginToken?: boolean;
@@ -37,7 +44,8 @@ export interface Props {
   baseUrl?: string;
   apiUrl?: string;
   position?: Venue;
-  openPositionDrawer: () => void;
+  setVenue: (venue?: Venue) => void;
+  openPositionPopover: () => void;
   integrationConfig?: { [key: string]: any };
   instruct?: boolean;
   sessionId?: string;
@@ -50,8 +58,11 @@ export interface Props {
   user?: User;
   showLogin?: boolean;
   setShowLoginDrawer: (show: boolean) => void;
+  showChatHistory?: boolean;
+  setShowChatHistoryDrawer?: (show: boolean) => void;
   notEnoughCredits?: boolean;
   isMultilanguageEnabled?: boolean | undefined;
+  showFullDescriptionOnMobile?: boolean;
 }
 
 const StartPanel: React.FC<Props> = ({
@@ -63,7 +74,8 @@ const StartPanel: React.FC<Props> = ({
   baseUrl,
   apiUrl,
   position,
-  openPositionDrawer,
+  setVenue,
+  openPositionPopover,
   instruct = false,
   hasInitialSession = false,
   clickedStart,
@@ -71,11 +83,13 @@ const StartPanel: React.FC<Props> = ({
   initializeTTS,
   _TEST_forceProviderStatus,
   isUserLoggedIn = false,
-  user,
   showLogin = false,
   setShowLoginDrawer,
+  showChatHistory = true,
+  setShowChatHistoryDrawer,
   notEnoughCredits = false,
   isMultilanguageEnabled,
+  showFullDescriptionOnMobile = false,
 }) => {
   const { t, i18n } = useTranslation();
   const [translatedDescription, setTranslatedDescription] = useState(
@@ -83,9 +97,54 @@ const StartPanel: React.FC<Props> = ({
   );
 
   const [showTranslation, setShowTranslation] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isInfoExpanded, setIsInfoExpanded] = useState(false);
+  const [mobileInfoModal, setMobileInfoModal] = useState<
+    null | 'privacy' | 'deepThought'
+  >(null);
   const toggleTranslations = () => {
     setShowTranslation(show => !show);
   };
+
+  const languageComboboxOptions = useMemo(() => {
+    const { popular, all } = getGroupedChatLanguages();
+    return [
+      {
+        value: LANG_COMBO_GROUP_POPULAR,
+        label: 'Popular',
+        disabled: true,
+      },
+      ...popular.map(lang => ({
+        label: lang.label,
+        value: lang.value,
+      })),
+      {
+        value: LANG_COMBO_GROUP_ALL,
+        label: 'All the languages',
+        disabled: true,
+      },
+      ...all.map(lang => ({
+        label: lang.label,
+        value: lang.value,
+      })),
+    ];
+  }, []);
+
+  const selectedChatLangCode = useMemo(() => {
+    const raw = userLang ?? i18n.language ?? 'EN';
+    return String(raw).split('-')[0].toUpperCase();
+  }, [userLang, i18n.language]);
+
+  useEffect(() => {
+    if (!isMobile) {
+      setMobileInfoModal(null);
+      return;
+    }
+
+    if (!isInfoExpanded) {
+      setMobileInfoModal(null);
+    }
+  }, [isMobile, isInfoExpanded]);
 
   useEffect(() => {
     if (
@@ -106,6 +165,28 @@ const StartPanel: React.FC<Props> = ({
         .catch(console.error);
     }
   }, [i18n.language, language, memori.description, baseUrl]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const mediaQuery = window.matchMedia('(max-width: 870px)');
+    const handleViewportChange = (event: MediaQueryListEvent) => {
+      setIsMobile(event.matches);
+      if (!event.matches) setIsInfoExpanded(true);
+    };
+
+    setIsMobile(mediaQuery.matches);
+    setIsInfoExpanded(!mediaQuery.matches);
+
+    if (mediaQuery.addEventListener) {
+      mediaQuery.addEventListener('change', handleViewportChange);
+      return () =>
+        mediaQuery.removeEventListener('change', handleViewportChange);
+    }
+
+    mediaQuery.addListener(handleViewportChange);
+    return () => mediaQuery.removeListener(handleViewportChange);
+  }, []);
 
   return (
     <div className="memori--start-panel">
@@ -130,7 +211,7 @@ const StartPanel: React.FC<Props> = ({
           <div className="memori--board-of-experts">
             <Tooltip align="left" content={t('boardOfExperts')}>
               <span aria-label={t('boardOfExperts') || 'Board of Experts'}>
-                <Group />
+                <Users />
               </span>
             </Tooltip>
           </div>
@@ -143,89 +224,75 @@ const StartPanel: React.FC<Props> = ({
           </div>
         )}
       </div>
-      <picture className="memori--avatar">
-        <source
-          src={
-            memori.avatarURL ??
-            getResourceUrl({
-              type: 'avatar',
-              tenantID: tenant?.name,
-              resourceURI: memori.avatarURL,
-              baseURL: baseUrl,
-              apiURL: apiUrl,
-            })
-          }
-        />
-        <img
-          alt={memori.name}
-          src={
-            memori.avatarURL && memori.avatarURL.length > 0
-              ? getResourceUrl({
+      <div className="memori--start-panel__body">
+        <div className="memori--title-container">
+          <picture className="memori--avatar">
+            <source
+              src={
+                memori.avatarURL ??
+                getResourceUrl({
                   type: 'avatar',
                   tenantID: tenant?.name,
                   resourceURI: memori.avatarURL,
                   baseURL: baseUrl,
                   apiURL: apiUrl,
                 })
-              : getResourceUrl({
-                  type: 'avatar',
-                  tenantID: tenant?.name,
-                  baseURL: baseUrl,
-                  apiURL: apiUrl,
-                })
-          }
-        />
-      </picture>
-      <h2 className="memori--title">{memori.name}</h2>
-      {memori.needsPosition && !position && (
-        <div className="memori--needsPosition">
-          <p>
-            {t('write_and_speak.requirePositionHelp', { name: memori.name })}
-          </p>
-          <Button
-            primary
-            onClick={() => openPositionDrawer()}
-            className="memori--start-button"
-            icon={<MapMarker />}
-          >
-            {t('widget.position')}
-          </Button>
-        </div>
-      )}
-      {((memori.needsPosition && position) || !memori.needsPosition) &&
-        !!memori.requireLoginToken &&
-        !tenant?.ssoLogin &&
-        !isUserLoggedIn && (
-          <div className="memori--needsLogin">
-            <p>
-              {t('write_and_speak.requirePositionHelp', { name: memori.name })}
-            </p>
-            <Button
-              primary
-              onClick={() => setShowLoginDrawer(true)}
-              className="memori--start-button"
-              icon={<UserIcon />}
-            >
-              {t('login.login') || 'Login'}
-            </Button>
-          </div>
-        )}
-      {((memori.needsPosition && position) || !memori.needsPosition) &&
-        (!memori.requireLoginToken ||
-          (memori.requireLoginToken && isUserLoggedIn)) && (
-          <div className="memori--description">
-            <p>
-              <Expandable className="memori--description-text" rows={3}>
-                {translatedDescription && showTranslation
-                  ? translatedDescription
-                  : memori.description}
-              </Expandable>
+              }
+            />
+            <img
+              alt={memori.name}
+              src={
+                memori.avatarURL && memori.avatarURL.length > 0
+                  ? getResourceUrl({
+                      type: 'avatar',
+                      tenantID: tenant?.name,
+                      resourceURI: memori.avatarURL,
+                      baseURL: baseUrl,
+                      apiURL: apiUrl,
+                    })
+                  : getResourceUrl({
+                      type: 'avatar',
+                      tenantID: tenant?.name,
+                      baseURL: baseUrl,
+                      apiURL: apiUrl,
+                    })
+              }
+            />
+          </picture>
+          <div className="memori--title-container__content">
+            <h2 className="memori--title">{memori.name}</h2>
+            <>
+              {isMobile && showFullDescriptionOnMobile ? (
+                <p className="memori--description-text memori--description-text--full">
+                  {translatedDescription && showTranslation
+                    ? translatedDescription
+                    : memori.description}
+                </p>
+              ) : (
+                <Expandable
+                  className="memori--description-text memori--description-text--collapsible"
+                  rows={3}
+                  expandSymbol={_lang => (
+                    <span className="memori--description-text--expand-symbol">
+                      {t('expand')}
+                    </span>
+                  )}
+                  collapseSymbol={_lang => (
+                    <span className="memori--description-text--collapse-symbol">
+                      {t('collapse')}
+                    </span>
+                  )}
+                >
+                  {translatedDescription && showTranslation
+                    ? translatedDescription
+                    : memori.description}
+                </Expandable>
+              )}
 
               {translatedDescription !== memori.description && (
                 <Button
-                  ghost
-                  className="memori--translation-toggle"
-                  icon={<Translation />}
+                  variant="ghost"
+                  icon={<Languages />}
                   onClick={() => toggleTranslations()}
                 >
                   {showTranslation
@@ -233,189 +300,443 @@ const StartPanel: React.FC<Props> = ({
                     : t('showTranslatedText')}
                 </Button>
               )}
+            </>
+          </div>
+          <CompletionProviderStatus
+            provider={memori?.completionConfigForQuestionAnswering?.provider}
+            forceStatus={_TEST_forceProviderStatus}
+          />
+        </div>
+        {memori.needsPosition && !position && (
+          <div className="memori--needsPosition">
+            <p>
+              {t('write_and_speak.requirePositionHelp', { name: memori.name })}
             </p>
-
-            {isMultilanguageEnabled && !instruct && (
-              <div className="memori--language-chooser">
-                <label id="user-lang-pref-label" htmlFor="user-lang-pref">
-                  {t('write_and_speak.iWantToTalkToIn', {
-                    name: memori.name,
-                  })}
-                </label>
-                <select
-                  id="user-lang-pref"
-                  className="memori-select--button"
-                  value={(userLang ?? i18n.language).toUpperCase()}
-                  aria-labelledby="user-lang-pref-label"
-                  onChange={e => {
-                    setUserLang(e.target.value);
-                  }}
-                >
-                  <optgroup label={t('popularLanguages') || 'Popular'}>
-                    {getGroupedChatLanguages().popular.map(lang => (
-                      <option
-                        key={`popular-${lang.value}`}
-                        value={lang.value}
-                        aria-label={lang.label}
-                      >
-                        {lang.label}
-                      </option>
-                    ))}
-                  </optgroup>
-                  <optgroup label={t('allLanguages') || 'All Languages'}>
-                    {getGroupedChatLanguages().all.map(lang => (
-                      <option
-                        key={`all-${lang.value}`}
-                        value={lang.value}
-                        aria-label={lang.label}
-                      >
-                        {lang.label}
-                      </option>
-                    ))}
-                  </optgroup>
-                </select>
-              </div>
-            )}
-
-            <div className="memori--start-privacy-explanation-container">
-              <p className="memori--start-privacy-explanation">
-                {t('write_and_speak.pagePrivacyExplanation')}
-              </p>
-              <Tooltip
-                align="topLeft"
-                content={
-                  <div className="memori--privacy-tooltip-content">
-                    <p>
-                      {' '}
-                      {t(
-                        'write_and_speak.pagePrivacyExplanationList.allConversations'
-                      )}
-                    </p>
-                    <ul className="memori--privacy-tooltip-content-list">
-                      {isUserLoggedIn ? (
-                        <li>
-                          {t(
-                            'write_and_speak.pagePrivacyExplanationList.contentAndUsername'
-                          )}
-                        </li>
-                      ) : (
-                        <li>
-                          {t(
-                            'write_and_speak.pagePrivacyExplanationList.contentAndIpAddress'
-                          )}
-                        </li>
-                      )}
-                    </ul>
-                    <p>
-                      {t(
-                        'write_and_speak.pagePrivacyExplanationList.authorUsesInfo'
-                      )}
-                    </p>
-
-                    <a
-                      href={
-                        tenant?.privacyPolicyURL ??
-                        'https://memori.ai/en/privacy-policy'
-                      }
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {tenant?.privacyPolicyURL ?? t('privacyPolicy')}
-                    </a>
-                  </div>
-                }
+            <div className="memori--needsPosition-actions">
+              <Button
+                variant="primary"
+                onClick={() => openPositionPopover()}
+                icon={<MapPin />}
+                style={{ width: '100%' }}
+                size="md"
               >
-                <QuestionHelp className="memori--start-privacy-explanation-icon" />
-              </Tooltip>
+                {t('write_and_speak.useMyPosition')}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setVenue({
+                    latitude: 0,
+                    longitude: 0,
+                    placeName: '',
+                    uncertainty: 0,
+                  });
+                }}
+                icon={<MapPinOff />}
+                style={{ width: '100%' }}
+                size="md"
+              >
+                {t('write_and_speak.dontWantToProvidePosition')}
+              </Button>
             </div>
-
-            <Button
-              primary
-              disabled={
-                (!!memori.blockedUntil && !memori.isGiver) || notEnoughCredits
-              }
-              loading={clickedStart}
-              onClick={_e => {
-                try {
-                  window.speechSynthesis.speak(
-                    new SpeechSynthesisUtterance('') // This is needed to enable the speech synthesis on iOS
-                  );
-                } catch (e) {
-                  console.error(e);
-                }
-
-                if (initializeTTS) initializeTTS();
-                if (onClickStart) onClickStart();
-              }}
-              className="memori--start-button"
-            >
-              {t(
-                `write_and_speak.${
-                  instruct
-                    ? 'instructButton'
-                    : !hasInitialSession
-                    ? 'tryMeButton'
-                    : 'resumeButton'
-                }`
-              )}
-            </Button>
-
-            <CompletionProviderStatus
-              provider={memori?.completionConfigForQuestionAnswering?.provider}
-              forceStatus={_TEST_forceProviderStatus}
-            />
-
-            <p className="memori--start-description">
-              {instruct
-                ? t('write_and_speak.pageInstructExplanation')
-                : t('write_and_speak.pageTryMeExplanation')}
-            </p>
-
-            {(memori.blockedUntil || notEnoughCredits) && (
-              <BlockedMemoriBadge
-                memoriName={memori.name}
-                blockedUntil={memori.blockedUntil}
-                notEnoughCredits={notEnoughCredits}
-                showGiverInfo={memori.isGiver}
-                showTitle
-                marginLeft
-              />
-            )}
-
-            {!!memori.enableDeepThought && !instruct && (
-              <div className="memori--deep-thought-disclaimer">
-                <Tooltip align="left" content={t('deepThoughtHelper')}>
-                  <DeepThought />
-                </Tooltip>
-                <h2>
-                  {isUserLoggedIn && !!user?.pAndCUAccepted
-                    ? t('deepThoughtDisclaimerTitle')
-                    : t('deepThought')}
-                </h2>
-                {isUserLoggedIn && !user?.pAndCUAccepted && (
-                  <p>{t('deepThoughtPreDisclaimerNotAllowed')}</p>
-                )}
-                {!isUserLoggedIn && (
-                  <p>{t('deepThoughtPreDisclaimerUnlogged')}</p>
-                )}
-                {!isUserLoggedIn && showLogin && (
-                  <p>
-                    <Button
-                      outlined
-                      padded={false}
-                      onClick={() => setShowLoginDrawer(true)}
-                    >
-                      {t('login.login') || 'Login'}
-                    </Button>
-                  </p>
-                )}
-                <p className="memori--deep-thought-disclaimer-text">
-                  {t('deepThoughtDisclaimer')}
-                </p>
-              </div>
-            )}
           </div>
         )}
+        {((memori.needsPosition && position) || !memori.needsPosition) &&
+          !!memori.requireLoginToken &&
+          !isUserLoggedIn && (
+            <div className="memori--needsLogin">
+              <p>
+                {t('write_and_speak.requirePositionHelp', {
+                  name: memori.name,
+                })}
+              </p>
+              <Button
+                variant="primary"
+                onClick={() => setShowLoginDrawer(true)}
+                icon={<UserIconLucide />}
+              >
+                {t('login.login') || 'Login'}
+              </Button>
+            </div>
+          )}
+        {((memori.needsPosition && position) || !memori.needsPosition) &&
+          (!memori.requireLoginToken ||
+            (memori.requireLoginToken && isUserLoggedIn)) && (
+            <div className="memori--description">
+              {isMultilanguageEnabled && !instruct && (
+                <div className="memori--language-row">
+                  <span className="memori--language-row__label">
+                    {t('write_and_speak.chatLanguageLabel')}
+                  </span>
+                  <div className="memori--language-row__control">
+                    <Combobox
+                      name="user-lang-pref"
+                      className="memori-combobox--language-chooser memori--language-row__combobox"
+                      label={String(t('write_and_speak.chatLanguageLabel'))}
+                      value={selectedChatLangCode}
+                      onChange={(value: string | null) => {
+                        if (
+                          value &&
+                          value !== LANG_COMBO_GROUP_POPULAR &&
+                          value !== LANG_COMBO_GROUP_ALL
+                        ) {
+                          setUserLang(value);
+                        }
+                      }}
+                      placeholder={
+                        t('write_and_speak.iWantToTalkToIn') ||
+                        'I want to talk to Memori in'
+                      }
+                      options={languageComboboxOptions}
+                    />
+                  </div>
+                </div>
+              )}
+
+              <div
+                className="memori--start-panel__divider"
+                role="presentation"
+              />
+
+              <section className="memori--start-panel__mobile-info">
+                {isMobile && (
+                  <Button
+                    variant="toolbar"
+                    size="sm"
+                    className="memori--start-panel__mobile-info-toggle"
+                    onClick={() => setIsInfoExpanded(value => !value)}
+                    aria-expanded={isInfoExpanded}
+                  >
+                    {t('moreInfo') || 'More info'}
+                    <ChevronDown
+                      className={`memori--start-panel__mobile-info-toggle-icon ${
+                        isInfoExpanded
+                          ? 'memori--start-panel__mobile-info-toggle-icon--expanded'
+                          : ''
+                      }`}
+                    />
+                  </Button>
+                )}
+
+                {(!isMobile || isInfoExpanded) && (
+                  <div className="memori--start-panel__mobile-info-content">
+                    <section className="memori--settings-section">
+                      {!!memori.enableDeepThought && !instruct && (
+                        <div className="memori--settings-section__row memori--settings-section__row--with-divider">
+                          <div
+                            className="memori--settings-section__icon-box memori--settings-section__icon-box--info"
+                            aria-hidden
+                          >
+                            <Info className="memori--settings-section__icon" />
+                          </div>
+                          <div className="memori--settings-section__content">
+                            <p className="memori--settings-section__title">
+                              {t('deepThoughtDisclaimerTitle') ||
+                                'Pensiero profondo abilitato'}
+                            </p>
+                            <div className="memori--settings-section__title-inline">
+                              <p className="memori--settings-section__description">
+                                {isUserLoggedIn
+                                  ? ''
+                                  : t('deepThoughtPreDisclaimerUnlogged') ||
+                                    'Accedi per abilitare Pensiero Profondo.'}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="memori--settings-section__actions-right">
+                            {!isUserLoggedIn && showLogin && (
+                              <Button
+                                variant="toolbar"
+                                size="sm"
+                                className="memori--settings-section__action"
+                                onClick={() => setShowLoginDrawer(true)}
+                              >
+                                {t('login.login') || 'Accedi'}
+                              </Button>
+                            )}
+                            {isMobile ? (
+                              <Button
+                                variant="toolbar"
+                                size="sm"
+                                className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
+                                aria-label={String(
+                                  t('deepThoughtHelper') ?? 'Deep Thought help'
+                                )}
+                                onClick={() =>
+                                  setMobileInfoModal('deepThought')
+                                }
+                              >
+                                <Info className="memori--settings-section__inline-info-icon" />
+                              </Button>
+                            ) : (
+                              <Tooltip
+                                placement="top"
+                                enterDelay={300}
+                                leaveDelay={150}
+                                sideOffset={8}
+                                content={t('deepThoughtHelper')}
+                                slotProps={{
+                                  positioner: {
+                                    className:
+                                      'memori--privacy-popover-positioner',
+                                  },
+                                  popup: {
+                                    className:
+                                      'memori--privacy-popover-popup memori--settings-section__tooltip-popup',
+                                  },
+                                }}
+                              >
+                                <Button
+                                  variant="toolbar"
+                                  size="sm"
+                                  className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
+                                  aria-label={String(
+                                    t('deepThoughtHelper') ??
+                                      'Deep Thought help'
+                                  )}
+                                >
+                                  <Info className="memori--settings-section__inline-info-icon" />
+                                </Button>
+                              </Tooltip>
+                            )}
+                          </div>
+                        </div>
+                      )}
+                      <div className="memori--settings-section__row">
+                        <div
+                          className="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
+                          aria-hidden
+                        >
+                          <Eye className="memori--settings-section__icon" />
+                        </div>
+                        <div className="memori--settings-section__content">
+                          <div className="memori--settings-section__title-inline">
+                            <p className="memori--settings-section__title">
+                              {t('write_and_speak.pagePrivacyExplanation') ||
+                                "Conversazioni visibili all'autore"}
+                            </p>
+                          </div>
+                          <p className="memori--settings-section__description">
+                            {t(
+                              'write_and_speak.pagePrivacyExplanationList.authorUsesInfo'
+                            ) ||
+                              "L'autore dell'agente puo vedere le tue conversazioni."}
+                          </p>
+                        </div>
+                        {isMobile ? (
+                          <Button
+                            variant="toolbar"
+                            size="sm"
+                            className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
+                            aria-label={String(t('privacyPolicy') ?? '')}
+                            onClick={() => setMobileInfoModal('privacy')}
+                          >
+                            <Info className="memori--settings-section__inline-info-icon" />
+                          </Button>
+                        ) : (
+                          <Tooltip
+                            placement="top"
+                            enterDelay={300}
+                            leaveDelay={150}
+                            sideOffset={8}
+                            title={
+                              <div className="memori--privacy-popover-content">
+                                <p>
+                                  {t(
+                                    'write_and_speak.pagePrivacyExplanationList.allConversations'
+                                  )}
+                                </p>
+                                <ul className="memori--privacy-popover-content-list">
+                                  {isUserLoggedIn ? (
+                                    <li>
+                                      {t(
+                                        'write_and_speak.pagePrivacyExplanationList.contentAndUsername'
+                                      )}
+                                    </li>
+                                  ) : (
+                                    <li>
+                                      {t(
+                                        'write_and_speak.pagePrivacyExplanationList.contentAndIpAddress'
+                                      )}
+                                    </li>
+                                  )}
+                                </ul>
+                                <p>
+                                  {t(
+                                    'write_and_speak.pagePrivacyExplanationList.authorUsesInfo'
+                                  )}
+                                </p>
+
+                                <a
+                                  href={
+                                    tenant?.privacyPolicyURL ??
+                                    'https://memori.ai/en/privacy-policy'
+                                  }
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="memori--privacy-popover-content-link"
+                                >
+                                  {tenant?.privacyPolicyURL ??
+                                    t('privacyPolicy')}
+                                </a>
+                              </div>
+                            }
+                            slotProps={{
+                              positioner: {
+                                className: 'memori--privacy-popover-positioner',
+                              },
+                              popup: {
+                                className:
+                                  'memori--privacy-popover-popup memori--settings-section__tooltip-popup',
+                              },
+                            }}
+                          >
+                            <Button
+                              variant="toolbar"
+                              size="sm"
+                              className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
+                              aria-label={String(t('privacyPolicy') ?? '')}
+                            >
+                              <Info className="memori--settings-section__inline-info-icon" />
+                            </Button>
+                          </Tooltip>
+                        )}
+                      </div>
+                    </section>
+                  </div>
+                )}
+              </section>
+
+              <div className="memori--start-actions">
+                <Button
+                  variant="primary"
+                  size="lg"
+                  className="memori--start-actions__start"
+                  disabled={
+                    (!!memori.blockedUntil && !memori.isGiver) ||
+                    notEnoughCredits
+                  }
+                  loading={clickedStart}
+                  onClick={(_e: React.MouseEvent<HTMLButtonElement>) => {
+                    try {
+                      window.speechSynthesis.speak(
+                        new SpeechSynthesisUtterance('') // This is needed to enable the speech synthesis on iOS
+                      );
+                    } catch (e) {
+                      console.error(e);
+                    }
+
+                    if (initializeTTS) initializeTTS();
+                    if (onClickStart) onClickStart();
+                  }}
+                  style={{
+                    fontWeight: 'var(--memori-text-weight-bold)',
+                  }}
+                >
+                  {t(
+                    `write_and_speak.${
+                      instruct
+                        ? 'instructButton'
+                        : !hasInitialSession
+                        ? 'tryMeButton'
+                        : 'resumeButton'
+                    }`
+                  )}
+                </Button>
+                {showChatHistory &&
+                  isUserLoggedIn &&
+                  setShowChatHistoryDrawer && (
+                    <Tooltip
+                      content={
+                        t('write_and_speak.chatHistory') || 'Chat history'
+                      }
+                    >
+                      <Button
+                        variant="outline"
+                        size="lg"
+                        className="memori--start-actions__history"
+                        aria-label={
+                          t('write_and_speak.chatHistory') || 'Chat history'
+                        }
+                        icon={<MessageCircle />}
+                        onClick={() => setShowChatHistoryDrawer(true)}
+                      />
+                    </Tooltip>
+                  )}
+              </div>
+
+              <p className="memori--start-description">
+                {instruct
+                  ? t('write_and_speak.pageInstructExplanation')
+                  : t('write_and_speak.pageTryMeExplanation')}
+              </p>
+
+              {(memori.blockedUntil || notEnoughCredits) && (
+                <BlockedMemoriBadge
+                  memoriName={memori.name}
+                  blockedUntil={memori.blockedUntil}
+                  notEnoughCredits={notEnoughCredits}
+                  showGiverInfo={memori.isGiver}
+                  showTitle
+                  marginLeft
+                />
+              )}
+            </div>
+          )}
+      </div>
+      <Modal
+        open={isMobile && mobileInfoModal !== null}
+        onClose={() => setMobileInfoModal(null)}
+        title={
+          mobileInfoModal === 'deepThought'
+            ? String(t('deepThoughtDisclaimerTitle') || 'Deep Thought')
+            : String(
+                t('write_and_speak.pagePrivacyExplanation') || 'Privacy policy'
+              )
+        }
+      >
+        {mobileInfoModal === 'deepThought' && (
+          <div className="memori--privacy-popover-content">
+            <p>{t('deepThoughtHelper')}</p>
+          </div>
+        )}
+        {mobileInfoModal === 'privacy' && (
+          <div className="memori--privacy-popover-content">
+            <p>
+              {t('write_and_speak.pagePrivacyExplanationList.allConversations')}
+            </p>
+            <ul className="memori--privacy-popover-content-list">
+              {isUserLoggedIn ? (
+                <li>
+                  {t(
+                    'write_and_speak.pagePrivacyExplanationList.contentAndUsername'
+                  )}
+                </li>
+              ) : (
+                <li>
+                  {t(
+                    'write_and_speak.pagePrivacyExplanationList.contentAndIpAddress'
+                  )}
+                </li>
+              )}
+            </ul>
+            <p>
+              {t('write_and_speak.pagePrivacyExplanationList.authorUsesInfo')}
+            </p>
+            <a
+              href={
+                tenant?.privacyPolicyURL ??
+                'https://memori.ai/en/privacy-policy'
+              }
+              target="_blank"
+              rel="noopener noreferrer"
+              className="memori--privacy-popover-content-link"
+            >
+              {tenant?.privacyPolicyURL ?? t('privacyPolicy')}
+            </a>
+          </div>
+        )}
+      </Modal>
     </div>
   );
 };

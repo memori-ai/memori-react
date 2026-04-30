@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import cx from 'classnames';
 import {
   Memori,
@@ -7,38 +7,51 @@ import {
   Venue,
   User,
 } from '@memori.ai/memori-api-client/dist/types';
-import Button from '../ui/Button';
-import Dropdown from '../ui/Dropdown';
-import MapMarker from '../icons/MapMarker';
-import SoundDeactivated from '../icons/SoundDeactivated';
-import Sound from '../icons/Sound';
+import {
+  Button,
+  Popover,
+  Tooltip,
+  useAlertManager,
+  createAlertOptions,
+} from '@memori.ai/ui';
+import {
+  VolumeX,
+  Volume2,
+  Settings,
+  Minimize,
+  Maximize,
+  RefreshCw,
+  X,
+  Brain,
+  Users,
+  User as UserIcon,
+  MessageCircle,
+  LogOut,
+  Trash2,
+  Camera,
+} from 'lucide-react';
 import { useTranslation } from 'react-i18next';
-import Setting from '../icons/Setting';
 import ShareButton from '../ShareButton/ShareButton';
-import FullscreenExit from '../icons/FullscreenExit';
-import Fullscreen from '../icons/Fullscreen';
-import Refresh from '../icons/Refresh';
-import Clear from '../icons/Clear';
-import DeepThought from '../icons/DeepThought';
-import Group from '../icons/Group';
-import UserIcon from '../icons/User';
-import MessageIcon from '../icons/Message';
-import Logout from '../icons/Logout';
+import PositionPopover from '../PositionPopover/PositionPopover';
+import GasStation from '../icons/GasStation';
 import { getErrori18nKey } from '../../helpers/error';
-import toast from 'react-hot-toast';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
+import { BADGE_EMOJI } from '../../helpers/llmUsage';
 import ChatConsumptionDropdown from './ChatConsumptionDropdown';
-
-const imgMimeTypes = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif'];
+import { imgMimeTypes } from '../../helpers/utils';
 
 export interface Props {
   className?: string;
+  /** Variant applied to all header buttons (including share + user/login). */
+  buttonVariant?: React.ComponentProps<typeof Button>['variant'];
   memori: Memori;
   tenant?: Tenant;
   history: Message[];
   position?: Venue;
-  setShowPositionDrawer: (show: boolean) => void;
+  setVenue: (venue?: Venue) => void;
+  positionPopoverOpen: boolean;
+  setPositionPopoverOpen: (open: boolean) => void;
   setShowSettingsDrawer: (show: boolean) => void;
   setShowChatHistoryDrawer: (show: boolean) => void;
   setShowKnownFactsDrawer: (show: boolean) => void;
@@ -65,15 +78,20 @@ export interface Props {
   layout?: WidgetProps['layout'];
   additionalSettings?: WidgetProps['additionalSettings'];
   showMessageConsumption?: boolean;
+  showFullscreen?: boolean;
+  extraActions?: React.ReactNode;
 }
 
 const Header: React.FC<Props> = ({
   className,
+  buttonVariant = 'ghost',
   memori,
   tenant,
   history,
   position,
-  setShowPositionDrawer,
+  setVenue,
+  positionPopoverOpen,
+  setPositionPopoverOpen,
   setShowSettingsDrawer,
   setShowChatHistoryDrawer,
   setShowKnownFactsDrawer,
@@ -100,32 +118,147 @@ const Header: React.FC<Props> = ({
   layout,
   additionalSettings,
   showMessageConsumption = false,
+  showFullscreen = true,
+  extraActions,
 }) => {
   const { t, i18n } = useTranslation();
+  const { add } = useAlertManager();
   const { uploadAsset, pwlUpdateUser } = apiClient.backend;
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
+
+  type ImpactMetricType = 'energy' | 'co2' | 'water';
+
+  type LlmUsageEnergyImpact = {
+    energy?: number | { source?: string; parsedValue?: number };
+    gwp?: number | { source?: string; parsedValue?: number };
+    wcf?: number | { source?: string; parsedValue?: number };
+  };
+
+  const getMetricValue = (
+    metric?: number | { source?: string; parsedValue?: number }
+  ): number | undefined => {
+    if (typeof metric === 'number' && Number.isFinite(metric)) return metric;
+    if (!metric || typeof metric !== 'object') return undefined;
+    if (
+      typeof metric.parsedValue === 'number' &&
+      Number.isFinite(metric.parsedValue)
+    ) {
+      return metric.parsedValue;
+    }
+    if (typeof metric.source === 'string') {
+      const parsed = Number(metric.source);
+      if (Number.isFinite(parsed)) return parsed;
+    }
+    return undefined;
+  };
+
+  const formatMetricValue = (value: number, locale: string): string =>
+    new Intl.NumberFormat(locale, {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: Math.abs(value) >= 1 ? 3 : 4,
+    }).format(value);
+
+  const formatImpactInReadableUnit = (
+    value: number,
+    metricType: ImpactMetricType,
+    locale: string
+  ): string => {
+    const absValue = Math.abs(value);
+
+    if (metricType === 'energy') {
+      if (absValue >= 1) return `${formatMetricValue(value, locale)} kWh`;
+      const wh = value * 1000;
+      if (Math.abs(wh) >= 1) return `${formatMetricValue(wh, locale)} Wh`;
+      return `${formatMetricValue(wh * 1000, locale)} mWh`;
+    }
+
+    if (metricType === 'co2') {
+      if (absValue >= 1) return `${formatMetricValue(value, locale)} kg`;
+      const g = value * 1000;
+      if (Math.abs(g) >= 1) return `${formatMetricValue(g, locale)} g`;
+      return `${formatMetricValue(g * 1000, locale)} mg`;
+    }
+
+    if (absValue >= 1) return `${formatMetricValue(value, locale)} L`;
+    const ml = value * 1000;
+    if (Math.abs(ml) >= 1) return `${formatMetricValue(ml, locale)} mL`;
+    return `${formatMetricValue(ml * 1000, locale)} μL`;
+  };
+
+  const currentLocale = i18n.language || navigator.language || 'en';
+  const chatLog = useMemo(() => ({ lines: history }), [history]);
+  const sustainabilityTotals = useMemo(() => {
+    const totals = { energy: 0, gwp: 0, wcf: 0 };
+    (chatLog?.lines ?? []).forEach(line => {
+      const energyImpact = (
+        line as Message & {
+          llmUsage?: { energyImpact?: LlmUsageEnergyImpact };
+        }
+      ).llmUsage?.energyImpact;
+      if (!energyImpact) return;
+      totals.energy += getMetricValue(energyImpact.energy) ?? 0;
+      totals.gwp += getMetricValue(energyImpact.gwp) ?? 0;
+      totals.wcf += getMetricValue(energyImpact.wcf) ?? 0;
+    });
+    return totals;
+  }, [chatLog]);
+  const hasSustainabilityData = useMemo(
+    () =>
+      (chatLog?.lines ?? []).some(
+        line =>
+          !!(
+            line as Message & {
+              llmUsage?: { energyImpact?: LlmUsageEnergyImpact };
+            }
+          ).llmUsage?.energyImpact
+      ),
+    [chatLog]
+  );
   useEffect(() => {
     if (document.fullscreenEnabled) {
       setFullScreenAvailable(true);
     }
   }, []);
 
-  // Helper function to determine if settings drawer has content
-  const hasSettingsContent = useCallback((
-    layout?: WidgetProps['layout'],
-    additionalSettings?: WidgetProps['additionalSettings']
-  ): boolean => {
-    return (
-      layout === 'TOTEM' ||
-      (additionalSettings && Object.keys(additionalSettings).length > 0) || false
-    );
-  }, [layout, additionalSettings]);
+  // Keep local state in sync with ESC / external fullscreen exits,
+  // and restore any temporary inline background override.
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      const isFs = !!document.fullscreenElement;
+      setFullScreen(isFs);
 
-  const hasSpacedButtons =
-    layout === 'FULLPAGE' ||
-    layout === 'CHAT' ||
-    layout === 'ZOOMED_FULL_BODY';
+      if (!isFs) {
+        const memoriWidget = document.querySelector(
+          '.memori-widget'
+        ) as HTMLElement | null;
+        if (memoriWidget?.dataset?.memoriPrevBgColor !== undefined) {
+          memoriWidget.style.backgroundColor =
+            memoriWidget.dataset.memoriPrevBgColor;
+          delete memoriWidget.dataset.memoriPrevBgColor;
+        }
+      }
+    };
+
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () =>
+      document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  // Helper function to determine if settings drawer has content
+  const hasSettingsContent = useCallback(
+    (
+      layout?: WidgetProps['layout'],
+      additionalSettings?: WidgetProps['additionalSettings']
+    ): boolean => {
+      return (
+        layout === 'TOTEM' ||
+        (additionalSettings && Object.keys(additionalSettings).length > 0) ||
+        false
+      );
+    },
+    [layout, additionalSettings]
+  );
 
   const updateAvatar = async (avatar: any) => {
     if (avatar && loginToken) {
@@ -140,24 +273,51 @@ const Header: React.FC<Props> = ({
 
           if (resp.resultCode !== 0) {
             console.error('[updateAvatar] Upload failed:', resp);
-            toast.error(t(getErrori18nKey(resp.resultCode)));
+            add(
+              createAlertOptions({
+                description: t(getErrori18nKey(resp.resultCode)),
+                severity: 'error',
+              })
+            );
           } else if (avatarAsset) {
             let newUser: Partial<User> = {
               userID: user?.userID,
               avatarURL: avatarAsset.assetURL,
             };
 
-            const { user: patchedUser, ...resp } = await pwlUpdateUser(
+            const { user: patchedUser, ...updateResp } = await pwlUpdateUser(
               loginToken ?? '',
               user?.userID ?? '',
               newUser
             );
+
+            if (updateResp.resultCode !== 0) {
+              add(
+                createAlertOptions({
+                  description: t(getErrori18nKey(updateResp.resultCode)),
+                  severity: 'error',
+                })
+              );
+            } else {
+              add(
+                createAlertOptions({
+                  description: t('login.avatarUploadSuccess'),
+                  severity: 'success',
+                })
+              );
+            }
           }
         } catch (e) {
           let err = e as Error;
           console.error('[updateAvatar] Error:', err);
 
-          if (err?.message) toast.error(err.message);
+          if (err?.message)
+            add(
+              createAlertOptions({
+                description: err.message,
+                severity: 'error',
+              })
+            );
         }
       };
       reader.readAsDataURL(avatar as Blob);
@@ -166,149 +326,225 @@ const Header: React.FC<Props> = ({
         avatar,
         loginToken,
       });
-      toast.error(t('login.avatarUploadError'));
+      add(
+        createAlertOptions({
+          description: t('login.avatarUploadError'),
+          severity: 'error',
+        })
+      );
     }
   };
 
   return (
-    <div className={cx('memori-header', hasSpacedButtons && 'memori-header--spaced', className)}>
-      {memori.needsPosition && position && (
+    <div className={cx('memori-header', className)}>
+      {memori.needsPosition && (
         <div className="memori-header--position">
-          {position.latitude !== 0 && position.longitude !== 0 && (
-            <span className="memori-header--position-placeName">
-              {position.placeName}
-            </span>
-          )}
-          <Button
-            primary
-            shape="circle"
-            className={cx('memori-header--button', 'memori-header--button--position', hasSpacedButtons && 'memori-header--button-spaced')}
+          <Tooltip
             title={t('widget.position') || 'Position'}
-            icon={<MapMarker />}
-            onClick={() => setShowPositionDrawer(true)}
-          />
+            placement="bottom"
+          >
+            <span style={{ display: 'inline-flex' }}>
+              <PositionPopover
+                venue={position}
+                setVenue={setVenue}
+                open={positionPopoverOpen}
+                onOpenChange={setPositionPopoverOpen}
+                triggerButtonVariant={buttonVariant}
+                triggerAriaLabel={t('widget.position') || 'Position'}
+                positionerClassName={
+                  layout === 'WEBSITE_ASSISTANT'
+                    ? 'memori-position-popover__positioner--website-assistant'
+                    : undefined
+                }
+              />
+            </span>
+          </Tooltip>
         </div>
       )}
       {showReload && (
-        <Button
-          primary
-          shape="circle"
-          className={cx('memori-header--button', 'memori-header--button--reload', hasSpacedButtons && 'memori-header--button-spaced')}
-          title={t('reload') || 'Reload'}
-          icon={<Refresh />}
-          onClick={() => {
-            window.location.reload();
-          }}
-        />
+        <Tooltip title={t('reload') || 'Reload'} placement="bottom">
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              aria-label={t('reload') || 'Reload'}
+              icon={<RefreshCw />}
+              onClick={() => {
+                window.location.reload();
+              }}
+            />
+          </span>
+        </Tooltip>
       )}
       {showClear && (
-        <Button
-          primary
-          shape="circle"
-          className={cx('memori-header--button', 'memori-header--button--clear', hasSpacedButtons && 'memori-header--button-spaced')}
-          title={t('clearHistory') || 'Clear chat'}
-          icon={<Clear />}
-          onClick={clearHistory}
-        />
+        <Tooltip title={t('clearHistory') || 'Clear chat'} placement="bottom">
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              aria-label={t('clearHistory') || 'Clear chat'}
+              icon={<Trash2 />}
+              onClick={() => {
+                clearHistory();
+                add(
+                  createAlertOptions({
+                    description: t('clearHistoryDone'),
+                    severity: 'success',
+                  })
+                );
+              }}
+            />
+          </span>
+        </Tooltip>
       )}
       {showChatHistory && !!loginToken && (
-        <Button
-          primary
-          disabled={!loginToken}
-          shape="circle"
-          className={cx('memori-header--button', 'memori-header--button--chat-history', hasSpacedButtons && 'memori-header--button-spaced')}
+        <Tooltip
           title={t('write_and_speak.chatHistory') || 'Chat history'}
-          icon={<MessageIcon />}
-          onClick={() => setShowChatHistoryDrawer(true)}
-        />
+          placement="bottom"
+        >
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              disabled={!loginToken}
+              aria-label={t('write_and_speak.chatHistory') || 'Chat history'}
+              icon={<MessageCircle />}
+              onClick={() => setShowChatHistoryDrawer(true)}
+            >
+              {layout !== 'TOTEM' &&
+                (t('write_and_speak.chatHistory') || 'Chat history')}
+            </Button>
+          </span>
+        </Tooltip>
       )}
-      {showMessageConsumption && (
-        <ChatConsumptionDropdown
-          history={history}
-          hasSpacedButtons={hasSpacedButtons}
-        />
-      )}
-      {fullScreenAvailable && (
-        <Button
-          primary
-          shape="circle"
-          className={cx('memori-header--button', 'memori-header--button--fullscreen', hasSpacedButtons && 'memori-header--button-spaced')}
+      {showMessageConsumption && <ChatConsumptionDropdown history={history} />}
+      {showFullscreen && fullScreenAvailable && (
+        <Tooltip
           title={
             fullScreen
               ? t('fullscreenExit') || 'Exit fullscreen'
               : t('fullscreenEnter') || 'Enter fullscreen'
           }
-          icon={fullScreen ? <FullscreenExit /> : <Fullscreen />}
-          onClick={
-            fullScreenHandler ||
-            (() => {
-              if (!document.fullscreenElement) {
-                const body =
-                  layout !== 'HIDDEN_CHAT' && layout !== 'WEBSITE_ASSISTANT'
-                    ? document.body
-                    : document.querySelector('.memori-widget');
-                if (body) {
-                  //set the .memori-react div to white backg
-                  const memoriReact = document.querySelector('.memori-widget');
-                  if (memoriReact) {
-                    (memoriReact as HTMLElement).style.backgroundColor =
-                      '#FFFFFF';
-                  }
-                  body
-                    .requestFullscreen()
-                    .then(() => setFullScreen(true))
-                    .catch(err => {
-                      console.warn(
-                        'Error attempting to enable fullscreen:',
-                        err
-                      );
-                    });
-                }
-              } else {
-                if (document.exitFullscreen) {
-                  document
-                    .exitFullscreen()
-                    .then(() => setFullScreen(false))
-                    .catch(err => {
-                      console.warn('Error attempting to exit fullscreen:', err);
-                    });
-                }
+          placement="bottom"
+        >
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              aria-label={
+                fullScreen
+                  ? t('fullscreenExit') || 'Exit fullscreen'
+                  : t('fullscreenEnter') || 'Enter fullscreen'
               }
-            })
-          }
-        />
+              icon={fullScreen ? <Maximize /> : <Minimize />}
+              onClick={
+                fullScreenHandler ||
+                (() => {
+                  if (!document.fullscreenElement) {
+                    const body =
+                      layout !== 'HIDDEN_CHAT' && layout !== 'WEBSITE_ASSISTANT'
+                        ? document.body
+                        : document.querySelector('.memori-widget');
+                    if (body) {
+                      // Don't force a white background in fullscreen; it breaks dark themes.
+                      // If an inline background was previously set, preserve & clear it.
+                      const memoriWidget = document.querySelector(
+                        '.memori-widget'
+                      ) as HTMLElement | null;
+                      if (memoriWidget) {
+                        if (
+                          memoriWidget.dataset.memoriPrevBgColor === undefined
+                        )
+                          memoriWidget.dataset.memoriPrevBgColor =
+                            memoriWidget.style.backgroundColor ?? '';
+                        memoriWidget.style.backgroundColor = '';
+                      }
+                      body
+                        .requestFullscreen()
+                        .then(() => setFullScreen(true))
+                        .catch(err => {
+                          console.warn(
+                            'Error attempting to enable fullscreen:',
+                            err
+                          );
+                        });
+                    }
+                  } else {
+                    if (document.exitFullscreen) {
+                      document
+                        .exitFullscreen()
+                        .then(() => {
+                          setFullScreen(false);
+                          const memoriWidget = document.querySelector(
+                            '.memori-widget'
+                          ) as HTMLElement | null;
+                          if (
+                            memoriWidget?.dataset?.memoriPrevBgColor !==
+                            undefined
+                          ) {
+                            memoriWidget.style.backgroundColor =
+                              memoriWidget.dataset.memoriPrevBgColor;
+                            delete memoriWidget.dataset.memoriPrevBgColor;
+                          }
+                        })
+                        .catch(err => {
+                          console.warn(
+                            'Error attempting to exit fullscreen:',
+                            err
+                          );
+                        });
+                    }
+                  }
+                })
+              }
+            />
+          </span>
+        </Tooltip>
       )}
-      {memori.enableDeepThought && !!loginToken && user?.pAndCUAccepted && (
-        <Button
-          primary={!!sessionID && !!hasUserActivatedSpeak}
-          shape="circle"
-          icon={<DeepThought />}
-          className={cx('memori-header--button', 'memori-header--button--knownfacts', hasSpacedButtons && 'memori-header--button-spaced')}
-          disabled={!hasUserActivatedSpeak || !sessionID}
-          onClick={() => setShowKnownFactsDrawer(true)}
-          title={t('knownFacts.title') || 'Known facts'}
-        />
-      )}
+      {memori.enableDeepThought &&
+        !!loginToken &&
+        user?.pAndCUAccepted &&
+        hasUserActivatedSpeak &&
+        !!sessionID && (
+          <Tooltip
+            title={t('knownFacts.title') || 'Known facts'}
+            placement="bottom"
+          >
+            <span style={{ display: 'inline-flex' }}>
+              <Button
+                variant={buttonVariant}
+                icon={<Brain />}
+                aria-label={t('knownFacts.title') || 'Known facts'}
+                onClick={() => setShowKnownFactsDrawer(true)}
+              />
+            </span>
+          </Tooltip>
+        )}
       {memori.enableBoardOfExperts && (
-        <Button
-          primary
-          shape="circle"
-          icon={<Group />}
-          className={cx('memori-header--button', 'memori-header--button--experts', hasSpacedButtons && 'memori-header--button-spaced')}
-          disabled={!hasUserActivatedSpeak || !sessionID}
-          onClick={() => setShowExpertsDrawer(true)}
+        <Tooltip
           title={t('widget.showExpertsInTheBoard') || 'Experts in this board'}
-        />
+          placement="bottom"
+        >
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              icon={<Users />}
+              disabled={!hasUserActivatedSpeak || !sessionID}
+              aria-label={
+                t('widget.showExpertsInTheBoard') || 'Experts in this board'
+              }
+              onClick={() => setShowExpertsDrawer(true)}
+            />
+          </span>
+        </Tooltip>
       )}
       {enableAudio && (
-        <Button
-          primary
-          shape="circle"
-          className={cx('memori-header--button', 'memori-header--button--speaker', hasSpacedButtons && 'memori-header--button-spaced', { 'memori-header--button--speaker-muted': speakerMuted })}
-          icon={speakerMuted ? <SoundDeactivated /> : <Sound />}
-          onClick={() => setSpeakerMuted(!speakerMuted)}
-          title={t('widget.sound') || 'Sound'}
-        />
+        <Tooltip title={t('widget.sound') || 'Sound'} placement="bottom">
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              icon={speakerMuted ? <VolumeX /> : <Volume2 />}
+              aria-label={t('widget.sound') || 'Sound'}
+              onClick={() => setSpeakerMuted(!speakerMuted)}
+            />
+          </span>
+        </Tooltip>
       )}
       {/* <ExportHistoryButton
         history={history}
@@ -316,20 +552,20 @@ const Header: React.FC<Props> = ({
         className="memori-header--button memori-header--button--export"
         disabled={!hasUserActivatedSpeak || history.length === 0}
       /> */}
-      {showSettings &&
-        hasSettingsContent(layout, additionalSettings) && (
-          <Button
-            primary
-            shape="circle"
-            className={cx('memori-header--button', 'memori-header--button-settings', hasSpacedButtons && 'memori-header--button-spaced')}
-            icon={<Setting />}
-            onClick={() => setShowSettingsDrawer(true)}
-            title={t('widget.settings') || 'Settings'}
-          />
-        )}
+      {showSettings && hasSettingsContent(layout, additionalSettings) && (
+        <Tooltip title={t('widget.settings') || 'Settings'} placement="bottom">
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              icon={<Settings />}
+              aria-label={t('widget.settings') || 'Settings'}
+              onClick={() => setShowSettingsDrawer(true)}
+            />
+          </span>
+        </Tooltip>
+      )}
       {showShare && (
         <ShareButton
-          className={cx('memori-header--button', 'memori-header--button-share', hasSpacedButtons && 'memori-header--button-spaced')}
           title={memori.name}
           memori={memori}
           sessionID={sessionID}
@@ -338,103 +574,141 @@ const Header: React.FC<Props> = ({
           align="left"
           baseUrl={baseUrl}
           history={history}
+          primary={buttonVariant === 'primary'}
         />
       )}
       {showLogin && (
         <>
           {loginToken && user ? (
-            <Dropdown
-              placement="bottom-right"
-              trigger={
-                <Button
-                  primary
-                  shape="circle"
-                  className={cx('memori-header--button', 'memori-header--button-login', hasSpacedButtons && 'memori-header--button-spaced')}
-                  icon={<UserIcon />}
-                  title={t('login.user') || 'User'}
-                />
-              }
-            >
-              <div className="memori-dropdown--user-profile">
-                <div className="memori-dropdown--user-info">
-                  {user.avatarURL ? (
-                    <>
-                      <img
-                        src={user.avatarURL}
-                        alt={user.userName || user.eMail}
-                        className="memori-dropdown--avatar"
-                      />
-                      <input
-                        type="file"
-                        name="avatar"
-                        id="avatar"
-                        className="memori-dropdown--avatar-input"
-                        onChange={e =>
-                          updateAvatar(
-                            e.target.files?.[0] ?? (null as unknown as Blob)
-                          )
-                        }
-                        accept={imgMimeTypes.join(', ')}
-                      />
-                    </>
-                  ) : (
-                    <div className="memori-dropdown--avatar-placeholder">
-                      <span>
-                        {(user.userName || user.eMail || 'U')
-                          .charAt(0)
-                          .toUpperCase()}
+            <Popover
+              className="memori-header--dropdown"
+              placement="bottom-end"
+              sideOffset={8}
+              closable={false}
+              contentClassName="memori-dropdown--menu"
+              slotProps={{
+                trigger: {
+                  className: 'memori-dropdown--user-trigger',
+                  render: (props: React.ComponentProps<typeof Button>) => (
+                    <Tooltip
+                      title={t('login.user') || 'User'}
+                      placement="bottom"
+                    >
+                      <span style={{ display: 'inline-flex' }}>
+                        <Button
+                          {...props}
+                          variant={buttonVariant}
+                          className="memori-dropdown--user-trigger-button"
+                          aria-label={t('login.user') || 'User'}
+                          icon={<UserIcon />}
+                        />
                       </span>
-                      <input
-                        type="file"
-                        name="avatar"
-                        id="avatar"
-                        className="memori-dropdown--avatar-input"
-                        onChange={e =>
-                          updateAvatar(
-                            e.target.files?.[0] ?? (null as unknown as Blob)
-                          )
-                        }
-                        accept={imgMimeTypes.join(', ')}
-                      />
-                    </div>
-                  )}
-
-                  <div className="memori-dropdown--user-details">
-                    <h3 className="memori-dropdown--user-name">
-                      {user.userName || t('login.welcomeUser')}
-                    </h3>
-                    <p className="memori-dropdown--user-email">{user.eMail}</p>
-                    <div className="memori-dropdown--user-badge">
-                      {user.birthDate
-                        ? new Date(user.birthDate).toLocaleDateString()
-                        : t('login.notSet')}
+                    </Tooltip>
+                  ),
+                },
+              }}
+              content={
+                <div className="memori-dropdown--content">
+                  <div className="memori-dropdown--user-item">
+                    <div className="memori-dropdown--user-info">
+                      <div className="memori-dropdown--avatar-wrap">
+                        {user.avatarURL ? (
+                          <>
+                            <img
+                              src={user.avatarURL}
+                              alt={user.userName || user.eMail}
+                              className="memori-dropdown--avatar"
+                            />
+                            <span className="memori-dropdown--avatar-overlay">
+                              <Camera size={20} strokeWidth={2} />
+                            </span>
+                            <input
+                              type="file"
+                              name="avatar"
+                              id="avatar"
+                              className="memori-dropdown--avatar-input"
+                              onChange={e =>
+                                updateAvatar(
+                                  e.target.files?.[0] ??
+                                    (null as unknown as Blob)
+                                )
+                              }
+                              accept={imgMimeTypes.join(', ')}
+                            />
+                          </>
+                        ) : (
+                          <>
+                            <div className="memori-dropdown--avatar-placeholder">
+                              <span className="memori-dropdown--avatar-initial">
+                                {(user.userName || user.eMail || 'U')
+                                  .charAt(0)
+                                  .toUpperCase()}
+                              </span>
+                              <span className="memori-dropdown--avatar-overlay">
+                                <Camera size={20} strokeWidth={2} />
+                              </span>
+                              <input
+                                type="file"
+                                name="avatar"
+                                id="avatar"
+                                className="memori-dropdown--avatar-input"
+                                onChange={e =>
+                                  updateAvatar(
+                                    e.target.files?.[0] ??
+                                      (null as unknown as Blob)
+                                  )
+                                }
+                                accept={imgMimeTypes.join(', ')}
+                              />
+                            </div>
+                          </>
+                        )}
+                      </div>
+                      <div className="memori-dropdown--user-details">
+                        <h3 className="memori-dropdown--user-name">
+                          {user.userName || t('login.welcomeUser')}
+                        </h3>
+                        <p className="memori-dropdown--user-email">
+                          {user.eMail}
+                        </p>
+                        <div className="memori-dropdown--user-badge">
+                          {user.birthDate
+                            ? new Date(user.birthDate).toLocaleDateString()
+                            : t('login.notSet')}
+                        </div>
+                      </div>
                     </div>
                   </div>
+                  <div className="memori-dropdown--separator" />
+                  <button
+                    type="button"
+                    onClick={onLogout}
+                    className="memori-dropdown--action-button memori-dropdown--action-button--logout"
+                  >
+                    <LogOut size={18} strokeWidth={2} aria-hidden />
+                    {t('login.logout') || 'Logout'}
+                  </button>
                 </div>
-              </div>
-
-              <div className="memori-dropdown--actions">
-                <button
-                  className="memori-dropdown--action-button memori-dropdown--action-button--logout"
-                  onClick={onLogout}
-                >
-                  <Logout className="memori-dropdown--action-icon" />
-                  {t('login.logout') || 'Logout'}
-                </button>
-              </div>
-            </Dropdown>
+              }
+            >
+              {null}
+            </Popover>
           ) : (
-            <Button
-              primary
-              shape="circle"
-              className={cx('memori-header--button', 'memori-header--button-login', hasSpacedButtons && 'memori-header--button-spaced')}
-              icon={<UserIcon />}
-              onClick={() => setShowLoginDrawer(true)}
-              title={t('login.login') || 'Login'}
-            />
+            <Tooltip title={t('login.login') || 'Login'} placement="bottom">
+              <span style={{ display: 'inline-flex' }}>
+                <Button
+                  variant={buttonVariant}
+                  className="memori-header--button memori-header--button-login"
+                  icon={<UserIcon />}
+                  aria-label={t('login.login') || 'Login'}
+                  onClick={() => setShowLoginDrawer(true)}
+                />
+              </span>
+            </Tooltip>
           )}
         </>
       )}
+      {extraActions}
     </div>
   );
 };

@@ -1,17 +1,16 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
-import toast from 'react-hot-toast';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
-import Button from '../ui/Button';
-import Send from '../icons/Send';
+import { Button, Tooltip } from '@memori.ai/ui';
+import { useAlertManager } from '@memori.ai/ui';
+import { Send, Mic } from 'lucide-react';
 import MicrophoneButton from '../MicrophoneButton/MicrophoneButton';
 import cx from 'classnames';
-import Microphone from '../icons/Microphone';
 import UploadButton from '../UploadButton/UploadButton';
 import FilePreview from '../FilePreview/FilePreview';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import Plus from '../icons/Plus';
+import { Plus as PlusIcon } from 'lucide-react';
 export interface Props {
   dialogState?: DialogState;
   instruct?: boolean;
@@ -81,7 +80,7 @@ const ChatInputs: React.FC<Props> = ({
   pasteAsCardCharThreshold,
 }) => {
   const { t } = useTranslation();
-
+  const alertManager = useAlertManager();
   // State for textarea expansion
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -135,8 +134,6 @@ const ChatInputs: React.FC<Props> = ({
         url: file.url,
       };
     });
-
-    
 
     sendMessage(userMessage, mediaWithIds);
 
@@ -233,17 +230,22 @@ const ChatInputs: React.FC<Props> = ({
 
       const target = e.target as HTMLTextAreaElement;
       const selectionLength = target.selectionEnd - target.selectionStart;
-      const lengthAfterPaste = userMessage.length - selectionLength + text.length;
+      const lengthAfterPaste =
+        userMessage.length - selectionLength + text.length;
 
       if (
         maxTextareaCharacters != null &&
         lengthAfterPaste > maxTextareaCharacters
       ) {
         e.preventDefault();
-        toast(t('upload.pasteContentExceedsLimit', {
-          defaultValue:
-            'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
-        }), { icon: '⚠️' });
+        alertManager.add({
+          id: `paste-content-exceeds-limit-${Date.now()}`,
+          title: t('upload.pasteContentExceedsLimit', {
+            defaultValue:
+              'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
+          }),
+          data: { severity: 'error', closable: true },
+        });
         return;
       }
 
@@ -260,12 +262,14 @@ const ChatInputs: React.FC<Props> = ({
       const maxDocs = maxDocumentsPerMessage ?? 10;
       if (documentPreviewFiles.length >= maxDocs) {
         e.preventDefault();
-        toast.error(
-          t('upload.pasteMaxAttachmentsReached', {
+        alertManager.add({
+          id: `paste-max-attachments-reached-${Date.now()}`,
+          title: t('upload.pasteMaxAttachmentsReached', {
             max: maxDocs,
             defaultValue: `Maximum ${maxDocs} attachments. Remove one to add this as a file.`,
-          })
-        );
+          }),
+          data: { severity: 'error', closable: true },
+        });
         return;
       }
 
@@ -276,10 +280,14 @@ const ChatInputs: React.FC<Props> = ({
 
       if (text.length > perDocumentLimit) {
         e.preventDefault();
-        toast(t('upload.pasteContentExceedsLimit', {
-          defaultValue:
-            'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
-        }), { icon: '⚠️' });
+        alertManager.add({
+          id: `paste-content-exceeds-per-document-limit-${Date.now()}`,
+          title: t('upload.pasteContentExceedsLimit', {
+            defaultValue:
+              'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
+          }),
+          data: { severity: 'error', closable: true },
+        });
         return;
       }
 
@@ -323,9 +331,13 @@ ${text}
 
   const isDisabled =
     dialogState?.state === 'X2a' || dialogState?.state === 'X3';
-  const textareaDisabled = ['R2', 'R3', 'R4', 'R5', 'G3', 'X3'].includes(
-    dialogState?.state || ''
-  );
+  const hasActiveSession = Boolean(sessionID?.trim());
+  const hasChatStarted = Boolean(dialogState);
+  const textareaDisabled =
+    !hasActiveSession ||
+    ['R2', 'R3', 'R4', 'R5', 'G3', 'X3'].includes(dialogState?.state || '');
+  const microphoneDisabled =
+    isDisabled || textareaDisabled || !hasActiveSession || !hasChatStarted;
 
   return (
     <div className="memori-chat-inputs-wrapper">
@@ -361,6 +373,7 @@ ${text}
                   maxTotalMessagePayload={maxTotalMessagePayload}
                   maxDocumentsPerMessage={maxDocumentsPerMessage}
                   maxDocumentContentLength={maxDocumentContentLength}
+                  disabled={textareaDisabled || isDisabled}
                 />
               </div>
             )}
@@ -398,6 +411,7 @@ ${text}
                         'Start listening'
                   }
                   onClick={() => {
+                    if (microphoneDisabled) return;
                     if (listening) {
                       stopListening();
                     } else {
@@ -405,7 +419,7 @@ ${text}
                       startListening();
                     }
                   }}
-                  disabled={isDisabled}
+                  disabled={microphoneDisabled}
                   aria-label={
                     listening
                       ? t('write_and_speak.micButtonPopoverListening') ||
@@ -414,55 +428,61 @@ ${text}
                         'Start listening'
                   }
                 >
-                  <Microphone className="icon" />
+                  <Mic className="icon" />
                 </button>
               )}
               {showMicrophone && microphoneMode === 'HOLD_TO_TALK' && (
                 <MicrophoneButton
                   listening={listening}
                   startListening={startListening}
-                  stopListening={() => {
-                    stopListening();
-                    if (listening && !!userMessage?.length) {
-                      sendMessage(userMessage);
-                    }
-                  }}
+                  stopListening={stopListening}
                   stopAudio={stopAudio}
+                  disabled={microphoneDisabled}
                 />
               )}
-              <button
-                type="button"
-                className={cx('memori-chat-inputs--send-btn', {
-                  'memori-chat-inputs--send-btn--active': !!userMessage?.length,
-                  'memori-chat-inputs--send-btn--disabled':
-                    !userMessage || userMessage.length === 0,
-                })}
-                onClick={() => {
-                  onSendMessage(documentPreviewFiles);
+              <Tooltip
+                placement="top"
+                className="memori-chat-inputs--send-btn-tooltip"
+                slotProps={{
+                  positioner: {
+                    className:
+                      'memori-chat-inputs--send-btn-tooltip-positioner',
+                  },
                 }}
-                disabled={!userMessage || userMessage.length === 0 || isTyping}
                 title={t('send') || 'Send'}
-                aria-label={t('send') || 'Send'}
               >
-                {isTyping ? (
-                  <div className="memori-chat-inputs--send-btn--loading" />
-                ) : (
-                  <Send className="icon" />
-                )}
-              </button>
+                <Button
+                  variant="primary"
+                  className={cx('memori-chat-inputs--send-btn', {
+                    'memori-chat-inputs--send-btn--active':
+                      !!userMessage?.length,
+                    'memori-chat-inputs--send-btn--disabled':
+                      !userMessage || userMessage.length === 0,
+                  })}
+                  onClick={() => {
+                    onSendMessage(documentPreviewFiles);
+                  }}
+                  disabled={
+                    !userMessage || userMessage.length === 0 || isTyping
+                  }
+                  title={t('send') || 'Send'}
+                  size="sm"
+                  aria-label={t('send') || 'Send'}
+                >
+                  {isTyping ? (
+                    <div className="memori-chat-inputs--send-btn--loading" />
+                  ) : (
+                    <Send className="icon" />
+                  )}
+                </Button>
+              </Tooltip>
             </div>
           </div>
         </div>
       </fieldset>
-      {/* Disclaimer */}
-      {/* <div className="memori-chat-inputs--disclaimer">
-        <div>
-          {t(
-            'chat.disclaimer',
-            'AIsuru può commettere errori. Assicurati di verificare le informazioni importanti.'
-          )}
-        </div>
-      </div> */}
+      <p className="memori-chat-inputs--ai-note">
+        {t('aiGeneratedNote', { defaultValue: 'Generato da AI' })}
+      </p>
     </div>
   );
 };

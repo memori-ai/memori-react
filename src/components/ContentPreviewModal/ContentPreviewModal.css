@@ -2,20 +2,21 @@
 
 /* Stack above Chat History Drawer (z-index: 10000) and other drawers */
 .memori-content-preview-modal.memori-modal {
-  z-index: 10001;
+  z-index: 2147483640;
 }
 
 .memori-content-preview-modal.memori-modal .memori-modal--backdrop,
 .memori-content-preview-modal.memori-modal .memori-modal--container {
-  z-index: 10001;
+  z-index: 2147483640;
 }
 
 .memori-content-preview-modal.memori-modal .memori-modal--panel {
-  z-index: 10001;
+  z-index: 2147483641;
   overflow: hidden;
   min-width: 500px;
   min-height: 500px;
-  border-radius: 16px;
+  max-height: 80vh;
+  border-radius: var(--memori-radius-box);
   background: var(--memori-content-preview-bg, #fafafa);
   box-shadow:
     0 25px 50px -12px rgba(0, 0, 0, 0.25),
@@ -25,15 +26,18 @@
 
 /* Image variant: modal at least 600px wide (capped by viewport on small screens) */
 .memori-content-preview-modal--image.memori-modal .memori-modal--panel {
+  overflow: hidden;
   min-width: min(600px, 100vw);
+  max-width: min(90vw, 760px);
+  min-height: auto;
 }
 
 .memori-content-preview-modal .memori-modal--title {
   padding: 1rem 1.25rem 0.75rem;
   border-bottom: 1px solid var(--memori-content-preview-border, rgba(0, 0, 0, 0.06));
   color: var(--memori-content-preview-title, #1f2937);
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: var(--memori-text-size-base);
+  font-weight: var(--memori-text-weight-semibold);
   letter-spacing: -0.01em;
 }
 
@@ -43,7 +47,7 @@
 }
 
 .memori-content-preview-modal .memori-modal--close button {
-  border-radius: 10px;
+  border-radius: var(--memori-radius-box);
   background: var(--memori-content-preview-close-bg, rgba(0, 0, 0, 0.05));
   transition: background 0.2s ease, transform 0.15s ease;
 }
@@ -53,19 +57,12 @@
   transform: scale(1.05);
 }
 
-/* Body area */
-.memori-content-preview-modal--body {
-  overflow: auto;
-  max-height: 70vh;
-  padding: 1.25rem;
-}
 
 .memori-content-preview-modal--body--image {
   display: flex;
-  min-height: 400px;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
+  padding: 1rem;
   background: var(--memori-content-preview-image-bg, #f3f4f6);
 }
 
@@ -76,8 +73,10 @@
 /* Image */
 .memori-content-preview-modal--image-wrap {
   display: flex;
-  width: 100%;
+  width: min(72vw, 640px);
   min-width: 0;
+  max-width: 100%;
+  height: min(56vh, 420px);
   align-items: center;
   justify-content: center;
 }
@@ -85,21 +84,35 @@
 .memori-content-preview-modal--image {
   width: 100%;
   height: 100%;
-  max-height: 70vh;
-  border-radius: 8px;
+  border-radius: var(--memori-radius-box);
   object-fit: contain;
+}
+
+.memori-file-preview-modal.memori-content-preview-modal--image.memori-modal .memori-modal--panel {
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .memori-content-preview-modal--image.memori-modal .memori-modal--panel {
+    min-width: min(92vw, 600px);
+  }
+
+  .memori-content-preview-modal--image-wrap {
+    width: min(84vw, 520px);
+    height: min(48vh, 320px);
+  }
 }
 
 /* Snippet / text content area */
 .memori-content-preview-modal--snippet-wrap {
   min-height: 120px;
   border: 1px solid var(--memori-content-preview-snippet-border, #e2e8f0);
-  border-radius: 12px;
+  border-radius: var(--memori-radius-box);
   background: var(--memori-content-preview-snippet-bg, #f8fafc);
   color: var(--memori-content-preview-snippet-text, #334155);
   font-family: 'SF Mono', 'Fira Code', 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-  font-size: 0.875rem;
-  line-height: 1.6;
+  font-size: var(--memori-text-size-small);
+  line-height: var(--memori-text-line-relaxed);
   overflow-x: auto;
   white-space: pre-wrap;
   word-break: break-word;
@@ -108,7 +121,7 @@
 /* When Snippet component is used inside, give it consistent spacing */
 .memori-content-preview-modal--snippet-wrap .memori-snippet {
   border: none;
-  border-radius: 12px;
+  border-radius: var(--memori-radius-box);
   background: transparent;
   box-shadow: none;
 }

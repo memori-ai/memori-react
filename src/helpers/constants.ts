@@ -1,31 +1,32 @@
+/** Display names in English (used in language picker; filter matches these strings). */
 export const chatLanguages = [
-  { value: 'AR', label: 'العربية' },           // Arabic
-  { value: 'BG', label: 'български' },         // Bulgarian
-  { value: 'CS', label: 'Čeština / český jazyk' }, // Czech
-  { value: 'DA', label: 'Dansk' },             // Danish
-  { value: 'DE', label: 'Deutsch' },           // German
-  { value: 'EL', label: 'Ελληνικά' },          // Greek
-  { value: 'EN', label: 'English' },           // English
-  { value: 'ES', label: 'Español' },           // Spanish
-  { value: 'ET', label: 'Eesti keel' },        // Estonian
-  { value: 'FI', label: 'Suomi' },             // Finnish
-  { value: 'FR', label: 'Français' },          // French
-  { value: 'HR', label: 'Hrvatski' },          // Croatian
-  { value: 'HU', label: 'Magyar' },            // Hungarian
-  { value: 'IT', label: 'Italiano' },          // Italian
-  { value: 'JA', label: '日本語' },             // Japanese
-  { value: 'LT', label: 'Lietuvių kalba' },    // Lithuanian
-  { value: 'LV', label: 'Latvian' },           // Latvian / Lettonian
-  { value: 'NL', label: 'Nederlands' },        // Dutch
-  { value: 'PL', label: 'Polski' },            // Polish
-  { value: 'PT', label: 'Português' },         // Portuguese
-  { value: 'RO', label: 'Română' },            // Romanian
-  { value: 'RU', label: 'Русский' },           // Russian
-  { value: 'SK', label: 'Slovenčina' },        // Slovak
-  { value: 'SL', label: 'Slovenščina' },       // Slovenian
-  { value: 'SV', label: 'Svenska' },           // Swedish
-  { value: 'UK', label: 'Українська' },        // Ukrainian
-  { value: 'ZH', label: '中文' },              // Chinese
+  { value: 'AR', label: 'Arabic' },
+  { value: 'BG', label: 'Bulgarian' },
+  { value: 'CS', label: 'Czech' },
+  { value: 'DA', label: 'Danish' },
+  { value: 'DE', label: 'German' },
+  { value: 'EL', label: 'Greek' },
+  { value: 'EN', label: 'English' },
+  { value: 'ES', label: 'Spanish' },
+  { value: 'ET', label: 'Estonian' },
+  { value: 'FI', label: 'Finnish' },
+  { value: 'FR', label: 'French' },
+  { value: 'HR', label: 'Croatian' },
+  { value: 'HU', label: 'Hungarian' },
+  { value: 'IT', label: 'Italian' },
+  { value: 'JA', label: 'Japanese' },
+  { value: 'LT', label: 'Lithuanian' },
+  { value: 'LV', label: 'Latvian' },
+  { value: 'NL', label: 'Dutch' },
+  { value: 'PL', label: 'Polish' },
+  { value: 'PT', label: 'Portuguese' },
+  { value: 'RO', label: 'Romanian' },
+  { value: 'RU', label: 'Russian' },
+  { value: 'SK', label: 'Slovak' },
+  { value: 'SL', label: 'Slovenian' },
+  { value: 'SV', label: 'Swedish' },
+  { value: 'UK', label: 'Ukrainian' },
+  { value: 'ZH', label: 'Chinese' },
 ];
 
 export const popularLanguageCodes = ['IT', 'EN'];

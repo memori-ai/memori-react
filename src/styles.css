@@ -1,19 +1,13 @@
-@import url('./components/ui/Button.css');
-@import url('./components/ui/Card.css');
-@import url('./components/ui/Checkbox.css');
-@import url('./components/ui/ConfirmDialog.css');
-@import url('./components/ui/Drawer.css');
-@import url('./components/ui/Modal.css');
-@import url('./components/ui/Spin.css');
-@import url('./components/ui/Tooltip.css');
-@import url('./components/ui/Select.css');
-@import url('./components/ui/Table.css');
-@import url('./components/ui/Details.css');
-@import url('./components/ui/Expandable.css');
-@import url('./components/ui/Slider.css');
-@import url('./components/ui/Alert.css');
-@import url('./components/ui/Dropdown.css');
+/* ==========================================================================
+   MEMORI REACT – FOGLIO DI STILE GLOBALE
+   ========================================================================== */
+/* Layer order: theme (defaults) < integration (integrationConfig overrides) */
+@layer theme, integration;
 
+/* --- 1. Design system esterno (variabili, reset, token) --- */
+@import url('@memori.ai/ui/dist/memori-ai-ui.css');
+
+/* --- 2. Stili per componente (ordine: componenti UI, poi layout) --- */
 @import url('./components/CompletionProviderStatus/CompletionProviderStatus.css');
 @import url('./components/PoweredBy/PoweredBy.css');
 @import url('./components/Auth/Auth.css');
@@ -34,7 +28,7 @@
 @import url('./components/ExportHistoryButton/ExportHistoryButton.css');
 @import url('./components/FeedbackButtons/FeedbackButtons.css');
 @import url('./components/Header/Header.css');
-@import url('./components/icons/loading.css');
+@import url('./components/PositionPopover/PositionPopover.css');
 @import url('./components/MediaWidget/MediaItemWidget.css');
 @import url('./components/MediaWidget/MediaWidget.css');
 @import url('./components/SendOnEnterMenu/SendOnEnterMenu.css');
@@ -42,6 +36,7 @@
 @import url('./components/Snippet/Snippet.css');
 @import url('./components/StartPanel/StartPanel.css');
 @import url('./components/DateSelector/DateSelector.css');
+@import url('./components/DrawerFooter/DrawerFooter.css');
 @import url('./components/AgeVerificationModal/AgeVerificationModal.css');
 @import url('./components/KnownFacts/KnownFacts.css');
 @import url('./components/LoginDrawer/LoginDrawer.css');
@@ -58,16 +53,18 @@
 @import url('./components/MemoriArtifactSystem/components/ArtifactDrawer/components/TabSwitch.css');
 @import url('./components/ContentPreviewModal/ContentPreviewModal.css');
 
-
 @import url('./components/layouts/hidden-chat.css');
 @import url('./components/layouts/totem.css');
-@import url('./components/layouts/website-assistant.css');
+@import url('./components/layouts/WebsiteAssistant/website-assistant.css');
 @import url('./components/layouts/chat.css');
+@import url('./components/layouts/fullpage.css');
 @import url('./components/layouts/zoomed-full-body.css');
 
+/* --- 3. Risorse esterne: font e KaTeX (formule matematiche) --- */
 @import url('https://fonts.bunny.net/css?family=lexend-deca:200,400,700');
 @import url('https://cdn.jsdelivr.net/npm/katex@0.16.10/dist/katex.min.css');
 
+/* --- 4. Utility: testo visibile solo agli screen reader (accessibilità) --- */
 .sr-only {
     position: absolute;
     overflow: hidden;
@@ -80,47 +77,85 @@
     white-space: nowrap;
 }
 
+/* --- 5. Light mode: colori superficie (prima del base così memori-client #root < body.sb-show-main #root) --- */
 memori-client,
 memori-client #root,
-#headlessui-portal-root,
-body.sb-show-main #root,
-#storybook-root,
-#storybook-docs,
 .memori-widget {
-    --memori-font-family: 'Lexend Deca Variable', 'Lexend Deca', sans-serif;
-    --memori-primary-rgb: 130, 70, 175;
-    --memori-primary: rgb(var(--memori-primary-rgb));
-    --memori-primary-text: #fff;
-    --memori-inner-content-pad: 1rem;
-    --memori-inner-bg: transparent;
-    --memori-chat-bubble-bg: #fff;
-    --memori-chat-user-bubble-bg: var(--memori-primary);
-    --memori-text-color: #000;
-    --memori-border-radius: 8px;
-    --memori-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.02);
-    --memori-button-bg: #fff;
-    --memori-button-text: #000;
-    --memori-button-padding: 0.5rem 1.5rem;
-    --memori-button-border-color: #d9d9d9;
-    --memori-button-radius: var(--memori-border-radius);
-    --memori-button-box-shadow: var(--memori-box-shadow);
-    --memori-button-disabled-bg: #ccc;
-    --memori-button-disabled-color: #000;
-    --memori-blur-background: 0px;
-    --memori-drawer--width: 80%;
-    --memori-drawer--width--md: 80%;
-    --memori-drawer--width--lg: 60%;
-    --memori-modal--width: 80%;
-    --memori-modal--width--md: 80%;
-    --memori-error-color: #ff4d4f;
-    --memori-warning-color: #faad14;
-
-    font-family: var(--memori-font-family, 'Lexend Deca Variable', 'Lexend Deca', sans-serif);
-    font-size: 16px;
+    --memori-surface-contrast: white;
+    --memori-surface-contrast-inverse: black;
 }
 
+/* --- 6. Base: brand e tema di default (in layer così integration può sovrascrivere --memori-primary) --- */
+@layer theme {
+    :root,
+    body,
+    memori-client,
+    .memori-widget,
+    #headlessui-portal-root,
+    #storybook-root,
+    #storybook-docs,
+    memori-client #root,
+    body.sb-show-main #root {
+        --memori-primary-color: rgb(var(--memori-primary-rgb, 130 70 175));
+        --memori-primary: var(--memori-primary-color);
+        --memori-layout-max-width: 1280px;
+        font-family: var(--memori-font-family, 'Lexend Deca', sans-serif);
+        font-size: var(--memori-text-size-base);
+    }
+}
+
+/* --- 7. Colore testo custom in light (prima del dark per specificità) --- */
+.memori-widget {
+    /* --memori-text-color: var(--memori-integration-text-color, var(--memori-text-color)); */
+    /* max-width: var(--memori-layout-max-width); */
+    margin: 0 auto;
+    background-color: var(--memori-secondary-background);
+}
+
+/* --- 8. Dark mode: override quando c’è data-theme="dark" (in layer theme) --- */
+@layer theme {
+    [data-theme='dark'] memori-client,
+    [data-theme='dark'] memori-client #root,
+    [data-theme='dark'] #headlessui-portal-root,
+    [data-theme='dark'] .memori-widget,
+    memori-client[data-theme='dark'],
+    .memori-widget[data-theme='dark'] {
+        --memori-primary: var(--memori-primary-hover);
+        --memori-surface-contrast: black;
+        --memori-surface-contrast-inverse: white;
+    }
+}
+
+/* --- 9. Colore testo custom in dark (blend per contrasto) --- */
+/* [data-theme='dark'] .memori-widget,
+.memori-widget[data-theme='dark'],
+[data-theme='dark'] memori-client .memori-widget,
+[data-theme='dark'] memori-client #root .memori-widget {
+    /* Dark: 60% tema + 40% custom così un textColor da light resta leggibile su sfondo scuro */
+/* --memori-text-color: color-mix(
+        in oklch,
+        var(--memori-integration-text-color, var(--memori-text-color)) 40%,
+        var(--memori-text-color) 60%
+    );
+} */
+
+/* --- 10. Utility responsive --- */
 @media (max-width: 768px) {
     .mobile-hidden {
         display: none;
+    }
+}
+
+/* Keep toast feedback below the header actions area. */
+.memori-alert-viewport.memori-alert-viewport--top-end {
+    top: 4.75rem !important;
+}
+
+@media (max-width: 768px) {
+    .memori-alert-viewport.memori-alert-viewport--top-end {
+        top: auto !important;
+        right: var(--memori-spacing-sm) !important;
+        bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px)) !important;
+        left: var(--memori-spacing-sm) !important;
     }
 }

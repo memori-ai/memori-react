@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import { ExpertReference, Memori, Tenant } from '@memori.ai/memori-api-client/dist/types';
+import { getResourceUrl } from '../../helpers/media';
 
 const separator = ' ';
 const defaultDelay = 15;
@@ -55,6 +57,12 @@ export interface Props {
   useDefaultSentences?: boolean;
   lang?: 'en' | 'it';
   sentence?: string;
+  memori?: Memori;
+  tenant?: Tenant;
+  baseUrl?: string;
+  apiUrl?: string;
+  experts?: ExpertReference[];
+  emitter?: string;
   sentences?: {
     [lang: string]: {
       /**
@@ -76,6 +84,12 @@ const Typing = ({
   useDefaultSentences = false,
   lang = 'en',
   sentence,
+  memori,
+  tenant,
+  baseUrl,
+  apiUrl,
+  experts,
+  emitter,
   sentences,
 }: Props) => {
   const [index, setIndex] = useState(0);
@@ -137,15 +151,73 @@ const Typing = ({
     return () => clearInterval(interval);
   });
 
+  const renderAssistantAvatar = () => {
+    if (!memori) return null;
+
+    return (
+      <picture
+        className="memori-chat--bubble-avatar"
+        title={!!emitter?.length && !!memori.enableBoardOfExperts ? emitter : memori.name}
+      >
+        <img
+          className="memori-chat--bubble-avatar-img"
+          alt={!!emitter?.length && !!memori.enableBoardOfExperts ? emitter : memori.name}
+          src={
+            !!emitter?.length &&
+            !!memori.enableBoardOfExperts &&
+            experts?.find(e => e.name === emitter)
+              ? `${new URL(apiUrl ?? '/').origin}/api/v1/memoriai/memori/avatar/${
+                  experts.find(e => e.name === emitter)?.expertMemoriID
+                }`
+              : memori.avatarURL && memori.avatarURL.length > 0
+              ? getResourceUrl({
+                  type: 'avatar',
+                  tenantID: tenant?.name,
+                  resourceURI: memori.avatarURL,
+                  baseURL: baseUrl,
+                  apiURL: apiUrl,
+                })
+              : getResourceUrl({
+                  tenantID: tenant?.name,
+                  type: 'avatar',
+                  baseURL: baseUrl || 'https://www.aisuru.com',
+                  apiURL: apiUrl,
+                })
+          }
+          onError={e => {
+            e.currentTarget.src =
+              memori.avatarURL && memori.avatarURL.length > 0
+                ? getResourceUrl({
+                    type: 'avatar',
+                    tenantID: tenant?.name,
+                    resourceURI: memori.avatarURL,
+                    baseURL: baseUrl,
+                  })
+                : getResourceUrl({
+                    tenantID: tenant?.name,
+                    type: 'avatar',
+                    baseURL: baseUrl,
+                  });
+
+            e.currentTarget.onerror = null;
+          }}
+        />
+      </picture>
+    );
+  };
+
   return (
-    <div className="memori-chat--bubble">
-      <div className="memori-chat--bubble-typing">
-        <div id="wave">
-          <span className="dot"></span>
-          <span className="dot"></span>
-          <span className="dot"></span>
+    <div className="memori-chat--bubble-container memori-chat-scroll-item">
+      {renderAssistantAvatar()}
+      <div className="memori-chat--bubble">
+        <div className="memori-chat--bubble-typing">
+          <div id="wave">
+            <span className="dot"></span>
+            <span className="dot"></span>
+            <span className="dot"></span>
+          </div>
+          {text.length > 0 && <p>{shownText}</p>}
         </div>
-        {text.length > 0 && <p>{shownText}</p>}
       </div>
     </div>
   );

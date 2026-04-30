@@ -3,8 +3,9 @@
 exports[`renders Auth on tokens unchanged 1`] = `
 <div>
   <form
-    class="memori-auth-widget--form"
-    name="memoriAuth"
+    class="memori-form memori-auth-widget--form"
+    name="auth"
+    novalidate=""
   >
     <fieldset
       class="memori-auth-widget--tokens-fieldset"
@@ -19,48 +20,72 @@ exports[`renders Auth on tokens unchanged 1`] = `
       >
         <input
           autocomplete="off"
-          class="memori-auth-widget--input"
+          class="memori-input memori-input--default memori-input--md memori-auth-widget--input"
+          id="base-ui-:r2:"
           name="tokens.0"
           placeholder="Recovery token"
           required=""
           type="password"
+          value=""
         />
       </label>
       <button
-        class="memori-button memori-button--rounded memori-button--padded memori-button--with-icon memori-auth-widget--token-add"
+        class="memori-button memori-button--primary memori-button--md memori-auth-widget--token-add"
+        tabindex="0"
+        type="button"
       >
         <span
-          class="memori-button--icon"
+          class="memori-button__icon"
         >
           <svg
-            aria-hidden="true"
-            focusable="false"
-            role="img"
-            viewBox="0 0 1024 1024"
+            class="lucide lucide-plus"
+            fill="none"
+            height="24"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="24"
             xmlns="http://www.w3.org/2000/svg"
           >
             <path
-              d="M482 152h60q8 0 8 8v704q0 8-8 8h-60q-8 0-8-8V160q0-8 8-8z"
+              d="M5 12h14"
             />
             <path
-              d="M176 474h672q8 0 8 8v60q0 8-8 8H176q-8 0-8-8v-60q0-8 8-8z"
+              d="M12 5v14"
             />
           </svg>
         </span>
-        auth.addToken
+        <span
+          class="memori-button__content"
+        >
+          auth.addToken
+        </span>
       </button>
       <hr />
       <button
-        class="memori-button memori-button--outlined memori-button--rounded memori-button--padded"
+        class="memori-button memori-button--outline memori-button--md"
+        tabindex="0"
+        type="button"
       >
-        auth.usePassword
+        <span
+          class="memori-button__content"
+        >
+          auth.usePassword
+        </span>
       </button>
     </fieldset>
     <button
-      class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori-auth-widget--submit"
+      class="memori-button memori-button--primary memori-button--md memori-auth-widget--submit"
+      tabindex="0"
       type="submit"
     >
-      confirm
+      <span
+        class="memori-button__content"
+      >
+        confirm
+      </span>
     </button>
   </form>
 </div>
@@ -69,8 +94,9 @@ exports[`renders Auth on tokens unchanged 1`] = `
 exports[`renders Auth unchanged 1`] = `
 <div>
   <form
-    class="memori-auth-widget--form"
-    name="memoriAuth"
+    class="memori-form memori-auth-widget--form"
+    name="auth"
+    novalidate=""
   >
     <fieldset
       class="memori-auth-widget--password-fieldset"
@@ -79,37 +105,44 @@ exports[`renders Auth unchanged 1`] = `
         Password:
          
         <input
-          class="memori-auth-widget--input"
+          class="memori-input memori-input--default memori-input--md memori-auth-widget--input"
+          id="base-ui-:r0:"
           name="password"
           placeholder="Password"
           required=""
           type="password"
+          value=""
         />
       </label>
     </fieldset>
     <button
-      class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori-auth-widget--submit"
+      class="memori-button memori-button--primary memori-button--md memori-auth-widget--submit"
+      tabindex="0"
       type="submit"
     >
-      confirm
+      <span
+        class="memori-button__content"
+      >
+        confirm
+      </span>
     </button>
   </form>
 </div>
 `;
 
 exports[`renders Auth with modal unchanged 1`] = `
-<div>
-  <div
-    style="position: fixed; top: 1px; left: 1px; width: 1px; height: 0px; padding: 0px; margin: -1px; overflow: hidden; clip: rect(0px, 0px, 0px, 0px); white-space: nowrap; border-width: 0px; display: none;"
-  />
-</div>
+<div
+  aria-hidden="true"
+  data-base-ui-inert=""
+/>
 `;
 
 exports[`renders Auth with tokens unchanged 1`] = `
 <div>
   <form
-    class="memori-auth-widget--form"
-    name="memoriAuth"
+    class="memori-form memori-auth-widget--form"
+    name="auth"
+    novalidate=""
   >
     <fieldset
       class="memori-auth-widget--password-fieldset"
@@ -118,25 +151,38 @@ exports[`renders Auth with tokens unchanged 1`] = `
         Password:
          
         <input
-          class="memori-auth-widget--input"
+          class="memori-input memori-input--default memori-input--md memori-auth-widget--input"
+          id="base-ui-:r1:"
           name="password"
           placeholder="Password"
           required=""
           type="password"
+          value=""
         />
       </label>
       <hr />
       <button
-        class="memori-button memori-button--outlined memori-button--rounded memori-button--padded"
+        class="memori-button memori-button--outline memori-button--md"
+        tabindex="0"
+        type="button"
       >
-        auth.useRecoveryTokens
+        <span
+          class="memori-button__content"
+        >
+          auth.useRecoveryTokens
+        </span>
       </button>
     </fieldset>
     <button
-      class="memori-button memori-button--primary memori-button--rounded memori-button--padded memori-auth-widget--submit"
+      class="memori-button memori-button--primary memori-button--md memori-auth-widget--submit"
+      tabindex="0"
       type="submit"
     >
-      confirm
+      <span
+        class="memori-button__content"
+      >
+        confirm
+      </span>
     </button>
   </form>
 </div>
