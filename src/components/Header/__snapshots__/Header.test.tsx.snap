@@ -10,14 +10,14 @@ exports[`renders Header for board of experts unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2i:"
+        id="base-ui-:r2a:"
       >
         <span
           style="display: inline-flex;"
         >
           <button
             aria-label="write_and_speak.chatHistory"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--ghost memori-button--md"
             tabindex="0"
             type="button"
           >
@@ -41,6 +41,218 @@ exports[`renders Header for board of experts unchanged 1`] = `
                 />
               </svg>
             </span>
+            <span
+              class="memori-button__content"
+            >
+              write_and_speak.chatHistory
+            </span>
+          </button>
+        </span>
+      </span>
+    </span>
+    <span
+      class="styles-module__root___-ALla"
+    >
+      <span
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r2c:"
+      >
+        <span
+          style="display: inline-flex;"
+        >
+          <button
+            aria-label="widget.showExpertsInTheBoard"
+            class="memori-button memori-button--ghost memori-button--md memori-button--disabled memori-button--icon-only"
+            data-disabled=""
+            disabled=""
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-users"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="9"
+                  cy="7"
+                  r="4"
+                />
+                <path
+                  d="M22 21v-2a4 4 0 0 0-3-3.87"
+                />
+                <path
+                  d="M16 3.13a4 4 0 0 1 0 7.75"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
+      </span>
+    </span>
+    <span
+      class="styles-module__root___-ALla"
+    >
+      <span
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r2e:"
+      >
+        <span
+          style="display: inline-flex;"
+        >
+          <button
+            aria-label="widget.sound"
+            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-volume2"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
+                />
+                <path
+                  d="M16 9a5 5 0 0 1 0 6"
+                />
+                <path
+                  d="M19.364 18.364a9 9 0 0 0 0-12.728"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
+      </span>
+    </span>
+    <span
+      class="styles-module__root___-ALla"
+    >
+      <span
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r2g:"
+      >
+        <span
+          style="display: inline-flex;"
+        >
+          <button
+            aria-label="login.login"
+            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-user"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
+                />
+                <circle
+                  cx="12"
+                  cy="7"
+                  r="4"
+                />
+              </svg>
+            </span>
+          </button>
+        </span>
+      </span>
+    </span>
+  </div>
+  <div
+    aria-atomic="false"
+    aria-label="Notifications"
+    aria-live="polite"
+    aria-relevant="additions text"
+    class="memori-alert-viewport memori-alert-viewport--top-end"
+    role="region"
+    tabindex="-1"
+  />
+</div>
+`;
+
+exports[`renders Header for board of experts with session open unchanged 1`] = `
+<div>
+  <div
+    class="memori-header"
+  >
+    <span
+      class="styles-module__root___-ALla"
+    >
+      <span
+        class="styles-module__trigger___V2aIF"
+        id="base-ui-:r2i:"
+      >
+        <span
+          style="display: inline-flex;"
+        >
+          <button
+            aria-label="write_and_speak.chatHistory"
+            class="memori-button memori-button--ghost memori-button--md"
+            tabindex="0"
+            type="button"
+          >
+            <span
+              class="memori-button__icon"
+            >
+              <svg
+                class="lucide lucide-message-circle"
+                fill="none"
+                height="24"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                viewBox="0 0 24 24"
+                width="24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"
+                />
+              </svg>
+            </span>
+            <span
+              class="memori-button__content"
+            >
+              write_and_speak.chatHistory
+            </span>
           </button>
         </span>
       </span>
@@ -57,9 +269,7 @@ exports[`renders Header for board of experts unchanged 1`] = `
         >
           <button
             aria-label="widget.showExpertsInTheBoard"
-            class="memori-button memori-button--ghost memori-button--md memori-button--disabled memori-button--icon-only"
-            data-disabled=""
-            disabled=""
+            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -150,206 +360,6 @@ exports[`renders Header for board of experts unchanged 1`] = `
       <span
         class="styles-module__trigger___V2aIF"
         id="base-ui-:r2o:"
-      >
-        <span
-          style="display: inline-flex;"
-        >
-          <button
-            aria-label="login.login"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
-            tabindex="0"
-            type="button"
-          >
-            <span
-              class="memori-button__icon"
-            >
-              <svg
-                class="lucide lucide-user"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"
-                />
-                <circle
-                  cx="12"
-                  cy="7"
-                  r="4"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
-      </span>
-    </span>
-  </div>
-  <div
-    aria-atomic="false"
-    aria-label="Notifications"
-    aria-live="polite"
-    aria-relevant="additions text"
-    class="memori-alert-viewport memori-alert-viewport--top-end"
-    role="region"
-    tabindex="-1"
-  />
-</div>
-`;
-
-exports[`renders Header for board of experts with session open unchanged 1`] = `
-<div>
-  <div
-    class="memori-header"
-  >
-    <span
-      class="styles-module__root___-ALla"
-    >
-      <span
-        class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2q:"
-      >
-        <span
-          style="display: inline-flex;"
-        >
-          <button
-            aria-label="write_and_speak.chatHistory"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
-            tabindex="0"
-            type="button"
-          >
-            <span
-              class="memori-button__icon"
-            >
-              <svg
-                class="lucide lucide-message-circle"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
-      </span>
-    </span>
-    <span
-      class="styles-module__root___-ALla"
-    >
-      <span
-        class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2s:"
-      >
-        <span
-          style="display: inline-flex;"
-        >
-          <button
-            aria-label="widget.showExpertsInTheBoard"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
-            tabindex="0"
-            type="button"
-          >
-            <span
-              class="memori-button__icon"
-            >
-              <svg
-                class="lucide lucide-users"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
-                />
-                <circle
-                  cx="9"
-                  cy="7"
-                  r="4"
-                />
-                <path
-                  d="M22 21v-2a4 4 0 0 0-3-3.87"
-                />
-                <path
-                  d="M16 3.13a4 4 0 0 1 0 7.75"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
-      </span>
-    </span>
-    <span
-      class="styles-module__root___-ALla"
-    >
-      <span
-        class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2u:"
-      >
-        <span
-          style="display: inline-flex;"
-        >
-          <button
-            aria-label="widget.sound"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
-            tabindex="0"
-            type="button"
-          >
-            <span
-              class="memori-button__icon"
-            >
-              <svg
-                class="lucide lucide-volume2"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"
-                />
-                <path
-                  d="M16 9a5 5 0 0 1 0 6"
-                />
-                <path
-                  d="M19.364 18.364a9 9 0 0 0 0-12.728"
-                />
-              </svg>
-            </span>
-          </button>
-        </span>
-      </span>
-    </span>
-    <span
-      class="styles-module__root___-ALla"
-    >
-      <span
-        class="styles-module__trigger___V2aIF"
-        id="base-ui-:r30:"
       >
         <span
           style="display: inline-flex;"
@@ -751,14 +761,14 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2c:"
+        id="base-ui-:r24:"
       >
         <span
           style="display: inline-flex;"
         >
           <button
             aria-label="write_and_speak.chatHistory"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--ghost memori-button--md"
             tabindex="0"
             type="button"
           >
@@ -782,6 +792,11 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
                 />
               </svg>
             </span>
+            <span
+              class="memori-button__content"
+            >
+              write_and_speak.chatHistory
+            </span>
           </button>
         </span>
       </span>
@@ -791,7 +806,7 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2e:"
+        id="base-ui-:r26:"
       >
         <span
           style="display: inline-flex;"
@@ -837,7 +852,7 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r2g:"
+        id="base-ui-:r28:"
       >
         <span
           style="display: inline-flex;"
@@ -907,7 +922,7 @@ exports[`renders Header with deep thought logged but without permission flag unc
         >
           <button
             aria-label="write_and_speak.chatHistory"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--ghost memori-button--md"
             tabindex="0"
             type="button"
           >
@@ -930,6 +945,11 @@ exports[`renders Header with deep thought logged but without permission flag unc
                   d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"
                 />
               </svg>
+            </span>
+            <span
+              class="memori-button__content"
+            >
+              write_and_speak.chatHistory
             </span>
           </button>
         </span>
@@ -981,25 +1001,26 @@ exports[`renders Header with deep thought logged but without permission flag unc
         </span>
       </span>
     </span>
-    <div
-      class="memori-dropdown memori-header--dropdown"
+    <span
+      class="styles-module__root___kBCdl memori-header--dropdown"
     >
       <span
         class="styles-module__root___-ALla"
       >
         <span
           class="styles-module__trigger___V2aIF"
-          id="base-ui-:r1s:"
+          id="base-ui-:r1p:"
         >
           <span
             style="display: inline-flex;"
           >
             <button
               aria-expanded="false"
-              aria-haspopup="menu"
+              aria-haspopup="dialog"
               aria-label="login.user"
-              class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
-              id="base-ui-:r1p:"
+              class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-dropdown--user-trigger-button"
+              data-base-ui-click-trigger=""
+              id="base-ui-:r1n:"
               tabindex="0"
               type="button"
             >
@@ -1032,7 +1053,7 @@ exports[`renders Header with deep thought logged but without permission flag unc
           </span>
         </span>
       </span>
-    </div>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -1056,14 +1077,14 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r1u:"
+        id="base-ui-:r1r:"
       >
         <span
           style="display: inline-flex;"
         >
           <button
             aria-label="write_and_speak.chatHistory"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--ghost memori-button--md"
             tabindex="0"
             type="button"
           >
@@ -1087,71 +1108,10 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
                 />
               </svg>
             </span>
-          </button>
-        </span>
-      </span>
-    </span>
-    <span
-      class="styles-module__root___-ALla"
-    >
-      <span
-        class="styles-module__trigger___V2aIF"
-        id="base-ui-:r20:"
-      >
-        <span
-          style="display: inline-flex;"
-        >
-          <button
-            aria-label="knownFacts.title"
-            class="memori-button memori-button--ghost memori-button--md memori-button--disabled memori-button--icon-only"
-            data-disabled=""
-            disabled=""
-            tabindex="0"
-            type="button"
-          >
             <span
-              class="memori-button__icon"
+              class="memori-button__content"
             >
-              <svg
-                class="lucide lucide-brain"
-                fill="none"
-                height="24"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-                width="24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"
-                />
-                <path
-                  d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"
-                />
-                <path
-                  d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"
-                />
-                <path
-                  d="M17.599 6.5a3 3 0 0 0 .399-1.375"
-                />
-                <path
-                  d="M6.003 5.125A3 3 0 0 0 6.401 6.5"
-                />
-                <path
-                  d="M3.477 10.896a4 4 0 0 1 .585-.396"
-                />
-                <path
-                  d="M19.938 10.5a4 4 0 0 1 .585.396"
-                />
-                <path
-                  d="M6 18a4 4 0 0 1-1.967-.516"
-                />
-                <path
-                  d="M19.967 17.484A4 4 0 0 1 18 18"
-                />
-              </svg>
+              write_and_speak.chatHistory
             </span>
           </button>
         </span>
@@ -1162,7 +1122,7 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
     >
       <span
         class="styles-module__trigger___V2aIF"
-        id="base-ui-:r22:"
+        id="base-ui-:r1t:"
       >
         <span
           style="display: inline-flex;"
@@ -1203,25 +1163,26 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
         </span>
       </span>
     </span>
-    <div
-      class="memori-dropdown memori-header--dropdown"
+    <span
+      class="styles-module__root___kBCdl memori-header--dropdown"
     >
       <span
         class="styles-module__root___-ALla"
       >
         <span
           class="styles-module__trigger___V2aIF"
-          id="base-ui-:r2a:"
+          id="base-ui-:r22:"
         >
           <span
             style="display: inline-flex;"
           >
             <button
               aria-expanded="false"
-              aria-haspopup="menu"
+              aria-haspopup="dialog"
               aria-label="login.user"
-              class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
-              id="base-ui-:r27:"
+              class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-dropdown--user-trigger-button"
+              data-base-ui-click-trigger=""
+              id="base-ui-:r20:"
               tabindex="0"
               type="button"
             >
@@ -1254,7 +1215,7 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
           </span>
         </span>
       </span>
-    </div>
+    </span>
   </div>
   <div
     aria-atomic="false"
@@ -1385,11 +1346,6 @@ exports[`renders Header with position unchanged 1`] = `
     <div
       class="memori-header--position"
     >
-      <span
-        class="memori-header--position-placeName"
-      >
-        Berlin
-      </span>
       <span
         class="styles-module__root___-ALla"
       >

@@ -9,7 +9,7 @@ import {
 } from '@memori.ai/memori-api-client/dist/types';
 import {
   Button,
-  Dropdown,
+  Popover,
   Tooltip,
   useAlertManager,
   createAlertOptions,
@@ -339,11 +339,6 @@ const Header: React.FC<Props> = ({
     <div className={cx('memori-header', className)}>
       {memori.needsPosition && (
         <div className="memori-header--position">
-          {position && position.latitude !== 0 && position.longitude !== 0 && (
-            <span className="memori-header--position-placeName">
-              {position.placeName}
-            </span>
-          )}
           <Tooltip
             title={t('widget.position') || 'Position'}
             placement="bottom"
@@ -412,7 +407,10 @@ const Header: React.FC<Props> = ({
               aria-label={t('write_and_speak.chatHistory') || 'Chat history'}
               icon={<MessageCircle />}
               onClick={() => setShowChatHistoryDrawer(true)}
-            />
+            >
+              {layout !== 'TOTEM' &&
+                (t('write_and_speak.chatHistory') || 'Chat history')}
+            </Button>
           </span>
         </Tooltip>
       )}
@@ -499,22 +497,25 @@ const Header: React.FC<Props> = ({
           </span>
         </Tooltip>
       )}
-      {memori.enableDeepThought && !!loginToken && user?.pAndCUAccepted && (
-        <Tooltip
-          title={t('knownFacts.title') || 'Known facts'}
-          placement="bottom"
-        >
-          <span style={{ display: 'inline-flex' }}>
-            <Button
-              variant={buttonVariant}
-              icon={<Brain />}
-              disabled={!hasUserActivatedSpeak || !sessionID}
-              aria-label={t('knownFacts.title') || 'Known facts'}
-              onClick={() => setShowKnownFactsDrawer(true)}
-            />
-          </span>
-        </Tooltip>
-      )}
+      {memori.enableDeepThought &&
+        !!loginToken &&
+        user?.pAndCUAccepted &&
+        hasUserActivatedSpeak &&
+        !!sessionID && (
+          <Tooltip
+            title={t('knownFacts.title') || 'Known facts'}
+            placement="bottom"
+          >
+            <span style={{ display: 'inline-flex' }}>
+              <Button
+                variant={buttonVariant}
+                icon={<Brain />}
+                aria-label={t('knownFacts.title') || 'Known facts'}
+                onClick={() => setShowKnownFactsDrawer(true)}
+              />
+            </span>
+          </Tooltip>
+        )}
       {memori.enableBoardOfExperts && (
         <Tooltip
           title={t('widget.showExpertsInTheBoard') || 'Experts in this board'}
@@ -579,60 +580,45 @@ const Header: React.FC<Props> = ({
       {showLogin && (
         <>
           {loginToken && user ? (
-            <Dropdown className="memori-header--dropdown">
-              <Dropdown.Trigger
-                showChevron={false}
-                className="memori-dropdown--user-trigger"
-                render={(
-                  props: React.ButtonHTMLAttributes<HTMLButtonElement>
-                ) => (
-                  <Tooltip title={t('login.user') || 'User'} placement="bottom">
-                    <span style={{ display: 'inline-flex' }}>
-                      <Button
-                        {...props}
-                        variant={buttonVariant}
-                        aria-label={t('login.user') || 'User'}
-                        icon={<UserIcon />}
-                      />
-                    </span>
-                  </Tooltip>
-                )}
-              />
-              <Dropdown.Menu className="memori-dropdown--menu">
-                <Dropdown.Item className="memori-dropdown--user-item">
-                  <div className="memori-dropdown--user-info">
-                    <div className="memori-dropdown--avatar-wrap">
-                      {user.avatarURL ? (
-                        <>
-                          <img
-                            src={user.avatarURL}
-                            alt={user.userName || user.eMail}
-                            className="memori-dropdown--avatar"
-                          />
-                          <span className="memori-dropdown--avatar-overlay">
-                            <Camera size={20} strokeWidth={2} />
-                          </span>
-                          <input
-                            type="file"
-                            name="avatar"
-                            id="avatar"
-                            className="memori-dropdown--avatar-input"
-                            onChange={e =>
-                              updateAvatar(
-                                e.target.files?.[0] ?? (null as unknown as Blob)
-                              )
-                            }
-                            accept={imgMimeTypes.join(', ')}
-                          />
-                        </>
-                      ) : (
-                        <>
-                          <div className="memori-dropdown--avatar-placeholder">
-                            <span className="memori-dropdown--avatar-initial">
-                              {(user.userName || user.eMail || 'U')
-                                .charAt(0)
-                                .toUpperCase()}
-                            </span>
+            <Popover
+              className="memori-header--dropdown"
+              placement="bottom-end"
+              sideOffset={8}
+              closable={false}
+              contentClassName="memori-dropdown--menu"
+              slotProps={{
+                trigger: {
+                  className: 'memori-dropdown--user-trigger',
+                  render: (props: React.ComponentProps<typeof Button>) => (
+                    <Tooltip
+                      title={t('login.user') || 'User'}
+                      placement="bottom"
+                    >
+                      <span style={{ display: 'inline-flex' }}>
+                        <Button
+                          {...props}
+                          variant={buttonVariant}
+                          className="memori-dropdown--user-trigger-button"
+                          aria-label={t('login.user') || 'User'}
+                          icon={<UserIcon />}
+                        />
+                      </span>
+                    </Tooltip>
+                  ),
+                },
+              }}
+              content={
+                <div className="memori-dropdown--content">
+                  <div className="memori-dropdown--user-item">
+                    <div className="memori-dropdown--user-info">
+                      <div className="memori-dropdown--avatar-wrap">
+                        {user.avatarURL ? (
+                          <>
+                            <img
+                              src={user.avatarURL}
+                              alt={user.userName || user.eMail}
+                              className="memori-dropdown--avatar"
+                            />
                             <span className="memori-dropdown--avatar-overlay">
                               <Camera size={20} strokeWidth={2} />
                             </span>
@@ -649,37 +635,64 @@ const Header: React.FC<Props> = ({
                               }
                               accept={imgMimeTypes.join(', ')}
                             />
-                          </div>
-                        </>
-                      )}
-                    </div>
-                    <div className="memori-dropdown--user-details">
-                      <h3 className="memori-dropdown--user-name">
-                        {user.userName || t('login.welcomeUser')}
-                      </h3>
-                      <p className="memori-dropdown--user-email">
-                        {user.eMail}
-                      </p>
-                      <div className="memori-dropdown--user-badge">
-                        {user.birthDate
-                          ? new Date(user.birthDate).toLocaleDateString()
-                          : t('login.notSet')}
+                          </>
+                        ) : (
+                          <>
+                            <div className="memori-dropdown--avatar-placeholder">
+                              <span className="memori-dropdown--avatar-initial">
+                                {(user.userName || user.eMail || 'U')
+                                  .charAt(0)
+                                  .toUpperCase()}
+                              </span>
+                              <span className="memori-dropdown--avatar-overlay">
+                                <Camera size={20} strokeWidth={2} />
+                              </span>
+                              <input
+                                type="file"
+                                name="avatar"
+                                id="avatar"
+                                className="memori-dropdown--avatar-input"
+                                onChange={e =>
+                                  updateAvatar(
+                                    e.target.files?.[0] ??
+                                      (null as unknown as Blob)
+                                  )
+                                }
+                                accept={imgMimeTypes.join(', ')}
+                              />
+                            </div>
+                          </>
+                        )}
+                      </div>
+                      <div className="memori-dropdown--user-details">
+                        <h3 className="memori-dropdown--user-name">
+                          {user.userName || t('login.welcomeUser')}
+                        </h3>
+                        <p className="memori-dropdown--user-email">
+                          {user.eMail}
+                        </p>
+                        <div className="memori-dropdown--user-badge">
+                          {user.birthDate
+                            ? new Date(user.birthDate).toLocaleDateString()
+                            : t('login.notSet')}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </Dropdown.Item>
-                <Dropdown.Separator className="memori-dropdown--separator" />
-                <Dropdown.Item
-                  onClick={onLogout}
-                  className="memori-dropdown--action-button memori-dropdown--action-button--logout"
-                  {...({
-                    icon: <LogOut size={18} strokeWidth={2} />,
-                  } as React.ComponentProps<typeof Dropdown.Item>)}
-                >
-                  {t('login.logout') || 'Logout'}
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+                  <div className="memori-dropdown--separator" />
+                  <button
+                    type="button"
+                    onClick={onLogout}
+                    className="memori-dropdown--action-button memori-dropdown--action-button--logout"
+                  >
+                    <LogOut size={18} strokeWidth={2} aria-hidden />
+                    {t('login.logout') || 'Logout'}
+                  </button>
+                </div>
+              }
+            >
+              {null}
+            </Popover>
           ) : (
             <Tooltip title={t('login.login') || 'Login'} placement="bottom">
               <span style={{ display: 'inline-flex' }}>

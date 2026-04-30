@@ -239,6 +239,7 @@ const PositionPopover: React.FC<PositionPopoverProps> = ({
       open={open}
       onOpenChange={handleRootOpenChange}
       modal={false}
+      closable={false}
       placement="bottom-end"
       sideOffset={8}
       contentClassName="memori-position-popover__popup"
