@@ -8377,7 +8377,7 @@ exports[`renders Chat with message consumption unchanged 1`] = `
                   <p
                     class="memori-chat--bubble-timestamp"
                   >
-                    12:46 PM
+                    10:58 AM
                   </p>
                   <span
                     class="memori-chat--bubble-timestamp-separator"

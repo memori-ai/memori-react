@@ -40,6 +40,7 @@ export interface Props {
   sessionID?: string;
   url?: string;
   title?: string;
+  primary?: boolean;
   className?: string;
   baseUrl?: string;
   showQrCode?: boolean;

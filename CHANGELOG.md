@@ -1,5 +1,25 @@
 
 
+## [8.35.1](https://github.com/memori-ai/memori-react/compare/v8.35.0...v8.35.1) (2026-04-29)
+
+
+### Bug Fixes
+
+* update login button visibility logic in MemoriWidget component ([f80da5c](https://github.com/memori-ai/memori-react/commit/f80da5ca22075ad299d54c4808f94c709e850369))
+
+## [8.35.0](https://github.com/memori-ai/memori-react/compare/v8.34.0...v8.35.0) (2026-04-28)
+
+
+### Features
+
+* implement enhanced artifact detection and processing in ArtifactHandler component ([00d0b36](https://github.com/memori-ai/memori-react/commit/00d0b36803a5a8584de4397301a08e12c1413f82))
+
+
+### Maintenance
+
+* enhance artifact handling in Chat component with new test cases ([d64f5cb](https://github.com/memori-ai/memori-react/commit/d64f5cb2f65b30a0ce81cf1564cb67053e59f94f))
+* update [@memori](https://github.com/memori).ai/memori-api-client to version 6.22.0 ([a425cec](https://github.com/memori-ai/memori-react/commit/a425cec379a9086ea12b1407f718c7de3a01d46f))
+
 ## [8.34.0](https://github.com/memori-ai/memori-react/compare/v8.33.0...v8.34.0) (2026-04-20)
 
 
