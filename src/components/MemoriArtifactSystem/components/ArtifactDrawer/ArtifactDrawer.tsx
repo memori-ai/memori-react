@@ -27,8 +27,7 @@ import TabSwitch from './components/TabSwitch';
 const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
   isChatLogPanel = false,
 }) => {
-  const { state, closeArtifact, toggleFullscreen } =
-    useArtifact();
+  const { state, closeArtifact, toggleFullscreen } = useArtifact();
   const { t } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
 
@@ -126,7 +125,13 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
       if (isChatLogPanel) {
         return (
           <div
-            style={{ minHeight: '75vh', maxHeight: '75vh' }}
+            style={{
+              minHeight: '75vh',
+              maxHeight: '75vh',
+              background: 'var(--memori-secondary-background)',
+              marginTop: '-24px',
+              border: '2px solid var(--memori-border-primary)',
+            }}
             className="memori-artifact-panel"
           >
             {children}
@@ -151,12 +156,18 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
         );
       }
     },
-    [isChatLogPanel, handleClose, state.isDrawerOpen, state.isFullscreen, isMobile]
+    [
+      isChatLogPanel,
+      handleClose,
+      state.isDrawerOpen,
+      state.isFullscreen,
+      isMobile,
+    ]
   );
 
   /**
- * Get MIME type string for downloads
- */
+   * Get MIME type string for downloads
+   */
   const getMimeTypeString = useCallback((mimeType: string): string => {
     const mimeTypes: Record<string, string> = {
       html: 'text/html',
@@ -203,7 +214,6 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
       setTimeout(() => {
         URL.revokeObjectURL(url);
       }, 60000);
-
     } catch (error) {
       console.error('External open failed:', error);
     }
@@ -267,7 +277,9 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
               <Dropdown.Trigger
                 showChevron={false}
                 className="memori-mobile-actions-trigger"
-                render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
+                render={(
+                  props: React.ButtonHTMLAttributes<HTMLButtonElement>
+                ) => (
                   <Button
                     {...props}
                     className={cx(
@@ -283,84 +295,88 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
                 )}
               />
               <Dropdown.Menu className="memori-mobile-dropdown">
-                  <div className="memori-mobile-dropdown-list">
-                    <Button
-                      onClick={handleCopy}
-                      disabled={false}
-                      className="memori-artifact-action-btn"
-                      variant="ghost"
-                      title={t('artifact.copy') || 'Copy'}
-                    >
-                      <span className="memori-artifact-action-text">
-                        {t('artifact.copy') || 'Copy'}
-                      </span>
-                    </Button>
+                <div className="memori-mobile-dropdown-list">
+                  <Button
+                    onClick={handleCopy}
+                    disabled={false}
+                    className="memori-artifact-action-btn"
+                    variant="ghost"
+                    title={t('artifact.copy') || 'Copy'}
+                  >
+                    <span className="memori-artifact-action-text">
+                      {t('artifact.copy') || 'Copy'}
+                    </span>
+                  </Button>
 
-                    {formats.map(format => {
-                      // Get appropriate icon based on action type
-                      const getIcon = () => {
-                        switch (format.action) {
-                          case 'copy':
-                            return (
-                              <LinkIcon className="memori-artifact-action-icon" />
-                            );
-                          case 'download':
-                            return (
-                              <Download className="memori-artifact-action-icon" />
-                            );
-                          case 'print':
-                          case 'pdf':
-                            return (
-                              <Printer className="memori-artifact-action-icon" />
-                            );
-                          default:
-                            return (
-                              <LinkIcon className="memori-artifact-action-icon" />
-                            );
+                  {formats.map(format => {
+                    // Get appropriate icon based on action type
+                    const getIcon = () => {
+                      switch (format.action) {
+                        case 'copy':
+                          return (
+                            <LinkIcon className="memori-artifact-action-icon" />
+                          );
+                        case 'download':
+                          return (
+                            <Download className="memori-artifact-action-icon" />
+                          );
+                        case 'print':
+                        case 'pdf':
+                          return (
+                            <Printer className="memori-artifact-action-icon" />
+                          );
+                        default:
+                          return (
+                            <LinkIcon className="memori-artifact-action-icon" />
+                          );
+                      }
+                    };
+
+                    return (
+                      <Button
+                        key={format.id}
+                        onClick={() => handleCopyFormat(format)}
+                        disabled={
+                          copyState.loading &&
+                          copyState.activeFormat === format.id
                         }
-                      };
+                        className="memori-artifact-action-btn"
+                        variant="ghost"
+                        icon={getIcon()}
+                        title={format.label}
+                      >
+                        <span className="memori-artifact-action-text">
+                          {format.label}
+                        </span>
+                      </Button>
+                    );
+                  })}
 
-                      return (
-                        <Button
-                          key={format.id}
-                          onClick={() => handleCopyFormat(format)}
-                          disabled={
-                            copyState.loading &&
-                            copyState.activeFormat === format.id
-                          }
-                          className="memori-artifact-action-btn"
-                          variant="ghost"
-                          icon={getIcon()}
-                          title={format.label}
-                        >
-                          <span className="memori-artifact-action-text">
-                            {format.label}
-                          </span>
-                        </Button>
-                      );
-                    })}
-
-                    {/* External open action (not from hook) */}
-                    <Button
-                      onClick={() => handleOpenExternal(state.currentArtifact ?? {
-                        content: '',
-                        mimeType: '',
-                        title: '',
-                        timestamp: new Date(),
-                        size: 0,
-                        id: '',
-                      })}
-                      disabled={false}
-                      className="memori-artifact-action-btn"
-                      variant="ghost"
-                      icon={<LinkIcon className="memori-artifact-action-icon" />}
-                      title={t('artifact.external') || 'External'}
-                    >
-                      <span className="memori-artifact-action-text">
-                        {t('artifact.external') || 'External'}
-                      </span>
-                    </Button>
-                  </div>
+                  {/* External open action (not from hook) */}
+                  <Button
+                    onClick={() =>
+                      handleOpenExternal(
+                        state.currentArtifact ?? {
+                          content: '',
+                          mimeType: '',
+                          title: '',
+                          timestamp: new Date(),
+                          size: 0,
+                          id: '',
+                        }
+                      )
+                    }
+                    disabled={false}
+                    className="memori-artifact-action-btn"
+                    variant="ghost"
+                    icon={<LinkIcon className="memori-artifact-action-icon" />}
+                    title={t('artifact.external') || 'External'}
+                  >
+                    <span className="memori-artifact-action-text">
+                      {t('artifact.external') || 'External'}
+                    </span>
+                  </Button>
+                </div>
               </Dropdown.Menu>
             </Dropdown>
           </>

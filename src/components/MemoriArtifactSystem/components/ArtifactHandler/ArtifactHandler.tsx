@@ -311,8 +311,8 @@ const ArtifactHandler: React.FC<ArtifactHandlerProps> = ({
               style={
                 isSelected
                   ? {
-                      border: '2px solid var(--memori-primary, #3b82f6)',
-                      boxShadow: '0 0 0 3px rgba(59, 130, 246, 0.1)',
+                      border: '2px solid var(--memori-border-primary)',
+                      // boxShadow: '0 0 0 3px rgba(59, 130, 246, 0.1)',
                     }
                   : undefined
               }

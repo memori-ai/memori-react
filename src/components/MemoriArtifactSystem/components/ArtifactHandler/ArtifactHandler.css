@@ -13,6 +13,7 @@
 
 .memori-artifact-handler {
     display: flex;
+    min-width: 300px;
     align-items: center;
     justify-content: space-between;
     padding: calc(var(--memori-spacing-sm) + var(--memori-spacing-xs));
@@ -41,7 +42,7 @@
 
 .memori-artifact-handler:hover {
     border-color: var(--memori-primary);
-    background: #f8fafc;
+    /* background: #f8fafc; */
     /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12); */
     transform: translateY(-2px);
 }
@@ -201,6 +202,7 @@
 /* Responsive Design */
 @media (max-width: 768px) {
     .memori-artifact-handler {
+        min-width: 0;
         margin: 0.5rem 0;
     }
 
