@@ -3,7 +3,7 @@
     overflow: hidden;
     width: 100%;
     min-width: 0;
-    border: 1px solid #e5e7eb;
+    /* border: 1px solid #e5e7eb; */
     border-radius: 0.5rem;
     background: #f8fafc;
 }
@@ -32,7 +32,7 @@
     word-wrap: break-word;
 }
 
-pre[class*="language-"] {
+pre[class*='language-'] {
     margin: 0 !important;
 }
 /* Preview mode: full content with max height and scroll */
@@ -49,8 +49,6 @@ pre[class*="language-"] {
     overflow-x: hidden;
     overflow-y: auto;
 }
-
-
 
 .memori-snippet code {
     padding: 0;
@@ -84,7 +82,7 @@ button.memori-snippet--copy-button {
     height: 32px !important;
     padding: 0;
     border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: .5rem !important;
+    border-radius: 0.5rem !important;
     background: rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
 }
@@ -139,4 +137,3 @@ button.memori-snippet--copy-button svg {
     font-weight: var(--memori-text-weight-medium);
     text-align: left;
 }
-

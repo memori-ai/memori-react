@@ -2,6 +2,10 @@ import '@testing-library/jest-dom/extend-expect';
 import { Settings, DateTime } from 'luxon';
 import React from 'react';
 
+// JSDOM does not implement blob URLs; MediaWidget and others call these in tests.
+global.URL.createObjectURL = jest.fn(() => 'blob:http://localhost/mock');
+global.URL.revokeObjectURL = jest.fn();
+
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(query => ({

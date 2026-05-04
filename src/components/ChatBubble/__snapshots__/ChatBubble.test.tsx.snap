@@ -9,6 +9,9 @@ exports[`renders ChatBubble from user with avatar as react element unchanged 1`]
       class="memori-chat--bubble-shell memori-chat--bubble-shell--from-user memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
       >
         <div
@@ -27,6 +30,9 @@ exports[`renders ChatBubble from user with avatar as react element unchanged 1`]
           </div>
         </div>
       </div>
+      <div
+        class="memori-media-widget"
+      />
       <div
         class="memori-chat--bubble-addon"
       >
@@ -101,6 +107,9 @@ exports[`renders ChatBubble from user with avatar unchanged 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--from-user memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
       >
         <div
@@ -119,6 +128,9 @@ exports[`renders ChatBubble from user with avatar unchanged 1`] = `
           </div>
         </div>
       </div>
+      <div
+        class="memori-media-widget"
+      />
       <div
         class="memori-chat--bubble-addon"
       >
@@ -195,6 +207,9 @@ exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--from-user memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
       >
         <div
@@ -213,6 +228,9 @@ exports[`renders ChatBubble from user with custom avatar unchanged 1`] = `
           </div>
         </div>
       </div>
+      <div
+        class="memori-media-widget"
+      />
       <div
         class="memori-chat--bubble-addon"
       >
@@ -289,6 +307,9 @@ exports[`renders ChatBubble unchanged 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
         <div
@@ -302,6 +323,9 @@ exports[`renders ChatBubble unchanged 1`] = `
       </div>
       <div
         class="memori-chat--artifact-block"
+      />
+      <div
+        class="memori-media-widget"
       />
       <div
         class="memori-chat--bubble-addon"
@@ -369,6 +393,9 @@ exports[`renders ChatBubble with complex markdown and math 1 unchanged 1`] = `
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
+      <div
+        class="memori-media-widget"
+      />
       <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
@@ -2869,6 +2896,9 @@ M834 80h400000v40h-400000z"
         class="memori-chat--artifact-block"
       />
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -2978,6 +3008,9 @@ exports[`renders ChatBubble with complex markdown and math 2 unchanged 1`] = `
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
+      <div
+        class="memori-media-widget"
+      />
       <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
@@ -4142,6 +4175,9 @@ Gli esiti delle prove devono essere attentamente analizzati per confermare le ca
         class="memori-chat--artifact-block"
       />
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -4251,6 +4287,9 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
+      <div
+        class="memori-media-widget"
+      />
       <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
@@ -5149,6 +5188,9 @@ exports[`renders ChatBubble with complex markdown and math 3 unchanged 1`] = `
         class="memori-chat--artifact-block"
       />
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -5258,6 +5300,9 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
+      <div
+        class="memori-media-widget"
+      />
       <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
@@ -5695,6 +5740,9 @@ exports[`renders ChatBubble with complex markdown and math 4 unchanged 1`] = `
         class="memori-chat--artifact-block"
       />
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -5804,6 +5852,9 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
+      <div
+        class="memori-media-widget"
+      />
       <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
@@ -6503,6 +6554,9 @@ exports[`renders ChatBubble with complex markdown and math 5 unchanged 1`] = `
         class="memori-chat--artifact-block"
       />
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -6612,6 +6666,9 @@ exports[`renders ChatBubble with complex markdown and math but disabled unchange
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
+      <div
+        class="memori-media-widget"
+      />
       <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
@@ -6789,6 +6846,9 @@ Prendi la radice quadrata della somma per trovare l'ipotenusa: $ c = \\sqrt{a^2 
         class="memori-chat--artifact-block"
       />
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -6899,6 +6959,9 @@ exports[`renders ChatBubble with copy disabled unchanged 1`] = `
       class="memori-chat--bubble-shell"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble"
       >
         <div
@@ -6912,6 +6975,9 @@ exports[`renders ChatBubble with copy disabled unchanged 1`] = `
       </div>
       <div
         class="memori-chat--artifact-block"
+      />
+      <div
+        class="memori-media-widget"
       />
     </div>
   </div>
@@ -6927,6 +6993,48 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      >
+        <div
+          class="memori-media-items"
+        >
+          <div
+            class="memori-media-items--grid memori-chat-scroll-item memori-media-items--agent"
+          >
+            <div
+              class="memori-media-item"
+            >
+              <a
+                class="memori-media-item--link memori-media-item--document-link"
+                href="blob:http://localhost/mock"
+                rel="noopener noreferrer"
+                target="_blank"
+                title="Function Cache Lorem ispum"
+              >
+                <div
+                  class="memori-media-item--document"
+                >
+                  <div
+                    class="memori-media-item--document-header"
+                  >
+                    <div
+                      class="memori-media-item--document-title"
+                    >
+                      Function Cache Lorem ispum
+                    </div>
+                  </div>
+                  <span
+                    class="memori-media-item--document-badge"
+                  >
+                    TXT
+                  </span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
         class="memori-chat--bubble memori-chat--with-addon memori-chat--ai-generated"
       >
         <div
@@ -6940,6 +7048,9 @@ exports[`renders ChatBubble with debug button unchanged 1`] = `
       </div>
       <div
         class="memori-chat--artifact-block"
+      />
+      <div
+        class="memori-media-widget"
       />
       <div
         class="memori-chat--bubble-addon"
@@ -7081,6 +7192,9 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
         <div
@@ -7094,6 +7208,9 @@ exports[`renders ChatBubble with initial msg unchanged 1`] = `
       </div>
       <div
         class="memori-chat--artifact-block"
+      />
+      <div
+        class="memori-media-widget"
       />
       <div
         class="memori-chat--bubble-addon"
@@ -7162,6 +7279,9 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
         <div
@@ -7211,6 +7331,9 @@ exports[`renders ChatBubble with markdown and breakline unchanged 1`] = `
       </div>
       <div
         class="memori-chat--artifact-block"
+      />
+      <div
+        class="memori-media-widget"
       />
       <div
         class="memori-chat--bubble-addon"
@@ -7323,6 +7446,9 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
         <div
@@ -7346,6 +7472,9 @@ exports[`renders ChatBubble with markdown code unchanged 1`] = `
       </div>
       <div
         class="memori-chat--artifact-block"
+      />
+      <div
+        class="memori-media-widget"
       />
       <div
         class="memori-chat--bubble-addon"
@@ -7458,6 +7587,9 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
         <div
@@ -7539,6 +7671,9 @@ exports[`renders ChatBubble with markdown table unchanged 1`] = `
       </div>
       <div
         class="memori-chat--artifact-block"
+      />
+      <div
+        class="memori-media-widget"
       />
       <div
         class="memori-chat--bubble-addon"
@@ -7650,6 +7785,9 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
     <div
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
+      <div
+        class="memori-media-widget"
+      />
       <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
@@ -7897,6 +8035,9 @@ exports[`renders ChatBubble with markdown unchanged 1`] = `
         class="memori-chat--artifact-block"
       />
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble-addon"
       >
         <span
@@ -8007,6 +8148,9 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--from-user memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon memori-chat--ai-generated"
       >
         <div
@@ -8025,6 +8169,9 @@ exports[`renders ChatBubble with msg from BoE expert unchanged 1`] = `
           </div>
         </div>
       </div>
+      <div
+        class="memori-media-widget"
+      />
       <div
         class="memori-chat--bubble-addon"
       >
@@ -8117,6 +8264,9 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--from-user memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon memori-chat--ai-generated"
       >
         <div
@@ -8135,6 +8285,9 @@ exports[`renders ChatBubble with msg generated by AI unchanged 1`] = `
           </div>
         </div>
       </div>
+      <div
+        class="memori-media-widget"
+      />
       <div
         class="memori-chat--bubble-addon"
       >
@@ -8227,6 +8380,9 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
         <div
@@ -8257,6 +8413,9 @@ exports[`renders ChatBubble with output code unchanged 1`] = `
       </div>
       <div
         class="memori-chat--artifact-block"
+      />
+      <div
+        class="memori-media-widget"
       />
       <div
         class="memori-chat--bubble-addon"
@@ -8369,6 +8528,9 @@ exports[`renders ChatBubble with reasoning and output and markdown unchanged 1`]
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
         <div
@@ -8418,6 +8580,9 @@ end
       </div>
       <div
         class="memori-chat--artifact-block"
+      />
+      <div
+        class="memori-media-widget"
       />
       <div
         class="memori-chat--bubble-addon"
@@ -8530,6 +8695,9 @@ exports[`renders ChatBubble with reasoning shown unchanged 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
         <div
@@ -8550,6 +8718,9 @@ Proin libero ante, dignissim sit amet turpis a, pretium condimentum dolor.
       </div>
       <div
         class="memori-chat--artifact-block"
+      />
+      <div
+        class="memori-media-widget"
       />
       <div
         class="memori-chat--bubble-addon"
@@ -8662,6 +8833,9 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
         <div
@@ -8675,6 +8849,9 @@ exports[`renders ChatBubble with reasoning unchanged 1`] = `
       </div>
       <div
         class="memori-chat--artifact-block"
+      />
+      <div
+        class="memori-media-widget"
       />
       <div
         class="memori-chat--bubble-addon"
@@ -8787,6 +8964,9 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--with-addon"
       >
         <div
@@ -8800,6 +8980,9 @@ exports[`renders ChatBubble with translation and original unchanged 1`] = `
       </div>
       <div
         class="memori-chat--artifact-block"
+      />
+      <div
+        class="memori-media-widget"
       />
       <div
         class="memori-chat--bubble-addon"
@@ -8967,6 +9150,9 @@ exports[`renders ChatBubble with user msg unchanged 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--from-user memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
       >
         <div
@@ -8985,6 +9171,9 @@ exports[`renders ChatBubble with user msg unchanged 1`] = `
           </div>
         </div>
       </div>
+      <div
+        class="memori-media-widget"
+      />
       <div
         class="memori-chat--bubble-addon"
       >
@@ -9077,6 +9266,9 @@ exports[`shows copy button for user messages 1`] = `
       class="memori-chat--bubble-shell memori-chat--bubble-shell--from-user memori-chat--bubble-shell--has-addon"
     >
       <div
+        class="memori-media-widget"
+      />
+      <div
         class="memori-chat--bubble memori-chat--user-bubble memori-chat--with-addon"
       >
         <div
@@ -9095,6 +9287,9 @@ exports[`shows copy button for user messages 1`] = `
           </div>
         </div>
       </div>
+      <div
+        class="memori-media-widget"
+      />
       <div
         class="memori-chat--bubble-addon"
       >

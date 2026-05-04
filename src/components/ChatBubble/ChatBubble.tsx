@@ -2,6 +2,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import cx from 'classnames';
 import {
   ExpertReference,
+  Medium,
   Memori,
   Message,
   Tenant,
@@ -34,6 +35,8 @@ const COPY_FEEDBACK_MS = 2500;
 
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
+import MediaWidget from '../MediaWidget/MediaWidget';
+import { Props as MediaWidgetProps } from '../MediaWidget/MediaWidget';
 
 // Import MathJax types
 declare global {
@@ -67,6 +70,9 @@ export interface Props {
   showReasoning?: boolean;
   usageHtml?: string;
   isChatlogPanel?: boolean;
+  codeMimeTypes?: string[];
+  translateTo?: string;
+  customMediaRenderer?: MediaWidgetProps['customMediaRenderer'];
 }
 
 const ChatBubble: React.FC<Props> = ({
@@ -90,6 +96,9 @@ const ChatBubble: React.FC<Props> = ({
   showReasoning = false,
   usageHtml = '',
   isChatlogPanel = false,
+  codeMimeTypes = [],
+  translateTo,
+  customMediaRenderer,
 }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language || 'en';
@@ -415,12 +424,63 @@ const ChatBubble: React.FC<Props> = ({
             'memori-chat--bubble-shell--has-addon': shouldShowBubbleAddon,
           })}
         >
+          <MediaWidget
+            simulateUserPrompt={simulateUserPrompt}
+            links={
+              (message?.media
+                ?.filter(m => !m.properties?.functionSignature)
+                ?.filter(m => m.mimeType === 'text/html' && !!m.url) ||
+                []) as Medium[]
+            }
+            media={[
+              ...(message?.media
+                ?.filter(m => !m.properties?.functionSignature)
+                ?.filter(
+                  m =>
+                    !(
+                      codeMimeTypes.includes(m.mimeType) ||
+                      (m.mimeType === 'text/html' && !!m.url)
+                    )
+                ) || []),
+              ...(() => {
+                const text = message.translatedText || message.text;
+                const documentAttachmentRegex =
+                  /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
+                const attachments: (Medium & { type?: string })[] = [];
+                let match;
+                let attachmentIndex = 0;
+
+                while ((match = documentAttachmentRegex.exec(text)) !== null) {
+                  const [, filename, type, content] = match;
+                  attachments.push({
+                    mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
+                      .toString(36)
+                      .substr(2, 9)}`,
+                    url: '',
+                    mimeType: type,
+                    title: filename,
+                    content: content.trim(),
+                    properties: { isDocumentAttachment: true },
+                    type: 'document',
+                  });
+                  attachmentIndex++;
+                }
+
+                return attachments;
+              })(),
+            ]}
+            sessionID={sessionID}
+            baseUrl={baseUrl}
+            apiUrl={apiUrl}
+            translateTo={translateTo}
+            customMediaRenderer={customMediaRenderer}
+            fromUser={message.fromUser}
+          />
           <div
             className={cx('memori-chat--bubble', {
               'memori-chat--user-bubble': !!message.fromUser,
               'memori-chat--with-addon':
-                shouldShowCopyButtons ||
-                (showFeedback && simulateUserPrompt),
+                shouldShowCopyButtons || (showFeedback && simulateUserPrompt),
               'memori-chat--ai-generated': message.generatedByAI,
               'memori-chat--with-feedback': showFeedback,
             })}
@@ -453,13 +513,32 @@ const ChatBubble: React.FC<Props> = ({
           </div>
 
           {!message.fromUser && (
-            <div className="memori-chat--artifact-block">
+            <div
+              className={cx('memori-chat--artifact-block', {
+                'memori-chat--artifact-block--chatlog': isChatlogPanel,
+              })}
+            >
               <ArtifactHandler
                 isChatlogPanel={isChatlogPanel}
                 message={message}
               />
             </div>
           )}
+
+          <MediaWidget
+            simulateUserPrompt={simulateUserPrompt}
+            media={[
+              ...(message?.media
+                ?.filter(m => !m.properties?.functionSignature)
+                ?.filter(m => codeMimeTypes.includes(m.mimeType)) || []),
+            ]}
+            sessionID={sessionID}
+            baseUrl={baseUrl}
+            apiUrl={apiUrl}
+            translateTo={translateTo}
+            customMediaRenderer={customMediaRenderer}
+            fromUser={message.fromUser}
+          />
 
           {shouldShowBubbleAddon && (
             <div className="memori-chat--bubble-addon">

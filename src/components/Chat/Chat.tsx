@@ -30,7 +30,12 @@ import { boardOfExpertsLoadingSentences } from '../../helpers/constants';
 import { FileText as DocumentIcon } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Tooltip, Modal } from '@memori.ai/ui';
-import { maxDocumentsPerMessage, maxDocumentContentLength, pasteAsCardLineThreshold, pasteAsCardCharThreshold } from '../../helpers/constants';
+import {
+  maxDocumentsPerMessage,
+  maxDocumentContentLength,
+  pasteAsCardLineThreshold,
+  pasteAsCardCharThreshold,
+} from '../../helpers/constants';
 import {
   BADGE_EMOJI,
   buildLlmUsageHtml,
@@ -201,7 +206,7 @@ const Chat: React.FC<Props> = ({
         defaultValue: 'Click one of these buttons to show more information',
       }),
     }),
-    [t],
+    [t]
   );
 
   const usageHtmlByIndex = useMemo(
@@ -215,11 +220,11 @@ const Chat: React.FC<Props> = ({
               messageWithUsage.llmUsage,
               llmUsageLabels,
               index,
-              locale,
+              locale
             )
           : '';
       }),
-    [history, llmUsageLabels, locale, showMessageConsumption],
+    [history, llmUsageLabels, locale, showMessageConsumption]
   );
   const scrollToBottom = useCallback(() => {
     if (isHistoryView) return;
@@ -358,12 +363,14 @@ const Chat: React.FC<Props> = ({
     const handleUsageBadgeClick = (event: MouseEvent) => {
       const target = event.target as HTMLElement | null;
       const button = target?.closest<HTMLElement>(
-        '[data-llm-badge-type][data-line-index]',
+        '[data-llm-badge-type][data-line-index]'
       );
       if (!button) return;
 
       const lineIndex = Number(button.dataset.lineIndex);
-      const badgeType = button.dataset.llmBadgeType as UsageBadgeType | undefined;
+      const badgeType = button.dataset.llmBadgeType as
+        | UsageBadgeType
+        | undefined;
       if (!Number.isInteger(lineIndex) || !badgeType) return;
 
       const line = (history?.[lineIndex] as MessageWithLlmUsage) ?? null;
@@ -440,61 +447,6 @@ const Chat: React.FC<Props> = ({
                   : 'no-attachments'
               }-${message.timestamp}`}
             >
-              <MediaWidget
-                simulateUserPrompt={simulateUserPrompt}
-                links={
-                  (message?.media
-                    ?.filter(m => !m.properties?.functionSignature)
-                    ?.filter(m => m.mimeType === 'text/html' && !!m.url) ||
-                    []) as Medium[]
-                }
-                media={[
-                  ...(message?.media
-                    ?.filter(m => !m.properties?.functionSignature)
-                    ?.filter(
-                      m =>
-                        !(
-                          CODE_MIME_TYPES.includes(m.mimeType) ||
-                          (m.mimeType === 'text/html' && !!m.url)
-                        )
-                    ) || []),
-                  ...(() => {
-                    const text = message.translatedText || message.text;
-                    const documentAttachmentRegex =
-                      /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
-                    const attachments: (Medium & { type?: string })[] = [];
-                    let match;
-                    let attachmentIndex = 0;
-
-                    while (
-                      (match = documentAttachmentRegex.exec(text)) !== null
-                    ) {
-                      const [, filename, type, content] = match;
-                      attachments.push({
-                        mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
-                          .toString(36)
-                          .substr(2, 9)}`,
-                        url: '',
-                        mimeType: type,
-                        title: filename,
-                        content: content.trim(),
-                        properties: { isDocumentAttachment: true },
-                        type: 'document',
-                      });
-                      attachmentIndex++;
-                    }
-
-                    return attachments;
-                  })(),
-                ]}
-                sessionID={sessionID}
-                baseUrl={baseUrl}
-                apiUrl={apiUrl}
-                translateTo={translateTo}
-                customMediaRenderer={customMediaRenderer}
-                fromUser={message.fromUser}
-              />
-
               <div
                 style={{
                   marginBottom: index === history.length - 1 ? '24px' : 0,
@@ -511,12 +463,15 @@ const Chat: React.FC<Props> = ({
                   memori={memori}
                   tenant={tenant}
                   client={client}
+                  customMediaRenderer={customMediaRenderer}
+                  translateTo={translateTo}
                   baseUrl={baseUrl}
                   apiUrl={apiUrl}
                   sessionID={sessionID}
                   simulateUserPrompt={simulateUserPrompt}
                   showAIicon={showAIicon}
                   showWhyThisAnswer={showWhyThisAnswer}
+                  codeMimeTypes={CODE_MIME_TYPES}
                   showTranslationOriginal={showTranslationOriginal}
                   showFeedback={
                     index === history.length - 1 &&
@@ -584,20 +539,6 @@ const Chat: React.FC<Props> = ({
                     </div>
                   )}
               </div>
-              <MediaWidget
-                simulateUserPrompt={simulateUserPrompt}
-                media={[
-                  ...(message?.media
-                    ?.filter(m => !m.properties?.functionSignature)
-                    ?.filter(m => CODE_MIME_TYPES.includes(m.mimeType)) || []),
-                ]}
-                sessionID={sessionID}
-                baseUrl={baseUrl}
-                apiUrl={apiUrl}
-                translateTo={translateTo}
-                customMediaRenderer={customMediaRenderer}
-                fromUser={message.fromUser}
-              />
             </React.Fragment>
           ))}
 
@@ -712,7 +653,7 @@ const Chat: React.FC<Props> = ({
               <dd>
                 {formatIntegerValue(
                   activeUsageBadge.usage.totalInputTokens ?? 0,
-                  locale,
+                  locale
                 )}
               </dd>
             </div>
@@ -721,7 +662,10 @@ const Chat: React.FC<Props> = ({
                 {llmUsageLabels.tokens} {llmUsageLabels.output}
               </dt>
               <dd>
-                {formatIntegerValue(activeUsageBadge.usage.outputTokens ?? 0, locale)}
+                {formatIntegerValue(
+                  activeUsageBadge.usage.outputTokens ?? 0,
+                  locale
+                )}
               </dd>
             </div>
           </dl>
@@ -731,11 +675,12 @@ const Chat: React.FC<Props> = ({
           <div className="memori-chat--usage-educational-content">
             <strong className="memori-chat--usage-metric-value">
               {formatImpactWithApiUnit(
-                getMetricValue(activeUsageBadge.usage.energyImpact?.energy) ?? 0,
+                getMetricValue(activeUsageBadge.usage.energyImpact?.energy) ??
+                  0,
                 activeUsageBadge.usage.energyImpact?.energyUnit,
                 'kWh',
                 'energy',
-                locale,
+                locale
               )}
             </strong>
             <Tooltip
@@ -745,10 +690,11 @@ const Chat: React.FC<Props> = ({
             >
               <p className="memori-chat--usage-comparable">
                 {getImpactComparison(
-                  getMetricValue(activeUsageBadge.usage.energyImpact?.energy) ?? 0,
+                  getMetricValue(activeUsageBadge.usage.energyImpact?.energy) ??
+                    0,
                   'energy',
                   locale,
-                  t,
+                  t
                 )}
               </p>
             </Tooltip>
@@ -763,7 +709,7 @@ const Chat: React.FC<Props> = ({
                 activeUsageBadge.usage.energyImpact?.gwpUnit,
                 'kgCO2eq',
                 'co2',
-                locale,
+                locale
               )}
             </strong>
             <Tooltip
@@ -776,7 +722,7 @@ const Chat: React.FC<Props> = ({
                   getMetricValue(activeUsageBadge.usage.energyImpact?.gwp) ?? 0,
                   'co2',
                   locale,
-                  t,
+                  t
                 )}
               </p>
             </Tooltip>
@@ -791,7 +737,7 @@ const Chat: React.FC<Props> = ({
                 activeUsageBadge.usage.energyImpact?.wcfUnit,
                 'L',
                 'water',
-                locale,
+                locale
               )}
             </strong>
             <Tooltip
@@ -804,7 +750,7 @@ const Chat: React.FC<Props> = ({
                   getMetricValue(activeUsageBadge.usage.energyImpact?.wcf) ?? 0,
                   'water',
                   locale,
-                  t,
+                  t
                 )}
               </p>
             </Tooltip>
