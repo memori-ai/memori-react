@@ -146,8 +146,12 @@
 
 .memori--description-text {
     display: block;
+    min-width: 0;
+    max-width: 100%;
     font-size: var(--memori-text-size-small);
     line-height: var(--memori-text-line-tight);
+    overflow-wrap: break-word;
+    overflow-x: hidden;
 }
 
 .memori--description-text--full {
@@ -194,6 +198,7 @@
 
 .memori--title-container__content {
     display: flex;
+    min-width: 0;
     flex: 1;
     flex-direction: column;
 }
@@ -483,7 +488,31 @@
     }
 }
 
-.memori--description-text--collapsible > button,
+.memori--description-text--collapsible > button {
+    display: inline-flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    border: 0;
+    margin-top: var(--memori-spacing-xs);
+    background: transparent;
+    text-align: left;
+}
+
+.memori--description-text--collapsible > span > span > button {
+    display: inline-flex;
+    width: 100%;
+    min-height: 28px;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0;
+    border: 0;
+    margin-top: var(--memori-spacing-xs);
+    background: transparent;
+    text-align: left;
+}
+
 .memori--description-text--collapsible .memori-expandable__button,
 .memori--description-text--collapsible .memori-expandable > button {
     display: inline-flex;

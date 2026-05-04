@@ -1,9 +1,14 @@
 import React, { createContext, useContext, useState, ReactNode, useCallback, useMemo } from 'react';
 import { ArtifactData, ArtifactSystemState } from '../types/artifact.types';
 
+export type OpenArtifactOptions = {
+  /** Inline expansion in chat; layouts should not hide avatar / use side-drawer chrome. */
+  isChatLogPanel?: boolean;
+};
+
 interface ArtifactContextType {
   state: ArtifactSystemState;
-  openArtifact: (artifact: ArtifactData) => void;
+  openArtifact: (artifact: ArtifactData, options?: OpenArtifactOptions) => void;
   closeArtifact: () => void;
   toggleFullscreen: () => void;
 }
@@ -15,17 +20,22 @@ export const ArtifactProvider = ({ children }: { children: ReactNode }) => {
     currentArtifact: null,
     isDrawerOpen: false,
     isFullscreen: false,
+    isChatLogPanelPresentation: false,
   });
 
-  const openArtifact = useCallback((artifact: ArtifactData) => {
-    setState(() => {
-      return {
-        currentArtifact: artifact,
-        isDrawerOpen: true,
-        isFullscreen: false,
-      };
-    });
-  }, []);
+  const openArtifact = useCallback(
+    (artifact: ArtifactData, options?: OpenArtifactOptions) => {
+      setState(() => {
+        return {
+          currentArtifact: artifact,
+          isDrawerOpen: true,
+          isFullscreen: false,
+          isChatLogPanelPresentation: options?.isChatLogPanel ?? false,
+        };
+      });
+    },
+    []
+  );
 
   const closeArtifact = useCallback(() => {
     setState(prev => {
@@ -35,6 +45,7 @@ export const ArtifactProvider = ({ children }: { children: ReactNode }) => {
         currentArtifact: null,
         isDrawerOpen: false,
         isFullscreen: false,
+        isChatLogPanelPresentation: false,
       };
     });
   }, []);

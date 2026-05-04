@@ -53,6 +53,8 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
   const [sessionPanelOpen, setSessionPanelOpen] = useState(false);
 
   const { state, closeArtifact } = useArtifact();
+  const useSideArtifactChrome =
+    state.isDrawerOpen && !state.isChatLogPanelPresentation;
 
   const { onClickStart, hasInitialSession } = startPanelProps || {};
   const memori = headerProps?.memori;
@@ -86,7 +88,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
         needsPosition: false,
         enableDeepThought: false,
       },
-      showChatHistory: true,
+      showChatHistory: false,
       enableAudio: true,
     };
   }, [headerProps]);
@@ -259,6 +261,19 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
           setSessionPanelOpen(false);
         },
       },
+      ...(headerProps?.loginToken
+        ? [
+            {
+              key: 'chatHistory',
+              icon: <MessageCircle size={18} />,
+              title: t('write_and_speak.chatHistory') || 'Chat history',
+              onClick: () => {
+                handleOverflowActionClick('chatHistory');
+                setSessionPanelOpen(false);
+              },
+            },
+          ]
+        : []),
       {
         key: 'share',
         icon: <Share2 size={18} />,
@@ -315,16 +330,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
             },
           ]
         : []),
-      // ...(headerProps?.showChatHistory
-      //   ? [
-      //       {
-      //         key: 'chatHistory',
-      //         icon: <MessageCircle size={18} />,
-      //         title: t('write_and_speak.chatHistory') || 'Chat history',
-      //         onClick: () => handleOverflowActionClick('chatHistory'),
-      //       },
-      //     ]
-      //   : []),
       // ...(headerProps?.memori?.enableBoardOfExperts
       //   ? [
       //       {
@@ -524,7 +529,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
         type="checkbox"
         id="memori-sidebar-toggle"
         className={`memori-sidebar-toggle ${
-          state.isDrawerOpen ? 'memori-sidebar-toggle-artifact' : ''
+          useSideArtifactChrome ? 'memori-sidebar-toggle-artifact' : ''
         }`}
         checked={isOpen}
         onChange={handleSidebarToggle}
@@ -557,13 +562,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
             </span>
           </label>
           <div className="memori-hidden-chat-layout--controls memori-chat-layout--controls">
-            <div
-              className={`memori-chat-layout--header ${
-                state.isDrawerOpen
-                  ? 'memori-chat-layout--header-with-artifact'
-                  : ''
-              }`}
-            >
+            <div className="memori-chat-layout--header">
               {Header && headerProps && (
                 <div className="memori-chat-layout--header-row">
                   {memori && brandAvatarSrc && (

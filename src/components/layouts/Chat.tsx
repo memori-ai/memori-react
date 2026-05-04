@@ -31,6 +31,8 @@ const ChatLayout: React.FC<LayoutProps> = ({
 }) => {
   const { t } = useTranslation();
   const { state } = useArtifact();
+  const useSideArtifactChrome =
+    state.isDrawerOpen && !state.isChatLogPanelPresentation;
   const [isMobile, setIsMobile] = useState(false);
   const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
 
@@ -180,7 +182,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
 
         <div
           className={`memori-chat-layout--main ${
-            state.isDrawerOpen ? 'memori-chat-layout--main-with-artifact' : ''
+            useSideArtifactChrome ? 'memori-chat-layout--main-with-artifact' : ''
           }`}
         >
           <div
@@ -188,7 +190,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
               state.isFullscreen
                 ? `memori-chat-layout-controls-hide`
                 : `memori-chat-layout--controls ${
-                    state.isDrawerOpen
+                    useSideArtifactChrome
                       ? 'memori-chat-layout--controls-with-artifact'
                       : ''
                   }`
@@ -196,7 +198,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
           >
             <div
               className={`memori-chat-layout--header ${
-                state.isDrawerOpen
+                useSideArtifactChrome
                   ? 'memori-chat-layout--header-with-artifact'
                   : ''
               }`}

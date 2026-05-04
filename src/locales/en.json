@@ -516,6 +516,7 @@
     "approximateValuesTooltip": "These values are approximate.",
     "anyMessage": "Any message",
     "atLeast": "At least {{count}} messages",
+    "atLeast1": "At least 1 message",
     "atLeast2": "At least 2 messages",
     "atLeast3": "At least 3 messages",
     "atLeast5": "At least 5 messages",

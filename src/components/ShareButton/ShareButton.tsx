@@ -41,6 +41,8 @@ export interface Props {
   url?: string;
   title?: string;
   primary?: boolean;
+  /** Variant for the icon (or menu-item) trigger button. */
+  triggerVariant?: React.ComponentProps<typeof Button>['variant'];
   className?: string;
   baseUrl?: string;
   showQrCode?: boolean;
@@ -69,6 +71,7 @@ const ShareButton: React.FC<Props> = ({
   className,
   triggerMode = 'icon',
   triggerLabel,
+  triggerVariant = 'ghost',
   renderMode = 'dropdown',
 }: Props) => {
   const { t, i18n } = useTranslation();
@@ -535,7 +538,7 @@ const ShareButton: React.FC<Props> = ({
           render={(props: React.ButtonHTMLAttributes<HTMLButtonElement>) => (
             <Button
               {...props}
-              variant={triggerMode === 'menu-item' ? 'ghost' : 'ghost'}
+              variant={triggerVariant}
               icon={<Share2 />}
               className={cx({
                 'memori-share-button--trigger-menu-item':

@@ -33,6 +33,7 @@ const ContentPreviewModal: FC<ContentPreviewModalProps> = ({
       onClose={() => onClose()}
       width={width}
       widthMd={width}
+      backdropClassName="memori-content-preview-modal-backdrop"
       className={cx('memori-content-preview-modal', className, {
         'memori-content-preview-modal--image': isImage,
       })}

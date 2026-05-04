@@ -17,7 +17,7 @@ exports[`renders Header for board of experts unchanged 1`] = `
         >
           <button
             aria-label="write_and_speak.chatHistory"
-            class="memori-button memori-button--ghost memori-button--md"
+            class="memori-button memori-button--outline memori-button--md"
             tabindex="0"
             type="button"
           >
@@ -62,7 +62,7 @@ exports[`renders Header for board of experts unchanged 1`] = `
         >
           <button
             aria-label="widget.showExpertsInTheBoard"
-            class="memori-button memori-button--ghost memori-button--md memori-button--disabled memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--disabled memori-button--icon-only"
             data-disabled=""
             disabled=""
             tabindex="0"
@@ -115,7 +115,7 @@ exports[`renders Header for board of experts unchanged 1`] = `
         >
           <button
             aria-label="widget.sound"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -161,7 +161,7 @@ exports[`renders Header for board of experts unchanged 1`] = `
         >
           <button
             aria-label="login.login"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
             tabindex="0"
             type="button"
           >
@@ -224,7 +224,7 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
         >
           <button
             aria-label="write_and_speak.chatHistory"
-            class="memori-button memori-button--ghost memori-button--md"
+            class="memori-button memori-button--outline memori-button--md"
             tabindex="0"
             type="button"
           >
@@ -269,7 +269,7 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
         >
           <button
             aria-label="widget.showExpertsInTheBoard"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -320,7 +320,7 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
         >
           <button
             aria-label="widget.sound"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -366,7 +366,7 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
         >
           <button
             aria-label="login.login"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
             tabindex="0"
             type="button"
           >
@@ -429,7 +429,7 @@ exports[`renders Header unchanged 1`] = `
         >
           <button
             aria-label="widget.sound"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -475,7 +475,7 @@ exports[`renders Header unchanged 1`] = `
         >
           <button
             aria-label="login.login"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
             tabindex="0"
             type="button"
           >
@@ -538,7 +538,7 @@ exports[`renders Header with audio disabled unchanged 1`] = `
         >
           <button
             aria-label="login.login"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
             tabindex="0"
             type="button"
           >
@@ -601,7 +601,7 @@ exports[`renders Header with clear button unchanged 1`] = `
         >
           <button
             aria-label="clearHistory"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -659,7 +659,7 @@ exports[`renders Header with clear button unchanged 1`] = `
         >
           <button
             aria-label="widget.sound"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -705,7 +705,7 @@ exports[`renders Header with clear button unchanged 1`] = `
         >
           <button
             aria-label="login.login"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
             tabindex="0"
             type="button"
           >
@@ -768,7 +768,7 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
         >
           <button
             aria-label="write_and_speak.chatHistory"
-            class="memori-button memori-button--ghost memori-button--md"
+            class="memori-button memori-button--outline memori-button--md"
             tabindex="0"
             type="button"
           >
@@ -813,7 +813,7 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
         >
           <button
             aria-label="widget.sound"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -859,7 +859,7 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
         >
           <button
             aria-label="login.login"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
             tabindex="0"
             type="button"
           >
@@ -922,7 +922,7 @@ exports[`renders Header with deep thought logged but without permission flag unc
         >
           <button
             aria-label="write_and_speak.chatHistory"
-            class="memori-button memori-button--ghost memori-button--md"
+            class="memori-button memori-button--outline memori-button--md"
             tabindex="0"
             type="button"
           >
@@ -967,7 +967,7 @@ exports[`renders Header with deep thought logged but without permission flag unc
         >
           <button
             aria-label="widget.sound"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -1018,7 +1018,7 @@ exports[`renders Header with deep thought logged but without permission flag unc
               aria-expanded="false"
               aria-haspopup="dialog"
               aria-label="login.user"
-              class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-dropdown--user-trigger-button"
+              class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-dropdown--user-trigger-button"
               data-base-ui-click-trigger=""
               id="base-ui-:r1n:"
               tabindex="0"
@@ -1084,7 +1084,7 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
         >
           <button
             aria-label="write_and_speak.chatHistory"
-            class="memori-button memori-button--ghost memori-button--md"
+            class="memori-button memori-button--outline memori-button--md"
             tabindex="0"
             type="button"
           >
@@ -1129,7 +1129,7 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
         >
           <button
             aria-label="widget.sound"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -1180,7 +1180,7 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
               aria-expanded="false"
               aria-haspopup="dialog"
               aria-label="login.user"
-              class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-dropdown--user-trigger-button"
+              class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-dropdown--user-trigger-button"
               data-base-ui-click-trigger=""
               id="base-ui-:r20:"
               tabindex="0"
@@ -1246,7 +1246,7 @@ exports[`renders Header with deep thought unlogged unchanged 1`] = `
         >
           <button
             aria-label="widget.sound"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -1292,7 +1292,7 @@ exports[`renders Header with deep thought unlogged unchanged 1`] = `
         >
           <button
             aria-label="login.login"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
             tabindex="0"
             type="button"
           >
@@ -1363,7 +1363,7 @@ exports[`renders Header with position unchanged 1`] = `
                 aria-expanded="false"
                 aria-haspopup="dialog"
                 aria-label="widget.position"
-                class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-header--button memori-header--button--position memori-header--button--position--active"
+                class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-header--button memori-header--button--position memori-header--button--position--active"
                 data-base-ui-click-trigger=""
                 id="base-ui-:r8:"
                 tabindex="0"
@@ -1413,7 +1413,7 @@ exports[`renders Header with position unchanged 1`] = `
         >
           <button
             aria-label="widget.sound"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -1459,7 +1459,7 @@ exports[`renders Header with position unchanged 1`] = `
         >
           <button
             aria-label="login.login"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
             tabindex="0"
             type="button"
           >
@@ -1522,7 +1522,7 @@ exports[`renders Header with settings button unchanged 1`] = `
         >
           <button
             aria-label="widget.sound"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -1568,7 +1568,7 @@ exports[`renders Header with settings button unchanged 1`] = `
         >
           <button
             aria-label="login.login"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
             tabindex="0"
             type="button"
           >
@@ -1631,7 +1631,7 @@ exports[`renders Header with share button unchanged 1`] = `
         >
           <button
             aria-label="widget.sound"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -1678,7 +1678,7 @@ exports[`renders Header with share button unchanged 1`] = `
           <button
             aria-expanded="false"
             aria-haspopup="menu"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             id="base-ui-:rr:"
             tabindex="0"
             type="button"
@@ -1743,7 +1743,7 @@ exports[`renders Header with share button unchanged 1`] = `
         >
           <button
             aria-label="login.login"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
             tabindex="0"
             type="button"
           >
@@ -1806,7 +1806,7 @@ exports[`renders Header with speaker muted unchanged 1`] = `
         >
           <button
             aria-label="widget.sound"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -1858,7 +1858,7 @@ exports[`renders Header with speaker muted unchanged 1`] = `
         >
           <button
             aria-label="login.login"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
             tabindex="0"
             type="button"
           >
@@ -1921,7 +1921,7 @@ exports[`renders Header with user activated speak unchanged 1`] = `
         >
           <button
             aria-label="widget.sound"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
             tabindex="0"
             type="button"
           >
@@ -1967,7 +1967,7 @@ exports[`renders Header with user activated speak unchanged 1`] = `
         >
           <button
             aria-label="login.login"
-            class="memori-button memori-button--ghost memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
+            class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-header--button memori-header--button-login"
             tabindex="0"
             type="button"
           >

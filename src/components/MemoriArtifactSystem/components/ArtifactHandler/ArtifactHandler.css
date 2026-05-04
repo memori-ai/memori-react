@@ -72,6 +72,23 @@
     line-height: 1;
 }
 
+.memori-artifact-handler-icon svg {
+    display: block;
+    width: 1em;
+    height: 1em;
+}
+
+.memori-artifact-handler-toggle svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2;
+}
+
+/* Black SVG glyphs → white when widget is in dark theme (see styles.css [data-theme='dark']) */
+[data-theme='dark'] .memori-artifact-handler-icon svg {
+    filter: brightness(0) invert(1);
+}
+
 .memori-artifact-handler-info {
     min-width: 0;
     flex: 1;
@@ -179,12 +196,6 @@
 
 .memori-artifact-handler--active .memori-artifact-handler-toggle:hover {
     background: rgba(255, 255, 255, 0.3);
-}
-
-.memori-artifact-handler-toggle svg {
-    width: 16px;
-    height: 16px;
-    stroke-width: 2;
 }
 
 /* Animation */

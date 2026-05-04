@@ -69,17 +69,19 @@
 }
 
 .memori-media-item--card {
-    border: 1px solid #e5e7eb;
+    border: 1px solid var(--memori-border-color);
     border-radius: var(--memori-radius-box);
     margin-bottom: 0;
-    background: #f9fafb;
+    background: transparent;
     box-shadow: none;
     transition: box-shadow 0.2s ease;
 }
 
 .memori-media-item--card:hover {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); */
+    background: transparent;
     cursor: pointer;
+    transform: none;
 }
 
 .memori-media-item--image .memori-card--content {
@@ -807,6 +809,7 @@ a.memori-media-item--document-link {
 }
 
 .memori-media-item--document:hover {
+    border: 1px solid var(--memori-primary);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 

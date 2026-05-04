@@ -259,6 +259,7 @@ describe('ArtifactAPIBridge', () => {
     expect(state.currentArtifact).toBeNull();
     expect(state.isDrawerOpen).toBe(false);
     expect(state.isFullscreen).toBe(false);
+    expect(state.isChatLogPanelPresentation).toBe(false);
   });
 
   it('should clean up API on unmount', () => {

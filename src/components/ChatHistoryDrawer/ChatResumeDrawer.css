@@ -172,7 +172,7 @@
 .memori-chat-resume-drawer--embedded-chat .memori-chat--bubble-shell {
     padding-right: 0;
     padding-left: 0;
-    margin-top: var(--memori-spacing-sm);
+    /* margin-top: var(--memori-spacing-sm); */
 }
 
 .memori-chat-resume-drawer--message-group {

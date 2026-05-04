@@ -346,6 +346,7 @@ declare global {
         currentArtifact: ArtifactData | null;
         isDrawerOpen: boolean;
         isFullscreen: boolean;
+        isChatLogPanelPresentation: boolean;
       };
     };
   }
@@ -3148,6 +3149,9 @@ const MemoriWidget = ({
     useMathFormatting: applyMathFormatting,
     maxTotalMessagePayload,
     maxTextareaCharacters,
+    isChatlogPanel:
+      (integrationConfig as { artifactChatLogPanel?: boolean } | undefined)
+        ?.artifactChatLogPanel === true,
   };
 
   const integrationBackground =

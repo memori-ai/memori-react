@@ -54,8 +54,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(10px);
-    background: var(--memori-border-color);
+    backdrop-filter: blur(18px);
+    background: color-mix(in oklch, var(--memori-main-background) 68%, transparent);
     text-align: center;
 }
 

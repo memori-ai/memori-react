@@ -83,7 +83,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
           class="memori-hidden-chat-layout--controls memori-chat-layout--controls"
         >
           <div
-            class="memori-chat-layout--header "
+            class="memori-chat-layout--header"
           >
             <div
               class="memori-chat-layout--header-row"

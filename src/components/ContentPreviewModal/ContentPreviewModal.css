@@ -1,21 +1,16 @@
 /* ContentPreviewModal – modern preview modal for files and media */
 
-/* Stack above Chat History Drawer (z-index: 10000) and other drawers */
-.memori-content-preview-modal.memori-modal {
+/*
+ * @memori.ai/ui Modal uses memori-modal__backdrop (z-index 40) and memori-modal__viewport (z-index 50);
+ * drawers use z-index 1001. className is applied to the viewport; raise both layers so previews
+ * stack above chat history and artifact drawers.
+ */
+.memori-modal__backdrop.memori-content-preview-modal-backdrop,
+.memori-content-preview-modal.memori-modal__viewport {
     z-index: 2147483647 !important;
 }
 
-.memori-content-preview-modal.memori-modal .memori-modal--backdrop,
-.memori-content-preview-modal.memori-modal .memori-modal--container {
-    z-index: 2147483647 !important;
-}
-
-.memori-content-preview-modal.memori-modal .memori-modal__popup {
-    z-index: 2147483647 !important;
-}
-
-.memori-content-preview-modal.memori-modal .memori-modal--panel {
-    z-index: 2147483647 !important;
+.memori-content-preview-modal.memori-modal__viewport .memori-modal__popup {
     overflow: hidden;
     min-width: 500px;
     min-height: 500px;
@@ -27,14 +22,14 @@
 }
 
 /* Image variant: modal at least 600px wide (capped by viewport on small screens) */
-.memori-content-preview-modal--image.memori-modal .memori-modal--panel {
+.memori-content-preview-modal--image.memori-modal__viewport .memori-modal__popup {
     overflow: hidden;
     min-width: min(600px, 100vw);
     max-width: min(90vw, 760px);
     min-height: auto;
 }
 
-.memori-content-preview-modal .memori-modal--title {
+.memori-modal__viewport.memori-content-preview-modal .memori-modal__title {
     padding: 1rem 1.25rem 0.75rem;
     border-bottom: 1px solid var(--memori-content-preview-border, rgba(0, 0, 0, 0.06));
     color: var(--memori-content-preview-title, #1f2937);
@@ -43,18 +38,18 @@
     letter-spacing: -0.01em;
 }
 
-.memori-content-preview-modal .memori-modal--close {
+.memori-modal__viewport.memori-content-preview-modal .memori-modal__close {
     top: 0.75rem;
     right: 0.75rem;
 }
 
-.memori-content-preview-modal .memori-modal--close button {
+.memori-modal__viewport.memori-content-preview-modal .memori-modal__close button {
     border-radius: var(--memori-radius-box);
     background: var(--memori-content-preview-close-bg, rgba(0, 0, 0, 0.05));
     transition: background 0.2s ease, transform 0.15s ease;
 }
 
-.memori-content-preview-modal .memori-modal--close button:hover {
+.memori-modal__viewport.memori-content-preview-modal .memori-modal__close button:hover {
     background: var(--memori-content-preview-close-hover, rgba(0, 0, 0, 0.1));
     transform: scale(1.05);
 }
@@ -89,12 +84,12 @@
     object-fit: contain;
 }
 
-.memori-file-preview-modal.memori-content-preview-modal--image.memori-modal .memori-modal--panel {
+.memori-file-preview-modal.memori-content-preview-modal--image.memori-modal__viewport .memori-modal__popup {
     overflow: hidden;
 }
 
 @media (max-width: 768px) {
-    .memori-content-preview-modal--image.memori-modal .memori-modal--panel {
+    .memori-content-preview-modal--image.memori-modal__viewport .memori-modal__popup {
         min-width: min(92vw, 600px);
     }
 

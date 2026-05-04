@@ -165,7 +165,7 @@ exports[`renders Chat layout unchanged 1`] = `
                         <button
                           aria-expanded="false"
                           aria-haspopup="menu"
-                          class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+                          class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
                           id="base-ui-:r8:"
                           tabindex="0"
                           type="button"

@@ -24,6 +24,7 @@ type MessageLlmUsage = {
 
 export interface ChatConsumptionDropdownProps {
   history: Message[];
+  triggerVariant?: React.ComponentProps<typeof Button>['variant'];
   trigger?:
     | ((
         props: React.ButtonHTMLAttributes<HTMLButtonElement>
@@ -89,6 +90,7 @@ const formatImpactInReadableUnit = (
 
 const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
   history,
+  triggerVariant = 'ghost',
   trigger,
 }) => {
   const { t, i18n } = useTranslation();
@@ -157,7 +159,7 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
   ) => (
     <Button
       {...triggerButtonProps}
-      variant="ghost"
+      variant={triggerVariant}
       shape="default"
       className="memori-header--button memori-header--button--sustainability"
       aria-label={triggerLabel}

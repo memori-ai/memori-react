@@ -22,6 +22,8 @@ const FullPageLayout: React.FC<LayoutProps> = ({
 }) => {
   const { state } = useArtifact();
   const hasArtifact = state.currentArtifact;
+  const useSideArtifactChrome =
+    state.isDrawerOpen && !state.isChatLogPanelPresentation;
   return (
     <>
       {integrationStyle}
@@ -29,7 +31,7 @@ const FullPageLayout: React.FC<LayoutProps> = ({
 
       <Spin spinning={loading}>
         <div className="memori--grid">
-          {!state.isDrawerOpen && (
+          {!useSideArtifactChrome && (
             <div className="memori--grid-column memori--grid-column-left">
               {Avatar && avatarProps && (
                 <Avatar chatProps={chatProps} {...avatarProps} />
@@ -40,7 +42,9 @@ const FullPageLayout: React.FC<LayoutProps> = ({
           )}
           <div
             className={`memori-chat-layout--main ${
-              hasArtifact ? 'memori-chat-layout--main-with-artifact' : ''
+              hasArtifact && !state.isChatLogPanelPresentation
+                ? 'memori-chat-layout--main-with-artifact'
+                : ''
             }`}
           >
             <div
@@ -48,7 +52,7 @@ const FullPageLayout: React.FC<LayoutProps> = ({
                 state.isFullscreen
                   ? `memori-chat-layout-controls-hide`
                   : `memori-chat-layout--controls ${
-                      state.isDrawerOpen
+                      useSideArtifactChrome
                         ? 'memori-chat-layout--controls-with-artifact'
                         : ''
                     }`
@@ -56,7 +60,7 @@ const FullPageLayout: React.FC<LayoutProps> = ({
             >
               <div
                 className={`memori-chat-layout--header ${
-                  state.isDrawerOpen
+                  useSideArtifactChrome
                     ? 'memori-chat-layout--header-with-artifact'
                     : ''
                 }`}

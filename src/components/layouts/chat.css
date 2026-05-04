@@ -21,6 +21,7 @@
 .memori--description-text {
     max-height: 180px;
     line-height: 1.2;
+    overflow-x: hidden;
     overflow-y: auto;
     text-align: left;
 }
@@ -95,7 +96,7 @@
     flex: 1;
     flex-direction: column;
     align-items: stretch;
-    padding: 0.75rem 1rem 0.75rem;
+    /* padding: 0.75rem 1rem 0.75rem; */
     margin: 0 auto;
     background: var(--memori-main-background);
 }
@@ -408,6 +409,7 @@
 
 .memori-widget.memori-layout-chat .memori-chat-layout--controls .memori-chat--wrapper {
     max-width: 56rem;
+    padding: 0.75rem 0.5rem;
     margin: 0 auto;
 }
 

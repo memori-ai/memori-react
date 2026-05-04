@@ -84,7 +84,7 @@ export interface Props {
 
 const Header: React.FC<Props> = ({
   className,
-  buttonVariant = 'ghost',
+  buttonVariant = 'outline',
   memori,
   tenant,
   history,
@@ -414,7 +414,12 @@ const Header: React.FC<Props> = ({
           </span>
         </Tooltip>
       )}
-      {showMessageConsumption && <ChatConsumptionDropdown history={history} />}
+      {showMessageConsumption && (
+        <ChatConsumptionDropdown
+          history={history}
+          triggerVariant={buttonVariant}
+        />
+      )}
       {showFullscreen && fullScreenAvailable && (
         <Tooltip
           title={
@@ -574,7 +579,7 @@ const Header: React.FC<Props> = ({
           align="left"
           baseUrl={baseUrl}
           history={history}
-          primary={buttonVariant === 'primary'}
+          triggerVariant={buttonVariant}
         />
       )}
       {showLogin && (
@@ -680,14 +685,15 @@ const Header: React.FC<Props> = ({
                     </div>
                   </div>
                   <div className="memori-dropdown--separator" />
-                  <button
+                  <Button
                     type="button"
+                    variant={buttonVariant}
                     onClick={onLogout}
                     className="memori-dropdown--action-button memori-dropdown--action-button--logout"
+                    icon={<LogOut size={18} strokeWidth={2} aria-hidden />}
                   >
-                    <LogOut size={18} strokeWidth={2} aria-hidden />
                     {t('login.logout') || 'Logout'}
-                  </button>
+                  </Button>
                 </div>
               }
             >

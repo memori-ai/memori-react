@@ -54,9 +54,19 @@ export const initMemoriArtifactAPI = () => {
     },
     getState: () => {
       if (!isReady) {
-        return { currentArtifact: null, isDrawerOpen: false, isFullscreen: false };
+        return {
+          currentArtifact: null,
+          isDrawerOpen: false,
+          isFullscreen: false,
+          isChatLogPanelPresentation: false,
+        };
       }
-      return { currentArtifact: null, isDrawerOpen: false, isFullscreen: false };
+      return {
+        currentArtifact: null,
+        isDrawerOpen: false,
+        isFullscreen: false,
+        isChatLogPanelPresentation: false,
+      };
     },
   };
 };
@@ -227,6 +237,7 @@ export const ArtifactAPIBridge = ({
             currentArtifact: state.currentArtifact,
             isDrawerOpen: state.isDrawerOpen,
             isFullscreen: state.isFullscreen,
+            isChatLogPanelPresentation: state.isChatLogPanelPresentation,
           };
         },
       };

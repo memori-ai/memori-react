@@ -1,5 +1,9 @@
 import { useEffect, useState } from 'react';
-import { ExpertReference, Memori, Tenant } from '@memori.ai/memori-api-client/dist/types';
+import {
+  ExpertReference,
+  Memori,
+  Tenant,
+} from '@memori.ai/memori-api-client/dist/types';
 import { getResourceUrl } from '../../helpers/media';
 
 const separator = ' ';

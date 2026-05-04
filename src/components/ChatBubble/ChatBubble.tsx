@@ -274,10 +274,6 @@ const ChatBubble: React.FC<Props> = ({
 
   // Check if this is a system error message
   const isSystemError = message.emitter === 'system';
-  const isBoeMessage =
-    !!memori.enableBoardOfExperts &&
-    !!message.emitter?.length &&
-    !!experts?.some(e => e.name === message.emitter);
 
   const renderAssistantAvatar = () => (
     <picture
@@ -383,7 +379,7 @@ const ChatBubble: React.FC<Props> = ({
           'memori-chat--bubble-from-user': false,
         })}
       >
-        {isBoeMessage && renderAssistantAvatar()}
+        {renderAssistantAvatar()}
         <div className="memori-chat--bubble memori-chat--bubble-status-message-error">
           <div className="memori-chat--bubble-message ">
             {sanitizeMsg(cleanText)}
@@ -416,7 +412,7 @@ const ChatBubble: React.FC<Props> = ({
           'memori-chat--with-addon': shouldShowBubbleAddon,
         })}
       >
-        {!message.fromUser && isBoeMessage && renderAssistantAvatar()}
+        {!message.fromUser && renderAssistantAvatar()}
 
         <div
           className={cx('memori-chat--bubble-shell', {

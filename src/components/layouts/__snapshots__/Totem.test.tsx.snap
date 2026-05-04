@@ -84,7 +84,7 @@ exports[`renders Totem layout unchanged 1`] = `
               >
                 <button
                   aria-label="reload"
-                  class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+                  class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
                   tabindex="0"
                   type="button"
                 >
@@ -133,7 +133,7 @@ exports[`renders Totem layout unchanged 1`] = `
               >
                 <button
                   aria-label="widget.sound"
-                  class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+                  class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
                   tabindex="0"
                   type="button"
                 >
@@ -179,7 +179,7 @@ exports[`renders Totem layout unchanged 1`] = `
               >
                 <button
                   aria-label="widget.settings"
-                  class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+                  class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
                   tabindex="0"
                   type="button"
                 >
@@ -225,7 +225,7 @@ exports[`renders Totem layout unchanged 1`] = `
                 <button
                   aria-expanded="false"
                   aria-haspopup="menu"
-                  class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
+                  class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
                   id="base-ui-:rc:"
                   tabindex="0"
                   type="button"

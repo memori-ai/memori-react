@@ -777,24 +777,25 @@
     display: inline-flex;
     align-items: center;
     padding: 2px 7px;
+    border: 1px solid var(--memori-border-color);
     border-radius: 999px;
     font-size: 11px;
     font-weight: 500;
 }
 
 .memori-chat-history-drawer--list-item--meta-badge-images {
-    background-color: var(--chat-history-badge-images-bg, #eeedfe);
-    color: var(--chat-history-badge-images-text, #3c3489);
+    /* background-color: var(--chat-history-badge-images-bg, #eeedfe); */
+    color: var(--memori-text-color);
 }
 
 .memori-chat-history-drawer--list-item--meta-badge-messages {
-    background-color: var(--chat-history-badge-messages-bg, #e1f5ee);
-    color: var(--chat-history-badge-messages-text, #085041);
+    /* background-color: var(--chat-history-badge-messages-bg, #e1f5ee); */
+    color: var(--memori-text-color);
 }
 
 .memori-chat-history-drawer--list-item--meta-badge-files {
-    background-color: var(--chat-history-badge-files-bg, #faeeda);
-    color: var(--chat-history-badge-files-text, #633806);
+    /* background-color: var(--chat-history-badge-files-bg, #faeeda); */
+    color: var(--memori-text-color);
 }
 
 .memori-chat-history-drawer--list-item--meta-badge-boe {

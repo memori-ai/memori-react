@@ -445,6 +445,7 @@
     "approximateValuesTooltip": "Diese Werte sind ungefaehr.",
     "anyMessage": "Jede Nachricht",
     "atLeast": "Mindestens {{count}} Nachrichten",
+    "atLeast1": "Mindestens 1 Nachricht",
     "atLeast2": "Mindestens 2 Nachrichten",
     "atLeast3": "Mindestens 3 Nachrichten",
     "atLeast5": "Mindestens 5 Nachrichten",

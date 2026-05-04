@@ -104,6 +104,27 @@
     font-size: var(--memori-text-size-small);
 }
 
+/* FullPage + dark: main surface on inputs (ancestor or widget may carry data-theme). */
+.memori-widget.memori-layout-fullpage[data-theme='dark'] .memori-chat-inputs,
+[data-theme='dark'] .memori-widget.memori-layout-fullpage .memori-chat-inputs {
+    background-color: var(--memori-main-background);
+}
+
+.memori-widget.memori-layout-fullpage[data-theme='dark'] .memori-chat-textarea,
+[data-theme='dark'] .memori-widget.memori-layout-fullpage .memori-chat-textarea {
+    background-color: var(--memori-main-background);
+}
+
+.memori-widget.memori-layout-fullpage[data-theme='dark'] .memori-chat-textarea--inner,
+[data-theme='dark'] .memori-widget.memori-layout-fullpage .memori-chat-textarea--inner {
+    background-color: var(--memori-main-background);
+}
+
+.memori-widget.memori-layout-fullpage[data-theme='dark'] textarea.memori-chat-textarea--input,
+[data-theme='dark'] .memori-widget.memori-layout-fullpage textarea.memori-chat-textarea--input {
+    background-color: var(--memori-main-background);
+}
+
 @media (max-width: 870px) {
     .memori-widget.memori-layout-fullpage {
         padding: var(--memori-spacing-sm);

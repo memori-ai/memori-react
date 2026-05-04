@@ -23,6 +23,16 @@ exports[`renders Chat unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -238,6 +248,16 @@ exports[`renders Chat unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -453,6 +473,16 @@ exports[`renders Chat unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -707,6 +737,16 @@ exports[`renders Chat unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -933,6 +973,16 @@ exports[`renders Chat with context vars unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -1148,6 +1198,16 @@ exports[`renders Chat with context vars unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -1363,6 +1423,16 @@ exports[`renders Chat with context vars unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -1632,6 +1702,16 @@ exports[`renders Chat with context vars unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -1873,6 +1953,16 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -2070,6 +2160,16 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -2267,6 +2367,16 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -2503,6 +2613,16 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -2729,6 +2849,16 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -2928,6 +3058,16 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -3127,6 +3267,16 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -3365,6 +3515,16 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -3591,6 +3751,16 @@ exports[`renders Chat with dates unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -3811,6 +3981,16 @@ exports[`renders Chat with dates unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -4031,6 +4211,16 @@ exports[`renders Chat with dates unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -4290,6 +4480,16 @@ exports[`renders Chat with dates unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -4521,6 +4721,16 @@ exports[`renders Chat with hints unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -4736,6 +4946,16 @@ exports[`renders Chat with hints unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -4951,6 +5171,16 @@ exports[`renders Chat with hints unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -5205,6 +5435,16 @@ exports[`renders Chat with hints unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -5465,6 +5705,16 @@ exports[`renders Chat with media unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -5680,6 +5930,16 @@ exports[`renders Chat with media unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -5895,6 +6155,16 @@ exports[`renders Chat with media unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -6359,6 +6629,16 @@ exports[`renders Chat with media unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -6585,6 +6865,16 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -6800,6 +7090,16 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -7015,6 +7315,16 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -7269,6 +7579,16 @@ exports[`renders Chat with memori typing unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -7514,6 +7834,16 @@ exports[`renders Chat with message consumption unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -7729,6 +8059,16 @@ exports[`renders Chat with message consumption unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -7944,6 +8284,16 @@ exports[`renders Chat with message consumption unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -8198,6 +8548,16 @@ exports[`renders Chat with message consumption unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -8298,6 +8658,16 @@ exports[`renders Chat with message consumption unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -8573,6 +8943,16 @@ exports[`renders Chat with user unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -8772,6 +9152,16 @@ exports[`renders Chat with user unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -8971,6 +9361,16 @@ exports[`renders Chat with user unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
@@ -9209,6 +9609,16 @@ exports[`renders Chat with user unchanged 1`] = `
           <div
             class="memori-chat--bubble-container memori-chat-scroll-item memori-chat--with-addon"
           >
+            <picture
+              class="memori-chat--bubble-avatar"
+              title="Memori"
+            >
+              <img
+                alt="Memori"
+                class="memori-chat--bubble-avatar-img"
+                src="https://aisuru.com/images/aisuru/square_logo.png"
+              />
+            </picture>
             <div
               class="memori-chat--bubble-shell memori-chat--bubble-shell--has-addon"
             >
