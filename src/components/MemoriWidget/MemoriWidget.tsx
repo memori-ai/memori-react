@@ -559,7 +559,8 @@ const MemoriWidget = ({
           } else {
             removeLocalConfig('loginToken');
           }
-        });
+        })
+        .catch(err => console.error('[pwlGetCurrentUser]', err));
     }
   }, [loginToken, user?.userID]);
   const [showLoginDrawer, setShowLoginDrawer] = useState(false);
@@ -890,13 +891,18 @@ const MemoriWidget = ({
       isMultilanguageEnabled &&
       userLang.toUpperCase() !== language.toUpperCase()
     ) {
-      const translation = await getTranslation(
-        text,
-        language,
-        userLang,
-        baseUrl
-      );
-      msg = translation.text;
+      try {
+        const translation = await getTranslation(
+          text,
+          language,
+          userLang,
+          baseUrl
+        );
+        msg = translation.text;
+      } catch (err) {
+        console.error('[sendMessage] getTranslation failed:', err);
+        return;
+      }
     }
     const mediaDocuments = media?.filter(
       m => (m as any).type === 'document' && m.properties?.isAttachedFile
@@ -992,12 +998,18 @@ const MemoriWidget = ({
         ) {
           currentState.emission = emission;
 
-          translateDialogState(currentState, userLang, msg).then(ts => {
-            let text = ts.translatedEmission || ts.emission;
-            if (text && shouldPlayAudio(text)) {
-              handleSpeak(text);
-            }
-          });
+          translateDialogState(currentState, userLang, msg)
+            .then(ts => {
+              let text = ts.translatedEmission || ts.emission;
+              if (text && shouldPlayAudio(text)) {
+                void handleSpeak(text).catch(err =>
+                  console.error('[sendMessage] handleSpeak failed:', err)
+                );
+              }
+            })
+            .catch(err =>
+              console.error('[sendMessage] translateDialogState failed:', err)
+            );
         } else {
           setCurrentDialogState({
             ...currentState,
@@ -1023,7 +1035,9 @@ const MemoriWidget = ({
               memoryTags: currentState.memoryTags,
             } as any);
             if (emission && shouldPlayAudio(emission)) {
-              handleSpeak(emission);
+              void handleSpeak(emission).catch(err =>
+                console.error('[sendMessage] handleSpeak failed:', err)
+              );
             }
           }
         }
@@ -1050,14 +1064,20 @@ const MemoriWidget = ({
           undefined,
           undefined,
           true // isSessionExpired
-        ).then(state => {
-          console.info('session timeout');
-          if (state?.sessionID) {
-            setTimeout(() => {
-              sendMessage(text, media, state?.sessionID);
-            }, 500);
-          }
-        });
+        )
+          .then(state => {
+            console.info('session timeout');
+            if (state?.sessionID) {
+              setTimeout(() => {
+                void sendMessage(text, media, state?.sessionID).catch(err =>
+                  console.error('[sendMessage] after session reopen:', err)
+                );
+              }, 500);
+            }
+          })
+          .catch(err =>
+            console.error('[sendMessage] reopenSession after 404 failed:', err)
+          );
       } else if (response.resultCode === 500 && response.resultMessage) {
         setHistory(h => [
           ...h,
@@ -1072,7 +1092,7 @@ const MemoriWidget = ({
         ]);
       } else {
         console.warn('[SEND_MESSAGE]', response);
-        return Promise.reject(response);
+        return;
       }
     } catch (error) {
       console.log('error', error);
@@ -1350,7 +1370,14 @@ const MemoriWidget = ({
   useEffect(() => {
     if (initialSessionID) {
       setSessionId(initialSessionID);
-      onClickStart(undefined, false, undefined, initialSessionID);
+      void onClickStart(
+        undefined,
+        false,
+        undefined,
+        initialSessionID
+      ).catch(err =>
+        console.error('[MemoriWidget] initialSessionID onClickStart:', err)
+      );
     }
   }, [initialSessionID]);
 
@@ -1503,6 +1530,7 @@ const MemoriWidget = ({
       }
     } catch (err) {
       console.error(err);
+      setLoading(false);
     }
   };
 
@@ -1939,7 +1967,9 @@ const MemoriWidget = ({
 
         // Send the message
         console.debug('Sending message:', message);
-        sendMessage(message);
+        void sendMessage(message).catch(err =>
+          console.error('[processSpeechAndSendMessage] sendMessage:', err)
+        );
       }
     } catch (error) {
       console.error('Error in processSpeechAndSendMessage:', error);
@@ -2247,7 +2277,9 @@ const MemoriWidget = ({
 
   const simulateUserPrompt = (text: string, translatedText?: string) => {
     ttsStop();
-    sendMessage(text, undefined, undefined, false, translatedText);
+    void sendMessage(text, undefined, undefined, false, translatedText).catch(
+      err => console.error('[simulateUserPrompt] sendMessage:', err)
+    );
   };
 
   // listen to events from browser
@@ -2279,7 +2311,7 @@ const MemoriWidget = ({
           }, 1000);
         } else {
           ttsStop();
-          sendMessage(
+          void sendMessage(
             text,
             undefined,
             undefined,
@@ -2289,6 +2321,8 @@ const MemoriWidget = ({
             typingText,
             useLoaderTextAsMsg,
             hasBatchQueued
+          ).catch(err =>
+            console.error('[MemoriTextEntered] sendMessage:', err)
           );
         }
       }
@@ -2562,9 +2596,13 @@ const MemoriWidget = ({
               },
               initialQuestion,
               birth
-            ).then(() => {
-              setHasUserActivatedSpeak(true);
-            });
+            )
+              .then(() => {
+                setHasUserActivatedSpeak(true);
+              })
+              .catch(err =>
+                console.error('[onClickStart] reopenSession (tag) failed:', err)
+              );
           }
         }
         // Handle anonymous tag changes
@@ -2606,9 +2644,16 @@ const MemoriWidget = ({
               },
               initialQuestion,
               birth
-            ).then(() => {
-              setHasUserActivatedSpeak(true);
-            });
+            )
+              .then(() => {
+                setHasUserActivatedSpeak(true);
+              })
+              .catch(err =>
+                console.error(
+                  '[onClickStart] reopenSession (anon tag) failed:',
+                  err
+                )
+              );
           }
         }
         // No tag changes needed
@@ -2738,7 +2783,9 @@ const MemoriWidget = ({
 
   useEffect(() => {
     if (!clickedStart && autoStart && selectedLayout !== 'HIDDEN_CHAT') {
-      onClickStart();
+      void onClickStart().catch(err =>
+        console.error('[MemoriWidget] autoStart onClickStart:', err)
+      );
     }
   }, [clickedStart, autoStart, selectedLayout]);
 
@@ -2853,7 +2900,9 @@ const MemoriWidget = ({
 
     const closeSession = () => {
       if (sessionId) {
-        deleteSession(sessionId);
+        void Promise.resolve(deleteSession(sessionId)).catch(err =>
+          console.warn('[MemoriWidget] deleteSession on unload:', err)
+        );
       }
     };
 
@@ -2913,13 +2962,16 @@ const MemoriWidget = ({
     onLogout: () => {
       if (!loginToken) return;
 
-      client.backend.pwlUserLogout(loginToken).then(() => {
-        setShowLoginDrawer(false);
-        setUser(undefined);
-        setLoginToken(undefined);
-        userToken = undefined;
-        removeLocalConfig('loginToken');
-      });
+      client.backend
+        .pwlUserLogout(loginToken)
+        .then(() => {
+          setShowLoginDrawer(false);
+          setUser(undefined);
+          setLoginToken(undefined);
+          userToken = undefined;
+          removeLocalConfig('loginToken');
+        })
+        .catch(err => console.error('[pwlUserLogout]', err));
     },
   };
 
@@ -3025,7 +3077,9 @@ const MemoriWidget = ({
       ttsStop();
       stopRecording();
       setHasUserTypedMessage(true); // Mark that user has typed a message
-      sendMessage(msg, media);
+      void sendMessage(msg, media).catch(err =>
+        console.error('[Chat] sendMessage:', err)
+      );
       setUserMessage('');
     },
     stopListening: stopRecording,
@@ -3384,54 +3438,63 @@ const MemoriWidget = ({
               { loginToken: token } as any,
               undefined,
               sessionId
-            ).then(state => {
-              setShowLoginDrawer(false);
-              setUser(user);
-              setLoginToken(token);
-              userToken = token;
-              setLocalConfig('loginToken', token);
-              // Push a message with initial status to show status message when a new session is created after login
-              if (
-                state?.sessionID &&
-                state.sessionID !== sessionId &&
-                state?.dialogState
-              ) {
-                // Push a message with initial status message showing successful login
-                // Only show the chip component, not the emission text
-                const username = user?.userName || t('login.user');
-                pushMessage({
-                  text: '', // Empty text so only the chip is visible
-                  emitter: state.dialogState.emitter,
-                  media:
-                    state.dialogState.emittedMedia ??
-                    state.dialogState.media ??
-                    [],
-                  fromUser: false,
-                  initial: t('login.successfullyLoggedIn', { username }) as any,
-                  contextVars: state.dialogState.contextVars,
-                  date: state.dialogState.currentDate,
-                  placeName: state.dialogState.currentPlaceName,
-                  placeLatitude: state.dialogState.currentLatitude,
-                  placeLongitude: state.dialogState.currentLongitude,
-                  placeUncertaintyKm: state.dialogState.currentUncertaintyKm,
-                  tag: state.dialogState.currentTag,
-                  memoryTags: state.dialogState.memoryTags,
-                });
-                // Update the dialog state so the UI reflects the new session
-                setCurrentDialogState(state.dialogState);
-              }
-            });
+            )
+              .then(state => {
+                setShowLoginDrawer(false);
+                setUser(user);
+                setLoginToken(token);
+                userToken = token;
+                setLocalConfig('loginToken', token);
+                // Push a message with initial status to show status message when a new session is created after login
+                if (
+                  state?.sessionID &&
+                  state.sessionID !== sessionId &&
+                  state?.dialogState
+                ) {
+                  // Push a message with initial status message showing successful login
+                  // Only show the chip component, not the emission text
+                  const username = user?.userName || t('login.user');
+                  pushMessage({
+                    text: '', // Empty text so only the chip is visible
+                    emitter: state.dialogState.emitter,
+                    media:
+                      state.dialogState.emittedMedia ??
+                      state.dialogState.media ??
+                      [],
+                    fromUser: false,
+                    initial: t('login.successfullyLoggedIn', {
+                      username,
+                    }) as any,
+                    contextVars: state.dialogState.contextVars,
+                    date: state.dialogState.currentDate,
+                    placeName: state.dialogState.currentPlaceName,
+                    placeLatitude: state.dialogState.currentLatitude,
+                    placeLongitude: state.dialogState.currentLongitude,
+                    placeUncertaintyKm: state.dialogState.currentUncertaintyKm,
+                    tag: state.dialogState.currentTag,
+                    memoryTags: state.dialogState.memoryTags,
+                  });
+                  // Update the dialog state so the UI reflects the new session
+                  setCurrentDialogState(state.dialogState);
+                }
+              })
+              .catch(err =>
+                console.error('[LoginDrawer] reopenSession after login:', err)
+              );
           }}
           setUser={setUser}
           onLogout={() => {
             if (!loginToken) return;
-            client.backend.pwlUserLogout(loginToken).then(() => {
-              setShowLoginDrawer(false);
-              setUser(undefined);
-              setLoginToken(undefined);
-              userToken = undefined;
-              removeLocalConfig('loginToken');
-            });
+            client.backend
+              .pwlUserLogout(loginToken)
+              .then(() => {
+                setShowLoginDrawer(false);
+                setUser(undefined);
+                setLoginToken(undefined);
+                userToken = undefined;
+                removeLocalConfig('loginToken');
+              })
+              .catch(err => console.error('[pwlUserLogout]', err));
           }}
         />
       )}

@@ -212,34 +212,38 @@ const Memori: React.FC<Props> = ({
    * Fetches the Memori data from the backend
    */
   const fetchMemori = useCallback(async () => {
-    if (memoriID && ownerUserID) {
-      const { memori, ...resp } = await client.backend.getMemoriByUserAndId(
-        tenantID,
-        ownerUserID,
-        memoriID
-      );
+    try {
+      if (memoriID && ownerUserID) {
+        const { memori, ...resp } = await client.backend.getMemoriByUserAndId(
+          tenantID,
+          ownerUserID,
+          memoriID
+        );
 
-      if (resp.resultCode === 0 && !!memori) {
-        setMemori(memori);
-      } else {
-        console.error('[MEMORI]', resp, memori);
-      }
-    } else if (memoriName && ownerUserName) {
-      const { memori, ...resp } = await client.backend.getMemori(
-        tenantID,
-        ownerUserName,
-        memoriName
-      );
-
-      if (resp.resultCode === 0 && !!memori) {
-        if (!memori.ownerUserID && ownerUserID) {
-          memori.ownerUserID = ownerUserID;
+        if (resp.resultCode === 0 && !!memori) {
+          setMemori(memori);
+        } else {
+          console.error('[MEMORI]', resp, memori);
         }
+      } else if (memoriName && ownerUserName) {
+        const { memori, ...resp } = await client.backend.getMemori(
+          tenantID,
+          ownerUserName,
+          memoriName
+        );
 
-        setMemori(memori);
-      } else {
-        console.error('[MEMORI]', resp, memori);
+        if (resp.resultCode === 0 && !!memori) {
+          if (!memori.ownerUserID && ownerUserID) {
+            memori.ownerUserID = ownerUserID;
+          }
+
+          setMemori(memori);
+        } else {
+          console.error('[MEMORI]', resp, memori);
+        }
       }
+    } catch (err) {
+      console.error('[MEMORI] fetch failed:', err);
     }
   }, [memoriID, ownerUserID, memoriName, ownerUserName, tenantID]);
   useEffect(() => {
@@ -250,9 +254,15 @@ const Memori: React.FC<Props> = ({
    * Fetches the Tenant data from the backend
    */
   const fetchTenant = useCallback(async () => {
-    const { tenant, ...resp } = await client.backend.tenant.getTenant(tenantID);
-    if (tenant && resp.resultCode === 0) setTenant(tenant);
-    else console.debug('[TENANT]', resp, tenant);
+    try {
+      const { tenant, ...resp } = await client.backend.tenant.getTenant(
+        tenantID
+      );
+      if (tenant && resp.resultCode === 0) setTenant(tenant);
+      else console.debug('[TENANT]', resp, tenant);
+    } catch (err) {
+      console.error('[TENANT] fetch failed:', err);
+    }
   }, [tenantID, apiURL]);
   useEffect(() => {
     fetchTenant();
