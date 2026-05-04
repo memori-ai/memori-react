@@ -151,7 +151,7 @@
 .memori-drawer.memori-drawer--above-website-assistant,
 .memori-drawer.memori-drawer--above-website-assistant .memori-drawer--backdrop,
 .memori-drawer.memori-drawer--above-website-assistant .memori-drawer--container {
-    z-index: 2147483648;
+    z-index: 2147483000;
 }
 
 .memori-widget.memori-layout-website_assistant .memori-website_assistant--collapsed,
