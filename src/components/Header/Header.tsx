@@ -84,7 +84,7 @@ export interface Props {
 
 const Header: React.FC<Props> = ({
   className,
-  buttonVariant = 'outline',
+  buttonVariant = 'ghost',
   memori,
   tenant,
   history,
@@ -245,6 +245,20 @@ const Header: React.FC<Props> = ({
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
+  const [showFullpageDividers, setShowFullpageDividers] = useState(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return true;
+    return !window.matchMedia('(max-width: 767px)').matches;
+  });
+
+  useEffect(() => {
+    if (!window.matchMedia) return;
+    const mq = window.matchMedia('(max-width: 767px)');
+    const update = () => setShowFullpageDividers(!mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, []);
+
   // Helper function to determine if settings drawer has content
   const hasSettingsContent = useCallback(
     (
@@ -335,8 +349,198 @@ const Header: React.FC<Props> = ({
     }
   };
 
-  return (
-    <div className={cx('memori-header', className)}>
+  const isFullPageChrome = layout === 'FULLPAGE' || layout === 'CHAT';
+  const showFullpageChromeDividers =
+    layout !== 'CHAT' && showFullpageDividers;
+  const fullpageGuestChrome = layout === 'FULLPAGE' && !loginToken;
+  const chatHistoryButtonLabel =
+    layout === 'TOTEM'
+      ? undefined
+      : layout === 'FULLPAGE' || layout === 'CHAT'
+      ? t('widget.headerHistory') || t('write_and_speak.chatHistory')
+      : t('write_and_speak.chatHistory');
+  const fullpageHeaderProfileLabel =
+    t('widget.headerProfile') || t('login.user') || 'Profile';
+  const fullpageHeaderLoginLabel =
+    t('widget.headerLogin') || t('login.login') || 'Login';
+
+  const fullpagePrimaryHasContent =
+    (showChatHistory && !!loginToken) || showLogin;
+
+  const fullpageSecondaryHasContent =
+    !!memori.needsPosition ||
+    showReload ||
+    showClear ||
+    showMessageConsumption ||
+    (showFullscreen && fullScreenAvailable) ||
+    (memori.enableDeepThought &&
+      !!loginToken &&
+      !!user?.pAndCUAccepted &&
+      hasUserActivatedSpeak &&
+      !!sessionID) ||
+    !!memori.enableBoardOfExperts ||
+    enableAudio ||
+    !!(showSettings && hasSettingsContent(layout, additionalSettings)) ||
+    showShare;
+
+  const chatHistoryNode = showChatHistory && !!loginToken && (
+    <Tooltip
+      title={t('write_and_speak.chatHistory') || 'Chat history'}
+      placement="bottom"
+    >
+      <span style={{ display: 'inline-flex' }}>
+        <Button
+          variant={buttonVariant}
+          disabled={!loginToken}
+          aria-label={t('write_and_speak.chatHistory') || 'Chat history'}
+          icon={<MessageCircle />}
+          onClick={() => setShowChatHistoryDrawer(true)}
+        >
+          {chatHistoryButtonLabel}
+        </Button>
+      </span>
+    </Tooltip>
+  );
+
+  const loginNode = showLogin && (
+    <>
+      {loginToken && user ? (
+        <Popover
+          className="memori-header--dropdown"
+          placement="bottom-end"
+          sideOffset={8}
+          closable={false}
+          contentClassName="memori-dropdown--menu"
+          slotProps={{
+            trigger: {
+              className: cx(
+                'memori-dropdown--user-trigger',
+                isFullPageChrome && 'memori-dropdown--user-trigger--fullpage'
+              ),
+              render: (props: React.ComponentProps<typeof Button>) => (
+                <Tooltip title={t('login.user') || 'User'} placement="bottom">
+                  <span style={{ display: 'inline-flex' }}>
+                    <Button
+                      {...props}
+                      variant={buttonVariant}
+                      className={cx(
+                        'memori-dropdown--user-trigger-button',
+                        isFullPageChrome &&
+                          'memori-header--fullpage-labeled-trigger'
+                      )}
+                      aria-label={t('login.user') || 'User'}
+                      icon={<UserIcon />}
+                    >
+                      {isFullPageChrome ? fullpageHeaderProfileLabel : null}
+                    </Button>
+                  </span>
+                </Tooltip>
+              ),
+            },
+          }}
+          content={
+            <div className="memori-dropdown--content">
+              <div className="memori-dropdown--user-item">
+                <div className="memori-dropdown--user-info">
+                  <div className="memori-dropdown--avatar-wrap">
+                    {user.avatarURL ? (
+                      <>
+                        <img
+                          src={user.avatarURL}
+                          alt={user.userName || user.eMail}
+                          className="memori-dropdown--avatar"
+                        />
+                        <span className="memori-dropdown--avatar-overlay">
+                          <Camera size={20} strokeWidth={2} />
+                        </span>
+                        <input
+                          type="file"
+                          name="avatar"
+                          id="avatar"
+                          className="memori-dropdown--avatar-input"
+                          onChange={e =>
+                            updateAvatar(
+                              e.target.files?.[0] ?? (null as unknown as Blob)
+                            )
+                          }
+                          accept={imgMimeTypes.join(', ')}
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <div className="memori-dropdown--avatar-placeholder">
+                          <span className="memori-dropdown--avatar-initial">
+                            {(user.userName || user.eMail || 'U')
+                              .charAt(0)
+                              .toUpperCase()}
+                          </span>
+                          <span className="memori-dropdown--avatar-overlay">
+                            <Camera size={20} strokeWidth={2} />
+                          </span>
+                          <input
+                            type="file"
+                            name="avatar"
+                            id="avatar"
+                            className="memori-dropdown--avatar-input"
+                            onChange={e =>
+                              updateAvatar(
+                                e.target.files?.[0] ?? (null as unknown as Blob)
+                              )
+                            }
+                            accept={imgMimeTypes.join(', ')}
+                          />
+                        </div>
+                      </>
+                    )}
+                  </div>
+                  <div className="memori-dropdown--user-details">
+                    <h3 className="memori-dropdown--user-name">
+                      {user.userName || t('login.welcomeUser')}
+                    </h3>
+                    <p className="memori-dropdown--user-email">{user.eMail}</p>
+                    <div className="memori-dropdown--user-badge">
+                      {user.birthDate
+                        ? new Date(user.birthDate).toLocaleDateString()
+                        : t('login.notSet')}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="memori-dropdown--separator" />
+              <Button
+                type="button"
+                variant={buttonVariant}
+                onClick={onLogout}
+                className="memori-dropdown--action-button memori-dropdown--action-button--logout"
+                icon={<LogOut size={18} strokeWidth={2} aria-hidden />}
+              >
+                {t('login.logout') || 'Logout'}
+              </Button>
+            </div>
+          }
+        >
+          {null}
+        </Popover>
+      ) : (
+        <Tooltip title={t('login.login') || 'Login'} placement="bottom">
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              className="memori-header--button memori-header--button-login"
+              icon={<UserIcon />}
+              aria-label={t('login.login') || 'Login'}
+              onClick={() => setShowLoginDrawer(true)}
+            >
+              {isFullPageChrome ? fullpageHeaderLoginLabel : null}
+            </Button>
+          </span>
+        </Tooltip>
+      )}
+    </>
+  );
+
+  const headerActionsBeforeChatHistory = (
+    <>
       {memori.needsPosition && (
         <div className="memori-header--position">
           <Tooltip
@@ -395,25 +599,11 @@ const Header: React.FC<Props> = ({
           </span>
         </Tooltip>
       )}
-      {showChatHistory && !!loginToken && (
-        <Tooltip
-          title={t('write_and_speak.chatHistory') || 'Chat history'}
-          placement="bottom"
-        >
-          <span style={{ display: 'inline-flex' }}>
-            <Button
-              variant={buttonVariant}
-              disabled={!loginToken}
-              aria-label={t('write_and_speak.chatHistory') || 'Chat history'}
-              icon={<MessageCircle />}
-              onClick={() => setShowChatHistoryDrawer(true)}
-            >
-              {layout !== 'TOTEM' &&
-                (t('write_and_speak.chatHistory') || 'Chat history')}
-            </Button>
-          </span>
-        </Tooltip>
-      )}
+    </>
+  );
+
+  const headerActionsAfterChatHistory = (
+    <>
       {showMessageConsumption && (
         <ChatConsumptionDropdown
           history={history}
@@ -582,136 +772,58 @@ const Header: React.FC<Props> = ({
           triggerVariant={buttonVariant}
         />
       )}
-      {showLogin && (
+    </>
+  );
+
+  return (
+    <div
+      className={cx(
+        'memori-header',
+        className,
+        isFullPageChrome && 'memori-header--fullpage',
+        fullpageGuestChrome && 'memori-header--fullpage-guest'
+      )}
+    >
+      {isFullPageChrome ? (
         <>
-          {loginToken && user ? (
-            <Popover
-              className="memori-header--dropdown"
-              placement="bottom-end"
-              sideOffset={8}
-              closable={false}
-              contentClassName="memori-dropdown--menu"
-              slotProps={{
-                trigger: {
-                  className: 'memori-dropdown--user-trigger',
-                  render: (props: React.ComponentProps<typeof Button>) => (
-                    <Tooltip
-                      title={t('login.user') || 'User'}
-                      placement="bottom"
-                    >
-                      <span style={{ display: 'inline-flex' }}>
-                        <Button
-                          {...props}
-                          variant={buttonVariant}
-                          className="memori-dropdown--user-trigger-button"
-                          aria-label={t('login.user') || 'User'}
-                          icon={<UserIcon />}
-                        />
-                      </span>
-                    </Tooltip>
-                  ),
-                },
-              }}
-              content={
-                <div className="memori-dropdown--content">
-                  <div className="memori-dropdown--user-item">
-                    <div className="memori-dropdown--user-info">
-                      <div className="memori-dropdown--avatar-wrap">
-                        {user.avatarURL ? (
-                          <>
-                            <img
-                              src={user.avatarURL}
-                              alt={user.userName || user.eMail}
-                              className="memori-dropdown--avatar"
-                            />
-                            <span className="memori-dropdown--avatar-overlay">
-                              <Camera size={20} strokeWidth={2} />
-                            </span>
-                            <input
-                              type="file"
-                              name="avatar"
-                              id="avatar"
-                              className="memori-dropdown--avatar-input"
-                              onChange={e =>
-                                updateAvatar(
-                                  e.target.files?.[0] ??
-                                    (null as unknown as Blob)
-                                )
-                              }
-                              accept={imgMimeTypes.join(', ')}
-                            />
-                          </>
-                        ) : (
-                          <>
-                            <div className="memori-dropdown--avatar-placeholder">
-                              <span className="memori-dropdown--avatar-initial">
-                                {(user.userName || user.eMail || 'U')
-                                  .charAt(0)
-                                  .toUpperCase()}
-                              </span>
-                              <span className="memori-dropdown--avatar-overlay">
-                                <Camera size={20} strokeWidth={2} />
-                              </span>
-                              <input
-                                type="file"
-                                name="avatar"
-                                id="avatar"
-                                className="memori-dropdown--avatar-input"
-                                onChange={e =>
-                                  updateAvatar(
-                                    e.target.files?.[0] ??
-                                      (null as unknown as Blob)
-                                  )
-                                }
-                                accept={imgMimeTypes.join(', ')}
-                              />
-                            </div>
-                          </>
-                        )}
-                      </div>
-                      <div className="memori-dropdown--user-details">
-                        <h3 className="memori-dropdown--user-name">
-                          {user.userName || t('login.welcomeUser')}
-                        </h3>
-                        <p className="memori-dropdown--user-email">
-                          {user.eMail}
-                        </p>
-                        <div className="memori-dropdown--user-badge">
-                          {user.birthDate
-                            ? new Date(user.birthDate).toLocaleDateString()
-                            : t('login.notSet')}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="memori-dropdown--separator" />
-                  <Button
-                    type="button"
-                    variant={buttonVariant}
-                    onClick={onLogout}
-                    className="memori-dropdown--action-button memori-dropdown--action-button--logout"
-                    icon={<LogOut size={18} strokeWidth={2} aria-hidden />}
-                  >
-                    {t('login.logout') || 'Logout'}
-                  </Button>
-                </div>
-              }
-            >
-              {null}
-            </Popover>
-          ) : (
-            <Tooltip title={t('login.login') || 'Login'} placement="bottom">
-              <span style={{ display: 'inline-flex' }}>
-                <Button
-                  variant={buttonVariant}
-                  className="memori-header--button memori-header--button-login"
-                  icon={<UserIcon />}
-                  aria-label={t('login.login') || 'Login'}
-                  onClick={() => setShowLoginDrawer(true)}
-                />
-              </span>
-            </Tooltip>
+          {fullpagePrimaryHasContent && (
+            <div className="memori-header--fullpage-primary">
+              {chatHistoryNode}
+              {/* {loginNode} */}
+            </div>
           )}
+
+          {fullpagePrimaryHasContent &&
+            fullpageSecondaryHasContent &&
+            showFullpageChromeDividers &&
+            !fullpageGuestChrome && (
+              <div
+                className="memori-header--fullpage-divider"
+                role="separator"
+                aria-orientation="vertical"
+              />
+            )}
+          <div className="memori-header--fullpage-secondary">
+            {headerActionsBeforeChatHistory}
+            {headerActionsAfterChatHistory}
+            {fullpagePrimaryHasContent &&
+              fullpageSecondaryHasContent &&
+              showFullpageChromeDividers && (
+                <div
+                  className="memori-header--fullpage-divider"
+                  role="separator"
+                  aria-orientation="vertical"
+                />
+              )}
+            {loginNode}
+          </div>
+        </>
+      ) : (
+        <>
+          {headerActionsBeforeChatHistory}
+          {chatHistoryNode}
+          {headerActionsAfterChatHistory}
+          {loginNode}
         </>
       )}
       {extraActions}

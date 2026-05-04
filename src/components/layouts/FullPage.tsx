@@ -30,6 +30,8 @@ const FullPageLayout: React.FC<LayoutProps> = ({
       {integrationBackground}
 
       <Spin spinning={loading}>
+        {poweredBy}
+
         <div className="memori--grid">
           {!useSideArtifactChrome && (
             <div className="memori--grid-column memori--grid-column-left">
@@ -75,8 +77,6 @@ const FullPageLayout: React.FC<LayoutProps> = ({
               ) : null}
             </div>
           </div>
-
-          {poweredBy}
         </div>
       </Spin>
     </>

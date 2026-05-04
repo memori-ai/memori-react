@@ -1,5 +1,3 @@
-
-
 .memori--powered-by-custom {
     position: absolute;
     z-index: 1000;
@@ -22,6 +20,6 @@
     margin: 0 auto;
 }
 
-.memori-chat-layout--header{
-    margin-bottom: var(--memori-spacing-md);
+.memori-chat-layout--header {
+    padding: var(--memori-spacing-md);
 }

@@ -92,9 +92,11 @@
     background: none;
 }
 
-.memori-totem-layout .memori--powered-by {
-    top: 0;
-    bottom: auto;
+.memori-widget.memori-layout-totem .memori-totem-layout > .memori--powered-by {
+    top: auto;
+    right: auto;
+    bottom: 1rem;
+    left: 1rem;
 }
 
 /* .memori-totem-layout--avatar .memori--avatar-wrapper>div {

@@ -146,6 +146,9 @@
     "geocodingFailed": "No se pudo obtener la dirección. Inténtalo de nuevo o busca manualmente.",
     "positionUnavailableManual": "Ubicación no disponible. Introdúcela manualmente.",
     "positionSharingEnabled": "Ubicación compartida.",
+    "headerHistory": "Historial de chat",
+    "headerProfile": "Perfil",
+    "headerLogin": "Iniciar sesión",
     "expandToImmersive": "Expandir para vista inmersiva",
     "mobileSession": {
       "session": "Sesión",

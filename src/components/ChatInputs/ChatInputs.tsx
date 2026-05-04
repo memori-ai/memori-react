@@ -49,6 +49,8 @@ export interface Props {
   pasteAsCardLineThreshold?: number;
   /** When pasted text exceeds this length, it is added as a document card. */
   pasteAsCardCharThreshold?: number;
+  /** When false, hides the AI disclaimer below the input (e.g. pre-start / start panel). */
+  showAiGeneratedNote?: boolean;
 }
 
 const ChatInputs: React.FC<Props> = ({
@@ -78,6 +80,7 @@ const ChatInputs: React.FC<Props> = ({
   maxDocumentContentLength,
   pasteAsCardLineThreshold,
   pasteAsCardCharThreshold,
+  showAiGeneratedNote = true,
 }) => {
   const { t } = useTranslation();
   const alertManager = useAlertManager();
@@ -480,9 +483,11 @@ ${text}
           </div>
         </div>
       </fieldset>
-      <p className="memori-chat-inputs--ai-note">
-        {t('aiGeneratedNote', { defaultValue: 'Generato da AI' })}
-      </p>
+      {showAiGeneratedNote && (
+        <p className="memori-chat-inputs--ai-note">
+          {t('aiGeneratedNote', { defaultValue: 'Generato da AI' })}
+        </p>
+      )}
     </div>
   );
 };

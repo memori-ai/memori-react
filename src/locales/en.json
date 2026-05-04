@@ -148,6 +148,9 @@
     "geocodingFailed": "Could not resolve the address. Try again or search manually.",
     "positionUnavailableManual": "Location unavailable. Please enter it manually.",
     "positionSharingEnabled": "Location shared.",
+    "headerHistory": "Chat history",
+    "headerProfile": "Profile",
+    "headerLogin": "Log in",
     "downloadQrCode": "Download QR Code",
     "expandToImmersive": "Expand to immersive view",
     "mobileSession": {

@@ -129,10 +129,6 @@ exports[`renders StartPanel for board of experts unchanged 1`] = `
       <div
         class="memori--description"
       >
-        <div
-          class="memori--start-panel__divider"
-          role="presentation"
-        />
         <section
           class="memori--start-panel__mobile-info"
         >
@@ -348,10 +344,6 @@ exports[`renders StartPanel on instruct unchanged 1`] = `
       <div
         class="memori--description"
       >
-        <div
-          class="memori--start-panel__divider"
-          role="presentation"
-        />
         <section
           class="memori--start-panel__mobile-info"
         >
@@ -567,10 +559,6 @@ exports[`renders StartPanel unchanged 1`] = `
       <div
         class="memori--description"
       >
-        <div
-          class="memori--start-panel__divider"
-          role="presentation"
-        />
         <section
           class="memori--start-panel__mobile-info"
         >
@@ -781,10 +769,6 @@ exports[`renders StartPanel with completion provider down unchanged 1`] = `
       <div
         class="memori--description"
       >
-        <div
-          class="memori--start-panel__divider"
-          role="presentation"
-        />
         <section
           class="memori--start-panel__mobile-info"
         >
@@ -1000,10 +984,6 @@ exports[`renders StartPanel with completions enabled unchanged 1`] = `
       <div
         class="memori--description"
       >
-        <div
-          class="memori--start-panel__divider"
-          role="presentation"
-        />
         <section
           class="memori--start-panel__mobile-info"
         >
@@ -1219,10 +1199,6 @@ exports[`renders StartPanel with deep thought but unlogged unchanged 1`] = `
       <div
         class="memori--description"
       >
-        <div
-          class="memori--start-panel__divider"
-          role="presentation"
-        />
         <section
           class="memori--start-panel__mobile-info"
         >
@@ -1548,10 +1524,6 @@ exports[`renders StartPanel with deep thought enabled but without permission fla
       <div
         class="memori--description"
       >
-        <div
-          class="memori--start-panel__divider"
-          role="presentation"
-        />
         <section
           class="memori--start-panel__mobile-info"
         >
@@ -1864,10 +1836,6 @@ exports[`renders StartPanel with deep thought enabled unchanged 1`] = `
       <div
         class="memori--description"
       >
-        <div
-          class="memori--start-panel__divider"
-          role="presentation"
-        />
         <section
           class="memori--start-panel__mobile-info"
         >
@@ -2180,10 +2148,6 @@ exports[`renders StartPanel with existing sessionunchanged 1`] = `
       <div
         class="memori--description"
       >
-        <div
-          class="memori--start-panel__divider"
-          role="presentation"
-        />
         <section
           class="memori--start-panel__mobile-info"
         >
@@ -2399,10 +2363,6 @@ exports[`renders StartPanel with integrationConfig unchanged 1`] = `
       <div
         class="memori--description"
       >
-        <div
-          class="memori--start-panel__divider"
-          role="presentation"
-        />
         <section
           class="memori--start-panel__mobile-info"
         >
@@ -2817,10 +2777,6 @@ exports[`renders StartPanel with multilangual unchanged 1`] = `
             </div>
           </div>
         </div>
-        <div
-          class="memori--start-panel__divider"
-          role="presentation"
-        />
         <section
           class="memori--start-panel__mobile-info"
         >

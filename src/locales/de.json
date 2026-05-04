@@ -146,6 +146,9 @@
     "geocodingFailed": "Adresse konnte nicht ermittelt werden. Bitte erneut versuchen oder manuell suchen.",
     "positionUnavailableManual": "Standort nicht verfügbar. Bitte manuell eingeben.",
     "positionSharingEnabled": "Standort geteilt.",
+    "headerHistory": "Chatverlauf",
+    "headerProfile": "Profil",
+    "headerLogin": "Anmelden",
     "downloadQrCode": "QR-Code herunterladen",
     "expandToImmersive": "Zum immersivem Ansichtsmodus erweitern",
     "mobileSession": {

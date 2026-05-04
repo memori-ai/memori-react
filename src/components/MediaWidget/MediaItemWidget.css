@@ -134,6 +134,7 @@
 .memori-media-items--single .memori-media-item--figure {
     min-height: 120px;
     max-height: 120px;
+    background-color: var(--memori-secondary-background);
 }
 
 .memori-media-item--rgb-item {
@@ -528,7 +529,7 @@ div.memori-media-item--link.memori-media-item--image-link {
 .memori-media-items--grid .memori-media-item--snippet {
     width: 100%;
     min-width: 0;
-    max-width: 100%;
+    max-width: 450px;
     background: var(--memori-secondary-background);
 }
 
@@ -879,6 +880,7 @@ a.memori-media-item--document-link {
     max-width: 120px;
     min-height: 120px;
     box-sizing: border-box;
+    background-color: var(--memori-secondary-background);
 }
 
 /* ============================================

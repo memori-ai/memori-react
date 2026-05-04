@@ -738,6 +738,7 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                         maxDocumentContentLength={maxDocumentContentLength}
                         pasteAsCardLineThreshold={pasteAsCardLineThreshold}
                         pasteAsCardCharThreshold={pasteAsCardCharThreshold}
+                        showAiGeneratedNote={false}
                       />
                     </div>
                   )}

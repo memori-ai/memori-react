@@ -1120,6 +1120,7 @@ const ChatHistoryDrawer = ({
       onClose={onClose}
       title={t('write_and_speak.chatHistory') || 'Chat History'}
       closable={true}
+      anchor="left"
       size="md"
       description={t('write_and_speak.chatHistoryDescription')}
     >

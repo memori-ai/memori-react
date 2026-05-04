@@ -1,7 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { Button, Spin } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
-import { Expand, MapPin, Brain, Share2, EllipsisVertical } from 'lucide-react';
+import {
+  Expand,
+  MapPin,
+  Brain,
+  Share2,
+  EllipsisVertical,
+  MessageCircle,
+} from 'lucide-react';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
 import { getResourceUrl } from '../../helpers/media';
@@ -14,6 +21,17 @@ import {
   pasteAsCardLineThreshold,
   pasteAsCardCharThreshold,
 } from '../../helpers/constants';
+
+function isFullscreenAllowedOnDevice(): boolean {
+  if (typeof document === 'undefined') return false;
+
+  if (document.fullscreenEnabled === true) return true;
+
+  const fullscreenMeta = document.querySelector(
+    'meta[name="memori-fullscreen-enabled"], meta[name="fullscreen-enabled"]'
+  );
+  return fullscreenMeta?.getAttribute('content') === 'true';
+}
 
 const ChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -67,20 +85,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
   const loggedUserInitial = loggedUserDisplayName.charAt(0).toUpperCase();
   const isSessionStarted = Boolean(sessionId && hasUserActivatedSpeak);
 
-  const isFullscreenAllowedOnDevice = () => {
-    if (typeof document === 'undefined') return false;
-
-    if (document.fullscreenEnabled === true) return true;
-
-    const fullscreenMeta = document.querySelector(
-      'meta[name="memori-fullscreen-enabled"], meta[name="fullscreen-enabled"]'
-    );
-    const fullscreenMetaValue = fullscreenMeta?.getAttribute('content');
-
-    return fullscreenMetaValue === 'true';
-  };
-
-  const handleMobileFullscreen = () => {
+  const handleMobileFullscreen = useCallback(() => {
     if (!isFullscreenAllowedOnDevice()) return;
 
     if (!document.fullscreenElement) {
@@ -88,7 +93,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
       return;
     }
     document.exitFullscreen().catch(() => {});
-  };
+  }, []);
 
   const handleMobileLogout = () => {
     if (!headerProps) return;
@@ -148,10 +153,87 @@ const ChatLayout: React.FC<LayoutProps> = ({
         needsPosition: false,
         enableDeepThought: false,
       },
-      showChatHistory: true,
+      showChatHistory: false,
       enableAudio: true,
     };
   }, [headerProps, isMobile]);
+
+  const mobileSessionActions = useMemo(() => {
+    if (!headerProps) return [];
+
+    const showChatHistoryInPanel =
+      isMobile &&
+      !!headerProps.loginToken &&
+      headerProps.showChatHistory !== false;
+
+    const historyBlock = showChatHistoryInPanel
+      ? [
+          {
+            key: 'chatHistory',
+            icon: <MessageCircle size={18} />,
+            title:
+              t('widget.headerHistory') ||
+              t('write_and_speak.chatHistory') ||
+              'Chat history',
+            onClick: () => {
+              headerProps.setShowChatHistoryDrawer(true);
+              setMobileSheetOpen(false);
+            },
+          },
+        ]
+      : [];
+
+    return [
+      ...historyBlock,
+      {
+        key: 'fullscreen',
+        icon: <Expand size={18} />,
+        title: t('fullscreenEnter') || 'Full screen',
+        subtitle:
+          t('widget.expandToImmersive') || 'Expand to immersive view',
+        onClick: () => {
+          handleMobileFullscreen();
+          setMobileSheetOpen(false);
+        },
+      },
+      {
+        key: 'share',
+        icon: <Share2 size={18} />,
+        title: t('widget.share') || 'Share chat',
+        subtitle:
+          t('widget.mobileSession.copyLinkOrDownload') ||
+          'Copy link or download',
+        view: 'share' as const,
+      },
+      {
+        key: 'location',
+        icon: <MapPin size={18} />,
+        title:
+          t('widget.mobileSession.locationTracking') || 'Location tracking',
+        subtitle:
+          headerProps.position?.placeName ||
+          t('widget.mobileSession.currentlyOff') ||
+          'Currently off',
+        view: 'location' as const,
+        trailing: (
+          <span className="memori-mobile-session-panel--chevron">{'>'}</span>
+        ),
+      },
+      {
+        key: 'knownFacts',
+        icon: <Brain size={18} />,
+        title: t('knownFacts.title') || 'Known facts',
+        subtitle:
+          t('widget.mobileSession.whatIKnowAboutYou') ||
+          'What I know about you',
+        trailing: (
+          <span className="memori-mobile-session-panel--chevron">{'>'}</span>
+        ),
+        view: 'knownFacts' as const,
+        disabled: !isSessionStarted,
+      },
+    ];
+  }, [headerProps, isMobile, isSessionStarted, t, handleMobileFullscreen]);
 
   const brandAvatarSrc = memori
     ? memori.avatarURL && memori.avatarURL.length > 0
@@ -204,23 +286,28 @@ const ChatLayout: React.FC<LayoutProps> = ({
               }`}
             >
               {Header && headerProps && mobileHeaderProps && (
-                <div className="memori-chat-layout--header-row">
-                  {memori && brandAvatarSrc && (
-                    <div className="memori-chat-layout--brand">
-                      <img
-                        className="memori-chat-layout--brand-avatar"
-                        src={brandAvatarSrc}
-                        alt=""
-                        role="presentation"
-                      />
-                      <div className="memori-chat-layout--brand-text">
-                        <span className="memori-chat-layout--brand-name">
-                          {memori.name}
-                        </span>
-                      </div>
+                <div className="memori-fullpage-header-row">
+                  {memori && (
+                    <div className="memori-fullpage-header-brand">
+                      {brandAvatarSrc ? (
+                        <img
+                          className="memori-fullpage-header-brand-icon memori-fullpage-header-brand-icon--avatar"
+                          src={brandAvatarSrc}
+                          alt=""
+                          role="presentation"
+                        />
+                      ) : (
+                        <span
+                          className="memori-fullpage-header-brand-icon"
+                          aria-hidden
+                        />
+                      )}
+                      <span className="memori-fullpage-header-brand-name">
+                        {memori.name}
+                      </span>
                     </div>
                   )}
-                  <div className="memori-chat-layout--header-actions">
+                  <div className="memori-fullpage-header-actions">
                     <Header
                       {...mobileHeaderProps}
                       buttonVariant="outline"
@@ -257,61 +344,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
                   userInitial={loggedUserInitial}
                   avatarURL={loggedUser?.avatarURL}
                   birthDate={loggedUser?.birthDate}
-                  actions={[
-                    {
-                      key: 'fullscreen',
-                      icon: <Expand size={18} />,
-                      title: t('fullscreenEnter') || 'Full screen',
-                      subtitle:
-                        t('widget.expandToImmersive') ||
-                        'Expand to immersive view',
-                      onClick: () => {
-                        handleMobileFullscreen();
-                        setMobileSheetOpen(false);
-                      },
-                    },
-                    {
-                      key: 'share',
-                      icon: <Share2 size={18} />,
-                      title: t('widget.share') || 'Share chat',
-                      subtitle:
-                        t('widget.mobileSession.copyLinkOrDownload') ||
-                        'Copy link or download',
-                      view: 'share',
-                    },
-                    {
-                      key: 'location',
-                      icon: <MapPin size={18} />,
-                      title:
-                        t('widget.mobileSession.locationTracking') ||
-                        'Location tracking',
-                      subtitle:
-                        headerProps.position?.placeName ||
-                        t('widget.mobileSession.currentlyOff') ||
-                        'Currently off',
-                      view: 'location',
-                      trailing: (
-                        <span className="memori-mobile-session-panel--chevron">
-                          {'>'}
-                        </span>
-                      ),
-                    },
-                    {
-                      key: 'knownFacts',
-                      icon: <Brain size={18} />,
-                      title: t('knownFacts.title') || 'Known facts',
-                      subtitle:
-                        t('widget.mobileSession.whatIKnowAboutYou') ||
-                        'What I know about you',
-                      trailing: (
-                        <span className="memori-mobile-session-panel--chevron">
-                          {'>'}
-                        </span>
-                      ),
-                      view: 'knownFacts',
-                      disabled: !isSessionStarted,
-                    },
-                  ]}
+                  actions={mobileSessionActions}
                   knownFactsPageTitle={t('knownFacts.title') || 'Known facts'}
                   sharePageTitle={t('widget.share') || 'Share'}
                   locationPageTitle={
@@ -427,6 +460,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
                         maxDocumentContentLength={maxDocumentContentLength}
                         pasteAsCardLineThreshold={pasteAsCardLineThreshold}
                         pasteAsCardCharThreshold={pasteAsCardCharThreshold}
+                        showAiGeneratedNote={false}
                       />
                     </div>
                   )}

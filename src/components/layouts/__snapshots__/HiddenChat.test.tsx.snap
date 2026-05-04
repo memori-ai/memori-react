@@ -363,10 +363,6 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                           </div>
                         </div>
                       </div>
-                      <div
-                        class="memori--start-panel__divider"
-                        role="presentation"
-                      />
                       <section
                         class="memori--start-panel__mobile-info"
                       >
@@ -585,11 +581,6 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                       </div>
                     </div>
                   </fieldset>
-                  <p
-                    class="memori-chat-inputs--ai-note"
-                  >
-                    aiGeneratedNote
-                  </p>
                 </div>
               </div>
             </div>

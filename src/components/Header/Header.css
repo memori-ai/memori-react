@@ -451,18 +451,38 @@
 }
 
 /* Dark mode: white outline on header actions (Totem, full-page, etc.; chat/hidden_chat also set #fff in layout CSS) */
-[data-theme='dark'] .memori-widget .memori-header .memori-button.memori-button--outline:not(:disabled):not(.memori-button--disabled),
-.memori-widget[data-theme='dark'] .memori-header .memori-button.memori-button--outline:not(:disabled):not(.memori-button--disabled) {
+[data-theme='dark']
+    .memori-widget
+    .memori-header
+    .memori-button.memori-button--outline:not(:disabled):not(.memori-button--disabled),
+.memori-widget[data-theme='dark']
+    .memori-header
+    .memori-button.memori-button--outline:not(:disabled):not(.memori-button--disabled) {
     border-color: #fff;
     color: #fff;
 }
 
-[data-theme='dark'] .memori-widget .memori-header .memori-button.memori-button--outline:hover:not(:disabled):not(.memori-button--disabled),
-[data-theme='dark'] .memori-widget .memori-header .memori-button.memori-button--outline:active:not(:disabled):not(.memori-button--disabled),
-[data-theme='dark'] .memori-widget .memori-header .memori-button.memori-button--outline.memori-button--active:not(:disabled):not(.memori-button--disabled),
-.memori-widget[data-theme='dark'] .memori-header .memori-button.memori-button--outline:hover:not(:disabled):not(.memori-button--disabled),
-.memori-widget[data-theme='dark'] .memori-header .memori-button.memori-button--outline:active:not(:disabled):not(.memori-button--disabled),
-.memori-widget[data-theme='dark'] .memori-header .memori-button.memori-button--outline.memori-button--active:not(:disabled):not(.memori-button--disabled) {
+[data-theme='dark']
+    .memori-widget
+    .memori-header
+    .memori-button.memori-button--outline:hover:not(:disabled):not(.memori-button--disabled),
+[data-theme='dark']
+    .memori-widget
+    .memori-header
+    .memori-button.memori-button--outline:active:not(:disabled):not(.memori-button--disabled),
+[data-theme='dark']
+    .memori-widget
+    .memori-header
+    .memori-button.memori-button--outline.memori-button--active:not(:disabled):not(.memori-button--disabled),
+.memori-widget[data-theme='dark']
+    .memori-header
+    .memori-button.memori-button--outline:hover:not(:disabled):not(.memori-button--disabled),
+.memori-widget[data-theme='dark']
+    .memori-header
+    .memori-button.memori-button--outline:active:not(:disabled):not(.memori-button--disabled),
+.memori-widget[data-theme='dark']
+    .memori-header
+    .memori-button.memori-button--outline.memori-button--active:not(:disabled):not(.memori-button--disabled) {
     border-color: #fff;
     color: #fff;
 }
@@ -477,4 +497,88 @@
 .memori-widget[data-theme='dark'] .memori-header .memori-dropdown--user-trigger:hover {
     border: var(--memori-border) solid #fff;
     color: #fff;
+}
+
+/* Full-page layout: labeled primary actions, utility cluster, shared control chrome */
+.memori-header.memori-header--fullpage {
+    width: auto;
+    min-width: 100%;
+    max-width: 100%;
+    height: auto;
+    min-height: 40px;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    margin-left: 0;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    gap: 0.5rem;
+    text-align: right;
+}
+
+/* Full page, not logged in: no primary cluster / left divider; align toolbar + login to the end */
+.memori-header.memori-header--fullpage.memori-header--fullpage-guest {
+    justify-content: flex-end;
+}
+
+.memori-header--fullpage-primary,
+.memori-header--fullpage-secondary {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.memori-header--fullpage-secondary {
+    justify-content: flex-end;
+    /* margin-left: auto; */
+}
+
+.memori-header--fullpage-divider {
+    width: 1px;
+    min-height: 28px;
+    align-self: stretch;
+    margin: 0 0.125rem;
+    background: color-mix(in srgb, var(--memori-text-color, #111827) 18%, transparent);
+    /* margin-left: auto; */
+}
+
+/* Tighter spacing before Profile / login (divider sits in secondary row) */
+.memori-header--fullpage-secondary > .memori-header--fullpage-divider {
+    margin-right: calc(0.125rem - 5px);
+}
+
+.memori-header--fullpage .memori-dropdown--user-trigger--fullpage {
+    max-width: none;
+    border-radius: 8px;
+}
+
+.memori-header--fullpage .memori-header--fullpage-labeled-trigger {
+    gap: 0.5rem;
+}
+
+@media (max-width: 767px) {
+    .memori-header.memori-header--fullpage .memori-button:not(.memori-button--icon-only) .memori-button__content {
+        display: none !important;
+    }
+
+    .memori-header.memori-header--fullpage .memori-header--fullpage-labeled-trigger {
+        gap: 0;
+    }
+}
+
+[data-theme='dark'] .memori-widget .memori-header--fullpage .memori-header--fullpage-divider,
+.memori-widget[data-theme='dark'] .memori-header--fullpage .memori-header--fullpage-divider {
+    background: color-mix(in srgb, #fff 22%, transparent);
+}
+
+[data-theme='dark']
+    .memori-widget
+    .memori-header--fullpage
+    .memori-button.memori-button--outline:hover:not(:disabled):not(.memori-button--disabled),
+.memori-widget[data-theme='dark']
+    .memori-header--fullpage
+    .memori-button.memori-button--outline:hover:not(:disabled):not(.memori-button--disabled) {
+    background: color-mix(in srgb, #fff 12%, transparent);
 }

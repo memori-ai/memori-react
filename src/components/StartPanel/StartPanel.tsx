@@ -85,8 +85,6 @@ const StartPanel: React.FC<Props> = ({
   isUserLoggedIn = false,
   showLogin = false,
   setShowLoginDrawer,
-  showChatHistory = true,
-  setShowChatHistoryDrawer,
   notEnoughCredits = false,
   isMultilanguageEnabled,
   showFullDescriptionOnMobile = false,
@@ -392,69 +390,78 @@ const StartPanel: React.FC<Props> = ({
                   </div>
                 </div>
               )}
-
+              {/* 
               <div
                 className="memori--start-panel__divider"
                 role="presentation"
-              />
+              /> */}
 
               <section className="memori--start-panel__mobile-info">
-                {isMobile && (
-                  <Button
-                    variant="toolbar"
-                    size="sm"
-                    className="memori--start-panel__mobile-info-toggle"
-                    onClick={() => setIsInfoExpanded(value => !value)}
-                    aria-expanded={isInfoExpanded}
-                  >
-                    {t('moreInfo') || 'More info'}
-                    <ChevronDown
-                      className={`memori--start-panel__mobile-info-toggle-icon ${
-                        isInfoExpanded
-                          ? 'memori--start-panel__mobile-info-toggle-icon--expanded'
-                          : ''
-                      }`}
-                    />
-                  </Button>
-                )}
-
-                {(!isMobile || isInfoExpanded) && (
-                  <div className="memori--start-panel__mobile-info-content">
-                    <section className="memori--settings-section">
-                      {!!memori.enableDeepThought && !instruct && (
-                        <div className="memori--settings-section__row memori--settings-section__row--with-divider">
-                          <div
-                            className="memori--settings-section__icon-box memori--settings-section__icon-box--info"
-                            aria-hidden
-                          >
-                            <Info className="memori--settings-section__icon" />
-                          </div>
-                          <div className="memori--settings-section__content">
-                            <p className="memori--settings-section__title">
-                              {t('deepThoughtDisclaimerTitle') ||
-                                'Pensiero profondo abilitato'}
+                <div className="memori--start-panel__mobile-info-content">
+                  <section className="memori--settings-section">
+                    {!!memori.enableDeepThought && !instruct && (
+                      <div className="memori--settings-section__row memori--settings-section__row--with-divider">
+                        <div
+                          className="memori--settings-section__icon-box memori--settings-section__icon-box--info"
+                          aria-hidden
+                        >
+                          <Info className="memori--settings-section__icon" />
+                        </div>
+                        <div className="memori--settings-section__content">
+                          <p className="memori--settings-section__title">
+                            {t('deepThoughtDisclaimerTitle') ||
+                              'Pensiero profondo abilitato'}
+                          </p>
+                          <div className="memori--settings-section__title-inline">
+                            <p className="memori--settings-section__description">
+                              {isUserLoggedIn
+                                ? ''
+                                : t('deepThoughtPreDisclaimerUnlogged') ||
+                                  'Accedi per abilitare Pensiero Profondo.'}
                             </p>
-                            <div className="memori--settings-section__title-inline">
-                              <p className="memori--settings-section__description">
-                                {isUserLoggedIn
-                                  ? ''
-                                  : t('deepThoughtPreDisclaimerUnlogged') ||
-                                    'Accedi per abilitare Pensiero Profondo.'}
-                              </p>
-                            </div>
                           </div>
-                          <div className="memori--settings-section__actions-right">
-                            {!isUserLoggedIn && showLogin && (
-                              <Button
-                                variant="toolbar"
-                                size="sm"
-                                className="memori--settings-section__action"
-                                onClick={() => setShowLoginDrawer(true)}
-                              >
-                                {t('login.login') || 'Accedi'}
-                              </Button>
-                            )}
-                            {isMobile ? (
+                        </div>
+                        <div className="memori--settings-section__actions-right">
+                          {!isUserLoggedIn && showLogin && (
+                            <Button
+                              variant="toolbar"
+                              size="sm"
+                              className="memori--settings-section__action"
+                              onClick={() => setShowLoginDrawer(true)}
+                            >
+                              {t('login.login') || 'Accedi'}
+                            </Button>
+                          )}
+                          {isMobile ? (
+                            <Button
+                              variant="toolbar"
+                              size="sm"
+                              className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
+                              aria-label={String(
+                                t('deepThoughtHelper') ?? 'Deep Thought help'
+                              )}
+                              onClick={() => setMobileInfoModal('deepThought')}
+                            >
+                              <Info className="memori--settings-section__inline-info-icon" />
+                            </Button>
+                          ) : (
+                            <Tooltip
+                              placement="top"
+                              enterDelay={300}
+                              leaveDelay={150}
+                              sideOffset={8}
+                              content={t('deepThoughtHelper')}
+                              slotProps={{
+                                positioner: {
+                                  className:
+                                    'memori--privacy-popover-positioner',
+                                },
+                                popup: {
+                                  className:
+                                    'memori--privacy-popover-popup memori--settings-section__tooltip-popup',
+                                },
+                              }}
+                            >
                               <Button
                                 variant="toolbar"
                                 size="sm"
@@ -462,149 +469,115 @@ const StartPanel: React.FC<Props> = ({
                                 aria-label={String(
                                   t('deepThoughtHelper') ?? 'Deep Thought help'
                                 )}
-                                onClick={() =>
-                                  setMobileInfoModal('deepThought')
-                                }
                               >
                                 <Info className="memori--settings-section__inline-info-icon" />
                               </Button>
-                            ) : (
-                              <Tooltip
-                                placement="top"
-                                enterDelay={300}
-                                leaveDelay={150}
-                                sideOffset={8}
-                                content={t('deepThoughtHelper')}
-                                slotProps={{
-                                  positioner: {
-                                    className:
-                                      'memori--privacy-popover-positioner',
-                                  },
-                                  popup: {
-                                    className:
-                                      'memori--privacy-popover-popup memori--settings-section__tooltip-popup',
-                                  },
-                                }}
-                              >
-                                <Button
-                                  variant="toolbar"
-                                  size="sm"
-                                  className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
-                                  aria-label={String(
-                                    t('deepThoughtHelper') ??
-                                      'Deep Thought help'
-                                  )}
-                                >
-                                  <Info className="memori--settings-section__inline-info-icon" />
-                                </Button>
-                              </Tooltip>
-                            )}
-                          </div>
+                            </Tooltip>
+                          )}
                         </div>
-                      )}
-                      <div className="memori--settings-section__row">
-                        <div
-                          className="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
-                          aria-hidden
-                        >
-                          <Eye className="memori--settings-section__icon" />
-                        </div>
-                        <div className="memori--settings-section__content">
-                          <div className="memori--settings-section__title-inline">
-                            <p className="memori--settings-section__title">
-                              {t('write_and_speak.pagePrivacyExplanation') ||
-                                "Conversazioni visibili all'autore"}
-                            </p>
-                          </div>
-                          <p className="memori--settings-section__description">
-                            {t(
-                              'write_and_speak.pagePrivacyExplanationList.authorUsesInfo'
-                            ) ||
-                              "L'autore dell'agente puo vedere le tue conversazioni."}
+                      </div>
+                    )}
+                    <div className="memori--settings-section__row">
+                      <div
+                        className="memori--settings-section__icon-box memori--settings-section__icon-box--neutral"
+                        aria-hidden
+                      >
+                        <Eye className="memori--settings-section__icon" />
+                      </div>
+                      <div className="memori--settings-section__content">
+                        <div className="memori--settings-section__title-inline">
+                          <p className="memori--settings-section__title">
+                            {t('write_and_speak.pagePrivacyExplanation') ||
+                              "Conversazioni visibili all'autore"}
                           </p>
                         </div>
-                        {isMobile ? (
+                        <p className="memori--settings-section__description">
+                          {t(
+                            'write_and_speak.pagePrivacyExplanationList.authorUsesInfo'
+                          ) ||
+                            "L'autore dell'agente puo vedere le tue conversazioni."}
+                        </p>
+                      </div>
+                      {isMobile ? (
+                        <Button
+                          variant="toolbar"
+                          size="sm"
+                          className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
+                          aria-label={String(t('privacyPolicy') ?? '')}
+                          onClick={() => setMobileInfoModal('privacy')}
+                        >
+                          <Info className="memori--settings-section__inline-info-icon" />
+                        </Button>
+                      ) : (
+                        <Tooltip
+                          placement="top"
+                          enterDelay={300}
+                          leaveDelay={150}
+                          sideOffset={8}
+                          title={
+                            <div className="memori--privacy-popover-content">
+                              <p>
+                                {t(
+                                  'write_and_speak.pagePrivacyExplanationList.allConversations'
+                                )}
+                              </p>
+                              <ul className="memori--privacy-popover-content-list">
+                                {isUserLoggedIn ? (
+                                  <li>
+                                    {t(
+                                      'write_and_speak.pagePrivacyExplanationList.contentAndUsername'
+                                    )}
+                                  </li>
+                                ) : (
+                                  <li>
+                                    {t(
+                                      'write_and_speak.pagePrivacyExplanationList.contentAndIpAddress'
+                                    )}
+                                  </li>
+                                )}
+                              </ul>
+                              <p>
+                                {t(
+                                  'write_and_speak.pagePrivacyExplanationList.authorUsesInfo'
+                                )}
+                              </p>
+
+                              <a
+                                href={
+                                  tenant?.privacyPolicyURL ??
+                                  'https://memori.ai/en/privacy-policy'
+                                }
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="memori--privacy-popover-content-link"
+                              >
+                                {tenant?.privacyPolicyURL ?? t('privacyPolicy')}
+                              </a>
+                            </div>
+                          }
+                          slotProps={{
+                            positioner: {
+                              className: 'memori--privacy-popover-positioner',
+                            },
+                            popup: {
+                              className:
+                                'memori--privacy-popover-popup memori--settings-section__tooltip-popup',
+                            },
+                          }}
+                        >
                           <Button
                             variant="toolbar"
                             size="sm"
                             className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
                             aria-label={String(t('privacyPolicy') ?? '')}
-                            onClick={() => setMobileInfoModal('privacy')}
                           >
                             <Info className="memori--settings-section__inline-info-icon" />
                           </Button>
-                        ) : (
-                          <Tooltip
-                            placement="top"
-                            enterDelay={300}
-                            leaveDelay={150}
-                            sideOffset={8}
-                            title={
-                              <div className="memori--privacy-popover-content">
-                                <p>
-                                  {t(
-                                    'write_and_speak.pagePrivacyExplanationList.allConversations'
-                                  )}
-                                </p>
-                                <ul className="memori--privacy-popover-content-list">
-                                  {isUserLoggedIn ? (
-                                    <li>
-                                      {t(
-                                        'write_and_speak.pagePrivacyExplanationList.contentAndUsername'
-                                      )}
-                                    </li>
-                                  ) : (
-                                    <li>
-                                      {t(
-                                        'write_and_speak.pagePrivacyExplanationList.contentAndIpAddress'
-                                      )}
-                                    </li>
-                                  )}
-                                </ul>
-                                <p>
-                                  {t(
-                                    'write_and_speak.pagePrivacyExplanationList.authorUsesInfo'
-                                  )}
-                                </p>
-
-                                <a
-                                  href={
-                                    tenant?.privacyPolicyURL ??
-                                    'https://memori.ai/en/privacy-policy'
-                                  }
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="memori--privacy-popover-content-link"
-                                >
-                                  {tenant?.privacyPolicyURL ??
-                                    t('privacyPolicy')}
-                                </a>
-                              </div>
-                            }
-                            slotProps={{
-                              positioner: {
-                                className: 'memori--privacy-popover-positioner',
-                              },
-                              popup: {
-                                className:
-                                  'memori--privacy-popover-popup memori--settings-section__tooltip-popup',
-                              },
-                            }}
-                          >
-                            <Button
-                              variant="toolbar"
-                              size="sm"
-                              className="memori--privacy-popover-trigger memori--settings-section__info-trigger"
-                              aria-label={String(t('privacyPolicy') ?? '')}
-                            >
-                              <Info className="memori--settings-section__inline-info-icon" />
-                            </Button>
-                          </Tooltip>
-                        )}
-                      </div>
-                    </section>
-                  </div>
-                )}
+                        </Tooltip>
+                      )}
+                    </div>
+                  </section>
+                </div>
               </section>
 
               <div className="memori--start-actions">
@@ -643,7 +616,7 @@ const StartPanel: React.FC<Props> = ({
                     }`
                   )}
                 </Button>
-                {showChatHistory &&
+                {/* {showChatHistory &&
                   isUserLoggedIn &&
                   setShowChatHistoryDrawer && (
                     <Tooltip
@@ -662,7 +635,7 @@ const StartPanel: React.FC<Props> = ({
                         onClick={() => setShowChatHistoryDrawer(true)}
                       />
                     </Tooltip>
-                  )}
+                  )} */}
               </div>
 
               <p className="memori--start-description">
