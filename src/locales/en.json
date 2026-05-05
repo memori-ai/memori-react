@@ -295,7 +295,8 @@
     "filesNotAddedMaxAllowed": "{{count}} file(s) not added (maximum {{max}} files allowed).",
     "documentsNotAddedMaxAllowed": "{{count}} document(s) not added (maximum {{max}} files allowed).",
     "imagesNotAddedMaxAllowed": "{{count}} image(s) not added (maximum {{max}} files allowed).",
-    "documentsNotAddedContextSize": "{{count}} document(s) not added (context size limit)."
+    "documentsNotAddedContextSize": "{{count}} document(s) not added (context size limit).",
+    "anonymousRetentionNotice": "Note: uploaded files are retained for a maximum of 24 hours."
   },
   "media": {
     "title": "Title",

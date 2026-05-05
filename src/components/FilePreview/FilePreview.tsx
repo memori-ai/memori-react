@@ -6,6 +6,7 @@ import ContentPreviewModal from '../ContentPreviewModal';
 import Snippet from '../Snippet/Snippet';
 import { stripHTML, stripDocumentAttachmentTags } from '../../helpers/utils';
 import { getFileExtensionFromMime } from '../MediaWidget/MediaItemWidget.utils';
+import { useTranslation } from 'react-i18next';
 
 type FilePreviewProps = {
   previewFiles: any;
@@ -22,6 +23,7 @@ const FilePreview = ({
   showAnonymousRetentionNotice = false,
 }: // isMessagePreview = false,
 FilePreviewProps) => {
+  const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<{
     name: string;
     id: string;
@@ -83,16 +85,28 @@ FilePreviewProps) => {
     }
   }, [previewFiles]);
   // Detect if the file is HTML (by type or filename)
-  const isHtmlFile = (file: { name?: string; type?: string; mimeType?: string } | null): boolean => {
+  const isHtmlFile = (
+    file: { name?: string; type?: string; mimeType?: string } | null
+  ): boolean => {
     if (!file) return false;
     const ext = file.name?.split('.').pop()?.toLowerCase();
     return (
-      file.type === 'document' && (ext === 'html' || file.mimeType === 'text/html')
-    ) || ext === 'html' || file.mimeType === 'text/html';
+      (file.type === 'document' &&
+        (ext === 'html' || file.mimeType === 'text/html')) ||
+      ext === 'html' ||
+      file.mimeType === 'text/html'
+    );
   };
 
   // Get display content for non-image files (strip document_attachment for HTML, stripHTML for others)
-  const getDisplayContent = (file: { content?: string; name?: string; type?: string; mimeType?: string } | null): string => {
+  const getDisplayContent = (
+    file: {
+      content?: string;
+      name?: string;
+      type?: string;
+      mimeType?: string;
+    } | null
+  ): string => {
     if (!file?.content) return '';
     const content = file.content;
     if (isHtmlFile(file)) {
@@ -127,6 +141,22 @@ FilePreviewProps) => {
     <>
       {previewFiles.length > 0 && (
         <div className="memori--preview-container">
+          {showAnonymousRetentionNotice && (
+            <small
+              style={{
+                color: 'rgb(138, 138, 138)',
+                display: 'block',
+                marginTop: '6px',
+                marginBottom: '6px',
+                fontSize: '0.7rem',
+              }}
+            >
+              {t('upload.anonymousRetentionNotice', {
+                defaultValue:
+                  'Note: uploaded files are retained for a maximum of 24 hours.',
+              })}
+            </small>
+          )}
           <div className="memori--preview-list">
             {previewFiles.map((file: any) => (
               <div
@@ -170,11 +200,6 @@ FilePreviewProps) => {
               </div>
             ))}
           </div>
-          {showAnonymousRetentionNotice && (
-            <small style={{ color: '#8a8a8a', display: 'block', marginTop: '6px' }}>
-              Nota: i file caricati vengono conservati per massimo 24 ore.
-            </small>
-          )}
         </div>
       )}
 
@@ -187,7 +212,8 @@ FilePreviewProps) => {
           isImageContent(selectedFile.content, selectedFile.type)
         }
         imageSrc={
-          selectedFile && isImageContent(selectedFile.content, selectedFile.type)
+          selectedFile &&
+          isImageContent(selectedFile.content, selectedFile.type)
             ? selectedFile.content
             : undefined
         }

@@ -338,8 +338,13 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           t('upload.documentsNotAddedMaxAllowed', {
             count: skipped,
             max: maxDocuments ?? 10,
-            defaultValue: `${skipped} document(s) not added (maximum ${maxDocuments ?? 10} files allowed).`,
-          }) ?? `${skipped} document(s) not added (maximum ${maxDocuments ?? 10} files allowed).`,
+            defaultValue: `${skipped} document(s) not added (maximum ${
+              maxDocuments ?? 10
+            } files allowed).`,
+          }) ??
+          `${skipped} document(s) not added (maximum ${
+            maxDocuments ?? 10
+          } files allowed).`,
         severity: 'warning',
       });
     }
@@ -447,8 +452,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         onClick={() => documentInputRef.current?.click()}
         disabled={
           isLoading ||
-          (maxDocuments &&
-            documentPreviewFiles.length >= maxDocuments) ||
+          (maxDocuments && documentPreviewFiles.length >= maxDocuments) ||
           false
         }
         title="Upload documents"
