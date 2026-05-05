@@ -11,6 +11,7 @@ type FilePreviewProps = {
   previewFiles: any;
   removeFile: (id: string, mediumID: string | undefined) => void;
   allowRemove?: boolean;
+  showAnonymousRetentionNotice?: boolean;
   // isMessagePreview?: boolean;
 };
 
@@ -18,6 +19,7 @@ const FilePreview = ({
   previewFiles,
   removeFile,
   allowRemove = true,
+  showAnonymousRetentionNotice = false,
 }: // isMessagePreview = false,
 FilePreviewProps) => {
   const [selectedFile, setSelectedFile] = useState<{
@@ -99,12 +101,11 @@ FilePreviewProps) => {
         const div = document.createElement('div');
         div.innerHTML = htmlContent;
         htmlContent = div.textContent || div.innerText || htmlContent;
-      } else {
-        htmlContent = stripDocumentAttachmentTags(htmlContent);
       }
+      htmlContent = stripDocumentAttachmentTags(htmlContent);
       return htmlContent;
     }
-    return stripHTML(content);
+    return stripHTML(stripDocumentAttachmentTags(content));
   };
 
   // Detect if the content is an image URL
@@ -169,6 +170,11 @@ FilePreviewProps) => {
               </div>
             ))}
           </div>
+          {showAnonymousRetentionNotice && (
+            <small style={{ color: '#8a8a8a', display: 'block', marginTop: '6px' }}>
+              Nota: i file caricati vengono conservati per massimo 24 ore.
+            </small>
+          )}
         </div>
       )}
 

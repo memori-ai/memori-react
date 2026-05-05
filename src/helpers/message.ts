@@ -40,6 +40,15 @@ marked.use({
 marked.use(markedLinkifyIt());
 marked.use(markedExtendedTables());
 
+export const stripAttachmentTags = (value: string) =>
+  value
+    .replaceAll(
+      /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g,
+      ''
+    )
+    .replaceAll(/<attachment_source>\s*[\s\S]*?\s*<\/attachment_source>/g, '')
+    .replaceAll(/<attachment_link>\s*[\s\S]*?\s*<\/attachment_link>/g, '');
+
 export const needsTruncation = (message: string) => {
   return (
     message.length > MAX_MSG_CHARS || message.split(' ').length > MAX_MSG_WORDS
@@ -82,11 +91,6 @@ export const renderMsg = (
           ? `<details class="memori-think"><summary>${reasoningText}</summary>$1</details>`
           : ''
       )
-      // Remove document_attachment tags from text - they will be handled as media
-      .replaceAll(
-        /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g,
-        ''
-      )
       .replaceAll(
         /<output\s+class\s*=\s*["\']memori-artifact["\'][^>]*data-mimetype\s*=\s*["\']([^"']+)["\'][^>]*>([\s\S]*?)(?:<\/output>|$)/gi,
         ''
@@ -97,6 +101,8 @@ export const renderMsg = (
       .replaceAll('\frac', '\\frac')
       .replaceAll('\beta', '\\beta')
       .replaceAll('cdot', '\\cdot');
+
+    preprocessedText = stripAttachmentTags(preprocessedText);
 
     // Correzione dei delimitatori LaTeX inconsistenti
     if (useMathFormatting) {
