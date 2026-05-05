@@ -82,6 +82,9 @@ const StartPanel: React.FC<Props> = ({
     memori.description
   );
 
+  const blockedUntilDate = new Date(memori.blockedUntil || Date.now());
+  const isMemoriBlocked = blockedUntilDate > new Date(Date.now());
+
   const [showTranslation, setShowTranslation] = useState(true);
   const toggleTranslations = () => {
     setShowTranslation(show => !show);
@@ -332,7 +335,7 @@ const StartPanel: React.FC<Props> = ({
             <Button
               primary
               disabled={
-                (!!memori.blockedUntil && !memori.isGiver) || notEnoughCredits
+                (isMemoriBlocked && !memori.isGiver) || notEnoughCredits
               }
               loading={clickedStart}
               onClick={_e => {
@@ -371,7 +374,7 @@ const StartPanel: React.FC<Props> = ({
                 : t('write_and_speak.pageTryMeExplanation')}
             </p>
 
-            {(memori.blockedUntil || notEnoughCredits) && (
+            {(isMemoriBlocked || notEnoughCredits) && (
               <BlockedMemoriBadge
                 memoriName={memori.name}
                 blockedUntil={memori.blockedUntil}
