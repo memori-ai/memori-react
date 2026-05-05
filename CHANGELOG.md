@@ -1,5 +1,12 @@
 
 
+## [8.35.2](https://github.com/memori-ai/memori-react/compare/v8.35.1...v8.35.2) (2026-05-05)
+
+
+### Bug Fixes
+
+* start button blocked conditions ([4ab53c6](https://github.com/memori-ai/memori-react/commit/4ab53c6539a8ad09262179c486273b748a9c7dbb))
+
 ## [8.35.1](https://github.com/memori-ai/memori-react/compare/v8.35.0...v8.35.1) (2026-04-29)
 
 
