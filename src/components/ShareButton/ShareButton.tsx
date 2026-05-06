@@ -78,6 +78,7 @@ const ShareButton: React.FC<Props> = ({
   const { add } = useAlertManager();
   const [targetUrl, setTargetUrl] = useState(url);
   const [isExportingPDF, setIsExportingPDF] = useState(false);
+  const [isShareMenuOpen, setIsShareMenuOpen] = useState(false);
   const [copyStatus, setCopyStatus] = useState<'idle' | 'success' | 'error'>(
     'idle'
   );
@@ -122,6 +123,7 @@ const ShareButton: React.FC<Props> = ({
   };
 
   const handleShareMenuOpenChange = (open: boolean) => {
+    setIsShareMenuOpen(open);
     if (!open) {
       clearCopyReset();
       clearMenuFlash();
@@ -540,10 +542,13 @@ const ShareButton: React.FC<Props> = ({
               {...props}
               variant={triggerVariant}
               icon={<Share2 />}
-              className={cx({
-                'memori-share-button--trigger-menu-item':
-                  triggerMode === 'menu-item',
-              })}
+              className={cx(
+                {
+                  'memori-share-button--trigger-menu-item':
+                    triggerMode === 'menu-item',
+                },
+                isShareMenuOpen && 'memori-button--active'
+              )}
             >
               {triggerMode === 'menu-item'
                 ? triggerLabel || t('widget.share')

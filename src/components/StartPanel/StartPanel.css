@@ -87,11 +87,11 @@
     color: var(--memori-text-color) !important;
 }
 
-@media (max-width: 870px) {
+/* @media (max-width: 870px) {
     .memori--start-panel {
         margin-top: var(--memori-spacing-lg);
     }
-}
+} */
 
 .memori--avatar {
     position: relative;

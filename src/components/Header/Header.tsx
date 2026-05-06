@@ -126,6 +126,7 @@ const Header: React.FC<Props> = ({
   const { uploadAsset, pwlUpdateUser } = apiClient.backend;
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
+  const [userPopoverOpen, setUserPopoverOpen] = useState(false);
 
   type ImpactMetricType = 'energy' | 'co2' | 'water';
 
@@ -407,6 +408,8 @@ const Header: React.FC<Props> = ({
       {loginToken && user ? (
         <Popover
           className="memori-header--dropdown"
+          open={userPopoverOpen}
+          onOpenChange={setUserPopoverOpen}
           placement="bottom-end"
           sideOffset={8}
           closable={false}
@@ -426,7 +429,8 @@ const Header: React.FC<Props> = ({
                       className={cx(
                         'memori-dropdown--user-trigger-button',
                         isFullPageChrome &&
-                          'memori-header--fullpage-labeled-trigger'
+                          'memori-header--fullpage-labeled-trigger',
+                        userPopoverOpen && 'memori-button--active'
                       )}
                       aria-label={t('login.user') || 'User'}
                       icon={<UserIcon />}

@@ -246,21 +246,24 @@ const PositionPopover: React.FC<PositionPopoverProps> = ({
       slotProps={{
         trigger: {
           className: triggerClassName,
-          render: (props: React.ComponentProps<typeof Button>) => (
-            <Button
-              {...props}
-              type="button"
-              variant={triggerButtonVariant}
-              className={cx(
-                'memori-header--button',
-                'memori-header--button--position',
-                sharingActive && 'memori-header--button--position--active'
-              )}
-              aria-label={triggerAriaLabel}
-              aria-expanded={open}
-              icon={<MapPin aria-hidden />}
-            />
-          ),
+          render: (props: React.ComponentProps<typeof Button>) => {
+            return (
+              <Button
+                {...props}
+                type="button"
+                variant={triggerButtonVariant}
+                className={cx(
+                  'memori-header--button',
+                  'memori-header--button--position',
+                  sharingActive && 'memori-header--button--position--active',
+                  open && 'memori-button--active'
+                )}
+                aria-label={triggerAriaLabel}
+                aria-expanded={open}
+                icon={<MapPin aria-hidden />}
+              />
+            );
+          },
         },
         positioner: {
           className: cx(

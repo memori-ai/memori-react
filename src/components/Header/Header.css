@@ -297,6 +297,11 @@
     pointer-events: none;
 }
 
+.memori-header .memori-button.memori-button--active:not(:disabled):not(.memori-button--disabled),
+.memori-header .memori-dropdown--user-trigger-button.memori-button--active:not(:disabled):not(.memori-button--disabled) {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--memori-primary, #3b82f6) 40%, transparent);
+}
+
 .memori-dropdown--avatar-input {
     position: absolute;
     width: 100%;

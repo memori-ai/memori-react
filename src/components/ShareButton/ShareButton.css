@@ -23,6 +23,10 @@
     max-height: 1rem;
 }
 
+.memori-share-button .memori-button.memori-button--active:not(:disabled):not(.memori-button--disabled) {
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--memori-primary, #3b82f6) 40%, transparent);
+}
+
 .memori-share-button--trigger-menu-item {
     width: 100%;
     max-width: none;

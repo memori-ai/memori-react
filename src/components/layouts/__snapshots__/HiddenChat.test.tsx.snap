@@ -161,7 +161,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                   </span>
                   <button
                     aria-label="widget.moreActions"
-                    class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-hidden-chat-layout--overflow-trigger"
+                    class="memori-button memori-button--outline memori-button--md memori-button--icon-only memori-hidden-chat-layout--overflow-trigger "
                     tabindex="0"
                     type="button"
                   >

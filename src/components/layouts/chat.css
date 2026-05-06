@@ -28,6 +28,9 @@
 }
 
 @media (max-width: 600px) {
+    .memori-widget.memori-layout-chat .memori-chat-inputs-wrapper {
+        margin-bottom: var(--memori-spacing-xl);
+    }
     .memori-widget.memori-layout-chat .memori--start-description {
         display: none;
     }
@@ -349,6 +352,7 @@
     .memori-widget.memori-layout-chat .memori-chat-layout--body,
     .memori-widget.memori-layout-chat .memori-chat--wrapper {
         min-height: 0;
+        padding-bottom: 0;
     }
 
     .memori-widget.memori-layout-chat .memori-chat--history.memori-chat--history-touch {
@@ -403,6 +407,7 @@
     .memori-widget.memori-layout-chat .memori-chat-layout--start-shell {
         padding: 1rem;
     }
+
     /* 
     .memori-widget.memori-layout-chat .memori-fullpage-header-row {
         padding: 1rem;

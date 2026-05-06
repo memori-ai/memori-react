@@ -282,10 +282,14 @@ const FullPageLayout: React.FC<LayoutProps> = ({
                       isMobile ? (
                         <Button
                           variant="outline"
-                          className="memori-chat-layout--overflow-trigger"
+                          className={`memori-chat-layout--overflow-trigger ${
+                            mobileSheetOpen ? 'memori-button--active' : ''
+                          }`}
                           aria-label={t('widget.moreActions') || 'More actions'}
                           icon={<EllipsisVertical />}
-                          onClick={() => setMobileSheetOpen(true)}
+                          onClick={() =>
+                            setMobileSheetOpen(currentOpen => !currentOpen)
+                          }
                         />
                       ) : undefined
                     }

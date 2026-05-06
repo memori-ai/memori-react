@@ -594,7 +594,9 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                         extraActions={
                           <Button
                             variant="outline"
-                            className="memori-hidden-chat-layout--overflow-trigger"
+                            className={`memori-hidden-chat-layout--overflow-trigger ${
+                              sessionPanelOpen ? 'memori-button--active' : ''
+                            }`}
                             aria-label={
                               t('widget.moreActions') || 'More actions'
                             }
