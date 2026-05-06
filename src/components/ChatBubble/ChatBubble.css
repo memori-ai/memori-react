@@ -60,7 +60,7 @@
     flex-direction: column;
     align-items: flex-start;
     padding: 12px 14px;
-    border: 0.5px solid var(--color-border-tertiary, var(--memori-border-color, #e5e7eb));
+    /* border: 0.5px solid var(--color-border-tertiary, var(--memori-border-color, #e5e7eb)); */
     border-radius: 4px 14px 14px 14px;
     /* margin-top: 1.5rem; */
     background: var(--color-background-secondary, var(--memori-secondary-background));

@@ -71,6 +71,7 @@
 .memori-artifact-tab-content--active {
     display: flex;
     flex-direction: column;
+    padding: var(--memori-spacing-md);
 }
 
 /* Code Content */

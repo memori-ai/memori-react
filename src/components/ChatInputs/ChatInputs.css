@@ -4,7 +4,7 @@
     bottom: 0;
     width: 100%;
     padding: 0;
-    padding-bottom: 1.5rem;
+    /* padding-bottom: 1.5rem; */
     margin: 0;
     /* background: linear-gradient(to top, rgba(255, 255, 255, 0.8) 0%, transparent 100%); */
 }
@@ -23,6 +23,11 @@
     margin: auto;
     background-color: var(--memori-secondary-background);
     box-shadow: 0 2px 8px -2px rgba(0, 0, 0, 0.16);
+}
+
+[data-theme='dark'] .memori-chat-inputs,
+.memori-chat-inputs[data-theme='dark'] {
+    background-color: var(--memori-main-background);
 }
 
 .memori-chat-inputs:disabled {

@@ -3,18 +3,27 @@ import { Meta, StoryObj } from '@storybook/react';
 import ChatHistory from './ChatHistory';
 import I18nWrapper from '../../I18nWrapper';
 import { ChatLog, Memori } from '@memori.ai/memori-api-client/dist/types';
+import { AlertProvider } from '@memori.ai/ui';
+import { ArtifactProvider } from '../MemoriArtifactSystem/context/ArtifactContext';
 
 // Mock API client
 const mockApiClient = {
   chatLogs: {
-    getUserChatLogsByToken: (loginToken: string, memoriID: string, dateFrom: string, dateTo: string) => Promise.resolve({
-      chatLogs: mockChatLogs
-    }),
-    getUserChatLogsByTokenPaged: (requestBody: any) => Promise.resolve({
-      chatLogs: mockChatLogs,
-      totalItems: mockChatLogs.length
-    })
-  }
+    getUserChatLogsByToken: (
+      loginToken: string,
+      memoriID: string,
+      dateFrom: string,
+      dateTo: string
+    ) =>
+      Promise.resolve({
+        chatLogs: mockChatLogs,
+      }),
+    getUserChatLogsByTokenPaged: (requestBody: any) =>
+      Promise.resolve({
+        chatLogs: mockChatLogs,
+        totalItems: mockChatLogs.length,
+      }),
+  },
 };
 
 // Sample data
@@ -48,9 +57,9 @@ const mockChatLogs: ChatLog[] = [
         contextVars: {},
         media: [],
         memoryID: 'mem123',
-      }
+      },
     ],
-    boardOfExperts: false
+    boardOfExperts: false,
   },
   {
     chatLogID: 'chat456789',
@@ -73,9 +82,9 @@ const mockChatLogs: ChatLog[] = [
         contextVars: {},
         media: [],
         memoryID: 'mem123',
-      }
+      },
     ],
-    boardOfExperts: true
+    boardOfExperts: true,
   },
   {
     chatLogID: 'chat789012',
@@ -98,9 +107,9 @@ const mockChatLogs: ChatLog[] = [
         contextVars: {},
         media: [],
         memoryID: 'mem123',
-      }
+      },
     ],
-    boardOfExperts: false
+    boardOfExperts: false,
   },
   {
     chatLogID: 'chat345678',
@@ -139,10 +148,10 @@ const mockChatLogs: ChatLog[] = [
         contextVars: {},
         media: [],
         memoryID: 'mem123',
-      }
+      },
     ],
-    boardOfExperts: false
-  }
+    boardOfExperts: false,
+  },
 ];
 
 const mockMemori: Memori = {
@@ -155,27 +164,27 @@ const mockMemori: Memori = {
   enableBoardOfExperts: true,
   memoriConfigurationID: 'mem123',
   privacyType: 'PUBLIC',
-  voiceType: 'FEMALE'
+  voiceType: 'FEMALE',
 } as Memori;
 
 const mockParams = {
-    open: true,
-    sessionId: 'session12345',
-    memori: mockMemori,
-    apiClient: mockApiClient as any,
-    onClose: () => console.log('Close button clicked'),
-    history: mockChatLogs.map(chatLog => ({
-      text: chatLog.lines[0].text,
-      fromUser: chatLog.lines[0].inbound,
-      timestamp: chatLog.lines[0].timestamp,
-    })),
-    resumeSession: (chatLog: ChatLog) => {
-      console.log('Resume session called with:', chatLog);
-    },
-    loginToken: 'mock-login-token',
-    language: 'EN',
-    userLang: 'EN',
-}
+  open: true,
+  sessionId: 'session12345',
+  memori: mockMemori,
+  apiClient: mockApiClient as any,
+  onClose: () => console.log('Close button clicked'),
+  history: mockChatLogs.map(chatLog => ({
+    text: chatLog.lines[0].text,
+    fromUser: chatLog.lines[0].inbound,
+    timestamp: chatLog.lines[0].timestamp,
+  })),
+  resumeSession: (chatLog: ChatLog) => {
+    console.log('Resume session called with:', chatLog);
+  },
+  loginToken: 'mock-login-token',
+  language: 'EN',
+  userLang: 'EN',
+};
 
 // Create a meta object for the component
 const meta: Meta<typeof ChatHistory> = {
@@ -184,7 +193,11 @@ const meta: Meta<typeof ChatHistory> = {
   decorators: [
     Story => (
       <I18nWrapper>
-        <Story />
+        <ArtifactProvider>
+          <AlertProvider defaultDuration={5000}>
+            <Story />
+          </AlertProvider>
+        </ArtifactProvider>
       </I18nWrapper>
     ),
   ],
@@ -208,7 +221,7 @@ type Story = StoryObj<typeof ChatHistory>;
 
 // Default story
 export const Default: Story = {
-  args: {}
+  args: {},
 };
 
 // With preselected chat
@@ -218,12 +231,14 @@ export const WithSelectedChat: Story = {
     // We need to use the play function to simulate clicking on a chat
     const canvas = canvasElement.ownerDocument.body;
     setTimeout(() => {
-      const chatCard = canvas.querySelector('.memori-chat-history-drawer--list-item--button');
+      const chatCard = canvas.querySelector(
+        '.memori-chat-history-drawer--list-item--button'
+      );
       if (chatCard) {
         (chatCard as HTMLElement).click();
       }
     }, 300);
-  }
+  },
 };
 
 // Empty state
@@ -231,11 +246,17 @@ export const EmptyState: Story = {
   args: {
     apiClient: {
       chatLogs: {
-        getUserChatLogsByToken: (loginToken: string, memoriID: string, dateFrom: string, dateTo: string) => Promise.resolve({ chatLogs: [] }),
-        getUserChatLogsByTokenPaged: (requestBody: any) => Promise.resolve({ chatLogs: [], totalItems: 0 })
-      }
-    } as any
-  }
+        getUserChatLogsByToken: (
+          loginToken: string,
+          memoriID: string,
+          dateFrom: string,
+          dateTo: string
+        ) => Promise.resolve({ chatLogs: [] }),
+        getUserChatLogsByTokenPaged: (requestBody: any) =>
+          Promise.resolve({ chatLogs: [], totalItems: 0 }),
+      },
+    } as any,
+  },
 };
 
 // Loading state
@@ -243,21 +264,31 @@ export const LoadingState: Story = {
   args: {
     apiClient: {
       chatLogs: {
-        getUserChatLogsByToken: (loginToken: string, memoriID: string, dateFrom: string, dateTo: string) => new Promise(resolve => {
-          // Simulate a slow network
-          setTimeout(() => {
-            resolve({ chatLogs: mockChatLogs });
-          }, 2000);
-        }),
-        getUserChatLogsByTokenPaged: (requestBody: any) => new Promise(resolve => {
-          // Simulate a slow network
-          setTimeout(() => {
-            resolve({ chatLogs: mockChatLogs, totalItems: mockChatLogs.length });
-          }, 2000);
-        })
-      }
-    } as any
-  }
+        getUserChatLogsByToken: (
+          loginToken: string,
+          memoriID: string,
+          dateFrom: string,
+          dateTo: string
+        ) =>
+          new Promise(resolve => {
+            // Simulate a slow network
+            setTimeout(() => {
+              resolve({ chatLogs: mockChatLogs });
+            }, 2000);
+          }),
+        getUserChatLogsByTokenPaged: (requestBody: any) =>
+          new Promise(resolve => {
+            // Simulate a slow network
+            setTimeout(() => {
+              resolve({
+                chatLogs: mockChatLogs,
+                totalItems: mockChatLogs.length,
+              });
+            }, 2000);
+          }),
+      },
+    } as any,
+  },
 };
 
 // Search state
@@ -269,10 +300,12 @@ export const WithSearch: Story = {
       const searchInput = canvas.querySelector('input[type="text"]');
       if (searchInput) {
         (searchInput as HTMLInputElement).value = 'pricing';
-        (searchInput as HTMLInputElement).dispatchEvent(new Event('change', { bubbles: true }));
+        (searchInput as HTMLInputElement).dispatchEvent(
+          new Event('change', { bubbles: true })
+        );
       }
     }, 300);
-  }
+  },
 };
 
 // With pagination
@@ -280,7 +313,12 @@ export const WithPagination: Story = {
   args: {
     apiClient: {
       chatLogs: {
-        getUserChatLogsByToken: (loginToken: string, memoriID: string, dateFrom: string, dateTo: string) => {
+        getUserChatLogsByToken: (
+          loginToken: string,
+          memoriID: string,
+          dateFrom: string,
+          dateTo: string
+        ) => {
           // Create 20 mock chat logs to trigger pagination
           const manyLogs = Array.from({ length: 20 }, (_, i) => ({
             chatLogID: `chat${i}`,
@@ -292,7 +330,7 @@ export const WithPagination: Story = {
                 contextVars: {},
                 media: [],
                 memoryID: 'mem123',
-                sessionID: 'session123'
+                sessionID: 'session123',
               },
               {
                 text: `Answer ${i}`,
@@ -301,10 +339,10 @@ export const WithPagination: Story = {
                 contextVars: {},
                 media: [],
                 memoryID: 'memori.memoriID',
-                sessionID: 'session123'
-              }
+                sessionID: 'session123',
+              },
             ],
-            boardOfExperts: i % 3 === 0
+            boardOfExperts: i % 3 === 0,
           }));
           return Promise.resolve({ chatLogs: manyLogs });
         },
@@ -320,7 +358,7 @@ export const WithPagination: Story = {
                 contextVars: {},
                 media: [],
                 memoryID: 'mem123',
-                sessionID: 'session123'
+                sessionID: 'session123',
               },
               {
                 text: `Answer ${i}`,
@@ -329,18 +367,17 @@ export const WithPagination: Story = {
                 contextVars: {},
                 media: [],
                 memoryID: 'memori.memoriID',
-                sessionID: 'session123'
-              }
+                sessionID: 'session123',
+              },
             ],
-            boardOfExperts: i % 3 === 0
+            boardOfExperts: i % 3 === 0,
           }));
           return Promise.resolve({ chatLogs: manyLogs, totalItems: 20 });
-        }
-      }
-    } as any
-  }
-}
-  
+        },
+      },
+    } as any,
+  },
+};
 
 // With translation
 export const WithTranslation: Story = {
@@ -348,8 +385,8 @@ export const WithTranslation: Story = {
     ...mockParams,
     language: 'EN',
     userLang: 'IT',
-    isMultilanguageEnabled: true
-  }
+    isMultilanguageEnabled: true,
+  },
 };
 
 // With current chat disabled
@@ -357,5 +394,5 @@ export const WithCurrentChatDisabled: Story = {
   args: {
     ...mockParams,
     sessionId: 'session1234',
-  }
+  },
 };

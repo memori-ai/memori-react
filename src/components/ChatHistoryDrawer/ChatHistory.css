@@ -740,7 +740,7 @@
     border-radius: 999px;
     background-color: var(--memori-primary-subtle);
     /* background-color: var(--color-background-info, var(--memori-primary-subtle)); */
-    color: var(--color-text-info, var(--memori-primary));
+    color: #fff;
     font-size: 11px;
     font-weight: 500;
 }

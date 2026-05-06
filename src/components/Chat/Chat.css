@@ -19,7 +19,7 @@
     height: calc(100% - 50px);
     flex: 1;
     border-radius: var(--memori-radius-box);
-    margin: 1rem 0;
+    margin-bottom: 1rem;
     background-color: var(--memori-secondary-background);
 }
 

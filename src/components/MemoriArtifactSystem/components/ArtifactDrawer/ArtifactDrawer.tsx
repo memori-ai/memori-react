@@ -246,12 +246,14 @@ const ArtifactDrawer: React.FC<{ isChatLogPanel?: boolean }> = ({
               loading={false}
               isMobile={isMobile}
             />
-            <Button
-              onClick={closeArtifact}
-              variant="ghost"
-              icon={<X className="memori-artifact-panel--close-icon" />}
-              title={t('artifact.close') || 'Close'}
-            />
+            {!isChatLogPanel && (
+              <Button
+                onClick={closeArtifact}
+                variant="ghost"
+                icon={<X className="memori-artifact-panel--close-icon" />}
+                title={t('artifact.close') || 'Close'}
+              />
+            )}
           </>
         )}
       </div>

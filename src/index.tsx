@@ -47,7 +47,7 @@ export interface Props {
   __WEBCOMPONENT__?: boolean;
   showClear?: boolean;
   showOnlyLastMessages?: boolean;
-  showTypingText?: boolean; 
+  showTypingText?: boolean;
   showLogin?: boolean;
   showUpload?: boolean;
   showReasoning?: boolean;
@@ -442,74 +442,77 @@ const Memori: React.FC<Props> = ({
       <AlertProvider defaultDuration={5000}>
         <VisemeProvider>
           <ArtifactProvider>
-            <AlertViewport placement="top-end" style={{ zIndex: 10002, top: 30, right: 30, position: 'fixed' }} />
-            {memori ? (
-            <MemoriWidget
-              // General props
-              layout={layout}
-              customLayout={customLayout}
-              height={height}
-              baseUrl={
-                baseURL ||
-                (tenantID.startsWith('https://') ||
-                tenantID.startsWith('http://')
-                  ? tenantID
-                  : `https://${tenantID}`)
-              }
-              apiURL={apiURL}
-              engineURL={engineURL}
-              memori={{
-                ...memori,
-                secretToken,
-              }}
-              __WEBCOMPONENT__={__WEBCOMPONENT__}
-              ownerUserName={ownerUserName ?? memori.ownerUserName}
-              ownerUserID={ownerUserID ?? memori.ownerUserID}
-              tenant={tenant}
-              tenantID={tenantID}
-              sessionID={sessionID ?? sessionId}
-              secret={secretToken}
-              ttsProvider={
-                provider ? (provider as 'azure' | 'openai') : 'azure'
-              }
-              integration={layoutIntegration}
-              authToken={authToken}
-              onStateChange={onStateChange}
-              additionalInfo={additionalInfo}
-              customMediaRenderer={customMediaRenderer}
-              additionalSettings={additionalSettings}
-              userAvatar={userAvatar}
-              applyVarsToRoot={applyVarsToRoot}
-              maxTotalMessagePayload={maxTotalMessagePayload}
-              maxTextareaCharacters={maxTextareaCharacters}
-              disableTextEnteredEvents={disableTextEnteredEvents}
-              avatar3dHidden={avatar3dHidden}
-              // From layout, from client if allowed
-              {...clientAttributes}
-              // Client only
-              showOnlyLastMessages={showOnlyLastMessages}
-              showInputs={showInputs}
-              showDates={showDates}
+            <AlertViewport
+              placement="top-end"
+              style={{ zIndex: 10002, top: 30, right: 30, position: 'fixed' }}
             />
-          ) : (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-              }}
-            >
-              <p
+            {memori ? (
+              <MemoriWidget
+                // General props
+                layout={layout}
+                customLayout={customLayout}
+                height={height}
+                baseUrl={
+                  baseURL ||
+                  (tenantID.startsWith('https://') ||
+                  tenantID.startsWith('http://')
+                    ? tenantID
+                    : `https://${tenantID}`)
+                }
+                apiURL={apiURL}
+                engineURL={engineURL}
+                memori={{
+                  ...memori,
+                  secretToken,
+                }}
+                __WEBCOMPONENT__={__WEBCOMPONENT__}
+                ownerUserName={ownerUserName ?? memori.ownerUserName}
+                ownerUserID={ownerUserID ?? memori.ownerUserID}
+                tenant={tenant}
+                tenantID={tenantID}
+                sessionID={sessionID ?? sessionId}
+                secret={secretToken}
+                ttsProvider={
+                  provider ? (provider as 'azure' | 'openai') : 'azure'
+                }
+                integration={layoutIntegration}
+                authToken={authToken}
+                onStateChange={onStateChange}
+                additionalInfo={additionalInfo}
+                customMediaRenderer={customMediaRenderer}
+                additionalSettings={additionalSettings}
+                userAvatar={userAvatar}
+                applyVarsToRoot={applyVarsToRoot}
+                maxTotalMessagePayload={maxTotalMessagePayload}
+                maxTextareaCharacters={maxTextareaCharacters}
+                disableTextEnteredEvents={disableTextEnteredEvents}
+                avatar3dHidden={avatar3dHidden}
+                // From layout, from client if allowed
+                {...clientAttributes}
+                // Client only
+                showOnlyLastMessages={showOnlyLastMessages}
+                showInputs={showInputs}
+                showDates={showDates}
+              />
+            ) : (
+              <div
                 style={{
-                  textAlign: 'center',
-                  margin: '2rem auto',
-                  textTransform: 'capitalize',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
-                {t('loading') || 'Loading'}...
-              </p>
-            </div>
-          )}
+                <p
+                  style={{
+                    textAlign: 'center',
+                    margin: '2rem auto',
+                    textTransform: 'capitalize',
+                  }}
+                >
+                  {t('loading') || 'Loading'}...
+                </p>
+              </div>
+            )}
           </ArtifactProvider>
         </VisemeProvider>
       </AlertProvider>

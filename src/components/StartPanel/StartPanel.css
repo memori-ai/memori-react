@@ -115,10 +115,11 @@
 .memori--title {
     display: inline-block;
     margin: 0;
+    margin-bottom: var(--memori-spacing-sm);
     color: var(--memori-text-color);
     font-size: var(--memori-text-size-heading-large);
     font-weight: var(--memori-text-weight-semibold);
-    line-height: var(--memori-text-line-relaxed);
+    line-height: var(--memori-text-line-tight);
 }
 
 .memori--description,
@@ -873,4 +874,10 @@
 
 .memori--privacy-popover-content-list {
     padding-left: var(--memori-spacing-md);
+}
+
+@media (max-width: 480px) {
+    .memori--settings-section__description {
+        display: none;
+    }
 }

@@ -415,7 +415,7 @@ const LoginDrawer = ({
       title={t('login.title')}
     >
       {needsMissingData?.token?.length ? (
-        <>
+        <div className="memori--login-drawer--missing-data">
           <h3>{t('login.missingData')}</h3>
           <p>{t('login.missingDataHelper')}</p>
 
@@ -440,7 +440,9 @@ const LoginDrawer = ({
                     onChange={e => setBirthDate(e.target.value)}
                     value={birthDate}
                     placeholder={
-                      isMobileViewport ? t('login.birthDatePlaceholder') || 'DD/MM/YYYY' : undefined
+                      isMobileViewport
+                        ? t('login.birthDatePlaceholder') || 'DD/MM/YYYY'
+                        : undefined
                     }
                     onFocus={() => setIsBirthDateFocused(true)}
                     onBlur={() => setIsBirthDateFocused(false)}
@@ -515,7 +517,7 @@ const LoginDrawer = ({
               {t('login.save')}
             </Button>
           </Form>
-        </>
+        </div>
       ) : showOtpCodeForm ? (
         <>
           <Card

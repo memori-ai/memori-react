@@ -276,10 +276,18 @@
     transform: translateX(-50%);
 }
 
-.memori-widget.memori-layout-website_assistant.memori--avatar-readyplayerme .memori-website_assistant-layout .memori--powered-by,
-.memori-widget.memori-layout-website_assistant.memori--avatar-readyplayerme-full .memori-website_assistant-layout .memori--powered-by,
-.memori-widget.memori-layout-website_assistant.memori--avatar-customglb .memori-website_assistant-layout .memori--powered-by,
-.memori-widget.memori-layout-website_assistant.memori--avatar-customrpm .memori-website_assistant-layout .memori--powered-by {
+.memori-widget.memori-layout-website_assistant.memori--avatar-readyplayerme
+    .memori-website_assistant-layout
+    .memori--powered-by,
+.memori-widget.memori-layout-website_assistant.memori--avatar-readyplayerme-full
+    .memori-website_assistant-layout
+    .memori--powered-by,
+.memori-widget.memori-layout-website_assistant.memori--avatar-customglb
+    .memori-website_assistant-layout
+    .memori--powered-by,
+.memori-widget.memori-layout-website_assistant.memori--avatar-customrpm
+    .memori-website_assistant-layout
+    .memori--powered-by {
     right: auto;
     left: 1rem;
     justify-content: flex-start;

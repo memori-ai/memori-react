@@ -166,14 +166,14 @@
     display: none;
 }
 
-.memori-chat-resume-drawer--embedded-chat .memori-chat--bubble-container,
+/* .memori-chat-resume-drawer--embedded-chat .memori-chat--bubble-container,
 .memori-chat-resume-drawer--embedded-chat .memori-chat--timestamp,
 .memori-chat-resume-drawer--embedded-chat .memori-media-widget,
 .memori-chat-resume-drawer--embedded-chat .memori-chat--bubble-shell {
     padding-right: 0;
     padding-left: 0;
-    /* margin-top: var(--memori-spacing-sm); */
-}
+    /* margin-top: var(--memori-spacing-sm); 
+} */
 
 .memori-chat-resume-drawer--message-group {
     display: flex;
