@@ -27,6 +27,10 @@
     transition: all 0.3s ease;
 }
 
+.memori-widget.memori-layout-website_assistant .memori-chat-inputs-wrapper {
+    margin-bottom: var(--memori-spacing-xl);
+}
+
 .memori-website_assistant--trigger-button .memori-blob,
 .memori-website_assistant--trigger-button .memori-blob .mainDiv,
 .memori-website_assistant--trigger-button .memori-blob figure {
