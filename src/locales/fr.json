@@ -316,7 +316,8 @@
     "filesNotAddedMaxAllowed": "{{count}} fichier(s) non ajouté(s) (maximum {{max}} fichiers autorisés).",
     "documentsNotAddedMaxAllowed": "{{count}} document(s) non ajouté(s) (maximum {{max}} fichiers autorisés).",
     "imagesNotAddedMaxAllowed": "{{count}} image(s) non ajoutée(s) (maximum {{max}} fichiers autorisés).",
-    "documentsNotAddedContextSize": "{{count}} document(s) non ajouté(s) (limite de taille du contexte)."
+    "documentsNotAddedContextSize": "{{count}} document(s) non ajouté(s) (limite de taille du contexte).",
+    "anonymousRetentionNotice": "Remarque : les fichiers téléversés sont conservés pendant un maximum de 24 heures."
   },
   "media": {
     "title": "Titre",

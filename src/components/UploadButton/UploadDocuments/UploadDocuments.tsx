@@ -4,7 +4,7 @@ import { Spin } from '@memori.ai/ui';
 import { FileText as DocumentIcon } from 'lucide-react';
 import { Modal } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
-
+import memoriApiClient from '@memori.ai/memori-api-client';
 // Types
 type PreviewFile = {
   name: string;
@@ -34,8 +34,19 @@ declare global {
 // Props interface
 interface UploadDocumentsProps {
   setDocumentPreviewFiles: (
-    files: { name: string; id: string; content: string; mimeType: string }[]
+    files: {
+      name: string;
+      id: string;
+      content: string;
+      mimeType: string;
+      sourceUrl?: string;
+      textAssetUrl?: string;
+    }[]
   ) => void;
+  authToken?: string;
+  client?: ReturnType<typeof memoriApiClient>;
+  sessionID?: string;
+  memoriID?: string;
   maxDocuments?: number;
   documentPreviewFiles: any;
   onLoadingChange?: (loading: boolean) => void;
@@ -58,6 +69,10 @@ interface UploadDocumentsProps {
 
 const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   setDocumentPreviewFiles,
+  authToken = '',
+  client,
+  sessionID = '',
+  memoriID = '',
   maxDocuments,
   documentPreviewFiles,
   onLoadingChange,
@@ -67,6 +82,9 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   maxDocumentContentLength = 300000,
 }) => {
   const { t } = useTranslation();
+  const { backend } = client || {
+    backend: { uploadAsset: null, uploadAssetUnlogged: null },
+  };
 
   // State
   const [isLoading, setIsLoading] = useState(false);
@@ -262,6 +280,44 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
     }
   };
 
+  const fileToDataUrl = (file: File): Promise<string> =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = e => resolve((e.target?.result as string) || '');
+      reader.onerror = () => reject(new Error('File reading failed'));
+      reader.readAsDataURL(file);
+    });
+
+  const uploadAssetFile = async (file: File): Promise<string> => {
+    if (!client) {
+      throw new Error('API client not configured properly for media upload');
+    }
+
+    const fileDataUrl = await fileToDataUrl(file);
+    let response: any;
+    if (authToken && backend?.uploadAsset) {
+      response = await backend.uploadAsset(file.name, fileDataUrl, authToken);
+    } else if (memoriID && sessionID && backend?.uploadAssetUnlogged) {
+      response = await backend.uploadAssetUnlogged(
+        file.name,
+        fileDataUrl,
+        memoriID,
+        sessionID
+      );
+    } else {
+      throw new Error('Missing required parameters for upload');
+    }
+
+    if (!response) {
+      throw new Error('Upload failed');
+    }
+    if (response.resultCode !== 0) {
+      throw new Error(response.resultMessage || 'Upload failed');
+    }
+
+    return response.asset?.assetURL;
+  };
+
   const handleDocumentUpload = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -282,8 +338,13 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
           t('upload.documentsNotAddedMaxAllowed', {
             count: skipped,
             max: maxDocuments ?? 10,
-            defaultValue: `${skipped} document(s) not added (maximum ${maxDocuments ?? 10} files allowed).`,
-          }) ?? `${skipped} document(s) not added (maximum ${maxDocuments ?? 10} files allowed).`,
+            defaultValue: `${skipped} document(s) not added (maximum ${
+              maxDocuments ?? 10
+            } files allowed).`,
+          }) ??
+          `${skipped} document(s) not added (maximum ${
+            maxDocuments ?? 10
+          } files allowed).`,
         severity: 'warning',
       });
     }
@@ -303,6 +364,8 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       id: string;
       content: string;
       mimeType: string;
+      sourceUrl?: string;
+      textAssetUrl?: string;
     }[] = [];
     let hadTruncation = false;
 
@@ -318,11 +381,23 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         if (wasTruncated) hadTruncation = true;
 
         if (text) {
+          const baseName = file.name.replace(/\.[^/.]+$/, '') || file.name;
+          const textFile = new File([text], `${baseName}.txt`, {
+            type: 'text/plain',
+          });
+
+          const [sourceUrl, textAssetUrl] = await Promise.all([
+            uploadAssetFile(file),
+            uploadAssetFile(textFile),
+          ]);
+
           processedFiles.push({
             name: file.name,
             id: fileId,
             content: text,
             mimeType: file.type,
+            sourceUrl,
+            textAssetUrl,
           });
         }
       } catch (error) {
@@ -338,15 +413,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
     // Add new documents to existing ones (only those that fit within payload)
     if (processedFiles.length > 0) {
-      const existingDocuments = documentPreviewFiles.filter(
-        (file: any) => file.type === 'document'
-      );
-      const existingImages = documentPreviewFiles.filter(
-        (file: any) => file.type === 'image'
-      );
-
       setDocumentPreviewFiles([
-        ...existingDocuments,
         ...processedFiles.map(file => ({
           ...file,
           type: 'document',
@@ -385,8 +452,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         onClick={() => documentInputRef.current?.click()}
         disabled={
           isLoading ||
-          (maxDocuments &&
-            documentPreviewFiles.length >= maxDocuments) ||
+          (maxDocuments && documentPreviewFiles.length >= maxDocuments) ||
           false
         }
         title="Upload documents"

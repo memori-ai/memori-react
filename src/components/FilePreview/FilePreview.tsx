@@ -5,11 +5,13 @@ import ContentPreviewModal from '../ContentPreviewModal';
 import Snippet from '../Snippet/Snippet';
 import { stripHTML, stripDocumentAttachmentTags } from '../../helpers/utils';
 import { getFileExtensionFromMime } from '../MediaWidget/MediaItemWidget.utils';
+import { useTranslation } from 'react-i18next';
 
 type FilePreviewProps = {
   previewFiles: any;
   removeFile: (id: string, mediumID: string | undefined) => void;
   allowRemove?: boolean;
+  showAnonymousRetentionNotice?: boolean;
   // isMessagePreview?: boolean;
 };
 
@@ -17,8 +19,10 @@ const FilePreview = ({
   previewFiles,
   removeFile,
   allowRemove = true,
+  showAnonymousRetentionNotice = false,
 }: // isMessagePreview = false,
 FilePreviewProps) => {
+  const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<{
     name: string;
     id: string;
@@ -110,12 +114,11 @@ FilePreviewProps) => {
         const div = document.createElement('div');
         div.innerHTML = htmlContent;
         htmlContent = div.textContent || div.innerText || htmlContent;
-      } else {
-        htmlContent = stripDocumentAttachmentTags(htmlContent);
       }
+      htmlContent = stripDocumentAttachmentTags(htmlContent);
       return htmlContent;
     }
-    return stripHTML(content);
+    return stripHTML(stripDocumentAttachmentTags(content));
   };
 
   // Detect if the content is an image URL
@@ -137,6 +140,22 @@ FilePreviewProps) => {
     <>
       {previewFiles.length > 0 && (
         <div className="memori--preview-container">
+          {showAnonymousRetentionNotice && (
+            <small
+              style={{
+                color: 'rgb(138, 138, 138)',
+                display: 'block',
+                marginTop: '6px',
+                marginBottom: '6px',
+                fontSize: '0.7rem',
+              }}
+            >
+              {t('upload.anonymousRetentionNotice', {
+                defaultValue:
+                  'Note: uploaded files are retained for a maximum of 24 hours.',
+              })}
+            </small>
+          )}
           <div className="memori--preview-list">
             {previewFiles.map((file: any) => (
               <div

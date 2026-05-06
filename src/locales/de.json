@@ -318,7 +318,8 @@
     "filesNotAddedMaxAllowed": "{{count}} Datei(en) nicht hinzugefügt (maximal {{max}} Dateien erlaubt).",
     "documentsNotAddedMaxAllowed": "{{count}} Dokument(e) nicht hinzugefügt (maximal {{max}} Dateien erlaubt).",
     "imagesNotAddedMaxAllowed": "{{count}} Bild(er) nicht hinzugefügt (maximal {{max}} Dateien erlaubt).",
-    "documentsNotAddedContextSize": "{{count}} Dokument(e) nicht hinzugefügt (Kontextgrößen-Limit)."
+    "documentsNotAddedContextSize": "{{count}} Dokument(e) nicht hinzugefügt (Kontextgrößen-Limit).",
+    "anonymousRetentionNotice": "Hinweis: Hochgeladene Dateien werden maximal 24 Stunden gespeichert."
   },
   "media": {
     "title": "Titel",

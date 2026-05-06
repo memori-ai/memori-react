@@ -25,7 +25,12 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@memori.ai/ui';
 import WhyThisAnswer from '../WhyThisAnswer/WhyThisAnswer';
 import { stripHTML, stripOutputTags } from '../../helpers/utils';
-import { renderMsg, sanitizeMsg, truncateMessage } from '../../helpers/message';
+import {
+  renderMsg,
+  sanitizeMsg,
+  stripAttachmentTags,
+  truncateMessage,
+} from '../../helpers/message';
 import { Expandable, Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
 import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler';
@@ -122,11 +127,8 @@ const ChatBubble: React.FC<Props> = ({
     }
   }, []);
 
-  // Clean text by removing document_attachment tags before rendering
-  const cleanText = (message.translatedText || message.text).replace(
-    /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g,
-    ''
-  );
+  // Clean text by removing attachment blocks before rendering
+  const cleanText = stripAttachmentTags(message.translatedText || message.text);
   const { text: renderedText } = renderMsg(
     message.fromUser ? truncateMessage(cleanText) : cleanText,
     useMathFormatting,

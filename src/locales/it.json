@@ -364,7 +364,8 @@
     "filesNotAddedMaxAllowed": "{{count}} file non aggiunto/i (massimo {{max}} file consentiti).",
     "documentsNotAddedMaxAllowed": "{{count}} documento/i non aggiunto/i (massimo {{max}} file consentiti).",
     "imagesNotAddedMaxAllowed": "{{count}} immagine/i non aggiunta/e (massimo {{max}} file consentiti).",
-    "documentsNotAddedContextSize": "{{count}} documento/i non aggiunto/i (limite dimensione contesto)."
+    "documentsNotAddedContextSize": "{{count}} documento/i non aggiunto/i (limite dimensione contesto).",
+    "anonymousRetentionNotice": "Nota: i file caricati vengono conservati per massimo 24 ore."
   },
   "gamification": {
     "level": "Livello",

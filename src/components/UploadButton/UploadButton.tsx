@@ -413,7 +413,14 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 
   // Handler for document files - now supports multiple documents
   const handleDocumentFiles = (
-    files: { name: string; id: string; content: string; mimeType: string }[]
+    files: {
+      name: string;
+      id: string;
+      content: string;
+      mimeType: string;
+      sourceUrl?: string;
+      textAssetUrl?: string;
+    }[]
   ) => {
     if (files.length === 0) return;
 
@@ -434,7 +441,15 @@ const UploadButton: React.FC<UploadManagerProps> = ({
 
 ${file.content}
 
-</document_attachment>`;
+</document_attachment>
+
+<attachment_source>
+${file.sourceUrl || ''}
+</attachment_source>
+
+<attachment_link>
+${file.textAssetUrl || ''}
+</attachment_link>`;
 
       return {
         name: file.name,
@@ -607,6 +622,10 @@ ${file.content}
       <div className="memori--hidden-uploader" ref={documentRef}>
         <UploadDocuments
           setDocumentPreviewFiles={handleDocumentFiles}
+          authToken={authToken}
+          client={client}
+          sessionID={sessionID}
+          memoriID={memoriID}
           maxDocuments={maxDocumentsPerMessage}
           documentPreviewFiles={documentPreviewFiles}
           onLoadingChange={handleLoadingChange}

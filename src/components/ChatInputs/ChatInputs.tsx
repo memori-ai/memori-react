@@ -357,6 +357,7 @@ ${text}
             <FilePreview
               previewFiles={documentPreviewFiles}
               removeFile={removeFile}
+              showAnonymousRetentionNotice={!authToken}
             />
           </div>
         )}
