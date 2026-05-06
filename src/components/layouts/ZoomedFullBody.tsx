@@ -198,7 +198,8 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
       {
         key: 'location',
         icon: <MapPin size={18} />,
-        title: t('widget.mobileSession.locationTracking') || 'Location tracking',
+        title:
+          t('widget.mobileSession.locationTracking') || 'Location tracking',
         subtitle:
           headerProps.position?.placeName ||
           t('widget.mobileSession.currentlyOff') ||
@@ -295,6 +296,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
         {headerProps && (
           <MobileSessionPanel
             open={mobileSheetOpen}
+            presentation="popover"
             onClose={() => setMobileSheetOpen(false)}
             title={t('widget.mobileSession.session') || 'Session'}
             loginToken={headerProps.loginToken}

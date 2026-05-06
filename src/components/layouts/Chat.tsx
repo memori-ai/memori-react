@@ -189,8 +189,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
         key: 'fullscreen',
         icon: <Expand size={18} />,
         title: t('fullscreenEnter') || 'Full screen',
-        subtitle:
-          t('widget.expandToImmersive') || 'Expand to immersive view',
+        subtitle: t('widget.expandToImmersive') || 'Expand to immersive view',
         onClick: () => {
           handleMobileFullscreen();
           setMobileSheetOpen(false);
@@ -264,7 +263,9 @@ const ChatLayout: React.FC<LayoutProps> = ({
 
         <div
           className={`memori-chat-layout--main ${
-            useSideArtifactChrome ? 'memori-chat-layout--main-with-artifact' : ''
+            useSideArtifactChrome
+              ? 'memori-chat-layout--main-with-artifact'
+              : ''
           }`}
         >
           <div
@@ -334,6 +335,7 @@ const ChatLayout: React.FC<LayoutProps> = ({
               {headerProps && (
                 <MobileSessionPanel
                   open={mobileSheetOpen}
+                  presentation="popover"
                   onClose={() => setMobileSheetOpen(false)}
                   title={t('widget.mobileSession.session') || 'Session'}
                   loginToken={headerProps.loginToken}
