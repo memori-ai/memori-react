@@ -201,6 +201,10 @@
         font-size: 12px;
         line-height: 1.25;
     }
+
+    .memori-chat--bubble-shell {
+        gap: 4px;
+    }
 }
 
 .memori-chat--bubble p + p {

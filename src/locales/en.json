@@ -157,7 +157,7 @@
       "session": "Session",
       "copyLinkOrDownload": "Copy link or download",
       "currentlyOff": "Currently off",
-      "whatIKnowAboutYou": "What I know about you",
+      "whatIKnowAboutYou": "Details of the information shared between you and {{memoriName}}",
       "locationTracking": "Location tracking",
       "locationStatus": "Status",
       "useCurrentPosition": "Use current position",

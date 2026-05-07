@@ -115,12 +115,9 @@ const MicrophoneButton = ({
         <Button
           variant="ghost"
           size="sm"
-          className={
-            listening
-              ? 'memori-chat-inputs--mic--listening'
-              : 'memori-chat-inputs--mic'
-          }
+          className={`memori-chat-inputs--mic${listening ? ' memori-chat-inputs--mic--listening' : ''}`}
           aria-label={listening ? listeningHint : idleHint}
+          aria-pressed={!!listening}
           disabled={disabled}
           onMouseDown={startHold}
           onTouchStart={handleTouchStart}

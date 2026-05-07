@@ -46,12 +46,23 @@
 .memori-modal__viewport.memori-content-preview-modal .memori-modal__close button {
     border-radius: var(--memori-radius-box);
     background: var(--memori-content-preview-close-bg, rgba(0, 0, 0, 0.05));
+    color: var(--memori-text-color, #111827);
     transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.memori-modal__viewport.memori-content-preview-modal .memori-modal__close button svg {
+    color: currentColor;
 }
 
 .memori-modal__viewport.memori-content-preview-modal .memori-modal__close button:hover {
     background: var(--memori-content-preview-close-hover, rgba(0, 0, 0, 0.1));
     transform: scale(1.05);
+}
+
+[data-theme='dark'] .memori-modal__viewport.memori-content-preview-modal .memori-modal__close button,
+.memori-widget[data-theme='dark'] .memori-modal__viewport.memori-content-preview-modal .memori-modal__close button {
+    background: color-mix(in srgb, var(--memori-main-background, #111) 85%, white);
+    color: var(--memori-text-color, #fff);
 }
 
 .memori-content-preview-modal--body--image {

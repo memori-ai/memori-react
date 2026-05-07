@@ -157,7 +157,7 @@
       "session": "Sessione",
       "copyLinkOrDownload": "Copia link o scarica",
       "currentlyOff": "Attualmente disattivato",
-      "whatIKnowAboutYou": "Cosa so di te",
+      "whatIKnowAboutYou": "Dettagli delle informazioni condivise tra te e {{memoriName}}",
       "locationTracking": "Tracciamento posizione",
       "locationStatus": "Stato",
       "useCurrentPosition": "Usa posizione attuale",

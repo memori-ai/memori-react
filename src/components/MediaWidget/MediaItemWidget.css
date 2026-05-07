@@ -759,7 +759,7 @@ div.memori-media-item--link.memori-media-item--image-link {
 
     /* Mobile snippet improvements */
     .memori-media-item--snippet-direct {
-        margin-bottom: 0.75rem;
+        margin-bottom: var(--memori-spacing-lg);
     }
 
     .memori-media-item--snippet-direct .memori-snippet pre {

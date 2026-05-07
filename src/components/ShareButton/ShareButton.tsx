@@ -89,6 +89,7 @@ const ShareButton: React.FC<Props> = ({
   const menuFlashTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
     null
   );
+  const shareMenuContainerRef = useRef<HTMLDivElement | null>(null);
 
   const clearCopyReset = () => {
     if (copyResetTimeoutRef.current !== null) {
@@ -128,6 +129,16 @@ const ShareButton: React.FC<Props> = ({
       clearCopyReset();
       clearMenuFlash();
       setCopyStatus('idle');
+    }
+  };
+
+  const clearMenuItemFocus = () => {
+    const activeElement = document.activeElement;
+    if (
+      activeElement instanceof HTMLElement &&
+      shareMenuContainerRef.current?.contains(activeElement)
+    ) {
+      activeElement.blur();
     }
   };
 
@@ -558,7 +569,12 @@ const ShareButton: React.FC<Props> = ({
         />
       </Tooltip>
       <Dropdown.Menu className="memori-share-button--dropdown-menu">
-        <div className="memori-share-button--dropdown-section">
+        <div
+          ref={shareMenuContainerRef}
+          className="memori-share-button--dropdown-content"
+          onMouseLeave={clearMenuItemFocus}
+        >
+          <div className="memori-share-button--dropdown-section">
           {memori && sessionID && sharedUrl && (
             <Dropdown.Item
               key="shared"
@@ -640,9 +656,9 @@ const ShareButton: React.FC<Props> = ({
                 : t('copyToClipboard') || undefined}
             </span>
           </Dropdown.Item>
-        </div>
-        <div className="memori-share-button--dropdown-divider" />
-        <div className="memori-share-button--dropdown-section">
+          </div>
+          <div className="memori-share-button--dropdown-divider" />
+          <div className="memori-share-button--dropdown-section">
           {socialShare.map(item => {
             const IconComponent = item.icon;
             return (
@@ -667,66 +683,67 @@ const ShareButton: React.FC<Props> = ({
               </Dropdown.Item>
             );
           })}
-        </div>
-        {showQrCode && (
-          <>
-            <div className="memori-share-button--dropdown-divider" />
-            <Dropdown.Item
-              closeOnClick={false}
-              className={cx(
-                'memori-share-button--menu-item',
-                'memori-share-button--qr-item',
-                {
-                  'memori-share-button--menu-item--flash':
-                    menuFlashKey === 'qr-download',
-                }
-              )}
-              onClick={handleDownloadQR}
-            >
-              <div className="memori-share-button--qr-content">
-                <QRCodeCanvas
-                  id="qr-canvas"
-                  value={targetUrl ?? ''}
-                  size={128}
-                  bgColor={'#ffffff'}
-                  fgColor={'#000000'}
-                  level={'H'}
-                  includeMargin={false}
-                  imageSettings={{
-                    src: qrImageURL,
-                    x: undefined,
-                    y: undefined,
-                    height: 32,
-                    width: 32,
-                    excavate: true,
-                  }}
-                />
-                <div
-                  role="button"
-                  tabIndex={0}
-                  className="memori-share-button--qr-download"
-                  onClick={event => {
-                    event.stopPropagation();
-                    handleDownloadQR();
-                  }}
-                  onKeyDown={event => {
-                    if (event.key === 'Enter' || event.key === ' ') {
-                      event.preventDefault();
+          </div>
+          {showQrCode && (
+            <>
+              <div className="memori-share-button--dropdown-divider" />
+              <Dropdown.Item
+                closeOnClick={false}
+                className={cx(
+                  'memori-share-button--menu-item',
+                  'memori-share-button--qr-item',
+                  {
+                    'memori-share-button--menu-item--flash':
+                      menuFlashKey === 'qr-download',
+                  }
+                )}
+                onClick={handleDownloadQR}
+              >
+                <div className="memori-share-button--qr-content">
+                  <QRCodeCanvas
+                    id="qr-canvas"
+                    value={targetUrl ?? ''}
+                    size={128}
+                    bgColor={'#ffffff'}
+                    fgColor={'#000000'}
+                    level={'H'}
+                    includeMargin={false}
+                    imageSettings={{
+                      src: qrImageURL,
+                      x: undefined,
+                      y: undefined,
+                      height: 32,
+                      width: 32,
+                      excavate: true,
+                    }}
+                  />
+                  <div
+                    role="button"
+                    tabIndex={0}
+                    className="memori-share-button--qr-download"
+                    onClick={event => {
                       event.stopPropagation();
                       handleDownloadQR();
-                    }
-                  }}
-                >
-                  <Download aria-hidden />
-                  <span>
-                    {t('widget.downloadQrCode') ||
-                      t('download', { defaultValue: 'Download' })}
-                  </span>
+                    }}
+                    onKeyDown={event => {
+                      if (event.key === 'Enter' || event.key === ' ') {
+                        event.preventDefault();
+                        event.stopPropagation();
+                        handleDownloadQR();
+                      }
+                    }}
+                  >
+                    <Download aria-hidden />
+                    <span>
+                      {t('widget.downloadQrCode') ||
+                        t('download', { defaultValue: 'Download' })}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            </Dropdown.Item>
-          </>
-        )}
+              </Dropdown.Item>
+            </>
+          )}
+        </div>
       </Dropdown.Menu>
     </Dropdown>
   );
