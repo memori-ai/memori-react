@@ -223,8 +223,9 @@ const ChatLayout: React.FC<LayoutProps> = ({
         icon: <Brain size={18} />,
         title: t('knownFacts.title') || 'Known facts',
         subtitle:
-          t('widget.mobileSession.whatIKnowAboutYou') ||
-          'What I know about you',
+          t('widget.mobileSession.whatIKnowAboutYou', {
+            memoriName: memori?.name || 'Memori',
+          } as const) || '',
         trailing: (
           <span className="memori-mobile-session-panel--chevron">{'>'}</span>
         ),

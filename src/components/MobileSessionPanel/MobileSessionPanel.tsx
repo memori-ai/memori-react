@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Camera, ChevronLeft, LogIn, LogOut } from 'lucide-react';
+import { Camera, ChevronLeft, ChevronRight, LogIn, LogOut } from 'lucide-react';
 import { Button, createAlertOptions, useAlertManager } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
 import { User } from '@memori.ai/memori-api-client/dist/types';
@@ -338,6 +338,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                 <li key={action.key}>
                   {(() => {
                     const isKnownFactsAction = action.view === 'knownFacts';
+                    const isShareAction = action.view === 'share';
                     const isActionDisabled =
                       action.disabled || (isKnownFactsAction && !isLoggedIn);
 
@@ -375,9 +376,9 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                             </span>
                           )}
                         </span>
-                        {action.trailing && (
+                        {(isShareAction || action.view === 'location') && (
                           <span className="memori-mobile-session-panel--action-trailing">
-                            {action.trailing}
+                            <ChevronRight size={16} />
                           </span>
                         )}
                       </Button>
@@ -455,7 +456,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
                     }`}
                     onClick={onLocationEnable}
                   >
-                    {locationEnableLabel}
+                    <span>{locationEnableLabel}</span>
                   </Button>
                   <Button
                     variant="toolbar"

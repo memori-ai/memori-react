@@ -346,9 +346,17 @@
     text-align: center;
 }
 
+.memori-mobile-session-panel--page-btn .memori-button__content {
+    display: inline-flex !important;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
 .memori-mobile-session-panel--page-btn-active {
-    border-color: color-mix(in oklch, var(--memori-success, #16a34a) 55%, white);
-    background: color-mix(in oklch, var(--memori-success, #16a34a) 14%, white);
+    border-color: color-mix(in oklch, var(--memori-success, #16a34a) 55%, var(--memori-border-color, #e5e7eb));
+    color: var(--memori-text-color, #111);
 }
 
 .memori-mobile-session-panel--page-btn:disabled {
@@ -358,6 +366,12 @@
 
 .memori-mobile-session-panel--page-btn-secondary {
     background: transparent;
+}
+
+[data-theme='dark'] .memori-mobile-session-panel--page-btn-active,
+.memori-widget[data-theme='dark'] .memori-mobile-session-panel--page-btn-active {
+    background: transparent;
+    color: var(--memori-text-color, #fff);
 }
 
 .memori-mobile-session-panel--known-facts-description,
