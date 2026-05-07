@@ -218,6 +218,18 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
       locationPlace.trim().length > 0 &&
       locationPlace !== locationUnknownLabel
   );
+  const visibleActions = actions.filter(action => {
+    const normalizedKey = action.key.toLowerCase();
+    const normalizedTitle = action.title.toLowerCase();
+    const isLocationAction = action.view === 'location';
+    const isKnownFactsAction = action.view === 'knownFacts';
+    const isAudioAction =
+      normalizedKey.includes('audio') ||
+      normalizedTitle.includes('audio') ||
+      normalizedTitle.includes('sound');
+
+    return !isLocationAction && !isKnownFactsAction && !isAudioAction;
+  });
 
   return (
     <div
@@ -334,7 +346,7 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
               {title}
             </div>
             <ul className="memori-mobile-session-panel--actions">
-              {actions.map(action => (
+              {visibleActions.map(action => (
                 <li key={action.key}>
                   {(() => {
                     const isKnownFactsAction = action.view === 'knownFacts';

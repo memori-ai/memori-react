@@ -25,7 +25,7 @@
     border: 1px solid rgba(0, 0, 0, 0.06);
     border-radius: 14px;
     background: var(--memori-background, #fff);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.08);
+    box-shadow: var(--memori-shadow-lg);
 }
 
 .memori-dropdown--user-item {
@@ -223,6 +223,11 @@
     justify-content: center;
 }
 
+.memori-header .memori-button:not(.memori-button--disabled),
+.memori-header .memori-dropdown--user-trigger {
+    border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 16%, transparent);
+}
+
 .memori-header--button + .memori-header--button {
     margin-left: var(--memori-spacing-xs);
 }
@@ -298,7 +303,8 @@
 }
 
 .memori-header .memori-button.memori-button--active:not(:disabled):not(.memori-button--disabled),
-.memori-header .memori-dropdown--user-trigger-button.memori-button--active:not(:disabled):not(.memori-button--disabled) {
+.memori-header
+    .memori-dropdown--user-trigger-button.memori-button--active:not(:disabled):not(.memori-button--disabled) {
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--memori-primary, #3b82f6) 40%, transparent);
 }
 
@@ -316,6 +322,11 @@
     min-width: 260px;
     padding: 0.625rem 0.75rem;
     border-radius: 8px;
+}
+
+.memori-dropdown--sustainability-menu {
+    margin-top: 10px;
+    margin-left: -10px;
 }
 
 .memori-dropdown--sustainability-title {
@@ -561,6 +572,140 @@
 
 .memori-header--fullpage .memori-header--fullpage-labeled-trigger {
     gap: 0.5rem;
+}
+
+.memori-header--auth-icon-controls {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.memori-header--auth-icon-button {
+    width: 38px;
+    min-width: 38px;
+    height: 38px;
+    min-height: 38px;
+    padding: 8px;
+    border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 16%, transparent);
+    /* border-radius: 8px; */
+    background: transparent;
+}
+
+.memori-header--auth-icon-button:hover {
+    background: color-mix(in srgb, var(--memori-text-color, #111827) 8%, transparent);
+}
+
+.memori-dropdown--auth-menu {
+    min-width: 320px;
+    padding: 0.45rem;
+}
+
+.memori-dropdown--auth-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+
+.memori-dropdown--auth-venue-widget-wrap {
+    overflow: auto;
+    max-height: min(62vh, 480px);
+    /* padding: 0.25rem; */
+    /* border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 12%, transparent); */
+    border-radius: 10px;
+    margin-top: 0.2rem;
+}
+
+.memori-dropdown--auth-row {
+    display: flex;
+    width: 100%;
+    max-height: 60px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.55rem;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    color: inherit;
+    gap: 0.65rem;
+    text-align: left;
+}
+
+.memori-dropdown--auth-row:hover {
+    background: color-mix(in srgb, var(--memori-text-color, #111827) 7%, transparent);
+}
+
+.memori-dropdown--auth-row--navigable {
+    cursor: pointer;
+}
+
+.memori-dropdown--auth-row--disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+}
+
+.memori-dropdown--auth-row--disabled:hover {
+    background: transparent;
+}
+
+.memori-dropdown--auth-icon-wrap {
+    display: inline-flex;
+    width: 1.1rem;
+    align-items: center;
+    justify-content: center;
+    color: color-mix(in srgb, var(--memori-text-color, #111827) 82%, #64748b);
+}
+
+.memori-dropdown--auth-copy {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.memori-dropdown--auth-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    line-height: 1.2;
+}
+
+.memori-dropdown--auth-subtitle {
+    overflow: hidden;
+    color: color-mix(in srgb, var(--memori-text-color, #111827) 62%, #64748b);
+    font-size: 0.76rem;
+    line-height: 1.2;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.memori-dropdown--switch {
+    position: relative;
+    width: 30px;
+    height: 18px;
+    flex-shrink: 0;
+    border-radius: 999px;
+    background: #9ca3af;
+    transition: background 0.2s ease;
+}
+
+.memori-dropdown--switch::after {
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #fff;
+    content: '';
+    transition: transform 0.2s ease;
+}
+
+.memori-dropdown--switch--on {
+    background: var(--memori-primary-color, #7c3aed);
+}
+
+.memori-dropdown--switch--on::after {
+    transform: translateX(12px);
 }
 
 @media (max-width: 767px) {

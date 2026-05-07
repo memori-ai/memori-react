@@ -20,9 +20,13 @@ import {
   Settings,
   Minimize,
   Maximize,
+  Info,
   RefreshCw,
   X,
   Brain,
+  MapPin,
+  ChevronDown,
+  ChevronRight,
   Users,
   User as UserIcon,
   MessageCircle,
@@ -32,7 +36,9 @@ import {
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ShareButton from '../ShareButton/ShareButton';
-import PositionPopover from '../PositionPopover/PositionPopover';
+import PositionPopover, {
+  PositionPopoverContent,
+} from '../PositionPopover/PositionPopover';
 import GasStation from '../icons/GasStation';
 import { getErrori18nKey } from '../../helpers/error';
 import memoriApiClient from '@memori.ai/memori-api-client';
@@ -127,6 +133,9 @@ const Header: React.FC<Props> = ({
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
   const [userPopoverOpen, setUserPopoverOpen] = useState(false);
+  const [settingsPopoverOpen, setSettingsPopoverOpen] = useState(false);
+  const [infoPopoverOpen, setInfoPopoverOpen] = useState(false);
+  const [showEmbeddedVenueWidget, setShowEmbeddedVenueWidget] = useState(false);
 
   type ImpactMetricType = 'energy' | 'co2' | 'water';
 
@@ -213,6 +222,24 @@ const Header: React.FC<Props> = ({
               llmUsage?: { energyImpact?: LlmUsageEnergyImpact };
             }
           ).llmUsage?.energyImpact
+      ),
+    [chatLog]
+  );
+  const hasChatConsumptionData = useMemo(
+    () =>
+      (chatLog?.lines ?? []).some(
+        line =>
+          !!(
+            line as Message & {
+              llmUsage?: {
+                provider?: string;
+                model?: string;
+                totalInputTokens?: number;
+                outputTokens?: number;
+                energyImpact?: LlmUsageEnergyImpact;
+              };
+            }
+          ).llmUsage
       ),
     [chatLog]
   );
@@ -351,8 +378,7 @@ const Header: React.FC<Props> = ({
   };
 
   const isFullPageChrome = layout === 'FULLPAGE' || layout === 'CHAT';
-  const showFullpageChromeDividers =
-    layout !== 'CHAT' && showFullpageDividers;
+  const showFullpageChromeDividers = layout !== 'CHAT' && showFullpageDividers;
   const fullpageGuestChrome = layout === 'FULLPAGE' && !loginToken;
   const chatHistoryButtonLabel =
     layout === 'TOTEM'
@@ -364,6 +390,8 @@ const Header: React.FC<Props> = ({
     t('widget.headerProfile') || t('login.user') || 'Profile';
   const fullpageHeaderLoginLabel =
     t('widget.headerLogin') || t('login.login') || 'Login';
+  const isAuthenticated = !!loginToken && !!user;
+  const isConversationStarted = Boolean(sessionID && hasUserActivatedSpeak);
 
   const fullpagePrimaryHasContent =
     (showChatHistory && !!loginToken) || showLogin;
@@ -409,7 +437,14 @@ const Header: React.FC<Props> = ({
         <Popover
           className="memori-header--dropdown"
           open={userPopoverOpen}
-          onOpenChange={setUserPopoverOpen}
+          onOpenChange={open => {
+            setUserPopoverOpen(open);
+            if (open) {
+              setSettingsPopoverOpen(false);
+              setInfoPopoverOpen(false);
+              setPositionPopoverOpen(false);
+            }
+          }}
           placement="bottom-end"
           sideOffset={8}
           closable={false}
@@ -556,7 +591,14 @@ const Header: React.FC<Props> = ({
                 venue={position}
                 setVenue={setVenue}
                 open={positionPopoverOpen}
-                onOpenChange={setPositionPopoverOpen}
+                onOpenChange={open => {
+                  setPositionPopoverOpen(open);
+                  if (open) {
+                    setSettingsPopoverOpen(false);
+                    setInfoPopoverOpen(false);
+                    setUserPopoverOpen(false);
+                  }
+                }}
                 triggerButtonVariant={buttonVariant}
                 triggerAriaLabel={t('widget.position') || 'Position'}
                 positionerClassName={
@@ -779,6 +821,293 @@ const Header: React.FC<Props> = ({
     </>
   );
 
+  const sessionInfoConsumptionSubtitle = hasSustainabilityData
+    ? `${formatImpactInReadableUnit(
+        sustainabilityTotals.energy,
+        'energy',
+        currentLocale
+      )} • ${formatImpactInReadableUnit(
+        sustainabilityTotals.gwp,
+        'co2',
+        currentLocale
+      )}`
+    : t('widget.noData', { defaultValue: 'Nessun dato disponibile' });
+  const isAssistantVoiceEnabled = !speakerMuted;
+  const isSharedPositionEnabled = !!position;
+
+  const loggedInFullpageRightControls = (
+    <div className="memori-header--auth-icon-controls">
+      {showFullscreen && fullScreenAvailable && (
+        <Tooltip title="Full screen" placement="bottom">
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              className="memori-header--auth-icon-button"
+              aria-label="Full screen"
+              icon={fullScreen ? <Minimize /> : <Maximize />}
+              onClick={
+                fullScreenHandler ||
+                (() => {
+                  if (!document.fullscreenElement) {
+                    const body =
+                      layout !== 'HIDDEN_CHAT' && layout !== 'WEBSITE_ASSISTANT'
+                        ? document.body
+                        : document.querySelector('.memori-widget');
+                    if (body) {
+                      const memoriWidget = document.querySelector(
+                        '.memori-widget'
+                      ) as HTMLElement | null;
+                      if (memoriWidget) {
+                        if (
+                          memoriWidget.dataset.memoriPrevBgColor === undefined
+                        )
+                          memoriWidget.dataset.memoriPrevBgColor =
+                            memoriWidget.style.backgroundColor ?? '';
+                        memoriWidget.style.backgroundColor = '';
+                      }
+                      body
+                        .requestFullscreen()
+                        .then(() => setFullScreen(true))
+                        .catch(err => {
+                          console.warn(
+                            'Error attempting to enable fullscreen:',
+                            err
+                          );
+                        });
+                    }
+                  } else if (document.exitFullscreen) {
+                    document
+                      .exitFullscreen()
+                      .then(() => {
+                        setFullScreen(false);
+                        const memoriWidget = document.querySelector(
+                          '.memori-widget'
+                        ) as HTMLElement | null;
+                        if (
+                          memoriWidget?.dataset?.memoriPrevBgColor !== undefined
+                        ) {
+                          memoriWidget.style.backgroundColor =
+                            memoriWidget.dataset.memoriPrevBgColor;
+                          delete memoriWidget.dataset.memoriPrevBgColor;
+                        }
+                      })
+                      .catch(err => {
+                        console.warn(
+                          'Error attempting to exit fullscreen:',
+                          err
+                        );
+                      });
+                  }
+                })
+              }
+            />
+          </span>
+        </Tooltip>
+      )}
+      <Popover
+        className="memori-header--dropdown"
+        open={settingsPopoverOpen}
+        onOpenChange={open => {
+          setSettingsPopoverOpen(open);
+          if (!open) setShowEmbeddedVenueWidget(false);
+          if (open) {
+            setInfoPopoverOpen(false);
+            setUserPopoverOpen(false);
+            setPositionPopoverOpen(false);
+          }
+        }}
+        placement="bottom-end"
+        sideOffset={8}
+        closable={false}
+        contentClassName="memori-dropdown--menu memori-dropdown--auth-menu"
+        slotProps={{
+          trigger: {
+            render: (props: React.ComponentProps<typeof Button>) => (
+              <Tooltip title="Impostazioni" placement="bottom">
+                <span style={{ display: 'inline-flex' }}>
+                  <Button
+                    {...props}
+                    variant={buttonVariant}
+                    className={cx(
+                      'memori-header--auth-icon-button',
+                      settingsPopoverOpen && 'memori-button--active'
+                    )}
+                    aria-label="Impostazioni"
+                    icon={<Settings />}
+                  />
+                </span>
+              </Tooltip>
+            ),
+          },
+        }}
+        content={
+          <div className="memori-dropdown--auth-content">
+            <button
+              type="button"
+              className="memori-dropdown--auth-row"
+              onClick={() => {
+                setSpeakerMuted(isAssistantVoiceEnabled);
+              }}
+            >
+              <span className="memori-dropdown--auth-icon-wrap">
+                <Volume2 size={16} />
+              </span>
+              <span className="memori-dropdown--auth-copy">
+                <span className="memori-dropdown--auth-title">Audio</span>
+                <span className="memori-dropdown--auth-subtitle">
+                  Voce dell&apos;assistente
+                </span>
+              </span>
+              <span
+                className={cx(
+                  'memori-dropdown--switch',
+                  isAssistantVoiceEnabled && 'memori-dropdown--switch--on'
+                )}
+                aria-hidden
+              />
+            </button>
+            <div className="memori-dropdown--auth-venue-widget-wrap">
+              <PositionPopoverContent venue={position} setVenue={setVenue} />
+            </div>
+          </div>
+        }
+      >
+        {null}
+      </Popover>
+      {isConversationStarted && (
+        <Popover
+          className="memori-header--dropdown"
+          open={infoPopoverOpen}
+          onOpenChange={open => {
+            setInfoPopoverOpen(open);
+            if (open) {
+              setSettingsPopoverOpen(false);
+              setUserPopoverOpen(false);
+              setPositionPopoverOpen(false);
+            }
+          }}
+          placement="bottom-end"
+          sideOffset={8}
+          closable={false}
+          contentClassName="memori-dropdown--menu memori-dropdown--auth-menu"
+          slotProps={{
+            trigger: {
+              render: (props: React.ComponentProps<typeof Button>) => (
+                <Tooltip title="Info sessione" placement="bottom">
+                  <span style={{ display: 'inline-flex' }}>
+                    <Button
+                      {...props}
+                      variant={buttonVariant}
+                      className={cx(
+                        'memori-header--auth-icon-button',
+                        infoPopoverOpen && 'memori-button--active'
+                      )}
+                      aria-label="Info sessione"
+                      icon={<Info />}
+                    />
+                  </span>
+                </Tooltip>
+              ),
+            },
+          }}
+          content={
+            <div className="memori-dropdown--auth-content">
+              <button
+                type="button"
+                className="memori-dropdown--auth-row memori-dropdown--auth-row--navigable"
+                onClick={() => {
+                  setShowKnownFactsDrawer(true);
+                  setInfoPopoverOpen(false);
+                }}
+              >
+                <span className="memori-dropdown--auth-icon-wrap">
+                  <Brain size={16} />
+                </span>
+                <span className="memori-dropdown--auth-copy">
+                  <span className="memori-dropdown--auth-title">
+                    Fatti noti
+                  </span>
+                  <span className="memori-dropdown--auth-subtitle">
+                    Cosa l&apos;AI sa di te
+                  </span>
+                </span>
+                <ChevronRight size={16} aria-hidden />
+              </button>
+              {hasChatConsumptionData ? (
+                <ChatConsumptionDropdown
+                  history={history}
+                  triggerVariant={buttonVariant}
+                  menuAlign="start"
+                  trigger={triggerProps => (
+                    <button
+                      {...triggerProps}
+                      type="button"
+                      className={cx(
+                        'memori-dropdown--auth-row',
+                        'memori-dropdown--auth-row--navigable',
+                        triggerProps.className
+                      )}
+                    >
+                      <span className="memori-dropdown--auth-icon-wrap">
+                        <GasStation />
+                      </span>
+                      <span className="memori-dropdown--auth-copy">
+                        <span className="memori-dropdown--auth-title">
+                          Consumi AI
+                        </span>
+                        <span className="memori-dropdown--auth-subtitle">
+                          {sessionInfoConsumptionSubtitle}
+                        </span>
+                      </span>
+                      <ChevronDown size={16} aria-hidden />
+                    </button>
+                  )}
+                />
+              ) : (
+                <button
+                  type="button"
+                  disabled
+                  className="memori-dropdown--auth-row memori-dropdown--auth-row--navigable memori-dropdown--auth-row--disabled"
+                >
+                  <span className="memori-dropdown--auth-icon-wrap">
+                    <GasStation />
+                  </span>
+                  <span className="memori-dropdown--auth-copy">
+                    <span className="memori-dropdown--auth-title">
+                      Consumi AI
+                    </span>
+                    <span className="memori-dropdown--auth-subtitle">
+                      {sessionInfoConsumptionSubtitle}
+                    </span>
+                  </span>
+                  <ChevronDown size={16} aria-hidden />
+                </button>
+              )}
+            </div>
+          }
+        >
+          {null}
+        </Popover>
+      )}
+      {showShare && (
+        <span className="memori-header--auth-share-button-wrap">
+          <ShareButton
+            title={memori.name}
+            memori={memori}
+            sessionID={sessionID}
+            tenant={tenant}
+            showQrCode
+            align="left"
+            baseUrl={baseUrl}
+            history={history}
+            triggerVariant={buttonVariant}
+            className="memori-header--auth-share-button"
+          />
+        </span>
+      )}
+    </div>
+  );
+
   return (
     <div
       className={cx(
@@ -788,7 +1117,35 @@ const Header: React.FC<Props> = ({
         fullpageGuestChrome && 'memori-header--fullpage-guest'
       )}
     >
-      {isFullPageChrome ? (
+      {isFullPageChrome && isAuthenticated ? (
+        <>
+          {fullpagePrimaryHasContent && (
+            <div className="memori-header--fullpage-primary">
+              {chatHistoryNode}
+            </div>
+          )}
+          {fullpagePrimaryHasContent &&
+            showFullpageChromeDividers &&
+            !fullpageGuestChrome && (
+              <div
+                className="memori-header--fullpage-divider"
+                role="separator"
+                aria-orientation="vertical"
+              />
+            )}
+          <div className="memori-header--fullpage-secondary">
+            {loggedInFullpageRightControls}
+            {showFullpageChromeDividers && (
+              <div
+                className="memori-header--fullpage-divider"
+                role="separator"
+                aria-orientation="vertical"
+              />
+            )}
+            {loginNode}
+          </div>
+        </>
+      ) : isFullPageChrome ? (
         <>
           {fullpagePrimaryHasContent && (
             <div className="memori-header--fullpage-primary">

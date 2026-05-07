@@ -25,6 +25,7 @@ type MessageLlmUsage = {
 export interface ChatConsumptionDropdownProps {
   history: Message[];
   triggerVariant?: React.ComponentProps<typeof Button>['variant'];
+  menuAlign?: 'start' | 'center' | 'end';
   trigger?:
     | ((
         props: React.ButtonHTMLAttributes<HTMLButtonElement>
@@ -91,6 +92,7 @@ const formatImpactInReadableUnit = (
 const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
   history,
   triggerVariant = 'ghost',
+  menuAlign = 'end',
   trigger,
 }) => {
   const { t, i18n } = useTranslation();
@@ -206,7 +208,7 @@ const ChatConsumptionDropdown: React.FC<ChatConsumptionDropdownProps> = ({
       <Dropdown.Menu
         className="memori-dropdown--sustainability-menu"
         placement="bottom"
-        align="end"
+        align={menuAlign}
       >
         <div className="memori-dropdown--sustainability">
           <h4 className="memori-dropdown--sustainability-title">

@@ -22,24 +22,53 @@
 }
 
 .memori-position-popover__switch-row {
-    padding-top: var(--memori-spacing-xs);
-    padding-bottom: var(--memori-spacing-xs);
+    min-height: 3rem;
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+.memori-position-popover__switch-meta {
+    display: inline-flex;
+    min-width: 0;
+    align-items: center;
+    padding: 0.5rem;
+    gap: var(--memori-spacing-sm);
+}
+
+.memori-position-popover__switch-icon {
+    flex-shrink: 0;
+    color: var(--memori-text-color-secondary, rgba(255, 255, 255, 0.75));
 }
 
 .memori-position-popover__switch-label {
+    display: inline-flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.memori-position-popover__switch-label-title {
+    color: var(--memori-text-color, #fff);
+    font-size: 0.95rem;
     font-weight: 500;
     line-height: var(--memori-text-line-normal);
 }
 
+.memori-position-popover__switch-label-subtitle {
+    color: var(--memori-text-color-secondary, rgba(255, 255, 255, 0.65));
+    font-size: 0.75rem;
+    line-height: 1.2;
+}
+
 .memori-position-popover__switch {
     position: relative;
-    width: 2.5rem;
-    height: 1.5rem;
+    width: 2rem;
+    height: 1.15rem;
     flex-shrink: 0;
     padding: 0;
     border: none;
     border-radius: 999px;
-    background: var(--memori-border-color, #cbd5e0);
+    background: rgba(255, 255, 255, 0.28);
     cursor: pointer;
     transition: background 0.15s ease;
 }
@@ -50,23 +79,23 @@
 }
 
 .memori-position-popover__switch--on {
-    background: var(--memori-primary, #3182ce);
+    background: var(--memori-primary, #8b5cf6);
 }
 
 .memori-position-popover__switch-thumb {
     position: absolute;
     top: 2px;
     left: 2px;
-    width: calc(1.5rem - 4px);
-    height: calc(1.5rem - 4px);
+    width: calc(1.15rem - 4px);
+    height: calc(1.15rem - 4px);
     border-radius: 50%;
     background: #fff;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.24);
     transition: transform 0.15s ease;
 }
 
 .memori-position-popover__switch--on .memori-position-popover__switch-thumb {
-    transform: translateX(1rem);
+    transform: translateX(0.85rem);
 }
 
 .memori-position-popover__tag-block {
