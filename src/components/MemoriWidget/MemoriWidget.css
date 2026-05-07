@@ -48,7 +48,7 @@
 .memori--grid-column {
     display: flex;
     width: 100%;
-    height: 100%;
+    height: 98%;
     flex-direction: column;
     align-items: flex-start;
 }
@@ -152,7 +152,6 @@
 .memori--conversation-button + .memori--conversation-button {
     margin-left: var(--memori-spacing-xs);
 }
-
 
 .memori.memori-widget.chat-focused .memori--powered-by,
 .memori.memori-widget.chat-focused
