@@ -29,7 +29,7 @@
 
 @media (max-width: 600px) {
     .memori-widget.memori-layout-chat .memori-chat-inputs-wrapper {
-        margin-bottom: var(--memori-spacing-xl);
+        margin-bottom: var(--memori-spacing-md);
     }
     .memori-widget.memori-layout-chat .memori--start-description {
         display: none;

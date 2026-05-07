@@ -79,6 +79,12 @@
     }
 }
 
+@media (max-width: 480px) {
+    .memori-fullpage-header-brand-name {
+        font-size: 1.1rem !important;
+    }
+}
+
 .memori-chat--cover {
     position: relative;
     width: 100%;

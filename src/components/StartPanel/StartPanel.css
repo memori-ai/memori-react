@@ -880,4 +880,8 @@
     .memori--settings-section__description {
         display: none;
     }
+
+    .memori--cover {
+        display: none;
+    }
 }
