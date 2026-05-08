@@ -1,5 +1,13 @@
 
 
+## [8.36.0](https://github.com/memori-ai/memori-react/compare/v8.35.2...v8.36.0) (2026-05-08)
+
+
+### Features
+
+* add anonymous retention notice to file preview and update translations ([d22e353](https://github.com/memori-ai/memori-react/commit/d22e353ceeb50bdf5d29a5fc51fe06d2a9645e61))
+* enhance file upload and preview functionality with attachment handling ([85b37e4](https://github.com/memori-ai/memori-react/commit/85b37e4b55c37a8fd31ebeacc3483dab22d349c5))
+
 ## [8.35.2](https://github.com/memori-ai/memori-react/compare/v8.35.1...v8.35.2) (2026-05-05)
 
 
