@@ -346,6 +346,7 @@
     "documentsNotAddedMaxAllowed": "{{count}} document(s) not added (maximum {{max}} files allowed).",
     "imagesNotAddedMaxAllowed": "{{count}} image(s) not added (maximum {{max}} files allowed).",
     "documentsNotAddedContextSize": "{{count}} document(s) not added (context size limit).",
+    "partialAssetUploadWarning": "Some file links could not be uploaded, but the document was added anyway.",
     "anonymousRetentionNotice": "Note: uploaded files are retained for a maximum of 24 hours."
   },
   "media": {

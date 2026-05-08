@@ -317,6 +317,7 @@
     "documentsNotAddedMaxAllowed": "{{count}} document(s) non ajouté(s) (maximum {{max}} fichiers autorisés).",
     "imagesNotAddedMaxAllowed": "{{count}} image(s) non ajoutée(s) (maximum {{max}} fichiers autorisés).",
     "documentsNotAddedContextSize": "{{count}} document(s) non ajouté(s) (limite de taille du contexte).",
+    "partialAssetUploadWarning": "Certains liens de fichier n'ont pas pu etre televerses, mais le document a ete ajoute quand meme.",
     "anonymousRetentionNotice": "Remarque : les fichiers téléversés sont conservés pendant un maximum de 24 heures."
   },
   "media": {
