@@ -1,5 +1,12 @@
 
 
+## [8.37.0](https://github.com/memori-ai/memori-react/compare/v8.36.0...v8.37.0) (2026-05-08)
+
+
+### Features
+
+* implement partial asset upload handling and add corresponding translations ([a11c513](https://github.com/memori-ai/memori-react/commit/a11c513f8cc95ae84c441c5214c417d72f1c350e))
+
 ## [8.36.0](https://github.com/memori-ai/memori-react/compare/v8.35.2...v8.36.0) (2026-05-08)
 
 
