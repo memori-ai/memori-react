@@ -269,6 +269,7 @@
     "documentsNotAddedMaxAllowed": "{{count}} documento(s) no añadido(s) (máximo {{max}} archivos permitidos).",
     "imagesNotAddedMaxAllowed": "{{count}} imagen(es) no añadida(s) (máximo {{max}} archivos permitidos).",
     "documentsNotAddedContextSize": "{{count}} documento(s) no añadido(s) (límite de tamaño de contexto).",
+    "partialAssetUploadWarning": "No se pudieron cargar algunos enlaces del archivo, pero el documento se agregó igualmente.",
     "anonymousRetentionNotice": "Nota: los archivos cargados se conservan durante un máximo de 24 horas."
   },
   "media": {

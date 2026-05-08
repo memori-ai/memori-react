@@ -386,10 +386,34 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
             type: 'text/plain',
           });
 
-          const [sourceUrl, textAssetUrl] = await Promise.all([
+          const uploadResults = await Promise.allSettled([
             uploadAssetFile(file),
             uploadAssetFile(textFile),
           ]);
+
+          const sourceUrl =
+            uploadResults[0].status === 'fulfilled'
+              ? uploadResults[0].value
+              : undefined;
+          const textAssetUrl =
+            uploadResults[1].status === 'fulfilled'
+              ? uploadResults[1].value
+              : undefined;
+
+          // Keep the document even when one of the optional links fails to upload.
+          if (
+            uploadResults[0].status === 'rejected' ||
+            uploadResults[1].status === 'rejected'
+          ) {
+            onDocumentError?.({
+              message: t('upload.partialAssetUploadWarning', {
+                fileName: file.name,
+                defaultValue:
+                  'Some file links could not be uploaded, but the document was added anyway.',
+              }),
+              severity: 'warning',
+            });
+          }
 
           processedFiles.push({
             name: file.name,

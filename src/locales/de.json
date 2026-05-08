@@ -269,6 +269,7 @@
     "documentsNotAddedMaxAllowed": "{{count}} Dokument(e) nicht hinzugefügt (maximal {{max}} Dateien erlaubt).",
     "imagesNotAddedMaxAllowed": "{{count}} Bild(er) nicht hinzugefügt (maximal {{max}} Dateien erlaubt).",
     "documentsNotAddedContextSize": "{{count}} Dokument(e) nicht hinzugefügt (Kontextgrößen-Limit).",
+    "partialAssetUploadWarning": "Einige Dateilinks konnten nicht hochgeladen werden, aber das Dokument wurde trotzdem hinzugefügt.",
     "anonymousRetentionNotice": "Hinweis: Hochgeladene Dateien werden maximal 24 Stunden gespeichert."
   },
   "media": {
