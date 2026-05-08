@@ -24,6 +24,18 @@ export interface Props {
 const addQuestionMark = (question: string) =>
   question.endsWith('?') ? question : `${question}?`;
 
+const removeDocumentTags = (text: string) =>
+  text
+    // Remove document wrapper tags while keeping their inner content.
+    .replace(/<\/?documents?\b[^>]*>/gi, '')
+    // Remove self-closing document tags entirely.
+    .replace(/<documents?\b[^>]*\/>/gi, '')
+    // Remove attachment wrapper tags while keeping their inner content.
+    .replace(/<\/?attachments?\b[^>]*>/gi, '')
+    // Remove self-closing attachment tags entirely.
+    .replace(/<attachments?\b[^>]*\/>/gi, '')
+    .trim();
+
 const WhyThisAnswer = ({
   message,
   sessionID,
@@ -36,6 +48,9 @@ const WhyThisAnswer = ({
   const { t } = useTranslation();
   const { add } = useAlertManager();
   const searchMemory = client?.search.searchMemory;
+  const sanitizedQuestionAnswered = removeDocumentTags(
+    message.questionAnswered || ''
+  );
 
   const [matches, setMatches] = useState<SearchMatches[]>(initialMatches);
   const [loading, setLoading] = useState(_TEST_loading);
@@ -52,7 +67,7 @@ const WhyThisAnswer = ({
       const { matches, ...response } = await searchMemory(sessionID, {
         searchType: 'Semantic',
         numberOfResults: 3,
-        text: message.questionAnswered,
+        text: sanitizedQuestionAnswered,
         date: message.date,
         placeName: message.placeName,
         placeLatitude: message.placeLatitude,
@@ -92,10 +107,10 @@ const WhyThisAnswer = ({
     >
       <p>{t('whyThisAnswerHelper')}</p>
 
-      {message.questionAnswered && (
+      {sanitizedQuestionAnswered && (
         <p className="memori--whythisanswer-question-answered">
           <strong>{t('question') || 'Question'}:</strong>{' '}
-          {message.questionAnswered}
+          {sanitizedQuestionAnswered}
         </p>
       )}
 

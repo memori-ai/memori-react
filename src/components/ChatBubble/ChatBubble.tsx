@@ -33,6 +33,18 @@ import {
 } from '../../helpers/message';
 import { Expandable, Modal } from '@memori.ai/ui';
 import memoriApiClient from '@memori.ai/memori-api-client';
+const ASSET_URL_PATTERN = /https?:\/\/\S*\/api\/v\d+\/asset\/\S+/gi;
+
+const sanitizeRawCopyText = (text: string) =>
+  sanitizeMsg(
+    stripAttachmentTags(text)
+      .replace(/<\/?documents?\b[^>]*>/gi, '')
+      .replace(/<documents?\b[^>]*\/>/gi, '')
+      .replace(/<\/?attachments?\b[^>]*>/gi, '')
+      .replace(/<attachments?\b[^>]*\/>/gi, '')
+      .replace(ASSET_URL_PATTERN, '')
+      .trim()
+  );
 import ArtifactHandler from '../MemoriArtifactSystem/components/ArtifactHandler/ArtifactHandler';
 
 /** Same reset window as ShareButton copy feedback */
@@ -145,7 +157,7 @@ const ChatBubble: React.FC<Props> = ({
     shouldShowCopyButtons &&
     !!message.text?.length &&
     plainText !== message.text;
-  const rawMessageText = sanitizeMsg(
+  const rawMessageText = sanitizeRawCopyText(
     message.fromUser
       ? message.text || ''
       : (message.text || '').replaceAll(/<think.*?>(.*?)<\/think>/gs, '')
