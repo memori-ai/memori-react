@@ -135,16 +135,7 @@
     "error": "Échec de l'exportation du chat en PDF. Veuillez réessayer."
   },
   "write_and_speak": {
-    "loadingChatHistory": "Chargement de l'historique des discussions...",
-    "noChatHistoryAvailable": "Aucun historique des discussions disponible",
-    "noResultsFound": "Aucun résultat trouvé pour \"{{searchText}}\"",
-    "searchInChatHistory": "Rechercher dans l'historique des chats...",
-    "latestFirst": "Plus récents d'abord",
-    "oldestFirst": "Plus anciens d'abord",
-    "exportChat": "Exporter le Chat",
-    "conversationStartedLabel": "Conversation démarrée"
-  },
-  "write_and_speak": {
+    "conversationStartedLabel": "Conversation démarrée",
     "micButtonPopover": "Cliquez sur le bouton pour parler",
     "micButtonPopoverListening": "Cliquez sur le bouton pour arrêter de parler",
     "pageInstructExplanation": "Pour m'apprendre de nouvelles choses, cliquez sur le bouton INSTRUCTEZ-MOI pour commencer",
@@ -159,6 +150,7 @@
       "contentAndIpAddress": "L'auteur peut voir le contenu et votre adresse IP",
       "authorUsesInfo": "L'auteur utilise ces informations pour améliorer les fonctionnalités de l'agent et pour vous fournir un meilleur service. En continuant la conversation, vous acceptez ces conditions."
     },
+    "aiDisclaimer": "L'agent peut commettre des erreurs. Veuillez vérifier les réponses.",
     "downloadChat": "Télécharger le chat",
     "instructButton": "INSTRUCTEZ-MOI",
     "tryMeButton": "COMMENCER",

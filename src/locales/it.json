@@ -144,6 +144,7 @@
     "pageInstructExplanation": "Per insegnarmi nuove cose clicca sul pulsante ISTRUISCIMI per cominciare",
     "pageTryMeExplanation": "Per parlare con me clicca sul pulsante INIZIAMO per cominciare",
     "pagePrivacyExplanation": "Le conversazioni sono visibili all'autore dell'agente",
+    "aiDisclaimer": "L'agente può commettere errori. Assicurati di verificare le risposte.",
     "downloadChat": "Scarica chat",
     "pagePrivacyExplanationList": {
       "allConversations": "Tutte le conversazioni con questo agente sono visibili all'autore dell'agente",
@@ -259,7 +260,6 @@
     "pdfExportNotSupported": "L'esportazione PDF non è supportata in questo browser",
     "popupBlocked": "Popup bloccato! Abilita i popup per stampare.",
     "safariPdfInstructions": "Esportazione PDF aperta in una nuova finestra. Usa Cmd+P (Mac) o Ctrl+P (Windows) per stampare e salvare come PDF."
-
   },
   "media": {
     "title": "Titolo",

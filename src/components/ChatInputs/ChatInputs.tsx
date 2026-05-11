@@ -3,7 +3,6 @@ import { DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
 import toast from 'react-hot-toast';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
-import Button from '../ui/Button';
 import Send from '../icons/Send';
 import MicrophoneButton from '../MicrophoneButton/MicrophoneButton';
 import cx from 'classnames';
@@ -11,7 +10,7 @@ import Microphone from '../icons/Microphone';
 import UploadButton from '../UploadButton/UploadButton';
 import FilePreview from '../FilePreview/FilePreview';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import Plus from '../icons/Plus';
+
 export interface Props {
   dialogState?: DialogState;
   instruct?: boolean;
@@ -136,8 +135,6 @@ const ChatInputs: React.FC<Props> = ({
       };
     });
 
-    
-
     sendMessage(userMessage, mediaWithIds);
 
     // Reset states after sending
@@ -233,17 +230,21 @@ const ChatInputs: React.FC<Props> = ({
 
       const target = e.target as HTMLTextAreaElement;
       const selectionLength = target.selectionEnd - target.selectionStart;
-      const lengthAfterPaste = userMessage.length - selectionLength + text.length;
+      const lengthAfterPaste =
+        userMessage.length - selectionLength + text.length;
 
       if (
         maxTextareaCharacters != null &&
         lengthAfterPaste > maxTextareaCharacters
       ) {
         e.preventDefault();
-        toast(t('upload.pasteContentExceedsLimit', {
-          defaultValue:
-            'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
-        }), { icon: '⚠️' });
+        toast(
+          t('upload.pasteContentExceedsLimit', {
+            defaultValue:
+              'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
+          }),
+          { icon: '⚠️' }
+        );
         return;
       }
 
@@ -276,10 +277,13 @@ const ChatInputs: React.FC<Props> = ({
 
       if (text.length > perDocumentLimit) {
         e.preventDefault();
-        toast(t('upload.pasteContentExceedsLimit', {
-          defaultValue:
-            'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
-        }), { icon: '⚠️' });
+        toast(
+          t('upload.pasteContentExceedsLimit', {
+            defaultValue:
+              'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
+          }),
+          { icon: '⚠️' }
+        );
         return;
       }
 
@@ -456,14 +460,14 @@ ${text}
         </div>
       </fieldset>
       {/* Disclaimer */}
-      {/* <div className="memori-chat-inputs--disclaimer">
+      <div className="memori-chat-inputs--disclaimer">
         <div>
           {t(
-            'chat.disclaimer',
-            'AIsuru può commettere errori. Assicurati di verificare le informazioni importanti.'
+            'write_and_speak.aiDisclaimer',
+            "L'agente può commettere errori. Assicurati di verificare le risposte."
           )}
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };
