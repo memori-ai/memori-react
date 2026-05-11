@@ -241,7 +241,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
 
   const processDocumentFile = async (
     file: File
-  ): Promise<{ text: string | null; wasTruncated: boolean }> => {
+  ): Promise<{ text: string | null }> => {
     const fileExt = file.name.split('.').pop()?.toLowerCase() || '';
 
     try {
@@ -255,21 +255,7 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         text = await extractTextFromXLSX(file);
       }
 
-      const perDocumentLimit = maxDocumentContentLength;
-      let wasTruncated = false;
-      if (text && text.length > perDocumentLimit) {
-        console.warn(
-          'Document content exceeds length limit:',
-          text.length,
-          '>',
-          perDocumentLimit
-        );
-        wasTruncated = true;
-        text =
-          text.substring(0, perDocumentLimit) +
-          '\n\n[Content truncated due to size limits]';
-      }
-      return { text, wasTruncated };
+      return { text };
     } catch (error) {
       console.error('Document processing failed:', error);
       throw new Error(
@@ -377,10 +363,11 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       const fileId = Math.random().toString(36).substr(2, 9);
 
       try {
-        const { text, wasTruncated } = await processDocumentFile(file);
-        if (wasTruncated) hadTruncation = true;
+        const { text } = await processDocumentFile(file);
 
         if (text) {
+          // Build the .txt from the FULL extracted text so the uploaded
+          // asset always contains the complete document content.
           const baseName = file.name.replace(/\.[^/.]+$/, '') || file.name;
           const textFile = new File([text], `${baseName}.txt`, {
             type: 'text/plain',
@@ -415,10 +402,22 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
             });
           }
 
+          // Truncate the content AFTER uploading the full-text asset,
+          // so the message payload stays within safe limits while
+          // the asset link preserves the complete document.
+          let contentForMessage = text;
+          const perDocumentLimit = maxDocumentContentLength;
+          if (text.length > perDocumentLimit) {
+            hadTruncation = true;
+            contentForMessage =
+              text.substring(0, perDocumentLimit) +
+              '\n\n[Content truncated due to size limits]';
+          }
+
           processedFiles.push({
             name: file.name,
             id: fileId,
-            content: text,
+            content: contentForMessage,
             mimeType: file.type,
             sourceUrl,
             textAssetUrl,
