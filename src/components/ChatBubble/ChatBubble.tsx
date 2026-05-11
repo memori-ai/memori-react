@@ -29,6 +29,7 @@ import {
   renderMsg,
   sanitizeMsg,
   stripAttachmentTags,
+  stripAllInternalTags,
   truncateMessage,
 } from '../../helpers/message';
 import { Expandable, Modal } from '@memori.ai/ui';
@@ -157,10 +158,12 @@ const ChatBubble: React.FC<Props> = ({
     shouldShowCopyButtons &&
     !!message.text?.length &&
     plainText !== message.text;
-  const rawMessageText = sanitizeRawCopyText(
-    message.fromUser
-      ? message.text || ''
-      : (message.text || '').replaceAll(/<think.*?>(.*?)<\/think>/gs, '')
+  const rawMessageText = sanitizeMsg(
+    stripAllInternalTags(
+      message.fromUser
+        ? message.text || ''
+        : (message.text || '').replaceAll(/<think.*?>(.*?)<\/think>/gs, '')
+    )
   );
   const copiedLabel = t('copied') || 'Copied';
   const formattedTimestamp = message.timestamp
@@ -714,7 +717,7 @@ const ChatBubble: React.FC<Props> = ({
                     placement="bottom"
                     content={`${
                       lang === 'it' ? 'Testo originale' : 'Original text'
-                    }: ${message.text}`}
+                    }: ${stripAllInternalTags(message.text)}`}
                     className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
                   >
                     <span className="memori-chat--bubble-addon-tooltip-trigger">

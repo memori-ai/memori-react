@@ -4,7 +4,7 @@
  */
 
 import { Message, Memori } from '@memori.ai/memori-api-client/dist/types';
-import { renderMsg } from './message';
+import { renderMsg, stripAllInternalTags } from './message';
 import { stripOutputTags } from './utils';
 
 export interface ChatPDFOptions {
@@ -418,10 +418,7 @@ const formatMessageBubble = (
     : '';
 
   // Clean and render message text
-  const cleanText = (message.text || '').replace(
-    /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g,
-    ''
-  );
+  const cleanText = stripAllInternalTags(message.text || '');
 
   // Use renderMsg to convert markdown to HTML (same as ChatBubble does)
   const { text: renderedText } = renderMsg(

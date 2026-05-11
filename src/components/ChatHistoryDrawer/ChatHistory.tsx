@@ -17,6 +17,7 @@ import {
   Download,
 } from 'lucide-react';
 import { stripHTML } from '../../helpers/utils';
+import { stripAllInternalTags } from '../../helpers/message';
 import debounce from 'lodash/debounce';
 import { Spin } from '@memori.ai/ui';
 import { SelectBox } from '@memori.ai/ui';
@@ -292,7 +293,7 @@ const calculateTitle = (lines: ChatLogLine[]): string => {
 
   // Score all user messages
   const scoredMessages = userMessages.map((msg, index) => {
-    const cleanText = stripHTML(msg.text || '');
+    const cleanText = stripHTML(stripAllInternalTags(msg.text || ''));
     const score = calculateSignificanceScore(cleanText);
     return {
       text: cleanText,
@@ -445,7 +446,7 @@ const ChatHistoryDrawer = ({
     timeStyle: 'short',
   }).format(new Date())}\n\n`.concat(
     history
-      .map(m => `${m.fromUser ? 'YOU' : memori.name}: ${m.text}`)
+      .map(m => `${m.fromUser ? 'YOU' : memori.name}: ${stripAllInternalTags(m.text)}`)
       .join('\n')
   );
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
@@ -778,7 +779,7 @@ const ChatHistoryDrawer = ({
       timeStyle: 'short',
     }).format(new Date())}\n\n`.concat(
       chatLog.lines
-        .map(line => `${line.inbound ? 'YOU' : memori.name}: ${line.text}`)
+        .map(line => `${line.inbound ? 'YOU' : memori.name}: ${stripAllInternalTags(line.text)}`)
         .join('\n')
     );
 
@@ -1118,23 +1119,52 @@ const ChatHistoryDrawer = ({
       className="memori-chat-history-drawer"
       open={open}
       onClose={onClose}
-      title={t('write_and_speak.chatHistory') || 'Chat History'}
-      closable={true}
-      anchor="left"
-      size="md"
-      description={t('write_and_speak.chatHistoryDescription')}
-    >
-      {selectedChatSession && isViewingChatDetail ? (
-        <div className="memori-chat-history-drawer--content memori-chat-history-drawer--content-with-footer">
-          <ChatResumeDrawer
-            embedded={true}
-            isOpen={true}
-            session={selectedChatSession}
-            onResume={handleResumeChat}
-            onBack={handleCloseResumeDrawer}
-            onClose={handleCloseResumeDrawer}
-            onExportChat={handleExportSelectedChat}
-          />
+      titleWithClosable={{
+        title: t('write_and_speak.chatHistory') || 'Chat History',
+        actions: [
+          {
+            icon: <Download />,
+            visible: isViewingChatDetail,
+            onClick: () => {
+              //download the chat already opened
+              const fileName = `${memori.name.replace(/\W+/g, '-')}-chat-${
+                new Date().toISOString().split('T')[0]
+              }.txt`;
+              const text =
+                selectedChatLog?.lines
+                  .map(
+                    line =>
+                      `${line.inbound ? 'YOU' : memori.name}: ${stripAllInternalTags(line.text)}`
+                  )
+                  .join('\n')
+                  .replaceAll(/<think.*?>(.*?)<\/think>/gs, '')
+                  .replaceAll(
+                    /<output.*?<\/output>/gsi,
+                    ''
+                  )
+                  .replaceAll(/```markdown([^```]+)```/g, '$1')
+                  .replaceAll('($', '( $')
+                  .replaceAll(':$', ': $')
+                  .replaceAll('\frac', '\\frac')
+                  .replaceAll('\beta', '\\beta')
+                  .replaceAll('cdot', '\\cdot') || 'No chat history available';
+              downloadFile(text, fileName);
+            },
+          },
+        ],
+        showClosable: true,
+      }}
+      title={
+        <div
+          className="memori-chat-history-drawer--title-wrapper"
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '100%',
+          }}
+        >
+          <span>{t('write_and_speak.chatHistory') || 'Chat History'}</span>
         </div>
       ) : (
         <div className="memori-chat-history-drawer--content memori-chat-history-drawer--content-with-footer">

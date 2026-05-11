@@ -1079,3 +1079,107 @@ Ho mostrato i primi 20 task per brevità. La tabella include il nome del task e 
     initial: false,
   },
 };
+
+// --- Tag stripping edge-case stories ---
+
+const DIRTY_MESSAGE_TEXT = [
+  '<documents>',
+  '<document name="note.md">',
+  'un altro test',
+  '',
+  '# Note nuova UI',
+  '',
+  '- Allineamento chat bubble e avatar',
+  '- Togliamo avatar se non BoE?',
+  '</document>',
+  '</documents>',
+  '<attachment_source>https://assets-staging.memori.ai/api/v2/asset/34631fb2-c58f-4406-aa81-ae57fe26314a.md</attachment_source>',
+  '<attachment_link>https://assets-staging.memori.ai/api/v2/asset/fe037cc0-96c7-48d9-97ef-bb5b2ef4b88b.txt</attachment_link>',
+  '',
+  'https://assets-staging.memori.ai/api/v2/asset/34631fb2-c58f-4406-aa81-ae57fe26314a.md',
+  '',
+  'https://assets-staging.memori.ai/api/v2/asset/fe037cc0-96c7-48d9-97ef-bb5b2ef4b88b.txt',
+].join('\n');
+
+export const WithDocumentTags = Template.bind({});
+WithDocumentTags.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: true,
+    text: DIRTY_MESSAGE_TEXT,
+    initial: false,
+  },
+  showCopyButton: true,
+};
+WithDocumentTags.parameters = {
+  docs: {
+    description: {
+      story:
+        'User message containing <documents>, <attachment_source>, <attachment_link> tags and bare asset URLs. All should be stripped from the rendered bubble and from copy actions.',
+    },
+  },
+};
+
+export const AssistantWithDocumentTags = Template.bind({});
+AssistantWithDocumentTags.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'Ecco il contenuto richiesto.\n\n' + DIRTY_MESSAGE_TEXT,
+    initial: false,
+    generatedByAI: true,
+  },
+  showCopyButton: true,
+};
+AssistantWithDocumentTags.parameters = {
+  docs: {
+    description: {
+      story:
+        'Assistant message with document/attachment tags. Tags and asset URLs should not appear in the bubble, copy-plain, or copy-raw.',
+    },
+  },
+};
+
+export const TranslationTooltipWithDocumentTags = Template.bind({});
+TranslationTooltipWithDocumentTags.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'Original text with tags\n<attachment_source>https://assets-staging.memori.ai/api/v2/asset/abc.md</attachment_source>',
+    translatedText: 'Testo tradotto senza tag',
+    initial: false,
+  },
+  showTranslationOriginal: true,
+};
+TranslationTooltipWithDocumentTags.parameters = {
+  docs: {
+    description: {
+      story:
+        'When showing the original text tooltip for a translated message, document/attachment tags should be stripped from the tooltip content.',
+    },
+  },
+};
+
+export const WithDocumentAttachmentTag = Template.bind({});
+WithDocumentAttachmentTag.args = {
+  memori,
+  tenant,
+  message: {
+    fromUser: false,
+    text: 'Here is the document you requested.\n\n<document_attachment filename="report.pdf" type="application/pdf">Full report content here...</document_attachment>\n\nLet me know if you need anything else.',
+    initial: false,
+    generatedByAI: true,
+  },
+  showCopyButton: true,
+};
+WithDocumentAttachmentTag.parameters = {
+  docs: {
+    description: {
+      story:
+        'Message with <document_attachment> tag. The tag content should be stripped from the bubble and copy actions.',
+    },
+  },
+};

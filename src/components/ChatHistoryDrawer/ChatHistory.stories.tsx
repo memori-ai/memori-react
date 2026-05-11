@@ -396,3 +396,54 @@ export const WithCurrentChatDisabled: Story = {
     sessionId: 'session1234',
   },
 };
+
+// Chat logs that include document/attachment tags and asset URLs
+const mockChatLogsWithTags: ChatLog[] = [
+  {
+    chatLogID: 'chat-tags-1',
+    memoriID: 'mem123',
+    sessionID: 'session123',
+    timestamp: '2023-01-05T10:00:00Z',
+    lines: [
+      {
+        text: '<documents><document name="note.md">What is the new UI?</document></documents>\n<attachment_source>https://assets-staging.memori.ai/api/v2/asset/abc.md</attachment_source>\nhttps://assets-staging.memori.ai/api/v2/asset/def.txt',
+        inbound: false,
+        timestamp: '2023-01-05T10:00:00Z',
+        contextVars: {},
+        media: [],
+        memoryID: 'mem123',
+      },
+      {
+        text: 'Ecco il contenuto.\n\n<attachment_link>https://assets-staging.memori.ai/api/v2/asset/xyz.md</attachment_link>',
+        inbound: true,
+        timestamp: '2023-01-05T10:01:00Z',
+        contextVars: {},
+        media: [],
+        memoryID: 'mem123',
+      },
+    ],
+    boardOfExperts: false,
+  },
+];
+
+export const WithDocumentTags: Story = {
+  args: {
+    ...mockParams,
+    apiClient: {
+      chatLogs: {
+        getUserChatLogsByToken: () =>
+          Promise.resolve({ chatLogs: mockChatLogsWithTags }),
+        getUserChatLogsByTokenPaged: () =>
+          Promise.resolve({ chatLogs: mockChatLogsWithTags, totalItems: 1 }),
+      },
+    } as any,
+  },
+};
+WithDocumentTags.parameters = {
+  docs: {
+    description: {
+      story:
+        'Chat logs where messages contain <documents>, <attachment_source>, <attachment_link> tags and bare asset URLs. The card title, detail view, and export/download should all strip these tags.',
+    },
+  },
+};
