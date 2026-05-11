@@ -1,5 +1,12 @@
 
 
+## [8.38.3](https://github.com/memori-ai/memori-react/compare/v8.38.2...v8.38.3) (2026-05-11)
+
+
+### Changes
+
+* simplify document processing by removing truncation logic from file extraction ([a1ca256](https://github.com/memori-ai/memori-react/commit/a1ca256c828ad6144cb34d5ad82c75552113aa8f))
+
 ## [8.38.2](https://github.com/memori-ai/memori-react/compare/v8.38.1...v8.38.2) (2026-05-11)
 
 
