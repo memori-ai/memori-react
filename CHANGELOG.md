@@ -1,5 +1,12 @@
 
 
+## [8.38.2](https://github.com/memori-ai/memori-react/compare/v8.38.1...v8.38.2) (2026-05-11)
+
+
+### Features
+
+* enhance message sanitization across components by implementing stripAllInternalTags function ([dff89cb](https://github.com/memori-ai/memori-react/commit/dff89cbe32a6cba521fee55ea99ebb43aa989b62))
+
 ## [8.38.1](https://github.com/memori-ai/memori-react/compare/v8.38.0...v8.38.1) (2026-05-11)
 
 ## [8.38.0](https://github.com/memori-ai/memori-react/compare/v8.37.0...v8.38.0) (2026-05-11)
