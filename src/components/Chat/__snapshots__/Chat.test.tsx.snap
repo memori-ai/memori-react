@@ -628,7 +628,9 @@ exports[`renders Chat unchanged 1`] = `
       <div
         class="memori-chat-inputs--disclaimer"
       >
-        <div>
+        <div
+          class="memori-chat-inputs--disclaimer-text"
+        >
           write_and_speak.aiDisclaimer
         </div>
       </div>
@@ -1295,7 +1297,9 @@ exports[`renders Chat with context vars unchanged 1`] = `
       <div
         class="memori-chat-inputs--disclaimer"
       >
-        <div>
+        <div
+          class="memori-chat-inputs--disclaimer-text"
+        >
           write_and_speak.aiDisclaimer
         </div>
       </div>
@@ -1908,7 +1912,9 @@ exports[`renders Chat with custom user avatar as react element unchanged 1`] = `
       <div
         class="memori-chat-inputs--disclaimer"
       >
-        <div>
+        <div
+          class="memori-chat-inputs--disclaimer-text"
+        >
           write_and_speak.aiDisclaimer
         </div>
       </div>
@@ -2527,7 +2533,9 @@ exports[`renders Chat with custom user avatar unchanged 1`] = `
       <div
         class="memori-chat-inputs--disclaimer"
       >
-        <div>
+        <div
+          class="memori-chat-inputs--disclaimer-text"
+        >
           write_and_speak.aiDisclaimer
         </div>
       </div>
@@ -3199,7 +3207,9 @@ exports[`renders Chat with dates unchanged 1`] = `
       <div
         class="memori-chat-inputs--disclaimer"
       >
-        <div>
+        <div
+          class="memori-chat-inputs--disclaimer-text"
+        >
           write_and_speak.aiDisclaimer
         </div>
       </div>
@@ -3862,7 +3872,9 @@ exports[`renders Chat with hints unchanged 1`] = `
       <div
         class="memori-chat-inputs--disclaimer"
       >
-        <div>
+        <div
+          class="memori-chat-inputs--disclaimer-text"
+        >
           write_and_speak.aiDisclaimer
         </div>
       </div>
@@ -4766,7 +4778,9 @@ exports[`renders Chat with media unchanged 1`] = `
       <div
         class="memori-chat-inputs--disclaimer"
       >
-        <div>
+        <div
+          class="memori-chat-inputs--disclaimer-text"
+        >
           write_and_speak.aiDisclaimer
         </div>
       </div>
@@ -5415,7 +5429,9 @@ exports[`renders Chat with memori typing unchanged 1`] = `
       <div
         class="memori-chat-inputs--disclaimer"
       >
-        <div>
+        <div
+          class="memori-chat-inputs--disclaimer-text"
+        >
           write_and_speak.aiDisclaimer
         </div>
       </div>
@@ -6167,7 +6183,9 @@ exports[`renders Chat with message consumption unchanged 1`] = `
       <div
         class="memori-chat-inputs--disclaimer"
       >
-        <div>
+        <div
+          class="memori-chat-inputs--disclaimer-text"
+        >
           write_and_speak.aiDisclaimer
         </div>
       </div>
@@ -6786,7 +6804,9 @@ exports[`renders Chat with user unchanged 1`] = `
       <div
         class="memori-chat-inputs--disclaimer"
       >
-        <div>
+        <div
+          class="memori-chat-inputs--disclaimer-text"
+        >
           write_and_speak.aiDisclaimer
         </div>
       </div>

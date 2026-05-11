@@ -461,7 +461,7 @@ ${text}
       </fieldset>
       {/* Disclaimer */}
       <div className="memori-chat-inputs--disclaimer">
-        <div>
+        <div className="memori-chat-inputs--disclaimer-text">
           {t(
             'write_and_speak.aiDisclaimer',
             "L'agente può commettere errori. Assicurati di verificare le risposte."
