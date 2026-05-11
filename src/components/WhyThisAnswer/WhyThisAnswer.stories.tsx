@@ -61,6 +61,90 @@ Loading.args = {
   _TEST_loading: true,
 };
 
+export const WithDocumentTagsInQuestion = Template.bind({});
+WithDocumentTagsInQuestion.args = {
+  visible: true,
+  initialMatches: [
+    {
+      confidence: 0.9,
+      confidenceLevel: 'HIGH',
+      memory: {
+        memoryID: 'tag-1',
+        memoryType: 'Question',
+        title: 'Question with tags',
+        answers: [{ text: 'Clean answer' }],
+      },
+    } as SearchMatches,
+  ],
+};
+WithDocumentTagsInQuestion.decorators = [
+  (Story: any) => (
+    <I18nWrapper>
+      <WhyThisAnswer
+        visible
+        client={memoriApiClient()}
+        sessionID={sessionID}
+        message={{
+          questionAnswered:
+            '<documents><document name="note.md">What is the new UI?</document></documents>\n<attachment_source>https://assets-staging.memori.ai/api/v2/asset/abc.md</attachment_source>\nhttps://assets-staging.memori.ai/api/v2/asset/def.txt',
+          text: 'Answer text',
+          date: '2021-01-01',
+        }}
+        closeDrawer={() => {}}
+        initialMatches={[
+          {
+            confidence: 0.9,
+            confidenceLevel: 'HIGH',
+            memory: {
+              memoryID: 'tag-1',
+              memoryType: 'Question',
+              title: 'Question with tags',
+              answers: [{ text: 'Clean answer' }],
+            },
+          } as SearchMatches,
+        ]}
+      />
+    </I18nWrapper>
+  ),
+];
+WithDocumentTagsInQuestion.parameters = {
+  docs: {
+    description: {
+      story:
+        'The user question (questionAnswered) contains <documents>, <attachment_source> tags and bare asset URLs. All should be stripped from the displayed question.',
+    },
+  },
+};
+
+export const WithDocumentTagsInAnswers = Template.bind({});
+WithDocumentTagsInAnswers.args = {
+  visible: true,
+  initialMatches: [
+    {
+      confidence: 0.85,
+      confidenceLevel: 'HIGH',
+      memory: {
+        memoryID: 'tag-2',
+        memoryType: 'Question',
+        title: 'Memory with tagged answer',
+        answers: [
+          {
+            text: '<documents><document name="ref.md">The actual answer content</document></documents>\n<attachment_link>https://assets-staging.memori.ai/api/v2/asset/xyz.txt</attachment_link>\nhttps://assets-staging.memori.ai/api/v2/asset/other.md',
+          },
+        ],
+      },
+    } as SearchMatches,
+  ],
+};
+WithDocumentTagsInAnswers.parameters = {
+  docs: {
+    description: {
+      story:
+        'A memory answer (a.text) contains document/attachment tags and asset URLs. These should be stripped from the displayed answer text.',
+    },
+  },
+};
+
 export const WithData = Template.bind({});
 WithData.args = {
   visible: true,

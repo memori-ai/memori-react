@@ -49,6 +49,22 @@ export const stripAttachmentTags = (value: string) =>
     .replaceAll(/<attachment_source>\s*[\s\S]*?\s*<\/attachment_source>/g, '')
     .replaceAll(/<attachment_link>\s*[\s\S]*?\s*<\/attachment_link>/g, '');
 
+const ASSET_URL_RE = /https?:\/\/\S*\/api\/v\d+\/asset\/\S+/gi;
+
+/**
+ * Strips all internal document/attachment wrapper tags AND bare asset URLs.
+ * Use this for any user-facing text output (copy, export, tooltips, etc.).
+ */
+export const stripAllInternalTags = (value: string) =>
+  stripAttachmentTags(value)
+    .replace(/<\/?documents?\b[^>]*>/gi, '')
+    .replace(/<documents?\b[^>]*\/>/gi, '')
+    .replace(/<\/?attachments?\b[^>]*>/gi, '')
+    .replace(/<attachments?\b[^>]*\/>/gi, '')
+    .replace(ASSET_URL_RE, '')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+
 export const needsTruncation = (message: string) => {
   return (
     message.length > MAX_MSG_CHARS || message.split(' ').length > MAX_MSG_WORDS

@@ -20,6 +20,7 @@ import Card from '../ui/Card';
 import Button from '../ui/Button';
 import ChatRound from '../icons/Chat';
 import { stripHTML } from '../../helpers/utils';
+import { stripAllInternalTags } from '../../helpers/message';
 import { Dialog } from '@headlessui/react';
 import debounce from 'lodash/debounce';
 import Spin from '../ui/Spin';
@@ -293,7 +294,7 @@ const calculateTitle = (lines: ChatLogLine[]): string => {
 
   // Score all user messages
   const scoredMessages = userMessages.map((msg, index) => {
-    const cleanText = stripHTML(msg.text || '');
+    const cleanText = stripHTML(stripAllInternalTags(msg.text || ''));
     const score = calculateSignificanceScore(cleanText);
     return {
       text: cleanText,
@@ -445,7 +446,7 @@ const ChatHistoryDrawer = ({
     timeStyle: 'short',
   }).format(new Date())}\n\n`.concat(
     history
-      .map(m => `${m.fromUser ? 'YOU' : memori.name}: ${m.text}`)
+      .map(m => `${m.fromUser ? 'YOU' : memori.name}: ${stripAllInternalTags(m.text)}`)
       .join('\n')
   );
   const [chatLogs, setChatLogs] = useState<ChatLog[]>([]);
@@ -693,7 +694,7 @@ const ChatHistoryDrawer = ({
       timeStyle: 'short',
     }).format(new Date())}\n\n`.concat(
       chatLog.lines
-        .map(line => `${line.inbound ? 'YOU' : memori.name}: ${line.text}`)
+        .map(line => `${line.inbound ? 'YOU' : memori.name}: ${stripAllInternalTags(line.text)}`)
         .join('\n')
     );
 
@@ -1123,15 +1124,10 @@ const ChatHistoryDrawer = ({
                 selectedChatLog?.lines
                   .map(
                     line =>
-                      `${line.inbound ? 'YOU' : memori.name}: ${line.text}`
+                      `${line.inbound ? 'YOU' : memori.name}: ${stripAllInternalTags(line.text)}`
                   )
                   .join('\n')
                   .replaceAll(/<think.*?>(.*?)<\/think>/gs, '')
-                  // Remove document_attachment tags from text - they will be handled as media
-                  .replaceAll(
-                    /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g,
-                    ''
-                  )
                   .replaceAll(
                     /<output.*?<\/output>/gsi,
                     ''

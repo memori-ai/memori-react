@@ -13,6 +13,7 @@ import { useTranslation } from 'react-i18next';
 import Snippet from '../Snippet/Snippet';
 import MediaWidget from '../MediaWidget/MediaWidget';
 import Card from '../ui/Card';
+import { stripAllInternalTags } from '../../helpers/message';
 
 export interface Props {
   sessionID: string;
@@ -27,18 +28,6 @@ export interface Props {
 const addQuestionMark = (question: string) =>
   question.endsWith('?') ? question : `${question}?`;
 
-const removeDocumentTags = (text: string) =>
-  text
-    // Remove document wrapper tags while keeping their inner content.
-    .replace(/<\/?documents?\b[^>]*>/gi, '')
-    // Remove self-closing document tags entirely.
-    .replace(/<documents?\b[^>]*\/>/gi, '')
-    // Remove attachment wrapper tags while keeping their inner content.
-    .replace(/<\/?attachments?\b[^>]*>/gi, '')
-    // Remove self-closing attachment tags entirely.
-    .replace(/<attachments?\b[^>]*\/>/gi, '')
-    .trim();
-
 const WhyThisAnswer = ({
   message,
   sessionID,
@@ -51,7 +40,7 @@ const WhyThisAnswer = ({
   const { t } = useTranslation();
 
   const searchMemory = client?.search.searchMemory;
-  const sanitizedQuestionAnswered = removeDocumentTags(
+  const sanitizedQuestionAnswered = stripAllInternalTags(
     message.questionAnswered || ''
   );
 
@@ -204,7 +193,7 @@ const WhyThisAnswer = ({
                 {m.memory.answers?.map((a, i) => (
                   <p key={i} className="memori--whythisanswer-answer">
                     <Expandable mode="rows" rows={3}>
-                      {a.text}
+                      {stripAllInternalTags(a.text || '')}
                     </Expandable>
                   </p>
                 ))}

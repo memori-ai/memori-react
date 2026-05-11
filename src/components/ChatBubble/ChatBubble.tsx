@@ -27,23 +27,12 @@ import {
   renderMsg,
   sanitizeMsg,
   stripAttachmentTags,
+  stripAllInternalTags,
   truncateMessage,
 } from '../../helpers/message';
 import Expandable from '../ui/Expandable';
 import Modal from '../ui/Modal';
 import memoriApiClient from '@memori.ai/memori-api-client';
-const ASSET_URL_PATTERN = /https?:\/\/\S*\/api\/v\d+\/asset\/\S+/gi;
-
-const sanitizeRawCopyText = (text: string) =>
-  sanitizeMsg(
-    stripAttachmentTags(text)
-      .replace(/<\/?documents?\b[^>]*>/gi, '')
-      .replace(/<documents?\b[^>]*\/>/gi, '')
-      .replace(/<\/?attachments?\b[^>]*>/gi, '')
-      .replace(/<attachments?\b[^>]*\/>/gi, '')
-      .replace(ASSET_URL_PATTERN, '')
-      .trim()
-  );
 
 // Always import and load MathJax
 import { installMathJax } from '../../helpers/utils';
@@ -144,10 +133,12 @@ const ChatBubble: React.FC<Props> = ({
     shouldShowCopyButtons &&
     !!message.text?.length &&
     plainText !== message.text;
-  const rawMessageText = sanitizeRawCopyText(
-    message.fromUser
-      ? message.text || ''
-      : (message.text || '').replaceAll(/<think.*?>(.*?)<\/think>/gs, '')
+  const rawMessageText = sanitizeMsg(
+    stripAllInternalTags(
+      message.fromUser
+        ? message.text || ''
+        : (message.text || '').replaceAll(/<think.*?>(.*?)<\/think>/gs, '')
+    )
   );
   const copiedLabel = t('copied') || 'Copied';
 
@@ -615,7 +606,7 @@ const ChatBubble: React.FC<Props> = ({
                     align="right"
                     content={`${
                       lang === 'it' ? 'Testo originale' : 'Original text'
-                    }: ${message.text}`}
+                    }: ${stripAllInternalTags(message.text)}`}
                     className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
                   >
                     <span>
