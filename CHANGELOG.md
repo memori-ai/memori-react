@@ -1,5 +1,17 @@
 
 
+## [8.38.0](https://github.com/memori-ai/memori-react/compare/v8.37.0...v8.38.0) (2026-05-11)
+
+
+### Features
+
+* **ui:** implement text sanitization for ChatBubble and WhyThisAnswer components ([2cae536](https://github.com/memori-ai/memori-react/commit/2cae536da331fd528d383733b83405c664907b22))
+
+
+### Changes
+
+* show ai disclaimer under chat inputs ([399f9da](https://github.com/memori-ai/memori-react/commit/399f9dae9a6aae39b96d08c72c10d4c39a99e510))
+
 ## [8.37.0](https://github.com/memori-ai/memori-react/compare/v8.36.0...v8.37.0) (2026-05-08)
 
 
