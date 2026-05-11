@@ -241,14 +241,13 @@ const ChatInputs: React.FC<Props> = ({
         lengthAfterPaste > maxTextareaCharacters
       ) {
         e.preventDefault();
-        alertManager.add({
-          id: `paste-content-exceeds-limit-${Date.now()}`,
-          title: t('upload.pasteContentExceedsLimit', {
+        toast(
+          t('upload.pasteContentExceedsLimit', {
             defaultValue:
               'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
           }),
-          data: { severity: 'error', closable: true },
-        });
+          { icon: '⚠️' }
+        );
         return;
       }
 
@@ -283,14 +282,13 @@ const ChatInputs: React.FC<Props> = ({
 
       if (text.length > perDocumentLimit) {
         e.preventDefault();
-        alertManager.add({
-          id: `paste-content-exceeds-per-document-limit-${Date.now()}`,
-          title: t('upload.pasteContentExceedsLimit', {
+        toast(
+          t('upload.pasteContentExceedsLimit', {
             defaultValue:
               'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
           }),
-          data: { severity: 'error', closable: true },
-        });
+          { icon: '⚠️' }
+        );
         return;
       }
 

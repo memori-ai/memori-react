@@ -180,6 +180,7 @@
     "pageInstructExplanation": "Per insegnarmi nuove cose clicca sul pulsante ISTRUISCIMI per cominciare",
     "pageTryMeExplanation": "Per iniziare a conversare clicca sul pulsante INIZIAMO",
     "pagePrivacyExplanation": "Le conversazioni sono visibili all'autore dell'agente",
+    "aiDisclaimer": "L'agente può commettere errori. Assicurati di verificare le risposte.",
     "downloadChat": "Scarica chat",
     "pagePrivacyExplanationList": {
       "allConversations": "Tutte le conversazioni con questo agente sono visibili all'autore dell'agente",

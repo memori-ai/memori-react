@@ -186,6 +186,7 @@
       "authorUsesInfo": "El autor utiliza estas informaciones para mejorar las funciones del agente y para ofrecerte un mejor servicio."
     },
     "instructButton": "INSTRUÍME",
+    "aiDisclaimer": "El agente puede cometer errores. Por favor, verifica las respuestas.",
     "downloadChat": "Descargar chat",
     "tryMeButton": "COMENZAR",
     "resumeButton": "CONTINUAR",

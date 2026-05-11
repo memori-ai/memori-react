@@ -171,6 +171,7 @@
     "error": "Échec de l'exportation du chat en PDF. Veuillez réessayer."
   },
   "write_and_speak": {
+    "conversationStartedLabel": "Conversation démarrée",
     "micButtonPopover": "Cliquez sur le bouton pour parler",
     "micButtonPopoverListening": "Cliquez sur le bouton pour arrêter de parler",
     "pageInstructExplanation": "Pour m'apprendre de nouvelles choses, cliquez sur le bouton INSTRUCTEZ-MOI pour commencer",
@@ -185,6 +186,7 @@
       "contentAndIpAddress": "L'auteur peut voir le contenu et votre adresse IP",
       "authorUsesInfo": "L'auteur utilise ces informations pour améliorer les fonctionnalités de l'agent et pour vous fournir un meilleur service."
     },
+    "aiDisclaimer": "L'agent peut commettre des erreurs. Veuillez vérifier les réponses.",
     "downloadChat": "Télécharger le chat",
     "instructButton": "INSTRUCTEZ-MOI",
     "tryMeButton": "COMMENCER",
