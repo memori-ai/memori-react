@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import cx from 'classnames';
 import { Spin } from '@memori.ai/ui';
 import { FileText as DocumentIcon } from 'lucide-react';
@@ -49,7 +49,7 @@ interface UploadDocumentsProps {
   memoriID?: string;
   maxDocuments?: number;
   documentPreviewFiles: any;
-  onLoadingChange?: (loading: boolean) => void;
+  onLoadingChange?: (loading: boolean, fileCount?: number) => void;
   onDocumentError?: (error: {
     message: string;
     severity: 'error' | 'warning' | 'info';
@@ -93,12 +93,10 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   // Refs
   const documentInputRef = useRef<HTMLInputElement>(null);
 
-  // Update loading state in parent component
-  useEffect(() => {
-    if (onLoadingChange) {
-      onLoadingChange(isLoading);
-    }
-  }, [isLoading, onLoadingChange]);
+  const setLoadingState = (loading: boolean, fileCount?: number) => {
+    setIsLoading(loading);
+    onLoadingChange?.(loading, fileCount);
+  };
 
   // Document upload
   const validateDocumentFile = (file: File): boolean => {
@@ -342,110 +340,107 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
       return;
     }
 
-    setIsLoading(true);
+    setLoadingState(true, filesToProcess.length);
 
-    // Process each file
-    const processedFiles: {
-      name: string;
-      id: string;
-      content: string;
-      mimeType: string;
-      sourceUrl?: string;
-      textAssetUrl?: string;
-    }[] = [];
-    let hadTruncation = false;
+    try {
+      // Process each file
+      const processedFiles: {
+        name: string;
+        id: string;
+        content: string;
+        mimeType: string;
+        sourceUrl?: string;
+        textAssetUrl?: string;
+      }[] = [];
 
-    for (const file of filesToProcess) {
-      if (!validateDocumentFile(file)) {
-        continue;
-      }
+      for (const file of filesToProcess) {
+        if (!validateDocumentFile(file)) {
+          continue;
+        }
 
-      const fileId = Math.random().toString(36).substr(2, 9);
+        const fileId = Math.random().toString(36).substr(2, 9);
 
-      try {
-        const { text } = await processDocumentFile(file);
+        try {
+          const { text } = await processDocumentFile(file);
 
-        if (text) {
-          // Build the .txt from the FULL extracted text so the uploaded
-          // asset always contains the complete document content.
-          const baseName = file.name.replace(/\.[^/.]+$/, '') || file.name;
-          const textFile = new File([text], `${baseName}.txt`, {
-            type: 'text/plain',
-          });
+          if (text) {
+            const baseName = file.name.replace(/\.[^/.]+$/, '') || file.name;
+            const textFile = new File([text], `${baseName}.txt`, {
+              type: 'text/plain',
+            });
 
-          const uploadResults = await Promise.allSettled([
-            uploadAssetFile(file),
-            uploadAssetFile(textFile),
-          ]);
+            const uploadResults = await Promise.allSettled([
+              uploadAssetFile(file),
+              uploadAssetFile(textFile),
+            ]);
 
-          const sourceUrl =
-            uploadResults[0].status === 'fulfilled'
-              ? uploadResults[0].value
-              : undefined;
-          const textAssetUrl =
-            uploadResults[1].status === 'fulfilled'
-              ? uploadResults[1].value
-              : undefined;
+            const sourceUrl =
+              uploadResults[0].status === 'fulfilled'
+                ? uploadResults[0].value
+                : undefined;
+            const textAssetUrl =
+              uploadResults[1].status === 'fulfilled'
+                ? uploadResults[1].value
+                : undefined;
 
-          // Keep the document even when one of the optional links fails to upload.
-          if (
-            uploadResults[0].status === 'rejected' ||
-            uploadResults[1].status === 'rejected'
-          ) {
-            onDocumentError?.({
-              message: t('upload.partialAssetUploadWarning', {
-                fileName: file.name,
-                defaultValue:
-                  'Some file links could not be uploaded, but the document was added anyway.',
-              }),
-              severity: 'warning',
+            if (
+              uploadResults[0].status === 'rejected' ||
+              uploadResults[1].status === 'rejected'
+            ) {
+              onDocumentError?.({
+                message: t('upload.partialAssetUploadWarning', {
+                  fileName: file.name,
+                  defaultValue:
+                    'Some file links could not be uploaded, but the document was added anyway.',
+                }),
+                severity: 'warning',
+              });
+            }
+
+            // Truncate the content AFTER uploading the full-text asset,
+            // so the message payload stays within safe limits while
+            // the asset link preserves the complete document.
+            let contentForMessage = text;
+            const perDocumentLimit = maxDocumentContentLength;
+            if (text.length > perDocumentLimit) {
+              contentForMessage =
+                text.substring(0, perDocumentLimit) +
+                '\n\n[Content truncated due to size limits]';
+            }
+
+            processedFiles.push({
+              name: file.name,
+              id: fileId,
+              content: contentForMessage,
+              mimeType: file.type,
+              sourceUrl,
+              textAssetUrl,
             });
           }
-
-          // Truncate the content AFTER uploading the full-text asset,
-          // so the message payload stays within safe limits while
-          // the asset link preserves the complete document.
-          let contentForMessage = text;
-          const perDocumentLimit = maxDocumentContentLength;
-          if (text.length > perDocumentLimit) {
-            hadTruncation = true;
-            contentForMessage =
-              text.substring(0, perDocumentLimit) +
-              '\n\n[Content truncated due to size limits]';
-          }
-
-          processedFiles.push({
-            name: file.name,
-            id: fileId,
-            content: contentForMessage,
-            mimeType: file.type,
-            sourceUrl,
-            textAssetUrl,
+        } catch (error) {
+          console.error('File processing error:', error);
+          onDocumentError?.({
+            message: `${
+              error instanceof Error ? error.message : 'Unknown error'
+            }`,
+            severity: 'warning',
           });
         }
-      } catch (error) {
-        console.error('File processing error:', error);
-        onDocumentError?.({
-          message: `${
-            error instanceof Error ? error.message : 'Unknown error'
-          }`,
-          severity: 'warning',
-        });
       }
-    }
 
-    // Add new documents to existing ones (only those that fit within payload)
-    if (processedFiles.length > 0) {
-      setDocumentPreviewFiles([
-        ...processedFiles.map(file => ({
-          ...file,
-          type: 'document',
-        })),
-      ]);
-    }
-    setIsLoading(false);
-    if (documentInputRef.current) {
-      documentInputRef.current.value = '';
+      if (processedFiles.length > 0) {
+        setDocumentPreviewFiles(
+          processedFiles.map(file => ({
+            ...file,
+            type: 'document',
+          }))
+        );
+      }
+    } finally {
+      setLoadingState(false);
+      if (documentInputRef.current) {
+        documentInputRef.current.value = '';
+      }
     }
   };
 

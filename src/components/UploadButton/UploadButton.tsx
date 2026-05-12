@@ -40,6 +40,8 @@ interface UploadManagerProps {
   maxDocumentsPerMessage?: number;
   /** Per-document content character limit. */
   maxDocumentContentLength?: number;
+  /** Called when the upload loading state changes. */
+  onUploadLoadingChange?: (loading: boolean, fileCount?: number) => void;
   /** When true, the control does not open the file picker and ignores paste/drop for uploads. */
   disabled?: boolean;
 }
@@ -55,12 +57,18 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   maxTotalMessagePayload,
   maxDocumentsPerMessage = 10,
   maxDocumentContentLength = 300000,
+  onUploadLoadingChange,
   disabled = false,
 }) => {
   const effectivePerDocumentLimit =
     maxTotalMessagePayload ?? maxDocumentContentLength ?? 300000;
   // State
-  const [isLoading, setIsLoading] = useState(false);
+  const [isDocumentLoading, setIsDocumentLoading] = useState(false);
+  const [isImageLoading, setIsImageLoading] = useState(false);
+  const isLoading = isDocumentLoading || isImageLoading;
+  const [docUploadingCount, setDocUploadingCount] = useState(0);
+  const [imgUploadingCount, setImgUploadingCount] = useState(0);
+  const uploadingFileCount = docUploadingCount + imgUploadingCount;
   const [isDragging, setIsDragging] = useState(false);
   const { t, i18n } = useTranslation();
   const alertManager = useAlertManager();
@@ -274,7 +282,6 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       if (disabled) return;
       const clipboardData = e.clipboardData;
       if (!clipboardData) {
-        console.log('[UploadButton] handlePaste: No clipboardData available.');
         return;
       }
 
@@ -437,7 +444,9 @@ const UploadButton: React.FC<UploadManagerProps> = ({
     // Process each document file
     const processedDocuments = files.map(file => {
       const escapedFileName = escapeAttributeValue(file.name);
-      const formattedContent = `<document_attachment filename="${escapedFileName}" type="${file.mimeType}">
+      const formattedContent = `<document_attachment filename="${escapedFileName}" type="${
+        file.mimeType
+      }">
 
 ${file.content}
 
@@ -460,14 +469,8 @@ ${file.textAssetUrl || ''}
       };
     });
 
-    // Keep existing images and add new documents
-    const imageFiles = documentPreviewFiles.filter(
-      (file: any) => file.type === 'image'
-    );
-
-    setDocumentPreviewFiles([...processedDocuments, ...imageFiles]);
-
-    setIsLoading(false);
+    // Append new documents to existing files (images + previous documents)
+    setDocumentPreviewFiles((prev: any[]) => [...prev, ...processedDocuments]);
   };
 
   // Document validation and error handling
@@ -567,10 +570,24 @@ ${file.textAssetUrl || ''}
     addError(error);
   };
 
-  // Set loading state for child components
-  const handleLoadingChange = (loading: boolean) => {
-    setIsLoading(loading);
-  };
+  const handleDocumentLoadingChange = useCallback(
+    (loading: boolean, fileCount?: number) => {
+      setIsDocumentLoading(loading);
+      setDocUploadingCount(loading ? fileCount ?? 1 : 0);
+    },
+    []
+  );
+  const handleImageLoadingChange = useCallback(
+    (loading: boolean, fileCount?: number) => {
+      setIsImageLoading(loading);
+      setImgUploadingCount(loading ? fileCount ?? 1 : 0);
+    },
+    []
+  );
+
+  useEffect(() => {
+    onUploadLoadingChange?.(isLoading, isLoading ? uploadingFileCount : 0);
+  }, [isLoading, uploadingFileCount, onUploadLoadingChange]);
 
   return (
     <div
@@ -592,7 +609,11 @@ ${file.textAssetUrl || ''}
       />
 
       {/* Main upload button */}
-      <Tooltip title={t('upload.uploadFiles')} placement="top-end" className="memori--upload-button-tooltip">
+      <Tooltip
+        title={t('upload.uploadFiles')}
+        placement="top-end"
+        className="memori--upload-button-tooltip"
+      >
         <Button
           variant="ghost"
           ref={buttonRef}
@@ -628,7 +649,7 @@ ${file.textAssetUrl || ''}
           memoriID={memoriID}
           maxDocuments={maxDocumentsPerMessage}
           documentPreviewFiles={documentPreviewFiles}
-          onLoadingChange={handleLoadingChange}
+          onLoadingChange={handleDocumentLoadingChange}
           onDocumentError={handleDocumentError}
           onValidateFile={validateDocumentFile}
           onValidatePayloadSize={validatePayloadSize}
@@ -644,7 +665,7 @@ ${file.textAssetUrl || ''}
           sessionID={sessionID}
           documentPreviewFiles={documentPreviewFiles}
           isMediaAccepted={isMediaAccepted}
-          onLoadingChange={handleLoadingChange}
+          onLoadingChange={handleImageLoadingChange}
           maxImages={maxDocumentsPerMessage}
           memoriID={memoriID}
           onImageError={handleImageError}

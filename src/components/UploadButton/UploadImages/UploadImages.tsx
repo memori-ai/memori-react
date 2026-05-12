@@ -30,7 +30,7 @@ interface UploadImagesProps {
   isMediaAccepted?: boolean;
   setDocumentPreviewFiles: any;
   documentPreviewFiles: any;
-  onLoadingChange?: (loading: boolean) => void;
+  onLoadingChange?: (loading: boolean, fileCount?: number) => void;
   maxImages?: number;
   memoriID?: string;
   onImageError?: (error: {
@@ -62,6 +62,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
 
   // State
   const [isLoading, setIsLoading] = useState(false);
+  const [loadingFileCount, setLoadingFileCount] = useState(0);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [filePreview, setFilePreview] = useState<string | null>(null);
   const [imageTitle, setImageTitle] = useState('');
@@ -70,12 +71,11 @@ const UploadImages: React.FC<UploadImagesProps> = ({
   // Refs
   const imageInputRef = useRef<HTMLInputElement>(null);
 
-  // Update loading state in parent component
   useEffect(() => {
     if (onLoadingChange) {
-      onLoadingChange(isLoading);
+      onLoadingChange(isLoading, isLoading ? loadingFileCount : 0);
     }
-  }, [isLoading, onLoadingChange]);
+  }, [isLoading, loadingFileCount, onLoadingChange]);
 
   // Check current total media count (images + documents)
   const currentMediaCount = documentPreviewFiles.length;
@@ -154,6 +154,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
   };
 
   const uploadMultipleImages = async (files: File[]) => {
+    setLoadingFileCount(files.length);
     setIsLoading(true);
 
     try {
@@ -302,6 +303,7 @@ const UploadImages: React.FC<UploadImagesProps> = ({
   const handleTitleSubmit = async () => {
     if (!selectedFile || !imageTitle.trim()) return;
 
+    setLoadingFileCount(1);
     setIsLoading(true);
     setShowUploadModal(false);
 

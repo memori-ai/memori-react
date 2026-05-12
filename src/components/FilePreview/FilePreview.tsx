@@ -12,7 +12,7 @@ type FilePreviewProps = {
   removeFile: (id: string, mediumID: string | undefined) => void;
   allowRemove?: boolean;
   showAnonymousRetentionNotice?: boolean;
-  // isMessagePreview?: boolean;
+  uploadingCount?: number;
 };
 
 const FilePreview = ({
@@ -20,8 +20,8 @@ const FilePreview = ({
   removeFile,
   allowRemove = true,
   showAnonymousRetentionNotice = false,
-}: // isMessagePreview = false,
-FilePreviewProps) => {
+  uploadingCount = 0,
+}: FilePreviewProps) => {
   const { t } = useTranslation();
   const [selectedFile, setSelectedFile] = useState<{
     name: string;
@@ -138,7 +138,7 @@ FilePreviewProps) => {
 
   return (
     <>
-      {previewFiles.length > 0 && (
+      {(previewFiles.length > 0 || uploadingCount > 0) && (
         <div className="memori--preview-container">
           {showAnonymousRetentionNotice && (
             <small
@@ -198,6 +198,20 @@ FilePreviewProps) => {
                 )}
               </div>
             ))}
+
+            {uploadingCount > 0 &&
+              Array.from({ length: uploadingCount }, (_, i) => (
+                <div
+                  key={`skeleton-${i}`}
+                  className="memori--preview-item memori--preview-item--document memori--preview-item--skeleton"
+                >
+                  <div className="memori--skeleton-icon" />
+                  <div className="memori--preview-file-info">
+                    <div className="memori--skeleton-line memori--skeleton-line--name" />
+                    <div className="memori--skeleton-line memori--skeleton-line--type" />
+                  </div>
+                </div>
+              ))}
           </div>
         </div>
       )}
