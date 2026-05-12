@@ -1,5 +1,18 @@
 
 
+## [8.38.4](https://github.com/memori-ai/memori-react/compare/v8.38.3...v8.38.4) (2026-05-12)
+
+
+### Features
+
+* add skeleton loading indicators and upload state management for file previews ([00cea0e](https://github.com/memori-ai/memori-react/commit/00cea0e4542528bbf308e9923b824f610cde51ae))
+
+
+### Bug Fixes
+
+* prevent sending messages while uploading files ([eff0a43](https://github.com/memori-ai/memori-react/commit/eff0a43ae0dc88413c3a4bd5522a4daa44832ea4))
+* update active file count during document validation and processing ([97b3ae9](https://github.com/memori-ai/memori-react/commit/97b3ae9815c2059438dcb0b73f939c9157371a88))
+
 ## [8.38.3](https://github.com/memori-ai/memori-react/compare/v8.38.2...v8.38.3) (2026-05-11)
 
 
