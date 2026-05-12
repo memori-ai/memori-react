@@ -353,8 +353,12 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         textAssetUrl?: string;
       }[] = [];
 
+      let activeCount = filesToProcess.length;
+
       for (const file of filesToProcess) {
         if (!validateDocumentFile(file)) {
+          activeCount--;
+          onLoadingChange?.(true, activeCount);
           continue;
         }
 
@@ -397,9 +401,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               });
             }
 
-            // Truncate the content AFTER uploading the full-text asset,
-            // so the message payload stays within safe limits while
-            // the asset link preserves the complete document.
             let contentForMessage = text;
             const perDocumentLimit = maxDocumentContentLength;
             if (text.length > perDocumentLimit) {
@@ -416,8 +417,13 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               sourceUrl,
               textAssetUrl,
             });
+          } else {
+            activeCount--;
+            onLoadingChange?.(true, activeCount);
           }
         } catch (error) {
+          activeCount--;
+          onLoadingChange?.(true, activeCount);
           console.error('File processing error:', error);
           onDocumentError?.({
             message: `${
