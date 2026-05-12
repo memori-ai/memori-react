@@ -454,7 +454,7 @@ ${text}
                 onClick={() => {
                   onSendMessage(documentPreviewFiles);
                 }}
-                disabled={!userMessage || userMessage.length === 0 || isTyping}
+                disabled={!userMessage || userMessage.length === 0 || isTyping || uploadingCount > 0}
                 title={t('send') || 'Send'}
                 aria-label={t('send') || 'Send'}
               >
