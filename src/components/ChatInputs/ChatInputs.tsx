@@ -476,7 +476,10 @@ ${text}
                     onSendMessage(documentPreviewFiles);
                   }}
                   disabled={
-                    !userMessage || userMessage.length === 0 || isTyping
+                    !userMessage ||
+                    userMessage.length === 0 ||
+                    isTyping ||
+                    uploadingCount > 0
                   }
                   title={t('send') || 'Send'}
                   size="sm"
