@@ -255,6 +255,55 @@
     line-height: 1.5;
 }
 
+/* Skeleton loading card */
+.memori--preview-item--skeleton {
+    min-width: 140px;
+    cursor: default;
+    pointer-events: none;
+}
+
+.memori--preview-item--skeleton:hover {
+    background-color: #f8f9fa;
+    transform: none;
+}
+
+.memori--skeleton-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    border-radius: 4px;
+    animation: memori-skeleton-pulse 1.5s ease-in-out infinite;
+    background: linear-gradient(90deg, #e9ecef 25%, #f1f3f5 50%, #e9ecef 75%);
+    background-size: 200% 100%;
+}
+
+.memori--skeleton-line {
+    border-radius: 4px;
+    animation: memori-skeleton-pulse 1.5s ease-in-out infinite;
+    background: linear-gradient(90deg, #e9ecef 25%, #f1f3f5 50%, #e9ecef 75%);
+    background-size: 200% 100%;
+}
+
+.memori--skeleton-line--name {
+    width: 80px;
+    height: 12px;
+    margin-bottom: 6px;
+}
+
+.memori--skeleton-line--type {
+    width: 40px;
+    height: 10px;
+}
+
+@keyframes memori-skeleton-pulse {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;

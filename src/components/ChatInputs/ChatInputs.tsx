@@ -83,6 +83,13 @@ const ChatInputs: React.FC<Props> = ({
 
   // State for textarea expansion
   const [isExpanded, setIsExpanded] = useState(false);
+  const [uploadingCount, setUploadingCount] = useState(0);
+  const handleUploadLoadingChange = useCallback(
+    (loading: boolean, fileCount?: number) => {
+      setUploadingCount(loading ? fileCount ?? 1 : 0);
+    },
+    []
+  );
 
   // State for document preview files
   const [documentPreviewFiles, setDocumentPreviewFiles] = useState<
@@ -341,12 +348,13 @@ ${text}
         disabled={isDisabled}
       >
         {/* Preview for document files (show when upload enabled or when paste added cards) */}
-        {(showUpload || documentPreviewFiles.length > 0) && (
+        {(showUpload || documentPreviewFiles.length > 0 || uploadingCount > 0) && (
           <div className="memori-chat-inputs--preview-wrapper">
             <FilePreview
               previewFiles={documentPreviewFiles}
               removeFile={removeFile}
               showAnonymousRetentionNotice={!authToken}
+              uploadingCount={uploadingCount}
             />
           </div>
         )}
@@ -366,6 +374,7 @@ ${text}
                   maxTotalMessagePayload={maxTotalMessagePayload}
                   maxDocumentsPerMessage={maxDocumentsPerMessage}
                   maxDocumentContentLength={maxDocumentContentLength}
+                  onUploadLoadingChange={handleUploadLoadingChange}
                 />
               </div>
             )}

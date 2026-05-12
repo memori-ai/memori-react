@@ -31,6 +31,8 @@ interface UploadManagerProps {
   maxDocumentsPerMessage?: number;
   /** Per-document content character limit. */
   maxDocumentContentLength?: number;
+  /** Called when the upload loading state changes. */
+  onUploadLoadingChange?: (loading: boolean, fileCount?: number) => void;
 }
 
 const UploadButton: React.FC<UploadManagerProps> = ({
@@ -44,11 +46,17 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   maxTotalMessagePayload,
   maxDocumentsPerMessage = 10,
   maxDocumentContentLength = 300000,
+  onUploadLoadingChange,
 }) => {
   const effectivePerDocumentLimit =
     maxTotalMessagePayload ?? maxDocumentContentLength ?? 300000;
   // State
-  const [isLoading, setIsLoading] = useState(false);
+  const [isDocumentLoading, setIsDocumentLoading] = useState(false);
+  const [isImageLoading, setIsImageLoading] = useState(false);
+  const isLoading = isDocumentLoading || isImageLoading;
+  const [docUploadingCount, setDocUploadingCount] = useState(0);
+  const [imgUploadingCount, setImgUploadingCount] = useState(0);
+  const uploadingFileCount = docUploadingCount + imgUploadingCount;
   const [errors, setErrors] = useState<
     { message: string; severity: 'error' | 'warning' | 'info' }[]
   >([]);
@@ -189,9 +197,9 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       }
     }
 
-    // Process documents
+    // Process documents – set loading early so skeleton shows for all entry points
     if (documentFiles.length > 0) {
-      // Trigger document upload by creating a synthetic event
+      setIsDocumentLoading(true);
       const documentInput = documentRef.current?.querySelector('input[type="file"]') as HTMLInputElement;
       if (documentInput) {
         const dataTransfer = new DataTransfer();
@@ -241,7 +249,6 @@ const UploadButton: React.FC<UploadManagerProps> = ({
     const handlePaste = (e: ClipboardEvent) => {
       const clipboardData = e.clipboardData;
       if (!clipboardData) {
-        console.log('[UploadButton] handlePaste: No clipboardData available.');
         return;
       }
 
@@ -260,12 +267,9 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       // Only fall back to items if files is empty (some browsers only populate items)
       if (clipboardData.files && clipboardData.files.length > 0) {
         const clipboardFiles = Array.from(clipboardData.files);
-        console.log(`[UploadButton] handlePaste: clipboardData.files found`, clipboardFiles);
         clipboardFiles.forEach(file => {
           if (!isDuplicate(file)) {
             files.push(file);
-          } else {
-            console.log(`[UploadButton] handlePaste: Duplicate file skipped from clipboardData.files:`, file);
           }
         });
       } else {
@@ -278,10 +282,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
             if (item.kind === 'file') {
               const file = item.getAsFile();
               if (file && !isDuplicate(file)) {
-                console.log(`[UploadButton] handlePaste: Adding file from items array:`, file);
                 files.push(file);
-              } else if (file) {
-                console.log(`[UploadButton] handlePaste: Duplicate file skipped from items array:`, file);
               }
             }
           }
@@ -289,11 +290,8 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       }
 
       if (files.length > 0) {
-        console.log(`[UploadButton] handlePaste: ${files.length} file(s) to process from paste`, files);
         e.preventDefault();
         handleUnifiedFileSelection(files);
-      } else {
-        console.log('[UploadButton] handlePaste: No files found in paste event.');
       }
     };
 
@@ -406,14 +404,8 @@ ${file.textAssetUrl || ''}
       };
     });
 
-    // Keep existing images and add new documents
-    const imageFiles = documentPreviewFiles.filter(
-      (file: any) => file.type === 'image'
-    );
-
-    setDocumentPreviewFiles([...processedDocuments, ...imageFiles]);
-
-    setIsLoading(false);
+    // Append new documents to existing files (images + previous documents)
+    setDocumentPreviewFiles((prev: any[]) => [...prev, ...processedDocuments]);
   };
 
   // Document validation and error handling
@@ -514,10 +506,24 @@ ${file.textAssetUrl || ''}
   };
 
 
-  // Set loading state for child components
-  const handleLoadingChange = (loading: boolean) => {
-    setIsLoading(loading);
-  };
+  const handleDocumentLoadingChange = useCallback(
+    (loading: boolean, fileCount?: number) => {
+      setIsDocumentLoading(loading);
+      setDocUploadingCount(loading ? (fileCount ?? 1) : 0);
+    },
+    []
+  );
+  const handleImageLoadingChange = useCallback(
+    (loading: boolean, fileCount?: number) => {
+      setIsImageLoading(loading);
+      setImgUploadingCount(loading ? (fileCount ?? 1) : 0);
+    },
+    []
+  );
+
+  useEffect(() => {
+    onUploadLoadingChange?.(isLoading, isLoading ? uploadingFileCount : 0);
+  }, [isLoading, uploadingFileCount, onUploadLoadingChange]);
 
   return (
     <div 
@@ -581,7 +587,7 @@ ${file.textAssetUrl || ''}
           memoriID={memoriID}
           maxDocuments={maxDocumentsPerMessage}
           documentPreviewFiles={documentPreviewFiles}
-          onLoadingChange={handleLoadingChange}
+          onLoadingChange={handleDocumentLoadingChange}
           onDocumentError={handleDocumentError}
           onValidateFile={validateDocumentFile}
           onValidatePayloadSize={validatePayloadSize}
@@ -597,7 +603,7 @@ ${file.textAssetUrl || ''}
           sessionID={sessionID}
           documentPreviewFiles={documentPreviewFiles}
           isMediaAccepted={isMediaAccepted}
-          onLoadingChange={handleLoadingChange}
+          onLoadingChange={handleImageLoadingChange}
           maxImages={maxDocumentsPerMessage}
           memoriID={memoriID}
           onImageError={handleImageError}
