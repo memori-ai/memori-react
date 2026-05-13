@@ -52,8 +52,9 @@
     /* padding: 0.625rem 0.9rem; */
     border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 12%, transparent);
     border-radius: 0.9rem;
-    backdrop-filter: blur(10px);
-    background: color-mix(in srgb, var(--memori-main-background, #ffffff) 92%, transparent);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    background: color-mix(in oklch, var(--memori-secondary-background), transparent 8%);
     box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
 }
 
