@@ -20,7 +20,7 @@ import {
   Settings,
   Minimize,
   Maximize,
-  Info,
+  MoreVertical,
   RefreshCw,
   X,
   Brain,
@@ -36,9 +36,7 @@ import {
 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import ShareButton from '../ShareButton/ShareButton';
-import PositionPopover, {
-  PositionPopoverContent,
-} from '../PositionPopover/PositionPopover';
+import PositionPopover from '../PositionPopover/PositionPopover';
 import GasStation from '../icons/GasStation';
 import { getErrori18nKey } from '../../helpers/error';
 import memoriApiClient from '@memori.ai/memori-api-client';
@@ -133,9 +131,7 @@ const Header: React.FC<Props> = ({
   const [fullScreenAvailable, setFullScreenAvailable] = useState(false);
   const [fullScreen, setFullScreen] = useState(false);
   const [userPopoverOpen, setUserPopoverOpen] = useState(false);
-  const [settingsPopoverOpen, setSettingsPopoverOpen] = useState(false);
   const [infoPopoverOpen, setInfoPopoverOpen] = useState(false);
-  const [showEmbeddedVenueWidget, setShowEmbeddedVenueWidget] = useState(false);
 
   type ImpactMetricType = 'energy' | 'co2' | 'water';
 
@@ -440,7 +436,6 @@ const Header: React.FC<Props> = ({
           onOpenChange={open => {
             setUserPopoverOpen(open);
             if (open) {
-              setSettingsPopoverOpen(false);
               setInfoPopoverOpen(false);
               setPositionPopoverOpen(false);
             }
@@ -594,7 +589,6 @@ const Header: React.FC<Props> = ({
                 onOpenChange={open => {
                   setPositionPopoverOpen(open);
                   if (open) {
-                    setSettingsPopoverOpen(false);
                     setInfoPopoverOpen(false);
                     setUserPopoverOpen(false);
                   }
@@ -832,148 +826,9 @@ const Header: React.FC<Props> = ({
         currentLocale
       )}`
     : t('widget.noData', { defaultValue: 'Nessun dato disponibile' });
-  const isAssistantVoiceEnabled = !speakerMuted;
-  const isSharedPositionEnabled = !!position;
 
   const loggedInFullpageRightControls = (
     <div className="memori-header--auth-icon-controls">
-      {showFullscreen && fullScreenAvailable && (
-        <Tooltip title="Full screen" placement="bottom">
-          <span style={{ display: 'inline-flex' }}>
-            <Button
-              variant={buttonVariant}
-              className="memori-header--auth-icon-button"
-              aria-label="Full screen"
-              icon={fullScreen ? <Minimize /> : <Maximize />}
-              onClick={
-                fullScreenHandler ||
-                (() => {
-                  if (!document.fullscreenElement) {
-                    const body =
-                      layout !== 'HIDDEN_CHAT' && layout !== 'WEBSITE_ASSISTANT'
-                        ? document.body
-                        : document.querySelector('.memori-widget');
-                    if (body) {
-                      const memoriWidget = document.querySelector(
-                        '.memori-widget'
-                      ) as HTMLElement | null;
-                      if (memoriWidget) {
-                        if (
-                          memoriWidget.dataset.memoriPrevBgColor === undefined
-                        )
-                          memoriWidget.dataset.memoriPrevBgColor =
-                            memoriWidget.style.backgroundColor ?? '';
-                        memoriWidget.style.backgroundColor = '';
-                      }
-                      body
-                        .requestFullscreen()
-                        .then(() => setFullScreen(true))
-                        .catch(err => {
-                          console.warn(
-                            'Error attempting to enable fullscreen:',
-                            err
-                          );
-                        });
-                    }
-                  } else if (document.exitFullscreen) {
-                    document
-                      .exitFullscreen()
-                      .then(() => {
-                        setFullScreen(false);
-                        const memoriWidget = document.querySelector(
-                          '.memori-widget'
-                        ) as HTMLElement | null;
-                        if (
-                          memoriWidget?.dataset?.memoriPrevBgColor !== undefined
-                        ) {
-                          memoriWidget.style.backgroundColor =
-                            memoriWidget.dataset.memoriPrevBgColor;
-                          delete memoriWidget.dataset.memoriPrevBgColor;
-                        }
-                      })
-                      .catch(err => {
-                        console.warn(
-                          'Error attempting to exit fullscreen:',
-                          err
-                        );
-                      });
-                  }
-                })
-              }
-            />
-          </span>
-        </Tooltip>
-      )}
-      <Popover
-        className="memori-header--dropdown"
-        open={settingsPopoverOpen}
-        onOpenChange={open => {
-          setSettingsPopoverOpen(open);
-          if (!open) setShowEmbeddedVenueWidget(false);
-          if (open) {
-            setInfoPopoverOpen(false);
-            setUserPopoverOpen(false);
-            setPositionPopoverOpen(false);
-          }
-        }}
-        placement="bottom-end"
-        sideOffset={8}
-        closable={false}
-        contentClassName="memori-dropdown--menu memori-dropdown--auth-menu"
-        slotProps={{
-          trigger: {
-            render: (props: React.ComponentProps<typeof Button>) => (
-              <Tooltip title="Impostazioni" placement="bottom">
-                <span style={{ display: 'inline-flex' }}>
-                  <Button
-                    {...props}
-                    variant={buttonVariant}
-                    className={cx(
-                      'memori-header--auth-icon-button',
-                      settingsPopoverOpen && 'memori-button--active'
-                    )}
-                    aria-label="Impostazioni"
-                    icon={<Settings />}
-                  />
-                </span>
-              </Tooltip>
-            ),
-          },
-        }}
-        content={
-          <div className="memori-dropdown--auth-content">
-            <button
-              type="button"
-              className="memori-dropdown--auth-row"
-              onClick={() => {
-                setSpeakerMuted(isAssistantVoiceEnabled);
-              }}
-            >
-              <span className="memori-dropdown--auth-icon-wrap">
-                <Volume2 size={16} />
-              </span>
-              <span className="memori-dropdown--auth-copy">
-                <span className="memori-dropdown--auth-title">Audio</span>
-                <span className="memori-dropdown--auth-subtitle">
-                  Voce dell&apos;assistente
-                </span>
-              </span>
-              <span
-                className={cx(
-                  'memori-dropdown--switch',
-                  isAssistantVoiceEnabled && 'memori-dropdown--switch--on'
-                )}
-                aria-hidden
-              />
-            </button>
-            <div className="memori-dropdown--auth-venue-widget-wrap">
-              <PositionPopoverContent venue={position} setVenue={setVenue} />
-            </div>
-          </div>
-        }
-      >
-        {null}
-      </Popover>
       {isConversationStarted && (
         <Popover
           className="memori-header--dropdown"
@@ -981,7 +836,6 @@ const Header: React.FC<Props> = ({
           onOpenChange={open => {
             setInfoPopoverOpen(open);
             if (open) {
-              setSettingsPopoverOpen(false);
               setUserPopoverOpen(false);
               setPositionPopoverOpen(false);
             }
@@ -1003,7 +857,7 @@ const Header: React.FC<Props> = ({
                         infoPopoverOpen && 'memori-button--active'
                       )}
                       aria-label="Info sessione"
-                      icon={<Info />}
+                      icon={<MoreVertical />}
                     />
                   </span>
                 </Tooltip>
@@ -1088,6 +942,112 @@ const Header: React.FC<Props> = ({
         >
           {null}
         </Popover>
+      )}
+      {showFullscreen && fullScreenAvailable && (
+        <Tooltip title="Full screen" placement="bottom">
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              className="memori-header--auth-icon-button"
+              aria-label="Full screen"
+              icon={fullScreen ? <Minimize /> : <Maximize />}
+              onClick={
+                fullScreenHandler ||
+                (() => {
+                  if (!document.fullscreenElement) {
+                    const body =
+                      layout !== 'HIDDEN_CHAT' && layout !== 'WEBSITE_ASSISTANT'
+                        ? document.body
+                        : document.querySelector('.memori-widget');
+                    if (body) {
+                      const memoriWidget = document.querySelector(
+                        '.memori-widget'
+                      ) as HTMLElement | null;
+                      if (memoriWidget) {
+                        if (
+                          memoriWidget.dataset.memoriPrevBgColor === undefined
+                        )
+                          memoriWidget.dataset.memoriPrevBgColor =
+                            memoriWidget.style.backgroundColor ?? '';
+                        memoriWidget.style.backgroundColor = '';
+                      }
+                      body
+                        .requestFullscreen()
+                        .then(() => setFullScreen(true))
+                        .catch(err => {
+                          console.warn(
+                            'Error attempting to enable fullscreen:',
+                            err
+                          );
+                        });
+                    }
+                  } else if (document.exitFullscreen) {
+                    document
+                      .exitFullscreen()
+                      .then(() => {
+                        setFullScreen(false);
+                        const memoriWidget = document.querySelector(
+                          '.memori-widget'
+                        ) as HTMLElement | null;
+                        if (
+                          memoriWidget?.dataset?.memoriPrevBgColor !== undefined
+                        ) {
+                          memoriWidget.style.backgroundColor =
+                            memoriWidget.dataset.memoriPrevBgColor;
+                          delete memoriWidget.dataset.memoriPrevBgColor;
+                        }
+                      })
+                      .catch(err => {
+                        console.warn(
+                          'Error attempting to exit fullscreen:',
+                          err
+                        );
+                      });
+                  }
+                })
+              }
+            />
+          </span>
+        </Tooltip>
+      )}
+      {enableAudio && (
+        <Tooltip title={t('widget.sound') || 'Sound'} placement="bottom">
+          <span style={{ display: 'inline-flex' }}>
+            <Button
+              variant={buttonVariant}
+              className="memori-header--auth-icon-button"
+              aria-label={t('widget.sound') || 'Sound'}
+              icon={speakerMuted ? <VolumeX /> : <Volume2 />}
+              onClick={() => setSpeakerMuted(!speakerMuted)}
+            />
+          </span>
+        </Tooltip>
+      )}
+      {memori.needsPosition && (
+        <Tooltip title={t('widget.position') || 'Position'} placement="bottom">
+          <span style={{ display: 'inline-flex' }}>
+            <PositionPopover
+              venue={position}
+              setVenue={setVenue}
+              open={positionPopoverOpen}
+              onOpenChange={open => {
+                setPositionPopoverOpen(open);
+                if (open) {
+                  setInfoPopoverOpen(false);
+                  setUserPopoverOpen(false);
+                }
+              }}
+              triggerButtonVariant={buttonVariant}
+              triggerClassName="memori-header--auth-icon-button"
+              triggerAriaLabel={t('widget.position') || 'Position'}
+              positionerClassName={
+                layout === 'WEBSITE_ASSISTANT'
+                  ? 'memori-position-popover__positioner--website-assistant'
+                  : undefined
+              }
+            />
+          </span>
+        </Tooltip>
       )}
       {showShare && (
         <span className="memori-header--auth-share-button-wrap">

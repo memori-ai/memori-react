@@ -25,7 +25,11 @@
 }
 
 /* Combobox options are rendered in a portal, so they are not descendants of
-   .memori-combobox--language-chooser. Target disabled items globally. */
+   .memori-combobox--language-chooser. Target the popup and disabled items globally. */
+.memori-combobox__popup {
+    box-shadow: var(--memori-shadow-lg);
+}
+
 .memori-combobox__item[data-disabled],
 .memori-combobox__item[aria-disabled='true'],
 .memori-combobox__item.memori-combobox__item--disabled {
@@ -52,6 +56,10 @@
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+.memori--combobox--language-chooser {
+    box-shadow: var(--memori-shadow-lg);
 }
 
 .memori--start-panel__body {
