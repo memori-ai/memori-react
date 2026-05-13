@@ -1119,52 +1119,23 @@ const ChatHistoryDrawer = ({
       className="memori-chat-history-drawer"
       open={open}
       onClose={onClose}
-      titleWithClosable={{
-        title: t('write_and_speak.chatHistory') || 'Chat History',
-        actions: [
-          {
-            icon: <Download />,
-            visible: isViewingChatDetail,
-            onClick: () => {
-              //download the chat already opened
-              const fileName = `${memori.name.replace(/\W+/g, '-')}-chat-${
-                new Date().toISOString().split('T')[0]
-              }.txt`;
-              const text =
-                selectedChatLog?.lines
-                  .map(
-                    line =>
-                      `${line.inbound ? 'YOU' : memori.name}: ${stripAllInternalTags(line.text)}`
-                  )
-                  .join('\n')
-                  .replaceAll(/<think.*?>(.*?)<\/think>/gs, '')
-                  .replaceAll(
-                    /<output.*?<\/output>/gsi,
-                    ''
-                  )
-                  .replaceAll(/```markdown([^```]+)```/g, '$1')
-                  .replaceAll('($', '( $')
-                  .replaceAll(':$', ': $')
-                  .replaceAll('\frac', '\\frac')
-                  .replaceAll('\beta', '\\beta')
-                  .replaceAll('cdot', '\\cdot') || 'No chat history available';
-              downloadFile(text, fileName);
-            },
-          },
-        ],
-        showClosable: true,
-      }}
-      title={
-        <div
-          className="memori-chat-history-drawer--title-wrapper"
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '100%',
-          }}
-        >
-          <span>{t('write_and_speak.chatHistory') || 'Chat History'}</span>
+      title={t('write_and_speak.chatHistory') || 'Chat History'}
+      closable={true}
+      anchor="left"
+      size="md"
+      description={t('write_and_speak.chatHistoryDescription')}
+    >
+      {selectedChatSession && isViewingChatDetail ? (
+        <div className="memori-chat-history-drawer--content memori-chat-history-drawer--content-with-footer">
+          <ChatResumeDrawer
+            embedded={true}
+            isOpen={true}
+            session={selectedChatSession}
+            onResume={handleResumeChat}
+            onBack={handleCloseResumeDrawer}
+            onClose={handleCloseResumeDrawer}
+            onExportChat={handleExportSelectedChat}
+          />
         </div>
       ) : (
         <div className="memori-chat-history-drawer--content memori-chat-history-drawer--content-with-footer">

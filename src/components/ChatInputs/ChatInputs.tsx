@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { DialogState, Medium } from '@memori.ai/memori-api-client/dist/types';
 import { useTranslation } from 'react-i18next';
 import ChatTextArea from '../ChatTextArea/ChatTextArea';
@@ -10,7 +10,7 @@ import cx from 'classnames';
 import UploadButton from '../UploadButton/UploadButton';
 import FilePreview from '../FilePreview/FilePreview';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { Plus as PlusIcon } from 'lucide-react';
+
 export interface Props {
   dialogState?: DialogState;
   instruct?: boolean;
@@ -248,13 +248,14 @@ const ChatInputs: React.FC<Props> = ({
         lengthAfterPaste > maxTextareaCharacters
       ) {
         e.preventDefault();
-        toast(
-          t('upload.pasteContentExceedsLimit', {
+        alertManager.add({
+          id: `paste-content-exceeds-limit-${Date.now()}`,
+          title: t('upload.pasteContentExceedsLimit', {
             defaultValue:
               'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
           }),
-          { icon: '⚠️' }
-        );
+          data: { severity: 'error', closable: true },
+        });
         return;
       }
 
@@ -289,13 +290,14 @@ const ChatInputs: React.FC<Props> = ({
 
       if (text.length > perDocumentLimit) {
         e.preventDefault();
-        toast(
-          t('upload.pasteContentExceedsLimit', {
+        alertManager.add({
+          id: `paste-content-exceeds-per-document-limit-${Date.now()}`,
+          title: t('upload.pasteContentExceedsLimit', {
             defaultValue:
               'Pasted content exceeds the size limit. Try shortening the text or splitting it into smaller parts.',
           }),
-          { icon: '⚠️' }
-        );
+          data: { severity: 'error', closable: true },
+        });
         return;
       }
 

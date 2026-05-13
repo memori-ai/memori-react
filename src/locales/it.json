@@ -366,7 +366,7 @@
     "documentsNotAddedMaxAllowed": "{{count}} documento/i non aggiunto/i (massimo {{max}} file consentiti).",
     "imagesNotAddedMaxAllowed": "{{count}} immagine/i non aggiunta/e (massimo {{max}} file consentiti).",
     "documentsNotAddedContextSize": "{{count}} documento/i non aggiunto/i (limite dimensione contesto).",
-    "partialAssetUploadWarning": "Alcuni link del file non sono stati caricati, ma il documento e stato aggiunto comunque.",
+    "partialAssetUploadWarning": "Alcuni link del file non sono stati caricati, ma il documento è stato aggiunto comunque.",
     "anonymousRetentionNotice": "Nota: i file caricati vengono conservati per massimo 24 ore."
   },
   "gamification": {
