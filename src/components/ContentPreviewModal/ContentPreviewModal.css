@@ -32,7 +32,7 @@
 .memori-modal__viewport.memori-content-preview-modal .memori-modal__title {
     padding: 1rem 1.25rem 0.75rem;
     border-bottom: 1px solid var(--memori-content-preview-border, rgba(0, 0, 0, 0.06));
-    color: var(--memori-content-preview-title, #1f2937);
+    color: var(--memori-text-color);
     font-size: var(--memori-text-size-base);
     font-weight: var(--memori-text-weight-semibold);
     letter-spacing: -0.01em;
@@ -70,7 +70,7 @@
     align-items: center;
     justify-content: center;
     padding: 1rem;
-    background: var(--memori-content-preview-image-bg, #f3f4f6);
+    /* background: var(--memori-content-preview-image-bg, #f3f4f6); */
 }
 
 .memori-content-preview-modal--body--content {
@@ -97,6 +97,7 @@
 
 .memori-file-preview-modal.memori-content-preview-modal--image.memori-modal__viewport .memori-modal__popup {
     overflow: hidden;
+    background: var(--memori-main-background);
 }
 
 @media (max-width: 768px) {

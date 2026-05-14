@@ -224,8 +224,9 @@ const UploadButton: React.FC<UploadManagerProps> = ({
         }
       }
 
-      // Process documents
+      // Process documents – set loading early so skeleton shows for all entry points
       if (documentFiles.length > 0) {
+        setIsDocumentLoading(true);
         // Trigger document upload by creating a synthetic event
         const documentInput = documentRef.current?.querySelector(
           'input[type="file"]'
@@ -301,18 +302,9 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       // Only fall back to items if files is empty (some browsers only populate items)
       if (clipboardData.files && clipboardData.files.length > 0) {
         const clipboardFiles = Array.from(clipboardData.files);
-        console.log(
-          `[UploadButton] handlePaste: clipboardData.files found`,
-          clipboardFiles
-        );
         clipboardFiles.forEach(file => {
           if (!isDuplicate(file)) {
             files.push(file);
-          } else {
-            console.log(
-              `[UploadButton] handlePaste: Duplicate file skipped from clipboardData.files:`,
-              file
-            );
           }
         });
       } else {
@@ -325,16 +317,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
             if (item.kind === 'file') {
               const file = item.getAsFile();
               if (file && !isDuplicate(file)) {
-                console.log(
-                  `[UploadButton] handlePaste: Adding file from items array:`,
-                  file
-                );
                 files.push(file);
-              } else if (file) {
-                console.log(
-                  `[UploadButton] handlePaste: Duplicate file skipped from items array:`,
-                  file
-                );
               }
             }
           }
@@ -342,16 +325,8 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       }
 
       if (files.length > 0) {
-        console.log(
-          `[UploadButton] handlePaste: ${files.length} file(s) to process from paste`,
-          files
-        );
         e.preventDefault();
         handleUnifiedFileSelection(files);
-      } else {
-        console.log(
-          '[UploadButton] handlePaste: No files found in paste event.'
-        );
       }
     };
 

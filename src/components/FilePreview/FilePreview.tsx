@@ -145,8 +145,8 @@ const FilePreview = ({
               style={{
                 color: 'rgb(138, 138, 138)',
                 display: 'block',
-                marginTop: '6px',
-                marginBottom: '6px',
+                marginTop: '8px',
+                marginLeft: '8px',
                 fontSize: '0.7rem',
               }}
             >

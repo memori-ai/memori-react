@@ -144,6 +144,17 @@
     fill: currentColor;
 }
 
+.memori-chat-inputs--disclaimer-text {
+    padding: 4px 12px;
+    border-radius: 10px;
+    margin-top: 2px;
+    background-color: var(--memori-inner-bg, transparent);
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5;
+    text-align: center;
+}
+
 /* Microphone button styling */
 .memori-chat-inputs--mic-btn {
     display: flex;
