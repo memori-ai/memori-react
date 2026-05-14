@@ -39,7 +39,6 @@ interface UploadDocumentsProps {
       id: string;
       content: string;
       mimeType: string;
-      sourceUrl?: string;
       textAssetUrl?: string;
     }[]
   ) => void;
@@ -63,8 +62,6 @@ interface UploadDocumentsProps {
       mimeType: string;
     }[]
   ) => boolean | { valid: boolean; message?: string };
-  /** Per-document content character limit. */
-  maxDocumentContentLength?: number;
 }
 
 const UploadDocuments: React.FC<UploadDocumentsProps> = ({
@@ -79,7 +76,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
   onDocumentError,
   onValidateFile,
   onValidatePayloadSize,
-  maxDocumentContentLength = 300000,
 }) => {
   const { t } = useTranslation();
   const { backend } = client || {
@@ -349,7 +345,6 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
         id: string;
         content: string;
         mimeType: string;
-        sourceUrl?: string;
         textAssetUrl?: string;
       }[] = [];
 
@@ -373,24 +368,11 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               type: 'text/plain',
             });
 
-            const uploadResults = await Promise.allSettled([
-              uploadAssetFile(file),
-              uploadAssetFile(textFile),
-            ]);
-
-            const sourceUrl =
-              uploadResults[0].status === 'fulfilled'
-                ? uploadResults[0].value
-                : undefined;
-            const textAssetUrl =
-              uploadResults[1].status === 'fulfilled'
-                ? uploadResults[1].value
-                : undefined;
-
-            if (
-              uploadResults[0].status === 'rejected' ||
-              uploadResults[1].status === 'rejected'
-            ) {
+            let textAssetUrl: string | undefined;
+            try {
+              textAssetUrl = await uploadAssetFile(textFile);
+            } catch (uploadError) {
+              console.error('Text asset upload failed:', uploadError);
               onDocumentError?.({
                 message: t('upload.partialAssetUploadWarning', {
                   fileName: file.name,
@@ -401,20 +383,11 @@ const UploadDocuments: React.FC<UploadDocumentsProps> = ({
               });
             }
 
-            let contentForMessage = text;
-            const perDocumentLimit = maxDocumentContentLength;
-            if (text.length > perDocumentLimit) {
-              contentForMessage =
-                text.substring(0, perDocumentLimit) +
-                '\n\n[Content truncated due to size limits]';
-            }
-
             processedFiles.push({
               name: file.name,
               id: fileId,
-              content: contentForMessage,
+              content: text,
               mimeType: file.type,
-              sourceUrl,
               textAssetUrl,
             });
           } else {
