@@ -60,7 +60,7 @@ const Tooltip: FC<Props> = ({
     closeTimeoutRef.current = setTimeout(() => {
       setIsHovered(false);
       closeTimeoutRef.current = null;
-    }, 100);
+    }, 300);
   }, []);
 
   const handleContentEnter = useCallback(() => {
@@ -72,7 +72,7 @@ const Tooltip: FC<Props> = ({
     closeTimeoutRef.current = setTimeout(() => {
       setIsHovered(false);
       closeTimeoutRef.current = null;
-    }, 100);
+    }, 300);
   }, []);
 
   useEffect(() => {
@@ -124,6 +124,7 @@ const Tooltip: FC<Props> = ({
           >
             <div
               className="memori-tooltip--content memori-tooltip--content-portal"
+              style={{ pointerEvents: 'auto' }}
               onMouseEnter={handleContentEnter}
               onMouseLeave={handleContentLeave}
             >
