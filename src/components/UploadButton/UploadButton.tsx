@@ -1,23 +1,11 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { FileText as DocumentIcon } from 'lucide-react';
-import { Image as ImageIcon } from 'lucide-react';
 import { Upload as UploadIcon } from 'lucide-react';
-import {
-  AlertData,
-  AlertSeverity,
-  Button,
-  Spin,
-  useAlertManager,
-} from '@memori.ai/ui';
+import { Spin, useAlertManager } from '@memori.ai/ui';
 import cx from 'classnames';
 import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
 import { useTranslation } from 'react-i18next';
 import memoriApiClient from '@memori.ai/memori-api-client';
-import { Tooltip } from '@memori.ai/ui';
-
-// Constants
-const MAX_MEDIA = 10;
 
 // Props interface
 interface UploadManagerProps {
@@ -60,6 +48,8 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   onUploadLoadingChange,
   disabled = false,
 }) => {
+  // Per-document character limit for the inlined `<document_attachment>`
+  // content. Does NOT affect the full text uploaded as an asset.
   const effectivePerDocumentLimit =
     maxTotalMessagePayload ?? maxDocumentContentLength ?? 300000;
   // State
@@ -70,7 +60,7 @@ const UploadButton: React.FC<UploadManagerProps> = ({
   const [imgUploadingCount, setImgUploadingCount] = useState(0);
   const uploadingFileCount = docUploadingCount + imgUploadingCount;
   const [isDragging, setIsDragging] = useState(false);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const alertManager = useAlertManager();
 
   // Refs
@@ -227,7 +217,6 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       // Process documents – set loading early so skeleton shows for all entry points
       if (documentFiles.length > 0) {
         setIsDocumentLoading(true);
-        // Trigger document upload by creating a synthetic event
         const documentInput = documentRef.current?.querySelector(
           'input[type="file"]'
         ) as HTMLInputElement;
@@ -400,7 +389,6 @@ const UploadButton: React.FC<UploadManagerProps> = ({
       id: string;
       content: string;
       mimeType: string;
-      sourceUrl?: string;
       textAssetUrl?: string;
     }[]
   ) => {
@@ -419,17 +407,19 @@ const UploadButton: React.FC<UploadManagerProps> = ({
     // Process each document file
     const processedDocuments = files.map(file => {
       const escapedFileName = escapeAttributeValue(file.name);
+      // Truncate the inlined content to the per-document character limit.
+      // The full text remains available via the uploaded asset link.
+      const inlinedContent =
+        file.content.length > effectivePerDocumentLimit
+          ? file.content.slice(0, effectivePerDocumentLimit)
+          : file.content;
       const formattedContent = `<document_attachment filename="${escapedFileName}" type="${
         file.mimeType
       }">
 
-${file.content}
+${inlinedContent}
 
 </document_attachment>
-
-<attachment_source>
-${file.sourceUrl || ''}
-</attachment_source>
 
 <attachment_link>
 ${file.textAssetUrl || ''}
@@ -584,24 +574,34 @@ ${file.textAssetUrl || ''}
       />
 
       {/* Main upload button */}
-      <Tooltip
-        title={t('upload.uploadFiles')}
-        placement="top-end"
-        className="memori--upload-button-tooltip"
+      <button
+        ref={buttonRef}
+        className={cx(
+          'memori-button',
+          'memori-button--circle',
+          'memori-button--icon-only',
+          'memori-share-button--button',
+          'memori--conversation-button',
+          'memori--unified-upload-button'
+        )}
+        onClick={handleButtonClick}
+        disabled={disabled || isLoading || hasReachedMediaLimit}
+        title={
+          t('upload.uploadFiles', {
+            shortcut:
+              /Mac|iPhone|iPod|iPad/i.test(navigator.platform) ||
+              navigator.userAgent.includes('Mac')
+                ? 'Cmd'
+                : 'Ctrl',
+          }) ?? 'Upload files (drag & drop)'
+        }
       >
-        <Button
-          variant="ghost"
-          ref={buttonRef}
-          onClick={handleButtonClick}
-          disabled={disabled || isLoading || hasReachedMediaLimit}
-        >
-          {isLoading ? (
-            <Spin spinning className="memori--upload-icon" />
-          ) : (
-            <UploadIcon className="memori--upload-icon" />
-          )}
-        </Button>
-      </Tooltip>
+        {isLoading ? (
+          <Spin spinning className="memori--upload-icon" />
+        ) : (
+          <UploadIcon className="memori--upload-icon" />
+        )}
+      </button>
 
       {/* Media count indicator */}
       {currentMediaCount > 0 && (
@@ -628,7 +628,6 @@ ${file.textAssetUrl || ''}
           onDocumentError={handleDocumentError}
           onValidateFile={validateDocumentFile}
           onValidatePayloadSize={validatePayloadSize}
-          maxDocumentContentLength={effectivePerDocumentLimit}
         />
       </div>
 
