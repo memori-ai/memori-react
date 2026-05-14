@@ -55,7 +55,11 @@
     -webkit-backdrop-filter: blur(12px);
     backdrop-filter: blur(12px);
     background: color-mix(in oklch, var(--memori-secondary-background), transparent 8%);
-    box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+    /* box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08); */
+}
+
+.memori-widget.memori-layout-fullpage .memori-chat-layout--controls .memori-chat--history {
+    border: 1px solid color-mix(in srgb, var(--memori-text-color, #111827) 12%, transparent);
 }
 
 .memori-widget.memori-layout-fullpage .memori-fullpage-header-row,
