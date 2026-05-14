@@ -225,9 +225,12 @@ export const PositionPopoverContent: React.FC<PositionPopoverContentProps> = ({
           </span>
           <span className="memori-dropdown--auth-copy">
             <span className="memori-dropdown--auth-title">
-              Posizione condivisa
+              {t('widget.shareLocation') || 'Share my location'}
             </span>
-            <span className="memori-dropdown--auth-subtitle">Location</span>
+            <span className="memori-dropdown--auth-subtitle">
+              {t('widget.shareLocationHint') ||
+                'Get answers tailored to where you are'}
+            </span>
           </span>
           <span
             className={cx(

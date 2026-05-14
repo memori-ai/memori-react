@@ -879,10 +879,10 @@ const Header: React.FC<Props> = ({
                 </span>
                 <span className="memori-dropdown--auth-copy">
                   <span className="memori-dropdown--auth-title">
-                    Fatti noti
+                    {t('knownFacts.title') || 'Known facts'}
                   </span>
                   <span className="memori-dropdown--auth-subtitle">
-                    Le informazioni che ricordo su di te
+                    {t('widget.knownFactsHint') || 'What I remember about you'}
                   </span>
                 </span>
                 <ChevronRight size={16} aria-hidden />
@@ -907,7 +907,7 @@ const Header: React.FC<Props> = ({
                       </span>
                       <span className="memori-dropdown--auth-copy">
                         <span className="memori-dropdown--auth-title">
-                          Consumi AI
+                          {t('widget.aiConsumption') || 'AI usage'}
                         </span>
                         <span className="memori-dropdown--auth-subtitle">
                           {sessionInfoConsumptionSubtitle}
@@ -928,7 +928,7 @@ const Header: React.FC<Props> = ({
                   </span>
                   <span className="memori-dropdown--auth-copy">
                     <span className="memori-dropdown--auth-title">
-                      Consumi AI
+                      {t('widget.aiConsumption') || 'AI usage'}
                     </span>
                     <span className="memori-dropdown--auth-subtitle">
                       {sessionInfoConsumptionSubtitle}
