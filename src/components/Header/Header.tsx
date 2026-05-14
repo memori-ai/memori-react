@@ -882,7 +882,7 @@ const Header: React.FC<Props> = ({
                     Fatti noti
                   </span>
                   <span className="memori-dropdown--auth-subtitle">
-                    Cosa l&apos;AI sa di te
+                    Le informazioni che ricordo su di te
                   </span>
                 </span>
                 <ChevronRight size={16} aria-hidden />

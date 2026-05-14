@@ -336,6 +336,37 @@ const LoginDrawer = ({
     }
   };
 
+  const handleOtpDigitPaste = (
+    index: number,
+    event: React.ClipboardEvent<HTMLInputElement>
+  ) => {
+    const pasted = event.clipboardData.getData('text');
+    const digits = pasted.replace(/\D/g, '').slice(0, 4);
+
+    if (!digits.length) return;
+
+    event.preventDefault();
+
+    const current = otpCode.padEnd(4, ' ').split('');
+    digits.split('').forEach((digit, i) => {
+      if (index + i < 4) {
+        current[index + i] = digit;
+      }
+    });
+
+    const nextCode = current.join('').replace(/\s/g, '').slice(0, 4);
+    setOtpCode(nextCode);
+    setOtpError(null);
+
+    const nextFocus = Math.min(index + digits.length, 3);
+    otpInputRefs.current[nextFocus]?.focus();
+    setOtpFocusedIndex(nextFocus);
+
+    if (nextCode.length === 4 && otpEmail.trim().length > 0) {
+      validateOtp(nextCode);
+    }
+  };
+
   // Handle email input change
   const handleEmailChange = (value: string) => {
     setOtpEmail(value);
@@ -586,6 +617,7 @@ const LoginDrawer = ({
                         }
                         onFocus={() => setOtpFocusedIndex(index)}
                         onKeyDown={e => handleOtpDigitKeyDown(index, e)}
+                        onPaste={e => handleOtpDigitPaste(index, e)}
                         maxLength={1}
                         required
                         disabled={loading}
