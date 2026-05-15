@@ -5,7 +5,6 @@ import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { useTranslation } from 'react-i18next';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
 import {
-  Brain,
   EllipsisVertical,
   HelpCircle,
   LogIn,
@@ -296,20 +295,6 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
         trailing: (
           <span className="memori-mobile-session-panel--chevron">{'>'}</span>
         ),
-      },
-      {
-        key: 'knownFacts',
-        icon: <Brain size={18} />,
-        title: t('knownFacts.title') || 'Known facts',
-        subtitle:
-          t('widget.mobileSession.whatIKnowAboutYou', {
-            memoriName: memori?.name || 'Memori',
-          } as const) || '',
-        trailing: (
-          <span className="memori-mobile-session-panel--chevron">{'>'}</span>
-        ),
-        view: 'knownFacts' as const,
-        disabled: !isSessionStarted,
       },
       ...(headerProps?.showReload
         ? [
@@ -677,6 +662,8 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                     />
                   }
                   knownFactsDisabled={!isSessionStarted}
+                  showSessionInfo={isSessionStarted}
+                  history={headerProps.history ?? []}
                   isLoggedIn={!!loggedUser}
                   loginLabel={t('login.login') || 'Log in'}
                   onLogin={() => {

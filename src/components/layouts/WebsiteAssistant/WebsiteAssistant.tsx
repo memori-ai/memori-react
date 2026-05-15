@@ -52,16 +52,28 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
           </Button>
         </div>
       )}
-      <div className={`memori-website_assistant--${collapsed ? 'collapsed' : 'expanded'}`}>
+      <div
+        className={`memori-website_assistant--${
+          collapsed ? 'collapsed' : 'expanded'
+        }`}
+      >
         {!collapsed && (
           <>
             {integrationStyle}
 
-            <Spin spinning={loading} className="memori-website_assistant-layout">
+            <Spin
+              spinning={loading}
+              className="memori-website_assistant-layout"
+            >
               {poweredBy}
               <div className="memori-website_assistant-layout--header-row">
                 {Header && headerProps && (
-                  <Header {...headerProps} showSettings={false} showReload={false} />
+                  <Header
+                    buttonVariant="outline"
+                    {...headerProps}
+                    showSettings={false}
+                    showReload={false}
+                  />
                 )}
                 <div className="memori-website_assistant--close-button-wrapper">
                   <Button
@@ -83,9 +95,12 @@ const WebsiteAssistantLayout: React.FC<LayoutProps> = ({
                         avatarProps.integrationConfig
                           ? {
                               ...avatarProps.integrationConfig,
-                              avatarURL: avatarProps.integrationConfig?.avatarURL
+                              avatarURL: avatarProps.integrationConfig
+                                ?.avatarURL
                                 ? `${
-                                    avatarProps.integrationConfig?.avatarURL.split('#')[0]
+                                    avatarProps.integrationConfig?.avatarURL.split(
+                                      '#'
+                                    )[0]
                                   }#${expandedKey}`
                                 : undefined,
                             }

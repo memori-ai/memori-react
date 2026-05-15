@@ -829,7 +829,7 @@ const Header: React.FC<Props> = ({
 
   const loggedInFullpageRightControls = (
     <div className="memori-header--auth-icon-controls">
-      {isConversationStarted && (
+      {isConversationStarted && showFullpageDividers && (
         <Popover
           className="memori-header--dropdown"
           open={infoPopoverOpen}

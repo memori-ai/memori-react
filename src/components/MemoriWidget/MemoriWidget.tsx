@@ -457,12 +457,13 @@ export interface Props {
 /** Config shape for chat styling (integration customData). */
 type ChatStylesConfig = {
   buttonBgColor?: string;
+  buttonTextColor?: string;
 };
 
 /**
  * Returns CSS custom properties for the chat container when a brand primary is set.
- * Maps only buttonBgColor → --memori-primary-color and injects the dynamic primary
- * override block so derived tokens (hover, active, borders, etc.) update in the same scope.
+ * Maps buttonBgColor → --memori-primary-color / --memori-primary and injects derived
+ * tokens (hover, active, borders, etc.) in the same scope.
  * If buttonBgColor is missing, returns {} so global CSS defaults are used.
  */
 export function getChatStyles(
@@ -471,9 +472,12 @@ export function getChatStyles(
   const primary = config?.buttonBgColor;
   if (!primary) return {};
 
+  const primaryContent = config?.buttonTextColor ?? '#ffffff';
+
   return {
     '--memori-primary-color': primary,
-    '--memori-primary': 'var(--memori-primary-color)',
+    '--memori-primary': primary,
+    '--memori-primary-content': primaryContent,
     '--memori-primary-hover':
       'color-mix(in oklch, var(--memori-primary), var(--memori-surface-contrast-inverse, black) 15%)',
     '--memori-primary-active':
@@ -2263,13 +2267,26 @@ const MemoriWidget = ({
     .filter(Boolean)
     .join(', ');
 
-  const integrationStylesheetParts = [
-    `${integrationSelectors} {
-    ${Object.entries(integrationProperties)
-      .map(([key, value]) => `${key}: ${value};`)
-      .join('\n    ')}
-  }`,
-  ];
+  const integrationCssBlock = Object.entries(integrationProperties)
+    .map(([key, value]) => `${key}: ${value};`)
+    .join('\n    ');
+
+  const integrationStylesheetParts: string[] = [];
+  if (integrationCssBlock) {
+    integrationStylesheetParts.push(
+      `${integrationSelectors} {
+    ${integrationCssBlock}
+  }`
+    );
+    integrationStylesheetParts.push(
+      `[data-theme="dark"] .memori-widget,
+  .memori-widget[data-theme="dark"],
+  [data-theme="dark"] memori-client .memori-widget,
+  memori-client[data-theme="dark"] .memori-widget {
+    ${integrationCssBlock}
+  }`
+    );
+  }
   if (integrationConfig?.blurBackground) {
     integrationStylesheetParts.push(
       '.memori-widget .memori--global-background { filter: blur(5px); }'

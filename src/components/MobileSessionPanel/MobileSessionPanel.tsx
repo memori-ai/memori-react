@@ -1,11 +1,24 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Camera, ChevronLeft, ChevronRight, LogIn, LogOut } from 'lucide-react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  Brain,
+  Camera,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  LogIn,
+  LogOut,
+} from 'lucide-react';
 import { Button, createAlertOptions, useAlertManager } from '@memori.ai/ui';
 import { useTranslation } from 'react-i18next';
-import { User } from '@memori.ai/memori-api-client/dist/types';
+import {
+  Message,
+  User,
+} from '@memori.ai/memori-api-client/dist/types';
 import './MobileSessionPanel.css';
 import { getErrori18nKey } from '../../helpers/error';
 import { imgMimeTypes } from '../../helpers/utils';
+import GasStation from '../icons/GasStation';
+import ChatConsumptionDropdown from '../Header/ChatConsumptionDropdown';
 type SessionAction = {
   key: string;
   icon: React.ReactNode;
@@ -63,10 +76,73 @@ export interface MobileSessionPanelProps {
   knownFactsCountLabel?: string;
   shareContent?: React.ReactNode;
   knownFactsDisabled?: boolean;
+  knownFactsHint?: string;
+  showSessionInfo?: boolean;
+  history?: Message[];
+  aiUsageTitle?: string;
   isLoggedIn?: boolean;
   loginLabel?: string;
   onLogin?: () => void;
 }
+
+type ImpactMetricType = 'energy' | 'co2' | 'water';
+
+type LlmUsageEnergyImpact = {
+  energy?: number | { source?: string; parsedValue?: number };
+  gwp?: number | { source?: string; parsedValue?: number };
+  wcf?: number | { source?: string; parsedValue?: number };
+};
+
+const getMetricValue = (
+  metric?: number | { source?: string; parsedValue?: number }
+): number | undefined => {
+  if (typeof metric === 'number' && Number.isFinite(metric)) return metric;
+  if (!metric || typeof metric !== 'object') return undefined;
+  if (
+    typeof metric.parsedValue === 'number' &&
+    Number.isFinite(metric.parsedValue)
+  ) {
+    return metric.parsedValue;
+  }
+  if (typeof metric.source === 'string') {
+    const parsed = Number(metric.source);
+    if (Number.isFinite(parsed)) return parsed;
+  }
+  return undefined;
+};
+
+const formatMetricValue = (value: number, locale: string): string =>
+  new Intl.NumberFormat(locale, {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: Math.abs(value) >= 1 ? 3 : 4,
+  }).format(value);
+
+const formatImpactInReadableUnit = (
+  value: number,
+  metricType: ImpactMetricType,
+  locale: string
+): string => {
+  const absValue = Math.abs(value);
+
+  if (metricType === 'energy') {
+    if (absValue >= 1) return `${formatMetricValue(value, locale)} kWh`;
+    const wh = value * 1000;
+    if (Math.abs(wh) >= 1) return `${formatMetricValue(wh, locale)} Wh`;
+    return `${formatMetricValue(wh * 1000, locale)} mWh`;
+  }
+
+  if (metricType === 'co2') {
+    if (absValue >= 1) return `${formatMetricValue(value, locale)} kg`;
+    const g = value * 1000;
+    if (Math.abs(g) >= 1) return `${formatMetricValue(g, locale)} g`;
+    return `${formatMetricValue(g * 1000, locale)} mg`;
+  }
+
+  if (absValue >= 1) return `${formatMetricValue(value, locale)} L`;
+  const ml = value * 1000;
+  if (Math.abs(ml) >= 1) return `${formatMetricValue(ml, locale)} mL`;
+  return `${formatMetricValue(ml * 1000, locale)} μL`;
+};
 
 const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   open,
@@ -100,6 +176,10 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   knownFactsCountLabel,
   shareContent,
   knownFactsDisabled = false,
+  knownFactsHint,
+  showSessionInfo = false,
+  history = [],
+  aiUsageTitle,
   isLoggedIn = false,
   loginLabel = 'Log in',
   onLogin,
@@ -112,7 +192,66 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
   >('session');
   const { uploadAsset, pwlUpdateUser } = apiClient?.backend || {};
   const { add } = useAlertManager();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const currentLocale = i18n.language || navigator.language || 'en';
+  const sustainabilityTotals = useMemo(() => {
+    const totals = { energy: 0, gwp: 0, wcf: 0 };
+    history.forEach(line => {
+      const energyImpact = (
+        line as Message & {
+          llmUsage?: { energyImpact?: LlmUsageEnergyImpact };
+        }
+      ).llmUsage?.energyImpact;
+      if (!energyImpact) return;
+      totals.energy += getMetricValue(energyImpact.energy) ?? 0;
+      totals.gwp += getMetricValue(energyImpact.gwp) ?? 0;
+      totals.wcf += getMetricValue(energyImpact.wcf) ?? 0;
+    });
+    return totals;
+  }, [history]);
+  const hasSustainabilityData = useMemo(
+    () =>
+      history.some(
+        line =>
+          !!(
+            line as Message & {
+              llmUsage?: { energyImpact?: LlmUsageEnergyImpact };
+            }
+          ).llmUsage?.energyImpact
+      ),
+    [history]
+  );
+  const hasChatConsumptionData = useMemo(
+    () =>
+      history.some(
+        line =>
+          !!(
+            line as Message & {
+              llmUsage?: {
+                energyImpact?: LlmUsageEnergyImpact;
+              };
+            }
+          ).llmUsage
+      ),
+    [history]
+  );
+  const aiUsageSubtitle = hasSustainabilityData
+    ? `${formatImpactInReadableUnit(
+        sustainabilityTotals.energy,
+        'energy',
+        currentLocale
+      )} • ${formatImpactInReadableUnit(
+        sustainabilityTotals.gwp,
+        'co2',
+        currentLocale
+      )}`
+    : t('widget.noData', { defaultValue: 'Nessun dato disponibile' });
+  const resolvedKnownFactsHint =
+    knownFactsHint ||
+    t('widget.knownFactsHint') ||
+    'What I remember about you';
+  const resolvedAiUsageTitle =
+    aiUsageTitle || t('widget.aiConsumption') || 'AI usage';
   useEffect(() => {
     if (!open) return;
     const onEscape = (event: KeyboardEvent) => {
@@ -345,6 +484,91 @@ const MobileSessionPanel: React.FC<MobileSessionPanelProps> = ({
             <div className="memori-mobile-session-panel--section-title">
               {title}
             </div>
+            {showSessionInfo && isLoggedIn && (
+              <ul className="memori-mobile-session-panel--actions memori-mobile-session-panel--session-info">
+                <li>
+                  <Button
+                    variant="toolbar"
+                    size="sm"
+                    className="memori-mobile-session-panel--action"
+                    disabled={knownFactsDisabled}
+                    onClick={() => {
+                      if (knownFactsDisabled) return;
+                      onKnownFactsOpen?.();
+                    }}
+                  >
+                    <span className="memori-mobile-session-panel--action-icon">
+                      <Brain size={18} />
+                    </span>
+                    <span className="memori-mobile-session-panel--action-copy">
+                      <span className="memori-mobile-session-panel--action-title">
+                        {knownFactsPageTitle}
+                      </span>
+                      <span className="memori-mobile-session-panel--action-subtitle">
+                        {resolvedKnownFactsHint}
+                      </span>
+                    </span>
+                    <span className="memori-mobile-session-panel--action-trailing">
+                      <ChevronRight size={16} />
+                    </span>
+                  </Button>
+                </li>
+                <li>
+                  {hasChatConsumptionData ? (
+                    <ChatConsumptionDropdown
+                      history={history}
+                      triggerVariant="toolbar"
+                      menuAlign="start"
+                      trigger={triggerProps => (
+                        <Button
+                          {...triggerProps}
+                          variant="toolbar"
+                          size="sm"
+                          className="memori-mobile-session-panel--action"
+                        >
+                          <span className="memori-mobile-session-panel--action-icon">
+                            <GasStation />
+                          </span>
+                          <span className="memori-mobile-session-panel--action-copy">
+                            <span className="memori-mobile-session-panel--action-title">
+                              {resolvedAiUsageTitle}
+                            </span>
+                            <span className="memori-mobile-session-panel--action-subtitle">
+                              {aiUsageSubtitle}
+                            </span>
+                          </span>
+                          <span className="memori-mobile-session-panel--action-trailing">
+                            <ChevronDown size={16} />
+                          </span>
+                        </Button>
+                      )}
+                    />
+                  ) : (
+                    <Button
+                      variant="toolbar"
+                      size="sm"
+                      className="memori-mobile-session-panel--action"
+                      disabled
+                    >
+                      <span className="memori-mobile-session-panel--action-icon">
+                        <GasStation />
+                      </span>
+                      <span className="memori-mobile-session-panel--action-copy">
+                        <span className="memori-mobile-session-panel--action-title">
+                          {resolvedAiUsageTitle}
+                        </span>
+                        <span className="memori-mobile-session-panel--action-subtitle">
+                          {aiUsageSubtitle}
+                        </span>
+                      </span>
+                      <span className="memori-mobile-session-panel--action-trailing">
+                        <ChevronDown size={16} />
+                      </span>
+                    </Button>
+                  )}
+                </li>
+              </ul>
+            )}
             <ul className="memori-mobile-session-panel--actions">
               {visibleActions.map(action => (
                 <li key={action.key}>

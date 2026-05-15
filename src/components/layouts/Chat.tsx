@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 import {
   Expand,
   MapPin,
-  Brain,
   Share2,
   EllipsisVertical,
   MessageCircle,
@@ -218,20 +217,6 @@ const ChatLayout: React.FC<LayoutProps> = ({
           <span className="memori-mobile-session-panel--chevron">{'>'}</span>
         ),
       },
-      {
-        key: 'knownFacts',
-        icon: <Brain size={18} />,
-        title: t('knownFacts.title') || 'Known facts',
-        subtitle:
-          t('widget.mobileSession.whatIKnowAboutYou', {
-            memoriName: memori?.name || 'Memori',
-          } as const) || '',
-        trailing: (
-          <span className="memori-mobile-session-panel--chevron">{'>'}</span>
-        ),
-        view: 'knownFacts' as const,
-        disabled: !isSessionStarted,
-      },
     ];
   }, [headerProps, isMobile, isSessionStarted, t, handleMobileFullscreen]);
 
@@ -400,6 +385,8 @@ const ChatLayout: React.FC<LayoutProps> = ({
                     />
                   }
                   knownFactsDisabled={!isSessionStarted}
+                  showSessionInfo={isSessionStarted}
+                  history={headerProps.history ?? []}
                   isLoggedIn={!!loggedUser}
                   loginLabel={t('login.login') || 'Log in'}
                   onLogin={() => {

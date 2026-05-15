@@ -26,11 +26,15 @@ const TotemLayout: React.FC<LayoutProps> = ({
       {poweredBy}
 
       <div className="memori-totem-layout--header">
-        {Header && headerProps && <Header {...headerProps} />}
+        {Header && headerProps && (
+          <Header buttonVariant="outline" {...headerProps} />
+        )}
       </div>
 
       <div className="memori-totem-layout--avatar">
-        {Avatar && avatarProps && <Avatar chatProps={chatProps} {...avatarProps} isTotem />}
+        {Avatar && avatarProps && (
+          <Avatar chatProps={chatProps} {...avatarProps} isTotem />
+        )}
       </div>
 
       <div id="extension" />
