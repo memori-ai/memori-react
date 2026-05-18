@@ -408,9 +408,69 @@ const ChatBubble: React.FC<Props> = ({
     );
   }
 
-  const shouldShowTimestampInAddon = !message.fromUser && !!formattedTimestamp;
+  const shouldShowTimestampInAddon =
+    !!formattedTimestamp && (!message.fromUser || isChatlogPanel);
   const shouldShowBubbleAddon =
     shouldShowTimestampInAddon ||
+    shouldShowCopyButtons ||
+    (message.generatedByAI && showAIicon) ||
+    (showFeedback && simulateUserPrompt) ||
+    (showTranslationOriginal &&
+      message.translatedText &&
+      message.translatedText !== message.text) ||
+    (!message.fromUser &&
+      message.questionAnswered &&
+      apiUrl &&
+      showWhyThisAnswer);
+
+  const topMediaWidgetLinks = (message?.media
+    ?.filter(m => !m.properties?.functionSignature)
+    ?.filter(m => m.mimeType === 'text/html' && !!m.url) || []) as Medium[];
+
+  const topMediaWidgetMedia = [
+    ...(message?.media
+      ?.filter(m => !m.properties?.functionSignature)
+      ?.filter(
+        m =>
+          !(
+            codeMimeTypes.includes(m.mimeType) ||
+            (m.mimeType === 'text/html' && !!m.url)
+          )
+      ) || []),
+    ...(() => {
+      const text = message.translatedText || message.text;
+      const documentAttachmentRegex =
+        /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
+      const attachments: (Medium & { type?: string })[] = [];
+      let match;
+      let attachmentIndex = 0;
+
+      while ((match = documentAttachmentRegex.exec(text)) !== null) {
+        const [, filename, type, content] = match;
+        attachments.push({
+          mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
+            .toString(36)
+            .substr(2, 9)}`,
+          url: '',
+          mimeType: type,
+          title: filename,
+          content: content.trim(),
+          properties: { isDocumentAttachment: true },
+          type: 'document',
+        });
+        attachmentIndex++;
+      }
+
+      return attachments;
+    })(),
+  ];
+
+  const codeMediaWidgetMedia =
+    message?.media
+      ?.filter(m => !m.properties?.functionSignature)
+      ?.filter(m => codeMimeTypes.includes(m.mimeType)) || [];
+
+  const hasAddonAfterTimestamp =
     shouldShowCopyButtons ||
     (message.generatedByAI && showAIicon) ||
     (showFeedback && simulateUserPrompt) ||
@@ -431,66 +491,27 @@ const ChatBubble: React.FC<Props> = ({
           'memori-chat--with-addon': shouldShowBubbleAddon,
         })}
       >
-        {!message.fromUser && renderAssistantAvatar()}
+        <MediaWidget
+          simulateUserPrompt={simulateUserPrompt}
+          links={topMediaWidgetLinks}
+          media={topMediaWidgetMedia}
+          sessionID={sessionID}
+          baseUrl={baseUrl}
+          apiUrl={apiUrl}
+          translateTo={translateTo}
+          customMediaRenderer={customMediaRenderer}
+          fromUser={message.fromUser}
+        />
 
-        <div
-          className={cx('memori-chat--bubble-shell', {
-            'memori-chat--bubble-shell--from-user': !!message.fromUser,
-            'memori-chat--bubble-shell--has-addon': shouldShowBubbleAddon,
-          })}
-        >
-          <MediaWidget
-            simulateUserPrompt={simulateUserPrompt}
-            links={
-              (message?.media
-                ?.filter(m => !m.properties?.functionSignature)
-                ?.filter(m => m.mimeType === 'text/html' && !!m.url) ||
-                []) as Medium[]
-            }
-            media={[
-              ...(message?.media
-                ?.filter(m => !m.properties?.functionSignature)
-                ?.filter(
-                  m =>
-                    !(
-                      codeMimeTypes.includes(m.mimeType) ||
-                      (m.mimeType === 'text/html' && !!m.url)
-                    )
-                ) || []),
-              ...(() => {
-                const text = message.translatedText || message.text;
-                const documentAttachmentRegex =
-                  /<document_attachment filename="([^"]+)" type="([^"]+)">([\s\S]*?)<\/document_attachment>/g;
-                const attachments: (Medium & { type?: string })[] = [];
-                let match;
-                let attachmentIndex = 0;
+        <div className="memori-chat--bubble-message-row">
+          {!message.fromUser && renderAssistantAvatar()}
 
-                while ((match = documentAttachmentRegex.exec(text)) !== null) {
-                  const [, filename, type, content] = match;
-                  attachments.push({
-                    mediumID: `doc_${Date.now()}_${attachmentIndex}_${Math.random()
-                      .toString(36)
-                      .substr(2, 9)}`,
-                    url: '',
-                    mimeType: type,
-                    title: filename,
-                    content: content.trim(),
-                    properties: { isDocumentAttachment: true },
-                    type: 'document',
-                  });
-                  attachmentIndex++;
-                }
-
-                return attachments;
-              })(),
-            ]}
-            sessionID={sessionID}
-            baseUrl={baseUrl}
-            apiUrl={apiUrl}
-            translateTo={translateTo}
-            customMediaRenderer={customMediaRenderer}
-            fromUser={message.fromUser}
-          />
+          <div
+            className={cx('memori-chat--bubble-shell', {
+              'memori-chat--bubble-shell--from-user': !!message.fromUser,
+              'memori-chat--bubble-shell--has-addon': shouldShowBubbleAddon,
+            })}
+          >
           <div
             className={cx('memori-chat--bubble', {
               'memori-chat--user-bubble': !!message.fromUser,
@@ -542,11 +563,7 @@ const ChatBubble: React.FC<Props> = ({
 
           <MediaWidget
             simulateUserPrompt={simulateUserPrompt}
-            media={[
-              ...(message?.media
-                ?.filter(m => !m.properties?.functionSignature)
-                ?.filter(m => codeMimeTypes.includes(m.mimeType)) || []),
-            ]}
+            media={codeMediaWidgetMedia}
             sessionID={sessionID}
             baseUrl={baseUrl}
             apiUrl={apiUrl}
@@ -562,9 +579,11 @@ const ChatBubble: React.FC<Props> = ({
                   <p className="memori-chat--bubble-timestamp">
                     {formattedTimestamp}
                   </p>
-                  <span className="memori-chat--bubble-timestamp-separator">
-                    •
-                  </span>
+                  {hasAddonAfterTimestamp && (
+                    <span className="memori-chat--bubble-timestamp-separator">
+                      •
+                    </span>
+                  )}
                 </div>
               )}
               {shouldShowCopyButtons && (
@@ -790,9 +809,10 @@ const ChatBubble: React.FC<Props> = ({
                 )}
             </div>
           )}
-        </div>
+          </div>
 
-        {message.fromUser && renderUserAvatar()}
+          {message.fromUser && renderUserAvatar()}
+        </div>
       </div>
 
       {/* Document attachments are extracted and passed to Chat.tsx for rendering */}

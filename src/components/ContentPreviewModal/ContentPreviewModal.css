@@ -16,7 +16,7 @@
     min-height: 500px;
     max-height: 80vh;
     border-radius: var(--memori-radius-box);
-    background: var(--memori-content-preview-bg, #fafafa);
+    /* background: var(--memori-content-preview-bg, #fafafa); */
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(0, 0, 0, 0.05);
     overflow-y: auto;
 }

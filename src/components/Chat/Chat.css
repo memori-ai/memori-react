@@ -73,11 +73,11 @@
 }
 
 /* Ensure smooth scrolling on mobile */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
     .memori-chat--content {
         padding: 1rem var(--memori-spacing-xs);
     }
-}
+} */
 
 @media (max-width: 480px) {
     .memori-fullpage-header-brand-name {

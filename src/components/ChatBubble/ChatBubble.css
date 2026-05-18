@@ -1,6 +1,7 @@
 .memori-chat--bubble-container {
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: stretch;
     padding-right: var(--memori-spacing-md);
     padding-left: var(--memori-spacing-md);
     /* margin-bottom: 8px; */
@@ -8,6 +9,18 @@
 }
 
 .memori-chat--bubble-container.memori-chat--bubble-from-user {
+    align-items: flex-end;
+}
+
+.memori-chat--bubble-message-row {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.memori-chat--bubble-container.memori-chat--bubble-from-user .memori-chat--bubble-message-row {
     justify-content: flex-end;
 }
 
@@ -146,6 +159,10 @@
 
 .memori-chat--bubble #wave .dot:nth-child(3) {
     animation-delay: -1.1s;
+}
+
+.memori-chat--bubble-container.memori-chat--bubble-container--typing {
+    margin-bottom: var(--memori-spacing-sm, 8px);
 }
 
 .memori-chat--bubble-typing {
