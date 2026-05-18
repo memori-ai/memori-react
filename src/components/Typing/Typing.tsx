@@ -211,16 +211,18 @@ const Typing = ({
   };
 
   return (
-    <div className="memori-chat--bubble-container memori-chat-scroll-item">
-      {renderAssistantAvatar()}
-      <div className="memori-chat--bubble">
-        <div className="memori-chat--bubble-typing">
-          <div id="wave">
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
+    <div className="memori-chat--bubble-container memori-chat--bubble-container--typing memori-chat-scroll-item">
+      <div className="memori-chat--bubble-message-row">
+        {renderAssistantAvatar()}
+        <div className="memori-chat--bubble">
+          <div className="memori-chat--bubble-typing">
+            <div id="wave">
+              <span className="dot"></span>
+              <span className="dot"></span>
+              <span className="dot"></span>
+            </div>
+            {text.length > 0 && <p>{shownText}</p>}
           </div>
-          {text.length > 0 && <p>{shownText}</p>}
         </div>
       </div>
     </div>

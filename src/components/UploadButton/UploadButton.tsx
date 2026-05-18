@@ -1,6 +1,12 @@
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+  useMemo,
+} from 'react';
 import { Upload as UploadIcon } from 'lucide-react';
-import { Spin, useAlertManager } from '@memori.ai/ui';
+import { Spin, Tooltip, useAlertManager } from '@memori.ai/ui';
 import cx from 'classnames';
 import UploadDocuments from './UploadDocuments/UploadDocuments';
 import UploadImages from './UploadImages/UploadImages';
@@ -554,6 +560,14 @@ ${file.textAssetUrl || ''}
     onUploadLoadingChange?.(isLoading, isLoading ? uploadingFileCount : 0);
   }, [isLoading, uploadingFileCount, onUploadLoadingChange]);
 
+  const uploadTooltipTitle = useMemo(() => {
+    if (hasReachedMediaLimit) {
+      return t('upload.maxReached') ?? 'Max limit reached';
+    }
+
+    return t('upload.uploadFilesOrImages') ?? 'Upload files or images';
+  }, [hasReachedMediaLimit, t]);
+
   return (
     <div
       className={cx('memori--unified-upload-wrapper', {
@@ -574,34 +588,30 @@ ${file.textAssetUrl || ''}
       />
 
       {/* Main upload button */}
-      <button
-        ref={buttonRef}
-        className={cx(
-          'memori-button',
-          'memori-button--circle',
-          'memori-button--icon-only',
-          'memori-share-button--button',
-          'memori--conversation-button',
-          'memori--unified-upload-button'
-        )}
-        onClick={handleButtonClick}
-        disabled={disabled || isLoading || hasReachedMediaLimit}
-        title={
-          t('upload.uploadFiles', {
-            shortcut:
-              /Mac|iPhone|iPod|iPad/i.test(navigator.platform) ||
-              navigator.userAgent.includes('Mac')
-                ? 'Cmd'
-                : 'Ctrl',
-          }) ?? 'Upload files (drag & drop)'
-        }
-      >
-        {isLoading ? (
-          <Spin spinning className="memori--upload-icon" />
-        ) : (
-          <UploadIcon className="memori--upload-icon" />
-        )}
-      </button>
+      <Tooltip placement="top" title={uploadTooltipTitle}>
+        <span className="memori--unified-upload-button-tooltip-trigger">
+          <button
+            ref={buttonRef}
+            className={cx(
+              'memori-button',
+              'memori-button--circle',
+              'memori-button--icon-only',
+              'memori-share-button--button',
+              'memori--conversation-button',
+              'memori--unified-upload-button'
+            )}
+            onClick={handleButtonClick}
+            disabled={disabled || isLoading || hasReachedMediaLimit}
+            aria-label={uploadTooltipTitle}
+          >
+            {isLoading ? (
+              <Spin spinning className="memori--upload-icon" />
+            ) : (
+              <UploadIcon className="memori--upload-icon" />
+            )}
+          </button>
+        </span>
+      </Tooltip>
 
       {/* Media count indicator */}
       {currentMediaCount > 0 && (

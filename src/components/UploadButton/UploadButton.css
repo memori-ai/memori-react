@@ -60,6 +60,10 @@
     animation: pulse 1.5s infinite;
 }
 
+.memori--unified-upload-button-tooltip-trigger {
+    display: inline-flex;
+}
+
 /* Main Upload Button */
 .memori--unified-upload-button {
     position: relative;
