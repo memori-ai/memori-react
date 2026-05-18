@@ -234,9 +234,33 @@
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-hidden-chat-layout--header-actions {
     display: inline-flex;
+    flex: 0 0 auto;
     align-items: center;
     margin-left: auto;
     gap: 0.35rem;
+}
+
+/* Sidebar is narrow (~470px): icon-only chat history, same UX as <992px elsewhere */
+.memori-widget.memori-layout-hidden_chat
+    .memori-sidebar
+    .memori-header--chat-history-button
+    .memori-button__content {
+    display: none !important;
+}
+
+.memori-widget.memori-layout-hidden_chat
+    .memori-sidebar
+    .memori-header--chat-history-button.memori-button {
+    gap: 0;
+    padding-inline: 8px;
+}
+
+@media (max-width: 480px) {
+    .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--brand {
+        min-width: 0;
+        max-width: calc(100% - 6.5rem);
+        flex: 1 1 auto;
+    }
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-hidden-chat-layout--overflow-menu {
@@ -304,8 +328,9 @@
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--brand {
     display: flex;
+    overflow: hidden;
     min-width: 0;
-    flex: 1;
+    flex: 1 1 auto;
     align-items: center;
     gap: 0.75rem;
 }
@@ -322,13 +347,18 @@
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--brand-text {
     display: flex;
     min-width: 0;
+    flex: 1 1 auto;
     flex-direction: column;
     align-items: flex-start;
     gap: 0.125rem;
 }
 
 .memori-widget.memori-layout-hidden_chat .memori-sidebar .memori-chat-layout--brand-name {
+    display: block;
     overflow: hidden;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
     color: var(--memori-text-color, #111);
     font-size: 1rem;
     font-weight: 600;

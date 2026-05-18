@@ -708,6 +708,17 @@
     transform: translateX(12px);
 }
 
+@media (max-width: 992px) {
+    .memori-header--chat-history-button .memori-button__content {
+        display: none !important;
+    }
+
+    .memori-header--chat-history-button.memori-button {
+        gap: 0;
+        padding-inline: 12px;
+    }
+}
+
 @media (max-width: 767px) {
     .memori-header.memori-header--fullpage .memori-button:not(.memori-button--icon-only) .memori-button__content {
         display: none !important;

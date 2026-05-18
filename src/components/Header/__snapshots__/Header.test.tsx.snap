@@ -17,7 +17,7 @@ exports[`renders Header for board of experts unchanged 1`] = `
         >
           <button
             aria-label="write_and_speak.chatHistory"
-            class="memori-button memori-button--ghost memori-button--md"
+            class="memori-button memori-button--ghost memori-button--md memori-header--chat-history-button"
             tabindex="0"
             type="button"
           >
@@ -224,7 +224,7 @@ exports[`renders Header for board of experts with session open unchanged 1`] = `
         >
           <button
             aria-label="write_and_speak.chatHistory"
-            class="memori-button memori-button--ghost memori-button--md"
+            class="memori-button memori-button--ghost memori-button--md memori-header--chat-history-button"
             tabindex="0"
             type="button"
           >
@@ -768,7 +768,7 @@ exports[`renders Header with deep thought and session open unchanged 1`] = `
         >
           <button
             aria-label="write_and_speak.chatHistory"
-            class="memori-button memori-button--ghost memori-button--md"
+            class="memori-button memori-button--ghost memori-button--md memori-header--chat-history-button"
             tabindex="0"
             type="button"
           >
@@ -922,7 +922,7 @@ exports[`renders Header with deep thought logged but without permission flag unc
         >
           <button
             aria-label="write_and_speak.chatHistory"
-            class="memori-button memori-button--ghost memori-button--md"
+            class="memori-button memori-button--ghost memori-button--md memori-header--chat-history-button"
             tabindex="0"
             type="button"
           >
@@ -1084,7 +1084,7 @@ exports[`renders Header with deep thought logged with permission flag unchanged 
         >
           <button
             aria-label="write_and_speak.chatHistory"
-            class="memori-button memori-button--ghost memori-button--md"
+            class="memori-button memori-button--ghost memori-button--md memori-header--chat-history-button"
             tabindex="0"
             type="button"
           >

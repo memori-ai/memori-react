@@ -52,6 +52,11 @@ const ICON_BACKGROUND_COLORS = [
 
 type ContentTypeFilter = 'all' | 'with_images' | 'with_files';
 
+const isImageMimeType = (mimeType?: string) =>
+  mimeType?.startsWith('image/') ?? false;
+
+const isFileMimeType = (mimeType?: string) => !isImageMimeType(mimeType);
+
 // This function calculates the title of the chat log based on the most meaningful user message
 const calculateTitle = (lines: ChatLogLine[]): string => {
   const userMessages = lines.filter(line => line.inbound);
@@ -481,19 +486,17 @@ const ChatHistoryDrawer = ({
   const getChatLogStats = (chatLog: ChatLog) => {
     const imageCount = chatLog.lines.reduce((total, line) => {
       const imagesInLine =
-        line.media?.filter(medium => medium.mimeType?.startsWith('image/'))
+        line.media?.filter(medium => isImageMimeType(medium.mimeType))
           .length || 0;
       return total + imagesInLine;
     }, 0);
 
-    const hasFile = chatLog.lines.some(line =>
-      (line.media || []).some(
-        medium =>
-          !medium.mimeType?.startsWith('image/') &&
-          medium.mimeType !== 'text/html' &&
-          medium.mimeType !== 'text/plain'
-      )
-    );
+    const fileCount = chatLog.lines.reduce((total, line) => {
+      const filesInLine =
+        line.media?.filter(medium => isFileMimeType(medium.mimeType))
+          .length || 0;
+      return total + filesInLine;
+    }, 0);
 
     const assistantReplies = chatLog.lines.filter(
       line => !line.inbound && line.text?.trim()
@@ -512,7 +515,7 @@ const ChatHistoryDrawer = ({
 
     return {
       imageCount,
-      hasFile,
+      fileCount,
       preview,
       isTestConversation,
       messageCount: chatLog.lines.length,
@@ -747,7 +750,7 @@ const ChatHistoryDrawer = ({
       if (contentTypeFilter === 'with_images') {
         return stats.imageCount > 0;
       }
-      return stats.hasFile;
+      return stats.fileCount > 0;
     });
   }, [chatLogs, contentTypeFilter]);
 
@@ -949,7 +952,7 @@ const ChatHistoryDrawer = ({
               ...chatLog.lines.map(line => new Date(line.timestamp).getTime())
             );
             const stats = getChatLogStats(chatLog);
-            const iconSymbol = stats.hasFile
+            const iconSymbol = stats.fileCount > 0
               ? '📄'
               : stats.isTestConversation
               ? '🧪'
@@ -1046,9 +1049,13 @@ const ChatHistoryDrawer = ({
                           )}
                         </span>
                       )}
-                      {stats.hasFile && (
+                      {stats.fileCount > 0 && (
                         <span className="memori-chat-history-drawer--list-item--meta-badge memori-chat-history-drawer--list-item--meta-badge-files">
-                          {t('write_and_speak.file') || 'file'}
+                          {formatCountLabel(
+                            stats.fileCount,
+                            t('write_and_speak.file') || 'file',
+                            t('write_and_speak.files') || 'files'
+                          )}
                         </span>
                       )}
                       {chatLog.boardOfExperts && (

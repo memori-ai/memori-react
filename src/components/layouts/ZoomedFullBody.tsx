@@ -10,7 +10,6 @@ import {
 } from 'lucide-react';
 import { LayoutProps } from '../MemoriWidget/MemoriWidget';
 import { useArtifact } from '../MemoriArtifactSystem/context/ArtifactContext';
-import { getResourceUrl } from '../../helpers/media';
 import MobileSessionPanel from '../MobileSessionPanel/MobileSessionPanel';
 import ShareButton from '../ShareButton/ShareButton';
 
@@ -210,23 +209,6 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
       },
     ];
   }, [headerProps, isMobile, isSessionStarted, t, handleMobileFullscreen]);
-  const brandAvatarSrc = memori
-    ? memori.avatarURL && memori.avatarURL.length > 0
-      ? getResourceUrl({
-          type: 'avatar',
-          tenantID: tenant?.name,
-          resourceURI: memori.avatarURL,
-          baseURL: baseUrl,
-          apiURL: '',
-        })
-      : getResourceUrl({
-          type: 'avatar',
-          tenantID: tenant?.name,
-          baseURL: baseUrl,
-          apiURL: '',
-        })
-    : undefined;
-
   return (
     <>
       {integrationStyle}
@@ -237,28 +219,7 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
           <div className="memori-fullpage-top-header">
             <div className="memori-chat-layout--header">
               <div className="memori-fullpage-header-row">
-                {memori && (
-                  <div className="memori-fullpage-header-brand">
-                    {brandAvatarSrc ? (
-                      <img
-                        className="memori-fullpage-header-brand-icon memori-fullpage-header-brand-icon--avatar"
-                        src={brandAvatarSrc}
-                        alt=""
-                        role="presentation"
-                      />
-                    ) : (
-                      <span
-                        className="memori-fullpage-header-brand-icon"
-                        aria-hidden
-                      />
-                    )}
-                    <span className="memori-fullpage-header-brand-name">
-                      {memori.name}
-                    </span>
-                  </div>
-                )}
-                <div className="memori-fullpage-header-actions">
-                  <Header
+                <Header
                     {...mobileHeaderProps}
                     layout="FULLPAGE"
                     buttonVariant="outline"
@@ -278,7 +239,6 @@ const ZoomedFullBodyLayout: React.FC<LayoutProps> = ({
                       ) : undefined
                     }
                   />
-                </div>
               </div>
             </div>
           </div>

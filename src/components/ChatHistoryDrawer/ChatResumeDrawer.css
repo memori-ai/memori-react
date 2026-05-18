@@ -139,7 +139,7 @@
     min-height: 0;
     flex: 1;
     flex-direction: column;
-    padding: 16px;
+    padding: var(--memori-spacing-lg);
 }
 
 .memori-chat-resume-drawer--embedded-chat {
@@ -164,6 +164,15 @@
 
 .memori-chat-resume-drawer--embedded-chat .memori-chat--cover {
     display: none;
+}
+
+.memori-chat-resume-drawer--embedded-chat .memori-chat--bubble-container {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.memori-chat-resume-drawer--embedded-chat .memori-chat--bubble-message-row {
+    align-items: flex-start;
 }
 
 /* .memori-chat-resume-drawer--embedded-chat .memori-chat--bubble-container,

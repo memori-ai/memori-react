@@ -99,13 +99,7 @@ exports[`renders HIDDEN_CHAT layout unchanged 1`] = `
                 />
                 <div
                   class="memori-chat-layout--brand-text"
-                >
-                  <span
-                    class="memori-chat-layout--brand-name"
-                  >
-                    Memori
-                  </span>
-                </div>
+                />
               </div>
               <div
                 class="memori-hidden-chat-layout--header-actions"

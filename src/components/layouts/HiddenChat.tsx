@@ -32,6 +32,7 @@ import {
   pasteAsCardLineThreshold,
   pasteAsCardCharThreshold,
 } from '../../helpers/constants';
+import type { LayoutName } from '../../types/layout';
 
 const HiddenChatLayout: React.FC<LayoutProps> = ({
   Header,
@@ -87,7 +88,9 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
         needsPosition: false,
         enableDeepThought: false,
       },
-      showChatHistory: false,
+      layout: 'HIDDEN_CHAT' as LayoutName,
+      showChatHistory:
+        headerProps.showChatHistory !== false && !!headerProps.loginToken,
       enableAudio: true,
     };
   }, [headerProps]);
@@ -560,9 +563,14 @@ const HiddenChatLayout: React.FC<LayoutProps> = ({
                         role="presentation"
                       />
                       <div className="memori-chat-layout--brand-text">
-                        <span className="memori-chat-layout--brand-name">
-                          {memori.name}
-                        </span>
+                        {isSessionStarted && (
+                          <span
+                            className="memori-chat-layout--brand-name"
+                            title={memori.name}
+                          >
+                            {memori.name}
+                          </span>
+                        )}
                       </div>
                     </div>
                   )}

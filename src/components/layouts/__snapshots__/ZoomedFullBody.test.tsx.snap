@@ -83,11 +83,6 @@ exports[`renders ZOOMED_FULL_BODY layout unchanged 1`] = `
                 role="presentation"
                 src="https://aisuru.com/images/aisuru/square_logo.png"
               />
-              <span
-                class="memori-fullpage-header-brand-name"
-              >
-                Memori
-              </span>
             </div>
             <div
               class="memori-fullpage-header-actions"

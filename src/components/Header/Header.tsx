@@ -44,6 +44,7 @@ import { Props as WidgetProps } from '../MemoriWidget/MemoriWidget';
 import { BADGE_EMOJI } from '../../helpers/llmUsage';
 import ChatConsumptionDropdown from './ChatConsumptionDropdown';
 import { imgMimeTypes } from '../../helpers/utils';
+import { getResourceUrl } from '../../helpers/media';
 
 export interface Props {
   className?: string;
@@ -379,7 +380,9 @@ const Header: React.FC<Props> = ({
   const chatHistoryButtonLabel =
     layout === 'TOTEM'
       ? undefined
-      : layout === 'FULLPAGE' || layout === 'CHAT'
+      : layout === 'FULLPAGE' ||
+        layout === 'CHAT' ||
+        layout === 'HIDDEN_CHAT'
       ? t('widget.headerHistory') || t('write_and_speak.chatHistory')
       : t('write_and_speak.chatHistory');
   const fullpageHeaderProfileLabel =
@@ -388,6 +391,27 @@ const Header: React.FC<Props> = ({
     t('widget.headerLogin') || t('login.login') || 'Login';
   const isAuthenticated = !!loginToken && !!user;
   const isConversationStarted = Boolean(sessionID && hasUserActivatedSpeak);
+
+  const brandAvatarSrc = useMemo(() => {
+    if (!isFullPageChrome || !memori) return undefined;
+
+    if (memori.avatarURL && memori.avatarURL.length > 0) {
+      return getResourceUrl({
+        type: 'avatar',
+        tenantID: tenant?.name,
+        resourceURI: memori.avatarURL,
+        baseURL: baseUrl,
+        apiURL: '',
+      });
+    }
+
+    return getResourceUrl({
+      type: 'avatar',
+      tenantID: tenant?.name,
+      baseURL: baseUrl,
+      apiURL: '',
+    });
+  }, [isFullPageChrome, memori, tenant, baseUrl]);
 
   const fullpagePrimaryHasContent =
     (showChatHistory && !!loginToken) || showLogin;
@@ -416,6 +440,7 @@ const Header: React.FC<Props> = ({
       <span style={{ display: 'inline-flex' }}>
         <Button
           variant={buttonVariant}
+          className="memori-header--chat-history-button"
           disabled={!loginToken}
           aria-label={t('write_and_speak.chatHistory') || 'Chat history'}
           icon={<MessageCircle />}
@@ -1079,7 +1104,7 @@ const Header: React.FC<Props> = ({
     </div>
   );
 
-  return (
+  const headerControls = (
     <div
       className={cx(
         'memori-header',
@@ -1160,6 +1185,41 @@ const Header: React.FC<Props> = ({
       )}
       {extraActions}
     </div>
+  );
+
+  if (!isFullPageChrome) {
+    return headerControls;
+  }
+
+  return (
+    <>
+      {memori && (
+        <div className="memori-fullpage-header-brand">
+          {brandAvatarSrc ? (
+            <img
+              className="memori-fullpage-header-brand-icon memori-fullpage-header-brand-icon--avatar"
+              src={brandAvatarSrc}
+              alt=""
+              role="presentation"
+            />
+          ) : (
+            <span
+              className="memori-fullpage-header-brand-icon"
+              aria-hidden
+            />
+          )}
+          {isConversationStarted && (
+            <span
+              className="memori-fullpage-header-brand-name"
+              title={memori.name}
+            >
+              {memori.name}
+            </span>
+          )}
+        </div>
+      )}
+      <div className="memori-fullpage-header-actions">{headerControls}</div>
+    </>
   );
 };
 
