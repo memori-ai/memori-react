@@ -12,6 +12,7 @@ import { Props as MemoriProps } from '../MemoriWidget/MemoriWidget';
 import { getResourceUrl } from '../../helpers/media';
 import {
   User as UserIcon,
+  Bot,
   Languages,
   HelpCircle,
   Copy,
@@ -106,6 +107,7 @@ const ChatBubble: React.FC<Props> = ({
   showCopyButton = true,
   showTranslationOriginal = false,
   simulateUserPrompt,
+  showAIicon = true,
   useMathFormatting = false,
   user,
   userAvatar,
@@ -410,7 +412,7 @@ const ChatBubble: React.FC<Props> = ({
   const shouldShowBubbleAddon =
     shouldShowTimestampInAddon ||
     shouldShowCopyButtons ||
-    (message.generatedByAI && showFunctionCache) ||
+    (message.generatedByAI && showAIicon) ||
     (showFeedback && simulateUserPrompt) ||
     (showTranslationOriginal &&
       message.translatedText &&
@@ -708,6 +710,26 @@ const ChatBubble: React.FC<Props> = ({
                     if (msg) simulateUserPrompt(msg);
                   }}
                 />
+              )}
+
+              {message.generatedByAI && showAIicon && (
+                <Tooltip
+                  placement="bottom"
+                  content={t('generatedByAI')}
+                  className="memori-chat--bubble-action-icon memori-chat--bubble-action-icon--ai"
+                >
+                  <span className="memori-chat--bubble-addon-tooltip-trigger">
+                    <Button
+                      variant="ghost"
+                      shape="circle"
+                      type="button"
+                      className="memori-chat--bubble-action-button"
+                      icon={
+                        <Bot aria-label={String(t('generatedByAI'))} />
+                      }
+                    />
+                  </span>
+                </Tooltip>
               )}
 
               {showTranslationOriginal &&

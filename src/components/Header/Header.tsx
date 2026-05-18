@@ -944,12 +944,23 @@ const Header: React.FC<Props> = ({
         </Popover>
       )}
       {showFullscreen && fullScreenAvailable && (
-        <Tooltip title="Full screen" placement="bottom">
+        <Tooltip
+          title={
+            fullScreen
+              ? t('fullscreenExit') || 'Exit fullscreen'
+              : t('fullscreenEnter') || 'Enter fullscreen'
+          }
+          placement="bottom"
+        >
           <span style={{ display: 'inline-flex' }}>
             <Button
               variant={buttonVariant}
               className="memori-header--auth-icon-button"
-              aria-label="Full screen"
+              aria-label={
+                fullScreen
+                  ? t('fullscreenExit') || 'Exit fullscreen'
+                  : t('fullscreenEnter') || 'Enter fullscreen'
+              }
               icon={fullScreen ? <Minimize /> : <Maximize />}
               onClick={
                 fullScreenHandler ||
