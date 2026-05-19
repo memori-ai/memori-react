@@ -552,7 +552,10 @@ const ShareButton: React.FC<Props> = ({
             <Button
               {...props}
               variant={triggerVariant}
-              icon={<Share2 />}
+              aria-label={String(
+                triggerLabel || t('widget.share') || 'Share'
+              )}
+              icon={<Share2 aria-hidden />}
               className={cx(
                 {
                   'memori-share-button--trigger-menu-item':

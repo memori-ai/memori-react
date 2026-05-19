@@ -1678,6 +1678,7 @@ exports[`renders Header with share button unchanged 1`] = `
           <button
             aria-expanded="false"
             aria-haspopup="menu"
+            aria-label="widget.share"
             class="memori-button memori-button--ghost memori-button--md memori-button--icon-only"
             id="base-ui-:rr:"
             tabindex="0"
@@ -1687,6 +1688,7 @@ exports[`renders Header with share button unchanged 1`] = `
               class="memori-button__icon"
             >
               <svg
+                aria-hidden="true"
                 class="lucide lucide-share2"
                 fill="none"
                 height="24"

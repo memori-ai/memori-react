@@ -362,6 +362,7 @@ exports[`renders Totem layout unchanged 1`] = `
                 <button
                   aria-expanded="false"
                   aria-haspopup="menu"
+                  aria-label="widget.share"
                   class="memori-button memori-button--outline memori-button--md memori-button--icon-only"
                   id="base-ui-:rc:"
                   tabindex="0"
@@ -371,6 +372,7 @@ exports[`renders Totem layout unchanged 1`] = `
                     class="memori-button__icon"
                   >
                     <svg
+                      aria-hidden="true"
                       class="lucide lucide-share2"
                       fill="none"
                       height="24"

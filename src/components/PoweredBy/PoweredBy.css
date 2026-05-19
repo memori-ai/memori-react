@@ -31,13 +31,14 @@
 }
 
 .memori--powered-by-label a {
-    color: #d0d0d0;
-    text-decoration: none;
+    color: var(--memori-text-color);
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
 
 .memori--powered-by-label a:hover,
 .memori--powered-by-label a:focus-visible {
-    color: #fff;
+    color: var(--memori-primary, #744c99);
     text-decoration: underline;
 }
 
