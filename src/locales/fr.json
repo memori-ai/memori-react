@@ -17,6 +17,9 @@
   "loading": "Chargement",
   "expand": "Développer",
   "collapse": "Effondrement",
+  "expandable": {
+    "expand": "Développer"
+  },
   "fullscreenEnter": "Entrez en plein écran",
   "fullscreenExit": "Quitter le plein écran",
   "center": "Centre",

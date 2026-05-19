@@ -17,6 +17,9 @@
   "loading": "Caricamento",
   "expand": "Espandi",
   "collapse": "Riduci",
+  "expandable": {
+    "expand": "Espandi"
+  },
   "fullscreenEnter": "Passa a schermo intero",
   "fullscreenExit": "Esci da schermo intero",
   "center": "Centro",

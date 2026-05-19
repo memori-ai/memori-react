@@ -17,6 +17,9 @@
   "loading": "Cargando",
   "expand": "Expandir",
   "collapse": "Colapsar",
+  "expandable": {
+    "expand": "Expandir"
+  },
   "fullscreenEnter": "Entrar en pantalla completa",
   "fullscreenExit": "Salir de pantalla completa",
   "center": "Centro",
